@@ -47,13 +47,12 @@
         <response name="error" type="view" value="newRegisterLogin"/>
         <response name="resultPage" type="view" value="newRegisterLogin"/>
     </request-map>
-    <request-map uri="reloadCaptchaImage">
-        <security https="true" auth="false"/>        
-        <response name="success" type="view" value="reloadCaptchaImage"/>
-    </request-map>
-    <request-map uri="reloadCaptchaCode">
+
+    <!-- Captcha: Image request, the captcha code is stored in the session using _CAPTCHA_CODE_ as the key -->
+    <request-map uri="captcha.jpg">
         <security https="true" auth="false"/>
-        <response name="success" type="view" value="reloadCaptchaCode"/>
+        <event type="java" path="org.ofbiz.common.CommonEvents" invoke="getCaptcha"/>
+        <response name="success" type="none"/>
     </request-map>
 
     <request-map uri="LookupUserLoginAndPartyDetails">
@@ -64,8 +63,6 @@
     <view-map name="main" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortalPage"/>
     <view-map name="login" type="screen" page="component://myportal/widget/CommonScreens.xml#login"/>
     <view-map name="newRegisterLogin" type="screen" page="component://myportal/widget/CommonScreens.xml#newRegisterLogin"/>  
-    <view-map name="reloadCaptchaImage" type="screen" page="component://myportal/widget/CommonScreens.xml#reloadCaptchaImage"/>
-    <view-map name="reloadCaptchaCode" type="screen" page="component://myportal/widget/CommonScreens.xml#reloadCaptchaCode"/>
 
     <view-map name="LookupUserLoginAndPartyDetails" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupUserLoginAndPartyDetails"/>
 

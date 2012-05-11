@@ -1956,16 +1956,7 @@ under the License.
         <event type="java" path="org.ofbiz.common.CommonEvents" invoke="getCaptcha"/>
         <response name="success" type="none"/>
     </request-map>
-    
-    <request-map uri="reloadCaptchaImage">
-        <security https="true" auth="false"/>        
-        <response name="success" type="view" value="reloadCaptchaImage"/>
-    </request-map>
-    <request-map uri="reloadCaptchaCode">
-        <security https="true" auth="false"/>
-        <response name="success" type="view" value="reloadCaptchaCode"/>
-    </request-map>
-    
+
     <request-map uri="productCategoryList">
         <security https="false" auth="false"/>
         <response name="success" type="view" value="productCategoryList" save-current-view="true"/>
@@ -2176,11 +2167,7 @@ under the License.
     
     <!-- Contact List -->
     <view-map name="ContactListOptOut" type="screen" page="component://marketing/widget/ContactListScreens.xml#OptOutResponse"/>
-    
-    <!-- Captcha -->
-    <view-map name="reloadCaptchaImage" type="screen" page="component://myportal/widget/CommonScreens.xml#reloadCaptchaImage"/>
-    <view-map name="reloadCaptchaCode" type="screen" page="component://myportal/widget/CommonScreens.xml#reloadCaptchaCode"/>
-    
+
     <!-- Product Category 's Ajax -->
     <view-map name="productCategoryList" type="screen" page="component://ecommerce/widget/CatalogScreens.xml#productCategoryList"/>
     

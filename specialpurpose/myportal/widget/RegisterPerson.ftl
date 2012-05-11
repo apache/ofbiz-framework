@@ -22,7 +22,6 @@ under the License.
     <form name="RegisterPerson" onsubmit="javascript:submitFormDisableSubmits(this)" class="basic-form" id="RegisterPerson" action="/myportal/control/createRegister" method="post">
         <input type="hidden" value="${webSiteId}" name="webSiteId"/>
         <input type="hidden" name="reload"/>
-        <div id="captchaCode"><input type="hidden" value="${parameters.ID_KEY}" name="captchaCode"/></div>
         <div id="_G0_" class="fieldgroup"><div class="fieldgroup-title-bar"><table><tbody><tr><td class="collapse"> </td><td> </td></tr></tbody></table></div><div class="fieldgroup-body" id="_G0__body">
             <table cellspacing="0" class="basic-table">
                 <tbody>
@@ -97,36 +96,27 @@ under the License.
                     </tr>
                     <tr>
                         <td class="label"> Code Captcha </td>
-                        <td >
-                            <div id="captchaImage"><img src="${parameters.captchaFileName}" alt="" /></div>
-                        </td>
+                        <td><div><img id="captchaImage" src="<@ofbizUrl>captcha.jpg?unique=${nowTimestamp.getTime()}</@ofbizUrl>" alt="" /></div></td>
                     </tr>
                     <script type="text/javascript" language="JavaScript">
-                            function reloadCaptcha(){
-                                var submitToUri = "<@ofbizUrl>reloadCaptchaImage</@ofbizUrl>";
-                                $.post(submitToUri, null,
-                                function(data){
-                                    document.getElementById("captchaImage").innerHTML = data;
-                                });
-                                reloadCaptchaCode();
-                            }
-                            function reloadCaptchaCode(){
-                                var submitToUri = "<@ofbizUrl>reloadCaptchaCode</@ofbizUrl>";
-                                $.post(submitToUri, null,
-                                function(data){
-                                    document.getElementById("captchaCode").innerHTML = data;
-                                });
-                            }
-                            function submitNewCustForm(){
-                                var nform = document.newuserform;
-                                nform.captcha.value = document.captchaform.captcha.value;
-                                nform.submit();
-                            }
+                    <!--
+                        function reloadCaptcha() {
+                            var captchaUri = "<@ofbizUrl>captcha.jpg?unique=_PLACEHOLDER_</@ofbizUrl>";
+                            var unique = Date.now();
+                            captchaUri = captchaUri.replace("_PLACEHOLDER_", unique);
+                            document.getElementById("captchaImage").src = captchaUri;
+                        }
+                        function submitNewCustForm(){
+                            var nform = document.newuserform;
+                            nform.captcha.value = document.captchaform.captcha.value;
+                            nform.submit();
+                        }
+                    //-->
                     </script>
                     <tr>
                         <td class="label"> </td>
                         <td>
-                            <a href="javascript:reloadCaptcha();">reload image</a>
+                            <a href="javascript:reloadCaptcha();">${uiLabelMap.CommonReloadCaptchaCode}</a>
                         </td>
                     </tr>
                     <tr>

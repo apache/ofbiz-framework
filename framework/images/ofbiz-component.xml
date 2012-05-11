@@ -28,11 +28,5 @@ under the License.
         location="webapp/images"
         mount-point="/images"
         app-bar-display="false"/>
-    <webapp name="tempfiles"
-        title="temporary files"
-        server="default-server"
-        location="../../runtime/tempfiles"
-        mount-point="/tempfiles"
-        app-bar-display="false"/>
 </ofbiz-component>
 
