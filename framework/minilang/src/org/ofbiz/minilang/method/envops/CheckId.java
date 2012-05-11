@@ -50,10 +50,10 @@ public final class CheckId extends MethodOperation {
     public CheckId(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         if (MiniLangValidate.validationOn()) {
-            MiniLangValidate.attributeNames(simpleMethod, element, "error-list-name");
+            MiniLangValidate.attributeNames(simpleMethod, element, "field", "error-list-name");
             MiniLangValidate.constantAttributes(simpleMethod, element, "error-list-name");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "field");
             MiniLangValidate.childElements(simpleMethod, element, "fail-message", "fail-property");
-            MiniLangValidate.requireAnyChildElement(simpleMethod, element, "fail-message", "fail-property");
         }
         this.errorListFma = FlexibleMapAccessor.getInstance(MiniLangValidate.checkAttribute(element.getAttribute("error-list-name"), "error_list"));
         this.fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
