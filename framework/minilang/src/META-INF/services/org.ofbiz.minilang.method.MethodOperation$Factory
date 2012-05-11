@@ -103,4 +103,5 @@ org.ofbiz.minilang.method.ifops.IfValidateMethod$IfValidateMethodFactory
 org.ofbiz.minilang.method.otherops.Calculate$CalculateFactory
 org.ofbiz.minilang.method.otherops.Log$LogFactory
 org.ofbiz.minilang.method.otherops.PropertyToField$PropertyToFieldFactory
+org.ofbiz.minilang.method.otherops.Trace$TraceFactory
 org.ofbiz.minilang.method.serviceops.FieldToResult$FieldToResultFactory

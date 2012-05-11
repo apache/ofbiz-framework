@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import javolution.util.FastMap;
 
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
@@ -62,6 +63,8 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
     protected Map<String, Object> results = null;
     protected Security security;
     protected TimeZone timeZone;
+    private int traceCount = 0;
+    private int traceLogLevel = Debug.INFO;
     protected GenericValue userLogin;
 
     public MethodContext(DispatchContext ctx, Map<String, ? extends Object> context, ClassLoader loader) {
@@ -247,8 +250,16 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
         return this.timeZone;
     }
 
+    public int getTraceLogLevel() {
+        return this.traceLogLevel;
+    }
+
     public GenericValue getUserLogin() {
         return this.userLogin;
+    }
+
+    public boolean isTraceOn() {
+        return this.traceCount > 0;
     }
 
     public Iterator<Map.Entry<String, Object>> iterator() {
@@ -317,6 +328,20 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
             putEnv(simpleMethod.getServiceErrorMessageName(), errMsg);
             putEnv(simpleMethod.getServiceResponseMessageName(), simpleMethod.getDefaultErrorCode());
         }
+    }
+
+    public void setTraceOff() {
+        if (this.traceCount > 0) {
+            this.traceCount--;
+        }
+    }
+
+    public void setTraceOn(int logLevel) {
+        if (this.traceCount == 0) {
+            // Outermost trace element sets the logging level
+            this.traceLogLevel = logLevel;
+        }
+        this.traceCount++;
     }
 
     public void setUserLogin(GenericValue userLogin, String userLoginEnvName) {
