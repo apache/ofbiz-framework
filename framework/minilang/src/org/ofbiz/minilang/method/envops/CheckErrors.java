@@ -52,8 +52,10 @@ public final class CheckErrors extends MethodOperation {
         List<Object> messages = methodContext.getEnv(this.errorListNameFse.expandString(methodContext.getEnvMap()));
         if (messages != null && messages.size() > 0) {
             if (methodContext.getMethodType() == MethodContext.EVENT) {
+                methodContext.putEnv(simpleMethod.getEventErrorMessageListName(), messages);
                 methodContext.putEnv(this.simpleMethod.getEventResponseCodeName(), getErrorCode(methodContext));
             } else {
+                methodContext.putEnv(simpleMethod.getServiceErrorMessageListName(), messages);
                 methodContext.putEnv(this.simpleMethod.getServiceResponseMessageName(), getErrorCode(methodContext));
             }
             return false;
