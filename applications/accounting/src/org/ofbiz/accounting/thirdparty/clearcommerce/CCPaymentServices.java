@@ -703,7 +703,7 @@ public class CCPaymentServices {
 
         Map<String, Object> pbOrder = UtilGenerics.checkMap(context.get("pbOrder"));
         if (pbOrder != null) {
-            if (Debug.verboseOn()) Debug.logInfo("pbOrder Map not empty:" + pbOrder.toString(),module);
+            if (Debug.verboseOn()) Debug.logVerbose("pbOrder Map not empty:" + pbOrder.toString(),module);
             Element pbOrderElement =  UtilXml.addChildElement(orderFormDocElement, "PbOrder", requestDocument); // periodic billing order
             UtilXml.addChildElementValue(pbOrderElement, "OrderFrequencyCycle", (String) pbOrder.get("OrderFrequencyCycle"), requestDocument);
             Element interval = UtilXml.addChildElementValue(pbOrderElement, "OrderFrequencyInterval", (String) pbOrder.get("OrderFrequencyInterval"), requestDocument);

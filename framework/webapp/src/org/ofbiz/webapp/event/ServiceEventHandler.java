@@ -247,7 +247,7 @@ public class ServiceEventHandler implements EventHandler {
             if (UtilValidate.isNotEmpty(modelParam.stringMapPrefix)) {
                 Map<String, Object> paramMap = UtilHttp.makeParamMapWithPrefix(request, multiPartMap, modelParam.stringMapPrefix, null);
                 value = paramMap;
-                if (Debug.verboseOn()) Debug.logInfo("Set [" + modelParam.name + "]: " + paramMap, module);
+                if (Debug.verboseOn()) Debug.logVerbose("Set [" + modelParam.name + "]: " + paramMap, module);
             } else if (UtilValidate.isNotEmpty(modelParam.stringListSuffix)) {
                 List<Object> paramList = UtilHttp.makeParamListWithSuffix(request, multiPartMap, modelParam.stringListSuffix, null);
                 value = paramList;
