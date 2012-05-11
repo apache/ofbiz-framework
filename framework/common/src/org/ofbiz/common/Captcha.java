@@ -36,6 +36,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.ofbiz.base.util.UtilDateTime;
 
+/**
+ * @deprecated since 2012-05, use org.ofbiz.common.CommonEvents.createCaptcha(request, response) instead
+ */
+@Deprecated
 public class Captcha {
 
     public static final String CAPTCHA_FILE_PATH = System.getProperty("ofbiz.home") + File.separator + "runtime" + File.separator + "tempfiles" + File.separator + "captcha" + File.separator;
