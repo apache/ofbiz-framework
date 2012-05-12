@@ -126,7 +126,7 @@ under the License.
         <entity-one entity-name="FixedAssetMeter" value-field="fixedAssetMeter"/>
         <assert>
             <not><if-empty field="fixedAssetMeter"/></not>
-            <if-compare-field field="fixedAssetMeter.meterValue" operator="equals" to-field="meterValue"/>
+            <if-compare-field field="fixedAssetMeter.meterValue" operator="equals" to-field="meterValue" type="BigDecimal"/>
         </assert>
         <check-errors/>
     </simple-method>

@@ -152,7 +152,7 @@ under the License.
             </call-class-method>
             <assert>
                 <or>
-                    <if-compare-field field="amountTotal" operator="equals" to-field="invoiceTotal"/>
+                    <if-compare-field field="amountTotal" operator="equals" to-field="invoiceTotal" type="BigDecimal"/>
                 </or>
             </assert>
             <check-errors/>

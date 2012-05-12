@@ -191,9 +191,9 @@ under the License.
             <not><if-empty field="shipmentReceipt"></if-empty></not>
             <if-compare-field field="inventoryItem.productId" operator="equals" to-field="serviceCtx.productId"/>
             <if-compare-field field="inventoryItem.facilityId" operator="equals" to-field="serviceCtx.facilityId"/>
-            <if-compare-field field="inventoryItem.quantityOnHandTotal" operator="equals" to-field="serviceCtx.quantityAccepted"/>
-            <if-compare-field field="inventoryItem.availableToPromiseTotal" operator="equals" to-field="serviceCtx.quantityAccepted"/>
-            <if-compare-field field="shipmentReceipt.quantityAccepted" operator="equals" to-field="serviceCtx.quantityAccepted"/>
+            <if-compare-field field="inventoryItem.quantityOnHandTotal" operator="equals" to-field="serviceCtx.quantityAccepted" type="BigDecimal"/>
+            <if-compare-field field="inventoryItem.availableToPromiseTotal" operator="equals" to-field="serviceCtx.quantityAccepted" type="BigDecimal"/>
+            <if-compare-field field="shipmentReceipt.quantityAccepted" operator="equals" to-field="serviceCtx.quantityAccepted" type="BigDecimal"/>
             <if-compare-field field="shipmentReceipt.productId" operator="equals" to-field="serviceCtx.productId"/>
         </assert>
         <check-errors/>
