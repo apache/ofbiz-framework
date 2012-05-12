@@ -70,7 +70,7 @@ public class HumanResEvents {
                 if (UtilValidate.isNotEmpty(emlpfillCtxs)) {
                     for (GenericValue emlpfillCtx : emlpfillCtxs ) {
                         String memberId = emlpfillCtx.getString("partyId");
-                        GenericValue memCtx = delegator.findByPrimaryKey("Person" ,UtilMisc.toMap("partyId", memberId));
+                        GenericValue memCtx = delegator.findOne("Person" ,UtilMisc.toMap("partyId", memberId), false);
                         String title = null;
                         if (UtilValidate.isNotEmpty(memCtx)) {
                             String firstname = (String) memCtx.get("firstName");
@@ -83,7 +83,7 @@ public class HumanResEvents {
                             }
                             title = firstname +" "+ lastname;
                         }
-                        GenericValue memGroupCtx = delegator.findByPrimaryKey("PartyGroup" ,UtilMisc.toMap("partyId", memberId));
+                        GenericValue memGroupCtx = delegator.findOne("PartyGroup" ,UtilMisc.toMap("partyId", memberId), false);
                         if (UtilValidate.isNotEmpty(memGroupCtx)) {
                             title = memGroupCtx.getString("groupName");
                         }
@@ -117,7 +117,7 @@ public class HumanResEvents {
         }
         
         try {
-            GenericValue partyGroup = delegator.findByPrimaryKey("PartyGroup" ,UtilMisc.toMap("partyId", partyId));
+            GenericValue partyGroup = delegator.findOne("PartyGroup" ,UtilMisc.toMap("partyId", partyId), false);
             if (UtilValidate.isNotEmpty(partyGroup)) {
                 childOfComs = EntityUtil.filterByDate(delegator.findByAnd("PartyRelationship", UtilMisc.toMap(
                         "partyIdFrom", partyGroup.get("partyId"), "partyRelationshipTypeId", "GROUP_ROLLUP")));
@@ -136,7 +136,7 @@ public class HumanResEvents {
                         catId = childOfCom.get("partyIdTo");
                         
                         //Department or Sub department
-                        GenericValue childContext = delegator.findByPrimaryKey("PartyGroup" ,UtilMisc.toMap("partyId", catId));
+                        GenericValue childContext = delegator.findOne("PartyGroup" ,UtilMisc.toMap("partyId", catId), false);
                         if (UtilValidate.isNotEmpty(childContext)) {
                             catNameField = (String) childContext.get("groupName");
                             title = catNameField;
@@ -154,7 +154,7 @@ public class HumanResEvents {
                         }
                         
                         //Employee
-                        GenericValue emContext = delegator.findByPrimaryKey("Person" ,UtilMisc.toMap("partyId", catId));
+                        GenericValue emContext = delegator.findOne("Person" ,UtilMisc.toMap("partyId", catId), false);
                         if (UtilValidate.isNotEmpty(emContext)) {
                             String firstname = (String) emContext.get("firstName");
                             String lastname = (String) emContext.get("lastName");
@@ -216,7 +216,7 @@ public class HumanResEvents {
                             emplMap.put("state", "closed");
                         }
                         
-                        GenericValue emplContext = delegator.findByPrimaryKey("EmplPositionType" ,UtilMisc.toMap("emplPositionTypeId", typeId));
+                        GenericValue emplContext = delegator.findOne("EmplPositionType" ,UtilMisc.toMap("emplPositionTypeId", typeId), false);
                         String title = null;
                         if (UtilValidate.isNotEmpty(emplContext)) {
                             title = (String) emplContext.get("description") + " " +"["+ emplId +"]";
