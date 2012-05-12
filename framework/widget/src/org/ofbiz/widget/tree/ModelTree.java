@@ -500,7 +500,7 @@ public class ModelTree extends ModelWidget {
                 if (UtilValidate.isNotEmpty(id)) {
                     try {
                         int leafCount = ContentManagementWorker.updateStatsTopDown(delegator, id, UtilMisc.toList("SUB_CONTENT", "PUBLISH_LINK"));
-                        GenericValue entity = delegator.findByPrimaryKeyCache(entName, UtilMisc.toMap(modelTree.getPkName(), id));
+                        GenericValue entity = delegator.findOne(entName, UtilMisc.toMap(modelTree.getPkName(), id), true);
                         obj = entity.get("childBranchCount");
                        if (obj != null)
                            nodeCount = (Long)obj;

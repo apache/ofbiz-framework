@@ -53,7 +53,7 @@ if (userLogin && parameters.parentPortalPageId && !parameters.portalPageId) {
 }
 // Debug.log('======portalPageId: ' + parameters.portalPageId);
 if (userLogin && parameters.portalPageId) {
-    portalPage = delegator.findByPrimaryKey("PortalPage", [portalPageId : parameters.portalPageId]);
+    portalPage = delegator.findOne("PortalPage", [portalPageId : parameters.portalPageId], false);
     if (portalPage) {
         if (portalPage.parentPortalPageId) {
             context.parameters.parentPortalPageId = portalPage.parentPortalPageId;

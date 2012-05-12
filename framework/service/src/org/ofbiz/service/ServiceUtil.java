@@ -605,7 +605,7 @@ public class ServiceUtil {
         Delegator delegator = dctx.getDelegator();
         if (UtilValidate.isNotEmpty(runAsUser)) {
             try {
-                GenericValue runAs = delegator.findByPrimaryKeyCache("UserLogin", "userLoginId", runAsUser);
+                GenericValue runAs = delegator.findOne("UserLogin", true, "userLoginId", runAsUser);
                 if (runAs != null) {
                     userLogin = runAs;
                 }

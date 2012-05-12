@@ -155,7 +155,7 @@ public class UrlServletHelper extends ContextFilter {
         // check path alias
         GenericValue pathAlias = null;
         try {
-            pathAlias = delegator.findByPrimaryKeyCache("WebSitePathAlias", UtilMisc.toMap("webSiteId", webSiteId, "pathAlias", pathInfo));
+            pathAlias = delegator.findOne("WebSitePathAlias", UtilMisc.toMap("webSiteId", webSiteId, "pathAlias", pathInfo), true);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }

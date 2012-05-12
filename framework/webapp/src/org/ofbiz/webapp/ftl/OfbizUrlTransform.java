@@ -112,7 +112,7 @@ public class OfbizUrlTransform implements TemplateTransformModel {
                         StringBuilder newURL = new StringBuilder();
                         // make prefix url
                         try {
-                            GenericValue webSite = delegator.findByPrimaryKeyCache("WebSite", UtilMisc.toMap("webSiteId", webSiteId));
+                            GenericValue webSite = delegator.findOne("WebSite", UtilMisc.toMap("webSiteId", webSiteId), true);
                             if (webSite != null) {
                                 httpsPort = webSite.getString("httpsPort");
                                 httpsServer = webSite.getString("httpsHost");

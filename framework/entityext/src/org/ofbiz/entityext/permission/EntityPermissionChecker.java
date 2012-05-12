@@ -276,7 +276,7 @@ public class EntityPermissionChecker {
             int privilegeEnumSeq = -1;
 
             if (UtilValidate.isNotEmpty(privilegeEnumId)) {
-                GenericValue privEnum = delegator.findByPrimaryKeyCache("Enumeration", UtilMisc.toMap("enumId", privilegeEnumId));
+                GenericValue privEnum = delegator.findOne("Enumeration", UtilMisc.toMap("enumId", privilegeEnumId), true);
                 if (privEnum != null) {
                     String sequenceId = privEnum.getString("sequenceId");
                     try {
@@ -296,7 +296,7 @@ public class EntityPermissionChecker {
                 String targetPrivilegeEnumId = entity.getString("privilegeEnumId");
                 if (UtilValidate.isNotEmpty(targetPrivilegeEnumId)) {
                     int targetPrivilegeEnumSeq = -1;
-                    GenericValue privEnum = delegator.findByPrimaryKeyCache("Enumeration", UtilMisc.toMap("enumId", privilegeEnumId));
+                    GenericValue privEnum = delegator.findOne("Enumeration", UtilMisc.toMap("enumId", privilegeEnumId), true);
                     if (privEnum != null) {
                         String sequenceId = privEnum.getString("sequenceId");
                         try {
@@ -433,7 +433,7 @@ public class EntityPermissionChecker {
 
                 /*
                    String ownedEntityId = entity.getString("owner" + entityName + "Id");
-                   GenericValue ownedEntity = delegator.findByPrimaryKeyCache(entityName,UtilMisc.toMap(pkFieldName, ownedEntityId));
+                   GenericValue ownedEntity = delegator.findOne(entityName,UtilMisc.toMap(pkFieldName, ownedEntityId), true);
                    while (ownedEntity != null) {
                        if (!alreadyCheckedIds.contains(ownedEntityId)) {
                         // Decided to let the original purposes only be used in permission checking
@@ -454,7 +454,7 @@ public class EntityPermissionChecker {
                        //purposes.put(ownedEntityId, purposeList);
                         //roles.put(ownedEntityId, roleList);
                            ownedEntityId = ownedEntity.getString("owner" + entityName + "Id");
-                           ownedEntity = delegator.findByPrimaryKeyCache(entityName,UtilMisc.toMap(pkFieldName, ownedEntityId));
+                           ownedEntity = delegator.findOne(entityName,UtilMisc.toMap(pkFieldName, ownedEntityId), true);
                        } else {
                           ownedEntity = null;
                        }
@@ -608,7 +608,7 @@ public class EntityPermissionChecker {
             String entityId  = (String)obj;
             if (entities != null) entity = entities.get(entityId);
 
-            if (entity == null) entity = delegator.findByPrimaryKeyCache(entityName,UtilMisc.toMap(pkFieldName, entityId));
+            if (entity == null) entity = delegator.findOne(entityName,UtilMisc.toMap(pkFieldName, entityId), true);
         } else if (obj instanceof GenericValue) {
             entity = (GenericValue)obj;
         }
@@ -1001,7 +1001,7 @@ public class EntityPermissionChecker {
                 privilegeEnumId = currentValue.getString(this.privilegeFieldName);
             }
             if (UtilValidate.isNotEmpty(privilegeEnumId)) {
-                GenericValue privEnum = delegator.findByPrimaryKeyCache("Enumeration", UtilMisc.toMap("enumId", privilegeEnumId));
+                GenericValue privEnum = delegator.findOne("Enumeration", UtilMisc.toMap("enumId", privilegeEnumId), true);
                 if (privEnum != null) {
                     String sequenceId = privEnum.getString("sequenceId");
                     try {
@@ -1293,7 +1293,7 @@ public class EntityPermissionChecker {
             if (entity.get("createdByUserLogin") != null) {
                 String userLoginIdCB = (String)entity.get("createdByUserLogin");
                 try {
-                    GenericValue userLogin = delegator.findByPrimaryKeyCache("UserLogin", UtilMisc.toMap("userLoginId", userLoginIdCB));
+                    GenericValue userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", userLoginIdCB), true);
                     if (userLogin != null) {
                         String partyIdCB = userLogin.getString("partyId");
                         if (partyIdCB != null) {
@@ -1346,7 +1346,7 @@ public class EntityPermissionChecker {
             contentOwnerList.add(ownerContentId);
             ModelEntity modelEntity = delegator.getModelEntity(entityName);
             String pkFieldName = modelEntity.getFirstPkFieldName();
-            GenericValue ownerContent = delegator.findByPrimaryKeyCache(entityName, UtilMisc.toMap(pkFieldName, ownerContentId));
+            GenericValue ownerContent = delegator.findOne(entityName, UtilMisc.toMap(pkFieldName, ownerContentId), true);
             if (ownerContent != null) {
                 getEntityOwners(delegator, ownerContent, contentOwnerList, entityName, ownerIdFieldName);
             }
@@ -1358,7 +1358,7 @@ public class EntityPermissionChecker {
         int privilegeEnumSeq = -1;
 
         if (UtilValidate.isNotEmpty(privilegeEnumId)) {
-            GenericValue privEnum = delegator.findByPrimaryKeyCache("Enumeration", UtilMisc.toMap("enumId", privilegeEnumId));
+            GenericValue privEnum = delegator.findOne("Enumeration", UtilMisc.toMap("enumId", privilegeEnumId), true);
             if (privEnum != null) {
                 String sequenceId = privEnum.getString("sequenceId");
                 try {

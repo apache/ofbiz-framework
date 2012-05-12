@@ -279,7 +279,7 @@ public class NotificationServices {
             GenericValue webSite = null;
             if (webSiteId != null) {
                 try {
-                    webSite = delegator.findByPrimaryKeyCache("WebSite", UtilMisc.toMap("webSiteId", webSiteId));
+                    webSite = delegator.findOne("WebSite", UtilMisc.toMap("webSiteId", webSiteId), true);
                     if (webSite != null) {
                         httpsPort = webSite.getString("httpsPort");
                         httpsServer = webSite.getString("httpsHost");

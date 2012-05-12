@@ -722,7 +722,7 @@ public class LoginServices {
         if (UtilValidate.isNotEmpty(partyId)) {
             //GenericValue party = null;
             //try {
-            //    party = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
+            //    party = delegator.findOne("Party", UtilMisc.toMap("partyId", partyId), false);
             //} catch (GenericEntityException e) {
             //    Debug.logWarning(e, "", module);
             //}
