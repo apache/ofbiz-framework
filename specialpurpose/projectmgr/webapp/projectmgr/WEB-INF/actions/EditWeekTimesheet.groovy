@@ -39,7 +39,7 @@ if (!partyId) {
 timesheet = null;
 timesheetId = parameters.timesheetId;
 if (timesheetId) {
-    timesheet = delegator.findByPrimaryKey("Timesheet", ["timesheetId" : timesheetId]);
+    timesheet = delegator.findOne("Timesheet", ["timesheetId" : timesheetId], false);
     partyId = timesheet.partyId; // use the party from this timesheet
 } else {
     // make sure because of timezone changes, not a duplicate timesheet is created
@@ -55,7 +55,7 @@ if (timesheetId) {
     if (timesheet == null) {
         result = dispatcher.runSync("createProjectTimesheet", ["userLogin" : parameters.userLogin, "partyId" : partyId]);
         if (result && result.timesheetId) {
-            timesheet = delegator.findByPrimaryKey("Timesheet", ["timesheetId" : result.timesheetId]);
+            timesheet = delegator.findOne("Timesheet", ["timesheetId" : result.timesheetId], false);
         }
     }
 }
@@ -64,7 +64,7 @@ context.timesheet = timesheet;
 context.weekNumber = UtilDateTime.weekNumber(timesheet.fromDate);
 
 // get the user names
-context.partyNameView = delegator.findByPrimaryKey("PartyNameView",["partyId" : partyId]);
+context.partyNameView = delegator.findOne("PartyNameView",["partyId" : partyId], false);
 // get the default rate for this person
 rateTypes = EntityUtil.filterByDate(delegator.findByAnd("PartyRate", ["partyId" : partyId, "defaultRate" : "Y"]));
 if (rateTypes) {
