@@ -61,7 +61,7 @@ public class TrackingCodeEvents {
             Delegator delegator = (Delegator) request.getAttribute("delegator");
             GenericValue trackingCode;
             try {
-                trackingCode = delegator.findByPrimaryKeyCache("TrackingCode", UtilMisc.toMap("trackingCodeId", trackingCodeId));
+                trackingCode = delegator.findOne("TrackingCode", UtilMisc.toMap("trackingCodeId", trackingCodeId), true);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error looking up TrackingCode with trackingCodeId [" + trackingCodeId + "], ignoring this trackingCodeId", module);
                 return "error";
@@ -98,7 +98,7 @@ public class TrackingCodeEvents {
             Delegator delegator = (Delegator) request.getAttribute("delegator");
             GenericValue trackingCode;
             try {
-                trackingCode = delegator.findByPrimaryKeyCache("TrackingCode", UtilMisc.toMap("trackingCodeId", trackingCodeId));
+                trackingCode = delegator.findOne("TrackingCode", UtilMisc.toMap("trackingCodeId", trackingCodeId), true);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error looking up TrackingCode with trackingCodeId [" + trackingCodeId + "], ignoring this trackingCodeId", module);
                 return "error";
@@ -114,7 +114,7 @@ public class TrackingCodeEvents {
                 if (UtilValidate.isNotEmpty(dtc)) {
                     GenericValue defaultTrackingCode = null;
                     try {
-                        defaultTrackingCode = delegator.findByPrimaryKeyCache("TrackingCode", UtilMisc.toMap("trackingCodeId", dtc));
+                        defaultTrackingCode = delegator.findOne("TrackingCode", UtilMisc.toMap("trackingCodeId", dtc), true);
                     } catch (GenericEntityException e) {
                         Debug.logError(e, "Error looking up Default values TrackingCode with trackingCodeId [" + dtc + "], not using the dtc value for new TrackingCode defaults", module);
                     }
@@ -211,7 +211,7 @@ public class TrackingCodeEvents {
         String webSiteId = WebSiteWorker.getWebSiteId(request);
         if (webSiteId != null) {
             try {
-                GenericValue webSite = delegator.findByPrimaryKeyCache("WebSite", UtilMisc.toMap("webSiteId", webSiteId));
+                GenericValue webSite = delegator.findOne("WebSite", UtilMisc.toMap("webSiteId", webSiteId), true);
                 if (webSite != null) {
                     cookieDomain = webSite.getString("cookieDomain");
                 }
@@ -324,7 +324,7 @@ public class TrackingCodeEvents {
                         String trackingCodeId = cookies[i].getValue();
                         GenericValue trackingCode;
                         try {
-                            trackingCode = delegator.findByPrimaryKeyCache("TrackingCode", UtilMisc.toMap("trackingCodeId", trackingCodeId));
+                            trackingCode = delegator.findOne("TrackingCode", UtilMisc.toMap("trackingCodeId", trackingCodeId), true);
                         } catch (GenericEntityException e) {
                             Debug.logError(e, "Error looking up TrackingCode with trackingCodeId [" + trackingCodeId + "], ignoring this trackingCodeId", module);
                             continue;
@@ -386,7 +386,7 @@ public class TrackingCodeEvents {
             // find the tracking code object
             GenericValue trackingCode = null;
             try {
-                trackingCode = delegator.findByPrimaryKeyCache("TrackingCode", UtilMisc.toMap("trackingCodeId", trackingCodeId));
+                trackingCode = delegator.findOne("TrackingCode", UtilMisc.toMap("trackingCodeId", trackingCodeId), true);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error looking up TrackingCode with trackingCodeId [" + trackingCodeId + "], ignoring this trackingCodeId", module);
             }
@@ -484,7 +484,7 @@ public class TrackingCodeEvents {
         }
         GenericValue trackingCode = null;
         try {
-            trackingCode = delegator.findByPrimaryKeyCache("TrackingCode", UtilMisc.toMap("trackingCodeId", trackingCodeId));
+            trackingCode = delegator.findOne("TrackingCode", UtilMisc.toMap("trackingCodeId", trackingCodeId), true);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error looking up TrackingCode with trackingCodeId [" + trackingCodeId + "], ignoring this trackingCodeId", module);
         }
