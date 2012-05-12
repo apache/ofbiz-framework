@@ -29,7 +29,7 @@ context.currencyUomId = currencyUomId;
 
 partyId = parameters.partyId ?:request.getAttribute("partyId");
 
-party = delegator.findByPrimaryKey("Party", [partyId : partyId]);
+party = delegator.findOne("Party", [partyId : partyId], false);
 context.party = party;
 if (party) {
     context.lookupPerson = party.getRelatedOne("Person");
@@ -40,7 +40,7 @@ shoppingListId = parameters.shoppingListId ?: request.getAttribute("shoppingList
 
 //get the party for listid if it exists
 if (!partyId && shoppingListId) {
-    partyId = delegator.findByPrimaryKey("ShoppingList", [shoppingListId : shoppingListId]).partyId;
+    partyId = delegator.findOne("ShoppingList", [shoppingListId : shoppingListId], false).partyId;
 }
 context.partyId = partyId;
 
@@ -64,7 +64,7 @@ if (!shoppingListId) {
 
 // if we passed a shoppingListId get the shopping list info
 if (shoppingListId) {
-    shoppingList = delegator.findByPrimaryKey("ShoppingList", [shoppingListId : shoppingListId]);
+    shoppingList = delegator.findOne("ShoppingList", [shoppingListId : shoppingListId], false);
     context.shoppingList = shoppingList;
     context.shoppingListId = shoppingListId;
 

@@ -360,7 +360,7 @@ public class ContactMechWorker {
             }
 
             try {
-                contactMech = delegator.findByPrimaryKey("ContactMech", UtilMisc.toMap("contactMechId", contactMechId));
+                contactMech = delegator.findOne("ContactMech", UtilMisc.toMap("contactMechId", contactMechId), false);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
             }
@@ -375,7 +375,7 @@ public class ContactMechWorker {
             target.put("contactMechTypeId", contactMechTypeId);
 
             try {
-                GenericValue contactMechType = delegator.findByPrimaryKey("ContactMechType", UtilMisc.toMap("contactMechTypeId", contactMechTypeId));
+                GenericValue contactMechType = delegator.findOne("ContactMechType", UtilMisc.toMap("contactMechTypeId", contactMechTypeId), false);
 
                 if (contactMechType != null)
                     target.put("contactMechType", contactMechType);
@@ -572,7 +572,7 @@ public class ContactMechWorker {
             }
 
             try {
-                contactMech = delegator.findByPrimaryKey("ContactMech", UtilMisc.toMap("contactMechId", contactMechId));
+                contactMech = delegator.findOne("ContactMech", UtilMisc.toMap("contactMechId", contactMechId), false);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
             }
@@ -587,7 +587,7 @@ public class ContactMechWorker {
             target.put("contactMechTypeId", contactMechTypeId);
 
             try {
-                GenericValue contactMechType = delegator.findByPrimaryKey("ContactMechType", UtilMisc.toMap("contactMechTypeId", contactMechTypeId));
+                GenericValue contactMechType = delegator.findOne("ContactMechType", UtilMisc.toMap("contactMechTypeId", contactMechTypeId), false);
 
                 if (contactMechType != null)
                     target.put("contactMechType", contactMechType);
@@ -891,7 +891,7 @@ public class ContactMechWorker {
     public static String getContactMechAttribute(Delegator delegator, String contactMechId, String attrName) {
         GenericValue attr = null;
         try {
-            attr = delegator.findByPrimaryKey("ContactMechAttribute", UtilMisc.toMap("contactMechId", contactMechId, "attrName", attrName));
+            attr = delegator.findOne("ContactMechAttribute", UtilMisc.toMap("contactMechId", contactMechId, "attrName", attrName), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -911,14 +911,14 @@ public class ContactMechWorker {
         // no postalCodeGeoId, see if there is a Geo record matching the countryGeoId and postalCode fields
         if (UtilValidate.isNotEmpty(postalAddress.getString("countryGeoId")) && UtilValidate.isNotEmpty(postalAddress.getString("postalCode"))) {
             // first try the shortcut with the geoId convention for "{countryGeoId}-{postalCode}"
-            GenericValue geo = delegator.findByPrimaryKeyCache("Geo", UtilMisc.toMap("geoId", postalAddress.getString("countryGeoId") + "-" + postalAddress.getString("postalCode")));
+            GenericValue geo = delegator.findOne("Geo", UtilMisc.toMap("geoId", postalAddress.getString("countryGeoId") + "-" + postalAddress.getString("postalCode")), true);
             if (geo != null) {
                 // save the value to the database for quicker future reference
                 if (postalAddress.isMutable()) {
                     postalAddress.set("postalCodeGeoId", geo.getString("geoId"));
                     postalAddress.store();
                 } else {
-                    GenericValue mutablePostalAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", postalAddress.getString("contactMechId")));
+                    GenericValue mutablePostalAddress = delegator.findOne("PostalAddress", UtilMisc.toMap("contactMechId", postalAddress.getString("contactMechId")), false);
                     mutablePostalAddress.set("postalCodeGeoId", geo.getString("geoId"));
                     mutablePostalAddress.store();
                 }
@@ -936,7 +936,7 @@ public class ContactMechWorker {
                     postalAddress.set("postalCodeGeoId", geoAssocAndGeoTo.getString("geoId"));
                     postalAddress.store();
                 } else {
-                    GenericValue mutablePostalAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", postalAddress.getString("contactMechId")));
+                    GenericValue mutablePostalAddress = delegator.findOne("PostalAddress", UtilMisc.toMap("contactMechId", postalAddress.getString("contactMechId")), false);
                     mutablePostalAddress.set("postalCodeGeoId", geoAssocAndGeoTo.getString("geoId"));
                     mutablePostalAddress.store();
                 }

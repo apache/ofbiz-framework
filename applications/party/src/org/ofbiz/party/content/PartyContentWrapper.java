@@ -187,7 +187,7 @@ public class PartyContentWrapper implements ContentWrapper {
             ModelEntity partyPersonModel = delegator.getModelEntity("PartyAndPerson");
             if (partyPersonModel != null && partyPersonModel.isField(candidateFieldName)) {
                 if (party == null) {
-                    party = delegator.findByPrimaryKeyCache("PartyAndPerson", UtilMisc.toMap("partyId", partyId));
+                    party = delegator.findOne("PartyAndPerson", UtilMisc.toMap("partyId", partyId), true);
                 }
                 if (party != null) {
                     String candidateValue = party.getString(candidateFieldName);
@@ -202,7 +202,7 @@ public class PartyContentWrapper implements ContentWrapper {
             ModelEntity partyGroupModel = delegator.getModelEntity("PartyAndGroup");
             if (partyGroupModel != null && partyGroupModel.isField(candidateFieldName)) {
                 if (party == null) {
-                    party = delegator.findByPrimaryKeyCache("PartyAndGroup", UtilMisc.toMap("partyId", partyId));
+                    party = delegator.findOne("PartyAndGroup", UtilMisc.toMap("partyId", partyId), true);
                 }
                 if (party != null) {
                     String candidateValue = party.getString(candidateFieldName);
@@ -217,7 +217,7 @@ public class PartyContentWrapper implements ContentWrapper {
         // otherwise a content field
         GenericValue partyContent;
         if (contentId != null) {
-            partyContent = delegator.findByPrimaryKeyCache("PartyContent", UtilMisc.toMap("partyId", partyId, "contentId", contentId));
+            partyContent = delegator.findOne("PartyContent", UtilMisc.toMap("partyId", partyId, "contentId", contentId), true);
         } else {
             partyContent = getFirstPartyContentByType(partyId, party, partyContentTypeId, delegator);
         }

@@ -27,7 +27,7 @@ partyId = parameters.partyId ?: parameters.party_id;
 userLoginId = parameters.userlogin_id ?: parameters.userLoginId;
 
 if (!partyId && userLoginId) {
-    thisUserLogin = delegator.findByPrimaryKey("UserLogin", [userLoginId : userLoginId]);
+    thisUserLogin = delegator.findOne("UserLogin", [userLoginId : userLoginId], false);
     if (thisUserLogin) {
         partyId = thisUserLogin.partyId;
     }
@@ -38,7 +38,7 @@ context.partyId = partyId;
 if (!geoPointId) {
     latestGeoPoint = GeoWorker.findLatestGeoPoint(delegator, "PartyAndGeoPoint", "partyId", partyId, null, null);
 } else {
-    latestGeoPoint = delegator.findByPrimaryKey("GeoPoint", [geoPointId : geoPointId]);
+    latestGeoPoint = delegator.findOne("GeoPoint", [geoPointId : geoPointId], false);
 }
 if (latestGeoPoint) {
     context.latestGeoPoint = latestGeoPoint;
