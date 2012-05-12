@@ -157,7 +157,7 @@ public class ContactMechServices {
         GenericValue partyContactMech = null;
 
         try {
-            contactMech = delegator.findByPrimaryKey("ContactMech", UtilMisc.toMap("contactMechId", contactMechId));
+            contactMech = delegator.findOne("ContactMech", UtilMisc.toMap("contactMechId", contactMechId), false);
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
             contactMech = null;
@@ -420,7 +420,7 @@ public class ContactMechServices {
         GenericValue partyContactMech = null;
 
         try {
-            contactMech = delegator.findByPrimaryKey("ContactMech", UtilMisc.toMap("contactMechId", contactMechId));
+            contactMech = delegator.findOne("ContactMech", UtilMisc.toMap("contactMechId", contactMechId), false);
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
             contactMech = null;
@@ -458,7 +458,7 @@ public class ContactMechServices {
             GenericValue addr = null;
 
             try {
-                addr = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", contactMechId));
+                addr = delegator.findOne("PostalAddress", UtilMisc.toMap("contactMechId", contactMechId), false);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.toString(), module);
                 addr = null;
@@ -638,7 +638,7 @@ public class ContactMechServices {
         GenericValue partyContactMech = null;
 
         try {
-            contactMech = delegator.findByPrimaryKey("ContactMech", UtilMisc.toMap("contactMechId", contactMechId));
+            contactMech = delegator.findOne("ContactMech", UtilMisc.toMap("contactMechId", contactMechId), false);
             // try to find a PartyContactMech with a valid date range
             List<GenericValue> partyContactMechs = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMech", UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId), UtilMisc.toList("fromDate")), true);
 
@@ -667,7 +667,7 @@ public class ContactMechServices {
             GenericValue telNum = null;
 
             try {
-                telNum = delegator.findByPrimaryKey("TelecomNumber", UtilMisc.toMap("contactMechId", contactMechId));
+                telNum = delegator.findOne("TelecomNumber", UtilMisc.toMap("contactMechId", contactMechId), false);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.toString(), module);
                 telNum = null;
@@ -926,7 +926,7 @@ public class ContactMechServices {
         GenericValue pcmp = null;
 
         try {
-            pcmp = delegator.findByPrimaryKey("PartyContactMechPurpose", UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId, "fromDate", fromDate));
+            pcmp = delegator.findOne("PartyContactMechPurpose", UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId, "fromDate", fromDate), false);
             if (pcmp == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                         "contactmechservices.could_not_delete_purpose_from_contact_mechanism_not_found", locale));

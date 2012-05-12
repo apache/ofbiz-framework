@@ -23,7 +23,7 @@ partyId = parameters.partyId ?: parameters.party_id;
 userLoginId = parameters.userlogin_id ?: parameters.userLoginId;
 
 if (!partyId && userLoginId) {
-    thisUserLogin = delegator.findByPrimaryKey("UserLogin", [userLoginId : userLoginId]);
+    thisUserLogin = delegator.findOne("UserLogin", [userLoginId : userLoginId], false);
     if (thisUserLogin) {
         partyId = thisUserLogin.partyId;
         parameters.partyId = partyId;
@@ -32,5 +32,5 @@ if (!partyId && userLoginId) {
 
 context.showOld = "true".equals(parameters.SHOW_OLD);
 context.partyId = partyId;
-context.party = delegator.findByPrimaryKey("Party", [partyId : partyId]);
+context.party = delegator.findOne("Party", [partyId : partyId], false);
 context.nowStr = UtilDateTime.nowTimestamp().toString();
