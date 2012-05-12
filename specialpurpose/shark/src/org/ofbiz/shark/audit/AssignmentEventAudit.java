@@ -40,7 +40,7 @@ public class AssignmentEventAudit extends EventAudit implements AssignmentEventA
         super(mgr, delegator, eventAuditId);
         if (this.delegator != null) {
             try {
-                this.assignmentEventAudit = delegator.findByPrimaryKey("WfAssignmentEventAudit", UtilMisc.toMap("eventAuditId", eventAuditId));
+                this.assignmentEventAudit = delegator.findOne("WfAssignmentEventAudit", UtilMisc.toMap("eventAuditId", eventAuditId), false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }

@@ -42,7 +42,7 @@ public class Resource extends InstanceEntityObject implements ResourcePersistenc
         super(mgr, delegator);
         if (this.delegator != null) {
             try {
-                this.resource = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.WfResource, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.userName, name));
+                this.resource = delegator.findOne(org.ofbiz.shark.SharkConstants.WfResource, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.userName, name), false);
             } catch (GenericEntityException e) {
                 throw new PersistenceException(e);
             }

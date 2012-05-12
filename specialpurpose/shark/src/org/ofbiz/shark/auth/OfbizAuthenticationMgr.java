@@ -55,7 +55,7 @@ public class OfbizAuthenticationMgr implements AuthenticationManager {
         GenericValue adminUser = null;
         String pass_hash = HashCrypt.getDigestHash(password, LoginServices.getHashType());
         try {
-            adminUser = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", userName));
+            adminUser = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", userName), false);
             String a = adminUser.getString("userLoginId");
             p = adminUser.getString("currentPassword");
         } catch (GenericEntityException e) {}

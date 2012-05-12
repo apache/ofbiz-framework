@@ -402,7 +402,7 @@ public class GenericUserGroupMgr implements UserGroupManager {
         Delegator delegator = SharkContainer.getDelegator();
         GenericValue value = null;
         try {
-            value = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.SharkUser, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.userName, username));
+            value = delegator.findOne(org.ofbiz.shark.SharkConstants.SharkUser, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.userName, username), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new RootException(e);
@@ -414,7 +414,7 @@ public class GenericUserGroupMgr implements UserGroupManager {
         Delegator delegator = SharkContainer.getDelegator();
         GenericValue value = null;
         try {
-            value = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.SharkGroup, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.groupName, groupName));
+            value = delegator.findOne(org.ofbiz.shark.SharkConstants.SharkGroup, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.groupName, groupName), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new RootException(e);
@@ -426,7 +426,7 @@ public class GenericUserGroupMgr implements UserGroupManager {
         Delegator delegator = SharkContainer.getDelegator();
         GenericValue member = null;
         try {
-            member = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.SharkGroupMember, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.groupName, groupName, org.ofbiz.shark.SharkConstants.userName, username));
+            member = delegator.findOne(org.ofbiz.shark.SharkConstants.SharkGroupMember, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.groupName, groupName, org.ofbiz.shark.SharkConstants.userName, username), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new RootException(e);
@@ -438,7 +438,7 @@ public class GenericUserGroupMgr implements UserGroupManager {
         Delegator delegator = SharkContainer.getDelegator();
         GenericValue rollup = null;
         try {
-            rollup = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.SharkGroupRollup, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.parentGroupName, parentGroup, org.ofbiz.shark.SharkConstants.groupName, group));
+            rollup = delegator.findOne(org.ofbiz.shark.SharkConstants.SharkGroupRollup, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.parentGroupName, parentGroup, org.ofbiz.shark.SharkConstants.groupName, group), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new RootException(e);

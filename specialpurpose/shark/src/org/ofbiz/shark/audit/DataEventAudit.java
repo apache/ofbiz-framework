@@ -46,7 +46,7 @@ public class DataEventAudit extends EventAudit implements DataEventAuditPersiste
         super(mgr, delegator, eventAuditId);
         if (this.delegator != null) {
             try {
-                this.dataEventAudit = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.WfDataEventAudit, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.eventAuditId, eventAuditId));
+                this.dataEventAudit = delegator.findOne(org.ofbiz.shark.SharkConstants.WfDataEventAudit, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.eventAuditId, eventAuditId), false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }

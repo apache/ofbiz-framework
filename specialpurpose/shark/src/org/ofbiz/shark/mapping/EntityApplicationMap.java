@@ -39,7 +39,7 @@ public class EntityApplicationMap implements ApplicationMap {
     protected EntityApplicationMap(Delegator delegator, String packageId, String processDefId, String applicationDefId) throws RootException {
         this.delegator = delegator;
         try {
-            this.application = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.WfApplicationMap, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.packageId, packageId, org.ofbiz.shark.SharkConstants.processDefId, processDefId, org.ofbiz.shark.SharkConstants.applicationDefId, applicationDefId));
+            this.application = delegator.findOne(org.ofbiz.shark.SharkConstants.WfApplicationMap, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.packageId, packageId, org.ofbiz.shark.SharkConstants.processDefId, processDefId, org.ofbiz.shark.SharkConstants.applicationDefId, applicationDefId), false);
         } catch (GenericEntityException e) {
             throw new RootException(e);
         }

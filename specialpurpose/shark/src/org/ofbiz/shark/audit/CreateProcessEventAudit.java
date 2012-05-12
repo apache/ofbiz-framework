@@ -39,7 +39,7 @@ public class CreateProcessEventAudit extends EventAudit implements CreateProcess
         super(mgr, delegator, eventAuditId);
         if (this.delegator != null) {
             try {
-                this.createProcessEventAudit = delegator.findByPrimaryKey("WfCreateProcessEventAudit", UtilMisc.toMap("eventAuditId", eventAuditId));
+                this.createProcessEventAudit = delegator.findOne("WfCreateProcessEventAudit", UtilMisc.toMap("eventAuditId", eventAuditId), false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
