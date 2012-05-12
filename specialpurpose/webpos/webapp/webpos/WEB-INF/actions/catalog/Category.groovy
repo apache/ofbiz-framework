@@ -36,7 +36,7 @@ if (!(productCategoryId) && request.getAttribute("topCategoryId")) {
     productCategoryId = request.getAttribute("topCategoryId");
 }
 
-category = delegator.findByPrimaryKeyCache("ProductCategory", [productCategoryId : productCategoryId]);
+category = delegator.findOne("ProductCategory", [productCategoryId : productCategoryId], true);
 if (category) {
     if (category.detailScreen) {
         detailScreen = category.detailScreen;
