@@ -70,7 +70,7 @@ public class OagisInventoryServices {
 
         GenericValue userLogin = null;
         try {
-            userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+            userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", "system"), false);
         } catch (GenericEntityException e) {
             String errMsg = "Error Getting UserLogin: " + e.toString();
             Debug.logError(e, errMsg, module);
@@ -152,7 +152,7 @@ public class OagisInventoryServices {
                     String itemStatus = UtilXml.childElementValue(inventoryElement, "of:ITEMSTATUS");
 
                     // make sure productId is valid
-                    GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+                    GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
                     if (product == null) {
                         String errMsg = "Product with ID [" + productId + "] not found (invalid Product ID).";
                         errorMapList.add(UtilMisc.<String, String>toMap("reasonCode", "ProductIdNotValid", "description", errMsg));
@@ -237,7 +237,7 @@ public class OagisInventoryServices {
                     GenericValue facilityContactMech = (GenericValue) fcmIter.next();
                     String contactMechId = facilityContactMech.getString("contactMechId");
                     try {
-                        contactMech = delegator.findByPrimaryKey("ContactMech", UtilMisc.toMap("contactMechId", contactMechId));
+                        contactMech = delegator.findOne("ContactMech", UtilMisc.toMap("contactMechId", contactMechId), false);
                     } catch (GenericEntityException e) {
                         String errMsg = "Error Getting ContactMech: " + e.toString();
                         errorMapList.add(UtilMisc.<String, String>toMap("reasonCode", "GenericEntityException", "description", errMsg));
@@ -253,7 +253,7 @@ public class OagisInventoryServices {
 
                 if (UtilValidate.isNotEmpty(sendToEmail)) {
                     String productStoreId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.SyncInventoryProductStoreId");
-                    GenericValue productStoreEmail = delegator.findByPrimaryKey("ProductStoreEmailSetting", UtilMisc.toMap("productStoreId", productStoreId, "emailType", "PRDS_OAGIS_CONFIRM"));
+                    GenericValue productStoreEmail = delegator.findOne("ProductStoreEmailSetting", UtilMisc.toMap("productStoreId", productStoreId, "emailType", "PRDS_OAGIS_CONFIRM"), false);
                     if (productStoreEmail != null) {
                         String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
                         sendMap.put("bodyScreenUri", bodyScreenLocation);
@@ -362,7 +362,7 @@ public class OagisInventoryServices {
 
         GenericValue userLogin = null;
         try {
-            userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+            userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", "system"), false);
         } catch (GenericEntityException e) {
             String errMsg = "Error Getting UserLogin: " + e.toString();
             Debug.logError(e, errMsg, module);
@@ -399,7 +399,7 @@ public class OagisInventoryServices {
         // before getting into this check to see if we've tried once and had an error, if so set isErrorRetry even if it wasn't passed in
         GenericValue previousOagisMessageInfo = null;
         try {
-            previousOagisMessageInfo = delegator.findByPrimaryKey("OagisMessageInfo", omiPkMap);
+            previousOagisMessageInfo = delegator.findOne("OagisMessageInfo", omiPkMap, false);
         } catch (GenericEntityException e) {
             String errMsg = "Error getting OagisMessageInfo from database for message ID [" + omiPkMap + "]: " + e.toString();
             Debug.logInfo(e, errMsg, module);
@@ -467,7 +467,7 @@ public class OagisInventoryServices {
                     String productId = UtilXml.childElementValue(receiptLnElement, "of:ITEM");
 
                     // make sure productId is valid
-                    GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+                    GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
                     if (product == null) {
                         String errMsg = "Product with ID [" + productId + "] not found (invalid Product ID).";
                         errorMapList.add(UtilMisc.<String, String>toMap("reasonCode", "ProductIdNotValid", "description", errMsg));
@@ -489,7 +489,7 @@ public class OagisInventoryServices {
                     GenericValue orderHeader = null;
                     if (orderId != null) {
                         List<GenericValue> toStore = FastList.newInstance();
-                        orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+                        orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
                         if (orderHeader != null) {
                             // Case : update the record
                             ripCtx.put("orderId", orderId);
@@ -651,7 +651,7 @@ public class OagisInventoryServices {
 
         GenericValue userLogin = null;
         try {
-            userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+            userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", "system"), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error Getting UserLogin: " + e.toString(), module);
         }
@@ -699,7 +699,7 @@ public class OagisInventoryServices {
         // before getting into this check to see if we've tried once and had an error, if so set isErrorRetry even if it wasn't passed in
         GenericValue previousOagisMessageInfo = null;
         try {
-            previousOagisMessageInfo = delegator.findByPrimaryKey("OagisMessageInfo", omiPkMap);
+            previousOagisMessageInfo = delegator.findOne("OagisMessageInfo", omiPkMap, false);
         } catch (GenericEntityException e) {
             String errMsg = "Error getting OagisMessageInfo from database for message ID [" + omiPkMap + "]: " + e.toString();
             Debug.logInfo(e, errMsg, module);
@@ -772,7 +772,7 @@ public class OagisInventoryServices {
                         Debug.logError(errMsg, module);
                     }
                     // make sure productId is valid
-                    GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+                    GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
                     if (product == null) {
                         String errMsg = "Product with ID [" + productId + "] not found (invalid Product ID).";
                         errorMapList.add(UtilMisc.<String, String>toMap("reasonCode", "ProductIdNotValid", "description", errMsg));
@@ -793,7 +793,7 @@ public class OagisInventoryServices {
                     String returnItemSeqId = UtilXml.childElementValue(documentRefElement, "of:LINENUM");
                     if (UtilValidate.isNotEmpty(returnItemSeqId)) {
                         // if there is a LINENUM/returnItemSeqId make sure it is valid
-                        GenericValue returnItem = delegator.findByPrimaryKeyCache("ReturnItem", UtilMisc.toMap("returnId", returnId, "returnItemSeqId", returnItemSeqId));
+                        GenericValue returnItem = delegator.findOne("ReturnItem", UtilMisc.toMap("returnId", returnId, "returnItemSeqId", returnItemSeqId), true);
                         if (returnItem == null) {
                             String errMsg = "Return Item with ID [" + returnId + ":" + returnItemSeqId + "] not found (invalid Return/Item ID Combination).";
                             errorMapList.add(UtilMisc.<String, String>toMap("reasonCode", "ReturnAndItemIdNotValid", "description", errMsg));
@@ -828,7 +828,7 @@ public class OagisInventoryServices {
                     Timestamp timestampItemReceived = OagisServices.parseIsoDateString(datetimeReceived, errorMapList);
                     ripCtx.put("datetimeReceived", timestampItemReceived);
 
-                    GenericValue returnHeader = delegator.findByPrimaryKey("ReturnHeader", UtilMisc.toMap("returnId", returnId));
+                    GenericValue returnHeader = delegator.findOne("ReturnHeader", UtilMisc.toMap("returnId", returnId), false);
 
                     if (returnHeader != null) {
                         //getting ReturnHeader status
@@ -1166,7 +1166,7 @@ public class OagisInventoryServices {
 
         GenericValue userLogin = null;
         try {
-            userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+            userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", "system"), false);
         } catch (GenericEntityException e) {
             String errMsg = "Error Getting UserLogin: " + e.toString();
             Debug.logError(e, errMsg, module);
@@ -1210,7 +1210,7 @@ public class OagisInventoryServices {
         // before getting into this check to see if we've tried once and had an error, if so set isErrorRetry even if it wasn't passed in
         GenericValue previousOagisMessageInfo = null;
         try {
-            previousOagisMessageInfo = delegator.findByPrimaryKey("OagisMessageInfo", omiPkMap);
+            previousOagisMessageInfo = delegator.findOne("OagisMessageInfo", omiPkMap, false);
         } catch (GenericEntityException e) {
             String errMsg = "Error getting OagisMessageInfo from database for message ID [" + omiPkMap + "]: " + e.toString();
             Debug.logInfo(e, errMsg, module);
@@ -1278,7 +1278,7 @@ public class OagisInventoryServices {
                         Debug.logError(errMsg, module);
                     }
                     // make sure productId is valid
-                    GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+                    GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
                     if (product == null) {
                         String errMsg = "Product with ID [" + productId + "] not found (invalid Product ID).";
                         errorMapList.add(UtilMisc.<String, String>toMap("reasonCode", "ProductIdNotValid", "description", errMsg));
