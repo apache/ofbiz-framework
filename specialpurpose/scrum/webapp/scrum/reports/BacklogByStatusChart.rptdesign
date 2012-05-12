@@ -102,7 +102,7 @@ inputFinishedData =  FastMap.newInstance();
 
 try{
 
-        userLogin = delegator.findByPrimaryKey("UserLogin",UtilMisc.toMap("userLoginId","admin"));
+        userLogin = delegator.findOne("UserLogin",UtilMisc.toMap("userLoginId","admin"), false);
         inputOpenData.put("userLogin",userLogin);
         inputOpenData.put("productId",productId);
         inputOpenData.put("statusId","CRQ_ACCEPTED");

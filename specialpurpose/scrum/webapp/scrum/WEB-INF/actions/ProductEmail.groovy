@@ -32,9 +32,9 @@ now = UtilDateTime.nowTimestamp();
 try{
     if (UtilValidate.isNotEmpty(loginPartyId)) {
         if (UtilValidate.isNotEmpty(productId)) {
-        context.product = delegator.findByPrimaryKey("Product",["productId" : productId]);
+        context.product = delegator.findOne("Product",["productId" : productId], false);
         }
-        communicationEvent = delegator.findByPrimaryKey("CommunicationEvent",["communicationEventId" : communicationEventId]);
+        communicationEvent = delegator.findOne("CommunicationEvent",["communicationEventId" : communicationEventId], false);
         communicationEvent.communicationEventTypeId = "EMAIL_COMMUNICATION";
         communicationEvent.contactMechTypeId = "EMAIL_ADDRESS";
         communicationEvent.datetimeStarted = now;
@@ -45,7 +45,7 @@ try{
             // for owner
             productRole = delegator.findByAnd("ProductRole",["productId" : productId,"roleTypeId" : "PRODUCT_OWNER"]);
             context.productOwnerId = productRole[0].partyId
-            parentCom = delegator.findByPrimaryKey("CommunicationEvent",["communicationEventId" : communicationEventId]);
+            parentCom = delegator.findOne("CommunicationEvent",["communicationEventId" : communicationEventId], false);
             if (parentCom) {
                 context.partyIdFrom = productRole[0].partyId;
             } else {
@@ -80,7 +80,7 @@ try{
             // for owner
             productRole = delegator.findByAnd("ProductRole",["productId" : productId,"roleTypeId" : "PRODUCT_OWNER"]);
             context.productOwnerId = productRole[0].partyId;
-            parentCom = delegator.findByPrimaryKey("CommunicationEvent",["communicationEventId" : communicationEventId]);
+            parentCom = delegator.findOne("CommunicationEvent",["communicationEventId" : communicationEventId], false);
             if(parentCom){
                 context.partyIdTo = productRole[0].partyId;
             } else {

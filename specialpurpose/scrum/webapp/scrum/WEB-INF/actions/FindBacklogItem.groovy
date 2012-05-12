@@ -51,7 +51,7 @@ custRequestList.each { custRequestListMap ->
         taskBacklogList.each { taskBacklogMap ->
             taskId = taskBacklogMap.workEffortId;
             
-            task = delegator.findByPrimaryKey("WorkEffort", ["workEffortId" : taskId]);
+            task = delegator.findOne("WorkEffort", ["workEffortId" : taskId], false);
             if (task.workEffortTypeId == "SCRUM_TASK_IMPL") {
                 countImplTask+=1;
                 if ( task.currentStatusId == "STS_COMPLETED" || task.currentStatusId == "STS_CANCELLED") {

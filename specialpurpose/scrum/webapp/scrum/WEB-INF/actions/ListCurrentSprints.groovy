@@ -49,7 +49,7 @@ allSprints.each { sprint ->
     sprint = sprint.getAllFields();
     sprint.put("companyId", companyId)
     sprint.put("companyName", companyName)
-    product = delegator.findByPrimaryKey("Product",["productId" : sprint.productId]);
+    product = delegator.findOne("Product",["productId" : sprint.productId], false);
     productName = "";
     if (product != null) productName = product.internalName;
     sprint.put("productName", productName);

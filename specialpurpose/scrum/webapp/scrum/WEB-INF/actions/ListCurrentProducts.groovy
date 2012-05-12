@@ -74,7 +74,7 @@ if (userLogin) {
     boolean addAllProducts = false;
     allProducts.each { product ->
         product = product.getAllFields();
-        productMap = delegator.findByPrimaryKey("Product", ["productId" : product.productId]);    
+        productMap = delegator.findOne("Product", ["productId" : product.productId], false);    
         product.put("longDescription",productMap.longDescription)
         if(security.hasEntityPermission("SCRUM", "_ADMIN", session)){
             addAllProducts = true;
