@@ -38,7 +38,7 @@ cart = ShoppingCartEvents.getCartObject(request);
 context.remove("totalPrice");
 
 if (optProductId) {
-    miniProduct = delegator.findByPrimaryKey("Product", [productId : optProductId]);
+    miniProduct = delegator.findOne("Product", [productId : optProductId], false);
 }
 
 if (miniProduct && productStoreId && prodCatalogId ) {

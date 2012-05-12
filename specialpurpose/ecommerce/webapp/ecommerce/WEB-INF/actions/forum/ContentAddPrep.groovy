@@ -76,7 +76,7 @@ contentPurpose = page.contentPurpose ?: "ARTICLE";
 singleWrapper.putInContext("contentPurpose", contentPurpose);
 singleWrapper.putInContext("forumId", contentIdTo);
 
-forumContent = delegator.findByPrimaryKeyCache("Content", [contentId : contentIdTo]);
+forumContent = delegator.findOne("Content", [contentId : contentIdTo], true);
 statusId = "CTNT_PUBLISHED";
 if (forumContent) {
     statusId = forumContent.statusId;

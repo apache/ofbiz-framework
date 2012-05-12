@@ -31,7 +31,7 @@ productStoreId = ProductStoreWorker.getProductStoreId(request);
 context.productStoreId = productStoreId;
 
 if (userLogin) {
-    profiledefs = delegator.findByPrimaryKey("PartyProfileDefault", [partyId : partyId, productStoreId : productStoreId]);
+    profiledefs = delegator.findOne("PartyProfileDefault", [partyId : partyId, productStoreId : productStoreId], false);
 
     showOld = "true".equals(parameters.SHOW_OLD);
 
@@ -45,7 +45,7 @@ if (userLogin) {
 
     // shipping methods - for default selection
     if (profiledefs?.defaultShipAddr) {
-        shipAddress = delegator.findByPrimaryKey("PostalAddress", [contactMechId : profiledefs.defaultShipAddr]);
+        shipAddress = delegator.findOne("PostalAddress", [contactMechId : profiledefs.defaultShipAddr], false);
         if (shipAddress) {
             carrierShipMeths = ProductStoreWorker.getAvailableStoreShippingMethods(delegator, productStoreId, shipAddress, [1], null, 0, 1);
             context.carrierShipMethods = carrierShipMeths;

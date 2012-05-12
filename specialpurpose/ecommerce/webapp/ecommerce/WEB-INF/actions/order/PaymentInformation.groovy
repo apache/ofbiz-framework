@@ -36,7 +36,7 @@ if (!partyId) {
 context.partyId = partyId;
 
 if (partyId && !partyId.equals("_NA_")) {
-    party = delegator.findByPrimaryKey("Party", [partyId : partyId]);
+    party = delegator.findOne("Party", [partyId : partyId], false);
     person = party.getRelatedOne("Person");
     context.party = party;
     context.person = person;
@@ -47,7 +47,7 @@ request.removeAttribute("_EVENT_MESSAGE_");
 
 if (parameters.useShipAddr && cart.getShippingContactMechId()) {
     shippingContactMech = cart.getShippingContactMechId();
-    postalAddress = delegator.findByPrimaryKey("PostalAddress", [contactMechId : shippingContactMech]);
+    postalAddress = delegator.findOne("PostalAddress", [contactMechId : shippingContactMech], false);
     context.useEntityFields = "Y";
     context.postalAddress = postalAddress;
 

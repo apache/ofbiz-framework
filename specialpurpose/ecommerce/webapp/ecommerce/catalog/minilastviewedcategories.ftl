@@ -32,7 +32,7 @@ under the License.
     <div class="screenlet-body">
       <ul class="browsecategorylist">
         <#list lastViewedCategories[0..limit] as categoryId>
-          <#assign category = delegator.findByPrimaryKeyCache("ProductCategory", Static["org.ofbiz.base.util.UtilMisc"].toMap("productCategoryId", categoryId))?if_exists>
+          <#assign category = delegator.findOne("ProductCategory", Static["org.ofbiz.base.util.UtilMisc"].toMap("productCategoryId", categoryId), true)?if_exists>
           <#if category?has_content>
             <li class="browsecategorytext">
               <#if catContentWrappers?exists && catContentWrappers[category.productCategoryId]?exists && catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")?exists>

@@ -42,7 +42,7 @@ if (partyId) {
 
     // NOTE: if there was an error, then don't look up and fill in all of this data, just use the values from the previous request (which will be in the parameters Map automagically)
     if (!request.getAttribute("_ERROR_MESSAGE_") && !request.getAttribute("_ERROR_MESSAGE_LIST_")) {
-        person = delegator.findByPrimaryKey("Person", [partyId : partyId]);
+        person = delegator.findOne("Person", [partyId : partyId], false);
         if (person) {
             context.callSubmitForm = true;
             // should never be null for the anonymous checkout, but just in case
@@ -93,7 +93,7 @@ context.cart = cart;
 request.removeAttribute("_EVENT_MESSAGE_");
 
 if (cartPartyId && !cartPartyId.equals("_NA_")) {
-    cartParty = delegator.findByPrimaryKey("Party", [partyId : cartPartyId]);
+    cartParty = delegator.findOne("Party", [partyId : cartPartyId], false);
     if (cartParty) {
         cartPerson = cartParty.getRelatedOne("Person");
         context.party = cartParty;
@@ -121,7 +121,7 @@ if (cart && cart.getShippingContactMechId()) {
 
 billingContactMechId = session.getAttribute("billingContactMechId");
 if (billingContactMechId) {
-    billPostalAddress = delegator.findByPrimaryKey("PostalAddress", [contactMechId : billingContactMechId]);
+    billPostalAddress = delegator.findOne("PostalAddress", [contactMechId : billingContactMechId], false);
     parameters.billingContactMechId = billPostalAddress.contactMechId;
     parameters.billToName = billPostalAddress.toName;
     parameters.billToAttnName = billPostalAddress.attnName;

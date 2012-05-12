@@ -61,7 +61,7 @@ if (!contentId && currentValue) {
     contentId = currentValue.contentId;
 }
 if (contentId && !currentValue) {
-    currentValue = delegator.findByPrimaryKeyCache("Content", [contentId : contentId]);
+    currentValue = delegator.findOne("Content", [contentId : contentId], true);
 }
 //Debug.logInfo("in contentprep, currentValue(1):" + currentValue, "");
 //Debug.logInfo("in contentprep, contentId(4):" + contentId, "");

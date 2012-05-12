@@ -66,7 +66,7 @@ lifoSet.each { pk0 ->
     } else {
         // should handle errors in some other way; this does not provide any tracing; impossible to locat
         // where the error actually occured
-        //Debug.logError("findByPrimaryKey on " + pk + " returned null");
+        //Debug.logError("findOne on " + pk + " returned null");
     }
 }
 context.put("mrvList", mrvList);

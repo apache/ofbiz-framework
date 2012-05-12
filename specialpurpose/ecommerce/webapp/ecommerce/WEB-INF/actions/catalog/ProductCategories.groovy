@@ -56,7 +56,7 @@ List fillTree(rootCat ,CatLvl, parentCategoryId) {
             // Display the category if this category containing products or contain the category that's containing products
             if(productsInCat || childList) {
                 def rootMap = FastMap.newInstance();
-                category = delegator.findByPrimaryKey("ProductCategory", ["productCategoryId": root.productCategoryId]);
+                category = delegator.findOne("ProductCategory", ["productCategoryId": root.productCategoryId], false);
                 categoryContentWrapper = new CategoryContentWrapper(category, request);
                 context.title = categoryContentWrapper.CATEGORY_NAME;
                 categoryDescription = categoryContentWrapper.DESCRIPTION;

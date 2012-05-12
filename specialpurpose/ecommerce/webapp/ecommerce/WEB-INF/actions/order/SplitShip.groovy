@@ -34,5 +34,5 @@ context.cart = cart;
 
 context.shippingContactMechList = ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
 
-profiledefs = delegator.findByPrimaryKey("PartyProfileDefault", [partyId : userLogin.partyId, productStoreId : productStoreId]);
+profiledefs = delegator.findOne("PartyProfileDefault", [partyId : userLogin.partyId, productStoreId : productStoreId], false);
 context.profileDefs = profiledefs;
