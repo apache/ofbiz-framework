@@ -401,8 +401,8 @@ public class IcsPaymentServices {
         if (party != null) {
             GenericValue avsOverride = null;
             try {
-                avsOverride = party.getDelegator().findByPrimaryKey("PartyIcsAvsOverride",
-                        UtilMisc.toMap("partyId", party.getString("partyId")));
+                avsOverride = party.getDelegator().findOne("PartyIcsAvsOverride",
+                        UtilMisc.toMap("partyId", party.getString("partyId")), false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }

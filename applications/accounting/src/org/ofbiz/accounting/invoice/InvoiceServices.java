@@ -120,7 +120,7 @@ public class InvoiceServices {
                 context.put("billItems", orderItems);
             }
             // get the system userid and store in context otherwise the invoice add service does not work
-            GenericValue userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+            GenericValue userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", "system"), false);
             if (userLogin != null) {
                 context.put("userLogin", userLogin);
             }
@@ -165,7 +165,7 @@ public class InvoiceServices {
         }
 
         try {
-            GenericValue orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+            GenericValue orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
             if (orderHeader == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                         "AccountingNoOrderHeader", locale));
@@ -496,7 +496,7 @@ public class InvoiceServices {
                 invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, INVOICE_ITEM_SEQUENCE_ID_DIGITS);
 
                 // Get the original order item from the DB, in case the quantity has been overridden
-                GenericValue originalOrderItem = delegator.findByPrimaryKey("OrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.getString("orderItemSeqId")));
+                GenericValue originalOrderItem = delegator.findOne("OrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.getString("orderItemSeqId")), false);
 
                 // create the item adjustment as line items
                 List<GenericValue> itemAdjustments = OrderReadHelper.getOrderItemAdjustmentList(orderItem, orh.getAdjustments());
@@ -1086,7 +1086,7 @@ public class InvoiceServices {
         if (orderShipment != null) {
             String orderId = orderShipment.getString("orderId");
             try {
-                GenericValue orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+                GenericValue orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
                 invoicePerShipment = orderHeader.getString("invoicePerShipment");
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(e.getMessage());
@@ -1124,7 +1124,7 @@ public class InvoiceServices {
         // 2.b If the invoice is in status other then IN-Process, skip this. These would be already paid and captured.
 
         try {
-            delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
+            delegator.findOne("Shipment", UtilMisc.toMap("shipmentId", shipmentId), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting Shipment entity for shipment " + shipmentId, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource,
@@ -1239,7 +1239,7 @@ public class InvoiceServices {
         //DEJ20060520: not used? planned to be used? List shipmentIdList = new LinkedList();
         for (String tmpShipmentId : shipmentIds) {
             try {
-                GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", tmpShipmentId));
+                GenericValue shipment = delegator.findOne("Shipment", UtilMisc.toMap("shipmentId", tmpShipmentId), false);
                 if ((shipment.getString("shipmentTypeId") != null) && (shipment.getString("shipmentTypeId").equals("PURCHASE_SHIPMENT"))) {
                     purchaseShipmentFound = true;
                 } else if ((shipment.getString("shipmentTypeId") != null) && (shipment.getString("shipmentTypeId").equals("DROP_SHIPMENT"))) {
@@ -1275,7 +1275,7 @@ public class InvoiceServices {
                 while (itemsIter.hasNext()) {
                     GenericValue item = itemsIter.next();
                     GenericValue inventoryItem = item.getRelatedOne("InventoryItem");
-                    GenericValue ownerPartyRole = delegator.findByPrimaryKeyCache("PartyRole", UtilMisc.toMap("partyId", inventoryItem.getString("ownerPartyId"), "roleTypeId", "INTERNAL_ORGANIZATIO"));
+                    GenericValue ownerPartyRole = delegator.findOne("PartyRole", UtilMisc.toMap("partyId", inventoryItem.getString("ownerPartyId"), "roleTypeId", "INTERNAL_ORGANIZATIO"), true);
                     if (UtilValidate.isEmpty(ownerPartyRole)) {
                         itemsIter.remove();
                     }
@@ -1726,10 +1726,10 @@ public class InvoiceServices {
         GenericValue itemMap = null;
         try {
             if (UtilValidate.isNotEmpty(key1)) {
-                itemMap = delegator.findByPrimaryKeyCache("InvoiceItemTypeMap", UtilMisc.toMap("invoiceItemMapKey", key1, "invoiceTypeId", invoiceTypeId));
+                itemMap = delegator.findOne("InvoiceItemTypeMap", UtilMisc.toMap("invoiceItemMapKey", key1, "invoiceTypeId", invoiceTypeId), true);
             }
             if (itemMap == null && UtilValidate.isNotEmpty(key2)) {
-                itemMap = delegator.findByPrimaryKeyCache("InvoiceItemTypeMap", UtilMisc.toMap("invoiceItemMapKey", key2, "invoiceTypeId", invoiceTypeId));
+                itemMap = delegator.findOne("InvoiceItemTypeMap", UtilMisc.toMap("invoiceItemMapKey", key2, "invoiceTypeId", invoiceTypeId), true);
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting InvoiceItemTypeMap entity record", module);
@@ -1757,7 +1757,7 @@ public class InvoiceServices {
         try {
 
             // get the shipment and validate that it is a sales return
-            GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
+            GenericValue shipment = delegator.findOne("Shipment", UtilMisc.toMap("shipmentId", shipmentId), false);
             if (shipment == null) {
                 return ServiceUtil.returnError(errorMsg + UtilProperties.getMessage(resource, 
                         "AccountingShipmentNotFound", locale));
@@ -1862,7 +1862,7 @@ public class InvoiceServices {
             String invoiceTypeId;
             String description;
             // get the return header
-            GenericValue returnHeader = delegator.findByPrimaryKey("ReturnHeader", UtilMisc.toMap("returnId", returnId));                                                  
+            GenericValue returnHeader = delegator.findOne("ReturnHeader", UtilMisc.toMap("returnId", returnId), false);                                                  
             if (returnHeader == null || returnHeader.get("returnHeaderTypeId") == null) {
                 return ServiceUtil.returnError("Return type cannot be null");                                                      
             }
@@ -2132,7 +2132,7 @@ public class InvoiceServices {
         String invoiceId = (String) context.get("invoiceId");
         GenericValue invoice = null ;
         try {
-            invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));
+            invoice = delegator.findOne("Invoice", UtilMisc.toMap("invoiceId", invoiceId), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem getting Invoice for Invoice ID" + invoiceId, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource,
@@ -2495,7 +2495,7 @@ public class InvoiceServices {
             errorMessageList.add(UtilProperties.getMessage(resource, "AccountingPaymentIdBlankNotSupplied", locale));
         } else {
             try {
-                payment = delegator.findByPrimaryKey("Payment", UtilMisc.toMap("paymentId", paymentId));
+                payment = delegator.findOne("Payment", UtilMisc.toMap("paymentId", paymentId), false);
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(e.getMessage());
             }
@@ -2529,7 +2529,7 @@ public class InvoiceServices {
         GenericValue toPayment = null;
         if (toPaymentId != null && !toPaymentId.equals("")) {
             try {
-                toPayment = delegator.findByPrimaryKey("Payment", UtilMisc.toMap("paymentId", toPaymentId));
+                toPayment = delegator.findOne("Payment", UtilMisc.toMap("paymentId", toPaymentId), false);
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(e.getMessage());
             }
@@ -2585,7 +2585,7 @@ public class InvoiceServices {
         if (invoiceId != null) {
             GenericValue invoice = null;
             try {
-                invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));
+                invoice = delegator.findOne("Invoice", UtilMisc.toMap("invoiceId", invoiceId), false);
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(e.getMessage());
             }
@@ -2604,8 +2604,8 @@ public class InvoiceServices {
         GenericValue billingAccount = null;
         if (billingAccountId != null && !billingAccountId.equals("")) {
             try {
-                billingAccount = delegator.findByPrimaryKey("BillingAccount", 
-                        UtilMisc.toMap("billingAccountId", billingAccountId));
+                billingAccount = delegator.findOne("BillingAccount", 
+                        UtilMisc.toMap("billingAccountId", billingAccountId), false);
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(e.getMessage());
             }
@@ -2634,7 +2634,7 @@ public class InvoiceServices {
         GenericValue invoiceItem = null;
         if (invoiceId != null) {
             try {
-                invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));
+                invoice = delegator.findOne("Invoice", UtilMisc.toMap("invoiceId", invoiceId), false);
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(e.getMessage());
             }
@@ -2713,8 +2713,8 @@ public class InvoiceServices {
             if (invoiceItemSeqId != null) {
                 // when itemSeqNr not provided delay checking on invoiceItemSeqId
                 try {
-                    invoiceItem = delegator.findByPrimaryKey("InvoiceItem",
-                            UtilMisc.toMap("invoiceId", invoiceId, "invoiceItemSeqId", invoiceItemSeqId));
+                    invoiceItem = delegator.findOne("InvoiceItem",
+                            UtilMisc.toMap("invoiceId", invoiceId, "invoiceItemSeqId", invoiceItemSeqId), false);
                 } catch (GenericEntityException e) {
                     return ServiceUtil.returnError(e.getMessage());
                 }
@@ -2788,8 +2788,8 @@ public class InvoiceServices {
             // prepare for creation
         } else { // retrieve existing paymentApplication
             try {
-                paymentApplication = delegator.findByPrimaryKey("PaymentApplication", 
-                        UtilMisc.toMap("paymentApplicationId", paymentApplicationId));
+                paymentApplication = delegator.findOne("PaymentApplication", 
+                        UtilMisc.toMap("paymentApplicationId", paymentApplicationId), false);
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(e.getMessage());
             }
@@ -3312,7 +3312,7 @@ public class InvoiceServices {
 
         String paymentId = (String) context.get("paymentId");
         try {
-            GenericValue payment = delegator.findByPrimaryKey("Payment", UtilMisc.toMap("paymentId", paymentId));
+            GenericValue payment = delegator.findOne("Payment", UtilMisc.toMap("paymentId", paymentId), false);
             if (payment == null) throw new GenericServiceException("Payment with ID [" + paymentId  + "] not found!");
 
             List<GenericValue> paymentApplications = payment.getRelated("PaymentApplication");

@@ -1265,7 +1265,7 @@ public class ValueLinkServices {
             GenericValue productStoreEmail = null;
             String emailType = "PRDS_GC_PURCHASE";
             try {
-                productStoreEmail = delegator.findByPrimaryKey("ProductStoreEmailSetting", UtilMisc.toMap("productStoreId", productStoreId, "emailType", emailType));
+                productStoreEmail = delegator.findOne("ProductStoreEmailSetting", UtilMisc.toMap("productStoreId", productStoreId, "emailType", emailType), false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Unable to get product store email setting for gift card purchase", module);
             }
@@ -1517,7 +1517,7 @@ public class ValueLinkServices {
         GenericValue productStoreEmail = null;
         String emailType = "PRDS_GC_RELOAD";
         try {
-            productStoreEmail = delegator.findByPrimaryKey("ProductStoreEmailSetting", UtilMisc.toMap("productStoreId", productStoreId, "emailType", emailType));
+            productStoreEmail = delegator.findOne("ProductStoreEmailSetting", UtilMisc.toMap("productStoreId", productStoreId, "emailType", emailType), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get product store email setting for gift card purchase", module);
         }

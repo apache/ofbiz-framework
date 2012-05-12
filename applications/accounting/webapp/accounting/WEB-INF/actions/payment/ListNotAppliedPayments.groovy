@@ -34,7 +34,7 @@ import org.ofbiz.entity.model.*;
 import java.text.NumberFormat;
 
 basePaymentId = parameters.paymentId;
-basePayment = delegator.findByPrimaryKey("Payment", [paymentId : basePaymentId]);
+basePayment = delegator.findOne("Payment", [paymentId : basePaymentId], false);
 
 decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
 rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");

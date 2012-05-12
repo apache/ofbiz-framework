@@ -98,7 +98,7 @@ public class FinAccountServices {
             // check for an existing account
             GenericValue creditAccount;
             if (finAccountId != null) {
-                creditAccount = delegator.findByPrimaryKey("FinAccount", UtilMisc.toMap("finAccountId", finAccountId));
+                creditAccount = delegator.findOne("FinAccount", UtilMisc.toMap("finAccountId", finAccountId), false);
             } else {
                 List<GenericValue> creditAccounts = delegator.findByAnd("FinAccount", lookupMap, UtilMisc.toList("-fromDate"));
                 creditAccount = EntityUtil.getFirst(EntityUtil.filterByDate(creditAccounts));
@@ -126,7 +126,7 @@ public class FinAccountServices {
                 if (createAccountResult != null) {
                     String creditAccountId = (String) createAccountResult.get("finAccountId");
                     if (UtilValidate.isNotEmpty(creditAccountId)) {
-                        creditAccount = delegator.findByPrimaryKey("FinAccount", UtilMisc.toMap("finAccountId", creditAccountId));
+                        creditAccount = delegator.findOne("FinAccount", UtilMisc.toMap("finAccountId", creditAccountId), false);
 
                         // create the owner role
                         Map<String, Object> roleCtx = FastMap.newInstance();
@@ -189,7 +189,7 @@ public class FinAccountServices {
 
         try {
             // get the product store id and use it to generate a unique fin account code
-            GenericValue productStoreFinAccountSetting = delegator.findByPrimaryKeyCache("ProductStoreFinActSetting", UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", finAccountTypeId));
+            GenericValue productStoreFinAccountSetting = delegator.findOne("ProductStoreFinActSetting", UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", finAccountTypeId), true);
             if (productStoreFinAccountSetting == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "AccountingFinAccountSetting", 
@@ -260,7 +260,7 @@ public class FinAccountServices {
             }
         } else {
             try {
-                finAccount = delegator.findByPrimaryKey("FinAccount", UtilMisc.toMap("finAccountId", finAccountId));
+                finAccount = delegator.findOne("FinAccount", UtilMisc.toMap("finAccountId", finAccountId), false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -303,7 +303,7 @@ public class FinAccountServices {
 
         GenericValue finAccount;
         try {
-            finAccount = delegator.findByPrimaryKey("FinAccount", UtilMisc.toMap("finAccountId", finAccountId));
+            finAccount = delegator.findOne("FinAccount", UtilMisc.toMap("finAccountId", finAccountId), false);
         } catch (GenericEntityException ex) {
             return ServiceUtil.returnError(ex.getMessage());
         }
@@ -346,7 +346,7 @@ public class FinAccountServices {
 
         GenericValue finAccount;
         try {
-            finAccount = delegator.findByPrimaryKey("FinAccount", UtilMisc.toMap("finAccountId", finAccountId));
+            finAccount = delegator.findOne("FinAccount", UtilMisc.toMap("finAccountId", finAccountId), false);
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(e.getMessage());
         }
@@ -388,9 +388,9 @@ public class FinAccountServices {
 
                         // make sure there is an order available to refund
                         if (orderId != null && orderItemSeqId != null) {
-                            GenericValue orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId",orderId));
+                            GenericValue orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId",orderId), false);
                             GenericValue productStore = delegator.getRelatedOne("ProductStore", orderHeader);
-                            GenericValue orderItem = delegator.findByPrimaryKey("OrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId));
+                            GenericValue orderItem = delegator.findOne("OrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId), false);
                             if (!"ITEM_CANCELLED".equals(orderItem.getString("statusId"))) {
 
                                 // make sure the item hasn't already been returned
@@ -447,8 +447,8 @@ public class FinAccountServices {
                                     }
 
                                     // get the return item
-                                    GenericValue returnItem = delegator.findByPrimaryKey("ReturnItem",
-                                            UtilMisc.toMap("returnId", returnId, "returnItemSeqId", returnItemSeqId));
+                                    GenericValue returnItem = delegator.findOne("ReturnItem",
+                                            UtilMisc.toMap("returnId", returnId, "returnItemSeqId", returnItemSeqId), false);
                                     GenericValue response = returnItem.getRelatedOne("ReturnItemResponse");
                                     if (response == null) {
                                         throw new GeneralException("No return response found for: " + returnItem.getPrimaryKey());

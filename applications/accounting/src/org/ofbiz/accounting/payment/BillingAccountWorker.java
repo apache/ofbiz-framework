@@ -132,7 +132,7 @@ public class BillingAccountWorker {
      * @throws GenericEntityException
      */
     public static BigDecimal getBillingAccountBalance(Delegator delegator, String billingAccountId) throws GenericEntityException {
-        GenericValue billingAccount = delegator.findByPrimaryKey("BillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId));
+        GenericValue billingAccount = delegator.findOne("BillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId), false);
         return getBillingAccountBalance(billingAccount);
     }
 
@@ -235,7 +235,7 @@ public class BillingAccountWorker {
     }
 
     public static BigDecimal getBillingAccountAvailableBalance(Delegator delegator, String billingAccountId) throws GenericEntityException {
-        GenericValue billingAccount = delegator.findByPrimaryKey("BillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId));
+        GenericValue billingAccount = delegator.findOne("BillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId), false);
         return getBillingAccountAvailableBalance(billingAccount);
     }
 
@@ -290,7 +290,7 @@ public class BillingAccountWorker {
         Map<String, Object> result = ServiceUtil.returnSuccess();
 
         try {
-            GenericValue billingAccount = delegator.findByPrimaryKey("BillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId));
+            GenericValue billingAccount = delegator.findOne("BillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId), false);
             if (billingAccount == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "AccountingBillingAccountNotFound",

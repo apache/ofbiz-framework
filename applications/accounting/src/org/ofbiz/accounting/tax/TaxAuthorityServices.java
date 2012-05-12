@@ -83,8 +83,8 @@ public class TaxAuthorityServices {
         if (shippingPrice != null) priceWithTax = priceWithTax.add(shippingPrice);
 
         try {
-            GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
-            GenericValue productStore = delegator.findByPrimaryKeyCache("ProductStore", UtilMisc.toMap("productStoreId", productStoreId));
+            GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
+            GenericValue productStore = delegator.findOne("ProductStore", UtilMisc.toMap("productStoreId", productStoreId), true);
             if (productStore == null) {
                 throw new IllegalArgumentException("Could not find ProductStore with ID [" + productStoreId + "] for tax calculation");
             }
@@ -95,7 +95,7 @@ public class TaxAuthorityServices {
                     List<GenericValue> taxAuthorityRawList = delegator.findList("TaxAuthority", EntityCondition.makeCondition("taxAuthGeoId", EntityOperator.EQUALS, productStore.get("vatTaxAuthGeoId")), null, null, null, true);
                     taxAuthoritySet.addAll(taxAuthorityRawList);
                 } else {
-                    GenericValue taxAuthority = delegator.findByPrimaryKeyCache("TaxAuthority", UtilMisc.toMap("taxAuthGeoId", productStore.get("vatTaxAuthGeoId"), "taxAuthPartyId", productStore.get("vatTaxAuthPartyId")));
+                    GenericValue taxAuthority = delegator.findOne("TaxAuthority", UtilMisc.toMap("taxAuthGeoId", productStore.get("vatTaxAuthGeoId"), "taxAuthPartyId", productStore.get("vatTaxAuthPartyId")), true);
                     taxAuthoritySet.add(taxAuthority);
                 }
 
@@ -155,10 +155,10 @@ public class TaxAuthorityServices {
         GenericValue facility = null;
         try {
             if (productStoreId != null) {
-                productStore = delegator.findByPrimaryKey("ProductStore", UtilMisc.toMap("productStoreId", productStoreId));
+                productStore = delegator.findOne("ProductStore", UtilMisc.toMap("productStoreId", productStoreId), false);
             }
             if (facilityId != null) {
-                facility = delegator.findByPrimaryKey("Facility", UtilMisc.toMap("facilityId", facilityId));
+                facility = delegator.findOne("Facility", UtilMisc.toMap("facilityId", facilityId), false);
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Data error getting tax settings: " + e.toString(), module);
@@ -174,8 +174,8 @@ public class TaxAuthorityServices {
             try {
                 GenericValue facilityContactMech = ContactMechWorker.getFacilityContactMechByPurpose(delegator, facilityId, UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION"));
                 if (facilityContactMech != null) {
-                    shippingAddress = delegator.findByPrimaryKey("PostalAddress",
-                            UtilMisc.toMap("contactMechId", facilityContactMech.getString("contactMechId")));
+                    shippingAddress = delegator.findOne("PostalAddress",
+                            UtilMisc.toMap("contactMechId", facilityContactMech.getString("contactMechId")), false);
                 }
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Data error getting tax settings: " + e.toString(), module);
@@ -416,7 +416,7 @@ public class TaxAuthorityServices {
                 String taxAuthPartyId = taxAuthorityRateProduct.getString("taxAuthPartyId");
 
                 // get glAccountId from TaxAuthorityGlAccount entity using the payToPartyId as the organizationPartyId
-                GenericValue taxAuthorityGlAccount = delegator.findByPrimaryKey("TaxAuthorityGlAccount", UtilMisc.toMap("taxAuthPartyId", taxAuthPartyId, "taxAuthGeoId", taxAuthGeoId, "organizationPartyId", payToPartyId));
+                GenericValue taxAuthorityGlAccount = delegator.findOne("TaxAuthorityGlAccount", UtilMisc.toMap("taxAuthPartyId", taxAuthPartyId, "taxAuthGeoId", taxAuthGeoId, "organizationPartyId", payToPartyId), false);
                 String taxAuthGlAccountId = null;
                 if (taxAuthorityGlAccount != null) {
                     taxAuthGlAccountId = taxAuthorityGlAccount.getString("glAccountId");

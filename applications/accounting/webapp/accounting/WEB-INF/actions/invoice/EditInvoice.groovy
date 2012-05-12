@@ -35,7 +35,7 @@ import javolution.util.FastMap;
 
 invoiceId = parameters.get("invoiceId");
 
-invoice = delegator.findByPrimaryKey("Invoice", [invoiceId : invoiceId]);
+invoice = delegator.findOne("Invoice", [invoiceId : invoiceId], false);
 context.invoice = invoice;
 
 currency = parameters.currency;        // allow the display of the invoice in the original currency, the default is to display the invoice in the default currency

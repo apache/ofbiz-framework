@@ -73,7 +73,7 @@ public class PaymentMethodServices {
         GenericValue paymentMethod = null;
 
         try {
-            paymentMethod = delegator.findByPrimaryKey("PaymentMethod", UtilMisc.toMap("paymentMethodId", paymentMethodId));
+            paymentMethod = delegator.findOne("PaymentMethod", UtilMisc.toMap("paymentMethodId", paymentMethodId), false);
         } catch (GenericEntityException e) {
             Debug.logWarning(e.toString(), module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
@@ -274,8 +274,8 @@ public class PaymentMethodServices {
         String paymentMethodId = (String) context.get("paymentMethodId");
 
         try {
-            creditCard = delegator.findByPrimaryKey("CreditCard", UtilMisc.toMap("paymentMethodId", paymentMethodId));
-            paymentMethod = delegator.findByPrimaryKey("PaymentMethod", UtilMisc.toMap("paymentMethodId", paymentMethodId));
+            creditCard = delegator.findOne("CreditCard", UtilMisc.toMap("paymentMethodId", paymentMethodId), false);
+            paymentMethod = delegator.findOne("PaymentMethod", UtilMisc.toMap("paymentMethodId", paymentMethodId), false);
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -445,7 +445,7 @@ public class PaymentMethodServices {
         Delegator delegator = dctx.getDelegator();
         GenericValue creditCard;
         try {
-            creditCard = delegator.findByPrimaryKey("CreditCard", UtilMisc.toMap("paymentMethodId", paymentMethodId));
+            creditCard = delegator.findOne("CreditCard", UtilMisc.toMap("paymentMethodId", paymentMethodId), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -560,8 +560,8 @@ public class PaymentMethodServices {
         String paymentMethodId = (String) context.get("paymentMethodId");
 
         try {
-            giftCard = delegator.findByPrimaryKey("GiftCard", UtilMisc.toMap("paymentMethodId", paymentMethodId));
-            paymentMethod = delegator.findByPrimaryKey("PaymentMethod", UtilMisc.toMap("paymentMethodId", paymentMethodId));
+            giftCard = delegator.findOne("GiftCard", UtilMisc.toMap("paymentMethodId", paymentMethodId), false);
+            paymentMethod = delegator.findOne("PaymentMethod", UtilMisc.toMap("paymentMethodId", paymentMethodId), false);
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
@@ -791,9 +791,9 @@ public class PaymentMethodServices {
         String paymentMethodId = (String) context.get("paymentMethodId");
 
         try {
-            eftAccount = delegator.findByPrimaryKey("EftAccount", UtilMisc.toMap("paymentMethodId", paymentMethodId));
+            eftAccount = delegator.findOne("EftAccount", UtilMisc.toMap("paymentMethodId", paymentMethodId), false);
             paymentMethod =
-                delegator.findByPrimaryKey("PaymentMethod", UtilMisc.toMap("paymentMethodId", paymentMethodId));
+                delegator.findOne("PaymentMethod", UtilMisc.toMap("paymentMethodId", paymentMethodId), false);
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 

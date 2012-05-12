@@ -23,7 +23,7 @@ import javolution.util.FastList;
 taxAuthorityHavingNoGlAccountList = FastList.newInstance();
 taxAuthorities = delegator.findList("TaxAuthority", null, null, ["taxAuthGeoId", "taxAuthPartyId"], null, false);
 taxAuthorities.each { taxAuthority ->
-    taxAuthorityGlAccount = delegator.findByPrimaryKey("TaxAuthorityGlAccount", [taxAuthGeoId : taxAuthority.taxAuthGeoId, taxAuthPartyId : taxAuthority.taxAuthPartyId, organizationPartyId : organizationPartyId]);
+    taxAuthorityGlAccount = delegator.findOne("TaxAuthorityGlAccount", [taxAuthGeoId : taxAuthority.taxAuthGeoId, taxAuthPartyId : taxAuthority.taxAuthPartyId, organizationPartyId : organizationPartyId], false);
     if (!taxAuthorityGlAccount) {
         taxAuthorityHavingNoGlAccountList.add(taxAuthority);
     }

@@ -42,7 +42,7 @@ if (!orderPaymentPreferenceId) {
   context.orderPaymentPreferenceId = orderPaymentPreference.orderPaymentPreferenceId;
 } else {
     // second purpose: grab the latest gateway response of the orderpaymentpreferenceId
-    orderPaymentPreference = delegator.findByPrimaryKey("OrderPaymentPreference", [orderPaymentPreferenceId : orderPaymentPreferenceId]);
+    orderPaymentPreference = delegator.findOne("OrderPaymentPreference", [orderPaymentPreferenceId : orderPaymentPreferenceId], false);
     gatewayResponses = orderPaymentPreference.getRelated("PaymentGatewayResponse", ["transactionDate DESC"]);
     EntityUtil.filterByCondition(gatewayResponses, EntityCondition.makeCondition("transCodeEnumId", EntityOperator.EQUALS, "PGT_AUTHORIZE"));
     
