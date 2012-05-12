@@ -867,7 +867,7 @@ under the License.
         <antcall target="load-admin-user-login"/>
     </target>
 
-    <target name="run-tests" depends="build"
+    <target name="run-tests"
           description="Run OFBiz default tests; you have to manually execute 'ant load-demo' before and see results in runtime/logs/test-results/html/all-tests.html.">
         <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
             <jvmarg value="${memory.initial.param}"/>
@@ -909,7 +909,7 @@ under the License.
             <env key="LC_ALL" value="C"/>
         </java>
     </target>
-    <target name="run-test" depends="build"
+    <target name="run-test"
           description="Run a single test, syntax eg: ant run-test -Dtest.component=service -Dtest.case=service-soap-tests">
         <fail unless="test.component">test.component is a required parameter: -Dtest.component=componentname</fail>
         <fail unless="test.case">test.case is a required parameter: -Dtest.case=testcasename</fail>
@@ -935,7 +935,7 @@ under the License.
             </condition>
         </fail>
     </target>
-    <target name="run-test-suite" depends="build"
+    <target name="run-test-suite"
             description="Run a single test suite, syntax eg: ant run-test-suite -Dtest.component=mycomponent -Dtest.suiteName=mytests">
         <fail unless="test.component">test.component is a required parameter: -Dtest.component=componentname</fail>
         <fail unless="test.suiteName">test.suiteName is a required parameter: -Dtest.suiteName=testsuitename</fail>
