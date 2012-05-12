@@ -71,7 +71,7 @@ public class InventoryServices {
         Locale locale = (Locale) context.get("locale");
 
         try {
-            inventoryItem = delegator.findByPrimaryKey("InventoryItem", UtilMisc.toMap("inventoryItemId", inventoryItemId));
+            inventoryItem = delegator.findOne("InventoryItem", UtilMisc.toMap("inventoryItemId", inventoryItemId), false);
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "ProductNotFindInventoryItemWithId", locale) + inventoryItemId);
@@ -223,8 +223,8 @@ public class InventoryServices {
         Locale locale = (Locale) context.get("locale");
 
         try {
-            inventoryTransfer = delegator.findByPrimaryKey("InventoryTransfer",
-                    UtilMisc.toMap("inventoryTransferId", inventoryTransferId));
+            inventoryTransfer = delegator.findOne("InventoryTransfer",
+                    UtilMisc.toMap("inventoryTransferId", inventoryTransferId), false);
             inventoryItem = inventoryTransfer.getRelatedOne("InventoryItem");
             destinationFacility = inventoryTransfer.getRelatedOne("ToFacility");
         } catch (GenericEntityException e) {
@@ -336,8 +336,8 @@ public class InventoryServices {
         Locale locale = (Locale) context.get("locale");
 
         try {
-            inventoryTransfer = delegator.findByPrimaryKey("InventoryTransfer",
-                    UtilMisc.toMap("inventoryTransferId", inventoryTransferId));
+            inventoryTransfer = delegator.findOne("InventoryTransfer",
+                    UtilMisc.toMap("inventoryTransferId", inventoryTransferId), false);
             if (UtilValidate.isEmpty(inventoryTransfer)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                         "ProductInventoryItemTransferNotFound", 
@@ -873,7 +873,7 @@ public class InventoryServices {
         Map<String, String> contextInput = UtilMisc.toMap("productId", productId, "facilityId", facilityId, "statusId", statusId);
         GenericValue product = null;
         try {
-            product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
+            product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
         } catch (GenericEntityException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

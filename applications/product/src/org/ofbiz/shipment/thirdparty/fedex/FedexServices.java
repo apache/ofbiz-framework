@@ -182,7 +182,7 @@ public class FedexServices {
         String emailAddress = null;
         try {
             // Make sure the company exists
-            GenericValue companyParty = delegator.findByPrimaryKeyCache("Party", UtilMisc.toMap("partyId", companyPartyId));
+            GenericValue companyParty = delegator.findOne("Party", UtilMisc.toMap("partyId", companyPartyId), true);
             if (companyParty == null) {
                 String errorMessage = "Party with partyId " + companyPartyId + " does not exist";
                 Debug.logError(errorMessage, module);
@@ -237,12 +237,12 @@ public class FedexServices {
                         "FacilityShipmentFedexCompanyPartyHasNotPostalAddress", 
                         UtilMisc.toMap("companyPartyId", companyPartyId), locale));
             }
-            GenericValue countryGeo = delegator.findByPrimaryKeyCache("Geo", UtilMisc.toMap("geoId", postalAddress.getString("countryGeoId")));
+            GenericValue countryGeo = delegator.findOne("Geo", UtilMisc.toMap("geoId", postalAddress.getString("countryGeoId")), true);
             String countryCode = countryGeo.getString("geoCode");
             String stateOrProvinceCode = null;
             // Only add the StateOrProvinceCode element if the address is in USA or Canada
             if (countryCode.equals("CA") || countryCode.equals("US")) {
-                GenericValue stateProvinceGeo = delegator.findByPrimaryKeyCache("Geo", UtilMisc.toMap("geoId", postalAddress.getString("stateProvinceGeoId")));
+                GenericValue stateProvinceGeo = delegator.findOne("Geo", UtilMisc.toMap("geoId", postalAddress.getString("stateProvinceGeoId")), true);
                 stateOrProvinceCode = stateProvinceGeo.getString("geoCode");
             }
 
@@ -470,12 +470,12 @@ public class FedexServices {
             Map<String, Object> shipRequestContext = FastMap.newInstance();
 
             // Get the shipment and the shipmentRouteSegment
-            GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
+            GenericValue shipment = delegator.findOne("Shipment", UtilMisc.toMap("shipmentId", shipmentId), false);
             if (UtilValidate.isEmpty(shipment)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "ProductShipmentNotFoundId", locale) + shipmentId);
             }
-            GenericValue shipmentRouteSegment = delegator.findByPrimaryKey("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId));
+            GenericValue shipmentRouteSegment = delegator.findOne("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), false);
             if (UtilValidate.isEmpty(shipmentRouteSegment)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "ProductShipmentRouteSegmentNotFound",
@@ -499,7 +499,7 @@ public class FedexServices {
 
             // Translate shipmentMethodTypeId to Fedex service code and carrier code
             String shipmentMethodTypeId = shipmentRouteSegment.getString("shipmentMethodTypeId");
-            GenericValue carrierShipmentMethod = delegator.findByPrimaryKey("CarrierShipmentMethod", UtilMisc.toMap("shipmentMethodTypeId", shipmentMethodTypeId, "partyId", "FEDEX", "roleTypeId", "CARRIER"));
+            GenericValue carrierShipmentMethod = delegator.findOne("CarrierShipmentMethod", UtilMisc.toMap("shipmentMethodTypeId", shipmentMethodTypeId, "partyId", "FEDEX", "roleTypeId", "CARRIER"), false);
             if (UtilValidate.isEmpty(carrierShipmentMethod)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentFedexRouteSegmentCarrierShipmentMethodNotFound",
@@ -558,7 +558,7 @@ public class FedexServices {
                             UtilMisc.toMap("contactMechId", originPostalAddress.getString("contactMechId"), 
                                     "shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
                 }
-                GenericValue stateProvinceGeo = delegator.findByPrimaryKeyCache("Geo", UtilMisc.toMap("geoId", originPostalAddress.getString("stateProvinceGeoId")));
+                GenericValue stateProvinceGeo = delegator.findOne("Geo", UtilMisc.toMap("geoId", originPostalAddress.getString("stateProvinceGeoId")), true);
                 originAddressStateOrProvinceCode = stateProvinceGeo.getString("geoCode");
             }
 
@@ -633,7 +633,7 @@ public class FedexServices {
                             UtilMisc.toMap("contactMechId", destinationPostalAddress.getString("contactMechId"), 
                                     "shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
                 }
-                GenericValue stateProvinceGeo = delegator.findByPrimaryKeyCache("Geo", UtilMisc.toMap("geoId", destinationPostalAddress.getString("stateProvinceGeoId")));
+                GenericValue stateProvinceGeo = delegator.findOne("Geo", UtilMisc.toMap("geoId", destinationPostalAddress.getString("stateProvinceGeoId")), true);
                 destinationAddressStateOrProvinceCode = stateProvinceGeo.getString("geoCode");
             }
 
@@ -659,7 +659,7 @@ public class FedexServices {
                         "FacilityShipmentFedexPartyToRequired", 
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
             }
-            GenericValue partyTo = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", destinationPartyId));
+            GenericValue partyTo = delegator.findOne("Party", UtilMisc.toMap("partyId", destinationPartyId), false);
             String destinationContactKey = "PERSON".equals(partyTo.getString("partyTypeId")) ? "DestinationContactPersonName" : "DestinationContactCompanyName";
             String destinationContactName = PartyHelper.getPartyName(partyTo, false);
             if (UtilValidate.isEmpty(destinationContactName)) {
@@ -795,7 +795,7 @@ public class FedexServices {
                 }
 
                 // Make sure that the packaging type is valid for FedEx
-                GenericValue carrierShipmentBoxType = delegator.findByPrimaryKey("CarrierShipmentBoxType", UtilMisc.toMap("partyId", "FEDEX", "shipmentBoxTypeId", packaging));
+                GenericValue carrierShipmentBoxType = delegator.findOne("CarrierShipmentBoxType", UtilMisc.toMap("partyId", "FEDEX", "shipmentBoxTypeId", packaging), false);
                 if (UtilValidate.isEmpty(carrierShipmentBoxType)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                             "FacilityShipmentFedexPackingTypeInvalid", 

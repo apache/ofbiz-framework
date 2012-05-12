@@ -114,7 +114,7 @@ under the License.
         <#assign listIndex = lowIndex>
         <#assign rowClass = "2">
         <#list productIds as productId><#-- note that there is no boundary range because that is being done before the list is put in the content -->
-          <#assign product = delegator.findByPrimaryKey("Product", Static["org.ofbiz.base.util.UtilMisc"].toMap("productId", productId))>
+          <#assign product = delegator.findOne("Product", Static["org.ofbiz.base.util.UtilMisc"].toMap("productId", productId), false)>
           <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
             <td>
               <input type="checkbox" name="selectResult" value="${productId}" onchange="checkProductToBagTextArea(this, '${productId}');"/>

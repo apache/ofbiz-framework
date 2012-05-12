@@ -59,7 +59,7 @@ context.imageNameOriginal = imageUrlPrefix + "/" + filenameExpander.expandString
 
 // Start ProductContent stuff
 if (productId) {
-    product = delegator.findByPrimaryKey("Product",["productId" : productId]);
+    product = delegator.findOne("Product",["productId" : productId], false);
     context.productId = productId;
 }
 

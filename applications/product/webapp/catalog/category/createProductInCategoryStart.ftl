@@ -32,7 +32,7 @@ under the License.
             <table cellspacing="0" class="basic-table">
             <#list productFeaturesByTypeMap.keySet() as productFeatureTypeId>
                 <#assign findPftMap = Static["org.ofbiz.base.util.UtilMisc"].toMap("productFeatureTypeId", productFeatureTypeId)>
-                <#assign productFeatureType = delegator.findByPrimaryKeyCache("ProductFeatureType", findPftMap)>
+                <#assign productFeatureType = delegator.findOne("ProductFeatureType", findPftMap, true)>
                 <#assign productFeatures = productFeaturesByTypeMap[productFeatureTypeId]>
                 <tr>
                     <td width="15%">${productFeatureType.description}:</td>

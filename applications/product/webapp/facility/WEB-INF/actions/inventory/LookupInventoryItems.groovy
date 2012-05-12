@@ -42,6 +42,6 @@ if (productId) {
     inventoryItems = delegator.findByAnd("InventoryItem", [productId : productId]);
     context.inventoryItemsForProduct = inventoryItems;
     context.productId = productId;
-    product = delegator.findByPrimaryKey("Product", [productId : productId]);
+    product = delegator.findOne("Product", [productId : productId], false);
     context.internalName = product.internalName;
 }

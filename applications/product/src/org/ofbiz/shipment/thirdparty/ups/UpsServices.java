@@ -122,11 +122,11 @@ public class UpsServices {
         String shipmentConfirmResponseString = null;
 
         try {
-            GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
+            GenericValue shipment = delegator.findOne("Shipment", UtilMisc.toMap("shipmentId", shipmentId), false);
             if (shipment == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "ProductShipmentNotFoundId", locale) + " " + shipmentId);
             }
-            GenericValue shipmentRouteSegment = delegator.findByPrimaryKey("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId));
+            GenericValue shipmentRouteSegment = delegator.findOne("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), false);
             if (shipmentRouteSegment == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "ProductShipmentRouteSegmentNotFound", 
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
@@ -201,7 +201,7 @@ public class UpsServices {
             }
 
             Map<String, Object> findCarrierShipmentMethodMap = UtilMisc.toMap("partyId", shipmentRouteSegment.get("carrierPartyId"), "roleTypeId", "CARRIER", "shipmentMethodTypeId", shipmentRouteSegment.get("shipmentMethodTypeId"));
-            GenericValue carrierShipmentMethod = delegator.findByPrimaryKey("CarrierShipmentMethod", findCarrierShipmentMethodMap);
+            GenericValue carrierShipmentMethod = delegator.findOne("CarrierShipmentMethod", findCarrierShipmentMethodMap, false);
             if (carrierShipmentMethod == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentUpsRouteSegmentCarrierShipmentMethodNotFound", 
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId, "carrierPartyId", shipmentRouteSegment.get("carrierPartyId"), "shipmentMethodTypeId", shipmentRouteSegment.get("shipmentMethodTypeId")), locale));
@@ -846,8 +846,8 @@ public class UpsServices {
         String shipmentAcceptResponseString = null;
 
         try {
-            //GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
-            GenericValue shipmentRouteSegment = delegator.findByPrimaryKey("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId));
+            //GenericValue shipment = delegator.findOne("Shipment", UtilMisc.toMap("shipmentId", shipmentId), false);
+            GenericValue shipmentRouteSegment = delegator.findOne("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), false);
 
             if (!"UPS".equals(shipmentRouteSegment.getString("carrierPartyId"))) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentUpsNotRouteSegmentCarrier", UtilMisc.toMap("shipmentRouteSegmentId", shipmentRouteSegmentId, "shipmentId", shipmentId), locale));
@@ -1283,8 +1283,8 @@ public class UpsServices {
         String voidShipmentResponseString = null;
 
         try {
-            //GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
-            GenericValue shipmentRouteSegment = delegator.findByPrimaryKey("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId));
+            //GenericValue shipment = delegator.findOne("Shipment", UtilMisc.toMap("shipmentId", shipmentId), false);
+            GenericValue shipmentRouteSegment = delegator.findOne("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), false);
 
             if (!"UPS".equals(shipmentRouteSegment.getString("carrierPartyId"))) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentUpsNotRouteSegmentCarrier", UtilMisc.toMap("shipmentRouteSegmentId", shipmentRouteSegmentId, "shipmentId", shipmentId), locale));
@@ -1488,8 +1488,8 @@ public class UpsServices {
         String trackResponseString = null;
 
         try {
-            //GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
-            GenericValue shipmentRouteSegment = delegator.findByPrimaryKey("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId));
+            //GenericValue shipment = delegator.findOne("Shipment", UtilMisc.toMap("shipmentId", shipmentId), false);
+            GenericValue shipmentRouteSegment = delegator.findOne("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), false);
 
             if (!"UPS".equals(shipmentRouteSegment.getString("carrierPartyId"))) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentUpsNotRouteSegmentCarrier", UtilMisc.toMap("shipmentRouteSegmentId", shipmentRouteSegmentId, "shipmentId", shipmentId), locale));
@@ -1716,7 +1716,7 @@ public class UpsServices {
         GenericValue shipToAddress = null;
         if (shippingContactMechId != null) {
             try {
-                shipToAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", shippingContactMechId));
+                shipToAddress = delegator.findOne("PostalAddress", UtilMisc.toMap("contactMechId", shippingContactMechId), false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
@@ -1729,7 +1729,7 @@ public class UpsServices {
         GenericValue shipFromAddress = null;
         if (shippingOriginContactMechId != null) {
             try {
-                shipFromAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", shippingOriginContactMechId));
+                shipFromAddress = delegator.findOne("PostalAddress", UtilMisc.toMap("contactMechId", shippingOriginContactMechId), false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentUnableFoundShipToAddresssForDropShipping", locale));
@@ -2060,7 +2060,7 @@ public class UpsServices {
                 GenericValue facilityContactMech = ContactMechWorker.getFacilityContactMechByPurpose(delegator, productStore.getString("inventoryFacilityId"), UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION"));
                 if (facilityContactMech != null) {
                     try {
-                        shipFromAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", facilityContactMech.getString("contactMechId")));
+                        shipFromAddress = delegator.findOne("PostalAddress", UtilMisc.toMap("contactMechId", facilityContactMech.getString("contactMechId")), false);
                     } catch (GenericEntityException e) {
                         Debug.logError(e, module);
                     }
@@ -2077,8 +2077,8 @@ public class UpsServices {
             // locate the CarrierShipmentMethod record
             GenericValue carrierShipmentMethod = null;
             try {
-                carrierShipmentMethod = delegator.findByPrimaryKey("CarrierShipmentMethod", UtilMisc.toMap("shipmentMethodTypeId",
-                        shipmentMethodTypeId, "partyId", carrierPartyId, "roleTypeId", carrierRoleTypeId));
+                carrierShipmentMethod = delegator.findOne("CarrierShipmentMethod", UtilMisc.toMap("shipmentMethodTypeId",
+                        shipmentMethodTypeId, "partyId", carrierPartyId, "roleTypeId", carrierRoleTypeId), false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
@@ -2411,11 +2411,11 @@ public class UpsServices {
         String shipmentConfirmResponseString = null;
 
         try {
-            GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
+            GenericValue shipment = delegator.findOne("Shipment", UtilMisc.toMap("shipmentId", shipmentId), false);
             if (shipment == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "ProductShipmentNotFoundId", locale) + " " + shipmentId);
             }
-            GenericValue shipmentRouteSegment = delegator.findByPrimaryKey("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId));
+            GenericValue shipmentRouteSegment = delegator.findOne("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), false);
             if (shipmentRouteSegment == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "ProductShipmentRouteSegmentNotFound", 
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
@@ -2481,7 +2481,7 @@ public class UpsServices {
             }
 
             Map<String, Object> findCarrierShipmentMethodMap = UtilMisc.toMap("partyId", shipmentRouteSegment.get("carrierPartyId"), "roleTypeId", "CARRIER", "shipmentMethodTypeId", shipmentRouteSegment.get("shipmentMethodTypeId"));
-            GenericValue carrierShipmentMethod = delegator.findByPrimaryKey("CarrierShipmentMethod", findCarrierShipmentMethodMap);
+            GenericValue carrierShipmentMethod = delegator.findOne("CarrierShipmentMethod", findCarrierShipmentMethodMap, false);
             if (carrierShipmentMethod == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentUpsRouteSegmentCarrierShipmentMethodNotFound", 
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId, "carrierPartyId", shipmentRouteSegment.get("carrierPartyId"), "shipmentMethodTypeId", shipmentRouteSegment.get("shipmentMethodTypeId")), locale));

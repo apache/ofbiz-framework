@@ -51,7 +51,7 @@ public class ShipmentEvents {
 
         GenericValue shipmentPackageRouteSeg = null;
         try {
-            shipmentPackageRouteSeg = delegator.findByPrimaryKey("ShipmentPackageRouteSeg", UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId, "shipmentPackageSeqId", shipmentPackageSeqId));
+            shipmentPackageRouteSeg = delegator.findOne("ShipmentPackageRouteSeg", UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId, "shipmentPackageSeqId", shipmentPackageSeqId), false);
         } catch (GenericEntityException e) {
             String errorMsg = "Error looking up ShipmentPackageRouteSeg: " + e.toString();
             Debug.logError(e, errorMsg, module);

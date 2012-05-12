@@ -96,7 +96,7 @@ public class ProductConfigWrapper implements Serializable {
     }
 
     private void init(Delegator delegator, LocalDispatcher dispatcher, String productId, String productStoreId, String catalogId, String webSiteId, String currencyUomId, Locale locale, GenericValue autoUserLogin) throws Exception {
-        product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
+        product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
         if (product == null || !product.getString("productTypeId").equals("AGGREGATED") && !product.getString("productTypeId").equals("AGGREGATED_SERVICE")) {
             throw new ProductConfigWrapperException("Product " + productId + " is not an AGGREGATED product.");
         }
@@ -624,7 +624,7 @@ public class ProductConfigWrapper implements Serializable {
                 String variantProductId = componentOptions.get(oneComponent.getString("productId"));
 
                 if (UtilValidate.isNotEmpty(variantProductId)) {
-                    oneComponentProduct = pcw.delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", variantProductId));
+                    oneComponentProduct = pcw.delegator.findOne("Product", UtilMisc.toMap("productId", variantProductId), false);
                 }
 
                 // Get the component's price

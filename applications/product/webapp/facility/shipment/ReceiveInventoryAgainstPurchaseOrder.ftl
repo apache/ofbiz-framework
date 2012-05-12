@@ -132,7 +132,7 @@ under the License.
                             <td>
                                 <div>
                                     <#assign upcaLookup = Static["org.ofbiz.base.util.UtilMisc"].toMap("productId", product.productId, "goodIdentificationTypeId", "UPCA")/>
-                                    <#assign upca = delegator.findByPrimaryKeyCache("GoodIdentification", upcaLookup)?if_exists/>
+                                    <#assign upca = delegator.findOne("GoodIdentification", upcaLookup, true)?if_exists/>
                                     <#if upca?has_content>
                                         ${upca.idValue?if_exists}
                                     </#if>

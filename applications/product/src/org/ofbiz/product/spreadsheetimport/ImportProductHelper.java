@@ -65,8 +65,8 @@ public class ImportProductHelper {
         GenericValue tmpProductGV;
         boolean productExists = false;
         try {
-            tmpProductGV = delegator.findByPrimaryKey("Product", UtilMisc
-                .toMap("productId", productId));
+            tmpProductGV = delegator.findOne("Product", UtilMisc
+                .toMap("productId", productId), false);
             if (tmpProductGV != null
                     && productId.equals(tmpProductGV.getString("productId")))
                 productExists = true;

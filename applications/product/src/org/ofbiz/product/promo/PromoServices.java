@@ -91,7 +91,7 @@ public class PromoServices {
                 }
                 GenericValue existingPromoCode = null;
                 try {
-                    existingPromoCode = delegator.findByPrimaryKeyCache("ProductPromoCode", "productPromoCodeId", newPromoCodeId);
+                    existingPromoCode = delegator.findOne("ProductPromoCode", UtilMisc.toMap("productPromoCodeId", newPromoCodeId), true);
                 }
                 catch (GenericEntityException e) {
                     Debug.logWarning("Could not find ProductPromoCode for just generated ID: " + newPromoCodeId, module);

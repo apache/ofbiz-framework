@@ -61,7 +61,7 @@ public class ProductStoreWorker {
         }
         GenericValue productStore = null;
         try {
-            productStore = delegator.findByPrimaryKeyCache("ProductStore", UtilMisc.toMap("productStoreId", productStoreId));
+            productStore = delegator.findOne("ProductStore", UtilMisc.toMap("productStoreId", productStoreId), true);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem getting ProductStore entity", module);
         }
@@ -115,7 +115,7 @@ public class ProductStoreWorker {
     public static String determineSingleFacilityForStore(Delegator delegator, String productStoreId) {
         GenericValue productStore = null;
         try {
-            productStore = delegator.findByPrimaryKey("ProductStore", UtilMisc.toMap("productStoreId", productStoreId));
+            productStore = delegator.findOne("ProductStore", UtilMisc.toMap("productStoreId", productStoreId), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -166,7 +166,7 @@ public class ProductStoreWorker {
     public static GenericValue getProductStorePaymentSetting(Delegator delegator, String productStoreId, String paymentMethodTypeId, String paymentServiceTypeEnumId, boolean anyServiceType) {
         GenericValue storePayment = null;
         try {
-            storePayment = delegator.findByPrimaryKeyCache("ProductStorePaymentSetting", UtilMisc.toMap("productStoreId", productStoreId, "paymentMethodTypeId", paymentMethodTypeId, "paymentServiceTypeEnumId", paymentServiceTypeEnumId));
+            storePayment = delegator.findOne("ProductStorePaymentSetting", UtilMisc.toMap("productStoreId", productStoreId, "paymentMethodTypeId", paymentMethodTypeId, "paymentServiceTypeEnumId", paymentServiceTypeEnumId), true);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems looking up store payment settings", module);
         }
@@ -487,7 +487,7 @@ public class ProductStoreWorker {
 
                 // if the item is a variant, get its virtual productId
                 try {
-                    product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+                    product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
                     if ((product != null) && ("Y".equals(product.get("isVariant")))) {
                         if (parentProductId != null) {
                             virtualProductId = parentProductId;

@@ -837,7 +837,7 @@ public class PackingSession implements java.io.Serializable {
     protected void setPickerOnPicklist() throws GeneralException {
         if (picklistBinId != null) {
             // first find the picklist id
-            GenericValue bin = this.getDelegator().findByPrimaryKey("PicklistBin", UtilMisc.toMap("picklistBinId", picklistBinId));
+            GenericValue bin = this.getDelegator().findOne("PicklistBin", UtilMisc.toMap("picklistBinId", picklistBinId), false);
             if (bin != null) {
                 Map<String, Object> ctx = FastMap.newInstance();
                 ctx.put("picklistId", bin.getString("picklistId"));

@@ -84,7 +84,7 @@ public class VariantEvents {
 
             try {
                 // read the product, duplicate it with the given id
-                GenericValue product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
+                GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
                 if (product == null) {
                     Map<String, String> messageMap = UtilMisc.toMap("productId", productId);
                     errMsg = UtilProperties.getMessage(resource,"variantevents.product_not_found_with_ID", messageMap, UtilHttp.getLocale(request));
@@ -94,7 +94,7 @@ public class VariantEvents {
                 }
 
                 // check if product exists
-                GenericValue variantProduct = delegator.findByPrimaryKey("Product",UtilMisc.toMap("productId", variantProductId));
+                GenericValue variantProduct = delegator.findOne("Product",UtilMisc.toMap("productId", variantProductId), false);
                 if (variantProduct == null) {
                     //if product does not exist
                     variantProduct = GenericValue.create(product);
@@ -130,7 +130,7 @@ public class VariantEvents {
                         return "error";
                     }
 
-                    GenericValue productFeature = delegator.findByPrimaryKey("ProductFeature", UtilMisc.toMap("productFeatureId", productFeatureId));
+                    GenericValue productFeature = delegator.findOne("ProductFeature", UtilMisc.toMap("productFeatureId", productFeatureId), false);
 
                     GenericValue productFeatureAppl = delegator.makeValue("ProductFeatureAppl",
                             UtilMisc.toMap("productId", variantProductId, "productFeatureId", productFeatureId,
