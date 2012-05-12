@@ -47,7 +47,7 @@ public class Process extends InstanceEntityObject implements ProcessPersistenceI
         super(mgr, delegator);
         if (this.delegator != null) {
             try {
-                this.process = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.WfProcess, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.processId, processId));
+                this.process = delegator.findOne(org.ofbiz.shark.SharkConstants.WfProcess, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.processId, processId), false);
             } catch (GenericEntityException e) {
                 Debug.logError("Invalid delegator object passed", module);
                 e.printStackTrace();

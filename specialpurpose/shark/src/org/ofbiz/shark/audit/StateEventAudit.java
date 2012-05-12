@@ -39,7 +39,7 @@ public class StateEventAudit extends EventAudit implements StateEventAuditPersis
         super(mgr, delegator, eventAuditId);
         if (this.delegator != null) {
             try {
-                this.stateEventAudit = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.WfStateEventAudit, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.eventAuditId, eventAuditId));
+                this.stateEventAudit = delegator.findOne(org.ofbiz.shark.SharkConstants.WfStateEventAudit, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.eventAuditId, eventAuditId), false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }

@@ -202,7 +202,7 @@ public class PartyUserGroupMgr implements UserGroupManager {
     protected GenericValue getUserLogin(String username) throws RootException {
         GenericValue userLogin = null;
         try {
-            userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", username));
+            userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", username), false);
         } catch (GenericEntityException e) {
             throw new RootException(e);
         }

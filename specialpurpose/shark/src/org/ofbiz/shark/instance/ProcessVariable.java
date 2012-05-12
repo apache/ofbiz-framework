@@ -43,7 +43,7 @@ public class ProcessVariable extends InstanceEntityObject implements ProcessVari
         super(mgr, delegator);
         if (this.delegator != null) {
             try {
-                this.processVariable = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.WfProcessVariable, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.processVariableId, processVariableId));
+                this.processVariable = delegator.findOne(org.ofbiz.shark.SharkConstants.WfProcessVariable, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.processVariableId, processVariableId), false);
             } catch (GenericEntityException e) {
                 throw new PersistenceException(e);
             }

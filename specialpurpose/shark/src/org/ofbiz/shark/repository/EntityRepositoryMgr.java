@@ -281,7 +281,7 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
         Delegator delegator = SharkContainer.getDelegator();
         GenericValue xpdl = null;
         try {
-            xpdl = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.WfRepository, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.xpdlId, xpdlId, org.ofbiz.shark.SharkConstants.xpdlVersion, xpdlVersion));
+            xpdl = delegator.findOne(org.ofbiz.shark.SharkConstants.WfRepository, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.xpdlId, xpdlId, org.ofbiz.shark.SharkConstants.xpdlVersion, xpdlVersion), false);
             if (!includeHistorical && xpdl.get(org.ofbiz.shark.SharkConstants.isHistorical) != null && xpdl.getString(org.ofbiz.shark.SharkConstants.isHistorical).equalsIgnoreCase("Y")) {
                 xpdl = null;
 

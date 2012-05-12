@@ -44,7 +44,7 @@ public class Deadline extends InstanceEntityObject implements DeadlinePersistenc
         super(mgr, delegator);
         if (this.delegator != null) {
             try {
-                this.deadline = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.WfDeadline, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.deadlineId, deadlineId));
+                this.deadline = delegator.findOne(org.ofbiz.shark.SharkConstants.WfDeadline, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.deadlineId, deadlineId), false);
             } catch (GenericEntityException e) {
                 throw new PersistenceException(e);
             }

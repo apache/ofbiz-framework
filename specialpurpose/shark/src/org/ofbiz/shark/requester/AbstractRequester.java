@@ -158,8 +158,8 @@ public abstract class AbstractRequester implements WfRequester, Serializable {
         if (userLogin == null && this.userLoginId != null) {
             Delegator delegator = this.getDelegator();
             if (delegator != null) {
-                this.userLogin = delegator.findByPrimaryKey("UserLogin",
-                        UtilMisc.toMap("userLoginId", this.userLoginId));
+                this.userLogin = delegator.findOne("UserLogin",
+                        UtilMisc.toMap("userLoginId", this.userLoginId), false);
             }
         }
         return this.userLogin;

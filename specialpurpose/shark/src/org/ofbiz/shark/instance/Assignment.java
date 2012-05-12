@@ -42,7 +42,7 @@ public class Assignment extends InstanceEntityObject implements AssignmentPersis
         super(mgr, delegator);
         if (this.delegator != null) {
             try {
-                this.assignment = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.WfAssignment, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.activityId, activityId, org.ofbiz.shark.SharkConstants.userName, userName));
+                this.assignment = delegator.findOne(org.ofbiz.shark.SharkConstants.WfAssignment, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.activityId, activityId, org.ofbiz.shark.SharkConstants.userName, userName), false);
             } catch (GenericEntityException e) {
                 throw new PersistenceException(e);
             }

@@ -114,7 +114,7 @@ public class SharkContainer implements Container, Runnable
 
         // get the admin user
         try {
-            SharkContainer.adminUser = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", adminProp.value));
+            SharkContainer.adminUser = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", adminProp.value), false);
         } catch (GenericEntityException e) {
             throw new ContainerException(e);
         }

@@ -43,7 +43,7 @@ public class EntityParticipantMap implements ParticipantMap {
     protected EntityParticipantMap(Delegator delegator, String packageId, String processDefId, String participantId) throws RootException {
         this.delegator = delegator;
         try {
-            this.participant = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.WfParticipantMap, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.packageId, packageId, org.ofbiz.shark.SharkConstants.processDefId, processDefId, org.ofbiz.shark.SharkConstants.participantId, participantId));
+            this.participant = delegator.findOne(org.ofbiz.shark.SharkConstants.WfParticipantMap, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.packageId, packageId, org.ofbiz.shark.SharkConstants.processDefId, processDefId, org.ofbiz.shark.SharkConstants.participantId, participantId), false);
         } catch (GenericEntityException e) {
             throw new RootException(e);
         }

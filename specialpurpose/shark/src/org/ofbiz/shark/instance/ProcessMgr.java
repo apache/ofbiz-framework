@@ -41,7 +41,7 @@ public class ProcessMgr extends InstanceEntityObject implements ProcessMgrPersis
         super(mgr, delegator);
         if (this.delegator != null) {
             try {
-                this.processMgr = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.WfProcessMgr, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.mgrName, name));
+                this.processMgr = delegator.findOne(org.ofbiz.shark.SharkConstants.WfProcessMgr, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.mgrName, name), false);
             } catch (GenericEntityException e) {
                 throw new PersistenceException(e);
             }

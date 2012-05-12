@@ -45,7 +45,7 @@ public class ActivityVariable extends InstanceEntityObject implements ActivityVa
         this.delegator = delegator;
         if (this.delegator != null) {
             try {
-                this.activityVariable = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.WfActivityVariable, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.activityVariableId, activityVariableId));
+                this.activityVariable = delegator.findOne(org.ofbiz.shark.SharkConstants.WfActivityVariable, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.activityVariableId, activityVariableId), false);
             } catch (GenericEntityException e) {
                 throw new PersistenceException(e);
             }

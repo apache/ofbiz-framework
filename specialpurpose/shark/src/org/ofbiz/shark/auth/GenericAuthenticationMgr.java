@@ -46,7 +46,7 @@ public class GenericAuthenticationMgr implements AuthenticationManager {
         Delegator delegator = SharkContainer.getDelegator();
         GenericValue sharkUser = null;
         try {
-            sharkUser = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.SharkUser, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.userName, userName));
+            sharkUser = delegator.findOne(org.ofbiz.shark.SharkConstants.SharkUser, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.userName, userName), false);
         } catch (GenericEntityException e) {
             throw new RootException(e);
         }

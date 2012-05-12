@@ -42,7 +42,7 @@ public class AndJoinEntry extends InstanceEntityObject implements AndJoinEntryIn
         super(mgr, delegator);
         if (this.delegator != null) {
             try {
-                this.andJoin = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.WfAndJoin, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.andJoinId, andJoinId));
+                this.andJoin = delegator.findOne(org.ofbiz.shark.SharkConstants.WfAndJoin, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.andJoinId, andJoinId), false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }

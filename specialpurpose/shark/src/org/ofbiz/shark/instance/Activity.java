@@ -43,7 +43,7 @@ public class Activity extends InstanceEntityObject implements ActivityPersistenc
         this.delegator = delegator;
         if (this.delegator != null) {
             try {
-                this.activity = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.WfActivity, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.activityId, activityId));
+                this.activity = delegator.findOne(org.ofbiz.shark.SharkConstants.WfActivity, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.activityId, activityId), false);
             } catch (GenericEntityException e) {
                 throw new PersistenceException(e);
             }
