@@ -124,7 +124,7 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
                     Map<String, Object> performerFields = UtilMisc.toMap("packageId", (Object) valueObject.getString("packageId"),
                             "packageVersion", valueObject.getString("packageVersion"), "processId", "_NA_",
                             "processVersion", "_NA_", "participantId", valueObject.getString("performerParticipantId"));
-                    performer = delegator.findByPrimaryKey("WorkflowParticipant", performerFields);
+                    performer = delegator.findOne("WorkflowParticipant", performerFields, false);
                 }
             } catch (GenericEntityException e) {
                 throw new WfException(e.getMessage(), e);
@@ -168,11 +168,11 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
 
             try {
                 Map<String, Object> fields1 = UtilMisc.toMap("partyId", (Object) performer.getString("partyId"));
-                GenericValue v1 = getDelegator().findByPrimaryKey("Party", fields1);
+                GenericValue v1 = getDelegator().findOne("Party", fields1, false);
 
                 partyType = v1.getRelatedOne("PartyType");
                 Map<String, Object> fields2 = UtilMisc.toMap("partyTypeId", (Object) "PARTY_GROUP");
-                groupType = getDelegator().findByPrimaryKeyCache("PartyType", fields2);
+                groupType = getDelegator().findOne("PartyType", fields2, true);
             } catch (GenericEntityException e) {
                 throw new WfException(e.getMessage(), e);
             }
@@ -786,7 +786,7 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
     private GenericValue getUserLogin(String userId) throws WfException {
         GenericValue userLogin = null;
         try {
-            userLogin = getDelegator().findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", userId));
+            userLogin = getDelegator().findOne("UserLogin", UtilMisc.toMap("userLoginId", userId), false);
         } catch (GenericEntityException e) {
             throw new WfException(e.getMessage(), e);
         }

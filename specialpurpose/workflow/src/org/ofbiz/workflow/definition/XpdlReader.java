@@ -244,9 +244,9 @@ public class XpdlReader {
             String message = "";
 
             if (prefix.equals("package")) {
-                GenericValue gvCheck = valueObject.getDelegator().findByPrimaryKey("WorkflowPackage",
+                GenericValue gvCheck = valueObject.getDelegator().findOne("WorkflowPackage",
                         UtilMisc.toMap("packageId", valueObject.getString("packageId"),
-                            "packageVersion", valueObject.getString("packageVersion")));
+                            "packageVersion", valueObject.getString("packageVersion")), false);
 
                 if (gvCheck != null) {
                     message = "[xpdl] Package: " + valueObject.getString("packageId") +
@@ -254,11 +254,11 @@ public class XpdlReader {
                             ") has already been imported. Will not update/import.";
                 }
             } else if (prefix.equals("process")) {
-                GenericValue gvCheck = valueObject.getDelegator().findByPrimaryKey("WorkflowProcess",
+                GenericValue gvCheck = valueObject.getDelegator().findOne("WorkflowProcess",
                         UtilMisc.toMap("packageId", valueObject.getString("packageId"),
                             "packageVersion", valueObject.getString("packageVersion"),
                             "processId", valueObject.getString("processId"),
-                            "processVersion", valueObject.getString("processVersion")));
+                            "processVersion", valueObject.getString("processVersion")), false);
 
                 if (gvCheck != null) {
                     message = "[xpdl] Process: " + valueObject.getString("processId") +
@@ -1049,7 +1049,7 @@ public class XpdlReader {
             GenericValue testValue = null;
 
             try {
-                testValue = delegator.findByPrimaryKey("WorkflowParticipant", UtilMisc.toMap("participantId", participantId));
+                testValue = delegator.findOne("WorkflowParticipant", UtilMisc.toMap("participantId", participantId), false);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
             }
