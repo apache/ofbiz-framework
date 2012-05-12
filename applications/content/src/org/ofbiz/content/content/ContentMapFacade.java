@@ -112,9 +112,9 @@ public class ContentMapFacade implements Map<Object, Object> {
         this.cache = cache;
         try {
             if (cache) {
-                this.value = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentId));
+                this.value = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), true);
             } else {
-                this.value = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
+                this.value = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
@@ -233,9 +233,9 @@ public class ContentMapFacade implements Map<Object, Object> {
             }
             try {
                 if (cache) {
-                    this.fields = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentId));
+                    this.fields = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), true);
                 } else {
-                    this.fields = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
+                    this.fields = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
                 }
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
@@ -433,9 +433,9 @@ public class ContentMapFacade implements Map<Object, Object> {
             GenericValue content = null;
             try {
                 if (cache) {
-                    content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", name));
+                    content = delegator.findOne("Content", UtilMisc.toMap("contentId", name), true);
                 } else {
-                    content = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", name));
+                    content = delegator.findOne("Content", UtilMisc.toMap("contentId", name), false);
                 }
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);

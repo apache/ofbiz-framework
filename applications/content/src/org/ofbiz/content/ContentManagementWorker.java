@@ -346,7 +346,7 @@ public class ContentManagementWorker {
         GenericValue webSitePublishPoint = null;
         for(GenericValue contentAssoc : relatedPubPts) {
            String pub = (String)contentAssoc.get("contentId");
-           //webSitePublishPoint = delegator.findByPrimaryKeyCache("WebSitePublishPoint", UtilMisc.toMap("contentId", pub));
+           //webSitePublishPoint = delegator.findOne("WebSitePublishPoint", UtilMisc.toMap("contentId", pub), true);
            webSitePublishPoint = getWebSitePublishPoint(delegator, pub, false);
            allPublishPoints.add(webSitePublishPoint);
         }
@@ -429,7 +429,7 @@ public class ContentManagementWorker {
             webSitePublishPoint = cachedWebSitePublishPoints.get(contentId);
 
         if (webSitePublishPoint == null) {
-            webSitePublishPoint = delegator.findByPrimaryKey("WebSitePublishPoint", UtilMisc.toMap("contentId", contentId));
+            webSitePublishPoint = delegator.findOne("WebSitePublishPoint", UtilMisc.toMap("contentId", contentId), false);
             // If no webSitePublishPoint exists, still try to look for parent by making a dummy value
             if (webSitePublishPoint == null) {
                 webSitePublishPoint = delegator.makeValue("WebSitePublishPoint", UtilMisc.toMap("contentId", contentId));
@@ -448,7 +448,7 @@ public class ContentManagementWorker {
             //if (Debug.infoOn()) Debug.logInfo("in overrideWebSitePublishPoint, contentIdTo:" + contentIdTo, module);
         if (contentIdTo != null) {
             //webSitePublishPoint = getWebSitePublishPoint(delegator, contentIdTo, false);
-            webSitePublishPoint = delegator.findByPrimaryKeyCache("WebSitePublishPoint", UtilMisc.toMap("contentId", contentIdTo));
+            webSitePublishPoint = delegator.findOne("WebSitePublishPoint", UtilMisc.toMap("contentId", contentIdTo), true);
             if (webSitePublishPoint != null) {
                 webSitePublishPoint = GenericValue.create(webSitePublishPoint);
                 webSitePublishPoint = overrideWebSitePublishPoint(delegator, webSitePublishPoint);
@@ -463,7 +463,7 @@ public class ContentManagementWorker {
     public static GenericValue getParentWebSitePublishPointValue(Delegator delegator, String  contentId) throws GenericEntityException {
 
         String contentIdTo = getParentWebSitePublishPointId(delegator, contentId);
-        GenericValue content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentIdTo));
+        GenericValue content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentIdTo), true);
         return content;
     }
 
@@ -493,7 +493,7 @@ public class ContentManagementWorker {
 
 /*
         if (webSitePublishPoint == null) {
-            webSitePublishPoint = delegator.findByPrimaryKey("WebSitePublishPoint", UtilMisc.toMap("contentId", contentId));
+            webSitePublishPoint = delegator.findOne("WebSitePublishPoint", UtilMisc.toMap("contentId", contentId), false);
             // If no webSitePublishPoint exists, still try to look for parent by making a dummy value
             if (webSitePublishPoint == null) {
                 webSitePublishPoint = delegator.makeValue("WebSitePublishPoint", UtilMisc.toMap("contentId", contentId));
@@ -648,7 +648,7 @@ public class ContentManagementWorker {
         GenericValue departmentContent = null;
         for(GenericValue contentAssoc : relatedPubPts) {
            String pub = (String)contentAssoc.get("contentId");
-           departmentContent = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", pub));
+           departmentContent = delegator.findOne("Content", UtilMisc.toMap("contentId", pub), true);
            allDepartmentPoints.add(departmentContent);
         }
         return allDepartmentPoints;
@@ -657,7 +657,7 @@ public class ContentManagementWorker {
     public static String getUserName(HttpServletRequest request, String userLoginId) throws GenericEntityException {
         String userName = null;
         Delegator delegator = (Delegator)request.getAttribute("delegator");
-        GenericValue userLogin = delegator.findByPrimaryKeyCache("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
+        GenericValue userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", userLoginId), true);
         GenericValue person = userLogin.getRelatedOneCache("Person");
         userName = person.getString("firstName") + " " + person.getString("lastName");
         return userName;
@@ -665,7 +665,7 @@ public class ContentManagementWorker {
 
     public static int updateStatsTopDown(Delegator delegator, String contentId, List<String> typeList) throws GenericEntityException {
         int subLeafCount = 0;
-        GenericValue thisContent = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
+        GenericValue thisContent = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
         if (thisContent == null)
             throw new RuntimeException("No entity found for id=" + contentId);
 
@@ -694,7 +694,7 @@ public class ContentManagementWorker {
     }
 
     public static void updateStatsBottomUp(Delegator delegator, String contentId, List<String> typeList, int branchChangeAmount, int leafChangeAmount) throws GenericEntityException {
-        GenericValue thisContent = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
+        GenericValue thisContent = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
         if (thisContent == null)
             throw new RuntimeException("No entity found for id=" + contentId);
 
@@ -704,7 +704,7 @@ public class ContentManagementWorker {
         List<GenericValue> listFiltered = EntityUtil.filterByDate(listAll);
         for(GenericValue contentAssoc : listFiltered) {
             String contentIdTo = contentAssoc.getString("contentIdTo");
-            GenericValue contentTo = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentIdTo));
+            GenericValue contentTo = delegator.findOne("Content", UtilMisc.toMap("contentId", contentIdTo), false);
             int intLeafCount = 0;
             Long leafCount = (Long)contentTo.get("childLeafCount");
             if (leafCount != null) {

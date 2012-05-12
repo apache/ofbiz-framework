@@ -116,7 +116,7 @@ public class LoopSubContentTransform implements TemplateTransformModel {
             String parentContentId = (String)ctx.get("contentId");
             if (UtilValidate.isEmpty(mimeTypeId) && UtilValidate.isNotEmpty(parentContentId)) { // will need these below
                 try {
-                    GenericValue parentContent = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", parentContentId));
+                    GenericValue parentContent = delegator.findOne("Content", UtilMisc.toMap("contentId", parentContentId), false);
                     if (parentContent != null) {
                         mimeTypeId = (String) parentContent.get("mimeTypeId");
                         ctx.put("parentContent", parentContent);

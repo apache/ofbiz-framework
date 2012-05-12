@@ -317,7 +317,7 @@ public class ContentManagementServices {
                 contentExists = false;
             } else {
                 try {
-                    GenericValue val = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
+                    GenericValue val = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
                     if (val == null) contentExists = false;
                 } catch (GenericEntityException e) {
                     return ServiceUtil.returnError(e.toString());
@@ -407,7 +407,7 @@ public class ContentManagementServices {
             contentAssocContext.put("skipPermissionCheck", context.get("skipPermissionCheck"));
             Map<String, Object> thisResult = null;
             try {
-                GenericValue contentAssocExisting = delegator.findByPrimaryKey("ContentAssoc", contentAssoc.getPrimaryKey());
+                GenericValue contentAssocExisting = delegator.findOne("ContentAssoc", contentAssoc.getPrimaryKey(), false);
                 if (contentAssocExisting == null) {
                     ModelService contentAssocModel = dispatcher.getDispatchContext().getModelService("createContentAssoc");
                     Map<String, Object> ctx = contentAssocModel.makeValid(contentAssoc, "IN");
@@ -581,7 +581,7 @@ public class ContentManagementServices {
       Locale locale = (Locale) context.get("locale");
       Map<String, Object> result = FastMap.newInstance();
       try {
-          //GenericValue content = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
+          //GenericValue content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
           ModelService checkPermModel = dispatcher.getDispatchContext().getModelService("checkContentPermission");
           Map<String, Object> ctx = checkPermModel.makeValid(context, "IN");
           Map<String, Object> thisResult = dispatcher.runSync("checkContentPermission", ctx);
@@ -638,7 +638,7 @@ public class ContentManagementServices {
           dataResourceExists = false;
       } else {
           try {
-              GenericValue val = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
+              GenericValue val = delegator.findOne("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId), false);
               if (val == null) {
                   dataResourceExists = false;
               }
@@ -901,7 +901,7 @@ public class ContentManagementServices {
             if (Debug.infoOn()) {
                 Debug.logInfo("in updateOrRemove, entityValuePK:" + entityValuePK, module);
             }
-            GenericValue entityValueExisting = delegator.findByPrimaryKeyCache(entityName, entityValuePK);
+            GenericValue entityValueExisting = delegator.findOne(entityName, entityValuePK, true);
             if (Debug.infoOn()) {
                 Debug.logInfo("in updateOrRemove, entityValueExisting:" + entityValueExisting, module);
             }
@@ -1015,7 +1015,7 @@ public class ContentManagementServices {
         Locale locale = (Locale) context.get("locale");
         //int seqNum = 9999;
         try {
-            GenericValue content = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
+            GenericValue content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
             if (content == null) {
                 Debug.logError("content was null", module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentNoContentFound", UtilMisc.toMap("contentId", ""), locale));
@@ -1100,7 +1100,7 @@ public class ContentManagementServices {
         String contentId = (String)context.get("contentId");
 
         try {
-            GenericValue thisContent = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
+            GenericValue thisContent = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
             if (thisContent == null)
                 throw new RuntimeException("No entity found for id=" + contentId);
 
@@ -1123,7 +1123,7 @@ public class ContentManagementServices {
             while (iter.hasNext()) {
                 GenericValue contentAssoc = (GenericValue)iter.next();
                 String subContentId = contentAssoc.getString("contentId");
-                GenericValue contentTo = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", subContentId));
+                GenericValue contentTo = delegator.findOne("Content", UtilMisc.toMap("contentId", subContentId), true);
                 Integer childBranchCount = (Integer)contentTo.get("childBranchCount");
                 int branchCount = (childBranchCount == null) ? 1 : childBranchCount.intValue();
                 if (mode != null && mode.equalsIgnoreCase("remove"))
@@ -1171,7 +1171,7 @@ public class ContentManagementServices {
             contentTypeId = "OUTLINE_NODE";
         GenericValue thisContent = null;
         try {
-            thisContent = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
+            thisContent = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
             if (thisContent == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentNoContentFound", UtilMisc.toMap("contentId", contentId), locale));
             }
@@ -1211,7 +1211,7 @@ public class ContentManagementServices {
         }
         GenericValue thisContent = null;
         try {
-            thisContent = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
+            thisContent = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
             if (thisContent == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource,
                         "ContentNoContentFound", UtilMisc.toMap("contentId", contentId), locale));
@@ -1412,7 +1412,7 @@ public class ContentManagementServices {
         String contentAssocTypeId = (String)context.get("contentAssocTypeId");
 
         try {
-            GenericValue content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentId));
+            GenericValue content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), true);
             if (content == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentNoContentFound", UtilMisc.toMap("contentId", contentId), locale));
             }
@@ -1438,7 +1438,7 @@ public class ContentManagementServices {
         String contentAssocTypeId = (String)context.get("contentAssocTypeId");
 
         try {
-            GenericValue content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentId));
+            GenericValue content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), true);
             if (content == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentNoContentFound", UtilMisc.toMap("contentId", contentId), locale));
             }
@@ -1627,7 +1627,7 @@ public class ContentManagementServices {
                 return ServiceUtil.returnFailure(msg);
 
             }
-            orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+            orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
             if (orderHeader == null) {
                 String msg = "No OrderHeader found for orderId:" + orderId;
                 return ServiceUtil.returnError(msg);
@@ -1680,7 +1680,7 @@ public class ContentManagementServices {
         ctx.put("contentAssocTypeIdList", contentAssocTypeIdList);
         try {
 
-            GenericValue content = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
+            GenericValue content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
             result = followNodeChildrenMethod(content, dispatcher, serviceName, ctx);
         } catch (GenericEntityException e) {
             Debug.logError(e.toString(), module);
@@ -1730,7 +1730,7 @@ public class ContentManagementServices {
       }
       if (UtilValidate.isNotEmpty(oldDataResourceId)) {
           try {
-              dataResource = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", oldDataResourceId));
+              dataResource = delegator.findOne("DataResource", UtilMisc.toMap("dataResourceId", oldDataResourceId), false);
           } catch (GenericEntityException e) {
               Debug.logError(e.toString(), module);
               return ServiceUtil.returnError(e.toString());

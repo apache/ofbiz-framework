@@ -295,7 +295,7 @@ public class UploadContentAndImage {
 
             // Check for existing AUTHOR link
             String userLoginId = userLogin.getString("userLoginId");
-            GenericValue authorContent = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", userLoginId));
+            GenericValue authorContent = delegator.findOne("Content", UtilMisc.toMap("contentId", userLoginId), true);
             if (authorContent != null) {
                 List<GenericValue> authorAssocList = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", ftlContentId, "contentIdTo", userLoginId, "contentAssocTypeId", "AUTHOR"));
                 List<GenericValue> currentAuthorAssocList = EntityUtil.filterByDate(authorAssocList);

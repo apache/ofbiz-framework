@@ -75,7 +75,7 @@ public class BlogRssServices {
         // get the main blog content
         GenericValue content = null;
         try {
-            content = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
+            content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }

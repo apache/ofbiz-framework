@@ -576,7 +576,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             throw new GeneralException("Cannot clear dataResource related cache for a null dataResourceId");
         }
 
-        GenericValue dataResource = delegator.findByPrimaryKeyCache("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
+        GenericValue dataResource = delegator.findOne("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId), true);
         if (dataResource != null) {
             String dataTemplateTypeId = dataResource.getString("dataTemplateTypeId");
             if ("FTL".equals(dataTemplateTypeId)) {

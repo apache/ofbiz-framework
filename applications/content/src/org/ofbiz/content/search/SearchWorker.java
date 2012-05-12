@@ -117,7 +117,7 @@ public class SearchWorker {
         for (String id : idList) {
             if (Debug.infoOn()) Debug.logInfo("in indexContent, id:" + id, module);
             try {
-                content = delegator.findByPrimaryKeyCache("Content", UtilMisc .toMap("contentId", id));
+                content = delegator.findOne("Content", UtilMisc .toMap("contentId", id), true);
                 if (content != null) {
                     if (reader != null) {
                         deleteContentDocument(content, reader);

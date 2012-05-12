@@ -136,7 +136,7 @@ public class LayoutEvents {
                 dispatcher.runSync("deactivateAssocs", context2);
             }
 
-            GenericValue dataResource = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
+            GenericValue dataResource = delegator.findOne("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId), false);
             //Debug.logVerbose("in createLayoutImage, dataResource:" + dataResource, module);
             // Use objectInfo field to store the name of the file, since there is no
             // place in ImageDataResource for it.
@@ -147,7 +147,7 @@ public class LayoutEvents {
             }
 
             // See if this needs to be a create or an update procedure
-            GenericValue imageDataResource = delegator.findByPrimaryKey("ImageDataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
+            GenericValue imageDataResource = delegator.findOne("ImageDataResource", UtilMisc.toMap("dataResourceId", dataResourceId), false);
             //Debug.logVerbose("in createLayoutImage, imageDataResource(0):" + imageDataResource, module);
             if (imageDataResource == null) {
                 imageDataResource = delegator.makeValue("ImageDataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
@@ -195,7 +195,7 @@ public class LayoutEvents {
             String dataResourceId = (String) context.get("drDataResourceId");
             Debug.logVerbose("in createLayoutImage(java), dataResourceId:" + dataResourceId, "");
 
-            GenericValue dataResource = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
+            GenericValue dataResource = delegator.findOne("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId), false);
             Debug.logVerbose("in createLayoutImage(java), dataResource:" + dataResource, "");
             // Use objectInfo field to store the name of the file, since there is no
             // place in ImageDataResource for it.
@@ -207,7 +207,7 @@ public class LayoutEvents {
             }
 
             // See if this needs to be a create or an update procedure
-            GenericValue imageDataResource = delegator.findByPrimaryKey("ImageDataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
+            GenericValue imageDataResource = delegator.findOne("ImageDataResource", UtilMisc.toMap("dataResourceId", dataResourceId), false);
             if (imageDataResource == null) {
                 imageDataResource = delegator.makeValue("ImageDataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
                 imageDataResource.set("imageData", byteWrap.array());
@@ -321,7 +321,7 @@ public class LayoutEvents {
         String newId = null;
         String newDataResourceId = null;
         try {
-            content = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
+            content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
             Debug.logVerbose("in cloneLayout, content:" + content, "");
             if (content == null) {
                 String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.content_empty", locale);
@@ -334,7 +334,7 @@ public class LayoutEvents {
             newId = delegator.getNextSeqId("Content");
             newContent.set("contentId", newId);
             String dataResourceId = (String) content.get("dataResourceId");
-            GenericValue dataResource = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
+            GenericValue dataResource = delegator.findOne("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId), false);
             if (dataResource != null) {
                 GenericValue newDataResource = delegator.makeValue("DataResource", dataResource);
                 Debug.logVerbose("in cloneLayout, newDataResource:" + newDataResource, "");

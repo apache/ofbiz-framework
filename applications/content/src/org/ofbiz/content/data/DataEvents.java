@@ -79,7 +79,7 @@ public class DataEvents {
         // get the content record
         GenericValue content;
         try {
-            content = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
+            content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
@@ -106,7 +106,7 @@ public class DataEvents {
         // get the data resource
         GenericValue dataResource;
         try {
-            dataResource = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
+            dataResource = delegator.findOne("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
@@ -241,7 +241,7 @@ public class DataEvents {
         }
 
         try {
-            GenericValue dataResource = delegator.findByPrimaryKeyCache("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
+            GenericValue dataResource = delegator.findOne("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId), true);
             if (!"Y".equals(dataResource.getString("isPublic"))) {
                 // now require login...
                 GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");

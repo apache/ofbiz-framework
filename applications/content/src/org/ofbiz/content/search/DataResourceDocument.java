@@ -52,7 +52,7 @@ public class DataResourceDocument {
         Document doc = null;
         GenericValue dataResource = null;
           try {
-              dataResource = delegator.findByPrimaryKeyCache("DataResource", UtilMisc.toMap("dataResourceId",id));
+              dataResource = delegator.findOne("DataResource", UtilMisc.toMap("dataResourceId",id), true);
           } catch (GenericEntityException e) {
               Debug.logError(e, module);
               return doc;

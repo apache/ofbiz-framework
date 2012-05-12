@@ -312,7 +312,7 @@ public class DataServices {
         // If textData exists, then create DataResource and return dataResourceId
         String dataResourceId = (String) context.get("dataResourceId");
         try {
-            dataResource = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
+            dataResource = delegator.findOne("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId), false);
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentDataResourceNotFound", UtilMisc.toMap("parameters.dataResourceId", dataResourceId), locale));
@@ -366,7 +366,7 @@ public class DataServices {
             Debug.logVerbose("in updateElectronicText, textData:" + textData, module);
         }
         try {
-            electronicText = delegator.findByPrimaryKey("ElectronicText", UtilMisc.toMap("dataResourceId", dataResourceId));
+            electronicText = delegator.findOne("ElectronicText", UtilMisc.toMap("dataResourceId", dataResourceId), false);
             if (electronicText != null) {
                 electronicText.put("textData", textData);
                 electronicText.store();
@@ -524,7 +524,7 @@ public class DataServices {
         if (byteBuffer != null) {
             byte[] imageBytes = byteBuffer.array();
             try {
-                GenericValue imageDataResource = delegator.findByPrimaryKey("ImageDataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
+                GenericValue imageDataResource = delegator.findOne("ImageDataResource", UtilMisc.toMap("dataResourceId", dataResourceId), false);
                 if (Debug.infoOn()) {
                     Debug.logInfo("imageDataResource(U):" + imageDataResource, module);
                     Debug.logInfo("imageBytes(U):" + imageBytes, module);
