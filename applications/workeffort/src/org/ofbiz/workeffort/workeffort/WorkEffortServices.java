@@ -1132,28 +1132,25 @@ public class WorkEffortServices {
         List<GenericValue> resultList = null;
         EntityListIterator eli = (EntityListIterator) context.get("workEffortIterator");
         if (eli != null) {
-            Set<String> keys = FastSet.newInstance();
-            resultList = FastList.newInstance();
-            GenericValue workEffort = eli.next();
-            while (workEffort != null) {
-                String workEffortId = workEffort.getString("workEffortId");
-                if (!keys.contains(workEffortId)) {
-                    resultList.add(workEffort);
-                    keys.add(workEffortId);
-                }
-                workEffort = eli.next();
-            }
             try {
-                eli.close();
-            } catch (Exception e) {
-                Debug.logError(e, "Error while closing EntityListIterator: ", module);
-            } finally {
-                if (eli != null) {
-                    try {
-                        eli.close();
-                    } catch (GenericEntityException e) {
-                        Debug.logWarning(e, module);
+                Set<String> keys = FastSet.newInstance();
+                resultList = FastList.newInstance();
+                GenericValue workEffort = eli.next();
+                while (workEffort != null) {
+                    String workEffortId = workEffort.getString("workEffortId");
+                    if (!keys.contains(workEffortId)) {
+                        resultList.add(workEffort);
+                        keys.add(workEffortId);
                     }
+                    workEffort = eli.next();
+                }
+            } catch (Exception e) {
+                Debug.logError(e, module);
+            } finally {
+                try {
+                    eli.close();
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, "Error while closing EntityListIterator: ", module);
                 }
             }
         } else {
