@@ -232,8 +232,8 @@ public class TruitionCoReg {
                     if (adVl != null) {
                         GenericValue addr = null;
                         try {
-                            addr = adVl.getDelegator().findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId",
-                                    adVl.getString("contactMechId")));
+                            addr = adVl.getDelegator().findOne("PostalAddress", UtilMisc.toMap("contactMechId",
+                                    adVl.getString("contactMechId")), false);
                         } catch (GenericEntityException e) {
                             Debug.logError(e, module);
                         }
@@ -268,8 +268,8 @@ public class TruitionCoReg {
                     if (phVl != null) {
                         GenericValue tele = null;
                         try {
-                            tele = phVl.getDelegator().findByPrimaryKey("TelecomNumber", UtilMisc.toMap("contactMechId",
-                                    phVl.getString("contactMechId")));
+                            tele = phVl.getDelegator().findOne("TelecomNumber", UtilMisc.toMap("contactMechId",
+                                    phVl.getString("contactMechId")), false);
                         } catch (GenericEntityException e) {
                             Debug.logError(e, module);
                         }
