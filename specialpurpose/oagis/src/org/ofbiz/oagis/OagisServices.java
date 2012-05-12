@@ -128,7 +128,7 @@ public class OagisServices {
 
         GenericValue userLogin = null;
         try {
-            userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+            userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", "system"), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error getting userLogin", module);
         }
@@ -241,7 +241,7 @@ public class OagisServices {
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = null;
         try {
-            userLogin = delegator.findByPrimaryKey("UserLogin",UtilMisc.toMap("userLoginId", "system"));
+            userLogin = delegator.findOne("UserLogin",UtilMisc.toMap("userLoginId", "system"), false);
         } catch (GenericEntityException e) {
             String errMsg = "Error Getting UserLogin with userLoginId 'system':" + e.toString();
             Debug.logError(e, errMsg, module);
@@ -324,7 +324,7 @@ public class OagisServices {
             } else {
                 Map<String, Object> originalOmiPkMap = UtilMisc.toMap("logicalId", (Object) dataAreaLogicalId, "component", dataAreaComponent,
                         "task", dataAreaTask, "referenceId", dataAreaReferenceId);
-                GenericValue originalOagisMsgInfo = delegator.findByPrimaryKey("OagisMessageInfo", originalOmiPkMap);
+                GenericValue originalOagisMsgInfo = delegator.findOne("OagisMessageInfo", originalOmiPkMap, false);
                 if (originalOagisMsgInfo != null) {
                     for (Element dataAreaConfirmMsgElement : dataAreaConfirmMsgList) {
                         String description = UtilXml.childElementValue(dataAreaConfirmMsgElement, "of:DESCRIPTN");
@@ -452,7 +452,7 @@ public class OagisServices {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisErrorLookupByReferenceError", UtilMisc.toMap("messageSize", messageSize.toString(), "referenceId", referenceId), locale));
                 }
             } else {
-                oagisMessageInfo = delegator.findByPrimaryKey("OagisMessageInfo", oagisMessageInfoKey);
+                oagisMessageInfo = delegator.findOne("OagisMessageInfo", oagisMessageInfoKey, false);
             }
 
             if (oagisMessageInfo == null) {
@@ -486,7 +486,7 @@ public class OagisServices {
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = null;
         try {
-            userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+            userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", "system"), false);
         } catch (GenericEntityException e) {
             String errMsg = "Error Getting UserLogin with userLoginId system: "+e.toString();
             Debug.logError(e, errMsg, module);
@@ -547,7 +547,7 @@ public class OagisServices {
         GenericValue oagisMessageInfo = null;
         Map<String, Object> oagisMessageInfoKey = UtilMisc.toMap("logicalId", (Object) logicalId, "component", component, "task", task, "referenceId", referenceId);
         try {
-            oagisMessageInfo = delegator.findByPrimaryKey("OagisMessageInfo", oagisMessageInfoKey);
+            oagisMessageInfo = delegator.findOne("OagisMessageInfo", oagisMessageInfoKey, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error Getting Entity OagisMessageInfo: " + e.toString(), module);
         }
