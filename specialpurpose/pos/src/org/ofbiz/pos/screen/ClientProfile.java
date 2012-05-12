@@ -141,7 +141,7 @@ public class ClientProfile extends XPage implements ActionListener {
         if (!cancelled) {
             GenericValue  person = null;
             try {
-                person = m_trans.getSession().getDelegator().findByPrimaryKey("Person", UtilMisc.toMap("partyId", m_partyId));
+                person = m_trans.getSession().getDelegator().findOne("Person", UtilMisc.toMap("partyId", m_partyId), false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
