@@ -524,7 +524,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
         if (activityId != null)
             fields.put("activityId", activityId);
         try {
-            value = getDelegator().findByPrimaryKey(entityName, fields);
+            value = getDelegator().findOne(entityName, fields, false);
         } catch (GenericEntityException e) {
             throw new WfException(e.getMessage(), e);
         }
@@ -535,8 +535,8 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
         GenericValue value = null;
 
         try {
-            value = getDelegator().findByPrimaryKey("WorkEffort",
-                        UtilMisc.toMap("workEffortId", workEffortId));
+            value = getDelegator().findOne("WorkEffort",
+                        UtilMisc.toMap("workEffortId", workEffortId), false);
         } catch (GenericEntityException e) {
             throw new WfException(e.getMessage(), e);
         }
@@ -627,7 +627,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
     private GenericValue getWorkEffort(String workEffortId) throws WfException {
         GenericValue we = null;
         try {
-            we = getDelegator().findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId));
+            we = getDelegator().findOne("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId), false);
         } catch (GenericEntityException e) {
             throw new WfException("Problem getting WorkEffort entity (" + workEffortId + ")", e);
         }

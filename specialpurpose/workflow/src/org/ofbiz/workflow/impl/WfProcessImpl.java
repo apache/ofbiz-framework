@@ -151,7 +151,7 @@ public class WfProcessImpl extends WfExecutionObjectImpl implements WfProcess {
                 Map<String, Object> fields = UtilMisc.toMap("packageId", (Object) processDef.getString("packageId"), "packageVersion",
                         processDef.getString("packageVersion"), "processId", processDef.getString("processId"),
                         "processVersion", processDef.getString("processVersion"), "activityId", activityId);
-                start = getDelegator().findByPrimaryKey("WorkflowActivity", fields);
+                start = getDelegator().findOne("WorkflowActivity", fields, false);
 
                 // here we must check and make sure this activity is defined to as a starting activity
                 if (!start.getBoolean("canStart").booleanValue())

@@ -66,7 +66,7 @@ public class WorkflowServices {
 
         // if we passed in an activity id, lets get the process id instead
         try {
-            GenericValue testObject = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId));
+            GenericValue testObject = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId), false);
             if (testObject == null) {
                 result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
                 result.put(ModelService.ERROR_MESSAGE, "Not a valid workflow runtime identifier");
@@ -498,7 +498,7 @@ public class WorkflowServices {
      */
     public static GenericValue getOwner(Delegator delegator, String workEffortId) {
         try {
-            GenericValue we = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId));
+            GenericValue we = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId), false);
 
             if (we != null && we.getString("workEffortParentId") == null) {
                 List<GenericValue> workEffortList = delegator.findByAnd("WorkEffortPartyAssignment",

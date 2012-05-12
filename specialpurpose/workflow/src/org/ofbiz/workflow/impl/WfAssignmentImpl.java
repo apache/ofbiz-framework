@@ -265,7 +265,7 @@ public class WfAssignmentImpl implements WfAssignment {
         fields.put("roleTypeId", resource.resourceRoleId());
         fields.put("fromDate", fromDate);
         try {
-            value = activity.getDelegator().findByPrimaryKey("WorkEffortPartyAssignment", fields);
+            value = activity.getDelegator().findOne("WorkEffortPartyAssignment", fields, false);
         } catch (GenericEntityException e) {
             throw new WfException(e.getMessage(), e);
         }

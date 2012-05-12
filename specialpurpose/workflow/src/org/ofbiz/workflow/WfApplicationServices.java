@@ -205,7 +205,7 @@ public class WfApplicationServices {
             throws GenericServiceException {
         try {
             GenericValue application =
-                delegator.findByPrimaryKey("ApplicationSandbox", UtilMisc.toMap("applicationId", applicationId));
+                delegator.findOne("ApplicationSandbox", UtilMisc.toMap("applicationId", applicationId), false);
             return application;
         } catch (GenericEntityException ee) {
             throw new GenericServiceException(ee.getMessage(), ee);
@@ -238,7 +238,7 @@ public class WfApplicationServices {
             throws GenericServiceException {
         try {
             GenericValue application =
-                delegator.findByPrimaryKey("ApplicationSandbox", UtilMisc.toMap("applicationId", applicationId));
+                delegator.findOne("ApplicationSandbox", UtilMisc.toMap("applicationId", applicationId), false);
             return application.getRelatedOne("RuntimeData");
         } catch (GenericEntityException ee) {
             throw new GenericServiceException(ee.getMessage(), ee);
@@ -250,7 +250,7 @@ public class WfApplicationServices {
         Map<String, Object> expresions = null;
         // look for the 1st application.
         final GenericValue workEffort =
-            delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", application.get("workEffortId")));
+            delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", application.get("workEffortId")), false);
         String packageId = (String) workEffort.get("workflowPackageId");
         String packageVersion = (String) workEffort.get("workflowPackageVersion");
         String processId = (String) workEffort.get("workflowProcessId");
