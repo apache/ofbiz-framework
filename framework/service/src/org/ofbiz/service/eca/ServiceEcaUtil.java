@@ -121,7 +121,7 @@ public class ServiceEcaUtil {
             handlerRules.add(new ServiceEcaRule(e, resourceLocation));
         }
         if (Debug.importantOn()) {
-            Debug.logImportant("Loaded [" + StringUtil.leftPad(Integer.toString(handlerRules.size()), 2) + "] Service ECA Rules from " + resourceLocation, module);
+            Debug.logImportant("Loaded [" + StringUtil.leftPad(Integer.toString(handlerRules.size()), 3) + "] Service ECA Rules from " + resourceLocation, module);
         }
         return handlerRules;
     }
