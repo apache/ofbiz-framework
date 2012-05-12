@@ -80,7 +80,7 @@ public class CompDocEvents {
 
         if (UtilValidate.isNotEmpty(contentId)) {
             try {
-                delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
+                delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error running serviceName persistContentAndAssoc", module);
                 String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.error_modelservice_for_srv_name", locale);

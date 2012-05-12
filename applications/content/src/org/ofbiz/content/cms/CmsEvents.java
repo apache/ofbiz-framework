@@ -146,7 +146,7 @@ public class CmsEvents {
 
             GenericValue pathAlias = null;
             try {
-                pathAlias = delegator.findByPrimaryKeyCache("WebSitePathAlias", UtilMisc.toMap("webSiteId", webSiteId, "pathAlias", pathInfo));
+                pathAlias = delegator.findOne("WebSitePathAlias", UtilMisc.toMap("webSiteId", webSiteId, "pathAlias", pathInfo), true);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
@@ -235,7 +235,7 @@ public class CmsEvents {
                 // We try to find a generic content Error page concerning the status code
                 if (!hasErrorPage) {
                     try {
-                        GenericValue errorPage = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", "CONTENT_ERROR_" + statusCode));
+                        GenericValue errorPage = delegator.findOne("Content", UtilMisc.toMap("contentId", "CONTENT_ERROR_" + statusCode), true);
                         if (errorPage != null) {
                             Debug.logVerbose("Found generic page " + statusCode, module);
                             contentId = errorPage.getString("contentId");
@@ -310,14 +310,14 @@ public class CmsEvents {
                 String contentName = null;
                 String siteName = null;
                 try {
-                    GenericValue content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentId));
+                    GenericValue content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), true);
                     if (content != null && UtilValidate.isNotEmpty(content)) {
                         contentName = content.getString("contentName");
                     } else {
                         request.setAttribute("_ERROR_MESSAGE_", "Content: " + contentName + " [" + contentId + "] is not a publish point for the current website: [" + webSiteId + "]");
                         return "error";
                     }
-                    siteName = delegator.findByPrimaryKeyCache("WebSite", UtilMisc.toMap("webSiteId", webSiteId)).getString("siteName");
+                    siteName = delegator.findOne("WebSite", UtilMisc.toMap("webSiteId", webSiteId), true).getString("siteName");
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }
@@ -328,7 +328,7 @@ public class CmsEvents {
         String siteName = null;
         GenericValue webSite = null;
         try {
-            webSite = delegator.findByPrimaryKeyCache("WebSite", UtilMisc.toMap("webSiteId", webSiteId));
+            webSite = delegator.findOne("WebSite", UtilMisc.toMap("webSiteId", webSiteId), true);
             if (webSite != null) {
             	siteName = webSite.getString("siteName");
             }

@@ -241,7 +241,7 @@ public class SurveyWrapper {
     public GenericValue getSurvey() {
         GenericValue survey = null;
         try {
-            survey = delegator.findByPrimaryKeyCache("Survey", UtilMisc.toMap("surveyId", surveyId));
+            survey = delegator.findOne("Survey", UtilMisc.toMap("surveyId", surveyId), true);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get Survey : " + surveyId, module);
         }

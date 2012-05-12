@@ -149,7 +149,7 @@ In order ta make this service active add the following to the service definition
                                                 Iterator<GenericValue> contentAssChecks = contentAssocCheck.iterator();
                                                 while (contentAssChecks.hasNext() && contentNameMatch == false) {
                                                     GenericValue contentAss = contentAssChecks.next();
-                                                    GenericValue contentcheck = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentAss.get("contentId")));
+                                                    GenericValue contentcheck = delegator.findOne("Content", UtilMisc.toMap("contentId", contentAss.get("contentId")), false);
                                                     if (contentcheck!=null) {
                                                         if (contentcheck.get("contentName").equals(contentName) && contentNameMatch == false) {
                                                             contentNameMatch = true;

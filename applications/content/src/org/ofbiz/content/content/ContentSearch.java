@@ -555,8 +555,8 @@ public class ContentSearch {
             GenericValue content = null;
             GenericValue contentAssocType = null;
             try {
-                content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", this.contentId));
-                contentAssocType = delegator.findByPrimaryKeyCache("ContentAssocType", UtilMisc.toMap("contentAssocTypeId", this.contentAssocTypeId));
+                content = delegator.findOne("Content", UtilMisc.toMap("contentId", this.contentId), true);
+                contentAssocType = delegator.findOne("ContentAssocType", UtilMisc.toMap("contentAssocTypeId", this.contentAssocTypeId), true);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error looking up ContentAssocConstraint pretty print info: " + e.toString(), module);
             }

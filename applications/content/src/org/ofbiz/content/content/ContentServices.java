@@ -187,7 +187,7 @@ public class ContentServices {
 
         GenericValue content = null;
         try {
-            content = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
+            content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Entity Error:" + e.getMessage(), module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentNoContentFound", UtilMisc.toMap("contentId", contentId), locale));
@@ -537,7 +537,7 @@ public class ContentServices {
         Locale locale = (Locale) context.get("locale");
         String contentId = (String) context.get("contentId");
         try {
-            content = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
+            content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentNoContentFound", UtilMisc.toMap("contentId", contentId), locale));
@@ -625,7 +625,7 @@ public class ContentServices {
 
         GenericValue contentAssoc = null;
         try {
-            contentAssoc = delegator.findByPrimaryKey("ContentAssoc", UtilMisc.toMap("contentId", contentId, "contentIdTo", contentIdTo, "contentAssocTypeId", contentAssocTypeId, "fromDate", fromDate));
+            contentAssoc = delegator.findOne("ContentAssoc", UtilMisc.toMap("contentId", contentId, "contentIdTo", contentIdTo, "contentAssocTypeId", contentAssocTypeId, "fromDate", fromDate), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Entity Error:" + e.getMessage(), module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentAssocRetrievingError", UtilMisc.toMap("errorString", e.getMessage()), locale));
@@ -739,8 +739,8 @@ public class ContentServices {
 
         GenericValue contentAssoc = null;
         try {
-            //contentAssoc = delegator.findByPrimaryKey("ContentAssoc", UtilMisc.toMap("contentId", contentId, "contentIdTo", contentIdTo, "contentAssocTypeId", contentAssocTypeId, "fromDate", fromDate));
-            contentAssoc = delegator.findByPrimaryKey("ContentAssoc", pk);
+            //contentAssoc = delegator.findOne("ContentAssoc", UtilMisc.toMap("contentId", contentId, "contentIdTo", contentIdTo, "contentAssocTypeId", contentAssocTypeId, "fromDate", fromDate), false);
+            contentAssoc = delegator.findOne("ContentAssoc", pk, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Entity Error:" + e.getMessage(), module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentAssocRetrievingError", UtilMisc.toMap("errorString", e.getMessage()), locale));
@@ -809,7 +809,7 @@ public class ContentServices {
         try {
             GenericValue activeAssoc = null;
             if (fromDate != null) {
-                activeAssoc = delegator.findByPrimaryKey("ContentAssoc", UtilMisc.toMap("contentId", activeContentId, "contentIdTo", contentIdTo, "fromDate", fromDate, "contentAssocTypeId", contentAssocTypeId));
+                activeAssoc = delegator.findOne("ContentAssoc", UtilMisc.toMap("contentId", activeContentId, "contentIdTo", contentIdTo, "fromDate", fromDate, "contentAssocTypeId", contentAssocTypeId), false);
                 if (activeAssoc == null) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentAssocNotFound", UtilMisc.toMap("activeContentId", activeContentId, "contentIdTo", contentIdTo, "contentAssocTypeId", contentAssocTypeId, "fromDate", fromDate), locale));
                 }
@@ -990,7 +990,7 @@ public class ContentServices {
                 isPublished = true;
             if (Debug.infoOn()) Debug.logInfo("in publishContent, contentId:" + contentId + " contentIdTo:" + contentIdTo + " contentAssocTypeId:" + contentAssocTypeId + " publish:" + publish + " isPublished:" + isPublished, module);
             if (UtilValidate.isNotEmpty(publish) && publish.equalsIgnoreCase("Y")) {
-                GenericValue content = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
+                GenericValue content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
                 String contentStatusId = (String) content.get("statusId");
                 String contentPrivilegeEnumId = (String) content.get("privilegeEnumId");
 
