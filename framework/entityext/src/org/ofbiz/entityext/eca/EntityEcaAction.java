@@ -82,7 +82,7 @@ public class EntityEcaAction implements java.io.Serializable {
             // setup the run-as-user
             GenericValue userLoginToRunAs = null;
             if (UtilValidate.isNotEmpty(this.runAsUser)) {
-                userLoginToRunAs = dctx.getDelegator().findByPrimaryKeyCache("UserLogin", UtilMisc.toMap("userLoginId", this.runAsUser));
+                userLoginToRunAs = dctx.getDelegator().findOne("UserLogin", UtilMisc.toMap("userLoginId", this.runAsUser), true);
                 if (userLoginToRunAs != null) {
                     actionContext.put("userLogin", userLoginToRunAs);
                 }

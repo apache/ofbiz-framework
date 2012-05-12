@@ -33,13 +33,13 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
     calls = 1000;
     startTime = System.currentTimeMillis();
     for (int i = 0; i < calls; i++) {
-        dummy = delegator.findByPrimaryKey("JobSandbox", [jobId : "PURGE_OLD_JOBS"]);
+        dummy = delegator.findOne("JobSandbox", [jobId : "PURGE_OLD_JOBS"], false);
     }
     totalTime = System.currentTimeMillis() - startTime;
     callsPerSecond = calls / (totalTime/1000);
 
     perfRow = [:];
-    perfRow.operation = "findByPrimaryKey";
+    perfRow.operation = "findOne(false)";
     perfRow.entity = "Large:JobSandbox";
     perfRow.calls = decimalFormat.format(calls);
     perfRow.seconds = decimalFormat.format(totalTime / 1000);
@@ -50,13 +50,13 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
     calls = 10000;
     startTime = System.currentTimeMillis();
     for (int i = 0; i < calls; i++) {
-        dummy = delegator.findByPrimaryKeyCache("JobSandbox", [jobId : "PURGE_OLD_JOBS"]);
+        dummy = delegator.findOne("JobSandbox", [jobId : "PURGE_OLD_JOBS"], true);
     }
     totalTime = System.currentTimeMillis() - startTime;
     callsPerSecond = calls / (totalTime / 1000);
 
     perfRow = [:];
-    perfRow.operation = "findByPrimaryKeyCache";
+    perfRow.operation = "findOne(true)";
     perfRow.entity = "Large:JobSandbox";
     perfRow.calls = decimalFormat.format(calls);
     perfRow.seconds = decimalFormat.format(totalTime / 1000);
@@ -67,13 +67,13 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
     calls = 1000;
     startTime = System.currentTimeMillis();
     for (int i = 0; i < calls; i++) {
-        dummy = delegator.findByPrimaryKey("DataSourceType", [dataSourceTypeId : "ADMIN_ENTRY"]);
+        dummy = delegator.findOne("DataSourceType", [dataSourceTypeId : "ADMIN_ENTRY"], false);
     }
     totalTime = System.currentTimeMillis() - startTime;
     callsPerSecond = calls / (totalTime / 1000);
 
     perfRow = [:];
-    perfRow.operation = "findByPrimaryKey";
+    perfRow.operation = "findOne(false)";
     perfRow.entity = "Small:DataSourceType";
     perfRow.calls = decimalFormat.format(calls);
     perfRow.seconds = decimalFormat.format(totalTime / 1000);
@@ -84,13 +84,13 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
     calls = 10000;
     startTime = System.currentTimeMillis();
     for (int i=0; i < calls; i++) {
-        dummy = delegator.findByPrimaryKeyCache("DataSourceType", [dataSourceTypeId : "ADMIN_ENTRY"]);
+        dummy = delegator.findOne("DataSourceType", [dataSourceTypeId : "ADMIN_ENTRY"], true);
     }
     totalTime = System.currentTimeMillis() - startTime;
     callsPerSecond = calls / (totalTime / 1000);
 
     perfRow = [:];
-    perfRow.operation = "findByPrimaryKeyCache";
+    perfRow.operation = "findOne(true)";
     perfRow.entity = "Small:DataSourceType";
     perfRow.calls = decimalFormat.format(calls);
     perfRow.seconds = decimalFormat.format(totalTime / 1000);

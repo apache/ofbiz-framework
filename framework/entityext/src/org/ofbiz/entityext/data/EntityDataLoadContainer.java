@@ -296,7 +296,7 @@ public class EntityDataLoadContainer implements Container {
             componentEntry.set("componentName", config.getComponentName());
             componentEntry.set("rootLocation", config.getRootLocation());
             try {
-                GenericValue componentCheck = delegator.findByPrimaryKey("Component", UtilMisc.toMap("componentName", config.getComponentName()));
+                GenericValue componentCheck = delegator.findOne("Component", UtilMisc.toMap("componentName", config.getComponentName()), false);
                 if (UtilValidate.isEmpty(componentCheck)) {
                     componentEntry.create();
                 } else {

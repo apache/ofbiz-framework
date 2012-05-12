@@ -57,7 +57,7 @@ public class EntityCacheServices implements DistributedCacheClear {
     public GenericValue getAuthUserLogin() {
         GenericValue userLogin = null;
         try {
-            userLogin = delegator.findByPrimaryKeyCache("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
+            userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", userLoginId), true);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error finding the userLogin for distributed cache clear", module);
         }

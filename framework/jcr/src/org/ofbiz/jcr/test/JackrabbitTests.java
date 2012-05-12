@@ -60,7 +60,7 @@ public class JackrabbitTests extends OFBizTestCase {
 
     @Override
     protected void setUp() throws Exception {
-        userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+        userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", "system"), false);
 
     }
 
@@ -314,7 +314,7 @@ public class JackrabbitTests extends OFBizTestCase {
     public void testSpeedTestService() throws Exception {
         Map<String, Object> context = FastMap.newInstance();
         context.put("maxNodes", new Integer(10));
-        context.put("userLogin", dispatcher.getDelegator().findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system")));
+        context.put("userLogin", dispatcher.getDelegator().findOne("UserLogin", UtilMisc.toMap("userLoginId", "system"), false));
 
         Map<String, Object> serviceResult = this.dispatcher.runSync("determineJackrabbitRepositorySpeed", context);
 

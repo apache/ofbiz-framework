@@ -980,7 +980,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
                 if (UtilValidate.isEmpty(expandedDataResourceId)) {
                     if (UtilValidate.isNotEmpty(expandedContentId)) {
-                        content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", expandedContentId));
+                        content = delegator.findOne("Content", UtilMisc.toMap("contentId", expandedContentId), true);
                     } else {
                         String errMsg = "contentId is empty.";
                         Debug.logError(errMsg, module);
@@ -997,7 +997,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
                 GenericValue dataResource = null;
                 if (UtilValidate.isNotEmpty(expandedDataResourceId)) {
-                    dataResource = delegator.findByPrimaryKeyCache("DataResource", UtilMisc.toMap("dataResourceId", expandedDataResourceId));
+                    dataResource = delegator.findOne("DataResource", UtilMisc.toMap("dataResourceId", expandedDataResourceId), true);
                 }
 
                 String mimeTypeId = null;
@@ -1626,7 +1626,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
                         portalPage = PortalPageWorker.getPortalPage(expandedPortalPageId, context);
                     }
                     else {
-                        portalPage = delegator.findByPrimaryKeyCache("PortalPage", UtilMisc.toMap("portalPageId", expandedPortalPageId));
+                        portalPage = delegator.findOne("PortalPage", UtilMisc.toMap("portalPageId", expandedPortalPageId), true);
                     }
                     if (portalPage == null) {
                         String errMsg = "Could not find PortalPage with portalPageId [" + expandedPortalPageId + "] ";

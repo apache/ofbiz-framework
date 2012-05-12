@@ -35,7 +35,7 @@ if (!workflow) {
         context.runningProcesses = runningProcesses;
     }
 } else {
-    workflowDef = delegator.findByPrimaryKey("WorkEffort", [workEffortId : workflow]);
+    workflowDef = delegator.findOne("WorkEffort", [workEffortId : workflow], false);
     if (workflowDef) {
         context.workflow = workflowDef;
         activities = delegator.findByAnd("WorkEffort", [workEffortParentId : workflow]);

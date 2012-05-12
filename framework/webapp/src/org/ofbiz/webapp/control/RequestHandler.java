@@ -211,7 +211,7 @@ public class RequestHandler {
                     String webSiteId = WebSiteWorker.getWebSiteId(request);
                     if (webSiteId != null) {
                         try {
-                            GenericValue webSite = delegator.findByPrimaryKeyCache("WebSite", UtilMisc.toMap("webSiteId", webSiteId));
+                            GenericValue webSite = delegator.findOne("WebSite", UtilMisc.toMap("webSiteId", webSiteId), true);
                             if (webSite != null) enableHttps = webSite.getBoolean("enableHttps");
                         } catch (GenericEntityException e) {
                             Debug.logWarning(e, "Problems with WebSite entity; using global defaults", module);
@@ -1005,7 +1005,7 @@ public class RequestHandler {
         GenericValue webSite;
         if (webSiteId != null) {
             try {
-                webSite = delegator.findByPrimaryKeyCache("WebSite", UtilMisc.toMap("webSiteId", webSiteId));
+                webSite = delegator.findOne("WebSite", UtilMisc.toMap("webSiteId", webSiteId), true);
                 if (webSite != null) {
                     httpsPort = webSite.getString("httpsPort");
                     httpsServer = webSite.getString("httpsHost");

@@ -42,7 +42,7 @@ public class GeoWorker {
     public static List<GenericValue> expandGeoGroup(String geoId, Delegator delegator) {
         GenericValue geo = null;
         try {
-            geo = delegator.findByPrimaryKeyCache("Geo", UtilMisc.toMap("geoId", geoId));
+            geo = delegator.findOne("Geo", UtilMisc.toMap("geoId", geoId), true);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to look up Geo from geoId : " + geoId, module);
         }
@@ -108,7 +108,7 @@ public class GeoWorker {
     public static boolean containsGeo(List<GenericValue> geoList, String geoId, Delegator delegator) {
         GenericValue geo = null;
         try {
-            geo = delegator.findByPrimaryKeyCache("Geo", UtilMisc.toMap("geoId", geoId));
+            geo = delegator.findOne("Geo", UtilMisc.toMap("geoId", geoId), true);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to look up Geo from geoId : " + geoId, module);
         }
