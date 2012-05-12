@@ -55,7 +55,7 @@ under the License.
       <table width="100%" cellpadding="0" cellspacing="0">
         <#assign listIndex = lowIndex>
         <#list workEffortIds as workEffortId><#-- note that there is no boundary range because that is being done before the list is put in the content -->
-          <#assign workEffort = delegator.findByPrimaryKey("WorkEffort", Static["org.ofbiz.base.util.UtilMisc"].toMap("workEffortId", workEffortId))>
+          <#assign workEffort = delegator.findOne("WorkEffort", Static["org.ofbiz.base.util.UtilMisc"].toMap("workEffortId", workEffortId), false)>
           <tr>
             <td>
               <a href="<@ofbizUrl>EditWorkEffort?workEffortId=${workEffortId}</@ofbizUrl>" class="buttontext">${workEffortId} ${(workEffort.workEffortName)?if_exists}</a>

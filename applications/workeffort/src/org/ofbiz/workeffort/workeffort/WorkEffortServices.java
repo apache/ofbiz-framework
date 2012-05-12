@@ -327,7 +327,7 @@ public class WorkEffortServices {
 
             if (UtilValidate.isNotEmpty(statusId)) {
                 try {
-                    currentStatus = delegator.findByPrimaryKeyCache("StatusItem", UtilMisc.toMap("statusId", statusId));
+                    currentStatus = delegator.findOne("StatusItem", UtilMisc.toMap("statusId", statusId), true);
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e, module);
                 }
@@ -350,7 +350,7 @@ public class WorkEffortServices {
 
             if (workEffort.get("currentStatusId") != null) {
                 try {
-                    currentStatus = delegator.findByPrimaryKeyCache("StatusItem", UtilMisc.toMap("statusId", workEffort.get("currentStatusId")));
+                    currentStatus = delegator.findOne("StatusItem", UtilMisc.toMap("statusId", workEffort.get("currentStatusId")), true);
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e, module);
                 }
