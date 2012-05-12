@@ -44,14 +44,14 @@ subtopLists =  FastList.newInstance();
 partyRelationships = EntityUtil.filterByDate(delegator.findByAnd("PartyRelationship", [partyIdFrom : partyId, partyRelationshipTypeId : "GROUP_ROLLUP"]));
 if (partyRelationships) {
     //root
-    partyRoot = delegator.findByPrimaryKey("PartyGroup", [partyId : partyId]);
+    partyRoot = delegator.findOne("PartyGroup", [partyId : partyId], false);
     partyRootMap = FastMap.newInstance();
     partyRootMap.put("partyId", partyId);
     partyRootMap.put("groupName", partyRoot.getString("groupName"));
 
     //child
     for(partyRelationship in partyRelationships) {
-        partyGroup = delegator.findByPrimaryKey("PartyGroup", [partyId : partyRelationship.getString("partyIdTo")]);
+        partyGroup = delegator.findOne("PartyGroup", [partyId : partyRelationship.getString("partyIdTo")], false);
         partyGroupMap = FastMap.newInstance();
         partyGroupMap.put("partyId", partyGroup.getString("partyId"));
         partyGroupMap.put("groupName", partyGroup.getString("groupName"));
