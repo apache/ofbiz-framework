@@ -35,7 +35,7 @@ if (partyId) {
 
     // NOTE: if there was an error, then don't look up and fill in all of this data, just use the values from the previous request (which will be in the parameters Map automagically)
     if (!request.getAttribute("_ERROR_MESSAGE_") && !request.getAttribute("_ERROR_MESSAGE_LIST_")) {
-        person = delegator.findByPrimaryKey("Person", [partyId : partyId]);
+        person = delegator.findOne("Person", [partyId : partyId], false);
         if (person) {
             context.callSubmitForm = true;
             // should never be null for the anonymous checkout, but just in case

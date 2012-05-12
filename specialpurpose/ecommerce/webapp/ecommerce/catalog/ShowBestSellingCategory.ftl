@@ -38,7 +38,7 @@ under the License.
                             <#assign categoryImageUrl = productCategory.categoryImageUrl/>
                        <#elseif productCategoryMembers?has_content>
                             <#assign productCategoryMember = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(productCategoryMembers)/>
-                            <#assign product = delegator.findByPrimaryKey("Product", Static["org.ofbiz.base.util.UtilMisc"].toMap("productId", productCategoryMember.productId))/>
+                            <#assign product = delegator.findOne("Product", Static["org.ofbiz.base.util.UtilMisc"].toMap("productId", productCategoryMember.productId), false)/>
                             <#if product.smallImageUrl?has_content>
                                 <#assign categoryImageUrl = product.smallImageUrl/>
                             </#if>
@@ -67,7 +67,7 @@ under the License.
                                                 <#break>
                                             </#if>
                                             <#if productCategoryMember?has_content>
-                                                <#assign product = delegator.findByPrimaryKey("Product", Static["org.ofbiz.base.util.UtilMisc"].toMap("productId", productCategoryMember.productId))>
+                                                <#assign product = delegator.findOne("Product", Static["org.ofbiz.base.util.UtilMisc"].toMap("productId", productCategoryMember.productId), false)>
                                                 <li class="browsecategorytext">
                                                     <a class="linktext" href="<@ofbizCatalogAltUrl productCategoryId="PROMOTIONS" productId="${product.productId}"/>">
                                                         ${product.productName!product.productId}

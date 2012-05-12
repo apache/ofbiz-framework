@@ -34,7 +34,7 @@ context.productStore = ProductStoreWorker.getProductStore(request);
 
 if (parameters.add_product_id) { // check if a parameter is passed
     add_product_id = parameters.add_product_id;
-    product = delegator.findByPrimaryKeyCache("Product", [productId : add_product_id]);
+    product = delegator.findOne("Product", [productId : add_product_id], true);
     context.product = product;
 }
 

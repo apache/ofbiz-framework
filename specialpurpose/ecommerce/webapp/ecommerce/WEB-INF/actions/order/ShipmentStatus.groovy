@@ -25,7 +25,7 @@ import org.ofbiz.entity.util.*;
 
 shipmentId = parameters.shipmentId;
 if (shipmentId) {
-    shipment = delegator.findByPrimaryKey("Shipment", [shipmentId : shipmentId]);
+    shipment = delegator.findOne("Shipment", [shipmentId : shipmentId], false);
     shipmentItems = delegator.findByAnd("ShipmentItem", [shipmentId : shipmentId]);
 
     // get Shipment tracking info

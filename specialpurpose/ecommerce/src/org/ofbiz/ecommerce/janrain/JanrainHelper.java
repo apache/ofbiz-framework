@@ -231,7 +231,7 @@ public class JanrainHelper {
             request.setAttribute("userInfoMap", result);
             
             try {
-                GenericValue userLogin = delegator.findByPrimaryKeyCache("UserLogin", UtilMisc.toMap("userLoginId", preferredUsername));
+                GenericValue userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", preferredUsername), true);
                 if (UtilValidate.isNotEmpty(userLogin)) {
                     LoginWorker.doBasicLogin(userLogin, request);
                     LoginWorker.autoLoginSet(request, response);

@@ -24,11 +24,11 @@ if (userLogin) {
     party = userLogin.getRelatedOne("Party");
     context.partyId = party.partyId
     if ("PERSON".equals(party.partyTypeId)) {
-        person = delegator.findByPrimaryKey("Person", [partyId : party.partyId]);
+        person = delegator.findOne("Person", [partyId : party.partyId], false);
         context.firstName = person.firstName;
         context.lastName = person.lastName;
     } else {
-        group = delegator.findByPrimaryKey("PartyGroup", [partyId : party.partyId]);    
+        group = delegator.findOne("PartyGroup", [partyId : party.partyId], false);   
         context.firstName = group.groupName;
         context.lastName = "";    
     }

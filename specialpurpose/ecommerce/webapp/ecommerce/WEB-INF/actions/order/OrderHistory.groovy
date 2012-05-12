@@ -22,7 +22,7 @@ import org.ofbiz.entity.*;
 import org.ofbiz.entity.util.*;
 import org.ofbiz.entity.condition.*;
 
-partyRole = delegator.findByPrimaryKey("PartyRole", [partyId : userLogin.partyId, roleTypeId : "SUPPLIER"]);
+partyRole = delegator.findOne("PartyRole", [partyId : userLogin.partyId, roleTypeId : "SUPPLIER"], false);
 if (partyRole) {
     if ("SUPPLIER".equals(partyRole.roleTypeId)) {
         /** drop shipper or supplier **/

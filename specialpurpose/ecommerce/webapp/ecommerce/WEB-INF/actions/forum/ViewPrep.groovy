@@ -69,5 +69,5 @@ contentId = ContentManagementWorker.getFromSomewhere("contentId", paramMap, requ
 context.subContentId = contentId;
 context.contentIdTo = contentId;
 forumId = ContentManagementWorker.getFromSomewhere("forumId", paramMap, request, context);
-//forumContent = delegator.findByPrimaryKeyCache("Content", [contentId : forumId]);
+//forumContent = delegator.findOne("Content", [contentId : forumId], true);
 //context.forumContent = forumContent;
