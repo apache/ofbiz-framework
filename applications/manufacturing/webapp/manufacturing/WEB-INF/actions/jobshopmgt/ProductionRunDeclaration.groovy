@@ -94,7 +94,7 @@ if (productionRunId) {
         // routingTask update sub-screen
         routingTaskId = parameters.routingTaskId;
         if (routingTaskId && (actionForm.equals("UpdateRoutingTask") || actionForm.equals("EditRoutingTask"))) {
-            routingTask = delegator.findByPrimaryKey("WorkEffort", [workEffortId : routingTaskId]);
+            routingTask = delegator.findOne("WorkEffort", [workEffortId : routingTaskId], false);
             Map routingTaskData = routingTask.getAllFields();
             routingTaskData.estimatedSetupMillis = routingTask.getDouble("estimatedSetupMillis");
             routingTaskData.estimatedMilliSeconds = routingTask.getDouble("estimatedMilliSeconds");

@@ -57,7 +57,7 @@ public class InventoryEventPlannedServices {
         try {
             createOrUpdateMrpEvent(parameters, quantity, (String)context.get("facilityId"), (String)context.get("eventName"), false, delegator);
         } catch (GenericEntityException e) {
-            Debug.logError(e,"Error : findByPrimaryKey(\"MrpEvent\", parameters =)"+parameters, module);
+            Debug.logError(e,"Error : findOne(\"MrpEvent\", parameters =)"+parameters, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpCreateOrUpdateEvent", UtilMisc.toMap("parameters", parameters), locale));
         }
         return ServiceUtil.returnSuccess();
@@ -66,7 +66,7 @@ public class InventoryEventPlannedServices {
     public static void createOrUpdateMrpEvent(Map<String, Object> mrpEventKeyMap, BigDecimal newQuantity, String facilityId,
             String eventName, boolean isLate, Delegator delegator) throws GenericEntityException {
         GenericValue mrpEvent = null;
-        mrpEvent = delegator.findByPrimaryKey("MrpEvent", mrpEventKeyMap);
+        mrpEvent = delegator.findOne("MrpEvent", mrpEventKeyMap, false);
         if (mrpEvent == null) {
             mrpEvent = delegator.makeValue("MrpEvent", mrpEventKeyMap);
             mrpEvent.put("quantity", newQuantity.doubleValue());

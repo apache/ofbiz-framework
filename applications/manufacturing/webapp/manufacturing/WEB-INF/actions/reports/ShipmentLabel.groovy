@@ -21,7 +21,7 @@ import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderReadHelper;
 
 shipmentId = parameters.shipmentId;
-shipment = delegator.findByPrimaryKey("Shipment", [shipmentId : shipmentId]);
+shipment = delegator.findOne("Shipment", [shipmentId : shipmentId], false);
 
 context.shipmentIdPar = shipment.shipmentId;
 
@@ -54,7 +54,7 @@ if (shipment) {
             record.shipmentPackageSeqId = shipmentPackageComponent.shipmentPackageSeqId;
             record.orderId = orderId;
             record.orderItemSeqId = orderItemSeqId;
-            product = delegator.findByPrimaryKey("Product", [productId : record.productId]);
+            product = delegator.findOne("Product", [productId : record.productId], false);
             record.productName = product.internalName;
             record.shipDate = shipment.estimatedShipDate;
             // ---
@@ -62,7 +62,7 @@ if (shipment) {
             if (orderReaders.containsKey(orderId)) {
                 orderReadHelper = (OrderReadHelper)orderReaders.get(orderId);
             } else {
-                orderHeader = delegator.findByPrimaryKey("OrderHeader", [orderId : orderId]);
+                orderHeader = delegator.findOne("OrderHeader", [orderId : orderId], false);
                 orderReadHelper = new OrderReadHelper(orderHeader);
                 orderReaders.put(orderId, orderReadHelper);
             }

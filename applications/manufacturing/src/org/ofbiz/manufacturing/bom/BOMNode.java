@@ -86,7 +86,7 @@ public class BOMNode {
     }
 
     public BOMNode(String productId, Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) throws GenericEntityException {
-        this(delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId)), dispatcher, userLogin);
+        this(delegator.findOne("Product", UtilMisc.toMap("productId", productId), false), dispatcher, userLogin);
     }
 
     protected void loadChildren(String partBomTypeId, Date inDate, List<GenericValue> productFeatures, int type) throws GenericEntityException {

@@ -49,7 +49,7 @@ function lookupBom() {
             <td>
                 <select name="productAssocTypeId" size="1">
                 <#if productAssocTypeId?has_content>
-                    <#assign curAssocType = delegator.findByPrimaryKey("ProductAssocType", Static["org.ofbiz.base.util.UtilMisc"].toMap("productAssocTypeId", productAssocTypeId))>
+                    <#assign curAssocType = delegator.findOne("ProductAssocType", Static["org.ofbiz.base.util.UtilMisc"].toMap("productAssocTypeId", productAssocTypeId), false)>
                     <#if curAssocType?exists>
                         <option selected="selected" value="${(curAssocType.productAssocTypeId)?if_exists}">${(curAssocType.get("description",locale))?if_exists}</option>
                         <option value="${(curAssocType.productAssocTypeId)?if_exists}"></option>
@@ -91,7 +91,7 @@ function lookupBom() {
             <td>
                 <select name="productAssocTypeId" size="1">
                 <#if productAssocTypeId?has_content>
-                    <#assign curAssocType = delegator.findByPrimaryKey("ProductAssocType", Static["org.ofbiz.base.util.UtilMisc"].toMap("productAssocTypeId", productAssocTypeId))>
+                    <#assign curAssocType = delegator.findOne("ProductAssocType", Static["org.ofbiz.base.util.UtilMisc"].toMap("productAssocTypeId", productAssocTypeId), false)>
                     <#if curAssocType?exists>
                         <option selected="selected" value="${(curAssocType.productAssocTypeId)?if_exists}">${(curAssocType.get("description",locale))?if_exists}</option>
                         <option value="${(curAssocType.productAssocTypeId)?if_exists}"></option>

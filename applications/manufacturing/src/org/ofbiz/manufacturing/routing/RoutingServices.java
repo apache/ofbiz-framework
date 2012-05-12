@@ -68,7 +68,7 @@ public class RoutingServices {
 
         GenericValue task = null;
         try {
-            task = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", taskId));
+            task = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", taskId), false);
         } catch (GenericEntityException gee) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingRoutingErrorFindingTask", UtilMisc.toMap("taskId", taskId), locale));
         }

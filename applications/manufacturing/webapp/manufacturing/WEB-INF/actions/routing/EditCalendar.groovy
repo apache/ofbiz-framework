@@ -22,7 +22,7 @@ import org.ofbiz.base.util.UtilHttp;
 requestParams = UtilHttp.getParameterMap(request);
 calendarId = requestParams.get("calendarId") ?: request.getAttribute("calendarId");
 if (calendarId != null) {
-    techDataCalendar = delegator.findByPrimaryKey("TechDataCalendar", [calendarId : calendarId]);
+    techDataCalendar = delegator.findOne("TechDataCalendar", [calendarId : calendarId], false);
     context.techDataCalendar = techDataCalendar;
 }
 

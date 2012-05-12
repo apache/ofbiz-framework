@@ -120,7 +120,7 @@ if (shipmentPlans) {
         }
         oneRow.weight = weight;
         if (product.weightUomId) {
-            weightUom = delegator.findByPrimaryKeyCache("Uom", [uomId : product.weightUomId]);
+            weightUom = delegator.findOne("Uom", [uomId : product.weightUomId], true);
             oneRow.weightUom = weightUom.abbreviation;
         }
         volume = 0.0;
@@ -138,9 +138,9 @@ if (shipmentPlans) {
             product.widthUomId &&
             product.depthUomId) {
 
-            heightUom = delegator.findByPrimaryKeyCache("Uom", [uomId : product.heightUomId]);
-            widthUom = delegator.findByPrimaryKeyCache("Uom", [uomId : product.widthUomId]);
-            depthUom = delegator.findByPrimaryKeyCache("Uom", [uomId : product.depthUomId]);
+            heightUom = delegator.findOne("Uom", [uomId : product.heightUomId], true);
+            widthUom = delegator.findOne("Uom", [uomId : product.widthUomId], true);
+            depthUom = delegator.findOne("Uom", [uomId : product.depthUomId], true);
             oneRow.volumeUom = heightUom.abbreviation + "x" +
                                     widthUom.abbreviation + "x" +
                                     depthUom.abbreviation;
