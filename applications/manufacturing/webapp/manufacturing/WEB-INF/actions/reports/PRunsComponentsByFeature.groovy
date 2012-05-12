@@ -24,11 +24,11 @@ import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.category.CategoryWorker;
 
 if (productCategoryIdPar) {
-    category = delegator.findByPrimaryKey("ProductCategory", [productCategoryId : productCategoryIdPar]);
+    category = delegator.findOne("ProductCategory", [productCategoryId : productCategoryIdPar], false);
     context.category = category;
 }
 if (productFeatureTypeIdPar) {
-    featureType = delegator.findByPrimaryKey("ProductFeatureType", [productFeatureTypeId : productFeatureTypeIdPar]);
+    featureType = delegator.findOne("ProductFeatureType", [productFeatureTypeId : productFeatureTypeIdPar], false);
     context.featureType = featureType;
 }
 
@@ -60,7 +60,7 @@ if (allProductionRuns) {
                     continue;
                 }
             }
-            productionRunProduct = delegator.findByPrimaryKey("Product", [productId : productionRunComponent.productId]);
+            productionRunProduct = delegator.findOne("Product", [productId : productionRunComponent.productId], false);
 
             location = null;
             if (productionRunProduct) {

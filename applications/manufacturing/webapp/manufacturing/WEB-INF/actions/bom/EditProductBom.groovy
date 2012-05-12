@@ -44,7 +44,7 @@ Timestamp fromDate = null;
 if (fromDateStr) fromDate = Timestamp.valueOf(fromDateStr) ?: (Timestamp)request.getAttribute("ProductAssocCreateFromDate");;
 context.fromDate = fromDate;
 
-productAssoc = delegator.findByPrimaryKey("ProductAssoc", [productId : productId, productIdTo : productIdTo, productAssocTypeId : productAssocTypeId, fromDate : fromDate]);
+productAssoc = delegator.findOne("ProductAssoc", [productId : productId, productIdTo : productIdTo, productAssocTypeId : productAssocTypeId, fromDate : fromDate], false);
 if (updateMode) {
     productAssoc = [:];
     context.remove("productIdTo");

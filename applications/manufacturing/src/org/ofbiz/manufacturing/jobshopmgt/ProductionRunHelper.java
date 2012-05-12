@@ -57,7 +57,7 @@ public class ProductionRunHelper {
         
         try {
             if (productionRunId != null) {
-                GenericValue productionRun = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", productionRunId));
+                GenericValue productionRun = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", productionRunId), false);
                 if (productionRun != null) {
                     List<GenericValue> productionRunProducts = productionRun.getRelated("WorkEffortGoodStandard", UtilMisc.toMap("workEffortGoodStdTypeId", "PRUN_PROD_DELIV"),null);
                     GenericValue productionRunProduct = EntityUtil.getFirst(productionRunProducts);

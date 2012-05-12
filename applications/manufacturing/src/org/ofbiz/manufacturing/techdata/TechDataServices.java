@@ -198,7 +198,7 @@ public class TechDataServices {
         if (techDataCalendar == null) {
             try {
                 Delegator delegator = routingTask.getDelegator();
-                techDataCalendar = delegator.findByPrimaryKey("TechDataCalendar",UtilMisc.toMap("calendarId","DEFAULT"));
+                techDataCalendar = delegator.findOne("TechDataCalendar",UtilMisc.toMap("calendarId","DEFAULT"), false);
             } catch (GenericEntityException e) {
                 Debug.logError("Pb reading TechDataCalendar DEFAULT"+e.getMessage(), module);
             }

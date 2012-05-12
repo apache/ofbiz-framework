@@ -25,7 +25,7 @@ import org.ofbiz.manufacturing.jobshopmgt.ProductionRunHelper;
 import org.ofbiz.order.order.OrderReadHelper;
 
 if (productCategoryIdPar) {
-    category = delegator.findByPrimaryKey("ProductCategory", [productCategoryId : productCategoryIdPar]);
+    category = delegator.findOne("ProductCategory", [productCategoryId : productCategoryIdPar], false);
     context.category = category;
 }
 
@@ -41,7 +41,7 @@ if (allProductionRuns) {
                 continue;
             }
         }
-        productionRunProduct = delegator.findByPrimaryKey("Product", [productId : productionRun.productId]);
+        productionRunProduct = delegator.findOne("Product", [productId : productionRun.productId], false);
         String rootProductionRunId = ProductionRunHelper.getRootProductionRun(delegator, productionRun.workEffortId);
 
         productionRunOrders = delegator.findByAnd("WorkOrderItemFulfillment", [workEffortId : rootProductionRunId]);

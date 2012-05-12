@@ -20,7 +20,7 @@
 import org.ofbiz.entity.GenericValue;
 
 shipmentId = parameters.shipmentId;
-shipment = delegator.findByPrimaryKey("Shipment", [shipmentId : shipmentId]);
+shipment = delegator.findOne("Shipment", [shipmentId : shipmentId], false);
 
 context.shipmentIdPar = shipment.shipmentId;
 context.date = new Date();

@@ -22,7 +22,7 @@ import org.ofbiz.base.util.*;
 
 inventoryStock = [:];
 shipmentId = parameters.shipmentId;
-shipment = delegator.findByPrimaryKey("Shipment", [shipmentId : shipmentId]);
+shipment = delegator.findOne("Shipment", [shipmentId : shipmentId], false);
 
 context.shipmentIdPar = shipment.shipmentId;
 context.estimatedReadyDatePar = shipment.estimatedReadyDate;
@@ -31,7 +31,7 @@ records = [];
 if (shipment) {
     shipmentPlans = delegator.findByAnd("OrderShipment", [shipmentId : shipmentId]);
     shipmentPlans.each { shipmentPlan ->
-        orderLine = delegator.findByPrimaryKey("OrderItem", [orderId : shipmentPlan.orderId , orderItemSeqId : shipmentPlan.orderItemSeqId]);
+        orderLine = delegator.findOne("OrderItem", [orderId : shipmentPlan.orderId , orderItemSeqId : shipmentPlan.orderItemSeqId], false);
         recordGroup = [:];
         recordGroup.ORDER_ID = shipmentPlan.orderId;
         recordGroup.ORDER_ITEM_SEQ_ID = shipmentPlan.orderItemSeqId;
@@ -40,7 +40,7 @@ if (shipment) {
 
         recordGroup.PRODUCT_ID = orderLine.productId;
         recordGroup.QUANTITY = shipmentPlan.quantity;
-        product = delegator.findByPrimaryKey("Product", [productId : orderLine.productId]);
+        product = delegator.findOne("Product", [productId : orderLine.productId], false);
         recordGroup.PRODUCT_NAME = product.internalName;
 
         inputPar = [productId : orderLine.productId,

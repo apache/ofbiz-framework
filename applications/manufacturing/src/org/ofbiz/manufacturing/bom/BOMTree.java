@@ -97,7 +97,7 @@ public class BOMTree {
         this.delegator = delegator;
         this.dispatcher = dispatcher;
 
-        inputProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
+        inputProduct = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
 
         String productIdForRules = productId;
         // The selected product features are loaded
@@ -107,8 +107,8 @@ public class BOMTree {
         GenericValue oneProductFeatureAppl = null;
         for (int i = 0; i < productFeaturesAppl.size(); i++) {
             oneProductFeatureAppl = productFeaturesAppl.get(i);
-            productFeatures.add(delegator.findByPrimaryKey("ProductFeature",
-                    UtilMisc.toMap("productFeatureId", oneProductFeatureAppl.getString("productFeatureId"))));
+            productFeatures.add(delegator.findOne("ProductFeature",
+                    UtilMisc.toMap("productFeatureId", oneProductFeatureAppl.getString("productFeatureId")), false));
 
         }
         // If the product is manufactured as a different product,
@@ -116,8 +116,8 @@ public class BOMTree {
         GenericValue manufacturedAsProduct = manufacturedAsProduct(productId, inDate);
         // We load the information about the product that needs to be manufactured
         // from Product entity
-        GenericValue product = delegator.findByPrimaryKey("Product", 
-                UtilMisc.toMap("productId", (manufacturedAsProduct != null? manufacturedAsProduct.getString("productIdTo"): productId)));
+        GenericValue product = delegator.findOne("Product", 
+                UtilMisc.toMap("productId", (manufacturedAsProduct != null? manufacturedAsProduct.getString("productIdTo"): productId)), false);
         if (product == null) return;
         BOMNode originalNode = new BOMNode(product, dispatcher, userLogin);
         originalNode.setTree(this);
@@ -133,8 +133,8 @@ public class BOMTree {
                 // load the new product
                 productIdForRules = virtualProduct.getString("productId");
                 manufacturedAsProduct = manufacturedAsProduct(virtualProduct.getString("productId"), inDate);
-                product = delegator.findByPrimaryKey("Product", 
-                        UtilMisc.toMap("productId", (manufacturedAsProduct != null? manufacturedAsProduct.getString("productIdTo"): virtualProduct.get("productId"))));
+                product = delegator.findOne("Product", 
+                        UtilMisc.toMap("productId", (manufacturedAsProduct != null? manufacturedAsProduct.getString("productIdTo"): virtualProduct.get("productId"))), false);
             }
         }
         if (product == null) return;
@@ -334,7 +334,7 @@ public class BOMTree {
         if (root != null) {
             if (UtilValidate.isEmpty(facilityId)) {
                 if (orderId != null) {
-                    GenericValue order = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+                    GenericValue order = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
                     String productStoreId = order.getString("productStoreId");
                     if (productStoreId != null) {
                         GenericValue productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
@@ -345,7 +345,7 @@ public class BOMTree {
 
                 }
                 if (facilityId == null && shipmentId != null) {
-                    GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
+                    GenericValue shipment = delegator.findOne("Shipment", UtilMisc.toMap("shipmentId", shipmentId), false);
                     facilityId = shipment.getString("originFacilityId");
                 }
             }
