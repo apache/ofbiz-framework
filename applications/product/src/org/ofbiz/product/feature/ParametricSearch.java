@@ -92,7 +92,7 @@ public class ParametricSearch {
                 for (GenericValue productFeatureCatGrpAppl: productFeatureCatGrpAppls) {
                     List<GenericValue> productFeatureGroupAppls = delegator.findByAndCache("ProductFeatureGroupAppl", UtilMisc.toMap("productFeatureGroupId", productFeatureCatGrpAppl.get("productFeatureGroupId")));
                     for (GenericValue productFeatureGroupAppl: productFeatureGroupAppls) {
-                        GenericValue productFeature = delegator.findByPrimaryKeyCache("ProductFeature", UtilMisc.toMap("productFeatureId", productFeatureGroupAppl.get("productFeatureId")));
+                        GenericValue productFeature = delegator.findOne("ProductFeature", UtilMisc.toMap("productFeatureId", productFeatureGroupAppl.get("productFeatureId")), true);
 
                         String productFeatureTypeId = productFeature.getString("productFeatureTypeId");
                         Map<String, GenericValue> featuresByType = productFeaturesByTypeMap.get(productFeatureTypeId);

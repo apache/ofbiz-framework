@@ -159,7 +159,7 @@ public class ProductPromoContentWrapper implements ContentWrapper {
         ModelEntity productModel = delegator.getModelEntity("ProductPromo");
         if (productModel.isField(candidateFieldName)) {
             if (UtilValidate.isEmpty(productPromo)) {
-                productPromo = delegator.findByPrimaryKeyCache("ProductPromo", UtilMisc.toMap("productPromoId", productPromoId));
+                productPromo = delegator.findOne("ProductPromo", UtilMisc.toMap("productPromoId", productPromoId), true);
             }
             if (UtilValidate.isNotEmpty(productPromo)) {
                 String candidateValue = productPromo.getString(candidateFieldName);

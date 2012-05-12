@@ -888,7 +888,7 @@ public class ProductSearch {
         public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             GenericValue prodCatalog = null;
             try {
-                prodCatalog = delegator.findByPrimaryKeyCache("ProdCatalog", UtilMisc.toMap("prodCatalogId", prodCatalogId));
+                prodCatalog = delegator.findOne("ProdCatalog", UtilMisc.toMap("prodCatalogId", prodCatalogId), true);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error finding ProdCatalog information for constraint pretty print", module);
             }
@@ -969,7 +969,7 @@ public class ProductSearch {
         public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             GenericValue productCategory = null;
             try {
-                productCategory = delegator.findByPrimaryKeyCache("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryId));
+                productCategory = delegator.findOne("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryId), true);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error finding ProductCategory information for constraint pretty print", module);
             }
@@ -1054,7 +1054,7 @@ public class ProductSearch {
             GenericValue productFeature = null;
             GenericValue productFeatureType = null;
             try {
-                productFeature = delegator.findByPrimaryKeyCache("ProductFeature", UtilMisc.toMap("productFeatureId", productFeatureId));
+                productFeature = delegator.findOne("ProductFeature", UtilMisc.toMap("productFeatureId", productFeatureId), true);
                 productFeatureType = productFeature == null ? null : productFeature.getRelatedOne("ProductFeatureType");
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error finding ProductFeature and Type information for constraint pretty print", module);
@@ -1136,7 +1136,7 @@ public class ProductSearch {
         public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             GenericValue productFeatureCategory = null;
             try {
-                productFeatureCategory = delegator.findByPrimaryKeyCache("ProductFeatureCategory", UtilMisc.toMap("productFeatureCategoryId", productFeatureCategoryId));
+                productFeatureCategory = delegator.findOne("ProductFeatureCategory", UtilMisc.toMap("productFeatureCategoryId", productFeatureCategoryId), true);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error finding ProductFeatureCategory and Type information for constraint pretty print", module);
             }
@@ -1217,7 +1217,7 @@ public class ProductSearch {
         public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             GenericValue productFeatureGroup = null;
             try {
-                productFeatureGroup = delegator.findByPrimaryKeyCache("ProductFeatureGroup", UtilMisc.toMap("productFeatureGroupId", productFeatureGroupId));
+                productFeatureGroup = delegator.findOne("ProductFeatureGroup", UtilMisc.toMap("productFeatureGroupId", productFeatureGroupId), true);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error finding ProductFeatureGroup and Type information for constraint pretty print", module);
             }
@@ -1311,7 +1311,7 @@ public class ProductSearch {
                     if (infoOut.length() > 0) {
                         infoOut.append(", ");
                     }
-                    GenericValue productFeature = delegator.findByPrimaryKeyCache("ProductFeature", UtilMisc.toMap("productFeatureId", featureId));
+                    GenericValue productFeature = delegator.findOne("ProductFeature", UtilMisc.toMap("productFeatureId", featureId), true);
                     GenericValue productFeatureType = productFeature == null ? null : productFeature.getRelatedOneCache("ProductFeatureType");
                     if (productFeatureType == null) {
                         infoOut.append(UtilProperties.getMessage(resource, "ProductFeature", locale)).append(": ");

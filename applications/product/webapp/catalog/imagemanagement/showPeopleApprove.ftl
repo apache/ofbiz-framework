@@ -40,7 +40,7 @@ jQuery(document).ready(function(){
                 <table>
                     <#assign userLoginApprovers  = delegator.findByAnd("UserLogin",Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", partyRole.partyId))/>
                     <#assign userLoginApprover = userLoginApprovers[0]>
-                    <#assign userLoginAndPartyDetails = delegator.findByPrimaryKey("UserLoginAndPartyDetails", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", userLoginApprover.partyId, "userLoginId", userLoginApprover.userLoginId))?if_exists>
+                    <#assign userLoginAndPartyDetails = delegator.findOne("UserLoginAndPartyDetails", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", userLoginApprover.partyId, "userLoginId", userLoginApprover.userLoginId), false)?if_exists>
                     <#if userLoginAndPartyDetails != null && userLoginAndPartyDetails?has_content>
                         <#assign partyContentDetail  = delegator.findByAnd("ContentApproval",Static["org.ofbiz.base.util.UtilMisc"].toMap("roleTypeId", "IMAGEAPPROVER", "approvalStatusId", "IM_PENDING", "partyId", userLoginAndPartyDetails.partyId))/>
                         <#assign imageApproveSize = partyContentDetail.size()>

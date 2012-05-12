@@ -154,7 +154,7 @@ public class ProductContentWrapper implements ContentWrapper {
         String candidateFieldName = ModelUtil.dbNameToVarName(productContentTypeId);
         ModelEntity productModel = delegator.getModelEntity("Product");
         if (product == null) {
-            product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+            product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
         }
         if (UtilValidate.isEmpty(product)) {
             Debug.logWarning("No Product entity found for productId: " + productId, module);

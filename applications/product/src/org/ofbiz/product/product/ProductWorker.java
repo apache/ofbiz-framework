@@ -147,7 +147,7 @@ public class ProductWorker {
     }
 
     public static String getInstanceAggregatedId(Delegator delegator, String instanceProductId) throws GenericEntityException {
-        GenericValue instanceProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", instanceProductId));
+        GenericValue instanceProduct = delegator.findOne("Product", UtilMisc.toMap("productId", instanceProductId), false);
 
         if (UtilValidate.isNotEmpty(instanceProduct) && EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", instanceProduct.getString("productTypeId"), "parentTypeId", "AGGREGATED")) {
             GenericValue productAssoc = EntityUtil.getFirst(EntityUtil.filterByDate(instanceProduct.getRelatedByAnd("AssocProductAssoc",
@@ -173,7 +173,7 @@ public class ProductWorker {
     }
 
     public static List<GenericValue> getAggregatedAssocs(Delegator delegator, String  aggregatedProductId) throws GenericEntityException {
-        GenericValue aggregatedProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", aggregatedProductId));
+        GenericValue aggregatedProduct = delegator.findOne("Product", UtilMisc.toMap("productId", aggregatedProductId), false);
 
         if (UtilValidate.isNotEmpty(aggregatedProduct) && ("AGGREGATED".equals(aggregatedProduct.getString("productTypeId")) || "AGGREGATED_SERVICE".equals(aggregatedProduct.getString("productTypeId")))) {
             List<GenericValue> productAssocs = EntityUtil.filterByDate(aggregatedProduct.getRelatedByAnd("MainProductAssoc",
@@ -318,7 +318,7 @@ public class ProductWorker {
      */
     public static String getGwpAlternativeOptionName(LocalDispatcher dispatcher, Delegator delegator, String alternativeOptionProductId, Locale locale) {
         try {
-            GenericValue alternativeOptionProduct = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", alternativeOptionProductId));
+            GenericValue alternativeOptionProduct = delegator.findOne("Product", UtilMisc.toMap("productId", alternativeOptionProductId), true);
             if (alternativeOptionProduct != null) {
                 if ("Y".equals(alternativeOptionProduct.getString("isVariant"))) {
                     Set<GenericValue> distFeatures = getVariantDistinguishingFeatures(alternativeOptionProduct);
@@ -367,7 +367,7 @@ public class ProductWorker {
             return null;
         }
         try {
-            return getProductFeaturesByApplTypeId(delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId)),
+            return getProductFeaturesByApplTypeId(delegator.findOne("Product", UtilMisc.toMap("productId", productId), false),
                     productFeatureApplTypeId);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
@@ -403,7 +403,7 @@ public class ProductWorker {
     public static String getProductVirtualVariantMethod(Delegator delegator, String productId) {
         GenericValue product = null;
         try {
-            product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+            product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -440,8 +440,8 @@ public class ProductWorker {
                         featureTypeFeatures.add(featureList);
                         featureList = FastList.newInstance();
                     }
-                    GenericValue productFeatureType = delegator.findByPrimaryKey("ProductFeatureType", UtilMisc.toMap("productFeatureTypeId",
-                            productFeatureAppl.getString("productFeatureTypeId")));
+                    GenericValue productFeatureType = delegator.findOne("ProductFeatureType", UtilMisc.toMap("productFeatureTypeId",
+                            productFeatureAppl.getString("productFeatureTypeId")), false);
                     featureList.add(UtilMisc.<String, String>toMap("productFeatureTypeId", productFeatureAppl.getString("productFeatureTypeId"),
                             "description", productFeatureType.getString("description")));
                     oldType = productFeatureAppl.getString("productFeatureTypeId");
@@ -597,7 +597,7 @@ public class ProductWorker {
     public static BigDecimal getAverageProductRating(Delegator delegator, String productId, String productStoreId) {
         GenericValue product = null;
         try {
-            product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+            product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -679,7 +679,7 @@ public class ProductWorker {
     public static List<GenericValue> getCurrentProductCategories(Delegator delegator, String productId) {
         GenericValue product = null;
         try {
-            product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
+            product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -759,7 +759,7 @@ public class ProductWorker {
 
     public static boolean isVirtual(Delegator delegator, String productI) {
         try {
-            GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productI));
+            GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productI), true);
             if (product != null) {
                 return "Y".equals(product.getString("isVirtual"));
             }
@@ -772,7 +772,7 @@ public class ProductWorker {
 
     public static boolean isAmountRequired(Delegator delegator, String productI) {
         try {
-            GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productI));
+            GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productI), true);
             if (product != null) {
                 return "Y".equals(product.getString("requireAmount"));
             }
@@ -785,7 +785,7 @@ public class ProductWorker {
 
     public static String getProductTypeId(Delegator delegator, String productId) {
         try {
-            GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+            GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
             if (product != null) {
                 return product.getString("productTypeId");
             }
@@ -864,7 +864,7 @@ public class ProductWorker {
 
         // 1) look if the idToFind given is a real productId
         if (searchProductFirst) {
-            product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", idToFind));
+            product = delegator.findOne("Product", UtilMisc.toMap("productId", idToFind), true);
         }
 
         if (searchAllId || (searchProductFirst && UtilValidate.isEmpty(product))) {
@@ -877,7 +877,7 @@ public class ProductWorker {
         }
 
         if (! searchProductFirst) {
-            product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", idToFind));
+            product = delegator.findOne("Product", UtilMisc.toMap("productId", idToFind), true);
         }
 
         if (UtilValidate.isNotEmpty(product)) {
@@ -920,7 +920,7 @@ public class ProductWorker {
                 GenericValue productToAdd = product;
                 //retreive product GV if the actual genericValue came from viewEntity
                 if (! "Product".equals(product.getEntityName())) {
-                    productToAdd = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", product.get("productId")));
+                    productToAdd = delegator.findOne("Product", UtilMisc.toMap("productId", product.get("productId")), true);
                 }
 
                 if (UtilValidate.isEmpty(products)) {
@@ -1056,7 +1056,7 @@ nextProd:
              */
             if (!productFound) {
                 // copy product to be variant
-                GenericValue product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId",  productId));
+                GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId",  productId), false);
                 product.put("isVariant", "Y");
                 product.put("isVirtual", "N");
                 product.put("productId", delegator.getNextSeqId("Product"));
@@ -1198,7 +1198,7 @@ nextProd:
 
     public static boolean isAggregateService(Delegator delegator, String aggregatedProductId) {
         try {
-            GenericValue aggregatedProduct = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", aggregatedProductId));
+            GenericValue aggregatedProduct = delegator.findOne("Product", UtilMisc.toMap("productId", aggregatedProductId), true);
             if (UtilValidate.isNotEmpty(aggregatedProduct) && "AGGREGATED_SERVICE".equals(aggregatedProduct.getString("productTypeId"))) {
                 return true;
             }

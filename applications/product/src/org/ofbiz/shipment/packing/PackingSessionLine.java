@@ -212,7 +212,7 @@ public class PackingSessionLine implements java.io.Serializable {
             itemLookup.put("orderItemSeqId", this.getOrderItemSeqId());
             itemLookup.put("shipGroupSeqId", this.getShipGroupSeqId());
             itemLookup.put("inventoryItemId", this.getInventoryItemId());
-            GenericValue plItem = delegator.findByPrimaryKey("PicklistItem", itemLookup);
+            GenericValue plItem = delegator.findOne("PicklistItem", itemLookup, false);
             if (plItem != null) {
                 Debug.logInfo("Found picklist bin: " + plItem, module);
                 BigDecimal itemQty = plItem.getBigDecimal("quantity");

@@ -77,7 +77,7 @@ public class ProductUtilServices {
             int numSoFarOne = 0;
             while ((productOne = eliOne.next()) != null) {
                 String virtualProductId = ProductWorker.getVariantVirtualId(productOne);
-                GenericValue virtualProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", virtualProductId));
+                GenericValue virtualProduct = delegator.findOne("Product", UtilMisc.toMap("productId", virtualProductId), false);
                 if (virtualProduct == null) {
                     continue;
                 }
@@ -344,7 +344,7 @@ public class ProductUtilServices {
         }
 
         try {
-            GenericValue product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
+            GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
             Debug.logInfo("Processing virtual product with one variant with ID: " + productId + " and name: " + product.getString("internalName"), module);
 
             List<GenericValue> paList = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT")));
@@ -382,7 +382,7 @@ public class ProductUtilServices {
             String variantProductId = productAssoc.getString("productIdTo");
 
             // Product
-            GenericValue variantProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", variantProductId));
+            GenericValue variantProduct = delegator.findOne("Product", UtilMisc.toMap("productId", variantProductId), false);
 
             Debug.logInfo("--variant has ID: " + variantProductId + " and name: " + variantProduct.getString("internalName"), module);
 
@@ -700,7 +700,7 @@ while (allCatIter.hasNext()) {
                 productFeatureGroupId = productFeatureGroupId.substring(0, 20);
             }
 
-            GenericValue productFeatureGroup = delegator.findByPrimaryKey("ProductFeatureGroup", UtilMisc.toMap("productFeatureGroupId", productFeatureGroupId));
+            GenericValue productFeatureGroup = delegator.findOne("ProductFeatureGroup", UtilMisc.toMap("productFeatureGroupId", productFeatureGroupId), false);
             if (productFeatureGroup == null) {
                 // auto-create the group
                 String description = "Feature Group for type [" + productFeatureTypeId + "] features in category [" + productCategoryId + "]";

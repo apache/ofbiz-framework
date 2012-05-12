@@ -44,7 +44,7 @@ under the License.
             <#list quantitySummaryByFacility.values() as quantitySummary>
                 <#if quantitySummary.facilityId?exists>
                     <#assign facilityId = quantitySummary.facilityId>
-                    <#assign facility = delegator.findByPrimaryKey("Facility", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", facilityId))>
+                    <#assign facility = delegator.findOne("Facility", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", facilityId), false)>
                     <#assign manufacturingInQuantitySummary = manufacturingInQuantitySummaryByFacility.get(facilityId)?if_exists>
                     <#assign manufacturingOutQuantitySummary = manufacturingOutQuantitySummaryByFacility.get(facilityId)?if_exists>
                     <#assign totalQuantityOnHand = quantitySummary.totalQuantityOnHand?if_exists>

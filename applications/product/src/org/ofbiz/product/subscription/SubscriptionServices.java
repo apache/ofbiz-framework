@@ -134,7 +134,7 @@ public class SubscriptionServices {
         try {
             if (lastSubscription != null && !alwaysCreateNewRecord) {
                 Map<String, Object> updateSubscriptionMap = dctx.getModelService("updateSubscription").makeValid(newSubscription, ModelService.IN_PARAM);
-                updateSubscriptionMap.put("userLogin", delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system")));
+                updateSubscriptionMap.put("userLogin", delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", "system"), false));
 
                 Map<String, Object> updateSubscriptionResult = dispatcher.runSync("updateSubscription", updateSubscriptionMap);
                 result.put("subscriptionId", updateSubscriptionMap.get("subscriptionId"));
@@ -159,7 +159,7 @@ public class SubscriptionServices {
                     }
                 }
                 Map<String, Object> createSubscriptionMap = dctx.getModelService("createSubscription").makeValid(newSubscription, ModelService.IN_PARAM);
-                createSubscriptionMap.put("userLogin", delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system")));
+                createSubscriptionMap.put("userLogin", delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", "system"), false));
 
                 Map<String, Object> createSubscriptionResult = dispatcher.runSync("createSubscription", createSubscriptionMap);
                 if (ServiceUtil.isError(createSubscriptionResult)) {
@@ -257,7 +257,7 @@ public class SubscriptionServices {
                         "OrderErrorCannotGetOrderRoleEntity", 
                         UtilMisc.toMap("itemMsgInfo", orderId), locale));
             }
-            orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+            orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
             if (orderHeader == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrderError, 
                         "OrderErrorNoValidOrderHeaderFoundForOrderId", 

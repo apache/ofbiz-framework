@@ -150,7 +150,7 @@ public class ProductConfigItemContentWrapper implements java.io.Serializable {
         ModelEntity productConfigItemModel = delegator.getModelEntity("ProductConfigItem");
         if (productConfigItemModel.isField(candidateFieldName)) {
             if (productConfigItem == null) {
-                productConfigItem = delegator.findByPrimaryKeyCache("ProductConfigItem", UtilMisc.toMap("configItemId", configItemId));
+                productConfigItem = delegator.findOne("ProductConfigItem", UtilMisc.toMap("configItemId", configItemId), true);
             }
             if (productConfigItem != null) {
                 String candidateValue = productConfigItem.getString(candidateFieldName);

@@ -129,7 +129,7 @@ public class CategoryContentWrapper implements ContentWrapper {
         ModelEntity categoryModel = delegator.getModelEntity("ProductCategory");
         if (categoryModel.isField(candidateFieldName)) {
             if (productCategory == null) {
-                productCategory = delegator.findByPrimaryKeyCache("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryId));
+                productCategory = delegator.findOne("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryId), true);
             }
             if (productCategory != null) {
                 String candidateValue = productCategory.getString(candidateFieldName);

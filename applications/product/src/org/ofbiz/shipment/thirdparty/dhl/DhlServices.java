@@ -169,8 +169,8 @@ public class DhlServices {
         // translate shipmentMethodTypeId to DHL service code
         String dhlShipmentDetailCode = null;
         try {
-            GenericValue carrierShipmentMethod = delegator.findByPrimaryKey("CarrierShipmentMethod", UtilMisc.toMap("shipmentMethodTypeId", shipmentMethodTypeId,
-                    "partyId", carrierPartyId, "roleTypeId", "CARRIER"));
+            GenericValue carrierShipmentMethod = delegator.findOne("CarrierShipmentMethod", UtilMisc.toMap("shipmentMethodTypeId", shipmentMethodTypeId,
+                    "partyId", carrierPartyId, "roleTypeId", "CARRIER"), false);
             if (carrierShipmentMethod == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentDhlNoCarrierShipmentMethod",
@@ -198,7 +198,7 @@ public class DhlServices {
         GenericValue shipToAddress = null;
         if (shippingContactMechId != null) {
             try {
-                shipToAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", shippingContactMechId));
+                shipToAddress = delegator.findOne("PostalAddress", UtilMisc.toMap("contactMechId", shippingContactMechId), false);
                 if (shipToAddress == null) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                             "FacilityShipmentUnableFoundShipToAddresss", locale));
@@ -522,12 +522,12 @@ public class DhlServices {
         
         String shipmentConfirmResponseString = null;
         try {
-            GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
+            GenericValue shipment = delegator.findOne("Shipment", UtilMisc.toMap("shipmentId", shipmentId), false);
             if (shipment == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "ProductShipmentNotFoundId", locale) + shipmentId);
             }
-            GenericValue shipmentRouteSegment = delegator.findByPrimaryKey("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId));
+            GenericValue shipmentRouteSegment = delegator.findOne("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), false);
             if (shipmentRouteSegment == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "ProductShipmentRouteSegmentNotFound", 
@@ -710,8 +710,8 @@ public class DhlServices {
             // translate shipmentMethodTypeId to DHL service code
             String shipmentMethodTypeId = shipmentRouteSegment.getString("shipmentMethodTypeId");
             String dhlShipmentDetailCode = null;
-            GenericValue carrierShipmentMethod = delegator.findByPrimaryKey("CarrierShipmentMethod", UtilMisc.toMap("shipmentMethodTypeId", shipmentMethodTypeId,
-                    "partyId", "DHL", "roleTypeId", "CARRIER"));
+            GenericValue carrierShipmentMethod = delegator.findOne("CarrierShipmentMethod", UtilMisc.toMap("shipmentMethodTypeId", shipmentMethodTypeId,
+                    "partyId", "DHL", "roleTypeId", "CARRIER"), false);
             if (carrierShipmentMethod == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentDhlNoCarrierShipmentMethod", 

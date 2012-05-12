@@ -122,7 +122,7 @@ public class ProductServices {
             }
             if (variantFound) {
                 try {
-                    products.add(delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", oneVariant.getString("productIdTo"))));
+                    products.add(delegator.findOne("Product", UtilMisc.toMap("productId", oneVariant.getString("productIdTo")), false));
                 } catch (GenericEntityException e) {
                     Map<String, String> messageMap = UtilMisc.toMap("errProductFeatures", e.toString());
                     String errMsg = UtilProperties.getMessage(resourceError,"productservices.problem_reading_product_features_errors", messageMap, locale);
@@ -225,7 +225,7 @@ public class ProductServices {
             GenericValue productTo = null;
 
             try {
-                productTo = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productIdTo));
+                productTo = delegator.findOne("Product", UtilMisc.toMap("productId", productIdTo), true);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 Map<String, String> messageMap = UtilMisc.toMap("productIdTo", productIdTo, "errMessage", e.toString());
@@ -409,7 +409,7 @@ public class ProductServices {
         }
 
         try {
-            GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+            GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
             GenericValue mainProduct = product;
 
             if (product.get("isVariant") != null && product.getString("isVariant").equalsIgnoreCase("Y")) {
@@ -482,7 +482,7 @@ public class ProductServices {
         GenericValue product = null;
 
         try {
-            product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+            product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
             errMsg = UtilProperties.getMessage(resourceError, 
@@ -672,8 +672,8 @@ public class ProductServices {
             }
             for (GenericValue featureAppl: features) {
                 try {
-                    GenericValue product = delegator.findByPrimaryKeyCache("Product",
-                            UtilMisc.toMap("productId", productId));
+                    GenericValue product = delegator.findOne("Product",
+                            UtilMisc.toMap("productId", productId), true);
 
                     tempSample.put(featureAppl.getString("description"), product);
                 } catch (GenericEntityException e) {
@@ -704,7 +704,7 @@ public class ProductServices {
 
         try {
             // read the product, duplicate it with the given id
-            GenericValue product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
+            GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
             if (product == null) {
                 Map<String, String> messageMap = UtilMisc.toMap("productId", productId);
                 errMsg = UtilProperties.getMessage(resourceError, 
@@ -714,7 +714,7 @@ public class ProductServices {
                 return result;
             }
             // check if product exists
-            GenericValue variantProduct = delegator.findByPrimaryKey("Product",UtilMisc.toMap("productId", variantProductId));
+            GenericValue variantProduct = delegator.findOne("Product",UtilMisc.toMap("productId", variantProductId), false);
             boolean variantProductExists = (variantProduct != null);
             if (variantProduct == null) {
                 //if product does not exist
@@ -756,7 +756,7 @@ public class ProductServices {
             while (st.hasMoreTokens()) {
                 String productFeatureId = st.nextToken();
 
-                GenericValue productFeature = delegator.findByPrimaryKey("ProductFeature", UtilMisc.toMap("productFeatureId", productFeatureId));
+                GenericValue productFeature = delegator.findOne("ProductFeature", UtilMisc.toMap("productFeatureId", productFeatureId), false);
 
                 GenericValue productFeatureAppl = delegator.makeValue("ProductFeatureAppl",
                 UtilMisc.toMap("productId", variantProductId, "productFeatureId", productFeatureId,
@@ -841,7 +841,7 @@ public class ProductServices {
                     continue;
                 }
                 // is a Product.productId?
-                GenericValue variantProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", variantProductId));
+                GenericValue variantProduct = delegator.findOne("Product", UtilMisc.toMap("productId", variantProductId), false);
                 if (variantProduct != null) {
                     variantProductsById.put(variantProductId, variantProduct);
                 } else {
@@ -917,7 +917,7 @@ public class ProductServices {
 
             GenericValue inventoryItem = null;
             try {
-                inventoryItem = delegator.findByPrimaryKeyCache("InventoryItem", UtilMisc.toMap("inventoryItemId", inventoryItemId));
+                inventoryItem = delegator.findOne("InventoryItem", UtilMisc.toMap("inventoryItemId", inventoryItemId), true);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -927,7 +927,7 @@ public class ProductServices {
                 String productId = inventoryItem.getString("productId");
                 GenericValue product = null;
                 try {
-                    product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+                    product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(e.getMessage());
@@ -949,7 +949,7 @@ public class ProductServices {
                             // refresh the product so we can update it
                             GenericValue productToUpdate = null;
                             try {
-                                productToUpdate = delegator.findByPrimaryKey("Product", product.getPrimaryKey());
+                                productToUpdate = delegator.findOne("Product", product.getPrimaryKey(), false);
                             } catch (GenericEntityException e) {
                                 Debug.logError(e, module);
                                 return ServiceUtil.returnError(e.getMessage());

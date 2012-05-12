@@ -65,7 +65,7 @@ public class SupplierProductServices {
         BigDecimal quantity =(BigDecimal) context.get("quantity");
         String canDropShip = (String) context.get("canDropShip");
         try {
-            product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+            product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
             if (product == null) {
                 results = ServiceUtil.returnSuccess();
                 results.put("supplierProducts",null);
@@ -76,7 +76,7 @@ public class SupplierProductServices {
             // if there were no related SupplierProduct entities and the item is a variant, then get the SupplierProducts of the virtual parent product
             if (supplierProducts.size() == 0 && product.getString("isVariant") != null && product.getString("isVariant").equals("Y")) {
                 String virtualProductId = ProductWorker.getVariantVirtualId(product);
-                GenericValue virtualProduct = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", virtualProductId));
+                GenericValue virtualProduct = delegator.findOne("Product", UtilMisc.toMap("productId", virtualProductId), true);
                 if (virtualProduct != null) {
                     supplierProducts = virtualProduct.getRelatedCache("SupplierProduct");
                 }

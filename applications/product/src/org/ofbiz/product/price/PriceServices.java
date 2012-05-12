@@ -109,7 +109,7 @@ public class PriceServices {
         GenericValue productStore = null;
         try {
             // we have a productStoreId, if the corresponding ProductStore.primaryStoreGroupId is not empty, use that
-            productStore = delegator.findByPrimaryKeyCache("ProductStore", UtilMisc.toMap("productStoreId", productStoreId));
+            productStore = delegator.findOne("ProductStore", UtilMisc.toMap("productStoreId", productStoreId), true);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error getting product store info from the database while calculating price" + e.toString(), module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -278,7 +278,7 @@ public class PriceServices {
                             BigDecimal curDefaultPrice = curDefaultPriceValue.getBigDecimal("price");
                             if (minDefaultPrice == null || curDefaultPrice.compareTo(minDefaultPrice) < 0) {
                                 // check to see if the product is discontinued for sale before considering it the lowest price
-                                GenericValue curVariantProduct = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", curVariantProductId));
+                                GenericValue curVariantProduct = delegator.findOne("Product", UtilMisc.toMap("productId", curVariantProductId), true);
                                 if (curVariantProduct != null) {
                                     Timestamp salesDiscontinuationDate = curVariantProduct.getTimestamp("salesDiscontinuationDate");
                                     if (salesDiscontinuationDate == null || salesDiscontinuationDate.after(nowTimestamp)) {
@@ -770,7 +770,7 @@ public class PriceServices {
 
             productPriceRules = FastList.newInstance();
             for (String productPriceRuleId: productPriceRuleIds) {
-                GenericValue productPriceRule = delegator.findByPrimaryKeyCache("ProductPriceRule", UtilMisc.toMap("productPriceRuleId", productPriceRuleId));
+                GenericValue productPriceRule = delegator.findOne("ProductPriceRule", UtilMisc.toMap("productPriceRuleId", productPriceRuleId), true);
                 if (productPriceRule == null) continue;
                 productPriceRules.add(productPriceRule);
             }
@@ -1165,8 +1165,8 @@ public class PriceServices {
         } else if ("PRIP_ROLE_TYPE".equals(productPriceCond.getString("inputParamEnumId"))) {
             if (partyId != null) {
                 // if a PartyRole exists for this partyId and the specified roleTypeId
-                GenericValue partyRole = delegator.findByPrimaryKeyCache("PartyRole",
-                        UtilMisc.toMap("partyId", partyId, "roleTypeId", productPriceCond.getString("condValue")));
+                GenericValue partyRole = delegator.findOne("PartyRole",
+                        UtilMisc.toMap("partyId", partyId, "roleTypeId", productPriceCond.getString("condValue")), true);
 
                 // then 0 (equals), otherwise 1 (not equals)
                 if (partyRole != null) {

@@ -204,7 +204,7 @@ public class CatalogWorker {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
 
         try {
-            GenericValue prodCatalog = delegator.findByPrimaryKeyCache("ProdCatalog", UtilMisc.toMap("prodCatalogId", prodCatalogId));
+            GenericValue prodCatalog = delegator.findOne("ProdCatalog", UtilMisc.toMap("prodCatalogId", prodCatalogId), true);
 
             if (prodCatalog != null) {
                 return prodCatalog.getString("catalogName");
@@ -243,7 +243,7 @@ public class CatalogWorker {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
 
         try {
-            return delegator.findByPrimaryKeyCache("ProdCatalog", UtilMisc.toMap("prodCatalogId", prodCatalogId));
+            return delegator.findOne("ProdCatalog", UtilMisc.toMap("prodCatalogId", prodCatalogId), true);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error looking up name for prodCatalog with id " + prodCatalogId, module);
             return null;
@@ -338,7 +338,7 @@ public class CatalogWorker {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
 
         try {
-            GenericValue prodCatalog = delegator.findByPrimaryKeyCache("ProdCatalog", UtilMisc.toMap("prodCatalogId", prodCatalogId));
+            GenericValue prodCatalog = delegator.findOne("ProdCatalog", UtilMisc.toMap("prodCatalogId", prodCatalogId), true);
 
             if (prodCatalog != null) {
                 return "Y".equals(prodCatalog.getString("useQuickAdd"));

@@ -97,7 +97,7 @@ public class FrameImage {
         
         String frameImageName = null;
         try {
-            GenericValue contentDataResourceView = delegator.findByPrimaryKey("ContentDataResourceView", UtilMisc.toMap("contentId", frameContentId, "drDataResourceId", frameDataResourceId));
+            GenericValue contentDataResourceView = delegator.findOne("ContentDataResourceView", UtilMisc.toMap("contentId", frameContentId, "drDataResourceId", frameDataResourceId), false);
             frameImageName = contentDataResourceView.getString("contentName");
         } catch (Exception e) {
             Debug.logError(e, module);
@@ -357,7 +357,7 @@ public class FrameImage {
         
         String frameImageName = null;
         try {
-            GenericValue contentDataResourceView = delegator.findByPrimaryKey("ContentDataResourceView", UtilMisc.toMap("contentId", frameContentId, "drDataResourceId", frameDataResourceId));
+            GenericValue contentDataResourceView = delegator.findOne("ContentDataResourceView", UtilMisc.toMap("contentId", frameContentId, "drDataResourceId", frameDataResourceId), false);
             frameImageName = contentDataResourceView.getString("contentName");
         } catch (Exception e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());

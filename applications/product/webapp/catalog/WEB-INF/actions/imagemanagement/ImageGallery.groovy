@@ -34,9 +34,9 @@ if(productContentAndInfoImageManamentList) {
         contentAssocThumbList = delegator.findByAnd("ContentAssoc", [contentId : productContentAndInfoImageManament.contentId, contentAssocTypeId : "IMAGE_THUMBNAIL"]);
         contentAssocThumb = EntityUtil.getFirst(contentAssocThumbList);
         if(contentAssocThumb) {
-            imageContentThumb = delegator.findByPrimaryKey("Content", [contentId : contentAssocThumb.contentIdTo]);
+            imageContentThumb = delegator.findOne("Content", [contentId : contentAssocThumb.contentIdTo], false);
             if(imageContentThumb) {
-                productImageThumb = delegator.findByPrimaryKey("ContentDataResourceView", [contentId : imageContentThumb.contentId, drDataResourceId : imageContentThumb.dataResourceId]);
+                productImageThumb = delegator.findOne("ContentDataResourceView", [contentId : imageContentThumb.contentId, drDataResourceId : imageContentThumb.dataResourceId], false);
                 productImageMap = [:];
                 productImageMap.contentId = productContentAndInfoImageManament.contentId;
                 productImageMap.dataResourceId = productContentAndInfoImageManament.dataResourceId;

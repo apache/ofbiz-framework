@@ -25,7 +25,7 @@ under the License.
             <tr class="header-row">
                 <td>${uiLabelMap.ProductProductId}</td>
                     <#list featureTypeIds as featureTypeId>
-                        <#assign featureType = delegator.findByPrimaryKey("ProductFeatureType", Static["org.ofbiz.base.util.UtilMisc"].toMap("productFeatureTypeId", featureTypeId))>
+                        <#assign featureType = delegator.findOne("ProductFeatureType", Static["org.ofbiz.base.util.UtilMisc"].toMap("productFeatureTypeId", featureTypeId), false)>
                         <td>${featureType.description}&nbsp;</td>
                     </#list>
                 <td>${uiLabelMap.ProductQoh}</td>
