@@ -141,7 +141,7 @@ public class ImportOrdersFromEbay {
             if (UtilValidate.isNotEmpty(orderId)) {
                 // Get the order header and verify if this order has been imported
                 // from eBay (i.e. sales channel = EBAY_CHANNEL and externalId is set)
-                orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+                orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
                 if (orderHeader == null) {
                     Debug.logError("Cannot find order with orderId [" + orderId + "]", module);
                     return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.errorRetrievingOrderFromOrderId", locale));
@@ -600,7 +600,7 @@ public class ImportOrdersFromEbay {
             if (productStoreId == null) {
                 return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.productStoreIdIsMandatory", locale));
             } else {
-                GenericValue productStore = delegator.findByPrimaryKey("ProductStore", UtilMisc.toMap("productStoreId", productStoreId));
+                GenericValue productStore = delegator.findOne("ProductStore", UtilMisc.toMap("productStoreId", productStoreId), false);
                 if (productStore != null) {
                     defaultCurrencyUomId = productStore.getString("defaultCurrencyUomId");
                     payToPartyId = productStore.getString("payToPartyId");
@@ -658,7 +658,7 @@ public class ImportOrdersFromEbay {
             if (UtilValidate.isEmpty(productId)) {
                 return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.productIdNotAvailable", locale));
             } else {
-                GenericValue product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
+                GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
                 if (UtilValidate.isEmpty(product)) {
                     return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.productIdDoesNotExist", locale));
                 }
@@ -735,7 +735,7 @@ public class ImportOrdersFromEbay {
                 if (UtilValidate.isNotEmpty(partyAttribute)) {
                     partyId = (String) partyAttribute.get("partyId");
                     Debug.logInfo("Found existing party associated to the eBay buyer: " + partyId, module);
-                    GenericValue party = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
+                    GenericValue party = delegator.findOne("Party", UtilMisc.toMap("partyId", partyId), false);
 
                     contactMechId = EbayHelper.setShippingAddressContactMech(dispatcher, delegator, party, userLogin, parameters);
                     String emailBuyer = (String) parameters.get("emailBuyer");

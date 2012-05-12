@@ -269,7 +269,7 @@ under the License.
           </tr>
           <#list productFeatureTypeIdsOrdered as productFeatureTypeId>
             <#assign findPftMap = Static["org.ofbiz.base.util.UtilMisc"].toMap("productFeatureTypeId", productFeatureTypeId) />
-            <#assign productFeatureType = delegator.findByPrimaryKeyCache("ProductFeatureType", findPftMap) />
+            <#assign productFeatureType = delegator.findOne("ProductFeatureType", findPftMap, true) />
             <#assign productFeatures = productFeaturesByTypeMap[productFeatureTypeId] />
             <tr>
               <td class="label" align="right" valign="middle">

@@ -516,7 +516,7 @@ public class EbayHelper {
             GenericValue postalAddress;
             try {
                 // get the postal address for this contact mech
-                postalAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", contactMechId));
+                postalAddress = delegator.findOne("PostalAddress", UtilMisc.toMap("contactMechId", contactMechId), false);
 
                 // match values to compare by modifying them the same way they
                 // were when they were created
@@ -588,8 +588,8 @@ public class EbayHelper {
             GenericValue phoneNumber;
             try {
                 // get the phone number for this contact mech
-                phoneNumber = delegator.findByPrimaryKey("TelecomNumber", UtilMisc
-                        .toMap("contactMechId", contactMechId));
+                phoneNumber = delegator.findOne("TelecomNumber", UtilMisc
+                        .toMap("contactMechId", contactMechId), false);
 
                 // now compare values. If one matches, that's our phone number.
                 // Return the related contact mech id.
@@ -622,7 +622,7 @@ public class EbayHelper {
                     titleFirstWord = title.substring(0, title.indexOf(' '));
                 }
                 if (UtilValidate.isNotEmpty(titleFirstWord)) {
-                    GenericValue product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", titleFirstWord));
+                    GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", titleFirstWord), false);
                     if (UtilValidate.isNotEmpty(product)) {
                         productId = product.getString("productId");
                     }
