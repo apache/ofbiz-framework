@@ -569,7 +569,7 @@ public class ShoppingCartEvents {
         if(ProductWorker.isAlternativePacking(delegator, productId , parentProductId)){
             GenericValue parentProduct = null;
             try {
-                parentProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", parentProductId));
+                parentProduct = delegator.findOne("Product", UtilMisc.toMap("productId", parentProductId), false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error getting parent product", module);
             }
@@ -1604,7 +1604,7 @@ public class ShoppingCartEvents {
             if (UtilValidate.isEmpty(partyId) && UtilValidate.isNotEmpty(userLoginId)) {
                 GenericValue thisUserLogin = null;
                 try {
-                    thisUserLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
+                    thisUserLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", userLoginId), false);
                 } catch (GenericEntityException gee) {
                     //
                 }
@@ -1617,7 +1617,7 @@ public class ShoppingCartEvents {
             if (UtilValidate.isNotEmpty(partyId)) {
                 GenericValue thisParty = null;
                 try {
-                    thisParty = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
+                    thisParty = delegator.findOne("Party", UtilMisc.toMap("partyId", partyId), false);
                 } catch (GenericEntityException gee) {
                     //
                 }
@@ -1673,7 +1673,7 @@ public class ShoppingCartEvents {
             String productPromoId = (String)context.get(keyPrefix + i);
             if (UtilValidate.isNotEmpty(productPromoId)) {
                 try {
-                    GenericValue promo = delegator.findByPrimaryKey("ProductPromo", UtilMisc.toMap("productPromoId", productPromoId));
+                    GenericValue promo = delegator.findOne("ProductPromo", UtilMisc.toMap("productPromoId", productPromoId), false);
                     if (promo != null) {
                         manualPromotions.add(promo);
                     }

@@ -64,7 +64,7 @@ public class TaskWorker {
         GenericValue role = null;
         try {
             Map<String, ? extends Object> pkFields = UtilMisc.toMap("roleTypeId", orderTaskList.getString("roleTypeId"));
-            role = orderTaskList.getDelegator().findByPrimaryKey("RoleType", pkFields);
+            role = orderTaskList.getDelegator().findOne("RoleType", pkFields, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot get RoleType entity value", module);
             return orderTaskList.getString("roleTypeId");

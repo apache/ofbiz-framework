@@ -177,7 +177,7 @@ public class ShoppingCartServices {
         // get the order header
         GenericValue orderHeader = null;
         try {
-            orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+            orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -431,7 +431,7 @@ public class ShoppingCartServices {
                     String workEffortId = orh.getCurrentOrderItemWorkEffort(item);
                     if (workEffortId != null) {
                         try {
-                            workEffort = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId));
+                            workEffort = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId), false);
                         } catch (GenericEntityException e) {
                             Debug.logError(e, module);
                         }
@@ -449,7 +449,7 @@ public class ShoppingCartServices {
                     ProductConfigWrapper configWrapper = null;
                     String configId = null;
                     try {
-                        product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
+                        product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
                         if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.getString("productTypeId"), "parentTypeId", "AGGREGATED")) {
                             List<GenericValue>productAssocs = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_CONF", "productIdTo", product.getString("productId")));
                             productAssocs = EntityUtil.filterByDate(productAssocs);
@@ -659,7 +659,7 @@ public class ShoppingCartServices {
         // get the quote header
         GenericValue quote = null;
         try {
-            quote = delegator.findByPrimaryKey("Quote", UtilMisc.toMap("quoteId", quoteId));
+            quote = delegator.findOne("Quote", UtilMisc.toMap("quoteId", quoteId), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -959,7 +959,7 @@ public class ShoppingCartServices {
         // get the shopping list header
         GenericValue shoppingList = null;
         try {
-            shoppingList = delegator.findByPrimaryKey("ShoppingList", UtilMisc.toMap("shoppingListId", shoppingListId));
+            shoppingList = delegator.findOne("ShoppingList", UtilMisc.toMap("shoppingListId", shoppingListId), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());

@@ -51,7 +51,7 @@ context.partyTasks = partyTasks;
 // Build a map of orderId and currency
 orderCurrencyMap = [:];
 partyTasks.each { ptItem ->
-    orderHeader = delegator.findByPrimaryKey("OrderHeader", [orderId : ptItem.orderId]);
+    orderHeader = delegator.findOne("OrderHeader", [orderId : ptItem.orderId], false);
     orderCurrencyMap[ptItem.orderId] = orderHeader.currencyUom;
 }
 
@@ -81,7 +81,7 @@ context.roleTasks = roleTasks;
 
 // Add to the map of orderId and currency
 roleTasks.each { rtItem ->
-    orderHeader = delegator.findByPrimaryKey("OrderHeader", [orderId : rtItem.orderId]);
+    orderHeader = delegator.findOne("OrderHeader", [orderId : rtItem.orderId], false);
     orderCurrencyMap[rtItem.orderId] = orderHeader.currencyUom;
 }
 context.orderCurrencyMap = orderCurrencyMap;

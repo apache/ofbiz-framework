@@ -110,7 +110,7 @@ module = "OrderDiscountCodeReport.rptdesign";]]></method>
             <method name="open"><![CDATA[orders = null;
 userLogin = null;
 try {
-    userLogin = delegator.findByPrimaryKey("UserLogin",UtilMisc.toMap("userLoginId","admin"));
+    userLogin = delegator.findOne("UserLogin",UtilMisc.toMap("userLoginId","admin"), false);
 } catch(e) {
         Debug.logError(e,"");
 }

@@ -59,34 +59,34 @@ context.paymentStatusList = paymentStatusList;
 // current role type
 currentRoleTypeId = request.getParameter("roleTypeId");
 if (currentRoleTypeId) {
-    currentRole = delegator.findByPrimaryKeyCache("RoleType", [roleTypeId : currentRoleTypeId]);
+    currentRole = delegator.findOne("RoleType", [roleTypeId : currentRoleTypeId], true);
     context.currentRole = currentRole;
 }
 
 // current selected type
 currentTypeId = request.getParameter("orderTypeId");
 if (currentTypeId) {
-    currentType = delegator.findByPrimaryKeyCache("OrderType", [orderTypeId : currentTypeId]);
+    currentType = delegator.findOne("OrderType", [orderTypeId : currentTypeId], true);
     context.currentType = currentType;
 }
 // current selected status
 currentStatusId = request.getParameter("orderStatusId");
 if (currentStatusId) {
-    currentStatus = delegator.findByPrimaryKeyCache("StatusItem", [statusId : currentStatusId]);
+    currentStatus = delegator.findOne("StatusItem", [statusId : currentStatusId], true);
     context.currentStatus = currentStatus;
 }
 
 // current website
 currentWebSiteId = request.getParameter("orderWebSiteId");
 if (currentWebSiteId) {
-    currentWebSite = delegator.findByPrimaryKeyCache("WebSite", [webSiteId : currentWebSiteId]);
+    currentWebSite = delegator.findOne("WebSite", [webSiteId : currentWebSiteId], true);
     context.currentWebSite = currentWebSite;
 }
 
 // current store
 currentProductStoreId = request.getParameter("productStoreId");
 if (currentProductStoreId) {
-    currentProductStore = delegator.findByPrimaryKeyCache("ProductStore", [productStoreId : currentProductStoreId]);
+    currentProductStore = delegator.findOne("ProductStore", [productStoreId : currentProductStoreId], true);
     context.currentProductStore = currentProductStore;
 }
 
@@ -104,7 +104,7 @@ if (shipmentMethod) {
 // current channel
 currentSalesChannelId = request.getParameter("salesChannelEnumId");
 if (currentSalesChannelId) {
-    currentSalesChannel = delegator.findByPrimaryKey("Enumeration", [enumId : currentSalesChannelId]);
+    currentSalesChannel = delegator.findOne("Enumeration", [enumId : currentSalesChannelId], false);
     context.currentSalesChannel = currentSalesChannel;
 }
 

@@ -29,12 +29,12 @@ roleData = [:];
 partyData = [:];
 
 additionalPartyRole.each { roleTypeId, partyList ->
-    roleData[roleTypeId] = delegator.findByPrimaryKeyCache("RoleType", [roleTypeId : roleTypeId]);
+    roleData[roleTypeId] = delegator.findOne("RoleType", [roleTypeId : roleTypeId], true);
 
     partyList.each { partyId ->
         partyMap = [:];
         partyMap.partyId = partyId;
-        party = delegator.findByPrimaryKeyCache("Party", [partyId : partyId]);
+        party = delegator.findOne("Party", [partyId : partyId], true);
         if (party.partyTypeId.equals("PERSON")) {
             party = party.getRelatedOneCache("Person");
             partyMap.type = "person";

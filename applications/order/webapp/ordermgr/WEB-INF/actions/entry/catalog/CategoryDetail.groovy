@@ -70,7 +70,7 @@ if(productStore) {
     if("N".equals(productStore.showOutOfStockProducts)) {
         productsInStock = [];
         productCategoryMembers.each { productCategoryMember ->
-            product = delegator.findByPrimaryKeyCache("Product", [productId : productCategoryMember.productId]);
+            product = delegator.findOne("Product", [productId : productCategoryMember.productId], true);
             boolean isMarketingPackage = EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.productTypeId, "parentTypeId", "MARKETING_PKG");
             context.isMarketingPackage = (isMarketingPackage? "true": "false");
             if (isMarketingPackage) {

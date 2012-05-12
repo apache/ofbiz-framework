@@ -102,7 +102,7 @@ public class ProductPromoWorker {
             String productStoreId = cart.getProductStoreId();
             GenericValue productStore = null;
             try {
-                productStore = delegator.findByPrimaryKeyCache("ProductStore", UtilMisc.toMap("productStoreId", productStoreId));
+                productStore = delegator.findOne("ProductStore", UtilMisc.toMap("productStoreId", productStoreId), true);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error looking up store with id " + productStoreId, module);
             }
@@ -164,7 +164,7 @@ public class ProductPromoWorker {
         String productStoreId = cart.getProductStoreId();
         GenericValue productStore = null;
         try {
-            productStore = delegator.findByPrimaryKeyCache("ProductStore", UtilMisc.toMap("productStoreId", productStoreId));
+            productStore = delegator.findOne("ProductStore", UtilMisc.toMap("productStoreId", productStoreId), true);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error looking up store with id " + productStoreId, module);
         }
@@ -202,7 +202,7 @@ public class ProductPromoWorker {
         String productStoreId = cart.getProductStoreId();
         GenericValue productStore = null;
         try {
-            productStore = delegator.findByPrimaryKeyCache("ProductStore", UtilMisc.toMap("productStoreId", productStoreId));
+            productStore = delegator.findOne("ProductStore", UtilMisc.toMap("productStoreId", productStoreId), true);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error looking up store with id " + productStoreId, module);
         }
@@ -245,7 +245,7 @@ public class ProductPromoWorker {
         String agreementId = cart.getAgreementId();
         GenericValue agreement = null;
         try {
-            agreement = delegator.findByPrimaryKeyCache("Agreement", UtilMisc.toMap("agreementId", agreementId));
+            agreement = delegator.findOne("Agreement", UtilMisc.toMap("agreementId", agreementId), true);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error looking up agreement with id " + agreementId, module);
         }
@@ -575,7 +575,7 @@ public class ProductPromoWorker {
 
     public static String checkCanUsePromoCode(String productPromoCodeId, String partyId, Delegator delegator, ShoppingCart cart, Locale locale) {
         try {
-            GenericValue productPromoCode = delegator.findByPrimaryKey("ProductPromoCode", UtilMisc.toMap("productPromoCodeId", productPromoCodeId));
+            GenericValue productPromoCode = delegator.findOne("ProductPromoCode", UtilMisc.toMap("productPromoCodeId", productPromoCodeId), false);
             if (productPromoCode == null) {
                 return UtilProperties.getMessage(resource_error, "productpromoworker.promotion_code_not_valid", UtilMisc.toMap("productPromoCodeId", productPromoCodeId), locale);
             }
@@ -604,7 +604,7 @@ public class ProductPromoWorker {
 
                 // check partyId
                 if (UtilValidate.isNotEmpty(partyId)) {
-                    if (delegator.findByPrimaryKey("ProductPromoCodeParty", UtilMisc.toMap("productPromoCodeId", productPromoCodeId, "partyId", partyId)) != null) {
+                    if (delegator.findOne("ProductPromoCodeParty", UtilMisc.toMap("productPromoCodeId", productPromoCodeId, "partyId", partyId), false) != null) {
                         // found party associated with the code, looks good...
                         return null;
                     }
@@ -688,7 +688,7 @@ public class ProductPromoWorker {
 
                 if (UtilValidate.isEmpty(messageContext.get("productId"))) messageContext.put("productId", "any");
                 if (UtilValidate.isEmpty(messageContext.get("partyId"))) messageContext.put("partyId", "any");
-                GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+                GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
                 if (product != null) {
                     messageContext.put("productName", ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", locale, null));
                 }
@@ -1081,8 +1081,8 @@ public class ProductPromoWorker {
         } else if ("PPIP_ROLE_TYPE".equals(inputParamEnumId)) {
             if (partyId != null && UtilValidate.isNotEmpty(condValue)) {
                 // if a PartyRole exists for this partyId and the specified roleTypeId
-                GenericValue partyRole = delegator.findByPrimaryKeyCache("PartyRole",
-                        UtilMisc.toMap("partyId", partyId, "roleTypeId", condValue));
+                GenericValue partyRole = delegator.findOne("PartyRole",
+                        UtilMisc.toMap("partyId", partyId, "roleTypeId", condValue), true);
 
                 // then 0 (equals), otherwise 1 (not equals)
                 if (partyRole != null) {
@@ -1195,7 +1195,7 @@ public class ProductPromoWorker {
         } else if ("PPIP_RECURRENCE".equals(inputParamEnumId)) {
             if (UtilValidate.isNotEmpty(condValue)) {
                 compareBase = Integer.valueOf(1);
-                GenericValue recurrenceInfo = delegator.findByPrimaryKeyCache("RecurrenceInfo", UtilMisc.toMap("recurrenceInfoId", condValue));
+                GenericValue recurrenceInfo = delegator.findOne("RecurrenceInfo", UtilMisc.toMap("recurrenceInfoId", condValue), true);
                 if (recurrenceInfo != null) {
                     RecurrenceInfo recurrence = null;
                     try {
@@ -1416,7 +1416,7 @@ public class ProductPromoWorker {
                 GenericValue product = null;
                 if (UtilValidate.isNotEmpty(productId)) {
                     // Debug.logInfo("======== Got GWP productId [" + productId + "]", module);
-                    product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+                    product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
                     if (product == null) {
                         String errMsg = "GWP Product not found with ID [" + productId + "] for ProductPromoAction [" + productPromoAction.get("productPromoId") + ":" + productPromoAction.get("productPromoRuleId") + ":" + productPromoAction.get("productPromoActionSeqId") + "]";
                         Debug.logError(errMsg, module);
@@ -1504,7 +1504,7 @@ public class ProductPromoWorker {
                         }
                         optionProductIds.remove(alternateGwpProductId);
                         productId = alternateGwpProductId;
-                        product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+                        product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
                     } else {
                         Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderAnAlternateGwpProductIdWasInPlaceButWasEitherNotValidOrIsNoLongerInStockForId", UtilMisc.toMap("alternateGwpProductId",alternateGwpProductId), cart.getLocale()), module);
                     }
@@ -1516,7 +1516,7 @@ public class ProductPromoWorker {
                     Iterator<String> optionProductIdTempIter = optionProductIds.iterator();
                     productId = optionProductIdTempIter.next();
                     optionProductIdTempIter.remove();
-                    product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+                    product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
                 }
 
                 if (product == null) {
@@ -1889,7 +1889,7 @@ public class ProductPromoWorker {
         // get the promoText / promoName to set as a descr of the orderAdj
         GenericValue prodPromo;
         try {
-            prodPromo = delegator.findByPrimaryKeyCache("ProductPromo", UtilMisc.toMap("productPromoId", prodPromoId));
+            prodPromo = delegator.findOne("ProductPromo", UtilMisc.toMap("productPromoId", prodPromoId), true);
             if (UtilValidate.isNotEmpty(prodPromo.get("promoText"))) {
                 return (String) prodPromo.get("promoText");
             }
@@ -2017,7 +2017,7 @@ public class ProductPromoWorker {
     }
 
     protected static boolean isProductOld(String productId, Delegator delegator, Timestamp nowTimestamp) throws GenericEntityException {
-        GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+        GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
         if (product != null) {
             Timestamp salesDiscontinuationDate = product.getTimestamp("salesDiscontinuationDate");
             if (salesDiscontinuationDate != null && salesDiscontinuationDate.before(nowTimestamp)) {

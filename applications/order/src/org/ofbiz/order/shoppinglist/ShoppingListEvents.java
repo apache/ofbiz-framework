@@ -213,7 +213,7 @@ public class ShoppingListEvents {
         GenericValue shoppingList = null;
         List<GenericValue> shoppingListItems = null;
         try {
-            shoppingList = delegator.findByPrimaryKey("ShoppingList", UtilMisc.toMap("shoppingListId", shoppingListId));
+            shoppingList = delegator.findOne("ShoppingList", UtilMisc.toMap("shoppingListId", shoppingListId), false);
             if (shoppingList == null) {
                 errMsg = UtilProperties.getMessage(resource_error,"shoppinglistevents.error_getting_shopping_list_and_items", cart.getLocale());
                 throw new IllegalArgumentException(errMsg);
@@ -403,7 +403,7 @@ public class ShoppingListEvents {
                 autoSaveListId = getAutoSaveListId(delegator, dispatcher, null, userLogin, cart.getProductStoreId());
                 cart.setAutoSaveListId(autoSaveListId);
             }
-            GenericValue shoppingList = delegator.findByPrimaryKey("ShoppingList", UtilMisc.toMap("shoppingListId", autoSaveListId));
+            GenericValue shoppingList = delegator.findOne("ShoppingList", UtilMisc.toMap("shoppingListId", autoSaveListId), false);
             Integer currentListSize = 0;
             if (UtilValidate.isNotEmpty(shoppingList)) {
                 List<GenericValue> shoppingListItems = shoppingList.getRelated("ShoppingListItem");
@@ -504,7 +504,7 @@ public class ShoppingListEvents {
         if (!okayToLoad && lastLoad != null) {
             GenericValue shoppingList = null;
             try {
-                shoppingList = delegator.findByPrimaryKey("ShoppingList", UtilMisc.toMap("shoppingListId", autoSaveListId));
+                shoppingList = delegator.findOne("ShoppingList", UtilMisc.toMap("shoppingListId", autoSaveListId), false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }

@@ -40,7 +40,7 @@ if (parameters.returnHeader) {
     returnId = parameters.returnId;
 }
 if (returnId) {
-    returnHeader = delegator.findByPrimaryKey("ReturnHeader", [returnId : returnId]);
+    returnHeader = delegator.findOne("ReturnHeader", [returnId : returnId], false);
     if (returnHeader) {
         partyId = returnHeader.fromPartyId;
         toPartyId = parameters.toPartyId;
@@ -97,7 +97,7 @@ orderHeader = null;
 if (orderId) {
     orderRoles = delegator.findByAnd("OrderRole", [orderId : orderId, roleTypeId : "BILL_TO_CUSTOMER"]);
     orderRole = EntityUtil.getFirst(orderRoles);
-    orderHeader = delegator.findByPrimaryKey("OrderHeader", [orderId : orderId]);
+    orderHeader = delegator.findOne("OrderHeader", [orderId : orderId], false);
 }
 context.orderRole = orderRole;
 context.orderHeader = orderHeader;

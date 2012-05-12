@@ -94,8 +94,8 @@ public class OrderReadHelper {
         this.orderItems = orderItems;
         if (this.orderHeader != null && !this.orderHeader.getEntityName().equals("OrderHeader")) {
             try {
-                this.orderHeader = orderHeader.getDelegator().findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId",
-                        orderHeader.getString("orderId")));
+                this.orderHeader = orderHeader.getDelegator().findOne("OrderHeader", UtilMisc.toMap("orderId",
+                        orderHeader.getString("orderId")), false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 this.orderHeader = null;
@@ -129,7 +129,7 @@ public class OrderReadHelper {
 
     public OrderReadHelper(Delegator delegator, String orderId) {
         try {
-            this.orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+            this.orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
         } catch (GenericEntityException e) {
             String errMsg = "Error finding order with ID [" + orderId + "]: " + e.toString();
             Debug.logError(e, errMsg, module);
@@ -163,7 +163,7 @@ public class OrderReadHelper {
         String productStoreId = orderHeader.getString("productStoreId");
         try {
             Delegator delegator = orderHeader.getDelegator();
-            GenericValue productStore = delegator.findByPrimaryKeyCache("ProductStore", UtilMisc.toMap("productStoreId", productStoreId));
+            GenericValue productStore = delegator.findOne("ProductStore", UtilMisc.toMap("productStoreId", productStoreId), true);
             return productStore;
         } catch (GenericEntityException ex) {
             Debug.logError(ex, "Failed to get product store for order header [" + orderHeader + "] due to exception "+ ex.getMessage(), module);
@@ -342,8 +342,8 @@ public class OrderReadHelper {
 
     public String getShippingMethod(String shipGroupSeqId) {
         try {
-            GenericValue shipGroup = orderHeader.getDelegator().findByPrimaryKey("OrderItemShipGroup",
-                    UtilMisc.toMap("orderId", orderHeader.getString("orderId"), "shipGroupSeqId", shipGroupSeqId));
+            GenericValue shipGroup = orderHeader.getDelegator().findOne("OrderItemShipGroup",
+                    UtilMisc.toMap("orderId", orderHeader.getString("orderId"), "shipGroupSeqId", shipGroupSeqId), false);
 
             if (shipGroup != null) {
                 GenericValue carrierShipmentMethod = shipGroup.getRelatedOne("CarrierShipmentMethod");
@@ -366,8 +366,8 @@ public class OrderReadHelper {
 
     public String getShippingMethodCode(String shipGroupSeqId) {
         try {
-            GenericValue shipGroup = orderHeader.getDelegator().findByPrimaryKey("OrderItemShipGroup",
-                    UtilMisc.toMap("orderId", orderHeader.getString("orderId"), "shipGroupSeqId", shipGroupSeqId));
+            GenericValue shipGroup = orderHeader.getDelegator().findOne("OrderItemShipGroup",
+                    UtilMisc.toMap("orderId", orderHeader.getString("orderId"), "shipGroupSeqId", shipGroupSeqId), false);
 
             if (shipGroup != null) {
                 GenericValue carrierShipmentMethod = shipGroup.getRelatedOne("CarrierShipmentMethod");
@@ -409,8 +409,8 @@ public class OrderReadHelper {
 
     public GenericValue getOrderItemShipGroup(String shipGroupSeqId) {
         try {
-            return orderHeader.getDelegator().findByPrimaryKey("OrderItemShipGroup",
-                    UtilMisc.toMap("orderId", orderHeader.getString("orderId"), "shipGroupSeqId", shipGroupSeqId));
+            return orderHeader.getDelegator().findOne("OrderItemShipGroup",
+                    UtilMisc.toMap("orderId", orderHeader.getString("orderId"), "shipGroupSeqId", shipGroupSeqId), false);
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
         }
@@ -433,8 +433,8 @@ public class OrderReadHelper {
             for(GenericValue ocm : shippingCms) {
                 if (ocm != null) {
                     try {
-                        GenericValue addr = ocm.getDelegator().findByPrimaryKey("PostalAddress",
-                                UtilMisc.toMap("contactMechId", ocm.getString("contactMechId")));
+                        GenericValue addr = ocm.getDelegator().findOne("PostalAddress",
+                                UtilMisc.toMap("contactMechId", ocm.getString("contactMechId")), false);
                         if (addr != null) {
                             shippingLocations.add(addr);
                         }
@@ -449,8 +449,8 @@ public class OrderReadHelper {
 
     public GenericValue getShippingAddress(String shipGroupSeqId) {
         try {
-            GenericValue shipGroup = orderHeader.getDelegator().findByPrimaryKey("OrderItemShipGroup",
-                    UtilMisc.toMap("orderId", orderHeader.getString("orderId"), "shipGroupSeqId", shipGroupSeqId));
+            GenericValue shipGroup = orderHeader.getDelegator().findOne("OrderItemShipGroup",
+                    UtilMisc.toMap("orderId", orderHeader.getString("orderId"), "shipGroupSeqId", shipGroupSeqId), false);
 
             if (shipGroup != null) {
                 return shipGroup.getRelatedOne("PostalAddress");
@@ -489,8 +489,8 @@ public class OrderReadHelper {
             for(GenericValue ocm : billingCms) {
                 if (ocm != null) {
                     try {
-                        GenericValue addr = ocm.getDelegator().findByPrimaryKey("PostalAddress",
-                                UtilMisc.toMap("contactMechId", ocm.getString("contactMechId")));
+                        GenericValue addr = ocm.getDelegator().findOne("PostalAddress",
+                                UtilMisc.toMap("contactMechId", ocm.getString("contactMechId")), false);
                         if (addr != null) {
                             billingLocations.add(addr);
                         }
@@ -732,10 +732,10 @@ public class OrderReadHelper {
             GenericValue orderRole = EntityUtil.getFirst(orderHeader.getRelatedByAnd("OrderRole", UtilMisc.toMap("roleTypeId", roleTypeId)));
 
             if (orderRole != null) {
-                partyObject = delegator.findByPrimaryKey("Person", UtilMisc.toMap("partyId", orderRole.getString("partyId")));
+                partyObject = delegator.findOne("Person", UtilMisc.toMap("partyId", orderRole.getString("partyId")), false);
 
                 if (partyObject == null) {
-                    partyObject = delegator.findByPrimaryKey("PartyGroup", UtilMisc.toMap("partyId", orderRole.getString("partyId")));
+                    partyObject = delegator.findOne("PartyGroup", UtilMisc.toMap("partyId", orderRole.getString("partyId")), false);
                 }
             }
         } catch (GenericEntityException e) {
@@ -1000,7 +1000,7 @@ public class OrderReadHelper {
                     try {
                         String virtualId = ProductWorker.getVariantVirtualId(product);
                         if (UtilValidate.isNotEmpty(virtualId)) {
-                            GenericValue virtual = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", virtualId));
+                            GenericValue virtual = delegator.findOne("Product", UtilMisc.toMap("productId", virtualId), true);
                             if (virtual != null) {
                                 weight = virtual.getBigDecimal("weight");
                             }
@@ -1116,7 +1116,7 @@ public class OrderReadHelper {
                     try {
                         String virtualId = ProductWorker.getVariantVirtualId(product);
                         if (UtilValidate.isNotEmpty(virtualId)) {
-                            GenericValue virtual = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", virtualId));
+                            GenericValue virtual = delegator.findOne("Product", UtilMisc.toMap("productId", virtualId), true);
                             if (virtual != null) {
                                 if (height == null) height = virtual.getBigDecimal("shippingHeight");
                                 if (width == null) width = virtual.getBigDecimal("shippingWidth");
@@ -1384,7 +1384,7 @@ public class OrderReadHelper {
         Delegator delegator = orderHeader.getDelegator();
         GenericValue orderDeliverySchedule = null;
         try {
-            orderDeliverySchedule = delegator.findByPrimaryKey("OrderDeliverySchedule", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", "_NA_"));
+            orderDeliverySchedule = delegator.findOne("OrderDeliverySchedule", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", "_NA_"), false);
         } catch (GenericEntityException e) {
         }
         Timestamp estimatedShipDate = null;
@@ -2180,7 +2180,7 @@ public class OrderReadHelper {
         GenericValue orderHeader = null;
         if (orderId != null && delegator != null) {
             try {
-                orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+                orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Cannot get order header", module);
             }
@@ -2225,7 +2225,7 @@ public class OrderReadHelper {
         GenericValue productStore = null;
         if (orderHeader.get("productStoreId") != null) {
             try {
-                productStore = delegator.findByPrimaryKeyCache("ProductStore", UtilMisc.toMap("productStoreId", orderHeader.getString("productStoreId")));
+                productStore = delegator.findOne("ProductStore", UtilMisc.toMap("productStoreId", orderHeader.getString("productStoreId")), true);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Cannot locate ProductStore from OrderHeader", module);
             }

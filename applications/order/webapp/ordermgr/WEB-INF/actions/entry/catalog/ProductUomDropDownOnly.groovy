@@ -19,7 +19,7 @@
 
 import org.ofbiz.base.util.*;
 
-product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", parameters.productId));
+product = delegator.findOne("Product", UtilMisc.toMap("productId", parameters.productId), false);
 if (product) {
     productVirtualVariants = delegator.findByAndCache("ProductAssoc", UtilMisc.toMap("productIdTo", product.productId , "productAssocTypeId", "ALTERNATIVE_PACKAGE"));
     if(productVirtualVariants){

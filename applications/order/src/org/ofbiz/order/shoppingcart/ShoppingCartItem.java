@@ -182,7 +182,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         GenericValue product = null;
 
         try {
-            product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+            product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
         } catch (GenericEntityException e) {
             Debug.logWarning(e.toString(), module);
         }
@@ -323,7 +323,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         GenericValue parentProduct = null;
 
         try {
-            product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+            product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
 
             // first see if there is a purchase allow category and if this product is in it or not
             String purchaseProductCategoryId = CatalogWorker.getCatalogPurchaseAllowCategoryId(delegator, prodCatalogId);
@@ -351,7 +351,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         {
             try
             {
-                parentProduct = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", parentProductId));
+                parentProduct = delegator.findOne("Product", UtilMisc.toMap("productId", parentProductId), true);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.toString(), module);
             }
@@ -952,8 +952,8 @@ public class ShoppingCartItem implements java.io.Serializable {
             // find an existing Day exception record
             Timestamp exceptionDateStartTime = new Timestamp((reservStart.getTime() + (dayCount++ * 86400000)));
             try {
-                techDataCalendarExcDay = delegator.findByPrimaryKey("TechDataCalendarExcDay",
-                        UtilMisc.toMap("calendarId", fixedAsset.get("calendarId"), "exceptionDateStartTime", exceptionDateStartTime));
+                techDataCalendarExcDay = delegator.findOne("TechDataCalendarExcDay",
+                        UtilMisc.toMap("calendarId", fixedAsset.get("calendarId"), "exceptionDateStartTime", exceptionDateStartTime), false);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
             }
@@ -1554,7 +1554,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     /** Returns the item type. */
     public GenericValue getItemTypeGenericValue() {
         try {
-            return this.getDelegator().findByPrimaryKeyCache("OrderItemType", UtilMisc.toMap("orderItemTypeId", this.itemType));
+            return this.getDelegator().findOne("OrderItemType", UtilMisc.toMap("orderItemTypeId", this.itemType), true);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error getting ShippingCartItem's OrderItemType", module);
             return null;
@@ -1587,7 +1587,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         GenericValue orderItemType = null;
         if (this.getItemType() != null) {
             try {
-                orderItemType = this.getDelegator().findByPrimaryKeyCache("OrderItemType", UtilMisc.toMap("orderItemTypeId", this.getItemType()));
+                orderItemType = this.getDelegator().findOne("OrderItemType", UtilMisc.toMap("orderItemTypeId", this.getItemType()), true);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, UtilProperties.getMessage(resource_error,"OrderProblemsGettingOrderItemTypeFor", UtilMisc.toMap("orderItemTypeId",this.getItemType()), locale));
             }
@@ -2449,7 +2449,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         }
         if (this.productId != null) {
             try {
-                this._product = this.getDelegator().findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+                this._product = this.getDelegator().findOne("Product", UtilMisc.toMap("productId", productId), true);
             } catch (GenericEntityException e) {
                 throw new RuntimeException("Entity Engine error getting Product (" + e.getMessage() + ")");
             }

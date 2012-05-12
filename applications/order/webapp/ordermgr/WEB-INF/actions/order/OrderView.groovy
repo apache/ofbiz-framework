@@ -57,7 +57,7 @@ orderItems = null;
 orderAdjustments = null;
 
 if (orderId) {
-    orderHeader = delegator.findByPrimaryKey("OrderHeader", [orderId : orderId]);
+    orderHeader = delegator.findOne("OrderHeader", [orderId : orderId], false);
 }
 
 if (orderHeader) {
@@ -372,10 +372,10 @@ context.paramString = paramString;
 workEffortStatus = null;
 if (workEffortId && assignPartyId && assignRoleTypeId && fromDate) {
     fields = [workEffortId : workEffortId, partyId : assignPartyId, roleTypeId : assignRoleTypeId, fromDate : fromDate];
-    wepa = delegator.findByPrimaryKey("WorkEffortPartyAssignment", fields);
+    wepa = delegator.findOne("WorkEffortPartyAssignment", fields, false);
 
     if ("CAL_ACCEPTED".equals(wepa?.statusId)) {
-        workEffort = delegator.findByPrimaryKey("WorkEffort", [workEffortId : workEffortId]);
+        workEffort = delegator.findOne("WorkEffort", [workEffortId : workEffortId], false);
         workEffortStatus = workEffort.currentStatusId;
         if (workEffortStatus) {
             context.workEffortStatus = workEffortStatus;
@@ -386,7 +386,7 @@ if (workEffortId && assignPartyId && assignRoleTypeId && fromDate) {
         if (workEffort) {
             if ("true".equals(delegate) || "WF_RUNNING".equals(workEffortStatus)) {
                 actFields = [packageId : workEffort.workflowPackageId, packageVersion : workEffort.workflowPackageVersion, processId : workEffort.workflowProcessId, processVersion : workEffort.workflowProcessVersion, activityId : workEffort.workflowActivityId];
-                activity = delegator.findByPrimaryKey("WorkflowActivity", actFields);
+                activity = delegator.findOne("WorkflowActivity", actFields, false);
                 if (activity) {
                     transitions = activity.getRelated("FromWorkflowTransition", null, ["-transitionId"]);
                     context.wfTransitions = transitions;
@@ -398,7 +398,7 @@ if (workEffortId && assignPartyId && assignRoleTypeId && fromDate) {
 
 if (orderHeader) {
     // list to find all the POSTAL_ADDRESS for the shipment party.
-    orderParty = delegator.findByPrimaryKey("Party", [partyId : partyId]);
+    orderParty = delegator.findOne("Party", [partyId : partyId], false);
     shippingContactMechList = ContactHelper.getContactMech(orderParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
     context.shippingContactMechList = shippingContactMechList;
 
@@ -434,7 +434,7 @@ if (orderHeader) {
 
 if (orderHeader) {
    // list to find all the POSTAL_ADDRESS for the party.
-   orderParty = delegator.findByPrimaryKey("Party", [partyId : partyId]);
+   orderParty = delegator.findOne("Party", [partyId : partyId], false);
    postalContactMechList = ContactHelper.getContactMechByType(orderParty,"POSTAL_ADDRESS", false);
    context.postalContactMechList = postalContactMechList;
 

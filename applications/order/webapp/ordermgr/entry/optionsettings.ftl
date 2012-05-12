@@ -56,7 +56,7 @@ under the License.
     <#assign chosenShippingMethod = cart.getShipmentMethodTypeId(shipGroupIndex) + '@' + cart.getCarrierPartyId(shipGroupIndex)>
 </#if>
 <#assign supplierPartyId = cart.getSupplierPartyId(shipGroupIndex)?if_exists>
-<#assign supplier =  delegator.findByPrimaryKey("PartyGroup", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", supplierPartyId))?if_exists />
+<#assign supplier =  delegator.findOne("PartyGroup", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", supplierPartyId), false)?if_exists />
 
               <table width="100%" cellpadding="1" border="0" cellpadding="0" cellspacing="0">
               <tr><td colspan="2"><hr /></td></tr>

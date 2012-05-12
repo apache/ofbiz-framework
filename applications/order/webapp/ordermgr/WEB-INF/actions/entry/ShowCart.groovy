@@ -87,7 +87,7 @@ if (partyId) {
 }
 
 // get product inventory summary for each shopping cart item
-productStore = delegator.findByPrimaryKeyCache("ProductStore", [productStoreId : productStoreId]);
+productStore = delegator.findOne("ProductStore", [productStoreId : productStoreId], true);
 context.productStore = productStore
 productStoreFacilityId = null;
 if (productStore) {

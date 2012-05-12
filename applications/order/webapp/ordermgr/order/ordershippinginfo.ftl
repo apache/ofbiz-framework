@@ -368,7 +368,7 @@ under the License.
       </script>
       <table width="100%" border="0" cellpadding="1" cellspacing="0">
         <#if shipGroup.supplierPartyId?has_content>
-          <#assign supplier =  delegator.findByPrimaryKey("PartyGroup", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", shipGroup.supplierPartyId))?if_exists />
+          <#assign supplier =  delegator.findOne("PartyGroup", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", shipGroup.supplierPartyId), false)?if_exists />
           <tr><td colspan="3"><hr /></td></tr>
           <tr>
             <td align="right" valign="top" width="15%">

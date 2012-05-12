@@ -39,7 +39,7 @@ request.removeAttribute("_EVENT_MESSAGE_");
 party = null;
 orderPartyIdId = cart.getPartyId();
 if (orderPartyIdId) {
-    orderPartyId = delegator.findByPrimaryKey("Party", [partyId : orderPartyIdId]);
+    orderPartyId = delegator.findOne("Party", [partyId : orderPartyIdId], false);
     context.orderPartyId = orderPartyId;
 }
 

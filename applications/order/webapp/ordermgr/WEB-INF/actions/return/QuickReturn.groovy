@@ -36,7 +36,7 @@ if (partyId) {
     if (("VENDOR_RETURN").equals(returnHeaderTypeId)) {
         context.toPartyId = partyId;
     }
-    party = delegator.findByPrimaryKey("Party", [partyId : partyId]);
+    party = delegator.findOne("Party", [partyId : partyId], false);
     context.party = party;
 }
 
@@ -45,7 +45,7 @@ context.returnHeaders = returnHeaders;
 
 // put in the return to party information from the order header
 if (orderId) {
-    order = delegator.findByPrimaryKey("OrderHeader", [orderId : orderId]);
+    order = delegator.findOne("OrderHeader", [orderId : orderId], false);
     productStore = order.getRelatedOne("ProductStore");
     if (productStore) {
         if (("VENDOR_RETURN").equals(returnHeaderTypeId)) {
@@ -94,7 +94,7 @@ context.returnItemTypeMap = typeMap;
 if (orderId) {
     returnRes = dispatcher.runSync("getReturnableItems", [orderId : orderId]);
     context.returnableItems = returnRes.returnableItems;
-    orderHeader = delegator.findByPrimaryKey("OrderHeader", [orderId : orderId]);
+    orderHeader = delegator.findOne("OrderHeader", [orderId : orderId], false);
     context.orderHeader = orderHeader;
 }
 
