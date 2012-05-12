@@ -42,7 +42,7 @@ under the License.
 
 <#if parameters.portalPageId?has_content && !appModelMenu.getModelMenuItemByName(headerItem)?exists && userLogin?exists>
     <#assign findMap = Static["org.ofbiz.base.util.UtilMisc"].toMap("portalPageId", parameters.portalPageId)>
-    <#assign portalPage = delegator.findByPrimaryKeyCache("PortalPage", findMap)>
+    <#assign portalPage = delegator.findOne("PortalPage", findMap, true)>
     <#if portalPage?has_content>
       <div id="app-nav-selected-item">
         ${portalPage.get("portalPageName", locale)?if_exists}
