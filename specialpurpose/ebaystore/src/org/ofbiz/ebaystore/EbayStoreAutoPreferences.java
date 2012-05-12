@@ -142,7 +142,7 @@ public class EbayStoreAutoPreferences {
 
         try {
             ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
-            ebayProductStorePref = delegator.findByPrimaryKey("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", "EBAY_AUTO_PIT_FB"));
+            ebayProductStorePref = delegator.findOne("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", "EBAY_AUTO_PIT_FB"), false);
             if (UtilValidate.isNotEmpty(ebayProductStorePref) && UtilValidate.isNotEmpty(ebayProductStorePref.getString("autoPrefJobId"))) {
                 isAutoPositiveFeedback = ebayProductStorePref.getString("enabled");
                 // if isAutoPositiveFeedback is N that means not start this job run service
@@ -267,7 +267,7 @@ public class EbayStoreAutoPreferences {
             }
 
             Map<String, Object> context = UtilMisc.<String, Object>toMap("userLogin", userLogin, "serviceName", "autoPrefLeaveFeedbackOption");
-            ebayProductStorePref = delegator.findByPrimaryKey("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", "EBAY_AUTO_PIT_FB"));
+            ebayProductStorePref = delegator.findOne("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", "EBAY_AUTO_PIT_FB"), false);
             context.put("productStoreId", productStoreId);
             context.put("autoPrefEnumId", "EBAY_AUTO_PIT_FB");
             if (UtilValidate.isNotEmpty(ebayProductStorePref) && UtilValidate.isNotEmpty(ebayProductStorePref.getString("autoPrefJobId"))) {
@@ -315,7 +315,7 @@ public class EbayStoreAutoPreferences {
 
         try {
             ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
-            ebayProductStorePref = delegator.findByPrimaryKey("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", "EBAY_AUTO_FB_RMD"));
+            ebayProductStorePref = delegator.findOne("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", "EBAY_AUTO_FB_RMD"), false);
             if (UtilValidate.isNotEmpty(ebayProductStorePref) && UtilValidate.isNotEmpty(ebayProductStorePref.getString("autoPrefJobId"))) {
                 isAutoFeedbackReminder = ebayProductStorePref.getString("enabled");
                 // if isAutoPositiveFeedback is N that means not start this job run service
@@ -353,7 +353,7 @@ public class EbayStoreAutoPreferences {
                         for (SellingManagerSoldOrderType item : items) {
                             // call send
                             Map<String, Object> sendMap = FastMap.newInstance();
-                            GenericValue productStoreEmail = delegator.findByPrimaryKey("ProductStoreEmailSetting", UtilMisc.toMap("productStoreId", productStoreId, "emailType", "EBAY_FEEBACK_REMIN"));
+                            GenericValue productStoreEmail = delegator.findOne("ProductStoreEmailSetting", UtilMisc.toMap("productStoreId", productStoreId, "emailType", "EBAY_FEEBACK_REMIN"), false);
                             String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
                             sendMap.put("bodyScreenUri", bodyScreenLocation);
                             String subjectString = productStoreEmail.getString("subject");
@@ -410,7 +410,7 @@ public class EbayStoreAutoPreferences {
                     serviceMap.put("productStoreId", productStoreId);
                     Map<String, Object> eBayUserLogin = dispatcher.runSync("getEbayStoreUser", serviceMap);
                     String eBayUserLoginId = (String) eBayUserLogin.get("userLoginId");
-                    GenericValue party = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", eBayUserLoginId));
+                    GenericValue party = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", eBayUserLoginId), false);
                     String partyId = party.getString("partyId");
                     //save sold items to OFbBiz product entity
                     Map<String, Object> resultService = dispatcher.runSync("getEbaySoldItems", serviceMap);
@@ -419,7 +419,7 @@ public class EbayStoreAutoPreferences {
                         for (int itemCount = 0; itemCount < soldItems.size(); itemCount++) {
                             Map<String, Object> soldItemMap = soldItems.get(itemCount);
                             if (UtilValidate.isNotEmpty(soldItemMap.get("itemId"))) {
-                                GenericValue productCheck = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", soldItemMap.get("itemId")));
+                                GenericValue productCheck = delegator.findOne("Product", UtilMisc.toMap("productId", soldItemMap.get("itemId")), false);
                                 if (productCheck == null) {
                                     Map<String, Object> inMap = FastMap.newInstance();
                                     inMap.put("productId", soldItemMap.get("itemId"));
@@ -487,7 +487,7 @@ public class EbayStoreAutoPreferences {
                             itemToBeRelisted.setItemID(product.getString("productId"));
                             relistItemCall.setItemToBeRelisted(itemToBeRelisted);
                             relistItemCall.relistItem();
-                            GenericValue productStore = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", product.getString("productId")));
+                            GenericValue productStore = delegator.findOne("Product", UtilMisc.toMap("productId", product.getString("productId")), false);
                             productStore.set("isVirtual", "Y");
                             productStore.store();
                             Debug.logInfo("Relisted Item - " + product.getString("productId"), module);
@@ -662,7 +662,7 @@ public class EbayStoreAutoPreferences {
 
         try {
             ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
-            ebayProductStorePref = delegator.findByPrimaryKey("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", "EBAY_AUTO_FB_RMD"));
+            ebayProductStorePref = delegator.findOne("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", "EBAY_AUTO_FB_RMD"), false);
             if (UtilValidate.isNotEmpty(ebayProductStorePref) && UtilValidate.isNotEmpty(ebayProductStorePref.getString("autoPrefJobId"))) {
                 isAutoSendEmail = ebayProductStorePref.getString("enabled");
                 // if isAutoPositiveFeedback is N that means not start this job run service
@@ -687,7 +687,7 @@ public class EbayStoreAutoPreferences {
                         for (SellingManagerSoldOrderType item : items) {
                             // call send
                             Map<String, Object> sendMap = FastMap.newInstance();
-                            GenericValue productStoreEmail = delegator.findByPrimaryKey("ProductStoreEmailSetting", UtilMisc.toMap("productStoreId", productStoreId, "emailType", "EBAY_PAY_RECIEVED"));
+                            GenericValue productStoreEmail = delegator.findOne("ProductStoreEmailSetting", UtilMisc.toMap("productStoreId", productStoreId, "emailType", "EBAY_PAY_RECIEVED"), false);
                             String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
                             sendMap.put("bodyScreenUri", bodyScreenLocation);
                             String subjectString = productStoreEmail.getString("subject");
@@ -734,7 +734,7 @@ public class EbayStoreAutoPreferences {
             SellingManagerSoldOrderType[] sellingManagerSoldOrders = sellingManagerSoldListings.getSellingManagerSoldListings();
             if (sellingManagerSoldOrders != null) {
                 int soldOrderLength = sellingManagerSoldOrders.length;
-                GenericValue ebayPref = delegator.findByPrimaryKey("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", "ENA_COMB_ORD"));
+                GenericValue ebayPref = delegator.findOne("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", "ENA_COMB_ORD"), false);
                 if (UtilValidate.isNotEmpty(ebayPref)) {
 
                     Timestamp beginDate = UtilDateTime.toTimestamp("01/01/2001 00:00:00");
@@ -941,7 +941,7 @@ public class EbayStoreAutoPreferences {
                                 String buyerUserId = bidder.get("userId").toString();
 
                                 Map<String, Object> sendMap = FastMap.newInstance();
-                                GenericValue productStoreEmail = delegator.findByPrimaryKey("ProductStoreEmailSetting", UtilMisc.toMap("productStoreId", productStoreId, "emailType", "EBAY_WIN_BUYER_NOTI"));
+                                GenericValue productStoreEmail = delegator.findOne("ProductStoreEmailSetting", UtilMisc.toMap("productStoreId", productStoreId, "emailType", "EBAY_WIN_BUYER_NOTI"), false);
                                 String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
                                 sendMap.put("bodyScreenUri", bodyScreenLocation);
                                 String subjectString = productStoreEmail.getString("subject");
@@ -1001,7 +1001,7 @@ public class EbayStoreAutoPreferences {
                         String buyerEmail = item.get("buyerEmail").toString();
 
                          Map<String, Object> sendMap = FastMap.newInstance();
-                         GenericValue productStoreEmail = delegator.findByPrimaryKey("ProductStoreEmailSetting", UtilMisc.toMap("productStoreId", productStoreId, "emailType", "EBAY_ITEM_DISPATCH"));
+                         GenericValue productStoreEmail = delegator.findOne("ProductStoreEmailSetting", UtilMisc.toMap("productStoreId", productStoreId, "emailType", "EBAY_ITEM_DISPATCH"), false);
                          String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
                          sendMap.put("bodyScreenUri", bodyScreenLocation);
                          String subjectString = productStoreEmail.getString("subject");
@@ -1147,7 +1147,7 @@ public class EbayStoreAutoPreferences {
         Locale locale = (Locale) context.get("locale");
         try {
             String productStoreId = (String) context.get("productStoreId");
-            GenericValue ebayProductStorePref = delegator.findByPrimaryKey("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", "EBAY_AUTO_BEST_OFFER"));
+            GenericValue ebayProductStorePref = delegator.findOne("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", "EBAY_AUTO_BEST_OFFER"), false);
             String parentPrefCondId = ebayProductStorePref.getString("parentPrefCondId");
             List<GenericValue> ebayProductStorePrefCond = delegator.findByAnd("EbayProductStorePrefCond", UtilMisc.toMap("parentPrefCondId", parentPrefCondId));
             //Parameters
@@ -1294,7 +1294,7 @@ public class EbayStoreAutoPreferences {
 
                                 String buyerMessage = bestOfferType.getBuyerMessage();
                                 if (ignoreOfferMessage.equals("Y") && UtilValidate.isNotEmpty(buyerMessage)) {
-                                    GenericValue userOfferCheck = delegator.findByPrimaryKey("EbayUserBestOffer", UtilMisc.toMap("itemId", itemID, "userId", buyerUserID));
+                                    GenericValue userOfferCheck = delegator.findOne("EbayUserBestOffer", UtilMisc.toMap("itemId", itemID, "userId", buyerUserID), false);
                                     if (UtilValidate.isEmpty(userOfferCheck)) {
                                         GenericValue ebayUserBestOffer = delegator.makeValue("EbayUserBestOffer");
                                         ebayUserBestOffer.put("productStoreId", productStoreId);

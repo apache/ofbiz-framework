@@ -196,7 +196,7 @@ public class EbayEvents {
                 for (String productId : productIds) {
                     AddItemCall addItemCall = new AddItemCall(apiContext);
                     ItemType item = new ItemType();
-                    GenericValue product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
+                    GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
                     item.setTitle(product.getString("internalName"));
                     item.setCurrency(CurrencyCodeType.USD);
                     String productDescription = "";
@@ -544,7 +544,7 @@ public class EbayEvents {
         EbayStoreSiteFacade sf = null;
         // find is exiting product and set category into item in additem call
         try {
-            if (UtilValidate.isNotEmpty(delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId)))) {
+            if (UtilValidate.isNotEmpty(delegator.findOne("Product", UtilMisc.toMap("productId", productId), false))) {
                 ApiContext apiContext = getApiContext(request);
                 Map<String,Object> addItemObject = getAddItemListingObject(request, apiContext);
                 List<Map<String,Object>> addItemlist = UtilGenerics.checkList(addItemObject.get("itemListing"));

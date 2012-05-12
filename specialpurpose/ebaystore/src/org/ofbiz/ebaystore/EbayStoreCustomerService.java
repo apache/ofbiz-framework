@@ -130,7 +130,7 @@ public class EbayStoreCustomerService {
             } else {
                 return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "EbayStoreRequiredContactStatusSetting", locale));
             }
-            GenericValue  ebayUserBestOffer = delegator.findByPrimaryKey("EbayUserBestOffer", UtilMisc.toMap("userId", userId, "itemId", itemId));
+            GenericValue  ebayUserBestOffer = delegator.findOne("EbayUserBestOffer", UtilMisc.toMap("userId", userId, "itemId", itemId), false);
             ebayUserBestOffer.set("contactStatus", contactStatus);
             ebayUserBestOffer.store();
             
@@ -159,7 +159,7 @@ public class EbayStoreCustomerService {
         String itemId = (String) context.get("itemId");
         String userId = (String) context.get("userId");
         try {
-            GenericValue ebayUserBestOffer = delegator.findByPrimaryKey("EbayUserBestOffer", UtilMisc.toMap("itemId", itemId, "userId", userId));
+            GenericValue ebayUserBestOffer = delegator.findOne("EbayUserBestOffer", UtilMisc.toMap("itemId", itemId, "userId", userId), false);
             ebayUserBestOffer.remove();
             result.put("productStoreId", productStoreId);
         } catch (Exception e) {

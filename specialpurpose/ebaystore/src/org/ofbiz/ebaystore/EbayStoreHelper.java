@@ -173,7 +173,7 @@ public class EbayStoreHelper {
                 Debug.logError("Require field partyId.",module);
                 return false;
             }
-            partyRole = delegator.findByPrimaryKey("PartyRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", "EBAY_ACCOUNT"));
+            partyRole = delegator.findOne("PartyRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", "EBAY_ACCOUNT"), false);
             if (partyRole == null) {
                 Debug.logError("Party Id ".concat(partyId).concat("not have roleTypeId EBAY_ACCOUNT"),module);
                 return false;
@@ -273,7 +273,7 @@ public class EbayStoreHelper {
         String autoPrefEnumId = (String) context.get("autoPrefEnumId");
         String serviceName = (String) context.get("serviceName");
         try {
-            GenericValue ebayProductPref = delegator.findByPrimaryKey("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", autoPrefEnumId));
+            GenericValue ebayProductPref = delegator.findOne("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", autoPrefEnumId), false);
             String jobId = ebayProductPref.getString("autoPrefJobId");
             if (UtilValidate.isNotEmpty(jobId)) {
                 List<GenericValue> jobs = delegator.findByAnd("JobSandbox", UtilMisc.toMap("parentJobId", jobId, "statusId", "SERVICE_PENDING"));
@@ -304,7 +304,7 @@ public class EbayStoreHelper {
                 info = RecurrenceInfo.makeInfo(delegator, startTime, 4, 1, -1);
                 infoId = info.primaryKey();
                 // set the persisted fields
-                GenericValue enumeration = delegator.findByPrimaryKey("Enumeration", UtilMisc.toMap("enumId", autoPrefEnumId));
+                GenericValue enumeration = delegator.findOne("Enumeration", UtilMisc.toMap("enumId", autoPrefEnumId), false);
                     jobName = enumeration.getString("description");
                     if (jobName == null) {
                         jobName = Long.toString((new Date().getTime()));
@@ -353,7 +353,7 @@ public class EbayStoreHelper {
         String productStoreId = (String) context.get("productStoreId");
         String autoPrefEnumId = (String) context.get("autoPrefEnumId");
         try {
-            GenericValue ebayProductPref = delegator.findByPrimaryKey("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", autoPrefEnumId));
+            GenericValue ebayProductPref = delegator.findOne("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", autoPrefEnumId), false);
             String jobId = ebayProductPref.getString("autoPrefJobId");
             List<GenericValue> jobs = delegator.findByAnd("JobSandbox", UtilMisc.toMap("parentJobId", jobId ,"statusId", "SERVICE_PENDING"));
 
@@ -436,7 +436,7 @@ public class EbayStoreHelper {
         AddItemRequestType req = new AddItemRequestType();
         AddItemResponseType resp = null;
         try {
-            GenericValue userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+            GenericValue userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", "system"), false);
             ItemType item = addItemCall.getItem();
             req.setItem(item);
             resp = (AddItemResponseType) addItemCall.execute(req);
@@ -616,7 +616,7 @@ public class EbayStoreHelper {
     GetOrdersRequestType req = new GetOrdersRequestType();
     GetOrdersResponseType resp = null;
     try {
-        GenericValue orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+        GenericValue orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
         if (UtilValidate.isNotEmpty(orderHeader)) {
             String externalId = orderHeader.getString("externalId").toString();
             List<GenericValue> orderShipment = orderHeader.getRelated("OrderShipment");
