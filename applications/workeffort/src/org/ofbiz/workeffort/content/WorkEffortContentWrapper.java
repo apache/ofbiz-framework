@@ -183,7 +183,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
         if (delegator != null) {
             GenericValue contentType = null;
             try {
-                contentType = delegator.findByPrimaryKeyCache("WorkEffortContentType", UtilMisc.toMap("workEffortContentTypeId", contentTypeId));
+                contentType = delegator.findOne("WorkEffortContentType", UtilMisc.toMap("workEffortContentTypeId", contentTypeId), true);
             } catch (GeneralException e) {
                 Debug.logError(e, module);
             }
@@ -285,7 +285,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
         ModelEntity workEffortModel = delegator.getModelEntity("WorkEffort");
         if (workEffortModel != null && workEffortModel.isField(candidateFieldName)) {
             if (workEffort == null) {
-                workEffort = delegator.findByPrimaryKeyCache("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId));
+                workEffort = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId), true);
             }
             if (workEffort != null) {
                 String candidateValue = workEffort.getString(candidateFieldName);
@@ -299,7 +299,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
         // otherwise check content record
         GenericValue workEffortContent;
         if (contentId != null) {
-            workEffortContent = delegator.findByPrimaryKeyCache("WorkEffortContent", UtilMisc.toMap("workEffortId", workEffortId, "contentId", contentId));
+            workEffortContent = delegator.findOne("WorkEffortContent", UtilMisc.toMap("workEffortId", workEffortId, "contentId", contentId), true);
         } else {
             workEffortContent = getFirstWorkEffortContentByType(workEffortId, workEffort, workEffortContentTypeId, delegator);
         }
