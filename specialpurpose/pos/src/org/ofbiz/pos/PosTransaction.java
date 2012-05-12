@@ -434,7 +434,7 @@ public class PosTransaction implements Serializable {
         try {
             Delegator delegator = cart.getDelegator();
             GenericValue product = null;
-            product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+            product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
             if (UtilValidate.isNotEmpty(product) && ("AGGREGATED".equals(product.getString("productTypeId")) || "AGGREGATED_SERVICE".equals(product.getString("productTypeId")))) {
                 return true;
             }
@@ -493,7 +493,7 @@ public class PosTransaction implements Serializable {
             Delegator delegator = cart.getDelegator();
             GenericValue product = null;
             ProductConfigWrapper pcw = null;
-            product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+            product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
             if (UtilValidate.isNotEmpty(product) && ("AGGREGATED".equals(product.getString("productTypeId"))||"AGGREGATED_SERVICE".equals(product.getString("productTypeId")))) {
                 // if it's an aggregated item, load the configwrapper and set to defaults
                 pcw = new ProductConfigWrapper(delegator, session.getDispatcher(), productId, null, null, null, null, null, null);
@@ -929,8 +929,8 @@ public class PosTransaction implements Serializable {
             GenericValue facilityContactMech = ContactMechWorker.getFacilityContactMechByPurpose(delegator, facilityId, UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION"));
             if (facilityContactMech != null) {
                 try {
-                    this.shipAddress = session.getDelegator().findByPrimaryKey("PostalAddress",
-                            UtilMisc.toMap("contactMechId", facilityContactMech.getString("contactMechId")));
+                    this.shipAddress = session.getDelegator().findOne("PostalAddress",
+                            UtilMisc.toMap("contactMechId", facilityContactMech.getString("contactMechId")), false);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }
@@ -965,7 +965,7 @@ public class PosTransaction implements Serializable {
                 if (this.isAggregatedItem(item.getProductId())) {
                     // put alterations here
                     ProductConfigWrapper pcw = null;
-                    // product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+                    // product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
                     // pcw = new ProductConfigWrapper(delegator, session.getDispatcher(), productId, null, null, null, null, null, null);
                     pcw = item.getConfigWrapper();
                     List<ConfigOption> selected = pcw.getSelectedOptions();
@@ -1800,7 +1800,7 @@ public class PosTransaction implements Serializable {
             GenericValue  person = null;
 
             try {
-                person = session.getDelegator().findByPrimaryKey("Person", UtilMisc.toMap("partyId", partyId));
+                person = session.getDelegator().findOne("Person", UtilMisc.toMap("partyId", partyId), false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 pos.showDialog("dialog/error/exception", e.getMessage());

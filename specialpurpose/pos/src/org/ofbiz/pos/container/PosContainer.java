@@ -49,7 +49,7 @@ public class PosContainer extends XuiContainer {
             throw new ContainerException("No facility-id value set in pos-container!");
         } else {
             try {
-                facility = session.getDelegator().findByPrimaryKey("Facility", UtilMisc.toMap("facilityId", facilityId));
+                facility = session.getDelegator().findOne("Facility", UtilMisc.toMap("facilityId", facilityId), false);
             } catch (GenericEntityException e) {
                 throw new ContainerException("Invalid facilityId : " + facilityId);
             }
