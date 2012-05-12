@@ -281,7 +281,7 @@ public class EbayStore {
                         if (ebayParentCategoryId != null) {
                             List<GenericValue> productCategoryRollupList = delegator.findByAnd("ProductCategoryRollup",  UtilMisc.toMap("parentProductCategoryId", productCategory.getString("productCategoryId")), UtilMisc.toList("sequenceNum ASC"));
                             for (GenericValue productCategoryRollup : productCategoryRollupList) {
-                                productCategory = delegator.findByPrimaryKey("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryRollup.getString("productCategoryId")));
+                                productCategory = delegator.findOne("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryRollup.getString("productCategoryId")), false);
                                 StoreCustomCategoryType childCategoryType = new StoreCustomCategoryType();
                                 String ebayChildCategoryId = EbayStoreHelper.retriveEbayCategoryIdByPartyId(delegator, productCategory.getString("productCategoryId"), context.get("partyId").toString());
                                 if (ebayChildCategoryId == null) {
@@ -324,7 +324,7 @@ public class EbayStore {
                             if (ebayParentCategoryId != null) {
                                 List<GenericValue> productChildCategoryRollupList = delegator.findByAnd("ProductCategoryRollup",  UtilMisc.toMap("parentProductCategoryId",productParentCategoryRollup.getString("productCategoryId")),UtilMisc.toList("sequenceNum ASC"));
                                 for (GenericValue productChildCategoryRollup : productChildCategoryRollupList) {
-                                    productCategory = delegator.findByPrimaryKey("ProductCategory", UtilMisc.toMap("productCategoryId", productChildCategoryRollup.getString("productCategoryId")));
+                                    productCategory = delegator.findOne("ProductCategory", UtilMisc.toMap("productCategoryId", productChildCategoryRollup.getString("productCategoryId")), false);
                                     StoreCustomCategoryType childCategoryType = new StoreCustomCategoryType();
                                     String ebayChildCategoryId = EbayStoreHelper.retriveEbayCategoryIdByPartyId(delegator,productCategory.getString("productCategoryId"),context.get("partyId").toString());
                                     if (ebayChildCategoryId == null) {
@@ -443,7 +443,7 @@ public class EbayStore {
                 // Prepare data for set to XML
                 GenericValue productStore = null;
                 if (UtilValidate.isNotEmpty(context.get("productStoreId").toString())) {
-                    productStore = delegator.findByPrimaryKey("ProductStore",UtilMisc.toMap("productStoreId", context.get("productStoreId").toString()));
+                    productStore = delegator.findOne("ProductStore",UtilMisc.toMap("productStoreId", context.get("productStoreId").toString()), false);
                 }
                 Element itemElem = UtilXml.addChildElement(storeRequestElem, "Store", storeDocument);
                 UtilXml.addChildElementValue(itemElem, "Name", productStore.getString("storeName"), storeDocument);
@@ -523,7 +523,7 @@ public class EbayStore {
             //UtilXml.addChildElementValue(StoreCategoriesElem, "Country", (String)context.get("country"), storeDocument);
             GenericValue category = null;
             if (UtilValidate.isNotEmpty(context.get("prodCatalogId"))) {
-                category = delegator.findByPrimaryKeyCache("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryId));
+                category = delegator.findOne("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryId), true);
             }
             String categoryName = category.getString("productCategoryId").toString();
             if (category.getString("categoryName").toString() != null) {
@@ -1548,7 +1548,7 @@ public class EbayStore {
         Map<String, Object> eBayConfigResult = EbayHelper.buildEbayConfig(context, delegator);
         Map<String, Object> response = null;
         try {
-            GenericValue product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", context.get("productId").toString()));
+            GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", context.get("productId").toString()), false);
             int intAtp = 1;
             String facilityId = "";
             if (UtilValidate.isNotEmpty(context.get("requireEbayInventory")) && "on".equals(context.get("requireEbayInventory").toString())) {
@@ -2458,7 +2458,7 @@ public class EbayStore {
     public static boolean checkExistProduct(Delegator delegator, String productId) {
         boolean checkResult = false;
         try {
-            GenericValue product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
+            GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
             if(UtilValidate.isNotEmpty(product)) {
                 checkResult = true;
             }

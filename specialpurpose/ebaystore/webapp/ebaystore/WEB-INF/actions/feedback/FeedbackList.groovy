@@ -30,7 +30,7 @@ inMap.put("productStoreId", parameters.productStoreId);
 inMap.put("userLogin", context.get("userLogin"));
 resultUser = dispatcher.runSync("getEbayStoreUser", inMap);
 ownerUser = resultUser.get("userLoginId");
-userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", ownerUser));
+userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", ownerUser), false);
 if (userLogin) {
     partyId = userLogin.get("partyId");
 }

@@ -64,7 +64,7 @@
          content = [:];
          item = addItem.getItem();
          productId = item.getSKU();
-         product = delegator.findByPrimaryKeyCache("Product", [productId : productId]);
+         product = delegator.findOne("Product", [productId : productId], true);
          contentWrapper = new ProductContentWrapper(product, request);
          content.productContentWrapper = contentWrapper;
          content.product = product;

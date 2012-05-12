@@ -80,7 +80,7 @@ public class EbayFeedback {
             FeedbackDetailType[] feedback = feedbackCall.getFeedback();
             if (feedback != null) {
                 String partyId = null;
-                GenericValue userLoginEx = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", userID));
+                GenericValue userLoginEx = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", userID), false);
                 if (userLoginEx == null) {
                     //Party
                     GenericValue party =  delegator.makeValue("Party");
@@ -109,7 +109,7 @@ public class EbayFeedback {
                     //convert to ofbiz
                     String contentId = feedback[i].getFeedbackID();
                     Date eBayDateTime = feedback[i].getCommentTime().getTime();
-                    GenericValue contentCheck = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
+                    GenericValue contentCheck = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
                     if (contentCheck != null) {
                         continue;
                     }

@@ -90,7 +90,7 @@ public class EbayBestOfferAutoPref {
                 Map<String, Object> ebayCondition11 = UtilMisc.<String, Object>toMap("userLogin", userLogin);
                 ebayCondition11.put("acceptanceCondition", condition11);
 
-            GenericValue productStorePref = delegator.findByPrimaryKey("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", "EBAY_AUTO_BEST_OFFER"));
+            GenericValue productStorePref = delegator.findOne("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", "EBAY_AUTO_BEST_OFFER"), false);
             if (UtilValidate.isEmpty(productStorePref)) {
                  String prefCondId1 = delegator.getNextSeqId("EbayProductStorePrefCond");
                  String parentPrefCondId = prefCondId1;
