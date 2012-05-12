@@ -1612,21 +1612,27 @@ public class GenericDelegator implements Delegator {
 
     /* (non-Javadoc)
      * @see org.ofbiz.entity.Delegator#findByPrimaryKey(java.lang.String, java.util.Map)
+     * @deprecated use {@link #findOne(String, Map, boolean)}
      */
+    @Deprecated
     public GenericValue findByPrimaryKey(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException {
         return findOne(entityName, fields, false);
     }
 
     /* (non-Javadoc)
      * @see org.ofbiz.entity.Delegator#findByPrimaryKeyCache(java.lang.String, java.lang.Object)
+     * @deprecated use {@link #findOne(String, boolean, Object...)}
      */
+    @Deprecated
     public GenericValue findByPrimaryKeyCache(String entityName, Object... fields) throws GenericEntityException {
         return findByPrimaryKeyCache(entityName, UtilMisc.<String, Object>toMap(fields));
     }
 
     /* (non-Javadoc)
      * @see org.ofbiz.entity.Delegator#findByPrimaryKeyCache(java.lang.String, java.util.Map)
+     * @deprecated use {@link #findOne(String, Map, boolean)}
      */
+    @Deprecated
     public GenericValue findByPrimaryKeyCache(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException {
         return findOne(entityName, fields, true);
     }

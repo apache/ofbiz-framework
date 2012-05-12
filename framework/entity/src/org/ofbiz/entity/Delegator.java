@@ -373,7 +373,9 @@ public interface Delegator {
      *            The fields of the named entity to query by with their
      *            corresponding values
      * @return The GenericValue corresponding to the primaryKey
+     * @deprecated use {@link #findOne(String, Map, boolean)}
      */
+    @Deprecated
     public GenericValue findByPrimaryKey(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException;
 
     /**
@@ -386,7 +388,9 @@ public interface Delegator {
      *            The fields of the named entity to query by with their
      *            corresponding values
      * @return The GenericValue corresponding to the primaryKey
+     * @deprecated use {@link #findOne(String, Map, boolean)}
      */
+    @Deprecated
     public GenericValue findByPrimaryKeyCache(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException;
 
     /**
@@ -399,7 +403,9 @@ public interface Delegator {
      *            The fields of the named entity to query by with their
      *            corresponding values
      * @return The GenericValue corresponding to the primaryKey
+     * @deprecated use {@link #findOne(String, boolean, Object...)}
      */
+    @Deprecated
     public GenericValue findByPrimaryKeyCache(String entityName, Object... fields) throws GenericEntityException;
 
     /**
