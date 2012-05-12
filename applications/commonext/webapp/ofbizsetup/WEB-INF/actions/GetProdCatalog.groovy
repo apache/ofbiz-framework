@@ -34,7 +34,7 @@
      errMsgList.add("Product Store not set!");
      showScreen = "message";
  }else{
-     facility = delegator.findByPrimaryKey("Facility", [facilityId : productStore.inventoryFacilityId]);
+     facility = delegator.findOne("Facility", [facilityId : productStore.inventoryFacilityId], false);
      webSite = EntityUtil.getFirst(delegator.findByAnd("WebSite", [productStoreId: productStore.productStoreId]));
      
      if(UtilValidate.isEmpty(facility)){
