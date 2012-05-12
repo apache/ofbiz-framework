@@ -31,7 +31,7 @@ context.returnId = returnId;
 orderId = parameters.orderId;
 context.orderId = orderId;
 
-returnHeader = delegator.findByPrimaryKey("ReturnHeader", [returnId : returnId]);
+returnHeader = delegator.findOne("ReturnHeader", [returnId : returnId], false);
 context.returnHeader = returnHeader;
 
 returnHeaderTypeId = returnHeader.returnHeaderTypeId;
@@ -64,7 +64,7 @@ returnItemTypeMap.each { value ->
 context.returnItemTypeMap = typeMap;
 
 if (orderId) {
-    order = delegator.findByPrimaryKey("OrderHeader", [orderId : orderId]);
+    order = delegator.findOne("OrderHeader", [orderId : orderId], false);
     returnRes = dispatcher.runSync("getReturnableItems", [orderId : orderId]);
     context.returnableItems = returnRes.returnableItems;
 

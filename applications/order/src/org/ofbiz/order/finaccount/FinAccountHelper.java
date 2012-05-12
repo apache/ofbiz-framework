@@ -249,7 +249,7 @@ public class FinAccountHelper {
     public static boolean validatePin(Delegator delegator, String finAccountId, String pinNumber) {
         GenericValue finAccount = null;
         try {
-            finAccount = delegator.findByPrimaryKey("FinAccount", UtilMisc.toMap("finAccountId", finAccountId));
+            finAccount = delegator.findOne("FinAccount", UtilMisc.toMap("finAccountId", finAccountId), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -306,7 +306,7 @@ public class FinAccountHelper {
     }
 
     private static boolean checkIsNumberInDatabase(Delegator delegator, String number) throws GenericEntityException {
-        GenericValue finAccount = delegator.findByPrimaryKey("FinAccount", UtilMisc.toMap("finAccountId", number));
+        GenericValue finAccount = delegator.findOne("FinAccount", UtilMisc.toMap("finAccountId", number), false);
         return finAccount == null;
     }
 

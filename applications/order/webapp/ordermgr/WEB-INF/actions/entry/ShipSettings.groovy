@@ -46,7 +46,7 @@ request.removeAttribute("_EVENT_MESSAGE_");
 
 if ("SALES_ORDER".equals(cart.getOrderType())) {
     if (!"_NA_".equals(orderPartyId)) {
-        orderParty = delegator.findByPrimaryKey("Party", [partyId : orderPartyId]);
+        orderParty = delegator.findOne("Party", [partyId : orderPartyId], false);
         if (orderParty) {
             shippingContactMechList = ContactHelper.getContactMech(orderParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
             orderPerson = orderParty.getRelatedOne("Person");
@@ -57,7 +57,7 @@ if ("SALES_ORDER".equals(cart.getOrderType())) {
     }
     // Ship to another party
     if (shipToPartyId) {
-        shipToParty = delegator.findByPrimaryKey("Party", [partyId : shipToPartyId]);
+        shipToParty = delegator.findOne("Party", [partyId : shipToPartyId], false);
         if (shipToParty) {
             context.shipToParty = shipToParty;
             shipToPartyShippingContactMechList = ContactHelper.getContactMech(shipToParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
@@ -74,7 +74,7 @@ if ("SALES_ORDER".equals(cart.getOrderType())) {
 } else {
     // Purchase order
     if (!"_NA_".equals(orderPartyId)) {
-        orderParty = delegator.findByPrimaryKey("Party", [partyId : orderPartyId]);
+        orderParty = delegator.findOne("Party", [partyId : orderPartyId], false);
         if (orderParty) {
            orderPerson = orderParty.getRelatedOne("Person");
            context.orderParty = orderParty;

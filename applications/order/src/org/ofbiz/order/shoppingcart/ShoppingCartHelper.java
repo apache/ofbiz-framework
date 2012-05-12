@@ -193,7 +193,7 @@ public class ShoppingCartHelper {
         GenericValue product = null;
         if (productId != null) {
             try {
-                product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+                product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Unable to lookup product : " + productId, module);
             }
@@ -328,7 +328,7 @@ public class ShoppingCartHelper {
                     String aggregatedProdId = null;
                     if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", ProductWorker.getProductTypeId(delegator, productId), "parentTypeId", "AGGREGATED")) {
                         try {
-                            GenericValue instanceProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
+                            GenericValue instanceProduct = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
                             String configId = instanceProduct.getString("configId");
                             aggregatedProdId = ProductWorker.getInstanceAggregatedId(delegator, productId);
                             configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, configId, aggregatedProdId, cart.getProductStoreId(), catalogId, cart.getWebSiteId(), cart.getCurrency(), cart.getLocale(), cart.getAutoUserLogin());
@@ -431,7 +431,7 @@ public class ShoppingCartHelper {
                         originalProductId = productId;
                         productId = ProductWorker.getOriginalProductId(delegator, productId);
                         try {
-                            originalProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", originalProductId));
+                            originalProduct = delegator.findOne("Product", UtilMisc.toMap("productId", originalProductId), false);
                         } catch (GenericEntityException e) {
                             Debug.logError(e, "Error getting parent product", module);
                         }
@@ -501,7 +501,7 @@ public class ShoppingCartHelper {
                 requirementId = (String) context.get("requirementId" + thisSuffix);
                 GenericValue requirement = null;
                 try {
-                    requirement = delegator.findByPrimaryKey("Requirement", UtilMisc.toMap("requirementId", requirementId));
+                    requirement = delegator.findOne("Requirement", UtilMisc.toMap("requirementId", requirementId), false);
                 } catch (GenericEntityException gee) {
                 }
                 if (requirement == null) {
@@ -972,7 +972,7 @@ public class ShoppingCartHelper {
         }
 
         try {
-            agreement = this.delegator.findByPrimaryKeyCache("Agreement",UtilMisc.toMap("agreementId", agreementId));
+            agreement = this.delegator.findOne("Agreement",UtilMisc.toMap("agreementId", agreementId), true);
         } catch (GenericEntityException e) {
             Debug.logWarning(e.toString(), module);
             result = ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderCouldNotGetAgreement",UtilMisc.toMap("agreementId",agreementId),this.cart.getLocale()) + UtilProperties.getMessage(resource_error,"OrderError",this.cart.getLocale()) + e.getMessage());

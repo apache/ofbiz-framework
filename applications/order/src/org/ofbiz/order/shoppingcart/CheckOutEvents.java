@@ -508,7 +508,7 @@ public class CheckOutEvents {
         ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
         GenericValue productStore = null;
         try {
-            productStore = delegator.findByPrimaryKeyCache("ProductStore", UtilMisc.toMap("productStoreId", cart.getProductStoreId()));
+            productStore = delegator.findOne("ProductStore", UtilMisc.toMap("productStoreId", cart.getProductStoreId()), true);
             Debug.logInfo("checkShipmentNeeded: reqShipAddrForDigItems=" + productStore.getString("reqShipAddrForDigItems"), module);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error getting ProductStore: " + e.toString(), module);
@@ -758,7 +758,7 @@ public class CheckOutEvents {
                 // no userLogin means we are an anonymous shopper; fake the UL for service calls
                 if (userLogin == null) {
                     try {
-                        userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "anonymous"));
+                        userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", "anonymous"), false);
                     } catch (GenericEntityException e) {
                         Debug.logError(e, module);
                     }

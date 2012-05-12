@@ -41,22 +41,22 @@ quoteId = parameters.quoteId;
 fromPartyId = parameters.fromPartyId;
 
 if (!orderHeader && orderId) {
-    orderHeader = delegator.findByPrimaryKey("OrderHeader", [orderId : orderId]);
+    orderHeader = delegator.findOne("OrderHeader", [orderId : orderId], false);
 } else if (shipmentId) {
-    shipment = delegator.findByPrimaryKey("Shipment", [shipmentId : shipmentId]);
+    shipment = delegator.findOne("Shipment", [shipmentId : shipmentId], false);
     orderHeader = shipment.getRelatedOne("PrimaryOrderHeader");
 }
 
 if (!invoice && invoiceId)    {
-    invoice = delegator.findByPrimaryKey("Invoice", [invoiceId : invoiceId]);
+    invoice = delegator.findOne("Invoice", [invoiceId : invoiceId], false);
 }
 
 if (!returnHeader && returnId) {
-    returnHeader = delegator.findByPrimaryKey("ReturnHeader", [returnId : returnId]);
+    returnHeader = delegator.findOne("ReturnHeader", [returnId : returnId], false);
 }
 
 if (quoteId) {
-    quote = delegator.findByPrimaryKey("Quote", [quoteId : quoteId]);
+    quote = delegator.findOne("Quote", [quoteId : quoteId], false);
 }
 
 // defaults:
@@ -118,7 +118,7 @@ if (!partyId) {
 }
 
 // the logo
-partyGroup = delegator.findByPrimaryKey("PartyGroup", [partyId : partyId]);
+partyGroup = delegator.findOne("PartyGroup", [partyId : partyId], false);
 if (partyGroup) {
     partyContentWrapper = new PartyContentWrapper(dispatcher, partyGroup, locale, "text/html");
     partyContent = partyContentWrapper.getFirstPartyContentByType(partyGroup.partyId , partyGroup, "LGOIMGURL", delegator);
@@ -144,7 +144,7 @@ addresses = delegator.findByAnd("PartyContactMechPurpose", [partyId : partyId, c
 selAddresses = EntityUtil.filterByDate(addresses, nowTimestamp, "fromDate", "thruDate", true);
 address = null;
 if (selAddresses) {
-    address = delegator.findByPrimaryKey("PostalAddress", [contactMechId : selAddresses[0].contactMechId]);
+    address = delegator.findOne("PostalAddress", [contactMechId : selAddresses[0].contactMechId], false);
 }
 if (address)    {
    // get the country name and state/province abbreviation
@@ -163,7 +163,7 @@ context.postalAddress = address;
 phones = delegator.findByAnd("PartyContactMechPurpose", [partyId : partyId, contactMechPurposeTypeId : "PRIMARY_PHONE"]);
 selPhones = EntityUtil.filterByDate(phones, nowTimestamp, "fromDate", "thruDate", true);
 if (selPhones) {
-    context.phone = delegator.findByPrimaryKey("TelecomNumber", [contactMechId : selPhones[0].contactMechId]);
+    context.phone = delegator.findOne("TelecomNumber", [contactMechId : selPhones[0].contactMechId], false);
 }
 
 // Fax
@@ -177,7 +177,7 @@ if (faxNumbers) {
 emails = delegator.findByAnd("PartyContactMechPurpose", [partyId : partyId, contactMechPurposeTypeId : "PRIMARY_EMAIL"]);
 selEmails = EntityUtil.filterByDate(emails, nowTimestamp, "fromDate", "thruDate", true);
 if (selEmails) {
-    context.email = delegator.findByPrimaryKey("ContactMech", [contactMechId : selEmails[0].contactMechId]);
+    context.email = delegator.findOne("ContactMech", [contactMechId : selEmails[0].contactMechId], false);
 } else {    //get email address from party contact mech
     contacts = delegator.findByAnd("PartyContactMech", [partyId : partyId]);
     selContacts = EntityUtil.filterByDate(contacts, nowTimestamp, "fromDate", "thruDate", true);
@@ -217,7 +217,7 @@ if (selContacts) {
 paymentMethods = delegator.findByAnd("PaymentMethod", [partyId : partyId, paymentMethodTypeId : "EFT_ACCOUNT"]);
 selPayments = EntityUtil.filterByDate(paymentMethods, nowTimestamp, "fromDate", "thruDate", true);
 if (selPayments) {
-    context.eftAccount = delegator.findByPrimaryKey("EftAccount", [paymentMethodId : selPayments[0].paymentMethodId]);
+    context.eftAccount = delegator.findOne("EftAccount", [paymentMethodId : selPayments[0].paymentMethodId], false);
 }
 
 // Tax ID Info

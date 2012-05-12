@@ -103,7 +103,7 @@ under the License.
                     <td align="right" valign="top"><@ofbizCurrency amount=totalQuoteItemAmount isoCode=quote.currencyUomId/></td>
                 </tr>
                 <#list quoteTerms as quoteTerm>
-                <#assign termDescription = delegator.findByPrimaryKey("TermType",{"termTypeId":quoteTerm.termTypeId})>
+                <#assign termDescription = delegator.findOne("TermType",{"termTypeId":quoteTerm.termTypeId}, false)>
                 <tr <#if alt_row>class="alternate-row" </#if>>
                     <td valign="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${termDescription.description?if_exists}</td>
                     <td valign="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${quoteTerm.termValue?if_exists}</td>

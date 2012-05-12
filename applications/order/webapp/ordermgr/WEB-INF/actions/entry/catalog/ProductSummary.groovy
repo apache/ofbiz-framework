@@ -61,7 +61,7 @@ context.remove("totalPrice");
 
 // get the product entity
 if (!product && productId) {
-    product = delegator.findByPrimaryKeyCache("Product", [productId : productId]);
+    product = delegator.findOne("Product", [productId : productId], true);
 }
 if (product) {
     //if order is purchase then don't calculate available inventory for product.
@@ -69,7 +69,7 @@ if (product) {
         resultOutput = dispatcher.runSync("getInventoryAvailableByFacility", [productId : product.productId, facilityId : facilityId, useCache : true]);
         totalAvailableToPromise = resultOutput.availableToPromiseTotal;
         if (totalAvailableToPromise && totalAvailableToPromise.doubleValue() > 0) {
-            productFacility = delegator.findByPrimaryKeyCache("ProductFacility", [productId : product.productId, facilityId : facilityId]);
+            productFacility = delegator.findOne("ProductFacility", [productId : product.productId, facilityId : facilityId], true);
             if (productFacility?.daysToShip != null) {
                 context.daysToShip = productFacility.daysToShip;
             }

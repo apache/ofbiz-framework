@@ -1319,7 +1319,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             return null;
         }
         try {
-            GenericValue party = this.getDelegator().findByPrimaryKeyCache("Party", UtilMisc.toMap("partyId", partyId));
+            GenericValue party = this.getDelegator().findOne("Party", UtilMisc.toMap("partyId", partyId), true);
             if (party == null) {
                 return null;
             }
@@ -1494,7 +1494,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     public String getPaymentMethodTypeId(String paymentMethodId) {
         try {
-            GenericValue pm = this.getDelegator().findByPrimaryKey("PaymentMethod", UtilMisc.toMap("paymentMethodId", paymentMethodId));
+            GenericValue pm = this.getDelegator().findOne("PaymentMethod", UtilMisc.toMap("paymentMethodId", paymentMethodId), false);
             if (pm != null) {
                 return pm.getString("paymentMethodTypeId");
             }
@@ -1740,7 +1740,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
             GenericValue paymentMethod = null;
             try {
-                paymentMethod = this.getDelegator().findByPrimaryKey("PaymentMethod", UtilMisc.toMap("paymentMethodId", inf.paymentMethodId));
+                paymentMethod = this.getDelegator().findOne("PaymentMethod", UtilMisc.toMap("paymentMethodId", inf.paymentMethodId), false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "ERROR: Unable to get payment method record to expire : " + inf.paymentMethodId, module);
             }
@@ -1785,7 +1785,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         if (UtilValidate.isNotEmpty(paymentInfo)) {
             for(String paymentMethodId : getPaymentMethodIds()) {
                 try {
-                    GenericValue paymentMethod = this.getDelegator().findByPrimaryKeyCache("PaymentMethod", UtilMisc.toMap("paymentMethodId", paymentMethodId));
+                    GenericValue paymentMethod = this.getDelegator().findOne("PaymentMethod", UtilMisc.toMap("paymentMethodId", paymentMethodId), true);
                     if (paymentMethod != null) {
                         methods.add(paymentMethod);
                     } else {
@@ -1806,7 +1806,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         if (UtilValidate.isNotEmpty(paymentInfo)) {
             for(String id : getPaymentMethodIds()) {
                 try {
-                    types.add(this.getDelegator().findByPrimaryKeyCache("PaymentMethodType", UtilMisc.toMap("paymentMethodTypeId", id)));
+                    types.add(this.getDelegator().findOne("PaymentMethodType", UtilMisc.toMap("paymentMethodTypeId", id), true));
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Unable to get payment method type from the database", module);
                 }
@@ -1858,7 +1858,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public boolean isPaymentMethodType(String id) {
         GenericValue paymentMethodType = null;
         try {
-            paymentMethodType = this.getDelegator().findByPrimaryKeyCache("PaymentMethodType", UtilMisc.toMap("paymentMethodTypeId", id));
+            paymentMethodType = this.getDelegator().findOne("PaymentMethodType", UtilMisc.toMap("paymentMethodTypeId", id), true);
         } catch (GenericEntityException e) {
             Debug.logInfo(e, "Problems getting PaymentMethodType", module);
         }
@@ -1887,7 +1887,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
      * @throws GenericEntityException
      */
     public GenericValue getGiftCertSettingFromStore(Delegator delegator) throws GenericEntityException {
-        return delegator.findByPrimaryKeyCache("ProductStoreFinActSetting", UtilMisc.toMap("productStoreId", getProductStoreId(), "finAccountTypeId", FinAccountHelper.giftCertFinAccountTypeId));
+        return delegator.findOne("ProductStoreFinActSetting", UtilMisc.toMap("productStoreId", getProductStoreId(), "finAccountTypeId", FinAccountHelper.giftCertFinAccountTypeId), true);
     }
 
     /**
@@ -2197,7 +2197,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             // the products already in the cart
             GenericValue shippingAddress = null;
             try {
-                shippingAddress = this.getDelegator().findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", shippingContactMechId));
+                shippingAddress = this.getDelegator().findOne("PostalAddress", UtilMisc.toMap("contactMechId", shippingContactMechId), false);
             } catch (GenericEntityException gee) {
                 Debug.logError(gee, "Error retrieving the shipping address for contactMechId [" + shippingContactMechId + "].", module);
             }
@@ -2257,8 +2257,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         String shipmentMethodTypeId = this.getShipmentMethodTypeId(idx);
         if (UtilValidate.isNotEmpty(shipmentMethodTypeId)) {
             try {
-                return this.getDelegator().findByPrimaryKey("ShipmentMethodType",
-                        UtilMisc.toMap("shipmentMethodTypeId", shipmentMethodTypeId));
+                return this.getDelegator().findOne("ShipmentMethodType",
+                        UtilMisc.toMap("shipmentMethodTypeId", shipmentMethodTypeId), false);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
             }
@@ -2436,7 +2436,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public GenericValue getShippingAddress(int idx) {
         if (this.getShippingContactMechId(idx) != null) {
             try {
-                return getDelegator().findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", this.getShippingContactMechId(idx)));
+                return getDelegator().findOne("PostalAddress", UtilMisc.toMap("contactMechId", this.getShippingContactMechId(idx)), false);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.toString(), module);
                 return null;
@@ -2486,7 +2486,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             // set as the default shipping location the first from the list of available shipping locations
             if (this.getPartyId() != null && !this.getPartyId().equals("_NA_")) {
                 try {
-                    GenericValue orderParty = this.getDelegator().findByPrimaryKey("Party", UtilMisc.toMap("partyId", this.getPartyId()));
+                    GenericValue orderParty = this.getDelegator().findOne("Party", UtilMisc.toMap("partyId", this.getPartyId()), false);
                     Collection<GenericValue> shippingContactMechList = ContactHelper.getContactMech(orderParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
                     if (UtilValidate.isNotEmpty(shippingContactMechList)) {
                         GenericValue shippingContactMech = (shippingContactMechList.iterator()).next();
@@ -2642,7 +2642,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             if (payment.paymentMethodId != null) {
                 try {
                     // need to determine the payment method type from the payment method
-                    GenericValue paymentMethod = this.getDelegator().findByPrimaryKeyCache("PaymentMethod", UtilMisc.toMap("paymentMethodId", payment.paymentMethodId));
+                    GenericValue paymentMethod = this.getDelegator().findOne("PaymentMethod", UtilMisc.toMap("paymentMethodId", payment.paymentMethodId), true);
                     if (paymentMethod != null) {
                         thisPaymentMethodTypeId = paymentMethod.getString("paymentMethodTypeId");
                     }
@@ -3329,7 +3329,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             String productName = product.getString("productName");
             String description = product.getString("description");
             Map<String, Object> serviceContext = new HashMap<String, Object>();
-            GenericValue permUserLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+            GenericValue permUserLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", "system"), false);
             String internalName = item.getProductId() + "_" + configId;
             serviceContext.put("internalName", internalName);
             serviceContext.put("productName", productName);
@@ -3757,7 +3757,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             if (responses != null) {
                 for(String responseId : responses) {
                     try {
-                        response = this.getDelegator().findByPrimaryKey("SurveyResponse", UtilMisc.toMap("surveyResponseId", responseId));
+                        response = this.getDelegator().findOne("SurveyResponse", UtilMisc.toMap("surveyResponseId", responseId), false);
                     } catch (GenericEntityException e) {
                         Debug.logError(e, "Unable to obtain SurveyResponse record for ID : " + responseId, module);
                     }
@@ -4054,7 +4054,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         String facilityId = null;
         if (UtilValidate.isNotEmpty(this.getProductStoreId())) {
             try {
-                GenericValue productStore = this.getDelegator().findByPrimaryKeyCache("ProductStore", UtilMisc.toMap("productStoreId", this.getProductStoreId()));
+                GenericValue productStore = this.getDelegator().findOne("ProductStore", UtilMisc.toMap("productStoreId", this.getProductStoreId()), true);
                 facilityId = productStore.getString("inventoryFacilityId");
             } catch (Exception e) {
                 Debug.logError(UtilProperties.getMessage(resource_error,"OrderProblemGettingProductStoreRecords", locale) + e.getMessage(), module);
@@ -4530,7 +4530,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 // the products already in the cart
                 GenericValue shippingAddress = null;
                 try {
-                    shippingAddress = item.getDelegator().findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", this.internalContactMechId));
+                    shippingAddress = item.getDelegator().findOne("PostalAddress", UtilMisc.toMap("contactMechId", this.internalContactMechId), false);
                 } catch (GenericEntityException gee) {
                     Debug.logError(gee, "Error retrieving the shipping address for contactMechId [" + this.internalContactMechId + "].", module);
                 }
@@ -4646,7 +4646,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
 
             try {
-                return delegator.findByPrimaryKeyCache(entityName, lookupFields);
+                return delegator.findOne(entityName, lookupFields, true);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
@@ -4667,15 +4667,15 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 try {
                     GenericValue pmObj = null;
                     if ("CREDIT_CARD".equals(paymentMethodTypeId)) {
-                        pmObj = delegator.findByPrimaryKey("CreditCard", lookupFields);
+                        pmObj = delegator.findOne("CreditCard", lookupFields, false);
                     } else if ("GIFT_CARD".equals(paymentMethodTypeId)) {
-                        pmObj = delegator.findByPrimaryKey("GiftCard", lookupFields);
+                        pmObj = delegator.findOne("GiftCard", lookupFields, false);
                     } else if ("EFT_ACCOUNT".equals(paymentMethodTypeId)) {
-                        pmObj = delegator.findByPrimaryKey("EftAccount", lookupFields);
+                        pmObj = delegator.findOne("EftAccount", lookupFields, false);
                     } else if ("EXT_BILLACT".equals(paymentMethodTypeId)) {
-                        pmObj = delegator.findByPrimaryKey("BillingAccount", lookupFields);
+                        pmObj = delegator.findOne("BillingAccount", lookupFields, false);
                     } else if ("EXT_PAYPAL".equals(paymentMethodTypeId)) {
-                        pmObj = delegator.findByPrimaryKey("PayPalPaymentMethod", lookupFields);
+                        pmObj = delegator.findOne("PayPalPaymentMethod", lookupFields, false);
                     }
                     if (pmObj != null) {
                         postalAddress = pmObj.getRelatedOne("PostalAddress");
@@ -4718,7 +4718,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 GenericValue productStore = null;
                 String splitPayPrefPerShpGrp = null;
                 try {
-                    productStore = delegator.findByPrimaryKey("ProductStore", UtilMisc.toMap("productStoreId", cart.getProductStoreId()));
+                    productStore = delegator.findOne("ProductStore", UtilMisc.toMap("productStoreId", cart.getProductStoreId()), false);
                 } catch (GenericEntityException e) {
                     Debug.logError(e.toString(), module);
                 }

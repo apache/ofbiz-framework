@@ -46,7 +46,7 @@ if (thruOrderDate) {
 if (productStoreId) {
     conditions.add(EntityCondition.makeCondition("productStoreId", EntityOperator.EQUALS, productStoreId));
     // for generating a title (given product store)
-    context.productStore = delegator.findByPrimaryKeyCache("ProductStore", [productStoreId : productStoreId]);
+    context.productStore = delegator.findOne("ProductStore", [productStoreId : productStoreId], true);
 } else {
     // for generating a title (all stores)  TODO: use UtilProperties to internationalize
     context.productStore = [storeName : "All Stores"];

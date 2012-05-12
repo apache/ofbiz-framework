@@ -34,7 +34,7 @@ productStore = ProductStoreWorker.getProductStore(request);
 if (productStore) {
     context.defaultProductStore = productStore;
     if (productStore.defaultSalesChannelEnumId)
-        context.defaultSalesChannel = delegator.findByPrimaryKeyCache("Enumeration", [enumId : productStore.defaultSalesChannelEnumId]);
+        context.defaultSalesChannel = delegator.findOne("Enumeration", [enumId : productStore.defaultSalesChannelEnumId], true);
 }
 // Get the Cart
 shoppingCart = session.getAttribute("shoppingCart");
@@ -56,7 +56,7 @@ context.organizations = organizations;
 partyId = null;
 partyId = parameters.partyId;
 if (partyId) {
-    party = delegator.findByPrimaryKey("Person", [partyId : partyId]);
+    party = delegator.findOne("Person", [partyId : partyId], false);
     contactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false));
     if (contactMech) {
         ShoppingCart shoppingCart = ShoppingCartEvents.getCartObject(request);

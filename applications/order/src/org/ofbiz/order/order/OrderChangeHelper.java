@@ -172,7 +172,7 @@ public class OrderChangeHelper {
             Delegator delegator = dispatcher.getDelegator();
             GenericValue orderHeader = null;
             try {
-                orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+                orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "ERROR: Unable to get OrderHeader for OrderID : " + orderId, module);
             }
@@ -248,7 +248,7 @@ public class OrderChangeHelper {
     public static void createReceivedPayments(LocalDispatcher dispatcher, GenericValue userLogin, String orderId) throws GenericEntityException, GenericServiceException {
         GenericValue orderHeader = null;
         try {
-            orderHeader = dispatcher.getDelegator().findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+            orderHeader = dispatcher.getDelegator().findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -281,7 +281,7 @@ public class OrderChangeHelper {
     public static void createOrderInvoice(LocalDispatcher dispatcher, GenericValue userLogin, String orderId) throws GenericServiceException {
         GenericValue orderHeader = null;
         try {
-            orderHeader = dispatcher.getDelegator().findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+            orderHeader = dispatcher.getDelegator().findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }

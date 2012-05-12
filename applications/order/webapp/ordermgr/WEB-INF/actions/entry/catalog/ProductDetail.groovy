@@ -209,14 +209,14 @@ if (product) {
     if (cart.isSalesOrder()) {
         facilityId = productStore.inventoryFacilityId;
         /*
-        productFacility = delegator.findByPrimaryKeyCache("ProductFacility", [productId : productId, facilityId : facilityId);
+        productFacility = delegator.findOne("ProductFacility", [productId : productId, facilityId : facilityId, true);
         context.daysToShip = productFacility?.daysToShip
         */
 
         resultOutput = dispatcher.runSync("getInventoryAvailableByFacility", [productId : productId, facilityId : facilityId, useCache : false]);
         totalAvailableToPromise = resultOutput.availableToPromiseTotal;
         if (totalAvailableToPromise) {
-            productFacility = delegator.findByPrimaryKeyCache("ProductFacility", [productId : productId, facilityId : facilityId]);
+            productFacility = delegator.findOne("ProductFacility", [productId : productId, facilityId : facilityId], true);
             context.daysToShip = productFacility?.daysToShip
         }
     } else {
@@ -294,7 +294,7 @@ if (product) {
                 if (variantTree) {
                     featureOrder = new LinkedList(featureSet);
                     featureOrder.each { featureKey ->
-                        featureValue = delegator.findByPrimaryKeyCache("ProductFeatureType", [productFeatureTypeId : featureKey]);
+                        featureValue = delegator.findOne("ProductFeatureType", [productFeatureTypeId : featureKey], true);
                         fValue = featureValue.get("description") ?: featureValue.productFeatureTypeId;
                         featureTypes[featureKey] = fValue;
                     }
@@ -619,7 +619,7 @@ if (product) {
                 continue;
             }
             // filter out all variants
-            commonProduct = delegator.findByPrimaryKeyCache("Product", [productId : commonFeatureResultId]);
+            commonProduct = delegator.findOne("Product", [productId : commonFeatureResultId], true);
             if ("Y".equals(commonProduct?.isVariant)) {
                 continue;
             }
@@ -645,9 +645,9 @@ if (product) {
             contentAssocThumbList = delegator.findByAnd("ContentAssoc", [contentId : productContentAndInfoImageManament.contentId, contentAssocTypeId : "IMAGE_THUMBNAIL"]);
             contentAssocThumb = EntityUtil.getFirst(contentAssocThumbList);
             if(contentAssocThumb) {
-                imageContentThumb = delegator.findByPrimaryKey("Content", [contentId : contentAssocThumb.contentIdTo]);
+                imageContentThumb = delegator.findOne("Content", [contentId : contentAssocThumb.contentIdTo], false);
                 if(imageContentThumb) {
-                    productImageThumb = delegator.findByPrimaryKey("ContentDataResourceView", [contentId : imageContentThumb.contentId, drDataResourceId : imageContentThumb.dataResourceId]);
+                    productImageThumb = delegator.findOne("ContentDataResourceView", [contentId : imageContentThumb.contentId, drDataResourceId : imageContentThumb.dataResourceId], false);
                     productImageMap = [:];
                     productImageMap.productImageThumb = productImageThumb.drObjectInfo;
                     productImageMap.productImage = productContentAndInfoImageManament.drObjectInfo;

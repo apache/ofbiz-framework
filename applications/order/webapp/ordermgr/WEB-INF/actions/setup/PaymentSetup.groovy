@@ -28,7 +28,7 @@ paymentMethodTypeId = parameters.paymentMethodTypeId;
 
 webSitePayment = null;
 if (webSiteId && paymentMethodTypeId) {
-    webSitePayment = delegator.findByPrimaryKey("WebSitePaymentSettingView", [webSiteId : webSiteId, paymentMethodTypeId : paymentMethodTypeId]);
+    webSitePayment = delegator.findOne("WebSitePaymentSettingView", [webSiteId : webSiteId, paymentMethodTypeId : paymentMethodTypeId], false);
 }
 context.webSitePayment = webSitePayment;
 

@@ -42,7 +42,7 @@ metaKeywords = null;
 
 // get the product entity
 if (productId) {
-    product = delegator.findByPrimaryKeyCache("Product", [productId : productId]);
+    product = delegator.findOne("Product", [productId : productId], true);
     if (product) {
         // first make sure this isn't a virtual-variant that has an associated virtual product, if it does show that instead of the variant
         if("Y".equals(product.isVirtual) && "Y".equals(product.isVariant)){
@@ -59,20 +59,20 @@ if (productId) {
     virtualProductId = ProductWorker.getVariantVirtualId(product);
     if (virtualProductId) {
         productId = virtualProductId;
-        product = delegator.findByPrimaryKeyCache("Product", [productId : productId]);
+        product = delegator.findOne("Product", [productId : productId], true);
     }
 
     productPageTitle = delegator.findByAndCache("ProductContentAndInfo", [productId : productId, productContentTypeId : "PAGE_TITLE"]);
     if (productPageTitle) {
-        pageTitle = delegator.findByPrimaryKeyCache("ElectronicText", [dataResourceId : productPageTitle.get(0).dataResourceId]);
+        pageTitle = delegator.findOne("ElectronicText", [dataResourceId : productPageTitle.get(0).dataResourceId], true);
     }
     productMetaDescription = delegator.findByAndCache("ProductContentAndInfo", [productId : productId, productContentTypeId : "META_DESCRIPTION"]);
     if (productMetaDescription) {
-        metaDescription = delegator.findByPrimaryKeyCache("ElectronicText", [dataResourceId : productMetaDescription.get(0).dataResourceId]);
+        metaDescription = delegator.findOne("ElectronicText", [dataResourceId : productMetaDescription.get(0).dataResourceId], true);
     }
     productMetaKeywords = delegator.findByAndCache("ProductContentAndInfo", [productId : productId, productContentTypeId : "META_KEYWORD"]);
     if (productMetaKeywords) {
-        metaKeywords = delegator.findByPrimaryKeyCache("ElectronicText", [dataResourceId : productMetaKeywords.get(0).dataResourceId]);
+        metaKeywords = delegator.findOne("ElectronicText", [dataResourceId : productMetaKeywords.get(0).dataResourceId], true);
     }
 
     context.productId = productId;

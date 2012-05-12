@@ -250,7 +250,7 @@ public class OrderLookupServices {
         if (UtilValidate.isNotEmpty(userLoginId) && UtilValidate.isEmpty(partyId)) {
             GenericValue ul = null;
             try {
-                ul = delegator.findByPrimaryKeyCache("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
+                ul = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", userLoginId), true);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.getMessage(), module);
             }
@@ -366,7 +366,7 @@ public class OrderLookupServices {
             } else {
                 GenericValue product = null;
                 try {
-                    product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
+                    product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e.getMessage(), module);
                 }

@@ -28,7 +28,7 @@ cart = session.getAttribute("shoppingCart");
 currencyUomId = cart.getCurrency();
 userLogin = session.getAttribute("userLogin");
 partyId = cart.getPartyId();
-party = delegator.findByPrimaryKeyCache("Party", [partyId : partyId]);
+party = delegator.findOne("Party", [partyId : partyId], true);
 productStoreId = ProductStoreWorker.getProductStoreId(request);
 
 checkOutPaymentId = "";
