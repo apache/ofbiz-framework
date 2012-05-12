@@ -45,7 +45,7 @@ taskUnplanList.each { taskUnplanMap ->
 	productlist = delegator.findByAnd("CustRequestItem", ["custRequestId" : custRequestId],["productId"]);
 	productlist.each { productMap ->
 		productId = productMap.productId;
-		product = delegator.findByPrimaryKey("Product",["productId":productId]);
+		product = delegator.findOne("Product",["productId":productId], false);
 			productName = product.internalName;
 			unplanMap.taskId = taskUnplanMap.taskId;
 			unplanMap.taskName = taskUnplanMap.taskName;
@@ -89,7 +89,7 @@ taskPlanList.each { taskPlanMap ->
         } else {
             custRequestId = taskPlanMap.custRequestId;
             productlist = delegator.findByAnd("CustRequestItem", ["custRequestId" : custRequestId],["productId"]);
-            product = delegator.findByPrimaryKey("Product",["productId":productlist[0].productId]);
+            product = delegator.findOne("Product",["productId":productlist[0].productId], false);
             productName = product.internalName;
             planMap.taskId = taskPlanMap.taskId;
             planMap.taskTypeId = taskPlanMap.taskTypeId;

@@ -32,7 +32,7 @@ try{
                projectMap = projectList[0];
                // make sure that project dose not closed
                if (projectMap.currentStatusId != "SPJ_CLOSED") {
-                   productMap = delegator.findByPrimaryKey("Product",["productId" : projectMap.productId]);
+                   productMap = delegator.findOne("Product",["productId" : projectMap.productId], false);
                    workEffortMap.productId = productMap.productId;
                    workEffortMap.internalName = returnNameAsString(productMap.internalName,30);
                    workEffortMap.projectId = projectMap.workEffortId;
@@ -68,7 +68,7 @@ try{
             inputMap = [:];
             productIdIn = categoryMap.productId;
             if (productIdIn) {
-               productMap = delegator.findByPrimaryKey("Product",["productId" : productIdIn]);
+               productMap = delegator.findOne("Product",["productId" : productIdIn], false);
                inputMap.productId = productMap.productId;
                inputMap.internalName = productMap.internalName;
                inputMap.custRequestId = categoryMap.custRequestId;

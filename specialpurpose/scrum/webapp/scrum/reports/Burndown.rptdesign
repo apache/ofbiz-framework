@@ -37,7 +37,7 @@ estimatedHrs = params["estimatedHrs"].value;
 maxHours = params["maxHours"].value;
 currentDay = -1;
 
-userLogin = delegator.findByPrimaryKey("UserLogin",UtilMisc.toMap("userLoginId","admin"));
+userLogin = delegator.findOne("UserLogin",UtilMisc.toMap("userLoginId","admin"), false);
 // caculate average diff hours
 var holidayNumber = BigDecimal.ZERO;
 var notHolidayNumber = BigDecimal.ZERO;

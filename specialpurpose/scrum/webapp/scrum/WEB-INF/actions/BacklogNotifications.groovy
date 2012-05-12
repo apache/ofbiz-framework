@@ -22,8 +22,8 @@ import org.ofbiz.entity.condition.*;
 
 def module = "BacklogNotifications.groovy";
 
-custRequest = delegator.findByPrimaryKey("CustRequest", ["custRequestId" : custRequestId]);
-person = delegator.findByPrimaryKey("PartyNameView", ["partyId" : partyIdTo]);
+custRequest = delegator.findOne("CustRequest", ["custRequestId" : custRequestId], false);
+person = delegator.findOne("PartyNameView", ["partyId" : partyIdTo], false);
 informationMap = [:];
 informationMap.internalName = null;
 informationMap.productId = null;
@@ -36,8 +36,8 @@ andExprs = [EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQU
 backlogCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
 backlogList = delegator.findList("ProductBacklog", backlogCond, ["productId", "workEffortId", "custRequestId"] as Set ,null ,null, false);
 if (backlogList) {
-    product = delegator.findByPrimaryKey("Product", ["productId" : backlogList[0].productId]);
-    sprint = delegator.findByPrimaryKey("WorkEffort", ["workEffortId" : backlogList[0].workEffortId]);
+    product = delegator.findOne("Product", ["productId" : backlogList[0].productId], false);
+    sprint = delegator.findOne("WorkEffort", ["workEffortId" : backlogList[0].workEffortId], false);
     informationMap.internalName = product.internalName;
     informationMap.productId = product.productId;
     informationMap.workEffortName = sprint.workEffortName;
@@ -48,7 +48,7 @@ if (backlogList) {
     backlogList = delegator.findList("ProductBacklog", backlogCond, ["productId", "workEffortId", "custRequestId"] as Set ,null ,null, false);
     if (backlogList) {
         if (backlogList[0].productId) {
-            product = delegator.findByPrimaryKey("Product", ["productId" : backlogList[0].productId]);
+            product = delegator.findOne("Product", ["productId" : backlogList[0].productId], false);
             informationMap.internalName = product.internalName;
             informationMap.productId = product.productId;
         }
