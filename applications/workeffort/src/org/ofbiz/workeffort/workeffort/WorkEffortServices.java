@@ -20,7 +20,6 @@
 package org.ofbiz.workeffort.workeffort;
 
 import java.sql.Timestamp;
-import com.ibm.icu.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -61,6 +60,8 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.calendar.TemporalExpression;
 import org.ofbiz.service.calendar.TemporalExpressionWorker;
+
+import com.ibm.icu.util.Calendar;
 
 /**
  * WorkEffortServices - WorkEffort related Services
@@ -1146,6 +1147,14 @@ public class WorkEffortServices {
                 eli.close();
             } catch (Exception e) {
                 Debug.logError(e, "Error while closing EntityListIterator: ", module);
+            } finally {
+                if (eli != null) {
+                    try {
+                        eli.close();
+                    } catch (GenericEntityException e) {
+                        Debug.logWarning(e, module);
+                    }
+                }
             }
         } else {
             List<GenericValue> workEfforts = UtilGenerics.checkList(context.get("workEfforts"));
