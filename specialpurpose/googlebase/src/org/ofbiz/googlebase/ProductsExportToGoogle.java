@@ -436,7 +436,7 @@ public class ProductsExportToGoogle {
                 if (productAndInfos.size() > 0) {
                     for (GenericValue productContentAndInfo : productAndInfos ) {
                         String dataReSourceId = productContentAndInfo.getString("dataResourceId");
-                        GenericValue electronicText = delegator.findByPrimaryKey("ElectronicText", UtilMisc.toMap("dataResourceId", dataReSourceId));
+                        GenericValue electronicText = delegator.findOne("ElectronicText", UtilMisc.toMap("dataResourceId", dataReSourceId), false);
                         if ("PRODUCT_NAME".equals(productContentAndInfo.getString("productContentTypeId")))
                             productName = electronicText.getString("textData");
                         if ("LONG_DESCRIPTION".equals(productContentAndInfo.getString("productContentTypeId")))
@@ -495,7 +495,7 @@ public class ProductsExportToGoogle {
                 String googleProductId = null;
                 if (!"insert".equals(actionType)) {
                     try {
-                        googleProduct = delegator.findByPrimaryKey("GoodIdentification", UtilMisc.toMap("productId", prod.getString("productId"), "goodIdentificationTypeId", "GOOGLE_ID_" + localeString));
+                        googleProduct = delegator.findOne("GoodIdentification", UtilMisc.toMap("productId", prod.getString("productId"), "goodIdentificationTypeId", "GOOGLE_ID_" + localeString), false);
                         if (UtilValidate.isNotEmpty(googleProduct)) {
                             googleProductId = googleProduct.getString("idValue");
                         }
@@ -583,7 +583,7 @@ public class ProductsExportToGoogle {
                     UtilXml.addChildElementNSValue(entryElem, "g:brand", prod.getString("brandName"), feedDocument, googleBaseNSUrl);
                 }
                 try {
-                    googleProduct = delegator.findByPrimaryKey("GoodIdentification", UtilMisc.toMap("productId", prod.getString("productId"), "goodIdentificationTypeId", "SKU"));
+                    googleProduct = delegator.findOne("GoodIdentification", UtilMisc.toMap("productId", prod.getString("productId"), "goodIdentificationTypeId", "SKU"), false);
                     if (UtilValidate.isNotEmpty(googleProduct)) {
                         UtilXml.addChildElementNSValue(entryElem, "g:ean", googleProduct.getString("idValue"), feedDocument, googleBaseNSUrl);
                     }
@@ -775,7 +775,7 @@ public class ProductsExportToGoogle {
             UtilXml.addChildElementNSValue(entryElem, "g:online_only", "y", feedDocument, googleBaseNSUrl);
             //Add shipping weight
             if (UtilValidate.isNotEmpty(product.getString("weight")) && UtilValidate.isNotEmpty(product.getString("weightUomId"))) {
-                GenericValue uom = delegator.findByPrimaryKey("Uom", UtilMisc.toMap("uomId", product.getString("weightUomId")));
+                GenericValue uom = delegator.findOne("Uom", UtilMisc.toMap("uomId", product.getString("weightUomId")), false);
                 String shippingWeight = product.getString("weight") + " " + uom.getString("description");
                 UtilXml.addChildElementNSValue(entryElem, "g:shipping_weight", shippingWeight, feedDocument, googleBaseNSUrl);
             }
