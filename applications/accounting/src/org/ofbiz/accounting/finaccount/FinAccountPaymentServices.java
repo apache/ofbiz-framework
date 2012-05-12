@@ -102,7 +102,7 @@ public class FinAccountPaymentServices {
         GenericValue finAccount;
         if (finAccountId != null) {
             try {
-                finAccount = delegator.findByPrimaryKey("FinAccount", UtilMisc.toMap("finAccountId", finAccountId));
+                finAccount = delegator.findOne("FinAccount", UtilMisc.toMap("finAccountId", finAccountId), false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -133,7 +133,7 @@ public class FinAccountPaymentServices {
         try {
             // fin the store requires a pin number; validate the PIN with the code
             Map<String, Object> findProductStoreFinActSettingMap = UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "finAccountTypeId", finAccountTypeId);
-            GenericValue finAccountSettings = delegator.findByPrimaryKeyCache("ProductStoreFinActSetting", findProductStoreFinActSettingMap);
+            GenericValue finAccountSettings = delegator.findOne("ProductStoreFinActSetting", findProductStoreFinActSettingMap, true);
 
             if (finAccountSettings == null) {
                 Debug.logWarning("In finAccountPreAuth could not find ProductStoreFinActSetting record, values searched by: " + findProductStoreFinActSettingMap, module);
@@ -344,7 +344,7 @@ public class FinAccountPaymentServices {
         String finAccountAuthId = authTrans.getString("referenceNum");
         GenericValue finAccountAuth;
         try {
-            finAccountAuth = delegator.findByPrimaryKey("FinAccountAuth", UtilMisc.toMap("finAccountAuthId", finAccountAuthId));
+            finAccountAuth = delegator.findOne("FinAccountAuth", UtilMisc.toMap("finAccountAuthId", finAccountAuthId), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -553,7 +553,7 @@ public class FinAccountPaymentServices {
 
         GenericValue finAccount;
         try {
-            finAccount = delegator.findByPrimaryKey("FinAccount", UtilMisc.toMap("finAccountId", finAccountId));
+            finAccount = delegator.findOne("FinAccount", UtilMisc.toMap("finAccountId", finAccountId), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -640,7 +640,7 @@ public class FinAccountPaymentServices {
 
         GenericValue finAccount;
         try {
-            finAccount = delegator.findByPrimaryKey("FinAccount", UtilMisc.toMap("finAccountId", finAccountId));
+            finAccount = delegator.findOne("FinAccount", UtilMisc.toMap("finAccountId", finAccountId), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
@@ -718,7 +718,7 @@ public class FinAccountPaymentServices {
         // lookup the FinAccount
         GenericValue finAccount;
         try {
-            finAccount = delegator.findByPrimaryKey("FinAccount", UtilMisc.toMap("finAccountId", finAccountId));
+            finAccount = delegator.findOne("FinAccount", UtilMisc.toMap("finAccountId", finAccountId), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -757,7 +757,7 @@ public class FinAccountPaymentServices {
         GenericValue finAccountSettings;
         Map<String, Object> psfasFindMap = UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "finAccountTypeId", finAccount.getString("finAccountTypeId"));
         try {
-            finAccountSettings = delegator.findByPrimaryKeyCache("ProductStoreFinActSetting", psfasFindMap);
+            finAccountSettings = delegator.findOne("ProductStoreFinActSetting", psfasFindMap, true);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -833,7 +833,7 @@ public class FinAccountPaymentServices {
 
         GenericValue paymentMethod;
         try {
-            paymentMethod = delegator.findByPrimaryKey("PaymentMethod", UtilMisc.toMap("paymentMethodId", paymentMethodId));
+            paymentMethod = delegator.findOne("PaymentMethod", UtilMisc.toMap("paymentMethodId", paymentMethodId), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());

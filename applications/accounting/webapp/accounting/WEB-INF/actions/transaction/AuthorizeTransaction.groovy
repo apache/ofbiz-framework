@@ -26,7 +26,7 @@ orderPaymentPreferenceId = context.orderPaymentPreferenceId;
 if ((!orderId) || (!orderPaymentPreferenceId)) return;
 
 if (orderId) {
-   orderHeader = delegator.findByPrimaryKey("OrderHeader", [orderId : orderId]);
+   orderHeader = delegator.findOne("OrderHeader", [orderId : orderId], false);
    context.orderHeader = orderHeader;
 }
 
@@ -37,7 +37,7 @@ if (orderHeader) {
 }
 
 if (orderPaymentPreferenceId) {
-   orderPaymentPreference = delegator.findByPrimaryKey("OrderPaymentPreference", [orderPaymentPreferenceId : orderPaymentPreferenceId]);
+   orderPaymentPreference = delegator.findOne("OrderPaymentPreference", [orderPaymentPreferenceId : orderPaymentPreferenceId], false);
    context.orderPaymentPreference = orderPaymentPreference;
 }
 

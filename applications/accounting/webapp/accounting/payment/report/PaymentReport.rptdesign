@@ -327,7 +327,7 @@ module = "PaymentReport.rptdesign";]]></method>
 userLogin = null;
 parameters = null;
 try {
-    userLogin = delegator.findByPrimaryKey("UserLogin",UtilMisc.toMap("userLoginId","admin"));
+    userLogin = delegator.findOne("UserLogin",UtilMisc.toMap("userLoginId","admin"), false);
 } catch(e) {
         Debug.logError(e,"");
 }

@@ -26,7 +26,7 @@ context.productStores = productStores;
 // current store
 productStoreId = parameters.productStoreId;
 if (productStoreId) {
-    productStore = delegator.findByPrimaryKey("ProductStore", [productStoreId : productStoreId]);
+    productStore = delegator.findOne("ProductStore", [productStoreId : productStoreId], false);
     context.currentStore = productStore;
 }
 
@@ -46,12 +46,12 @@ context.paymentMethodTypeId = paymentMethodTypeId;
 txType = parameters.transactionType;
 context.txType = txType;
 if (txType) {
-    currentTx = delegator.findByPrimaryKey("Enumeration", [enumId : txType]);
+    currentTx = delegator.findOne("Enumeration", [enumId : txType], false);
     context.currentTx = currentTx;
 }
 
 if (paymentMethodId) {
-    paymentMethod = delegator.findByPrimaryKey("PaymentMethod", [paymentMethodId : paymentMethodId]);
+    paymentMethod = delegator.findOne("PaymentMethod", [paymentMethodId : paymentMethodId], false);
     if (paymentMethod) {
         // payment method type
         paymentMethodTypeId = paymentMethod.paymentMethodTypeId;
@@ -82,7 +82,7 @@ if (paymentMethodId) {
 }
 
 if (paymentMethodTypeId) {
-    paymentMethodType = delegator.findByPrimaryKey("PaymentMethodType", [paymentMethodTypeId : paymentMethodTypeId]);
+    paymentMethodType = delegator.findOne("PaymentMethodType", [paymentMethodTypeId : paymentMethodTypeId], false);
     context.paymentMethodType = paymentMethodType;
     context.paymentMethodTypeId = paymentMethodTypeId;
 }

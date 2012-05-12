@@ -33,7 +33,7 @@ if (currentCustomTimePeriodId) {
     context.currentCustomTimePeriodId = currentCustomTimePeriodId;
 }
 
-currentCustomTimePeriod = currentCustomTimePeriodId ? delegator.findByPrimaryKey("CustomTimePeriod", [customTimePeriodId : currentCustomTimePeriodId]) : null;
+currentCustomTimePeriod = currentCustomTimePeriodId ? delegator.findOne("CustomTimePeriod", [customTimePeriodId : currentCustomTimePeriodId], false) : null;
 if (currentCustomTimePeriod) {
     context.currentCustomTimePeriod = currentCustomTimePeriod;
 }

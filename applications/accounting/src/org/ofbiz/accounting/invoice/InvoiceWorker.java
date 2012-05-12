@@ -82,7 +82,7 @@ public class InvoiceWorker {
 
         GenericValue invoice = null;
         try {
-            invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));
+            invoice = delegator.findOne("Invoice", UtilMisc.toMap("invoiceId", invoiceId), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem getting Invoice", module);
         }
@@ -455,7 +455,7 @@ public class InvoiceWorker {
 
         GenericValue invoiceItem = null;
         try {
-            invoiceItem = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId,"invoiceItemSeqId", invoiceItemSeqId));
+            invoiceItem = delegator.findOne("Invoice", UtilMisc.toMap("invoiceId", invoiceId,"invoiceItemSeqId", invoiceItemSeqId), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem getting InvoiceItem", module);
         }
@@ -493,9 +493,9 @@ public class InvoiceWorker {
         String otherCurrencyUomId = null;
         // find the organization party currencyUomId which different from the invoice currency
         try {
-            GenericValue party  = delegator.findByPrimaryKey("PartyAcctgPreference", UtilMisc.toMap("partyId", invoice.getString("partyIdFrom")));
+            GenericValue party  = delegator.findOne("PartyAcctgPreference", UtilMisc.toMap("partyId", invoice.getString("partyIdFrom")), false);
             if (UtilValidate.isEmpty(party) || party.getString("baseCurrencyUomId").equals(invoice.getString("currencyUomId"))) {
-                party  = delegator.findByPrimaryKey("PartyAcctgPreference", UtilMisc.toMap("partyId", invoice.getString("partyId")));
+                party  = delegator.findOne("PartyAcctgPreference", UtilMisc.toMap("partyId", invoice.getString("partyId")), false);
             }
             if (UtilValidate.isNotEmpty(party) && party.getString("baseCurrencyUomId") != null) {
                 otherCurrencyUomId = party.getString("baseCurrencyUomId");
@@ -557,7 +557,7 @@ public class InvoiceWorker {
 
         GenericValue invoice = null;
         try {
-            invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));
+            invoice = delegator.findOne("Invoice", UtilMisc.toMap("invoiceId", invoiceId), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem getting Invoice", module);
         }

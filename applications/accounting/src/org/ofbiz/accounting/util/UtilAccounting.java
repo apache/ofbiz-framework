@@ -56,8 +56,8 @@ public class UtilAccounting {
         GenericValue account = null;
         try {
             // first try to find the account in ProductGlAccount
-            account = delegator.findByPrimaryKeyCache("ProductGlAccount",
-                    UtilMisc.toMap("productId", productId, "glAccountTypeId", glAccountTypeId, "organizationPartyId", organizationPartyId));
+            account = delegator.findOne("ProductGlAccount",
+                    UtilMisc.toMap("productId", productId, "glAccountTypeId", glAccountTypeId, "organizationPartyId", organizationPartyId), true);
         } catch (GenericEntityException e) {
             throw new AccountingException("Failed to find a ProductGLAccount for productId [" + productId + "], organization [" + organizationPartyId + "], and productGlAccountTypeId [" + glAccountTypeId + "].", e);
         }
@@ -65,7 +65,7 @@ public class UtilAccounting {
         // otherwise try the default accounts
         if (account == null) {
             try {
-                account = delegator.findByPrimaryKeyCache("GlAccountTypeDefault", UtilMisc.toMap("glAccountTypeId", glAccountTypeId, "organizationPartyId", organizationPartyId));
+                account = delegator.findOne("GlAccountTypeDefault", UtilMisc.toMap("glAccountTypeId", glAccountTypeId, "organizationPartyId", organizationPartyId), true);
             } catch (GenericEntityException e) {
                 throw new AccountingException("Failed to find a GlAccountTypeDefault for glAccountTypeId [" + glAccountTypeId + "] and organizationPartyId [" + organizationPartyId+ "].", e);
             }

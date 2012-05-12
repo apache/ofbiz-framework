@@ -96,7 +96,7 @@ public class FinAccountProductServices {
         // locate the financial account type
         GenericValue finAccountType;
         try {
-            finAccountType = delegator.findByPrimaryKey("FinAccountType", UtilMisc.toMap("finAccountTypeId", finAccountTypeId));
+            finAccountType = delegator.findOne("FinAccountType", UtilMisc.toMap("finAccountTypeId", finAccountTypeId), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());

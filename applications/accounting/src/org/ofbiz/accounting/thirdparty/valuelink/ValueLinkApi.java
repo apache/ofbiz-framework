@@ -740,7 +740,7 @@ public class ValueLinkApi {
     public GenericValue getGenericValue() {
         GenericValue value = null;
         try {
-            value = delegator.findByPrimaryKeyCache("ValueLinkKey", UtilMisc.toMap("merchantId", merchantId));
+            value = delegator.findOne("ValueLinkKey", UtilMisc.toMap("merchantId", merchantId), true);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }

@@ -83,7 +83,7 @@ public class IdealEvents {
         GenericValue orderHeader = null;
         List<GenericValue> orderItemList = null;
         try {
-            orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+            orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
             orderItemList = delegator.findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId));
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot get the order header for order: " + orderId, module);

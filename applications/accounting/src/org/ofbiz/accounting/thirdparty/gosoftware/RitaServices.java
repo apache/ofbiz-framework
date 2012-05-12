@@ -405,7 +405,7 @@ public class RitaServices {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue creditCard = (GenericValue) context.get("creditCard");
         if (creditCard == null) {
-            creditCard = delegator.findByPrimaryKey("CreditCard", UtilMisc.toMap("paymentMethodId", orderPaymentPreference.getString("paymentMethodId")));
+            creditCard = delegator.findOne("CreditCard", UtilMisc.toMap("paymentMethodId", orderPaymentPreference.getString("paymentMethodId")), false);
         }
         if (creditCard != null) {
             List<String> expDateList = StringUtil.split(creditCard.getString("expireDate"), "/");

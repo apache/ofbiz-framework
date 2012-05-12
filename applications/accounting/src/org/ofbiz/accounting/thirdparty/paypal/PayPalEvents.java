@@ -76,7 +76,7 @@ public class PayPalEvents {
         // get the order header
         GenericValue orderHeader = null;
         try {
-            orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+            orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot get the order header for order: " + orderId, module);
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.problemsGettingOrderHeader", locale));
@@ -262,7 +262,7 @@ public class PayPalEvents {
         // get the system user
         GenericValue userLogin = null;
         try {
-            userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+            userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", "system"), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot get UserLogin for: system; cannot continue", module);
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.problemsGettingAuthenticationUser", locale));
@@ -276,7 +276,7 @@ public class PayPalEvents {
         GenericValue orderHeader = null;
         if (UtilValidate.isNotEmpty(orderId)) {
             try {
-                orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+                orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Cannot get the order header for order: " + orderId, module);
                 request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.problemsGettingOrderHeader", locale));

@@ -31,7 +31,7 @@ import org.ofbiz.entity.condition.EntityConditionList;
 import java.math.*;
 
 paymentId = parameters.paymentId;
-payment = delegator.findByPrimaryKey("Payment", [paymentId : paymentId]);
+payment = delegator.findOne("Payment", [paymentId : paymentId], false);
 
 decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
 rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
