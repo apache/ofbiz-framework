@@ -48,13 +48,6 @@
         <response name="resultPage" type="view" value="newRegisterLogin"/>
     </request-map>
 
-    <!-- Captcha: Image request, the captcha code is stored in the session using _CAPTCHA_CODE_ as the key -->
-    <request-map uri="captcha.jpg">
-        <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.common.CommonEvents" invoke="getCaptcha"/>
-        <response name="success" type="none"/>
-    </request-map>
-
     <request-map uri="LookupUserLoginAndPartyDetails">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="LookupUserLoginAndPartyDetails"/>
