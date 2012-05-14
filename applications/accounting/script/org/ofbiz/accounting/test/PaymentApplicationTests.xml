@@ -62,8 +62,8 @@ under the License.
         </call-class-method>
         <set field="zero" value="0" type="BigDecimal"/>
         <assert>
-            <if-compare-field operator="equals" field="notAppliedPayment" to-field="zero" type="BigDecimal"/>                        
-            <if-compare-field operator="equals" field="notAppliedInvoice" to-field="zero" type="BigDecimal"/>                        
+            <if-compare-field operator="equals" field="notAppliedPayment" to-field="zero"/>                        
+            <if-compare-field operator="equals" field="notAppliedInvoice" to-field="zero"/>                        
         </assert>
         <check-errors/>
         <remove-value value-field="paymentApplication"/>
@@ -98,7 +98,7 @@ under the License.
             <not><if-empty field="paymentApplication"/></not>
             <if-compare-field field="paymentApplication.billingAccountId" operator="equals" to-field="serviceInMap.billingAccountId"/>
             <if-compare-field field="paymentApplication.paymentId" operator="equals" to-field="serviceInMap.paymentId"/>
-            <if-compare-field field="paymentApplication.amountApplied" operator="equals" to-field="payment.amount" type="BigDecimal"/>
+            <if-compare-field field="paymentApplication.amountApplied" operator="equals" to-field="payment.amount"/>
         </assert>
         <check-errors/>
         <!-- both payment and invoice should be completely applied -->
@@ -112,8 +112,8 @@ under the License.
         </call-class-method>
         <set field="zero" value="0" type="BigDecimal"/>
         <assert>
-            <if-compare-field operator="equals" field="notAppliedPayment" to-field="zero" type="BigDecimal"/>                        
-            <if-compare-field operator="equals" field="appliedBilling" to-field="paymentAmount" type="BigDecimal"/>                        
+            <if-compare-field operator="equals" field="notAppliedPayment" to-field="zero"/>                        
+            <if-compare-field operator="equals" field="appliedBilling" to-field="paymentAmount"/>                        
         </assert>
         <check-errors/>
         <remove-value value-field="paymentApplication"/>
@@ -147,7 +147,7 @@ under the License.
             <not><if-empty field="paymentApplication"/></not>
             <if-compare-field field="paymentApplication.toPaymentId" operator="equals" to-field="serviceInMap.toPaymentId"/>
             <if-compare-field field="paymentApplication.paymentId" operator="equals" to-field="serviceInMap.paymentId"/>
-            <if-compare-field field="paymentApplication.amountApplied" operator="equals" to-field="payment.amount" type="BigDecimal"/>
+            <if-compare-field field="paymentApplication.amountApplied" operator="equals" to-field="payment.amount"/>
         </assert>
         <check-errors/>
         <!-- both payment and invoice should be completely applied -->
@@ -161,8 +161,8 @@ under the License.
         </call-class-method>
         <set field="zero" value="0" type="BigDecimal"/>
         <assert>
-            <if-compare-field operator="equals" field="notAppliedPayment" to-field="zero" type="BigDecimal"/>                        
-            <if-compare-field operator="equals" field="notAppliedToPayment" to-field="zero" type="BigDecimal"/>                        
+            <if-compare-field operator="equals" field="notAppliedPayment" to-field="zero"/>                        
+            <if-compare-field operator="equals" field="notAppliedToPayment" to-field="zero"/>                        
         </assert>
         <check-errors/>
         <remove-value value-field="paymentApplication"/>
@@ -201,7 +201,7 @@ under the License.
         </call-class-method>
         <set field="zero" value="0" type="BigDecimal"/>
         <assert>
-            <if-compare-field operator="equals" field="notAppliedPayment" to-field="zero" type="BigDecimal"/>                        
+            <if-compare-field operator="equals" field="notAppliedPayment" to-field="zero"/>                        
         </assert>
         <check-errors/>
         <remove-value value-field="paymentApplication"/>
