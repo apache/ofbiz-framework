@@ -24,7 +24,7 @@ under the License.
 <%
 ServletContext context = pageContext.getServletContext();
 String webSiteId = (String) context.getAttribute("webSiteId");
-List<GenericValue> webAnalytics = delegator.findByAnd("WebAnalyticsConfig", UtilMisc.toMap("webSiteId", webSiteId));
+List<GenericValue> webAnalytics = delegator.findByAnd("WebAnalyticsConfig", UtilMisc.toMap("webSiteId", webSiteId), null, false);
 %>
 <html>
 <head>

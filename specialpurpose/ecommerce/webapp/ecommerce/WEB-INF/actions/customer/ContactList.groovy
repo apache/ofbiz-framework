@@ -28,7 +28,7 @@ import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.webapp.website.WebSiteWorker;
 import org.ofbiz.accounting.payment.PaymentWorker;
 
-/*publicEmailContactLists = delegator.findByAnd("ContactList", [isPublic : "Y", contactMechTypeId : "EMAIL_ADDRESS"], ["contactListName"]);
+/*publicEmailContactLists = delegator.findByAnd("ContactList", [isPublic : "Y", contactMechTypeId : "EMAIL_ADDRESS"], ["contactListName"], false);
 context.publicEmailContactLists = publicEmailContactLists;*/
 
 webSiteId = WebSiteWorker.getWebSiteId(request);
@@ -54,7 +54,7 @@ webSiteContactList.each { webSiteContactList ->
 context.publicEmailContactLists = publicEmailContactLists;
 
 if (userLogin) {
-    partyAndContactMechList = delegator.findByAnd("PartyAndContactMech", [partyId : partyId, contactMechTypeId : "EMAIL_ADDRESS"], ["-fromDate"]);
+    partyAndContactMechList = delegator.findByAnd("PartyAndContactMech", [partyId : partyId, contactMechTypeId : "EMAIL_ADDRESS"], ["-fromDate"], false);
     partyAndContactMechList = EntityUtil.filterByDate(partyAndContactMechList);
     context.partyAndContactMechList = partyAndContactMechList;
 }

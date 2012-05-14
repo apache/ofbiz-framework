@@ -65,7 +65,7 @@ if (userLogin) {
     context.messages = messages;
     context.profileMessages = true;
 
-    partyContent = delegator.findByAnd("ContentRole", [partyId : partyId, roleTypeId : "OWNER"]);
+    partyContent = delegator.findByAnd("ContentRole", [partyId : partyId, roleTypeId : "OWNER"], null, false);
     partyContent = EntityUtil.filterByDate(partyContent);
     context.partyContent = partyContent;
 
@@ -83,14 +83,14 @@ if (userLogin) {
     context.totalSubRemainingAmount = result.totalSubRemainingAmount;
     context.totalOrders = result.totalOrders;
 
-    contactListPartyList = delegator.findByAnd("ContactListParty", [partyId : partyId], ["-fromDate"]);
+    contactListPartyList = delegator.findByAnd("ContactListParty", [partyId : partyId], ["-fromDate"], false);
     // show all, including history, ie don't filter: contactListPartyList = EntityUtil.filterByDate(contactListPartyList, true);
     context.contactListPartyList = contactListPartyList;
 
-    publicContactLists = delegator.findByAnd("ContactList", [isPublic : "Y"], ["contactListName"]);
+    publicContactLists = delegator.findByAnd("ContactList", [isPublic : "Y"], ["contactListName"], false);
     context.publicContactLists = publicContactLists;
 
-    partyAndContactMechList = delegator.findByAnd("PartyAndContactMech", [partyId : partyId], ["-fromDate"]);
+    partyAndContactMechList = delegator.findByAnd("PartyAndContactMech", [partyId : partyId], ["-fromDate"], false);
     partyAndContactMechList = EntityUtil.filterByDate(partyAndContactMechList);
     context.partyAndContactMechList = partyAndContactMechList;
 }

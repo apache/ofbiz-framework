@@ -62,7 +62,7 @@ if (parameters.useShipAddr && cart.getShippingContactMechId()) {
     context.postalFields = postalAddress;
 
     if (postalAddress && partyId) {
-        partyContactMechs = delegator.findByAnd("PartyContactMech", [partyId : partyId, contactMechId : postalAddress.contactMechId], ["-fromDate"]);
+        partyContactMechs = delegator.findByAnd("PartyContactMech", [partyId : partyId, contactMechId : postalAddress.contactMechId], ["-fromDate"], false);
         partyContactMechs = EntityUtil.filterByDate(partyContactMechs);
         partyContactMech = EntityUtil.getFirst(partyContactMechs);
         context.partyContactMech = partyContactMech;

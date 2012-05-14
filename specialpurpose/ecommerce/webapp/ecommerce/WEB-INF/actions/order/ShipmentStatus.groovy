@@ -26,7 +26,7 @@ import org.ofbiz.entity.util.*;
 shipmentId = parameters.shipmentId;
 if (shipmentId) {
     shipment = delegator.findOne("Shipment", [shipmentId : shipmentId], false);
-    shipmentItems = delegator.findByAnd("ShipmentItem", [shipmentId : shipmentId]);
+    shipmentItems = delegator.findByAnd("ShipmentItem", [shipmentId : shipmentId], null, false);
 
     // get Shipment tracking info
     osisCond = EntityCondition.makeCondition([shipmentId : shipmentId], EntityOperator.AND);

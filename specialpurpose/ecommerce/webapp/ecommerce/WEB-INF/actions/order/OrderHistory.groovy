@@ -26,7 +26,7 @@ partyRole = delegator.findOne("PartyRole", [partyId : userLogin.partyId, roleTyp
 if (partyRole) {
     if ("SUPPLIER".equals(partyRole.roleTypeId)) {
         /** drop shipper or supplier **/
-        porderRoleCollection = delegator.findByAnd("OrderRole", [partyId : userLogin.partyId, roleTypeId : "SUPPLIER_AGENT"]);
+        porderRoleCollection = delegator.findByAnd("OrderRole", [partyId : userLogin.partyId, roleTypeId : "SUPPLIER_AGENT"], null, false);
         porderHeaderList = EntityUtil.orderBy(EntityUtil.filterByAnd(EntityUtil.getRelated("OrderHeader", porderRoleCollection),
                 [EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
                  EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "PURCHASE_ORDER")]),
@@ -34,11 +34,11 @@ if (partyRole) {
         context.porderHeaderList = porderHeaderList;
     }
 }
-orderRoleCollection = delegator.findByAnd("OrderRole", [partyId : userLogin.partyId, roleTypeId : "PLACING_CUSTOMER"]);
+orderRoleCollection = delegator.findByAnd("OrderRole", [partyId : userLogin.partyId, roleTypeId : "PLACING_CUSTOMER"], null, false);
 orderHeaderList = EntityUtil.orderBy(EntityUtil.filterByAnd(EntityUtil.getRelated("OrderHeader", orderRoleCollection),
         [EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED")]), ["orderDate DESC"]);
 context.orderHeaderList = orderHeaderList;
 
 downloadOrderRoleAndProductContentInfoList = delegator.findByAnd("OrderRoleAndProductContentInfo",
-    [partyId : userLogin.partyId, roleTypeId : "PLACING_CUSTOMER", productContentTypeId : "DIGITAL_DOWNLOAD", statusId : "ITEM_COMPLETED"]);
+    [partyId : userLogin.partyId, roleTypeId : "PLACING_CUSTOMER", productContentTypeId : "DIGITAL_DOWNLOAD", statusId : "ITEM_COMPLETED"], null, false);
 context.downloadOrderRoleAndProductContentInfoList = downloadOrderRoleAndProductContentInfoList;

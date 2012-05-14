@@ -40,7 +40,7 @@ if (orderId) {
     context.orderHeader = orderHeader;
 }
 
-returnItemTypeMap = delegator.findByAnd("ReturnItemTypeMap", [returnHeaderTypeId : "CUSTOMER_RETURN"]);
+returnItemTypeMap = delegator.findByAnd("ReturnItemTypeMap", [returnHeaderTypeId : "CUSTOMER_RETURN"], null, false);
 typeMap = new HashMap();
 returnItemTypeMap.each { value -> typeMap[value.returnItemMapKey] = value.returnItemTypeId }
 context.returnItemTypeMap = typeMap;
