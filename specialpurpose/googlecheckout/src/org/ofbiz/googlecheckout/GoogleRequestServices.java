@@ -130,7 +130,7 @@ public class GoogleRequestServices {
         // setup shipping options support
         List<GenericValue> shippingOptions = null;
         try {
-            shippingOptions = delegator.findByAnd("GoogleCoShippingMethod", UtilMisc.toMap("productStoreId", productStoreId));
+            shippingOptions = delegator.findByAnd("GoogleCoShippingMethod", UtilMisc.toMap("productStoreId", productStoreId), null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -302,7 +302,7 @@ public class GoogleRequestServices {
 
         List<GenericValue> returnItems = null;
         try {
-            returnItems = delegator.findByAnd("ReturnItem", UtilMisc.toMap("returnId", returnId));
+            returnItems = delegator.findByAnd("ReturnItem", UtilMisc.toMap("returnId", returnId), null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -511,7 +511,7 @@ public class GoogleRequestServices {
     }
 
     private static void sendItemsShipped(Delegator delegator, String shipmentId) throws GeneralException {
-        List<GenericValue> issued = delegator.findByAnd("ItemIssuance", UtilMisc.toMap("shipmentId", shipmentId));
+        List<GenericValue> issued = delegator.findByAnd("ItemIssuance", UtilMisc.toMap("shipmentId", shipmentId), null, false);
         if (UtilValidate.isNotEmpty(issued)) {
             try {
                 GenericValue googleOrder = null;
@@ -534,7 +534,7 @@ public class GoogleRequestServices {
                         }
                         // locate the shipment package content record
                         Map<String, ? extends Object> spcLup = UtilMisc.toMap("shipmentId", shipmentId, "shipmentItemSeqId", shipmentItemSeqId);
-                        List<GenericValue> spc = delegator.findByAnd("ShipmentPackageContent", spcLup);
+                        List<GenericValue> spc = delegator.findByAnd("ShipmentPackageContent", spcLup, null, false);
                         GenericValue packageContent = EntityUtil.getFirst(spc);
                         String carrier = null;
                         if (UtilValidate.isNotEmpty(packageContent)) {
