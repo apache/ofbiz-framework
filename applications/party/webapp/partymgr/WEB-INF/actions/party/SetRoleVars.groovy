@@ -19,28 +19,28 @@
  import org.ofbiz.entity.*;
  import org.ofbiz.entity.util.EntityUtil;
 
- roleTypeAndParty = delegator.findByAnd("RoleTypeAndParty", ['partyId': parameters.partyId, 'roleTypeId': 'ACCOUNT']);
+ roleTypeAndParty = delegator.findByAnd("RoleTypeAndParty", ['partyId': parameters.partyId, 'roleTypeId': 'ACCOUNT'], null, false);
  if (roleTypeAndParty) {
      context.accountDescription = roleTypeAndParty[0].description;
  }
 
- roleTypeAndParty = delegator.findByAnd("RoleTypeAndParty", ['partyId': parameters.partyId, 'roleTypeId': 'CONTACT']);
+ roleTypeAndParty = delegator.findByAnd("RoleTypeAndParty", ['partyId': parameters.partyId, 'roleTypeId': 'CONTACT'], null, false);
  if (roleTypeAndParty) {
      context.contactDescription = roleTypeAndParty.get(0).description;
  }
- roleTypeAndParty = delegator.findByAnd("RoleTypeAndParty", ['partyId': parameters.partyId, 'roleTypeId': 'LEAD']);
+ roleTypeAndParty = delegator.findByAnd("RoleTypeAndParty", ['partyId': parameters.partyId, 'roleTypeId': 'LEAD'], null, false);
  if (roleTypeAndParty) {
      context.leadDescription = roleTypeAndParty.get(0).description;
-     partyRelationships = EntityUtil.filterByDate(delegator.findByAnd("PartyRelationship", ["partyIdTo": parameters.partyId, "roleTypeIdFrom": "ACCOUNT_LEAD", "roleTypeIdTo": "LEAD", "partyRelationshipTypeId": "EMPLOYMENT"]));
+     partyRelationships = EntityUtil.filterByDate(delegator.findByAnd("PartyRelationship", ["partyIdTo": parameters.partyId, "roleTypeIdFrom": "ACCOUNT_LEAD", "roleTypeIdTo": "LEAD", "partyRelationshipTypeId": "EMPLOYMENT"], null, false));
      if (partyRelationships) {
          context.partyGroupId = partyRelationships.get(0).partyIdFrom;
          context.partyId = parameters.partyId;
      }
  }
- roleTypeAndParty = delegator.findByAnd("RoleTypeAndParty", ['partyId': parameters.partyId, 'roleTypeId': 'ACCOUNT_LEAD']);
+ roleTypeAndParty = delegator.findByAnd("RoleTypeAndParty", ['partyId': parameters.partyId, 'roleTypeId': 'ACCOUNT_LEAD'], null, false);
  if (roleTypeAndParty) {
      context.leadDescription = roleTypeAndParty.get(0).description;
-     partyRelationships = EntityUtil.filterByDate(delegator.findByAnd("PartyRelationship", ["partyIdFrom": parameters.partyId, "roleTypeIdFrom": "ACCOUNT_LEAD", "roleTypeIdTo": "LEAD", "partyRelationshipTypeId": "EMPLOYMENT"]));
+     partyRelationships = EntityUtil.filterByDate(delegator.findByAnd("PartyRelationship", ["partyIdFrom": parameters.partyId, "roleTypeIdFrom": "ACCOUNT_LEAD", "roleTypeIdTo": "LEAD", "partyRelationshipTypeId": "EMPLOYMENT"], null, false));
      if (partyRelationships) {
          context.partyGroupId = parameters.partyId;
          context.partyId = partyRelationships.get(0).partyIdTo;

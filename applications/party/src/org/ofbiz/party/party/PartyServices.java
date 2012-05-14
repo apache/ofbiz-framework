@@ -245,7 +245,7 @@ public class PartyServices {
 
                 // disable all userlogins for this user when the new status is disabled
                 if (("PARTY_DISABLED").equals(statusId)) {
-                    List <GenericValue> userLogins = delegator.findByAnd("UserLogin", UtilMisc.toMap("partyId", partyId));
+                    List <GenericValue> userLogins = delegator.findByAnd("UserLogin", UtilMisc.toMap("partyId", partyId), null, false);
                     for(GenericValue userLogin : userLogins) {
                         if (!"N".equals(userLogin.getString("enabled"))) {
                             userLogin.set("enabled", "N");
@@ -1597,7 +1597,7 @@ public class PartyServices {
         // update the non-existing party roles
         List<GenericValue> rolesToMove;
         try {
-            rolesToMove = delegator.findByAnd("PartyRole", UtilMisc.toMap("partyId", partyId));
+            rolesToMove = delegator.findByAnd("PartyRole", UtilMisc.toMap("partyId", partyId), null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -1689,7 +1689,7 @@ public class PartyServices {
         // update the non-existing attributes
         List<GenericValue> attrsToMove;
         try {
-            attrsToMove = delegator.findByAnd("PartyAttribute", UtilMisc.toMap("partyId", partyId));
+            attrsToMove = delegator.findByAnd("PartyAttribute", UtilMisc.toMap("partyId", partyId), null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());

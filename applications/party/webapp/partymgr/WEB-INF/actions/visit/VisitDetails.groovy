@@ -25,7 +25,7 @@ serverHits = null;
 if (visitId) {
     visit = delegator.findOne("Visit", [visitId : visitId], false);
     if (visit) {
-        serverHits = delegator.findByAnd("ServerHit", [visitId : visitId], ["-hitStartDateTime"]);
+        serverHits = delegator.findByAnd("ServerHit", [visitId : visitId], ["-hitStartDateTime"], false);
     }
 }
 

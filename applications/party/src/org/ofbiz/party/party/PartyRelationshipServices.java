@@ -144,7 +144,7 @@ public class PartyRelationshipServices {
                 partyRelationShipList = delegator.findByAnd("PartyRelationship", UtilMisc.toMap(sideChecked, partyId,
                         "roleTypeIdFrom", roleTypeIdFrom,
                         "roleTypeIdTo", roleTypeIdTo,
-                        "partyRelationshipTypeId", partyRelationshipTypeId));
+                        "partyRelationshipTypeId", partyRelationshipTypeId), null, false);
                 // We consider the last one (in time) as sole active (we try to maintain a unique relationship and keep changes history)
                 partyRelationShipList = EntityUtil.filterByDate(partyRelationShipList);
                 GenericValue oldPartyRelationShip = EntityUtil.getFirst(partyRelationShipList);

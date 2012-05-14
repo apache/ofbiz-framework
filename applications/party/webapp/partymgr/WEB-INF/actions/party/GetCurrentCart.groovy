@@ -22,7 +22,7 @@ import org.ofbiz.entity.util.EntityUtil;
 partyId = partyId ?: parameters.partyId;
 
 savedCart = EntityUtil.getFirst(delegator.findByAnd("ShoppingList", [partyId : partyId,
-        shoppingListTypeId : "SLT_SPEC_PURP" , listName : "auto-save"]));
+        shoppingListTypeId : "SLT_SPEC_PURP" , listName : "auto-save"], null, false));
 
 if (savedCart) {
       context.savedCartListId = savedCart.shoppingListId;
