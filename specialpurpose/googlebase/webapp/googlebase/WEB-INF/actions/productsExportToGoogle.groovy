@@ -43,7 +43,7 @@ if (parameters.productStoreId) {
 }
 
 if (parameters.productStoreId) {
-    productStore = delegator.findByAnd("ProductStore", ["productStoreId":parameters.productStoreId]);
+    productStore = delegator.findByAnd("ProductStore", ["productStoreId":parameters.productStoreId], null, false);
     str = productStore[0].defaultLocaleString.toString().toUpperCase();
     localeString = str.substring(str.length()-2, str.length());
     if(localeString.equals("US")){

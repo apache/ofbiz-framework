@@ -33,7 +33,7 @@ categoryIdsTemp = []
 if (parameters.productStoreId) {
     productStoreId = parameters.productStoreId;
 }
-googleBaseConfigList = delegator.findByAnd("GoogleBaseConfig",["productStoreId":productStoreId]);
+googleBaseConfigList = delegator.findByAnd("GoogleBaseConfig",["productStoreId":productStoreId], null, false);
 if (productStoreId) {
     productStoreCatalogs = CatalogWorker.getStoreCatalogs(delegator, productStoreId);
     if (productStoreCatalogs) {
@@ -46,7 +46,7 @@ if (productStoreId) {
 currentCatalogId = null;
 prodCatalogList.each { prodCatalogList -> 
     currentCatalogId = prodCatalogList.prodCatalogId
-    prodCatalogCategoryList = delegator.findByAnd("ProdCatalogCategory",["prodCatalogId":currentCatalogId, "prodCatalogCategoryTypeId":"PCCT_BROWSE_ROOT"]);
+    prodCatalogCategoryList = delegator.findByAnd("ProdCatalogCategory",["prodCatalogId":currentCatalogId, "prodCatalogCategoryTypeId":"PCCT_BROWSE_ROOT"], null, false);
     topCategory = prodCatalogCategoryList.productCategoryId[0];
     if (topCategory){
         relatedCategories = dispatcher.runSync("getRelatedCategories", [parentProductCategoryId: topCategory, userLogin: userLogin]);

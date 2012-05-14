@@ -432,7 +432,7 @@ public class ProductsExportToGoogle {
                 String productName = null;
                 String productDescription = null;
                 //String productURL = null;
-                List<GenericValue> productAndInfos = delegator.findByAnd("ProductContentAndInfo", UtilMisc.toMap("productId", prod.getString("productId"), "localeString", localeString, "thruDate", null));
+                List<GenericValue> productAndInfos = delegator.findByAnd("ProductContentAndInfo", UtilMisc.toMap("productId", prod.getString("productId"), "localeString", localeString, "thruDate", null), null, false);
                 if (productAndInfos.size() > 0) {
                     for (GenericValue productContentAndInfo : productAndInfos ) {
                         String dataReSourceId = productContentAndInfo.getString("dataResourceId");
@@ -757,7 +757,7 @@ public class ProductsExportToGoogle {
             }
             
             //Add quantity item
-            List<GenericValue> inventoryItems = delegator.findByAnd("InventoryItem", UtilMisc.toMap("productId", product.getString("productId")));
+            List<GenericValue> inventoryItems = delegator.findByAnd("InventoryItem", UtilMisc.toMap("productId", product.getString("productId")), null, false);
             if (UtilValidate.isNotEmpty(inventoryItems)) {
                 BigDecimal totalquantity = new BigDecimal(0);
                 for (GenericValue inventoryItem : inventoryItems) {
@@ -779,7 +779,7 @@ public class ProductsExportToGoogle {
                 String shippingWeight = product.getString("weight") + " " + uom.getString("description");
                 UtilXml.addChildElementNSValue(entryElem, "g:shipping_weight", shippingWeight, feedDocument, googleBaseNSUrl);
             }
-            List<GenericValue> productFeatureAndAppls = delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", product.getString("productId")));
+            List<GenericValue> productFeatureAndAppls = delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", product.getString("productId")), null, false);
             if (productFeatureAndAppls.size() > 0) {
                 for (GenericValue productFeatureAndAppl : productFeatureAndAppls) {
                     //Add Genre
