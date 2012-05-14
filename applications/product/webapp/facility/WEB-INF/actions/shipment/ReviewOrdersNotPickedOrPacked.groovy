@@ -32,7 +32,7 @@ orderHeaders = delegator.findList("OrderHeader", cond, null, null, null, false);
 orders = [];
 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'/'K:mm a");
 orderHeaders.each { orderHeader ->
-    itemIssuanceList = delegator.findByAnd("ItemIssuance", [orderId : orderHeader.orderId]);
+    itemIssuanceList = delegator.findByAnd("ItemIssuance", [orderId : orderHeader.orderId], null, false);
     if (itemIssuanceList) {
         orders.add([orderId : orderHeader.orderId, pickSheetPrintedDate : dateFormat.format(orderHeader.pickSheetPrintedDate), isVerified : "Y"]);
     } else {

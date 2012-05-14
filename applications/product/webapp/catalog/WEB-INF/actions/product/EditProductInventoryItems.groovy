@@ -99,7 +99,7 @@ if (product) {
         
         productInventoryItems = delegator.findByAnd("InventoryItem",
                 [productId : productId],
-                ['facilityId', '-datetimeReceived', '-inventoryItemId']);
+                ['facilityId', '-datetimeReceived', '-inventoryItemId'], false);
     
         // TODO: get all incoming shipments not yet arrived coming into each facility that this product is in, use a view entity with ShipmentAndItem
         findIncomingShipmentsConds = [];

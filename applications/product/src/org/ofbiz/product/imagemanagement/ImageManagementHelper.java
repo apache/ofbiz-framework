@@ -39,14 +39,14 @@ public class ImageManagementHelper {
         String internalImageUrl = null;
         try {
             Delegator delegator = (Delegator) request.getAttribute("delegator");
-            List<GenericValue> defaultImageList = delegator.findByAnd("ProductContentAndInfo", UtilMisc.toMap("productId", productId, "productContentTypeId", "DEFAULT_IMAGE", "statusId", "IM_APPROVED", "drIsPublic", "N"), UtilMisc.toList("sequenceNum"));
+            List<GenericValue> defaultImageList = delegator.findByAnd("ProductContentAndInfo", UtilMisc.toMap("productId", productId, "productContentTypeId", "DEFAULT_IMAGE", "statusId", "IM_APPROVED", "drIsPublic", "N"), UtilMisc.toList("sequenceNum"), false);
             if (UtilValidate.isNotEmpty(defaultImageList)) {
                 GenericValue productContent = EntityUtil.getFirst(defaultImageList);
                 if (UtilValidate.isNotEmpty(productContent.get("drObjectInfo"))) {
                     internalImageUrl = (String) productContent.get("drObjectInfo");
                 }
             } else {
-                List<GenericValue> productContentList = delegator.findByAnd("ProductContentAndInfo", UtilMisc.toMap("productId", productId, "productContentTypeId", "IMAGE", "statusId", "IM_APPROVED", "drIsPublic", "N"), UtilMisc.toList("sequenceNum"));
+                List<GenericValue> productContentList = delegator.findByAnd("ProductContentAndInfo", UtilMisc.toMap("productId", productId, "productContentTypeId", "IMAGE", "statusId", "IM_APPROVED", "drIsPublic", "N"), UtilMisc.toList("sequenceNum"), false);
                 if (UtilValidate.isNotEmpty(productContentList)) {
                     GenericValue productContent = EntityUtil.getFirst(productContentList);
                     if (UtilValidate.isNotEmpty(productContent.get("drObjectInfo"))) {

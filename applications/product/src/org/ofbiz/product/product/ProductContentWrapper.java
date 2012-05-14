@@ -179,12 +179,12 @@ public class ProductContentWrapper implements ContentWrapper {
                 }
         }
 
-        List<GenericValue> productContentList = delegator.findByAndCache("ProductContent", UtilMisc.toMap("productId", productId, "productContentTypeId", productContentTypeId), UtilMisc.toList("-fromDate"));
+        List<GenericValue> productContentList = delegator.findByAnd("ProductContent", UtilMisc.toMap("productId", productId, "productContentTypeId", productContentTypeId), UtilMisc.toList("-fromDate"), true);
         productContentList = EntityUtil.filterByDate(productContentList);
         if (UtilValidate.isEmpty(productContentList) && ("Y".equals(product.getString("isVariant")))) {
             GenericValue parent = ProductWorker.getParentProduct(productId, delegator);
             if (UtilValidate.isNotEmpty(parent)) {
-                productContentList = delegator.findByAndCache("ProductContent", UtilMisc.toMap("productId", parent.get("productId"), "productContentTypeId", productContentTypeId), UtilMisc.toList("-fromDate"));
+                productContentList = delegator.findByAnd("ProductContent", UtilMisc.toMap("productId", parent.get("productId"), "productContentTypeId", productContentTypeId), UtilMisc.toList("-fromDate"), true);
                 productContentList = EntityUtil.filterByDate(productContentList);
             }
         }

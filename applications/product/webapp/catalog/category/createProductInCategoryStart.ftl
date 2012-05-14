@@ -65,7 +65,7 @@ under the License.
                     <td width="15%">${uiLabelMap.ProductDefaultPrice}:</td>
                     <td><input type="text" name="defaultPrice" size="8"/>
                     <#assign findCurrenciesMap = Static["org.ofbiz.base.util.UtilMisc"].toMap("uomTypeId", "CURRENCY_MEASURE")>
-                    <#assign currencies = delegator.findByAndCache('Uom', findCurrenciesMap) />
+                    <#assign currencies = delegator.findByAnd('Uom', findCurrenciesMap, null, true) />
                     <#if currencies?has_content && (currencies?size > 0)>
                         <select name="currencyUomId">
                             <option value=""></option>

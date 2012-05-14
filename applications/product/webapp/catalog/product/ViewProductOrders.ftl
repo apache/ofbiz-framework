@@ -72,7 +72,7 @@ under the License.
       </tr>
       <#if orderList?has_content && productId?exists>
         <#list orderList as order>
-          <#assign orderItems = delegator.findByAnd("OrderItem", {"orderId" : order.orderId, "productId" : productId})/>
+          <#assign orderItems = delegator.findByAnd("OrderItem", {"orderId" : order.orderId, "productId" : productId}, null, false)/>
           <#list orderItems as orderItem>
             <tr>
               <td><a href="/ordermgr/control/orderview?orderId=${orderItem.orderId}" class='buttontext'>${orderItem.orderId}</a></td>

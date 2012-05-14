@@ -78,7 +78,7 @@ if (picklistBinId) {
 }
 
 if (orderId && !picklistBinId) {
-    picklistBin = EntityUtil.getFirst(delegator.findByAnd("PicklistBin", [primaryOrderId : orderId]));
+    picklistBin = EntityUtil.getFirst(delegator.findByAnd("PicklistBin", [primaryOrderId : orderId], null, false));
     if (picklistBin) {
         picklistBinId = picklistBin.picklistBinId;
         verifyPickSession.setPicklistBinId(picklistBinId);
@@ -108,7 +108,7 @@ if (orderId) {
             if (shipGroupSeqId) {
                 productStoreId = orh.getProductStoreId();
                 context.productStoreId = productStoreId;
-                shipments = delegator.findByAnd("Shipment", [primaryOrderId : orderId, statusId : "SHIPMENT_PICKED"]);
+                shipments = delegator.findByAnd("Shipment", [primaryOrderId : orderId, statusId : "SHIPMENT_PICKED"], null, false);
                 if (shipments) {
                     request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("OrderErrorUiLabels", "OrderErrorAllItemsOfOrderAreAlreadyVerified", [orderId : orderId], locale));
                 }

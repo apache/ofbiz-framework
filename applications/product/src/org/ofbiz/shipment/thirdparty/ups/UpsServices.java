@@ -3095,7 +3095,7 @@ public class UpsServices {
             GenericValue carrierShipmentMethod = null;
             // Filtering out rates of shipping methods which are not configured in ProductStoreShipmentMeth entity.
             try {
-                List <GenericValue> productStoreShipmentMethods = delegator.findByAnd("ProductStoreShipmentMethView", UtilMisc.toMap("productStoreId", productStoreId));
+                List <GenericValue> productStoreShipmentMethods = delegator.findByAnd("ProductStoreShipmentMethView", UtilMisc.toMap("productStoreId", productStoreId), null, false);
                 for (GenericValue productStoreShipmentMethod :productStoreShipmentMethods) {
                     if ("UPS".equals(productStoreShipmentMethod.get("partyId"))) {
                         Map<String,Object> thisUpsRateCodeMap = FastMap.newInstance();

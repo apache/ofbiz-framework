@@ -208,10 +208,10 @@ under the License.
                 <#assign readyToVerify = verifyPickSession.getReadyToVerifyQuantity(orderId,orderItemSeqId)>
                 <#assign orderItemQuantity = orderItem.getBigDecimal("quantity")>
                 <#assign verifiedQuantity = 0.000000>
-                <#assign shipments = delegator.findByAnd("Shipment", Static["org.ofbiz.base.util.UtilMisc"].toMap("primaryOrderId", orderItem.getString("orderId"), "statusId", "SHIPMENT_PICKED"))/>
+                <#assign shipments = delegator.findByAnd("Shipment", Static["org.ofbiz.base.util.UtilMisc"].toMap("primaryOrderId", orderItem.getString("orderId"), "statusId", "SHIPMENT_PICKED"), null, false)/>
                 <#if (shipments?has_content)>
                   <#list shipments as shipment>
-                    <#assign itemIssuances = delegator.findByAnd("ItemIssuance", Static["org.ofbiz.base.util.UtilMisc"].toMap("shipmentId", shipment.getString("shipmentId"), "orderItemSeqId", orderItemSeqId))/>
+                    <#assign itemIssuances = delegator.findByAnd("ItemIssuance", Static["org.ofbiz.base.util.UtilMisc"].toMap("shipmentId", shipment.getString("shipmentId"), "orderItemSeqId", orderItemSeqId), null, false)/>
                     <#if itemIssuances?has_content>
                       <#list itemIssuances as itemIssuance>
                         <#assign verifiedQuantity = verifiedQuantity + itemIssuance.getBigDecimal("quantity")>
@@ -267,7 +267,7 @@ under the License.
                   <#if workOrderItemFulfillment?has_content>
                     <#assign workEffort = workOrderItemFulfillment.getRelatedOne("WorkEffort")/>
                     <#if workEffort?has_content>
-                      <#assign workEffortTask = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("WorkEffort", Static["org.ofbiz.base.util.UtilMisc"].toMap("workEffortParentId", workEffort.workEffortId)))/>
+                      <#assign workEffortTask = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("WorkEffort", Static["org.ofbiz.base.util.UtilMisc"].toMap("workEffortParentId", workEffort.workEffortId), null, false))/>
                       <#if workEffortTask?has_content>
                         <#assign workEffortInventoryAssigns = workEffortTask.getRelated("WorkEffortInventoryAssign")/>
                         <#if workEffortInventoryAssigns?has_content>

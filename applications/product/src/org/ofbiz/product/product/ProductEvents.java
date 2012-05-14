@@ -452,7 +452,7 @@ public class ProductEvents {
                         BigDecimal ntwt = parseBigDecimalForEntity(request.getParameter("~ntwt"));
                         BigDecimal grams = parseBigDecimalForEntity(request.getParameter("~grams"));
 
-                        List<GenericValue> currentProductFeatureAndAppls = EntityUtil.filterByDate(delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", "STANDARD_FEATURE")), true);
+                        List<GenericValue> currentProductFeatureAndAppls = EntityUtil.filterByDate(delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", "STANDARD_FEATURE"), null, false), true);
                         setOrCreateProdFeature(delegator, productId, currentProductFeatureAndAppls, "VLIQ_ozUS", "AMOUNT", floz);
                         setOrCreateProdFeature(delegator, productId, currentProductFeatureAndAppls, "VLIQ_ml", "AMOUNT", ml);
                         setOrCreateProdFeature(delegator, productId, currentProductFeatureAndAppls, "WT_g", "AMOUNT", grams);
@@ -482,7 +482,7 @@ public class ProductEvents {
                             BigDecimal ntwt = parseBigDecimalForEntity(request.getParameter("~ntwt" + attribIdx));
                             BigDecimal grams = parseBigDecimalForEntity(request.getParameter("~grams" + attribIdx));
 
-                            List<GenericValue> currentProductFeatureAndAppls = EntityUtil.filterByDate(delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", "STANDARD_FEATURE")), true);
+                            List<GenericValue> currentProductFeatureAndAppls = EntityUtil.filterByDate(delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", "STANDARD_FEATURE"), null, false), true);
                             setOrCreateProdFeature(delegator, productId, currentProductFeatureAndAppls, "VLIQ_ozUS", "AMOUNT", floz);
                             setOrCreateProdFeature(delegator, productId, currentProductFeatureAndAppls, "VLIQ_ml", "AMOUNT", ml);
                             setOrCreateProdFeature(delegator, productId, currentProductFeatureAndAppls, "WT_g", "AMOUNT", grams);
@@ -555,7 +555,7 @@ public class ProductEvents {
         // NOTE: if numberSpecified is null then foundOneEqual will always be false, so need to check both
         if (numberSpecified != null && !foundOneEqual) {
             String productFeatureId = null;
-            List<GenericValue> existingProductFeatureList = delegator.findByAnd("ProductFeature", UtilMisc.toMap("productFeatureTypeId", productFeatureTypeId, "numberSpecified", numberSpecified, "uomId", uomId));
+            List<GenericValue> existingProductFeatureList = delegator.findByAnd("ProductFeature", UtilMisc.toMap("productFeatureTypeId", productFeatureTypeId, "numberSpecified", numberSpecified, "uomId", uomId), null, false);
             if (existingProductFeatureList.size() > 0) {
                 GenericValue existingProductFeature = existingProductFeatureList.get(0);
                 productFeatureId = existingProductFeature.getString("productFeatureId");
@@ -669,7 +669,7 @@ public class ProductEvents {
 
         Set<String> descriptionsForThisType = FastSet.newInstance();
         List<GenericValue> productFeatureAndApplList = EntityUtil.filterByDate(delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId,
-                "productFeatureApplTypeId", productFeatureApplTypeId, "productFeatureTypeId", productFeatureTypeId)), true);
+                "productFeatureApplTypeId", productFeatureApplTypeId, "productFeatureTypeId", productFeatureTypeId), null, false), true);
         if (productFeatureAndApplList.size() > 0) {
             Iterator<GenericValue> productFeatureAndApplIter = productFeatureAndApplList.iterator();
             while (productFeatureAndApplIter.hasNext()) {
@@ -723,7 +723,7 @@ public class ProductEvents {
 
             // see if a feature exists with the type and description specified (if doesn't exist will create later)
             String productFeatureId = null;
-            List<GenericValue> existingProductFeatureList = delegator.findByAnd("ProductFeature", UtilMisc.toMap("productFeatureTypeId", productFeatureTypeId, "description", description));
+            List<GenericValue> existingProductFeatureList = delegator.findByAnd("ProductFeature", UtilMisc.toMap("productFeatureTypeId", productFeatureTypeId, "description", description), null, false);
             if (existingProductFeatureList.size() > 0) {
                 GenericValue existingProductFeature = existingProductFeatureList.get(0);
                 productFeatureId = existingProductFeature.getString("productFeatureId");
@@ -749,7 +749,7 @@ public class ProductEvents {
 
             // check to see if the productFeatureId is already attached to the virtual or variant, if not attach them...
             List<GenericValue> specificProductFeatureApplList = EntityUtil.filterByDate(delegator.findByAnd("ProductFeatureAppl", UtilMisc.toMap("productId", productId,
-                    "productFeatureApplTypeId", productFeatureApplTypeId, "productFeatureId", productFeatureId)), true);
+                    "productFeatureApplTypeId", productFeatureApplTypeId, "productFeatureId", productFeatureId), null, false), true);
 
             if (specificProductFeatureApplList.size() == 0) {
                 delegator.create("ProductFeatureAppl",
@@ -833,7 +833,7 @@ public class ProductEvents {
                 try {
                     List<GenericValue> catMembs = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap(
                             "productCategoryId", categoryId,
-                            "productId", productId));
+                            "productId", productId), null, false);
                     catMembs = EntityUtil.filterByDate(catMembs);
                     if (catMembs.size() == 0) {
                         delegator.create("ProductCategoryMember",
@@ -860,7 +860,7 @@ public class ProductEvents {
         }
         try {
             List<GenericValue> prodCatMembs = delegator.findByAnd("ProductCategoryMember",
-                    UtilMisc.toMap("productCategoryId", productCategoryId, "productId", productId));
+                    UtilMisc.toMap("productCategoryId", productCategoryId, "productId", productId), null, false);
             prodCatMembs = EntityUtil.filterByDate(prodCatMembs);
             if (prodCatMembs.size() > 0) {
                 // there is one to modify
@@ -893,7 +893,7 @@ public class ProductEvents {
                         List<GenericValue> featureAppls = delegator.findByAnd("ProductFeatureAppl",
                                 UtilMisc.toMap("productId", productId,
                                         "productFeatureId", productFeatureId,
-                                        "productFeatureApplTypeId", productFeatureApplTypeId));
+                                        "productFeatureApplTypeId", productFeatureApplTypeId), null, false);
                         if (featureAppls.size() == 0) {
                             // no existing application for this
                             delegator.create("ProductFeatureAppl",
@@ -964,7 +964,7 @@ public class ProductEvents {
                 List<GenericValue> productStoreRoleList = null;
                 try {
                     productStoreRoleList = delegator.findByAnd("ProductStoreRole", UtilMisc.toMap("productStoreId", productStore.get("productStoreId"),
-                            "partyId", userLogin.get("partyId"), "roleTypeId", "CUSTOMER"));
+                            "partyId", userLogin.get("partyId"), "roleTypeId", "CUSTOMER"), null, false);
                     productStoreRoleList = EntityUtil.filterByDate(productStoreRoleList, true);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Database error finding CUSTOMER ProductStoreRole records, required by the ProductStore with ID [" + productStore.getString("productStoreId") + "]", module);

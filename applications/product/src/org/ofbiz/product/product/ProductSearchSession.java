@@ -400,7 +400,7 @@ public class ProductSearchSession {
             if (keywords.size() > 0) {
                 List<GenericValue> productStoreKeywordOvrdList = null;
                 try {
-                    productStoreKeywordOvrdList = delegator.findByAndCache("ProductStoreKeywordOvrd", UtilMisc.toMap("productStoreId", productStoreId), UtilMisc.toList("-fromDate"));
+                    productStoreKeywordOvrdList = delegator.findByAnd("ProductStoreKeywordOvrd", UtilMisc.toMap("productStoreId", productStoreId), UtilMisc.toList("-fromDate"), true);
                     productStoreKeywordOvrdList = EntityUtil.filterByDate(productStoreKeywordOvrdList, true);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Error reading ProductStoreKeywordOvrd list, not doing keyword override", module);

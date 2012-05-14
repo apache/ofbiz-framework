@@ -202,7 +202,7 @@ public class FedexServices {
             }
 
             // Get the contact information for the company
-            List<GenericValue> partyContactDetails = delegator.findByAnd("PartyContactDetailByPurpose", UtilMisc.toMap("partyId", companyPartyId));
+            List<GenericValue> partyContactDetails = delegator.findByAnd("PartyContactDetailByPurpose", UtilMisc.toMap("partyId", companyPartyId), null, false);
             partyContactDetails = EntityUtil.filterByDate(partyContactDetails);
             partyContactDetails = EntityUtil.filterByDate(partyContactDetails, UtilDateTime.nowTimestamp(), "purposeFromDate", "purposeThruDate", true);
 

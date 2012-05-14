@@ -161,7 +161,7 @@ public class ProductConfigItemContentWrapper implements java.io.Serializable {
             }
         }
 
-        List<GenericValue> productConfigItemContentList = delegator.findByAndCache("ProdConfItemContent", UtilMisc.toMap("configItemId", configItemId, "confItemContentTypeId", confItemContentTypeId), UtilMisc.toList("-fromDate"));
+        List<GenericValue> productConfigItemContentList = delegator.findByAnd("ProdConfItemContent", UtilMisc.toMap("configItemId", configItemId, "confItemContentTypeId", confItemContentTypeId), UtilMisc.toList("-fromDate"), true);
         productConfigItemContentList = EntityUtil.filterByDate(productConfigItemContentList);
         GenericValue productConfigItemContent = EntityUtil.getFirst(productConfigItemContentList);
         if (productConfigItemContent != null) {

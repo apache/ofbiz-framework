@@ -165,7 +165,7 @@ public class ProductServices {
         try {
             Map<String, String> fields = UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", productFeatureApplTypeId);
             List<String> order = UtilMisc.toList("sequenceNum", "productFeatureTypeId");
-            List<GenericValue> features = delegator.findByAndCache("ProductFeatureAndAppl", fields, order);
+            List<GenericValue> features = delegator.findByAnd("ProductFeatureAndAppl", fields, order, true);
             for (GenericValue v: features) {
                 featureSet.add(v.getString("productFeatureTypeId"));
             }
@@ -298,7 +298,7 @@ public class ProductServices {
             Map<String, String> fields = UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", "SELECTABLE_FEATURE");
             List<String> sort = UtilMisc.toList("sequenceNum");
 
-            selectableFeatures = delegator.findByAndCache("ProductFeatureAndAppl", fields, sort);
+            selectableFeatures = delegator.findByAnd("ProductFeatureAndAppl", fields, sort, true);
             selectableFeatures = EntityUtil.filterByDate(selectableFeatures, true);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
@@ -376,7 +376,7 @@ public class ProductServices {
 
             if (distinct != null) fields.put("productFeatureTypeId", distinct);
             if (type != null) fields.put("productFeatureApplTypeId", type);
-            features = delegator.findByAndCache("ProductFeatureAndAppl", fields, order);
+            features = delegator.findByAnd("ProductFeatureAndAppl", fields, order, true);
             result.put("productFeatures", features);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         } catch (GenericEntityException e) {
@@ -588,7 +588,7 @@ public class ProductServices {
                 List<String> sort = UtilMisc.toList("sequenceNum");
 
                 // get the features and filter out expired dates
-                features = delegator.findByAndCache("ProductFeatureAndAppl", fields, sort);
+                features = delegator.findByAnd("ProductFeatureAndAppl", fields, sort, true);
                 features = EntityUtil.filterByDate(features, true);
             } catch (GenericEntityException e) {
                 throw new IllegalStateException("Problem reading relation: " + e.getMessage());
@@ -665,7 +665,7 @@ public class ProductServices {
                 List<String> sort = UtilMisc.toList("sequenceNum", "description");
 
                 // get the features and filter out expired dates
-                features = delegator.findByAndCache("ProductFeatureAndAppl", fields, sort);
+                features = delegator.findByAnd("ProductFeatureAndAppl", fields, sort, true);
                 features = EntityUtil.filterByDate(features, true);
             } catch (GenericEntityException e) {
                 throw new IllegalStateException("Problem reading relation: " + e.getMessage());
@@ -846,7 +846,7 @@ public class ProductServices {
                     variantProductsById.put(variantProductId, variantProduct);
                 } else {
                     // is a GoodIdentification.idValue?
-                    List<GenericValue> goodIdentificationList = delegator.findByAnd("GoodIdentification", UtilMisc.toMap("idValue", variantProductId));
+                    List<GenericValue> goodIdentificationList = delegator.findByAnd("GoodIdentification", UtilMisc.toMap("idValue", variantProductId), null, false);
                     if (UtilValidate.isEmpty(goodIdentificationList)) {
                         // whoops, nothing found... return error
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -1005,7 +1005,7 @@ public class ProductServices {
 
             List<GenericValue> fileExtension = FastList.newInstance();
             try {
-                fileExtension = delegator.findByAnd("FileExtension", UtilMisc.toMap("mimeTypeId", (String) context.get("_uploadedFile_contentType")));
+                fileExtension = delegator.findByAnd("FileExtension", UtilMisc.toMap("mimeTypeId", (String) context.get("_uploadedFile_contentType")), null, false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());

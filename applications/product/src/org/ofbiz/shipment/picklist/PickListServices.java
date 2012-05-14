@@ -89,7 +89,7 @@ public class PickListServices {
         // lookup the items in the bin
         List<GenericValue> items;
         try {
-            items = delegator.findByAnd("PicklistItem", UtilMisc.toMap("picklistBinId", picklistBinId));
+            items = delegator.findByAnd("PicklistItem", UtilMisc.toMap("picklistBinId", picklistBinId), null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw e;
