@@ -102,7 +102,7 @@ public class WorkEffortSearch {
         // now find all sub-categories, filtered by effective dates, and call this routine for them
         try {
             // Find WorkEffortAssoc, workEffortAssocTypeId=WORK_EFF_BREAKDOWN
-            List<GenericValue> workEffortAssocList = delegator.findByAndCache("WorkEffortAssoc", UtilMisc.toMap("workEffortIdFrom", workEffortId, "workEffortAssocTypeId", "WORK_EFF_BREAKDOWN"));
+            List<GenericValue> workEffortAssocList = delegator.findByAnd("WorkEffortAssoc", UtilMisc.toMap("workEffortIdFrom", workEffortId, "workEffortAssocTypeId", "WORK_EFF_BREAKDOWN"), null, true);
             for (GenericValue workEffortAssoc: workEffortAssocList) {
                 String subWorkEffortId = workEffortAssoc.getString("workEffortIdTo");
                 if (workEffortIdSet.contains(subWorkEffortId)) {

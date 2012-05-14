@@ -739,7 +739,7 @@ public class ICalConverter {
                 if (workEffortId == null) {
                     Property uid = component.getProperty(Uid.UID);
                     if (uid != null) {
-                        GenericValue workEffort = EntityUtil.getFirst(delegator.findByAnd("WorkEffort", UtilMisc.toMap("universalId", uid.getValue())));
+                        GenericValue workEffort = EntityUtil.getFirst(delegator.findByAnd("WorkEffort", UtilMisc.toMap("universalId", uid.getValue()), null, false));
                         if (workEffort != null) {
                             workEffortId = workEffort.getString("workEffortId");
                         }
@@ -806,7 +806,7 @@ public class ICalConverter {
             Delegator delegator = (Delegator) context.get("delegator");
             List<GenericValue> assignments = null;
             try {
-                assignments = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortPartyAssignment", serviceMap));
+                assignments = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortPartyAssignment", serviceMap, null, false));
                 if (assignments.size() == 0) {
                     serviceMap.put("statusId", "PRTYASGN_OFFERED");
                     serviceMap.put("fromDate", new Timestamp(System.currentTimeMillis()));

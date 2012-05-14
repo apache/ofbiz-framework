@@ -21,7 +21,7 @@ import java.util.*;
 import org.ofbiz.entity.util.*;
 
 boolean isCalOwner = false;
-List partyAssignments = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortPartyAssignment", ["workEffortId" : parameters.workEffortId, "partyId" : parameters.userLogin.partyId]));
+List partyAssignments = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortPartyAssignment", ["workEffortId" : parameters.workEffortId, "partyId" : parameters.userLogin.partyId], null, false));
 for (partyAssign in partyAssignments) {
     if ("CAL_OWNER".equals(partyAssign.roleTypeId) || "CAL_DELEGATE".equals(partyAssign.roleTypeId)) {
         isCalOwner = true;
