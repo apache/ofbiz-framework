@@ -58,6 +58,8 @@ public final class FieldToResult extends MethodOperation {
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         Object fieldVal = this.fieldFma.get(methodContext.getEnvMap());
         if (fieldVal != null) {
+            // FIXME: Needs special handling for nested expressions.
+            // The result attribute might contain a reference to an environment (not result Map) variable.
             this.resultFma.put(methodContext.getResults(), fieldVal);
         }
         return true;
