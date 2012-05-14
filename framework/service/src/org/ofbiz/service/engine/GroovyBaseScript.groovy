@@ -48,7 +48,7 @@ abstract class GroovyBaseScript extends Script {
     }
 
     List findList(String entityName, Map inputMap) {
-        List genericValues = binding.getVariable('delegator').findByAnd(entityName, inputMap);
+        List genericValues = binding.getVariable('delegator').findByAnd(entityName, inputMap, null, false);
         // TODO: get the list of entity fields from the map and use them only
         return genericValues;
     }

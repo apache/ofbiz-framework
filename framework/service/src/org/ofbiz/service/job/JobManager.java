@@ -156,7 +156,7 @@ public class JobManager {
                     delegator.storeByCondition("JobSandbox", updateFields, mainCondition);
 
                     // now query all the 'queued' jobs for this instance
-                    List<GenericValue> jobEnt = delegator.findByAnd("JobSandbox", updateFields, order);
+                    List<GenericValue> jobEnt = delegator.findByAnd("JobSandbox", updateFields, order, false);
                     //jobEnt = delegator.findByCondition("JobSandbox", mainCondition, null, order);
 
                     if (UtilValidate.isNotEmpty(jobEnt)) {

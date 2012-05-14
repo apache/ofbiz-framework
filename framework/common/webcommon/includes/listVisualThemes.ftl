@@ -58,7 +58,7 @@ margin: 1em;
       <#list visualThemes as visualTheme>
         <#assign screenshots = delegator.findByAnd("VisualThemeResource", Static["org.ofbiz.base.util.UtilMisc"].toMap(
                                         "visualThemeId", "${visualTheme.visualThemeId}",
-                                        "resourceTypeEnumId", "VT_SCREENSHOT"), orderByList)>
+                                        "resourceTypeEnumId", "VT_SCREENSHOT"), orderByList, false)>
         <tr<#if visualTheme.visualThemeId == visualThemeId> class="selected"</#if>>
           <td>
             <form name="SetUserPreferences_${visualTheme.visualThemeId}" method="post" action="<@ofbizUrl>setUserPreference</@ofbizUrl>">

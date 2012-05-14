@@ -145,7 +145,7 @@ public class EntityAuthorization extends AbstractAuthorization {
         List<GenericValue> collection;
 
         try {
-            collection = delegator.findByAnd("UserLoginSecurityGroup", UtilMisc.toMap("userLoginId", userId), null);
+            collection = delegator.findByAnd("UserLoginSecurityGroup", UtilMisc.toMap("userLoginId", userId), null, false);
         } catch (GenericEntityException e) {
             // make an empty collection to speed up the case where a userLogin belongs to no security groups, only with no exception of course
             collection = FastList.newInstance();

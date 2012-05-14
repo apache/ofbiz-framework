@@ -446,7 +446,7 @@ public class EntityUtil {
             search.putAll(find);
         }
         if (now.equals(search.get("fromDate"))) {
-            return EntityUtil.getOnly(delegator.findByAnd(entityName, search));
+            return EntityUtil.getOnly(delegator.findByAnd(entityName, search, null, false));
         } else {
             search.put("fromDate",now);
             search.remove("thruDate");

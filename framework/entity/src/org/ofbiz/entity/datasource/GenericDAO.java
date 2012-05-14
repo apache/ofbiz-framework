@@ -430,7 +430,7 @@ public class GenericDAO {
             List<GenericValue> meResult = null;
 
             try {
-                meResult = delegator.findByAnd(meName, findByMap);
+                meResult = delegator.findByAnd(meName, findByMap, null, false);
             } catch (GenericEntityException e) {
                 throw new GenericEntityException("Error while retrieving partial results for entity member: " + meName, e);
             }

@@ -330,7 +330,7 @@ public class EntityTestSuite extends EntityTestCase {
         EntityCondition isLevel1 = EntityCondition.makeCondition("description", EntityOperator.EQUALS, "node-level #1");
         Map<String, String> fieldsToSet = UtilMisc.toMap("description", "node-level #1 (updated)");
         delegator.storeByCondition("TestingNode", fieldsToSet, isLevel1);
-        List<GenericValue> updatedNodes = delegator.findByAnd("TestingNode", fieldsToSet);
+        List<GenericValue> updatedNodes = delegator.findByAnd("TestingNode", fieldsToSet, null, false);
         int n = updatedNodes.size();
         assertTrue("testStoreByCondition updated nodes > 0", n > 0);
     }

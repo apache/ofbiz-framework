@@ -84,11 +84,7 @@ public class FindByAnd extends MethodOperation {
                 }
                 listAcsr.put(methodContext, delegator.find(entityName, whereCond, null, null, orderByNames, null));
             } else {
-                if (useCache) {
-                    listAcsr.put(methodContext, delegator.findByAndCache(entityName, mapAcsr.get(methodContext), orderByNames));
-                } else {
-                    listAcsr.put(methodContext, delegator.findByAnd(entityName, mapAcsr.get(methodContext), orderByNames));
-                }
+                listAcsr.put(methodContext, delegator.findByAnd(entityName, mapAcsr.get(methodContext), orderByNames, useCache));
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);

@@ -1635,7 +1635,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
                     } else {
                         actualPortalPageId = portalPage.getString("portalPageId");
                         originalPortalPageId = portalPage.getString("originalPortalPageId");
-                        portalPageColumns = delegator.findByAndCache("PortalPageColumn", UtilMisc.toMap("portalPageId", actualPortalPageId), UtilMisc.toList("columnSeqId"));
+                        portalPageColumns = delegator.findByAnd("PortalPageColumn", UtilMisc.toMap("portalPageId", actualPortalPageId), UtilMisc.toList("columnSeqId"), true);
                     }
                 } else {
                     String errMsg = "portalPageId is empty.";
@@ -1659,7 +1659,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
                     screenStringRenderer.renderPortalPageColumnBegin(writer, context, this, columnValue);
 
                     // Get the Portlets located in the current column
-                    portalPagePortlets = delegator.findByAnd("PortalPagePortletView", UtilMisc.toMap("portalPageId", portalPage.getString("portalPageId"), "columnSeqId", columnSeqId), UtilMisc.toList("sequenceNum"));
+                    portalPagePortlets = delegator.findByAnd("PortalPagePortletView", UtilMisc.toMap("portalPageId", portalPage.getString("portalPageId"), "columnSeqId", columnSeqId), UtilMisc.toList("sequenceNum"), false);
                     
                     // First Portlet in a Column has no previous Portlet
                     String prevPortletId = "";

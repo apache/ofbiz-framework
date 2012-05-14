@@ -43,7 +43,7 @@ if (userLogin && parameters.parentPortalPageId && !parameters.portalPageId) {
     if (portalMainPages) {
         portalPageId = portalMainPages.get(0).portalPageId;
         // check if overridden with a privat page
-        privatMainPages = delegator.findByAnd("PortalPage", [originalPortalPageId : portalPageId, ownerUserLoginId : userLogin.userLoginId]);
+        privatMainPages = delegator.findByAnd("PortalPage", [originalPortalPageId : portalPageId, ownerUserLoginId : userLogin.userLoginId], null, false);
         if (privatMainPages) {
             context.parameters.portalPageId = privatMainPages.get(0).portalPageId;
         } else {

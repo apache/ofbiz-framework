@@ -66,7 +66,7 @@ public class CommonDimensionServices {
         while (currentDate.compareTo(thruDate) <= 0) {
             GenericValue dateValue = null;
             try {
-                dateValue = EntityUtil.getFirst(delegator.findByAnd("DateDimension", UtilMisc.toMap("dateValue", currentDate)));
+                dateValue = EntityUtil.getFirst(delegator.findByAnd("DateDimension", UtilMisc.toMap("dateValue", currentDate), null, false));
             } catch (GenericEntityException gee) {
                 return ServiceUtil.returnError(gee.getMessage());
             }
