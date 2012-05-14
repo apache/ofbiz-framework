@@ -302,7 +302,7 @@ public class ProductsExportToEbay {
                         primaryCategoryId = categoryCode;
                     }
                 } else {
-                    GenericValue productCategoryValue = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("ProductCategoryAndMember", UtilMisc.toMap("productCategoryTypeId", "EBAY_CATEGORY", "productId", prod.getString("productId")))));
+                    GenericValue productCategoryValue = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("ProductCategoryAndMember", UtilMisc.toMap("productCategoryTypeId", "EBAY_CATEGORY", "productId", prod.getString("productId")), null, false)));
                     if (UtilValidate.isNotEmpty(productCategoryValue)) {
                         primaryCategoryId = productCategoryValue.getString("categoryName");
                     }
