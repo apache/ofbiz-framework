@@ -139,8 +139,8 @@ public class FlexibleMapAccessorTests extends GenericTestCaseBase {
         fmaTest("UEL auto-vivify List", "parameters.someList[0]", "parameters.someList[+0]", "Hello ${parameters.someList[0]}!", null, "World", "Hello World!");
         fmaTest("fse", "para${'meter'}s.var", "Hello ${parameters.var}!", "World", "Hello World!");
         fmaTest("foo", "'The total is ${total?currency(USD)}.'", "total", "The total is ${total?currency(USD)}.", localeToTest, new BigDecimal("12345678.90"), "The total is $12,345,678.90.");
-        assertTrue("containsNestedExpression method returns true", FlexibleMapAccessor.containsNestedExpression(FlexibleMapAccessor.getInstance("Hello ${parameters.var}!")));
-        assertFalse("containsNestedExpression method returns false", FlexibleMapAccessor.containsNestedExpression(FlexibleMapAccessor.getInstance("Hello World!")));
+        assertTrue("containsNestedExpression method returns true", FlexibleMapAccessor.getInstance("Hello ${parameters.var}!").containsNestedExpression());
+        assertFalse("containsNestedExpression method returns false", FlexibleMapAccessor.getInstance("Hello World!").containsNestedExpression());
     }
 
     public static class ThrowException {
