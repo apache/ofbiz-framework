@@ -379,7 +379,7 @@ public class CommunicationEventServices {
                     Map<String, Object> tmpResult = null;
                     
                     // Retrieve a contact list party status
-                    List<GenericValue> contactListPartyStatuses = delegator.findByAnd("ContactListPartyStatus", UtilMisc.toMap("contactListId", contactListId, "partyId", contactListPartyAndContactMech.getString("partyId"), "fromDate", contactListPartyAndContactMech.getTimestamp("fromDate"), "statusId", "CLPT_ACCEPTED"));
+                    List<GenericValue> contactListPartyStatuses = delegator.findByAnd("ContactListPartyStatus", UtilMisc.toMap("contactListId", contactListId, "partyId", contactListPartyAndContactMech.getString("partyId"), "fromDate", contactListPartyAndContactMech.getTimestamp("fromDate"), "statusId", "CLPT_ACCEPTED"), null, false);
                     GenericValue contactListPartyStatus = EntityUtil.getFirst(contactListPartyStatuses);
                     if (UtilValidate.isNotEmpty(contactListPartyStatus)) {
                         // prepare body parameters
@@ -546,7 +546,7 @@ public class CommunicationEventServices {
         String partyIdFrom = null;
         GenericValue fromCm;
         try {
-            List<GenericValue> fromCms = delegator.findByAnd("PartyAndContactMech", UtilMisc.toMap("infoString", sendFrom), UtilMisc.toList("-fromDate"));
+            List<GenericValue> fromCms = delegator.findByAnd("PartyAndContactMech", UtilMisc.toMap("infoString", sendFrom), UtilMisc.toList("-fromDate"), false);
             fromCms = EntityUtil.filterByDate(fromCms);
             fromCm = EntityUtil.getFirst(fromCms);
         } catch (GenericEntityException e) {
@@ -562,7 +562,7 @@ public class CommunicationEventServices {
         String contactMechIdTo = null;
         GenericValue toCm;
         try {
-            List<GenericValue> toCms = delegator.findByAnd("PartyAndContactMech", UtilMisc.toMap("infoString", sendTo, "partyId", partyId), UtilMisc.toList("-fromDate"));
+            List<GenericValue> toCms = delegator.findByAnd("PartyAndContactMech", UtilMisc.toMap("infoString", sendTo, "partyId", partyId), UtilMisc.toList("-fromDate"), false);
             toCms = EntityUtil.filterByDate(toCms);
             toCm = EntityUtil.getFirst(toCms);
         } catch (GenericEntityException e) {
@@ -739,7 +739,7 @@ public class CommunicationEventServices {
             // make sure this isn't a duplicate
             List<GenericValue> commEvents;
             try {
-                commEvents = delegator.findByAnd("CommunicationEvent", UtilMisc.toMap("messageId", messageId));
+                commEvents = delegator.findByAnd("CommunicationEvent", UtilMisc.toMap("messageId", messageId), null, false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -835,7 +835,7 @@ public class CommunicationEventServices {
             if (inReplyTo != null && inReplyTo[0] != null) {
                 GenericValue parentCommEvent = null;
                 try {
-                    List<GenericValue> events = delegator.findByAnd("CommunicationEvent", UtilMisc.toMap("messageId", inReplyTo[0].replaceAll("[<>]", "")));
+                    List<GenericValue> events = delegator.findByAnd("CommunicationEvent", UtilMisc.toMap("messageId", inReplyTo[0].replaceAll("[<>]", "")), null, false);
                     parentCommEvent = EntityUtil.getFirst(events);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
@@ -1215,7 +1215,7 @@ public class CommunicationEventServices {
                     if (messageId != null) {
                         List<GenericValue> values;
                         try {
-                            values = delegator.findByAnd("CommunicationEvent", UtilMisc.toMap("messageId", messageId));
+                            values = delegator.findByAnd("CommunicationEvent", UtilMisc.toMap("messageId", messageId), null, false);
                         } catch (GenericEntityException e) {
                             Debug.logError(e, module);
                             return ServiceUtil.returnError(e.getMessage());
@@ -1247,7 +1247,7 @@ public class CommunicationEventServices {
                             // no communication events found for that message ID; possible this is a NEWSLETTER
                             try {
                                 values = delegator.findByAnd("ContactListCommStatus", UtilMisc.toMap("messageId",
-                                        messageId));
+                                        messageId), null, false);
                             } catch (GenericEntityException e) {
                                 Debug.logError(e, module);
                                 return ServiceUtil.returnError(e.getMessage());

@@ -313,7 +313,7 @@ under the License.
       <#if partyType?exists>
         <td>
         <#if partyType.partyTypeId?has_content && partyType.partyTypeId=="PERSON">
-          <#assign partyRelateCom = delegator.findByAnd("PartyRelationship", {"partyIdTo", partyRow.partyId,"roleTypeIdFrom","ACCOUNT","roleTypeIdTo","CONTACT"})>
+          <#assign partyRelateCom = delegator.findByAnd("PartyRelationship", {"partyIdTo", partyRow.partyId,"roleTypeIdFrom","ACCOUNT","roleTypeIdTo","CONTACT"}, null, false)>
           <#if partyRelateCom?has_content>
             <#list partyRelateCom as partyRelationship>
               <#if partyRelationship.partyIdFrom?has_content>

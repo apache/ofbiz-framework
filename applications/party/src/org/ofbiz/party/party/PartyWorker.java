@@ -110,7 +110,7 @@ public class PartyWorker {
 
     public static GenericValue findPartyLatestContactMech(String partyId, String contactMechTypeId, Delegator delegator) {
         try {
-            List<GenericValue> cmList = delegator.findByAnd("PartyAndContactMech", UtilMisc.toMap("partyId", partyId, "contactMechTypeId", contactMechTypeId), UtilMisc.toList("-fromDate"));
+            List<GenericValue> cmList = delegator.findByAnd("PartyAndContactMech", UtilMisc.toMap("partyId", partyId, "contactMechTypeId", contactMechTypeId), UtilMisc.toList("-fromDate"), false);
             cmList = EntityUtil.filterByDate(cmList);
             return EntityUtil.getFirst(cmList);
         } catch (GenericEntityException e) {
@@ -161,7 +161,7 @@ public class PartyWorker {
 
     public static GenericValue findPartyLatestUserLogin(String partyId, Delegator delegator) {
         try {
-            List<GenericValue> userLoginList = delegator.findByAnd("UserLogin", UtilMisc.toMap("partyId", partyId), UtilMisc.toList("-" + ModelEntity.STAMP_FIELD));
+            List<GenericValue> userLoginList = delegator.findByAnd("UserLogin", UtilMisc.toMap("partyId", partyId), UtilMisc.toList("-" + ModelEntity.STAMP_FIELD), false);
             return EntityUtil.getFirst(userLoginList);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error while finding latest UserLogin for party with ID [" + partyId + "]: " + e.toString(), module);
@@ -171,7 +171,7 @@ public class PartyWorker {
 
     public static Timestamp findPartyLastLoginTime(String partyId, Delegator delegator) {
         try {
-            List<GenericValue> loginHistory = delegator.findByAnd("UserLoginHistory", UtilMisc.toMap("partyId", partyId), UtilMisc.toList("-fromDate"));
+            List<GenericValue> loginHistory = delegator.findByAnd("UserLoginHistory", UtilMisc.toMap("partyId", partyId), UtilMisc.toList("-fromDate"), false);
             GenericValue v = EntityUtil.getFirst(loginHistory);
             if (v != null) {
                 return v.getTimestamp("fromDate");
@@ -502,7 +502,7 @@ public class PartyWorker {
             if (UtilValidate.isNotEmpty(partyIdentificationTypeId)) {
                 conditions.put("partyIdentificationTypeId", partyIdentificationTypeId);
             }
-            partiesFound = delegator.findByAndCache("PartyIdentificationAndParty", conditions, UtilMisc.toList("partyId"));
+            partiesFound = delegator.findByAnd("PartyIdentificationAndParty", conditions, UtilMisc.toList("partyId"), true);
         }
 
         if (! searchPartyFirst) {

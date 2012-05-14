@@ -45,7 +45,7 @@ if (!partyId && shoppingListId) {
 context.partyId = partyId;
 
 // get the top level shopping lists for the party
-allShoppingLists = delegator.findByAnd("ShoppingList", [partyId : partyId], ["listName"]);
+allShoppingLists = delegator.findByAnd("ShoppingList", [partyId : partyId], ["listName"], false);
 shoppingLists = EntityUtil.filterByAnd(allShoppingLists, [parentShoppingListId : null]);
 context.allShoppingLists = allShoppingLists;
 context.shoppingLists = shoppingLists;
@@ -124,7 +124,7 @@ if (shoppingListId) {
         context.shoppingListType = shoppingListType;
 
         // get the child shopping lists of the current list for the logged in user
-        childShoppingLists = delegator.findByAndCache("ShoppingList", [partyId : partyId, parentShoppingListId : shoppingListId], ["listName"]);
+        childShoppingLists = delegator.findByAnd("ShoppingList", [partyId : partyId, parentShoppingListId : shoppingListId], ["listName"], true);
         // now get prices for each child shopping list...
         if (childShoppingLists) {
             childShoppingListDatas = new ArrayList(childShoppingLists.size());

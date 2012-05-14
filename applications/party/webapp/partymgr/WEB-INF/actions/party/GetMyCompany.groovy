@@ -21,7 +21,7 @@ if (userLogin) {
     companies = delegator.findByAnd("PartyRelationship",
             [partyIdTo: userLogin.partyId,
              roleTypeIdTo: "CONTACT",
-             roleTypeIdFrom: "ACCOUNT"]);
+             roleTypeIdFrom: "ACCOUNT"], null, false);
     if (companies) {
         company = companies[0];
         context.myCompanyId = company.partyIdFrom;
