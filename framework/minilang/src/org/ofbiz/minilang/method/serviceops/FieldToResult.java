@@ -28,7 +28,7 @@ import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Copies a field to a service OUT attribute.
+ * Copies a field to the simple-method result Map.
  */
 public final class FieldToResult extends MethodOperation {
 
@@ -58,9 +58,13 @@ public final class FieldToResult extends MethodOperation {
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         Object fieldVal = this.fieldFma.get(methodContext.getEnvMap());
         if (fieldVal != null) {
-            // FIXME: Needs special handling for nested expressions.
-            // The result attribute might contain a reference to an environment (not result Map) variable.
-            this.resultFma.put(methodContext.getResults(), fieldVal);
+            if (this.resultFma.containsNestedExpression()) {
+                String expression = (String) this.resultFma.get(methodContext.getEnvMap());
+                FlexibleMapAccessor<Object> resultFma = FlexibleMapAccessor.getInstance(expression);
+                resultFma.put(methodContext.getResults(), fieldVal);
+            } else {
+                this.resultFma.put(methodContext.getResults(), fieldVal);
+            }
         }
         return true;
     }
