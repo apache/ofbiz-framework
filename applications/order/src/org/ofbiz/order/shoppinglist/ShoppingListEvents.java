@@ -371,7 +371,7 @@ public class ShoppingListEvents {
         // TODO: add sorting, just in case there are multiple...
         if (partyId != null) {
             Map<String, Object> findMap = UtilMisc.<String, Object>toMap("partyId", partyId, "productStoreId", productStoreId, "shoppingListTypeId", "SLT_SPEC_PURP", "listName", PERSISTANT_LIST_NAME);
-            List<GenericValue> existingLists = delegator.findByAnd("ShoppingList", findMap);
+            List<GenericValue> existingLists = delegator.findByAnd("ShoppingList", findMap, null, false);
             Debug.logInfo("Finding existing auto-save shopping list with:  \nfindMap: " + findMap + "\nlists: " + existingLists, module);
     
             if (UtilValidate.isNotEmpty(existingLists)) {

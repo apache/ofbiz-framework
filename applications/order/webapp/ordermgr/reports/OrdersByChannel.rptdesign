@@ -255,7 +255,7 @@ module = "OrdersByChannel.rptdesign";]]></method>
             <method name="open"><![CDATA[salesOrderItemFacts = null;
 try {
     if(params["saleChannel"] != "null"){
-        salesOrderItemFacts = delegator.findByAnd("SalesOrderItemFact", UtilMisc.toMap("saleChannel", params["saleChannel"]));
+        salesOrderItemFacts = delegator.findByAnd("SalesOrderItemFact", UtilMisc.toMap("saleChannel", params["saleChannel"]), null, false);
     }else{
         salesOrderItemFacts = delegator.findList("SalesOrderItemFact", null, null, null, null, false);
     }

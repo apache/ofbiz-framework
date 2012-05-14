@@ -652,7 +652,7 @@ public class CheckOutEvents {
         if ("EXT_PAYPAL".equals(paymentMethodTypeId) || cart.getPaymentMethodTypeIds().contains("EXT_PAYPAL")) {
             List<GenericValue> payPalProdStorePaySettings = null;
             try {
-                payPalProdStorePaySettings = delegator.findByAnd("ProductStorePaymentSetting", "productStoreId", productStore.getString("productStoreId"), "paymentMethodTypeId", "EXT_PAYPAL");
+                payPalProdStorePaySettings = delegator.findByAnd("ProductStorePaymentSetting", UtilMisc.toMap("productStoreId", productStore.getString("productStoreId"), "paymentMethodTypeId", "EXT_PAYPAL"), null, false);
                 GenericValue payPalProdStorePaySetting = EntityUtil.getFirst(payPalProdStorePaySettings);
                 if (payPalProdStorePaySetting != null) {
                     GenericValue gatewayConfig = payPalProdStorePaySetting.getRelatedOne("PaymentGatewayConfig");
@@ -1157,7 +1157,7 @@ public class CheckOutEvents {
                 orderItemMap.put("isPromo", sci.getIsPromo() ? "Y" : "N");
                 orderItemMap.put("productId", sci.getProductId());
                 orderItemMap.put("orderItemTypeId", sci.getItemType());
-                GenericValue orderItem = EntityUtil.getFirst(delegator.findByAnd("OrderItem", orderItemMap));
+                GenericValue orderItem = EntityUtil.getFirst(delegator.findByAnd("OrderItem", orderItemMap, null, false));
                 if (UtilValidate.isNotEmpty(orderItem)) {
                     sci.setAssociatedOrderId(orderItem.getString("orderId"));
                     sci.setAssociatedOrderItemSeqId(orderItem.getString("orderItemSeqId"));

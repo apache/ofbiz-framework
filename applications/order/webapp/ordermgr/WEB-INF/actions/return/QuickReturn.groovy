@@ -40,7 +40,7 @@ if (partyId) {
     context.party = party;
 }
 
-returnHeaders = delegator.findByAnd("ReturnHeader", [statusId : "RETURN_REQUESTED"], ["entryDate"]);
+returnHeaders = delegator.findByAnd("ReturnHeader", [statusId : "RETURN_REQUESTED"], ["entryDate"], false);
 context.returnHeaders = returnHeaders;
 
 // put in the return to party information from the order header
@@ -64,11 +64,11 @@ if (orderId) {
 
 // payment method info
 if (partyId) {
-    creditCardList = EntityUtil.filterByDate(delegator.findByAnd("PaymentMethodAndCreditCard", [partyId : partyId]));
+    creditCardList = EntityUtil.filterByDate(delegator.findByAnd("PaymentMethodAndCreditCard", [partyId : partyId], null, false));
     if (creditCardList) {
         context.creditCardList = creditCardList;
     }
-    eftAccountList = EntityUtil.filterByDate(delegator.findByAnd("PaymentMethodAndEftAccount", [partyId : partyId]));
+    eftAccountList = EntityUtil.filterByDate(delegator.findByAnd("PaymentMethodAndEftAccount", [partyId : partyId], null, false));
     if (eftAccountList) {
         context.eftAccountList = eftAccountList;
     }
@@ -81,11 +81,11 @@ context.returnTypes = returnTypes;
 returnReasons = delegator.findList("ReturnReason", null, null, ["sequenceId"], null, false);
 context.returnReasons = returnReasons;
 
-itemStts = delegator.findByAnd("StatusItem", [statusTypeId : "INV_SERIALIZED_STTS"], ["sequenceId"]);
+itemStts = delegator.findByAnd("StatusItem", [statusTypeId : "INV_SERIALIZED_STTS"], ["sequenceId"], false);
 context.itemStts = itemStts;
 
 typeMap = [:];
-returnItemTypeMap = delegator.findByAnd("ReturnItemTypeMap", [returnHeaderTypeId : returnHeaderTypeId]);
+returnItemTypeMap = delegator.findByAnd("ReturnItemTypeMap", [returnHeaderTypeId : returnHeaderTypeId], null, false);
 returnItemTypeMap.each { value ->
     typeMap[value.returnItemMapKey] = value.returnItemTypeId;
 }

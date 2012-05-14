@@ -158,7 +158,7 @@ public class OrderReturnServices {
                 // locate the item issuance(s) for this order item
                 List<GenericValue> itemIssue = null;
                 try {
-                    itemIssue = delegator.findByAnd("ItemIssuance", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId));
+                    itemIssue = delegator.findByAnd("ItemIssuance", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId), null, false);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                     throw new GeneralRuntimeException(e.getMessage());
@@ -767,7 +767,7 @@ public class OrderReturnServices {
                 // First find a Billing Account with negative balance, and if found store credit to that
                 List<GenericValue> billingAccounts = FastList.newInstance();
                 try {
-                    billingAccounts = delegator.findByAnd("BillingAccountRoleAndAddress", UtilMisc.toMap("partyId", fromPartyId, "roleTypeId", "BILL_TO_CUSTOMER"));
+                    billingAccounts = delegator.findByAnd("BillingAccountRoleAndAddress", UtilMisc.toMap("partyId", fromPartyId, "roleTypeId", "BILL_TO_CUSTOMER"), null, false);
                 } catch (GenericEntityException e) {
                     return ServiceUtil.returnError(e.getMessage());
                 }
@@ -814,7 +814,7 @@ public class OrderReturnServices {
                     } else {
                         List<GenericValue> finAccounts = null;
                         try {
-                            finAccounts = delegator.findByAnd("FinAccountAndRole", UtilMisc.toMap("partyId", fromPartyId, "finAccountTypeId", "STORE_CREDIT_ACCT", "roleTypeId", "OWNER", "statusId", "FNACT_ACTIVE"));
+                            finAccounts = delegator.findByAnd("FinAccountAndRole", UtilMisc.toMap("partyId", fromPartyId, "finAccountTypeId", "STORE_CREDIT_ACCT", "roleTypeId", "OWNER", "statusId", "FNACT_ACTIVE"), null, false);
                         } catch (GenericEntityException e) {
                             return ServiceUtil.returnError(e.getMessage());
                         }
@@ -1035,7 +1035,7 @@ public class OrderReturnServices {
             balance = maxAmount != null ? balance.subtract(maxAmount) : balance;
         }
 
-        List<GenericValue> paymentAppls = delegator.findByAnd("PaymentApplication", UtilMisc.toMap("billingAccountId", billingAccountId));
+        List<GenericValue> paymentAppls = delegator.findByAnd("PaymentApplication", UtilMisc.toMap("billingAccountId", billingAccountId), null, false);
         // TODO: cancelled payments?
         for(GenericValue paymentAppl : paymentAppls) {
             if (paymentAppl.getString("invoiceId") == null) {
@@ -1241,7 +1241,7 @@ public class OrderReturnServices {
 
                     // Check for replacement order
                     if (UtilValidate.isEmpty(orderPayPrefs)) {
-                        List<GenericValue> orderItemAssocs = delegator.findByAnd("OrderItemAssoc", UtilMisc.toMap("toOrderId", orderId, "orderItemAssocTypeId", "REPLACEMENT"));
+                        List<GenericValue> orderItemAssocs = delegator.findByAnd("OrderItemAssoc", UtilMisc.toMap("toOrderId", orderId, "orderItemAssocTypeId", "REPLACEMENT"), null, false);
                         if (UtilValidate.isNotEmpty(orderItemAssocs)) {
                             String originalOrderId = EntityUtil.getFirst(orderItemAssocs).getString("orderId");
                             orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", originalOrderId), false);
@@ -2206,7 +2206,7 @@ public class OrderReturnServices {
                 // lookup subscriptions
                 List<GenericValue> subscriptions;
                 try {
-                    subscriptions = delegator.findByAnd("Subscription", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId));
+                    subscriptions = delegator.findByAnd("Subscription", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId), null, false);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(e.getMessage());
@@ -2305,7 +2305,7 @@ public class OrderReturnServices {
         List<GenericValue> returnItems = null;
         Map<String, Object> returnAmountByOrder = FastMap.newInstance();
         try {
-            returnItems = delegator.findByAnd("ReturnItem", UtilMisc.toMap("returnId", returnId));
+            returnItems = delegator.findByAnd("ReturnItem", UtilMisc.toMap("returnId", returnId), null, false);
 
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems looking up return information", module);
@@ -2428,7 +2428,7 @@ public class OrderReturnServices {
                         returnItem = EntityUtil.getFirst(delegator.findByAnd("ReturnItem",
                                                                              UtilMisc.toMap("returnId", returnId,
                                                                                             "orderId", orderAdjustment.getString("orderId"),
-                                                                                            "orderItemSeqId", orderAdjustment.getString("orderItemSeqId"))));
+                                                                                            "orderItemSeqId", orderAdjustment.getString("orderItemSeqId")), null, false));
                         if (UtilValidate.isNotEmpty(returnItem)) {
                             orderItem = returnItem.getRelatedOne("OrderItem");
                         }
@@ -2610,7 +2610,7 @@ public class OrderReturnServices {
         List<GenericValue> adjustments;
         try {
             // TODO: find on a view-entity with a sum is probably more efficient
-            adjustments = delegator.findByAnd("ReturnAdjustment", condition);
+            adjustments = delegator.findByAnd("ReturnAdjustment", condition, null, false);
             if (adjustments != null) {
                 for(GenericValue returnAdjustment : adjustments) {
                     if ((returnAdjustment != null) && (returnAdjustment.get("amount") != null)) {

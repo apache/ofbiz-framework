@@ -1716,7 +1716,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         String orderId = this.getOrderId();
         if (UtilValidate.isNotEmpty(orderId)) {
             try {
-                List<GenericValue> declinedPaymentMethods = delegator.findByAnd("OrderPaymentPreference", UtilMisc.toMap("orderId", orderId, "statusId", "PAYMENT_DECLINED"));
+                List<GenericValue> declinedPaymentMethods = delegator.findByAnd("OrderPaymentPreference", UtilMisc.toMap("orderId", orderId, "statusId", "PAYMENT_DECLINED"), null, false);
                 if (!UtilValidate.isEmpty(declinedPaymentMethods)) {
                     List<String> paymentMethodIdsToRemove = new ArrayList<String>();
                     for(GenericValue opp : declinedPaymentMethods) {
@@ -3369,7 +3369,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
             //create a new WorkEffortGoodStandard based on existing one of AGGREGATED product .
             //Another approach could be to get WorkEffortGoodStandard of the AGGREGATED product while creating production run.
-            List<GenericValue> productionRunTemplates = delegator.findByAnd("WorkEffortGoodStandard", UtilMisc.toMap("productId", item.getProductId(), "workEffortGoodStdTypeId", "ROU_PROD_TEMPLATE", "statusId", "WEGS_CREATED"));
+            List<GenericValue> productionRunTemplates = delegator.findByAnd("WorkEffortGoodStandard", UtilMisc.toMap("productId", item.getProductId(), "workEffortGoodStdTypeId", "ROU_PROD_TEMPLATE", "statusId", "WEGS_CREATED"), null, false);
             GenericValue productionRunTemplate = EntityUtil.getFirst(EntityUtil.filterByDate(productionRunTemplates));
             if (productionRunTemplate != null) {
                 serviceContext.clear();
@@ -3933,7 +3933,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 String requirementId = item.getRequirementId();
                 if (requirementId != null) {
                     try {
-                        List<GenericValue> commitments = getDelegator().findByAnd("OrderRequirementCommitment", UtilMisc.toMap("requirementId", requirementId));
+                        List<GenericValue> commitments = getDelegator().findByAnd("OrderRequirementCommitment", UtilMisc.toMap("requirementId", requirementId), null, false);
                         // TODO: multiple commitments for the same requirement are still not supported
                         GenericValue commitment = EntityUtil.getFirst(commitments);
                         if (commitment != null) {

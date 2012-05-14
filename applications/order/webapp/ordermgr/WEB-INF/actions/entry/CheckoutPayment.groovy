@@ -40,7 +40,7 @@ if (cart) {
     }
 }
 
-finAccounts = delegator.findByAnd("FinAccountAndRole", [partyId : partyId, roleTypeId : "OWNER"]);
+finAccounts = delegator.findByAnd("FinAccountAndRole", [partyId : partyId, roleTypeId : "OWNER"], null, false);
 finAccounts = EntityUtil.filterByDate(finAccounts, UtilDateTime.nowTimestamp(), "roleFromDate", "roleThruDate", true);
 finAccounts = EntityUtil.filterByDate(finAccounts);
 context.finAccounts = finAccounts;

@@ -28,7 +28,7 @@ shoppingCart = session.getAttribute("shoppingCart");
 partyId = shoppingCart.getPartyId();
 
 // Get the party's collection of Shopping Lists
-shoppingLists = delegator.findByAndCache("ShoppingList", [partyId : partyId]);
+shoppingLists = delegator.findByAnd("ShoppingList", [partyId : partyId], null, true);
 if (shoppingLists) {
     context.shoppingLists = shoppingLists;
 }

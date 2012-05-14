@@ -92,5 +92,5 @@ if (catalogCol) {
 }
 
 // currencies and shopping cart currency
-context.currencies = delegator.findByAndCache('Uom', [uomTypeId: 'CURRENCY_MEASURE']);
+context.currencies = delegator.findByAnd('Uom', [uomTypeId: 'CURRENCY_MEASURE'], null, true);
 context.currencyUomId = shoppingCart.getCurrency();

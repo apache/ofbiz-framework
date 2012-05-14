@@ -141,7 +141,7 @@ public class OrderContentWrapper {
             mimeTypeId = "text/html";
         }
 
-        List<GenericValue> orderContentList = delegator.findByAndCache("OrderContent", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "orderContentTypeId", orderContentTypeId), UtilMisc.toList("-fromDate"));
+        List<GenericValue> orderContentList = delegator.findByAnd("OrderContent", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "orderContentTypeId", orderContentTypeId), UtilMisc.toList("-fromDate"), true);
         orderContentList = EntityUtil.filterByDate(orderContentList);
         GenericValue orderContent = EntityUtil.getFirst(orderContentList);
         if (orderContent != null) {

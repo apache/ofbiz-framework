@@ -1553,7 +1553,7 @@ public class ShoppingCartEvents {
                         List<GenericValue> storeReps = null;
                         try {
                             storeReps = delegator.findByAnd("ProductStoreRole", UtilMisc.toMap("productStoreId", productStore.getString("productStoreId"),
-                                                            "partyId", userLogin.getString("partyId"), "roleTypeId", "SALES_REP"));
+                                                            "partyId", userLogin.getString("partyId"), "roleTypeId", "SALES_REP"), null, false);
                         } catch (GenericEntityException gee) {
                             //
                         }

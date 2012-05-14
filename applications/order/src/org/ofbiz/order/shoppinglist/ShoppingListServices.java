@@ -558,7 +558,7 @@ public class ShoppingListServices {
         Delegator delegator = ctx.getDelegator();
         String orderId = (String) context.get("orderId");
         try {
-            List<GenericValue> orderItems = delegator.findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId));
+            List<GenericValue> orderItems = delegator.findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId), null, false);
             for(GenericValue orderItem : orderItems) {
                 String shoppingListId = orderItem.getString("shoppingListId");
                 String shoppingListItemSeqId = orderItem.getString("shoppingListItemSeqId");

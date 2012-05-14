@@ -62,15 +62,15 @@ if (category) {
     if (category.detailScreen) {
         detailScreen = category.detailScreen;
     }
-    categoryPageTitle = delegator.findByAndCache("ProductCategoryContentAndInfo", [productCategoryId : productCategoryId, prodCatContentTypeId : "PAGE_TITLE"]);
+    categoryPageTitle = delegator.findByAnd("ProductCategoryContentAndInfo", [productCategoryId : productCategoryId, prodCatContentTypeId : "PAGE_TITLE"], null, true);
     if (categoryPageTitle) {
         pageTitle = delegator.findOne("ElectronicText", [dataResourceId : categoryPageTitle.get(0).dataResourceId], true);
     }
-    categoryMetaDescription = delegator.findByAndCache("ProductCategoryContentAndInfo", [productCategoryId : productCategoryId, prodCatContentTypeId : "META_DESCRIPTION"]);
+    categoryMetaDescription = delegator.findByAnd("ProductCategoryContentAndInfo", [productCategoryId : productCategoryId, prodCatContentTypeId : "META_DESCRIPTION"], null, true);
     if (categoryMetaDescription) {
         metaDescription = delegator.findOne("ElectronicText", [dataResourceId : categoryMetaDescription.get(0).dataResourceId], true);
     }
-    categoryMetaKeywords = delegator.findByAndCache("ProductCategoryContentAndInfo", [productCategoryId : productCategoryId, prodCatContentTypeId : "META_KEYWORD"]);
+    categoryMetaKeywords = delegator.findByAnd("ProductCategoryContentAndInfo", [productCategoryId : productCategoryId, prodCatContentTypeId : "META_KEYWORD"], null, true);
     if (categoryMetaKeywords) {
         metaKeywords = delegator.findOne("ElectronicText", [dataResourceId : categoryMetaKeywords.get(0).dataResourceId], true);
     }

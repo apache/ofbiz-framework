@@ -222,7 +222,7 @@ under the License.
                                             <table>
                                                 <tr valign="top">
                                                     <#assign shippedQuantity = orderReadHelper.getItemShippedQuantity(orderItem)>
-                                                    <#assign shipmentReceipts = delegator.findByAnd("ShipmentReceipt", {"orderId" : orderHeader.getString("orderId"), "orderItemSeqId" : orderItem.orderItemSeqId})/>
+                                                    <#assign shipmentReceipts = delegator.findByAnd("ShipmentReceipt", {"orderId" : orderHeader.getString("orderId"), "orderItemSeqId" : orderItem.orderItemSeqId}, null, false)/>
                                                     <#assign totalReceived = 0.0>
                                                     <#if shipmentReceipts?exists && shipmentReceipts?has_content>
                                                         <#list shipmentReceipts as shipmentReceipt>
@@ -343,8 +343,8 @@ under the License.
                             </#list>
                         </#if>
                         <#-- show linked order lines -->
-                        <#assign linkedOrderItemsTo = delegator.findByAnd("OrderItemAssoc", Static["org.ofbiz.base.util.UtilMisc"].toMap("orderId", orderItem.getString("orderId"), "orderItemSeqId", orderItem.getString("orderItemSeqId")))>
-                        <#assign linkedOrderItemsFrom = delegator.findByAnd("OrderItemAssoc", Static["org.ofbiz.base.util.UtilMisc"].toMap("toOrderId", orderItem.getString("orderId"), "toOrderItemSeqId", orderItem.getString("orderItemSeqId")))>
+                        <#assign linkedOrderItemsTo = delegator.findByAnd("OrderItemAssoc", Static["org.ofbiz.base.util.UtilMisc"].toMap("orderId", orderItem.getString("orderId"), "orderItemSeqId", orderItem.getString("orderItemSeqId")), null, false)>
+                        <#assign linkedOrderItemsFrom = delegator.findByAnd("OrderItemAssoc", Static["org.ofbiz.base.util.UtilMisc"].toMap("toOrderId", orderItem.getString("orderId"), "toOrderItemSeqId", orderItem.getString("orderItemSeqId")), null, false)>
                         <#if linkedOrderItemsTo?has_content>
                             <#list linkedOrderItemsTo as linkedOrderItem>
                                 <#assign linkedOrderId = linkedOrderItem.toOrderId>

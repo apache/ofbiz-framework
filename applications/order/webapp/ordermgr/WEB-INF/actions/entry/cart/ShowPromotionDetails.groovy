@@ -27,7 +27,7 @@ productPromo = delegator.findOne("ProductPromo", [productPromoId : productPromoI
 
 promoAutoDescription = ProductPromoWorker.makeAutoDescription(productPromo, delegator, locale);
 
-productPromoCategoryList = delegator.findByAndCache("ProductPromoCategory", [productPromoId : productPromoId]);
+productPromoCategoryList = delegator.findByAnd("ProductPromoCategory", [productPromoId : productPromoId], null, true);
 productPromoCategoryIncludeList = EntityUtil.filterByAnd(productPromoCategoryList, [productPromoApplEnumId : "PPPA_INCLUDE"]);
 productPromoCategoryExcludeList = EntityUtil.filterByAnd(productPromoCategoryList, [productPromoApplEnumId : "PPPA_EXCLUDE"]);
 productPromoCategoryAlwaysList = EntityUtil.filterByAnd(productPromoCategoryList, [productPromoApplEnumId : "PPPA_ALWAYS"]);

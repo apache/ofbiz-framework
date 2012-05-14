@@ -33,7 +33,7 @@ roleTypes = delegator.findList("RoleType", null, null, ["description"], null, fa
 context.roleTypes = roleTypes;
 
 // get the order statuses
-orderStatuses = delegator.findByAnd("StatusItem", [statusTypeId : "ORDER_STATUS"], ["sequenceId", "description"]);
+orderStatuses = delegator.findByAnd("StatusItem", [statusTypeId : "ORDER_STATUS"], ["sequenceId", "description"], false);
 context.orderStatuses = orderStatuses;
 
 // get websites
@@ -45,7 +45,7 @@ stores = delegator.findList("ProductStore", null, null, ["storeName"], null, fal
 context.productStores = stores;
 
 // get the channels
-channels = delegator.findByAnd("Enumeration", [enumTypeId : "ORDER_SALES_CHANNEL"], ["sequenceId"]);
+channels = delegator.findByAnd("Enumeration", [enumTypeId : "ORDER_SALES_CHANNEL"], ["sequenceId"], false);
 context.salesChannels = channels;
 
 // get the Shipping Methods
@@ -53,7 +53,7 @@ carrierShipmentMethods = delegator.findList("CarrierShipmentMethod", null, null,
 context.carrierShipmentMethods = carrierShipmentMethods;
 
 // get the Payment Status
-paymentStatusList = delegator.findByAnd("StatusItem", [statusTypeId : "PAYMENT_PREF_STATUS"], ["description"]);
+paymentStatusList = delegator.findByAnd("StatusItem", [statusTypeId : "PAYMENT_PREF_STATUS"], ["description"], false);
 context.paymentStatusList = paymentStatusList;
 
 // current role type
@@ -96,7 +96,7 @@ if (shipmentMethod) {
     carrierPartyId = shipmentMethod.substring(0, shipmentMethod.indexOf("@"));
     shipmentMethodTypeId = shipmentMethod.substring(shipmentMethod.indexOf("@")+1);
     if (carrierPartyId && shipmentMethodTypeId) {
-        currentCarrierShipmentMethod = delegator.findByAnd("CarrierShipmentMethod", [partyId : carrierPartyId, shipmentMethodTypeId : shipmentMethodTypeId]);
+        currentCarrierShipmentMethod = delegator.findByAnd("CarrierShipmentMethod", [partyId : carrierPartyId, shipmentMethodTypeId : shipmentMethodTypeId], null, false);
         context.currentCarrierShipmentMethod = currentCarrierShipmentMethod;
     }
 }

@@ -55,7 +55,7 @@ quoteItems.each { quoteItem ->
         if (currency && quoteItem.productId) {
             productPrices = delegator.findByAnd("ProductPrice", [productId : quoteItem.productId,
                                                                  currencyUomId : currency,
-                                                                 productPriceTypeId : "AVERAGE_COST"]);
+                                                                 productPriceTypeId : "AVERAGE_COST"], null, false);
             productPrices = EntityUtil.filterByDate(productPrices, issueDate);
             productPrice = EntityUtil.getFirst(productPrices);
             if (productPrice?.price != null) {

@@ -114,7 +114,7 @@ public class FinAccountHelper {
                  newAccountCode.append(char_pool[r.nextInt(char_pool.length)]);
              }
 
-             List<GenericValue> existingAccountsWithCode = delegator.findByAnd("FinAccount", UtilMisc.toMap("finAccountCode", newAccountCode.toString()));
+             List<GenericValue> existingAccountsWithCode = delegator.findByAnd("FinAccount", UtilMisc.toMap("finAccountCode", newAccountCode.toString()), null, false);
              if (existingAccountsWithCode.size() == 0) {
                  foundUniqueNewCode = true;
              }
@@ -151,7 +151,7 @@ public class FinAccountHelper {
          String encryptedFinAccountCode = encryptedFinAccount.getString("finAccountCode");
 
          // now look for the account
-         List<GenericValue> accounts = delegator.findByAnd("FinAccount", UtilMisc.toMap("finAccountCode", encryptedFinAccountCode));
+         List<GenericValue> accounts = delegator.findByAnd("FinAccount", UtilMisc.toMap("finAccountCode", encryptedFinAccountCode), null, false);
          accounts = EntityUtil.filterByDate(accounts);
 
          if (UtilValidate.isEmpty(accounts)) {
