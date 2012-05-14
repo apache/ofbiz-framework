@@ -1687,7 +1687,8 @@ public class GenericDelegator implements Delegator {
      * @see org.ofbiz.entity.Delegator#findByAnd(java.lang.String, java.lang.Object)
      */
     public List<GenericValue> findByAnd(String entityName, Object... fields) throws GenericEntityException {
-        return findByAnd(entityName, UtilMisc.<String, Object>toMap(fields));
+        EntityCondition ecl = EntityCondition.makeCondition(UtilMisc.<String, Object>toMap(fields));
+        return this.findList(entityName, ecl, null, null, null, false);
     }
 
     /* (non-Javadoc)
