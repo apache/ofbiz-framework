@@ -19,7 +19,7 @@
  import org.ofbiz.base.util.*
  import org.ofbiz.entity.util.EntityUtil;
 
-findResult = delegator.findByAnd("Facility", [ownerPartyId: partyId]);
+findResult = delegator.findByAnd("Facility", [ownerPartyId: partyId], null, false);
 findResultSize = findResult.size();
 if (findResultSize == 1) {
     context.showScreen = "one";
@@ -33,7 +33,7 @@ if ((findResultSize > 1 ) && (findResultSize <= 10)) {
     context.showScreen = "more";
 }
 
-listPartyPostalAddress = delegator.findByAnd("PartyAndPostalAddress", [partyId: partyId]);
+listPartyPostalAddress = delegator.findByAnd("PartyAndPostalAddress", [partyId: partyId], null, false);
 partyPostalAddress = EntityUtil.getFirst(EntityUtil.filterByDate(listPartyPostalAddress));
 context.partyPostalAddress = partyPostalAddress;
 

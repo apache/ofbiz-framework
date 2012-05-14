@@ -23,7 +23,7 @@
  
  productStoreId = null;
  
-productStore = EntityUtil.getFirst(delegator.findByAnd("ProductStore", [payToPartyId: partyId]));
+productStore = EntityUtil.getFirst(delegator.findByAnd("ProductStore", [payToPartyId: partyId], null, false));
 if(productStore){
     productStoreId = productStore.productStoreId
 }
@@ -32,7 +32,7 @@ context.productStore = productStore;
 
 if("website".equals(tabButtonItemTop)){
     if(productStoreId != null){
-        webSite = EntityUtil.getFirst(delegator.findByAnd("WebSite", [productStoreId: productStoreId]));
+        webSite = EntityUtil.getFirst(delegator.findByAnd("WebSite", [productStoreId: productStoreId], null, false));
         context.showScreen = "origin";
     }else{
         request.setAttribute("_ERROR_MESSAGE_", "Product Store not set!");

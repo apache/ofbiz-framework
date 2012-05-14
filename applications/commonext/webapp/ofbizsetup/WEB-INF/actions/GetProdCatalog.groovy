@@ -26,7 +26,7 @@
  showScreen = "origin";
  List errMsgList = FastList.newInstance();
  
- productStore = EntityUtil.getFirst(delegator.findByAnd("ProductStore", [payToPartyId: partyId]));
+ productStore = EntityUtil.getFirst(delegator.findByAnd("ProductStore", [payToPartyId: partyId], null, false));
  if(productStore){
      context.productStoreId = productStore.productStoreId;
  }
@@ -35,7 +35,7 @@
      showScreen = "message";
  }else{
      facility = delegator.findOne("Facility", [facilityId : productStore.inventoryFacilityId], false);
-     webSite = EntityUtil.getFirst(delegator.findByAnd("WebSite", [productStoreId: productStore.productStoreId]));
+     webSite = EntityUtil.getFirst(delegator.findByAnd("WebSite", [productStoreId: productStore.productStoreId], null, false));
      
      if(UtilValidate.isEmpty(facility)){
          errMsgList.add("Facility not set!");
@@ -51,7 +51,7 @@
     return;
  }
  
- productStoreCatalog = EntityUtil.getFirst(delegator.findByAnd("ProductStoreCatalog", [productStoreId: productStore.productStoreId]));
+ productStoreCatalog = EntityUtil.getFirst(delegator.findByAnd("ProductStoreCatalog", [productStoreId: productStore.productStoreId], null, false));
  if(productStoreCatalog){
      prodCatalog = productStoreCatalog.getRelatedOne("ProdCatalog");
      prodCatalogId = prodCatalog.prodCatalogId;
@@ -70,9 +70,9 @@
          showErrorMsg = "Y";
      }
      
-     prodCatalogCategory  = EntityUtil.getFirst(delegator.findByAnd("ProdCatalogCategory", [prodCatalogId: prodCatalogId, sequenceNum: new Long(1)]));
+     prodCatalogCategory  = EntityUtil.getFirst(delegator.findByAnd("ProdCatalogCategory", [prodCatalogId: prodCatalogId, sequenceNum: new Long(1)], null, false));
      if(prodCatalogCategory){
-         productCategory = EntityUtil.getFirst(delegator.findByAnd("ProductCategory", [primaryParentCategoryId : prodCatalogCategory.productCategoryId]));
+         productCategory = EntityUtil.getFirst(delegator.findByAnd("ProductCategory", [primaryParentCategoryId : prodCatalogCategory.productCategoryId], null, false));
          if(productCategory){
              productCategoryId = productCategory.productCategoryId;
          }
@@ -89,12 +89,12 @@
              showErrorMsg = "Y";
          }
          /**************** get product from ProductCategory ******************/
-         productCategoryMember  = EntityUtil.getFirst(delegator.findByAnd("ProductCategoryMember", [productCategoryId: productCategoryId]));
+         productCategoryMember  = EntityUtil.getFirst(delegator.findByAnd("ProductCategoryMember", [productCategoryId: productCategoryId], null, false));
          if(productCategoryMember){
              product = productCategoryMember.getRelatedOne("Product");
              productId = product.productId;
              // Average cost
-             averageCostValues = delegator.findByAnd("ProductPrice", [productId : productId, productPricePurposeId : "PURCHASE", productPriceTypeId : "AVERAGE_COST"]);
+             averageCostValues = delegator.findByAnd("ProductPrice", [productId : productId, productPricePurposeId : "PURCHASE", productPriceTypeId : "AVERAGE_COST"], null, false);
              if(averageCostValues){
                  averageCostValue = EntityUtil.getFirst(EntityUtil.filterByDate(averageCostValues));
                  if (averageCostValue?.price != null) {
@@ -102,7 +102,7 @@
                  }
              }
              //    Default cost
-             defaultPriceValues = delegator.findByAnd("ProductPrice", [productId : productId, productPricePurposeId : "PURCHASE", productPriceTypeId : "DEFAULT_PRICE"]);
+             defaultPriceValues = delegator.findByAnd("ProductPrice", [productId : productId, productPricePurposeId : "PURCHASE", productPriceTypeId : "DEFAULT_PRICE"], null, false);
              if(defaultPriceValues){
                  defaultPrice = EntityUtil.getFirst(EntityUtil.filterByDate(defaultPriceValues));
                  if (defaultPrice?.price != null) {
