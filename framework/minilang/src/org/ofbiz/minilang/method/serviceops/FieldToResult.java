@@ -77,7 +77,7 @@ public final class FieldToResult extends MethodOperation {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("<now ");
+        StringBuilder sb = new StringBuilder("<field-to-result ");
         if (!this.fieldFma.isEmpty()) {
             sb.append("field=\"").append(this.fieldFma).append("\" ");
         }
