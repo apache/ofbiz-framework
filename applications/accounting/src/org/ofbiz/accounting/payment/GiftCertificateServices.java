@@ -773,7 +773,7 @@ public class GiftCertificateServices {
             Map<String, Object> fields = UtilMisc.<String, Object>toMap("orderId", orderId, 
                     "orderItemSeqId", orderItem.get("orderItemSeqId"), "surveyId", surveyId);
             List<String> order = UtilMisc.toList("-responseDate");
-            List<GenericValue> responses = delegator.findByAnd("SurveyResponse", fields, order);
+            List<GenericValue> responses = delegator.findByAnd("SurveyResponse", fields, order, false);
             // there should be only one
             surveyResponse = EntityUtil.getFirst(responses);
         } catch (GenericEntityException e) {
@@ -1013,7 +1013,7 @@ public class GiftCertificateServices {
             Map<String, Object> fields = UtilMisc.toMap("orderId", orderId, 
                     "orderItemSeqId", orderItem.get("orderItemSeqId"), "surveyId", surveyId);
             List<String> order = UtilMisc.toList("-responseDate");
-            List<GenericValue> responses = delegator.findByAnd("SurveyResponse", fields, order);
+            List<GenericValue> responses = delegator.findByAnd("SurveyResponse", fields, order, false);
             // there should be only one
             surveyResponse = EntityUtil.getFirst(responses);
         } catch (GenericEntityException e) {

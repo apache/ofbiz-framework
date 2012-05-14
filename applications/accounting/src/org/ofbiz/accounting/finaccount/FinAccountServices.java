@@ -100,7 +100,7 @@ public class FinAccountServices {
             if (finAccountId != null) {
                 creditAccount = delegator.findOne("FinAccount", UtilMisc.toMap("finAccountId", finAccountId), false);
             } else {
-                List<GenericValue> creditAccounts = delegator.findByAnd("FinAccount", lookupMap, UtilMisc.toList("-fromDate"));
+                List<GenericValue> creditAccounts = delegator.findByAnd("FinAccount", lookupMap, UtilMisc.toList("-fromDate"), false);
                 creditAccount = EntityUtil.getFirst(EntityUtil.filterByDate(creditAccounts));
             }
 

@@ -115,7 +115,7 @@ public class InvoiceServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         try {
-            List<GenericValue> orderItems = delegator.findByAnd("OrderItem", UtilMisc.toMap("orderId", (String) context.get("orderId")), UtilMisc.toList("orderItemSeqId"));
+            List<GenericValue> orderItems = delegator.findByAnd("OrderItem", UtilMisc.toMap("orderId", (String) context.get("orderId")), UtilMisc.toList("orderItemSeqId"), false);
             if (orderItems.size() > 0) {
                 context.put("billItems", orderItems);
             }
@@ -479,7 +479,7 @@ public class InvoiceServices {
                 }
 
                 if ("ItemIssuance".equals(currentValue.getEntityName())) {
-                    List<GenericValue> shipmentItemBillings = delegator.findByAnd("ShipmentItemBilling", UtilMisc.toMap("shipmentId", currentValue.get("shipmentId")));
+                    List<GenericValue> shipmentItemBillings = delegator.findByAnd("ShipmentItemBilling", UtilMisc.toMap("shipmentId", currentValue.get("shipmentId")), null, false);
                     if (UtilValidate.isEmpty(shipmentItemBillings)) {
 
                         // create the ShipmentItemBilling record
@@ -1077,7 +1077,7 @@ public class InvoiceServices {
         String invoicePerShipment = null;
 
         try {
-            orderShipments = delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", shipmentId));
+            orderShipments = delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", shipmentId), null, false);
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(e.getMessage());
         }
@@ -1158,7 +1158,7 @@ public class InvoiceServices {
 
             List<GenericValue> orderItemBillings = FastList.newInstance();
             try {
-                orderItemBillings = delegator.findByAnd("OrderItemBilling", billFields);
+                orderItemBillings = delegator.findByAnd("OrderItemBilling", billFields, null, false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Problem looking up OrderItemBilling records for " + billFields, module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource,
@@ -1606,7 +1606,7 @@ public class InvoiceServices {
                         // If part of the order was paid via credit card, try to charge it for the additional shipping
                         List<GenericValue> orderPaymentPreferences = null;
                         try {
-                            orderPaymentPreferences = delegator.findByAnd("OrderPaymentPreference", UtilMisc.toMap("orderId", orderId, "paymentMethodTypeId", "CREDIT_CARD"));
+                            orderPaymentPreferences = delegator.findByAnd("OrderPaymentPreference", UtilMisc.toMap("orderId", orderId, "paymentMethodTypeId", "CREDIT_CARD"), null, false);
                         } catch (GenericEntityException e) {
                             Debug.logError(e, "Problem getting OrderPaymentPreference records", module);
                             return ServiceUtil.returnError(UtilProperties.getMessage(resource,
@@ -1695,7 +1695,7 @@ public class InvoiceServices {
             List<GenericValue> shipmentItemBillings = null;
             String shipmentId = shipmentIds.get(0);
             try {
-                shipmentItemBillings = delegator.findByAnd("ShipmentItemBilling", UtilMisc.toMap("shipmentId", shipmentId));
+                shipmentItemBillings = delegator.findByAnd("ShipmentItemBilling", UtilMisc.toMap("shipmentId", shipmentId), null, false);
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource,
                         "AccountingProblemGettingShipmentItemBilling", locale));
@@ -1792,7 +1792,7 @@ public class InvoiceServices {
                 if (item.getEntityName().equals("ShipmentReceipt")) {
                     returnId = item.getString("returnId");
                 } else if (item.getEntityName().equals("ItemIssuance")) {
-                    GenericValue returnItemShipment = EntityUtil.getFirst(delegator.findByAnd("ReturnItemShipment", UtilMisc.toMap("shipmentId", item.getString("shipmentId"), "shipmentItemSeqId", item.getString("shipmentItemSeqId"))));
+                    GenericValue returnItemShipment = EntityUtil.getFirst(delegator.findByAnd("ReturnItemShipment", UtilMisc.toMap("shipmentId", item.getString("shipmentId"), "shipmentItemSeqId", item.getString("shipmentItemSeqId")), null, false));
                     returnId = returnItemShipment.getString("returnId");
                     returnItemSeqId = returnItemShipment.getString("returnItemSeqId");
                 }
@@ -1801,9 +1801,9 @@ public class InvoiceServices {
                 List<GenericValue> billings = null;
                 if (item.getEntityName().equals("ShipmentReceipt")) {
                     billings = delegator.findByAnd("ReturnItemBilling", UtilMisc.toMap("shipmentReceiptId", item.getString("receiptId"), "returnId", returnId,
-                                "returnItemSeqId", item.get("returnItemSeqId")));
+                                "returnItemSeqId", item.get("returnItemSeqId")), null, false);
                 } else if (item.getEntityName().equals("ItemIssuance")) {
-                    billings = delegator.findByAnd("ReturnItemBilling", UtilMisc.toMap("returnId", returnId, "returnItemSeqId", returnItemSeqId));
+                    billings = delegator.findByAnd("ReturnItemBilling", UtilMisc.toMap("returnId", returnId, "returnItemSeqId", returnItemSeqId), null, false);
                 }
                 // if there are billings, we have already billed the item, so skip it
                 if (UtilValidate.isNotEmpty(billings)) continue;
@@ -2147,7 +2147,7 @@ public class InvoiceServices {
         // Get the payment applications that can be used to pay the invoice
         List<GenericValue> paymentAppl = null;
         try {
-            paymentAppl = delegator.findByAnd("PaymentAndApplication", UtilMisc.toMap("invoiceId", invoiceId));
+            paymentAppl = delegator.findByAnd("PaymentAndApplication", UtilMisc.toMap("invoiceId", invoiceId), null, false);
             // For each payment application, select only those that are RECEIVED or SENT based on whether the payment is a RECEIPT or DISBURSEMENT respectively
             for (Iterator<GenericValue> iter = paymentAppl.iterator(); iter.hasNext();) {
                 GenericValue payment = iter.next();
@@ -3049,7 +3049,7 @@ public class InvoiceServices {
                 // get the invoice items
                 List<GenericValue> invoiceItems = null;
                 try {
-                    invoiceItems = delegator.findByAnd("InvoiceItem", UtilMisc.toMap("invoiceId", invoiceId));
+                    invoiceItems = delegator.findByAnd("InvoiceItem", UtilMisc.toMap("invoiceId", invoiceId), null, false);
                 } catch (GenericEntityException e) {
                     return ServiceUtil.returnError(e.getMessage());
                 }
@@ -3193,7 +3193,7 @@ public class InvoiceServices {
         BigDecimal invoicedTotal = ZERO;
         List<GenericValue> invoicedAdjustments = null;
         try {
-            invoicedAdjustments = delegator.findByAnd("OrderAdjustmentBilling", UtilMisc.toMap("orderAdjustmentId", orderAdjustment.getString("orderAdjustmentId")));
+            invoicedAdjustments = delegator.findByAnd("OrderAdjustmentBilling", UtilMisc.toMap("orderAdjustmentId", orderAdjustment.getString("orderAdjustmentId")), null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Accounting trouble calling calculateInvoicedAdjustmentTotal service", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -3234,7 +3234,7 @@ public class InvoiceServices {
                     "billingAccountId", paymentApplication.get("billingAccountId"),
                     "paymentId", paymentApplication.get("paymentId"),
                     "toPaymentId", paymentApplication.get("toPaymentId"),
-                    "taxAuthGeoId", paymentApplication.get("taxAuthGeoId")));
+                    "taxAuthGeoId", paymentApplication.get("taxAuthGeoId")), null, false);
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(e.getMessage());
         }

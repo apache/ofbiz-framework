@@ -31,7 +31,7 @@ if (productStoreId) {
 }
 
 // payment settings
-paymentSettings = delegator.findByAnd("Enumeration", [enumTypeId : "PRDS_PAYSVC"], ["sequenceId"]);
+paymentSettings = delegator.findByAnd("Enumeration", [enumTypeId : "PRDS_PAYSVC"], ["sequenceId"], false);
 context.paymentSettings = paymentSettings;
 
 // payment method (for auto-fill)

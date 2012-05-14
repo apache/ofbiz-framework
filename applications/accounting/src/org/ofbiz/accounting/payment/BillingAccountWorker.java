@@ -159,7 +159,7 @@ public class BillingAccountWorker {
             balance = maxAmount != null ? balance.subtract(maxAmount) : balance;
         }
 
-        List<GenericValue> paymentAppls = delegator.findByAnd("PaymentApplication", UtilMisc.toMap("billingAccountId", billingAccountId));
+        List<GenericValue> paymentAppls = delegator.findByAnd("PaymentApplication", UtilMisc.toMap("billingAccountId", billingAccountId), null, false);
         // TODO: cancelled payments?
         for (Iterator<GenericValue> pAi = paymentAppls.iterator(); pAi.hasNext();) {
             GenericValue paymentAppl = pAi.next();
@@ -251,7 +251,7 @@ public class BillingAccountWorker {
         BigDecimal balance = ZERO;
 
         // search through all PaymentApplications and add the amount that was applied to invoice and subtract the amount applied from payments
-        List<GenericValue> paymentAppls = delegator.findByAnd("PaymentApplication", UtilMisc.toMap("billingAccountId", billingAccountId));
+        List<GenericValue> paymentAppls = delegator.findByAnd("PaymentApplication", UtilMisc.toMap("billingAccountId", billingAccountId), null, false);
         for (Iterator<GenericValue> pAi = paymentAppls.iterator(); pAi.hasNext();) {
             GenericValue paymentAppl = pAi.next();
             BigDecimal amountApplied = paymentAppl.getBigDecimal("amountApplied");

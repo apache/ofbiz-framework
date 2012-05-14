@@ -111,8 +111,8 @@ public class WorldPayEvents {
         List<GenericValue> addresses = null;
         List<GenericValue> shippingAddresses = null;
         try {
-            addresses = delegator.findByAnd("OrderContactMech", UtilMisc.toMap("orderId", orderId, "contactMechPurposeTypeId", "BILLING_LOCATION"));
-            shippingAddresses = delegator.findByAnd("OrderContactMech", UtilMisc.toMap("orderId", orderId, "contactMechPurposeTypeId", "SHIPPING_LOCATION"));
+            addresses = delegator.findByAnd("OrderContactMech", UtilMisc.toMap("orderId", orderId, "contactMechPurposeTypeId", "BILLING_LOCATION"), null, false);
+            shippingAddresses = delegator.findByAnd("OrderContactMech", UtilMisc.toMap("orderId", orderId, "contactMechPurposeTypeId", "SHIPPING_LOCATION"), null, false);
             if (addresses.size() == 0) {
                 addresses = shippingAddresses;
             }
@@ -175,7 +175,7 @@ public class WorldPayEvents {
         String emailAddress = null;
         GenericValue emailContact = null;
         try {
-            List<GenericValue> emails = delegator.findByAnd("OrderContactMech", UtilMisc.toMap("orderId", orderId, "contactMechPurposeTypeId", "ORDER_EMAIL"));
+            List<GenericValue> emails = delegator.findByAnd("OrderContactMech", UtilMisc.toMap("orderId", orderId, "contactMechPurposeTypeId", "ORDER_EMAIL"), null, false);
             GenericValue firstEmail = EntityUtil.getFirst(emails);
             emailContact = delegator.findOne("ContactMech", UtilMisc.toMap("contactMechId", firstEmail.getString("contactMechId")), false);
             emailAddress = emailContact.getString("infoString");
@@ -411,7 +411,7 @@ public class WorldPayEvents {
         List<GenericValue> paymentPrefs = null;
         try {
             Map<String, String> paymentFields = UtilMisc.toMap("orderId", orderId, "statusId", "PAYMENT_NOT_RECEIVED");
-            paymentPrefs = delegator.findByAnd("OrderPaymentPreference", paymentFields);
+            paymentPrefs = delegator.findByAnd("OrderPaymentPreference", paymentFields, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot get payment preferences for order #" + orderId, module);
             return false;

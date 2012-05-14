@@ -47,7 +47,7 @@ findMap = [ : ];
 if (findOrganizationPartyId) findMap.organizationPartyId = findOrganizationPartyId;
 if (currentCustomTimePeriodId) findMap.parentPeriodId = currentCustomTimePeriodId;
 
-customTimePeriods = delegator.findByAnd("CustomTimePeriod", findMap, ["periodTypeId", "periodNum", "fromDate"]);
+customTimePeriods = delegator.findByAnd("CustomTimePeriod", findMap, ["periodTypeId", "periodNum", "fromDate"], false);
 context.customTimePeriods = customTimePeriods;
 
 allCustomTimePeriods = delegator.findList("CustomTimePeriod", null, null, ["organizationPartyId", "parentPeriodId", "periodTypeId", "periodNum", "fromDate"], null, false);

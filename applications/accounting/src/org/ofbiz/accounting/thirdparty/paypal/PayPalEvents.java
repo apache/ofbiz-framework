@@ -408,7 +408,7 @@ public class PayPalEvents {
         List <GenericValue> paymentPrefs = null;
         try {
             Map <String, String> paymentFields = UtilMisc.toMap("orderId", orderId, "statusId", "PAYMENT_NOT_RECEIVED");
-            paymentPrefs = delegator.findByAnd("OrderPaymentPreference", paymentFields);
+            paymentPrefs = delegator.findByAnd("OrderPaymentPreference", paymentFields, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot get payment preferences for order #" + orderId, module);
             return false;

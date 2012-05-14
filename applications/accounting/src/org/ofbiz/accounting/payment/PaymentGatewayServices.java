@@ -232,7 +232,7 @@ public class PaymentGatewayServices {
 
                                     if (UtilValidate.isNotEmpty(billToPartyId)) {
                                         otherPaymentMethodAndCreditCardList = delegator.findByAnd("PaymentMethodAndCreditCard",
-                                                UtilMisc.toMap("partyId", billToPartyId, "paymentMethodTypeId", "CREDIT_CARD"));
+                                                UtilMisc.toMap("partyId", billToPartyId, "paymentMethodTypeId", "CREDIT_CARD"), null, false);
                                         otherPaymentMethodAndCreditCardList = EntityUtil.filterByDate(otherPaymentMethodAndCreditCardList, true);
                                     }
 
@@ -338,11 +338,11 @@ public class PaymentGatewayServices {
             // get the payments to auth
             Map<String, String> lookupMap = UtilMisc.toMap("orderId", orderId, "statusId", "PAYMENT_NOT_AUTH");
             List<String> orderList = UtilMisc.toList("maxAmount");
-            paymentPrefs = delegator.findByAnd("OrderPaymentPreference", lookupMap, orderList);
+            paymentPrefs = delegator.findByAnd("OrderPaymentPreference", lookupMap, orderList, false);
             if (reAuth) {
                 lookupMap.put("orderId", orderId);
                 lookupMap.put("statusId", "PAYMENT_AUTHORIZED");
-                paymentPrefs.addAll(delegator.findByAnd("OrderPaymentPreference", lookupMap, orderList));
+                paymentPrefs.addAll(delegator.findByAnd("OrderPaymentPreference", lookupMap, orderList, false));
             }
         } catch (GenericEntityException gee) {
             Debug.logError(gee, "Problems getting the order information", module);
@@ -1186,11 +1186,11 @@ public class PaymentGatewayServices {
             // get the payment prefs
             Map<String, String> lookupMap = UtilMisc.toMap("orderId", orderId, "statusId", "PAYMENT_AUTHORIZED");
             List<String> orderList = UtilMisc.toList("-maxAmount");
-            paymentPrefs = delegator.findByAnd("OrderPaymentPreference", lookupMap, orderList);
+            paymentPrefs = delegator.findByAnd("OrderPaymentPreference", lookupMap, orderList, false);
 
             if (UtilValidate.isNotEmpty(billingAccountId)) {
                 lookupMap = UtilMisc.toMap("orderId", orderId, "paymentMethodTypeId", "EXT_BILLACT", "statusId", "PAYMENT_NOT_RECEIVED");
-                paymentPrefsBa = delegator.findByAnd("OrderPaymentPreference", lookupMap, orderList);
+                paymentPrefsBa = delegator.findByAnd("OrderPaymentPreference", lookupMap, orderList, false);
             }
         } catch (GenericEntityException gee) {
             Debug.logError(gee, "Problems getting entity record(s), see stack trace", module);
@@ -1542,7 +1542,7 @@ public class PaymentGatewayServices {
                                     "orderId", orderId), locale));
                 }
                 // See if there's an orderPaymentPreference - there should be only one OPP for EXT_BILLACT per order
-                List<GenericValue> orderPaymentPreferences = delegator.findByAnd("OrderPaymentPreference", UtilMisc.toMap("orderId", orderId, "paymentMethodTypeId", "EXT_BILLACT"));
+                List<GenericValue> orderPaymentPreferences = delegator.findByAnd("OrderPaymentPreference", UtilMisc.toMap("orderId", orderId, "paymentMethodTypeId", "EXT_BILLACT"), null, false);
                 if (orderPaymentPreferences.size() > 0) {
                     GenericValue orderPaymentPreference = EntityUtil.getFirst(orderPaymentPreferences);
 
@@ -2300,7 +2300,7 @@ public class PaymentGatewayServices {
                 String orderId = paymentPreference.getString("orderId");
                 List<GenericValue> orl = null;
                 try {
-                    orl = delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "BILL_TO_CUSTOMER"));
+                    orl = delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "BILL_TO_CUSTOMER"), null, false);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }

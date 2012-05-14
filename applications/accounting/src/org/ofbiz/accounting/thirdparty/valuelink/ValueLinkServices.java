@@ -1107,7 +1107,7 @@ public class ValueLinkServices {
         try {
             Map<String, Object> fields = UtilMisc.toMap("productId", product.get("productId"), "productFeatureTypeId", "TYPE");
             List<String> order = UtilMisc.toList("-fromDate");
-            List<GenericValue> featureAppls = delegator.findByAndCache("ProductFeatureAndAppl", fields, order);
+            List<GenericValue> featureAppls = delegator.findByAnd("ProductFeatureAndAppl", fields, order, true);
             featureAppls = EntityUtil.filterByDate(featureAppls);
             typeFeature = EntityUtil.getFirst(featureAppls);
         } catch (GenericEntityException e) {
@@ -1137,7 +1137,7 @@ public class ValueLinkServices {
             Map<String, Object> fields = UtilMisc.<String, Object>toMap("orderId", orderId, 
                     "orderItemSeqId", orderItem.get("orderItemSeqId"), "surveyId", surveyId);
             List<String> order = UtilMisc.toList("-responseDate");
-            List<GenericValue> responses = delegator.findByAnd("SurveyResponse", fields, order);
+            List<GenericValue> responses = delegator.findByAnd("SurveyResponse", fields, order, false);
             // there should be only one
             surveyResponse = EntityUtil.getFirst(responses);
         } catch (GenericEntityException e) {
@@ -1392,7 +1392,7 @@ public class ValueLinkServices {
             Map<String, Object> fields = UtilMisc.toMap("orderId", orderId, 
                     "orderItemSeqId", orderItem.get("orderItemSeqId"), "surveyId", surveyId);
             List<String> order = UtilMisc.toList("-responseDate");
-            List<GenericValue> responses = delegator.findByAnd("SurveyResponse", fields, order);
+            List<GenericValue> responses = delegator.findByAnd("SurveyResponse", fields, order, false);
             // there should be only one
             surveyResponse = EntityUtil.getFirst(responses);
         } catch (GenericEntityException e) {

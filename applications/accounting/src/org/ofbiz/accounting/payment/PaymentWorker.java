@@ -59,7 +59,7 @@ public class PaymentWorker {
     public static List<Map<String, GenericValue>> getPartyPaymentMethodValueMaps(Delegator delegator, String partyId, Boolean showOld) {
         List<Map<String, GenericValue>> paymentMethodValueMaps = FastList.newInstance();
         try {
-            List<GenericValue> paymentMethods = delegator.findByAnd("PaymentMethod", UtilMisc.toMap("partyId", partyId));
+            List<GenericValue> paymentMethods = delegator.findByAnd("PaymentMethod", UtilMisc.toMap("partyId", partyId), null, false);
 
             if (!showOld) paymentMethods = EntityUtil.filterByDate(paymentMethods, true);
 
@@ -160,7 +160,7 @@ public class PaymentWorker {
         try {
             paymentAddresses = delegator.findByAnd("PartyContactMechPurpose",
                 UtilMisc.toMap("partyId", partyId, "contactMechPurposeTypeId", "PAYMENT_LOCATION"),
-                UtilMisc.toList("-fromDate"));
+                UtilMisc.toList("-fromDate"), false);
             paymentAddresses = EntityUtil.filterByDate(paymentAddresses);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting PartyContactMechPurpose entity list", module);

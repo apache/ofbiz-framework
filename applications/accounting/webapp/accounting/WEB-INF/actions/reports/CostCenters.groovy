@@ -50,7 +50,7 @@ andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LES
 andCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
 List postedTransactionTotals = delegator.findList("AcctgTransEntrySums", andCond, UtilMisc.toSet("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount"), UtilMisc.toList("glAccountId"), null, false);
 if (postedTransactionTotals) {
-    glAccountCategories = delegator.findByAnd("GlAccountCategory", [glAccountCategoryTypeId : 'COST_CENTER'], ['glAccountCategoryId']);
+    glAccountCategories = delegator.findByAnd("GlAccountCategory", [glAccountCategoryTypeId : 'COST_CENTER'], ['glAccountCategoryId'], false);
     context.glAccountCategories = glAccountCategories;
     Map postedTransactionTotalsMap = [:]
     postedTransactionTotals.each { postedTransactionTotal ->
@@ -67,7 +67,7 @@ if (postedTransactionTotals) {
         BigDecimal balance = debitAmount.subtract(creditAmount);
         accountMap.put("balance", balance);
         glAccountCategories.each { glAccountCategory ->
-            glAccountCategoryMember = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("GlAccountCategoryMember", [glAccountCategoryId : glAccountCategory.glAccountCategoryId, glAccountId: postedTransactionTotal.glAccountId], ['glAccountCategoryId'])));
+            glAccountCategoryMember = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("GlAccountCategoryMember", [glAccountCategoryId : glAccountCategory.glAccountCategoryId, glAccountId: postedTransactionTotal.glAccountId], ['glAccountCategoryId'], false)));
             if (glAccountCategoryMember) {
                 BigDecimal glAccountCategorySharePercentage = glAccountCategoryMember.amountPercentage;
                 if (glAccountCategorySharePercentage && glAccountCategorySharePercentage != BigDecimal.ZERO ) {

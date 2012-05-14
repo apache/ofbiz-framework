@@ -23,11 +23,11 @@ import javolution.util.FastMap;
 
 if (billingAccountId) {
     orderPaymentPreferencesList = [];
-    orderList = delegator.findByAnd("OrderHeader", [billingAccountId : billingAccountId]);
+    orderList = delegator.findByAnd("OrderHeader", [billingAccountId : billingAccountId], null, false);
     if (orderList) {
         orderList.each { orderHeader ->
             orderId = orderHeader.orderId;
-            orderBillingAcc = EntityUtil.getFirst(delegator.findByAnd("OrderHeaderAndPaymentPref", [orderId : orderId]));
+            orderBillingAcc = EntityUtil.getFirst(delegator.findByAnd("OrderHeaderAndPaymentPref", [orderId : orderId], null, false));
             orderBillingAccMap = FastMap.newInstance();
             if (orderBillingAcc.paymentMethodTypeId.equals("EXT_BILLACT") && orderBillingAcc.paymentStatusId.equals("PAYMENT_NOT_RECEIVED")) {
                 orderBillingAccMap.putAll(orderBillingAcc);
