@@ -95,11 +95,11 @@ projectActiveData = 0;
 projectClosedData = 0;
 
 try{
-    var projectActiveList = delegator.findByAnd("WorkEffortAndProduct", UtilMisc.toMap("productId", productId, "workEffortTypeId", "SCRUM_PROJECT", "currentStatusId", "SPJ_ACTIVE"));
+    var projectActiveList = delegator.findByAnd("WorkEffortAndProduct", UtilMisc.toMap("productId", productId, "workEffortTypeId", "SCRUM_PROJECT", "currentStatusId", "SPJ_ACTIVE"), null, false);
      if(projectActiveList != null) projectActiveData = projectActiveList.size();
     else projectActiveData = 0;
     
-    var projectClosedList = delegator.findByAnd("WorkEffortAndProduct", UtilMisc.toMap("productId", productId, "workEffortTypeId", "SCRUM_PROJECT", "currentStatusId", "SPJ_CLOSED"));
+    var projectClosedList = delegator.findByAnd("WorkEffortAndProduct", UtilMisc.toMap("productId", productId, "workEffortTypeId", "SCRUM_PROJECT", "currentStatusId", "SPJ_CLOSED"), null, false);
      if(projectClosedList != null) projectClosedData = projectClosedList.size();
     else projectClosedData = 0;
     

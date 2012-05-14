@@ -22,13 +22,13 @@ import org.ofbiz.base.util.Debug;
 try{
     // for sprint dropdown
     workEffortList = [];
-    sprintList = delegator.findByAnd("WorkEffort",["workEffortTypeId" : "SCRUM_SPRINT","currentStatusId" : "SPRINT_ACTIVE"]);
+    sprintList = delegator.findByAnd("WorkEffort",["workEffortTypeId" : "SCRUM_SPRINT","currentStatusId" : "SPRINT_ACTIVE"], null, false);
     if (sprintList) {
         sprintList.each{ sprintMap ->
             workEffortMap = [:];
             workEffortParentId = sprintMap.workEffortParentId;
             if (workEffortParentId) {
-               projectList = delegator.findByAnd("WorkEffortAndProduct",["workEffortId" : workEffortParentId]);
+               projectList = delegator.findByAnd("WorkEffortAndProduct",["workEffortId" : workEffortParentId], null, false);
                projectMap = projectList[0];
                // make sure that project dose not closed
                if (projectMap.currentStatusId != "SPJ_CLOSED") {
@@ -59,9 +59,9 @@ try{
     }
     categoryList = [];
     if (productId) {
-        sprintList = delegator.findByAnd("CustRequestAndCustRequestItem",["custRequestTypeId" : "RF_PARENT_BACKLOG","productId" : productId]);
+        sprintList = delegator.findByAnd("CustRequestAndCustRequestItem",["custRequestTypeId" : "RF_PARENT_BACKLOG","productId" : productId], null, false);
     } else {
-        sprintList = delegator.findByAnd("CustRequestAndCustRequestItem",["custRequestTypeId" : "RF_PARENT_BACKLOG"]);
+        sprintList = delegator.findByAnd("CustRequestAndCustRequestItem",["custRequestTypeId" : "RF_PARENT_BACKLOG"], null, false);
     }
     if (sprintList) {
         sprintList.each{ categoryMap ->

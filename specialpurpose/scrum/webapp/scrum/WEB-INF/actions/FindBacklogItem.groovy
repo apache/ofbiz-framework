@@ -32,7 +32,7 @@ import java.sql.Timestamp;
 productId =parameters.productId;
 custRequestList=[];
 backlogList=[];
-custRequestList = delegator.findByAnd("CustRequestItem", ["productId" : productId]);
+custRequestList = delegator.findByAnd("CustRequestItem", ["productId" : productId], null, false);
 custRequestList.each { custRequestListMap ->
     custRequestId=custRequestListMap.custRequestId;
     exprBldr = FastList.newInstance();
@@ -46,7 +46,7 @@ custRequestList.each { custRequestListMap ->
     productBacklogList = delegator.findList("CustRequest", custRequestTypeCond, null,orderBy ,null, false);
     productBacklogList.each { productBacklogMap ->
         productBackId = productBacklogMap.custRequestId;
-        taskBacklogList = delegator.findByAnd("CustRequestWorkEffort", ["custRequestId" : productBackId]);
+        taskBacklogList = delegator.findByAnd("CustRequestWorkEffort", ["custRequestId" : productBackId], null, false);
         int countImplTask=0, countImplTaskComplete=0, countInstallTask=0, countInstallTaskComplete=0, countErrTask=0, countErrTaskComplete=0, countTestTask=0;
         taskBacklogList.each { taskBacklogMap ->
             taskId = taskBacklogMap.workEffortId;

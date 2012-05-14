@@ -141,7 +141,7 @@ installCompleted = 0;
 testCompleted = 0;
 
 try{
-    var workEffortErrorList = delegator.findByAnd("WorkEffortAndProduct", UtilMisc.toMap("productId", productId,"workEffortTypeId","SCRUM_PROJECT"));
+    var workEffortErrorList = delegator.findByAnd("WorkEffortAndProduct", UtilMisc.toMap("productId", productId,"workEffortTypeId","SCRUM_PROJECT"), null, false);
      // for implementation task
     var unplannedImpleConds = FastList.newInstance();
     unplannedImpleConds.add(EntityCondition.makeCondition("productId",EntityOperator.EQUALS, productId));

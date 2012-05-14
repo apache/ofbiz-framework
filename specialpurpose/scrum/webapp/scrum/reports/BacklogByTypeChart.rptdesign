@@ -95,11 +95,11 @@ unplannedData = 0;
 plannedData = 0;
 
 try{
-    var unplannedList = delegator.findByAnd("CustRequestAndCustRequestItem", UtilMisc.toMap("productId", productId,"custRequestTypeId","RF_UNPLAN_BACKLOG"));
+    var unplannedList = delegator.findByAnd("CustRequestAndCustRequestItem", UtilMisc.toMap("productId", productId,"custRequestTypeId","RF_UNPLAN_BACKLOG"), null, false);
      if(unplannedList != null) unplannedData = unplannedList.size();
     else unplannedData = 0;
     
-    var plannedList = delegator.findByAnd("CustRequestAndCustRequestItem", UtilMisc.toMap("productId", productId,"custRequestTypeId","RF_PROD_BACKLOG"));
+    var plannedList = delegator.findByAnd("CustRequestAndCustRequestItem", UtilMisc.toMap("productId", productId,"custRequestTypeId","RF_PROD_BACKLOG"), null, false);
      if(plannedList != null) plannedData = plannedList.size();
     else plannedData = 0;
     

@@ -170,7 +170,7 @@ if ((taskId != null)||(taskName != null)||(taskTypeId != null)||(sprintId != nul
         resultList = [];
         assignedList.each { assignedMap ->
             workEffortId = assignedMap.taskId;
-            assignToList = delegator.findByAnd("WorkEffortPartyAssignment",["workEffortId" : workEffortId, "partyId" : partyId]);
+            assignToList = delegator.findByAnd("WorkEffortPartyAssignment",["workEffortId" : workEffortId, "partyId" : partyId], null, false);
             if (assignToList) {
                 assignedMap.partyId = assignToList[0].partyId;
                 resultList.add(assignedMap);
@@ -181,7 +181,7 @@ if ((taskId != null)||(taskName != null)||(taskTypeId != null)||(sprintId != nul
         resultList = [];
         assignedList.each { assignedMap ->
             workEffortId = assignedMap.taskId;
-            assignToList = delegator.findByAnd("WorkEffortPartyAssignment",["workEffortId" : workEffortId]);
+            assignToList = delegator.findByAnd("WorkEffortPartyAssignment",["workEffortId" : workEffortId], null, false);
             if (assignToList) {
                 assignedMap.partyId = assignToList[0].partyId;
                 resultList.add(assignedMap);

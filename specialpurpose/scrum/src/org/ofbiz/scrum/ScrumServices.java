@@ -86,7 +86,7 @@ public class ScrumServices {
                                     communicationEventProduct.create();
                                 }
                                 try {
-                                    List<GenericValue> productRoleList = delegator.findByAnd("ProductRole", UtilMisc.toMap("productId",productId, "partyId", communicationEvent.getString("partyIdFrom"), "roleTypeId","PRODUCT_OWNER"));
+                                    List<GenericValue> productRoleList = delegator.findByAnd("ProductRole", UtilMisc.toMap("productId",productId, "partyId", communicationEvent.getString("partyIdFrom"), "roleTypeId","PRODUCT_OWNER"), null, false);
                                     GenericValue productRoleMap = EntityUtil.getFirst(productRoleList);
                                     GenericValue userLogin = (GenericValue) context.get("userLogin");
                                     // also close the incoming communication event
@@ -213,7 +213,7 @@ public class ScrumServices {
                         Debug.logInfo("Revision Link ============== >>>>>>>>>>> "+ revisionLink, module);
                         if (UtilValidate.isNotEmpty(taskId)) {
                             String version = "R" + i;
-                            List <GenericValue> workeffContentList = delegator.findByAnd("WorkEffortAndContentDataResource", UtilMisc.toMap("contentName",version.trim() ,"drObjectInfo", revisionLink.trim()));
+                            List <GenericValue> workeffContentList = delegator.findByAnd("WorkEffortAndContentDataResource", UtilMisc.toMap("contentName",version.trim() ,"drObjectInfo", revisionLink.trim()), null, false);
                             List<EntityCondition> exprsAnd = FastList.newInstance();
                             exprsAnd.add(EntityCondition.makeCondition("workEffortId", EntityOperator.EQUALS, taskId));
 

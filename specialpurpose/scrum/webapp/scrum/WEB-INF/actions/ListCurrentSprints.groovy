@@ -39,7 +39,7 @@ countSprint = 0;
 sprints = [];
 allSprints.each { sprint ->
     newProjectId = sprint.projectId;
-    productAndRole = delegator.findByAnd("ProductAndRole", ["roleTypeId" : "PRODUCT_OWNER_COMP", "productId" : sprint.productId], null);
+    productAndRole = delegator.findByAnd("ProductAndRole", ["roleTypeId" : "PRODUCT_OWNER_COMP", "productId" : sprint.productId], null, false);
     companyId = "";
     companyName = "";
     if (productAndRole.size() > 0) {
@@ -61,7 +61,7 @@ allSprints.each { sprint ->
        if (partyAndSecurityGroupList) {
            groupId = partyAndSecurityGroupList[0].groupId;
            if ("SCRUM_PRODUCT_OWNER".equals(groupId)) {
-               productAndRoleList = delegator.findByAnd("ProductRole", ["productId" : sprint.productId, "partyId" : partyAndSecurityGroupList.getAt(0).partyId, "thruDate" : null]);
+               productAndRoleList = delegator.findByAnd("ProductRole", ["productId" : sprint.productId, "partyId" : partyAndSecurityGroupList.getAt(0).partyId, "thruDate" : null], null, false);
                if (productAndRoleList) {
                    ismember = true;
                    }
@@ -74,7 +74,7 @@ allSprints.each { sprint ->
                    EntityCondition.makeCondition ("thruDate", EntityOperator.EQUALS, null)
                    ], EntityJoinOperator.AND);
                scrumRolesPersonAndCompanyList = delegator.findList("ScrumRolesPersonAndCompany", scrumRolesCond, null, null, null, false);
-               productRoleList = delegator.findByAnd("ProductRole", ["partyId" : scrumRolesPersonAndCompanyList[0].partyIdFrom, "roleTypeId" : "PRODUCT_OWNER_COMP", "thruDate" : null]);
+               productRoleList = delegator.findByAnd("ProductRole", ["partyId" : scrumRolesPersonAndCompanyList[0].partyIdFrom, "roleTypeId" : "PRODUCT_OWNER_COMP", "thruDate" : null], null, false);
                if (productRoleList) {
                    productRoleList.each { productRoleMap ->
                        stakeholderProduct = productRoleMap.productId;
@@ -86,7 +86,7 @@ allSprints.each { sprint ->
                //check in product.
                if (ismember == false) {
                    productAndRoleList = delegator.findByAnd("ProductAndRole", ["productId" : sprint.productId, "partyId" : userLogin.partyId
-                       , "roleTypeId" : "STAKEHOLDER", "supportDiscontinuationDate" : null, "thruDate" : null]);
+                       , "roleTypeId" : "STAKEHOLDER", "supportDiscontinuationDate" : null, "thruDate" : null], null, false);
                    if (productAndRoleList) {
                        ismember = true;
                    }
@@ -95,13 +95,13 @@ allSprints.each { sprint ->
                //check in product
                productRoleList = [];
                productRoleList = delegator.findByAnd("ProductAndRole", ["productId" : sprint.productId, "partyId" : userLogin.partyId
-                   , "roleTypeId" : "SCRUM_MASTER", "supportDiscontinuationDate" : null, "thruDate" : null]);
+                   , "roleTypeId" : "SCRUM_MASTER", "supportDiscontinuationDate" : null, "thruDate" : null], null, false);
                if (productRoleList) {
                    ismember = true;
                }
                //check in project.
                if (ismember == false) {
-                   projectPartyAssignment = delegator.findByAnd("WorkEffortPartyAssignment", ["workEffortId" : sprint.projectId, "partyId" : userLogin.partyId]);
+                   projectPartyAssignment = delegator.findByAnd("WorkEffortPartyAssignment", ["workEffortId" : sprint.projectId, "partyId" : userLogin.partyId], null, false);
                    if (projectPartyAssignment) {
                        ismember = true;
                    }
@@ -109,10 +109,10 @@ allSprints.each { sprint ->
                //check in sprint.
                if (ismember == false) {
                    allSprintList = [];
-                   allSprintList = delegator.findByAnd("WorkEffort", ["workEffortParentId" : sprint.projectId]);
+                   allSprintList = delegator.findByAnd("WorkEffort", ["workEffortParentId" : sprint.projectId], null, false);
                    allSprintList.each { SprintListMap ->
                        sprintId = SprintListMap.workEffortId;
-                       workEffortPartyAssignment = delegator.findByAnd("WorkEffortPartyAssignment", ["workEffortId" : sprintId, "partyId" : userLogin.partyId]);
+                       workEffortPartyAssignment = delegator.findByAnd("WorkEffortPartyAssignment", ["workEffortId" : sprintId, "partyId" : userLogin.partyId], null, false);
                        if (workEffortPartyAssignment) {
                            ismember = true;
                        }
@@ -120,10 +120,10 @@ allSprints.each { sprint ->
                }
            } else {
                allSprintList = [];
-               allSprintList = delegator.findByAnd("WorkEffort", ["workEffortParentId" : sprint.projectId]);
+               allSprintList = delegator.findByAnd("WorkEffort", ["workEffortParentId" : sprint.projectId], null, false);
                allSprintList.each { SprintListMap ->
                    sprintId = SprintListMap.workEffortId;
-                   workEffortPartyAssignment = delegator.findByAnd("WorkEffortPartyAssignment", ["workEffortId" : sprintId, "partyId" : userLogin.partyId]);
+                   workEffortPartyAssignment = delegator.findByAnd("WorkEffortPartyAssignment", ["workEffortId" : sprintId, "partyId" : userLogin.partyId], null, false);
                    if (workEffortPartyAssignment) {
                        ismember = true;
                    }
@@ -143,7 +143,7 @@ allSprints.each { sprint ->
            if (partyAndSecurityGroupList) {
                groupId = partyAndSecurityGroupList[0].groupId;
                if ("SCRUM_PRODUCT_OWNER".equals(groupId)) {
-                   productAndRoleList = delegator.findByAnd("ProductRole", ["productId" : sprint.productId, "partyId" : partyAndSecurityGroupList.getAt(0).partyId, "thruDate" : null]);
+                   productAndRoleList = delegator.findByAnd("ProductRole", ["productId" : sprint.productId, "partyId" : partyAndSecurityGroupList.getAt(0).partyId, "thruDate" : null], null, false);
                    if (productAndRoleList) {
                        ismember = true;
                    }
@@ -156,7 +156,7 @@ allSprints.each { sprint ->
                            EntityCondition.makeCondition ("thruDate", EntityOperator.EQUALS, null)
                            ], EntityJoinOperator.AND);
                        scrumRolesPersonAndCompanyList = delegator.findList("ScrumRolesPersonAndCompany", scrumRolesCond, null, null, null, false);
-                       productRoleList = delegator.findByAnd("ProductRole", ["partyId" : scrumRolesPersonAndCompanyList[0].partyIdFrom, "roleTypeId" : "PRODUCT_OWNER_COMP", "thruDate" : null]);
+                       productRoleList = delegator.findByAnd("ProductRole", ["partyId" : scrumRolesPersonAndCompanyList[0].partyIdFrom, "roleTypeId" : "PRODUCT_OWNER_COMP", "thruDate" : null], null, false);
                        if (productRoleList) {
                            productRoleList.each { productRoleMap ->
                                stakeholderProduct = productRoleMap.productId;
@@ -168,7 +168,7 @@ allSprints.each { sprint ->
                        //check in product.
                        if (ismember == false) {
                            productAndRoleList = delegator.findByAnd("ProductAndRole", ["productId" : sprint.productId, "partyId" : userLogin.partyId
-                               , "roleTypeId" : "STAKEHOLDER", "supportDiscontinuationDate" : null, "thruDate" : null]);
+                               , "roleTypeId" : "STAKEHOLDER", "supportDiscontinuationDate" : null, "thruDate" : null], null, false);
                            if (productAndRoleList) {
                                ismember = true;
                            }
@@ -177,13 +177,13 @@ allSprints.each { sprint ->
                        //check in product
                        productRoleList = [];
                        productRoleList = delegator.findByAnd("ProductAndRole", ["productId" : sprint.productId, "partyId" : userLogin.partyId
-                           , "roleTypeId" : "SCRUM_MASTER", "supportDiscontinuationDate" : null, "thruDate" : null]);
+                           , "roleTypeId" : "SCRUM_MASTER", "supportDiscontinuationDate" : null, "thruDate" : null], null, false);
                        if (productRoleList) {
                            ismember = true;
                        }
                        //check in project.
                        if (ismember == false) {
-                           projectPartyAssignment = delegator.findByAnd("WorkEffortPartyAssignment", ["workEffortId" : sprint.projectId, "partyId" : userLogin.partyId]);
+                           projectPartyAssignment = delegator.findByAnd("WorkEffortPartyAssignment", ["workEffortId" : sprint.projectId, "partyId" : userLogin.partyId], null, false);
                            if (projectPartyAssignment) {
                                ismember = true;
                            }
@@ -191,10 +191,10 @@ allSprints.each { sprint ->
                        //check in sprint.
                        if (ismember == false) {
                            allSprintList = [];
-                           allSprintList = delegator.findByAnd("WorkEffort", ["workEffortParentId" : sprint.projectId]);
+                           allSprintList = delegator.findByAnd("WorkEffort", ["workEffortParentId" : sprint.projectId], null, false);
                            allSprintList.each { SprintListMap ->
                                sprintId = SprintListMap.workEffortId;
-                               workEffortPartyAssignment = delegator.findByAnd("WorkEffortPartyAssignment", ["workEffortId" : sprintId, "partyId" : userLogin.partyId]);
+                               workEffortPartyAssignment = delegator.findByAnd("WorkEffortPartyAssignment", ["workEffortId" : sprintId, "partyId" : userLogin.partyId], null, false);
                                if (workEffortPartyAssignment) {
                                    ismember = true;
                                }
@@ -202,10 +202,10 @@ allSprints.each { sprint ->
                        }
                } else {
                    allSprintList = [];
-                   allSprintList = delegator.findByAnd("WorkEffort", ["workEffortParentId" : sprint.projectId]);
+                   allSprintList = delegator.findByAnd("WorkEffort", ["workEffortParentId" : sprint.projectId], null, false);
                    allSprintList.each { SprintListMap ->
                        sprintId = SprintListMap.workEffortId;
-                       workEffortPartyAssignment = delegator.findByAnd("WorkEffortPartyAssignment", ["workEffortId" : sprintId, "partyId" : userLogin.partyId]);
+                       workEffortPartyAssignment = delegator.findByAnd("WorkEffortPartyAssignment", ["workEffortId" : sprintId, "partyId" : userLogin.partyId], null, false);
                        if (workEffortPartyAssignment) {
                            ismember = true;
                        }

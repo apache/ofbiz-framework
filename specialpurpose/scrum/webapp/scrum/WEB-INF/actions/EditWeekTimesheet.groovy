@@ -66,7 +66,7 @@ context.weekNumber = UtilDateTime.weekNumber(timesheet.fromDate);
 // get the user names
 context.partyNameView = delegator.findOne("PartyNameView",["partyId" : partyId], false);
 // get the default rate for this person
-rateTypes = EntityUtil.filterByDate(delegator.findByAnd("PartyRate", ["partyId" : partyId, "defaultRate" : "Y"]));
+rateTypes = EntityUtil.filterByDate(delegator.findByAnd("PartyRate", ["partyId" : partyId, "defaultRate" : "Y"], null, false));
 if (rateTypes) {
     context.defaultRateTypeId = rateTypes[0].rateTypeId;
 }
@@ -189,7 +189,7 @@ if (timeEntry) {
 }
 context.timeEntries = entries;
 // get all timesheets of this user, including the planned hours
-timesheetsDb = delegator.findByAnd("Timesheet", ["partyId" : partyId], ["fromDate DESC"]);
+timesheetsDb = delegator.findByAnd("Timesheet", ["partyId" : partyId], ["fromDate DESC"], false);
 timesheets = new LinkedList();
 timesheetsDb.each { timesheetDb ->
     timesheet = [:];

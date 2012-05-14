@@ -22,7 +22,7 @@ under the License.
 <#assign actualCompletionDay = Static["org.ofbiz.base.util.UtilDateTime"].getDayStart(sprint.actualCompletionDate, timeZone, locale)/>
 <#assign dayNumber = ((actualCompletionDay.getTime() - actualStartDay.getTime())/1000/60/60/24) + 1/>
 <#assign estimatedHrs = sprint.estimatedMilliSeconds/1000/60/60/>
-<#assign members = delegator.findByAnd("WorkEffortPartyAssignment", Static["org.ofbiz.base.util.UtilMisc"].toMap("workEffortId", parameters.get("sprintId")))/>
+<#assign members = delegator.findByAnd("WorkEffortPartyAssignment", Static["org.ofbiz.base.util.UtilMisc"].toMap("workEffortId", parameters.get("sprintId")), null, false)/>
 <#if members.size() &gt; 0 >
     <#assign maxHours = estimatedHrs * members.size()/>
     <div id="params_birtReport" style='display:none'>

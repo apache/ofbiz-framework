@@ -80,7 +80,7 @@ if (scrumUserLoginSecurityGroupList) {
     context.userPreferenceList = userPreferenceOutList;
 } else {
     if (security.hasEntityPermission("SCRUM", "_ADMIN", session)) {
-        userPreferenceList = delegator.findByAnd("Enumeration", [enumTypeId : "SCRUM_PREFERENCE"], ["sequenceId"]);
+        userPreferenceList = delegator.findByAnd("Enumeration", [enumTypeId : "SCRUM_PREFERENCE"], ["sequenceId"], false);
         context.userPreferenceList = userPreferenceList;
     }
 }

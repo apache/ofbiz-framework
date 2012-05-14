@@ -38,11 +38,11 @@ taskListDropdown = [];
 
 //${projectId} - ${projectName} - ${sprintName} - ${groovy:description.substring(0,Math.min(description.length(),30))}[${custRequestId}] - ${groovy:taskName.substring(0,Math.min(taskName.length(),20))}[${taskId}]"/>
 
-taskUnplanList = delegator.findByAnd("ProjectSprintBacklogTaskAndParty", ["partyId" : partyId,"taskCurrentStatusId": "STS_CREATED","custRequestTypeId":"RF_UNPLAN_BACKLOG"],["taskTypeId"]);
+taskUnplanList = delegator.findByAnd("ProjectSprintBacklogTaskAndParty", ["partyId" : partyId,"taskCurrentStatusId": "STS_CREATED","custRequestTypeId":"RF_UNPLAN_BACKLOG"],["taskTypeId"], false);
 taskUnplanList.each { taskUnplanMap ->
 	unplanMap=[:];
 	custRequestId = taskUnplanMap.custRequestId;
-	productlist = delegator.findByAnd("CustRequestItem", ["custRequestId" : custRequestId],["productId"]);
+	productlist = delegator.findByAnd("CustRequestItem", ["custRequestId" : custRequestId],["productId"], false);
 	productlist.each { productMap ->
 		productId = productMap.productId;
 		product = delegator.findOne("Product",["productId":productId], false);
@@ -76,7 +76,7 @@ taskPlanList = delegator.findList("ProjectSprintBacklogTaskAndParty", custReques
 taskPlanList.each { taskPlanMap ->
     planMap=[:];
     if ("RF_SCRUM_MEETINGS".equals(taskPlanMap.custRequestTypeId)) {
-        workEffPartyAssignedList = delegator.findByAnd("WorkEffortPartyAssignment",["partyId" : partyId, "workEffortId" : taskPlanMap.taskId]);
+        workEffPartyAssignedList = delegator.findByAnd("WorkEffortPartyAssignment",["partyId" : partyId, "workEffortId" : taskPlanMap.taskId], null, false);
         workEffPartyAssignedMap = workEffPartyAssignedList[0];
         if (!"SCAS_COMPLETED".equals(workEffPartyAssignedMap.statusId)) {
             taskPartyList.add(taskPlanMap);
@@ -88,7 +88,7 @@ taskPlanList.each { taskPlanMap ->
             taskListDropdown.add(taskPlanMap);
         } else {
             custRequestId = taskPlanMap.custRequestId;
-            productlist = delegator.findByAnd("CustRequestItem", ["custRequestId" : custRequestId],["productId"]);
+            productlist = delegator.findByAnd("CustRequestItem", ["custRequestId" : custRequestId],["productId"], false);
             product = delegator.findOne("Product",["productId":productlist[0].productId], false);
             productName = product.internalName;
             planMap.taskId = taskPlanMap.taskId;

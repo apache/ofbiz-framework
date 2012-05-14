@@ -38,12 +38,12 @@ try{
         communicationEvent.communicationEventTypeId = "EMAIL_COMMUNICATION";
         communicationEvent.contactMechTypeId = "EMAIL_ADDRESS";
         communicationEvent.datetimeStarted = now;
-        checkOwner = delegator.findByAnd("ProductRole",["productId" : productId,"partyId" : loginPartyId,"roleTypeId" : "PRODUCT_OWNER"]);
+        checkOwner = delegator.findByAnd("ProductRole",["productId" : productId,"partyId" : loginPartyId,"roleTypeId" : "PRODUCT_OWNER"], null, false);
         if (checkOwner) {
             /* for product owner to our company */
             
             // for owner
-            productRole = delegator.findByAnd("ProductRole",["productId" : productId,"roleTypeId" : "PRODUCT_OWNER"]);
+            productRole = delegator.findByAnd("ProductRole",["productId" : productId,"roleTypeId" : "PRODUCT_OWNER"], null, false);
             context.productOwnerId = productRole[0].partyId
             parentCom = delegator.findOne("CommunicationEvent",["communicationEventId" : communicationEventId], false);
             if (parentCom) {
@@ -78,7 +78,7 @@ try{
                 communicationEvent.contactMechIdFrom = resultsIdFrom.contactMechId;
             }
             // for owner
-            productRole = delegator.findByAnd("ProductRole",["productId" : productId,"roleTypeId" : "PRODUCT_OWNER"]);
+            productRole = delegator.findByAnd("ProductRole",["productId" : productId,"roleTypeId" : "PRODUCT_OWNER"], null, false);
             context.productOwnerId = productRole[0].partyId;
             parentCom = delegator.findOne("CommunicationEvent",["communicationEventId" : communicationEventId], false);
             if(parentCom){

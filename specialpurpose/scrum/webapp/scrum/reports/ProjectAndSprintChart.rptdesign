@@ -127,7 +127,7 @@ productId = params["productId"].value;
             <method name="open"><![CDATA[resultList = FastList.newInstance();
 var projectList = null;
 try{
-    var projectList = delegator.findByAnd("WorkEffortAndProduct", UtilMisc.toMap("productId", productId, "workEffortTypeId", "SCRUM_PROJECT"));
+    var projectList = delegator.findByAnd("WorkEffortAndProduct", UtilMisc.toMap("productId", productId, "workEffortTypeId", "SCRUM_PROJECT"), null, false);
     if (projectList != null) {
         for (i = 0;i < projectList.size(); i++ ) {
             var inputMap = FastMap.newInstance();

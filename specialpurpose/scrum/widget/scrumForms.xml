@@ -292,7 +292,7 @@ under the License.
                 <field-map field-name="productId" from-field="workeffAndProList[0].productId"/>
             </entity-one>
             <set field="maxHours" value="${groovy: 
-                def memberSize = delegator.findByAnd(&quot;WorkEffortPartyAssignment&quot;, [&quot;workEffortId&quot;: parameters.sprintId]);
+                def memberSize = delegator.findByAnd(&quot;WorkEffortPartyAssignment&quot;, [&quot;workEffortId&quot;: parameters.sprintId], null, false);
                 maxHours = memberSize.size() * context.estimatedHrs * 40;
             }"/>
             <service service-name="getScrumPlanHour" result-map="planHourOutMap">
