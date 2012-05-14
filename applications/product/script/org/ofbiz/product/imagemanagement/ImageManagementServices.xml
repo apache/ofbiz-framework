@@ -182,10 +182,16 @@ under the License.
             <remove-value value-field="contentApproval"/>
         </iterate>
         
+        <entity-and entity-name="ContentKeyword" list="contentKeywords">
+            <field-map field-name="contentId" from-field="parameters.contentId"/>
+        </entity-and>
+        <iterate entry="contentKeyword" list="contentKeywords">
+            <remove-value value-field="contentKeyword"/>
+        </iterate>
+        
         <entity-one value-field="content" entity-name="Content">
             <field-map field-name="contentId" from-field="parameters.contentId"/>
         </entity-one>
-        
         <set field="removeContentPKMap.contentId" from-field="parameters.contentId"/>
         <set-service-fields service-name="removeContent" map="removeContentPKMap" to-map="removeContentMap"/>
         <call-service service-name="removeContent" in-map-name="removeContentMap"/>
@@ -201,7 +207,6 @@ under the License.
         <entity-one value-field="dataResource" entity-name="DataResource">
             <field-map field-name="dataResourceId" from-field="dataResourceId"/>
         </entity-one>
-        
         <set field="removeImageFile.productId" from-field="parameters.productId"/>
         <set field="removeImageFile.contentId" from-field="parameters.contentId"/>
         <set field="removeImageFile.objectInfo" from-field="dataResource.objectInfo"/>
