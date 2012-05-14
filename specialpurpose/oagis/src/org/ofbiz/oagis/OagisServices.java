@@ -444,7 +444,7 @@ public class OagisServices {
 
             if (UtilValidate.isNotEmpty(referenceId) && (UtilValidate.isEmpty(component) || UtilValidate.isEmpty(task) || UtilValidate.isEmpty(referenceId))) {
                 // try looking up by just the referenceId, those alone are often unique, return error if there is more than one result
-                List<GenericValue> oagisMessageInfoList = delegator.findByAnd("OagisMessageInfo", UtilMisc.toMap("referenceId", referenceId));
+                List<GenericValue> oagisMessageInfoList = delegator.findByAnd("OagisMessageInfo", UtilMisc.toMap("referenceId", referenceId), null, false);
                 if (oagisMessageInfoList.size() == 1) {
                     oagisMessageInfo = oagisMessageInfoList.get(0);
                 } else if (oagisMessageInfoList.size() > 1) {
