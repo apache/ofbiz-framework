@@ -105,7 +105,7 @@ if ((parameters.billed != null)||(parameters.parentCustRequestId != null)||(para
         tempBacklog.custSequenceNum = countSequenceBacklog;
         tempBacklog.realSequenceNum = backlogItem.custSequenceNum;
         // if custRequest has task then get Actual Hours
-        backlogCustWorkEffortList = delegator.findByAnd("CustRequestWorkEffort",["custRequestId" : backlogItem.custRequestId]);
+        backlogCustWorkEffortList = delegator.findByAnd("CustRequestWorkEffort",["custRequestId" : backlogItem.custRequestId], null, false);
         if (backlogCustWorkEffortList) {
             actualHours = 0.00;
             backlogCustWorkEffortList.each() { custWorkEffortMap ->

@@ -79,7 +79,7 @@ if (parameters.sprintId) {
     reviewedBacklog = 0;
     totalbacklog = 0;
     allTask = [];
-    sprintList = delegator.findByAnd("CustRequestWorkEffort", ["workEffortId" : parameters.sprintId]);
+    sprintList = delegator.findByAnd("CustRequestWorkEffort", ["workEffortId" : parameters.sprintId], null, false);
     sprintList.each { sprintMap ->
         custMap = sprintMap.getRelatedOne("CustRequest");
         //if ("RF_PROD_BACKLOG".equals(custMap.custRequestTypeId)) {

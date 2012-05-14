@@ -75,10 +75,10 @@ if ((parameters.productId != null)||(parameters.custRequestId != null)||(paramet
             inputMap.contentName = revisionMap.contentName;
             inputMap.description = revisionMap.description;
             inputMap.drObjectInfo = revisionMap.drObjectInfo;
-            custAndWorkEfffList = delegator.findByAnd("CustRequestAndWorkEffort", ["workEffortId" : revisionMap.workEffortId]);
+            custAndWorkEfffList = delegator.findByAnd("CustRequestAndWorkEffort", ["workEffortId" : revisionMap.workEffortId], null, false);
             if (custAndWorkEfffList) {
                 custAndWorkEfffMap = custAndWorkEfffList[0];
-                custAndCustItemList = delegator.findByAnd("CustRequestAndCustRequestItem", ["custRequestId" : custAndWorkEfffMap.custRequestId]);
+                custAndCustItemList = delegator.findByAnd("CustRequestAndCustRequestItem", ["custRequestId" : custAndWorkEfffMap.custRequestId], null, false);
                 if (custAndCustItemList) {
                     custAndCustItemMap = custAndCustItemList[0];
                     inputMap.productId = custAndCustItemMap.productId;

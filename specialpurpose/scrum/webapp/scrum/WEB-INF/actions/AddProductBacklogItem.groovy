@@ -54,7 +54,7 @@ custRequestAndItems.each() { custRequestAndItem ->
     tempCustRequestAndItem.custSequenceNum = countSequence;
     tempCustRequestAndItem.realSequenceNum = custRequestAndItem.custSequenceNum;
     // if custRequest has task then get Actual Hours
-    custWorkEffortList = delegator.findByAnd("CustRequestWorkEffort",["custRequestId" : custRequestAndItem.custRequestId]);
+    custWorkEffortList = delegator.findByAnd("CustRequestWorkEffort",["custRequestId" : custRequestAndItem.custRequestId], null, false);
     if (custWorkEffortList) {
         actualHours = 0.00;
         custWorkEffortList.each() { custWorkEffortMap ->
@@ -113,7 +113,7 @@ unplannedList.each() { unplannedItem ->
     tempUnplanned.custSequenceNum = countSequenceUnplanned;
     tempUnplanned.realSequenceNum = unplannedItem.custSequenceNum;
     // if custRequest has task then get Actual Hours
-    unplanCustWorkEffortList = delegator.findByAnd("CustRequestWorkEffort",["custRequestId" : unplannedItem.custRequestId]);
+    unplanCustWorkEffortList = delegator.findByAnd("CustRequestWorkEffort",["custRequestId" : unplannedItem.custRequestId], null, false);
     if (unplanCustWorkEffortList) {
         actualHours = 0.00;
         unplanCustWorkEffortList.each() { custWorkEffortMap ->

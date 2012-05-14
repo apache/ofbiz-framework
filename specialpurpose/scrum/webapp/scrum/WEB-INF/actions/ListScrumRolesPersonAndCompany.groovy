@@ -25,7 +25,7 @@ productId = parameters.productId
 personAndCompanyList = [];
 
 if (productId) {
-    productRoleList = delegator.findByAnd("ProductRole", ["productId" : productId, "roleTypeId" : "PRODUCT_OWNER_COMP"]);
+    productRoleList = delegator.findByAnd("ProductRole", ["productId" : productId, "roleTypeId" : "PRODUCT_OWNER_COMP"], null, false);
     if (productRoleList) {
         personAndComCond = EntityCondition.makeCondition([
             EntityCondition.makeCondition ("roleTypeId", EntityOperator.EQUALS, "PRODUCT_OWNER"),

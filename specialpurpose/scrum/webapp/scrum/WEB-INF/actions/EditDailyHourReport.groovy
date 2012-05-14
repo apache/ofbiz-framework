@@ -67,7 +67,7 @@ context.weekNumber = UtilDateTime.weekNumber(timesheet.fromDate);
 // get the user names
 context.partyNameView = delegator.findOne("PartyNameView",["partyId" : partyId], false);
 // get the default rate for this person
-rateTypes = EntityUtil.filterByDate(delegator.findByAnd("PartyRate", ["partyId" : partyId, "defaultRate" : "Y"]));
+rateTypes = EntityUtil.filterByDate(delegator.findByAnd("PartyRate", ["partyId" : partyId, "defaultRate" : "Y"], null, false));
 if (rateTypes) {
     context.defaultRateTypeId = rateTypes[0].rateTypeId;
 }
@@ -108,7 +108,7 @@ void retrieveWorkEffortData() {
             //entry.plannedHours = pHours;
             planHours = 0.0;
             planHours = lastTimeEntry.planHours;
-            lastTimeEntryOfTasks = delegator.findByAnd("TimeEntry", ["workEffortId" : lastTimeEntry.workEffortId, "partyId" : partyId], ["-fromDate"]);
+            lastTimeEntryOfTasks = delegator.findByAnd("TimeEntry", ["workEffortId" : lastTimeEntry.workEffortId, "partyId" : partyId], ["-fromDate"], false);
             if (lastTimeEntryOfTasks.size() != 0) lastTimeEntry = lastTimeEntryOfTasks[0];
             if (planHours < 1) {
                 planHours = estimatedHour;
@@ -350,7 +350,7 @@ if (timeEntry || emplLeaveEntry) {
 }
 context.timeEntries = entries;
 // get all timesheets of this user, including the planned hours
-timesheetsDb = delegator.findByAnd("Timesheet", ["partyId" : partyId], ["fromDate DESC"]);
+timesheetsDb = delegator.findByAnd("Timesheet", ["partyId" : partyId], ["fromDate DESC"], false);
 timesheets = new LinkedList();
 timesheetsDb.each { timesheetDb ->
     //get hours from EmplLeave;
@@ -396,19 +396,19 @@ context.timesheets = timesheets;
 taskList=[];
 projectSprintBacklogAndTaskList = [];
 backlogIndexList = [];
-projectAndTaskList = delegator.findByAnd("ProjectSprintBacklogAndTask", ["sprintTypeId" : "SCRUM_SPRINT","taskCurrentStatusId" : "STS_CREATED"], ["projectName ASC","taskActualStartDate DESC"]);
+projectAndTaskList = delegator.findByAnd("ProjectSprintBacklogAndTask", ["sprintTypeId" : "SCRUM_SPRINT","taskCurrentStatusId" : "STS_CREATED"], ["projectName ASC","taskActualStartDate DESC"], false);
 projectAndTaskList.each { projectAndTaskMap ->
 userLoginId = userLogin.partyId;
     sprintId = projectAndTaskMap.sprintId;
-    workEffortList = delegator.findByAnd("WorkEffortAndProduct", ["workEffortId" : projectAndTaskMap.projectId]);
+    workEffortList = delegator.findByAnd("WorkEffortAndProduct", ["workEffortId" : projectAndTaskMap.projectId], null, false);
     backlogIndexList.add(workEffortList[0].productId);
 	
-    partyAssignmentSprintList = delegator.findByAnd("WorkEffortPartyAssignment", ["workEffortId" : sprintId, "partyId" : userLoginId]);
+    partyAssignmentSprintList = delegator.findByAnd("WorkEffortPartyAssignment", ["workEffortId" : sprintId, "partyId" : userLoginId], null, false);
     partyAssignmentSprintMap = partyAssignmentSprintList[0];
     // if this userLoginId is a member of sprint
     if (partyAssignmentSprintMap) {
         workEffortId = projectAndTaskMap.taskId;
-        partyAssignmentTaskList = delegator.findByAnd("WorkEffortPartyAssignment", ["workEffortId" : workEffortId]);
+        partyAssignmentTaskList = delegator.findByAnd("WorkEffortPartyAssignment", ["workEffortId" : workEffortId], null, false);
         partyAssignmentTaskMap = partyAssignmentTaskList[0];
         // if the task do not assigned
         if (partyAssignmentTaskMap) {
@@ -427,7 +427,7 @@ userLoginId = userLogin.partyId;
 unplanList=[];
 if (backlogIndexList) {
     backlogIndex = new HashSet(backlogIndexList);
-    custRequestList = delegator.findByAnd("CustRequest", ["custRequestTypeId" : "RF_UNPLAN_BACKLOG","statusId" : "CRQ_REVIEWED"],["custRequestDate DESC"]);
+    custRequestList = delegator.findByAnd("CustRequest", ["custRequestTypeId" : "RF_UNPLAN_BACKLOG","statusId" : "CRQ_REVIEWED"],["custRequestDate DESC"], false);
     if (custRequestList) {
         custRequestList.each { custRequestMap ->
             custRequestItemList = custRequestMap.getRelated("CustRequestItem");
@@ -437,9 +437,9 @@ if (backlogIndexList) {
             backlogIndex.each { backlogProduct ->
                 productId = backlogProduct
                 if (productId.equals(productOut)) {
-                    custRequestWorkEffortList = delegator.findByAnd("CustRequestWorkEffort", ["custRequestId" : custRequestItemList[0].custRequestId]);
+                    custRequestWorkEffortList = delegator.findByAnd("CustRequestWorkEffort", ["custRequestId" : custRequestItemList[0].custRequestId], null, false);
                     custRequestWorkEffortList.each { custRequestWorkEffortMap ->
-                        partyAssignmentTaskList = delegator.findByAnd("WorkEffortPartyAssignment", ["workEffortId" : custRequestWorkEffortMap.workEffortId]);
+                        partyAssignmentTaskList = delegator.findByAnd("WorkEffortPartyAssignment", ["workEffortId" : custRequestWorkEffortMap.workEffortId], null, false);
                         partyAssignmentTaskMap = partyAssignmentTaskList[0];
                         // if the task do not assigned
                         if (!partyAssignmentTaskMap) {
