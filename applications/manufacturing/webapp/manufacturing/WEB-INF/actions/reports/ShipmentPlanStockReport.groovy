@@ -29,7 +29,7 @@ context.estimatedReadyDatePar = shipment.estimatedReadyDate;
 context.estimatedShipDatePar = shipment.estimatedShipDate;
 records = [];
 if (shipment) {
-    shipmentPlans = delegator.findByAnd("OrderShipment", [shipmentId : shipmentId]);
+    shipmentPlans = delegator.findByAnd("OrderShipment", [shipmentId : shipmentId], null, false);
     shipmentPlans.each { shipmentPlan ->
         orderLine = delegator.findOne("OrderItem", [orderId : shipmentPlan.orderId , orderItemSeqId : shipmentPlan.orderItemSeqId], false);
         recordGroup = [:];

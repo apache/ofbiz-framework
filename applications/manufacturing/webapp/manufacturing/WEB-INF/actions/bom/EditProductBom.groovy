@@ -58,10 +58,10 @@ if (!productAssoc) useValues = false;
 
 context.useValues = useValues;
 
-Collection assocTypes = delegator.findByAnd("ProductAssocType", [parentTypeId : "PRODUCT_COMPONENT"], ["productAssocTypeId", "description"]);
+Collection assocTypes = delegator.findByAnd("ProductAssocType", [parentTypeId : "PRODUCT_COMPONENT"], ["productAssocTypeId", "description"], false);
 context.assocTypes = assocTypes;
 
-Collection formulae = delegator.findByAnd("CustomMethod", [customMethodTypeId : "BOM_FORMULA"], ["customMethodId", "description"]);
+Collection formulae = delegator.findByAnd("CustomMethod", [customMethodTypeId : "BOM_FORMULA"], ["customMethodId", "description"], false);
 context.formulae = formulae;
 
 if (product) {

@@ -80,14 +80,14 @@ public class ProductionRunHelper {
         List<GenericValue> tasks = delegator.findByAnd("WorkEffort", 
                 UtilMisc.toMap("workEffortParentId", workEffortId,
                         "workEffortTypeId", "PROD_ORDER_TASK",
-                        "workEffortName", taskName));
+                        "workEffortName", taskName), null, false);
         return (UtilValidate.isNotEmpty(tasks));
     }
 
     public static void getLinkedProductionRuns(Delegator delegator, LocalDispatcher dispatcher, String productionRunId, List<ProductionRun> productionRuns)  throws GenericEntityException {
         productionRuns.add(new ProductionRun(productionRunId, delegator, dispatcher));
         List<GenericValue> linkedWorkEfforts = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAssoc", 
-                UtilMisc.toMap("workEffortIdTo", productionRunId, "workEffortAssocTypeId", "WORK_EFF_PRECEDENCY")));
+                UtilMisc.toMap("workEffortIdTo", productionRunId, "workEffortAssocTypeId", "WORK_EFF_PRECEDENCY"), null, false));
         for (int i = 0; i < linkedWorkEfforts.size(); i++) {
             GenericValue link = linkedWorkEfforts.get(i);
             getLinkedProductionRuns(delegator, dispatcher, link.getString("workEffortIdFrom"), productionRuns);
@@ -95,7 +95,7 @@ public class ProductionRunHelper {
     }
 
     public static String getRootProductionRun(Delegator delegator, String productionRunId)  throws GenericEntityException {
-        List<GenericValue> linkedWorkEfforts = delegator.findByAnd("WorkEffortAssoc", UtilMisc.toMap("workEffortIdFrom", productionRunId, "workEffortAssocTypeId", "WORK_EFF_PRECEDENCY"));
+        List<GenericValue> linkedWorkEfforts = delegator.findByAnd("WorkEffortAssoc", UtilMisc.toMap("workEffortIdFrom", productionRunId, "workEffortAssocTypeId", "WORK_EFF_PRECEDENCY"), null, false);
         GenericValue linkedWorkEffort = EntityUtil.getFirst(linkedWorkEfforts);
         if (linkedWorkEffort != null) {
             productionRunId = getRootProductionRun(delegator, linkedWorkEffort.getString("workEffortIdTo"));

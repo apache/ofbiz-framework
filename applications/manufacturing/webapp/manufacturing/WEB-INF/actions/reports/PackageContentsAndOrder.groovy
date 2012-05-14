@@ -32,12 +32,12 @@ if (productFeatureTypeIdPar) {
     featureType = delegator.findOne("ProductFeatureType", [productFeatureTypeId : productFeatureTypeIdPar], false);
     context.featureType = featureType;
 }
-packageContents = delegator.findByAnd("ShipmentPackageContent", [shipmentId : shipmentId]);
+packageContents = delegator.findByAnd("ShipmentPackageContent", [shipmentId : shipmentId], null, false);
 
 packagesMap = [:];
 if (packageContents) {
     packageContents.each { packageContent ->
-        orderShipments = delegator.findByAnd("OrderShipment", [shipmentId : shipmentId, shipmentItemSeqId : packageContent.shipmentItemSeqId]);
+        orderShipments = delegator.findByAnd("OrderShipment", [shipmentId : shipmentId, shipmentItemSeqId : packageContent.shipmentItemSeqId], null, false);
         orderShipment = EntityUtil.getFirst(orderShipments);
         orderItem = delegator.findOne("OrderItem", [orderId : orderShipment.orderId, orderItemSeqId : orderShipment.orderItemSeqId], false);
         product = orderItem.getRelatedOne("Product");

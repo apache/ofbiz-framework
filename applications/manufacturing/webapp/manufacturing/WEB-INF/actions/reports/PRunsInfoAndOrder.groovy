@@ -29,7 +29,7 @@ if (productCategoryIdPar) {
     context.category = category;
 }
 
-allProductionRuns = delegator.findByAnd("WorkEffortAndGoods", [workEffortName : planName, statusId : "WEGS_CREATED", workEffortGoodStdTypeId : "PRUN_PROD_DELIV"], ["productId"]);
+allProductionRuns = delegator.findByAnd("WorkEffortAndGoods", [workEffortName : planName, statusId : "WEGS_CREATED", workEffortGoodStdTypeId : "PRUN_PROD_DELIV"], ["productId"], false);
 productionRuns = [];
 
 if (allProductionRuns) {
@@ -44,12 +44,12 @@ if (allProductionRuns) {
         productionRunProduct = delegator.findOne("Product", [productId : productionRun.productId], false);
         String rootProductionRunId = ProductionRunHelper.getRootProductionRun(delegator, productionRun.workEffortId);
 
-        productionRunOrders = delegator.findByAnd("WorkOrderItemFulfillment", [workEffortId : rootProductionRunId]);
+        productionRunOrders = delegator.findByAnd("WorkOrderItemFulfillment", [workEffortId : rootProductionRunId], null, false);
         productionRunOrder = EntityUtil.getFirst(productionRunOrders);
         OrderReadHelper orh = new OrderReadHelper(delegator, productionRunOrder.orderId);
 
         // select the production run's task of a given name (i.e. type) if any (based on the report's parameter)
-        productionRunTasks = delegator.findByAnd("WorkEffort", [workEffortParentId : productionRun.workEffortId, workEffortName : taskNamePar]);
+        productionRunTasks = delegator.findByAnd("WorkEffort", [workEffortParentId : productionRun.workEffortId, workEffortName : taskNamePar], null, false);
         productionRunTask = EntityUtil.getFirst(productionRunTasks);
         if (!productionRunTask) {
             // the production run doesn't include the given task, skip it
@@ -62,7 +62,7 @@ if (allProductionRuns) {
                                           productionRunOrder : productionRunOrder,
                                           customer : orh.getPlacingParty(),
                                           address : orh.getShippingAddress()];
-        allProductionComponents = delegator.findByAnd("WorkEffortAndGoods", [workEffortId : productionRunTask.workEffortId, statusId : "WEGS_CREATED", workEffortGoodStdTypeId : "PRUNT_PROD_NEEDED"], ["productId"]);
+        allProductionComponents = delegator.findByAnd("WorkEffortAndGoods", [workEffortId : productionRunTask.workEffortId, statusId : "WEGS_CREATED", workEffortGoodStdTypeId : "PRUNT_PROD_NEEDED"], ["productId"], false);
         componentList = [];
 
         if (allProductionComponents) {

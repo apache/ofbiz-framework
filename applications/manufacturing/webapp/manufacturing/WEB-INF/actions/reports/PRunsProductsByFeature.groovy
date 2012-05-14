@@ -31,7 +31,7 @@ if (productFeatureTypeIdPar) {
     context.featureType = featureType;
 }
 
-allProductionRuns = delegator.findByAnd("WorkEffortAndGoods", [workEffortName : planName], ["productId"]);
+allProductionRuns = delegator.findByAnd("WorkEffortAndGoods", [workEffortName : planName], ["productId"], false);
 productionRuns = [:];
 features = [];
 if (!productFeatureTypeIdPar) {
@@ -51,7 +51,7 @@ if (allProductionRuns) {
 
         // group by standard feature of type productFeatureTypeIdPar
         if (productFeatureTypeIdPar) {
-            standardFeatures = delegator.findByAnd("ProductFeatureAndAppl", [productFeatureTypeId : productFeatureTypeIdPar, productId : productionRun.productId, productFeatureApplTypeId : "STANDARD_FEATURE"]);
+            standardFeatures = delegator.findByAnd("ProductFeatureAndAppl", [productFeatureTypeId : productFeatureTypeIdPar, productId : productionRun.productId, productFeatureApplTypeId : "STANDARD_FEATURE"], null, false);
             standardFeatures = EntityUtil.filterByDate(standardFeatures);
             standardFeature = EntityUtil.getFirst(standardFeatures);
             standardFeatureId = null;
@@ -66,7 +66,7 @@ if (allProductionRuns) {
         }
 
         // select the production run's task of a given name (i.e. type) if any (based on the report's parameter)
-        productionRunTasks = delegator.findByAnd("WorkEffort", [workEffortParentId : productionRun.workEffortId, workEffortName : taskNamePar]);
+        productionRunTasks = delegator.findByAnd("WorkEffort", [workEffortParentId : productionRun.workEffortId, workEffortName : taskNamePar], null, false);
         productionRunTask = EntityUtil.getFirst(productionRunTasks);
         if (!productionRunTask) {
             // the production run doesn't include the given task, skip it
