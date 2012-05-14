@@ -56,7 +56,7 @@ context.index = ProductSearchSession.getCategoryCostraintIndex(session);
 searchConstraintList = ProductSearchSession.getProductSearchOptions(session).getConstraintList();
 
 if (searchCategoryId) {
-    productCategoryRollups = delegator.findByAnd("ProductCategoryRollup", [productCategoryId: searchCategoryId]);
+    productCategoryRollups = delegator.findByAnd("ProductCategoryRollup", [productCategoryId: searchCategoryId], null, false);
     productCategoryRollups = EntityUtil.filterByDate(productCategoryRollups);
     previousCategoryId = null;
     if (productCategoryRollups) {

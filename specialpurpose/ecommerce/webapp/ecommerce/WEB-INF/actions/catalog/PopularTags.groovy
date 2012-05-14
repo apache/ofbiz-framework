@@ -44,7 +44,7 @@ productKeywords = delegator.findList("ProductKeyword", keywordConditions, keywor
 
 if (UtilValidate.isNotEmpty(productKeywords)) {
     productKeywords.each { productKeyword ->
-        productTags = delegator.findByAnd("ProductKeyword", ["keyword": productKeyword.keyword, "keywordTypeId" : "KWT_TAG", "statusId" : "KW_APPROVED"]);
+        productTags = delegator.findByAnd("ProductKeyword", ["keyword": productKeyword.keyword, "keywordTypeId" : "KWT_TAG", "statusId" : "KW_APPROVED"], null, false);
         searchResult = [:];
         searchResult.tag = productKeyword.keyword;
         searchResult.countTag = productTags.size();

@@ -31,7 +31,7 @@ if (userLogin) {
 
     contactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "PRIMARY_PHONE", "TELECOM_NUMBER", false));
     if (contactMech) {
-        partyContactMech = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyContactMech", [partyId : party.partyId, contactMechId : contactMech.contactMechId])));
+        partyContactMech = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyContactMech", [partyId : party.partyId, contactMechId : contactMech.contactMechId], null, false)));
         if (partyContactMech) {
             telecomNumber = partyContactMech.getRelatedOne("TelecomNumber");
             context.phoneContactMechId = telecomNumber.contactMechId;

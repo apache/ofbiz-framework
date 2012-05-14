@@ -54,7 +54,7 @@ contentIdTo = ContentManagementWorker.getFromSomewhere("forumId", paramMap, requ
 context.contentIdTo = contentIdTo;
 //Debug.logInfo("in contentaddprep, contentIdTo:" + contentIdTo,"");
 //Debug.logInfo("in contentaddprep, paramMap:" + paramMap,"");
-attrList = delegator.findByAndCache("ContentAttribute", [contentId : contentIdTo, attrName : "publishOperation"]);
+attrList = delegator.findByAnd("ContentAttribute", [contentId : contentIdTo, attrName : "publishOperation"], null, true);
 publishOperation = null;
 if (attrList) {
     contentAttribute = attrList.get(0);

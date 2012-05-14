@@ -41,7 +41,7 @@ if (partyId && !partyId.equals("_NA_")) {
 if (cart?.getShippingContactMechId()) {
     shippingContactMechId = cart.getShippingContactMechId();
     shippingPartyContactDetail = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyContactDetailByPurpose",
-        [partyId : partyId, contactMechId : shippingContactMechId])));
+        [partyId : partyId, contactMechId : shippingContactMechId], null, false)));
     parameters.shippingContactMechId = shippingPartyContactDetail.contactMechId;
     context.callSubmitForm = true;
 

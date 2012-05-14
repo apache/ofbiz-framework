@@ -33,7 +33,7 @@ under the License.
                        </#if>
                        <#assign productCategoryId = productCategory.productCategoryId/>
                        <#assign categoryImageUrl = "/images/defaultImage.jpg">
-                       <#assign productCategoryMembers = delegator.findByAnd("ProductCategoryAndMember", Static["org.ofbiz.base.util.UtilMisc"].toMap("productCategoryId", productCategoryId), Static["org.ofbiz.base.util.UtilMisc"].toList("-quantity"))>
+                       <#assign productCategoryMembers = delegator.findByAnd("ProductCategoryAndMember", Static["org.ofbiz.base.util.UtilMisc"].toMap("productCategoryId", productCategoryId), Static["org.ofbiz.base.util.UtilMisc"].toList("-quantity"), false)>
                        <#if productCategory.categoryImageUrl?has_content>
                             <#assign categoryImageUrl = productCategory.categoryImageUrl/>
                        <#elseif productCategoryMembers?has_content>

@@ -99,7 +99,7 @@ if (orderId) {
     // check OrderRole to make sure the user can view this order.  This check must be done for any order which is not anonymously placed and
     // any anonymous order when the allowAnonymousView security flag (see above) is not set to Y, to prevent peeking
     if (orderHeader && (!"anonymous".equals(orderHeader.createdBy) || ("anonymous".equals(orderHeader.createdBy) && !"Y".equals(allowAnonymousView)))) {
-        orderRole = EntityUtil.getFirst(delegator.findByAnd("OrderRole", [orderId : orderId, partyId : partyId, roleTypeId : roleTypeId]));
+        orderRole = EntityUtil.getFirst(delegator.findByAnd("OrderRole", [orderId : orderId, partyId : partyId, roleTypeId : roleTypeId], null, false));
 
         if (!userLogin || !orderRole) {
             context.remove("orderHeader");
@@ -127,7 +127,7 @@ if (orderHeader) {
     orderTaxTotal = OrderReadHelper.getAllOrderItemsAdjustmentsTotal(orderItems, orderAdjustments, false, true, false);
     orderTaxTotal = orderTaxTotal.add(OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, true, false));
 
-    placingCustomerOrderRoles = delegator.findByAnd("OrderRole", [orderId : orderId, roleTypeId : roleTypeId]);
+    placingCustomerOrderRoles = delegator.findByAnd("OrderRole", [orderId : orderId, roleTypeId : roleTypeId], null, false);
     placingCustomerOrderRole = EntityUtil.getFirst(placingCustomerOrderRoles);
     placingCustomerPerson = placingCustomerOrderRole == null ? null : delegator.findOne("Person", [partyId : placingCustomerOrderRole.partyId], false);
 
@@ -215,6 +215,6 @@ if (orderHeader) {
     context.orderShipmentInfoSummaryList = orderShipmentInfoSummaryList;
     context.customerPoNumberSet = customerPoNumberSet;
 
-    orderItemChangeReasons = delegator.findByAnd("Enumeration", [enumTypeId : "ODR_ITM_CH_REASON"], ["sequenceId"]);
+    orderItemChangeReasons = delegator.findByAnd("Enumeration", [enumTypeId : "ODR_ITM_CH_REASON"], ["sequenceId"], false);
     context.orderItemChangeReasons = orderItemChangeReasons;
 }

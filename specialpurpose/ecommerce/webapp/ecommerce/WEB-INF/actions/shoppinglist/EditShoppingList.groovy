@@ -159,7 +159,7 @@ if (shoppingListId) {
         context.shoppingListType = shoppingListType;
 
         // get the child shopping lists of the current list for the logged in user
-        childShoppingLists = delegator.findByAndCache("ShoppingList", [partyId : userLogin.partyId, parentShoppingListId : shoppingListId], ["listName"]);
+        childShoppingLists = delegator.findByAnd("ShoppingList", [partyId : userLogin.partyId, parentShoppingListId : shoppingListId], ["listName"], true);
         // now get prices for each child shopping list...
         if (childShoppingLists) {
             childShoppingListDatas = new ArrayList(childShoppingLists.size());
