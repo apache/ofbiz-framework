@@ -1721,6 +1721,13 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
+     * @see org.ofbiz.entity.Delegator#findByAnd(java.lang.String, java.util.Map, java.util.List, boolean)
+     */
+    public List<GenericValue> findByAnd(String entityName, Map<String, ? extends Object> fields, List<String> orderBy, boolean useCache) throws GenericEntityException {
+        return this.findList(entityName, EntityCondition.makeCondition(fields), null, orderBy, null, useCache);
+    }
+
+    /* (non-Javadoc)
      * @see org.ofbiz.entity.Delegator#find(java.lang.String, org.ofbiz.entity.condition.EntityCondition, org.ofbiz.entity.condition.EntityCondition, java.util.Set, java.util.List, org.ofbiz.entity.util.EntityFindOptions)
      */
     public EntityListIterator find(String entityName, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, Set<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions) throws GenericEntityException {
