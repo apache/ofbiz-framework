@@ -864,7 +864,7 @@ public class EbayEvents {
                         attributeMapList.put("Currency", "USD");
 
                         if (UtilValidate.isNotEmpty(requestParams.get("requireEbayInventory")) && "Y".equals(requestParams.get("requireEbayInventory").toString())) {
-                            GenericValue ebayProductStore = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("EbayProductStoreInventory", UtilMisc.toMap("productStoreId", productStoreId, "productId", productId))));
+                            GenericValue ebayProductStore = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("EbayProductStoreInventory", UtilMisc.toMap("productStoreId", productStoreId, "productId", productId), null, false)));
                             if (UtilValidate.isNotEmpty(ebayProductStore)) {
                                 String facilityId = ebayProductStore.getString("facilityId");
                                 BigDecimal atp = ebayProductStore.getBigDecimal("availableToPromiseListing");
@@ -900,9 +900,9 @@ public class EbayEvents {
                             itemObj.put("isAutoRelist", "Y");
                         }
                         try {
-                            GenericValue storeRole = EntityUtil.getFirst(delegator.findByAnd("ProductStoreRole", UtilMisc.toMap("productStoreId", productStoreId, "roleTypeId", "EBAY_ACCOUNT")));
+                            GenericValue storeRole = EntityUtil.getFirst(delegator.findByAnd("ProductStoreRole", UtilMisc.toMap("productStoreId", productStoreId, "roleTypeId", "EBAY_ACCOUNT"), null, false));
                             if (UtilValidate.isNotEmpty(storeRole)) {
-                                List<GenericValue> ebayUserLoginList = delegator.findByAnd("UserLogin", UtilMisc.toMap("partyId", storeRole.get("partyId")));
+                                List<GenericValue> ebayUserLoginList = delegator.findByAnd("UserLogin", UtilMisc.toMap("partyId", storeRole.get("partyId")), null, false);
                                 if (ebayUserLoginList.size() > 0) {
                                     GenericValue eBayUserLogin = EntityUtil.getFirst(ebayUserLoginList);
                                     if (UtilValidate.isNotEmpty(eBayUserLogin)) {

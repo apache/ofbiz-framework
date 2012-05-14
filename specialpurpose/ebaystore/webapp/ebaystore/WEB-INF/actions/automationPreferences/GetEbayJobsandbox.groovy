@@ -19,7 +19,7 @@
 
 import org.ofbiz.base.util.*;
 
-jobSandboxs = delegator.findByAnd("JobSandbox", UtilMisc.toMap("authUserLoginId", userLoginId));
+jobSandboxs = delegator.findByAnd("JobSandbox", UtilMisc.toMap("authUserLoginId", userLoginId), null, false);
 job = null
 jobId = null;
 if(jobSandboxs) {

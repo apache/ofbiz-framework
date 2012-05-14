@@ -212,7 +212,7 @@ public class EbayStoreOrder {
                 String contactMechId = "";
                 GenericValue partyAttribute = null;
                 if (UtilValidate.isNotEmpty(context.get("eiasTokenBuyer").toString())) {
-                    partyAttribute = EntityUtil.getFirst(delegator.findByAnd("PartyAttribute", UtilMisc.toMap("attrValue", context.get("eiasTokenBuyer").toString())));
+                    partyAttribute = EntityUtil.getFirst(delegator.findByAnd("PartyAttribute", UtilMisc.toMap("attrValue", context.get("eiasTokenBuyer").toString()), null, false));
                 }
 
                 // if we get a party, check its contact information.
@@ -443,7 +443,7 @@ public class EbayStoreOrder {
             // If matching party not found then try to find partyId from PartyAttribute entity.
             GenericValue partyAttribute = null;
             if (UtilValidate.isNotEmpty(context.get("eiasTokenBuyer"))) {
-                partyAttribute = EntityUtil.getFirst(delegator.findByAnd("PartyAttribute", UtilMisc.toMap("attrValue", (String) context.get("eiasTokenBuyer"))));
+                partyAttribute = EntityUtil.getFirst(delegator.findByAnd("PartyAttribute", UtilMisc.toMap("attrValue", (String) context.get("eiasTokenBuyer")), null, false));
                 if (UtilValidate.isNotEmpty(partyAttribute)) {
                     partyId = (String) partyAttribute.get("partyId");
                 }

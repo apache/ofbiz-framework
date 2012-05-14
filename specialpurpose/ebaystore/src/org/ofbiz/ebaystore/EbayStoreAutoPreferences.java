@@ -396,7 +396,7 @@ public class EbayStoreAutoPreferences {
             Map<String, Object> serviceMap = FastMap.newInstance();
             serviceMap.put("userLogin", userLogin);
             //ProductStore
-            List<GenericValue> productStores = delegator.findByAnd("EbayProductStorePref", UtilMisc.toMap("autoPrefJobId", jobId));
+            List<GenericValue> productStores = delegator.findByAnd("EbayProductStorePref", UtilMisc.toMap("autoPrefJobId", jobId), null, false);
             if (productStores.size() != 0) {
                 // get auto preference setting
                 String productStoreId = productStores.get(0).getString("productStoreId");
@@ -428,7 +428,7 @@ public class EbayStoreAutoPreferences {
                                     inMap.put("userLogin", userLogin);
                                     dispatcher.runSync("createProduct", inMap);
                                     // ProductRole (VENDOR)
-                                    List<GenericValue> productRole = delegator.findByAnd("ProductRole", UtilMisc.toMap("partyId", partyId, "productId", soldItemMap.get("itemId"), "roleTypeId", "VENDOR"));
+                                    List<GenericValue> productRole = delegator.findByAnd("ProductRole", UtilMisc.toMap("partyId", partyId, "productId", soldItemMap.get("itemId"), "roleTypeId", "VENDOR"), null, false);
                                     if (productRole.size() == 0) {
                                         Map<String, Object> addRole = FastMap.newInstance();
                                         addRole.put("productId", soldItemMap.get("itemId"));
@@ -458,7 +458,7 @@ public class EbayStoreAutoPreferences {
                         }
                     }
                     //check product role
-                    List<GenericValue> productRoles = delegator.findByAnd("ProductRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", "VENDOR"));
+                    List<GenericValue> productRoles = delegator.findByAnd("ProductRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", "VENDOR"), null, false);
                     List<String> productRoleIds = FastList.newInstance();
                     if (productRoles.size() != 0) {
                         for (int itemCount = 0; itemCount < productRoles.size(); itemCount++) {
@@ -508,7 +508,7 @@ public class EbayStoreAutoPreferences {
         String jobId = (String) context.get("jobId");
         try {
             GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", "system");
-            List<GenericValue> productStores = delegator.findByAnd("EbayProductStorePref", UtilMisc.toMap("autoPrefJobId", jobId));
+            List<GenericValue> productStores = delegator.findByAnd("EbayProductStorePref", UtilMisc.toMap("autoPrefJobId", jobId), null, false);
             if (productStores.size() != 0) {
                 // get automatic setting
                 String productStoreId = productStores.get(0).getString("productStoreId");
@@ -579,7 +579,7 @@ public class EbayStoreAutoPreferences {
         String jobId = (String) context.get("jobId");
         try {
             GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", "system");
-            List<GenericValue> productStores = delegator.findByAnd("EbayProductStorePref", UtilMisc.toMap("autoPrefJobId", jobId));
+            List<GenericValue> productStores = delegator.findByAnd("EbayProductStorePref", UtilMisc.toMap("autoPrefJobId", jobId), null, false);
             if (productStores.size() != 0) {
                 // get automatic setting
                 String productStoreId = productStores.get(0).getString("productStoreId");
@@ -1149,7 +1149,7 @@ public class EbayStoreAutoPreferences {
             String productStoreId = (String) context.get("productStoreId");
             GenericValue ebayProductStorePref = delegator.findOne("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", "EBAY_AUTO_BEST_OFFER"), false);
             String parentPrefCondId = ebayProductStorePref.getString("parentPrefCondId");
-            List<GenericValue> ebayProductStorePrefCond = delegator.findByAnd("EbayProductStorePrefCond", UtilMisc.toMap("parentPrefCondId", parentPrefCondId));
+            List<GenericValue> ebayProductStorePrefCond = delegator.findByAnd("EbayProductStorePrefCond", UtilMisc.toMap("parentPrefCondId", parentPrefCondId), null, false);
             //Parameters
             String priceType = ebayProductStorePrefCond.get(0).getString("acceptanceCondition");
             String acceptBestOfferValue = ebayProductStorePrefCond.get(1).getString("acceptanceCondition");
@@ -1239,7 +1239,7 @@ public class EbayStoreAutoPreferences {
                         } else if (priceType.equals("RETAIL_PRICE")) {
                             //ignore
                         } else if (priceType.equals("SELLER_COST")) {
-                            List<GenericValue> supplierProduct = delegator.findByAnd("SupplierProduct", UtilMisc.toMap("productId", SKUItem), UtilMisc.toList("availableFromDate DESC"));
+                            List<GenericValue> supplierProduct = delegator.findByAnd("SupplierProduct", UtilMisc.toMap("productId", SKUItem), UtilMisc.toList("availableFromDate DESC"), false);
                             String lastPrice = supplierProduct.get(0).getString("lastPrice");
                             doBasePrice = Double.parseDouble(lastPrice);
                         } else if (priceType.equals("SECOND_CHANCE_PRICE")) {
