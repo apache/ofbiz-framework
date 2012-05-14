@@ -36,6 +36,7 @@ import javax.transaction.TransactionManager;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
@@ -165,8 +166,8 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
             }
             pool.setFactory(factory);
 
-            mds = new ManagedDataSource(pool, xacf.getTransactionRegistry());
-            //mds = new DebugManagedDataSource(pool, xacf.getTransactionRegistry()); // Useful to debug the usage of connections in the pool
+            //mds = new ManagedDataSource(pool, xacf.getTransactionRegistry());
+            mds = new DebugManagedDataSource(pool, xacf.getTransactionRegistry()); // Useful to debug the usage of connections in the pool
             mds.setAccessToUnderlyingConnectionAllowed(true);
 
             // cache the pool
@@ -180,4 +181,14 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
         // no methods on the pool to shutdown; so just clearing for GC
         dsCache.clear();
     }
+
+    public static Map getDataSourceInfo(String helperName) {
+        Map dataSourceInfo = new HashMap();
+        ManagedDataSource mds = dsCache.get(helperName);
+        if (mds instanceof DebugManagedDataSource) {
+            dataSourceInfo = ((DebugManagedDataSource)mds).getInfo();
+        }
+        return dataSourceInfo;
+    }
+
 }

@@ -359,6 +359,11 @@ under the License.
         <response name="success" type="view" value="EntitySQLProcessor"/>
     </request-map>
 
+    <request-map uri="ConnectionPoolStatus">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ConnectionPoolStatus"/>
+    </request-map>
+
     <!-- Entity Export/Import requests -->
     <request-map uri="EntityExportAll"><security https="true" auth="true"/><response name="success" type="view" value="EntityExportAll"/><response name="error" type="view" value="EntityExportAll"/></request-map>
     <request-map uri="entityExportAll">
@@ -657,6 +662,7 @@ under the License.
 
     <view-map name="EntitySyncStatus" page="component://webtools/widget/EntitySyncScreens.xml#EntitySyncStatus" type="screen"/>
     <view-map name="EntitySQLProcessor" page="component://webtools/widget/EntityScreens.xml#EntitySQLProcessor" type="screen"/>
+    <view-map name="ConnectionPoolStatus" page="component://webtools/widget/EntityScreens.xml#ConnectionPoolStatus" type="screen"/>
     <view-map name="EntityExportAll" page="component://webtools/widget/EntityScreens.xml#EntityExportAll" type="screen"/>
     <view-map name="EntityImportDir" page="component://webtools/widget/EntityScreens.xml#EntityImportDir" type="screen"/>
     <view-map name="EntityImport" page="component://webtools/widget/EntityScreens.xml#EntityImport" type="screen"/>

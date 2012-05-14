@@ -195,6 +195,9 @@ under the License.
         <menu-item name="checkDb" title="${uiLabelMap.WebtoolsCheckUpdateDatabase}">
             <link target="view/checkdb"/>
         </menu-item>
+        <menu-item name="ConnectionPoolStatus" title="${uiLabelMap.ConnectionPoolStatus}">
+            <link target="ConnectionPoolStatus"/>
+        </menu-item>
         <menu-item name="entityPerformanceTest" title="${uiLabelMap.WebtoolsPerformanceTests}">
             <link target="EntityPerformanceTest"/>
         </menu-item>

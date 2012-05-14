@@ -454,4 +454,22 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="ConnectionPoolStatus">
+        <section>
+            <actions>
+                <set field="titleProperty" value="ConnectionPoolStatus"/>
+                <set field="tabButtonItem" value="ConnectionPoolStatus"/>
+                <set field="labelTitleProperty" value="ConnectionPoolStatus"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://webtools/webapp/webtools/entity/ConnectionPoolStatus.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
