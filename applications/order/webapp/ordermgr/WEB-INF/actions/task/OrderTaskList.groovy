@@ -56,7 +56,7 @@ partyTasks.each { ptItem ->
 }
 
 // get this user's roles
-partyRoles = delegator.findByAnd("PartyRole", [partyId : userLogin.partyId]);
+partyRoles = delegator.findByAnd("PartyRole", [partyId : userLogin.partyId], null, false);
 
 // build the role list
 pRolesList = [];
@@ -89,7 +89,7 @@ context.orderCurrencyMap = orderCurrencyMap;
 context.now = nowTimestamp;
 
 // purchase order schedule
-poList = delegator.findByAnd("OrderHeaderAndRoles", [partyId : userLogin.partyId, orderTypeId : "PURCHASE_ORDER"]);
+poList = delegator.findByAnd("OrderHeaderAndRoles", [partyId : userLogin.partyId, orderTypeId : "PURCHASE_ORDER"], null, false);
 poIter = poList.iterator();
 listedPoIds = new HashSet();
 while (poIter.hasNext()) {

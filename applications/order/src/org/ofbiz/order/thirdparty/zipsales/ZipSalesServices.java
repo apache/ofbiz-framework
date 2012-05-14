@@ -272,7 +272,7 @@ public class ZipSalesServices {
         }
 
         // lookup the records
-        List<GenericValue> zipLookup = delegator.findByAnd("ZipSalesTaxLookup", UtilMisc.toMap("zipCode", zipCode), UtilMisc.toList("-fromDate"));
+        List<GenericValue> zipLookup = delegator.findByAnd("ZipSalesTaxLookup", UtilMisc.toMap("zipCode", zipCode), UtilMisc.toList("-fromDate"), false);
         if (UtilValidate.isEmpty(zipLookup)) {
             throw new GeneralException("The zip code entered is not valid.");
         }
@@ -346,7 +346,7 @@ public class ZipSalesServices {
         // look up the rules
         List<GenericValue> ruleLookup = null;
         try {
-            ruleLookup = delegator.findByAnd("ZipSalesRuleLookup", UtilMisc.toMap("stateCode", stateCode), UtilMisc.toList("-fromDate"));
+            ruleLookup = delegator.findByAnd("ZipSalesRuleLookup", UtilMisc.toMap("stateCode", stateCode), UtilMisc.toList("-fromDate"), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }

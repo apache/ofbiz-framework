@@ -218,7 +218,7 @@ public class ShoppingCartHelper {
                     productFeatureAndAppl = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("ProductFeatureAndAppl",
                                                                                     UtilMisc.toMap("productId", productId,
                                                                                                    "productFeatureTypeId", selectedFeatureType,
-                                                                                                   "productFeatureId", selectedFeatureValue))));
+                                                                                                   "productFeatureId", selectedFeatureValue), null, false)));
                 } catch (GenericEntityException gee) {
                     Debug.logError(gee, module);
                 }
@@ -568,7 +568,7 @@ public class ShoppingCartHelper {
         Collection<GenericValue> prodCatMemberCol = null;
 
         try {
-            prodCatMemberCol = delegator.findByAndCache("ProductCategoryMember", UtilMisc.toMap("productCategoryId", categoryId));
+            prodCatMemberCol = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productCategoryId", categoryId), null, true);
         } catch (GenericEntityException e) {
             Debug.logWarning(e.toString(), module);
             Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("categoryId", categoryId);
@@ -926,7 +926,7 @@ public class ShoppingCartHelper {
         GenericValue productFeatureAppl = null;
         List<GenericValue> features = null;
         try {
-            features = delegator.findByAnd("ProductFeatureAndAppl", fields, UtilMisc.toList("-fromDate"));
+            features = delegator.findByAnd("ProductFeatureAndAppl", fields, UtilMisc.toList("-fromDate"), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return null;

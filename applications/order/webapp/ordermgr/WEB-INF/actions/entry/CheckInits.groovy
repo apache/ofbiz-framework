@@ -40,16 +40,16 @@ if (productStore) {
 shoppingCart = session.getAttribute("shoppingCart");
 context.shoppingCart = shoppingCart;
 
-salesChannels = delegator.findByAndCache("Enumeration", [enumTypeId : "ORDER_SALES_CHANNEL"], ["sequenceId"]);
+salesChannels = delegator.findByAnd("Enumeration", [enumTypeId : "ORDER_SALES_CHANNEL"], ["sequenceId"], true);
 context.salesChannels = salesChannels;
 
 productStores = delegator.findList("ProductStore", null, null, ["productStoreId", "storeName"], null, true);
 context.productStores = productStores;
 
-suppliers = delegator.findByAnd("PartyRoleAndPartyDetail", [roleTypeId : "SUPPLIER"], ["groupName", "partyId"]);
+suppliers = delegator.findByAnd("PartyRoleAndPartyDetail", [roleTypeId : "SUPPLIER"], ["groupName", "partyId"], false);
 context.suppliers = suppliers;
 
-organizations = delegator.findByAnd("PartyRole", [roleTypeId : "INTERNAL_ORGANIZATIO"]);
+organizations = delegator.findByAnd("PartyRole", [roleTypeId : "INTERNAL_ORGANIZATIO"], null, false);
 context.organizations = organizations;
 
 // Set Shipping From the Party 

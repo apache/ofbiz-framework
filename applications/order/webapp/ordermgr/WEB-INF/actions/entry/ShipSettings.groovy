@@ -65,11 +65,11 @@ if ("SALES_ORDER".equals(cart.getOrderType())) {
         }
     }
     // suppliers for the drop-ship select box
-    suppliers = delegator.findByAnd("PartyRole", [roleTypeId : "SUPPLIER"]);
+    suppliers = delegator.findByAnd("PartyRole", [roleTypeId : "SUPPLIER"], null, false);
     context.suppliers = suppliers;
 
     // facilities used to reserve the items per ship group
-    productStoreFacilities = delegator.findByAnd("ProductStoreFacility", [productStoreId : cart.getProductStoreId()]);
+    productStoreFacilities = delegator.findByAnd("ProductStoreFacility", [productStoreId : cart.getProductStoreId()], null, false);
     context.productStoreFacilities = productStoreFacilities;
 } else {
     // Purchase order
@@ -85,14 +85,14 @@ if ("SALES_ORDER".equals(cart.getOrderType())) {
     companyId = cart.getBillToCustomerPartyId();
     if (companyId) {
         facilityMaps = FastList.newInstance();
-        facilities = delegator.findByAndCache("Facility", [ownerPartyId : companyId]);
+        facilities = delegator.findByAnd("Facility", [ownerPartyId : companyId], null, true);
 
         // if facilites is null then check the PartyRelationship where there is a relationship set for Parent & Child organization. Then also fetch the value of companyId from there.
         if (UtilValidate.isEmpty(facilities)) {
             partyRelationship = EntityUtil.getFirst(delegator.findList("PartyRelationship", EntityCondition.makeCondition(["roleTypeIdFrom": "PARENT_ORGANIZATION", "partyIdTo": companyId]), null, null, null, false));
             if (UtilValidate.isNotEmpty(partyRelationship)) {
                 companyId = partyRelationship.partyIdFrom;
-                facilities = delegator.findByAndCache("Facility", [ownerPartyId : companyId]);
+                facilities = delegator.findByAnd("Facility", [ownerPartyId : companyId], null, true);
             }
         }
         facilities.each { facility ->

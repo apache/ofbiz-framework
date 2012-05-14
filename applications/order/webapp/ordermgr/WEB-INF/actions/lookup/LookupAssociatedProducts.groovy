@@ -36,7 +36,7 @@ if (productId != null) {
             products.each { product ->
                 if (product != null) {
                     String productIdTo = product.getString("productIdTo");
-                    prodAssocRecord = delegator.findByAnd("Product", [productId : productIdTo]);
+                    prodAssocRecord = delegator.findByAnd("Product", [productId : productIdTo], null, false);
                     productList.add(EntityUtil.getFirst(prodAssocRecord));
                 }
             }

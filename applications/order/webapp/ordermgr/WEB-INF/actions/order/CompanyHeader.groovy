@@ -140,7 +140,7 @@ if (partyGroup?.groupName) {
 context.companyName = companyName;
 
 // the address
-addresses = delegator.findByAnd("PartyContactMechPurpose", [partyId : partyId, contactMechPurposeTypeId : "GENERAL_LOCATION"]);
+addresses = delegator.findByAnd("PartyContactMechPurpose", [partyId : partyId, contactMechPurposeTypeId : "GENERAL_LOCATION"], null, false);
 selAddresses = EntityUtil.filterByDate(addresses, nowTimestamp, "fromDate", "thruDate", true);
 address = null;
 if (selAddresses) {
@@ -160,26 +160,26 @@ if (address)    {
 context.postalAddress = address;
 
 //telephone
-phones = delegator.findByAnd("PartyContactMechPurpose", [partyId : partyId, contactMechPurposeTypeId : "PRIMARY_PHONE"]);
+phones = delegator.findByAnd("PartyContactMechPurpose", [partyId : partyId, contactMechPurposeTypeId : "PRIMARY_PHONE"], null, false);
 selPhones = EntityUtil.filterByDate(phones, nowTimestamp, "fromDate", "thruDate", true);
 if (selPhones) {
     context.phone = delegator.findOne("TelecomNumber", [contactMechId : selPhones[0].contactMechId], false);
 }
 
 // Fax
-faxNumbers = delegator.findByAnd("PartyContactMechPurpose", [partyId : partyId, contactMechPurposeTypeId : "FAX_NUMBER"]);
+faxNumbers = delegator.findByAnd("PartyContactMechPurpose", [partyId : partyId, contactMechPurposeTypeId : "FAX_NUMBER"], null, false);
 faxNumbers = EntityUtil.filterByDate(faxNumbers, nowTimestamp, null, null, true);
 if (faxNumbers) {
     context.fax = delegator.findOne("TelecomNumber", [contactMechId : faxNumbers[0].contactMechId], false);
 }
 
 //Email
-emails = delegator.findByAnd("PartyContactMechPurpose", [partyId : partyId, contactMechPurposeTypeId : "PRIMARY_EMAIL"]);
+emails = delegator.findByAnd("PartyContactMechPurpose", [partyId : partyId, contactMechPurposeTypeId : "PRIMARY_EMAIL"], null, false);
 selEmails = EntityUtil.filterByDate(emails, nowTimestamp, "fromDate", "thruDate", true);
 if (selEmails) {
     context.email = delegator.findOne("ContactMech", [contactMechId : selEmails[0].contactMechId], false);
 } else {    //get email address from party contact mech
-    contacts = delegator.findByAnd("PartyContactMech", [partyId : partyId]);
+    contacts = delegator.findByAnd("PartyContactMech", [partyId : partyId], null, false);
     selContacts = EntityUtil.filterByDate(contacts, nowTimestamp, "fromDate", "thruDate", true);
     if (selContacts) {
         i = selContacts.iterator();
@@ -194,12 +194,12 @@ if (selEmails) {
 }
 
 // website
-websiteUrls = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose", [partyId : partyId, contactMechPurposeTypeId : "PRIMARY_WEB_URL"]));
+websiteUrls = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose", [partyId : partyId, contactMechPurposeTypeId : "PRIMARY_WEB_URL"], null, false));
 if (websiteUrls) {
     websiteUrl = EntityUtil.getFirst(websiteUrls);
     context.website = delegator.findOne("ContactMech", [contactMechId : websiteUrl.contactMechId], false);
 } else { //get web address from party contact mech
-contacts = delegator.findByAnd("PartyContactMech", [partyId : partyId]);
+contacts = delegator.findByAnd("PartyContactMech", [partyId : partyId], null, false);
 selContacts = EntityUtil.filterByDate(contacts, nowTimestamp, "fromDate", "thruDate", true);
 if (selContacts) {
     Iterator i = selContacts.iterator();
@@ -214,14 +214,14 @@ if (selContacts) {
 }
 
 //Bank account
-paymentMethods = delegator.findByAnd("PaymentMethod", [partyId : partyId, paymentMethodTypeId : "EFT_ACCOUNT"]);
+paymentMethods = delegator.findByAnd("PaymentMethod", [partyId : partyId, paymentMethodTypeId : "EFT_ACCOUNT"], null, false);
 selPayments = EntityUtil.filterByDate(paymentMethods, nowTimestamp, "fromDate", "thruDate", true);
 if (selPayments) {
     context.eftAccount = delegator.findOne("EftAccount", [paymentMethodId : selPayments[0].paymentMethodId], false);
 }
 
 // Tax ID Info
-partyTaxAuthInfoList = delegator.findByAnd("PartyTaxAuthInfo", [partyId : partyId]);
+partyTaxAuthInfoList = delegator.findByAnd("PartyTaxAuthInfo", [partyId : partyId], null, false);
 if (partyTaxAuthInfoList) {
     if (address.countryGeoId) {
         // if we have an address with country filter by that
