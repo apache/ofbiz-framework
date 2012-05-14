@@ -135,7 +135,7 @@ In order ta make this service active add the following to the service definition
                                             contentName = contentName.substring(0, 100);
                                         }
                                         //check duplicate folder
-                                        contents = delegator.findByAnd("Content", UtilMisc.toMap("contentName", contentName));
+                                        contents = delegator.findByAnd("Content", UtilMisc.toMap("contentName", contentName), null, false);
                                         if (contents.size() > 0) {
                                             GenericValue contentResult = contents.get(0);
                                             contentId = contentResult.get("contentId").toString();
@@ -144,8 +144,8 @@ In order ta make this service active add the following to the service definition
                                             GenericValue contentResult = contents.get(0);
                                             contentId = contentResult.get("contentId").toString();
                                             if (rootContent != null) {
-                                                contentAssocs = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentId, "contentIdTo", rootContent));
-                                                List<GenericValue> contentAssocCheck = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentIdTo", rootContent));
+                                                contentAssocs = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentId, "contentIdTo", rootContent), null, false);
+                                                List<GenericValue> contentAssocCheck = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentIdTo", rootContent), null, false);
                                                 Iterator<GenericValue> contentAssChecks = contentAssocCheck.iterator();
                                                 while (contentAssChecks.hasNext() && contentNameMatch == false) {
                                                     GenericValue contentAss = contentAssChecks.next();
@@ -159,7 +159,7 @@ In order ta make this service active add the following to the service definition
                                                 }
                                             } else {
                                                 rootContent = "HOME_DUCUMENT";
-                                                contentAssocs = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentId, "contentIdTo", rootContent));
+                                                contentAssocs = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentId, "contentIdTo", rootContent), null, false);
                                             }
                                             contentAssocSize = contentAssocs.size();
                                         }
@@ -188,7 +188,7 @@ In order ta make this service active add the following to the service definition
                                         if (rootContent == null) {
                                             rootContent = "HOME_DUCUMENT";
                                         }
-                                        contentAssocs = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentId, "contentIdTo", rootContent, "contentAssocTypeId", "TREE_CHILD"));
+                                        contentAssocs = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentId, "contentIdTo", rootContent, "contentAssocTypeId", "TREE_CHILD"), null, false);
                                         if (contentAssocs.size() == 0) {
                                             contentAssoc = FastMap.newInstance();
                                             contentAssoc.put("contentId", contentId);
@@ -263,13 +263,13 @@ In order ta make this service active add the following to the service definition
                     if (contentName.length()>100) {
                         contentName = contentName.substring(0,100);
                     }
-                    List<GenericValue> contents = delegator.findByAnd("Content", UtilMisc.toMap("contentName", contentName), UtilMisc.toList("-contentId"));
+                    List<GenericValue> contents = delegator.findByAnd("Content", UtilMisc.toMap("contentName", contentName), UtilMisc.toList("-contentId"), false);
                     if (contents != null) {
                         Iterator<GenericValue> contentCheck = contents.iterator();
                         while (contentCheck.hasNext() && contentNameMatch == false) {
                             GenericValue contentch = contentCheck.next();
                             if (contentch != null) {
-                                List<GenericValue> contentAssocsChecks = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentch.get("contentId"), "contentIdTo", rootContent));
+                                List<GenericValue> contentAssocsChecks = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentch.get("contentId"), "contentIdTo", rootContent), null, false);
                                 if (contentAssocsChecks.size() > 0) {
                                     contentNameMatch = true;
                                 }
@@ -323,13 +323,13 @@ In order ta make this service active add the following to the service definition
                 //lastItem
                 if (index == size - 1) {
                     contentNameMatch = false;
-                    List<GenericValue> contents = delegator.findByAnd("Content", UtilMisc.toMap("contentName", contentName));
+                    List<GenericValue> contents = delegator.findByAnd("Content", UtilMisc.toMap("contentName", contentName), null, false);
                     if (contents != null) {
                         Iterator<GenericValue> contentCheck = contents.iterator();
                         while (contentCheck.hasNext() && contentNameMatch == false) {
                             GenericValue contentch = contentCheck.next();
                             if (contentch != null) {
-                                List<GenericValue> contentAssocsChecks = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentch.get("contentId"), "contentIdTo", rootContent));
+                                List<GenericValue> contentAssocsChecks = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentch.get("contentId"), "contentIdTo", rootContent), null, false);
                                 if (contentAssocsChecks.size() > 0) {
                                     contentNameMatch = true;
                                 }

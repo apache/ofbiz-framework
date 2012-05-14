@@ -120,8 +120,8 @@ public class CmsEvents {
         if (pathInfo == null) {
             List<GenericValue> defaultContents = null;
             try {
-                defaultContents = delegator.findByAndCache("WebSiteContent", UtilMisc.toMap("webSiteId", webSiteId,
-                        "webSiteContentTypeId", "DEFAULT_PAGE"), UtilMisc.toList("-fromDate"));
+                defaultContents = delegator.findByAnd("WebSiteContent", UtilMisc.toMap("webSiteId", webSiteId,
+                        "webSiteContentTypeId", "DEFAULT_PAGE"), UtilMisc.toList("-fromDate"), true);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
@@ -203,9 +203,9 @@ public class CmsEvents {
             if (statusCode != HttpServletResponse.SC_OK) {
                 List<GenericValue> errorContainers = null;
                 try {
-                    errorContainers = delegator.findByAndCache("WebSiteContent",
+                    errorContainers = delegator.findByAnd("WebSiteContent",
                             UtilMisc.toMap("webSiteId", webSiteId, "webSiteContentTypeId", "ERROR_ROOT"),
-                            UtilMisc.toList("-fromDate"));
+                            UtilMisc.toList("-fromDate"), true);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }
@@ -217,7 +217,7 @@ public class CmsEvents {
 
                     List<GenericValue> errorPages = null;
                     try {
-                        errorPages = delegator.findByAnd("ContentAssocViewTo", UtilMisc.toMap("contentIdStart", errorContainer.getString("contentId"), "caContentAssocTypeId", "TREE_CHILD", "contentTypeId", "DOCUMENT", "caMapKey", String.valueOf(statusCode)));
+                        errorPages = delegator.findByAnd("ContentAssocViewTo", UtilMisc.toMap("contentIdStart", errorContainer.getString("contentId"), "caContentAssocTypeId", "TREE_CHILD", "contentTypeId", "DOCUMENT", "caMapKey", String.valueOf(statusCode)), null, false);
                     } catch (GenericEntityException e) {
                         Debug.logError(e, module);
                     }
@@ -286,7 +286,7 @@ public class CmsEvents {
                     writer.append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
                     
                     // if use web analytics
-                    List<GenericValue> webAnalytics = delegator.findByAnd("WebAnalyticsConfig", UtilMisc.toMap("webSiteId", webSiteId));
+                    List<GenericValue> webAnalytics = delegator.findByAnd("WebAnalyticsConfig", UtilMisc.toMap("webSiteId", webSiteId), null, false);
                     
                     // render
                     if (UtilValidate.isNotEmpty(webAnalytics) && hasErrorPage) {
@@ -351,9 +351,9 @@ public class CmsEvents {
         List<GenericValue> publishPoints = null;
         boolean hadContent = false;
         try {
-            publishPoints = delegator.findByAndCache("WebSiteContent",
+            publishPoints = delegator.findByAnd("WebSiteContent",
                     UtilMisc.toMap("webSiteId", webSiteId, "contentId", contentId, "webSiteContentTypeId", "PUBLISH_POINT"),
-                    UtilMisc.toList("-fromDate"));
+                    UtilMisc.toList("-fromDate"), true);
         } catch (GenericEntityException e) {
             throw e;
         }
@@ -367,8 +367,8 @@ public class CmsEvents {
         } else {
             // the passed in contentId is not a publish point for the web site;
             // however we will publish its content if it is a node of one of the trees that have a publish point as the root
-            List<GenericValue> topLevelContentValues = delegator.findByAndCache("WebSiteContent",
-                UtilMisc.toMap("webSiteId", webSiteId, "webSiteContentTypeId", "PUBLISH_POINT"), UtilMisc.toList("-fromDate"));
+            List<GenericValue> topLevelContentValues = delegator.findByAnd("WebSiteContent",
+                UtilMisc.toMap("webSiteId", webSiteId, "webSiteContentTypeId", "PUBLISH_POINT"), UtilMisc.toList("-fromDate"), true);
             topLevelContentValues = EntityUtil.filterByDate(topLevelContentValues);
 
             if (topLevelContentValues != null) {
@@ -393,14 +393,14 @@ public class CmsEvents {
     }
 
     protected static int verifySubContent(Delegator delegator, String contentId, String contentIdFrom) throws GeneralException {
-        List<GenericValue> contentAssoc = delegator.findByAndCache("ContentAssoc", UtilMisc.toMap("contentId", contentIdFrom, "contentIdTo", contentId, "contentAssocTypeId", "SUB_CONTENT"));
+        List<GenericValue> contentAssoc = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentIdFrom, "contentIdTo", contentId, "contentAssocTypeId", "SUB_CONTENT"), null, true);
         boolean hadContent = false;
         if (UtilValidate.isNotEmpty(contentAssoc)) {
             hadContent = true;
         }
         contentAssoc = EntityUtil.filterByDate(contentAssoc);
         if (UtilValidate.isEmpty(contentAssoc)) {
-            List<GenericValue> assocs = delegator.findByAndCache("ContentAssoc", UtilMisc.toMap("contentId", contentIdFrom));
+            List<GenericValue> assocs = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentIdFrom), null, true);
             assocs = EntityUtil.filterByDate(assocs);
             if (assocs != null) {
                 for (GenericValue assoc : assocs) {

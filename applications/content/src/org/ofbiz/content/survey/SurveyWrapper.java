@@ -288,8 +288,8 @@ public class SurveyWrapper {
 
         try {
             Map<String, Object> fields = UtilMisc.<String, Object>toMap("surveyId", surveyId);
-            List<String> order = UtilMisc.<String>toList("sequenceNum", "surveyMultiRespColId");
-            questions = delegator.findByAndCache("SurveyQuestionAndAppl", fields, order);
+            List<String> order = UtilMisc.toList("sequenceNum", "surveyMultiRespColId");
+            questions = delegator.findByAnd("SurveyQuestionAndAppl", fields, order, true);
             if (questions != null) {
                 questions = EntityUtil.filterByDate(questions);
             }
@@ -313,7 +313,7 @@ public class SurveyWrapper {
         String responseId = null;
         List<GenericValue> responses = null;
         try {
-            responses = delegator.findByAnd("SurveyResponse", UtilMisc.toMap("surveyId", surveyId, "partyId", partyId), UtilMisc.toList("-lastModifiedDate"));
+            responses = delegator.findByAnd("SurveyResponse", UtilMisc.toMap("surveyId", surveyId, "partyId", partyId), UtilMisc.toList("-lastModifiedDate"), false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -346,7 +346,7 @@ public class SurveyWrapper {
     public List<GenericValue> getSurveyResponses(GenericValue question) throws SurveyWrapperException {
         List<GenericValue> responses = null;
         try {
-            responses = delegator.findByAnd("SurveyResponse", UtilMisc.toMap("surveyQuestionId", question.getString("surveyQuestionId")));
+            responses = delegator.findByAnd("SurveyResponse", UtilMisc.toMap("surveyQuestionId", question.getString("surveyQuestionId")), null, false);
         } catch (GenericEntityException e) {
             throw new SurveyWrapperException(e);
         }
@@ -360,7 +360,7 @@ public class SurveyWrapper {
         if (responseId != null) {
             List<GenericValue> answers = null;
             try {
-                answers = delegator.findByAnd("SurveyResponseAnswer", UtilMisc.toMap("surveyResponseId", responseId));
+                answers = delegator.findByAnd("SurveyResponseAnswer", UtilMisc.toMap("surveyResponseId", responseId), null, false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }

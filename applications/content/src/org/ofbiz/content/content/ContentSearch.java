@@ -79,7 +79,7 @@ public class ContentSearch {
 
         // now find all sub-categories, filtered by effective dates, and call this routine for them
         try {
-            List<GenericValue> contentAssocList = delegator.findByAndCache("ContentAssoc", UtilMisc.toMap("contentIdFrom", contentId));
+            List<GenericValue> contentAssocList = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentIdFrom", contentId), null, true);
             for (GenericValue contentAssoc: contentAssocList) {
                 String subContentId = contentAssoc.getString("contentIdTo");
                 if (contentIdSet.contains(subContentId)) {

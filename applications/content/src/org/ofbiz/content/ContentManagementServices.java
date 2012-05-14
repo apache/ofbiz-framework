@@ -490,7 +490,7 @@ public class ContentManagementServices {
 
       List<GenericValue> siteRoles = null;
       try {
-          siteRoles = delegator.findByAndCache("RoleType", UtilMisc.toMap("parentTypeId", "BLOG"));
+          siteRoles = delegator.findByAnd("RoleType", UtilMisc.toMap("parentTypeId", "BLOG"), null, true);
       } catch (GenericEntityException e) {
           return ServiceUtil.returnError(e.toString());
       }
@@ -792,7 +792,7 @@ public class ContentManagementServices {
     public static void addRoleToUser(Delegator delegator, LocalDispatcher dispatcher, Map<String, Object> serviceContext) throws GenericServiceException, GenericEntityException {
         String partyId = (String)serviceContext.get("partyId");
         Map<String, Object> findMap = UtilMisc.<String, Object>toMap("partyId", partyId);
-        List<GenericValue> userLoginList = delegator.findByAnd("UserLogin", findMap);
+        List<GenericValue> userLoginList = delegator.findByAnd("UserLogin", findMap, null, false);
         for(GenericValue partyUserLogin : userLoginList) {
             String partyUserLoginId = partyUserLogin.getString("userLoginId");
             serviceContext.put("contentId", partyUserLoginId); // author contentId
@@ -819,7 +819,7 @@ public class ContentManagementServices {
 
         List<GenericValue> siteRoles = null;
         try {
-            siteRoles = delegator.findByAndCache("RoleType", UtilMisc.toMap("parentTypeId", "BLOG"));
+            siteRoles = delegator.findByAnd("RoleType", UtilMisc.toMap("parentTypeId", "BLOG"), null, true);
         } catch (GenericEntityException e) {
           return ServiceUtil.returnError(e.toString());
         }
@@ -1492,7 +1492,7 @@ public class ContentManagementServices {
         boolean hasExistingContentRole = false;
         GenericValue contentRole = null;
         try {
-            List<GenericValue> contentRoleList = delegator.findByAndCache("ContentRole", UtilMisc.toMap("partyId", partyId, "contentId", webPubPt, "roleTypeId", roleTypeId));
+            List<GenericValue> contentRoleList = delegator.findByAnd("ContentRole", UtilMisc.toMap("partyId", partyId, "contentId", webPubPt, "roleTypeId", roleTypeId), null, true);
             List<GenericValue> listFiltered = EntityUtil.filterByDate(contentRoleList, true);
             List<GenericValue> listOrdered = EntityUtil.orderBy(listFiltered, UtilMisc.toList("fromDate DESC"));
             if (listOrdered.size() > 0) {
@@ -1573,7 +1573,7 @@ public class ContentManagementServices {
         }
         GenericValue productContent = null;
            try {
-            List<GenericValue> lst = delegator.findByAndCache("ProductContent", UtilMisc.toMap("productId", productId, "productContentTypeId", "ONLINE_ACCESS"));
+            List<GenericValue> lst = delegator.findByAnd("ProductContent", UtilMisc.toMap("productId", productId, "productContentTypeId", "ONLINE_ACCESS"), null, true);
             List<GenericValue> listFiltered = EntityUtil.filterByDate(lst, orderCreatedDate, "purchaseFromDate", "purchaseThruDate", true);
             List<GenericValue> listOrdered = EntityUtil.orderBy(listFiltered, UtilMisc.toList("purchaseFromDate", "purchaseThruDate"));
             List<GenericValue> listThrusOnly = EntityUtil.filterOutByCondition(listOrdered, EntityCondition.makeCondition("purchaseThruDate", EntityOperator.EQUALS, null));
@@ -1617,7 +1617,7 @@ public class ContentManagementServices {
 
         GenericValue orderHeader = null;
         try {
-            List<GenericValue> orderRoleList = delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "END_USER_CUSTOMER"));
+            List<GenericValue> orderRoleList = delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "END_USER_CUSTOMER"), null, false);
             if (orderRoleList.size() > 0) {
                 GenericValue orderRole = orderRoleList.get(0);
                 String partyId = (String) orderRole.get("partyId");
@@ -1639,7 +1639,7 @@ public class ContentManagementServices {
             for(GenericValue orderItem : orderItemList) {
                 BigDecimal qty = orderItem.getBigDecimal("quantity");
                 String productId = (String) orderItem.get("productId");
-                List<GenericValue> productContentList = delegator.findByAnd("ProductContent", UtilMisc.toMap("productId", productId, "productContentTypeId", "ONLINE_ACCESS"));
+                List<GenericValue> productContentList = delegator.findByAnd("ProductContent", UtilMisc.toMap("productId", productId, "productContentTypeId", "ONLINE_ACCESS"), null, false);
                 List<GenericValue> productContentListFiltered = EntityUtil.filterByDate(productContentList);
                 if (productContentListFiltered.size() > 0) {
                     context.put("productId", productId);

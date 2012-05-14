@@ -121,9 +121,9 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
         // if the content is a PUBLISH_POINT and the data resource is not defined; get the related content
         if ("WEB_SITE_PUB_PT".equals(content.get("contentTypeId")) && content.get("dataResourceId") == null) {
-            List<GenericValue> relContentIds = delegator.findByAndCache("ContentAssocDataResourceViewTo",
+            List<GenericValue> relContentIds = delegator.findByAnd("ContentAssocDataResourceViewTo",
                     UtilMisc.toMap("contentIdStart", content.get("contentId"),"statusId","CTNT_PUBLISHED",
-                    "caContentAssocTypeId", "PUBLISH_LINK"), UtilMisc.toList("caFromDate"));
+                    "caContentAssocTypeId", "PUBLISH_LINK"), UtilMisc.toList("caFromDate"), true);
 
             relContentIds = EntityUtil.filterByDate(relContentIds, UtilDateTime.nowTimestamp(), "caFromDate", "caThruDate", true);
             if (UtilValidate.isNotEmpty(relContentIds)) {
@@ -919,7 +919,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             andMap = UtilMisc.<String, Object>toMap(contentIdField, contentId, "contentAssocTypeId", contentAssocTypeId);
         }
         try {
-            List<GenericValue> lst = delegator.findByAndCache("ContentAssoc", andMap);
+            List<GenericValue> lst = delegator.findByAnd("ContentAssoc", andMap, null, true);
             //if (Debug.infoOn()) Debug.logInfo("getContentAncestry, lst:" + lst, "");
             List<GenericValue> lst2 = EntityUtil.filterByDate(lst);
             //if (Debug.infoOn()) Debug.logInfo("getContentAncestry, lst2:" + lst2, "");
@@ -948,7 +948,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         if (Debug.infoOn()) Debug.logInfo("getContentAncestry, contentId:" + contentId, "");
         Map<String, Object> andMap = UtilMisc.<String, Object>toMap(contentIdField, contentId);
         try {
-            List<GenericValue> lst = delegator.findByAndCache("ContentAssoc", andMap);
+            List<GenericValue> lst = delegator.findByAnd("ContentAssoc", andMap, null, true);
             //if (Debug.infoOn()) Debug.logInfo("getContentAncestry, lst:" + lst, "");
             List<GenericValue> lst2 = EntityUtil.filterByDate(lst);
             //if (Debug.infoOn()) Debug.logInfo("getContentAncestry, lst2:" + lst2, "");
@@ -1001,7 +1001,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
             //if (Debug.infoOn()) Debug.logInfo("getContentAncestry, contentId:" + contentId, "");
         try {
-            List<GenericValue> lst = delegator.findByAndCache("ContentAssoc", UtilMisc.toMap(contentIdField, contentId, "contentAssocTypeId", contentAssocTypeId));
+            List<GenericValue> lst = delegator.findByAnd("ContentAssoc", UtilMisc.toMap(contentIdField, contentId, "contentAssocTypeId", contentAssocTypeId), null, true);
             //if (Debug.infoOn()) Debug.logInfo("getContentAncestry, lst:" + lst, "");
             List<GenericValue> lst2 = EntityUtil.filterByDate(lst);
             //if (Debug.infoOn()) Debug.logInfo("getContentAncestry, lst2:" + lst2, "");
@@ -1079,7 +1079,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
                     view = entityList.get(0);
                 }
             } else {
-                List<GenericValue> lst = delegator.findByAnd("ContentDataResourceView", UtilMisc.toMap("contentId", subContentId));
+                List<GenericValue> lst = delegator.findByAnd("ContentDataResourceView", UtilMisc.toMap("contentId", subContentId), null, false);
                 if (UtilValidate.isEmpty(lst)) {
                     throw new IOException("No subContent found for subContentId=." + subContentId);
                 }
@@ -1129,7 +1129,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
     public static GenericValue getContentCache(Delegator delegator, String contentId) throws GenericEntityException {
         GenericValue view = null;
-        List<GenericValue> lst = delegator.findByAndCache("ContentDataResourceView", UtilMisc.toMap("contentId", contentId));
+        List<GenericValue> lst = delegator.findByAnd("ContentDataResourceView", UtilMisc.toMap("contentId", contentId), null, true);
         //if (Debug.infoOn()) Debug.logInfo("getContentCache, lst(2):" + lst, "");
         if (UtilValidate.isNotEmpty(lst)) {
             view = lst.get(0);

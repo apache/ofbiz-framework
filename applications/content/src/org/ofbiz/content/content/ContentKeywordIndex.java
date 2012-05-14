@@ -77,20 +77,20 @@ public class ContentKeywordIndex {
         addWeightedKeywordSourceString(content, "description", strings);
 
         // ContentAttribute
-        List<GenericValue> contentAttributes = delegator.findByAnd("ContentAttribute", UtilMisc.toMap("contentId", contentId));
+        List<GenericValue> contentAttributes = delegator.findByAnd("ContentAttribute", UtilMisc.toMap("contentId", contentId), null, false);
         for (GenericValue contentAttribute: contentAttributes) {
             addWeightedKeywordSourceString(contentAttribute, "attrName", strings);
             addWeightedKeywordSourceString(contentAttribute, "attrValue", strings);
         }
 
         // ContentMetaData
-        List<GenericValue> contentMetaDatas = delegator.findByAnd("ContentMetaData", UtilMisc.toMap("contentId", contentId));
+        List<GenericValue> contentMetaDatas = delegator.findByAnd("ContentMetaData", UtilMisc.toMap("contentId", contentId), null, false);
         for (GenericValue contentMetaData: contentMetaDatas) {
             addWeightedKeywordSourceString(contentMetaData, "metaDataValue", strings);
         }
 
         // ContentRole
-        List<GenericValue> contentRoles = delegator.findByAnd("ContentRole", UtilMisc.toMap("contentId", contentId));
+        List<GenericValue> contentRoles = delegator.findByAnd("ContentRole", UtilMisc.toMap("contentId", contentId), null, false);
         for (GenericValue contentRole: contentRoles) {
             GenericValue party = delegator.findOne("PartyNameView", UtilMisc.toMap("partyId", contentRole.getString("partyId")), false);
             if (party != null) {
@@ -103,7 +103,7 @@ public class ContentKeywordIndex {
         }
 
         // DataResourceRole
-        List<GenericValue> dataResourceRoles = delegator.findByAnd("DataResourceRole", UtilMisc.toMap("dataResourceId", content.getString("dataResourceId")));
+        List<GenericValue> dataResourceRoles = delegator.findByAnd("DataResourceRole", UtilMisc.toMap("dataResourceId", content.getString("dataResourceId")), null, false);
         for (GenericValue dataResourceRole: dataResourceRoles) {
             GenericValue party = delegator.findOne("PartyNameView", UtilMisc.toMap("partyId", dataResourceRole.getString("partyId")), false);
             if (party != null) {
@@ -116,7 +116,7 @@ public class ContentKeywordIndex {
         }
 
         // Product
-        List<GenericValue> productContentList = delegator.findByAnd("ProductContent", UtilMisc.toMap("contentId", contentId));
+        List<GenericValue> productContentList = delegator.findByAnd("ProductContent", UtilMisc.toMap("contentId", contentId), null, false);
         for (GenericValue productContent: productContentList) {
             GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productContent.getString("productId")), false);
             if (product != null) {
@@ -129,7 +129,7 @@ public class ContentKeywordIndex {
         }
 
         // ProductCategory
-        List<GenericValue> productCategoryContentList = delegator.findByAnd("ProductCategoryContent", UtilMisc.toMap("contentId", contentId));
+        List<GenericValue> productCategoryContentList = delegator.findByAnd("ProductCategoryContent", UtilMisc.toMap("contentId", contentId), null, false);
         for (GenericValue productCategoryContent: productCategoryContentList) {
             GenericValue productCategory = delegator.findOne("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryContent.getString("productCategoryId")), false);
             if (productCategory != null) {
@@ -140,7 +140,7 @@ public class ContentKeywordIndex {
         }
 
         // PartyContent
-        List<GenericValue> partyContents = delegator.findByAnd("PartyContent", UtilMisc.toMap("contentId", contentId));
+        List<GenericValue> partyContents = delegator.findByAnd("PartyContent", UtilMisc.toMap("contentId", contentId), null, false);
         for (GenericValue partyContent: partyContents) {
             GenericValue party = delegator.findOne("PartyNameView", UtilMisc.toMap("partyId", partyContent.getString("partyId")), false);
             if (party != null) {
@@ -153,7 +153,7 @@ public class ContentKeywordIndex {
         }
 
         // WebSiteContent
-        List<GenericValue> webSiteContents = delegator.findByAnd("WebSiteContent", UtilMisc.toMap("contentId", contentId));
+        List<GenericValue> webSiteContents = delegator.findByAnd("WebSiteContent", UtilMisc.toMap("contentId", contentId), null, false);
         for (GenericValue webSiteContent: webSiteContents) {
             GenericValue webSite = delegator.findOne("WebSite", UtilMisc.toMap("webSiteId", webSiteContent.getString("webSiteId")), false);
             if (webSite != null) {
@@ -164,7 +164,7 @@ public class ContentKeywordIndex {
         }
 
         // WorkEffortContent
-        List<GenericValue> workEffortContents = delegator.findByAnd("WorkEffortContent", UtilMisc.toMap("contentId", contentId));
+        List<GenericValue> workEffortContents = delegator.findByAnd("WorkEffortContent", UtilMisc.toMap("contentId", contentId), null, false);
         for (GenericValue workEffortContent: workEffortContents) {
             GenericValue workEffort = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", workEffortContent.getString("workEffortId")), false);
             if (workEffort != null) {
@@ -178,7 +178,7 @@ public class ContentKeywordIndex {
             addWeightedKeywordSourceString(dataResource, "dataResourceName", strings);
             addWeightedKeywordSourceString(dataResource, "objectInfo", strings);
         }
-        /*List<GenericValue> contentDataResourceViews = delegator.findByAnd("ContentDataResourceView", UtilMisc.toMap("contentId", contentId), null);
+        /*List<GenericValue> contentDataResourceViews = delegator.findByAnd("ContentDataResourceView", UtilMisc.toMap("contentId", contentId), null, false);
         for (GenericValue contentDataResourceView: contentDataResourceViews) {
             int weight = 1;
             addWeightedDataResourceString(contentDataResourceView, weight, strings, delegator, content);

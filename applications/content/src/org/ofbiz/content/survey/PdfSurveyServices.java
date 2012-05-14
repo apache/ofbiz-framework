@@ -271,7 +271,7 @@ public class PdfSurveyServices {
                 //AcroFields.Item item = fs.getFieldItem(fieldName);
                 //int type = fs.getFieldType(fieldName);
                 String value = fs.getField(fieldName);
-                List<GenericValue> questions = delegator.findByAnd("SurveyQuestionAndAppl", UtilMisc.toMap("surveyId", surveyId, "externalFieldRef", fieldName));
+                List<GenericValue> questions = delegator.findByAnd("SurveyQuestionAndAppl", UtilMisc.toMap("surveyId", surveyId, "externalFieldRef", fieldName), null, false);
                 if (questions.size() == 0) {
                     Debug.logInfo("No question found for surveyId:" + surveyId + " and externalFieldRef:" + fieldName, module);
                     continue;
@@ -441,7 +441,7 @@ public class PdfSurveyServices {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             PdfWriter.getInstance(document, baos);
 
-            List<GenericValue> responses = delegator.findByAnd("SurveyResponseAnswer", UtilMisc.toMap("surveyResponseId", surveyResponseId));
+            List<GenericValue> responses = delegator.findByAnd("SurveyResponseAnswer", UtilMisc.toMap("surveyResponseId", surveyResponseId), null, false);
             for(GenericValue surveyResponseAnswer : responses) {
                 String value = null;
                 String surveyQuestionId = (String) surveyResponseAnswer.get("surveyQuestionId");
@@ -490,7 +490,7 @@ public class PdfSurveyServices {
         List<Object> qAndA = FastList.newInstance();
 
         try {
-            List<GenericValue> responses = delegator.findByAnd("SurveyResponseAnswer", UtilMisc.toMap("surveyResponseId", surveyResponseId));
+            List<GenericValue> responses = delegator.findByAnd("SurveyResponseAnswer", UtilMisc.toMap("surveyResponseId", surveyResponseId), null, false);
             for(GenericValue surveyResponseAnswer : responses) {
                 String surveyQuestionId = (String) surveyResponseAnswer.get("surveyQuestionId");
                 GenericValue surveyQuestion = delegator.findOne("SurveyQuestion", UtilMisc.toMap("surveyQuestionId", surveyQuestionId), false);
@@ -531,14 +531,14 @@ public class PdfSurveyServices {
                 }
             }
 
-            List<GenericValue> responses = delegator.findByAnd("SurveyResponseAnswer", UtilMisc.toMap("surveyResponseId", surveyResponseId));
+            List<GenericValue> responses = delegator.findByAnd("SurveyResponseAnswer", UtilMisc.toMap("surveyResponseId", surveyResponseId), null, false);
             for(GenericValue surveyResponseAnswer : responses) {
                 String value = null;
                 String surveyQuestionId = (String) surveyResponseAnswer.get("surveyQuestionId");
 
                 GenericValue surveyQuestion = delegator.findOne("SurveyQuestion", UtilMisc.toMap("surveyQuestionId", surveyQuestionId), true);
 
-                List<GenericValue> surveyQuestionApplList = EntityUtil.filterByDate(delegator.findByAndCache("SurveyQuestionAppl", UtilMisc.toMap("surveyId", surveyId, "surveyQuestionId", surveyQuestionId), UtilMisc.toList("-fromDate")), false);
+                List<GenericValue> surveyQuestionApplList = EntityUtil.filterByDate(delegator.findByAnd("SurveyQuestionAppl", UtilMisc.toMap("surveyId", surveyId, "surveyQuestionId", surveyQuestionId), UtilMisc.toList("-fromDate"), true), false);
                 GenericValue surveyQuestionAppl = EntityUtil.getFirst(surveyQuestionApplList);
 
                 String questionType = surveyQuestion.getString("surveyQuestionTypeId");

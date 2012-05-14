@@ -137,7 +137,7 @@ public class DataServices {
         // get first statusId  for content out of the statusItem table if not provided
         if (UtilValidate.isEmpty(dataResource.get("statusId"))) {
             try {
-                List<GenericValue> statusItems = delegator.findByAnd("StatusItem",UtilMisc.toMap("statusTypeId", "CONTENT_STATUS"), UtilMisc.toList("sequenceId"));
+                List<GenericValue> statusItems = delegator.findByAnd("StatusItem",UtilMisc.toMap("statusTypeId", "CONTENT_STATUS"), UtilMisc.toList("sequenceId"), false);
                 if (!UtilValidate.isEmpty(statusItems)) {
                     dataResource.put("statusId",  statusItems.get(0).getString("statusId"));
                 }
