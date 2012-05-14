@@ -83,7 +83,7 @@ public class PeriodServices {
                 if ((periodTypeId != null) && !(periodTypeId.equals(""))) {
                     findParams.put("periodTypeId", periodTypeId);
                 }
-                List<GenericValue> timePeriods = delegator.findByAnd("CustomTimePeriod", findParams, UtilMisc.toList("fromDate ASC"));
+                List<GenericValue> timePeriods = delegator.findByAnd("CustomTimePeriod", findParams, UtilMisc.toList("fromDate ASC"), false);
                 if ((timePeriods != null) && (timePeriods.size() > 0) && (timePeriods.get(0).get("fromDate") != null)) {
                     lastClosedDate = UtilDateTime.toTimestamp(timePeriods.get(0).getDate("fromDate"));
                 } else {

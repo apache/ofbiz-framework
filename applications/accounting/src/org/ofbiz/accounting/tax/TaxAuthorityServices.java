@@ -430,7 +430,7 @@ public class TaxAuthorityServices {
                     Map<String, String> priceFindMap = UtilMisc.toMap("productId", product.getString("productId"), 
                             "taxAuthPartyId", taxAuthPartyId, "taxAuthGeoId", taxAuthGeoId, 
                             "productPricePurposeId", "PURCHASE");
-                    List<GenericValue> productPriceList = delegator.findByAnd("ProductPrice", priceFindMap, UtilMisc.toList("-fromDate"));
+                    List<GenericValue> productPriceList = delegator.findByAnd("ProductPrice", priceFindMap, UtilMisc.toList("-fromDate"), false);
                     productPriceList = EntityUtil.filterByDate(productPriceList, true);
                     productPrice = (productPriceList != null && productPriceList.size() > 0) ? productPriceList.get(0): null;
                     //Debug.logInfo("=================== productId=" + product.getString("productId"), module);
@@ -469,7 +469,7 @@ public class TaxAuthorityServices {
                     // look for PartyRelationship with partyRelationshipTypeId=GROUP_ROLLUP, the partyIdTo is the group member, so the partyIdFrom is the groupPartyId
                     Set<String> billToPartyIdSet = FastSet.newInstance();
                     billToPartyIdSet.add(billToPartyId);
-                    List<GenericValue> partyRelationshipList = EntityUtil.filterByDate(delegator.findByAndCache("PartyRelationship", UtilMisc.toMap("partyIdTo", billToPartyId, "partyRelationshipTypeId", "GROUP_ROLLUP")), true);
+                    List<GenericValue> partyRelationshipList = EntityUtil.filterByDate(delegator.findByAnd("PartyRelationship", UtilMisc.toMap("partyIdTo", billToPartyId, "partyRelationshipTypeId", "GROUP_ROLLUP"), null, true), true);
                     for(GenericValue partyRelationship : partyRelationshipList) {
                         billToPartyIdSet.add(partyRelationship.getString("partyIdFrom"));
                     }
@@ -560,9 +560,9 @@ public class TaxAuthorityServices {
         // if no exceptions were found for the current; try the parent
         if (!foundExemption) {
             // try the "parent" TaxAuthority
-            List<GenericValue> taxAuthorityAssocList = delegator.findByAndCache("TaxAuthorityAssoc",
+            List<GenericValue> taxAuthorityAssocList = delegator.findByAnd("TaxAuthorityAssoc",
                     UtilMisc.toMap("toTaxAuthGeoId", taxAuthGeoId, "toTaxAuthPartyId", taxAuthPartyId, "taxAuthorityAssocTypeId", "EXEMPT_INHER"),
-                    UtilMisc.toList("-fromDate"));
+                    UtilMisc.toList("-fromDate"), true);
             taxAuthorityAssocList = EntityUtil.filterByDate(taxAuthorityAssocList, true);
             GenericValue taxAuthorityAssoc = EntityUtil.getFirst(taxAuthorityAssocList);
             // Debug.logInfo("Parent assoc to " + taxAuthGeoId + " : " + taxAuthorityAssoc, module);

@@ -73,7 +73,7 @@ public class FinAccountProductServices {
         GenericValue featureAndAppl;
         try {
             List<GenericValue> featureAndAppls = delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId,
-                    "productFeatureTypeId", "TYPE", "productFeatureApplTypeId", "STANDARD_FEATURE"));
+                    "productFeatureTypeId", "TYPE", "productFeatureApplTypeId", "STANDARD_FEATURE"), null, false);
             featureAndAppls = EntityUtil.filterByDate(featureAndAppls);
             featureAndAppl = EntityUtil.getFirst(featureAndAppls);
         } catch (GenericEntityException e) {

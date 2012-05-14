@@ -364,7 +364,7 @@ public class RitaServices {
                 Timestamp orderDate = orderHeader.getTimestamp("orderDate");
                 GenericValue terminalState = null;
                 try {
-                    List<GenericValue> states = delegator.findByAnd("PosTerminalState", UtilMisc.toMap("posTerminalId", terminalId));
+                    List<GenericValue> states = delegator.findByAnd("PosTerminalState", UtilMisc.toMap("posTerminalId", terminalId), null, false);
                     states = EntityUtil.filterByDate(states, UtilDateTime.nowTimestamp(), "openedDate", "closedDate", true);
                     terminalState = EntityUtil.getFirst(states);
                 } catch (GenericEntityException e) {

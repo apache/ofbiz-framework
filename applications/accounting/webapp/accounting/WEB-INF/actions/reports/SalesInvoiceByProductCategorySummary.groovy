@@ -31,8 +31,8 @@ import org.ofbiz.entity.util.*;
 //TODO:
 
 // get products and categories under the root category
-productMemberList = delegator.findByAnd("ProductCategoryMember", [productCategoryId : rootProductCategoryId], ["sequenceNum"]);
-categoryRollupList = delegator.findByAnd("ProductCategoryRollup", [parentProductCategoryId : rootProductCategoryId], ["sequenceNum"]);
+productMemberList = delegator.findByAnd("ProductCategoryMember", [productCategoryId : rootProductCategoryId], ["sequenceNum"], false);
+categoryRollupList = delegator.findByAnd("ProductCategoryRollup", [parentProductCategoryId : rootProductCategoryId], ["sequenceNum"], false);
 
 // for use in the queries
 productIdSet = FastSet.newInstance();

@@ -97,30 +97,30 @@ public class AgreementServices {
 
             // Collect agreementItems applicable to this orderItem/returnItem
             // TODO: partyIds should be part of this query!
-            List<GenericValue> agreementItems = delegator.findByAndCache("AgreementItemAndProductAppl", UtilMisc.toMap(
+            List<GenericValue> agreementItems = delegator.findByAnd("AgreementItemAndProductAppl", UtilMisc.toMap(
                     "productId", productId,
-                    "agreementItemTypeId", "AGREEMENT_COMMISSION"));
+                    "agreementItemTypeId", "AGREEMENT_COMMISSION"), null, true);
             // Try the first available virtual product if this is a variant product
             if (agreementItems.size() == 0) {
-                List<GenericValue> productAssocs = delegator.findByAndCache("ProductAssoc", UtilMisc.toMap(
+                List<GenericValue> productAssocs = delegator.findByAnd("ProductAssoc", UtilMisc.toMap(
                         "productIdTo", productId,
-                        "productAssocTypeId", "PRODUCT_VARIANT"));
+                        "productAssocTypeId", "PRODUCT_VARIANT"), null, true);
                 productAssocs = EntityUtil.filterByDate(productAssocs);
                 if (productAssocs.size() > 0) {
                     GenericEntity productAssoc = EntityUtil.getFirst(productAssocs);
-                    agreementItems = delegator.findByAndCache("AgreementItemAndProductAppl", UtilMisc.toMap(
+                    agreementItems = delegator.findByAnd("AgreementItemAndProductAppl", UtilMisc.toMap(
                             "productId", productAssoc.getString("productId"),
-                            "agreementItemTypeId", "AGREEMENT_COMMISSION"));
+                            "agreementItemTypeId", "AGREEMENT_COMMISSION"), null, true);
                 }
             }
             // this is not very efficient if there were many
             agreementItems = EntityUtil.filterByDate(agreementItems);
 
             for (GenericValue agreementItem : agreementItems) {
-                List<GenericValue> terms = delegator.findByAndCache("AgreementTerm", UtilMisc.toMap(
+                List<GenericValue> terms = delegator.findByAnd("AgreementTerm", UtilMisc.toMap(
                         "agreementId", agreementItem.getString("agreementId"),
                         "agreementItemSeqId", agreementItem.getString("agreementItemSeqId"),
-                        "invoiceItemTypeId", invoiceItemTypeId));
+                        "invoiceItemTypeId", invoiceItemTypeId), null, true);
                 if (terms.size() > 0) {
                     BigDecimal commission = ZERO;
                     BigDecimal min = new BigDecimal("-1e12");   // Limit to 1 trillion commission
