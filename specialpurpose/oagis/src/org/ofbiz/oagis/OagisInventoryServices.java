@@ -225,7 +225,7 @@ public class OagisInventoryServices {
                 List facilityContactMechs = null;
                 GenericValue contactMech = null;
                 try {
-                    facilityContactMechs = delegator.findByAnd("FacilityContactMech", UtilMisc.toMap("facilityId", facilityId));
+                    facilityContactMechs = delegator.findByAnd("FacilityContactMech", UtilMisc.toMap("facilityId", facilityId), null, false);
                 } catch (GenericEntityException e) {
                     String errMsg = "Error Getting FacilityContactMech: " + e.toString();
                     errorMapList.add(UtilMisc.<String, String>toMap("reasonCode", "GenericEntityException", "description", errMsg));
@@ -854,7 +854,7 @@ public class OagisInventoryServices {
                              // this is a Serialized Inventory Item. If the productId from the message is not valid then lets read it from InventoryItem in Ofbiz database.
                              if (productId == null || "".equals(productId)) {
                              try {
-                                 GenericValue inventoryItem = EntityUtil.getFirst(delegator.findByAnd("InventoryItem", UtilMisc.toMap("serialNumber", serialNumber)));
+                                 GenericValue inventoryItem = EntityUtil.getFirst(delegator.findByAnd("InventoryItem", UtilMisc.toMap("serialNumber", serialNumber), null, false));
                                  if (inventoryItem !=null) {
                                      productId = inventoryItem.getString("productId");
                                  }
@@ -1010,7 +1010,7 @@ public class OagisInventoryServices {
 
                         // loop through ReturnItem records, get totals for each productId
                         Map<String, Double> returnQuantityByProductIdMap = FastMap.newInstance();
-                        List<GenericValue> returnItemList = delegator.findByAnd("ReturnItem", UtilMisc.toMap("returnId", returnId));
+                        List<GenericValue> returnItemList = delegator.findByAnd("ReturnItem", UtilMisc.toMap("returnId", returnId), null, false);
                         for (GenericValue returnItem : returnItemList) {
                             String productId = returnItem.getString("productId");
                             Double returnQuantityDbl = returnItem.getDouble("returnQuantity");
@@ -1032,7 +1032,7 @@ public class OagisInventoryServices {
 
                             double receivedQuantity = 0;
                             // note no facilityId because we don't really care where the return items were received
-                            List<GenericValue> shipmentReceiptList = delegator.findByAnd("ShipmentReceipt", UtilMisc.toMap("productId", productId, "returnId", returnId));
+                            List<GenericValue> shipmentReceiptList = delegator.findByAnd("ShipmentReceipt", UtilMisc.toMap("productId", productId, "returnId", returnId), null, false);
                             // NOTE only consider those with a quantityOnHandDiff > 0 so we just look at how many have been received, not what was actually done with them
                             for (GenericValue shipmentReceipt : shipmentReceiptList) {
                                 Double quantityAccepted = shipmentReceipt.getDouble("quantityAccepted");

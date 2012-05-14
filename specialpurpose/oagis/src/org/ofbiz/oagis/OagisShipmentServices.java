@@ -309,7 +309,7 @@ public class OagisShipmentServices {
                                 }
 
                                 if (UtilValidate.isEmpty(shipmentItemList)) {
-                                    shipmentItemList = delegator.findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", shipmentId, "productId",productId));
+                                    shipmentItemList = delegator.findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", shipmentId, "productId",productId), null, false);
                                     if (UtilValidate.isEmpty(shipmentItemList)) {
                                         String errMsg = "Could not find Shipment Item for Shipment with ID [" + shipmentId + "] and Product with ID [" + productId + "].";
                                         errorMapList.add(UtilMisc.<String, String>toMap("reasonCode", "ShipmentItemForProductNotFound", "description", errMsg));
@@ -324,7 +324,7 @@ public class OagisShipmentServices {
                                             // see if there is an ItemIssuance for this ShipmentItem, ie has already had inventory issued to it
                                             //if so then move on, this isn't the ShipmentItem you want
                                             List<GenericValue> itemIssuanceList = delegator.findByAnd("ItemIssuance",
-                                                    UtilMisc.toMap("shipmentId", shipmentId, "shipmentItemSeqId", shipmentItem.get("shipmentItemSeqId")));
+                                                    UtilMisc.toMap("shipmentId", shipmentId, "shipmentItemSeqId", shipmentItem.get("shipmentItemSeqId")), null, false);
                                             if (itemIssuanceList.size() == 0) {
                                                 // found a match, set the list to be a new list with just this item and then break
                                                 shipmentItemList = UtilMisc.toList(shipmentItem);
@@ -345,7 +345,7 @@ public class OagisShipmentServices {
                                 GenericValue shipmentItem = shipmentItemList.get(0);
 
                                 String shipmentItemSeqId = shipmentItem.getString("shipmentItemSeqId");
-                                GenericValue orderShipment = EntityUtil.getFirst(delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentItemSeqId", shipmentItemSeqId)));
+                                GenericValue orderShipment = EntityUtil.getFirst(delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentItemSeqId", shipmentItemSeqId), null, false));
                                 if (orderShipment == null) {
                                     String errMsg = "Could not find Order-Shipment record for ShipmentItem with ID [" + shipmentId + "] and Item Seq-ID [" + shipmentItemSeqId + "].";
                                     errorMapList.add(UtilMisc.<String, String>toMap("reasonCode", "OrderShipmentNotFound", "description", errMsg));
@@ -363,7 +363,7 @@ public class OagisShipmentServices {
 
                                 // NOTE: there could be more than one reservation record for a given shipment item? for example if there wasn't enough quantity in one inventory item and reservations on two were needed
                                 List<GenericValue> orderItemShipGrpInvReservationList = delegator.findByAnd("OrderItemShipGrpInvRes",
-                                        UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId,"shipGroupSeqId",shipGroupSeqId));
+                                        UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId,"shipGroupSeqId",shipGroupSeqId), null, false);
 
                                 // find the total quantity for all reservations
                                 int totalReserved = 0;
@@ -502,13 +502,13 @@ public class OagisShipmentServices {
                     // NOTE ON THIS DEJ20070906: this is actually really bad because it implies the shipment
                     //has been split and that isn't really allowed; maybe better to return an error!
 
-                    List<GenericValue> shipmentItemList = delegator.findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", shipmentId));
+                    List<GenericValue> shipmentItemList = delegator.findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", shipmentId), null, false);
                     for (GenericValue shipmentItem : shipmentItemList) {
                         int shipmentItemQuantity = shipmentItem.getDouble("quantity").intValue();
 
                         int totalItemIssuanceQuantity = 0;
                         List<GenericValue> itemIssuanceList = delegator.findByAnd("ItemIssuance", UtilMisc.toMap("shipmentId", shipmentId, "shipmentItemSeqId",
-                                shipmentItem.get("shipmentItemSeqId")));
+                                shipmentItem.get("shipmentItemSeqId")), null, false);
                         for (GenericValue itemIssuance : itemIssuanceList) {
                             totalItemIssuanceQuantity += itemIssuance.getDouble("quantity").intValue();
                         }
@@ -704,7 +704,7 @@ public class OagisShipmentServices {
         try {
             // see if there are any OagisMessageInfo for this order that are in the OAGMP_OGEN_SUCCESS or OAGMP_SENT statuses, if so don't send again; these need to be manually reviewed before resending to avoid accidental duplicate messages
             List<GenericValue> previousOagisMessageInfoList = delegator.findByAnd("OagisMessageInfo",
-                    UtilMisc.toMap("orderId", orderId, "task", task, "component", component));
+                    UtilMisc.toMap("orderId", orderId, "task", task, "component", component), null, false);
             if (EntityUtil.filterByAnd(previousOagisMessageInfoList, UtilMisc.toMap("processingStatusId", "OAGMP_OGEN_SUCCESS")).size() > 0) {
                 // this isn't really an error, just a failed constraint so return success
                 return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "OagisFoundExistingMessage", UtilMisc.toMap("orderId", orderId), locale) + EntityUtil.filterByAnd(previousOagisMessageInfoList, UtilMisc.toMap("processingStatusId", "OAGMP_OGEN_SUCCESS")));
@@ -808,7 +808,7 @@ public class OagisShipmentServices {
             }
 
             bodyParameters.put("shipment", shipment);
-            List<GenericValue> shipmentItems = delegator.findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", shipmentId));
+            List<GenericValue> shipmentItems = delegator.findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", shipmentId), null, false);
             bodyParameters.put("shipmentItems", shipmentItems);
 
             GenericValue  address = EntityUtil.getFirst(orderReadHelper.getShippingLocations());
@@ -823,7 +823,7 @@ public class OagisShipmentServices {
             }
             bodyParameters.put("telecomNumber", telecomNumber);
 
-            orderItemShipGroup = EntityUtil.getFirst(delegator.findByAnd("OrderItemShipGroup", UtilMisc.toMap("orderId", orderId)));
+            orderItemShipGroup = EntityUtil.getFirst(delegator.findByAnd("OrderItemShipGroup", UtilMisc.toMap("orderId", orderId), null, false));
             bodyParameters.put("orderItemShipGroup", orderItemShipGroup);
             Set<String> correspondingPoIdSet = FastSet.newInstance();
 
@@ -841,13 +841,13 @@ public class OagisShipmentServices {
                 bodyParameters.put("externalIdSet", externalIdSet);
             }
             // Check if order was a return replacement order (associated with return)
-            GenericValue returnItemResponse = EntityUtil.getFirst(delegator.findByAnd("ReturnItemResponse", UtilMisc.toMap("replacementOrderId", orderId)));
+            GenericValue returnItemResponse = EntityUtil.getFirst(delegator.findByAnd("ReturnItemResponse", UtilMisc.toMap("replacementOrderId", orderId), null, false));
             if (returnItemResponse != null) {
                 boolean includeReturnLabel = false;
 
                 // Get the associated return Id (replaceReturnId)
                 String returnItemResponseId = returnItemResponse.getString("returnItemResponseId");
-                List<GenericValue> returnItemList = delegator.findByAnd("ReturnItem", UtilMisc.toMap("returnItemResponseId", returnItemResponseId));
+                List<GenericValue> returnItemList = delegator.findByAnd("ReturnItem", UtilMisc.toMap("returnItemResponseId", returnItemResponseId), null, false);
                 GenericValue firstReturnItem = EntityUtil.getFirst(returnItemList);
                 if (firstReturnItem != null) {
                     bodyParameters.put("replacementReturnId", firstReturnItem.getString("returnId"));
@@ -872,7 +872,7 @@ public class OagisShipmentServices {
             // tracking shipper account, other Party info
             String partyId = shipment.getString("partyIdTo");
             bodyParameters.put("partyNameView", delegator.findOne("PartyNameView", UtilMisc.toMap("partyId", partyId), false));
-            List<GenericValue> partyCarrierAccounts = delegator.findByAnd("PartyCarrierAccount", UtilMisc.toMap("partyId", partyId));
+            List<GenericValue> partyCarrierAccounts = delegator.findByAnd("PartyCarrierAccount", UtilMisc.toMap("partyId", partyId), null, false);
             partyCarrierAccounts = EntityUtil.filterByDate(partyCarrierAccounts);
             if (partyCarrierAccounts != null) {
                 for (GenericValue partyCarrierAccount : partyCarrierAccounts) {
@@ -1021,7 +1021,7 @@ public class OagisShipmentServices {
         try {
             // see if there are any OagisMessageInfo for this order that are in the OAGMP_OGEN_SUCCESS or OAGMP_SENT statuses, if so don't send again; these need to be manually reviewed before resending to avoid accidental duplicate messages
             List<GenericValue> previousOagisMessageInfoList = delegator.findByAnd("OagisMessageInfo",
-                    UtilMisc.toMap("returnId", returnId, "task", task, "component", component));
+                    UtilMisc.toMap("returnId", returnId, "task", task, "component", component), null, false);
             if (EntityUtil.filterByAnd(previousOagisMessageInfoList, UtilMisc.toMap("processingStatusId", "OAGMP_OGEN_SUCCESS")).size() > 0) {
                 // this isn't really an error, just a failed constraint so return success
                 return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "OagisFoundExistingMessageForReturn", UtilMisc.toMap("returnId", returnId), locale) + EntityUtil.filterByAnd(previousOagisMessageInfoList, UtilMisc.toMap("processingStatusId", "OAGMP_OGEN_SUCCESS")));
@@ -1040,7 +1040,7 @@ public class OagisShipmentServices {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisReturnIdNotInAcceptedStatus", UtilMisc.toMap("returnId", returnId), locale));
             }
 
-            List<GenericValue> returnItems = delegator.findByAnd("ReturnItem", UtilMisc.toMap("returnId", returnId));
+            List<GenericValue> returnItems = delegator.findByAnd("ReturnItem", UtilMisc.toMap("returnId", returnId), null, false);
             bodyParameters.put("returnItems", returnItems);
 
             orderId = EntityUtil.getFirst(returnItems).getString("orderId");
@@ -1104,7 +1104,7 @@ public class OagisShipmentServices {
                     if (orderItem.getDouble("quantity").doubleValue() == itemQty) {
                         List<GenericValue> itemIssuanceAndInventoryItemList = delegator.findByAnd("ItemIssuanceAndInventoryItem",
                                 UtilMisc.toMap("orderId", orderItem.get("orderId"), "orderItemSeqId", orderItem.get("orderItemSeqId"),
-                                        "inventoryItemTypeId", "SERIALIZED_INV_ITEM"));
+                                        "inventoryItemTypeId", "SERIALIZED_INV_ITEM"), null, false);
                         if (itemIssuanceAndInventoryItemList.size() == itemQty) {
                             List<String> serialNumberList = FastList.newInstance();
                             serialNumberListByReturnItemSeqIdMap.put(returnItem.getString("returnItemSeqId"), serialNumberList);
