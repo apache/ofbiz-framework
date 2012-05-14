@@ -58,7 +58,7 @@ under the License.
             <if-compare field="productionRunHeader.workEffortTypeId" operator="equals" value="PROD_ORDER_HEADER"/>
             <if-compare-field field="productionRunHeader.facilityId" operator="equals" to-field="facilityId"/>
             <if-compare field="productionRunHeader.currentStatusId" operator="equals" value="PRUN_CREATED"/>
-            <if-compare-field field="productionRunHeader.quantityToProduce" operator="equals" to-field="quantity" type="BigDecimal"/>
+            <if-compare-field field="productionRunHeader.quantityToProduce" operator="equals" to-field="quantity"/>
             <if-compare-field field="productionRunHeader.estimatedStartDate" operator="equals" to-field="productionRunStartDate" type="Timestamp"/>
             <if-compare-field field="productionRunHeader.estimatedStartDate" operator="less" to-field="productionRunHeader.estimatedCompletionDate" type="Timestamp"/>
         </assert>
@@ -72,7 +72,7 @@ under the License.
             <not><if-empty field="productionRunProduct"/></not>
             <if-compare-field field="productionRunProduct.productId" operator="equals" to-field="productId"/>
             <if-compare field="productionRunProduct.workEffortGoodStdTypeId" operator="equals" value="PRUN_PROD_DELIV"/>
-            <if-compare-field field="productionRunProduct.estimatedQuantity" operator="equals" to-field="quantity" type="BigDecimal"/>
+            <if-compare-field field="productionRunProduct.estimatedQuantity" operator="equals" to-field="quantity"/>
         </assert>
 
         <entity-and list="productionRunTasks" entity-name="WorkEffort">
@@ -86,7 +86,7 @@ under the License.
             <if-compare-field field="productionRunTask.facilityId" operator="equals" to-field="facilityId"/>
             <if-compare field="productionRunTask.fixedAssetId" operator="equals" value="WORKCENTER_COST"/>
             <if-compare field="productionRunTask.currentStatusId" operator="equals" value="PRUN_CREATED"/>
-            <if-compare-field field="productionRunTask.quantityToProduce" operator="equals" to-field="quantity" type="BigDecimal"/>
+            <if-compare-field field="productionRunTask.quantityToProduce" operator="equals" to-field="quantity"/>
             <if-compare-field field="productionRunHeader.estimatedStartDate" operator="equals" to-field="productionRunTask.estimatedStartDate" type="Timestamp"/>
             <if-compare-field field="productionRunHeader.estimatedCompletionDate" operator="equals" to-field="productionRunTask.estimatedCompletionDate" type="Timestamp"/>
             <if-compare field="productionRunTask.estimatedSetupMillis" operator="equals" value="600000.00" type="BigDecimal"/>
@@ -841,9 +841,9 @@ under the License.
 
         <assert>
             <if-compare field="productionRunHeader.currentStatusId" operator="equals" value="PRUN_CLOSED"/>
-            <if-compare-field field="productionRunHeader.quantityProduced" operator="equals" to-field="quantity" type="BigDecimal"/>
+            <if-compare-field field="productionRunHeader.quantityProduced" operator="equals" to-field="quantity"/>
             <if-compare field="productionRunTask.currentStatusId" operator="equals" value="PRUN_CLOSED"/>
-            <if-compare-field field="productionRunTask.quantityProduced" operator="equals" to-field="quantity" type="BigDecimal"/>
+            <if-compare-field field="productionRunTask.quantityProduced" operator="equals" to-field="quantity"/>
         </assert>
 
         <check-errors/>
