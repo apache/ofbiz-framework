@@ -123,15 +123,59 @@ under the License.
 
     <xs:attributeGroup name="attlist.operatorRequired">
         <xs:attribute name="operator" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The comparison operator. The operator describes the l-value compared to the r-value.
+                    &lt;br/&gt;&lt;br/&gt;
+                    The &quot;contains&quot; operator returns true if the l-value contains the r-value.
+                    This operator does not perform type conversions.
+                    The l-value must be a collection type or a String. A null l-value returns false.
+                    &lt;br/&gt;&lt;br/&gt;
+                    Required. Attribute type: constant.
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
-                    <xs:enumeration value="less"/>
-                    <xs:enumeration value="greater"/>
-                    <xs:enumeration value="less-equals"/>
-                    <xs:enumeration value="greater-equals"/>
                     <xs:enumeration value="equals"/>
                     <xs:enumeration value="not-equals"/>
+                    <xs:enumeration value="less"/>
+                    <xs:enumeration value="less-equals"/>
+                    <xs:enumeration value="greater"/>
+                    <xs:enumeration value="greater-equals"/>
                     <xs:enumeration value="contains"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+
+    <xs:attributeGroup name="attlist.operatorOptionalRvalue">
+        <xs:attribute name="operator" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The comparison operator. The operator describes the l-value compared to the r-value.
+                    &lt;br/&gt;&lt;br/&gt;
+                    The &quot;contains&quot; operator returns true if the l-value contains the r-value.
+                    This operator does not perform type conversions - the &quot;type&quot; attribute will be ignored.
+                    The l-value must be a collection type or a String. A null l-value evaluates to false.
+                    &lt;br/&gt;&lt;br/&gt;
+                    The &quot;is-null&quot;, &quot;is-not-null&quot;, and &quot;is-empty&quot; operators
+                    do not require an r-value. Any r-values will be ignored.
+                    &lt;br/&gt;&lt;br/&gt;
+                    Required. Attribute type: constant.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="equals"/>
+                    <xs:enumeration value="not-equals"/>
+                    <xs:enumeration value="less"/>
+                    <xs:enumeration value="less-equals"/>
+                    <xs:enumeration value="greater"/>
+                    <xs:enumeration value="greater-equals"/>
+                    <xs:enumeration value="contains"/>
+                    <xs:enumeration value="is-null"/>
+                    <xs:enumeration value="is-not-null"/>
+                    <xs:enumeration value="is-empty"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
@@ -3906,8 +3950,8 @@ under the License.
     <xs:element name="if-compare" substitutionGroup="IfBasicOperations">
         <xs:annotation>
             <xs:documentation>
-                The operations contained by the if-compare tag will only be executed if the comparison returns true.
-                This tag can contain any of the simple-method operations, including the conditional/if operations.
+                The operations contained by the if-compare tag will only be executed if the comparison evaluates to true.
+                This element can contain any of the simple-method operations, including the conditional/if operations.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -3918,17 +3962,17 @@ under the License.
             <xs:attribute type="xs:string" name="field" use="required">
                 <xs:annotation>
                     <xs:documentation>
-                        The name of the environment field that will be compared.
+                        The name of the environment field that will be compared. The l-value.
                         &lt;br/&gt;&lt;br/&gt;
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attributeGroup ref="attlist.operatorRequired" />
+            <xs:attributeGroup ref="attlist.operatorOptionalRvalue" />
             <xs:attribute type="xs:string" name="value" use="required">
                 <xs:annotation>
                     <xs:documentation>
-                        The value that the field will compared to.
+                        The value that the field will compared to. The r-value.
                         &lt;br/&gt;&lt;br/&gt;
                         Required. Attribute type: constant+expr.
                     </xs:documentation>
@@ -3949,8 +3993,8 @@ under the License.
     <xs:element name="if-compare-field" substitutionGroup="IfBasicOperations">
         <xs:annotation>
             <xs:documentation>
-                The operations contained by the if-compare-field tag will only be executed if the comparison returns true.
-                This tag can contain any of the simple-method operations, including the conditional/if operations.
+                The operations contained by the if-compare-field tag will only be executed if the comparison evaluates to true.
+                This element can contain any of the simple-method operations, including the conditional/if operations.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -3961,7 +4005,7 @@ under the License.
             <xs:attribute type="xs:string" name="field" use="required">
                 <xs:annotation>
                     <xs:documentation>
-                        The name of the environment field that will be compared.
+                        The name of the environment field that will be compared. The l-value.
                         &lt;br/&gt;&lt;br/&gt;
                         Required. Attribute type: expression.
                     </xs:documentation>
@@ -3972,6 +4016,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the environment field that will be compared to the field specified in the "field" attribute.
+                        The r-value.
                         &lt;br/&gt;&lt;br/&gt;
                         Required. Attribute type: expression.
                     </xs:documentation>
