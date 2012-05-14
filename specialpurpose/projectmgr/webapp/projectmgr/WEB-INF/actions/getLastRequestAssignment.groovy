@@ -22,7 +22,7 @@ import org.ofbiz.base.util.*;
 
 // get last request from this user and use that project/task assignment as default on the screen
 
-custRequestList = delegator.findByAnd("CustRequest", ["fromPartyId" : fromPartyId], ["-createdDate"]);
+custRequestList = delegator.findByAnd("CustRequest", ["fromPartyId" : fromPartyId], ["-createdDate"], false);
 if (custRequestList) {
     custReqTaskList = custRequestList.get(0).getRelated("CustRequestWorkEffort");
     if (custReqTaskList) {

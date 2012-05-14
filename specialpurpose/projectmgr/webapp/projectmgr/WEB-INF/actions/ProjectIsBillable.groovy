@@ -19,7 +19,7 @@
 
 import org.ofbiz.entity.util.EntityUtil;
  
-projectMembers = delegator.findByAnd("WorkEffortPartyAssignment", ["workEffortId" : context.projectId]);
+projectMembers = delegator.findByAnd("WorkEffortPartyAssignment", ["workEffortId" : context.projectId], null, false);
 projectMembers = EntityUtil.filterByDate(projectMembers);
 
 toPartyId = null;

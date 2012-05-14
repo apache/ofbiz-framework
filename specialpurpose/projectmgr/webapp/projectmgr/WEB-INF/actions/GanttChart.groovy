@@ -117,7 +117,7 @@ if (phases) {
                 }
 
                 // dependency can only show one in the ganttchart, so onl show the latest one..
-                preTasks = delegator.findByAnd("WorkEffortAssoc", ["workEffortIdTo" : task.workEffortId], ["workEffortIdFrom"]);
+                preTasks = delegator.findByAnd("WorkEffortAssoc", ["workEffortIdTo" : task.workEffortId], ["workEffortIdFrom"], false);
                 latestTaskIds = new LinkedList();
                 preTasks.each { preTask ->
                     wf = preTask.getRelatedOne("FromWorkEffort");

@@ -92,7 +92,7 @@ public class Various {
         double actualHours = 0.00;
         if (timesheetId != null) {
             try {
-                List<GenericValue> actuals = delegator.findByAnd("TimeEntry", UtilMisc.toMap("timesheetId", timesheetId));
+                List<GenericValue> actuals = delegator.findByAnd("TimeEntry", UtilMisc.toMap("timesheetId", timesheetId), null, false);
                 if (actuals.size() > 0) {
                     for (GenericValue actual : actuals) {
                         Double hour = (Double) actual.get("hours");
