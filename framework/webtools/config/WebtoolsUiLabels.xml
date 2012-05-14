@@ -19,6 +19,9 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="ConnectionPoolStatus">
+        <value xml:lang="en">Connection Pool Status</value>
+    </property>
     <property key="EntityImportDeletFile">
         <value xml:lang="en">Deleting ${fileName}</value>
         <value xml:lang="it">Stò cancellando il file ${fileName}</value>

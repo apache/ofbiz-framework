@@ -23,10 +23,13 @@ import org.apache.commons.dbcp.managed.ManagedDataSource;
 import org.apache.commons.dbcp.managed.TransactionRegistry;
 import org.apache.commons.pool.ObjectPool;
 
+import org.apache.commons.pool.impl.GenericObjectPool;
 import org.ofbiz.base.util.Debug;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DebugManagedDataSource extends ManagedDataSource {
 
@@ -41,7 +44,31 @@ public class DebugManagedDataSource extends ManagedDataSource {
 
     @Override
     public Connection getConnection() throws SQLException {
-        Debug.logInfo("Borrowing a connection from the pool; used/total: " + super._pool.getNumActive() + "/" + (super._pool.getNumActive() + super._pool.getNumIdle()), module);
+        if (Debug.verboseOn()) {
+            if (super._pool instanceof GenericObjectPool) {
+                GenericObjectPool objectPool = (GenericObjectPool)super._pool;
+                Debug.logVerbose("Borrowing a connection from the pool; used/total: " + objectPool.getNumActive() + "/" + objectPool.getNumActive() + objectPool.getNumIdle() + "; min idle/max idle/max total: " + objectPool.getMinIdle() + "/" + objectPool.getMaxIdle() + "/" + objectPool.getMaxActive(), module);
+            } else {
+                Debug.logVerbose("Borrowing a connection from the pool; used/total: " + super._pool.getNumActive() + "/" + (super._pool.getNumActive() + super._pool.getNumIdle()), module);
+            }
+        }
         return super.getConnection();
     }
+
+    public Map getInfo() {
+        Map dataSourceInfo = new HashMap();
+        dataSourceInfo.put("poolNumActive", super._pool.getNumActive());
+        dataSourceInfo.put("poolNumIdle", super._pool.getNumIdle());
+        dataSourceInfo.put("poolNumTotal", (super._pool.getNumIdle() + super._pool.getNumActive()));
+        if (super._pool instanceof GenericObjectPool) {
+            GenericObjectPool objectPool = (GenericObjectPool)super._pool;
+            dataSourceInfo.put("poolMaxActive", objectPool.getMaxActive());
+            dataSourceInfo.put("poolMaxIdle", objectPool.getMaxIdle());
+            dataSourceInfo.put("poolMaxWait", objectPool.getMaxWait());
+            dataSourceInfo.put("poolMinEvictableIdleTimeMillis", objectPool.getMinEvictableIdleTimeMillis());
+            dataSourceInfo.put("poolMinIdle", objectPool.getMinIdle());
+        }
+        return dataSourceInfo;
+    }
+
 }
