@@ -26,11 +26,11 @@ shipment = delegator.findOne("Shipment", [shipmentId : shipmentId], false);
 context.shipmentIdPar = shipment.shipmentId;
 
 if (shipment) {
-    shipmentPackages = delegator.findByAnd("ShipmentPackage", [shipmentId : shipmentId]);
+    shipmentPackages = delegator.findByAnd("ShipmentPackage", [shipmentId : shipmentId], null, false);
     records = [];
     orderReaders = [:];
     shipmentPackages.each { shipmentPackage ->
-        shipmentPackageComponents = delegator.findByAnd("ShipmentPackageContent", [shipmentId : shipmentId, shipmentPackageSeqId : shipmentPackage.shipmentPackageSeqId]);
+        shipmentPackageComponents = delegator.findByAnd("ShipmentPackageContent", [shipmentId : shipmentId, shipmentPackageSeqId : shipmentPackage.shipmentPackageSeqId], null, false);
         shipmentPackageComponents.each { shipmentPackageComponent ->
             shipmentItem = shipmentPackageComponent.getRelatedOne("ShipmentItem");
             orderShipments = shipmentItem.getRelated("OrderShipment");

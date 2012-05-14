@@ -102,7 +102,7 @@ public class BOMTree {
         String productIdForRules = productId;
         // The selected product features are loaded
         List<GenericValue> productFeaturesAppl = delegator.findByAnd("ProductFeatureAppl", 
-                UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", "STANDARD_FEATURE"));
+                UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", "STANDARD_FEATURE"), null, false);
         List<GenericValue> productFeatures = FastList.newInstance();
         GenericValue oneProductFeatureAppl = null;
         for (int i = 0; i < productFeaturesAppl.size(); i++) {
@@ -164,7 +164,7 @@ public class BOMTree {
     private GenericValue manufacturedAsProduct(String productId, Date inDate) throws GenericEntityException {
         List<GenericValue> manufacturedAsProducts = delegator.findByAnd("ProductAssoc",
                                          UtilMisc.toMap("productId", productId,
-                                         "productAssocTypeId", "PRODUCT_MANUFACTURED"));
+                                         "productAssocTypeId", "PRODUCT_MANUFACTURED"), null, false);
         manufacturedAsProducts = EntityUtil.filterByDate(manufacturedAsProducts, inDate);
         GenericValue manufacturedAsProduct = null;
         if (UtilValidate.isNotEmpty(manufacturedAsProducts)) {

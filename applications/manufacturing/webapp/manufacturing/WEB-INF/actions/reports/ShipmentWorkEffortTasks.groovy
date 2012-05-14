@@ -27,17 +27,17 @@ context.date = new Date();
 Double fixedAssetTime = new Double(0);
 
 if (shipment) {
-    shipmentPlans = delegator.findByAnd("OrderShipment", [shipmentId : shipmentId]);
+    shipmentPlans = delegator.findByAnd("OrderShipment", [shipmentId : shipmentId], null, false);
     shipmentPlans.each { shipmentPlan ->
-        productionRuns = delegator.findByAnd("WorkOrderItemFulfillment", [orderId : shipmentPlan.orderId, orderItemSeqId : shipmentPlan.orderItemSeqId] , ["workEffortId"]); // TODO: add shipmentId
+        productionRuns = delegator.findByAnd("WorkOrderItemFulfillment", [orderId : shipmentPlan.orderId, orderItemSeqId : shipmentPlan.orderItemSeqId] , ["workEffortId"], false); // TODO: add shipmentId
         if (productionRuns) {
             productionRuns.each { productionRun ->
                 productionRunProduct = [:];
-                productionRunProducts = delegator.findByAnd("WorkEffortGoodStandard", [workEffortId : productionRun.workEffortId , workEffortGoodStdTypeId : "PRUN_PROD_DELIV", statusId : "WEGS_CREATED"]);
+                productionRunProducts = delegator.findByAnd("WorkEffortGoodStandard", [workEffortId : productionRun.workEffortId , workEffortGoodStdTypeId : "PRUN_PROD_DELIV", statusId : "WEGS_CREATED"], null, false);
                 if (productionRunProducts) {
                     productionRunProduct = ((GenericValue)productionRunProducts.get(0)).getRelatedOne("Product");
                 }
-                tasks = delegator.findByAnd("WorkEffort", [workEffortParentId : productionRun.workEffortId, workEffortTypeId : "PROD_ORDER_TASK"]);
+                tasks = delegator.findByAnd("WorkEffort", [workEffortParentId : productionRun.workEffortId, workEffortTypeId : "PROD_ORDER_TASK"], null, false);
                 tasks.each { task ->
                     record = [:];
                     record.productId = productionRunProduct.productId;

@@ -25,7 +25,7 @@ import org.ofbiz.manufacturing.jobshopmgt.ProductionRun;
 shipmentPlans = [];
 rows = [];
 if (shipment && shipment.shipmentId) {
-    shipmentPlans = delegator.findByAnd("OrderShipment", [shipmentId : shipment.shipmentId]);
+    shipmentPlans = delegator.findByAnd("OrderShipment", [shipmentId : shipment.shipmentId], null, false);
 }
 if (shipmentPlans) {
     workInProgress = "false";
@@ -67,7 +67,7 @@ if (shipmentPlans) {
         // Total quantity planned not issued
         plannedQuantity = 0.0;
         qtyPlannedInShipment = [:];
-        plans = delegator.findByAnd("OrderShipment", [orderId : orderItem.orderId ,orderItemSeqId : orderItem.orderItemSeqId]);
+        plans = delegator.findByAnd("OrderShipment", [orderId : orderItem.orderId ,orderItemSeqId : orderItem.orderItemSeqId], null, false);
         plans.each { plan ->
             if (plan.quantity) {
                 netPlanQty = plan.quantity;
@@ -147,7 +147,7 @@ if (shipmentPlans) {
         }
         rows.add(oneRow);
         // Select the production runs, if available
-        productionRuns = delegator.findByAnd("WorkOrderItemFulfillment", [orderId : shipmentPlan.orderId, orderItemSeqId : shipmentPlan.orderItemSeqId, shipGroupSeqId : shipmentPlan.shipGroupSeqId],["workEffortId"]); // TODO: add shipmentId
+        productionRuns = delegator.findByAnd("WorkOrderItemFulfillment", [orderId : shipmentPlan.orderId, orderItemSeqId : shipmentPlan.orderItemSeqId, shipGroupSeqId : shipmentPlan.shipGroupSeqId],["workEffortId"], null, false); // TODO: add shipmentId
         if (productionRuns) {
             workInProgress = "true";
             productionRunsId = "";

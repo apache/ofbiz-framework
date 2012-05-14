@@ -31,7 +31,7 @@ if (productFeatureTypeIdPar) {
     context.featureType = featureType;
 }
 
-allProductionRuns = delegator.findByAnd("WorkEffortAndGoods", [workEffortName : planName], ["productId"]);
+allProductionRuns = delegator.findByAnd("WorkEffortAndGoods", [workEffortName : planName], ["productId"], false);
 productionRuns = [];
 features = [:];
 products = [:];
@@ -48,12 +48,12 @@ if (allProductionRuns) {
         productionRunProduct = delegator.findOne("Product", [productId : productionRun.productId], false);
         location = [:];
         if (productionRunProduct) {
-            locations = delegator.findByAnd("ProductFacilityLocation", [facilityId : productionRun.facilityId, productId : productionRun.productId]);
+            locations = delegator.findByAnd("ProductFacilityLocation", [facilityId : productionRun.facilityId, productId : productionRun.productId], null, false);
             location = EntityUtil.getFirst(locations);
         }
         if (taskNamePar) {
             // select the production run's task of a given name (i.e. type) if any (based on the report's parameter)
-            productionRunTasks = delegator.findByAnd("WorkEffort", [workEffortParentId : productionRun.workEffortId , workEffortName : taskNamePar]);
+            productionRunTasks = delegator.findByAnd("WorkEffort", [workEffortParentId : productionRun.workEffortId , workEffortName : taskNamePar], null, false);
             productionRunTask = EntityUtil.getFirst(productionRunTasks);
             if (!productionRunTask) {
                 // the production run doesn't include the given task, skip it

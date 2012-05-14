@@ -100,7 +100,7 @@ public class BOMNode {
         List<GenericValue> rows = delegator.findByAnd("ProductAssoc", 
                 UtilMisc.toMap("productId", product.get("productId"),
                         "productAssocTypeId", partBomTypeId),
-                UtilMisc.toList("sequenceNum","productIdTo ASC"));
+                UtilMisc.toList("sequenceNum","productIdTo ASC"), false);
         rows = EntityUtil.filterByDate(rows, inDate);
         if ((UtilValidate.isEmpty(rows)) && substitutedNode != null) {
             // If no child is found and this is a substituted node
@@ -108,7 +108,7 @@ public class BOMNode {
             rows = delegator.findByAnd("ProductAssoc",
                                         UtilMisc.toMap("productId", substitutedNode.getProduct().get("productId"),
                                                        "productAssocTypeId", partBomTypeId),
-                                        UtilMisc.toList("sequenceNum"));
+                                        UtilMisc.toList("sequenceNum"), false);
             rows = EntityUtil.filterByDate(rows, inDate);
         }
         children = FastList.newInstance();
@@ -229,12 +229,12 @@ public class BOMNode {
             List<GenericValue> productPartRules = delegator.findByAnd("ProductManufacturingRule",
                                                     UtilMisc.toMap("productId", productIdForRules,
                                                     "productIdFor", node.get("productId"),
-                                                    "productIdIn", node.get("productIdTo")));
+                                                    "productIdIn", node.get("productIdTo")), null, false);
             if (substitutedNode != null) {
                 productPartRules.addAll(delegator.findByAnd("ProductManufacturingRule",
                                                     UtilMisc.toMap("productId", productIdForRules,
                                                     "productIdFor", substitutedNode.getProduct().getString("productId"),
-                                                    "productIdIn", node.get("productIdTo"))));
+                                                    "productIdIn", node.get("productIdTo")), null, false));
             }
             productPartRules = EntityUtil.filterByDate(productPartRules, inDate);
             newNode = substituteNode(oneChildNode, productFeatures, productPartRules);
@@ -243,11 +243,11 @@ public class BOMNode {
                 // we try to search for a generic link-rule
                 List<GenericValue> genericLinkRules = delegator.findByAnd("ProductManufacturingRule",
                                                         UtilMisc.toMap("productIdFor", node.get("productId"),
-                                                        "productIdIn", node.get("productIdTo")));
+                                                        "productIdIn", node.get("productIdTo")), null, false);
                 if (substitutedNode != null) {
                     genericLinkRules.addAll(delegator.findByAnd("ProductManufacturingRule",
                                                         UtilMisc.toMap("productIdFor", substitutedNode.getProduct().getString("productId"),
-                                                        "productIdIn", node.get("productIdTo"))));
+                                                        "productIdIn", node.get("productIdTo")), null, false));
                 }
                 genericLinkRules = EntityUtil.filterByDate(genericLinkRules, inDate);
                 newNode = substituteNode(oneChildNode, productFeatures, genericLinkRules);
@@ -256,7 +256,7 @@ public class BOMNode {
                     // we try to search for a generic node-rule
                     List<GenericValue> genericNodeRules = delegator.findByAnd("ProductManufacturingRule",
                                                             UtilMisc.toMap("productIdIn", node.get("productIdTo")),
-                                                            UtilMisc.toList("ruleSeqId"));
+                                                            UtilMisc.toList("ruleSeqId"), false);
                     genericNodeRules = EntityUtil.filterByDate(genericNodeRules, inDate);
                     newNode = null;
                     newNode = substituteNode(oneChildNode, productFeatures, genericNodeRules);
@@ -325,7 +325,7 @@ public class BOMNode {
         List<GenericValue> rows = delegator.findByAnd("ProductAssoc",
                                             UtilMisc.toMap("productIdTo", product.get("productId"),
                                                        "productAssocTypeId", partBomTypeId),
-                                            UtilMisc.toList("sequenceNum"));
+                                            UtilMisc.toList("sequenceNum"), false);
         rows = EntityUtil.filterByDate(rows, inDate);
         if ((UtilValidate.isEmpty(rows)) && substitutedNode != null) {
             // If no parent is found and this is a substituted node
@@ -333,7 +333,7 @@ public class BOMNode {
             rows = delegator.findByAnd("ProductAssoc",
                                         UtilMisc.toMap("productIdTo", substitutedNode.getProduct().get("productId"),
                                                        "productAssocTypeId", partBomTypeId),
-                                        UtilMisc.toList("sequenceNum"));
+                                        UtilMisc.toList("sequenceNum"), false);
             rows = EntityUtil.filterByDate(rows, inDate);
         }
         children = FastList.newInstance();

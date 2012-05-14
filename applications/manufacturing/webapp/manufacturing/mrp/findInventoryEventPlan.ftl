@@ -153,8 +153,8 @@ document.lookupinventory.productId.focus();
             </#if>
             <#if ! product.equals( productTmp )>
                 <#assign quantityAvailableAtDate = 0>
-                <#assign errorEvents = delegator.findByAnd("MrpEvent", Static["org.ofbiz.base.util.UtilMisc"].toMap("mrpEventTypeId", "ERROR", "productId", inven.productId))>
-                <#assign qohEvents = delegator.findByAnd("MrpEvent", Static["org.ofbiz.base.util.UtilMisc"].toMap("mrpEventTypeId", "INITIAL_QOH", "productId", inven.productId))>
+                <#assign errorEvents = delegator.findByAnd("MrpEvent", Static["org.ofbiz.base.util.UtilMisc"].toMap("mrpEventTypeId", "ERROR", "productId", inven.productId), null, false)>
+                <#assign qohEvents = delegator.findByAnd("MrpEvent", Static["org.ofbiz.base.util.UtilMisc"].toMap("mrpEventTypeId", "INITIAL_QOH", "productId", inven.productId), null, false)>
                 <#assign additionalErrorMessage = "">
                 <#assign initialQohEvent = null>
                 <#assign productFacility = null>

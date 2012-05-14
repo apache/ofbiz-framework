@@ -44,7 +44,7 @@ if (productionRunId) {
         context.productionRunData = productionRunData;
 
         // Find all the order items to which this production run is linked.
-        orderItems = delegator.findByAnd("WorkOrderItemFulfillment", [workEffortId : productionRunId]);
+        orderItems = delegator.findByAnd("WorkOrderItemFulfillment", [workEffortId : productionRunId], null, false);
         if (orderItems) {
             context.orderItems = orderItems;
         }
@@ -55,7 +55,7 @@ if (productionRunId) {
         context.productionRunComponents = productionRun.getProductionRunComponents();;
 
         // Find all the notes linked to this production run.
-        productionRunNoteData = delegator.findByAnd("WorkEffortNoteAndData", [workEffortId : productionRunId]);
+        productionRunNoteData = delegator.findByAnd("WorkEffortNoteAndData", [workEffortId : productionRunId], null, false);
         if (productionRunNoteData) {
             context.productionRunNoteData = productionRunNoteData;
         }
