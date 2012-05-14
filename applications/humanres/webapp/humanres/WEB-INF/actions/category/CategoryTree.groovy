@@ -41,7 +41,7 @@ existParties =  FastList.newInstance();
 subtopLists =  FastList.newInstance();
 
 //internalOrg list
-partyRelationships = EntityUtil.filterByDate(delegator.findByAnd("PartyRelationship", [partyIdFrom : partyId, partyRelationshipTypeId : "GROUP_ROLLUP"]));
+partyRelationships = EntityUtil.filterByDate(delegator.findByAnd("PartyRelationship", [partyIdFrom : partyId, partyRelationshipTypeId : "GROUP_ROLLUP"], null, false));
 if (partyRelationships) {
     //root
     partyRoot = delegator.findOne("PartyGroup", [partyId : partyId], false);

@@ -62,11 +62,11 @@ public class HumanResEvents {
         //check employee position
         try {
             List<GenericValue> isEmpl = delegator.findByAnd("EmplPosition", UtilMisc.toMap(
-                    "emplPositionId", partyId));
+                    "emplPositionId", partyId), null, false);
             if (UtilValidate.isNotEmpty(isEmpl)) {
                 String emplId = partyId;
                 List<GenericValue> emlpfillCtxs = EntityUtil.filterByDate(delegator.findByAnd("EmplPositionFulfillment", UtilMisc.toMap(
-                        "emplPositionId", emplId)));
+                        "emplPositionId", emplId), null, false));
                 if (UtilValidate.isNotEmpty(emlpfillCtxs)) {
                     for (GenericValue emlpfillCtx : emlpfillCtxs ) {
                         String memberId = emlpfillCtx.getString("partyId");
@@ -120,7 +120,7 @@ public class HumanResEvents {
             GenericValue partyGroup = delegator.findOne("PartyGroup" ,UtilMisc.toMap("partyId", partyId), false);
             if (UtilValidate.isNotEmpty(partyGroup)) {
                 childOfComs = EntityUtil.filterByDate(delegator.findByAnd("PartyRelationship", UtilMisc.toMap(
-                        "partyIdFrom", partyGroup.get("partyId"), "partyRelationshipTypeId", "GROUP_ROLLUP")));
+                        "partyIdFrom", partyGroup.get("partyId"), "partyRelationshipTypeId", "GROUP_ROLLUP"), null, false));
                 if (UtilValidate.isNotEmpty(childOfComs)) {
                     
                     for (GenericValue childOfCom : childOfComs ) {
@@ -145,10 +145,10 @@ public class HumanResEvents {
                         }
                         //Check child existing
                         List<GenericValue> childOfSubComs = EntityUtil.filterByDate(delegator.findByAnd("PartyRelationship", UtilMisc.toMap(
-                                "partyIdFrom", catId, "partyRelationshipTypeId", "GROUP_ROLLUP")));
+                                "partyIdFrom", catId, "partyRelationshipTypeId", "GROUP_ROLLUP"), null, false));
                         //check employee position
                         List<GenericValue> isPosition = delegator.findByAnd("EmplPosition", UtilMisc.toMap(
-                                "partyId", catId));
+                                "partyId", catId), null, false);
                         if (UtilValidate.isNotEmpty(childOfSubComs) || UtilValidate.isNotEmpty(isPosition)) {
                             josonMap.put("state", "closed");
                         }
@@ -211,7 +211,7 @@ public class HumanResEvents {
                         String typeId = (String) childOfEmpl.get("emplPositionTypeId");
                         //check child
                         List<GenericValue> emlpfCtxs = EntityUtil.filterByDate(delegator.findByAnd("EmplPositionFulfillment", UtilMisc.toMap(
-                                "emplPositionId", emplId)));
+                                "emplPositionId", emplId), null, false));
                         if (UtilValidate.isNotEmpty(emlpfCtxs)) {
                             emplMap.put("state", "closed");
                         }
