@@ -94,7 +94,7 @@
          }
          context.isProductId = productId;
          // get product default price form product price 
-         productPrices = delegator.findByAnd("ProductPrice",["productId":productId,"productPricePurposeId":"EBAY"]);
+         productPrices = delegator.findByAnd("ProductPrice",["productId":productId,"productPricePurposeId":"EBAY"], null, false);
          if (productPrices) {
              context.productPrices = productPrices;
          }

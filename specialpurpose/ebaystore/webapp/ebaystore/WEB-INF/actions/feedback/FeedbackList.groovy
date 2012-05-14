@@ -55,7 +55,7 @@ if (fromDate && thruDate) {
 } else if (!fromDate && thruDate) {
     expr.add(EntityCondition.makeCondition("createdDate",EntityOperator.LESS_THAN, UtilDateTime.getDayEnd(Timestamp.valueOf(thruDate + " 23:59:59.999"))));
 }
-contentRoles = delegator.findByAnd("ContentRole", UtilMisc.toMap("roleTypeId","OWNER", "partyId", partyId));
+contentRoles = delegator.findByAnd("ContentRole", UtilMisc.toMap("roleTypeId","OWNER", "partyId", partyId), null, false);
 contentIds = [];
 contentRoles.each{ content ->
     contentIds.add(content.getString("contentId"));
@@ -68,10 +68,10 @@ recentFeedbackList = [];
 ownerUser = null;
 commentator = null;
 contents.each{ content ->
-    commentatorContents = delegator.findByAnd("ContentRole", UtilMisc.toMap("contentId",content.contentId, "roleTypeId","COMMENTATOR"));
+    commentatorContents = delegator.findByAnd("ContentRole", UtilMisc.toMap("contentId",content.contentId, "roleTypeId","COMMENTATOR"), null, false);
     if(commentatorContents){
         commentatorPartyId = commentatorContents.get(0).get("partyId");
-        commentatorUsers = delegator.findByAnd("UserLogin", UtilMisc.toMap("partyId", commentatorPartyId));
+        commentatorUsers = delegator.findByAnd("UserLogin", UtilMisc.toMap("partyId", commentatorPartyId), null, false);
         if(commentatorUsers){
             commentator = commentatorUsers.get(0).get("userLoginId");
         }

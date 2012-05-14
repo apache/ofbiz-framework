@@ -193,7 +193,7 @@ public class EbayStoreHelper {
                 Debug.logError("Require field partyId.",module);
                 return ebayCategoryId;
             }
-            productCategoryRoles = delegator.findByAnd("ProductCategoryRole", UtilMisc.toMap("productCategoryId", productCategoryId, "partyId", partyId, "roleTypeId", "EBAY_ACCOUNT"));
+            productCategoryRoles = delegator.findByAnd("ProductCategoryRole", UtilMisc.toMap("productCategoryId", productCategoryId, "partyId", partyId, "roleTypeId", "EBAY_ACCOUNT"), null, false);
             if (productCategoryRoles != null && productCategoryRoles.size()>0) {
                 for (GenericValue productCategoryRole : productCategoryRoles) {
                     ebayCategoryId = productCategoryRole.getString("comments");
@@ -238,14 +238,14 @@ public class EbayStoreHelper {
                     break;
                 } else {
                     // check from child category level 1
-                    List<GenericValue> productCategoryRollupList = delegator.findByAnd("ProductCategoryRollup",  UtilMisc.toMap("parentProductCategoryId",catalogCategory.getString("productCategoryId")));
+                    List<GenericValue> productCategoryRollupList = delegator.findByAnd("ProductCategoryRollup",  UtilMisc.toMap("parentProductCategoryId",catalogCategory.getString("productCategoryId")), null, false);
                     for (GenericValue productCategoryRollup : productCategoryRollupList) {
                         if (productCategoryRollup.containsValue(productCategoryId)) {
                             flag = true;
                             break;
                         } else {
                             // check from level 2
-                            List<GenericValue> prodCategoryRollupList = delegator.findByAnd("ProductCategoryRollup",  UtilMisc.toMap("parentProductCategoryId",productCategoryRollup.getString("productCategoryId")));
+                            List<GenericValue> prodCategoryRollupList = delegator.findByAnd("ProductCategoryRollup",  UtilMisc.toMap("parentProductCategoryId",productCategoryRollup.getString("productCategoryId")), null, false);
                             for (GenericValue prodCategoryRollup : prodCategoryRollupList) {
                                 if (prodCategoryRollup.containsValue(productCategoryId)) {
                                     flag = true;
@@ -276,7 +276,7 @@ public class EbayStoreHelper {
             GenericValue ebayProductPref = delegator.findOne("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", autoPrefEnumId), false);
             String jobId = ebayProductPref.getString("autoPrefJobId");
             if (UtilValidate.isNotEmpty(jobId)) {
-                List<GenericValue> jobs = delegator.findByAnd("JobSandbox", UtilMisc.toMap("parentJobId", jobId, "statusId", "SERVICE_PENDING"));
+                List<GenericValue> jobs = delegator.findByAnd("JobSandbox", UtilMisc.toMap("parentJobId", jobId, "statusId", "SERVICE_PENDING"), null, false);
                 if (jobs.size() == 0) {
                     Map<String, Object>inMap = FastMap.newInstance();
                     inMap.put("jobId", jobId);
@@ -355,7 +355,7 @@ public class EbayStoreHelper {
         try {
             GenericValue ebayProductPref = delegator.findOne("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", autoPrefEnumId), false);
             String jobId = ebayProductPref.getString("autoPrefJobId");
-            List<GenericValue> jobs = delegator.findByAnd("JobSandbox", UtilMisc.toMap("parentJobId", jobId ,"statusId", "SERVICE_PENDING"));
+            List<GenericValue> jobs = delegator.findByAnd("JobSandbox", UtilMisc.toMap("parentJobId", jobId ,"statusId", "SERVICE_PENDING"), null, false);
 
             Map<String, Object>inMap = FastMap.newInstance();
             inMap.put("userLogin", userLogin);
@@ -468,7 +468,7 @@ public class EbayStoreHelper {
         HashMap<String, Object> attributeMapList = UtilGenerics.cast(context.get("attributeMapList"));
         String productListingId = (String) context.get("productListingId");
         try {
-           List<GenericValue> attributeToClears = delegator.findByAnd("EbayProductListingAttribute", UtilMisc.toMap("productListingId", productListingId));
+           List<GenericValue> attributeToClears = delegator.findByAnd("EbayProductListingAttribute", UtilMisc.toMap("productListingId", productListingId), null, false);
            for (int clearCount = 0; clearCount < attributeToClears.size(); clearCount++) {
               GenericValue valueToClear = attributeToClears.get(clearCount);
               if (valueToClear != null) {
@@ -493,7 +493,7 @@ public class EbayStoreHelper {
     public static ItemType prepareAddItem(Delegator delegator, GenericValue attribute) {
         ItemType item = new ItemType();
         try {
-            List<GenericValue> attrs = delegator.findByAnd("EbayProductListingAttribute", UtilMisc.toMap("productListingId", attribute.getString("productListingId")));
+            List<GenericValue> attrs = delegator.findByAnd("EbayProductListingAttribute", UtilMisc.toMap("productListingId", attribute.getString("productListingId")), null, false);
             AmountType amount = new AmountType();
             AmountType shippingServiceCost = new AmountType();
             PictureDetailsType picture = new PictureDetailsType();
@@ -715,7 +715,7 @@ public class EbayStoreHelper {
     public static boolean isReserveInventory(GenericDelegator delegator, String productId, String productStoreId) {
         boolean isReserve = false;
         try {
-            GenericValue ebayProductStore = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("EbayProductStoreInventory", UtilMisc.toMap("productStoreId", productStoreId, "productId", productId))));
+            GenericValue ebayProductStore = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("EbayProductStoreInventory", UtilMisc.toMap("productStoreId", productStoreId, "productId", productId), null, false)));
             if (UtilValidate.isNotEmpty(ebayProductStore)) {
                 BigDecimal atp = ebayProductStore.getBigDecimal("availableToPromiseListing");
                 int intAtp = atp.intValue();

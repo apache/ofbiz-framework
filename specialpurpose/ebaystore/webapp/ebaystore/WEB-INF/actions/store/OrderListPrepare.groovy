@@ -28,7 +28,7 @@ if (orderList) {
     for (orderCount = 0; orderCount < orderList.size(); orderCount++) {
         orderItem = orderList[orderCount];
         orderId = null;
-        orderHeaders = delegator.findByAnd("OrderHeader", [externalId : orderItem.("externalId")]);
+        orderHeaders = delegator.findByAnd("OrderHeader", [externalId : orderItem.("externalId")], null, false);
         if (orderHeaders.size() > 0) {
             orderHeader = EntityUtil.getFirst(orderHeaders);
             orderId = orderHeader.get("orderId").toString();

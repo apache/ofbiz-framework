@@ -97,7 +97,7 @@ public class EbayFeedback {
                     partyId = userLoginEx.getString("partyId");
                 }
                 //PartyRole For eBay User
-                List<GenericValue> partyRoles = delegator.findByAnd("PartyRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", "OWNER"));
+                List<GenericValue> partyRoles = delegator.findByAnd("PartyRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", "OWNER"), null, false);
                 if (partyRoles.size() == 0) {
                     GenericValue partyRole =  delegator.makeValue("PartyRole");
                     partyRole.put("partyId", partyId);
@@ -116,7 +116,7 @@ public class EbayFeedback {
                     String textData = feedback[i].getCommentText();
                     String commentingUserId= feedback[i].getCommentingUser();
                     String commentingPartyId = null;
-                    List<GenericValue> CommentingUserLogins = delegator.findByAnd("UserLogin", UtilMisc.toMap("userLoginId", commentingUserId));
+                    List<GenericValue> CommentingUserLogins = delegator.findByAnd("UserLogin", UtilMisc.toMap("userLoginId", commentingUserId), null, false);
                     if (CommentingUserLogins.size() == 0) {
                         //Party
                         GenericValue party =  delegator.makeValue("Party");
@@ -158,7 +158,7 @@ public class EbayFeedback {
                     contentPurpose.put("contentPurposeTypeId", "FEEDBACK");
                     contentPurpose.create();
                     //PartyRole For eBay Commentator
-                    List<GenericValue> commentingPartyRoles = delegator.findByAnd("PartyRole", UtilMisc.toMap("partyId", commentingPartyId, "roleTypeId", "COMMENTATOR"));
+                    List<GenericValue> commentingPartyRoles = delegator.findByAnd("PartyRole", UtilMisc.toMap("partyId", commentingPartyId, "roleTypeId", "COMMENTATOR"), null, false);
                     if (commentingPartyRoles.size() == 0) {
                         GenericValue partyRole =  delegator.makeValue("PartyRole");
                         partyRole.put("partyId", commentingPartyId);
@@ -166,7 +166,7 @@ public class EbayFeedback {
                         partyRole.create();
                     }
                     //ContentRole for eBay User
-                    List<GenericValue> contentRoles = delegator.findByAnd("ContentRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", "OWNER", "contentId", contentId));
+                    List<GenericValue> contentRoles = delegator.findByAnd("ContentRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", "OWNER", "contentId", contentId), null, false);
                     if (contentRoles.size() == 0) {
                         GenericValue contentRole =  delegator.makeValue("ContentRole");
                         contentRole.put("contentId", contentId);
@@ -176,7 +176,7 @@ public class EbayFeedback {
                         contentRole.create();
                     }
                     //ContentRole for Commentator
-                    List<GenericValue> commentingContentRoles = delegator.findByAnd("ContentRole", UtilMisc.toMap("partyId", commentingPartyId, "roleTypeId", "COMMENTATOR", "contentId", contentId));
+                    List<GenericValue> commentingContentRoles = delegator.findByAnd("ContentRole", UtilMisc.toMap("partyId", commentingPartyId, "roleTypeId", "COMMENTATOR", "contentId", contentId), null, false);
                     if (commentingContentRoles.size() == 0) {
                         GenericValue contentRole =  delegator.makeValue("ContentRole");
                         contentRole.put("contentId", contentId);
