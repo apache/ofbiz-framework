@@ -244,7 +244,7 @@ public class ContentServicesComplex {
         List<GenericValue> contentAssocsUnfiltered = null;
 
         //if (Debug.infoOn()) Debug.logInfo("in getAssocAndContent...Cache, fieldMap:" + fieldMap, module);
-        contentAssocsUnfiltered = delegator.findByAndCache("ContentAssoc", fieldMap, UtilMisc.toList("-fromDate"));
+        contentAssocsUnfiltered = delegator.findByAnd("ContentAssoc", fieldMap, UtilMisc.toList("-fromDate"), true);
 
         //if (Debug.infoOn()) Debug.logInfo("in getAssocAndContent...Cache, contentAssocsUnfiltered:" + contentAssocsUnfiltered, module);
         if (fromDate == null && fromDateStr != null) {

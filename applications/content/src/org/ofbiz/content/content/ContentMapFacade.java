@@ -297,11 +297,7 @@ public class ContentMapFacade implements Map<Object, Object> {
                     expressions.put("statusId", this.statusFilter);
                 }
 
-                if (cache) {
-                    subs = delegator.findByAndCache("ContentAssocViewTo", expressions, UtilMisc.toList(this.sortOrder));
-                } else {
-                    subs = delegator.findByAnd("ContentAssocViewTo", expressions, UtilMisc.toList(this.sortOrder));
-                }
+                subs = delegator.findByAnd("ContentAssocViewTo", expressions, UtilMisc.toList(this.sortOrder), cache);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
@@ -471,11 +467,7 @@ public class ContentMapFacade implements Map<Object, Object> {
                 if(!this.statusFilter.equals("")) {
                     expressions.put("statusId", this.statusFilter);
                 }
-                if (cache) {
-                    subs = delegator.findByAndCache("ContentAssocViewTo", expressions, UtilMisc.toList(this.sortOrder));
-                } else {
-                    subs = delegator.findByAnd("ContentAssocViewTo", expressions, UtilMisc.toList(this.sortOrder));
-                }
+                subs = delegator.findByAnd("ContentAssocViewTo", expressions, UtilMisc.toList(this.sortOrder), cache);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
@@ -515,11 +507,7 @@ public class ContentMapFacade implements Map<Object, Object> {
             String name = (String) key;
             List<GenericValue> metaData = null;
             try {
-                if (cache) {
-                    metaData = delegator.findByAndCache("ContentMetaData", UtilMisc.toMap("contentId", contentId, "metaDataPredicateId", name));
-                } else {
-                    metaData = delegator.findByAnd("ContentMetaData", UtilMisc.toMap("contentId", contentId, "metaDataPredicateId", name));
-                }
+                metaData = delegator.findByAnd("ContentMetaData", UtilMisc.toMap("contentId", contentId, "metaDataPredicateId", name), null, cache);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }

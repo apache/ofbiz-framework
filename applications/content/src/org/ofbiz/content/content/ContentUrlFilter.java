@@ -72,11 +72,11 @@ public class ContentUrlFilter extends ContextFilter {
             String alternativeUrl = pathInfo.substring(pathInfo.lastIndexOf("/"));
             if (alternativeUrl.endsWith("-content")) {
                 try {
-                    List<GenericValue> contentDataResourceViews = delegator.findByAnd("ContentDataResourceView", UtilMisc.toMap("drObjectInfo", alternativeUrl));
+                    List<GenericValue> contentDataResourceViews = delegator.findByAnd("ContentDataResourceView", UtilMisc.toMap("drObjectInfo", alternativeUrl), null, false);
                     if (contentDataResourceViews.size() > 0) {
                         contentDataResourceViews = EntityUtil.orderBy(contentDataResourceViews, UtilMisc.toList("createdDate DESC"));
                         GenericValue contentDataResourceView = EntityUtil.getFirst(contentDataResourceViews);
-                        List<GenericValue> contents = EntityUtil.filterByDate(delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentAssocTypeId", "ALTERNATIVE_URL", "contentIdTo", contentDataResourceView.getString("contentId"))));
+                        List<GenericValue> contents = EntityUtil.filterByDate(delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentAssocTypeId", "ALTERNATIVE_URL", "contentIdTo", contentDataResourceView.getString("contentId")), null, false));
                         if (contents.size() > 0) {
                             GenericValue content = EntityUtil.getFirst(contents);
                             urlContentId = content.getString("contentId");

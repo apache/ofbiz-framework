@@ -255,7 +255,7 @@ public class DataEvents {
                 // make sure the logged in user can download this content; otherwise is a pretty big security hole for DataResource records...
                 // TODO: should we restrict the roleTypeId?
                 List<GenericValue> contentAndRoleList = delegator.findByAnd("ContentAndRole",
-                        UtilMisc.toMap("partyId", userLogin.get("partyId"), "dataResourceId", dataResourceId));
+                        UtilMisc.toMap("partyId", userLogin.get("partyId"), "dataResourceId", dataResourceId), null, false);
                 if (contentAndRoleList.size() == 0) {
                     String errorMsg = "You do not have permission to download the Data Resource with ID [" + dataResourceId + "], ie you are not associated with it.";
                     Debug.logError(errorMsg, module);

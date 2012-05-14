@@ -297,7 +297,7 @@ public class UploadContentAndImage {
             String userLoginId = userLogin.getString("userLoginId");
             GenericValue authorContent = delegator.findOne("Content", UtilMisc.toMap("contentId", userLoginId), true);
             if (authorContent != null) {
-                List<GenericValue> authorAssocList = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", ftlContentId, "contentIdTo", userLoginId, "contentAssocTypeId", "AUTHOR"));
+                List<GenericValue> authorAssocList = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", ftlContentId, "contentIdTo", userLoginId, "contentAssocTypeId", "AUTHOR"), null, false);
                 List<GenericValue> currentAuthorAssocList = EntityUtil.filterByDate(authorAssocList);
                 //if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]currentAuthorAssocList " + currentAuthorAssocList, module);
                 if (currentAuthorAssocList.size() == 0) {

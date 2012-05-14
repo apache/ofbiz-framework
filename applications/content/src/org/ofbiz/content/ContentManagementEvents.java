@@ -255,7 +255,7 @@ public class ContentManagementEvents {
                     if (!currentSubContentId.equals(origSubContentId)) {
                         // disable existing link
                         if (UtilValidate.isNotEmpty(origSubContentId) && origFromDate != null) {
-                            List<GenericValue> oldActiveValues = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", targContentId, "contentIdTo", origSubContentId, "contentAssocTypeId", "PUBLISH_LINK", "thruDate", null));
+                            List<GenericValue> oldActiveValues = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", targContentId, "contentIdTo", origSubContentId, "contentAssocTypeId", "PUBLISH_LINK", "thruDate", null), null, false);
                             for(GenericValue cAssoc : oldActiveValues) {
                                 cAssoc.set("thruDate", nowTimestamp);
                                 cAssoc.store();
@@ -309,12 +309,12 @@ public class ContentManagementEvents {
                     }
                 } else if (UtilValidate.isNotEmpty(origSubContentId)) {
                     // if no current link is passed in, look to see if there is an existing link(s) that must be disabled
-                    List<GenericValue> oldActiveValues = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", targContentId, "contentIdTo", origSubContentId, "contentAssocTypeId", "PUBLISH_LINK", "thruDate", null));
+                    List<GenericValue> oldActiveValues = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", targContentId, "contentIdTo", origSubContentId, "contentAssocTypeId", "PUBLISH_LINK", "thruDate", null), null, false);
                     for(GenericValue cAssoc : oldActiveValues) {
                         cAssoc.set("thruDate", nowTimestamp);
                         cAssoc.store();
                     }
-                    oldActiveValues = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", targContentId, "contentIdTo", contentId, "contentAssocTypeId", "PUBLISH_LINK", "thruDate", null));
+                    oldActiveValues = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", targContentId, "contentIdTo", contentId, "contentAssocTypeId", "PUBLISH_LINK", "thruDate", null), null, false);
                     for(GenericValue cAssoc : oldActiveValues) {
                         cAssoc.set("thruDate", nowTimestamp);
                         cAssoc.store();
