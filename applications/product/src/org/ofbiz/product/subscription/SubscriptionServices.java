@@ -73,7 +73,7 @@ public class SubscriptionServices {
             Map<String, String> subscriptionFindMap = UtilMisc.toMap("partyId", partyId, "subscriptionResourceId", subscriptionResourceId);
             // if this subscription is attached to something the customer owns, filter by that too
             if (UtilValidate.isNotEmpty(inventoryItemId)) subscriptionFindMap.put("inventoryItemId", inventoryItemId);
-            List<GenericValue> subscriptionList = delegator.findByAnd("Subscription", subscriptionFindMap);
+            List<GenericValue> subscriptionList = delegator.findByAnd("Subscription", subscriptionFindMap, null, false);
             // DEJ20070718 DON'T filter by date, we want to consider all subscriptions: List listFiltered = EntityUtil.filterByDate(subscriptionList, true);
             List<GenericValue> listOrdered = EntityUtil.orderBy(subscriptionList, UtilMisc.toList("-fromDate"));
             if (listOrdered.size() > 0) {
@@ -193,7 +193,7 @@ public class SubscriptionServices {
             orderCreatedDate = UtilDateTime.nowTimestamp();
         }
         try {
-            List<GenericValue> productSubscriptionResourceList = delegator.findByAndCache("ProductSubscriptionResource", UtilMisc.toMap("productId", productId));
+            List<GenericValue> productSubscriptionResourceList = delegator.findByAnd("ProductSubscriptionResource", UtilMisc.toMap("productId", productId), null, true);
             productSubscriptionResourceList = EntityUtil.filterByDate(productSubscriptionResourceList, orderCreatedDate, null, null, true);
             productSubscriptionResourceList = EntityUtil.filterByDate(productSubscriptionResourceList, orderCreatedDate, "purchaseFromDate", "purchaseThruDate", true);
 
@@ -247,7 +247,7 @@ public class SubscriptionServices {
 
         GenericValue orderHeader = null;
         try {
-            List<GenericValue> orderRoleList = delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "END_USER_CUSTOMER"));
+            List<GenericValue> orderRoleList = delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "END_USER_CUSTOMER"), null, false);
             if (orderRoleList.size() > 0) {
                 GenericValue orderRole = orderRoleList.get(0);
                 String partyId = (String) orderRole.get("partyId");
@@ -272,7 +272,7 @@ public class SubscriptionServices {
                 if (UtilValidate.isEmpty(productId)) {
                     continue;
                 }
-                List<GenericValue> productSubscriptionResourceList = delegator.findByAndCache("ProductSubscriptionResource", UtilMisc.toMap("productId", productId));
+                List<GenericValue> productSubscriptionResourceList = delegator.findByAnd("ProductSubscriptionResource", UtilMisc.toMap("productId", productId), null, true);
                 List<GenericValue> productSubscriptionResourceListFiltered = EntityUtil.filterByDate(productSubscriptionResourceList, true);
                 if (productSubscriptionResourceListFiltered.size() > 0) {
                     subContext.put("subscriptionTypeId", "PRODUCT_SUBSCR");

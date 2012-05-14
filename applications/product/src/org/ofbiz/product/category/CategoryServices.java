@@ -106,7 +106,7 @@ public class CategoryServices {
         List<GenericValue> productCategoryMembers;
         try {
             productCategory = delegator.findOne("ProductCategory", UtilMisc.toMap("productCategoryId", categoryId), true);
-            productCategoryMembers = delegator.findByAndCache(entityName, UtilMisc.toMap("productCategoryId", categoryId), orderByFields);
+            productCategoryMembers = delegator.findByAnd(entityName, UtilMisc.toMap("productCategoryId", categoryId), orderByFields, true);
         } catch (GenericEntityException e) {
             Debug.logInfo(e, "Error finding previous/next product info: " + e.toString(), module);
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resourceError, "categoryservices.error_find_next_products", UtilMisc.toMap("errMessage", e.getMessage()), locale));
@@ -277,7 +277,7 @@ public class CategoryServices {
         if (productCategory != null) {
             try {
                 if (useCacheForMembers) {
-                    productCategoryMembers = delegator.findByAndCache(entityName, UtilMisc.toMap("productCategoryId", productCategoryId), orderByFields);
+                    productCategoryMembers = delegator.findByAnd(entityName, UtilMisc.toMap("productCategoryId", productCategoryId), orderByFields, true);
                     if (activeOnly) {
                         productCategoryMembers = EntityUtil.filterByDate(productCategoryMembers, true);
                     }
@@ -435,9 +435,9 @@ public class CategoryServices {
                     
                 } else if(isCatalog.equals("false") && isCategoryType.equals("false")){
                     childOfCats = EntityUtil.filterByDate(delegator.findByAnd("ProductCategoryRollupAndChild", UtilMisc.toMap(
-                            "parentProductCategoryId", productCategoryId )));
+                            "parentProductCategoryId", productCategoryId ), null, false));
                 } else {
-                    childOfCats = EntityUtil.filterByDate(delegator.findByAnd("ProdCatalogCategory", UtilMisc.toMap("prodCatalogId", productCategoryId)));
+                    childOfCats = EntityUtil.filterByDate(delegator.findByAnd("ProdCatalogCategory", UtilMisc.toMap("prodCatalogId", productCategoryId), null, false));
                 }
                 if (UtilValidate.isNotEmpty(childOfCats)) {
                         
@@ -454,7 +454,7 @@ public class CategoryServices {
                         
                         // Get the child list of chosen category
                         childList = EntityUtil.filterByDate(delegator.findByAnd("ProductCategoryRollup", UtilMisc.toMap(
-                                    "parentProductCategoryId", catId)));
+                                    "parentProductCategoryId", catId), null, false));
                         
                         // Get the chosen category information for the categoryContentWrapper
                         GenericValue cate = delegator.findOne("ProductCategory" ,UtilMisc.toMap("productCategoryId",catId), false);

@@ -63,11 +63,11 @@ public class ParametricSearch {
     public static Map<String, List<GenericValue>> makeCategoryFeatureLists(String productCategoryId, Delegator delegator, int perTypeMaxSize) {
         Map<String, Map<String, GenericValue>> productFeaturesByTypeMap = FastMap.newInstance();
         try {
-            List<GenericValue> productFeatureCategoryAppls = delegator.findByAndCache("ProductFeatureCategoryAppl", UtilMisc.toMap("productCategoryId", productCategoryId));
+            List<GenericValue> productFeatureCategoryAppls = delegator.findByAnd("ProductFeatureCategoryAppl", UtilMisc.toMap("productCategoryId", productCategoryId), null, true);
             productFeatureCategoryAppls = EntityUtil.filterByDate(productFeatureCategoryAppls, true);
             if (productFeatureCategoryAppls != null) {
                 for (GenericValue productFeatureCategoryAppl: productFeatureCategoryAppls) {
-                    List<GenericValue> productFeatures = delegator.findByAndCache("ProductFeature", UtilMisc.toMap("productFeatureCategoryId", productFeatureCategoryAppl.get("productFeatureCategoryId")));
+                    List<GenericValue> productFeatures = delegator.findByAnd("ProductFeature", UtilMisc.toMap("productFeatureCategoryId", productFeatureCategoryAppl.get("productFeatureCategoryId")), null, true);
                     for (GenericValue productFeature: productFeatures) {
                         String productFeatureTypeId = productFeature.getString("productFeatureTypeId");
                         Map<String, GenericValue> featuresByType = productFeaturesByTypeMap.get(productFeatureTypeId);
@@ -86,11 +86,11 @@ public class ParametricSearch {
         }
 
         try {
-            List<GenericValue> productFeatureCatGrpAppls = delegator.findByAndCache("ProductFeatureCatGrpAppl", UtilMisc.toMap("productCategoryId", productCategoryId));
+            List<GenericValue> productFeatureCatGrpAppls = delegator.findByAnd("ProductFeatureCatGrpAppl", UtilMisc.toMap("productCategoryId", productCategoryId), null, true);
             productFeatureCatGrpAppls = EntityUtil.filterByDate(productFeatureCatGrpAppls, true);
             if (productFeatureCatGrpAppls != null) {
                 for (GenericValue productFeatureCatGrpAppl: productFeatureCatGrpAppls) {
-                    List<GenericValue> productFeatureGroupAppls = delegator.findByAndCache("ProductFeatureGroupAppl", UtilMisc.toMap("productFeatureGroupId", productFeatureCatGrpAppl.get("productFeatureGroupId")));
+                    List<GenericValue> productFeatureGroupAppls = delegator.findByAnd("ProductFeatureGroupAppl", UtilMisc.toMap("productFeatureGroupId", productFeatureCatGrpAppl.get("productFeatureGroupId")), null, true);
                     for (GenericValue productFeatureGroupAppl: productFeatureGroupAppls) {
                         GenericValue productFeature = delegator.findOne("ProductFeature", UtilMisc.toMap("productFeatureId", productFeatureGroupAppl.get("productFeatureId")), true);
 

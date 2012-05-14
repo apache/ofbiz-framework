@@ -59,12 +59,12 @@ if (toPrintOrders) {
                     orderMap.orderId = orderId;
                     orderMap.orderDate = orderHeader.orderDate;
                     billingOrderContactMechs = [];
-                    billingOrderContactMechs = delegator.findByAnd("OrderContactMech", [orderId : orderId, contactMechPurposeTypeId : "BILLING_LOCATION"]);
+                    billingOrderContactMechs = delegator.findByAnd("OrderContactMech", [orderId : orderId, contactMechPurposeTypeId : "BILLING_LOCATION"], null, false);
                     if (billingOrderContactMechs.size() > 0) {
                         billingContactMechId = EntityUtil.getFirst(billingOrderContactMechs).contactMechId;
                         billingAddress = delegator.findOne("PostalAddress", [contactMechId : billingContactMechId], false);
                     }
-                    shippingContactMechId = EntityUtil.getFirst(delegator.findByAnd("OrderContactMech", [orderId : orderId, contactMechPurposeTypeId : "SHIPPING_LOCATION"])).contactMechId;
+                    shippingContactMechId = EntityUtil.getFirst(delegator.findByAnd("OrderContactMech", [orderId : orderId, contactMechPurposeTypeId : "SHIPPING_LOCATION"], null, false)).contactMechId;
                     shippingAddress = delegator.findOne("PostalAddress", [contactMechId : shippingContactMechId], false);
                     orderItemShipGroups.each { orderItemShipGroup ->
                         if (orderItemShipGroup.orderId == orderId) {

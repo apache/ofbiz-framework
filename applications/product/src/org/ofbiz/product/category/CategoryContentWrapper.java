@@ -140,7 +140,7 @@ public class CategoryContentWrapper implements ContentWrapper {
             }
         }
 
-        List<GenericValue> categoryContentList = delegator.findByAndCache("ProductCategoryContent", UtilMisc.toMap("productCategoryId", productCategoryId, "prodCatContentTypeId", prodCatContentTypeId), UtilMisc.toList("-fromDate"));
+        List<GenericValue> categoryContentList = delegator.findByAnd("ProductCategoryContent", UtilMisc.toMap("productCategoryId", productCategoryId, "prodCatContentTypeId", prodCatContentTypeId), UtilMisc.toList("-fromDate"), true);
         categoryContentList = EntityUtil.filterByDate(categoryContentList);
         GenericValue categoryContent = EntityUtil.getFirst(categoryContentList);
         if (categoryContent != null) {

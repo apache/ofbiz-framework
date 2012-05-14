@@ -124,7 +124,7 @@ public class ProductConfigWrapper implements Serializable {
         }
         questions = FastList.newInstance();
         if ("AGGREGATED".equals(product.getString("productTypeId")) || "AGGREGATED_SERVICE".equals(product.getString("productTypeId"))) {
-            List<GenericValue> questionsValues = delegator.findByAnd("ProductConfig", UtilMisc.toMap("productId", productId), UtilMisc.toList("sequenceNum"));
+            List<GenericValue> questionsValues = delegator.findByAnd("ProductConfig", UtilMisc.toMap("productId", productId), UtilMisc.toList("sequenceNum"), false);
             questionsValues = EntityUtil.filterByDate(questionsValues);
             Set<String> itemIds = FastSet.newInstance();
             for (GenericValue questionsValue: questionsValues) {
@@ -136,7 +136,7 @@ public class ProductConfigWrapper implements Serializable {
                     itemIds.add(oneQuestion.getConfigItem().getString("configItemId"));
                 }
                 questions.add(oneQuestion);
-                List<GenericValue> configOptions = delegator.findByAnd("ProductConfigOption", UtilMisc.toMap("configItemId", oneQuestion.getConfigItemAssoc().getString("configItemId")), UtilMisc.toList("sequenceNum"));
+                List<GenericValue> configOptions = delegator.findByAnd("ProductConfigOption", UtilMisc.toMap("configItemId", oneQuestion.getConfigItemAssoc().getString("configItemId")), UtilMisc.toList("sequenceNum"), false);
                 for (GenericValue configOption: configOptions) {
                     ConfigOption option = new ConfigOption(delegator, dispatcher, configOption, oneQuestion, catalogId, webSiteId, currencyUomId, autoUserLogin);
                     oneQuestion.addOption(option);
@@ -150,7 +150,7 @@ public class ProductConfigWrapper implements Serializable {
         //configure ProductConfigWrapper according to ProductConfigConfig entity
         if (UtilValidate.isNotEmpty(configId)) {
             this.configId = configId;
-            List<GenericValue> productConfigConfig = delegator.findByAnd("ProductConfigConfig", UtilMisc.toMap("configId", configId));
+            List<GenericValue> productConfigConfig = delegator.findByAnd("ProductConfigConfig", UtilMisc.toMap("configId", configId), null, false);
             if (UtilValidate.isNotEmpty(productConfigConfig)) {
                 for (GenericValue pcc: productConfigConfig) {
                     String configItemId = pcc.getString("configItemId");

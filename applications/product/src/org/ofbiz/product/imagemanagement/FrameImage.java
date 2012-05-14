@@ -411,7 +411,7 @@ public class FrameImage {
         
         String frameDataResourceId = null;
         try {
-            List<GenericValue> contentDataResources = delegator.findByAnd("ContentDataResourceView", UtilMisc.toMap("contentId", frameContentId));
+            List<GenericValue> contentDataResources = delegator.findByAnd("ContentDataResourceView", UtilMisc.toMap("contentId", frameContentId), null, false);
             GenericValue contentDataResource = EntityUtil.getFirst(contentDataResources);
             frameDataResourceId = contentDataResource.getString("dataResourceId");
         } catch (Exception e) {

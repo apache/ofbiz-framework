@@ -19,7 +19,7 @@
 
 productCategoryId = parameters.productCategoryId;
 if (productCategoryId) {
-    productCategoryContents  = delegator.findByAnd("ProductCategoryContent", ["productCategoryId" : productCategoryId]);
+    productCategoryContents  = delegator.findByAnd("ProductCategoryContent", ["productCategoryId" : productCategoryId], null, false);
     productCategoryContents.each{ productCategoryContent->
         if (productCategoryContent.prodCatContentTypeId == "PAGE_TITLE") {
             contentTitle  = delegator.findOne("Content", ["contentId" : productCategoryContent.contentId], false);

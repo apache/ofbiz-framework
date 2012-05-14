@@ -143,7 +143,7 @@ public class ProductSearchEvents {
                while ((searchResultView = eli.next()) != null) {
                    String productId = searchResultView.getString("mainProductId");
                    //get all tuples that match product and category
-                   List<GenericValue> pcmList = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productCategoryId", productCategoryId, "productId", productId));
+                   List<GenericValue> pcmList = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productCategoryId", productCategoryId, "productId", productId), null, false);
 
                    //set those thrudate to that specificed maybe remove then add new one
                    for (GenericValue pcm: pcmList) {
@@ -413,14 +413,14 @@ public class ProductSearchEvents {
                     String productId = searchResultView.getString("mainProductId");
                     productMap.put("productId", productId);
 
-                    List<GenericValue> productFeaturesCustomRaw = delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId, "productFeatureTypeId", "HAZMAT"));
+                    List<GenericValue> productFeaturesCustomRaw = delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId, "productFeatureTypeId", "HAZMAT"), null, false);
                     List<GenericValue> productFeaturesCustom = EntityUtil.filterByDate(productFeaturesCustomRaw);
                     productMap.put("productFeatureCustom", EntityUtil.getFirst(productFeaturesCustom));
 
-                    List<GenericValue> productCategoriesRaw = delegator.findByAnd("ProductCategoryAndMember", UtilMisc.toMap("productId", productId));
+                    List<GenericValue> productCategoriesRaw = delegator.findByAnd("ProductCategoryAndMember", UtilMisc.toMap("productId", productId), null, false);
                     List<GenericValue> productCategories = EntityUtil.filterByDate(productCategoriesRaw);
                     productMap.put("productCategories", productCategories);
-                    List<GenericValue> productFeaturesRaw = delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId));
+                    List<GenericValue> productFeaturesRaw = delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId), null, false);
                     List<GenericValue> productFeatures = EntityUtil.filterByDate(productFeaturesRaw);
                     productMap.put("productFeatures", productFeatures);
                     productExportList.add(productMap);

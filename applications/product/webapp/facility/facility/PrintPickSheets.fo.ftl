@@ -203,7 +203,7 @@ under the License.
                                                     <#if workOrderItemFulfillment?has_content>
                                                         <#assign workEffort = workOrderItemFulfillment.getRelatedOne("WorkEffort")/>
                                                         <#if workEffort?has_content>
-                                                            <#assign workEffortTask = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("WorkEffort", {"workEffortParentId" :  workEffort.workEffortId}))/>
+                                                            <#assign workEffortTask = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("WorkEffort", {"workEffortParentId" :  workEffort.workEffortId}, null, false))/>
                                                             <#if workEffortTask?has_content>
                                                                 <#assign workEffortInventoryAssigns = workEffortTask.getRelated("WorkEffortInventoryAssign")/>
                                                                 <#if workEffortInventoryAssigns?has_content>

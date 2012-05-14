@@ -562,7 +562,7 @@ public class ShipmentServices {
                 GenericValue appl = null;
                 Map<String, String> fields = UtilMisc.toMap("productFeatureGroupId", featureGroupId, "productFeatureId", featureId);
                 try {
-                    List<GenericValue> appls = delegator.findByAndCache("ProductFeatureGroupAppl", fields);
+                    List<GenericValue> appls = delegator.findByAnd("ProductFeatureGroupAppl", fields, null, true);
                     appls = EntityUtil.filterByDate(appls);
                     appl = EntityUtil.getFirst(appls);
                 } catch (GenericEntityException e) {
@@ -910,7 +910,7 @@ public class ShipmentServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         try {
 
-            List<GenericValue> shipmentReceipts = delegator.findByAnd("ShipmentReceipt", UtilMisc.toMap("shipmentId", shipmentId));
+            List<GenericValue> shipmentReceipts = delegator.findByAnd("ShipmentReceipt", UtilMisc.toMap("shipmentId", shipmentId), null, false);
             if (shipmentReceipts.size() == 0) return ServiceUtil.returnSuccess();
 
             // If there are shipment receipts, the shipment must have been shipped, so set the shipment status to PURCH_SHIP_SHIPPED if it's only PURCH_SHIP_CREATED
@@ -922,7 +922,7 @@ public class ShipmentServices {
                 }
             }
 
-            List<GenericValue> shipmentAndItems = delegator.findByAnd("ShipmentAndItem", UtilMisc.toMap("shipmentId", shipmentId, "statusId", "PURCH_SHIP_SHIPPED"));
+            List<GenericValue> shipmentAndItems = delegator.findByAnd("ShipmentAndItem", UtilMisc.toMap("shipmentId", shipmentId, "statusId", "PURCH_SHIP_SHIPPED"), null, false);
             if (shipmentAndItems.size() == 0) {
                 return ServiceUtil.returnSuccess();
             }
@@ -1083,7 +1083,7 @@ public class ShipmentServices {
                 return ServiceUtil.returnError(errorMessage);
             }
 
-            List<GenericValue> packageContents = delegator.findByAnd("PackedQtyVsOrderItemQuantity", UtilMisc.toMap("shipmentId", shipmentId, "shipmentPackageSeqId", shipmentPackageSeqId));
+            List<GenericValue> packageContents = delegator.findByAnd("PackedQtyVsOrderItemQuantity", UtilMisc.toMap("shipmentId", shipmentId, "shipmentPackageSeqId", shipmentPackageSeqId), null, false);
             for (GenericValue packageContent: packageContents) {
                 String orderId = packageContent.getString("orderId");
                 String orderItemSeqId = packageContent.getString("orderItemSeqId");

@@ -80,18 +80,18 @@ public class ReplaceImage{
             BufferedImage bufImg = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + dataResourceNameReplace));
             ImageIO.write((RenderedImage) bufImg, "jpg", new File(imageServerPath + "/" + productId + "/" + dataResourceNameExist));
             
-            List<GenericValue> contentAssocReplaceList = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentIdReplace, "contentAssocTypeId", "IMAGE_THUMBNAIL"));
+            List<GenericValue> contentAssocReplaceList = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentIdReplace, "contentAssocTypeId", "IMAGE_THUMBNAIL"), null, false);
             if (contentAssocReplaceList.size() > 0) {
                 for (int i = 0; i < contentAssocReplaceList.size(); i++) {
                     GenericValue contentAssocReplace = contentAssocReplaceList.get(i);
                     
-                    List<GenericValue> dataResourceAssocReplaceList = delegator.findByAnd("ContentDataResourceView", UtilMisc.toMap("contentId", contentAssocReplace.get("contentIdTo")));
+                    List<GenericValue> dataResourceAssocReplaceList = delegator.findByAnd("ContentDataResourceView", UtilMisc.toMap("contentId", contentAssocReplace.get("contentIdTo")), null, false);
                     GenericValue dataResourceAssocReplace = EntityUtil.getFirst(dataResourceAssocReplaceList);
                     
-                    List<GenericValue> contentAssocExistList = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentIdExist, "contentAssocTypeId", "IMAGE_THUMBNAIL", "mapKey", contentAssocReplace.get("mapKey")));
+                    List<GenericValue> contentAssocExistList = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentIdExist, "contentAssocTypeId", "IMAGE_THUMBNAIL", "mapKey", contentAssocReplace.get("mapKey")), null, false);
                     GenericValue contentAssocExist = EntityUtil.getFirst(contentAssocExistList);
                     
-                    List<GenericValue> dataResourceAssocExistList = delegator.findByAnd("ContentDataResourceView", UtilMisc.toMap("contentId", contentAssocExist.get("contentIdTo")));
+                    List<GenericValue> dataResourceAssocExistList = delegator.findByAnd("ContentDataResourceView", UtilMisc.toMap("contentId", contentAssocExist.get("contentIdTo")), null, false);
                     GenericValue dataResourceAssocExist = EntityUtil.getFirst(dataResourceAssocExistList);
                     
                     if (UtilValidate.isNotEmpty(dataResourceAssocExist)) {
@@ -105,7 +105,7 @@ public class ReplaceImage{
                 }
             }
             
-            List<GenericValue> productContentList = delegator.findByAnd("ProductContent", UtilMisc.toMap("productId", productId, "contentId", contentIdReplace, "productContentTypeId", "IMAGE"));
+            List<GenericValue> productContentList = delegator.findByAnd("ProductContent", UtilMisc.toMap("productId", productId, "contentId", contentIdReplace, "productContentTypeId", "IMAGE"), null, false);
             GenericValue productContent = EntityUtil.getFirst(productContentList);
             
             if (productContent != null) {

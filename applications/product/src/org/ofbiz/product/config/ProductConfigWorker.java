@@ -208,7 +208,7 @@ public class ProductConfigWorker {
                 configItemId = ci.getConfigItemAssoc().getString("configItemId");
                 sequenceNum = ci.getConfigItemAssoc().getLong("sequenceNum");
                 try {
-                    List<GenericValue> configs = delegator.findByAnd("ProductConfigConfig", UtilMisc.toMap("configItemId",configItemId,"sequenceNum", sequenceNum));
+                    List<GenericValue> configs = delegator.findByAnd("ProductConfigConfig", UtilMisc.toMap("configItemId",configItemId,"sequenceNum", sequenceNum), null, false);
                     for (GenericValue productConfigConfig: configs) {
                         for (ConfigOption oneOption: selectedOptions) {
                             String configOptionId = oneOption.configOption.getString("configOptionId");
@@ -231,9 +231,9 @@ public class ProductConfigWorker {
             for (GenericValue productConfigConfig: configsToCheck) {
                 String tempConfigId = productConfigConfig.getString("configId");
                 try {
-                    List<GenericValue> tempResult = delegator.findByAnd("ProductConfigConfig", UtilMisc.toMap("configId",tempConfigId));
+                    List<GenericValue> tempResult = delegator.findByAnd("ProductConfigConfig", UtilMisc.toMap("configId",tempConfigId), null, false);
                     if (tempResult.size() == selectedOptionSize && configsToCheck.containsAll(tempResult)) {
-                        List<GenericValue> configOptionProductOptions = delegator.findByAnd("ConfigOptionProductOption", UtilMisc.toMap("configId",tempConfigId));
+                        List<GenericValue> configOptionProductOptions = delegator.findByAnd("ConfigOptionProductOption", UtilMisc.toMap("configId",tempConfigId), null, false);
                         if (UtilValidate.isNotEmpty(configOptionProductOptions)) {
 
                             //  check for variant product equality

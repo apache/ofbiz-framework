@@ -121,7 +121,7 @@ public class ProductSearch {
 
         // now find all sub-categories, filtered by effective dates, and call this routine for them
         try {
-            List<GenericValue> productCategoryRollupList = delegator.findByAndCache("ProductCategoryRollup", UtilMisc.toMap("parentProductCategoryId", productCategoryId));
+            List<GenericValue> productCategoryRollupList = delegator.findByAnd("ProductCategoryRollup", UtilMisc.toMap("parentProductCategoryId", productCategoryId), null, true);
             for (GenericValue productCategoryRollup: productCategoryRollupList) {
                 String subProductCategoryId = productCategoryRollup.getString("productCategoryId");
                 if (productCategoryIdSet.contains(subProductCategoryId)) {

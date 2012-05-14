@@ -114,7 +114,7 @@ packSession.setFacilityId(facilityId);
 if (invoiceIds) {
     orderId = null;
 }
-shipment = EntityUtil.getFirst(delegator.findByAnd("Shipment", [primaryOrderId : orderId, statusId : "SHIPMENT_PICKED"]));
+shipment = EntityUtil.getFirst(delegator.findByAnd("Shipment", [primaryOrderId : orderId, statusId : "SHIPMENT_PICKED"], null, false));
 context.shipment = shipment;
 
 context.packingSession = packSession;

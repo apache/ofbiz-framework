@@ -81,7 +81,7 @@ public class ProductUtilServices {
                 if (virtualProduct == null) {
                     continue;
                 }
-                List<GenericValue> passocList = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", virtualProductId, "productIdTo", productOne.get("productId"), "productAssocTypeId", "PRODUCT_VARIANT"));
+                List<GenericValue> passocList = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", virtualProductId, "productIdTo", productOne.get("productId"), "productAssocTypeId", "PRODUCT_VARIANT"), null, false);
                 passocList = EntityUtil.filterByDate(passocList);
                 if (passocList.size() > 0) {
                     for (GenericValue passoc: passocList) {
@@ -106,7 +106,7 @@ public class ProductUtilServices {
             GenericValue product = null;
             int numSoFar = 0;
             while ((product = eli.next()) != null) {
-                List<GenericValue> passocList = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", product.get("productId"), "productAssocTypeId", "PRODUCT_VARIANT"));
+                List<GenericValue> passocList = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", product.get("productId"), "productAssocTypeId", "PRODUCT_VARIANT"), null, false);
                 passocList = EntityUtil.filterByDate(passocList);
                 if (passocList.size() == 0) {
                     product.set("salesDiscontinuationDate", nowTimestamp);
@@ -146,7 +146,7 @@ public class ProductUtilServices {
             int numSoFar = 0;
             while ((product = eli.next()) != null) {
                 String productId = product.getString("productId");
-                List<GenericValue> productCategoryMemberList = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productId", productId));
+                List<GenericValue> productCategoryMemberList = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productId", productId), null, false);
                 if (productCategoryMemberList.size() > 0) {
                     for (GenericValue productCategoryMember: productCategoryMemberList) {
                         // coded this way rather than a removeByAnd so it can be easily changed...
@@ -194,7 +194,7 @@ public class ProductUtilServices {
             GenericValue pcm = null;
             int numSoFar = 0;
             while ((pcm = eli.next()) != null) {
-                List<GenericValue> productCategoryMemberList = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productId", pcm.get("productId"), "productCategoryId", pcm.get("productCategoryId")));
+                List<GenericValue> productCategoryMemberList = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productId", pcm.get("productId"), "productCategoryId", pcm.get("productCategoryId")), null, false);
                 if (productCategoryMemberList.size() > 1) {
                     // remove all except the first...
                     productCategoryMemberList.remove(0);
@@ -259,7 +259,7 @@ public class ProductUtilServices {
             for (GenericValue value: valueList) {
                 // has only one variant period, is it valid? should already be discontinued if not
                 String productId = value.getString("productId");
-                List<GenericValue> paList = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT"));
+                List<GenericValue> paList = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT"), null, false);
                 paList = EntityUtil.filterByDate(paList);
                 // verify the query; tested on a bunch, looks good
                 if (paList.size() != 1) {
@@ -295,7 +295,7 @@ public class ProductUtilServices {
                 // has only one valid variant
                 String productId = value.getString("productId");
 
-                List<GenericValue> paList = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT")));
+                List<GenericValue> paList = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT"), null, false));
 
                 // verify the query; tested on a bunch, looks good
                 if (paList.size() != 1) {
@@ -347,7 +347,7 @@ public class ProductUtilServices {
             GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
             Debug.logInfo("Processing virtual product with one variant with ID: " + productId + " and name: " + product.getString("internalName"), module);
 
-            List<GenericValue> paList = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT")));
+            List<GenericValue> paList = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT"), null, false));
             if (paList.size() > 1) {
                 Map<String, String> messageMap = UtilMisc.toMap("productId", productId);
                 errMsg = UtilProperties.getMessage(resourceError,"productutilservices.found_more_than_one_valid_variant_for_virtual_ID", messageMap, locale);
@@ -455,7 +455,7 @@ public class ProductUtilServices {
                 // can't just set to null, need to remove the value so it isn't a constraint in the query
                 //findValue.set("fromDate", null);
                 findValue.remove("fromDate");
-                List<GenericValue> existingValueList = EntityUtil.filterByDate(delegator.findByAnd(relatedEntityName, findValue), nowTimestamp);
+                List<GenericValue> existingValueList = EntityUtil.filterByDate(delegator.findByAnd(relatedEntityName, findValue, null, false), nowTimestamp);
                 if (existingValueList.size() > 0) {
                     if (test) {
                         Debug.logInfo("Found " + existingValueList.size() + " existing values for related entity name: " + relatedEntityName + ", not copying, findValue is: " + findValue, module);
@@ -511,7 +511,7 @@ public class ProductUtilServices {
 
                 if ("Y".equals(product.getString("isVirtual"))) {
                     // find the first variant, use it's ID for the names...
-                    List<GenericValue> productAssocList = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT")));
+                    List<GenericValue> productAssocList = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT"), null, false));
                     if (productAssocList.size() > 0) {
                         GenericValue productAssoc = EntityUtil.getFirst(productAssocList);
                         smallMap.put("productId", productAssoc.getString("productIdTo"));
@@ -652,7 +652,7 @@ while (allCatIter.hasNext()) {
         }
 
         // do sub-categories first so all feature groups will be in place
-        List<GenericValue> subCategoryList = delegator.findByAnd("ProductCategoryRollup", UtilMisc.toMap("parentProductCategoryId", productCategoryId));
+        List<GenericValue> subCategoryList = delegator.findByAnd("ProductCategoryRollup", UtilMisc.toMap("parentProductCategoryId", productCategoryId), null, false);
         if (doSubCategories) {
             for (GenericValue productCategoryRollup: subCategoryList) {
                 attachProductFeaturesToCategory(productCategoryRollup.getString("productCategoryId"), productFeatureTypeIdsToInclude, productFeatureTypeIdsToExclude, delegator, true, nowTimestamp);
@@ -661,7 +661,7 @@ while (allCatIter.hasNext()) {
 
         // now get all features for this category and make associated feature groups
         Map<String, Set<String>> productFeatureIdByTypeIdSetMap = FastMap.newInstance();
-        List<GenericValue> productCategoryMemberList = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productCategoryId", productCategoryId));
+        List<GenericValue> productCategoryMemberList = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productCategoryId", productCategoryId), null, false);
         for (GenericValue productCategoryMember: productCategoryMemberList) {
             String productId = productCategoryMember.getString("productId");
             EntityCondition condition = EntityCondition.makeCondition(UtilMisc.toList(

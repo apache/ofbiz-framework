@@ -591,7 +591,7 @@ public class InventoryServices {
             List<GenericValue> orderItemShipGroups = null;
             try {
                 orderItemShipGroups= delegator.findByAnd("OrderItemShipGroup",
-                        UtilMisc.toMap("orderId", orderId));
+                        UtilMisc.toMap("orderId", orderId), null, false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Cannot get OrderItemShipGroups from orderId" + orderId, module);
             }
@@ -605,7 +605,7 @@ public class InventoryServices {
                                 UtilMisc.toMap("shipGroupSeqId",
                                         orderItemShipGroup.get("shipGroupSeqId"),
                                         "orderId",
-                                        orderId));
+                                        orderId), null, false);
 
                     for (GenericValue assoc: orderItemShipGroupAssoc) {
                         GenericValue orderItem = assoc.getRelatedOne("OrderItem");
@@ -781,7 +781,7 @@ public class InventoryServices {
         List<GenericValue> facilities = null;
         try {
             if (facilityId != null) {
-                facilities = delegator.findByAnd("Facility", UtilMisc.toMap("facilityId", facilityId));
+                facilities = delegator.findByAnd("Facility", UtilMisc.toMap("facilityId", facilityId), null, false);
             } else {
                 facilities = delegator.findList("Facility", null, null, null, null, false);
             }
@@ -921,7 +921,7 @@ public class InventoryServices {
 
         List<GenericValue> productPrices = null;
         try {
-            productPrices = delegator.findByAndCache("ProductPrice", UtilMisc.toMap("productId",productId), UtilMisc.toList("-fromDate"));
+            productPrices = delegator.findByAnd("ProductPrice", UtilMisc.toMap("productId",productId), UtilMisc.toList("-fromDate"), true);
         } catch (GenericEntityException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

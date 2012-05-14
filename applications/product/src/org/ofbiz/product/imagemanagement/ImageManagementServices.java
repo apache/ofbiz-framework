@@ -146,7 +146,7 @@ public class ImageManagementServices {
             
             List<GenericValue> fileExtension = FastList.newInstance();
             try {
-                fileExtension = delegator.findByAnd("FileExtension", UtilMisc.toMap("mimeTypeId", fileContentType ));
+                fileExtension = delegator.findByAnd("FileExtension", UtilMisc.toMap("mimeTypeId", fileContentType ), null, false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -537,7 +537,7 @@ public class ImageManagementServices {
         
         List<GenericValue> fileExtensionThumb = FastList.newInstance();
         try {
-            fileExtensionThumb = delegator.findByAnd("FileExtension", UtilMisc.toMap("mimeTypeId", fileContentType));
+            fileExtensionThumb = delegator.findByAnd("FileExtension", UtilMisc.toMap("mimeTypeId", fileContentType), null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -558,7 +558,7 @@ public class ImageManagementServices {
         
         List<GenericValue> fileExtensionThumb = FastList.newInstance();
         try {
-            fileExtensionThumb = delegator.findByAnd("FileExtension", UtilMisc.toMap("mimeTypeId", fileContentType));
+            fileExtensionThumb = delegator.findByAnd("FileExtension", UtilMisc.toMap("mimeTypeId", fileContentType), null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -934,7 +934,7 @@ public class ImageManagementServices {
         String imageUrl = imageServerUrl + "/" + productId + "/" + filenameToUse;
         
         try {
-            List<GenericValue> productContentList = delegator.findByAnd("ProductContentAndInfo", UtilMisc.toMap("productId", productId, "contentId", contentId, "productContentTypeId", "IMAGE"));
+            List<GenericValue> productContentList = delegator.findByAnd("ProductContentAndInfo", UtilMisc.toMap("productId", productId, "contentId", contentId, "productContentTypeId", "IMAGE"), null, false);
             GenericValue productContent = EntityUtil.getFirst(productContentList);
             String dataResourceName = (String) productContent.get("drDataResourceName");
             String mimeType = filenameToUse.substring(filenameToUse.lastIndexOf("."));
@@ -987,12 +987,12 @@ public class ImageManagementServices {
                     }
                 }
                 
-                List<GenericValue> contentAssocList = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentId, "contentAssocTypeId", "IMAGE_THUMBNAIL"));
+                List<GenericValue> contentAssocList = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentId, "contentAssocTypeId", "IMAGE_THUMBNAIL"), null, false);
                 if (contentAssocList.size() > 0) {
                     for (int i = 0; i < contentAssocList.size(); i++) {
                         GenericValue contentAssoc = contentAssocList.get(i);
                         
-                        List<GenericValue> dataResourceAssocList = delegator.findByAnd("ContentDataResourceView", UtilMisc.toMap("contentId", contentAssoc.get("contentIdTo")));
+                        List<GenericValue> dataResourceAssocList = delegator.findByAnd("ContentDataResourceView", UtilMisc.toMap("contentId", contentAssoc.get("contentIdTo")), null, false);
                         GenericValue dataResourceAssoc = EntityUtil.getFirst(dataResourceAssocList);
                         
                         String drDataResourceNameAssoc = (String) dataResourceAssoc.get("drDataResourceName");
