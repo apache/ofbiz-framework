@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<test-suite suite-name="shopinglisttests"
+<test-suite suite-name="shoppinglisttests"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
 
