@@ -25,14 +25,17 @@ import java.util.Map;
 import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangRuntimeException;
+import org.ofbiz.minilang.MiniLangUtil;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
-import org.ofbiz.minilang.operation.BaseCompare;
+import org.ofbiz.minilang.method.conditional.Compare;
 import org.w3c.dom.Element;
 
 /**
@@ -42,12 +45,14 @@ public class IfCompare extends MethodOperation {
 
     public static final String module = IfCompare.class.getName();
 
+    private final Compare compare;
     protected List<MethodOperation> elseSubOps = null;
     protected ContextAccessor<Object> fieldAcsr;
     protected String format;
     protected ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     protected String operator;
     protected List<MethodOperation> subOps;
+    private final Class<?> targetClass;
     protected String type;
     protected String value;
 
@@ -62,7 +67,25 @@ public class IfCompare extends MethodOperation {
         }
         this.value = element.getAttribute("value");
         this.operator = element.getAttribute("operator");
-        this.type = MiniLangValidate.checkAttribute(element.getAttribute("type"), "PlainString");
+        this.compare = Compare.getInstance(this.operator);
+        if (this.compare == null) {
+            MiniLangValidate.handleError("Invalid operator " + this.operator, simpleMethod, element);
+        }
+        this.type = element.getAttribute("type");
+        Class<?> targetClass = null;
+        if (!this.type.isEmpty()) {
+            if ("contains".equals(this.operator)) {
+                MiniLangValidate.handleError("Operator \"contains\" does not support type conversions (remove the type attribute).", simpleMethod, element);
+                targetClass = Object.class;
+            } else {
+                try {
+                    targetClass = ObjectType.loadClass(this.type);
+                } catch (ClassNotFoundException e) {
+                    MiniLangValidate.handleError("Invalid type " + this.type, simpleMethod, element);
+                }
+            }
+        }
+        this.targetClass = targetClass;
         this.format = element.getAttribute("format");
         this.subOps = Collections.unmodifiableList(SimpleMethod.readOperations(element, simpleMethod));
         Element elseElement = UtilXml.firstChildElement(element, "else");
@@ -73,11 +96,10 @@ public class IfCompare extends MethodOperation {
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        // if conditions fails, always return true; if a sub-op returns false
-        // return false and stop, otherwise return true
+        if (this.compare == null) {
+            throw new MiniLangRuntimeException("Invalid operator " + this.operator, this);
+        }
         String value = methodContext.expandString(this.value);
-        String operator = methodContext.expandString(this.operator);
-        String type = methodContext.expandString(this.type);
         String format = methodContext.expandString(this.format);
         Object fieldVal = null;
         if (!mapAcsr.isEmpty()) {
@@ -92,29 +114,24 @@ public class IfCompare extends MethodOperation {
             // no map name, try the env
             fieldVal = fieldAcsr.get(methodContext);
         }
-        // always use an empty string by default
-        if (fieldVal == null) {
-            fieldVal = "";
+        Class<?> targetClass = this.targetClass;
+        if (targetClass == null) {
+            targetClass = MiniLangUtil.getObjectClassForConversion(fieldVal);
         }
-        List<Object> messages = FastList.newInstance();
-        Boolean resultBool = BaseCompare.doRealCompare(fieldVal, value, operator, type, format, messages, null, methodContext.getLoader(), true);
-        if (messages.size() > 0) {
-            messages.add(0, "Error with comparison in if-compare between field [" + mapAcsr.toString() + "." + fieldAcsr.toString() + "] with value [" + fieldVal + "] and value [" + value + "] with operator [" + operator + "] and type [" + type + "]: ");
+        boolean result = false;
+        try {
+            result = this.compare.doCompare(fieldVal, value, targetClass, methodContext.getLocale(), methodContext.getTimeZone(), format);
+        } catch (Exception e) {
             if (methodContext.getMethodType() == MethodContext.EVENT) {
-                StringBuilder fullString = new StringBuilder();
-                for (Object message : messages) {
-                    fullString.append(message);
-                }
-                Debug.logWarning(fullString.toString(), module);
-                methodContext.putEnv(simpleMethod.getEventErrorMessageName(), fullString.toString());
+                methodContext.putEnv(simpleMethod.getEventErrorMessageName(), e.getMessage());
                 methodContext.putEnv(simpleMethod.getEventResponseCodeName(), simpleMethod.getDefaultErrorCode());
-            } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
-                methodContext.putEnv(simpleMethod.getServiceErrorMessageListName(), messages);
+            } else {
+                methodContext.putEnv(simpleMethod.getServiceErrorMessageListName(), e.getMessage());
                 methodContext.putEnv(simpleMethod.getServiceResponseMessageName(), simpleMethod.getDefaultErrorCode());
             }
             return false;
         }
-        if (resultBool != null && resultBool.booleanValue()) {
+        if (result) {
             return SimpleMethod.runSubOps(subOps, methodContext);
         } else {
             if (elseSubOps != null) {

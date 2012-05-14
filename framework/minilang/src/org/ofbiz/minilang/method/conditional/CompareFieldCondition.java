@@ -18,16 +18,13 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.conditional;
 
-import java.util.List;
-
-import javolution.util.FastList;
-
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangElement;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangRuntimeException;
 import org.ofbiz.minilang.MiniLangUtil;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
@@ -38,8 +35,6 @@ import org.w3c.dom.Element;
  * Implements compare to a field condition.
  */
 public final class CompareFieldCondition extends MiniLangElement implements Conditional {
-
-    public static final String module = CompareFieldCondition.class.getName();
 
     // This method is needed only during the v1 to v2 transition
     private static boolean autoCorrect(Element element) {
@@ -52,10 +47,12 @@ public final class CompareFieldCondition extends MiniLangElement implements Cond
         return false;
     }
 
+    private final Compare compare;
     private final FlexibleMapAccessor<Object> fieldFma;
     private final FlexibleStringExpander formatFse;
     private final String operator;
     private final FlexibleMapAccessor<Object> toFieldFma;
+    private final Class<?> targetClass;
     private final String type;
 
     public CompareFieldCondition(Element element, SimpleMethod simpleMethod) throws MiniLangException {
@@ -74,24 +71,41 @@ public final class CompareFieldCondition extends MiniLangElement implements Cond
         this.fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
         this.formatFse = FlexibleStringExpander.getInstance(element.getAttribute("format"));
         this.operator = element.getAttribute("operator");
+        this.compare = Compare.getInstance(this.operator);
+        if (this.compare == null) {
+            MiniLangValidate.handleError("Invalid operator " + this.operator, simpleMethod, element);
+        }
         this.toFieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("to-field"));
-        this.type = MiniLangValidate.checkAttribute(element.getAttribute("type"), "PlainString");
+        this.type = element.getAttribute("type");
+        Class<?> targetClass = null;
+        if (!this.type.isEmpty()) {
+            try {
+                targetClass = ObjectType.loadClass(this.type);
+            } catch (ClassNotFoundException e) {
+                MiniLangValidate.handleError("Invalid type " + this.type, simpleMethod, element);
+            }
+        }
+        this.targetClass = targetClass;
     }
 
     @Override
     public boolean checkCondition(MethodContext methodContext) throws MiniLangException {
+        if (this.compare == null) {
+            throw new MiniLangRuntimeException("Invalid operator " + this.operator, this);
+        }
         Object fieldVal = fieldFma.get(methodContext.getEnvMap());
         Object toFieldVal = toFieldFma.get(methodContext.getEnvMap());
-        String format = formatFse.expandString(methodContext.getEnvMap());
-        List<Object> errorMessages = FastList.newInstance();
-        Boolean resultBool = ObjectType.doRealCompare(fieldVal, toFieldVal, operator, type, format, errorMessages, methodContext.getLocale(), methodContext.getLoader(), true);
-        if (errorMessages.size() > 0 || resultBool == null) {
-            for (Object obj : errorMessages) {
-                simpleMethod.addErrorMessage(methodContext, (String) obj);
-            }
-            return false;
+        Class<?> targetClass = this.targetClass;
+        if (targetClass == null) {
+            targetClass = MiniLangUtil.getObjectClassForConversion(fieldVal);
         }
-        return resultBool.booleanValue();
+        String format = formatFse.expandString(methodContext.getEnvMap());
+        try {
+            return this.compare.doCompare(fieldVal, toFieldVal, targetClass, methodContext.getLocale(), methodContext.getTimeZone(), format);
+        } catch (Exception e) {
+            simpleMethod.addErrorMessage(methodContext, e.getMessage());
+        }
+        return false;
     }
 
     public void prettyPrint(StringBuilder messageBuffer, MethodContext methodContext) {
