@@ -647,7 +647,7 @@ public class EntityPermissionChecker {
         if (hasNeed) {
             try {
                 if (UtilValidate.isNotEmpty(partyId)) {
-                    List<GenericValue> partyRoleList = delegator.findByAndCache("PartyRole", UtilMisc.toMap("partyId", partyId));
+                    List<GenericValue> partyRoleList = delegator.findByAnd("PartyRole", UtilMisc.toMap("partyId", partyId), null, true);
                     for (GenericValue partyRole: partyRoleList) {
                         String roleTypeId = partyRole.getString("roleTypeId");
                         for (String thisRole: newHasRoleList) {
@@ -1179,7 +1179,7 @@ public class EntityPermissionChecker {
             if (UtilValidate.isEmpty(this.entityName)) {
                 return;
             }
-            List<GenericValue> values = delegator.findByAndCache(this.entityName, UtilMisc.toMap(this.entityIdName, entityId));
+            List<GenericValue> values = delegator.findByAnd(this.entityName, UtilMisc.toMap(this.entityIdName, entityId), null, true);
             for (GenericValue entity: values) {
                 this.entityList.add(entity.getString(this.auxiliaryFieldName));
             }

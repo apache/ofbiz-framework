@@ -56,7 +56,7 @@ public class StatusServices {
         List<GenericValue> statusItems = FastList.newInstance();
         for (String statusTypeId: statusTypes) {
             try {
-                List<GenericValue> myStatusItems = delegator.findByAndCache("StatusItem", UtilMisc.toMap("statusTypeId", statusTypeId), UtilMisc.toList("sequenceId"));
+                List<GenericValue> myStatusItems = delegator.findByAnd("StatusItem", UtilMisc.toMap("statusTypeId", statusTypeId), UtilMisc.toList("sequenceId"), true);
                 statusItems.addAll(myStatusItems);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
@@ -72,7 +72,7 @@ public class StatusServices {
         List<GenericValue> statusValidChangeToDetails = null;
         String statusId = (String) context.get("statusId");
         try {
-            statusValidChangeToDetails = delegator.findByAndCache("StatusValidChangeToDetail", UtilMisc.toMap("statusId", statusId), UtilMisc.toList("sequenceId"));
+            statusValidChangeToDetails = delegator.findByAnd("StatusValidChangeToDetail", UtilMisc.toMap("statusId", statusId), UtilMisc.toList("sequenceId"), true);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }

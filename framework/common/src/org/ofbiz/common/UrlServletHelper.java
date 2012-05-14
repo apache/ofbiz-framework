@@ -180,7 +180,7 @@ public class UrlServletHelper extends ContextFilter {
         } else {
             // send 404 error if a URI is alias TO
             try {
-                List<GenericValue> aliasTos = delegator.findByAndCache("WebSitePathAlias", UtilMisc.toMap("webSiteId", webSiteId, "aliasTo", httpRequest.getRequestURI()));
+                List<GenericValue> aliasTos = delegator.findByAnd("WebSitePathAlias", UtilMisc.toMap("webSiteId", webSiteId, "aliasTo", httpRequest.getRequestURI()), null, false);
                 if (UtilValidate.isNotEmpty(aliasTos)) {
                     httpResponse.sendError(HttpServletResponse.SC_NOT_FOUND, "Not Found");
                     return;

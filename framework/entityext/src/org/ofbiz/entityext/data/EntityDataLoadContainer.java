@@ -321,7 +321,7 @@ public class EntityDataLoadContainer implements Container {
                         //Debug.logInfo("- loaded default component : " + component.getString("componentName"), module);
                     }
                     Debug.logInfo("- Loaded components by default : " + components.size() + " components", module);
-                    List<GenericValue> tenantComponents = delegator.findByAnd("TenantComponent", UtilMisc.toMap("tenantId", delegator.getDelegatorTenantId()), UtilMisc.toList("sequenceNum"));
+                    List<GenericValue> tenantComponents = delegator.findByAnd("TenantComponent", UtilMisc.toMap("tenantId", delegator.getDelegatorTenantId()), UtilMisc.toList("sequenceNum"), false);
                     for (GenericValue tenantComponent : tenantComponents) {
                         loadComponents.add(tenantComponent.getString("componentName"));
                         //Debug.logInfo("- loaded component by tenantId : " + tenantComponent.getString("tenantId") +", component : " + tenantComponent.getString("componentName"), module);
@@ -329,7 +329,7 @@ public class EntityDataLoadContainer implements Container {
                     Debug.logInfo("- Loaded components by tenantId : " + delegator.getDelegatorTenantId() + ", " + tenantComponents.size() + " components", module);
                 } else {
                     List<GenericValue> tenantComponents = delegator.findByAnd("TenantComponent", UtilMisc.toMap("tenantId", delegator.getDelegatorTenantId(), "componentName", this.component),
-                            UtilMisc.toList("sequenceNum"));
+                            UtilMisc.toList("sequenceNum"), false);
                     for (GenericValue tenantComponent : tenantComponents) {
                         loadComponents.add(tenantComponent.getString("componentName"));
                         //Debug.logInfo("- loaded component by tenantId : " + tenantComponent.getString("tenantId") +", component : " + tenantComponent.getString("componentName"), module);

@@ -1952,7 +1952,7 @@ public class GenericDelegator implements Delegator {
             fields.put(keyMap.getRelFieldName(), value.get(keyMap.getFieldName()));
         }
 
-        return this.findByAnd(relation.getRelEntityName(), fields, orderBy);
+        return this.findByAnd(relation.getRelEntityName(), fields, orderBy, false);
     }
 
     /* (non-Javadoc)
@@ -1998,7 +1998,7 @@ public class GenericDelegator implements Delegator {
             fields.put(keyMap.getRelFieldName(), value.get(keyMap.getFieldName()));
         }
 
-        return this.findByAndCache(relation.getRelEntityName(), fields, null);
+        return this.findByAnd(relation.getRelEntityName(), fields, null, true);
     }
 
     /* (non-Javadoc)
@@ -2547,7 +2547,7 @@ public class GenericDelegator implements Delegator {
                 }
 
                 // get values in whatever order, we will go through all of them to find the highest value
-                List<GenericValue> allValues = this.findByAnd(value.getEntityName(), lookupValue, null);
+                List<GenericValue> allValues = this.findByAnd(value.getEntityName(), lookupValue, null, false);
                 //Debug.logInfo("Get existing values from entity " + value.getEntityName() + " with lookupValue: " + lookupValue + ", and the seqFieldName: " + seqFieldName + ", and the results are: " + allValues, module);
                 Integer highestSeqVal = null;
                 for (GenericValue curValue: allValues) {

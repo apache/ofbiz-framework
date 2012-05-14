@@ -218,7 +218,7 @@ public class KeywordSearchUtil {
         boolean replaceEnteredKeyword = false;
 
         try {
-            List<GenericValue> thesaurusList = delegator.findByAndCache("KeywordThesaurus", UtilMisc.toMap("enteredKeyword", enteredKeyword));
+            List<GenericValue> thesaurusList = delegator.findByAnd("KeywordThesaurus", UtilMisc.toMap("enteredKeyword", enteredKeyword), null, true);
             for (GenericValue keywordThesaurus: thesaurusList) {
                 String relationshipEnumId = (String) keywordThesaurus.get("relationshipEnumId");
                 if (thesaurusRelsToInclude.contains(relationshipEnumId)) {

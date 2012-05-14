@@ -929,7 +929,7 @@ public class LoginServices {
                 newPasswordHash = HashCrypt.cryptUTF8(getHashType(), null, newPassword);
             }
             try {
-                List<GenericValue> pwdHistList = delegator.findByAnd("UserLoginPasswordHistory", UtilMisc.toMap("userLoginId",userLogin.getString("userLoginId"),"currentPassword",newPasswordHash));
+                List<GenericValue> pwdHistList = delegator.findByAnd("UserLoginPasswordHistory", UtilMisc.toMap("userLoginId",userLogin.getString("userLoginId"),"currentPassword",newPasswordHash), null, false);
                 Debug.logInfo(" checkNewPassword pwdHistListpwdHistList " + pwdHistList.size(), module);
                 if (pwdHistList.size() >0) {
                     Map<String, Integer> messageMap = UtilMisc.toMap("passwordChangeHistoryLimit", passwordChangeHistoryLimit);
