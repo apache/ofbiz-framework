@@ -76,6 +76,16 @@ public class FlexibleMapAccessor<T> implements Serializable, IsEmpty {
         }
     }
 
+    /**
+     * Returns <code>true</code> if <code>fma</code> contains a nested expression.
+     * @param fma
+     * @return <code>true</code> if <code>fma</code> contains a nested expression
+     * @throws NullPointerException if <code>fma</code> is null
+     */
+    public static boolean containsNestedExpression(FlexibleMapAccessor<?> fma) {
+        return fma.fse != null;
+    }
+
     /** Returns a FlexibleMapAccessor instance.
      * @param original The original String expression
      * @return A FlexibleMapAccessor instance
