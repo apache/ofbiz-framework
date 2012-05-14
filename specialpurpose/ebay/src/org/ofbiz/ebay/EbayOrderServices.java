@@ -1141,7 +1141,7 @@ public class EbayOrderServices {
                 // If matching party not found then try to find partyId from PartyAttribute entity.
                 GenericValue partyAttribute = null;
                 if (UtilValidate.isNotEmpty(context.get("eiasTokenBuyer"))) {
-                    partyAttribute = EntityUtil.getFirst(delegator.findByAnd("PartyAttribute", UtilMisc.toMap("attrValue", (String) context.get("eiasTokenBuyer"))));
+                    partyAttribute = EntityUtil.getFirst(delegator.findByAnd("PartyAttribute", UtilMisc.toMap("attrValue", (String) context.get("eiasTokenBuyer")), null, false));
                     if (UtilValidate.isNotEmpty(partyAttribute)) {
                         partyId = (String) partyAttribute.get("partyId");
                     }
