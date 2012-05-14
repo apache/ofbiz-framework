@@ -76,7 +76,7 @@ public class FacilityServices {
         List<GenericValue> invItemList = null;
         try {
             invItemList = delegator.findByAnd("InventoryItem",
-                UtilMisc.toMap("productId", productId, "facilityId", facilityId));
+                UtilMisc.toMap("productId", productId, "facilityId", facilityId), null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new GeneralRuntimeException(e.getMessage());
@@ -138,7 +138,7 @@ public class FacilityServices {
         // Now get the inventory items that are found for that location, facility and product
         List<GenericValue> invItemList = null;
         try {
-            invItemList = delegator.findByAnd("InventoryItem", UtilMisc.toMap("productId", productId, "facilityId", facilityId, "locationSeqId", locationSeqId));
+            invItemList = delegator.findByAnd("InventoryItem", UtilMisc.toMap("productId", productId, "facilityId", facilityId, "locationSeqId", locationSeqId), null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "updateProductStocktake failed getting inventory items", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ProductErrorFailedProductStockTake", locale));
