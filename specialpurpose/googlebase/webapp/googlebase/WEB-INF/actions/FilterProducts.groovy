@@ -27,7 +27,7 @@ import javax.servlet.http.HttpSession;
 
 defaultLocaleString = "";
 if (parameters.productStoreId) {
-    productStore = delegator.findByAnd("ProductStore", ["productStoreId":parameters.productStoreId]);
+    productStore = delegator.findByAnd("ProductStore", ["productStoreId":parameters.productStoreId], null, false);
     defaultLocaleString = productStore[0].defaultLocaleString.toString()
 }
 active = parameters.ACTIVE_PRODUCT;
@@ -37,7 +37,7 @@ productList = FastList.newInstance();
 if (UtilValidate.isNotEmpty(productIds) && ("Y".equals(active) || "Y".equals(notSynced))) {
     for (int i = 0; i < productIds.size(); i++) {
         productId = productIds[i];
-        productCategoryMembers = delegator.findByAnd("ProductCategoryMember", [productId : productId]);
+        productCategoryMembers = delegator.findByAnd("ProductCategoryMember", [productId : productId], null, false);
         productCategoryMember = EntityUtil.getFirst(productCategoryMembers);
         if (UtilValidate.isNotEmpty(productCategoryMember)) {
             if ("Y".equals(active) && "Y".equals(notSynced)) {
