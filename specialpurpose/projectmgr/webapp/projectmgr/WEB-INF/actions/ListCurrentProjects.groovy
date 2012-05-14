@@ -29,7 +29,7 @@ projects = [];
 allProjects.each { project ->
     result = dispatcher.runSync("getProject", ["userLogin" : parameters.userLogin, "projectId" : project.workEffortId]);
     if (result.projectInfo) {
-        resultAssign = delegator.findByAnd("WorkEffortPartyAssignment", ["partyId" : parameters.userLogin.partyId, "workEffortId" : project.workEffortId])
+        resultAssign = delegator.findByAnd("WorkEffortPartyAssignment", ["partyId" : parameters.userLogin.partyId, "workEffortId" : project.workEffortId], null, false)
         if (security.hasEntityPermission("PROJECTMGR", "_ADMIN", session)
         || ((security.hasEntityPermission("PROJECTMGR", "_ROLE_ADMIN", session) || security.hasEntityPermission("PROJECTMGR", "_ROLE_VIEW", session)) && resultAssign)) {
             projects.add(result.projectInfo);
