@@ -615,11 +615,11 @@ under the License.
                     Optional name of a map in the method environment to use as the input map.
                     If you're not going to pass any parameters to the service than you can just
                     leave off the in-map name, although typically in a service tag you will see
-                    a service-name and the in-mapname passed in.
+                    a service-name and the in-map-name passed in.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="include-user-login" default="true">
+        <xs:attribute name="include-user-login">
             <xs:annotation>
                 <xs:documentation>
                     Include-user-login by default will include the user login
@@ -638,7 +638,7 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="break-on-error" default="true">
+        <xs:attribute name="break-on-error">
             <xs:annotation>
                 <xs:documentation>
                     If there's an error in the service by default
@@ -656,21 +656,21 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="error-code" default="error">
+        <xs:attribute type="xs:string" name="error-code">
             <xs:annotation>
                 <xs:documentation>
                     Defaults to "error".
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="success-code" default="success">
+        <xs:attribute type="xs:string" name="success-code">
             <xs:annotation>
                 <xs:documentation>
                     Defaults to "success".
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="require-new-transaction" default="false">
+        <xs:attribute name="require-new-transaction">
             <xs:annotation>
                 <xs:documentation>
                     Defines if the simple-method requires a new transaction or not.
@@ -865,7 +865,7 @@ under the License.
         <xs:attribute type="xs:string" name="session-name">
             <xs:annotation>
                 <xs:documentation>
-                    Optionnal session name.
+                    Optional session name.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -873,36 +873,32 @@ under the License.
     <xs:element name="result-to-result">
         <xs:annotation>
             <xs:documentation>
-                result-to-result is service specific (when the service is being called as a service).
-
-                It will take the result of the service you're calling with the call service operation and it will put it in with the result of the current service.
-                So result-name is the name of the result in the service that was called using the call-service tag.
-
-                NOTE that these attributes are somewhat confusing: result-name is the name of the field in the result of this service call that the value comes FROM;
-                service-result-name is the name of the field in the result of this simple-method called as a service where the value goes TO;
-                in other words FROM result-name and TO service-result-name.
+                Copies service OUT attributes from a called service to the calling service's OUT attributes.
+                Only valid when the script is run in a service.
+                &lt;br/&gt;&lt;br/&gt;
+                Note that the attribute names are somewhat confusing:
+                result-name is the name of the OUT attribute of the called service, and
+                service-result-name is the name of the OUT attribute of the calling service.
+                In other words, copy the OUT attribute FROM result-name TO service-result-name.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.result-to-result"/>
+            <xs:attribute type="xs:string" name="result-name" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        Name of the field in the result of this service call that the value comes FROM.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="service-result-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        Name of the field in the result of this simple-method called as a service where the value goes TO.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.result-to-result">
-        <xs:attribute type="xs:string" name="result-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of the field in the result of this service call that the value comes FROM.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="service-result-name">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of the field in the result of this simple-method called as a service where the value goes TO.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="call-service-asynch" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>
@@ -978,7 +974,7 @@ under the License.
     <xs:element name="call-bsh" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>
-                Executes a BSH script. Deprecated - replace with &lt;script&gt;.
+                Executes a BSH script. Deprecated - replace with script.
                 &lt;br/&gt;&lt;br/&gt;
                 The script can be contained in a Java resource, or a short
                 script can be included in the element body.
@@ -1060,7 +1056,7 @@ under the License.
     <xs:element name="call-object-method" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>
-                Calls a method on an existing Java object. Deprecated - replace with &lt;script&gt;.
+                Calls a method on an existing Java object. Deprecated - replace with script.
                 &lt;br/&gt;&lt;br/&gt;
                 The string and field sub-elements are passed to the method as arguments in the order they are specified.
                 If the method returns a value, the value will be put in the named field.
@@ -1098,7 +1094,7 @@ under the License.
     <xs:element name="call-class-method" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>
-                Calls a static method on a Java class. Deprecated - replace with &lt;script&gt;.
+                Calls a static method on a Java class. Deprecated - replace with script.
                 &lt;br/&gt;&lt;br/&gt;
                 The string and field sub-elements are passed to the method as arguments in the order they are specified.
                 If the method returns a value, the value will be put in the named field.
@@ -3648,6 +3644,7 @@ under the License.
                 Causes script execution to exit the nearest enclosing loop element.
             </xs:documentation>
         </xs:annotation>
+        <xs:complexType />
     </xs:element>
     <xs:element name="continue" substitutionGroup="ControlOperations">
         <xs:annotation>
@@ -3655,6 +3652,7 @@ under the License.
                 Causes script execution to return to the beginning of the nearest enclosing loop element.
             </xs:documentation>
         </xs:annotation>
+        <xs:complexType />
     </xs:element>
     <xs:element name="return" substitutionGroup="ControlOperations">
         <xs:annotation>
@@ -3677,7 +3675,7 @@ under the License.
     <xs:element name="assert" substitutionGroup="EnvOperations">
         <xs:annotation>
             <xs:documentation>
-                Adds an error to the error list for each condition that evaluates to false.
+                Adds an error message to the error message list for each condition that evaluates to false.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -4285,9 +4283,9 @@ under the License.
                 The check-id tag checks to see if the ID value in the given field is a valid database ID string.
                 An invalid ID field will add an error message to the error message list.
                 &lt;br/&gt;&lt;br/&gt;
-                Valid IDs can be any sequence of characters or digits but must not containt the following characters:
-                space [ ], double quote [&quot;], single quote ['], ampersand [&amp;], question
-                mark [?], less-than sign [&lt;], greater-than sign [&gt;].
+                <![CDATA[Valid IDs can be any sequence of characters or digits but must not contain the following characters:
+                space [ ], double quote ["], single quote ['], ampersand [&], question mark [?],
+                less-than sign [<], greater-than sign [>], forward-slash [/], back-slash [\].]]>
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -4302,7 +4300,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute ref="error-list-name"/>
+            <xs:attribute ref="error-list-name" />
         </xs:complexType>
     </xs:element>
     <!-- the "Other" Operations -->
@@ -4367,7 +4365,7 @@ under the License.
     <xs:element name="now-timestamp" substitutionGroup="OtherOperations">
         <xs:annotation>
             <xs:documentation>
-                Deprecated - use &lt;now&gt;.
+                Deprecated - use now.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -4377,7 +4375,7 @@ under the License.
     <xs:element name="now-date-to-env" substitutionGroup="OtherOperations">
         <xs:annotation>
             <xs:documentation>
-                Deprecated - use &lt;now&gt;.
+                Deprecated - use now.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
