@@ -18,11 +18,13 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.callops;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
@@ -46,52 +48,50 @@ import org.w3c.dom.Element;
 /**
  * Calls a service using the given parameters
  */
-public class CallService extends MethodOperation {
+public final class CallService extends MethodOperation {
 
     public static final String module = CallService.class.getName();
     public static final String resource = "MiniLangErrorUiLabels";
 
-    protected String breakOnErrorStr;
-    protected FlexibleMessage defaultMessage;
-    protected String errorCode;
-    protected FlexibleMessage errorPrefix;
-    protected FlexibleMessage errorSuffix;
-    protected String includeUserLoginStr;
-    protected ContextAccessor<Map<String, Object>> inMapAcsr;
-    protected FlexibleMessage messagePrefix;
-    protected FlexibleMessage messageSuffix;
+    private final boolean breakOnError;
+    private final FlexibleMessage defaultMessage;
+    private final String errorCode;
+    private final FlexibleMessage errorPrefix;
+    private final FlexibleMessage errorSuffix;
+    private final boolean includeUserLogin;
+    private final ContextAccessor<Map<String, Object>> inMapAcsr;
+    private final FlexibleMessage messagePrefix;
+    private final FlexibleMessage messageSuffix;
     /** Require a new transaction for this service */
-    protected String requireNewTransactionStr;
+    private final boolean requireNewTransaction;
     /** A list of strings with names of new maps to create */
-    protected List<String> resultsToMap = FastList.newInstance();
+    private final List<String> resultsToMapList;
     /** A list of ResultToFieldDef objects */
-    protected List<ResultToFieldDef> resultToField = FastList.newInstance();
+    private final List<ResultToFieldDef> resultToFieldList;
     /** the key is the request attribute name, the value is the result name to get */
-    protected Map<FlexibleServletAccessor<Object>, ContextAccessor<Object>> resultToRequest = FastMap.newInstance();
+    private final Map<FlexibleServletAccessor<Object>, ContextAccessor<Object>> resultToRequestMap;
     /** the key is the result entry name, the value is the result name to get */
-    protected Map<ContextAccessor<Object>, ContextAccessor<Object>> resultToResult = FastMap.newInstance();
+    private final Map<ContextAccessor<Object>, ContextAccessor<Object>> resultToResultMap;
     /** the key is the session attribute name, the value is the result name to get */
-    protected Map<FlexibleServletAccessor<Object>, ContextAccessor<Object>> resultToSession = FastMap.newInstance();
-    protected String serviceName;
-    protected String successCode;
-    protected FlexibleMessage successPrefix;
-    protected FlexibleMessage successSuffix;
+    private final Map<FlexibleServletAccessor<Object>, ContextAccessor<Object>> resultToSessionMap;
+    private final String serviceName;
+    private final String successCode;
+    private final FlexibleMessage successPrefix;
+    private final FlexibleMessage successSuffix;
     /** Override the default transaction timeout, only works if we start the transaction */
-    protected int transactionTimeout;
+    private final int transactionTimeout;
 
     public CallService(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         serviceName = element.getAttribute("service-name");
         inMapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("in-map-name"));
-        includeUserLoginStr = element.getAttribute("include-user-login");
-        breakOnErrorStr = element.getAttribute("break-on-error");
+        includeUserLogin = !"false".equals(element.getAttribute("include-user-login"));
+        breakOnError = !"false".equals(element.getAttribute("break-on-error"));
         errorCode = element.getAttribute("error-code");
-        if (UtilValidate.isEmpty(errorCode))
-            errorCode = "error";
-        this.requireNewTransactionStr = element.getAttribute("require-new-transaction");
-        String timeoutStr = UtilXml.checkEmpty(element.getAttribute("transaction-timeout"), element.getAttribute("transaction-timout"));
+        requireNewTransaction = "true".equals(element.getAttribute("require-new-transaction"));
+        String timeoutStr = UtilXml.checkEmpty(element.getAttribute("transaction-timeout"));
         int timeout = -1;
-        if (!UtilValidate.isEmpty(timeoutStr)) {
+        if (!timeoutStr.isEmpty()) {
             try {
                 timeout = Integer.parseInt(timeoutStr);
             } catch (NumberFormatException e) {
@@ -99,10 +99,8 @@ public class CallService extends MethodOperation {
                 timeout = 0;
             }
         }
-        this.transactionTimeout = timeout;
+        transactionTimeout = timeout;
         successCode = element.getAttribute("success-code");
-        if (UtilValidate.isEmpty(successCode))
-            successCode = "success";
         errorPrefix = new FlexibleMessage(UtilXml.firstChildElement(element, "error-prefix"), "service.error.prefix");
         errorSuffix = new FlexibleMessage(UtilXml.firstChildElement(element, "error-suffix"), "service.error.suffix");
         successPrefix = new FlexibleMessage(UtilXml.firstChildElement(element, "success-prefix"), "service.success.prefix");
@@ -112,59 +110,81 @@ public class CallService extends MethodOperation {
         defaultMessage = new FlexibleMessage(UtilXml.firstChildElement(element, "default-message"), null);// "service.default.message"
         List<? extends Element> resultsToMapElements = UtilXml.childElementList(element, "results-to-map");
         if (UtilValidate.isNotEmpty(resultsToMapElements)) {
+            List<String> resultsToMapList = new ArrayList<String>(resultsToMapElements.size());
             for (Element resultsToMapElement : resultsToMapElements) {
-                resultsToMap.add(resultsToMapElement.getAttribute("map-name"));
+                resultsToMapList.add(resultsToMapElement.getAttribute("map-name"));
             }
+            this.resultsToMapList = Collections.unmodifiableList(resultsToMapList);
+        } else {
+            this.resultsToMapList = null;
         }
         List<? extends Element> resultToFieldElements = UtilXml.childElementList(element, "result-to-field");
         if (UtilValidate.isNotEmpty(resultToFieldElements)) {
+            List<ResultToFieldDef> resultToFieldList = new ArrayList<ResultToFieldDef>(resultToFieldElements.size());
             for (Element resultToFieldElement : resultToFieldElements) {
+                // TODO: Clean this up.
                 ResultToFieldDef rtfDef = new ResultToFieldDef();
-
                 rtfDef.resultName = resultToFieldElement.getAttribute("result-name");
                 rtfDef.mapAcsr = new ContextAccessor<Map<String, Object>>(resultToFieldElement.getAttribute("map-name"));
                 String field = resultToFieldElement.getAttribute("field");
                 if (UtilValidate.isEmpty(field))
                     field = resultToFieldElement.getAttribute("field-name");
                 rtfDef.fieldAcsr = new ContextAccessor<Object>(field, rtfDef.resultName);
-
-                resultToField.add(rtfDef);
+                resultToFieldList.add(rtfDef);
             }
+            this.resultToFieldList = Collections.unmodifiableList(resultToFieldList);
+        } else {
+            this.resultToFieldList = null;
         }
-        // get result-to-request and result-to-session sub-ops
         List<? extends Element> resultToRequestElements = UtilXml.childElementList(element, "result-to-request");
         if (UtilValidate.isNotEmpty(resultToRequestElements)) {
+            Map<FlexibleServletAccessor<Object>, ContextAccessor<Object>> resultToRequestMap = new HashMap<FlexibleServletAccessor<Object>, ContextAccessor<Object>>(resultToRequestElements.size());
             for (Element resultToRequestElement : resultToRequestElements) {
                 FlexibleServletAccessor<Object> reqAcsr = new FlexibleServletAccessor<Object>(resultToRequestElement.getAttribute("request-name"), resultToRequestElement.getAttribute("result-name"));
                 ContextAccessor<Object> resultAcsr = new ContextAccessor<Object>(resultToRequestElement.getAttribute("result-name"));
-                resultToRequest.put(reqAcsr, resultAcsr);
+                resultToRequestMap.put(reqAcsr, resultAcsr);
             }
+            this.resultToRequestMap = Collections.unmodifiableMap(resultToRequestMap);
+        } else {
+            this.resultToRequestMap = null;
         }
         List<? extends Element> resultToSessionElements = UtilXml.childElementList(element, "result-to-session");
         if (UtilValidate.isNotEmpty(resultToSessionElements)) {
+            Map<FlexibleServletAccessor<Object>, ContextAccessor<Object>> resultToSessionMap = new HashMap<FlexibleServletAccessor<Object>, ContextAccessor<Object>>(resultToSessionElements.size());
             for (Element resultToSessionElement : resultToSessionElements) {
                 FlexibleServletAccessor<Object> sesAcsr = new FlexibleServletAccessor<Object>(resultToSessionElement.getAttribute("session-name"), resultToSessionElement.getAttribute("result-name"));
                 ContextAccessor<Object> resultAcsr = new ContextAccessor<Object>(resultToSessionElement.getAttribute("result-name"));
-                resultToSession.put(sesAcsr, resultAcsr);
+                resultToSessionMap.put(sesAcsr, resultAcsr);
             }
+            this.resultToSessionMap = Collections.unmodifiableMap(resultToSessionMap);
+        } else {
+            this.resultToSessionMap = null;
         }
         List<? extends Element> resultToResultElements = UtilXml.childElementList(element, "result-to-result");
         if (UtilValidate.isNotEmpty(resultToResultElements)) {
+            Map<ContextAccessor<Object>, ContextAccessor<Object>> resultToResultMap = new HashMap<ContextAccessor<Object>, ContextAccessor<Object>>(resultToResultElements.size());
             for (Element resultToResultElement : resultToResultElements) {
                 ContextAccessor<Object> serResAcsr = new ContextAccessor<Object>(resultToResultElement.getAttribute("service-result-name"), resultToResultElement.getAttribute("result-name"));
                 ContextAccessor<Object> resultAcsr = new ContextAccessor<Object>(resultToResultElement.getAttribute("result-name"));
-                resultToResult.put(serResAcsr, resultAcsr);
+                resultToResultMap.put(serResAcsr, resultAcsr);
             }
+            this.resultToResultMap = Collections.unmodifiableMap(resultToResultMap);
+        } else {
+            this.resultToResultMap = null;
         }
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        boolean includeUserLogin = !"false".equals(methodContext.expandString(includeUserLoginStr));
-        boolean breakOnError = !"false".equals(methodContext.expandString(breakOnErrorStr));
         String serviceName = methodContext.expandString(this.serviceName);
-        String errorCode = methodContext.expandString(this.errorCode);
-        String successCode = methodContext.expandString(this.successCode);
+        String errorCode = this.errorCode;
+        if (errorCode.isEmpty()) {
+            errorCode = simpleMethod.getDefaultErrorCode();
+        }
+        String successCode = this.successCode;
+        if (successCode.isEmpty()) {
+            successCode = simpleMethod.getDefaultSuccessCode();
+        }
         Map<String, Object> inMap = null;
         if (inMapAcsr.isEmpty()) {
             inMap = FastMap.newInstance();
@@ -200,20 +220,12 @@ public class CallService extends MethodOperation {
             inMap.put("locale", locale);
         }
         try {
-            if (UtilValidate.isEmpty(this.requireNewTransactionStr) && this.transactionTimeout < 0) {
-                result = methodContext.getDispatcher().runSync(serviceName, inMap);
-            } else {
-                ModelService modelService = methodContext.getDispatcher().getDispatchContext().getModelService(serviceName);
-                boolean requireNewTransaction = modelService.requireNewTransaction;
-                int timeout = modelService.transactionTimeout;
-                if (UtilValidate.isNotEmpty(this.requireNewTransactionStr)) {
-                    requireNewTransaction = "true".equalsIgnoreCase(this.requireNewTransactionStr) ? true : false;
-                }
-                if (this.transactionTimeout >= 0) {
-                    timeout = this.transactionTimeout;
-                }
-                result = methodContext.getDispatcher().runSync(serviceName, inMap, timeout, requireNewTransaction);
+            ModelService modelService = methodContext.getDispatcher().getDispatchContext().getModelService(serviceName);
+            int timeout = modelService.transactionTimeout;
+            if (this.transactionTimeout >= 0) {
+                timeout = this.transactionTimeout;
             }
+            result = methodContext.getDispatcher().runSync(serviceName, inMap, timeout, requireNewTransaction);
         } catch (GenericServiceException e) {
             String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [problem invoking the [" + serviceName + "] service with the map named [" + inMapAcsr + "] containing [" + inMap + "]: " + e.getMessage() + "]";
             Debug.logError(e, errMsg, module);
@@ -230,13 +242,13 @@ public class CallService extends MethodOperation {
                 return true;
             }
         }
-        if (resultsToMap.size() > 0) {
-            for (String mapName : resultsToMap) {
+        if (resultsToMapList != null) {
+            for (String mapName : resultsToMapList) {
                 methodContext.putEnv(mapName, UtilMisc.makeMapWritable(result));
             }
         }
-        if (resultToField.size() > 0) {
-            for (ResultToFieldDef rtfDef : resultToField) {
+        if (resultToFieldList != null) {
+            for (ResultToFieldDef rtfDef : resultToFieldList) {
                 if (!rtfDef.mapAcsr.isEmpty()) {
                     Map<String, Object> tempMap = rtfDef.mapAcsr.get(methodContext);
                     if (tempMap == null) {
@@ -251,15 +263,15 @@ public class CallService extends MethodOperation {
         }
         // only run this if it is in an EVENT context
         if (methodContext.getMethodType() == MethodContext.EVENT) {
-            if (resultToRequest.size() > 0) {
-                for (Map.Entry<FlexibleServletAccessor<Object>, ContextAccessor<Object>> entry : resultToRequest.entrySet()) {
+            if (resultToRequestMap != null) {
+                for (Map.Entry<FlexibleServletAccessor<Object>, ContextAccessor<Object>> entry : resultToRequestMap.entrySet()) {
                     FlexibleServletAccessor<Object> requestAcsr = entry.getKey();
                     ContextAccessor<Object> resultAcsr = entry.getValue();
                     requestAcsr.put(methodContext.getRequest(), resultAcsr.get(result, methodContext), methodContext.getEnvMap());
                 }
             }
-            if (resultToSession.size() > 0) {
-                for (Map.Entry<FlexibleServletAccessor<Object>, ContextAccessor<Object>> entry : resultToSession.entrySet()) {
+            if (resultToSessionMap != null) {
+                for (Map.Entry<FlexibleServletAccessor<Object>, ContextAccessor<Object>> entry : resultToSessionMap.entrySet()) {
                     FlexibleServletAccessor<Object> sessionAcsr = entry.getKey();
                     ContextAccessor<Object> resultAcsr = entry.getValue();
                     sessionAcsr.put(methodContext.getRequest().getSession(), resultAcsr.get(result, methodContext), methodContext.getEnvMap());
@@ -268,8 +280,8 @@ public class CallService extends MethodOperation {
         }
         // only run this if it is in an SERVICE context
         if (methodContext.getMethodType() == MethodContext.SERVICE) {
-            if (resultToResult.size() > 0) {
-                for (Map.Entry<ContextAccessor<Object>, ContextAccessor<Object>> entry : resultToResult.entrySet()) {
+            if (resultToResultMap != null) {
+                for (Map.Entry<ContextAccessor<Object>, ContextAccessor<Object>> entry : resultToResultMap.entrySet()) {
                     ContextAccessor<Object> targetResultAcsr = entry.getKey();
                     ContextAccessor<Object> resultAcsr = entry.getValue();
                     targetResultAcsr.put(methodContext.getResults(), resultAcsr.get(result, methodContext), methodContext);
