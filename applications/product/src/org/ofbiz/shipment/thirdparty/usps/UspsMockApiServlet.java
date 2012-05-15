@@ -118,7 +118,7 @@ public class UspsMockApiServlet extends HttpServlet {
             OutputStream os = new ByteArrayOutputStream();
 
             try {
-                UtilXml.writeXmlDocument(responseDocument, os, "UTF-8", true, false, 0);
+                UtilXml.writeXmlDocument(responseDocument, os, "UTF-8", true, false, 0, false);
             } catch (TransformerException e) {
                 Debug.logInfo(e, module);
                 return;
