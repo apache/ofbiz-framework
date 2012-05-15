@@ -421,6 +421,7 @@ under the License.
     <screen name="EditInvoiceItems">
         <section>
             <actions>
+                <property-map resource="AccountingEntityLabels" map-name="uiLabelMap" global="true"/>
                 <set field="viewIndex" from-field="parameters.viewIndex"/>
                 <set field="viewSize" from-field="parameters.viewSize"/>
                 <set field="titleProperty" value="PageTitleListInvoices"/>
