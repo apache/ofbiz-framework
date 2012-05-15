@@ -96,27 +96,22 @@ under the License.
                     </tr>
                     <tr>
                         <td class="label"> Code Captcha </td>
-                        <td><div><img id="captchaImage" src="<@ofbizUrl>captcha.jpg?unique=${nowTimestamp.getTime()}</@ofbizUrl>" alt="" /></div></td>
+                        <td><div><img id="captchaImage" src="<@ofbizUrl>captcha.jpg?captchaCodeId=captchaImage&amp;unique=${nowTimestamp.getTime()}</@ofbizUrl>" alt="" /></div></td>
                     </tr>
                     <script type="text/javascript" language="JavaScript">
                     <!--
-                        function reloadCaptcha() {
-                            var captchaUri = "<@ofbizUrl>captcha.jpg?unique=_PLACEHOLDER_</@ofbizUrl>";
+                        function reloadCaptcha(fieldName) {
+                            var captchaUri = "<@ofbizUrl>captcha.jpg?captchaCodeId=" + fieldName + "&amp;unique=_PLACEHOLDER_</@ofbizUrl>";
                             var unique = Date.now();
                             captchaUri = captchaUri.replace("_PLACEHOLDER_", unique);
-                            document.getElementById("captchaImage").src = captchaUri;
-                        }
-                        function submitNewCustForm(){
-                            var nform = document.newuserform;
-                            nform.captcha.value = document.captchaform.captcha.value;
-                            nform.submit();
+                            document.getElementById(fieldName).src = captchaUri;
                         }
                     //-->
                     </script>
                     <tr>
                         <td class="label"> </td>
                         <td>
-                            <a href="javascript:reloadCaptcha();">${uiLabelMap.CommonReloadCaptchaCode}</a>
+                            <a href="javascript:reloadCaptcha('captchaImage');">${uiLabelMap.CommonReloadCaptchaCode}</a>
                         </td>
                     </tr>
                     <tr>

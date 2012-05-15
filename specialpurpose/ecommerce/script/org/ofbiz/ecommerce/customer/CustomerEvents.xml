@@ -1287,7 +1287,7 @@ under the License.
             </else>
         </if-empty>
         <call-object-method obj-field="parameters.captcha" method-name="toLowerCase" ret-field="submittedCaptcha"/>
-        <script>groovy: context.actualCaptcha = request.getSession().getAttribute("_CAPTCHA_CODE_")?.toLowerCase()</script>
+        <script>groovy: context.actualCaptcha = request.getSession().getAttribute("_CAPTCHA_CODE_")?.get("captchaImage")?.toLowerCase()</script>
         <if-compare-field operator="not-equals" field="submittedCaptcha" to-field="actualCaptcha">
             <add-error><fail-property resource="MyPortalUiLabels" property="MyPortalCaptchaMissingError"/></add-error>
         </if-compare-field>

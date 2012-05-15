@@ -38,7 +38,6 @@
     </request-map>
     <request-map uri="newRegisterLogin">
         <security https="true" auth="false"/>
-        <event type="java" invoke="getCodeCaptcha" path="org.ofbiz.common.Captcha"/>
         <response name="success" type="view" value="newRegisterLogin"/>
     </request-map>
     <request-map uri="createRegister">
