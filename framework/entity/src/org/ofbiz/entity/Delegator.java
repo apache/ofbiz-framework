@@ -375,7 +375,7 @@ public interface Delegator {
     /**
      * Finds Generic Entity records by all of the specified fields (ie: combined
      * using AND), looking first in the cache; uses orderBy for lookup, but only
-     * keys results on the entityName and fields NOTE 20080502: 56 references
+     * keys results on the entityName and fields
      *
      * @param entityName
      *            The Name of the Entity as defined in the entity XML file
