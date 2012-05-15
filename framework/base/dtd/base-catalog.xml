@@ -29,4 +29,5 @@ under the License.
     <system systemId="http://ofbiz.apache.org/dtds/jndi-config.xsd" uri="jndi-config.xsd"/>
     <system systemId="http://ofbiz.apache.org/dtds/ofbiz-component.xsd" uri="ofbiz-component.xsd"/>
     <system systemId="http://ofbiz.apache.org/dtds/ofbiz-containers.xsd" uri="ofbiz-containers.xsd"/>
+    <system systemId="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd" uri="ofbiz-properties.xsd"/>
 </catalog>

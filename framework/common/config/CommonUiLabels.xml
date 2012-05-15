@@ -8,6 +8,7 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
+
     http://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing,
@@ -17,13 +18,13 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="AP">
         <value xml:lang="de">Kreditoren</value>
         <value xml:lang="en">AP</value>
         <value xml:lang="es">Compras</value>
         <value xml:lang="fr">Cpt. fourn.</value>
-        <value xml:lang="hi_IN">लेखा देय</value>
+        <value xml:lang="hi-IN">लेखा देय</value>
         <value xml:lang="it">AP</value>
         <value xml:lang="nl">Schulden</value>
         <value xml:lang="pt-BR">Contas a pagar</value>
@@ -127,6 +128,7 @@
     <property key="CommonAbort">
         <value xml:lang="en">Abort</value>
         <value xml:lang="es">Cancelar</value>
+        <value xml:lang="fr">Abandonner</value>
         <value xml:lang="vi">Hủy</value>
     </property>
     <property key="CommonAccepted">
@@ -413,6 +415,7 @@
         <value xml:lang="de">Die Adresse wurde nicht gefunden.</value>
         <value xml:lang="en">Address not found.</value>
         <value xml:lang="es">Dirección no encontrada.</value>
+        <value xml:lang="fr">Adresse inconnue</value>
         <value xml:lang="vi">Không tìm thấy địa chỉ</value>
     </property>
     <property key="CommonAddresses">
@@ -2770,7 +2773,8 @@
         <value xml:lang="zh-TW">電子郵件</value>
     </property>
     <property key="CommonEmptyHeader">
-        <value xml:lang="en" xml:space="preserve"> </value><!-- do not  remove this! -->
+        <!-- do not  remove this! -->
+        <value xml:lang="en" xml:space="preserve"> </value>
     </property>
     <property key="CommonEnable">
         <value xml:lang="en">Enable</value>
@@ -11082,12 +11086,12 @@
         <value xml:lang="zh-TW">有效日</value>
     </property>
     <property key="FormFieldTitle_expireButton">
-        <value xml:lang="en">Expire</value>
-        <value xml:lang="fr">Invalider</value>
         <value xml:lang="ar">نهاية الصلاحية</value>
         <value xml:lang="cs">Vypršet</value>
         <value xml:lang="de">Ablaufen</value>
+        <value xml:lang="en">Expire</value>
         <value xml:lang="es">Expiración</value>
+        <value xml:lang="fr">Invalider</value>
         <value xml:lang="hi-IN">निश्वासन</value>
         <value xml:lang="it">Scade</value>
         <value xml:lang="nl">Maak verlopen</value>
@@ -11100,7 +11104,6 @@
         <value xml:lang="zh">过期</value>
         <value xml:lang="zh-CN">过期</value>
         <value xml:lang="zh-TW">過期</value>
-        
     </property>
     <property key="FormFieldTitle_extDevicePurposeActionId">
         <value xml:lang="en">External Device Purpose Action Id</value>
