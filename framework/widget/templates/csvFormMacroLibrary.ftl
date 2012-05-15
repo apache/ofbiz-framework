@@ -50,7 +50,7 @@ under the License.
 <#macro renderHiddenField name value id event action></#macro>
 <#macro renderIgnoredField></#macro>
 
-<#macro renderFieldTitle style title id fieldHelpText=""><@renderField title />,</#macro>
+<#macro renderFieldTitle style title id="" fieldHelpText=""><@renderField title />,</#macro>
 <#macro renderSingleFormFieldTitle></#macro>
 
 <#macro renderFormOpen linkUrl formType targetWindow containerId containerStyle autocomplete name useRowSubmit></#macro>
