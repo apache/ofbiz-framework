@@ -23,11 +23,11 @@ under the License.
     </div>
     <script type="text/javascript" language="JavaScript">
     <!--
-        function reloadCaptcha() {
-            var captchaUri = "<@ofbizUrl>captcha.jpg?unique=_PLACEHOLDER_</@ofbizUrl>";
+        function reloadCaptcha(fieldName) {
+            var captchaUri = "<@ofbizUrl>captcha.jpg?captchaCodeId=" + fieldName + "&amp;unique=_PLACEHOLDER_</@ofbizUrl>";
             var unique = Date.now();
             captchaUri = captchaUri.replace("_PLACEHOLDER_", unique);
-            document.getElementById("captchaImage").src = captchaUri;
+            document.getElementById(fieldName).src = captchaUri;
         }
     //-->
     </script>
@@ -63,7 +63,7 @@ under the License.
                     </tr>
                     <tr>
                        <td class="label">${uiLabelMap.CommonCaptchaCode}</td>
-                       <td><div><img id="captchaImage" src="<@ofbizUrl>captcha.jpg?unique=${nowTimestamp.getTime()}</@ofbizUrl>" alt="" /></div><a href="javascript:reloadCaptcha();">${uiLabelMap.CommonReloadCaptchaCode}</a></td>
+                       <td><div><img id="captchaImage" src="<@ofbizUrl>captcha.jpg?captchaCodeId=captchaImage&amp;unique=${nowTimestamp.getTime()}</@ofbizUrl>" alt="" /></div><a href="javascript:reloadCaptcha('captchaImage');">${uiLabelMap.CommonReloadCaptchaCode}</a></td>
                     </tr>
                     <tr>
                        <td class="label">${uiLabelMap.CommonVerifyCaptchaCode}</td>

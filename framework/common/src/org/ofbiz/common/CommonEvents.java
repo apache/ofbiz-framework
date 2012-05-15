@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -379,11 +380,12 @@ public class CommonEvents {
         return "success";
     }
 
-    public static String getCaptcha(HttpServletRequest request,HttpServletResponse response) {
+    public static String getCaptcha(HttpServletRequest request, HttpServletResponse response) {
         try {
             final String captchaSizeConfigName = StringUtils.defaultIfEmpty(request.getParameter("captchaSize"), "default");
             final String captchaSizeConfig = UtilProperties.getPropertyValue("captcha.properties", "captcha." + captchaSizeConfigName);
             final String[] captchaSizeConfigs = captchaSizeConfig.split("\\|");
+            final String captchaCodeId = StringUtils.defaultIfEmpty(request.getParameter("captchaCodeId"), ""); // this is used to uniquely identify in the user session the attribute where the captcha code for the last captcha for the form is stored
 
             final int fontSize = Integer.parseInt(captchaSizeConfigs[0]);
             final int height = Integer.parseInt(captchaSizeConfigs[1]);
@@ -463,7 +465,12 @@ public class CommonEvents {
             response.setContentType("image/jpeg");
             ImageIO.write(bufferedImage, "jpg", response.getOutputStream());
             HttpSession session = request.getSession();
-            session.setAttribute("_CAPTCHA_CODE_", captchaCode);
+            Map captchaCodeMap = (Map)session.getAttribute("_CAPTCHA_CODE_");
+            if (captchaCodeMap == null) {
+                captchaCodeMap = new HashMap();
+                session.setAttribute("_CAPTCHA_CODE_", captchaCodeMap);
+            }
+            captchaCodeMap.put(captchaCodeId, captchaCode);
         } catch (Exception ioe) {
             Debug.logError(ioe.getMessage(), module);
         }

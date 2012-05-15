@@ -23,9 +23,6 @@ under the License.
 
     <simple-method method-name="createRegister"
         short-description="Create person when new register" login-required="false">
-        <call-bsh><![CDATA[
-            org.ofbiz.common.Captcha.getCodeCaptcha(request,response);
-            ]]></call-bsh>
         <if-empty field="parameters.firstName"><property-to-field field="errorMessage" resource="MyPortalUiLabels" property="MyPortalFirstNameMissing"/><field-to-list field="errorMessage" list="error_list"/></if-empty>
         <if-empty field="parameters.lastName"><property-to-field field="errorMessage" resource="MyPortalUiLabels" property="MyPortalLastNameMissing"/><field-to-list field="errorMessage" list="error_list"/></if-empty>
         <if-empty field="parameters.USERNAME"><property-to-field field="errorMessage" resource="PartyUiLabels" property="PartyUserNameMissing"/><field-to-list field="errorMessage" list="error_list"/></if-empty>
@@ -47,7 +44,7 @@ under the License.
         <call-object-method obj-field="parameters.PASSWORD" method-name="toLowerCase" ret-field="parameters.PASSWORD"/>
         <call-object-method obj-field="parameters.CONFIRM_PASSWORD" method-name="toLowerCase" ret-field="parameters.CONFIRM_PASSWORD"/>
         <call-object-method obj-field="parameters.captcha" method-name="toLowerCase" ret-field="submittedCaptcha"/>
-        <script>groovy: context.actualCaptcha = request.getSession().getAttribute("_CAPTCHA_CODE_")?.toLowerCase()</script>
+        <script>groovy: context.actualCaptcha = request.getSession().getAttribute("_CAPTCHA_CODE_")?.get("captchaImage")?.toLowerCase()</script>
         <if-compare field="parameters.PASSWORD" value="${parameters.CONFIRM_PASSWORD}" operator="equals">
             <if-compare-field operator="equals" field="submittedCaptcha" to-field="actualCaptcha">
 
