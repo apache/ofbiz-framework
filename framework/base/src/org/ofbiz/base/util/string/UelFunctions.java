@@ -484,7 +484,7 @@ public class UelFunctions {
             File file = FileUtil.getFile(str);
             if (file != null) {
                 FileOutputStream os = new FileOutputStream(file);
-                UtilXml.writeXmlDocument(node, os, encoding, omitXmlDeclaration, indent, indentAmount, false);
+                UtilXml.writeXmlDocument(node, os, encoding, omitXmlDeclaration, indent, indentAmount);
                 os.close();
                 return true;
             } else {
@@ -530,7 +530,7 @@ public class UelFunctions {
     public static String toXmlString(Node node, String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount) {
         try {
             ByteArrayOutputStream os = new ByteArrayOutputStream();
-            UtilXml.writeXmlDocument(node, os, encoding, omitXmlDeclaration, indent, indentAmount, false);
+            UtilXml.writeXmlDocument(node, os, encoding, omitXmlDeclaration, indent, indentAmount);
             os.close();
             return os.toString();
         } catch (Exception e) {

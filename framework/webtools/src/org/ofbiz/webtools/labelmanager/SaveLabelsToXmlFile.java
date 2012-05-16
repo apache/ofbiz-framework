@@ -34,8 +34,10 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
+
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
+
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -149,7 +151,7 @@ public class SaveLabelsToXmlFile {
                         if (apacheLicenseText != null) {
                             fos.write(apacheLicenseText.getBytes());
                         }
-                        UtilXml.writeXmlDocument(resourceElem, fos, "UTF-8", !(apacheLicenseText == null), true, 4, true);
+                        UtilXml.writeXmlDocument(resourceElem, fos, "UTF-8", !(apacheLicenseText == null), true, 4);
                     } finally {
                         fos.close();
                         // clear cache to see immediately the new labels and
