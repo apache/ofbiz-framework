@@ -22,13 +22,12 @@ import java.util.List;
 
 import javolution.util.FastList;
 
-import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.MessageElement;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
@@ -39,9 +38,7 @@ import org.w3c.dom.Element;
 public final class AddError extends MethodOperation {
 
     private final FlexibleMapAccessor<List<String>> errorListFma;
-    private final FlexibleStringExpander messageFse;
-    private final String propertykey;
-    private final String propertyResource;
+    private final MessageElement messageElement;
 
     public AddError(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
@@ -52,50 +49,21 @@ public final class AddError extends MethodOperation {
             MiniLangValidate.requireAnyChildElement(simpleMethod, element, "fail-message", "fail-property");
         }
         errorListFma = FlexibleMapAccessor.getInstance(MiniLangValidate.checkAttribute(element.getAttribute("error-list-name"), "error_list"));
-        Element childElement = UtilXml.firstChildElement(element, "fail-message");
-        if (childElement != null) {
-            if (MiniLangValidate.validationOn()) {
-                MiniLangValidate.attributeNames(simpleMethod, childElement, "message");
-                MiniLangValidate.requiredAttributes(simpleMethod, childElement, "message");
-                MiniLangValidate.constantPlusExpressionAttributes(simpleMethod, childElement, "message");
-            }
-            this.messageFse = FlexibleStringExpander.getInstance(childElement.getAttribute("message"));
-            this.propertykey = null;
-            this.propertyResource = null;
-        } else {
-            childElement = UtilXml.firstChildElement(element, "fail-property");
-            if (childElement != null) {
-                if (MiniLangValidate.validationOn()) {
-                    MiniLangValidate.attributeNames(simpleMethod, childElement, "property", "resource");
-                    MiniLangValidate.requiredAttributes(simpleMethod, childElement, "property", "resource");
-                    MiniLangValidate.constantAttributes(simpleMethod, childElement, "property", "resource");
-                }
-                this.messageFse = FlexibleStringExpander.getInstance(null);
-                this.propertykey = childElement.getAttribute("property");
-                this.propertyResource = childElement.getAttribute("resource");
-            } else {
-                this.messageFse = FlexibleStringExpander.getInstance(null);
-                this.propertykey = null;
-                this.propertyResource = null;
-            }
-        }
+        messageElement = MessageElement.fromParentElement(element, simpleMethod);
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        String message = null;
-        if (!this.messageFse.isEmpty()) {
-            message = this.messageFse.expandString(methodContext.getEnvMap());
-        } else if (this.propertyResource != null) {
-            message = UtilProperties.getMessage(this.propertyResource, this.propertykey, methodContext.getEnvMap(), methodContext.getLocale());
-        }
-        if (message != null) {
-            List<String> messages = errorListFma.get(methodContext.getEnvMap());
-            if (messages == null) {
-                messages = FastList.newInstance();
+        if (messageElement != null) {
+            String message = messageElement.getMessage(methodContext);
+            if (message != null) {
+                List<String> messages = errorListFma.get(methodContext.getEnvMap());
+                if (messages == null) {
+                    messages = FastList.newInstance();
+                    errorListFma.put(methodContext.getEnvMap(), messages);
+                }
+                messages.add(message);
             }
-            errorListFma.put(methodContext.getEnvMap(), messages);
-            messages.add(message);
         }
         return true;
     }
@@ -116,14 +84,11 @@ public final class AddError extends MethodOperation {
         if (!"error_list".equals(this.errorListFma.getOriginalName())) {
             sb.append("error-list-name=\"").append(this.errorListFma).append("\"");
         }
-        sb.append(">");
-        if (!this.messageFse.isEmpty()) {
-            sb.append("<fail-message message=\"").append(this.messageFse).append("\" />");
+        if (messageElement != null) {
+            sb.append(">").append(messageElement).append("</add-error>");
+        } else {
+            sb.append("/>");
         }
-        if (this.propertykey != null) {
-            sb.append("<fail-property property=\"").append(this.propertykey).append(" resource=\"").append(this.propertyResource).append("\" />");
-        }
-        sb.append("</add-error>");
         return sb.toString();
     }
 
