@@ -76,7 +76,8 @@ under the License.
     <xs:attribute type="xs:string" name="error-list-name">
         <xs:annotation>
             <xs:documentation>
-                The name of the error message list. Defaults to "error_list".
+                The name of the error message list. It will be created if it does not exist.
+                Defaults to "error_list".
                 &lt;br/&gt;&lt;br/&gt;
                 Optional. Attribute type: constant
             </xs:documentation>
@@ -517,17 +518,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute type="xs:string" name="error-list-name">
-                <xs:annotation>
-                    <xs:documentation>
-                        The name of a list in the method environment that the error messages will be added to.
-                        Will be created if it does not exist.
-                        Defaults to "error_list".
-                        &lt;br/&gt;&lt;br/&gt;
-                        Optional. Attribute type: constant.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
+            <xs:attribute ref="error-list-name" />
         </xs:complexType>
     </xs:element>
     <xs:element name="set-service-fields" substitutionGroup="CallOperations">
@@ -4156,8 +4147,8 @@ under the License.
     <xs:element name="if-has-permission" substitutionGroup="IfBasicOperations">
         <xs:annotation>
             <xs:documentation>
-                The operations contained by the if-has-permission tag will only be executed if the user has the specified permission, and optionally the action.
-                This tag can contain any of the simple-method operations, including the conditional/if operations.
+                The operations contained by the if-has-permission element will only be executed if the user has the specified permission, and optionally the action.
+                This element can contain any of the simple-method operations, including the conditional/if operations.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -4165,54 +4156,38 @@ under the License.
                 <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations" />
                 <xs:element minOccurs="0" ref="else" />
             </xs:sequence>
-            <xs:attribute type="xs:string" name="permission" use="required">
-                <xs:annotation>
-                    <xs:documentation>
-                        The name of the permission.
-                        The user must belong to a security group that includes this permission.
-                        &lt;br/&gt;&lt;br/&gt;
-                        Required. Attribute type: constant+expr.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attribute type="xs:string" name="action">
-                <xs:annotation>
-                    <xs:documentation>
-                        If an action is specified the user can have one of two permissions: the permission + "_ADMIN" or permission + action.
-                        Examples of actions include "_CREATE", "_VIEW", etc.
-                        &lt;br/&gt;&lt;br/&gt;
-                        Optional. Attribute type: constant+expr.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
+            <xs:attributeGroup ref="attlist.check-permission" />
         </xs:complexType>
     </xs:element>
     <xs:element name="check-permission" substitutionGroup="IfOtherOperations">
         <xs:annotation>
             <xs:documentation>
-                The check-permission tag checks to see if the current user has the specified permission.
-                The the user does not have the specified permission or there is no user associated with the context
-                then the failure message from fail-message or file-property will be added to the specified error list.
+                Checks to see if the current user has the specified permission.
+                If the user does not have the specified permission or if there is no user associated with the context
+                then the failure message from fail-message or fail-property will be added to the
+                specified error list.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="1" ref="accept-userlogin-party"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="alt-permission"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="alt-permission" />
                 <xs:choice>
-                    <xs:element ref="fail-message"/>
-                    <xs:element ref="fail-property"/>
+                    <xs:element ref="fail-message" />
+                    <xs:element ref="fail-property" />
                 </xs:choice>
             </xs:sequence>
-            <xs:attributeGroup ref="attlist.check-permission"/>
+            <xs:attributeGroup ref="attlist.check-permission" />
+            <xs:attribute ref="error-list-name"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.check-permission">
         <xs:attribute type="xs:string" name="permission" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    The name of the permission in the database.
-                    The user must belong to a security group that has this permission.
+                    The name of the permission.
+                    The user must belong to a security group that includes this permission.
+                    &lt;br/&gt;&lt;br/&gt;
+                    Required. Attribute type: constant+expr.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -4221,36 +4196,8 @@ under the License.
                 <xs:documentation>
                     If an action is specified the user can have one of two permissions: the permission + "_ADMIN" or permission + action.
                     Examples of actions include "_CREATE", "_VIEW", etc.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="error-list-name" default="error_list">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of a list in the method environment that the error messages will be added to.
-                    Will be created if does not exist.
-                    Defaults to "error_list".
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
-    <xs:element name="accept-userlogin-party">
-        <xs:annotation>
-            <xs:documentation>
-                If that tag is present userlogin party is accepted, rather than requiring that the user have the permission.
-
-                Often used in cases where you want to allow a user to for example see their own order, or update their own contact information.
-            </xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-            <xs:attributeGroup ref="attlist.accept-userlogin-party"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:attributeGroup name="attlist.accept-userlogin-party">
-        <xs:attribute type="xs:string" name="party-id-env-name" default="partyId">
-            <xs:annotation>
-                <xs:documentation>
-                    Environment variable name used (defaults to partyId),
+                    &lt;br/&gt;&lt;br/&gt;
+                    Optional. Attribute type: constant+expr.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -4258,36 +4205,13 @@ under the License.
     <xs:element name="alt-permission">
         <xs:annotation>
             <xs:documentation>
-                Allows to specify a number of alternate permissions, any of which will satisfy this check permission.
-                If the current userLogin does not have any of these permissions the error will be added to the list.
-                If the user has any of the alt-permissions, they subsume standard permissions.
-
-                This tag basically has the same attributes as the check-permission tag, permission and action.
-                Just as the corresponding attributes for the check-permission element.
+                Specifies an alternate permission. Alternate permissions are checked when the primary permission check fails.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.alt-permission"/>
+            <xs:attributeGroup ref="attlist.check-permission"/>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.alt-permission">
-        <xs:attribute type="xs:string" name="permission" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the permission in the database.
-                    The user must belong to a security group that has this permission.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="action">
-            <xs:annotation>
-                <xs:documentation>
-                    If an action is specified the user can have one of two permissions: the permission + "_ADMIN" or permission + action.
-                    Examples of actions include "_CREATE", "_VIEW", etc.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="check-id" substitutionGroup="EnvOperations">
         <xs:annotation>
             <xs:documentation>

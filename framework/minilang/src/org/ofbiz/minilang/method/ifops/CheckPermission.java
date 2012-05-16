@@ -18,18 +18,20 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.ifops;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import javolution.util.FastList;
 
-import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
+import org.ofbiz.minilang.method.MessageElement;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.ofbiz.security.Security;
@@ -39,84 +41,46 @@ import org.w3c.dom.Element;
 /**
  * If the user does not have the specified permission the fail-message or fail-property sub-elements are used to add a message to the error-list.
  */
-public class CheckPermission extends MethodOperation {
+public final class CheckPermission extends MethodOperation {
 
-    /** If null no partyId env-name will be checked against the userLogin.partyId and accepted as permission */
-    ContextAccessor<String> acceptUlPartyIdEnvNameAcsr = null;
-    List<PermissionInfo> altPermissions = null;
-    ContextAccessor<List<Object>> errorListAcsr;
-    boolean isProperty = false;
-    String message = null;
-    PermissionInfo permissionInfo;
-    String propertyResource = null;
+    private final List<PermissionInfo> altPermissionInfoList;
+    private final FlexibleMapAccessor<List<String>> errorListFma;
+    private final MessageElement messageElement;
+    private final PermissionInfo primaryPermissionInfo;
 
     public CheckPermission(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        permissionInfo = new PermissionInfo(element);
-        this.errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
-        Element acceptUserloginPartyElement = UtilXml.firstChildElement(element, "accept-userlogin-party");
-        if (acceptUserloginPartyElement != null) {
-            acceptUlPartyIdEnvNameAcsr = new ContextAccessor<String>(acceptUserloginPartyElement.getAttribute("party-id-env-name"), "partyId");
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "permission", "action", "error-list-name");
+            MiniLangValidate.constantAttributes(simpleMethod, element, "error-list-name");
+            MiniLangValidate.childElements(simpleMethod, element, "alt-permission", "fail-message", "fail-property");
+            MiniLangValidate.requireAnyChildElement(simpleMethod, element, "fail-message", "fail-property");
         }
+        errorListFma = FlexibleMapAccessor.getInstance(MiniLangValidate.checkAttribute(element.getAttribute("error-list-name"), "error_list"));
+        primaryPermissionInfo = new PermissionInfo(element);
         List<? extends Element> altPermElements = UtilXml.childElementList(element, "alt-permission");
         if (!altPermElements.isEmpty()) {
-            altPermissions = FastList.newInstance();
-        }
-        for (Element altPermElement : altPermElements) {
-            altPermissions.add(new PermissionInfo(altPermElement));
-        }
-        Element failMessage = UtilXml.firstChildElement(element, "fail-message");
-        Element failProperty = UtilXml.firstChildElement(element, "fail-property");
-        if (failMessage != null) {
-            this.message = failMessage.getAttribute("message");
-            this.isProperty = false;
-        } else if (failProperty != null) {
-            this.propertyResource = failProperty.getAttribute("resource");
-            this.message = failProperty.getAttribute("property");
-            this.isProperty = true;
-        }
-    }
-
-    public void addMessage(List<Object> messages, MethodContext methodContext) {
-        String message = methodContext.expandString(this.message);
-        String propertyResource = methodContext.expandString(this.propertyResource);
-        if (!isProperty && message != null) {
-            messages.add(message);
-            // if (Debug.infoOn()) Debug.logInfo("[SimpleMapOperation.addMessage] Adding message: " + message, module);
-        } else if (isProperty && propertyResource != null && message != null) {
-            // String propMsg = UtilProperties.getPropertyValue(UtilURL.fromResource(propertyResource, loader), message);
-            String propMsg = UtilProperties.getMessage(propertyResource, message, methodContext.getEnvMap(), methodContext.getLocale());
-            if (UtilValidate.isEmpty(propMsg)) {
-                messages.add("Simple Method Permission error occurred, but no message was found, sorry.");
-            } else {
-                messages.add(methodContext.expandString(propMsg));
+            List<PermissionInfo> permissionInfoList = new ArrayList<PermissionInfo>(altPermElements.size());
+            for (Element altPermElement : altPermElements) {
+                permissionInfoList.add(new PermissionInfo(altPermElement));
             }
-            // if (Debug.infoOn()) Debug.logInfo("[SimpleMapOperation.addMessage] Adding property message: " + propMsg, module);
+            altPermissionInfoList = Collections.unmodifiableList(permissionInfoList);
         } else {
-            messages.add("Simple Method Permission error occurred, but no message was found, sorry.");
-            // if (Debug.infoOn()) Debug.logInfo("[SimpleMapOperation.addMessage] ERROR: No message found", module);
+            altPermissionInfoList = null;
         }
+        messageElement = MessageElement.fromParentElement(element, simpleMethod);
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         boolean hasPermission = false;
-        List<Object> messages = errorListAcsr.get(methodContext);
-        if (messages == null) {
-            messages = FastList.newInstance();
-            errorListAcsr.put(methodContext, messages);
-        }
-        // if no user is logged in, treat as if the user does not have permission: do not run subops
         GenericValue userLogin = methodContext.getUserLogin();
         if (userLogin != null) {
             Authorization authz = methodContext.getAuthz();
             Security security = methodContext.getSecurity();
-            if (this.permissionInfo.hasPermission(methodContext, userLogin, authz, security)) {
-                hasPermission = true;
-            }
-            // if failed, check alternate permissions
-            if (!hasPermission && altPermissions != null) {
-                for (PermissionInfo altPermInfo : altPermissions) {
+            hasPermission = this.primaryPermissionInfo.hasPermission(methodContext, userLogin, authz, security);
+            if (!hasPermission && altPermissionInfoList != null) {
+                for (PermissionInfo altPermInfo : altPermissionInfoList) {
                     if (altPermInfo.hasPermission(methodContext, userLogin, authz, security)) {
                         hasPermission = true;
                         break;
@@ -124,35 +88,43 @@ public class CheckPermission extends MethodOperation {
                 }
             }
         }
-        if (!hasPermission && acceptUlPartyIdEnvNameAcsr != null) {
-            String acceptPartyId = acceptUlPartyIdEnvNameAcsr.get(methodContext);
-            if (UtilValidate.isEmpty(acceptPartyId)) {
-                // try the parameters Map
-                Map<String, Object> parameters = methodContext.getEnv("parameters");
-                if (parameters != null) {
-                    acceptPartyId = acceptUlPartyIdEnvNameAcsr.get(parameters, methodContext);
-                }
+        if (!hasPermission && messageElement != null) {
+            List<String> messages = errorListFma.get(methodContext.getEnvMap());
+            if (messages == null) {
+                messages = FastList.newInstance();
+                errorListFma.put(methodContext.getEnvMap(), messages);
             }
-            if (UtilValidate.isNotEmpty(acceptPartyId) && UtilValidate.isNotEmpty(userLogin.getString("partyId")) && acceptPartyId.equals(userLogin.getString("partyId"))) {
-                hasPermission = true;
-            }
-        }
-        if (!hasPermission) {
-            this.addMessage(messages, methodContext);
+            messages.add(messageElement.getMessage(methodContext));
         }
         return true;
     }
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public String rawString() {
-        // TODO: add all attributes and other info
-        return "<check-permission/>";
+        return toString();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<check-permission ");
+        sb.append("permission=\"").append(this.primaryPermissionInfo.permissionFse).append("\" ");
+        if (!this.primaryPermissionInfo.actionFse.isEmpty()) {
+            sb.append("action=\"").append(this.primaryPermissionInfo.actionFse).append("\" ");
+        }
+        if (!"error_list".equals(this.errorListFma.getOriginalName())) {
+            sb.append("error-list-name=\"").append(this.errorListFma).append("\" ");
+        }
+        if (messageElement != null) {
+            sb.append(">").append(messageElement).append("</check-permission>");
+        } else {
+            sb.append("/>");
+        }
+        return sb.toString();
     }
 
     public static final class CheckPermissionFactory implements Factory<CheckPermission> {
@@ -165,20 +137,23 @@ public class CheckPermission extends MethodOperation {
         }
     }
 
-    public static class PermissionInfo {
-        String action;
-        String permission;
+    private class PermissionInfo {
+        private final FlexibleStringExpander actionFse;
+        private final FlexibleStringExpander permissionFse;
 
-        public PermissionInfo(Element altPermissionElement) {
-            this.permission = altPermissionElement.getAttribute("permission");
-            this.action = altPermissionElement.getAttribute("action");
+        private PermissionInfo(Element element) throws MiniLangException {
+            if (MiniLangValidate.validationOn()) {
+                MiniLangValidate.attributeNames(simpleMethod, element, "permission", "action");
+                MiniLangValidate.requiredAttributes(simpleMethod, element, "permission");
+            }
+            this.permissionFse = FlexibleStringExpander.getInstance(element.getAttribute("permission"));
+            this.actionFse = FlexibleStringExpander.getInstance(element.getAttribute("action"));
         }
 
-        public boolean hasPermission(MethodContext methodContext, GenericValue userLogin, Authorization authz, Security security) {
-            String permission = methodContext.expandString(this.permission);
-            String action = methodContext.expandString(this.action);
-
-            if (UtilValidate.isNotEmpty(action)) {
+        private boolean hasPermission(MethodContext methodContext, GenericValue userLogin, Authorization authz, Security security) {
+            String permission = permissionFse.expandString(methodContext.getEnvMap());
+            String action = actionFse.expandString(methodContext.getEnvMap());
+            if (!action.isEmpty()) {
                 // run hasEntityPermission
                 return security.hasEntityPermission(permission, action, userLogin);
             } else {
