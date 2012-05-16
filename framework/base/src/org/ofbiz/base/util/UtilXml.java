@@ -159,6 +159,50 @@ public class UtilXml {
     // ----- TrAX Methods ----------------- //
 
     /**
+     * @deprecated : use the keepSpace version Creates a JAXP TrAX Transformer suitable for pretty-printing an XML document. This method is provided as
+     *             an alternative to the deprecated <code>org.apache.xml.serialize.OutputFormat</code> class.
+     * @param encoding
+     *            Optional encoding, defaults to UTF-8
+     * @param omitXmlDeclaration
+     *            If <code>true</code> the xml declaration will be omitted from the output
+     * @param indent
+     *            If <code>true</code>, the output will be indented
+     * @param indentAmount
+     *            If <code>indent</code> is <code>true</code>, the number of spaces to indent. Default is 4.
+     * @return A <code>Transformer</code> instance
+     * @see <a href="http://java.sun.com/javase/6/docs/api/javax/xml/transform/package-summary.html">JAXP TrAX</a>
+     * @throws TransformerConfigurationException
+     */
+    @Deprecated
+    public static Transformer createOutputTransformer(String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount)
+            throws TransformerConfigurationException {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+        sb.append("<xsl:stylesheet xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" xmlns:xalan=\"http://xml.apache.org/xslt\" version=\"1.0\">\n");
+        sb.append("<xsl:output method=\"xml\" encoding=\"");
+        sb.append(encoding == null ? "UTF-8" : encoding);
+        sb.append("\"");
+        if (omitXmlDeclaration) {
+            sb.append(" omit-xml-declaration=\"yes\"");
+        }
+        sb.append(" indent=\"");
+        sb.append(indent ? "yes" : "no");
+        sb.append("\"");
+        if (indent) {
+            sb.append(" xalan:indent-amount=\"");
+            sb.append(indentAmount <= 0 ? 4 : indentAmount);
+            sb.append("\"");
+        }
+        sb.append("/>\n<xsl:strip-space elements=\"*\"/>\n");
+        sb.append("<xsl:template match=\"@*|node()\">\n");
+        sb.append("<xsl:copy><xsl:apply-templates select=\"@*|node()\"/></xsl:copy>\n");
+        sb.append("</xsl:template>\n</xsl:stylesheet>\n");
+        ByteArrayInputStream bis = new ByteArrayInputStream(sb.toString().getBytes());
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        return transformerFactory.newTransformer(new StreamSource(bis));
+    }
+
+    /**
      * Creates a JAXP TrAX Transformer suitable for pretty-printing an XML document. This method is provided as an alternative to the deprecated
      * <code>org.apache.xml.serialize.OutputFormat</code> class.
      * 
@@ -220,6 +264,30 @@ public class UtilXml {
         DOMSource source = new DOMSource(node);
         StreamResult result = new StreamResult(os);
         transformer.transform(source, result);
+    }
+
+    /**
+     * @deprecated : use the keepSpace version Serializes a DOM <code>Node</code> to an <code>OutputStream</code> using JAXP TrAX.
+     * @param node
+     *            The <code>Node</code> to serialize
+     * @param os
+     *            The <code>OutputStream</code> to serialize to
+     * @param encoding
+     *            Optional encoding, defaults to UTF-8
+     * @param omitXmlDeclaration
+     *            If <code>true</code> the xml declaration will be omitted from the output
+     * @param indent
+     *            If <code>true</code>, the output will be indented
+     * @param indentAmount
+     *            If <code>indent</code> is <code>true</code>, the number of spaces to indent. Default is 4.
+     * @see <a href="http://java.sun.com/javase/6/docs/api/javax/xml/transform/package-summary.html">JAXP TrAX</a>
+     * @throws TransformerException
+     */
+    @Deprecated
+    public static void writeXmlDocument(Node node, OutputStream os, String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount)
+            throws TransformerException {
+        Transformer transformer = createOutputTransformer(encoding, omitXmlDeclaration, indent, indentAmount);
+        transformDomDocument(transformer, node, os);
     }
 
     /**
