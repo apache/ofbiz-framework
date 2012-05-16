@@ -31,6 +31,7 @@ import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangUtil;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -348,7 +349,7 @@ public class Calculate extends MethodOperation {
                 locale = Locale.getDefault();
             BigDecimal value;
             try {
-                BigDecimal parseVal = (BigDecimal) ObjectType.simpleTypeConvert(valueStr, "BigDecimal", null, null, locale, true);
+                BigDecimal parseVal = (BigDecimal) MiniLangUtil.convertType(valueStr, java.math.BigDecimal.class, locale, null, null);
                 value = parseVal.setScale(scale, roundingMode);
             } catch (Exception e) {
                 Debug.logError(e, "Could not parse the number string: " + valueStr, module);

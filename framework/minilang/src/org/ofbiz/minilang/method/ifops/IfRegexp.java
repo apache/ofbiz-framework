@@ -27,11 +27,10 @@ import javolution.util.FastList;
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.ofbiz.base.util.CompilerMatcher;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangUtil;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -85,8 +84,8 @@ public class IfRegexp extends MethodOperation {
         }
         if (fieldVal != null) {
             try {
-                fieldString = (String) ObjectType.simpleTypeConvert(fieldVal, "String", null, methodContext.getTimeZone(), methodContext.getLocale(), true);
-            } catch (GeneralException e) {
+                fieldString = (String) MiniLangUtil.convertType(fieldVal, String.class, methodContext.getLocale(), methodContext.getTimeZone(), null);
+            } catch (Exception e) {
                 Debug.logError(e, "Could not convert object to String, using empty String", module);
             }
         }

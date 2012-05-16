@@ -27,6 +27,7 @@ import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangUtil;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -133,7 +134,7 @@ public class SetCalendar extends MethodOperation {
             if (timeZone == null) {
                 timeZone = TimeZone.getDefault();
             }
-            fromStamp = (Timestamp) ObjectType.simpleTypeConvert(newValue, "Timestamp", UtilDateTime.DATE_TIME_FORMAT, timeZone, locale, true);
+            fromStamp = (Timestamp) MiniLangUtil.convertType(newValue, java.sql.Timestamp.class, locale, timeZone, UtilDateTime.DATE_TIME_FORMAT);
         } catch (Exception e) {
             // Catching all exceptions - even potential ClassCastException
             if (Debug.verboseOn())

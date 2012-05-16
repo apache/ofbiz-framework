@@ -28,6 +28,7 @@ import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangUtil;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -66,11 +67,11 @@ public class ToString extends MethodOperation {
         String outStr = null;
         try {
             if (UtilValidate.isNotEmpty(format)) {
-                outStr = (String) ObjectType.simpleTypeConvert(obj, "String", format, methodContext.getTimeZone(), methodContext.getLocale(), true);
+                outStr = (String) MiniLangUtil.convertType(obj, String.class, methodContext.getLocale(), methodContext.getTimeZone(), format);
             } else {
                 outStr = obj.toString();
             }
-        } catch (GeneralException e) {
+        } catch (Exception e) {
             Debug.logError(e, "", module);
             outStr = obj.toString();
         }

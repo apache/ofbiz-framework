@@ -92,16 +92,20 @@ public final class Assert extends MethodOperation {
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        String title = titleExdr.expandString(methodContext.getEnvMap());
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
+    }
+
+    @Override
+    public String toString() {
         StringBuilder messageBuf = new StringBuilder("<assert");
-        if (!title.isEmpty()) {
+        if (!titleExdr.isEmpty()) {
             messageBuf.append(" title=\"");
-            messageBuf.append(title);
+            messageBuf.append(titleExdr);
             messageBuf.append("\"");
         }
         messageBuf.append(">");
         for (Conditional condition : conditionalList) {
-            condition.prettyPrint(messageBuf, methodContext);
+            messageBuf.append(condition);
         }
         messageBuf.append("</assert>");
         return messageBuf.toString();
