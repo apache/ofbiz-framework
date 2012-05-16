@@ -81,6 +81,7 @@ public final class CallService extends MethodOperation {
             MiniLangValidate.attributeNames(simpleMethod, element, "serviceName", "in-map-name", "include-user-login", "break-on-error", "error-code", "require-new-transaction", "transaction-timeout", "success-code");
             MiniLangValidate.constantAttributes(simpleMethod, element, "include-user-login", "break-on-error", "error-code", "require-new-transaction", "transaction-timeout", "success-code");
             MiniLangValidate.expressionAttributes(simpleMethod, element, "service-name", "in-map-name");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "service-name");
             MiniLangValidate.childElements(simpleMethod, element, "error-prefix", "error-suffix", "success-prefix", "success-suffix", "message-prefix", "message-suffix", "default-message", "results-to-map", "result-to-field", "result-to-request", "result-to-session", "result-to-result");
         }
         serviceName = element.getAttribute("service-name");
