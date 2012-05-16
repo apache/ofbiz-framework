@@ -466,71 +466,70 @@ under the License.
             <xs:documentation>
                 The call-map-processor tag invokes a simple map processor from an existing map, creating a new map or adding to an existing one
                 if the named out-map already exists. Resulting messages are added to the named list, and a new list is created if a list with
-                the given name does not yet exist. Note that all lists and maps exist in the same context and must have unique names.
-
+                the given name does not yet exist. All lists and maps exist in the same context and must have unique names.
+                &lt;br/&gt;&lt;br/&gt;
                 An inline simple-map-processor can be used by putting a simple-map-processor tag under the call-map-processor tag.
-
                 If both an external and an inline map-processor are specified, the external
                 one will be called first, allowing the inline one to override its behavior.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" ref="simple-map-processor">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Uses the same definition as the simple-map-processor in the context of a simple-map-processors XML file.
-                            Allows for an inlined simple-map-processor.
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
+                <xs:element minOccurs="0" ref="simple-map-processor" />
             </xs:sequence>
-            <xs:attributeGroup ref="attlist.call-map-processor"/>
+            <xs:attribute type="xs:string" name="processor-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the external map processor to execute in the specified xml-resource.
+                        This is only required if an external map processor is desired.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="xml-resource">
+                <xs:annotation>
+                    <xs:documentation>
+                        The full path and filename on the classpath of the XML file which contains an external map processor to execute.
+                        This is only required if an external map processor is desired.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="in-map-name" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of a map in the method environment to use as the input map.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="out-map-name" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of a map in the method environment to use as the output map.
+                        Will be created if it does not exist already.
+                        If already exists will be added to in place.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="error-list-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of a list in the method environment that the error messages will be added to.
+                        Will be created if it does not exist.
+                        Defaults to "error_list".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.call-map-processor">
-        <xs:attribute type="xs:string" name="xml-resource">
-            <xs:annotation>
-                <xs:documentation>
-                    The full path and filename on the classpath of the XML file which contains an external map processor to execute.
-                    This is only required if an external map processor is desired.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="processor-name">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the external map processor to execute in the specified xml-resource.
-                    This is only required if an external map processor is desired.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="in-map-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of a map in the method environment to use as the input map.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="out-map-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of a map in the method environment to use as the output map.
-                    Will be created if it does not exist already.
-                    If already exists will be added to in place.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="error-list-name" default="error_list">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of a list in the method environment that the error messages will be added to.
-                    Will be created if it does not exist.
-                    Defaults to "error_list".
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="set-service-fields" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>
@@ -911,38 +910,47 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.call-service-asynch"/>
+            <xs:attribute type="xs:string" name="service-name" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        Name of the service to call.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: constant, expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="in-map-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        A map in the method environment to use as the input map.
+                        If you're not going to pass any parameters to the service than you can just
+                        omit the in-map attribute, although typically in a call-service-asynch element
+                        you will see the in-map-name attribute included.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="include-user-login">
+                <xs:annotation>
+                    <xs:documentation>
+                        Include the current UserLogin GenericValue in the called service IN attributes.
+                        Defaults to "true".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:annotation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.call-service-asynch">
-        <xs:attribute type="xs:string" name="service-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of the service called asynchronously.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="in-map-name">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of a map in the method environment to use as the input map.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="include-user-login" default="true">
-            <xs:annotation>
-                <xs:documentation>
-                    Defaults to "true".
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="script" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>
