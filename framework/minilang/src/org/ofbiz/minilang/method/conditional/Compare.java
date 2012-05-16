@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import org.ofbiz.base.util.Assert;
-import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.minilang.MiniLangUtil;
 
@@ -200,7 +200,7 @@ public abstract class Compare {
         @Override
         public boolean doCompare(Object lValue, Object rValue, Class<?> type, Locale locale, TimeZone timeZone, String format) throws Exception {
             Object convertedLvalue = MiniLangUtil.convertType(lValue, type, locale, timeZone, format);
-            return UtilValidate.isEmpty(convertedLvalue);
+            return ObjectType.isEmpty(convertedLvalue);
         }
     }
 

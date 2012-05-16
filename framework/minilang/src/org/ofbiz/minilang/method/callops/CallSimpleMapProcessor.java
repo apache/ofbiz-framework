@@ -39,7 +39,7 @@ import org.w3c.dom.Element;
 /**
  * An event operation that calls a simple map processor inlined or from a separate file
  */
-public class CallSimpleMapProcessor extends MethodOperation {
+public final class CallSimpleMapProcessor extends MethodOperation {
 
     private final FlexibleMapAccessor<List<Object>> errorListFma;
     private final MapProcessor inlineMapProcessor;

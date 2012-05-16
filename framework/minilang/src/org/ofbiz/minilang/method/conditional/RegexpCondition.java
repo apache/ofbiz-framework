@@ -20,13 +20,12 @@ package org.ofbiz.minilang.method.conditional;
 
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.ofbiz.base.util.CompilerMatcher;
-import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangElement;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangRuntimeException;
+import org.ofbiz.minilang.MiniLangUtil;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
@@ -62,8 +61,8 @@ public class RegexpCondition extends MiniLangElement implements Conditional {
             fieldVal = "";
         } else if (!(fieldVal instanceof String)) {
             try {
-                fieldVal = ObjectType.simpleTypeConvert(fieldVal, "String", null, methodContext.getTimeZone(), methodContext.getLocale(), true);
-            } catch (GeneralException e) {
+                fieldVal = MiniLangUtil.convertType(fieldVal, String.class, methodContext.getLocale(), methodContext.getTimeZone(), null);
+            } catch (Exception e) {
                 throw new MiniLangRuntimeException(e, this);
             }
         }
