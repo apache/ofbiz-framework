@@ -42,7 +42,6 @@ under the License.
         <xs:simpleContent>
             <xs:extension base="xs:string">
                 <xs:attribute ref="xml:lang"/>
-                <xs:attribute ref="xml:space"/>
             </xs:extension>
         </xs:simpleContent>
     </xs:complexType>
