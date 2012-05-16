@@ -20,10 +20,10 @@ package org.ofbiz.minilang.method.callops;
 
 import java.io.Serializable;
 
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.method.MethodContext;
 import org.w3c.dom.Element;
 
@@ -31,53 +31,36 @@ import org.w3c.dom.Element;
  * Simple class to wrap messages that come either from a straight string or a properties file
  */
 @SuppressWarnings("serial")
-public class FlexibleMessage implements Serializable {
+public final class FlexibleMessage implements Serializable {
 
-    public static final String module = FlexibleMessage.class.getName();
-
-    boolean isProperty = false;
-    String message = null;
-    String propertyResource = null;
+    private final FlexibleStringExpander messageFse;
+    private final String propertykey;
+    private final String propertyResource;
 
     public FlexibleMessage(Element element, String defaultProperty) {
-        String resAttr = null;
-        String propAttr = null;
-        String elVal = null;
         if (element != null) {
-            resAttr = element.getAttribute("resource");
-            propAttr = element.getAttribute("property");
-            elVal = UtilXml.elementValue(element);
-        }
-        if (UtilValidate.isNotEmpty(resAttr)) {
-            propertyResource = resAttr;
-            message = propAttr;
-            isProperty = true;
-        } else if (UtilValidate.isNotEmpty(elVal)) {
-            message = elVal;
-            isProperty = false;
+            String message = UtilXml.elementValue(element);
+            if (message != null) {
+                messageFse = FlexibleStringExpander.getInstance(message);
+                propertykey = null;
+                propertyResource = null;
+            } else {
+                messageFse = null;
+                propertykey = MiniLangValidate.checkAttribute(element.getAttribute("property"), defaultProperty);
+                propertyResource = MiniLangValidate.checkAttribute(element.getAttribute("resource"), "DefaultMessages");
+            }
         } else {
-            // put in default property
+            messageFse = null;
+            propertykey = defaultProperty;
             propertyResource = "DefaultMessages";
-            message = defaultProperty;
-            isProperty = true;
         }
     }
 
     public String getMessage(ClassLoader loader, MethodContext methodContext) {
-        String message = methodContext.expandString(this.message);
-        String propertyResource = methodContext.expandString(this.propertyResource);
-        if (!isProperty && message != null) {
-            return message;
-        } else if (isProperty && propertyResource != null && message != null) {
-            String propMsg = UtilProperties.getMessage(propertyResource, message, methodContext.getEnvMap(), methodContext.getLocale());
-            if (propMsg == null) {
-                return "In Simple Map Processing property message could not be found in resource [" + propertyResource + "] with name [" + message + "]. ";
-            } else {
-                return propMsg;
-            }
+        if (messageFse != null) {
+            return messageFse.expandString(methodContext.getEnvMap());
         } else {
-            Debug.logInfo("[FlexibleMessage.getMessage] No message found, returning empty string", module);
-            return "";
+            return UtilProperties.getMessage(propertyResource, propertykey, methodContext.getEnvMap(), methodContext.getLocale());
         }
     }
 }
