@@ -172,6 +172,8 @@ public class UtilXml {
      * @throws TransformerConfigurationException
      */
     public static Transformer createOutputTransformer(String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount) throws TransformerConfigurationException {
+        // Developers: This stylesheet strips all formatting space characters from the XML,
+        // then indents the XML using the specified indentation.
         StringBuilder sb = new StringBuilder();
         sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
         sb.append("<xsl:stylesheet xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" xmlns:xalan=\"http://xml.apache.org/xslt\" version=\"1.0\">\n");
