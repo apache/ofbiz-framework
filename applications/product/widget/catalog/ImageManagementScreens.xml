@@ -738,7 +738,7 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <screenlet title="${uiLabelMap.ImageManagementReplace}">
-                                            <include-form name="productImageReplace" location="component://product/widget/catalog/ImageManagementForms.xml"/>
+                                            <include-form name="ProductImageReplace" location="component://product/widget/catalog/ImageManagementForms.xml"/>
                                         </screenlet>
                                     </widgets>
                                     <fail-widgets>
