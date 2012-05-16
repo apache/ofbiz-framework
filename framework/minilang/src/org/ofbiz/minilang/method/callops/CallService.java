@@ -34,8 +34,10 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.collections.FlexibleServletAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
@@ -75,6 +77,12 @@ public final class CallService extends MethodOperation {
 
     public CallService(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "serviceName", "in-map-name", "include-user-login", "break-on-error", "error-code", "require-new-transaction", "transaction-timeout", "success-code");
+            MiniLangValidate.constantAttributes(simpleMethod, element, "include-user-login", "break-on-error", "error-code", "require-new-transaction", "transaction-timeout", "success-code");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "service-name", "in-map-name");
+            MiniLangValidate.childElements(simpleMethod, element, "error-prefix", "error-suffix", "success-prefix", "success-suffix", "message-prefix", "message-suffix", "default-message", "results-to-map", "result-to-field", "result-to-request", "result-to-session", "result-to-result");
+        }
         serviceName = element.getAttribute("service-name");
         inMapFma = FlexibleMapAccessor.getInstance(element.getAttribute("in-map-name"));
         includeUserLogin = !"false".equals(element.getAttribute("include-user-login"));
@@ -87,7 +95,7 @@ public final class CallService extends MethodOperation {
             try {
                 timeout = Integer.parseInt(timeoutStr);
             } catch (NumberFormatException e) {
-                Debug.logWarning(e, "Setting timeout to 0 (default)", module);
+                MiniLangValidate.handleError("Exception thrown while parsing transaction-timeout attribute: " + e.getMessage(), simpleMethod, element);
                 timeout = 0;
             }
         }
@@ -154,6 +162,9 @@ public final class CallService extends MethodOperation {
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
+        if (methodContext.isTraceOn()) {
+            outputTraceMessage(methodContext, "Begin call-service.");
+        }
         String serviceName = methodContext.expandString(this.serviceName);
         String errorCode = this.errorCode;
         if (errorCode.isEmpty()) {
@@ -172,7 +183,7 @@ public final class CallService extends MethodOperation {
             methodContext.removeEnv(simpleMethod.getEventErrorMessageName());
             methodContext.removeEnv(simpleMethod.getEventEventMessageName());
             methodContext.removeEnv(simpleMethod.getEventResponseCodeName());
-        } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
+        } else {
             methodContext.removeEnv(simpleMethod.getServiceErrorMessageName());
             methodContext.removeEnv(simpleMethod.getServiceSuccessMessageName());
             methodContext.removeEnv(simpleMethod.getServiceResponseMessageName());
@@ -197,45 +208,72 @@ public final class CallService extends MethodOperation {
             if (this.transactionTimeout >= 0) {
                 timeout = this.transactionTimeout;
             }
+            if (methodContext.isTraceOn()) {
+                outputTraceMessage(methodContext, "Invoking service \"" + serviceName + "\", require-new-transaction = " + requireNewTransaction + ", transaction-timeout = " + timeout + ", IN attributes:", inMap.toString());
+            }
             result = methodContext.getDispatcher().runSync(serviceName, inMap, timeout, requireNewTransaction);
         } catch (GenericServiceException e) {
+            if (methodContext.isTraceOn()) {
+                outputTraceMessage(methodContext, "Service engine threw an exception: " + e.getMessage());
+            }
             String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [problem invoking the [" + serviceName + "] service with the map named [" + inMapFma + "] containing [" + inMap + "]: " + e.getMessage() + "]";
             Debug.logError(e, errMsg, module);
             if (breakOnError) {
                 if (methodContext.getMethodType() == MethodContext.EVENT) {
                     methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errMsg);
                     methodContext.putEnv(simpleMethod.getEventResponseCodeName(), errorCode);
-                } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
+                } else {
                     methodContext.putEnv(simpleMethod.getServiceErrorMessageName(), errMsg);
                     methodContext.putEnv(simpleMethod.getServiceResponseMessageName(), errorCode);
                 }
+                if (methodContext.isTraceOn()) {
+                    outputTraceMessage(methodContext, "break-on-error set to \"true\", halting script execution. End call-service.");
+                }
                 return false;
             } else {
+                if (methodContext.isTraceOn()) {
+                    outputTraceMessage(methodContext, "End call-service.");
+                }
                 return true;
             }
         }
         if (resultsToMapList != null) {
+            if (methodContext.isTraceOn()) {
+                outputTraceMessage(methodContext, "Processing " + resultsToMapList.size() + " <results-to-map> elements.");
+            }
             for (String mapName : resultsToMapList) {
                 methodContext.putEnv(mapName, UtilMisc.makeMapWritable(result));
             }
         }
         if (resultToFieldList != null) {
+            if (methodContext.isTraceOn()) {
+                outputTraceMessage(methodContext, "Processing " + resultToFieldList.size() + " <result-to-field> elements.");
+            }
             for (ResultToField rtfDef : resultToFieldList) {
                 rtfDef.exec(methodContext, result);
             }
         }
         if (resultToResultList != null) {
+            if (methodContext.isTraceOn()) {
+                outputTraceMessage(methodContext, "Processing " + resultToResultList.size() + " <result-to-result> elements.");
+            }
             for (ResultToResult rtrDef : resultToResultList) {
                 rtrDef.exec(methodContext, result);
             }
         }
         if (methodContext.getMethodType() == MethodContext.EVENT) {
             if (resultToRequestList != null) {
+                if (methodContext.isTraceOn()) {
+                    outputTraceMessage(methodContext, "Processing " + resultToRequestList.size() + " <result-to-request> elements.");
+                }
                 for (ResultToRequest rtrDef : resultToRequestList) {
                     rtrDef.exec(methodContext, result);
                 }
             }
             if (resultToSessionList != null) {
+                if (methodContext.isTraceOn()) {
+                    outputTraceMessage(methodContext, "Processing " + resultToSessionList.size() + " <result-to-session> elements.");
+                }
                 for (ResultToSession rtsDef : resultToSessionList) {
                     rtsDef.exec(methodContext, result);
                 }
@@ -268,7 +306,7 @@ public final class CallService extends MethodOperation {
                     }
                     methodContext.putEnv(simpleMethod.getEventErrorMessageListName(), errorMessageList);
                 }
-            } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
+            } else {
                 ServiceUtil.addErrors(UtilMisc.<String, String> getListFromMap(methodContext.getEnvMap(), this.simpleMethod.getServiceErrorMessageListName()), UtilMisc.<String, String, Object> getMapFromMap(methodContext.getEnvMap(), this.simpleMethod.getServiceErrorMessageMapName()), result);
                 Debug.logError(new Exception(errorMessage), module);
             }
@@ -277,7 +315,7 @@ public final class CallService extends MethodOperation {
         if (UtilValidate.isNotEmpty(successMessage)) {
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 methodContext.putEnv(simpleMethod.getEventEventMessageName(), successMessage);
-            } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
+            } else {
                 methodContext.putEnv(simpleMethod.getServiceSuccessMessageName(), successMessage);
             }
         }
@@ -285,28 +323,38 @@ public final class CallService extends MethodOperation {
         if (UtilValidate.isEmpty(errorMessage) && UtilValidate.isEmpty(errorMessageList) && UtilValidate.isEmpty(successMessage) && UtilValidate.isNotEmpty(defaultMessageStr)) {
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 methodContext.putEnv(simpleMethod.getEventEventMessageName(), defaultMessageStr);
-            } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
+            } else {
                 methodContext.putEnv(simpleMethod.getServiceSuccessMessageName(), defaultMessageStr);
             }
         }
-        // handle the result
         String responseCode = result.containsKey(ModelService.RESPONSE_MESSAGE) ? (String) result.get(ModelService.RESPONSE_MESSAGE) : successCode;
         if (errorCode.equals(responseCode)) {
+            if (methodContext.isTraceOn()) {
+                outputTraceMessage(methodContext, "Service returned an error.");
+            }
             if (breakOnError) {
                 if (methodContext.getMethodType() == MethodContext.EVENT) {
                     methodContext.putEnv(simpleMethod.getEventResponseCodeName(), responseCode);
-                } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
+                } else {
                     methodContext.putEnv(simpleMethod.getServiceResponseMessageName(), responseCode);
+                }
+                if (methodContext.isTraceOn()) {
+                    outputTraceMessage(methodContext, "break-on-error set to \"true\", halting script execution. End call-service.");
                 }
                 return false;
             } else {
-                // avoid responseCode here since we are ignoring the error
+                if (methodContext.isTraceOn()) {
+                    outputTraceMessage(methodContext, "End call-service.");
+                }
                 return true;
             }
         } else {
+            if (methodContext.isTraceOn()) {
+                outputTraceMessage(methodContext, "Service ran successfully. End call-service.");
+            }
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 methodContext.putEnv(simpleMethod.getEventResponseCodeName(), responseCode);
-            } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
+            } else {
                 methodContext.putEnv(simpleMethod.getServiceResponseMessageName(), responseCode);
             }
             return true;
@@ -315,8 +363,7 @@ public final class CallService extends MethodOperation {
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     public String getServiceName() {
@@ -325,8 +372,18 @@ public final class CallService extends MethodOperation {
 
     @Override
     public String rawString() {
-        // TODO: something more than the empty tag
-        return "<call-service/>";
+        return toString();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<call-service ");
+        sb.append("service-name=\"").append(this.serviceName).append("\" ");
+        if (!this.inMapFma.isEmpty()) {
+            sb.append("in-map-name=\"").append(this.inMapFma).append("\" ");
+        }
+        sb.append("/>");
+        return sb.toString();
     }
 
     public static final class CallServiceFactory implements Factory<CallService> {
@@ -341,19 +398,20 @@ public final class CallService extends MethodOperation {
 
     private final class ResultToField {
         private final FlexibleMapAccessor<Object> fieldFma;
-        private final String resultName;
+        private final FlexibleMapAccessor<Object> resultFma;
 
         private ResultToField(Element element) {
-            resultName = element.getAttribute("result-name");
+            resultFma = FlexibleMapAccessor.getInstance(element.getAttribute("result-name"));
             String fieldAttribute = element.getAttribute("field");
             if (fieldAttribute.isEmpty()) {
-                fieldAttribute = resultName;
+                fieldFma = resultFma;
+            } else {
+                fieldFma = FlexibleMapAccessor.getInstance(fieldAttribute);
             }
-            fieldFma = FlexibleMapAccessor.getInstance(fieldAttribute);
         }
 
         private void exec(MethodContext methodContext, Map<String, Object> resultMap) {
-            fieldFma.put(methodContext.getEnvMap(), resultMap.get(resultName));
+            fieldFma.put(methodContext.getEnvMap(), resultFma.get(resultMap));
         }
     }
 

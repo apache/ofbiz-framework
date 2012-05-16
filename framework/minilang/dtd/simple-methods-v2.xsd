@@ -323,7 +323,7 @@ under the License.
             <xs:attribute type="xs:string" name="default-error-code">
                 <xs:annotation>
                     <xs:documentation>
-                        The default error return code. Defauts to "error".
+                        The default error return code. Defaults to "error".
                         &lt;br/&gt;&lt;br/&gt;
                         Optional. Attribute type: constant.
                     </xs:documentation>
@@ -332,7 +332,7 @@ under the License.
             <xs:attribute type="xs:string" name="default-success-code">
                 <xs:annotation>
                     <xs:documentation>
-                        The default success return code. Defauts to "success".
+                        The default success return code. Defaults to "success".
                         &lt;br/&gt;&lt;br/&gt;
                         Optional. Attribute type: constant.
                     </xs:documentation>
@@ -572,128 +572,129 @@ under the License.
     <xs:element name="call-service" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>
-                The call-service tag invokes a service through the Service Engine.
-                If the specified error code is returned from the service,
-                the event is aborted and the transaction in the current thread is rolled back.
-                Otherwise, the remaining operations are invoked.
-
-                The result-to-request and result-to-session elements will be IGNORED when
-                called in a service context. So, they are ONLY used when called in an event context.
+                Invokes a service through the Service Engine.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" ref="error-prefix"/>
-                <xs:element minOccurs="0" ref="error-suffix"/>
-                <xs:element minOccurs="0" ref="success-prefix"/>
-                <xs:element minOccurs="0" ref="success-suffix"/>
-                <xs:element minOccurs="0" ref="message-prefix"/>
-                <xs:element minOccurs="0" ref="message-suffix"/>
-                <xs:element minOccurs="0" ref="default-message"/>
+                <xs:element minOccurs="0" ref="error-prefix" />
+                <xs:element minOccurs="0" ref="error-suffix" />
+                <xs:element minOccurs="0" ref="success-prefix" />
+                <xs:element minOccurs="0" ref="success-suffix" />
+                <xs:element minOccurs="0" ref="message-prefix" />
+                <xs:element minOccurs="0" ref="message-suffix" />
+                <xs:element minOccurs="0" ref="default-message" />
                 <xs:choice minOccurs="0" maxOccurs="unbounded">
-                    <xs:element ref="results-to-map"/>
-                    <xs:element ref="result-to-field"/>
-                    <xs:element ref="result-to-request"/>
-                    <xs:element ref="result-to-session"/>
-                    <xs:element ref="result-to-result"/>
+                    <xs:element ref="results-to-map" />
+                    <xs:element ref="result-to-field" />
+                    <xs:element ref="result-to-request" />
+                    <xs:element ref="result-to-session" />
+                    <xs:element ref="result-to-result" />
                 </xs:choice>
             </xs:sequence>
-            <xs:attributeGroup ref="attlist.call-service"/>
+            <xs:attribute type="xs:string" name="service-name" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        Name of the service to call.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: constant, expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="in-map-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        A map in the method environment to use as the input map.
+                        If you're not going to pass any parameters to the service than you can just
+                        omit the in-map attribute, although typically in a service element you will see
+                        the in-map-name attribute included.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="include-user-login">
+                <xs:annotation>
+                    <xs:documentation>
+                        Include the current UserLogin GenericValue in the called service IN attributes.
+                        Defaults to "true".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:annotation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="break-on-error">
+                <xs:annotation>
+                    <xs:documentation>
+                        Halt script execution if the called service returns an error.
+                        Defaults to "true".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="error-code">
+                <xs:annotation>
+                    <xs:documentation>
+                        The error code returned by the called service. The error code is copied to the script result.
+                        Defaults to the enclosing simple-method &quot;default-error-code&quot; attribute value.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="success-code">
+                <xs:annotation>
+                    <xs:documentation>
+                        The success code returned by the called service. The success code is copied to the script result.
+                        Defaults to the enclosing simple-method &quot;default-success-code&quot; attribute value.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="require-new-transaction">
+                <xs:annotation>
+                    <xs:documentation>
+                        Require a new transaction for the called service.
+                        Defaults to "false".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="transaction-timeout">
+                <xs:annotation>
+                    <xs:documentation>
+                        The timeout for the new transaction, in seconds.
+                        Defaults to the value set in the service definition.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.call-service">
-        <xs:attribute type="xs:string" name="service-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of the service to call.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="in-map-name">
-            <xs:annotation>
-                <xs:documentation>
-                    Optional name of a map in the method environment to use as the input map.
-                    If you're not going to pass any parameters to the service than you can just
-                    leave off the in-map name, although typically in a service tag you will see
-                    a service-name and the in-map-name passed in.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="include-user-login">
-            <xs:annotation>
-                <xs:documentation>
-                    Include-user-login by default will include the user login
-                    so if there is a user login for the current simple-method
-                    it will pass that in to the service. If you don't want it to
-                    pass that in you can just set this to false.
-                    Defaults to "true".
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:annotation>
-                </xs:annotation>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="break-on-error">
-            <xs:annotation>
-                <xs:documentation>
-                    If there's an error in the service by default
-                    it will stop the current simple-method and return an
-                    error message that came from the service it called. If
-                    you don't want it to when there's an error you can just
-                    set that to false.
-                    Defaults to "true".
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="error-code">
-            <xs:annotation>
-                <xs:documentation>
-                    Defaults to "error".
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="success-code">
-            <xs:annotation>
-                <xs:documentation>
-                    Defaults to "success".
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="require-new-transaction">
-            <xs:annotation>
-                <xs:documentation>
-                    Defines if the simple-method requires a new transaction or not.
-                    Defaults to "false".
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="transaction-timeout">
-            <xs:annotation>
-                <xs:documentation>
-                    Defines the timeout for the transaction, in seconds.
-                    Defaults to the value set in the service definition which in turn defaults to the setting 
-                    in the TransactionFactory being used (typically 60 seconds).
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="error-prefix">
         <xs:annotation>
             <xs:documentation>
@@ -768,132 +769,134 @@ under the License.
     <xs:element name="results-to-map">
         <xs:annotation>
             <xs:documentation>
-                results-to-map will take all of the results of the service,
-                the outgoing maps from the service and put them in a map of the given map-name.
+                Copies the called service result Map to the specified field.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.results-to-map"/>
+            <xs:attribute type="xs:string" name="map-name" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        Name of the target field.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.results-to-map">
-        <xs:attribute type="xs:string" name="map-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of a map where results will be put in.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="result-to-field">
         <xs:annotation>
             <xs:documentation>
-                Specify the name of the field in the result and then the name of the field in the context you want to put it in,
-                and optionally the  name in the map.
-
-                There's a field-map there. If you don't specify a field-name then the result-name will be used for the field-name,
-                that's the name of the variable that will be created in the current context for the value of that result.
-            </xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-            <xs:attributeGroup ref="attlist.result-to-field"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:attributeGroup name="attlist.result-to-field">
-        <xs:attribute type="xs:string" name="result-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of the result. May be used for the field-name. If you don't specify a field-name,
-                    this will be name of the variable that will be created in the current context for the value of that result.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="field">
-            <xs:annotation><xs:documentation>Optional name of target field. If empty will default to result-name.</xs:documentation></xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
-    <xs:element name="result-to-request">
-        <xs:annotation>
-            <xs:documentation>
-                result-to-request is event specific.
-                It takes the result with the given name and puts it in a request attribute with the given name here.
-                Again the request-name is optional.
-                If you leave it off then it will put it in an attribute with the name of the result-name.
-            </xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-            <xs:attributeGroup ref="attlist.result-to-request"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:attributeGroup name="attlist.result-to-request">
-        <xs:attribute type="xs:string" name="result-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of the result. May be used for the request attribute name. If you don't specify a request-name ,
-                    that's the name of the request attribute that will be created for the value of that result.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="request-name">
-            <xs:annotation>
-                <xs:documentation>
-                    Optionnal request name.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
-    <xs:element name="result-to-session">
-        <xs:annotation>
-            <xs:documentation>
-                Specify the name of the session attribute that you want it to put the value in.
-                If you don't specify one it will use the result-name.
-            </xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-            <xs:attributeGroup ref="attlist.result-to-session"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:attributeGroup name="attlist.result-to-session">
-        <xs:attribute type="xs:string" name="result-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of the result. May be used for the session attribute name. If you don't specify a session-name,
-                    that's the name of the session attribute that will be created for the value of that result.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="session-name">
-            <xs:annotation>
-                <xs:documentation>
-                    Optional session name.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
-    <xs:element name="result-to-result">
-        <xs:annotation>
-            <xs:documentation>
-                Copies service OUT attributes from a called service to the calling service's OUT attributes.
-                Only valid when the script is run in a service.
-                &lt;br/&gt;&lt;br/&gt;
-                Note that the attribute names are somewhat confusing:
-                result-name is the name of the OUT attribute of the called service, and
-                service-result-name is the name of the OUT attribute of the calling service.
-                In other words, copy the OUT attribute FROM result-name TO service-result-name.
+                Copies the called service OUT attribute to the specified field.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:attribute type="xs:string" name="result-name" use="required">
                 <xs:annotation>
                     <xs:documentation>
-                        Name of the field in the result of this service call that the value comes FROM.
+                        Name of the called service OUT attribute.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="field">
+                <xs:annotation>
+                    <xs:documentation>
+                        Name of target field. Defaults to the &quot;result-name&quot; attribute value.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="result-to-request">
+        <xs:annotation>
+            <xs:documentation>
+                Copies the called service OUT attribute to the specified request attribute.
+                Valid only when the script is run in an event.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute type="xs:string" name="result-name" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        Name of the called service OUT attribute.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="request-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        Name of the target request attribute. Defaults to the &quot;result-name&quot; attribute value.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="result-to-session">
+        <xs:annotation>
+            <xs:documentation>
+                Copies the called service OUT attribute to the specified session attribute.
+                Valid only when the script is run in an event.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute type="xs:string" name="result-name" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        Name of the called service OUT attribute.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="session-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        Name of the target session attribute. Defaults to the &quot;result-name&quot; attribute value.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="result-to-result">
+        <xs:annotation>
+            <xs:documentation>
+                Copies service OUT attributes from a called service to the calling service's OUT attributes.
+                This element can also be used to copy the called service OUT attributes to the return result of
+                a simple-method called as a function.
+                &lt;br/&gt;&lt;br/&gt;
+                Note that the attribute names are somewhat confusing:
+                &quot;result-name&quot; is the name of the OUT attribute of the called service, and
+                &quot;service-result-name&quot; is the name of the OUT attribute of the calling service.
+                In other words, copy the OUT attribute FROM &quot;result-name&quot; TO &quot;service-result-name&quot;.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute type="xs:string" name="result-name" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        Name of the called service OUT attribute.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute type="xs:string" name="service-result-name">
                 <xs:annotation>
                     <xs:documentation>
-                        Name of the field in the result of this simple-method called as a service where the value goes TO.
+                        Name of the calling service OUT attribute (or function return result).
+                        Defaults to the &quot;result-name&quot; attribute value.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
