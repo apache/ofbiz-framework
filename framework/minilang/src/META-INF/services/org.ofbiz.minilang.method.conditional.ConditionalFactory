@@ -25,4 +25,3 @@ org.ofbiz.minilang.method.conditional.EmptyCondition$EmptyConditionFactory
 org.ofbiz.minilang.method.conditional.HasPermissionCondition$HasPermissionConditionFactory
 org.ofbiz.minilang.method.conditional.RegexpCondition$RegexpConditionFactory
 org.ofbiz.minilang.method.conditional.ValidateMethodCondition$ValidateMethodConditionFactory
-

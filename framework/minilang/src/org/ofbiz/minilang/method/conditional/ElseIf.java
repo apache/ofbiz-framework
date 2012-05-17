@@ -31,7 +31,7 @@ import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Implements the else-if alternate execution element.
+ * Implements the &lt;else-if&gt; element.
  */
 public final class ElseIf extends MiniLangElement {
 

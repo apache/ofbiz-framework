@@ -31,7 +31,7 @@ import org.ofbiz.minilang.method.MethodContext;
 import org.w3c.dom.Element;
 
 /**
- * Implements generic combining conditions such as or, and, etc.
+ * Implements the &lt;and&gt;, &lt;or&gt;, &lt;not&gt;, and &lt;xor&gt; elements.
  */
 public abstract class CombinedCondition extends MiniLangElement implements Conditional {
 
@@ -59,6 +59,9 @@ public abstract class CombinedCondition extends MiniLangElement implements Condi
         messageBuffer.append(")");
     }
 
+    /**
+     * A &lt;and&gt; element factory. 
+     */
     public static final class AndConditionFactory extends ConditionalFactory<CombinedCondition> {
         @Override
         public CombinedCondition createCondition(Element element, SimpleMethod simpleMethod) throws MiniLangException {
@@ -87,6 +90,9 @@ public abstract class CombinedCondition extends MiniLangElement implements Condi
         }
     }
 
+    /**
+     * A &lt;not&gt; element factory. 
+     */
     public static final class NotConditionFactory extends ConditionalFactory<CombinedCondition> {
         @Override
         public CombinedCondition createCondition(Element element, SimpleMethod simpleMethod) throws MiniLangException {
@@ -116,6 +122,9 @@ public abstract class CombinedCondition extends MiniLangElement implements Condi
         }
     }
 
+    /**
+     * A &lt;or&gt; element factory. 
+     */
     public static final class OrConditionFactory extends ConditionalFactory<CombinedCondition> {
         @Override
         public CombinedCondition createCondition(Element element, SimpleMethod simpleMethod) throws MiniLangException {
@@ -144,6 +153,9 @@ public abstract class CombinedCondition extends MiniLangElement implements Condi
         }
     }
 
+    /**
+     * A &lt;xor&gt; element factory. 
+     */
     public static final class XorConditionFactory extends ConditionalFactory<CombinedCondition> {
         @Override
         public CombinedCondition createCondition(Element element, SimpleMethod simpleMethod) throws MiniLangException {
