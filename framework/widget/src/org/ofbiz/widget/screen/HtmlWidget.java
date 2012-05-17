@@ -58,8 +58,7 @@ public class HtmlWidget extends ModelScreenWidget {
     public static final String module = HtmlWidget.class.getName();
 
     public static UtilCache<String, Template> specialTemplateCache = UtilCache.createUtilCache("widget.screen.template.ftl.general", 0, 0, false);
-    protected static BeansWrapper specialBeansWrapper = new ExtendedWrapper();
-    protected static Configuration specialConfig = FreeMarkerWorker.makeConfiguration(specialBeansWrapper);
+    protected static Configuration specialConfig = FreeMarkerWorker.makeConfiguration((BeansWrapper)new ExtendedWrapper());
 
     // not sure if this is the best way to get FTL to use my fancy MapModel derivative, but should work at least...
     public static class ExtendedWrapper extends BeansWrapper {
