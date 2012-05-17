@@ -20,61 +20,70 @@ package org.ofbiz.minilang.method.ifops;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import javolution.util.FastList;
 
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangRuntimeException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
-public class IfInstanceOf extends MethodOperation {
+/**
+ * Implements the &lt;if-instance-of&gt; element.
+ */
+public final class IfInstanceOf extends MethodOperation {
 
-    public static final String module = IfInstanceOf.class.getName();
-
-    protected String className = null;
-    protected List<MethodOperation> elseSubOps = null;
-    protected ContextAccessor<Object> fieldAcsr = null;
-    protected ContextAccessor<Map<String, ? extends Object>> mapAcsr = null;
-    protected List<MethodOperation> subOps;
+    private final String className;
+    private final Class<?> compareClass;
+    private final List<MethodOperation> elseSubOps;
+    private final FlexibleMapAccessor<Object> fieldFma;
+    private final List<MethodOperation> subOps;
 
     public IfInstanceOf(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
-        this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
-        this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "field", "class");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "field", "class");
+            MiniLangValidate.constantAttributes(simpleMethod, element, "class");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "field");
+        }
+        this.fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
         this.className = element.getAttribute("class");
+        Class<?> compareClass = null;
+        if (!className.isEmpty()) {
+            try {
+                compareClass = ObjectType.loadClass(className);
+            } catch (ClassNotFoundException e) {
+                MiniLangValidate.handleError("Invalid class name " + className, simpleMethod, element);
+            }
+        }
+        this.compareClass = compareClass;
         this.subOps = Collections.unmodifiableList(SimpleMethod.readOperations(element, simpleMethod));
         Element elseElement = UtilXml.firstChildElement(element, "else");
         if (elseElement != null) {
             this.elseSubOps = Collections.unmodifiableList(SimpleMethod.readOperations(elseElement, simpleMethod));
+        } else {
+            this.elseSubOps = null;
         }
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        // only run subOps if element is instanceOf
-        boolean runSubOps = false;
-        Object fieldVal = null;
-        if (!mapAcsr.isEmpty()) {
-            Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
-            if (fromMap == null) {
-                if (Debug.infoOn())
-                    Debug.logInfo("Map not found with name " + mapAcsr + ", running operations", module);
-            } else {
-                fieldVal = fieldAcsr.get(fromMap, methodContext);
-            }
-        } else {
-            // no map name, try the env
-            fieldVal = fieldAcsr.get(methodContext);
+        if (this.compareClass == null) {
+            throw new MiniLangRuntimeException("Invalid class name " + className, this);
         }
-        runSubOps = ObjectType.instanceOf(fieldVal, className);
+        boolean runSubOps = false;
+        Object fieldVal = fieldFma.get(methodContext.getEnvMap());
+        if (fieldVal != null) {
+            runSubOps = ObjectType.instanceOf(fieldVal.getClass(), compareClass);
+        }
         if (runSubOps) {
             return SimpleMethod.runSubOps(subOps, methodContext);
         } else {
@@ -88,8 +97,7 @@ public class IfInstanceOf extends MethodOperation {
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     public List<MethodOperation> getAllSubOps() {
@@ -102,15 +110,30 @@ public class IfInstanceOf extends MethodOperation {
 
     @Override
     public String rawString() {
-        // TODO: add all attributes and other info
-        return "<if-instance-of field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\"/>";
+        return toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<if-instance-of ");
+        sb.append("field=\"").append(this.fieldFma).append("\" ");
+        if (compareClass != null) {
+            sb.append("class=\"").append(compareClass.getName()).append("\" ");
+        }
+        sb.append("/>");
+        return sb.toString();
+    }
+
+    /**
+     * A &lt;if-instance-of&gt; element factory. 
+     */
     public static final class IfInstanceOfFactory implements Factory<IfInstanceOf> {
+        @Override
         public IfInstanceOf createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new IfInstanceOf(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "if-instance-of";
         }
