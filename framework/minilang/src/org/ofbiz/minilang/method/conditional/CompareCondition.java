@@ -18,23 +18,29 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.conditional;
 
+import java.util.Collections;
+import java.util.List;
+
+import javolution.util.FastList;
+
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
-import org.ofbiz.minilang.MiniLangElement;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangRuntimeException;
 import org.ofbiz.minilang.MiniLangUtil;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Implements compare to a constant condition.
+ * Implements the &lt;if-compare&gt; element.
  */
-public final class CompareCondition extends MiniLangElement implements Conditional {
+public final class CompareCondition extends MethodOperation implements Conditional {
 
     private final Compare compare;
     private final FlexibleMapAccessor<Object> fieldFma;
@@ -43,6 +49,9 @@ public final class CompareCondition extends MiniLangElement implements Condition
     private final Class<?> targetClass;
     private final String type;
     private final FlexibleStringExpander valueFse;
+    // Sub-operations are used only when this is a method operation.
+    private final List<MethodOperation> elseSubOps;
+    private final List<MethodOperation> subOps;
 
     public CompareCondition(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
@@ -52,7 +61,6 @@ public final class CompareCondition extends MiniLangElement implements Condition
             MiniLangValidate.constantAttributes(simpleMethod, element, "operator", "type");
             MiniLangValidate.constantPlusExpressionAttributes(simpleMethod, element, "value", "format");
             MiniLangValidate.expressionAttributes(simpleMethod, element, "field");
-            MiniLangValidate.noChildElements(simpleMethod, element);
         }
         this.fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
         this.formatFse = FlexibleStringExpander.getInstance(element.getAttribute("format"));
@@ -77,6 +85,18 @@ public final class CompareCondition extends MiniLangElement implements Condition
         }
         this.targetClass = targetClass;
         this.valueFse = FlexibleStringExpander.getInstance(element.getAttribute("value"));
+        Element childElement = UtilXml.firstChildElement(element);
+        if (childElement != null && !"else".equals(childElement.getTagName())) {
+            this.subOps = Collections.unmodifiableList(SimpleMethod.readOperations(element, simpleMethod));
+        } else {
+            this.subOps = null;
+        }
+        Element elseElement = UtilXml.firstChildElement(element, "else");
+        if (elseElement != null) {
+            this.elseSubOps = Collections.unmodifiableList(SimpleMethod.readOperations(elseElement, simpleMethod));
+        } else {
+            this.elseSubOps = null;
+        }
     }
 
     @Override
@@ -99,6 +119,34 @@ public final class CompareCondition extends MiniLangElement implements Condition
         return false;
     }
 
+    @Override
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
+        if (checkCondition(methodContext)) {
+            if (this.subOps != null) {
+                return SimpleMethod.runSubOps(subOps, methodContext);
+            }
+        } else {
+            if (elseSubOps != null) {
+                return SimpleMethod.runSubOps(elseSubOps, methodContext);
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
+    }
+
+    public List<MethodOperation> getAllSubOps() {
+        List<MethodOperation> allSubOps = FastList.newInstance();
+        if (this.subOps != null)
+            allSubOps.addAll(this.subOps);
+        if (this.elseSubOps != null)
+            allSubOps.addAll(this.elseSubOps);
+        return allSubOps;
+    }
+
     public void prettyPrint(StringBuilder messageBuffer, MethodContext methodContext) {
         String value = valueFse.expandString(methodContext.getEnvMap());
         String format = formatFse.expandString(methodContext.getEnvMap());
@@ -119,9 +167,38 @@ public final class CompareCondition extends MiniLangElement implements Condition
         }
     }
 
-    public static final class CompareConditionFactory extends ConditionalFactory<CompareCondition> {
+    @Override
+    public String rawString() {
+        return toString();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<if-compare ");
+        sb.append("field=\"").append(this.fieldFma).append("\" operator=\"").append(operator).append("\" ");
+        if (!this.valueFse.isEmpty()) {
+            sb.append("value=\"").append(this.valueFse).append("\" ");
+        }
+        if (!this.type.isEmpty()) {
+            sb.append("type=\"").append(this.type).append("\" ");
+        }
+        if (!this.formatFse.isEmpty()) {
+            sb.append("format=\"").append(this.formatFse).append("\" ");
+        }
+        sb.append("/>");
+        return sb.toString();
+    }
+
+    /**
+     * A &lt;if-compare&gt; element factory. 
+     */
+    public static final class CompareConditionFactory extends ConditionalFactory<CompareCondition> implements Factory<CompareCondition> {
         @Override
         public CompareCondition createCondition(Element element, SimpleMethod simpleMethod) throws MiniLangException {
+            return new CompareCondition(element, simpleMethod);
+        }
+
+        public CompareCondition createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CompareCondition(element, simpleMethod);
         }
 

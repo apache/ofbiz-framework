@@ -18,23 +18,33 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.conditional;
 
-import org.ofbiz.base.util.UtilValidate;
+import java.util.Collections;
+import java.util.List;
+
+import javolution.util.FastList;
+
+import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
-import org.ofbiz.minilang.MiniLangElement;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Implements compare to a constant condition.
+ * Implements the &lt;if-empty&gt; element.
  */
-public final class EmptyCondition extends MiniLangElement implements Conditional {
+public final class EmptyCondition extends MethodOperation implements Conditional {
 
     public static final String module = EmptyCondition.class.getName();
 
     private final FlexibleMapAccessor<Object> fieldFma;
+    // Sub-operations are used only when this is a method operation.
+    private final List<MethodOperation> elseSubOps;
+    private final List<MethodOperation> subOps;
 
     public EmptyCondition(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
@@ -44,11 +54,51 @@ public final class EmptyCondition extends MiniLangElement implements Conditional
             MiniLangValidate.expressionAttributes(simpleMethod, element, "field");
         }
         this.fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
+        Element childElement = UtilXml.firstChildElement(element);
+        if (childElement != null && !"else".equals(childElement.getTagName())) {
+            this.subOps = Collections.unmodifiableList(SimpleMethod.readOperations(element, simpleMethod));
+        } else {
+            this.subOps = null;
+        }
+        Element elseElement = UtilXml.firstChildElement(element, "else");
+        if (elseElement != null) {
+            this.elseSubOps = Collections.unmodifiableList(SimpleMethod.readOperations(elseElement, simpleMethod));
+        } else {
+            this.elseSubOps = null;
+        }
     }
 
     @Override
     public boolean checkCondition(MethodContext methodContext) throws MiniLangException {
-        return UtilValidate.isEmpty(fieldFma.get(methodContext.getEnvMap()));
+        return ObjectType.isEmpty(fieldFma.get(methodContext.getEnvMap()));
+    }
+
+    @Override
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
+        if (checkCondition(methodContext)) {
+            if (this.subOps != null) {
+                return SimpleMethod.runSubOps(subOps, methodContext);
+            }
+        } else {
+            if (elseSubOps != null) {
+                return SimpleMethod.runSubOps(elseSubOps, methodContext);
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
+    }
+
+    public List<MethodOperation> getAllSubOps() {
+        List<MethodOperation> allSubOps = FastList.newInstance();
+        if (this.subOps != null)
+            allSubOps.addAll(this.subOps);
+        if (this.elseSubOps != null)
+            allSubOps.addAll(this.elseSubOps);
+        return allSubOps;
     }
 
     public void prettyPrint(StringBuilder messageBuffer, MethodContext methodContext) {
@@ -59,9 +109,29 @@ public final class EmptyCondition extends MiniLangElement implements Conditional
         messageBuffer.append("]");
     }
 
-    public static final class EmptyConditionFactory extends ConditionalFactory<EmptyCondition> {
+    @Override
+    public String rawString() {
+        return toString();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<if-empty ");
+        sb.append("field=\"").append(this.fieldFma).append("\"/>");
+        sb.append("/>");
+        return sb.toString();
+    }
+
+    /**
+     * A &lt;if-empty&gt; element factory. 
+     */
+    public static final class EmptyConditionFactory extends ConditionalFactory<EmptyCondition> implements Factory<EmptyCondition> {
         @Override
         public EmptyCondition createCondition(Element element, SimpleMethod simpleMethod) throws MiniLangException {
+            return new EmptyCondition(element, simpleMethod);
+        }
+
+        public EmptyCondition createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new EmptyCondition(element, simpleMethod);
         }
 

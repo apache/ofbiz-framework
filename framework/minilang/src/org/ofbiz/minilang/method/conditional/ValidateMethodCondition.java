@@ -19,21 +19,27 @@
 package org.ofbiz.minilang.method.conditional;
 
 import java.lang.reflect.Method;
+import java.util.Collections;
+import java.util.List;
 
+import javolution.util.FastList;
+
+import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
-import org.ofbiz.minilang.MiniLangElement;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangRuntimeException;
 import org.ofbiz.minilang.MiniLangUtil;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Implements validate method condition.
+ * Implements the &lt;if-validate-method&gt; element.
  */
-public final class ValidateMethodCondition extends MiniLangElement implements Conditional {
+public final class ValidateMethodCondition extends MethodOperation implements Conditional {
 
     public static final String module = ValidateMethodCondition.class.getName();
     private static final Class<?>[] paramTypes = new Class<?>[] { String.class };
@@ -41,6 +47,9 @@ public final class ValidateMethodCondition extends MiniLangElement implements Co
     private final String className;
     private final FlexibleMapAccessor<Object> fieldFma;
     private final String methodName;
+    // Sub-operations are used only when this is a method operation.
+    private final List<MethodOperation> elseSubOps;
+    private final List<MethodOperation> subOps;
 
     public ValidateMethodCondition(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
@@ -53,6 +62,18 @@ public final class ValidateMethodCondition extends MiniLangElement implements Co
         this.fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
         this.methodName = element.getAttribute("method");
         this.className = MiniLangValidate.checkAttribute(element.getAttribute("class"), "org.ofbiz.base.util.UtilValidate");
+        Element childElement = UtilXml.firstChildElement(element);
+        if (childElement != null && !"else".equals(childElement.getTagName())) {
+            this.subOps = Collections.unmodifiableList(SimpleMethod.readOperations(element, simpleMethod));
+        } else {
+            this.subOps = null;
+        }
+        Element elseElement = UtilXml.firstChildElement(element, "else");
+        if (elseElement != null) {
+            this.elseSubOps = Collections.unmodifiableList(SimpleMethod.readOperations(elseElement, simpleMethod));
+        } else {
+            this.elseSubOps = null;
+        }
     }
 
     @Override
@@ -78,6 +99,34 @@ public final class ValidateMethodCondition extends MiniLangElement implements Co
         }
     }
 
+    @Override
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
+        if (checkCondition(methodContext)) {
+            if (this.subOps != null) {
+                return SimpleMethod.runSubOps(subOps, methodContext);
+            }
+        } else {
+            if (elseSubOps != null) {
+                return SimpleMethod.runSubOps(elseSubOps, methodContext);
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
+    }
+
+    public List<MethodOperation> getAllSubOps() {
+        List<MethodOperation> allSubOps = FastList.newInstance();
+        if (this.subOps != null)
+            allSubOps.addAll(this.subOps);
+        if (this.elseSubOps != null)
+            allSubOps.addAll(this.elseSubOps);
+        return allSubOps;
+    }
+
     public void prettyPrint(StringBuilder messageBuffer, MethodContext methodContext) {
         // allow methodContext to be null
         String methodName = methodContext == null ? this.methodName : methodContext.expandString(this.methodName);
@@ -95,9 +144,36 @@ public final class ValidateMethodCondition extends MiniLangElement implements Co
         messageBuffer.append(")]");
     }
 
-    public static final class ValidateMethodConditionFactory extends ConditionalFactory<ValidateMethodCondition> {
+    @Override
+    public String rawString() {
+        return toString();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<if-validate-method ");
+        sb.append("field=\"").append(this.fieldFma).append("\" ");
+        if (!this.methodName.isEmpty()) {
+            sb.append("methodName=\"").append(this.methodName).append("\" ");
+        }
+        if (!"org.ofbiz.base.util.UtilValidate".equals(this.className)) {
+            sb.append("class=\"").append(this.className).append("\" ");
+        }
+        sb.append("/>");
+        return sb.toString();
+    }
+
+    /**
+     * A &lt;if-validate-method&gt; element factory. 
+     */
+    public static final class ValidateMethodConditionFactory extends ConditionalFactory<ValidateMethodCondition> implements Factory<ValidateMethodCondition> {
         @Override
         public ValidateMethodCondition createCondition(Element element, SimpleMethod simpleMethod) throws MiniLangException {
+            return new ValidateMethodCondition(element, simpleMethod);
+        }
+
+        @Override
+        public ValidateMethodCondition createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new ValidateMethodCondition(element, simpleMethod);
         }
 

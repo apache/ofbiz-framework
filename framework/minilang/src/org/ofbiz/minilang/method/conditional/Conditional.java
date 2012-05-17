@@ -22,7 +22,7 @@ import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.method.MethodContext;
 
 /**
- * Interface for all conditional elements under the master if element or and else-if element.
+ * Interface for all conditional elements under the &lt;if&gt; element.
  */
 public interface Conditional {
 

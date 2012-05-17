@@ -53,7 +53,13 @@ import org.ofbiz.minilang.method.callops.CallService;
 import org.ofbiz.minilang.method.callops.CallServiceAsynch;
 import org.ofbiz.minilang.method.callops.CallSimpleMethod;
 import org.ofbiz.minilang.method.callops.SetServiceFields;
+import org.ofbiz.minilang.method.conditional.CompareCondition;
+import org.ofbiz.minilang.method.conditional.CompareFieldCondition;
+import org.ofbiz.minilang.method.conditional.EmptyCondition;
+import org.ofbiz.minilang.method.conditional.HasPermissionCondition;
 import org.ofbiz.minilang.method.conditional.MasterIf;
+import org.ofbiz.minilang.method.conditional.RegexpCondition;
+import org.ofbiz.minilang.method.conditional.ValidateMethodCondition;
 import org.ofbiz.minilang.method.entityops.EntityAnd;
 import org.ofbiz.minilang.method.entityops.EntityCondition;
 import org.ofbiz.minilang.method.entityops.EntityCount;
@@ -67,14 +73,8 @@ import org.ofbiz.minilang.method.envops.Iterate;
 import org.ofbiz.minilang.method.envops.IterateMap;
 import org.ofbiz.minilang.method.envops.Loop;
 import org.ofbiz.minilang.method.envops.While;
-import org.ofbiz.minilang.method.ifops.IfCompare;
-import org.ofbiz.minilang.method.ifops.IfCompareField;
-import org.ofbiz.minilang.method.ifops.IfEmpty;
-import org.ofbiz.minilang.method.ifops.IfHasPermission;
 import org.ofbiz.minilang.method.ifops.IfInstanceOf;
 import org.ofbiz.minilang.method.ifops.IfNotEmpty;
-import org.ofbiz.minilang.method.ifops.IfRegexp;
-import org.ofbiz.minilang.method.ifops.IfValidateMethod;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -244,22 +244,22 @@ public final class MiniLangUtil {
                 findEntityNamesUsed(((MasterIf) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
             } else if (methodOperation instanceof While) {
                 findEntityNamesUsed(((While) methodOperation).getThenSubOps(), allEntityNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IfValidateMethod) {
-                findEntityNamesUsed(((IfValidateMethod) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
+            } else if (methodOperation instanceof ValidateMethodCondition) {
+                findEntityNamesUsed(((ValidateMethodCondition) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
             } else if (methodOperation instanceof IfInstanceOf) {
                 findEntityNamesUsed(((IfInstanceOf) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IfCompare) {
-                findEntityNamesUsed(((IfCompare) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IfCompareField) {
-                findEntityNamesUsed(((IfCompareField) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IfRegexp) {
-                findEntityNamesUsed(((IfRegexp) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IfEmpty) {
-                findEntityNamesUsed(((IfEmpty) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
+            } else if (methodOperation instanceof CompareCondition) {
+                findEntityNamesUsed(((CompareCondition) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
+            } else if (methodOperation instanceof CompareFieldCondition) {
+                findEntityNamesUsed(((CompareFieldCondition) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
+            } else if (methodOperation instanceof RegexpCondition) {
+                findEntityNamesUsed(((RegexpCondition) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
+            } else if (methodOperation instanceof EmptyCondition) {
+                findEntityNamesUsed(((EmptyCondition) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
             } else if (methodOperation instanceof IfNotEmpty) {
                 findEntityNamesUsed(((IfNotEmpty) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IfHasPermission) {
-                findEntityNamesUsed(((IfHasPermission) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
+            } else if (methodOperation instanceof HasPermissionCondition) {
+                findEntityNamesUsed(((HasPermissionCondition) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
             }
         }
     }
@@ -303,22 +303,22 @@ public final class MiniLangUtil {
                 findServiceNamesCalled(((MasterIf) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
             } else if (methodOperation instanceof While) {
                 findServiceNamesCalled(((While) methodOperation).getThenSubOps(), allServiceNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IfValidateMethod) {
-                findServiceNamesCalled(((IfValidateMethod) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
+            } else if (methodOperation instanceof ValidateMethodCondition) {
+                findServiceNamesCalled(((ValidateMethodCondition) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
             } else if (methodOperation instanceof IfInstanceOf) {
                 findServiceNamesCalled(((IfInstanceOf) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IfCompare) {
-                findServiceNamesCalled(((IfCompare) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IfCompareField) {
-                findServiceNamesCalled(((IfCompareField) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IfRegexp) {
-                findServiceNamesCalled(((IfRegexp) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IfEmpty) {
-                findServiceNamesCalled(((IfEmpty) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
+            } else if (methodOperation instanceof CompareCondition) {
+                findServiceNamesCalled(((CompareCondition) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
+            } else if (methodOperation instanceof CompareFieldCondition) {
+                findServiceNamesCalled(((CompareFieldCondition) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
+            } else if (methodOperation instanceof RegexpCondition) {
+                findServiceNamesCalled(((RegexpCondition) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
+            } else if (methodOperation instanceof EmptyCondition) {
+                findServiceNamesCalled(((EmptyCondition) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
             } else if (methodOperation instanceof IfNotEmpty) {
                 findServiceNamesCalled(((IfNotEmpty) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IfHasPermission) {
-                findServiceNamesCalled(((IfHasPermission) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
+            } else if (methodOperation instanceof HasPermissionCondition) {
+                findServiceNamesCalled(((HasPermissionCondition) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
             }
         }
     }

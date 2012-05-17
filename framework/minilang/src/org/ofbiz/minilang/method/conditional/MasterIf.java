@@ -33,7 +33,7 @@ import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Represents the top-level element and only mounted operation for the more flexible if structure.
+ * Implements the &lt;if&gt; element.
  */
 public final class MasterIf extends MethodOperation {
 
@@ -123,6 +123,9 @@ public final class MasterIf extends MethodOperation {
         return expandedString(null);
     }
 
+    /**
+     * A &lt;if&gt; element factory. 
+     */
     public static final class MasterIfFactory implements Factory<MasterIf> {
         public MasterIf createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new MasterIf(element, simpleMethod);
