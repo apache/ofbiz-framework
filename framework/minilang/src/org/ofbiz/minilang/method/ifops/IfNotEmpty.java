@@ -88,7 +88,7 @@ public final class IfNotEmpty extends MethodOperation {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("<if-instance-of ");
+        StringBuilder sb = new StringBuilder("<if-not-empty ");
         sb.append("field=\"").append(this.fieldFma).append("\"/>");
         return sb.toString();
     }
