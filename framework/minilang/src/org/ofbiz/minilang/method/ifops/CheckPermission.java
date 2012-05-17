@@ -39,7 +39,7 @@ import org.ofbiz.security.authz.Authorization;
 import org.w3c.dom.Element;
 
 /**
- * If the user does not have the specified permission the fail-message or fail-property sub-elements are used to add a message to the error-list.
+ * Implements the &lt;check-permission&gt; element.
  */
 public final class CheckPermission extends MethodOperation {
 
@@ -127,11 +127,16 @@ public final class CheckPermission extends MethodOperation {
         return sb.toString();
     }
 
+    /**
+     * A &lt;check-permission&gt; element factory. 
+     */
     public static final class CheckPermissionFactory implements Factory<CheckPermission> {
+        @Override
         public CheckPermission createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CheckPermission(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "check-permission";
         }

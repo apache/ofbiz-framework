@@ -3921,32 +3921,32 @@ under the License.
                         <xs:documentation>
                             The else tag can be used to contain operations that will run if the condition fails,
                             or in other words if the operations under the if tag do not run.
-
                             It can contain any simple-method operation.
                             The else tag must be placed as the last tag under the if-* tag.
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
             </xs:sequence>
-            <xs:attributeGroup ref="attlist.if-instance-of"/>
+            <xs:attribute type="xs:string" name="field" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field to test.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="class" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the class to test for.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.if-instance-of">
-        <xs:attribute type="xs:string" name="field" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the map field that will be validated as being an instance of the named class.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="class" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the class that named instance in field-name is supposed to belong.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="if-compare" substitutionGroup="IfBasicOperations">
         <xs:annotation>
             <xs:documentation>
@@ -4125,25 +4125,23 @@ under the License.
                         <xs:documentation>
                             The else tag can be used to contain operations that will run if the condition fails,
                             or in other words if the operations under the if tag do not run.
-
                             It can contain any simple-method operation.
                             The else tag must be placed as the last tag under the if-* tag.
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
             </xs:sequence>
-            <xs:attributeGroup ref="attlist.if-not-empty"/>
+            <xs:attribute type="xs:string" name="field" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the context field that will be compared.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.if-not-empty">
-        <xs:attribute type="xs:string" name="field" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the context field that will be compared.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="if-has-permission" substitutionGroup="IfBasicOperations">
         <xs:annotation>
             <xs:documentation>
