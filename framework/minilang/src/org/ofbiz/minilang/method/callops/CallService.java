@@ -39,6 +39,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.ofbiz.service.GenericServiceException;
@@ -367,8 +368,9 @@ public final class CallService extends MethodOperation {
         return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
-    public String getServiceName() {
-        return this.serviceName;
+    @Override
+    public void gatherArtifactInfo(ArtifactInfoContext aic) {
+        aic.addServiceName(this.serviceName);
     }
 
     @Override

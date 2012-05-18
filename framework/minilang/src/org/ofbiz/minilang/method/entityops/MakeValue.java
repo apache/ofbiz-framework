@@ -20,6 +20,7 @@ package org.ofbiz.minilang.method.entityops;
 
 import java.util.Map;
 
+import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
@@ -58,8 +59,9 @@ public class MakeValue extends MethodOperation {
         return this.rawString();
     }
 
-    public String getEntityName() {
-        return this.entityName;
+    @Override
+    public void gatherArtifactInfo(ArtifactInfoContext aic) {
+        aic.addEntityName(entityName);
     }
 
     @Override

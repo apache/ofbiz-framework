@@ -25,6 +25,7 @@ import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.ofbiz.minilang.method.conditional.Conditional;
@@ -84,8 +85,11 @@ public final class While extends MethodOperation {
         return "<while><condition>" + messageBuf + "</condition></while>";
     }
 
-    public List<MethodOperation> getThenSubOps() {
-        return this.thenSubOps;
+    @Override
+    public void gatherArtifactInfo(ArtifactInfoContext aic) {
+        for (MethodOperation method : this.thenSubOps) {
+            method.gatherArtifactInfo(aic);
+        }
     }
 
     @Override

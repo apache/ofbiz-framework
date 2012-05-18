@@ -27,6 +27,7 @@ import java.util.Map;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.location.FlexibleLocation;
+import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -151,6 +152,22 @@ public final class CallSimpleMethod extends MethodOperation {
     @Override
     public String expandedString(MethodContext methodContext) {
         return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
+    }
+
+    @Override
+    public void gatherArtifactInfo(ArtifactInfoContext aic) {
+        SimpleMethod simpleMethodToCall;
+        try {
+            simpleMethodToCall = SimpleMethod.getSimpleMethod(this.xmlURL, this.methodName);
+            if (simpleMethodToCall != null) {
+                if (!aic.hasVisited(simpleMethodToCall)) {
+                    aic.addSimpleMethod(simpleMethodToCall);
+                    simpleMethodToCall.gatherArtifactInfo(aic);
+                }
+            }
+        } catch (MiniLangException e) {
+            Debug.logWarning("Could not find <simple-method name=\"" + this.methodName + "\"> in XML document " + this.xmlResource + ": " + e.toString(), module);
+        }
     }
 
     public String getMethodName() {

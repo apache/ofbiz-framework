@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.entityops;
 
+import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -86,8 +87,9 @@ public class GetRelatedOne extends MethodOperation {
         return this.rawString();
     }
 
-    public String getRelationName() {
-        return this.relationName;
+    @Override
+    public void gatherArtifactInfo(ArtifactInfoContext aic) {
+        aic.addEntityName(relationName);
     }
 
     @Override

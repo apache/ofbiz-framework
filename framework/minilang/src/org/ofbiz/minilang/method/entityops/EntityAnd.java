@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.entityops;
 
+import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.entity.Delegator;
@@ -68,8 +69,9 @@ public class EntityAnd extends MethodOperation {
         return this.rawString();
     }
 
-    public String getEntityName() {
-        return this.finder.getEntityName();
+    @Override
+    public void gatherArtifactInfo(ArtifactInfoContext aic) {
+        aic.addEntityName(this.finder.getEntityName());
     }
 
     @Override

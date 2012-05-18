@@ -27,6 +27,7 @@ import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangRuntimeException;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.ofbiz.minilang.method.envops.Break.BreakElementException;
@@ -94,8 +95,11 @@ public final class Loop extends MethodOperation {
         return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
-    public List<MethodOperation> getSubOps() {
-        return this.subOps;
+    @Override
+    public void gatherArtifactInfo(ArtifactInfoContext aic) {
+        for (MethodOperation method : this.subOps) {
+            method.gatherArtifactInfo(aic);
+        }
     }
 
     @Override

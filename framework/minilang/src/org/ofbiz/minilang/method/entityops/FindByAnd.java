@@ -21,6 +21,7 @@ package org.ofbiz.minilang.method.entityops;
 import java.util.List;
 import java.util.Map;
 
+import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
@@ -42,13 +43,13 @@ public class FindByAnd extends MethodOperation {
     public static final String module = FindByAnd.class.getName();
 
     String delegatorName;
+
     String entityName;
     ContextAccessor<Object> listAcsr;
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     ContextAccessor<List<String>> orderByListAcsr;
     String useCacheStr;
     String useIteratorStr;
-
     public FindByAnd(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         listAcsr = new ContextAccessor<Object>(element.getAttribute("list"), element.getAttribute("list-name"));
@@ -107,8 +108,9 @@ public class FindByAnd extends MethodOperation {
         return this.rawString();
     }
 
-    public String getEntityName() {
-        return this.entityName;
+    @Override
+    public void gatherArtifactInfo(ArtifactInfoContext aic) {
+        aic.addEntityName(entityName);
     }
 
     @Override
