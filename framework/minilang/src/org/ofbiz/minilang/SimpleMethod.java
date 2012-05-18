@@ -312,7 +312,6 @@ public final class SimpleMethod extends MiniLangElement {
     private final String methodName;
     private final List<MethodOperation> methodOperations;
     private final String serviceErrorMessageListName;
-
     private final String serviceErrorMessageMapName;
     private final String serviceErrorMessageName;
     private final String serviceResponseMessageName;
@@ -320,6 +319,7 @@ public final class SimpleMethod extends MiniLangElement {
     private final String serviceSuccessMessageName;
     private final String shortDescription;
     private final boolean useTransaction;
+
     public SimpleMethod(Element simpleMethodElement, String fromLocation) throws MiniLangException {
         super(simpleMethodElement, null);
         if (MiniLangValidate.validationOn()) {

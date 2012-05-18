@@ -33,11 +33,15 @@ public final class ArtifactInfoContext {
     private final Set<String> simpleMethodNameSet = FastSet.newInstance();
 
     public void addEntityName(String name) {
-        this.entityNameSet.add(name);
+        if (name != null) {
+            this.entityNameSet.add(name);
+        }
     }
 
     public void addServiceName(String name) {
-        this.serviceNameSet.add(name);
+        if (name != null) {
+            this.serviceNameSet.add(name);
+        }
     }
 
     public void addSimpleMethod(SimpleMethod method) {
