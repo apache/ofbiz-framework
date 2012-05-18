@@ -1,22 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
 -->
 <section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
     xmlns:xl="http://www.w3.org/1999/xlink" 
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-       <title>OFBiz:MFG: BoM Simulation</title>
+       <title>OFBiz: MFG: BoM Simulation</title>
         <section>
             <para>
-                WIP
+                This screen shows the effects of a simulated BoM.
             </para>
+            <section>
+            <title>The parameters form</title>
+                <para>Select the product of the BoM you want to simulate. Choose the BoM-type and set the quantity to simulate.</para>
+                <para>Set the simulation type and select the warehouse to get the QoH (Quantity on Hand).</para>
+                <para>Subsequently click the 'Submit'-button to execute the simulation. The output of the simulation is shown below the form.</para>
+            </section>
+            <section>
+            <title>The simulation overview</title>
+                <para>The simulation will be executed and an overview will be shown after the button has been pressed.</para>
+                <para>The first section will show the details of the BoM. The second part will show the required quantities and costs of the components.</para>
+            </section>
         </section>
 </section>

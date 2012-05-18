@@ -90,7 +90,7 @@ under the License.
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
-        <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
+        <field name="cancelLink" title=" " widget-style="smallSubmit">
             <hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
                 <parameter param-name="partyId"/>
             </hyperlink>

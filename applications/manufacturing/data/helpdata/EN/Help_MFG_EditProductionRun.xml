@@ -1,20 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
 -->
 <section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
     xmlns:xl="http://www.w3.org/1999/xlink" 
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-       <title>OFBiz:MFG: Display production run</title>
-        <para>
-        WIP
-        </para>
+    <title>OFBiz: MFG: Edit production run</title>
+    <para>
+    This screen displays the production run. Through this screen you can:
+    </para>
+    <itemizedlist>
+        <listitem><para>Edit the base details of the production run</para></listitem>
+        <listitem><para>Create tasks - Click 'Taksks'</para></listitem>
+        <listitem><para>Add materials - Click 'Materials'</para></listitem>
+        <listitem><para>Associate equipment - Click 'Equipment'</para></listitem>
+        <listitem><para>View associated (dependent) productie runs - click 'Assocs'</para></listitem>
+        <listitem><para>View associated content - Click 'Content'</para></listitem>
+        <listitem><para>View actual cost of the production run - Click 'Actual Costs'</para></listitem>
+    </itemizedlist>
+    <section>
+    <title>Base details production run</title>
+    <para>
+    This section displays the base details of the production run. Additionally you can edit the details.
+    </para>
+    <para>In this section following action can be performed:</para>
+    <itemizedlist>
+        <listitem><para>Cancel - to cancel the production run.</para></listitem>
+        <listitem><para>Quick close - to close the production run</para></listitem>
+        <listitem><para>Quick complete - to mark the production run as 'complete'</para></listitem>
+        <listitem><para>Confirm - to confirm the production run</para></listitem>
+        <listitem><para>Schedule -to schedule the production run in the calendar</para></listitem>
+        <listitem><para>Print - to create a pdf file of the production run</para></listitem>
+    </itemizedlist>
+    </section>
+    <section>
+    <title>Order items</title>
+    <para>
+        This section displays an overview of associated order items.
+    </para>
+    </section>
+    <section>
+    <title>Tasks</title>
+    <para>
+        This section displays an overview of associated tasks
+    </para>
+    </section>
+    <section>
+    <title>Materials</title>
+    <para>
+        this section displays an overview of the required materials
+    </para>
+    </section>
+    <section>
+    <title>Equipment</title>
+    <para>
+        This section displays the required equimpent to be used in the productionn run.
+    </para>
+    </section>
+    <section>
+    <title>Notes</title>
+    <para>
+        this sections displays an overview of associated notes.
+    </para>
+    </section>
 </section>
