@@ -32,6 +32,7 @@ import org.ofbiz.minilang.MiniLangRuntimeException;
 import org.ofbiz.minilang.MiniLangUtil;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.ofbiz.service.GenericServiceException;
@@ -115,8 +116,9 @@ public final class SetServiceFields extends MethodOperation {
         return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
-    public String getServiceName() {
-        return this.serviceNameFse.getOriginal();
+    @Override
+    public void gatherArtifactInfo(ArtifactInfoContext aic) {
+        aic.addServiceName(this.serviceNameFse.toString());
     }
 
     @Override

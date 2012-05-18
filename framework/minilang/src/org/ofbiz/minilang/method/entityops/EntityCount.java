@@ -20,6 +20,7 @@ package org.ofbiz.minilang.method.entityops;
 
 import java.util.Map;
 
+import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilValidate;
@@ -127,12 +128,9 @@ public class EntityCount extends MethodOperation {
         return this.rawString();
     }
 
-    public String getEntityName() {
-        String entName = this.entityNameExdr.getOriginal();
-        // if there is expansion syntax
-        if (entName.indexOf("${") >= 0)
-            return null;
-        return entName;
+    @Override
+    public void gatherArtifactInfo(ArtifactInfoContext aic) {
+        aic.addEntityName(entityNameExdr.toString());
     }
 
     @Override

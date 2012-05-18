@@ -35,7 +35,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Assert;
@@ -50,6 +49,7 @@ import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
+import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.ofbiz.minilang.method.MethodOperation.DeprecatedOperation;
@@ -312,6 +312,7 @@ public final class SimpleMethod extends MiniLangElement {
     private final String methodName;
     private final List<MethodOperation> methodOperations;
     private final String serviceErrorMessageListName;
+
     private final String serviceErrorMessageMapName;
     private final String serviceErrorMessageName;
     private final String serviceResponseMessageName;
@@ -319,7 +320,6 @@ public final class SimpleMethod extends MiniLangElement {
     private final String serviceSuccessMessageName;
     private final String shortDescription;
     private final boolean useTransaction;
-
     public SimpleMethod(Element simpleMethodElement, String fromLocation) throws MiniLangException {
         super(simpleMethodElement, null);
         if (MiniLangValidate.validationOn()) {
@@ -578,18 +578,25 @@ public final class SimpleMethod extends MiniLangElement {
         return returnValue;
     }
 
-    public Set<String> getAllEntityNamesUsed() throws MiniLangException {
-        Set<String> allEntityNames = FastSet.newInstance();
-        Set<String> simpleMethodsVisited = FastSet.newInstance();
-        MiniLangUtil.findEntityNamesUsed(this.methodOperations, allEntityNames, simpleMethodsVisited);
-        return allEntityNames;
+    @Override
+    public void gatherArtifactInfo(ArtifactInfoContext aic) {
+        for (MethodOperation methodOp : this.methodOperations) {
+            methodOp.gatherArtifactInfo(aic);
+        }
     }
 
+    @Deprecated
+    public Set<String> getAllEntityNamesUsed() throws MiniLangException {
+        ArtifactInfoContext aic = new ArtifactInfoContext();
+        gatherArtifactInfo(aic);
+        return aic.getEntityNames();
+    }
+
+    @Deprecated
     public Set<String> getAllServiceNamesCalled() throws MiniLangException {
-        Set<String> allServiceNames = FastSet.newInstance();
-        Set<String> simpleMethodsVisited = FastSet.newInstance();
-        MiniLangUtil.findServiceNamesCalled(this.methodOperations, allServiceNames, simpleMethodsVisited);
-        return allServiceNames;
+        ArtifactInfoContext aic = new ArtifactInfoContext();
+        gatherArtifactInfo(aic);
+        return aic.getServiceNames();
     }
 
     public String getDefaultErrorCode() {

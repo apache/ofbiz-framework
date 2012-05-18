@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.minilang;
 
+import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.minilang.method.MethodContext;
 import org.w3c.dom.Element;
@@ -37,6 +38,9 @@ public class MiniLangElement {
         this.lineNumber = element.getUserData("startLine");
         this.simpleMethod = simpleMethod;
         this.tagName = element.getTagName().intern();
+    }
+
+    public void gatherArtifactInfo(ArtifactInfoContext aic) {
     }
 
     public String getLineNumber() {

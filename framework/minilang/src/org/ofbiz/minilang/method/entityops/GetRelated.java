@@ -21,6 +21,7 @@ package org.ofbiz.minilang.method.entityops;
 import java.util.List;
 import java.util.Map;
 
+import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -94,8 +95,9 @@ public class GetRelated extends MethodOperation {
         return this.rawString();
     }
 
-    public String getRelationName() {
-        return this.relationName;
+    @Override
+    public void gatherArtifactInfo(ArtifactInfoContext aic) {
+        aic.addEntityName(relationName);
     }
 
     @Override

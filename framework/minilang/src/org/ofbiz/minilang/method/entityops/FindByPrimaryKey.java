@@ -21,6 +21,7 @@ package org.ofbiz.minilang.method.entityops;
 import java.util.Collection;
 import java.util.Map;
 
+import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
@@ -100,8 +101,9 @@ public class FindByPrimaryKey extends MethodOperation {
         return this.rawString();
     }
 
-    public String getEntityName() {
-        return this.entityName;
+    @Override
+    public void gatherArtifactInfo(ArtifactInfoContext aic) {
+        aic.addEntityName(entityName);
     }
 
     @Override

@@ -21,14 +21,13 @@ package org.ofbiz.minilang.method.ifops;
 import java.util.Collections;
 import java.util.List;
 
-import javolution.util.FastList;
-
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
@@ -73,12 +72,16 @@ public final class IfNotEmpty extends MethodOperation {
         return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
-    public List<MethodOperation> getAllSubOps() {
-        List<MethodOperation> allSubOps = FastList.newInstance();
-        allSubOps.addAll(this.subOps);
-        if (this.elseSubOps != null)
-            allSubOps.addAll(this.elseSubOps);
-        return allSubOps;
+    @Override
+    public void gatherArtifactInfo(ArtifactInfoContext aic) {
+        for (MethodOperation method : this.subOps) {
+            method.gatherArtifactInfo(aic);
+        }
+        if (this.elseSubOps != null) {
+            for (MethodOperation method : this.elseSubOps) {
+                method.gatherArtifactInfo(aic);
+            }
+        }
     }
 
     @Override

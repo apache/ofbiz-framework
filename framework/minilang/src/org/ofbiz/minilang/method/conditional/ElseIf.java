@@ -26,6 +26,7 @@ import org.ofbiz.minilang.MiniLangElement;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
@@ -53,6 +54,13 @@ public final class ElseIf extends MiniLangElement {
 
     public boolean checkCondition(MethodContext methodContext) throws MiniLangException {
         return condition.checkCondition(methodContext);
+    }
+
+    @Override
+    public void gatherArtifactInfo(ArtifactInfoContext aic) {
+        for (MethodOperation method : this.thenSubOps) {
+            method.gatherArtifactInfo(aic);
+        }
     }
 
     public List<MethodOperation> getThenSubOps() {
