@@ -34,10 +34,8 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
-
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
-
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -136,9 +134,6 @@ public class SaveLabelsToXmlFile {
                             valueString = StringEscapeUtils.unescapeHtml(valueString);
                             Element valueElem = UtilXml.addChildElementValue(propertyElem, "value", valueString, resourceDocument);
                             valueElem.setAttribute("xml:lang", localeFound);
-                            if (valueString.trim().isEmpty()) {
-                                valueElem.setAttribute("xml:space", "preserve");
-                            }
                             if (UtilValidate.isNotEmpty(labelValue.getLabelComment())) {
                                 Comment labelComment = resourceDocument.createComment(StringEscapeUtils.unescapeHtml(labelValue.getLabelComment()));
                                 Node parent = valueElem.getParentNode();
