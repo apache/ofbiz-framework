@@ -894,7 +894,7 @@ under the License.
 
     <form name="ListInvoicesApplPayments" type="list" list-name="ListInvoicesApplPayments"
         default-title-style="tableheadtext" default-widget-style="tabletext" odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
-        default-tooltip-style="tabletext">
+       >
         <actions>
             <set field="actualCurrency" from-field="actualCurrency" default-value="true" type="Boolean"/>
             <set field="actualCurrencyUomId" from-field="actualCurrencyUomId" default-value="${defaultOrganizationPartyCurrencyUomId}"/>
@@ -929,7 +929,7 @@ under the License.
     </form>
     <form name="ListUnAppliedInvoices" type="list" list-name="ListUnAppliedInvoices"
         default-title-style="tableheadtext" default-widget-style="tabletext" odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
-        default-tooltip-style="tabletext">
+       >
         <actions>
             <set field="actualCurrency" from-field="actualCurrency" default-value="true" type="Boolean"/>
             <script location="component://party/webapp/partymgr/WEB-INF/actions/party/UnAppliedInvoicesForParty.groovy"/>
@@ -950,7 +950,7 @@ under the License.
     </form>
     <form name="ListUnAppliedPayments" type="list" list-name="paymentList"
         default-title-style="tableheadtext" default-widget-style="tabletext" odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
-        default-tooltip-style="tabletext">
+       >
         <actions>
             <set field="actualCurrency" from-field="actualCurrency" default-value="true" type="Boolean"/>
             <script location="component://party/webapp/partymgr/WEB-INF/actions/party/UnAppliedPaymentsForParty.groovy"/>
@@ -974,7 +974,7 @@ under the License.
         <field name="unAppliedAmount"><display type="currency" currency="${paymentCurrencyUomId}"/></field>
     </form>
     <form name="partyFinancialSummary" type="single" title="Financial summary" default-map-name="finanSummary"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="tabletext">
         <actions>
             <set field="actualCurrency" from-field="actualCurrency" default-value="true"/>
             <set field="actualCurrencyUomId" from-field="actualCurrencyUomId" default-value="${defaultOrganizationPartyCurrencyUomId}"/>
@@ -992,7 +992,7 @@ under the License.
     <form name="ViewPartyRoles" type="list" list-name="partyRoles" target="viewroles"
         default-title-style="tableheadtext" default-widget-style="tabletext"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
-        default-tooltip-style="tabletext">
+       >
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}"><display/></field>
         <field name="description" title="${uiLabelMap.PartyRole}"><display/></field>
         <field name="parentTypeId"><display-entity entity-name="RoleType" key-field-name="roleTypeId" description="${description}"/></field>

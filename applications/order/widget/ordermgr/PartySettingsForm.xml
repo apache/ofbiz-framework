@@ -21,7 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="quickAddOptionalParty" target="addOptionalParty" title="" type="single"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        default-title-style="tableheadtext" default-widget-style="inputBox">
         <field name="optionalPartyId" title="${uiLabelMap.PartyPartyId}">
             <lookup target-form-name="LookupPerson"/>
         </field>

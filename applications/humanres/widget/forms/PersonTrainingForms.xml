@@ -84,7 +84,7 @@ under the License.
         <field name="trainingRequestId" widget-style="buttontext"><display/></field>
         <field name="trainingClassTypeId"><display-entity entity-name="TrainingClassType"/></field>
     </form>
-    <form name="FindTrainingApprovals" target="FindTrainingApprovals" title="" type="single" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+    <form name="FindTrainingApprovals" target="FindTrainingApprovals" title="" type="single" default-title-style="tableheadtext" default-widget-style="inputBox">
         <auto-fields-entity entity-name="PersonTraining" default-field-type="find"/>
         <field name="partyId" title="${uiLabelMap.FormFieldTitle_employeePartyId}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="trainingClassTypeId" title="${uiLabelMap.HumanResTrainingClassType}">
@@ -153,7 +153,7 @@ under the License.
         <field name="reason" use-when="personTraining!=null&amp;&amp;personTraining.getString(&quot;approvalStatus&quot;).equals(&quot;TRAINING_REJECTED&quot;)"><display/></field>
         <field name="submitButton" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="FindTrainingStatus" target="FindTrainingStatus" title="" type="single" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+    <form name="FindTrainingStatus" target="FindTrainingStatus" title="" type="single" default-title-style="tableheadtext" default-widget-style="inputBox">
         <auto-fields-entity entity-name="PersonTraining" default-field-type="find"/>
         <field name="partyId"><hidden value="${loginPartyId}"/></field>
         <field name="trainingClassTypeId" title="${uiLabelMap.HumanResTrainingClassType}">

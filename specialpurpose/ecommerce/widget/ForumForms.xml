@@ -39,7 +39,7 @@ under the License.
     </form>
 
     <form name="EditCombo" target="uploadContentAndImage" title="" type="upload"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        default-title-style="tableheadtext" default-widget-style="inputBox">
         <field name="imageData" >
             <file />
         </field>
@@ -146,7 +146,7 @@ under the License.
         </field>
     </form>
     <form name="ViewComboResponse" target="" title="" type="single" extends="EditCombo"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        default-title-style="tableheadtext" default-widget-style="inputBox">
        <field name="summaryData" >
                 <ignored/>
         </field>
@@ -173,7 +173,7 @@ under the License.
     </form>
 
     <form name="findContent" default-entity-name="ContentAssocDataResourceViewFrom" target="FindContent" title="" type="single"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        default-title-style="tableheadtext" default-widget-style="inputBox">
         <field name="caContentIdTo" title="${uiLabelMap.ContentPublishToContent}"><text-find/></field>
         <field name="caMapKey"><text-find/></field>
         <field name="caContentAssocTypeId" title="${uiLabelMap.FormFieldTitle_contentAssocTypeId}" ><text-find/></field>
@@ -191,7 +191,7 @@ under the License.
     </form>
 
     <form name="listFindContent" type="list" target=""
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext"
+        default-title-style="tableheadtext" default-widget-style="inputBox"
         paginate-target="/FindContent">
         <field name="editContent" title="${uiLabelMap.CommonEmptyHeader}">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditContent">
@@ -221,7 +221,7 @@ under the License.
     </form>
 
     <form name="EditContent" target="uploadContentAndImage" title="" type="upload"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        default-title-style="tableheadtext" default-widget-style="inputBox">
         <field name="imageData" >
             <file />
         </field>
@@ -329,7 +329,7 @@ under the License.
     </form>
 
     <form name="EditContentInfo" target="updateContent" title="" type="single" default-map-name="currentValue"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        default-title-style="tableheadtext" default-widget-style="inputBox">
         <auto-fields-entity entity-name="Content"/>
         <field name="contentId"><display/></field>
         <field name="contentTypeId">
@@ -384,7 +384,7 @@ under the License.
     </form>
 
     <form name="DataResourceMaster" target="createDataResource" title="" type="single" default-map-name="currentValue"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        default-title-style="tableheadtext" default-widget-style="inputBox">
         <auto-fields-entity entity-name="DataResource" default-field-type="edit"/>
         <field name="dataResourceId"></field>
         <field name="dataResourceTypeId">
@@ -428,7 +428,7 @@ under the License.
         <field name="lastModifiedByUserLogin"><display/></field>
     </form>
     <form name="EditDataResourceText" target="updateDataResourceText" title="" type="single" extends="DataResourceMaster"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        default-title-style="tableheadtext" default-widget-style="inputBox">
         <field name="dataResourceId"><display/></field>
         <field name="dataResourceTypeId"><hidden value="ELECTRONIC_TEXT"/></field>
         <field name="dataResourceTypeIdDisplay" title="${uiLabelMap.CommonType}" field-name="dataResourceTypeId" >
@@ -438,7 +438,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ImageUpload" target="uploadImage" title="" type="upload"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        default-title-style="tableheadtext" default-widget-style="inputBox">
         <field name="dataResourceId" >
             <display description="${currentValue.dataResourceId}"/>
         </field>
@@ -453,7 +453,7 @@ under the License.
         </field>
     </form>
     <form name="AddContent" target="uploadArticleAndImage" title="" type="upload"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        default-title-style="tableheadtext" default-widget-style="inputBox">
         <field name="imageData" >
             <file />
         </field>
@@ -512,7 +512,7 @@ under the License.
         </field>
     </form>
     <form name="AddResponse" target="uploadResponse" title="" type="single" extends="AddContent"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        default-title-style="tableheadtext" default-widget-style="inputBox">
         <field name="contentIdTo" title="${uiLabelMap.EcommerceInResponseTo}">
             <display description="${contentIdTo}"/>
         </field>
@@ -558,7 +558,7 @@ under the License.
     </form>
 
     <form name="EditResponse" target="uploadResponse" title="" type="upload" extends="AddContent"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        default-title-style="tableheadtext" default-widget-style="inputBox">
         <field name="contentIdTo" title="${uiLabelMap.EcommerceInResponseTo}">
             <display description="${contentIdTo}"/>
         </field>
@@ -590,7 +590,7 @@ under the License.
     </form>
 
     <form name="EditAddContentMaster" target="" title="" type="single"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        default-title-style="tableheadtext" default-widget-style="inputBox">
         <field name="dataResourceId" map-name="currentValue">
             <hidden/>
         </field>
@@ -662,7 +662,7 @@ under the License.
 -->
 
     <form name="EditAddImageMaster" target="" title="" type="upload"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        default-title-style="tableheadtext" default-widget-style="inputBox">
         <field name="dataResourceId" map-name="currentValue">
             <hidden/>
         </field>

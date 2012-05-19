@@ -19,7 +19,7 @@ under the License.
 -->
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="FindRequirements" type="single" target="RequirementsForSupplier" title=""
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="tabletext">
         <field name="showList"><hidden value="Y"/></field>
         <field name="requirementId"><text-find/></field>
         <field name="partyId" title="${uiLabelMap.PartySupplier}"><lookup target-form-name="LookupPartyName"/></field>
@@ -28,7 +28,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="RequirementsList" type="multi" use-row-submit="true" target="addRequirementsToCart" title="" list-name="requirementsForSupplier"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        default-title-style="tableheadtext" default-widget-style="tabletext"
         paginate-target="RequirementsForSupplier">
         <actions>
             <service service-name="prepareFind" result-map="resultConditions">
@@ -75,7 +75,7 @@ under the License.
         </field>
     </form>
     <form name="ListQuotes" list-name="listIt" target="" title="" type="list"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        default-title-style="tableheadtext" default-widget-style="tabletext"
         paginate-target="FindQuoteForCart">
           <actions>
           <set field="entityName" value="Quote"/>
@@ -205,7 +205,7 @@ under the License.
         </field>
     </form>
     <form name="LookupAssociatedProducts" type="multi" use-row-submit="true" list-name="productList" title="" target="BulkAddProducts"
-        paginate-target="LookupAssociatedProducts" default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        paginate-target="LookupAssociatedProducts" default-title-style="tableheadtext" default-widget-style="inputBox">
         <field name="productId"  title="${uiLabelMap.ProductProductId}" widget-style="buttontext">
             <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems?productId=${productId}" target-type="inter-app"/>
         </field>
