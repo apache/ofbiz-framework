@@ -130,7 +130,7 @@
         <field name="productName" position="1" title="${uiLabelMap.CommonName}"><display/></field>
         <field name="comments" position="1" title="${uiLabelMap.CommonComments}"><display/></field>
         <field name="description" position="1" title="${uiLabelMap.CommonDescription}"><display/></field>
-        <field name="returnPart" title="${uiLabelMap.CommonEmptyHeader}" widget-style="linktext">
+        <field name="returnPart" title=" " widget-style="linktext">
             <hyperlink description="${uiLabelMap.CommonReturn}" target="returnPartIssuedToFixedAssetMaint">
                 <parameter param-name="itemIssuanceId"/>
                 <parameter param-name="fixedAssetId"/>

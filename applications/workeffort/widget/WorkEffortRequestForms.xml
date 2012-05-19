@@ -70,7 +70,7 @@ under the License.
         <field name="priority"><display/></field>
         <field name="productId"><display/></field>
         <field name="description"><display/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="linktext">
+        <field name="deleteLink" title=" " widget-style="linktext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortRequestItem">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="custRequestId"/>
