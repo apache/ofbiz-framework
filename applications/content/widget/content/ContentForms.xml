@@ -240,8 +240,8 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="ContentAssoc"/>
         <field name="contentId" widget-style="tabletext"><display/></field>
-        <field name="contentIdTo" title="${uiLabelMap.CommonEmptyHeader}" widget-style="tabletext"><display/></field>
-        <field name="contentAssocTypeId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="tabletext"><display/></field>
+        <field name="contentIdTo" widget-style="tabletext"><display/></field>
+        <field name="contentAssocTypeId" widget-style="tabletext"><display/></field>
         <field name="fromDate" widget-style="tabletext"><display/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
