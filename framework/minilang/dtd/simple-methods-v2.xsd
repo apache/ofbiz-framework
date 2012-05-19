@@ -3036,76 +3036,79 @@ under the License.
     <xs:element name="clone-value" substitutionGroup="EntityValueOperations">
         <xs:annotation>
             <xs:documentation>
-                The clone-value tag make a copy of the value in the method environment field specified by value-field.
-                The resulting GenericValue object will be placed in the method environment using the specified new-value-field.
+                Creates a copy of an entity value.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.clone-value"/>
+            <xs:attribute type="xs:string" name="value-field" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field that contains the GenericValue object.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="new-value-field" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field that will contain the new GenericValue object.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.clone-value">
-        <xs:attribute type="xs:string" name="value-field" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field that contains the GenericValue object.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="new-value-field" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field that will contain the new GenericValue object.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="create-value" substitutionGroup="EntityValueOperations">
         <xs:annotation>
             <xs:documentation>
-                The create-value tag persists the specified GenericValue object by creating a new instance of the entity in the datasource.
-                An error will result if an instance of the entity exists in the datasource with the same primary key.
+                Creates a new entity value in the datasource.
+                An error will result if an instance of the entity value exists in the datasource with the same primary key.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.create-value"/>
+            <xs:attribute type="xs:string" name="value-field" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field that contains the GenericValue object.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="do-cache-clear">
+                <xs:annotation>
+                    <xs:documentation>
+                        Clear the cache. Defaults to "true".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="or-store">
+                <xs:annotation>
+                    <xs:documentation>
+                        Store value if it already exists. Defaults to "false".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.create-value">
-        <xs:attribute type="xs:string" name="value-field" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field that contains the GenericValue object.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="do-cache-clear" default="true">
-            <xs:annotation>
-                <xs:documentation>
-                    Clear the cache, defaults to true
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="or-store" default="false">
-            <xs:annotation>
-                <xs:documentation>
-                    Store value if already exists, defaults to false
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="store-value" substitutionGroup="EntityValueOperations">
         <xs:annotation>
             <xs:documentation>
@@ -3311,39 +3314,39 @@ under the License.
     <xs:element name="clear-cache-line" substitutionGroup="EntityValueOperations">
         <xs:annotation>
             <xs:documentation>
-                Uses the delegator to clear elements from the cache;
-                intelligently looks at the map passed to see if it is a byPrimaryKey, and byAnd, or an all.
+                Clears entity values from the cache.
+                Cache clearing is controlled by an optional &quot;map&quot; attribute.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.clear-cache-line"/>
+            <xs:attribute type="xs:string" name="entity-name" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the entity.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: constant, expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="map">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of a map in the method environment that will be used for the entity fields.
+                        If the fields in the map form the full primary key the entry will be removed from the byPrimaryKey cache.
+                        If the map exists but the fields do not include a full primary key the entry will be removed from the byAnd cache.
+                        If no map name is specified the entry will be removed from the all caches.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: expression.
+                </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.clear-cache-line">
-        <xs:attribute type="xs:string" name="entity-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the entity to clear cache lines of.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="map">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of a map in the method environment that will be used for the entity fields.
-                    If the fields in the map form the full primary key the entry will be removed from the byPrimaryKey cache.
-                    If the map exists but the fields do not include a full primary key the entry will be removed from the byAnd cache.
-                    If no map name is specified the entry will be removed from the all cache.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="clear-entity-caches" substitutionGroup="EntityValueOperations">
         <xs:annotation>
             <xs:documentation>
-                This is a very simple tag that should be used sparingly because of the performance impact.
-                It clears all lines from all Entity Engine caches.
-                It has no attributes or sub-elements.
+                Clears all entity caches.
+                This element should be used sparingly because of the performance impact.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType/>
