@@ -20,59 +20,71 @@ package org.ofbiz.minilang.method.entityops;
 
 import java.util.Map;
 
-import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Uses the delegator to clear elements from the cache; intelligently looks at the map passed to see if it is a byPrimaryKey, and byAnd, or an all.
+ * Implements the &lt;clear-cache-line&gt; element.
  */
-public class ClearCacheLine extends MethodOperation {
+public final class ClearCacheLine extends MethodOperation {
 
-    public static final String module = ClearCacheLine.class.getName();
-
-    String entityName;
-    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    private final FlexibleStringExpander entityNameFse;
+    private final FlexibleMapAccessor<Map<String, ? extends Object>> mapFma;
 
     public ClearCacheLine(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        entityName = element.getAttribute("entity-name");
-        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map"), element.getAttribute("map-name"));
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "entity-name", "map");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "entity-name");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "map");
+            MiniLangValidate.noChildElements(simpleMethod, element);
+        }
+        entityNameFse = FlexibleStringExpander.getInstance(element.getAttribute("entity-name"));
+        mapFma = FlexibleMapAccessor.getInstance(element.getAttribute("map"));
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        String entityName = methodContext.expandString(this.entityName);
-
-        if (mapAcsr.isEmpty()) {
+        String entityName = entityNameFse.expandString(methodContext.getEnvMap());
+        Map<String, ? extends Object> fieldsMap = mapFma.get(methodContext.getEnvMap());
+        if (fieldsMap == null) {
             methodContext.getDelegator().clearCacheLine(entityName);
         } else {
-            Map<String, ? extends Object> theMap = mapAcsr.get(methodContext);
-            if (theMap == null) {
-                Debug.logWarning("In clear-cache-line could not find map with name " + mapAcsr + ", not clearing any cache lines", module);
-            } else {
-                methodContext.getDelegator().clearCacheLine(entityName, theMap);
-            }
+            methodContext.getDelegator().clearCacheLine(entityName, fieldsMap);
         }
         return true;
     }
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public String rawString() {
-        // TODO: something more than the empty tag
-        return "<clear-cache-line/>";
+        return toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<clear-cache-line ");
+        sb.append("entity-name=\"").append(this.entityNameFse).append("\" ");
+        if (!this.mapFma.isEmpty()) {
+            sb.append("map=\"").append(this.mapFma).append("\" ");
+        }
+        sb.append("/>");
+        return sb.toString();
+    }
+
+    /**
+     * A factory for the &lt;clear-cache-line&gt; element.
+     */
     public static final class ClearCacheLineFactory implements Factory<ClearCacheLine> {
         public ClearCacheLine createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new ClearCacheLine(element, simpleMethod);
