@@ -283,7 +283,7 @@ under the License.
         <field name="contentId"><hidden/></field>
         <field name="contentIdTo">
             <display-entity entity-name="Content" description="${contentName},${description}" key-field-name="contentId">
-                <sub-hyperlink target="EditContentAssoc" description="${contentIdTo}" link-style="tabletext">
+                <sub-hyperlink target="EditContentAssoc" description="${contentIdTo}">
                     <parameter param-name="contentId" from-field="contentIdTo"/>
                 </sub-hyperlink>
             </display-entity>
@@ -313,7 +313,7 @@ under the License.
         </actions>
         <field name="contentId">
             <display-entity entity-name="Content" description="${contentName},${description}">
-                <sub-hyperlink target="EditContentAssoc" description="${contentId}" link-style="tabletext">
+                <sub-hyperlink target="EditContentAssoc" description="${contentId}">
                     <parameter param-name="contentId"/>
                 </sub-hyperlink>
             </display-entity>
