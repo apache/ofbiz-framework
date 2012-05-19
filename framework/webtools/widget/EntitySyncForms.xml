@@ -35,23 +35,23 @@ under the License.
             <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
 
-        <field use-when="&quot;ESR_RUNNING&quot;.equals(runStatusId)" name="resetStatus" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
+        <field use-when="&quot;ESR_RUNNING&quot;.equals(runStatusId)" name="resetStatus" title=" " widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${uiLabelMap.WebtoolsSyncResetRunStatus}" target="resetEntitySyncStatusToNotStarted">
                 <parameter param-name="entitySyncId"/>
             </hyperlink>
         </field>
-        <field use-when="&quot;ESR_NOT_STARTED&quot;.equals(runStatusId) || &quot;ESR_COMPLETE&quot;.equals(runStatusId)" name="runOfflineSync" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
+        <field use-when="&quot;ESR_NOT_STARTED&quot;.equals(runStatusId) || &quot;ESR_COMPLETE&quot;.equals(runStatusId)" name="runOfflineSync" title=" " widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${uiLabelMap.WebtoolsSyncRunOffline}" target="runOfflineEntitySync">
                 <parameter param-name="entitySyncId"/>
             </hyperlink>
         </field>
-        <field use-when="&quot;ESR_PENDING&quot;.equals(runStatusId)" name="acceptOffline" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
+        <field use-when="&quot;ESR_PENDING&quot;.equals(runStatusId)" name="acceptOffline" title=" " widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${uiLabelMap.WebtoolsSyncAcceptOffline}" target="updateOfflineEntitySync">
                 <parameter param-name="entitySyncId"/>
                 <parameter param-name="updateType" value="ACCEPT"/>
             </hyperlink>
         </field>
-        <field use-when="&quot;ESR_PENDING&quot;.equals(runStatusId)" name="rejectOffline" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
+        <field use-when="&quot;ESR_PENDING&quot;.equals(runStatusId)" name="rejectOffline" title=" " widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${uiLabelMap.WebtoolsSyncRejectOffline}" target="updateOfflineEntitySync">
                 <parameter param-name="entitySyncId"/>
                 <parameter param-name="updateType" value="REJECT"/>
