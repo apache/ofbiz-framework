@@ -125,7 +125,7 @@ under the License.
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" position="1"><submit/></field>
-        <field name="cancelButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit" position="2">
+        <field name="cancelButton" title=" " widget-style="smallSubmit" position="2">
             <hyperlink target="soldListing" description="${uiLabelMap.CommonCancel}">
                 <parameter param-name="productStoreId" from-field="parameters.productStoreId"/>
             </hyperlink>

@@ -656,7 +656,7 @@ under the License.
         <field name="communicationEventPrpTypId">
             <display-entity description="${description}" entity-name="CommunicationEventPrpTyp"/>
         </field>
-        <field name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
+        <field name="removeLink" title=" " widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeCommunicationEventPurpose">
                 <parameter param-name="communicationEventPrpTypId"/>
                 <parameter param-name="communicationEventId"/>
