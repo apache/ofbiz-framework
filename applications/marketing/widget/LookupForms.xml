@@ -61,7 +61,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="partyClassificationGroupId" title="${uiLabelMap.MarketingSegmentGroupPartyClassificationGroupId}"><display/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="deleteSegmentGroupClass" description="[${uiLabelMap.CommonDelete}]" also-hidden="false">
                 <parameter param-name="segmentGroupId"/>
                 <parameter param-name="partyClassificationGroupId"/>

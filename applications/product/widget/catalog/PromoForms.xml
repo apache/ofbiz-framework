@@ -111,7 +111,7 @@ under the License.
                 <parameter param-name="productPromoCodeId"/>
             </hyperlink>
         </field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="deleteProductPromoCode" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="productPromoCodeId"/>
                 <parameter param-name="productPromoId"/>
@@ -151,7 +151,7 @@ under the License.
                 <parameter param-name="contentId"/>
             </hyperlink>
         </field>
-        <field name="removeContent" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="removeContent" title=" " widget-style="buttontext">
             <hyperlink target="removeContentFromProductPromo" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="productPromoId"/>
                 <parameter param-name="contentId"/>

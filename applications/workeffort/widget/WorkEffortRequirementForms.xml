@@ -37,7 +37,7 @@ under the License.
         <field name="workReqFulfTypeDescription"><display/></field>
         <field name="statusItemDescription"><display/></field>
         <field name="requirementDescription"><display/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="deleteWorkEffortRequirement" also-hidden="false" description="${uiLabelMap.CommonDelete}">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="requirementId"/>

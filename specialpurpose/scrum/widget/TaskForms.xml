@@ -542,7 +542,7 @@
         <field name="noteInfo"><display/></field>
         <field name="noteDateTime"><display/></field>
         <field name="noteParty"><display/></field>
-        <field name="removeNote" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="removeNote" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteTaskNote">
                 <parameter param-name="noteId" from-field="noteId"/>
                 <parameter param-name="taskId" from-field="workEffortId"/>
@@ -738,13 +738,13 @@
         <field name="taskEstimatedMilliSeconds" title="${uiLabelMap.ScrumPlannedHours}" parameter-name="planHours"><display></display></field>
         <field name="taskActualMilliSeconds" title="${uiLabelMap.ScrumActualHours}" parameter-name="actualHours"><display description="${result.actualHours}"/></field>
         <field name="taskEstimatedStartDate" title="${uiLabelMap.CommonStartDate}" parameter-name="estimatedStartDate"><display type="date"/></field>
-        <field name="editButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="editButton" title=" " widget-style="buttontext">
             <hyperlink target="EditTask" description="${uiLabelMap.CommonEdit}" link-type="hidden-form">
                 <parameter param-name="taskId"/>
                 <parameter param-name="sprintId"></parameter>
             </hyperlink>
         </field>
-        <field name="deleteButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteButton" title=" " widget-style="buttontext">
             <hyperlink target="deleteTask" description="${uiLabelMap.CommonDelete}" link-type="hidden-form" confirmation-message="Are you sure to delete this task?">
                 <parameter param-name="custRequestId"/>
                 <parameter param-name="workEffortId" from-field="taskId"/>

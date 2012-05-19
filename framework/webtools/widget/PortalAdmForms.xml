@@ -71,7 +71,7 @@ under the License.
         <field name="originalPortalPageId" sort-field="true"><display/></field>
         <field name="ownerUserLoginId" sort-field="true"><display/></field>
         <field name="securityGroupId" title="${uiLabelMap.CommonSecurityGroupId}" sort-field="true"><display/></field>
-        <field name="deleteLink" use-when="originalPortalPageId!=null" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" >
+        <field name="deleteLink" use-when="originalPortalPageId!=null" title=" " widget-style="buttontext" >
             <hyperlink target="deletePortalPage" description="${uiLabelMap.CommonRevertPortalPage}">
                 <parameter param-name="portalPageId"/>
                 <parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>

@@ -298,7 +298,7 @@ under the License.
             </service>
         </actions>
         <auto-fields-entity entity-name="Survey" default-field-type="display"/>
-        <field name="surveyId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="surveyId" title=" " widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${surveyId}" target="javascript:set_value('${surveyId}')"/>
         </field>
     </form>
@@ -321,7 +321,7 @@ under the License.
             </service>
         </actions>
         <auto-fields-entity entity-name="SurveyResponse" default-field-type="display"/>
-        <field name="surveyResponseId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="surveyResponseId" title=" " widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${surveyResponseId}" target="javascript:set_value('${surveyResponseId}')"/>
         </field>
     </form>

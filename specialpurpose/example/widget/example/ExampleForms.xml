@@ -175,7 +175,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="deleteExampleItem" description="${uiLabelMap.CommonDelete}" also-hidden="false" confirmation-message="${uiLabelMap.CommonConfirmDelete}" image-location="${iconsLocation}/delete.png">
                 <parameter param-name="exampleId"/>
                 <parameter param-name="exampleItemSeqId"/>
@@ -225,7 +225,7 @@ under the License.
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="example_deleteExampleFeatureAppl" description="${uiLabelMap.CommonDelete}" also-hidden="false" image-location="${iconsLocation}/delete.png">
                 <parameter param-name="exampleId"/>
                 <parameter param-name="exampleFeatureId"/>

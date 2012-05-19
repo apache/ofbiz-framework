@@ -47,7 +47,7 @@ under the License.
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
-        <field name="facilityId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="facilityId" title=" " widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${facilityId}" target="javascript:set_values('${facilityId}', '${facilityName}')"/>
         </field>
         <field name="facilityName"><display/></field>
@@ -86,7 +86,7 @@ under the License.
             </service>
         </actions>
         <auto-fields-entity entity-name="FacilityLocation" default-field-type="display"/>
-        <field name="locationSeqId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="locationSeqId" title=" " widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${locationSeqId}" target="javascript:set_value('${locationSeqId}')"/>
         </field>
         <field name="facilityId"><hidden/></field>
@@ -138,7 +138,7 @@ under the License.
     <form name="ListProductInventoryLocation" list-name="LocationList" title="" type="list" paginate-target="ListProductInventoryLocation"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" view-size="20">
         <field name="inventoryItemId"><display/></field>
-        <field name="locationSeqId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" >
+        <field name="locationSeqId" title=" " widget-style="buttontext" >
             <hyperlink also-hidden="false" target-type="plain" description="${locationSeqId}" target="javascript:set_value('${locationSeqId}')"/>
         </field> 
         <field name="locationTypeEnumId">

@@ -48,21 +48,21 @@
         <field name="testSuitePath"><display/></field>
         <field name="description"><display/></field>
         <field name="testSuiteType"><display/></field>
-        <field name="runTest" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"
+        <field name="runTest" title=" " widget-style="buttontext"
                 use-when="&quot;XML&quot;.equals(testSuiteType)">
             <hyperlink target="runTestSuite"  description="${uiLabelMap.CommonRun}">
                 <parameter param-name="testSuiteId"/>
                 <parameter param-name="testSuitePath" />
             </hyperlink>
         </field>
-        <field name="runTest" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"
+        <field name="runTest" title=" " widget-style="buttontext"
                 use-when="&quot;HTML&quot;.equals(testSuiteType)">
             <hyperlink target="runHtmlSuite" description="${uiLabelMap.CommonRun}">
                 <parameter param-name="testSuiteId"/>
                 <parameter param-name="testSuitePath"/>
             </hyperlink>
         </field>
-        <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="remove" title=" " widget-style="buttontext">
             <hyperlink target="removeSeleniumTestSuitePath" description="${uiLabelMap.CommonDelete}">
                 <parameter param-name="testSuiteId"/>
             </hyperlink>

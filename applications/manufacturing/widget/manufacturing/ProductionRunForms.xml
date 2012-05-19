@@ -80,7 +80,7 @@ under the License.
                 <field-map field-name="orderBy" value="estimatedStartDate"/>
             </service>
         </actions>
-        <field name="workEffortId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="workEffortId" title=" " widget-style="buttontext">
             <hyperlink target="ShowProductionRun" description="${workEffortId}" also-hidden="false">
                 <parameter param-name="productionRunId" from-field="workEffortId"/>
             </hyperlink>
@@ -809,7 +809,7 @@ under the License.
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
         <field name="estimatedShipDate" sort-field="true"><display/></field>
-        <field name="viewShipmentPlanLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="viewShipmentPlanLink" title=" " widget-style="buttontext">
             <hyperlink target="WorkWithShipmentPlans" description="${uiLabelMap.CommonView}" also-hidden="false">
                 <parameter param-name="shipmentId"/>
             </hyperlink>
@@ -824,7 +824,7 @@ under the License.
     </form>
     <form name="mandatoryWorkEfforts" type="list" target="" title="" list-name="mandatoryWorkEfforts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="workEffortIdFrom" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="workEffortIdFrom" title=" " widget-style="buttontext">
             <hyperlink target="ShowProductionRun" description="${workEffortIdFrom}" also-hidden="false">
                 <parameter param-name="productionRunId" from-field="workEffortIdFrom"/>
             </hyperlink>
@@ -853,7 +853,7 @@ under the License.
     </form>
     <form name="dependentWorkEfforts" type="list" target="" title="" list-name="dependentWorkEfforts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="workEffortIdTo" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="workEffortIdTo" title=" " widget-style="buttontext">
             <hyperlink target="ShowProductionRun" description="${workEffortIdTo}" also-hidden="false">
                 <parameter param-name="productionRunId" from-field="workEffortIdTo"/>
             </hyperlink>

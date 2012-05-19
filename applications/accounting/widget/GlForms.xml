@@ -134,12 +134,12 @@ under the License.
         <field name="shipmentId" use-when="shipmentId==null"><display/></field>
         <field name="isPosted"><display/></field>
         <field name="postedDate"><display/></field>
-        <field name="postAcctgTrans" title="${uiLabelMap.CommonEmptyHeader}" use-when="&quot;N&quot;.equals(isPosted)" widget-style="buttontext">
+        <field name="postAcctgTrans" title=" " use-when="&quot;N&quot;.equals(isPosted)" widget-style="buttontext">
             <hyperlink target="postAcctgTrans" description="${uiLabelMap.AccountingPostTransaction}">
                 <parameter param-name="acctgTransId"/>
             </hyperlink>
         </field>
-        <field name="createTransactionDetailReportPDF" title="${uiLabelMap.CommonEmptyHeader}" use-when="${isPosted=='Y'}" widget-style="buttontext">
+        <field name="createTransactionDetailReportPDF" title=" " use-when="${isPosted=='Y'}" widget-style="buttontext">
             <hyperlink target="acctgTransDetailReportPdf.pdf" target-window="_BLANK" description="${uiLabelMap.AccountingInvoicePDF}">
                 <parameter param-name="acctgTransId"/>
             </hyperlink>
@@ -173,14 +173,14 @@ under the License.
         <field name="partyId"><display/></field>
         <field name="workEffortId"><display/></field>
         <field name="shipmentId"><display/></field>
-        <field name="verify" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="verify" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.AccountingVerifyTransaction}" target="postAcctgTrans" also-hidden="false">
                 <parameter param-name="acctgTransId"/>
                 <parameter param-name="organizationPartyId"/>
                 <parameter param-name="verifyOnly" value="Y"/>
             </hyperlink>
         </field>
-        <field name="post" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="post" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.AccountingPostTransaction}" target="postAcctgTrans" also-hidden="false">
                 <parameter param-name="acctgTransId"/>
                 <parameter param-name="organizationPartyId"/>
@@ -673,7 +673,7 @@ under the License.
         <field name="origAmount"><display type="currency" currency="${origCurrencyUomId}"/></field>
         <field name="amount"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-        <field name="removeButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="removeButton" title=" " widget-style="buttontext">
            <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteAcctgTransEntry">
                 <parameter param-name="acctgTransId"/>
                 <parameter param-name="acctgTransEntrySeqId"/>

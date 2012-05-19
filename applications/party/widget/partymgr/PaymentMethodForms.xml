@@ -32,7 +32,7 @@ under the License.
     <form name="EditBillingAccount" type="single" target="updateBillingAccount" extends="EditBillingAccount" extends-resource="component://accounting/widget/BillingAccountForms.xml">
         <field name="submitButton"><hidden/></field>
         <field name="saveButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="button"/></field>
-        <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="cancelLink" title=" " widget-style="buttontext">
             <hyperlink target="viewprofile" description="${uiLabelMap.CommonCancelDone}">
                 <parameter param-name="partyId" from-field="partyId"/>
             </hyperlink>

@@ -401,7 +401,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="deleteProductSubscriptionResourceSr" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="subscriptionResourceId"/>
                 <parameter param-name="productId"/>

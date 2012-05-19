@@ -30,7 +30,7 @@ under the License.
         <field name="productCategoryId"><hidden/></field>
         <field name="attrValue"><text size="60"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="deleteProductCategoryAttribute" description="${uiLabelMap.CommonDelete}">
                 <parameter param-name="productCategoryId"/>
                 <parameter param-name="attrName"/>
@@ -106,7 +106,7 @@ under the License.
                 <parameter param-name="contentId"/>
             </hyperlink>
         </field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="removeContentFromCategory" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="productCategoryId"/>
                 <parameter param-name="contentId"/>
@@ -172,7 +172,7 @@ under the License.
         <field name="detailSubScreen"><ignored/></field>
         <field name="imageUrl"><ignored/></field>
         <field name="imageTwoUrl"><ignored/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="deleteProductCategoryLink" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="productCategoryId"/>
                 <parameter param-name="linkSeqId"/>

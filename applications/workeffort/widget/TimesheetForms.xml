@@ -172,7 +172,7 @@ under the License.
         <field name="roleTypeId" title="${uiLabelMap.PartyRole}"><display-entity entity-name="RoleType"/></field>
         <field name="partyId" title="${uiLabelMap.PartyParty}"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName} [${partyId}]"/></field>
 
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="deleteTimesheetRole" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="timesheetId"/>
                 <parameter param-name="partyId"/>
@@ -236,7 +236,7 @@ under the License.
 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
 
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="deleteTimesheetEntry" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="timesheetId"/>
                 <parameter param-name="timeEntryId"/>

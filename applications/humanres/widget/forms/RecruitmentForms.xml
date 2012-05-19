@@ -282,7 +282,7 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteJobInterview"> 
                 <parameter param-name="jobInterviewId"/> 
             </hyperlink>

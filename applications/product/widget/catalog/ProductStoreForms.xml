@@ -65,7 +65,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field use-when="productStore!=null&amp;&amp;productStore.getString(&quot;inventoryFacilityId&quot;)!=null" name="inventoryFacilityLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field use-when="productStore!=null&amp;&amp;productStore.getString(&quot;inventoryFacilityId&quot;)!=null" name="inventoryFacilityLink" title=" " widget-style="buttontext">
             <hyperlink target="/facility/control/EditFacility" target-type="inter-app" description="${uiLabelMap.CommonEdit} ${uiLabelMap.ProductFacility} ${productStore.inventoryFacilityId}" also-hidden="false">
                 <parameter param-name="facilityId" from-field="productStore.inventoryFacilityId"/>
             </hyperlink>
@@ -428,13 +428,13 @@
         <field name="replenishMethodEnumId">
             <display-entity entity-name="Enumeration" description="${description}" key-field-name="enumId"/>
         </field>
-        <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="remove" title=" " widget-style="buttontext">
             <hyperlink target="RemoveProductStoreFinAccountSettings" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="productStoreId"/>
                 <parameter param-name="finAccountTypeId"/>
             </hyperlink>
         </field>
-        <field name="edit" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="edit" title=" " widget-style="buttontext">
             <hyperlink target="EditProductStoreFinAccountSettings" description="${uiLabelMap.CommonEdit}">
                 <parameter param-name="productStoreId"/>
                 <parameter param-name="finAccountTypeId"/>
@@ -496,7 +496,7 @@
         <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="deleteProductStoreCatalog" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="prodCatalogId"/>
                 <parameter param-name="productStoreId"/>
@@ -572,7 +572,7 @@
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="deleteProductStoreKeywordOvrd" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="productStoreId"/>
                 <parameter param-name="keyword"/>
@@ -594,7 +594,7 @@
         </field>
         <field name="segmentGroupTypeId" title="${uiLabelMap.ProductSegmentGroupTypeId}"><display-entity entity-name="SegmentGroupType"/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="/marketing/control/deleteSegmentGroup" description="${uiLabelMap.CommonDelete}" also-hidden="false" target-type="inter-app">
                 <parameter param-name="segmentGroupId"/>
             </hyperlink>
@@ -604,7 +604,7 @@
         paginate-target="EditProductStoreShipSetup" odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ProductStoreShipmentMeth" default-field-type="display"/>
         <field name="productStoreId"><hidden/></field>
-        <field name="productStoreShipMethId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="productStoreShipMethId" title=" " widget-style="buttontext">
             <hyperlink target="EditProductStoreShipSetup" description="${productStoreShipMethId}" also-hidden="false">
                 <parameter param-name="productStoreId"/>
                 <parameter param-name="productStoreShipMethId"/>
@@ -632,7 +632,7 @@
         <field name="shipmentGatewayConfigId" title="${uiLabelMap.FacilityShipmentGatewayConfigId}">
             <display-entity entity-name="ShipmentGatewayConfig" key-field-name="shipmentGatewayConfigId"  description="${description}"/>
         </field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="storeRemoveShipMeth" description="${uiLabelMap.CommonRemove}" also-hidden="false">
                 <parameter param-name="productStoreId"/>
                 <parameter param-name="productStoreShipMethId"/>
@@ -710,7 +710,7 @@
         <auto-fields-entity entity-name="ShipmentCostEstimate" default-field-type="display"/>
         <field name="productStoreId"><hidden/></field>
         <field name="carrierRoleTypeId"><hidden/></field>
-        <field name="shipmentCostEstimateId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="shipmentCostEstimateId" title=" " widget-style="buttontext">
             <hyperlink target="EditProductStoreShipmentCostEstimates" description="${shipmentCostEstimateId}" also-hidden="false">
                 <parameter param-name="productStoreId"/>
                 <parameter param-name="shipmentCostEstimateId"/>
@@ -743,7 +743,7 @@
         <field name="priceUomId" title="${uiLabelMap.ProductUnitOfMeasure}">
             <display-entity entity-name="Uom" key-field-name="uomId" description="${description}"/>
         </field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="storeRemoveShipRate" description="${uiLabelMap.CommonRemove}" also-hidden="false">
                 <parameter param-name="productStoreId"/>
                 <parameter param-name="shipmentCostEstimateId"/>
@@ -1074,7 +1074,7 @@
         </field>
         <field name="paymentPropertiesPath" title="${uiLabelMap.ProductPaymentProps}"><display/></field>
         <field name="applyToAllProducts" title="${uiLabelMap.ProductApplyToAll}"><display/></field>
-        <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" use-when="${bsh:security.hasEntityPermission(&quot;CATALOG&quot;, &quot;_UPDATE&quot;, session);}" widget-style="buttontext">
+        <field name="editLink" title=" " use-when="${bsh:security.hasEntityPermission(&quot;CATALOG&quot;, &quot;_UPDATE&quot;, session);}" widget-style="buttontext">
             <hyperlink target="EditProductStorePaySetup" description="${uiLabelMap.CommonEdit}" also-hidden="false">
                 <parameter param-name="productStoreId"/>
                 <parameter param-name="paymentMethodTypeId"/>
@@ -1084,7 +1084,7 @@
         <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" use-when="${bsh:!security.hasEntityPermission(&quot;CATALOG&quot;, &quot;_UPDATE&quot;, session);}">
             <display/>
         </field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" use-when="${bsh:security.hasEntityPermission(&quot;CATALOG&quot;, &quot;_DELETE&quot;, session);}" widget-style="buttontext">
+        <field name="deleteLink" title=" " use-when="${bsh:security.hasEntityPermission(&quot;CATALOG&quot;, &quot;_DELETE&quot;, session);}" widget-style="buttontext">
             <hyperlink target="storeRemovePaySetting" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="productStoreId"/>
                 <parameter param-name="paymentMethodTypeId"/>
