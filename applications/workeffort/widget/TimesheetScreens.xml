@@ -78,9 +78,9 @@ under the License.
                                                 </actions>
                                                 <widgets>
                                                     <container>
-                                                        <label style="tabletext" text="${uiLabelMap.WorkEffortTimesheetTimeEntry} ${uiLabelMap.CommonFor} ${currentTimeEntry.fromDate} "/>
+                                                        <label text="${uiLabelMap.WorkEffortTimesheetTimeEntry} ${uiLabelMap.CommonFor} ${currentTimeEntry.fromDate} "/>
                                                         <label style="tableheadtext" text="${currentTimeEntry.hours} ${uiLabelMap.WorkEffortTimesheetHours} "/>
-                                                        <label style="tabletext" text="${currentTimeEntry.comments} [${currentRateType.description}]"/>
+                                                        <label text="${currentTimeEntry.comments} [${currentRateType.description}]"/>
                                                         <section>
                                                             <condition><not><if-empty field="currentTimeEntry.workEffortId"/></not></condition>
                                                             <widgets>

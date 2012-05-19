@@ -139,7 +139,7 @@ under the License.
                 <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ContentCMSEditPage}">
-                            <link  text="${uiLabelMap.ContentGoToFind}" target="CMSContentFind?VIEW_INDEX=${CMSContentFindViewIndex}&amp;${CMSContentFindQueryString}" style="tabletext"/>
+                            <link  text="${uiLabelMap.ContentGoToFind}" target="CMSContentFind?VIEW_INDEX=${CMSContentFindViewIndex}&amp;${CMSContentFindQueryString}"/>
                             <include-form name="EditAddContentStuff" location="component://content/widget/cms/CMSForms.xml"/>
                             <content content-id="${contentId}" enable-edit-name="notfound"  edit-request="EditAddSubContent?MASTER_contentId=${MASTER_contentId}&amp;MASTER_caContentIdTo=${MASTER_caContentIdTo}&amp;MASTER_caContentAssocTypeId=${MASTER_caContentAssocTypeId}&amp;MASTER_caFromDate=${MASTER_caFromDate}&amp;MASTER_drDataResourceId=${MASTER_drDataResourceId}&amp;caContentIdTo=${caContentIdTo}"/>
                         </screenlet>
@@ -174,7 +174,7 @@ under the License.
                 <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ContentCMSAddSubContent}">
-                            <link  text="${uiLabelMap.ContentGoToFind}" target="CMSContentFind?VIEW_INDEX=${CMSContentFindViewIndex}&amp;${CMSContentFindQueryString}" style="tabletext"/>
+                            <link  text="${uiLabelMap.ContentGoToFind}" target="CMSContentFind?VIEW_INDEX=${CMSContentFindViewIndex}&amp;${CMSContentFindQueryString}"/>
                             <include-form name="EditAddSubContentStuff" location="component://content/widget/cms/CMSForms.xml"/>
                         </screenlet>
                     </decorator-section>
