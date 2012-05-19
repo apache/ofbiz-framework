@@ -60,8 +60,8 @@ under the License.
 
         <auto-fields-service service-name="updateSurvey"/>
 
-        <field use-when="survey!=null" name="surveyId" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
-        <field use-when="survey==null&amp;&amp;surveyId!=null" name="surveyId" tooltip="${uiLabelMap.CommonCannotBeFound}: [${surveyId}]" widget-style="tabletext"><display description="" also-hidden="false"/></field>
+        <field use-when="survey!=null" name="surveyId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="survey==null&amp;&amp;surveyId!=null" name="surveyId" tooltip="${uiLabelMap.CommonCannotBeFound}: [${surveyId}]"><display description="" also-hidden="false"/></field>
         <field use-when="survey==null&amp;&amp;surveyId==null" name="surveyId"><ignored/></field>
 
         <field name="isAnonymous"><drop-down no-current-selected-key="N" allow-empty="false"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down></field>
@@ -103,7 +103,7 @@ under the License.
         <auto-fields-service service-name="updateSurveyMultiResp" default-field-type="edit"/>
 
         <field name="surveyId"><hidden/></field>
-        <field name="surveyMultiRespId" widget-style="tabletext"><display/></field>
+        <field name="surveyMultiRespId"><display/></field>
 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -122,8 +122,8 @@ under the License.
         <auto-fields-service service-name="updateSurveyMultiRespColumn" default-field-type="edit"/>
 
         <field name="surveyId"><hidden/></field>
-        <field name="surveyMultiRespId" widget-style="tabletext"><display/></field>
-        <field name="surveyMultiRespColId" widget-style="tabletext"><display/></field>
+        <field name="surveyMultiRespId"><display/></field>
+        <field name="surveyMultiRespColId"><display/></field>
 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -156,7 +156,7 @@ under the License.
         <auto-fields-service service-name="updateSurveyPage" default-field-type="edit"/>
 
         <field name="surveyId"><hidden/></field>
-        <field name="surveyPageSeqId" widget-style="tabletext"><display/></field>
+        <field name="surveyPageSeqId"><display/></field>
 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>

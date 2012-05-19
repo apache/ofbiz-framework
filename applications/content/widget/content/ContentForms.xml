@@ -83,7 +83,7 @@ under the License.
         </actions>
 
         <field name="contentId"><hidden/></field>
-        <field name="contentName" widget-style="tabletext" sort-field="true">
+        <field name="contentName" sort-field="true">
             <display-entity entity-name="Content" description="${contentName}" key-field-name="contentId">
                 <sub-hyperlink target="editContent" description="[${contentId}]" link-style="buttontext">
                     <parameter param-name="contentId"/>
@@ -125,7 +125,7 @@ under the License.
         <field name="contentId">
             <hyperlink also-hidden="false" target-type="plain" description="${contentId}" target="javascript:set_value('${contentId}')"/>
         </field>
-        <field name="contentName" widget-style="tabletext"><display/></field>
+        <field name="contentName"><display/></field>
         <field name="createdByUserLogin"><ignored/></field>
         <on-event-update-area event-type="paginate" area-id="search-results" area-target=""/>
     </form>
@@ -141,9 +141,9 @@ under the License.
         </actions>
         <alt-target use-when="currentValue==null" target="createContent"/>
         <auto-fields-entity entity-name="Content"/>
-        <field use-when="currentValue!=null" name="contentId" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
+        <field use-when="currentValue!=null" name="contentId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field use-when="currentValue==null&amp;&amp;contentId==null" name="contentId"><text/></field>
-        <field use-when="currentValue==null&amp;&amp;contentId!=null" name="contentId" widget-style="tabletext"><display description="${uiLabelMap.CommonCannotBeFound}: [${contentId}]" also-hidden="false"/></field>
+        <field use-when="currentValue==null&amp;&amp;contentId!=null" name="contentId"><display description="${uiLabelMap.CommonCannotBeFound}: [${contentId}]" also-hidden="false"/></field>
         <field name="contentTypeId">
             <drop-down allow-empty="false">
                 <entity-options description="${description}" entity-name="ContentType" key-field-name="contentTypeId">
@@ -239,16 +239,16 @@ under the License.
             </entity-one>
         </actions>
         <auto-fields-entity entity-name="ContentAssoc"/>
-        <field name="contentId" widget-style="tabletext"><display/></field>
-        <field name="contentIdTo" widget-style="tabletext"><display/></field>
-        <field name="contentAssocTypeId" widget-style="tabletext"><display/></field>
-        <field name="fromDate" widget-style="tabletext"><display/></field>
+        <field name="contentId"><display/></field>
+        <field name="contentIdTo"><display/></field>
+        <field name="contentAssocTypeId"><display/></field>
+        <field name="fromDate"><display/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="AddContentAssoc" target="createContentAssoc" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ContentAssoc"/>
-        <field name="contentId" widget-style="tabletext"><display description="${contentId}"/></field>
+        <field name="contentId"><display description="${contentId}"/></field>
         <field name="contentIdTo" map-name="currentValue">
             <lookup target-form-name="LookupContent"/>
         </field>
@@ -530,16 +530,16 @@ under the License.
             </entity-and>
         </actions>
         <auto-fields-service service-name="updateWorkEffortContent" default-field-type="edit"/>
-        <field name="workEffortId" widget-style="tabletext">
+        <field name="workEffortId">
             <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}" also-hidden="true">
                 <sub-hyperlink target="/workeffort/control/EditWorkEffort"  description="${workEffortId}" link-style="buttontext" target-type="inter-app">
                     <parameter param-name="workEffortId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="contentId" widget-style="tabletext"><hidden/></field>
-        <field name="workEffortContentTypeId" widget-style="tabletext"><display-entity entity-name="WorkEffortContentType" description="${description}"/></field>
-        <field name="fromDate" widget-style="tabletext"><display/></field>
+        <field name="contentId"><hidden/></field>
+        <field name="workEffortContentTypeId"><display-entity entity-name="WorkEffortContentType" description="${description}"/></field>
+        <field name="fromDate"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortContent">

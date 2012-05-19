@@ -34,7 +34,7 @@ under the License.
           <entity-condition entity-name="DataResourceType" use-cache="false"/>
         </actions>
         <auto-fields-service service-name="updateDataResourceType"/>
-        <field name="dataResourceTypeId" widget-style="tabletext">
+        <field name="dataResourceTypeId">
             <display/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
@@ -95,7 +95,7 @@ under the License.
           <entity-condition entity-name="CharacterSet" use-cache="false"/>
         </actions>
         <auto-fields-service service-name="updateCharacterSet"/>
-        <field name="characterSetId" widget-style="tabletext">
+        <field name="characterSetId">
             <display/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
@@ -127,7 +127,7 @@ under the License.
             <entity-condition entity-name="DataCategory" use-cache="false"/>
         </actions>
         <auto-fields-service service-name="updateDataCategory"/>
-        <field name="dataCategoryId" widget-style="tabletext">
+        <field name="dataCategoryId">
             <display/>
         </field>
         <field name="parentCategoryId">
@@ -167,7 +167,7 @@ under the License.
           <entity-condition entity-name="FileExtension" use-cache="false"/>
         </actions>
         <auto-fields-service service-name="updateFileExtension"/>
-        <field name="fileExtensionId" widget-style="tabletext">
+        <field name="fileExtensionId">
             <display/>
         </field>
         <field name="mimeTypeId" title="${uiLabelMap.CommonEmptyHeader}">
@@ -200,7 +200,7 @@ under the License.
           <entity-condition entity-name="MetaDataPredicate" use-cache="false"/>
         </actions>
         <auto-fields-service service-name="updateMetaDataPredicate"/>
-        <field name="metaDataPredicateId" widget-style="tabletext">
+        <field name="metaDataPredicateId">
             <display/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
@@ -227,7 +227,7 @@ under the License.
           <entity-condition entity-name="MimeType" use-cache="false"/>
         </actions>
         <auto-fields-service service-name="updateMimeType"/>
-        <field name="mimeTypeId" widget-style="tabletext">
+        <field name="mimeTypeId">
             <display/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
@@ -244,7 +244,7 @@ under the License.
     <form name="CreateMimeTypeHtmlTemplate" target="createMimeTypeHtmlTemplate" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createMimeTypeHtmlTemplate"/>
-        <field name="mimeTypeId" widget-style="tabletext">
+        <field name="mimeTypeId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="MimeType" description="${description}" key-field-name="mimeTypeId"/>
             </drop-down>
@@ -260,7 +260,7 @@ under the License.
           <entity-condition entity-name="MimeTypeHtmlTemplate" use-cache="false"/>
         </actions>
         <auto-fields-service service-name="updateMimeTypeHtmlTemplate"/>
-        <field name="mimeTypeId" widget-style="tabletext">
+        <field name="mimeTypeId">
             <hyperlink target-type="intra-app" target="editMimeType" description="${mimeTypeId}">
                 <parameter param-name="mimeTypeId"/>
             </hyperlink>

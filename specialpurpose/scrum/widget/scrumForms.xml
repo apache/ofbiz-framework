@@ -1140,7 +1140,7 @@ under the License.
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
-        <field name="description" position="1" title="${uiLabelMap.ScrumProductBacklogItem}" widget-style="tabletext">
+        <field name="description" position="1" title="${uiLabelMap.ScrumProductBacklogItem}">
             <display description="${product}">
                 <in-place-editor url="updateCustRequest" cancel-control="button" saving-text="Updating..." text-between-controls=" ">
                     <simple-editor/>

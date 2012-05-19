@@ -34,7 +34,7 @@ under the License.
           <entity-condition entity-name="ContentType" use-cache="false"/>
         </actions>
         <auto-fields-service service-name="updateContentType"/>
-        <field name="contentTypeId" widget-style="tabletext">
+        <field name="contentTypeId">
             <display/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
@@ -95,7 +95,7 @@ under the License.
             <entity-condition entity-name="ContentAssocType" use-cache="false"/>
         </actions>
         <auto-fields-service service-name="updateContentAssocType"/>
-        <field name="contentAssocTypeId" widget-style="tabletext">
+        <field name="contentAssocTypeId">
             <display/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
@@ -122,7 +122,7 @@ under the License.
             <entity-condition entity-name="ContentPurposeType" use-cache="false"/>
         </actions>
         <auto-fields-service service-name="updateContentPurposeType"/>
-        <field name="contentPurposeTypeId" widget-style="tabletext">
+        <field name="contentPurposeTypeId">
             <display/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
@@ -149,7 +149,7 @@ under the License.
             <entity-condition entity-name="ContentAssocPredicate" use-cache="false"/>
         </actions>
         <auto-fields-service service-name="updateContentAssocPredicate"/>
-        <field name="contentAssocPredicateId" widget-style="tabletext">
+        <field name="contentAssocPredicateId">
             <display/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
@@ -176,7 +176,7 @@ under the License.
             <entity-condition entity-name="ContentOperation" use-cache="false"/>
         </actions>
         <auto-fields-service service-name="updateContentOperation"/>
-        <field name="contentOperationId" widget-style="tabletext">
+        <field name="contentOperationId">
             <display/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">

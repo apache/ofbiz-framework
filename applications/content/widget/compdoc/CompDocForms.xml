@@ -225,7 +225,7 @@ under the License.
     <!-- ContentApproval forms -->
     <form name="EditContentApproval" default-map-name="contentApproval" target="updateContentApproval" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="contentApprovalId" widget-style="tabletext"><display/></field>
+        <field name="contentApprovalId"><display/></field>
         <field name="contentId" widget-style="inputBox"><hidden/></field>
         <field name="contentRevisionSeqId" widget-style="inputBox"><text></text></field>
         <field name="partyId" widget-style="inputBox"><lookup target-form-name="LookupPartyName"/></field>
@@ -273,7 +273,7 @@ under the License.
 
     <form name="ListContentApproval" target="updateContentApproval" list-name="contentApprovalList" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="contentApprovalId" widget-style="tabletext"><display/></field>
+        <field name="contentApprovalId"><display/></field>
         <field name="contentId"><hidden/></field>
         <field name="rootContentId" map-name="empty"><hidden/></field>
         <field name="contentRevisionSeqId"><hidden/></field>
@@ -308,7 +308,7 @@ under the License.
 
     <form name="ListWaitingContentApproval" target="updateWaitingContentApproval" list-name="contentApprovalList" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="contentApprovalId" widget-style="tabletext"><display/></field>
+        <field name="contentApprovalId"><display/></field>
         <field name="contentId"><hidden/></field>
         <field name="rootContentId" map-name="empty"><hidden/></field>
         <field name="contentRevisionSeqId"><display/></field>
@@ -336,7 +336,7 @@ under the License.
     <form name="AddRootCompDocInstance" default-map-name="" type="single" target="genCompDocInstance"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="contentName"><text/></field>
-        <field name="instanceOfContentId" entry-name="rootContentId" map-name="parameters" widget-style="tabletext"><display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/></field>
+        <field name="instanceOfContentId" entry-name="rootContentId" map-name="parameters"><display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/></field>
         <field name="contentTypeId"><hidden value="COMPDOC_INSTANCE"/></field>
         <!--
         <field name="rootContentId"><hidden/></field>
@@ -347,9 +347,9 @@ under the License.
 
     <form name="EditRootCompDocInstance" default-map-name="content" type="single" target="updateRootCompDocTemplate"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="contentId" widget-style="tabletext"><display/></field>
+        <field name="contentId"><display/></field>
         <field name="contentName"><text/></field>
-        <field name="instanceOfContentId" widget-style="tabletext"><display/></field>
+        <field name="instanceOfContentId"><display/></field>
         <field name="contentTypeId"><hidden value="COMPDOC_INSTANCE"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -365,7 +365,7 @@ under the License.
 
     <form name="EditRootCompDocTemplate" default-map-name="content" type="single" target="updateRootCompDocTemplate"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="contentId" widget-style="tabletext"><display/></field>
+        <field name="contentId"><display/></field>
         <field name="contentName"><text/></field>
         <field name="contentTypeId" map-name="dummy"><hidden value="COMPDOC_TEMPLATE"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
@@ -377,11 +377,11 @@ under the License.
         <field name="contentId"><ignored/></field>
         <field name="contentName"><text/></field>
         <field name="contentTypeId"><hidden/></field>
-        <field name="instanceOfContentId" use-when="&quot;DOCUMENT&quot;.equals(contentTypeId)" widget-style="tabletext"><display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/></field>
-        <field name="caContentIdTo" entry-name="rootContentId" map-name="parameters" widget-style="tabletext" title="${uiLabelMap.ContentCompDocParentContentId}">
+        <field name="instanceOfContentId" use-when="&quot;DOCUMENT&quot;.equals(contentTypeId)"><display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/></field>
+        <field name="caContentIdTo" entry-name="rootContentId" map-name="parameters" title="${uiLabelMap.ContentCompDocParentContentId}">
             <display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/>
         </field>
-        <field name="contentAssocTypeId" widget-style="tabletext"><display-entity entity-name="ContentAssocType"/></field>
+        <field name="contentAssocTypeId"><display-entity entity-name="ContentAssocType"/></field>
         <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="thruDate"><date-time/></field>
         <field name="sequenceNum"><text/></field>
@@ -389,10 +389,10 @@ under the License.
         <field name="mimeTypeId" title="${uiLabelMap.ContentDocumentType}" use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; &quot;SURVEY&quot;.equals(templateDataResourceTypeId)">
             <hidden value="application/vnd.ofbiz.survey.response"/>
         </field>
-        <field name="displayMimeTypeId" map-name="empty" title="${uiLabelMap.ContentDocumentType}" use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; &quot;SURVEY&quot;.equals(templateDataResourceTypeId)" widget-style="tabletext">
+        <field name="displayMimeTypeId" map-name="empty" title="${uiLabelMap.ContentDocumentType}" use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; &quot;SURVEY&quot;.equals(templateDataResourceTypeId)">
             <display description="Survey Response"/>
         </field>
-        <field name="mimeTypeId" title="${uiLabelMap.ContentDocumentType}" use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; !&quot;SURVEY&quot;.equals(templateDataResourceTypeId)" widget-style="tabletext">
+        <field name="mimeTypeId" title="${uiLabelMap.ContentDocumentType}" use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; !&quot;SURVEY&quot;.equals(templateDataResourceTypeId)">
             <display-entity entity-name="MimeType" description="${description}"/>
         </field>
         <field name="mimeTypeId" title="${uiLabelMap.ContentDocumentType}" use-when="&quot;TEMPLATE&quot;.equals(contentTypeId)" widget-style="smallSelect">
@@ -416,17 +416,17 @@ under the License.
 
     <form name="EditChildCompDoc" default-map-name="contentAssoc" type="single" target="${childCompDocTarget}"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="contentId" widget-style="tabletext"><display/></field>
+        <field name="contentId"><display/></field>
         <field name="contentName" map-name="itemContent"><text/></field>
         <field name="contentTypeId" map-name="itemContent"><hidden/></field>
-        <field name="instanceOfContentId" map-name="itemContent" use-when="&quot;DOCUMENT&quot;.equals(contentTypeId)" widget-style="tabletext"><display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/></field>
-        <field name="contentIdTo" widget-style="tabletext"><display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/></field>
-        <field name="contentAssocTypeId" widget-style="tabletext"><display-entity entity-name="ContentAssocType" also-hidden="false"/></field>
-        <field name="fromDate" widget-style="tabletext"><display/></field>
+        <field name="instanceOfContentId" map-name="itemContent" use-when="&quot;DOCUMENT&quot;.equals(contentTypeId)"><display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/></field>
+        <field name="contentIdTo"><display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/></field>
+        <field name="contentAssocTypeId"><display-entity entity-name="ContentAssocType" also-hidden="false"/></field>
+        <field name="fromDate"><display/></field>
         <field name="thruDate"><date-time/></field>
         <field name="sequenceNum"><text/></field>
 
-        <field name="mimeTypeId" map-name="dataResource" widget-style="tabletext"
+        <field name="mimeTypeId" map-name="dataResource"
             use-when="&quot;TEMPLATE&quot;.equals(contentTypeId)">
             <drop-down allow-empty="false">
                 <option key="application/msword" description="${uiLabelMap.ContentMSWord}"/>
@@ -441,16 +441,16 @@ under the License.
                 <option key="application/octet-stream" description="${uiLabelMap.ContentResourceOther}"/>
             </drop-down>
         </field>
-        <field name="mimeTypeId" map-name="dataResource" widget-style="tabletext"
+        <field name="mimeTypeId" map-name="dataResource"
             use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; mimeTypeId!=null &amp;&amp; !&quot;application/vnd.ofbiz.survey&quot;.equals(mimeTypeId)">
             <display-entity entity-name="MimeType" key-field-name="mimeTypeId" description="${description}"/>
         </field>
-        <field name="mimeTypeId" map-name="dataResource" widget-style="tabletext"
+        <field name="mimeTypeId" map-name="dataResource"
             use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; mimeTypeId!=null &amp;&amp; &quot;application/vnd.ofbiz.survey&quot;.equals(mimeTypeId)">
             <display description="Survey Response"/>
         </field>
-        <!-- <field name="mimeTypeId" map-name="dataResource" title="Document Type"  widget-style="tabletext"><display/></field> -->
-        <!-- <field name="contentTypeId" map-name="content" title="Content Type"  widget-style="tabletext"><display/></field> -->
+        <!-- <field name="mimeTypeId" map-name="dataResource" title="Document Type" ><display/></field> -->
+        <!-- <field name="contentTypeId" map-name="content" title="Content Type" ><display/></field> -->
 
         <field name="relatedDetailId" map-name="dataResource" title="${uiLabelMap.ContentSurvey}"
             use-when="dataResource!=null &amp;&amp; &quot;SURVEY&quot;.equals(dataResource.getString(&quot;dataResourceTypeId&quot;))">
@@ -486,7 +486,7 @@ under the License.
             </hyperlink>
         </field>
 
-        <field name="objectInfo" map-name="dataResource" widget-style="tabletext"
+        <field name="objectInfo" map-name="dataResource"
             use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; mimeTypeId!=null &amp;&amp; !&quot;application/vnd.ofbiz.survey&quot;.equals(mimeTypeId)">
             <display also-hidden="false"/>
         </field>
@@ -496,17 +496,17 @@ under the License.
 
     <form name="ViewChildCompDoc" default-map-name="contentAssoc" type="single" target=""
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="contentId" widget-style="tabletext"><display/></field>
+        <field name="contentId"><display/></field>
         <field name="contentName" map-name="itemContent"><display/></field>
         <field name="contentTypeId" map-name="itemContent"><hidden/></field>
-        <field name="instanceOfContentId" map-name="itemContent" use-when="contentTypeId.equals(&quot;DOCUMENT&quot;)" widget-style="tabletext"><display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/></field>
-        <field name="contentIdTo" widget-style="tabletext" title="${uiLabelMap.ContentCompDocParentContentId}"><display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/></field>
-        <field name="contentAssocTypeId" widget-style="tabletext"><display-entity entity-name="ContentAssocType" also-hidden="false"/></field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" widget-style="tabletext"><display/></field>
+        <field name="instanceOfContentId" map-name="itemContent" use-when="contentTypeId.equals(&quot;DOCUMENT&quot;)"><display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/></field>
+        <field name="contentIdTo" title="${uiLabelMap.ContentCompDocParentContentId}"><display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/></field>
+        <field name="contentAssocTypeId"><display-entity entity-name="ContentAssocType" also-hidden="false"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display/></field>
         <field name="sequenceNum" title="${uiLabelMap.CommonSequenceNum}"><display/></field>
 
-       <field name="mimeTypeId" map-name="dataResource" title="${uiLabelMap.ContentDocumentType}"  widget-style="tabletext">
+       <field name="mimeTypeId" map-name="dataResource" title="${uiLabelMap.ContentDocumentType}" >
             <display-entity entity-name="MimeType" key-field-name="mimeTypeId" description="${description}"/>
         </field>
         <field name="relatedDetailId" map-name="dataResource" title="${uiLabelMap.ContentSurvey}" use-when="dataResource!=null&amp;&amp;&quot;SURVEY&quot;.equals(dataResource.getString(&quot;dataResourceTypeId&quot;))">
