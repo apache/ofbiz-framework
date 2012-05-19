@@ -69,7 +69,7 @@
         <field name="thruDate"><display/></field>
         <field name="terminationReasonId" title="${uiLabelMap.HumanResTerminationReasonId}"><display/></field>
         <field name="terminationTypeId"><display/></field>
-        <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="editLink" title=" " widget-style="buttontext">
             <hyperlink target="EditEmployment" description="${uiLabelMap.CommonEdit}">
                 <parameter param-name="partyIdFrom"/>
                 <parameter param-name="partyIdTo"/>
@@ -99,7 +99,7 @@
         <field name="thruDate"><display/></field>
         <field name="terminationReasonId" title="${uiLabelMap.HumanResTerminationReasonId}"><display/></field>
         <field name="terminationTypeId"><display/></field>
-        <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="editLink" title=" " widget-style="buttontext">
             <hyperlink target="EditEmployment" description="${uiLabelMap.CommonEdit}">
                 <parameter param-name="partyIdFrom"/>
                 <parameter param-name="partyIdTo"/>
@@ -176,7 +176,7 @@
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="deletePayHistory" description="${uiLabelMap.CommonDelete}">
                 <parameter param-name="roleTypeIdFrom"/>
                 <parameter param-name="roleTypeIdTo"/>
@@ -361,7 +361,7 @@
         </field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="deleteUnemploymentClaim" description="${uiLabelMap.CommonDelete}">
                 <parameter param-name="unemploymentClaimId"/>
                 <parameter param-name="roleTypeIdFrom"/>

@@ -39,7 +39,7 @@ under the License.
         <field name="workEffortPurposeTypeId"><display-entity entity-name="WorkEffortPurposeType" description="${description}"/></field>
         <field name="actualStartDate"><display/></field>
         <field name="actualEndDate"><display/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteQuoteWorkEffort">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="quoteId"/>

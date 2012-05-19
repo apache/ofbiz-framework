@@ -93,7 +93,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
-        <field name="createLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" position="1">
+        <field name="createLink" title=" " widget-style="buttontext" position="1">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonCreateNew}" target="EditLayoutTemplate?mode=add&amp;contentIdTo=TEMPLATE_MASTER"/>
         </field>
         -->
@@ -172,7 +172,7 @@ under the License.
         <field name="description"><display/></field>
         <field name="drObjectInfo"><display/></field>
         <!--
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeLayout">
                 <parameter param-name="contentId"/>
                 <parameter param-name="contentIdTo"/>
@@ -194,7 +194,7 @@ under the License.
         <field name="contentName"><display/></field>
         <field name="description"><display/></field>
         <field name="drObjectInfo"><display/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeLayout">
                 <parameter param-name="contentId"/>
                 <parameter param-name="contentIdTo" from-field="caContentIdTo"/>
@@ -460,13 +460,13 @@ under the License.
         </field>
     </form>
 <!--
-        <field name="paste" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"
+        <field name="paste" title=" " widget-style="buttontext"
             use-when="!&quot;${contentIdTo}&quot;.equals(&quot;TEMPLATE_MASTER&quot;)" >
             <hyperlink target-type="plain"
               target="javascript:call_fieldlookup2(document.AddLayoutSubContent.drDataResourceId, 'ClipBoardContent')"
               description="${uiLabelMap.ContentPaste}"/>
         </field>
-        <field name="paste" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"
+        <field name="paste" title=" " widget-style="buttontext"
             use-when="&quot;${contentIdTo}&quot;.equals(&quot;TEMPLATE_MASTER&quot;)" >
             <hyperlink target-type="plain"
               target="javascript:call_fieldlookup2(document.AddLayoutSubContent.drDataResourceId, 'LookupListLayout')"

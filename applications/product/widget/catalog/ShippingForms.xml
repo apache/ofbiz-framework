@@ -30,7 +30,7 @@
             </hyperlink>
         </field>
         <field name="quantityBreakTypeId" title="${uiLabelMap.CommonType}"><display-entity also-hidden="false" entity-name="QuantityBreakType"/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="deleteQuantityBreak" description="${uiLabelMap.CommonRemove}" also-hidden="false">
                 <parameter param-name="quantityBreakId"/>
             </hyperlink>
@@ -58,7 +58,7 @@
                 <parameter param-name="shipmentMethodTypeId"/>
             </hyperlink>
         </field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="deleteShipmentMethodType" description="${uiLabelMap.CommonRemove}" also-hidden="false">
                 <parameter param-name="shipmentMethodTypeId"/>
             </hyperlink>
@@ -76,14 +76,14 @@
         <auto-fields-entity entity-name="CarrierShipmentMethod" default-field-type="display"/>
         <field name="shipmentMethodTypeId"><display-entity also-hidden="false" entity-name="ShipmentMethodType"/></field>
         <field name="roleTypeId"><display-entity also-hidden="false" entity-name="RoleType"/></field>
-        <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="editLink" title=" " widget-style="buttontext">
             <hyperlink target="ListCarrierShipmentMethods" description="${uiLabelMap.CommonEdit}" also-hidden="false">
                 <parameter param-name="shipmentMethodTypeId"/>
                 <parameter param-name="partyId"/>
                 <parameter param-name="roleTypeId"/>
             </hyperlink>
         </field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="deleteCarrierShipmentMethod" description="${uiLabelMap.CommonRemove}" also-hidden="false">
                 <parameter param-name="shipmentMethodTypeId"/>
                 <parameter param-name="partyId"/>

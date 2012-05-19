@@ -41,7 +41,7 @@
         <field name="isSale" title="${uiLabelMap.ProductSaleRule}?"><display/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display/></field>
-        <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="editLink" title=" " widget-style="buttontext">
             <hyperlink target="EditProductPriceRules" description="${uiLabelMap.CommonEdit}">
                 <parameter param-name="productPriceRuleId"/>
             </hyperlink>
@@ -68,7 +68,7 @@
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time type="timestamp"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit/></field>        
         <field use-when="org.ofbiz.base.util.UtilValidate.isEmpty(productPriceConds) &amp;&amp; org.ofbiz.base.util.UtilValidate.isEmpty(productPriceActions)"
-            name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="deleteProductPriceRule" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="productPriceRuleId"/>
             </hyperlink>
@@ -99,7 +99,7 @@
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit/></field>        
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" widget-area-style="align-text">
+        <field name="deleteLink" title=" " widget-style="buttontext" widget-area-style="align-text">
             <hyperlink target="deleteProductPriceCond" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="productPriceRuleId" from-field="productPriceCond.productPriceRuleId"/>
                 <parameter param-name="productPriceCondSeqId" from-field="productPriceCond.productPriceCondSeqId"/>
@@ -143,7 +143,7 @@
         </field>        
         <field name="amount" title="${uiLabelMap.ProductValue}"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit/></field>        
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" widget-area-style="align-text">
+        <field name="deleteLink" title=" " widget-style="buttontext" widget-area-style="align-text">
             <hyperlink target="deleteProductPriceAction" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="productPriceRuleId" from-field="productPriceAction.productPriceRuleId"/>
                 <parameter param-name="productPriceActionSeqId" from-field="productPriceAction.productPriceActionSeqId"/>

@@ -36,7 +36,7 @@ under the License.
         <field name="costCustomMethodId">
             <display-entity entity-name="CustomMethod" key-field-name="customMethodId"/>
         </field>
-        <field name="removeCostComponentCalc" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="removeCostComponentCalc" title=" " widget-style="buttontext">
             <hyperlink target="removeCostComponentCalc" description="${uiLabelMap.CommonRemove}" also-hidden="false">
                 <parameter param-name="costComponentCalcId"/>
             </hyperlink>

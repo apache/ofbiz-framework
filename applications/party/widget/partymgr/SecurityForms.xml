@@ -58,7 +58,7 @@ under the License.
         </actions>
         <field name="groupId"><hidden/></field>
         <field name="permissionId" title="${uiLabelMap.PartyPermissionId}"><display-entity entity-name="SecurityPermission" description="${permissionId} ${description}"/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="removeSecurityPermissionFromSecurityGroup" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="permissionId"/>
                 <parameter param-name="groupId"/>
@@ -109,7 +109,7 @@ under the License.
             </display-entity>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="removeUserLoginFromSecurityGroup" also-hidden="false">
                 <parameter param-name="userLoginId"/>
                 <parameter param-name="groupId"/>
@@ -147,7 +147,7 @@ under the License.
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="userLogin_removeUserLoginFromSecurityGroup" also-hidden="false">
                 <parameter param-name="partyId"/>
                 <parameter param-name="userLoginId"/>
@@ -187,7 +187,7 @@ under the License.
         <field name="maxHitsDuration" title="${uiLabelMap.PartyMaxHitDuration}"><text/></field>
         <field name="tarpitDuration" title="${uiLabelMap.PartyTarpitDuration}"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="removeProtectedViewFromSecurityGroup" also-hidden="false">
                 <parameter param-name="groupId"/>
                 <parameter param-name="viewNameId"/>

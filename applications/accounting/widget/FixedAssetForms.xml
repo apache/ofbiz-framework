@@ -132,7 +132,7 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="fixedAssetId"><hidden/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="removeFixedAssetProduct" description="${uiLabelMap.CommonRemove}" also-hidden="false">
                 <parameter param-name="fixedAssetId"/>
                 <parameter param-name="productId"/>
@@ -209,7 +209,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="cancel" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="cancel" title=" " widget-style="buttontext">
            <hyperlink also-hidden="false" description="${uiLabelMap.CommonCancel}" target="cancelFixedAssetStdCost">
                 <parameter param-name="fixedAssetId"/>
                 <parameter param-name="fixedAssetStdCostTypeId"/>
@@ -253,7 +253,7 @@ under the License.
             <display-entity entity-name="FixedAssetIdentType"/>
         </field>
         <field name="idValue" title="${uiLabelMap.AccountingFixedAssetIdentIdValue}"/>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="removeFixedAssetIdent" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="fixedAssetId"/>
                 <parameter param-name="fixedAssetIdentTypeId"/>
@@ -292,7 +292,7 @@ under the License.
         <field name="registrationNumber" title="${uiLabelMap.AccountingFixedAssetRegNumber}"><text size="20"/></field>
         <field name="licenseNumber" title="${uiLabelMap.AccountingFixedAssetLicenseNumber}"><text size="20"/></field>
         <field name="govAgencyPartyId" title="${uiLabelMap.AccountingFixedAssetGovAgencyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="deleteFixedAssetRegistration" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="fixedAssetId"/>
                 <parameter param-name="fromDate"/>
@@ -487,7 +487,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="orderItemSeqId"><display/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="deleteFixedAssetMaintOrder" description="${uiLabelMap.CommonRemove}" also-hidden="false">
                 <parameter param-name="fixedAssetId"/>
                 <parameter param-name="maintHistSeqId"/>
@@ -540,7 +540,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext">
             <submit button-type="button"/>
         </field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="deletePartyFixedAssetAssignment" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="fixedAssetId"/>
                 <parameter param-name="partyId"/>
@@ -600,7 +600,7 @@ under the License.
         <field name="depreciationCustomMethodId">
             <display-entity entity-name="CustomMethod" key-field-name="customMethodId"/>
         </field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="deleteFixedAssetDepMethod" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="fixedAssetId"/>
                 <parameter param-name="depreciationCustomMethodId"/>
@@ -734,7 +734,7 @@ under the License.
         <field name="depGlAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]"/></field>
         <field name="profitGlAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]"/></field>
         <field name="lossGlAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]"/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="deleteFixedAssetTypeGlAccountForFixedAsset" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="fixedAssetTypeId"/>
                 <parameter param-name="fixedAssetId"/>

@@ -93,7 +93,7 @@ under the License.
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" sort-field="true"><display-entity entity-name="StatusItem" description="${description}"/></field>
         <field name="cancelDateTime" title="${uiLabelMap.CommonEndDateTime}" sort-field="true"><display/></field>
-        <field name="cancelButton" title="${uiLabelMap.CommonEmptyHeader}" use-when="startDateTime==null&amp;&amp;finishDateTime==null&amp;&amp;cancelDateTime==null" widget-style="buttontext">
+        <field name="cancelButton" title=" " use-when="startDateTime==null&amp;&amp;finishDateTime==null&amp;&amp;cancelDateTime==null" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.WebtoolsCancelJob}" target="cancelJob">
                 <parameter param-name="jobId"/>
             </hyperlink>

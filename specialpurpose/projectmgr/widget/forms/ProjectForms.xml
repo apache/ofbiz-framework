@@ -454,7 +454,7 @@
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
         <field name="orderDate"><display/></field>
         <field name="entryDate"><display/></field>
-        <field name="linkProjectOrder" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="headerItem.equals(&quot;editProjectOrders&quot;)">
+        <field name="linkProjectOrder" title=" " widget-style="buttontext" use-when="headerItem.equals(&quot;editProjectOrders&quot;)">
             <hyperlink target="unLinkProjectOrder" description="${uiLabelMap.ProjectMgrRemoveLinkFromProject}">
                 <parameter param-name="workEffortId" from-field="projectId"/>
                 <parameter param-name="orderId"/>
@@ -849,7 +849,7 @@
         </field>
         <field name="thruDate"><ignored/></field>
         <field name="submitButton"><ignored/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="headerItem.equals(&quot;EditProjectContents&quot;)">
+        <field name="deleteLink" title=" " widget-style="buttontext" use-when="headerItem.equals(&quot;EditProjectContents&quot;)">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteProjectContent">
                 <parameter param-name="contentId"/>
                 <parameter param-name="workEffortId"/>
@@ -857,10 +857,10 @@
                 <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
-        <field name="downloadLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="downloadLink" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.ContentDownload}" target="ViewSimpleContent?contentId=${contentId}"/>
         </field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="headerItem.equals(&quot;EditTaskContents&quot;)">
+        <field name="deleteLink" title=" " widget-style="buttontext" use-when="headerItem.equals(&quot;EditTaskContents&quot;)">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteTaskContent">
                 <parameter param-name="contentId"/>
                 <parameter param-name="workEffortId"/>

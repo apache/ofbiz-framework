@@ -161,13 +161,13 @@ under the License.
             <display-entity entity-name="CostComponentCalc"/>
         </field>
         <!--
-        <field name="costComponentCalcView" entry-name="costComponentCalcId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="costComponentCalcView" entry-name="costComponentCalcId" title=" " widget-style="buttontext">
             <hyperlink target="viewCostComponentCalc" description="${uiLabelMap.CommonViewFormula}" also-hidden="false">
                 <parameter param-name="costComponentCalcId"/>
             </hyperlink>
         </field>
         -->
-        <field name="calcelWorkEffortCostCalc" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="calcelWorkEffortCostCalc" title=" " widget-style="buttontext">
             <hyperlink target="removeRoutingTaskCost" description="${uiLabelMap.CommonRemove}" also-hidden="false">
                 <parameter param-name="costComponentCalcId"/>
                 <parameter param-name="costComponentTypeId"/>
@@ -205,7 +205,7 @@ under the License.
         <field name="sequenceNum" title="${uiLabelMap.CommonSequenceNum}"><display/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display/></field>
-        <field name="editRouting" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="editRouting" title=" " widget-style="buttontext">
             <hyperlink target="EditRouting" description="${uiLabelMap.ManufacturingEditRouting}" also-hidden="false">
                 <parameter param-name="workEffortId" from-field="workEffortIdFrom"/>
             </hyperlink>
@@ -228,7 +228,7 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}" ><display/></field>
         <field name="workEffortToSetup" title="${uiLabelMap.ManufacturingTaskEstimatedSetupMillis}" ><display/></field>
         <field name="workEffortToRun" title="${uiLabelMap.ManufacturingTaskEstimatedMilliSeconds}" ><display/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="RemoveRoutingTaskAssoc" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="workEffortId" from-field="workEffortIdFrom"/>
                 <parameter param-name="workEffortIdFrom"/>
@@ -296,7 +296,7 @@ under the License.
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display/></field>
         <field name="estimatedQuantity" title="${uiLabelMap.ManufacturingQuantity}"><display/></field>
-       <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" >
+       <field name="editLink" title=" " widget-style="buttontext" >
             <hyperlink target="EditRoutingProductLink" description="${uiLabelMap.CommonEdit}" also-hidden="false">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="productId"/>
@@ -304,7 +304,7 @@ under the License.
                 <parameter param-name="workEffortGoodStdTypeId" value="ROU_PROD_TEMPLATE"/>
             </hyperlink>
         </field>
-       <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+       <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="removeRoutingProductLink" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="productId"/>
@@ -320,7 +320,7 @@ under the License.
         </field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display/></field>
-        <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="editLink" title=" " widget-style="buttontext">
             <hyperlink target="EditRoutingTaskProduct" description="${uiLabelMap.CommonEdit}" also-hidden="false">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="productId"/>
@@ -328,7 +328,7 @@ under the License.
                 <parameter param-name="workEffortGoodStdTypeId" value="PRUNT_PROD_DELIV"/>
                 </hyperlink>
         </field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="removeRoutingTaskProduct" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="productId"/>
@@ -368,7 +368,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}">
             <submit button-type="button"/>
         </field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="removeRoutingTaskFixedAsset"     description="${uiLabelMap.CommonDelete}" also-hidden="false" >
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="fixedAssetTypeId"/>

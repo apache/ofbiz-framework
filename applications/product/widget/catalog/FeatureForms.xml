@@ -47,7 +47,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field use-when="productFeature!=null&amp;&amp;productFeature.getString(&quot;productFeatureCategoryId&quot;)!=null" name="categoryLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field use-when="productFeature!=null&amp;&amp;productFeature.getString(&quot;productFeatureCategoryId&quot;)!=null" name="categoryLink" title=" " widget-style="buttontext">
             <hyperlink target="/EditFeatureCategoryFeatures" target-type="intra-app" description="${uiLabelMap.ProductGoToFeatureCategory} ${productFeature.productFeatureCategoryId}" also-hidden="false">
                 <parameter param-name="productFeatureCategoryId" from-field="productFeature.productFeatureCategoryId"/>
             </hyperlink>
@@ -101,7 +101,7 @@
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="removeSupplierProductFeature" description="${uiLabelMap.CommonDelete}">
                 <parameter param-name="productFeatureId"/>
                 <parameter param-name="partyId"/>

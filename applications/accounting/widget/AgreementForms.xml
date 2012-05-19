@@ -90,7 +90,7 @@ under the License.
         <field name="agreementDate" title="${uiLabelMap.AccountingAgreementDate}"><hidden/></field>
         <field name="textData" title="${uiLabelMap.AccountingTextData}"><hidden/></field>
         <field name="description" sort-field="true"></field>
-        <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="cancelLink" title=" " widget-style="buttontext">
             <hyperlink target="cancelAgreement" description="${uiLabelMap.CommonCancel}" also-hidden="false">
                 <parameter param-name="agreementId"/>
             </hyperlink>
@@ -146,7 +146,7 @@ under the License.
         <field name="agreementItemTypeId" title="${uiLabelMap.AccountingAgreementItemTypeId}">
             <display-entity entity-name="AgreementItemType"/>
         </field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="removeAgreementItem" description="${uiLabelMap.CommonRemove}" also-hidden="false">
                 <parameter param-name="agreementItemSeqId"/>
                 <parameter param-name="agreementId"/>
@@ -197,7 +197,7 @@ under the License.
         <field name="invoiceItemTypeId">
             <display-entity entity-name="InvoiceItemType"/>
         </field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="removeAgreementItemTerm" description="${uiLabelMap.CommonRemove}" also-hidden="false">
                 <parameter param-name="agreementTermId"/>
                 <parameter param-name="agreementId"/>
@@ -228,7 +228,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="deleteAgreementTerm" description="${uiLabelMap.CommonRemove}" also-hidden="false">
                 <parameter param-name="agreementTermId"/>
                 <parameter param-name="agreementId"/>
@@ -299,7 +299,7 @@ under the License.
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
         </field>
         <field name="price"><display type="currency" currency="${agreementItem.currencyUomId}"/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="removeAgreementItemProduct" description="${uiLabelMap.CommonRemove}" also-hidden="false">
                 <parameter param-name="productId"/>
                 <parameter param-name="agreementId"/>
@@ -329,7 +329,7 @@ under the License.
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
         </field>
         <field name="lastPrice"><display type="currency" currency="${agreementItem.currencyUomId}"/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="removeAgreementItemSupplierProduct" description="${uiLabelMap.CommonRemove}" also-hidden="false">
                 <parameter param-name="minimumOrderQuantity"/>
                 <parameter param-name="currencyUomId"/>
@@ -458,7 +458,7 @@ under the License.
         <field name="productPromoName" entry-name="productPromoId">
             <display-entity entity-name="ProductPromo" key-field-name="productPromoId" description="${promoName}"/>
         </field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="removeAgreementPromoAppl" description="${uiLabelMap.CommonRemove}" also-hidden="false">
                 <parameter param-name="productPromoId"/>
                 <parameter param-name="agreementId"/>
@@ -503,7 +503,7 @@ under the License.
         <field name="partyName" title="${uiLabelMap.PartyName}" entry-name="partyId">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName} ${firstName} ${lastName}"/>
         </field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="removeAgreementItemParty" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="partyId"/>
                 <parameter param-name="agreementId"/>
@@ -533,7 +533,7 @@ under the License.
         <field name="geoId" title="${uiLabelMap.CommonDescription}">
             <display-entity entity-name="Geo" key-field-name="geoId" description="${geoName} [${geoId}]"/>
         </field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="removeAgreementGeographicalApplic" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="geoId"/>
                 <parameter param-name="agreementId"/>
@@ -586,7 +586,7 @@ under the License.
         </actions>
         <field name="agreementItemSeqId"><display/></field>
         <field name="workEffortId"><display/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteAgreementWorkEffortApplic">
                 <parameter param-name="agreementId"/>
                 <parameter param-name="agreementItemSeqId"/>
@@ -605,7 +605,7 @@ under the License.
         <field name="agreementId"><hidden/></field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><display/></field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}"><display/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="deleteAgreementRole" description="${uiLabelMap.CommonRemove}" also-hidden="false">
                 <parameter param-name="agreementId"/>
                 <parameter param-name="partyId"/>

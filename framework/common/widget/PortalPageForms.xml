@@ -80,13 +80,13 @@ under the License.
             </display>
         </field>
         <field name="originalPortalPageId"><display-entity entity-name="PortalPage" description="${portalPageName} [${portalPageId}]" key-field-name="portalPageId"/></field>
-        <field name="deleteLink" use-when="!ownerUserLoginId.equals(&quot;_NA_&quot;)" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" >
+        <field name="deleteLink" use-when="!ownerUserLoginId.equals(&quot;_NA_&quot;)" title=" " widget-style="buttontext" >
             <hyperlink target="deletePortalPage" description="${uiLabelMap.CommonDelete}">
                 <parameter param-name="portalPageId"/>
                 <parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
             </hyperlink>
         </field>
-        <field name="deleteLink" use-when="!ownerUserLoginId.equals(&quot;_NA_&quot;)&amp;&amp;originalPortalPageId!=null" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" >
+        <field name="deleteLink" use-when="!ownerUserLoginId.equals(&quot;_NA_&quot;)&amp;&amp;originalPortalPageId!=null" title=" " widget-style="buttontext" >
             <hyperlink target="deletePortalPage" description="${uiLabelMap.CommonRevertPortalPage}">
                 <parameter param-name="portalPageId"/>
                 <parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>

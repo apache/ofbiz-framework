@@ -111,12 +111,12 @@ under the License.
             <display-entity entity-name="ShoppingListType"/>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
-        <field name="addFromList" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="addFromList" title=" " widget-style="buttontext">
             <hyperlink target="addFromShoppingList" description="${uiLabelMap.OrderToAddSelectedItemsToShoppingList}" also-hidden="false">
                 <parameter param-name="shoppingListId"/>
             </hyperlink>
         </field>
-        <field name="addAllFromList" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="addAllFromList" title=" " widget-style="buttontext">
             <hyperlink target="addAllFromShoppingList" description="${uiLabelMap.OrderQuickAdd}" also-hidden="false">
                 <parameter param-name="shoppingListId"/>
             </hyperlink>
@@ -128,7 +128,7 @@ under the License.
         <field name="productId" title="${uiLabelMap.ProductProduct}">
             <display-entity entity-name="Product" description="${productId} - ${description}"/>
         </field>
-        <field name="addToCart" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="addToCart" title=" " widget-style="buttontext">
             <hyperlink target="additem/editShoppingList" description="${uiLabelMap.CommonAdd} ${quantity} ${uiLabelMap.OrderAddQntToOrder}" also-hidden="false">
                 <parameter param-name="shoppingListId"/>
                 <parameter param-name="shoppingListItemSeqId"/>
@@ -139,12 +139,12 @@ under the License.
         </field>
     </form>
     <form name="AddFromShoppingListAll" type="single" target="">
-        <field name="addAllFromList" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="addAllFromList" title=" " widget-style="buttontext">
             <hyperlink target="addAllFromShoppingList" description="${uiLabelMap.OrderQuickAdd}" also-hidden="false">
                 <parameter param-name="shoppingListId"/>
             </hyperlink>
         </field>
-        <field name="returnToOrderEntry" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="returnToOrderEntry" title=" " widget-style="buttontext">
             <hyperlink target="orderentry" description="${uiLabelMap.OrderOrderReturn}" also-hidden="false"/>
         </field>
     </form>

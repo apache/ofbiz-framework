@@ -374,7 +374,7 @@ under the License.
         <auto-fields-service service-name="updateDataResourceAttribute" default-field-type="display"/>
         <field name="attrValue" widget-style="tabletext"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataResourceAttribute">
                 <parameter param-name="dataResourceId"/>
                 <parameter param-name="attrName"/>
@@ -408,7 +408,7 @@ under the License.
         <auto-fields-service service-name="updateDataResourceRole" default-field-type="display"/>
         <field name="thruDate" widget-style="buttontext"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataResourceRole">
                 <parameter param-name="dataResourceId"/>
                 <parameter param-name="roleTypeId"/>
@@ -437,7 +437,7 @@ under the License.
             </service>
         </actions>
         <auto-fields-entity entity-name="ProductFeatureDataResource" default-field-type="display"/>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataResourceProductFeature">
                 <parameter param-name="dataResourceId"/>
                 <parameter param-name="productFeatureId"/>
@@ -466,7 +466,7 @@ under the License.
     <form name="listLookupProductFeature" list-name="entityList" title="" type="list" paginate-target="LookupProductFeature"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="ProductFeature" default-field-type="display"/>
-        <field name="productFeatureId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="productFeatureId" title=" " widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${productFeatureId}" target="javascript:set_value('${productFeatureId}')"/>
         </field>
     </form>
@@ -487,7 +487,7 @@ under the License.
             <entity-one entity-name="ElectronicText" value-field="electronicText"/>
         </actions>
         <alt-target use-when="electronicText==null" target="addElectronicText"/>
-        <field name="dataResourceId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"><display also-hidden="true"/></field>
+        <field name="dataResourceId" title=" " widget-style="buttontext"><display also-hidden="true"/></field>
         <field name="textData" widget-style="buttontext"><textarea cols="120" rows="24"/></field>
         <field name="submitButton"  use-when="electronicText!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="submitButton" use-when="electronicText==null" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
@@ -497,7 +497,7 @@ under the License.
     <form name="AddHtmlText" target="addHtmlText" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ElectronicText"/>
-        <field name="dataResourceId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" map-name="currentValue"><display/></field>
+        <field name="dataResourceId" title=" " widget-style="buttontext" map-name="currentValue"><display/></field>
         <field name="textData" id-name="textData"><textarea rows="24" cols="120"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -508,7 +508,7 @@ under the License.
         </actions>
         <alt-target use-when="electronicText==null" target="addHtmlText"/>
         <auto-fields-entity entity-name="ElectronicText"/>
-        <field name="dataResourceId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"><display/></field>
+        <field name="dataResourceId" title=" " widget-style="buttontext"><display/></field>
         <field name="textData" id-name="textData" encode-output="true"><textarea cols="120" rows="20" visual-editor-enable="true" /></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>

@@ -25,7 +25,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="noteDateTime" title="${uiLabelMap.CommonExtDateInfoCreated}"><display type="date-time"/></field>
         <field name="noteInfo" title="${uiLabelMap.CommonExtSystemInfoNote}"><hyperlink target="${moreInfoUrl}${groovy: if (moreInfoItemName &amp;&amp;moreInfoItemId)&quot;?&quot; + moreInfoItemName + &quot;=&quot; + moreInfoItemId + &quot;&amp;id=&quot; + moreInfoItemId;}" target-type="inter-app" description="${noteInfo}"></hyperlink></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" >
+        <field name="deleteLink" title=" " widget-style="buttontext" >
             <hyperlink target="deleteSystemInfoNote" description="${uiLabelMap.CommonDelete}">
                 <parameter param-name="noteId"/>
                 <parameter param-name="portalPageId" from-field="parameters.portalPageId"/>

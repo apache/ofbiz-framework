@@ -221,7 +221,7 @@ under the License.
     <form name="UpdateInventoryItemLabelAppls" type="list" target="updateInventoryItemLabelApplFromItem" title="" list-name="inventoryItemLabelAppls"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateInventoryItemLabelAppl"/>
-        <field name="inventoryItemLabelId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="inventoryItemLabelId" title=" " widget-style="buttontext">
             <hyperlink target="EditInventoryItemLabel" description="${inventoryItemLabelId}" also-hidden="true">
                 <parameter param-name="inventoryItemLabelId"/>
             </hyperlink>
@@ -232,7 +232,7 @@ under the License.
             <display-entity entity-name="InventoryItemLabelType" description="${description} [${inventoryItemLabelTypeId}]"/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="deleteInventoryItemLabelApplFromItem" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="inventoryItemId"/>
                 <parameter param-name="inventoryItemLabelTypeId"/>

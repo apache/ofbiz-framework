@@ -158,7 +158,7 @@ under the License.
         <!-- planned volume -->
         <field name="volume" title="${uiLabelMap.CommonVolume}"><display/></field>
         <field name="volumeUom" title="${uiLabelMap.CommonUom}"><display/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="removeOrderShipmentFromShipment" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="shipmentId"/>
                 <parameter param-name="shipmentItemSeqId"/>

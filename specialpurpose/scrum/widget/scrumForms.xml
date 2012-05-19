@@ -186,14 +186,14 @@ under the License.
         <field name="taskActualHours" title="${uiLabelMap.ScrumActualHours}" position="2" use-when="!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)"><display/></field>
         <field name="planHours" title="${uiLabelMap.ScrumPlannedHours}" position="2" use-when="!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)"><display></display>
         </field>
-        <field name="deleteButton" title="${uiLabelMap.CommonEmptyHeader}" position="1" use-when="showPosition1&amp;&amp;!&quot;CRQ_COMPLETED&quot;.equals(&quot;${custRequest.statusId}&quot;)" widget-style="buttontext">
+        <field name="deleteButton" title=" " position="1" use-when="showPosition1&amp;&amp;!&quot;CRQ_COMPLETED&quot;.equals(&quot;${custRequest.statusId}&quot;)" widget-style="buttontext">
             <hyperlink target="DeleteSprintBackLogs" description="Delete" confirmation-message="Are you sure to delete this sprint backlog ?" link-type="hidden-form">
                 <parameter param-name="custRequestId"/>
                 <parameter param-name="sprintId"/>
                 <parameter param-name="projectId"/>
             </hyperlink>
         </field>
-        <field name="newTask" title="${uiLabelMap.CommonEmptyHeader}" position="1" use-when="showPosition1&amp;&amp;!&quot;CRQ_COMPLETED&quot;.equals(&quot;${custRequest.statusId}&quot;)" widget-style="buttontext">
+        <field name="newTask" title=" " position="1" use-when="showPosition1&amp;&amp;!&quot;CRQ_COMPLETED&quot;.equals(&quot;${custRequest.statusId}&quot;)" widget-style="buttontext">
             <hyperlink target="NewSprintBacklogTask" description="Add Task" link-type="hidden-form">
                 <parameter param-name="custRequestId"/>
                 <parameter param-name="sprintId"/>
@@ -204,13 +204,13 @@ under the License.
         <field name="partyId" title="${uiLabelMap.ScrumAssignedTo}" position="2" parameter-name="partyId" use-when="!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)">
             <display-entity entity-name="PartyNameView"  description="${lastName}, ${firstName} ${middleName}" key-field-name="partyId"/>
         </field>
-        <field name="editTaskParty" title="${uiLabelMap.CommonEmptyHeader}" position="2" use-when="!&quot;STS_COMPLETED&quot;.equals(taskCurrentStatusId)&amp;&amp;!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)" widget-style="buttontext">
+        <field name="editTaskParty" title=" " position="2" use-when="!&quot;STS_COMPLETED&quot;.equals(taskCurrentStatusId)&amp;&amp;!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)" widget-style="buttontext">
             <hyperlink target="EditTask" description="${uiLabelMap.CommonEdit}" link-type="hidden-form" target-window="_BLANK">
                 <parameter param-name="taskId"/>
                 <parameter param-name="sprintId"></parameter>
             </hyperlink>
         </field>
-        <field name="deleteTaskButton" title="${uiLabelMap.CommonEmptyHeader}" position="2" use-when="!&quot;STS_COMPLETED&quot;.equals(taskCurrentStatusId)&amp;&amp;!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)" widget-style="buttontext">
+        <field name="deleteTaskButton" title=" " position="2" use-when="!&quot;STS_COMPLETED&quot;.equals(taskCurrentStatusId)&amp;&amp;!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)" widget-style="buttontext">
             <hyperlink target="DeleteTaskFromSprintOverview" description="Delete" confirmation-message="Are you sure to delete this task ?" link-type="hidden-form">
                 <parameter param-name="workEffortId" from-field="taskId"/>
                 <parameter param-name="custRequestId"/>
@@ -218,7 +218,7 @@ under the License.
                 <parameter param-name="projectId"/>
             </hyperlink>
         </field>
-        <field name="setCompleteButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="!&quot;STS_COMPLETED&quot;.equals(taskCurrentStatusId)&amp;&amp;!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)"
+        <field name="setCompleteButton" title=" " widget-style="buttontext" use-when="!&quot;STS_COMPLETED&quot;.equals(taskCurrentStatusId)&amp;&amp;!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)"
          position="2">
             <hyperlink target="setCompleteTask" description="${uiLabelMap.ScrumSetComplete}" link-type="hidden-form">
                 <parameter param-name="workEffortId" from-field="taskId"/>
@@ -2165,13 +2165,13 @@ under the License.
         <field name="taskEstimatedMilliSeconds" title="${uiLabelMap.ScrumPlannedHours}" parameter-name="planHours"><text size="5"/></field>
         <field name="taskActualMilliSeconds" title="${uiLabelMap.ScrumActualHours}" parameter-name="actualHours"><display/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button" /></field>
-        <field name="editButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="editButton" title=" " widget-style="buttontext">
             <hyperlink target="EditSprintTask" description="${uiLabelMap.CommonEdit}" link-type="hidden-form">
                 <parameter param-name="sprintId" from-field="parameters.parameters.sprintId"/>
                 <parameter param-name="taskId"/>
             </hyperlink>
         </field>
-        <field name="deleteButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteButton" title=" " widget-style="buttontext">
             <hyperlink target="deleteSprintTask" description="${uiLabelMap.CommonDelete}" link-type="hidden-form" confirmation-message="Are you sure to delete this task?">
                 <parameter param-name="sprintId" from-field="parameters.sprintId"/>
                 <parameter param-name="custRequestId"/>
@@ -2538,7 +2538,7 @@ under the License.
         </field>
         <field name="thruDate"><ignored/></field>
         <field name="submitButton"><ignored/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="headerItem.equals(&quot;EditProjectContents&quot;)">
+        <field name="deleteLink" title=" " widget-style="buttontext" use-when="headerItem.equals(&quot;EditProjectContents&quot;)">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteProjectContent">
                 <parameter param-name="contentId"/>
                 <parameter param-name="workEffortId"/>
@@ -2547,7 +2547,7 @@ under the License.
                 <parameter param-name="projectId"/>
             </hyperlink>
         </field>
-        <field name="downloadLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="downloadLink" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.ContentDownload}" target="ViewSimpleContent?contentId=${contentId}"/>
         </field>
         <sort-order>
@@ -2589,7 +2589,7 @@ under the License.
         </field>
         <field name="fromDate"><display/></field>
         <field name="drMimeTypeId"><hidden/></field>
-        <field name="downloadLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="downloadLink" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.ContentDownload}" target="ViewSimpleContent?contentId=${contentId}"/>
         </field>
     </form>
@@ -2608,7 +2608,7 @@ under the License.
         <field name="contentTypeId"><display description="${descContent.description}"/></field>
         <field name="contentName"><display description="${contentMap.contentName} [${contentId}]"/></field>
         <field name="fromDate"><display/> </field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteScrumProductContent">
                 <parameter param-name="contentId"/>
                 <parameter param-name="fromDate"/>
@@ -2616,7 +2616,7 @@ under the License.
                 <parameter param-name="productContentTypeId"/>
             </hyperlink>
         </field>
-        <field name="downloadLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="downloadLink" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.ContentDownload}" target="ViewSimpleContent?contentId=${contentId}"/>
         </field>
     </form>
@@ -2670,7 +2670,7 @@ under the License.
         <field name="noteParty">
             <display-entity entity-name="PartyNameView"  description="${lastName}, ${firstName} ${middleName}" key-field-name="partyId"/>
         </field>
-        <field name="removeNote" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="removeNote" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteProdBacklogNote">
                 <parameter param-name="noteId" from-field="noteId"/>
                 <parameter param-name="custRequestId" from-field="custRequestId"/>
@@ -2715,7 +2715,7 @@ under the License.
         <field name="contentName"><display description="${contentMap.contentName}[${contentId}]"/></field>
         <field name="mimeTypeId"><hidden/></field>
         <field name="fromDate"><display/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" >
+        <field name="deleteLink" title=" " widget-style="buttontext" >
            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteBacklogItemContent">
                 <parameter param-name="custRequestId"/>
                 <parameter param-name="contentId"/>
@@ -2724,7 +2724,7 @@ under the License.
                 </hyperlink>
         </field>
         
-        <field name="downloadLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="downloadLink" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.ContentDownload}" target="ViewSimpleContent?contentId=${contentId}"/>
         </field>
     </form>
@@ -3068,14 +3068,14 @@ under the License.
         <field name="planHours" title="${uiLabelMap.ScrumPlannedHours}" position="2" use-when="workEffortId!=null">
             <display/>
         </field>
-        <field name="deleteButton" title="${uiLabelMap.CommonEmptyHeader}" position="1" use-when="showPosition1&amp;&amp;!&quot;CRQ_COMPLETED&quot;.equals(&quot;${custRequest.statusId}&quot;)" widget-style="buttontext">
+        <field name="deleteButton" title=" " position="1" use-when="showPosition1&amp;&amp;!&quot;CRQ_COMPLETED&quot;.equals(&quot;${custRequest.statusId}&quot;)" widget-style="buttontext">
             <hyperlink target="DeleteUnplanBacklog" description="Delete" confirmation-message="Are you sure to delete this sprint backlog ?" link-type="hidden-form">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="custRequestId"/>
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
-        <field name="newTask" title="${uiLabelMap.CommonEmptyHeader}" use-when="showPosition1&amp;&amp;!&quot;CRQ_COMPLETED&quot;.equals(&quot;${custRequest.statusId}&quot;)" widget-style="buttontext">
+        <field name="newTask" title=" " use-when="showPosition1&amp;&amp;!&quot;CRQ_COMPLETED&quot;.equals(&quot;${custRequest.statusId}&quot;)" widget-style="buttontext">
             <hyperlink target="NewUnplanBacklogTask" description="Add Task" link-type="hidden-form">
                 <parameter param-name="custRequestId"/>
                 <parameter param-name="productId"/>
@@ -3085,19 +3085,19 @@ under the License.
         <field name="partyId" title="${uiLabelMap.ScrumAssignedTo}" position="2" use-when="workEffortId!=null" >
             <display description="${partyList[0].lastName} ${partyList[0].firstName} ${partyList[0].middleName}"></display>
         </field>
-        <field name="editTaskParty" title="${uiLabelMap.CommonEmptyHeader}" position="2" use-when="workEffortId!=null&amp;&amp;!&quot;STS_COMPLETED&quot;.equals(currentStatusId)" widget-style="buttontext">
+        <field name="editTaskParty" title=" " position="2" use-when="workEffortId!=null&amp;&amp;!&quot;STS_COMPLETED&quot;.equals(currentStatusId)" widget-style="buttontext">
              <hyperlink target="EditTask" description="${uiLabelMap.CommonEdit}" link-type="hidden-form" target-window="_BLANK">
                 <parameter param-name="taskId" from-field="${workEffortId}"/>
             </hyperlink>
         </field>
-        <field name="deleteTaskButton" title="${uiLabelMap.CommonEmptyHeader}" position="2" use-when="workEffortId!=null&amp;&amp;!&quot;STS_COMPLETED&quot;.equals(currentStatusId)" widget-style="buttontext">
+        <field name="deleteTaskButton" title=" " position="2" use-when="workEffortId!=null&amp;&amp;!&quot;STS_COMPLETED&quot;.equals(currentStatusId)" widget-style="buttontext">
             <hyperlink target="DeleteTaskFromUnplanBacklog" description="Delete" confirmation-message="Are you sure to delete this task ?" link-type="hidden-form">
                 <parameter param-name="workEffortId" from-field="workEffortId"/>
                 <parameter param-name="custRequestId"/>
                 <parameter param-name="productId" from-field="parameters.productId"/>
             </hyperlink>
         </field>
-        <field name="setCompleteButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="workEffortId!=null&amp;&amp;!&quot;STS_COMPLETED&quot;.equals(currentStatusId)"
+        <field name="setCompleteButton" title=" " widget-style="buttontext" use-when="workEffortId!=null&amp;&amp;!&quot;STS_COMPLETED&quot;.equals(currentStatusId)"
          position="2">
             <hyperlink target="setCompleteFromUnplanBacklog" description="${uiLabelMap.ScrumSetComplete}" link-type="hidden-form">
                 <parameter param-name="workEffortId" from-field="workEffortId"/>
