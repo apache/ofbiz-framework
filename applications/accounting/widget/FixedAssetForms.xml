@@ -167,35 +167,6 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <!-- TO BE REMOVED
-    <form name="listFixedAssetCalendar" type="list" list-name="weeks" target="updateFixedAssetProductCalendar" default-table-style="calendar-table">
-        <field name="productId"><hidden value="${parameters.productId}"/></field>
-        <field name="week" title="${uiLabelMap.Common${month}} ${year}" widget-area-style="calendarWeek"><display description="${uiLabelMap.CommonWeek} ${week}"/></field>
-        <field name="Monday" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
-        <field name="MondayData" title="${uiLabelMap.CommonMonday}" widget-style="calendarContent"><display/></field>
-        <field name="Tuesday" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
-        <field name="TuesdayData" title="${uiLabelMap.CommonTuesday}" widget-style="calendarContent"><display/></field>
-        <field name="Wednesday" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
-        <field name="WednesdayData" title="${uiLabelMap.CommonWednesday}" widget-style="calendarContent"><display/></field>
-        <field name="Thursday" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
-        <field name="ThursdayData" title="${uiLabelMap.CommonThursday}" widget-style="calendarContent"><display/></field>
-        <field name="Friday" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
-        <field name="FridayData" title="${uiLabelMap.CommonFriday}" widget-style="calendarContent"><display/></field>
-        <field name="Saturday" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
-        <field name="SaturdayData" title="${uiLabelMap.CommonSaturday}" widget-style="calendarContent"><display/></field>
-        <field name="Sunday" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
-        <field name="SundayData" title="${uiLabelMap.CommonSunday}" widget-style="calendarContent"><display/></field>
-    </form>
-
-    <form name="updateFixedAssetCalendar" type="single"  target="updateFixedAssetCalendar" title="Update the fixed Asset calendar" default-map-name="fixedAssetCalendar"
-        header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-service service-name="updateFixedAssetCalendar" map-name="parameters"/>
-
-        <field name="fixedAssetId"><hidden/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-    </form>
-    -->
-
     <form name="WorkEffortSummary" type="single" default-map-name="workEffort"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="workEffortId"><display/></field>
