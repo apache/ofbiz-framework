@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="ListFacilities" type="list" list-name="facilities" paginate-target="main"
-             default-title-style="tableheadtext" default-widget-style="tabletext">
+             default-title-style="tableheadtext">
         <field name="facilityId" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${facilityId}" target="menu">
                 <parameter param-name="facilityId"/>
@@ -34,7 +34,7 @@ under the License.
 
     <!-- this form posts to "polinereceipt" (see controller.xml) -->
     <form name="POEnter" type="single" target="polinereceipt"
-            default-title-style="tableheadtext" default-widget-style="tabletext">
+            default-title-style="tableheadtext">
         <field name="facilityId"><hidden/></field>
         <field name="OrderId" title="${uiLabelMap.OrderPONumber}"><text size="10"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonNext}" widget-style="standardSubmit"><submit button-type="button"/></field>
@@ -42,7 +42,7 @@ under the License.
 
     <!-- this form posts to "productqtyreceipt" (see controller.xml) -->
     <form name="ProductEnter" type="single" target="productqtyreceipt"
-            default-title-style="tableheadtext" default-widget-style="tabletext">
+            default-title-style="tableheadtext">
         <field name="facilityId"><hidden/></field>
         <field name="productId"><text size="10" default-value=""/></field>
         <field name="submitButton" title="${uiLabelMap.CommonNext}" widget-style="standardSubmit"><submit button-type="button"/></field>
@@ -50,7 +50,7 @@ under the License.
 
     <!-- this form posts to "receiveproductqty" (see controller.xml) -->
     <form name="ProductQtyEnter" type="single" target="receiveproductqty"
-            default-title-style="tableheadtext" default-widget-style="tabletext">
+            default-title-style="tableheadtext">
         <field name="facilityId"><hidden/></field>
         <field name="productId"><hidden/></field>
         <field name="productId" entry-name="product.productId" ><display/></field>
@@ -62,14 +62,14 @@ under the License.
 
     <!-- this form posts to "findstocktake" (see controller.xml) -->
     <form name="FindProductStock" type="single" target="findstocktake"
-            default-title-style="tableheadtext" default-widget-style="tabletext">
+            default-title-style="tableheadtext">
         <field name="facilityId"><hidden/></field>
         <field name="idValue"><text size="10" default-value=""/></field>
         <field name="submitButton" title="${uiLabelMap.CommonNext}" widget-style="standardSubmit"><submit button-type="button"/></field>
     </form>
 
     <form name="ProductStocktake" type="single" target="updateproductstocktake"
-            default-title-style="tableheadtext" default-widget-style="tabletext">
+            default-title-style="tableheadtext">
         <field name="facilityId"><hidden/></field>
         <field name="productId"><display/></field>
         <field name="productName" entry-name="product.productName"><display/></field>

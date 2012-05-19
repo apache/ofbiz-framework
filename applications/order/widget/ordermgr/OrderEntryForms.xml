@@ -19,7 +19,7 @@ under the License.
 -->
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="FindRequirements" type="single" target="RequirementsForSupplier" title=""
-        default-title-style="tableheadtext" default-widget-style="tabletext">
+        default-title-style="tableheadtext">
         <field name="showList"><hidden value="Y"/></field>
         <field name="requirementId"><text-find/></field>
         <field name="partyId" title="${uiLabelMap.PartySupplier}"><lookup target-form-name="LookupPartyName"/></field>
@@ -28,7 +28,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="RequirementsList" type="multi" use-row-submit="true" target="addRequirementsToCart" title="" list-name="requirementsForSupplier"
-        default-title-style="tableheadtext" default-widget-style="tabletext"
+        default-title-style="tableheadtext"
         paginate-target="RequirementsForSupplier">
         <actions>
             <service service-name="prepareFind" result-map="resultConditions">
@@ -75,7 +75,7 @@ under the License.
         </field>
     </form>
     <form name="ListQuotes" list-name="listIt" target="" title="" type="list"
-        default-title-style="tableheadtext" default-widget-style="tabletext"
+        default-title-style="tableheadtext"
         paginate-target="FindQuoteForCart">
           <actions>
           <set field="entityName" value="Quote"/>
@@ -105,7 +105,7 @@ under the License.
         <field name="currencyUomId"><hidden/></field>
     </form>
     <form name="ViewShoppingLists" type="list" list-name="customershoppinglists" target=""
-        default-title-style="tableheadtext" default-widget-style="tabletext">
+        default-title-style="tableheadtext">
         <field name="listName" title="${uiLabelMap.PageTitleShoppingList}"><display/></field>
         <field name="shoppingListTypeId" title="${uiLabelMap.OrderListType}">
             <display-entity entity-name="ShoppingListType"/>
@@ -123,7 +123,7 @@ under the License.
         </field>
     </form>
     <form name="AddFromShoppingList" type="list" list-name="shoppinglistitems" target=""
-        default-title-style="tableheadtext" default-widget-style="tabletext">
+        default-title-style="tableheadtext">
         <auto-fields-entity entity-name="ShoppingListItem" default-field-type="display"/>
         <field name="productId" title="${uiLabelMap.ProductProduct}">
             <display-entity entity-name="Product" description="${productId} - ${description}"/>

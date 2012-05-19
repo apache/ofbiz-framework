@@ -685,7 +685,7 @@ under the License.
         <field map-name="subjectMap" name="subject"><text size="30"/></field>
     </form>
 
-    <form  name="ListPreferredContactMech" default-widget-style="tabletext" target="" title="" type="list"
+    <form  name="ListPreferredContactMech" target="" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="PartyAndContactMech">
