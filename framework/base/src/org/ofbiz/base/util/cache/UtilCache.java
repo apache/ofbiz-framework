@@ -289,6 +289,11 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
         return putIfAbsentInternal(key, value, expireTimeNanos);
     }
 
+    public V putIfAbsentAndGet(K key, V value) {
+        V cachedValue = putIfAbsent(key, value);
+        return (cachedValue != null? cachedValue: value);
+    }
+
     CacheLine<V> createSoftRefCacheLine(final Object key, V value, long loadTimeNanos, long expireTimeNanos) {
         return tryRegister(loadTimeNanos, new SoftRefCacheLine<V>(value, loadTimeNanos, expireTimeNanos) {
             @Override
