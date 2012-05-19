@@ -642,7 +642,7 @@ under the License.
                 <not><if-empty field="quote"/></not>
             </condition>
             <widgets>
-                <label text="${note}" style="tabletext"/>
+                <label text="${note}"/>
                 <include-screen name="ViewQuoteInfo"/>
                 <container style="clear"/>
                     <include-screen name="ViewQuoteItemInfo"/>

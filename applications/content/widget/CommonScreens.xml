@@ -392,7 +392,7 @@ under the License.
                 <decorator-screen name="main-decorator"  location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ContentMain}">
-                            <container><label style="tabletext" text="${uiLabelMap.ContentWelcome}"/></container>
+                            <container><label text="${uiLabelMap.ContentWelcome}"/></container>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
