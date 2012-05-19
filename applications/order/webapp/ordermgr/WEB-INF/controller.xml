@@ -1904,6 +1904,31 @@ under the License.
         <security auth="true" https="true"/>
         <response name="success" type="view" value="EditQuoteTermItem" save-last-view="true"/>
     </request-map>
+    
+    <!-- Split Shipment Requests -->
+    <request-map uri="splitship">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="splitship"/>
+    </request-map>
+    <request-map uri="updatesplit">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="assignItemShipGroup"/>
+        <response name="success" type="view" value="splitship"/>
+        <response name="error" type="view" value="splitship"/>
+    </request-map>
+    <request-map uri="updateShippingAddress">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="setCartShippingAddress"/>
+        <response name="success" type="view" value="splitship"/>
+        <response name="error" type="request" value="splitship"/>
+    </request-map>
+    <request-map uri="updateShippingOptions">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="setCartShippingOptions"/>
+        <response name="success" type="view" value="splitship"/>
+        <response name="error" type="request" value="splitship"/>
+    </request-map>
+
     <!--
         These are just examples of reports developed using JasperReport and not really
         useful reports. In order to run them you'll have to follow the notes in the
@@ -2113,5 +2138,7 @@ under the License.
     <view-map name="EditQuoteTerm" type="screen" page="component://order/widget/ordermgr/QuoteScreens.xml#EditQuoteTerm"/>
     <view-map name="EditQuoteTermItem" type="screen" page="component://order/widget/ordermgr/QuoteScreens.xml#EditQuoteTermItem"/>
     <view-map name="ListQuoteTerms" type="screen" page="component://order/widget/ordermgr/QuoteScreens.xml#ListQuoteTerms"/>
+
+    <view-map name="splitship" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#splitship"/>
     <!-- end of view mappings -->
 </site-conf>

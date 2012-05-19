@@ -1879,6 +1879,22 @@
         <value xml:lang="zh">已批准的产品需求</value>
         <value xml:lang="zh_TW">已批准的產品需求</value>
     </property>
+    <property key="OrderAssignItems">
+        <value xml:lang="da">Tildel emne</value>
+        <value xml:lang="en">Assign Items</value>
+        <value xml:lang="es">Asignar ítems</value>
+        <value xml:lang="fr">Affecter les articles</value>
+        <value xml:lang="it">Assegna articoli</value>
+        <value xml:lang="ja">Assign Items</value>
+        <value xml:lang="nl">Wijs items toe</value>
+        <value xml:lang="pt_BR">Atribuir itens</value>
+        <value xml:lang="ro">Atribuie Linii</value>
+        <value xml:lang="ru">Назначить позицию</value>
+        <value xml:lang="th">กำหนดรายการ</value>
+        <value xml:lang="vi">Các mục được nhượng lại</value>
+        <value xml:lang="zh">分配明细</value>
+        <value xml:lang="zh_TW">分配明細</value>
+    </property>
     <property key="OrderAssociatedProducts">
         <value xml:lang="de">Authentifizierungsservice</value>
         <value xml:lang="en">Associated Products</value>
@@ -13092,6 +13108,23 @@
         <value xml:lang="th">แสดงรายละเอียดของโปรโมชั่น</value>
         <value xml:lang="zh">显示促销详细信息</value>
         <value xml:lang="zh_TW">顯示促銷詳細資訊</value>
+    </property>
+    <property key="PageTitleSplitItemsForShipping">
+        <value xml:lang="da">Opdel varer til forsendelse</value>
+        <value xml:lang="de">Positionen aufteilen für Versand</value>
+        <value xml:lang="en">Split Items For Shipping</value>
+        <value xml:lang="es">Dividir Artículos para envío</value>
+        <value xml:lang="fr">Dissocier les articles lors de l'expédition</value>
+        <value xml:lang="it">Dividi gli articoli per spedizioni</value>
+        <value xml:lang="ja">Split Items For Shipping</value>
+        <value xml:lang="nl">Splits items op voor verzending</value>
+        <value xml:lang="pt_BR">Dividir itens em grupos para o envio</value>
+        <value xml:lang="ro">Divide linii pe expedieri </value>
+        <value xml:lang="ru">Разделить позиции для доставки</value>
+        <value xml:lang="th">แยกสินค้าเพื่อการขนส่ง</value>
+        <value xml:lang="vi">Phân chia danh mục sản phẩm để vận chuyển</value>
+        <value xml:lang="zh">为送货分拆明细</value>
+        <value xml:lang="zh_TW">為送貨分拆明細</value>
     </property>
     <property key="PageTitleViewRequest">
         <value xml:lang="de">Anfrage anzeigen</value>
