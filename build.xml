@@ -950,7 +950,6 @@ under the License.
         <arg value="test"/>
         <arg value="-component=${test.component}"/>
         <arg value="-case=${test.case}"/>
-
         <env key="LC_ALL" value="C"/>
       </java>
       <delete dir="runtime/logs/test-results/${test.component}-${test.case}"/>
