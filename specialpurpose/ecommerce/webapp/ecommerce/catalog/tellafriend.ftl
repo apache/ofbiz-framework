@@ -58,7 +58,7 @@ under the License.
         window.close();
         // -->
         </script>
-        <div class="tabletext">${uiLabelMap.EcommerceTellAFriendSorry}</div>
+        <div>${uiLabelMap.EcommerceTellAFriendSorry}</div>
       </#if>
     </form>
 </body>

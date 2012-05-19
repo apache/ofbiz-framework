@@ -35,27 +35,27 @@ under the License.
       <form method="post" action="<@ofbizUrl>login${previousParams}</@ofbizUrl>" name="loginform">
           <input type="hidden" name="requirePasswordChange" value="Y"/>
           <input type="hidden" name="USERNAME" value="${username}"/>
-          <div class="tabletext">
+          <div>
               ${uiLabelMap.CommonUsername}:&nbsp;${username}
           </div>
           <#if autoUserLogin?has_content>
-              <div class="tabletext">
+              <div>
                   (${uiLabelMap.CommonNot}&nbsp;${autoUserLogin.userLoginId}?&nbsp;<a href="<@ofbizUrl>${autoLogoutUrl}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClickHere}</a>)
               </div>
           </#if>
-          <div class="tabletext">
+          <div>
               ${uiLabelMap.CommonPassword}:&nbsp;
               <input type="password" class="inputBox" name="PASSWORD" value="" size="20"/>
           </div>
-          <div class="tabletext">
+          <div>
               ${uiLabelMap.CommonNewPassword}:&nbsp;
               <input type="password" class="inputBox" name="newPassword" value="" size="20"/>
           </div>
-          <div class="tabletext">
+          <div>
               ${uiLabelMap.CommonNewPasswordVerify}:&nbsp;
               <input type="password" class="inputBox" name="newPasswordVerify" value="" size="20"/>
           </div>
-          <div class="tabletext">
+          <div>
               <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonLogin}"/>
           </div>
       </form>

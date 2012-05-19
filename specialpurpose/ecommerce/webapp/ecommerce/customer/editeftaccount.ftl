@@ -34,35 +34,35 @@ under the License.
     <p/>
     <table width="90%" border="0" cellpadding="2" cellspacing="0">
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.AccountingNameOnAccount}</div></td>
+      <td width="26%" align="right" valign="top"><div>${uiLabelMap.AccountingNameOnAccount}</div></td>
       <td width="5">&nbsp;</td>
       <td width="74%">
         <input type="text" class="inputBox" size="30" maxlength="60" name="nameOnAccount" value="${eftAccountData.nameOnAccount?if_exists}" />
       *</td>
     </tr>
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.AccountingCompanyNameOnAccount}</div></td>
+      <td width="26%" align="right" valign="top"><div>${uiLabelMap.AccountingCompanyNameOnAccount}</div></td>
       <td width="5">&nbsp;</td>
       <td width="74%">
         <input type="text" class="inputBox" size="30" maxlength="60" name="companyNameOnAccount" value="${eftAccountData.companyNameOnAccount?if_exists}" />
       </td>
     </tr>
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.AccountingBankName}</div></td>
+      <td width="26%" align="right" valign="top"><div>${uiLabelMap.AccountingBankName}</div></td>
       <td width="5">&nbsp;</td>
       <td width="74%">
         <input type="text" class="inputBox" size="30" maxlength="60" name="bankName" value="${eftAccountData.bankName?if_exists}" />
       *</td>
     </tr>
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.AccountingRoutingNumber}</div></td>
+      <td width="26%" align="right" valign="top"><div>${uiLabelMap.AccountingRoutingNumber}</div></td>
       <td width="5">&nbsp;</td>
       <td width="74%">
         <input type="text" class="inputBox" size="10" maxlength="30" name="routingNumber" value="${eftAccountData.routingNumber?if_exists}" />
       *</td>
     </tr>
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.AccountingAccountType}</div></td>
+      <td width="26%" align="right" valign="top"><div>${uiLabelMap.AccountingAccountType}</div></td>
       <td width="5">&nbsp;</td>
       <td width="74%">
         <select name="accountType" class="selectBox">
@@ -74,14 +74,14 @@ under the License.
       *</td>
     </tr>
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.AccountingAccountNumber}</div></td>
+      <td width="26%" align="right" valign="top"><div>${uiLabelMap.AccountingAccountNumber}</div></td>
       <td width="5">&nbsp;</td>
       <td width="74%">
         <input type="text" class="inputBox" size="20" maxlength="40" name="accountNumber" value="${eftAccountData.accountNumber?if_exists}" />
       *</td>
     </tr>
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonDescription}</div></td>
+      <td width="26%" align="right" valign="top"><div>${uiLabelMap.CommonDescription}</div></td>
       <td width="5">&nbsp;</td>
       <td width="74%">
         <input type="text" class="inputBox" size="30" maxlength="60" name="description" value="${paymentMethodData.description?if_exists}" />
@@ -89,7 +89,7 @@ under the License.
     </tr>
 
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.PartyBillingAddress}</div></td>
+      <td width="26%" align="right" valign="top"><div>${uiLabelMap.PartyBillingAddress}</div></td>
       <td width="5">&nbsp;</td>
       <td width="74%">
         <#-- Removed because is confusing, can add but would have to come back here with all data populated as before...
@@ -103,17 +103,17 @@ under the License.
               <input type="radio" name="contactMechId" value="${curContactMechId}" checked="checked" />
             </td>
             <td valign="top" width="80%">
-              <div class="tabletext"><b>${uiLabelMap.PartyUseCurrentAddress}:</b></div>
+              <div><b>${uiLabelMap.PartyUseCurrentAddress}:</b></div>
               <#list curPartyContactMechPurposes as curPartyContactMechPurpose>
                 <#assign curContactMechPurposeType = curPartyContactMechPurpose.getRelatedOneCache("ContactMechPurposeType")>
-                <div class="tabletext">
+                <div>
                   <b>${curContactMechPurposeType.get("description",locale)?if_exists}</b>
                   <#if curPartyContactMechPurpose.thruDate?exists>
                     (${uiLabelMap.CommonExpire}:${curPartyContactMechPurpose.thruDate.toString()})
                   </#if>
                 </div>
               </#list>
-              <div class="tabletext">
+              <div>
                 <#if curPostalAddress.toName?exists><b>${uiLabelMap.CommonTo}:</b> ${curPostalAddress.toName}<br /></#if>
                 <#if curPostalAddress.attnName?exists><b>${uiLabelMap.PartyAddrAttnName}:</b> ${curPostalAddress.attnName}<br /></#if>
                 ${curPostalAddress.address1?if_exists}<br />
@@ -121,21 +121,21 @@ under the License.
                 ${curPostalAddress.city}<#if curPostalAddress.stateProvinceGeoId?has_content>,&nbsp;${curPostalAddress.stateProvinceGeoId}</#if>&nbsp;${curPostalAddress.postalCode}
                 <#if curPostalAddress.countryGeoId?exists><br />${curPostalAddress.countryGeoId}</#if>
               </div>
-              <div class="tabletext">(${uiLabelMap.CommonUpdated}:&nbsp;${(curPartyContactMech.fromDate.toString())?if_exists})</div>
-              <#if curPartyContactMech.thruDate?exists><div class="tabletext"><b>${uiLabelMap.CommonDelete}:&nbsp;${curPartyContactMech.thruDate.toString()}</b></div></#if>
+              <div>(${uiLabelMap.CommonUpdated}:&nbsp;${(curPartyContactMech.fromDate.toString())?if_exists})</div>
+              <#if curPartyContactMech.thruDate?exists><div><b>${uiLabelMap.CommonDelete}:&nbsp;${curPartyContactMech.thruDate.toString()}</b></div></#if>
             </td>
           </tr>
         <#else>
            <#-- <tr>
             <td valign="top" colspan="2">
-              <div class="tabletext">${uiLabelMap.PartyNoBillingAddress}</div>
+              <div>${uiLabelMap.PartyNoBillingAddress}</div>
             </td>
           </tr> -->
         </#if>
           <#-- is confusing
           <tr>
             <td valign="top" colspan="2">
-              <div class="tabletext"><b>${uiLabelMap.EcommerceMessage3}</b></div>
+              <div><b>${uiLabelMap.EcommerceMessage3}</b></div>
             </td>
           </tr>
           -->
@@ -151,12 +151,12 @@ under the License.
               <td valign="top" width="80%">
                 <#list partyContactMechPurposes as partyContactMechPurpose>
                     <#assign contactMechPurposeType = partyContactMechPurpose.getRelatedOneCache("ContactMechPurposeType")>
-                    <div class="tabletext">
+                    <div>
                       <b>${contactMechPurposeType.get("description",locale)?if_exists}</b>
                       <#if partyContactMechPurpose.thruDate?exists>(${uiLabelMap.CommonExpire}:${partyContactMechPurpose.thruDate})</#if>
                     </div>
                 </#list>
-                <div class="tabletext">
+                <div>
                   <#if postalAddress.toName?exists><b>${uiLabelMap.CommonTo}:</b> ${postalAddress.toName}<br /></#if>
                   <#if postalAddress.attnName?exists><b>${uiLabelMap.PartyAddrAttnName}:</b> ${postalAddress.attnName}<br /></#if>
                   ${postalAddress.address1?if_exists}<br />
@@ -164,13 +164,13 @@ under the License.
                   ${postalAddress.city}<#if postalAddress.stateProvinceGeoId?has_content>,&nbsp;${postalAddress.stateProvinceGeoId}</#if>&nbsp;${postalAddress.postalCode}
                   <#if postalAddress.countryGeoId?exists><br />${postalAddress.countryGeoId}</#if>
                 </div>
-                <div class="tabletext">(${uiLabelMap.CommonUpdated}:&nbsp;${(partyContactMech.fromDate.toString())?if_exists})</div>
-                <#if partyContactMech.thruDate?exists><div class="tabletext"><b>${uiLabelMap.CommonDelete}:&nbsp;${partyContactMech.thruDate.toString()}</b></div></#if>
+                <div>(${uiLabelMap.CommonUpdated}:&nbsp;${(partyContactMech.fromDate.toString())?if_exists})</div>
+                <#if partyContactMech.thruDate?exists><div><b>${uiLabelMap.CommonDelete}:&nbsp;${partyContactMech.thruDate.toString()}</b></div></#if>
               </td>
             </tr>
           </#list>
           <#if !postalAddressInfos?has_content && !curContactMech?exists>
-              <tr><td colspan="2"><div class="tabletext">${uiLabelMap.PartyNoContactInformation}.</div></td></tr>
+              <tr><td colspan="2"><div>${uiLabelMap.PartyNoContactInformation}.</div></td></tr>
           </#if>
         </table>
       </td>

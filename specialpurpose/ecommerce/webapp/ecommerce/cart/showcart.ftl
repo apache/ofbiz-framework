@@ -112,7 +112,7 @@ function setAlternateGwp(field) {
         ${uiLabelMap.CommonQuickAdd}
     </h2>
     <div>
-        <div class="tabletext">
+        <div>
             <form method="post" action="<@ofbizUrl>additem<#if requestAttributes._CURRENT_VIEW_?has_content>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" name="quickaddform">
                 <fieldset>
                 ${uiLabelMap.EcommerceProductNumber}<input type="text" class="inputBox" name="add_product_id" value="${requestParameters.add_product_id?if_exists}" />
@@ -186,12 +186,12 @@ function setAlternateGwp(field) {
                 <td>
                     <table>
                         <tr>
-                            <td class="tabletext">- ${uiLabelMap.EcommerceStartDate} -</td>
-                            <td class="tabletext">- ${uiLabelMap.EcommerceNbrOfDays} -</td>
+                            <td>- ${uiLabelMap.EcommerceStartDate} -</td>
+                            <td>- ${uiLabelMap.EcommerceNbrOfDays} -</td>
                         </tr>
                         <tr>
-                            <td class="tabletext" >- ${uiLabelMap.EcommerceNbrOfPersons} -</td>
-                            <td class="tabletext" >- ${uiLabelMap.CommonQuantity} -</td>
+                            <td >- ${uiLabelMap.EcommerceNbrOfPersons} -</td>
+                            <td >- ${uiLabelMap.CommonQuantity} -</td>
                         </tr>
                     </table>
                 </td>
@@ -297,7 +297,7 @@ function setAlternateGwp(field) {
                   <ul>
                   <#list cartLine.getAlternativeOptionProductIds() as alternativeOptionProductId>
                     <#assign alternativeOptionName = Static["org.ofbiz.product.product.ProductWorker"].getGwpAlternativeOptionName(delegator, alternativeOptionProductId, requestAttributes.locale) />
-                    <li class="tabletext"><a href="<@ofbizUrl>setDesiredAlternateGwpProductId?alternateGwpProductId=${alternativeOptionProductId}&alternateGwpLine=${cartLineIndex}</@ofbizUrl>" class="button">Select: ${alternativeOptionName?default(alternativeOptionProductId)}</a></li>
+                    <li><a href="<@ofbizUrl>setDesiredAlternateGwpProductId?alternateGwpProductId=${alternativeOptionProductId}&alternateGwpLine=${cartLineIndex}</@ofbizUrl>" class="button">Select: ${alternativeOptionName?default(alternativeOptionProductId)}</a></li>
                   </#list>
                   </ul>
                   -->
@@ -333,12 +333,12 @@ function setAlternateGwp(field) {
                             <table >
                                 <tr>
                                     <td>&nbsp;</td>
-                                    <td class="tabletext">${cartLine.getReservStart()?string("yyyy-mm-dd")}</td>
-                                    <td class="tabletext">${cartLine.getReservLength()?string.number}</td></tr>
+                                    <td>${cartLine.getReservStart()?string("yyyy-mm-dd")}</td>
+                                    <td>${cartLine.getReservLength()?string.number}</td></tr>
                                 <tr>
                                     <td>&nbsp;</td>
-                                    <td class="tabletext">${cartLine.getReservPersons()?string.number}</td>
-                                    <td class="tabletext">
+                                    <td>${cartLine.getReservPersons()?string.number}</td>
+                                    <td>
                         <#else>
                             <table >
                                 <tr>
@@ -347,15 +347,15 @@ function setAlternateGwp(field) {
                                 </tr>
                                 <tr>
                                     <td>--</td>
-                                    <td class="tabletext">    
+                                    <td>    
                         </#if>
                         ${cartLine.getQuantity()?string.number}</td></tr></table>
                     <#else><#-- fixedAssetExist -->
                         ${cartLine.getQuantity()?string.number}
                     </#if>
                 <#else><#-- Is Promo or Shoppinglist -->
-                       <#if fixedAssetExist == true><#if cartLine.getReservStart()?exists><table><tr><td>&nbsp;</td><td><input type="text" class="inputBox" size="10" name="reservStart_${cartLineIndex}" value=${cartLine.getReservStart()?string}/></td><td><input type="text" class="inputBox" size="2" name="reservLength_${cartLineIndex}" value="${cartLine.getReservLength()?string.number}"/></td></tr><tr><td>&nbsp;</td><td><input type="text" class="inputBox" size="3" name="reservPersons_${cartLineIndex}" value=${cartLine.getReservPersons()?string.number} /></td><td class="tabletext"><#else>
-                           <table><tr><td>--</td><td>--</td></tr><tr><td>--</td><td class="tabletext"></#if>
+                       <#if fixedAssetExist == true><#if cartLine.getReservStart()?exists><table><tr><td>&nbsp;</td><td><input type="text" class="inputBox" size="10" name="reservStart_${cartLineIndex}" value=${cartLine.getReservStart()?string}/></td><td><input type="text" class="inputBox" size="2" name="reservLength_${cartLineIndex}" value="${cartLine.getReservLength()?string.number}"/></td></tr><tr><td>&nbsp;</td><td><input type="text" class="inputBox" size="3" name="reservPersons_${cartLineIndex}" value=${cartLine.getReservPersons()?string.number} /></td><td><#else>
+                           <table><tr><td>--</td><td>--</td></tr><tr><td>--</td><td></#if>
                         <input size="6" class="inputBox" type="text" name="update_${cartLineIndex}" value="${cartLine.getQuantity()?string.number}" /></td></tr></table>
                     <#else><#-- fixedAssetExist -->
                         <input size="6" class="inputBox" type="text" name="update_${cartLineIndex}" value="${cartLine.getQuantity()?string.number}" />
@@ -468,7 +468,7 @@ function setAlternateGwp(field) {
         <h2>${uiLabelMap.ProductPromoCodes}</h2>
     </div>
     <div>
-        <div class="tabletext">
+        <div>
             <form method="post" action="<@ofbizUrl>addpromocode<#if requestAttributes._CURRENT_VIEW_?has_content>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" name="addpromocodeform">
                 <fieldset>
                 <input type="text" class="inputBox" size="15" name="productPromoCodeId" value="" />
@@ -497,10 +497,10 @@ function setAlternateGwp(field) {
         <#-- show promotions text -->
         <ul>
         <#list productPromos as productPromo>
-            <li class="tabletext"><a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromo.productPromoId}</@ofbizUrl>" class="linktext">[${uiLabelMap.CommonDetails}]</a>${StringUtil.wrapString(productPromo.promoText?if_exists)}</li>
+            <li><a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromo.productPromoId}</@ofbizUrl>" class="linktext">[${uiLabelMap.CommonDetails}]</a>${StringUtil.wrapString(productPromo.promoText?if_exists)}</li>
         </#list>
         </ul>
-        <div class="tabletext"><a href="<@ofbizUrl>showAllPromotions</@ofbizUrl>" class="button">${uiLabelMap.OrderViewAllPromotions}</a></div>
+        <div><a href="<@ofbizUrl>showAllPromotions</@ofbizUrl>" class="button">${uiLabelMap.OrderViewAllPromotions}</a></div>
     </div>
 </div>
 </#if>

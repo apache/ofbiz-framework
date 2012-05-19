@@ -38,10 +38,10 @@ under the License.
   <table>
     <tr>
       <td align="right" valign="middle">
-        <div class="tabletext">${uiLabelMap.ProductFeatures}:</div>
+        <div>${uiLabelMap.ProductFeatures}:</div>
       </td>
       <td align="right" valign="middle">
-        <div class="tabletext">
+        <div>
           ${uiLabelMap.CommonAll} <input type="radio" name="any_or_all" value="all" checked="checked" />
           ${uiLabelMap.CommonAny} <input type="radio" name="any_or_all" value="any" />
         </div>
@@ -53,10 +53,10 @@ under the License.
       <#assign productFeatures = productFeaturesByTypeMap[productFeatureTypeId]>
       <tr>
         <td align="right" valign="middle">
-          <div class="tabletext">${(productFeatureType.get("description",locale))?if_exists}:</div>
+          <div>${(productFeatureType.get("description",locale))?if_exists}:</div>
         </td>
         <td valign="middle">
-          <div class="tabletext">
+          <div>
             <select class="selectBox" name="pft_${productFeatureTypeId}">
               <option value="">- ${uiLabelMap.CommonSelectAny} -</option>
               <#list productFeatures as productFeature>
@@ -70,14 +70,14 @@ under the License.
     <#if searchConstraintStrings?has_content>
       <tr>
         <td align="right" valign="top">
-          <div class="tabletext">${uiLabelMap.ProductLastSearch}:</div>
+          <div>${uiLabelMap.ProductLastSearch}:</div>
         </td>
         <td valign="top">
             <#list searchConstraintStrings as searchConstraintString>
-                <div class="tabletext">&nbsp;-&nbsp;${searchConstraintString}</div>
+                <div>&nbsp;-&nbsp;${searchConstraintString}</div>
             </#list>
-            <div class="tabletext">${uiLabelMap.ProductSortedBy}: ${searchSortOrderString}</div>
-            <div class="tabletext">
+            <div>${uiLabelMap.ProductSortedBy}: ${searchSortOrderString}</div>
+            <div>
               ${uiLabelMap.ProductNewSearch}<input type="radio" name="clearSearch" value="Y" checked="checked" />
               ${uiLabelMap.CommonRefineSearch}<input type="radio" name="clearSearch" value="N" />
             </div>

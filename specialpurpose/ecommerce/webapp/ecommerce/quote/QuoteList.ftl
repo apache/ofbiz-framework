@@ -23,25 +23,25 @@ under the License.
         <table>
             <tr>
                 <td width="10%">
-                    <div class="tabletext"><span style="white-space: nowrap;">${uiLabelMap.OrderQuote} ${uiLabelMap.CommonNbr}</span></div>
+                    <div><span style="white-space: nowrap;">${uiLabelMap.OrderQuote} ${uiLabelMap.CommonNbr}</span></div>
                 </td>
                 <td width="10">&nbsp;</td>
                 <td width="20%">
-                    <div class="tabletext">${uiLabelMap.CommonName}</div>
+                    <div>${uiLabelMap.CommonName}</div>
                 </td>
                 <td width="10">&nbsp;</td>
                 <td width="40%">
-                    <div class="tabletext">${uiLabelMap.CommonDescription}</div>
+                    <div>${uiLabelMap.CommonDescription}</div>
                 </td>
                 <td width="10">&nbsp;</td>
                 <td width="10%">
-                    <div class="tabletext">${uiLabelMap.CommonStatus}</div>
+                    <div>${uiLabelMap.CommonStatus}</div>
                 </td>
                 <td width="10">&nbsp;</td>
                 <td width="20%">
-                    <div class="tabletext">${uiLabelMap.OrderOrderQuoteIssueDate}</div>
-                    <div class="tabletext">${uiLabelMap.CommonValidFromDate}</div>
-                    <div class="tabletext">${uiLabelMap.CommonValidThruDate}</div>
+                    <div>${uiLabelMap.OrderOrderQuoteIssueDate}</div>
+                    <div>${uiLabelMap.CommonValidFromDate}</div>
+                    <div>${uiLabelMap.CommonValidThruDate}</div>
                 </td>
                 <td width="10">&nbsp;</td>
                 <td width="10">&nbsp;</td>
@@ -51,25 +51,25 @@ under the License.
                 
                 <tr>
                     <td>
-                        <div class="tabletext">${quote.quoteId}</div>
+                        <div>${quote.quoteId}</div>
                     </td>
                     <td width="10">&nbsp;</td>
                     <td>
-                        <div class="tabletext">${quote.quoteName?if_exists}</div>
+                        <div>${quote.quoteName?if_exists}</div>
                     </td>
                     <td width="10">&nbsp;</td>
                     <td>
-                        <div class="tabletext">${quote.description?if_exists}</div>
+                        <div>${quote.description?if_exists}</div>
                     </td>
                     <td width="10">&nbsp;</td>
                     <td>
-                        <div class="tabletext">${status.get("description",locale)}</div>
+                        <div>${status.get("description",locale)}</div>
                     </td>
                     <td width="10">&nbsp;</td>
                     <td>
-                        <div class="tabletext"><span style="white-space: nowrap;">${quote.issueDate?if_exists}</span></div>
-                        <div class="tabletext"><span style="white-space: nowrap;">${quote.validFromDate?if_exists}</span></div>
-                        <div class="tabletext"><span style="white-space: nowrap;">${quote.validThruDate?if_exists}</span></div>
+                        <div><span style="white-space: nowrap;">${quote.issueDate?if_exists}</span></div>
+                        <div><span style="white-space: nowrap;">${quote.validFromDate?if_exists}</span></div>
+                        <div><span style="white-space: nowrap;">${quote.validThruDate?if_exists}</span></div>
                     </td>
                     <td width="10">&nbsp;</td>
                     <td align="right">

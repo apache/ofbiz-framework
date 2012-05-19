@@ -44,22 +44,22 @@ under the License.
 
     <table width="90%" border="0" cellpadding="2" cellspacing="0">
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.ProductProductName}</div></td>
+      <td width="26%" align="right" valign="top"><div>${uiLabelMap.ProductProductName}</div></td>
       <td width="5">&nbsp;</td>
       <td width="74%"><input type="text" class="inputBox" size="30" maxlength="60" name="productName" value="${(product.productName)?if_exists}"/>*</td>
     </tr>
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.ProductProductDescription}</div></td>
+      <td width="26%" align="right" valign="top"><div>${uiLabelMap.ProductProductDescription}</div></td>
       <td width="5">&nbsp;</td>
       <td width="74%"><input type="text" class="inputBox" size="30" maxlength="60" name="description" value="${(product.description)?if_exists}"/></td>
     </tr>
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.ProductPrice}</div></td>
+      <td width="26%" align="right" valign="top"><div>${uiLabelMap.ProductPrice}</div></td>
       <td width="5">&nbsp;</td>
       <td width="74%"><input type="text" class="inputBox" size="30" maxlength="60" name="price" value="${(productPrice.price)?if_exists}"/>*</td>
     </tr>
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">&nbsp;</div></td>
+      <td width="26%" align="right" valign="top"><div>&nbsp;</div></td>
       <td width="5">&nbsp;</td>
       <td width="74%"><a href="javascript:document.editdigitaluploadform.submit()" class="buttontext">${uiLabelMap.CommonSave}</a></td>
     </tr>
@@ -76,7 +76,7 @@ under the License.
     </div>
     <div class="screenlet-body">
         <#list productContentAndInfoList as productContentAndInfo>
-            <div class="tabletext">
+            <div>
               ${productContentAndInfo.contentName} (${uiLabelMap.CommonSince}: ${productContentAndInfo.fromDate})
               <a href="<@ofbizUrl>removeCustomerDigitalDownloadProductFile?contentId=${productContentAndInfo.contentId}&amp;productContentTypeId=${productContentAndInfo.productContentTypeId}&amp;fromDate=${productContentAndInfo.fromDate}&amp;productId=${parameters.productId}&amp;currencyUomId=${parameters.currencyUomId}&amp;minimumOrderQuantity=${parameters.minimumOrderQuantity}&amp;availableFromDate=${parameters.availableFromDate}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRemove}</a>
             </div>

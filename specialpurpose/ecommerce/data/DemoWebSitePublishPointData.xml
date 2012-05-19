@@ -67,8 +67,8 @@ under the License.
     <ElectronicText dataResourceId="STORE_POLICIES">
         <textData><![CDATA[
             <div class="head2">Store Policies</div>
-            <div class="tabletext">This is just a demo store, so you might not really like our policies. Here there are any way:</div>
-            <div class="tabletext">
+            <div>This is just a demo store, so you might not really like our policies. Here there are any way:</div>
+            <div>
                 <ol>
                     <li>If you send us money we'll keep it. So DON'T SEND US MONEY!</li>
                     <li>We will never fulfill anything you order here. In fact, we haven't even bothered to create any of these products. They are all just made up.</li>
@@ -84,8 +84,8 @@ under the License.
     <DataResource dataResourceId="STORE_POLICIES2" dataResourceTypeId="ELECTRONIC_TEXT" mimeTypeId="text/html" localeString="en_US" isPublic="Y" dataResourceName="Store Policies"/>
     <ElectronicText dataResourceId="STORE_POLICIES2">
         <textData><![CDATA[
-            <div class="tabletext">These next policies are meaningless, and are really just used to demonstrate having 2 content sections on the page:</div>
-            <div class="tabletext">
+            <div>These next policies are meaningless, and are really just used to demonstrate having 2 content sections on the page:</div>
+            <div>
                 <ol>
                     <li>Item 1</li>
                     <li>Item 2</li>

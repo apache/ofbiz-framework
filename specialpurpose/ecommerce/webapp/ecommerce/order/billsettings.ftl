@@ -36,7 +36,7 @@ function shipBillAddr() {
     <div class="screenlet-title-bar">
         <div class="boxlink">
             <#if requestParameters.singleUsePayment?default("N") != "Y">
-              <div class="tabletext">
+              <div>
                 ${screens.render(anonymoustrailScreen)}
               </div>
             </#if>
@@ -93,7 +93,7 @@ function shipBillAddr() {
                   <input type="checkbox" name="useShipAddr" value="Y" onclick="javascript:shipBillAddr();" <#if requestParameters.useShipAddr?exists>checked="checked"</#if> />
                 </td>
                 <td colspan="2" valign="center">
-                  <div class="tabletext">${uiLabelMap.FacilityBillingAddressSameShipping}</div>
+                  <div>${uiLabelMap.FacilityBillingAddressSameShipping}</div>
                 </td>
               </tr>
               <tr>
@@ -141,35 +141,35 @@ function shipBillAddr() {
                 <td width="74%">&nbsp;</td>
               </tr>
               <tr>
-                <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.AccountingNameOnAccount}</div></td>
+                <td width="26%" align="right" valign="middle"><div>${uiLabelMap.AccountingNameOnAccount}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
                   <input type="text" class="inputBox" size="30" maxlength="60" name="nameOnAccount" value="${eftAccount.nameOnAccount?if_exists}" />
                 *</td>
               </tr>
               <tr>
-                <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.AccountingCompanyNameOnAccount}</div></td>
+                <td width="26%" align="right" valign="middle"><div>${uiLabelMap.AccountingCompanyNameOnAccount}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
                   <input type="text" class="inputBox" size="30" maxlength="60" name="companyNameOnAccount" value="${eftAccount.companyNameOnAccount?if_exists}" />
                 </td>
               </tr>
               <tr>
-                <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.AccountingBankName}</div></td>
+                <td width="26%" align="right" valign="middle"><div>${uiLabelMap.AccountingBankName}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
                   <input type="text" class="inputBox" size="30" maxlength="60" name="bankName" value="${eftAccount.bankName?if_exists}" />
                 *</td>
               </tr>
               <tr>
-                <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.AccountingRoutingNumber}</div></td>
+                <td width="26%" align="right" valign="middle"><div>${uiLabelMap.AccountingRoutingNumber}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
                   <input type="text" class="inputBox" size="10" maxlength="30" name="routingNumber" value="${eftAccount.routingNumber?if_exists}" />
                 *</td>
               </tr>
               <tr>
-                <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.AccountingAccountType}</div></td>
+                <td width="26%" align="right" valign="middle"><div>${uiLabelMap.AccountingAccountType}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
                   <select name="accountType" class='selectBox'>
@@ -181,14 +181,14 @@ function shipBillAddr() {
                 *</td>
               </tr>
               <tr>
-                <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.AccountingAccountNumber}</div></td>
+                <td width="26%" align="right" valign="middle"><div>${uiLabelMap.AccountingAccountNumber}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
                   <input type="text" class="inputBox" size="20" maxlength="40" name="accountNumber" value="${eftAccount.accountNumber?if_exists}" />
                 *</td>
               </tr>
               <tr>
-                <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.CommonDescription}</div></td>
+                <td width="26%" align="right" valign="middle"><div>${uiLabelMap.CommonDescription}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
                   <input type="text" class="inputBox" size="30" maxlength="60" name="description" value="${eftAccount.description?if_exists}" />
@@ -211,21 +211,21 @@ function shipBillAddr() {
                 <td width="74%">&nbsp;</td>
               </tr>
               <tr>
-                <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.AccountingGiftCardNumber}</div></td>
+                <td width="26%" align="right" valign="middle"><div>${uiLabelMap.AccountingGiftCardNumber}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
                   <input type="text" class="inputBox" size="20" maxlength="60" name="giftCardNumber" value="${giftCard.cardNumber?if_exists}" />
                 *</td>
               </tr>
               <tr>
-                <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.AccountingPINNumber}</div></td>
+                <td width="26%" align="right" valign="middle"><div>${uiLabelMap.AccountingPINNumber}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
                   <input type="text" class="inputBox" size="10" maxlength="60" name="giftCardPin" value="${giftCard.pinNumber?if_exists}" />
                 *</td>
               </tr>
               <tr>
-                <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.CommonDescription}</div></td>
+                <td width="26%" align="right" valign="middle"><div>${uiLabelMap.CommonDescription}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
                   <input type="text" class="inputBox" size="30" maxlength="60" name="description" value="${giftCard.description?if_exists}" />
@@ -233,7 +233,7 @@ function shipBillAddr() {
               </tr>
               <#if paymentMethodType != "GC">
                 <tr>
-                  <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.AccountingAmountToUse}</div></td>
+                  <td width="26%" align="right" valign="middle"><div>${uiLabelMap.AccountingAmountToUse}</div></td>
                   <td width="5">&nbsp;</td>
                   <td width="74%">
                     <input type="text" class="inputBox" size="5" maxlength="10" name="giftCardAmount" value="${giftCard.pinNumber?if_exists}" />
@@ -257,28 +257,28 @@ function shipBillAddr() {
               <#if productStorePaymentMethodTypeIdMap.GIFT_CARD?exists>
               <tr>
                 <td width='5%' nowrap="nowrap"><input type="checkbox" name="useGc" value="GC" <#if paymentMethodType?exists && paymentMethodType == "GC">checked="checked"</#if> /></td>
-                <td width='95%' nowrap="nowrap"><div class="tabletext">${uiLabelMap.AccountingCheckGiftCard}</div></td>
+                <td width='95%' nowrap="nowrap"><div>${uiLabelMap.AccountingCheckGiftCard}</div></td>
               </tr>
               <tr><td colspan="2"><hr /></td></tr>
               </#if>
               <#if productStorePaymentMethodTypeIdMap.EXT_OFFLINE?exists>
               <tr>
                 <td width='5%' nowrap="nowrap"><input type="radio" name="paymentMethodType" value="offline" <#if paymentMethodType?exists && paymentMethodType == "offline">checked="checked"</#if> /></td>
-                <td width='95%'nowrap="nowrap"><div class="tabletext">${uiLabelMap.OrderPaymentOfflineCheckMoney}</div></td>
+                <td width='95%'nowrap="nowrap"><div>${uiLabelMap.OrderPaymentOfflineCheckMoney}</div></td>
               </tr>
               <tr><td colspan="2"><hr /></td></tr>
               </#if>
               <#if productStorePaymentMethodTypeIdMap.CREDIT_CARD?exists>
               <tr>
                 <td width='5%' nowrap="nowrap"><input type="radio" name="paymentMethodType" value="CC" <#if paymentMethodType?exists && paymentMethodType == "CC">checked="checked"</#if> /></td>
-                <td width='95%' nowrap="nowrap"><div class="tabletext">${uiLabelMap.AccountingVisaMastercardAmexDiscover}</div></td>
+                <td width='95%' nowrap="nowrap"><div>${uiLabelMap.AccountingVisaMastercardAmexDiscover}</div></td>
               </tr>
               <tr><td colspan="2"><hr /></td></tr>
               </#if>
               <#if productStorePaymentMethodTypeIdMap.EFT_ACCOUNT?exists>
               <tr>
                 <td width='5%' nowrap="nowrap"><input type="radio" name="paymentMethodType" value="EFT" <#if paymentMethodType?exists && paymentMethodType == "EFT">checked="checked"</#if> /></td>
-                <td width='95%' nowrap="nowrap"><div class="tabletext">${uiLabelMap.AccountingAHCElectronicCheck}</div></td>
+                <td width='95%' nowrap="nowrap"><div>${uiLabelMap.AccountingAHCElectronicCheck}</div></td>
               </tr>
               </#if>
               <tr>

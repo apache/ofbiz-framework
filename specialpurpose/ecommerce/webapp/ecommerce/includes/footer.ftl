@@ -26,13 +26,13 @@ under the License.
         <a href="http://validator.w3.org/check?uri=referer"><img style="border:0;width:88px;height:31px" src="<@ofbizContentUrl>/images/valid-xhtml10.png</@ofbizContentUrl>" alt="Valid XHTML 1.0!"/></a>
       </div>
       <br />
-      <div class="tabletext">
+      <div>
         <a href="http://ofbiz.apache.org">${uiLabelMap.EcommerceAboutUs}</a>
-        <div class="tabletext">Copyright (c) 2001-${nowTimestamp?string("yyyy")} The Apache Software Foundation - <a href="http://www.apache.org" class="tabletext">www.apache.org</a></div>
-        <div class="tabletext">Powered by <a href="http://ofbiz.apache.org" class="tabletext">Apache OFBiz</a></div>
+        <div>Copyright (c) 2001-${nowTimestamp?string("yyyy")} The Apache Software Foundation - <a href="http://www.apache.org">www.apache.org</a></div>
+        <div>Powered by <a href="http://ofbiz.apache.org">Apache OFBiz</a></div>
         
       </div>
       <br />
-      <div class="tabletext"><a href="<@ofbizUrl>policies</@ofbizUrl>">${uiLabelMap.EcommerceSeeStorePoliciesHere}</a></div>
+      <div><a href="<@ofbizUrl>policies</@ofbizUrl>">${uiLabelMap.EcommerceSeeStorePoliciesHere}</a></div>
   </div>
 

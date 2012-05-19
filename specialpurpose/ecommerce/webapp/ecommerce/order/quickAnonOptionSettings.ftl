@@ -76,7 +76,7 @@ function onClickShippingMethod(e) {
             <#list carrierShipmentMethodList as carrierShipmentMethod>
             <tr>
                 <td>
-                    <div class="tabletext">
+                    <div>
                          <#assign shippingMethod = carrierShipmentMethod.shipmentMethodTypeId + "@" + carrierShipmentMethod.partyId>
                          <input type="radio" onclick="return onClickShippingMethod(event)" name="shipping_method" value="${shippingMethod}" <#if shippingMethod == chosenShippingMethod?default("N@A")>checked="checked"</#if>/>
                          <#if shoppingCart.getShippingContactMechId()?exists>
@@ -91,7 +91,7 @@ function onClickShippingMethod(e) {
             <#if !carrierShipmentMethodList?exists || carrierShipmentMethodList?size == 0>
             <tr>
               <td width="1%" valign="top">
-                <div class="tabletext"><input type="radio"  onclick="return onClickShippingMethod(event)" name="shipping_method" value="Default" checked="checked"/>${uiLabelMap.OrderUseDefault}.</div>
+                <div><input type="radio"  onclick="return onClickShippingMethod(event)" name="shipping_method" value="Default" checked="checked"/>${uiLabelMap.OrderUseDefault}.</div>
               </td>
             </tr>
             </#if>
@@ -149,7 +149,7 @@ function onClickShippingMethod(e) {
         <td valign="top" colspan="2">
             <div>
                 <input type='radio' <#if shoppingCart.getMaySplit()?default("N") == "N">checked="checked"</#if> name='may_split' value='false'/>
-                <span class="tabletext">${uiLabelMap.OrderPleaseWaitUntilBeforeShipping}.</span>
+                <span>${uiLabelMap.OrderPleaseWaitUntilBeforeShipping}.</span>
             </div>
         </td>
     </tr>
@@ -157,7 +157,7 @@ function onClickShippingMethod(e) {
         <td valign="top"  colspan="2">
             <div>
                 <input <#if shoppingCart.getMaySplit()?default("N") == "Y">checked="checked"</#if> type='radio' name='may_split' value='true'/>
-                <span class="tabletext">${uiLabelMap.OrderPleaseShipItemsBecomeAvailable}.</span>
+                <span>${uiLabelMap.OrderPleaseShipItemsBecomeAvailable}.</span>
             </div>
         </td>
     </tr>

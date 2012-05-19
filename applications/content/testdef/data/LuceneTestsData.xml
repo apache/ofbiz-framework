@@ -22,7 +22,7 @@ under the License.
     <DataResource dataResourceId="CNTGIZMOSLRG" dataResourceTypeId="ELECTRONIC_TEXT" mimeTypeId="text/html" localeString="en_US" isPublic="Y" dataResourceName="Large Gizmos"/>
     <ElectronicText dataResourceId="CNTGIZMOSLRG">
         <textData><![CDATA[
-            <div class="tabletext">
+            <div>
                 <ol>
                     <li>Large Gizmos are for those who loves them large!</li>
                     <li>A lot of them and more to come</li>
@@ -33,7 +33,7 @@ under the License.
     <DataResource dataResourceId="CNTGIZMOSSML" dataResourceTypeId="ELECTRONIC_TEXT" mimeTypeId="text/html" localeString="en_US" isPublic="Y" dataResourceName="Small Gizmos"/>
     <ElectronicText dataResourceId="CNTGIZMOSSML">
         <textData><![CDATA[
-            <div class="tabletext">
+            <div>
                 <ol>
                     <li>Not only for children</li>
                     <li>Just need to be able to hold it in your hand</li>
@@ -44,7 +44,7 @@ under the License.
     <DataResource dataResourceId="GIZMOSLRG" dataResourceTypeId="ELECTRONIC_TEXT" mimeTypeId="text/html" localeString="en_US" isPublic="Y" dataResourceName="Advocacy"/>
     <ElectronicText dataResourceId="GIZMOSLRG">
         <textData><![CDATA[
-            <div class="tabletext">
+            <div>
                 <ol>
                     <li>Gizmos are the best ones</li>
                     <li>Don't use widgets, use gizmos !</li>

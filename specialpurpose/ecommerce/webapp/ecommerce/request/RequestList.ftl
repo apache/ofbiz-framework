@@ -23,29 +23,29 @@ under the License.
         <table>
             <tr>
                 <td width="10%">
-                    <div class="tabletext"><span style="white-space: nowrap;">${uiLabelMap.OrderRequest} ${uiLabelMap.CommonNbr}</span></div>
+                    <div><span style="white-space: nowrap;">${uiLabelMap.OrderRequest} ${uiLabelMap.CommonNbr}</span></div>
                 </td>
                 <td width="10">&nbsp;</td>
                 <td width="10%">
-                    <div class="tabletext"><span style="white-space: nowrap;">${uiLabelMap.CommonType}</span></div>
+                    <div><span style="white-space: nowrap;">${uiLabelMap.CommonType}</span></div>
                 </td>
                 <td width="10">&nbsp;</td>
                 <td width="20%">
-                    <div class="tabletext">${uiLabelMap.CommonName}</div>
+                    <div>${uiLabelMap.CommonName}</div>
                 </td>
                 <td width="10">&nbsp;</td>
                 <td width="40%">
-                    <div class="tabletext">${uiLabelMap.CommonDescription}</div>
+                    <div>${uiLabelMap.CommonDescription}</div>
                 </td>
                 <td width="10">&nbsp;</td>
                 <td width="10%">
-                    <div class="tabletext">${uiLabelMap.CommonStatus}</div>
+                    <div>${uiLabelMap.CommonStatus}</div>
                 </td>
                 <td width="10">&nbsp;</td>
                 <td width="20%">
-                    <div class="tabletext">${uiLabelMap.OrderRequestDate}</div>
-                    <div class="tabletext">${uiLabelMap.OrderRequestCreatedDate}</div>
-                    <div class="tabletext">${uiLabelMap.OrderRequestLastModifiedDate}</div>
+                    <div>${uiLabelMap.OrderRequestDate}</div>
+                    <div>${uiLabelMap.OrderRequestCreatedDate}</div>
+                    <div>${uiLabelMap.OrderRequestLastModifiedDate}</div>
                 </td>
                 <td width="10">&nbsp;</td>
                 <td width="10">&nbsp;</td>
@@ -56,29 +56,29 @@ under the License.
                 
                 <tr>
                     <td>
-                        <div class="tabletext">${custRequest.custRequestId}</div>
+                        <div>${custRequest.custRequestId}</div>
                     </td>
                     <td width="10">&nbsp;</td>
                     <td>
-                        <div class="tabletext">${type.get("description",locale)?if_exists}</div>
+                        <div>${type.get("description",locale)?if_exists}</div>
                     </td>
                     <td width="10">&nbsp;</td>
                     <td>
-                        <div class="tabletext">${custRequest.custRequestName?if_exists}</div>
+                        <div>${custRequest.custRequestName?if_exists}</div>
                     </td>
                     <td width="10">&nbsp;</td>
                     <td>
-                        <div class="tabletext">${custRequest.description?if_exists}</div>
+                        <div>${custRequest.description?if_exists}</div>
                     </td>
                     <td width="10">&nbsp;</td>
                     <td>
-                        <div class="tabletext">${status.get("description",locale)}</div>
+                        <div>${status.get("description",locale)}</div>
                     </td>
                     <td width="10">&nbsp;</td>
                     <td>
-                        <div class="tabletext"><span style="white-space: nowrap;">${custRequest.custRequestDate?if_exists}</span></div>
-                        <div class="tabletext"><span style="white-space: nowrap;">${custRequest.createdDate?if_exists}</span></div>
-                        <div class="tabletext"><span style="white-space: nowrap;">${custRequest.lastModifiedDate?if_exists}</span></div>
+                        <div><span style="white-space: nowrap;">${custRequest.custRequestDate?if_exists}</span></div>
+                        <div><span style="white-space: nowrap;">${custRequest.createdDate?if_exists}</span></div>
+                        <div><span style="white-space: nowrap;">${custRequest.lastModifiedDate?if_exists}</span></div>
                     </td>
                     <td width="10">&nbsp;</td>
                     <td align="right">

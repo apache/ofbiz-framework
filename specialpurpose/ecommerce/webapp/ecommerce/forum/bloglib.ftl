@@ -52,7 +52,7 @@ under the License.
   <tr>
     <td width="40px">&nbsp;</td>
     <td class="blogtext" >
-      <div class="tabletext">
+      <div>
         by:<#if authorName?has_content>${authorName?if_exists}
         <#else>
         <#if content?has_content>${content.createdByUserLogin?if_exists}</#if>
@@ -69,7 +69,7 @@ under the License.
         </#if>
       </div>
     </td>
-    <td class="tabletext" >
+    <td >
         <#if content?has_content>${content.contentName?if_exists}</#if>
         --
         <#if content?has_content>${content.description?if_exists}</#if>
@@ -89,7 +89,7 @@ under the License.
 
 
 <#if sz == 0 >
-  <tr><td class="tabletext" align="center">${uiLabelMap.CommonNoRecordFound}</td></tr>
+  <tr><td align="center">${uiLabelMap.CommonNoRecordFound}</td></tr>
 </#if>
 <@wrapSubContentCache subContentId=contentIdx wrapTemplateId=stdWrapId contentPurposeList="ARTICLE">
 </@wrapSubContentCache>
@@ -106,7 +106,7 @@ under the License.
 </td></tr>
 </@checkPermission>
 <@checkPermission mode="not-equals" entityOperation="_CREATE" subContentId=contentDept statusId="CTNT_PUBLISHED" targetOperation=targOp contentPurposeList="ARTICLE" quickCheckContentId=contentIdx>
-<tr><td class="tabletext" align="right">
+<tr><td align="right">
 ${uiLabelMap.EcommerceLoggedToPost}
 </td></tr>
 </@checkPermission>
@@ -124,7 +124,7 @@ ${uiLabelMap.EcommerceLoggedToPost}
     <#local csv = "">
     <#local counter = 0>
     <#local len = trail?size>
-    <table border="0" class="tabletext" cellspacing="4">
+    <table border="0" cellspacing="4">
     <#list trail as content>
       <#if counter < (len - endIndexOffset) && startIndex <= counter >
         <#if 0 < counter >

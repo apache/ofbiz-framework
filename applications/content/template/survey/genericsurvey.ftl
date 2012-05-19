@@ -18,17 +18,17 @@ under the License.
 -->
 
 <#macro renderSurveyQuestionText surveyQuestionAndAppl>
-  <div class="tabletext">${surveyQuestionAndAppl.question?if_exists}</div>
+  <div>${surveyQuestionAndAppl.question?if_exists}</div>
   <#if surveyQuestionAndAppl.hint?has_content>
-    <div class="tabletext">${surveyQuestionAndAppl.hint}</div>
+    <div>${surveyQuestionAndAppl.hint}</div>
   </#if>
 </#macro>
 
 <#macro renderSurveyQuestionRequired surveyQuestionAndAppl>
   <#if surveyQuestionAndAppl.requiredField?default("N") == "Y">
-    <span class="tabletext">*[required]</span>
+    <span>*[required]</span>
   <#else/>
-    <span class="tabletext">[optional]</span>
+    <span>[optional]</span>
   </#if>
 </#macro>
 
@@ -136,7 +136,7 @@ under the License.
       ${screens.render("component://common/widget/CommonScreens.xml#countries")}
     </select>
   <#else/>
-    <div class="tabletext">Unsupported question type : ${surveyQuestionAndAppl.surveyQuestionTypeId}</div>
+    <div>Unsupported question type : ${surveyQuestionAndAppl.surveyQuestionTypeId}</div>
   </#if>
 </#macro>
 
@@ -163,7 +163,7 @@ under the License.
 <br />
 
 <#if survey.comments?has_content>
-<div class="tabletext">${survey.comments}</div>
+<div>${survey.comments}</div>
 <br />
 </#if>
 
@@ -271,7 +271,7 @@ under the License.
     <#if surveyQuestionAndAppl?exists && surveyQuestionAndAppl.surveyQuestionTypeId?has_content>
       <#-- seperator options -->
       <#if surveyQuestionAndAppl.surveyQuestionTypeId == "SEPERATOR_TEXT">
-        <td colspan="5"><div class="tabletext">${surveyQuestionAndAppl.question?if_exists}</div></td>
+        <td colspan="5"><div>${surveyQuestionAndAppl.question?if_exists}</div></td>
       <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "SEPERATOR_LINE"/>
         <td colspan="5"><hr /></td>
       <#else/>
