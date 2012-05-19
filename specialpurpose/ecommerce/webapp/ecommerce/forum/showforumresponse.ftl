@@ -91,7 +91,7 @@ under the License.
         </#if>
         <#if content?exists>
   <tr>
-  <td class="tabletext">
+  <td>
         ${indentFill}
         <a class="tabButton" href="<@ofbizUrl>ViewBlog?contentId=${thisContentId}&amp;nodeTrailCsv=${nodeTrailCsv?if_exists}</@ofbizUrl>" >${uiLabelMap.CommonView}</a>
                      ${content.contentId?if_exists}-${content.description?if_exists}<br />
@@ -142,7 +142,7 @@ ${uiLabelMap.CommonDescription}[${currentValue.contentId?if_exists}]:${descripti
     <#assign csv = "">
     <#assign counter = 0>
     <#assign len = trail?size>
-    <table border="0" class="tabletext" cellspacing="4">
+    <table border="0" cellspacing="4">
     <#list trail as webSitePublishPoint>
         <#if counter < len && startIndex <= counter >
        <tr>

@@ -41,13 +41,13 @@ under the License.
                 ${uiLabelMap.CommonTitle}: ${result.resultData.content.description?if_exists} ${uiLabelMap.CommonBy}:${result.resultData.content.createdByUserLogin} ${uiLabelMap.CommonAt}: ${result.resultData.content.createdDate.toString().substring(0,16)}
                 <a href="addForumMessage?forumId=${parameters.forumId}&amp;forumMessageIdTo=${result.resultData.content.contentId}&amp;threadView=${parameters.threadView?if_exists}" class="buttontext">${uiLabelMap.PartyReply}</a>
             </div>
-            <div class="tabletext">
+            <div>
                 <#if result.resultData.electronicText?exists>
                     ${result.resultData.electronicText.textData}
                 </#if>
             </div>
             <hr />
           <#else>
-              <div class="tabletext"> ${result.errorMessage?if_exists}</div>
+              <div> ${result.errorMessage?if_exists}</div>
         </#if>
         -->

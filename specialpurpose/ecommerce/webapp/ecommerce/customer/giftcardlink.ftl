@@ -19,7 +19,7 @@ under the License.
 
 <h1>${uiLabelMap.AccountingGiftCardLink}</h1>
 <br />
-<div class="tabletext">${uiLabelMap.AccountingEnterGiftCardLink}.</div>
+<div>${uiLabelMap.AccountingEnterGiftCardLink}.</div>
 <br />
 
 <form name="gclink" method="post" action="<@ofbizUrl>linkgiftcard</@ofbizUrl>">
@@ -34,11 +34,11 @@ under the License.
       </td>
     </tr>
     <tr>
-      <td><div class="tabletext">${uiLabelMap.AccountingCardNumber}</div></td>
+      <td><div>${uiLabelMap.AccountingCardNumber}</div></td>
       <td><input type="text" class="inputBox" name="physicalCard" size="20" /></td>
     </tr>
     <tr>
-      <td><div class="tabletext">${uiLabelMap.AccountingPINNumber}</div></td>
+      <td><div>${uiLabelMap.AccountingPINNumber}</div></td>
       <td><input type="text" class="inputBox" name="physicalPin" size="20" /></td>
     </tr>
     <tr>
@@ -50,11 +50,11 @@ under the License.
       </td>
     </tr>
     <tr>
-      <td><div class="tabletext">${uiLabelMap.AccountingCardNumber}</div></td>
+      <td><div>${uiLabelMap.AccountingCardNumber}</div></td>
       <td><input type="text" class="inputBox" name="virtualCard" size="20" /></td>
     </tr>
     <tr>
-      <td><div class="tabletext">${uiLabelMap.AccountingPINNumber}</div></td>
+      <td><div>${uiLabelMap.AccountingPINNumber}</div></td>
       <td><input type="text" class="inputBox" name="virtualPin" size="20" /></td>
     </tr>
     <tr>

@@ -184,8 +184,8 @@ under the License.
                             <td colspan="2">
                                 <div>
                                     <span class="h2"><b>${uiLabelMap.OrderIsThisGift}</b></span>
-                                    <input type="radio" <#if cart.getIsGift(shipGroupIndex)?default('Y') == 'Y'>checked="checked"</#if> name="${shipGroupIndex?default('0')}_is_gift" value="true" /><span class="tabletext">${uiLabelMap.CommonYes}</span>
-                                    <input type="radio" <#if cart.getIsGift(shipGroupIndex)?default('N') == 'N'>checked="checked"</#if> name="${shipGroupIndex?default('0')}_is_gift" value="false" /><span class="tabletext">${uiLabelMap.CommonNo}</span>
+                                    <input type="radio" <#if cart.getIsGift(shipGroupIndex)?default('Y') == 'Y'>checked="checked"</#if> name="${shipGroupIndex?default('0')}_is_gift" value="true" /><span>${uiLabelMap.CommonYes}</span>
+                                    <input type="radio" <#if cart.getIsGift(shipGroupIndex)?default('N') == 'N'>checked="checked"</#if> name="${shipGroupIndex?default('0')}_is_gift" value="false" /><span>${uiLabelMap.CommonNo}</span>
                                 </div>
                             </td>
                         </tr>

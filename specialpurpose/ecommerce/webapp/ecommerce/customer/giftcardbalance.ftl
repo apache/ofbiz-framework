@@ -19,7 +19,7 @@ under the License.
 
 <h1>${uiLabelMap.AccountingGiftCardBalance}</h1>
 <br />
-<div class="tabletext">${uiLabelMap.AccountingEnterGiftCardNumber}</div>
+<div>${uiLabelMap.AccountingEnterGiftCardNumber}</div>
 <br />
 
 <br />
@@ -27,7 +27,7 @@ under the License.
   <#if requestAttributes.processResult?exists>
     <tr>
       <td colspan="2">
-        <div align="center" class="tabletext">
+        <div align="center">
           ${uiLabelMap.AccountingCurrentBalance}
         </div>
       </td>

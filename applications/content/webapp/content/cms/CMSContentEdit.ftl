@@ -324,7 +324,7 @@ ${menuWrapper.renderMenuString()}
             <#local plusMinus="-"/>
             ${plusMinus} ${content.contentName?if_exists}
          </td >
-         <td  class="tabletext" >
+         <td  >
             <input type="checkbox" name="publish_o_${rowCount}" value="Y" ${isPublished}/>
          </td >
             <input type="hidden" name="contentIdTo_o_${rowCount}" value="${subContentId}" />

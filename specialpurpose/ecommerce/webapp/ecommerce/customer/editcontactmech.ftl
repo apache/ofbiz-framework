@@ -54,7 +54,7 @@ under the License.
         <div>
           <input type='hidden' name='contactMechTypeId' value='${contactMechTypeId}' />
           <#if contactMechPurposeType?exists>
-            <div class="tabletext">(${uiLabelMap.PartyNewContactHavePurpose} "${contactMechPurposeType.get("description",locale)?if_exists}")</div>
+            <div>(${uiLabelMap.PartyNewContactHavePurpose} "${contactMechPurposeType.get("description",locale)?if_exists}")</div>
           </#if>
           <#if cmNewPurposeTypeId?has_content><input type='hidden' name='contactMechPurposeTypeId' value='${cmNewPurposeTypeId}' /></#if>
           <#if preContactMechTypeId?has_content><input type='hidden' name='preContactMechTypeId' value='${preContactMechTypeId}' /></#if>

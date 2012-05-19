@@ -37,7 +37,7 @@ under the License.
         <#if (results._total?default(0) == 1)>
            <#assign answerString = "answer">
         </#if>
-        <div class="tabletext">${surveyQuestionAndAppl.question?if_exists} (${results._total?default(0)?string.number} ${answerString})</div>
+        <div>${surveyQuestionAndAppl.question?if_exists} (${results._total?default(0)?string.number} ${answerString})</div>
       </td>
     </tr>
 
@@ -49,10 +49,10 @@ under the License.
       <td>
         <#if surveyQuestionAndAppl.surveyQuestionTypeId == "BOOLEAN">
           <#assign selectedOption = (answer.booleanResponse)?default("Y")>
-          <div class="tabletext"><span style="white-space: nowrap;">
+          <div><span style="white-space: nowrap;">
             <#if "Y" == selectedOption><b>==>&nbsp;<font color="red"></#if>${uiLabelMap.CommonY}<#if "Y" == selectedOption></font></b></#if>&nbsp;[${results._yes_total?default(0)?string("#")} / ${results._yes_percent?default(0)?string("#")}%]
           </span></div>
-          <div class="tabletext"><span style="white-space: nowrap;">
+          <div><span style="white-space: nowrap;">
             <#if "N" == selectedOption><b>==>&nbsp;<font color="red"></#if>${uiLabelMap.CommonN}<#if "N" == selectedOption></font></b></#if>&nbsp;[${results._no_total?default(0)?string("#")} / ${results._no_percent?default(0)?string("#")}%]
           </span></div>
 
@@ -62,7 +62,7 @@ under the License.
           <#if options?has_content>
             <#list options as option>
               <#assign optionResults = results.get(option.surveyOptionSeqId)?if_exists>
-                <div class="tabletext"><span style="white-space: nowrap;">
+                <div><span style="white-space: nowrap;">
                   <#if option.surveyOptionSeqId == selectedOption><b>==>&nbsp;<font color="red"></#if>
                   ${option.description?if_exists}
                   <#if option.surveyOptionSeqId == selectedOption></font></b></#if>
@@ -71,7 +71,7 @@ under the License.
             </#list>
           </#if>
         <#else>
-          <div class="tabletext">${uiLabelMap.EcommerceUnsupportedQuestionType}${surveyQuestionAndAppl.surveyQuestionTypeId}</div>
+          <div>${uiLabelMap.EcommerceUnsupportedQuestionType}${surveyQuestionAndAppl.surveyQuestionTypeId}</div>
         </#if>
       </td>
     </tr>

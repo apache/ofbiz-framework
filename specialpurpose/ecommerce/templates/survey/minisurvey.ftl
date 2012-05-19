@@ -46,9 +46,9 @@ under the License.
     <tr>
       <#-- standard question options -->
       <td align='left'>
-        <div class="tabletext">${surveyQuestionAndAppl.question?if_exists}</div>
+        <div>${surveyQuestionAndAppl.question?if_exists}</div>
         <#if surveyQuestionAndAppl.hint?has_content>
-          <div class="tabletext">${surveyQuestionAndAppl.hint}</div>
+          <div>${surveyQuestionAndAppl.hint}</div>
         </#if>
       </td>
     </tr>
@@ -104,12 +104,12 @@ under the License.
               </#if>
             </select>
           <#else>
-            <div class="tabletext">Unsupported question type : ${surveyQuestionAndAppl.surveyQuestionTypeId}</div>
+            <div>Unsupported question type : ${surveyQuestionAndAppl.surveyQuestionTypeId}</div>
           </#if>
           <#if surveyQuestionAndAppl.requiredField?default("N") == "Y">
-            <span class="tabletext">*</span>
+            <span>*</span>
           <#else>
-            <span class="tabletext">[optional]</span>
+            <span>[optional]</span>
           </#if>
         </td>
 

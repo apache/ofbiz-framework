@@ -74,7 +74,7 @@ under the License.
 
                 <tr>
                   <td>
-                    <div class="tabletext">
+                    <div>
                       <#if orderItem.productId?exists>
                         &nbsp;<a href="<@ofbizUrl>product?product_id=${orderItem.productId}</@ofbizUrl>" class="buttontext">${orderItem.productId}</a>
                         <input type="hidden" name="productId_o_${rowCount}" value="${orderItem.productId}"/>
@@ -86,7 +86,7 @@ under the License.
                     <input type="text" class="inputBox" size="6" name="returnQuantity_o_${rowCount}" value="${returnableItems.get(orderItem).get("returnableQuantity")}"/>
                   </td>
                   <td>
-                    <div class="tabletext"><@ofbizCurrency amount=returnableItems.get(orderItem).get("returnablePrice") isoCode=orderHeader.currencyUom/></div>
+                    <div><@ofbizCurrency amount=returnableItems.get(orderItem).get("returnablePrice") isoCode=orderHeader.currencyUom/></div>
                   </td>
                   <td>
                     <select name="returnReasonId_o_${rowCount}" class="selectBox">
@@ -125,7 +125,7 @@ under the License.
                           <input type="radio" name="originContactMechId" value="${shippingAddress.contactMechId}"/>
                         </td>
                         <td width="99%" valign="top" nowrap="nowrap">
-                          <div class="tabletext">
+                          <div>
                             <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${shippingAddress.toName}<br /></#if>
                             <#if shippingAddress.attnName?has_content><b>${uiLabelMap.PartyAddrAttnName}:</b>&nbsp;${shippingAddress.attnName}<br /></#if>
                             <#if shippingAddress.address1?has_content>${shippingAddress.address1}<br /></#if>
@@ -149,7 +149,7 @@ under the License.
                 </td>
               </tr>
             <#else>
-              <tr><td colspan="6"><div class="tabletext">${uiLabelMap.OrderNoReturnableItems} ${uiLabelMap.CommonNbr}${orderId}</div></td></tr>
+              <tr><td colspan="6"><div>${uiLabelMap.OrderNoReturnableItems} ${uiLabelMap.CommonNbr}${orderId}</div></td></tr>
             </#if>
           </table>
         </form>

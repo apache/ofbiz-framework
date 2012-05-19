@@ -38,19 +38,19 @@ under the License.
           (${uiLabelMap.CommonNot}&nbsp;${autoUserLogin.userLoginId}?&nbsp;<a href="<@ofbizUrl>${autoLogoutUrl}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClickHere}</a>)
         </div>
       </#if>
-      <div class="tabletext">
+      <div>
         ${uiLabelMap.CommonPassword}:&nbsp;
         <input type="password" name="PASSWORD" value="" size="20"/>
       </div>
-      <div class="tabletext">
+      <div>
         ${uiLabelMap.CommonNewPassword}:&nbsp;
         <input type="password" name="newPassword" value="" size="20"/>
       </div>
-      <div class="tabletext">
+      <div>
         ${uiLabelMap.CommonNewPasswordVerify}:&nbsp;
         <input type="password" name="newPasswordVerify" value="" size="20"/>
       </div>
-      <div class="tabletext">
+      <div>
         <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonLogin}"/>
       </div>
     </form>

@@ -34,7 +34,7 @@ under the License.
     <p/> 
     <table width="90%" border="0" cellpadding="2" cellspacing="0">
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.AccountingCardNumber}</div></td>
+      <td width="26%" align="right" valign="top"><div>${uiLabelMap.AccountingCardNumber}</div></td>
       <td width="5">&nbsp;</td>
       <td width="74%">
         <#if giftCardData?has_content && giftCardData.cardNumber?has_content>
@@ -56,14 +56,14 @@ under the License.
       </td>
     </tr>
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.AccountingPINNumber}</div></td>
+      <td width="26%" align="right" valign="top"><div>${uiLabelMap.AccountingPINNumber}</div></td>
       <td width="5">&nbsp;</td>
       <td width="74%">
         <input type="password" class="inputBox" size="10" maxlength="60" name="pinNumber" value="${giftCardData.pinNumber?if_exists}" />
       </td>
     </tr>
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.AccountingExpirationDate}</div></td>
+      <td width="26%" align="right" valign="top"><div>${uiLabelMap.AccountingExpirationDate}</div></td>
       <td width="5">&nbsp;</td>
       <td width="74%">
         <#assign expMonth = "">
@@ -100,7 +100,7 @@ under the License.
       </td>
     </tr>
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonDescription}</div></td>
+      <td width="26%" align="right" valign="top"><div>${uiLabelMap.CommonDescription}</div></td>
       <td width="5">&nbsp;</td>
       <td width="74%">
         <input type="text" class="inputBox" size="30" maxlength="60" name="description" value="${paymentMethodData.description?if_exists}" />

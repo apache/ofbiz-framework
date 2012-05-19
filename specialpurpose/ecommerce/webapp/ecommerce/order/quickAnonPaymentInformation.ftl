@@ -150,7 +150,7 @@ function getPaymentInformation() {
                 <td width='26%' nowrap="nowrap" align="right">
                   <input type="checkbox" id="addGiftCard" name="addGiftCard" value="Y" onclick="javascript:getGCInfo();"/>
                 </td>
-                <td colspan="2" nowrap="nowrap"><div class="tabletext">${uiLabelMap.AccountingCheckGiftCard}</div></td>
+                <td colspan="2" nowrap="nowrap"><div>${uiLabelMap.AccountingCheckGiftCard}</div></td>
               </tr>
               <tr><td colspan="3"><div id="giftCardSection"></div></td></tr>
               </#if>

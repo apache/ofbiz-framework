@@ -38,7 +38,7 @@ under the License.
           <a href="<@ofbizUrl>showforum?forumId=${parameters.forumId}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex?int-1}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a> |
         </#if>
         <#if (listSize?int > 0)>
-          <span class="tabletext">${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}</span>
+          <span>${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}</span>
         </#if>
         <#if highIndex?int < listSize?int>
           | <a href="<@ofbizUrl>showforum?forumId=${parameters.forumId}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex?int+1}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>

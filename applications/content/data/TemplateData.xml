@@ -88,9 +88,9 @@ under the License.
   <#if requestAttributes.userLogin?has_content>
     <tr>
      <td>
-    <div class="tabletext"><a href="<@ofbizUrl>/logout</@ofbizUrl>" class="tableText">Logout</a></div>
+    <div><a href="<@ofbizUrl>/logout</@ofbizUrl>">Logout</a></div>
      <br/>
-    <div class="tabletext"><a href="<@ofbizUrl>/viewprofile</@ofbizUrl>" class="tableText">Profile</a></div>
+    <div><a href="<@ofbizUrl>/viewprofile</@ofbizUrl>">Profile</a></div>
      </td>
       </tr>
   <#else>
@@ -103,7 +103,7 @@ under the License.
                   <form method="POST" action="<@ofbizUrl>/login${previousParams?if_exists}</@ofbizUrl>" name="loginform" style='margin: 0;'>
                     <table width='100%' border='0' cellpadding='0' cellspacing='2'>
                       <tr align="center">
-                        <td align='left'><span class="tabletext">Username: </span></td>
+                        <td align='left'><span>Username: </span></td>
                       </tr>
                        <tr>
                          <td align=left>
@@ -111,7 +111,7 @@ under the License.
                         </td>
                       </tr>
                        <tr align="center">
-                        <td align='left'><span class="tabletext">Password: </span></td>
+                        <td align='left'><span>Password: </span></td>
                        </tr>
                        <tr>
                          <td align='left'><input type="password" class='inputBox' name="PASSWORD" value="" size="20"></td>
@@ -129,12 +129,12 @@ under the License.
        </#if>
              <tr>
                 <td valign='middle' align='center'>
-                  <div class="tabletext"><a class="tableText" href="<@ofbizUrl>/forgotpasswd</@ofbizUrl>">Forgot Password?</a></div>
+                  <div><a href="<@ofbizUrl>/forgotpasswd</@ofbizUrl>">Forgot Password?</a></div>
                 </td>
               </tr>
               <tr>
                 <td valign='middle' align='center'>
-                  <div class="tabletext"><a  class="tableText"  href="<@ofbizUrl>/newblogger</@ofbizUrl>">New User</a></div>
+                  <div><a   href="<@ofbizUrl>/newblogger</@ofbizUrl>">New User</a></div>
                 </td>
               </tr>
       </table>
@@ -161,7 +161,7 @@ under the License.
 <#assign mimeTypeId=wrapMimeTypeId?if_exists/>
 <#assign subContentId=wrapSubContentId?if_exists/>
 <div id="divTwo" class="wrapOuter">
-    <div class="tabletext">
+    <div>
     ${mapKey?if_exists}
     <a class="buttontext" href="javascript:lookupSubContent('<@ofbizUrl>/LookupSubContent</@ofbizUrl>', '${contentIdTo?if_exists}','${mapKey?if_exists}',  '${subDataResourceTypeId?if_exists}', '${mimeTypeId?if_exists}')"
 >[Find]</a>
@@ -302,7 +302,7 @@ ${wrappedContent?if_exists}
 <#assign mimeTypeId=wrapMimeTypeId?if_exists/>
 <#assign subContentId=wrapSubContentId?if_exists/>
 <div id="divTwo" class="wrapOuter">
-    <div class="tabletext">
+    <div>
     ${mapKey?if_exists}
     <a class="buttontext" href="javascript:lookupSubContent('<@ofbizUrl>/LookupSubContent</@ofbizUrl>', '${contentIdTo?if_exists}','${mapKey?if_exists}',  '${subDataResourceTypeId?if_exists}', '${mimeTypeId?if_exists}')"
 >[Find]</a>
@@ -377,7 +377,7 @@ ResourceId=${subDataResourceId?if_exists}</@ofbizUrl>">[Edit]</a>
 <tr><td>
 <table border="0" width="100%">
     <tr><td>
-<span class="tabletext">
+<span>
 <#if 0 < lowIndex?if_exists >
     <#assign prevArg=(viewIndex - 1)?string />
 <a href="<@ofbizUrl>/main</@ofbizUrl>?viewIndex=${prevArg?if_exists}">Prev</a>

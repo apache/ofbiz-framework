@@ -127,7 +127,7 @@ under the License.
             <td valign="top">
               <#list partyContactMechValueMap.partyContactMechPurposes?if_exists as partyContactMechPurpose>
                 <#assign contactMechPurposeType = partyContactMechPurpose.getRelatedOneCache("ContactMechPurposeType") />
-                <div class="tabletext">
+                <div>
                   <#if contactMechPurposeType?exists>
                     ${contactMechPurposeType.get("description",locale)}
                     <#if contactMechPurposeType.contactMechPurposeTypeId == "SHIPPING_LOCATION" && (profiledefs.defaultShipAddr)?default("") == contactMech.contactMechId>
@@ -148,7 +148,7 @@ under the License.
               </#list>
               <#if contactMech.contactMechTypeId?if_exists = "POSTAL_ADDRESS">
                 <#assign postalAddress = partyContactMechValueMap.postalAddress?if_exists />
-                <div class="tabletext">
+                <div>
                   <#if postalAddress?exists>
                     <#if postalAddress.toName?has_content>${uiLabelMap.CommonTo}: ${postalAddress.toName}<br /></#if>
                     <#if postalAddress.attnName?has_content>${uiLabelMap.PartyAddrAttnName}: ${postalAddress.attnName}<br /></#if>
@@ -170,7 +170,7 @@ under the License.
                   </div>
               <#elseif contactMech.contactMechTypeId?if_exists = "TELECOM_NUMBER">
                 <#assign telecomNumber = partyContactMechValueMap.telecomNumber?if_exists>
-                <div class="tabletext">
+                <div>
                 <#if telecomNumber?exists>
                   ${telecomNumber.countryCode?if_exists}
                   <#if telecomNumber.areaCode?has_content>${telecomNumber.areaCode}-</#if>${telecomNumber.contactNumber?if_exists}
@@ -187,7 +187,7 @@ under the License.
                   ${contactMech.infoString}
                   <a href="mailto:${contactMech.infoString}" class="linktext">(${uiLabelMap.PartySendEmail})</a>
               <#elseif contactMech.contactMechTypeId?if_exists = "WEB_ADDRESS">
-                <div class="tabletext">
+                <div>
                   ${contactMech.infoString}
                   <#assign openAddress = contactMech.infoString?if_exists />
                   <#if !openAddress.startsWith("http") && !openAddress.startsWith("HTTP")><#assign openAddress = "http://" + openAddress /></#if>
@@ -196,10 +196,10 @@ under the License.
               <#else>
                 ${contactMech.infoString?if_exists}
               </#if>
-              <div class="tabletext">(${uiLabelMap.CommonUpdated}:&nbsp;${partyContactMech.fromDate.toString()})</div>
-              <#if partyContactMech.thruDate?exists><div class="tabletext">${uiLabelMap.CommonDelete}:&nbsp;${partyContactMech.thruDate.toString()}</div></#if>
+              <div>(${uiLabelMap.CommonUpdated}:&nbsp;${partyContactMech.fromDate.toString()})</div>
+              <#if partyContactMech.thruDate?exists><div>${uiLabelMap.CommonDelete}:&nbsp;${partyContactMech.thruDate.toString()}</div></#if>
             </td>
-            <td align="center" valign="top"><div class="tabletext">(${partyContactMech.allowSolicitation?if_exists})</div></td>
+            <td align="center" valign="top"><div>(${partyContactMech.allowSolicitation?if_exists})</div></td>
             <td>&nbsp;</td>
             <td align="right" valign="top">
               <a href="<@ofbizUrl>editcontactmech?contactMechId=${contactMech.contactMechId}</@ofbizUrl>" class="button">${uiLabelMap.CommonUpdate}</a>
@@ -242,7 +242,7 @@ under the License.
               <tr>
                 <#if paymentMethod.paymentMethodTypeId?if_exists == "CREDIT_CARD">
                 <td valign="top">
-                  <div class="tabletext">
+                  <div>
                     ${uiLabelMap.AccountingCreditCard}:
                     <#if creditCard.companyNameOnCard?has_content>${creditCard.companyNameOnCard}&nbsp;</#if>
                     <#if creditCard.titleOnCard?has_content>${creditCard.titleOnCard}&nbsp;</#if>
@@ -279,7 +279,7 @@ under the License.
                   </#if>
 
                   <td valign="top">
-                    <div class="tabletext">
+                    <div>
                       ${uiLabelMap.AccountingGiftCard}: ${giftCardNumber}
                       <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
                       <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate.toString()})</#if>
@@ -293,7 +293,7 @@ under the License.
                   </td>
                   <#elseif paymentMethod.paymentMethodTypeId?if_exists == "EFT_ACCOUNT">
                   <td valign="top">
-                    <div class="tabletext">
+                    <div>
                       ${uiLabelMap.AccountingEFTAccount}: ${eftAccount.nameOnAccount?if_exists} - <#if eftAccount.bankName?has_content>${uiLabelMap.AccountingBank}: ${eftAccount.bankName}</#if> <#if eftAccount.accountNumber?has_content>${uiLabelMap.AccountingAccount} #: ${eftAccount.accountNumber}</#if>
                       <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
                       <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate.toString()})</#if>
@@ -382,7 +382,7 @@ under the License.
             <tr>
               <td>&nbsp;</td>
               <td>
-                <div class="tabletext"><span style="white-space:;"><#if shipMeth.partyId != "_NA_">${shipMeth.partyId?if_exists}&nbsp;</#if>${shipMeth.get("description",locale)?if_exists}</span></div>
+                <div><span style="white-space:;"><#if shipMeth.partyId != "_NA_">${shipMeth.partyId?if_exists}&nbsp;</#if>${shipMeth.get("description",locale)?if_exists}</span></div>
               </td>
               <td><input type="radio" name="defaultShipMeth" value="${shippingMethod}" <#if profiledefs.defaultShipMeth?default("") == shippingMethod>checked="checked"</#if> /></td>
             </tr>
@@ -482,7 +482,7 @@ under the License.
       <tr><td colspan="7"></td></tr>
       <tr>
         <td>${contactList.contactListName?if_exists}<#if contactList.description?has_content>&nbsp;-&nbsp;${contactList.description}</#if></td>
-        <#-- <td><div class="tabletext">${contactListType.get("description",locale)?if_exists}</div></td> -->
+        <#-- <td><div>${contactListType.get("description",locale)?if_exists}</div></td> -->
         <td>${contactListParty.fromDate?if_exists}</td>
         <td>${contactListParty.thruDate?if_exists}</td>
         <td>${(statusItem.get("description",locale))?if_exists}</td>
@@ -567,7 +567,7 @@ under the License.
         <#assign survey = surveyAppl.getRelatedOne("Survey") />
         <tr>
           <td>&nbsp;</td>
-          <td valign="top"><div class="tabletext">${survey.surveyName?if_exists}&nbsp;-&nbsp;${survey.description?if_exists}</div></td>
+          <td valign="top"><div>${survey.surveyName?if_exists}&nbsp;-&nbsp;${survey.description?if_exists}</div></td>
           <td>&nbsp;</td>
           <td valign="top">
             <#assign responses = Static["org.ofbiz.product.store.ProductStoreWorker"].checkSurveyResponse(request, survey.surveyId)?default(0)>

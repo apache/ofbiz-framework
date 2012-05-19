@@ -45,11 +45,11 @@ under the License.
                   </#if>
                   <tr>
                     <td align="right" valign="top" width="15%">
-                      <div class="tabletext">&nbsp;<b>${uiLabelMap.PartyName}</b></div>
+                      <div>&nbsp;<b>${uiLabelMap.PartyName}</b></div>
                     </td>
                     <td width="5">&nbsp;</td>
                     <td valign="top" width="80%">
-                      <div class="tabletext">
+                      <div>
                         ${(displayPartyNameResult.fullName)?default("[Name Not Found]")}
                       </div>
                     </td>
@@ -59,14 +59,14 @@ under the License.
                 <#-- order status information -->
                 <tr>
                   <td align="right" valign="top" width="15%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.CommonStatus}</b></div>
+                    <div>&nbsp;<b>${uiLabelMap.CommonStatus}</b></div>
                   </td>
                   <td width="5">&nbsp;</td>
                   <td valign="top" width="80%">
                     <#if orderHeader?has_content>
-                      <div class="tabletext">${localOrderReadHelper.getStatusString(locale)}</div>
+                      <div>${localOrderReadHelper.getStatusString(locale)}</div>
                     <#else>
-                      <div class="tabletext"><b>${uiLabelMap.OrderNotYetOrdered}</b></div>
+                      <div><b>${uiLabelMap.OrderNotYetOrdered}</b></div>
                     </#if>
                   </td>
                 </tr>
@@ -75,11 +75,11 @@ under the License.
                   <tr><td colspan="7"><hr /></td></tr>
                   <tr>
                     <td align="right" valign="top" width="15%">
-                      <div class="tabletext">&nbsp;<b>${uiLabelMap.CommonDate}</b></div>
+                      <div>&nbsp;<b>${uiLabelMap.CommonDate}</b></div>
                     </td>
                     <td width="5">&nbsp;</td>
                     <td valign="top" width="80%">
-                      <div class="tabletext">${orderHeader.orderDate.toString()}</div>
+                      <div>${orderHeader.orderDate.toString()}</div>
                     </td>
                   </tr>
                 </#if>
@@ -87,11 +87,11 @@ under the License.
                   <tr><td colspan="7"><hr /></td></tr>
                   <tr>
                     <td align="right" valign="top" width="15%">
-                      <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderDistributor}</b></div>
+                      <div>&nbsp;<b>${uiLabelMap.OrderDistributor}</b></div>
                     </td>
                     <td width="5">&nbsp;</td>
                     <td valign="top" width="80%">
-                      <div class="tabletext">${distributorId}</div>
+                      <div>${distributorId}</div>
                     </td>
                   </tr>
                 </#if>
@@ -127,11 +127,11 @@ under the License.
                 <#if shippingAddress?has_content>
                   <tr>
                     <td align="right" valign="top" width="15%">
-                      <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderDestination}</b> [${groupNumber}]</div>
+                      <div>&nbsp;<b>${uiLabelMap.OrderDestination}</b> [${groupNumber}]</div>
                     </td>
                     <td width="5">&nbsp;</td>
                     <td valign="top" width="80%">
-                      <div class="tabletext">
+                      <div>
                         <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b> ${shippingAddress.toName}<br /></#if>
                         <#if shippingAddress.attnName?has_content><b>${uiLabelMap.PartyAddrAttnName}:</b> ${shippingAddress.attnName}<br /></#if>
                         ${shippingAddress.address1}<br />

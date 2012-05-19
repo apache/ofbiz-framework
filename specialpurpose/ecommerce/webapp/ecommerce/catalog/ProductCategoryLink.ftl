@@ -47,7 +47,7 @@ under the License.
         <a href="${linkUrl}" class="linktext">${titleText}</a>
       </#if>
       <#if detailText?has_content>
-        <div class="tabletext">${detailText}</div>
+        <div>${detailText}</div>
       </#if>
     </div>
 </#if>

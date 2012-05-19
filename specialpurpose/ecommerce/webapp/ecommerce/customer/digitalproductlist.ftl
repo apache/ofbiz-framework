@@ -26,11 +26,11 @@ under the License.
         <table width="100%" cellpadding="1" cellspacing="0" border="0">
           <tr>
             <td width="30%">
-              <div class="tabletext"><b>${uiLabelMap.ProductProductName}</b></div>
+              <div><b>${uiLabelMap.ProductProductName}</b></div>
             </td>
             <td width="5">&nbsp;</td>
             <td width="45%">
-              <div class="tabletext"><b>${uiLabelMap.CommonDescription}</b></div>
+              <div><b>${uiLabelMap.CommonDescription}</b></div>
             </td>
             <td width="5">&nbsp;</td>
             <td width="20%">&nbsp;</td>
@@ -40,11 +40,11 @@ under the License.
             <tr><td colspan="5"><hr /></td></tr>
             <tr>
               <td>
-                <div class="tabletext">${(product.productName)?if_exists}</div>
+                <div>${(product.productName)?if_exists}</div>
               </td>
               <td width="5">&nbsp;</td>
               <td>
-                <div class="tabletext">${(product.description)?if_exists}</div>
+                <div>${(product.description)?if_exists}</div>
               </td>
               <td width="5">&nbsp;</td>
               <td align="right">

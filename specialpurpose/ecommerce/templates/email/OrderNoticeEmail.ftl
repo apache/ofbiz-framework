@@ -132,7 +132,7 @@ under the License.
 
 <h1>${title!}</h1>
 <#if !isDemoStore?exists || isDemoStore><p>${uiLabelMap.OrderDemoFrontNote}.</p></#if>
-<#if note?exists><p class="tabletext">${note}</p></#if>
+<#if note?exists><p>${note}</p></#if>
 <#if orderHeader?exists>
 ${screens.render("component://ecommerce/widget/OrderScreens.xml#orderheader")}
 <br />

@@ -229,7 +229,7 @@ under the License.
 <#assign mimeTypeId=wrapMimeTypeId?if_exists/>
 <#assign subContentId=wrapSubContentId?if_exists/>
 <div id="divTwo" class="wrapOuter">
-    <div class="tabletext">
+    <div>
     ${mapKey?if_exists}
     <a class="buttontext" href="javascript:lookupSubContent('<@ofbizUrl>/LookupSubContent</@ofbizUrl>', '${contentIdTo?if_exists}','${mapKey?if_exists}',  '${subDataResourceTypeId?if_exists}', '${mimeTypeId?if_exists}')">[Find]</a>
     <#assign ofbizRequest=""/>

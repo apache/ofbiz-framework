@@ -98,7 +98,7 @@ under the License.
       <td align="right">${uiLabelMap.PartyBirthDate}</td>
       <td>
         <input type="text" class='inputBox' size="11" maxlength="20" name="birthDate" value="${(personData.birthDate.toString())?if_exists}"/>
-        <div class="tabletext">${uiLabelMap.CommonFormatDate}</div>
+        <div>${uiLabelMap.CommonFormatDate}</div>
       </td>
     </tr>
     <tr>
@@ -156,7 +156,7 @@ under the License.
       <td align="right">${uiLabelMap.PartyPassportExpireDate}</td>
       <td>
         <input type="text" class='inputBox' size="11" maxlength="20" name="passportExpireDate" value="${personData.passportExpireDate?if_exists}"/>
-        <div class="tabletext">${uiLabelMap.CommonFormatDate}</div>
+        <div>${uiLabelMap.CommonFormatDate}</div>
       </td>
     </tr>
     <tr>
