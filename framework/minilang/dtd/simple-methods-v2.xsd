@@ -206,6 +206,82 @@ under the License.
         </xs:simpleType>
     </xs:attribute>
 
+    <xs:attributeGroup name="attlist.entityFindOperations">
+        <xs:attribute name="entity-name" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    Name of entity to search in.
+                    &lt;br/&gt;&lt;br/&gt;
+                    Required. Attribute type: constant, ${expression}.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="list" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    Name of the list where to put results.
+                    &lt;br/&gt;&lt;br/&gt;
+                    Required. Attribute type: expression.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="filter-by-date" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    Look for from-date and through-date fields in the list of results coming back
+                    and filters by the current date and time if set to true.
+                    Defaults to "false".
+                    &lt;br/&gt;&lt;br/&gt;
+                    Optional. Attribute type: constant, ${expression}.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true" />
+                    <xs:enumeration value="false" />
+                    <xs:enumeration value="by-name" />
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="distinct" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    Filter the results making sure that all of them are unique.
+                    Defaults to "false".
+                    &lt;br/&gt;&lt;br/&gt;
+                    Optional. Attribute type: constant, ${expression}.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="use-cache" type="xs:string" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    Specifies whether or not the delegator's cache should be searched before going to the database.
+                    This results in much faster retrieval times, but can return stale data that is not the most current in the database.
+                    Must be "true" or "false", defaults to "false".
+                    &lt;br/&gt;&lt;br/&gt;
+                    Optional. Attribute type: constant, ${expression}.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="delegator-name" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    Name of a delegator to use.
+                    By default uses the delegator associated with that instance of the service engine.
+                    &lt;br/&gt;&lt;br/&gt;
+                    Optional. Attribute type: constant, ${expression}.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:attributeGroup>
+
   <!-- ELEMENTS start here -->
     <xs:element name="field">
         <xs:annotation>
@@ -587,7 +663,7 @@ under the License.
                     <xs:documentation>
                         Name of the service to call.
                         &lt;br/&gt;&lt;br/&gt;
-                        Required. Attribute type: constant, expression.
+                        Required. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
@@ -906,7 +982,7 @@ under the License.
                     <xs:documentation>
                         Name of the service to call.
                         &lt;br/&gt;&lt;br/&gt;
-                        Required. Attribute type: constant, expression.
+                        Required. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
@@ -2203,75 +2279,39 @@ under the License.
     <xs:element name="entity-and" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>
-                Does a find-by-and, returns a list of GenericValues if any are found, otherwise returns an empty list.
+                Does a find-by-and, returns a list of entity values if any are found, otherwise returns an empty list.
                 Uses name/value pairs, that will be used for the query and will all be "anded" together.
 
-                The result-set-type by default is scroll which is flexible so you can go forward.
+                The result-set-type by default is scroll which is flexible so you can go
+                forward.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" ref="field-map"/>
+                <xs:element maxOccurs="unbounded" ref="field-map" />
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="select-field">
-                    <xs:annotation><xs:documentation>Specify fields to select, otherwise all fields will be selected.</xs:documentation></xs:annotation>
+                    <xs:annotation>
+                        <xs:documentation>Specify fields to select, otherwise all fields will be selected.</xs:documentation>
+                    </xs:annotation>
                 </xs:element>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="order-by">
-                    <xs:annotation><xs:documentation>Defines fields to order list by.</xs:documentation></xs:annotation>
+                    <xs:annotation>
+                        <xs:documentation>Defines fields to order list by.</xs:documentation>
+                    </xs:annotation>
                 </xs:element>
                 <xs:choice minOccurs="0">
-                    <xs:element ref="limit-range"/>
-                    <xs:element ref="limit-view"/>
-                    <xs:element ref="use-iterator"/>
+                    <xs:element ref="limit-range" />
+                    <xs:element ref="limit-view" />
+                    <xs:element ref="use-iterator" />
                 </xs:choice>
             </xs:sequence>
-            <xs:attributeGroup ref="attlist.entity-and"/>
+            <xs:attributeGroup ref="attlist.entityFindOperations"/>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.entity-and">
-        <xs:attribute name="entity-name" type="xs:string" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of entity to search in.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="use-cache" type="xs:string" default="false">
-            <xs:annotation>
-                <xs:documentation>
-                    Specifies whether or not the delegator's cache should be searched before going to the database.
-                    This results in much faster retrieval times, but can return stale data that is not the most current in the database.
-                    Must be "true" or "false", defaults to "false".
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="filter-by-date" default="false">
-            <xs:annotation>
-                <xs:documentation>
-                    Look for from-date and through-date fields in the list of results coming back
-                    and filters by the current date and time if set to true.
-                    Defaults to false.
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                    <xs:enumeration value="by-name"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="list" type="xs:string" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of the list where to put results.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="entity-condition" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>
-                Like entity-and returns a list of Generic values if any are found, otherwise returns an empty list.
+                Returns a list of entity values based on a condition expression, otherwise returns an empty list.
                 Uses any of condition-expression, condition-list and condition-object.
             </xs:documentation>
         </xs:annotation>
@@ -2297,72 +2337,9 @@ under the License.
                     <xs:element ref="use-iterator"/>
                 </xs:choice>
             </xs:sequence>
-            <xs:attributeGroup ref="attlist.entity-condition"/>
+            <xs:attributeGroup ref="attlist.entityFindOperations"/>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.entity-condition">
-        <xs:attribute name="entity-name" type="xs:string" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of entity to search in.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="use-cache" default="false">
-            <xs:annotation>
-                <xs:documentation>
-                    Specifies whether or not the delegator's cache should be searched before going to the database.
-                    This results in much faster retrieval times, but can return stale data that is not the most current in the database.
-                    Must be "true" or "false", defaults to "false".
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="filter-by-date" default="false">
-            <xs:annotation>
-                <xs:documentation>
-                    Look for from date and through date fields in the list of results coming back
-                    and filters by the current date and time if set to true.
-                    Defaults to false.
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                    <xs:enumeration value="by-name"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="distinct" default="false">
-            <xs:annotation>
-                <xs:documentation>
-                    Filter the results making sure that all of them are unique.
-                    Defaults to false.
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="delegator-name" type="xs:string">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of a delegator to use.
-                    By default uses the delegator associated with that instance of the service engine.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="list" type="xs:string" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of the list where to put results.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="condition-list">
         <xs:annotation>
             <xs:documentation>
@@ -3324,7 +3301,7 @@ under the License.
                     <xs:documentation>
                         The name of the entity.
                         &lt;br/&gt;&lt;br/&gt;
-                        Required. Attribute type: constant, expression.
+                        Required. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>

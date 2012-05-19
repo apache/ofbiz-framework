@@ -21,25 +21,34 @@ package org.ofbiz.minilang.method.entityops;
 import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.finder.ByAndFinder;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Uses the delegator to find entity values by a condition
+ * Implements the &lt;entity-and&gt; element.
  */
-public class EntityAnd extends MethodOperation {
+public final class EntityAnd extends MethodOperation {
 
     public static final String module = EntityAnd.class.getName();
 
-    protected ByAndFinder finder;
+    private final ByAndFinder finder;
 
     public EntityAnd(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "entity-name", "use-cache", "filter-by-date", "list", "distinct", "delegator-name");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "entity-name", "list");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "list");
+            MiniLangValidate.childElements(simpleMethod, element, "field-map", "order-by", "limit-range", "limit-view", "use-iterator");
+            MiniLangValidate.requiredChildElements(simpleMethod, element, "field-map");
+        }
         this.finder = new ByAndFinder(element);
     }
 
@@ -49,15 +58,9 @@ public class EntityAnd extends MethodOperation {
             Delegator delegator = methodContext.getDelegator();
             this.finder.runFind(methodContext.getEnvMap(), delegator);
         } catch (GeneralException e) {
-            Debug.logError(e, module);
-            String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process: " + e.getMessage();
-            if (methodContext.getMethodType() == MethodContext.EVENT) {
-                methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errMsg);
-                methodContext.putEnv(simpleMethod.getEventResponseCodeName(), simpleMethod.getDefaultErrorCode());
-            } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
-                methodContext.putEnv(simpleMethod.getServiceErrorMessageName(), errMsg);
-                methodContext.putEnv(simpleMethod.getServiceResponseMessageName(), simpleMethod.getDefaultErrorCode());
-            }
+            String errMsg = "Exception thrown while performing entity find: " + e.getMessage();
+            Debug.logWarning(e, errMsg, module);
+            simpleMethod.addErrorMessage(methodContext, errMsg);
             return false;
         }
         return true;
@@ -65,8 +68,7 @@ public class EntityAnd extends MethodOperation {
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
@@ -76,10 +78,19 @@ public class EntityAnd extends MethodOperation {
 
     @Override
     public String rawString() {
-        // TODO: something more than the empty tag
-        return "<entity-and/>";
+        return toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<entity-and ");
+        sb.append("entity-name=\"").append(this.finder.getEntityName()).append("\" />");
+        return sb.toString();
+    }
+
+    /**
+     * A factory for the &lt;entity-and&gt; element.
+     */
     public static final class EntityAndFactory implements Factory<EntityAnd> {
         public EntityAnd createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new EntityAnd(element, simpleMethod);

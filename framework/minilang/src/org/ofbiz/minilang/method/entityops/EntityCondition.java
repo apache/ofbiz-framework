@@ -21,25 +21,34 @@ package org.ofbiz.minilang.method.entityops;
 import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.finder.ByConditionFinder;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Uses the delegator to find entity values by a condition
+ * Implements the &lt;entity-and&gt; element.
  */
-public class EntityCondition extends MethodOperation {
+public final class EntityCondition extends MethodOperation {
 
     public static final String module = EntityCondition.class.getName();
 
-    protected ByConditionFinder finder;
+    private final ByConditionFinder finder;
 
     public EntityCondition(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "entity-name", "use-cache", "filter-by-date", "list", "distinct", "delegator-name");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "entity-name", "list");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "list");
+            MiniLangValidate.childElements(simpleMethod, element, "condition-expr", "condition-list", "condition-object", "having-condition-list", "select-field", "order-by", "limit-range", "limit-view", "use-iterator");
+            MiniLangValidate.requireAnyChildElement(simpleMethod, element, "condition-expr", "condition-list", "condition-object");
+        }
         this.finder = new ByConditionFinder(element);
     }
 
@@ -49,15 +58,9 @@ public class EntityCondition extends MethodOperation {
             Delegator delegator = methodContext.getDelegator();
             this.finder.runFind(methodContext.getEnvMap(), delegator);
         } catch (GeneralException e) {
-            Debug.logError(e, module);
-            String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process: " + e.getMessage();
-            if (methodContext.getMethodType() == MethodContext.EVENT) {
-                methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errMsg);
-                methodContext.putEnv(simpleMethod.getEventResponseCodeName(), simpleMethod.getDefaultErrorCode());
-            } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
-                methodContext.putEnv(simpleMethod.getServiceErrorMessageName(), errMsg);
-                methodContext.putEnv(simpleMethod.getServiceResponseMessageName(), simpleMethod.getDefaultErrorCode());
-            }
+            String errMsg = "Exception thrown while performing entity find: " + e.getMessage();
+            Debug.logWarning(e, errMsg, module);
+            simpleMethod.addErrorMessage(methodContext, errMsg);
             return false;
         }
         return true;
@@ -65,8 +68,7 @@ public class EntityCondition extends MethodOperation {
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
@@ -76,8 +78,14 @@ public class EntityCondition extends MethodOperation {
 
     @Override
     public String rawString() {
-        // TODO: something more than the empty tag
-        return "<entity-condition/>";
+        return toString();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<entity-condition ");
+        sb.append("entity-name=\"").append(this.finder.getEntityName()).append("\" />");
+        return sb.toString();
     }
 
     public static final class EntityConditionFactory implements Factory<EntityCondition> {
