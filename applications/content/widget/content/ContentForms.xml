@@ -217,41 +217,6 @@ under the License.
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}" use-when="currentValue!=null" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <!-- form name="AddContent" target="createContent" title="" type="single"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
-        <auto-fields-entity entity-name="Content"/>
-        <field name="contentId"><text/></field>
-        <field name="dataResourceId" map-name="currentValue"><lookup target-form-name="LookupDataResource"/></field>
-        <field name="contentPurposeTypeId" entity-name="ContentPurposeType" map-name="dummy">
-            <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="ContentPurposeType" key-field-name="contentPurposeTypeId"/>
-            </drop-down>
-        </field>
-        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="contentTypeId">
-            <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="ContentType" key-field-name="contentTypeId"/>
-            </drop-down>
-        </field>
-        <field name="ownerContentId" title="${uiLabelMap.CommonEmptyHeader}"><lookup target-form-name="LookupContent"/></field>
-        <field name="mimeTypeId">
-            <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="MimeType" key-field-name="mimeTypeId"/>
-            </drop-down>
-        </field>
-        <field name="statusId">
-            <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="StatusItem">
-                    <entity-constraint name="statusTypeId" operator="equals" value="CONTENT_STATUS "/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="createdByUserLogin" position="1"><display/></field>
-        <field name="createdDate" position="2"><display/></field>
-        <field name="lastModifiedByUserLogin" position="1"><display/></field>
-        <field name="lastModifiedDate" position="2"><display/></field>
-    </form -->
-
     <!-- Content Lookup forms -->
     <form name="mruLookupContent" default-entity-name="Content" list-name="mruList" target="" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
