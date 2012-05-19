@@ -735,7 +735,7 @@ under the License.
            <if-not-empty field="shipGroupList">
               <iterate list="shipGroupList" entry="shipGroup">
                  <set field="inputMap.shipGroupSeqId" from-field="shipGroup.shipGroupSeqId"/>
-                 <set field="inputMap.shipmentMethod" value="${shipGroup.shipmentMethodTypeId}@${shipGroup.carrierPartyId}"/>
+                 <set field="inputMap.shipmentMethod" value="${shipGroup.shipmentMethodTypeId}@${shipGroup.carrierPartyId}@${shipGroup.carrierRoleTypeId}"/>
                  <set field="inputMap.oldContactMechId" from-field="parameters.oldContactMechId"/>
                  <set-service-fields to-map="orderItemShipGroupMap" service-name="updateOrderItemShipGroup" map="inputMap"/>
                  <call-service service-name="updateOrderItemShipGroup" in-map-name="orderItemShipGroupMap" include-user-login="true"/>
