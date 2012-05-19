@@ -935,6 +935,37 @@ under the License.
             </condition>
         </fail>
     </target>
+    <target name="run-test-debug"
+            description="Run a single test in debug mode, syntax eg: ant run-test-debug -Dtest.component=service -Dtest.case=service-soap-tests">
+      <fail unless="test.component">test.component is a required parameter: -Dtest.component=componentname</fail>
+      <fail unless="test.case">test.case is a required parameter: -Dtest.case=testcasename</fail>
+      <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
+        <jvmarg value="${memory.initial.param}"/>
+        <jvmarg value="${memory.max.param}"/>
+        <jvmarg value="${memory.maxpermsize.param}"/>
+        <jvmarg value="-Xnoagent"/>
+        <jvmarg value="-Djava.compiler=NONE"/>
+        <jvmarg value="-Xdebug"/>
+        <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8091"/>
+        <arg value="test"/>
+        <arg value="-component=${test.component}"/>
+        <arg value="-case=${test.case}"/>
+
+        <env key="LC_ALL" value="C"/>
+      </java>
+      <delete dir="runtime/logs/test-results/${test.component}-${test.case}"/>
+      <mkdir dir="runtime/logs/test-results/${test.component}-${test.case}"/>
+      <move todir="runtime/logs/test-results/${test.component}-${test.case}">
+        <fileset dir="runtime/logs/test-results" includes="*.xml"/>
+      </move>
+      <fail message="Test run was unsuccessful">
+        <condition>
+          <not>
+            <equals arg1="${test.result}" arg2="0"/>
+          </not>
+        </condition>
+      </fail>
+    </target>
     <target name="run-test-suite"
             description="Run a single test suite, syntax eg: ant run-test-suite -Dtest.component=mycomponent -Dtest.suiteName=mytests">
         <fail unless="test.component">test.component is a required parameter: -Dtest.component=componentname</fail>
