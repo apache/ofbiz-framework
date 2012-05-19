@@ -56,10 +56,10 @@ under the License.
         <field name="communicationEventId"><lookup target-form-name="LookupCommEvent"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <sort-order>
-            <banner left-text-style="tabletext" left-text="${uiLabelMap.WorkEffortBanner3}"/>
+            <banner left-text="${uiLabelMap.WorkEffortBanner3}"/>
             <sort-field name="workEffortId"/>
             <sort-field name="communicationEventId"/>
-            <banner left-text-style="tabletext" left-text="${uiLabelMap.WorkEffortBanner4}"/>
+            <banner left-text="${uiLabelMap.WorkEffortBanner4}"/>
             <sort-field name="description"/>
         </sort-order>
     </form>
