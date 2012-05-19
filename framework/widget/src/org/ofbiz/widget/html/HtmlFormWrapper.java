@@ -63,9 +63,9 @@ public class HtmlFormWrapper {
         this.formName = formName;
         this.request = request;
         this.response = response;
-
+        Delegator delegator = null;
         try {
-            Delegator delegator = (Delegator) request.getAttribute("delegator");
+            delegator = (Delegator) request.getAttribute("delegator");
             LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
             this.modelForm = FormFactory.getFormFromLocation(resourceName, formName, delegator.getModelReader(), dispatcher.getDispatchContext());
         } catch (IllegalArgumentException iae) {
@@ -100,6 +100,9 @@ public class HtmlFormWrapper {
         if (UtilValidate.isNotEmpty(uiLabelMap) && context.get("uiLabelMap") == null) {
             Debug.logInfo("Got uiLabelMap: " + uiLabelMap, module);
             context.put("uiLabelMap", uiLabelMap);
+        }
+        if (UtilValidate.isNotEmpty(delegator) && context.get("delegator") == null) {
+            context.put("delegator", delegator);
         }
     }
 
