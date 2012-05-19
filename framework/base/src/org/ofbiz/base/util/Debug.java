@@ -45,8 +45,6 @@ public final class Debug {
     public static final String noModuleModule = "NoModule";  // set to null for previous behavior
     public static final Object[] emptyParams = new Object[0];
 
-    static DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM);
-
     public static final String SYS_DEBUG = System.getProperty("DEBUG");
     public static final int ALWAYS = 0;
     public static final int VERBOSE = 1;
@@ -61,6 +59,8 @@ public final class Debug {
     public static final String[] levels = {"Always", "Verbose", "Timing", "Info", "Important", "Warning", "Error", "Fatal", "Notify"};
     public static final String[] levelProps = {"", "print.verbose", "print.timing", "print.info", "print.important", "print.warning", "print.error", "print.fatal", "print.notify"};
     public static final Level[] levelObjs = {Level.INFO, Level.DEBUG, Level.INFO, Level.INFO, Level.INFO, Level.WARN, Level.ERROR, Level.FATAL, NotifyLevel.NOTIFY};
+
+    private static final DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM);
 
     protected static Map<String, Integer> levelStringMap = new HashMap<String, Integer>();
 
