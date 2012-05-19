@@ -59,9 +59,9 @@ under the License.
         </field>
         <sort-order>
             <sort-field name="quoteId"/>
-            <banner left-text-style="tabletext" left-text="${uiLabelMap.OrderOrderQuoteEnterWorkEffortId}"/>
+            <banner left-text="${uiLabelMap.OrderOrderQuoteEnterWorkEffortId}"/>
             <sort-field name="workEffortId"/>
-            <banner left-text-style="tabletext" left-text="${uiLabelMap.OrderOrderQuoteEnterWorkEffortIdNew}"/>
+            <banner left-text="${uiLabelMap.OrderOrderQuoteEnterWorkEffortIdNew}"/>
         </sort-order>
     </form>
 

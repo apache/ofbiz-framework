@@ -57,9 +57,9 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <sort-order>
-            <banner left-text-style="tabletext" left-text="${uiLabelMap.WorkEffortBanner5}"/>
+            <banner left-text="${uiLabelMap.WorkEffortBanner5}"/>
             <sort-field name="requirementId"/>
-            <banner left-text-style="tabletext" left-text="${uiLabelMap.WorkEffortBanner6}"/>
+            <banner left-text="${uiLabelMap.WorkEffortBanner6}"/>
             <sort-field name="workReqFulfTypeId"/>
         </sort-order>
     </form>
