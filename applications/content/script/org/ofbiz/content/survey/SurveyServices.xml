@@ -282,7 +282,6 @@
         </check-permission>
         <check-errors/>
         <entity-one entity-name="SurveyQuestionOption" value-field="lookedUpValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
