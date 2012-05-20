@@ -2785,6 +2785,7 @@
     <property key="SurveyQuestionType.description.ENUMERATION">
         <value xml:lang="da">Nummerering</value>
         <value xml:lang="en">Enumeration</value>
+        <value xml:lang="fr">Enumération</value>
         <value xml:lang="it">Enumerare</value>
         <value xml:lang="pt">Enumeração</value>
         <value xml:lang="zh">枚举</value>
