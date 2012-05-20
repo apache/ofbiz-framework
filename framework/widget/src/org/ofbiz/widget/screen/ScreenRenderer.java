@@ -59,7 +59,6 @@ import org.ofbiz.widget.cache.ScreenCache;
 import org.ofbiz.widget.cache.WidgetContextCacheKey;
 import org.xml.sax.SAXException;
 
-import freemarker.ext.beans.BeansWrapper;
 import freemarker.ext.jsp.TaglibFactory;
 import freemarker.ext.servlet.HttpRequestHashModel;
 import freemarker.ext.servlet.HttpSessionHashModel;

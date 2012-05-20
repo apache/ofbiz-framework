@@ -90,7 +90,6 @@ import org.ofbiz.webtools.artifactinfo.ServiceArtifactInfo;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import freemarker.ext.beans.BeansWrapper;
 import freemarker.ext.dom.NodeModel;
 import freemarker.template.Configuration;
 import freemarker.template.Template;

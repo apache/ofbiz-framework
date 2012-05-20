@@ -42,7 +42,6 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.entity.GenericValue;
 
-import freemarker.ext.beans.BeansWrapper;
 import freemarker.template.Configuration;
 import freemarker.template.SimpleSequence;
 import freemarker.template.Template;

@@ -54,7 +54,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-import freemarker.ext.beans.BeansWrapper;
 import freemarker.ext.dom.NodeModel;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
