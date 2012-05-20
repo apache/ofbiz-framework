@@ -1587,7 +1587,10 @@ public class ModelFormField {
                     if (modelEntity == null) {
                         throw new IllegalArgumentException("Error in entity-options: could not find entity [" + this.entityName + "]");
                     }
-                    expandedConditionList.add(condition.createCondition(context, modelEntity, delegator.getModelFieldTypeReader(modelEntity)));
+                    EntityCondition createdCondition = condition.createCondition(context, modelEntity, delegator.getModelFieldTypeReader(modelEntity));
+                    if (createdCondition!=null) {
+                        expandedConditionList.add(createdCondition);
+                    }
                 }
                 findCondition = EntityCondition.makeCondition(expandedConditionList);
             }
