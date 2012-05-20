@@ -59,6 +59,7 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilProperties.UtilResourceBundle;
+import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
@@ -171,8 +172,7 @@ public class WebToolsServices {
                     }
                 }
                 fmcontext.put("doc", nodeModel);
-                BeansWrapper wrapper = BeansWrapper.getDefaultInstance();
-                TemplateHashModel staticModels = wrapper.getStaticModels();
+                TemplateHashModel staticModels = FreeMarkerWorker.getDefaultOfbizWrapper().getStaticModels();
                 fmcontext.put("Static", staticModels);
 
                 template.process(fmcontext, outWriter);

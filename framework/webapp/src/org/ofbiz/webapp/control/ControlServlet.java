@@ -38,6 +38,7 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilJ2eeCompat;
 import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
@@ -197,7 +198,7 @@ public class ControlServlet extends HttpServlet {
 
         request.setAttribute("_REQUEST_HANDLER_", requestHandler);
         
-        ServletContextHashModel ftlServletContext = new ServletContextHashModel(this, BeansWrapper.getDefaultInstance());
+        ServletContextHashModel ftlServletContext = new ServletContextHashModel(this, FreeMarkerWorker.getDefaultOfbizWrapper());
         request.setAttribute("ftlServletContext", ftlServletContext);
 
         // setup some things that should always be there

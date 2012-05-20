@@ -85,8 +85,6 @@ public class FreeMarkerViewHandler extends AbstractViewHandler {
         ServletContext servletContext = (ServletContext) request.getAttribute("servletContext");
         HttpSession session = request.getSession();
 
-        BeansWrapper wrapper = BeansWrapper.getDefaultInstance();
-
         // add in the OFBiz objects
         root.put("delegator", request.getAttribute("delegator"));
         root.put("dispatcher", request.getAttribute("dispatcher"));
@@ -101,19 +99,19 @@ public class FreeMarkerViewHandler extends AbstractViewHandler {
         root.put("application", servletContext);
 
         // add the servlet context -- this has been deprecated, and now requires servlet, do we really need it?
-        //root.put("applicationAttributes", new ServletContextHashModel(servletContext, BeansWrapper.getDefaultInstance()));
+        //root.put("applicationAttributes", new ServletContextHashModel(servletContext, FreeMarkerWorker.defaultOfbizWrapper));
 
         // add the session object (for transforms) to the context as a BeanModel
         root.put("session", session);
 
         // add the session
-        root.put("sessionAttributes", new HttpSessionHashModel(session, wrapper));
+        root.put("sessionAttributes", new HttpSessionHashModel(session, FreeMarkerWorker.getDefaultOfbizWrapper()));
 
         // add the request object (for transforms) to the context as a BeanModel
         root.put("request", request);
 
         // add the request
-        root.put("requestAttributes", new HttpRequestHashModel(request, wrapper));
+        root.put("requestAttributes", new HttpRequestHashModel(request, FreeMarkerWorker.getDefaultOfbizWrapper()));
 
         // add the request parameters -- this now uses a Map from UtilHttp
         Map<String, Object> requestParameters = UtilHttp.getParameterMap(request);

@@ -39,6 +39,7 @@ import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.entity.GenericValue;
 
 import freemarker.ext.beans.BeansWrapper;
@@ -110,7 +111,7 @@ public class WfsViewHandler extends AbstractViewHandler {
 
     public static Configuration makeDefaultOfbizConfig() throws TemplateException, IOException {
         Configuration config = new Configuration();
-        config.setObjectWrapper(BeansWrapper.getDefaultInstance());
+        config.setObjectWrapper(FreeMarkerWorker.getDefaultOfbizWrapper());
         config.setSetting("datetime_format", "yyyy-MM-dd HH:mm:ss.SSS");
         Configuration defaultOfbizConfig = config;
         return defaultOfbizConfig;
