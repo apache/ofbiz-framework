@@ -2001,80 +2001,58 @@ under the License.
     <xs:element name="entity-data" substitutionGroup="EntityMiscOperations">
         <xs:annotation>
             <xs:documentation>
-                Specify the location of an XML file that should be in the same format as any
-                of the entity engine XML files, or the entity engine transformed
-                XML files. And what this will do is either load or
-                assert that file depending on the mode.
-
-                If it finds the record but any of the fields are different,
-                this is in the assert mode still, it will report any field
-                that's different in a message on the error list. So that's
-                basically what you can in essence assert, that a certain
-                set of data exists in the database.
+                Load or assert an entity data XML file. The operation can be used in two modes:
+                "load" or "assert". The "load" mode will load the XML entity data into the database.
+                The "assert" mode will compare the XML entity data with the database -
+                any mismatched or missing data will be logged in the error message list.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.entity-data"/>
+            <xs:attribute type="xs:string" name="location" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        Specify the location of an XML file to load in database or verify in assert mode.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: constant, ${expression}.
+                </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="mode" default="load">
+                <xs:annotation>
+                    <xs:documentation>
+                        Operation mode: "load" or "assert". Defaults to "load".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="load" />
+                        <xs:enumeration value="assert" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute type="xs:integer" name="timeout">
+                <xs:annotation>
+                    <xs:documentation>
+                        Override the timeout to start a new transaction and load the data with a longer timeout.
+                        Used only when mode="load".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute ref="error-list-name" />
+            <xs:attribute type="xs:string" name="delegator-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        Overrides the delegator or default context by specifying a delegator-name.
+                        Optional. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.entity-data">
-        <xs:attribute type="xs:string" name="location" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Specify the location of an XML file to load in database or verify in assert mode.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="delegator-name" use="optional">
-            <xs:annotation>
-                <xs:documentation>
-                    Overrides the delegator or default context by specifying a delegator-name.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:integer" name="timeout" default="-1">
-            <xs:annotation>
-                <xs:documentation>
-                    Override the timeout to start a new transaction and load the data with a longer timeout.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="error-list-name" default="error_list">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the list in the method environment to check for error messages.
-                    Defaults to "error_list".
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="mode" default="load">
-            <xs:annotation>
-                <xs:documentation>
-                    "load" or "assert". Default to "load".
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="load">
-                        <xs:annotation>
-                            <xs:documentation>
-                                Load the file into the database.
-                            </xs:documentation>
-                        </xs:annotation>
-                    </xs:enumeration>
-                    <xs:enumeration value="assert">
-                        <xs:annotation>
-                            <xs:documentation>
-                                Go through each row in the file, each record, and it
-                                will look that up by primary key. If it does not find it, it'll
-                                add a message to the error list about not having found it.
-                            </xs:documentation>
-                        </xs:annotation>
-                    </xs:enumeration>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="find-by-primary-key" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>
@@ -2673,55 +2651,56 @@ under the License.
     <xs:element name="entity-count" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>
-                Returns a long presenting the number of results found matching the specified condition.
-                The entity-count is very  similar to the entity-condition.
+                Returns a numeric value representing the number of entity values matching the specified condition.
+                The entity-count element is very similar to the entity-condition element.
 
                 Specify the entity-name, optionally the delgator-name if you want to override that,
-                and then the name of the variable to put the count in.
+                and then the name of the variable to put the count value in.
 
                 You can do the same condition-expr (condition expression) or condition-list which can have condition-expr
                 and other condition-lists underneath it for a tree of conditions that can be arbitrarily complex.
-                You can also use the have-in-condition-list, this is the same as on the entity-condition.
-                What this will do basically is, rather than doing a query and getting the results back,
-                it will just count the results and put that number in the context in the variable named by the count-name.
+                You can also use the have-in-condition-list element, this is the same as the entity-condition.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
                 <xs:choice>
-                    <xs:element ref="condition-expr"/>
-                    <xs:element ref="condition-list"/>
-                    <xs:element ref="condition-object"/>
+                    <xs:element ref="condition-expr" />
+                    <xs:element ref="condition-list" />
+                    <xs:element ref="condition-object" />
                 </xs:choice>
-                <xs:element minOccurs="0" ref="having-condition-list"/>
+                <xs:element minOccurs="0" ref="having-condition-list" />
             </xs:sequence>
-            <xs:attributeGroup ref="attlist.entity-count"/>
+            <xs:attribute name="entity-name" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        Name of entity to count in.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="count-field" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        Name of the field (variable) to put result of the count in.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="delegator-name" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        Name of a delegator to use.
+                        By default uses the delegator associated with that instance of the service engine.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.entity-count">
-        <xs:attribute name="entity-name" type="xs:string" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of entity to search in.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="delegator-name" type="xs:string">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of a delegator to use.
-                    By default uses the delegator associated with that instance of the service engine.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="count-field" type="xs:string" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of the field (variable) to put result of the count in.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="get-related-one" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>

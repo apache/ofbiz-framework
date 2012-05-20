@@ -27,52 +27,65 @@ import javolution.util.FastList;
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.util.EntityDataAssert;
 import org.ofbiz.entity.util.EntitySaxReader;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Uses the delegator to find entity values by a primary key
+ * Implements the &lt;entity-data&gt; element.
  */
-public class EntityData extends MethodOperation {
+public final class EntityData extends MethodOperation {
 
     public static final String module = EntityData.class.getName();
 
-    protected FlexibleStringExpander delegatorNameExdr;
-    protected ContextAccessor<List<Object>> errorListAcsr;
-    protected FlexibleStringExpander locationExdr;
-    protected String mode;
-    protected FlexibleStringExpander timeoutExdr;
+    private final FlexibleStringExpander delegatorNameFse;
+    private final FlexibleMapAccessor<List<Object>> errorListFma;
+    private final FlexibleStringExpander locationFse;
+    private final String mode;
+    private final int timeout;
 
     public EntityData(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        locationExdr = FlexibleStringExpander.getInstance(element.getAttribute("location"));
-        delegatorNameExdr = FlexibleStringExpander.getInstance(element.getAttribute("delegator-name"));
-        timeoutExdr = FlexibleStringExpander.getInstance(element.getAttribute("timeout"));
-        errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
-        mode = element.getAttribute("mode");
-        if (UtilValidate.isEmpty(mode)) {
-            mode = "load";
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "location", "timeout", "delegator-name", "error-list-name", "mode");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "location");
+            MiniLangValidate.constantAttributes(simpleMethod, element, "timeout", "mode");
+            MiniLangValidate.noChildElements(simpleMethod, element);
         }
+        locationFse = FlexibleStringExpander.getInstance(element.getAttribute("location"));
+        delegatorNameFse = FlexibleStringExpander.getInstance(element.getAttribute("delegator-name"));
+        String timeoutAttribute = element.getAttribute("timeout");
+        int timeout = -1;
+        if (!timeoutAttribute.isEmpty()) {
+            try {
+                timeout = Integer.parseInt(timeoutAttribute);
+            } catch (NumberFormatException e) {
+                MiniLangValidate.handleError("Exception thrown while parsing timeout attribute: " + e.getMessage(), simpleMethod, element);
+            }
+        }
+        this.timeout = timeout;
+        errorListFma = FlexibleMapAccessor.getInstance(MiniLangValidate.checkAttribute(element.getAttribute("error-list-name"), "error_list"));
+        mode = MiniLangValidate.checkAttribute(element.getAttribute("mode"), "load");
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        List<Object> messages = errorListAcsr.get(methodContext);
+        List<Object> messages = errorListFma.get(methodContext.getEnvMap());
         if (messages == null) {
             messages = FastList.newInstance();
-            errorListAcsr.put(methodContext, messages);
+            errorListFma.put(methodContext.getEnvMap(), messages);
         }
-        String location = this.locationExdr.expandString(methodContext.getEnvMap());
-        String delegatorName = this.delegatorNameExdr.expandString(methodContext.getEnvMap());
+        String location = this.locationFse.expandString(methodContext.getEnvMap());
+        String delegatorName = this.delegatorNameFse.expandString(methodContext.getEnvMap());
         Delegator delegator = methodContext.getDelegator();
         if (UtilValidate.isNotEmpty(delegatorName)) {
             delegator = DelegatorFactory.getDelegator(delegatorName);
@@ -86,31 +99,19 @@ public class EntityData extends MethodOperation {
         if (dataUrl == null) {
             messages.add("Could not find Entity Data document in resource: " + location);
         }
-        String timeout = this.timeoutExdr.expandString(methodContext.getEnvMap());
-        int txTimeout = -1;
-        if (UtilValidate.isNotEmpty(timeout)) {
-            try {
-                txTimeout = Integer.parseInt(timeout);
-            } catch (NumberFormatException e) {
-                Debug.logWarning("Timeout not formatted properly in entity-data operation, defaulting to container default", module);
-            }
-        }
         if ("assert".equals(mode)) {
-            // load the XML file, read in one element at a time and check it against the
-            // database
             try {
                 EntityDataAssert.assertData(dataUrl, delegator, messages);
             } catch (Exception e) {
                 String xmlError = "Error checking/asserting XML Resource \"" + dataUrl.toExternalForm() + "\"; Error was: " + e.getMessage();
-                // Debug.logError(e, xmlError, module);
                 messages.add(xmlError);
+                Debug.logWarning(e, xmlError, module);
             }
         } else {
-            // again, default to load
             try {
                 EntitySaxReader reader = null;
-                if (txTimeout > 0) {
-                    reader = new EntitySaxReader(delegator, txTimeout);
+                if (timeout > 0) {
+                    reader = new EntitySaxReader(delegator, timeout);
                 } else {
                     reader = new EntitySaxReader(delegator);
                 }
@@ -118,7 +119,7 @@ public class EntityData extends MethodOperation {
             } catch (Exception e) {
                 String xmlError = "Error loading XML Resource \"" + dataUrl.toExternalForm() + "\"; Error was: " + e.getMessage();
                 messages.add(xmlError);
-                Debug.logError(e, xmlError, module);
+                Debug.logWarning(e, xmlError, module);
             }
         }
         return true;
@@ -126,23 +127,39 @@ public class EntityData extends MethodOperation {
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public String rawString() {
-        // TODO: something more than the empty tag
-        return "<entity-data/>";
+        return toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<entity-data ");
+        sb.append("location=\"").append(this.locationFse).append("\" ");
+        sb.append("mode=\"").append(this.mode).append("\" ");
+        sb.append("timeout=\"").append(this.timeout).append("\" ");
+        if (!this.delegatorNameFse.isEmpty()) {
+            sb.append("delegator-name=\"").append(this.delegatorNameFse).append("\" ");
+        }
+        sb.append("error-list-name=\"").append(this.errorListFma).append("\" ");
+        sb.append("/>");
+        return sb.toString();
+    }
+
+    /**
+     * A factory for the &lt;entity-data&gt; element.
+     */
     public static final class EntityDataFactory implements Factory<EntityData> {
+        @Override
         public EntityData createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new EntityData(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
-            // FIXME: not in SimpleMethod
             return "entity-data";
         }
     }
