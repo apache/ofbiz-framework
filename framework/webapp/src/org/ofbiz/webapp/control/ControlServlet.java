@@ -51,7 +51,6 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.stats.ServerHitBin;
 import org.ofbiz.webapp.stats.VisitHandler;
 
-import freemarker.ext.beans.BeansWrapper;
 import freemarker.ext.servlet.ServletContextHashModel;
 
 /**
