@@ -284,8 +284,15 @@ under the License.
         <tr<#if alt_row> class="alternate-row"</#if>>
           <td>${option.description?if_exists}</td>
           <td>${option.sequenceNum?if_exists}</td>
-          <td><a href="<@ofbizUrl>EditSurveyQuestions?surveyId=${requestParameters.surveyId}&amp;surveyQuestionId=${option.surveyQuestionId}&amp;surveyOptionSeqId=${option.surveyOptionSeqId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonEdit}</a>
-          <td><a href="<@ofbizUrl>removeSurveyQuestionAppl?surveyId=${requestParameters.surveyId}&amp;surveyQuestionId=${option.surveyQuestionId}&amp;surveyOptionSeqId=${option.surveyOptionSeqId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRemove}</a>
+          <td><a href="<@ofbizUrl>EditSurveyQuestions?surveyId=${requestParameters.surveyId}&amp;surveyQuestionId=${option.surveyQuestionId}&amp;surveyOptionSeqId=${option.surveyOptionSeqId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonEdit}</a></td>
+          <td>
+            <form id="deleteSurveyQuestionOption_${option_index}" action="<@ofbizUrl>deleteSurveyQuestionOption</@ofbizUrl>" method="post">
+              <input type="hidden" name="surveyId" value="${requestParameters.surveyId}" />
+              <input type="hidden" name="surveyQuestionId" value="${option.surveyQuestionId}" />
+              <input type="hidden" name="surveyOptionSeqId" value="${option.surveyOptionSeqId}" />
+              <a href="javascript:document.getElementById('deleteSurveyQuestionOption_${option_index}').submit();"" class="buttontext">${uiLabelMap.CommonRemove}</a>
+            </form>
+          </td>
         </tr>
         <#assign alt_row = !alt_row>
       </#list>
