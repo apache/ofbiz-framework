@@ -196,7 +196,7 @@
     </property>
     <property key="FormFieldTitle_lotId">
         <value xml:lang="en">Lot Id</value>
-        <value xml:lang="fr">RÃƒÂ©f. de lot</value>
+        <value xml:lang="fr">Réf. de lot</value>
         <value xml:lang="it">Numero lotto</value>
         <value xml:lang="pt_BR">Id do lote</value>
         <value xml:lang="zh">批次标识</value>

@@ -25614,7 +25614,7 @@
     </property>
     <property key="Tracking">
         <value xml:lang="en">Tracking</value>
-        <value xml:lang="fr">TraÃƒÂ§abilitÃƒÂ©</value>
+        <value xml:lang="fr">Traçabilité</value>
     </property>
     <property key="SearchTracking">
         <value xml:lang="en">Search of a tracking</value>
@@ -25622,7 +25622,7 @@
     </property>
     <property key="ResultTracking">
         <value xml:lang="en">Search result</value>
-        <value xml:lang="fr">RÃƒÂ©sultat de la recherche</value>
+        <value xml:lang="fr">Résultat de la recherche</value>
     </property>
     <property key="TrackingType">
         <value xml:lang="en">Type of tracking</value>
