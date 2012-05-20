@@ -76,7 +76,8 @@ public class FreeMarkerWorker {
 
     // use soft references for this so that things from Content records don't kill all of our memory, or maybe not for performance reasons... hmmm, leave to config file...
     public static UtilCache<String, Template> cachedTemplates = UtilCache.createUtilCache("template.ftl.general", 0, 0, false);
-    protected static Configuration defaultOfbizConfig = makeConfiguration(new BeansWrapper());
+    private static final BeansWrapper defaultOfbizWrapper = new BeansWrapper();
+    private static final Configuration defaultOfbizConfig = makeConfiguration(defaultOfbizWrapper);
 
     public static Configuration makeConfiguration(BeansWrapper wrapper) {
         Configuration newConfig = new Configuration();
@@ -115,6 +116,10 @@ public class FreeMarkerWorker {
         }
 
         return newConfig;
+    }
+
+    public static BeansWrapper getDefaultOfbizWrapper() {
+        return defaultOfbizWrapper;
     }
 
     /**
@@ -616,10 +621,9 @@ public class FreeMarkerWorker {
     }
 
     public static TemplateModel autoWrap(Object obj, Environment env) {
-       BeansWrapper wrapper = BeansWrapper.getDefaultInstance();
        TemplateModel templateModelObj = null;
        try {
-           templateModelObj = wrapper.wrap(obj);
+           templateModelObj = getDefaultOfbizWrapper().wrap(obj);
        } catch (TemplateModelException e) {
            throw new RuntimeException(e.getMessage());
        }
