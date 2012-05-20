@@ -34,7 +34,7 @@
                 </entity-condition>
                 <set field="partyId" from-field="parties[0].partyId"/>
                 <set field="customerPartyId" from-field="customerRel.partyIdFrom"/>
-                <set field="previousParams" from-field="sessionAttributes._PREVIOUS_PARAMS_"/>
+                <set field="previousParams" from-field="_PREVIOUS_PARAMS_" from-scope="user"/>
                 <property-to-field field="defaultCountryGeoId" resource="general" property="country.geo.id.default" default="USA"/>
             </actions>
             <widgets>

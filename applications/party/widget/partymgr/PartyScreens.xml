@@ -695,7 +695,7 @@ under the License.
                 <set field="titleProperty" value="PartyCreateNewCustomer"/>
                 <set field="headerItem" value="find"/>
                 <set field="target" value="createCustomer"/>
-                <set field="previousParams" from-field="sessionAttributes._PREVIOUS_PARAMS_"/>
+                <set field="previousParams" from-field="_PREVIOUS_PARAMS_" from-scope="user"/>
                 <property-to-field field="defaultCountryGeoId" resource="general" property="country.geo.id.default" default="USA"/>
             </actions>
             <widgets>
@@ -741,7 +741,7 @@ under the License.
                 <set field="headerItem" value="find"/>
                 <set field="displayPassword" value="Y"/>
                 <set field="target" value="createProspect"/>
-                <set field="previousParams" from-field="sessionAttributes._PREVIOUS_PARAMS_"/>
+                <set field="previousParams" from-field="_PREVIOUS_PARAMS_" from-scope="user"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -786,7 +786,7 @@ under the License.
                 <set field="headerItem" value="find"/>
                 <set field="displayPassword" value="Y"/>
                 <set field="target" value="createEmployee"/>
-                <set field="previousParams" from-field="sessionAttributes._PREVIOUS_PARAMS_"/>
+                <set field="previousParams" from-field="_PREVIOUS_PARAMS_" from-scope="user"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
