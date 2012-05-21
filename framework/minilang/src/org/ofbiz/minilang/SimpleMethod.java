@@ -400,8 +400,6 @@ public final class SimpleMethod extends MiniLangElement {
         if (userLogin != null) {
             methodContext.putEnv(getUserLoginEnvName(), userLogin);
         }
-        // always put the null field object in as "null"
-        methodContext.putEnv("null", GenericEntity.NULL_FIELD);
         methodContext.putEnv("nullField", GenericEntity.NULL_FIELD);
         methodContext.putEnv(getDelegatorEnvName(), methodContext.getDelegator());
         methodContext.putEnv(getSecurityEnvName(), methodContext.getSecurity());
