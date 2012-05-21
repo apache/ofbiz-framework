@@ -38,9 +38,6 @@
         <dependency org="org.codehaus.sonar-plugins" name="sonar-ant-task" rev="1.3" conf="sonar-ant-task->default"/>
 
         <!--Exclusions for cobertura-->
-        <exclude module="oro" conf="cobertura"/>
-        <exclude module="asm" conf="cobertura"/>
-        <exclude module="asm-tree" conf="cobertura"/>
         <exclude module="log4j" conf="cobertura"/>
         <exclude module="ant" conf="cobertura"/>
     </dependencies>
