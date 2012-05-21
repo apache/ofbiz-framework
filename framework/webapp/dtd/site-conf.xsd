@@ -375,7 +375,8 @@ under the License.
         <xs:attribute name="path" type="xs:string">
             <xs:annotation>
                 <xs:documentation>
-                    The path to the class or XML file containing this event, leave empty for services.
+                    The path to the class or XML file containing this event.
+                    leave empty for services, except if you want to run it as a job, then use "async"
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
