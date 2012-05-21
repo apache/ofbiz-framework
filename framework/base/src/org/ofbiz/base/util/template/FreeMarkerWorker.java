@@ -84,6 +84,7 @@ public class FreeMarkerWorker {
     }
 
     public static <T extends BeansWrapper> T configureBeansWrapper(T wrapper) {
+        wrapper.setNullWildcards(true);
         return wrapper;
     }
 
