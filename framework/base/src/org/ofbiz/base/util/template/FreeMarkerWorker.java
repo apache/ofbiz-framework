@@ -79,6 +79,10 @@ public class FreeMarkerWorker {
     private static final BeansWrapper defaultOfbizWrapper = new BeansWrapper();
     private static final Configuration defaultOfbizConfig = makeConfiguration(defaultOfbizWrapper);
 
+    public static BeansWrapper getDefaultOfbizWrapper() {
+        return defaultOfbizWrapper;
+    }
+
     public static Configuration makeConfiguration(BeansWrapper wrapper) {
         Configuration newConfig = new Configuration();
 
@@ -116,10 +120,6 @@ public class FreeMarkerWorker {
         }
 
         return newConfig;
-    }
-
-    public static BeansWrapper getDefaultOfbizWrapper() {
-        return defaultOfbizWrapper;
     }
 
     /**
