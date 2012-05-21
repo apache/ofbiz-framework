@@ -350,6 +350,8 @@ public class ModelScreen extends ModelWidget {
     public void renderScreenString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws ScreenRenderException {
         // make sure the "null" object is in there for entity ops
         context.put("null", GenericEntity.NULL_FIELD);
+        // make sure the "nullField" object is in there for entity ops
+        context.put("nullField", GenericEntity.NULL_FIELD);
 
         // wrap the whole screen rendering in a transaction, should improve performance in querying and such
         Map<String, String> parameters = UtilGenerics.cast(context.get("parameters"));
