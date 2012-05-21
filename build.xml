@@ -86,6 +86,8 @@ under the License.
           description="Clean all downloaded files">
         <delete>
             <fileset dir="framework/base/lib" includes="cobertura-*.jar"/>
+            <fileset dir="framework/base/lib" includes="asm*.jar"/>
+            <fileset dir="framework/base/lib" includes="oro*.jar"/>
             <fileset dir="framework/base/lib" includes="sonar-*.jar"/>
             <fileset dir="framework/entity/lib/jdbc" includes="postgresql-*.jar"/>
         </delete>

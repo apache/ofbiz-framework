@@ -1,6 +1,8 @@
 applications/*/build
 framework/*/build
 framework/base/lib/cobertura-*.jar
+framework/base/lib/asm*.jar
+framework/base/lib/oro*.jar
 framework/entity/lib/jdbc/postgresql-*.jar
 hot-deploy/*/build
 specialpurpose/*/build
