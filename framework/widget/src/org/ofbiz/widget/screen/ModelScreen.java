@@ -348,8 +348,6 @@ public class ModelScreen extends ModelWidget {
      *   use the same screen definitions for many types of screen UIs
      */
     public void renderScreenString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws ScreenRenderException {
-        // make sure the "null" object is in there for entity ops
-        context.put("null", GenericEntity.NULL_FIELD);
         // make sure the "nullField" object is in there for entity ops
         context.put("nullField", GenericEntity.NULL_FIELD);
 
