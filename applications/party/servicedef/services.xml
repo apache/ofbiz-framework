@@ -1348,4 +1348,11 @@ under the License.
         <attribute name="emailType" type="String" mode="IN" optional="true"/>
         <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
     </service>
+    
+    <!-- send account activated email notification -->
+    <service name="sendAccountActivatedEmailNotification" engine="simple"
+            location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="sendAccountActivatedEmailNotification" auth="false">
+        <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+    </service>
 </services>

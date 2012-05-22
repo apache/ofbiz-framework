@@ -53,4 +53,15 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="AccountActivatedNotification">
+        <section>
+            <actions>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="title" value="${uiLabelMap.PartyNotificationMailActivated}"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://party/templates/email/AccountActivatedNotification.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
 </screens>

@@ -159,6 +159,7 @@ under the License.
     <Enumeration description="Party Email Address Verification" enumCode="EMAIL_VERIFY" enumId="PRDS_EMAIL_VERIFY" sequenceId="03" enumTypeId="PARTY_EMAIL"/>
     <Enumeration description="Party Invitation" enumCode="INVITE_EMAIL" enumId="PRDS_PARTYINV_EMAIL" sequenceId="04" enumTypeId="PARTY_EMAIL"/>
     <Enumeration description="Contact-Us Notification" enumCode="CONT_EMAIL" enumId="CONT_NOTI_EMAIL" sequenceId="05" enumTypeId="PARTY_EMAIL"/>
+    <Enumeration description="Account Activated Notification" enumCode="ACCOUNT_ACTIVATED" enumId="PRDS_CUST_ACTIVATED" sequenceId="06" enumTypeId="PARTY_EMAIL"/>
     <Enumeration description="Unsubscribe Contact List Notification" enumCode="UNSUB_CONT_EMAIL" enumId="UNSUB_CONT_LIST_NOTI" sequenceId="01" enumTypeId="PARTY_EMAIL"/>
     <Enumeration description="Subscribe Contact List Notification" enumCode="SUB_CONT_EMAIL" enumId="SUB_CONT_LIST_NOTI" sequenceId="02" enumTypeId="PARTY_EMAIL"/>
     <Enumeration description="Unsubscribe Contact List Verify" enumCode="UNSUB_CONT_VERIFY_EMAIL" enumId="UNSUB_CONT_LIST_VERI" sequenceId="03" enumTypeId="PARTY_EMAIL"/>

@@ -7923,6 +7923,9 @@
         <value xml:lang="zh">如果不重新创建安全组的话，不能修改这个。</value>
         <value xml:lang="zh_TW">如果不重新創建安全組的話，不能修改這個。</value>
     </property>
+    <property key="PartyNotificationMailActivated">
+        <value xml:lang="en">Party Account Activated Notification Mail</value>
+    </property>
     <property key="PartyNotificationMailChange">
         <value xml:lang="en">Change Personal Info Notification Mail</value>
         <value xml:lang="hi_IN">व्यक्तिगत जानकारी अधिसूचना मेल बदलें</value>
