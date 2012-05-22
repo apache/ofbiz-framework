@@ -1126,4 +1126,48 @@ under the License.
             <field-to-result result-name="description" field="roleType.description" />
         </if-not-empty>
     </simple-method>
+    
+    <!-- send account activated email notification -->
+    <simple-method method-name="sendAccountActivatedEmailNotification" short-description="Notification email on account activated" login-required="false">
+        <map-to-map map="parameters" to-map="bodyParameters"/>
+        <set field="emailType" value="PRDS_CUST_ACTIVATED"/>
+        <set field="productStoreId" from-field="parameters.productStoreId" />
+        <if-empty field="productStoreId">
+            <log level="warning" message="No productStoreId specified."/>
+        </if-empty>
+        <entity-one entity-name="ProductStoreEmailSetting" value-field="storeEmail">
+            <field-map field-name="emailType"/>
+            <field-map field-name="productStoreId"/>
+        </entity-one>
+        <entity-and list="webSites" entity-name="WebSite">
+            <field-map field-name="productStoreId" from-field="storeEmail.productStoreId"/>
+        </entity-and>
+        <first-from-list entry="webSite" list="webSites"/>
+        <if-not-empty field="storeEmail.bodyScreenLocation">
+            <entity-one entity-name="UserLogin" value-field="userLoginParty"/>
+            <set field="parameters.partyId" from-field="userLoginParty.partyId"/>
+            <entity-condition entity-name="PartyContactDetailByPurpose" list="partyContactDetailByPurposes" filter-by-date="true">
+                <condition-list>
+                    <condition-expr field-name="contactMechPurposeTypeId" operator="equals" value="PRIMARY_EMAIL"/>
+                    <condition-expr field-name="partyId" operator="equals"  from-field="parameters.partyId"/>
+                </condition-list>
+            </entity-condition>
+            <first-from-list entry="partyContactDetailByPurpose" list="partyContactDetailByPurposes"/>
+            <entity-one entity-name="Person" value-field="person"/>
+            <set field="bodyParameters.person" from-field="person"/>
+            <set field="emailParams.bodyParameters" from-field="bodyParameters"/>
+            <set field="contactMechId" from-field="partyContactDetailByPurpose.contactMechId"/>
+            <entity-one entity-name="ContactMech" value-field="contactMech"/>
+            <set field="emailParams.sendTo" from-field="contactMech.infoString"/>
+            <set field="emailParams.subject" from-field="storeEmail.subject"/>
+            <set field="emailParams.sendFrom" from-field="storeEmail.fromAddress"/>
+            <set field="emailParams.sendCc" from-field="storeEmail.ccAddress"/>
+            <set field="emailParams.sendBcc" from-field="storeEmail.bccAddress"/>
+            <set field="emailParams.contentType" from-field="storeEmail.contentType"/>
+            <set field="emailParams.bodyScreenUri" from-field="storeEmail.bodyScreenLocation"/>
+            <set field="emailParams.webSiteId" from-field="webSite.webSiteId"/>
+            <set field="emailParams.emailType" from-field="emailType"/>
+            <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
+        </if-not-empty>
+    </simple-method>
 </simple-methods>
