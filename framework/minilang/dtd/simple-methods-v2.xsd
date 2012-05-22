@@ -210,7 +210,7 @@ under the License.
         <xs:attribute name="entity-name" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    Name of entity to search in.
+                    Name of the entity to search in.
                     &lt;br/&gt;&lt;br/&gt;
                     Required. Attribute type: constant, ${expression}.
                 </xs:documentation>
@@ -2192,7 +2192,9 @@ under the License.
     <xs:element name="entity-one" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>
-                Does a find-by-primarykey, always returns a single generic value object if it's found, otherwise returns null.
+                Returns a single entity value that is retrieved from the database by using the primary key.
+                The primary key can be specified in the field-map child elements, or if they are absent,
+                the primary key will be constructed from matching environment fields.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -2212,48 +2214,53 @@ under the License.
                     </xs:annotation>
                 </xs:element>
             </xs:sequence>
-            <xs:attributeGroup ref="attlist.entity-one"/>
+            <xs:attribute name="entity-name" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        Name of the entity to search in.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="value-field" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        Name of the target field to put the entity value in.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="use-cache">
+                <xs:annotation>
+                    <xs:documentation>
+                        Specifies whether or not the delegator's cache should be searched before going to the database.
+                        This results in much faster retrieval times, but can return stale data that is not the most current in the database.
+                        Must be "true" or "false", defaults to "false".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="auto-field-map">
+                <xs:annotation>
+                    <xs:documentation>
+                        When "true", the operation looks for all primary key field names in the current context as well as in the parameters map.
+                        Defaults to "true".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.entity-one">
-        <xs:attribute name="entity-name" type="xs:string" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of the entity to query on.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="value-field" type="xs:string" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of the variable to put result record in.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="use-cache" default="false">
-            <xs:annotation>
-                <xs:documentation>
-                    Specifies whether or not the delegator's cache should be searched before going to the database.
-                    This results in much faster retrieval times, but can return stale data that is not the most current in the database.
-                    Must be "true" or "false", defaults to "false".
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="auto-field-map" default="true">
-            <xs:annotation>
-                <xs:documentation>
-                    Looks for all primary key field names in  the current context as well as in the parameters map or not.
-                    Defaults to true.
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="entity-and" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>
