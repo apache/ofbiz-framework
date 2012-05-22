@@ -26,6 +26,7 @@ import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
@@ -42,6 +43,12 @@ public final class FilterListByAnd extends MethodOperation {
 
     public FilterListByAnd(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "list", "map", "to-list");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "list", "map");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "list", "map", "to-list");
+            MiniLangValidate.noChildElements(simpleMethod, element);
+        }
         listFma = FlexibleMapAccessor.getInstance(element.getAttribute("list"));
         String toListAttribute = element.getAttribute("to-list");
         if (toListAttribute.isEmpty()) {
