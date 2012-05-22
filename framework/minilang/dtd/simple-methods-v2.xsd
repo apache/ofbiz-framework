@@ -2864,38 +2864,41 @@ under the License.
     <xs:element name="filter-list-by-and" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>
-                The filter-list-by-and tag filters the given list by the fields in the specified map.
+                Filters a list of entity values by the fields in the specified map.
+                Each entity value in the list will be compared to the specified map, and
+                if the entity value's fields match the map, the entity value will be copied
+                to the target list.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.filter-list-by-and"/>
+            <xs:attribute type="xs:string" name="list" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field that contains the list of entity values.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="map" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field that contains the map that will be used for the entity field comparison.
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="to-list">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field the filtered list will be put into.
+                        Defaults to the value of the list-name attribute (replaces the old list).
+                        Optional. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.filter-list-by-and">
-        <xs:attribute type="xs:string" name="list" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field that contains the list of GenericValue objects.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="to-list">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field the filtered list will be put into.
-                    Defaults to the value of the list-name attribute (ie goes to the same place it came from, replacing the old list).
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="map">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of a map in the method environment that will be used for the entity fields.
-                    If no map is used this will just make a copy of the list.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="filter-list-by-date" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>

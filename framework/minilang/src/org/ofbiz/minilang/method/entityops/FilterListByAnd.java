@@ -21,61 +21,74 @@ package org.ofbiz.minilang.method.entityops;
 import java.util.List;
 import java.util.Map;
 
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Uses the delegator to find entity values by anding the map fields
+ * Implements the &lt;filter-list-by-and&gt; element.
  */
-public class FilterListByAnd extends MethodOperation {
+public final class FilterListByAnd extends MethodOperation {
 
-    ContextAccessor<List<GenericEntity>> listAcsr;
-    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
-    ContextAccessor<List<GenericEntity>> toListAcsr;
+    private final FlexibleMapAccessor<List<GenericEntity>> listFma;
+    private final FlexibleMapAccessor<Map<String, ? extends Object>> mapFma;
+    private final FlexibleMapAccessor<List<GenericEntity>> toListFma;
 
     public FilterListByAnd(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        listAcsr = new ContextAccessor<List<GenericEntity>>(element.getAttribute("list"), element.getAttribute("list-name"));
-        toListAcsr = new ContextAccessor<List<GenericEntity>>(element.getAttribute("to-list"), element.getAttribute("to-list-name"));
-        if (toListAcsr.isEmpty()) {
-            toListAcsr = listAcsr;
+        listFma = FlexibleMapAccessor.getInstance(element.getAttribute("list"));
+        String toListAttribute = element.getAttribute("to-list");
+        if (toListAttribute.isEmpty()) {
+            toListFma = listFma;
+        } else {
+            toListFma = FlexibleMapAccessor.getInstance(toListAttribute);
         }
-        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map"), element.getAttribute("map-name"));
+        mapFma = FlexibleMapAccessor.getInstance(element.getAttribute("map"));
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        Map<String, ? extends Object> theMap = null;
-        if (!mapAcsr.isEmpty()) {
-            theMap = mapAcsr.get(methodContext);
-        }
-        toListAcsr.put(methodContext, EntityUtil.filterByAnd(listAcsr.get(methodContext), theMap));
+        Map<String, ? extends Object> theMap = mapFma.get(methodContext.getEnvMap());
+        toListFma.put(methodContext.getEnvMap(), EntityUtil.filterByAnd(listFma.get(methodContext.getEnvMap()), theMap));
         return true;
     }
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public String rawString() {
-        // TODO: something more than the empty tag
-        return "<filter-list-by-and/>";
+        return toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<filter-list-by-and ");
+        sb.append("list=\"").append(this.listFma).append("\" ");
+        sb.append("map=\"").append(this.mapFma).append("\" ");
+        sb.append("to-list=\"").append(this.toListFma).append("\" ");
+        sb.append("/>");
+        return sb.toString();
+    }
+
+    /**
+     * A factory for the &lt;filter-list-by-and&gt; element.
+     */
     public static final class FilterListByAndFactory implements Factory<FilterListByAnd> {
+        @Override
         public FilterListByAnd createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new FilterListByAnd(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "filter-list-by-and";
         }
