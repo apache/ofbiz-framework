@@ -1132,9 +1132,6 @@ under the License.
         <map-to-map map="parameters" to-map="bodyParameters"/>
         <set field="emailType" value="PRDS_CUST_ACTIVATED"/>
         <set field="productStoreId" from-field="parameters.productStoreId" />
-        <if-empty field="productStoreId">
-            <log level="warning" message="No productStoreId specified."/>
-        </if-empty>
         <entity-one entity-name="ProductStoreEmailSetting" value-field="storeEmail">
             <field-map field-name="emailType"/>
             <field-map field-name="productStoreId"/>
