@@ -944,4 +944,57 @@ under the License.
             <field-to-result field="invoiceId" result-name="invoiceId"/>
         </if-compare>
     </simple-method>
+    
+    <!-- InvoiceContent -->
+    <simple-method method-name="createInvoiceContent" short-description="Create Content For Invoice">
+        <make-value value-field="newEntity" entity-name="InvoiceContent"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+
+        <if-empty field="newEntity.fromDate">
+            <now-timestamp field="nowTimestamp"/>
+            <set field="newEntity.fromDate" from-field="nowTimestamp"/>
+        </if-empty>
+
+        <create-value value-field="newEntity"/>
+
+        <set-service-fields service-name="updateContent" map="parameters" to-map="updateContent"/>
+        <call-service service-name="updateContent" in-map-name="updateContent"/>
+
+        <field-to-result field="newEntity.contentId" result-name="contentId"/>
+        <field-to-result field="newEntity.invoiceId" result-name="invoiceId"/>
+        <field-to-result field="newEntity.invoiceContentTypeId" result-name="invoiceContentTypeId"/>
+    </simple-method>
+    <simple-method method-name="updateInvoiceContent" short-description="Update Content For Invoice">
+        <make-value value-field="lookupPKMap" entity-name="InvoiceContent"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
+        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
+
+        <set-service-fields service-name="updateContent" map="parameters" to-map="updateContent"/>
+        <call-service service-name="updateContent" in-map-name="updateContent"/>
+    </simple-method>
+    <simple-method method-name="removeInvoiceContent" short-description="Remove Content From Invoice">
+        <make-value value-field="lookupPKMap" entity-name="InvoiceContent"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
+        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="createSimpleTextContentForInvoice" short-description="Create Simple Text Content For Invoice">
+        <set-service-fields service-name="createInvoiceContent" map="parameters" to-map="createInvoiceContentMap"/>
+        <set-service-fields service-name="createSimpleTextContent" map="parameters" to-map="createSimpleTextMap"/>
+        <call-service service-name="createSimpleTextContent" in-map-name="createSimpleTextMap">
+            <result-to-field result-name="contentId" field="createInvoiceContentMap.contentId"/>
+        </call-service>
+        <call-service service-name="createInvoiceContent" in-map-name="createInvoiceContentMap"/>
+    </simple-method>
+    <simple-method method-name="updateSimpleTextContentForInvoice" short-description="Update Simple Text Content For Invoice">
+        <set-service-fields service-name="updateInvoiceContent" map="parameters" to-map="updateInvoiceContent"/>
+        <call-service service-name="updateInvoiceContent" in-map-name="updateInvoiceContent"/>
+        <set-service-fields service-name="updateSimpleTextContent" map="parameters" to-map="updateSimpleText"/>
+        <call-service service-name="updateSimpleTextContent" in-map-name="updateSimpleText"/>
+    </simple-method>
+    
 </simple-methods>

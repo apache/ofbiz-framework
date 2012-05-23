@@ -384,4 +384,46 @@ under the License.
         <attribute name="invoiceId" type="String" mode="OUT" optional="true"/>
     </service>
     
+    <!-- Invoice content services -->
+    <service name="createInvoiceContent" default-entity-name="InvoiceContent" engine="simple"
+        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="createInvoiceContent" auth="true">
+        <description>Add Content To Invoice</description>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
+        <!--<override name="contentId" optional="true" mode="INOUT"/>-->
+    </service>
+    <service name="updateInvoiceContent" default-entity-name="InvoiceContent" engine="simple"
+        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="updateInvoiceContent" auth="true">
+        <description>Update Content To Invoice</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeInvoiceContent" default-entity-name="InvoiceContent" engine="simple"
+        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="removeInvoiceContent" auth="true">
+        <description>Remove Content From Invoice</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    
+    <service name="createSimpleTextContentForInvoice" default-entity-name="InvoiceContent" engine="simple"
+        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="createSimpleTextContentForInvoice" auth="true">
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
+        <attribute name="text" type="String" mode="IN" optional="false" allow-html="safe"/>
+        <override name="contentId" optional="true"/>
+        <override name="fromDate" optional="true"/>
+    </service>
+    <service name="updateSimpleTextContentForInvoice" default-entity-name="InvoiceContent" engine="simple"
+        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="updateSimpleTextContentForInvoice" auth="true">
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes mode="IN" entity-name="Content" optional="true"/>
+        <attribute name="textDataResourceId" type="String" mode="IN" optional="true"/>
+        <attribute name="text" type="String" mode="IN" optional="true" allow-html="safe"/>
+    </service>
+    
 </services>
