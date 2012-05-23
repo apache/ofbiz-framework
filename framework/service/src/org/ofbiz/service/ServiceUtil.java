@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.service;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import com.ibm.icu.util.Calendar;
 import java.util.LinkedList;
@@ -413,13 +414,12 @@ public class ServiceUtil {
                     // begin this transaction
                     beganTx1 = TransactionUtil.begin();
 
-                    EntityListIterator foundJobs = delegator.find("JobSandbox", mainCond, null, null, null, findOptions);
+                    EntityListIterator foundJobs = delegator.find("JobSandbox", mainCond, null, UtilMisc.toSet("jobId"), null, findOptions);
                     try {
                         curList = foundJobs.getPartialList(1, 1000);
                     } finally {
                         foundJobs.close();
                     }
-
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Cannot obtain job data from datasource", module);
                     try {
@@ -435,20 +435,14 @@ public class ServiceUtil {
                         Debug.logWarning(e, module);
                     }
                 }
-
                 // remove each from the list in its own transaction
                 if (UtilValidate.isNotEmpty(curList)) {
-                    // list of runtime data IDs to attempt to delete
-                    List<String> runtimeToDelete = FastList.newInstance();
-
                     for (GenericValue job: curList) {
-                        String runtimeId = job.getString("runtimeDataId");
                         String jobId = job.getString("jobId");
                         boolean beganTx2 = false;
                         try {
                             beganTx2 = TransactionUtil.begin();
                             job.remove();
-                            runtimeToDelete.add(runtimeId);
                         } catch (GenericEntityException e) {
                             Debug.logInfo("Cannot remove job data for ID: " + jobId, module);
                             try {
@@ -464,35 +458,49 @@ public class ServiceUtil {
                             }
                         }
                     }
-
-                    // delete the runtime data - in a new transaction for each delete
-                    // we do this so that the ones which cannot be deleted to not cause
-                    // the entire group to rollback; some may be attached to multiple jobs.
-                    if (runtimeToDelete.size() > 0) {
-                        for (String runtimeId: runtimeToDelete) {
-                            boolean beganTx3 = false;
-                            try {
-                                beganTx3 = TransactionUtil.begin();
-                                delegator.removeByAnd("RuntimeData", "runtimeDataId", runtimeId);
-
-                            } catch (GenericEntityException e) {
-                                Debug.logInfo("Cannot remove runtime data for ID: " + runtimeId, module);
-                                try {
-                                    TransactionUtil.rollback(beganTx3, e.getMessage(), e);
-                                } catch (GenericTransactionException e1) {
-                                    Debug.logWarning(e1, module);
-                                }
-                            } finally {
-                                try {
-                                    TransactionUtil.commit(beganTx3);
-                                } catch (GenericTransactionException e) {
-                                    Debug.logWarning(e, module);
-                                }
-                            }
-                        }
-                    }
                 } else {
                     noMoreResults = true;
+                }
+            }
+            
+            // Now JobSandbox data is cleaned up. Now process Runtime data and remove the whole data in single shot that is of no need.
+            boolean beganTx3 = false;
+            GenericValue runtimeData = null;
+            EntityListIterator runTimeDataIt = null;
+            List<GenericValue> runtimeDataToDelete = FastList.newInstance();
+            long jobsandBoxCount = 0;
+            try {
+                // begin this transaction
+                beganTx3 = TransactionUtil.begin();
+                
+                runTimeDataIt = delegator.find("RuntimeData", null, null, UtilMisc.toSet("runtimeDataId"), null, null);
+                try {
+                    while ((runtimeData = runTimeDataIt.next()) != null) {
+                        EntityCondition whereCondition = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("runtimeDataId", EntityOperator.NOT_EQUAL, null),
+                                EntityCondition.makeCondition("runtimeDataId", EntityOperator.EQUALS, runtimeData.getString("runtimeDataId"))), EntityOperator.AND);
+                        jobsandBoxCount = delegator.findCountByCondition("JobSandbox", whereCondition, null, null);
+                        if (BigDecimal.ZERO.compareTo(BigDecimal.valueOf(jobsandBoxCount)) == 0) {
+                            runtimeDataToDelete.add(runtimeData);
+                        }
+                    }
+                } finally {
+                    runTimeDataIt.close();
+                }
+                // Now we are ready to delete runtimeData, we can safely delete complete list that we have recently fetched i.e runtimeDataToDelete.
+                delegator.removeAll(runtimeDataToDelete);
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Cannot obtain runtime data from datasource", module);
+                try {
+                    TransactionUtil.rollback(beganTx3, e.getMessage(), e);
+                } catch (GenericTransactionException e1) {
+                    Debug.logWarning(e1, module);
+                }
+                return ServiceUtil.returnError(e.getMessage());
+            } finally {
+                try {
+                    TransactionUtil.commit(beganTx3);
+                } catch (GenericTransactionException e) {
+                    Debug.logWarning(e, module);
                 }
             }
         } catch (GenericTransactionException e) {
