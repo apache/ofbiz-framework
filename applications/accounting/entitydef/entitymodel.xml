@@ -1209,6 +1209,40 @@ under the License.
         <key-map field-name="attrName"/>
       </relation>
     </entity>
+    <entity entity-name="InvoiceContent" 
+            package-name="org.ofbiz.accounting.invoice" 
+            title="Invoice Content Entity">
+        <field name="invoiceId" type="id-ne"></field>
+        <field name="invoiceContentTypeId" type="id-ne"></field>
+        <field name="contentId" type="id-ne"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <prim-key field="contentId"/>
+        <prim-key field="invoiceId"/>
+        <prim-key field="invoiceContentTypeId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="INV_CNT_PROD" rel-entity-name="Invoice">
+            <key-map field-name="invoiceId"/>
+        </relation>
+        <relation type="one" fk-name="INV_CNT_CNT" rel-entity-name="Content">
+            <key-map field-name="contentId"/>
+        </relation>
+        <relation type="one" fk-name="INV_CNT_TYPE" rel-entity-name="InvoiceContentType">
+            <key-map field-name="invoiceContentTypeId"/>
+        </relation>
+    </entity>
+    <entity entity-name="InvoiceContentType" 
+            package-name="org.ofbiz.accounting.invoice"
+            title="Invoice Content Type Entity">
+        <field name="invoiceContentTypeId" type="id-ne"></field>
+        <field name="parentTypeId" type="id"></field>
+        <field name="hasTable" type="indicator"></field>
+        <field name="description" type="description"></field>
+        <prim-key field="invoiceContentTypeId"/>
+        <relation type="one" fk-name="INVCT_TYP_PARENT" title="Parent" rel-entity-name="InvoiceContentType">
+            <key-map field-name="parentTypeId" rel-field-name="invoiceContentTypeId"/>
+        </relation>
+    </entity>
     <entity entity-name="InvoiceContactMech"
             package-name="org.ofbiz.accounting.invoice"
             never-cache="true"
@@ -1550,6 +1584,20 @@ under the License.
         <key-map field-name="invoiceTypeId"/>
       </relation>
     </entity>
+    <entity entity-name="InvoiceNote"
+            package-name="org.ofbiz.accounting.invoice"
+            title="Invoice Note Entity">
+      <field name="invoiceId" type="id-ne"></field>
+      <field name="noteId" type="id-ne"></field>
+      <prim-key field="invoiceId"/>
+      <prim-key field="noteId"/>
+      <relation type="one" fk-name="INVOICE_NOTE_INVOICE" rel-entity-name="Invoice">
+        <key-map field-name="invoiceId"/>
+      </relation>
+      <relation type="one" fk-name="INVOICE_NOTE_NOTE" rel-entity-name="NoteData">
+        <key-map field-name="noteId"/>
+      </relation>
+    </entity>
 
   <view-entity entity-name="InvoiceAndApplAndPayment" package-name="org.ofbiz.accounting.invoice" title="Invoice and related applications and payments">
     <member-entity entity-alias="INV" entity-name="Invoice"/>
@@ -1620,6 +1668,38 @@ under the License.
         <view-link entity-alias="INTM" rel-entity-alias="PROD" rel-optional="false">
             <key-map field-name="productId"/>
         </view-link>
+    </view-entity>
+
+    <view-entity entity-name="InvoiceContentAndInfo"
+            package-name="org.ofbiz.accounting.invoice"
+            title="InvoiceContent Content and DataResource View Entity">
+      <member-entity entity-alias="INVC" entity-name="InvoiceContent"/>
+      <member-entity entity-alias="CO" entity-name="Content"/>
+      <member-entity entity-alias="DR" entity-name="DataResource"/>
+      <alias-all entity-alias="INVC"/>
+      <alias-all entity-alias="CO"/>
+      <alias-all entity-alias="DR" prefix="dr"/>
+      <view-link entity-alias="INVC" rel-entity-alias="CO">
+        <key-map field-name="contentId"/>
+      </view-link>
+      <view-link entity-alias="CO" rel-entity-alias="DR">
+        <key-map field-name="dataResourceId"/>
+      </view-link>
+      <relation type="one-nofk" rel-entity-name="ElectronicText">
+        <key-map field-name="dataResourceId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="ImageDataResource">
+        <key-map field-name="dataResourceId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="OtherDataResource">
+        <key-map field-name="dataResourceId"/>
+      </relation>
+      <relation type="many" rel-entity-name="ContentAssocDataResourceViewFrom">
+        <key-map field-name="contentId" rel-field-name="contentIdStart"/>
+      </relation>
+      <relation type="many" rel-entity-name="ContentAssocDataResourceViewTo">
+        <key-map field-name="contentId" rel-field-name="contentIdStart"/>
+      </relation>
     </view-entity>
   <!-- ========================================================= -->
   <!-- org.ofbiz.accounting.ledger -->

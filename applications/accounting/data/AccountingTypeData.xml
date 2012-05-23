@@ -386,6 +386,9 @@ under the License.
 
     <GlAccountCategoryType glAccountCategoryTypeId="COST_CENTER" description="Cost Center Category"/>
 
+    <!-- Invoice content type-->
+    <InvoiceContentType invoiceContentTypeId="COMMENTS" description="comments" hasTable="N" parentTypeId=""/>
+    
     <!-- invoice item types tree for adjustments -->
     <InvoiceItemType description="Invoice Adjustment" hasTable="N" invoiceItemTypeId="INVOICE_ADJ" parentTypeId=""/>
     <InvoiceItemType description="Invoice Header Adjustment" hasTable="N" invoiceItemTypeId="INVOICE_HEAD_ADJ" parentTypeId="INVOICE_ADJ"/>
