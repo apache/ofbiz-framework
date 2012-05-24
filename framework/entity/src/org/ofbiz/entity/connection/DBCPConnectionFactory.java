@@ -147,7 +147,7 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
 
             // create the pool object factory
             PoolableConnectionFactory factory = new PoolableConnectionFactory(xacf, pool, null, null, true, true);
-            factory.setValidationQuery("select example_type_id from example_type limit 1");
+            factory.setValidationQuery("select 1 from entity_key_store where key_name = ''");
             factory.setDefaultReadOnly(false);
 
             String transIso = jdbcElement.getAttribute("isolation-level");
