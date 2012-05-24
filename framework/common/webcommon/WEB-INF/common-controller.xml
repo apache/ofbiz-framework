@@ -46,7 +46,6 @@ under the License.
     <handler name="screentext" type="view" class="org.ofbiz.widget.screen.ScreenTextViewHandler"/-->
     <handler name="screenfop" type="view" class="org.ofbiz.widget.screen.ScreenFopViewHandler"/>
     <handler name="jsp" type="view" class="org.ofbiz.webapp.view.JspViewHandler"/>
-    <handler name="ftl" type="view" class="org.ofbiz.webapp.ftl.FreeMarkerViewHandler"/>
     <handler name="http" type="view" class="org.ofbiz.webapp.view.HttpViewHandler"/>
     <handler name="birt" type="view" class="org.ofbiz.birt.webapp.view.BirtViewHandler"/>
 

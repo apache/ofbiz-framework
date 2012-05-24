@@ -26,7 +26,8 @@ under the License.
     <include location="component://common/webcommon/WEB-INF/tempexpr-controller.xml"/>
     <include location="component://testtools/webapp/testtools/WEB-INF/controller.xml"/>
     <description>WebTools Site Configuration File</description>
-    
+
+    <handler name="ftl" type="view" class="org.ofbiz.webapp.ftl.FreeMarkerViewHandler"/>
     <handler name="datavision" type="view" class="org.ofbiz.webapp.view.DataVisionViewHandler"/>
 
     <!-- Events to run on every request before security (chains exempt) -->
