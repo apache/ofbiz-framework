@@ -13,10 +13,10 @@
     <classpathentry kind="lib" path="applications/content/lib/poi-scratchpad-3.8-20120326.jar"/>
     <classpathentry kind="lib" path="applications/product/lib/watermarker-0.0.4.jar"/>
     <classpathentry kind="lib" path="applications/product/lib/dozer-4.2.1.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/ant-1.8.3.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/ant-junit-1.8.3.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/ant-launcher-1.8.3.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/ant/ant-apache-bsf-1.8.3.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/ant-1.8.4.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/ant-junit-1.8.4.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/ant-launcher-1.8.4.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/ant/ant-apache-bsf-1.8.4.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/ant/ant-nodeps-1.8.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/antisamy-bin.1.2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/avalon-framework-4.2.0.jar"/>
@@ -68,7 +68,7 @@
     <classpathentry kind="lib" path="framework/base/lib/commons/commons-cli-1.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/commons/commons-codec-1.4.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/commons/commons-collections-3.2.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/commons/commons-compress-1.4.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/commons/commons-compress-1.4.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/commons/commons-digester-1.8.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/commons/commons-discovery-0.4.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/commons/commons-el-1.0.jar"/>
