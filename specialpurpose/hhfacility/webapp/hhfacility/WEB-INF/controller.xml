@@ -22,23 +22,6 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     <description>Facility Handheld Demo</description>
-    
-    <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
-
-    <!-- view handlers -->
-    <handler name="ftl" type="view" class="org.ofbiz.webapp.ftl.FreeMarkerViewHandler"/>
-
-    <!-- Events to run on every request before security (chains exempt) -->
-    <!--
-    <preprocessor>
-    </preprocessor>
-    -->
-    <!-- Events to run on every request after all other processing (chains exempt) -->
-    <!--
-    <postprocessor>
-        <event name="test" type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/>
-    </postprocessor>
-    -->
 
     <!-- Request Mappings -->
     <request-map uri="main">
