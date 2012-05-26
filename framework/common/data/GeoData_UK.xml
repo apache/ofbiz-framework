@@ -191,4 +191,20 @@ under the License.
     <GeoAssoc geoId="WALS" geoIdTo="GB-PMBRK" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="WALS" geoIdTo="GB-RNRS" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="SCOT" geoIdTo="GB-WLOTH" geoAssocTypeId="REGIONS"/>
+    
+    <!-- Counties of N.Ireland -->
+    <Geo abbreviation="ATRM" geoCode="ATRM" geoId="NIRL-ATRM" geoName="Antrim" geoTypeId="COUNTY"/>
+    <Geo abbreviation="ARMG" geoCode="ARMG" geoId="NIRL-ARMG" geoName="Armagh" geoTypeId="COUNTY"/>
+    <Geo abbreviation="DOWN" geoCode="DOWN" geoId="NIRL-DOWN" geoName="Down" geoTypeId="COUNTY"/>
+    <Geo abbreviation="FMNH" geoCode="FMNH" geoId="NIRL-FMNH" geoName="Fermanagh" geoTypeId="COUNTY"/>
+    <Geo abbreviation="LDRY" geoCode="LDRY" geoId="NIRL-LDRY" geoName="Londonderry" geoTypeId="COUNTY"/>
+    <Geo abbreviation="TYR" geoCode="TYR" geoId="NIRL-TYR" geoName="Tyrone" geoTypeId="COUNTY"/>
+    <GeoAssoc geoId="NIRL" geoIdTo="NIRL-ATRM" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NIRL" geoIdTo="NIRL-ARMG" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NIRL" geoIdTo="NIRL-DOWN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NIRL" geoIdTo="NIRL-FMNH" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NIRL" geoIdTo="NIRL-LDRY" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NIRL" geoIdTo="NIRL-TYR" geoAssocTypeId="REGIONS"/>
+    <!-- End of N.Ireland -->
+    
 </entity-engine-xml>
