@@ -22,72 +22,91 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Uses the delegator to find entity values by anding the map fields
+ * Implements the &lt;filter-list-by-date&gt; element.
  */
-public class FilterListByDate extends MethodOperation {
+public final class FilterListByDate extends MethodOperation {
 
-    String allSameStr;
-    String fromFieldName;
-    ContextAccessor<List<GenericEntity>> listAcsr;
-    String thruFieldName;
-    ContextAccessor<List<GenericEntity>> toListAcsr;
-    ContextAccessor<Timestamp> validDateAcsr;
+    private final FlexibleMapAccessor<List<GenericEntity>> listFma;
+    private final FlexibleMapAccessor<List<GenericEntity>> toListFma;
+    private final FlexibleMapAccessor<Timestamp> validDateFma;
+    private final String fromFieldName;
+    private final String thruFieldName;
 
     public FilterListByDate(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        listAcsr = new ContextAccessor<List<GenericEntity>>(element.getAttribute("list"), element.getAttribute("list-name"));
-        toListAcsr = new ContextAccessor<List<GenericEntity>>(element.getAttribute("to-list"), element.getAttribute("to-list-name"));
-        if (toListAcsr.isEmpty()) {
-            toListAcsr = listAcsr;
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "list", "to-list", "valid-date", "fromDate", "thruDate");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "list");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "list", "to-list", "valid-date");
+            MiniLangValidate.constantAttributes(simpleMethod, element, "fromDate", "thruDate");
+            MiniLangValidate.noChildElements(simpleMethod, element);
         }
-        validDateAcsr = new ContextAccessor<Timestamp>(element.getAttribute("valid-date"), element.getAttribute("valid-date-name"));
-        fromFieldName = element.getAttribute("from-field-name");
-        if (UtilValidate.isEmpty(fromFieldName))
-            fromFieldName = "fromDate";
-        thruFieldName = element.getAttribute("thru-field-name");
-        if (UtilValidate.isEmpty(thruFieldName))
-            thruFieldName = "thruDate";
-        allSameStr = element.getAttribute("all-same");
+        listFma = FlexibleMapAccessor.getInstance(element.getAttribute("list"));
+        String toListAttribute = element.getAttribute("to-list");
+        if (toListAttribute.isEmpty()) {
+            toListFma = listFma;
+        } else {
+            toListFma = FlexibleMapAccessor.getInstance(toListAttribute);
+        }
+        validDateFma = FlexibleMapAccessor.getInstance(element.getAttribute("valid-date"));
+        fromFieldName = MiniLangValidate.checkAttribute(element.getAttribute("from-field-name"), "fromDate");
+        thruFieldName = MiniLangValidate.checkAttribute(element.getAttribute("thru-field-name"), "thruDate");
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        if (!validDateAcsr.isEmpty()) {
-            toListAcsr.put(methodContext, EntityUtil.filterByDate(listAcsr.get(methodContext), validDateAcsr.get(methodContext), fromFieldName, thruFieldName, true));
+        if (!validDateFma.isEmpty()) {
+            toListFma.put(methodContext.getEnvMap(), EntityUtil.filterByDate(listFma.get(methodContext.getEnvMap()), validDateFma.get(methodContext.getEnvMap()), fromFieldName, thruFieldName, true));
         } else {
-            toListAcsr.put(methodContext, EntityUtil.filterByDate(listAcsr.get(methodContext), UtilDateTime.nowTimestamp(), fromFieldName, thruFieldName, true));
+            toListFma.put(methodContext.getEnvMap(), EntityUtil.filterByDate(listFma.get(methodContext.getEnvMap()), UtilDateTime.nowTimestamp(), fromFieldName, thruFieldName, true));
         }
         return true;
     }
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public String rawString() {
-        // TODO: something more than the empty tag
-        return "<filter-list-by-date/>";
+        return toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<filter-list-by-date ");
+        sb.append("list=\"").append(this.listFma).append("\" ");
+        sb.append("to-list=\"").append(this.toListFma).append("\" ");
+        sb.append("valid-date=\"").append(this.validDateFma).append("\" ");
+        sb.append("from-field-name=\"").append(this.fromFieldName).append("\" ");
+        sb.append("thru-field-name=\"").append(this.thruFieldName).append("\" ");
+        sb.append("/>");
+        return sb.toString();
+    }
+
+    /**
+     * A factory for the &lt;filter-list-by-date&gt; element.
+     */
     public static final class FilterListByDateFactory implements Factory<FilterListByDate> {
+        @Override
         public FilterListByDate createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new FilterListByDate(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "filter-list-by-date";
         }

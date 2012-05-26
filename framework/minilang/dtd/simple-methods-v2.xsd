@@ -2884,6 +2884,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field that contains the map that will be used for the entity field comparison.
+                        &lt;br/&gt;&lt;br/&gt;
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -2893,6 +2894,7 @@ under the License.
                     <xs:documentation>
                         The name of the field the filtered list will be put into.
                         Defaults to the value of the list-name attribute (replaces the old list).
+                        &lt;br/&gt;&lt;br/&gt;
                         Optional. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -2902,68 +2904,64 @@ under the License.
     <xs:element name="filter-list-by-date" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>
-                The filter-list-by-date tag filters the given list by the valid date using the from and thru dates in each value object.
+                Filters a list of entity values by their date-range fields.
+                Each entity value in the list will be compared to the specified date, and
+                if the entity value's date-range fields include the date, the entity value
+                will be copied to the target list.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.filter-list-by-date"/>
+            <xs:attribute type="xs:string" name="list" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field that contains the list of entity values.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="to-list">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field the filtered list will be put into.
+                        Defaults to the value of the list-name attribute (replaces the old list).
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="valid-date">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of a field in the method environment date to filter by.
+                        Defaults to now.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="from-field-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the entity field to use as the beginning date.
+                        Defaults to "fromDate".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="thru-field-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the entity field to use as the ending date.
+                        Defaults to "thruDate".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.filter-list-by-date">
-        <xs:attribute type="xs:string" name="list" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field that contains the list of GenericValue objects.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="to-list">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field the filtered list will be put into.
-                    Defaults to the value of the list-name attribute (ie goes to the same place it came from, replacing the old list).
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="valid-date">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of a field in the method environment date to filter by.
-                    Defaults to now.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="from-field-name" default="fromDate">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the GenericValue field to use as the beginning effective date.
-                    Defaults to fromDate.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="thru-field-name" default="thruDate">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the GenericValue field to use as the ending effective date.
-                    Defaults to thruDate.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="all-same" default="true">
-            <xs:annotation>
-                <xs:documentation>
-                    Specifies whether or not all GenericValue objects in the list are of the same entity.
-                    Defaults to true.
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="make-value" substitutionGroup="EntityValueOperations">
         <xs:annotation>
             <xs:documentation>
