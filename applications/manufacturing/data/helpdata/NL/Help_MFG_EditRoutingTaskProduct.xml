@@ -23,8 +23,8 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-       <title>OFBiz:MFG: Edit route task</title>
+       <title>OFBiz: MFG: Product van werkplan taak aanmaken en aanpassen</title>
         <para>
-        WIP
+        In dit scherm kun je een product aan een werkplan taak koppelen en een bestaande koppeling aanpassen.
         </para>
 </section>

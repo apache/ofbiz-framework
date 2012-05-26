@@ -23,8 +23,8 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-       <title>OFBiz:MFG: Edit route task</title>
+       <title>OFBiz: MFG: Aanpassen/toevoegen kosten werkplan taak</title>
         <para>
-        WIP
+        Met dit scherm kunnen bestaande kosten definities voor een werkplan taak aangepast worden en nieuwe gedefinieerd.
         </para>
 </section>

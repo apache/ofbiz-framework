@@ -23,8 +23,17 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-       <title>OFBiz:MFG: Edit manufacturing rules</title>
-        <para>
-        WIP
-        </para>
+    <title>OFBiz: MFG: Edit manufacturing rules</title>
+    <para>
+    Dit scherm toont de productie regels die van toepassing zijn op een te produceren product. 
+    Een productie regel geeft aan welke componenten vervangen kunnen worden door een ander component.
+    In dit scherm kun je tevens nieuwe productie regels definieren.
+    </para>
+    <section>
+    <title>Nieuwe productie regel definieren</title>
+    <para>
+        Dit formulier stelt je in staat vervangende componenten te definieren voor BoM componenten.
+        In het tweede deel van het scherm worden de vervangingsregels getoond.
+    </para>
+    </section>
 </section>

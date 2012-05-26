@@ -23,8 +23,8 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-       <title>OFBiz:MFG: Main</title>
-        <para>
-        WIP
-        </para>
+    <title>OFBiz: MFG: Route aanmaken en wijzigen</title>
+    <para>
+    In dit scherm kun je een nieuwe route aanmaken en een bestaande wijzigen.
+    </para>
 </section>

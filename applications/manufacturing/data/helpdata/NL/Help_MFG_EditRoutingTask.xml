@@ -23,8 +23,14 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-       <title>OFBiz:MFG: Edit route task</title>
+       <title>OFBiz: MFG: Werkplan taak aanpassen</title>
         <para>
-        WIP
+        In dit scherm worden nieuwe werkplan taken gedefinieerd. Ook kun je hiermee bestaande werkplan taken wijzigen.
         </para>
+        <section>
+        <title>Invullen formulier</title>
+        <para>
+            Geef de werkplan taak een beschrijvende naam en omschrijving. 
+        </para>
+        </section>
 </section>
