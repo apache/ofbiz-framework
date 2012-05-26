@@ -51,7 +51,6 @@ if ((state.hasFilter("filterPartiallyReceivedPOs") ||
         state.hasFilter("filterPOsWithRejectedItems")) &&
         orderHeaderList) {
     orderHeaderList.each { orderHeader ->
-        facilityId = orderHeader.originFacilityId ?: productStore.inventoryFacilityId;
         orderReadHelper = OrderReadHelper.getHelper(orderHeader);
         if ("PURCHASE_ORDER".equals(orderHeader.orderTypeId)) {
             if (orderReadHelper.getRejectedOrderItems() &&
