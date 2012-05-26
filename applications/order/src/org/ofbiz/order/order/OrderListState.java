@@ -241,7 +241,7 @@ public class OrderListState implements Serializable {
         }
 
         List<EntityCondition> statusConditions = FastList.newInstance();
-        for(String status : orderFilterState.keySet()) {
+        for(String status : orderStatusState.keySet()) {
             if (!hasStatus(status)) continue;
             statusConditions.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, parameterToOrderStatusId.get(status)));
         }
