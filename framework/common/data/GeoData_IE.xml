@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <Geo abbreviation="CRLW" geoCode="CRLW" geoId="IE-CRLW" geoName="Carlow" geoTypeId="COUNTY"/>
+    <Geo abbreviation="CAVN" geoCode="CAVN" geoId="IE-CAVN" geoName="Cavan" geoTypeId="COUNTY"/>
+    <Geo abbreviation="CLARE" geoCode="CLARE" geoId="IE-CLARE" geoName="Clare" geoTypeId="COUNTY"/>
+    <Geo abbreviation="CORK" geoCode="CORK" geoId="IE-CORK" geoName="Cork" geoTypeId="COUNTY"/>
+    <Geo abbreviation="DNGL" geoCode="DNGL" geoId="IE-DNGL" geoName="Donegal" geoTypeId="COUNTY"/>
+    <Geo abbreviation="DBLN" geoCode="DBLN" geoId="IE-DBLN" geoName="Dublin" geoTypeId="COUNTY"/>
+    <Geo abbreviation="GALW" geoCode="GALW" geoId="IE-GALW" geoName="Galway" geoTypeId="COUNTY"/>
+    <Geo abbreviation="KERRY" geoCode="KERRY" geoId="IE-KERRY" geoName="Kerry" geoTypeId="COUNTY"/>
+    <Geo abbreviation="KLDR" geoCode="KLDR" geoId="IE-KLDR" geoName="Kildare" geoTypeId="COUNTY"/>
+    <Geo abbreviation="KLKNY" geoCode="KLKNY" geoId="IE-KLKNY" geoName="Kilkenny" geoTypeId="COUNTY"/>
+    <Geo abbreviation="LAOIS" geoCode="LAOIS" geoId="IE-LAOIS" geoName="Laois" geoTypeId="COUNTY"/>
+    <Geo abbreviation="LTRM" geoCode="LTRM" geoId="IE-LTRM" geoName="Leitrim" geoTypeId="COUNTY"/>
+    <Geo abbreviation="LMRK" geoCode="LMRK" geoId="IE-LMRK" geoName="Limerick" geoTypeId="COUNTY"/>
+    <Geo abbreviation="LGFD" geoCode="LGFD" geoId="IE-LGFD" geoName="Longford" geoTypeId="COUNTY"/>
+    <Geo abbreviation="LOUTH" geoCode="LOUTH" geoId="IE-LOUTH" geoName="Louth" geoTypeId="COUNTY"/>
+    <Geo abbreviation="MAYO" geoCode="MAYO" geoId="IE-MAYO" geoName="Mayo" geoTypeId="COUNTY"/>
+    <Geo abbreviation="MEATH" geoCode="MEATH" geoId="IE-MEATH" geoName="Meath" geoTypeId="COUNTY"/>
+    <Geo abbreviation="MNGHN" geoCode="MNGHN" geoId="IE-MNGHN" geoName="Monaghan" geoTypeId="COUNTY"/>
+    <Geo abbreviation="OFLY" geoCode="OFLY" geoId="IE-OFLY" geoName="Offaly" geoTypeId="COUNTY"/>
+    <Geo abbreviation="RSCMN" geoCode="RSCMN" geoId="IE-RSCMN" geoName="Roscommon" geoTypeId="COUNTY"/>
+    <Geo abbreviation="SLIGO" geoCode="SLIGO" geoId="IE-SLIGO" geoName="Sligo" geoTypeId="COUNTY"/>
+    <Geo abbreviation="TPRY" geoCode="TPRY" geoId="IE-TPRY" geoName="Tipperary" geoTypeId="COUNTY"/>
+    <Geo abbreviation="WTFD" geoCode="WTFD" geoId="IE-WTFD" geoName="Waterford" geoTypeId="COUNTY"/>
+    <Geo abbreviation="WMETH" geoCode="WMETH" geoId="IE-WMETH" geoName="West Meath" geoTypeId="COUNTY"/>
+    <Geo abbreviation="WXFD" geoCode="WXFD" geoId="IE-WXFD" geoName="Wexford" geoTypeId="COUNTY"/>
+    <Geo abbreviation="WKLW" geoCode="WKLW" geoId="IE-WKLW" geoName="Wicklow" geoTypeId="COUNTY"/>
+    <GeoAssoc geoId="IE" geoIdTo="IE-CRLW" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IE" geoIdTo="IE-CAVN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IE" geoIdTo="IE-CLARE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IE" geoIdTo="IE-CORK" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IE" geoIdTo="IE-DNGL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IE" geoIdTo="IE-DBLN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IE" geoIdTo="IE-GALW" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IE" geoIdTo="IE-KERRY" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IE" geoIdTo="IE-KLDR" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IE" geoIdTo="IE-KLKNY" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IE" geoIdTo="IE-LAOIS" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IE" geoIdTo="IE-LTRM" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IE" geoIdTo="IE-LMRK" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IE" geoIdTo="IE-LGFD" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IE" geoIdTo="IE-LOUTH" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IE" geoIdTo="IE-MAYO" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IE" geoIdTo="IE-MEATH" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IE" geoIdTo="IE-MNGHN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IE" geoIdTo="IE-OFLY" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IE" geoIdTo="IE-RSCMN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IE" geoIdTo="IE-SLIGO" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IE" geoIdTo="IE-TPRY" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IE" geoIdTo="IE-WTFD" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IE" geoIdTo="IE-WMETH" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IE" geoIdTo="IE-WXFD" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IE" geoIdTo="IE-WKLW" geoAssocTypeId="REGIONS"/>
+
+</entity-engine-xml>
