@@ -45,31 +45,31 @@ under the License.
     <Geo abbreviation="WMETH" geoCode="WMETH" geoId="IE-WMETH" geoName="West Meath" geoTypeId="COUNTY"/>
     <Geo abbreviation="WXFD" geoCode="WXFD" geoId="IE-WXFD" geoName="Wexford" geoTypeId="COUNTY"/>
     <Geo abbreviation="WKLW" geoCode="WKLW" geoId="IE-WKLW" geoName="Wicklow" geoTypeId="COUNTY"/>
-    <GeoAssoc geoId="IE" geoIdTo="IE-CRLW" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="IE" geoIdTo="IE-CAVN" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="IE" geoIdTo="IE-CLARE" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="IE" geoIdTo="IE-CORK" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="IE" geoIdTo="IE-DNGL" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="IE" geoIdTo="IE-DBLN" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="IE" geoIdTo="IE-GALW" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="IE" geoIdTo="IE-KERRY" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="IE" geoIdTo="IE-KLDR" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="IE" geoIdTo="IE-KLKNY" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="IE" geoIdTo="IE-LAOIS" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="IE" geoIdTo="IE-LTRM" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="IE" geoIdTo="IE-LMRK" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="IE" geoIdTo="IE-LGFD" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="IE" geoIdTo="IE-LOUTH" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="IE" geoIdTo="IE-MAYO" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="IE" geoIdTo="IE-MEATH" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="IE" geoIdTo="IE-MNGHN" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="IE" geoIdTo="IE-OFLY" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="IE" geoIdTo="IE-RSCMN" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="IE" geoIdTo="IE-SLIGO" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="IE" geoIdTo="IE-TPRY" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="IE" geoIdTo="IE-WTFD" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="IE" geoIdTo="IE-WMETH" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="IE" geoIdTo="IE-WXFD" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="IE" geoIdTo="IE-WKLW" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IRL"     geoIdTo="IE-CRLW" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IRL"     geoIdTo="IE-CAVN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IRL"     geoIdTo="IE-CLARE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IRL"     geoIdTo="IE-CORK" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IRL"     geoIdTo="IE-DNGL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IRL"     geoIdTo="IE-DBLN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IRL"     geoIdTo="IE-GALW" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IRL"     geoIdTo="IE-KERRY" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IRL"     geoIdTo="IE-KLDR" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IRL"     geoIdTo="IE-KLKNY" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IRL"     geoIdTo="IE-LAOIS" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IRL"     geoIdTo="IE-LTRM" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IRL"     geoIdTo="IE-LMRK" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IRL"     geoIdTo="IE-LGFD" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IRL"     geoIdTo="IE-LOUTH" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IRL"     geoIdTo="IE-MAYO" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IRL"     geoIdTo="IE-MEATH" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IRL"     geoIdTo="IE-MNGHN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IRL"     geoIdTo="IE-OFLY" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IRL"     geoIdTo="IE-RSCMN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IRL"     geoIdTo="IE-SLIGO" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IRL"     geoIdTo="IE-TPRY" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IRL"     geoIdTo="IE-WTFD" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IRL"     geoIdTo="IE-WMETH" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IRL"     geoIdTo="IE-WXFD" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IRL"     geoIdTo="IE-WKLW" geoAssocTypeId="REGIONS"/>
 
 </entity-engine-xml>
