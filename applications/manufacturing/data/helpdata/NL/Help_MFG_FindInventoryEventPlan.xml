@@ -23,8 +23,8 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-       <title>OFBiz:MFG: Find inventory event plan</title>
+       <title>OFBiz: MFG: Materials resource plans</title>
         <para>
-        WIP
+        Dit scherm toont de uitgevoerde MRP's en de MRP's die nog uitgevoerd moeten worden.
         </para>
 </section>

@@ -23,8 +23,14 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-       <title>OFBiz:MFG: Edit route associated product</title>
-        <para>
-        WIP
-        </para>
+    <title>OFBiz: MFG: Koppeling product werkplan wijzigen</title>
+    <para>
+        In dit scherm kun je de koppelingen van een werkplan met producten wijzigen. Tevens toont het scherm de gekoppelde producten.
+    </para>
+    <section>
+    <title>Nieuwe koppeling definieren</title>
+    <para>
+        Selecteer het product, zet de hoeveelheid en de van- en tot-datum. Klik op de button om het op te slaan.
+    </para>
+    </section>
 </section>

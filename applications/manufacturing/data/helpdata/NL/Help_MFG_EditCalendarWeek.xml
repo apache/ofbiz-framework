@@ -23,8 +23,15 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-       <title>OFBiz:MFG: Find calendars</title>
-        <para>
-        WIP
-        </para>
+    <title>OFBiz: MFG: Aanmaken en wijzigen kalenderweek</title>
+    <para>
+    In dit scherm kun je nieuwe kalenderweken aanmaken en bestaande wijzigen.
+    </para>
+    <section>
+    <title> </title>
+    <para>
+        Geef de nieuwe kalenderweek een naam en een omschrijving.
+        Zet voor iedere dag de starttijd en de capaciteit.
+    </para>
+    </section>
 </section>
