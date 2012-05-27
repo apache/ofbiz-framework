@@ -43,5 +43,4 @@ under the License.
         Still they are functional (or at least should be). 
         So if you need them simply uncomment and have a look also in the build file -->
     <!-- <load-component component-location="workflow"/> -->
-    <!-- <load-component component-location="shark"/> -->
 </component-loader>
