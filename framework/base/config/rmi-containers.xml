@@ -69,17 +69,4 @@ under the License.
         </container>
     -->
 
-    <!-- load Shark Workflow Engine -->
-    <!-- NOTE: before uncommenting this please see the instructions in the ofbiz/OPTIONAL_LIBRARIES file.
-        <container name="shark-container" class="org.ofbiz.shark.container.SharkContainer">
-        <property name="engine-name" value="Shark"/>
-        <property name="delegator-name" value="default"/>
-        <property name="dispatcher-name" value="WFDispatcher"/>
-        <property name="admin-user" value="system"/>
-        <property name="admin-pass" value="ofbiz"/>
-        <property name="iiop-host" value="127.0.0.1"/>
-        <property name="iiop-port" value="2000"/>
-        </container>
-    -->
-
 </ofbiz-containers>

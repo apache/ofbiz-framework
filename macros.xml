@@ -120,7 +120,6 @@ under the License.
         <exclude name="**/FopPdfViewHandler.java"/>
         <exclude name="**/FreeMarkerViewRenderer.java"/>
         <exclude name="**/JpCacheIncludeTransform.java"/>             
-        <exclude name="**/shark/"/>
       </fileset>
       <link href="http://java.sun.com/javase/6/docs/api/" offline="true" packagelistLoc="${ofbiz.home.dir}/tools/api-java16"/>
     </javadoc>

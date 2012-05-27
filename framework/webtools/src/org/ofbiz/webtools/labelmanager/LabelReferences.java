@@ -81,7 +81,6 @@ public class LabelReferences {
             }
             this.rootFolders.add(rootFolder);
         }
-        this.rootFolders.add(System.getProperty("ofbiz.home") + "/specialpurpose/shark/");
     }
 
     public Map<String, Map<String, Integer>> getLabelReferences() throws IOException, SAXException, ParserConfigurationException, GenericServiceException {
