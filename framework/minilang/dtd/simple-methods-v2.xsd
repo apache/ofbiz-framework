@@ -2114,81 +2114,91 @@ under the License.
     <xs:element name="find-by-and" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>
-                The find-by-and tag uses the delegator to find entity values by anding the fields passed in the map.
-                The resulting GenericValue objects will be placed in the method environment using the specified list-name.
+                Does a find-by-and, returns a list of entity values if any are found, otherwise returns an empty list.
+                Uses a map of name/value pairs that will be combined using a boolean AND.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.find-by-and"/>
+            <xs:attribute type="xs:string" name="entity-name" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the entity to search in.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="list" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field that will contain the list of entity values.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="map" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field containing a map that will be used for the entity fields.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="order-by-list">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field containing a list that contains field names that you want the find operation to order the results by.
+                        Each entry in the list is a field name. The field name can be preceded by a plus or a minus sign to specify an
+                        ascending or descending sort for that field. The default is ascending sort.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="use-cache">
+                <xs:annotation>
+                    <xs:documentation>
+                        Specifies whether or not the delegator's cache should be searched before going to the database.
+                        This results in much faster retrieval times, but can return stale data that is not the most current in the database.
+                        Must be "true" or "false", defaults to "false".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="use-iterator">
+                <xs:annotation>
+                    <xs:documentation>
+                        Specifies whether or not to use the EntityListIterator when doing the query.
+                        This is much more efficient for large data sets because the results are read incrementaly instead of all at once.
+                        Note that when using this the use-cache setting will be ignored.
+                        Also note that an EntityListIterator must be closed when you are finished, but this is done automatically by the iterate operation.
+                        Must be "true" or "false", defaults to "false".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="false" />
+                        <xs:enumeration value="true" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="delegator-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        By default this operation is done using the delegator that is part of the simple-method calling context.
+                        This allows you to override the default delegator by naming an alternate delegator.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.find-by-and">
-        <xs:attribute type="xs:string" name="entity-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the entity to find instances of.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="map" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of a map in the method environment that will be used for the entity fields.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="order-by-list">
-            <xs:annotation>
-                <xs:documentation>
-                    This will be a list sitting in the context that has string entries in it for each field that you want it to order by/
-                    Each field in the list, or each entry in the list, will just be a string with a field name.
-                    It can be preceded by a plus or a minus to specify an ascending or descending sort for that.
-                    The default is ascending sort, so you just put a minus in front of the field-name if you want it to be descending.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="delegator-name">
-            <xs:annotation>
-                <xs:documentation>
-                    By default this operation is done using the delegator that is part of the simple-method calling context.
-                    This allows you to override the default delegator by naming an alternate delegator.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="use-cache" default="false">
-            <xs:annotation>
-                <xs:documentation>
-                    Specifies whether or not the delegator's cache should be searched before going to the database.
-                    This results in much faster retrieval times, but can return stale data that is not the most current in the database.
-                    Must be "true" or "false", defaults to "false".
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="use-iterator" default="false">
-            <xs:annotation>
-                <xs:documentation>
-                    Specifies whether or not to use the EntityListIterator when doing the query.
-                    This is much more efficient for large data sets because the results are read incrementaly instead of all at once.
-                    Note that when using this the use-cache setting will be ignored.
-                    Also note that an EntityListIterator must be closed when you are finished, but this is done automatically by the iterate operation.
-                    Must be "true" or "false", defaults to "false".
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="list" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field that will contain the list of GenericValue objects.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="entity-one" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>
