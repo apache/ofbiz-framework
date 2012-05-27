@@ -99,7 +99,7 @@ under the License.
         <field name="newTopicDescription" title="Description"  position="3">
             <text size="24"/>
         </field>
-        <field name="createTopic" title="${uiLabelMap.CommonEmptyHeader}"  position="4">
+        <field name="createTopic" title=" "  position="4">
             <hyperlink also-hidden="false" target="createTopic${pageName}" description="Create Topic">
                 <parameter param-name="mode" value="restore"/>
             </hyperlink>
@@ -193,7 +193,7 @@ under the License.
     <form name="listFindContent" type="list" target=""
         default-title-style="tableheadtext" default-widget-style="inputBox"
         paginate-target="/FindContent">
-        <field name="editContent" title="${uiLabelMap.CommonEmptyHeader}">
+        <field name="editContent" title=" ">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditContent">
                 <parameter param-name="contentId"/>
                 <parameter param-name="drDataResourceId"/>
@@ -281,7 +281,7 @@ under the License.
         <field name="newTopicDescription" title="Description"  position="3">
             <text size="24"/>
         </field>
-        <field name="createTopic" title="${uiLabelMap.CommonEmptyHeader}"  position="4">
+        <field name="createTopic" title=" "  position="4">
             <hyperlink also-hidden="false" target="createTopic${pageName}" description="Create Topic">
                 <parameter param-name="mode" value="restore"/>
             </hyperlink>
@@ -644,7 +644,7 @@ under the License.
                 <hidden value="${dataResourceTypeId}"/>
         </field>
 <!--
-        <field name="submitContentEdit" title="${uiLabelMap.CommonEmptyHeader}">
+        <field name="submitContentEdit" title=" ">
             <hyperlink also-hidden="false" description="Submit" target="javascript:document.EditAddContent.action='${persistAction}'; document.EditAddContent.submit()" target-type="plain"/>
         </field>
 -->

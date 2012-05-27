@@ -488,7 +488,7 @@ under the License.
         <field use-when="displayPassword!=null" name="PASSWORD" title="${uiLabelMap.CommonPassword}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><password size="15" maxlength="250"/></field>
         <field use-when="displayPassword!=null" name="CONFIRM_PASSWORD" title="${uiLabelMap.CommonPassword}" tooltip="* ${uiLabelMap.CommonConfirm}" widget-style="required"><password size="15" maxlength="250"/></field>
         <field name="USERNAME" title="${uiLabelMap.CommonUsername}" tooltip="* ${uiLabelMap.PartyTemporaryPassword}" widget-style="required"><text size="30" maxlength="250"/></field>
-        <!--<field name="RequiredNote" title="${uiLabelMap.CommonEmptyHeader}"><display description="${uiLabelMap.PartyRequiredNote}" also-hidden="false"/></field> -->
+        <!--<field name="RequiredNote" title=" "><display description="${uiLabelMap.PartyRequiredNote}" also-hidden="false"/></field> -->
 
         <field name="PRODUCT_STORE_ID" title="Product Store" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
             <drop-down>

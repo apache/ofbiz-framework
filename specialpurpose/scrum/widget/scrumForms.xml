@@ -177,12 +177,12 @@ under the License.
         </field>
         <field name="taskCurrentStatusId" title="${uiLabelMap.CommonStatus}" position="2" use-when="!&quot;STS_COMPLETED&quot;.equals(taskCurrentStatusId)&amp;&amp;!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)"><display-entity entity-name="StatusItem" description="${description}" key-field-name="statusId"/></field>
         <field name="taskCurrentStatusId" title="${uiLabelMap.CommonStatus}" position="2" use-when="&quot;STS_COMPLETED&quot;.equals(taskCurrentStatusId)&amp;&amp;!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)" widget-style="alert"><display-entity entity-name="StatusItem" description="${description}" key-field-name="statusId"/></field>
-        <field name="dummy1" title="${uiLabelMap.CommonEmptyHeader}" position="1" use-when="showPosition1"><display description=" "/></field>
-        <field name="dummy2" title="${uiLabelMap.CommonEmptyHeader}" position="1" use-when="showPosition1"><display description=" "/></field>
-        <field name="dummy3" title="${uiLabelMap.CommonEmptyHeader}" position="1" use-when="showPosition1"><display description=" "/></field>
+        <field name="dummy1" title=" " position="1" use-when="showPosition1"><display description=" "/></field>
+        <field name="dummy2" title=" " position="1" use-when="showPosition1"><display description=" "/></field>
+        <field name="dummy3" title=" " position="1" use-when="showPosition1"><display description=" "/></field>
         <field name="initialPlannedHours" title="Initial Plan / Total Plan" position="1" use-when="showPosition1"><display description="${initialPlannedHours} / ${backlogPlanHours}"/></field>
-        <field name="dummy4" title="${uiLabelMap.CommonEmptyHeader}" position="1" use-when="showPosition1"><display description=" "/></field>
-        <field name="dummy5" title="${uiLabelMap.CommonEmptyHeader}" position="1" use-when="showPosition1"><display description=" "/></field>
+        <field name="dummy4" title=" " position="1" use-when="showPosition1"><display description=" "/></field>
+        <field name="dummy5" title=" " position="1" use-when="showPosition1"><display description=" "/></field>
         <field name="taskActualHours" title="${uiLabelMap.ScrumActualHours}" position="2" use-when="!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)"><display/></field>
         <field name="planHours" title="${uiLabelMap.ScrumPlannedHours}" position="2" use-when="!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)"><display></display>
         </field>
@@ -200,7 +200,7 @@ under the License.
                 <parameter param-name="projectId"/>
             </hyperlink>
         </field>
-        <field name="dummy6" title="${uiLabelMap.CommonEmptyHeader}" position="2" use-when="!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)"><display description=" "/></field>
+        <field name="dummy6" title=" " position="2" use-when="!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)"><display description=" "/></field>
         <field name="partyId" title="${uiLabelMap.ScrumAssignedTo}" position="2" parameter-name="partyId" use-when="!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)">
             <display-entity entity-name="PartyNameView"  description="${lastName}, ${firstName} ${middleName}" key-field-name="partyId"/>
         </field>
@@ -225,7 +225,7 @@ under the License.
                 <parameter param-name="sprintId"></parameter>
             </hyperlink>
         </field>
-        <field name="dummy7" title="${uiLabelMap.CommonEmptyHeader}" position="2" use-when="!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)"><display description=" "/></field>
+        <field name="dummy7" title=" " position="2" use-when="!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)"><display description=" "/></field>
     </form>
     
     <form name="sprintBacklogListItemsHideDelete" extends="sprintBacklogListItems">
@@ -934,7 +934,7 @@ under the License.
             <display-entity entity-name="CustRequest" key-field-name="custRequestId" description="${custRequestName}"/>
         </field>
         <!-- order button -->
-        <field name="top" position="2" title="${uiLabelMap.CommonEmptyHeader}">
+        <field name="top" position="2" title=" ">
             <hyperlink target="updateSprintBacklogseq" image-location="/images/arrow-end-up-green.png">
                 <parameter param-name="mode" value="TOP"/>
                 <parameter param-name="custRequestId"/>
@@ -955,7 +955,7 @@ under the License.
                 <parameter param-name="searchOption_statusId" value="${parameters.statusId}"/>
             </hyperlink>
         </field>
-        <field name="bot" position="2" title="${uiLabelMap.CommonEmptyHeader}">
+        <field name="bot" position="2" title=" ">
             <hyperlink target="updateSprintBacklogseq" image-location="/images/arrow-end-down-green.png">
                 <parameter param-name="mode" value="BOT"/>
                 <parameter param-name="custRequestId"/>
@@ -976,7 +976,7 @@ under the License.
                 <parameter param-name="searchOption_statusId" value="${parameters.statusId}"/>
             </hyperlink>
         </field>
-        <field name="up" position="2" title="${uiLabelMap.CommonEmptyHeader}" >
+        <field name="up" position="2" title=" " >
             <hyperlink target="updateSprintBacklogseq" image-location="/images/arrow-single-up-green.png">
                 <parameter param-name="mode" value="UP"/>
                 <parameter param-name="custRequestId"/>
@@ -997,7 +997,7 @@ under the License.
                 <parameter param-name="searchOption_statusId" value="${parameters.statusId}"/>
             </hyperlink>
         </field>
-        <field name="dwn" position="2" title="${uiLabelMap.CommonEmptyHeader}">
+        <field name="dwn" position="2" title=" ">
             <hyperlink target="updateSprintBacklogseq" image-location="/images/arrow-single-down-green.png">
                 <parameter param-name="mode" value="DWN"/>
                 <parameter param-name="custRequestId"/>
@@ -1051,7 +1051,7 @@ under the License.
         <field name="sequence"><hidden value="Y"/></field>
         <field name="custRequestCategoryGroupId"><hidden/></field>
         <!-- order button -->
-        <field name="top" position="1" title="${uiLabelMap.CommonEmptyHeader}">
+        <field name="top" position="1" title=" ">
             <hyperlink target="updateSprintBacklogseq" image-location="/images/arrow-end-up-green.png">
                 <parameter param-name="mode" value="TOP"/>
                 <parameter param-name="custRequestId"/>
@@ -1071,7 +1071,7 @@ under the License.
                 <parameter param-name="searchOption_statusId" value="${parameters.statusId}"/>
             </hyperlink>
         </field>
-        <field name="bot" position="1" title="${uiLabelMap.CommonEmptyHeader}">
+        <field name="bot" position="1" title=" ">
             <hyperlink target="updateSprintBacklogseq" image-location="/images/arrow-end-down-green.png">
                 <parameter param-name="mode" value="BOT"/>
                 <parameter param-name="custRequestId"/>
@@ -1091,7 +1091,7 @@ under the License.
                 <parameter param-name="searchOption_statusId" value="${parameters.statusId}"/>
             </hyperlink>
         </field>
-        <field name="up" position="1" title="${uiLabelMap.CommonEmptyHeader}" >
+        <field name="up" position="1" title=" " >
             <hyperlink target="updateSprintBacklogseq" image-location="/images/arrow-single-up-green.png">
                 <parameter param-name="mode" value="UP"/>
                 <parameter param-name="custRequestId"/>
@@ -1111,7 +1111,7 @@ under the License.
                 <parameter param-name="searchOption_statusId" value="${parameters.statusId}"/>
             </hyperlink>
         </field>
-        <field name="dwn" position="1" title="${uiLabelMap.CommonEmptyHeader}">
+        <field name="dwn" position="1" title=" ">
             <hyperlink target="updateSprintBacklogseq" image-location="/images/arrow-single-down-green.png">
                 <parameter param-name="mode" value="DWN"/>
                 <parameter param-name="custRequestId"/>
@@ -1247,7 +1247,7 @@ under the License.
                 <parameter param-name="partyId" from-field="productOwnerId"/>
             </hyperlink>
         </field>
-        <field name="dummy" title="${uiLabelMap.CommonEmptyHeader}" position="2"    use-when="&quot;${sprintId}&quot;!=&quot;&quot;"><display description=" "/></field>
+        <field name="dummy" title=" " position="2"    use-when="&quot;${sprintId}&quot;!=&quot;&quot;"><display description=" "/></field>
         <field name="sprintName" title="${uiLabelMap.ScrumTab} ${uiLabelMap.ScrumSprint}" position="2" use-when="&quot;${sprintId}&quot;!=&quot;&quot;">
             <hyperlink target="ViewSprint" description="${uiLabelMap.ScrumTab} ${sprintName} [${sprintId}]">
                 <parameter param-name="projectId"/>
@@ -1843,15 +1843,15 @@ under the License.
                 <option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
-        <field name="dummy1" title="${uiLabelMap.CommonEmptyHeader}" position="1" use-when="${groovy:showPosition1==true}"><display description=" "/></field>
-        <field name="dummy2" title="${uiLabelMap.CommonEmptyHeader}" position="1" use-when="${groovy:showPosition1==true}"><display description=" "/></field>
-        <field name="dummy3" title="${uiLabelMap.CommonEmptyHeader}" position="1" use-when="${groovy:showPosition1==true}"><display description=" "/></field>
+        <field name="dummy1" title=" " position="1" use-when="${groovy:showPosition1==true}"><display description=" "/></field>
+        <field name="dummy2" title=" " position="1" use-when="${groovy:showPosition1==true}"><display description=" "/></field>
+        <field name="dummy3" title=" " position="1" use-when="${groovy:showPosition1==true}"><display description=" "/></field>
         <field name="taskId" position="2" title="${uiLabelMap.ScrumTab} ${uiLabelMap.ScrumTaskName}">
             <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${uiLabelMap.ScrumTab} ${workEffortName}"/>
         </field>
         <field name="hours" position="2"><display/></field>
         <field name="timesheetPartyId" position="2"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName}" key-field-name="partyId"/></field>
-        <field name="dummy4" title="${uiLabelMap.CommonEmptyHeader}" position="2" ><display description=" "/></field>
+        <field name="dummy4" title=" " position="2" ><display description=" "/></field>
         <field name="timesheetId" position="2">
             <hyperlink description="${timesheetId}" target="ViewTimeSheet">
                 <parameter param-name="timesheetId"/>
@@ -3058,12 +3058,12 @@ under the License.
         </field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}" position="2" use-when="!&quot;STS_COMPLETED&quot;.equals(currentStatusId)"><display-entity entity-name="StatusItem" description="${description}" key-field-name="statusId"/></field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}" position="2" use-when="&quot;STS_COMPLETED&quot;.equals(currentStatusId)" widget-style="alert"><display-entity entity-name="StatusItem" description="${description}" key-field-name="statusId"/></field>
-        <field name="dummy1" title="${uiLabelMap.CommonEmptyHeader}" position="1" use-when="showPosition1"><display description=" "/></field>
-        <field name="dummy2" title="${uiLabelMap.CommonEmptyHeader}" position="1" use-when="showPosition1"><display description=" "/></field>
-        <field name="dummy3" title="${uiLabelMap.CommonEmptyHeader}" position="1" use-when="showPosition1"><display description=" "/></field>
+        <field name="dummy1" title=" " position="1" use-when="showPosition1"><display description=" "/></field>
+        <field name="dummy2" title=" " position="1" use-when="showPosition1"><display description=" "/></field>
+        <field name="dummy3" title=" " position="1" use-when="showPosition1"><display description=" "/></field>
         <field name="initialPlannedHours" title="Initial Plan / Total Plan" position="1" use-when="showPosition1"><display description="${initialPlannedHours} / ${backlogPlanHours}"/></field>
-        <field name="dummy4" title="${uiLabelMap.CommonEmptyHeader}" position="1" use-when="showPosition1"><display description=" "/></field>
-        <field name="dummy5" title="${uiLabelMap.CommonEmptyHeader}" position="1" use-when="showPosition1"><display description=" "/></field>
+        <field name="dummy4" title=" " position="1" use-when="showPosition1"><display description=" "/></field>
+        <field name="dummy5" title=" " position="1" use-when="showPosition1"><display description=" "/></field>
         <field name="taskActualHours" title="${uiLabelMap.ScrumActualHours}" position="2" use-when="workEffortId!=null"><display/></field>
         <field name="planHours" title="${uiLabelMap.ScrumPlannedHours}" position="2" use-when="workEffortId!=null">
             <display/>
@@ -3081,7 +3081,7 @@ under the License.
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
-        <field name="dummy6" title="${uiLabelMap.CommonEmptyHeader}" position="2" use-when="workEffortId!=null"><display description=" "/></field>
+        <field name="dummy6" title=" " position="2" use-when="workEffortId!=null"><display description=" "/></field>
         <field name="partyId" title="${uiLabelMap.ScrumAssignedTo}" position="2" use-when="workEffortId!=null" >
             <display description="${partyList[0].lastName} ${partyList[0].firstName} ${partyList[0].middleName}"></display>
         </field>
@@ -3104,7 +3104,7 @@ under the License.
                 <parameter param-name="productId" from-field="parameters.productId"/>
             </hyperlink>
         </field>
-        <field name="dummy7" title="${uiLabelMap.CommonEmptyHeader}" position="2" use-when="workEffortId!=null"><display description=" "/></field>
+        <field name="dummy7" title=" " position="2" use-when="workEffortId!=null"><display description=" "/></field>
     </form>
     
     <form name="unplanBacklogListItemsHideDelete" extends="unplanBacklogListItems">

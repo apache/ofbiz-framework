@@ -29,7 +29,7 @@ under the License.
     <form name="searchList" type="list" target="" list-name="queryResults"
         default-title-style="tableheadtext" default-widget-style="inputBox"
         paginate-target="/AdminSearch">
-        <field name="editContent" title="${uiLabelMap.CommonEmptyHeader}">
+        <field name="editContent" title=" ">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="CMSContentEdit">
                 <parameter param-name="contentId"/>
                 <parameter param-name="drDataResourceId"/>

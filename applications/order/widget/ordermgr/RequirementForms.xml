@@ -104,7 +104,7 @@ under the License.
                 <parameter param-name="requirementId"/>
             </hyperlink>
         </field>
-        <field name="deleteLink" widget-style="buttontext" title="${uiLabelMap.CommonEmptyHeader}">
+        <field name="deleteLink" widget-style="buttontext" title=" ">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteRequirement">
                 <parameter param-name="requirementId"/>
             </hyperlink>

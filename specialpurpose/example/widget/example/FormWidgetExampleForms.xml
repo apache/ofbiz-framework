@@ -178,8 +178,8 @@ under the License.
         </field>
 
         <field name="entityOptionsFields1" title="${uiLabelMap.ExampleDropDownEntityOptions}"><display description="${uiLabelMap.ExampleDropDownEntityOptionsTooltip1}" also-hidden="false"/></field>
-        <field name="entityOptionsFields2" title="${uiLabelMap.CommonEmptyHeader}"><display description="${uiLabelMap.ExampleDropDownEntityOptionsTooltip2}" also-hidden="false"/></field>
-        <field name="entityOptionsFields3" title="${uiLabelMap.CommonEmptyHeader}"><display description="${uiLabelMap.ExampleDropDownEntityOptionsTooltip3}" also-hidden="false"/></field>
+        <field name="entityOptionsFields2" title=" "><display description="${uiLabelMap.ExampleDropDownEntityOptionsTooltip2}" also-hidden="false"/></field>
+        <field name="entityOptionsFields3" title=" "><display description="${uiLabelMap.ExampleDropDownEntityOptionsTooltip3}" also-hidden="false"/></field>
         <!-- ***************** -->
         <!-- ***   field3  *** -->
         <!-- ***************** -->
@@ -240,7 +240,7 @@ under the License.
         <!-- *** Autocomplete dropdown *** -->
         <!-- ****************************** -->
         <!-- TODO : return only the Id, else you need to edit the field to remove the description -->
-        <field name="emptyField1" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
+        <field name="emptyField1" title=" "><display/></field>
         <field name="geoId" title="${uiLabelMap.ExampleAutocompleteDropdown}"
             tooltip="${uiLabelMap.ExampleAutocompleteTooltip}">
             <drop-down>
@@ -254,7 +254,7 @@ under the License.
         <!-- ****************************** -->
         <!-- ***   Dependent dropdowns  *** -->
         <!-- ****************************** -->
-        <field name="emptyField2" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
+        <field name="emptyField2" title=" "><display/></field>
         <field name="dependendDropDownFields" title="${uiLabelMap.ExampleDependentDropDowns}">
             <display description="${uiLabelMap.ExampleDependentDropDownTooltip}"/>
         </field>
@@ -274,7 +274,7 @@ under the License.
         <!-- ****************************** -->
         <!-- See why this is used here http://www.ryancramer.com/journal/entries/select_multiple/ -->
     <form name="DropDownMultipleFieldExampleForm" type="single" title="">
-        <field name="emptyField1" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
+        <field name="emptyField1" title=" "><display/></field>
         <field name="multipleDropDownFields" title="${uiLabelMap.ExampleMultipleDropDowns}">
             <display description="${uiLabelMap.ExampleMultipleDropDownTooltip}"/>
         </field>

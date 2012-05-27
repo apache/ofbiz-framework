@@ -93,7 +93,7 @@
             </drop-down>
         </field>        
         <field name="condValueInput" title="${uiLabelMap.ProductValue}" entry-name="condValue"><text size="10"/></field>
-        <field name="condValue" title="${uiLabelMap.CommonEmptyHeader}">
+        <field name="condValue" title=" ">
             <drop-down allow-empty="false">
                 <list-options list-name="productPriceRulesCondValues" key-name="condValue"/>                
             </drop-down>
@@ -125,7 +125,7 @@
             </drop-down>
         </field>        
         <field name="condValueInput" title="${uiLabelMap.ProductValue}"><text size="10"/></field>
-        <field name="condValue" title="${uiLabelMap.CommonEmptyHeader}">
+        <field name="condValue" title=" ">
             <drop-down allow-empty="false">
                 <list-options list-name="productPriceRulesCondValues" key-name="condValue"/>                
             </drop-down>

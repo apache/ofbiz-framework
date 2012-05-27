@@ -60,7 +60,7 @@ under the License.
             <hidden value="${donePage}"/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
-        <field name="cancelLink" widget-style="buttontext" title="${uiLabelMap.CommonEmptyHeader}"><hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}" target-type="inter-app"/></field>
+        <field name="cancelLink" widget-style="buttontext" title=" "><hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}" target-type="inter-app"/></field>
     </form>
 
    <form name="ListMarketingCampaign" type="list" paginate-target="listMarketingCampaign"
@@ -138,7 +138,7 @@ under the License.
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
-        <field name="cancelLink" widget-style="buttontext" title="${uiLabelMap.CommonEmptyHeader}">
+        <field name="cancelLink" widget-style="buttontext" title=" ">
             <hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
                 <parameter param-name="marketingCampaignId"/>
             </hyperlink>

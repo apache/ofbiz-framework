@@ -68,7 +68,7 @@
             </service>
         </actions>
 
-        <field name="editContent" title="${uiLabelMap.CommonEmptyHeader}">
+        <field name="editContent" title=" ">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="CMSContentEdit">
                 <parameter param-name="contentId"/>
                 <parameter param-name="drDataResourceId"/>
