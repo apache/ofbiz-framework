@@ -21,82 +21,78 @@ package org.ofbiz.minilang.method.entityops;
 import java.util.List;
 import java.util.Map;
 
-import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
+import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Uses the delegator to find entity values by anding the map fields
+ * Implements the &lt;find-by-and&gt; element.
  */
-public class FindByAnd extends MethodOperation {
+public final class FindByAnd extends MethodOperation {
 
     public static final String module = FindByAnd.class.getName();
 
-    String delegatorName;
+    private final FlexibleStringExpander delegatorNameFse;
+    private final FlexibleStringExpander entityNameFse;
+    private final FlexibleMapAccessor<Object> listFma;
+    private final FlexibleMapAccessor<Map<String, ? extends Object>> mapFma;
+    private final FlexibleMapAccessor<List<String>> orderByListFma;
+    private final FlexibleStringExpander useCacheFse;
+    private final FlexibleStringExpander useIteratorFse;
 
-    String entityName;
-    ContextAccessor<Object> listAcsr;
-    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
-    ContextAccessor<List<String>> orderByListAcsr;
-    String useCacheStr;
-    String useIteratorStr;
     public FindByAnd(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        listAcsr = new ContextAccessor<Object>(element.getAttribute("list"), element.getAttribute("list-name"));
-        entityName = element.getAttribute("entity-name");
-        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map"), element.getAttribute("map-name"));
-        orderByListAcsr = new ContextAccessor<List<String>>(element.getAttribute("order-by-list"), element.getAttribute("order-by-list-name"));
-        delegatorName = element.getAttribute("delegator-name");
-        useCacheStr = element.getAttribute("use-cache");
-        useIteratorStr = element.getAttribute("use-iterator");
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "entity-name", "use-cache", "use-iterator", "list", "map", "order-by-list", "delegator-name");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "entity-name", "list", "map");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "list", "map", "order-by-list");
+            MiniLangValidate.noChildElements(simpleMethod, element);
+        }
+        entityNameFse = FlexibleStringExpander.getInstance(element.getAttribute("entity-name"));
+        listFma = FlexibleMapAccessor.getInstance(element.getAttribute("list"));
+        mapFma = FlexibleMapAccessor.getInstance(element.getAttribute("map"));
+        orderByListFma = FlexibleMapAccessor.getInstance(element.getAttribute("order-by-list"));
+        useCacheFse = FlexibleStringExpander.getInstance(element.getAttribute("use-cache"));
+        useIteratorFse = FlexibleStringExpander.getInstance(element.getAttribute("use-iterator"));
+        delegatorNameFse = FlexibleStringExpander.getInstance(element.getAttribute("delegator-name"));
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        String entityName = methodContext.expandString(this.entityName);
-        String delegatorName = methodContext.expandString(this.delegatorName);
-        String useCacheStr = methodContext.expandString(this.useCacheStr);
-        String useIteratorStr = methodContext.expandString(this.useIteratorStr);
-        boolean useCache = "true".equals(useCacheStr);
-        boolean useIterator = "true".equals(useIteratorStr);
-        List<String> orderByNames = null;
-        if (!orderByListAcsr.isEmpty()) {
-            orderByNames = orderByListAcsr.get(methodContext);
-        }
+        String entityName = entityNameFse.expandString(methodContext.getEnvMap());
+        String delegatorName = delegatorNameFse.expandString(methodContext.getEnvMap());
+        boolean useCache = "true".equals(useCacheFse.expandString(methodContext.getEnvMap()));
+        boolean useIterator = "true".equals(useIteratorFse.expandString(methodContext.getEnvMap()));
+        List<String> orderByNames = orderByListFma.get(methodContext.getEnvMap());
         Delegator delegator = methodContext.getDelegator();
-        if (UtilValidate.isNotEmpty(delegatorName)) {
+        if (!delegatorName.isEmpty()) {
             delegator = DelegatorFactory.getDelegator(delegatorName);
         }
         try {
             if (useIterator) {
                 EntityCondition whereCond = null;
-                if (!mapAcsr.isEmpty()) {
-                    whereCond = EntityCondition.makeCondition(mapAcsr.get(methodContext));
+                if (!mapFma.isEmpty()) {
+                    whereCond = EntityCondition.makeCondition(mapFma.get(methodContext.getEnvMap()));
                 }
-                listAcsr.put(methodContext, delegator.find(entityName, whereCond, null, null, orderByNames, null));
+                listFma.put(methodContext.getEnvMap(), delegator.find(entityName, whereCond, null, null, orderByNames, null));
             } else {
-                listAcsr.put(methodContext, delegator.findByAnd(entityName, mapAcsr.get(methodContext), orderByNames, useCache));
+                listFma.put(methodContext.getEnvMap(), delegator.findByAnd(entityName, mapFma.get(methodContext.getEnvMap()), orderByNames, useCache));
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
-            String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [problem finding the " + entityName + " entity: " + e.getMessage() + "]";
-            if (methodContext.getMethodType() == MethodContext.EVENT) {
-                methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errMsg);
-                methodContext.putEnv(simpleMethod.getEventResponseCodeName(), simpleMethod.getDefaultErrorCode());
-            } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
-                methodContext.putEnv(simpleMethod.getServiceErrorMessageName(), errMsg);
-                methodContext.putEnv(simpleMethod.getServiceResponseMessageName(), simpleMethod.getDefaultErrorCode());
-            }
+            String errMsg = "Exception thrown while performing entity find: " + e.getMessage();
+            Debug.logWarning(e, errMsg, module);
+            simpleMethod.addErrorMessage(methodContext, errMsg);
             return false;
         }
         return true;
@@ -104,26 +100,51 @@ public class FindByAnd extends MethodOperation {
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public void gatherArtifactInfo(ArtifactInfoContext aic) {
-        aic.addEntityName(entityName);
+        aic.addEntityName(entityNameFse.toString());
     }
 
     @Override
     public String rawString() {
-        // TODO: something more than the empty tag
-        return "<find-by-and/>";
+        return toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<find-by-and ");
+        sb.append("entity-name=\"").append(this.entityNameFse).append("\" ");
+        sb.append("list=\"").append(this.listFma).append("\" ");
+        sb.append("map=\"").append(this.mapFma).append("\" ");
+        if (!orderByListFma.isEmpty()) {
+            sb.append("order-by-list=\"").append(this.orderByListFma).append("\" ");
+        }
+        if (!useCacheFse.isEmpty()) {
+            sb.append("use-cache=\"").append(this.useCacheFse).append("\" ");
+        }
+        if (!useIteratorFse.isEmpty()) {
+            sb.append("use-iterator=\"").append(this.useIteratorFse).append("\" ");
+        }
+        if (!delegatorNameFse.isEmpty()) {
+            sb.append("delegator-name=\"").append(this.delegatorNameFse).append("\" ");
+        }
+        sb.append("/>");
+        return sb.toString();
+    }
+
+    /**
+     * A factory for the &lt;find-by-and&gt; element.
+     */
     public static final class FindByAndFactory implements Factory<FindByAnd> {
+        @Override
         public FindByAnd createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new FindByAnd(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "find-by-and";
         }
