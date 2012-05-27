@@ -393,7 +393,7 @@ under the License.
         <field name="emailType"><hidden value="${emailType}"/></field>
         <field name="fromAddress"><hidden value="${fromAddress}"/></field>
         <field name="dataResourceId"><hidden value="${dataResourceId}"/></field>
-        <field name="emailDetail" title="${uiLabelMap.CommonEmptyHeader}" widget-area-style="h2"><display description="${uiLabelMap.EbayEmailDetail}"/></field>
+        <field name="emailDetail" title=" " widget-area-style="h2"><display description="${uiLabelMap.EbayEmailDetail}"/></field>
         <field name="autoText" action="doSelect(this.id)" event="onchange" >
             <drop-down allow-empty="true">
                 <option key="$\{buyerUserId}" description="Buyer User ID"/>
@@ -449,10 +449,10 @@ under the License.
         </field>
         <field name="subject"><text/></field>
         <field name="textData" title="${uiLabelMap.CommonMessage}"><textarea visual-editor-enable="true" rows="20" cols="120" default-value="${textData}"/></field>
-        <!--field name="paymentInfo" title="${uiLabelMap.CommonEmptyHeader}" widget-area-style="h2"><display description="${uiLabelMap.EbayPaymentInformation}"/></field>
-        <field name="includePayment" title="${uiLabelMap.CommonEmptyHeader}" tooltip="${uiLabelMap.EbayIncludePayNowButtonAndAcceptPaymentMethods}" tooltip-style="h3"><check/></field>
-        <field name="crossPromotions" title="${uiLabelMap.CommonEmptyHeader}" widget-area-style="h2"><display description="${uiLabelMap.EbayCrossPromotions}"/></field>
-        <field name="includeCrossPromotions" title="${uiLabelMap.CommonEmptyHeader}" tooltip="${uiLabelMap.EbayIncludeMyDefaultCrossPromotionInThisEmail}" tooltip-style="h3"><check/></field-->
+        <!--field name="paymentInfo" title=" " widget-area-style="h2"><display description="${uiLabelMap.EbayPaymentInformation}"/></field>
+        <field name="includePayment" title=" " tooltip="${uiLabelMap.EbayIncludePayNowButtonAndAcceptPaymentMethods}" tooltip-style="h3"><check/></field>
+        <field name="crossPromotions" title=" " widget-area-style="h2"><display description="${uiLabelMap.EbayCrossPromotions}"/></field>
+        <field name="includeCrossPromotions" title=" " tooltip="${uiLabelMap.EbayIncludeMyDefaultCrossPromotionInThisEmail}" tooltip-style="h3"><check/></field-->
         <field name="submitButton"><submit/></field>
     </form>
     <form name="blockItemsOutOfStock" type="single" target="runBlockItemOutOfStock" header-row-style="header-row" default-table-style="basic-table">

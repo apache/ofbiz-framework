@@ -358,7 +358,7 @@ under the License.
     <form name="AddDataResourceAttribute" target="addDataResourceAttribute" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createDataResourceAttribute"/>
-        <field name="dataResourceId" title="${uiLabelMap.CommonEmptyHeader}" map-name="currentValue"><display/></field>
+        <field name="dataResourceId" title=" " map-name="currentValue"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListDataResourceAttribute" list-name="dataResourceAttribute" target="updateDataResourceAttribute" title="" type="list"
@@ -386,8 +386,8 @@ under the License.
     <form name="AddDataResourceRole" target="addDataResourceRole" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="DataResourceRole"/>
-        <field name="dataResourceId" title="${uiLabelMap.CommonEmptyHeader}" map-name="currentValue"><display/></field>
-        <field name="partyId" title="${uiLabelMap.CommonEmptyHeader}"><lookup target-form-name="LookupPerson"/></field>
+        <field name="dataResourceId" title=" " map-name="currentValue"><display/></field>
+        <field name="partyId" title=" "><lookup target-form-name="LookupPerson"/></field>
         <field name="roleTypeId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/>

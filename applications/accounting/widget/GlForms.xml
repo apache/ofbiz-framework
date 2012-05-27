@@ -144,7 +144,7 @@ under the License.
                 <parameter param-name="acctgTransId"/>
             </hyperlink>
         </field>
-        <field name="postAcctgTrans" title="${uiLabelMap.CommonEmptyHeader}" use-when="!&quot;N&quot;.equals(isPosted)"><display/></field>
+        <field name="postAcctgTrans" title=" " use-when="!&quot;N&quot;.equals(isPosted)"><display/></field>
     </form>
 
     <form name="ListUnpostedAcctgTrans" type="list" title="Unposted Accounting Transactions" list-name="transactions"

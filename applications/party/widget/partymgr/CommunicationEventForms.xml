@@ -489,13 +489,13 @@ under the License.
     <form name="ListPartyCommEvents" type="list" target="RemoveCommunicationEventRole" list-name="listIt"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <set field="parameters.sortField" from-field="parameters.sortField" default-value="${groovy: 'true'.equals(parameters.all)?'-entryDate':'entryDate'}"/>
+            <set field="parameters.sortField" from-field="parameters.sortField" default-value="${groovy: 'true'.equals(parameters.all) ? '-entryDate' : 'entryDate'}"/>
             <set field="searchParameters.partyId" from-field="partyId"/>
             <set field="searchParameters.statusId" value="COM_UNKNOWN_PARTY"/>
             <set field="searchParameters.statusId_op" value="notEqual"/>
-            <set field="searchParameters.roleStatusId" value="${groovy:&quot;true&quot;.equals(parameters.all)?&quot;dummy&quot;:&quot;COM_ROLE_COMPLETED&quot;}"/>
+            <set field="searchParameters.roleStatusId" value="${groovy: 'true'.equals(parameters.all) ? 'dummy' : 'COM_ROLE_COMPLETED'}"/>
             <set field="searchParameters.roleStatusId_op" value="notEqual"/>
-            <set field="searchParameters.communicationEventTypeId" value="${groovy:internalNotesOnly&amp;&amp;&quot;true&quot;.equals(internalNotesOnly)?&quot;COMMENT_NOTE&quot;:&quot;&quot;}"/>
+            <set field="searchParameters.communicationEventTypeId" value="${groovy: internalNotesOnly &amp;&amp; 'true'.equals(internalNotesOnly) ? 'COMMENT_NOTE' : ''}"/>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="searchParameters"/>
                 <field-map field-name="entityName" value="CommunicationEventAndRole"/>
@@ -505,7 +505,7 @@ under the License.
             </service>
         </actions>
         <row-actions>
-            <set field="toComplete" value="${bsh:&quot;COM_ROLE_READ&quot;.equals(roleStatusId)?&quot;PartyToComplete&quot;:&quot;CommonEmptyHeader&quot;}"/>
+            <set field="toComplete" value="${groovy: 'COM_ROLE_READ'.equals(roleStatusId) ? 'PartyToComplete' : ' '}"/>
         </row-actions>
         <field name="deleteCommEventIfLast"><hidden value="Y"/></field>
         <field name="delContentDataResource"><hidden value="Y"/></field>
@@ -956,8 +956,8 @@ under the License.
         <field name="donePage"><hidden value="${donePage}"/></field>
         <field name="communicationEventId"><hidden value="${parameters.communicationEventId}"/></field>
         <field name="delContentDataResource"><hidden value="Y"/></field>
-        <field name="dummy1" title="${uiLabelMap.CommonEmptyHeader}" position="1"><display/></field>
-        <field name="dummy2" title="${uiLabelMap.CommonEmptyHeader}" position="2"><display/></field>
+        <field name="dummy1" title=" " position="1"><display/></field>
+        <field name="dummy2" title=" " position="2"><display/></field>
         <field name="deleteEmail" widget-style="smallSubmit" position="3"><submit/></field>
     </form>
     <form name="EditRequestFromCommEvent" type="single" target="createRequestFromCommEvent" default-map-name="communicationEvent">

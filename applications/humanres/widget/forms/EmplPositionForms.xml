@@ -345,7 +345,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="dummy1" title="${uiLabelMap.CommonEmptyHeader}" position="1"><display/></field>
+        <field name="dummy1" title=" " position="1"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
 </forms>

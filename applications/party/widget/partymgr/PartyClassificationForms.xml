@@ -58,7 +58,7 @@ under the License.
             <display-entity entity-name="PartyClassificationType" key-field-name="partyClassificationTypeId" description="${description}"/>
         </field>
         <field name="parentGroupId"><display/></field>
-        <field name="description" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
+        <field name="description" title=" "><display/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="deletePartyClassificationGroup" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="partyClassificationGroupId"/>

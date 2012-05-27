@@ -44,7 +44,7 @@ under the License.
             </service>
         </actions>
 
-        <field name="caContentIdTo" title="${uiLabelMap.CommonEmptyHeader}">
+        <field name="caContentIdTo" title=" ">
             <hyperlink also-hidden="false" description="${caContentIdTo}" target="EditAddContent">
                 <parameter param-name="MASTER_contentId" from-field="contentId"/>
                 <parameter param-name="MASTER_drDataResourceId" from-field="drDataResourceId"/>
@@ -132,7 +132,7 @@ under the License.
         <field name="newTopicDescription" title="Description"  position="3">
             <text size="24"/>
         </field>
-        <field name="createTopic" title="${uiLabelMap.CommonEmptyHeader}"  position="4">
+        <field name="createTopic" title=" "  position="4">
             <hyperlink also-hidden="false" target="createTopic${pageName}" description="Create Topic">
                 <parameter param-name="mode" value="restore"/>
             </hyperlink>
@@ -295,7 +295,7 @@ under the License.
                 <hidden value="${dataResourceTypeId}"/>
         </field>
 <!--
-        <field name="submitContentEdit" title="${uiLabelMap.CommonEmptyHeader}">
+        <field name="submitContentEdit" title=" ">
             <hyperlink also-hidden="false" description="Submit" target="javascript:document.EditAddContent.action='${persistAction}'; document.EditAddContent.submit()" target-type="plain"/>
         </field>
 -->
@@ -393,7 +393,7 @@ under the License.
     </form>
 
     <form name="AdminIndexAll" target="indexTree" title="" type="single" header-row-style="header-row" default-table-style="basic-table">
-        <field name="contentId" title="${uiLabelMap.CommonEmptyHeader}" position="1"><text size="50" default-value="WebStoreCONTENT"/></field>
+        <field name="contentId" title=" " position="1"><text size="50" default-value="WebStoreCONTENT"/></field>
         <field name="submitButton" title="${uiLabelMap.ContentIndexAll}" widget-style="smallSubmit" position="2"><submit button-type="button"/></field>
     </form>
 
@@ -403,7 +403,7 @@ under the License.
     </form>
     <form name="searchList" type="list" target="" list-name="queryResults" paginate-target="/AdminSearch"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="editContent" title="${uiLabelMap.CommonEmptyHeader}">
+        <field name="editContent" title=" ">
            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="CMSContentEdit">
                 <parameter param-name="contentId"/>
                 <parameter param-name="drDataResourceId" from-field="dataResourceId"/>

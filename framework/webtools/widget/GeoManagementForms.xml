@@ -75,7 +75,7 @@
                 </entity-options>
             </drop-down>
         </field>        
-        <field name="dummy" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
+        <field name="dummy" title=" "><display/></field>
         <field name="geoAssocTypeId" title="${uiLabelMap.CommonGeoAssocTypeId}"
             event="onChange" 
             action="typeValue = jQuery('#${asm_typeField}').val(); selectMultipleRelatedValues('${asm_requestName}', '${asm_paramKey}', '${asm_relatedField}', '${asm_multipleSelect}', '${asm_type}', typeValue, '${asm_responseName}');">
