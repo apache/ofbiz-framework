@@ -44,7 +44,7 @@
         <para>1. Open a new terminal.</para>
         <para>2. Go to your ofbiz directory.</para>
         <para>3. Clean out all built classes with : ./ant clean-all </para>
-        <para>4. Load the seed data with : ./ant run-install-extseed </para>
+        <para>4. Load the seed data with : ./ant load-extseed </para>
         <para>5. Create the admin user with : ./ant create-admin-user-login , then enter a user login id that will be created for you (the initial temporary password is "ofbiz")</para>
         <para>6. Start ofbiz with : ./startofbiz.sh </para>
         <para>7. Connect to the OFBiz Setup application with your browser at https://localhost:8443/ofbizsetup.</para>
