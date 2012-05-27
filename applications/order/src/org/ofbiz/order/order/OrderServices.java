@@ -5601,7 +5601,9 @@ public class OrderServices {
         }
         final EntityCondition cond = EntityCondition.makeCondition(orderCondList);
         List<String> orderIds;
+        boolean beganTransaction = false;
         try {
+            beganTransaction = TransactionUtil.begin();
             orderIds = TransactionUtil.doNewTransaction(new Callable<List<String>>() {
                 public List<String> call() throws Exception {
                     List<String> orderIds = new LinkedList<String>();
@@ -5622,8 +5624,20 @@ public class OrderServices {
             }, "getSalesOrderIds", 0, true);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
+            try {
+                TransactionUtil.rollback(beganTransaction, e.getMessage(), e);
+            } catch (GenericTransactionException e2) {
+                Debug.logError(e2, "Unable to rollback transaction", module);
+            }
             return ServiceUtil.returnError(e.getMessage());
+        } finally {
+            try {
+                TransactionUtil.commit(beganTransaction);
+            } catch (GenericTransactionException e) {
+                Debug.logError(e, "Unable to commit transaction", module);
+            }
         }
+
         for (String orderId: orderIds) {
             Map<String, Object> svcIn = FastMap.newInstance();
             svcIn.put("userLogin", context.get("userLogin"));
