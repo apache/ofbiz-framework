@@ -396,7 +396,7 @@ under the License.
         </java>
     </target>
     <target name="start-debug"
-            description="Start OFBiz in debugging mode">
+            description="Start OFBiz in debugging mode. It uses the 8091 port by default">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
