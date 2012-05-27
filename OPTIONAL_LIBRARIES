@@ -7,69 +7,6 @@ to change to include them in the OFBiz build and/or run-time configuration.
 NOTE: While these aren't included in the main SVN repository they are available
 on the old Undersun SVN server in the specialized/libraries component directory.
 
--=- Workflow __________________________________________________________________________________________________________________________________________________
-
--Shark (LGPL):
-  http://www.enhydra.org/workflow/shark/
-  Current version : http://shark.objectweb.org/doc/1.1/release_notes/release_notes.html
-  framework/shark/lib:
-     js.jar
-     sharkassignment-historyrelated-1.2_1.jar
-     sharkassignment-standard-1.2_1.jar
-     sharkassignment-xpdlstraightparticipantmapping-1.2_1.jar
-     sharkauthentication-ldap-1.2_1.jar
-     sharkcaching-lru-1.2_1.jar
-     sharkclientapi-1.2_1.jar
-     sharkcommonapi-1.2_1.jar
-     sharkcorbaadmin-1.2_1.jar
-     sharkcorbaclientapi-1.2_1.jar
-     sharkcorbaserver-1.2_1.jar
-     sharkcorbawhandler-1.2_1.jar
-     sharkeventaudit-notifying-1.2_1.jar
-     sharkeventaudit-smtp-1.2_1.jar
-     sharkinternalapi-1.2_1.jar
-     sharkinteroperability-wfxml-1.2_1.jar
-     sharkkernel-standard-1.2_1.jar
-     sharklimitagent-standard-1.2_1.jar
-     sharklimitagent-timer-1.2_1.jar
-     sharklogging-standard-1.2_1.jar
-     sharkprocesslocking-memory-1.2_1.jar
-     sharkrepositorypersistence-filesystem-1.2_1.jar
-     sharkscripting-standard-1.2_1.jar
-     sharksecurity-standard-1.2_1.jar
-     sharktoolagent-standard-1.2_1.jar
-     sharkusergroup-ldap-1.2_1.jar
-     sharkutilities-common-1.2_1.jar
-     sharkutilities-map-1.2_1.jar
-     sharkutilities-misc-1.2_1.jar
-     sharkwebservice-asap-1.2_1.jar
-     sharkwebservice-asapapi-1.2_1.jar
-     sharkwebservice-asaputils-1.2_1.jar
-     sharkwebservice-wfxml-1.2_1.jar
-     sharkwebservice-wfxmlapi-1.2_1.jar
-     sharkwebservice-wfxmlutils-1.2_1.jar
-     sharkxpdl-standard-1.2_1.jar
-     wrd-1.2_1.jar
-  NOTE: these jars based on a build from version 1.2_1 may be found attached
-     in https://issues.apache.org/jira/browse/OFBIZ-552
-     For an updated version some changes to the integration code in the
-     shark component may be necessary.
-  TO BUILD: once the jars are in place you can build from the
-     ofbiz/framework/shark directory, or you can add it to the build
-     list in the ofbiz/build.xml file in the framework-builds file list.
-  TO DEPLOY: once the build is done the Shark container must be setup in the
-     ofbiz-containers.xml file or other containers file being used.
-     The shark-container container should be un-commented.
-  TO DEPLOY, PART 2: to get the component to load on startup, and get the webapp
-     in place and such the shark component needs to be uncommented in the
-     framework/component-load.xml file.
-
-  You may experiment online with Jawe XPDL editor:
-  http://www.enhydra.org/workflow/jawe/index.html
-  There is an example XPDL file in https://issues.apache.org/jira/browse/OFBIZ-552
-  it came from http://www.wfmc.org/standards/docs/xpdl_sample/sample%20workflow%20process.xpdl
-  For the moment Shark engine in OFBiz refuses to load it (OK in Jawe)
-
 -=- Web Presentation: ________________________________________________________________________________________________________________________________________________
 
 -JPublish/EdenLib (Apache):
@@ -169,10 +106,10 @@ on the old Undersun SVN server in the specialized/libraries component directory.
 
 -Securepay
   applications/accounting/lib/cybersource:
-	Base64.jar
-	securepayxmlapi_obf.jar
-	xercesImpl-2.4.0.jar
-	xmlParserAPIs-2.4.0.jar
+  Base64.jar
+  securepayxmlapi_obf.jar
+  xercesImpl-2.4.0.jar
+  xmlParserAPIs-2.4.0.jar
   TO BUILD comment out exclude: applications/accounting/build.xml:org/ofbiz/accounting/thirdparty/securepay/**
 
 -WorldPay
