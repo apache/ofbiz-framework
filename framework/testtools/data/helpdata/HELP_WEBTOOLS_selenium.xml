@@ -34,7 +34,7 @@
                     <para>ant download-selenium</para>
                 </listitem>
                 <listitem>
-                    <para>ant run-install-extseed (For run install help data and example test)</para>
+                    <para>ant load-extseed (To load data and example test)</para>
                 </listitem>
                 <listitem>
                     <para>Build the source by running "ant" in the testtools directory or your OFBIZ_HOME</para>
