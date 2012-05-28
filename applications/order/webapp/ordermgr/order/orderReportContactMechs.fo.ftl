@@ -90,7 +90,7 @@ under the License.
         </fo:block>
     </#list>
 </#if>
-<#if orderHeader.getString("orderTypeId") == "SALES_ORDER" && shipGroups?exists?has_content>
+<#if orderHeader.getString("orderTypeId") == "SALES_ORDER" && shipGroups?has_content>
     <fo:block font-weight="bold">${uiLabelMap.OrderShipmentInformation}:</fo:block>
     <#list shipGroups as shipGroup>
         <fo:block text-indent="0.2in">
@@ -105,7 +105,7 @@ under the License.
     </#list>
 </#if>
 
-<#if orderTerms?exists?has_content && orderTerms.size() gt 0>
+<#if orderTerms?has_content && orderTerms.size() gt 0>
     <fo:block font-weight="bold">${uiLabelMap.OrderOrderTerms}:</fo:block>
     <#list orderTerms as orderTerm>
         <fo:block text-indent="0.2in">
