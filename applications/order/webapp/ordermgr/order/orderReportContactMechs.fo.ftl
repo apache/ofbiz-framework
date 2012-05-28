@@ -81,7 +81,7 @@ under the License.
     <#list orderPaymentPreferences as orderPaymentPreference>
         <fo:block text-indent="0.2in">
             <#assign paymentMethodType = orderPaymentPreference.getRelatedOne("PaymentMethodType")?if_exists>
-            <#if ((orderPaymentPreference != null) && (orderPaymentPreference.getString("paymentMethodTypeId") == "CREDIT_CARD") && (orderPaymentPreference.getString("paymentMethodId")?has_content))>
+            <#if (orderPaymentPreference?? && (orderPaymentPreference.getString("paymentMethodTypeId") == "CREDIT_CARD") && (orderPaymentPreference.getString("paymentMethodId")?has_content))>
                 <#assign creditCard = orderPaymentPreference.getRelatedOne("PaymentMethod").getRelatedOne("CreditCard")>
                 ${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}
             <#else>
