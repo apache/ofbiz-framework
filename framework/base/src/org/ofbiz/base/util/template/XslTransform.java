@@ -56,7 +56,7 @@ import javax.xml.transform.stream.StreamResult;
 public final class XslTransform {
 
     public static final String module = XslTransform.class.getName();
-    public static UtilCache<String, Templates> xslTemplatesCache = UtilCache.createUtilCache("XsltTemplates", 0, 0);
+    private static final UtilCache<String, Templates> xslTemplatesCache = UtilCache.createUtilCache("XsltTemplates", 0, 0);
 
     /**
      * @param template the content or url of the xsl template
@@ -116,7 +116,7 @@ public final class XslTransform {
             Source templateSource = getSource(templateDocument, templateUrl, templateString);
             translet = tFactory.newTemplates(templateSource);
             if (UtilValidate.isNotEmpty(templateName)) {
-                    xslTemplatesCache.put(templateName, translet);
+                translet = xslTemplatesCache.putIfAbsentAndGet(templateName, translet);
             }
         }
         if (translet != null) {
