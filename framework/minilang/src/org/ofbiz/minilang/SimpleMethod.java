@@ -59,7 +59,24 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- * Contains a block of Mini-language code.
+ * Implements the &lt;simple-method&gt; element.
+ * <p>
+ * The Mini-language script engine follows the
+ * <a href="http://en.wikipedia.org/wiki/Flyweight_pattern">flyweight</a>
+ * design pattern. Mini-language XML files are parsed twice - first into a W3C DOM
+ * tree, then the DOM tree is parsed into element model objects. Each XML element
+ * has a model class, and each model class has its own factory.
+ * </p>
+ * <p>
+ * Mini-language can be extended by:<br />
+ * <ul>
+ * <li>Creating model classes that extend {@link org.ofbiz.minilang.method.MethodOperation}</li>
+ * <li>Creating factories for the model classes that implement {@link org.ofbiz.minilang.method.MethodOperation.Factory}</li>
+ * <li>Create a service provider information file
+ * (see <a href="http://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html" target="_blank">ServiceLoader</a>)
+ * for the factory classes</li>
+ * </ul>
+ * </p>
  */
 public final class SimpleMethod extends MiniLangElement {
 

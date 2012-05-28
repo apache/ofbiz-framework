@@ -24,7 +24,7 @@ import org.ofbiz.minilang.method.MethodContext;
 import org.w3c.dom.Element;
 
 /**
- * A single Mini-language element. This class is the superclass for all <code>Element</code> models.
+ * A single Mini-language element. This class is the superclass for all XML element models.
  */
 public class MiniLangElement {
 

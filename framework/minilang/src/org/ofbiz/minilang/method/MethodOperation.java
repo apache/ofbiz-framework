@@ -29,7 +29,7 @@ import org.ofbiz.minilang.SimpleMethod;
 import org.w3c.dom.Element;
 
 /**
- * A single operation, does the specified operation on the given field
+ * An abstract class for Mini-language element models.
  */
 public abstract class MethodOperation extends MiniLangElement {
 
@@ -38,14 +38,22 @@ public abstract class MethodOperation extends MiniLangElement {
         super(element, simpleMethod);
     }
 
-    /** Execute the operation. Returns false if no further operations should be executed. 
+    /**
+     * Executes the operation.
+     * Returns <code>true</code> if script execution should continue, or
+     * <code>false</code> if script execution should stop.
+     * 
      * @throws MiniLangException */
     public abstract boolean exec(MethodContext methodContext) throws MiniLangException;
 
-    /** Create an expanded string representation of the operation, is for the current context */
+    /** Create a string representation of the operation, using the current context.
+     * <p><strong>Deprecated:</strong> No replacement.</p>
+     */
     public abstract String expandedString(MethodContext methodContext);
 
-    /** Create a raw string representation of the operation, would be similar to original XML */
+    /** Create a string representation of the operation - similar to the original XML.
+     * <p><strong>Deprecated:</strong> Use {@link #toString()}.</p>
+     */
     public abstract String rawString();
 
     @Retention(RetentionPolicy.RUNTIME)
