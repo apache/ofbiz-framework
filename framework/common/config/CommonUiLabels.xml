@@ -12047,20 +12047,6 @@
         <value xml:lang="zh">销售管理</value>
         <value xml:lang="zh-TW">銷售</value>
     </property>
-    <property key="Shark">
-        <value xml:lang="de">Shark</value>
-        <value xml:lang="en">Shark</value>
-        <value xml:lang="es">Procesos de trabajo</value>
-        <value xml:lang="fr">Shark (WorkFlow)</value>
-        <value xml:lang="it">Flussi di lavoro</value>
-        <value xml:lang="pt">Shark</value>
-        <value xml:lang="pt-BR">Shark (Fluxo de trabalho)</value>
-        <value xml:lang="ro">Fluxuri de Lucru</value>
-        <value xml:lang="ru">Shark</value>
-        <value xml:lang="th">Shark</value>
-        <value xml:lang="zh">Shark</value>
-        <value xml:lang="zh-TW">Shark工作流程</value>
-    </property>
     <property key="Web Pos">
         <value xml:lang="en">Web Pos</value>
         <value xml:lang="es">POS web</value>
