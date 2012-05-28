@@ -140,7 +140,7 @@ public class BirtWorker {
     
     /**
      * set web context objects
-     * @param engine
+     * @param appContext
      * @param request
      * @param response
      */
