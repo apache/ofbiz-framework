@@ -89,10 +89,8 @@ public class ModelFieldTypeReader implements Serializable {
                 throw new IllegalStateException("Error loading field type file " + fieldTypeResourceHandler.getLocation());
             }
             Map<String, ModelFieldType> fieldTypeMap = createFieldTypeCache(document.getDocumentElement(), fieldTypeResourceHandler.getLocation());
-            reader = new ModelFieldTypeReader(fieldTypeMap);
-            readers.putIfAbsent(tempModelName, reader);
+            reader = readers.putIfAbsentAndGet(tempModelName, new ModelFieldTypeReader(fieldTypeMap));
             utilTimer.timerString("[ModelFieldTypeReader.getModelFieldTypeReader] Read " + fieldTypeMap.size() + " field types");
-            reader = readers.get(tempModelName);
         }
         return reader;
     }
