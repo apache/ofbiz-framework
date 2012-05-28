@@ -1591,7 +1591,7 @@ under the License.
       <field name="noteId" type="id-ne"></field>
       <prim-key field="invoiceId"/>
       <prim-key field="noteId"/>
-      <relation type="one" fk-name="INVOICE_NOTE_INVOICE" rel-entity-name="Invoice">
+      <relation type="one" fk-name="INVOICE_NOTE_INV" rel-entity-name="Invoice">
         <key-map field-name="invoiceId"/>
       </relation>
       <relation type="one" fk-name="INVOICE_NOTE_NOTE" rel-entity-name="NoteData">
