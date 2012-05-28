@@ -38,7 +38,7 @@ public class RegionManager {
 
     public static final String module = RegionManager.class.getName();
 
-    protected static UtilCache<URL, Map<String, Region>> regionCache = UtilCache.createUtilCache("webapp.Regions.Config", 0, 0);
+    private static final UtilCache<URL, Map<String, Region>> regionCache = UtilCache.createUtilCache("webapp.Regions.Config", 0, 0);
 
     protected URL regionFile = null;
 
@@ -54,14 +54,8 @@ public class RegionManager {
     public Map<String, Region> getRegions() {
         Map<String, Region> regions = regionCache.get(regionFile);
         if (regions == null) {
-            synchronized (this) {
-                regions = regionCache.get(regionFile);
-                if (regions == null) {
-                    if (Debug.verboseOn()) Debug.logVerbose("Regions not loaded for " + regionFile + ", loading now", module);
-                    regions = readRegionXml(regionFile);
-                    regionCache.put(regionFile, regions);
-                }
-            }
+            if (Debug.verboseOn()) Debug.logVerbose("Regions not loaded for " + regionFile + ", loading now", module);
+            regions = regionCache.putIfAbsentAndGet(regionFile, readRegionXml(regionFile));
         }
         return regions;
     }
