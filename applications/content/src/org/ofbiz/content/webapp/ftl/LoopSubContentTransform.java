@@ -94,7 +94,7 @@ public class LoopSubContentTransform implements TemplateTransformModel {
         ctx.put("subContentDataResourceView", subContentDataResourceView);
         GenericValue electronicText = null;
         try {
-            electronicText = subContentDataResourceView.getRelatedOne("ElectronicText");
+            electronicText = subContentDataResourceView.getRelatedOne("ElectronicText", false);
         } catch (GenericEntityException e) {
             throw new RuntimeException(e.getMessage());
         }

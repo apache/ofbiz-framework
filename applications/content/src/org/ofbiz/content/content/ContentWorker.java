@@ -163,7 +163,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
                 GenericValue altContentRole = EntityUtil.getFirst(EntityUtil.filterByDate(thisView.getRelatedByAndCache("ContentRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", roleTypeId))));
                 GenericValue altContent = null;
                 if (UtilValidate.isNotEmpty(altContentRole)) {
-                    altContent = altContentRole.getRelatedOneCache("Content");
+                    altContent = altContentRole.getRelatedOne("Content", true);
                     if (altContent != null) {
                         content = altContent;
                     }
@@ -507,7 +507,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
                     boolean isFollow = checkWhen(assocContext, (String) whenMap.get("followWhen"));
                     if (isFollow) {
-                        GenericValue thisContent = assocValue.getRelatedOne(assocRelation);
+                        GenericValue thisContent = assocValue.getRelatedOne(assocRelation, false);
                         traverse(delegator, thisContent, fromDate, thruDate, whenMap, depthIdx + 1, thisNode, contentAssocTypeId, pickList, relatedDirection);
                     }
                 }

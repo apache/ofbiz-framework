@@ -221,7 +221,7 @@
             <td>
                 <select name="contentPurposeTypeId">
                     <#if (currentPurpose?has_content)>
-                        <#assign purpose = currentPurpose.getRelatedOne("ContentPurposeType")/>
+                        <#assign purpose = currentPurpose.getRelatedOne("ContentPurposeType", false)/>
                         <option value="${purpose.contentPurposeTypeId}">${purpose.description?default(purpose.contentPurposeTypeId)}</option>
                         <option value="${purpose.contentPurposeTypeId}">----</option>
                     <#else>
@@ -246,7 +246,7 @@
                 <select name="dataTemplateTypeId">
                     <#if (dataResource?has_content)>
                         <#if (dataResource.dataTemplateTypeId?has_content)>
-                            <#assign thisType = dataResource.getRelatedOne("DataTemplateType")?if_exists/>
+                            <#assign thisType = dataResource.getRelatedOne("DataTemplateType", false)?if_exists/>
                             <option value="${thisType.dataTemplateTypeId}">${thisType.description}</option>
                             <option value="${thisType.dataTemplateTypeId}">----</option>
                         </#if>
@@ -263,7 +263,7 @@
                 <select name="decoratorContentId">
                     <#if (content?has_content)>
                         <#if (content.decoratorContentId?has_content)>
-                            <#assign thisDec = content.getRelatedOne("DecoratorContent")/>
+                            <#assign thisDec = content.getRelatedOne("DecoratorContent", false)/>
                             <option value="${thisDec.contentId}">${thisDec.contentName}</option>
                             <option value="${thisDec.contentId}">----</option>
                         </#if>
@@ -281,7 +281,7 @@
                 <select name="templateDataResourceId">
                     <#if (content?has_content)>
                         <#if (content.templateDataResourceId?has_content && content.templateDataResourceId != "NONE")>
-                            <#assign template = content.getRelatedOne("TemplateDataResource")/>
+                            <#assign template = content.getRelatedOne("TemplateDataResource", false)/>
                             <option value="${template.dataResourceId}">${template.dataResourceName?if_exists}</option>
                             <option value="${template.dataResourceId}">----</option>
                         </#if>
@@ -299,7 +299,7 @@
                 <select name="statusId">
                     <#if (content?has_content)>
                         <#if (content.statusId?has_content)>
-                            <#assign statusItem = content.getRelatedOne("StatusItem")/>
+                            <#assign statusItem = content.getRelatedOne("StatusItem", false)/>
                             <option value="${statusItem.statusId}">${statusItem.description}</option>
                             <option value="${statusItem.statusId}">----</option>
                         </#if>

@@ -279,7 +279,7 @@ public class ContentServicesComplex {
         List<GenericValue> contentAssocDataResourceList = FastList.newInstance();
         Locale locale = Locale.getDefault(); // TODO: this needs to be passed in
         for(GenericValue contentAssoc : contentAssocsTypeFiltered) {
-            content = contentAssoc.getRelatedOneCache(assocRelationName);
+            content = contentAssoc.getRelatedOne(assocRelationName, true);
             if (UtilValidate.isNotEmpty(contentTypes)) {
                 String contentTypeId = (String)content.get("contentTypeId");
                 if (contentTypes.contains(contentTypeId)) {
@@ -295,7 +295,7 @@ public class ContentServicesComplex {
             //contentAssocDataResourceView.setAllFields(contentAssoc, false, null, null);
             String dataResourceId = content.getString("dataResourceId");
             if (UtilValidate.isNotEmpty(dataResourceId))
-                dataResource = content.getRelatedOneCache("DataResource");
+                dataResource = content.getRelatedOne("DataResource", true);
             //if (Debug.infoOn()) Debug.logInfo("dataResource:" + dataResource, module);
             //if (Debug.infoOn()) Debug.logInfo("contentAssocDataResourceView:" + contentAssocDataResourceView, module);
             if (dataResource != null) {
