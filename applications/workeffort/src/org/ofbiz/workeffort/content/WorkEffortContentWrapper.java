@@ -52,7 +52,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
     public static final String module = WorkEffortContentWrapper.class.getName();
     public static final String CACHE_KEY_SEPARATOR = "::";
 
-    public static UtilCache<String, String> workEffortContentCache = UtilCache.createUtilCache("workeffort.content.rendered", true);
+    private static final UtilCache<String, String> workEffortContentCache = UtilCache.createUtilCache("workeffort.content.rendered", true);
 
     protected LocalDispatcher dispatcher;
     protected GenericValue workEffort;
@@ -236,18 +236,18 @@ public class WorkEffortContentWrapper implements ContentWrapper {
         }
 
         try {
-            if (useCache && workEffortContentCache.get(cacheKey) != null) {
-                return workEffortContentCache.get(cacheKey);
+            if (useCache) {
+                String cachedValue = workEffortContentCache.get(cacheKey);
+                if (cachedValue != null) {
+                    return cachedValue;
+                }
             }
 
             Writer outWriter = new StringWriter();
             getWorkEffortContentAsText(contentId, null, workEffort, workEffortContentTypeId, locale, mimeTypeId, delegator, dispatcher, outWriter);
             String outString = outWriter.toString();
             if (outString.length() > 0) {
-                if (workEffortContentCache != null) {
-                    workEffortContentCache.put(cacheKey, outString);
-                }
-                return outString;
+                return workEffortContentCache.putIfAbsentAndGet(cacheKey, outString);
             } else {
                 String candidateOut = workEffort.getModelEntity().isField(candidateFieldName) ? workEffort.getString(candidateFieldName): "";
                 return candidateOut == null? "" : candidateOut;

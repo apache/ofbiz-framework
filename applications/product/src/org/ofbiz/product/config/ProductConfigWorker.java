@@ -52,7 +52,7 @@ public class ProductConfigWorker {
     public static final String resource = "ProductUiLabels";
     public static final String SEPARATOR = "::";    // cache key separator
 
-    public static UtilCache<String, ProductConfigWrapper> productConfigCache = UtilCache.createUtilCache("product.config", true);     // use soft reference to free up memory if needed
+    private static final UtilCache<String, ProductConfigWrapper> productConfigCache = UtilCache.createUtilCache("product.config", true);     // use soft reference to free up memory if needed
 
     public static ProductConfigWrapper getProductConfigWrapper(String productId, String currencyUomId, HttpServletRequest request) {
         ProductConfigWrapper configWrapper = null;
@@ -65,15 +65,16 @@ public class ProductConfigWorker {
              * productId::catalogId::webSiteId::currencyUomId, or whatever the SEPARATOR is defined above to be.
              */
             String cacheKey = productId + SEPARATOR + productStoreId + SEPARATOR + catalogId + SEPARATOR + webSiteId + SEPARATOR + currencyUomId;
-            if (!productConfigCache.containsKey(cacheKey)) {
+            configWrapper = productConfigCache.get(cacheKey);
+            if (configWrapper == null) {
                 configWrapper = new ProductConfigWrapper((Delegator)request.getAttribute("delegator"),
                                                          (LocalDispatcher)request.getAttribute("dispatcher"),
                                                          productId, productStoreId, catalogId, webSiteId,
                                                          currencyUomId, UtilHttp.getLocale(request),
                                                          autoUserLogin);
-                productConfigCache.put(cacheKey, new ProductConfigWrapper(configWrapper));
+                configWrapper = productConfigCache.putIfAbsentAndGet(cacheKey, new ProductConfigWrapper(configWrapper));
             } else {
-                configWrapper = new ProductConfigWrapper(productConfigCache.get(cacheKey));
+                configWrapper = new ProductConfigWrapper(configWrapper);
             }
         } catch (ProductConfigWrapperException we) {
             configWrapper = null;
