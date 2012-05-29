@@ -84,7 +84,7 @@ if (partyId) {
             }
         }
     }
-    partyDataSource = EntityUtil.getFirst(party.getRelated("PartyDataSource"));
+    partyDataSource = EntityUtil.getFirst(party.getRelated("PartyDataSource", null, null, false));
     if (partyDataSource) {
         dataSource = partyDataSource.getRelatedOne("DataSource", false);
         contactDetailMap.leadSource = dataSource.description;
