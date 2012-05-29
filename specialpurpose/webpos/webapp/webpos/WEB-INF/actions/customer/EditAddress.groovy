@@ -26,7 +26,7 @@ if (person) {
 
 contactMech = delegator.findOne("ContactMech", [contactMechId : parameters.contactMechId], false);
 if (contactMech) {
-    postalAddress = contactMech.getRelatedOne("PostalAddress");
+    postalAddress = contactMech.getRelatedOne("PostalAddress", false);
     if (postalAddress) {
         request.setAttribute("contactMechId", postalAddress.contactMechId);
         request.setAttribute("toName", postalAddress.toName);
