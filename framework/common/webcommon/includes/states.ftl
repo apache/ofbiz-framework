@@ -29,7 +29,7 @@ under the License.
 </#if>
 
 <#list stateAssocs as stateAssoc>
-    <#assign state = delegator.getRelatedOne("AssocGeo", stateAssoc )>
+    <#assign state = stateAssoc.getRelatedOne("AssocGeo")>
     <option value='${state.geoId}'>${state.geoName?default(state.geoId)}</option>
 </#list>
 -->
