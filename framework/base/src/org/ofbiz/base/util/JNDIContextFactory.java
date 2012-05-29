@@ -34,7 +34,7 @@ import org.ofbiz.base.util.cache.UtilCache;
 public class JNDIContextFactory {
 
     public static final String module = JNDIContextFactory.class.getName();
-    static UtilCache<String, InitialContext> contexts = UtilCache.createUtilCache("entity.JNDIContexts", 0, 0);
+    private static final UtilCache<String, InitialContext> contexts = UtilCache.createUtilCache("entity.JNDIContexts", 0, 0);
 
     /**
      * Return the initial context according to the entityengine.xml parameters that correspond to the given prefix
@@ -44,45 +44,39 @@ public class JNDIContextFactory {
         InitialContext ic = contexts.get(jndiServerName);
 
         if (ic == null) {
-            synchronized (JNDIContextFactory.class) {
-                ic = contexts.get(jndiServerName);
+            JNDIConfigUtil.JndiServerInfo jndiServerInfo = JNDIConfigUtil.getJndiServerInfo(jndiServerName);
 
-                if (ic == null) {
-                    JNDIConfigUtil.JndiServerInfo jndiServerInfo = JNDIConfigUtil.getJndiServerInfo(jndiServerName);
+            if (jndiServerInfo == null) {
+                throw new GenericConfigException("ERROR: no jndi-server definition was found with the name " + jndiServerName + " in jndiservers.xml");
+            }
 
-                    if (jndiServerInfo == null) {
-                        throw new GenericConfigException("ERROR: no jndi-server definition was found with the name " + jndiServerName + " in jndiservers.xml");
-                    }
+            try {
+                if (UtilValidate.isEmpty(jndiServerInfo.contextProviderUrl)) {
+                    ic = new InitialContext();
+                } else {
+                    Hashtable<String, Object> h = new Hashtable<String, Object>();
 
-                    try {
-                        if (UtilValidate.isEmpty(jndiServerInfo.contextProviderUrl)) {
-                            ic = new InitialContext();
-                        } else {
-                            Hashtable<String, Object> h = new Hashtable<String, Object>();
+                    h.put(Context.INITIAL_CONTEXT_FACTORY, jndiServerInfo.initialContextFactory);
+                    h.put(Context.PROVIDER_URL, jndiServerInfo.contextProviderUrl);
+                    if (UtilValidate.isNotEmpty(jndiServerInfo.urlPkgPrefixes))
+                        h.put(Context.URL_PKG_PREFIXES, jndiServerInfo.urlPkgPrefixes);
 
-                            h.put(Context.INITIAL_CONTEXT_FACTORY, jndiServerInfo.initialContextFactory);
-                            h.put(Context.PROVIDER_URL, jndiServerInfo.contextProviderUrl);
-                            if (UtilValidate.isNotEmpty(jndiServerInfo.urlPkgPrefixes))
-                                h.put(Context.URL_PKG_PREFIXES, jndiServerInfo.urlPkgPrefixes);
+                    if (UtilValidate.isNotEmpty(jndiServerInfo.securityPrincipal))
+                        h.put(Context.SECURITY_PRINCIPAL, jndiServerInfo.securityPrincipal);
+                    if (UtilValidate.isNotEmpty(jndiServerInfo.securityCredentials))
+                        h.put(Context.SECURITY_CREDENTIALS, jndiServerInfo.securityCredentials);
 
-                            if (UtilValidate.isNotEmpty(jndiServerInfo.securityPrincipal))
-                                h.put(Context.SECURITY_PRINCIPAL, jndiServerInfo.securityPrincipal);
-                            if (UtilValidate.isNotEmpty(jndiServerInfo.securityCredentials))
-                                h.put(Context.SECURITY_CREDENTIALS, jndiServerInfo.securityCredentials);
-
-                            ic = new InitialContext(h);
-                        }
-                    } catch (Exception e) {
-                        String errorMsg = "Error getting JNDI initial context for server name " + jndiServerName;
-
-                        Debug.logError(e, errorMsg, module);
-                        throw new GenericConfigException(errorMsg, e);
-                    }
-
-                    if (ic != null) {
-                        contexts.put(jndiServerName, ic);
-                    }
+                    ic = new InitialContext(h);
                 }
+            } catch (Exception e) {
+                String errorMsg = "Error getting JNDI initial context for server name " + jndiServerName;
+
+                Debug.logError(e, errorMsg, module);
+                throw new GenericConfigException(errorMsg, e);
+            }
+
+            if (ic != null) {
+                ic = contexts.putIfAbsentAndGet(jndiServerName, ic);
             }
         }
 
