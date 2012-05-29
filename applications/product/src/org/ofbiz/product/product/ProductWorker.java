@@ -388,7 +388,7 @@ public class ProductWorker {
             }
             EntityCondition cond = EntityCondition.makeCondition(condList);
             productAppls = product.getDelegator().findList("ProductFeatureAppl", cond, null, null, null, false);
-            features = EntityUtil.getRelated("ProductFeature", productAppls);
+            features = EntityUtil.getRelated("ProductFeature", null, productAppls, false);
             features = EntityUtil.orderBy(features, UtilMisc.toList("description"));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
@@ -691,7 +691,7 @@ public class ProductWorker {
         try {
             List<GenericValue> categoryMembers = product.getRelated("ProductCategoryMember", null, null, false);
             categoryMembers = EntityUtil.filterByDate(categoryMembers);
-            categories = EntityUtil.getRelated("ProductCategory", categoryMembers);
+            categories = EntityUtil.getRelated("ProductCategory", null, categoryMembers, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }

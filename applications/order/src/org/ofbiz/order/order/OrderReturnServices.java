@@ -1070,8 +1070,8 @@ public class OrderReturnServices {
 
         try {
             // get the related product stores via the orders related to this return
-            List<GenericValue> orders = EntityUtil.getRelated("OrderHeader", returnItems);
-            List<GenericValue> productStores = EntityUtil.getRelated("ProductStore", orders);
+            List<GenericValue> orders = EntityUtil.getRelated("OrderHeader", null, returnItems, false);
+            List<GenericValue> productStores = EntityUtil.getRelated("ProductStore", null, orders, false);
 
             // find the minimum storeCreditValidDays of all the ProductStores associated with all the Orders on the Return, skipping null ones
             Long storeCreditValidDays = null;

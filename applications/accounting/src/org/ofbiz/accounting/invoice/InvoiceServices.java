@@ -1293,7 +1293,7 @@ public class InvoiceServices {
                     orderItemAssocs = delegator.findList("OrderItemAssoc", EntityCondition.makeCondition("toOrderId", EntityOperator.IN, purchaseOrderIds), null, null, null, false);
 
                     // Get only the order items which are indirectly related to the purchase order - this limits the list to the drop ship group(s)
-                    items = EntityUtil.getRelated("FromOrderItem", orderItemAssocs);
+                    items = EntityUtil.getRelated("FromOrderItem", null, orderItemAssocs, false);
                 } else {
 
                     // If it's a purchase invoice being created, the order items for that purchase orders can be used directly
