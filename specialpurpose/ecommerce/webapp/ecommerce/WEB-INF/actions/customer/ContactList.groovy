@@ -44,8 +44,8 @@ webSiteContactList = delegator.findList("WebSiteContactList", topCond, null, nul
 
 publicEmailContactLists = [];
 webSiteContactList.each { webSiteContactList ->
-    contactList = webSiteContactList.getRelatedOne("ContactList");
-    contactListType = contactList.getRelatedOne("ContactListType");
+    contactList = webSiteContactList.getRelatedOne("ContactList", false);
+    contactListType = contactList.getRelatedOne("ContactListType", false);
     temp = [:];
     temp.contactList = contactList;
     temp.contactListType = contactListType;

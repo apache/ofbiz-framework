@@ -39,12 +39,12 @@ under the License.
                     <tr>
                         <td>${subscription.subscriptionId}</td>
                         <td>
-                            <#assign subscriptionType = subscription.getRelatedOne('SubscriptionType')?if_exists>
+                            <#assign subscriptionType = subscription.getRelatedOne('SubscriptionType', false)?if_exists>
                             ${(subscriptionType.description)?default(subscription.subscriptionTypeId?default('N/A'))}
                         </td>
                         <td>${subscription.description?if_exists}</td>
                         <td>
-                            <#assign product = subscription.getRelatedOne('Product')?if_exists>
+                            <#assign product = subscription.getRelatedOne('Product', false)?if_exists>
                             <#if product?has_content>
                                 <#assign productName = Static['org.ofbiz.product.product.ProductContentWrapper'].getProductContentAsText(product, 'PRODUCT_NAME', request)?if_exists>
                                 <a href="<@ofbizUrl>product?product_id=${product.productId}</@ofbizUrl>" class="linktext">${productName?default(product.productId)}</a>
