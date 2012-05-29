@@ -130,7 +130,7 @@ public class PaymentGatewayServices {
         try {
             orderPaymentPreference = delegator.findOne("OrderPaymentPreference", 
                     UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreferenceId), false);
-            orderHeader = orderPaymentPreference.getRelatedOne("OrderHeader");
+            orderHeader = orderPaymentPreference.getRelatedOne("OrderHeader", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -217,7 +217,7 @@ public class PaymentGatewayServices {
                         if (!needsNsfRetry) {
                             // is this an auto-order?
                             if (UtilValidate.isNotEmpty(orderHeader.getString("autoOrderShoppingListId"))) {
-                                GenericValue productStore = orderHeader.getRelatedOne("ProductStore");
+                                GenericValue productStore = orderHeader.getRelatedOne("ProductStore", false);
                                 // according to the store should we try other cards?
                                 if ("Y".equals(productStore.getString("autoOrderCcTryOtherCards"))) {
                                     // get other credit cards for the bill to party
@@ -495,7 +495,7 @@ public class PaymentGatewayServices {
             processContext.put("customerIpAddress", visit.getString("clientIpAddress"));
         }
 
-        GenericValue productStore = orderHeader.getRelatedOne("ProductStore");
+        GenericValue productStore = orderHeader.getRelatedOne("ProductStore", false);
 
         processContext.put("userLogin", userLogin);
         processContext.put("orderId", orh.getOrderId());
@@ -634,7 +634,7 @@ public class PaymentGatewayServices {
         String payToPartyId = "Company"; // default value
         GenericValue productStore = null;
         try {
-            productStore = orderHeader.getRelatedOne("ProductStore");
+            productStore = orderHeader.getRelatedOne("ProductStore", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get ProductStore from OrderHeader", module);
             return null;
@@ -650,31 +650,31 @@ public class PaymentGatewayServices {
     private static String getBillingInformation(OrderReadHelper orh, GenericValue paymentPreference, Map<String, Object> toContext) throws GenericEntityException {
         // gather the payment related objects.
         String paymentMethodTypeId = paymentPreference.getString("paymentMethodTypeId");
-        GenericValue paymentMethod = paymentPreference.getRelatedOne("PaymentMethod");
+        GenericValue paymentMethod = paymentPreference.getRelatedOne("PaymentMethod", false);
         if (paymentMethod != null && "CREDIT_CARD".equals(paymentMethodTypeId)) {
             // type credit card
-            GenericValue creditCard = paymentMethod.getRelatedOne("CreditCard");
-            GenericValue billingAddress = creditCard.getRelatedOne("PostalAddress");
+            GenericValue creditCard = paymentMethod.getRelatedOne("CreditCard", false);
+            GenericValue billingAddress = creditCard.getRelatedOne("PostalAddress", false);
             toContext.put("creditCard", creditCard);
             toContext.put("billingAddress", billingAddress);
         } else if (paymentMethod != null && "EFT_ACCOUNT".equals(paymentMethodTypeId)) {
             // type eft
-            GenericValue eftAccount = paymentMethod.getRelatedOne("EftAccount");
-            GenericValue billingAddress = eftAccount.getRelatedOne("PostalAddress");
+            GenericValue eftAccount = paymentMethod.getRelatedOne("EftAccount", false);
+            GenericValue billingAddress = eftAccount.getRelatedOne("PostalAddress", false);
             toContext.put("eftAccount", eftAccount);
             toContext.put("billingAddress", billingAddress);
         } else if (paymentMethod != null && "GIFT_CARD".equals(paymentMethodTypeId)) {
             // type gift card
-            GenericValue giftCard = paymentMethod.getRelatedOne("GiftCard");
+            GenericValue giftCard = paymentMethod.getRelatedOne("GiftCard", false);
             toContext.put("giftCard", giftCard);
-            GenericValue orderHeader = paymentPreference.getRelatedOne("OrderHeader");
+            GenericValue orderHeader = paymentPreference.getRelatedOne("OrderHeader", false);
             List<GenericValue> orderItems = orderHeader.getRelated("OrderItem");
             toContext.put("orderId", orderHeader.getString("orderId"));
             toContext.put("orderItems", orderItems);
         } else if ("FIN_ACCOUNT".equals(paymentMethodTypeId)) {
             toContext.put("finAccountId", paymentPreference.getString("finAccountId"));
         } else if ("EXT_PAYPAL".equals(paymentMethodTypeId)) {
-            GenericValue payPalPaymentMethod = paymentMethod.getRelatedOne("PayPalPaymentMethod");
+            GenericValue payPalPaymentMethod = paymentMethod.getRelatedOne("PayPalPaymentMethod", false);
             toContext.put("payPalPaymentMethod", payPalPaymentMethod);
         } else {
             // add other payment types here; i.e. gift cards, etc.
@@ -687,7 +687,7 @@ public class PaymentGatewayServices {
         GenericValue billToPersonOrGroup = orh.getBillToParty();
         GenericValue billToEmail = null;
 
-        Collection<GenericValue> emails = ContactHelper.getContactMech(billToPersonOrGroup.getRelatedOne("Party"), "PRIMARY_EMAIL", "EMAIL_ADDRESS", false);
+        Collection<GenericValue> emails = ContactHelper.getContactMech(billToPersonOrGroup.getRelatedOne("Party", false), "PRIMARY_EMAIL", "EMAIL_ADDRESS", false);
 
         if (UtilValidate.isNotEmpty(emails)) {
             billToEmail = emails.iterator().next();
@@ -1547,7 +1547,7 @@ public class PaymentGatewayServices {
                     GenericValue orderPaymentPreference = EntityUtil.getFirst(orderPaymentPreferences);
 
                     // Check the productStore setting to see if we need to do this explicitly
-                    GenericValue productStore = order.getRelatedOne("ProductStore");
+                    GenericValue productStore = order.getRelatedOne("ProductStore", false);
                     if (productStore.getString("manualAuthIsCapture") == null || (! productStore.getString("manualAuthIsCapture").equalsIgnoreCase("Y"))) {
                         String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
                         GenericValue pgResponse = delegator.makeValue("PaymentGatewayResponse");
@@ -1606,7 +1606,7 @@ public class PaymentGatewayServices {
                         break;
                     }
                     GenericValue paymentApplication = paymentApplicationsIt.next();
-                    GenericValue payment = paymentApplication.getRelatedOne("Payment");
+                    GenericValue payment = paymentApplication.getRelatedOne("Payment", false);
                     if (payment.getString("paymentPreferenceId") != null) {
                         // if the payment is reserved for a specific OrderPaymentPreference,
                         // we don't use it.
@@ -1912,7 +1912,7 @@ public class PaymentGatewayServices {
             GenericValue paymentMethod = delegator.findOne("PaymentMethod", UtilMisc.toMap("paymentMethodId", paymentMethodId), false);
             GenericValue creditCard = null;
             if (paymentMethod != null && "CREDIT_CARD".equals(paymentMethod.getString("paymentMethodTypeId"))) {
-                creditCard = paymentMethod.getRelatedOne("CreditCard");
+                creditCard = paymentMethod.getRelatedOne("CreditCard", false);
             }
 
             // create the PaymentGatewayResponse
@@ -2037,9 +2037,9 @@ public class PaymentGatewayServices {
         boolean needsNsfRetry = false;
         if (Boolean.TRUE.equals(processContext.get("resultNsf"))) {
             // only track this for auto-orders, since we will only not fail and re-try on those
-            GenericValue orderHeader = orderPaymentPreference.getRelatedOne("OrderHeader");
+            GenericValue orderHeader = orderPaymentPreference.getRelatedOne("OrderHeader", false);
             if (UtilValidate.isNotEmpty(orderHeader.getString("autoOrderShoppingListId"))) {
-                GenericValue productStore = orderHeader.getRelatedOne("ProductStore");
+                GenericValue productStore = orderHeader.getRelatedOne("ProductStore", false);
                 if ("Y".equals(productStore.getString("autoOrderCcTryLaterNsf"))) {
                     // one last condition: make sure there have been less than ProductStore.autoOrderCcTryLaterMax
                     //   PaymentGatewayResponse records with the same orderPaymentPreferenceId and paymentMethodId (just in case it has changed)
@@ -2132,7 +2132,7 @@ public class PaymentGatewayServices {
         // lookup the order header
         OrderReadHelper orh = null;
         try {
-            GenericValue orderHeader = paymentPreference.getRelatedOne("OrderHeader");
+            GenericValue orderHeader = paymentPreference.getRelatedOne("OrderHeader", false);
             if (orderHeader != null)
                 orh = new OrderReadHelper(orderHeader);
         } catch (GenericEntityException e) {
@@ -2417,7 +2417,7 @@ public class PaymentGatewayServices {
 
         GenericValue orderHeader = null;
         try {
-            orderHeader = paymentPref.getRelatedOne("OrderHeader");
+            orderHeader = paymentPref.getRelatedOne("OrderHeader", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot get OrderHeader from OrderPaymentPreference", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -2853,7 +2853,7 @@ public class PaymentGatewayServices {
 
         GenericValue paymentMethod = null;
         try {
-            paymentMethod = orderPaymentPreference.getRelatedOne("PaymentMethod");
+            paymentMethod = orderPaymentPreference.getRelatedOne("PaymentMethod", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -2861,7 +2861,7 @@ public class PaymentGatewayServices {
         if (paymentMethod != null && paymentMethod.getString("paymentMethodTypeId").equals("CREDIT_CARD")) {
             GenericValue creditCard = null;
             try {
-                creditCard = paymentMethod.getRelatedOne("CreditCard");
+                creditCard = paymentMethod.getRelatedOne("CreditCard", false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
@@ -3022,7 +3022,7 @@ public class PaymentGatewayServices {
         // get the billToParty object
         GenericValue billToParty;
         try {
-            billToParty = paymentMethod.getRelatedOne("Party");
+            billToParty = paymentMethod.getRelatedOne("Party", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());

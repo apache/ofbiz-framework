@@ -42,7 +42,7 @@ dateFormatter = new java.text.SimpleDateFormat("dd MMMMM yyyy");
 payment = delegator.findOne("Payment", UtilMisc.toMap("paymentId", paymentId), false);
 
 organizationPartyId = null;
-if ("DISBURSEMENT".equals(payment.get("paymentTypeId")) || "DISBURSEMENT".equals(payment.getRelatedOne("PaymentType").get("parentTypeId"))) {
+if ("DISBURSEMENT".equals(payment.get("paymentTypeId")) || "DISBURSEMENT".equals(payment.getRelatedOne("PaymentType", false).get("parentTypeId"))) {
     organizationPartyId = payment.get("partyIdFrom");
 } else {
     organizationPartyId = payment.get("partyIdTo");
@@ -500,12 +500,12 @@ return true;]]></method>
             <method name="fetch"><![CDATA[if (countOfRow >= 1) return false;
 row["paymentId"] = payment.get("paymentId");
 row["comments"] = payment.get("comments");
-row["paymentTypeDescription"] = payment.getRelatedOne("PaymentType").get("description");
-row["statusDescription"] = payment.getRelatedOne("StatusItem").get("description");
+row["paymentTypeDescription"] = payment.getRelatedOne("PaymentType", false).get("description");
+row["statusDescription"] = payment.getRelatedOne("StatusItem", false).get("description");
 row["effectiveDate"] = payment.get("effectiveDate");
 
 var partyId = null;
-if ("RECEIPT".equals(payment.get("paymentTypeId")) || "RECEIPT".equals(payment.getRelatedOne("PaymentType").get("parentTypeId"))) {
+if ("RECEIPT".equals(payment.get("paymentTypeId")) || "RECEIPT".equals(payment.getRelatedOne("PaymentType", false).get("parentTypeId"))) {
     partyId = payment.get("partyIdFrom");
 } else {
     partyId = payment.get("partyIdTo");

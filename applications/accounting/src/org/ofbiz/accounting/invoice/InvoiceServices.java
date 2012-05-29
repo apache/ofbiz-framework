@@ -210,7 +210,7 @@ public class InvoiceServices {
             BigDecimal invoiceSubTotal = ZERO;
             BigDecimal invoiceQuantity = ZERO;
 
-            GenericValue billingAccount = orderHeader.getRelatedOne("BillingAccount");
+            GenericValue billingAccount = orderHeader.getRelatedOne("BillingAccount", false);
             String billingAccountId = billingAccount != null ? billingAccount.getString("billingAccountId") : null;
 
             Timestamp invoiceDate = (Timestamp)context.get("eventDate");
@@ -333,7 +333,7 @@ public class InvoiceServices {
                 // for purchase orders, the pay to address is the BILLING_LOCATION of the vendor
                 GenericValue billFromVendor = orh.getPartyFromRole("BILL_FROM_VENDOR");
                 if (billFromVendor != null) {
-                    List<GenericValue> billingContactMechs = billFromVendor.getRelatedOne("Party").getRelatedByAnd("PartyContactMechPurpose", UtilMisc.toMap("contactMechPurposeTypeId", "BILLING_LOCATION"));
+                    List<GenericValue> billingContactMechs = billFromVendor.getRelatedOne("Party", false).getRelatedByAnd("PartyContactMechPurpose", UtilMisc.toMap("contactMechPurposeTypeId", "BILLING_LOCATION"));
                     if (UtilValidate.isNotEmpty(billingContactMechs)) {
                         payToAddress = EntityUtil.getFirst(billingContactMechs);
                     }
@@ -372,9 +372,9 @@ public class InvoiceServices {
                 }
 
                 if (orderItem == null && itemIssuance != null) {
-                    orderItem = itemIssuance.getRelatedOne("OrderItem");
+                    orderItem = itemIssuance.getRelatedOne("OrderItem", false);
                 } else if ((orderItem == null) && (shipmentReceipt != null)) {
-                    orderItem = shipmentReceipt.getRelatedOne("OrderItem");
+                    orderItem = shipmentReceipt.getRelatedOne("OrderItem", false);
                 } else if ((orderItem == null) && (itemIssuance == null) && (shipmentReceipt == null)) {
                     Debug.logError("Cannot create invoice when orderItem, itemIssuance, and shipmentReceipt are all null", module);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource,
@@ -382,7 +382,7 @@ public class InvoiceServices {
                 }
                 GenericValue product = null;
                 if (orderItem.get("productId") != null) {
-                    product = orderItem.getRelatedOne("Product");
+                    product = orderItem.getRelatedOne("Product", false);
                 }
 
                 // get some quantities
@@ -580,7 +580,7 @@ public class InvoiceServices {
                         // represent an organization override for the payToPartyId
                         if (UtilValidate.isNotEmpty(adj.getString("productPromoId"))) {
                             try {
-                                GenericValue productPromo = adj.getRelatedOne("ProductPromo");
+                                GenericValue productPromo = adj.getRelatedOne("ProductPromo", false);
                                 if (UtilValidate.isNotEmpty(productPromo.getString("overrideOrgPartyId"))) {
                                     createInvoiceItemAdjContext.put("overrideOrgPartyId", productPromo.getString("overrideOrgPartyId"));
                                 }
@@ -1170,7 +1170,7 @@ public class InvoiceServices {
                 GenericValue orderItemBilling = EntityUtil.getFirst(orderItemBillings);
                 GenericValue invoice = null;
                 try {
-                    invoice = orderItemBilling.getRelatedOne("Invoice");
+                    invoice = orderItemBilling.getRelatedOne("Invoice", false);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(e.getMessage());
@@ -1273,7 +1273,7 @@ public class InvoiceServices {
                 Iterator<GenericValue> itemsIter = items.iterator();
                 while (itemsIter.hasNext()) {
                     GenericValue item = itemsIter.next();
-                    GenericValue inventoryItem = item.getRelatedOne("InventoryItem");
+                    GenericValue inventoryItem = item.getRelatedOne("InventoryItem", false);
                     GenericValue ownerPartyRole = delegator.findOne("PartyRole", UtilMisc.toMap("partyId", inventoryItem.getString("ownerPartyId"), "roleTypeId", "INTERNAL_ORGANIZATIO"), true);
                     if (UtilValidate.isEmpty(ownerPartyRole)) {
                         itemsIter.remove();
@@ -1391,7 +1391,7 @@ public class InvoiceServices {
                     List<GenericValue> billed = null;
                     BigDecimal orderedQty = null;
                     try {
-                        orderItem = issue.getEntityName().equals("OrderItem") ? issue : issue.getRelatedOne("OrderItem");
+                        orderItem = issue.getEntityName().equals("OrderItem") ? issue : issue.getRelatedOne("OrderItem", false);
 
                         // total ordered
                         orderedQty = orderItem.getBigDecimal("quantity");
@@ -1400,7 +1400,7 @@ public class InvoiceServices {
 
                             // Override the issueQty with the quantity from the purchase order item
                             GenericValue orderItemAssoc = EntityUtil.getFirst(EntityUtil.filterByAnd(orderItemAssocs, UtilMisc.toMap("orderId", issue.getString("orderId"), "orderItemSeqId", issue.getString("orderItemSeqId"))));
-                            GenericValue purchaseOrderItem = orderItemAssoc.getRelatedOne("ToOrderItem");
+                            GenericValue purchaseOrderItem = orderItemAssoc.getRelatedOne("ToOrderItem", false);
                             orderItem.set("quantity", purchaseOrderItem.getBigDecimal("quantity"));
                             issueQty = purchaseOrderItem.getBigDecimal("quantity");
                         }
@@ -1550,7 +1550,7 @@ public class InvoiceServices {
                         GenericValue payToParty = orh.getBillFromParty();
                         GenericValue destinationContactMech = null;
                         try {
-                            destinationContactMech = shipment.getRelatedOne("DestinationPostalAddress");
+                            destinationContactMech = shipment.getRelatedOne("DestinationPostalAddress", false);
                         } catch (GenericEntityException e) {
                             Debug.logError(e, "Trouble calling createInvoicesFromShipment service; invoice not created for shipment " + shipmentId, module);
                             return ServiceUtil.returnError(UtilProperties.getMessage(resource,
@@ -1911,14 +1911,14 @@ public class InvoiceServices {
                 // we need the related return item and product
                 GenericValue returnItem = null;
                 if (shipmentReceiptFound) {
-                    returnItem = item.getRelatedOneCache("ReturnItem");
+                    returnItem = item.getRelatedOne("ReturnItem", true);
                 } else if (itemIssuanceFound) {
-                    GenericValue shipmentItem = item.getRelatedOneCache("ShipmentItem");
+                    GenericValue shipmentItem = item.getRelatedOne("ShipmentItem", true);
                     GenericValue returnItemShipment = EntityUtil.getFirst(shipmentItem.getRelated("ReturnItemShipment"));
-                    returnItem = returnItemShipment.getRelatedOneCache("ReturnItem");
+                    returnItem = returnItemShipment.getRelatedOne("ReturnItem", true);
                 }
                 if (returnItem == null) continue; // Just to prevent NPE
-                GenericValue product = returnItem.getRelatedOneCache("Product");
+                GenericValue product = returnItem.getRelatedOne("Product", true);
 
                 // extract the return price as a big decimal for convenience
                 BigDecimal returnPrice = returnItem.getBigDecimal("returnPrice");

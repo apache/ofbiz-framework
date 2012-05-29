@@ -75,7 +75,7 @@ if (invoice) {
         invoiceItemsConv.add(invoiceItem);
         // get party tax id for VAT taxes: they are required in invoices by EU
         // also create a map with tax grand total amount by VAT tax: it is also required in invoices by UE
-        taxRate = invoiceItem.getRelatedOne("TaxAuthorityRateProduct");
+        taxRate = invoiceItem.getRelatedOne("TaxAuthorityRateProduct", false);
         if (taxRate && "VAT_TAX".equals(taxRate.taxAuthorityRateTypeId)) {
             taxInfos = EntityUtil.filterByDate(delegator.findByAnd("PartyTaxAuthInfo", [partyId : billingParty.partyId, taxAuthGeoId : taxRate.taxAuthGeoId, taxAuthPartyId : taxRate.taxAuthPartyId], null, false), invoice.invoiceDate);
             taxInfo = EntityUtil.getFirst(taxInfos);
@@ -140,7 +140,7 @@ if (invoice) {
     }
     context.orders = orders;
 
-    invoiceStatus = invoice.getRelatedOne("StatusItem");
+    invoiceStatus = invoice.getRelatedOne("StatusItem", false);
     context.invoiceStatus = invoiceStatus;
 
     edit = parameters.editInvoice;

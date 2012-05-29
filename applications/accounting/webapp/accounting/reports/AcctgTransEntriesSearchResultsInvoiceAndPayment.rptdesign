@@ -841,7 +841,7 @@ context.put("delegator", delegator);
 context.put("dispatcher", dispatcher);
 GroovyUtil.runScriptAtLocation("component://order/webapp/ordermgr/WEB-INF/actions/order/CompanyHeader.groovy", context);
 var postalAddress = context.get("postalAddress");
-var country = postalAddress.getRelatedOne("CountryGeo");
+var country = postalAddress.getRelatedOne("CountryGeo", false);
 var phone = context.get("phone");
 var email = context.get("email");
 var webSite = context.get("website");

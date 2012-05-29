@@ -43,7 +43,7 @@ under the License.
           <#if currentGlReconciliation.statusId?exists>
             <tr>
               <td><span class="label">${uiLabelMap.CommonStatus}</span></td>
-              <#assign currentStatus = currentGlReconciliation.getRelatedOneCache("StatusItem")>
+              <#assign currentStatus = currentGlReconciliation.getRelatedOne("StatusItem", true)>
               <td>${currentStatus.description?if_exists}</td>
             </tr>
           </#if>
@@ -88,7 +88,7 @@ under the License.
           <#if previousGlReconciliation.statusId?exists>
             <tr>
               <td><span class="label">${uiLabelMap.CommonStatus}</span></td>
-              <#assign previousStatus = previousGlReconciliation.getRelatedOneCache("StatusItem")>
+              <#assign previousStatus = previousGlReconciliation.getRelatedOne("StatusItem", true)>
               <td>${previousStatus.description?if_exists}</td>
             </tr>
           </#if>

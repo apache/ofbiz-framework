@@ -126,7 +126,7 @@ public class EwayServices {
         // credit card used for transaction
         GenericValue cc = null;
         try {
-            cc = delegator.getRelatedOne("CreditCard", paymentPref);
+            cc = delegator.getRelatedOne("CreditCard", paymentPref, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -191,7 +191,7 @@ public class EwayServices {
         // credit card used for transaction
         GenericValue cc = null;
         try {
-            cc = delegator.getRelatedOne("CreditCard", paymentPref);
+            cc = delegator.getRelatedOne("CreditCard", paymentPref, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 

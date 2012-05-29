@@ -678,8 +678,8 @@ public class PayPalServices {
         GenericValue payPalPaymentSetting = getPaymentMethodGatewayPayPal(dctx, context, null);
         GenericValue payPalPaymentMethod = null;
         try {
-            payPalPaymentMethod = paymentPref.getRelatedOne("PaymentMethod");
-            payPalPaymentMethod = payPalPaymentMethod.getRelatedOne("PayPalPaymentMethod");
+            payPalPaymentMethod = paymentPref.getRelatedOne("PaymentMethod", false);
+            payPalPaymentMethod = payPalPaymentMethod.getRelatedOne("PayPalPaymentMethod", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());

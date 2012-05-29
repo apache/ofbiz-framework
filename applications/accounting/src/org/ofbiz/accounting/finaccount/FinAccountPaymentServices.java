@@ -355,7 +355,7 @@ public class FinAccountPaymentServices {
         // get the financial account
         GenericValue finAccount;
         try {
-            finAccount = finAccountAuth.getRelatedOne("FinAccount");
+            finAccount = finAccountAuth.getRelatedOne("FinAccount", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -733,7 +733,7 @@ public class FinAccountPaymentServices {
         // look up the type -- determine auto-replenish is active
         GenericValue finAccountType;
         try {
-            finAccountType = finAccount.getRelatedOne("FinAccountType");
+            finAccountType = finAccount.getRelatedOne("FinAccountType", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());

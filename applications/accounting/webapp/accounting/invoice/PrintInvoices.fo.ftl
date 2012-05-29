@@ -55,7 +55,7 @@ under the License.
                           <fo:table-body>
                             <fo:table-row>
                               <fo:table-cell>
-                                <fo:block number-columns-spanned="2" font-weight="bold">${invoice.getRelatedOne("InvoiceType").get("description",locale)?if_exists}</fo:block>
+                                <fo:block number-columns-spanned="2" font-weight="bold">${invoice.getRelatedOne("InvoiceType", false).get("description",locale)?if_exists}</fo:block>
                               </fo:table-cell>
                             </fo:table-row>
                             <fo:table-row>
@@ -184,13 +184,13 @@ under the License.
                     <#assign newShipmentId = "">
                     <#-- if the item has a description, then use its description.  Otherwise, use the description of the invoiceItemType -->
                     <#list invoiceItems as invoiceItem>
-                      <#assign itemType = invoiceItem.getRelatedOne("InvoiceItemType")>
-                      <#assign taxRate = invoiceItem.getRelatedOne("TaxAuthorityRateProduct")?if_exists>
+                      <#assign itemType = invoiceItem.getRelatedOne("InvoiceItemType", false)>
+                      <#assign taxRate = invoiceItem.getRelatedOne("TaxAuthorityRateProduct", false)?if_exists>
                       <#assign itemBillings = invoiceItem.getRelated("OrderItemBilling")?if_exists>
                       <#if itemBillings?has_content>
                         <#assign itemBilling = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(itemBillings)>
                         <#if itemBilling?has_content>
-                          <#assign itemIssuance = itemBilling.getRelatedOne("ItemIssuance")?if_exists>
+                          <#assign itemIssuance = itemBilling.getRelatedOne("ItemIssuance", false)?if_exists>
                           <#if itemIssuance?has_content>
                             <#assign newShipmentId = itemIssuance.shipmentId>
                           </#if>

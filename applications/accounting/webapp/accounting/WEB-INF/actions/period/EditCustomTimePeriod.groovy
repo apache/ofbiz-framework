@@ -38,7 +38,7 @@ if (currentCustomTimePeriod) {
     context.currentCustomTimePeriod = currentCustomTimePeriod;
 }
 
-currentPeriodType = currentCustomTimePeriod ? currentCustomTimePeriod.getRelatedOneCache("PeriodType") : null;
+currentPeriodType = currentCustomTimePeriod ? currentCustomTimePeriod.getRelatedOne("PeriodType", true) : null;
 if (currentPeriodType) {
     context.currentPeriodType = currentPeriodType;
 }

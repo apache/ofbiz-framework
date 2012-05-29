@@ -350,7 +350,7 @@ public class RitaServices {
         Locale locale = (Locale) context.get("locale");
         GenericValue orderHeader = null;
         try {
-            orderHeader = orderPaymentPreference.getRelatedOne("OrderHeader");
+            orderHeader = orderPaymentPreference.getRelatedOne("OrderHeader", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrder, 

@@ -23,7 +23,7 @@ under the License.
 <fo:table-body>
 <fo:table-row>
   <fo:table-cell>
-     <fo:block number-columns-spanned="2" font-weight="bold">${invoice.getRelatedOne("InvoiceType").get("description",locale)}</fo:block>
+     <fo:block number-columns-spanned="2" font-weight="bold">${invoice.getRelatedOne("InvoiceType", false).get("description",locale)}</fo:block>
   </fo:table-cell>
 </fo:table-row>
 

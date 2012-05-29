@@ -108,7 +108,7 @@ invoiceIds.each { invoiceId ->
         }
         invoicesMap.orders = orders;
     
-        invoiceStatus = invoice.getRelatedOne("StatusItem");
+        invoiceStatus = invoice.getRelatedOne("StatusItem", false);
         invoicesMap.invoiceStatus = invoiceStatus;
     
         edit = parameters.editInvoice;

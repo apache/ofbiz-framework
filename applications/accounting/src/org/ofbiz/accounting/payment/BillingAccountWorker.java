@@ -85,7 +85,7 @@ public class BillingAccountWorker {
         if (billingAccountRoleList.size() > 0) {
             BigDecimal totalAvailable = BigDecimal.ZERO;
             for(GenericValue billingAccountRole : billingAccountRoleList) {
-                GenericValue billingAccountVO = billingAccountRole.getRelatedOne("BillingAccount");
+                GenericValue billingAccountVO = billingAccountRole.getRelatedOne("BillingAccount", false);
 
                 // skip accounts that have thruDate < nowTimestamp
                 java.sql.Timestamp thruDate = billingAccountVO.getTimestamp("thruDate");
@@ -255,7 +255,7 @@ public class BillingAccountWorker {
         for (Iterator<GenericValue> pAi = paymentAppls.iterator(); pAi.hasNext();) {
             GenericValue paymentAppl = pAi.next();
             BigDecimal amountApplied = paymentAppl.getBigDecimal("amountApplied");
-            GenericValue invoice = paymentAppl.getRelatedOne("Invoice");
+            GenericValue invoice = paymentAppl.getRelatedOne("Invoice", false);
             if (invoice != null) {
                 // make sure the invoice has not been canceled and it is not a "Customer return invoice"
                 if (!"CUST_RTN_INVOICE".equals(invoice.getString("invoiceTypeId")) && !"INVOICE_CANCELLED".equals(invoice.getString("statusId"))) {

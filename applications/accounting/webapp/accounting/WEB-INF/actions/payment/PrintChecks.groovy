@@ -62,6 +62,6 @@ selected.each { row ->
 paymentGroupMembers = EntityUtil.filterByDate(delegator.findList("PaymentGroupMember", EntityCondition.makeCondition("paymentGroupId", EntityOperator.EQUALS, parameters.paymentGroupId), null, null, null, false));
 //in the case of a multiple payments, paymentId List is supplied.
 paymentGroupMembers.each { paymentGropupMember->
-    payments.add(paymentGropupMember.getRelatedOne("Payment"));
+    payments.add(paymentGropupMember.getRelatedOne("Payment", false));
 }
 context.payments = payments;

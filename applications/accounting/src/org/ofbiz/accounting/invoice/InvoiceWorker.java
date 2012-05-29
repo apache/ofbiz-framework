@@ -190,7 +190,7 @@ public class InvoiceWorker {
      */
     public static GenericValue getBillToParty(GenericValue invoice) {
         try {
-            GenericValue billToParty = invoice.getRelatedOne("Party");
+            GenericValue billToParty = invoice.getRelatedOne("Party", false);
             if (billToParty != null) {
                 return billToParty;
             }
@@ -210,7 +210,7 @@ public class InvoiceWorker {
             GenericValue role = EntityUtil.getFirst(billToRoles);
             GenericValue party = null;
             try {
-                party = role.getRelatedOne("Party");
+                party = role.getRelatedOne("Party", false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Trouble getting Party from InvoiceRole", module);
             }
@@ -223,7 +223,7 @@ public class InvoiceWorker {
     /** Convenience method to obtain the bill from party for an invoice. Note that invoice.partyIdFrom is the bill from party. */
     public static GenericValue getBillFromParty(GenericValue invoice) {
         try {
-            return invoice.getRelatedOne("FromParty");
+            return invoice.getRelatedOne("FromParty", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting FromParty from Invoice", module);
         }
@@ -253,7 +253,7 @@ public class InvoiceWorker {
             GenericValue role = EntityUtil.getFirst(sendFromRoles);
             GenericValue party = null;
             try {
-                party = role.getRelatedOne("Party");
+                party = role.getRelatedOne("Party", false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Trouble getting Party from InvoiceRole", module);
             }
@@ -320,14 +320,14 @@ public class InvoiceWorker {
         GenericValue contactMech = null;
         if (UtilValidate.isNotEmpty(locations)) {
             try {
-                contactMech = locations.get(0).getRelatedOne("ContactMech");
+                contactMech = locations.get(0).getRelatedOne("ContactMech", false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Trouble getting Contact for contactMechId: " + locations.get(0).getString("contactMechId"), module);
             }
 
             if (contactMech != null && contactMech.getString("contactMechTypeId").equals("POSTAL_ADDRESS"))    {
                 try {
-                    postalAddress = contactMech.getRelatedOne("PostalAddress");
+                    postalAddress = contactMech.getRelatedOne("PostalAddress", false);
                     return postalAddress;
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Trouble getting PostalAddress for contactMechId: " + contactMech.getString("contactMechId"), module);
@@ -521,7 +521,7 @@ public class InvoiceWorker {
             if (UtilValidate.isEmpty(conversionRate)) {
                 List<GenericValue> paymentAppls = invoice.getRelated("PaymentApplication");
                 for (GenericValue paymentAppl : paymentAppls) {
-                    GenericValue payment = paymentAppl.getRelatedOne("Payment");
+                    GenericValue payment = paymentAppl.getRelatedOne("Payment", false);
                     if (UtilValidate.isNotEmpty(payment.getBigDecimal("actualCurrencyAmount"))) {
                         if (UtilValidate.isEmpty(conversionRate)) {
                             conversionRate = payment.getBigDecimal("amount").divide(payment.getBigDecimal("actualCurrencyAmount"),new MathContext(100)).setScale(decimals,rounding);
