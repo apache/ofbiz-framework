@@ -65,7 +65,7 @@ categoryQuestions = null;
 if (surveyQuestionCategoryId) {
     surveyQuestionCategory = delegator.findOne("SurveyQuestionCategory", [surveyQuestionCategoryId : surveyQuestionCategoryId], false);
     if (surveyQuestionCategory) {
-        categoryQuestions = surveyQuestionCategory.getRelated("SurveyQuestion");
+        categoryQuestions = surveyQuestionCategory.getRelated("SurveyQuestion", null, null, false);
     }
 }
 questionCategories = delegator.findList("SurveyQuestionCategory", null, null, ['description'], null, false);

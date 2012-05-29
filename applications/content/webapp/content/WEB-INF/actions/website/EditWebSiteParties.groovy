@@ -19,7 +19,7 @@
 
 webSiteRoleDatas = [] as LinkedList;
 if (webSite) {
-    webSiteRoles = webSite.getRelated("WebSiteRole", null, ['sequenceNum', 'partyId']);
+    webSiteRoles = webSite.getRelated("WebSiteRole", null, ['sequenceNum', 'partyId'], false);
     webSiteRoles.each { webSiteRole ->
         Map webSiteRoleData = [:];
         webSiteRoleData.webSiteRole = webSiteRole;

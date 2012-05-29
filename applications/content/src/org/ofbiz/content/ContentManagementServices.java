@@ -1634,7 +1634,7 @@ public class ContentManagementServices {
             }
             Timestamp orderCreatedDate = (Timestamp) orderHeader.get("orderDate");
             context.put("orderCreatedDate", orderCreatedDate);
-            List<GenericValue> orderItemList = orderHeader.getRelated("OrderItem");
+            List<GenericValue> orderItemList = orderHeader.getRelated("OrderItem", null, null, false);
             ModelService subscriptionModel = dispatcher.getDispatchContext().getModelService("updateContentSubscriptionByProduct");
             for(GenericValue orderItem : orderItemList) {
                 BigDecimal qty = orderItem.getBigDecimal("quantity");

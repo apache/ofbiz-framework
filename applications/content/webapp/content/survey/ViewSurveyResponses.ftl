@@ -57,7 +57,7 @@ under the License.
                   <span style="white-space: nowrap;">${uiLabelMap.CommonN}&nbsp;[${results._no_total?default(0)?string("#")} / ${results._no_percent?default(0)?string("#")}%]</span>
                 </div>
               <#elseif question.surveyQuestionTypeId == "OPTION">
-                <#assign options = question.getRelated("SurveyQuestionOption", sequenceSort)?if_exists>
+                <#assign options = question.getRelated("SurveyQuestionOption", null, sequenceSort, false)?if_exists>
                 <#if options?has_content>
                   <#list options as option>
                     <#assign optionResults = results.get(option.surveyOptionSeqId)?if_exists>

@@ -49,7 +49,7 @@ under the License.
           <#assign currentSurveyPage = surveyQuestionAndAppl.getRelatedOne("SurveyPage", true)?if_exists/>
           <#assign currentSurveyMultiResp = surveyQuestionAndAppl.getRelatedOne("SurveyMultiResp", true)?if_exists/>
           <#if currentSurveyMultiResp?has_content>
-            <#assign currentSurveyMultiRespColumns = currentSurveyMultiResp.getRelated("SurveyMultiRespColumn")/>
+            <#assign currentSurveyMultiRespColumns = currentSurveyMultiResp.getRelated("SurveyMultiRespColumn", null, null, false)/>
           <#else/>
             <#assign currentSurveyMultiRespColumns = []/>
           </#if>

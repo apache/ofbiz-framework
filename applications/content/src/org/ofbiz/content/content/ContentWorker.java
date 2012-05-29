@@ -153,7 +153,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         if (partyId != null && roleTypeId != null) {
             List<GenericValue> alternateViews = null;
             try {
-                alternateViews = content.getRelatedCache("ContentAssocDataResourceViewTo", UtilMisc.toMap("caContentAssocTypeId", "ALTERNATE_ROLE"), UtilMisc.toList("-caFromDate"));
+                alternateViews = content.getRelated("ContentAssocDataResourceViewTo", UtilMisc.toMap("caContentAssocTypeId", "ALTERNATE_ROLE"), UtilMisc.toList("-caFromDate"), true);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error finding alternate content: " + e.toString(), module);
             }
@@ -375,7 +375,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
         List<GenericValue> alternateViews = null;
         try {
-            alternateViews = view.getRelatedCache("ContentAssocDataResourceViewTo", UtilMisc.toMap("caContentAssocTypeId", "ALTERNATE_LOCALE"), UtilMisc.toList("-caFromDate"));
+            alternateViews = view.getRelated("ContentAssocDataResourceViewTo", UtilMisc.toMap("caContentAssocTypeId", "ALTERNATE_LOCALE"), UtilMisc.toList("-caFromDate"), true);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error finding alternate locale content: " + e.toString(), module);
             return contentAssocDataResourceViewFrom;
@@ -445,7 +445,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
                 GenericValue assoc = keywordList.get(i);
                 keywords.add(assoc.getString("contentId"));
             }
-            List<GenericValue> purposeValueList = content.getRelatedCache("ContentPurpose");
+            List<GenericValue> purposeValueList = content.getRelated("ContentPurpose", null, null, true);
             List<String> purposes = FastList.newInstance();
             for (int i = 0; i < purposeValueList.size(); i++) {
                 GenericValue purposeValue = purposeValueList.get(i);
@@ -608,7 +608,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
     public static List<Object> getPurposes(GenericValue content) {
         List<Object> purposes = FastList.newInstance();
         try {
-            List<GenericValue> purposeValueList = content.getRelatedCache("ContentPurpose");
+            List<GenericValue> purposeValueList = content.getRelated("ContentPurpose", null, null, true);
             for (int i = 0; i < purposeValueList.size(); i++) {
                 GenericValue purposeValue = purposeValueList.get(i);
                 purposes.add(purposeValue.get("contentPurposeTypeId"));
@@ -622,7 +622,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
     public static List<Object> getSections(GenericValue content) {
         List<Object> sections = FastList.newInstance();
         try {
-            List<GenericValue> sectionValueList = content.getRelatedCache("FromContentAssoc");
+            List<GenericValue> sectionValueList = content.getRelated("FromContentAssoc", null, null, true);
             for (int i = 0; i < sectionValueList.size(); i++) {
                 GenericValue sectionValue = sectionValueList.get(i);
                 String contentAssocPredicateId = (String)sectionValue.get("contentAssocPredicateId");
@@ -639,7 +639,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
     public static List<Object> getTopics(GenericValue content) {
         List<Object> topics = FastList.newInstance();
         try {
-            List<GenericValue> topicValueList = content.getRelatedCache("FromContentAssoc");
+            List<GenericValue> topicValueList = content.getRelated("FromContentAssoc", null, null, true);
             for (int i = 0; i < topicValueList.size(); i++) {
                 GenericValue topicValue = topicValueList.get(i);
                 String contentAssocPredicateId = (String)topicValue.get("contentAssocPredicateId");

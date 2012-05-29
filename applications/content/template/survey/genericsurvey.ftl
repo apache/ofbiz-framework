@@ -73,7 +73,7 @@ under the License.
     </#if>
     <input type="file" size="15" name="${questionFieldName}" class="inputBox"/>
   <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "OPTION"/>
-    <#assign options = surveyQuestionAndAppl.getRelated("SurveyQuestionOption", sequenceSort)?if_exists/>
+    <#assign options = surveyQuestionAndAppl.getRelated("SurveyQuestionOption", null, sequenceSort, false)?if_exists/>
     <#assign selectedOption = (answer.surveyOptionSeqId)?default("_NA_")/>
     <select name="${questionFieldName}">
       <#if surveyQuestionAndAppl.requiredField?default("N") != "Y">
@@ -90,7 +90,7 @@ under the License.
   <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "ENUMERATION"/>
     <select name="${questionFieldName}">
     <#assign formatString = surveyQuestionAndAppl.get("formatString")?if_exists/>
-    <#assign enums = surveyQuestionAndAppl.getRelated("Enumeration")/>
+    <#assign enums = surveyQuestionAndAppl.getRelated("Enumeration", null, null, false)/>
     <#list enums as enum>
         <#if (((answer.textResponse)?has_content && answer.textResponse == enum.enumId) || (defValue == enum.enumId))>
             <#assign selected = 'selected'/>
@@ -178,7 +178,7 @@ under the License.
     <#assign closeMultiRespHeader = false/>
     <#assign surveyMultiResp = surveyQuestionAndAppl.getRelatedOne("SurveyMultiResp", true)?if_exists/>
     <#if surveyMultiResp?has_content>
-      <#assign surveyMultiRespColumnList = surveyMultiResp.getRelatedCache("SurveyMultiRespColumn", Static["org.ofbiz.base.util.UtilMisc"].toList("sequenceNum"))/>
+      <#assign surveyMultiRespColumnList = surveyMultiResp.getRelated("SurveyMultiRespColumn", null, Static["org.ofbiz.base.util.UtilMisc"].toList("sequenceNum"), true)/>
 
       <#if lastSurveyMultiRespId == "">
         <#assign openMultiRespHeader = true/>

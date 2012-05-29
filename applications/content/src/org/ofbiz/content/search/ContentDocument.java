@@ -169,7 +169,7 @@ public class ContentDocument {
         }
         List<GenericValue> featureDataResourceList;
         try {
-            featureDataResourceList = content.getRelatedCache("ProductFeatureDataResource");
+            featureDataResourceList = content.getRelated("ProductFeatureDataResource", null, null, true);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             List<String> badIndexList = UtilGenerics.checkList(context.get("badIndexList"));

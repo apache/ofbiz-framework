@@ -37,7 +37,7 @@ var rawdata = [
             <#list assocList as assoc>
                 {
                 "data": {"title" : unescapeHtmlText("${assoc.categoryName!assoc.dataCategoryId!}"), "attr": {"href": "javascript:void(0);", "onClick" : "callDocument('${assoc.dataCategoryId!}');"}}
-                <#assign assocs = assoc.getRelated("ChildDataCategory")?if_exists/>
+                <#assign assocs = assoc.getRelated("ChildDataCategory", null, null, false)?if_exists/>
                 <#if assocChilds?has_content>
                     ,"children": [
                         <@fillTree assocList = assocChilds/>
