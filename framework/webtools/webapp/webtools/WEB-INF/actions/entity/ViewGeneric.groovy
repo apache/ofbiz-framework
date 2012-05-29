@@ -325,7 +325,7 @@ for (int relIndex = 0; relIndex < entity.getRelationsSize(); relIndex++) {
     if ("one".equals(relation.getType()) || "one-nofk".equals(relation.getType())) {
         if (value != null) {
             if (hasAllView || security.hasEntityPermission(relatedEntity.getPlainTableName(), "_VIEW", session)) {
-                Iterator tempIter = UtilMisc.toIterator(value.getRelated(relation.getTitle() + relatedEntity.getEntityName()));
+                Iterator tempIter = UtilMisc.toIterator(value.getRelated(relation.getTitle() + relatedEntity.getEntityName(), null, null, false));
                 GenericValue valueRelated = null;
                 if (tempIter != null && tempIter.hasNext()) {
                     valueRelated = (GenericValue) tempIter.next();

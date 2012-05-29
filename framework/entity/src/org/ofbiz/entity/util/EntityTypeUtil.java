@@ -86,7 +86,7 @@ public class EntityTypeUtil {
         // first get all childrenTypes ...
         List<GenericValue> childrenTypes = null;
         try {
-            childrenTypes = typeValue.getRelatedCache("Child" + typeValue.getEntityName());
+            childrenTypes = typeValue.getRelated("Child" + typeValue.getEntityName(), null, null, true);
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
             return null;

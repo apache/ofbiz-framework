@@ -76,7 +76,7 @@ public class RecurrenceInfo {
         // Get the recurrence rules objects
         try {
             rRulesList = new ArrayList<RecurrenceRule>();
-            for (GenericValue value: info.getRelated("RecurrenceRule")) {
+            for (GenericValue value: info.getRelated("RecurrenceRule", null, null, false)) {
                 rRulesList.add(new RecurrenceRule(value));
             }
         } catch (GenericEntityException gee) {
@@ -88,7 +88,7 @@ public class RecurrenceInfo {
         // Get the exception rules objects
         try {
             eRulesList = new ArrayList<RecurrenceRule>();
-            for (GenericValue value: info.getRelated("ExceptionRecurrenceRule")) {
+            for (GenericValue value: info.getRelated("ExceptionRecurrenceRule", null, null, false)) {
                 eRulesList.add(new RecurrenceRule(value));
             }
         } catch (GenericEntityException gee) {

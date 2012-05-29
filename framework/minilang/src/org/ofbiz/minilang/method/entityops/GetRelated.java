@@ -75,11 +75,7 @@ public class GetRelated extends MethodOperation {
             return true;
         }
         try {
-            if (useCache) {
-                listAcsr.put(methodContext, value.getRelatedCache(relationName, constraintMap, orderByNames));
-            } else {
-                listAcsr.put(methodContext, value.getRelated(relationName, constraintMap, orderByNames));
-            }
+            listAcsr.put(methodContext, value.getRelated(relationName, constraintMap, orderByNames, useCache));
         } catch (GenericEntityException e) {
             String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [problem getting related from entity with name " + value.getEntityName() + " for the relation-name: " + relationName + ": " + e.getMessage() + "]";
             Debug.logError(e, errMsg, module);

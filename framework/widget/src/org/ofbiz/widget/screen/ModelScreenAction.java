@@ -657,11 +657,7 @@ public abstract class ModelScreenAction implements Serializable {
                 constraintMap = mapAcsr.get(context);
             }
             try {
-                if (useCache) {
-                    listNameAcsr.put(context, value.getRelatedCache(relationName, constraintMap, orderByNames));
-                } else {
-                    listNameAcsr.put(context, value.getRelated(relationName, constraintMap, orderByNames));
-                }
+                listNameAcsr.put(context, value.getRelated(relationName, constraintMap, orderByNames, useCache));
             } catch (GenericEntityException e) {
                 String errMsg = "Problem getting related from entity with name " + value.getEntityName() + " for the relation-name: " + relationName + ": " + e.getMessage();
                 Debug.logError(e, errMsg, module);
