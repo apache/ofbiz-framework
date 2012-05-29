@@ -54,7 +54,7 @@ public class ProductContentWrapper implements ContentWrapper {
     public static final String module = ProductContentWrapper.class.getName();
     public static final String SEPARATOR = "::";    // cache key separator
 
-    public static UtilCache<String, String> productContentCache = UtilCache.createUtilCache("product.content.rendered", true);
+    private static final UtilCache<String, String> productContentCache = UtilCache.createUtilCache("product.content.rendered", true);
 
     public static ProductContentWrapper makeProductContentWrapper(GenericValue product, HttpServletRequest request) {
         return new ProductContentWrapper(product, request);
@@ -107,18 +107,16 @@ public class ProductContentWrapper implements ContentWrapper {
          */
         String cacheKey = productContentTypeId + SEPARATOR + locale + SEPARATOR + mimeTypeId + SEPARATOR + product.get("productId");
         try {
-            if (productContentCache.get(cacheKey) != null) {
-                return productContentCache.get(cacheKey);
+            String cachedValue = productContentCache.get(cacheKey);
+            if (cachedValue != null) {
+                return cachedValue;
             }
 
             Writer outWriter = new StringWriter();
             getProductContentAsText(null, product, productContentTypeId, locale, mimeTypeId, partyId, roleTypeId, delegator, dispatcher, outWriter);
             String outString = outWriter.toString();
             if (outString.length() > 0) {
-                if (productContentCache != null) {
-                    productContentCache.put(cacheKey, outString);
-                }
-                return outString;
+                return productContentCache.putIfAbsentAndGet(cacheKey, outString);
             } else {
                 String candidateOut = product.getModelEntity().isField(candidateFieldName) ? product.getString(candidateFieldName): "";
                 return candidateOut == null? "" : candidateOut;

@@ -47,7 +47,7 @@ public class PartyContentWrapper implements ContentWrapper {
     public static final String module = PartyContentWrapper.class.getName();
     public static final String CACHE_KEY_SEPARATOR = "::";
 
-    public static UtilCache<String, String> partyContentCache = UtilCache.createUtilCache("party.content.rendered", true);
+    private static final UtilCache<String, String> partyContentCache = UtilCache.createUtilCache("party.content.rendered", true);
 
     protected LocalDispatcher dispatcher;
     protected GenericValue party;
@@ -135,8 +135,11 @@ public class PartyContentWrapper implements ContentWrapper {
         }
 
         try {
-            if (useCache && partyContentCache.get(cacheKey) != null) {
-                return partyContentCache.get(cacheKey);
+            if (useCache) {
+                String cachedValue = partyContentCache.get(cacheKey);
+                if (cachedValue != null) {
+                    return cachedValue;
+                }
             }
 
             Writer outWriter = new StringWriter();
@@ -144,10 +147,7 @@ public class PartyContentWrapper implements ContentWrapper {
 
             String outString = outWriter.toString();
             if (outString.length() > 0) {
-                if (partyContentCache != null) {
-                    partyContentCache.put(cacheKey, outString);
-                }
-                return outString;
+                return partyContentCache.putIfAbsentAndGet(cacheKey, outString);
             } else {
                 String candidateOut = party.getModelEntity().isField(candidateFieldName) ? party.getString(candidateFieldName): "";
                 return candidateOut == null ? "" : candidateOut;

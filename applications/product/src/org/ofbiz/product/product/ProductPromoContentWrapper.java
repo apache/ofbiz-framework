@@ -58,7 +58,7 @@ public class ProductPromoContentWrapper implements ContentWrapper {
     public static final String module = ProductPromoContentWrapper.class.getName();
     public static final String SEPARATOR = "::";    // cache key separator
 
-    public static UtilCache<String, String> productPromoContentCache = UtilCache.createUtilCache("product.promo.content.rendered", true);
+    private static final UtilCache<String, String> productPromoContentCache = UtilCache.createUtilCache("product.promo.content.rendered", true);
 
     public static ProductPromoContentWrapper makeProductPromoContentWrapper(GenericValue productPromo, HttpServletRequest request) {
         return new ProductPromoContentWrapper(productPromo, request);
@@ -111,18 +111,16 @@ public class ProductPromoContentWrapper implements ContentWrapper {
          */
         String cacheKey = productPromoContentTypeId + SEPARATOR + locale + SEPARATOR + mimeTypeId + SEPARATOR + productPromo.get("productPromoId");
         try {
-            if (productPromoContentCache.get(cacheKey) != null) {
-                return productPromoContentCache.get(cacheKey);
+            String cachedValue = productPromoContentCache.get(cacheKey);
+            if (cachedValue != null) {
+                return cachedValue;
             }
 
             Writer outWriter = new StringWriter();
             getProductPromoContentAsText(null, productPromo, productPromoContentTypeId, locale, mimeTypeId, partyId, roleTypeId, delegator, dispatcher, outWriter);
             String outString = outWriter.toString();
             if (outString.length() > 0) {
-                if (productPromoContentCache != null) {
-                    productPromoContentCache.put(cacheKey, outString);
-                }
-                return outString;
+                return productPromoContentCache.putIfAbsentAndGet(cacheKey, outString);
             } else {
                 String candidateOut = productPromo.getModelEntity().isField(candidateFieldName) ? productPromo.getString(candidateFieldName): "";
                 return candidateOut == null? "" : candidateOut;
