@@ -42,7 +42,7 @@ if (newPaymentMethodId) {
 
 if (orderPartyId && !orderPartyId.equals("_NA_")) {
     orderParty = delegator.findOne("Party", [partyId : orderPartyId], false);
-    orderPerson = orderParty.getRelatedOne("Person");
+    orderPerson = orderParty.getRelatedOne("Person", false);
     context.orderParty = orderParty;
     context.orderPerson = orderPerson;
     if (orderParty) {
@@ -72,17 +72,17 @@ if (cart) {
             paymentMethod = delegator.findOne("PaymentMethod", [paymentMethodId : checkOutPaymentId], false);
             if ("CREDIT_CARD".equals(paymentMethod?.paymentMethodTypeId)) {
                 paymentMethodType = "CC";
-                account = paymentMethod.getRelatedOne("CreditCard");
+                account = paymentMethod.getRelatedOne("CreditCard", false);
                 context.creditCard = account;
                 context.paymentMethodType = paymentMethodType;
             } else if ("EFT_ACCOUNT".equals(paymentMethod.paymentMethodTypeId)) {
                 paymentMethodType = "EFT";
-                account = paymentMethod.getRelatedOne("EftAccount");
+                account = paymentMethod.getRelatedOne("EftAccount", false);
                 context.eftAccount = account;
                 context.paymentMethodType = paymentMethodType;
             }
             if (account) {
-                address = account.getRelatedOne("PostalAddress");
+                address = account.getRelatedOne("PostalAddress", false);
                 context.postalAddress = address;
             }
         }

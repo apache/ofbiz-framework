@@ -43,7 +43,7 @@ under the License.
             </fo:table-header>
             <fo:table-body>
                 <#list orderItemList as orderItem>
-                    <#assign orderItemType = orderItem.getRelatedOne("OrderItemType")?if_exists>
+                    <#assign orderItemType = orderItem.getRelatedOne("OrderItemType", false)?if_exists>
                     <#assign productId = orderItem.productId?if_exists>
                     <#assign remainingQuantity = (orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0))>
                     <#assign itemAdjustment = Static["org.ofbiz.order.order.OrderReadHelper"].getOrderItemAdjustmentsTotal(orderItem, orderAdjustments, true, false, false)>
@@ -99,7 +99,7 @@ under the License.
                     </#if>
                 </#list>
                 <#list orderHeaderAdjustments as orderHeaderAdjustment>
-                    <#assign adjustmentType = orderHeaderAdjustment.getRelatedOne("OrderAdjustmentType")>
+                    <#assign adjustmentType = orderHeaderAdjustment.getRelatedOne("OrderAdjustmentType", false)>
                     <#assign adjustmentAmount = Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(orderHeaderAdjustment, orderSubTotal)>
                     <#if adjustmentAmount != 0>
                         <fo:table-row>

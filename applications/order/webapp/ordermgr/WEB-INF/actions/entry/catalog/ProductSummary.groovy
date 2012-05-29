@@ -137,8 +137,8 @@ if (product) {
         if(productVirtualVariants){
             productVirtualVariants.each { virtualVariantKey ->
                 mainProductMap = [:];
-                mainProduct = virtualVariantKey.getRelatedOneCache("MainProduct");
-                quantityUom = mainProduct.getRelatedOneCache("QuantityUom");
+                mainProduct = virtualVariantKey.getRelatedOne("MainProduct", true);
+                quantityUom = mainProduct.getRelatedOne("QuantityUom", true);
                 mainProductMap.productId = mainProduct.productId;
                 mainProductMap.piecesIncluded = mainProduct.piecesIncluded;
                 mainProductMap.uomDesc = quantityUom.description;
@@ -170,7 +170,7 @@ if (product) {
             variantPriceJS.append("function getVariantPrice(sku) { ");
             
             virtualVariants.each { virtualAssoc ->
-                virtual = virtualAssoc.getRelatedOne("MainProduct");
+                virtual = virtualAssoc.getRelatedOne("MainProduct", false);
                 // Get price from a virtual product
                 priceContext.product = virtual;
                 if (cart.isSalesOrder()) {

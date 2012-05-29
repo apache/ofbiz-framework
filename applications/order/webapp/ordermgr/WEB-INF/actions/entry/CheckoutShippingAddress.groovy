@@ -29,7 +29,7 @@ import org.ofbiz.entity.condition.EntityOperator;
 import javolution.util.FastList;
 
 cart = session.getAttribute("shoppingCart");
-party = userLogin.getRelatedOne("Party");
+party = userLogin.getRelatedOne("Party", false);
 partyId = party.partyId;
 productStoreId = ProductStoreWorker.getProductStoreId(request);
 

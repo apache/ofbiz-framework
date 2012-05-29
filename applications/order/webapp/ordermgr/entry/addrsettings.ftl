@@ -41,7 +41,7 @@ under the License.
 
         <#if partyContactMechPurposes?exists>
           <#list partyContactMechPurposes as partyContactMechPurpose>
-            <#assign shippingAddress = partyContactMechPurpose.getRelatedOne("PostalAddress")/>
+            <#assign shippingAddress = partyContactMechPurpose.getRelatedOne("PostalAddress", false)/>
 
             <#-- skip non-postal addresses -->
 

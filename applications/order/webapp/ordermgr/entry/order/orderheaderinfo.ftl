@@ -76,7 +76,7 @@ under the License.
                         <#assign index=0/>
                         <#list orderTerms as orderTerm>
                         <tr>
-                            <td width="35%"><div>${orderTerm.getRelatedOne("TermType").get("description",locale)}</div></td>
+                            <td width="35%"><div>${orderTerm.getRelatedOne("TermType", false).get("description",locale)}</div></td>
                             <td width="10%"><div>${orderTerm.termValue?default("")}</div></td>
                             <td width="10%"><div>${orderTerm.termDays?default("")}</div></td>
                             <td width="45%"><div>${orderTerm.textValue?default("")}</div></td>

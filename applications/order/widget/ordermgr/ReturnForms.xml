@@ -94,7 +94,7 @@ under the License.
         </field>
         <field name="paymentMethodId" use-when="creditCardList!=null&amp;&amp;creditCardList.size()&gt;0">
             <drop-down allow-empty="true">
-                <list-options list-name="creditCardList" list-entry-name="creditCardPm" key-name="creditCardPm.paymentMethodId" description="${bsh:org.ofbiz.party.contact.ContactHelper.formatCreditCard(creditCardPm.getRelatedOne(&quot;CreditCard&quot;))}"/>
+                <list-options list-name="creditCardList" list-entry-name="creditCardPm" key-name="creditCardPm.paymentMethodId" description="${bsh:org.ofbiz.party.contact.ContactHelper.formatCreditCard(creditCardPm.getRelatedOne(&quot;CreditCard&quot;, false))}"/>
             </drop-down>
         </field>
         <field name="newCreditCard" widget-style="buttontext" use-when="returnHeader!=null&amp;&amp;returnHeader.getString(&quot;fromPartyId&quot;)!=null">

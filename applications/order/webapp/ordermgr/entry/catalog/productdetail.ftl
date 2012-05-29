@@ -386,32 +386,32 @@ ${virtualJavaScript?if_exists}
         </div>
       </#if>
       <#if (product.quantityIncluded?exists && product.quantityIncluded?double != 0) || product.quantityUomId?has_content>
-        <#assign quantityUom = product.getRelatedOneCache("QuantityUom")?if_exists/>
+        <#assign quantityUom = product.getRelatedOne("QuantityUom", true)?if_exists/>
         <div>
           ${uiLabelMap.CommonQuantity}: ${product.quantityIncluded?if_exists} ${((quantityUom.abbreviation)?default(product.quantityUomId))?if_exists}
         </div>
       </#if>
 
       <#if (product.weight?exists && product.weight?double != 0) || product.weightUomId?has_content>
-        <#assign weightUom = product.getRelatedOneCache("WeightUom")?if_exists/>
+        <#assign weightUom = product.getRelatedOne("WeightUom", true)?if_exists/>
         <div>
           ${uiLabelMap.CommonWeight}: ${product.weight?if_exists} ${((weightUom.abbreviation)?default(product.weightUomId))?if_exists}
         </div>
       </#if>
       <#if (product.productHeight?exists && product.productHeight?double != 0) || product.heightUomId?has_content>
-        <#assign heightUom = product.getRelatedOneCache("HeightUom")?if_exists/>
+        <#assign heightUom = product.getRelatedOne("HeightUom", true)?if_exists/>
         <div>
           ${uiLabelMap.CommonHeight}: ${product.productHeight?if_exists} ${((heightUom.abbreviation)?default(product.heightUomId))?if_exists}
         </div>
       </#if>
       <#if (product.productWidth?exists && product.productWidth?double != 0) || product.widthUomId?has_content>
-        <#assign widthUom = product.getRelatedOneCache("WidthUom")?if_exists/>
+        <#assign widthUom = product.getRelatedOne("WidthUom", true)?if_exists/>
         <div>
           ${uiLabelMap.CommonWidth}: ${product.productWidth?if_exists} ${((widthUom.abbreviation)?default(product.widthUomId))?if_exists}
         </div>
       </#if>
       <#if (product.productDepth?exists && product.productDepth?double != 0) || product.depthUomId?has_content>
-        <#assign depthUom = product.getRelatedOneCache("DepthUom")?if_exists/>
+        <#assign depthUom = product.getRelatedOne("DepthUom", true)?if_exists/>
         <div>
           ${uiLabelMap.CommonDepth}: ${product.productDepth?if_exists} ${((depthUom.abbreviation)?default(product.depthUomId))?if_exists}
         </div>
@@ -424,7 +424,7 @@ ${virtualJavaScript?if_exists}
       <#if disFeatureList?exists && 0 < disFeatureList.size()>
       <p>&nbsp;</p>
         <#list disFeatureList as currentFeature>
-            <#assign disFeatureType = currentFeature.getRelatedOneCache("ProductFeatureType")/>
+            <#assign disFeatureType = currentFeature.getRelatedOne("ProductFeatureType", true)/>
             <div>
                 <#if disFeatureType.description?exists>${disFeatureType.get("description", locale)}<#else>${currentFeature.productFeatureTypeId}</#if>:&nbsp;${currentFeature.description}
             </div>

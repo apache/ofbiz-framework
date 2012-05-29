@@ -143,7 +143,7 @@ public class ShoppingListServices {
                 while (((shoppingList = eli.next()) != null)) {
                     Timestamp lastOrder = shoppingList.getTimestamp("lastOrderedDate");
                     GenericValue recurrenceInfo = null;
-                    recurrenceInfo = shoppingList.getRelatedOne("RecurrenceInfo");
+                    recurrenceInfo = shoppingList.getRelatedOne("RecurrenceInfo", false);
 
                     Timestamp startDateTime = recurrenceInfo.getTimestamp("startDateTime");
                     RecurrenceInfo recurrence = null;

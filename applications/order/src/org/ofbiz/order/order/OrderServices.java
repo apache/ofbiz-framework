@@ -152,7 +152,7 @@ public class OrderServices {
                     // check sales agent/customer relationship
                     List<GenericValue> repsCustomers = new LinkedList<GenericValue>();
                     try {
-                        repsCustomers = EntityUtil.filterByDate(userLogin.getRelatedOne("Party").getRelatedByAnd("FromPartyRelationship", UtilMisc.toMap("roleTypeIdFrom", "AGENT", "roleTypeIdTo", "CUSTOMER", "partyIdTo", partyId)));
+                        repsCustomers = EntityUtil.filterByDate(userLogin.getRelatedOne("Party", false).getRelatedByAnd("FromPartyRelationship", UtilMisc.toMap("roleTypeIdFrom", "AGENT", "roleTypeIdTo", "CUSTOMER", "partyIdTo", partyId)));
                     } catch (GenericEntityException ex) {
                         Debug.logError("Could not determine if " + partyId + " is a customer of user " + userLogin.getString("userLoginId") + " due to " + ex.getMessage(), module);
                     }
@@ -162,7 +162,7 @@ public class OrderServices {
                     if (!hasPermission) {
                         // check sales sales rep/customer relationship
                         try {
-                            repsCustomers = EntityUtil.filterByDate(userLogin.getRelatedOne("Party").getRelatedByAnd("FromPartyRelationship", UtilMisc.toMap("roleTypeIdFrom", "SALES_REP", "roleTypeIdTo", "CUSTOMER", "partyIdTo", partyId)));
+                            repsCustomers = EntityUtil.filterByDate(userLogin.getRelatedOne("Party", false).getRelatedByAnd("FromPartyRelationship", UtilMisc.toMap("roleTypeIdFrom", "SALES_REP", "roleTypeIdTo", "CUSTOMER", "partyIdTo", partyId)));
                         } catch (GenericEntityException ex) {
                             Debug.logError("Could not determine if " + partyId + " is a customer of user " + userLogin.getString("userLoginId") + " due to " + ex.getMessage(), module);
                         }
@@ -684,7 +684,7 @@ public class OrderServices {
                 // see if this fixed asset has a calendar, when no create one and attach to fixed asset
                 Debug.logInfo("find the techdatacalendar",module);
                 GenericValue techDataCalendar = null;
-                try { techDataCalendar = fixedAsset.getRelatedOne("TechDataCalendar");
+                try { techDataCalendar = fixedAsset.getRelatedOne("TechDataCalendar", false);
                 }
                 catch (GenericEntityException e) {
                     Debug.logInfo("TechData calendar does not exist yet so create for fixedAsset: " + fixedAsset.get("fixedAssetId") ,module);
@@ -1075,7 +1075,7 @@ public class OrderServices {
             if (UtilValidate.isNotEmpty(orderItems)) {
                 for (GenericValue orderItem: orderItems) {
                     String productId = (String) orderItem.get("productId");
-                    GenericValue product = delegator.getRelatedOne("Product", orderItem);
+                    GenericValue product = delegator.getRelatedOne("Product", orderItem, false);
                     
                     if (product != null && ("SERVICE_PRODUCT".equals(product.get("productTypeId")) || "AGGREGATEDSERV_CONF".equals(product.get("productTypeId")))) {
                         String inventoryFacilityId = null;
@@ -1181,7 +1181,7 @@ public class OrderServices {
                         continue;
                     }
                     GenericValue orderItem = itemValuesBySeqId.get(orderItemShipGroupAssoc.get("orderItemSeqId"));
-                    GenericValue orderItemShipGroup = orderItemShipGroupAssoc.getRelatedOne("OrderItemShipGroup");
+                    GenericValue orderItemShipGroup = orderItemShipGroupAssoc.getRelatedOne("OrderItemShipGroup", false);
                     String shipGroupFacilityId = orderItemShipGroup.getString("facilityId");
                     String itemStatus = orderItem.getString("statusId");
                     if ("ITEM_REJECTED".equals(itemStatus) || "ITEM_CANCELLED".equals(itemStatus) || "ITEM_COMPLETED".equals(itemStatus)) {
@@ -1192,7 +1192,7 @@ public class OrderServices {
                             !"RENTAL_ORDER_ITEM".equals(orderItem.getString("orderItemTypeId"))) {  // ignore for rental
                         try {
                             // get the product of the order item
-                            GenericValue product = orderItem.getRelatedOne("Product");
+                            GenericValue product = orderItem.getRelatedOne("Product", false);
                             if (product == null) {
                                 Debug.logError("Error when looking up product in reserveInventory service", module);
                                 resErrorMessages.add("Error when looking up product in reserveInventory service");
@@ -1287,7 +1287,7 @@ public class OrderServices {
                     if (UtilValidate.isNotEmpty(orderItem.getString("productId")) && "RENTAL_ORDER_ITEM".equals(orderItem.getString("orderItemTypeId"))) {
                         try {
                             // get the product of the order item
-                            GenericValue product = orderItem.getRelatedOne("Product");
+                            GenericValue product = orderItem.getRelatedOne("Product", false);
                             if (product == null) {
                                 Debug.logError("Error when looking up product in reserveInventory service", module);
                                 resErrorMessages.add("Error when looking up product in reserveInventory service");
@@ -2027,7 +2027,7 @@ public class OrderServices {
             for(GenericValue orderItemShipGroupAssoc : orderItemShipGroupAssocs) {
                 GenericValue orderItem = null;
                 try {
-                    orderItem = orderItemShipGroupAssoc.getRelatedOne("OrderItem");
+                    orderItem = orderItemShipGroupAssoc.getRelatedOne("OrderItem", false);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }
@@ -2865,10 +2865,10 @@ public class OrderServices {
         for (int i = 0; i < purpose.length; i++) {
             try {
                 GenericValue orderContactMech = EntityUtil.getFirst(orderHeader.getRelatedByAnd("OrderContactMech", UtilMisc.toMap("contactMechPurposeTypeId", purpose[i])));
-                GenericValue contactMech = orderContactMech.getRelatedOne("ContactMech");
+                GenericValue contactMech = orderContactMech.getRelatedOne("ContactMech", false);
 
                 if (contactMech != null) {
-                    result.put(outKey[i], contactMech.getRelatedOne("PostalAddress"));
+                    result.put(outKey[i], contactMech.getRelatedOne("PostalAddress", false));
                 }
             } catch (GenericEntityException e) {
                 result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
@@ -3019,7 +3019,7 @@ public class OrderServices {
                 // need the store for the order
                 GenericValue productStore = null;
                 try {
-                    productStore = orderHeader.getRelatedOne("ProductStore");
+                    productStore = orderHeader.getRelatedOne("ProductStore", false);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Unable to get ProductStore from OrderHeader", module);
                 }
@@ -3134,14 +3134,14 @@ public class OrderServices {
             for(GenericValue item : orderItems) {
                 GenericValue product = null;
                 try {
-                    product = item.getRelatedOne("Product");
+                    product = item.getRelatedOne("Product", false);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "ERROR: Unable to get Product from OrderItem", module);
                 }
                 if (product != null) {
                     GenericValue productType = null;
                     try {
-                        productType = product.getRelatedOne("ProductType");
+                        productType = product.getRelatedOne("ProductType", false);
                     } catch (GenericEntityException e) {
                         Debug.logError(e, "ERROR: Unable to get ProductType from Product", module);
                     }
@@ -3214,7 +3214,7 @@ public class OrderServices {
 
                     if (product != null) {
                         try {
-                            productType = product.getRelatedOne("ProductType");
+                            productType = product.getRelatedOne("ProductType", false);
                         } catch (GenericEntityException e) {
                             Debug.logError(e, "ERROR: Unable to get ProductType from Product", module);
                         }
@@ -3292,7 +3292,7 @@ public class OrderServices {
                 GenericValue product = null;
                 List<GenericValue> productContent = null;
                 try {
-                    product = orderItem.getRelatedOne("Product");
+                    product = orderItem.getRelatedOne("Product", false);
                     if (product == null) {
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
                                 "OrderErrorCannotCheckForFulfillmentProductNotFound", locale));
@@ -3327,7 +3327,7 @@ public class OrderServices {
                     for(GenericValue productContentItem : productContent) {
                         GenericValue content = null;
                         try {
-                            content = productContentItem.getRelatedOne("Content");
+                            content = productContentItem.getRelatedOne("Content", false);
                         } catch (GenericEntityException e) {
                             Debug.logError(e,"ERROR: Cannot get Content entity: " + e.getMessage(),module);
                             continue;
@@ -3403,7 +3403,7 @@ public class OrderServices {
             for(GenericValue item : orderItems) {
                 GenericValue product = null;
                 try {
-                    product = item.getRelatedOne("Product");
+                    product = item.getRelatedOne("Product", false);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "ERROR: Unable to get Product from OrderItem", module);
                 }
@@ -4427,14 +4427,14 @@ public class OrderServices {
             }
 
             // get the order header
-            GenericValue orderHeader = orderPaymentPreference.getRelatedOne("OrderHeader");
+            GenericValue orderHeader = orderPaymentPreference.getRelatedOne("OrderHeader", false);
             if (orderHeader == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource,
                         "OrderOrderPaymentCannotBeCreatedWithRelatedOrderHeader", locale));
             }
 
             // get the store for the order.  It will be used to set the currency
-            GenericValue productStore = orderHeader.getRelatedOne("ProductStore");
+            GenericValue productStore = orderHeader.getRelatedOne("ProductStore", false);
             if (productStore == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource,
                         "OrderOrderPaymentCannotBeCreatedWithRelatedProductStore", locale));

@@ -166,7 +166,7 @@ under the License.
             </#if>
           </tr>
           <#list orderHeaderList as orderHeader>
-            <#assign status = orderHeader.getRelatedOneCache("StatusItem")>
+            <#assign status = orderHeader.getRelatedOne("StatusItem", true)>
             <#assign orh = Static["org.ofbiz.order.order.OrderReadHelper"].getHelper(orderHeader)>
             <#assign billToParty = orh.getBillToParty()?if_exists>
             <#assign billFromParty = orh.getBillFromParty()?if_exists>
@@ -182,14 +182,14 @@ under the License.
             <#else>
               <#assign billFrom = ''/>
             </#if>
-            <#assign productStore = orderHeader.getRelatedOneCache("ProductStore")?if_exists />
+            <#assign productStore = orderHeader.getRelatedOne("ProductStore", true)?if_exists />
             <tr>
               <td><#if orderHeader.orderDate?has_content>${Static["org.ofbiz.base.util.UtilFormatOut"].formatDateTime(orderHeader.orderDate, "", locale, timeZone)!}</#if></td>
               <td>
                 <a href="<@ofbizUrl>orderview?orderId=${orderHeader.orderId}</@ofbizUrl>" class="buttontext">${orderHeader.orderId}</a>
               </td>
               <td>${orderHeader.orderName?if_exists}</td>
-              <td>${orderHeader.getRelatedOneCache("OrderType").get("description",locale)}</td>
+              <td>${orderHeader.getRelatedOne("OrderType", true).get("description",locale)}</td>
               <td>${billFrom?if_exists}</td>
               <td>${billTo?if_exists}</td>
               <td><#if productStore?has_content>${productStore.storeName?default(productStore.productStoreId)}</#if></td>
@@ -202,7 +202,7 @@ under the License.
                     </#if>
                 </#list>
               </td>
-              <td>${orderHeader.getRelatedOneCache("StatusItem").get("description",locale)}</td>
+              <td>${orderHeader.getRelatedOne("StatusItem", true).get("description",locale)}</td>
               <#if state.hasFilter('filterInventoryProblems') || state.hasFilter('filterAuthProblems') || state.hasFilter('filterPOsOpenPastTheirETA') || state.hasFilter('filterPOsWithRejectedItems') || state.hasFilter('filterPartiallyReceivedPOs')>
               <td>
                   <#if filterInventoryProblems.contains(orderHeader.orderId)>

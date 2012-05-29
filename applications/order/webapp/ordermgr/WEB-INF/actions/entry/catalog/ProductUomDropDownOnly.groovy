@@ -26,8 +26,8 @@ if (product) {
         def mainProducts = [];
         productVirtualVariants.each { virtualVariantKey ->
             mainProductMap = [:];
-            mainProduct = virtualVariantKey.getRelatedOneCache("MainProduct");
-            quantityUom = mainProduct.getRelatedOneCache("QuantityUom");
+            mainProduct = virtualVariantKey.getRelatedOne("MainProduct", true);
+            quantityUom = mainProduct.getRelatedOne("QuantityUom", true);
             mainProductMap.productId = mainProduct.productId;
             mainProductMap.piecesIncluded = mainProduct.piecesIncluded;
             mainProductMap.uomDesc = quantityUom.description;

@@ -25,8 +25,8 @@ under the License.
         <table cellspacing="0" class="basic-table">
             <#assign row = 1>
             <#list quoteRoles as quoteRole>
-                <#assign roleType = quoteRole.getRelatedOne("RoleType")>
-                <#assign party = quoteRole.getRelatedOne("Party")>
+                <#assign roleType = quoteRole.getRelatedOne("RoleType", false)>
+                <#assign party = quoteRole.getRelatedOne("Party", false)>
                 <#assign rolePartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", quoteRole.partyId, "compareDate", quote.issueDate, "userLogin", userLogin))/>
                 <tr>
                     <td align="right" valign="top" width="15%" class="label">

@@ -44,7 +44,7 @@ if (!orderHeader && orderId) {
     orderHeader = delegator.findOne("OrderHeader", [orderId : orderId], false);
 } else if (shipmentId) {
     shipment = delegator.findOne("Shipment", [shipmentId : shipmentId], false);
-    orderHeader = shipment.getRelatedOne("PrimaryOrderHeader");
+    orderHeader = shipment.getRelatedOne("PrimaryOrderHeader", false);
 }
 
 if (!invoice && invoiceId)    {
@@ -71,7 +71,7 @@ if (orderHeader) {
         if (orh.getBillFromParty()) {
             partyId = orh.getBillFromParty().partyId;
         } else {
-            productStore = orderHeader.getRelatedOne("ProductStore");
+            productStore = orderHeader.getRelatedOne("ProductStore", false);
             if (orderHeader.orderTypeId.equals("SALES_ORDER") && productStore?.payToPartyId) {
                 partyId = productStore.payToPartyId;
             }
@@ -102,7 +102,7 @@ if (orderHeader) {
         partyId = returnHeader.fromPartyId;
     }
 } else if (quote) {
-    productStore = quote.getRelatedOne("ProductStore");
+    productStore = quote.getRelatedOne("ProductStore", false);
     if (productStore?.payToPartyId) {
         partyId = productStore.payToPartyId;
     }
@@ -148,11 +148,11 @@ if (selAddresses) {
 }
 if (address)    {
    // get the country name and state/province abbreviation
-   country = address.getRelatedOneCache("CountryGeo");
+   country = address.getRelatedOne("CountryGeo", true);
    if (country) {
       context.countryName = country.get("geoName", locale);
    }
-   stateProvince = address.getRelatedOneCache("StateProvinceGeo");
+   stateProvince = address.getRelatedOne("StateProvinceGeo", true);
    if (stateProvince) {
        context.stateProvinceAbbr = stateProvince.abbreviation;
    }
@@ -184,7 +184,7 @@ if (selEmails) {
     if (selContacts) {
         i = selContacts.iterator();
         while (i.hasNext())    {
-            email = i.next().getRelatedOne("ContactMech");
+            email = i.next().getRelatedOne("ContactMech", false);
             if ("ELECTRONIC_ADDRESS".equals(email.contactMechTypeId))    {
                 context.email = email;
                 break;
@@ -204,7 +204,7 @@ selContacts = EntityUtil.filterByDate(contacts, nowTimestamp, "fromDate", "thruD
 if (selContacts) {
     Iterator i = selContacts.iterator();
     while (i.hasNext())    {
-        website = i.next().getRelatedOne("ContactMech");
+        website = i.next().getRelatedOne("ContactMech", false);
         if ("WEB_ADDRESS".equals(website.contactMechTypeId)) {
             context.website = website;
             break;

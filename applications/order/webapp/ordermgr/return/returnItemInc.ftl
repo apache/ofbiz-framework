@@ -62,7 +62,7 @@ under the License.
         <#if orderItem.getEntityName() == "OrderAdjustment">
             <#-- this is an order item adjustment -->
             <#assign returnAdjustmentType = returnItemTypeMap.get(orderItem.get("orderAdjustmentTypeId"))/>
-            <#assign adjustmentType = orderItem.getRelatedOne("OrderAdjustmentType")/>
+            <#assign adjustmentType = orderItem.getRelatedOne("OrderAdjustmentType", false)/>
             <#assign description = orderItem.description?default(adjustmentType.get("description",locale))/>
 
             <tr id="returnItemId_tableRow_${rowCount}" valign="middle"<#if alt_row> class="alternate-row"</#if>>
@@ -92,7 +92,7 @@ under the License.
             <#-- this is an order item -->
             <#assign returnItemType = (returnItemTypeMap.get(returnableItems.get(orderItem).get("itemTypeKey")))?if_exists/>
             <#-- need some order item information -->
-            <#assign orderHeader = orderItem.getRelatedOne("OrderHeader")>
+            <#assign orderHeader = orderItem.getRelatedOne("OrderHeader", false)>
             <#assign itemCount = orderItem.quantity>
             <#assign itemPrice = orderItem.unitPrice>
             <#-- end of order item information -->
@@ -123,7 +123,7 @@ under the License.
               </td>
               <td>
                 <#if orderItem.productId?exists>
-                  <#assign product = orderItem.getRelatedOne("Product")/>
+                  <#assign product = orderItem.getRelatedOne("Product", false)/>
                   <#if product.productTypeId == "ASSET_USAGE_OUT_IN">
                     <input type="text" size="8" name="returnPrice_o_${rowCount}" value="0.00"/>
                   <#else>
@@ -177,7 +177,7 @@ under the License.
       </tr>
       <#list orderHeaderAdjustments as adj>
         <#assign returnAdjustmentType = returnItemTypeMap.get(adj.get("orderAdjustmentTypeId"))/>
-        <#assign adjustmentType = adj.getRelatedOne("OrderAdjustmentType")/>
+        <#assign adjustmentType = adj.getRelatedOne("OrderAdjustmentType", false)/>
         <#assign description = adj.description?default(adjustmentType.get("description",locale))/>
 
         <tr>

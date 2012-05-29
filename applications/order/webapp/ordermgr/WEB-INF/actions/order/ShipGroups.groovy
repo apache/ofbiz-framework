@@ -43,7 +43,7 @@ FastList expandProductGroup(product, quantityInGroup, quantityShipped, quantityO
     associations = EntityUtil.filterByDate(associations);
     associations.each { association ->
         line = FastMap.newInstance();
-        line.product = association.getRelatedOne("AssocProduct");
+        line.product = association.getRelatedOne("AssocProduct", false);
 
         // determine the quantities
         quantityComposed = association.quantity ?: 0;
@@ -60,16 +60,16 @@ groupData = FastMap.newInstance();
 shipGroups.each { shipGroup ->
     data = FastMap.newInstance();
 
-    address = shipGroup.getRelatedOne("PostalAddress");
+    address = shipGroup.getRelatedOne("PostalAddress", false);
     data.address = address;
 
-    phoneNumber = shipGroup.getRelatedOne("TelecomTelecomNumber");
+    phoneNumber = shipGroup.getRelatedOne("TelecomTelecomNumber", false);
     data.phoneNumber = phoneNumber;
 
-    carrierShipmentMethod = shipGroup.getRelatedOne("CarrierShipmentMethod");
+    carrierShipmentMethod = shipGroup.getRelatedOne("CarrierShipmentMethod", false);
     if (carrierShipmentMethod) {
         data.carrierShipmentMethod = carrierShipmentMethod;
-        data.shipmentMethodType = carrierShipmentMethod.getRelatedOneCache("ShipmentMethodType");
+        data.shipmentMethodType = carrierShipmentMethod.getRelatedOne("ShipmentMethodType", true);
     }
 
     // the lines in a page, each line being a row of data to display
@@ -78,8 +78,8 @@ shipGroups.each { shipGroup ->
     // process the order item to ship group associations, each being a line item for the group
     orderItemAssocs = shipGroup.getRelated("OrderItemShipGroupAssoc", ["orderItemSeqId"]);
     orderItemAssocs.each { orderItemAssoc ->
-        orderItem = orderItemAssoc.getRelatedOne("OrderItem");
-        product = orderItem.getRelatedOne("Product");
+        orderItem = orderItemAssoc.getRelatedOne("OrderItem", false);
+        product = orderItem.getRelatedOne("Product", false);
         line = FastMap.newInstance();
 
         // the quantity in group

@@ -62,7 +62,7 @@ context.headerAdjustmentsToShow = OrderReadHelper.filterOrderAdjustments(orderHe
 
 orderSubTotal = OrderReadHelper.getOrderItemsSubTotal(orderItems, orderAdjustments);
 context.orderSubTotal = orderSubTotal;
-context.placingCustomerPerson = userLogin?.getRelatedOne("Person");
+context.placingCustomerPerson = userLogin?.getRelatedOne("Person", false);
 context.shippingAddress = cart.getShippingAddress();
 
 paymentMethods = cart.getPaymentMethods();
@@ -73,11 +73,11 @@ if (paymentMethods) {
 }
 
 if ("CREDIT_CARD".equals(paymentMethod?.paymentMethodTypeId)) {
-    creditCard = paymentMethod.getRelatedOneCache("CreditCard");
+    creditCard = paymentMethod.getRelatedOne("CreditCard", true);
     context.creditCard = creditCard;
     context.formattedCardNumber = ContactHelper.formatCreditCard(creditCard);
 } else if ("EFT_ACCOUNT".equals(paymentMethod?.paymentMethodTypeId)) {
-    eftAccount = paymentMethod.getRelatedOneCache("EftAccount");
+    eftAccount = paymentMethod.getRelatedOne("EftAccount", true);
     context.eftAccount = eftAccount;
 }
 
@@ -101,8 +101,8 @@ if (productStore) {
 
 billingAddress = null;
 if (paymentMethod) {
-    creditCard = paymentMethod.getRelatedOne("CreditCard");
-    billingAddress = creditCard?.getRelatedOne("PostalAddress");
+    creditCard = paymentMethod.getRelatedOne("CreditCard", false);
+    billingAddress = creditCard?.getRelatedOne("PostalAddress", false);
 }
 if (billingAddress) context.billingAddress = billingAddress;
 

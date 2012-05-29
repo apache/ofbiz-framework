@@ -247,8 +247,8 @@ if (product) {
         if(productVirtualVariants){
             productVirtualVariants.each { virtualVariantKey ->
                 mainProductMap = [:];
-                mainProduct = virtualVariantKey.getRelatedOneCache("MainProduct");
-                quantityUom = mainProduct.getRelatedOneCache("QuantityUom");
+                mainProduct = virtualVariantKey.getRelatedOne("MainProduct", true);
+                quantityUom = mainProduct.getRelatedOne("QuantityUom", true);
                 mainProductMap.productId = mainProduct.productId;
                 mainProductMap.piecesIncluded = mainProduct.piecesIncluded;
                 mainProductMap.uomDesc = quantityUom.description;
@@ -404,7 +404,7 @@ if (product) {
                         }
                         numberFormat = NumberFormat.getCurrencyInstance(locale);
                         variants.each { variantAssoc ->
-                            variant = variantAssoc.getRelatedOne("AssocProduct");
+                            variant = variantAssoc.getRelatedOne("AssocProduct", false);
                             // Get the price for each variant. Reuse the priceContext already setup for virtual product above and replace the product
                             priceContext.product = variant;
                             if (cart.isSalesOrder()) {
@@ -448,7 +448,7 @@ if (product) {
                             
                             if(virtualVariants){
                                 virtualVariants.each { virtualAssoc ->
-                                    virtual = virtualAssoc.getRelatedOne("MainProduct");
+                                    virtual = virtualAssoc.getRelatedOne("MainProduct", false);
                                     // Get price from a virtual product
                                     priceContext.product = virtual;
                                     if (cart.isSalesOrder()) {
@@ -526,7 +526,7 @@ if (product) {
                 variantPriceJS.append("function getVariantPrice(sku) { ");
                 
                 virtualVariants.each { virtualAssoc ->
-                    virtual = virtualAssoc.getRelatedOne("MainProduct");
+                    virtual = virtualAssoc.getRelatedOne("MainProduct", false);
                     // Get price from a virtual product
                     priceContext.product = virtual;
                     if (cart.isSalesOrder()) {

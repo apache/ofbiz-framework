@@ -37,7 +37,7 @@ under the License.
             <td width="10%" align="right"><span><b>${uiLabelMap.OrderSubTotal}</b></span></td>
           </tr>
           <#list orderItems?if_exists as orderItem>
-            <#assign itemType = orderItem.getRelatedOne("OrderItemType")?if_exists>
+            <#assign itemType = orderItem.getRelatedOne("OrderItemType", false)?if_exists>
             <tr><td colspan="6"><hr /></td></tr>
             <tr>
               <#if orderItem.productId?exists && orderItem.productId == "_?_">
@@ -79,7 +79,7 @@ under the License.
                 <#assign WorkOrderItemFulfillments = orderItem.getRelated("WorkOrderItemFulfillment")?if_exists>
                 <#if WorkOrderItemFulfillments?has_content>
                     <#list WorkOrderItemFulfillments as WorkOrderItemFulfillment>
-                        <#assign workEffort = WorkOrderItemFulfillment.getRelatedOneCache("WorkEffort")?if_exists>
+                        <#assign workEffort = WorkOrderItemFulfillment.getRelatedOne("WorkEffort", true)?if_exists>
                           <tr><td>&nbsp;</td><td>&nbsp;</td><td colspan="8"><div>${uiLabelMap.CommonFrom}: ${workEffort.estimatedStartDate?string("yyyy-MM-dd")} ${uiLabelMap.CommonTo}: ${workEffort.estimatedCompletionDate?string("yyyy-MM-dd")} ${uiLabelMap.OrderNbrPersons}: ${workEffort.reservPersons}</div></td></tr>
                         <#break><#-- need only the first one -->
                     </#list>
@@ -97,12 +97,12 @@ under the License.
 
                     <#if orderItemAdjustment.orderAdjustmentTypeId == "SALES_TAX">
                       <#if orderItemAdjustment.primaryGeoId?has_content>
-                        <#assign primaryGeo = orderItemAdjustment.getRelatedOneCache("PrimaryGeo")/>
+                        <#assign primaryGeo = orderItemAdjustment.getRelatedOne("PrimaryGeo", true)/>
                         <#if primaryGeo.geoName?has_content>
                             <b>${uiLabelMap.OrderJurisdiction}:</b> ${primaryGeo.geoName} [${primaryGeo.abbreviation?if_exists}]
                         </#if>
                         <#if orderItemAdjustment.secondaryGeoId?has_content>
-                          <#assign secondaryGeo = orderItemAdjustment.getRelatedOneCache("SecondaryGeo")/>
+                          <#assign secondaryGeo = orderItemAdjustment.getRelatedOne("SecondaryGeo", true)/>
                           (<b>in:</b> ${secondaryGeo.geoName} [${secondaryGeo.abbreviation?if_exists}])
                         </#if>
                       </#if>

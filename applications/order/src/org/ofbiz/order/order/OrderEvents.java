@@ -113,7 +113,7 @@ public class OrderEvents {
                     GenericValue orderItem = delegator.findOne("OrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId), false);
                     List<GenericValue> orderItemShipGroupAssocs = orderItem.getRelated("OrderItemShipGroupAssoc");
                     for (GenericValue orderItemShipGroupAssoc : orderItemShipGroupAssocs) {
-                        GenericValue orderItemShipGroup = orderItemShipGroupAssoc.getRelatedOne("OrderItemShipGroup");
+                        GenericValue orderItemShipGroup = orderItemShipGroupAssoc.getRelatedOne("OrderItemShipGroup", false);
                         String shipGroupSeqId = orderItemShipGroup.getString("shipGroupSeqId");
 
                         Map<String, Object> contextMap = FastMap.newInstance();

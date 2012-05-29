@@ -38,7 +38,7 @@ under the License.
                                 </tr>
                                 <#list orderTerms as orderTerm>
                                     <tr <#if orderTerm_index % 2 != 0>class="alternate-row"</#if> >
-                                        <td nowrap="nowrap">${orderTerm.getRelatedOne('TermType').get('description', locale)}</td>
+                                        <td nowrap="nowrap">${orderTerm.getRelatedOne('TermType', false).get('description', locale)}</td>
                                         <td align="center">${orderTerm.termValue?if_exists}</td>
                                         <td align="center">${orderTerm.termDays?if_exists}</td>
                                         <td nowrap="nowrap">${orderTerm.textValue?if_exists}</td>

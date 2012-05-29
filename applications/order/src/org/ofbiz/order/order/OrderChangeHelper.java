@@ -189,14 +189,14 @@ public class OrderChangeHelper {
                         GenericValue product = null;
 
                         try {
-                            product = orderItem.getRelatedOne("Product");
+                            product = orderItem.getRelatedOne("Product", false);
                         } catch (GenericEntityException e) {
                             Debug.logError(e, "ERROR: Unable to get Product record for OrderItem : " + orderId + "/" + orderItemSeqId, module);
                         }
                         if (product != null) {
                             GenericValue productType = null;
                             try {
-                                productType = product.getRelatedOne("ProductType");
+                                productType = product.getRelatedOne("ProductType", false);
                             } catch (GenericEntityException e) {
                                 Debug.logError(e, "ERROR: Unable to get ProductType from Product : " + product, module);
                             }

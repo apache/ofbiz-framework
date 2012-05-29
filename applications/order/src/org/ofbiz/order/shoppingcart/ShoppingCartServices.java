@@ -482,7 +482,7 @@ public class ShoppingCartServices {
                 cartItem.setOrderItemSeqId(item.getString("orderItemSeqId"));
 
                 try {
-                    cartItem.setItemGroup(cart.addItemGroup(item.getRelatedOneCache("OrderItemGroup")));
+                    cartItem.setItemGroup(cart.addItemGroup(item.getRelatedOne("OrderItemGroup", true)));
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(e.getMessage());
@@ -971,7 +971,7 @@ public class ShoppingCartServices {
         // If no currency has been set in the ShoppingList, use the ProductStore default currency
         if (currency == null) {
             try {
-                GenericValue productStore = shoppingList.getRelatedOne("ProductStore");
+                GenericValue productStore = shoppingList.getRelatedOne("ProductStore", false);
                 if (productStore != null) {
                     currency = productStore.getString("defaultCurrencyUomId");
                 }

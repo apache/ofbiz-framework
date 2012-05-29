@@ -144,7 +144,7 @@ under the License.
                       <select name="${shipGroupIndex?default("0")}_shipGroupFacilityId">
                         <option value=""></option>
                         <#list productStoreFacilities as productStoreFacility>
-                          <#assign facility = productStoreFacility.getRelatedOne("Facility")>
+                          <#assign facility = productStoreFacility.getRelatedOne("Facility", false)>
                           <option value="${productStoreFacility.facilityId}"<#if facilityId?exists><#if productStoreFacility.facilityId == facilityId> selected="selected"</#if></#if>>${facility.facilityName?if_exists} </option>
                         </#list>
                       </select>
@@ -155,7 +155,7 @@ under the License.
                 <tr><td colspan="3"><hr /></td></tr>
                 <#assign i = 0>
                 <#list shippingContactMechList as shippingContactMech>
-                  <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress")>
+                  <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress", false)>
                   <#if currShipContactMechId?exists && currShipContactMechId?has_content>
                       <#if currShipContactMechId == shippingContactMech.contactMechId>
                         <#assign checkedValue = "checked='checked'">
@@ -200,7 +200,7 @@ under the License.
                 <tr><td colspan="3">${uiLabelMap.OrderShipToAnotherParty}: <b>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(shipToParty)}</b></td></tr>
                 <tr><td colspan="3"><hr /></td></tr>
                 <#list shipToPartyShippingContactMechList as shippingContactMech>
-                  <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress")>
+                  <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress", false)>
                   <tr>
                     <td valign="top" width="1%" nowrap="nowrap">
                       <input type="radio" name="${shipGroupIndex?default("0")}_shipping_contact_mech_id" value="${shippingAddress.contactMechId}"/>

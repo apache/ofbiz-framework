@@ -28,7 +28,7 @@ under the License.
           <option value="${contactMechAddress.contactMechId}">${(contactMechAddress.address1)?default("")} - ${contactMechAddress.city?default("")}</option>
           <option value="${contactMechAddress.contactMechId}"></option>
           <#list contactMechList as contactMech>
-            <#assign postalAddress = contactMech.getRelatedOne("PostalAddress")?if_exists />
+            <#assign postalAddress = contactMech.getRelatedOne("PostalAddress", false)?if_exists />
             <#assign partyContactPurposes = postalAddress.getRelated("PartyContactMechPurpose")?if_exists />
             <#list partyContactPurposes as partyContactPurpose>
               <#if contactMech.contactMechId?has_content && partyContactPurpose.contactMechPurposeTypeId == contactMechPurposeTypeId>
@@ -40,7 +40,7 @@ under the License.
           <option value="${contactMechAddress.contactMechId}">${contactMechAddress.countryCode?if_exists} <#if contactMechAddress.areaCode?exists>${contactMechAddress.areaCode}-</#if>${contactMechAddress.contactNumber}</option>
           <option value="${contactMechAddress.contactMechId}"></option>
           <#list contactMechList as contactMech>
-             <#assign telecomNumber = contactMech.getRelatedOne("TelecomNumber")?if_exists />
+             <#assign telecomNumber = contactMech.getRelatedOne("TelecomNumber", false)?if_exists />
              <#assign partyContactPurposes = telecomNumber.getRelated("PartyContactMechPurpose")?if_exists />
              <#list partyContactPurposes as partyContactPurpose>
                <#if contactMech.contactMechId?has_content && partyContactPurpose.contactMechPurposeTypeId == contactMechPurposeTypeId>

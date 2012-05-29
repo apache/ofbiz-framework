@@ -139,7 +139,7 @@ if (orderHeader) {
     affiliateId = orderReadHelper.getAffiliateId();
     context.affiliateId = affiliateId;
 
-    billingAccount = orderHeader.getRelatedOne("BillingAccount");
+    billingAccount = orderHeader.getRelatedOne("BillingAccount", false);
     context.billingAccount = billingAccount;
     context.billingAccountMaxAmount = orderReadHelper.getBillingAccountMaxAmount();
 
@@ -153,7 +153,7 @@ if (orderHeader) {
     itemIssuances = orderHeader.getRelated("ItemIssuance", null, ["shipmentId", "shipmentItemSeqId"]);
     itemIssuances.each { itemIssuance ->
         if (!allShipmentsMap.containsKey(itemIssuance.shipmentId)) {
-            iiShipment = itemIssuance.getRelatedOne("Shipment");
+            iiShipment = itemIssuance.getRelatedOne("Shipment", false);
             if (iiShipment) {
                 allShipmentsMap[iiShipment.shipmentId] = iiShipment;
             }
@@ -205,7 +205,7 @@ if (orderHeader) {
     statusChange = delegator.findByAnd("StatusValidChange", [statusId : orderHeader.statusId], null, false);
     context.statusChange = statusChange;
 
-    currentStatus = orderHeader.getRelatedOne("StatusItem");
+    currentStatus = orderHeader.getRelatedOne("StatusItem", false);
     context.currentStatus = currentStatus;
 
     orderHeaderStatuses = orderReadHelper.getOrderHeaderStatuses();
@@ -276,7 +276,7 @@ if (orderHeader) {
     productStore = orderReadHelper.getProductStore();
     context.productStore = productStore;
     if (productStore) {
-        facility = productStore.getRelatedOne("Facility");
+        facility = productStore.getRelatedOne("Facility", false);
         inventorySummaryByFacility = dispatcher.runSync("getProductInventorySummaryForItems", [orderItems : orderItems, facilityId : facility.facilityId]);
         context.availableToPromiseByFacilityMap = inventorySummaryByFacility.availableToPromiseMap;
         context.quantityOnHandByFacilityMap = inventorySummaryByFacility.quantityOnHandMap;

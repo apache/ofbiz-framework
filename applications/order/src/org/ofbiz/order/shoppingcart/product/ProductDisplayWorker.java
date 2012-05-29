@@ -82,13 +82,13 @@ public class ProductDisplayWorker {
                 productsCategories = EntityUtil.filterByDate(productsCategories, true);
                 if (productsCategories != null) {
                     for(GenericValue productsCategoryMember : productsCategories) {
-                        GenericValue productsCategory = productsCategoryMember.getRelatedOneCache("ProductCategory");
+                        GenericValue productsCategory = productsCategoryMember.getRelatedOne("ProductCategory", true);
                         if ("CROSS_SELL_CATEGORY".equals(productsCategory.getString("productCategoryTypeId"))) {
                             List<GenericValue> curPcms = productsCategory.getRelatedCache("ProductCategoryMember");
                             if (curPcms != null) {
                                 for(GenericValue curPcm : curPcms) {
                                     if (!products.containsKey(curPcm.getString("productId"))) {
-                                        GenericValue product = curPcm.getRelatedOneCache("Product");
+                                        GenericValue product = curPcm.getRelatedOne("Product", true);
                                         products.put(product.getString("productId"), product);
                                     }
                                 }
@@ -100,7 +100,7 @@ public class ProductDisplayWorker {
                 if (UtilValidate.isNotEmpty(complementProducts)) {
                     for(GenericValue productAssoc : complementProducts) {
                         if (!products.containsKey(productAssoc.getString("productIdTo"))) {
-                            GenericValue product = productAssoc.getRelatedOneCache("AssocProduct");
+                            GenericValue product = productAssoc.getRelatedOne("AssocProduct", true);
                             products.put(product.getString("productId"), product);
                         }
                     }
@@ -183,7 +183,7 @@ public class ProductDisplayWorker {
                         String productId = orderItem.getString("productId");
                         if (UtilValidate.isNotEmpty(productId)) {
                             // for each order item get the associated product
-                            GenericValue product = orderItem.getRelatedOneCache("Product");
+                            GenericValue product = orderItem.getRelatedOne("Product", true);
 
                             products.put(product.getString("productId"), product);
 

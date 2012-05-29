@@ -21,13 +21,13 @@ under the License.
 
 <#if "POSTAL_ADDRESS" == fulfillContactMech.contactMechTypeId>
   <#assign label = uiLabelMap.PartyAddressMailingShipping>
-  <#assign postalAddress = fulfillContactMech.getRelatedOneCache("PostalAddress")?if_exists>
+  <#assign postalAddress = fulfillContactMech.getRelatedOne("PostalAddress", true)?if_exists>
 <#elseif "EMAIL_ADDRESS" == fulfillContactMech.contactMechTypeId>
   <#assign label = uiLabelMap.PartyToEmailAddress>
   <#assign emailAddress = fulfillContactMech.infoString?if_exists>
 <#elseif "TELECOM_NUMBER" == fulfillContactMech.contactMechTypeId>
   <#assign label = uiLabelMap.PartyPhoneNumber>
-  <#assign telecomNumber = fulfillContactMech.getRelatedOneCache("TelecomNumber")?if_exists>
+  <#assign telecomNumber = fulfillContactMech.getRelatedOne("TelecomNumber", true)?if_exists>
 </#if>
 
 <div class="screenlet">
@@ -52,12 +52,12 @@ under the License.
                         <#if postalAddress.address2?has_content>${postalAddress.address2}<br /></#if>
                         ${postalAddress.city?if_exists},
                         <#if postalAddress.stateProvinceGeoId?has_content>
-                            <#assign stateProvince = postalAddress.getRelatedOneCache("StateProvinceGeo")>
+                            <#assign stateProvince = postalAddress.getRelatedOne("StateProvinceGeo", true)>
                             ${stateProvince.abbreviation?default(stateProvince.geoId)}
                         </#if>
                         ${postalAddress.postalCode?if_exists}
                         <#if postalAddress.countryGeoId?has_content><br />
-                             <#assign country = postalAddress.getRelatedOneCache("CountryGeo")>
+                             <#assign country = postalAddress.getRelatedOne("CountryGeo", true)>
                              ${country.geoName?default(country.geoId)}
                         </#if>
                       </#if>
