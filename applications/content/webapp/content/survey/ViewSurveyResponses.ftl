@@ -99,7 +99,7 @@ under the License.
                       <div>${uiLabelMap.CommonNotShown}</div>
                     <#elseif question.surveyQuestionTypeId == "CONTENT">
                        <#if answer.contentId?has_content>
-                         <#assign content = answer.getRelatedOne("Content")>
+                         <#assign content = answer.getRelatedOne("Content", false)>
                          <a href="<@ofbizUrl>img?imgId=${content.dataResourceId}</@ofbizUrl>" class="buttontext">${answer.contentId}</a>&nbsp;-&nbsp;${content.contentName?if_exists}
                        </#if>
                     </#if>

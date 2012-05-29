@@ -658,7 +658,7 @@ public class ContentManagementWorker {
         String userName = null;
         Delegator delegator = (Delegator)request.getAttribute("delegator");
         GenericValue userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", userLoginId), true);
-        GenericValue person = userLogin.getRelatedOneCache("Person");
+        GenericValue person = userLogin.getRelatedOne("Person", true);
         userName = person.getString("firstName") + " " + person.getString("lastName");
         return userName;
     }

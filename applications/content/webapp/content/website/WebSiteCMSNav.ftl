@@ -49,7 +49,7 @@
 <#macro fillTreeSubsites assocList>
       <#if (assocList?has_content)>
         <#list assocList as assoc>
-            <#assign content = assoc.getRelatedOne("ToContent")/>
+            <#assign content = assoc.getRelatedOne("ToContent", false)/>
             {
             "data": {"title" : cutNameLength("${content.contentName!assoc.contentIdTo}"), "attr": {"href": "javascript:void(0);", "onClick" : "callDocument('', '${assoc.contentIdTo}', jQuery('#${assoc.contentIdTo}'), '');"}},
            
@@ -71,7 +71,7 @@
 <#macro fillTreeMenus assocList>
       <#if (assocList?has_content)>
         <#list assocList as assoc>
-            <#assign content = assoc.getRelatedOne("ToContent")/>
+            <#assign content = assoc.getRelatedOne("ToContent", false)/>
             {
             "data": {"title" : cutNameLength("${content.contentName!assoc.contentIdTo}"), "attr": {"href": "javascript:void(0);", "onClick" : "callDocument('${assoc.contentIdTo}');"}},
             <#assign assocChilds  = content.getRelated("FromContentAssoc")?if_exists/>
@@ -93,7 +93,7 @@
 <#macro fillTreeError assocList>
       <#if (assocList?has_content)>
         <#list assocList as assoc>
-            <#assign content = assoc.getRelatedOne("ToContent")/>
+            <#assign content = assoc.getRelatedOne("ToContent", false)/>
             {
             "data": {"title" : cutNameLength("${content.contentName!assoc.contentIdTo}"), "attr": {"href": "javascript:void(0);", "onClick" : "callDocument('', '${assoc.contentIdTo}', '', '');"}},
             <#assign assocChilds  = content.getRelated("FromContentAssoc")?if_exists/>

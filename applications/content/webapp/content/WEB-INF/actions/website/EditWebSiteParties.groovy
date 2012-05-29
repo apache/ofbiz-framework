@@ -23,9 +23,9 @@ if (webSite) {
     webSiteRoles.each { webSiteRole ->
         Map webSiteRoleData = [:];
         webSiteRoleData.webSiteRole = webSiteRole;
-        webSiteRoleData.person = webSiteRole.getRelatedOne("Person");
-        webSiteRoleData.partyGroup = webSiteRole.getRelatedOne("PartyGroup");
-        webSiteRoleData.roleType = webSiteRole.getRelatedOneCache("RoleType");
+        webSiteRoleData.person = webSiteRole.getRelatedOne("Person", false);
+        webSiteRoleData.partyGroup = webSiteRole.getRelatedOne("PartyGroup", false);
+        webSiteRoleData.roleType = webSiteRole.getRelatedOne("RoleType", true);
         webSiteRoleDatas.add(webSiteRoleData);
     }
 }

@@ -528,11 +528,7 @@ public class ContentMapFacade implements Map<Object, Object> {
                 // get the data resource value object
                 GenericValue dr = null;
                 try {
-                    if (cache) {
-                        dr = value.getRelatedOneCache("DataResource");
-                    } else {
-                        dr = value.getRelatedOne("DataResource");
-                    }
+                    dr = value.getRelatedOne("DataResource", cache);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }
