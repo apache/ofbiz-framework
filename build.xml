@@ -830,13 +830,12 @@ under the License.
         <delete file="runtime/tmp/tmpUserLogin.xml"/>
     </target>
     <target name="load-tenant-data-readers"
-        description="Load data of given data-readers in the tenant database">
+        description="Load data of given data-readers in the tenant database. Example: ./ant load-tenant-data-readers -Ddata-readers=seed,seed-initial -DtenantId=demo">
         <echo>------------------------------------</echo>
         <echo message="Loading selected data-readers in tenant databaset"/>
         <echo message="Delegator = default#${tenantId}"/>
         <echo message="Data-readers = ${data-readers}"/>
         <echo>------------------------------------</echo>
-        <input addproperty="continueYN" message="Continue Y or N" validargs="N,n,Y,y"/>
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
