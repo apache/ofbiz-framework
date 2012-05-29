@@ -34,7 +34,7 @@ public class DynamicAccessFactory {
     /**
      * Cache to store the DynamicAccess implementations
      */
-    private static UtilCache<String,DynamicAccessHandler> dynamicAccessHandlerCache = UtilCache.createUtilCache("security.DynamicAccessHandlerCache");
+    private static final UtilCache<String,DynamicAccessHandler> dynamicAccessHandlerCache = UtilCache.createUtilCache("security.DynamicAccessHandlerCache");
     private static final String module = DynamicAccessFactory.class.getName();
 
     public static DynamicAccessHandler getDynamicAccessHandler(Delegator delegator, String accessString) {

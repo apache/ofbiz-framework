@@ -46,7 +46,7 @@ public class GroovyUtil {
 
     public static final String module = GroovyUtil.class.getName();
 
-    public static UtilCache<String, Class<?>> parsedScripts = UtilCache.createUtilCache("script.GroovyLocationParsedCache", 0, 0, false);
+    private static final UtilCache<String, Class<?>> parsedScripts = UtilCache.createUtilCache("script.GroovyLocationParsedCache", 0, 0, false);
 
     /**
      * Evaluate a Groovy condition or expression

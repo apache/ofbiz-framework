@@ -25,7 +25,7 @@ import org.ofbiz.entity.Delegator;
 
 public class ObjectDaHandler implements DynamicAccessHandler {
 
-    private static UtilCache<String,DynamicAccess> dynamicAccessCache = UtilCache.createUtilCache("security.DynamicAccessCache");
+    private static final UtilCache<String,DynamicAccess> dynamicAccessCache = UtilCache.createUtilCache("security.DynamicAccessCache");
 
     protected Delegator delegator;
 
