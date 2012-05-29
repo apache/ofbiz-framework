@@ -84,7 +84,7 @@ public class ProductDisplayWorker {
                     for(GenericValue productsCategoryMember : productsCategories) {
                         GenericValue productsCategory = productsCategoryMember.getRelatedOne("ProductCategory", true);
                         if ("CROSS_SELL_CATEGORY".equals(productsCategory.getString("productCategoryTypeId"))) {
-                            List<GenericValue> curPcms = productsCategory.getRelatedCache("ProductCategoryMember");
+                            List<GenericValue> curPcms = productsCategory.getRelated("ProductCategoryMember", null, null, true);
                             if (curPcms != null) {
                                 for(GenericValue curPcm : curPcms) {
                                     if (!products.containsKey(curPcm.getString("productId"))) {
@@ -175,7 +175,7 @@ public class ProductDisplayWorker {
                 while (ordersIter != null && ordersIter.hasNext()) {
                     GenericValue orderRole = ordersIter.next();
                     // for each order role get all order items
-                    List<GenericValue> orderItems = orderRole.getRelated("OrderItem");
+                    List<GenericValue> orderItems = orderRole.getRelated("OrderItem", null, null, false);
                     Iterator<GenericValue> orderItemsIter = UtilMisc.toIterator(orderItems);
 
                     while (orderItemsIter != null && orderItemsIter.hasNext()) {

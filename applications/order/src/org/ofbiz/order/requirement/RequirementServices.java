@@ -215,7 +215,7 @@ public class RequirementServices {
                 return ServiceUtil.returnSuccess();
             }
             String facilityId = productStore.getString("inventoryFacilityId");
-            List<GenericValue> orderItems = order.getRelated("OrderItem");
+            List<GenericValue> orderItems = order.getRelated("OrderItem", null, null, false);
             for(GenericValue item : orderItems) {
                 GenericValue product = item.getRelatedOne("Product", false);
                 if (product == null) continue;
@@ -274,7 +274,7 @@ public class RequirementServices {
                 return ServiceUtil.returnSuccess();
             }
             String facilityId = productStore.getString("inventoryFacilityId");
-            List<GenericValue> orderItems = order.getRelated("OrderItem");
+            List<GenericValue> orderItems = order.getRelated("OrderItem", null, null, false);
             for(GenericValue item : orderItems) {
                 GenericValue product = item.getRelatedOne("Product", false);
                 if (product == null) continue;

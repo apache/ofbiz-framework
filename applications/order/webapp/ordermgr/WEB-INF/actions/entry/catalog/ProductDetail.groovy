@@ -193,7 +193,7 @@ if (product) {
     if (cart.isSalesOrder()) {
         reviewByAnd.productStoreId = productStoreId;
     }
-    reviews = product.getRelatedCache("ProductReview", reviewByAnd, ["-postedDateTime"]);
+    reviews = product.getRelated("ProductReview", reviewByAnd, ["-postedDateTime"], true);
     context.productReviews = reviews;
     // get the average rating
     if (reviews) {

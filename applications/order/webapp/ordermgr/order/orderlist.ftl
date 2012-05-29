@@ -195,7 +195,7 @@ under the License.
               <td><#if productStore?has_content>${productStore.storeName?default(productStore.productStoreId)}</#if></td>
               <td><@ofbizCurrency amount=orderHeader.grandTotal isoCode=orderHeader.currencyUom/></td>
               <td>
-                <#assign trackingCodes = orderHeader.getRelated("TrackingCodeOrder")>
+                <#assign trackingCodes = orderHeader.getRelated("TrackingCodeOrder", null, null, false)>
                 <#list trackingCodes as trackingCode>
                     <#if trackingCode?has_content>
                         <a href="/marketing/control/FindTrackingCodeOrders?trackingCodeId=${trackingCode.trackingCodeId}&amp;externalLoginKey=${requestAttributes.externalLoginKey?if_exists}">${trackingCode.trackingCodeId}</a><br />

@@ -24,7 +24,7 @@ import org.ofbiz.product.store.*;
 productStore = ProductStoreWorker.getProductStore(request);
 
 productStorePaymentMethodTypeIdMap = new HashMap();
-productStorePaymentSettingList = productStore.getRelatedCache("ProductStorePaymentSetting");
+productStorePaymentSettingList = productStore.getRelated("ProductStorePaymentSetting", null, null, true);
 productStorePaymentSettingIter = productStorePaymentSettingList.iterator();
 while (productStorePaymentSettingIter.hasNext()) {
     productStorePaymentSetting = productStorePaymentSettingIter.next();

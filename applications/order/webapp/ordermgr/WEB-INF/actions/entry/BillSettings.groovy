@@ -46,7 +46,7 @@ if (orderPartyId && !orderPartyId.equals("_NA_")) {
     context.orderParty = orderParty;
     context.orderPerson = orderPerson;
     if (orderParty) {
-        context.paymentMethodList = EntityUtil.filterByDate(orderParty.getRelated("PaymentMethod"), true);
+        context.paymentMethodList = EntityUtil.filterByDate(orderParty.getRelated("PaymentMethod", null, null, false), true);
 
         billingAccountList = BillingAccountWorker.makePartyBillingAccountList(userLogin, currencyUomId, orderPartyId, delegator, dispatcher);
         if (billingAccountList) {

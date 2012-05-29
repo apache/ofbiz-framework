@@ -1304,7 +1304,7 @@ public class CheckOutHelper {
         if (orderHeader != null) {
             List<GenericValue> paymentPrefs = null;
             try {
-                paymentPrefs = orderHeader.getRelated("OrderPaymentPreference");
+                paymentPrefs = orderHeader.getRelated("OrderPaymentPreference", null, null, false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Problems getting order payments", module);
                 errMsg = UtilProperties.getMessage(resource_error,"checkhelper.problems_getting_payment_preference", (cart != null ? cart.getLocale() : Locale.getDefault()));

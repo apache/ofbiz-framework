@@ -126,7 +126,7 @@ if (product) {
     }
 
     // get the product review(s)
-    reviews = product.getRelatedCache("ProductReview", null, ["-postedDateTime"]);
+    reviews = product.getRelated("ProductReview", null, ["-postedDateTime"], true);
     
     // get product variant for Box/Case/Each
     productVariants = [];

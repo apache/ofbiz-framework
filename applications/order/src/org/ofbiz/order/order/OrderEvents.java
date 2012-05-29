@@ -111,7 +111,7 @@ public class OrderEvents {
             for (String orderItemSeqId : orderItemSeqIds) {
                 try {
                     GenericValue orderItem = delegator.findOne("OrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId), false);
-                    List<GenericValue> orderItemShipGroupAssocs = orderItem.getRelated("OrderItemShipGroupAssoc");
+                    List<GenericValue> orderItemShipGroupAssocs = orderItem.getRelated("OrderItemShipGroupAssoc", null, null, false);
                     for (GenericValue orderItemShipGroupAssoc : orderItemShipGroupAssocs) {
                         GenericValue orderItemShipGroup = orderItemShipGroupAssoc.getRelatedOne("OrderItemShipGroup", false);
                         String shipGroupSeqId = orderItemShipGroup.getString("shipGroupSeqId");

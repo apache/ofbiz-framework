@@ -49,7 +49,7 @@ context.shoppingCart = cart;
 context.userLogin = userLogin;
 context.productStoreId = productStoreId;
 context.checkOutPaymentId = checkOutPaymentId;
-context.paymentMethodList = EntityUtil.filterByDate(party.getRelated("PaymentMethod", null, ["paymentMethodTypeId"]), true);
+context.paymentMethodList = EntityUtil.filterByDate(party.getRelated("PaymentMethod", null, ["paymentMethodTypeId"], false), true);
 
 billingAccountList = BillingAccountWorker.makePartyBillingAccountList(userLogin, currencyUomId, partyId, delegator, dispatcher);
 if (billingAccountList) {
@@ -59,7 +59,7 @@ if (billingAccountList) {
 
 checkIdealPayment = false;
 productStore = ProductStoreWorker.getProductStore(request);
-productStorePaymentSettingList = productStore.getRelatedCache("ProductStorePaymentSetting");
+productStorePaymentSettingList = productStore.getRelated("ProductStorePaymentSetting", null, null, true);
 productStorePaymentSettingIter = productStorePaymentSettingList.iterator();
 while (productStorePaymentSettingIter.hasNext()) {
     productStorePaymentSetting = productStorePaymentSettingIter.next();

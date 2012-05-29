@@ -186,7 +186,7 @@ public class OrderReadHelper {
     public List<GenericValue> getAdjustments() {
         if (adjustments == null) {
             try {
-                adjustments = orderHeader.getRelated("OrderAdjustment");
+                adjustments = orderHeader.getRelated("OrderAdjustment", null, null, false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
@@ -199,7 +199,7 @@ public class OrderReadHelper {
     public List<GenericValue> getPaymentPreferences() {
         if (paymentPrefs == null) {
             try {
-                paymentPrefs = orderHeader.getRelated("OrderPaymentPreference", UtilMisc.toList("orderPaymentPreferenceId"));
+                paymentPrefs = orderHeader.getRelated("OrderPaymentPreference", null, UtilMisc.toList("orderPaymentPreferenceId"), false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
@@ -219,7 +219,7 @@ public class OrderReadHelper {
             try {
                 List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_RECEIVED"),
                                             EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_CONFIRMED"));
-                payments = paymentPref.getRelated("Payment");
+                payments = paymentPref.getRelated("Payment", null, null, false);
                 payments = EntityUtil.filterByOr(payments, exprs);
                 List<EntityExpr> conds = UtilMisc.toList(EntityCondition.makeCondition("paymentTypeId", EntityOperator.EQUALS, "CUSTOMER_PAYMENT"),
                                             EntityCondition.makeCondition("paymentTypeId", EntityOperator.EQUALS, "CUSTOMER_DEPOSIT"),
@@ -296,7 +296,7 @@ public class OrderReadHelper {
         if (prefs != null) {
             for(GenericValue payPref : prefs) {
                 try {
-                    orderPayments.addAll(payPref.getRelated("Payment"));
+                    orderPayments.addAll(payPref.getRelated("Payment", null, null, false));
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                     return null;
@@ -309,7 +309,7 @@ public class OrderReadHelper {
     public List<GenericValue> getOrderStatuses() {
         if (orderStatuses == null) {
             try {
-                orderStatuses = orderHeader.getRelated("OrderStatus");
+                orderStatuses = orderHeader.getRelated("OrderStatus", null, null, false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
@@ -319,7 +319,7 @@ public class OrderReadHelper {
 
     public List<GenericValue> getOrderTerms() {
         try {
-           return orderHeader.getRelated("OrderTerm");
+           return orderHeader.getRelated("OrderTerm", null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return null;
@@ -419,7 +419,7 @@ public class OrderReadHelper {
 
     public List<GenericValue> getOrderItemShipGroups() {
         try {
-            return orderHeader.getRelated("OrderItemShipGroup", UtilMisc.toList("shipGroupSeqId"));
+            return orderHeader.getRelated("OrderItemShipGroup", null, UtilMisc.toList("shipGroupSeqId"), false);
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
         }
@@ -566,7 +566,7 @@ public class OrderReadHelper {
 
     public Timestamp getEarliestShipByDate() {
         try {
-            List<GenericValue> groups = orderHeader.getRelated("OrderItemShipGroup", UtilMisc.toList("shipByDate"));
+            List<GenericValue> groups = orderHeader.getRelated("OrderItemShipGroup", null, UtilMisc.toList("shipByDate"), false);
             if (groups.size() > 0) {
                 GenericValue group = groups.get(0);
                 return group.getTimestamp("shipByDate");
@@ -579,7 +579,7 @@ public class OrderReadHelper {
 
     public Timestamp getLatestShipAfterDate() {
         try {
-            List<GenericValue> groups = orderHeader.getRelated("OrderItemShipGroup", UtilMisc.toList("shipAfterDate DESC"));
+            List<GenericValue> groups = orderHeader.getRelated("OrderItemShipGroup", null, UtilMisc.toList("shipAfterDate DESC"), false);
             if (groups.size() > 0) {
                 GenericValue group = groups.get(0);
                 return group.getTimestamp("shipAfterDate");
@@ -1066,7 +1066,7 @@ public class OrderReadHelper {
 
         try {
             // get a set of invoice IDs that belong to the order
-            List<GenericValue> orderItemBillings = orderHeader.getRelatedCache("OrderItemBilling");
+            List<GenericValue> orderItemBillings = orderHeader.getRelated("OrderItemBilling", null, null, true);
             Set<String> invoiceIds = new HashSet<String>();
             for(GenericValue orderItemBilling : orderItemBillings) {
                 invoiceIds.add(orderItemBilling.getString("invoiceId"));
@@ -1334,7 +1334,7 @@ public class OrderReadHelper {
     public List<GenericValue> getOrderItems() {
         if (orderItems == null) {
             try {
-                orderItems = orderHeader.getRelated("OrderItem", UtilMisc.toList("orderItemSeqId"));
+                orderItems = orderHeader.getRelated("OrderItem", null, UtilMisc.toList("orderItemSeqId"), false);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
             }
@@ -1400,7 +1400,7 @@ public class OrderReadHelper {
         for(GenericValue item : items) {
             List<GenericValue> receipts = null;
             try {
-                receipts = item.getRelated("ShipmentReceipt");
+                receipts = item.getRelated("ShipmentReceipt", null, null, false);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
             }
@@ -1434,7 +1434,7 @@ public class OrderReadHelper {
         for(GenericValue item : items) {
             List<GenericValue> receipts = null;
             try {
-                receipts = item.getRelated("ShipmentReceipt");
+                receipts = item.getRelated("ShipmentReceipt", null, null, false);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
             }
@@ -1495,7 +1495,7 @@ public class OrderReadHelper {
                             // make sure we have an OrderItemBilling record
                             List<GenericValue> orderItemBillings = null;
                             try {
-                                orderItemBillings = item.getRelated("OrderItemBilling");
+                                orderItemBillings = item.getRelated("OrderItemBilling", null, null, false);
                             } catch (GenericEntityException e) {
                                 Debug.logError(e, "Unable to get OrderItemBilling from OrderItem");
                             }
@@ -1504,7 +1504,7 @@ public class OrderReadHelper {
                                 // get the ProductContent records
                                 List<GenericValue> productContents = null;
                                 try {
-                                    productContents = product.getRelated("ProductContent");
+                                    productContents = product.getRelated("ProductContent", null, null, false);
                                 } catch (GenericEntityException e) {
                                     Debug.logError("Unable to get ProductContent from Product", module);
                                 }
@@ -2741,7 +2741,7 @@ public class OrderReadHelper {
        BigDecimal invoiced = BigDecimal.ZERO;
        try {
            // this is simply the sum of quantity billed in all related OrderItemBillings
-           List<GenericValue> billings = orderItem.getRelated("OrderItemBilling");
+           List<GenericValue> billings = orderItem.getRelated("OrderItemBilling", null, null, false);
            for(GenericValue billing : billings) {
                BigDecimal quantity = billing.getBigDecimal("quantity");
                if (quantity != null) {

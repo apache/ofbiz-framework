@@ -23,7 +23,7 @@ import org.ofbiz.entity.GenericValue;
 
 long nextSequenceNum = 10;
 if (!custRequestItem && custRequest) {
-    items = custRequest.getRelated("CustRequestItem", ["-sequenceNum"]);
+    items = custRequest.getRelated("CustRequestItem", null, ["-sequenceNum"], false);
     lastItem = EntityUtil.getFirst(items);
     if (lastItem?.sequenceNum) {
         lastSequenceNum = lastItem.sequenceNum;

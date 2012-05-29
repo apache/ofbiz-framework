@@ -27,7 +27,7 @@ productId = request.getParameter("productId");
 
 if (productId != null) {
     product = delegator.findOne("Product", [productId : productId], false);
-    prodAssocs = product.getRelated("MainProductAssoc");
+    prodAssocs = product.getRelated("MainProductAssoc", null, null, false);
     if (UtilValidate.isNotEmpty(prodAssocs)) {
         products = EntityUtil.filterByAnd(prodAssocs, [EntityCondition.makeCondition("productAssocTypeId", EntityOperator.NOT_EQUAL, "PRODUCT_VARIANT")]);
 

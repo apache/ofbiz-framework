@@ -564,7 +564,7 @@ under the License.
                 </form>
             </td>
          </tr>
-       <#assign shipGroupShipments = shipGroup.getRelated("PrimaryShipment")>
+       <#assign shipGroupShipments = shipGroup.getRelated("PrimaryShipment", null, null, false)>
        <#if shipGroupShipments?has_content>
           <tr><td colspan="3"><hr /></td></tr>
           <tr>

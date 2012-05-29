@@ -70,7 +70,7 @@ if (orderHeader) {
     orderAdjustments = orderReadHelper.getAdjustments();
     orderHeaderAdjustments = orderReadHelper.getOrderHeaderAdjustments();
     orderSubTotal = orderReadHelper.getOrderItemsSubTotal();
-    orderTerms = orderHeader.getRelated("OrderTerm");
+    orderTerms = orderHeader.getRelated("OrderTerm", null, null, false);
 
     context.orderHeader = orderHeader;
     context.orderReadHelper = orderReadHelper;
@@ -82,7 +82,7 @@ if (orderHeader) {
     context.orderTerms = orderTerms;
 
     // get sales reps
-    context.salesReps = orderHeader.getRelated("OrderRole", [orderId : orderHeader.orderId, roleTypeId : "SALES_REP"], null);
+    context.salesReps = orderHeader.getRelated("OrderRole", [orderId : orderHeader.orderId, roleTypeId : "SALES_REP"], null, false);
     
     // get the order type
     orderType = orderHeader.orderTypeId;
@@ -145,12 +145,12 @@ if (orderHeader) {
 
     // get a list of all shipments, and a list of ItemIssuances per order item
     allShipmentsMap = [:];
-    primaryShipments = orderHeader.getRelated("PrimaryShipment");
+    primaryShipments = orderHeader.getRelated("PrimaryShipment", null, null, false);
     primaryShipments.each { primaryShipment ->
         allShipmentsMap[primaryShipment.shipmentId] = primaryShipment;
     }
     itemIssuancesPerItem = [:];
-    itemIssuances = orderHeader.getRelated("ItemIssuance", null, ["shipmentId", "shipmentItemSeqId"]);
+    itemIssuances = orderHeader.getRelated("ItemIssuance", null, ["shipmentId", "shipmentItemSeqId"], false);
     itemIssuances.each { itemIssuance ->
         if (!allShipmentsMap.containsKey(itemIssuance.shipmentId)) {
             iiShipment = itemIssuance.getRelatedOne("Shipment", false);
@@ -388,7 +388,7 @@ if (workEffortId && assignPartyId && assignRoleTypeId && fromDate) {
                 actFields = [packageId : workEffort.workflowPackageId, packageVersion : workEffort.workflowPackageVersion, processId : workEffort.workflowProcessId, processVersion : workEffort.workflowProcessVersion, activityId : workEffort.workflowActivityId];
                 activity = delegator.findOne("WorkflowActivity", actFields, false);
                 if (activity) {
-                    transitions = activity.getRelated("FromWorkflowTransition", null, ["-transitionId"]);
+                    transitions = activity.getRelated("FromWorkflowTransition", null, ["-transitionId"], false);
                     context.wfTransitions = transitions;
                 }
             }
@@ -477,7 +477,7 @@ if (orderItems) {
                         carrierShipmentMethod = EntityUtil.getFirst(delegator.findByAnd("CarrierShipmentMethod", [partyId : "UPS", carrierServiceCode : serviceCode], null, false));
                         shipmentMethodTypeId = carrierShipmentMethod.shipmentMethodTypeId;
                         rate = shippingRate.get(serviceCode);
-                        shipmentMethodDescription = EntityUtil.getFirst(carrierShipmentMethod.getRelated("ShipmentMethodType")).description;
+                        shipmentMethodDescription = EntityUtil.getFirst(carrierShipmentMethod.getRelated("ShipmentMethodType", null, null, false)).description;
                         shippingMethodAndRate.shipmentMethodTypeId = carrierShipmentMethod.shipmentMethodTypeId;
                         shippingMethodAndRate.rate = rate;
                         shippingMethodAndRate.shipmentMethodDescription = shipmentMethodDescription;
