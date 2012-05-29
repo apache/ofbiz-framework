@@ -200,6 +200,18 @@ public class GenericValue extends GenericEntity implements Reusable {
         return this.getDelegator().getRelated(relationName, null, null, this, true);
     }
 
+    /** Get the named Related Entity for the GenericValue from the persistent store
+     *@param relationName String containing the relation name which is the combination of relation.title and relation.rel-entity-name as specified in the entity XML definition file
+     * @param byAndFields the fields that must equal in order to keep; may be null
+     * @param orderBy The fields of the named entity to order the query by; may be null;
+     *      optionally add a " ASC" for ascending or " DESC" for descending
+     * @param useCache Whether to cache the results
+     *@return List of GenericValue instances as specified in the relation definition
+     */
+    public List<GenericValue> getRelated(String relationName, Map<String, ? extends Object> byAndFields, List<String> orderBy, boolean useCache) throws GenericEntityException {
+        return this.getDelegator().getRelated(relationName, byAndFields, orderBy, this, useCache);
+    }
+
     /**
      * Get the named Related Entity for the GenericValue from the persistent store across another Relation.
      * Helps to get related Values in a multi-to-multi relationship.
