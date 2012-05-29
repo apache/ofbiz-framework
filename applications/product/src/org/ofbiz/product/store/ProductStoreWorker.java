@@ -681,7 +681,7 @@ public class ProductStoreWorker {
             List<GenericValue> productFacilities = null;
 
             try {
-                productFacilities = delegator.getRelatedCache("ProductFacility", product);
+                productFacilities = product.getRelatedCache("ProductFacility");
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, "Error invoking getRelatedCache in isCatalogInventoryAvailable", module);
                 return false;
