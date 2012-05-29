@@ -38,7 +38,7 @@ under the License.
             </thead>
             <tbody>
                 <#list inventoryItemList as inventoryItem>
-                    <#assign product = inventoryItem.getRelatedOne('Product')?if_exists>
+                    <#assign product = inventoryItem.getRelatedOne('Product', false)?if_exists>
                     <tr>
                         <td><a href="/facility/control/EditInventoryItem?inventoryItemId=${inventoryItem.inventoryItemId}&amp;externalLoginKey=${requestAttributes.externalLoginKey?if_exists}" class="linktext">${inventoryItem.inventoryItemId}</a></td>
                         <td>
