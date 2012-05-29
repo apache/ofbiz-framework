@@ -102,7 +102,7 @@ under the License.
               <a href="/content/control/img?imgId=${content.dataResourceId}" class="buttontext">${answer.contentId}</a>&nbsp;-&nbsp;${content.contentName?if_exists}
             </#if>
           <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "OPTION">
-            <#assign options = surveyQuestionAndAppl.getRelated("SurveyQuestionOption", sequenceSort)?if_exists>
+            <#assign options = surveyQuestionAndAppl.getRelated("SurveyQuestionOption", null, sequenceSort, false)?if_exists>
             <#assign selectedOption = (answer.surveyOptionSeqId)?default("_NA_")>
             <#if options?has_content>
               <#list options as option>

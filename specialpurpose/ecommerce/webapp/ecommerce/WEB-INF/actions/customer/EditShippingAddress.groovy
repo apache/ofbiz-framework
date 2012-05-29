@@ -61,7 +61,7 @@ if (userLogin) {
     shipToContactMechList = ContactHelper.getContactMech(party, "PHONE_SHIPPING", "TELECOM_NUMBER", false)
     if (shipToContactMechList) {
         shipToTelecomNumber = (EntityUtil.getFirst(shipToContactMechList)).getRelatedOne("TelecomNumber", false);
-        pcm = EntityUtil.getFirst(shipToTelecomNumber.getRelated("PartyContactMech"));
+        pcm = EntityUtil.getFirst(shipToTelecomNumber.getRelated("PartyContactMech", null, null, false));
         context.shipToTelecomNumber = shipToTelecomNumber;
         context.shipToExtension = pcm.extension;
     }
@@ -69,7 +69,7 @@ if (userLogin) {
     shipToFaxNumberList = ContactHelper.getContactMech(party, "FAX_SHIPPING", "TELECOM_NUMBER", false)
     if (shipToFaxNumberList) {
         shipToFaxNumber = (EntityUtil.getFirst(shipToFaxNumberList)).getRelatedOne("TelecomNumber", false);
-        faxPartyContactMech = EntityUtil.getFirst(shipToFaxNumber.getRelated("PartyContactMech"));
+        faxPartyContactMech = EntityUtil.getFirst(shipToFaxNumber.getRelated("PartyContactMech", null, null, false));
         context.shipToFaxNumber = shipToFaxNumber;
         context.shipToFaxExtension = faxPartyContactMech.extension;
     }

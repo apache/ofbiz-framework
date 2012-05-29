@@ -322,7 +322,7 @@ $(function(){
   <#if unavailableVariants?exists>
     <ul>
       <#list unavailableVariants as prod>
-        <#assign features = prod.getRelated("ProductFeatureAppl")/>
+        <#assign features = prod.getRelated("ProductFeatureAppl", null, null, false)/>
         <li>
           <#list features as feature>
             <em>${feature.getRelatedOne("ProductFeature", false).description}</em><#if feature_has_next>, </#if>

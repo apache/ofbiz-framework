@@ -57,7 +57,7 @@ under the License.
           </span></div>
 
         <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "OPTION">
-          <#assign options = surveyQuestionAndAppl.getRelated("SurveyQuestionOption", sequenceSort)?if_exists>
+          <#assign options = surveyQuestionAndAppl.getRelated("SurveyQuestionOption", null, sequenceSort, false)?if_exists>
           <#assign selectedOption = (answer.surveyOptionSeqId)?default("_NA_")>
           <#if options?has_content>
             <#list options as option>
