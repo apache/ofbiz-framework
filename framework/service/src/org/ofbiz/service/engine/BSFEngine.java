@@ -40,7 +40,7 @@ import org.apache.bsf.BSFManager;
 public class BSFEngine extends GenericAsyncEngine {
 
     public static final String module = BSFEngine.class.getName();
-    public static UtilCache<String, String> scriptCache = UtilCache.createUtilCache("BSFScripts", 0, 0);
+    private static final UtilCache<String, String> scriptCache = UtilCache.createUtilCache("BSFScripts", 0, 0);
 
     public BSFEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);
@@ -104,27 +104,22 @@ public class BSFEngine extends GenericAsyncEngine {
         String script = scriptCache.get(localName + "_" + location);
 
         if (script == null) {
-            synchronized (this) {
-                script = scriptCache.get(localName + "_" + location);
-                if (script == null) {
-                    URL scriptUrl = UtilURL.fromResource(location, cl);
+            URL scriptUrl = UtilURL.fromResource(location, cl);
 
-                    if (scriptUrl != null) {
-                        try {
-                            HttpClient http = new HttpClient(scriptUrl);
-                            script = http.get();
-                        } catch (HttpClientException e) {
-                            throw new GenericServiceException("Cannot read script from resource", e);
-                        }
-                    } else {
-                        throw new GenericServiceException("Cannot read script, resource [" + location + "] not found");
-                    }
-                    if (script == null || script.length() < 2) {
-                        throw new GenericServiceException("Null or empty script");
-                    }
-                    scriptCache.put(localName + "_" + location, script);
+            if (scriptUrl != null) {
+                try {
+                    HttpClient http = new HttpClient(scriptUrl);
+                    script = http.get();
+                } catch (HttpClientException e) {
+                    throw new GenericServiceException("Cannot read script from resource", e);
                 }
+            } else {
+                throw new GenericServiceException("Cannot read script, resource [" + location + "] not found");
             }
+            if (script == null || script.length() < 2) {
+                throw new GenericServiceException("Null or empty script");
+            }
+            script = scriptCache.putIfAbsentAndGet(localName + "_" + location, script);
         }
 
         // now invoke the script
