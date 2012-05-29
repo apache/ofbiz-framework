@@ -34,7 +34,7 @@ if (calendarId) {
     techDataCalendar = delegator.findOne("TechDataCalendar", [calendarId : calendarId], false);
 }
 if (techDataCalendar) {
-    calendarExceptionWeeks = techDataCalendar.getRelated("TechDataCalendarExcWeek");
+    calendarExceptionWeeks = techDataCalendar.getRelated("TechDataCalendarExcWeek", null, null, false);
 }
 calendarExceptionWeeksDatas = [];
 calendarExceptionWeeks.each { calendarExceptionWeek ->

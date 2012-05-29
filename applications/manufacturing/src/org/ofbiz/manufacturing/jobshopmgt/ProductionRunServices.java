@@ -1624,7 +1624,7 @@ public class ProductionRunServices {
         GenericValue orderItem = null;
         try {
             // Find the related order item (if exists)
-            List<GenericValue> orderItems = productionRun.getGenericValue().getRelated("WorkOrderItemFulfillment");
+            List<GenericValue> orderItems = productionRun.getGenericValue().getRelated("WorkOrderItemFulfillment", null, null, false);
             orderItem = EntityUtil.getFirst(orderItems);
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
@@ -2077,7 +2077,7 @@ public class ProductionRunServices {
             }
             if (quantityToProduce.compareTo(ZERO) > 0) {
                 try {
-                    List<GenericValue> components = theTask.getRelated("WorkEffortGoodStandard");
+                    List<GenericValue> components = theTask.getRelated("WorkEffortGoodStandard", null, null, false);
                     for (GenericValue component : components) {
                         BigDecimal totalRequiredMaterialQuantity = component.getBigDecimal("estimatedQuantity").multiply(totalQuantityProduced).divide(quantityToProduce, rounding);
                         // now get the units that have been already issued and subtract them

@@ -36,7 +36,7 @@ if (calendarId) {
     techDataCalendar = delegator.findOne("TechDataCalendar", [calendarId : calendarId], false);
 }
 if (techDataCalendar) {
-    calendarExceptionDays = techDataCalendar.getRelated("TechDataCalendarExcDay");
+    calendarExceptionDays = techDataCalendar.getRelated("TechDataCalendarExcDay", null, null, false);
 }
 HtmlFormWrapper listCalendarExceptionDayWrapper = new HtmlFormWrapper("component://manufacturing/widget/manufacturing/CalendarForms.xml", "ListCalendarExceptionDay", request, response);
 listCalendarExceptionDayWrapper.putInContext("calendarExceptionDays", calendarExceptionDays);
