@@ -1942,7 +1942,9 @@ public class GenericDelegator implements Delegator {
 
     /* (non-Javadoc)
      * @see org.ofbiz.entity.Delegator#getRelated(java.lang.String, java.util.Map, java.util.List, org.ofbiz.entity.GenericValue)
+     * @deprecated use {@link #getRelated(String, Map, List, GenericValue, boolean)
      */
+    @Deprecated
     public List<GenericValue> getRelated(String relationName, Map<String, ? extends Object> byAndFields, List<String> orderBy, GenericValue value) throws GenericEntityException {
         return getRelated(relationName, byAndFields, orderBy, value, false);
     }
@@ -2000,7 +2002,9 @@ public class GenericDelegator implements Delegator {
 
     /* (non-Javadoc)
      * @see org.ofbiz.entity.Delegator#getRelatedCache(java.lang.String, org.ofbiz.entity.GenericValue)
+     * @deprecated use {@link #getRelated(String, Map, List, GenericValue, boolean)
      */
+    @Deprecated
     public List<GenericValue> getRelatedCache(String relationName, GenericValue value) throws GenericEntityException {
         return getRelated(relationName, null, null, value, true);
     }

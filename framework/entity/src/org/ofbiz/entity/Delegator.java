@@ -775,7 +775,9 @@ public interface Delegator {
      *            GenericValue instance containing the entity
      * @return List of GenericValue instances as specified in the relation
      *         definition
+     * @deprecated use {@link #getRelated(String, Map, List, GenericValue, boolean)}
      */
+    @Deprecated
     public List<GenericValue> getRelated(String relationName, Map<String, ? extends Object> byAndFields, List<String> orderBy, GenericValue value) throws GenericEntityException;
 
     /**
@@ -791,7 +793,9 @@ public interface Delegator {
      *            GenericValue instance containing the entity
      * @return List of GenericValue instances as specified in the relation
      *         definition
+     * @deprecated use {@link #getRelated(String, Map, List, GenericValue, boolean)}
      */
+    @Deprecated
     public List<GenericValue> getRelatedCache(String relationName, GenericValue value) throws GenericEntityException;
 
     /**
