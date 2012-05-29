@@ -22,7 +22,7 @@ import org.ofbiz.base.util.Debug;
 custRequestWorkEffortList = [];
 sprintStatusId = "SPRINT_CLOSED";
 sprintId = null;
-custRequestWorkEffortList = custRequestMap.getRelated("CustRequestWorkEffort");
+custRequestWorkEffortList = custRequestMap.getRelated("CustRequestWorkEffort", null, null, false);
 if (custRequestWorkEffortList) {
     custRequestWorkEffortList.each { custWorkEffortMap ->
         workEffortMap = custWorkEffortMap.getRelatedOne("WorkEffort", false);

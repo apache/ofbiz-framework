@@ -274,7 +274,7 @@ var actualHours = BigDecimal.ZERO;
 
 // get times from all backlog item's tasks
 var sprint = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", sprintId), false);
-var backlogItems = sprint.getRelated("CustRequestWorkEffort");
+var backlogItems = sprint.getRelated("CustRequestWorkEffort", null, null, false);
 for (i=0; i<backlogItems.size(); i++) {
     // get all task from backlog item
     var backlogItem = backlogItems.get(i);

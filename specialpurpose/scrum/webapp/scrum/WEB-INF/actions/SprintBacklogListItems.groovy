@@ -90,7 +90,7 @@ if (parameters.sprintId) {
                 completedBacklog += 1;
             }
             //get task
-            workEffortList = custMap.getRelated("CustRequestWorkEffort");
+            workEffortList = custMap.getRelated("CustRequestWorkEffort", null, null, false);
             if (workEffortList) {
                 allTask.addAll(workEffortList);
             }

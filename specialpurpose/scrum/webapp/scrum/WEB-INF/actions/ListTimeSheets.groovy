@@ -66,7 +66,7 @@ if (performFindResults.listSize > 0) {
         //get hours from TimeEntry;
         timesheet = [:];
         timesheet.putAll(timesheetDb);
-        entries = timesheetDb.getRelated("TimeEntry");
+        entries = timesheetDb.getRelated("TimeEntry", null, null, false);
         hours = 0.00;
         entries.each { timeEntry ->
             if (timeEntry.hours) {

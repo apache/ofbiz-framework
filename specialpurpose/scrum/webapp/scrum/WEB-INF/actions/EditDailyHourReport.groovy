@@ -92,7 +92,7 @@ void retrieveWorkEffortData() {
         // get the planned number of hours
         entryWorkEffort = lastTimeEntry.getRelatedOne("WorkEffort", false);
         if (entryWorkEffort) {
-            plannedHours = entryWorkEffort.getRelated("WorkEffortSkillStandard");
+            plannedHours = entryWorkEffort.getRelated("WorkEffortSkillStandard", null, null, false);
             pHours = 0.00;
             plannedHours.each { plannedHour ->
                 if (plannedHour.estimatedDuration) {
@@ -114,7 +114,7 @@ void retrieveWorkEffortData() {
                 planHours = estimatedHour;
             }
             entry.planHours = lastTimeEntry.planHours;
-            actualHours = entryWorkEffort.getRelated("TimeEntry");
+            actualHours = entryWorkEffort.getRelated("TimeEntry", null, null, false);
             aHours = 0.00;
             actualHours.each { actualHour ->
                 if (actualHour.hours) {
@@ -164,7 +164,7 @@ void retrieveWorkEffortData() {
         entry = ["timesheetId" : timesheet.timesheetId];
 }
 
-timeEntries = timesheet.getRelated("TimeEntry", ["workEffortId", "rateTypeId", "fromDate"]);
+timeEntries = timesheet.getRelated("TimeEntry", null, ["workEffortId", "rateTypeId", "fromDate"], false);
 te = timeEntries.iterator();
 while (te.hasNext()) {
     // only fill lastTimeEntry when not the first time
@@ -378,7 +378,7 @@ timesheetsDb.each { timesheetDb ->
     //get hours from TimeEntry;
     timesheet = [:];
     timesheet.putAll(timesheetDb);
-    entries = timesheetDb.getRelated("TimeEntry");
+    entries = timesheetDb.getRelated("TimeEntry", null, null, false);
     hours = 0.00;
     entries.each { timeEntry ->
         if (timeEntry.hours) {
@@ -430,7 +430,7 @@ if (backlogIndexList) {
     custRequestList = delegator.findByAnd("CustRequest", ["custRequestTypeId" : "RF_UNPLAN_BACKLOG","statusId" : "CRQ_REVIEWED"],["custRequestDate DESC"], false);
     if (custRequestList) {
         custRequestList.each { custRequestMap ->
-            custRequestItemList = custRequestMap.getRelated("CustRequestItem");
+            custRequestItemList = custRequestMap.getRelated("CustRequestItem", null, null, false);
 			custRequestItem =  
 			productOut = custRequestItemList[0].productId;
 			product = delegator.findOne("Product", ["productId" : productOut], false);
