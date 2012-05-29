@@ -87,7 +87,7 @@ under the License.
             <#assign rowCount = 0>
             <#assign rowClass = "2">
             <#list productFeatures as productFeature>
-            <#assign curProductFeatureType = productFeature.getRelatedOneCache("ProductFeatureType")>
+            <#assign curProductFeatureType = productFeature.getRelatedOne("ProductFeatureType", true)>
             <tr id="productFeatureId_tableRow_${rowCount}" valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
               <td><input type="hidden" name="productFeatureId_o_${rowCount}" value="${productFeature.productFeatureId}" />
               <a href="<@ofbizUrl>EditFeature?productFeatureId=${productFeature.productFeatureId}</@ofbizUrl>" class="buttontext">${productFeature.productFeatureId}</a></td>
@@ -103,7 +103,7 @@ under the License.
               </select></td>
               <td><select name='productFeatureCategoryId_o_${rowCount}' size="1">
                 <#if productFeature.productFeatureCategoryId?has_content>
-                  <#assign curProdFeatCat = productFeature.getRelatedOne("ProductFeatureCategory")>
+                  <#assign curProdFeatCat = productFeature.getRelatedOne("ProductFeatureCategory", false)>
                   <option value='${productFeature.productFeatureCategoryId}'>${(curProdFeatCat.description)?if_exists} [${productFeature.productFeatureCategoryId}]</option>
                   <option value='${productFeature.productFeatureCategoryId}'>---</option>
                 </#if>

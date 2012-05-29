@@ -549,13 +549,13 @@ public class DhlServices {
             }
 
             // Get Origin Info
-            GenericValue originPostalAddress = shipmentRouteSegment.getRelatedOne("OriginPostalAddress");
+            GenericValue originPostalAddress = shipmentRouteSegment.getRelatedOne("OriginPostalAddress", false);
             if (originPostalAddress == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentRouteSegmentOriginPostalAddressNotFound", 
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
             }
-            GenericValue originTelecomNumber = shipmentRouteSegment.getRelatedOne("OriginTelecomNumber");
+            GenericValue originTelecomNumber = shipmentRouteSegment.getRelatedOne("OriginTelecomNumber", false);
             if (originTelecomNumber == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentRouteSegmentOriginTelecomNumberNotFound", 
@@ -570,7 +570,7 @@ public class DhlServices {
             originPhoneNumber = StringUtil.replaceString(originPhoneNumber, " ", "");
 
             // lookup the two letter country code (in the geoCode field)
-            GenericValue originCountryGeo = originPostalAddress.getRelatedOne("CountryGeo");
+            GenericValue originCountryGeo = originPostalAddress.getRelatedOne("CountryGeo", false);
             if (originCountryGeo == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentRouteSegmentOriginCountryGeoNotFound", 
@@ -578,7 +578,7 @@ public class DhlServices {
             }
 
             // Get Dest Info
-            GenericValue destPostalAddress = shipmentRouteSegment.getRelatedOne("DestPostalAddress");
+            GenericValue destPostalAddress = shipmentRouteSegment.getRelatedOne("DestPostalAddress", false);
             if (destPostalAddress == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentRouteSegmentDestPostalAddressNotFound", 
@@ -587,7 +587,7 @@ public class DhlServices {
 
             // DHL requires destination phone number, default to sender # if no customer number
             String destPhoneNumber = originPhoneNumber;
-            GenericValue destTelecomNumber = shipmentRouteSegment.getRelatedOne("DestTelecomNumber");
+            GenericValue destTelecomNumber = shipmentRouteSegment.getRelatedOne("DestTelecomNumber", false);
             if (destTelecomNumber != null) {
                 destPhoneNumber = destTelecomNumber.getString("areaCode") + destTelecomNumber.getString("contactNumber");
                 // don't put on country code if not specified or is the US country code (UPS wants it this way)
@@ -605,7 +605,7 @@ public class DhlServices {
             }
 
             // lookup the two letter country code (in the geoCode field)
-            GenericValue destCountryGeo = destPostalAddress.getRelatedOne("CountryGeo");
+            GenericValue destCountryGeo = destPostalAddress.getRelatedOne("CountryGeo", false);
             if (destCountryGeo == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentRouteSegmentDestCountryGeoNotFound", 
@@ -647,8 +647,8 @@ public class DhlServices {
             // loop through Shipment segments (NOTE: only one supported, loop is here for future refactoring reference)
             BigDecimal packageWeight = null;
             for (GenericValue shipmentPackageRouteSeg: shipmentPackageRouteSegs) {
-                GenericValue shipmentPackage = shipmentPackageRouteSeg.getRelatedOne("ShipmentPackage");
-                GenericValue shipmentBoxType = shipmentPackage.getRelatedOne("ShipmentBoxType");
+                GenericValue shipmentPackage = shipmentPackageRouteSeg.getRelatedOne("ShipmentPackage", false);
+                GenericValue shipmentBoxType = shipmentPackage.getRelatedOne("ShipmentBoxType", false);
                 /*
                 List<GenericValue> carrierShipmentBoxTypes = shipmentPackage.getRelated("CarrierShipmentBoxType", UtilMisc.toMap("partyId", "DHL"), null);
                 GenericValue carrierShipmentBoxType = null;
@@ -660,7 +660,7 @@ public class DhlServices {
                 // TODO: determine what default UoM is (assuming inches) - there should be a defaultDimensionUomId in Facility
                 if (shipmentBoxType != null) {
                     /*
-                    GenericValue dimensionUom = shipmentBoxType.getRelatedOne("DimensionUom");
+                    GenericValue dimensionUom = shipmentBoxType.getRelatedOne("DimensionUom", false);
                     String length = shipmentBoxType.get("boxLength").toString();
                     String width = shipmentBoxType.get("boxWidth").toString();
                     String height = shipmentBoxType.get("boxHeight").toString();

@@ -196,9 +196,9 @@ under the License.
                   <#if facilityLocations?has_content>
                     <select name="locationSeqId">
                       <#list facilityLocations as productFacilityLocation>
-                        <#assign facility = productFacilityLocation.getRelatedOneCache("Facility")/>
-                        <#assign facilityLocation = productFacilityLocation.getRelatedOne("FacilityLocation")?if_exists/>
-                        <#assign facilityLocationTypeEnum = (facilityLocation.getRelatedOneCache("TypeEnumeration"))?if_exists/>
+                        <#assign facility = productFacilityLocation.getRelatedOne("Facility", true)/>
+                        <#assign facilityLocation = productFacilityLocation.getRelatedOne("FacilityLocation", false)?if_exists/>
+                        <#assign facilityLocationTypeEnum = (facilityLocation.getRelatedOne("TypeEnumeration", true))?if_exists/>
                         <option value="${productFacilityLocation.locationSeqId}"><#if facilityLocation?exists>${facilityLocation.areaId?if_exists}:${facilityLocation.aisleId?if_exists}:${facilityLocation.sectionId?if_exists}:${facilityLocation.levelId?if_exists}:${facilityLocation.positionId?if_exists}</#if><#if facilityLocationTypeEnum?exists>(${facilityLocationTypeEnum.get("description",locale)})</#if>[${productFacilityLocation.locationSeqId}]</option>
                       </#list>
                       <option value="">${uiLabelMap.ProductNoLocation}</option>
@@ -273,10 +273,10 @@ under the License.
             <input type="hidden" name="partialReceive" value="${partialReceive?if_exists}"/>
             <table class="basic-table" cellspacing="0">
               <#list shipments?if_exists as shipment>
-                <#assign originFacility = shipment.getRelatedOneCache("OriginFacility")?if_exists/>
-                <#assign destinationFacility = shipment.getRelatedOneCache("DestinationFacility")?if_exists/>
-                <#assign statusItem = shipment.getRelatedOneCache("StatusItem")/>
-                <#assign shipmentType = shipment.getRelatedOneCache("ShipmentType")/>
+                <#assign originFacility = shipment.getRelatedOne("OriginFacility", true)?if_exists/>
+                <#assign destinationFacility = shipment.getRelatedOne("DestinationFacility", true)?if_exists/>
+                <#assign statusItem = shipment.getRelatedOne("StatusItem", true)/>
+                <#assign shipmentType = shipment.getRelatedOne("ShipmentType", true)/>
                 <#assign shipmentDate = shipment.estimatedArrivalDate?if_exists/>
                 <tr>
                   <td><hr /></td>
@@ -363,7 +363,7 @@ under the License.
                     </#if>
                   </#if>
                   <#if 0 < defaultQuantity>
-                  <#assign orderItemType = orderItem.getRelatedOne("OrderItemType")/>
+                  <#assign orderItemType = orderItem.getRelatedOne("OrderItemType", false)/>
                   <input type="hidden" name="orderId_o_${rowCount}" value="${orderItem.orderId}"/>
                   <input type="hidden" name="orderItemSeqId_o_${rowCount}" value="${orderItem.orderItemSeqId}"/>
                   <input type="hidden" name="facilityId_o_${rowCount}" value="${requestParameters.facilityId?if_exists}"/>
@@ -384,7 +384,7 @@ under the License.
                       <table class="basic-table" cellspacing="0">
                         <tr>
                           <#if orderItem.productId?exists>
-                            <#assign product = orderItem.getRelatedOneCache("Product")/>
+                            <#assign product = orderItem.getRelatedOne("Product", true)/>
                             <input type="hidden" name="productId_o_${rowCount}" value="${product.productId}"/>
                             <td width="45%">
                                 ${orderItem.orderItemSeqId}:&nbsp;<a href="/catalog/control/EditProduct?productId=${product.productId}${externalKeyParam?if_exists}" target="catalog" class="buttontext">${product.productId}&nbsp;-&nbsp;${orderItem.itemDescription?if_exists}</a> : ${product.description?if_exists}
@@ -403,9 +403,9 @@ under the License.
                             <#if facilityLocations?has_content>
                               <select name="locationSeqId_o_${rowCount}">
                                 <#list facilityLocations as productFacilityLocation>
-                                  <#assign facility = productFacilityLocation.getRelatedOneCache("Facility")/>
-                                  <#assign facilityLocation = productFacilityLocation.getRelatedOne("FacilityLocation")?if_exists/>
-                                  <#assign facilityLocationTypeEnum = (facilityLocation.getRelatedOneCache("TypeEnumeration"))?if_exists/>
+                                  <#assign facility = productFacilityLocation.getRelatedOne("Facility", true)/>
+                                  <#assign facilityLocation = productFacilityLocation.getRelatedOne("FacilityLocation", false)?if_exists/>
+                                  <#assign facilityLocationTypeEnum = (facilityLocation.getRelatedOne("TypeEnumeration", true))?if_exists/>
                                   <option value="${productFacilityLocation.locationSeqId}"><#if facilityLocation?exists>${facilityLocation.areaId?if_exists}:${facilityLocation.aisleId?if_exists}:${facilityLocation.sectionId?if_exists}:${facilityLocation.levelId?if_exists}:${facilityLocation.positionId?if_exists}</#if><#if facilityLocationTypeEnum?exists>(${facilityLocationTypeEnum.get("description",locale)})</#if>[${productFacilityLocation.locationSeqId}]</option>
                                 </#list>
                                 <option value="">${uiLabelMap.ProductNoLocation}</option>

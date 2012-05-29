@@ -341,15 +341,15 @@ public class ShipmentServices {
                 GenericValue pv = null;
 
                 try {
-                    wv = thisEstimate.getRelatedOne("WeightQuantityBreak");
+                    wv = thisEstimate.getRelatedOne("WeightQuantityBreak", false);
                 } catch (GenericEntityException e) {
                 }
                 try {
-                    qv = thisEstimate.getRelatedOne("QuantityQuantityBreak");
+                    qv = thisEstimate.getRelatedOne("QuantityQuantityBreak", false);
                 } catch (GenericEntityException e) {
                 }
                 try {
-                    pv = thisEstimate.getRelatedOne("PriceQuantityBreak");
+                    pv = thisEstimate.getRelatedOne("PriceQuantityBreak", false);
                 } catch (GenericEntityException e) {
                 }
                 if (wv == null && qv == null && pv == null) {
@@ -633,7 +633,7 @@ public class ShipmentServices {
         if ("SHIPMENT_PACKED".equals(shipmentStatusId)) {
             GenericValue address = null;
             try {
-                address = shipment.getRelatedOne("DestinationPostalAddress");
+                address = shipment.getRelatedOne("DestinationPostalAddress", false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -1102,7 +1102,7 @@ public class ShipmentServices {
                 BigDecimal packageContentValue = proportionOfInvoicedQuantity.multiply(invoicedAmount).setScale(decimals, rounding);
 
                 // Convert the value to the shipment currency, if necessary
-                GenericValue orderHeader = packageContent.getRelatedOne("OrderHeader");
+                GenericValue orderHeader = packageContent.getRelatedOne("OrderHeader", false);
                 Map<String, Object> convertUomResult = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", orderHeader.getString("currencyUom"), "uomIdTo", currencyUomId, "originalValue", packageContentValue));
                 if (ServiceUtil.isError(convertUomResult)) {
                     return convertUomResult;
@@ -1226,7 +1226,7 @@ public class ShipmentServices {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                         "ProductShipmentNotFoundId", locale) + shipmentId);
             }
-            GenericValue primaryOrderHeader = shipment.getRelatedOne("PrimaryOrderHeader");
+            GenericValue primaryOrderHeader = shipment.getRelatedOne("PrimaryOrderHeader", false);
             if (primaryOrderHeader == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                         "ProductShipmentPrimaryOrderHeaderNotFound", 
@@ -1238,7 +1238,7 @@ public class ShipmentServices {
                         "ProductShipmentPrimaryOrderHeaderProductStoreNotFound", 
                         UtilMisc.toMap("productStoreId", productStoreId, "shipmentId", shipmentId), locale));
             }
-            GenericValue primaryOrderItemShipGroup = shipment.getRelatedOne("PrimaryOrderItemShipGroup");
+            GenericValue primaryOrderItemShipGroup = shipment.getRelatedOne("PrimaryOrderItemShipGroup", false);
             if (primaryOrderItemShipGroup == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                         "ProductShipmentPrimaryOrderHeaderItemShipGroupNotFound", 

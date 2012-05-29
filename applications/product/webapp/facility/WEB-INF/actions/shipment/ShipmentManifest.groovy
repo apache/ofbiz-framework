@@ -30,7 +30,7 @@ if (shipment) {
     if (shipmentPackageRouteSegs) {
         shipmentPackageRouteSegs.each { shipmentPackageRouteSeg ->
             shipmentPackages = shipmentPackageRouteSeg.getRelated("ShipmentPackage", null, ['shipmentPackageSeqId']);
-            shipmentRouteSegment = shipmentPackageRouteSeg.getRelatedOne("ShipmentRouteSegment");
+            shipmentRouteSegment = shipmentPackageRouteSeg.getRelatedOne("ShipmentRouteSegment", false);
             if (shipmentPackages) {
                 shipmentPackages.each { shipmentPackage ->
                     shipmentItemsDatas = [] as LinkedList;
@@ -39,7 +39,7 @@ if (shipment) {
                         shipmentPackageContents.each { shipmentPackageContent ->
                             shipmentItemsData = [:];
                             packageQuantity = shipmentPackageContent.getDouble("quantity");
-                            shipmentItem = shipmentPackageContent.getRelatedOne("ShipmentItem");
+                            shipmentItem = shipmentPackageContent.getRelatedOne("ShipmentItem", false);
                             if (shipmentItem) {
                                 shippedQuantity = shipmentItem.getDouble("quantity");
                                 shipmentItemsData.shipmentItem = shipmentItem;

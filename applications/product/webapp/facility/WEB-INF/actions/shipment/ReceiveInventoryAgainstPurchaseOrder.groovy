@@ -55,7 +55,7 @@ if (!isPurchaseShipment) {
     return;
 }
 
-facility = shipment.getRelatedOne("DestinationFacility");
+facility = shipment.getRelatedOne("DestinationFacility", false);
 context.facility = facility;
 context.facilityId = shipment.destinationFacilityId;
 context.now = UtilDateTime.nowTimestamp();
@@ -87,7 +87,7 @@ if (!isPurchaseOrder) {
 // Get the base currency from the facility owner, for currency conversions
 baseCurrencyUomId = null;
 if (facility) {
-    owner = facility.getRelatedOne("OwnerParty");
+    owner = facility.getRelatedOne("OwnerParty", false);
     if (owner) {
         result = dispatcher.runSync("getPartyAccountingPreferences", [organizationPartyId : owner.partyId, userLogin : request.getAttribute("userLogin")]);
         if (!ServiceUtil.isError(result) && result.partyAccountingPreference) {
@@ -118,7 +118,7 @@ totalAvailableToReceive = 0;
 // Populate the order item data for the FTL
 orderItems = orderHeader.getRelated("OrderItemAndShipGroupAssoc", oiasgaLimitMap, ['shipGroupSeqId', 'orderItemSeqId']);
 orderItems.each { orderItemAndShipGroupAssoc ->
-    product = orderItemAndShipGroupAssoc.getRelatedOne("Product");
+    product = orderItemAndShipGroupAssoc.getRelatedOne("Product", false);
 
     // Get the order item, since the orderItemAndShipGroupAssoc's quantity field is manipulated in some cases
     orderItem = delegator.findOne("OrderItem", [orderId : orderId, orderItemSeqId : orderItemAndShipGroupAssoc.orderItemSeqId], false);

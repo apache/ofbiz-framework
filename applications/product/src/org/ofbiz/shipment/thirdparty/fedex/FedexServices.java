@@ -527,7 +527,7 @@ public class FedexServices {
             }
 
             // Get and validate origin postal address
-            GenericValue originPostalAddress = shipmentRouteSegment.getRelatedOne("OriginPostalAddress");
+            GenericValue originPostalAddress = shipmentRouteSegment.getRelatedOne("OriginPostalAddress", false);
             if (UtilValidate.isEmpty(originPostalAddress)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentRouteSegmentOriginPostalAddressNotFound",
@@ -540,7 +540,7 @@ public class FedexServices {
                         "FacilityShipmentRouteSegmentOriginPostalAddressNotComplete",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
             }
-            GenericValue originCountryGeo = originPostalAddress.getRelatedOne("CountryGeo");
+            GenericValue originCountryGeo = originPostalAddress.getRelatedOne("CountryGeo", false);
             if (UtilValidate.isEmpty(originCountryGeo)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentRouteSegmentOriginCountryGeoNotFound",
@@ -563,7 +563,7 @@ public class FedexServices {
             }
 
             // Get and validate origin telecom number
-            GenericValue originTelecomNumber = shipmentRouteSegment.getRelatedOne("OriginTelecomNumber");
+            GenericValue originTelecomNumber = shipmentRouteSegment.getRelatedOne("OriginTelecomNumber", false);
             if (UtilValidate.isEmpty(originTelecomNumber)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentRouteSegmentOriginTelecomNumberNotFound",
@@ -579,13 +579,13 @@ public class FedexServices {
 
             // Get the origin contact name from the owner of the origin facility
             GenericValue partyFrom = null;
-            GenericValue originFacility = shipment.getRelatedOne("OriginFacility");
+            GenericValue originFacility = shipment.getRelatedOne("OriginFacility", false);
             if (UtilValidate.isEmpty(originFacility)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentFedexOriginFacilityRequired",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
             } else {
-                partyFrom = originFacility.getRelatedOne("OwnerParty");
+                partyFrom = originFacility.getRelatedOne("OwnerParty", false);
                 if (UtilValidate.isEmpty(partyFrom)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                             "FacilityShipmentFedexOwnerPartyRequired",
@@ -603,7 +603,7 @@ public class FedexServices {
             }
 
             // Get and validate destination postal address
-            GenericValue destinationPostalAddress = shipmentRouteSegment.getRelatedOne("DestPostalAddress");
+            GenericValue destinationPostalAddress = shipmentRouteSegment.getRelatedOne("DestPostalAddress", false);
             if (UtilValidate.isEmpty(destinationPostalAddress)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentRouteSegmentDestPostalAddressNotFound",
@@ -616,7 +616,7 @@ public class FedexServices {
                         "FacilityShipmentRouteSegmentDestPostalAddressIncomplete",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
             }
-            GenericValue destinationCountryGeo = destinationPostalAddress.getRelatedOne("CountryGeo");
+            GenericValue destinationCountryGeo = destinationPostalAddress.getRelatedOne("CountryGeo", false);
             if (UtilValidate.isEmpty(destinationCountryGeo)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentRouteSegmentDestCountryGeoNotFound", 
@@ -638,7 +638,7 @@ public class FedexServices {
             }
 
             // Get and validate destination telecom number
-            GenericValue destinationTelecomNumber = shipmentRouteSegment.getRelatedOne("DestTelecomNumber");
+            GenericValue destinationTelecomNumber = shipmentRouteSegment.getRelatedOne("DestTelecomNumber", false);
             if (UtilValidate.isEmpty(destinationTelecomNumber)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentRouteSegmentDestTelecomNumberNotFound", 
@@ -776,8 +776,8 @@ public class FedexServices {
 
             // Loop through Shipment segments (NOTE: only one supported, loop is here for future refactoring reference)
             for (GenericValue shipmentPackageRouteSeg: shipmentPackageRouteSegs) {
-                GenericValue shipmentPackage = shipmentPackageRouteSeg.getRelatedOne("ShipmentPackage");
-                GenericValue shipmentBoxType = shipmentPackage.getRelatedOne("ShipmentBoxType");
+                GenericValue shipmentPackage = shipmentPackageRouteSeg.getRelatedOne("ShipmentPackage", false);
+                GenericValue shipmentBoxType = shipmentPackage.getRelatedOne("ShipmentBoxType", false);
 
                 // FedEx requires the packaging type
                 String packaging = null;
@@ -819,7 +819,7 @@ public class FedexServices {
                     dimensionsHeight = shipmentBoxType.getBigDecimal("boxHeight");
 
                     String boxDimensionsUomId = null;
-                    GenericValue boxDimensionsUom = shipmentBoxType.getRelatedOne("DimensionUom");
+                    GenericValue boxDimensionsUom = shipmentBoxType.getRelatedOne("DimensionUom", false);
                     if (! UtilValidate.isEmpty(boxDimensionsUom)) {
                         boxDimensionsUomId = boxDimensionsUom.getString("uomId");
                     } else {

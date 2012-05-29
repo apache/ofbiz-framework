@@ -35,8 +35,8 @@ under the License.
             <#assign rowClass = "2">
             <#list prodCatalogCategories as prodCatalogCategory>
             <#assign line = line + 1>
-            <#assign prodCatalog = prodCatalogCategory.getRelatedOne("ProdCatalog")>
-            <#assign curProdCatalogCategoryType = prodCatalogCategory.getRelatedOneCache("ProdCatalogCategoryType")>
+            <#assign prodCatalog = prodCatalogCategory.getRelatedOne("ProdCatalog", false)>
+            <#assign curProdCatalogCategoryType = prodCatalogCategory.getRelatedOne("ProdCatalogCategoryType", true)>
             <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                 <td><a href="<@ofbizUrl>EditProdCatalog?prodCatalogId=${(prodCatalogCategory.prodCatalogId)?if_exists}</@ofbizUrl>" class="buttontext"><#if prodCatalog?exists>${(prodCatalog.catalogName)?if_exists}</#if> [${(prodCatalogCategory.prodCatalogId)?if_exists}]</a></td>
                 <td>

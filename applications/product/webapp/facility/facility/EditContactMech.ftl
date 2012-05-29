@@ -92,7 +92,7 @@ under the License.
             <#if mechMap.facilityContactMechPurposes?has_content>
               <#assign alt_row = false>
               <#list mechMap.facilityContactMechPurposes as facilityContactMechPurpose>
-                <#assign contactMechPurposeType = facilityContactMechPurpose.getRelatedOneCache("ContactMechPurposeType")>
+                <#assign contactMechPurposeType = facilityContactMechPurpose.getRelatedOne("ContactMechPurposeType", true)>
                 <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                   <td>
                       <#if contactMechPurposeType?has_content>

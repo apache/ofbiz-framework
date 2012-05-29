@@ -38,7 +38,7 @@ if (shipment) {
             shipmentPackageData.shipmentPackage = shipmentPackage;
             shipmentPackageData.shipmentPackageContents = shipmentPackage.getRelated("ShipmentPackageContent");
             shipmentPackageData.shipmentPackageRouteSegs = shipmentPackage.getRelated("ShipmentPackageRouteSeg");
-            shipmentPackageData.weightUom = shipmentPackage.getRelatedOne("WeightUom");
+            shipmentPackageData.weightUom = shipmentPackage.getRelatedOne("WeightUom", false);
             shipmentPackageDatas.add(shipmentPackageData);
         }
     }

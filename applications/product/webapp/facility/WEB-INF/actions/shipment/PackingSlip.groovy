@@ -77,10 +77,10 @@ previousShipmentIter.close();
 // next scan the order items (via issuances) to count the quantity of each product requested
 quantityRequestedByProduct = [:];
 countedOrderItems = [:]; // this map is only used to keep track of the order items already counted
-order = shipment.getRelatedOne("PrimaryOrderHeader");
+order = shipment.getRelatedOne("PrimaryOrderHeader", false);
 issuances = order.getRelated("ItemIssuance");
 issuances.each { issuance ->
-    orderItem = issuance.getRelatedOne("OrderItem");
+    orderItem = issuance.getRelatedOne("OrderItem", false);
     productId = orderItem.productId;
     if (!countedOrderItems.containsKey(orderItem.orderId + orderItem.orderItemSeqId)) {
         countedOrderItems.put(orderItem.orderId + orderItem.orderItemSeqId, null);
@@ -103,8 +103,8 @@ shipmentPackages.each { shipmentPackage ->
     // each line is one logical Product and the quantities associated with it
     lines = [];
     contents.each { content ->
-        shipmentItem = content.getRelatedOne("ShipmentItem");
-        product = shipmentItem.getRelatedOne("Product");
+        shipmentItem = content.getRelatedOne("ShipmentItem", false);
+        product = shipmentItem.getRelatedOne("Product", false);
         productTypeId = product.get("productTypeId");
 
         line = [:];

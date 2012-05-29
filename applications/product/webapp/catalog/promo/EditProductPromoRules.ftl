@@ -81,7 +81,7 @@ under the License.
                   <input type="hidden" name="productPromoCondSeqId" value="${(productPromoCond.productPromoCondSeqId)?if_exists}"/>
                   <select name="inputParamEnumId" size="1">
       <#if (productPromoCond.inputParamEnumId)?exists>
-        <#assign inputParamEnum = productPromoCond.getRelatedOneCache("InputParamEnumeration")>
+        <#assign inputParamEnum = productPromoCond.getRelatedOne("InputParamEnumeration", true)>
                     <option value="${productPromoCond.inputParamEnumId}"><#if inputParamEnum?exists>${(inputParamEnum.get("description",locale))?if_exists}<#else>[${(productPromoCond.inputParamEnumId)?if_exists}]</#if></option>
                     <option value="${(productPromoCond.inputParamEnumId)?if_exists}">&nbsp;</option>
       <#else>
@@ -93,7 +93,7 @@ under the License.
                   </select>
                   <select name="operatorEnumId" size="1">
       <#if (productPromoCond.operatorEnumId)?exists>
-        <#assign operatorEnum = productPromoCond.getRelatedOneCache("OperatorEnumeration")>
+        <#assign operatorEnum = productPromoCond.getRelatedOne("OperatorEnumeration", true)>
                     <option value="${(productPromoCond.operatorEnumId)?if_exists}"><#if operatorEnum?exists>${(operatorEnum.get("description",locale))?if_exists}<#else>[${(productPromoCond.operatorEnumId)?if_exists}]</#if></option>
                     <option value="${(productPromoCond.operatorEnumId)?if_exists}">&nbsp;</option>
       <#else>
@@ -122,7 +122,7 @@ under the License.
                     <option value = "${carrierShippingMethod?if_exists}">${carrierParty?if_exists}&nbsp;${description}</option>
                     <option value = "">&nbsp;</option>
       <#list carrierShipmentMethods as carrierShipmentMethod>
-        <#assign shipmentMethodType = carrierShipmentMethod.getRelatedOneCache("ShipmentMethodType")>
+        <#assign shipmentMethodType = carrierShipmentMethod.getRelatedOne("ShipmentMethodType", true)>
                     <option value = "${carrierShipmentMethod.partyId?if_exists}@${carrierShipmentMethod.shipmentMethodTypeId?if_exists}">${carrierShipmentMethod.partyId?if_exists}&nbsp;${shipmentMethodType.get("description")?if_exists}</option>
       </#list>
                   </select>
@@ -139,8 +139,8 @@ under the License.
       <#assign condProductPromoCategories = productPromoCond.getRelated("ProductPromoCategory")>
       <#if condProductPromoCategories?has_content>
       <#list condProductPromoCategories as condProductPromoCategory>
-        <#assign condProductCategory = condProductPromoCategory.getRelatedOneCache("ProductCategory")>
-        <#assign condApplEnumeration = condProductPromoCategory.getRelatedOneCache("ApplEnumeration")>
+        <#assign condProductCategory = condProductPromoCategory.getRelatedOne("ProductCategory", true)>
+        <#assign condApplEnumeration = condProductPromoCategory.getRelatedOne("ApplEnumeration", true)>
                 <div>
                   ${(condProductCategory.get("description",locale))?if_exists} [${condProductPromoCategory.productCategoryId}]
                   - ${(condApplEnumeration.get("description",locale))?default(condProductPromoCategory.productPromoApplEnumId)}
@@ -185,8 +185,8 @@ under the License.
       <#assign condProductPromoProducts = productPromoCond.getRelated("ProductPromoProduct")>
       <#if condProductPromoProducts?has_content>
       <#list condProductPromoProducts as condProductPromoProduct>
-        <#assign condProduct = condProductPromoProduct.getRelatedOneCache("Product")?if_exists>
-        <#assign condApplEnumeration = condProductPromoProduct.getRelatedOneCache("ApplEnumeration")>
+        <#assign condProduct = condProductPromoProduct.getRelatedOne("Product", true)?if_exists>
+        <#assign condApplEnumeration = condProductPromoProduct.getRelatedOne("ApplEnumeration", true)>
                 <div>
                   ${(condProduct.internalName)?if_exists} [${condProductPromoProduct.productId}]
                   - ${(condApplEnumeration.get("description",locale))?default(condProductPromoProduct.productPromoApplEnumId)}
@@ -251,7 +251,7 @@ under the License.
                   <select name = "carrierShipmentMethod">
                     <option value = "">--${uiLabelMap.OrderSelectShippingMethod}--</option>
     <#list carrierShipmentMethods as carrierShipmentMethod>
-      <#assign shipmentMethodType = carrierShipmentMethod.getRelatedOneCache("ShipmentMethodType")>
+      <#assign shipmentMethodType = carrierShipmentMethod.getRelatedOne("ShipmentMethodType", true)>
                     <option value = "${carrierShipmentMethod.partyId?if_exists}@${carrierShipmentMethod.shipmentMethodTypeId?if_exists}">${carrierShipmentMethod.partyId?if_exists}&nbsp;${shipmentMethodType.get("description")?if_exists}</option>
     </#list>
                   </select>
@@ -280,7 +280,7 @@ under the License.
                     <input type="hidden" name="productPromoActionSeqId" value="${(productPromoAction.productPromoActionSeqId)?if_exists}" />
                     <select name="productPromoActionEnumId" size="1">
       <#if (productPromoAction.productPromoActionEnumId)?exists>
-        <#assign productPromoActionCurEnum = productPromoAction.getRelatedOneCache("ActionEnumeration")>
+        <#assign productPromoActionCurEnum = productPromoAction.getRelatedOne("ActionEnumeration", true)>
                       <option value="${(productPromoAction.productPromoActionEnumId)?if_exists}"><#if productPromoActionCurEnum?exists>${(productPromoActionCurEnum.get("description",locale))?if_exists}<#else>[${(productPromoAction.productPromoActionEnumId)?if_exists}]</#if></option>
                       <option value="${(productPromoAction.productPromoActionEnumId)?if_exists}">&nbsp;</option>
       <#else>
@@ -299,7 +299,7 @@ under the License.
                     ${uiLabelMap.UseCartQuantity}:&nbsp;
                     <select name="useCartQuantity">
       <#if (productPromoAction.useCartQuantity)?exists>
-        <#assign productPromoActionCurEnum = productPromoAction.getRelatedOneCache("ActionEnumeration")>
+        <#assign productPromoActionCurEnum = productPromoAction.getRelatedOne("ActionEnumeration", true)>
                       <option value="${(productPromoAction.useCartQuantity)?if_exists}"><#if (productPromoAction.useCartQuantity.equals("Y"))>${uiLabelMap.CommonY}<#else>${uiLabelMap.CommonN}</#if></option>
                       <option value="${(productPromoAction.useCartQuantity)?if_exists}">&nbsp;</option>
       <#else>
@@ -322,8 +322,8 @@ under the License.
       <#assign actionProductPromoCategories = productPromoAction.getRelated("ProductPromoCategory")>
       <#if actionProductPromoCategories?has_content>
       <#list actionProductPromoCategories as actionProductPromoCategory>
-        <#assign actionProductCategory = actionProductPromoCategory.getRelatedOneCache("ProductCategory")>
-        <#assign actionApplEnumeration = actionProductPromoCategory.getRelatedOneCache("ApplEnumeration")>
+        <#assign actionProductCategory = actionProductPromoCategory.getRelatedOne("ProductCategory", true)>
+        <#assign actionApplEnumeration = actionProductPromoCategory.getRelatedOne("ApplEnumeration", true)>
                 <div>
                   ${(actionProductCategory.description)?if_exists} [${actionProductPromoCategory.productCategoryId}]
                   - ${(actionApplEnumeration.get("description",locale))?default(actionProductPromoCategory.productPromoApplEnumId)}
@@ -369,8 +369,8 @@ under the License.
       <#assign actionProductPromoProducts = productPromoAction.getRelated("ProductPromoProduct")>
       <#if actionProductPromoProducts?has_content>
       <#list actionProductPromoProducts as actionProductPromoProduct>
-        <#assign actionProduct = actionProductPromoProduct.getRelatedOneCache("Product")?if_exists>
-        <#assign actionApplEnumeration = actionProductPromoProduct.getRelatedOneCache("ApplEnumeration")>
+        <#assign actionProduct = actionProductPromoProduct.getRelatedOne("Product", true)?if_exists>
+        <#assign actionApplEnumeration = actionProductPromoProduct.getRelatedOne("ApplEnumeration", true)>
                 <div>
                   ${(actionProduct.internalName)?if_exists} [${actionProductPromoProduct.productId}]
                   - ${(actionApplEnumeration.get("description",locale))?default(actionProductPromoProduct.productPromoApplEnumId)}
@@ -476,8 +476,8 @@ under the License.
   <#-- ======================= Categories ======================== -->
   <div class="screenlet-body">
   <#list promoProductPromoCategories as promoProductPromoCategory>
-    <#assign promoProductCategory = promoProductPromoCategory.getRelatedOneCache("ProductCategory")>
-    <#assign promoApplEnumeration = promoProductPromoCategory.getRelatedOneCache("ApplEnumeration")>
+    <#assign promoProductCategory = promoProductPromoCategory.getRelatedOne("ProductCategory", true)>
+    <#assign promoApplEnumeration = promoProductPromoCategory.getRelatedOne("ApplEnumeration", true)>
     <div>
       ${(promoProductCategory.description)?if_exists} [${promoProductPromoCategory.productCategoryId}]
       - ${(promoApplEnumeration.get("description",locale))?default(promoProductPromoCategory.productPromoApplEnumId)}
@@ -523,8 +523,8 @@ under the License.
   <#-- ======================= Products ======================== -->
   <div class="screenlet-body">
   <#list promoProductPromoProducts as promoProductPromoProduct>
-    <#assign promoProduct = promoProductPromoProduct.getRelatedOneCache("Product")?if_exists>
-    <#assign promoApplEnumeration = promoProductPromoProduct.getRelatedOneCache("ApplEnumeration")>
+    <#assign promoProduct = promoProductPromoProduct.getRelatedOne("Product", true)?if_exists>
+    <#assign promoApplEnumeration = promoProductPromoProduct.getRelatedOne("ApplEnumeration", true)>
     <div>
       ${(promoProduct.internalName)?if_exists} [${promoProductPromoProduct.productId}]
       - ${(promoApplEnumeration.get("description",locale))?default(promoProductPromoProduct.productPromoApplEnumId)}

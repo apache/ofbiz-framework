@@ -76,13 +76,13 @@ under the License.
           <#list orderItems as orderItem>
             <tr>
               <td><a href="/ordermgr/control/orderview?orderId=${orderItem.orderId}" class='buttontext'>${orderItem.orderId}</a></td>
-              <#assign currentItemStatus = orderItem.getRelatedOne("StatusItem")/>
+              <#assign currentItemStatus = orderItem.getRelatedOne("StatusItem", false)/>
               <td>${currentItemStatus.get("description",locale)?default(currentItemStatus.statusId)}</td>
               <td>${orderItem.orderItemSeqId}</td>
               <td>${order.orderDate}</td>
               <td>${orderItem.unitPrice}</td>
               <td>${orderItem.quantity}</td>
-              <#assign currentOrderType = order.getRelatedOne("OrderType")/>
+              <#assign currentOrderType = order.getRelatedOne("OrderType", false)/>
               <td>${currentOrderType.get("description",locale)?default(currentOrderType.orderTypeId)}</td>
             </tr>
           </#list>

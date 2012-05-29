@@ -58,7 +58,7 @@ public class ShipmentWorker {
         // lookup the issuance to find the order
         List<GenericValue> issuances = null;
         try {
-            GenericValue shipmentItem = shipmentPackageContent.getRelatedOne("ShipmentItem");
+            GenericValue shipmentItem = shipmentPackageContent.getRelatedOne("ShipmentItem", false);
             issuances = shipmentItem.getRelated("ItemIssuance");
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
@@ -77,7 +77,7 @@ public class ShipmentWorker {
                 // get the order item
                 GenericValue orderItem = null;
                 try {
-                    orderItem = issuance.getRelatedOne("OrderItem");
+                    orderItem = issuance.getRelatedOne("OrderItem", false);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }

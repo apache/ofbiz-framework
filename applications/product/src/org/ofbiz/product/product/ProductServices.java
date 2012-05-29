@@ -421,7 +421,7 @@ public class ProductServices {
                     GenericValue asV = c.iterator().next();
 
                     //if (Debug.infoOn()) Debug.logInfo("ASV: " + asV, module);
-                    mainProduct = asV.getRelatedOneCache("MainProduct");
+                    mainProduct = asV.getRelatedOne("MainProduct", true);
                     //if (Debug.infoOn()) Debug.logInfo("Main product = " + mainProduct, module);
                 }
             }
@@ -858,7 +858,7 @@ public class ProductServices {
                     }
 
                     for (GenericValue goodIdentification: goodIdentificationList) {
-                        GenericValue giProduct = goodIdentification.getRelatedOne("Product");
+                        GenericValue giProduct = goodIdentification.getRelatedOne("Product", false);
                         if (giProduct != null) {
                             variantProductsById.put(giProduct.getString("productId"), giProduct);
                         }
@@ -1142,7 +1142,7 @@ public class ProductServices {
                 if (content != null) {
                     GenericValue dataResource = null;
                     try {
-                        dataResource = content.getRelatedOne("DataResource");
+                        dataResource = content.getRelatedOne("DataResource", false);
                     } catch (GenericEntityException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
@@ -1348,7 +1348,7 @@ public class ProductServices {
                     if (UtilValidate.isNotEmpty(content)) {
                         GenericValue dataResource = null;
                         try {
-                            dataResource = content.getRelatedOne("DataResource");
+                            dataResource = content.getRelatedOne("DataResource", false);
                         } catch (GenericEntityException e) {
                             Debug.logError(e, module);
                             return ServiceUtil.returnError(e.getMessage());

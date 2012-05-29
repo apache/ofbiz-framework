@@ -48,7 +48,7 @@ under the License.
                     <#assign rowClass = "2">
                     <#list currentProductCategoryRollups as productCategoryRollup>
                     <#assign suffix = "_o_" + productCategoryRollup_index>
-                    <#assign curCategory = productCategoryRollup.getRelatedOne("ParentProductCategory")>
+                    <#assign curCategory = productCategoryRollup.getRelatedOne("ParentProductCategory", false)>
                     <#assign hasntStarted = false>
                     <#if productCategoryRollup.fromDate?exists && nowTimestamp.before(productCategoryRollup.getTimestamp("fromDate"))><#assign hasntStarted = true></#if>
                     <#assign hasExpired = false>
@@ -156,7 +156,7 @@ under the License.
                     <#list parentProductCategoryRollups as productCategoryRollup>
                     <#assign suffix = "_o_" + lineChild>
                     <#assign lineChild = lineChild + 1>
-                    <#assign curCategory = productCategoryRollup.getRelatedOne("CurrentProductCategory")>
+                    <#assign curCategory = productCategoryRollup.getRelatedOne("CurrentProductCategory", false)>
                     <#assign hasntStarted = false>
                     <#if productCategoryRollup.fromDate?exists && nowTimestamp.before(productCategoryRollup.getTimestamp("fromDate"))><#assign hasntStarted = true></#if>
                     <#assign hasExpired = false>

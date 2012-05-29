@@ -1055,7 +1055,7 @@ public class ProductSearch {
             GenericValue productFeatureType = null;
             try {
                 productFeature = delegator.findOne("ProductFeature", UtilMisc.toMap("productFeatureId", productFeatureId), true);
-                productFeatureType = productFeature == null ? null : productFeature.getRelatedOne("ProductFeatureType");
+                productFeatureType = productFeature == null ? null : productFeature.getRelatedOne("ProductFeatureType", false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error finding ProductFeature and Type information for constraint pretty print", module);
             }
@@ -1312,7 +1312,7 @@ public class ProductSearch {
                         infoOut.append(", ");
                     }
                     GenericValue productFeature = delegator.findOne("ProductFeature", UtilMisc.toMap("productFeatureId", featureId), true);
-                    GenericValue productFeatureType = productFeature == null ? null : productFeature.getRelatedOneCache("ProductFeatureType");
+                    GenericValue productFeatureType = productFeature == null ? null : productFeature.getRelatedOne("ProductFeatureType", true);
                     if (productFeatureType == null) {
                         infoOut.append(UtilProperties.getMessage(resource, "ProductFeature", locale)).append(": ");
                     } else {

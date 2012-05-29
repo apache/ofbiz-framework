@@ -120,7 +120,7 @@ function doPublish() {
         <#assign idx=0/>
         <#assign rowClass = "2">
         <#list productAssocs as productAssoc>
-            <#assign assocProduct = productAssoc.getRelatedOne("AssocProduct")/>
+            <#assign assocProduct = productAssoc.getRelatedOne("AssocProduct", false)/>
             <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                 <td nowrap="nowrap">
                 <input type="hidden" name="productId${idx}" value="${assocProduct.productId?if_exists}"/>
@@ -403,7 +403,7 @@ function doPublish() {
                 <table cellspacing="0" class="basic-table">
                     <#assign rowClass = "2">
                     <#list productCategoryMembers as prodCatMemb>
-                        <#assign prodCat = prodCatMemb.getRelatedOne("ProductCategory")/>
+                        <#assign prodCat = prodCatMemb.getRelatedOne("ProductCategory", false)/>
                         <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                             <td colspan="2">
                               <form name="quickAdminRemoveProductFromCategory_${prodCatMemb_index}" action="<@ofbizUrl>quickAdminRemoveProductFromCategory</@ofbizUrl>" method="post">

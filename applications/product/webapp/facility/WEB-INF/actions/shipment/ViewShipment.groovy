@@ -29,17 +29,17 @@ context.shipmentId = shipmentId;
 context.shipment = shipment;
 
 if (shipment) {
-    context.shipmentType = shipment.getRelatedOne("ShipmentType");
-    context.statusItem = shipment.getRelatedOne("StatusItem");
-    context.primaryOrderHeader = shipment.getRelatedOne("PrimaryOrderHeader");
-    context.toPerson = shipment.getRelatedOne("ToPerson");
-    context.toPartyGroup = shipment.getRelatedOne("ToPartyGroup");
-    context.fromPerson = shipment.getRelatedOne("FromPerson");
-    context.fromPartyGroup = shipment.getRelatedOne("FromPartyGroup");
-    context.originFacility = shipment.getRelatedOne("OriginFacility");
-    context.destinationFacility = shipment.getRelatedOne("DestinationFacility");
-    context.originPostalAddress = shipment.getRelatedOne("OriginPostalAddress");
-    context.destinationPostalAddress = shipment.getRelatedOne("DestinationPostalAddress");
+    context.shipmentType = shipment.getRelatedOne("ShipmentType", false);
+    context.statusItem = shipment.getRelatedOne("StatusItem", false);
+    context.primaryOrderHeader = shipment.getRelatedOne("PrimaryOrderHeader", false);
+    context.toPerson = shipment.getRelatedOne("ToPerson", false);
+    context.toPartyGroup = shipment.getRelatedOne("ToPartyGroup", false);
+    context.fromPerson = shipment.getRelatedOne("FromPerson", false);
+    context.fromPartyGroup = shipment.getRelatedOne("FromPartyGroup", false);
+    context.originFacility = shipment.getRelatedOne("OriginFacility", false);
+    context.destinationFacility = shipment.getRelatedOne("DestinationFacility", false);
+    context.originPostalAddress = shipment.getRelatedOne("OriginPostalAddress", false);
+    context.destinationPostalAddress = shipment.getRelatedOne("DestinationPostalAddress", false);
 }
 
 // check permission

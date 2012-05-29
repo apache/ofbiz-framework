@@ -42,7 +42,7 @@ context.productContent = productContent;
 
 productContentDatas = [];
 productContent.each { productContent ->
-    content = productContent.getRelatedOne("Content");
+    content = productContent.getRelatedOne("Content", false);
     productContentDatas.add([productContent : productContent, content : content]);
 }
 

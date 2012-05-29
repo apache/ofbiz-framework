@@ -165,8 +165,8 @@ under the License.
                                                 <#if orderItemShipGrpInvRes.quantityNotAvailable?exists >
                                                         <#assign quantityToPick = quantityToPick - Static["java.lang.Integer"].parseInt("${orderItemShipGrpInvRes.quantityNotAvailable}")>
                                                 </#if>
-                                                <#assign orderItem = orderItemShipGrpInvRes.getRelatedOne("OrderItem")>
-                                                <#assign product = orderItem.getRelatedOne("Product")>
+                                                <#assign orderItem = orderItemShipGrpInvRes.getRelatedOne("OrderItem", false)>
+                                                <#assign product = orderItem.getRelatedOne("Product", false)>
                                                 <#assign supplierProduct = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(product.getRelated("SupplierProduct"))?if_exists>
                                                 <#assign inventoryItem = infoItem.inventoryItem>
                                             <#if (quantityToPick > 0)>
@@ -201,15 +201,15 @@ under the License.
                                                 <#if workOrderItemFulfillments?has_content>
                                                     <#assign workOrderItemFulfillment = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(workOrderItemFulfillments)/>
                                                     <#if workOrderItemFulfillment?has_content>
-                                                        <#assign workEffort = workOrderItemFulfillment.getRelatedOne("WorkEffort")/>
+                                                        <#assign workEffort = workOrderItemFulfillment.getRelatedOne("WorkEffort", false)/>
                                                         <#if workEffort?has_content>
                                                             <#assign workEffortTask = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("WorkEffort", {"workEffortParentId" :  workEffort.workEffortId}, null, false))/>
                                                             <#if workEffortTask?has_content>
                                                                 <#assign workEffortInventoryAssigns = workEffortTask.getRelated("WorkEffortInventoryAssign")/>
                                                                 <#if workEffortInventoryAssigns?has_content>
                                                                     <#list workEffortInventoryAssigns as workEffortInventoryAssign>
-                                                                        <#assign inventoryItem = workEffortInventoryAssign.getRelatedOne("InventoryItem")/>
-                                                                        <#assign product = inventoryItem.getRelatedOne("Product")/>
+                                                                        <#assign inventoryItem = workEffortInventoryAssign.getRelatedOne("InventoryItem", false)/>
+                                                                        <#assign product = inventoryItem.getRelatedOne("Product", false)/>
                                                                         <fo:table-row background-color="${rowColor}">
                                                                             <#-- bin location -->
                                                                             <fo:table-cell ><fo:block font-size="10pt"><#if inventoryItem?exists>${inventoryItem.locationSeqId?default("_NA_")}</#if></fo:block></fo:table-cell>
@@ -266,7 +266,7 @@ under the License.
                              <fo:table-column column-width="100pt"/>
                              <fo:table-body>
                                  <#list orderHeaderAdjustments as orderHeaderAdjustment>
-                                     <#assign adjustmentType = orderHeaderAdjustment.getRelatedOne("OrderAdjustmentType")>
+                                     <#assign adjustmentType = orderHeaderAdjustment.getRelatedOne("OrderAdjustmentType", false)>
                                      <#assign adjustmentAmount = Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(orderHeaderAdjustment, orderSubTotal)>
                                      <#if adjustmentAmount != 0>
                                          <fo:table-row>

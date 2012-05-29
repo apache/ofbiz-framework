@@ -113,7 +113,7 @@ under the License.
                 <span class="label">${uiLabelMap.PageTitlePickList}</span>
                 <select name="picklistId">
                   <#list picklistActiveList as picklistActive>
-                    <#assign picklistActiveStatusItem = picklistActive.getRelatedOneCache("StatusItem")>
+                    <#assign picklistActiveStatusItem = picklistActive.getRelatedOne("StatusItem", true)>
                     <option value="${picklistActive.picklistId}"<#if picklistActive.picklistId == picklist.picklistId> selected="selected"</#if>>${picklistActive.picklistId} [${uiLabelMap.CommonDate}:${picklistActive.picklistDate},${uiLabelMap.CommonStatus}:${picklistActiveStatusItem.get("description",locale)}]</option>
                   </#list>
                 </select>

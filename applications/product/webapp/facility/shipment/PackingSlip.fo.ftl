@@ -20,7 +20,7 @@ under the License.
 <#escape x as x?xml>
 
     <#if hasPermission>
-        <#assign shipGroup = shipment.getRelatedOne("PrimaryOrderItemShipGroup")?if_exists>
+        <#assign shipGroup = shipment.getRelatedOne("PrimaryOrderItemShipGroup", false)?if_exists>
         <#assign carrier = (shipGroup.carrierPartyId)?default("N/A")>
             <#if packages?has_content>
             <#list packages as package>
@@ -73,7 +73,7 @@ under the License.
                                    ${carrier}
                                 </#if>
                                 <#if (shipGroup.shipmentMethodTypeId)?exists>
-                                  ${(shipGroup.getRelatedOne("ShipmentMethodType").get("description", locale))?default(shipGroup.shipmentMethodTypeId)}
+                                  ${(shipGroup.getRelatedOne("ShipmentMethodType", false).get("description", locale))?default(shipGroup.shipmentMethodTypeId)}
                                 </#if>
                             </fo:block>
                         </fo:table-cell>

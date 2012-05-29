@@ -162,7 +162,7 @@ public class ProductWorker {
         List<GenericValue> productAssocs = getAggregatedAssocs(delegator, aggregatedProductId);
         if (UtilValidate.isNotEmpty(productAssocs) && UtilValidate.isNotEmpty(configId)) {
             for (GenericValue productAssoc: productAssocs) {
-                GenericValue product = productAssoc.getRelatedOne("AssocProduct");
+                GenericValue product = productAssoc.getRelatedOne("AssocProduct", false);
                 if (configId.equals(product.getString("configId"))) {
                     return productAssoc.getString("productIdTo");
                 }
@@ -327,7 +327,7 @@ public class ProductWorker {
                             if (nameBuf.length() > 0) {
                                 nameBuf.append(", ");
                             }
-                            GenericValue productFeatureType = productFeature.getRelatedOneCache("ProductFeatureType");
+                            GenericValue productFeatureType = productFeature.getRelatedOne("ProductFeatureType", true);
                             if (productFeatureType != null) {
                                 nameBuf.append(productFeatureType.get("description", locale));
                                 nameBuf.append(":");
@@ -716,7 +716,7 @@ public class ProductWorker {
             if (UtilValidate.isNotEmpty(virtualProductAssocs)) {
                 //found one, set this first as the parent product
                 GenericValue productAssoc = EntityUtil.getFirst(virtualProductAssocs);
-                _parentProduct = productAssoc.getRelatedOneCache("MainProduct");
+                _parentProduct = productAssoc.getRelatedOne("MainProduct", true);
             }
         } catch (GenericEntityException e) {
             throw new RuntimeException("Entity Engine error getting Parent Product (" + e.getMessage() + ")");
@@ -729,7 +729,7 @@ public class ProductWorker {
         if (product != null) {
             GenericValue productType = null;
             try {
-                productType = product.getRelatedOneCache("ProductType");
+                productType = product.getRelatedOne("ProductType", true);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.getMessage(), module);
             }
@@ -744,7 +744,7 @@ public class ProductWorker {
         if (product != null) {
             GenericValue productType = null;
             try {
-                productType = product.getRelatedOneCache("ProductType");
+                productType = product.getRelatedOne("ProductType", true);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.getMessage(), module);
             }

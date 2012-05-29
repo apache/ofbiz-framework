@@ -53,7 +53,7 @@ if (shipment) {
             shipmentItemData.shipmentPackageContents = shipmentPackageContents;
             shipmentItemData.itemIssuances = shipmentItem.getRelated("ItemIssuance");
             shipmentItemData.orderShipments = shipmentItem.getRelated("OrderShipment");
-            shipmentItemData.product = shipmentItem.getRelatedOne("Product");
+            shipmentItemData.product = shipmentItem.getRelatedOne("Product", false);
             shipmentItemData.totalQuantityPackaged = totalQuantityPackaged;
             shipmentItemData.totalQuantityToPackage = totalQuantityToPackage;
             shipmentItemDatas.add(shipmentItemData);
