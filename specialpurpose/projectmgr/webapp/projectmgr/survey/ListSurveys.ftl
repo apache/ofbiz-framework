@@ -35,7 +35,7 @@ under the License.
         </tr>
         <#list workEffortSurveyAppls as workEffortSurveyAppl>
           <#if workEffortSurveyAppl?has_content>
-            <#assign productStoreSurveyAppls = workEffortSurveyAppl.getRelated("ProductStoreSurveyAppl")>
+            <#assign productStoreSurveyAppls = workEffortSurveyAppl.getRelated("ProductStoreSurveyAppl", null, null, false)>
             <#list productStoreSurveyAppls as productStoreSurveyAppl>
               <#if productStoreSurveyAppl?has_content>
                 <#assign survey = productStoreSurveyAppl.getRelatedOne("Survey", false)>

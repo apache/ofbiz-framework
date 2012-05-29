@@ -36,7 +36,7 @@ public class Various {
     public static void setDatesFollowingTasks(GenericValue task) {
 
         try {
-            List<GenericValue> assocs = task.getRelated("FromWorkEffortAssoc");
+            List<GenericValue> assocs = task.getRelated("FromWorkEffortAssoc", null, null, false);
             if (UtilValidate.isNotEmpty(assocs)) {
                 for (GenericValue assoc : assocs) {
                     GenericValue nextTask = assoc.getRelatedOne("ToWorkEffort", false);
@@ -59,7 +59,7 @@ public class Various {
         Double plannedHours = 0.00;
         try {
             // get planned hours
-            List<GenericValue> standards = task.getRelated("WorkEffortSkillStandard");
+            List<GenericValue> standards = task.getRelated("WorkEffortSkillStandard", null, null, false);
             for (GenericValue standard : standards) {
                 if (standard.getDouble("estimatedNumPeople") == null) {
                     standard.put("estimatedNumPeople", new Double("1"));
