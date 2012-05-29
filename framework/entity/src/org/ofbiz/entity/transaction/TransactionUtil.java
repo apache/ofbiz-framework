@@ -78,16 +78,16 @@ public class TransactionUtil implements Status {
 
     @Deprecated
     public static <V> V doNewTransaction(String ifErrorMessage, Callable<V> callable) throws GenericEntityException {
-        return inTransaction(noTransaction(callable), ifErrorMessage, 0, true).call();
+        return noTransaction(inTransaction(callable, ifErrorMessage, 0, true)).call();
     }
 
     @Deprecated
     public static <V> V doNewTransaction(String ifErrorMessage, boolean printException, Callable<V> callable) throws GenericEntityException {
-        return inTransaction(noTransaction(callable), ifErrorMessage, 0, printException).call();
+        return noTransaction(inTransaction(callable, ifErrorMessage, 0, printException)).call();
     }
 
     public static <V> V doNewTransaction(Callable<V> callable, String ifErrorMessage, int timeout, boolean printException) throws GenericEntityException {
-        return inTransaction(noTransaction(callable), ifErrorMessage, timeout, printException).call();
+        return noTransaction(inTransaction(callable, ifErrorMessage, timeout, printException)).call();
     }
 
     @Deprecated
