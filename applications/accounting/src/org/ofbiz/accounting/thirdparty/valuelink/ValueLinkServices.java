@@ -909,7 +909,7 @@ public class ValueLinkServices {
         // get the GiftCard VO
         GenericValue giftCard = null;
         try {
-            giftCard = paymentPref.getRelatedOne("GiftCard");
+            giftCard = paymentPref.getRelatedOne("GiftCard", false);
         } catch (GenericEntityException e) {
             Debug.logError("Unable to get GiftCard from OrderPaymentPreference", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
@@ -974,7 +974,7 @@ public class ValueLinkServices {
         // get the GiftCard VO
         GenericValue giftCard = null;
         try {
-            giftCard = paymentPref.getRelatedOne("GiftCard");
+            giftCard = paymentPref.getRelatedOne("GiftCard", false);
         } catch (GenericEntityException e) {
             Debug.logError("Unable to get GiftCard from OrderPaymentPreference", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
@@ -1039,7 +1039,7 @@ public class ValueLinkServices {
         // the order header for store info
         GenericValue orderHeader = null;
         try {
-            orderHeader = orderItem.getRelatedOne("OrderHeader");
+            orderHeader = orderItem.getRelatedOne("OrderHeader", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get OrderHeader from OrderItem",module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrder, 
@@ -1093,7 +1093,7 @@ public class ValueLinkServices {
         // the product entity needed for information
         GenericValue product = null;
         try {
-            product = orderItem.getRelatedOne("Product");
+            product = orderItem.getRelatedOne("Product", false);
         } catch (GenericEntityException e) {
             Debug.logError("Unable to get Product from OrderItem", module);
         }
@@ -1162,7 +1162,7 @@ public class ValueLinkServices {
             for(GenericValue answer : responseAnswers) {
                 GenericValue question = null;
                 try {
-                    question = answer.getRelatedOne("SurveyQuestion");
+                    question = answer.getRelatedOne("SurveyQuestion", false);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
@@ -1333,7 +1333,7 @@ public class ValueLinkServices {
         // the order header for store info
         GenericValue orderHeader = null;
         try {
-            orderHeader = orderItem.getRelatedOne("OrderHeader");
+            orderHeader = orderItem.getRelatedOne("OrderHeader", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get OrderHeader from OrderItem",module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrder, 
@@ -1417,7 +1417,7 @@ public class ValueLinkServices {
             for(GenericValue answer : responseAnswers) {
                 GenericValue question = null;
                 try {
-                    question = answer.getRelatedOne("SurveyQuestion");
+                    question = answer.getRelatedOne("SurveyQuestion", false);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,

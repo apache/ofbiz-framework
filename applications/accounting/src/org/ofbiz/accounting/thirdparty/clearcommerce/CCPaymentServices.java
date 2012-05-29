@@ -789,7 +789,7 @@ public class CCPaymentServices {
         String countryGeoId = address.getString("countryGeoId");
         if (UtilValidate.isNotEmpty(countryGeoId)) {
             try {
-                GenericValue countryGeo = address.getRelatedOneCache("CountryGeo");
+                GenericValue countryGeo = address.getRelatedOne("CountryGeo", true);
                 UtilXml.addChildElementValue(addressElement, "Country", countryGeo.getString("geoSecCode"), document);
             } catch (GenericEntityException gee) {
                 Debug.logInfo(gee, "Error finding related Geo for countryGeoId: " + countryGeoId, module);

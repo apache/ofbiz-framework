@@ -389,7 +389,7 @@ public class GiftCertificateServices {
         String finAccountAuthId = authTransaction.getString("referenceNum");
         try {
             GenericValue finAccountAuth = delegator.findOne("FinAccountAuth", UtilMisc.toMap("finAccountAuthId", finAccountAuthId), false);
-            GenericValue giftCard = finAccountAuth.getRelatedOne("FinAccount");
+            GenericValue giftCard = finAccountAuth.getRelatedOne("FinAccount", false);
             // make sure authorization has not expired
             Timestamp authExpiration = finAccountAuth.getTimestamp("thruDate");
             if ((authExpiration != null) && (authExpiration.before(UtilDateTime.nowTimestamp()))) {
@@ -634,7 +634,7 @@ public class GiftCertificateServices {
         // get the GiftCard VO
         GenericValue giftCard = null;
         try {
-            giftCard = paymentPref.getRelatedOne("GiftCard");
+            giftCard = paymentPref.getRelatedOne("GiftCard", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get GiftCard from OrderPaymentPreference", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
@@ -700,7 +700,7 @@ public class GiftCertificateServices {
         // the order header for store info
         GenericValue orderHeader = null;
         try {
-            orderHeader = orderItem.getRelatedOne("OrderHeader");
+            orderHeader = orderItem.getRelatedOne("OrderHeader", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get OrderHeader from OrderItem",module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrderError, 
@@ -743,7 +743,7 @@ public class GiftCertificateServices {
         // the product entity needed for information
         GenericValue product = null;
         try {
-            product = orderItem.getRelatedOne("Product");
+            product = orderItem.getRelatedOne("Product", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get Product from OrderItem", module);
         }
@@ -802,7 +802,7 @@ public class GiftCertificateServices {
             for(GenericValue answer : responseAnswers) {
                 GenericValue question = null;
                 try {
-                    question = answer.getRelatedOne("SurveyQuestion");
+                    question = answer.getRelatedOne("SurveyQuestion", false);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
@@ -955,7 +955,7 @@ public class GiftCertificateServices {
         // the order header for store info
         GenericValue orderHeader = null;
         try {
-            orderHeader = orderItem.getRelatedOne("OrderHeader");
+            orderHeader = orderItem.getRelatedOne("OrderHeader", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get OrderHeader from OrderItem",module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrderError, 
@@ -1038,7 +1038,7 @@ public class GiftCertificateServices {
             for(GenericValue answer : responseAnswers) {
                 GenericValue question = null;
                 try {
-                    question = answer.getRelatedOne("SurveyQuestion");
+                    question = answer.getRelatedOne("SurveyQuestion", false);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrderError, 

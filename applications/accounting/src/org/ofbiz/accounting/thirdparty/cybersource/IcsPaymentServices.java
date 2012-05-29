@@ -504,7 +504,7 @@ public class IcsPaymentServices {
                 GenericValue item = (GenericValue) orderItem;
                 GenericValue product = null;
                 try {
-                    product = item.getRelatedOne("Product");
+                    product = item.getRelatedOne("Product", false);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "ERROR: Unable to get Product from OrderItem, not passing info to CyberSource");
                 }

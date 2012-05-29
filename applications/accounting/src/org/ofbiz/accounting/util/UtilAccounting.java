@@ -107,7 +107,7 @@ public class UtilAccounting {
         }
     }
     public static BigDecimal getNetBalance(GenericValue account) throws GenericEntityException {
-        GenericValue glAccount = account.getRelatedOne("GlAccount");
+        GenericValue glAccount = account.getRelatedOne("GlAccount", false);
         BigDecimal balance = BigDecimal.ZERO;
         if (isDebitAccount(glAccount)) {
             balance = account.getBigDecimal("postedDebits").subtract(account.getBigDecimal("postedCredits"));
@@ -145,7 +145,7 @@ public class UtilAccounting {
         }
 
         // otherwise, we have to go to the grandparent (recurse)
-        return isPaymentTypeRecurse(paymentType.getRelatedOne("ParentPaymentType"), inputTypeId);
+        return isPaymentTypeRecurse(paymentType.getRelatedOne("ParentPaymentType", false), inputTypeId);
     }
 
 
@@ -158,7 +158,7 @@ public class UtilAccounting {
             return false;
         }
 
-        GenericValue paymentType = payment.getRelatedOneCache("PaymentType");
+        GenericValue paymentType = payment.getRelatedOne("PaymentType", true);
         if (paymentType == null) {
             throw new GenericEntityException("Cannot find PaymentType for paymentId " + payment.getString("paymentId"));
         }
@@ -207,7 +207,7 @@ public class UtilAccounting {
         }
 
         // otherwise, we have to go to the grandparent (recurse)
-        return isAccountClassClass(glAccountClass.getRelatedOneCache("ParentGlAccountClass"), parentGlAccountClassId);
+        return isAccountClassClass(glAccountClass.getRelatedOne("ParentGlAccountClass", true), parentGlAccountClassId);
     }
 
     /**
@@ -219,7 +219,7 @@ public class UtilAccounting {
             return false;
         }
 
-        GenericValue glAccountClass = glAccount.getRelatedOneCache("GlAccountClass");
+        GenericValue glAccountClass = glAccount.getRelatedOne("GlAccountClass", true);
         if (glAccountClass == null) {
             throw new GenericEntityException("Cannot find GlAccountClass for glAccountId " + glAccount.getString("glAccountId"));
         }
@@ -276,7 +276,7 @@ public class UtilAccounting {
         }
 
         // otherwise, we have to go to the grandparent (recurse)
-        return isInvoiceTypeRecurse(invoiceType.getRelatedOne("ParentInvoiceType"), inputTypeId);
+        return isInvoiceTypeRecurse(invoiceType.getRelatedOne("ParentInvoiceType", false), inputTypeId);
     }
 
     /**
@@ -288,7 +288,7 @@ public class UtilAccounting {
             return false;
         }
 
-        GenericValue invoiceType = invoice.getRelatedOneCache("InvoiceType");
+        GenericValue invoiceType = invoice.getRelatedOne("InvoiceType", true);
         if (invoiceType == null) {
             throw new GenericEntityException("Cannot find InvoiceType for invoiceId " + invoice.getString("invoiceId"));
         }

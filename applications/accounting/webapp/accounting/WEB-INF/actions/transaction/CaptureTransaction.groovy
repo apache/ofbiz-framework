@@ -39,7 +39,7 @@ if (orderPaymentPreferenceId) {
 }
 
 if (orderPaymentPreference) {
-   paymentMethodType = orderPaymentPreference.getRelatedOneCache("PaymentMethodType");
+   paymentMethodType = orderPaymentPreference.getRelatedOne("PaymentMethodType", true);
    context.paymentMethodType = paymentMethodType;
 }
 

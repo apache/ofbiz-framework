@@ -578,7 +578,7 @@ return true;]]></method>
                         </cell>
                         <cell id="136">
                             <text-data id="279">
-                                <expression name="valueExpr">delegator.findOne("PartyAcctgPreference", UtilMisc.toMap("partyId", organizationPartyId), false).getRelatedOne("Uom").getString("description")</expression>
+                                <expression name="valueExpr">delegator.findOne("PartyAcctgPreference", UtilMisc.toMap("partyId", organizationPartyId), false).getRelatedOne("Uom", false).getString("description")</expression>
                                 <property name="contentType">html</property>
                             </text-data>
                         </cell>

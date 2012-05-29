@@ -149,7 +149,7 @@ by hand from a real template using a ruler.
           <fo:table-body>
 
             <#list paymentApplications as paymentApplication>
-            <#assign invoice = paymentApplication.getRelatedOne("Invoice")?if_exists>
+            <#assign invoice = paymentApplication.getRelatedOne("Invoice", false)?if_exists>
             <fo:table-row>
               <fo:table-cell padding="3pt">
                 <fo:block>${payment.effectiveDate?date?string.short}</fo:block>
@@ -181,7 +181,7 @@ by hand from a real template using a ruler.
                   <#assign sumAmount = 0>
                   <#assign sumSubTotal = 0>
                   <#list InvoiceItems as invoiceItem>
-                      <#assign invoiceItemType = invoiceItem.getRelatedOne("InvoiceItemType")?if_exists>
+                      <#assign invoiceItemType = invoiceItem.getRelatedOne("InvoiceItemType", false)?if_exists>
                       <#assign quantity = 0>
                       <#assign amount = 0>
                       <#assign subTotal = 0>
@@ -217,7 +217,7 @@ by hand from a real template using a ruler.
                 <#assign sumAmount = 0>
                   <#assign sumSubTotal = 0>
                   <#list InvoiceItems as invoiceItem>
-                      <#assign invoiceItemType = invoiceItem.getRelatedOne("InvoiceItemType")?if_exists>
+                      <#assign invoiceItemType = invoiceItem.getRelatedOne("InvoiceItemType", false)?if_exists>
                       <#assign subTotal = 0>
                       <#if invoiceItemType.parentTypeId == payrolGroup.invoiceItemTypeId>
                       <#if invoiceItem.quantity?has_content><#assign quantity = invoiceItem.quantity?if_exists><#else><#assign quantity = 0></#if>
@@ -241,7 +241,7 @@ by hand from a real template using a ruler.
                 <#assign sumAmount = 0>
                   <#assign sumSubTotal = 0>
                   <#list InvoiceItems as invoiceItem>
-                      <#assign invoiceItemType = invoiceItem.getRelatedOne("InvoiceItemType")?if_exists>
+                      <#assign invoiceItemType = invoiceItem.getRelatedOne("InvoiceItemType", false)?if_exists>
                       <#assign subTotal = 0>
                       <#if invoiceItemType.parentTypeId == payrolGroup.invoiceItemTypeId>
                       <#if invoiceItem.quantity?has_content><#assign quantity = invoiceItem.quantity?if_exists><#else><#assign quantity = 0></#if>
@@ -345,7 +345,7 @@ by hand from a real template using a ruler.
           <fo:table-body>
 
             <#list paymentApplications as paymentApplication>
-            <#assign invoice = paymentApplication.getRelatedOne("Invoice")?if_exists>
+            <#assign invoice = paymentApplication.getRelatedOne("Invoice", false)?if_exists>
             <fo:table-row>
               <fo:table-cell padding="3pt">
                 <fo:block>${payment.effectiveDate?date?string.short}</fo:block>
@@ -377,7 +377,7 @@ by hand from a real template using a ruler.
                   <#assign sumAmount = 0>
                   <#assign sumSubTotal = 0>
                   <#list InvoiceItems as invoiceItem>
-                      <#assign invoiceItemType = invoiceItem.getRelatedOne("InvoiceItemType")?if_exists>
+                      <#assign invoiceItemType = invoiceItem.getRelatedOne("InvoiceItemType", false)?if_exists>
                       <#assign quantity = 0>
                       <#assign amount = 0>
                       <#assign subTotal = 0>
@@ -413,7 +413,7 @@ by hand from a real template using a ruler.
                 <#assign sumAmount = 0>
                   <#assign sumSubTotal = 0>
                   <#list InvoiceItems as invoiceItem>
-                      <#assign invoiceItemType = invoiceItem.getRelatedOne("InvoiceItemType")?if_exists>
+                      <#assign invoiceItemType = invoiceItem.getRelatedOne("InvoiceItemType", false)?if_exists>
                       <#assign subTotal = 0>
                       <#if invoiceItemType.parentTypeId == payrolGroup.invoiceItemTypeId>
                       <#if invoiceItem.quantity?has_content><#assign quantity = invoiceItem.quantity?if_exists><#else><#assign quantity = 0></#if>
@@ -437,7 +437,7 @@ by hand from a real template using a ruler.
                 <#assign sumAmount = 0>
                   <#assign sumSubTotal = 0>
                   <#list InvoiceItems as invoiceItem>
-                      <#assign invoiceItemType = invoiceItem.getRelatedOne("InvoiceItemType")?if_exists>
+                      <#assign invoiceItemType = invoiceItem.getRelatedOne("InvoiceItemType", false)?if_exists>
                       <#assign subTotal = 0>
                       <#if invoiceItemType.parentTypeId == payrolGroup.invoiceItemTypeId>
                       <#if invoiceItem.quantity?has_content><#assign quantity = invoiceItem.quantity?if_exists><#else><#assign quantity = 0></#if>

@@ -126,7 +126,7 @@ public class WorldPayEvents {
         String country = "";
         if (contactAddress != null) {
             try {
-                countryGeo = contactAddress.getRelatedOne("CountryGeo");
+                countryGeo = contactAddress.getRelatedOne("CountryGeo", false);
                 if (countryGeo != null) {
                     country = countryGeo.getString("geoCode");
                 }

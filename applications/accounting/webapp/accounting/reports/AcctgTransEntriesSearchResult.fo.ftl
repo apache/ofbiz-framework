@@ -138,7 +138,7 @@ under the License.
                                         <fo:table-cell border="1pt solid" border-width=".1mm">
                                             <fo:block text-align="center" font-size="5pt">
                                                 <#if (acctgTransEntry.paymentId)??>
-                                                    <#assign paymentType = (delegator.findOne("Payment", {"paymentId" : (acctgTransEntry.paymentId)!}, false)).getRelatedOne("PaymentType")/>
+                                                    <#assign paymentType = (delegator.findOne("Payment", {"paymentId" : (acctgTransEntry.paymentId)!}, false)).getRelatedOne("PaymentType", false)/>
                                                     ${(acctgTransEntry.paymentId)!}<#if (paymentType?has_content)> -(${(paymentType.description)!})</#if>
                                                 </#if>
                                             </fo:block>

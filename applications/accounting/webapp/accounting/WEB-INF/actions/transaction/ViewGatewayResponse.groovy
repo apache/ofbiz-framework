@@ -37,7 +37,7 @@ orderPaymentPreferenceId = context.orderPaymentPreferenceId;
 // first purpose: retrieve orderId and paymentPreferenceId
 if (!orderPaymentPreferenceId) {
   paymentGatewayResponse = context.paymentGatewayResponse;
-  orderPaymentPreference = paymentGatewayResponse.getRelatedOne("OrderPaymentPreference");
+  orderPaymentPreference = paymentGatewayResponse.getRelatedOne("OrderPaymentPreference", false);
   context.orderId = orderPaymentPreference.orderId;
   context.orderPaymentPreferenceId = orderPaymentPreference.orderPaymentPreferenceId;
 } else {

@@ -414,7 +414,7 @@ Map netIncomeResult = dispatcher.runSync("prepareIncomeStatement", UtilMisc.toMa
 BigDecimal netIncome = (BigDecimal)netIncomeResult.totalNetIncome;
 GenericValue retainedEarningsAccount = delegator.findOne("GlAccountTypeDefault", UtilMisc.toMap("glAccountTypeId", "RETAINED_EARNINGS", "organizationPartyId", organizationPartyId), true);
 if (retainedEarningsAccount) {
-    GenericValue retainedEarningsGlAccount = retainedEarningsAccount.getRelatedOne("GlAccount");
+    GenericValue retainedEarningsGlAccount = retainedEarningsAccount.getRelatedOne("GlAccount", false);
     transactionTotalsMap.put(retainedEarningsGlAccount.glAccountId, UtilMisc.toMap("glAccountId", retainedEarningsGlAccount.glAccountId,"accountName", retainedEarningsGlAccount.accountName, "accountCode", retainedEarningsGlAccount.accountCode, "balance", netIncome));
 }
 accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList("accountCode"));

@@ -62,7 +62,7 @@ public class FinAccountProductServices {
         // the order header for store info
         GenericValue orderHeader;
         try {
-            orderHeader = orderItem.getRelatedOne("OrderHeader");
+            orderHeader = orderItem.getRelatedOne("OrderHeader", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get OrderHeader from OrderItem", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrderError, 
@@ -152,7 +152,7 @@ public class FinAccountProductServices {
 
         if (billToParty != null) {
             try {
-                party = billToParty.getRelatedOne("Party");
+                party = billToParty.getRelatedOne("Party", false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }

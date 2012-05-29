@@ -51,7 +51,7 @@ under the License.
 
         <fo:table-body>
           <#list terms as term>
-          <#assign termType = term.getRelatedOne("TermType")/>
+          <#assign termType = term.getRelatedOne("TermType", false)/>
           <fo:table-row>
             <fo:table-cell>
               <fo:block font-size ="10pt" font-weight="bold">${termType.description?if_exists} ${term.description?if_exists} ${term.termDays?if_exists} ${term.textValue?if_exists}</fo:block>
@@ -95,15 +95,15 @@ under the License.
         <#assign newShipmentId = "">
         <#-- if the item has a description, then use its description.  Otherwise, use the description of the invoiceItemType -->
         <#list invoiceItems as invoiceItem>
-            <#assign itemType = invoiceItem.getRelatedOne("InvoiceItemType")>
+            <#assign itemType = invoiceItem.getRelatedOne("InvoiceItemType", false)>
             <#assign isItemAdjustment = Static["org.ofbiz.entity.util.EntityTypeUtil"].hasParentType(delegator, "InvoiceItemType", "invoiceItemTypeId", itemType.getString("invoiceItemTypeId"), "parentTypeId", "INVOICE_ADJ")/>
 
-            <#assign taxRate = invoiceItem.getRelatedOne("TaxAuthorityRateProduct")?if_exists>
+            <#assign taxRate = invoiceItem.getRelatedOne("TaxAuthorityRateProduct", false)?if_exists>
             <#assign itemBillings = invoiceItem.getRelated("OrderItemBilling")?if_exists>
             <#if itemBillings?has_content>
                 <#assign itemBilling = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(itemBillings)>
                 <#if itemBilling?has_content>
-                    <#assign itemIssuance = itemBilling.getRelatedOne("ItemIssuance")?if_exists>
+                    <#assign itemIssuance = itemBilling.getRelatedOne("ItemIssuance", false)?if_exists>
                     <#if itemIssuance?has_content>
                         <#assign newShipmentId = itemIssuance.shipmentId>
                         <#assign issuedDateTime = itemIssuance.issuedDateTime/>

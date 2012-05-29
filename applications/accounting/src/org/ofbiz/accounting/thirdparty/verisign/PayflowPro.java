@@ -524,11 +524,11 @@ public class PayflowPro {
             parameterMap.put("SHIPTOSTREET2", StringUtils.left(shippingAddress.getString("address2"), 30));
             parameterMap.put("SHIPTOCITY", StringUtils.left(shippingAddress.getString("city"), 40));
             if (shippingAddress.getString("stateProvinceGeoId") != null && !"_NA_".equals(shippingAddress.getString("stateProvinceGeoId"))) {
-                GenericValue stateProvinceGeo = shippingAddress.getRelatedOne("StateProvinceGeo");
+                GenericValue stateProvinceGeo = shippingAddress.getRelatedOne("StateProvinceGeo", false);
                 parameterMap.put("SHIPTOSTATE", StringUtils.left(stateProvinceGeo.getString("geoCode"), 40));
             }
             parameterMap.put("SHIPTOZIP", StringUtils.left(shippingAddress.getString("postalCode"), 16));
-            GenericValue countryGeo = shippingAddress.getRelatedOne("CountryGeo");
+            GenericValue countryGeo = shippingAddress.getRelatedOne("CountryGeo", false);
             parameterMap.put("SHIPTOCOUNTRY", StringUtils.left(countryGeo.getString("geoCode"), 2));
         }
     }
@@ -613,8 +613,8 @@ public class PayflowPro {
         String configString = "payment.properties";
         GenericValue payPalPaymentMethod = null;
         try {
-            payPalPaymentMethod = paymentPref.getRelatedOne("PaymentMethod");
-            payPalPaymentMethod = payPalPaymentMethod.getRelatedOne("PayPalPaymentMethod");
+            payPalPaymentMethod = paymentPref.getRelatedOne("PaymentMethod", false);
+            payPalPaymentMethod = payPalPaymentMethod.getRelatedOne("PayPalPaymentMethod", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());

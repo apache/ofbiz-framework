@@ -46,7 +46,7 @@ dateFormatter = new java.text.SimpleDateFormat("dd MMMMM yyyy");
 invoice = delegator.findOne("Invoice", UtilMisc.toMap("invoiceId", invoiceId), false);
 
 organizationPartyId = null;
-if ("PURCHASE_INVOICE".equals(invoice.get("invoiceTypeId")) || "PURCHASE_INVOICE".equals(invoice.getRelatedOne("InvoiceType").get("parentTypeId"))) {
+if ("PURCHASE_INVOICE".equals(invoice.get("invoiceTypeId")) || "PURCHASE_INVOICE".equals(invoice.getRelatedOne("InvoiceType", false).get("parentTypeId"))) {
     organizationPartyId = invoice.get("partyId");
 } else {
     organizationPartyId = invoice.get("partyIdFrom");
@@ -523,12 +523,12 @@ return true;]]></method>
             <method name="fetch"><![CDATA[if (countOfRow >= 1) return false;
 row["invoiceId"] = invoice.get("invoiceId");
 row["description"] = invoice.get("description");
-row["invoiceTypeDescription"] = invoice.getRelatedOne("InvoiceType").get("description");
-row["statusDescription"] = invoice.getRelatedOne("StatusItem").get("description");
+row["invoiceTypeDescription"] = invoice.getRelatedOne("InvoiceType", false).get("description");
+row["statusDescription"] = invoice.getRelatedOne("StatusItem", false).get("description");
 row["invoiceDate"] = invoice.get("invoiceDate");
 
 var partyId = null;
-if ("PURCHASE_INVOICE".equals(invoice.get("invoiceTypeId")) || "PURCHASE_INVOICE".equals(invoice.getRelatedOne("InvoiceType").get("parentTypeId"))) {
+if ("PURCHASE_INVOICE".equals(invoice.get("invoiceTypeId")) || "PURCHASE_INVOICE".equals(invoice.getRelatedOne("InvoiceType", false).get("parentTypeId"))) {
     partyId = invoice.get("partyIdFrom");
 } else {
     partyId = invoice.get("partyId");

@@ -198,9 +198,9 @@ function getFinAccountTransRunningTotalAndBalances() {
                       </#if>
                       <#if payment?has_content>
                         <#assign paymentGroupMembers = Static["org.ofbiz.entity.util.EntityUtil"].filterByDate(payment.getRelated("PaymentGroupMember")?if_exists) />
-                        <#assign fromParty = payment.getRelatedOne("FromParty")?if_exists />
+                        <#assign fromParty = payment.getRelatedOne("FromParty", false)?if_exists />
                         <#assign fromPartyName = delegator.findOne("PartyNameView", {"partyId" : fromParty.partyId}, true) />
-                        <#assign toParty = payment.getRelatedOne("ToParty")?if_exists />
+                        <#assign toParty = payment.getRelatedOne("ToParty", false)?if_exists />
                         <#assign toPartyName = delegator.findOne("PartyNameView", {"partyId" : toParty.partyId}, true) />
                         <#if paymentGroupMembers?has_content>
                           <#assign paymentGroupMember = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(paymentGroupMembers) />

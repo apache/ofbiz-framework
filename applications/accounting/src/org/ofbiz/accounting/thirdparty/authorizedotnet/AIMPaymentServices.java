@@ -107,7 +107,7 @@ public class AIMPaymentServices {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue creditCard = null;
         try {
-            creditCard = delegator.getRelatedOne("CreditCard",orderPaymentPreference);
+            creditCard = delegator.getRelatedOne("CreditCard",orderPaymentPreference, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -155,7 +155,7 @@ public class AIMPaymentServices {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue creditCard = null;
         try {
-            creditCard = delegator.getRelatedOne("CreditCard", orderPaymentPreference);
+            creditCard = delegator.getRelatedOne("CreditCard", orderPaymentPreference, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -499,13 +499,13 @@ public class AIMPaymentServices {
                     // sometimes the ccAuthCapture interface is used, in which case the creditCard is passed directly
                     GenericValue creditCard = (GenericValue) params.get("creditCard");
                     if (creditCard == null || ! (opp.get("paymentMethodId").equals(creditCard.get("paymentMethodId")))) {
-                        creditCard = opp.getRelatedOne("CreditCard");
+                        creditCard = opp.getRelatedOne("CreditCard", false);
                     }
                     AIMRequest.put("x_First_Name", UtilFormatOut.checkNull(creditCard.getString("firstNameOnCard")));
                     AIMRequest.put("x_Last_Name", UtilFormatOut.checkNull(creditCard.getString("lastNameOnCard")));
                     AIMRequest.put("x_Company", UtilFormatOut.checkNull(creditCard.getString("companyNameOnCard")));
                     if (UtilValidate.isNotEmpty(creditCard.getString("contactMechId"))) {
-                        GenericValue address = creditCard.getRelatedOne("PostalAddress");
+                        GenericValue address = creditCard.getRelatedOne("PostalAddress", false);
                         if (address != null) {
                             AIMRequest.put("x_Address", UtilFormatOut.checkNull(address.getString("address1")));
                             AIMRequest.put("x_City", UtilFormatOut.checkNull(address.getString("city")));

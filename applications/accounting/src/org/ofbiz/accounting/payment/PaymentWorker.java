@@ -69,13 +69,13 @@ public class PaymentWorker {
                 paymentMethodValueMaps.add(valueMap);
                 valueMap.put("paymentMethod", paymentMethod);
                 if ("CREDIT_CARD".equals(paymentMethod.getString("paymentMethodTypeId"))) {
-                    GenericValue creditCard = paymentMethod.getRelatedOne("CreditCard");
+                    GenericValue creditCard = paymentMethod.getRelatedOne("CreditCard", false);
                     if (creditCard != null) valueMap.put("creditCard", creditCard);
                 } else if ("GIFT_CARD".equals(paymentMethod.getString("paymentMethodTypeId"))) {
-                    GenericValue giftCard = paymentMethod.getRelatedOne("GiftCard");
+                    GenericValue giftCard = paymentMethod.getRelatedOne("GiftCard", false);
                     if (giftCard != null) valueMap.put("giftCard", giftCard);
                 } else if ("EFT_ACCOUNT".equals(paymentMethod.getString("paymentMethodTypeId"))) {
-                    GenericValue eftAccount = paymentMethod.getRelatedOne("EftAccount");
+                    GenericValue eftAccount = paymentMethod.getRelatedOne("EftAccount", false);
                     if (eftAccount != null) valueMap.put("eftAccount", eftAccount);
                 }
             }
@@ -239,9 +239,9 @@ public class PaymentWorker {
             paymentApplication = delegator.findOne("PaymentApplication", UtilMisc.toMap("paymentApplicationId", paymentApplicationId), false);
             appliedAmount = paymentApplication.getBigDecimal("amountApplied");
             if (paymentApplication.get("paymentId") != null) {
-                GenericValue payment = paymentApplication.getRelatedOne("Payment");
+                GenericValue payment = paymentApplication.getRelatedOne("Payment", false);
                 if (paymentApplication.get("invoiceId") != null && payment.get("actualCurrencyAmount") != null && payment.get("actualCurrencyUomId") != null) {
-                    GenericValue invoice = paymentApplication.getRelatedOne("Invoice");
+                    GenericValue invoice = paymentApplication.getRelatedOne("Invoice", false);
                     if (payment.getString("actualCurrencyUomId").equals(invoice.getString("currencyUomId"))) {
                            appliedAmount = appliedAmount.multiply(payment.getBigDecimal("amount")).divide(payment.getBigDecimal("actualCurrencyAmount"),new MathContext(100));
                     }
@@ -283,7 +283,7 @@ public class PaymentWorker {
                     BigDecimal amountApplied = paymentApplication.getBigDecimal("amountApplied");
                     // check currency invoice and if different convert amount applied for display
                     if (actual.equals(Boolean.FALSE) && paymentApplication.get("invoiceId") != null && payment.get("actualCurrencyAmount") != null && payment.get("actualCurrencyUomId") != null) {
-                        GenericValue invoice = paymentApplication.getRelatedOne("Invoice");
+                        GenericValue invoice = paymentApplication.getRelatedOne("Invoice", false);
                         if (payment.getString("actualCurrencyUomId").equals(invoice.getString("currencyUomId"))) {
                                amountApplied = amountApplied.multiply(payment.getBigDecimal("amount")).divide(payment.getBigDecimal("actualCurrencyAmount"),new MathContext(100));
                         }

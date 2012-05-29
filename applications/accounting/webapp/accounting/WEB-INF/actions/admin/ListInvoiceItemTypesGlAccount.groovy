@@ -48,7 +48,7 @@ invoiceItemTypes.each { invoiceItemType ->
             glAccount = glAccounts[0];
         }
     } else {
-        glAccount = invoiceItemType.getRelatedOne("DefaultGlAccount");
+        glAccount = invoiceItemType.getRelatedOne("DefaultGlAccount", false);
     }
 
     if (glAccount) {

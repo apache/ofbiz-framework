@@ -57,24 +57,24 @@ if (paymentMethodId) {
         paymentMethodTypeId = paymentMethod.paymentMethodTypeId;
 
         // party information
-        party = paymentMethod.getRelatedOne("Party");
+        party = paymentMethod.getRelatedOne("Party", false);
         if (party && "PERSON".equals(party.partyTypeId)) {
-            person = party.getRelatedOne("Person");
+            person = party.getRelatedOne("Person", false);
             context.person = person;
         } else if (party && "PARTY_GROUP".equals(party.partyTypeId)) {
-            partyGroup = party.getRelatedOne("PartyGroup");
+            partyGroup = party.getRelatedOne("PartyGroup", false);
             context.partyGroup = partyGroup;
         }
 
         // method info + address
-        creditCard = paymentMethod.getRelatedOne("CreditCard");
+        creditCard = paymentMethod.getRelatedOne("CreditCard", false);
         context.put("creditCard", creditCard);
         if (creditCard) {
-            postalAddress = creditCard.getRelatedOne("PostalAddress");
+            postalAddress = creditCard.getRelatedOne("PostalAddress", false);
             context.postalFields = postalAddress;
         }
 
-        giftCard = paymentMethod.getRelatedOne("GiftCard");
+        giftCard = paymentMethod.getRelatedOne("GiftCard", false);
         context.giftCard = giftCard;
 
         // todo add support for eft account

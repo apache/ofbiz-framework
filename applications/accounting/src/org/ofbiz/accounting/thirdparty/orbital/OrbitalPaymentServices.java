@@ -127,7 +127,7 @@ public class OrbitalPaymentServices {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue creditCard = null;
         try {
-            creditCard = orderPaymentPreference.getRelatedOne("CreditCard");
+            creditCard = orderPaymentPreference.getRelatedOne("CreditCard", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -173,7 +173,7 @@ public class OrbitalPaymentServices {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue creditCard = null;
         try {
-            creditCard = orderPaymentPreference.getRelatedOne("CreditCard");
+            creditCard = orderPaymentPreference.getRelatedOne("CreditCard", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -218,7 +218,7 @@ public class OrbitalPaymentServices {
 
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         try {
-            orderPaymentPreference.getRelatedOne("CreditCard");
+            orderPaymentPreference.getRelatedOne("CreditCard", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -339,13 +339,13 @@ public class OrbitalPaymentServices {
                     // sometimes the ccAuthCapture interface is used, in which case the creditCard is passed directly
                      creditCard = (GenericValue) params.get("creditCard");
                     if (creditCard == null || ! (opp.get("paymentMethodId").equals(creditCard.get("paymentMethodId")))) {
-                        creditCard = opp.getRelatedOne("CreditCard");
+                        creditCard = opp.getRelatedOne("CreditCard", false);
                     }
                 }
 
                 request.setFieldValue("AVSname", "Demo Customer");
                 if (UtilValidate.isNotEmpty(creditCard.getString("contactMechId"))) {
-                    GenericValue address = creditCard.getRelatedOne("PostalAddress");
+                    GenericValue address = creditCard.getRelatedOne("PostalAddress", false);
                     if (address != null) {
                         request.setFieldValue("AVSaddress1", UtilFormatOut.checkNull(address.getString("address1")));
                         request.setFieldValue("AVScity", UtilFormatOut.checkNull(address.getString("city")));
@@ -403,7 +403,7 @@ public class OrbitalPaymentServices {
 
             request.setFieldValue("PCDestName", UtilFormatOut.checkNull(creditCard.getString("firstNameOnCard") + creditCard.getString("lastNameOnCard")));
             if (UtilValidate.isNotEmpty(creditCard.getString("contactMechId"))) {
-                GenericValue address = creditCard.getRelatedOne("PostalAddress");
+                GenericValue address = creditCard.getRelatedOne("PostalAddress", false);
                 if (address != null) {
                     request.setFieldValue("PCOrderNum", UtilFormatOut.checkNull(orderId));
                     request.setFieldValue("PCDestAddress1", UtilFormatOut.checkNull(address.getString("address1")));
@@ -634,7 +634,7 @@ public class OrbitalPaymentServices {
             GenericValue trackingCodeOrder = EntityUtil.getFirst(orderHeader.getRelated("TrackingCodeOrder"));
             GenericValue trackingCode = null;
             if (UtilValidate.isNotEmpty(trackingCodeOrder)) {
-                trackingCode = trackingCodeOrder.getRelatedOne("TrackingCode");
+                trackingCode = trackingCodeOrder.getRelatedOne("TrackingCode", false);
             }
             if (UtilValidate.isNotEmpty(trackingCode) && UtilValidate.isNotEmpty(trackingCode.getString("description"))) {
                 // get tracking code description and provide it into shipping reference.

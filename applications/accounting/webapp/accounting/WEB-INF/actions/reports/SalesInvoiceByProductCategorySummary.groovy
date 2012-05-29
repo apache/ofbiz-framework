@@ -44,13 +44,13 @@ productCategoryList = FastList.newInstance();
 
 productMemberList.each { productMember ->
     if (!productIdSet.contains(productMember.productId)) {
-        productList.add(productMember.getRelatedOneCache("Product"));
+        productList.add(productMember.getRelatedOne("Product", true));
     }
     productIdSet.add(productMember.productId);
 }
 categoryRollupList.each { categoryRollup ->
     if (!productCategoryIdSet.contains(categoryRollup.productCategoryId)) {
-        productCategoryList.add(categoryRollup.getRelatedOneCache("CurrentProductCategory"));
+        productCategoryList.add(categoryRollup.getRelatedOne("CurrentProductCategory", true));
     }
     productCategoryIdSet.add(categoryRollup.productCategoryId);
 }
