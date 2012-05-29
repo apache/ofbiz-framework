@@ -38,8 +38,8 @@ import org.w3c.dom.Element;
  */
 public class SimpleMapProcessor {
 
-    protected static UtilCache<String, Map<String, MapProcessor>> simpleMapProcessorsResourceCache = UtilCache.createUtilCache("minilang.SimpleMapProcessorsResource", 0, 0);
-    protected static UtilCache<URL, Map<String, MapProcessor>> simpleMapProcessorsURLCache = UtilCache.createUtilCache("minilang.SimpleMapProcessorsURL", 0, 0);
+    private static final UtilCache<String, Map<String, MapProcessor>> simpleMapProcessorsResourceCache = UtilCache.createUtilCache("minilang.SimpleMapProcessorsResource", 0, 0);
+    private static final UtilCache<URL, Map<String, MapProcessor>> simpleMapProcessorsURLCache = UtilCache.createUtilCache("minilang.SimpleMapProcessorsURL", 0, 0);
 
     protected static Map<String, MapProcessor> getAllProcessors(URL xmlURL) throws MiniLangException {
         Map<String, MapProcessor> mapProcessors = FastMap.newInstance();
@@ -68,22 +68,16 @@ public class SimpleMapProcessor {
     protected static Map<String, MapProcessor> getProcessors(String xmlResource, String name, ClassLoader loader) throws MiniLangException {
         Map<String, MapProcessor> simpleMapProcessors = simpleMapProcessorsResourceCache.get(xmlResource);
         if (simpleMapProcessors == null) {
-            synchronized (SimpleMapProcessor.class) {
-                simpleMapProcessors = simpleMapProcessorsResourceCache.get(xmlResource);
-                if (simpleMapProcessors == null) {
-                    URL xmlURL = null;
-                    try {
-                        xmlURL = FlexibleLocation.resolveLocation(xmlResource, loader);
-                    } catch (MalformedURLException e) {
-                        throw new MiniLangException("Could not find SimpleMapProcessor XML document in resource: " + xmlResource + "; error was: " + e.toString(), e);
-                    }
-                    if (xmlURL == null) {
-                        throw new MiniLangException("Could not find SimpleMapProcessor XML document in resource: " + xmlResource);
-                    }
-                    simpleMapProcessors = getAllProcessors(xmlURL);
-                    simpleMapProcessorsResourceCache.put(xmlResource, simpleMapProcessors);
-                }
+            URL xmlURL = null;
+            try {
+                xmlURL = FlexibleLocation.resolveLocation(xmlResource, loader);
+            } catch (MalformedURLException e) {
+                throw new MiniLangException("Could not find SimpleMapProcessor XML document in resource: " + xmlResource + "; error was: " + e.toString(), e);
             }
+            if (xmlURL == null) {
+                throw new MiniLangException("Could not find SimpleMapProcessor XML document in resource: " + xmlResource);
+            }
+            simpleMapProcessors = simpleMapProcessorsResourceCache.putIfAbsentAndGet(xmlResource, getAllProcessors(xmlURL));
         }
         return simpleMapProcessors;
     }
@@ -91,13 +85,7 @@ public class SimpleMapProcessor {
     protected static Map<String, MapProcessor> getProcessors(URL xmlURL, String name) throws MiniLangException {
         Map<String, MapProcessor> simpleMapProcessors = simpleMapProcessorsURLCache.get(xmlURL);
         if (simpleMapProcessors == null) {
-            synchronized (SimpleMapProcessor.class) {
-                simpleMapProcessors = simpleMapProcessorsURLCache.get(xmlURL);
-                if (simpleMapProcessors == null) {
-                    simpleMapProcessors = getAllProcessors(xmlURL);
-                    simpleMapProcessorsURLCache.put(xmlURL, simpleMapProcessors);
-                }
-            }
+            simpleMapProcessors = simpleMapProcessorsURLCache.putIfAbsentAndGet(xmlURL, getAllProcessors(xmlURL));
         }
         return simpleMapProcessors;
     }
