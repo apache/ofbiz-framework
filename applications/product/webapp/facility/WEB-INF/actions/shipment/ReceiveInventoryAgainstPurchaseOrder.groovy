@@ -116,7 +116,7 @@ orderItemDatas = [:] as TreeMap;
 totalAvailableToReceive = 0;
 
 // Populate the order item data for the FTL
-orderItems = orderHeader.getRelated("OrderItemAndShipGroupAssoc", oiasgaLimitMap, ['shipGroupSeqId', 'orderItemSeqId']);
+orderItems = orderHeader.getRelated("OrderItemAndShipGroupAssoc", oiasgaLimitMap, ['shipGroupSeqId', 'orderItemSeqId'], false);
 orderItems.each { orderItemAndShipGroupAssoc ->
     product = orderItemAndShipGroupAssoc.getRelatedOne("Product", false);
 

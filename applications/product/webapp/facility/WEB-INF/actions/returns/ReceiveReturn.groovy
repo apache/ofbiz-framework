@@ -36,7 +36,7 @@ if (returnId) {
     returnHeader = delegator.findOne("ReturnHeader", [returnId : returnId], false);
     if (returnHeader) {
         if ("RETURN_ACCEPTED".equals(returnHeader.statusId)) {
-            returnItems = returnHeader.getRelated("ReturnItem");
+            returnItems = returnHeader.getRelated("ReturnItem", null, null, false);
         } else if ("RETURN_REQUESTED".equals(returnHeader.statusId)) {
             uiLabelMap = UtilProperties.getResourceBundleMap("ProductErrorUiLabels", locale);
             ProductReturnRequestedOK = uiLabelMap.ProductReturnRequestedOK;
@@ -55,7 +55,7 @@ if (returnItems) {
     context.returnItemsSize = returnItems.size();
     returnItems.each { thisItem ->
         totalReceived = 0.0;
-        receipts = thisItem.getRelated("ShipmentReceipt");
+        receipts = thisItem.getRelated("ShipmentReceipt", null, null, false);
         if (receipts) {
             receipts.each { rec ->
                 accepted = rec.getDouble("quantityAccepted");

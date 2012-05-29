@@ -28,7 +28,7 @@ productFeatureGroupId = parameters.get("productFeatureGroupId");
 if (productFeatureGroupId) {
     productFeatureGroup = delegator.findOne("ProductFeatureGroup", [productFeatureGroupId : productFeatureGroupId], false);
     productFeatures = [];
-    productFeatureGroupAppls = productFeatureGroup.getRelated("ProductFeatureGroupAppl", ['sequenceNum']);
+    productFeatureGroupAppls = productFeatureGroup.getRelated("ProductFeatureGroupAppl", null, ['sequenceNum'], false);
     for (pFGAi = productFeatureGroupAppls.iterator(); pFGAi;) {
         productFeatureGroupAppl = (GenericEntity)pFGAi.next();
         productFeature = (GenericEntity)productFeatureGroupAppl.getRelatedOne("ProductFeature", false);

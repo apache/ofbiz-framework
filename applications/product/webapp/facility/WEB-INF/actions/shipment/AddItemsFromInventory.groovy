@@ -25,17 +25,17 @@ shipmentId = parameters.shipmentId;
 items = [];
 shipment = delegator.findOne("Shipment", [shipmentId : shipmentId], false);
 partyId = shipment.partyIdTo;
-shipmentItems = shipment.getRelated("ShipmentItem");
+shipmentItems = shipment.getRelated("ShipmentItem", null, null, false);
 shipmentItems.each { shipmentItem ->
     productId = shipmentItem.productId;
-    internalName = shipmentItem.getRelated("Product").internalName;
+    internalName = shipmentItem.getRelated("Product", null, null, false).internalName;
     EntityCondition cond = EntityCondition.makeCondition([EntityCondition.makeCondition("returnId", shipment.primaryReturnId),
                                    EntityCondition.makeCondition("productId", productId)], EntityOperator.AND);
     returnItem = EntityUtil.getFirst(delegator.findList("ReturnItem", cond, null, null, null, true));
     returnQuantity = Double.valueOf(returnItem.returnQuantity);
 
     shipmentItemQty = Double.valueOf(shipmentItem.quantity);
-    itemIssuances = shipmentItem.getRelated("ItemIssuance", [shipmentId : shipmentId, shipmentItemSeqId : shipmentItem.shipmentItemSeqId], ["inventoryItemId"]);
+    itemIssuances = shipmentItem.getRelated("ItemIssuance", [shipmentId : shipmentId, shipmentItemSeqId : shipmentItem.shipmentItemSeqId], ["inventoryItemId"], false);
     totalQtyIssued = 0;
     issuedItems = [];
     itemIssuances.each { itemIssuance ->

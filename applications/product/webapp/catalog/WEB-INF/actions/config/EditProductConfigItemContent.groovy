@@ -36,7 +36,7 @@ context.imageNameSmall = imageUrlPrefix + "/" + filenameExpander.expandString([s
 // Start ProdConfItemContent stuff
 productContent = null;
 if (configItem) {
-    productContent = configItem.getRelated("ProdConfItemContent", null, ['confItemContentTypeId']);
+    productContent = configItem.getRelated("ProdConfItemContent", null, ['confItemContentTypeId'], false);
 }
 context.productContent = productContent;
 

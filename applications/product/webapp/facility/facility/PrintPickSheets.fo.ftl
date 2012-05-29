@@ -167,7 +167,7 @@ under the License.
                                                 </#if>
                                                 <#assign orderItem = orderItemShipGrpInvRes.getRelatedOne("OrderItem", false)>
                                                 <#assign product = orderItem.getRelatedOne("Product", false)>
-                                                <#assign supplierProduct = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(product.getRelated("SupplierProduct"))?if_exists>
+                                                <#assign supplierProduct = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(product.getRelated("SupplierProduct", null, null, false))?if_exists>
                                                 <#assign inventoryItem = infoItem.inventoryItem>
                                             <#if (quantityToPick > 0)>
                                             <fo:table-row background-color="${rowColor}">
@@ -197,7 +197,7 @@ under the License.
                                                         </fo:block>
                                                     </fo:table-cell>
                                                 </fo:table-row>
-                                                <#assign workOrderItemFulfillments = orderItem.getRelated("WorkOrderItemFulfillment")>
+                                                <#assign workOrderItemFulfillments = orderItem.getRelated("WorkOrderItemFulfillment", null, null, false)>
                                                 <#if workOrderItemFulfillments?has_content>
                                                     <#assign workOrderItemFulfillment = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(workOrderItemFulfillments)/>
                                                     <#if workOrderItemFulfillment?has_content>
@@ -205,7 +205,7 @@ under the License.
                                                         <#if workEffort?has_content>
                                                             <#assign workEffortTask = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("WorkEffort", {"workEffortParentId" :  workEffort.workEffortId}, null, false))/>
                                                             <#if workEffortTask?has_content>
-                                                                <#assign workEffortInventoryAssigns = workEffortTask.getRelated("WorkEffortInventoryAssign")/>
+                                                                <#assign workEffortInventoryAssigns = workEffortTask.getRelated("WorkEffortInventoryAssign", null, null, false)/>
                                                                 <#if workEffortInventoryAssigns?has_content>
                                                                     <#list workEffortInventoryAssigns as workEffortInventoryAssign>
                                                                         <#assign inventoryItem = workEffortInventoryAssign.getRelatedOne("InventoryItem", false)/>

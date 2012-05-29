@@ -71,14 +71,14 @@ public class SupplierProductServices {
                 results.put("supplierProducts",null);
                 return results;
             }
-            List<GenericValue> supplierProducts = product.getRelatedCache("SupplierProduct");
+            List<GenericValue> supplierProducts = product.getRelated("SupplierProduct", null, null, true);
 
             // if there were no related SupplierProduct entities and the item is a variant, then get the SupplierProducts of the virtual parent product
             if (supplierProducts.size() == 0 && product.getString("isVariant") != null && product.getString("isVariant").equals("Y")) {
                 String virtualProductId = ProductWorker.getVariantVirtualId(product);
                 GenericValue virtualProduct = delegator.findOne("Product", UtilMisc.toMap("productId", virtualProductId), true);
                 if (virtualProduct != null) {
-                    supplierProducts = virtualProduct.getRelatedCache("SupplierProduct");
+                    supplierProducts = virtualProduct.getRelated("SupplierProduct", null, null, true);
                 }
             }
 
@@ -136,7 +136,7 @@ public class SupplierProductServices {
                 // loop through all the features, find the related SupplierProductFeature for the given partyId, and
                 // substitue description and idCode
                 for (GenericValue nextFeature: features) {
-                    List<GenericValue> supplierFeatures = EntityUtil.filterByAnd(nextFeature.getRelated("SupplierProductFeature"),
+                    List<GenericValue> supplierFeatures = EntityUtil.filterByAnd(nextFeature.getRelated("SupplierProductFeature", null, null, false),
                                                                    UtilMisc.toMap("partyId", partyId));
                     GenericValue supplierFeature = null;
 

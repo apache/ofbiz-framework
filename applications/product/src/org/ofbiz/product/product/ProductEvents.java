@@ -691,7 +691,7 @@ public class ProductEvents {
                             while (!foundFeatureOnVariant && variantIter.hasNext()) {
                                 GenericValue variant = variantIter.next();
                                 // get the selectable features for the variant
-                                List<GenericValue> variantProductFeatureAndAppls = variant.getRelated("ProductFeatureAndAppl", UtilMisc.toMap("productFeatureTypeId", productFeatureTypeId, "productFeatureApplTypeId", "STANDARD_FEATURE", "description", description), null);
+                                List<GenericValue> variantProductFeatureAndAppls = variant.getRelated("ProductFeatureAndAppl", UtilMisc.toMap("productFeatureTypeId", productFeatureTypeId, "productFeatureApplTypeId", "STANDARD_FEATURE", "description", description), null, false);
                                 if (variantProductFeatureAndAppls.size() > 0) {
                                     foundFeatureOnVariant = true;
                                 }
@@ -774,14 +774,14 @@ public class ProductEvents {
             List<GenericValue> variants = EntityUtil.getRelated("AssocProduct", variantAssocs);
             for (GenericValue variant: variants) {
                 // get the selectable features for the variant
-                List<GenericValue> productFeatureAndAppls = variant.getRelated("ProductFeatureAndAppl", UtilMisc.toMap("productFeatureTypeId", productFeatureTypeId, "productFeatureApplTypeId", "STANDARD_FEATURE"), null);
+                List<GenericValue> productFeatureAndAppls = variant.getRelated("ProductFeatureAndAppl", UtilMisc.toMap("productFeatureTypeId", productFeatureTypeId, "productFeatureApplTypeId", "STANDARD_FEATURE"), null, false);
                 for (GenericValue productFeatureAndAppl: productFeatureAndAppls) {
                     GenericPK productFeatureApplPK = delegator.makePK("ProductFeatureAppl");
                     productFeatureApplPK.setPKFields(productFeatureAndAppl);
                     delegator.removeByPrimaryKey(productFeatureApplPK);
                 }
             }
-            List<GenericValue> productFeatureAndAppls = product.getRelated("ProductFeatureAndAppl", UtilMisc.toMap("productFeatureTypeId", productFeatureTypeId, "productFeatureApplTypeId", "SELECTABLE_FEATURE"), null);
+            List<GenericValue> productFeatureAndAppls = product.getRelated("ProductFeatureAndAppl", UtilMisc.toMap("productFeatureTypeId", productFeatureTypeId, "productFeatureApplTypeId", "SELECTABLE_FEATURE"), null, false);
             for (GenericValue productFeatureAndAppl: productFeatureAndAppls) {
                 GenericPK productFeatureApplPK = delegator.makePK("ProductFeatureAppl");
                 productFeatureApplPK.setPKFields(productFeatureAndAppl);

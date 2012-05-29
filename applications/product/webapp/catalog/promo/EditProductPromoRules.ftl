@@ -31,8 +31,8 @@ under the License.
       </tr>
   <#assign ruleClass = "2">
   <#list productPromoRules as productPromoRule>
-    <#assign productPromoConds = productPromoRule.getRelated("ProductPromoCond")>
-    <#assign productPromoActions = productPromoRule.getRelated("ProductPromoAction")>
+    <#assign productPromoConds = productPromoRule.getRelated("ProductPromoCond", null, null, false)>
+    <#assign productPromoActions = productPromoRule.getRelated("ProductPromoAction", null, null, false)>
       <#if productPromoRule_index != 0>
         <tr><td colspan="3"><hr /></td></tr>
       </#if>
@@ -136,7 +136,7 @@ under the License.
                 </form>
       <#-- ======================= Categories ======================== -->
                 <div class="label">${uiLabelMap.ProductConditionsCategoriesForCondition} ${(productPromoCond.productPromoCondSeqId)?if_exists}:</div>
-      <#assign condProductPromoCategories = productPromoCond.getRelated("ProductPromoCategory")>
+      <#assign condProductPromoCategories = productPromoCond.getRelated("ProductPromoCategory", null, null, false)>
       <#if condProductPromoCategories?has_content>
       <#list condProductPromoCategories as condProductPromoCategory>
         <#assign condProductCategory = condProductPromoCategory.getRelatedOne("ProductCategory", true)>
@@ -182,7 +182,7 @@ under the License.
                 </div>
       <#-- ======================= Products ======================== -->
                 <div class="label">${uiLabelMap.ProductConditionsProductsForCondition} ${(productPromoCond.productPromoCondSeqId)?if_exists}:</div>
-      <#assign condProductPromoProducts = productPromoCond.getRelated("ProductPromoProduct")>
+      <#assign condProductPromoProducts = productPromoCond.getRelated("ProductPromoProduct", null, null, false)>
       <#if condProductPromoProducts?has_content>
       <#list condProductPromoProducts as condProductPromoProduct>
         <#assign condProduct = condProductPromoProduct.getRelatedOne("Product", true)?if_exists>
@@ -319,7 +319,7 @@ under the License.
                 </div>
       <#-- ======================= Categories ======================== -->
                 <div class="label">${uiLabelMap.ProductActionsCategoriesForAction} ${(productPromoAction.productPromoActionSeqId)?if_exists}:</div>
-      <#assign actionProductPromoCategories = productPromoAction.getRelated("ProductPromoCategory")>
+      <#assign actionProductPromoCategories = productPromoAction.getRelated("ProductPromoCategory", null, null, false)>
       <#if actionProductPromoCategories?has_content>
       <#list actionProductPromoCategories as actionProductPromoCategory>
         <#assign actionProductCategory = actionProductPromoCategory.getRelatedOne("ProductCategory", true)>
@@ -366,7 +366,7 @@ under the License.
                 </div>
       <#-- ======================= Products ======================== -->
                  <div class="label">${uiLabelMap.ProductActionsProductsForAction} ${(productPromoAction.productPromoActionSeqId)?if_exists}:</div>
-      <#assign actionProductPromoProducts = productPromoAction.getRelated("ProductPromoProduct")>
+      <#assign actionProductPromoProducts = productPromoAction.getRelated("ProductPromoProduct", null, null, false)>
       <#if actionProductPromoProducts?has_content>
       <#list actionProductPromoProducts as actionProductPromoProduct>
         <#assign actionProduct = actionProductPromoProduct.getRelatedOne("Product", true)?if_exists>

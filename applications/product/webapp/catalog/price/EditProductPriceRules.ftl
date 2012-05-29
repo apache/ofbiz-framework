@@ -29,8 +29,8 @@ under the License.
             <td width="10%"><b>&nbsp;</b></td>
           </tr>
         <#if productPriceRule?exists>
-          <#assign productPriceConds = productPriceRule.getRelated("ProductPriceCond")>
-          <#assign productPriceActions = productPriceRule.getRelated("ProductPriceAction")>
+          <#assign productPriceConds = productPriceRule.getRelated("ProductPriceCond", null, null, false)>
+          <#assign productPriceActions = productPriceRule.getRelated("ProductPriceAction", null, null, false)>
           <tr valign="middle">
             <td class="label"><b>${productPriceRule.productPriceRuleId}</b></td>
             <td>

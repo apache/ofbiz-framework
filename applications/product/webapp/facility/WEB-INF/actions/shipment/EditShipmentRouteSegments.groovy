@@ -31,7 +31,7 @@ if (shipmentId) {
 }
 
 if (shipment) {
-    shipmentRouteSegments = shipment.getRelated("ShipmentRouteSegment", null, ['shipmentRouteSegmentId']);
+    shipmentRouteSegments = shipment.getRelated("ShipmentRouteSegment", null, ['shipmentRouteSegmentId'], false);
     shipmentRouteSegmentDatas = [] as LinkedList;
     if (shipmentRouteSegments) {
         shipmentRouteSegments.each { shipmentRouteSegment ->
@@ -46,7 +46,7 @@ if (shipment) {
             shipmentRouteSegmentData.shipmentMethodType = shipmentRouteSegment.getRelatedOne("ShipmentMethodType", false);
             shipmentRouteSegmentData.carrierPerson = shipmentRouteSegment.getRelatedOne("CarrierPerson", false);
             shipmentRouteSegmentData.carrierPartyGroup = shipmentRouteSegment.getRelatedOne("CarrierPartyGroup", false);
-            shipmentRouteSegmentData.shipmentPackageRouteSegs = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg");
+            shipmentRouteSegmentData.shipmentPackageRouteSegs = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, null, false);
             shipmentRouteSegmentData.carrierServiceStatusItem = shipmentRouteSegment.getRelatedOne("CarrierServiceStatusItem", false);
             shipmentRouteSegmentData.currencyUom = shipmentRouteSegment.getRelatedOne("CurrencyUom", false);
             shipmentRouteSegmentData.billingWeightUom = shipmentRouteSegment.getRelatedOne("BillingWeightUom", false);
@@ -59,7 +59,7 @@ if (shipment) {
         }
     }
 
-    shipmentPackages = shipment.getRelated("ShipmentPackage", null, ['shipmentPackageSeqId']);
+    shipmentPackages = shipment.getRelated("ShipmentPackage", null, ['shipmentPackageSeqId'], false);
     facilities = delegator.findList("Facility", null, null, ['facilityName'], null, false);
     shipmentMethodTypes = delegator.findList("ShipmentMethodType", null, null, ['description'], null, false);
     weightUoms = delegator.findList("Uom", EntityCondition.makeCondition([uomTypeId : 'WEIGHT_MEASURE']), null, null, null, false);

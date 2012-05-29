@@ -77,7 +77,7 @@ if (shipmentPlans) {
         // Total quantity issued
         issuedQuantity = 0.0;
         qtyIssuedInShipment = [:];
-        issuances = orderItem.getRelated("ItemIssuance");
+        issuances = orderItem.getRelated("ItemIssuance", null, null, false);
         issuances.each { issuance ->
             if (issuance.quantity) {
                 issuedQuantity += issuance.getDouble("quantity");
@@ -135,7 +135,7 @@ if (shipmentPlans) {
         // Reserved and Not Available quantity
         reservedQuantity = 0.0;
         reservedNotAvailable = 0.0;
-        reservations = orderItem.getRelated("OrderItemShipGrpInvRes");
+        reservations = orderItem.getRelated("OrderItemShipGrpInvRes", null, null, false);
         reservations.each { reservation ->
             if (reservation.quantity) {
                 reservedQuantity += reservation.getDouble("quantity");
@@ -206,7 +206,7 @@ if (orderItemShipGroupAssocs) {
         // Total quantity issued
         issuedQuantity = 0.0;
         qtyIssuedInShipment = [:];
-        issuances = orderItem.getRelated("ItemIssuance");
+        issuances = orderItem.getRelated("ItemIssuance", null, null, false);
         issuances.each { issuance ->
             if (issuance.quantity) {
                 issuedQuantity += issuance.getDouble("quantity");

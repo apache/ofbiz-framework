@@ -64,7 +64,7 @@ public class IssuanceTest extends OFBizTestCase {
         GenericValue orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), true);
 
         // Test the OrderShipment is correct
-        List<GenericValue> orderShipments = orderHeader.getRelated("OrderShipment", null, null);
+        List<GenericValue> orderShipments = orderHeader.getRelated("OrderShipment", null, null, false);
         
         assertFalse("No OrderShipment for order", UtilValidate.isEmpty(orderShipments));
         assertEquals( "Incorrect number of OrderShipments for order", 1, orderShipments.size());
@@ -78,7 +78,7 @@ public class IssuanceTest extends OFBizTestCase {
         assertTrue("Incorrect quantity in OrderShipment. Expected 6.00000 actual " + actual, actual.compareTo(BigDecimal.valueOf(6L))==0);
 
         // Test the ItemIssuances are correct
-        List<GenericValue> itemIssuances = orderHeader.getRelated("ItemIssuance", null, UtilMisc.toList("itemIssuanceId"));
+        List<GenericValue> itemIssuances = orderHeader.getRelated("ItemIssuance", null, UtilMisc.toList("itemIssuanceId"), false);
         assertFalse("No ItemIssuances for order", UtilValidate.isEmpty(itemIssuances));
         assertEquals( "Incorrect number of ItemIssuances for order", 2, itemIssuances.size());
         
@@ -101,14 +101,14 @@ public class IssuanceTest extends OFBizTestCase {
         assertTrue("Incorrect quantity in ItemIssuance. Expected 1.00000 actual " + actual, actual.compareTo(BigDecimal.valueOf(1L))==0);
 
         // Test reservations have been removed
-        List<GenericValue> reservations = orderHeader.getRelated("OrderItemShipGrpInvRes", null, null);
+        List<GenericValue> reservations = orderHeader.getRelated("OrderItemShipGrpInvRes", null, null, false);
         assertTrue("Reservations exist for order - should have been deleted", UtilValidate.isEmpty(reservations));
         
         // Test order header status is now ORDER_COMPLETED
         assertEquals(orderHeader.getString("statusId"), "ORDER_COMPLETED");
         
         // Test order items status are now ITEM_COMPLETED
-        List<GenericValue> orderItems = orderHeader.getRelated("OrderItem", null, null);
+        List<GenericValue> orderItems = orderHeader.getRelated("OrderItem", null, null, false);
         
         for ( GenericValue orderItem : orderItems )
             assertEquals("ITEM_COMPLETED", orderItem.getString("statusId"));

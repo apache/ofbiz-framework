@@ -49,7 +49,7 @@ if (action) {
                 availableToPromiseTotal = inventoryItem.getDouble("availableToPromiseTotal");
                 costPrice = inventoryItem.getDouble("unitCost");
                 retailPrice = 0.0;
-                productPrices = product.getRelated("ProductPrice");
+                productPrices = product.getRelated("ProductPrice", null, null, false);
                 if (productPrices) {
                     productPrices.each { productPrice ->
                         if (("DEFAULT_PRICE").equals(productPrice.productPriceTypeId)) {

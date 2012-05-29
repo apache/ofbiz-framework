@@ -59,8 +59,8 @@ if (shipmentId) {
         context.destinationFacility = shipment.getRelatedOne("DestinationFacility", false);
         context.originPostalAddress = shipment.getRelatedOne("OriginPostalAddress", false);
         context.destinationPostalAddress = shipment.getRelatedOne("DestinationPostalAddress", false);
-        context.shipmentPackages = shipment.getRelated("ShipmentPackage", null, ['shipmentPackageSeqId']);
-        context.shipmentRoutes = shipment.getRelated("ShipmentRouteSegment", null, ['shipmentRouteSegmentId']);
+        context.shipmentPackages = shipment.getRelated("ShipmentPackage", null, ['shipmentPackageSeqId'], false);
+        context.shipmentRoutes = shipment.getRelated("ShipmentRouteSegment", null, ['shipmentRouteSegmentId'], false);
         context.shipment = shipment;
         context.shipmentId = shipmentId;
 

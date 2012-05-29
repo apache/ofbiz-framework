@@ -519,9 +519,9 @@ public class ProductServices {
                 productAssocs = delegator.findList("ProductAssoc", cond, null, orderBy, null, true);
             } else {
                 if (productIdTo == null) {
-                    productAssocs = product.getRelatedCache("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", type), orderBy);
+                    productAssocs = product.getRelated("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", type), orderBy, true);
                 } else {
-                    productAssocs = product.getRelatedCache("AssocProductAssoc", UtilMisc.toMap("productAssocTypeId", type), orderBy);
+                    productAssocs = product.getRelated("AssocProductAssoc", UtilMisc.toMap("productAssocTypeId", type), orderBy, true);
                 }
             }
             // filter the list by date

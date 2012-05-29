@@ -265,7 +265,7 @@ public class SubscriptionServices {
             }
             Timestamp orderCreatedDate = (Timestamp) orderHeader.get("orderDate");
             subContext.put("orderCreatedDate", orderCreatedDate);
-            List<GenericValue> orderItemList = orderHeader.getRelated("OrderItem");
+            List<GenericValue> orderItemList = orderHeader.getRelated("OrderItem", null, null, false);
             for (GenericValue orderItem: orderItemList) {
                 BigDecimal qty = orderItem.getBigDecimal("quantity");
                 String productId = orderItem.getString("productId");
