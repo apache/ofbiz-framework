@@ -57,7 +57,7 @@ if (backlogList) {
 // check backlog removed from sprint.
 removedFromSprint = false;
 if ("CRQ_ACCEPTED".equals(custRequest.statusId)) {
-    custStatusList = custRequest.getRelated("CustRequestStatus", ["-custRequestStatusId"]);
+    custStatusList = custRequest.getRelated("CustRequestStatus", null, ["-custRequestStatusId"], false);
     if (custStatusList.size() > 2 && "CRQ_REVIEWED".equals(custStatusList[1].statusId)) {
         removedFromSprint = true;
         }
