@@ -25,7 +25,7 @@ sprintId = null;
 custRequestWorkEffortList = custRequestMap.getRelated("CustRequestWorkEffort");
 if (custRequestWorkEffortList) {
     custRequestWorkEffortList.each { custWorkEffortMap ->
-        workEffortMap = custWorkEffortMap.getRelatedOne("WorkEffort");
+        workEffortMap = custWorkEffortMap.getRelatedOne("WorkEffort", false);
         if ("SCRUM_SPRINT".equals(workEffortMap.workEffortTypeId) && "SPRINT_ACTIVE".equals(workEffortMap.currentStatusId)) {
             sprintId = workEffortMap.workEffortId;
             sprintStatusId = "SPRINT_ACTIVE";
