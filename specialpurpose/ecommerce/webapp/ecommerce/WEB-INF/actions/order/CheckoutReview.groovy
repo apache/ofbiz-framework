@@ -55,7 +55,7 @@ context.headerAdjustmentsToShow = OrderReadHelper.filterOrderAdjustments(orderHe
 
 orderSubTotal = OrderReadHelper.getOrderItemsSubTotal(orderItems, orderAdjustments, workEfforts);
 context.orderSubTotal = orderSubTotal;
-context.placingCustomerPerson = userLogin?.getRelatedOne("Person");
+context.placingCustomerPerson = userLogin?.getRelatedOne("Person", false);
 context.paymentMethods = cart.getPaymentMethods();
 
 paymentMethodTypeIds = cart.getPaymentMethodTypeIds();

@@ -24,7 +24,7 @@ import org.ofbiz.party.contact.*;
 orderId = parameters.orderId;
 context.orderId = orderId;
 
-party = userLogin.getRelatedOne("Party");
+party = userLogin.getRelatedOne("Party", false);
 context.party = party;
 
 returnTypes = delegator.findList("ReturnType", null, null, ["sequenceId"], null, false);
@@ -48,7 +48,7 @@ context.returnItemTypeMap = typeMap;
 //put in the return to party information from the order header
 if (orderId) {
     order = delegator.findOne("OrderHeader", [orderId : orderId], false);
-    productStore = order.getRelatedOne("ProductStore");
+    productStore = order.getRelatedOne("ProductStore", false);
     context.toPartyId = productStore.payToPartyId;
 }
 

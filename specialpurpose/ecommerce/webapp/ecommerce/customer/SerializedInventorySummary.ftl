@@ -35,7 +35,7 @@ under the License.
             </thead>
             <tbody>
                 <#list inventoryItemList as inventoryItem>
-                    <#assign product = inventoryItem.getRelatedOne('Product')?if_exists>
+                    <#assign product = inventoryItem.getRelatedOne('Product', false)?if_exists>
                     <tr>
                         <td>${inventoryItem.inventoryItemId}</td>
                         <td>

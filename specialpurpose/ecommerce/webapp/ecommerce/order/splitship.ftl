@@ -78,7 +78,7 @@ function submitForm(form, mode, value) {
                       <select name="shippingContactMechId" class="selectBox" onchange="javascript:submitForm(document.editgroupform${groupIdx}, 'SA', null);">
                         <option value="">${uiLabelMap.OrderSelectShippingAddress}</option>
                         <#list shippingContactMechList as shippingContactMech>
-                          <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress")>
+                          <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress", false)>
                           <option value="${shippingAddress.contactMechId}" <#if (shippingAddress.contactMechId == selectedContactMechId)>selected="selected"</#if>>${shippingAddress.address1}</option>
                         </#list>
                       </select>

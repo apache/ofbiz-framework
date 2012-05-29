@@ -51,8 +51,8 @@ under the License.
                 <td width="10">&nbsp;</td>
             </tr>
             <#list requestList as custRequest>
-                <#assign status = custRequest.getRelatedOneCache("StatusItem")>
-                <#assign type = custRequest.getRelatedOneCache("CustRequestType")>
+                <#assign status = custRequest.getRelatedOne("StatusItem", true)>
+                <#assign type = custRequest.getRelatedOne("CustRequestType", true)>
                 
                 <tr>
                     <td>

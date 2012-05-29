@@ -30,7 +30,7 @@ import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.store.*;
 import org.ofbiz.service.calendar.*;
 
-party = userLogin.getRelatedOne("Party");
+party = userLogin.getRelatedOne("Party", false);
 
 cart = ShoppingCartEvents.getCartObject(request);
 currencyUomId = cart.getCurrency();
@@ -84,7 +84,7 @@ if (shoppingListId) {
             shoppingListItems.each { shoppingListItem ->
                 shoppingListItemData = [:];
 
-                product = shoppingListItem.getRelatedOneCache("Product");
+                product = shoppingListItem.getRelatedOne("Product", true);
 
                 calcPriceInMap = [product : product, quantity : shoppingListItem.quantity, currencyUomId : currencyUomId, userLogin : userLogin];
                 calcPriceInMap.webSiteId = webSiteId;
@@ -155,7 +155,7 @@ if (shoppingListId) {
             context.highIndex = highIndex;
         }
 
-        shoppingListType = shoppingList.getRelatedOne("ShoppingListType");
+        shoppingListType = shoppingList.getRelatedOne("ShoppingListType", false);
         context.shoppingListType = shoppingListType;
 
         // get the child shopping lists of the current list for the logged in user
@@ -182,14 +182,14 @@ if (shoppingListId) {
         context.shoppingListChildTotal = shoppingListChildTotal;
 
         // get the parent shopping list if there is one
-        parentShoppingList = shoppingList.getRelatedOne("ParentShoppingList");
+        parentShoppingList = shoppingList.getRelatedOne("ParentShoppingList", false);
         context.parentShoppingList = parentShoppingList;
 
         context.canView = userLogin.partyId.equals(shoppingList.partyId);
 
         // auto-reorder info
         if ("SLT_AUTO_REODR".equals(shoppingListType?.shoppingListTypeId)) {
-            recurrenceVo = shoppingList.getRelatedOne("RecurrenceInfo");
+            recurrenceVo = shoppingList.getRelatedOne("RecurrenceInfo", false);
             context.recurrenceInfo = recurrenceVo;
 
             if (userLogin.partyId.equals(shoppingList.partyId)) {

@@ -51,7 +51,7 @@ under the License.
       <tr><td colspan="10"><hr /></td></tr>
       <#list shipmentItems as shipmentItem>
         <#assign productId = shipmentItem.productId>
-        <#assign product = shipmentItem.getRelatedOne("Product")>
+        <#assign product = shipmentItem.getRelatedOne("Product", false)>
         <tr>
           <td colspan="1" valign="top"> ${productId?if_exists} - ${product.internalName?if_exists}</td>
           <td align="right" valign="top"> ${shipmentItem.quantity?if_exists}</td>

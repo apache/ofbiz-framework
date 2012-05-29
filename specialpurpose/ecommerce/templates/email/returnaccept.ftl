@@ -23,8 +23,8 @@ ${uiLabelMap.EcommerceReturnRequest}
 <br /><br />
 <pre>
 <#list returnItems as item>
-  <#assign returnReason = item.getRelatedOne("ReturnReason")?if_exists>
-  <#assign returnType = item.getRelatedOne("ReturnType")?if_exists>
+  <#assign returnReason = item.getRelatedOne("ReturnReason", false)?if_exists>
+  <#assign returnType = item.getRelatedOne("ReturnType", false)?if_exists>
   ${item.description?default("N/A")} - ${item.returnQuantity?string.number} @ ${item.returnPrice}
 </#list>
 </pre>

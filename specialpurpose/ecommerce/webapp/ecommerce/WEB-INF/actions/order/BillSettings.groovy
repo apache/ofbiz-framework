@@ -41,7 +41,7 @@ request.removeAttribute("_EVENT_MESSAGE_");
 
 if (partyId && !partyId.equals("_NA_")) {
     party = delegator.findOne("Party", [partyId : partyId], false);
-    person = party.getRelatedOne("Person");
+    person = party.getRelatedOne("Person", false);
     context.party = party;
     context.person = person;
     if (party) {
@@ -79,22 +79,22 @@ if (cart && !parameters.singleUsePayment) {
         account = null;
 
         if ("CREDIT_CARD".equals(paymentMethod.paymentMethodTypeId)) {
-            account = paymentMethod.getRelatedOne("CreditCard");
+            account = paymentMethod.getRelatedOne("CreditCard", false);
             context.creditCard = account;
             context.paymentMethodType = "CC";
         } else if ("EFT_ACCOUNT".equals(paymentMethod.paymentMethodTypeId)) {
-            account = paymentMethod.getRelatedOne("EftAccount");
+            account = paymentMethod.getRelatedOne("EftAccount", false);
             context.eftAccount = account;
             context.paymentMethodType = "EFT";
         } else if ("GIFT_CARD".equals(paymentMethod.paymentMethodTypeId)) {
-            account = paymentMethod.getRelatedOne("GiftCard");
+            account = paymentMethod.getRelatedOne("GiftCard", false);
             context.giftCard = account;
             context.paymentMethodType = "GC";
         } else {
             context.paymentMethodType = "offline";
         }
         if (account && parameters.useShipAddr) {
-            address = account.getRelatedOne("PostalAddress");
+            address = account.getRelatedOne("PostalAddress", false);
             context.postalAddress = address;
             context.postalFields = address;
         }

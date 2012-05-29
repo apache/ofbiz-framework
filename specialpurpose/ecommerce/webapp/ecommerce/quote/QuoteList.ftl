@@ -47,7 +47,7 @@ under the License.
                 <td width="10">&nbsp;</td>
             </tr>
             <#list quoteList as quote>
-                <#assign status = quote.getRelatedOneCache("StatusItem")>
+                <#assign status = quote.getRelatedOne("StatusItem", true)>
                 
                 <tr>
                     <td>

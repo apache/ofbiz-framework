@@ -33,7 +33,7 @@ request.removeAttribute("_EVENT_MESSAGE_");
 
 if (partyId && !partyId.equals("_NA_")) {
     party = delegator.findOne("Party", [partyId : partyId], false);
-    person = party.getRelatedOne("Person");
+    person = party.getRelatedOne("Person", false);
     context.party = party;
     context.person = person;
 }

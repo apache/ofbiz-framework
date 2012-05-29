@@ -95,7 +95,7 @@ request.removeAttribute("_EVENT_MESSAGE_");
 if (cartPartyId && !cartPartyId.equals("_NA_")) {
     cartParty = delegator.findOne("Party", [partyId : cartPartyId], false);
     if (cartParty) {
-        cartPerson = cartParty.getRelatedOne("Person");
+        cartPerson = cartParty.getRelatedOne("Person", false);
         context.party = cartParty;
         context.person = cartPerson;
     }

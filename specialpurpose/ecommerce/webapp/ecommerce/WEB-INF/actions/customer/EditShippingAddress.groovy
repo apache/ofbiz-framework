@@ -21,7 +21,7 @@ import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.party.contact.ContactHelper;
 
 if (userLogin) {
-    party = userLogin.getRelatedOne("Party");
+    party = userLogin.getRelatedOne("Party", false);
     context.partyId = party.partyId
     if ("PERSON".equals(party.partyTypeId)) {
         person = delegator.findOne("Person", [partyId : party.partyId], false);
@@ -35,7 +35,7 @@ if (userLogin) {
 
     contactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false));
     if (contactMech) {
-        postalAddress = contactMech.getRelatedOne("PostalAddress");
+        postalAddress = contactMech.getRelatedOne("PostalAddress", false);
         context.shipToContactMechId = postalAddress.contactMechId;
 
         context.shipToName = postalAddress.toName;
@@ -60,7 +60,7 @@ if (userLogin) {
 
     shipToContactMechList = ContactHelper.getContactMech(party, "PHONE_SHIPPING", "TELECOM_NUMBER", false)
     if (shipToContactMechList) {
-        shipToTelecomNumber = (EntityUtil.getFirst(shipToContactMechList)).getRelatedOne("TelecomNumber");
+        shipToTelecomNumber = (EntityUtil.getFirst(shipToContactMechList)).getRelatedOne("TelecomNumber", false);
         pcm = EntityUtil.getFirst(shipToTelecomNumber.getRelated("PartyContactMech"));
         context.shipToTelecomNumber = shipToTelecomNumber;
         context.shipToExtension = pcm.extension;
@@ -68,7 +68,7 @@ if (userLogin) {
 
     shipToFaxNumberList = ContactHelper.getContactMech(party, "FAX_SHIPPING", "TELECOM_NUMBER", false)
     if (shipToFaxNumberList) {
-        shipToFaxNumber = (EntityUtil.getFirst(shipToFaxNumberList)).getRelatedOne("TelecomNumber");
+        shipToFaxNumber = (EntityUtil.getFirst(shipToFaxNumberList)).getRelatedOne("TelecomNumber", false);
         faxPartyContactMech = EntityUtil.getFirst(shipToFaxNumber.getRelated("PartyContactMech"));
         context.shipToFaxNumber = shipToFaxNumber;
         context.shipToFaxExtension = faxPartyContactMech.extension;

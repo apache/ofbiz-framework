@@ -98,7 +98,7 @@ under the License.
             <div>[${uiLabelMap.CommonNotShown}]</div>
           <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "CONTENT">
             <#if answer.contentId?has_content>
-              <#assign content = answer.getRelatedOne("Content")>
+              <#assign content = answer.getRelatedOne("Content", false)>
               <a href="/content/control/img?imgId=${content.dataResourceId}" class="buttontext">${answer.contentId}</a>&nbsp;-&nbsp;${content.contentName?if_exists}
             </#if>
           <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "OPTION">
