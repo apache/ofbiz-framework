@@ -35,7 +35,7 @@ import org.w3c.dom.Element;
 public abstract class ResourceLoader {
 
     public static final String module = ResourceLoader.class.getName();
-    protected static UtilCache<String, Object> loaderCache = UtilCache.createUtilCache("resource.ResourceLoaders", 0, 0);
+    private static final UtilCache<String, Object> loaderCache = UtilCache.createUtilCache("resource.ResourceLoaders", 0, 0);
 
     protected String name;
     protected String prefix;
@@ -61,19 +61,14 @@ public abstract class ResourceLoader {
         ResourceLoader loader = (ResourceLoader) loaderCache.get(xmlFilename + "::" + loaderName);
 
         if (loader == null) {
-            synchronized (ResourceLoader.class) {
-                loader = (ResourceLoader) loaderCache.get(xmlFilename + "::" + loaderName);
-                if (loader == null) {
-                    Element rootElement = getXmlRootElement(xmlFilename);
+            Element rootElement = getXmlRootElement(xmlFilename);
 
-                    Element loaderElement = UtilXml.firstChildElement(rootElement, "resource-loader", "name", loaderName);
+            Element loaderElement = UtilXml.firstChildElement(rootElement, "resource-loader", "name", loaderName);
 
-                    loader = makeLoader(loaderElement);
+            loader = makeLoader(loaderElement);
 
-                    if (loader != null) {
-                        loaderCache.put(xmlFilename + "::" + loaderName, loader);
-                    }
-                }
+            if (loader != null) {
+                loader = (ResourceLoader) loaderCache.putIfAbsentAndGet(xmlFilename + "::" + loaderName, loader);
             }
         }
 
@@ -98,29 +93,24 @@ public abstract class ResourceLoader {
         Document document = (Document) loaderCache.get(xmlFilename);
 
         if (document == null) {
-            synchronized (ResourceLoader.class) {
-                document = (Document) loaderCache.get(xmlFilename);
-                if (document == null) {
-                    URL confUrl = UtilURL.fromResource(xmlFilename);
+            URL confUrl = UtilURL.fromResource(xmlFilename);
 
-                    if (confUrl == null) {
-                        throw new GenericConfigException("ERROR: could not find the [" + xmlFilename + "] XML file on the classpath");
-                    }
+            if (confUrl == null) {
+                throw new GenericConfigException("ERROR: could not find the [" + xmlFilename + "] XML file on the classpath");
+            }
 
-                    try {
-                        document = UtilXml.readXmlDocument(confUrl);
-                    } catch (org.xml.sax.SAXException e) {
-                        throw new GenericConfigException("Error reading " + xmlFilename + "", e);
-                    } catch (javax.xml.parsers.ParserConfigurationException e) {
-                        throw new GenericConfigException("Error reading " + xmlFilename + "", e);
-                    } catch (java.io.IOException e) {
-                        throw new GenericConfigException("Error reading " + xmlFilename + "", e);
-                    }
+            try {
+                document = UtilXml.readXmlDocument(confUrl);
+            } catch (org.xml.sax.SAXException e) {
+                throw new GenericConfigException("Error reading " + xmlFilename + "", e);
+            } catch (javax.xml.parsers.ParserConfigurationException e) {
+                throw new GenericConfigException("Error reading " + xmlFilename + "", e);
+            } catch (java.io.IOException e) {
+                throw new GenericConfigException("Error reading " + xmlFilename + "", e);
+            }
 
-                    if (document != null) {
-                        loaderCache.put(xmlFilename, document);
-                    }
-                }
+            if (document != null) {
+                document = (Document) loaderCache.putIfAbsentAndGet(xmlFilename, document);
             }
         }
         return document;
