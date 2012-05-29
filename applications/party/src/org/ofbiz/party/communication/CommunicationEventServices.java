@@ -126,7 +126,7 @@ public class CommunicationEventServices {
 
             // check for attachments
             boolean isMultiPart = false;
-            List <GenericValue> comEventContents = communicationEvent.getRelated("CommEventContentAssoc");
+            List <GenericValue> comEventContents = communicationEvent.getRelated("CommEventContentAssoc", null, null, false);
             if (UtilValidate.isNotEmpty(comEventContents)) {
                 isMultiPart = true;
                 List<Map<String, ? extends Object>> bodyParts = FastList.newInstance();
@@ -163,7 +163,7 @@ public class CommunicationEventServices {
                 // add other parties from roles
                 String sendCc = null;
                 String sendBcc = null;
-                List <GenericValue> commRoles = communicationEvent.getRelated("CommunicationEventRole");
+                List <GenericValue> commRoles = communicationEvent.getRelated("CommunicationEventRole", null, null, false);
                 if (UtilValidate.isNotEmpty(commRoles)) {
                     for (GenericValue commRole : commRoles) { // 'from' and 'to' already defined on communication event
                         if (commRole.getString("partyId").equals(communicationEvent.getString("partyIdFrom")) || commRole.getString("partyId").equals(communicationEvent.getString("partyIdTo"))) {

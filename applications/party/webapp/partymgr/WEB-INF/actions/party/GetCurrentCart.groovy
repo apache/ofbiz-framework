@@ -26,5 +26,5 @@ savedCart = EntityUtil.getFirst(delegator.findByAnd("ShoppingList", [partyId : p
 
 if (savedCart) {
       context.savedCartListId = savedCart.shoppingListId;
-      context.savedCartItems = savedCart.getRelated("ShoppingListItem");
+      context.savedCartItems = savedCart.getRelated("ShoppingListItem", null, null, false);
 }

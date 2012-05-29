@@ -219,7 +219,7 @@ public class ContactMechServices {
             newPartyContactMech.set("thruDate", null);
 
             try {
-                Iterator<GenericValue> partyContactMechPurposes = UtilMisc.toIterator(partyContactMech.getRelated("PartyContactMechPurpose"));
+                Iterator<GenericValue> partyContactMechPurposes = UtilMisc.toIterator(partyContactMech.getRelated("PartyContactMechPurpose", null, null, false));
 
                 while (partyContactMechPurposes != null && partyContactMechPurposes.hasNext()) {
                     GenericValue tempVal = GenericValue.create(partyContactMechPurposes.next());
@@ -507,7 +507,7 @@ public class ContactMechServices {
                 newPartyContactMech.set("thruDate", null);
 
                 try {
-                    Iterator<GenericValue> partyContactMechPurposes = UtilMisc.toIterator(partyContactMech.getRelated("PartyContactMechPurpose"));
+                    Iterator<GenericValue> partyContactMechPurposes = UtilMisc.toIterator(partyContactMech.getRelated("PartyContactMechPurpose", null, null, false));
 
                     while (partyContactMechPurposes != null && partyContactMechPurposes.hasNext()) {
                         GenericValue tempVal = GenericValue.create(partyContactMechPurposes.next());
@@ -706,7 +706,7 @@ public class ContactMechServices {
             newPartyContactMech.set("thruDate", null);
 
             try {
-                Iterator<GenericValue> partyContactMechPurposes = UtilMisc.toIterator(partyContactMech.getRelated("PartyContactMechPurpose"));
+                Iterator<GenericValue> partyContactMechPurposes = UtilMisc.toIterator(partyContactMech.getRelated("PartyContactMechPurpose", null, null, false));
 
                 while (partyContactMechPurposes != null && partyContactMechPurposes.hasNext()) {
                     GenericValue tempVal = GenericValue.create(partyContactMechPurposes.next());

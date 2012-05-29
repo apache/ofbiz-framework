@@ -56,7 +56,7 @@ public class ContactHelper {
             List<GenericValue> partyContactMechList;
 
             if (contactMechPurposeTypeId == null) {
-                partyContactMechList = party.getRelated("PartyContactMech");
+                partyContactMechList = party.getRelated("PartyContactMech", null, null, false);
             } else {
                 List<GenericValue> list;
 
