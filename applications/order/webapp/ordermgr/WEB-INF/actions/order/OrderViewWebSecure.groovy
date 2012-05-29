@@ -35,14 +35,14 @@ if (orderHeader) {
         hasPermission = true;
         canViewInternalDetails = true;
     } else if (security.hasEntityPermission("ORDERMGR_ROLE", "_VIEW", session)) {
-        currentUserOrderRoles = orderHeader.getRelated("OrderRole", [partyId : userLogin.partyId], null);
+        currentUserOrderRoles = orderHeader.getRelated("OrderRole", [partyId : userLogin.partyId], null, false);
         if (currentUserOrderRoles) {
             hasPermission = true;
             canViewInternalDetails = true;
         }
     } else {
         // regardless of permission, allow if this is the supplier
-        currentUserSupplierOrderRoles = orderHeader.getRelated("OrderRole", [partyId : userLogin.partyId, roleTypeId : "SUPPLIER_AGENT"], null);
+        currentUserSupplierOrderRoles = orderHeader.getRelated("OrderRole", [partyId : userLogin.partyId, roleTypeId : "SUPPLIER_AGENT"], null, false);
         if (currentUserSupplierOrderRoles) {
             hasPermission = true;
         }

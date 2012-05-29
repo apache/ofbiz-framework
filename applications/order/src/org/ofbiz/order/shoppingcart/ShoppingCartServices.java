@@ -693,11 +693,11 @@ public class ShoppingCartServices {
         List<GenericValue>quoteAttributes = null;
         List<GenericValue>quoteTerms = null;
         try {
-            quoteItems = quote.getRelated("QuoteItem", UtilMisc.toList("quoteItemSeqId"));
-            quoteAdjs = quote.getRelated("QuoteAdjustment");
-            quoteRoles = quote.getRelated("QuoteRole");
-            quoteAttributes = quote.getRelated("QuoteAttribute");
-            quoteTerms = quote.getRelated("QuoteTerm");
+            quoteItems = quote.getRelated("QuoteItem", null, UtilMisc.toList("quoteItemSeqId"), false);
+            quoteAdjs = quote.getRelated("QuoteAdjustment", null, null, false);
+            quoteRoles = quote.getRelated("QuoteRole", null, null, false);
+            quoteAttributes = quote.getRelated("QuoteAttribute", null, null, false);
+            quoteTerms = quote.getRelated("QuoteTerm", null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -1004,7 +1004,7 @@ public class ShoppingCartServices {
 
         List<GenericValue>shoppingListItems = null;
         try {
-            shoppingListItems = shoppingList.getRelated("ShoppingListItem");
+            shoppingListItems = shoppingList.getRelated("ShoppingListItem", null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());

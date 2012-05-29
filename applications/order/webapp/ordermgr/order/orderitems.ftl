@@ -69,7 +69,7 @@ under the License.
                                         <#else>
                                             ${orderItem.itemDescription?if_exists}
                                         </#if>
-                                        <#assign orderItemAttributes = orderItem.getRelated("OrderItemAttribute")/>
+                                        <#assign orderItemAttributes = orderItem.getRelated("OrderItemAttribute", null, null, false)/>
                                         <#if orderItemAttributes?has_content>
                                             <ul>
                                             <#list orderItemAttributes as orderItemAttribute>
@@ -204,7 +204,7 @@ under the License.
                                             </#list>
                                         </div>
                                     </div>
-                                    <#assign returns = orderItem.getRelated("ReturnItem")?if_exists>
+                                    <#assign returns = orderItem.getRelated("ReturnItem", null, null, false)?if_exists>
                                     <#if returns?has_content>
                                         <#list returns as returnItem>
                                             <#assign returnHeader = returnItem.getRelatedOne("ReturnHeader", false)>
@@ -318,7 +318,7 @@ under the License.
                             </#if>
                         </tr>
                         <#-- show info from workeffort -->
-                        <#assign workOrderItemFulfillments = orderItem.getRelated("WorkOrderItemFulfillment")?if_exists>
+                        <#assign workOrderItemFulfillments = orderItem.getRelated("WorkOrderItemFulfillment", null, null, false)?if_exists>
                         <#if workOrderItemFulfillments?has_content>
                             <#list workOrderItemFulfillments as workOrderItemFulfillment>
                                 <#assign workEffort = workOrderItemFulfillment.getRelatedOne("WorkEffort", true)>
@@ -380,7 +380,7 @@ under the License.
                             </#list>
                         </#if>
                         <#-- show linked requirements -->
-                        <#assign linkedRequirements = orderItem.getRelated("OrderRequirementCommitment")?if_exists>
+                        <#assign linkedRequirements = orderItem.getRelated("OrderRequirementCommitment", null, null, false)?if_exists>
                         <#if linkedRequirements?has_content>
                             <#list linkedRequirements as linkedRequirement>
                                 <tr<#if itemClass == "1"> class="alternate-row"</#if>>
@@ -520,7 +520,7 @@ under the License.
                             </tr>
                         </#if>
                         <#-- now show ship group info per line item -->
-                        <#assign orderItemShipGroupAssocs = orderItem.getRelated("OrderItemShipGroupAssoc")?if_exists>
+                        <#assign orderItemShipGroupAssocs = orderItem.getRelated("OrderItemShipGroupAssoc", null, null, false)?if_exists>
                         <#if orderItemShipGroupAssocs?has_content>
                             <#list orderItemShipGroupAssocs as shipGroupAssoc>
                                 <#assign shipGroup = shipGroupAssoc.getRelatedOne("OrderItemShipGroup", false)>
@@ -564,7 +564,7 @@ under the License.
                             </#list>
                         </#if>
                         <#-- now show planned shipment info per line item -->
-                        <#assign orderShipments = orderItem.getRelated("OrderShipment")?if_exists>
+                        <#assign orderShipments = orderItem.getRelated("OrderShipment", null, null, false)?if_exists>
                         <#if orderShipments?has_content>
                             <#list orderShipments as orderShipment>
                                 <tr<#if itemClass == "1"> class="alternate-row"</#if>>
@@ -628,7 +628,7 @@ under the License.
                             </#list>
                         </#if>
                         <#-- now show shipment receipts per line item -->
-                        <#assign shipmentReceipts = orderItem.getRelated("ShipmentReceipt")?if_exists>
+                        <#assign shipmentReceipts = orderItem.getRelated("ShipmentReceipt", null, null, false)?if_exists>
                         <#if shipmentReceipts?has_content>
                             <#list shipmentReceipts as shipmentReceipt>
                                 <tr<#if itemClass == "1"> class="alternate-row"</#if>>

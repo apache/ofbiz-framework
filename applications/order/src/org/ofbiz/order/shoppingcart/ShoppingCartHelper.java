@@ -986,7 +986,7 @@ public class ShoppingCartHelper {
             cart.setAgreementId(agreementId);
             try {
                 // set the currency based on the pricing agreement
-                List<GenericValue> agreementItems = agreement.getRelated("AgreementItem", UtilMisc.toMap("agreementItemTypeId", "AGREEMENT_PRICING_PR"), null);
+                List<GenericValue> agreementItems = agreement.getRelated("AgreementItem", UtilMisc.toMap("agreementItemTypeId", "AGREEMENT_PRICING_PR"), null, false);
                 if (agreementItems.size() > 0) {
                     GenericValue agreementItem = agreementItems.get(0);
                     String currencyUomId = (String) agreementItem.get("currencyUomId");
@@ -1009,7 +1009,7 @@ public class ShoppingCartHelper {
                  // clear the existing order terms
                  cart.removeOrderTerms();
                  // set order terms based on agreement terms
-                 List<GenericValue> agreementTerms = EntityUtil.filterByDate(agreement.getRelated("AgreementTerm"));
+                 List<GenericValue> agreementTerms = EntityUtil.filterByDate(agreement.getRelated("AgreementTerm", null, null, false));
                  if (agreementTerms.size() > 0) {
                       for (int i = 0; agreementTerms.size() > i;i++) {
                            GenericValue agreementTerm = agreementTerms.get(i);

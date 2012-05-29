@@ -179,7 +179,7 @@ public class OrderChangeHelper {
             if (orderHeader != null) {
                 List<GenericValue> orderItems = null;
                 try {
-                    orderItems = orderHeader.getRelated("OrderItem");
+                    orderItems = orderHeader.getRelated("OrderItem", null, null, false);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "ERROR: Unable to get OrderItem records for OrderHeader : " + orderId, module);
                 }

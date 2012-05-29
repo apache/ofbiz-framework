@@ -60,7 +60,7 @@ under the License.
                     <#assign selectedAmount = 1/>
                 </#if>
                 <#assign quoteItemAmount = quoteItem.quoteUnitPrice?default(0) * quoteItem.quantity?default(0) * selectedAmount>
-                <#assign quoteItemAdjustments = quoteItem.getRelated("QuoteAdjustment")>
+                <#assign quoteItemAdjustments = quoteItem.getRelated("QuoteAdjustment", null, null, false)>
                 <#assign totalQuoteItemAdjustmentAmount = 0.0>
                 <#list quoteItemAdjustments as quoteItemAdjustment>
                     <#assign totalQuoteItemAdjustmentAmount = quoteItemAdjustment.amount?default(0) + totalQuoteItemAdjustmentAmount>

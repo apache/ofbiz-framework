@@ -219,16 +219,16 @@ public class ShoppingListEvents {
                 throw new IllegalArgumentException(errMsg);
             }
 
-            shoppingListItems = shoppingList.getRelated("ShoppingListItem");
+            shoppingListItems = shoppingList.getRelated("ShoppingListItem", null, null, false);
             if (shoppingListItems == null) {
                 shoppingListItems = FastList.newInstance();
             }
 
             // include all items of child lists if flagged to do so
             if (includeChild) {
-                List<GenericValue> childShoppingLists = shoppingList.getRelated("ChildShoppingList");
+                List<GenericValue> childShoppingLists = shoppingList.getRelated("ChildShoppingList", null, null, false);
                 for(GenericValue v : childShoppingLists) {
-                    List<GenericValue> items = v.getRelated("ShoppingListItem");
+                    List<GenericValue> items = v.getRelated("ShoppingListItem", null, null, false);
                     shoppingListItems.addAll(items);
                 }
             }
@@ -406,7 +406,7 @@ public class ShoppingListEvents {
             GenericValue shoppingList = delegator.findOne("ShoppingList", UtilMisc.toMap("shoppingListId", autoSaveListId), false);
             Integer currentListSize = 0;
             if (UtilValidate.isNotEmpty(shoppingList)) {
-                List<GenericValue> shoppingListItems = shoppingList.getRelated("ShoppingListItem");
+                List<GenericValue> shoppingListItems = shoppingList.getRelated("ShoppingListItem", null, null, false);
                 if (UtilValidate.isNotEmpty(shoppingListItems)) {
                     currentListSize = shoppingListItems.size();
                 }
@@ -588,7 +588,7 @@ public class ShoppingListEvents {
         List<String> responseIds = FastList.newInstance();
         List<GenericValue> surveyResp = null;
         try {
-            surveyResp = item.getRelated("ShoppingListItemSurvey");
+            surveyResp = item.getRelated("ShoppingListItemSurvey", null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }

@@ -123,7 +123,7 @@ under the License.
                                   <#if orderItemStatus.statusDatetime?has_content>${orderItemStatus.statusDatetime.toString()}</#if>
                                   &nbsp;${loopStatusItem.get("description",locale)?default(orderItemStatus.statusId)}<br />
                                   </#list>
-                                  <#assign returns = orderItem.getRelated("ReturnItem")?if_exists>
+                                  <#assign returns = orderItem.getRelated("ReturnItem", null, null, false)?if_exists>
                                   <#if returns?has_content>
                                   <#list returns as returnItem>
                                   <#assign returnHeader = returnItem.getRelatedOne("ReturnHeader", false)>
@@ -238,7 +238,7 @@ under the License.
                       </#if>
 
                       <#-- now show ship group info per line item -->
-                      <#assign orderItemShipGroupAssocs = orderItem.getRelated("OrderItemShipGroupAssoc")?if_exists>
+                      <#assign orderItemShipGroupAssocs = orderItem.getRelated("OrderItemShipGroupAssoc", null, null, false)?if_exists>
                       <#if orderItemShipGroupAssocs?has_content>
                           <tr><td colspan="8">&nbsp;</td></tr>
                           <#list orderItemShipGroupAssocs as shipGroupAssoc>

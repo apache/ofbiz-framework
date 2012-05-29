@@ -78,7 +78,7 @@ under the License.
               </fo:table-row>
               <#assign total = total + returnItem.returnQuantity.doubleValue() * returnItem.returnPrice.doubleValue()/>
 
-              <#assign returnItemAdjustments = returnItem.getRelated("ReturnAdjustment")>
+              <#assign returnItemAdjustments = returnItem.getRelated("ReturnAdjustment", null, null, false)>
               <#if (returnItemAdjustments?has_content)>
                   <#list returnItemAdjustments as returnItemAdjustment>
                      <@displayReturnAdjustment returnAdjustment=returnItemAdjustment/>

@@ -45,7 +45,7 @@ under the License.
                             <#assign product = quoteItem.getRelatedOne("Product", false)>
                         </#if>
                         <#assign quoteItemAmount = quoteItem.quoteUnitPrice?default(0) * quoteItem.quantity?default(0)>
-                        <#assign quoteItemAdjustments = quoteItem.getRelated("QuoteAdjustment")>
+                        <#assign quoteItemAdjustments = quoteItem.getRelated("QuoteAdjustment", null, null, false)>
                         <#assign totalQuoteItemAdjustmentAmount = 0.0>
                         <#list quoteItemAdjustments as quoteItemAdjustment>
                             <#assign totalQuoteItemAdjustmentAmount = quoteItemAdjustment.amount?default(0) + totalQuoteItemAdjustmentAmount>

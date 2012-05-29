@@ -1090,9 +1090,9 @@ public class OrderServices {
                             GenericValue productFacility = null;
 
                             try {
-                                productFacilities = product.getRelatedCache("ProductFacility");
+                                productFacilities = product.getRelated("ProductFacility", product, null, true);
                             } catch (GenericEntityException e) {
-                                Debug.logWarning(e, "Error invoking getRelatedCache in isCatalogInventoryAvailable", module);
+                                Debug.logWarning(e, "Error invoking getRelated in isCatalogInventoryAvailable", module);
                             }
 
                             if (UtilValidate.isNotEmpty(productFacilities)) {
@@ -2687,7 +2687,7 @@ public class OrderServices {
         List<GenericValue> assignments = null;
         if (workEffort != null) {
             try {
-                assignments = workEffort.getRelated("WorkEffortPartyAssignment");
+                assignments = workEffort.getRelated("WorkEffortPartyAssignment", null, null, false);
             } catch (GenericEntityException e1) {
                 Debug.logError(e1, "Problems getting assignements", module);
             }
@@ -3117,7 +3117,7 @@ public class OrderServices {
         List<GenericValue> orderItems = null;
         if (orderHeader != null) {
             try {
-                orderItems = orderHeader.getRelated("OrderItem");
+                orderItems = orderHeader.getRelated("OrderItem", null, null, false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "ERROR: Unable to get OrderItem list for orderId : " + orderId, module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
@@ -3298,7 +3298,7 @@ public class OrderServices {
                                 "OrderErrorCannotCheckForFulfillmentProductNotFound", locale));
                     }
 
-                    List<GenericValue> allProductContent = product.getRelated("ProductContent");
+                    List<GenericValue> allProductContent = product.getRelated("ProductContent", null, null, false);
 
                     // try looking up the parent product if the product has no content and is a variant
                     if (UtilValidate.isEmpty(allProductContent) && ("Y".equals(product.getString("isVariant")))) {
@@ -3307,7 +3307,7 @@ public class OrderServices {
                             allProductContent = FastList.newInstance();
                         }
                         if (parentProduct != null) {
-                            allProductContent.addAll(parentProduct.getRelated("ProductContent"));
+                            allProductContent.addAll(parentProduct.getRelated("ProductContent", null, null, false));
                         }
                     }
 
@@ -4961,7 +4961,7 @@ public class OrderServices {
 
             // Build a map of productId -> quantity cancelled over all order items
             Map<String, Object> productRequirementQuantities = new HashMap<String, Object>();
-            List<GenericValue> orderItems = orderHeader.getRelated("OrderItem");
+            List<GenericValue> orderItems = orderHeader.getRelated("OrderItem", null, null, false);
             for(GenericValue orderItem : orderItems) {
                 if (! "PRODUCT_ORDER_ITEM".equals(orderItem.getString("orderItemTypeId"))) continue;
 
@@ -5031,7 +5031,7 @@ public class OrderServices {
                 return ServiceUtil.returnError(errorMessage);
             }
 
-            List<GenericValue> orderItems = orderHeader.getRelated("OrderItem");
+            List<GenericValue> orderItems = orderHeader.getRelated("OrderItem", null, null, false);
             for(GenericValue orderItem : orderItems) {
                 if (! "PRODUCT_ORDER_ITEM".equals(orderItem.getString("orderItemTypeId"))) continue;
 
@@ -5046,7 +5046,7 @@ public class OrderServices {
                 }
 
                 // Get the received quantity for the order item - ignore the quantityRejected, since rejected items should be reordered
-                List<GenericValue> shipmentReceipts = orderItem.getRelated("ShipmentReceipt");
+                List<GenericValue> shipmentReceipts = orderItem.getRelated("ShipmentReceipt", null, null, false);
                 BigDecimal receivedQuantity = BigDecimal.ZERO;
                 for(GenericValue shipmentReceipt : shipmentReceipts) {
                     if (! UtilValidate.isEmpty(shipmentReceipt.get("quantityAccepted"))) {
@@ -5263,7 +5263,7 @@ public class OrderServices {
             BigDecimal itemAdjustments = ZERO; // Item-level tax- and shipping-adjustments
 
             // Aggregate the order items subtotal
-            List<GenericValue> orderItems = orderHeader.getRelated("OrderItem", UtilMisc.toList("orderItemSeqId"));
+            List<GenericValue> orderItems = orderHeader.getRelated("OrderItem", null, UtilMisc.toList("orderItemSeqId"), false);
             for(GenericValue orderItem : orderItems) {
                 // Look at the orderItemBillings to discover the amount and quantity ever invoiced for this order item
                 List<GenericValue> orderItemBillings = delegator.findByAnd("OrderItemBilling", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.get("orderItemSeqId")), null, false);

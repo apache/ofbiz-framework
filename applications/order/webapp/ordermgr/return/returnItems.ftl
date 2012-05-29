@@ -147,7 +147,7 @@ under the License.
               <#assign returnReason = item.getRelatedOne("ReturnReason", false)?if_exists>
               <#assign returnType = item.getRelatedOne("ReturnType", false)?if_exists>
               <#assign status = item.getRelatedOne("InventoryStatusItem", false)?if_exists>
-              <#assign shipmentReceipts = item.getRelated("ShipmentReceipt")?if_exists>
+              <#assign shipmentReceipts = item.getRelated("ShipmentReceipt", null, null, false)?if_exists>
               <#if (item.get("returnQuantity")?exists && item.get("returnPrice")?exists)>
                  <#assign returnTotal = returnTotal + item.get("returnQuantity") * item.get("returnPrice") >
                  <#assign returnItemSubTotal = item.get("returnQuantity") * item.get("returnPrice") >
@@ -273,7 +273,7 @@ under the License.
                 </#if>
               </tr>
               <#assign rowCount = rowCount + 1>
-              <#assign returnItemAdjustments = item.getRelated("ReturnAdjustment")>
+              <#assign returnItemAdjustments = item.getRelated("ReturnAdjustment", null, null, false)>
               <#if (returnItemAdjustments?has_content)>
                   <#list returnItemAdjustments as returnItemAdjustment>
                      <@displayReturnAdjustment returnAdjustment=returnItemAdjustment adjEditable=false/>  <#-- adjustments of return items should never be editable -->

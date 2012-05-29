@@ -49,7 +49,7 @@ under the License.
          <th>${uiLabelMap.CommonStatus}</th>
        </tr>
        <#list orderPaymentPreferences as orderPaymentPreference>
-         <#assign payments = orderPaymentPreference.getRelated("Payment")>
+         <#assign payments = orderPaymentPreference.getRelated("Payment", null, null, false)>
          <#list payments as payment>
            <#assign statusItem = payment.getRelatedOne("StatusItem", false)>
            <#assign partyName = delegator.findOne("PartyNameView", {"partyId" : payment.partyIdTo}, true)>
@@ -112,7 +112,7 @@ under the License.
      <tr><td colspan="4"><hr /></td></tr>
      <#if orderPaymentPreferences?has_content || billingAccount?has_content || invoices?has_content>
         <#list orderPaymentPreferences as orderPaymentPreference>
-          <#assign paymentList = orderPaymentPreference.getRelated("Payment")>
+          <#assign paymentList = orderPaymentPreference.getRelated("Payment", null, null, false)>
           <#assign pmBillingAddress = {}>
           <#assign oppStatusItem = orderPaymentPreference.getRelatedOne("StatusItem", false)>
           <#if outputted?default("false") == "true">
@@ -174,7 +174,7 @@ under the License.
             <#elseif paymentMethodType.paymentMethodTypeId == "FIN_ACCOUNT">
               <#assign finAccount = orderPaymentPreference.getRelatedOne("FinAccount", false)?if_exists/>
               <#if (finAccount?has_content)>
-                <#assign gatewayResponses = orderPaymentPreference.getRelated("PaymentGatewayResponse")>
+                <#assign gatewayResponses = orderPaymentPreference.getRelated("PaymentGatewayResponse", null, null, false)>
                 <#assign finAccountType = finAccount.getRelatedOne("FinAccountType", false)?if_exists/>
                 <tr>
                   <td align="right" valign="top" width="29%">
@@ -317,7 +317,7 @@ under the License.
             </#if>
           <#else>
             <#if paymentMethod.paymentMethodTypeId?if_exists == "CREDIT_CARD">
-              <#assign gatewayResponses = orderPaymentPreference.getRelated("PaymentGatewayResponse")>
+              <#assign gatewayResponses = orderPaymentPreference.getRelated("PaymentGatewayResponse", null, null, false)>
               <#assign creditCard = paymentMethod.getRelatedOne("CreditCard", false)?if_exists>
               <#if creditCard?has_content>
                 <#assign pmBillingAddress = creditCard.getRelatedOne("PostalAddress", false)?if_exists>

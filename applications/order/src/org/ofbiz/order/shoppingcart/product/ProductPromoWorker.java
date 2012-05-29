@@ -112,7 +112,7 @@ public class ProductPromoWorker {
             }
 
             if (productStore != null) {
-                Iterator<GenericValue> productStorePromoAppls = UtilMisc.toIterator(EntityUtil.filterByDate(productStore.getRelatedCache("ProductStorePromoAppl", UtilMisc.toMap("productStoreId", productStoreId), UtilMisc.toList("sequenceNum")), true));
+                Iterator<GenericValue> productStorePromoAppls = UtilMisc.toIterator(EntityUtil.filterByDate(productStore.getRelated("ProductStorePromoAppl", UtilMisc.toMap("productStoreId", productStoreId), UtilMisc.toList("sequenceNum"), true), true));
                 while (productStorePromoAppls != null && productStorePromoAppls.hasNext()) {
                     GenericValue productStorePromoAppl = productStorePromoAppls.next();
                     if (UtilValidate.isNotEmpty(productStorePromoAppl.getString("manualOnly")) && "Y".equals(productStorePromoAppl.getString("manualOnly"))) {
@@ -121,7 +121,7 @@ public class ProductPromoWorker {
                         continue;
                     }
                     GenericValue productPromo = productStorePromoAppl.getRelatedOne("ProductPromo", true);
-                    List<GenericValue> productPromoRules = productPromo.getRelatedCache("ProductPromoRule", null, null);
+                    List<GenericValue> productPromoRules = productPromo.getRelated("ProductPromoRule", null, null, true);
 
 
                     if (productPromoRules != null) {
@@ -129,7 +129,7 @@ public class ProductPromoWorker {
 
                         while (condResult && promoRulesItr != null && promoRulesItr.hasNext()) {
                             GenericValue promoRule = promoRulesItr.next();
-                            Iterator<GenericValue> productPromoConds = UtilMisc.toIterator(promoRule.getRelatedCache("ProductPromoCond", null, UtilMisc.toList("productPromoCondSeqId")));
+                            Iterator<GenericValue> productPromoConds = UtilMisc.toIterator(promoRule.getRelated("ProductPromoCond", null, UtilMisc.toList("productPromoCondSeqId"), true));
 
                             while (condResult && productPromoConds != null && productPromoConds.hasNext()) {
                                 GenericValue productPromoCond = productPromoConds.next();
@@ -173,7 +173,7 @@ public class ProductPromoWorker {
             return promoCodes;
         }
         try {
-            Iterator<GenericValue> productStorePromoAppls = UtilMisc.toIterator(EntityUtil.filterByDate(productStore.getRelatedCache("ProductStorePromoAppl", UtilMisc.toMap("productStoreId", productStoreId), UtilMisc.toList("sequenceNum")), true));
+            Iterator<GenericValue> productStorePromoAppls = UtilMisc.toIterator(EntityUtil.filterByDate(productStore.getRelated("ProductStorePromoAppl", UtilMisc.toMap("productStoreId", productStoreId), UtilMisc.toList("sequenceNum"), true), true));
             while (productStorePromoAppls != null && productStorePromoAppls.hasNext()) {
                 GenericValue productStorePromoAppl = productStorePromoAppls.next();
                 if (UtilValidate.isNotEmpty(productStorePromoAppl.getString("manualOnly")) && "Y".equals(productStorePromoAppl.getString("manualOnly"))) {
@@ -182,7 +182,7 @@ public class ProductPromoWorker {
                         continue;
                 }
                 GenericValue productPromo = productStorePromoAppl.getRelatedOne("ProductPromo", true);
-                Iterator<GenericValue> productPromoCodesIter = UtilMisc.toIterator(productPromo.getRelatedCache("ProductPromoCode", null, null));
+                Iterator<GenericValue> productPromoCodesIter = UtilMisc.toIterator(productPromo.getRelated("ProductPromoCode", null, null, true));
                 while (productPromoCodesIter != null && productPromoCodesIter.hasNext()) {
                     GenericValue productPromoCode = productPromoCodesIter.next();
                     promoCodes.add(productPromoCode.getString("productPromoCodeId"));
@@ -213,7 +213,7 @@ public class ProductPromoWorker {
 
         try {
             // loop through promotions and get a list of all of the rules...
-            List<GenericValue> productStorePromoApplsList = productStore.getRelatedCache("ProductStorePromoAppl", null, UtilMisc.toList("sequenceNum"));
+            List<GenericValue> productStorePromoApplsList = productStore.getRelated("ProductStorePromoAppl", null, UtilMisc.toList("sequenceNum"), true);
             productStorePromoApplsList = EntityUtil.filterByDate(productStorePromoApplsList, nowTimestamp);
 
             if (UtilValidate.isEmpty(productStorePromoApplsList)) {
@@ -267,7 +267,7 @@ public class ProductPromoWorker {
 
         try {
             // loop through promotions and get a list of all of the rules...
-            List<GenericValue> agreementPromoApplsList = agreementItem.getRelatedCache("AgreementPromoAppl", null, UtilMisc.toList("sequenceNum"));
+            List<GenericValue> agreementPromoApplsList = agreementItem.getRelated("AgreementPromoAppl", null, UtilMisc.toList("sequenceNum"), true);
             agreementPromoApplsList = EntityUtil.filterByDate(agreementPromoApplsList, nowTimestamp);
 
             if (UtilValidate.isEmpty(agreementPromoApplsList)) {
@@ -404,7 +404,7 @@ public class ProductPromoWorker {
                 for(GenericValue productPromo : productPromoList) {
                     String productPromoId = productPromo.getString("productPromoId");
 
-                    List<GenericValue> productPromoRules = productPromo.getRelatedCache("ProductPromoRule", null, null);
+                    List<GenericValue> productPromoRules = productPromo.getRelated("ProductPromoRule", null, null, true);
                     if (UtilValidate.isNotEmpty(productPromoRules)) {
                         // always have a useLimit to avoid unlimited looping, default to 1 if no other is specified
                         Long candidateUseLimit = getProductPromoUseLimit(productPromo, partyId, delegator);
@@ -647,14 +647,14 @@ public class ProductPromoWorker {
             return "";
         }
         StringBuilder promoDescBuf = new StringBuilder();
-        List<GenericValue> productPromoRules = productPromo.getRelatedCache("ProductPromoRule", null, null);
+        List<GenericValue> productPromoRules = productPromo.getRelated("ProductPromoRule", null, null, true);
         Iterator<GenericValue> promoRulesIter = productPromoRules.iterator();
         while (promoRulesIter != null && promoRulesIter.hasNext()) {
             GenericValue productPromoRule = promoRulesIter.next();
 
             List<GenericValue> productPromoConds = delegator.findByAnd("ProductPromoCond", UtilMisc.toMap("productPromoId", productPromo.get("productPromoId")), UtilMisc.toList("productPromoCondSeqId"), true);
             productPromoConds = EntityUtil.filterByAnd(productPromoConds, UtilMisc.toMap("productPromoRuleId", productPromoRule.get("productPromoRuleId")));
-            // using the other method to consolodate cache entries because the same cache is used elsewhere: List productPromoConds = productPromoRule.getRelatedCache("ProductPromoCond", null, UtilMisc.toList("productPromoCondSeqId"));
+            // using the other method to consolodate cache entries because the same cache is used elsewhere: List productPromoConds = productPromoRule.getRelated("ProductPromoCond", null, UtilMisc.toList("productPromoCondSeqId"), true);
             Iterator<GenericValue> productPromoCondIter = UtilMisc.toIterator(productPromoConds);
             while (productPromoCondIter != null && productPromoCondIter.hasNext()) {
                 GenericValue productPromoCond = productPromoCondIter.next();
@@ -677,7 +677,7 @@ public class ProductPromoWorker {
                 }
             }
 
-            List<GenericValue> productPromoActions = productPromoRule.getRelatedCache("ProductPromoAction", null, UtilMisc.toList("productPromoActionSeqId"));
+            List<GenericValue> productPromoActions = productPromoRule.getRelated("ProductPromoAction", null, UtilMisc.toList("productPromoActionSeqId"), true);
             Iterator<GenericValue> productPromoActionIter = UtilMisc.toIterator(productPromoActions);
             while (productPromoActionIter != null && productPromoActionIter.hasNext()) {
                 GenericValue productPromoAction = productPromoActionIter.next();
@@ -755,7 +755,7 @@ public class ProductPromoWorker {
                 // loop through conditions for rule, if any false, set allConditionsTrue to false
                 List<GenericValue> productPromoConds = delegator.findByAnd("ProductPromoCond", UtilMisc.toMap("productPromoId", productPromo.get("productPromoId")), UtilMisc.toList("productPromoCondSeqId"), true);
                 productPromoConds = EntityUtil.filterByAnd(productPromoConds, UtilMisc.toMap("productPromoRuleId", productPromoRule.get("productPromoRuleId")));
-                // using the other method to consolodate cache entries because the same cache is used elsewhere: List productPromoConds = productPromoRule.getRelatedCache("ProductPromoCond", null, UtilMisc.toList("productPromoCondSeqId"));
+                // using the other method to consolodate cache entries because the same cache is used elsewhere: List productPromoConds = productPromoRule.getRelated("ProductPromoCond", null, UtilMisc.toList("productPromoCondSeqId"), true);
                 if (Debug.verboseOn()) Debug.logVerbose("Checking " + productPromoConds.size() + " conditions for rule " + productPromoRule, module);
 
                 Iterator<GenericValue> productPromoCondIter = UtilMisc.toIterator(productPromoConds);
@@ -774,7 +774,7 @@ public class ProductPromoWorker {
                 if (performActions) {
                     // perform all actions, either apply or unapply
 
-                    List<GenericValue> productPromoActions = productPromoRule.getRelatedCache("ProductPromoAction", null, UtilMisc.toList("productPromoActionSeqId"));
+                    List<GenericValue> productPromoActions = productPromoRule.getRelated("ProductPromoAction", null, UtilMisc.toList("productPromoActionSeqId"), true);
                     Iterator<GenericValue> productPromoActionIter = UtilMisc.toIterator(productPromoActions);
                     while (productPromoActionIter != null && productPromoActionIter.hasNext()) {
                         GenericValue productPromoAction = productPromoActionIter.next();
@@ -1423,7 +1423,7 @@ public class ProductPromoWorker {
                         throw new CartItemModifyException(errMsg);
                     }
                     if ("Y".equals(product.getString("isVirtual"))) {
-                        List<GenericValue> productAssocs = EntityUtil.filterByDate(product.getRelatedCache("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"), UtilMisc.toList("sequenceNum")));
+                        List<GenericValue> productAssocs = EntityUtil.filterByDate(product.getRelated("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"), UtilMisc.toList("sequenceNum"), true));
                         for(GenericValue productAssoc : productAssocs) {
                             optionProductIds.add(productAssoc.getString("productIdTo"));
                         }

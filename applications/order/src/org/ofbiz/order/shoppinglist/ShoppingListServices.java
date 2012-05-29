@@ -446,7 +446,7 @@ public class ShoppingListServices {
 
             List<GenericValue> items = null;
             try {
-                items = shoppingList.getRelated("ShoppingListItem", UtilMisc.toList("shoppingListItemSeqId"));
+                items = shoppingList.getRelated("ShoppingListItem", null, UtilMisc.toList("shoppingListItemSeqId"), false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
@@ -617,7 +617,7 @@ public class ShoppingListServices {
                 if (expireDate.equals(nowDate) || nowDate.after(expireDate)) {
                     List<GenericValue> shoppingListItems = null;
                     try {
-                        shoppingListItems = sl.getRelated("ShoppingListItem");
+                        shoppingListItems = sl.getRelated("ShoppingListItem", null, null, false);
                     } catch (GenericEntityException e) {
                         Debug.logError(e.getMessage(), module);
                     }

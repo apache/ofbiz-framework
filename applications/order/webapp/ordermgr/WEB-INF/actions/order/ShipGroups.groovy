@@ -76,7 +76,7 @@ shipGroups.each { shipGroup ->
     lines = FastList.newInstance();
 
     // process the order item to ship group associations, each being a line item for the group
-    orderItemAssocs = shipGroup.getRelated("OrderItemShipGroupAssoc", ["orderItemSeqId"]);
+    orderItemAssocs = shipGroup.getRelated("OrderItemShipGroupAssoc", null, ["orderItemSeqId"], false);
     orderItemAssocs.each { orderItemAssoc ->
         orderItem = orderItemAssoc.getRelatedOne("OrderItem", false);
         product = orderItem.getRelatedOne("Product", false);
