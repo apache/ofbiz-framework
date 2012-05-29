@@ -333,8 +333,7 @@ public class InvoiceServices {
                 // for purchase orders, the pay to address is the BILLING_LOCATION of the vendor
                 GenericValue billFromVendor = orh.getPartyFromRole("BILL_FROM_VENDOR");
                 if (billFromVendor != null) {
-                    List<GenericValue> billingContactMechs = billFromVendor.getRelatedOne("Party").getRelatedByAnd("PartyContactMechPurpose",
-                            UtilMisc.toMap("contactMechPurposeTypeId", "BILLING_LOCATION"));
+                    List<GenericValue> billingContactMechs = billFromVendor.getRelatedOne("Party").getRelatedByAnd("PartyContactMechPurpose", UtilMisc.toMap("contactMechPurposeTypeId", "BILLING_LOCATION"));
                     if (UtilValidate.isNotEmpty(billingContactMechs)) {
                         payToAddress = EntityUtil.getFirst(billingContactMechs);
                     }

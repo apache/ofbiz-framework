@@ -1005,8 +1005,7 @@ public class UspsServices {
             }
 
             // get the packages for this shipment route segment
-            List<GenericValue> shipmentPackageRouteSegList = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null,
-                    UtilMisc.toList("+shipmentPackageSeqId"));
+            List<GenericValue> shipmentPackageRouteSegList = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, UtilMisc.toList("+shipmentPackageSeqId"));
             if (UtilValidate.isEmpty(shipmentPackageRouteSegList)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentPackageRouteSegsNotFound", 
@@ -1092,8 +1091,7 @@ public class UspsServices {
                 // Container element
                 GenericValue carrierShipmentBoxType = null;
                 List<GenericValue> carrierShipmentBoxTypes = null;
-                carrierShipmentBoxTypes = shipmentPackage.getRelated("CarrierShipmentBoxType",
-                        UtilMisc.toMap("partyId", "USPS"), null);
+                carrierShipmentBoxTypes = shipmentPackage.getRelated("CarrierShipmentBoxType", UtilMisc.toMap("partyId", "USPS"), null);
 
                 if (carrierShipmentBoxTypes.size() > 0) {
                     carrierShipmentBoxType = carrierShipmentBoxTypes.get(0);
@@ -1301,8 +1299,7 @@ public class UspsServices {
             }
 
             // get the packages for this shipment route segment
-            List<GenericValue> shipmentPackageRouteSegList = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null,
-                    UtilMisc.toList("+shipmentPackageSeqId"));
+            List<GenericValue> shipmentPackageRouteSegList = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, UtilMisc.toList("+shipmentPackageSeqId"));
             if (UtilValidate.isEmpty(shipmentPackageRouteSegList)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentPackageRouteSegsNotFound", 
@@ -1448,8 +1445,7 @@ public class UspsServices {
             GenericValue shipmentRouteSegment = delegator.findOne("ShipmentRouteSegment",
                     UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), false);
 
-            List<GenericValue> shipmentPackageRouteSegList = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null,
-                    UtilMisc.toList("+shipmentPackageSeqId"));
+            List<GenericValue> shipmentPackageRouteSegList = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, UtilMisc.toList("+shipmentPackageSeqId"));
 
             for (GenericValue shipmentPackageRouteSeg: shipmentPackageRouteSegList) {
                 byte[] labelImageBytes = shipmentPackageRouteSeg.getBytes("labelImage");

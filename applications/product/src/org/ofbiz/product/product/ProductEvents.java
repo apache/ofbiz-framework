@@ -691,9 +691,7 @@ public class ProductEvents {
                             while (!foundFeatureOnVariant && variantIter.hasNext()) {
                                 GenericValue variant = variantIter.next();
                                 // get the selectable features for the variant
-                                List<GenericValue> variantProductFeatureAndAppls = variant.getRelated("ProductFeatureAndAppl",
-                                        UtilMisc.toMap("productFeatureTypeId", productFeatureTypeId,
-                                                "productFeatureApplTypeId", "STANDARD_FEATURE", "description", description), null);
+                                List<GenericValue> variantProductFeatureAndAppls = variant.getRelated("ProductFeatureAndAppl", UtilMisc.toMap("productFeatureTypeId", productFeatureTypeId, "productFeatureApplTypeId", "STANDARD_FEATURE", "description", description), null);
                                 if (variantProductFeatureAndAppls.size() > 0) {
                                     foundFeatureOnVariant = true;
                                 }

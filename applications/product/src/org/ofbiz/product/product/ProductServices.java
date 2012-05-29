@@ -413,8 +413,7 @@ public class ProductServices {
             GenericValue mainProduct = product;
 
             if (product.get("isVariant") != null && product.getString("isVariant").equalsIgnoreCase("Y")) {
-                List<GenericValue> c = product.getRelatedByAndCache("AssocProductAssoc",
-                        UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"));
+                List<GenericValue> c = product.getRelatedByAndCache("AssocProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"));
                 //if (Debug.infoOn()) Debug.logInfo("Found related: " + c, module);
                 c = EntityUtil.filterByDate(c);
                 //if (Debug.infoOn()) Debug.logInfo("Found Filtered related: " + c, module);
