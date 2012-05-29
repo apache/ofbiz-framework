@@ -364,7 +364,7 @@ public class EntityUtil {
 
         List<GenericValue> result = FastList.newInstance();
         for (GenericValue value: values) {
-            result.addAll(value.getRelatedByAnd(relationName, fields));
+            result.addAll(value.getRelated(relationName, fields, null, false));
         }
         return result;
     }
@@ -374,7 +374,7 @@ public class EntityUtil {
 
         List<GenericValue> result = FastList.newInstance();
         for (GenericValue value: values) {
-            result.addAll(value.getRelatedByAndCache(relationName, fields));
+            result.addAll(value.getRelated(relationName, fields, null, true));
         }
         return result;
     }
