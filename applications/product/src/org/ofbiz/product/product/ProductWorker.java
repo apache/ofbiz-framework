@@ -92,7 +92,7 @@ public class ProductWorker {
             Delegator delegator = product.getDelegator();
             List<GenericValue> productGeos = null;
             try {
-                productGeos = product.getRelated("ProductGeo");
+                productGeos = product.getRelated("ProductGeo", null, null, false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
@@ -635,7 +635,7 @@ public class ProductWorker {
             // lookup the reviews if we didn't pass them in
             if (reviews == null) {
                 try {
-                    reviews = product.getRelatedCache("ProductReview", reviewByAnd, UtilMisc.toList("-postedDateTime"));
+                    reviews = product.getRelated("ProductReview", reviewByAnd, UtilMisc.toList("-postedDateTime"), true);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }
@@ -689,7 +689,7 @@ public class ProductWorker {
         }
         List<GenericValue> categories = FastList.newInstance();
         try {
-            List<GenericValue> categoryMembers = product.getRelated("ProductCategoryMember");
+            List<GenericValue> categoryMembers = product.getRelated("ProductCategoryMember", null, null, false);
             categoryMembers = EntityUtil.filterByDate(categoryMembers);
             categories = EntityUtil.getRelated("ProductCategory", categoryMembers);
         } catch (GenericEntityException e) {

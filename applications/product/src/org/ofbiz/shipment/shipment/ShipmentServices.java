@@ -645,7 +645,7 @@ public class ShipmentServices {
 
             List<GenericValue> packages = null;
             try {
-                packages = shipment.getRelated("ShipmentPackage") ;
+                packages = shipment.getRelated("ShipmentPackage", null, null, false) ;
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -658,7 +658,7 @@ public class ShipmentServices {
 
             List<GenericValue> routeSegs = null;
             try {
-                routeSegs = shipment.getRelated("ShipmentRouteSegment");
+                routeSegs = shipment.getRelated("ShipmentRouteSegment", null, null, false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());

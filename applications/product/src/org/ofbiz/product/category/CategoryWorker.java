@@ -93,7 +93,7 @@ public class CategoryWorker {
             Collection<GenericValue> allCategories = delegator.findList("ProductCategory", null, null, null, null, false);
 
             for (GenericValue curCat: allCategories) {
-                Collection<GenericValue> parentCats = curCat.getRelatedCache("CurrentProductCategoryRollup");
+                Collection<GenericValue> parentCats = curCat.getRelated("CurrentProductCategoryRollup", null, null, true);
 
                 if (parentCats.isEmpty()) results.add(curCat);
             }

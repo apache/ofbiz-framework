@@ -443,7 +443,7 @@ public class ProductUtilServices {
     }
 
     protected static void duplicateRelated(GenericValue product, String title, String relatedEntityName, String productIdField, String variantProductId, Timestamp nowTimestamp, boolean removeOld, Delegator delegator, boolean test) throws GenericEntityException {
-        List<GenericValue> relatedList = EntityUtil.filterByDate(product.getRelated(title + relatedEntityName), nowTimestamp);
+        List<GenericValue> relatedList = EntityUtil.filterByDate(product.getRelated(title + relatedEntityName, null, null, false), nowTimestamp);
         for (GenericValue relatedValue: relatedList) {
             GenericValue newRelatedValue = (GenericValue) relatedValue.clone();
             newRelatedValue.set(productIdField, variantProductId);

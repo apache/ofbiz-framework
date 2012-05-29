@@ -135,7 +135,7 @@ under the License.
                                 <#assign shippedQuantity = shipmentItemsData.get("shippedQuantity")>
                                 <#assign packageQuantity = shipmentItemsData.get("packageQuantity")>
                                 <#assign product = shipmentItem.getRelatedOne("Product", false)>
-                                <#assign itemIssuances = shipmentItem.getRelated("ItemIssuance")>
+                                <#assign itemIssuances = shipmentItem.getRelated("ItemIssuance", null, null, false)>
                                 <fo:table-row>
                                        <fo:table-cell padding="2pt">
                                         <fo:block>${product.internalName} [${shipmentItem.productId}]</fo:block>

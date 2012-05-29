@@ -41,7 +41,7 @@ if (shipmentId) {
     context.orderId = null;
     shipment = delegator.findOne("Shipment",  [shipmentId : shipmentId], false);
     if (shipment) {
-        shipmentItemBillingList = shipment.getRelated("ShipmentItemBilling");
+        shipmentItemBillingList = shipment.getRelated("ShipmentItemBilling", null, null, false);
         invoiceIds = EntityUtil.getFieldListFromEntityList(shipmentItemBillingList, "invoiceId", true);
         if (invoiceIds) {
             context.invoiceIds = invoiceIds;

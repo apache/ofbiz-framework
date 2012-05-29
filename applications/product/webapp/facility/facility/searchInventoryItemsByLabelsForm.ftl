@@ -23,7 +23,7 @@ under the License.
   <#assign index = 0>
   <#list labelTypes as labelType>
     <#assign index = index + 1>
-    <#assign labels = labelType.getRelated("InventoryItemLabel", Static["org.ofbiz.base.util.UtilMisc"].toList("inventoryItemLabelId"))>
+    <#assign labels = labelType.getRelated("InventoryItemLabel", null, Static["org.ofbiz.base.util.UtilMisc"].toList("inventoryItemLabelId"), false)>
     <tr>
       <td>
           <div>

@@ -65,7 +65,7 @@ if (removeFeatureTypeId) {
 Iterator iter = addedFeatureTypes.values().iterator();
 while (iter) {
     GenericValue featureType = (GenericValue)iter.next();
-    featuresByType.put(featureType.productFeatureTypeId, featureType.getRelated("ProductFeature", ['description']));
+    featuresByType.put(featureType.productFeatureTypeId, featureType.getRelated("ProductFeature", null, ['description'], false));
 }
 
 context.addedFeatureTypeIds = addedFeatureTypes.keySet();
@@ -111,12 +111,12 @@ if (product) {
             EntityCondition.makeCondition(EntityCondition.makeCondition("showInSelect", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("showInSelect", EntityOperator.NOT_EQUAL, "N")),
             null, ['description'], null, false);
 
-    categoryMembers = product.getRelated("ProductCategoryMember");
+    categoryMembers = product.getRelated("ProductCategoryMember", null, null, false);
     categoryMembers = EntityUtil.filterByDate(categoryMembers);
     context.allCategories = allCategories;
     context.productCategoryMembers = categoryMembers;
 
-    productFeatureAndAppls = product.getRelated("ProductFeatureAndAppl");
+    productFeatureAndAppls = product.getRelated("ProductFeatureAndAppl", null, null, false);
 
     // get standard features for this product
     standardFeatureAppls = EntityUtil.filterByAnd(productFeatureAndAppls, [productFeatureApplTypeId : "STANDARD_FEATURE"]);
@@ -236,7 +236,7 @@ if (product) {
         assocProduct = productAssoc.getRelatedOne("AssocProduct", false);
         if (assocProduct) {
             assocProducts.add(assocProduct);
-            assocProductFeatureAndAppls = assocProduct.getRelated("ProductFeatureAndAppl");
+            assocProductFeatureAndAppls = assocProduct.getRelated("ProductFeatureAndAppl", null, null, false);
             prodFeaturesFiltered = EntityUtil.filterByAnd(assocProductFeatureAndAppls, [productFeatureTypeId : 'AMOUNT', uomId : 'VLIQ_ozUS']);
             if (prodFeaturesFiltered) {
                 featureFloz.put(assocProduct.productId, ((GenericValue)prodFeaturesFiltered.get(0)).getBigDecimal("numberSpecified"));

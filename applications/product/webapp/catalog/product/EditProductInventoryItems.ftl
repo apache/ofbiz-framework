@@ -58,7 +58,7 @@ under the License.
                     <#assign curStatusItem = inventoryItem.getRelatedOne("StatusItem", true)?if_exists>
                     <#assign facilityLocation = inventoryItem.getRelatedOne("FacilityLocation", false)?if_exists>
                     <#assign facilityLocationTypeEnum = (facilityLocation.getRelatedOne("TypeEnumeration", true))?if_exists>
-                    <#assign inventoryItemDetailFirst = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(inventoryItem.getRelated("InventoryItemDetail", Static["org.ofbiz.base.util.UtilMisc"].toList("effectiveDate")))?if_exists>
+                    <#assign inventoryItemDetailFirst = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(inventoryItem.getRelated("InventoryItemDetail", null, Static["org.ofbiz.base.util.UtilMisc"].toList("effectiveDate"), false))?if_exists>
                     <#if curInventoryItemType?exists>
                         <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                             <td><a href="/facility/control/EditInventoryItem?inventoryItemId=${(inventoryItem.inventoryItemId)?if_exists}${externalKeyParam}" class="buttontext">${(inventoryItem.inventoryItemId)?if_exists}</a></td>

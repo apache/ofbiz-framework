@@ -59,7 +59,7 @@ public class ShipmentWorker {
         List<GenericValue> issuances = null;
         try {
             GenericValue shipmentItem = shipmentPackageContent.getRelatedOne("ShipmentItem", false);
-            issuances = shipmentItem.getRelated("ItemIssuance");
+            issuances = shipmentItem.getRelated("ItemIssuance", null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }

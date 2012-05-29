@@ -559,7 +559,7 @@ public class ProductConfigWrapper implements Serializable {
         public ConfigOption(Delegator delegator, LocalDispatcher dispatcher, GenericValue option, ConfigItem configItem, String catalogId, String webSiteId, String currencyUomId, GenericValue autoUserLogin) throws Exception {
             configOption = option;
             parentConfigItem = configItem;
-            componentList = option.getRelated("ConfigOptionProductConfigProduct");
+            componentList = option.getRelated("ConfigOptionProductConfigProduct", null, null, false);
             for (GenericValue oneComponent: componentList) {
                 BigDecimal listPrice = BigDecimal.ZERO;
                 BigDecimal price = BigDecimal.ZERO;

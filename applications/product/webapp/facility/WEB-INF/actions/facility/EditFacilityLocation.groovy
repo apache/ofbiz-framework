@@ -44,7 +44,7 @@ locationTypeEnums = delegator.findList("Enumeration", EntityCondition.makeCondit
 // ProductFacilityLocation stuff
 productFacilityLocations = null;
 if (facilityLocation) {
-    productFacilityLocations = facilityLocation.getRelated("ProductFacilityLocation", null, ['productId']);
+    productFacilityLocations = facilityLocation.getRelated("ProductFacilityLocation", null, ['productId'], false);
 }
 
 context.facilityId = facilityId;

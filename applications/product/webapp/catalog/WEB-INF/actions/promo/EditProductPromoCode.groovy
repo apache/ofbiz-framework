@@ -38,8 +38,8 @@ if (productPromoId) {
 productPromoCodeEmails = null;
 productPromoCodeParties = null;
 if (productPromoCode) {
-    productPromoCodeEmails = productPromoCode.getRelated("ProductPromoCodeEmail");
-    productPromoCodeParties = productPromoCode.getRelated("ProductPromoCodeParty");
+    productPromoCodeEmails = productPromoCode.getRelated("ProductPromoCodeEmail", null, null, false);
+    productPromoCodeParties = productPromoCode.getRelated("ProductPromoCodeParty", null, null, false);
 }
 
 context.productPromoId = productPromoId;

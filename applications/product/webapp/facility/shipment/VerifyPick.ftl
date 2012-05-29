@@ -261,7 +261,7 @@ under the License.
                   <input type="hidden" name="prd_${rowKey}" value="${(orderItem.productId)?if_exists}"/>
                   <input type="hidden" name="ite_${rowKey}" value="${(orderItem.orderItemSeqId)?if_exists}"/>
                 </tr>
-                <#assign workOrderItemFulfillments = orderItem.getRelated("WorkOrderItemFulfillment")/>
+                <#assign workOrderItemFulfillments = orderItem.getRelated("WorkOrderItemFulfillment", null, null, false)/>
                 <#if workOrderItemFulfillments?has_content>
                   <#assign workOrderItemFulfillment = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(workOrderItemFulfillments)/>
                   <#if workOrderItemFulfillment?has_content>
@@ -269,7 +269,7 @@ under the License.
                     <#if workEffort?has_content>
                       <#assign workEffortTask = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("WorkEffort", Static["org.ofbiz.base.util.UtilMisc"].toMap("workEffortParentId", workEffort.workEffortId), null, false))/>
                       <#if workEffortTask?has_content>
-                        <#assign workEffortInventoryAssigns = workEffortTask.getRelated("WorkEffortInventoryAssign")/>
+                        <#assign workEffortInventoryAssigns = workEffortTask.getRelated("WorkEffortInventoryAssign", null, null, false)/>
                         <#if workEffortInventoryAssigns?has_content>
                           <tr>
                             <th colspan="8">

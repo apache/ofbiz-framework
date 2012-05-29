@@ -440,7 +440,7 @@ public class WeightPackageSession implements Serializable {
         }
         List<GenericValue> orderItems = this.getDelegator().findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId, "statusId", "ITEM_APPROVED"), null, false);
         for (GenericValue orderItem : orderItems) {
-            List<GenericValue> orderItemShipGrpInvReserves = orderItem.getRelated("OrderItemShipGrpInvRes");
+            List<GenericValue> orderItemShipGrpInvReserves = orderItem.getRelated("OrderItemShipGrpInvRes", null, null, false);
             if (UtilValidate.isEmpty(orderItemShipGrpInvReserves)) {
                 Map<String, Object> orderItemStatusMap = FastMap.newInstance();
                 orderItemStatusMap.put("orderId", orderId);

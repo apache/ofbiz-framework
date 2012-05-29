@@ -31,11 +31,11 @@ if (shipmentId) {
 }
 
 if (shipment) {
-    shipmentItems = shipment.getRelated("ShipmentItem", null, ['shipmentItemSeqId']);
+    shipmentItems = shipment.getRelated("ShipmentItem", null, ['shipmentItemSeqId'], false);
     shipmentItemDatas = [] as LinkedList;
     if (shipmentItems) {
         shipmentItems.each { shipmentItem ->
-            shipmentPackageContents = shipmentItem.getRelated("ShipmentPackageContent");
+            shipmentPackageContents = shipmentItem.getRelated("ShipmentPackageContent", null, null, false);
             totalQuantityPackaged = 0;
             shipmentPackageContents.each { shipmentPackageContent ->
                 if (shipmentPackageContent.quantity) {
@@ -51,15 +51,15 @@ if (shipment) {
             shipmentItemData = [:];
             shipmentItemData.shipmentItem = shipmentItem;
             shipmentItemData.shipmentPackageContents = shipmentPackageContents;
-            shipmentItemData.itemIssuances = shipmentItem.getRelated("ItemIssuance");
-            shipmentItemData.orderShipments = shipmentItem.getRelated("OrderShipment");
+            shipmentItemData.itemIssuances = shipmentItem.getRelated("ItemIssuance", null, null, false);
+            shipmentItemData.orderShipments = shipmentItem.getRelated("OrderShipment", null, null, false);
             shipmentItemData.product = shipmentItem.getRelatedOne("Product", false);
             shipmentItemData.totalQuantityPackaged = totalQuantityPackaged;
             shipmentItemData.totalQuantityToPackage = totalQuantityToPackage;
             shipmentItemDatas.add(shipmentItemData);
         }
     }
-    shipmentPackages = shipment.getRelated("ShipmentPackage", null, ['shipmentPackageSeqId']);
+    shipmentPackages = shipment.getRelated("ShipmentPackage", null, ['shipmentPackageSeqId'], false);
 
     context.shipment = shipment;
     context.shipmentItemDatas = shipmentItemDatas;

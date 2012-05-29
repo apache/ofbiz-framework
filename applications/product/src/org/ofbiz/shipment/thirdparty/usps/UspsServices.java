@@ -1005,7 +1005,7 @@ public class UspsServices {
             }
 
             // get the packages for this shipment route segment
-            List<GenericValue> shipmentPackageRouteSegList = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, UtilMisc.toList("+shipmentPackageSeqId"));
+            List<GenericValue> shipmentPackageRouteSegList = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, UtilMisc.toList("+shipmentPackageSeqId"), false);
             if (UtilValidate.isEmpty(shipmentPackageRouteSegList)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentPackageRouteSegsNotFound", 
@@ -1091,7 +1091,7 @@ public class UspsServices {
                 // Container element
                 GenericValue carrierShipmentBoxType = null;
                 List<GenericValue> carrierShipmentBoxTypes = null;
-                carrierShipmentBoxTypes = shipmentPackage.getRelated("CarrierShipmentBoxType", UtilMisc.toMap("partyId", "USPS"), null);
+                carrierShipmentBoxTypes = shipmentPackage.getRelated("CarrierShipmentBoxType", UtilMisc.toMap("partyId", "USPS"), null, false);
 
                 if (carrierShipmentBoxTypes.size() > 0) {
                     carrierShipmentBoxType = carrierShipmentBoxTypes.get(0);
@@ -1299,7 +1299,7 @@ public class UspsServices {
             }
 
             // get the packages for this shipment route segment
-            List<GenericValue> shipmentPackageRouteSegList = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, UtilMisc.toList("+shipmentPackageSeqId"));
+            List<GenericValue> shipmentPackageRouteSegList = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, UtilMisc.toList("+shipmentPackageSeqId"), false);
             if (UtilValidate.isEmpty(shipmentPackageRouteSegList)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentPackageRouteSegsNotFound", 
@@ -1445,7 +1445,7 @@ public class UspsServices {
             GenericValue shipmentRouteSegment = delegator.findOne("ShipmentRouteSegment",
                     UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), false);
 
-            List<GenericValue> shipmentPackageRouteSegList = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, UtilMisc.toList("+shipmentPackageSeqId"));
+            List<GenericValue> shipmentPackageRouteSegList = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, UtilMisc.toList("+shipmentPackageSeqId"), false);
 
             for (GenericValue shipmentPackageRouteSeg: shipmentPackageRouteSegList) {
                 byte[] labelImageBytes = shipmentPackageRouteSeg.getBytes("labelImage");
@@ -1507,7 +1507,7 @@ public class UspsServices {
                 destinationCountry = destinationAddress.getRelatedOne("CountryGeo", false);
             }
             destinationTelecomNumber = shipmentRouteSegment.getRelatedOne("DestTelecomNumber", false);
-            shipmentPackageRouteSegs = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg");
+            shipmentPackageRouteSegs = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -1571,7 +1571,7 @@ public class UspsServices {
             List<GenericValue> shipmentPackageContents = null;
             try {
                 shipmentPackage = shipmentPackageRouteSeg.getRelatedOne("ShipmentPackage", false);
-                shipmentPackageContents = shipmentPackage.getRelated("ShipmentPackageContent");
+                shipmentPackageContents = shipmentPackage.getRelated("ShipmentPackageContent", null, null, false);
                 GenericValue shipmentBoxType = shipmentPackage.getRelatedOne("ShipmentBoxType", false);
                 if (shipmentBoxType != null) {
                     GenericValue carrierShipmentBoxType = EntityUtil.getFirst(shipmentBoxType.getRelatedByAnd("CarrierShipmentBoxType", UtilMisc.toMap("partyId", "USPS")));

@@ -82,7 +82,7 @@ assocTypes = delegator.findList("ProductAssocType", null, null, ['description'],
 context.assocTypes = assocTypes;
 
 if (product) {
-    context.assocFromProducts = product.getRelated("MainProductAssoc", null, ['sequenceNum']);
+    context.assocFromProducts = product.getRelated("MainProductAssoc", null, ['sequenceNum'], false);
 
-    context.assocToProducts = product.getRelated("AssocProductAssoc");
+    context.assocToProducts = product.getRelated("AssocProductAssoc", null, null, false);
 }
