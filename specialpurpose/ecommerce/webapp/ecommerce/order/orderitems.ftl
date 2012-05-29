@@ -105,7 +105,7 @@ under the License.
           </#if>
         </#list>
       <#else>
-        <#assign WorkOrderItemFulfillments = orderItem.getRelated("WorkOrderItemFulfillment")?if_exists>
+        <#assign WorkOrderItemFulfillments = orderItem.getRelated("WorkOrderItemFulfillment", null, null, false)?if_exists>
         <#if WorkOrderItemFulfillments?has_content>
           <#list WorkOrderItemFulfillments as WorkOrderItemFulfillment>
             <#assign workEffortSave = WorkOrderItemFulfillment.getRelatedOne("WorkEffort", true)?if_exists>
@@ -123,7 +123,7 @@ under the License.
           <#assign product = orderItem.getRelatedOne("Product", true)?if_exists/> <#-- should always exist because of FK constraint, but just in case -->
           <td >
             <a href="<@ofbizCatalogAltUrl fullPath="true" secure="false" productId=orderItem.productId/>" class="linktext">${orderItem.productId} - ${orderItem.itemDescription?default("")}</a>
-            <#assign orderItemAttributes = orderItem.getRelated("OrderItemAttribute")/>
+            <#assign orderItemAttributes = orderItem.getRelated("OrderItemAttribute", null, null, false)/>
             <#if orderItemAttributes?has_content>
                 <ul>
                 <#list orderItemAttributes as orderItemAttribute>
@@ -159,7 +159,7 @@ under the License.
               </#if>
             </#if>
             <#if maySelectItems?default("N") == "Y">
-              <#assign returns = orderItem.getRelated("ReturnItem")?if_exists>
+              <#assign returns = orderItem.getRelated("ReturnItem", null, null, false)?if_exists>
               <#if returns?has_content>
                 <#list returns as return>
                   <#assign returnHeader = return.getRelatedOne("ReturnHeader", false)>
@@ -275,7 +275,7 @@ under the License.
         </tr>
       </#list>
       <#-- show the order item ship group info -->
-      <#assign orderItemShipGroupAssocs = orderItem.getRelated("OrderItemShipGroupAssoc")?if_exists>
+      <#assign orderItemShipGroupAssocs = orderItem.getRelated("OrderItemShipGroupAssoc", null, null, false)?if_exists>
       <#if orderItemShipGroupAssocs?has_content>
         <#list orderItemShipGroupAssocs as shipGroupAssoc>
           <#assign shipGroup = shipGroupAssoc.getRelatedOne("OrderItemShipGroup", false)?if_exists>

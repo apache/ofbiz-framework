@@ -89,7 +89,7 @@ under the License.
           <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "PASSWORD">
             <input type="password" size="30" class="textBox" name="answers_${surveyQuestionAndAppl.surveyQuestionId}" value="${(answer.textResponse)?if_exists}"/>
           <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "OPTION">
-            <#assign options = surveyQuestionAndAppl.getRelated("SurveyQuestionOption", sequenceSort)?if_exists>
+            <#assign options = surveyQuestionAndAppl.getRelated("SurveyQuestionOption", null, sequenceSort, false)?if_exists>
             <#assign selectedOption = (answer.surveyOptionSeqId)?default("_NA_")>
             <select class="selectBox" name="answers_${surveyQuestionAndAppl.surveyQuestionId}">
               <#if surveyQuestionAndAppl.requiredField?default("N") != "Y">

@@ -78,7 +78,7 @@ if (shoppingListId) {
         shoppingListItemTotal = 0.0;
         shoppingListChildTotal = 0.0;
 
-        shoppingListItems = shoppingList.getRelatedCache("ShoppingListItem");
+        shoppingListItems = shoppingList.getRelated("ShoppingListItem", null, null, true);
         if (shoppingListItems) {
             shoppingListItemDatas = new ArrayList(shoppingListItems.size());
             shoppingListItems.each { shoppingListItem ->
@@ -125,7 +125,7 @@ if (shoppingListId) {
 
                 productVariantAssocs = null;
                 if ("Y".equals(product.isVirtual)) {
-                    productVariantAssocs = product.getRelatedCache("MainProductAssoc", [productAssocTypeId : "PRODUCT_VARIANT"], ["sequenceNum"]);
+                    productVariantAssocs = product.getRelated("MainProductAssoc", [productAssocTypeId : "PRODUCT_VARIANT"], ["sequenceNum"], true);
                     productVariantAssocs = EntityUtil.filterByDate(productVariantAssocs);
                 }
                 shoppingListItemData.shoppingListItem = shoppingListItem;
@@ -198,7 +198,7 @@ if (shoppingListId) {
                 // get customer's shipping & payment info
                 context.chosenShippingMethod = shoppingList.shipmentMethodTypeId + "@" + shoppingList.carrierPartyId;
                 context.shippingContactMechList = ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
-                context.paymentMethodList = EntityUtil.filterByDate(party.getRelated("PaymentMethod", null, ["paymentMethodTypeId"]));
+                context.paymentMethodList = EntityUtil.filterByDate(party.getRelated("PaymentMethod", null, ["paymentMethodTypeId"], false));
 
                 shipAddress = delegator.findOne("PostalAddress", ["contactMechId" : shoppingList.contactMechId], false);
                 Debug.log("SL - address : " + shipAddress);

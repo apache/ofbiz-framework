@@ -68,7 +68,7 @@ if (userLogin) {
     billToContactMechList = ContactHelper.getContactMech(party, "PHONE_BILLING", "TELECOM_NUMBER", false)
     if (billToContactMechList) {
         billToTelecomNumber = (EntityUtil.getFirst(billToContactMechList)).getRelatedOne("TelecomNumber", false);
-        pcm = EntityUtil.getFirst(billToTelecomNumber.getRelated("PartyContactMech"));
+        pcm = EntityUtil.getFirst(billToTelecomNumber.getRelated("PartyContactMech", null, null, false));
         context.billToTelecomNumber = billToTelecomNumber;
         context.billToExtension = pcm.extension;
     }
@@ -76,7 +76,7 @@ if (userLogin) {
     billToFaxNumberList = ContactHelper.getContactMech(party, "FAX_BILLING", "TELECOM_NUMBER", false)
     if (billToFaxNumberList) {
         billToFaxNumber = (EntityUtil.getFirst(billToFaxNumberList)).getRelatedOne("TelecomNumber", false);
-        faxPartyContactMech = EntityUtil.getFirst(billToFaxNumber.getRelated("PartyContactMech"));
+        faxPartyContactMech = EntityUtil.getFirst(billToFaxNumber.getRelated("PartyContactMech", null, null, false));
         context.billToFaxNumber = billToFaxNumber;
         context.billToFaxExtension = faxPartyContactMech.extension;
     }

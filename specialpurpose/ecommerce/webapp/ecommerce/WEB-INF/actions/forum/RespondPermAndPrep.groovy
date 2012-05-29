@@ -56,7 +56,7 @@ if (!pubPt) {
 */
 
 contentToValue = delegator.findOne("Content", [contentId : contentIdTo], false);
-contentToPurposeList = contentToValue.getRelatedCache("ContentPurpose");
+contentToPurposeList = contentToValue.getRelated("ContentPurpose", null, null, true);
 currentValue = delegator.makeValue("Content", [contentTypeId : "DOCUMENT", statusId : "CTNT_PUBLISHED", privilegeEnumId : "_00_"]);
 
 if (contentToPurposeList.contains("RESPONSE")) {
