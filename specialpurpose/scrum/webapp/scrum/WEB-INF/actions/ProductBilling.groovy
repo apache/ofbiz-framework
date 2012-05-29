@@ -35,7 +35,7 @@ orderBy = ["-fromDate"];
 // check if latest invoice generated is still in process so allow re-generation to correct errors
 entryIterator = delegator.find("ProjectSprintBacklogTaskAndTimeEntryTimeSheet", entryExprs, null, null, orderBy, null);
 while (entryItem = entryIterator.next()) {
-    invoice = entryItem.getRelatedOne("Invoice");
+    invoice = entryItem.getRelatedOne("Invoice", false);
     if (invoice.getString("statusId").equals("INVOICE_IN_PROCESS")) {
         context.partyIdFrom = invoice.partyIdFrom;
         context.partyId = invoice.partyId;

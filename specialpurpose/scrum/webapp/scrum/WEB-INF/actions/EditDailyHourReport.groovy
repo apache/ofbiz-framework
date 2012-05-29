@@ -90,7 +90,7 @@ lastEmplLeaveEntry = null;
 // retrieve work effort data when the workeffortId has changed.
 void retrieveWorkEffortData() {
         // get the planned number of hours
-        entryWorkEffort = lastTimeEntry.getRelatedOne("WorkEffort");
+        entryWorkEffort = lastTimeEntry.getRelatedOne("WorkEffort", false);
         if (entryWorkEffort) {
             plannedHours = entryWorkEffort.getRelated("WorkEffortSkillStandard");
             pHours = 0.00;
