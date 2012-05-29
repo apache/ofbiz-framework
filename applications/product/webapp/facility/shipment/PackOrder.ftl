@@ -150,7 +150,7 @@ under the License.
         </div>
         <div class="screenlet-body">
               <#if orderItemShipGroup?has_content>
-                <#assign postalAddress = orderItemShipGroup.getRelatedOne("PostalAddress")>
+                <#assign postalAddress = orderItemShipGroup.getRelatedOne("PostalAddress", false)>
                 <#assign carrier = orderItemShipGroup.carrierPartyId?default("N/A")>
                 <table cellpadding="4" cellspacing="4" class="basic-table">
                   <tr>
@@ -275,7 +275,7 @@ under the License.
                         <#assign orderItem = itemInfo.orderItem/>
                         <#assign shippedQuantity = orderReadHelper.getItemShippedQuantity(orderItem)?if_exists>
                         <#assign orderItemQuantity = itemInfo.quantity/>
-                        <#assign orderProduct = orderItem.getRelatedOne("Product")?if_exists/>
+                        <#assign orderProduct = orderItem.getRelatedOne("Product", false)?if_exists/>
                         <#assign product = Static["org.ofbiz.product.product.ProductWorker"].findProduct(delegator, itemInfo.productId)?if_exists/>
                         <#--
                         <#if orderItem.cancelQuantity?exists>
@@ -315,7 +315,7 @@ under the License.
                               <select name="boxType_${rowKey}">
                                 <option value=""></option>
                                 <#list carrierShipmentBoxTypes as carrierShipmentBoxType>
-                                  <#assign shipmentBoxType = carrierShipmentBoxType.getRelatedOne("ShipmentBoxType") />
+                                  <#assign shipmentBoxType = carrierShipmentBoxType.getRelatedOne("ShipmentBoxType", false) />
                                   <option value="${shipmentBoxType.shipmentBoxTypeId}">${shipmentBoxType.description?default(shipmentBoxType.shipmentBoxTypeId)}</option>
                                 </#list>
                               </select>

@@ -67,10 +67,10 @@ under the License.
                     <#list moveByOisgirInfoList?if_exists as moveByOisgirInfo>
                         <#assign product = moveByOisgirInfo.product>
                         <#assign facilityLocationFrom = moveByOisgirInfo.facilityLocationFrom>
-                        <#assign facilityLocationTypeEnumFrom = (facilityLocationFrom.getRelatedOneCache("TypeEnumeration"))?if_exists>
+                        <#assign facilityLocationTypeEnumFrom = (facilityLocationFrom.getRelatedOne("TypeEnumeration", true))?if_exists>
                         <#assign facilityLocationTo = moveByOisgirInfo.facilityLocationTo>
                         <#assign targetProductFacilityLocation = moveByOisgirInfo.targetProductFacilityLocation>
-                        <#assign facilityLocationTypeEnumTo = (facilityLocationTo.getRelatedOneCache("TypeEnumeration"))?if_exists>
+                        <#assign facilityLocationTypeEnumTo = (facilityLocationTo.getRelatedOne("TypeEnumeration", true))?if_exists>
                         <#assign totalQuantity = moveByOisgirInfo.totalQuantity>
                         <tr id="moveInfoId_tableRow_${rowCount}" valign="middle"<#if alt_row> class="alternate-row"</#if>>
                             <td>${product.productId}</td>
@@ -101,10 +101,10 @@ under the License.
                     <#list moveByPflInfoList?if_exists as moveByPflInfo>
                         <#assign product = moveByPflInfo.product>
                         <#assign facilityLocationFrom = moveByPflInfo.facilityLocationFrom>
-                        <#assign facilityLocationTypeEnumFrom = (facilityLocationFrom.getRelatedOneCache("TypeEnumeration"))?if_exists>
+                        <#assign facilityLocationTypeEnumFrom = (facilityLocationFrom.getRelatedOne("TypeEnumeration", true))?if_exists>
                         <#assign facilityLocationTo = moveByPflInfo.facilityLocationTo>
                         <#assign targetProductFacilityLocation = moveByPflInfo.targetProductFacilityLocation>
-                        <#assign facilityLocationTypeEnumTo = (facilityLocationTo.getRelatedOneCache("TypeEnumeration"))?if_exists>
+                        <#assign facilityLocationTypeEnumTo = (facilityLocationTo.getRelatedOne("TypeEnumeration", true))?if_exists>
                         <#assign totalQuantity = moveByPflInfo.totalQuantity>
                         <tr id="moveInfoId_tableRow_${rowCount}" valign="middle"<#if alt_row> class="alternate-row"</#if>>
                             <td>${product.productId}</td>

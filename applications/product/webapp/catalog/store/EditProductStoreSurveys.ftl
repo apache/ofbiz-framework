@@ -34,8 +34,8 @@ under the License.
             </tr>
             <#assign alt_row = false>
             <#list productStoreSurveys as storeSurvey>
-              <#assign surveyType = storeSurvey.getRelatedOne("SurveyApplType")>
-              <#assign survey = storeSurvey.getRelatedOne("Survey")>
+              <#assign surveyType = storeSurvey.getRelatedOne("SurveyApplType", false)>
+              <#assign survey = storeSurvey.getRelatedOne("Survey", false)>
               <tr valign="middle"<#if alt_row>class="alternate-row"</#if>>
                 <td>${surveyType.get("description",locale)}</td>
                 <td>${storeSurvey.groupName?if_exists}</td>

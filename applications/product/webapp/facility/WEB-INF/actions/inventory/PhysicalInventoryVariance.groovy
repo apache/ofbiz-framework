@@ -28,9 +28,9 @@ if (inventoryItem && "NON_SERIAL_INV_ITEM".equals(inventoryItem.inventoryItemTyp
         physicalInventoryAndVarianceDatas.add(physicalInventoryAndVarianceData);
 
         physicalInventoryAndVarianceData.physicalInventoryAndVariance = physicalInventoryAndVariance;
-        physicalInventoryAndVarianceData.varianceReason = physicalInventoryAndVariance.getRelatedOneCache("VarianceReason");
-        physicalInventoryAndVarianceData.person = physicalInventoryAndVariance.getRelatedOne("Person");
-        physicalInventoryAndVarianceData.partyGroup = physicalInventoryAndVariance.getRelatedOne("PartyGroup");
+        physicalInventoryAndVarianceData.varianceReason = physicalInventoryAndVariance.getRelatedOne("VarianceReason", true);
+        physicalInventoryAndVarianceData.person = physicalInventoryAndVariance.getRelatedOne("Person", false);
+        physicalInventoryAndVarianceData.partyGroup = physicalInventoryAndVariance.getRelatedOne("PartyGroup", false);
     }
     context.physicalInventoryAndVarianceDatas = physicalInventoryAndVarianceDatas;
 }

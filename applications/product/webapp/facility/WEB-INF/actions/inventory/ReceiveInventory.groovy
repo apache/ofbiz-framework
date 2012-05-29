@@ -39,7 +39,7 @@ if (facilityId) {
 
 ownerAcctgPref = null;
 if (facility) {
-    owner = facility.getRelatedOne("OwnerParty");
+    owner = facility.getRelatedOne("OwnerParty", false);
     if (owner) {
         result = dispatcher.runSync("getPartyAccountingPreferences", [organizationPartyId : owner.partyId, userLogin : request.getAttribute("userLogin")]);
         if (!ServiceUtil.isError(result) && result.partyAccountingPreference) {
@@ -68,7 +68,7 @@ if (purchaseOrder && !shipmentId) {
     if (orderShipments) {
         shipments = [] as TreeSet;
         orderShipments.each { orderShipment ->
-            shipment = orderShipment.getRelatedOne("Shipment");
+            shipment = orderShipment.getRelatedOne("Shipment", false);
             if (!"PURCH_SHIP_RECEIVED".equals(shipment.statusId) &&
                 !"SHIPMENT_CANCELLED".equals(shipment.statusId) &&
                 (!shipment.destinationFacilityId || facilityId.equals(shipment.destinationFacilityId))) {
@@ -81,7 +81,7 @@ if (purchaseOrder && !shipmentId) {
     if (issuances) {
         shipments = [] as TreeSet;
         issuances.each { issuance ->
-            shipment = issuance.getRelatedOne("Shipment");
+            shipment = issuance.getRelatedOne("Shipment", false);
             if (!"PURCH_SHIP_RECEIVED".equals(shipment.statusId) &&
                 !"SHIPMENT_CANCELLED".equals(shipment.statusId) &&
                 (!shipment.destinationFacilityId || facilityId.equals(shipment.destinationFacilityId))) {

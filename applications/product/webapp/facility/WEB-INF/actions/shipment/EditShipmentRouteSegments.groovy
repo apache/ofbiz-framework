@@ -37,19 +37,19 @@ if (shipment) {
         shipmentRouteSegments.each { shipmentRouteSegment ->
             shipmentRouteSegmentData = [:];
             shipmentRouteSegmentData.shipmentRouteSegment = shipmentRouteSegment;
-            shipmentRouteSegmentData.originFacility = shipmentRouteSegment.getRelatedOne("OriginFacility");
-            shipmentRouteSegmentData.destFacility = shipmentRouteSegment.getRelatedOne("DestFacility");
-            shipmentRouteSegmentData.originPostalAddress = shipmentRouteSegment.getRelatedOne("OriginPostalAddress");
-            shipmentRouteSegmentData.originTelecomNumber = shipmentRouteSegment.getRelatedOne("OriginTelecomNumber");
-            shipmentRouteSegmentData.destPostalAddress = shipmentRouteSegment.getRelatedOne("DestPostalAddress");
-            shipmentRouteSegmentData.destTelecomNumber = shipmentRouteSegment.getRelatedOne("DestTelecomNumber");
-            shipmentRouteSegmentData.shipmentMethodType = shipmentRouteSegment.getRelatedOne("ShipmentMethodType");
-            shipmentRouteSegmentData.carrierPerson = shipmentRouteSegment.getRelatedOne("CarrierPerson");
-            shipmentRouteSegmentData.carrierPartyGroup = shipmentRouteSegment.getRelatedOne("CarrierPartyGroup");
+            shipmentRouteSegmentData.originFacility = shipmentRouteSegment.getRelatedOne("OriginFacility", false);
+            shipmentRouteSegmentData.destFacility = shipmentRouteSegment.getRelatedOne("DestFacility", false);
+            shipmentRouteSegmentData.originPostalAddress = shipmentRouteSegment.getRelatedOne("OriginPostalAddress", false);
+            shipmentRouteSegmentData.originTelecomNumber = shipmentRouteSegment.getRelatedOne("OriginTelecomNumber", false);
+            shipmentRouteSegmentData.destPostalAddress = shipmentRouteSegment.getRelatedOne("DestPostalAddress", false);
+            shipmentRouteSegmentData.destTelecomNumber = shipmentRouteSegment.getRelatedOne("DestTelecomNumber", false);
+            shipmentRouteSegmentData.shipmentMethodType = shipmentRouteSegment.getRelatedOne("ShipmentMethodType", false);
+            shipmentRouteSegmentData.carrierPerson = shipmentRouteSegment.getRelatedOne("CarrierPerson", false);
+            shipmentRouteSegmentData.carrierPartyGroup = shipmentRouteSegment.getRelatedOne("CarrierPartyGroup", false);
             shipmentRouteSegmentData.shipmentPackageRouteSegs = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg");
-            shipmentRouteSegmentData.carrierServiceStatusItem = shipmentRouteSegment.getRelatedOne("CarrierServiceStatusItem");
-            shipmentRouteSegmentData.currencyUom = shipmentRouteSegment.getRelatedOne("CurrencyUom");
-            shipmentRouteSegmentData.billingWeightUom = shipmentRouteSegment.getRelatedOne("BillingWeightUom");
+            shipmentRouteSegmentData.carrierServiceStatusItem = shipmentRouteSegment.getRelatedOne("CarrierServiceStatusItem", false);
+            shipmentRouteSegmentData.currencyUom = shipmentRouteSegment.getRelatedOne("CurrencyUom", false);
+            shipmentRouteSegmentData.billingWeightUom = shipmentRouteSegment.getRelatedOne("BillingWeightUom", false);
             if (shipmentRouteSegment.carrierServiceStatusId) {
                 shipmentRouteSegmentData.carrierServiceStatusValidChangeToDetails = delegator.findList("StatusValidChangeToDetail", EntityCondition.makeCondition([statusId : shipmentRouteSegment.carrierServiceStatusId]), null, ['sequenceId'], null, false);
             } else {
@@ -68,11 +68,11 @@ if (shipment) {
     carrierPartyRoles = delegator.findList("PartyRole", EntityCondition.makeCondition([roleTypeId : 'CARRIER']), null, null, null, false);
     carrierPartyDatas = [] as LinkedList;
     carrierPartyRoles.each { carrierPartyRole ->
-        party = carrierPartyRole.getRelatedOne("Party");
+        party = carrierPartyRole.getRelatedOne("Party", false);
         carrierPartyData = [:];
         carrierPartyData.party = party;
-        carrierPartyData.person = party.getRelatedOne("Person");
-        carrierPartyData.partyGroup = party.getRelatedOne("PartyGroup");
+        carrierPartyData.person = party.getRelatedOne("Person", false);
+        carrierPartyData.partyGroup = party.getRelatedOne("PartyGroup", false);
         carrierPartyDatas.add(carrierPartyData);
     }
 

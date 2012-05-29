@@ -54,10 +54,10 @@ under the License.
                <#-- NOTE: Delivered for serialized inventory means shipped to customer so they should not be displayed here any more -->
                <#if showEmpty || (inventoryItem.inventoryItemTypeId?if_exists == "SERIALIZED_INV_ITEM" && inventoryItem.statusId?if_exists != "INV_DELIVERED")
                               || (inventoryItem.inventoryItemTypeId?if_exists == "NON_SERIAL_INV_ITEM" && ((inventoryItem.availableToPromiseTotal?exists && inventoryItem.availableToPromiseTotal != 0) || (inventoryItem.quantityOnHandTotal?exists && inventoryItem.quantityOnHandTotal != 0)))>
-                    <#assign curInventoryItemType = inventoryItem.getRelatedOne("InventoryItemType")>
-                    <#assign curStatusItem = inventoryItem.getRelatedOneCache("StatusItem")?if_exists>
-                    <#assign facilityLocation = inventoryItem.getRelatedOne("FacilityLocation")?if_exists>
-                    <#assign facilityLocationTypeEnum = (facilityLocation.getRelatedOneCache("TypeEnumeration"))?if_exists>
+                    <#assign curInventoryItemType = inventoryItem.getRelatedOne("InventoryItemType", false)>
+                    <#assign curStatusItem = inventoryItem.getRelatedOne("StatusItem", true)?if_exists>
+                    <#assign facilityLocation = inventoryItem.getRelatedOne("FacilityLocation", false)?if_exists>
+                    <#assign facilityLocationTypeEnum = (facilityLocation.getRelatedOne("TypeEnumeration", true))?if_exists>
                     <#assign inventoryItemDetailFirst = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(inventoryItem.getRelated("InventoryItemDetail", Static["org.ofbiz.base.util.UtilMisc"].toList("effectiveDate")))?if_exists>
                     <#if curInventoryItemType?exists>
                         <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>

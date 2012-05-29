@@ -397,7 +397,7 @@ public class ProductConfigWrapper implements Serializable {
 
         public ConfigItem(GenericValue questionAssoc) throws Exception {
             configItemAssoc = questionAssoc;
-            configItem = configItemAssoc.getRelatedOne("ConfigItemProductConfigItem");
+            configItem = configItemAssoc.getRelatedOne("ConfigItemProductConfigItem", false);
             options = FastList.newInstance();
         }
 
@@ -564,7 +564,7 @@ public class ProductConfigWrapper implements Serializable {
                 BigDecimal listPrice = BigDecimal.ZERO;
                 BigDecimal price = BigDecimal.ZERO;
                 // Get the component's price
-                Map<String, Object> fieldMap = UtilMisc.toMap("product", oneComponent.getRelatedOne("ProductProduct"), "prodCatalogId", catalogId, "webSiteId", webSiteId, "currencyUomId", currencyUomId, "productPricePurposeId", "COMPONENT_PRICE", "autoUserLogin", autoUserLogin, "productStoreId",productStoreId);
+                Map<String, Object> fieldMap = UtilMisc.toMap("product", oneComponent.getRelatedOne("ProductProduct", false), "prodCatalogId", catalogId, "webSiteId", webSiteId, "currencyUomId", currencyUomId, "productPricePurposeId", "COMPONENT_PRICE", "autoUserLogin", autoUserLogin, "productStoreId",productStoreId);
                 Map<String, Object> priceMap = dispatcher.runSync("calculateProductPrice", fieldMap);
                 BigDecimal componentListPrice = (BigDecimal) priceMap.get("listPrice");
                 BigDecimal componentPrice = (BigDecimal) priceMap.get("price");
@@ -620,7 +620,7 @@ public class ProductConfigWrapper implements Serializable {
             for (GenericValue oneComponent: componentList) {
                 BigDecimal listPrice = BigDecimal.ZERO;
                 BigDecimal price = BigDecimal.ZERO;
-                GenericValue oneComponentProduct = oneComponent.getRelatedOne("ProductProduct");
+                GenericValue oneComponentProduct = oneComponent.getRelatedOne("ProductProduct", false);
                 String variantProductId = componentOptions.get(oneComponent.getString("productId"));
 
                 if (UtilValidate.isNotEmpty(variantProductId)) {
@@ -744,7 +744,7 @@ public class ProductConfigWrapper implements Serializable {
             int index = getComponents().indexOf(component);
             if (index != -1) {
                 try {
-                    GenericValue product = component.getRelatedOne("ProductProduct");
+                    GenericValue product = component.getRelatedOne("ProductProduct", false);
                     return "Y".equals(product.getString("isVirtual"));
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e.getMessage(), module);

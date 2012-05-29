@@ -60,13 +60,13 @@ if (inventoryItemId) {
     }
     if (inventoryItem) {
         context.inventoryItem = inventoryItem;
-        inventoryItemType = inventoryItem.getRelatedOne("InventoryItemType");
+        inventoryItemType = inventoryItem.getRelatedOne("InventoryItemType", false);
 
         if (inventoryItemType) {
             context.inventoryItemType = inventoryItemType;
         }
         if (inventoryItem.statusId) {
-            inventoryStatus = inventoryItem.getRelatedOne("StatusItem");
+            inventoryStatus = inventoryItem.getRelatedOne("StatusItem", false);
             if (inventoryStatus) {
                 context.inventoryStatus = inventoryStatus;
             }

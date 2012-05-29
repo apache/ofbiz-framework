@@ -90,7 +90,7 @@ under the License.
         </tr>
         <#assign rowClass = "2">
         <#list foundLocations as location>
-        <#assign locationTypeEnum = location.getRelatedOneCache("TypeEnumeration")?if_exists>
+        <#assign locationTypeEnum = location.getRelatedOne("TypeEnumeration", true)?if_exists>
         <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
             <td><a href="<@ofbizUrl>EditFacility?facilityId=${(location.facilityId)?if_exists}</@ofbizUrl>">${(location.facilityId)?if_exists}</a></td>
             <td><a href="<@ofbizUrl>EditFacilityLocation?facilityId=${facilityId}&locationSeqId=${(location.locationSeqId)?if_exists}</@ofbizUrl>">${(location.locationSeqId)?if_exists}</a></td>

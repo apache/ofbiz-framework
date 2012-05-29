@@ -112,7 +112,7 @@ under the License.
       </div>
       <div class="screenlet-body">
         <#if orderItemShipGroup?has_content>
-          <#assign postalAddress = orderItemShipGroup.getRelatedOne("PostalAddress")>
+          <#assign postalAddress = orderItemShipGroup.getRelatedOne("PostalAddress", false)>
           <#assign carrier = orderItemShipGroup.carrierPartyId?default("N/A")>
           <table cellpadding="4" cellspacing="4" class="basic-table">
             <tr>
@@ -223,7 +223,7 @@ under the License.
                   <#assign counter = counter +1>
                 </#if>
                 <#assign orderItemQuantity = orderItemQuantity.subtract(verifiedQuantity)>
-                <#assign product = orderItem.getRelatedOne("Product")?if_exists/>
+                <#assign product = orderItem.getRelatedOne("Product", false)?if_exists/>
                 <tr>
                   <#if (orderItemQuantity.compareTo(readyToVerify) > 0) >
                     <td><input type="checkbox" name="sel_${rowKey}" value="Y" checked=""/></td>
@@ -265,7 +265,7 @@ under the License.
                 <#if workOrderItemFulfillments?has_content>
                   <#assign workOrderItemFulfillment = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(workOrderItemFulfillments)/>
                   <#if workOrderItemFulfillment?has_content>
-                    <#assign workEffort = workOrderItemFulfillment.getRelatedOne("WorkEffort")/>
+                    <#assign workEffort = workOrderItemFulfillment.getRelatedOne("WorkEffort", false)/>
                     <#if workEffort?has_content>
                       <#assign workEffortTask = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("WorkEffort", Static["org.ofbiz.base.util.UtilMisc"].toMap("workEffortParentId", workEffort.workEffortId), null, false))/>
                       <#if workEffortTask?has_content>
@@ -278,8 +278,8 @@ under the License.
                           </tr>
                           <tr><td colspan="8"><hr /></td></tr>
                           <#list workEffortInventoryAssigns as workEffortInventoryAssign>
-                            <#assign inventoryItem = workEffortInventoryAssign.getRelatedOne("InventoryItem")/>
-                            <#assign product = inventoryItem.getRelatedOne("Product")/>
+                            <#assign inventoryItem = workEffortInventoryAssign.getRelatedOne("InventoryItem", false)/>
+                            <#assign product = inventoryItem.getRelatedOne("Product", false)/>
                             <tr>
                               <td colspan="2"></td>
                               <td>${product.productId?default("N/A")}</td>

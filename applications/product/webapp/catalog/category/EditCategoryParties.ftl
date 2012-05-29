@@ -35,7 +35,7 @@ under the License.
             <#assign rowClass = "2">
             <#list productCategoryRoles as productCategoryRole>
             <#assign line = line + 1>
-            <#assign curRoleType = productCategoryRole.getRelatedOneCache("RoleType")>
+            <#assign curRoleType = productCategoryRole.getRelatedOne("RoleType", true)>
             <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
             <td><a href="/partymgr/control/viewprofile?party_id=${(productCategoryRole.partyId)?if_exists}" target="_blank" class="buttontext">${(productCategoryRole.partyId)?if_exists}</a></td>
             <td>${(curRoleType.get("description",locale))?if_exists}</td>

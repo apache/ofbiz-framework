@@ -84,9 +84,9 @@ under the License.
 
                 <#list returnItems as returnItem>
                   <#assign defaultQuantity = returnItem.returnQuantity - receivedQuantities[returnItem.returnItemSeqId]?double>
-                  <#assign orderItem = returnItem.getRelatedOne("OrderItem")?if_exists>
+                  <#assign orderItem = returnItem.getRelatedOne("OrderItem", false)?if_exists>
                   <#if (orderItem?has_content && 0 < defaultQuantity)>
-                  <#assign orderItemType = (orderItem.getRelatedOne("OrderItemType"))?if_exists>
+                  <#assign orderItemType = (orderItem.getRelatedOne("OrderItemType", false))?if_exists>
                   <input type="hidden" name="returnId_o_${rowCount}" value="${returnItem.returnId}" />
                   <input type="hidden" name="returnItemSeqId_o_${rowCount}" value="${returnItem.returnItemSeqId}" />
                   <input type="hidden" name="shipmentId_o_${rowCount}" value="${parameters.shipmentId?if_exists}" />
@@ -105,7 +105,7 @@ under the License.
                         <tr>
                           <#assign productId = "">
                           <#if orderItem.productId?exists>
-                            <#assign product = orderItem.getRelatedOne("Product")>
+                            <#assign product = orderItem.getRelatedOne("Product", false)>
                             <#assign productId = product.productId>
                             <#assign serializedInv = product.getRelatedByAnd("InventoryItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("inventoryItemTypeId", "SERIALIZED_INV_ITEM"))>
                             <input type="hidden" name="productId_o_${rowCount}" value="${product.productId}" />
@@ -141,9 +141,9 @@ under the License.
                             <#if facilityLocations?has_content>
                               <select name="locationSeqId_o_${rowCount}">
                                 <#list facilityLocations as productFacilityLocation>
-                                  <#assign facility = productFacilityLocation.getRelatedOneCache("Facility")>
-                                  <#assign facilityLocation = productFacilityLocation.getRelatedOne("FacilityLocation")?if_exists>
-                                  <#assign facilityLocationTypeEnum = (facilityLocation.getRelatedOneCache("TypeEnumeration"))?if_exists>
+                                  <#assign facility = productFacilityLocation.getRelatedOne("Facility", true)>
+                                  <#assign facilityLocation = productFacilityLocation.getRelatedOne("FacilityLocation", false)?if_exists>
+                                  <#assign facilityLocationTypeEnum = (facilityLocation.getRelatedOne("TypeEnumeration", true))?if_exists>
                                   <option value="${productFacilityLocation.locationSeqId}"><#if facilityLocation?exists>${facilityLocation.areaId?if_exists}:${facilityLocation.aisleId?if_exists}:${facilityLocation.sectionId?if_exists}:${facilityLocation.levelId?if_exists}:${facilityLocation.positionId?if_exists}</#if><#if facilityLocationTypeEnum?exists>(${facilityLocationTypeEnum.get("description",locale)})</#if>[${productFacilityLocation.locationSeqId}]</option>
                                 </#list>
                                 <option value="">${uiLabelMap.ProductNoLocation}</option>

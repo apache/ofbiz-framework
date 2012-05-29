@@ -144,12 +144,12 @@ public class UpsServices {
             }
 
             // Get Origin Info
-            GenericValue originPostalAddress = shipmentRouteSegment.getRelatedOne("OriginPostalAddress");
+            GenericValue originPostalAddress = shipmentRouteSegment.getRelatedOne("OriginPostalAddress", false);
             if (originPostalAddress == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentRouteSegmentOriginPostalAddressNotFound",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
             }
-            GenericValue originTelecomNumber = shipmentRouteSegment.getRelatedOne("OriginTelecomNumber");
+            GenericValue originTelecomNumber = shipmentRouteSegment.getRelatedOne("OriginTelecomNumber", false);
             if (originTelecomNumber == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentRouteSegmentOriginTelecomNumberNotFound",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
@@ -162,20 +162,20 @@ public class UpsServices {
             originPhoneNumber = StringUtil.replaceString(originPhoneNumber, "-", "");
             originPhoneNumber = StringUtil.replaceString(originPhoneNumber, " ", "");
             // lookup the two letter country code (in the geoCode field)
-            GenericValue originCountryGeo = originPostalAddress.getRelatedOne("CountryGeo");
+            GenericValue originCountryGeo = originPostalAddress.getRelatedOne("CountryGeo", false);
             if (originCountryGeo == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentRouteSegmentOriginCountryGeoNotFound",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
             }
 
             // Get Dest Info
-            GenericValue destPostalAddress = shipmentRouteSegment.getRelatedOne("DestPostalAddress");
+            GenericValue destPostalAddress = shipmentRouteSegment.getRelatedOne("DestPostalAddress", false);
             if (destPostalAddress == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentRouteSegmentDestPostalAddressNotFound",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
             }
 
-            GenericValue destTelecomNumber = shipmentRouteSegment.getRelatedOne("DestTelecomNumber");
+            GenericValue destTelecomNumber = shipmentRouteSegment.getRelatedOne("DestTelecomNumber", false);
             if (destTelecomNumber == null) {
                 String missingErrMsg = "DestTelecomNumber not found for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId;
                 Debug.logError(missingErrMsg, module);
@@ -194,7 +194,7 @@ public class UpsServices {
             }
 
             // lookup the two letter country code (in the geoCode field)
-            GenericValue destCountryGeo = destPostalAddress.getRelatedOne("CountryGeo");
+            GenericValue destCountryGeo = destPostalAddress.getRelatedOne("CountryGeo", false);
             if (destCountryGeo == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentRouteSegmentDestCountryGeoNotFound", 
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
@@ -470,7 +470,7 @@ public class UpsServices {
                     BigDecimal productQuantity = shipmentItem.getBigDecimal("quantity").setScale(decimals, rounding);
                     UtilXml.addChildElementValue(unitElement, "Number", String.valueOf(productQuantity.intValue()), shipmentConfirmRequestDoc);
                     List<GenericValue> shipmentItemIssuances = shipmentItem.getRelated("ItemIssuance");
-                    GenericValue orderItem = EntityUtil.getFirst(shipmentItemIssuances).getRelatedOne("OrderItem");
+                    GenericValue orderItem = EntityUtil.getFirst(shipmentItemIssuances).getRelatedOne("OrderItem", false);
                     UtilXml.addChildElementValue(unitElement, "Value", orderItem.getBigDecimal("unitPrice").toString(), shipmentConfirmRequestDoc);
                     Element unitOfMeasurElement = UtilXml.addChildElement(unitElement, "UnitOfMeasurement", shipmentConfirmRequestDoc);
                     UtilXml.addChildElementValue(unitOfMeasurElement, "Code", "EA", shipmentConfirmRequestDoc);
@@ -487,8 +487,8 @@ public class UpsServices {
             ListIterator<GenericValue> shipmentPackageRouteSegIter = shipmentPackageRouteSegs.listIterator();
             while (shipmentPackageRouteSegIter.hasNext()) {
                 GenericValue shipmentPackageRouteSeg = shipmentPackageRouteSegIter.next();
-                GenericValue shipmentPackage = shipmentPackageRouteSeg.getRelatedOne("ShipmentPackage");
-                GenericValue shipmentBoxType = shipmentPackage.getRelatedOne("ShipmentBoxType");
+                GenericValue shipmentPackage = shipmentPackageRouteSeg.getRelatedOne("ShipmentPackage", false);
+                GenericValue shipmentBoxType = shipmentPackage.getRelatedOne("ShipmentBoxType", false);
                 List<GenericValue> carrierShipmentBoxTypes = shipmentPackage.getRelated("CarrierShipmentBoxType", UtilMisc.toMap("partyId", "UPS"), null);
                 GenericValue carrierShipmentBoxType = null;
                 if (carrierShipmentBoxTypes.size() > 0) {
@@ -506,7 +506,7 @@ public class UpsServices {
                 if (shipmentBoxType != null) {
                     Element dimensionsElement = UtilXml.addChildElement(packageElement, "Dimensions", shipmentConfirmRequestDoc);
                     Element unitOfMeasurementElement = UtilXml.addChildElement(dimensionsElement, "UnitOfMeasurement", shipmentConfirmRequestDoc);
-                    GenericValue dimensionUom = shipmentBoxType.getRelatedOne("DimensionUom");
+                    GenericValue dimensionUom = shipmentBoxType.getRelatedOne("DimensionUom", false);
                     if (dimensionUom != null) {
                         UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", dimensionUom.getString("abbreviation").toUpperCase(), shipmentConfirmRequestDoc);
                     } else {
@@ -524,7 +524,7 @@ public class UpsServices {
                                                                     && UtilValidate.isNotEmpty(shipmentPackage.getBigDecimal("boxHeight"))) {
                     Element dimensionsElement = UtilXml.addChildElement(packageElement, "Dimensions", shipmentConfirmRequestDoc);
                     Element unitOfMeasurementElement = UtilXml.addChildElement(dimensionsElement, "UnitOfMeasurement", shipmentConfirmRequestDoc);
-                    GenericValue dimensionUom = shipmentPackage.getRelatedOne("DimensionUom");
+                    GenericValue dimensionUom = shipmentPackage.getRelatedOne("DimensionUom", false);
                     if (UtilValidate.isNotEmpty(dimensionUom)) {
                         UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", dimensionUom.getString("abbreviation").toUpperCase(), shipmentConfirmRequestDoc);
                     } else {
@@ -1738,7 +1738,7 @@ public class UpsServices {
 
         GenericValue destCountryGeo = null;
         try {
-            destCountryGeo = shipToAddress.getRelatedOne("CountryGeo");
+            destCountryGeo = shipToAddress.getRelatedOne("CountryGeo", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -2119,7 +2119,7 @@ public class UpsServices {
         UtilXml.addChildElementValue(shipperAddrElement, "PostalCode", shipFromAddress.getString("postalCode"), rateRequestDoc);
         try {
             //If the warehouse you are shipping from its located in a country other than US, you need to supply its country code to UPS
-            UtilXml.addChildElementValue(shipperAddrElement, "CountryCode", shipFromAddress.getRelatedOneCache("CountryGeo").getString("geoCode"), rateRequestDoc);
+            UtilXml.addChildElementValue(shipperAddrElement, "CountryCode", shipFromAddress.getRelatedOne("CountryGeo", true).getString("geoCode"), rateRequestDoc);
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(e.getMessage());
         }
@@ -2426,12 +2426,12 @@ public class UpsServices {
             }
 
             // Get Origin Info
-            GenericValue originPostalAddress = shipmentRouteSegment.getRelatedOne("OriginPostalAddress");
+            GenericValue originPostalAddress = shipmentRouteSegment.getRelatedOne("OriginPostalAddress", false);
             if (originPostalAddress == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentUpsRouteSegmentOriginPostalAddressNotFound",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
             }
-            GenericValue originTelecomNumber = shipmentRouteSegment.getRelatedOne("OriginTelecomNumber");
+            GenericValue originTelecomNumber = shipmentRouteSegment.getRelatedOne("OriginTelecomNumber", false);
             if (originTelecomNumber == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentUpsRouteSegmentOriginTelecomNumberNotFound",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
@@ -2444,20 +2444,20 @@ public class UpsServices {
             originPhoneNumber = StringUtil.replaceString(originPhoneNumber, "-", "");
             originPhoneNumber = StringUtil.replaceString(originPhoneNumber, " ", "");
             // lookup the two letter country code (in the geoCode field)
-            GenericValue originCountryGeo = originPostalAddress.getRelatedOne("CountryGeo");
+            GenericValue originCountryGeo = originPostalAddress.getRelatedOne("CountryGeo", false);
             if (originCountryGeo == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentUpsRouteSegmentOriginCountryGeoNotFound",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
             }
 
             // Get Dest Info
-            GenericValue destPostalAddress = shipmentRouteSegment.getRelatedOne("DestPostalAddress");
+            GenericValue destPostalAddress = shipmentRouteSegment.getRelatedOne("DestPostalAddress", false);
             if (destPostalAddress == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentUpsRouteSegmentDestPostalAddressNotFound",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
             }
 
-            GenericValue destTelecomNumber = shipmentRouteSegment.getRelatedOne("DestTelecomNumber");
+            GenericValue destTelecomNumber = shipmentRouteSegment.getRelatedOne("DestTelecomNumber", false);
             if (destTelecomNumber == null) {
                 String missingErrMsg = "DestTelecomNumber not found for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId;
                 Debug.logError(missingErrMsg, module);
@@ -2474,7 +2474,7 @@ public class UpsServices {
             }
 
             // lookup the two letter country code (in the geoCode field)
-            GenericValue destCountryGeo = destPostalAddress.getRelatedOne("CountryGeo");
+            GenericValue destCountryGeo = destPostalAddress.getRelatedOne("CountryGeo", false);
             if (destCountryGeo == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentUpsRouteSegmentDestCountryGeoNotFound", 
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
@@ -2814,12 +2814,12 @@ public class UpsServices {
             }
 
             // Get Origin Info
-            GenericValue originPostalAddress = shipmentRouteSegment.getRelatedOne("OriginPostalAddress");
+            GenericValue originPostalAddress = shipmentRouteSegment.getRelatedOne("OriginPostalAddress", false);
             if (originPostalAddress == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentUpsRouteSegmentOriginPostalAddressNotFound",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
             }
-            GenericValue originTelecomNumber = shipmentRouteSegment.getRelatedOne("OriginTelecomNumber");
+            GenericValue originTelecomNumber = shipmentRouteSegment.getRelatedOne("OriginTelecomNumber", false);
             if (originTelecomNumber == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentUpsRouteSegmentOriginTelecomNumberNotFound",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
@@ -2832,20 +2832,20 @@ public class UpsServices {
             originPhoneNumber = StringUtil.replaceString(originPhoneNumber, "-", "");
             originPhoneNumber = StringUtil.replaceString(originPhoneNumber, " ", "");
             // lookup the two letter country code (in the geoCode field)
-            GenericValue originCountryGeo = originPostalAddress.getRelatedOne("CountryGeo");
+            GenericValue originCountryGeo = originPostalAddress.getRelatedOne("CountryGeo", false);
             if (originCountryGeo == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentUpsRouteSegmentOriginCountryGeoNotFound",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
             }
 
             // Get Dest Info
-            GenericValue destPostalAddress = shipmentRouteSegment.getRelatedOne("DestPostalAddress");
+            GenericValue destPostalAddress = shipmentRouteSegment.getRelatedOne("DestPostalAddress", false);
             if (destPostalAddress == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentUpsRouteSegmentDestPostalAddressNotFound",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
             }
 
-            GenericValue destTelecomNumber = shipmentRouteSegment.getRelatedOne("DestTelecomNumber");
+            GenericValue destTelecomNumber = shipmentRouteSegment.getRelatedOne("DestTelecomNumber", false);
             if (destTelecomNumber == null) {
                 String missingErrMsg = "DestTelecomNumber not found for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId;
                 Debug.logError(missingErrMsg, module);
@@ -2864,7 +2864,7 @@ public class UpsServices {
             }
 
             // lookup the two letter country code (in the geoCode field)
-            GenericValue destCountryGeo = destPostalAddress.getRelatedOne("CountryGeo");
+            GenericValue destCountryGeo = destPostalAddress.getRelatedOne("CountryGeo", false);
             if (destCountryGeo == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentUpsRouteSegmentDestCountryGeoNotFound", 
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
@@ -2966,8 +2966,8 @@ public class UpsServices {
             }
             for (GenericValue shipmentPackageRouteSeg :shipmentPackageRouteSegs) {
 
-                GenericValue shipmentPackage = shipmentPackageRouteSeg.getRelatedOne("ShipmentPackage");
-                GenericValue shipmentBoxType = shipmentPackage.getRelatedOne("ShipmentBoxType");
+                GenericValue shipmentPackage = shipmentPackageRouteSeg.getRelatedOne("ShipmentPackage", false);
+                GenericValue shipmentBoxType = shipmentPackage.getRelatedOne("ShipmentBoxType", false);
                 List<GenericValue> carrierShipmentBoxTypes = shipmentPackage.getRelated("CarrierShipmentBoxType", UtilMisc.toMap("partyId", "UPS"), null);
                 GenericValue carrierShipmentBoxType = null;
                 if (carrierShipmentBoxTypes.size() > 0) {
@@ -2985,7 +2985,7 @@ public class UpsServices {
                 if (shipmentBoxType != null) {
                     Element dimensionsElement = UtilXml.addChildElement(packageElement, "Dimensions", rateRequestDoc);
                     Element unitOfMeasurementElement = UtilXml.addChildElement(dimensionsElement, "UnitOfMeasurement", rateRequestDoc);
-                    GenericValue dimensionUom = shipmentBoxType.getRelatedOne("DimensionUom");
+                    GenericValue dimensionUom = shipmentBoxType.getRelatedOne("DimensionUom", false);
                     if (dimensionUom != null) {
                         UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", dimensionUom.getString("abbreviation").toUpperCase(), rateRequestDoc);
                     } else {

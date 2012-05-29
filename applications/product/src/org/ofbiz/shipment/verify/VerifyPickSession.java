@@ -112,7 +112,7 @@ public class VerifyPickSession implements Serializable {
 
             for (GenericValue reservation : reservations) {
                 if (qtyRemain.compareTo(ZERO) > 0) {
-                    if (!productId.equals(reservation.getRelatedOne("InventoryItem").getString("productId"))) {
+                    if (!productId.equals(reservation.getRelatedOne("InventoryItem", false).getString("productId"))) {
                         continue;
                     }
                     BigDecimal reservedQty = reservation.getBigDecimal("quantity");

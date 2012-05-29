@@ -57,9 +57,9 @@ if (contentId) {
 //Assume it is a generic simple text content
 textData = [:];
 if (contentId && content) {
-    textDr = content.getRelatedOne("DataResource");
+    textDr = content.getRelatedOne("DataResource", false);
     if (textDr) {
-        text = textDr.getRelatedOne("ElectronicText");
+        text = textDr.getRelatedOne("ElectronicText", false);
         if (text) {
             textData.text = text.textData;
             textData.textDataResourceId = text.dataResourceId;

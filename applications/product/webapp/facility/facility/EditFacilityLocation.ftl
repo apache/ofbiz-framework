@@ -56,7 +56,7 @@ under the License.
         <td>
             <select name="locationTypeEnumId">
                 <#if (facilityLocation.locationTypeEnumId)?has_content>
-                    <#assign locationTypeEnum = facilityLocation.getRelatedOneCache("TypeEnumeration")?if_exists>
+                    <#assign locationTypeEnum = facilityLocation.getRelatedOne("TypeEnumeration", true)?if_exists>
                     <option value="${facilityLocation.locationTypeEnumId}">${(locationTypeEnum.get("description",locale))?default(facilityLocation.locationTypeEnumId)}</option>
                     <option value="${facilityLocation.locationTypeEnumId}">----</option>
                 </#if>
@@ -110,7 +110,7 @@ under the License.
             <td>${uiLabelMap.ProductMinimumStockAndMoveQuantity}</td>
         </tr>
         <#list productFacilityLocations?if_exists as productFacilityLocation>
-            <#assign product = productFacilityLocation.getRelatedOne("Product")?if_exists>
+            <#assign product = productFacilityLocation.getRelatedOne("Product", false)?if_exists>
             <tr>
                 <td><#if product?exists>${(product.internalName)?if_exists}</#if>[${productFacilityLocation.productId}]</td>
                 <td>

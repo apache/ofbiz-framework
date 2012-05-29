@@ -45,7 +45,7 @@ under the License.
         <table cellspacing="0" class="basic-table">
             <#assign rowClass = "2">
             <#list keywordThesauruses as keyword>
-              <#assign relationship = keyword.getRelatedOneCache("RelationshipEnumeration")>
+              <#assign relationship = keyword.getRelatedOne("RelationshipEnumeration", true)>
               <#if keyword.enteredKeyword == lastkeyword><#assign sameRow=true><#else><#assign lastkeyword=keyword.enteredKeyword><#assign sameRow=false></#if>
               <#if sameRow == false>
                 <#if (keyword_index > 0)>

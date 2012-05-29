@@ -21,13 +21,13 @@ import org.ofbiz.base.util.*
 import org.ofbiz.base.util.string.*
 
 if (productCategory) {
-    context.productCategoryType = productCategory.getRelatedOne("ProductCategoryType");
+    context.productCategoryType = productCategory.getRelatedOne("ProductCategoryType", false);
 }
 
 primaryParentCategory = null;
 primParentCatIdParam = request.getParameter("primaryParentCategoryId");
 if (productCategory) {
-    primaryParentCategory = productCategory.getRelatedOne("PrimaryParentProductCategory");
+    primaryParentCategory = productCategory.getRelatedOne("PrimaryParentProductCategory", false);
 } else if (primParentCatIdParam) {
     primaryParentCategory = delegator.findOne("ProductCategory", [productCategoryId : primParentCatIdParam], false);
 }

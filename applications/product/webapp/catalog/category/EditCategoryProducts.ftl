@@ -67,7 +67,7 @@ under the License.
               <#assign rowCount = 0>
               <#list productCategoryMembers as productCategoryMember>
                 <#assign suffix = "_o_" + productCategoryMember_index>
-                <#assign product = productCategoryMember.getRelatedOne("Product")>
+                <#assign product = productCategoryMember.getRelatedOne("Product", false)>
                 <#assign hasntStarted = false>
                 <#if productCategoryMember.fromDate?exists && nowTimestamp.before(productCategoryMember.getTimestamp("fromDate"))><#assign hasntStarted = true></#if>
                 <#assign hasExpired = false>

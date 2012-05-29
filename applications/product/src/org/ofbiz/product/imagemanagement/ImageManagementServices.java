@@ -476,7 +476,7 @@ public class ImageManagementServices {
         if (content != null) {
             GenericValue dataResource = null;
             try {
-                dataResource = content.getRelatedOne("DataResource");
+                dataResource = content.getRelatedOne("DataResource", false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -966,7 +966,7 @@ public class ImageManagementServices {
                 if (content != null) {
                     GenericValue dataResource = null;
                     try {
-                        dataResource = content.getRelatedOne("DataResource");
+                        dataResource = content.getRelatedOne("DataResource", false);
                     } catch (GenericEntityException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
@@ -1025,7 +1025,7 @@ public class ImageManagementServices {
                         if (contentAssocUp != null) {
                             GenericValue dataResourceAssocUp = null;
                             try {
-                                dataResourceAssocUp = contentAssocUp.getRelatedOne("DataResource");
+                                dataResourceAssocUp = contentAssocUp.getRelatedOne("DataResource", false);
                             } catch (GenericEntityException e) {
                                 Debug.logError(e, module);
                                 return ServiceUtil.returnError(e.getMessage());

@@ -31,7 +31,7 @@ if (productFeatureGroupId) {
     productFeatureGroupAppls = productFeatureGroup.getRelated("ProductFeatureGroupAppl", ['sequenceNum']);
     for (pFGAi = productFeatureGroupAppls.iterator(); pFGAi;) {
         productFeatureGroupAppl = (GenericEntity)pFGAi.next();
-        productFeature = (GenericEntity)productFeatureGroupAppl.getRelatedOne("ProductFeature");
+        productFeature = (GenericEntity)productFeatureGroupAppl.getRelatedOne("ProductFeature", false);
         productFeature.set("defaultSequenceNum", productFeatureGroupAppl.getLong("sequenceNum"));
         productFeatures.add(productFeature);
     }

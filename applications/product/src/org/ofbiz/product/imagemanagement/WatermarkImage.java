@@ -289,7 +289,7 @@ public class WatermarkImage{
         if (content != null) {
             GenericValue dataResource = null;
             try {
-                dataResource = content.getRelatedOne("DataResource");
+                dataResource = content.getRelatedOne("DataResource", false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());

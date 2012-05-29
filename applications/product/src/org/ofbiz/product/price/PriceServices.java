@@ -350,7 +350,7 @@ public class PriceServices {
             if ("ProductPrice".equals(defaultPriceValue.getEntityName()) && UtilValidate.isNotEmpty(defaultPriceValue.getString("customPriceCalcService"))) {
                 GenericValue customMethod = null;
                 try {
-                    customMethod = defaultPriceValue.getRelatedOne("CustomMethod");
+                    customMethod = defaultPriceValue.getRelatedOne("CustomMethod", false);
                 } catch (GenericEntityException gee) {
                     Debug.logError(gee, "An error occurred while getting the customPriceCalcService", module);
                 }
@@ -842,11 +842,11 @@ public class PriceServices {
 
                 // add condsDescription string entry
                 condsDescription.append("[");
-                GenericValue inputParamEnum = productPriceCond.getRelatedOneCache("InputParamEnumeration");
+                GenericValue inputParamEnum = productPriceCond.getRelatedOne("InputParamEnumeration", true);
 
                 condsDescription.append(inputParamEnum.getString("enumCode"));
                 // condsDescription.append(":");
-                GenericValue operatorEnum = productPriceCond.getRelatedOneCache("OperatorEnumeration");
+                GenericValue operatorEnum = productPriceCond.getRelatedOne("OperatorEnumeration", true);
 
                 condsDescription.append(operatorEnum.getString("description"));
                 // condsDescription.append(":");

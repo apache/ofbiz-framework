@@ -34,7 +34,7 @@ List separateRootType(roots) {
         prodRootTypeTree = [];
         roots.each { root ->
             prodCateMap = [:];
-            productCategory = root.getRelatedOne("ProductCategory");
+            productCategory = root.getRelatedOne("ProductCategory", false);
             prodCateMap.productCategoryId = productCategory.getString("productCategoryId");
             prodCateMap.categoryName = productCategory.getString("categoryName");
             prodCateMap.isCatalog = false;

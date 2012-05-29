@@ -241,7 +241,7 @@ under the License.
                         <#assign picklistItem = picklistItemInfo.picklistItem>
                         <#assign orderItem = picklistItemInfo.orderItem>
                         <#assign product = picklistItemInfo.product>
-                        <#assign picklistItemProduct = picklistItemInfo.inventoryItemAndLocation.getRelatedOne("InventoryItem").getRelatedOne("Product")>
+                        <#assign picklistItemProduct = picklistItemInfo.inventoryItemAndLocation.getRelatedOne("InventoryItem", false).getRelatedOne("Product", false)>
                         <#assign orderItemShipGrpInvRes = picklistItemInfo.orderItemShipGrpInvRes?if_exists>
                         <fo:table-row>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">

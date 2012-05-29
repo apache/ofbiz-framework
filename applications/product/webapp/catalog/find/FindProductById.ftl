@@ -53,8 +53,8 @@ under the License.
                 <#else>
                   <#assign rowClass = "2">
                 </#if>
-                <#assign product = goodIdentification.getRelatedOneCache("Product")/>
-                <#assign goodIdentificationType = goodIdentification.getRelatedOneCache("GoodIdentificationType")/>
+                <#assign product = goodIdentification.getRelatedOne("Product", true)/>
+                <#assign goodIdentificationType = goodIdentification.getRelatedOne("GoodIdentificationType", true)/>
                 <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                     <td>
                         ${product.productId}

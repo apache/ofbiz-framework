@@ -108,7 +108,7 @@ under the License.
             </#if>
         <#else>
             <#assign isCreate = false>
-            <#assign curProductAssocType = productAssoc.getRelatedOneCache("ProductAssocType")>
+            <#assign curProductAssocType = productAssoc.getRelatedOne("ProductAssocType", true)>
             <input type="hidden" name="UPDATE_MODE" value="UPDATE" />
             <input type="hidden" name="PRODUCT_ID" value="${productId?if_exists}" />
             <input type="hidden" name="PRODUCT_ID_TO" value="${productIdTo?if_exists}" />
@@ -201,8 +201,8 @@ under the License.
             </tr>
             <#assign rowClass = "2">
             <#list assocFromProducts as assocFromProduct>
-            <#assign listToProduct = assocFromProduct.getRelatedOneCache("AssocProduct")>
-            <#assign curProductAssocType = assocFromProduct.getRelatedOneCache("ProductAssocType")>
+            <#assign listToProduct = assocFromProduct.getRelatedOne("AssocProduct", true)>
+            <#assign curProductAssocType = assocFromProduct.getRelatedOne("ProductAssocType", true)>
             <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                 <td><a href="<@ofbizUrl>EditProduct?productId=${(assocFromProduct.productIdTo)?if_exists}</@ofbizUrl>" class="buttontext">${(assocFromProduct.productIdTo)?if_exists}</a></td>
                 <td><#if listToProduct?exists><a href="<@ofbizUrl>EditProduct?productId=${(assocFromProduct.productIdTo)?if_exists}</@ofbizUrl>" class="buttontext">${(listToProduct.internalName)?if_exists}</a></#if>&nbsp;</td>
@@ -248,8 +248,8 @@ under the License.
             </tr>
             <#assign rowClass = "2">
             <#list assocToProducts as assocToProduct>
-            <#assign listToProduct = assocToProduct.getRelatedOneCache("MainProduct")>
-            <#assign curProductAssocType = assocToProduct.getRelatedOneCache("ProductAssocType")>
+            <#assign listToProduct = assocToProduct.getRelatedOne("MainProduct", true)>
+            <#assign curProductAssocType = assocToProduct.getRelatedOne("ProductAssocType", true)>
             <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                 <td><a href="<@ofbizUrl>EditProduct?productId=${(assocToProduct.productId)?if_exists}</@ofbizUrl>" class="buttontext">${(assocToProduct.productId)?if_exists}</a></td>
                 <td><#if listToProduct?exists><a href="<@ofbizUrl>EditProduct?productId=${(assocToProduct.productId)?if_exists}</@ofbizUrl>" class="buttontext">${(listToProduct.internalName)?if_exists}</a></#if></td>

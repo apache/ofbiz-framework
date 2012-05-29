@@ -57,14 +57,14 @@ under the License.
                 <#assign rowClass = "2">
                 <#list pendingReviews as review>
                 <#if review.userLoginId?has_content>
-                <#assign postedUserLogin = review.getRelatedOne("UserLogin")>
+                <#assign postedUserLogin = review.getRelatedOne("UserLogin", false)>
                 <#if postedUserLogin.partyId?has_content>
-                <#assign party = postedUserLogin.getRelatedOne("Party")>
+                <#assign party = postedUserLogin.getRelatedOne("Party", false)>
                 <#assign partyTypeId = party.get("partyTypeId")>
                 <#if partyTypeId == "PERSON">
-                    <#assign postedPerson = postedUserLogin.getRelatedOne("Person")>
+                    <#assign postedPerson = postedUserLogin.getRelatedOne("Person", false)>
                 <#else>
-                    <#assign postedPerson = postedUserLogin.getRelatedOne("PartyGroup")>
+                    <#assign postedPerson = postedUserLogin.getRelatedOne("PartyGroup", false)>
                 </#if>
                 </#if>
                 </#if>
@@ -94,11 +94,11 @@ under the License.
                               <option value="Y">${uiLabelMap.CommonY}</option>
                           </select>
                       </td>
-                      <td>${review.getRelatedOne("Product").internalName?if_exists}<br /><a class="buttontext" href="<@ofbizUrl>EditProduct?productId=${review.productId}</@ofbizUrl>">${review.productId}</a></td>
+                      <td>${review.getRelatedOne("Product", false).internalName?if_exists}<br /><a class="buttontext" href="<@ofbizUrl>EditProduct?productId=${review.productId}</@ofbizUrl>">${review.productId}</a></td>
                       <td>
                           <input type="text" size='3' name="productRating_o_${rowCount}" value="${review.productRating?if_exists?string}" />
                       </td>
-                      <td>${review.getRelatedOne("StatusItem").get("description", locale)}</td>
+                      <td>${review.getRelatedOne("StatusItem", false).get("description", locale)}</td>
                       <td>
                          <textarea name="productReview_o_${rowCount}" rows="5" cols="30" wrap="hard">${review.productReview?if_exists}</textarea>
                       </td>

@@ -153,7 +153,7 @@ public class PackingSession implements java.io.Serializable {
                 GenericValue res = i.next();
 
                 // Check that the inventory item product match with the current product to pack
-                if (!productId.equals(res.getRelatedOne("InventoryItem").getString("productId"))) {
+                if (!productId.equals(res.getRelatedOne("InventoryItem", false).getString("productId"))) {
                     continue;
                 }
 
@@ -999,8 +999,8 @@ public class PackingSession implements java.io.Serializable {
             if ("PicklistItem".equals(v.getEntityName())) {
                 quantity = v.getBigDecimal("quantity").setScale(2, BigDecimal.ROUND_HALF_UP);
                 try {
-                    orderItem = v.getRelatedOne("OrderItem");
-                    productId = v.getRelatedOne("InventoryItem").getString("productId");
+                    orderItem = v.getRelatedOne("OrderItem", false);
+                    productId = v.getRelatedOne("InventoryItem", false).getString("productId");
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }

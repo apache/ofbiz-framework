@@ -42,11 +42,11 @@ context.shipmentId = shipmentId;
 context.shipment = shipment;
 
 if (shipment) {
-    currentStatus = shipment.getRelatedOne("StatusItem");
-    originPostalAddress = shipment.getRelatedOne("OriginPostalAddress");
-    destinationPostalAddress = shipment.getRelatedOne("DestinationPostalAddress");
-    originTelecomNumber = shipment.getRelatedOne("OriginTelecomNumber");
-    destinationTelecomNumber = shipment.getRelatedOne("DestinationTelecomNumber");
+    currentStatus = shipment.getRelatedOne("StatusItem", false);
+    originPostalAddress = shipment.getRelatedOne("OriginPostalAddress", false);
+    destinationPostalAddress = shipment.getRelatedOne("DestinationPostalAddress", false);
+    originTelecomNumber = shipment.getRelatedOne("OriginTelecomNumber", false);
+    destinationTelecomNumber = shipment.getRelatedOne("DestinationTelecomNumber", false);
 
     if (orderHeader) {
         context.productStoreId = orderHeader.productStoreId;

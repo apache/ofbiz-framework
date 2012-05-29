@@ -48,9 +48,9 @@ function setWeight(weight) {
           <#elseif !requestParameters.shipmentRouteSegmentId?exists || requestAttributes._ERROR_MESSAGE_?exists>
             <form name="routeForm" method="post" action="<@ofbizUrl>setQuickRouteInfo</@ofbizUrl>">
               <#assign shipmentRoute = (Static["org.ofbiz.entity.util.EntityUtil"].getFirst(shipmentRoutes))?if_exists>
-              <#assign carrierPerson = (shipmentRoute.getRelatedOne("CarrierPerson"))?if_exists>
-              <#assign carrierPartyGroup = (shipmentRoute.getRelatedOne("CarrierPartyGroup"))?if_exists>
-              <#assign shipmentMethodType = (shipmentRoute.getRelatedOne("ShipmentMethodType"))?if_exists>
+              <#assign carrierPerson = (shipmentRoute.getRelatedOne("CarrierPerson", false))?if_exists>
+              <#assign carrierPartyGroup = (shipmentRoute.getRelatedOne("CarrierPartyGroup", false))?if_exists>
+              <#assign shipmentMethodType = (shipmentRoute.getRelatedOne("ShipmentMethodType", false))?if_exists>
               <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
               <input type="hidden" name="shipmentId" value="${shipmentRoute.shipmentId}"/>
               <input type="hidden" name="shipmentRouteSegmentId" value="${shipmentRoute.shipmentRouteSegmentId}"/>
@@ -123,7 +123,7 @@ function setWeight(weight) {
           </#if>
         <#else>
           <form name="weightForm" method="post" action="<@ofbizUrl>setQuickPackageWeight</@ofbizUrl>">
-            <#assign weightUom = shipmentPackage.getRelatedOne("WeightUom")?if_exists>
+            <#assign weightUom = shipmentPackage.getRelatedOne("WeightUom", false)?if_exists>
             <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
             <input type="hidden" name="shipmentId" value="${shipmentPackage.shipmentId}"/>
             <input type="hidden" name="shipmentPackageSeqId" value="${shipmentPackage.shipmentPackageSeqId}"/>

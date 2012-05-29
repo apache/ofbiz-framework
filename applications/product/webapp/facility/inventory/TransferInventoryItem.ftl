@@ -119,7 +119,7 @@ under the License.
             <td width="74%">
             <select name="statusId">
                 <#if (inventoryTransfer.statusId)?exists>
-                    <#assign curStatusItem = inventoryTransfer.getRelatedOneCache("StatusItem")>
+                    <#assign curStatusItem = inventoryTransfer.getRelatedOne("StatusItem", true)>
                     <option value="${(inventoryTransfer.statusId)?if_exists}">${(curStatusItem.get("description",locale))?if_exists}</option>
                 </#if>
                 <#list statusItems as statusItem>

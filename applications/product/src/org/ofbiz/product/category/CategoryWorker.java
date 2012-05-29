@@ -164,7 +164,7 @@ public class CategoryWorker {
                 GenericValue cv = null;
 
                 try {
-                    cv = parent.getRelatedOneCache("CurrentProductCategory");
+                    cv = parent.getRelatedOne("CurrentProductCategory", true);
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e.getMessage(), module);
                 }

@@ -125,7 +125,7 @@ if (product) {
     Iterator standardFeatureApplIter = standardFeatureAppls.iterator();
     while (standardFeatureApplIter) {
         GenericValue standardFeatureAndAppl = (GenericValue) standardFeatureApplIter.next();
-        GenericValue featureType = standardFeatureAndAppl.getRelatedOneCache("ProductFeatureType");
+        GenericValue featureType = standardFeatureAndAppl.getRelatedOne("ProductFeatureType", true);
         productFeatureTypeLookup.put(standardFeatureAndAppl.getString("productFeatureId"), featureType);
         standardFeatureLookup.put(standardFeatureAndAppl.getString("productFeatureId"), standardFeatureAndAppl);
     }
@@ -141,7 +141,7 @@ if (product) {
     Iterator selectableFeatureAndApplIter = selectableFeatureAppls.iterator();
     while (selectableFeatureAndApplIter) {
         GenericValue selectableFeatureAndAppl = (GenericValue) selectableFeatureAndApplIter.next();
-        GenericValue featureType = selectableFeatureAndAppl.getRelatedOneCache("ProductFeatureType");
+        GenericValue featureType = selectableFeatureAndAppl.getRelatedOne("ProductFeatureType", true);
         productFeatureTypeLookup.put(selectableFeatureAndAppl.productFeatureId, featureType);
         selectableFeatureLookup.put(selectableFeatureAndAppl.productFeatureId, selectableFeatureAndAppl);
         selectableFeatureTypes.add(featureType);
@@ -156,7 +156,7 @@ if (product) {
         Iterator distinguishingFeatureIter = distinguishingFeatures.iterator();
         while (distinguishingFeatureIter) {
             distFeature = (GenericValue) distinguishingFeatureIter.next();
-            featureType = distFeature.getRelatedOneCache("ProductFeatureType");
+            featureType = distFeature.getRelatedOne("ProductFeatureType", true);
             if (!productFeatureTypeLookup.containsKey(distFeature.productFeatureId)) {
                 productFeatureTypeLookup.put(distFeature.productFeatureId, featureType);
             }
@@ -233,7 +233,7 @@ if (product) {
     while (productAssocIter) {
         // now get the variant product
         productAssoc = (GenericValue)productAssocIter.next();
-        assocProduct = productAssoc.getRelatedOne("AssocProduct");
+        assocProduct = productAssoc.getRelatedOne("AssocProduct", false);
         if (assocProduct) {
             assocProducts.add(assocProduct);
             assocProductFeatureAndAppls = assocProduct.getRelated("ProductFeatureAndAppl");

@@ -33,7 +33,7 @@ under the License.
                 <#assign rowClass = "2">
                 <#list productStorePromoAppls as productStorePromoAppl>
                 <#assign line = line + 1>
-                <#assign productStore = productStorePromoAppl.getRelatedOne("ProductStore")>
+                <#assign productStore = productStorePromoAppl.getRelatedOne("ProductStore", false)>
                 <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                     <td><a href="<@ofbizUrl>EditProductStore?productStoreId=${productStorePromoAppl.productStoreId}</@ofbizUrl>" class="buttontext"><#if productStore?exists>${(productStore.storeName)?if_exists}</#if>[${productStorePromoAppl.productStoreId}]</a></td>
                     <#assign hasntStarted = false>

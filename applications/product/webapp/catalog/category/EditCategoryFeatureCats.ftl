@@ -39,7 +39,7 @@ under the License.
                 <#assign rowClass = "2">
                 <#list productFeatureCatGrpAppls as productFeatureCatGrpAppl>
                 <#assign line = line + 1>
-                <#assign productFeatureGroup = (productFeatureCatGrpAppl.getRelatedOne("ProductFeatureGroup"))?default(null)>
+                <#assign productFeatureGroup = (productFeatureCatGrpAppl.getRelatedOne("ProductFeatureGroup", false))?default(null)>
                 <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                     <td><a href="<@ofbizUrl>EditFeatureGroupAppls?productFeatureGroupId=${(productFeatureCatGrpAppl.productFeatureGroupId)?if_exists}</@ofbizUrl>" class="buttontext"><#if productFeatureGroup?exists>${(productFeatureGroup.description)?if_exists}</#if> [${(productFeatureCatGrpAppl.productFeatureGroupId)?if_exists}]</a></td>
                     <#assign hasntStarted = false>
@@ -118,7 +118,7 @@ under the License.
                 <#assign rowClass = "2">
                 <#list productFeatureCategoryAppls as productFeatureCategoryAppl>
                 <#assign line = line + 1>
-                <#assign productFeatureCategory = (productFeatureCategoryAppl.getRelatedOne("ProductFeatureCategory"))?default(null)>
+                <#assign productFeatureCategory = (productFeatureCategoryAppl.getRelatedOne("ProductFeatureCategory", false))?default(null)>
                 <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                     <td><a href="<@ofbizUrl>EditFeatureCategoryFeatures?productFeatureCategoryId=${(productFeatureCategoryAppl.productFeatureCategoryId)?if_exists}</@ofbizUrl>" class="buttontext"><#if productFeatureCategory?exists>${(productFeatureCategory.description)?if_exists}</#if> [${(productFeatureCategoryAppl.productFeatureCategoryId)?if_exists}]</a></td>
                     <#assign hasntStarted = false>
