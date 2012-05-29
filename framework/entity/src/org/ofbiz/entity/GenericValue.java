@@ -325,6 +325,15 @@ public class GenericValue extends GenericEntity implements Reusable {
         return this.getDelegator().getRelatedOne(relationName, this, true);
     }
 
+    /** Get the named Related Entity for the GenericValue from the persistent store
+     *@param relationName String containing the relation name which is the combination of relation.title and relation.rel-entity-name as specified in the entity XML definition file
+     *@param useCache Whether to cache the results
+     *@return The single related GenericValue instance
+     */
+    public GenericValue getRelatedOne(String relationName, boolean useCache) throws GenericEntityException {
+        return this.getDelegator().getRelatedOne(relationName, this, useCache);
+    }
+
     /** Get the named Related Entity for the GenericValue from the persistent
      *  store, looking first in a cache associated with this entity which is
      *  destroyed with this ValueObject when no longer used.
