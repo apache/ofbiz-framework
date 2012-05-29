@@ -53,7 +53,7 @@
  
  productStoreCatalog = EntityUtil.getFirst(delegator.findByAnd("ProductStoreCatalog", [productStoreId: productStore.productStoreId], null, false));
  if(productStoreCatalog){
-     prodCatalog = productStoreCatalog.getRelatedOne("ProdCatalog");
+     prodCatalog = productStoreCatalog.getRelatedOne("ProdCatalog", false);
      prodCatalogId = prodCatalog.prodCatalogId;
  }
  context.prodCatalog = prodCatalog;
@@ -91,7 +91,7 @@
          /**************** get product from ProductCategory ******************/
          productCategoryMember  = EntityUtil.getFirst(delegator.findByAnd("ProductCategoryMember", [productCategoryId: productCategoryId], null, false));
          if(productCategoryMember){
-             product = productCategoryMember.getRelatedOne("Product");
+             product = productCategoryMember.getRelatedOne("Product", false);
              productId = product.productId;
              // Average cost
              averageCostValues = delegator.findByAnd("ProductPrice", [productId : productId, productPricePurposeId : "PURCHASE", productPriceTypeId : "AVERAGE_COST"], null, false);
