@@ -817,7 +817,9 @@ public interface Delegator {
      *
      * @throws IllegalArgumentException
      *             if the list found has more than one item
+     * @deprecated use {@link #getRelatedOne(String, GenericValue, boolean)
      */
+    @Deprecated
     public GenericValue getRelatedOne(String relationName, GenericValue value) throws GenericEntityException;
 
     /**
@@ -827,7 +829,9 @@ public interface Delegator {
      *
      * @throws IllegalArgumentException
      *             if the list found has more than one item
+     * @deprecated use {@link #getRelatedOne(String, GenericValue, boolean)
      */
+    @Deprecated
     public GenericValue getRelatedOneCache(String relationName, GenericValue value) throws GenericEntityException;
 
     /**
