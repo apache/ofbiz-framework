@@ -53,7 +53,7 @@ import org.w3c.dom.Node;
 public class ModelGroupReader implements Serializable {
 
     public static final String module = ModelGroupReader.class.getName();
-    public static UtilCache<String, ModelGroupReader> readers = UtilCache.createUtilCache("entity.ModelGroupReader", 0, 0);
+    private static final UtilCache<String, ModelGroupReader> readers = UtilCache.createUtilCache("entity.ModelGroupReader", 0, 0);
 
     private Map<String, String> groupCache = null;
     private Set<String> groupNames = null;
@@ -71,15 +71,8 @@ public class ModelGroupReader implements Serializable {
         String tempModelName = delegatorInfo.entityGroupReader;
         ModelGroupReader reader = readers.get(tempModelName);
 
-        if (reader == null) { // don't want to block here
-            synchronized (ModelGroupReader.class) {
-                // must check if null again as one of the blocked threads can still enter
-                reader = readers.get(tempModelName);
-                if (reader == null) {
-                    reader = new ModelGroupReader(tempModelName);
-                    readers.put(tempModelName, reader);
-                }
-            }
+        if (reader == null) {
+            reader = readers.putIfAbsentAndGet(tempModelName, new ModelGroupReader(tempModelName));
         }
         return reader;
     }

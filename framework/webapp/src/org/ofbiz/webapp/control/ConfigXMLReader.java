@@ -52,8 +52,8 @@ public class ConfigXMLReader {
     public static final String module = ConfigXMLReader.class.getName();
     public static final String controllerXmlFileName = "/WEB-INF/controller.xml";
 
-    public static UtilCache<URL, ControllerConfig> controllerCache = UtilCache.createUtilCache("webapp.ControllerConfig");
-    public static UtilCache<String, List<ControllerConfig>> controllerSearchResultsCache = UtilCache.createUtilCache("webapp.ControllerSearchResults");
+    private static final UtilCache<URL, ControllerConfig> controllerCache = UtilCache.createUtilCache("webapp.ControllerConfig");
+    private static final UtilCache<String, List<ControllerConfig>> controllerSearchResultsCache = UtilCache.createUtilCache("webapp.ControllerSearchResults");
 
     public static URL getControllerConfigURL(ServletContext context) {
         try {
@@ -66,15 +66,8 @@ public class ConfigXMLReader {
 
     public static ControllerConfig getControllerConfig(URL url) {
         ControllerConfig controllerConfig = controllerCache.get(url);
-        if (controllerConfig == null) { // don't want to block here
-            synchronized (ConfigXMLReader.class) {
-                // must check if null again as one of the blocked threads can still enter
-                controllerConfig = controllerCache.get(url);
-                if (controllerConfig == null) {
-                    controllerConfig = new ControllerConfig(url);
-                    controllerCache.put(url, controllerConfig);
-                }
-            }
+        if (controllerConfig == null) {
+            controllerConfig = controllerCache.putIfAbsentAndGet(url, new ControllerConfig(url));
         }
         return controllerConfig;
     }
@@ -447,7 +440,7 @@ public class ConfigXMLReader {
                     controllerConfigs.add(cc);
                 }
 
-                controllerSearchResultsCache.put(cacheId, controllerConfigs);
+                controllerConfigs = controllerSearchResultsCache.putIfAbsentAndGet(cacheId, controllerConfigs);
             } catch (IOException e) {
                 throw new GeneralException("Error finding controller XML files to lookup request references: " + e.toString(), e);
             }
