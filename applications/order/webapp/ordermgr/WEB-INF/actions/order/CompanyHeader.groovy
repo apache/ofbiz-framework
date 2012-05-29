@@ -82,7 +82,7 @@ if (orderHeader) {
         if (billToParty) {
             partyId = billToParty.partyId;
         } else {
-            def billToCustomer = EntityUtil.getFirst(orderHeader.getRelatedByAnd("OrderRole", [roleTypeId : "BILL_TO_CUSTOMER"]));
+            def billToCustomer = EntityUtil.getFirst(orderHeader.getRelated("OrderRole", [roleTypeId : "BILL_TO_CUSTOMER"], null, false));
             if (billToCustomer) {
                 partyId = billToCustomer.partyId;
             }

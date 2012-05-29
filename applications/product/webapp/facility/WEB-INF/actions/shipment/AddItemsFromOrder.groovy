@@ -134,7 +134,7 @@ if (shipment && selectFromShipmentPlan) {
         }
 
         orderItemShipGroupAssoc = null;
-        orderItemShipGroupAssocs = orderItem.getRelatedByAnd("OrderItemShipGroupAssoc", oiasgaLimitMap);
+        orderItemShipGroupAssocs = orderItem.getRelated("OrderItemShipGroupAssoc", oiasgaLimitMap, null, false);
         if (orderItemShipGroupAssocs) {
             orderItemShipGroupAssoc = EntityUtil.getFirst(orderItemShipGroupAssocs);
         }

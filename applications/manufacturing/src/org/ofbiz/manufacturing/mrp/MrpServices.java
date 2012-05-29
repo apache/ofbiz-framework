@@ -681,7 +681,7 @@ public class MrpServices {
                         // It's a new product, so it's necessary to  read the MrpQoh
                         try {
                             product = inventoryEventForMRP.getRelatedOne("Product", true);
-                            productFacility = EntityUtil.getFirst(product.getRelatedByAndCache("ProductFacility", UtilMisc.toMap("facilityId", facilityId)));
+                            productFacility = EntityUtil.getFirst(product.getRelated("ProductFacility", UtilMisc.toMap("facilityId", facilityId), null, true));
                         } catch (GenericEntityException e) {
                             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpCannotFindProductForEvent", locale));
                         }

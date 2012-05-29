@@ -160,7 +160,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
             alternateViews = EntityUtil.filterByDate(alternateViews, UtilDateTime.nowTimestamp(), "caFromDate", "caThruDate", true);
             for(GenericValue thisView : alternateViews) {
-                GenericValue altContentRole = EntityUtil.getFirst(EntityUtil.filterByDate(thisView.getRelatedByAndCache("ContentRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", roleTypeId))));
+                GenericValue altContentRole = EntityUtil.getFirst(EntityUtil.filterByDate(thisView.getRelated("ContentRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", roleTypeId), null, true)));
                 GenericValue altContent = null;
                 if (UtilValidate.isNotEmpty(altContentRole)) {
                     altContent = altContentRole.getRelatedOne("Content", true);
@@ -433,13 +433,13 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             }
             contentId = (String) content.get("contentId");
             contentTypeId = (String) content.get("contentTypeId");
-            List<GenericValue> topicList = content.getRelatedByAnd("ToContentAssoc", UtilMisc.toMap("contentAssocTypeId", "TOPIC"));
+            List<GenericValue> topicList = content.getRelated("ToContentAssoc", UtilMisc.toMap("contentAssocTypeId", "TOPIC"), null, false);
             List<String> topics = FastList.newInstance();
             for (int i = 0; i < topicList.size(); i++) {
                 GenericValue assoc = topicList.get(i);
                 topics.add(assoc.getString("contentId"));
             }
-            List<GenericValue> keywordList = content.getRelatedByAnd("ToContentAssoc", UtilMisc.toMap("contentAssocTypeId", "KEYWORD"));
+            List<GenericValue> keywordList = content.getRelated("ToContentAssoc", UtilMisc.toMap("contentAssocTypeId", "KEYWORD"), null, false);
             List<String> keywords = FastList.newInstance();
             for (int i = 0; i < keywordList.size(); i++) {
                 GenericValue assoc = keywordList.get(i);

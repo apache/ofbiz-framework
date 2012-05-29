@@ -227,7 +227,7 @@ if (product) {
     context.thrudate = thrudate;
 
     // get all variants - associations first
-    productAssocs = product.getRelatedByAnd("MainProductAssoc", [productAssocTypeId : 'PRODUCT_VARIANT']);
+    productAssocs = product.getRelated("MainProductAssoc", [productAssocTypeId : 'PRODUCT_VARIANT'], null, false);
     Iterator productAssocIter = productAssocs.iterator();
     // get shipping dimensions and weights for all the variants
     while (productAssocIter) {

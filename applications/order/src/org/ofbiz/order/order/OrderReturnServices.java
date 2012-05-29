@@ -705,7 +705,7 @@ public class OrderReturnServices {
         try {
             returnHeader = delegator.findOne("ReturnHeader", UtilMisc.toMap("returnId", returnId), false);
             if (returnHeader != null) {
-                returnItems = returnHeader.getRelatedByAnd("ReturnItem", UtilMisc.toMap("returnTypeId", "RTN_CREDIT"));
+                returnItems = returnHeader.getRelated("ReturnItem", UtilMisc.toMap("returnTypeId", "RTN_CREDIT"), null, false);
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems looking up return information", module);
@@ -1193,7 +1193,7 @@ public class OrderReturnServices {
         try {
             returnHeader = delegator.findOne("ReturnHeader", UtilMisc.toMap("returnId", returnId), false);
             if (returnHeader != null) {
-                returnItems = returnHeader.getRelatedByAnd("ReturnItem", UtilMisc.toMap("returnTypeId", returnTypeId));
+                returnItems = returnHeader.getRelated("ReturnItem", UtilMisc.toMap("returnTypeId", returnTypeId), null, false);
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems looking up return information", module);
@@ -1705,7 +1705,7 @@ public class OrderReturnServices {
         try {
             returnHeader = delegator.findOne("ReturnHeader", UtilMisc.toMap("returnId", returnId), false);
             if (returnHeader != null) {
-                returnItems = returnHeader.getRelatedByAnd("ReturnItem", UtilMisc.toMap("returnTypeId", returnTypeId));
+                returnItems = returnHeader.getRelated("ReturnItem", UtilMisc.toMap("returnTypeId", returnTypeId), null, false);
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems looking up return information", module);
@@ -2188,7 +2188,7 @@ public class OrderReturnServices {
         try {
             returnHeader = delegator.findOne("ReturnHeader", UtilMisc.toMap("returnId", returnId), false);
             if (returnHeader != null) {
-                returnItems = returnHeader.getRelatedByAnd("ReturnItem", UtilMisc.toMap("returnTypeId", "RTN_REFUND"));
+                returnItems = returnHeader.getRelated("ReturnItem", UtilMisc.toMap("returnTypeId", "RTN_REFUND"), null, false);
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);

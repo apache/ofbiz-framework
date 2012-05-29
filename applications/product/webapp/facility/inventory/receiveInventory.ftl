@@ -187,7 +187,7 @@ under the License.
               </tr>
 
               <#-- facility location(s) -->
-              <#assign facilityLocations = (product.getRelatedByAnd("ProductFacilityLocation", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", facilityId)))?if_exists/>
+              <#assign facilityLocations = (product.getRelated("ProductFacilityLocation", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", facilityId), null, false))?if_exists/>
               <tr>
                 <td width="14%">&nbsp;</td>
                 <td width="6%" align="right" nowrap="nowrap" class="label">${uiLabelMap.ProductFacilityLocation}</td>
@@ -399,7 +399,7 @@ under the License.
                           <td align="right">${uiLabelMap.ProductLocation}:</td>
                           <#-- location(s) -->
                           <td align="right">
-                            <#assign facilityLocations = (orderItem.getRelatedByAnd("ProductFacilityLocation", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", facilityId)))?if_exists/>
+                            <#assign facilityLocations = (orderItem.getRelated("ProductFacilityLocation", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", facilityId), null, false))?if_exists/>
                             <#if facilityLocations?has_content>
                               <select name="locationSeqId_o_${rowCount}">
                                 <#list facilityLocations as productFacilityLocation>

@@ -402,7 +402,7 @@ public class ContentManagementWorker {
             map.put("description", description);
             for(String [] publishPointArray : permittedPublishPointList) {
                 String publishPointId = publishPointArray[0];
-                List<GenericValue> contentAssocList = content.getRelatedByAnd("ToContentAssoc", UtilMisc.toMap("contentId", publishPointId));
+                List<GenericValue> contentAssocList = content.getRelated("ToContentAssoc", UtilMisc.toMap("contentId", publishPointId), null, false);
                 List<GenericValue> filteredList = EntityUtil.filterByDate(contentAssocList);
                 if (filteredList.size() > 0) {
                     map.put(publishPointId, "Y");

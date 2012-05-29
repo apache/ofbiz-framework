@@ -37,7 +37,7 @@ invoiceItemTypes.each { invoiceItemType ->
     remove = " ";
     glAccounts = null;
     glAccount = null;
-    invoiceItemTypeOrgs = invoiceItemType.getRelatedByAnd("InvoiceItemTypeGlAccount", [organizationPartyId : organizationPartyId]);
+    invoiceItemTypeOrgs = invoiceItemType.getRelated("InvoiceItemTypeGlAccount", [organizationPartyId : organizationPartyId], null, false);
     overrideGlAccountId = " ";
     if (invoiceItemTypeOrgs) {
         invoiceItemTypeOrg = invoiceItemTypeOrgs[0];

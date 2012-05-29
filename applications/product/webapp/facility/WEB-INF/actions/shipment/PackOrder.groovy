@@ -98,8 +98,8 @@ if (picklistBinId) {
     if (bin) {
         orderId = bin.primaryOrderId;
         shipGroupSeqId = bin.primaryShipGroupSeqId;
-        packSession.addItemInfo(bin.getRelatedByAnd("PicklistItem", [itemStatusId : 'PICKITEM_PENDING']));
-        //context.put("picklistItemInfos", bin.getRelatedByAnd("PicklistItem", UtilMisc.toMap("itemStatusId", "PICKITEM_PENDING")));
+        packSession.addItemInfo(bin.getRelated("PicklistItem", [itemStatusId : 'PICKITEM_PENDING'], null, false));
+        //context.put("picklistItemInfos", bin.getRelated("PicklistItem", UtilMisc.toMap("itemStatusId", "PICKITEM_PENDING"), null, false));
     }
 } else {
     picklistBinId = null;
