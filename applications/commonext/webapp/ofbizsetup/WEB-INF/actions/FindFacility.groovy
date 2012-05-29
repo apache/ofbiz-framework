@@ -52,7 +52,7 @@ if("productstore".equals(tabButtonItemTop)){
     }
     facility = delegator.findOne("Facility", [facilityId : facilityId], false);
     if(facility){
-        facilityType = facility.getRelatedOne("FacilityType");
+        facilityType = facility.getRelatedOne("FacilityType", false);
         context.facilityType = facilityType;
     }
     context.facility = facility;
