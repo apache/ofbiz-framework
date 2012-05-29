@@ -41,7 +41,7 @@ import org.w3c.dom.NodeList;
 public final class ModelDataFileReader {
 
     public static final String module = ModelDataFileReader.class.getName();
-    private static UtilCache<URL, ModelDataFileReader> readers = UtilCache.createUtilCache("ModelDataFile", true);
+    private static final UtilCache<URL, ModelDataFileReader> readers = UtilCache.createUtilCache("ModelDataFile", true);
 
     public static ModelDataFileReader getModelDataFileReader(URL readerURL) throws DataFileException {
         ModelDataFileReader reader = readers.get(readerURL);

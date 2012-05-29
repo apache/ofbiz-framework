@@ -33,7 +33,7 @@ public class CompilerMatcher {
 
     public static final String module = CompilerMatcher.class.getName();
 
-    public static UtilCache<String, Pattern> compiledPatterns = UtilCache.createUtilCache("regularExpression.compiledPatterns", false);
+    private static final UtilCache<String, Pattern> compiledPatterns = UtilCache.createUtilCache("regularExpression.compiledPatterns", false);
 
     private Perl5Compiler compiler = new Perl5Compiler();
     private Perl5Matcher matcher = new Perl5Matcher();
