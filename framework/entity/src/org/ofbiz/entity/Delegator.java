@@ -830,6 +830,23 @@ public interface Delegator {
      */
     public GenericValue getRelatedOneCache(String relationName, GenericValue value) throws GenericEntityException;
 
+    /**
+     * Get related entity where relation is of type one, uses findByPrimaryKey
+     *
+     * @param relationName
+     *            String containing the relation name which is the combination
+     *            of relation.title and relation.rel-entity-name as specified in
+     *            the entity XML definition file
+     * @param value
+     *            GenericValue instance containing the entity
+     * @param useCache
+     *            Whether to cache the results
+     * @return GenericValue that is the related entity
+     * @throws IllegalArgumentException
+     *             if the list found has more than one item
+     */
+    public GenericValue getRelatedOne(String relationName, GenericValue value, boolean useCache) throws GenericEntityException;
+
     public void initEntityEcaHandler();
 
     public void initDistributedCacheClear();

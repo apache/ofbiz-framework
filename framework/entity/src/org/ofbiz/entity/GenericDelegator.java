@@ -2015,6 +2015,20 @@ public class GenericDelegator implements Delegator {
      * @see org.ofbiz.entity.Delegator#getRelatedOne(java.lang.String, org.ofbiz.entity.GenericValue)
      */
     public GenericValue getRelatedOne(String relationName, GenericValue value) throws GenericEntityException {
+        return this.getRelatedOne(relationName, value, false);
+    }
+
+    /* (non-Javadoc)
+     * @see org.ofbiz.entity.Delegator#getRelatedOneCache(java.lang.String, org.ofbiz.entity.GenericValue)
+     */
+    public GenericValue getRelatedOneCache(String relationName, GenericValue value) throws GenericEntityException {
+        return this.getRelatedOne(relationName, value, true);
+    }
+
+    /* (non-Javadoc)
+     * @see org.ofbiz.entity.Delegator#getRelatedOne(java.lang.String, org.ofbiz.entity.GenericValue, boolean)
+     */
+    public GenericValue getRelatedOne(String relationName, GenericValue value, boolean useCache) throws GenericEntityException {
         ModelRelation relation = value.getModelEntity().getRelation(relationName);
 
         if (relation == null) {
@@ -2030,30 +2044,7 @@ public class GenericDelegator implements Delegator {
             fields.put(keyMap.getRelFieldName(), value.get(keyMap.getFieldName()));
         }
 
-        return this.findOne(relation.getRelEntityName(), fields, false);
-    }
-
-    /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#getRelatedOneCache(java.lang.String, org.ofbiz.entity.GenericValue)
-     */
-    public GenericValue getRelatedOneCache(String relationName, GenericValue value) throws GenericEntityException {
-        ModelEntity modelEntity = value.getModelEntity();
-        ModelRelation relation = modelEntity.getRelation(relationName);
-
-        if (relation == null) {
-            throw new GenericModelException("Could not find relation for relationName: " + relationName + " for value " + value);
-        }
-        if (!"one".equals(relation.getType()) && !"one-nofk".equals(relation.getType())) {
-            throw new GenericModelException("Relation is not a 'one' or a 'one-nofk' relation: " + relationName + " of entity " + value.getEntityName());
-        }
-
-        Map<String, Object> fields = FastMap.newInstance();
-        for (int i = 0; i < relation.getKeyMapsSize(); i++) {
-            ModelKeyMap keyMap = relation.getKeyMap(i);
-            fields.put(keyMap.getRelFieldName(), value.get(keyMap.getFieldName()));
-        }
-
-        return this.findOne(relation.getRelEntityName(), fields, true);
+        return this.findOne(relation.getRelEntityName(), fields, useCache);
     }
 
 
