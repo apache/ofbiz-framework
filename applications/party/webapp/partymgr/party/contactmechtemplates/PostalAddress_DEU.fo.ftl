@@ -21,7 +21,7 @@ under the License.
   <fo:block>${postalAddress.postalCode?if_exists} ${postalAddress.city?if_exists}</fo:block>
   <#if postalAddress.countryGeoId?has_content>
     <fo:block>
-      <#assign country = postalAddress.getRelatedOneCache("CountryGeo")>
+      <#assign country = postalAddress.getRelatedOne("CountryGeo", true)>
       ${country.get("geoName", locale)?default(country.geoId)}
     </fo:block>
   </#if>

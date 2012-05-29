@@ -32,8 +32,8 @@ partyId = parameters.partyId ?:request.getAttribute("partyId");
 party = delegator.findOne("Party", [partyId : partyId], false);
 context.party = party;
 if (party) {
-    context.lookupPerson = party.getRelatedOne("Person");
-    context.lookupGroup = party.getRelatedOne("PartyGroup");
+    context.lookupPerson = party.getRelatedOne("Person", false);
+    context.lookupGroup = party.getRelatedOne("PartyGroup", false);
 }
 
 shoppingListId = parameters.shoppingListId ?: request.getAttribute("shoppingListId");
@@ -77,7 +77,7 @@ if (shoppingListId) {
             shoppingListItemDatas = new ArrayList(shoppingListItems.size());
             shoppingListItems.each { shoppingListItem ->
                 shoppingListItemData = [:];
-                product = shoppingListItem.getRelatedOneCache("Product");
+                product = shoppingListItem.getRelatedOne("Product", true);
 
                 // DEJ20050704 not sure about calculating price here, will have some bogus data when not in a store webapp
                 calcPriceInMap = [product : product, quantity : shoppingListItem.quantity , currencyUomId : currencyUomId, userLogin : userLogin, productStoreId : shoppingList.productStoreId];
@@ -120,7 +120,7 @@ if (shoppingListId) {
             context.highIndex = highIndex;
         }
 
-        shoppingListType = shoppingList.getRelatedOne("ShoppingListType");
+        shoppingListType = shoppingList.getRelatedOne("ShoppingListType", false);
         context.shoppingListType = shoppingListType;
 
         // get the child shopping lists of the current list for the logged in user
@@ -138,7 +138,7 @@ if (shoppingListId) {
         }
 
         // get the parent shopping list if there is one
-        parentShoppingList = shoppingList.getRelatedOne("ParentShoppingList");
+        parentShoppingList = shoppingList.getRelatedOne("ParentShoppingList", false);
         context.parentShoppingList = parentShoppingList;
     }
 }

@@ -44,7 +44,7 @@ under the License.
               <td class="label align-top">${contactMechMap.contactMechType.get("description",locale)}</td>
               <td>
                 <#list contactMechMap.partyContactMechPurposes as partyContactMechPurpose>
-                  <#assign contactMechPurposeType = partyContactMechPurpose.getRelatedOneCache("ContactMechPurposeType")>
+                  <#assign contactMechPurposeType = partyContactMechPurpose.getRelatedOne("ContactMechPurposeType", true)>
                   <div>
                     <#if contactMechPurposeType?has_content>
                       <b>${contactMechPurposeType.get("description",locale)}</b>

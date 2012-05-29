@@ -21,11 +21,11 @@ under the License.
       <#if partyContent?has_content>
         <table class="basic-table" cellspacing="0">
           <#list partyContent as pContent>
-            <#assign content = pContent.getRelatedOne("Content")>
-            <#assign contentType = content.getRelatedOneCache("ContentType")>
-            <#assign mimeType = content.getRelatedOneCache("MimeType")?if_exists>
-            <#assign status = content.getRelatedOneCache("StatusItem")?if_exists>
-            <#assign pcType = pContent.getRelatedOne("PartyContentType")>
+            <#assign content = pContent.getRelatedOne("Content", false)>
+            <#assign contentType = content.getRelatedOne("ContentType", true)>
+            <#assign mimeType = content.getRelatedOne("MimeType", true)?if_exists>
+            <#assign status = content.getRelatedOne("StatusItem", true)?if_exists>
+            <#assign pcType = pContent.getRelatedOne("PartyContentType", false)>
             <tr>
               <td class="button-col"><a href="<@ofbizUrl>EditPartyContents?contentId=${pContent.contentId}&amp;partyId=${pContent.partyId}&amp;partyContentTypeId=${pContent.partyContentTypeId}&amp;fromDate=${pContent.fromDate}</@ofbizUrl>">${content.contentId}</a></td>
               <td>${(pcType.get("description", locale))?if_exists}</td>

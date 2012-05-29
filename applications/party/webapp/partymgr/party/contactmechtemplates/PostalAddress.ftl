@@ -23,12 +23,12 @@ under the License.
     <#if postalAddress.address2?has_content>${postalAddress.address2}<br /></#if>
     ${postalAddress.city?if_exists},
     <#if postalAddress.stateProvinceGeoId?has_content>
-      <#assign stateProvince = postalAddress.getRelatedOneCache("StateProvinceGeo")>
+      <#assign stateProvince = postalAddress.getRelatedOne("StateProvinceGeo", true)>
       ${stateProvince.abbreviation?default(stateProvince.geoId)}
     </#if>
     ${postalAddress.postalCode?if_exists}
     <#if postalAddress.countryGeoId?has_content><br />
-      <#assign country = postalAddress.getRelatedOneCache("CountryGeo")>
+      <#assign country = postalAddress.getRelatedOne("CountryGeo", true)>
       ${country.get("geoName", locale)?default(country.geoId)}
     </#if>
     </div>

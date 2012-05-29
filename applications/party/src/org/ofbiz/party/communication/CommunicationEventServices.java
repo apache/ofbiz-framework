@@ -100,9 +100,9 @@ public class CommunicationEventServices {
             }
 
             // make sure the from contact mech is an email if it is specified
-            if ((communicationEvent.getRelatedOne("FromContactMech") == null) ||
-                 (!(communicationEvent.getRelatedOne("FromContactMech").getString("contactMechTypeId").equals("EMAIL_ADDRESS")) ||
-                 (communicationEvent.getRelatedOne("FromContactMech").getString("infoString") == null))) {
+            if ((communicationEvent.getRelatedOne("FromContactMech", false) == null) ||
+                 (!(communicationEvent.getRelatedOne("FromContactMech", false).getString("contactMechTypeId").equals("EMAIL_ADDRESS")) ||
+                 (communicationEvent.getRelatedOne("FromContactMech", false).getString("infoString") == null))) {
                 String errMsg = UtilProperties.getMessage(resource,"commeventservices.communication_event_from_contact_mech_must_be_email", locale);
                 return ServiceUtil.returnError(errMsg + " " + communicationEventId);
             }
@@ -117,7 +117,7 @@ public class CommunicationEventServices {
 
             // prepare the email
             Map<String, Object> sendMailParams = FastMap.newInstance();
-            sendMailParams.put("sendFrom", communicationEvent.getRelatedOne("FromContactMech").getString("infoString"));
+            sendMailParams.put("sendFrom", communicationEvent.getRelatedOne("FromContactMech", false).getString("infoString"));
             sendMailParams.put("subject", communicationEvent.getString("subject"));
             sendMailParams.put("contentType", communicationEvent.getString("contentMimeTypeId"));
             sendMailParams.put("userLogin", userLogin);
@@ -134,8 +134,8 @@ public class CommunicationEventServices {
                     bodyParts.add(UtilMisc.<String, Object>toMap("content", communicationEvent.getString("content"), "type", communicationEvent.getString("contentMimeTypeId")));
                 }
                 for (GenericValue comEventContent : comEventContents) {
-                    GenericValue content = comEventContent.getRelatedOne("FromContent");
-                    GenericValue dataResource = content.getRelatedOne("DataResource");
+                    GenericValue content = comEventContent.getRelatedOne("FromContent", false);
+                    GenericValue dataResource = content.getRelatedOne("DataResource", false);
                     ByteBuffer dataContent = DataResourceWorker.getContentAsByteBuffer(delegator, dataResource.getString("dataResourceId"), null, null, locale, null);
                     bodyParts.add(UtilMisc.<String, Object>toMap("content", dataContent.array(), "type", dataResource.getString("mimeTypeId"), "filename", dataResource.getString("dataResourceName")));
                 }
@@ -150,7 +150,7 @@ public class CommunicationEventServices {
                 String sendTo = communicationEvent.getString("toString");
 
                 if (UtilValidate.isEmpty(sendTo)) {
-                    GenericValue toContactMech = communicationEvent.getRelatedOne("ToContactMech");
+                    GenericValue toContactMech = communicationEvent.getRelatedOne("ToContactMech", false);
                     if (toContactMech != null && "EMAIL_ADDRESS".equals(toContactMech.getString("contactMechTypeId"))) {
                         sendTo = toContactMech.getString("infoString");
                     }
@@ -169,7 +169,7 @@ public class CommunicationEventServices {
                         if (commRole.getString("partyId").equals(communicationEvent.getString("partyIdFrom")) || commRole.getString("partyId").equals(communicationEvent.getString("partyIdTo"))) {
                             continue;
                         }
-                        GenericValue contactMech = commRole.getRelatedOne("ContactMech");
+                        GenericValue contactMech = commRole.getRelatedOne("ContactMech", false);
                         if (UtilValidate.isNotEmpty(contactMech) && UtilValidate.isNotEmpty(contactMech.getString("infoString"))) {
                             if ("ADDRESSEE".equals(commRole.getString("roleTypeId"))) {
                                 sendTo += "," + contactMech.getString("infoString");
@@ -290,7 +290,7 @@ public class CommunicationEventServices {
             GenericValue contactList = delegator.findOne("ContactList", UtilMisc.toMap("contactListId", contactListId), false);
 
             Map<String, Object> sendMailParams = FastMap.newInstance();
-            sendMailParams.put("sendFrom", communicationEvent.getRelatedOne("FromContactMech").getString("infoString"));
+            sendMailParams.put("sendFrom", communicationEvent.getRelatedOne("FromContactMech", false).getString("infoString"));
             sendMailParams.put("subject", communicationEvent.getString("subject"));
             sendMailParams.put("contentType", communicationEvent.getString("contentMimeTypeId"));
             sendMailParams.put("userLogin", userLogin);
@@ -395,7 +395,7 @@ public class CommunicationEventServices {
 
                         GenericValue webSite = delegator.findOne("WebSite", UtilMisc.toMap("webSiteId", contactList.getString("verifyEmailWebSiteId")), false);
                         if (UtilValidate.isNotEmpty(webSite)) {
-                            GenericValue productStore = webSite.getRelatedOne("ProductStore");
+                            GenericValue productStore = webSite.getRelatedOne("ProductStore", false);
                             if (UtilValidate.isNotEmpty(productStore)) {
                                 List<GenericValue> productStoreEmailSettings = productStore.getRelatedByAnd("ProductStoreEmailSetting", UtilMisc.toMap("emailType", "CONT_EMAIL_TEMPLATE"));
                                 GenericValue productStoreEmailSetting = EntityUtil.getFirst(productStoreEmailSettings);
@@ -428,7 +428,7 @@ public class CommunicationEventServices {
                             }
                             // deactivate from the contact list
                             try {
-                                GenericValue contactListParty = contactListPartyAndContactMech.getRelatedOne("ContactListParty");
+                                GenericValue contactListParty = contactListPartyAndContactMech.getRelatedOne("ContactListParty", false);
                                 if (contactListParty != null) {
                                     contactListParty.set("statusId", "CLPT_INVALID");
                                     contactListParty.store();
