@@ -812,7 +812,7 @@ public interface Delegator {
     public GenericPK getRelatedDummyPK(String relationName, Map<String, ? extends Object> byAndFields, GenericValue value) throws GenericEntityException;
 
     /**
-     * Get related entity where relation is of type one, uses findByPrimaryKey
+     * Get related entity where relation is of type one, uses findOne
      * NOTE 20080502: 7 references
      *
      * @throws IllegalArgumentException
@@ -821,7 +821,7 @@ public interface Delegator {
     public GenericValue getRelatedOne(String relationName, GenericValue value) throws GenericEntityException;
 
     /**
-     * Get related entity where relation is of type one, uses findByPrimaryKey,
+     * Get related entity where relation is of type one, uses findOne
      * checking first in the cache to see if the desired value is there NOTE
      * 20080502: 1 references
      *
