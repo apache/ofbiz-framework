@@ -1944,6 +1944,13 @@ public class GenericDelegator implements Delegator {
      * @see org.ofbiz.entity.Delegator#getRelated(java.lang.String, java.util.Map, java.util.List, org.ofbiz.entity.GenericValue)
      */
     public List<GenericValue> getRelated(String relationName, Map<String, ? extends Object> byAndFields, List<String> orderBy, GenericValue value) throws GenericEntityException {
+        return getRelated(relationName, byAndFields, orderBy, value, false);
+    }
+
+    /* (non-Javadoc)
+     * @see org.ofbiz.entity.Delegator#getRelated(java.lang.String, java.util.Map, java.util.List, org.ofbiz.entity.GenericValue, boolean)
+     */
+    public List<GenericValue> getRelated(String relationName, Map<String, ? extends Object> byAndFields, List<String> orderBy, GenericValue value, boolean useCache) throws GenericEntityException {
         ModelEntity modelEntity = value.getModelEntity();
         ModelRelation relation = modelEntity.getRelation(relationName);
 
@@ -1962,7 +1969,7 @@ public class GenericDelegator implements Delegator {
             fields.put(keyMap.getRelFieldName(), value.get(keyMap.getFieldName()));
         }
 
-        return this.findByAnd(relation.getRelEntityName(), fields, orderBy, false);
+        return this.findByAnd(relation.getRelEntityName(), fields, orderBy, useCache);
     }
 
     /* (non-Javadoc)
@@ -1995,20 +2002,7 @@ public class GenericDelegator implements Delegator {
      * @see org.ofbiz.entity.Delegator#getRelatedCache(java.lang.String, org.ofbiz.entity.GenericValue)
      */
     public List<GenericValue> getRelatedCache(String relationName, GenericValue value) throws GenericEntityException {
-        ModelEntity modelEntity = value.getModelEntity();
-        ModelRelation relation = modelEntity.getRelation(relationName);
-
-        if (relation == null) {
-            throw new GenericModelException("Could not find relation for relationName: " + relationName + " for value " + value);
-        }
-
-        Map<String, Object> fields = FastMap.newInstance();
-        for (int i = 0; i < relation.getKeyMapsSize(); i++) {
-            ModelKeyMap keyMap = relation.getKeyMap(i);
-            fields.put(keyMap.getRelFieldName(), value.get(keyMap.getFieldName()));
-        }
-
-        return this.findByAnd(relation.getRelEntityName(), fields, null, true);
+        return getRelated(relationName, null, null, value, true);
     }
 
     /* (non-Javadoc)
