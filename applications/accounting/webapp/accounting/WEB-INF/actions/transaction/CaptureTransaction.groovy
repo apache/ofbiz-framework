@@ -49,7 +49,7 @@ if (orderPaymentPreference) {
 
 if (orderPaymentPreference) {
     // we retrieve the captureAmount by looking at the latest authorized gateway response for this orderPaymentPreference
-    gatewayResponses = orderPaymentPreference.getRelated("PaymentGatewayResponse", ["transactionDate DESC"]);
+    gatewayResponses = orderPaymentPreference.getRelated("PaymentGatewayResponse", null, ["transactionDate DESC"], false);
     EntityUtil.filterByCondition(gatewayResponses, EntityCondition.makeCondition("transCodeEnumId", EntityOperator.EQUALS, "PGT_AUTHORIZE"));
 
     if (gatewayResponses) {

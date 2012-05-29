@@ -43,7 +43,7 @@ invoiceItemTypes.each { invoiceItemType ->
         invoiceItemTypeOrg = invoiceItemTypeOrgs[0];
         overrideGlAccountId = invoiceItemTypeOrg.glAccountId;
 
-        glAccounts = invoiceItemTypeOrg.getRelated("GlAccount");
+        glAccounts = invoiceItemTypeOrg.getRelated("GlAccount", null, null, false);
         if (glAccounts) {
             glAccount = glAccounts[0];
         }

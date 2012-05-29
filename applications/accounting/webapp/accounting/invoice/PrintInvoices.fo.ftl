@@ -186,7 +186,7 @@ under the License.
                     <#list invoiceItems as invoiceItem>
                       <#assign itemType = invoiceItem.getRelatedOne("InvoiceItemType", false)>
                       <#assign taxRate = invoiceItem.getRelatedOne("TaxAuthorityRateProduct", false)?if_exists>
-                      <#assign itemBillings = invoiceItem.getRelated("OrderItemBilling")?if_exists>
+                      <#assign itemBillings = invoiceItem.getRelated("OrderItemBilling", null, null, false)?if_exists>
                       <#if itemBillings?has_content>
                         <#assign itemBilling = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(itemBillings)>
                         <#if itemBilling?has_content>

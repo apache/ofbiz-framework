@@ -124,7 +124,7 @@ public class UtilAccounting {
     }
     private static void getGlAccountClassChildren(GenericValue glAccountClass, List<String> glAccountClassIds) throws GenericEntityException {
         glAccountClassIds.add(glAccountClass.getString("glAccountClassId"));
-        List<GenericValue> glAccountClassChildren = glAccountClass.getRelatedCache("ChildGlAccountClass");
+        List<GenericValue> glAccountClassChildren = glAccountClass.getRelated("ChildGlAccountClass", null, null, true);
         for(GenericValue glAccountClassChild : glAccountClassChildren) {
             getGlAccountClassChildren(glAccountClassChild, glAccountClassIds);
         }

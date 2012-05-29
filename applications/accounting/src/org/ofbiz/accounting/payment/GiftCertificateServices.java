@@ -789,7 +789,7 @@ public class GiftCertificateServices {
         // get the response answers
         List<GenericValue> responseAnswers = null;
         try {
-            responseAnswers = surveyResponse.getRelated("SurveyResponseAnswer");
+            responseAnswers = surveyResponse.getRelated("SurveyResponseAnswer", null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
@@ -1025,7 +1025,7 @@ public class GiftCertificateServices {
         // get the response answers
         List<GenericValue> responseAnswers = null;
         try {
-            responseAnswers = surveyResponse.getRelated("SurveyResponseAnswer");
+            responseAnswers = surveyResponse.getRelated("SurveyResponseAnswer", null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrderError, 

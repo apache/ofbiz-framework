@@ -251,7 +251,7 @@ public class InvoiceServices {
             }
 
             // order roles to invoice roles
-            List<GenericValue> orderRoles = orderHeader.getRelated("OrderRole");
+            List<GenericValue> orderRoles = orderHeader.getRelated("OrderRole", null, null, false);
             Map<String, Object> createInvoiceRoleContext = FastMap.newInstance();
             createInvoiceRoleContext.put("invoiceId", invoiceId);
             createInvoiceRoleContext.put("userLogin", userLogin);
@@ -278,13 +278,13 @@ public class InvoiceServices {
                  * jacopoc: billing account terms were already copied as order terms
                  *          when the order was created.
                 // get the billing account terms
-                billingAccountTerms = billingAccount.getRelated("BillingAccountTerm");
+                billingAccountTerms = billingAccount.getRelated("BillingAccountTerm", null, null, false);
 
                 // set the invoice terms as defined for the billing account
                 createInvoiceTerms(delegator, dispatcher, invoiceId, billingAccountTerms, userLogin, locale);
                 */
                 // set the invoice bill_to_customer from the billing account
-                List<GenericValue> billToRoles = billingAccount.getRelated("BillingAccountRole", UtilMisc.toMap("roleTypeId", "BILL_TO_CUSTOMER"), null);
+                List<GenericValue> billToRoles = billingAccount.getRelated("BillingAccountRole", UtilMisc.toMap("roleTypeId", "BILL_TO_CUSTOMER"), null, false);
                 for (GenericValue billToRole : billToRoles) {
                     if (!(billToRole.getString("partyId").equals(billToCustomerPartyId))) {
                         createInvoiceRoleContext = UtilMisc.toMap("invoiceId", invoiceId, "partyId", billToRole.get("partyId"),
@@ -325,7 +325,7 @@ public class InvoiceServices {
             }
 
             // get a list of the payment method types
-            //DEJ20050705 doesn't appear to be used: List paymentPreferences = orderHeader.getRelated("OrderPaymentPreference");
+            //DEJ20050705 doesn't appear to be used: List paymentPreferences = orderHeader.getRelated("OrderPaymentPreference", null, null, false);
 
             // create the bill-from (or pay-to) contact mech as the primary PAYMENT_LOCATION of the party from the store
             GenericValue payToAddress = null;
@@ -756,7 +756,7 @@ public class InvoiceServices {
             List<GenericValue> orderPaymentPrefs = delegator.findList("OrderPaymentPreference", EntityCondition.makeCondition(paymentPrefConds, EntityOperator.AND), null, null, null, false);
             List<GenericValue> currentPayments = FastList.newInstance();
             for (GenericValue paymentPref : orderPaymentPrefs) {
-                List<GenericValue> payments = paymentPref.getRelated("Payment");
+                List<GenericValue> payments = paymentPref.getRelated("Payment", null, null, false);
                 currentPayments.addAll(payments);
             }
             // apply these payments to the invoice if they have any remaining amount to apply
@@ -1773,9 +1773,9 @@ public class InvoiceServices {
             // get the items of the shipment. They can come from ItemIssuance if the shipment were from a purchase return, ShipmentReceipt if it were from a sales return
             List<GenericValue> shippedItems = null;
             if (salesReturnFound) {
-                shippedItems = shipment.getRelated("ShipmentReceipt");
+                shippedItems = shipment.getRelated("ShipmentReceipt", null, null, false);
             } else if (purchaseReturnFound) {
-                shippedItems = shipment.getRelated("ItemIssuance");
+                shippedItems = shipment.getRelated("ItemIssuance", null, null, false);
             }
             if (shippedItems == null) {
                 Debug.logInfo("No items issued for shipments", module);
@@ -1914,7 +1914,7 @@ public class InvoiceServices {
                     returnItem = item.getRelatedOne("ReturnItem", true);
                 } else if (itemIssuanceFound) {
                     GenericValue shipmentItem = item.getRelatedOne("ShipmentItem", true);
-                    GenericValue returnItemShipment = EntityUtil.getFirst(shipmentItem.getRelated("ReturnItemShipment"));
+                    GenericValue returnItemShipment = EntityUtil.getFirst(shipmentItem.getRelated("ReturnItemShipment", null, null, false));
                     returnItem = returnItemShipment.getRelatedOne("ReturnItem", true);
                 }
                 if (returnItem == null) continue; // Just to prevent NPE
@@ -1989,7 +1989,7 @@ public class InvoiceServices {
                 promisedTotal = promisedTotal.add(promisedAmount).setScale(DECIMALS, ROUNDING);
 
                 // for each adjustment related to this ReturnItem, create a separate invoice item
-                List<GenericValue> adjustments = returnItem.getRelatedCache("ReturnAdjustment");
+                List<GenericValue> adjustments = returnItem.getRelated("ReturnAdjustment", null, null, true);
                 for (GenericValue adjustment : adjustments) {
 
                     if (adjustment.get("amount") == null) {
@@ -3076,7 +3076,7 @@ public class InvoiceServices {
                         // item, if available
                         List<GenericValue> paymentApplications = null;
                         try {
-                            paymentApplications = currentInvoiceItem.getRelated("PaymentApplication");
+                            paymentApplications = currentInvoiceItem.getRelated("PaymentApplication", null, null, false);
                         } catch (GenericEntityException e) {
                             return ServiceUtil.returnError(e.getMessage());
                         }
@@ -3314,7 +3314,7 @@ public class InvoiceServices {
             GenericValue payment = delegator.findOne("Payment", UtilMisc.toMap("paymentId", paymentId), false);
             if (payment == null) throw new GenericServiceException("Payment with ID [" + paymentId  + "] not found!");
 
-            List<GenericValue> paymentApplications = payment.getRelated("PaymentApplication");
+            List<GenericValue> paymentApplications = payment.getRelated("PaymentApplication", null, null, false);
             if (UtilValidate.isEmpty(paymentApplications)) return ServiceUtil.returnSuccess();
 
             // TODO: this is inefficient -- instead use HashSet to construct a distinct Set of invoiceIds, then iterate over it and call checkInvoicePaymentAppls

@@ -394,7 +394,7 @@ public class FinAccountServices {
                             if (!"ITEM_CANCELLED".equals(orderItem.getString("statusId"))) {
 
                                 // make sure the item hasn't already been returned
-                                List<GenericValue> returnItems = orderItem.getRelated("ReturnItem");
+                                List<GenericValue> returnItems = orderItem.getRelated("ReturnItem", null, null, false);
                                 if (UtilValidate.isEmpty(returnItems)) {
                                     BigDecimal txAmt = trans.getBigDecimal("amount");
                                     BigDecimal refAmt = txAmt;
