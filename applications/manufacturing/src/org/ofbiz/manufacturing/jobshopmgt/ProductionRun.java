@@ -168,7 +168,7 @@ public class ProductionRun {
                     List<GenericValue> productionRunProducts = productionRun.getRelated("WorkEffortGoodStandard", UtilMisc.toMap("workEffortGoodStdTypeId", "PRUN_PROD_DELIV"), null);
                     this.productionRunProduct = EntityUtil.getFirst(productionRunProducts);
                     quantity = productionRunProduct.getBigDecimal("estimatedQuantity");
-                    productProduced = productionRunProduct.getRelatedOneCache("Product");
+                    productProduced = productionRunProduct.getRelatedOne("Product", true);
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e.getMessage(), module);
                 }
@@ -309,7 +309,7 @@ public class ProductionRun {
         if (exist()) {
             if (currentStatus == null) {
                 try {
-                    currentStatus = productionRun.getRelatedOneCache("StatusItem");
+                    currentStatus = productionRun.getRelatedOne("StatusItem", true);
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e.getMessage(), module);
                 }
@@ -413,7 +413,7 @@ public class ProductionRun {
         if (task.get("estimateCalcMethod") != null) {
             String serviceName = null;
             try {
-                GenericValue genericService = task.getRelatedOne("CustomMethod");
+                GenericValue genericService = task.getRelatedOne("CustomMethod", false);
                 if (genericService != null && genericService.getString("customMethodName") != null) {
                     serviceName = genericService.getString("customMethodName");
                     // call the service

@@ -61,7 +61,7 @@ public class ProductionRunHelper {
                 if (productionRun != null) {
                     List<GenericValue> productionRunProducts = productionRun.getRelated("WorkEffortGoodStandard", UtilMisc.toMap("workEffortGoodStdTypeId", "PRUN_PROD_DELIV"),null);
                     GenericValue productionRunProduct = EntityUtil.getFirst(productionRunProducts);
-                    GenericValue productProduced = productionRunProduct.getRelatedOneCache("Product");
+                    GenericValue productProduced = productionRunProduct.getRelatedOne("Product", true);
                     List<GenericValue> productionRunComponents = productionRun.getRelated("WorkEffortGoodStandard", UtilMisc.toMap("workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED"),null);
                     List<GenericValue> productionRunRoutingTasks = productionRun.getRelated("FromWorkEffortAssoc",UtilMisc.toMap("workEffortTypeId","PROD_ORDER_TASK"),null);
                     result.put("productionRunProduct", productionRunProduct);

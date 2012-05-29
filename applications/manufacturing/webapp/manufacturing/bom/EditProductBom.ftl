@@ -126,7 +126,7 @@ function lookupBom() {
             </td>
           </tr>
     <#else>
-        <#assign curProductAssocType = productAssoc.getRelatedOneCache("ProductAssocType")>
+        <#assign curProductAssocType = productAssoc.getRelatedOne("ProductAssocType", true)>
         <input type="hidden" name="UPDATE_MODE" value="UPDATE"/>
         <input type="hidden" name="productId" value="${productId?if_exists}"/>
         <input type="hidden" name="productIdTo" value="${productIdTo?if_exists}"/>
@@ -259,8 +259,8 @@ function lookupBom() {
       </tr>
     <#assign alt_row = false>
     <#list assocFromProducts?if_exists as assocFromProduct>
-    <#assign listToProduct = assocFromProduct.getRelatedOneCache("AssocProduct")>
-    <#assign curProductAssocType = assocFromProduct.getRelatedOneCache("ProductAssocType")>
+    <#assign listToProduct = assocFromProduct.getRelatedOne("AssocProduct", true)>
+    <#assign curProductAssocType = assocFromProduct.getRelatedOne("ProductAssocType", true)>
       <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
         <td><a href="<@ofbizUrl>EditProductBom?productId=${(assocFromProduct.productIdTo)?if_exists}&amp;productAssocTypeId=${(assocFromProduct.productAssocTypeId)?if_exists}#components</@ofbizUrl>" class="buttontext">${(assocFromProduct.productIdTo)?if_exists}</a></td>
         <td><#if listToProduct?exists><a href="<@ofbizUrl>EditProductBom?productId=${(assocFromProduct.productIdTo)?if_exists}&amp;productAssocTypeId=${(assocFromProduct.productAssocTypeId)?if_exists}#components</@ofbizUrl>" class="buttontext">${(listToProduct.internalName)?if_exists}</a></#if>&nbsp;</td>
@@ -305,8 +305,8 @@ function lookupBom() {
         </tr>
         <#assign alt_row = false>
         <#list assocToProducts?if_exists as assocToProduct>
-        <#assign listToProduct = assocToProduct.getRelatedOneCache("MainProduct")>
-        <#assign curProductAssocType = assocToProduct.getRelatedOneCache("ProductAssocType")>
+        <#assign listToProduct = assocToProduct.getRelatedOne("MainProduct", true)>
+        <#assign curProductAssocType = assocToProduct.getRelatedOne("ProductAssocType", true)>
         <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
             <td><a href="<@ofbizUrl>EditProductBom?productId=${(assocToProduct.productId)?if_exists}&amp;productAssocTypeId=${(assocToProduct.productAssocTypeId)?if_exists}#components</@ofbizUrl>" class="buttontext">${(assocToProduct.productId)?if_exists}</a></td>
 <!--                <td><#if listToProduct?exists><a href="<@ofbizUrl>EditProduct?productId=${(assocToProduct.productId)?if_exists}</@ofbizUrl>" class="buttontext">${(listToProduct.internalName)?if_exists}</a></#if></td> -->

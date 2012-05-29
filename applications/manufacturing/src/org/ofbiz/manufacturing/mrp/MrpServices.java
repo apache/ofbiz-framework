@@ -272,7 +272,7 @@ public class MrpServices {
             OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
             BigDecimal shippedQuantity = null;
             try {
-                shippedQuantity = orh.getItemShippedQuantity(genericResult.getRelatedOne("OrderItem"));
+                shippedQuantity = orh.getItemShippedQuantity(genericResult.getRelatedOne("OrderItem", false));
             } catch (GenericEntityException e) {
             }
             if (UtilValidate.isNotEmpty(shippedQuantity)) {
@@ -600,7 +600,7 @@ public class MrpServices {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpFacilityGroupIsNotAssociatedToFacility", UtilMisc.toMap("facilityGroupId", facilityGroupId), locale));
                 }
                 for(GenericValue facilityMember : facilities) {
-                    GenericValue facility = facilityMember.getRelatedOne("Facility");
+                    GenericValue facility = facilityMember.getRelatedOne("Facility", false);
                     if ("WAREHOUSE".equals(facility.getString("facilityTypeId")) && UtilValidate.isEmpty(facilityId)) {
                         facilityId = facility.getString("facilityId");
                     }
@@ -680,7 +680,7 @@ public class MrpServices {
                         BigDecimal positiveEventQuantity = eventQuantity.compareTo(BigDecimal.ZERO) > 0 ? eventQuantity: eventQuantity.negate();
                         // It's a new product, so it's necessary to  read the MrpQoh
                         try {
-                            product = inventoryEventForMRP.getRelatedOneCache("Product");
+                            product = inventoryEventForMRP.getRelatedOne("Product", true);
                             productFacility = EntityUtil.getFirst(product.getRelatedByAndCache("ProductFacility", UtilMisc.toMap("facilityId", facilityId)));
                         } catch (GenericEntityException e) {
                             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpCannotFindProductForEvent", locale));

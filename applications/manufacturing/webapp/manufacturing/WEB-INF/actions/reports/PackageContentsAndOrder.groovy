@@ -40,7 +40,7 @@ if (packageContents) {
         orderShipments = delegator.findByAnd("OrderShipment", [shipmentId : shipmentId, shipmentItemSeqId : packageContent.shipmentItemSeqId], null, false);
         orderShipment = EntityUtil.getFirst(orderShipments);
         orderItem = delegator.findOne("OrderItem", [orderId : orderShipment.orderId, orderItemSeqId : orderShipment.orderItemSeqId], false);
-        product = orderItem.getRelatedOne("Product");
+        product = orderItem.getRelatedOne("Product", false);
         // verify if the product is a member of the given category (based on the report's parameter)
         if (productCategoryIdPar) {
             if (!isProductInCategory(delegator, product.productId, productCategoryIdPar)) {

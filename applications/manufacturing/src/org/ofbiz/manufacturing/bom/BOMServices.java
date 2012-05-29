@@ -596,7 +596,7 @@ public class BOMServices {
                     GenericValue orderItem = orderReadHelper.getOrderItem(orderShipment.getString("orderItemSeqId"));
                     GenericValue product = null;
                     try {
-                        product = orderItem.getRelatedOne("Product");
+                        product = orderItem.getRelatedOne("Product", false);
                     } catch (GenericEntityException e) {
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingPackageConfiguratorError", locale));
                     }
@@ -650,7 +650,7 @@ public class BOMServices {
                         // single package
                         GenericValue orderItem = orderReadHelper.getOrderItem(orderShipment.getString("orderItemSeqId"));
                         try {
-                            product = orderItem.getRelatedOne("Product");
+                            product = orderItem.getRelatedOne("Product", false);
                         } catch (GenericEntityException e) {
                             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingPackageConfiguratorError", locale));
                         }

@@ -148,7 +148,7 @@ document.lookupinventory.productId.focus();
         <#assign count = lowIndex>
         <#assign productTmp = "">
         <#list inventoryList[lowIndex..highIndex-1] as inven>
-            <#assign product = inven.getRelatedOne("Product")>
+            <#assign product = inven.getRelatedOne("Product", false)>
             <#if facilityId?exists && facilityId?has_content>
             </#if>
             <#if ! product.equals( productTmp )>
@@ -208,7 +208,7 @@ document.lookupinventory.productId.focus();
             </#if>
             <#assign quantityAvailableAtDate = quantityAvailableAtDate?default(0) + inven.getBigDecimal("quantity")>
             <#assign productTmp = product>
-            <#assign MrpEventType = inven.getRelatedOne("MrpEventType")>
+            <#assign MrpEventType = inven.getRelatedOne("MrpEventType", false)>
             <tr class="${rowClass}">
               <td>${MrpEventType.get("description",locale)}</td>
               <td>&nbsp;</td>

@@ -35,7 +35,7 @@ if (shipment) {
                 productionRunProduct = [:];
                 productionRunProducts = delegator.findByAnd("WorkEffortGoodStandard", [workEffortId : productionRun.workEffortId , workEffortGoodStdTypeId : "PRUN_PROD_DELIV", statusId : "WEGS_CREATED"], null, false);
                 if (productionRunProducts) {
-                    productionRunProduct = ((GenericValue)productionRunProducts.get(0)).getRelatedOne("Product");
+                    productionRunProduct = ((GenericValue)productionRunProducts.get(0)).getRelatedOne("Product", false);
                 }
                 tasks = delegator.findByAnd("WorkEffort", [workEffortParentId : productionRun.workEffortId, workEffortTypeId : "PROD_ORDER_TASK"], null, false);
                 tasks.each { task ->
