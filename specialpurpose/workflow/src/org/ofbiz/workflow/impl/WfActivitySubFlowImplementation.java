@@ -44,7 +44,7 @@ public class WfActivitySubFlowImplementation extends WfActivityAbstractImplement
     public void run() throws WfException {
         GenericValue subFlow = null;
         try {
-            subFlow = getActivity().getDefinitionObject().getRelatedOne("WorkflowActivitySubFlow");
+            subFlow = getActivity().getDefinitionObject().getRelatedOne("WorkflowActivitySubFlow", false);
         } catch (GenericEntityException e) {
             throw new WfException(e.getMessage(), e);
         }

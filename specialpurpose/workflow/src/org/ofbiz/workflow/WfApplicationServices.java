@@ -239,7 +239,7 @@ public class WfApplicationServices {
         try {
             GenericValue application =
                 delegator.findOne("ApplicationSandbox", UtilMisc.toMap("applicationId", applicationId), false);
-            return application.getRelatedOne("RuntimeData");
+            return application.getRelatedOne("RuntimeData", false);
         } catch (GenericEntityException ee) {
             throw new GenericServiceException(ee.getMessage(), ee);
         }

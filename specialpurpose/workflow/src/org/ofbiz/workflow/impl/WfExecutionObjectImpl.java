@@ -226,7 +226,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
         String stateStr = null;
 
         try {
-            statusObj = getRuntimeObject().getRelatedOne("CurrentStatusItem");
+            statusObj = getRuntimeObject().getRelatedOne("CurrentStatusItem", false);
         } catch (GenericEntityException e) {
             throw new WfException(e.getMessage(), e);
         }
@@ -568,7 +568,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
                 dataObject.set("runtimeDataId", seqId);
                 dataObject.store();
             } else {
-                runtimeData = dataObject.getRelatedOne("RuntimeData");
+                runtimeData = dataObject.getRelatedOne("RuntimeData", false);
             }
             // String serialized = XmlSerializer.serialize(value);
             // System.out.println(serialized);
@@ -603,7 +603,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
         if (dataObject.get("runtimeDataId") == null)
             return context;
         try {
-            GenericValue runtimeData = dataObject.getRelatedOne("RuntimeData");
+            GenericValue runtimeData = dataObject.getRelatedOne("RuntimeData", false);
 
             contextXML = runtimeData.getString("runtimeInfo");
         } catch (GenericEntityException e) {
