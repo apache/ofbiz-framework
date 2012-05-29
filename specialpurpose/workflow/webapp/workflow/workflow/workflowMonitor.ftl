@@ -69,7 +69,7 @@ under the License.
             <td>${uiLabelMap.WorkflowWorkflowAssignments}</td>
           </tr>
           <#list activities as step>
-            <#assign assignments = step.getRelated("WorkEffortPartyAssignment")>
+            <#assign assignments = step.getRelated("WorkEffortPartyAssignment", null, null, false)>
             <#assign assignments = EntityUtil.filterByDate(assignments)>
             <tr>
               <#-- TODO: add external login ID to external links -->

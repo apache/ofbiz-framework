@@ -50,7 +50,7 @@ public class WfActivityToolImplementation extends WfActivityAbstractImplementati
         List<GenericValue> tools = null;
         String allParams = "";
         try {
-            tools = getActivity().getDefinitionObject().getRelated("WorkflowActivityTool");
+            tools = getActivity().getDefinitionObject().getRelated("WorkflowActivityTool", null, null, false);
         } catch (GenericEntityException e) {
             throw new WfException(e.getMessage(), e);
         }
