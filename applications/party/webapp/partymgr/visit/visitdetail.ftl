@@ -123,7 +123,7 @@ under the License.
         <#assign alt_row = false>
         <#if serverHits?has_content>
         <#list serverHits[lowIndex..highIndex-1] as hit>
-          <#assign serverHitType = hit.getRelatedOne("ServerHitType")?if_exists>
+          <#assign serverHitType = hit.getRelatedOne("ServerHitType", false)?if_exists>
           <tr<#if alt_row> class="alternate-row"</#if>>
             <td>${hit.contentId?if_exists}</td>
             <td>${serverHitType.get("description",locale)?if_exists}</td>

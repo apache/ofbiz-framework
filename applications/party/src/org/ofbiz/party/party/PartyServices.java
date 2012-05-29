@@ -379,7 +379,7 @@ public class PartyServices {
             }
 
             if (party != null) {
-                GenericValue partyType = party.getRelatedOneCache("PartyType");
+                GenericValue partyType = party.getRelatedOne("PartyType", true);
 
                 if (!EntityTypeUtil.isType(partyType, partyGroupPartyType)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 

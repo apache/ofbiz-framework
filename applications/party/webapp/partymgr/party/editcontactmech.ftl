@@ -65,7 +65,7 @@ under the License.
             <table class="basic-table" cellspacing="0">
               <#if mechMap.partyContactMechPurposes?has_content>
                 <#list mechMap.partyContactMechPurposes as partyContactMechPurpose>
-                  <#assign contactMechPurposeType = partyContactMechPurpose.getRelatedOneCache("ContactMechPurposeType")>
+                  <#assign contactMechPurposeType = partyContactMechPurpose.getRelatedOne("ContactMechPurposeType", true)>
                   <tr>
                     <td>
                       <#if contactMechPurposeType?has_content>

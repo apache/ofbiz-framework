@@ -123,7 +123,7 @@ public class PartyWorker {
         GenericValue pcm = findPartyLatestContactMech(partyId, "POSTAL_ADDRESS", delegator);
         if (pcm != null) {
             try {
-                return pcm.getRelatedOne("PostalAddress");
+                return pcm.getRelatedOne("PostalAddress", false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error while finding latest PostalAddress for party with ID [" + partyId + "]: " + e.toString(), module);
             }
@@ -135,7 +135,7 @@ public class PartyWorker {
         GenericValue latestPostalAddress = findPartyLatestPostalAddress(partyId, delegator);
         if (latestPostalAddress  != null) {
             try {
-                GenericValue latestGeoPoint =  latestPostalAddress.getRelatedOne("GeoPoint");
+                GenericValue latestGeoPoint =  latestPostalAddress.getRelatedOne("GeoPoint", false);
                 if (latestGeoPoint  != null) {
                     return latestGeoPoint;
                 }
@@ -151,7 +151,7 @@ public class PartyWorker {
         GenericValue pcm = findPartyLatestContactMech(partyId, "TELECOM_NUMBER", delegator);
         if (pcm != null) {
             try {
-                return pcm.getRelatedOne("TelecomNumber");
+                return pcm.getRelatedOne("TelecomNumber", false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error while finding latest TelecomNumber for party with ID [" + partyId + "]: " + e.toString(), module);
             }
