@@ -319,13 +319,13 @@ function toggleOrderIdList() {
                 <td align='left'>
                   <select name="shipmentMethod">
                     <#if currentCarrierShipmentMethod?has_content>
-                      <#assign currentShipmentMethodType = currentCarrierShipmentMethod.getRelatedOne("ShipmentMethodType")>
+                      <#assign currentShipmentMethodType = currentCarrierShipmentMethod.getRelatedOne("ShipmentMethodType", false)>
                       <option value="${currentCarrierShipmentMethod.partyId}@${currentCarrierShipmentMethod.shipmentMethodTypeId}">${currentCarrierShipmentMethod.partyId?if_exists} ${currentShipmentMethodType.description?if_exists}</option>
                       <option value="${currentCarrierShipmentMethod.partyId}@${currentCarrierShipmentMethod.shipmentMethodTypeId}">---</option>
                     </#if>
                     <option value="">${uiLabelMap.OrderSelectShippingMethod}</option>
                     <#list carrierShipmentMethods as carrierShipmentMethod>
-                      <#assign shipmentMethodType = carrierShipmentMethod.getRelatedOne("ShipmentMethodType")>
+                      <#assign shipmentMethodType = carrierShipmentMethod.getRelatedOne("ShipmentMethodType", false)>
                       <option value="${carrierShipmentMethod.partyId}@${carrierShipmentMethod.shipmentMethodTypeId}">${carrierShipmentMethod.partyId?if_exists} ${shipmentMethodType.description?if_exists}</option>
                     </#list>
                   </select>
@@ -587,8 +587,8 @@ document.lookuporder.orderId.focus();
           <#assign alt_row = false>
           <#list orderList as orderHeader>
             <#assign orh = Static["org.ofbiz.order.order.OrderReadHelper"].getHelper(orderHeader)>
-            <#assign statusItem = orderHeader.getRelatedOneCache("StatusItem")>
-            <#assign orderType = orderHeader.getRelatedOneCache("OrderType")>
+            <#assign statusItem = orderHeader.getRelatedOne("StatusItem", true)>
+            <#assign orderType = orderHeader.getRelatedOne("OrderType", true)>
             <#if orderType.orderTypeId == "PURCHASE_ORDER">
               <#assign displayParty = orh.getSupplierAgent()?if_exists>
             <#else>

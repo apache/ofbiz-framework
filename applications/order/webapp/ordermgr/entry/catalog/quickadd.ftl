@@ -65,7 +65,7 @@ under the License.
     </div>
     <div class="quickaddtable">
       <#list productCategoryMembers as productCategoryMember>
-        <#assign product = productCategoryMember.getRelatedOneCache("Product")>
+        <#assign product = productCategoryMember.getRelatedOne("Product", true)>
         <p>
             ${setRequestAttribute("optProductId", productCategoryMember.productId)}
             ${screens.render(quickaddsummaryScreen)}

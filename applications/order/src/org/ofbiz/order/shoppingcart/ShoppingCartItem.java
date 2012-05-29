@@ -910,7 +910,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         // find the fixed asset itself
         GenericValue fixedAsset = null;
         try {
-            fixedAsset = fixedAssetProduct.getRelatedOne("FixedAsset");
+            fixedAsset = fixedAssetProduct.getRelatedOne("FixedAsset", false);
         } catch (GenericEntityException e) {
             Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("fixedAssetId", fixedAssetProduct.getString("fixedAssetId"));
             String msg = UtilProperties.getMessage(resource_error, "item.fixed_Asset_not_found", messageMap , cart.getLocale());
@@ -927,7 +927,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         // DEJ20050725 this isn't being used anywhere, commenting out for now and not assigning from the getRelatedOne: GenericValue techDataCalendar = null;
         GenericValue techDataCalendar = null;
         try {
-            techDataCalendar = fixedAsset.getRelatedOne("TechDataCalendar");
+            techDataCalendar = fixedAsset.getRelatedOne("TechDataCalendar", false);
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
         }

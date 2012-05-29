@@ -18,8 +18,8 @@ under the License.
 -->
 <#escape x as x?xml>
 <#macro displayReturnAdjustment returnAdjustment>
-    <#assign returnHeader = returnAdjustment.getRelatedOne("ReturnHeader")>
-    <#assign adjReturnType = returnAdjustment.getRelatedOne("ReturnType")?if_exists>
+    <#assign returnHeader = returnAdjustment.getRelatedOne("ReturnHeader", false)>
+    <#assign adjReturnType = returnAdjustment.getRelatedOne("ReturnType", false)?if_exists>
     <fo:table-row>
     <fo:table-cell><fo:block></fo:block></fo:table-cell>
     <fo:table-cell><fo:block></fo:block></fo:table-cell>
@@ -67,11 +67,11 @@ under the License.
                 </fo:table-cell>
                 <fo:table-cell padding="1mm" font-size="8pt">
                   <fo:block>
-                    <#if returnItem.orderItemSeqId?exists>${returnItem.getRelatedOne("OrderItem").getString("productId")}</#if>
+                    <#if returnItem.orderItemSeqId?exists>${returnItem.getRelatedOne("OrderItem", false).getString("productId")}</#if>
                   </fo:block>
                 </fo:table-cell>
                 <fo:table-cell padding="1mm"><fo:block wrap-option="wrap">${returnItem.description?if_exists}</fo:block></fo:table-cell>
-                <fo:table-cell padding="1mm" font-size="8pt"><fo:block><#if returnItem.returnReasonId?exists>${(returnItem.getRelatedOne("ReturnReason")).get("description",locale)?default(returnItem.returnReasonId)}</#if></fo:block></fo:table-cell>
+                <fo:table-cell padding="1mm" font-size="8pt"><fo:block><#if returnItem.returnReasonId?exists>${(returnItem.getRelatedOne("ReturnReason", false)).get("description",locale)?default(returnItem.returnReasonId)}</#if></fo:block></fo:table-cell>
                 <fo:table-cell padding="1mm" text-align="right"><fo:block>${returnItem.returnQuantity}</fo:block></fo:table-cell>
                 <fo:table-cell padding="1mm" text-align="right"><fo:block><@ofbizCurrency amount=returnItem.returnPrice isoCode=returnHeader.currencyUomId/></fo:block></fo:table-cell>
                 <fo:table-cell padding="1mm" text-align="right"><fo:block><@ofbizCurrency amount=(returnItem.returnPrice * returnItem.returnQuantity) isoCode=returnHeader.currencyUomId/></fo:block></fo:table-cell>

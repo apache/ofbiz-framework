@@ -18,8 +18,8 @@ under the License.
 -->
 
 <#macro displayReturnAdjustment returnAdjustment adjEditable>
-    <#assign returnHeader = returnAdjustment.getRelatedOne("ReturnHeader")>
-    <#assign adjReturnType = returnAdjustment.getRelatedOne("ReturnType")?if_exists>
+    <#assign returnHeader = returnAdjustment.getRelatedOne("ReturnHeader", false)>
+    <#assign adjReturnType = returnAdjustment.getRelatedOne("ReturnType", false)?if_exists>
     <#if (adjEditable)>
         <input type="hidden" name="_rowSubmit_o_${rowCount}" value="Y" />
         <input type="hidden" name="returnAdjustmentId_o_${rowCount}" value="${returnAdjustment.returnAdjustmentId}" />
@@ -142,11 +142,11 @@ under the License.
           <#if returnItems?has_content>
             <#assign alt_row = false>
             <#list returnItems as item>
-              <#assign orderItem = item.getRelatedOne("OrderItem")?if_exists>
-              <#assign orderHeader = item.getRelatedOne("OrderHeader")?if_exists>
-              <#assign returnReason = item.getRelatedOne("ReturnReason")?if_exists>
-              <#assign returnType = item.getRelatedOne("ReturnType")?if_exists>
-              <#assign status = item.getRelatedOne("InventoryStatusItem")?if_exists>
+              <#assign orderItem = item.getRelatedOne("OrderItem", false)?if_exists>
+              <#assign orderHeader = item.getRelatedOne("OrderHeader", false)?if_exists>
+              <#assign returnReason = item.getRelatedOne("ReturnReason", false)?if_exists>
+              <#assign returnType = item.getRelatedOne("ReturnType", false)?if_exists>
+              <#assign status = item.getRelatedOne("InventoryStatusItem", false)?if_exists>
               <#assign shipmentReceipts = item.getRelated("ShipmentReceipt")?if_exists>
               <#if (item.get("returnQuantity")?exists && item.get("returnPrice")?exists)>
                  <#assign returnTotal = returnTotal + item.get("returnQuantity") * item.get("returnPrice") >
@@ -249,7 +249,7 @@ under the License.
                 <#if (readOnly)>
                   <td>
                   <#if returnHeader.statusId == "RETURN_COMPLETED" || returnHeader.statusId == "SUP_RETURN_COMPLETED">
-                    <#assign itemResp = item.getRelatedOne("ReturnItemResponse")?if_exists>
+                    <#assign itemResp = item.getRelatedOne("ReturnItemResponse", false)?if_exists>
                     <#if itemResp?has_content>
                       <#if itemResp.paymentId?has_content>
                         <div>${uiLabelMap.AccountingPayment} ${uiLabelMap.CommonNbr}<a href="/accounting/control/paymentOverview?paymentId=${itemResp.paymentId}${externalKeyParam}" class="buttontext">${itemResp.paymentId}</a></div>

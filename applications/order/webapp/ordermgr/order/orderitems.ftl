@@ -49,7 +49,7 @@ under the License.
                         <#assign orderItemShipGrpInvResList = orderReadHelper.getOrderItemShipGrpInvResList(orderItem)>
                         <#if orderHeader.orderTypeId == "SALES_ORDER"><#assign pickedQty = orderReadHelper.getItemPickedQuantityBd(orderItem)></#if>
                         <tr<#if itemClass == "1"> class="alternate-row"</#if>>
-                            <#assign orderItemType = orderItem.getRelatedOne("OrderItemType")?if_exists>
+                            <#assign orderItemType = orderItem.getRelatedOne("OrderItemType", false)?if_exists>
                             <#assign productId = orderItem.productId?if_exists>
                             <#if productId?exists && productId == "shoppingcart.CommentLine">
                                 <td colspan="7" valign="top" class="label"> &gt;&gt; ${orderItem.itemDescription}</td>
@@ -103,7 +103,7 @@ under the License.
                             <#else>
                                 <td valign="top">
                                     <#if productId?has_content>
-                                        <#assign product = orderItem.getRelatedOneCache("Product")>
+                                        <#assign product = orderItem.getRelatedOne("Product", true)>
                                     </#if>
                                     <#if productId?exists>
                                         <#-- INVENTORY -->
@@ -180,7 +180,7 @@ under the License.
                                     </#if>
                                 </td>
                                 <#-- now show status details per line item -->
-                                <#assign currentItemStatus = orderItem.getRelatedOne("StatusItem")>
+                                <#assign currentItemStatus = orderItem.getRelatedOne("StatusItem", false)>
                                 <td colspan="1" valign="top">
                                     <div class="screenlet order-item-status-list<#if currentItemStatus.statusCode?has_content> ${currentItemStatus.statusCode}</#if>">
                                         <div class="screenlet-body">
@@ -199,7 +199,7 @@ under the License.
                                             </#if>
                                             <#assign orderItemStatuses = orderReadHelper.getOrderItemStatuses(orderItem)>
                                             <#list orderItemStatuses as orderItemStatus>
-                                                <#assign loopStatusItem = orderItemStatus.getRelatedOne("StatusItem")>
+                                                <#assign loopStatusItem = orderItemStatus.getRelatedOne("StatusItem", false)>
                                                 <#if orderItemStatus.statusDatetime?has_content>${Static["org.ofbiz.base.util.UtilFormatOut"].formatDateTime(orderItemStatus.statusDatetime, "", locale, timeZone)!}&nbsp;&nbsp;</#if>${loopStatusItem.get("description",locale)?default(orderItemStatus.statusId)}
                                             </#list>
                                         </div>
@@ -207,7 +207,7 @@ under the License.
                                     <#assign returns = orderItem.getRelated("ReturnItem")?if_exists>
                                     <#if returns?has_content>
                                         <#list returns as returnItem>
-                                            <#assign returnHeader = returnItem.getRelatedOne("ReturnHeader")>
+                                            <#assign returnHeader = returnItem.getRelatedOne("ReturnHeader", false)>
                                             <#if returnHeader.statusId != "RETURN_CANCELLED">
                                                 <font color="red">${uiLabelMap.OrderReturned}</font>
                                                 ${uiLabelMap.CommonNbr}<a href="<@ofbizUrl>returnMain?returnId=${returnItem.returnId}</@ofbizUrl>" class="buttontext">${returnItem.returnId}</a>
@@ -321,7 +321,7 @@ under the License.
                         <#assign workOrderItemFulfillments = orderItem.getRelated("WorkOrderItemFulfillment")?if_exists>
                         <#if workOrderItemFulfillments?has_content>
                             <#list workOrderItemFulfillments as workOrderItemFulfillment>
-                                <#assign workEffort = workOrderItemFulfillment.getRelatedOneCache("WorkEffort")>
+                                <#assign workEffort = workOrderItemFulfillment.getRelatedOne("WorkEffort", true)>
                                 <tr<#if itemClass == "1"> class="alternate-row"</#if>>
                                     <td>&nbsp;</td>
                                     <td colspan="6">
@@ -349,9 +349,9 @@ under the License.
                             <#list linkedOrderItemsTo as linkedOrderItem>
                                 <#assign linkedOrderId = linkedOrderItem.toOrderId>
                                 <#assign linkedOrderItemSeqId = linkedOrderItem.toOrderItemSeqId>
-                                <#assign linkedOrderItemValue = linkedOrderItem.getRelatedOne("ToOrderItem")>
-                                <#assign linkedOrderItemValueStatus = linkedOrderItemValue.getRelatedOne("StatusItem")>
-                                <#assign description = linkedOrderItem.getRelatedOne("OrderItemAssocType").getString("description")/>
+                                <#assign linkedOrderItemValue = linkedOrderItem.getRelatedOne("ToOrderItem", false)>
+                                <#assign linkedOrderItemValueStatus = linkedOrderItemValue.getRelatedOne("StatusItem", false)>
+                                <#assign description = linkedOrderItem.getRelatedOne("OrderItemAssocType", false).getString("description")/>
                                 <tr<#if itemClass == "1"> class="alternate-row"</#if>>
                                     <td>&nbsp;</td>
                                     <td colspan="6">
@@ -366,9 +366,9 @@ under the License.
                             <#list linkedOrderItemsFrom as linkedOrderItem>
                                 <#assign linkedOrderId = linkedOrderItem.orderId>
                                 <#assign linkedOrderItemSeqId = linkedOrderItem.orderItemSeqId>
-                                <#assign linkedOrderItemValue = linkedOrderItem.getRelatedOne("FromOrderItem")>
-                                <#assign linkedOrderItemValueStatus = linkedOrderItemValue.getRelatedOne("StatusItem")>
-                                <#assign description = linkedOrderItem.getRelatedOne("OrderItemAssocType").getString("description")/>
+                                <#assign linkedOrderItemValue = linkedOrderItem.getRelatedOne("FromOrderItem", false)>
+                                <#assign linkedOrderItemValueStatus = linkedOrderItemValue.getRelatedOne("StatusItem", false)>
+                                <#assign description = linkedOrderItem.getRelatedOne("OrderItemAssocType", false).getString("description")/>
                                 <tr<#if itemClass == "1"> class="alternate-row"</#if>>
                                     <td>&nbsp;</td>
                                     <td colspan="6">
@@ -394,7 +394,7 @@ under the License.
                             </#list>
                         </#if>
                         <#-- show linked quote -->
-                        <#assign linkedQuote = orderItem.getRelatedOneCache("QuoteItem")?if_exists>
+                        <#assign linkedQuote = orderItem.getRelatedOne("QuoteItem", true)?if_exists>
                         <#if linkedQuote?has_content>
                             <tr<#if itemClass == "1"> class="alternate-row"</#if>>
                                 <td>&nbsp;</td>
@@ -409,7 +409,7 @@ under the License.
                         <#assign orderItemAdjustments = Static["org.ofbiz.order.order.OrderReadHelper"].getOrderItemAdjustmentList(orderItem, orderAdjustments)>
                         <#if orderItemAdjustments?exists && orderItemAdjustments?has_content>
                             <#list orderItemAdjustments as orderItemAdjustment>
-                                <#assign adjustmentType = orderItemAdjustment.getRelatedOneCache("OrderAdjustmentType")>
+                                <#assign adjustmentType = orderItemAdjustment.getRelatedOne("OrderAdjustmentType", true)>
                                 <tr<#if itemClass == "1"> class="alternate-row"</#if>>
                                     <td align="right" colspan="2">
                                         <span class="label">${uiLabelMap.OrderAdjustment}</span>&nbsp;${adjustmentType.get("description",locale)}
@@ -419,16 +419,16 @@ under the License.
                                         </#if>
                                         <#if orderItemAdjustment.productPromoId?has_content>
                                             <a href="/catalog/control/EditProductPromo?productPromoId=${orderItemAdjustment.productPromoId}&amp;externalLoginKey=${externalLoginKey}"
-                                                >${orderItemAdjustment.getRelatedOne("ProductPromo").getString("promoName")}</a>
+                                                >${orderItemAdjustment.getRelatedOne("ProductPromo", false).getString("promoName")}</a>
                                         </#if>
                                         <#if orderItemAdjustment.orderAdjustmentTypeId == "SALES_TAX">
                                             <#if orderItemAdjustment.primaryGeoId?has_content>
-                                                <#assign primaryGeo = orderItemAdjustment.getRelatedOneCache("PrimaryGeo")/>
+                                                <#assign primaryGeo = orderItemAdjustment.getRelatedOne("PrimaryGeo", true)/>
                                                 <#if primaryGeo.geoName?has_content>
                                                     <span class="label">${uiLabelMap.OrderJurisdiction}</span>&nbsp;${primaryGeo.geoName} [${primaryGeo.abbreviation?if_exists}]
                                                 </#if>
                                                 <#if orderItemAdjustment.secondaryGeoId?has_content>
-                                                    <#assign secondaryGeo = orderItemAdjustment.getRelatedOneCache("SecondaryGeo")/>
+                                                    <#assign secondaryGeo = orderItemAdjustment.getRelatedOne("SecondaryGeo", true)/>
                                                     <span class="label">${uiLabelMap.CommonIn}</span>&nbsp;${secondaryGeo.geoName} [${secondaryGeo.abbreviation?if_exists}])
                                                 </#if>
                                             </#if>
@@ -523,8 +523,8 @@ under the License.
                         <#assign orderItemShipGroupAssocs = orderItem.getRelated("OrderItemShipGroupAssoc")?if_exists>
                         <#if orderItemShipGroupAssocs?has_content>
                             <#list orderItemShipGroupAssocs as shipGroupAssoc>
-                                <#assign shipGroup = shipGroupAssoc.getRelatedOne("OrderItemShipGroup")>
-                                <#assign shipGroupAddress = shipGroup.getRelatedOne("PostalAddress")?if_exists>
+                                <#assign shipGroup = shipGroupAssoc.getRelatedOne("OrderItemShipGroup", false)>
+                                <#assign shipGroupAddress = shipGroup.getRelatedOne("PostalAddress", false)?if_exists>
                                 <tr<#if itemClass == "1"> class="alternate-row"</#if>>
                                     <td align="right" colspan="2">
                                         <span class="label">${uiLabelMap.OrderShipGroup}</span>&nbsp;[${shipGroup.shipGroupSeqId}]
@@ -609,7 +609,7 @@ under the License.
                                 <tr<#if itemClass == "1"> class="alternate-row"</#if>>
                                     <td align="right" colspan="2">
                                         <#if itemIssuance.inventoryItemId?has_content>
-                                            <#assign inventoryItem = itemIssuance.getRelatedOne("InventoryItem")/>
+                                            <#assign inventoryItem = itemIssuance.getRelatedOne("InventoryItem", false)/>
                                             <span class="label">${uiLabelMap.CommonInventory}</span>
                                             <a href="/facility/control/EditInventoryItem?inventoryItemId=${itemIssuance.inventoryItemId}&amp;externalLoginKey=${externalLoginKey}"
                                                class="buttontext">${itemIssuance.inventoryItemId}</a>
@@ -660,7 +660,7 @@ under the License.
                 </#if>
                 <tr><td colspan="7"><hr /></td></tr>
                 <#list orderHeaderAdjustments as orderHeaderAdjustment>
-                    <#assign adjustmentType = orderHeaderAdjustment.getRelatedOne("OrderAdjustmentType")>
+                    <#assign adjustmentType = orderHeaderAdjustment.getRelatedOne("OrderAdjustmentType", false)>
                     <#assign adjustmentAmount = Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(orderHeaderAdjustment, orderSubTotal)>
                     <#if adjustmentAmount != 0>
                         <tr>

@@ -23,7 +23,7 @@ under the License.
             <#if orderHeader.externalId?has_content>
                <#assign externalOrder = "(" + orderHeader.externalId + ")"/>
             </#if>
-            <#assign orderType = orderHeader.getRelatedOne("OrderType")/>
+            <#assign orderType = orderHeader.getRelatedOne("OrderType", false)/>
             <li class="h3">&nbsp;${orderType?if_exists.get("description", locale)?default(uiLabelMap.OrderOrder)}&nbsp;${uiLabelMap.CommonNbr}&nbsp;<a href="<@ofbizUrl>orderview?orderId=${orderId}</@ofbizUrl>">${orderId}</a> ${externalOrder?if_exists} [&nbsp;<a href="<@ofbizUrl>order.pdf?orderId=${orderId}</@ofbizUrl>" target="_blank">PDF</a>&nbsp;]</li>
             <#if currentStatus.statusId == "ORDER_APPROVED" && orderHeader.orderTypeId == "SALES_ORDER">
               <li class="h3"><a href="javascript:document.PrintOrderPickSheet.submit()">${uiLabelMap.FormFieldTitle_printPickSheet}</a>
@@ -114,8 +114,8 @@ under the License.
                 <#if orderHeaderStatuses?has_content>
                   <hr />
                   <#list orderHeaderStatuses as orderHeaderStatus>
-                    <#assign loopStatusItem = orderHeaderStatus.getRelatedOne("StatusItem")>
-                    <#assign userlogin = orderHeaderStatus.getRelatedOne("UserLogin")>
+                    <#assign loopStatusItem = orderHeaderStatus.getRelatedOne("StatusItem", false)>
+                    <#assign userlogin = orderHeaderStatus.getRelatedOne("UserLogin", false)>
                     <div>
                       ${loopStatusItem.get("description",locale)} <#if orderHeaderStatus.statusDatetime?has_content>- ${Static["org.ofbiz.base.util.UtilFormatOut"].formatDateTime(orderHeaderStatus.statusDatetime, "", locale, timeZone)?default("0000-00-00 00:00:00")}</#if>
                       &nbsp;
@@ -151,7 +151,7 @@ under the License.
               <td width="5%">&nbsp;</td>
               <td valign="top" width="80%">
                   <#if orderHeader.salesChannelEnumId?has_content>
-                    <#assign channel = orderHeader.getRelatedOne("SalesChannelEnumeration")>
+                    <#assign channel = orderHeader.getRelatedOne("SalesChannelEnumeration", false)>
                     ${(channel.get("description",locale))?default("N/A")}
                   <#else>
                     ${uiLabelMap.CommonNA}

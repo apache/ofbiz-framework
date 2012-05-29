@@ -49,7 +49,7 @@ if ("SALES_ORDER".equals(cart.getOrderType())) {
         orderParty = delegator.findOne("Party", [partyId : orderPartyId], false);
         if (orderParty) {
             shippingContactMechList = ContactHelper.getContactMech(orderParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
-            orderPerson = orderParty.getRelatedOne("Person");
+            orderPerson = orderParty.getRelatedOne("Person", false);
             context.orderParty = orderParty;
             context.orderPerson = orderPerson;
             context.shippingContactMechList = shippingContactMechList;
@@ -76,7 +76,7 @@ if ("SALES_ORDER".equals(cart.getOrderType())) {
     if (!"_NA_".equals(orderPartyId)) {
         orderParty = delegator.findOne("Party", [partyId : orderPartyId], false);
         if (orderParty) {
-           orderPerson = orderParty.getRelatedOne("Person");
+           orderPerson = orderParty.getRelatedOne("Person", false);
            context.orderParty = orderParty;
            context.orderPerson = orderPerson;
          }

@@ -838,7 +838,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         for(ShoppingCartItem cartItem : this.cartLines) {
             GenericValue product = cartItem.getProduct();
             try {
-                GenericValue productType = product.getRelatedOneCache("ProductType");
+                GenericValue productType = product.getRelatedOne("ProductType", true);
                 if (productType == null || !"N".equals(productType.getString("isPhysical"))) {
                     return false;
                 }
@@ -860,7 +860,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         for (ShoppingCartItem cartItem: shipInfo.getShipItems()) {
             GenericValue product = cartItem.getProduct();
             try {
-                GenericValue productType = product.getRelatedOneCache("ProductType");
+                GenericValue productType = product.getRelatedOne("ProductType", true);
                 if (productType == null || !"N".equals(productType.getString("isPhysical"))) {
                     return false;
                 }
@@ -965,7 +965,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         String itemGroupNumber = itemGroupValue.getString("orderItemGroupSeqId");
         ShoppingCartItemGroup itemGroup = this.getItemGroupByNumber(itemGroupNumber);
         if (itemGroup == null) {
-            ShoppingCartItemGroup parentGroup = addItemGroup(itemGroupValue.getRelatedOneCache("ParentOrderItemGroup"));
+            ShoppingCartItemGroup parentGroup = addItemGroup(itemGroupValue.getRelatedOne("ParentOrderItemGroup", true));
             itemGroup = new ShoppingCartItemGroup(itemGroupNumber, itemGroupValue.getString("groupName"), parentGroup);
             int parsedGroupNumber = Integer.parseInt(itemGroupNumber);
             if (parsedGroupNumber > this.nextGroupNumber) {
@@ -1823,7 +1823,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             for(GenericValue pm : paymentMethods) {
                 if ("CREDIT_CARD".equals(pm.getString("paymentMethodTypeId"))) {
                     try {
-                        GenericValue cc = pm.getRelatedOne("CreditCard");
+                        GenericValue cc = pm.getRelatedOne("CreditCard", false);
                         creditCards.add(cc);
                     } catch (GenericEntityException e) {
                         Debug.logError(e, "Unable to get credit card record from payment method : " + pm, module);
@@ -1842,7 +1842,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             for(GenericValue pm : paymentMethods) {
                 if ("GIFT_CARD".equals(pm.getString("paymentMethodTypeId"))) {
                     try {
-                        GenericValue gc = pm.getRelatedOne("GiftCard");
+                        GenericValue gc = pm.getRelatedOne("GiftCard", false);
                         giftCards.add(gc);
                     } catch (GenericEntityException e) {
                         Debug.logError(e, "Unable to get gift card record from payment method : " + pm, module);
@@ -4678,7 +4678,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                         pmObj = delegator.findOne("PayPalPaymentMethod", lookupFields, false);
                     }
                     if (pmObj != null) {
-                        postalAddress = pmObj.getRelatedOne("PostalAddress");
+                        postalAddress = pmObj.getRelatedOne("PostalAddress", false);
                     } else {
                         Debug.logInfo("No PaymentMethod Object Found - " + paymentMethodId, module);
                     }

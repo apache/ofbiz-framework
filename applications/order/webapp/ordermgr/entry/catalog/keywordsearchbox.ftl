@@ -37,7 +37,7 @@ under the License.
             <select name="SEARCH_CATEGORY_ID" size="1">
               <option value="${searchCategoryId?if_exists}">${uiLabelMap.ProductEntireCatalog}</option>
               <#list otherSearchProdCatalogCategories as otherSearchProdCatalogCategory>
-                <#assign searchProductCategory = otherSearchProdCatalogCategory.getRelatedOneCache("ProductCategory")>
+                <#assign searchProductCategory = otherSearchProdCatalogCategory.getRelatedOne("ProductCategory", true)>
                 <#if searchProductCategory?exists>
                   <option value="${searchProductCategory.productCategoryId}">${searchProductCategory.description?default("No Description " + searchProductCategory.productCategoryId)}</option>
                 </#if>
@@ -61,7 +61,7 @@ under the License.
             <select name="SEARCH_CATEGORY_ID" id="SEARCH_CATEGORY_ID" size="1">
               <option value="${searchCategoryId?if_exists}">${uiLabelMap.ProductEntireCatalog}</option>
               <#list otherSearchProdCatalogCategories as otherSearchProdCatalogCategory>
-                <#assign searchProductCategory = otherSearchProdCatalogCategory.getRelatedOneCache("ProductCategory")>
+                <#assign searchProductCategory = otherSearchProdCatalogCategory.getRelatedOne("ProductCategory", true)>
                 <#if searchProductCategory?exists>
                   <option value="${searchProductCategory.productCategoryId}">${searchProductCategory.description?default("No Description " + searchProductCategory.productCategoryId)}</option>
                 </#if>

@@ -191,8 +191,8 @@ under the License.
 
 <#if shipGroups?has_content && (!orderHeader.salesChannelEnumId?exists || orderHeader.salesChannelEnumId != "POS_SALES_CHANNEL")>
 <#list shipGroups as shipGroup>
-  <#assign shipmentMethodType = shipGroup.getRelatedOne("ShipmentMethodType")?if_exists>
-  <#assign shipGroupAddress = shipGroup.getRelatedOne("PostalAddress")?if_exists>
+  <#assign shipmentMethodType = shipGroup.getRelatedOne("ShipmentMethodType", false)?if_exists>
+  <#assign shipGroupAddress = shipGroup.getRelatedOne("PostalAddress", false)?if_exists>
   <div class="screenlet">
     <div class="screenlet-title-bar">
        <ul>
@@ -222,7 +222,7 @@ under the License.
                                 <#if shippingContactMechList?has_content>
                                 <option disabled="disabled" value=""></option>
                                 <#list shippingContactMechList as shippingContactMech>
-                                <#assign shippingPostalAddress = shippingContactMech.getRelatedOne("PostalAddress")?if_exists>
+                                <#assign shippingPostalAddress = shippingContactMech.getRelatedOne("PostalAddress", false)?if_exists>
                                 <#if shippingContactMech.contactMechId?has_content>
                                 <option value="${shippingContactMech.contactMechId?if_exists}">${(shippingPostalAddress.address1)?default("")} - ${shippingPostalAddress.city?default("")}</option>
                                 </#if>

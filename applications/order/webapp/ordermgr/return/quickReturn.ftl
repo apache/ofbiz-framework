@@ -47,7 +47,7 @@ under the License.
                   <option value=""></option>
                   <#if creditCardList?has_content>
                     <#list creditCardList as creditCardPm>
-                      <#assign creditCard = creditCardPm.getRelatedOne("CreditCard")>
+                      <#assign creditCard = creditCardPm.getRelatedOne("CreditCard", false)>
                       <option value="${creditCard.paymentMethodId}">CC:&nbsp;${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}</option>
                     </#list>
                   </#if>
@@ -75,7 +75,7 @@ under the License.
               <td colspan="8">
                 <table cellspacing="0" class="basic-table">
                   <#list shippingContactMechList as shippingContactMech>
-                    <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress")>
+                    <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress", false)>
                     <tr>
                       <td align="right" width="1%" valign="top" nowrap="nowrap">
                         <input type="radio" name="originContactMechId" value="${shippingAddress.contactMechId}"  <#if (shippingContactMechList?size == 1)>checked="checked"</#if> />

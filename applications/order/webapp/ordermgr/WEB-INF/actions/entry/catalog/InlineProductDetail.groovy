@@ -283,7 +283,7 @@ if (inlineProduct) {
                         }
                         numberFormat = NumberFormat.getCurrencyInstance(locale);
                         variants.each { variantAssoc ->
-                            variant = variantAssoc.getRelatedOne("AssocProduct");
+                            variant = variantAssoc.getRelatedOne("AssocProduct", false);
                             // Get the price for each variant. Reuse the priceContext already setup for virtual product above and replace the product
                             if (cart.isSalesOrder()) {
                                 // sales order: run the "calculateProductPrice" service

@@ -44,14 +44,14 @@ under the License.
         </tr>
         <#assign alt_row = false>
         <#list orderHeaderList as orderHeader>
-          <#assign status = orderHeader.getRelatedOneCache("StatusItem")>
+          <#assign status = orderHeader.getRelatedOne("StatusItem", true)>
           <#assign orh = Static["org.ofbiz.order.order.OrderReadHelper"].getHelper(orderHeader)>
           <#assign billToParty = orh.getBillToParty()?if_exists>
           <#if billToParty?has_content>
             <#assign billToPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", billToParty.partyId, "compareDate", orderHeader.orderDate, "userLogin", userLogin))/>
             <#assign billTo = billToPartyNameResult.fullName?default("[${uiLabelMap.OrderPartyNameNotFound}]")/>
           </#if>
-          <#assign productStore = orderHeader.getRelatedOneCache("ProductStore")?if_exists />
+          <#assign productStore = orderHeader.getRelatedOne("ProductStore", true)?if_exists />
           <tr<#if alt_row> class="alternate-row"</#if>>
             <#assign alt_row = !alt_row>
             <td><a href="/ordermgr/control/orderview?orderId=${orderHeader.orderId}" class="buttontext">${orderHeader.orderId}</a></td>
@@ -66,7 +66,7 @@ under the License.
                 </#if>
               </#list>
             </td>
-            <td>${orderHeader.getRelatedOneCache("StatusItem").get("description",locale)}</td>
+            <td>${orderHeader.getRelatedOne("StatusItem", true).get("description",locale)}</td>
           </tr>
         </#list>
       </table>

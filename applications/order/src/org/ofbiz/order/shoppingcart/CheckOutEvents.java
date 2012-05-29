@@ -655,7 +655,7 @@ public class CheckOutEvents {
                 payPalProdStorePaySettings = delegator.findByAnd("ProductStorePaymentSetting", UtilMisc.toMap("productStoreId", productStore.getString("productStoreId"), "paymentMethodTypeId", "EXT_PAYPAL"), null, false);
                 GenericValue payPalProdStorePaySetting = EntityUtil.getFirst(payPalProdStorePaySettings);
                 if (payPalProdStorePaySetting != null) {
-                    GenericValue gatewayConfig = payPalProdStorePaySetting.getRelatedOne("PaymentGatewayConfig");
+                    GenericValue gatewayConfig = payPalProdStorePaySetting.getRelatedOne("PaymentGatewayConfig", false);
                     if (gatewayConfig != null && "PAYFLOWPRO".equals(gatewayConfig.getString("paymentGatewayConfigTypeId"))) {
                         return "paypal";
                     }

@@ -50,7 +50,7 @@ if (productId) {
             virtualVariantProductAssocs = EntityUtil.filterByDate(virtualVariantProductAssocs);
             if (virtualVariantProductAssocs) {
                 productAssoc = EntityUtil.getFirst(virtualVariantProductAssocs);
-                product = productAssoc.getRelatedOneCache("AssocProduct");
+                product = productAssoc.getRelatedOne("AssocProduct", true);
             }
         }
     }
@@ -112,7 +112,7 @@ if (productId) {
             keywords.add(catalogName);
             members = delegator.findByAnd("ProductCategoryMember", [productId : productId], null, true);
             members.each { member ->
-                category = member.getRelatedOneCache("ProductCategory");
+                category = member.getRelatedOne("ProductCategory", true);
                 if (category.description) {
                     categoryContentWrapper = new CategoryContentWrapper(category, request);
                     categoryDescription = categoryContentWrapper.DESCRIPTION;

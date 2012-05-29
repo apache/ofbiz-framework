@@ -121,7 +121,7 @@ function submitForm(form, mode, value) {
                    <#if shippingContactMechList?has_content>
                      <tr><td colspan="2"><hr /></td></tr>
                      <#list shippingContactMechList as shippingContactMech>
-                       <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress")>
+                       <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress", false)>
                        <tr>
                          <td valign="top" width="1%">
                            <input type="radio" name="shipping_contact_mech_id" value="${shippingAddress.contactMechId}" onclick="javascript:submitForm(document.checkoutInfoForm, 'SA', null);"<#if shoppingCart.getShippingContactMechId()?default("") == shippingAddress.contactMechId> checked="checked"</#if>/>
@@ -383,7 +383,7 @@ function submitForm(form, mode, value) {
                   <#list paymentMethodList as paymentMethod>
                     <#if paymentMethod.paymentMethodTypeId == "CREDIT_CARD">
                      <#if productStorePaymentMethodTypeIdMap.CREDIT_CARD?exists>
-                      <#assign creditCard = paymentMethod.getRelatedOne("CreditCard")>
+                      <#assign creditCard = paymentMethod.getRelatedOne("CreditCard", false)>
                       <tr>
                         <td width="1%">
                           <input type="radio" name="checkOutPaymentId" value="${paymentMethod.paymentMethodId}" <#if shoppingCart.isPaymentSelected(paymentMethod.paymentMethodId)>checked="checked"</#if>/>
@@ -398,7 +398,7 @@ function submitForm(form, mode, value) {
                      </#if>
                     <#elseif paymentMethod.paymentMethodTypeId == "EFT_ACCOUNT">
                      <#if productStorePaymentMethodTypeIdMap.EFT_ACCOUNT?exists>
-                      <#assign eftAccount = paymentMethod.getRelatedOne("EftAccount")>
+                      <#assign eftAccount = paymentMethod.getRelatedOne("EftAccount", false)>
                       <tr>
                         <td width="1%">
                           <input type="radio" name="checkOutPaymentId" value="${paymentMethod.paymentMethodId}" <#if shoppingCart.isPaymentSelected(paymentMethod.paymentMethodId)>checked="checked"</#if>/>
@@ -412,7 +412,7 @@ function submitForm(form, mode, value) {
                      </#if>
                     <#elseif paymentMethod.paymentMethodTypeId == "GIFT_CARD">
                      <#if productStorePaymentMethodTypeIdMap.GIFT_CARD?exists>
-                      <#assign giftCard = paymentMethod.getRelatedOne("GiftCard")>
+                      <#assign giftCard = paymentMethod.getRelatedOne("GiftCard", false)>
 
                       <#if giftCard?has_content && giftCard.cardNumber?has_content>
                         <#assign giftCardNumber = "">

@@ -51,7 +51,7 @@ under the License.
        <#list orderPaymentPreferences as orderPaymentPreference>
          <#assign payments = orderPaymentPreference.getRelated("Payment")>
          <#list payments as payment>
-           <#assign statusItem = payment.getRelatedOne("StatusItem")>
+           <#assign statusItem = payment.getRelatedOne("StatusItem", false)>
            <#assign partyName = delegator.findOne("PartyNameView", {"partyId" : payment.partyIdTo}, true)>
            <tr>
              <#if security.hasPermission("PAY_INFO_VIEW", session) || security.hasPermission("PAY_INFO_ADMIN", session)>
@@ -96,7 +96,7 @@ under the License.
          <#assign orderPaymentStatuses = orderReadHelper.getOrderPaymentStatuses()>
          <#if orderPaymentStatuses?has_content>
            <#list orderPaymentStatuses as orderPaymentStatus>
-             <#assign statusItem = orderPaymentStatus.getRelatedOne("StatusItem")?if_exists>
+             <#assign statusItem = orderPaymentStatus.getRelatedOne("StatusItem", false)?if_exists>
              <#if statusItem?has_content>
                 <div>
                   ${statusItem.get("description",locale)} <#if orderPaymentStatus.statusDatetime?has_content>- ${Static["org.ofbiz.base.util.UtilFormatOut"].formatDateTime(orderPaymentStatus.statusDatetime, "", locale, timeZone)!}</#if>
@@ -114,15 +114,15 @@ under the License.
         <#list orderPaymentPreferences as orderPaymentPreference>
           <#assign paymentList = orderPaymentPreference.getRelated("Payment")>
           <#assign pmBillingAddress = {}>
-          <#assign oppStatusItem = orderPaymentPreference.getRelatedOne("StatusItem")>
+          <#assign oppStatusItem = orderPaymentPreference.getRelatedOne("StatusItem", false)>
           <#if outputted?default("false") == "true">
             <tr><td colspan="4"><hr /></td></tr>
           </#if>
           <#assign outputted = "true">
           <#-- try the paymentMethod first; if paymentMethodId is specified it overrides paymentMethodTypeId -->
-          <#assign paymentMethod = orderPaymentPreference.getRelatedOne("PaymentMethod")?if_exists>
+          <#assign paymentMethod = orderPaymentPreference.getRelatedOne("PaymentMethod", false)?if_exists>
           <#if !paymentMethod?has_content>
-            <#assign paymentMethodType = orderPaymentPreference.getRelatedOne("PaymentMethodType")>
+            <#assign paymentMethodType = orderPaymentPreference.getRelatedOne("PaymentMethodType", false)>
             <#if paymentMethodType.paymentMethodTypeId == "EXT_BILLACT">
                 <#assign outputted = "false">
                 <#-- billing account -->
@@ -172,10 +172,10 @@ under the License.
                   </tr>
                 </#if>
             <#elseif paymentMethodType.paymentMethodTypeId == "FIN_ACCOUNT">
-              <#assign finAccount = orderPaymentPreference.getRelatedOne("FinAccount")?if_exists/>
+              <#assign finAccount = orderPaymentPreference.getRelatedOne("FinAccount", false)?if_exists/>
               <#if (finAccount?has_content)>
                 <#assign gatewayResponses = orderPaymentPreference.getRelated("PaymentGatewayResponse")>
-                <#assign finAccountType = finAccount.getRelatedOne("FinAccountType")?if_exists/>
+                <#assign finAccountType = finAccount.getRelatedOne("FinAccountType", false)?if_exists/>
                 <tr>
                   <td align="right" valign="top" width="29%">
                     <div>
@@ -210,7 +210,7 @@ under the License.
                       <div>
                         <hr />
                         <#list gatewayResponses as gatewayResponse>
-                          <#assign transactionCode = gatewayResponse.getRelatedOne("TranCodeEnumeration")>
+                          <#assign transactionCode = gatewayResponse.getRelatedOne("TranCodeEnumeration", false)>
                           ${(transactionCode.get("description",locale))?default("Unknown")}:
                           <#if gatewayResponse.transactionDate?has_content>${Static["org.ofbiz.base.util.UtilFormatOut"].formatDateTime(gatewayResponse.transactionDate, "", locale, timeZone)!} </#if>
                           <@ofbizCurrency amount=gatewayResponse.amount isoCode=currencyUomId/><br />
@@ -318,9 +318,9 @@ under the License.
           <#else>
             <#if paymentMethod.paymentMethodTypeId?if_exists == "CREDIT_CARD">
               <#assign gatewayResponses = orderPaymentPreference.getRelated("PaymentGatewayResponse")>
-              <#assign creditCard = paymentMethod.getRelatedOne("CreditCard")?if_exists>
+              <#assign creditCard = paymentMethod.getRelatedOne("CreditCard", false)?if_exists>
               <#if creditCard?has_content>
-                <#assign pmBillingAddress = creditCard.getRelatedOne("PostalAddress")?if_exists>
+                <#assign pmBillingAddress = creditCard.getRelatedOne("PostalAddress", false)?if_exists>
               </#if>
               <tr>
                 <td align="right" valign="top" width="29%">
@@ -370,7 +370,7 @@ under the License.
                     <div>
                       <hr />
                       <#list gatewayResponses as gatewayResponse>
-                        <#assign transactionCode = gatewayResponse.getRelatedOne("TranCodeEnumeration")>
+                        <#assign transactionCode = gatewayResponse.getRelatedOne("TranCodeEnumeration", false)>
                         ${(transactionCode.get("description",locale))?default("Unknown")}:
                         <#if gatewayResponse.transactionDate?has_content>${Static["org.ofbiz.base.util.UtilFormatOut"].formatDateTime(gatewayResponse.transactionDate, "", locale, timeZone)!} </#if>
                         <@ofbizCurrency amount=gatewayResponse.amount isoCode=currencyUomId/><br />
@@ -398,9 +398,9 @@ under the License.
                 </td>
               </tr>
             <#elseif paymentMethod.paymentMethodTypeId?if_exists == "EFT_ACCOUNT">
-              <#assign eftAccount = paymentMethod.getRelatedOne("EftAccount")>
+              <#assign eftAccount = paymentMethod.getRelatedOne("EftAccount", false)>
               <#if eftAccount?has_content>
-                <#assign pmBillingAddress = eftAccount.getRelatedOne("PostalAddress")?if_exists>
+                <#assign pmBillingAddress = eftAccount.getRelatedOne("PostalAddress", false)?if_exists>
               </#if>
               <tr>
                 <td align="right" valign="top" width="29%">
@@ -453,9 +453,9 @@ under the License.
                 </tr>
               </#if>
             <#elseif paymentMethod.paymentMethodTypeId?if_exists == "GIFT_CARD">
-              <#assign giftCard = paymentMethod.getRelatedOne("GiftCard")>
+              <#assign giftCard = paymentMethod.getRelatedOne("GiftCard", false)>
               <#if giftCard?exists>
-                <#assign pmBillingAddress = giftCard.getRelatedOne("PostalAddress")?if_exists>
+                <#assign pmBillingAddress = giftCard.getRelatedOne("PostalAddress", false)?if_exists>
               </#if>
               <tr>
                 <td align="right" valign="top" width="29%">

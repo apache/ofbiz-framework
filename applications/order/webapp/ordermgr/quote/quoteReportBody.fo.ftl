@@ -42,7 +42,7 @@ under the License.
                     <#assign totalQuoteAmount = 0.0>
                     <#list quoteItems as quoteItem>
                         <#if quoteItem.productId?exists>
-                            <#assign product = quoteItem.getRelatedOne("Product")>
+                            <#assign product = quoteItem.getRelatedOne("Product", false)>
                         </#if>
                         <#assign quoteItemAmount = quoteItem.quoteUnitPrice?default(0) * quoteItem.quantity?default(0)>
                         <#assign quoteItemAdjustments = quoteItem.getRelated("QuoteAdjustment")>
@@ -78,7 +78,7 @@ under the License.
 
                         </fo:table-row>
                         <#list quoteItemAdjustments as quoteItemAdjustment>
-                            <#assign adjustmentType = quoteItemAdjustment.getRelatedOne("OrderAdjustmentType")>
+                            <#assign adjustmentType = quoteItemAdjustment.getRelatedOne("OrderAdjustmentType", false)>
                             <fo:table-row>
                                 <fo:table-cell padding="2pt" background-color="${rowColor}">
                                 </fo:table-cell>
@@ -126,7 +126,7 @@ under the License.
                         </fo:table-row>
                         <#assign totalQuoteHeaderAdjustmentAmount = 0.0>
                         <#list quoteAdjustments as quoteAdjustment>
-                            <#assign adjustmentType = quoteAdjustment.getRelatedOne("OrderAdjustmentType")>
+                            <#assign adjustmentType = quoteAdjustment.getRelatedOne("OrderAdjustmentType", false)>
                             <#if !quoteAdjustment.quoteItemSeqId?exists>
                                 <#assign totalQuoteHeaderAdjustmentAmount = quoteAdjustment.amount?default(0) + totalQuoteHeaderAdjustmentAmount>
                                 <fo:table-row>

@@ -45,7 +45,7 @@ if (returnId) {
         partyId = returnHeader.fromPartyId;
         toPartyId = parameters.toPartyId;
 
-        context.currentStatus = returnHeader.getRelatedOneCache("StatusItem");
+        context.currentStatus = returnHeader.getRelatedOne("StatusItem", true);
     }
 } else {
     partyId = parameters.partyId;
@@ -54,7 +54,7 @@ if (returnId) {
     returnHeaders.each { returnHeader ->
         returnMap = [:];
         returnMap.returnId = returnHeader.returnId;
-        statusItem = returnHeader.getRelatedOne("StatusItem");
+        statusItem = returnHeader.getRelatedOne("StatusItem", false);
         returnMap.statusId = statusItem.description;
         returnMap.fromPartyId = returnHeader.fromPartyId;
         returnMap.toPartyId = returnHeader.toPartyId;

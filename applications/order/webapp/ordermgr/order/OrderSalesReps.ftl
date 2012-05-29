@@ -32,8 +32,8 @@ under the License.
         <td width="50%">${uiLabelMap.PartyFirstName}</td>
       </tr>
     <#list salesReps as salesRep>
-      <#assign party = salesRep.getRelatedOne("Party")?if_exists/>
-      <#assign person = party.getRelatedOne("Person")?if_exists/>
+      <#assign party = salesRep.getRelatedOne("Party", false)?if_exists/>
+      <#assign person = party.getRelatedOne("Person", false)?if_exists/>
       <#if person?exists && person?has_content>
       <tr>
         <td width="50%">${person.lastName}</td>

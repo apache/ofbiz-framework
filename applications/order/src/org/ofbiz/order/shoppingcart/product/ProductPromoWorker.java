@@ -120,7 +120,7 @@ public class ProductPromoWorker {
                         if (Debug.verboseOn()) Debug.logVerbose("Skipping promotion with id [" + productStorePromoAppl.getString("productPromoId") + "] because it is applied to the store with ID " + productStoreId + " as a manual only promotion.", module);
                         continue;
                     }
-                    GenericValue productPromo = productStorePromoAppl.getRelatedOneCache("ProductPromo");
+                    GenericValue productPromo = productStorePromoAppl.getRelatedOne("ProductPromo", true);
                     List<GenericValue> productPromoRules = productPromo.getRelatedCache("ProductPromoRule", null, null);
 
 
@@ -181,7 +181,7 @@ public class ProductPromoWorker {
                     if (Debug.verboseOn()) Debug.logVerbose("Skipping promotion with id [" + productStorePromoAppl.getString("productPromoId") + "] because it is applied to the store with ID " + productStoreId + " as a manual only promotion.", module);
                         continue;
                 }
-                GenericValue productPromo = productStorePromoAppl.getRelatedOneCache("ProductPromo");
+                GenericValue productPromo = productStorePromoAppl.getRelatedOne("ProductPromo", true);
                 Iterator<GenericValue> productPromoCodesIter = UtilMisc.toIterator(productPromo.getRelatedCache("ProductPromoCode", null, null));
                 while (productPromoCodesIter != null && productPromoCodesIter.hasNext()) {
                     GenericValue productPromoCode = productPromoCodesIter.next();
@@ -228,7 +228,7 @@ public class ProductPromoWorker {
                     if (Debug.verboseOn()) Debug.logVerbose("Skipping promotion with id [" + prodCatalogPromoAppl.getString("productPromoId") + "] because it is applied to the store with ID " + productStoreId + " as a manual only promotion.", module);
                     continue;
                 }
-                GenericValue productPromo = prodCatalogPromoAppl.getRelatedOneCache("ProductPromo");
+                GenericValue productPromo = prodCatalogPromoAppl.getRelatedOne("ProductPromo", true);
                 productPromoList.add(productPromo);
             }
         } catch (GenericEntityException e) {
@@ -277,7 +277,7 @@ public class ProductPromoWorker {
             Iterator<GenericValue> agreementPromoAppls = UtilMisc.toIterator(agreementPromoApplsList);
             while (agreementPromoAppls != null && agreementPromoAppls.hasNext()) {
                 GenericValue agreementPromoAppl = agreementPromoAppls.next();
-                GenericValue productPromo = agreementPromoAppl.getRelatedOneCache("ProductPromo");
+                GenericValue productPromo = agreementPromoAppl.getRelatedOne("ProductPromo", true);
                 productPromoList.add(productPromo);
             }
         } catch (GenericEntityException e) {
@@ -1255,7 +1255,7 @@ public class ProductPromoWorker {
     }
 
     protected static boolean checkConditionsForItem(GenericValue productPromoActionOrCond, ShoppingCart cart, ShoppingCartItem cartItem, Delegator delegator, LocalDispatcher dispatcher, Timestamp nowTimestamp) throws GenericEntityException {
-        GenericValue productPromoRule = productPromoActionOrCond.getRelatedOneCache("ProductPromoRule");
+        GenericValue productPromoRule = productPromoActionOrCond.getRelatedOne("ProductPromoRule", true);
 
         List<GenericValue> productPromoConds = delegator.findByAnd("ProductPromoCond", UtilMisc.toMap("productPromoId", productPromoRule.get("productPromoId")), UtilMisc.toList("productPromoCondSeqId"), true);
         productPromoConds = EntityUtil.filterByAnd(productPromoConds, UtilMisc.toMap("productPromoRuleId", productPromoRule.get("productPromoRuleId")));

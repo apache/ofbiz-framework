@@ -100,7 +100,7 @@ function makeExpDate() {
               <#if paymentMethodList?has_content>
                 <#list paymentMethodList as paymentMethod>
                   <#if paymentMethod.paymentMethodTypeId == "CREDIT_CARD">
-                    <#assign creditCard = paymentMethod.getRelatedOne("CreditCard")>
+                    <#assign creditCard = paymentMethod.getRelatedOne("CreditCard", false)>
                     <tr>
                       <td width="1%">
                         <input type="radio" id="checkOutPaymentId_CREDIT_CARD_${paymentMethod.paymentMethodId}" name="checkOutPaymentId" value="${paymentMethod.paymentMethodId}" <#if checkOutPaymentId?exists && paymentMethod.paymentMethodId == checkOutPaymentId>checked="checked"</#if>/>
@@ -117,7 +117,7 @@ function makeExpDate() {
                       <td align="right"><a href="/partymgr/control/editcreditcard?party_id=${orderParty.partyId}&amp;paymentMethodId=${paymentMethod.paymentMethodId}" target="_blank" class="buttontext">${uiLabelMap.CommonUpdate}</a></td>
                     </tr>
                   <#elseif paymentMethod.paymentMethodTypeId == "EFT_ACCOUNT">
-                    <#assign eftAccount = paymentMethod.getRelatedOne("EftAccount")>
+                    <#assign eftAccount = paymentMethod.getRelatedOne("EftAccount", false)>
                     <tr>
                       <td width="1%">
                         <input type="radio" id="checkOutPaymentId_EFT_ACCOUNT_${paymentMethod.paymentMethodId}" name="checkOutPaymentId" value="${paymentMethod.paymentMethodId}" <#if checkOutPaymentId?exists && paymentMethod.paymentMethodId == checkOutPaymentId>checked="checked"</#if>/>

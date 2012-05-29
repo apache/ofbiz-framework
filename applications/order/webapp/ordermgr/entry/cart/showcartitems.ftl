@@ -305,7 +305,7 @@ under the License.
                 <td>&nbsp;</td>
               </tr>
             <#list shoppingCart.getAdjustments() as cartAdjustment>
-              <#assign adjustmentType = cartAdjustment.getRelatedOneCache("OrderAdjustmentType")>
+              <#assign adjustmentType = cartAdjustment.getRelatedOne("OrderAdjustmentType", true)>
               <tr>
                 <td colspan="4" nowrap="nowrap" align="right">
                   <div>

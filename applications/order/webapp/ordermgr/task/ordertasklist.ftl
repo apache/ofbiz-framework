@@ -68,7 +68,7 @@ under the License.
                           <#assign alt_row = false>
                           <#list poList as orderHeaderAndRole>
                             <#assign orh = Static["org.ofbiz.order.order.OrderReadHelper"].getHelper(orderHeaderAndRole)>
-                            <#assign statusItem = orderHeaderAndRole.getRelatedOneCache("StatusItem")>
+                            <#assign statusItem = orderHeaderAndRole.getRelatedOne("StatusItem", true)>
                             <#assign placingParty = orh.getPlacingParty()?if_exists>
                             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                               <td><a href="<@ofbizUrl>orderview?orderId=${orderHeaderAndRole.orderId}</@ofbizUrl>" class='buttontext'>${orderHeaderAndRole.orderId}</a></td>

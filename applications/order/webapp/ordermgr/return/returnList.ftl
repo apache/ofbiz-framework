@@ -30,9 +30,9 @@ under the License.
     <td>${uiLabelMap.CommonStatus}</td>
   </tr>
   <#list returnList as returnHeader>
-  <#assign statusItem = returnHeader.getRelatedOne("StatusItem")>
+  <#assign statusItem = returnHeader.getRelatedOne("StatusItem", false)>
   <#if returnHeader.destinationFacilityId?exists>
-    <#assign facility = returnHeader.getRelatedOne("Facility")>
+    <#assign facility = returnHeader.getRelatedOne("Facility", false)>
   </#if>
   <tr>
     <td><a href="<@ofbizUrl>returnMain?returnId=${returnHeader.returnId}</@ofbizUrl>" class="buttontext">${returnHeader.returnId}</a></td>

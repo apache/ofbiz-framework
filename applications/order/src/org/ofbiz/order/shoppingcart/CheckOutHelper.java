@@ -1207,9 +1207,9 @@ public class CheckOutHelper {
                 GenericValue creditCard = null;
                 GenericValue billingAddress = null;
                 try {
-                    creditCard = paymentMethod.getRelatedOne("CreditCard");
+                    creditCard = paymentMethod.getRelatedOne("CreditCard", false);
                     if (creditCard != null)
-                        billingAddress = creditCard.getRelatedOne("PostalAddress");
+                        billingAddress = creditCard.getRelatedOne("PostalAddress", false);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Problems getting credit card from payment method", module);
                     errMsg = UtilProperties.getMessage(resource_error,"checkhelper.problems_reading_database", (cart != null ? cart.getLocale() : Locale.getDefault()));

@@ -65,7 +65,7 @@ standard order confirmation page and to be re-usable by other screens.
         <td rowspan="${numberOfItems}">
           <#assign contactMech = delegator.findOne("ContactMech", Static["org.ofbiz.base.util.UtilMisc"].toMap("contactMechId", cartShipInfo.contactMechId), false)?if_exists />
           <#if contactMech?has_content>
-            <#assign address = contactMech.getRelatedOne("PostalAddress")?if_exists />
+            <#assign address = contactMech.getRelatedOne("PostalAddress", false)?if_exists />
           </#if>
 
           <#if address?exists>
