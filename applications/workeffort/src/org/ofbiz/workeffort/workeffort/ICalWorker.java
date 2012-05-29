@@ -134,7 +134,7 @@ public class ICalWorker {
         String workEffortId = (String) request.getAttribute("workEffortId");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         GenericValue publishProperties = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId), false);
-        GenericValue iCalData = publishProperties.getRelatedOne("WorkEffortIcalData");
+        GenericValue iCalData = publishProperties.getRelatedOne("WorkEffortIcalData", false);
         if (iCalData != null) {
             return iCalData.getTimestamp("lastUpdatedStamp");
         } else {
@@ -290,11 +290,11 @@ public class ICalWorker {
         request.setAttribute("userLogin", userLogin);
         session.setAttribute("userLogin", userLogin);
         VisitHandler.getVisitor(request, response);
-        GenericValue person = userLogin.getRelatedOne("Person");
+        GenericValue person = userLogin.getRelatedOne("Person", false);
         if (person != null) {
             request.setAttribute("person", person);
         } else {
-            GenericValue partyGroup = userLogin.getRelatedOne("PartyGroup");
+            GenericValue partyGroup = userLogin.getRelatedOne("PartyGroup", false);
             if (partyGroup != null) {
                 request.setAttribute("partyGroup", partyGroup);
             }

@@ -110,7 +110,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
         if (workEffortContent != null) {
             GenericValue content;
             try {
-                content = workEffortContent.getRelatedOne("Content");
+                content = workEffortContent.getRelatedOne("Content", false);
             } catch (GeneralException e) {
                 Debug.logError(e, module);
                 return null;
@@ -143,7 +143,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
         if (workEffortContent != null) {
             GenericValue content;
             try {
-                content = workEffortContent.getRelatedOne("Content");
+                content = workEffortContent.getRelatedOne("Content", false);
             } catch (GeneralException e) {
                 Debug.logError(e, module);
                 return null;
@@ -151,7 +151,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
             if (content != null) {
                 GenericValue dataResource;
                 try {
-                    dataResource = content.getRelatedOne("DataResource");
+                    dataResource = content.getRelatedOne("DataResource", false);
                 } catch (GeneralException e) {
                     Debug.logError(e, module);
                     return null;
