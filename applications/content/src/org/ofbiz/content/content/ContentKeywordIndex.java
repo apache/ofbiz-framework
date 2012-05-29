@@ -183,7 +183,7 @@ public class ContentKeywordIndex {
             int weight = 1;
             addWeightedDataResourceString(contentDataResourceView, weight, strings, delegator, content);
 
-            List<GenericValue> alternateViews = contentDataResourceView.getRelated("ContentAssocDataResourceViewTo", UtilMisc.toMap("caContentAssocTypeId", "ALTERNATE_LOCALE"), UtilMisc.toList("-caFromDate"));
+            List<GenericValue> alternateViews = contentDataResourceView.getRelated("ContentAssocDataResourceViewTo", UtilMisc.toMap("caContentAssocTypeId", "ALTERNATE_LOCALE"), UtilMisc.toList("-caFromDate"), false);
             alternateViews = EntityUtil.filterByDate(alternateViews, UtilDateTime.nowTimestamp(), "caFromDate", "caThruDate", true);
             for (GenericValue thisView: alternateViews) {
                 addWeightedDataResourceString(thisView, weight, strings, delegator, content);
