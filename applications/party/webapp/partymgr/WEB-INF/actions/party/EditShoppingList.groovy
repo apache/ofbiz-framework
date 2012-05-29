@@ -72,7 +72,7 @@ if (shoppingListId) {
         shoppingListItemTotal = 0.0;
         shoppingListChildTotal = 0.0;
 
-        shoppingListItems = shoppingList.getRelatedCache("ShoppingListItem");
+        shoppingListItems = shoppingList.getRelated("ShoppingListItem", null, null, true);
         if (shoppingListItems) {
             shoppingListItemDatas = new ArrayList(shoppingListItems.size());
             shoppingListItems.each { shoppingListItem ->
@@ -88,7 +88,7 @@ if (shoppingListId) {
 
                 productVariantAssocs = null;
                 if ("Y".equals(product.isVirtual)) {
-                    productVariantAssocs = product.getRelatedCache("MainProductAssoc", [productAssocTypeId : "PRODUCT_VARIANT"], ["sequenceNum"]);
+                    productVariantAssocs = product.getRelated("MainProductAssoc", [productAssocTypeId : "PRODUCT_VARIANT"], ["sequenceNum"], true);
                     productVariantAssocs = EntityUtil.filterByDate(productVariantAssocs);
                 }
 

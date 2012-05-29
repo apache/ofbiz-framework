@@ -104,7 +104,7 @@ public class ContactMechWorker {
                 }
 
                 try {
-                    List<GenericValue> partyContactMechPurposes = partyContactMech.getRelated("PartyContactMechPurpose");
+                    List<GenericValue> partyContactMechPurposes = partyContactMech.getRelated("PartyContactMechPurpose", null, null, false);
 
                     if (!showOld) partyContactMechPurposes = EntityUtil.filterByDate(partyContactMechPurposes, true);
                     partyContactMechValueMap.put("partyContactMechPurposes", partyContactMechPurposes);
@@ -175,7 +175,7 @@ public class ContactMechWorker {
                 }
 
                 try {
-                    List<GenericValue> facilityContactMechPurposes = facilityContactMech.getRelated("FacilityContactMechPurpose");
+                    List<GenericValue> facilityContactMechPurposes = facilityContactMech.getRelated("FacilityContactMechPurpose", null, null, false);
 
                     if (!showOld) facilityContactMechPurposes = EntityUtil.filterByDate(facilityContactMechPurposes, true);
                     facilityContactMechValueMap.put("facilityContactMechPurposes", facilityContactMechPurposes);
@@ -351,7 +351,7 @@ public class ContactMechWorker {
                 Collection<GenericValue> partyContactMechPurposes = null;
 
                 try {
-                    partyContactMechPurposes = EntityUtil.filterByDate(partyContactMech.getRelated("PartyContactMechPurpose"), true);
+                    partyContactMechPurposes = EntityUtil.filterByDate(partyContactMech.getRelated("PartyContactMechPurpose", null, null, false), true);
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e, module);
                 }
@@ -563,7 +563,7 @@ public class ContactMechWorker {
                 Collection<GenericValue> facilityContactMechPurposes = null;
 
                 try {
-                    facilityContactMechPurposes = EntityUtil.filterByDate(facilityContactMech.getRelated("FacilityContactMechPurpose"), true);
+                    facilityContactMechPurposes = EntityUtil.filterByDate(facilityContactMech.getRelated("FacilityContactMechPurpose", null, null, false), true);
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e, module);
                 }
@@ -722,7 +722,7 @@ public class ContactMechWorker {
                 }
 
                 try {
-                    List<GenericValue> partyContactMechPurposes = EntityUtil.filterByDate(partyContactMech.getRelated("PartyContactMechPurpose"), true);
+                    List<GenericValue> partyContactMechPurposes = EntityUtil.filterByDate(partyContactMech.getRelated("PartyContactMechPurpose", null, null, false), true);
                     postalAddressInfo.put("partyContactMechPurposes", partyContactMechPurposes);
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e, module);
@@ -758,7 +758,7 @@ public class ContactMechWorker {
 
                 Collection<GenericValue> curPartyContactMechPurposes = null;
                 try {
-                    curPartyContactMechPurposes = EntityUtil.filterByDate(curPartyContactMech.getRelated("PartyContactMechPurpose"), true);
+                    curPartyContactMechPurposes = EntityUtil.filterByDate(curPartyContactMech.getRelated("PartyContactMechPurpose", null, null, false), true);
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e, module);
                 }
