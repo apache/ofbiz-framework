@@ -119,7 +119,7 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
         GenericValue performer = null;
         if (valueObject.get("performerParticipantId") != null) {
             try {
-                performer = valueObject.getRelatedOne("PerformerWorkflowParticipant");
+                performer = valueObject.getRelatedOne("PerformerWorkflowParticipant", false);
                 if (performer == null) {
                     Map<String, Object> performerFields = UtilMisc.toMap("packageId", (Object) valueObject.getString("packageId"),
                             "packageVersion", valueObject.getString("packageVersion"), "processId", "_NA_",
@@ -170,7 +170,7 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
                 Map<String, Object> fields1 = UtilMisc.toMap("partyId", (Object) performer.getString("partyId"));
                 GenericValue v1 = getDelegator().findOne("Party", fields1, false);
 
-                partyType = v1.getRelatedOne("PartyType");
+                partyType = v1.getRelatedOne("PartyType", false);
                 Map<String, Object> fields2 = UtilMisc.toMap("partyTypeId", (Object) "PARTY_GROUP");
                 groupType = getDelegator().findOne("PartyType", fields2, true);
             } catch (GenericEntityException e) {

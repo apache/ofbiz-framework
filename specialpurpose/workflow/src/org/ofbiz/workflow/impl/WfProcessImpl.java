@@ -159,7 +159,7 @@ public class WfProcessImpl extends WfExecutionObjectImpl implements WfProcess {
             } else {
                 // this is either the first activity defined or specified as an ExtendedAttribute
                 // since this is defined in XPDL, we don't care if canStart is set.
-                start = getDefinitionObject().getRelatedOne("DefaultStartWorkflowActivity");
+                start = getDefinitionObject().getRelatedOne("DefaultStartWorkflowActivity", false);
             }
         } catch (GenericEntityException e) {
             throw new WfException(e.getMessage(), e.getNested());
@@ -286,7 +286,7 @@ public class WfProcessImpl extends WfExecutionObjectImpl implements WfProcess {
                 GenericValue toActivity = null;
 
                 try {
-                    toActivity = trans.getRelatedOne("ToWorkflowActivity");
+                    toActivity = trans.getRelatedOne("ToWorkflowActivity", false);
                 } catch (GenericEntityException e) {
                     throw new WfException(e.getMessage(), e);
                 }
