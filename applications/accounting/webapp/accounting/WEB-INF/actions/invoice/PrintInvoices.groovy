@@ -71,8 +71,8 @@ invoiceIds.each { invoiceId ->
         invoicesMap.sendingParty = sendingParty;
 
         // This snippet was added for adding Tax ID in invoice header if needed 
-        sendingTaxInfos = sendingParty.getRelated("PartyTaxAuthInfo");
-        billingTaxInfos = billingParty.getRelated("PartyTaxAuthInfo");
+        sendingTaxInfos = sendingParty.getRelated("PartyTaxAuthInfo", null, null, false);
+        billingTaxInfos = billingParty.getRelated("PartyTaxAuthInfo", null, null, false);
         sendingPartyTaxId = null;
         billingPartyTaxId = null;
 
@@ -95,7 +95,7 @@ invoiceIds.each { invoiceId ->
             invoicesMap.billingPartyTaxId = billingPartyTaxId;
         }
     
-        terms = invoice.getRelated("InvoiceTerm");
+        terms = invoice.getRelated("InvoiceTerm", null, null, false);
         invoicesMap.terms = terms;
     
         paymentAppls = delegator.findList("PaymentApplication", EntityCondition.makeCondition([invoiceId : invoiceId]), null, null, null, false);

@@ -631,7 +631,7 @@ public class OrbitalPaymentServices {
         String shippingRef = "";
         try {
             GenericValue orderHeader = delegator.findOne("OrderHeader", false, UtilMisc.toMap("orderId", orderId));
-            GenericValue trackingCodeOrder = EntityUtil.getFirst(orderHeader.getRelated("TrackingCodeOrder"));
+            GenericValue trackingCodeOrder = EntityUtil.getFirst(orderHeader.getRelated("TrackingCodeOrder", null, null, false));
             GenericValue trackingCode = null;
             if (UtilValidate.isNotEmpty(trackingCodeOrder)) {
                 trackingCode = trackingCodeOrder.getRelatedOne("TrackingCode", false);

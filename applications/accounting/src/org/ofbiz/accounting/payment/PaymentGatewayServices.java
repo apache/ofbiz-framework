@@ -668,7 +668,7 @@ public class PaymentGatewayServices {
             GenericValue giftCard = paymentMethod.getRelatedOne("GiftCard", false);
             toContext.put("giftCard", giftCard);
             GenericValue orderHeader = paymentPreference.getRelatedOne("OrderHeader", false);
-            List<GenericValue> orderItems = orderHeader.getRelated("OrderItem");
+            List<GenericValue> orderItems = orderHeader.getRelated("OrderItem", null, null, false);
             toContext.put("orderId", orderHeader.getString("orderId"));
             toContext.put("orderItems", orderItems);
         } else if ("FIN_ACCOUNT".equals(paymentMethodTypeId)) {
@@ -843,7 +843,7 @@ public class PaymentGatewayServices {
             // cancel any payment records
             List<GenericValue> paymentList = null;
             try {
-                paymentList = paymentPref.getRelated("Payment");
+                paymentList = paymentPref.getRelated("Payment", null, null, false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Unable to get Payment records from OrderPaymentPreference : " + paymentPref, module);
             }
@@ -1048,7 +1048,7 @@ public class PaymentGatewayServices {
             // cancel any payment records
             List<GenericValue> paymentList = null;
             try {
-                paymentList = paymentPref.getRelated("Payment");
+                paymentList = paymentPref.getRelated("Payment", null, null, false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Unable to get Payment records from OrderPaymentPreference : " + paymentPref, module);
             }
@@ -1105,7 +1105,7 @@ public class PaymentGatewayServices {
         // get the OrderItemBilling records for this invoice
         List<GenericValue> orderItemBillings = null;
         try {
-            orderItemBillings = invoice.getRelated("OrderItemBilling");
+            orderItemBillings = invoice.getRelated("OrderItemBilling", null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError("Trouble getting OrderItemBilling(s) from Invoice #" + invoiceId, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -2792,7 +2792,7 @@ public class PaymentGatewayServices {
         GenericValue capTrans = null;
         try {
             List<String> order = UtilMisc.toList("-transactionDate");
-            List<GenericValue> transactions = orderPaymentPreference.getRelated("PaymentGatewayResponse", null, order);
+            List<GenericValue> transactions = orderPaymentPreference.getRelated("PaymentGatewayResponse", null, order, false);
             List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("paymentServiceTypeEnumId", EntityOperator.EQUALS, CAPTURE_SERVICE_TYPE));
             List<GenericValue> capTransactions = EntityUtil.filterByAnd(transactions, exprs);
             capTrans = EntityUtil.getFirst(capTransactions);
@@ -2822,7 +2822,7 @@ public class PaymentGatewayServices {
         List<GenericValue> authTransactions = null;
         try {
             List<String> order = UtilMisc.toList("-transactionDate");
-            List<GenericValue> transactions = orderPaymentPreference.getRelated("PaymentGatewayResponse", null, order);
+            List<GenericValue> transactions = orderPaymentPreference.getRelated("PaymentGatewayResponse", null, order, false);
             List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("paymentServiceTypeEnumId", EntityOperator.EQUALS, AUTH_SERVICE_TYPE),
                     EntityCondition.makeCondition("paymentServiceTypeEnumId", EntityOperator.EQUALS, REAUTH_SERVICE_TYPE));
             authTransactions = EntityUtil.filterByOr(transactions, exprs);
@@ -3748,7 +3748,7 @@ public class PaymentGatewayServices {
 
         List<GenericValue> returnItemResponses = FastList.newInstance();
         try {
-            returnItemResponses = orderHeader.getRelated("ReplacementReturnItemResponse");
+            returnItemResponses = orderHeader.getRelated("ReplacementReturnItemResponse", null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return replacementOrderFlag;

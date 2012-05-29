@@ -46,7 +46,7 @@ by hand from a real template using a ruler.
       </#if>
 
       <#list payments as payment>
-      <#assign paymentApplications = payment.getRelated("PaymentApplication")>
+      <#assign paymentApplications = payment.getRelated("PaymentApplication", null, null, false)>
       <fo:block font-size="10pt" break-before="page"> <#-- this produces a page break if this block cannot fit on the current page -->
 
         <#-- the check: note that the format is fairly precise -->
@@ -171,7 +171,7 @@ by hand from a real template using a ruler.
               </fo:table-cell>
             </fo:table-row>
             <#if invoice.invoiceTypeId?if_exists == "PAYROL_INVOICE">
-              <#assign InvoiceItems = invoice.getRelated("InvoiceItem")?if_exists>
+              <#assign InvoiceItems = invoice.getRelated("InvoiceItem", null, null, false)?if_exists>
               <#assign PayrolGroups = PayrolGroup?if_exists>
               <#list PayrolGroups as payrolGroup>
                   <#assign fontSize = "75%">
@@ -367,7 +367,7 @@ by hand from a real template using a ruler.
               </fo:table-cell>
             </fo:table-row>
             <#if invoice.invoiceTypeId?if_exists == "PAYROL_INVOICE">
-              <#assign InvoiceItems = invoice.getRelated("InvoiceItem")?if_exists>
+              <#assign InvoiceItems = invoice.getRelated("InvoiceItem", null, null, false)?if_exists>
               <#assign PayrolGroups = PayrolGroup?if_exists>
               <#list PayrolGroups as payrolGroup>
                   <#assign fontSize = "75%">

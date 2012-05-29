@@ -101,8 +101,8 @@ if (invoice) {
 
                 //*________________this snippet was added for adding Tax ID in invoice header if needed _________________
 
-               sendingTaxInfos = sendingParty.getRelated("PartyTaxAuthInfo");
-               billingTaxInfos = billingParty.getRelated("PartyTaxAuthInfo");
+               sendingTaxInfos = sendingParty.getRelated("PartyTaxAuthInfo", null, null, false);
+               billingTaxInfos = billingParty.getRelated("PartyTaxAuthInfo", null, null, false);
                sendingPartyTaxId = null;
                billingPartyTaxId = null;
 
@@ -127,7 +127,7 @@ if (invoice) {
                //________________this snippet was added for adding Tax ID in invoice header if needed _________________*/
 
 
-    terms = invoice.getRelated("InvoiceTerm");
+    terms = invoice.getRelated("InvoiceTerm", null, null, false);
     context.terms = terms;
 
     paymentAppls = delegator.findByAnd("PaymentApplication", [invoiceId : invoiceId], null, false);

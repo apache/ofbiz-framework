@@ -33,7 +33,7 @@ if (!invoice) return;
 
 invoiceApplications = [];  // to pass back to the screen with payment applications added
 // retrieve related applications with null itemnumber
-invoiceAppls = invoice.getRelated("PaymentApplication", [invoiceItemSeqId : null], null);
+invoiceAppls = invoice.getRelated("PaymentApplication", [invoiceItemSeqId : null], null, false);
 invoiceAppls.each { invoiceAppl ->
     itemmap = [:];
     itemmap.invoiceId = invoiceAppl.invoiceId;
@@ -50,7 +50,7 @@ invoiceAppls.each { invoiceAppl ->
 
 
 // retrieve related applications with an existing itemnumber
-invoice.getRelated("InvoiceItem").each { item ->
+invoice.getRelated("InvoiceItem", null, null, false).each { item ->
     BigDecimal itemTotal = null;
     if (item.amount != null) {
           if (!item.quantity) {
@@ -60,7 +60,7 @@ invoice.getRelated("InvoiceItem").each { item ->
           }
     }
     // get relation payment applications for every item(can be more than 1 per item number)
-    item.getRelated("PaymentApplication").each { paymentApplication ->
+    item.getRelated("PaymentApplication", null, null, false).each { paymentApplication ->
         itemmap = [:];
         itemmap.putAll(item);
         itemmap.total = NumberFormat.getInstance(locale).format(itemTotal);
