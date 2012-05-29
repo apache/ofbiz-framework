@@ -104,7 +104,7 @@ public class TransactionUtil implements Status {
         return inTransaction(callable, ifErrorMessage, timeout, printException).call();
     }
 
-    public static <V> Callable<V> noTransaction(Callable<V> callable) {
+    public static <V> NoTransaction<V> noTransaction(Callable<V> callable) {
         return new NoTransaction<V>(callable);
     }
 
