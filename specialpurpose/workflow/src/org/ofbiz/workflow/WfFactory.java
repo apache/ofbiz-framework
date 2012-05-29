@@ -41,8 +41,8 @@ public class WfFactory {
 
     public static final String module = WfFactory.class.getName();
 
-    protected static UtilCache<String, WfProcessMgrImpl> wfProcessMgrCache = UtilCache.createUtilCache("workflow.processmgr");
-    protected static UtilCache<DispatchContext, WorkflowClient> wfClientCache = UtilCache.createUtilCache("workflow.client");
+    private static final UtilCache<String, WfProcessMgrImpl> wfProcessMgrCache = UtilCache.createUtilCache("workflow.processmgr");
+    private static final UtilCache<DispatchContext, WorkflowClient> wfClientCache = UtilCache.createUtilCache("workflow.client");
 
     /**
      * Creates a new {@link WfActivity} instance.
@@ -137,14 +137,11 @@ public class WfFactory {
         if (pid == null) throw new WfException("Workflow process id cannot be null");
 
         String key = delegator.getDelegatorName() + ":" + pkg + ":" + pkver + ":" + pid + ":" + pver;
-        if (!wfProcessMgrCache.containsKey(key)) {
-            synchronized (WfFactory.class) {
-                if (!wfProcessMgrCache.containsKey(key)) {
-                    wfProcessMgrCache.put(key, new WfProcessMgrImpl(delegator, pkg, pkver, pid, pver));
-                }
-            }
+        WfProcessMgrImpl wfProcessMgr = wfProcessMgrCache.get(key);
+        if (wfProcessMgr == null) {
+            wfProcessMgr = wfProcessMgrCache.putIfAbsentAndGet(key, new WfProcessMgrImpl(delegator, pkg, pkver, pid, pver));
         }
-        return wfProcessMgrCache.get(key);
+        return wfProcessMgr;
     }
 
     /**
@@ -194,13 +191,11 @@ public class WfFactory {
     }
 
     public static WorkflowClient getClient(DispatchContext dctx) {
-        if (!wfClientCache.containsKey(dctx)) {
-            synchronized (WfFactory.class) {
-                if (!wfClientCache.containsKey(dctx))
-                wfClientCache.put(dctx, new WorkflowClient(dctx));
-            }
+        WorkflowClient client = wfClientCache.get(dctx);
+        if (client == null) {
+            client = wfClientCache.putIfAbsentAndGet(dctx, new WorkflowClient(dctx));
         }
-        return wfClientCache.get(dctx);
+        return client;
     }
 
 }
