@@ -311,7 +311,9 @@ public class GenericValue extends GenericEntity implements Reusable {
     /** Get the named Related Entity for the GenericValue from the persistent store
      *@param relationName String containing the relation name which is the combination of relation.title and relation.rel-entity-name as specified in the entity XML definition file
      *@return List of GenericValue instances as specified in the relation definition
+     *@deprecated use {@link #getRelatedOne(String, boolean)}
      */
+    @Deprecated
     public GenericValue getRelatedOne(String relationName) throws GenericEntityException {
         return this.getDelegator().getRelatedOne(relationName, this, false);
     }
@@ -320,7 +322,9 @@ public class GenericValue extends GenericEntity implements Reusable {
      *  store, looking first in the global generic cache (for the moment this isn't true, is same as EmbeddedCache variant)
      *@param relationName String containing the relation name which is the combination of relation.title and relation.rel-entity-name as specified in the entity XML definition file
      *@return List of GenericValue instances as specified in the relation definition
+     *@deprecated use {@link #getRelatedOne(String, boolean)}
      */
+    @Deprecated
     public GenericValue getRelatedOneCache(String relationName) throws GenericEntityException {
         return this.getDelegator().getRelatedOne(relationName, this, true);
     }
