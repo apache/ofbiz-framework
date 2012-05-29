@@ -921,7 +921,7 @@ public class WorkEffortServices {
             int currentCount = reminder.get("currentCount") == null ? 0 : reminder.getLong("currentCount").intValue();
             GenericValue workEffort = null;
             try {
-                workEffort = reminder.getRelatedOne("WorkEffort");
+                workEffort = reminder.getRelatedOne("WorkEffort", false);
             } catch (GenericEntityException e) {
                 Debug.logWarning("Error while getting work effort: " + e, module);
             }
@@ -1041,7 +1041,7 @@ public class WorkEffortServices {
         GenericValue reminder = (GenericValue) context.get("reminder");
         GenericValue contactMech = null;
         try {
-            contactMech = reminder.getRelatedOne("ContactMech");
+            contactMech = reminder.getRelatedOne("ContactMech", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -1083,7 +1083,7 @@ public class WorkEffortServices {
     @Deprecated
     protected static void processEventReminder(DispatchContext ctx, GenericValue reminder, Map<String, Object> parameters) throws GenericEntityException {
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        GenericValue contactMech = reminder.getRelatedOne("ContactMech");
+        GenericValue contactMech = reminder.getRelatedOne("ContactMech", false);
         if (contactMech != null && "EMAIL_ADDRESS".equals(contactMech.get("contactMechTypeId"))) {
             String screenLocation = UtilProperties.getPropertyValue("EventReminders", "eventReminders.emailScreenWidgetLocation");
             String fromAddress = UtilProperties.getPropertyValue("EventReminders", "eventReminders.emailFromAddress");

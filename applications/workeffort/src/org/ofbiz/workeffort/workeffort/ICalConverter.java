@@ -352,7 +352,7 @@ public class ICalConverter {
                 alarmProps = alarm.getProperties();
                 alarmProps.add(new XProperty(reminderXPropName, reminderId));
             }
-            GenericValue contactMech = reminder.getRelatedOne("ContactMech");
+            GenericValue contactMech = reminder.getRelatedOne("ContactMech", false);
             if (contactMech != null && "EMAIL_ADDRESS".equals(contactMech.get("contactMechTypeId"))) {
                 try {
                     alarmProps.add(new Attendee(contactMech.getString("infoString")));
@@ -571,7 +571,7 @@ public class ICalConverter {
 
     protected static Calendar makeCalendar(GenericValue workEffort, Map<String, Object> context) throws GenericEntityException {
         String iCalData = null;
-        GenericValue iCalValue = workEffort.getRelatedOne("WorkEffortIcalData");
+        GenericValue iCalValue = workEffort.getRelatedOne("WorkEffortIcalData", false);
         if (iCalValue != null) {
             iCalData = iCalValue.getString("icalData");
         }
@@ -763,7 +763,7 @@ public class ICalConverter {
             }
         }
         Map<String, ? extends Object> serviceMap = UtilMisc.toMap("workEffortId", context.get("workEffortId"), "icalData", calendar.toString());
-        GenericValue iCalData = publishProperties.getRelatedOne("WorkEffortIcalData");
+        GenericValue iCalData = publishProperties.getRelatedOne("WorkEffortIcalData", false);
         Map<String, Object> serviceResult = null;
         if (iCalData == null) {
             serviceResult = invokeService("createWorkEffortICalData", serviceMap, context);
