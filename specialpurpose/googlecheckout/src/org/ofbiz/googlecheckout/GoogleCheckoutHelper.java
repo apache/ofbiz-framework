@@ -148,7 +148,7 @@ public class GoogleCheckoutHelper {
         }
         if (UtilValidate.isNotEmpty(orders)) {
             GenericValue order = EntityUtil.getFirst(orders);
-            List<GenericValue> orderPaymentPreferences = order.getRelated("OrderPaymentPreference");
+            List<GenericValue> orderPaymentPreferences = order.getRelated("OrderPaymentPreference", null, null, false);
             if (UtilValidate.isNotEmpty(orderPaymentPreferences)) {
                 orderPaymentPreference = EntityUtil.getFirst(orderPaymentPreferences);
                 BigDecimal maxAmount = new BigDecimal(info.getAuthorizationAmount());
@@ -177,7 +177,7 @@ public class GoogleCheckoutHelper {
         }
         if (UtilValidate.isNotEmpty(orders)) {
             GenericValue order = EntityUtil.getFirst(orders);
-            List<GenericValue> orderPaymentPreferences = order.getRelated("OrderPaymentPreference");
+            List<GenericValue> orderPaymentPreferences = order.getRelated("OrderPaymentPreference", null, null, false);
             if (UtilValidate.isNotEmpty(orderPaymentPreferences)) {
                 orderPaymentPreference = EntityUtil.getFirst(orderPaymentPreferences);
                 BigDecimal maxAmount = new BigDecimal(info.getTotalChargeAmount());
@@ -207,7 +207,7 @@ public class GoogleCheckoutHelper {
         }
         if (UtilValidate.isNotEmpty(orders)) {
             GenericValue order = EntityUtil.getFirst(orders);
-            List<GenericValue> orderPaymentPreferences = order.getRelated("OrderPaymentPreference");
+            List<GenericValue> orderPaymentPreferences = order.getRelated("OrderPaymentPreference", null, null, false);
             if (UtilValidate.isNotEmpty(orderPaymentPreferences)) {
                 orderPaymentPreference = EntityUtil.getFirst(orderPaymentPreferences);
                 BigDecimal maxAmount = new BigDecimal(info.getTotalRefundAmount());
