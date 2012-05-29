@@ -847,9 +847,9 @@ public class EntitySyncContext {
 
     /** prepare a list of all entities we want to synchronize: remove all view-entities and all entities that don't match the patterns attached to this EntitySync */
     protected List<ModelEntity> makeEntityModelToUseList() throws GenericEntityException {
-        List<GenericValue> entitySyncIncludes = entitySync.getRelated("EntitySyncInclude");
+        List<GenericValue> entitySyncIncludes = entitySync.getRelated("EntitySyncInclude", null, null, false);
         // get these ones as well, and just add them to the main list, it will have an extra field but that shouldn't hurt anything in the code below
-        List<GenericValue> entitySyncGroupIncludes = entitySync.getRelated("EntitySyncInclGrpDetailView");
+        List<GenericValue> entitySyncGroupIncludes = entitySync.getRelated("EntitySyncInclGrpDetailView", null, null, false);
         entitySyncIncludes.addAll(entitySyncGroupIncludes);
 
         List<ModelEntity> entityModelToUseList = EntityGroupUtil.getModelEntitiesFromRecords(entitySyncIncludes, delegator, true);

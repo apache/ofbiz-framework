@@ -274,7 +274,7 @@ public class GenericValue extends GenericEntity implements Reusable {
         List<GenericValue> col = relatedCache.get(relationName);
 
         if (col == null) {
-            col = getRelated(relationName);
+            col = getRelated(relationName, null, null, false);
             relatedCache.put(relationName, col);
         }
         return col;
