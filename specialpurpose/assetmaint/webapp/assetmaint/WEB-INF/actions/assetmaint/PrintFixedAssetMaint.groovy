@@ -20,7 +20,7 @@ under the License.
 import org.ofbiz.entity.*;
 import org.ofbiz.entity.condition.*;
 
-facility = fixedAsset.getRelatedOne("LocatedAtFacility");
+facility = fixedAsset.getRelatedOne("LocatedAtFacility", false);
 context.locatedAtFacility = facility;
 
 fixedAssetIdents = delegator.findList("FixedAssetIdent", EntityCondition.makeCondition([fixedAssetId : fixedAssetId]), null, null, null, false);
@@ -32,13 +32,13 @@ if (fixedAssetIdents) {
 }
 context.fixedAssetIdentValue = fixedAssetIdentValue;
 
-status = fixedAssetMaint.getRelatedOne("StatusItem");
+status = fixedAssetMaint.getRelatedOne("StatusItem", false);
 if (status) {
     context.statusItemDesc = status.description;
 }
 //context.put("fixedAssetMaint",fixedAssetMaint);
 
-intervalUom = fixedAssetMaint.getRelatedOne("IntervalUom");
+intervalUom = fixedAssetMaint.getRelatedOne("IntervalUom", false);
 if (intervalUom) {
     context.intervalUomDesc = intervalUom.description;
 }
@@ -67,5 +67,5 @@ if (intervalMeterTypeId) {
 }
 context.productMeterTypeDesc = productMeterTypeDesc;
 
-scheduleWorkEffort = fixedAssetMaint.getRelatedOne("ScheduleWorkEffort");
+scheduleWorkEffort = fixedAssetMaint.getRelatedOne("ScheduleWorkEffort", false);
 context.scheduleWorkEffort = scheduleWorkEffort;

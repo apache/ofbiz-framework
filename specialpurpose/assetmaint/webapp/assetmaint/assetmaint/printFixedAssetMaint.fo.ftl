@@ -138,7 +138,7 @@ under the License.
                 <fo:table-cell><fo:block></fo:block></fo:table-cell>
             </#if>
         </fo:table-row>
-        <#assign workEffortPurposeType = scheduleWorkEffort.getRelatedOne("WorkEffortPurposeType")?if_exists>
+        <#assign workEffortPurposeType = scheduleWorkEffort.getRelatedOne("WorkEffortPurposeType", false)?if_exists>
         <#if workEffortPurposeType?has_content>
         <fo:table-row>
           <fo:table-cell><fo:block>${uiLabelMap.FormFieldTitle_workEffortPurposeTypeId}</fo:block></fo:table-cell>
