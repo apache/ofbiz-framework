@@ -120,7 +120,7 @@ if (phases) {
                 preTasks = delegator.findByAnd("WorkEffortAssoc", ["workEffortIdTo" : task.workEffortId], ["workEffortIdFrom"], false);
                 latestTaskIds = new LinkedList();
                 preTasks.each { preTask ->
-                    wf = preTask.getRelatedOne("FromWorkEffort");
+                    wf = preTask.getRelatedOne("FromWorkEffort", false);
                     latestTaskIds.add(wf.workEffortId);
                 }
                 if (UtilValidate.isNotEmpty(latestTaskIds)) {
