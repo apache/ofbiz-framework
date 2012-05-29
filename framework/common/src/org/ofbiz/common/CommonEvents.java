@@ -68,7 +68,7 @@ public class CommonEvents {
 
     public static final String module = CommonEvents.class.getName();
 
-    public static UtilCache<String, Map<String, String>> appletSessions = UtilCache.createUtilCache("AppletSessions", 0, 600000, true);
+    private static final UtilCache<String, Map<String, String>> appletSessions = UtilCache.createUtilCache("AppletSessions", 0, 600000, true);
 
     public static String checkAppletRequest(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
@@ -122,8 +122,8 @@ public class CommonEvents {
 
         if (visit.getString("sessionId").equals(sessionId)) {
             String currentPage = request.getParameter("currentPage");
-            if (appletSessions.containsKey(sessionId)) {
-                Map<String, String> sessionMap = appletSessions.get(sessionId);
+            Map<String, String> sessionMap = appletSessions.get(sessionId);
+            if (sessionMap != null) {
                 String followers = sessionMap.get("followers");
                 List<String> folList = StringUtil.split(followers, ",");
                 for (String follower: folList) {

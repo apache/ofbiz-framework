@@ -46,7 +46,7 @@ public final class BshUtil {
     public static final String module = BshUtil.class.getName();
 
     protected static FastMap<ClassLoader, BshClassManager> masterClassManagers = FastMap.newInstance();
-    public static UtilCache<String, Interpreter.ParsedScript> parsedScripts = UtilCache.createUtilCache("script.BshLocationParsedCache", 0, 0, false);
+    private static final UtilCache<String, Interpreter.ParsedScript> parsedScripts = UtilCache.createUtilCache("script.BshLocationParsedCache", 0, 0, false);
 
     /**
      * Evaluate a BSH condition or expression
@@ -134,19 +134,14 @@ public final class BshUtil {
             Interpreter.ParsedScript script = null;
             script = parsedScripts.get(location);
             if (script == null) {
-                synchronized (OfbizBshBsfEngine.class) {
-                    script = parsedScripts.get(location);
-                    if (script == null) {
-                        URL scriptUrl = FlexibleLocation.resolveLocation(location);
-                        if (scriptUrl == null) {
-                            throw new GeneralException("Could not find bsh script at [" + location + "]");
-                        }
-                        Reader scriptReader = new InputStreamReader(scriptUrl.openStream());
-                        script = interpreter.parseScript(location, scriptReader);
-                        if (Debug.verboseOn()) Debug.logVerbose("Caching BSH script at: " + location, module);
-                        parsedScripts.put(location, script);
-                    }
+                URL scriptUrl = FlexibleLocation.resolveLocation(location);
+                if (scriptUrl == null) {
+                    throw new GeneralException("Could not find bsh script at [" + location + "]");
                 }
+                Reader scriptReader = new InputStreamReader(scriptUrl.openStream());
+                script = interpreter.parseScript(location, scriptReader);
+                if (Debug.verboseOn()) Debug.logVerbose("Caching BSH script at: " + location, module);
+                script = parsedScripts.putIfAbsentAndGet(location, script);
             }
 
             return interpreter.evalParsedScript(script);

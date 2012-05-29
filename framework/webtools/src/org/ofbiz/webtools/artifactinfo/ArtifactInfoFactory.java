@@ -63,7 +63,7 @@ public class ArtifactInfoFactory {
 
     public static final String module = ArtifactInfoFactory.class.getName();
 
-    protected static UtilCache<String, ArtifactInfoFactory> artifactInfoFactoryCache = UtilCache.createUtilCache("ArtifactInfoFactory");
+    private static final UtilCache<String, ArtifactInfoFactory> artifactInfoFactoryCache = UtilCache.createUtilCache("ArtifactInfoFactory");
 
     public static final String EntityInfoTypeId = "entity";
     public static final String ServiceInfoTypeId = "service";
@@ -121,8 +121,7 @@ public class ArtifactInfoFactory {
 
         ArtifactInfoFactory aif = artifactInfoFactoryCache.get(delegatorName);
         if (aif == null) {
-            aif = new ArtifactInfoFactory(delegatorName);
-            artifactInfoFactoryCache.put(delegatorName, aif);
+            aif = artifactInfoFactoryCache.putIfAbsentAndGet(delegatorName, new ArtifactInfoFactory(delegatorName));
         }
         return aif;
     }

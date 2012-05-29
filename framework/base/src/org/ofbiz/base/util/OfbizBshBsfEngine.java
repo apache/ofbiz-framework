@@ -61,7 +61,7 @@ public class OfbizBshBsfEngine extends BSFEngineImpl {
     protected Interpreter interpreter;
     protected boolean installedApplyMethod;
 
-    public static UtilCache<String, Interpreter.ParsedScript> parsedScripts = UtilCache.createUtilCache("script.BshBsfParsedCache", 0, 0, false);
+    private static final UtilCache<String, Interpreter.ParsedScript> parsedScripts = UtilCache.createUtilCache("script.BshBsfParsedCache", 0, 0, false);
 
     @SuppressWarnings("unchecked")
     @Override
@@ -177,14 +177,9 @@ public class OfbizBshBsfEngine extends BSFEngineImpl {
             if (UtilValidate.isNotEmpty(source)) {
                 script = parsedScripts.get(source);
                 if (script == null) {
-                    synchronized (OfbizBshBsfEngine.class) {
-                        script = parsedScripts.get(source);
-                        if (script == null) {
-                            script = interpreter.parseScript(source, new StringReader((String) expr));
-                            Debug.logVerbose("Caching BSH script at: " + source, module);
-                            parsedScripts.put(source, script);
-                        }
-                    }
+                    script = interpreter.parseScript(source, new StringReader((String) expr));
+                    Debug.logVerbose("Caching BSH script at: " + source, module);
+                    script = parsedScripts.putIfAbsentAndGet(source, script);
                 }
             } else {
                 script = interpreter.parseScript(source, new StringReader((String) expr));

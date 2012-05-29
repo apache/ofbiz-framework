@@ -154,8 +154,7 @@ public final class SimpleMethod extends MiniLangElement {
         Map<String, SimpleMethod> simpleMethods = simpleMethodsDirectCache.get(name);
         if (simpleMethods == null) {
             simpleMethods = getAllDirectSimpleMethods(name, content, fromLocation);
-            simpleMethodsDirectCache.putIfAbsent(name, simpleMethods);
-            simpleMethods = simpleMethodsDirectCache.get(name);
+            simpleMethods = simpleMethodsDirectCache.putIfAbsentAndGet(name, simpleMethods);
         }
         return simpleMethods;
     }
@@ -192,8 +191,7 @@ public final class SimpleMethod extends MiniLangElement {
         Map<String, SimpleMethod> simpleMethods = simpleMethodsResourceCache.get(cacheKey);
         if (simpleMethods == null) {
             simpleMethods = getAllSimpleMethods(xmlURL);
-            simpleMethodsResourceCache.putIfAbsent(cacheKey, simpleMethods);
-            simpleMethods = simpleMethodsResourceCache.get(cacheKey);
+            simpleMethods = simpleMethodsResourceCache.putIfAbsentAndGet(cacheKey, simpleMethods);
         }
         return simpleMethods;
     }
