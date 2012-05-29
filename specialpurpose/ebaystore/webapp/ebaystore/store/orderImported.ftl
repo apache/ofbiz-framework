@@ -63,8 +63,8 @@ function uploadTrackingCode(orderId, productStoreId) {
           <#assign alt_row = false>
           <#list orderList as orderHeader>
             <#assign orh = Static["org.ofbiz.order.order.OrderReadHelper"].getHelper(orderHeader)>
-            <#assign statusItem = orderHeader.getRelatedOneCache("StatusItem")>
-            <#assign orderType = orderHeader.getRelatedOneCache("OrderType")>
+            <#assign statusItem = orderHeader.getRelatedOne("StatusItem", true)>
+            <#assign orderType = orderHeader.getRelatedOne("OrderType", true)>
             <#if orderType.orderTypeId == "PURCHASE_ORDER">
               <#assign displayParty = orh.getSupplierAgent()?if_exists>
             <#else>

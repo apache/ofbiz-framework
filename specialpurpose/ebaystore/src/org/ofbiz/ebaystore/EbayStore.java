@@ -242,7 +242,7 @@ public class EbayStore {
                 List<StoreCustomCategoryType> listEdit = FastList.newInstance();
                 //start at level 0 of categories
                 for (GenericValue catalogCategory : catalogCategories) {
-                    GenericValue productCategory = catalogCategory.getRelatedOne("ProductCategory");
+                    GenericValue productCategory = catalogCategory.getRelatedOne("ProductCategory", false);
                     if (productCategory != null) {
                         String ebayCategoryId = EbayStoreHelper.retriveEbayCategoryIdByPartyId(delegator,productCategory.getString("productCategoryId"),context.get("partyId").toString());
                         StoreCustomCategoryType categoryType = new StoreCustomCategoryType();
@@ -275,7 +275,7 @@ public class EbayStore {
                 listAdd = FastList.newInstance();
                 listEdit = FastList.newInstance();
                 for (GenericValue catalogCategory : catalogCategories) {
-                    GenericValue productCategory = catalogCategory.getRelatedOne("ProductCategory");
+                    GenericValue productCategory = catalogCategory.getRelatedOne("ProductCategory", false);
                     if (productCategory != null) {
                         String ebayParentCategoryId = EbayStoreHelper.retriveEbayCategoryIdByPartyId(delegator, productCategory.getString("productCategoryId"), context.get("partyId").toString());
                         if (ebayParentCategoryId != null) {
@@ -316,7 +316,7 @@ public class EbayStore {
                 listAdd = FastList.newInstance();
                 listEdit = FastList.newInstance();
                 for (GenericValue catalogCategory : catalogCategories) {
-                    GenericValue productCategory = catalogCategory.getRelatedOne("ProductCategory");
+                    GenericValue productCategory = catalogCategory.getRelatedOne("ProductCategory", false);
                     if (productCategory != null) {
                         List<GenericValue> productParentCategoryRollupList = delegator.findByAnd("ProductCategoryRollup",  UtilMisc.toMap("parentProductCategoryId",productCategory.getString("productCategoryId")),UtilMisc.toList("sequenceNum ASC"), false);
                         for (GenericValue productParentCategoryRollup : productParentCategoryRollupList) {
