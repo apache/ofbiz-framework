@@ -137,7 +137,7 @@ public class BOMHelper {
         try {
         List<GenericValue> shipmentPlans = delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", shipmentId), null, false);
         for(GenericValue shipmentPlan : shipmentPlans) {
-            GenericValue orderItem = shipmentPlan.getRelatedOne("OrderItem");
+            GenericValue orderItem = shipmentPlan.getRelatedOne("OrderItem", false);
 
             List<GenericValue> productionRuns = delegator.findByAnd("WorkOrderItemFulfillment", UtilMisc.toMap("orderId", shipmentPlan.getString("orderId"), "orderItemSeqId", shipmentPlan.getString("orderItemSeqId"), "shipGroupSeqId", shipmentPlan.getString("shipGroupSeqId")), null, true);
             if (UtilValidate.isNotEmpty(productionRuns)) {

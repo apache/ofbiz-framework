@@ -38,7 +38,7 @@ if (techDataCalendar) {
 }
 calendarExceptionWeeksDatas = [];
 calendarExceptionWeeks.each { calendarExceptionWeek ->
-    calendarWeek = calendarExceptionWeek.getRelatedOne("TechDataCalendarWeek");
+    calendarWeek = calendarExceptionWeek.getRelatedOne("TechDataCalendarWeek", false);
     calendarExceptionWeeksDatas.add([calendarExceptionWeek : calendarExceptionWeek , calendarWeek : calendarWeek]);
 }
 

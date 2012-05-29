@@ -155,7 +155,7 @@ public class ProposedOrder {
                     if (EntityUtil.isValueActive(routingTaskAssoc, endDate)) {
                         GenericValue routingTask = null;
                         try {
-                            routingTask = routingTaskAssoc.getRelatedOneCache("ToWorkEffort");
+                            routingTask = routingTaskAssoc.getRelatedOne("ToWorkEffort", true);
                         } catch (GenericEntityException e) {
                             Debug.logError(e.getMessage(),  module);
                         }

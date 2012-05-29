@@ -31,8 +31,8 @@ if (shipmentPlans) {
     workInProgress = "false";
     shipmentPlans.each { shipmentPlan ->
         oneRow = new HashMap(shipmentPlan);
-        //    oneRow.putAll(shipmentPlan.getRelatedOne("OrderItemInventoryRes"));
-        orderItem = shipmentPlan.getRelatedOne("OrderItem");
+        //    oneRow.putAll(shipmentPlan.getRelatedOne("OrderItemInventoryRes", false));
+        orderItem = shipmentPlan.getRelatedOne("OrderItem", false);
         oneRow.productId = orderItem.productId;
         orderedQuantity = orderItem.quantity;
         canceledQuantity = orderItem.cancelQuantity;
@@ -109,7 +109,7 @@ if (shipmentPlans) {
         }
         oneRow.notAvailableQuantity = reservedNotAvailable;
         // Planned Weight and Volume
-        product = orderItem.getRelatedOne("Product");
+        product = orderItem.getRelatedOne("Product", false);
         weight = 0.0;
         quantity = 0.0;
         if (shipmentPlan.quantity) {

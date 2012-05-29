@@ -48,7 +48,7 @@ if (productionRunId) {
         context.inventoryItems = inventoryItems;
         if (inventoryItems) {
             lastWorkEffortInventoryProduced = (GenericValue)inventoryItems.get(inventoryItems.size() - 1);
-            lastInventoryItem = lastWorkEffortInventoryProduced.getRelatedOne("InventoryItem");
+            lastInventoryItem = lastWorkEffortInventoryProduced.getRelatedOne("InventoryItem", false);
             context.lastLotId = lastInventoryItem.lotId;
         }
 
@@ -107,7 +107,7 @@ if (productionRunId) {
             templateTaskAssoc = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAssoc", [workEffortIdTo : routingTask.workEffortId, workEffortAssocTypeId : "WORK_EFF_TEMPLATE"], null, false)));
             templateTask = [:];
             if (templateTaskAssoc) {
-                templateTask = templateTaskAssoc.getRelatedOne("FromWorkEffort");
+                templateTask = templateTaskAssoc.getRelatedOne("FromWorkEffort", false);
             }
             delivProducts = [];
             if (templateTask) {
@@ -161,9 +161,9 @@ if (productionRunId) {
         productionRunComponentsAlreadyIssued = FastList.newInstance();
         if (productionRunComponents) {
             productionRunComponents.each { component ->
-                product = component.getRelatedOne("Product");
+                product = component.getRelatedOne("Product", false);
                 componentName = product.getString("internalName");
-                productionRunTask = component.getRelatedOne("WorkEffort");
+                productionRunTask = component.getRelatedOne("WorkEffort", false);
                 workEffortName = productionRunTask.getString("workEffortName");
                 Map componentData = component.getAllFields();
                 componentData.internalName = componentName;

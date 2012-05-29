@@ -304,7 +304,7 @@ public class ProductionRunServices {
             if (EntityUtil.isValueActive(routingTaskAssoc, startDate)) {
                 GenericValue routingTask = null;
                 try {
-                    routingTask = routingTaskAssoc.getRelatedOne("ToWorkEffort");
+                    routingTask = routingTaskAssoc.getRelatedOne("ToWorkEffort", false);
                 } catch (GenericEntityException e) {
                     Debug.logError(e.getMessage(),  module);
                 }
@@ -645,7 +645,7 @@ public class ProductionRunServices {
                 List<GenericValue> mandatoryWorkEfforts = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAssoc", UtilMisc.toMap("workEffortIdTo", productionRunId, "workEffortAssocTypeId", "WORK_EFF_PRECEDENCY"), null, false));
                 for (int i = 0; i < mandatoryWorkEfforts.size(); i++) {
                     GenericValue mandatoryWorkEffortAssoc = mandatoryWorkEfforts.get(i);
-                    GenericValue mandatoryWorkEffort = mandatoryWorkEffortAssoc.getRelatedOne("FromWorkEffort");
+                    GenericValue mandatoryWorkEffort = mandatoryWorkEffortAssoc.getRelatedOne("FromWorkEffort", false);
                     if (!(mandatoryWorkEffort.getString("currentStatusId").equals("PRUN_COMPLETED") ||
                          mandatoryWorkEffort.getString("currentStatusId").equals("PRUN_RUNNING") ||
                          mandatoryWorkEffort.getString("currentStatusId").equals("PRUN_CLOSED"))) {
@@ -904,7 +904,7 @@ public class ProductionRunServices {
                 // and compute the overhead costs associated to the finished product
                 try {
                     // get the currency
-                    GenericValue facility = productionRun.getGenericValue().getRelatedOne("Facility");
+                    GenericValue facility = productionRun.getGenericValue().getRelatedOne("Facility", false);
                     Map<String, Object> outputMap = dispatcher.runSync("getPartyAccountingPreferences", 
                             UtilMisc.<String, Object>toMap("userLogin", userLogin, 
                                     "organizationPartyId", facility.getString("ownerPartyId")));
@@ -924,8 +924,8 @@ public class ProductionRunServices {
                             UtilMisc.toList("sequenceNum"), false);
                     for (int i = 0; i < productCostComponentCalcs.size(); i++) {
                         GenericValue productCostComponentCalc = productCostComponentCalcs.get(i);
-                        GenericValue costComponentCalc = productCostComponentCalc.getRelatedOne("CostComponentCalc");
-                        GenericValue customMethod = costComponentCalc.getRelatedOne("CustomMethod");
+                        GenericValue costComponentCalc = productCostComponentCalc.getRelatedOne("CostComponentCalc", false);
+                        GenericValue customMethod = costComponentCalc.getRelatedOne("CustomMethod", false);
                         if (customMethod == null) {
                             // TODO: not supported for CostComponentCalc entries directly associated to a product
                             Debug.logWarning("Unable to create cost component for cost component calc with id [" + costComponentCalc.getString("costComponentCalcId") + "] because customMethod is not set", module);
@@ -1054,7 +1054,7 @@ public class ProductionRunServices {
                                                                            "workEffortAssocTypeId", "WORK_EFF_TEMPLATE"), null, false)));
             GenericValue routingTask = null;
             if (UtilValidate.isNotEmpty(routingTaskAssoc)) {
-                routingTask = routingTaskAssoc.getRelatedOne("FromWorkEffort");
+                routingTask = routingTaskAssoc.getRelatedOne("FromWorkEffort", false);
             }
 
             // Get all the valid CostComponentCalc entries
@@ -1063,8 +1063,8 @@ public class ProductionRunServices {
             workEffortCostCalcs = EntityUtil.filterByDate(workEffortCostCalcs);
 
             for (GenericValue workEffortCostCalc : workEffortCostCalcs) {
-                GenericValue costComponentCalc = workEffortCostCalc.getRelatedOne("CostComponentCalc");
-                GenericValue customMethod = costComponentCalc.getRelatedOne("CustomMethod");
+                GenericValue costComponentCalc = workEffortCostCalc.getRelatedOne("CostComponentCalc", false);
+                GenericValue customMethod = costComponentCalc.getRelatedOne("CustomMethod", false);
                 if (UtilValidate.isEmpty(customMethod) || UtilValidate.isEmpty(customMethod.getString("customMethodName"))) {
                     // compute the total time
                     double totalTime = actualTotalMilliSeconds;
@@ -1101,9 +1101,9 @@ public class ProductionRunServices {
             }
 
             // Now get the cost information associated to the fixed asset and compute the costs
-            GenericValue fixedAsset = workEffort.getRelatedOne("FixedAsset");
+            GenericValue fixedAsset = workEffort.getRelatedOne("FixedAsset", false);
             if (UtilValidate.isEmpty(fixedAsset) && UtilValidate.isNotEmpty(routingTask)) {
-                fixedAsset = routingTask.getRelatedOne("FixedAsset");
+                fixedAsset = routingTask.getRelatedOne("FixedAsset", false);
             }
             if (UtilValidate.isNotEmpty(fixedAsset)) {
                 List<GenericValue> setupCosts = fixedAsset.getRelatedByAnd("FixedAssetStdCost", 
@@ -1634,7 +1634,7 @@ public class ProductionRunServices {
         BigDecimal unitCost = ZERO;
         try {
             // get the currency
-            GenericValue facility = productionRun.getGenericValue().getRelatedOne("Facility");
+            GenericValue facility = productionRun.getGenericValue().getRelatedOne("Facility", false);
             Map<String, Object> outputMap = dispatcher.runSync("getPartyAccountingPreferences", UtilMisc.<String, Object>toMap("userLogin", userLogin, "organizationPartyId", facility.getString("ownerPartyId")));
             GenericValue partyAccountingPreference = (GenericValue)outputMap.get("partyAccountingPreference");
             if (partyAccountingPreference == null) {
@@ -2431,7 +2431,7 @@ public class ProductionRunServices {
         boolean isImmediatelyFulfilled = false;
         try {
             GenericValue order = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
-            GenericValue productStore = delegator.getRelatedOne("ProductStore", order);
+            GenericValue productStore = delegator.getRelatedOne("ProductStore", order, false);
             isImmediatelyFulfilled = "Y".equals(productStore.getString("isImmediatelyFulfilled"));
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunForMarketingPackagesCreationError", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "errorString", e.getMessage()), locale));
@@ -2589,7 +2589,7 @@ public class ProductionRunServices {
             GenericValue orderItem = null;
             if ("OrderItemShipGroupAssoc".equals(orderItemOrShipGroupAssoc.getEntityName())) {
                 try {
-                    orderItem = orderItemOrShipGroupAssoc.getRelatedOne("OrderItem");
+                    orderItem = orderItemOrShipGroupAssoc.getRelatedOne("OrderItem", false);
                 } catch(GenericEntityException gee) {
                     Debug.logInfo("Unable to find order item for " + orderItemOrShipGroupAssoc, module);
                 }
@@ -2941,7 +2941,7 @@ public class ProductionRunServices {
             if (inventoryItem.get("availableToPromiseTotal") != null && inventoryItem.getBigDecimal("availableToPromiseTotal").compareTo(ZERO) <= 0) {
                 return ServiceUtil.returnSuccess();
             }
-            GenericValue product = inventoryItem.getRelatedOne("Product");
+            GenericValue product = inventoryItem.getRelatedOne("Product", false);
             if (product == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceProduct, "ProductProductNotFound", locale) + " " + inventoryItem.get("productId"));
             }

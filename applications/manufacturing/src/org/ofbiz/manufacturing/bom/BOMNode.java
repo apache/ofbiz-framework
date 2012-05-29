@@ -409,7 +409,7 @@ public class BOMNode {
         String serviceName = null;
         if (this.productAssoc != null && this.productAssoc.getString("estimateCalcMethod") != null) {
             try {
-                GenericValue genericService = productAssoc.getRelatedOne("CustomMethod");
+                GenericValue genericService = productAssoc.getRelatedOne("CustomMethod", false);
                 if (genericService != null && genericService.getString("customMethodName") != null) {
                     serviceName = genericService.getString("customMethodName");
                 }

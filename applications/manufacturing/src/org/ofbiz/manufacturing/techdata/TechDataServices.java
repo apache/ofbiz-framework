@@ -172,14 +172,14 @@ public class TechDataServices {
     public static GenericValue getTechDataCalendar(GenericValue routingTask) {
         GenericValue machineGroup = null, techDataCalendar = null;
         try {
-            machineGroup = routingTask.getRelatedOneCache("FixedAsset");
+            machineGroup = routingTask.getRelatedOne("FixedAsset", true);
         } catch (GenericEntityException e) {
             Debug.logError("Pb reading FixedAsset associated with routingTask"+e.getMessage(), module);
         }
         if (machineGroup != null) {
             if (machineGroup.getString("calendarId") != null) {
                 try {
-                    techDataCalendar = machineGroup.getRelatedOneCache("TechDataCalendar");
+                    techDataCalendar = machineGroup.getRelatedOne("TechDataCalendar", true);
                 } catch (GenericEntityException e) {
                     Debug.logError("Pb reading TechDataCalendar associated with machineGroup"+e.getMessage(), module);
                 }
@@ -188,7 +188,7 @@ public class TechDataServices {
                     List<GenericValue> machines = machineGroup.getRelatedCache("ChildFixedAsset");
                     if (machines != null && machines.size()>0) {
                         GenericValue machine = EntityUtil.getFirst(machines);
-                        techDataCalendar = machine.getRelatedOneCache("TechDataCalendar");
+                        techDataCalendar = machine.getRelatedOne("TechDataCalendar", true);
                     }
                 } catch (GenericEntityException e) {
                     Debug.logError("Pb reading machine child from machineGroup"+e.getMessage(), module);
@@ -270,7 +270,7 @@ public class TechDataServices {
         GenericValue techDataCalendarWeek = null;
         // TODO read TechDataCalendarExcWeek to manage execption week (maybe it's needed to refactor the entity definition
         try {
-            techDataCalendarWeek = techDataCalendar.getRelatedOneCache("TechDataCalendarWeek");
+            techDataCalendarWeek = techDataCalendar.getRelatedOne("TechDataCalendarWeek", true);
         } catch (GenericEntityException e) {
             Debug.logError("Pb reading Calendar Week associated with calendar"+e.getMessage(), module);
             return 0;
@@ -302,7 +302,7 @@ public class TechDataServices {
         GenericValue techDataCalendarWeek = null;
         // TODO read TechDataCalendarExcWeek to manage execption week (maybe it's needed to refactor the entity definition
         try {
-            techDataCalendarWeek = techDataCalendar.getRelatedOneCache("TechDataCalendarWeek");
+            techDataCalendarWeek = techDataCalendar.getRelatedOne("TechDataCalendarWeek", true);
         } catch (GenericEntityException e) {
             Debug.logError("Pb reading Calendar Week associated with calendar"+e.getMessage(), module);
             return ServiceUtil.returnError("Pb reading Calendar Week associated with calendar");
@@ -424,7 +424,7 @@ public class TechDataServices {
         GenericValue techDataCalendarWeek = null;
         // TODO read TechDataCalendarExcWeek to manage exception week (maybe it's needed to refactor the entity definition
         try {
-            techDataCalendarWeek = techDataCalendar.getRelatedOneCache("TechDataCalendarWeek");
+            techDataCalendarWeek = techDataCalendar.getRelatedOne("TechDataCalendarWeek", true);
         } catch (GenericEntityException e) {
             Debug.logError("Pb reading Calendar Week associated with calendar"+e.getMessage(), module);
             return 0;
@@ -456,7 +456,7 @@ public class TechDataServices {
         GenericValue techDataCalendarWeek = null;
         // TODO read TechDataCalendarExcWeek to manage exception week (maybe it's needed to refactor the entity definition
         try {
-            techDataCalendarWeek = techDataCalendar.getRelatedOneCache("TechDataCalendarWeek");
+            techDataCalendarWeek = techDataCalendar.getRelatedOne("TechDataCalendarWeek", true);
         } catch (GenericEntityException e) {
             Debug.logError("Pb reading Calendar Week associated with calendar"+e.getMessage(), module);
             return ServiceUtil.returnError("Pb reading Calendar Week associated with calendar");
