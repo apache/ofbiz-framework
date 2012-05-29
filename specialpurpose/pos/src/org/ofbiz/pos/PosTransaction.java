@@ -1288,7 +1288,7 @@ public class PosTransaction implements Serializable {
         for (GenericValue shoppingList : shoppingLists) {
             List<GenericValue> items = null;
             try {
-                items = shoppingList.getRelated("ShoppingListItem", UtilMisc.toList("shoppingListItemSeqId"));
+                items = shoppingList.getRelated("ShoppingListItem", null, UtilMisc.toList("shoppingListItemSeqId"), false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
