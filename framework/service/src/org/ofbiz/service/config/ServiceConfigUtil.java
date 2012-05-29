@@ -43,7 +43,7 @@ public class ServiceConfigUtil implements Serializable {
     public static final String module = ServiceConfigUtil.class.getName();
     public static final String engine = "default";
     public static final String SERVICE_ENGINE_XML_FILENAME = "serviceengine.xml";
-    protected static UtilCache<String, Map<String, NotificationGroup>> notificationGroupCache = UtilCache.createUtilCache("service.NotificationGroups", 0, 0, false);
+    private static final UtilCache<String, Map<String, NotificationGroup>> notificationGroupCache = UtilCache.createUtilCache("service.NotificationGroups", 0, 0, false);
 
     public static Element getXmlRootElement() throws GenericConfigException {
         Element root = ResourceLoader.getXmlRootElement(ServiceConfigUtil.SERVICE_ENGINE_XML_FILENAME);
@@ -110,35 +110,22 @@ public class ServiceConfigUtil implements Serializable {
         return retryMin;
     }
 
-    public static void readNotificationGroups() {
-        Element rootElement = null;
-
-        try {
-            rootElement = ServiceConfigUtil.getXmlRootElement();
-        } catch (GenericConfigException e) {
-            Debug.logError(e, "Error getting Service Engine XML root element", module);
-        }
-
-        FastMap<String, NotificationGroup> engineNotifyMap = FastMap.newInstance();
-
-        for (Element e: UtilXml.childElementList(rootElement, "notification-group")) {
-            NotificationGroup ng = new NotificationGroup(e);
-            engineNotifyMap.put(ng.getName(), ng);
-        }
-
-        notificationGroupCache.put(engine, engineNotifyMap);
-    }
-
     public static NotificationGroup getNotificationGroup(String group) {
         Map<String, NotificationGroup> engineNotifyMap = notificationGroupCache.get(engine);
         if (engineNotifyMap == null) {
-            synchronized(ServiceConfigUtil.class) {
-                engineNotifyMap = notificationGroupCache.get(engine);
-                if (engineNotifyMap == null) {
-                    readNotificationGroups();
-                }
+            //
+            Element rootElement = null;
+            try {
+                rootElement = ServiceConfigUtil.getXmlRootElement();
+            } catch (GenericConfigException e) {
+                Debug.logError(e, "Error getting Service Engine XML root element", module);
             }
-            engineNotifyMap = notificationGroupCache.get(engine);
+            engineNotifyMap = FastMap.newInstance();
+            for (Element e: UtilXml.childElementList(rootElement, "notification-group")) {
+                NotificationGroup ng = new NotificationGroup(e);
+                engineNotifyMap.put(ng.getName(), ng);
+            }
+            engineNotifyMap = notificationGroupCache.putIfAbsentAndGet(engine, engineNotifyMap);
         }
         if (engineNotifyMap != null) {
            return engineNotifyMap.get(group);
