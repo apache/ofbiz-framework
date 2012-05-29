@@ -22,7 +22,7 @@ if (!contactList && contactListId) {
     contactList = delegator.findOne("ContactList", [contactListId : "contactListId"], true);
 }
 if (contactList) {
-    ownerParty = contactList.getRelatedOne("OwnerParty");
+    ownerParty = contactList.getRelatedOne("OwnerParty", false);
     if (ownerParty) {
         contactMechs = ownerParty.getRelatedByAnd("PartyContactMechPurpose", [contactMechPurposeTypeId : "MARKETING_EMAIL"]);
         if (!contactMechs) {
