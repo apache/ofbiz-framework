@@ -86,7 +86,7 @@ under the License.
                     <of:UOM>EACH</of:UOM>
                 </os:QUANTITY>
                 <#list returnItems as returnItem>
-                    <#assign returnReason = returnItem.getRelatedOne("ReturnReason")/>
+                    <#assign returnReason = returnItem.getRelatedOne("ReturnReason", false)/>
                     <#assign serialNumberList = serialNumberListByReturnItemSeqIdMap.get(returnItem.returnItemSeqId)?if_exists/>
                 <n:RECEIPTITM>
                     <os:QUANTITY>

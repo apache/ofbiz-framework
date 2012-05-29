@@ -1099,7 +1099,7 @@ public class OagisShipmentServices {
 
                 // for each ReturnItem also get serial numbers using ItemIssuanceAndInventoryItem
                 // NOTE: technically if the ReturnItem.quantity != OrderItem.quantity then we don't know which serial number is being returned, so rather than guessing we will send it only in that case
-                GenericValue orderItem = returnItem.getRelatedOne("OrderItem");
+                GenericValue orderItem = returnItem.getRelatedOne("OrderItem", false);
                 if (orderItem != null) {
                     if (orderItem.getDouble("quantity").doubleValue() == itemQty) {
                         List<GenericValue> itemIssuanceAndInventoryItemList = delegator.findByAnd("ItemIssuanceAndInventoryItem",
