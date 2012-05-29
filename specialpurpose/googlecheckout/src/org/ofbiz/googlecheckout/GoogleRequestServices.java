@@ -540,10 +540,10 @@ public class GoogleRequestServices {
                         if (UtilValidate.isNotEmpty(packageContent)) {
                             GenericValue shipPackage = packageContent.getRelatedOne("ShipmentPackage", false);
                             if (UtilValidate.isNotEmpty(shipPackage)) {
-                                List<GenericValue> prs = shipPackage.getRelated("ShipmentPackageRouteSeg");
+                                List<GenericValue> prs = shipPackage.getRelated("ShipmentPackageRouteSeg", null, null, false);
                                 GenericValue packageRoute = EntityUtil.getFirst(prs);
                                 if (UtilValidate.isNotEmpty(packageRoute)) {
-                                    List<GenericValue> srs = packageRoute.getRelated("ShipmentRouteSegment");
+                                    List<GenericValue> srs = packageRoute.getRelated("ShipmentRouteSegment", null, null, false);
                                     GenericValue route = EntityUtil.getFirst(srs);
                                     String track = packageRoute.getString("trackingCode");
                                     if (UtilValidate.isNotEmpty(route)) {
