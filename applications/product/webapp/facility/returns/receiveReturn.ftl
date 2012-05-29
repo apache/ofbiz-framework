@@ -107,7 +107,7 @@ under the License.
                           <#if orderItem.productId?exists>
                             <#assign product = orderItem.getRelatedOne("Product", false)>
                             <#assign productId = product.productId>
-                            <#assign serializedInv = product.getRelatedByAnd("InventoryItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("inventoryItemTypeId", "SERIALIZED_INV_ITEM"))>
+                            <#assign serializedInv = product.getRelated("InventoryItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("inventoryItemTypeId", "SERIALIZED_INV_ITEM"), null, false)>
                             <input type="hidden" name="productId_o_${rowCount}" value="${product.productId}" />
                             <td width="45%">
                               <div>
@@ -137,7 +137,7 @@ under the License.
                             <div class="label">${uiLabelMap.ProductLocation}</div>
                           </td>
                           <td align="right">
-                            <#assign facilityLocations = (product.getRelatedByAnd("ProductFacilityLocation", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", facilityId)))?if_exists>
+                            <#assign facilityLocations = (product.getRelated("ProductFacilityLocation", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", facilityId), null, false))?if_exists>
                             <#if facilityLocations?has_content>
                               <select name="locationSeqId_o_${rowCount}">
                                 <#list facilityLocations as productFacilityLocation>

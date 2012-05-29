@@ -150,7 +150,7 @@ public class ProductWorker {
         GenericValue instanceProduct = delegator.findOne("Product", UtilMisc.toMap("productId", instanceProductId), false);
 
         if (UtilValidate.isNotEmpty(instanceProduct) && EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", instanceProduct.getString("productTypeId"), "parentTypeId", "AGGREGATED")) {
-            GenericValue productAssoc = EntityUtil.getFirst(EntityUtil.filterByDate(instanceProduct.getRelatedByAnd("AssocProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_CONF"))));
+            GenericValue productAssoc = EntityUtil.getFirst(EntityUtil.filterByDate(instanceProduct.getRelated("AssocProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_CONF"), null, false)));
             if (UtilValidate.isNotEmpty(productAssoc)) {
                 return productAssoc.getString("productId");
             }
@@ -175,7 +175,7 @@ public class ProductWorker {
         GenericValue aggregatedProduct = delegator.findOne("Product", UtilMisc.toMap("productId", aggregatedProductId), false);
 
         if (UtilValidate.isNotEmpty(aggregatedProduct) && ("AGGREGATED".equals(aggregatedProduct.getString("productTypeId")) || "AGGREGATED_SERVICE".equals(aggregatedProduct.getString("productTypeId")))) {
-            List<GenericValue> productAssocs = EntityUtil.filterByDate(aggregatedProduct.getRelatedByAnd("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_CONF")));
+            List<GenericValue> productAssocs = EntityUtil.filterByDate(aggregatedProduct.getRelated("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_CONF"), null, false));
             return productAssocs;
         }
         return null;
@@ -196,7 +196,7 @@ public class ProductWorker {
 
     public static List<GenericValue> getVariantVirtualAssocs(GenericValue variantProduct) throws GenericEntityException {
         if (variantProduct != null && "Y".equals(variantProduct.getString("isVariant"))) {
-            List<GenericValue> productAssocs = EntityUtil.filterByDate(variantProduct.getRelatedByAndCache("AssocProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT")));
+            List<GenericValue> productAssocs = EntityUtil.filterByDate(variantProduct.getRelated("AssocProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"), null, true));
             return productAssocs;
         }
         return null;

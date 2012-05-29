@@ -41,7 +41,7 @@ invoiceIds.each { invoiceId ->
             invoice.invoiceMessage = " converted from original with a rate of: " + conversionRate.setScale(8, rounding);
         }
     
-        invoiceItems = invoice.getRelatedOrderBy("InvoiceItem", ["invoiceItemSeqId"]);
+        invoiceItems = invoice.getRelated("InvoiceItem", null, ["invoiceItemSeqId"], false);
         invoiceItemsConv = [];
         invoiceItems.each { invoiceItem ->
           if (invoiceItem.amount) {

@@ -39,7 +39,7 @@ context.shipGroups = shipGroups;
 // method to expand the marketing packages
 FastList expandProductGroup(product, quantityInGroup, quantityShipped, quantityOpen, assocType) {
     sublines = FastList.newInstance();
-    associations = product.getRelatedByAnd("MainProductAssoc", [productAssocTypeId : assocType]);
+    associations = product.getRelated("MainProductAssoc", [productAssocTypeId : assocType], null, false);
     associations = EntityUtil.filterByDate(associations);
     associations.each { association ->
         line = FastMap.newInstance();

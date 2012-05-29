@@ -684,7 +684,7 @@ public class ProductEvents {
                         if ("Y".equals(product.getString("isVirtual"))) {
                             boolean foundFeatureOnVariant = false;
                             // get/check all the variants
-                            List<GenericValue> variantAssocs = product.getRelatedByAnd("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"));
+                            List<GenericValue> variantAssocs = product.getRelated("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"), null, false);
                             variantAssocs = EntityUtil.filterByDate(variantAssocs);
                             List<GenericValue> variants = EntityUtil.getRelated("AssocProduct", variantAssocs);
                             Iterator<GenericValue> variantIter = variants.iterator();
@@ -769,7 +769,7 @@ public class ProductEvents {
         try {
             GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
             // get all the variants
-            List<GenericValue> variantAssocs = product.getRelatedByAnd("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"));
+            List<GenericValue> variantAssocs = product.getRelated("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"), null, false);
             variantAssocs = EntityUtil.filterByDate(variantAssocs);
             List<GenericValue> variants = EntityUtil.getRelated("AssocProduct", variantAssocs);
             for (GenericValue variant: variants) {

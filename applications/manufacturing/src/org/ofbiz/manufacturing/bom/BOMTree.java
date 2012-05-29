@@ -125,7 +125,7 @@ public class BOMTree {
         // the bill of materials of its virtual product (if the current
         // product is variant).
         if (!hasBom(product, inDate)) {
-            List<GenericValue> virtualProducts = product.getRelatedByAnd("AssocProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"));
+            List<GenericValue> virtualProducts = product.getRelated("AssocProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"), null, false);
             virtualProducts = EntityUtil.filterByDate(virtualProducts, inDate);
             GenericValue virtualProduct = EntityUtil.getFirst(virtualProducts);
             if (virtualProduct != null) {
@@ -174,7 +174,7 @@ public class BOMTree {
     }
 
     private boolean hasBom(GenericValue product, Date inDate) throws GenericEntityException {
-        List<GenericValue> children = product.getRelatedByAnd("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", bomTypeId));
+        List<GenericValue> children = product.getRelated("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", bomTypeId), null, false);
         children = EntityUtil.filterByDate(children, inDate);
         return UtilValidate.isNotEmpty(children);
     }

@@ -1106,10 +1106,10 @@ public class ProductionRunServices {
                 fixedAsset = routingTask.getRelatedOne("FixedAsset", false);
             }
             if (UtilValidate.isNotEmpty(fixedAsset)) {
-                List<GenericValue> setupCosts = fixedAsset.getRelatedByAnd("FixedAssetStdCost", 
-                        UtilMisc.toMap("fixedAssetStdCostTypeId", "SETUP_COST"));
+                List<GenericValue> setupCosts = fixedAsset.getRelated("FixedAssetStdCost", 
+                        UtilMisc.toMap("fixedAssetStdCostTypeId", "SETUP_COST"), null, false);
                 GenericValue setupCost = EntityUtil.getFirst(EntityUtil.filterByDate(setupCosts));
-                List<GenericValue> usageCosts = fixedAsset.getRelatedByAnd("FixedAssetStdCost", UtilMisc.toMap("fixedAssetStdCostTypeId", "USAGE_COST"));
+                List<GenericValue> usageCosts = fixedAsset.getRelated("FixedAssetStdCost", UtilMisc.toMap("fixedAssetStdCostTypeId", "USAGE_COST"), null, false);
                 GenericValue usageCost = EntityUtil.getFirst(EntityUtil.filterByDate(usageCosts));
                 if (UtilValidate.isNotEmpty(setupCost) || UtilValidate.isNotEmpty(usageCost)) {
                     String currencyUomId = (setupCost != null? setupCost.getString("amountUomId"): usageCost.getString("amountUomId"));

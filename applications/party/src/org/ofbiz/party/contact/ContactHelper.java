@@ -60,7 +60,7 @@ public class ContactHelper {
             } else {
                 List<GenericValue> list;
 
-                list = party.getRelatedByAnd("PartyContactMechPurpose", UtilMisc.toMap("contactMechPurposeTypeId", contactMechPurposeTypeId));
+                list = party.getRelated("PartyContactMechPurpose", UtilMisc.toMap("contactMechPurposeTypeId", contactMechPurposeTypeId), null, false);
                 if (!includeOld) {
                     list = EntityUtil.filterByDate(list, true);
                 }

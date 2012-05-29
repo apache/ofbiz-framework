@@ -21,7 +21,7 @@ under the License.
   <#assign sortList = Static["org.ofbiz.base.util.UtilMisc"].toList("prodCatalogCategoryTypeId", "sequenceNum", "productCategoryId")>
   <#list prodCatalogs as prodCatalog>
   <#if curProdCatalogId?exists && curProdCatalogId == prodCatalog.prodCatalogId>
-    <#assign prodCatalogCategories = prodCatalog.getRelatedOrderByCache("ProdCatalogCategory", sortList)>
+    <#assign prodCatalogCategories = prodCatalog.getRelated("ProdCatalogCategory", null, sortList, true)>
     <div class='browsecategorytext'><a href="<@ofbizUrl>EditProdCatalog?prodCatalogId=${prodCatalog.prodCatalogId}</@ofbizUrl>" class='browsecategorybutton'>${prodCatalog.catalogName?if_exists}</a></div>
       <div class="browsecategorylist">
         <#list prodCatalogCategories as prodCatalogCategory>

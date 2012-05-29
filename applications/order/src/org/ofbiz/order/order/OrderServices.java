@@ -152,7 +152,7 @@ public class OrderServices {
                     // check sales agent/customer relationship
                     List<GenericValue> repsCustomers = new LinkedList<GenericValue>();
                     try {
-                        repsCustomers = EntityUtil.filterByDate(userLogin.getRelatedOne("Party", false).getRelatedByAnd("FromPartyRelationship", UtilMisc.toMap("roleTypeIdFrom", "AGENT", "roleTypeIdTo", "CUSTOMER", "partyIdTo", partyId)));
+                        repsCustomers = EntityUtil.filterByDate(userLogin.getRelatedOne("Party", false).getRelated("FromPartyRelationship", UtilMisc.toMap("roleTypeIdFrom", "AGENT", "roleTypeIdTo", "CUSTOMER", "partyIdTo", partyId), null, false));
                     } catch (GenericEntityException ex) {
                         Debug.logError("Could not determine if " + partyId + " is a customer of user " + userLogin.getString("userLoginId") + " due to " + ex.getMessage(), module);
                     }
@@ -162,7 +162,7 @@ public class OrderServices {
                     if (!hasPermission) {
                         // check sales sales rep/customer relationship
                         try {
-                            repsCustomers = EntityUtil.filterByDate(userLogin.getRelatedOne("Party", false).getRelatedByAnd("FromPartyRelationship", UtilMisc.toMap("roleTypeIdFrom", "SALES_REP", "roleTypeIdTo", "CUSTOMER", "partyIdTo", partyId)));
+                            repsCustomers = EntityUtil.filterByDate(userLogin.getRelatedOne("Party", false).getRelated("FromPartyRelationship", UtilMisc.toMap("roleTypeIdFrom", "SALES_REP", "roleTypeIdTo", "CUSTOMER", "partyIdTo", partyId), null, false));
                         } catch (GenericEntityException ex) {
                             Debug.logError("Could not determine if " + partyId + " is a customer of user " + userLogin.getString("userLoginId") + " due to " + ex.getMessage(), module);
                         }
@@ -2864,7 +2864,7 @@ public class OrderServices {
         }
         for (int i = 0; i < purpose.length; i++) {
             try {
-                GenericValue orderContactMech = EntityUtil.getFirst(orderHeader.getRelatedByAnd("OrderContactMech", UtilMisc.toMap("contactMechPurposeTypeId", purpose[i])));
+                GenericValue orderContactMech = EntityUtil.getFirst(orderHeader.getRelated("OrderContactMech", UtilMisc.toMap("contactMechPurposeTypeId", purpose[i]), null, false));
                 GenericValue contactMech = orderContactMech.getRelatedOne("ContactMech", false);
 
                 if (contactMech != null) {

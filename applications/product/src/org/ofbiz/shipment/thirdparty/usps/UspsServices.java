@@ -1574,7 +1574,7 @@ public class UspsServices {
                 shipmentPackageContents = shipmentPackage.getRelated("ShipmentPackageContent", null, null, false);
                 GenericValue shipmentBoxType = shipmentPackage.getRelatedOne("ShipmentBoxType", false);
                 if (shipmentBoxType != null) {
-                    GenericValue carrierShipmentBoxType = EntityUtil.getFirst(shipmentBoxType.getRelatedByAnd("CarrierShipmentBoxType", UtilMisc.toMap("partyId", "USPS")));
+                    GenericValue carrierShipmentBoxType = EntityUtil.getFirst(shipmentBoxType.getRelated("CarrierShipmentBoxType", UtilMisc.toMap("partyId", "USPS"), null, false));
                     if (carrierShipmentBoxType != null) {
                         packageTypeCode = carrierShipmentBoxType.getString("packageTypeCode");
                         // Supported type codes

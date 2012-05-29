@@ -333,7 +333,7 @@ public class InvoiceServices {
                 // for purchase orders, the pay to address is the BILLING_LOCATION of the vendor
                 GenericValue billFromVendor = orh.getPartyFromRole("BILL_FROM_VENDOR");
                 if (billFromVendor != null) {
-                    List<GenericValue> billingContactMechs = billFromVendor.getRelatedOne("Party", false).getRelatedByAnd("PartyContactMechPurpose", UtilMisc.toMap("contactMechPurposeTypeId", "BILLING_LOCATION"));
+                    List<GenericValue> billingContactMechs = billFromVendor.getRelatedOne("Party", false).getRelated("PartyContactMechPurpose", UtilMisc.toMap("contactMechPurposeTypeId", "BILLING_LOCATION"), null, false);
                     if (UtilValidate.isNotEmpty(billingContactMechs)) {
                         payToAddress = EntityUtil.getFirst(billingContactMechs);
                     }
@@ -2056,7 +2056,7 @@ public class InvoiceServices {
             }
 
             // loop through return-wide adjustments and create invoice items for each
-            List<GenericValue> adjustments = returnHeader.getRelatedByAndCache("ReturnAdjustment", UtilMisc.toMap("returnItemSeqId", "_NA_"));
+            List<GenericValue> adjustments = returnHeader.getRelated("ReturnAdjustment", UtilMisc.toMap("returnItemSeqId", "_NA_"), null, true);
             for (GenericValue adjustment : adjustments) {
 
                 // determine invoice item type from the return item type
