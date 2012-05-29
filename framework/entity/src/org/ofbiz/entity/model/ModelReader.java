@@ -58,7 +58,7 @@ import org.w3c.dom.Node;
 public class ModelReader implements Serializable {
 
     public static final String module = ModelReader.class.getName();
-    public static UtilCache<String, ModelReader> readers = UtilCache.createUtilCache("entity.ModelReader", 0, 0);
+    private static final UtilCache<String, ModelReader> readers = UtilCache.createUtilCache("entity.ModelReader", 0, 0);
 
     protected Map<String, ModelEntity> entityCache = null;
 
@@ -89,17 +89,11 @@ public class ModelReader implements Serializable {
         String tempModelName = delegatorInfo.entityModelReader;
         ModelReader reader = readers.get(tempModelName);
 
-        if (reader == null) { // don't want to block here
-            synchronized (ModelReader.class) {
-                // must check if null again as one of the blocked threads can still enter
-                reader = readers.get(tempModelName);
-                if (reader == null) {
-                    reader = new ModelReader(tempModelName);
-                    // preload caches...
-                    reader.getEntityCache();
-                    readers.put(tempModelName, reader);
-                }
-            }
+        if (reader == null) {
+            reader = new ModelReader(tempModelName);
+            // preload caches...
+            reader.getEntityCache();
+            reader = readers.putIfAbsentAndGet(tempModelName, reader);
         }
         return reader;
     }
