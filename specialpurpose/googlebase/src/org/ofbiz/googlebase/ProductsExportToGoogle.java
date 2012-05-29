@@ -126,7 +126,7 @@ public class ProductsExportToGoogle {
                             if (prodCatMemb != null) {
                                 String productId = prodCatMemb.getString("productId");
                                 if (productId != null) {
-                                    GenericValue prod = prodCatMemb.getRelatedOne("Product");
+                                    GenericValue prod = prodCatMemb.getRelatedOne("Product", false);
                                     Timestamp salesDiscontinuationDate = prod.getTimestamp("salesDiscontinuationDate");
                                     // do not consider discontinued product
                                     if (salesDiscontinuationDate == null) {
@@ -552,7 +552,7 @@ public class ProductsExportToGoogle {
                 Iterator<GenericValue> productCategoryMembersIter = productCategoryMembers.iterator();
                 while (productCategoryMembersIter.hasNext()) {
                     GenericValue productCategoryMember = productCategoryMembersIter.next();
-                    GenericValue productCategory = productCategoryMember.getRelatedOne("ProductCategory");
+                    GenericValue productCategory = productCategoryMember.getRelatedOne("ProductCategory", false);
                     String productCategoryId = productCategory.getString("productCategoryId");
                     String checkCategory = null;
                     if ("GB".equals(countryCode)) {
