@@ -379,7 +379,9 @@ public class GenericValue extends GenericEntity implements Reusable {
      *@param relationName String containing the relation name which is the combination of relation.title and relation.rel-entity-name as specified in the entity XML definition file
      *@param fields the fields that must equal in order to keep
      *@return List of GenericValue instances as specified in the relation definition
+     *@deprecated use {@link #getRelated(String, Map, List, boolean)}
      */
+    @Deprecated
     public List<GenericValue> getRelatedByAnd(String relationName, Map<String, ? extends Object> fields) throws GenericEntityException {
         return this.getDelegator().getRelated(relationName, fields, null, this, false);
     }
@@ -389,7 +391,9 @@ public class GenericValue extends GenericEntity implements Reusable {
      *@param relationName String containing the relation name which is the combination of relation.title and relation.rel-entity-name as specified in the entity XML definition file
      *@param fields the fields that must equal in order to keep
      *@return List of GenericValue instances as specified in the relation definition
+     *@deprecated use {@link #getRelated(String, Map, List, boolean)}
      */
+    @Deprecated
     public List<GenericValue> getRelatedByAndCache(String relationName, Map<String, ? extends Object> fields) throws GenericEntityException {
         return this.getDelegator().getRelated(relationName, fields, null, this, true);
     }
@@ -409,7 +413,9 @@ public class GenericValue extends GenericEntity implements Reusable {
      *@param relationName String containing the relation name which is the combination of relation.title and relation.rel-entity-name as specified in the entity XML definition file
      *@param orderBy the order that they should be returned
      *@return List of GenericValue instances as specified in the relation definition
+     *@deprecated use {@link #getRelated(String, Map, List, boolean)}
      */
+    @Deprecated
     public List<GenericValue> getRelatedOrderBy(String relationName, List<String> orderBy) throws GenericEntityException {
         return this.getDelegator().getRelated(relationName, null, orderBy, this, false);
     }
@@ -419,7 +425,9 @@ public class GenericValue extends GenericEntity implements Reusable {
      *@param relationName String containing the relation name which is the combination of relation.title and relation.rel-entity-name as specified in the entity XML definition file
      *@param orderBy the order that they should be returned
      *@return List of GenericValue instances as specified in the relation definition
+     *@deprecated use {@link #getRelated(String, Map, List, boolean)}
      */
+    @Deprecated
     public List<GenericValue> getRelatedOrderByCache(String relationName, List<String> orderBy) throws GenericEntityException {
         return this.getDelegator().getRelated(relationName, null, orderBy, this, true);
     }
