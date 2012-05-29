@@ -59,7 +59,7 @@ public class DispatchContext implements Serializable {
     public static final String module = DispatchContext.class.getName();
 
     protected static final String GLOBAL_KEY = "global.services";
-    public static UtilCache<String, Map<String, ModelService>> modelServiceMapByDispatcher = UtilCache.createUtilCache("service.ModelServiceMapByDispatcher", 0, 0, false);
+    private static final UtilCache<String, Map<String, ModelService>> modelServiceMapByDispatcher = UtilCache.createUtilCache("service.ModelServiceMapByDispatcher", 0, 0, false);
 
     protected transient LocalDispatcher dispatcher;
     protected transient ClassLoader loader;
@@ -271,24 +271,19 @@ public class DispatchContext implements Serializable {
     private Map<String, ModelService> getLocalServiceMap() {
         Map<String, ModelService> serviceMap = modelServiceMapByDispatcher.get(name);
         if (serviceMap == null) {
-            synchronized (this) {
-                serviceMap = modelServiceMapByDispatcher.get(name);
-                if (serviceMap == null) {
-                    if (this.localReaders != null) {
-                        serviceMap = FastMap.newInstance();
-                        for (URL readerURL: this.localReaders) {
-                            Map<String, ModelService> readerServiceMap = ModelServiceReader.getModelServiceMap(readerURL, this);
-                            if (readerServiceMap != null) {
-                                serviceMap.putAll(readerServiceMap);
-                            }
-                        }
-                        serviceMap = new HashMap<String, ModelService>(serviceMap);
-                    }
-                    if (serviceMap != null) {
-                        modelServiceMapByDispatcher.put(name, serviceMap);
-                        // NOTE: the current ECA per dispatcher for local services stuff is a bit broken, so now just doing this on the global def load: ServiceEcaUtil.reloadConfig();
+            if (this.localReaders != null) {
+                serviceMap = FastMap.newInstance();
+                for (URL readerURL: this.localReaders) {
+                    Map<String, ModelService> readerServiceMap = ModelServiceReader.getModelServiceMap(readerURL, this);
+                    if (readerServiceMap != null) {
+                        serviceMap.putAll(readerServiceMap);
                     }
                 }
+                serviceMap = new HashMap<String, ModelService>(serviceMap);
+            }
+            if (serviceMap != null) {
+                serviceMap = modelServiceMapByDispatcher.putIfAbsentAndGet(name, serviceMap);
+                // NOTE: the current ECA per dispatcher for local services stuff is a bit broken, so now just doing this on the global def load: ServiceEcaUtil.reloadConfig();
             }
         }
 
@@ -306,42 +301,39 @@ public class DispatchContext implements Serializable {
     private Map<String, ModelService> getGlobalServiceMap() {
         Map<String, ModelService> serviceMap = modelServiceMapByDispatcher.get(GLOBAL_KEY);
         if (serviceMap == null) {
-            synchronized (this) {
-                serviceMap = modelServiceMapByDispatcher.get(GLOBAL_KEY);
-                if (serviceMap == null) {
-                    serviceMap = FastMap.newInstance();
+            serviceMap = FastMap.newInstance();
 
-                    Element rootElement;
+            Element rootElement;
 
-                    try {
-                        rootElement = ServiceConfigUtil.getXmlRootElement();
-                    } catch (GenericConfigException e) {
-                        Debug.logError(e, "Error getting Service Engine XML root element", module);
-                        return null;
-                    }
+            try {
+                rootElement = ServiceConfigUtil.getXmlRootElement();
+            } catch (GenericConfigException e) {
+                Debug.logError(e, "Error getting Service Engine XML root element", module);
+                return null;
+            }
 
-                    List<Future<Map<String, ModelService>>> futures = FastList.newInstance();
-                    for (Element globalServicesElement: UtilXml.childElementList(rootElement, "global-services")) {
-                        ResourceHandler handler = new MainResourceHandler(
-                                ServiceConfigUtil.SERVICE_ENGINE_XML_FILENAME, globalServicesElement);
+            List<Future<Map<String, ModelService>>> futures = FastList.newInstance();
+            for (Element globalServicesElement: UtilXml.childElementList(rootElement, "global-services")) {
+                ResourceHandler handler = new MainResourceHandler(
+                        ServiceConfigUtil.SERVICE_ENGINE_XML_FILENAME, globalServicesElement);
 
-                        futures.add(ExecutionPool.GLOBAL_EXECUTOR.submit(createServiceReaderCallable(handler)));
-                    }
+                futures.add(ExecutionPool.GLOBAL_EXECUTOR.submit(createServiceReaderCallable(handler)));
+            }
 
-                    // get all of the component resource model stuff, ie specified in each ofbiz-component.xml file
-                    for (ComponentConfig.ServiceResourceInfo componentResourceInfo: ComponentConfig.getAllServiceResourceInfos("model")) {
-                        futures.add(ExecutionPool.GLOBAL_EXECUTOR.submit(createServiceReaderCallable(componentResourceInfo.createResourceHandler())));
-                    }
-                    for (Map<String, ModelService> servicesMap: ExecutionPool.getAllFutures(futures)) {
-                        if (servicesMap != null) {
-                            serviceMap.putAll(servicesMap);
-                        }
-                    }
+            // get all of the component resource model stuff, ie specified in each ofbiz-component.xml file
+            for (ComponentConfig.ServiceResourceInfo componentResourceInfo: ComponentConfig.getAllServiceResourceInfos("model")) {
+                futures.add(ExecutionPool.GLOBAL_EXECUTOR.submit(createServiceReaderCallable(componentResourceInfo.createResourceHandler())));
+            }
+            for (Map<String, ModelService> servicesMap: ExecutionPool.getAllFutures(futures)) {
+                if (servicesMap != null) {
+                    serviceMap.putAll(servicesMap);
+                }
+            }
 
-                    if (serviceMap != null) {
-                        modelServiceMapByDispatcher.put(GLOBAL_KEY, serviceMap);
-                        ServiceEcaUtil.reloadConfig();
-                    }
+            if (serviceMap != null) {
+                Map<String, ModelService> cachedServiceMap = modelServiceMapByDispatcher.putIfAbsentAndGet(GLOBAL_KEY, serviceMap);
+                if (cachedServiceMap == serviceMap) { // same object: this means that the object created by this thread was actually added to the cache
+                    ServiceEcaUtil.reloadConfig();
                 }
             }
         }
