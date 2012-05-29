@@ -48,7 +48,7 @@ import org.ofbiz.base.util.cache.UtilCache;
 public class PosDialog {
 
     public static final String module = PosDialog.class.getName();
-    protected static UtilCache<Object, Object> instances = UtilCache.createUtilCache("pos.Dialogs", 0, 0);
+    private static final UtilCache<XPage, PosDialog> instances = UtilCache.createUtilCache("pos.Dialogs", 0, 0);
 
     protected final Frame clientFrame = XProjectManager.getCurrentProject().getAppFrame();
     protected final Window appWindow = XProjectManager.getCurrentProject().getAppWindow();
@@ -71,14 +71,7 @@ public class PosDialog {
     public static PosDialog getInstance(XPage page, boolean modal, int padding) {
         PosDialog dialog = (PosDialog) instances.get(page);
         if (dialog == null) {
-            synchronized(PosDialog.class) {
-                dialog = (PosDialog) instances.get(page);
-
-                if (dialog == null) {
-                    dialog = new PosDialog(page, modal, padding);
-                    instances.put(page, dialog);
-                }
-            }
+            dialog = instances.putIfAbsentAndGet(page, new PosDialog(page, modal, padding));
         }
 
         dialog.modal = modal;
