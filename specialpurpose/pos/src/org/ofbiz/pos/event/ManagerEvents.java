@@ -238,7 +238,7 @@ public class ManagerEvents {
                     // transmit final data to server
                     GenericValue terminal = null;
                     try {
-                        terminal = state.getRelatedOne("PosTerminal");
+                        terminal = state.getRelatedOne("PosTerminal", false);
                     } catch (GenericEntityException e) {
                         Debug.logError(e, module);
                         pos.showDialog("dialog/error/exception", e.getMessage());

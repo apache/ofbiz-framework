@@ -374,7 +374,7 @@ public class PosTransaction implements Serializable {
             String paymentMethodTypeId = infValue.getString("paymentMethodTypeId");
             GenericValue pmt = null;
             try {
-                 pmt = infValue.getRelatedOne("PaymentMethodType");
+                 pmt = infValue.getRelatedOne("PaymentMethodType", false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
@@ -386,7 +386,7 @@ public class PosTransaction implements Serializable {
             if ("CREDIT_CARD".equals(paymentMethodTypeId)) {
                 GenericValue cc = null;
                 try {
-                    cc = infValue.getRelatedOne("CreditCard");
+                    cc = infValue.getRelatedOne("CreditCard", false);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }
@@ -407,7 +407,7 @@ public class PosTransaction implements Serializable {
                 /*
                 GenericValue gc = null;
                 try {
-                    gc = infValue.getRelatedOne("GiftCard"); //FIXME is this really useful ? (Maybe later...)
+                    gc = infValue.getRelatedOne("GiftCard", false); //FIXME is this really useful ? (Maybe later...)
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }
@@ -1057,7 +1057,7 @@ public class PosTransaction implements Serializable {
                 if ("PaymentMethod".equals(paymentInfoObj.getEntityName())) {
                     paymentMethod = paymentInfoObj;
                     try {
-                        paymentMethodType = paymentMethod.getRelatedOne("PaymentMethodType");
+                        paymentMethodType = paymentMethod.getRelatedOne("PaymentMethodType", false);
                     } catch (GenericEntityException e) {
                         Debug.logError(e, module);
                     }
