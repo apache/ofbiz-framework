@@ -313,7 +313,7 @@ public class GenericValue extends GenericEntity implements Reusable {
      *@return List of GenericValue instances as specified in the relation definition
      */
     public GenericValue getRelatedOne(String relationName) throws GenericEntityException {
-        return this.getDelegator().getRelatedOne(relationName, this);
+        return this.getDelegator().getRelatedOne(relationName, this, false);
     }
 
     /** Get the named Related Entity for the GenericValue from the persistent
@@ -322,7 +322,7 @@ public class GenericValue extends GenericEntity implements Reusable {
      *@return List of GenericValue instances as specified in the relation definition
      */
     public GenericValue getRelatedOneCache(String relationName) throws GenericEntityException {
-        return this.getDelegator().getRelatedOneCache(relationName, this);
+        return this.getDelegator().getRelatedOne(relationName, this, true);
     }
 
     /** Get the named Related Entity for the GenericValue from the persistent
