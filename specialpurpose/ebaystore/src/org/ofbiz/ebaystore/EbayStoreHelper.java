@@ -619,9 +619,9 @@ public class EbayStoreHelper {
         GenericValue orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
         if (UtilValidate.isNotEmpty(orderHeader)) {
             String externalId = orderHeader.getString("externalId").toString();
-            List<GenericValue> orderShipment = orderHeader.getRelated("OrderShipment");
+            List<GenericValue> orderShipment = orderHeader.getRelated("OrderShipment", null, null, false);
             if (orderShipment.size() > 0) {
-                List<GenericValue> trackingOrders = orderHeader.getRelated("TrackingCodeOrder");
+                List<GenericValue> trackingOrders = orderHeader.getRelated("TrackingCodeOrder", null, null, false);
                 ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
                 GetOrdersCall ordersCall = new GetOrdersCall(apiContext);
                 OrderIDArrayType orderIdArr = new OrderIDArrayType();
