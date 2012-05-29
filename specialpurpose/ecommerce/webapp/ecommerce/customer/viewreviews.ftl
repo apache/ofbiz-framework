@@ -37,7 +37,7 @@ under the License.
           <td>${review.productReview!}</td>
           <td>${review.productRating}</td>
           <td>${review.postedAnonymous}</td>
-          <td>${review.getRelatedOne("StatusItem").get("description", locale)}</td>
+          <td>${review.getRelatedOne("StatusItem", false).get("description", locale)}</td>
         </tr>
       </#list>
     </table>

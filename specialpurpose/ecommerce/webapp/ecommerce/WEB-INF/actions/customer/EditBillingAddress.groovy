@@ -22,10 +22,10 @@ import org.ofbiz.party.contact.ContactHelper;
 import org.ofbiz.entity.condition.EntityCondition;
 
 if (userLogin) {
-    party = userLogin.getRelatedOne("Party");
+    party = userLogin.getRelatedOne("Party", false);
     contactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "BILLING_LOCATION", "POSTAL_ADDRESS", false));
     if (contactMech) {
-        postalAddress = contactMech.getRelatedOne("PostalAddress");
+        postalAddress = contactMech.getRelatedOne("PostalAddress", false);
         billToContactMechId = postalAddress.contactMechId;
         context.billToContactMechId = billToContactMechId;
         context.billToName = postalAddress.toName;
@@ -48,7 +48,7 @@ if (userLogin) {
         creditCards = [];
         paymentMethod = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findList("PaymentMethod", EntityCondition.makeCondition([partyId : party.partyId, paymentMethodTypeId : "CREDIT_CARD"]), null, ["fromDate"], null, false)));
         if (paymentMethod) {
-            creditCard = paymentMethod.getRelatedOne("CreditCard");
+            creditCard = paymentMethod.getRelatedOne("CreditCard", false);
             context.paymentMethodTypeId = "CREDIT_CARD";
             context.cardNumber = creditCard.cardNumber;
             context.cardType = creditCard.cardType;
@@ -67,7 +67,7 @@ if (userLogin) {
 
     billToContactMechList = ContactHelper.getContactMech(party, "PHONE_BILLING", "TELECOM_NUMBER", false)
     if (billToContactMechList) {
-        billToTelecomNumber = (EntityUtil.getFirst(billToContactMechList)).getRelatedOne("TelecomNumber");
+        billToTelecomNumber = (EntityUtil.getFirst(billToContactMechList)).getRelatedOne("TelecomNumber", false);
         pcm = EntityUtil.getFirst(billToTelecomNumber.getRelated("PartyContactMech"));
         context.billToTelecomNumber = billToTelecomNumber;
         context.billToExtension = pcm.extension;
@@ -75,7 +75,7 @@ if (userLogin) {
 
     billToFaxNumberList = ContactHelper.getContactMech(party, "FAX_BILLING", "TELECOM_NUMBER", false)
     if (billToFaxNumberList) {
-        billToFaxNumber = (EntityUtil.getFirst(billToFaxNumberList)).getRelatedOne("TelecomNumber");
+        billToFaxNumber = (EntityUtil.getFirst(billToFaxNumberList)).getRelatedOne("TelecomNumber", false);
         faxPartyContactMech = EntityUtil.getFirst(billToFaxNumber.getRelated("PartyContactMech"));
         context.billToFaxNumber = billToFaxNumber;
         context.billToFaxExtension = faxPartyContactMech.extension;

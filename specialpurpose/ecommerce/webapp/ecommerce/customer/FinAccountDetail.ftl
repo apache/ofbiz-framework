@@ -52,7 +52,7 @@ under the License.
     <th>Amount</th>
   </tr>
   <#list ownedFinAccountTransList as ownedFinAccountTrans>
-    <#assign finAccountTransType = ownedFinAccountTrans.getRelatedOne("FinAccountTransType")/>
+    <#assign finAccountTransType = ownedFinAccountTrans.getRelatedOne("FinAccountTransType", false)/>
     <#assign displayAmount = ownedFinAccountTrans.amount/>
     <#if ownedFinAccountTrans.finAccountTransTypeId == "WITHDRAWAL">
       <#assign displayAmount = -displayAmount/>

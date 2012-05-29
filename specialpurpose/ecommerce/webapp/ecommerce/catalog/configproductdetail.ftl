@@ -610,8 +610,8 @@ function getConfigDetails(event) {
   <tr><td colspan="2"><hr class='sepbar'/></td></tr>
   <#if productReviews?has_content>
     <#list productReviews as productReview>
-      <#assign postedUserLogin = productReview.getRelatedOne("UserLogin")>
-      <#assign postedPerson = postedUserLogin.getRelatedOne("Person")?if_exists>
+      <#assign postedUserLogin = productReview.getRelatedOne("UserLogin", false)>
+      <#assign postedPerson = postedUserLogin.getRelatedOne("Person", false)?if_exists>
       <tr>
         <td colspan="2">
           <table border="0" cellpadding="0" cellspacing='0'>

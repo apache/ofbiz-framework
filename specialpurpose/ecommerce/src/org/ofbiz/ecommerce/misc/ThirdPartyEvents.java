@@ -128,7 +128,7 @@ public class ThirdPartyEvents {
         }
 
         try {
-            party = userLogin == null ? null : userLogin.getRelatedOne("Party");
+            party = userLogin == null ? null : userLogin.getRelatedOne("Party", false);
         } catch (GenericEntityException gee) {
             Debug.logWarning(gee, module);
         }
@@ -205,7 +205,7 @@ public class ThirdPartyEvents {
             return "success";
 
         try {
-            party = userLogin == null ? null : userLogin.getRelatedOne("Party");
+            party = userLogin == null ? null : userLogin.getRelatedOne("Party", false);
         } catch (GenericEntityException gee) {
             Debug.logWarning(gee, module);
         }

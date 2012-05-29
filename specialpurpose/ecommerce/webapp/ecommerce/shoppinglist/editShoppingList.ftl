@@ -224,7 +224,7 @@ under the License.
                 <td><div class="tableheadtext">${uiLabelMap.EcommerceRecurrence}</div></td>
                 <td>
                   <#if recurrenceInfo?has_content>
-                    <#assign recurrenceRule = recurrenceInfo.getRelatedOne("RecurrenceRule")?if_exists>
+                    <#assign recurrenceRule = recurrenceInfo.getRelatedOne("RecurrenceRule", false)?if_exists>
                   </#if>
                   <select name="intervalNumber" class="selectBox">
                     <option value="">${uiLabelMap.EcommerceSelectInterval}</option>
@@ -263,7 +263,7 @@ under the License.
                     <option value="">${uiLabelMap.OrderSelectAShippingAddress}</option>
                     <#if shippingContactMechList?has_content>
                       <#list shippingContactMechList as shippingContactMech>
-                        <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress")>
+                        <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress", false)>
                         <option value="${shippingContactMech.contactMechId}"<#if (shoppingList.contactMechId)?default("") == shippingAddress.contactMechId> selected="selected"</#if>>${shippingAddress.address1}</option>
                       </#list>
                     <#else>
@@ -307,10 +307,10 @@ under the License.
                     <option value="">${uiLabelMap.OrderSelectPaymentMethod}</option>
                     <#list paymentMethodList as paymentMethod>
                       <#if paymentMethod.paymentMethodTypeId == "CREDIT_CARD">
-                        <#assign creditCard = paymentMethod.getRelatedOne("CreditCard")>
+                        <#assign creditCard = paymentMethod.getRelatedOne("CreditCard", false)>
                         <option value="${paymentMethod.paymentMethodId}" <#if (shoppingList.paymentMethodId)?default("") == paymentMethod.paymentMethodId>selected="selected"</#if>>CC:&nbsp;${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}</option>
                       <#elseif paymentMethod.paymentMethodTypeId == "EFT_ACCOUNT">
-                        <#assign eftAccount = paymentMethod.getRelatedOne("EftAccount")>
+                        <#assign eftAccount = paymentMethod.getRelatedOne("EftAccount", false)>
                         <option value="${paymentMethod.paymentMethodId}">EFT:&nbsp;${eftAccount.bankName?if_exists}: ${eftAccount.accountNumber?if_exists}</option>
                       </#if>
                     </#list>
@@ -508,7 +508,7 @@ under the License.
                           <input type="hidden" name="quantity" value="${shoppingListItem.quantity}"/>
                           <select name="add_product_id" class="selectBox">
                               <#list productVariantAssocs as productVariantAssoc>
-                                <#assign variantProduct = productVariantAssoc.getRelatedOneCache("AssocProduct")>
+                                <#assign variantProduct = productVariantAssoc.getRelatedOne("AssocProduct", true)>
                                 <#if variantProduct?exists>
                                 <#assign variantProductContentWrapper = Static["org.ofbiz.product.product.ProductContentWrapper"].makeProductContentWrapper(variantProduct, request)>
                                   <option value="${variantProduct.productId}">${variantProductContentWrapper.get("PRODUCT_NAME")?default("No Name")} [${variantProduct.productId}]</option>

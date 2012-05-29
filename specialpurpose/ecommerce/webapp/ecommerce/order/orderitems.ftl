@@ -108,7 +108,7 @@ under the License.
         <#assign WorkOrderItemFulfillments = orderItem.getRelated("WorkOrderItemFulfillment")?if_exists>
         <#if WorkOrderItemFulfillments?has_content>
           <#list WorkOrderItemFulfillments as WorkOrderItemFulfillment>
-            <#assign workEffortSave = WorkOrderItemFulfillment.getRelatedOneCache("WorkEffort")?if_exists>
+            <#assign workEffortSave = WorkOrderItemFulfillment.getRelatedOne("WorkEffort", true)?if_exists>
             <#break>
            </#list>
         </#if>
@@ -120,7 +120,7 @@ under the License.
             ${orderItem.itemDescription?default("")}
           </td>
         <#else>
-          <#assign product = orderItem.getRelatedOneCache("Product")?if_exists/> <#-- should always exist because of FK constraint, but just in case -->
+          <#assign product = orderItem.getRelatedOne("Product", true)?if_exists/> <#-- should always exist because of FK constraint, but just in case -->
           <td >
             <a href="<@ofbizCatalogAltUrl fullPath="true" secure="false" productId=orderItem.productId/>" class="linktext">${orderItem.productId} - ${orderItem.itemDescription?default("")}</a>
             <#assign orderItemAttributes = orderItem.getRelated("OrderItemAttribute")/>
@@ -138,23 +138,23 @@ under the License.
                   [${uiLabelMap.OrderPieces}: ${product.piecesIncluded}]
               </#if>
               <#if (product.quantityIncluded?exists && product.quantityIncluded != 0) || product.quantityUomId?has_content>
-                <#assign quantityUom = product.getRelatedOneCache("QuantityUom")?if_exists/>
+                <#assign quantityUom = product.getRelatedOne("QuantityUom", true)?if_exists/>
                   [${uiLabelMap.CommonQuantity}: ${product.quantityIncluded?if_exists} ${((quantityUom.abbreviation)?default(product.quantityUomId))?if_exists}]
               </#if>
               <#if (product.weight?exists && product.weight != 0) || product.weightUomId?has_content>
-                <#assign weightUom = product.getRelatedOneCache("WeightUom")?if_exists/>
+                <#assign weightUom = product.getRelatedOne("WeightUom", true)?if_exists/>
                   [${uiLabelMap.CommonWeight}: ${product.weight?if_exists} ${((weightUom.abbreviation)?default(product.weightUomId))?if_exists}]
               </#if>
               <#if (product.productHeight?exists && product.productHeight != 0) || product.heightUomId?has_content>
-                <#assign heightUom = product.getRelatedOneCache("HeightUom")?if_exists/>
+                <#assign heightUom = product.getRelatedOne("HeightUom", true)?if_exists/>
                   [${uiLabelMap.CommonHeight}: ${product.productHeight?if_exists} ${((heightUom.abbreviation)?default(product.heightUomId))?if_exists}]
               </#if>
               <#if (product.productWidth?exists && product.productWidth != 0) || product.widthUomId?has_content>
-                <#assign widthUom = product.getRelatedOneCache("WidthUom")?if_exists/>
+                <#assign widthUom = product.getRelatedOne("WidthUom", true)?if_exists/>
                   [${uiLabelMap.CommonWidth}: ${product.productWidth?if_exists} ${((widthUom.abbreviation)?default(product.widthUomId))?if_exists}]
               </#if>
               <#if (product.productDepth?exists && product.productDepth != 0) || product.depthUomId?has_content>
-                <#assign depthUom = product.getRelatedOneCache("DepthUom")?if_exists/>
+                <#assign depthUom = product.getRelatedOne("DepthUom", true)?if_exists/>
                   [${uiLabelMap.CommonDepth}: ${product.productDepth?if_exists} ${((depthUom.abbreviation)?default(product.depthUomId))?if_exists}]
               </#if>
             </#if>
@@ -162,7 +162,7 @@ under the License.
               <#assign returns = orderItem.getRelated("ReturnItem")?if_exists>
               <#if returns?has_content>
                 <#list returns as return>
-                  <#assign returnHeader = return.getRelatedOne("ReturnHeader")>
+                  <#assign returnHeader = return.getRelatedOne("ReturnHeader", false)>
                   <#if returnHeader.statusId != "RETURN_CANCELLED">
                     <#if returnHeader.statusId == "RETURN_REQUESTED" || returnHeader.statusId == "RETURN_APPROVED">
                       <#assign displayState = "Return Pending">
@@ -252,12 +252,12 @@ under the License.
             <#if orderItemAdjustment.description?has_content>: ${orderItemAdjustment.description}</#if>
             <#if orderItemAdjustment.orderAdjustmentTypeId == "SALES_TAX">
               <#if orderItemAdjustment.primaryGeoId?has_content>
-                <#assign primaryGeo = orderItemAdjustment.getRelatedOneCache("PrimaryGeo")/>
+                <#assign primaryGeo = orderItemAdjustment.getRelatedOne("PrimaryGeo", true)/>
                 <#if primaryGeo.geoName?has_content>
                   ${uiLabelMap.OrderJurisdiction}: ${primaryGeo.geoName} [${primaryGeo.abbreviation?if_exists}]
                 </#if>
                 <#if orderItemAdjustment.secondaryGeoId?has_content>
-                  <#assign secondaryGeo = orderItemAdjustment.getRelatedOneCache("SecondaryGeo")/>
+                  <#assign secondaryGeo = orderItemAdjustment.getRelatedOne("SecondaryGeo", true)/>
                   (${uiLabelMap.CommonIn}: ${secondaryGeo.geoName} [${secondaryGeo.abbreviation?if_exists}])
                 </#if>
               </#if>
@@ -278,8 +278,8 @@ under the License.
       <#assign orderItemShipGroupAssocs = orderItem.getRelated("OrderItemShipGroupAssoc")?if_exists>
       <#if orderItemShipGroupAssocs?has_content>
         <#list orderItemShipGroupAssocs as shipGroupAssoc>
-          <#assign shipGroup = shipGroupAssoc.getRelatedOne("OrderItemShipGroup")?if_exists>
-          <#assign shipGroupAddress = (shipGroup.getRelatedOne("PostalAddress"))?if_exists>
+          <#assign shipGroup = shipGroupAssoc.getRelatedOne("OrderItemShipGroup", false)?if_exists>
+          <#assign shipGroupAddress = (shipGroup.getRelatedOne("PostalAddress", false))?if_exists>
           <tr>
             <td>
               ${uiLabelMap.OrderShipGroup}: [${shipGroup.shipGroupSeqId}] ${shipGroupAddress.address1?default("N/A")}

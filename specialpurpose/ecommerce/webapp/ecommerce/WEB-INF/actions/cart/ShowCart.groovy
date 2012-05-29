@@ -73,7 +73,7 @@ if(shoppingCartItems) {
         productCategoryMembers = delegator.findList("ProductCategoryMember", EntityCondition.makeCondition("productId", EntityOperator.EQUALS, parentProductId), null, null, null, false);
         if (productCategoryMembers) {
             productCategoryMember = EntityUtil.getFirst(productCategoryMembers);
-            productCategory = productCategoryMember.getRelatedOne("ProductCategory");
+            productCategory = productCategoryMember.getRelatedOne("ProductCategory", false);
             context.productCategory = productCategory;
         }
     }

@@ -36,7 +36,7 @@ under the License.
             <td width="20%">&nbsp;</td>
           </tr>
           <#list supplierProductList as supplierProduct>
-            <#assign product = supplierProduct.getRelatedOneCache("Product")/>
+            <#assign product = supplierProduct.getRelatedOne("Product", true)/>
             <tr><td colspan="5"><hr /></td></tr>
             <tr>
               <td>

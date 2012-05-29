@@ -34,7 +34,7 @@ under the License.
       <tbody>
         <#if orderHeaderList?has_content>
           <#list orderHeaderList as orderHeader>
-            <#assign status = orderHeader.getRelatedOneCache("StatusItem") />
+            <#assign status = orderHeader.getRelatedOne("StatusItem", true) />
             <tr>
               <td>${orderHeader.orderDate.toString()}</td>
               <td>${orderHeader.orderId}</td>
@@ -76,7 +76,7 @@ under the License.
       <tbody>
         <#if porderHeaderList?has_content>
           <#list porderHeaderList as porderHeader>
-            <#assign pstatus = porderHeader.getRelatedOneCache("StatusItem") />
+            <#assign pstatus = porderHeader.getRelatedOne("StatusItem", true) />
             <tr>
               <td>${porderHeader.orderDate.toString()}</td>
               <td>${porderHeader.orderId}</td>

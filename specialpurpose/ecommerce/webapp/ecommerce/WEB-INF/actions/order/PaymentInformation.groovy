@@ -37,7 +37,7 @@ context.partyId = partyId;
 
 if (partyId && !partyId.equals("_NA_")) {
     party = delegator.findOne("Party", [partyId : partyId], false);
-    person = party.getRelatedOne("Person");
+    person = party.getRelatedOne("Person", false);
     context.party = party;
     context.person = person;
 }
@@ -67,15 +67,15 @@ if (cart) {
         paymentMethods.each { paymentMethod ->
             account = null;
             if ("CREDIT_CARD".equals(paymentMethod?.paymentMethodTypeId)) {
-                account = paymentMethod.getRelatedOne("CreditCard");
+                account = paymentMethod.getRelatedOne("CreditCard", false);
                 context.creditCard = account;
                 context.paymentMethodTypeId = "CREDIT_CARD";
             } else if ("EFT_ACCOUNT".equals(paymentMethod?.paymentMethodTypeId)) {
-                account = paymentMethod.getRelatedOne("EftAccount");
+                account = paymentMethod.getRelatedOne("EftAccount", false);
                 context.eftAccount = account;
                 context.paymentMethodTypeId = "EFT_ACCOUNT";
             } else if ("GIFT_CARD".equals(paymentMethod?.paymentMethodTypeId)) {
-                account = paymentMethod.getRelatedOne("GiftCard");
+                account = paymentMethod.getRelatedOne("GiftCard", false);
                 context.giftCard = account;
                 context.paymentMethodTypeId = "GIFT_CARD";
                 context.addGiftCard = "Y";
@@ -83,7 +83,7 @@ if (cart) {
                 context.paymentMethodTypeId = "EXT_OFFLINE";
             }
             if (account && !parameters.useShipAddr) {
-                address = account.getRelatedOne("PostalAddress");
+                address = account.getRelatedOne("PostalAddress", false);
                 context.postalAddress = address;
             }
         }

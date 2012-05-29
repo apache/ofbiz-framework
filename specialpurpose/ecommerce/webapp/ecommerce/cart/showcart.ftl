@@ -385,7 +385,7 @@ function setAlternateGwp(field) {
               </tr>
             </#if>
             <#list shoppingCart.getAdjustments() as cartAdjustment>
-              <#assign adjustmentType = cartAdjustment.getRelatedOneCache("OrderAdjustmentType") />
+              <#assign adjustmentType = cartAdjustment.getRelatedOne("OrderAdjustmentType", true) />
               <tr>
                 <th>
                     ${uiLabelMap.EcommerceAdjustment} - ${adjustmentType.get("description",locale)?if_exists}

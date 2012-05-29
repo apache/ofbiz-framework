@@ -21,7 +21,7 @@ under the License.
 <#macro contactList publicEmailContactLists>
   <select name="contactListId" class="selectBox" style="width:134px">
     <#list publicEmailContactLists as publicEmailContactList>
-      <#assign publicContactMechType = publicEmailContactList.contactList.getRelatedOneCache("ContactMechType")?if_exists>
+      <#assign publicContactMechType = publicEmailContactList.contactList.getRelatedOne("ContactMechType", true)?if_exists>
         <option value="${publicEmailContactList.contactList.contactListId}">${publicEmailContactList.contactListType.description?if_exists} - ${publicEmailContactList.contactList.contactListName?if_exists}</option>
     </#list>
   </select>

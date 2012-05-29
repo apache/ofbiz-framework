@@ -70,7 +70,7 @@ under the License.
           <td>
             <table border="0" cellspacing="1">
               <#list partyContactMechPurposes?if_exists as partyContactMechPurpose>
-                <#assign contactMechPurposeType = partyContactMechPurpose.getRelatedOneCache("ContactMechPurposeType") />
+                <#assign contactMechPurposeType = partyContactMechPurpose.getRelatedOne("ContactMechPurposeType", true) />
                 <tr>
                   <td>
                     <#if contactMechPurposeType?exists>

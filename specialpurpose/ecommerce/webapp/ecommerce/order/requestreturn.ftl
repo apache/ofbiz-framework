@@ -67,7 +67,7 @@ under the License.
                 <input type="hidden" name="returnPrice_o_${rowCount}" value="${returnableItems.get(orderItem).get("returnablePrice")}"/>
 
                 <#-- need some order item information -->
-                <#assign orderHeader = orderItem.getRelatedOne("OrderHeader")>
+                <#assign orderHeader = orderItem.getRelatedOne("OrderHeader", false)>
                 <#assign itemCount = orderItem.quantity>
                 <#assign itemPrice = orderItem.unitPrice>
                 <#-- end of order item information -->
@@ -119,7 +119,7 @@ under the License.
                 <td colspan="6">
                   <table cellspacing="1" cellpadding="2" width="100%">
                     <#list shippingContactMechList as shippingContactMech>
-                      <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress")>
+                      <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress", false)>
                       <tr>
                         <td align="right" width="1%" valign="top" nowrap="nowrap">
                           <input type="radio" name="originContactMechId" value="${shippingAddress.contactMechId}"/>

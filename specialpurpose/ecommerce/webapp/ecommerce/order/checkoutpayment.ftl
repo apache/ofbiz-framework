@@ -156,7 +156,7 @@ var issuerId = "";
               <#list paymentMethodList as paymentMethod>
                 <#if paymentMethod.paymentMethodTypeId == "GIFT_CARD">
                  <#if productStorePaymentMethodTypeIdMap.GIFT_CARD?exists>
-                  <#assign giftCard = paymentMethod.getRelatedOne("GiftCard") />
+                  <#assign giftCard = paymentMethod.getRelatedOne("GiftCard", false) />
 
                   <#if giftCard?has_content && giftCard.cardNumber?has_content>
                     <#assign giftCardNumber = "" />
@@ -184,7 +184,7 @@ var issuerId = "";
                  </#if>
                 <#elseif paymentMethod.paymentMethodTypeId == "CREDIT_CARD">
                  <#if productStorePaymentMethodTypeIdMap.CREDIT_CARD?exists>
-                  <#assign creditCard = paymentMethod.getRelatedOne("CreditCard") />
+                  <#assign creditCard = paymentMethod.getRelatedOne("CreditCard", false) />
                   <div>
                       <input type="checkbox" id="checkOutPayment_${paymentMethod.paymentMethodId}" name="checkOutPaymentId" value="${paymentMethod.paymentMethodId}" <#if cart.isPaymentSelected(paymentMethod.paymentMethodId)>checked="checked"</#if> />
                       <label for="checkOutPayment_${paymentMethod.paymentMethodId}">CC:${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}</label>
@@ -195,7 +195,7 @@ var issuerId = "";
                  </#if>
                 <#elseif paymentMethod.paymentMethodTypeId == "EFT_ACCOUNT">
                  <#if productStorePaymentMethodTypeIdMap.EFT_ACCOUNT?exists>
-                  <#assign eftAccount = paymentMethod.getRelatedOne("EftAccount") />
+                  <#assign eftAccount = paymentMethod.getRelatedOne("EftAccount", false) />
                   <div>
                       <input type="radio" id="checkOutPayment_${paymentMethod.paymentMethodId}" name="checkOutPaymentId" value="${paymentMethod.paymentMethodId}" <#if paymentMethod.paymentMethodId == checkOutPaymentId>checked="checked"</#if> />
                       <label for="checkOutPayment_${paymentMethod.paymentMethodId}">${uiLabelMap.AccountingEFTAccount}:${eftAccount.bankName?if_exists}: ${eftAccount.accountNumber?if_exists}</label>

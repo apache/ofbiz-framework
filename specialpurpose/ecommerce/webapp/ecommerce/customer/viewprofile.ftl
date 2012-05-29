@@ -126,7 +126,7 @@ under the License.
             <td>&nbsp;</td>
             <td valign="top">
               <#list partyContactMechValueMap.partyContactMechPurposes?if_exists as partyContactMechPurpose>
-                <#assign contactMechPurposeType = partyContactMechPurpose.getRelatedOneCache("ContactMechPurposeType") />
+                <#assign contactMechPurposeType = partyContactMechPurpose.getRelatedOne("ContactMechPurposeType", true) />
                 <div>
                   <#if contactMechPurposeType?exists>
                     ${contactMechPurposeType.get("description",locale)}
@@ -403,10 +403,10 @@ under the License.
     <table width="100%" border="0" cellpadding="1">
       <#if partyContent?has_content>
         <#list partyContent as contentRole>
-        <#assign content = contentRole.getRelatedOne("Content") />
-        <#assign contentType = content.getRelatedOneCache("ContentType") />
-        <#assign mimeType = content.getRelatedOneCache("MimeType")?if_exists />
-        <#assign status = content.getRelatedOneCache("StatusItem") />
+        <#assign content = contentRole.getRelatedOne("Content", false) />
+        <#assign contentType = content.getRelatedOne("ContentType", true) />
+        <#assign mimeType = content.getRelatedOne("MimeType", true)?if_exists />
+        <#assign status = content.getRelatedOne("StatusItem", true) />
           <tr>
             <td><a href="<@ofbizUrl>img/${content.contentName?if_exists}?imgId=${content.dataResourceId?if_exists}</@ofbizUrl>" class="button">${content.contentId}</a></td>
             <td>${content.contentName?if_exists}</td>
@@ -475,10 +475,10 @@ under the License.
         <th>&nbsp;</th>
       </tr>
       <#list contactListPartyList as contactListParty>
-      <#assign contactList = contactListParty.getRelatedOne("ContactList")?if_exists />
-      <#assign statusItem = contactListParty.getRelatedOneCache("StatusItem")?if_exists />
-      <#assign emailAddress = contactListParty.getRelatedOneCache("PreferredContactMech")?if_exists />
-      <#-- <#assign contactListType = contactList.getRelatedOneCache("ContactListType")/> -->
+      <#assign contactList = contactListParty.getRelatedOne("ContactList", false)?if_exists />
+      <#assign statusItem = contactListParty.getRelatedOne("StatusItem", true)?if_exists />
+      <#assign emailAddress = contactListParty.getRelatedOne("PreferredContactMech", true)?if_exists />
+      <#-- <#assign contactListType = contactList.getRelatedOne("ContactListType", true)/> -->
       <tr><td colspan="7"></td></tr>
       <tr>
         <td>${contactList.contactListName?if_exists}<#if contactList.description?has_content>&nbsp;-&nbsp;${contactList.description}</#if></td>
@@ -538,8 +538,8 @@ under the License.
         <span class="tableheadtext">${uiLabelMap.EcommerceNewListSubscription}: </span>
         <select name="contactListId" class="selectBox">
           <#list publicContactLists as publicContactList>
-            <#-- <#assign publicContactListType = publicContactList.getRelatedOneCache("ContactListType")> -->
-            <#assign publicContactMechType = publicContactList.getRelatedOneCache("ContactMechType")?if_exists />
+            <#-- <#assign publicContactListType = publicContactList.getRelatedOne("ContactListType", true)> -->
+            <#assign publicContactMechType = publicContactList.getRelatedOne("ContactMechType", true)?if_exists />
             <option value="${publicContactList.contactListId}">${publicContactList.contactListName?if_exists} <#-- ${publicContactListType.get("description",locale)} --> <#if publicContactMechType?has_content>[${publicContactMechType.get("description",locale)}]</#if></option>
           </#list>
         </select>
@@ -564,7 +564,7 @@ under the License.
   <div class="screenlet-body">
     <table width="100%" border="0" cellpadding="1">
       <#list surveys as surveyAppl>
-        <#assign survey = surveyAppl.getRelatedOne("Survey") />
+        <#assign survey = surveyAppl.getRelatedOne("Survey", false) />
         <tr>
           <td>&nbsp;</td>
           <td valign="top"><div>${survey.surveyName?if_exists}&nbsp;-&nbsp;${survey.description?if_exists}</div></td>
