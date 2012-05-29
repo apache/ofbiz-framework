@@ -74,7 +74,7 @@ public class ProductsExportToEbay {
             List<GenericValue> productsList  = delegator.findList("Product", EntityCondition.makeCondition("productId", EntityOperator.IN, selectResult), null, null, null, false);
             if (UtilValidate.isNotEmpty(productsList)) {
                 for (GenericValue product : productsList) {
-                    GenericValue startPriceValue = EntityUtil.getFirst(EntityUtil.filterByDate(product.getRelatedByAnd("ProductPrice", UtilMisc.toMap("productPricePurposeId", "EBAY", "productPriceTypeId", "MINIMUM_PRICE"))));
+                    GenericValue startPriceValue = EntityUtil.getFirst(EntityUtil.filterByDate(product.getRelated("ProductPrice", UtilMisc.toMap("productPricePurposeId", "EBAY", "productPriceTypeId", "MINIMUM_PRICE"), null, false)));
                     if (UtilValidate.isEmpty(startPriceValue)) {
                         String startPriceMissingMsg = "Unable to find a starting price for auction of product with id (" + product.getString("productId") + "), So Ignoring the export of this product to eBay.";
                         productExportFailureMessageList.add(startPriceMissingMsg);
@@ -206,7 +206,7 @@ public class ProductsExportToEbay {
                 String startPrice = (String)context.get("startPrice");
                 String startPriceCurrencyUomId = null;
                 if (UtilValidate.isEmpty(startPrice)) {
-                    GenericValue startPriceValue = EntityUtil.getFirst(EntityUtil.filterByDate(prod.getRelatedByAnd("ProductPrice", UtilMisc.toMap("productPricePurposeId", "EBAY", "productPriceTypeId", "MINIMUM_PRICE"))));
+                    GenericValue startPriceValue = EntityUtil.getFirst(EntityUtil.filterByDate(prod.getRelated("ProductPrice", UtilMisc.toMap("productPricePurposeId", "EBAY", "productPriceTypeId", "MINIMUM_PRICE"), null, false)));
                     if (UtilValidate.isNotEmpty(startPriceValue)) {
                         startPrice = startPriceValue.getString("price");
                         startPriceCurrencyUomId = startPriceValue.getString("currencyUomId");
@@ -217,7 +217,7 @@ public class ProductsExportToEbay {
                 String buyItNowPrice = (String)context.get("buyItNowPrice");
                 String buyItNowCurrencyUomId = null;
                 if (UtilValidate.isEmpty(buyItNowPrice)) {
-                    GenericValue buyItNowPriceValue = EntityUtil.getFirst(EntityUtil.filterByDate(prod.getRelatedByAnd("ProductPrice", UtilMisc.toMap("productPricePurposeId", "EBAY", "productPriceTypeId", "MAXIMUM_PRICE"))));
+                    GenericValue buyItNowPriceValue = EntityUtil.getFirst(EntityUtil.filterByDate(prod.getRelated("ProductPrice", UtilMisc.toMap("productPricePurposeId", "EBAY", "productPriceTypeId", "MAXIMUM_PRICE"), null, false)));
                     if (UtilValidate.isNotEmpty(buyItNowPriceValue)) {
                         buyItNowPrice = buyItNowPriceValue.getString("price");
                         buyItNowCurrencyUomId = buyItNowPriceValue.getString("currencyUomId");

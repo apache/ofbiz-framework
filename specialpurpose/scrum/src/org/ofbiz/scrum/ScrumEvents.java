@@ -83,7 +83,7 @@ public class ScrumEvents {
                             //compare week and compare date
                             if ((timesheetDate.compareTo(weekStart) <= 0) && (realTimeDate.compareTo(nowStartDate) < 0)) {
                                 //check time entry
-                                List<GenericValue> timeEntryList = timesheetMap.getRelatedByAnd("TimeEntry", UtilMisc.toMap("partyId", partyId, "timesheetId",timesheetId, "fromDate",realTimeDate));
+                                List<GenericValue> timeEntryList = timesheetMap.getRelated("TimeEntry", UtilMisc.toMap("partyId", partyId, "timesheetId",timesheetId, "fromDate",realTimeDate), null, false);
                                 //check EmplLeave
                                 List<GenericValue> emplLeaveList = delegator.findByAnd("EmplLeave", UtilMisc.toMap("partyId", partyId, "fromDate", realTimeDate), null, true);
                                 if (UtilValidate.isEmpty(timeEntryList) && UtilValidate.isEmpty(emplLeaveList)) {

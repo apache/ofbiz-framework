@@ -272,7 +272,7 @@ public class WebPosTransaction {
 
             List<GenericValue> fcp = null;
             try {
-                fcp = facility.getRelatedByAnd("FacilityContactMechPurpose", UtilMisc.toMap("contactMechPurposeTypeId", "SHIP_ORIG_LOCATION"));
+                fcp = facility.getRelated("FacilityContactMechPurpose", UtilMisc.toMap("contactMechPurposeTypeId", "SHIP_ORIG_LOCATION"), null, false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }

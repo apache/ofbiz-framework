@@ -101,7 +101,7 @@ void retrieveWorkEffortData() {
             }
             entry.actualHours = aHours;
             // get party assignment data to be able to set the task to complete
-            workEffortPartyAssigns = EntityUtil.filterByDate(entryWorkEffort.getRelatedByAnd("WorkEffortPartyAssignment", ["partyId" : partyId]));
+            workEffortPartyAssigns = EntityUtil.filterByDate(entryWorkEffort.getRelated("WorkEffortPartyAssignment", ["partyId" : partyId], null, false));
             if (workEffortPartyAssigns) {
                 workEffortPartyAssign = workEffortPartyAssigns[0];
                 entry.fromDate = workEffortPartyAssign.getTimestamp("fromDate");
