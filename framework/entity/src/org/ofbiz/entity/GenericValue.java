@@ -345,7 +345,7 @@ public class GenericValue extends GenericEntity implements Reusable {
         GenericValue value = relatedOneCache.get(relationName);
 
         if (value == null) {
-            value = getRelatedOne(relationName);
+            value = getRelatedOne(relationName, false);
             if (value != null) relatedOneCache.put(relationName, value);
         }
         return value;

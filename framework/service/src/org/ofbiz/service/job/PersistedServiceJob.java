@@ -280,7 +280,7 @@ public class PersistedServiceJob extends GenericServiceJob {
         try {
             GenericValue jobObj = getJob();
             if (!UtilValidate.isEmpty(jobObj.getString("runtimeDataId"))) {
-                GenericValue contextObj = jobObj.getRelatedOne("RuntimeData");
+                GenericValue contextObj = jobObj.getRelatedOne("RuntimeData", false);
                 if (contextObj != null) {
                     context = UtilGenerics.checkMap(XmlSerializer.deserialize(contextObj.getString("runtimeInfo"), delegator), String.class, Object.class);
                 }

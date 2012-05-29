@@ -146,7 +146,7 @@ public class TemporalExpressionWorker {
         }
         Set<TemporalExpression> exprList = new TreeSet<TemporalExpression>();
         for (GenericValue value : valueList) {
-            exprList.add(makeTemporalExpression(delegator, value.getRelatedOne("ToTemporalExpression")));
+            exprList.add(makeTemporalExpression(delegator, value.getRelatedOne("ToTemporalExpression", false)));
         }
         return exprList;
     }

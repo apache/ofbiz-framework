@@ -460,7 +460,7 @@ public class JobManager {
                     // cancel has been flagged, no more recurrence
                     return null;
                 }
-                GenericValue ri = job.getRelatedOne("RecurrenceInfo");
+                GenericValue ri = job.getRelatedOne("RecurrenceInfo", false);
 
                 if (ri != null) {
                     return new RecurrenceInfo(ri);

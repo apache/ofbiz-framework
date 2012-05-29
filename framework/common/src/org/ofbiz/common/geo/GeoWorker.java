@@ -70,7 +70,7 @@ public class GeoWorker {
             for (GenericValue nextGeoAssoc: thisGeoAssoc) {
                 GenericValue nextGeo = null;
                 try {
-                    nextGeo = nextGeoAssoc.getRelatedOne("MainGeo");
+                    nextGeo = nextGeoAssoc.getRelatedOne("MainGeo", false);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Unable to get related Geo", module);
                 }
