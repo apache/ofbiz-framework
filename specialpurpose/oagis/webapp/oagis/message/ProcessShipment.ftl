@@ -117,8 +117,8 @@ under the License.
           </#if>
         </os:PARTNER>
         <#list shipmentItems as shipmentItem>
-        <#assign product = shipmentItem.getRelatedOne("Product")>
-        <#assign productType = product.getRelatedOne("ProductType")>
+        <#assign product = shipmentItem.getRelatedOne("Product", false)>
+        <#assign productType = product.getRelatedOne("ProductType", false)>
         <#if productType.isPhysical == "Y" || productType.isPhysical == "y">
         <n:SHIPITEM>
             <os:QUANTITY>
