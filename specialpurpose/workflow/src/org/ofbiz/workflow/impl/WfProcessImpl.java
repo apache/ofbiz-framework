@@ -320,7 +320,7 @@ public class WfProcessImpl extends WfExecutionObjectImpl implements WfProcess {
         
         List<GenericValue> toTrans = null;
         try {
-            toTrans = toActivity.getRelated("ToWorkflowTransition");
+            toTrans = toActivity.getRelated("ToWorkflowTransition", null, null, false);
         } catch (GenericEntityException e) {
             throw new WfException(e.getMessage(), e);
         }
@@ -410,7 +410,7 @@ public class WfProcessImpl extends WfExecutionObjectImpl implements WfProcess {
         // get the from transitions
         List<GenericValue> fromTransitions = null;
         try {
-            fromTransitions = fromActivity.getDefinitionObject().getRelated("FromWorkflowTransition");
+            fromTransitions = fromActivity.getDefinitionObject().getRelated("FromWorkflowTransition", null, null, false);
         } catch (GenericEntityException e) {
             throw new WfException(e.getMessage(), e);
         }
