@@ -104,7 +104,7 @@ public class MrpServices {
         if (listResult != null) {
             try {
                 for(GenericValue tmpRequirement : listResult) {
-                    listResultRoles.addAll(tmpRequirement.getRelated("RequirementRole"));
+                    listResultRoles.addAll(tmpRequirement.getRelated("RequirementRole", null, null, false));
                     //int numOfRecordsRemoved = delegator.removeRelated("RequirementRole", tmpRequirement);
                 }
                 delegator.removeAll(listResultRoles);
@@ -595,7 +595,7 @@ public class MrpServices {
                 if (UtilValidate.isEmpty(facilityGroup)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpFacilityGroupIsNotValid", UtilMisc.toMap("facilityGroupId", facilityGroupId), locale));
                 }
-                List<GenericValue> facilities = facilityGroup.getRelated("FacilityGroupMember", UtilMisc.toList("sequenceNum"));
+                List<GenericValue> facilities = facilityGroup.getRelated("FacilityGroupMember", null, UtilMisc.toList("sequenceNum"), false);
                 if (UtilValidate.isEmpty(facilities)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpFacilityGroupIsNotAssociatedToFacility", UtilMisc.toMap("facilityGroupId", facilityGroupId), locale));
                 }
