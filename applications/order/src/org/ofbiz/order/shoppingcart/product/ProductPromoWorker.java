@@ -1423,8 +1423,7 @@ public class ProductPromoWorker {
                         throw new CartItemModifyException(errMsg);
                     }
                     if ("Y".equals(product.getString("isVirtual"))) {
-                        List<GenericValue> productAssocs = EntityUtil.filterByDate(product.getRelatedCache("MainProductAssoc",
-                                UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"), UtilMisc.toList("sequenceNum")));
+                        List<GenericValue> productAssocs = EntityUtil.filterByDate(product.getRelatedCache("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"), UtilMisc.toList("sequenceNum")));
                         for(GenericValue productAssoc : productAssocs) {
                             optionProductIds.add(productAssoc.getString("productIdTo"));
                         }

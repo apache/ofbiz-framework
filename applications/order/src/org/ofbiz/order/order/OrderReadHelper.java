@@ -466,8 +466,7 @@ public class OrderReadHelper {
     @Deprecated
     public GenericValue getShippingAddress() {
         try {
-            GenericValue orderContactMech = EntityUtil.getFirst(orderHeader.getRelatedByAnd("OrderContactMech", UtilMisc.toMap(
-                            "contactMechPurposeTypeId", "SHIPPING_LOCATION")));
+            GenericValue orderContactMech = EntityUtil.getFirst(orderHeader.getRelatedByAnd("OrderContactMech", UtilMisc.toMap("contactMechPurposeTypeId", "SHIPPING_LOCATION")));
 
             if (orderContactMech != null) {
                 GenericValue contactMech = orderContactMech.getRelatedOne("ContactMech");
@@ -558,8 +557,7 @@ public class OrderReadHelper {
 
     public List<GenericValue> getOrderContactMechs(String purposeTypeId) {
         try {
-            return orderHeader.getRelatedByAnd("OrderContactMech",
-                    UtilMisc.toMap("contactMechPurposeTypeId", purposeTypeId));
+            return orderHeader.getRelatedByAnd("OrderContactMech", UtilMisc.toMap("contactMechPurposeTypeId", purposeTypeId));
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
         }
@@ -2669,8 +2667,7 @@ public class OrderReadHelper {
         } else if (security.hasEntityPermission("ORDERMGR", "_ROLEVIEW", userLogin)) {
             List<GenericValue> orderRoles = null;
             try {
-                orderRoles = orderHeader.getRelatedByAnd("OrderRole",
-                        UtilMisc.toMap("partyId", userLogin.getString("partyId")));
+                orderRoles = orderHeader.getRelatedByAnd("OrderRole", UtilMisc.toMap("partyId", userLogin.getString("partyId")));
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Cannot get OrderRole from OrderHeader", module);
             }

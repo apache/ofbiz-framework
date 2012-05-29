@@ -1109,8 +1109,7 @@ public class ProductionRunServices {
                 List<GenericValue> setupCosts = fixedAsset.getRelatedByAnd("FixedAssetStdCost", 
                         UtilMisc.toMap("fixedAssetStdCostTypeId", "SETUP_COST"));
                 GenericValue setupCost = EntityUtil.getFirst(EntityUtil.filterByDate(setupCosts));
-                List<GenericValue> usageCosts = fixedAsset.getRelatedByAnd("FixedAssetStdCost", 
-                        UtilMisc.toMap("fixedAssetStdCostTypeId", "USAGE_COST"));
+                List<GenericValue> usageCosts = fixedAsset.getRelatedByAnd("FixedAssetStdCost", UtilMisc.toMap("fixedAssetStdCostTypeId", "USAGE_COST"));
                 GenericValue usageCost = EntityUtil.getFirst(EntityUtil.filterByDate(usageCosts));
                 if (UtilValidate.isNotEmpty(setupCost) || UtilValidate.isNotEmpty(usageCost)) {
                     String currencyUomId = (setupCost != null? setupCost.getString("amountUomId"): usageCost.getString("amountUomId"));

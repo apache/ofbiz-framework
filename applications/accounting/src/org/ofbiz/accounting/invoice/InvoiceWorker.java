@@ -201,8 +201,7 @@ public class InvoiceWorker {
         // remaining code is the old method, which we leave here for compatibility purposes
         List<GenericValue> billToRoles = null;
         try {
-            billToRoles = invoice.getRelated("InvoiceRole", UtilMisc.toMap("roleTypeId", "BILL_TO_CUSTOMER"),
-                UtilMisc.toList("-datetimePerformed"));
+            billToRoles = invoice.getRelated("InvoiceRole", UtilMisc.toMap("roleTypeId", "BILL_TO_CUSTOMER"), UtilMisc.toList("-datetimePerformed"));
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting InvoiceRole list", module);
         }
@@ -245,8 +244,7 @@ public class InvoiceWorker {
         // remaining code is the old method, which we leave here for compatibility purposes
         List<GenericValue> sendFromRoles = null;
         try {
-            sendFromRoles = invoice.getRelated("InvoiceRole", UtilMisc.toMap("roleTypeId", "BILL_FROM_VENDOR"),
-                UtilMisc.toList("-datetimePerformed"));
+            sendFromRoles = invoice.getRelated("InvoiceRole", UtilMisc.toMap("roleTypeId", "BILL_FROM_VENDOR"), UtilMisc.toList("-datetimePerformed"));
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting InvoiceRole list", module);
         }

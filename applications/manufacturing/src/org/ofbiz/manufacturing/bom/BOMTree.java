@@ -174,8 +174,7 @@ public class BOMTree {
     }
 
     private boolean hasBom(GenericValue product, Date inDate) throws GenericEntityException {
-        List<GenericValue> children = product.getRelatedByAnd("MainProductAssoc", 
-                UtilMisc.toMap("productAssocTypeId", bomTypeId));
+        List<GenericValue> children = product.getRelatedByAnd("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", bomTypeId));
         children = EntityUtil.filterByDate(children, inDate);
         return UtilValidate.isNotEmpty(children);
     }

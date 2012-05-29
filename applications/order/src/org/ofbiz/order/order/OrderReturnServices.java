@@ -1825,9 +1825,7 @@ public class OrderReturnServices {
                                 if ("CUSTOMER_RETURN".equals(returnHeaderTypeId)) {
                                     try {
                                         if (UtilValidate.isNotEmpty(product)) {
-                                            GenericValue refurbItemAssoc = EntityUtil.getFirst(EntityUtil.filterByDate(product.getRelated("MainProductAssoc",
-                                                                                                       UtilMisc.toMap("productAssocTypeId", "PRODUCT_REFURB"),
-                                                                                                       UtilMisc.toList("sequenceNum"))));
+                                            GenericValue refurbItemAssoc = EntityUtil.getFirst(EntityUtil.filterByDate(product.getRelated("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_REFURB"), UtilMisc.toList("sequenceNum"))));
                                             if (UtilValidate.isNotEmpty(refurbItemAssoc)) {
                                                 refurbItem = refurbItemAssoc.getRelatedOne("AssocProduct");
                                             }
@@ -1910,8 +1908,7 @@ public class OrderReturnServices {
                                     List<GenericValue> repairItems = null;
                                     try {
                                         if (UtilValidate.isNotEmpty(product)) {
-                                            repairItems = EntityUtil.filterByDate(product.getRelated("MainProductAssoc",
-                                                    UtilMisc.toMap("productAssocTypeId", "PRODUCT_REPAIR_SRV"), UtilMisc.toList("sequenceNum")));
+                                            repairItems = EntityUtil.filterByDate(product.getRelated("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_REPAIR_SRV"), UtilMisc.toList("sequenceNum")));
                                         }
                                     } catch (GenericEntityException e) {
                                         Debug.logError(e, module);

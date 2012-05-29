@@ -165,8 +165,7 @@ public class ProductionRun {
         if (exist()) {
             if (productProduced == null) {
                 try {
-                    List<GenericValue> productionRunProducts = productionRun.getRelated("WorkEffortGoodStandard", 
-                            UtilMisc.toMap("workEffortGoodStdTypeId", "PRUN_PROD_DELIV"), null);
+                    List<GenericValue> productionRunProducts = productionRun.getRelated("WorkEffortGoodStandard", UtilMisc.toMap("workEffortGoodStdTypeId", "PRUN_PROD_DELIV"), null);
                     this.productionRunProduct = EntityUtil.getFirst(productionRunProducts);
                     quantity = productionRunProduct.getBigDecimal("estimatedQuantity");
                     productProduced = productionRunProduct.getRelatedOneCache("Product");
