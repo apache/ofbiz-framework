@@ -177,7 +177,7 @@ under the License.
                 <td><#if partyRow.containsKey("userLoginId")>
                         ${partyRow.userLoginId?default("N/A")}
                     <#else>
-                    <#assign userLogins = partyRow.getRelated("UserLogin")>
+                    <#assign userLogins = partyRow.getRelated("UserLogin", null, null, false)>
                     <#if (userLogins.size() > 0)>
                         <#if (userLogins.size() > 1)>
                             (${uiLabelMap.CommonMany})
