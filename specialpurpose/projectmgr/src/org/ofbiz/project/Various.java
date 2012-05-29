@@ -39,7 +39,7 @@ public class Various {
             List<GenericValue> assocs = task.getRelated("FromWorkEffortAssoc");
             if (UtilValidate.isNotEmpty(assocs)) {
                 for (GenericValue assoc : assocs) {
-                    GenericValue nextTask = assoc.getRelatedOne("ToWorkEffort");
+                    GenericValue nextTask = assoc.getRelatedOne("ToWorkEffort", false);
                     Timestamp newStartDate = task.getTimestamp("estimatedCompletionDate"); // start of next task the next day
                     if (nextTask.get("estimatedStartDate") == null || nextTask.getTimestamp("estimatedStartDate").before(newStartDate)) {
                         nextTask.put("estimatedStartDate", UtilDateTime.addDaysToTimestamp(task.getTimestamp("estimatedCompletionDate"), 1)); // start of next task the next day

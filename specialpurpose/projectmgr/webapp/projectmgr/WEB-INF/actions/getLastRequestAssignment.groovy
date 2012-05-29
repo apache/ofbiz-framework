@@ -26,8 +26,8 @@ custRequestList = delegator.findByAnd("CustRequest", ["fromPartyId" : fromPartyI
 if (custRequestList) {
     custReqTaskList = custRequestList.get(0).getRelated("CustRequestWorkEffort");
     if (custReqTaskList) {
-        custReqTask = custReqTaskList.get(0).getRelatedOne("WorkEffort");  // phase
-        projectChildWorkEffort = custReqTask.getRelatedOne("ParentWorkEffort");  // phase name
+        custReqTask = custReqTaskList.get(0).getRelatedOne("WorkEffort", false);  // phase
+        projectChildWorkEffort = custReqTask.getRelatedOne("ParentWorkEffort", false);  // phase name
         if (projectChildWorkEffort) {
             partyList = custReqTask.getRelated("WorkEffortPartyAssignment");
             if (partyList) {
