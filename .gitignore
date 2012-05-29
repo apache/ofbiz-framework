@@ -52,3 +52,5 @@ debian/orig-work
 *.iml
 *~
 *#
+.*.swp
+.*.swo
