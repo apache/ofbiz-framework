@@ -2012,15 +2012,19 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#getRelatedOne(java.lang.String, org.ofbiz.entity.GenericValue)
+     * @see org.ofbiz.entity.Delegator#getRelatedOne(java.lang.String, org.ofbiz.entity.GenericValue, boolean)
+     * @deprecated use {@link #getRelatedOne(String, GenericValue, boolean)
      */
+    @Deprecated
     public GenericValue getRelatedOne(String relationName, GenericValue value) throws GenericEntityException {
         return this.getRelatedOne(relationName, value, false);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#getRelatedOneCache(java.lang.String, org.ofbiz.entity.GenericValue)
+     * @see org.ofbiz.entity.Delegator#getRelatedOneCache(java.lang.String, org.ofbiz.entity.GenericValue, boolean)
+     * @deprecated use {@link #getRelatedOne(String, GenericValue, boolean)
      */
+    @Deprecated
     public GenericValue getRelatedOneCache(String relationName, GenericValue value) throws GenericEntityException {
         return this.getRelatedOne(relationName, value, true);
     }
