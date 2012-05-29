@@ -310,7 +310,7 @@ public class EntityTestSuite extends EntityTestCase {
         ArrayList<GenericValue> testings = new ArrayList<GenericValue>();
 
         for (GenericValue nodeMember: values) {
-            testings.add(nodeMember.getRelatedOne("Testing"));
+            testings.add(nodeMember.getRelatedOne("Testing", false));
         }
         // and remove the nodeMember afterwards
         delegator.removeAll(values);

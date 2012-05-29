@@ -39,7 +39,7 @@ public class EntityTypeUtil {
     public static boolean isType(Collection<GenericValue> thisCollection, String typeRelation, GenericValue targetType) {
         for (GenericValue value: thisCollection) {
             try {
-                GenericValue related = value.getRelatedOne(typeRelation);
+                GenericValue related = value.getRelatedOne(typeRelation, false);
                 if (isType(related, targetType)) {
                     return true;
                 } // else keep looking
@@ -72,7 +72,7 @@ public class EntityTypeUtil {
     private static GenericValue getParentType(GenericValue typeValue) {
         // assumes Parent relation is "Parent<entityName>"
         try {
-            return typeValue.getRelatedOneCache("Parent" + typeValue.getEntityName());
+            return typeValue.getRelatedOne("Parent" + typeValue.getEntityName(), true);
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
             return null;

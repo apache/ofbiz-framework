@@ -835,7 +835,7 @@ public class EntityPermissionChecker {
                     GenericValue party = null;
                     String partyTypeId = null;
                     try {
-                        party = contentRole.getRelatedOne("Party");
+                        party = contentRole.getRelatedOne("Party", false);
                         partyTypeId = (String)party.get("partyTypeId");
                         if (partyTypeId != null && partyTypeId.equals("PARTY_GROUP")) {
                            Map<String, Object> map = FastMap.newInstance();

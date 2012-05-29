@@ -568,8 +568,8 @@ public class LoginWorker {
         if (modelUserLogin.isField("partyId")) {
             // if partyId is a field, then we should have these relations defined
             try {
-                GenericValue person = userLogin.getRelatedOne("Person");
-                GenericValue partyGroup = userLogin.getRelatedOne("PartyGroup");
+                GenericValue person = userLogin.getRelatedOne("Person", false);
+                GenericValue partyGroup = userLogin.getRelatedOne("PartyGroup", false);
                 if (person != null) session.setAttribute("person", person);
                 if (partyGroup != null) session.setAttribute("partyGroup", partyGroup);
             } catch (GenericEntityException e) {
@@ -1055,7 +1055,7 @@ public class LoginWorker {
         GenericValue userLoginSession;
         Map<String, Object> userLoginSessionMap = null;
         try {
-            userLoginSession = userLogin.getRelatedOne("UserLoginSession");
+            userLoginSession = userLogin.getRelatedOne("UserLoginSession", false);
             if (userLoginSession != null) {
                 Object deserObj = XmlSerializer.deserialize(userLoginSession.getString("sessionData"), delegator);
                 //don't check, just cast, if it fails it will get caught and reported below; if (deserObj instanceof Map)

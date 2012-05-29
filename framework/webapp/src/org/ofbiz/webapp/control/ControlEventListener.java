@@ -91,7 +91,7 @@ public class ControlEventListener implements HttpSessionListener {
             GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
             if (userLogin != null && userLoginSessionString != null) {
                 GenericValue userLoginSession = null;
-                userLoginSession = userLogin.getRelatedOne("UserLoginSession");
+                userLoginSession = userLogin.getRelatedOne("UserLoginSession", false);
 
                 if (userLoginSession == null) {
                     userLoginSession = userLogin.getDelegator().makeValue("UserLoginSession",
