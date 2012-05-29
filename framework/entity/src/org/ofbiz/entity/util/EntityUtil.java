@@ -339,42 +339,44 @@ public class EntityUtil {
         return result;
     }
 
+    /**
+     * @deprecated use {@link #getRelated(String, Map, List, boolean)}
+     */
+    @Deprecated
     public static List<GenericValue> getRelated(String relationName, List<GenericValue> values) throws GenericEntityException {
-        if (values == null) return null;
-
-        List<GenericValue> result = FastList.newInstance();
-        for (GenericValue value: values) {
-            result.addAll(value.getRelated(relationName, null, null, false));
-        }
-        return result;
+        return getRelated(relationName, null, values, false);
     }
 
+    /**
+     * @deprecated use {@link #getRelated(String, Map, List, boolean)}
+     */
+    @Deprecated
     public static List<GenericValue> getRelatedCache(String relationName, List<GenericValue> values) throws GenericEntityException {
-        if (values == null) return null;
-
-        List<GenericValue> result = FastList.newInstance();
-        for (GenericValue value: values) {
-            result.addAll(value.getRelated(relationName, null, null, true));
-        }
-        return result;
+        return getRelated(relationName, null, values, true);
     }
 
+    /**
+     * @deprecated use {@link #getRelated(String, Map, List, boolean)}
+     */
+    @Deprecated
     public static List<GenericValue> getRelatedByAnd(String relationName, Map<String, ? extends Object> fields, List<GenericValue> values) throws GenericEntityException {
-        if (values == null) return null;
-
-        List<GenericValue> result = FastList.newInstance();
-        for (GenericValue value: values) {
-            result.addAll(value.getRelated(relationName, fields, null, false));
-        }
-        return result;
+        return getRelated(relationName, fields, values, false);
     }
 
+    /**
+     * @deprecated use {@link #getRelated(String, Map, List, boolean)}
+     */
+    @Deprecated
     public static List<GenericValue> getRelatedByAndCache(String relationName, Map<String, ? extends Object> fields, List<GenericValue> values) throws GenericEntityException {
+        return getRelated(relationName, fields, values, true);
+    }
+
+    public static List<GenericValue> getRelated(String relationName, Map<String, ? extends Object> fields, List<GenericValue> values, boolean useCache) throws GenericEntityException {
         if (values == null) return null;
 
         List<GenericValue> result = FastList.newInstance();
         for (GenericValue value: values) {
-            result.addAll(value.getRelated(relationName, fields, null, true));
+            result.addAll(value.getRelated(relationName, fields, null, useCache));
         }
         return result;
     }

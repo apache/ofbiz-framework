@@ -686,7 +686,7 @@ public class ProductEvents {
                             // get/check all the variants
                             List<GenericValue> variantAssocs = product.getRelated("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"), null, false);
                             variantAssocs = EntityUtil.filterByDate(variantAssocs);
-                            List<GenericValue> variants = EntityUtil.getRelated("AssocProduct", variantAssocs);
+                            List<GenericValue> variants = EntityUtil.getRelated("AssocProduct", null, variantAssocs, false);
                             Iterator<GenericValue> variantIter = variants.iterator();
                             while (!foundFeatureOnVariant && variantIter.hasNext()) {
                                 GenericValue variant = variantIter.next();
@@ -771,7 +771,7 @@ public class ProductEvents {
             // get all the variants
             List<GenericValue> variantAssocs = product.getRelated("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"), null, false);
             variantAssocs = EntityUtil.filterByDate(variantAssocs);
-            List<GenericValue> variants = EntityUtil.getRelated("AssocProduct", variantAssocs);
+            List<GenericValue> variants = EntityUtil.getRelated("AssocProduct", null, variantAssocs, false);
             for (GenericValue variant: variants) {
                 // get the selectable features for the variant
                 List<GenericValue> productFeatureAndAppls = variant.getRelated("ProductFeatureAndAppl", UtilMisc.toMap("productFeatureTypeId", productFeatureTypeId, "productFeatureApplTypeId", "STANDARD_FEATURE"), null, false);

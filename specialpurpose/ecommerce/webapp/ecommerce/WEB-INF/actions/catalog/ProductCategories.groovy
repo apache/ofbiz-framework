@@ -37,7 +37,7 @@ List fillTree(rootCat ,CatLvl, parentCategoryId) {
         def listTree = FastList.newInstance();
         for(root in rootCat) {
             preCatChilds = delegator.findByAnd("ProductCategoryRollup", ["parentProductCategoryId": root.productCategoryId], null, false);
-            catChilds = EntityUtil.getRelated("CurrentProductCategory",preCatChilds);
+            catChilds = EntityUtil.getRelated("CurrentProductCategory",null,preCatChilds,false);
             def childList = FastList.newInstance();
             
             // CatLvl uses for identify the Category level for display different css class

@@ -64,16 +64,16 @@ public class ContactHelper {
                 if (!includeOld) {
                     list = EntityUtil.filterByDate(list, true);
                 }
-                partyContactMechList = EntityUtil.getRelated("PartyContactMech", list);
+                partyContactMechList = EntityUtil.getRelated("PartyContactMech", null, list, false);
             }
             if (!includeOld) {
                 partyContactMechList = EntityUtil.filterByDate(partyContactMechList, true);
             }
             partyContactMechList = EntityUtil.orderBy(partyContactMechList, UtilMisc.toList("fromDate DESC"));
             if (contactMechTypeId == null) {
-                return EntityUtil.getRelated("ContactMech", partyContactMechList);
+                return EntityUtil.getRelated("ContactMech", null, partyContactMechList, false);
             } else {
-                return EntityUtil.getRelatedByAnd("ContactMech", UtilMisc.toMap("contactMechTypeId", contactMechTypeId), partyContactMechList);
+                return EntityUtil.getRelated("ContactMech", UtilMisc.toMap("contactMechTypeId", contactMechTypeId), partyContactMechList, false);
             }
         } catch (GenericEntityException gee) {
             Debug.logWarning(gee, module);
