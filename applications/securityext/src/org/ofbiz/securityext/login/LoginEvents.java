@@ -232,7 +232,7 @@ public class LoginEvents {
         GenericValue party = null;
 
         try {
-            party = supposedUserLogin.getRelatedOne("Party");
+            party = supposedUserLogin.getRelatedOne("Party", false);
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "", module);
             party = null;

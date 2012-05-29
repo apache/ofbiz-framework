@@ -170,7 +170,7 @@ public class TruitionCoReg {
 
         GenericValue party = null;
         try {
-            party = userLogin.getRelatedOne("Party");
+            party = userLogin.getRelatedOne("Party", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -182,7 +182,7 @@ public class TruitionCoReg {
             if ("PERSON".equals(party.getString("partyTypeId"))) {
                 GenericValue person = null;
                 try {
-                    person = party.getRelatedOne("Person");
+                    person = party.getRelatedOne("Person", false);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }
