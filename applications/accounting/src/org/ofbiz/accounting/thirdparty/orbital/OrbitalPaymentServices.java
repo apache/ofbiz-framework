@@ -127,7 +127,7 @@ public class OrbitalPaymentServices {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue creditCard = null;
         try {
-            creditCard = delegator.getRelatedOne("CreditCard",orderPaymentPreference);
+            creditCard = orderPaymentPreference.getRelatedOne("CreditCard");
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -173,7 +173,7 @@ public class OrbitalPaymentServices {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue creditCard = null;
         try {
-            creditCard = delegator.getRelatedOne("CreditCard",orderPaymentPreference);
+            creditCard = orderPaymentPreference.getRelatedOne("CreditCard");
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -218,7 +218,7 @@ public class OrbitalPaymentServices {
 
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         try {
-            delegator.getRelatedOne("CreditCard",orderPaymentPreference);
+            orderPaymentPreference.getRelatedOne("CreditCard");
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
