@@ -2030,7 +2030,7 @@ public class GenericDelegator implements Delegator {
             fields.put(keyMap.getRelFieldName(), value.get(keyMap.getFieldName()));
         }
 
-        return this.findByPrimaryKey(relation.getRelEntityName(), fields);
+        return this.findOne(relation.getRelEntityName(), fields, false);
     }
 
     /* (non-Javadoc)
@@ -2053,7 +2053,7 @@ public class GenericDelegator implements Delegator {
             fields.put(keyMap.getRelFieldName(), value.get(keyMap.getFieldName()));
         }
 
-        return this.findByPrimaryKeyCache(relation.getRelEntityName(), fields);
+        return this.findOne(relation.getRelEntityName(), fields, true);
     }
 
 
