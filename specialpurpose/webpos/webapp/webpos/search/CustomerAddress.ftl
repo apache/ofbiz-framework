@@ -40,8 +40,8 @@ under the License.
               <td><b><#if personBillTo.lastName?has_content>${personBillTo.lastName}</#if> <#if personBillTo.firstName?has_content>${personBillTo.firstName}</#if></b></td>
             </tr>
             </#if>
-            <#assign state = billingPostalAddress.getRelatedOne("StateProvinceGeo")?if_exists/>
-            <#assign country = billingPostalAddress.getRelatedOne("CountryGeo")?if_exists/>
+            <#assign state = billingPostalAddress.getRelatedOne("StateProvinceGeo", false)?if_exists/>
+            <#assign country = billingPostalAddress.getRelatedOne("CountryGeo", false)?if_exists/>
             <tr>
               <td><#if billingPostalAddress.address1?has_content>${billingPostalAddress.address1}</#if></td>
             </tr>
@@ -71,8 +71,8 @@ under the License.
               <td><b><#if personShipTo.lastName?has_content>${personShipTo.lastName}</#if> <#if personShipTo.firstName?has_content>${personShipTo.firstName}</#if></b></td>
             </tr>
             </#if>
-            <#assign state = shippingPostalAddress.getRelatedOne("StateProvinceGeo")?if_exists/>
-            <#assign country = shippingPostalAddress.getRelatedOne("CountryGeo")?if_exists/>
+            <#assign state = shippingPostalAddress.getRelatedOne("StateProvinceGeo", false)?if_exists/>
+            <#assign country = shippingPostalAddress.getRelatedOne("CountryGeo", false)?if_exists/>
             <tr>
               <td><#if shippingPostalAddress.address1?has_content>${shippingPostalAddress.address1}</#if></td>
             </tr>

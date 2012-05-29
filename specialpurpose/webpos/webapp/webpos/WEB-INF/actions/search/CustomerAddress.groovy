@@ -30,7 +30,7 @@ if (webPosSession) {
     if (UtilValidate.isNotEmpty(shippingContactMechId)) {
         contactMech = delegator.findOne("ContactMech", [contactMechId : shippingContactMechId], false);
         if (UtilValidate.isNotEmpty(contactMech) && "POSTAL_ADDRESS".equals(contactMech.contactMechTypeId)) {
-            context.shippingPostalAddress = contactMech.getRelatedOne("PostalAddress");
+            context.shippingPostalAddress = contactMech.getRelatedOne("PostalAddress", false);
         }
     }
     billToCustomerPartyId = shoppingCart.getBillToCustomerPartyId();
@@ -41,7 +41,7 @@ if (webPosSession) {
     if (UtilValidate.isNotEmpty(billingContactMechId)) {
         contactMech = delegator.findOne("ContactMech", [contactMechId : billingContactMechId], false);
         if (UtilValidate.isNotEmpty(contactMech) && "POSTAL_ADDRESS".equals(contactMech.contactMechTypeId)) {
-            context.billingPostalAddress = contactMech.getRelatedOne("PostalAddress");
+            context.billingPostalAddress = contactMech.getRelatedOne("PostalAddress", false);
         }
     }
 }
