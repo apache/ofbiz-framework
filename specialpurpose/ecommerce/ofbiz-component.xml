@@ -68,10 +68,5 @@ under the License.
         location="webapp/ecomclone"
         mount-point="/ecomclone"
         app-bar-display="false"/>
-    <webapp name="demoecommerce"
-        title="Demo eCommerce"
-        server="default-server"
-        location="webapp/ecommerce"
-        mount-point="/"
-        app-bar-display="false"/>
 </ofbiz-component>
+
