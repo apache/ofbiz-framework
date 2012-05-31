@@ -2860,11 +2860,6 @@ under the License.
             </entity-and>
             <if-not-empty field="glAccountCategories">
                 <iterate list="glAccountOrganizations" entry="glAccountOrganization">
-                    <clear-field field="glAcctgOrgAndCostCenterMap"/>
-                    <get-related-one value-field="glAccountOrganization" relation-name="GlAccount" to-value-field="glAccount"/>
-                    <set field="glAcctgOrgAndCostCenterMap.glAccountId" from-field="glAccount.glAccountId"/>
-                    <set field="glAcctgOrgAndCostCenterMap.accountCode" from-field="glAccount.accountCode"/>
-                    <set field="glAcctgOrgAndCostCenterMap.accountName" from-field="glAccount.accountName"/>
                     <iterate list="glAccountCategories" entry="glAccountCategory">
                         <entity-and entity-name="GlAccountCategoryMember" list="glAccountCategoryMembers" filter-by-date="true">
                              <field-map field-name="glAccountId" from-field="glAccountOrganization.glAccountId"/>
@@ -2872,12 +2867,15 @@ under the License.
                         </entity-and>
                         <if-not-empty field="glAccountCategoryMembers">
                             <first-from-list list="glAccountCategoryMembers" entry="glAccountCategoryMember"/>
-                            <if-not-empty field="glAccountCategoryMember">
-                                <set field="glAcctgOrgAndCostCenterMap[glAccountCategory.glAccountCategoryId]" from-field="glAccountCategoryMember.amountPercentage" type="BigDecimal"/>
-                            </if-not-empty>
+                            <set field="glAcctgOrgAndCostCenterMap[glAccountCategory.glAccountCategoryId]" from-field="glAccountCategoryMember.amountPercentage" type="BigDecimal"/>
+                            <get-related-one value-field="glAccountCategoryMember" relation-name="GlAccount" to-value-field="glAccount"/>
+                            <set field="glAcctgOrgAndCostCenterMap.glAccountId" from-field="glAccount.glAccountId"/>
+                            <set field="glAcctgOrgAndCostCenterMap.accountCode" from-field="glAccount.accountCode"/>
+                            <set field="glAcctgOrgAndCostCenterMap.accountName" from-field="glAccount.accountName"/>
                         </if-not-empty>
                     </iterate>
                     <field-to-list field="glAcctgOrgAndCostCenterMap" list="glAcctgAndAmountPercentageList"/>
+                    <clear-field field="glAcctgOrgAndCostCenterMap"/>
                 </iterate>
                 <field-to-result field="glAccountCategories"/>
             </if-not-empty>
