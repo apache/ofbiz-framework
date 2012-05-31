@@ -21,7 +21,6 @@ under the License.
 <entity-engine-xml>
 
     <GoodIdentificationType description="Google Id" goodIdentificationTypeId="GOOGLE_ID" hasTable="N" parentTypeId=""/>
-    <WebSite webSiteId="GOOGLEBASE" siteName="Google Base Application" visualThemeSetId="BACKOFFICE"/>
     
     <GoodIdentificationType description="Google Id en_US" goodIdentificationTypeId="GOOGLE_ID_en_US" hasTable="N"/>
     <GoodIdentificationType description="Google Id en_GB" goodIdentificationTypeId="GOOGLE_ID_en_GB" hasTable="N"/>

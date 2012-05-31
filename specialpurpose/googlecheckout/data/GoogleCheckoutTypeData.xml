@@ -21,7 +21,6 @@ under the License.
 <entity-engine-xml>
     <Enumeration description="Google Checkout Channel" enumCode="GC_CHANNEL" enumId="GC_SALES_CHANNEL" sequenceId="01" enumTypeId="ORDER_SALES_CHANNEL"/>
     <PaymentMethodType description="Google Checkout" paymentMethodTypeId="EXT_GOOGLE_CHECKOUT"/>
-    <WebSite webSiteId="GOOGLECHECKOUT" siteName="Google Checkout Application" visualThemeSetId="BACKOFFICE"/>
     
     <EnumerationType description="Google Environment Types" enumTypeId="GOOGLE_ENV_TYPE" hasTable="N" parentTypeId=""/>
     <Enumeration description="Sandbox" enumCode="SANDBOX" enumId="GOOGLE_SANDBOX" sequenceId="01" enumTypeId="GOOGLE_ENV_TYPE"/>
