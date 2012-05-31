@@ -47,7 +47,7 @@
     <appender name="ofbiz-file" class="org.apache.log4j.RollingFileAppender">
         <param name="maxFileSize" value="1000KB"/>
         <param name="maxBackupIndex" value="10"/>
-        <param name="File" value="runtime/logs/ofbiz.log"/>
+        <param name="File" value="${ofbiz.home}/runtime/logs/ofbiz.log"/>
         <param name="threshold" value="info"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
@@ -58,7 +58,7 @@
     <appender name="ofbiz-html" class="org.apache.log4j.RollingFileAppender">
         <param name="maxFileSize" value="500KB"/>
         <param name="maxBackupIndex" value="1"/>
-        <param name="File" value="runtime/logs/ofbiz.html"/>
+        <param name="File" value="${ofbiz.home}/runtime/logs/ofbiz.html"/>
         <param name="threshold" value="info"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="&lt;div class=&quot;%p&quot;&gt;%d (%t) [%24F:%-3L:%-5p]%x %m &lt;/div&gt;%n"/>
@@ -69,7 +69,7 @@
     <appender name="debug" class="org.apache.log4j.RollingFileAppender">
         <param name="maxFileSize" value="10000KB"/>
         <param name="maxBackupIndex" value="10"/>
-        <param name="File" value="runtime/logs/debug.log"/>
+        <param name="File" value="${ofbiz.home}/runtime/logs/debug.log"/>
         <param name="Append" value="false"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
@@ -85,7 +85,7 @@
     <appender name="error" class="org.apache.log4j.RollingFileAppender">
         <param name="maxFileSize" value="10000KB"/>
         <param name="maxBackupIndex" value="10"/>
-        <param name="File" value="runtime/logs/error.log"/>
+        <param name="File" value="${ofbiz.home}/runtime/logs/error.log"/>
         <param name="Append" value="false"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
@@ -119,7 +119,7 @@
     <appender name="fop-log" class="org.apache.log4j.RollingFileAppender">
         <param name="maxFileSize" value="5000KB"/>
         <param name="maxBackupIndex" value="10"/>
-        <param name="File" value="runtime/logs/fop.log"/>
+        <param name="File" value="${ofbiz.home}/runtime/logs/fop.log"/>
         <param name="Append" value="false"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
@@ -129,7 +129,7 @@
     <appender name="freemarker-log" class="org.apache.log4j.RollingFileAppender">
         <param name="maxFileSize" value="5000KB"/>
         <param name="maxBackupIndex" value="10"/>
-        <param name="File" value="runtime/logs/freemarker.log"/>
+        <param name="File" value="${ofbiz.home}/runtime/logs/freemarker.log"/>
         <param name="Append" value="false"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
@@ -139,7 +139,7 @@
     <appender name="tomcat-log" class="org.apache.log4j.RollingFileAppender">
         <param name="maxFileSize" value="5000KB"/>
         <param name="maxBackupIndex" value="10"/>
-        <param name="File" value="runtime/logs/tomcat.log"/>
+        <param name="File" value="${ofbiz.home}/runtime/logs/tomcat.log"/>
         <param name="Append" value="false"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
