@@ -457,7 +457,7 @@ under the License.
         <xs:attribute type="xs:nonNegativeInteger" name="pool-deadlock-maxwait" default="300000"/>
         <xs:attribute type="xs:nonNegativeInteger" name="pool-deadlock-retrywait" default="10000"/>
         <xs:attribute type="xs:string" name="pool-jdbc-test-stmt"/>
-        <xs:attribute type="xs:string" name="pool-xa-wrapper-class" default="org.enhydra.jdbc.standard.StandardXADataSource"/>
+        <xs:attribute type="xs:string" name="pool-xa-wrapper-class"/>
     </xs:attributeGroup>
     <xs:element name="jndi-jdbc">
         <xs:complexType>
