@@ -306,7 +306,7 @@ public class PaymentGatewayServices {
                 return results;
             }
         } catch (GeneralException e) {
-            Debug.logError(e, "Error processing payment authorization: " + e.toString(), module);
+            Debug.logError(e, "Error processing payment authorization", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "AccountingPaymentCannotBeAuthorized", 
                     UtilMisc.toMap("errroString", e.toString()), locale));
@@ -390,7 +390,7 @@ public class PaymentGatewayServices {
             try {
                 results = dispatcher.runSync("authOrderPaymentPreference", authContext);
             } catch (GenericServiceException se) {
-                Debug.logError(se, "Error in calling authOrderPaymentPreference from authOrderPayments: " + se.toString(), module);
+                Debug.logError(se, "Error in calling authOrderPaymentPreference from authOrderPayments", module);
                 hadError += 1;
                 messages.add("Could not authorize OrderPaymentPreference [" + paymentPref.getString("orderPaymentPreferenceId") + "] for order [" + orderId + "]: " + se.toString());
                 continue;
@@ -979,7 +979,7 @@ public class PaymentGatewayServices {
                 Map<String, Object> resCtx = model.makeValid(releaseResult, ModelService.IN_PARAM);
                 releaseResRes = dispatcher.runSync(model.name,  resCtx);
             } catch (GenericServiceException e) {
-                Debug.logError(e, "Trouble processing the release results: " + e.getMessage(), module);
+                Debug.logError(e, "Trouble processing the release results", module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrder, 
                         "AccountingTroubleCallingReleaseOrderPaymentPreferenceService", locale) + " " +
                         e.getMessage());
@@ -1260,7 +1260,7 @@ public class PaymentGatewayServices {
                     if (captureResult != null) {
 
                         BigDecimal amountCaptured = (BigDecimal) captureResult.get("captureAmount");
-                        Debug.logInfo("Amount captured for order [" + orderId + "] from unapplied payments associated to billing account [" + billingAccountId + "] is: " + amountCaptured, module);
+                        if (Debug.infoOn()) Debug.logInfo("Amount captured for order [" + orderId + "] from unapplied payments associated to billing account [" + billingAccountId + "] is: " + amountCaptured, module);
 
                         amountCaptured = amountCaptured.setScale(decimals, rounding);
 
@@ -1296,7 +1296,7 @@ public class PaymentGatewayServices {
                             } catch (GenericServiceException e) {
                                 Debug.logWarning(e, "Problem processing the capture split payment", module);
                             }
-                            Debug.logInfo("Captured: " + amountThisCapture + " Remaining (re-auth): " + splitAmount, module);
+                            if (Debug.infoOn()) Debug.logInfo("Captured: " + amountThisCapture + " Remaining (re-auth): " + splitAmount, module);
                         }
                     } else {
                         Debug.logError("Payment not captured for order [" + orderId + "] from billing account [" + billingAccountId + "]", module);
@@ -1392,7 +1392,7 @@ public class PaymentGatewayServices {
                         } catch (GenericServiceException e) {
                             Debug.logWarning(e, "Problem processing the capture split payment", module);
                         }
-                        Debug.logInfo("Captured: " + amountThisCapture + " Remaining (re-auth): " + splitAmount, module);
+                        if (Debug.infoOn()) Debug.logInfo("Captured: " + amountThisCapture + " Remaining (re-auth): " + splitAmount, module);
                     }
                 } else {
                     Debug.logError("Payment not captured", module);
@@ -1712,7 +1712,7 @@ public class PaymentGatewayServices {
                 // get the new auth transaction
                 authTrans = getAuthTransaction(paymentPref);
             } catch (GeneralException e) {
-                Debug.logError(e, "Error re-authorizing payment: " + e.toString(), module);
+                Debug.logError(e, "Error re-authorizing payment", module);
                 return ServiceUtil.returnError(UtilProperties.getMessage("AccountingUiLabels", "AccountingPaymentReauthorizingError", locale));
             }
         }
@@ -1749,7 +1749,7 @@ public class PaymentGatewayServices {
             captureContext.put("authTrans", authTrans);
         }
 
-        Debug.logInfo("Capture [" + serviceName + "] : " + captureContext, module);
+        if (Debug.infoOn()) Debug.logInfo("Capture [" + serviceName + "] : " + captureContext, module);
         try {
             String paymentMethodTypeId = paymentPref.getString("paymentMethodTypeId");
             if (paymentMethodTypeId != null && "GIFT_CARD".equals(paymentMethodTypeId)) {
@@ -2026,7 +2026,7 @@ public class PaymentGatewayServices {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error updating payment status information: " + e.toString(), module);
+            Debug.logError(e, "Error updating payment status information", module);
             return ServiceUtil.returnError(UtilProperties.getMessage("AccountingUiLabels", "AccountingPaymentStatusUpdatingError", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
@@ -3310,7 +3310,7 @@ public class PaymentGatewayServices {
         String paymentMethodId = (String) context.get("paymentMethodId");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
-        Debug.logInfo("Running verifyCreditCard [ " + paymentMethodId + "] for store: " + productStoreId, module);
+        if (Debug.infoOn()) Debug.logInfo("Running verifyCreditCard [ " + paymentMethodId + "] for store: " + productStoreId, module);
 
         GenericValue productStore = null;
         productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
@@ -3326,7 +3326,7 @@ public class PaymentGatewayServices {
         } else if (mode.equalsIgnoreCase("UPDATE")) {
             amount = UtilProperties.getPropertyValue(productStorePaymentProperties, "payment.general.cc_update.auth");
         }
-        Debug.logInfo("Running credit card verification [" + paymentMethodId + "] (" + amount + ") : " + productStorePaymentProperties + " : " + mode, module);
+        if (Debug.infoOn()) Debug.logInfo("Running credit card verification [" + paymentMethodId + "] (" + amount + ") : " + productStorePaymentProperties + " : " + mode, module);
 
         if (UtilValidate.isNotEmpty(amount)) {
             BigDecimal authAmount = new BigDecimal(amount);
@@ -3685,7 +3685,7 @@ public class PaymentGatewayServices {
         cal.setTimeInMillis(txStamp.getTime());
         cal.add(Calendar.MINUTE, 2);
         Timestamp twoMinAfter = new Timestamp(cal.getTimeInMillis());
-        Debug.logInfo("Re-Auth Capture Test : Tx Date - " + txStamp + " : 2 Min - " + twoMinAfter + " : Now - " + nowStamp, module);
+        if (Debug.infoOn()) Debug.logInfo("Re-Auth Capture Test : Tx Date - " + txStamp + " : 2 Min - " + twoMinAfter + " : Now - " + nowStamp, module);
 
         if (nowStamp.after(twoMinAfter)) {
             result.put("captureResult", Boolean.FALSE);
