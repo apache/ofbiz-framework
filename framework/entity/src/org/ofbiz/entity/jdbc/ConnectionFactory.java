@@ -91,7 +91,7 @@ public class ConnectionFactory {
 
     public static ConnectionFactoryInterface getManagedConnectionFactory() {
         if (_factory == null) { // don't want to block here
-            synchronized (TransactionFactory.class) {
+            synchronized (ConnectionFactory.class) {
                 // must check if null again as one of the blocked threads can still enter
                 if (_factory == null) {
                     try {
