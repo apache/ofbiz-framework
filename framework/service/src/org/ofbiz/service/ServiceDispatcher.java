@@ -587,30 +587,18 @@ public class ServiceDispatcher {
 
         long timeToRun = System.currentTimeMillis() - serviceStartTime;
         if (Debug.timingOn() && timeToRun > 50) {
-            // Sanity check - some service results can be multiple MB in size. Limit message size to 10K.
-            String resultStr = result.toString();
-            if (resultStr.length() > 10240) {
-                resultStr = resultStr.substring(0, 10226) + "...[truncated]";
-            }
-            if (!modelService.hideResultInLog) {
-                Debug.logTiming("Sync service [" + localName + "/" + modelService.name + "] finished in [" + timeToRun + "] milliseconds with response [" + resultStr + "]", module);
-            } else {
-                Debug.logTiming("Sync service [" + localName + "/" + modelService.name + "] finished in [" + timeToRun + "] milliseconds", module);                
-            }
-        } else if (timeToRun > 200 && Debug.infoOn()) {
-            // Sanity check - some service results can be multiple MB in size. Limit message size to 10K.
-            String resultStr = result.toString();
-            if (resultStr.length() > 10240) {
-                resultStr = resultStr.substring(0, 10226) + "...[truncated]";
-            }
-            if (!modelService.hideResultInLog) {
-                Debug.logInfo("Sync service [" + localName + "/" + modelService.name + "] finished in [" + timeToRun + "] milliseconds with response [" + resultStr + "]", module);
-            } else {
-                Debug.logInfo("Sync service [" + localName + "/" + modelService.name + "] finished in [" + timeToRun + "] milliseconds", module);
-                
-            }
+            Debug.logTiming("Slow sync service execution detected: service [" + localName + "/" + modelService.name + "] finished in [" + timeToRun + "] milliseconds", module);
+        } else if (Debug.infoOn() && timeToRun > 200) {
+            Debug.logInfo("Very slow sync service execution detected: service [" + localName + "/" + modelService.name + "] finished in [" + timeToRun + "] milliseconds", module);
         }
-
+        if (Debug.verboseOn() && timeToRun > 50 && !modelService.hideResultInLog) {
+            // Sanity check - some service results can be multiple MB in size. Limit message size to 10K.
+            String resultStr = result.toString();
+            if (resultStr.length() > 10240) {
+                resultStr = resultStr.substring(0, 10226) + "...[truncated]";
+            }
+            Debug.logVerbose("Sync service [" + localName + "/" + modelService.name + "] finished with response [" + resultStr + "]", module);
+        }
         return result;
     }
 
