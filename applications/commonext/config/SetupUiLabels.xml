@@ -23,6 +23,7 @@
         <value xml:lang="en">Edit Product Category</value>
         <value xml:lang="it">Aggiorna categoria prodotti</value>
         <value xml:lang="pt_BR">Editar Categoria de Produto</value>
+        <value xml:lang="vi">Sửa đổi chuyên mục sản phẩm</value>
         <value xml:lang="zh">编辑产品分类</value>
         <value xml:lang="zh_TW">編輯產品分類</value>
     </property>
@@ -30,6 +31,7 @@
         <value xml:lang="en">Product Infomation</value>
         <value xml:lang="it">Informazione prodotti</value>
         <value xml:lang="pt_BR">Informações do produto</value>
+        <value xml:lang="vi">Thông tin sản phẩm</value>
         <value xml:lang="zh">产品信息</value>
         <value xml:lang="zh_TW">產品資訊</value>
     </property>
@@ -38,6 +40,7 @@
         <value xml:lang="fr">Configuration de l'application</value>
         <value xml:lang="it">Applicazione di configurazione</value>
         <value xml:lang="pt_BR">Aplicativo de configuração</value>
+        <value xml:lang="vi">Cấu hình hệ thống ERP</value>
         <value xml:lang="zh">安装程序</value>
         <value xml:lang="zh_TW">設置應用程式</value>
     </property>
@@ -45,6 +48,7 @@
         <value xml:lang="en">OFBiz: Setup Application </value>
         <value xml:lang="it">OFBiz: componente di configurazione</value>
         <value xml:lang="pt_BR">OFBiz: Aplicativo de instalação</value>
+        <value xml:lang="vi">OFBiz: Khởi tạo Ứng dụng</value>
         <value xml:lang="zh">OFBiz：安装程序</value>
         <value xml:lang="zh_TW">OFBiz: 設置應用程式</value>
     </property>
@@ -69,6 +73,7 @@
         <!--value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value-->
         <value xml:lang="th">ส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
         <!--value xml:lang="zh">开源软件OFBiz的组成部分</valuevalue xml:lang="zh">开源软件OFBiz的组成部分</value-->
+        <value xml:lang="vi">Thành viên của gia đình 'Open For Business Family' của 'Open Source Software'</value>
         <value xml:lang="zh">开源软件OFBiz家族的一部分</value>
         <value xml:lang="zh_CN">OFBiz的一部分</value>
         <value xml:lang="zh_TW">開放源碼軟體OFBiz家族一份子</value>
@@ -77,6 +82,7 @@
         <value xml:lang="en">Create New Organization</value>
         <value xml:lang="it">Creare nuova organizzazione</value>
         <value xml:lang="pt_BR">Criar Nova Organização</value>
+        <value xml:lang="vi">Thêm Doanh nghiệp</value>
         <value xml:lang="zh">新建组织</value>
         <value xml:lang="zh_TW">建立新的組織</value>
     </property>
@@ -84,6 +90,7 @@
         <value xml:lang="en">Edit Organization Information</value>
         <value xml:lang="it">Aggiorna informazioni organizzazione</value>
         <value xml:lang="pt_BR">Editar informações da Organização</value>
+        <value xml:lang="vi">Thêm thông tin Doanh nghiệp</value>
         <value xml:lang="zh">编辑组织信息</value>
         <value xml:lang="zh_TW">編輯組織資訊</value>
     </property>
@@ -92,6 +99,7 @@
         <value xml:lang="it">Aggiorna negozio prodotti</value>
         <value xml:lang="nl">Wijzigen winkel</value>
         <value xml:lang="pt_BR">Editar Loja de Produtos</value>
+        <value xml:lang="vi">Cập nhật Cửa hàng</value>
         <value xml:lang="zh">编辑产品店铺</value>
         <value xml:lang="zh_TW">編輯產品商店</value>
     </property>
@@ -99,6 +107,7 @@
         <value xml:lang="en">Setup only works if there are no organizations defined yet</value>
         <value xml:lang="it">Configura solo i lavori se non c'è ancora nessuna organizzazione definita</value>
         <value xml:lang="pt_BR">Instalação só funciona se não houver organizações definidas</value>
+        <value xml:lang="vi">Khởi tạo có tác dụng chỉ khi chưa có Doanh nghiệp nào được thiết lập</value>
         <value xml:lang="zh">只有在没有定义组织时才能安装</value>
         <value xml:lang="zh_TW">只有當沒有相關組織時才能設置</value>
     </property>
@@ -106,6 +115,7 @@
         <value xml:lang="en">Facility</value>
         <value xml:lang="it">Stabilimento</value>
         <value xml:lang="pt_BR">Instalação</value>
+        <value xml:lang="vi">Cơ sở (Facility)</value>
         <value xml:lang="zh">场所</value>
         <value xml:lang="zh_TW">場所</value>
     </property>
@@ -113,6 +123,7 @@
         <value xml:lang="en">Description</value>
         <value xml:lang="it">Descrizione stabilimento</value>
         <value xml:lang="pt_BR">Descrição</value>
+        <value xml:lang="vi">Miêu tả</value>
         <value xml:lang="zh">说明</value>
         <value xml:lang="zh_TW">說明</value>
     </property>
@@ -120,12 +131,14 @@
         <value xml:lang="en">Facility Name is missing</value>
         <value xml:lang="it">Stabilimento mancante</value>
         <value xml:lang="pt_BR">Nome da Instalação está faltando</value>
+        <value xml:lang="vi">Bạn chưa nhập tên cơ sở (Facility Name)</value>
         <value xml:lang="zh">缺少场所名称</value>
     </property>
     <property key="SetupFirstCustomer">
         <value xml:lang="en">First Customer</value>
         <value xml:lang="it">Primo cliente</value>
         <value xml:lang="pt_BR">Primeiro Cliente</value>
+        <value xml:lang="vi">Khách hàng đầu tiên</value>
         <value xml:lang="zh">第一个客户</value>
         <value xml:lang="zh_TW">第一位客戶</value>
     </property>
@@ -133,6 +146,7 @@
         <value xml:lang="en">First Product</value>
         <value xml:lang="it">Primo prodotto</value>
         <value xml:lang="pt_BR">Primeiro produto</value>
+        <value xml:lang="vi">Sản phẩm đầu tiên</value>
         <value xml:lang="zh">第一个产品</value>
         <value xml:lang="zh_TW">第一項產品</value>
     </property>
@@ -140,6 +154,7 @@
         <value xml:lang="en">Initial Setup</value>
         <value xml:lang="it">Configurazione iniziale</value>
         <value xml:lang="pt_BR">Configuração inicial</value>
+        <value xml:lang="vi">Khởi tạo thiết lập</value>
         <value xml:lang="zh">初始设置</value>
         <value xml:lang="zh_TW">初始設置</value>
     </property>
@@ -147,6 +162,7 @@
         <value xml:lang="en">Setup New Component</value>
         <value xml:lang="it">Configura nuovo componente</value>
         <value xml:lang="pt_BR">Configurar novo componente</value>
+        <value xml:lang="vi">Khởi tạo thành phần (component) mới</value>
         <value xml:lang="zh">安装新的组件</value>
         <value xml:lang="zh_TW">設置新的元件</value>
     </property>
@@ -154,6 +170,7 @@
         <value xml:lang="en">Organization</value>
         <value xml:lang="it">Organizzazione</value>
         <value xml:lang="pt_BR">Organização</value>
+        <value xml:lang="vi">Doanh nghiệp</value>
         <value xml:lang="zh">组织</value>
         <value xml:lang="zh_TW">組織</value>
     </property>
@@ -161,6 +178,7 @@
         <value xml:lang="en">Organization Information</value>
         <value xml:lang="it">Informazioni organizzazione</value>
         <value xml:lang="pt_BR">Informação da Organização</value>
+        <value xml:lang="vi">Thông tin Doanh nghiệp</value>
         <value xml:lang="zh">组织信息</value>
         <value xml:lang="zh_TW">組織資訊</value>
     </property>
@@ -168,6 +186,7 @@
         <value xml:lang="en">Organization name</value>
         <value xml:lang="it">Nome organizzazione</value>
         <value xml:lang="pt_BR">Nome da organização</value>
+        <value xml:lang="vi">Tên Doanh nghiệp</value>
         <value xml:lang="zh">组织名称</value>
         <value xml:lang="zh_TW">組織名稱</value>
     </property>
@@ -175,12 +194,14 @@
         <value xml:lang="en">Organization name is missing</value>
         <value xml:lang="it">Nome organizzazione è mancante</value>
         <value xml:lang="pt_BR">Nome da organização está faltando</value>
+        <value xml:lang="vi">Bạn chưa nhập tên doanh nghiệp</value>
         <value xml:lang="zh">缺少组织名称</value>
     </property>
     <property key="SetupOrganizationPartyId">
         <value xml:lang="en">Organization Party Id</value>
         <value xml:lang="it">Soggetto organizzazione</value>
         <value xml:lang="pt_BR">Id da Organização</value>
+        <value xml:lang="vi">Id Doanh nghiệp</value>
         <value xml:lang="zh">组织会员标识</value>
         <value xml:lang="zh_TW">組織成員ID</value>
     </property>
@@ -188,6 +209,7 @@
         <value xml:lang="en">You do not have sufficient data to access this page.</value>
         <value xml:lang="it">Tu non hai sufficienti diritti per accedere a questa pagina.</value>
         <value xml:lang="pt_BR">Você não tem dados suficientes para acessar essa página.</value>
+        <value xml:lang="vi">Bạn chưa có đủ quyền để truy nhập vào trang này.</value>
         <value xml:lang="zh">你没有足够的数据来访问这个页面。</value>
         <value xml:lang="zh_TW">您沒有進入此頁面的權限。</value>
     </property>
@@ -195,6 +217,7 @@
         <value xml:lang="en">Product Catalog</value>
         <value xml:lang="it">Catalogo prodotti</value>
         <value xml:lang="pt_BR">Catálogo de Produtos</value>
+        <value xml:lang="vi">Catalog sản phẩm</value>
         <value xml:lang="zh">产品目录</value>
         <value xml:lang="zh_TW">產品目錄</value>
     </property>
@@ -202,6 +225,7 @@
         <value xml:lang="en">Product Store</value>
         <value xml:lang="it">Negozio prodotti</value>
         <value xml:lang="pt_BR">Loja de Produtos</value>
+        <value xml:lang="vi">Cửa hàng sản phẩm</value>
         <value xml:lang="zh">产品店铺</value>
         <value xml:lang="zh_TW">產品商店</value>
     </property>
@@ -209,6 +233,7 @@
         <value xml:lang="en">Product Store name</value>
         <value xml:lang="it">Nome negozio prodotti</value>
         <value xml:lang="pt_BR">Nome da Loja de Produtos</value>
+        <value xml:lang="vi">Tên cửa hàng sản phẩm</value>
         <value xml:lang="zh">产品店铺名称</value>
         <value xml:lang="zh_TW">產品商店名稱</value>
     </property>
@@ -216,12 +241,14 @@
         <value xml:lang="en">Store Name is missing</value>
         <value xml:lang="it">Nome negozio è mancante</value>
         <value xml:lang="pt_BR">Nome da loja está faltando</value>
+        <value xml:lang="vi">Bạn chưa nhập tên cửa hàng</value>
         <value xml:lang="zh">缺少店铺名称</value>
     </property>
     <property key="SetupResults">
         <value xml:lang="en">Results</value>
         <value xml:lang="it">Risultati</value>
         <value xml:lang="pt_BR">Resultados</value>
+        <value xml:lang="vi">Kết quả</value>
         <value xml:lang="zh">结果</value>
         <value xml:lang="zh_TW">結果</value>
     </property>
@@ -229,6 +256,7 @@
         <value xml:lang="en">Set to complete</value>
         <value xml:lang="it">Imposta a completato</value>
         <value xml:lang="pt_BR">Marcar como completo</value>
+        <value xml:lang="vi">Thiết lập để hoàn thành</value>
         <value xml:lang="zh">设置为完成</value>
         <value xml:lang="zh_TW">完成設定</value>
     </property>
@@ -236,12 +264,14 @@
         <value xml:lang="en">The First Customer of</value>
         <value xml:lang="it">Il primo cliente di</value>
         <value xml:lang="pt_BR">O primeiro cliente de</value>
+        <value xml:lang="vi">Khách hàng đầu tiên của</value>
         <value xml:lang="zh">第一个客户属于</value>
     </property>
     <property key="SetupWebSite">
         <value xml:lang="en">Web Site</value>
         <value xml:lang="it">Sito web</value>
         <value xml:lang="pt_BR">Web Site</value>
+        <value xml:lang="vi">Trang thông tin</value>
         <value xml:lang="zh">网站</value>
         <value xml:lang="zh_TW">網站</value>
     </property>

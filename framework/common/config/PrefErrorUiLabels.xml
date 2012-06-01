@@ -27,6 +27,7 @@
         <value xml:lang="it">Non è possibile copiare le preferenze utente: argomento(i) invalidi</value>
         <value xml:lang="pt_BR">Não foi possível copiar as preferências do usuário: Argumento(s) inválido(s)</value>
         <value xml:lang="th">ไม่สามารถคัดลอกสิทธิพิเศษของผู้ใช้:ข้อพิสูจน์ใช้ไม่ได้</value>
+        <value xml:lang="vi">Không thể sao chép Thiết lập người dùng: Tham số không hợp lệ</value>
         <value xml:lang="zh">无法复制用户设置：无效的参数</value>
     </property>
     <property key="copyPreference.writeFailure">
@@ -37,6 +38,7 @@
         <value xml:lang="it">Non è possibile copiare le preferenze utente (lettura/scrittura fallita): {0}</value>
         <value xml:lang="pt_BR">Não foi possível copiar as preferências do usuário (de leitura / gravação falha): {0}</value>
         <value xml:lang="th">ไม่สามารถคัดลอกสิทธิพิเศษของผู้ใช้ (อ่าน/เขียนล้มเหลว): {0}</value>
+        <value xml:lang="vi">Không thể sao chép Thiết lập người dùng (đọc/ghi không thành công)</value>
         <value xml:lang="zh">无法复制用户设置(读/写失败)：{0}</value>
     </property>
     <property key="getPreference.invalidArgument">
@@ -47,6 +49,7 @@
         <value xml:lang="it">Non è possibile ottenerele preferenze utente: argomento(i) invalidi)</value>
         <value xml:lang="pt_BR">Não foi possível obter as preferências do usuário: Argumento(s) inválido(s)</value>
         <value xml:lang="th">ไม่สามารถเรียกค่าสิทธิพิเศษของผู้ใช้:ข้อพิสูจน์ใช้ไม่ได้</value>
+        <value xml:lang="vi">Không thể lấy thông tin Thiết lập người dùng: Tham số không hợp lệ</value>
         <value xml:lang="zh">无法得到用户设置：无效的参数</value>
     </property>
     <property key="getPreference.permissionError">
@@ -55,6 +58,7 @@
         <value xml:lang="fr">Erreur de permissions tout en obtenant des préférences d'utilisateur</value>
         <value xml:lang="it">Errore di permesso durante la lettura delle preferenza utente</value>
         <value xml:lang="pt_BR">Erro de Permissões ao obter as preferências do usuário</value>
+        <value xml:lang="vi">Lỗi phân quyền khi lấy thông tin Thiết lập người dùng</value>
         <value xml:lang="zh">获得用户设置时发生权限错误</value>
     </property>
     <property key="getPreference.readFailure">
@@ -65,6 +69,7 @@
         <value xml:lang="it">Non è possibile ottenere le preferenze utente (lettura fallita): {0}</value>
         <value xml:lang="pt_BR">Não foi possível obter as preferências do usuário (falha na leitura): {0}</value>
         <value xml:lang="th">ไม่สามารถเรียกค่าสิทธิพิเศษของผู้ใช้ (อ่านล้มเหลว): {0}</value>
+        <value xml:lang="vi">Không thể sao chép Thiết lập người dùng (đọc không thành công)</value>
         <value xml:lang="zh">无法获得用户设置(读失败)：{0}</value>
     </property>
     <property key="setPreference.invalidArgument">
@@ -75,6 +80,7 @@
         <value xml:lang="it">Non è possibile ottenere le preferenze utente: argomento(i) invalidi</value>
         <value xml:lang="pt_BR">Não foi possível definir as preferências do usuário: Argumento(s) inválido(s)</value>
         <value xml:lang="th">ไม่สามารถตั้งค่าสิทธิพิเศษของผู้ใช้:ข้อพิสูจน์ใช้ไม่ได้</value>
+        <value xml:lang="vi">Không thể đặt Thiết lập người dùng: Tham số không hợp lệ</value>
         <value xml:lang="zh">无法设置用户设置：无效的参数</value>
     </property>
     <property key="setPreference.writeFailure">
@@ -85,6 +91,7 @@
         <value xml:lang="it">Non è possibile ottenere le preferenze utente (scrittura fallita): {0}</value>
         <value xml:lang="pt_BR">Não foi possível definir as preferências do usuário (falha de escrita): {0}</value>
         <value xml:lang="th">ไม่สามารถตั้งค่าสิทธิพิเศษของผู้ใช้ (เขียนล้มเหลว): {0}</value>
+        <value xml:lang="vi">Không thể đặt Thiết lập người dùng (ghi không thành công)</value>
         <value xml:lang="zh">无法设置用户设置(写失败)：{0}</value>
     </property>
 </resource>

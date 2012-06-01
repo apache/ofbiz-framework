@@ -24,42 +24,51 @@
         <value xml:lang="es">Principal</value>
         <value xml:lang="fr">Accueil</value>
         <value xml:lang="pt_BR">Principal</value>
+        <value xml:lang="vi">Trang chủ</value>
     </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE0">
         <value xml:lang="en">My Comms</value>
         <value xml:lang="fr">Mes communications</value>
+        <value xml:lang="vi">Truyền thông Riêng</value>
     </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE1">
         <value xml:lang="en">My Profile</value>
         <value xml:lang="es">Mi perfil</value>
         <value xml:lang="fr">Mon profil</value>
         <value xml:lang="pt_BR">Meu Perfil</value>
+        <value xml:lang="vi">Hồ sơ Riêng</value>
     </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE2">
         <value xml:lang="en">Other Party Comms</value>
         <value xml:lang="fr">Autres communications</value>
+        <value xml:lang="vi">Truyền thông của Tác nhân liên quan</value>
     </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE4">
         <value xml:lang="en">My Time Sheet</value>
         <value xml:lang="es">Mi hoja de tiempos</value>
         <value xml:lang="fr">Mes feuilles de temps</value>
         <value xml:lang="pt_BR">Minha folha de tempo</value>
+        <value xml:lang="vi">Khai báo công việc Riêng</value>
     </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE5">
         <value xml:lang="en">My Tasks</value>
         <value xml:lang="fr">Mes tâches</value>
+        <value xml:lang="vi">Tác vụ - Đầu việc Riêng</value>
     </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE6">
         <value xml:lang="en">My Leave</value>
         <value xml:lang="fr">Mes congés</value>
+        <value xml:lang="vi">Nghỉ phép Riêng</value>
     </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE7">
         <value xml:lang="en">My trainings</value>
         <value xml:lang="fr">Mes formations</value>
+        <value xml:lang="vi">Đào tạo Riêng</value>
     </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE8">
         <value xml:lang="en">My Payments</value>
         <value xml:lang="fr">Mes paiements</value>
+        <value xml:lang="vi">Thanh toán Riêng</value>
     </property>
     <property key="PortalPage.portalPageName.ProductStoreFacility">
         <value xml:lang="de">Lager</value>
@@ -72,6 +81,7 @@
         <value xml:lang="ro">Compartiment </value>
         <value xml:lang="ru">Оборудование</value>
         <value xml:lang="th">คลังสินค้า</value>
+        <value xml:lang="vi">Chi nhánh / Cơ sở</value>
         <value xml:lang="zh">场所</value>
         <value xml:lang="zh_CN">仓储设施</value>
         <value xml:lang="zh_TW">場所</value>

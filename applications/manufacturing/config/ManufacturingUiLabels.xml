@@ -27,6 +27,7 @@
         <value xml:lang="it">Costo allocato</value>
         <value xml:lang="pt_BR">Custo alocado</value>
         <value xml:lang="th">ส่วนแบ่งราคา</value>
+        <value xml:lang="vi">Chi phí phân bổ</value>
         <value xml:lang="zh">已分摊成本</value>
         <value xml:lang="zh_TW">已分攤成本</value>
     </property>
@@ -37,6 +38,7 @@
         <value xml:lang="it">Utente</value>
         <value xml:lang="pt_BR">Id de Usuário</value>
         <value xml:lang="th">รับรองรหัสผู้ใช้ระบบ</value>
+        <value xml:lang="vi">Người dùng đăng nhập đã xác thực</value>
         <value xml:lang="zh">授权用户登录标识</value>
         <value xml:lang="zh_TW">授權使用者登入ID</value>
     </property>
@@ -48,6 +50,7 @@
         <value xml:lang="it">Calendario settmanale</value>
         <value xml:lang="pt_BR">Id da semana no calendário</value>
         <value xml:lang="th">รหัสปฏิทินประจำสัปดาห์</value>
+        <value xml:lang="vi">Id tuần</value>
         <value xml:lang="zh">自然周标识</value>
         <value xml:lang="zh_TW">行事曆週ID</value>
     </property>
@@ -59,6 +62,7 @@
         <value xml:lang="it">Data/ora di annullamento</value>
         <value xml:lang="pt_BR">Data e hora de cancelamento</value>
         <value xml:lang="th">ยกเลิกวัน เวลา</value>
+        <value xml:lang="vi">Ngày giờ hủy bỏ</value>
         <value xml:lang="zh">取消日期时间</value>
         <value xml:lang="zh_TW">取消日期時間</value>
     </property>
@@ -71,6 +75,7 @@
         <value xml:lang="pt_BR">Id do método de cálculo</value>
         <value xml:lang="ro">Metoda Cost Personalizat</value>
         <value xml:lang="th">รหัสวิธีการคำนวณเงินลูกค้า</value>
+        <value xml:lang="vi">Phương thức tính giá tùy biến</value>
         <value xml:lang="zh">费用客户方法标识</value>
         <value xml:lang="zh_TW">費用客戶方法ID</value>
     </property>
@@ -83,6 +88,7 @@
         <value xml:lang="pt_BR">Id de tipo de balanço</value>
         <value xml:lang="ro">Tip Cont Contabil General</value>
         <value xml:lang="th">รหัสประเภทบัญชีค่าใช้จ่าย GI</value>
+        <value xml:lang="vi">Kiểu chi phí sổ cái</value>
         <value xml:lang="zh">费用总账账户类型标识</value>
         <value xml:lang="zh_TW">費用總賬賬戶類型ID</value>
     </property>
@@ -90,6 +96,7 @@
         <value xml:lang="en">Creation Date</value>
         <value xml:lang="it">Data creazione</value>
         <value xml:lang="pt_BR">Data de criação</value>
+        <value xml:lang="vi">Ngày tạo</value>
         <value xml:lang="zh">创建日期</value>
         <value xml:lang="zh_TW">創建日期</value>
     </property>
@@ -101,6 +108,7 @@
         <value xml:lang="it">Scostamento anni di default</value>
         <value xml:lang="pt_BR">Deslocamento padrão em anos</value>
         <value xml:lang="th">ค่าชดเชยปีที่ผิดสัญญา</value>
+        <value xml:lang="vi">Phân vùng số năm mặc định</value>
         <value xml:lang="zh">缺省财年损益</value>
         <value xml:lang="zh_TW">缺省財年損益</value>
     </property>
@@ -112,6 +120,7 @@
         <value xml:lang="it">Durata Stimata</value>
         <value xml:lang="pt_BR">Duração estimada</value>
         <value xml:lang="th">ประมาณเวลา</value>
+        <value xml:lang="vi">Khoảng thời gian ước tính</value>
         <value xml:lang="zh">预计用时</value>
         <value xml:lang="zh_TW">預計用時</value>
     </property>
@@ -123,6 +132,7 @@
         <value xml:lang="it">Fallisce se i prodotti non sono disponibili</value>
         <value xml:lang="pt_BR">Falha se os itens não estão disponíveis</value>
         <value xml:lang="th">เกิดความผิดพลาดถ้าไม่มีสินค้าอยู่</value>
+        <value xml:lang="vi">Hủy bỏ nếu hàng hóa không sẵn có</value>
         <value xml:lang="zh">如果明细无效时失败</value>
         <value xml:lang="zh_TW">如果明細無效時失敗</value>
     </property>
@@ -135,6 +145,7 @@
         <value xml:lang="pt_BR">Custo fixo</value>
         <value xml:lang="ro">Cost Fix</value>
         <value xml:lang="th">เปลี่ยนแปลงราคา</value>
+        <value xml:lang="vi">Chi phí cố định</value>
         <value xml:lang="zh">固定成本</value>
         <value xml:lang="zh_TW">固定成本</value>
     </property>
@@ -146,6 +157,7 @@
         <value xml:lang="it">Venerdì  Capacità</value>
         <value xml:lang="pt_BR">Capacidade para Sexta-feira</value>
         <value xml:lang="th">การปฎิบัติหน้าที่ในวันศุกร์</value>
+        <value xml:lang="vi">Công suất thứ sáu</value>
         <value xml:lang="zh">星期五产能</value>
         <value xml:lang="zh_TW">星期五產能</value>
     </property>
@@ -157,6 +169,7 @@
         <value xml:lang="it">Venerdì Tempo Inizio</value>
         <value xml:lang="pt_BR">Hora de início para sexta-feira</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันศุกร์</value>
+        <value xml:lang="vi">Thời gian bắt đầu Thứ sáu</value>
         <value xml:lang="zh">星期五开始时间</value>
         <value xml:lang="zh_TW">星期五開始時間</value>
     </property>
@@ -169,6 +182,7 @@
         <value xml:lang="pt_BR">Quantidade emitida</value>
         <value xml:lang="ro">Cantitate Preluat</value>
         <value xml:lang="th">จำนวน</value>
+        <value xml:lang="vi">Số lượng ban hành</value>
         <value xml:lang="zh">交付数量</value>
         <value xml:lang="zh_TW">交付數量</value>
     </property>
@@ -180,6 +194,7 @@
         <value xml:lang="it">Numero lavoro</value>
         <value xml:lang="pt_BR">Id de emprego</value>
         <value xml:lang="th">รหัสงาน</value>
+        <value xml:lang="vi">Id công việc</value>
         <value xml:lang="zh">工作标识</value>
         <value xml:lang="zh_TW">工作ID</value>
     </property>
@@ -191,6 +206,7 @@
         <value xml:lang="it">Nome lavoro</value>
         <value xml:lang="pt_BR">Nome do trabalho</value>
         <value xml:lang="th">ชื่องาน</value>
+        <value xml:lang="vi">Tên công việc</value>
         <value xml:lang="zh">工作名称</value>
         <value xml:lang="zh_TW">工作名稱</value>
     </property>
@@ -199,6 +215,7 @@
         <value xml:lang="fr">Réf. de lot</value>
         <value xml:lang="it">Numero lotto</value>
         <value xml:lang="pt_BR">Id do lote</value>
+        <value xml:lang="vi">Lô</value>
         <value xml:lang="zh">批次标识</value>
         <value xml:lang="zh_TW">貨批ID</value>
     </property>
@@ -210,6 +227,7 @@
         <value xml:lang="it">Operazione</value>
         <value xml:lang="pt_BR">Tarefa de produção</value>
         <value xml:lang="th">การสร้างงาน</value>
+        <value xml:lang="vi">Tác vụ - Đầu việc sản xuất</value>
         <value xml:lang="zh">生产任务</value>
         <value xml:lang="zh_TW">生產任務</value>
     </property>
@@ -221,6 +239,7 @@
         <value xml:lang="it">Tentativi massimi</value>
         <value xml:lang="pt_BR">Número máximo de tentativas</value>
         <value xml:lang="th">ทดสอบใหม่มากสุด</value>
+        <value xml:lang="vi">Số lần thử lại tối đa</value>
         <value xml:lang="zh">最大重试次数</value>
         <value xml:lang="zh_TW">最大重試次數</value>
     </property>
@@ -232,6 +251,7 @@
         <value xml:lang="it">Lunedì Capacità</value>
         <value xml:lang="pt_BR">Capacidade de segunda-feira</value>
         <value xml:lang="th">การปฏิบัติหน้าที่ในวันจันทร์</value>
+        <value xml:lang="vi">Công suất thứ hai</value>
         <value xml:lang="zh">星期一产能</value>
         <value xml:lang="zh_TW">星期一產能</value>
     </property>
@@ -243,6 +263,7 @@
         <value xml:lang="it">Lunedì Tempo Inizio</value>
         <value xml:lang="pt_BR">Hora de início de segunda-feira</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันจันทร์</value>
+        <value xml:lang="vi">Ngày giờ bắt đầu Thứ hai</value>
         <value xml:lang="zh">星期一开始时间</value>
         <value xml:lang="zh_TW">星期一開始時間</value>
     </property>
@@ -255,6 +276,7 @@
         <value xml:lang="pt_BR">Id de tipo deslocamento de balanço</value>
         <value xml:lang="ro">Tip Interval Cont Contabil General</value>
         <value xml:lang="th">รหัสประเภทบัญชีค่าชดเชยทั่วไป</value>
+        <value xml:lang="vi">Loại tài khoản sổ cái phân loại (Offsetting)</value>
         <value xml:lang="zh">冲销总账账户类型标识</value>
         <value xml:lang="zh_TW">沖銷總帳帳戶類型ID</value>
     </property>
@@ -267,6 +289,7 @@
         <value xml:lang="pt_BR">Por milissegundo</value>
         <value xml:lang="ro">Pe Milisecunde</value>
         <value xml:lang="th">ต่อพันวินาที</value>
+        <value xml:lang="vi">Với mỗi mi li giây</value>
         <value xml:lang="zh">每毫秒</value>
         <value xml:lang="zh_TW">每毫秒</value>
     </property>
@@ -279,6 +302,7 @@
         <value xml:lang="pt_BR">Característica do produto</value>
         <value xml:lang="ro">Caratteristica Produs</value>
         <value xml:lang="th">ลักษณะสินค้า</value>
+        <value xml:lang="vi">Đặc điểm sản phẩm</value>
         <value xml:lang="zh">产品特性</value>
         <value xml:lang="zh_TW">產品特性</value>
     </property>
@@ -291,6 +315,7 @@
         <value xml:lang="pt_BR">Id do produto para</value>
         <value xml:lang="ro">Cod Produs De la</value>
         <value xml:lang="th">รหัสสินค้าสำหรับ</value>
+        <value xml:lang="vi">Sản phẩm cho</value>
         <value xml:lang="zh">产品标识用于</value>
         <value xml:lang="zh_TW">產品ID用於</value>
     </property>
@@ -303,6 +328,7 @@
         <value xml:lang="pt_BR">Id de produto em</value>
         <value xml:lang="ro">Cod Produs In</value>
         <value xml:lang="th">รหัสสินค้าใน</value>
+        <value xml:lang="vi">Sản phẩm trong</value>
         <value xml:lang="zh">产品标识来自</value>
         <value xml:lang="zh_TW">產品ID來自</value>
     </property>
@@ -314,6 +340,7 @@
         <value xml:lang="pt_BR">Id de produto em substituição</value>
         <value xml:lang="ro">Cod Produs In Substitutie</value>
         <value xml:lang="th">รหัสสินค้าในที่มีอยู่จริง</value>
+        <value xml:lang="vi">Sản phẩm thay thế</value>
         <value xml:lang="zh">产品标识来自实例</value>
         <value xml:lang="zh_TW">產品ID來自實例</value>
     </property>
@@ -326,6 +353,7 @@
         <value xml:lang="pt_BR">Ritmos de produção</value>
         <value xml:lang="ro">Comenzi de Productie</value>
         <value xml:lang="th">การผลิตสินค้า</value>
+        <value xml:lang="vi">Chế tác lô hàng</value>
         <value xml:lang="zh">生产运行</value>
         <value xml:lang="zh_TW">生產運行</value>
     </property>
@@ -338,6 +366,7 @@
         <value xml:lang="pt_BR">Id de período</value>
         <value xml:lang="ro">Id Ciclu</value>
         <value xml:lang="th">รหัส routing</value>
+        <value xml:lang="vi">Id quy trình</value>
         <value xml:lang="zh">规程标识</value>
         <value xml:lang="zh_TW">規程ID</value>
     </property>
@@ -350,6 +379,7 @@
         <value xml:lang="pt_BR">Id de regra</value>
         <value xml:lang="ro">Cod Regula</value>
         <value xml:lang="th">รหัสข้อบังคับ</value>
+        <value xml:lang="vi">Id quy định (rule)</value>
         <value xml:lang="zh">规则标识</value>
         <value xml:lang="zh_TW">規則ID</value>
     </property>
@@ -362,6 +392,7 @@
         <value xml:lang="pt_BR">Operador de regra</value>
         <value xml:lang="ro">Regula Operator</value>
         <value xml:lang="th">ผู้ออกกฎระเบียบ</value>
+        <value xml:lang="vi">Điều hành quy định</value>
         <value xml:lang="zh">规则操作符</value>
         <value xml:lang="zh_TW">規則操作符</value>
     </property>
@@ -374,6 +405,7 @@
         <value xml:lang="pt_BR">Id de sequência de regra</value>
         <value xml:lang="ro">Cod Regula Secventa</value>
         <value xml:lang="th">รหัสลำดับข้อบังคับ</value>
+        <value xml:lang="vi">Thứ tự quy định</value>
         <value xml:lang="zh">规则顺序标识</value>
         <value xml:lang="zh_TW">規則序列ID</value>
     </property>
@@ -385,6 +417,7 @@
         <value xml:lang="it">Orario di esecuzione</value>
         <value xml:lang="pt_BR">Tempo de execução</value>
         <value xml:lang="th">ระยะเวลาดำเนินงาน</value>
+        <value xml:lang="vi">Thời gian thực thi</value>
         <value xml:lang="zh">运行时间</value>
         <value xml:lang="zh_TW">運行時間</value>
     </property>
@@ -396,6 +429,7 @@
         <value xml:lang="it">Sabato Capacità</value>
         <value xml:lang="pt_BR">Capacidade de sábado</value>
         <value xml:lang="th">การปฏิบัติหน้าที่ในวันเสาร์</value>
+        <value xml:lang="vi">Công suất thứ bảy</value>
         <value xml:lang="zh">星期六产能</value>
         <value xml:lang="zh_TW">星期六產能</value>
     </property>
@@ -407,6 +441,7 @@
         <value xml:lang="it">Sabato Tempo Inizio</value>
         <value xml:lang="pt_BR">Hora de início do sábados</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันเสาร์</value>
+        <value xml:lang="vi">Giờ bắt đầu Thứ bảy</value>
         <value xml:lang="zh">星期六开始时间</value>
         <value xml:lang="zh_TW">星期六開始時間</value>
     </property>
@@ -418,6 +453,7 @@
         <value xml:lang="it">Locazione secondaria</value>
         <value xml:lang="pt_BR">Id de sequência do local secundário</value>
         <value xml:lang="th">รหัสสถานที่ตั้งที่สอง</value>
+        <value xml:lang="vi">Thứ tự của vị trí sau (thứ hai - secondary)</value>
         <value xml:lang="zh">辅助地点序列号</value>
         <value xml:lang="zh_TW">輔助地點序列號</value>
     </property>
@@ -429,6 +465,7 @@
         <value xml:lang="it">Data/Ora di inizio</value>
         <value xml:lang="pt_BR">Data e hora de início</value>
         <value xml:lang="th">วันเวลาเริ่มต้น</value>
+        <value xml:lang="vi">Ngày giờ bắt đầu</value>
         <value xml:lang="zh">开始日期时间</value>
         <value xml:lang="zh_TW">開始日期時間</value>
     </property>
@@ -440,6 +477,7 @@
         <value xml:lang="it">Domenica Capacità</value>
         <value xml:lang="pt_BR">Capacidade de domingo</value>
         <value xml:lang="th">การปฏิบัติงานในวันอาทิตย์</value>
+        <value xml:lang="vi">Công suất chủ nhật</value>
         <value xml:lang="zh">星期日产能</value>
         <value xml:lang="zh_TW">星期日產能</value>
     </property>
@@ -451,6 +489,7 @@
         <value xml:lang="it">Domenica Tempo Inizio</value>
         <value xml:lang="pt_BR">Hora de início do domingo</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันอาทิตย์</value>
+        <value xml:lang="vi">Thời gian bắt đầu Chủ nhật</value>
         <value xml:lang="zh">星期日开始时间</value>
         <value xml:lang="zh_TW">星期日開始時間</value>
     </property>
@@ -462,6 +501,7 @@
         <value xml:lang="it">Giovedì Capacità</value>
         <value xml:lang="pt_BR">Capacidade de quinta-feira</value>
         <value xml:lang="th">การปฏิบัติหน้าที่ในวันพฤหัสบดี</value>
+        <value xml:lang="vi">Công suất thứ năm</value>
         <value xml:lang="zh">星期四产能</value>
         <value xml:lang="zh_TW">星期四產能</value>
     </property>
@@ -473,6 +513,7 @@
         <value xml:lang="it">Giovedì Tempo Inizio</value>
         <value xml:lang="pt_BR">Hora de início da quinta-feira</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันพฤหัสบดี</value>
+        <value xml:lang="vi">Thời gian bắt đầu Thứ năm</value>
         <value xml:lang="zh">星期四开始时间</value>
         <value xml:lang="zh_TW">星期四開始時間</value>
     </property>
@@ -485,6 +526,7 @@
         <value xml:lang="pt_BR">Quantidade total emitida</value>
         <value xml:lang="ro">Total Cantitate Preluata</value>
         <value xml:lang="th">รวมจำนวนประเด็น</value>
+        <value xml:lang="vi">Tổng số lượng phát hành</value>
         <value xml:lang="zh">全部交付数量</value>
         <value xml:lang="zh_TW">全部交付數量</value>
     </property>
@@ -497,6 +539,7 @@
         <value xml:lang="pt_BR">Quantidade total encomendada</value>
         <value xml:lang="ro">Total Cantitate Comandata</value>
         <value xml:lang="th">รวมจำนวนที่สั่งซื้อ</value>
+        <value xml:lang="vi">Tổng số lượng đặt hàng</value>
         <value xml:lang="zh">全部订单数量</value>
         <value xml:lang="zh_TW">全部訂單數量</value>
     </property>
@@ -509,6 +552,7 @@
         <value xml:lang="pt_BR">Quantidade planejada total</value>
         <value xml:lang="ro">Total Cantitate Planificata</value>
         <value xml:lang="th">ผลรวมจำนวนที่คาดไว้</value>
+        <value xml:lang="vi">Tổng số lượng kế hoạch</value>
         <value xml:lang="zh">全部计划数量</value>
         <value xml:lang="zh_TW">全部計劃數量</value>
     </property>
@@ -520,6 +564,7 @@
         <value xml:lang="it">Martedì Capacità</value>
         <value xml:lang="pt_BR">Capacidade de terça-feira</value>
         <value xml:lang="th">การปฏิบัติงานในวันอังคาร</value>
+        <value xml:lang="vi">Công suất Thứ ba</value>
         <value xml:lang="zh">星期二产能</value>
         <value xml:lang="zh_TW">星期二產能</value>
     </property>
@@ -531,6 +576,7 @@
         <value xml:lang="it">Martedì Tempo Inizio</value>
         <value xml:lang="pt_BR">Hora de início da terça-feira</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันอังคาร</value>
+        <value xml:lang="vi">Ngày giờ bắt đầu Thứ ba</value>
         <value xml:lang="zh">星期二开始时间</value>
         <value xml:lang="zh_TW">星期二開始時間</value>
     </property>
@@ -543,6 +589,7 @@
         <value xml:lang="pt_BR">Tipo</value>
         <value xml:lang="ro">Tip</value>
         <value xml:lang="th">ประเภท</value>
+        <value xml:lang="vi">Kiểu</value>
         <value xml:lang="zh">类型</value>
         <value xml:lang="zh_TW">類型</value>
     </property>
@@ -555,6 +602,7 @@
         <value xml:lang="pt_BR">Custo variável</value>
         <value xml:lang="ro">Cost Variabil</value>
         <value xml:lang="th">ราคาเปลี่ยนแปลงได้</value>
+        <value xml:lang="vi">Chi phí thay đổi</value>
         <value xml:lang="zh">可变成本</value>
         <value xml:lang="zh_TW">可變成本</value>
     </property>
@@ -566,6 +614,7 @@
         <value xml:lang="it">Mercoledì Capacità</value>
         <value xml:lang="pt_BR">Capacidade de quarta-feira</value>
         <value xml:lang="th">กรปฏิบัติงานในวันพุธ</value>
+        <value xml:lang="vi">Công suất Thứ tư</value>
         <value xml:lang="zh">星期三产能</value>
         <value xml:lang="zh_TW">星期三產能</value>
     </property>
@@ -577,6 +626,7 @@
         <value xml:lang="it">Mercoledì Tempo Inizio</value>
         <value xml:lang="pt_BR">Hora de início de quarta-feira</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันพุธ</value>
+        <value xml:lang="vi">Thời gian bắt đầu Thứ tư</value>
         <value xml:lang="zh">星期三开始时间</value>
         <value xml:lang="zh_TW">星期三開始時間</value>
     </property>
@@ -589,6 +639,7 @@
         <value xml:lang="pt_BR">Data de ATP</value>
         <value xml:lang="ro">Data ATP</value>
         <value xml:lang="th">วัน ATP</value>
+        <value xml:lang="vi">Ngày ATP</value>
         <value xml:lang="zh">承诺提供日期</value>
         <value xml:lang="zh_TW">承諾提供日期</value>
     </property>
@@ -601,6 +652,7 @@
         <value xml:lang="pt_BR">Data de encerramento</value>
         <value xml:lang="ro">Data Completament</value>
         <value xml:lang="th">วันที่ทำเสร็จ</value>
+        <value xml:lang="vi">Ngày hoàn thành</value>
         <value xml:lang="zh">完成日期</value>
         <value xml:lang="zh_TW">完成日期</value>
     </property>
@@ -613,6 +665,7 @@
         <value xml:lang="pt_BR">Custos reais</value>
         <value xml:lang="ro">Costuri Actuali</value>
         <value xml:lang="th">ราคาจริง</value>
+        <value xml:lang="vi">Chi phí thực tế</value>
         <value xml:lang="zh">实际花费</value>
         <value xml:lang="zh_TW">實際花費</value>
     </property>
@@ -625,6 +678,7 @@
         <value xml:lang="pt_BR">Data/hora de encerramento real</value>
         <value xml:lang="ro">Data/Ora Sfarsit</value>
         <value xml:lang="th">วัน/เวลา ที่เสร็จจริง</value>
+        <value xml:lang="vi">Ngày/Giờ kết thúc thực tế</value>
         <value xml:lang="zh">实际结束日期/时间</value>
         <value xml:lang="zh_TW">實際結束日期/時間</value>
     </property>
@@ -636,6 +690,7 @@
         <value xml:lang="it">Materiali attuali</value>
         <value xml:lang="pt_BR">Materiais reais</value>
         <value xml:lang="th">ข้อเท็จจริง</value>
+        <value xml:lang="vi">Vật liệu thực tế</value>
         <value xml:lang="zh">实际材料</value>
         <value xml:lang="zh_TW">實際材料</value>
     </property>
@@ -648,6 +703,7 @@
         <value xml:lang="pt_BR">Data e hora real para início</value>
         <value xml:lang="ro">Data/Ora Initiere</value>
         <value xml:lang="th">วัน/เวลา เริ่มต้นจริง</value>
+        <value xml:lang="vi">Ngày/giờ bắt đầu thực tế</value>
         <value xml:lang="zh">实际开始日期/时间</value>
         <value xml:lang="zh_TW">實際開始日期/時間</value>
     </property>
@@ -660,6 +716,7 @@
         <value xml:lang="pt_BR">Adicionar tarefa de roteamento já existente</value>
         <value xml:lang="ro">Adauga o Operatie existenta</value>
         <value xml:lang="th">เพิ่มการทำงานที่มีอยู่</value>
+        <value xml:lang="vi">Gắn Tác vụ - Đầu việc đã có</value>
         <value xml:lang="zh">添加一个已存在的规程任务</value>
         <value xml:lang="zh_TW">添加一個已存在的規程任務</value>
     </property>
@@ -672,6 +729,7 @@
         <value xml:lang="pt_BR">Designar ativo fixo</value>
         <value xml:lang="ro">Inregistreaza Mijloc Fix</value>
         <value xml:lang="th">กำหนดสินทรัพย์ไม่หมุนเวียน</value>
+        <value xml:lang="vi">Gán Tài sản cố định</value>
         <value xml:lang="zh">指定固定资产</value>
         <value xml:lang="zh_TW">指定固定資產</value>
     </property>
@@ -684,6 +742,7 @@
         <value xml:lang="pt_BR">Adicionar componente de produto a execução de produção</value>
         <value xml:lang="ro">Adauga Componente Produs la o comanda de Productie</value>
         <value xml:lang="th">เพิ่มส่วนประกอบสินค้าในการผลิตสินค้า</value>
+        <value xml:lang="vi">Gán Thành phần sản phẩm tới Chế tác lô hàng</value>
         <value xml:lang="zh">把产品组件添加到生产运行</value>
         <value xml:lang="zh_TW">把產品元件添加到生產運行</value>
     </property>
@@ -691,6 +750,7 @@
         <value xml:lang="en">Add Production Run Routing Task Not Created</value>
         <value xml:lang="it">Aggiunta componente ad un compito non creato</value>
         <value xml:lang="pt_BR">Adicionar tarefa de execução de produção de roteamento não foi criada</value>
+        <value xml:lang="vi">Tác vụ - Đầu việc Chế tác lô hàng không được tạo</value>
         <value xml:lang="zh">添加没有创建的产品运行规程任务</value>
         <value xml:lang="zh_TW">添加沒有創建的產品運行規程任務</value>
     </property>
@@ -703,6 +763,7 @@
         <value xml:lang="pt_BR">Adicionar quantidade produzida</value>
         <value xml:lang="ro">Adauga Cantitate Produsa</value>
         <value xml:lang="th">เพิ่มจำนวนสินค้า</value>
+        <value xml:lang="vi">Thêm số lượng đã Sản xuất</value>
         <value xml:lang="zh">添加已生产的数量</value>
         <value xml:lang="zh_TW">添加已生產的數量</value>
     </property>
@@ -715,6 +776,7 @@
         <value xml:lang="pt_BR">Adicionar quantidade rejeitada</value>
         <value xml:lang="ro">Adauga Cantitate Rebutata</value>
         <value xml:lang="th">เพิ่มจำนวนการปฏิเสธ</value>
+        <value xml:lang="vi">Thêm số lượng đã Từ chối</value>
         <value xml:lang="zh">添加已拒绝的数量</value>
         <value xml:lang="zh_TW">添加已拒絕的數量</value>
     </property>
@@ -727,6 +789,7 @@
         <value xml:lang="pt_BR">Adicionar tarefa de roteamento</value>
         <value xml:lang="ro">Adauga o Operatie</value>
         <value xml:lang="th">เพิ่มการทำงาน</value>
+        <value xml:lang="vi">Thêm Tác vụ - Đầu việc</value>
         <value xml:lang="zh">添加一个规程任务</value>
         <value xml:lang="zh_TW">添加一個規程任務</value>
     </property>
@@ -739,6 +802,7 @@
         <value xml:lang="pt_BR">Adicionar tempo de preparação real</value>
         <value xml:lang="ro">Adauga Timp Actual de Instalare</value>
         <value xml:lang="th">เพิ่มการติดตั้งเวลาจริง</value>
+        <value xml:lang="vi">Thêm thời gian khởi tạo thực tế</value>
         <value xml:lang="zh">添加实际安装时间</value>
         <value xml:lang="zh_TW">添加實際安裝時間</value>
     </property>
@@ -751,6 +815,7 @@
         <value xml:lang="pt_BR">Adicionar tempo de tarefa real</value>
         <value xml:lang="ro">Adauga Timp Actual Sarcina</value>
         <value xml:lang="th">เพิ่มเวลาการทำงานจริง</value>
+        <value xml:lang="vi">Thêm thời gian tác vụ thực tế</value>
         <value xml:lang="zh">添加实际任务时间</value>
         <value xml:lang="zh_TW">添加實際任務時間</value>
     </property>
@@ -763,6 +828,7 @@
         <value xml:lang="pt_BR">Qualquer grupo de ativos fixos</value>
         <value xml:lang="ro">Orice Grup de Mijloace Fixe</value>
         <value xml:lang="th">กลุ่มสินทรัพย์ไม่หมุนเวียน</value>
+        <value xml:lang="vi">Bất kỳ nhóm tài sản cố định nào</value>
         <value xml:lang="zh">任一固定资产组</value>
         <value xml:lang="zh_TW">任一固定資產組</value>
     </property>
@@ -774,6 +840,7 @@
         <value xml:lang="it">Approva fabbisogni</value>
         <value xml:lang="pt_BR">Aprovar requisitos</value>
         <value xml:lang="th">ความต้องการที่ตรงกัน</value>
+        <value xml:lang="vi">Duyệt yêu cầu</value>
         <value xml:lang="zh">批准需求</value>
         <value xml:lang="zh_TW">批准需求</value>
     </property>
@@ -785,6 +852,7 @@
         <value xml:lang="it">Ordini di produzione associati</value>
         <value xml:lang="pt_BR">Execuções da produção associadas</value>
         <value xml:lang="th">สินค้าที่เกี่ยวข้องกัน</value>
+        <value xml:lang="vi">Kết hợp các Chế tác lô hàng</value>
         <value xml:lang="zh">相关的生产运行</value>
         <value xml:lang="zh_TW">相關的生產運行</value>
     </property>
@@ -797,47 +865,56 @@
         <value xml:lang="pt_BR">Estrutura de produtos (BOM)</value>
         <value xml:lang="ro">Lista Repere Produs</value>
         <value xml:lang="th">รายการของสินค้า</value>
+        <value xml:lang="vi">Chào giá (BOM)</value>
         <value xml:lang="zh">物料清单</value>
         <value xml:lang="zh_TW">物料清單</value>
     </property>
     <property key="ManufacturingBomErrorCreatingBillOfMaterialsTree">
         <value xml:lang="en">Error creating bill of materials tree: ${errorString}</value>
         <value xml:lang="it">Errore durante la creazione dell'albero dei materiali: ${errorString}</value>
+        <value xml:lang="vi">Lỗi xảy ra khi tạo cây chào giá vật liệu: ${errorString}</value>
         <value xml:lang="zh">创建物料清单树时出错：${errorString}</value>
     </property>
     <property key="ManufacturingBomErrorLoadingShipmentItems">
         <value xml:lang="en">Error loading the ShipmentItems</value>
         <value xml:lang="it">Errore durante il caricamento di ShipmentItems</value>
+        <value xml:lang="vi">Lỗi xảy ra khi tải thông tin Hàng hóa chuyển vận</value>
         <value xml:lang="zh">载入送货明细时出错</value>
     </property>
     <property key="ManufacturingBomErrorLoadingShipmentPackages">
         <value xml:lang="en">Error loading the ShipmentPackages</value>
         <value xml:lang="it">Errore durante il caricamento di ShipmentPackages</value>
+        <value xml:lang="vi">Lỗi xảy ra khi tải thông tin Đóng gói chuyển vận</value>
         <value xml:lang="zh">载入送货包装时出错</value>
     </property>
     <property key="ManufacturingBomErrorRunningDuplicatedAncestorSearch">
         <value xml:lang="en">Error running duplicated ancestor search: ${errorString}</value>
         <value xml:lang="it">Errore durante l'esecuzione della ricerca duplicati antenato: ${errorString}</value>
+        <value xml:lang="vi">Lỗi xảy ra khi thực thi toán tử tìm kiếm Trùng: ${errorString}</value>
         <value xml:lang="zh">查找重复的根时出错：${errorString}</value>
     </property>
     <property key="ManufacturingBomErrorRunningInitLowLevelCode">
         <value xml:lang="en">Error running initLowLevelCode: ${errorString}</value>
         <value xml:lang="it">Errore durante l'esecuzione di initLowLevelCode: ${errorString}</value>
+        <value xml:lang="vi">Lỗi xảy ra khi thực thi initLowLevelCode: ${errorString}</value>
         <value xml:lang="zh">运行低层代码初始化时出错：${errorString}</value>
     </property>
     <property key="ManufacturingBomErrorRunningMaxDethAlgorithm">
         <value xml:lang="en">Error running max depth algorithm: ${errorString}</value>
         <value xml:lang="it">Errore durante l'esecuzione dell'algoritmo massima profondità: ${errorString}</value>
+        <value xml:lang="vi">Lỗi xảy ra khi thực thi thuật toán tìm kiếm độ sâu tối đa: ${errorString}</value>
         <value xml:lang="zh">运行最大深度算法时出错：${errorString}</value>
     </property>
     <property key="ManufacturingBomErrorRunningUpdateLowLevelCode">
         <value xml:lang="en">Error running updateLowLevelCode: ${errorString}</value>
         <value xml:lang="it">Errore durante l'esecuzione di updateLowLevelCode: ${errorString}</value>
+        <value xml:lang="vi">Lỗi xảy ra khi thực thi updateLowLevelCode: ${errorString}</value>
         <value xml:lang="zh">运行更新低层代码（updateLowLevelCode）时发生错误：${errorString}</value>
     </property>
     <property key="ManufacturingBomPackageAlreadyFound">
         <value xml:lang="en">Packages already found.</value>
         <value xml:lang="it">Pacchi già trovati.</value>
+        <value xml:lang="vi">Đóng gói đã được tìm thấy.</value>
         <value xml:lang="zh">已经找到包装了。</value>
     </property>
     <property key="ManufacturingBomSimulation">
@@ -849,6 +926,7 @@
         <value xml:lang="pt_BR">Simulação da estrutura de produtos (BOM)</value>
         <value xml:lang="ro">Simulare Lista repere</value>
         <value xml:lang="th">รายการของสินค้าที่เลียนแบบ</value>
+        <value xml:lang="vi">Giả lập (simulation) Chào giá</value>
         <value xml:lang="zh">物料清单仿真</value>
         <value xml:lang="zh_TW">物料清單模擬</value>
     </property>
@@ -861,6 +939,7 @@
         <value xml:lang="pt_BR">Tipo de estrutura de produtos (BOM)</value>
         <value xml:lang="ro">Tip Lista repere</value>
         <value xml:lang="th">ประเภทรายการของสินค้า</value>
+        <value xml:lang="vi">Kiểu chào giá</value>
         <value xml:lang="zh">物料清单类型</value>
         <value xml:lang="zh_TW">物料清單類型</value>
     </property>
@@ -873,6 +952,7 @@
         <value xml:lang="pt_BR">Calendário</value>
         <value xml:lang="ro">Calendar</value>
         <value xml:lang="th">ปฏิทิน</value>
+        <value xml:lang="vi">Lịch</value>
         <value xml:lang="zh">日历</value>
         <value xml:lang="zh_TW">日曆</value>
     </property>
@@ -885,6 +965,7 @@
         <value xml:lang="pt_BR">Capacidade do calendário de produção</value>
         <value xml:lang="ro">Capacitate Productie Calendar</value>
         <value xml:lang="th">การสร้างปฏิทินการทำงาน</value>
+        <value xml:lang="vi">Thời lượng lịch dành cho sản xuất</value>
         <value xml:lang="zh">工作时间长度(毫秒)</value>
         <value xml:lang="zh_TW">工作時間長度(毫秒)</value>
     </property>
@@ -897,6 +978,7 @@
         <value xml:lang="pt_BR">Data de exceção</value>
         <value xml:lang="ro">Zi Speciala</value>
         <value xml:lang="th">วันที่ยกเว้น</value>
+        <value xml:lang="vi">Ngày nghỉ</value>
         <value xml:lang="zh">非工作日</value>
         <value xml:lang="zh_TW">非工作日</value>
     </property>
@@ -909,6 +991,7 @@
         <value xml:lang="pt_BR">Id do dia de exceção do calendário de produção já existente</value>
         <value xml:lang="ro">Cod Capacitate Calendar Productie existenta</value>
         <value xml:lang="th">รหัสวันที่ยกเว้นในปฏิทินการทำงานที่มีอยู่</value>
+        <value xml:lang="vi">Lịch sản xuất nghỉ đã Tồn tại</value>
         <value xml:lang="zh">非工作日标识已存在</value>
         <value xml:lang="zh_TW">非工作日ID已存在</value>
     </property>
@@ -921,6 +1004,7 @@
         <value xml:lang="pt_BR">Ainda existe um dia de exceção para esse calendário</value>
         <value xml:lang="ro">Exista o zi speciala la acest Calendar</value>
         <value xml:lang="th">มีวันที่ยังคงได้รับการยกเว้นสำหรับปฏิทินนี้</value>
+        <value xml:lang="vi">Hiện tại vẫn có ngày nghỉ cho lịch này</value>
         <value xml:lang="zh">这个日历还有一个非工作日</value>
         <value xml:lang="zh_TW">這個日曆還有一個非工作日</value>
     </property>
@@ -933,6 +1017,7 @@
         <value xml:lang="pt_BR">Semana de exceção</value>
         <value xml:lang="ro">Saptamana Speciala</value>
         <value xml:lang="th">สัปดาห์ที่ยกเว้น</value>
+        <value xml:lang="vi">Tuần nghỉ</value>
         <value xml:lang="zh">非工作周</value>
         <value xml:lang="zh_TW">非工作週</value>
     </property>
@@ -945,6 +1030,7 @@
         <value xml:lang="pt_BR">Id de semana de exceção no calendário de produção já existente</value>
         <value xml:lang="ro">Cod Calendar Saptamana Productie Speciala deja existent</value>
         <value xml:lang="th">รหัสสัปดาห์ที่ยกเว้นในปฏิทินการทำงานที่มีอยู่</value>
+        <value xml:lang="vi">'Tuần nghỉ sản xuất trên lịch' đã tồn tại</value>
         <value xml:lang="zh">非工作周标识已存在</value>
         <value xml:lang="zh_TW">非工作週ID已存在</value>
     </property>
@@ -957,6 +1043,7 @@
         <value xml:lang="pt_BR">Ainda há uma semana de exceção para esse calendário</value>
         <value xml:lang="ro">Nu exista o saptamana speciala la acest calendar</value>
         <value xml:lang="th">มีสัปดาห์ที่ยังคงได้รับการยกเว้นสำหรับปฏิทินนี้</value>
+        <value xml:lang="vi">Hiện tại vẫn có tuần nghỉ cho lịch này</value>
         <value xml:lang="zh">这个日历还有一个非工作周</value>
         <value xml:lang="zh_TW">這個日曆還有一個非工作週</value>
     </property>
@@ -969,6 +1056,7 @@
         <value xml:lang="pt_BR">Id de calendário</value>
         <value xml:lang="ro">Cod Calendar</value>
         <value xml:lang="th">รหัสปฏิทิน</value>
+        <value xml:lang="vi">Id lịch</value>
         <value xml:lang="zh">日历标识</value>
         <value xml:lang="zh_TW">日曆ID</value>
     </property>
@@ -981,6 +1069,7 @@
         <value xml:lang="pt_BR">Ide de calendário já existente</value>
         <value xml:lang="ro">Cod Calendar deja existent</value>
         <value xml:lang="th">รหัสปฏิทินที่มีอยู่ล้ว</value>
+        <value xml:lang="vi">Lịch đã tồn tại</value>
         <value xml:lang="zh">日历标识已存在</value>
         <value xml:lang="zh_TW">日曆ID已存在</value>
     </property>
@@ -993,6 +1082,7 @@
         <value xml:lang="pt_BR">Você não possui permissão para visualizar essa página (Permissão MANUFACTURING_VIEW ou MANUFACTURING_ADMIN necessária).</value>
         <value xml:lang="ro">Tu nu esti autorizat sa vezi aceasta pagina. (Ai nevoie de permis "MANUFACTURING_VIEW" sau "MANUFACTURING_ADMIN")</value>
         <value xml:lang="th">คุณไม่ได้รับอนุญาตให้ดูหน้านี้ ("MANUFACTURING_VIEW" หรือ "MANUFACTURING_ADMIN" ที่ต้องการ)</value>
+        <value xml:lang="vi">Bạn chưa có đủ quyền để xem trang này, yêu cầu cần có quyền MANUFACTURING_VIEW hoặc quyền MANUFACTURING_ADMIN</value>
         <value xml:lang="zh">你没有权限浏览这个页面。(需要"MANUFACTURING_VIEW"或"MANUFACTURING_ADMIN")</value>
         <value xml:lang="zh_TW">你沒有權限瀏覽這個頁面。(需要"MANUFACTURING_VIEW"或"MANUFACTURING_ADMIN")</value>
     </property>
@@ -1005,6 +1095,7 @@
         <value xml:lang="pt_BR">Ainda há um calendário que usa essa semana</value>
         <value xml:lang="ro">Esista deja un calendar care foloseste aceasta saptamana</value>
         <value xml:lang="th">ยังมีปฏิทินที่ใช้สำหรับสัปดาห์นี้</value>
+        <value xml:lang="vi">Hiện tại vẫn đang có lịch áp dụng trong tuần</value>
         <value xml:lang="zh">还有一个日历使用了这个周</value>
         <value xml:lang="zh_TW">還有一個日曆使用了這個週</value>
     </property>
@@ -1017,6 +1108,7 @@
         <value xml:lang="pt_BR">Semana</value>
         <value xml:lang="ro">Saptamana</value>
         <value xml:lang="th">สัปดาห์</value>
+        <value xml:lang="vi">Tuần</value>
         <value xml:lang="zh">周</value>
         <value xml:lang="zh_TW">週</value>
     </property>
@@ -1029,6 +1121,7 @@
         <value xml:lang="pt_BR">Ainda há uma semana de exceção que usa esta semana</value>
         <value xml:lang="ro">Exista deja o saptamana speciala care foloseste acest calendar</value>
         <value xml:lang="th">ยังคงมีข้อยกเว้นของสัปดาห์ที่ใช้ในสัปดาห์นี้</value>
+        <value xml:lang="vi">Hiện tại vẫn đang có tuần nghỉ áp dụng trong tuần</value>
         <value xml:lang="zh">还有一个非工作周使用了这个周</value>
         <value xml:lang="zh_TW">還有一個非工作週使用了這個週</value>
     </property>
@@ -1041,6 +1134,7 @@
         <value xml:lang="pt_BR">Id de semana do calendário</value>
         <value xml:lang="ro">Cod Calendar Saptamana</value>
         <value xml:lang="th">รหัสปฏิทินประจำสัปดาห์</value>
+        <value xml:lang="vi">Id tuần</value>
         <value xml:lang="zh">日历周标识</value>
         <value xml:lang="zh_TW">日曆週ID</value>
     </property>
@@ -1053,6 +1147,7 @@
         <value xml:lang="pt_BR">Id de semana de calendário já existente</value>
         <value xml:lang="ro">Cod Calendar Saptamana existent </value>
         <value xml:lang="th">รหัสปฏิทินประจำสัปดาห์ที่ยังคงใช้อยู่</value>
+        <value xml:lang="vi">Tuần theo lịch đã tồn tại</value>
         <value xml:lang="zh">日历周标识已存在</value>
         <value xml:lang="zh_TW">日曆週ID已存在</value>
     </property>
@@ -1065,6 +1160,7 @@
         <value xml:lang="pt_BR">Id de semana de calendário não existe</value>
         <value xml:lang="ro">Cod Calendar Sptamana nu exista</value>
         <value xml:lang="th">รหัสปฏิทินประจำสัปดาห์ที่ไม่ใช้</value>
+        <value xml:lang="vi">Tuần theo lịch chưa tồn tại</value>
         <value xml:lang="zh">日历周标识不存在</value>
         <value xml:lang="zh_TW">日曆週ID不存在</value>
     </property>
@@ -1076,6 +1172,7 @@
         <value xml:lang="it">Calendari settimanali</value>
         <value xml:lang="pt_BR">Semanas</value>
         <value xml:lang="th">สัปดาห์</value>
+        <value xml:lang="vi">Các tuần</value>
         <value xml:lang="zh">周</value>
         <value xml:lang="zh_TW">週</value>
     </property>
@@ -1087,6 +1184,7 @@
         <value xml:lang="it">Calendari</value>
         <value xml:lang="pt_BR">Calendário</value>
         <value xml:lang="th">ปฏิทิน</value>
+        <value xml:lang="vi">Các lịch</value>
         <value xml:lang="zh">日历</value>
         <value xml:lang="zh_TW">日曆</value>
     </property>
@@ -1099,6 +1197,7 @@
         <value xml:lang="pt_BR">Cancelar</value>
         <value xml:lang="ro">Sterge</value>
         <value xml:lang="th">ยกเลิก</value>
+        <value xml:lang="vi">Hủy bỏ</value>
         <value xml:lang="zh">取消</value>
         <value xml:lang="zh_TW">取消</value>
     </property>
@@ -1111,6 +1210,7 @@
         <value xml:lang="pt_BR">Comentário</value>
         <value xml:lang="ro">Comentarii</value>
         <value xml:lang="th">ความคิดเห็น</value>
+        <value xml:lang="vi">Diễn giải</value>
         <value xml:lang="zh">评论</value>
         <value xml:lang="zh_TW">評論</value>
     </property>
@@ -1123,6 +1223,7 @@
         <value xml:lang="pt_BR">OFBiz: Gestão de produção</value>
         <value xml:lang="ro">OFBiz: Gestiune Productie</value>
         <value xml:lang="th">OFBiz: การจัดการการผลิต</value>
+        <value xml:lang="vi">OFBiz: Quản trị sản xuất</value>
         <value xml:lang="zh">OFBiz: 生产管理</value>
         <value xml:lang="zh_TW">OFBiz: 生產管理</value>
     </property>
@@ -1147,6 +1248,7 @@
         <!--value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value-->
         <value xml:lang="th">ส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
         <!--value xml:lang="zh">开源软件OFBiz的组成部分 / 开源软件OFBiz的组成部分</value-->
+        <value xml:lang="vi">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="zh">开源软件OFBiz家族的一部分</value>
         <value xml:lang="zh_CN">OFBiz的一部分</value>
         <value xml:lang="zh_TW">開源軟件OFBiz家族的一部分</value>
@@ -1160,6 +1262,7 @@
         <value xml:lang="pt_BR">Completo</value>
         <value xml:lang="ro">Completeaza</value>
         <value xml:lang="th">เสร็จสิ้น</value>
+        <value xml:lang="vi">Hoàn thành</value>
         <value xml:lang="zh">完成</value>
         <value xml:lang="zh_TW">完成</value>
     </property>
@@ -1167,6 +1270,7 @@
         <value xml:lang="en">Configuration Not Available</value>
         <value xml:lang="it">Configurazione non disponibile</value>
         <value xml:lang="pt_BR">Configuração não disponível</value>
+        <value xml:lang="vi">Không được phép Cấu hình</value>
         <value xml:lang="zh">配置无效</value>
         <value xml:lang="zh_TW">配置無效</value>
     </property>
@@ -1179,6 +1283,7 @@
         <value xml:lang="pt_BR">Confirmar</value>
         <value xml:lang="ro">Confirmare</value>
         <value xml:lang="th">ยืนยัน</value>
+        <value xml:lang="vi">Xác nhận</value>
         <value xml:lang="zh">确定</value>
         <value xml:lang="zh_TW">確定</value>
     </property>
@@ -1191,6 +1296,7 @@
         <value xml:lang="pt_BR">Copiar a tarefa de roteamento e adicioná-la</value>
         <value xml:lang="ro">Copiaza si Adauga o Operatie </value>
         <value xml:lang="th">คัดลอกการทำงานและเพิ่มมัน</value>
+        <value xml:lang="vi">Sao chép Tác vụ - Đầu việc và Thêm vào</value>
         <value xml:lang="zh">复制一个规程任务并添加它</value>
         <value xml:lang="zh_TW">複制一個規程任務並添加它</value>
     </property>
@@ -1203,6 +1309,7 @@
         <value xml:lang="pt_BR">Copiar estrutura de produtos (BOM)</value>
         <value xml:lang="ro">Copiaza Lista repere </value>
         <value xml:lang="th">คัดลอกรายการของสินค้า</value>
+        <value xml:lang="vi">Sao chép Chào giá</value>
         <value xml:lang="zh">复制物料清单</value>
         <value xml:lang="zh_TW">複制物料清單</value>
     </property>
@@ -1215,6 +1322,7 @@
         <value xml:lang="pt_BR">Para o Id de produto</value>
         <value xml:lang="ro">La Cod Produs</value>
         <value xml:lang="th">ถึงรหัสสินค้า</value>
+        <value xml:lang="vi">Đến Sản phẩm</value>
         <value xml:lang="zh">到产品标识</value>
         <value xml:lang="zh_TW">到產品ID</value>
     </property>
@@ -1227,6 +1335,7 @@
         <value xml:lang="pt_BR">Custos</value>
         <value xml:lang="ro">Cost</value>
         <value xml:lang="th">ราคา</value>
+        <value xml:lang="vi">Chi phí</value>
         <value xml:lang="zh">费用</value>
         <value xml:lang="zh_TW">費用</value>
     </property>
@@ -1236,6 +1345,7 @@
         <value xml:lang="it">Creare distinta base</value>
         <value xml:lang="pt_BR">Criar Estrutura de produtos (BOM)</value>
         <value xml:lang="th">สร้างรายการสินค้า</value>
+        <value xml:lang="vi">Tạo mới Chào giá</value>
         <value xml:lang="zh">创建物料清单</value>
         <value xml:lang="zh_TW">創建物料清單</value>
     </property>
@@ -1248,6 +1358,7 @@
         <value xml:lang="pt_BR">Criar calendário</value>
         <value xml:lang="ro">Creare calendar</value>
         <value xml:lang="th">สร้างปฏิทิน</value>
+        <value xml:lang="vi">Thêm lịch</value>
         <value xml:lang="zh">新建日历</value>
         <value xml:lang="zh_TW">新建日曆</value>
     </property>
@@ -1260,12 +1371,14 @@
         <value xml:lang="pt_BR">Criar calendário semanal</value>
         <value xml:lang="ro">Creare Calendar Saptamana</value>
         <value xml:lang="th">สร้างปฏิทินประจำสัปดาห์</value>
+        <value xml:lang="vi">Thêm lịch tuần</value>
         <value xml:lang="zh">新建日历周</value>
         <value xml:lang="zh_TW">新建日曆週</value>
     </property>
     <property key="ManufacturingCreateDependentProductionRuns">
         <value xml:lang="en">Create Dependent Production Runs</value>
         <value xml:lang="it">Crea ordini di produzione dipendenti</value>
+        <value xml:lang="vi">Thêm các 'Chế tác lô hàng' phụ thuộc</value>
         <value xml:lang="zh">创建相关生产运行</value>
     </property>
     <property key="ManufacturingCreateMachineGroup">
@@ -1277,6 +1390,7 @@
         <value xml:lang="pt_BR">Criar grupo de ativos fixos</value>
         <value xml:lang="ro">Creare un grup de Mijloace Fixe</value>
         <value xml:lang="th">สร้างกลุ่มของสินทรัพย์ไม่หมุนเวียน</value>
+        <value xml:lang="vi">Thêm mới nhóm tài sản cố định</value>
         <value xml:lang="zh">新建一个固定资产组</value>
         <value xml:lang="zh_TW">新建一個固定資產組</value>
     </property>
@@ -1289,6 +1403,7 @@
         <value xml:lang="pt_BR">Erro de segurança: para executar esta operação você deve ter permissões de MANUFACTURING_CREATE ou MANUFACTURING_ADMIN</value>
         <value xml:lang="ro">Eroare Siguranta: pentru executarea acestei operatii trebuie sa ai permisul MANUFACTURING_CREATE sau MANUFACTURING_ADMIN</value>
         <value xml:lang="th">Security Error:  ในการรันการทำงานนี้คุณต้องได้รับอนุญาตจาก MANUFACTURING_CREATE หรือ MANUFACTURING_ADMIN ก่อน</value>
+        <value xml:lang="vi">Lỗi phân quyền: để thực hiện hành động này bạn cần có quyền MANUFACTURING_CREATE hoặc quyền MANUFACTURING_ADMIN</value>
         <value xml:lang="zh">安全错误：要执行这个操作，你必须有MANUFACTURING_CREATE或MANUFACTURING_ADMIN权限</value>
         <value xml:lang="zh_TW">安全錯誤：要執行這個操作，你必須有MANUFACTURING_CREATE或MANUFACTURING_ADMIN權限</value>
     </property>
@@ -1298,6 +1413,7 @@
         <value xml:lang="it">Creazione distinta base</value>
         <value xml:lang="pt_BR">Criar Estrutura de Materiais (BOM)</value>
         <value xml:lang="th">สร้างรายการสินค้า</value>
+        <value xml:lang="vi">Thêm mới Chào giá (BOM)</value>
         <value xml:lang="zh">新建物料清单</value>
         <value xml:lang="zh_TW">新建物料清單</value>
     </property>
@@ -1310,6 +1426,7 @@
         <value xml:lang="pt_BR">Criar execução de produção</value>
         <value xml:lang="ro">Creare Comanda de Productie</value>
         <value xml:lang="th">สร้างการผลิตสินค้า</value>
+        <value xml:lang="vi">Bắt đầu Chế tác lô hàng mới</value>
         <value xml:lang="zh">新建一个生产运行</value>
         <value xml:lang="zh_TW">新建一個生產運行</value>
     </property>
@@ -1322,6 +1439,7 @@
         <value xml:lang="pt_BR">Lista de montagem</value>
         <value xml:lang="ro">Lista de Montaj</value>
         <value xml:lang="th">ตัดรายการสินค้า</value>
+        <value xml:lang="vi">Danh sách cắt giảm (cutting)</value>
         <value xml:lang="zh">装配列表</value>
         <value xml:lang="zh_TW">裝配列表</value>
     </property>
@@ -1334,6 +1452,7 @@
         <value xml:lang="pt_BR">Relatório de lista de montagem</value>
         <value xml:lang="ro">Tipareste Lista de Montaj</value>
         <value xml:lang="th">รายงานการตัดรายการสินค้า</value>
+        <value xml:lang="vi">Báo cáo Danh sách cắt giảm</value>
         <value xml:lang="zh">装配列表报告</value>
         <value xml:lang="zh_TW">裝配列表報告</value>
     </property>
@@ -1346,6 +1465,7 @@
         <value xml:lang="pt_BR">Declarar</value>
         <value xml:lang="ro">Declaratii</value>
         <value xml:lang="th">ยืนยัน</value>
+        <value xml:lang="vi">Khai báo</value>
         <value xml:lang="zh">说明</value>
         <value xml:lang="zh_TW">說明</value>
     </property>
@@ -1358,6 +1478,7 @@
         <value xml:lang="pt_BR">Erro de segurança: para executar esta operação você deve ter permissão de MANUFACTURING_DELETE ou MANUFACTURING_DELETE</value>
         <value xml:lang="ro">Eroare de siguranta: pentru executarea acestei operatii trebuie sa ai permisul MANUFACTURING_CREATE sau MANUFACTURING_ADMIN</value>
         <value xml:lang="th">Security Error: ในการรันการทำงานนี้คุณต้องได้รับอนุญาตจาก MANUFACTURING_DELETE หรือ MANUFACTURING_ADMIN ก่อน</value>
+        <value xml:lang="vi">Lỗi phân quyền: để thực thi tác động này bạn cần có quyền MANUFACTURING_DELETE hoặc quyền MANUFACTURING_ADMIN</value>
         <value xml:lang="zh">安全错误：要运行这个操作，你必须具有 MANUFACTURING_DELETE 或 MANUFACTURING_ADMIN 权限</value>
         <value xml:lang="zh_TW">安全錯誤：要運行這個操作，你必須具有 MANUFACTURING_DELETE 或 MANUFACTURING_ADMIN 權限</value>
     </property>
@@ -1370,6 +1491,7 @@
         <value xml:lang="pt_BR">Data de entrega</value>
         <value xml:lang="ro">Data Livrarii</value>
         <value xml:lang="th">วันส่งสินค้า</value>
+        <value xml:lang="vi">Ngày nhận hàng</value>
         <value xml:lang="zh">交付日期</value>
         <value xml:lang="zh_TW">交付日期</value>
     </property>
@@ -1382,6 +1504,7 @@
         <value xml:lang="pt_BR">Execuções de produção dependentes</value>
         <value xml:lang="ro">Comenzi lansate in Productie?</value>
         <value xml:lang="th">ขึ้นอยู่กับการผลิตสินค้า</value>
+        <value xml:lang="vi">Các Chế tác lô hàng phụ thuộc</value>
         <value xml:lang="zh">依赖的生产运行</value>
         <value xml:lang="zh_TW">依賴的生產運行</value>
     </property>
@@ -1394,6 +1517,7 @@
         <value xml:lang="pt_BR">A seguinte associação poderia causar loops: {0} --&gt; {1}</value>
         <value xml:lang="ro">Urmatoarele asocieri exista utilizand cauzele: {0} --&gt; {1}</value>
         <value xml:lang="th">ตามการรวมกลุ่มสามารถทำให้เกิดเป็นรอบวงกลมได้</value>
+        <value xml:lang="vi">Sự liên kết này có thể gây lặp: {0} --&gt; {1}</value>
         <value xml:lang="zh">下列关联可能会导致循环： {0} --&gt; {1}</value>
         <value xml:lang="zh_TW">下列關聯可能會導致迴圈： {0} --&gt; {1}</value>
     </property>
@@ -1406,6 +1530,7 @@
         <value xml:lang="pt_BR">Editar o dia de exceção do calendário para</value>
         <value xml:lang="ro">Actualizare Calendar zile speciale pentru</value>
         <value xml:lang="th">แก้ไขปฏิทินวันที่ยกเว้นสำหรับ</value>
+        <value xml:lang="vi">Chỉnh sửa 'Ngày nghỉ của lịch' cho</value>
         <value xml:lang="zh">编辑日历非工作日</value>
         <value xml:lang="zh_TW">編輯日曆非工作日</value>
     </property>
@@ -1418,6 +1543,7 @@
         <value xml:lang="pt_BR">Editar a semana de exceção do calendário para</value>
         <value xml:lang="ro">Adauga Calendar saptamanal special pentru</value>
         <value xml:lang="th">แก้ไขสัปดาห์ที่ยกเว้นสำหรับ</value>
+        <value xml:lang="vi">Chỉnh sửa 'Tuần nghỉ của lịch' cho</value>
         <value xml:lang="zh">编辑日历非工作周</value>
         <value xml:lang="zh_TW">編輯日曆非工作週</value>
     </property>
@@ -1430,6 +1556,7 @@
         <value xml:lang="pt_BR">Editar semana</value>
         <value xml:lang="ro">Actualizare Saptamana</value>
         <value xml:lang="th">แก้ไขสัปดาห์</value>
+        <value xml:lang="vi">Chỉnh sửa tuần</value>
         <value xml:lang="zh">编辑周</value>
         <value xml:lang="zh_TW">編輯週</value>
     </property>
@@ -1442,6 +1569,7 @@
         <value xml:lang="pt_BR">Editar entradas de cálculo de custo dos componentes</value>
         <value xml:lang="ro">Adauga Cost Componente Date Calcul</value>
         <value xml:lang="th">แก้ไขส่วนประกอบของราคาในตารางการคำนวณ</value>
+        <value xml:lang="vi">Chỉnh sửa tính toán chi phí thành phần</value>
         <value xml:lang="zh">编辑费用组成计算记录</value>
         <value xml:lang="zh_TW">編輯費用組成計算記錄</value>
     </property>
@@ -1454,6 +1582,7 @@
         <value xml:lang="pt_BR">Editar ativo fixo</value>
         <value xml:lang="ro">Adauga Mijloace Fixe</value>
         <value xml:lang="th">แก้ไขสินทรัพย์ไม่หมุนเวียน</value>
+        <value xml:lang="vi">Cập nhật Tài sản cố định</value>
         <value xml:lang="zh">编辑固定资产</value>
         <value xml:lang="zh_TW">編輯固定資產</value>
     </property>
@@ -1466,6 +1595,7 @@
         <value xml:lang="pt_BR">Editar grupo de ativos fixos</value>
         <value xml:lang="ro">Actualizare Grup Mijloace Fixe</value>
         <value xml:lang="th">แก้ไขกลุ่มสินทรัพย์ไม่หมุนเวียน</value>
+        <value xml:lang="vi">Cập nhật nhóm Tài sản cố định</value>
         <value xml:lang="zh">编辑固定资产组</value>
         <value xml:lang="zh_TW">編輯固定資產組</value>
     </property>
@@ -1478,6 +1608,7 @@
         <value xml:lang="pt_BR">Editar Estrutura de Materiais (BOM)</value>
         <value xml:lang="ro">Actualizare Lista repere Produs</value>
         <value xml:lang="th">แก้ไขรายการของสินค้า</value>
+        <value xml:lang="vi">Cập nhật Chào giá</value>
         <value xml:lang="zh">编辑物料清单</value>
         <value xml:lang="zh_TW">編輯物料清單</value>
     </property>
@@ -1490,6 +1621,7 @@
         <value xml:lang="pt_BR">Editar execução de produção</value>
         <value xml:lang="ro">Actualizare Comenzi de Productie</value>
         <value xml:lang="th">แก้ไขการผลิต</value>
+        <value xml:lang="vi">Cập nhật Chế tác lô hàng</value>
         <value xml:lang="zh">编辑生产运行</value>
         <value xml:lang="zh_TW">編輯生產運行</value>
     </property>
@@ -1502,6 +1634,7 @@
         <value xml:lang="pt_BR">Editar rota</value>
         <value xml:lang="ro">Actualizare Ciclu</value>
         <value xml:lang="th">แก้ไข Routing</value>
+        <value xml:lang="vi">Cập nhật Quy trình</value>
         <value xml:lang="zh">编辑规程</value>
         <value xml:lang="zh_TW">編輯規程</value>
     </property>
@@ -1514,6 +1647,7 @@
         <value xml:lang="pt_BR">Editar link da rota do produto</value>
         <value xml:lang="ro">Actualizare Link Ciclu Produs </value>
         <value xml:lang="th">แก้ไข Routing การเชื่อมต่อสินค้า</value>
+        <value xml:lang="vi">Cập nhật liên kết Quy trình và Sản phẩm</value>
         <value xml:lang="zh">编辑规程产品链接</value>
         <value xml:lang="zh_TW">編輯規程產品鏈結</value>
     </property>
@@ -1526,6 +1660,7 @@
         <value xml:lang="pt_BR">Editar tarefa de rota</value>
         <value xml:lang="ro">Actualizare Operatie</value>
         <value xml:lang="th">แก้ไขการทำงาน</value>
+        <value xml:lang="vi">Cập nhật tác vụ quy trình</value>
         <value xml:lang="zh">编辑规程任务</value>
         <value xml:lang="zh_TW">編輯規程任務</value>
     </property>
@@ -1538,6 +1673,7 @@
         <value xml:lang="pt_BR">Editar associação da tarefa de rota</value>
         <value xml:lang="ro">Actualizare Sarcina Asociatie</value>
         <value xml:lang="th">แก้ไขกลุ่มการทำงาน</value>
+        <value xml:lang="vi">Cập nhật kết hợp của Tác vụ - Đầu việc</value>
         <value xml:lang="zh">编辑规程任务标识</value>
         <value xml:lang="zh_TW">編輯規程任務ID</value>
     </property>
@@ -1550,6 +1686,7 @@
         <value xml:lang="pt_BR">Editar a data de validade da associação da tarefa de rota</value>
         <value xml:lang="ro">Actualizare Asociere Operatie-data valabilitate</value>
         <value xml:lang="th">แก้ไขการทำงานที่เชื่อมโยงกับวันที่ทำ</value>
+        <value xml:lang="vi">Chỉnh sửa Ngày kết hợp tác vụ quy trình có hiệu lực </value>
         <value xml:lang="zh">编辑规程任务关联日期验证</value>
         <value xml:lang="zh_TW">編輯規程任務關聯日期驗証</value>
     </property>
@@ -1562,6 +1699,7 @@
         <value xml:lang="pt_BR">Editar tarefa de rota - Id</value>
         <value xml:lang="ro">Actualizare Cod Operatie</value>
         <value xml:lang="th">แก้ไขรหัสการทำงาน</value>
+        <value xml:lang="vi">Cập nhật tác vụ quy trình - Id</value>
         <value xml:lang="zh">编辑规程任务 - 标识</value>
         <value xml:lang="zh_TW">編輯規程任務 - ID</value>
     </property>
@@ -1569,6 +1707,7 @@
         <value xml:lang="en">Engineering Bill of Materials</value>
         <value xml:lang="it">Distinta base ingegnerizzata</value>
         <value xml:lang="pt_BR">Estrutura de produtos como desenvolvida (EBOM)</value>
+        <value xml:lang="vi">Xây dựng Chào giá</value>
         <value xml:lang="zh">工程物料清单</value>
         <value xml:lang="zh_TW">工程物料清單</value>
     </property>
@@ -1581,6 +1720,7 @@
         <value xml:lang="pt_BR">Erro, a Estrutura de materiais (BOM) não existe</value>
         <value xml:lang="ro">Eroare, Lista repere inexistenta</value>
         <value xml:lang="th">Error: ผิดพลาด ! ไม่มีรายการของสินค้าเหลืออยู่</value>
+        <value xml:lang="vi">Lỗi xuất hiện : Chào giá chưa tồn tại</value>
         <value xml:lang="zh">错误，物料清单不存在</value>
         <value xml:lang="zh_TW">錯誤，物料清單不存在</value>
     </property>
@@ -1593,6 +1733,7 @@
         <value xml:lang="pt_BR">Data estimada para terminar</value>
         <value xml:lang="ro">Data Completarii Calculata</value>
         <value xml:lang="th">วันที่คาดว่าจะเสร็จ</value>
+        <value xml:lang="vi">Ngày kết thúc theo tính toán</value>
         <value xml:lang="zh">计算出的完成日期</value>
         <value xml:lang="zh_TW">計算出的完成日期</value>
     </property>
@@ -1605,6 +1746,7 @@
         <value xml:lang="pt_BR">Data estimada de início</value>
         <value xml:lang="ro">Data Initiala Stimata</value>
         <value xml:lang="th">ประมาณวันที่เริ่มต้น</value>
+        <value xml:lang="vi">Ngày bắt đầu theo tính toán</value>
         <value xml:lang="zh">预计开始日期</value>
         <value xml:lang="zh_TW">預計開始日期</value>
     </property>
@@ -1617,6 +1759,7 @@
         <value xml:lang="pt_BR">Início da data de exceção</value>
         <value xml:lang="ro">Data speciala Initiala</value>
         <value xml:lang="th">เริ่มต้นของวันที่ยกเว้น</value>
+        <value xml:lang="vi">Ngày nghỉ bắt đầu</value>
         <value xml:lang="zh">非工作日开始</value>
         <value xml:lang="zh_TW">非工作日開始</value>
     </property>
@@ -1629,6 +1772,7 @@
         <value xml:lang="pt_BR">Data e hora do dia de exceção</value>
         <value xml:lang="ro">Data si Ora zilei speciale</value>
         <value xml:lang="th">วันและเวลาของวันที่ยกเว้น</value>
+        <value xml:lang="vi">Ngày và Giờ của ngày nghỉ</value>
         <value xml:lang="zh">非工作日的日期和时间</value>
         <value xml:lang="zh_TW">非工作日的日期和時間</value>
     </property>
@@ -1641,6 +1785,7 @@
         <value xml:lang="pt_BR">Explosão</value>
         <value xml:lang="ro">Explozie</value>
         <value xml:lang="th">อย่างกะทันหัน</value>
+        <value xml:lang="vi">Bóc tách</value>
         <value xml:lang="zh">扩展</value>
         <value xml:lang="zh_TW">擴展</value>
     </property>
@@ -1653,6 +1798,7 @@
         <value xml:lang="pt_BR">Explosão (apenas para produtos a serem industrializados)</value>
         <value xml:lang="ro">Explozie (numai pentru produsele din productie)</value>
         <value xml:lang="th">ด่วน (สำหรับสินค้าที่ต้องการผลิตอย่างเดียว)</value>
+        <value xml:lang="vi">Bóc tách (chỉ áp dụng cho sản phẩm yêu cầu sản xuất)</value>
         <value xml:lang="zh">扩展 (仅用于需要生产的产品)</value>
         <value xml:lang="zh_TW">擴展 (僅用于需要生產的產品)</value>
     </property>
@@ -1665,6 +1811,7 @@
         <value xml:lang="pt_BR">Explosão de apenas um nível</value>
         <value xml:lang="ro">Singurul Nivel de Exsplozie</value>
         <value xml:lang="th">ใช้ระดับความดังครั้งเดียว</value>
+        <value xml:lang="vi">Bóc tách</value>
         <value xml:lang="zh">单层扩展</value>
         <value xml:lang="zh_TW">單層擴展</value>
     </property>
@@ -1677,6 +1824,7 @@
         <value xml:lang="pt_BR">A tabela de instalações não existe</value>
         <value xml:lang="ro">Fisier Compartimente inexistent</value>
         <value xml:lang="th">ไม่มีตารางคลังสินค้านี้อยู่</value>
+        <value xml:lang="vi">Bảng Chi nhánh / Cơ sở không tồn tại</value>
         <value xml:lang="zh">场所表不存在</value>
         <value xml:lang="zh_TW">場所表不存在</value>
     </property>
@@ -1689,6 +1837,7 @@
         <value xml:lang="pt_BR">Procurar Estrutura de Materiais (BOM)</value>
         <value xml:lang="ro">Cauta Lista repere Produs</value>
         <value xml:lang="th">ค้นหารายการสินค้า</value>
+        <value xml:lang="vi">Tìm kiếm chào giá</value>
         <value xml:lang="zh">查找物料清单</value>
         <value xml:lang="zh_TW">查找物料清單</value>
     </property>
@@ -1701,6 +1850,7 @@
         <value xml:lang="pt_BR">Procurar evento de inventário planejado</value>
         <value xml:lang="ro">Cauta Inventar Evenimente Planificate</value>
         <value xml:lang="th">ค้นหาผลของรายการสิ่งของที่ประมาณไว้</value>
+        <value xml:lang="vi">Tìm Kế hoạch sự kiện hàng hóa kho</value>
         <value xml:lang="zh">查找已计划的库存事件</value>
         <value xml:lang="zh_TW">查找已計劃的庫存事件</value>
     </property>
@@ -1713,6 +1863,7 @@
         <value xml:lang="pt_BR">Procurar partes</value>
         <value xml:lang="ro">Cauta Parti</value>
         <value xml:lang="th">ค้นหาส่วนประกอบ</value>
+        <value xml:lang="vi">Tìm các phần</value>
         <value xml:lang="zh">查找零部件</value>
         <value xml:lang="zh_TW">查找零部件</value>
     </property>
@@ -1725,6 +1876,7 @@
         <value xml:lang="pt_BR">Procurar execuções de produção</value>
         <value xml:lang="ro">Cauta Comanda de Productie</value>
         <value xml:lang="th">ค้นหาการผลิตสินค้า</value>
+        <value xml:lang="vi">Tìm Chế tác lô hàng</value>
         <value xml:lang="zh">查找生产运行</value>
         <value xml:lang="zh_TW">查找生產運行</value>
     </property>
@@ -1737,6 +1889,7 @@
         <value xml:lang="pt_BR">Procurar rota</value>
         <value xml:lang="ro">Cauta Ciclu</value>
         <value xml:lang="th">ค้นหา Routing</value>
+        <value xml:lang="vi">Tìm quy trình</value>
         <value xml:lang="zh">查找规程</value>
         <value xml:lang="zh_TW">查找規程</value>
     </property>
@@ -1749,6 +1902,7 @@
         <value xml:lang="pt_BR">Procurar tarefas de rota</value>
         <value xml:lang="ro">Cauta Operatii</value>
         <value xml:lang="th">ค้นหาการทำงาน</value>
+        <value xml:lang="vi">Tìm tác vụ của Quy trình</value>
         <value xml:lang="zh">查找规程任务</value>
         <value xml:lang="zh_TW">查找規程任務</value>
     </property>
@@ -1761,6 +1915,7 @@
         <value xml:lang="pt_BR">O campo de custo alocado não está formatado corretamente</value>
         <value xml:lang="ro">Campul Cost alocat nu are un format corect</value>
         <value xml:lang="th">รูปแบบการกำหนดราคาไม่ถูกต้อง</value>
+        <value xml:lang="vi">Giá trị chi phí phân bổ không đúng định dạng</value>
         <value xml:lang="zh">已分配的费用域格式不正确</value>
         <value xml:lang="zh_TW">已分配的費用域格式不正確</value>
     </property>
@@ -1773,6 +1928,7 @@
         <value xml:lang="pt_BR">A data de início está faltando</value>
         <value xml:lang="ro">Lipseste Data intiala </value>
         <value xml:lang="th">ไม่ได้ใส่จากวันที่</value>
+        <value xml:lang="vi">Thông tin Ngày ban đầu chưa có</value>
         <value xml:lang="zh">缺少开始日期</value>
         <value xml:lang="zh_TW">缺少開始日期</value>
     </property>
@@ -1785,6 +1941,7 @@
         <value xml:lang="pt_BR">O campo da data de início não está formatada corretamente</value>
         <value xml:lang="ro">Campul Data Initiala nu are un format corect</value>
         <value xml:lang="th">รูปแบบจากวันที่ไม่ถูกต้อง</value>
+        <value xml:lang="vi">Thông tin Ngày bắt đầu không đúng định dạng</value>
         <value xml:lang="zh">开始日期格式不正确</value>
         <value xml:lang="zh_TW">開始日期格式不正確</value>
     </property>
@@ -1797,6 +1954,7 @@
         <value xml:lang="pt_BR">O ativo fixo não existe</value>
         <value xml:lang="ro">Mijloc Fix Inexistent</value>
         <value xml:lang="th">ไม่พบสินทรัพย์ไม่หมุนเวียน</value>
+        <value xml:lang="vi">Tài sản cố định chưa tồn tại</value>
         <value xml:lang="zh">固定资产不存在</value>
         <value xml:lang="zh_TW">固定資產不存在</value>
     </property>
@@ -1809,6 +1967,7 @@
         <value xml:lang="pt_BR">O campo da data de validade não está formatado corretamente</value>
         <value xml:lang="ro">Campul Data Finala nu are un format corect</value>
         <value xml:lang="th">รูปแบบถึงวันที่ไม่ถูกต้อง</value>
+        <value xml:lang="vi">Thông tin Ngày đến không đúng định dạng</value>
         <value xml:lang="zh">结束日期域格式不正确</value>
         <value xml:lang="zh_TW">結束日期域格式不正確</value>
     </property>
@@ -1821,6 +1980,7 @@
         <value xml:lang="pt_BR">Fórmula</value>
         <value xml:lang="ro">Formula</value>
         <value xml:lang="th">วิธีทำ</value>
+        <value xml:lang="vi">Công thức</value>
         <value xml:lang="zh">公式</value>
         <value xml:lang="zh_TW">公式</value>
     </property>
@@ -1833,6 +1993,7 @@
         <value xml:lang="pt_BR">Data de início</value>
         <value xml:lang="ro">De la Data</value>
         <value xml:lang="th">จากวันที่</value>
+        <value xml:lang="vi">Từ ngày</value>
         <value xml:lang="zh">开始日期</value>
         <value xml:lang="zh_TW">開始日期</value>
     </property>
@@ -1840,6 +2001,7 @@
         <value xml:lang="en">Generate Production Runs</value>
         <value xml:lang="it">Genera ordini di produzione</value>
         <value xml:lang="pt_BR">Gerar execuções de produção</value>
+        <value xml:lang="vi">Sinh Chế tác lô hàng</value>
         <value xml:lang="zh">生成生产运行</value>
     </property>
     <property key="ManufacturingImplosion">
@@ -1851,6 +2013,7 @@
         <value xml:lang="pt_BR">Implosão</value>
         <value xml:lang="ro">Implozie</value>
         <value xml:lang="th">เสียงดัง</value>
+        <value xml:lang="vi">Vụ nổ</value>
         <value xml:lang="zh">收敛</value>
         <value xml:lang="zh_TW">收斂</value>
     </property>
@@ -1863,6 +2026,7 @@
         <value xml:lang="pt_BR">Instrução</value>
         <value xml:lang="ro">Instructiune</value>
         <value xml:lang="th">คำแนะนำ</value>
+        <value xml:lang="vi">Hướng dẫn</value>
         <value xml:lang="zh">说明</value>
         <value xml:lang="zh_TW">說明</value>
     </property>
@@ -1875,6 +2039,7 @@
         <value xml:lang="pt_BR">Evento de inventário planejado</value>
         <value xml:lang="ro">Inventar Eveniment Planificat</value>
         <value xml:lang="th">ประมาณสินค้าคงเหลือ</value>
+        <value xml:lang="vi">Kế hoạch sự kiện hàng hóa kho</value>
         <value xml:lang="zh">已计划的库存事件</value>
         <value xml:lang="zh_TW">已計劃的庫存事件</value>
     </property>
@@ -1887,6 +2052,7 @@
         <value xml:lang="pt_BR">Erro ao criar evento planejado de escritório</value>
         <value xml:lang="ro">Nu este posibila crearea unui record in InventoryEventPlanned</value>
         <value xml:lang="th">เกิดความผิดพลาดในการสร้างการประมาณสินค้าคงเหลือ</value>
+        <value xml:lang="vi">Tạo 'Kế hoạch sự kiện hàng hóa kho' không thành công</value>
         <value xml:lang="zh">无法在已计划的库存事件中新建记录</value>
         <value xml:lang="zh_TW">無法在已計劃的庫存事件中新建記錄</value>
     </property>
@@ -1899,6 +2065,7 @@
         <value xml:lang="pt_BR">Evento planejado de inventário não existe</value>
         <value xml:lang="ro">InventoryEventPlanned nu exista</value>
         <value xml:lang="th">ไม่มีการประมาณสินค้าคงเหลือ</value>
+        <value xml:lang="vi">Kế hoạch sự kiện hàng hóa kho không tồn tại</value>
         <value xml:lang="zh">已计划的库存事件不存在</value>
         <value xml:lang="zh_TW">已計劃的庫存事件不存在</value>
     </property>
@@ -1911,6 +2078,7 @@
         <value xml:lang="pt_BR">Evento planejado de inventário não atualizado</value>
         <value xml:lang="ro">InventoryEventPlanned nu poate  fi actualizat</value>
         <value xml:lang="th">ไม่มีการเปลี่ยนแปลงการประมาณสินค้าคงเหลือ</value>
+        <value xml:lang="vi">Kế hoạch sự kiện hàng hóa kho chưa được cập nhật</value>
         <value xml:lang="zh">已计划的库存事件无法更新</value>
         <value xml:lang="zh_TW">已計劃的庫存事件無法更新</value>
     </property>
@@ -1923,6 +2091,7 @@
         <value xml:lang="pt_BR">Tipo de evento planejado de inventário não existe</value>
         <value xml:lang="ro">Tip Inventar Eveniment inexistent</value>
         <value xml:lang="th">ไม่มีประเภทสินค้าคงเหลือ</value>
+        <value xml:lang="vi">Kiểu sự kiện hàng hóa kho chưa tồn tại</value>
         <value xml:lang="zh">库存事件类型不存在</value>
         <value xml:lang="zh_TW">庫存事件類型不存在</value>
     </property>
@@ -1935,6 +2104,7 @@
         <value xml:lang="pt_BR">Tabela de itens de inventário não existem</value>
         <value xml:lang="ro">Linie Fisier Inventar Inexistent</value>
         <value xml:lang="th">ไม่มีตารางรายการสินค้าคงเหลือ</value>
+        <value xml:lang="vi">Bảng Hàng hóa kho chưa tồn tại</value>
         <value xml:lang="zh">库存明细表不存在</value>
         <value xml:lang="zh_TW">庫存明細表不存在</value>
     </property>
@@ -1947,6 +2117,7 @@
         <value xml:lang="pt_BR">Itens de inventário</value>
         <value xml:lang="ro">Linii Inventar</value>
         <value xml:lang="th">สินค้าคงเหลือ</value>
+        <value xml:lang="vi">Hàng hóa kho</value>
         <value xml:lang="zh">库存明细</value>
         <value xml:lang="zh_TW">庫存明細</value>
     </property>
@@ -1957,6 +2128,7 @@
         <value xml:lang="fr">Composants publiés (ATP)</value>
         <value xml:lang="it">Preleva i Componenti (ATP)</value>
         <value xml:lang="pt_BR">Emitir componentes (ATP)</value>
+        <value xml:lang="vi">Thành phần phát hành (ATP)</value>
         <value xml:lang="zh">交付部件（承诺）</value>
         <value xml:lang="zh_TW">交付部件（承諾）</value>
     </property>
@@ -1969,6 +2141,7 @@
         <value xml:lang="pt_BR">Emitir componentes</value>
         <value xml:lang="ro">Componente cu Probleme</value>
         <value xml:lang="th">ส่วนประกอบของปัญหา</value>
+        <value xml:lang="vi">Thành phần phát hành</value>
         <value xml:lang="zh">交付部件</value>
         <value xml:lang="zh_TW">交付部件</value>
     </property>
@@ -1981,6 +2154,7 @@
         <value xml:lang="pt_BR">Quantidade emitida</value>
         <value xml:lang="ro">Cantitate Preluata</value>
         <value xml:lang="th">ปัญหา</value>
+        <value xml:lang="vi">Phát hành</value>
         <value xml:lang="zh">交付数量</value>
         <value xml:lang="zh_TW">交付數量</value>
     </property>
@@ -1993,6 +2167,7 @@
         <value xml:lang="pt_BR">Pedidos de fabricação</value>
         <value xml:lang="ro">Comanda de Productie</value>
         <value xml:lang="th">ที่ทำงาน</value>
+        <value xml:lang="vi">Sản xuất (JobShop)</value>
         <value xml:lang="zh">任务商店</value>
         <value xml:lang="zh_TW">任務商店</value>
     </property>
@@ -2004,6 +2179,7 @@
         <value xml:lang="pt_BR">Iniciar códigos de baixo nível</value>
         <value xml:lang="ro">Cod Initial de nivel inferior</value>
         <value xml:lang="th">รหัสระดับเริ่มต้น</value>
+        <value xml:lang="vi">Khởi tạo mã mức độ thấp</value>
         <value xml:lang="zh">初始化低级别代码</value>
         <value xml:lang="zh_TW">初始化低級別代碼</value>
     </property>
@@ -2016,6 +2192,7 @@
         <value xml:lang="pt_BR">Lista de semanas</value>
         <value xml:lang="ro">Lista saptamanilor</value>
         <value xml:lang="th">รายการของสัปดาห์</value>
+        <value xml:lang="vi">Danh sách các tuần</value>
         <value xml:lang="zh">周列表</value>
         <value xml:lang="zh_TW">週列表</value>
     </property>
@@ -2027,6 +2204,7 @@
         <value xml:lang="it">Lista dei componenti dell'ordine di produzione</value>
         <value xml:lang="pt_BR">Lista de componentes para execução de produção</value>
         <value xml:lang="th">รายการของการผลิตสินค้า</value>
+        <value xml:lang="vi">Danh sách các thành phần</value>
         <value xml:lang="zh">生产运行组件列表</value>
         <value xml:lang="zh_TW">生產運行元件列表</value>
     </property>
@@ -2039,6 +2217,7 @@
         <value xml:lang="pt_BR">Lista de Ativos fixos para execução de produção</value>
         <value xml:lang="ro">Lista Mijloacelor Fixe pentru Comanda de Productie</value>
         <value xml:lang="th">รายการของการผลิตสินค้าจากสินทรัพย์ไม่ถาวร</value>
+        <value xml:lang="vi">Danh sách các tài sản cố định</value>
         <value xml:lang="zh">生产运行固定资产列表</value>
         <value xml:lang="zh_TW">生產運行固定資產列表</value>
     </property>
@@ -2047,6 +2226,7 @@
         <value xml:lang="fr">Liste des notes de l'ordre de fabrication</value>
         <value xml:lang="it">Lista note ordine di produzione</value>
         <value xml:lang="pt_BR">Lista de notas da execução de produção</value>
+        <value xml:lang="vi">Danh sách các Ghi chú</value>
         <value xml:lang="zh">生产运行说明列表</value>
         <value xml:lang="zh_TW">生產運行說明列表</value>
     </property>
@@ -2059,6 +2239,7 @@
         <value xml:lang="pt_BR">Tarefas da execução de produção</value>
         <value xml:lang="ro">Lista Operatiilor pe Comanda de Productie</value>
         <value xml:lang="th">งาน</value>
+        <value xml:lang="vi">Tác vụ - Đầu việc</value>
         <value xml:lang="zh">任务</value>
         <value xml:lang="zh_TW">任務</value>
     </property>
@@ -2071,6 +2252,7 @@
         <value xml:lang="pt_BR">Produtos prontos para entrega</value>
         <value xml:lang="ro">Produse Livrabile</value>
         <value xml:lang="th">ส่งสินค้า</value>
+        <value xml:lang="vi">Sản phẩm có thể bàn giao được</value>
         <value xml:lang="zh">已交付的产品</value>
         <value xml:lang="zh_TW">已交付的產品</value>
     </property>
@@ -2083,6 +2265,7 @@
         <value xml:lang="pt_BR">Lista de rotas</value>
         <value xml:lang="ro">Lista Cicluri</value>
         <value xml:lang="th">รายการ Routing</value>
+        <value xml:lang="vi">Danh sách quy trình</value>
         <value xml:lang="zh">规程列表</value>
         <value xml:lang="zh_TW">規程列表</value>
     </property>
@@ -2095,6 +2278,7 @@
         <value xml:lang="pt_BR">Erro ao listar estrutura de materiais (BOM)</value>
         <value xml:lang="ro">Eroare in timpul listarii Listei de repere ManufacturingListOfProductionRunComponents=Lista Componentelor Comenzii de Productie</value>
         <value xml:lang="th">เกิดความผิดพลาดขณะที่ลงรายการของสินค้า</value>
+        <value xml:lang="vi">Lỗi xảy ra khi liệt kê Chào giá (BOM)</value>
         <value xml:lang="zh">在进行材料清单列表时发生错误</value>
         <value xml:lang="zh_TW">在進行材料清單列表時發生錯誤</value>
     </property>
@@ -2102,6 +2286,7 @@
         <value xml:lang="en">Lot Not Exists</value>
         <value xml:lang="it">Lotto non esiste</value>
         <value xml:lang="pt_BR">Lote não existe</value>
+        <value xml:lang="vi">Lô không tồn tại</value>
         <value xml:lang="zh">批次不存在</value>
         <value xml:lang="zh_TW">批次不存在</value>
     </property>
@@ -2114,6 +2299,7 @@
         <value xml:lang="pt_BR">Ativo fixo</value>
         <value xml:lang="ro">Mijloace Fixe</value>
         <value xml:lang="th">สินทรัพย์ไม่หมุนเวียน</value>
+        <value xml:lang="vi">Tài sản cố định</value>
         <value xml:lang="zh">固定资产</value>
         <value xml:lang="zh_TW">固定資產</value>
     </property>
@@ -2126,6 +2312,7 @@
         <value xml:lang="pt_BR">Grupo de ativos fixos</value>
         <value xml:lang="ro">Grup Mijloc Fix</value>
         <value xml:lang="th">กลุ่มสินทรัพย์ไม่หมุนเวียน</value>
+        <value xml:lang="vi">Nhóm tài sản cố định</value>
         <value xml:lang="zh">固定资产组</value>
         <value xml:lang="zh_TW">固定資產組</value>
     </property>
@@ -2138,6 +2325,7 @@
         <value xml:lang="pt_BR">Id de grupo de ativos fixos</value>
         <value xml:lang="ro">Cod Grup Mijloc Fix</value>
         <value xml:lang="th">รหัสกลุ่มสินทรัพย์ไม่หมุนเวียน</value>
+        <value xml:lang="vi">Id nhóm tài sản cố định</value>
         <value xml:lang="zh">固定资产组标识</value>
         <value xml:lang="zh_TW">固定資產組ID</value>
     </property>
@@ -2150,6 +2338,7 @@
         <value xml:lang="pt_BR">Id do grupo de ativos fixos não existe</value>
         <value xml:lang="ro">Cod Grup Mijloc Fix inexistent</value>
         <value xml:lang="th">ไม่มีรหัสกลุ่มสินทรัพย์ไม่หมุนเวียนอยู่</value>
+        <value xml:lang="vi">Nhóm tài sản cố định không tồn tại</value>
         <value xml:lang="zh">固定资产组的标识不存在</value>
         <value xml:lang="zh_TW">固定資產組的ID不存在</value>
     </property>
@@ -2162,6 +2351,7 @@
         <value xml:lang="pt_BR">Erro de segurança: para trabalhar com o grupo de ativos fixos você deve ter a permissão de MANUFACTURING_CREATE ou MANUFACTURING_ADMIN</value>
         <value xml:lang="ro">Eroare Siguranta : pentru a avea acces la grupurile de Mijloace Fixe trebuie sa ai permisul MANUFACTURING_CREATE sau MANUFACTURING_ADMIN</value>
         <value xml:lang="th">Security Error: ในการทำงานบนกลุ่มสินทรัพย์ไม่หมุนเวียนคุณต้องได้รับอนุาตจาก MANUFACTURING_CREATE หรือ MANUFACTURING_ADMIN ก่อน</value>
+        <value xml:lang="vi">Lỗi phân quyền: để làm việc trên Nhóm tài sản cố định bạn cần có quyền MANUFACTURING_CREATE hoặc quyền MANUFACTURING_ADMIN</value>
         <value xml:lang="zh">安全错误: 要操作固定资产组，你必须具有 MANUFACTURING_CREATE 或 MANUFACTURING_ADMIN 权限</value>
         <value xml:lang="zh_TW">安全錯誤: 要操作固定資產組，你必須具有 MANUFACTURING_CREATE 或 MANUFACTURING_ADMIN 權限</value>
     </property>
@@ -2174,6 +2364,7 @@
         <value xml:lang="pt_BR">Id do ativo fixo</value>
         <value xml:lang="ro">Cod Mijloc Fix</value>
         <value xml:lang="th">รหัสสินทรัพย์ไม่หมุนเวียน</value>
+        <value xml:lang="vi">Id tài sản cố định</value>
         <value xml:lang="zh">固定资产标识</value>
         <value xml:lang="zh_TW">固定資產ID</value>
     </property>
@@ -2186,6 +2377,7 @@
         <value xml:lang="pt_BR">Id de ativo fixo já existe</value>
         <value xml:lang="ro">Cod Mijloc Fix deja existent</value>
         <value xml:lang="th">รหัสสินทรัพย์ไม่หมุนเวียน</value>
+        <value xml:lang="vi">Id tài sản cố định đã tồn tại</value>
         <value xml:lang="zh">固定资产标识已存在</value>
         <value xml:lang="zh_TW">固定資產ID已存在</value>
     </property>
@@ -2198,6 +2390,7 @@
         <value xml:lang="pt_BR">Erro de segurança: para usar essa função você deve ter permissão de MANUFACTURING_CREATE ou MANUFACTURING_ADMIN</value>
         <value xml:lang="ro">Eroare Siguranta : pentru a avea acces la Mijloace Fixe drebuie sa ai permisul MANUFACTURING_CREATE sau MANUFACTURING_ADMIN</value>
         <value xml:lang="th">Security Error: ในการทำงานบนสินทรัพย์ไม่หมุนเวียนคุณต้องได้รับอนุาตจาก MANUFACTURING_CREATE หรือ MANUFACTURING_ADMIN ก่อน</value>
+        <value xml:lang="vi">Lỗi phân quyền: để làm việc trên Tài sản cố định bạn cần có quyền MANUFACTURING_CREATE hoặc quyền MANUFACTURING_ADMIN</value>
         <value xml:lang="zh">安全错误: 要操作固定资产，你必须具有 MANUFACTURING_CREATE 或 MANUFACTURING_ADMIN 权限</value>
         <value xml:lang="zh_TW">安全錯誤: 要操作固定資產，你必須具有 MANUFACTURING_CREATE 或 MANUFACTURING_ADMIN 權限</value>
     </property>
@@ -2210,6 +2403,7 @@
         <value xml:lang="pt_BR">Página principal de gestão de produção</value>
         <value xml:lang="ro">Pagina Principala Gestiune Productie</value>
         <value xml:lang="th">หน้าหลักของการจัดการการผลิต</value>
+        <value xml:lang="vi">Trang chủ Quản lý sản xuất</value>
         <value xml:lang="zh">生产管理首页</value>
         <value xml:lang="zh_TW">生產管理首頁</value>
     </property>
@@ -2221,6 +2415,7 @@
         <value xml:lang="pt_BR">Nota: Essa aplicação ainda está em desenvolvimento. Esta página vai ser alterada.</value>
         <value xml:lang="ro">NOTA: Aceasta aplicatie este in Executie.Aceasta pagina va fi schimbata.</value>
         <value xml:lang="th">NOTE: หมายเหตุ โปรแกรมประยุกต์นี้ได้พัฒนาให้เป็นปัจจุบันแล้ว หน้านี้จึงเปลี่ยนไป</value>
+        <value xml:lang="vi">Ghi chú: Ứng dụng hiện tại đang trong quá trình phát triển. Trang này có thể sẽ thay đổi.</value>
         <value xml:lang="zh">注意: 本应用程序仍在开发中。本页面将发生改变。</value>
         <value xml:lang="zh_TW">注意: 本應用程式仍在開發中。本頁面將發生改變。</value>
     </property>
@@ -2233,6 +2428,7 @@
         <value xml:lang="pt_BR">Administrar entradas de cálculo de custo de componentes</value>
         <value xml:lang="ro">Gestiune Cost Componente Date Calcul</value>
         <value xml:lang="th">เข้าสู่การจัดการคำนวณราคา</value>
+        <value xml:lang="vi">Điểm nhập tính toán quản lý chi phí thành phần</value>
         <value xml:lang="zh">管理费用组成计算记录</value>
         <value xml:lang="zh_TW">管理費用組成計算記錄</value>
     </property>
@@ -2245,6 +2441,7 @@
         <value xml:lang="pt_BR">Gestor de produção</value>
         <value xml:lang="ro">Aplicatie Gestiune Productie</value>
         <value xml:lang="th">โปรแกรมประยุกต์การจัดการการผลิต</value>
+        <value xml:lang="vi">Quản trị sản xuất</value>
         <value xml:lang="zh">生产管理应用</value>
         <value xml:lang="zh_TW">生產管理應用</value>
     </property>
@@ -2257,6 +2454,7 @@
         <value xml:lang="pt_BR">Aplicativo de gestão de produção</value>
         <value xml:lang="ro">Aplicatie Gestiune Productie</value>
         <value xml:lang="th">โปรแกรมประยุกต์การจัดการการผลิต</value>
+        <value xml:lang="vi">Ứng dụng quản trị sản xuất</value>
         <value xml:lang="zh">生产管理应用</value>
         <value xml:lang="zh_TW">生產管理應用</value>
     </property>
@@ -2269,6 +2467,7 @@
         <value xml:lang="pt_BR">Execuções de produção obrigatórias</value>
         <value xml:lang="ro">Cicluri de Productie Obligatorii</value>
         <value xml:lang="th">คำสั่งในการผลิต</value>
+        <value xml:lang="vi">Chế tác lô hàng tạm thời</value>
         <value xml:lang="zh">强制生产运行</value>
         <value xml:lang="zh_TW">強制生產運行</value>
     </property>
@@ -2281,6 +2480,7 @@
         <value xml:lang="pt_BR">Regras de produção</value>
         <value xml:lang="ro">Reguli de Productie</value>
         <value xml:lang="th">ข้อบังคับในการผลิต</value>
+        <value xml:lang="vi">Quy định sản xuất</value>
         <value xml:lang="zh">生产规则</value>
         <value xml:lang="zh_TW">生產規則</value>
     </property>
@@ -2292,6 +2492,7 @@
         <value xml:lang="it">Materiali</value>
         <value xml:lang="pt_BR">Materiais</value>
         <value xml:lang="th">ข้อมูล</value>
+        <value xml:lang="vi">Vật liệu</value>
         <value xml:lang="zh">材料</value>
         <value xml:lang="zh_TW">材料</value>
     </property>
@@ -2303,6 +2504,7 @@
         <value xml:lang="it">Materiali non disponibili a magazzino ${productId}: ${parameters.quantityNotIssued}</value>
         <value xml:lang="pt_BR">Materiais não disponíveis no armazém ${productId}: ${parameters.quantityNotIssued}</value>
         <value xml:lang="th">ไม่มีข้อมูลในคลังสินค้า ${productId}: ${parameters.quantityNotIssued}</value>
+        <value xml:lang="vi">Vật liệu hiện không có sẵn trong Kho (warehouse)${productId}: ${parameters.quantityNotIssued}</value>
         <value xml:lang="zh">材料在库房中不可用 ${productId}: ${parameters.quantityNotIssued}</value>
         <value xml:lang="zh_TW">材料在庫房中不可用 ${productId}: ${parameters.quantityNotIssued}</value>
     </property>
@@ -2314,6 +2516,7 @@
         <value xml:lang="it">Materiali Richiesti dall'Operazione in Esecuzione</value>
         <value xml:lang="pt_BR">Materiais necessário para tarefa em execução</value>
         <value xml:lang="th">ข้อมูลที่ต้องการโดยการทำงานอย่างต่อเนื่อง</value>
+        <value xml:lang="vi">Vật liệu yêu cầu bởi Tác vụ - Đầu việc đang thực thi</value>
         <value xml:lang="zh">生产任务所需的材料</value>
         <value xml:lang="zh_TW">生產任務所需的材料</value>
     </property>
@@ -2326,52 +2529,62 @@
         <value xml:lang="pt_BR">MRP</value>
         <value xml:lang="ro">MRP</value>
         <value xml:lang="th">ข้อมูลความต้องการโดยประมาณ</value>
+        <value xml:lang="vi">Quản trị sản xuất (MRP)</value>
         <value xml:lang="zh">生产资源计划</value>
         <value xml:lang="zh_TW">生產資源計劃</value>
     </property>
     <property key="ManufacturingMrpCannotCountRecords">
         <value xml:lang="en">Unable to count MrpEvent records.</value>
         <value xml:lang="it">Non è possibile contare i records da  i records da MrpEvent.</value>
+        <value xml:lang="vi">Không thể đếm được bản ghi sự kiện MRP.</value>
         <value xml:lang="zh">无法统计生产资源计划事件（MrpEvent）记录数。</value>
     </property>
     <property key="ManufacturingMrpCannotFindCustomTimePeriod">
         <value xml:lang="en">Problem, we can not find CustomTimePeriod, for more detail look at the log</value>
         <value xml:lang="it">Problema, non è possibile trovare CustomTimePeriod, più dettagli possono essere trovati nel log</value>
+        <value xml:lang="vi">Có lỗi, chúng tôi không thể tìm thấy Kỳ kế toán của Đơn vị, bạn hãy xem vết để biết thêm chi tiết</value>
         <value xml:lang="zh">问题：我们不能找到定制时间段（CustomTimePeriod），详见日志</value>
     </property>
     <property key="ManufacturingMrpCannotFindProductFacility">
         <value xml:lang="en">Unable to retrieve ProductFacility records.</value>
         <value xml:lang="it">Non è possibile ricavare i records da ProductFacility.</value>
+        <value xml:lang="vi">Hệ thống không lấy được dữ liệu bản ghi Chi nhánh / Cơ sở.</value>
         <value xml:lang="zh">无法获取产品设施（ProductFacility）记录。</value>
     </property>
     <property key="ManufacturingMrpCannotFindSalesForecasts">
         <value xml:lang="en">Problem, we can not find SalesForecasts, for more detail look at the log</value>
         <value xml:lang="it">Problema, non è possibile trovare SalesForecasts, più dettagli possono essere trovati nel log</value>
+        <value xml:lang="vi">Có lỗi, chúng tôi không thể tìm thấy Dự báo kinh doanh, bạn hãy xem vết để biết thêm chi tiết</value>
         <value xml:lang="zh">问题：我们不能找到销售预测（SalesForecasts），详见日志</value>
     </property>
     <property key="ManufacturingMrpCannotFindSalesForecastDetails">
         <value xml:lang="en">Problem, we can not find SalesForecastDetails, for more detail look at the log</value>
         <value xml:lang="it">Problema, non è possibile trovare SalesForecastDetails, più dettagli possono essere trovati nel log</value>
+        <value xml:lang="vi">Có lỗi, chúng tôi không thể tìm thấy Dự báo kinh doanh chi tiết, bạn hãy xem vết để biết thêm chi tiết</value>
         <value xml:lang="zh">问题：我们不能找到销售预测详细信息（SalesForecastDetails），详见日志</value>
     </property>
     <property key="ManufacturingMrpCannotFindProductForEvent">
         <value xml:lang="en">Problem, can not find the product for a event, for more detail look at the log</value>
         <value xml:lang="it">Problema, non è possibile trovare il prodotto per un'evento, più dettagli possono essere trovati nel log</value>
+        <value xml:lang="vi">Có lỗi, chúng tôi không thể tìm thấy sản phẩm cho sự kiện này, bạn hãy xem vết để biết thêm chi tiết</value>
         <value xml:lang="zh">问题：不能找到一个事件的产品，详见日志</value>
     </property>
     <property key="ManufacturingMrpCreateOrUpdateEvent">
         <value xml:lang="en">Error during creation or update MrpEvent, parameters: ${parameters}</value>
         <value xml:lang="it">Errore durante la creazione o aggiornamento MrpEvent, parametri: ${parameters}</value>
+        <value xml:lang="vi">Lỗi khi tạo mới hoặc cập nhật sự kiện Mrp, tham số : ${parameters}</value>
         <value xml:lang="zh">创建或更新生产资源计划事件（MrpEvent）时出错，参数：${parameters}</value>
     </property>
     <property key="ManufacturingMrpErrorForBomLevel">
         <value xml:lang="en">MRP Error retieving MRP event for the bom level: ${bomLevel}. Error: ${errorString}</value>
         <value xml:lang="it">Errore MRP ricavando l'evento MRP per il livello di distinta base: ${bomLevel}. Errore: ${errorString}</value>
+        <value xml:lang="vi">Lỗi khi lấy thông tin sự kiện MRP ở mức chào giá : ${bomLevel}. Lỗi: ${errorString}</value>
         <value xml:lang="zh">获取物料清单层的生产资源计划事件时出错，物料清单层：${bomLevel}，错误：${errorString}</value>
     </property>
     <property key="ManufacturingMrpErrorExplodingProduct">
         <value xml:lang="en">An error occurred exploding the product ${productId}</value>
         <value xml:lang="it">E' successo un'errore durante l'espolosizione del prodotto ${productId}</value>
+        <value xml:lang="vi">Lỗi xảy ra khi bóc tách sản phẩm ${productId}</value>
         <value xml:lang="zh">分解产品时出错：${productId}</value>
     </property>
     <property key="ManufacturingMrpErrorRunningInitMrpEvents">
@@ -2382,41 +2595,49 @@
     <property key="ManufacturingMrpEventFindError">
         <value xml:lang="en">Problem, we can not find all the items of MrpEvent, for more detail look at the log</value>
         <value xml:lang="it">Problema, non possaimo trovare tutte le righe di MrpEvent, per più dettagli controllare il log</value>
+        <value xml:lang="vi">Lỗi xảy ra, chúng tôi không tìm thấy các hạng mục của sự kiện MRP, bạn hãy xem vết để biết thêm chi tiết</value>
         <value xml:lang="zh">问题：我们无法找到生产资源计划事件（MrpEvent）的全部明细，详见日志</value>
     </property>
     <property key="ManufacturingMrpEventProblemInitializing">
         <value xml:lang="en">Problem initializing the MrpEvent entity (${mrpEventTypeId})</value>
         <value xml:lang="it">Problema di inizializzazione entità MrpEvent (${mrpEventTypeId})</value>
+        <value xml:lang="vi">Lỗi xảy ra khi khởi tạo thực thể MrpEvent : ${mrpEventTypeId}</value>
         <value xml:lang="zh">初始化生产资源计划事件（MrpEvent）实体（${mrpEventTypeId}）时出问题了</value>
     </property>
     <property key="ManufacturingMrpEventRemoveError">
         <value xml:lang="en">Problem, we can not remove the MrpEvent items, for more detail look at the log</value>
         <value xml:lang="it">Problema, non possaimo rimuovere le righe di MrpEvent, per più dettagli controllare il log</value>
+        <value xml:lang="vi">Lỗi xảy ra, chúng tôi không xóa bỏ được sự kiện MRP, bạn hãy xem vết để biết thêm chi tiết</value>
         <value xml:lang="zh">问题：我们不能删除生产资源计划事件（MrpEvent）的明细，详见日志</value>
     </property>
     <property key="ManufacturingMrpFacilityGroupCannotBeLoad">
         <value xml:lang="en">Problem loading facility group information: ${errorString}</value>
         <value xml:lang="it">Problema durante il caricamento delle informazioni relative al gruppo stabilimento: ${errorString}</value>
+        <value xml:lang="vi">Lỗi xảy ra kho tải thông tin nhóm Chi nhánh / Cơ sở: ${errorString}</value>
         <value xml:lang="zh">载入场所组信息时出错：${errorString}</value>
     </property>
     <property key="ManufacturingMrpFacilityGroupIsNotAssociatedToFacility">
         <value xml:lang="en">No facility associated to facilityGroupId ${facilityGroupId}</value>
         <value xml:lang="it">Nessuna stabilimento associato al gruppo stabilimento ${facilityGroupId}</value>
+        <value xml:lang="vi">Không có Chi nhánh / Cơ sở kết hợp với Nhóm chi nhánh / Cơ sở ${facilityGroupId}</value>
         <value xml:lang="zh">没有场所关联到场所组标识（facilityGroupId）${facilityGroupId}</value>
     </property>
     <property key="ManufacturingMrpFacilityGroupIsNotValid">
         <value xml:lang="en">facilityGroupId ${facilityGroupId} is not valid</value>
         <value xml:lang="it">Gruppo stabilimento ${facilityGroupId} non è valido</value>
+        <value xml:lang="vi">Nhóm chi nhánh / Cơ sở ${facilityGroupId} không hợp lệ</value>
         <value xml:lang="zh">场所组标识（facilityGroupId）${facilityGroupId} 无效</value>
     </property>
     <property key="ManufacturingMrpFacilityNotAvailable">
         <value xml:lang="en">facilityId and facilityGroupId cannot be both null</value>
         <value xml:lang="it">Stabilimento e gruppo stabilimento non possono essere entrambi nulli</value>
+        <value xml:lang="vi">Chi nhánh / Cơ sở và Nhóm chi nhánh / Cơ sở không thể cùng rỗng</value>
         <value xml:lang="zh">场所标识（facilityId）和场所组标识（facilityGroupId）不能都为空（null）</value>
     </property>
     <property key="ManufacturingMrpFacilityOrManufacturingFacilityNotAvailable">
         <value xml:lang="en">facilityId and manufacturingFacilityId cannot be null</value>
         <value xml:lang="it">Stabilimento e stabilimento di produzione non possono essere nulli</value>
+        <value xml:lang="vi">Chi nhánh / Cơ sở và Chi nhánh / Cơ sở sản xuất không thể cùng rỗng</value>
         <value xml:lang="zh">场所标识（facilityId）和生产场所标识（manufacturingFacilityId）不能为空</value>
     </property>
     <property key="ManufacturingMrpInitialisation">
@@ -2428,6 +2649,7 @@
         <value xml:lang="pt_BR">Inic. MRP</value>
         <value xml:lang="ro">IEP init.</value>
         <value xml:lang="th">ข้อมูลความต้องการโดยประมาณในเบื้องต้น</value>
+        <value xml:lang="vi">Khởi tạo IEP.</value>
         <value xml:lang="zh">生产资源计划初始化</value>
         <value xml:lang="zh_TW">生產資源計劃初始化</value>
     </property>
@@ -2439,6 +2661,7 @@
         <value xml:lang="it">Un Lavoro MRP è in esecuzione</value>
         <value xml:lang="pt_BR">Uma tarefa do MRP está sendo executada</value>
         <value xml:lang="th">งานข้อมูลความต้องการโดยประมาณกำลังทำงาน</value>
+        <value xml:lang="vi">Đang có một công việc MRP được thực thi</value>
         <value xml:lang="zh">正在执行一个生产资源计划工作</value>
         <value xml:lang="zh_TW">正在執行一個生產資源計劃工作</value>
     </property>
@@ -2450,6 +2673,7 @@
         <value xml:lang="it">Ultimo Lavoro</value>
         <value xml:lang="pt_BR">Última tarefa</value>
         <value xml:lang="th">งานสุดท้าย</value>
+        <value xml:lang="vi">Công việc cuối cùng</value>
         <value xml:lang="zh">上一个工作</value>
         <value xml:lang="zh_TW">上一個工作</value>
     </property>
@@ -2461,6 +2685,7 @@
         <value xml:lang="it">Lavori Schedulati o in Esecuzione</value>
         <value xml:lang="pt_BR">Tarefas agendadas ou em execução</value>
         <value xml:lang="th">ทำรายการหรือกำลังทำงาน</value>
+        <value xml:lang="vi">Công việc đã đặt lịch hoặc đang thực thi</value>
         <value xml:lang="zh">已计划的或正在执行的工作</value>
         <value xml:lang="zh_TW">已計劃的或正在執行的工作</value>
     </property>
@@ -2472,6 +2697,7 @@
         <value xml:lang="it">Log MRP</value>
         <value xml:lang="pt_BR">Relatório MRP</value>
         <value xml:lang="th">บันทึกข้อมูลความต้องการโดยประมาณ</value>
+        <value xml:lang="vi">Vết MRP</value>
         <value xml:lang="zh">生产资源计划日志</value>
         <value xml:lang="zh_TW">生產資源計劃日誌</value>
     </property>
@@ -2484,6 +2710,7 @@
         <value xml:lang="pt_BR">Nome do MRP</value>
         <value xml:lang="ro">Nume Mrp</value>
         <value xml:lang="th">ชื่อข้อมูลความต้องการโดยประมาณ</value>
+        <value xml:lang="vi">Tên</value>
         <value xml:lang="zh">生产资源计划名称</value>
         <value xml:lang="zh_TW">生產資源計劃名稱</value>
     </property>
@@ -2496,6 +2723,7 @@
         <value xml:lang="pt_BR">Novo calendário</value>
         <value xml:lang="ro">Nou Calendar</value>
         <value xml:lang="th">ปฏิทินใหม่</value>
+        <value xml:lang="vi">Thêm mới lịch</value>
         <value xml:lang="zh">新建日历</value>
         <value xml:lang="zh_TW">新建日曆</value>
     </property>
@@ -2508,6 +2736,7 @@
         <value xml:lang="pt_BR">Nova semana</value>
         <value xml:lang="ro">Noua Saptamana</value>
         <value xml:lang="th">สัปดาห์ใหม่</value>
+        <value xml:lang="vi">Thêm mới tuần</value>
         <value xml:lang="zh">新建周</value>
         <value xml:lang="zh_TW">新建週</value>
     </property>
@@ -2520,6 +2749,7 @@
         <value xml:lang="pt_BR">Novo grupo de ativos fixos</value>
         <value xml:lang="ro">Nou grup de Mijloace Fixe</value>
         <value xml:lang="th">กลุ่มสินทรัพย์ไม่หมุนเวียนใหม่</value>
+        <value xml:lang="vi">Thêm Nhóm tài sản cố định</value>
         <value xml:lang="zh">新建固定资产组</value>
         <value xml:lang="zh_TW">新建固定資產組</value>
     </property>
@@ -2532,6 +2762,7 @@
         <value xml:lang="pt_BR">Nova rota</value>
         <value xml:lang="ro">Nou Ciclu</value>
         <value xml:lang="th">Routing ใหม่</value>
+        <value xml:lang="vi">Thêm Quy trình</value>
         <value xml:lang="zh">新建规程</value>
         <value xml:lang="zh_TW">新建規程</value>
     </property>
@@ -2544,6 +2775,7 @@
         <value xml:lang="pt_BR">Nova tarefa de rota</value>
         <value xml:lang="ro">Noua Operatie</value>
         <value xml:lang="th">การทำงานใหม่</value>
+        <value xml:lang="vi">Thêm Tác vụ - Đầu việc</value>
         <value xml:lang="zh">新建规程任务</value>
         <value xml:lang="zh_TW">新建規程任務</value>
     </property>
@@ -2556,6 +2788,7 @@
         <value xml:lang="pt_BR">Adicionar produto para entrega</value>
         <value xml:lang="ro">Adauga Produse Livrabile</value>
         <value xml:lang="th">เพิ่มการส่งสินค้า</value>
+        <value xml:lang="vi">Thêm Sản phẩm nghiệm thu được</value>
         <value xml:lang="zh">添加交付产品</value>
         <value xml:lang="zh_TW">添加交付產品</value>
     </property>
@@ -2568,6 +2801,7 @@
         <value xml:lang="pt_BR">Nenhum calendário encontrado</value>
         <value xml:lang="ro">Nici-un calendar gasit</value>
         <value xml:lang="th">ไม่พบปฏิทิน</value>
+        <value xml:lang="vi">Không tìm thấy lịch nào</value>
         <value xml:lang="zh">没有找到日历</value>
         <value xml:lang="zh_TW">沒有找到日曆</value>
     </property>
@@ -2579,6 +2813,7 @@
         <value xml:lang="pt_BR">Sem dados disponíveis</value>
         <value xml:lang="ro">Nici-o Data Disponibila.</value>
         <value xml:lang="th">ไม่มีข้อมูลที่ใช้ได้</value>
+        <value xml:lang="vi">Không dữ liệu nào có sẵn.</value>
         <value xml:lang="zh">没有可用的数据。</value>
         <value xml:lang="zh_TW">沒有可用的資料。</value>
     </property>
@@ -2591,6 +2826,7 @@
         <value xml:lang="pt_BR">Nenhum grupo de ativo fixo encontrado</value>
         <value xml:lang="ro">Nici-un Grup de Mijloace Fixe Gasit</value>
         <value xml:lang="th">ไม่พบกลุ่มสินทรัพย์ไม่หมุนเวียน</value>
+        <value xml:lang="vi">Không có nhóm Tài sản cố định được tìm thấy</value>
         <value xml:lang="zh">没有找到固定资产组</value>
         <value xml:lang="zh_TW">沒有找到固定資產組</value>
     </property>
@@ -2603,6 +2839,7 @@
         <value xml:lang="pt_BR">Nenhuma execução de produção selecionada</value>
         <value xml:lang="ro">Nici-o Comanda de Productie Selectionata</value>
         <value xml:lang="th">ไม่มีการเลือกการผลิต</value>
+        <value xml:lang="vi">Không Chế tác lô hàng nào được chọn</value>
         <value xml:lang="zh">没有选中生产运行</value>
         <value xml:lang="zh_TW">沒有選中生產運行</value>
     </property>
@@ -2613,6 +2850,7 @@
         <value xml:lang="it">le voci data/ora indicano che l'orario attuale è prima della Data di Inizio o dopo la Data di Fine. Se la Data di Inizio è</value>
         <value xml:lang="pt_BR">Entradas de data/hora demonstram que a data atual é menor que a data de início ou posterior à data de fim. Se a data de início é</value>
         <value xml:lang="th">เข้าสู่ วัน/เวลา หมายความว่าเวลาจริง ๆ คือ เวลาก่อน จากวันที่ หรือ หลัง ถึงวันที่ ถ้าจากวันที่คือ</value>
+        <value xml:lang="vi">ngày/giờ của điểm nhập chỉ rõ thời gian hiện tại trước Ngày bắt đầu hoặc Sau Ngày kết thúc. Nếu Ngày bắt đầu là</value>
         <value xml:lang="zh">当前时间在开始日期之前或结束日期之后的日期/时间记录</value>
         <value xml:lang="zh_TW">當前時間在開始日期之前或結束日期之後的日期/時間記錄</value>
     </property>
@@ -2623,6 +2861,7 @@
         <value xml:lang="it">, associazione non è ancora iniziata; se la Data di Fine è</value>
         <value xml:lang="pt_BR">, associação não começou ainda; se a data de fim é</value>
         <value xml:lang="th">, ยังไม่มีกลุ่มเริ่มต้น; ถ้า ถึงวันคือ</value>
+        <value xml:lang="vi">, sự kết hợp chưa được bắt đàu; nếu Ngày kết thúc là</value>
         <value xml:lang="zh">，那么关联还没有开始；如果结束日期是</value>
         <value xml:lang="zh_TW">，那麼關聯還沒有開始；如果結束日期是</value>
     </property>
@@ -2633,6 +2872,7 @@
         <value xml:lang="it">, associazione è scaduta (e dovrebbe probabilmente essere cancellata).</value>
         <value xml:lang="pt_BR">, associação expirou (e provavelmente deveria ser apagada).</value>
         <value xml:lang="th">, มีกลุ่มที่ไม่เข้าร่วม (และควรจะลบ)</value>
+        <value xml:lang="vi">, sự kết hợp đã hết hạn (và cần được xóa bỏ).</value>
         <value xml:lang="zh">，那么关联已经过期(并且可能被删除了)。</value>
         <value xml:lang="zh_TW">，那麼關聯已經過期(並且可能被刪除了)。</value>
     </property>
@@ -2645,6 +2885,7 @@
         <value xml:lang="pt_BR">Itens do pedido</value>
         <value xml:lang="ro">Linie Comanda</value>
         <value xml:lang="th">รายการสั่งซื้อสินค้า</value>
+        <value xml:lang="vi">Hàng hóa đặt hàng</value>
         <value xml:lang="zh">订单明细</value>
         <value xml:lang="zh_TW">訂單明細</value>
     </property>
@@ -2652,6 +2893,7 @@
         <value xml:lang="en">Package Configurator Error</value>
         <value xml:lang="it">Errore configurazione pacco</value>
         <value xml:lang="pt_BR">Erro na configuração do pacote</value>
+        <value xml:lang="vi">Lỗi cấu hình đóng gói</value>
         <value xml:lang="zh">包装配置程序错误</value>
         <value xml:lang="zh_TW">包裝配置程式錯誤</value>
     </property>
@@ -2659,6 +2901,7 @@
         <value xml:lang="en">Package Contents And Order</value>
         <value xml:lang="it">Pacco contenuti e ordine</value>
         <value xml:lang="pt_BR">Conteúdos do pacote e pedido</value>
+        <value xml:lang="vi">Đặt hàng và Nội dung của đóng gói</value>
         <value xml:lang="zh">包装内容和订单</value>
         <value xml:lang="zh_TW">包裝內容和訂單</value>
     </property>
@@ -2671,6 +2914,7 @@
         <value xml:lang="pt_BR">Relatório de etiquetas de pacotes</value>
         <value xml:lang="ro">Tipareste Etichete Pachet</value>
         <value xml:lang="th">รายงานการติดฉลากหีบห่อ</value>
+        <value xml:lang="vi">Báo cáo nhãn đóng gói</value>
         <value xml:lang="zh">包装标签报告</value>
         <value xml:lang="zh_TW">包裝標簽報告</value>
     </property>
@@ -2678,6 +2922,7 @@
         <value xml:lang="en">Package Number</value>
         <value xml:lang="it">Numero pacco</value>
         <value xml:lang="pt_BR">Número de pacote</value>
+        <value xml:lang="vi">Số đóng gói</value>
         <value xml:lang="zh">包装编号</value>
         <value xml:lang="zh_TW">包裝編號</value>
     </property>
@@ -2690,6 +2935,7 @@
         <value xml:lang="pt_BR">Imprimir a execução de produção</value>
         <value xml:lang="ro">Tipareste Comanda Productie</value>
         <value xml:lang="th">พิมพ์การผลิตสินค้า</value>
+        <value xml:lang="vi">In thực thể sản phẩm</value>
         <value xml:lang="zh">打印生产运行</value>
         <value xml:lang="zh_TW">列印生產運行</value>
     </property>
@@ -2701,6 +2947,7 @@
         <value xml:lang="pt_BR">Inventário</value>
         <value xml:lang="ro">Cantitate Stoc</value>
         <value xml:lang="th">คลังสินค้าใน</value>
+        <value xml:lang="vi">Hàng trong kho</value>
         <value xml:lang="zh">入库数量</value>
         <value xml:lang="zh_TW">入庫數量</value>
     </property>
@@ -2708,6 +2955,7 @@
         <value xml:lang="en">If required, materials will be issued as well.</value>
         <value xml:lang="it">Se richiesto, i materiali saranno prelevati.</value>
         <value xml:lang="pt_BR">Se requerido, materiais também serão entregues</value>
+        <value xml:lang="vi">Nếu là yêu cầu bắt buộc thì vật liệu cũng phải được chuẩn bị</value>
         <value xml:lang="zh">如果需要，还会交付物料。</value>
         <value xml:lang="zh_TW">如果需要，還會交付物料。</value>
     </property>
@@ -2720,6 +2968,7 @@
         <value xml:lang="pt_BR">Associação de produto não existe</value>
         <value xml:lang="ro">Asociere Produs inexistenta</value>
         <value xml:lang="th">ไม่มีกลุ่มสินค้าเหลืออยู่</value>
+        <value xml:lang="vi">Kết hợp với sản phẩm không tồn tại</value>
         <value xml:lang="zh">产品关联不存在</value>
         <value xml:lang="zh_TW">產品關聯不存在</value>
     </property>
@@ -2732,6 +2981,7 @@
         <value xml:lang="pt_BR">Este produto é um componente de</value>
         <value xml:lang="ro">Acest Produs este un Component al</value>
         <value xml:lang="th">สินค้านี้เป็นส่วนประกอบของ</value>
+        <value xml:lang="vi">Sản phẩm này là Thành phần của</value>
         <value xml:lang="zh">这个产品是一个组件，用于</value>
         <value xml:lang="zh_TW">這個產品是一個元件，用于</value>
     </property>
@@ -2744,6 +2994,7 @@
         <value xml:lang="pt_BR">Componentes deste produto</value>
         <value xml:lang="ro">Componentele acestui Produs</value>
         <value xml:lang="th">ส่วนประกอบของสินค้านี้</value>
+        <value xml:lang="vi">Các Thành phần của Sản phẩm</value>
         <value xml:lang="zh">这个产品的组件</value>
         <value xml:lang="zh_TW">這個產品的元件</value>
     </property>
@@ -2756,6 +3007,7 @@
         <value xml:lang="pt_BR">Tabela de produtos em estoque não existe</value>
         <value xml:lang="ro">Fisier Compartimente inexistent</value>
         <value xml:lang="th">ไม่มีตารางคลังสินค้าที่ยืดหยุ่นอยู่</value>
+        <value xml:lang="vi">Bảng Chi nhánh / Cơ sở không tồn tại</value>
         <value xml:lang="zh">产品场所表不存在</value>
         <value xml:lang="zh_TW">產品場所表不存在</value>
     </property>
@@ -2768,6 +3020,7 @@
         <value xml:lang="pt_BR">Produto não possui estrutura de materiais (BOM)</value>
         <value xml:lang="ro">Produsul nu are Lista de Repere</value>
         <value xml:lang="th">ไม่มีสินค้าในใบรายการของสินค้า</value>
+        <value xml:lang="vi">Sản phẩm chưa có Chào giá</value>
         <value xml:lang="zh">产品没有物料清单 </value>
         <value xml:lang="zh_TW">產品沒有物料清單 </value>
     </property>
@@ -2780,6 +3033,7 @@
         <value xml:lang="pt_BR">Id do produto</value>
         <value xml:lang="ro">Cod Produs</value>
         <value xml:lang="th">รหัสสินค้า</value>
+        <value xml:lang="vi">Id sản phẩm</value>
         <value xml:lang="zh">产品标识</value>
         <value xml:lang="zh_TW">產品ID</value>
     </property>
@@ -2792,6 +3046,7 @@
         <value xml:lang="pt_BR">Id de produto para</value>
         <value xml:lang="ro">Cod Produs A</value>
         <value xml:lang="th">รหัสสินค้าถึง</value>
+        <value xml:lang="vi">Sản phẩm Tới</value>
         <value xml:lang="zh">产品标识到</value>
         <value xml:lang="zh_TW">產品ID到</value>
     </property>
@@ -2799,6 +3054,7 @@
         <value xml:lang="en">Product is WIP</value>
         <value xml:lang="it">Prodotto è di tipo WIP</value>
         <value xml:lang="pt_BR">Produto é do tipo WIP</value>
+        <value xml:lang="vi">Sản phẩm là WIP</value>
         <value xml:lang="zh">产品是半成品</value>
         <value xml:lang="zh_TW">產品是半成品</value>
     </property>
@@ -2811,6 +3067,7 @@
         <value xml:lang="pt_BR">Nível de produto</value>
         <value xml:lang="ro">Nivel Produs</value>
         <value xml:lang="th">ระดับสินค้า</value>
+        <value xml:lang="vi">Mức độ sản phẩm</value>
         <value xml:lang="zh">产品等级</value>
         <value xml:lang="zh_TW">產品等級</value>
     </property>
@@ -2823,6 +3080,7 @@
         <value xml:lang="pt_BR">O produto não existe</value>
         <value xml:lang="ro">Produs inexistent</value>
         <value xml:lang="th">ไม่มีสินค้าเหลืออยู่</value>
+        <value xml:lang="vi">Sản phẩm không tồn tại</value>
         <value xml:lang="zh">产品不存在</value>
         <value xml:lang="zh_TW">產品不存在</value>
     </property>
@@ -2835,6 +3093,7 @@
         <value xml:lang="pt_BR">Relação do produto com a rota não existe</value>
         <value xml:lang="ro">Link Ciclu Produs inexistent</value>
         <value xml:lang="th">ไม่มีการเชื่อมโยงกับสินค้า</value>
+        <value xml:lang="vi">Liên kết tời Quy trình sản phẩm không tồn tại</value>
         <value xml:lang="zh">产品规程链接不存在</value>
         <value xml:lang="zh_TW">產品規程鏈結不存在</value>
     </property>
@@ -2847,6 +3106,7 @@
         <value xml:lang="pt_BR">A tabela de produtos não existe</value>
         <value xml:lang="ro">Fisierul Produse inexistent</value>
         <value xml:lang="th">ไม่มีตารางสินค้าคงอยู่</value>
+        <value xml:lang="vi">Bảng sản phẩm không tồn tại</value>
         <value xml:lang="zh">产品表不存在</value>
         <value xml:lang="zh_TW">產品表不存在</value>
     </property>
@@ -2858,6 +3118,7 @@
         <value xml:lang="it">Virtuale</value>
         <value xml:lang="pt_BR">Virtual</value>
         <value xml:lang="th">โดยทั้งหมด</value>
+        <value xml:lang="vi">Sản phẩm ảo</value>
         <value xml:lang="zh">虚拟</value>
         <value xml:lang="zh_TW">虛擬</value>
     </property>
@@ -2865,6 +3126,7 @@
         <value xml:lang="en">Production Res Qty Calc</value>
         <value xml:lang="it">Quantità riservata produzione</value>
         <value xml:lang="pt_BR">Cálculo da quantidade de produção reservada</value>
+        <value xml:lang="vi">Tính toán số lượng sản phẩm dự trữ</value>
         <value xml:lang="zh">生产资源数量计算</value>
         <value xml:lang="zh_TW">生產資源數量計算</value>
     </property>
@@ -2877,6 +3139,7 @@
         <value xml:lang="pt_BR">Execução de produção</value>
         <value xml:lang="ro">Comanda de Productie</value>
         <value xml:lang="th">การผลิตสินค้า</value>
+        <value xml:lang="vi">Chế tác lô hàng</value>
         <value xml:lang="zh">生产运行</value>
         <value xml:lang="zh_TW">生產運行</value>
     </property>
@@ -2888,6 +3151,7 @@
         <value xml:lang="it">Componenti Attuali Ordine di Produzione</value>
         <value xml:lang="pt_BR">Componentes efetivos da execução de produção</value>
         <value xml:lang="th">การผลิตสินค้าตามส่วนประกอบที่มีอยู่ในขณะนี้</value>
+        <value xml:lang="vi">Thành phần thực của quá trình Chế tác lô hàng</value>
         <value xml:lang="zh">生产运行实际组件</value>
         <value xml:lang="zh_TW">生產運行實際元件</value>
     </property>
@@ -2900,27 +3164,32 @@
         <value xml:lang="pt_BR">Associações</value>
         <value xml:lang="ro">Asociatii </value>
         <value xml:lang="th">กลุ่ม</value>
+        <value xml:lang="vi">Kết hợp</value>
         <value xml:lang="zh">关联</value>
         <value xml:lang="zh_TW">關聯</value>
     </property>
     <property key="ManufacturingProductionRunCannotBeCancelled">
         <value xml:lang="en">Cannot cancel productionRun, not in a valid status</value>
         <value xml:lang="it">Non è possibile cancellare l'ordin di produzione, non è in uno stato valido</value>
+        <value xml:lang="vi">Không thể hủy bỏ Chế tác lô hàng, trạng thái không hợp lệ</value>
         <value xml:lang="zh">无法取消生产运行（productionRun），状态无效</value>
     </property>
      <property key="ManufacturingProductionRunCannotDecomposingInventoryItem">
         <value xml:lang="en">Error decomposing inventory item: inventory item with id ${inventoryItemId} not found.</value>
         <value xml:lang="it">Errore duranta la decomposizione della riga inventario: riga inventario ${inventoryItemId} non trovata.</value>
+        <value xml:lang="vi">Lỗi khi bóc tách hàng hóa trong kho: hàng hóa với Id ${inventoryItemId} không được tìm thấy.</value>
         <value xml:lang="zh">分解库存明细时出错：没有找到标识为 ${inventoryItemId} 的库存明细</value>
     </property>
     <property key="ManufacturingProductionRunCannotDecomposingInventoryItemNoComponentsFound">
         <value xml:lang="en">Error decomposing inventory item: no components found for marketing package ${productId}.</value>
         <value xml:lang="it">Errore duranta la decomposizione della riga inventario: nessun componente trovato per il pacco di vendita ${productId}.</value>
+        <value xml:lang="vi">Lỗi khi bóc tách hàng hóa trong kho: không thành phần nào được tìm thấy cho gói tiếp thị ${productId}.</value>
         <value xml:lang="zh">分解库存明细时出错：没有找到促销包 ${productId} 的组件。</value>
     </property>
     <property key="ManufacturingProductionRunCannotDecomposingInventoryItemNoMarketingPackagesFound">
         <value xml:lang="en">Error decomposing inventory item: no marketing packages found in inventory item ${inventoryItemId}.</value>
         <value xml:lang="it">Errore duranta la decomposizione della riga inventario: nessun pacco di vendita trovato nella riga di inventario ${inventoryItemId}.</value>
+        <value xml:lang="vi">Lỗi khi bóc tách hàng hóa trong kho: không gói tiếp thị nào được tìm thấy trong hàng hóa của kho ${productId}.</value>
         <value xml:lang="zh">分解库存明细时出错：没有在库存明细 ${inventoryItemId} 中找到促销包。</value>
     </property>
     <property key="ManufacturingProductionRunClose">
@@ -2932,6 +3201,7 @@
         <value xml:lang="pt_BR">Encerrar execução de produção</value>
         <value xml:lang="ro">Inchide comanda de Productie</value>
         <value xml:lang="th">ปิดการผลิตสินค้า</value>
+        <value xml:lang="vi">Kết thúc Chế tác lô hàng</value>
         <value xml:lang="zh">关闭生产运行</value>
         <value xml:lang="zh_TW">關閉生產運行</value>
     </property>
@@ -2939,6 +3209,7 @@
         <value xml:lang="en">Production Run Completion Date Not Correct</value>
         <value xml:lang="it">Data completamento ordine di produzione non corretta</value>
         <value xml:lang="pt_BR">Data de encerramento da execução de produção não está correta</value>
+        <value xml:lang="vi">Ngày hoàn thành Chế tác lô hàng không đúng</value>
         <value xml:lang="zh">生产运行完成时间不正确</value>
         <value xml:lang="zh_TW">生產運行完成時間不正確</value>
     </property>
@@ -2946,6 +3217,7 @@
         <value xml:lang="en">Production Run Component Added</value>
         <value xml:lang="it">Aggiunta componente ordine di produzione</value>
         <value xml:lang="pt_BR">Componente de execução de produto adicionado</value>
+        <value xml:lang="vi">Đã thêm thành phần</value>
         <value xml:lang="zh">生产运行组件已添加</value>
         <value xml:lang="zh_TW">生產運行元件已添加</value>
     </property>
@@ -2953,6 +3225,7 @@
         <value xml:lang="en">Production Run Component Not Added</value>
         <value xml:lang="it">Componente ordine di produzione non aggiunto</value>
         <value xml:lang="pt_BR">Componente de execução de produto não adicionado</value>
+        <value xml:lang="vi">Thành phần được thêm không thành công</value>
         <value xml:lang="zh">生产运行组件没有添加</value>
         <value xml:lang="zh_TW">生產運行元件沒有添加</value>
     </property>
@@ -2960,6 +3233,7 @@
         <value xml:lang="en">Production Run Component Not Exists</value>
         <value xml:lang="it">Componente ordine di produzione non esiste</value>
         <value xml:lang="pt_BR">Componente de execução de produção não existe</value>
+        <value xml:lang="vi">Thành phần không tồn tại</value>
         <value xml:lang="zh">生产运行组件不存在</value>
         <value xml:lang="zh_TW">生產運行元件不存在</value>
     </property>
@@ -2967,6 +3241,7 @@
         <value xml:lang="en">Production Run Component Updated</value>
         <value xml:lang="it">Componente ordine di produzione aggiornato</value>
         <value xml:lang="pt_BR">Componente de execução de produção atualizado</value>
+        <value xml:lang="vi">Thành phần đã được cập nhật</value>
         <value xml:lang="zh">生产运行组件已更新</value>
         <value xml:lang="zh_TW">生產運行元件已更新</value>
     </property>
@@ -2978,12 +3253,14 @@
         <value xml:lang="it">Compomenti Ordine di Produzione</value>
         <value xml:lang="pt_BR">Componentes de execução de produção</value>
         <value xml:lang="th">ส่วนประกอบของการผลิตสินค้า</value>
+        <value xml:lang="vi">Các thành phần của Chế tác lô hàng</value>
         <value xml:lang="zh">生产运行组件</value>
         <value xml:lang="zh_TW">生產運行元件</value>
     </property>
     <property key="ManufacturingProductionRunErrorRunningSetEstimatedDeliveryDates">
         <value xml:lang="en">Problem running the setEstimatedDeliveryDates service</value>
         <value xml:lang="it">Problema di esecuzione del servizio setEstimatedDeliveryDates</value>
+        <value xml:lang="vi">Lỗi khi thực thi dịch vụ setEstimatedDeliveryDates</value>
         <value xml:lang="zh">运行设置预计交货日期（setEstimatedDeliveryDates）服务时出错</value>
     </property>
     <property key="ManufacturingProductionRunCosts">
@@ -2995,6 +3272,7 @@
         <value xml:lang="pt_BR">Custos da execução de produção</value>
         <value xml:lang="ro">Costuri Comenzi de Productie</value>
         <value xml:lang="th">ราคาของผลผลิตที่ได้</value>
+        <value xml:lang="vi">Chi phí Chế tác lô hàng</value>
         <value xml:lang="zh">生产运行成本</value>
         <value xml:lang="zh_TW">生產運行成本</value>
     </property>
@@ -3007,6 +3285,7 @@
         <value xml:lang="pt_BR">Execução de produção ${productionRunId} criada</value>
         <value xml:lang="ro">Comanda de Productie ${productionRunId} creata</value>
         <value xml:lang="th">สร้างการผลิต ${productionRunId}</value>
+        <value xml:lang="vi">Chế tác lô hàng ${productionRunId} đã được tạo</value>
         <value xml:lang="zh">已创建生产运行 ${productionRunId}</value>
         <value xml:lang="zh_TW">已創建生產運行 ${productionRunId}</value>
     </property>
@@ -3018,6 +3297,7 @@
         <value xml:lang="pt_BR">Declaração de execução de produção</value>
         <value xml:lang="ro">Declaratie Comanda de Productie</value>
         <value xml:lang="th">ยืนยันการผลิต</value>
+        <value xml:lang="vi">Khai báo Chế tác lô hàng</value>
         <value xml:lang="zh">生产运行情况</value>
         <value xml:lang="zh_TW">生產運行情況</value>
     </property>
@@ -3025,6 +3305,7 @@
         <value xml:lang="en">Production Run Declare And Produce</value>
         <value xml:lang="it">Ordine di produzione dichiara e produci</value>
         <value xml:lang="pt_BR">Declarar e produzir execução de produção</value>
+        <value xml:lang="vi">Khai báo và Sản xuất Chế tác lô hàng</value>
         <value xml:lang="zh">生产运行说明和产出</value>
         <value xml:lang="zh_TW">生產運行說明和產出</value>
     </property>
@@ -3037,6 +3318,7 @@
         <value xml:lang="pt_BR">Designação de ativo fixo</value>
         <value xml:lang="ro">Anexeaza Mijloc Fix Cespite</value>
         <value xml:lang="th">กำหนดสินทรัพย์ไม่หมุนเวียน</value>
+        <value xml:lang="vi">Gán tài sản cố định</value>
         <value xml:lang="zh">固定资产分配</value>
         <value xml:lang="zh_TW">固定資產分配</value>
     </property>
@@ -3049,6 +3331,7 @@
         <value xml:lang="pt_BR">Id de ativo fixo está faltando</value>
         <value xml:lang="ro">Mijloc Fix Lipseste</value>
         <value xml:lang="th">ไม่ได้ใส่สินทรัพย์ไม่หมุนเวียน</value>
+        <value xml:lang="vi">Id tài sản cố định bị thiếu</value>
         <value xml:lang="zh">缺少固定资产标识</value>
         <value xml:lang="zh_TW">缺少固定資產ID</value>
     </property>
@@ -3059,27 +3342,32 @@
         <value xml:lang="it">Cespite ordine di produzione</value>
         <value xml:lang="pt_BR">Ativos fixos da execução de produção</value>
         <value xml:lang="th">การผลิตสินทรัพย์ไม่หมุนเวียน</value>
+        <value xml:lang="vi">Tài sản cố định</value>
         <value xml:lang="zh">生产运行固定资产</value>
         <value xml:lang="zh_TW">生產運行固定資產</value>
     </property>
     <property key="ManufacturingProductionRunForMarketingPackagesCreationError">
         <value xml:lang="en">Error creating a production run for marketing package for order ${orderId} ${orderItemSeqId}: ${errorString}</value>
         <value xml:lang="it">Errore durante la creazione dell'ordine di produzione per il pacco di vendita per l'ordine ${orderId} ${orderItemSeqId}: ${errorString}</value>
+        <value xml:lang="vi">Lỗi khi tạo Chế tác lô hàng cho Gói tiếp thị của Đặt hàng ${orderId} ${orderItemSeqId}: ${errorString}</value>
         <value xml:lang="zh">为订单 ${orderId} ${orderItemSeqId} 的促销包创建一个生产运行时出错：${errorString}</value>
     </property>
     <property key="ManufacturingProductionRunForMarketingPackagesOrderItemNotFound">
         <value xml:lang="en">Error creating a production run for marketing package for order ${orderId} ${orderItemSeqId}: order item not found.</value>
         <value xml:lang="it">Errore durante la creazione dell'ordine di produzione per il pacco di vendita per l'ordine ${orderId} ${orderItemSeqId}: riga ordine non trovata.</value>
+        <value xml:lang="vi">Lỗi khi tạo Chế tác lô hàng cho Gói tiếp thị của Đặt hàng ${orderId} ${orderItemSeqId}: hàng hóa đặt hàng không tìm thấy.</value>
         <value xml:lang="zh">为订单 ${orderId} ${orderItemSeqId} 的促销包创建一个生产运行时出错：没有找到订单明细</value>
     </property>
     <property key="ManufacturingProductionRunFromConfigurationNotYetImplemented">
         <value xml:lang="en">Operation not yet implemented</value>
         <value xml:lang="it">Operazione non è ancora implementata</value>
+        <value xml:lang="vi">Chưa thực hiện việc điều hành</value>
         <value xml:lang="zh">还没有完成操作</value>
     </property>
     <property key="ManufacturingProductionRunFromConfigurationNotValid">
         <value xml:lang="en">Product Configuration Not Valid</value>
         <value xml:lang="it">Configurazione non valida</value>
+        <value xml:lang="vi">Cấu hình sản phẩm không đúng định dạng</value>
     </property>
     <property key="ManufacturingProductionRunId">
         <value xml:lang="de">Produktionsauftrags-Nr.</value>
@@ -3090,12 +3378,14 @@
         <value xml:lang="pt_BR">Id de execução de produção</value>
         <value xml:lang="ro">Cod Comanda de Productie</value>
         <value xml:lang="th">รหัสการผลิต</value>
+        <value xml:lang="vi">Id</value>
         <value xml:lang="zh">生产运行标识</value>
         <value xml:lang="zh_TW">生產執行ID</value>
     </property>
     <property key="ManufacturingProductionRunIsNotRequiredForProductId">
         <value xml:lang="en">No production run is required for product with id ${productId} in date ${startDate}; please verify the validity dates of the bill of materials and routing.</value>
         <value xml:lang="it">Nessun ordine di produzione è richiesto per il prodotto ${productId} in data ${startDate}; verificare le date di validità dei materiali.</value>
+        <value xml:lang="vi">Không có Chế tác lô hàng với sản phẩm id ${productId} trong ngày ${startDate}; bạn hãy xem xét lại ngày kiểm hàng (validity date) trên Chào giá và Quy trình</value>
     </property>
     <property key="ManufacturingProductionRunName">
         <value xml:lang="de">Produktionsauftrags-Name</value>
@@ -3106,6 +3396,7 @@
         <value xml:lang="pt_BR">Nome da execução de produção</value>
         <value xml:lang="ro">Nume Comanda de Productie</value>
         <value xml:lang="th">ชื่อผลิตผล</value>
+        <value xml:lang="vi">Tên</value>
         <value xml:lang="zh">生产运行名称</value>
         <value xml:lang="zh_TW">生產運行名稱</value>
     </property>
@@ -3113,6 +3404,7 @@
         <value xml:lang="en">Production Run Not Created</value>
         <value xml:lang="it">Ordine di produzione non creato</value>
         <value xml:lang="pt_BR">Execução de produção não foi criada</value>
+        <value xml:lang="vi">Chế tác lô hàng chưa được tạo</value>
         <value xml:lang="zh">生产运行没有创建</value>
         <value xml:lang="zh_TW">生產運行沒有創建</value>
     </property>
@@ -3120,6 +3412,7 @@
         <value xml:lang="en">Production Run Not Exists</value>
         <value xml:lang="it">Ordine di produzione non esiste</value>
         <value xml:lang="pt_BR">Execução de produção não existe</value>
+        <value xml:lang="vi">Chế tác lô hàng không tồn tại</value>
         <value xml:lang="zh">生产运行不存在</value>
         <value xml:lang="zh_TW">生產運行不存在</value>
     </property>
@@ -3132,6 +3425,7 @@
         <value xml:lang="pt_BR">Atualização de execução de produção falhou, veja o relatório (log) para mais informações</value>
         <value xml:lang="ro">Actualizare Comanda de Productie falita, pentru mai multe informatii vezi log </value>
         <value xml:lang="th">เกิดความผิดพลาดในการเปลี่ยนแปลงการผลิตดูบันทึกสำหรับข้อมูลที่มากมาย</value>
+        <value xml:lang="vi">Chế tác lô hàng được cập nhật không thành công, bạn hãy xem vết để biết thêm chi tiết</value>
         <value xml:lang="zh">生产运行更新失败，请查看日志了解详细信息</value>
         <value xml:lang="zh_TW">生產運行更新失敗，請查看日誌了解詳細資訊</value>
     </property>
@@ -3143,6 +3437,7 @@
         <value xml:lang="it">Stampa documento ordine di produzione</value>
         <value xml:lang="pt_BR">Documentos de impressão da execução de produção</value>
         <value xml:lang="th">พิมพ์เอกสารการผลิต</value>
+        <value xml:lang="vi">Tài liệu bản in</value>
         <value xml:lang="zh">生产运行打印文档</value>
         <value xml:lang="zh_TW">生產運行列印文檔</value>
     </property>
@@ -3150,6 +3445,7 @@
         <value xml:lang="en">Production Run Printed</value>
         <value xml:lang="it">Ordine di produzione stampato</value>
         <value xml:lang="pt_BR">Execução de produção impressa</value>
+        <value xml:lang="vi">Đã in</value>
         <value xml:lang="zh">生产运行已打印</value>
         <value xml:lang="zh_TW">生產運行已列印</value>
     </property>
@@ -3157,6 +3453,7 @@
         <value xml:lang="en">Production Run Priority Missing</value>
         <value xml:lang="it">Ordine di produzione priorità mancante</value>
         <value xml:lang="pt_BR">Prioridade de execução de produção está faltando</value>
+        <value xml:lang="vi">Thiếu độ ưu tiên</value>
         <value xml:lang="zh">生产运行缺少优先级</value>
         <value xml:lang="zh_TW">生產運行缺少優先級</value>
     </property>
@@ -3164,6 +3461,7 @@
         <value xml:lang="en">Production Run Produce</value>
         <value xml:lang="it">Ordine di produzione prodotto</value>
         <value xml:lang="pt_BR">Execução de produção produz</value>
+        <value xml:lang="vi">Sản xuất</value>
         <value xml:lang="zh">生产运行产出</value>
         <value xml:lang="zh_TW">生產運行產出</value>
     </property>
@@ -3176,6 +3474,7 @@
         <value xml:lang="pt_BR">Componente do produto da execução de produção</value>
         <value xml:lang="ro">Comanda de Productie Produse Componente</value>
         <value xml:lang="th">ส่วนประกอบของสินค้าในการผลิต</value>
+        <value xml:lang="vi">Thành phần</value>
         <value xml:lang="zh">生产运行产品组件</value>
         <value xml:lang="zh_TW">生產運行產品元件</value>
     </property>
@@ -3183,6 +3482,7 @@
         <value xml:lang="en">Production Run Product Produce Not Still Available</value>
         <value xml:lang="it">Ordine di produzione prodotto da produrre non ancora disponibile</value>
         <value xml:lang="pt_BR">Produto da Execução de produção a produzir ainda não disponível</value>
+        <value xml:lang="vi">Sản xuất chưa có sẵn</value>
         <value xml:lang="zh">生产运行产品产出不可用</value>
         <value xml:lang="zh_TW">生產運行產品產出不可用</value>
     </property>
@@ -3195,6 +3495,7 @@
         <value xml:lang="pt_BR">Quantidade da execução de produção está faltando</value>
         <value xml:lang="ro">Comanda de Productie Lipseste Cantitatea</value>
         <value xml:lang="th">ไม่ได้ใส่จำนวนการผลิต</value>
+        <value xml:lang="vi">Số lượng chưa có thông tin</value>
         <value xml:lang="zh">缺少生产运行数量</value>
         <value xml:lang="zh_TW">缺少生產運行數量</value>
     </property>
@@ -3207,6 +3508,7 @@
         <value xml:lang="pt_BR">O campo da quantidade da execução de produção não está formatado corretamente</value>
         <value xml:lang="ro">Comanda de Productie campul Cantitate are un format incorect</value>
         <value xml:lang="th">รูปแบบการใส่จำนวนการผลิตไม่ถูกต้อง</value>
+        <value xml:lang="vi">Trường thông tin Số lượng không đúng định dạng</value>
         <value xml:lang="zh">生产运行数量域格式不正确</value>
         <value xml:lang="zh_TW">生產運行數量域格式不正確</value>
     </property>
@@ -3219,6 +3521,7 @@
         <value xml:lang="pt_BR">A data de início da execução de produção está faltando</value>
         <value xml:lang="ro">Comanda de Productie Data Initiala Lipseste</value>
         <value xml:lang="th">ไม่ได้ใส่วันเริ่มต้นที่ผลิต</value>
+        <value xml:lang="vi">Ngày bắt đầu chưa có</value>
         <value xml:lang="zh">缺少生产运行开始日期</value>
         <value xml:lang="zh_TW">缺少生產運行開始日期</value>
     </property>
@@ -3231,6 +3534,7 @@
         <value xml:lang="pt_BR">O campo de data de início está incorreto, o formato deve ser AAAA-mm-dd HH:mm:ss</value>
         <value xml:lang="ro">Campul Data Initiala nu este corect, formatul trebbie sa fie de tipul AAAA-ll-zz HH:mm:ss</value>
         <value xml:lang="th">วันเริ่มต้นไม่ถูกต้อง, รูปแบบจะต้องเป็น AAAA-mm-jj HH:mm:ss</value>
+        <value xml:lang="vi">Ngày bắt đầu chưa đúng định dạng, định dạng là AAAA-mm-jj HH:mm:ss</value>
         <value xml:lang="zh">开始日期域不正确，格式必须是AAAA-mm-jj HH:mm:ss</value>
         <value xml:lang="zh_TW">開始日期域不正確，格式必須是AAAA-mm-jj HH:mm:ss</value>
     </property>
@@ -3242,6 +3546,7 @@
         <value xml:lang="it">Stato Ordine di Produzione cambiato con successo.</value>
         <value xml:lang="pt_BR">O estado da execução de programa foi alterada com sucesso.</value>
         <value xml:lang="th">ได้เปลี่ยนสถานะการผลิตเรียบร้อยแล้ว</value>
+        <value xml:lang="vi">Trạng thái được thay đổi thành công</value>
         <value xml:lang="zh">生产运行状态修改成功。</value>
         <value xml:lang="zh_TW">生產運行狀態修改成功。</value>
     </property>
@@ -3249,6 +3554,7 @@
         <value xml:lang="en">Production Run Status Not Changed</value>
         <value xml:lang="it">Stato ordine di produzione non cambiato</value>
         <value xml:lang="pt_BR">Estado da execução de produção não mudou</value>
+        <value xml:lang="vi">Trạng thái không được thay đổi thành công</value>
         <value xml:lang="zh">生产运行状态没有改变</value>
         <value xml:lang="zh_TW">生產運行狀態沒有改變</value>
     </property>
@@ -3256,6 +3562,7 @@
         <value xml:lang="en">Production Run Status Not Changed Mandatory Production Run Found</value>
         <value xml:lang="it">Stato ordine di produzione non cambiato per l'ordine di produzione trovato</value>
         <value xml:lang="pt_BR">Estado da execução de produção não mudou para aquela que foi encontrada</value>
+        <value xml:lang="vi">Trạng thái Chế tác lô hàng không được thay đổi, Chế tác lô hàng được tìm thấy</value>
         <value xml:lang="zh">生产运行状态没有改变，找到了必要的生产运行</value>
         <value xml:lang="zh_TW">生產運行狀態沒有改變，找到了必要的生產運行</value>
     </property>
@@ -3263,17 +3570,20 @@
         <value xml:lang="en">Production Run Status Not Changed Mandatory Production Run Not Completed</value>
         <value xml:lang="it">Stato ordine di produzione non cambiato per l'ordine di produzione non completato</value>
         <value xml:lang="pt_BR">Estado de execução de produção não mudou para a execução de produção obrigatória que não terminou</value>
+        <value xml:lang="vi">Trạng thái Chế tác lô hàng không được thay đổi, Chế tác lô hàng chưa hoàn thành</value>
         <value xml:lang="zh">生产运行状态没有改变，没有完成必要的生产运行</value>
         <value xml:lang="zh_TW">生產運行狀態沒有改變，沒有完成必要的生產運行</value>
     </property>
     <property key="ManufacturingProductionRunTaskCannotReturnMoreItems">
         <value xml:lang="en">Production Run Task with id ${productionRunTaskId} cannot return more items ${quantity} than the ones currently allocated ${quantityAllocated}</value>
         <value xml:lang="it">Compito ordine di produzione ${productionRunTaskId} non può restituire più righe ${quantity} di quelle allocate attualmente ${quantityAllocated}</value>
+        <value xml:lang="vi">Tác vụ - Đầu việc với Id ${productionRunTaskId} không thể trả về nhiều hơn số hàng hóa ${quantity} hơn số lượng đang được phân bổ ${quantityAllocated}</value>
     </property>
     <property key="ManufacturingProductionRunTaskCannotStartDocsNotPrinted">
         <value xml:lang="en">Production Run Task Cannot Start Docs Not Printed</value>
         <value xml:lang="it">Compito ordine di produzione non può iniziare con documento non stampato</value>
         <value xml:lang="pt_BR">Tarefa de execução de produção não pode começar pois documentos não foram impressos</value>
+        <value xml:lang="vi">Tác vụ - Đầu việc không thể được in ra</value>
         <value xml:lang="zh">生产运行任务无法启动，文档没有打印</value>
         <value xml:lang="zh_TW">生產運行任務無法啟動，文檔沒有列印</value>
     </property>
@@ -3281,17 +3591,20 @@
         <value xml:lang="en">Production Run Task Cannot Start Prev Tasks Not Completed</value>
         <value xml:lang="it">Compito ordine di produzione non può iniziare un precedente compito non completato</value>
         <value xml:lang="pt_BR">Tarefa de execução de produção não pode começar por a anterior não se completou</value>
+        <value xml:lang="vi">Tác vụ - Đầu việc (Task Cannot Start Prev) chưa hoàn thành</value>
         <value xml:lang="zh">生产运行任务无法启动，之前的任务没有完成</value>
         <value xml:lang="zh_TW">生產運行任務無法啟動，之前的任務沒有完成</value>
     </property>
     <property key="ManufacturingProductionRunTaskNotFound">
         <value xml:lang="en">Cannot find the production run task with id: ${productionRunTaskId}</value>
         <value xml:lang="it">Non è possibile trovare il compito dell'ordine di produzione: ${productionRunTaskId}</value>
+        <value xml:lang="vi">Không tìm thấy Tác vụ - Đầu việc với Id: ${productionRunTaskId}</value>
     </property>
     <property key="ManufacturingProductionRunTaskNotExists">
         <value xml:lang="en">Production Run Task Not Exists</value>
         <value xml:lang="it">Compito ordine di produzione non esiste</value>
         <value xml:lang="pt_BR">Tarefa de execução de produção não existe</value>
+        <value xml:lang="vi">Tác vụ - Đầu việc không tồn tại</value>
         <value xml:lang="zh">生产运行任务不存在</value>
         <value xml:lang="zh_TW">生產運行任務不存在</value>
     </property>
@@ -3299,17 +3612,20 @@
         <value xml:lang="en">Production Run Task Not Running</value>
         <value xml:lang="it">Compito ordine di produzione non in esecuzione</value>
         <value xml:lang="pt_BR">Tarefa de execução de produção não está sendo executada</value>
+        <value xml:lang="vi">Tác vụ - Đầu việc chưa được thực thi</value>
         <value xml:lang="zh">生产运行任务没有执行</value>
         <value xml:lang="zh_TW">生產運行任務沒有執行</value>
     </property>
     <property key="ManufacturingProductionRunTaskProduceError">
         <value xml:lang="en">Error calling productionRunTaskProduce: </value>
         <value xml:lang="it">Errore durante l'esecuzione di productionRunTaskProduce: </value>
+        <value xml:lang="vi">Lỗi khi thực thi dịch vụ productionRunTaskProduce: </value>
     </property>
     <property key="ManufacturingProductionRunTaskStatusChanged">
         <value xml:lang="en">Production Run Task Status Changed</value>
         <value xml:lang="it">Compito ordine di produzione stato cambiato</value>
         <value xml:lang="pt_BR">Estado da tarefa de execução de produção não foi alterado</value>
+        <value xml:lang="vi">Trạng thái Tác vụ - Đầu việc đã thay đổi</value>
         <value xml:lang="zh">生产运行任务状态已改变</value>
         <value xml:lang="zh_TW">生產運行任務狀態已改變</value>
     </property>
@@ -3321,40 +3637,49 @@
         <value xml:lang="it">Operazione Ordine di Produzione</value>
         <value xml:lang="pt_BR">Tarefas de execução de produção</value>
         <value xml:lang="th">งานการผลิต</value>
+        <value xml:lang="vi">Tác vụ - Đầu việc</value>
         <value xml:lang="zh">生产运行任务</value>
         <value xml:lang="zh_TW">生產運行任務</value>
     </property>
     <property key="ManufacturingProductionRunTryToCreateWorkEffortAssoc">
         <value xml:lang="en">Error try to create workeffort assoc</value>
         <value xml:lang="it">Errore durante il tentativo di creazione associazione impegno di lavoro</value>
+        <value xml:lang="vi">Lỗi khi tạo Lượng giá nguồn lực kết hợp</value>
     </property>
     <property key="ManufacturingProductionRunTryToGetBomListError">
         <value xml:lang="en">Error try to get BOM list from productAssoc</value>
         <value xml:lang="it">Errore durante il tentativo di ottenere la lista della distinta base da productAssoc</value>
+        <value xml:lang="vi">Lỗi khi lấy thông tin danh sách Chào giá từ Sản phẩm</value>
     </property>
     <property key="ManufacturingProductionRunUnableToCreateMaterialsCosts">
         <value xml:lang="en">Unable to create materials costs for the production run task ${productionRunTaskId}: ${errorString}</value>
         <value xml:lang="it">Non è possibile create i costi dei materiali per il compito dell'ordine di produzione ${productionRunTaskId}: ${errorString}</value>
+        <value xml:lang="vi">Không thể tạo Chi phí vật liệu cho Tác vụ - Đầu việc ${productionRunTaskId}: ${errorString}</value>
     </property>
     <property key="ManufacturingProductionRunUnableToCreateRoutingCosts">
         <value xml:lang="en">Unable to create routing costs for the production run task ${productionRunTaskId}: ${errorString}</value>
         <value xml:lang="it">Non è possibile create i costi per il compito dell'ordine di produzione ${productionRunTaskId}: ${errorString}</value>
+        <value xml:lang="vi">Không thể tạo Chi phí quy trình cho Tác vụ - Đầu việc ${productionRunTaskId}: ${errorString}</value>
     </property>
     <property key="ManufacturingProductionRunUnableToFindCosts">
         <value xml:lang="en">Unable to find a currency for production run costs</value>
         <value xml:lang="it">Non è possibile trovare una valuta per i costi dell'ordine di produzione</value>
+        <value xml:lang="vi">Không thể tìm thấy kiểu Tiền tệ cho Chi phí</value>
     </property>
     <property key="ManufacturingProductionRunUnableToFindCostsForWorkEffort">
         <value xml:lang="en">Cannot retrieve costs for work effort ${workEffortId}: ${errorString}</value>
         <value xml:lang="it">Non è possibile ricavare i costi per l'impegno di lavoro ${workEffortId}: ${errorString}</value>
+        <value xml:lang="vi">Không thể lấy thông tin Chi phí cho Lượng giá nguồn lực ${workEffortId}: ${errorString}</value>
     </property>
     <property key="ManufacturingProductionRunUnableToFindOverheadCosts">
         <value xml:lang="en">Unable to compute overhead costs for production run: ${errorString}</value>
         <value xml:lang="it">Non è possibile elaborare gli ulteriori costo dell'ordine di produzione: ${errorString}</value>
+        <value xml:lang="vi">Không thể tính Chi phí phát sinh cho Chế tác lô hàng: ${errorString}</value>
     </property>
     <property key="ManufacturingProductionRunUnableToProgressTaskStatus">
         <value xml:lang="en">Unable to progress from status ${prevStatusId} for task ${taskId}</value>
         <value xml:lang="it">Non è possibile cambiare lo stato da 'in corso' ${prevStatusId} per il compito ${taskId}</value>
+        <value xml:lang="vi">Không thể tiến hành từ trạng thái ${prevStatusId} cho Tác vụ - Đầu việc ${taskId}</value>
     </property>
     <property key="ManufacturingProposedOrder">
         <value xml:lang="en">Proposed Order</value>
@@ -3364,6 +3689,7 @@
         <value xml:lang="pt_BR">Pedido proposto</value>
         <value xml:lang="ro">Comanda Propusa</value>
         <value xml:lang="th">วางแผนการสั่งซื้อ</value>
+        <value xml:lang="vi">Đặt hàng đề xuất</value>
         <value xml:lang="zh">已提交的订单</value>
         <value xml:lang="zh_TW">已提交的訂單</value>
     </property>
@@ -3376,6 +3702,7 @@
         <value xml:lang="pt_BR">Quantidade</value>
         <value xml:lang="ro">Cantitate</value>
         <value xml:lang="th">จำนวน</value>
+        <value xml:lang="vi">Số lượng</value>
         <value xml:lang="zh">数量</value>
         <value xml:lang="zh_TW">數量</value>
     </property>
@@ -3388,6 +3715,7 @@
         <value xml:lang="pt_BR">Quantidade mínima</value>
         <value xml:lang="ro">Cantitate Minima</value>
         <value xml:lang="th">จำนวนน้อยที่สุด</value>
+        <value xml:lang="vi">Số lượng tối thiểu</value>
         <value xml:lang="zh">数量最小值</value>
         <value xml:lang="zh_TW">數量最小值</value>
     </property>
@@ -3400,6 +3728,7 @@
         <value xml:lang="pt_BR">Quantidade produzida</value>
         <value xml:lang="ro">Cantitate Produsa</value>
         <value xml:lang="th">สินค้า</value>
+        <value xml:lang="vi">Đã sản xuất</value>
         <value xml:lang="zh">已生产</value>
         <value xml:lang="zh_TW">已生產</value>
     </property>
@@ -3409,6 +3738,7 @@
         <value xml:lang="fr">La quantité produite ne peut pas être plus importante que la quantité affichée.</value>
         <value xml:lang="it">La quantità prodotta non puo' essere maggiore della quantita' dichiarata.</value>
         <value xml:lang="pt_BR">A quantidade produzida não pode ser maior que aquela declarada.</value>
+        <value xml:lang="vi">Số lượng sản xuất không được lớn hơn số lượng đã Khai báo</value>
         <value xml:lang="zh">已生产的数量不大于声明的数量。</value>
         <value xml:lang="zh_TW">已生產的數量不大于聲明的數量。</value>
     </property>
@@ -3421,6 +3751,7 @@
         <value xml:lang="pt_BR">Rejeitado</value>
         <value xml:lang="ro">Cantitate Rebutata</value>
         <value xml:lang="th">ไม่ยอมรับ</value>
+        <value xml:lang="vi">Từ chối</value>
         <value xml:lang="zh">已拒绝</value>
         <value xml:lang="zh_TW">已拒絕</value>
     </property>
@@ -3433,6 +3764,7 @@
         <value xml:lang="pt_BR">Quantidade restante</value>
         <value xml:lang="ro">Cantitate Ramasa</value>
         <value xml:lang="th">ยังเหลืออยู่</value>
+        <value xml:lang="vi">Còn lại</value>
         <value xml:lang="zh">剩余</value>
         <value xml:lang="zh_TW">剩余</value>
     </property>
@@ -3445,6 +3777,7 @@
         <value xml:lang="pt_BR">Quantidade a produzir</value>
         <value xml:lang="ro">Cantitate de Produs</value>
         <value xml:lang="th">จำนวนสินค้า</value>
+        <value xml:lang="vi">Số lượng để sản xuất</value>
         <value xml:lang="zh">要生产的数量</value>
         <value xml:lang="zh_TW">要生產的數量</value>
     </property>
@@ -3457,6 +3790,7 @@
         <value xml:lang="pt_BR">Fechar rapidamente</value>
         <value xml:lang="ro">Inchidere Rapida</value>
         <value xml:lang="th">ปิดอย่างรวดเร็ว</value>
+        <value xml:lang="vi">Kết thúc nhanh</value>
         <value xml:lang="zh">快速关闭</value>
         <value xml:lang="zh_TW">快速關閉</value>
     </property>
@@ -3469,6 +3803,7 @@
         <value xml:lang="pt_BR">Completar rapidamente</value>
         <value xml:lang="ro">Completament Rapid</value>
         <value xml:lang="th">เสร็จสิ้นอย่างรวดเร็ว</value>
+        <value xml:lang="vi">Hoàn thành nhanh</value>
         <value xml:lang="zh">快速完成</value>
         <value xml:lang="zh_TW">快速完成</value>
     </property>
@@ -3481,6 +3816,7 @@
         <value xml:lang="pt_BR">Executar rapidamente todas as tarefas</value>
         <value xml:lang="ro">Executie Rapida Toate Sarcinile</value>
         <value xml:lang="th">ทำงานทั้งหมดอย่างรวดเร็ว</value>
+        <value xml:lang="vi">Thực thi nhanh tất cả các Tác vụ - Đầu việc</value>
         <value xml:lang="zh">快速运行全部任务</value>
         <value xml:lang="zh_TW">快速運行全部任務</value>
     </property>
@@ -3493,6 +3829,7 @@
         <value xml:lang="pt_BR">Executar rapidamente a tarefa</value>
         <value xml:lang="ro">Executie Rapida Sarcini</value>
         <value xml:lang="th">ทำงานอย่างรวดเร็ว</value>
+        <value xml:lang="vi">Thực thi nhanh Tác vụ - Đầu việc</value>
         <value xml:lang="zh">全速运行任务</value>
         <value xml:lang="zh_TW">全速運行任務</value>
     </property>
@@ -3503,6 +3840,7 @@
         <value xml:lang="fr">Démarrer rapid. toutes opé.</value>
         <value xml:lang="it">Avvio Veloce Operazioni</value>
         <value xml:lang="pt_BR">Iniciar rapidamente todas as tarefas</value>
+        <value xml:lang="vi">Thực thi nhanh các Tác vụ - Đầu việc</value>
         <value xml:lang="zh">快速启动全部任务</value>
         <value xml:lang="zh_TW">快速啟動全部任務</value>
     </property>
@@ -3515,6 +3853,7 @@
         <value xml:lang="pt_BR">Razão</value>
         <value xml:lang="ro">Societate</value>
         <value xml:lang="th">เหตุผล</value>
+        <value xml:lang="vi">Lí do</value>
         <value xml:lang="zh">原因</value>
         <value xml:lang="zh_TW">原因</value>
     </property>
@@ -3527,6 +3866,7 @@
         <value xml:lang="pt_BR">Relatórios</value>
         <value xml:lang="ro">Tipareste</value>
         <value xml:lang="th">รายงาน</value>
+        <value xml:lang="vi">Báo cáo</value>
         <value xml:lang="zh">报告</value>
         <value xml:lang="zh_TW">報告</value>
     </property>
@@ -3538,6 +3878,7 @@
         <value xml:lang="it">Fabbisogni per data</value>
         <value xml:lang="pt_BR">Requisitos por data</value>
         <value xml:lang="th">ความต้องการโดยวัน</value>
+        <value xml:lang="vi">Yêu cầu bởi Ngày</value>
         <value xml:lang="zh">按日期的需求</value>
         <value xml:lang="zh_TW">按日期的需求</value>
     </property>
@@ -3549,6 +3890,7 @@
         <value xml:lang="it">Fabbisogno</value>
         <value xml:lang="pt_BR">Id de requisito</value>
         <value xml:lang="th">รหัสความต้องการ</value>
+        <value xml:lang="vi">Id Yêu cầu</value>
         <value xml:lang="zh">需求标识</value>
         <value xml:lang="zh_TW">需求ID</value>
     </property>
@@ -3557,6 +3899,7 @@
         <value xml:lang="fr">Besoin de fabrication non supprimé</value>
         <value xml:lang="it">Fabbisogno non cancellato</value>
         <value xml:lang="pt_BR">Requisito não apagado</value>
+        <value xml:lang="vi">Yêu cầu chưa được xóa</value>
         <value xml:lang="zh">没有需求被删除</value>
         <value xml:lang="zh_TW">沒有需求被刪除</value>
     </property>
@@ -3565,6 +3908,7 @@
         <value xml:lang="fr">Besoin de fabrication inexistant</value>
         <value xml:lang="it">Fabbisogno non esistente</value>
         <value xml:lang="pt_BR">Requisito não existente</value>
+        <value xml:lang="vi">Yêu cầu không tồn tại</value>
         <value xml:lang="zh">不存在需求</value>
         <value xml:lang="zh_TW">不存在需求</value>
     </property>
@@ -3573,6 +3917,7 @@
         <value xml:lang="fr">Besoin de fabrication non mis à jour</value>
         <value xml:lang="it">Fabbisogno non aggiornato</value>
         <value xml:lang="pt_BR">Requisito não atualizado</value>
+        <value xml:lang="vi">Yêu cầu không được cập nhật</value>
         <value xml:lang="zh">没有需求被更新</value>
         <value xml:lang="zh_TW">沒有需求被更新</value>
     </property>
@@ -3584,6 +3929,7 @@
         <value xml:lang="it">Data inizio fabbisogno</value>
         <value xml:lang="pt_BR">Data de início do requisito</value>
         <value xml:lang="th">วันเริ่มต้นของความต้องการ</value>
+        <value xml:lang="vi">Ngày bắt đầu</value>
         <value xml:lang="zh">需求开始日期</value>
         <value xml:lang="zh_TW">需求開始日期</value>
     </property>
@@ -3595,6 +3941,7 @@
         <value xml:lang="it">Materiali Non Usati Resi al Magazzino</value>
         <value xml:lang="pt_BR">Devolver materiais não utilizados para o armazém</value>
         <value xml:lang="th">แสดงวัสดุที่ยังไม่เคยใช้ในคลังสินค้า</value>
+        <value xml:lang="vi">Trả về Vật liệu không sử dụng tới Kho</value>
         <value xml:lang="zh">把未用物料归还仓库</value>
         <value xml:lang="zh_TW">把未用物料歸還倉庫</value>
     </property>
@@ -3607,6 +3954,7 @@
         <value xml:lang="pt_BR">Quantidade devolvida</value>
         <value xml:lang="ro">Cantitate Returnata</value>
         <value xml:lang="th">แสดง</value>
+        <value xml:lang="vi">Đã trả về</value>
         <value xml:lang="zh">退货</value>
         <value xml:lang="zh_TW">退貨</value>
     </property>
@@ -3619,12 +3967,14 @@
         <value xml:lang="pt_BR">Rotas</value>
         <value xml:lang="ro">Ciclu</value>
         <value xml:lang="th">Routing</value>
+        <value xml:lang="vi">Quy trình</value>
         <value xml:lang="zh">规程</value>
         <value xml:lang="zh_TW">規程</value>
     </property>
     <property key="ManufacturingRoutingErrorFindingTask">
         <value xml:lang="en">Error finding routing task with id: ${taskId}</value>
         <value xml:lang="it">Errore durante la ricerca del ciclo per il compito: ${taskId}</value>
+        <value xml:lang="vi">Lỗi tìm tác vụ quy trình với Id: ${taskId}</value>
     </property>
     <property key="ManufacturingRoutingHasNoRoutingTask">
         <value xml:lang="de">Arbeitsplan besitzt keinen Arbeitsgang</value>
@@ -3635,6 +3985,7 @@
         <value xml:lang="pt_BR">A rota não possui tarefas associadas</value>
         <value xml:lang="ro">Ciclul nu are Operatii</value>
         <value xml:lang="th">ไม่มีการทำงาน</value>
+        <value xml:lang="vi">Quy trình không có Tác vụ - Đầu việc nào</value>
         <value xml:lang="zh">规程没有规程任务</value>
         <value xml:lang="zh_TW">規程沒有規程任務</value>
     </property>
@@ -3647,6 +3998,7 @@
         <value xml:lang="pt_BR">Id da rota</value>
         <value xml:lang="ro">Cod Ciclu</value>
         <value xml:lang="th">รหัส Routing </value>
+        <value xml:lang="vi">Id quy trình</value>
         <value xml:lang="zh">规程标识</value>
         <value xml:lang="zh_TW">規程ID</value>
     </property>
@@ -3659,6 +4011,7 @@
         <value xml:lang="pt_BR">Id de rota está faltando</value>
         <value xml:lang="ro">Cod Ciclu lipseste</value>
         <value xml:lang="th">ไม่ได้ใส่ Routing</value>
+        <value xml:lang="vi">Id quy trình bị thiếu</value>
         <value xml:lang="zh">缺少规程标识</value>
         <value xml:lang="zh_TW">缺少規程ID</value>
     </property>
@@ -3671,6 +4024,7 @@
         <value xml:lang="pt_BR">Nome da rota</value>
         <value xml:lang="ro">Nome Ciclu</value>
         <value xml:lang="th">ชื่อ Routing</value>
+        <value xml:lang="vi">Tên quy trình</value>
         <value xml:lang="zh">规程名称</value>
         <value xml:lang="zh_TW">規程名稱</value>
     </property>
@@ -3683,6 +4037,7 @@
         <value xml:lang="pt_BR">O formato do Id de sequência da rota não está correto</value>
         <value xml:lang="ro">Cod Ciclu Seq format incorect</value>
         <value xml:lang="th">รูปแบบรหัส Routing ไม่ถูกต้อง</value>
+        <value xml:lang="vi">Định dạng thứ tự quy trình không đúng định dạng</value>
         <value xml:lang="zh">规程序号标识格式不正确</value>
         <value xml:lang="zh_TW">規程序列ID格式不正確</value>
     </property>
@@ -3695,6 +4050,7 @@
         <value xml:lang="pt_BR">O Id da sequência de rota está faltando</value>
         <value xml:lang="ro">Cod Ciclu Seq Lipseste</value>
         <value xml:lang="th">ไม่ได้ใส่รหัสลำดับ Routing</value>
+        <value xml:lang="vi">Thứ tự quy trình bị thiếu</value>
         <value xml:lang="zh">缺少规程序号标识</value>
         <value xml:lang="zh_TW">缺少規程序列ID</value>
     </property>
@@ -3707,6 +4063,7 @@
         <value xml:lang="pt_BR">Tarefa de rota</value>
         <value xml:lang="ro">Operatie</value>
         <value xml:lang="th">การทำงาน</value>
+        <value xml:lang="vi">Tác vụ - Đầu việc</value>
         <value xml:lang="zh">规程任务</value>
         <value xml:lang="zh_TW">規程任務</value>
     </property>
@@ -3719,6 +4076,7 @@
         <value xml:lang="pt_BR">Associação da tarefa de rota criada com sucesso</value>
         <value xml:lang="ro">Operatie asociatie creata cu succes</value>
         <value xml:lang="th">สร้างการเชื่อมโยงการทำงานเรียบร้อยแล้ว</value>
+        <value xml:lang="vi">Sự kết hợp Tác vụ - Đầu việc tạo thành công</value>
         <value xml:lang="zh">成功创建规程任务关联</value>
         <value xml:lang="zh_TW">成功創建規程任務關聯</value>
     </property>
@@ -3731,6 +4089,7 @@
         <value xml:lang="pt_BR">Tarefa de rota copiada com sucesso</value>
         <value xml:lang="ro">Operatie copiata cu succes</value>
         <value xml:lang="th">คัดลอกการทำงานเรียบร้อยแล้ว</value>
+        <value xml:lang="vi">Tác vụ - Đầu việc sao chép tạo thành công</value>
         <value xml:lang="zh">成功复制规程任务</value>
         <value xml:lang="zh_TW">成功複制規程任務</value>
     </property>
@@ -3743,6 +4102,7 @@
         <value xml:lang="pt_BR">Custos de Tarefas de rota</value>
         <value xml:lang="ro">Costuri Operatii</value>
         <value xml:lang="th">ราคาของการทำงาน</value>
+        <value xml:lang="vi">Chi phí Tác vụ - Đầu việc</value>
         <value xml:lang="zh">规程任务成本</value>
         <value xml:lang="zh_TW">規程任務成本</value>
     </property>
@@ -3755,6 +4115,7 @@
         <value xml:lang="pt_BR">Ativos fixos</value>
         <value xml:lang="ro">Mijloace Fixe</value>
         <value xml:lang="th">สินทรัพย์ไม่หมุนเวียน</value>
+        <value xml:lang="vi">Tài sản cố định</value>
         <value xml:lang="zh">固定资产</value>
         <value xml:lang="zh_TW">固定資產</value>
     </property>
@@ -3767,6 +4128,7 @@
         <value xml:lang="pt_BR">Id de tarefa de rota</value>
         <value xml:lang="ro">Cod Operatie</value>
         <value xml:lang="th">รหัสการทำงาน</value>
+        <value xml:lang="vi">Id tác vụ quy trình</value>
         <value xml:lang="zh">规程任务标识</value>
         <value xml:lang="zh_TW">規程任務ID</value>
     </property>
@@ -3775,6 +4137,7 @@
         <value xml:lang="fr">Code d'opération manquant</value>
         <value xml:lang="it">Codice operazione mancante</value>
         <value xml:lang="pt_BR">Id de tarefa de rota está faltando</value>
+        <value xml:lang="vi">Id bị thiếu</value>
         <value xml:lang="zh">缺少规程任务标识</value>
         <value xml:lang="zh_TW">缺少規程任務ID</value>
     </property>
@@ -3783,6 +4146,7 @@
         <value xml:lang="fr">Cette opération n'existe pas</value>
         <value xml:lang="it">Codice operazione non esiste</value>
         <value xml:lang="pt_BR">Tarefa de rota não existe</value>
+        <value xml:lang="vi">Tác vụ - Đầu việc không tồn tại</value>
         <value xml:lang="zh">规程任务不存在</value>
         <value xml:lang="zh_TW">規程任務不存在</value>
     </property>
@@ -3791,6 +4155,7 @@
         <value xml:lang="fr">Cette opération existe déjà</value>
         <value xml:lang="it">Codice operazione sequenza già esistente</value>
         <value xml:lang="pt_BR">Sequência de tarefa de rota já existe</value>
+        <value xml:lang="vi">Id thứ tự tác vụ đã tồn tại</value>
         <value xml:lang="zh">规程任务序列号已存在</value>
         <value xml:lang="zh_TW">規程任務序列號已存在</value>
     </property>
@@ -3798,6 +4163,7 @@
         <value xml:lang="en">Routing Task Start Date Before Production Run</value>
         <value xml:lang="it">Codice operazione data inizio prima dell'ordine di produzione</value>
         <value xml:lang="pt_BR">Data de início da tarefa de rota é anterior à execução de produção</value>
+        <value xml:lang="vi">Ngày bắt đầu trước khi Chế tác lô hàng</value>
         <value xml:lang="zh">开始日期在生产运行之前的规程任务</value>
         <value xml:lang="zh_TW">開始日期在生產運行之前的規程任務</value>
     </property>
@@ -3810,6 +4176,7 @@
         <value xml:lang="pt_BR">Tarefa de rota faltando</value>
         <value xml:lang="ro">Operatia A Lipseste</value>
         <value xml:lang="th">ไม่ได้ใส่การทำงานถึง</value>
+        <value xml:lang="vi">Tác vụ - Đầu việc ĐẾN bị thiếu</value>
         <value xml:lang="zh">缺少规程任务到</value>
         <value xml:lang="zh_TW">缺少規程任務到</value>
     </property>
@@ -3822,6 +4189,7 @@
         <value xml:lang="pt_BR">Tarefas de rota</value>
         <value xml:lang="ro">Operatii</value>
         <value xml:lang="th">การทำาน</value>
+        <value xml:lang="vi">Tác vụ - Đầu việc</value>
         <value xml:lang="zh">规程任务</value>
         <value xml:lang="zh_TW">規程任務</value>
     </property>
@@ -3834,6 +4202,7 @@
         <value xml:lang="pt_BR">Rotas</value>
         <value xml:lang="ro">Cicluri</value>
         <value xml:lang="th">Routing</value>
+        <value xml:lang="vi">Quy trình</value>
         <value xml:lang="zh">规程</value>
         <value xml:lang="zh_TW">規程</value>
     </property>
@@ -3846,6 +4215,7 @@
         <value xml:lang="pt_BR">Executar MRP</value>
         <value xml:lang="ro">Executa MRP</value>
         <value xml:lang="th">ข้อมูลความต้องการโดยประมาณ</value>
+        <value xml:lang="vi">Thiết kế hệ thống sản xuất (MRP)</value>
         <value xml:lang="zh">运行生产资源计划</value>
         <value xml:lang="zh_TW">運行生產資源計劃</value>
     </property>
@@ -3857,6 +4227,7 @@
         <value xml:lang="it">Schedula</value>
         <value xml:lang="pt_BR">Agendar</value>
         <value xml:lang="th">กำหนดการ</value>
+        <value xml:lang="vi">Kế hoạch</value>
         <value xml:lang="zh">计划</value>
         <value xml:lang="zh_TW">計劃</value>
     </property>
@@ -3869,6 +4240,7 @@
         <value xml:lang="pt_BR">Fator de descarte (%)</value>
         <value xml:lang="ro">Factor De Rebuturi%</value>
         <value xml:lang="th">ชิ้นส่วนประกอบ %</value>
+        <value xml:lang="vi">% Yếu tố dư thừa</value>
         <value xml:lang="zh">废品因素 %</value>
         <value xml:lang="zh_TW">廢品因素 %</value>
     </property>
@@ -3876,6 +4248,7 @@
         <value xml:lang="en">Selected Features</value>
         <value xml:lang="it">Caratteristica selezionata</value>
         <value xml:lang="pt_BR">Característcas selecionadas</value>
+        <value xml:lang="vi">Tính năng đã chọn</value>
         <value xml:lang="zh">选择的特征</value>
         <value xml:lang="zh_TW">選擇的特征</value>
     </property>
@@ -3888,6 +4261,7 @@
         <value xml:lang="pt_BR">Relatório de de planos de envio do estoque</value>
         <value xml:lang="ro">Tipareste Planul de Expediere</value>
         <value xml:lang="th">รายงานแผนการขนส่งสินค้าทางเรือในคลังสินค้า</value>
+        <value xml:lang="vi">Báo cáo kế hoạch kho (Shipment Plan Stock)</value>
         <value xml:lang="zh">运输计划库存报告 </value>
         <value xml:lang="zh_TW">運輸計劃庫存報告 </value>
     </property>
@@ -3900,6 +4274,7 @@
         <value xml:lang="pt_BR">Planos de envio</value>
         <value xml:lang="ro">Plan Expedieri</value>
         <value xml:lang="th">แผนการขนส่ง</value>
+        <value xml:lang="vi">Kế hoạch chuyển vận</value>
         <value xml:lang="zh">运输计划</value>
         <value xml:lang="zh_TW">運輸計劃</value>
     </property>
@@ -3907,6 +4282,7 @@
         <value xml:lang="en">Shipment WorkEffort Tasks</value>
         <value xml:lang="it">Compiti impegni di lavoro spedizione</value>
         <value xml:lang="pt_BR">Tarefas da equipe de trabalho de envio</value>
+        <value xml:lang="vi">Tác vụ - Đầu việc Lượng giá nguồn lực</value>
         <value xml:lang="zh">运输人工服务任务</value>
         <value xml:lang="zh_TW">運輸人工服務任務</value>
     </property>
@@ -3919,6 +4295,7 @@
         <value xml:lang="pt_BR">Mostrar Estrutura de Materiais (BOM)</value>
         <value xml:lang="ro">Afiseaza Lista repere</value>
         <value xml:lang="th">แสดงรายการของสินค้า</value>
+        <value xml:lang="vi">Hiển thị Chào giá</value>
         <value xml:lang="zh">显示物料清单</value>
         <value xml:lang="zh_TW">顯示物料清單</value>
     </property>
@@ -3931,6 +4308,7 @@
         <value xml:lang="pt_BR">Data de início</value>
         <value xml:lang="ro">Data Initiala</value>
         <value xml:lang="th">วันเริ่มต้น</value>
+        <value xml:lang="vi">Ngày bắt đầu</value>
         <value xml:lang="zh">开始日期</value>
         <value xml:lang="zh_TW">開始日期</value>
     </property>
@@ -3943,6 +4321,7 @@
         <value xml:lang="pt_BR">Início</value>
         <value xml:lang="ro">Inceput</value>
         <value xml:lang="th">เริ่มต้น</value>
+        <value xml:lang="vi">Bắt đầu</value>
         <value xml:lang="zh">开始</value>
         <value xml:lang="zh_TW">開始</value>
     </property>
@@ -3955,6 +4334,7 @@
         <value xml:lang="pt_BR">Hora de início</value>
         <value xml:lang="ro">Ora Initiala</value>
         <value xml:lang="th">เวลาเริ่มต้น</value>
+        <value xml:lang="vi">Giờ bắt đầu</value>
         <value xml:lang="zh">开始时间</value>
         <value xml:lang="zh_TW">開始時間</value>
     </property>
@@ -3966,6 +4346,7 @@
         <value xml:lang="pt_BR">Análise resumida</value>
         <value xml:lang="ro">Explozie Scalara Insumata</value>
         <value xml:lang="th">สรุป</value>
+        <value xml:lang="vi">Tổng kết thất bại</value>
         <value xml:lang="zh">故障综述</value>
         <value xml:lang="zh_TW">故障綜述</value>
     </property>
@@ -3978,6 +4359,7 @@
         <value xml:lang="pt_BR">Tempo efetivo</value>
         <value xml:lang="ro">Timp Actual</value>
         <value xml:lang="th">เวลาจริง</value>
+        <value xml:lang="vi">Giờ thực</value>
         <value xml:lang="zh">实际时间</value>
         <value xml:lang="zh_TW">實際時間</value>
     </property>
@@ -3990,6 +4372,7 @@
         <value xml:lang="pt_BR">Tempo de preparação efetivo</value>
         <value xml:lang="ro">Timp Actual Instalatie</value>
         <value xml:lang="th">เวลาติดตั้งจริง</value>
+        <value xml:lang="vi">Giờ thiết lập thực</value>
         <value xml:lang="zh">实际安装时间</value>
         <value xml:lang="zh_TW">實際安裝時間</value>
     </property>
@@ -4001,6 +4384,7 @@
         <value xml:lang="it">Componenti Operazione</value>
         <value xml:lang="pt_BR">Componentes de tarefa</value>
         <value xml:lang="th">ส่วนประกอบของงาน</value>
+        <value xml:lang="vi">Thành phần</value>
         <value xml:lang="zh">任务组件</value>
         <value xml:lang="zh_TW">任務元件</value>
     </property>
@@ -4013,6 +4397,7 @@
         <value xml:lang="pt_BR">Tempo estimado por unidade</value>
         <value xml:lang="ro">Timp Stimat in Executie</value>
         <value xml:lang="th">ประมาณเวลา</value>
+        <value xml:lang="vi">Thời gian thực thi đơn vị ước lượng</value>
         <value xml:lang="zh">预计运行时间</value>
         <value xml:lang="zh_TW">預計運行時間</value>
     </property>
@@ -4025,6 +4410,7 @@
         <value xml:lang="pt_BR">Tempo de preparação estimado</value>
         <value xml:lang="ro">Timp Stimat Configuratie</value>
         <value xml:lang="th">ประมาณเวลาที่ติดตั้ง</value>
+        <value xml:lang="vi">Thời gian thiết lập ước lượng</value>
         <value xml:lang="zh">预计安装时间</value>
         <value xml:lang="zh_TW">預計安裝時間</value>
     </property>
@@ -4036,6 +4422,7 @@
         <value xml:lang="it">Totale Tempo Stimato Esecuazione</value>
         <value xml:lang="pt_BR">Tempo total estimado da execução</value>
         <value xml:lang="th">ประมาณเวลาทั้งหมด</value>
+        <value xml:lang="vi">Tổng thời gian thực thi ước lượng</value>
         <value xml:lang="zh">预计全部运行时间</value>
         <value xml:lang="zh_TW">預計全部運行時間</value>
     </property>
@@ -4047,6 +4434,7 @@
         <value xml:lang="it">Cespite Operazione</value>
         <value xml:lang="pt_BR">Ativos fixos da tarefa de rota</value>
         <value xml:lang="th">การทำงานของสินทรัพย์ไม่หมุนเวียน</value>
+        <value xml:lang="vi">Tài sản cố định</value>
         <value xml:lang="zh">规程任务固定资产</value>
         <value xml:lang="zh_TW">規程任務固定資產</value>
     </property>
@@ -4059,6 +4447,7 @@
         <value xml:lang="pt_BR">Id da tarefa</value>
         <value xml:lang="ro">Cod Sarcina</value>
         <value xml:lang="th">รหัสการทำงาน</value>
+        <value xml:lang="vi">Id tác vụ</value>
         <value xml:lang="zh">任务标识</value>
         <value xml:lang="zh_TW">任務ID</value>
     </property>
@@ -4071,6 +4460,7 @@
         <value xml:lang="pt_BR">Nome da tarefa de rota</value>
         <value xml:lang="ro">Nume Operatie</value>
         <value xml:lang="th">ชื่อการทำงาน</value>
+        <value xml:lang="vi">Tên tác vụ</value>
         <value xml:lang="zh">规程任务名称</value>
         <value xml:lang="zh_TW">規程任務名稱</value>
     </property>
@@ -4083,6 +4473,7 @@
         <value xml:lang="pt_BR">Tipo de tarefa</value>
         <value xml:lang="ro">Tip Sarcina</value>
         <value xml:lang="th">ปะเภทงาน</value>
+        <value xml:lang="vi">Loại tác vụ</value>
         <value xml:lang="zh">任务类型</value>
         <value xml:lang="zh_TW">任務類型</value>
     </property>
@@ -4095,6 +4486,7 @@
         <value xml:lang="pt_BR">Relatório de tarefas</value>
         <value xml:lang="ro">Tipareste Sarcini</value>
         <value xml:lang="th">รายงานการทำงาน</value>
+        <value xml:lang="vi">Báo cáo tác vụ</value>
         <value xml:lang="zh">任务报告</value>
         <value xml:lang="zh_TW">任務報告</value>
     </property>
@@ -4106,6 +4498,7 @@
         <value xml:lang="pt_BR">Dados técnicos</value>
         <value xml:lang="ro">Tech. Data</value>
         <value xml:lang="th">ข้อมูล</value>
+        <value xml:lang="vi">Dữ liệu kỹ thuật</value>
         <value xml:lang="zh">技术数据</value>
         <value xml:lang="zh_TW">技術資料</value>
     </property>
@@ -4117,6 +4510,7 @@
         <value xml:lang="pt_BR">O calendário de tecnologia não existe</value>
         <value xml:lang="ro">TechDataCalendar nu exista</value>
         <value xml:lang="th">ไม่มีข้อมูลปฏิทินอยู่</value>
+        <value xml:lang="vi">Thông tin kỹ thuật không tồn tại</value>
         <value xml:lang="zh">不存在技术数据日历</value>
         <value xml:lang="zh_TW">不存在技術資料日曆</value>
     </property>
@@ -4128,16 +4522,19 @@
         <value xml:lang="pt_BR">A semana do calendário de tecnologia não existe</value>
         <value xml:lang="ro">TechDataCalendarWeek nu exista</value>
         <value xml:lang="th">ไม่มีข้อมูลปฏิทินของสัปดาห์อยู่</value>
+        <value xml:lang="vi">Lịch tuần không tồn tại</value>
         <value xml:lang="zh">不存在技术数据日历周</value>
         <value xml:lang="zh_TW">不存在技術資料日曆週</value>
     </property>
     <property key="ManufacturingTechDataWorkEffortNotExist">
         <value xml:lang="en">Error finding desired WorkEffort records: ${errorString}</value>
         <value xml:lang="it">Errore durante la ricerca dei records di WorkEffort: ${errorString}</value>
+        <value xml:lang="vi">Lỗi tìm dữ liệu Lượng giá nguồn lực mong muốn: ${errorString}</value>
     </property>
     <property key="ManufacturingTechDataWorkEffortAssocNotExist">
         <value xml:lang="en">Error finding desired WorkEffortAssoc records: ${errorString}</value>
         <value xml:lang="it">Errore durante la ricerca dei records di WorkEffortAssoc: ${errorString}</value>
+        <value xml:lang="vi">Lỗi tìm dữ liệu Lượng giá nguồn lực kết hợp mong muốn: ${errorString}</value>
     </property>
     <property key="ManufacturingTimePeriod">
         <value xml:lang="de">Zeitraum</value>
@@ -4147,6 +4544,7 @@
         <value xml:lang="it">Periodo temporale</value>
         <value xml:lang="pt_BR">Intervalo de tempo</value>
         <value xml:lang="th">ระยะเวลา</value>
+        <value xml:lang="vi">Thời điểm</value>
         <value xml:lang="zh">时间段</value>
         <value xml:lang="zh_TW">時間段</value>
     </property>
@@ -4159,6 +4557,7 @@
         <value xml:lang="pt_BR">Data de fim</value>
         <value xml:lang="ro">La Data</value>
         <value xml:lang="th">ข้อมูล</value>
+        <value xml:lang="vi">Đến ngày</value>
         <value xml:lang="zh">结束日期</value>
         <value xml:lang="zh_TW">結束日期</value>
     </property>
@@ -4171,6 +4570,7 @@
         <value xml:lang="pt_BR">Quantidade total</value>
         <value xml:lang="ro">Total Cantitate</value>
         <value xml:lang="th">จำนวนรวม</value>
+        <value xml:lang="vi">Tổng số lượng</value>
         <value xml:lang="zh">全部数量</value>
         <value xml:lang="zh_TW">全部數量</value>
     </property>
@@ -4183,6 +4583,7 @@
         <value xml:lang="pt_BR">Existem duas tarefas de rota com o mesmo Id de sequência no mesmo intervalo de tempo</value>
         <value xml:lang="ro">Doua Operatii cu acelasi Cod Seq si aceiasi perioda </value>
         <value xml:lang="th">2 งานกับรหัสลำดับที่เหมือนกันและระยะเวลาที่เหมือนกัน</value>
+        <value xml:lang="vi">02 Tác vụ - Đầu việc với cùng Thứ tự và cùng Thời điểm</value>
         <value xml:lang="zh">两个规程任务有同样的序号标识和同样的阶段</value>
         <value xml:lang="zh_TW">兩個規程任務有同樣的序列ID和同樣的階段</value>
     </property>
@@ -4195,6 +4596,7 @@
         <value xml:lang="pt_BR">Atualizar calendário</value>
         <value xml:lang="ro">Actualizeaza Calendar</value>
         <value xml:lang="th">เปลี่ยนแปลงปฏิทิน</value>
+        <value xml:lang="vi">Cập nhật lịch</value>
         <value xml:lang="zh">更新日历</value>
         <value xml:lang="zh_TW">更新日曆</value>
     </property>
@@ -4207,6 +4609,7 @@
         <value xml:lang="pt_BR">Atualizar semana</value>
         <value xml:lang="ro">Actualizeaza Saptamana</value>
         <value xml:lang="th">เปลี่ยนแปลงสัปดาห์</value>
+        <value xml:lang="vi">Cập nhật tuần</value>
         <value xml:lang="zh">更新周</value>
         <value xml:lang="zh_TW">更新週</value>
     </property>
@@ -4219,6 +4622,7 @@
         <value xml:lang="pt_BR">Atualizar grupo de ativos fixos</value>
         <value xml:lang="ro">Actualizeaza Grup Mijloace Fixe</value>
         <value xml:lang="th">เปลี่ยนแปลงกลุ่มสินทรัพย์ไม่หมุนเวียน</value>
+        <value xml:lang="vi">Cập nhật Nhóm tài sản cố định</value>
         <value xml:lang="zh">更新固定资产组</value>
         <value xml:lang="zh_TW">更新固定資產組</value>
     </property>
@@ -4231,6 +4635,7 @@
         <value xml:lang="pt_BR">Erro de segurança: para executar esta operação você deve ter permissão de MANUFACTURING_UPDATE ou MANUFACTURING_ADMIN</value>
         <value xml:lang="ro">Eroare Siguranta: pentru a executa aceasta operatie trebuie sa ai permisul MANUFACTURING_UPDATE sau MANUFACTURING_ADMIN</value>
         <value xml:lang="th">Security Error: ผิดพลาด ! ในการรันการทำงานคุณต้องได้รับอนุญาตจาก MANUFACTURING_UPDATE หรือ MANUFACTURING_ADMIN ก่อน</value>
+        <value xml:lang="vi">Lỗi phân quyền : để thực thi tác nghiệp này bạn cần có quyền MANUFACTURING_UPDATE hoặc quyền MANUFACTURING_ADMIN</value>
         <value xml:lang="zh">安全错误：要运行这个操作，你必须具有 MANUFACTURING_UPDATE 或 MANUFACTURING_ADMIN 权限</value>
         <value xml:lang="zh_TW">安全錯誤：要運行這個操作，你必須具有 MANUFACTURING_UPDATE 或 MANUFACTURING_ADMIN 權限</value>
     </property>
@@ -4243,6 +4648,7 @@
         <value xml:lang="pt_BR">Você não tem permissão para visualizar esta página. (é necessária permissão de "MANUFACTURING_VIEW" ou "MANUFACTURING_ADMIN")</value>
         <value xml:lang="ro">Nu esti autorizat sa vezi aceasta pagina. (este necesar un permis "MANUFACTURING_VIEW" sau "MANUFACTURING_ADMIN")</value>
         <value xml:lang="th">คุณยังไม่ได้รับอนุญาตให้ดูหน้านี้ ("MANUFACTURING_VIEW" หรือ "MANUFACTURING_ADMIN" ที่ต้องการ)</value>
+        <value xml:lang="vi">Lỗi phân quyền : để xem thông tin trang này bạn cần có quyền MANUFACTURING_VIEW hoặc quyền MANUFACTURING_ADMIN</value>
         <value xml:lang="zh">你没有浏览这个页面的权限。(需要"MANUFACTURING_VIEW" 或 "MANUFACTURING_ADMIN")</value>
         <value xml:lang="zh_TW">你沒有瀏覽這個頁面的權限。(需要"MANUFACTURING_VIEW" 或 "MANUFACTURING_ADMIN")</value>
     </property>
@@ -4254,6 +4660,7 @@
         <value xml:lang="pt_BR">Algoritmo de busca na árvore</value>
         <value xml:lang="ro">Algoritm vizita Arbore</value>
         <value xml:lang="th">อัลกอลิทึมแบบต้นไม้</value>
+        <value xml:lang="vi">Thuật toán thăm cây</value>
         <value xml:lang="zh">树状结构访问算法</value>
         <value xml:lang="zh_TW">樹狀結構訪問演算法</value>
     </property>
@@ -4266,6 +4673,7 @@
         <value xml:lang="pt_BR">Será ajustado para agora se vazio</value>
         <value xml:lang="ro">Va fi setat acum daca este gol</value>
         <value xml:lang="th">จะต้องเซ็ตก่อนถ้าเป็นค่าว่าง</value>
+        <value xml:lang="vi">Sẽ được thiết lập đến Hiện tại nếu để trống</value>
         <value xml:lang="zh">如果为空，将设为现在的时间</value>
         <value xml:lang="zh_TW">如果為空，將設為現在的時間</value>
     </property>
@@ -4278,6 +4686,7 @@
         <value xml:lang="pt_BR">Associação de esforços de trabalho não existe</value>
         <value xml:lang="ro">WorkEffortAssoc nu exista</value>
         <value xml:lang="th">ไม่มีกลุ่มการทำงาน</value>
+        <value xml:lang="vi">Lượng giá nguồn lực kết hợp không tồn tại</value>
         <value xml:lang="zh">人工服务关联不存在</value>
         <value xml:lang="zh_TW">人工服務關聯不存在</value>
     </property>
@@ -4290,6 +4699,7 @@
         <value xml:lang="pt_BR">O ativo fixo selecionado já está associado com essa tarefa de execução de produção</value>
         <value xml:lang="ro">Mijlocul Fix selectionat este deja asociat la aceasta comanda de productie </value>
         <value xml:lang="th">เลือกกลุ่มสินทรัพย์ไม่หมุนเวียนที่มีอยู่ในกลุ่มงานการผลิตนี้</value>
+        <value xml:lang="vi">Tài sản cố định đã chọn đã được kết hợp với 'Tác vụ - Đầu việc Chế tác lô hàng' này</value>
         <value xml:lang="zh">选择的固定资产已经与这个生产运行任务关联了</value>
         <value xml:lang="zh_TW">選擇的固定資產已經與這個生產運行任務關聯了</value>
     </property>
@@ -4302,6 +4712,7 @@
         <value xml:lang="pt_BR">O tipo de ativo fixo selecionado já está associado com essa tarefa de rota</value>
         <value xml:lang="ro">Tipul de Mijloc Fix Selectionat este deja asociat la acest traseu </value>
         <value xml:lang="th">เลือกประเภทสินทรัพย์ไม่หมุนเวียนที่มีอยู่ในกลุ่มงานการผลิตนี้</value>
+        <value xml:lang="vi">Tài sản cố định đã chọn đã được kết hợp với Tác vụ - Đầu việc này</value>
         <value xml:lang="zh">选择的固定资产类型已经与这个规程任务关联了</value>
         <value xml:lang="zh_TW">選擇的固定資產類型已經與這個規程任務關聯了</value>
     </property>
@@ -4313,6 +4724,7 @@
         <value xml:lang="pt_BR">A tabela WorkEffortGoodStandard não existe</value>
         <value xml:lang="ro">Fisierul WorkEffortGoodStandard nu exista</value>
         <value xml:lang="th">ไม่มีตารางงานมาตรฐานดีอยู่</value>
+        <value xml:lang="vi">Bảng Chuẩn hàng hóa Lượng giá nguồn lực không tồn tại</value>
         <value xml:lang="zh">人工服务良好标准表不存在</value>
         <value xml:lang="zh_TW">人工服務良好標准表不存在</value>
     </property>
@@ -4324,6 +4736,7 @@
         <value xml:lang="pt_BR">workEffortIdFrom não existe</value>
         <value xml:lang="ro">workEffortIdFrom nu exista</value>
         <value xml:lang="th">ไม่มีฟอร์มรหัสการทำงานอยู่</value>
+        <value xml:lang="vi">Lượng giá nguồn lực Từ không tồn tại</value>
         <value xml:lang="zh">不存在人工服务标识来自（workEffortIdFrom）</value>
         <value xml:lang="zh_TW">不存在工項ID來自（workEffortIdFrom）</value>
     </property>
@@ -4335,12 +4748,14 @@
         <value xml:lang="pt_BR">WorkEffort (esforço de trabalho) não existe</value>
         <value xml:lang="ro">WorkEffort nu exista</value>
         <value xml:lang="th">ไม่มีงานอยู่</value>
+        <value xml:lang="vi">Lượng giá nguồn lực không tồn tại</value>
         <value xml:lang="zh">人工服务不存在</value>
         <value xml:lang="zh_TW">工項不存在</value>
     </property>
     <property key="ManufacturinWorkOrderItemFulfillmentError">
         <value xml:lang="en">Error reading the WorkOrderItemFulfillment: ${errorString}</value>
         <value xml:lang="it">Errore durante la letture di WorkOrderItemFulfillment: ${errorString}</value>
+        <value xml:lang="vi">Lỗi khi đọc thông tin Đáp ứng hàng hóa của Đặt hàng (WorkOrderItemFulfillment) : ${errorString}</value>
     </property>
     <property key="ManufacturingWorkWithShipmentPlans">
         <value xml:lang="de">Versandpläne</value>
@@ -4351,6 +4766,7 @@
         <value xml:lang="pt_BR">Planos de envio</value>
         <value xml:lang="ro">Plan Expedieri</value>
         <value xml:lang="th">แผนการขนส่ง</value>
+        <value xml:lang="vi">Kế hoạch chuyển vận</value>
         <value xml:lang="zh">货运计划</value>
         <value xml:lang="zh_TW">貨運計劃</value>
     </property>
@@ -4363,6 +4779,7 @@
         <value xml:lang="pt_BR">Trabalhador</value>
         <value xml:lang="ro">Muncitor</value>
         <value xml:lang="th">ผู้ทำงาน</value>
+        <value xml:lang="vi">Công nhân</value>
         <value xml:lang="zh">工人</value>
         <value xml:lang="zh_TW">工作者</value>
     </property>
@@ -4374,6 +4791,7 @@
         <value xml:lang="it">Aggiungi Eccezione Calendario Settimanale</value>
         <value xml:lang="pt_BR">Adicionar semana de exceção ao calendário</value>
         <value xml:lang="th">เพิ่มปฏิทินสัปดาห์ที่ยกเว้น</value>
+        <value xml:lang="vi">Thêm lịch tuần nghỉ</value>
         <value xml:lang="zh">添加日历非工作周</value>
         <value xml:lang="zh_TW">添加日曆非工作週</value>
     </property>
@@ -4386,6 +4804,7 @@
         <value xml:lang="pt_BR">Editar calendário</value>
         <value xml:lang="ro">Actualizare Calendar</value>
         <value xml:lang="th">แก้ไขปฏิทิน</value>
+        <value xml:lang="vi">Cập nhật lịch</value>
         <value xml:lang="zh">编辑日历</value>
         <value xml:lang="zh_TW">編輯日曆</value>
     </property>
@@ -4398,6 +4817,7 @@
         <value xml:lang="pt_BR">Editar dia de exceção do calendário</value>
         <value xml:lang="ro">Actualizare Zi Calendar Special</value>
         <value xml:lang="th">แก้ไขปฏิทินที่ยกเว้นวัน</value>
+        <value xml:lang="vi">Cập nhật lịch ngày nghỉ</value>
         <value xml:lang="zh">编辑日历非工作日</value>
         <value xml:lang="zh_TW">編輯日曆非工作日</value>
     </property>
@@ -4410,6 +4830,7 @@
         <value xml:lang="pt_BR">Editar semana de exceção do calendário</value>
         <value xml:lang="ro">Actualizare Saptamana Calendar Special </value>
         <value xml:lang="th">แก้ไขปฏิทินที่ยกเว้นสัปดาห์</value>
+        <value xml:lang="vi">Cập nhật lịch tuần nghỉ</value>
         <value xml:lang="zh">编辑日历非工作周</value>
         <value xml:lang="zh_TW">編輯日曆非工作週</value>
     </property>
@@ -4422,6 +4843,7 @@
         <value xml:lang="pt_BR">Editar semana</value>
         <value xml:lang="ro">Actualizare Saptamana</value>
         <value xml:lang="th">แก้ไขสัปดาห์</value>
+        <value xml:lang="vi">Cập nhật tuần</value>
         <value xml:lang="zh">编辑周</value>
         <value xml:lang="zh_TW">編輯週</value>
     </property>
@@ -4434,6 +4856,7 @@
         <value xml:lang="pt_BR">Editar cálculos de custos</value>
         <value xml:lang="ro">Actualizare Calcul Cost</value>
         <value xml:lang="th">แก้ไขการคำนวณราคา</value>
+        <value xml:lang="vi">Cập nhật công thức tính chi phí</value>
         <value xml:lang="zh">编辑费用计算</value>
         <value xml:lang="zh_TW">編輯費用計算</value>
     </property>
@@ -4446,6 +4869,7 @@
         <value xml:lang="pt_BR">Editar ativos fixos</value>
         <value xml:lang="ro">Actualizare Mijloace Fixe</value>
         <value xml:lang="th">แก้ไขสินทรัพย์ไม่หมุนเวียน</value>
+        <value xml:lang="vi">Cập nhật tài sản cố định</value>
         <value xml:lang="zh">编辑固定资产</value>
         <value xml:lang="zh_TW">編輯固定資產</value>
     </property>
@@ -4458,6 +4882,7 @@
         <value xml:lang="pt_BR">Editar grupo de ativos fixos</value>
         <value xml:lang="ro">Actualizare Grup Mijloace Fixe</value>
         <value xml:lang="th">แก้ไขกลุ่มสินทรัพย์ไม่หมุนเวียน</value>
+        <value xml:lang="vi">Cập nhật Nhóm tài sản cố định</value>
         <value xml:lang="zh">编辑固定资产组</value>
         <value xml:lang="zh_TW">編輯固定資產組</value>
     </property>
@@ -4470,6 +4895,7 @@
         <value xml:lang="pt_BR">Editar estrutura de materiais (BOM) do produto</value>
         <value xml:lang="ro">Actualizare Lista repere Produs</value>
         <value xml:lang="th">แก้ไขสินค้าในรายการของสินค้า</value>
+        <value xml:lang="vi">Cập nhật Chào giá</value>
         <value xml:lang="zh">编辑产品物料清单</value>
         <value xml:lang="zh_TW">編輯產品物料清單</value>
     </property>
@@ -4482,6 +4908,7 @@
         <value xml:lang="pt_BR">Regras de produção do produto</value>
         <value xml:lang="ro">Reguli de Productie Produs</value>
         <value xml:lang="th">ข้อบังคับของการผลิตสินค้า</value>
+        <value xml:lang="vi">Quy định sản xuất</value>
         <value xml:lang="zh">产品生产规则</value>
         <value xml:lang="zh_TW">產品生產規則</value>
     </property>
@@ -4494,6 +4921,7 @@
         <value xml:lang="pt_BR">Editar Rota</value>
         <value xml:lang="ro">Actualizare Ciclu</value>
         <value xml:lang="th">แก้ไข Routing</value>
+        <value xml:lang="vi">Sửa đổi Quy trình</value>
         <value xml:lang="zh">编辑规程</value>
         <value xml:lang="zh_TW">編輯規程</value>
     </property>
@@ -4506,6 +4934,7 @@
         <value xml:lang="pt_BR">Editar associação entre rota e produto</value>
         <value xml:lang="ro">Actualizare Link Ciclu-Produs</value>
         <value xml:lang="th">แก้ไข Routing การเชื่อมโยงสินค้า</value>
+        <value xml:lang="vi">Sửa đổi liên kết Quy trình - Sản phẩm</value>
         <value xml:lang="zh">编辑规程-产品链接</value>
         <value xml:lang="zh_TW">編輯規程-產品鏈結</value>
     </property>
@@ -4518,6 +4947,7 @@
         <value xml:lang="pt_BR">Editar tarefa de rota</value>
         <value xml:lang="ro">Actualizare Operatie</value>
         <value xml:lang="th">แก้ไขการทำงาน</value>
+        <value xml:lang="vi">Sửa đổi Tác vụ - Đầu việc</value>
         <value xml:lang="zh">编辑规程任务</value>
         <value xml:lang="zh_TW">編輯規程任務</value>
     </property>
@@ -4530,6 +4960,7 @@
         <value xml:lang="pt_BR">Editar associação de tarefa de rota</value>
         <value xml:lang="ro">Actualizare Asociatie Operatie</value>
         <value xml:lang="th">แก้ไขกลุ่มการทำงาน</value>
+        <value xml:lang="vi">Sửa đổi Tác vụ - Đầu việc kết hợp</value>
         <value xml:lang="zh">编辑规程任务链接</value>
         <value xml:lang="zh_TW">編輯規程任務鏈結</value>
     </property>
@@ -4542,6 +4973,7 @@
         <value xml:lang="pt_BR">Editar custos da tarefa de rota</value>
         <value xml:lang="ro">Actualizare Cost Operatie</value>
         <value xml:lang="th">แก้ไขราคาการทำงาน</value>
+        <value xml:lang="vi">Sửa đổi Chi phí tác vụ quy trình</value>
         <value xml:lang="zh">编辑规程任务的费用</value>
         <value xml:lang="zh_TW">編輯規程任務的費用</value>
     </property>
@@ -4554,6 +4986,7 @@
         <value xml:lang="pt_BR">Editar associação entre tarefa de rota e ativo fixo</value>
         <value xml:lang="ro">Actualizare Traseu Asociere Sarcina-Mijloc Fix</value>
         <value xml:lang="th">แก้ไขกลุ่มงานสินทรัพย์ไม่หมุนเวียน</value>
+        <value xml:lang="vi">Sửa đổi kết hợp Tài sản cố định - Tác vụ - Đầu việc</value>
         <value xml:lang="zh">编辑规程任务-固定资产关联</value>
         <value xml:lang="zh_TW">編輯規程任務-固定資產關聯</value>
     </property>
@@ -4566,6 +4999,7 @@
         <value xml:lang="pt_BR">Editar tarefa de rota do produto</value>
         <value xml:lang="ro">Actualizare Operatie Produs</value>
         <value xml:lang="th">แก้ไขงานของสินค้า</value>
+        <value xml:lang="vi">Sửa đổi Tác vụ - Đầu việc sản phẩm</value>
         <value xml:lang="zh">编辑规程任务的产品</value>
         <value xml:lang="zh_TW">編輯規程任務的產品</value>
     </property>
@@ -4578,6 +5012,7 @@
         <value xml:lang="pt_BR">Busca por campo</value>
         <value xml:lang="ro">Camp de Cautare</value>
         <value xml:lang="th">การค้นหา</value>
+        <value xml:lang="vi">Trường tìm kiếm</value>
         <value xml:lang="zh">查找域</value>
         <value xml:lang="zh_TW">查找域</value>
     </property>
@@ -4587,6 +5022,7 @@
         <value xml:lang="it">Ricerca distinta base</value>
         <value xml:lang="pt_BR">Buscar estrutura de materiais (BOM)</value>
         <value xml:lang="th">ค้นหารายการสินค้า</value>
+        <value xml:lang="vi">Tìm kiếm Chào giá</value>
         <value xml:lang="zh">填写物料清单</value>
         <value xml:lang="zh_TW">填寫物料清單</value>
     </property>
@@ -4599,6 +5035,7 @@
         <value xml:lang="pt_BR">Buscar calendário</value>
         <value xml:lang="ro">Cauta Calendar</value>
         <value xml:lang="th">ค้นหาปฏิทิน</value>
+        <value xml:lang="vi">Tìm lịch</value>
         <value xml:lang="zh">查找日历</value>
         <value xml:lang="zh_TW">查找日曆</value>
     </property>
@@ -4611,6 +5048,7 @@
         <value xml:lang="pt_BR">Buscar evento planejado de inventário</value>
         <value xml:lang="ro">Cauta Eveniment Inventar Planificat</value>
         <value xml:lang="th">ค้นหาสินค้าคงเหลือ</value>
+        <value xml:lang="vi">Tìm Kế hoạch sự kiện hàng hóa kho</value>
         <value xml:lang="zh">查找已计划的库存事件</value>
         <value xml:lang="zh_TW">查找已計劃的庫存事件</value>
     </property>
@@ -4623,6 +5061,7 @@
         <value xml:lang="pt_BR">Buscar grupo de ativo fixo</value>
         <value xml:lang="ro">Cauta Grup Mijloace Fixe</value>
         <value xml:lang="th">ค้นหากลุ่มสินทรัพย์ไม่หมุนเวียน</value>
+        <value xml:lang="vi">Tìm Nhóm tài sản cố định</value>
         <value xml:lang="zh">查找固定资产组</value>
         <value xml:lang="zh_TW">查找固定資產組</value>
     </property>
@@ -4635,6 +5074,7 @@
         <value xml:lang="pt_BR">Buscar requisitos</value>
         <value xml:lang="ro">Cauta Necesar</value>
         <value xml:lang="th">ค้นหาความต้องการ</value>
+        <value xml:lang="vi">Tìm Yêu cầu</value>
         <value xml:lang="zh">查找需求</value>
         <value xml:lang="zh_TW">查找需求</value>
     </property>
@@ -4647,6 +5087,7 @@
         <value xml:lang="pt_BR">Buscar rota</value>
         <value xml:lang="ro">Cauta Ciclu</value>
         <value xml:lang="th">ค้นหา Routing</value>
+        <value xml:lang="vi">Tìm quy trình</value>
         <value xml:lang="zh">查找规程</value>
         <value xml:lang="zh_TW">查找規程</value>
     </property>
@@ -4659,6 +5100,7 @@
         <value xml:lang="pt_BR">Buscar - Editar tarefa de rota</value>
         <value xml:lang="ro">Cauta - Actualizare Operatie</value>
         <value xml:lang="th">ค้นหา - แก้ไข งาน</value>
+        <value xml:lang="vi">Tìm - Cập nhật Tác vụ - Đầu việc</value>
         <value xml:lang="zh">查找 - 编辑规程任务</value>
         <value xml:lang="zh_TW">查找 - 編輯規程任務</value>
     </property>
@@ -4671,6 +5113,7 @@
         <value xml:lang="pt_BR">Lista de semanas</value>
         <value xml:lang="ro">Lista saptamanilor</value>
         <value xml:lang="th">รายการของสัปดาห์</value>
+        <value xml:lang="vi">Danh sách Tuần</value>
         <value xml:lang="zh">周列表</value>
         <value xml:lang="zh_TW">週列表</value>
     </property>
@@ -4682,6 +5125,7 @@
         <value xml:lang="it">Lista Associazioni Operazioni</value>
         <value xml:lang="pt_BR">Listar associações de tarefas de rota</value>
         <value xml:lang="th">รายการกลลุ่มของงาน</value>
+        <value xml:lang="vi">Danh sách các liên kết tác vụ quy trình</value>
         <value xml:lang="zh">规程任务关联列表</value>
         <value xml:lang="zh_TW">規程任務關聯列表</value>
     </property>
@@ -4694,6 +5138,7 @@
         <value xml:lang="pt_BR">Editar produtos da tarefa de rota</value>
         <value xml:lang="ro">Actualizare Operatii Produse</value>
         <value xml:lang="th">แก้ไขงานด้านสินค้า</value>
+        <value xml:lang="vi">Cập nhật tác vụ quy trình của sản phẩm</value>
         <value xml:lang="zh">编辑规程任务的产品</value>
         <value xml:lang="zh_TW">編輯規程任務的產品</value>
     </property>
@@ -4706,6 +5151,7 @@
         <value xml:lang="pt_BR">Editar rotas da tarefa de rotas</value>
         <value xml:lang="ro">Actualizare Cicluri Asociate la Operatie</value>
         <value xml:lang="th">แก้ไขเส้นทางการทำงาน</value>
+        <value xml:lang="vi">Cập nhật quy trình</value>
         <value xml:lang="zh">编辑规程任务的规程</value>
         <value xml:lang="zh_TW">編輯規程任務的規程</value>
     </property>
@@ -4718,6 +5164,7 @@
         <value xml:lang="pt_BR">Buscar rota</value>
         <value xml:lang="ro">Cauta Ciclu</value>
         <value xml:lang="th">ค้นหา Routing</value>
+        <value xml:lang="vi">Tìm kiếm quy trình</value>
         <value xml:lang="zh">产找规程</value>
         <value xml:lang="zh_TW">產找規程</value>
     </property>
@@ -4730,6 +5177,7 @@
         <value xml:lang="pt_BR">Buscar tarefa</value>
         <value xml:lang="ro">Cauta Operatie</value>
         <value xml:lang="th">ค้นหา Routing ของทำงาน</value>
+        <value xml:lang="vi">Tìm kiếm Tác vụ - Đầu việc</value>
         <value xml:lang="zh">查找规程任务</value>
         <value xml:lang="zh_TW">查找規程任務</value>
     </property>
@@ -4742,6 +5190,7 @@
         <value xml:lang="pt_BR">Buscar produtos virtuais</value>
         <value xml:lang="ro">Cauta Produse Virtuale</value>
         <value xml:lang="th">ค้นหาสินค้าที่มีอยู่จริง</value>
+        <value xml:lang="vi">Tìm kiếm sản phẩm Ảo</value>
         <value xml:lang="zh">查找虚拟产品</value>
         <value xml:lang="zh_TW">查找虛擬產品</value>
     </property>

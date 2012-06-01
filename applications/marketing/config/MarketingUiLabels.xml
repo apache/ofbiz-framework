@@ -36,6 +36,7 @@
         <value xml:lang="fr">Montant dans le meilleur cas </value>
         <value xml:lang="it">Importo migliore caso</value>
         <value xml:lang="pt_BR">Montante de melhor caso</value>
+        <value xml:lang="vi">Lợi nhuận tốt nhất</value>
         <value xml:lang="zh">最佳案例金额</value>
         <value xml:lang="zh_TW">最佳案例金額</value>
     </property>
@@ -46,6 +47,7 @@
         <value xml:lang="pt_BR">Custo previsto no orçamento</value>
         <value xml:lang="ro">Cost la Buget</value>
         <value xml:lang="th">งบประมาณ</value>
+        <value xml:lang="vi">Chi phí ngân sách</value>
         <value xml:lang="zh">已预算的费用</value>
         <value xml:lang="zh_TW">已預算的費用</value>
     </property>
@@ -53,6 +55,7 @@
         <value xml:lang="en">Change Note</value>
         <value xml:lang="it">Nota per variazione</value>
         <value xml:lang="pt_BR">Comunicação de mudança</value>
+        <value xml:lang="vi">Cập nhật Ghi chú</value>
         <value xml:lang="zh">变更说明</value>
         <value xml:lang="zh_TW">變更說明</value>
     </property>
@@ -61,6 +64,7 @@
         <value xml:lang="fr">Montant fermé</value>
         <value xml:lang="it">Importo chiuso</value>
         <value xml:lang="pt_BR">Montante fechado</value>
+        <value xml:lang="vi">Giá trị đã Kết thúc</value>
         <value xml:lang="zh">已结束的金额</value>
         <value xml:lang="zh_TW">已結束的金額</value>
     </property>
@@ -80,6 +84,7 @@
         <value xml:lang="pt_BR">Id de requisição de cliente</value>
         <value xml:lang="ro">Numar Cerere Subiect</value>
         <value xml:lang="th">รหัสคำร้องของลูกค้า</value>
+        <value xml:lang="vi">Id Yêu cầu</value>
         <value xml:lang="zh">客户请求标识</value>
         <value xml:lang="zh_TW">客戶要求ID</value>
     </property>
@@ -88,6 +93,7 @@
         <value xml:lang="fr">Pourcentage de réponse estimé</value>
         <value xml:lang="it">Percentuale di risposta stimata</value>
         <value xml:lang="pt_BR">Porcentagem esperada de respostas</value>
+        <value xml:lang="vi">Phần trăm phản hồi mong đợi</value>
         <value xml:lang="zh">期望响应百分比</value>
         <value xml:lang="zh_TW">期望回應百分比</value>
     </property>
@@ -96,6 +102,7 @@
         <value xml:lang="fr">Revenu estimé</value>
         <value xml:lang="it">Ricavo stimato</value>
         <value xml:lang="pt_BR">Renda esperada</value>
+        <value xml:lang="vi">Lợi nhuận kỳ vọng</value>
         <value xml:lang="zh">期望收入</value>
         <value xml:lang="zh_TW">期望收入</value>
     </property>
@@ -104,6 +111,7 @@
         <value xml:lang="fr">Montant estimé</value>
         <value xml:lang="it">Importo previsto</value>
         <value xml:lang="pt_BR">Montante previsto</value>
+        <value xml:lang="vi">Giá trị dự báo</value>
         <value xml:lang="zh">预测金额</value>
         <value xml:lang="zh_TW">預測金額</value>
     </property>
@@ -112,6 +120,7 @@
         <value xml:lang="fr">Réf. d'acteur interne</value>
         <value xml:lang="it">Soggetto interno</value>
         <value xml:lang="pt_BR">ID de participante interno</value>
+        <value xml:lang="vi">Tác nhân nội bộ</value>
         <value xml:lang="zh">内部会员标识</value>
         <value xml:lang="zh_TW">內部會員ID</value>
     </property>
@@ -120,6 +129,7 @@
         <value xml:lang="fr">N° envoyé</value>
         <value xml:lang="it">Num. invio</value>
         <value xml:lang="pt_BR">Número de envio</value>
+        <value xml:lang="vi">Số lượng đã gửi</value>
         <value xml:lang="zh">已发送数量</value>
         <value xml:lang="zh_TW">已發送數量</value>
     </property>
@@ -128,6 +138,7 @@
         <value xml:lang="fr">Réf. de vente parente estimée</value>
         <value xml:lang="it">Previsione di vendita padre</value>
         <value xml:lang="pt_BR">ID da previsão superior de vendas</value>
+        <value xml:lang="vi">Dự báo  bán hàng cấp quản lý trên</value>
         <value xml:lang="zh">上级销售预测标识</value>
         <value xml:lang="zh_TW">上級銷售預測ID</value>
     </property>
@@ -136,6 +147,7 @@
         <value xml:lang="fr">Pourcentage de quota fermé</value>
         <value xml:lang="it">Quota di percentuale chiusa</value>
         <value xml:lang="pt_BR">Porcentagem da cota fechada</value>
+        <value xml:lang="vi">Phần trăm Báo giá đã Đóng</value>
         <value xml:lang="zh">已完成指标的百分比</value>
         <value xml:lang="zh_TW">已完成指標的百分比</value>
     </property>
@@ -144,6 +156,7 @@
         <value xml:lang="fr">Pourcentage de quota estimé</value>
         <value xml:lang="it">Quota percentuale della previsione di vendita</value>
         <value xml:lang="pt_BR">Previsão da porcentage de cota</value>
+        <value xml:lang="vi">Phần trăm Báo giá đang Dự báo</value>
         <value xml:lang="zh">预测指标的百分比</value>
         <value xml:lang="zh_TW">預測指標的百分比</value>
     </property>
@@ -152,6 +165,7 @@
         <value xml:lang="fr">Montant transitoire</value>
         <value xml:lang="it">Importo di passaggio</value>
         <value xml:lang="pt_BR">Montnate de fluxo</value>
+        <value xml:lang="vi">Giá trị giới thiệu (Pipeline)</value>
         <value xml:lang="zh">渠道金额</value>
         <value xml:lang="zh_TW">管道金額</value>
     </property>
@@ -162,6 +176,7 @@
         <value xml:lang="pt_BR">ID de Catálogo do Produto</value>
         <value xml:lang="ro">Catalog Produse</value>
         <value xml:lang="th">รหัสหมวดหมู่สินค้า</value>
+        <value xml:lang="vi">Phân loại Trình diễn sản phẩm</value>
         <value xml:lang="zh">产品目录标识</value>
         <value xml:lang="zh_TW">產品目錄ID</value>
     </property>
@@ -170,6 +185,7 @@
         <value xml:lang="fr">Montant de quota</value>
         <value xml:lang="it">Importo quota</value>
         <value xml:lang="pt_BR">Montante da Cota</value>
+        <value xml:lang="vi">Giá trị Báo giá</value>
         <value xml:lang="zh">指标金额</value>
         <value xml:lang="zh_TW">指標金額</value>
     </property>
@@ -178,6 +194,7 @@
         <value xml:lang="fr">Réf. de détail de vente estimée</value>
         <value xml:lang="it">Dettaglio previsione di vendita</value>
         <value xml:lang="pt_BR">ID de detalhes da previsão de vendas</value>
+        <value xml:lang="vi">Dự báo  bán hàng chi tiết</value>
         <value xml:lang="zh">销售预测细节标识</value>
         <value xml:lang="zh_TW">銷售預測細節ID</value>
     </property>
@@ -186,6 +203,7 @@
         <value xml:lang="fr">Réf. de vente estimée</value>
         <value xml:lang="it">Previsione di vendita</value>
         <value xml:lang="pt_BR">ID de previsão de vendas</value>
+        <value xml:lang="vi">Id Dự báo  bán hàng</value>
         <value xml:lang="zh">销售预测标识</value>
         <value xml:lang="zh_TW">銷售預測ID</value>
     </property>
@@ -239,7 +257,7 @@
         <value xml:lang="nl">Fout emailadres opgegeven.</value>
         <value xml:lang="pt_BR">Endereço de e-mail inválido</value>
         <value xml:lang="th">เข้าสู่ที่อยู่ของอีเมล์ไม่ได้</value>
-        <value xml:lang="vi">Địa chỉ email nhập vào không phù hợp.</value>
+        <value xml:lang="vi">Địa chỉ thư điện tử không hợp lệ.</value>
         <value xml:lang="zh">输入的电子邮件地址无效。</value>
         <value xml:lang="zh_TW">輸入的電子郵件位址無效。</value>
     </property>
@@ -309,7 +327,7 @@
         <value xml:lang="pt_BR">OFBiz: Gerente de Marketing</value>
         <value xml:lang="ro">OFBiz: Gestione Vendite</value>
         <value xml:lang="th">OFBiz: การจัดการทางการตลาด</value>
-        <value xml:lang="vi">OFBiz: Quản lý tiếp thị</value>
+        <value xml:lang="vi">OFBiz: Quản trị Tiếp thị</value>
         <value xml:lang="zh">OFBiz: 市场宣传管理</value>
         <value xml:lang="zh_TW">OFBiz: 行銷管理</value>
     </property>
@@ -326,6 +344,7 @@
         <value xml:lang="ro">Partea de Deschidere Pentru Afaceri Familiale din Open Source Software</value>
         <value xml:lang="ru">Входит в состав семейства Open For Business</value>
         <value xml:lang="th">ส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
+        <value xml:lang="vi">Thành phần của Gia đình mã nguồn mở OFBIZ</value>
         <value xml:lang="zh">开源软件OFBiz家族的一部分</value>
         <value xml:lang="zh_CN">OFBiz的一部分</value>
         <value xml:lang="zh_TW">開源軟件OFBiz家族的一部分</value>
@@ -378,6 +397,7 @@
         <value xml:lang="pt_BR">ID de tipo de evento de comunicação</value>
         <value xml:lang="ro">Tip Eveniment Comunicatie</value>
         <value xml:lang="th">รหัสประเภทผลการติดต่อ</value>
+        <value xml:lang="vi">Loại sự kiện truyền thông</value>
         <value xml:lang="zh">沟通事件类型标识</value>
         <value xml:lang="zh_TW">通訊事件類型ID</value>
     </property>
@@ -436,6 +456,7 @@
         <value xml:lang="pt_BR">ID do tipo de mecanismo de contato</value>
         <value xml:lang="ro">Tip Contact</value>
         <value xml:lang="th">รหัสประเภทวิธีการติดต่อ</value>
+        <value xml:lang="vi">Loại cơ chế liên hệ</value>
         <value xml:lang="zh">联系方式类型标识</value>
         <value xml:lang="zh_TW">聯絡方式類型ID</value>
     </property>
@@ -474,7 +495,7 @@
         <value xml:lang="pt_BR">É pública ?</value>
         <value xml:lang="ro">Este Public ?</value>
         <value xml:lang="th">เป็นสาธารณะ ?</value>
-        <value xml:lang="vi">Nó được phổ biến không ?</value>
+        <value xml:lang="vi">Được Công khai ?</value>
         <value xml:lang="zh">公开吗?</value>
         <value xml:lang="zh_TW">公開嗎?</value>
     </property>
@@ -487,7 +508,7 @@
         <value xml:lang="pt_BR">É de uso único ?</value>
         <value xml:lang="ro">Este pentru un unic utilizatir?</value>
         <value xml:lang="th">ใช้ได้ครั้งเดียว ?</value>
-        <value xml:lang="vi">Nó được sử dụng độc lập không ?</value>
+        <value xml:lang="vi">Được sử dụng riêng ?</value>
         <value xml:lang="zh">单一用途吗?</value>
         <value xml:lang="zh_TW">單一用途嗎?</value>
     </property>
@@ -513,16 +534,19 @@
         <value xml:lang="pt_BR">Código de verificação Opt-In</value>
         <value xml:lang="ro">Cod Verificare Opt-In</value>
         <value xml:lang="th">ทางเลือกในการตรวจสอบรหัส</value>
+        <value xml:lang="vi">Mã xác nhận (Opt-In)</value>
         <value xml:lang="zh">兴趣验证码</value>
         <value xml:lang="zh_TW">興趣驗証碼</value>
     </property>
     <property key="MarketingContactListOptInVerifyCodeIsMandatory">
         <value xml:lang="en">No Opt-in Verify Code specified, but one is required.</value>
         <value xml:lang="it">Nessun codice di verifica Opt-in specificato, ma uno è obbligatorio.</value>
+        <value xml:lang="vi">Mã xác nhận (Opt-In) chưa được nhập.</value>
     </property>
     <property key="MarketingContactListOptInVerifyCodeNotCorrect">
         <value xml:lang="en">The Opt-in Verify Code specified [${parameters.optInVerifyCode}] was not correct. Please check the code you were sent.</value>
         <value xml:lang="it">Il codice di verifia Opt-in specificato [${parameters.optInVerifyCode}] non era corretto. Per favore verificare il codice che ti è stato inviato.</value>
+        <value xml:lang="vi">Mã xác nhận (Opt-In) có giá trị [${parameters.optInVerifyCode}] không đúng. Bạn hãy kiểm tra lại mã xác nhận đã gửi.</value>
     </property>
     <property key="MarketingContactListOwnerPartyId">
         <value xml:lang="de">Ersteller ID</value>
@@ -534,7 +558,7 @@
         <value xml:lang="pt_BR">ID do proprietário</value>
         <value xml:lang="ro">Cod Subiect Proprietar</value>
         <value xml:lang="th">รหัสของกลุ่มผู้ใช้</value>
-        <value xml:lang="vi">Mã đối tượng sở hữu</value>
+        <value xml:lang="vi">Mã Tác nhân sở hữu</value>
         <value xml:lang="zh">拥有人会员标识</value>
         <value xml:lang="zh_TW">擁有者成員ID</value>
     </property>
@@ -547,7 +571,7 @@
         <value xml:lang="pt_BR">Participante de Lista de contatos</value>
         <value xml:lang="ro">Lista Contacte Subiecti</value>
         <value xml:lang="th">รายการติดต่อกลุ่มผู้ใช้</value>
-        <value xml:lang="vi">Danh sách liên hệ tới đối tượng</value>
+        <value xml:lang="vi">Danh sách liên hệ tới Tác nhân</value>
         <value xml:lang="zh">联系列表会员</value>
         <value xml:lang="zh_TW">聯絡列表成員</value>
     </property>
@@ -560,7 +584,7 @@
         <value xml:lang="pt_BR">Criar novo participante de lista de contatos</value>
         <value xml:lang="ro">Creare Noua Lista Contact Subiect</value>
         <value xml:lang="th">สร้างรายการติดต่อกลุ่มผู้ใช้ใหม่</value>
-        <value xml:lang="vi">Tạo mới danh sách liên hệ tới đối tượng</value>
+        <value xml:lang="vi">Tạo mới danh sách liên hệ tới Tác nhân</value>
         <value xml:lang="zh">新建联系列表会员</value>
         <value xml:lang="zh_TW">新建聯絡列表成員</value>
     </property>
@@ -574,14 +598,14 @@
         <value xml:lang="pt_BR">ID de participante</value>
         <value xml:lang="ro">Cod Subiect</value>
         <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
-        <value xml:lang="vi">Mã đối tượng</value>
+        <value xml:lang="vi">Mã Tác nhân</value>
         <value xml:lang="zh">会员标识</value>
         <value xml:lang="zh_TW">成員ID</value>
     </property>
     <property key="MarketingContactListPartiesImport">
         <value xml:lang="en">Import Parties</value>
         <value xml:lang="th">นำเข้ากลุ่มผู้ใช้</value>
-        <value xml:lang="vi">Nhập vào các đối tượng</value>
+        <value xml:lang="vi">Nhập vào các Tác nhân</value>
     </property>
     <property key="MarketingContactListPreferredContactMech">
         <value xml:lang="en">Preferred Contact Mechanism</value>
@@ -592,6 +616,7 @@
         <value xml:lang="pt_BR">Mecanismo de contato preferencial</value>
         <value xml:lang="ro">Contact Preferit</value>
         <value xml:lang="th">วิธีการติดติดต่อลำดับแรก</value>
+        <value xml:lang="vi">Cơ chế liên lạc ưa thích</value>
         <value xml:lang="zh">优先使用的联系方式</value>
         <value xml:lang="zh_TW">優先使用的聯系方式</value>
     </property>
@@ -605,7 +630,7 @@
         <value xml:lang="pt_BR">Verificação de e-mail de origem</value>
         <value xml:lang="ro">Verifica Email De la</value>
         <value xml:lang="th">ตรวจสอบอีเมล์จาก</value>
-        <value xml:lang="vi">Xác nhận email từ</value>
+        <value xml:lang="vi">Xác nhận thư điện tử từ</value>
         <value xml:lang="zh">验证电子邮件来自</value>
         <value xml:lang="zh_TW">驗証電子郵件來自</value>
     </property>
@@ -619,7 +644,7 @@
         <value xml:lang="pt_BR">Tela de verificação de e-mail</value>
         <value xml:lang="ro">Verifica Email Videata</value>
         <value xml:lang="th">ตรวจสอบอีเมล์</value>
-        <value xml:lang="vi">Màn hình xác nhận email</value>
+        <value xml:lang="vi">Màn hình xác nhận thư điện tử</value>
         <value xml:lang="zh">验证电子邮件屏幕</value>
         <value xml:lang="zh_TW">驗証電子郵件螢幕</value>
     </property>
@@ -633,6 +658,7 @@
         <value xml:lang="pt_BR">Assunto do e-mail de verificação</value>
         <value xml:lang="ro">Verifica Email Subiect</value>
         <value xml:lang="th">ตรวจสอบหัวข้ออีเมล์</value>
+        <value xml:lang="vi">Chủ đề thư điện tử xác nhận</value>
         <value xml:lang="zh">验证电子邮件主题</value>
         <value xml:lang="zh_TW">驗証電子郵件主題</value>
     </property>
@@ -646,12 +672,14 @@
         <value xml:lang="pt_BR">Site de verificação</value>
         <value xml:lang="ro">Verifica Email Sit Web</value>
         <value xml:lang="th">ตรวจสอบรหัสอีเมล์ในเว็บไซต์</value>
+        <value xml:lang="vi">Trang thông tin trong thư điện tử xác nhận</value>
         <value xml:lang="zh">验证电子邮件站点标识</value>
         <value xml:lang="zh_TW">驗証電子郵件站台ID</value>
     </property>
     <property key="MarketingContactMechNotRightForContactList">
         <value xml:lang="en">The preferred contact mechanism [${preferredContactMechType.description}] was not of the right type for the list [${listContactMechType.description}].</value>
         <value xml:lang="it">Il contatto preferito [${preferredContactMechType.description}] non era la giusta lista [${listContactMechType.description}].</value>
+        <value xml:lang="vi">Cơ chế liên lạc ưa thích [${preferredContactMechType.description}] không nằm trong loại của danh sách [${listContactMechType.description}].</value>
     </property>
     <property key="MarketingConversionRate">
         <value xml:lang="de">Konversationsrate</value>
@@ -663,12 +691,14 @@
         <value xml:lang="pt_BR">Taxa de conversão</value>
         <value xml:lang="ro">Taxa de Conversie</value>
         <value xml:lang="th">อัตรการเปลี่ยนแปลง</value>
+        <value xml:lang="vi">Tỷ lệ chuyển đổi</value>
         <value xml:lang="zh">折算率</value>
         <value xml:lang="zh_TW">折算率</value>
     </property>
     <property key="MarketingCreatePermissionError">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the MARKETING_CREATE or MARKETING_ADMIN permission</value>
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso MARKETING_CREATE o MARKETING_ADMIN</value>
+        <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần có quyền MARKETING_CREATE hoặc quyền MARKETING_ADMIN</value>
     </property>
     <property key="MarketingDateRange">
         <value xml:lang="en">Date Range</value>
@@ -679,19 +709,21 @@
         <value xml:lang="pt_BR">Intervalo de datas</value>
         <value xml:lang="ro">Interval de Date</value>
         <value xml:lang="th">ข้อมูลแถว</value>
+        <value xml:lang="vi">Khoảng ngày</value>
         <value xml:lang="zh">日期范围</value>
         <value xml:lang="zh_TW">日期範圍</value>
     </property>
     <property key="MarketingDeletePermissionError">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the MARKETING_DELETE or MARKETING_ADMIN permission</value>
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso MARKETING_DELETE o MARKETING_ADMIN</value>
+        <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần có quyền MARKETING_DELETE hoặc quyền MARKETING_ADMIN</value>
     </property>
     <property key="MarketingEmailStatusReport">
         <value xml:lang="de">E-Mail Statusbericht</value>
         <value xml:lang="en">Email Status Report</value>
         <value xml:lang="it">Report stato e-mail</value>
         <value xml:lang="pt_BR">Relatório de estado de e-mail</value>
-        <value xml:lang="vi">Báo cáo tình trạng email</value>
+        <value xml:lang="vi">Báo cáo tình trạng thư điện tử</value>
     </property>
     <property key="MarketingFindAccounts">
         <value xml:lang="en">Find SFA Accounts</value>
@@ -708,14 +740,14 @@
         <value xml:lang="fr">Rechercher des contacts</value>
         <value xml:lang="pt_BR">Encontrar contatos da equipe de vendas</value>
         <value xml:lang="th">ค้นหา Contact</value>
-        <value xml:lang="vi">Tìm kiến liên hệ bán hàng</value>
+        <value xml:lang="vi">Tìm kiếm Liên hệ</value>
     </property>
     <property key="MarketingFindLeads">
         <value xml:lang="en">Find SFA Leads</value>
         <value xml:lang="fr">Rechercher des prospects</value>
         <value xml:lang="pt_BR">Buscar Leads da equipe de vendas</value>
         <value xml:lang="th">ค้นหา Lead</value>
-        <value xml:lang="vi">Tìm đầu mối bán hàng</value>
+        <value xml:lang="vi">Tìm Đầu mối</value>
     </property>
     <property key="MarketingMainPage">
         <value xml:lang="de">Haupt</value>
@@ -740,7 +772,7 @@
         <value xml:lang="pt_BR">Gestão de Marketing</value>
         <value xml:lang="ro">Aplicatie Gestiune Vanzare</value>
         <value xml:lang="th">โปรแกรมประยุกต์การจัดการทางการตลาด</value>
-        <value xml:lang="vi">Quản lý tiếp thị</value>
+        <value xml:lang="vi">Quản trị Tiếp thị</value>
         <value xml:lang="zh">市场管理应用程序</value>
         <value xml:lang="zh_TW">行銷管理</value>
     </property>
@@ -753,7 +785,7 @@
         <value xml:lang="pt_BR">Aplicação de Gestão de Marketing</value>
         <value xml:lang="ro">Aplicatie Gestiune Vanzare</value>
         <value xml:lang="th">โปรแกรมประยุกต์การจัดการทางการตลาด</value>
-        <value xml:lang="vi">Ứng dụng quản lý tiếp thị</value>
+        <value xml:lang="vi">Ứng dụng quản trị Tiếp thị</value>
         <value xml:lang="zh">市场管理应用程序</value>
         <value xml:lang="zh_TW">行銷管理應用程式</value>
     </property>
@@ -763,7 +795,7 @@
         <value xml:lang="it">Benvenuto nell'applicazione gestione vendite!</value>
         <value xml:lang="pt_BR">Bem-vindo à aplicação de Gestão de Marketing</value>
         <value xml:lang="th">ยินดีต้อนรับสู่การจัดการทางการตลาด</value>
-        <value xml:lang="vi">Chào mừng bạn đến với Ứng dụng quản lý tiếp thị!</value>
+        <value xml:lang="vi">Chào mừng bạn đến với Ứng dụng quản trị Tiếp thị !</value>
         <value xml:lang="zh">欢迎使用市场管理程序！</value>
         <value xml:lang="zh_TW">歡迎使用行銷管理程式！</value>
     </property>
@@ -773,7 +805,7 @@
         <value xml:lang="fr">N° des employés</value>
         <value xml:lang="it">N. di impiegati</value>
         <value xml:lang="pt_BR">Número de empregados</value>
-        <value xml:lang="vi">Không có nhân viên nào</value>
+        <value xml:lang="vi">Số nhân viên</value>
         <value xml:lang="zh">雇员数量</value>
         <value xml:lang="zh_TW">雇員數量</value>
     </property>
@@ -786,6 +818,7 @@
         <value xml:lang="pt_BR">Quantidade de pedidos</value>
         <value xml:lang="ro">Valoare Comenzi</value>
         <value xml:lang="th">จำนวนการสั่งซื้อสินค้า</value>
+        <value xml:lang="vi">Số lượng Đặt hàng</value>
         <value xml:lang="zh">订单金额</value>
         <value xml:lang="zh_TW">訂單金額</value>
     </property>
@@ -798,6 +831,7 @@
         <value xml:lang="pt_BR">Pedido</value>
         <value xml:lang="ro">Comenzi</value>
         <value xml:lang="th">การสั่งซื้อสินค้า</value>
+        <value xml:lang="vi">Đặt hàng</value>
         <value xml:lang="zh">订单</value>
         <value xml:lang="zh_TW">訂單</value>
     </property>
@@ -809,6 +843,7 @@
         <value xml:lang="pt_BR">ID de campanha superior</value>
         <value xml:lang="ro">Cod Campanie Parinte</value>
         <value xml:lang="th">รหัสกลุ่มผู้วางแผน</value>
+        <value xml:lang="vi">Chiến dịch cấp quản lý trên</value>
         <value xml:lang="zh">上级攻势标识</value>
         <value xml:lang="zh_TW">上級活動ID</value>
     </property>
@@ -816,7 +851,7 @@
         <value xml:lang="en">Party Status Report</value>
         <value xml:lang="it">Report stato soggetti</value>
         <value xml:lang="pt_BR">Relatório de estado de participante</value>
-        <value xml:lang="vi">Báo cáo tình trạng đối tượng</value>
+        <value xml:lang="vi">Báo cáo tình trạng Tác nhân</value>
     </property>
     <property key="MarketingReports">
         <value xml:lang="de">Berichte</value>
@@ -917,6 +952,7 @@
         <value xml:lang="en">Segment Group View Permission Error</value>
         <value xml:lang="it">Errore permesso di visualizzare i gruppi segmento</value>
         <value xml:lang="pt_BR">Erro de permissões para visualização de grupo de segmento</value>
+        <value xml:lang="vi">Lỗi quyền xem Nhóm phân đoạn</value>
         <value xml:lang="zh">分区组浏览权限出错</value>
         <value xml:lang="zh_TW">分區組瀏覽權限出錯</value>
     </property>
@@ -929,6 +965,7 @@
         <value xml:lang="pt_BR">Nenhum Grupo de Segmento encontrado com ID:</value>
         <value xml:lang="ro">Nici-un Grup Segment gasit cu codul:</value>
         <value xml:lang="th">ไม่มีส่วนของกลุ่มที่พบจากรหัสนี้ :</value>
+        <value xml:lang="vi">Nhóm phân đoạn không tìm thấy, Id:</value>
         <value xml:lang="zh">没有找到分区组，标识：</value>
         <value xml:lang="zh_TW">找不到分區組ID：</value>
     </property>
@@ -937,6 +974,7 @@
         <value xml:lang="it">Soggetto gruppo segmento classificazione</value>
         <value xml:lang="nl">ID Classificatiegroep Segmentgroep</value>
         <value xml:lang="pt_BR">ID de segmento de grupo de participante classificação de grupo</value>
+        <value xml:lang="vi">Lớp của nhóm Tác nhân</value>
         <value xml:lang="zh">分区组会员的分类组标识</value>
         <value xml:lang="zh_TW">分區組成員的分類組ID</value>
     </property>
@@ -949,6 +987,7 @@
         <value xml:lang="pt_BR">ID do produto</value>
         <value xml:lang="ro">Cod Magazin</value>
         <value xml:lang="th">รหัสคลังสินค้า</value>
+        <value xml:lang="vi">Cửa hàng</value>
         <value xml:lang="zh">产品店铺标识</value>
         <value xml:lang="zh_TW">產品商店ID</value>
     </property>
@@ -961,6 +1000,7 @@
         <value xml:lang="pt_BR">Criar novo papel de Grupo de segmento</value>
         <value xml:lang="ro">Creare Nou Rol Grup Segment</value>
         <value xml:lang="th">สร้างสถานะของกลุ่มใหม่</value>
+        <value xml:lang="vi">Tạo mới Vai trò nhóm phân đoạn</value>
         <value xml:lang="zh">新建分区组角色</value>
         <value xml:lang="zh_TW">新建分區組角色</value>
     </property>
@@ -973,6 +1013,7 @@
         <value xml:lang="pt_BR">Segmento</value>
         <value xml:lang="ro">Segment</value>
         <value xml:lang="th">กลุ่ม</value>
+        <value xml:lang="vi">Phân đoạn</value>
         <value xml:lang="zh">分区</value>
         <value xml:lang="zh_TW">分區</value>
     </property>
@@ -984,6 +1025,7 @@
         <value xml:lang="pt_BR">Classificação</value>
         <value xml:lang="ro">Clasificare</value>
         <value xml:lang="th">จัดแบ่งประเภทหมวดหมู่</value>
+        <value xml:lang="vi">Phân loại</value>
         <value xml:lang="zh">分类</value>
         <value xml:lang="zh_TW">分類</value>
     </property>
@@ -997,6 +1039,7 @@
         <value xml:lang="pt_BR">Localização</value>
         <value xml:lang="ro">Geografie</value>
         <value xml:lang="th">โครงสร้าง</value>
+        <value xml:lang="vi">Địa lý</value>
         <value xml:lang="zh">地理</value>
         <value xml:lang="zh_TW">地理</value>
     </property>
@@ -1009,6 +1052,7 @@
         <value xml:lang="pt_BR">ID de Grupo de Segmento</value>
         <value xml:lang="ro">Cod Grup Segment</value>
         <value xml:lang="th">รหัสส่วนของกลุ่ม</value>
+        <value xml:lang="vi">Nhóm phân đoạn</value>
         <value xml:lang="zh">分区组标识</value>
         <value xml:lang="zh_TW">分區群組ID</value>
     </property>
@@ -1021,6 +1065,7 @@
         <value xml:lang="pt_BR">Procurar</value>
         <value xml:lang="ro">Cauta</value>
         <value xml:lang="th">ค้นหา</value>
+        <value xml:lang="vi">Tìm kiếm</value>
         <value xml:lang="zh">查找</value>
         <value xml:lang="zh_TW">查找</value>
     </property>
@@ -1034,6 +1079,7 @@
         <value xml:lang="pt_BR">Papel</value>
         <value xml:lang="ro">Rol</value>
         <value xml:lang="th">สถานะ</value>
+        <value xml:lang="vi">Vai trò</value>
         <value xml:lang="zh">角色</value>
         <value xml:lang="zh_TW">角色</value>
     </property>
@@ -1047,6 +1093,7 @@
         <value xml:lang="pt_BR">Tipo</value>
         <value xml:lang="ro">Tip</value>
         <value xml:lang="th">ประเภท</value>
+        <value xml:lang="vi">Loại</value>
         <value xml:lang="zh">类型</value>
         <value xml:lang="zh_TW">類型</value>
     </property>
@@ -1059,6 +1106,7 @@
         <value xml:lang="pt_BR">ID de tipo de Grupo de Segmento</value>
         <value xml:lang="ro">Tip Grup Segment</value>
         <value xml:lang="th">รหัสประเภทของกลุ่ม</value>
+        <value xml:lang="vi">Loại nhóm</value>
         <value xml:lang="zh">分区组类型标识</value>
         <value xml:lang="zh_TW">分區群組類型ID</value>
     </property>
@@ -1068,6 +1116,7 @@
         <value xml:lang="it">C'è stato un problema durante l'esecuzione della tua richiesta. Prego riprovare. Se il problema persiste, contattaci, grazie.</value>
         <value xml:lang="pt_BR">Houve um erro ao processar seu pedido. Por favor, tente novamente. Se o problema persistir, entre em contato conosco.</value>
         <value xml:lang="th">มีปัญหาในการประมวลผลคำร้องของคุณ กรุณาลองอีกครั้ง ถ้ายังเกิดปัญหาเหมือนเดิม กรุณาติดต่อเรา</value>
+        <value xml:lang="vi">Có lỗi xảy ra trong quá trình xử lý yêu cầu của bạn. Bạn hãy thử lại sau và nếu lỗi vẫn tiếp tục xảy ra, làm ơn liên lạc với chúng tôi.</value>
         <value xml:lang="zh">处理你的请求时出错。请重试。如果仍然出错，请与我们联系。</value>
         <value xml:lang="zh_TW">處理你的請求時出錯。請重試。如果仍然出錯，請與我們聯系。</value>
     </property>
@@ -1079,7 +1128,7 @@
         <value xml:lang="pt_BR">Rastreio</value>
         <value xml:lang="ro">Traseu</value>
         <value xml:lang="th">การติดตาม</value>
-        <value xml:lang="vi">Truy vết</value>
+        <value xml:lang="vi">Theo dõi lộ trình</value>
         <value xml:lang="zh">跟踪</value>
         <value xml:lang="zh_TW">跟蹤</value>
     </property>
@@ -1091,7 +1140,7 @@
         <value xml:lang="pt_BR">Código para rastreio</value>
         <value xml:lang="ro">Cod Traseu</value>
         <value xml:lang="th">รหัส Tracking</value>
-        <value xml:lang="vi">Mã truy vết</value>
+        <value xml:lang="vi">Mã Theo dõi lộ trình</value>
         <value xml:lang="zh">跟踪码</value>
         <value xml:lang="zh_TW">跟蹤碼</value>
     </property>
@@ -1104,6 +1153,7 @@
         <value xml:lang="pt_BR">Tempo de faturamento</value>
         <value xml:lang="ro">Timp de Viata Facturabila</value>
         <value xml:lang="th">ใบเสร็จรับเงินใช้ได้ตลอดเวลา</value>
+        <value xml:lang="vi">Kỳ kế toán</value>
         <value xml:lang="zh">可记账期限</value>
         <value xml:lang="zh_TW">可記賬期限</value>
     </property>
@@ -1117,6 +1167,7 @@
         <value xml:lang="pt_BR">Comentários</value>
         <value xml:lang="ro">Comentarii</value>
         <value xml:lang="th">ความคิดเห็น</value>
+        <value xml:lang="vi">Diễn giải</value>
         <value xml:lang="zh">评论</value>
         <value xml:lang="zh_TW">評論</value>
     </property>
@@ -1129,6 +1180,7 @@
         <value xml:lang="pt_BR">Criar código de rastreio</value>
         <value xml:lang="ro">Creare Cod Traseu</value>
         <value xml:lang="th">สร้างรหัส Tracking</value>
+        <value xml:lang="vi">Tạo mới mã Theo dõi lộ trình</value>
         <value xml:lang="zh">新建跟踪码</value>
         <value xml:lang="zh_TW">新建跟蹤碼</value>
     </property>
@@ -1141,6 +1193,7 @@
         <value xml:lang="pt_BR">ID do Catálogo de Produtos Padrão</value>
         <value xml:lang="ro">Cod Catalog Default</value>
         <value xml:lang="th">รหัสหมวดหมู่สินค้าทั่วไป</value>
+        <value xml:lang="vi">Phân loại Quản lý mặc định</value>
         <value xml:lang="zh">缺省产品目录标识</value>
         <value xml:lang="zh_TW">預設產品目錄ID</value>
     </property>
@@ -1154,6 +1207,7 @@
         <value xml:lang="pt_BR">Descrição</value>
         <value xml:lang="ro">Descriere</value>
         <value xml:lang="th">รายละเอียด</value>
+        <value xml:lang="vi">Miêu tả</value>
         <value xml:lang="zh">描述</value>
         <value xml:lang="zh_TW">描述</value>
     </property>
@@ -1166,6 +1220,7 @@
         <value xml:lang="pt_BR">ID do Grupo</value>
         <value xml:lang="ro">Cod Grup</value>
         <value xml:lang="th">รหัสกลุ่ม</value>
+        <value xml:lang="vi">Nhóm</value>
         <value xml:lang="zh">组标识</value>
         <value xml:lang="zh_TW">群組ID</value>
     </property>
@@ -1178,6 +1233,7 @@
         <value xml:lang="pt_BR">Segundos</value>
         <value xml:lang="ro">Secunde</value>
         <value xml:lang="th">ลำดับที่สอง</value>
+        <value xml:lang="vi">Số giây</value>
         <value xml:lang="zh">秒</value>
         <value xml:lang="zh_TW">秒</value>
     </property>
@@ -1189,6 +1245,7 @@
         <value xml:lang="pt_BR">Não haverá sobreposição se este campo estiver vazio</value>
         <value xml:lang="ro">Nu se poate suprascrie (marca-asociata) daca este gol.</value>
         <value xml:lang="th">ไม่มีการยกเลิก (ยี่ห้อสินค้าร่วมกัน) ถ้าว่าง</value>
+        <value xml:lang="vi">Không đè Giá trị (co-brand) nếu để rỗng</value>
         <value xml:lang="zh">如果为空，不作替代 (联合品牌)</value>
         <value xml:lang="zh_TW">如果為空，不作替代 (聯合品牌)</value>
     </property>
@@ -1200,6 +1257,7 @@
         <value xml:lang="pt_BR">Não haverá redirecionamento se este campo estiver vazio</value>
         <value xml:lang="ro">Daca este gol nu poate fi redirectionat</value>
         <value xml:lang="th">ไม่มีการเปลี่ยนถ้าว่าง</value>
+        <value xml:lang="vi">Không Chuyển tiếp (redirect) nếu để rỗng</value>
         <value xml:lang="zh">如果为空，不重定向</value>
         <value xml:lang="zh_TW">如果為空，不重定向</value>
     </property>
@@ -1211,6 +1269,7 @@
         <value xml:lang="pt_BR">Código de rastreio de pedidos</value>
         <value xml:lang="ro">Cod Traseu Comenzi</value>
         <value xml:lang="th">รหัส Tracking การสั่งซื้อสินค้า</value>
+        <value xml:lang="vi">Mã Theo dõi lộ trình trên đặt hàng</value>
         <value xml:lang="zh">跟踪码定订单</value>
         <value xml:lang="zh_TW">跟蹤碼定訂單</value>
     </property>
@@ -1222,6 +1281,7 @@
         <value xml:lang="pt_BR">É faturável ?</value>
         <value xml:lang="ro">Este Facturabil ?</value>
         <value xml:lang="th">เป็นใบเสร็จที่ใช้ได้ ?</value>
+        <value xml:lang="vi">Có thanh toán được ?</value>
         <value xml:lang="zh">可记账吗?</value>
         <value xml:lang="zh_TW">可記賬嗎?</value>
     </property>
@@ -1233,6 +1293,7 @@
         <value xml:lang="pt_BR">ID do pedido</value>
         <value xml:lang="ro">Numar Comanda</value>
         <value xml:lang="th">รหัสการสั่งซื้อสินค้า</value>
+        <value xml:lang="vi">Đặt hàng</value>
         <value xml:lang="zh">订单标识</value>
         <value xml:lang="zh_TW">訂單ID</value>
     </property>
@@ -1256,6 +1317,7 @@
         <value xml:lang="pt_BR">Sobrepor URL do logo</value>
         <value xml:lang="ro">Substitutie URL Logo</value>
         <value xml:lang="th">ยกเลิกโลโก้ URL</value>
+        <value xml:lang="vi">Biểu tượng (logo)</value>
         <value xml:lang="zh">替代徽标网址</value>
         <value xml:lang="zh_TW">替代徽標網址</value>
     </property>
@@ -1264,6 +1326,7 @@
         <value xml:lang="fr">Réf. de code de suivi de catalogue</value>
         <value xml:lang="it">Codice tracciatura catalogo</value>
         <value xml:lang="pt_BR">ID do produto do Código de rastreio</value>
+        <value xml:lang="vi">Id Phân loại Trình diễn</value>
         <value xml:lang="zh">跟踪码产品目录标识</value>
         <value xml:lang="zh_TW">追蹤碼產品目錄ID</value>
     </property>
@@ -1275,6 +1338,7 @@
         <value xml:lang="pt_BR">URL de redirecionamento</value>
         <value xml:lang="ro">Redirectie URL</value>
         <value xml:lang="th">เปลี่ยน URL</value>
+        <value xml:lang="vi">Liên kết (URL) chuyển tiếp</value>
         <value xml:lang="zh">重定向网址</value>
         <value xml:lang="zh_TW">重定向網址</value>
     </property>
@@ -1286,7 +1350,7 @@
         <value xml:lang="pt_BR">Relatório de código de rastreio</value>
         <value xml:lang="ro">Tiparire Cod Traseu</value>
         <value xml:lang="th">รหัส Tracking</value>
-        <value xml:lang="vi">Báo cáo mã truy vết</value>
+        <value xml:lang="vi">Báo cáo mã Theo dõi lộ trình</value>
         <value xml:lang="zh">跟踪码报告</value>
         <value xml:lang="zh_TW">跟蹤碼報告</value>
     </property>
@@ -1310,7 +1374,7 @@
         <value xml:lang="pt_BR">Tempo de vida</value>
         <value xml:lang="ro">Traseu Timp de Viata</value>
         <value xml:lang="th">เส้นทางที่ใช้ได้ตลอดเวลา</value>
-        <value xml:lang="vi">Tiến trình truy vết</value>
+        <value xml:lang="vi">Thời gian có thể Theo dõi lộ trình</value>
         <value xml:lang="zh">可跟踪期限</value>
         <value xml:lang="zh_TW">追蹤期限</value>
     </property>
@@ -1322,7 +1386,7 @@
         <value xml:lang="pt_BR">ID de código de rastreio</value>
         <value xml:lang="ro">Code Traseu</value>
         <value xml:lang="th">รหัส Tracking</value>
-        <value xml:lang="vi">Mã truy vết</value>
+        <value xml:lang="vi">Mã Theo dõi lộ trình</value>
         <value xml:lang="zh">跟踪码标识</value>
         <value xml:lang="zh_TW">追蹤碼ID</value>
     </property>
@@ -1334,7 +1398,7 @@
         <value xml:lang="pt_BR">ID de tipo de código de rastreio</value>
         <value xml:lang="ro">Tip Traseu</value>
         <value xml:lang="th">รหัสประเภทรหัส Tracking</value>
-        <value xml:lang="vi">Mã phân loại truy vết</value>
+        <value xml:lang="vi">Loại Theo dõi lộ trình</value>
         <value xml:lang="zh">跟踪码类型标识</value>
         <value xml:lang="zh_TW">追蹤碼類型ID</value>
     </property>
@@ -1346,7 +1410,7 @@
         <value xml:lang="pt_BR">Tipo de código de rastreio</value>
         <value xml:lang="ro">Tip Cod Traseu</value>
         <value xml:lang="th">ประเภทรหัส Tracking</value>
-        <value xml:lang="vi">Phân loại mã truy vết</value>
+        <value xml:lang="vi">Loại Theo dõi lộ trình</value>
         <value xml:lang="zh">跟踪码类型</value>
         <value xml:lang="zh_TW">跟蹤碼類型</value>
     </property>
@@ -1358,7 +1422,7 @@
         <value xml:lang="pt_BR">Criar tipo de código de rastreio</value>
         <value xml:lang="ro">Creare Tip Traseu</value>
         <value xml:lang="th">สร้างประเภทรหัส Tracking</value>
-        <value xml:lang="vi">Tạo loại mã truy vết</value>
+        <value xml:lang="vi">Tạo mới Loại mã Theo dõi lộ trình</value>
         <value xml:lang="zh">新建跟踪码类型</value>
         <value xml:lang="zh_TW">新建跟蹤碼類型</value>
     </property>
@@ -1371,7 +1435,7 @@
         <value xml:lang="pt_BR">Descrição</value>
         <value xml:lang="ro">Descriere</value>
         <value xml:lang="th">รายละเอียด</value>
-        <value xml:lang="vi">Mô tả</value>
+        <value xml:lang="vi">Miêu tả</value>
         <value xml:lang="zh">描述</value>
         <value xml:lang="zh_TW">描述</value>
     </property>
@@ -1383,6 +1447,7 @@
         <value xml:lang="pt_BR">Visitas ao código de rastreio</value>
         <value xml:lang="ro">Cod Traseu Vizite</value>
         <value xml:lang="th">รหัส Tracking ของการเยี่ยมชม</value>
+        <value xml:lang="vi">Lần xem Theo dõi lộ trình</value>
         <value xml:lang="zh">跟踪码访问</value>
         <value xml:lang="zh_TW">跟蹤碼訪問</value>
     </property>
@@ -1394,6 +1459,7 @@
         <value xml:lang="pt_BR">Nome do Host do cliente</value>
         <value xml:lang="ro">Nume Host Client</value>
         <value xml:lang="th">ชื่อเจ้าของเครื่องคอมพิวเตอร์ในเครือข่าย</value>
+        <value xml:lang="vi">Tên máy duyệt</value>
         <value xml:lang="zh">客户端主机名</value>
         <value xml:lang="zh_TW">客戶端主機名</value>
     </property>
@@ -1405,6 +1471,7 @@
         <value xml:lang="pt_BR">Número IP do cliente</value>
         <value xml:lang="ro">Adresa IP Client</value>
         <value xml:lang="th">ที่อยู่ IP ของเครื่องคอมพิวเตอร์ในเครือข่าย</value>
+        <value xml:lang="vi">IP máy duyệt</value>
         <value xml:lang="zh">客户端IP地址</value>
         <value xml:lang="zh_TW">客戶端IP位址</value>
     </property>
@@ -1416,6 +1483,7 @@
         <value xml:lang="pt_BR">Tipo de mecanismo de contato</value>
         <value xml:lang="ro">Tip Contact</value>
         <value xml:lang="th">ประเภทวิธีการสื่อสาร</value>
+        <value xml:lang="vi">Kiểu cơ chế liên hệ</value>
         <value xml:lang="zh">联系方式类型</value>
         <value xml:lang="zh_TW">聯系方式類型</value>
     </property>
@@ -1428,6 +1496,7 @@
         <value xml:lang="pt_BR">ID de participante</value>
         <value xml:lang="ro">Cod Subiect</value>
         <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
+        <value xml:lang="vi">Id Tác nhân</value>
         <value xml:lang="zh">会员标识</value>
         <value xml:lang="zh_TW">成員ID</value>
     </property>
@@ -1440,6 +1509,7 @@
         <value xml:lang="pt_BR">ID de tipo de papel</value>
         <value xml:lang="ro">Tip Rol</value>
         <value xml:lang="th">รหัสประเภทสถานะ</value>
+        <value xml:lang="vi">Kiểu vai trò</value>
         <value xml:lang="zh">角色类型标识</value>
         <value xml:lang="zh_TW">角色類型ID</value>
     </property>
@@ -1452,6 +1522,7 @@
         <value xml:lang="ro">Numar Seziune</value>
         <value xml:lang="th">รหัสการประชุม</value>
         <value xml:lang="zh">会话标识</value>
+        <value xml:lang="vi">Phiên làm việc</value>
         <value xml:lang="zh_TW">活動ID</value>
     </property>
     <property key="MarketingTrackingCodeVisitSourceEnumId">
@@ -1462,6 +1533,7 @@
         <value xml:lang="pt_BR">ID de origem</value>
         <value xml:lang="ro">Numar Origine</value>
         <value xml:lang="th">รหัสแหล่งที่มา</value>
+        <value xml:lang="vi">Nguồn</value>
         <value xml:lang="zh">源标识</value>
         <value xml:lang="zh_TW">來源ID</value>
     </property>
@@ -1470,6 +1542,7 @@
         <value xml:lang="fr">Réf. de code de suivi de visite d'identifiant de connexion</value>
         <value xml:lang="it">Codice tracciatura utente visita</value>
         <value xml:lang="pt_BR">ID da vista do usuário ao código de rastreio</value>
+        <value xml:lang="vi">Tài khoản đăng nhập đã thăm Theo dõi lộ trình</value>
         <value xml:lang="zh">跟踪码访问的用户登录标识</value>
         <value xml:lang="zh_TW">追蹤碼拜訪的使用者登入ID</value>
     </property>
@@ -1481,6 +1554,7 @@
         <value xml:lang="pt_BR">ID de visita</value>
         <value xml:lang="ro">Numar Vizita</value>
         <value xml:lang="th">รหัสการเยี่ยมชม</value>
+        <value xml:lang="vi">Id duyệt</value>
         <value xml:lang="zh">访问标识</value>
         <value xml:lang="zh_TW">拜訪ID</value>
     </property>
@@ -1492,6 +1566,7 @@
         <value xml:lang="pt_BR">ID do visitante</value>
         <value xml:lang="ro">Cod Vizita</value>
         <value xml:lang="th">รหัสผู้เยี่ยมชม</value>
+        <value xml:lang="vi">Id người duyệt</value>
         <value xml:lang="zh">访问者标识</value>
         <value xml:lang="zh_TW">拜訪者ID</value>
     </property>
@@ -1503,12 +1578,14 @@
         <value xml:lang="pt_BR">Nome da aplicação Web</value>
         <value xml:lang="ro">Nume Aplicatie Web</value>
         <value xml:lang="th">ชื่อโปรแกรมประยุต์บนเว็บ</value>
+        <value xml:lang="vi">Tên ứng dụng</value>
         <value xml:lang="zh">Web应用名称</value>
         <value xml:lang="zh_TW">Web應用名稱</value>
     </property>
     <property key="MarketingUpdatePermissionError">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the MARKETING_UPDATE or MARKETING_ADMIN permission</value>
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso MARKETING_UPDATE o MARKETING_ADMIN</value>
+        <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần quyền MARKETING_UPDATE hoặc quyền MARKETING_ADMIN</value>
     </property>
     <property key="MarketingViewPermissionError">
         <value xml:lang="en">View Permission Error</value>
@@ -1517,6 +1594,7 @@
         <value xml:lang="it">Mostra Errore Permessi</value>
         <value xml:lang="pt_BR">Erro - você não possui permissão de acesso</value>
         <value xml:lang="ro">Afiseaza Eroare Permisii</value>
+        <value xml:lang="vi">Bạn chưa có quyền Xem</value>
         <value xml:lang="th">แสดงความผิดพลาดในการอนุญาต</value>
         <value xml:lang="zh">浏览权限错误</value>
         <value xml:lang="zh_TW">瀏覽權限錯誤</value>
@@ -1529,23 +1607,28 @@
         <value xml:lang="pt_BR">Visitas</value>
         <value xml:lang="ro">Vizite</value>
         <value xml:lang="th">การเยี่ยมชม</value>
+        <value xml:lang="vi">Duyệt</value>
         <value xml:lang="zh">访问</value>
         <value xml:lang="zh_TW">訪問</value>
     </property>
     <property key="MarketingWebSiteContactList">
         <value xml:lang="en">WebSites</value>
+        <value xml:lang="vi">Trang thông tin (website)</value>
     </property>
     <property key="MarketingWebSiteContactListCreate">
         <value xml:lang="en">Create WebSite</value>
+        <value xml:lang="vi">Tạo mới trang thông tin</value>
     </property>
     <property key="MarketingWebSiteContactListView">
         <value xml:lang="en">WebSites View</value>
+        <value xml:lang="vi">Xem Trang thông tin</value>
     </property>
     <property key="PageTitleAccountSummary">
         <value xml:lang="en">Account Summary</value>
         <value xml:lang="fr">Résumé de compte</value>
         <value xml:lang="it">Sommario utente</value>
         <value xml:lang="pt_BR">Resumo da conta</value>
+        <value xml:lang="vi">Tổng hợp tài khoản</value>
         <value xml:lang="zh">账户总览</value>
         <value xml:lang="zh_TW">賬戶總覽</value>
     </property>
@@ -1557,6 +1640,7 @@
         <value xml:lang="pt_BR">Adicionar lista de contatos</value>
         <value xml:lang="ro">Adauga Lista Contact</value>
         <value xml:lang="th">เพิ่มรายการติดต่อ</value>
+        <value xml:lang="vi">Thêm danh sách Liên hệ</value>
         <value xml:lang="zh">添加联系列表</value>
         <value xml:lang="zh_TW">添加聯系列表</value>
     </property>
@@ -1568,6 +1652,7 @@
         <value xml:lang="pt_BR">Adicionar nova Campanha de Marketing</value>
         <value xml:lang="ro">Adauga Noua Campanie Marketing</value>
         <value xml:lang="th">เพิ่มแผนการตลาดใหม่</value>
+        <value xml:lang="vi">Thêm mới Chiến dịch kinh doanh</value>
         <value xml:lang="zh">新建市场攻势</value>
         <value xml:lang="zh_TW">新建行銷活動</value>
     </property>
@@ -1579,6 +1664,7 @@
         <value xml:lang="pt_BR">Adicionar novo código de rastreio</value>
         <value xml:lang="ro">Adauga Nou Cod Traseu</value>
         <value xml:lang="th">เพิ่มรหัส Tracking ใหม่</value>
+        <value xml:lang="vi">Thêm mới mã Theo dõi lộ trình</value>
         <value xml:lang="zh">新建跟踪码</value>
         <value xml:lang="zh_TW">新建跟蹤碼</value>
     </property>
@@ -1590,6 +1676,7 @@
         <value xml:lang="pt_BR">Adicionar novo tipo de código de rastreio</value>
         <value xml:lang="ro">Adauga Noul Tip Traseu</value>
         <value xml:lang="th">เพิ่มประเภทรหัส Tracking ใหม่</value>
+        <value xml:lang="vi">Thêm mới Loại theo dõi lộ trình</value>
         <value xml:lang="zh">新建跟踪码类型</value>
         <value xml:lang="zh_TW">新建跟蹤碼類型</value>
     </property>
@@ -1597,11 +1684,13 @@
         <value xml:lang="en">Assign Existing Account</value>
         <value xml:lang="pt_BR">Designar uma conta existente</value>
         <value xml:lang="th">กำหนด Account ที่มีอยู่</value>
+        <value xml:lang="vi">Gán Tài khoản đã có</value>
     </property>
     <property key="PageTitleAssignLeadFromExisting">
         <value xml:lang="en">Assign Existing Lead</value>
         <value xml:lang="pt_BR">Designar um Lead existente</value>
         <value xml:lang="th">กำหนด Lead ที่มีอยู่</value>
+        <value xml:lang="vi">Gán Đầu mối đã có</value>
     </property>
     <property key="PageTitleCreateAccount">
         <value xml:lang="en">Create New Account</value>
@@ -1609,6 +1698,7 @@
         <value xml:lang="fr">Créer un nouveau compte</value>
         <value xml:lang="it">Creare una nuova utenza</value>
         <value xml:lang="pt_BR">Criar nova conta</value>
+        <value xml:lang="vi">Tạo mới Tài khoản</value>
         <value xml:lang="zh">新建账户</value>
         <value xml:lang="zh_TW">新建賬戶</value>
     </property>
@@ -1618,6 +1708,7 @@
         <value xml:lang="fr">Créer un nouveau contact</value>
         <value xml:lang="it">Creare un nuovo contatto</value>
         <value xml:lang="pt_BR">Criar novo contato</value>
+        <value xml:lang="vi">Tạo mới Liên hệ</value>
         <value xml:lang="zh">新建联系人</value>
         <value xml:lang="zh_TW">新建聯系人</value>
     </property>
@@ -1626,6 +1717,7 @@
         <value xml:lang="fr">Créer un contact depuis une vCard</value>
         <value xml:lang="it">Creare contatto dalla vCard</value>
         <value xml:lang="pt_BR">Criar contato a partir do vCard</value>
+        <value xml:lang="vi">Tạo mới Liên hệ từ vCard</value>
         <value xml:lang="zh">从vCard新建联系人</value>
         <value xml:lang="zh_TW">從vCard新建聯系人</value>
     </property>
@@ -1635,6 +1727,7 @@
         <value xml:lang="fr">Créer un nouveau prospect</value>
         <value xml:lang="it">Creare nuovo lead</value>
         <value xml:lang="pt_BR">Criar novo Lead</value>
+        <value xml:lang="vi">Tạo mới Đầu mối</value>
         <value xml:lang="zh">新建线索</value>
         <value xml:lang="zh_TW">新建線索</value>
     </property>
@@ -1644,7 +1737,7 @@
         <value xml:lang="fr">Créer un prospect depuis une vCard</value>
         <value xml:lang="it">Creare lead dalla vCard</value>
         <value xml:lang="pt_BR">Criar novo Lead a partir do vCard</value>
-        <value xml:lang="vi">Tạo đầu mối từ vCard</value>
+        <value xml:lang="vi">Tạo Đầu mối từ vCard</value>
         <value xml:lang="zh">从vCard新建线索</value>
         <value xml:lang="zh_TW">從vCard新建線索</value>
     </property>
@@ -1654,7 +1747,7 @@
         <value xml:lang="fr">Modifier le compte</value>
         <value xml:lang="it">Aggiornare utente</value>
         <value xml:lang="pt_BR">Editar conta</value>
-        <value xml:lang="vi">Chỉnh sửa tài khoản</value>
+        <value xml:lang="vi">Chỉnh sửa Tài khoản</value>
         <value xml:lang="zh">编辑账户</value>
         <value xml:lang="zh_TW">編輯賬戶</value>
     </property>
@@ -1666,6 +1759,7 @@
         <value xml:lang="pt_BR">Editar lista de contatos</value>
         <value xml:lang="ro">Editeaza Lista Contacte</value>
         <value xml:lang="th">แก้ไขรายการติดต่อ</value>
+        <value xml:lang="vi">Chỉnh sửa Danh sách liên hệ</value>
         <value xml:lang="zh">编辑联系列表</value>
         <value xml:lang="zh_TW">編輯聯系列表</value>
     </property>
@@ -1677,6 +1771,7 @@
         <value xml:lang="pt_BR">Editar evento de comunicação de lista de contatos</value>
         <value xml:lang="ro">Actualizeaza Lista Contact Eveniment Comunicatie</value>
         <value xml:lang="th">แก้ไขรายการผลการติดต่อ</value>
+        <value xml:lang="vi">Chỉnh sửa Sự kiện truyền thông của Liên hệ</value>
         <value xml:lang="zh">编辑联系列表沟通事件</value>
         <value xml:lang="zh_TW">編輯聯系列表溝通事件</value>
     </property>
@@ -1688,6 +1783,7 @@
         <value xml:lang="pt_BR">Editar participante de lista de contatos</value>
         <value xml:lang="ro">Editeaza Lista Contacte Parteneri</value>
         <value xml:lang="th">แก้ไขรายการติดต่อกลุ่มผู้ใช้</value>
+        <value xml:lang="vi">Chỉnh sửa Tác nhân của Danh sách liên hệ</value>
         <value xml:lang="zh">编辑联系列表会员</value>
         <value xml:lang="zh_TW">編輯聯系列表會員</value>
     </property>
@@ -1699,6 +1795,7 @@
         <value xml:lang="pt_BR">Editar Campanha de Marketing</value>
         <value xml:lang="ro">Editeaza Campania Vanzare</value>
         <value xml:lang="th">แก้ไขแผนการตลาด</value>
+        <value xml:lang="vi">Chỉnh sửa Chiến dịch kinh doanh</value>
         <value xml:lang="zh">编辑市场攻势</value>
         <value xml:lang="zh_TW">編輯行銷活動</value>
     </property>
@@ -1710,6 +1807,7 @@
         <value xml:lang="pt_BR">Editar papel de Campanha de Marketing</value>
         <value xml:lang="ro">Editeaza Rol Campanie Vanzare</value>
         <value xml:lang="th">แก้ไขสถานะแผนการตลาด</value>
+        <value xml:lang="vi">Chỉnh sửa Vai trò chiến dịch kinh doanh</value>
         <value xml:lang="zh">编辑市场攻势角色</value>
         <value xml:lang="zh_TW">編輯行銷活動角色</value>
     </property>
@@ -1718,6 +1816,7 @@
         <value xml:lang="fr">Modifier la prévision de ventes</value>
         <value xml:lang="it">Aggiorna previsioni di vendita</value>
         <value xml:lang="pt_BR">Editar previsão de vendas</value>
+        <value xml:lang="vi">Chỉnh sửa Dự báo  bán hàng</value>
         <value xml:lang="zh">编辑销售预测</value>
         <value xml:lang="zh_TW">編輯銷售預測</value>
     </property>
@@ -1726,6 +1825,7 @@
         <value xml:lang="fr">Modifier le détail de la prévision de ventes</value>
         <value xml:lang="it">Aggiorna dettagli previsioni di vendita</value>
         <value xml:lang="pt_BR">Editar detalhes da previsão de vendas</value>
+        <value xml:lang="vi">Chỉnh sửa Dự báo  bán hàng chi tiết</value>
         <value xml:lang="zh">编辑销售预测细节</value>
         <value xml:lang="zh_TW">編輯銷售預測細節</value>
     </property>
@@ -1737,6 +1837,7 @@
         <value xml:lang="pt_BR">Editar Grupo de Segmento</value>
         <value xml:lang="ro">Editeaza Grup Segment</value>
         <value xml:lang="th">แก้ไขการแบ่งกลุ่ม</value>
+        <value xml:lang="vi">Chỉnh sửa Nhóm phân đoạn</value>
         <value xml:lang="zh">编辑分区组</value>
         <value xml:lang="zh_TW">編輯分區組</value>
     </property>
@@ -1748,6 +1849,7 @@
         <value xml:lang="pt_BR">Editar classificação de Grupo de Segmento</value>
         <value xml:lang="ro">Editeaza Clasificare Grup Segment</value>
         <value xml:lang="th">แก้ไขการจัดแบ่งประเภทกลุ่ม</value>
+        <value xml:lang="vi">Chỉnh sửa phân loại của Nhóm phân đoạn</value>
         <value xml:lang="zh">编辑分区组分类</value>
         <value xml:lang="zh_TW">編輯分區組分類</value>
     </property>
@@ -1759,6 +1861,7 @@
         <value xml:lang="pt_BR">Editar localização do Grupo de Segmento</value>
         <value xml:lang="ro">Editeaza Geografia Grup Segment </value>
         <value xml:lang="th">แก้ไขส่วนโครงสร้างของกลุ่ม</value>
+        <value xml:lang="vi">Chỉnh sửa thông tin Địa lý của Nhóm phân đoạn</value>
         <value xml:lang="zh">编辑分区组地理</value>
         <value xml:lang="zh_TW">編輯分區組地理</value>
     </property>
@@ -1770,6 +1873,7 @@
         <value xml:lang="pt_BR">Editar Papel de Grupo de Segmento</value>
         <value xml:lang="ro">Editeaza Rol Grup Segment </value>
         <value xml:lang="th">แก้ไขส่วนสถานะของกลุ่ม</value>
+        <value xml:lang="vi">Chỉnh sửa Vai trò của Nhóm phân đoạn</value>
         <value xml:lang="zh">编辑分区组角色</value>
         <value xml:lang="zh_TW">編輯分區組角色</value>
     </property>
@@ -1781,6 +1885,7 @@
         <value xml:lang="pt_BR">Editar código de rastreio</value>
         <value xml:lang="ro">Editeaza Cod Traseu</value>
         <value xml:lang="th">แก้ไขรหัส Tracking</value>
+        <value xml:lang="vi">Chỉnh sửa Theo dõi lộ trình</value>
         <value xml:lang="zh">编辑跟踪码</value>
         <value xml:lang="zh_TW">編輯跟蹤碼</value>
     </property>
@@ -1792,6 +1897,7 @@
         <value xml:lang="pt_BR">Editar código de rastreio do pedido</value>
         <value xml:lang="ro">Editeaza ordine Cod Traseu </value>
         <value xml:lang="th">แก้ไขรหัส Tracking การสั่งซื้อสินค้า</value>
+        <value xml:lang="vi">Chỉnh sửa Theo dõi lộ trình trên Đặt hàng</value>
         <value xml:lang="zh">编辑跟踪码订单</value>
         <value xml:lang="zh_TW">編輯跟蹤碼訂單</value>
     </property>
@@ -1803,6 +1909,7 @@
         <value xml:lang="pt_BR">Editar tipo de código de rastreio</value>
         <value xml:lang="ro">Editeaza Tip Traseu</value>
         <value xml:lang="th">แก้ไขประเภทรหัส Tracking</value>
+        <value xml:lang="vi">Chỉnh sửa Kiểu theo dõi lộ trình</value>
         <value xml:lang="zh">编辑跟踪码类型</value>
         <value xml:lang="zh_TW">編輯跟蹤碼類型</value>
     </property>
@@ -1814,6 +1921,7 @@
         <value xml:lang="pt_BR">Editar visita ao código de rastreio</value>
         <value xml:lang="ro">Editeaza Cod Vizita Traseu</value>
         <value xml:lang="th">แก้ไขรหัส Tracking ของการเยี่ยมชม</value>
+        <value xml:lang="vi">Chỉnh sửa duyệt Theo dõi lộ trình</value>
         <value xml:lang="zh">编辑跟踪码访问</value>
         <value xml:lang="zh_TW">編輯跟蹤碼訪問</value>
     </property>
@@ -1825,6 +1933,7 @@
         <value xml:lang="pt_BR">Buscar evento de comunicação da lista de contatos</value>
         <value xml:lang="ro">Cauta Lista Contact Eveniment Comunicare</value>
         <value xml:lang="th">ค้นหารายการผลการติดต่อ</value>
+        <value xml:lang="vi">Tìm Sự kiện truyền thông trên Danh sách liên hệ</value>
         <value xml:lang="zh">查找联系列表沟通事件</value>
         <value xml:lang="zh_TW">查找聯系列表溝通事件</value>
     </property>
@@ -1836,6 +1945,7 @@
         <value xml:lang="pt_BR">Buscar Eventos de comunicação associados</value>
         <value xml:lang="ro">Cauta Asociatii Evenimente de Comunicare</value>
         <value xml:lang="th">ค้นหาผลการติดต่อที่สัมพันธ์กัน</value>
+        <value xml:lang="vi">Tìm Sự kiện truyền thông kết hợp</value>
         <value xml:lang="zh">查找关联的沟通事件</value>
         <value xml:lang="zh_TW">查找關聯的溝通事件</value>
     </property>
@@ -1847,12 +1957,14 @@
         <value xml:lang="pt_BR">Buscar participantes na lsita de contatos</value>
         <value xml:lang="ro">Cauta Lista Contact Parteneri</value>
         <value xml:lang="th">ค้นหารายการติดต่อกลุ่มผู้ใช้</value>
+        <value xml:lang="vi">Tìm Danh sách liên hệ của Tác nhân</value>
         <value xml:lang="zh">查找联系列表会员</value>
         <value xml:lang="zh_TW">查找聯系列表會員</value>
     </property>
     <property key="PageTitleFindImportContactListParties">
         <value xml:lang="en">Find Import Contact List Parties</value>
         <value xml:lang="th">ค้นหารายการติดต่อกลุ่มผู้ใช้เพื่อการนำเข้า</value>
+        <value xml:lang="vi">Tìm Danh sách liên hệ của Tác nhân đã nhập khẩu</value>
     </property>
     <property key="PageTitleFindMarketingCampaignRole">
         <value xml:lang="en">Find Marketing Campaign Role</value>
@@ -1862,6 +1974,7 @@
         <value xml:lang="pt_BR">Buscar papel de Campanha de Marketing</value>
         <value xml:lang="ro">Cauta Rol Campanie Vanzari</value>
         <value xml:lang="th">ค้นหาสถานะแผนการตลาด</value>
+        <value xml:lang="vi">Tìm Vai trò của Chiến dịch tiếp thị</value>
         <value xml:lang="zh">查找市场攻势角色</value>
         <value xml:lang="zh_TW">查找行銷活動角色</value>
     </property>
@@ -1871,6 +1984,7 @@
         <value xml:lang="fr">Recherche de prévision de ventes</value>
         <value xml:lang="it">Ricerca previsioni di vendita</value>
         <value xml:lang="pt_BR">Buscar previsão de vendas</value>
+        <value xml:lang="vi">Tìm Dự báo  bán hàng</value>
         <value xml:lang="zh">查找销售预测</value>
         <value xml:lang="zh_TW">查找銷售預測</value>
     </property>
@@ -1882,6 +1996,7 @@
         <value xml:lang="pt_BR">Buscar Grupo de Segmento</value>
         <value xml:lang="ro">Cauta Grup Segment</value>
         <value xml:lang="th">ค้นหาส่วนของกลุ่ม</value>
+        <value xml:lang="vi">Tìm Nhóm phân đoạn</value>
         <value xml:lang="zh">查找分区组</value>
         <value xml:lang="zh_TW">查找分區組</value>
     </property>
@@ -1890,6 +2005,7 @@
         <value xml:lang="fr">Rechercher un code de suivi</value>
         <value xml:lang="it">Ricerca codice tracciatura</value>
         <value xml:lang="pt_BR">Buscar código de rastreio</value>
+        <value xml:lang="vi">Tìm Theo dõi lộ trình</value>
         <value xml:lang="zh">查找跟踪码</value>
         <value xml:lang="zh_TW">查找跟蹤碼</value>
     </property>
@@ -1901,6 +2017,7 @@
         <value xml:lang="pt_BR">Buscar códigos de rastreio de pedidos</value>
         <value xml:lang="ro">Cauta Coduri Comenzi Traseu ?</value>
         <value xml:lang="th">ค้นหารหัส Tracking การสั่งซื้อสินค้า</value>
+        <value xml:lang="vi">Tìm mã Theo dõi lộ trình</value>
         <value xml:lang="zh">查找跟踪码订单</value>
         <value xml:lang="zh_TW">查找跟蹤碼訂單</value>
     </property>
@@ -1909,6 +2026,7 @@
         <value xml:lang="fr">Rechercher un code de suivi de visite</value>
         <value xml:lang="it">Ricerca codice tracciatura visita</value>
         <value xml:lang="pt_BR">Buscar visita ao código de rastreio</value>
+        <value xml:lang="vi">Tìm duyệt (visit) Theo dõi lộ trình</value>
         <value xml:lang="zh">查找跟踪码访问</value>
         <value xml:lang="zh_TW">查找跟蹤碼訪問</value>
     </property>
@@ -1920,6 +2038,7 @@
         <value xml:lang="pt_BR">Buscar visitas ao código de rastreio</value>
         <value xml:lang="ro">Cauta Coduri Vizite Traseu </value>
         <value xml:lang="th">ค้นหารหัส Tracking การเยี่ยมชม</value>
+        <value xml:lang="vi">Tìm duyệt (visit) Theo dõi lộ trình</value>
         <value xml:lang="zh">查找跟踪码访问</value>
         <value xml:lang="zh_TW">查找跟蹤碼訪問</value>
     </property>
@@ -1934,6 +2053,7 @@
         <value xml:lang="ro">Listeaza Lista Contacte</value>
         <value xml:lang="ru">Список контактов</value>
         <value xml:lang="th">รายการการติดต่อ</value>
+        <value xml:lang="vi">Tìm danh sách Liên hệ</value>
         <value xml:lang="zh">联系列表的列表</value>
         <value xml:lang="zh_TW">聯系列表的列表</value>
     </property>
@@ -1945,6 +2065,7 @@
         <value xml:lang="pt_BR">Listar Eventos de Comunicação da lista de contatos</value>
         <value xml:lang="ro">Vizualizeaza Lista Contacte Evenimente</value>
         <value xml:lang="th">ลงรายการผลการติดต่อ</value>
+        <value xml:lang="vi">Liệt kê Sự kiện truyền thông trên danh sách Liên hệ</value>
         <value xml:lang="zh">联系列表沟通事件列表</value>
         <value xml:lang="zh_TW">聯系列表溝通事件列表</value>
     </property>
@@ -1956,6 +2077,7 @@
         <value xml:lang="pt_BR">Listar participantes da lista de contatos</value>
         <value xml:lang="ro">Visualizeaza Lista Contacte Subiecti</value>
         <value xml:lang="th">ลงรายการติดต่อกลุ่มผู้ใช้</value>
+        <value xml:lang="vi">Liệt kê danh sách Liên hệ Tác nhân</value>
         <value xml:lang="zh">联系列表会员列表</value>
         <value xml:lang="zh_TW">聯系列表會員列表</value>
     </property>
@@ -1967,6 +2089,7 @@
         <value xml:lang="pt_BR">Listar Campanhas de Marketing</value>
         <value xml:lang="ro">Lista Campanie Marketing</value>
         <value xml:lang="th">รายการแผนการตลาด</value>
+        <value xml:lang="vi">Liệt kê Chiến dịch tiếp thị</value>
         <value xml:lang="zh">市场攻势列表</value>
         <value xml:lang="zh_TW">行銷活動列表</value>
     </property>
@@ -1978,6 +2101,7 @@
         <value xml:lang="pt_BR">Listar papéis de Campanha de Marketing</value>
         <value xml:lang="ro">Lista Rol Campanie Vanzare</value>
         <value xml:lang="th">รายการสถานะแผนการตลาด</value>
+        <value xml:lang="vi">Liệt kê Vai trò chiến dịch tiếp thị</value>
         <value xml:lang="zh">市场攻势角色列表</value>
         <value xml:lang="zh_TW">行銷活動角色列表</value>
     </property>
@@ -1989,6 +2113,7 @@
         <value xml:lang="pt_BR">Listar localizações de Grupos de Segmento</value>
         <value xml:lang="ro">Lista Grup Segment Geos</value>
         <value xml:lang="th">รายการส่วนของโครงสร้างกลุ่ม</value>
+        <value xml:lang="vi">Liệt kê Địa lý Nhóm phân đoạn</value>
         <value xml:lang="zh">分区组地理</value>
         <value xml:lang="zh_TW">分區組地理</value>
     </property>
@@ -2000,6 +2125,7 @@
         <value xml:lang="pt_BR">Listar papéis de Grupo de Segmento</value>
         <value xml:lang="ro">Visualizeaza Rol Grup Segment</value>
         <value xml:lang="th">รายการส่วนของสถานะกลุ่ม</value>
+        <value xml:lang="vi">Liệt kê vai trò Nhóm phân đoạn</value>
         <value xml:lang="zh">分区组角色列表</value>
         <value xml:lang="zh_TW">分區組角色列表</value>
     </property>
@@ -2011,6 +2137,7 @@
         <value xml:lang="pt_BR">Listar códigos de rastreio</value>
         <value xml:lang="ro">Lista Cod Traseu</value>
         <value xml:lang="th">รายการรหัส Tracking</value>
+        <value xml:lang="vi">Liệt kê mã Theo dõi lộ trình</value>
         <value xml:lang="zh">跟踪码列表</value>
         <value xml:lang="zh_TW">跟蹤碼列表</value>
     </property>
@@ -2022,6 +2149,7 @@
         <value xml:lang="pt_BR">Listar Visitaso ao Códigos de Rastreio para</value>
         <value xml:lang="ro">Lista Cod Traseu Vizita pentru</value>
         <value xml:lang="th">รายการรหัส Tracking การเยี่ยมชมสำหรับ</value>
+        <value xml:lang="vi">Liệt kê mã duyệt Theo dõi lộ trình cho</value>
         <value xml:lang="zh">跟踪码访问列表：</value>
         <value xml:lang="zh_TW">跟蹤碼訪問列表：</value>
     </property>
@@ -2033,6 +2161,7 @@
         <value xml:lang="pt_BR">Listar código de ratreio para pedido</value>
         <value xml:lang="ro">Lista Cod Traseu Comanda</value>
         <value xml:lang="th">รายการรหัส Tracking ของการสั่งซื้อสินค้า</value>
+        <value xml:lang="vi">Liệt kê mã Theo dõi lộ trình của Đặt hàng</value>
         <value xml:lang="zh">跟踪码订单列表</value>
         <value xml:lang="zh_TW">跟蹤碼訂單列表</value>
     </property>
@@ -2044,6 +2173,7 @@
         <value xml:lang="pt_BR">Listar código de rastreio de pedido para</value>
         <value xml:lang="ro">Lista Cod Traseu Comanda pentru</value>
         <value xml:lang="th">รายการรหัส Tracking การสั่งซื้อสินค้าสำหรับ</value>
+        <value xml:lang="vi">Liệt kê mã Theo dõi lộ trình của Đặt hàng cho</value>
         <value xml:lang="zh">跟踪码订单列表：</value>
         <value xml:lang="zh_TW">跟蹤碼訂單列表：</value>
     </property>
@@ -2055,6 +2185,7 @@
         <value xml:lang="pt_BR">Listar tipo de código de rastreio</value>
         <value xml:lang="ro">Lista Tip Traseu</value>
         <value xml:lang="th">รายการรหัส Tracking ประเภท</value>
+        <value xml:lang="vi">Liệt kê loại Theo dõi lộ trình</value>
         <value xml:lang="zh">跟踪码类型列表</value>
         <value xml:lang="zh_TW">跟蹤碼類型列表</value>
     </property>
@@ -2066,6 +2197,7 @@
         <value xml:lang="pt_BR">Listar visitas ao código de rastreio</value>
         <value xml:lang="ro">Lista Cod Traseu Vizita</value>
         <value xml:lang="th">รายการรหัส Tracking การเยี่ยมชม</value>
+        <value xml:lang="vi">Liệt kê mã duyệt Theo dõi lộ trình</value>
         <value xml:lang="zh">跟踪码访问列表</value>
         <value xml:lang="zh_TW">跟蹤碼訪問列表</value>
     </property>
@@ -2077,6 +2209,7 @@
         <value xml:lang="pt_BR">Buscar Evento de Comunicação</value>
         <value xml:lang="ro">Cauta Eveniment Comunicatie</value>
         <value xml:lang="th">ค้นหาข้อมูลผลการติดต่อ</value>
+        <value xml:lang="vi">Chọn Sự kiện truyền thông</value>
         <value xml:lang="zh">查找沟通事件</value>
         <value xml:lang="zh_TW">查找溝通事件</value>
     </property>
@@ -2088,6 +2221,7 @@
         <value xml:lang="pt_BR">Buscar Lista de Contatos</value>
         <value xml:lang="ro">Cauta Lista Contacte</value>
         <value xml:lang="th">ค้นหาข้อมูลรายการติดต่อ</value>
+        <value xml:lang="vi">Chọn Danh sách liên hệ</value>
         <value xml:lang="zh">查找联系列表</value>
         <value xml:lang="zh_TW">查找聯系列表</value>
     </property>
@@ -2097,6 +2231,7 @@
         <value xml:lang="fr">Rechercher une ou des prévisions de ventes</value>
         <value xml:lang="it">Ricerca previsioni di vendita</value>
         <value xml:lang="pt_BR">Buscar previsões de venda</value>
+        <value xml:lang="vi">Chọn Dự báo  bán hàng</value>
         <value xml:lang="zh">查找销售预测</value>
         <value xml:lang="zh_TW">查找銷售預測</value>
     </property>
@@ -2107,6 +2242,7 @@
         <value xml:lang="pt_BR">Buscar Grupo de segmento</value>
         <value xml:lang="ro">Cauta Grupuri Segment</value>
         <value xml:lang="th">ค้นหาข้อมูลส่วนของกลุ่ม</value>
+        <value xml:lang="vi">Chọn Nhóm phân đoạn</value>
         <value xml:lang="zh">查找分区组</value>
         <value xml:lang="zh_TW">查找分區組</value>
     </property>
@@ -2118,6 +2254,7 @@
         <value xml:lang="pt_BR">Buscar código de rastreio</value>
         <value xml:lang="ro">Cauta Cod Traseu</value>
         <value xml:lang="th">ค้นหาข้อมูลรหัส Tracking</value>
+        <value xml:lang="vi">Chọn Theo dõi lộ trình</value>
         <value xml:lang="zh">查找跟踪码</value>
         <value xml:lang="zh_TW">查找跟蹤碼</value>
     </property>
@@ -2129,6 +2266,7 @@
         <value xml:lang="pt_BR">Buscar por tipo de código de rastreio</value>
         <value xml:lang="ro">Cauta Tip Traseu</value>
         <value xml:lang="th">ค้นหาข้อมูลรหัส Tracking ประเภท</value>
+        <value xml:lang="vi">Chọn loại Theo dõi lộ trình</value>
         <value xml:lang="zh">查找跟踪码类型</value>
         <value xml:lang="zh_TW">查找跟蹤碼類型</value>
     </property>
@@ -2141,6 +2279,7 @@
         <value xml:lang="pt_BR">Buscar visita</value>
         <value xml:lang="ro">Cauta Vizita</value>
         <value xml:lang="th">ค้นหาข้อมูลการเยี่ยมชม</value>
+        <value xml:lang="vi">Chọn Lần duyệt</value>
         <value xml:lang="zh">查找访问</value>
         <value xml:lang="zh_TW">查找訪問</value>
     </property>
@@ -2153,6 +2292,7 @@
         <value xml:lang="pt_BR">Mecanismo de contato preferencial</value>
         <value xml:lang="ro">Contact Preferit</value>
         <value xml:lang="th">วิธีการติดต่อ</value>
+        <value xml:lang="vi">Cơ chế liên lạc ưa thích</value>
         <value xml:lang="zh">优先使用的联系方式</value>
         <value xml:lang="zh_TW">優先使用的聯系方式</value>
     </property>
@@ -2173,6 +2313,7 @@
         <value xml:lang="fr">Nom de compte</value>
         <value xml:lang="it">Nome utente</value>
         <value xml:lang="pt_BR">Nome da conta</value>
+        <value xml:lang="vi">Tên tài khoản</value>
         <value xml:lang="zh">账户名称</value>
         <value xml:lang="zh_TW">賬戶名稱</value>
     </property>
@@ -2182,6 +2323,7 @@
         <value xml:lang="fr">Ajouter le détail de la prévision de ventes</value>
         <value xml:lang="it">Aggiungi dettagli previsioni di vendita</value>
         <value xml:lang="pt_BR">Adicionar detalhes à previsão de vendas</value>
+        <value xml:lang="vi">Thêm Dự báo  bán hàng chi tiết </value>
         <value xml:lang="zh">添加销售预测细节</value>
         <value xml:lang="zh_TW">添加銷售預測細節</value>
     </property>
@@ -2191,7 +2333,7 @@
         <value xml:lang="fr">Tous les comptes</value>
         <value xml:lang="pt_BR">Todas contas</value>
         <value xml:lang="th">Account ทั้งหมด</value>
-        <value xml:lang="vi">Toàn bộ tài khoản</value>
+        <value xml:lang="vi">Tất cả Tài khoản</value>
     </property>
     <property key="SfaAllContacts">
         <value xml:lang="de">Alle Kontakte</value>
@@ -2199,14 +2341,14 @@
         <value xml:lang="fr">Tous les contacts</value>
         <value xml:lang="pt_BR">Todos contatos</value>
         <value xml:lang="th">Contact ทั้งหมด</value>
-        <value xml:lang="vi">Toàn bộ liên hệ</value>
+        <value xml:lang="vi">Tất cả Liên hệ</value>
     </property>
     <property key="SfaAllLeads">
         <value xml:lang="en">All Leads</value>
         <value xml:lang="fr">Tous les prospects</value>
         <value xml:lang="pt_BR">Todos Leads</value>
         <value xml:lang="th">Lead ทั้งหมด</value>
-        <value xml:lang="vi">Toàn bộ đầu mối</value>
+        <value xml:lang="vi">Tất cả Đầu mối</value>
     </property>
     <property key="SfaAssignToMe">
         <value xml:lang="de">Zugewiesen an mich</value>
@@ -2214,7 +2356,7 @@
         <value xml:lang="fr">Me l'assigner</value>
         <value xml:lang="pt_BR">Designar para mim</value>
         <value xml:lang="th">กำหนดให้ฉัน</value>
-        <value xml:lang="vi">Phân quyền cho tôi</value>
+        <value xml:lang="vi">Giao cho Tôi</value>
     </property>
     <property key="SfaAssignedBy">
         <value xml:lang="de">Zugewiesen von</value>
@@ -2222,7 +2364,7 @@
         <value xml:lang="fr">Assigné par</value>
         <value xml:lang="pt_BR">Designada por</value>
         <value xml:lang="th">กำหนดโดย</value>
-        <value xml:lang="vi">Phân quyền bởi</value>
+        <value xml:lang="vi">Giao bởi</value>
     </property>
     <property key="SfaAutoCreateContactByImportingVCard">
         <value xml:lang="de">Automatisches Erstellen eines neuen Kontaktes bei dem Import einer vCard</value>
@@ -2230,6 +2372,7 @@
         <value xml:lang="fr">Créez automatiquement un nouveau contact par import d'une vCard</value>
         <value xml:lang="it">Creazione automatica di un nuovo contatto importando una vCard</value>
         <value xml:lang="pt_BR">Criar automaticamente um novo contato importando um vCard</value>
+        <value xml:lang="vi">Tự động tạo mới Liên hệ bởi nhập khẩu vCard</value>
         <value xml:lang="zh">通过导入vCard自动新建联系</value>
         <value xml:lang="zh_TW">通過導入vCard自動新建聯系</value>
     </property>
@@ -2239,6 +2382,7 @@
         <value xml:lang="fr">Créez automatiquement un nouveau prospect par import d'une vCard</value>
         <value xml:lang="it">Creazione automatica di un nuovo lead importando una vCard</value>
         <value xml:lang="pt_BR">Criar automaticamente um novo Lead importando um vCard</value>
+        <value xml:lang="vi">Tự động tạo mới Đầu mối bởi nhập khẩu vCard</value>
         <value xml:lang="zh">通过导入vCard自动新建线索</value>
         <value xml:lang="zh_TW">通過導入vCard自動新建線索</value>
     </property>
@@ -2249,6 +2393,7 @@
         <value xml:lang="fr">Campagnes de ventes</value>
         <value xml:lang="it">Campagne</value>
         <value xml:lang="pt_BR">Campanhas</value>
+        <value xml:lang="vi">Chiến dịch</value>
         <value xml:lang="zh">攻势</value>
         <value xml:lang="zh_TW">活動</value>
     </property>
@@ -2258,6 +2403,7 @@
         <value xml:lang="fr">Echec à la fusion des contacts. Vous avez choisi le même contact à fusionner.</value>
         <value xml:lang="it">Fallito il merce dei contatti. Tu devi selezionare lo stesso contatto per fare il merge.</value>
         <value xml:lang="pt_BR">Falha ao mesclar os contatos. Você selecionou o mesmo contato para mesclar.</value>
+        <value xml:lang="vi">Trộn các Liên hệ không thành công. Bạn cần chọn Liên hệ giống nhau để Trộn.</value>
         <value xml:lang="zh">合并联系时失败。你选择了同一个联系做合并。</value>
         <value xml:lang="zh_TW">合並聯系時失敗。你選擇了同一個聯系做合並。</value>
     </property>
@@ -2267,6 +2413,7 @@
         <value xml:lang="fr">Echec à la fusion des prospects. Vous avez choisi le même prospect pour fusionner</value>
         <value xml:lang="it">Fallito il merce dei leads. Tu devi selezionare lo stesso lead per fare il merge.</value>
         <value xml:lang="pt_BR">Falha ao mesclar Leads. Você selecionou o mesmo Lead para mesclar.</value>
+        <value xml:lang="vi">Trộn các Đầu mối không thành công. Bạn cần chọn Đầu mối giống nhau để Trộn.</value>
         <value xml:lang="zh">合并线索时失败。你选择了同一个线索做合并。</value>
         <value xml:lang="zh_TW">合並線索時失敗。你選擇了同一個線索做合並。</value>
     </property>
@@ -2276,6 +2423,7 @@
         <value xml:lang="fr">Dupliquer un prospect</value>
         <value xml:lang="it">Clona lead</value>
         <value xml:lang="pt_BR">Clonar Lead</value>
+        <value xml:lang="vi">Nhân bản Đầu mối</value>
         <value xml:lang="zh">克隆线索</value>
         <value xml:lang="zh_TW">克隆線索</value>
     </property>
@@ -2285,6 +2433,7 @@
         <value xml:lang="fr">Fermer à la date</value>
         <value xml:lang="it">Data di chiusura</value>
         <value xml:lang="pt_BR">Data de encerramento</value>
+        <value xml:lang="vi">Ngày đóng</value>
         <value xml:lang="zh">关闭日期</value>
         <value xml:lang="zh_TW">關閉日期</value>
     </property>
@@ -2294,7 +2443,7 @@
         <value xml:lang="fr">OFBiz: gestion des ventes</value>
         <value xml:lang="it">OFBiz: Gestione forze di vendita</value>
         <value xml:lang="pt_BR">OFBiz: gestor da equipe de vendas</value>
-        <value xml:lang="vi">OFBiz: Quản lý bán hàng</value>
+        <value xml:lang="vi">OFBiz: Quản trị Chiến dịch tiếp thị</value>
         <value xml:lang="zh">OFBiz: 销售管理程序</value>
         <value xml:lang="zh_TW">OFBiz: 銷售管理程式</value>
     </property>
@@ -2303,7 +2452,7 @@
         <value xml:lang="fr">Concurrents &amp; Associés</value>
         <value xml:lang="it">Competitori e soci</value>
         <value xml:lang="pt_BR">Concorrentes &amp; Parceiros</value>
-        <value xml:lang="vi">Đối tác</value>
+        <value xml:lang="vi">Đối thủ &amp; Đối tác</value>
         <value xml:lang="zh">竞争者和合作伙伴</value>
         <value xml:lang="zh_TW">競爭者和合作伙伴</value>
     </property>
@@ -2339,7 +2488,7 @@
         <value xml:lang="fr">Convertir le prospect</value>
         <value xml:lang="it">Converti lead</value>
         <value xml:lang="pt_BR">Concretizar Lead</value>
-        <value xml:lang="vi">Chuyển đổi đầu mối</value>
+        <value xml:lang="vi">Chuyển đổi Đầu mối</value>
         <value xml:lang="zh">转化线索</value>
         <value xml:lang="zh_TW">轉化線索</value>
     </property>
@@ -2348,6 +2497,7 @@
         <value xml:lang="fr">Créer un compte pour le prospect</value>
         <value xml:lang="it">Crea utenza per leader</value>
         <value xml:lang="pt_BR">Criar conta para LEad</value>
+        <value xml:lang="vi">Tạo mới Tài khoản từ Đầu mối</value>
         <value xml:lang="zh">为线索创建账户</value>
         <value xml:lang="zh_TW">為線索創建賬戶</value>
     </property>
@@ -2357,6 +2507,7 @@
         <value xml:lang="fr">Créer un contact pour le prospect</value>
         <value xml:lang="it">Creare contatto per il lead</value>
         <value xml:lang="pt_BR">Criar contato para Lead</value>
+        <value xml:lang="vi">Tạo mới Liên hệ cho Đầu mối</value>
         <value xml:lang="zh">为线索创建联系</value>
         <value xml:lang="zh_TW">為線索創建聯系</value>
     </property>
@@ -2366,6 +2517,7 @@
         <value xml:lang="fr">Créer depuis une vCard</value>
         <value xml:lang="it">Creare contatto dalla vCard</value>
         <value xml:lang="pt_BR">Criar a partir de vCard</value>
+        <value xml:lang="vi">Tạo từ vCard</value>
         <value xml:lang="zh">从vCard创建</value>
         <value xml:lang="zh_TW">從vCard創建</value>
     </property>
@@ -2375,6 +2527,7 @@
         <value xml:lang="fr">Origine</value>
         <value xml:lang="it">Origine</value>
         <value xml:lang="pt_BR">Origem</value>
+        <value xml:lang="vi">Nguồn</value>
         <value xml:lang="zh">来源</value>
         <value xml:lang="zh_TW">來源</value>
     </property>
@@ -2393,6 +2546,7 @@
         <value xml:lang="fr">Modifier l'opportunité</value>
         <value xml:lang="it">Aggiorna opportunità</value>
         <value xml:lang="pt_BR">Editar oportunidade</value>
+        <value xml:lang="vi">Cập nhật Cơ hội</value>
         <value xml:lang="zh">编辑机会</value>
         <value xml:lang="zh_TW">編輯機會</value>
     </property>
@@ -2402,6 +2556,7 @@
         <value xml:lang="fr">Créer/Mise à jour des prévisions de ventes</value>
         <value xml:lang="it">Crea/Aggiorna previsioni di vendita</value>
         <value xml:lang="pt_BR">Criar/atualizar previsão de vendas</value>
+        <value xml:lang="vi">Tạo mới/ Cập nhật Dự báo  bán hàng</value>
         <value xml:lang="zh">创建/更新销售预测</value>
         <value xml:lang="zh_TW">創建/更新銷售預測</value>
     </property>
@@ -2410,6 +2565,7 @@
         <value xml:lang="fr">Montant estimé</value>
         <value xml:lang="it">Importo stimato</value>
         <value xml:lang="pt_BR">Montante estimado</value>
+        <value xml:lang="vi">Giá trị ước tính</value>
         <value xml:lang="zh">预计金额</value>
         <value xml:lang="zh_TW">預計金額</value>
     </property>
@@ -2425,27 +2581,30 @@
     <property key="SfaExportVCardError">
         <value xml:lang="en">Error during export data from VCard: ${errorString}</value>
         <value xml:lang="it">Errore durante l'esportazione dei dati da VCard: ${errorString}</value>
+        <value xml:lang="vi">Lỗi xảy ra khi kết xuất dữ liệu từ VCard: ${errorString}</value>
     </property>
     <property key="SfaExportVCardErrorOpeningFile">
         <value xml:lang="en">Error during export data from VCard, unable to open file for writing: ${errorString}</value>
         <value xml:lang="it">Errore durante l'esportazione dei dati da VCard, non è possibile aprire il file in scrittura: ${errorString}</value>
+        <value xml:lang="vi">Lỗi xảy ra khi kết xuất dữ liệu từ VCard, không thể mở tập tin để ghi: ${errorString}</value>
     </property>
     <property key="SfaExportVCardErrorWritingFile">
         <value xml:lang="en">Error during export data from VCard, unable to write data to: ${errorString}</value>
         <value xml:lang="it">Errore durante l'esportazione dei dati da VCard, non è possibile scrivere i dati in: ${errorString}</value>
+        <value xml:lang="vi">Lỗi xảy ra khi kết xuất dữ liệu từ VCard, không thể ghi dữ liệu tới: ${errorString}</value>
     </property>
     <property key="SfaFindAccountLeads">
         <value xml:lang="en">Find Account Leads</value>
         <value xml:lang="pt_BR">Buscar contas de Leads</value>
         <value xml:lang="th">ค้นหา Account Leads</value>
-        <value xml:lang="vi">Tìm kiếm tài khoản đầu mối</value>
+        <value xml:lang="vi">Tìm kiếm Tài khoản đầu mối</value>
     </property>
     <property key="SfaFindAccounts">
         <value xml:lang="de">Finde Konten</value>
         <value xml:lang="en">Find Accounts</value>
         <value xml:lang="pt_BR">Buscar contas</value>
         <value xml:lang="th">ค้นหา Accounts</value>
-        <value xml:lang="vi">Tìm kiếm tài khoản</value>
+        <value xml:lang="vi">Tìm kiếm Tài khoản</value>
     </property>
     <property key="SfaFindContacts">
         <value xml:lang="de">Finde Kontakte</value>
@@ -2453,7 +2612,7 @@
         <value xml:lang="fr">Rechercher les contacts</value>
         <value xml:lang="it">Ricerca contatti</value>
         <value xml:lang="pt_BR">Buscar contatos</value>
-        <value xml:lang="vi">Tìm kiếm liên hệ</value>
+        <value xml:lang="vi">Tìm kiếm Liên hệ</value>
         <value xml:lang="zh">查找联系</value>
         <value xml:lang="zh_TW">查找聯系</value>
     </property>
@@ -2463,7 +2622,7 @@
         <value xml:lang="fr">Recherchers les prospects</value>
         <value xml:lang="it">Ricerca leads</value>
         <value xml:lang="pt_BR">Buscar Leads</value>
-        <value xml:lang="vi">Tìm kiếm đầu mối</value>
+        <value xml:lang="vi">Tìm kiếm Đầu mối</value>
         <value xml:lang="zh">查找线索</value>
         <value xml:lang="zh_TW">查找線索</value>
     </property>
@@ -2473,7 +2632,7 @@
         <value xml:lang="fr">Rechercher les opportunités</value>
         <value xml:lang="it">Ricerca opportunità</value>
         <value xml:lang="pt_BR">Buscar oportunidades</value>
-        <value xml:lang="vi">Tìm kiếm cơ hội</value>
+        <value xml:lang="vi">Tìm kiếm Cơ hội</value>
         <value xml:lang="zh">查找机会</value>
         <value xml:lang="zh_TW">查找機會</value>
     </property>
@@ -2484,7 +2643,7 @@
         <value xml:lang="fr">Rechercher les résultats</value>
         <value xml:lang="it">Ricerca risultati</value>
         <value xml:lang="pt_BR">Buscar resultados</value>
-        <value xml:lang="vi">Tìm kiếm kết quả</value>
+        <value xml:lang="vi">Tìm kiếm Kết quả</value>
         <value xml:lang="zh">查找结果</value>
         <value xml:lang="zh_TW">查找結果</value>
     </property>
@@ -2494,6 +2653,7 @@
         <value xml:lang="fr">Premier contact</value>
         <value xml:lang="it">Primo contatto</value>
         <value xml:lang="pt_BR">Primeiro contato</value>
+        <value xml:lang="vi">Liên hệ đầu tiên</value>
         <value xml:lang="zh">首选联系方式</value>
         <value xml:lang="zh_TW">首選聯系方式</value>
     </property>
@@ -2501,6 +2661,7 @@
         <value xml:lang="de">Bitte geben Sie den Vornamen, Nachnamen oder Firmennamen ein</value>
         <value xml:lang="en">Please enter Person First name or Last name or Company name</value>
         <value xml:lang="pt_BR">Por favor, digite o nome da pessoa, sobrenome ou nome da empresa</value>
+        <value xml:lang="vi">Bạn hãy nhập Tên hoặc Họ hoặc Tên công ty</value>
     </property>
     <property key="SfaForecasts">
         <value xml:lang="de">Prognose</value>
@@ -2519,18 +2680,21 @@
         <value xml:lang="fr">Importer le prospect</value>
         <value xml:lang="it">Importo lead</value>
         <value xml:lang="pt_BR">Importar Lead</value>
+        <value xml:lang="vi">Nhập khẩu Đầu mối</value>
         <value xml:lang="zh">导入线索</value>
         <value xml:lang="zh_TW">導入線索</value>
     </property>
     <property key="SfaImportVCardError">
         <value xml:lang="en">Error during import data from VCard: ${errorString}</value>
         <value xml:lang="it">Errore durante l'importazione dei dati da VCard: ${errorString}</value>
+        <value xml:lang="vi">Lỗi xảy ra khi nhập khẩu dữ liệu từ VCard: ${errorString}</value>
     </property>
     <property key="SfaInitialAccount">
         <value xml:lang="en">Initial Account</value>
         <value xml:lang="fr">Compte initial</value>
         <value xml:lang="it">Utente iniziale</value>
         <value xml:lang="pt_BR">Conta inicial</value>
+        <value xml:lang="vi">Khởi tạo Tài khoản</value>
         <value xml:lang="zh">初始账户</value>
         <value xml:lang="zh_TW">初始賬戶</value>
     </property>
@@ -2539,6 +2703,7 @@
         <value xml:lang="fr">Phase initiale</value>
         <value xml:lang="it">Stage iniziale</value>
         <value xml:lang="pt_BR">Estágio inicial</value>
+        <value xml:lang="vi">Khởi tạo Giai đoạn</value>
         <value xml:lang="zh">初始阶段</value>
         <value xml:lang="zh_TW">初始階段</value>
     </property>
@@ -2547,6 +2712,7 @@
         <value xml:lang="fr">Prospect</value>
         <value xml:lang="it">Lead</value>
         <value xml:lang="pt_BR">Lead</value>
+        <value xml:lang="vi">Đầu mối</value>
         <value xml:lang="zh">线索</value>
         <value xml:lang="zh_TW">線索</value>
     </property>
@@ -2555,6 +2721,7 @@
         <value xml:lang="fr">Origine du prospect</value>
         <value xml:lang="it">Lead origine</value>
         <value xml:lang="pt_BR">Origem do Lead</value>
+        <value xml:lang="vi">Nguồn Đầu mối</value>
         <value xml:lang="zh">线索来源</value>
         <value xml:lang="zh_TW">線索來源</value>
     </property>
@@ -2572,6 +2739,7 @@
         <value xml:lang="fr">Liste des détails de prévision de ventes</value>
         <value xml:lang="it">Lista dettagli previsioni di vendita</value>
         <value xml:lang="pt_BR">Listar detalhes de previsão de vendas</value>
+        <value xml:lang="vi">Danh sách Dự báo  bán hàng chi tiết</value>
         <value xml:lang="zh">销售预测细节列表</value>
         <value xml:lang="zh_TW">銷售預測細節列表</value>
     </property>
@@ -2580,7 +2748,7 @@
         <value xml:lang="fr">Application de gestion des ventes</value>
         <value xml:lang="it">Gestione vendite</value>
         <value xml:lang="pt_BR">Gestor de automação de equipe de vendas</value>
-        <value xml:lang="vi">Quản lý bán hàng</value>
+        <value xml:lang="vi">Quản trị Kinh doanh tiếp thị (SFA)</value>
         <value xml:lang="zh">销售管理应用程序</value>
         <value xml:lang="zh_TW">銷售管理應用程式</value>
     </property>
@@ -2589,6 +2757,7 @@
         <value xml:lang="fr">Application de gestion des ventes</value>
         <value xml:lang="it">Applicazione gestione forze esterne</value>
         <value xml:lang="pt_BR">Applicação de gestão de automação de equipe de vendas</value>
+        <value xml:lang="vi">Quản trị Kinh doanh tiếp thị (SFA)</value>
         <value xml:lang="zh">销售管理应用程序</value>
         <value xml:lang="zh_TW">銷售管理應用程式</value>
     </property>
@@ -2598,6 +2767,7 @@
         <value xml:lang="fr">Bienvenue dans l'application de gestion des ventes.</value>
         <value xml:lang="it">Benvenuto all'applicazione di gestione delle forze esterne.</value>
         <value xml:lang="pt_BR">Seja bem-vindo à aplicação de atomação da equipe de vendas.</value>
+        <value xml:lang="vi">Chào mừng bạn đến với ứng dụng Quản trị kinh doanh tiếp thị (SFA)</value>
         <value xml:lang="zh">欢迎使用销售管理应用程序</value>
         <value xml:lang="zh_TW">歡迎使用銷售管理應用程式</value>
     </property>
@@ -2607,6 +2777,7 @@
         <value xml:lang="fr">Fusionner les contacts</value>
         <value xml:lang="it">Merge Contatti</value>
         <value xml:lang="pt_BR">Mesclar contatos</value>
+        <value xml:lang="vi">Trộn Liên hệ</value>
         <value xml:lang="zh">合并联系</value>
         <value xml:lang="zh_TW">合並聯系</value>
     </property>
@@ -2615,7 +2786,7 @@
         <value xml:lang="fr">Fusionner les prospects</value>
         <value xml:lang="it">Merge Leads</value>
         <value xml:lang="pt_BR">Mesclar Leads</value>
-        <value xml:lang="vi">Ghép trộn các đầu mối</value>
+        <value xml:lang="vi">Trộn Đầu mối</value>
         <value xml:lang="zh">合并线索</value>
         <value xml:lang="zh_TW">合並線索</value>
     </property>
@@ -2625,6 +2796,7 @@
         <value xml:lang="fr">Fusionner les suivants</value>
         <value xml:lang="it">Merge seguendo i</value>
         <value xml:lang="pt_BR">Mesclar seguindo</value>
+        <value xml:lang="vi">Đang trộn danh sách sau</value>
         <value xml:lang="zh">合并跟单</value>
         <value xml:lang="zh_TW">合並跟單</value>
     </property>
@@ -2634,6 +2806,7 @@
         <value xml:lang="fr">Mes comptes</value>
         <value xml:lang="pt_BR">Minhas contas</value>
         <value xml:lang="th">Account ของฉัน</value>
+        <value xml:lang="vi">Tài khoản Riêng</value>
     </property>
     <property key="SfaMyContacts">
         <value xml:lang="de">Meine Kontakte</value>
@@ -2641,13 +2814,14 @@
         <value xml:lang="fr">Mes contacts</value>
         <value xml:lang="pt_BR">Meus contatos</value>
         <value xml:lang="th">Contact ของฉัน</value>
+        <value xml:lang="vi">Liên hệ Riêng</value>
     </property>
     <property key="SfaMyLeads">
         <value xml:lang="en">My Leads</value>
         <value xml:lang="fr">Mes prospects</value>
         <value xml:lang="pt_BR">Meus Leads</value>
         <value xml:lang="th">Lead ของฉัน</value>
-        <value xml:lang="vi">Đầu mối của tôi</value>
+        <value xml:lang="vi">Đầu mối Riêng</value>
     </property>
     <property key="SfaNewSalesForecast">
         <value xml:lang="de">Neue Verkaufsprognose</value>
@@ -2656,6 +2830,7 @@
         <value xml:lang="it">Nuova Previsioni di vendita</value>
         <!-- JLR : not quite sure of the translation here (done with the help of Yahoo's babelfish), please check -->
         <value xml:lang="pt_BR">Nova previsão de vendas</value>
+        <value xml:lang="vi">Tạo mới Dự báo  bán hàng</value>
         <value xml:lang="zh">新的销售展望</value>
         <value xml:lang="zh_TW">新的銷售展望</value>
     </property>
@@ -2665,17 +2840,20 @@
         <value xml:lang="fr">Prochaine étape</value>
         <value xml:lang="it">Passo successivo</value>
         <value xml:lang="pt_BR">Próximo passo</value>
+        <value xml:lang="vi">Bước tiếp theo</value>
         <value xml:lang="zh">下一步</value>
         <value xml:lang="zh_TW">下一步</value>
     </property>
     <property key="SfaNextStepDate">
         <value xml:lang="en">Next Step Date</value>
+        <value xml:lang="vi">Ngày thực hiện bước tiếp theo</value>
     </property>
     <property key="SfaNoLeadsSelectedToMerged">
         <value xml:lang="en">No leads selected to merge</value>
         <value xml:lang="fr">Aucun prospect sélectionné pour la fusion</value>
         <value xml:lang="it">Nessun leads selezionato da fare merge</value>
         <value xml:lang="pt_BR">Nenhum Lead selecionado para mesclar</value>
+        <value xml:lang="vi">Không Đầu mối được chọn để Trộn</value>
         <value xml:lang="zh">没有选择要合并的线索</value>
         <value xml:lang="zh_TW">沒有選擇要合並的線索</value>
     </property>
@@ -2691,12 +2869,14 @@
     <property key="SfaOpportunityCommunications">
         <value xml:lang="en">Opportunity Communications</value>
         <value xml:lang="pt_BR">Comunicação de oportunidades</value>
+        <value xml:lang="vi">Truyền thông</value>
     </property>
     <property key="SfaOpportunityId">
         <value xml:lang="en">Opportunity ID</value>
         <value xml:lang="fr">Réf. d'opportunité</value>
         <value xml:lang="it">N. Opportunità</value>
         <value xml:lang="pt_BR">ID da oportunidade</value>
+        <value xml:lang="vi">Id</value>
         <value xml:lang="zh">机会标识</value>
         <value xml:lang="zh_TW">機會ID</value>
     </property>
@@ -2705,6 +2885,7 @@
         <value xml:lang="fr">Information sur l'opportunité</value>
         <value xml:lang="it">Informazioni oppportunità</value>
         <value xml:lang="pt_BR">Informação da oportunidade</value>
+        <value xml:lang="vi">Thông tin</value>
         <value xml:lang="zh">机会信息</value>
         <value xml:lang="zh_TW">機會資訊</value>
     </property>
@@ -2713,6 +2894,7 @@
         <value xml:lang="fr">Nom d'opportunité</value>
         <value xml:lang="it">Nome opportunità</value>
         <value xml:lang="pt_BR">Nome da oportunidade</value>
+        <value xml:lang="vi">Tên</value>
         <value xml:lang="zh">机会名称</value>
         <value xml:lang="zh_TW">機會名稱</value>
     </property>
@@ -2721,6 +2903,7 @@
         <value xml:lang="fr">Résumé d'opportunité</value>
         <value xml:lang="it">Sommario opportunità</value>
         <value xml:lang="pt_BR">Resumo da oportunidade</value>
+        <value xml:lang="vi">Tổng quan</value>
         <value xml:lang="zh">机会总览</value>
         <value xml:lang="zh_TW">機會總覽</value>
     </property>
@@ -2730,6 +2913,7 @@
         <value xml:lang="fr">Probabilité (%)</value>
         <value xml:lang="it">Probabilità(%)</value>
         <value xml:lang="pt_BR">Probabilidade (%)</value>
+        <value xml:lang="vi">Khả thi(%)</value>
         <value xml:lang="zh">可能性(%)</value>
         <value xml:lang="zh_TW">可能性(%)</value>
     </property>
@@ -2766,7 +2950,7 @@
         <value xml:lang="fr">Deuxième contact</value>
         <value xml:lang="it">Secondo contatto</value>
         <value xml:lang="pt_BR">Segundo contato</value>
-        <value xml:lang="vi">Liên hệ thứ 2</value>
+        <value xml:lang="vi">Liên hệ thứ hai</value>
         <value xml:lang="zh">第二联系方式</value>
         <value xml:lang="zh_TW">第二聯系方式</value>
     </property>
@@ -2776,12 +2960,14 @@
         <value xml:lang="fr">Sélectionnez un compte existant ou laissez un espace vide pour créer un nouveau compte"</value>
         <value xml:lang="it">Selezione entrambi utente esistente o lasciare vuoto per creare un nuovo utente</value>
         <value xml:lang="pt_BR">Ou selecione uma conta existente ou deixe em branco para criar uma nova conta</value>
+        <value xml:lang="vi">Bạn có thể chọn Tài khoản đã có hoặc để trống để tạo mới Tài khoản</value>
         <value xml:lang="zh">或者选择已有账户，或者留空来新建账户</value>
         <value xml:lang="zh_TW">或者選擇已有賬戶，或者留空來新建賬戶</value>
     </property>
     <property key="SfaSelectLeadOwners">
         <value xml:lang="en">Select Lead Owners</value>
         <value xml:lang="pt_BR">Selecionar donos do Lead</value>
+        <value xml:lang="vi">Chọn Sở hữu Đầu mối</value>
     </property>
     <property key="SfaTaskAssignedByMe">
         <value xml:lang="de">Öffne Aufgaben die ich zugeteilt habe.</value>
@@ -2789,6 +2975,7 @@
         <value xml:lang="fr">Tâches ouvertes assignées par moi</value>
         <value xml:lang="pt_BR">Tarefas em aberto designadas para mim.</value>
         <value xml:lang="th">งานที่ฉันมอบหมาย</value>
+        <value xml:lang="vi">Tác vụ đang Mở đã được Gán bởi Tôi</value>
     </property>
     <property key="SfaTaskAssignedToMe">
         <value xml:lang="de">Öffne Aufgaben die mir zugeteilt sind.</value>
@@ -2796,6 +2983,7 @@
         <value xml:lang="fr">Tâches ouvertes qui me sont assignées</value>
         <value xml:lang="pt_BR">Tarefas em aberto designadas para mim.</value>
         <value xml:lang="th">งานที่มอบหมายให้ฉัน</value>
+        <value xml:lang="vi">Tác vụ đang Mở đã được Gán đến Tôi</value>
     </property>
     <property key="SfaType">
         <value xml:lang="de">Art</value>
@@ -2803,6 +2991,7 @@
         <value xml:lang="fr">Type</value>
         <value xml:lang="it">Tipo</value>
         <value xml:lang="pt_BR">Tipo</value>
+        <value xml:lang="vi">Loại</value>
         <value xml:lang="zh">类型</value>
         <value xml:lang="zh_TW">類型</value>
     </property>
@@ -2812,6 +3001,7 @@
         <value xml:lang="fr">Téléchargement de la vCard vers le serveur</value>
         <value xml:lang="it">Carica vCard</value>
         <value xml:lang="pt_BR">Enviar vCard</value>
+        <value xml:lang="vi">Tải lên vCard</value>
         <value xml:lang="zh">上传vCard</value>
         <value xml:lang="zh_TW">上傳vCard</value>
     </property>
@@ -2821,5 +3011,6 @@
         <value xml:lang="fr">vCard</value>
         <value xml:lang="it">vCard</value>
         <value xml:lang="pt_BR">vCard</value>
+        <value xml:lang="vi">vCard</value>
     </property>
 </resource>
