@@ -470,7 +470,7 @@
         <value xml:lang="ro">Administratie Permisa(Unu)</value>
         <value xml:lang="ru">Администрирование разрешено (Одна)</value>
         <value xml:lang="th">ผู้ดูแลระบบอนุญาต (หนึ่ง)</value>
-        <value xml:lang="vi">Quyền quản trị (một lần)</value>
+        <value xml:lang="vi">Quyền quản trị (duy nhất)</value>
         <value xml:lang="zh">允许管理 (一个)</value>
         <value xml:lang="zh_TW">允許管理 (一個)</value>
     </property>
@@ -483,14 +483,14 @@
         <value xml:lang="ro">Afiseaza Radacina (Unu)</value>
         <value xml:lang="ru">Для просмотра (Одна)</value>
         <value xml:lang="th">แสดง Root (หนึ่ง)</value>
-        <value xml:lang="vi">Duyệt thư mục gốc (một lần)</value>
+        <value xml:lang="vi">Duyệt từ Gốc (duy nhất)</value>
         <value xml:lang="zh">浏览根 (一个)</value>
         <value xml:lang="zh_TW">瀏覽根 (一個)</value>
     </property>
     <property key="ProdCatalogCategoryType.description.PCCT_EBAY_ROOT">
         <value xml:lang="de">Ebay Root (Eine)</value>
         <value xml:lang="en">Ebay Root (One)</value>
-        <value xml:lang="vi">Thư mục gốc Ebay (một lần)</value>
+        <value xml:lang="vi">Thư mục gốc Ebay (duy nhất)</value>
     </property>
     <property key="ProdCatalogCategoryType.description.PCCT_MOST_POPULAR">
         <value xml:lang="de">Am populärsten (Eine)</value>
@@ -501,7 +501,7 @@
         <value xml:lang="ro">Mai Populari (Unu)</value>
         <value xml:lang="ru">Наиболее популярные (Одна)</value>
         <value xml:lang="th">ความนิยมสูงสุด (หนึ่ง)</value>
-        <value xml:lang="vi">Phổ biến nhất (một lần)</value>
+        <value xml:lang="vi">Phổ biến nhất (duy nhất)</value>
         <value xml:lang="zh">最具人气 (一个)</value>
         <value xml:lang="zh_TW">最具人氣 (一個)</value>
     </property>
@@ -527,7 +527,7 @@
         <value xml:lang="ro">Promotii (Unu)</value>
         <value xml:lang="ru">Специальные предложения (Одна)</value>
         <value xml:lang="th">โปรโมชัน (หนึ่ง)</value>
-        <value xml:lang="vi">Khuyến mại (một lần)</value>
+        <value xml:lang="vi">Khuyến mại (duy nhất)</value>
         <value xml:lang="zh">促销 (一个)</value>
         <value xml:lang="zh_TW">促銷 (一個)</value>
     </property>
@@ -540,7 +540,7 @@
         <value xml:lang="ro">Cumparare Permisa(Unu)</value>
         <value xml:lang="ru">Приобретение возможно (Одна)</value>
         <value xml:lang="th">การอนุญาตการสั่งซื้อ (หนึ่ง)</value>
-        <value xml:lang="vi">Quyền mua hàng (một lần)</value>
+        <value xml:lang="vi">Quyền mua hàng (duy nhất)</value>
         <value xml:lang="zh">允许购买 (一个)</value>
         <value xml:lang="zh_TW">允許購買 (一個)</value>
     </property>
@@ -592,7 +592,7 @@
         <value xml:lang="ro">Care Noutati(Unu)</value>
         <value xml:lang="ru">Новые продукты (Одна)</value>
         <value xml:lang="th">อะไรใหม่ (หนึ่ง)</value>
-        <value xml:lang="vi">Có gì mới (một lần)</value>
+        <value xml:lang="vi">Có gì mới (duy nhất)</value>
         <value xml:lang="zh">新品 (一个)</value>
         <value xml:lang="zh_TW">新品 (一個)</value>
     </property>
@@ -885,7 +885,7 @@
         <value xml:lang="ro">Variante Produs</value>
         <value xml:lang="ru">Вариант продукта</value>
         <value xml:lang="th">การเปลี่ยนแปลงสินค้า</value>
-        <value xml:lang="vi">Biến thể sản phẩm</value>
+        <value xml:lang="vi">Sản phẩm 'tự tùy chỉnh'</value>
         <value xml:lang="zh">产品变型</value>
         <value xml:lang="zh_TW">產品變型</value>
     </property>
@@ -906,7 +906,7 @@
         <value xml:lang="de">Kategorie Bild Alternativtext</value>
         <value xml:lang="en">Category Image Alt Text</value>
         <value xml:lang="it">Testo alternativo immagine categoria</value>
-        <value xml:lang="vi">Hình ảnh thay thế bởi Chữ</value>
+        <value xml:lang="vi">Hình ảnh minh họa</value>
         <value xml:lang="zh">分类图片替代文字</value>
         <value xml:lang="zh_TW">分類圖片替代文字</value>
     </property>
@@ -932,7 +932,7 @@
         <value xml:lang="ro">Nume Categorie</value>
         <value xml:lang="ru">Имя категории</value>
         <value xml:lang="th">ชื่อหมวดหมู่</value>
-        <value xml:lang="vi">Tên thư mục</value>
+        <value xml:lang="vi">Tên Phân loại Quản lý</value>
         <value xml:lang="zh">分类名称</value>
         <value xml:lang="zh_TW">分類名稱</value>
     </property>
@@ -2444,7 +2444,7 @@
         <value xml:lang="ro">Procent Din Margine</value>
         <value xml:lang="ru">Процент от маржи</value>
         <value xml:lang="th">อัตราร้อยละของผลต่าง</value>
-        <value xml:lang="vi">Tỷ lệ phần trăm của đòn bẩy tài chính</value>
+        <value xml:lang="vi">Phần trăm của Biên độ</value>
         <value xml:lang="zh">利润百分比</value>
         <value xml:lang="zh_TW">利潤百分比</value>
     </property>
@@ -2681,7 +2681,7 @@
         <value xml:lang="ro">Ne Aplicabil</value>
         <value xml:lang="ru">Не применимо</value>
         <value xml:lang="th">ไม่ใช้ประโยชน์ได้</value>
-        <value xml:lang="vi">Không áp dụng</value>
+        <value xml:lang="vi">Không có khả năng Khớp lệnh</value>
         <value xml:lang="zh">不可用</value>
         <value xml:lang="zh_TW">不可用</value>
     </property>
@@ -2693,7 +2693,7 @@
         <value xml:lang="ro">Ne Aplicabil</value>
         <value xml:lang="ru">Не применимо</value>
         <value xml:lang="th">ไม่ใช้ประโยชน์ได้</value>
-        <value xml:lang="vi">Không áp dụng</value>
+        <value xml:lang="vi">Không có khả năng Khớp lệnh</value>
         <value xml:lang="zh">不可用</value>
         <value xml:lang="zh_TW">不可用</value>
     </property>

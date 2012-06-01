@@ -155,7 +155,7 @@
         <value xml:lang="ro">Cerere Informatie</value>
         <value xml:lang="ru">Запрос информации</value>
         <value xml:lang="th">คำขอร้องสำหรับข้อมูล</value>
-        <value xml:lang="vi">Yêu cầu thông tin</value>
+        <value xml:lang="vi">Yêu cầu với Thông tin</value>
         <value xml:lang="zh">信息请求</value>
         <value xml:lang="zh_TW">資訊請求</value>
     </property>
@@ -212,7 +212,7 @@
         <value xml:lang="ro">Cerere De Suport</value>
         <value xml:lang="ru">Запрос поддержки</value>
         <value xml:lang="th">คำขอร้องสำหรับการสนับสนุน</value>
-        <value xml:lang="vi">Yêu cầu hỗ trợ</value>
+        <value xml:lang="vi">Yêu cầu Hỗ trợ</value>
         <value xml:lang="zh">支持请求</value>
         <value xml:lang="zh_TW">支援請求</value>
     </property>
@@ -226,7 +226,7 @@
         <value xml:lang="ro">Caracteristica Suplimentara</value>
         <value xml:lang="ru">Дополнительная возможность</value>
         <value xml:lang="th">เพิ่มเติมลักษณะ</value>
-        <value xml:lang="vi">Tính năng bổ xung</value>
+        <value xml:lang="vi">Tính năng bổ sung</value>
         <value xml:lang="zh">附加特性</value>
         <value xml:lang="zh_TW">附加特性</value>
     </property>
@@ -268,7 +268,7 @@
         <value xml:lang="ro">Incarcare mixta</value>
         <value xml:lang="ru">Различные расходы</value>
         <value xml:lang="th">ค่าธรรมเนียมเบ็ดเตล็ด</value>
-        <value xml:lang="vi">Thu phí hỗn hợp</value>
+        <value xml:lang="vi">Các phí khác</value>
         <value xml:lang="zh">其它费用</value>
         <value xml:lang="zh_TW">其他費用</value>
     </property>
@@ -282,7 +282,7 @@
         <value xml:lang="ro">Adaptare Pachet Vanzare</value>
         <value xml:lang="ru">Настройка маркетингового пакета</value>
         <value xml:lang="th">การปรับปรุงรายการทางการตลาด</value>
-        <value xml:lang="vi">Gói markeitng điều chỉnh</value>
+        <value xml:lang="vi">Điều chỉnh gói tiếp thị</value>
         <value xml:lang="zh">调整市场促销方案</value>
         <value xml:lang="zh_TW">調整市場促銷方案</value>
     </property>
@@ -338,7 +338,7 @@
         <value xml:lang="ro">Cheltueli cu Expedierea si Ambalarea</value>
         <value xml:lang="ru">Поставка и обработка</value>
         <value xml:lang="th">การขนส่งและการควบคุม</value>
-        <value xml:lang="vi">Vận chuyển và quản lý</value>
+        <value xml:lang="vi">Vận chuyển và Bốc dỡ</value>
         <value xml:lang="zh">运输和包装</value>
         <value xml:lang="zh_TW">運輸和包裝</value>
     </property>
@@ -352,7 +352,7 @@
         <value xml:lang="ro">Supraincarcare</value>
         <value xml:lang="ru">Надбавка</value>
         <value xml:lang="th">การคิดเงินเพิ่ม</value>
-        <value xml:lang="vi">Phí phụ thu</value>
+        <value xml:lang="vi">Phụ phí</value>
         <value xml:lang="zh">额外费用</value>
         <value xml:lang="zh_TW">額外費用</value>
     </property>
@@ -378,7 +378,7 @@
         <value xml:lang="it">Indirizzo blacklist</value>
         <value xml:lang="pt_BR">Lista negra de endereços</value>
         <value xml:lang="th">ที่อยู่</value>
-        <value xml:lang="vi">Danh sách đen địa chỉ</value>
+        <value xml:lang="vi">Địa chỉ Danh sách đen</value>
         <value xml:lang="zh">地址黑名单</value>
         <value xml:lang="zh_TW">位址黑名單</value>
     </property>
@@ -402,7 +402,7 @@
         <value xml:lang="it">Email blacklist</value>
         <value xml:lang="pt_BR">Lista negra de e-mails</value>
         <value xml:lang="th">อีเมล</value>
-        <value xml:lang="vi">Danh sách đen email</value>
+        <value xml:lang="vi">Danh sách đen thư điện tử</value>
         <value xml:lang="zh">电子邮件黑名单</value>
         <value xml:lang="zh_TW">電子郵件黑名單</value>
     </property>
@@ -438,6 +438,7 @@
         <value xml:lang="it">Riga ordine bulk</value>
         <value xml:lang="pt_BR">Item no atacado</value>
         <value xml:lang="th">รายการความจุ</value>
+        <value xml:lang="vi">Hàng hóa đặt hàng kiểu Rác</value>
         <value xml:lang="zh">大宗订单明细</value>
         <value xml:lang="zh_TW">大宗訂單明細</value>
     </property>
@@ -449,6 +450,7 @@
         <value xml:lang="it">Prodotto riga ordine</value>
         <value xml:lang="pt_BR">Item de pedido</value>
         <value xml:lang="th">รายการ</value>
+        <value xml:lang="vi">Hàng hóa đặt hàng</value>
         <value xml:lang="zh">产品订单明细</value>
         <value xml:lang="zh_TW">產品訂單明細</value>
     </property>
@@ -460,6 +462,7 @@
         <value xml:lang="it">Riga ordine di affitto</value>
         <value xml:lang="pt_BR">Item de aluguel</value>
         <value xml:lang="th">รายการการเช่า</value>
+        <value xml:lang="vi">Hàng hóa đặt hàng kiểu Thuê</value>
         <value xml:lang="zh">租赁订单明细</value>
         <value xml:lang="zh_TW">租賃訂單明細</value>
     </property>
@@ -471,6 +474,7 @@
         <value xml:lang="it">Riga ordine di lavoro</value>
         <value xml:lang="pt_BR">Item de trabalho</value>
         <value xml:lang="th">รายการงาน</value>
+        <value xml:lang="vi">Hàng hóa đặt hàng Làm việc</value>
         <value xml:lang="zh">派工单明细</value>
         <value xml:lang="zh_TW">派工單明細</value>
     </property>
@@ -484,7 +488,7 @@
         <value xml:lang="ro">Cumparare</value>
         <value xml:lang="ru">Закупка</value>
         <value xml:lang="th">รายการการสั่งซื้อ</value>
-        <value xml:lang="vi">Đặt mua</value>
+        <value xml:lang="vi">Đặt hàng Mua</value>
         <value xml:lang="zh">采购订单</value>
         <value xml:lang="zh_TW">採購訂單</value>
     </property>
@@ -499,7 +503,7 @@
         <value xml:lang="ro">Vanzare</value>
         <value xml:lang="ru">Продажи</value>
         <value xml:lang="th">รายการขาย</value>
-        <value xml:lang="vi">Đặt bán</value>
+        <value xml:lang="vi">Đặt hàng Bán</value>
         <value xml:lang="zh">销售订单</value>
         <value xml:lang="zh_TW">銷售訂單</value>
     </property>
@@ -510,6 +514,7 @@
         <value xml:lang="fr">Tâche</value>
         <value xml:lang="it">Ordine di lavoro</value>
         <value xml:lang="pt_BR">Pedido de trabalho</value>
+        <value xml:lang="vi">Đặt hàng Làm việc</value>
         <value xml:lang="th">งาน</value>
         <value xml:lang="zh">派工单</value>
         <value xml:lang="zh_TW">派工單</value>
@@ -591,7 +596,7 @@
         <value xml:lang="ro">Necesar Cliente</value>
         <value xml:lang="ru">Требование заказчика</value>
         <value xml:lang="th">ความต้องการของลูกค้า</value>
-        <value xml:lang="vi">Yêu cầu của khách hàng</value>
+        <value xml:lang="vi">Yêu cầu từ Khách hàng</value>
         <value xml:lang="zh">客户需求</value>
         <value xml:lang="zh_TW">客戶需求</value>
     </property>
@@ -605,7 +610,7 @@
         <value xml:lang="ro">Necesar Intern</value>
         <value xml:lang="ru">Внутреннее требование</value>
         <value xml:lang="th">ความต้องการภายใน</value>
-        <value xml:lang="vi">Yêu cầu của nội bộ</value>
+        <value xml:lang="vi">Yêu cầu từ Nội bộ</value>
         <value xml:lang="zh">内部需求</value>
         <value xml:lang="zh_TW">內部需求</value>
     </property>
@@ -667,7 +672,7 @@
         <value xml:lang="fr">Caractéristique additionnelle de retour</value>
         <value xml:lang="it">Caratteristiche aggiuntive sul reso</value>
         <value xml:lang="pt_BR">Devolução de funcionalidade adicional</value>
-        <value xml:lang="vi">Hoàn trả tính năng bổ xung</value>
+        <value xml:lang="vi">Tính năng gia tăng Hoàn trả</value>
         <value xml:lang="zh">退货的附加特征</value>
         <value xml:lang="zh_TW">退貨的附加特征</value>
     </property>
@@ -676,7 +681,7 @@
         <value xml:lang="en">Return Discount</value>
         <value xml:lang="it">Sconto sul reso</value>
         <value xml:lang="pt_BR">Desconto por devolução</value>
-        <value xml:lang="vi">Hoàn trả khấu trừ</value>
+        <value xml:lang="vi">Khấu trừ (hoàn trả)</value>
         <value xml:lang="zh">退货的折扣</value>
         <value xml:lang="zh_TW">退貨的折扣</value>
     </property>
@@ -685,7 +690,7 @@
         <value xml:lang="en">Return Fee</value>
         <value xml:lang="it">Commissioni sul reso</value>
         <value xml:lang="pt_BR">Taxa de devolução</value>
-        <value xml:lang="vi">Hoàn trả phí</value>
+        <value xml:lang="vi">Phí (hoàn trả)</value>
         <value xml:lang="zh">退货的费用</value>
         <value xml:lang="zh_TW">退貨的費用</value>
     </property>
@@ -694,7 +699,7 @@
         <value xml:lang="en">Return Manual Adjustment</value>
         <value xml:lang="it">Aggiustamento manuale sul reso</value>
         <value xml:lang="pt_BR">Ajuste manual sobre devolução</value>
-        <value xml:lang="vi">Hoàn trả điều chỉnh thủ công</value>
+        <value xml:lang="vi">Điều chỉnh thủ công</value>
         <value xml:lang="zh">退货的手册调整</value>
         <value xml:lang="zh_TW">退貨的手冊調整</value>
     </property>
@@ -703,7 +708,7 @@
         <value xml:lang="en">Return Miscellaneous Charges</value>
         <value xml:lang="it">Ricarichi vari sul reso</value>
         <value xml:lang="pt_BR">Taxas diversas sobre devolução</value>
-        <value xml:lang="vi">Hoàn trả phí hỗn hợp</value>
+        <value xml:lang="vi">Phí hỗn hợp</value>
         <value xml:lang="zh">退货的杂费</value>
         <value xml:lang="zh_TW">退貨的雜費</value>
     </property>
@@ -712,7 +717,7 @@
         <value xml:lang="en">Return Marketing Package Adjustment</value>
         <value xml:lang="it">Aggiustamento pacco di vendita sul reso</value>
         <value xml:lang="pt_BR">Ajuste sobre a a devolução de pacote de marketing</value>
-        <value xml:lang="vi">Hoàn trả gói marketing điều chỉnh</value>
+        <value xml:lang="vi">Gói marketing điều chỉnh (hoàn trả)</value>
         <value xml:lang="zh">退货的行销包装调整</value>
         <value xml:lang="zh_TW">退貨的行銷包裝調整</value>
     </property>
@@ -721,7 +726,7 @@
         <value xml:lang="en">Return Promotion</value>
         <value xml:lang="it">Promozione reso</value>
         <value xml:lang="pt_BR">Promoção devolução</value>
-        <value xml:lang="vi">Hoàn trả khuyến mại</value>
+        <value xml:lang="vi">Khuyến mại (hoàn trả)</value>
         <value xml:lang="zh">退货的促销</value>
         <value xml:lang="zh_TW">退貨的促銷</value>
     </property>
@@ -730,7 +735,7 @@
         <value xml:lang="en">Return Replacement</value>
         <value xml:lang="it">Reso in sostituzione</value>
         <value xml:lang="pt_BR">Devolução de reposição</value>
-        <value xml:lang="vi">Hoàn trả phần thay thế</value>
+        <value xml:lang="vi">Thay thế (hoàn trả)</value>
         <value xml:lang="zh">退货的替代</value>
         <value xml:lang="zh_TW">退貨的替代</value>
     </property>
@@ -740,7 +745,7 @@
         <value xml:lang="fr">Taxe de vente sur retour</value>
         <value xml:lang="it">Tasse di vendita sul reso</value>
         <value xml:lang="pt_BR">Taxa de devolução de venda</value>
-        <value xml:lang="vi">Hoàn trả thuế kinh doanh</value>
+        <value xml:lang="vi">Thuế kinh doanh (hoàn trả)</value>
         <value xml:lang="zh">退货的营业税</value>
         <value xml:lang="zh_TW">退貨的營業稅</value>
     </property>
@@ -750,7 +755,7 @@
         <value xml:lang="fr">Transport sur retour</value>
         <value xml:lang="it">Spese di trasporto sul reso</value>
         <value xml:lang="pt_BR">Devolução de envio e manuseio</value>
-        <value xml:lang="vi">Hoàn trả vận chuyển và quản lý</value>
+        <value xml:lang="vi">Vận chuyển và Bốc dỡ</value>
         <value xml:lang="zh">退货的装运费</value>
         <value xml:lang="zh_TW">退貨的裝運費</value>
     </property>
@@ -760,7 +765,7 @@
         <value xml:lang="fr">Supplément sur retour</value>
         <value xml:lang="it">Spese supplementari sul reso</value>
         <value xml:lang="pt_BR">Devolução de sobretaxa</value>
-        <value xml:lang="vi">Hoàn trả phí phụ thu</value>
+        <value xml:lang="vi">Phí phụ thu</value>
         <value xml:lang="zh">退货的附加费</value>
         <value xml:lang="zh_TW">退貨的附加費</value>
     </property>
@@ -770,7 +775,7 @@
         <value xml:lang="fr">Garantie sur retour</value>
         <value xml:lang="it">Garanzia sul reso</value>
         <value xml:lang="pt_BR">Devolução de garantia</value>
-        <value xml:lang="vi">Hoàn trả bảo hành</value>
+        <value xml:lang="vi">Bảo hành</value>
         <value xml:lang="zh">退货的保证条款</value>
         <value xml:lang="zh_TW">退貨的保証條款</value>
     </property>
@@ -783,6 +788,7 @@
         <value xml:lang="pt_BR">Pagamento mediante recebimento rejeitado</value>
         <value xml:lang="ru">COD платеж не принят</value>
         <value xml:lang="th">ปฏิเสธการชำระเงินด่วน</value>
+        <value xml:lang="vi">Từ chối thanh toán COD</value>
         <value xml:lang="zh">货到付款被拒绝了</value>
         <value xml:lang="zh_TW">貨到付款被拒絕了</value>
     </property>
@@ -810,7 +816,7 @@
         <value xml:lang="ro">Satisfactie Digitala Falita</value>
         <value xml:lang="ru">Выполнение поставки цифр. продукта не удалось</value>
         <value xml:lang="th">การปฏิบัติการของดิจิตอลล้มเหลว</value>
-        <value xml:lang="vi">Tự động điền phiếu bị lỗi</value>
+        <value xml:lang="vi">Đáp ứng trên hệ thống Số không thành công</value>
         <value xml:lang="zh">数字执行失败</value>
         <value xml:lang="zh_TW">數字執行失敗</value>
     </property>
@@ -848,7 +854,7 @@
         <value xml:lang="fr">Mauvaise taille, échange</value>
         <value xml:lang="it">Cambio taglia</value>
         <value xml:lang="pt_BR">Troca de tamanho</value>
-        <value xml:lang="vi">Thay đổi cỡ</value>
+        <value xml:lang="vi">Chuyển đổi cỡ</value>
     </property>
     <property key="ReturnType.description.RTN_CREDIT">
         <value xml:lang="de">Guthaben</value>
@@ -860,7 +866,7 @@
         <value xml:lang="ro">Credit Magazin</value>
         <value xml:lang="ru">Торговый кредит</value>
         <value xml:lang="th">สะสมเครดิต</value>
-        <value xml:lang="vi">Lưu trữ tín dụng</value>
+        <value xml:lang="vi">Tín dụng cửa hàng</value>
         <value xml:lang="zh">存储信用</value>
         <value xml:lang="zh_TW">存儲信用</value>
     </property>
@@ -888,7 +894,7 @@
         <value xml:lang="ro">Rambursat</value>
         <value xml:lang="ru">Возмещение</value>
         <value xml:lang="th">การคืนเงิน</value>
-        <value xml:lang="vi">Hoàn tiền</value>
+        <value xml:lang="vi">Hoàn phí</value>
         <value xml:lang="zh">退款</value>
         <value xml:lang="zh_TW">退款</value>
     </property>
@@ -943,6 +949,7 @@
         <value xml:lang="ro">Cumparari Frecvente</value>
         <value xml:lang="ru">Частые покупки</value>
         <value xml:lang="th">การสั่งซื้อเป็นประจำ</value>
+        <value xml:lang="vi">Tần suất mua</value>
         <value xml:lang="zh">经常购买</value>
         <value xml:lang="zh_TW">經常購買</value>
     </property>
@@ -956,6 +963,7 @@
         <value xml:lang="ro">Registru Omagiu</value>
         <value xml:lang="ru">Реестр подарков</value>
         <value xml:lang="th">การจดทะเบียนของขวัญ</value>
+        <value xml:lang="vi">Điểm nhập Quà</value>
         <value xml:lang="zh">礼品注册</value>
         <value xml:lang="zh_TW">禮品注冊</value>
     </property>
@@ -983,7 +991,7 @@
         <value xml:lang="ro">Lista Dorintelor</value>
         <value xml:lang="ru">Список пожеланий</value>
         <value xml:lang="th">รายการความต้องการ</value>
-        <value xml:lang="vi">Danh sách kỳ vọng</value>
+        <value xml:lang="vi">Hàng mong đợi</value>
         <value xml:lang="zh">期望列表</value>
         <value xml:lang="zh_TW">期望列表</value>
     </property>
@@ -997,7 +1005,7 @@
         <value xml:lang="ro">Livreaza</value>
         <value xml:lang="ru">Доставка</value>
         <value xml:lang="th">ประกาศ</value>
-        <value xml:lang="vi">Phân phát</value>
+        <value xml:lang="vi">Người nhận</value>
         <value xml:lang="zh">交付</value>
         <value xml:lang="zh_TW">交付</value>
     </property>

@@ -23,6 +23,7 @@
         <value xml:lang="en">Accommodation Map Id</value>
         <value xml:lang="fr">Réf. de plan de logement</value>
         <value xml:lang="it">Mappa alloggio</value>
+        <value xml:lang="vi">Id địa điểm trên bản đồ</value>
         <value xml:lang="zh">接待地图标识</value>
         <value xml:lang="zh_TW">接待地圖示識</value>
     </property>
@@ -30,6 +31,7 @@
         <value xml:lang="en">Accommodation Spot Id</value>
         <value xml:lang="fr">Réf. de lieu de logement</value>
         <value xml:lang="it">Luogo alloggio</value>
+        <value xml:lang="vi">Nơi ở</value>
         <value xml:lang="zh">接待地点标识</value>
         <value xml:lang="zh_TW">接待處ID</value>
     </property>
@@ -41,6 +43,7 @@
         <value xml:lang="nl">Datum gereed</value>
         <value xml:lang="ro">Data Finalizare Actuala</value>
         <value xml:lang="th">วันที่สำเร็จตามความจริง</value>
+        <value xml:lang="vi">Ngày hoàn thành thực tế</value>
         <value xml:lang="zh">实际完成日期</value>
         <value xml:lang="zh_TW">實際完成日期</value>
     </property>
@@ -51,6 +54,7 @@
         <value xml:lang="it">Data fine attuale</value>
         <value xml:lang="ro">Data Finala Actuala</value>
         <value xml:lang="th">วันสิ้นสุดตามความจริง</value>
+        <value xml:lang="vi">Ngày kết thúc thực tế</value>
         <value xml:lang="zh">实际结束日期</value>
         <value xml:lang="zh_TW">實際結束日期</value>
     </property>
@@ -62,6 +66,7 @@
         <value xml:lang="nl">Actual Milli Seconds</value>
         <value xml:lang="ro">Millisecunde Actuale</value>
         <value xml:lang="th">พันวินาทีตามความจริง</value>
+        <value xml:lang="vi">Số giây thực tế</value>
         <value xml:lang="zh">实际毫秒数</value>
         <value xml:lang="zh_TW">實際毫秒數</value>
     </property>
@@ -73,6 +78,7 @@
         <value xml:lang="nl">Actual Setup Millis</value>
         <value xml:lang="ro">Configuratie Milisecunde Actuala </value>
         <value xml:lang="th">Actual Setup Millis</value>
+        <value xml:lang="vi">Thời gian Thiết lập thực tế(giây)</value>
         <value xml:lang="zh">实际安装毫秒数</value>
         <value xml:lang="zh_TW">實際安裝毫秒數</value>
     </property>
@@ -85,6 +91,7 @@
         <value xml:lang="nl">Datum start</value>
         <value xml:lang="ro">Data Initiere Actuala</value>
         <value xml:lang="th">วันที่เริ่มตามความจริง</value>
+        <value xml:lang="vi">Ngày bắt đầu thực tế</value>
         <value xml:lang="zh">实际开始日期</value>
         <value xml:lang="zh_TW">實際開始日期</value>
     </property>
@@ -93,6 +100,7 @@
         <value xml:lang="en">Approved By User Login Id</value>
         <value xml:lang="fr">Approuvé par</value>
         <value xml:lang="it">Approvato dall'utente</value>
+        <value xml:lang="vi">Duyệt bởi người dùng đăng nhập</value>
         <value xml:lang="zh">批准者用户登录标识</value>
         <value xml:lang="zh_TW">核准使用者登入ID</value>
     </property>
@@ -101,6 +109,7 @@
         <value xml:lang="en">Availability</value>
         <value xml:lang="fr">Disponibilité</value>
         <value xml:lang="it">Disponibilità</value>
+        <value xml:lang="vi">Sẵn có</value>
         <value xml:lang="zh">有效性</value>
         <value xml:lang="zh_TW">可用性</value>
     </property>
@@ -108,6 +117,7 @@
         <value xml:lang="en">Calendar Type</value>
         <value xml:lang="fr">Type de calendrier</value>
         <value xml:lang="it">Tipo ti calendario</value>
+        <value xml:lang="vi">Loại lịch</value>
         <value xml:lang="zh">日历类型</value>
         <value xml:lang="zh_TW">行事曆形態</value>
     </property>
@@ -119,6 +129,7 @@
         <value xml:lang="nl">Klant relatie Id</value>
         <value xml:lang="ro">Client Cod Subiect</value>
         <value xml:lang="th">รหัสกลุ่มลูกข่าย</value>
+        <value xml:lang="vi">Khách hàng</value>
         <value xml:lang="zh">客户会员标识</value>
         <value xml:lang="zh_TW">客戶成員ID</value>
     </property>
@@ -130,6 +141,7 @@
         <value xml:lang="nl">Cust Request Type Description</value>
         <value xml:lang="ro">Descriere Tip Cerere Client</value>
         <value xml:lang="th">รายละเอียดประเภทคำร้องของลูกค้า</value>
+        <value xml:lang="vi">Miêu tả loại Yêu cầu</value>
         <value xml:lang="zh">客户请求类型描述</value>
         <value xml:lang="zh_TW">客戶請求類型描述</value>
     </property>
@@ -141,6 +153,7 @@
         <value xml:lang="nl">Gepl. datum afgerond</value>
         <value xml:lang="ro">Data Finalizare Stimata</value>
         <value xml:lang="th">วันที่สำเร็จประมาณ</value>
+        <value xml:lang="vi">Ước lượng thời gian hoàn thành</value>
         <value xml:lang="zh">预计完成日期</value>
         <value xml:lang="zh_TW">預計完成日期</value>
     </property>
@@ -152,6 +165,7 @@
         <value xml:lang="nl">Estimated Milli Seconds</value>
         <value xml:lang="ro">Milisecunde Stimate</value>
         <value xml:lang="th">ประมาณพันวินาที</value>
+        <value xml:lang="vi">Ước lượng số giây</value>
         <value xml:lang="zh">预计毫秒数</value>
         <value xml:lang="zh_TW">預計毫秒數</value>
     </property>
@@ -163,6 +177,7 @@
         <value xml:lang="nl">Estimated Setup Millis</value>
         <value xml:lang="ro">Configuratie Milisecunde Stimate </value>
         <value xml:lang="th">Estimated Setup Millis</value>
+        <value xml:lang="vi">Ước lượng thời gian Thiết lập (giây)</value>
         <value xml:lang="zh">预计安装毫秒数</value>
         <value xml:lang="zh_TW">預計安裝毫秒數</value>
     </property>
@@ -175,6 +190,7 @@
         <value xml:lang="nl">Gepl. datum start</value>
         <value xml:lang="ro">Data Initiala Stimata</value>
         <value xml:lang="th">เริ่มประมาณวันที่</value>
+        <value xml:lang="vi">Ước lượng thời gian bắt đầu</value>
         <value xml:lang="zh">预计开始日期</value>
         <value xml:lang="zh_TW">預計開始日期</value>
     </property>
@@ -184,6 +200,7 @@
         <value xml:lang="fr">Date-heure de fin</value>
         <value xml:lang="it">Data/Ora fine</value>
         <value xml:lang="th">วันเวลาที่เสร็จ</value>
+        <value xml:lang="vi">Ngày giờ kết thúc</value>
         <value xml:lang="zh">完成日期时间</value>
         <value xml:lang="zh_TW">完成日期時間</value>
     </property>
@@ -191,6 +208,7 @@
         <value xml:lang="en">Hide events</value>
         <value xml:lang="fr">Cacher les évènements</value>
         <value xml:lang="it">Nascondi eventi</value>
+        <value xml:lang="vi">Ẩn sự kiện</value>
         <value xml:lang="zh">隐藏事件</value>
     </property>
     <property key="FormFieldTitle_hours">
@@ -201,6 +219,7 @@
         <value xml:lang="nl">Uren</value>
         <value xml:lang="ro">Ore</value>
         <value xml:lang="th">ชั่วโมง</value>
+        <value xml:lang="vi">Giờ</value>
         <value xml:lang="zh">小时</value>
         <value xml:lang="zh_TW">小時</value>
     </property>
@@ -212,6 +231,7 @@
         <value xml:lang="nl">Info Url</value>
         <value xml:lang="ro">Informatie Url</value>
         <value xml:lang="th">ข้อมูล Url</value>
+        <value xml:lang="vi">Thông tin liên kết URL</value>
         <value xml:lang="zh">信息链接</value>
         <value xml:lang="zh_TW">資訊鏈結</value>
     </property>
@@ -219,6 +239,7 @@
         <value xml:lang="de">initiale Ansicht</value>
         <value xml:lang="en">Initial View</value>
         <value xml:lang="it">Vista iniziale</value>
+        <value xml:lang="vi">Giao diện khởi tạo</value>
         <value xml:lang="zh">初始化视图</value>
     </property>
     <property key="FormFieldTitle_invoiceInfo">
@@ -229,6 +250,7 @@
         <value xml:lang="nl">Faktuur info</value>
         <value xml:lang="ro">Informatii Factura</value>
         <value xml:lang="th">ข้อมูลใบส่งของ</value>
+        <value xml:lang="vi">Thông tin hóa đơn</value>
         <value xml:lang="zh">发票信息</value>
         <value xml:lang="zh_TW">發票資訊</value>
     </property>
@@ -238,6 +260,7 @@
         <value xml:lang="fr">Est imprimable</value>
         <value xml:lang="it">E' stampabile</value>
         <value xml:lang="th">ซึ่งเหมาะกับการพิมพ์</value>
+        <value xml:lang="vi">Có thể in được không</value>
         <value xml:lang="zh">可以打印吗</value>
         <value xml:lang="zh_TW">可以列印嗎</value>
     </property>
@@ -249,6 +272,7 @@
         <value xml:lang="nl">Issue Datum</value>
         <value xml:lang="ro">Data Probleme</value>
         <value xml:lang="th">ฉบับวันที่</value>
+        <value xml:lang="vi">Ngày sự việc</value>
         <value xml:lang="zh">发布日期</value>
         <value xml:lang="zh_TW">發布日期</value>
     </property>
@@ -260,6 +284,7 @@
         <value xml:lang="nl">Laatste wijziging status</value>
         <value xml:lang="ro">Ultima Stare Actualizata </value>
         <value xml:lang="th">อัพเดทสถานะครั้งสุดท้าย</value>
+        <value xml:lang="vi">Trạng thái cập nhật cuối cùng</value>
         <value xml:lang="zh">上次状态更新</value>
         <value xml:lang="zh_TW">上次狀態更新</value>
     </property>
@@ -271,6 +296,7 @@
         <value xml:lang="nl">Location Desc</value>
         <value xml:lang="ro">Descriere Locatie</value>
         <value xml:lang="th">รายละเอียดที่ตั้ง</value>
+        <value xml:lang="vi">Miêu tả địa điểm</value>
         <value xml:lang="zh">地点按降序排列</value>
         <value xml:lang="zh_TW">地點按降序排列</value>
     </property>
@@ -282,6 +308,7 @@
         <value xml:lang="nl">Must Rsvp</value>
         <value xml:lang="ro">Trebuie Rsvp</value>
         <value xml:lang="th">Must Rsvp</value>
+        <value xml:lang="vi">Phải phản hồi</value>
         <value xml:lang="zh">必须回复</value>
         <value xml:lang="zh_TW">必須回複</value>
     </property>
@@ -292,6 +319,7 @@
         <value xml:lang="nl">Soort order omschrijving</value>
         <value xml:lang="ro">Descriere Tip Comanda</value>
         <value xml:lang="th">รายละเอียดประเภทรายการสั่งซื้อ</value>
+        <value xml:lang="vi">Miêu tả kiểu Đặt hàng</value>
         <value xml:lang="zh">订单类型描述</value>
         <value xml:lang="zh_TW">訂單類型描述</value>
     </property>
@@ -301,6 +329,7 @@
         <value xml:lang="fr">Envoyé anonymement</value>
         <value xml:lang="it">Inviato da anonimo</value>
         <value xml:lang="th">ไม่ระบุชื่อการโพสต์</value>
+        <value xml:lang="vi">Gửi bởi Ẩn danh</value>
         <value xml:lang="zh">匿名张贴的</value>
         <value xml:lang="zh_TW">匿名張貼的</value>
     </property>
@@ -312,6 +341,7 @@
         <value xml:lang="nl">Produkt Id</value>
         <value xml:lang="ro">Cod Produs</value>
         <value xml:lang="th">รหัสสินค้า</value>
+        <value xml:lang="vi">Sản phẩm</value>
         <value xml:lang="zh">产品标识</value>
         <value xml:lang="zh_TW">產品ID</value>
     </property>
@@ -323,6 +353,7 @@
         <value xml:lang="nl">Aantal geproduceerd</value>
         <value xml:lang="ro">Cantitatea Produsa</value>
         <value xml:lang="th">จำนวนผลผลิต</value>
+        <value xml:lang="vi">Số lượng sản xuất</value>
         <value xml:lang="zh">已产生的数量</value>
         <value xml:lang="zh_TW">已產生的數量</value>
     </property>
@@ -334,6 +365,7 @@
         <value xml:lang="nl">Quantity To Produce</value>
         <value xml:lang="ro">Cantitatea De Produs</value>
         <value xml:lang="th">ผลผลิตถึงจำนวน</value>
+        <value xml:lang="vi">Số lượng để sản xuất</value>
         <value xml:lang="zh">要产生的数量</value>
         <value xml:lang="zh_TW">要產生的數量</value>
     </property>
@@ -346,6 +378,7 @@
         <value xml:lang="nl">Offerte naam</value>
         <value xml:lang="ro">Nume Preventiv</value>
         <value xml:lang="th">ชื่อการอ้างอิง</value>
+        <value xml:lang="vi">Tên báo giá</value>
         <value xml:lang="zh">询价名称</value>
         <value xml:lang="zh_TW">詢價名稱</value>
     </property>
@@ -357,6 +390,7 @@
         <value xml:lang="nl">Percentage</value>
         <value xml:lang="ro">Procent</value>
         <value xml:lang="th">อัตราร้อยละ</value>
+        <value xml:lang="vi">Tỷ lệ</value>
         <value xml:lang="zh">费率</value>
         <value xml:lang="zh_TW">費率</value>
     </property>
@@ -366,6 +400,7 @@
         <value xml:lang="fr">Coefficient</value>
         <value xml:lang="it">Classifica</value>
         <value xml:lang="th">การประเมิณ</value>
+        <value xml:lang="vi">Tỷ lệ</value>
         <value xml:lang="zh">评级</value>
         <value xml:lang="zh_TW">評級</value>
     </property>
@@ -373,6 +408,7 @@
         <value xml:lang="en">Reminder Date Time</value>
         <value xml:lang="fr">Date heure de rappel</value>
         <value xml:lang="it">Data ora promemoria</value>
+        <value xml:lang="vi">Ngày giờ nhắc nhở</value>
         <value xml:lang="zh">提醒日期时间</value>
         <value xml:lang="zh_TW">提醒日期時間</value>
     </property>
@@ -380,6 +416,7 @@
         <value xml:lang="en">Reminder Offset</value>
         <value xml:lang="fr">Décalage 1er rappel</value>
         <value xml:lang="it">Intervallo promemoria</value>
+        <value xml:lang="vi">Thành phần (offset) nhắc nhở</value>
         <value xml:lang="zh">提醒偏移量</value>
     </property>
     <property key="FormFieldTitle_repeatInterval">
@@ -387,6 +424,7 @@
         <value xml:lang="en">Repeat Interval</value>
         <value xml:lang="fr">Intervalle de répétition</value>
         <value xml:lang="it">Ripeti intervallo</value>
+        <value xml:lang="vi">Tần suất lặp</value>
         <value xml:lang="zh">重复间隔</value>
         <value xml:lang="zh_TW">重複間隔</value>
     </property>
@@ -398,6 +436,7 @@
         <value xml:lang="nl">Omschrijving aanvraag</value>
         <value xml:lang="ro">Descriere Necesar</value>
         <value xml:lang="th">รายละเอียดความต้องการ</value>
+        <value xml:lang="vi">Miêu tả Yêu cầu Nguồn lực</value>
         <value xml:lang="zh">需求描述</value>
         <value xml:lang="zh_TW">需求描述</value>
     </property>
@@ -409,6 +448,7 @@
         <value xml:lang="nl">Reserv2nd P P Perc</value>
         <value xml:lang="ro">2 Persoane de Rezerva Procent</value>
         <value xml:lang="th">ร้อยละต่อการจองสองคน</value>
+        <value xml:lang="vi">Nhân sự dự phòng (lựa chọn hai)</value>
         <value xml:lang="zh">第2个预留人员百分比</value>
         <value xml:lang="zh_TW">第2個預留人員百分比</value>
     </property>
@@ -420,6 +460,7 @@
         <value xml:lang="nl">Reserv Nth P P Perc</value>
         <value xml:lang="ro">N-a Persoana de Rezerva Procent</value>
         <value xml:lang="th">ร้อยละต่อการจอง Nth</value>
+        <value xml:lang="vi">Reserv Nth P P Perc</value>
         <value xml:lang="zh">第N个预留人员百分比</value>
         <value xml:lang="zh_TW">第N個預留人員百分比</value>
     </property>
@@ -429,6 +470,7 @@
         <value xml:lang="fr">Date de vérification</value>
         <value xml:lang="it">Data revisione</value>
         <value xml:lang="th">วันที่ตรวจสอบ</value>
+        <value xml:lang="vi">Ngày xem xét</value>
         <value xml:lang="zh">检查日期</value>
         <value xml:lang="zh_TW">檢查日期</value>
     </property>
@@ -438,6 +480,7 @@
         <value xml:lang="fr">Vérification du texte</value>
         <value xml:lang="it">Testo revisione</value>
         <value xml:lang="th">ข้อความที่ตรวจสอบ</value>
+        <value xml:lang="vi">Diễn giải xem xét</value>
         <value xml:lang="zh">检查文本</value>
         <value xml:lang="zh_TW">檢查文本</value>
     </property>
@@ -449,6 +492,7 @@
         <value xml:lang="nl">Revisie nummer</value>
         <value xml:lang="ro">Numar Reviziune</value>
         <value xml:lang="th">หมายเลขการแก้ไขใหม่</value>
+        <value xml:lang="vi">Số phiên bản (Revision)</value>
         <value xml:lang="zh">修订序号</value>
         <value xml:lang="zh_TW">修訂序號</value>
     </property>
@@ -459,6 +503,7 @@
         <value xml:lang="nl">Scope</value>
         <value xml:lang="ro">Scop</value>
         <value xml:lang="th">ขอบเขต</value>
+        <value xml:lang="vi">Phạm vi</value>
         <value xml:lang="zh">范围</value>
         <value xml:lang="zh_TW">範圍</value>
     </property>
@@ -469,6 +514,7 @@
         <value xml:lang="nl">Service Loader Name</value>
         <value xml:lang="ro">Nume Serviciu Loader</value>
         <value xml:lang="th">ชื่อบริการโหลด</value>
+        <value xml:lang="vi">Tên dịch vụ tải</value>
         <value xml:lang="zh">服务加载程序名称 </value>
         <value xml:lang="zh_TW">服務載入程式名稱 </value>
     </property>
@@ -477,6 +523,7 @@
         <value xml:lang="en">Show As Enum Id</value>
         <value xml:lang="fr">Montrer comme une ref. d'énumération </value>
         <value xml:lang="it">Mostra come enumerazione</value>
+        <value xml:lang="vi">Hiển thị kiểu liệt kê</value>
         <value xml:lang="zh">显示为枚举标识</value>
         <value xml:lang="zh_TW">顯示列舉ID</value>
     </property>
@@ -488,6 +535,7 @@
         <value xml:lang="nl">Source Reference Id</value>
         <value xml:lang="ro">Cod Origine Referiment</value>
         <value xml:lang="th">รหัสข้อมูลแหล่งอ้างอิง</value>
+        <value xml:lang="vi">Nguồn tham chiếu</value>
         <value xml:lang="zh">资源引用标识</value>
         <value xml:lang="zh_TW">資源參考ID</value>
     </property>
@@ -499,6 +547,7 @@
         <value xml:lang="nl">Special Terms</value>
         <value xml:lang="ro">Termene Speciale</value>
         <value xml:lang="th">ช่วงระยะเวลาพิเศษ</value>
+        <value xml:lang="vi">Điều khoản đặc biệt</value>
         <value xml:lang="zh">特别条款</value>
         <value xml:lang="zh_TW">特別條款</value>
     </property>
@@ -509,6 +558,7 @@
         <value xml:lang="nl">Status Datum tijd</value>
         <value xml:lang="ro">Stat Data Ora </value>
         <value xml:lang="th">สถานะวันเวลา</value>
+        <value xml:lang="vi">Ngày giờ trạng thái</value>
         <value xml:lang="zh">状态日期时间</value>
         <value xml:lang="zh_TW">狀態日期時間</value>
     </property>
@@ -520,6 +570,7 @@
         <value xml:lang="nl">Status</value>
         <value xml:lang="ro">Stare</value>
         <value xml:lang="th">สถานะ</value>
+        <value xml:lang="vi">Trạng thái</value>
         <value xml:lang="zh">状态</value>
         <value xml:lang="zh_TW">狀態</value>
     </property>
@@ -531,6 +582,7 @@
         <value xml:lang="nl">Time Transparency</value>
         <value xml:lang="ro">Transparenta Timp</value>
         <value xml:lang="th">ภาพเวลา</value>
+        <value xml:lang="vi">Thời gian trong suốt (transparency)</value>
         <value xml:lang="zh">时间透明</value>
         <value xml:lang="zh_TW">時間透明</value>
     </property>
@@ -542,6 +594,7 @@
         <value xml:lang="nl">Urenstaat Id</value>
         <value xml:lang="ro">Numar Pontaj</value>
         <value xml:lang="th">รหัสตารางการทำงาน</value>
+        <value xml:lang="vi">Khai báo công việc</value>
         <value xml:lang="zh">工单标识</value>
         <value xml:lang="zh_TW">時間表ID</value>
     </property>
@@ -553,6 +606,7 @@
         <value xml:lang="nl">Total Milli Seconds Allowed</value>
         <value xml:lang="ro">Total Milisecondi Permise</value>
         <value xml:lang="th">พิจารณาผลรวมพันวินาที</value>
+        <value xml:lang="vi">Tổng số giây cho phép</value>
         <value xml:lang="zh">允许的全部毫秒数</value>
         <value xml:lang="zh_TW">允許的全部毫秒數</value>
     </property>
@@ -564,6 +618,7 @@
         <value xml:lang="nl">Total Money Allowed</value>
         <value xml:lang="ro">Total Bani Permisi</value>
         <value xml:lang="th">พิจารณาผลรวมของเงิน</value>
+        <value xml:lang="vi">Tổng số tiền cho phép</value>
         <value xml:lang="zh">允许的全部金额</value>
         <value xml:lang="zh_TW">允許的全部金額</value>
     </property>
@@ -575,6 +630,7 @@
         <value xml:lang="nl">Universal Id</value>
         <value xml:lang="ro">Cod Universal</value>
         <value xml:lang="th">รหัสทั้งหมด</value>
+        <value xml:lang="vi">ID trên toàn hệ thống</value>
         <value xml:lang="zh">通用标识</value>
         <value xml:lang="zh_TW">通用ID</value>
     </property>
@@ -586,6 +642,7 @@
         <value xml:lang="nl">Activiteit Assoc Type Id</value>
         <value xml:lang="ro">Tip Asociere Sarcina de Lucru</value>
         <value xml:lang="th">รหัสประเภกลุ่มงาน</value>
+        <value xml:lang="vi">Kiểu kết hợp với Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务关联类型标识</value>
         <value xml:lang="zh_TW">工項關聯類型ID</value>
     </property>
@@ -595,6 +652,7 @@
         <value xml:lang="fr">Type de contenu de la tâche</value>
         <value xml:lang="it">Tipo di contenuto impegno di lavoro</value>
         <value xml:lang="th">รหัสประเภทหัวข้องาน</value>
+        <value xml:lang="vi">Id loại nội dung Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务内容类型标识</value>
         <value xml:lang="zh_TW">工項內容類型ID</value>
     </property>
@@ -608,6 +666,7 @@
         <value xml:lang="ro">Numar Sarcina de Lucru </value>
         <value xml:lang="ru">Код задачи</value>
         <value xml:lang="th">รหัสงาน</value>
+        <value xml:lang="vi">Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务标识</value>
         <value xml:lang="zh_TW">工項ID</value>
     </property>
@@ -620,6 +679,7 @@
         <value xml:lang="nl">Actie Id van</value>
         <value xml:lang="ro">Sarcina de Lucru De la</value>
         <value xml:lang="th">จากรหัสงาน</value>
+        <value xml:lang="vi">Lượng giá nguồn lực Từ</value>
         <value xml:lang="zh">人工服务标识自</value>
         <value xml:lang="zh_TW">工項ID自</value>
     </property>
@@ -632,6 +692,7 @@
         <value xml:lang="nl">Activiteit Id To</value>
         <value xml:lang="ro">Sarcina de Lucru La</value>
         <value xml:lang="th">ถึงรหัสงาน</value>
+        <value xml:lang="vi">Lượng giá nguồn lực Đến</value>
         <value xml:lang="zh">人工服务标识到</value>
         <value xml:lang="zh_TW">工項ID到</value>
     </property>
@@ -644,6 +705,7 @@
         <value xml:lang="nl">Actie naam</value>
         <value xml:lang="ro">Nume Sarcina de Lucru </value>
         <value xml:lang="th">ชื่องาน</value>
+        <value xml:lang="vi">Tên</value>
         <value xml:lang="zh">人工服务名称</value>
         <value xml:lang="zh_TW">工項名稱</value>
     </property>
@@ -656,6 +718,7 @@
         <value xml:lang="nl">Activiteit Parent Id</value>
         <value xml:lang="ro">Cod Parinte Sarcina de Lucru</value>
         <value xml:lang="th">รหัสกลุ่มงาน</value>
+        <value xml:lang="vi">Lượng giá nguồn lực cha</value>
         <value xml:lang="zh">人工服务上级标识</value>
         <value xml:lang="zh_TW">工項上級ID</value>
     </property>
@@ -666,6 +729,7 @@
         <value xml:lang="nl">Soort actie doel Id</value>
         <value xml:lang="ro">Tip Functie Sarcina de Lucru </value>
         <value xml:lang="th">รหัสประเภทเป้าหมายงาน</value>
+        <value xml:lang="vi">Mục đích Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务目的类型标识</value>
         <value xml:lang="zh_TW">工項目的類型ID</value>
     </property>
@@ -677,6 +741,7 @@
         <value xml:lang="nl">Actie type Id</value>
         <value xml:lang="ro">Tip Sarcina de Lucru </value>
         <value xml:lang="th">รหัสประเภทงาน</value>
+        <value xml:lang="vi">Loại Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务类型标识</value>
         <value xml:lang="zh_TW">工項類型ID</value>
     </property>
@@ -687,6 +752,7 @@
         <value xml:lang="nl">Work Req Fulf Type Description</value>
         <value xml:lang="ro">Descriere Tip Aprovizionare Sarcina de Lucru Necesar</value>
         <value xml:lang="th">รายละเอียดประเภทรายการงานที่สำเร็จ</value>
+        <value xml:lang="vi">Miêu tả kiểu yêu cầu công việc (Work Req)</value>
         <value xml:lang="zh">工作请求补充类型描述</value>
         <value xml:lang="zh_TW">工作請求補充類型描述</value>
     </property>
@@ -697,6 +763,7 @@
         <value xml:lang="nl">Work Req Fulf Type Id</value>
         <value xml:lang="ro">Tip Aprovizionare Sarcina de Lucru Necesar</value>
         <value xml:lang="th">รหัสประเภทรายการงานที่สำเร็จ</value>
+        <value xml:lang="vi">Id kiểu yêu cầu công việc (Work Req)</value>
         <value xml:lang="zh">工作请求补充类型标识 </value>
         <value xml:lang="zh_TW">工作要求補充類型ID </value>
     </property>
@@ -709,6 +776,7 @@
         <value xml:lang="nl">Add Timesheet</value>
         <value xml:lang="ro">Adauga Pontaj</value>
         <value xml:lang="th">เพิ่มตารางการทำงาน</value>
+        <value xml:lang="vi">Thêm Khai báo công việc</value>
         <value xml:lang="zh">添加工单</value>
         <value xml:lang="zh_TW">添加工單</value>
     </property>
@@ -718,6 +786,7 @@
         <value xml:lang="fr">Ajouter des lignes à la feuille d'activité</value>
         <value xml:lang="it">Aggiungi righe timbratura</value>
         <value xml:lang="th">เพิ่มการกรอกข้อมูลตารางการทำงาน</value>
+        <value xml:lang="vi">Thêm điểm nhập (entry) Khai báo công việc</value>
         <value xml:lang="zh">添加工单记录</value>
         <value xml:lang="zh_TW">添加工單記錄</value>
     </property>
@@ -727,6 +796,7 @@
         <value xml:lang="fr">Ajouter les rôles de feuille d'activité</value>
         <value xml:lang="it">Aggiungi ruoli timbrature</value>
         <value xml:lang="th">เพิ่มสถานะตารางการทำงาน</value>
+        <value xml:lang="vi">Thêm vai trò Khai báo công việc</value>
         <value xml:lang="zh">添加工单角色</value>
         <value xml:lang="zh_TW">添加工單角色</value>
     </property>
@@ -736,6 +806,7 @@
         <value xml:lang="fr">Ajouter une feuille d'activité à la facture</value>
         <value xml:lang="it">Aggiungi timbrature alla fattura</value>
         <value xml:lang="th">เพิ่มตารางการทำงานถึงใบส่งของ</value>
+        <value xml:lang="vi">Thêm 'Khai báo công việc' Đến Hóa đơn</value>
         <value xml:lang="zh">把工单添加到发票</value>
         <value xml:lang="zh_TW">把工單添加到發票</value>
     </property>
@@ -745,6 +816,7 @@
         <value xml:lang="fr">Ajouter une feuille d'activité à la nouvelle facture</value>
         <value xml:lang="it">Aggiungi timbrature alla nuova fattura</value>
         <value xml:lang="th">เพิ่มตารางการทำงานถึงใบส่งของใหม่</value>
+        <value xml:lang="vi">Thêm 'Khai báo công việc' Đến Hóa đơn mới</value>
         <value xml:lang="zh">把工单添加到新发票</value>
         <value xml:lang="zh_TW">把工單添加到新發票</value>
     </property>
@@ -757,6 +829,7 @@
         <value xml:lang="nl">Nieuwe actie</value>
         <value xml:lang="ro">Adauga Sarcina de Lucru</value>
         <value xml:lang="th">เพิ่มงาน</value>
+        <value xml:lang="vi">Thêm Lượng giá nguồn lực</value>
         <value xml:lang="zh">添加人工服务</value>
         <value xml:lang="zh_TW">新增工項</value>
     </property>
@@ -768,6 +841,7 @@
         <value xml:lang="nl">Add Activiteit Assignment Rate</value>
         <value xml:lang="ro">Adauga Procent Sarcina de Lucru Atribuire</value>
         <value xml:lang="th">เพิ่มอัตราการมอบหมายงาน</value>
+        <value xml:lang="vi">Thêm tỷ lệ gán Lượng giá nguồn lực</value>
         <value xml:lang="zh">添加人工服务指派费率</value>
         <value xml:lang="zh_TW">新增工項指派費率</value>
     </property>
@@ -780,6 +854,7 @@
         <value xml:lang="nl">Nieuwe communicatie actie voor evenement</value>
         <value xml:lang="ro">Adauga Sarcina de Lucru Eveniment Comunicatii</value>
         <value xml:lang="th">เพิ่มผลที่ได้จากการติดต่องาน</value>
+        <value xml:lang="vi">Thêm sự kiện truyền thông Lượng giá nguồn lực</value>
         <value xml:lang="zh">添加人工服务沟通事件</value>
         <value xml:lang="zh_TW">新增工項通訊事件</value>
     </property>
@@ -788,6 +863,7 @@
         <value xml:lang="en">Add Work Effort Event Reminder</value>
         <value xml:lang="fr">Ajouter un rappel d'évènement de tâche</value>
         <value xml:lang="it">Aggiungi promemoria di impegno di lavoro</value>
+        <value xml:lang="vi">Thêm mới nhắc nhở sự kiện của Lượng giá nguồn lực</value>
         <value xml:lang="zh">添加人工服务事件提醒</value>
         <value xml:lang="zh_TW">新增工項事件提醒</value>
     </property>
@@ -795,6 +871,7 @@
         <value xml:lang="en">Add Work Effort Fixed Asset Assignment</value>
         <value xml:lang="fr">Ajouter l'affectation d'unetâche à une immobilisation</value>
         <value xml:lang="it">Aggiungi assegnazione impegno di lavoro su cespite</value>
+        <value xml:lang="vi">Thêm gán tài sản cho Lượng giá nguồn lực</value>
         <value xml:lang="zh">添加人工服务固定资产分配</value>
         <value xml:lang="zh_TW">新增工項固定資產分配</value>
     </property>
@@ -804,6 +881,7 @@
         <value xml:lang="fr">Ajouter un mot clé à la tâche</value>
         <value xml:lang="it">Aggiungi chiave all'impegno di lavoro</value>
         <value xml:lang="th">เพิ่มคีย์เวิร์ดงาน</value>
+        <value xml:lang="vi">Thêm từ khóa Lượng giá nguồn lực</value>
         <value xml:lang="zh">添加人工服务关键字</value>
         <value xml:lang="zh_TW">新增工項關鍵字</value>
     </property>
@@ -813,6 +891,7 @@
         <value xml:lang="fr">Ajouter une note à la tâche</value>
         <value xml:lang="it">Aggiungi note all'impegno di lavoro</value>
         <value xml:lang="th">เพิ่มข้อความงาน</value>
+        <value xml:lang="vi">Thêm ghi chú của Lượng giá nguồn lực</value>
         <value xml:lang="zh">添加人工服务便笺</value>
         <value xml:lang="zh_TW">新增工項註記</value>
     </property>
@@ -825,6 +904,7 @@
         <value xml:lang="nl">Add Order to Activiteit</value>
         <value xml:lang="ro">Adauga Comanda Prestare serviciu</value>
         <value xml:lang="th">เพิ่มคำสั่งงาน</value>
+        <value xml:lang="vi">Thêm đặt hàng tới Lượng giá nguồn lực</value>
         <value xml:lang="zh">添加人工服务订单</value>
         <value xml:lang="zh_TW">新增工項訂單</value>
     </property>
@@ -837,6 +917,7 @@
         <value xml:lang="nl">Wij actie aan een relatie toe</value>
         <value xml:lang="ro">Adauga Sarcina de Lucru Atribuire Subiect</value>
         <value xml:lang="th">เพิ่มการมอบหมายกลุ่มงาน</value>
+        <value xml:lang="vi">Thêm gán Lượng giá nguồn lực cho nhân sự</value>
         <value xml:lang="zh">添加人工服务会员指派</value>
         <value xml:lang="zh_TW">新增工項成員指派</value>
     </property>
@@ -847,6 +928,7 @@
         <value xml:lang="it">Aggiungi preventivo all'impegno di lavoro</value>
         <value xml:lang="nl">Add Activiteit Quote</value>
         <value xml:lang="th">เพิ่มการอ้างอิงงาน</value>
+        <value xml:lang="vi">Thêm mới báo giá của Lượng giá nguồn lực</value>
         <value xml:lang="zh">添加人工服务询价</value>
         <value xml:lang="zh_TW">新增工項詢價</value>
     </property>
@@ -858,6 +940,7 @@
         <value xml:lang="nl">Add Activiteit QuoteItem</value>
         <value xml:lang="ro">Adauga Sarcina de Lucru Linie Preventiv</value>
         <value xml:lang="th">เพิ่มหัวข้อการอ้างอิงงาน</value>
+        <value xml:lang="vi">Thêm mới hạng mục báo giá của Lượng giá nguồn lực</value>
         <value xml:lang="zh">添加人工服务询价明细</value>
         <value xml:lang="zh_TW">新增工項詢價明細</value>
     </property>
@@ -869,6 +952,7 @@
         <value xml:lang="nl">Add Activiteit Request</value>
         <value xml:lang="ro">Adauga Sarcina de Lucru Cerere</value>
         <value xml:lang="th">เพิ่มคำร้องงาน</value>
+        <value xml:lang="vi">Thêm yêu cầu Lượng giá nguồn lực</value>
         <value xml:lang="zh">添加人工服务请求</value>
         <value xml:lang="zh_TW">新增工項要求</value>
     </property>
@@ -880,6 +964,7 @@
         <value xml:lang="nl">Add Activiteit RequestItem</value>
         <value xml:lang="ro">Adauga Sarcina de Lucru Linie Cerere</value>
         <value xml:lang="th">เพิ่มรายการคำร้องงาน</value>
+        <value xml:lang="vi">Thêm hạng mục yêu cầu Lượng giá nguồn lực</value>
         <value xml:lang="zh">添加人工服务请求明细</value>
         <value xml:lang="zh_TW">新增工項要求明細</value>
     </property>
@@ -891,6 +976,7 @@
         <value xml:lang="nl">Add Activiteit Requirement</value>
         <value xml:lang="ro">Adauga Sarcina de Lucru Necesar</value>
         <value xml:lang="th">เพิ่มความต้องการงาน</value>
+        <value xml:lang="vi">Thêm Yêu cầu Nguồn lực</value>
         <value xml:lang="zh">添加人工服务需求</value>
         <value xml:lang="zh_TW">新增工項要求</value>
     </property>
@@ -900,6 +986,7 @@
         <value xml:lang="fr">Ajouter une vérification de texte à la tâche</value>
         <value xml:lang="it">Aggiungi revisioni all'impegno di lavoro</value>
         <value xml:lang="th">เพิ่มการตรวจสอบงาน</value>
+        <value xml:lang="vi">Thêm xem xét Lượng giá nguồn lực</value>
         <value xml:lang="zh">添加人工服务检查</value>
         <value xml:lang="zh_TW">新增工項檢查</value>
     </property>
@@ -912,6 +999,7 @@
         <value xml:lang="nl">Add Activiteit Shopping List</value>
         <value xml:lang="ro">Adauga Listele Cumparari Prestari servicii </value>
         <value xml:lang="th">เพิ่มงานรายการซื้อสินค้า</value>
+        <value xml:lang="vi">Thêm danh sách mua hàng Lượng giá nguồn lực</value>
         <value xml:lang="zh">添加人工服务购买列表</value>
         <value xml:lang="zh_TW">新增工項購買列表</value>
     </property>
@@ -924,6 +1012,7 @@
         <value xml:lang="nl">Add Time Entry to Activiteit</value>
         <value xml:lang="ro">Adauga Linie Timp pentru Sarcina de Lucru</value>
         <value xml:lang="th">เพิ่มตารางเวลาไปยังงาน</value>
+        <value xml:lang="vi">Thêm điểm nhập thời gian cho Lượng giá nguồn lực</value>
         <value xml:lang="zh">添加人工服务时间记录</value>
         <value xml:lang="zh_TW">新增工項時間記錄</value>
     </property>
@@ -935,6 +1024,7 @@
         <value xml:lang="nl">Add Activiteit Time to Invoice</value>
         <value xml:lang="ro">Adauga Timp Sarcina de Lucru</value>
         <value xml:lang="th">เพิ่มเวลางานถึงใบส่งของ</value>
+        <value xml:lang="vi">Thêm thời gian của Lượng giá nguồn lực tới hóa đơn (invoice)</value>
         <value xml:lang="zh">添加人工服务时间到发票</value>
         <value xml:lang="zh_TW">新增工項時間到發票</value>
     </property>
@@ -946,6 +1036,7 @@
         <value xml:lang="nl">Add Activiteit Time to New Invoice</value>
         <value xml:lang="ro">Adauga Timp Sarcina de Lucru</value>
         <value xml:lang="th">เพิ่มเวลางานถึงใบส่งของใหม่</value>
+        <value xml:lang="vi">Thêm thời gian của Lượng giá nguồn lực tới hóa đơn (invoice) mới</value>
         <value xml:lang="zh">添加人工服务时间到新发票</value>
         <value xml:lang="zh_TW">新增工項時間到新發票</value>
     </property>
@@ -957,6 +1048,7 @@
         <value xml:lang="nl">Calendar Day</value>
         <value xml:lang="ro">Calendar Zilier </value>
         <value xml:lang="th">ปฏิทินวัน</value>
+        <value xml:lang="vi">Ngày của lịch đặt</value>
         <value xml:lang="zh">日历日</value>
         <value xml:lang="zh_TW">日歷日</value>
     </property>
@@ -968,6 +1060,7 @@
         <value xml:lang="nl">Calendar Month</value>
         <value xml:lang="ro">Calendar Lunar</value>
         <value xml:lang="th">ปฏิทินเดือน</value>
+        <value xml:lang="vi">Tháng của lịch đặt</value>
         <value xml:lang="zh">日历月</value>
         <value xml:lang="zh_TW">日歷月</value>
     </property>
@@ -979,6 +1072,7 @@
         <value xml:lang="nl">Calendar Upcoming</value>
         <value xml:lang="ro">Calendar Urmatoarele Evenimente</value>
         <value xml:lang="th">ปฏิทินล่วงหน้า</value>
+        <value xml:lang="vi">Lịch đặt tiếp theo</value>
         <value xml:lang="zh">日历即将发生</value>
         <value xml:lang="zh_TW">日歷即將發生</value>
     </property>
@@ -990,6 +1084,7 @@
         <value xml:lang="nl">Calendar Week</value>
         <value xml:lang="ro">Calendar Saptamanal</value>
         <value xml:lang="th">ปฏิทินสัปดาห์</value>
+        <value xml:lang="vi">Tuần của lịch đặt</value>
         <value xml:lang="zh">日历周</value>
         <value xml:lang="zh_TW">日歷周</value>
     </property>
@@ -1001,6 +1096,7 @@
         <value xml:lang="nl">Create Timesheet for This Week</value>
         <value xml:lang="ro">Creare Pontaj pentru Saptamana Curenta</value>
         <value xml:lang="th">สร้างตารางการทำงานสำหรับสัปดาห์นี้</value>
+        <value xml:lang="vi">Tạo mới Khai báo công việc cho tuần này</value>
         <value xml:lang="zh">为本周新建工单</value>
         <value xml:lang="zh_TW">為本周新建工單</value>
     </property>
@@ -1010,6 +1106,7 @@
         <value xml:lang="fr">Afficher les lignes de la feuille d'activité</value>
         <value xml:lang="it">Visualizza righe timbrature</value>
         <value xml:lang="th">แสดงการกรอกข้อมูลตารางการทำงาน</value>
+        <value xml:lang="vi">Hiển thị các điểm nhập Khai báo công việc</value>
         <value xml:lang="zh">显示工单记录</value>
         <value xml:lang="zh_TW">顯示工單記錄</value>
     </property>
@@ -1022,6 +1119,7 @@
         <value xml:lang="nl">Edit Timesheet</value>
         <value xml:lang="ro">Actualizeaza Pontaj</value>
         <value xml:lang="th">แก้ไขตารางการทำงาน</value>
+        <value xml:lang="vi">Cập nhật Khai báo công việc</value>
         <value xml:lang="zh">编辑工单</value>
         <value xml:lang="zh_TW">編輯工單</value>
     </property>
@@ -1034,6 +1132,7 @@
         <value xml:lang="nl">Edit Timesheet Entries</value>
         <value xml:lang="ro">Actualizeaza Linii Pontaj</value>
         <value xml:lang="th">แก้ไขการกรอกข้อมูลตารางการทำงาน</value>
+        <value xml:lang="vi">Cập nhật điểm nhập của Khai báo công việc</value>
         <value xml:lang="zh">编辑工单记录</value>
         <value xml:lang="zh_TW">編輯工單記錄</value>
     </property>
@@ -1046,6 +1145,7 @@
         <value xml:lang="nl">Edit Timesheet Roles</value>
         <value xml:lang="ro">Adauga Roluri Pontaj </value>
         <value xml:lang="th">แก้ไขสถานะตารางการทำงาน</value>
+        <value xml:lang="vi">Cập nhật vai trò Khai báo công việc</value>
         <value xml:lang="zh">编辑工单角色</value>
         <value xml:lang="zh_TW">編輯工單角色</value>
     </property>
@@ -1057,6 +1157,7 @@
         <value xml:lang="nl">Wijzig actie</value>
         <value xml:lang="ro">Actualizeaza Sarcina de Lucru</value>
         <value xml:lang="th">แก้ไขงาน</value>
+        <value xml:lang="vi">Cập nhật Lượng giá nguồn lực</value>
         <value xml:lang="zh">编辑人工服务</value>
         <value xml:lang="zh_TW">編輯工項</value>
     </property>
@@ -1065,6 +1166,7 @@
         <value xml:lang="fr">Modifier l'association de la tâche</value>
         <value xml:lang="it">Aggiorna associazione impegno di lavoro</value>
         <value xml:lang="th">แก้ไขกลุ่มงาน</value>
+        <value xml:lang="vi">Cập nhật kết hợp của Lượng giá nguồn lực</value>
         <value xml:lang="zh">编辑人工服务关联</value>
         <value xml:lang="zh_TW">編輯工項關聯</value>
     </property>
@@ -1076,6 +1178,7 @@
         <value xml:lang="nl">Wijzig communicaie actie voor evenement</value>
         <value xml:lang="ro">Actualizeaza Sarcina de Lucru Eveniment Comunictii </value>
         <value xml:lang="th">แก้ไขผลที่ได้จากการติดต่องาน</value>
+        <value xml:lang="vi">Cập nhật sự kiện Lượng giá nguồn lực</value>
         <value xml:lang="zh">编辑人工服务沟通事件</value>
         <value xml:lang="zh_TW">編輯工項通訊事件</value>
     </property>
@@ -1084,6 +1187,7 @@
         <value xml:lang="fr">Modifier les contacts de la tâche</value>
         <value xml:lang="it">Aggiorna i contatti dell'impegno di lavoro</value>
         <value xml:lang="th">แก้ไขวิธีการติดต่องาน</value>
+        <value xml:lang="vi">Cập nhật thông tin liên lạc chi tiết của Lượng giá nguồn lực</value>
         <value xml:lang="zh">编辑人工服务联系方法</value>
         <value xml:lang="zh_TW">編輯工項聯絡方法</value>
     </property>
@@ -1092,6 +1196,7 @@
         <value xml:lang="fr">Contenu de la tâche</value>
         <value xml:lang="it">Contenuto dell'impegno di lavoro</value>
         <value xml:lang="th">หัวข้องาน</value>
+        <value xml:lang="vi">Nội dung Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务内容</value>
         <value xml:lang="zh_TW">工項內容</value>
     </property>
@@ -1100,6 +1205,7 @@
         <value xml:lang="fr">Biens standarts</value>
         <value xml:lang="it">Beni standard</value>
         <value xml:lang="th">งานมีวามสามาถมาตรฐาน</value>
+        <value xml:lang="vi">Chuẩn yêu cầu tốt của Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务良好标准 </value>
         <value xml:lang="zh_TW">工項成品規範 </value>
     </property>
@@ -1111,6 +1217,7 @@
         <value xml:lang="nl">Wijzig toegewezen actie van relatie</value>
         <value xml:lang="ro">Actualizeaza Sarcina de Lucru Atribuire Subiect </value>
         <value xml:lang="th">แก้ไขกลุ่มงานที่ได้รับมอบหมาย</value>
+        <value xml:lang="vi">Cập nhật gán nhân viên với Lượng giá nguồn lực</value>
         <value xml:lang="zh">编辑人工服务会员指派</value>
         <value xml:lang="zh_TW">編輯工項成員指派</value>
     </property>
@@ -1122,6 +1229,7 @@
         <value xml:lang="nl">Edit Activiteit Quote</value>
         <value xml:lang="ro">Actualizeaza Sarcina de Lucru Preventiva</value>
         <value xml:lang="th">แก้ไขการอ้างอิงงาน</value>
+        <value xml:lang="vi">Sửa đổi báo giá Lượng giá nguồn lực</value>
         <value xml:lang="zh">编辑人工服务询价</value>
         <value xml:lang="zh_TW">編輯工項詢價</value>
     </property>
@@ -1133,6 +1241,7 @@
         <value xml:lang="nl">Edit Activiteit QuoteItem</value>
         <value xml:lang="ro">Actualizeaza Sarcina de Lucru Linie Preventiv</value>
         <value xml:lang="th">แก้ไขรายการอ้างอิงงาน</value>
+        <value xml:lang="vi">Cập nhật hạng mục của báo giá Lượng giá nguồn lực</value>
         <value xml:lang="zh">编辑人工服务询价明细</value>
         <value xml:lang="zh_TW">編輯工項詢價明細</value>
     </property>
@@ -1144,6 +1253,7 @@
         <value xml:lang="nl">Edit Activiteit Request</value>
         <value xml:lang="ro">Actualizeaza Sarcina de Lucru Cerere</value>
         <value xml:lang="th">แก้ไขการร้องของาน</value>
+        <value xml:lang="vi">Cập nhật Yêu cầu Lượng giá nguồn lực</value>
         <value xml:lang="zh">编辑人工服务请求</value>
         <value xml:lang="zh_TW">編輯工項要求</value>
     </property>
@@ -1155,6 +1265,7 @@
         <value xml:lang="nl">Edit Activiteit RequestItem</value>
         <value xml:lang="ro">Actualizeaza Sarcina de Lucru Linie  Cerere</value>
         <value xml:lang="th">แก้ไขรายการร้องของาน</value>
+        <value xml:lang="vi">Sửa đổi hạng mục yêu cầu Lượng giá nguồn lực</value>
         <value xml:lang="zh">编辑人工服务请求明细</value>
         <value xml:lang="zh_TW">編輯工項要求明細</value>
     </property>
@@ -1166,6 +1277,7 @@
         <value xml:lang="nl">Edit Activiteit Requirement</value>
         <value xml:lang="ro">Actualizeaza Sarcina de Lucru Necesar</value>
         <value xml:lang="th">แก้ไขความต้องการงาน</value>
+        <value xml:lang="vi">Cập nhật Yêu cầu Nguồn lực Lượng giá nguồn lực</value>
         <value xml:lang="zh">编辑人工服务需求</value>
         <value xml:lang="zh_TW">編輯工項要求</value>
     </property>
@@ -1178,6 +1290,7 @@
         <value xml:lang="nl">Find Timesheet</value>
         <value xml:lang="ro">Cauta Pontaj</value>
         <value xml:lang="th">ค้นหาตารางการทำงาน</value>
+        <value xml:lang="vi">Tìm kiếm Khai báo công việc</value>
         <value xml:lang="zh">查找工单</value>
         <value xml:lang="zh_TW">查詢時間表</value>
     </property>
@@ -1190,6 +1303,7 @@
         <value xml:lang="nl">Find Activiteit</value>
         <value xml:lang="ro">Cauta Sarcina de Lucru</value>
         <value xml:lang="th">ต้นหางาน</value>
+        <value xml:lang="vi">Tìm kiếm Lượng giá nguồn lực</value>
         <value xml:lang="zh">查找人工服务</value>
         <value xml:lang="zh_TW">查詢工項</value>
     </property>
@@ -1201,6 +1315,7 @@
         <value xml:lang="nl">Activiteit Assignment Rates</value>
         <value xml:lang="ro">Procent Sarcina de Lucru Atribuire</value>
         <value xml:lang="th">อัตราการมอบหมายงาน</value>
+        <value xml:lang="vi">Tỷ lệ được gán Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务指派费率</value>
         <value xml:lang="zh_TW">工項指派費率</value>
     </property>
@@ -1212,6 +1327,7 @@
         <value xml:lang="nl">Communicatie evenementen</value>
         <value xml:lang="ro">Lista Sarcina de Lucru Evenimente Comunicatii</value>
         <value xml:lang="th">ผลที่ได้จากการติดต่องาน</value>
+        <value xml:lang="vi">Sự kiện giao tiếp Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务沟通事件</value>
         <value xml:lang="zh_TW">工項通訊事件</value>
     </property>
@@ -1219,6 +1335,7 @@
         <value xml:lang="en">Work Effort Event Reminders</value>
         <value xml:lang="fr">Rappels d'évènements de tâche</value>
         <value xml:lang="it">Promemoria impegno di lavoro</value>
+        <value xml:lang="vi">Nhắc nhở sự kiện cho Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务事件提醒</value>
         <value xml:lang="zh_TW">工項事件提醒</value>
     </property>
@@ -1226,6 +1343,7 @@
         <value xml:lang="en">Work Effort Fixed Asset Assignments</value>
         <value xml:lang="fr">Immobilisations affectées à la tâche</value>
         <value xml:lang="it">Assegnazioni impegno di lavoro a cespite</value>
+        <value xml:lang="vi">Gán tài sản cố định cho Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务固定资产分配</value>
         <value xml:lang="zh_TW">工項固定資產分配</value>
     </property>
@@ -1234,6 +1352,7 @@
         <value xml:lang="fr">Mots-clés de la tâche</value>
         <value xml:lang="it">Chiavi dell'impegno di lavoro</value>
         <value xml:lang="th">คีย์เวิร์ดงาน</value>
+        <value xml:lang="vi">Từ khóa Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务关键字</value>
         <value xml:lang="zh_TW">工項關鍵字</value>
     </property>
@@ -1243,6 +1362,7 @@
         <value xml:lang="fr">Notes de la tâche</value>
         <value xml:lang="it">Note dell'impegno di lavoro</value>
         <value xml:lang="th">ข้อความงาน</value>
+        <value xml:lang="vi">Ghi chú Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务便笺</value>
         <value xml:lang="zh_TW">工項註記</value>
     </property>
@@ -1255,6 +1375,7 @@
         <value xml:lang="nl">Activiteit Orders</value>
         <value xml:lang="ro">Comenzi Prestari serviciu </value>
         <value xml:lang="th">คำสั่งงาน</value>
+        <value xml:lang="vi">Đơn hàng của Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务订单</value>
         <value xml:lang="zh_TW">工項訂單</value>
     </property>
@@ -1266,6 +1387,7 @@
         <value xml:lang="nl">Acties toegewezen aan relaties</value>
         <value xml:lang="ro">Lista Sarcina de Lucru Atributie Subiect</value>
         <value xml:lang="th">กลุ่มงานที่ได้รับมอบหมาย</value>
+        <value xml:lang="vi">Gán Lượng giá nguồn lực cho nhân sự</value>
         <value xml:lang="zh">人工服务会员指派</value>
         <value xml:lang="zh_TW">工項成員指派</value>
     </property>
@@ -1277,6 +1399,7 @@
         <value xml:lang="nl">Activiteit Quotes</value>
         <value xml:lang="ro">Lista Sarcini de Lucru Preventive</value>
         <value xml:lang="th">การอ้างอิงงาน</value>
+        <value xml:lang="vi">Báo giá Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务询价</value>
         <value xml:lang="zh_TW">工項詢價</value>
     </property>
@@ -1288,6 +1411,7 @@
         <value xml:lang="nl">Activiteit Requests</value>
         <value xml:lang="ro">Lista Sarcina de Lucru Cerere</value>
         <value xml:lang="th">คำร้องงาน</value>
+        <value xml:lang="vi">Yêu cầu Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务请求</value>
         <value xml:lang="zh_TW">工項要求</value>
     </property>
@@ -1299,6 +1423,7 @@
         <value xml:lang="nl">Activiteit Requirements</value>
         <value xml:lang="ro">Lista Sarcini de Lucru Necesar</value>
         <value xml:lang="th">ความต้องการงาน</value>
+        <value xml:lang="vi">Yêu cầu Nguồn lực</value>
         <value xml:lang="zh">人工服务需求</value>
         <value xml:lang="zh_TW">工項要求</value>
     </property>
@@ -1308,6 +1433,7 @@
         <value xml:lang="fr">Vérifications de textes liés à la tâche</value>
         <value xml:lang="it">Revisioni dell'impegno di lavoro</value>
         <value xml:lang="th">ตรวจสอบงาน</value>
+        <value xml:lang="vi">Xem xét Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务检查</value>
         <value xml:lang="zh_TW">工項檢查</value>
     </property>
@@ -1319,6 +1445,7 @@
         <value xml:lang="nl">Activiteit Shopping Lists</value>
         <value xml:lang="ro">Lista Listelor de Cumparari Prestari Servicii </value>
         <value xml:lang="th">งานรายการซื้อสินค้า</value>
+        <value xml:lang="vi">Danh sách mua hàng Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务购买列表</value>
         <value xml:lang="zh_TW">工項購買列表</value>
     </property>
@@ -1330,6 +1457,7 @@
         <value xml:lang="nl">Activiteit Time Entries</value>
         <value xml:lang="ro">Introducere Sarcina de Lucru Timp</value>
         <value xml:lang="th">กรอกข้อมูลเวลางาน</value>
+        <value xml:lang="vi">Điểm nhập thời gian Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务时间记录</value>
         <value xml:lang="zh_TW">工項時間記錄</value>
     </property>
@@ -1342,6 +1470,7 @@
         <value xml:lang="nl">Acties</value>
         <value xml:lang="ro">Lista Sarcina de Lucru </value>
         <value xml:lang="th">งาน</value>
+        <value xml:lang="vi">Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务</value>
         <value xml:lang="zh_TW">工項</value>
     </property>
@@ -1352,6 +1481,7 @@
         <value xml:lang="nl">Lookup Timesheet by Name</value>
         <value xml:lang="ro">Cauta Pontaj pe Nume</value>
         <value xml:lang="th">ค้นหาตารางการทำงานโดยชื่อ</value>
+        <value xml:lang="vi">Tìm kiếm Khai báo công việc theo Tên</value>
         <value xml:lang="zh">通过名称查找工单</value>
         <value xml:lang="zh_TW">通過名稱查找工單</value>
     </property>
@@ -1362,6 +1492,7 @@
         <value xml:lang="nl">Zoek werk inspanningen op naam</value>
         <value xml:lang="ro">Cauta Sarcina de Lucru dupa Nume</value>
         <value xml:lang="th">ค้นหางานโดยชื่อ</value>
+        <value xml:lang="vi">Tìm kiếm Lượng giá nguồn lực theo Tên</value>
         <value xml:lang="zh">通过名称查找人工服务</value>
         <value xml:lang="zh_TW">通過名稱查詢工項</value>
     </property>
@@ -1373,6 +1504,7 @@
         <value xml:lang="nl">Afhankelijke acties</value>
         <value xml:lang="ro">Fiu Sarcini de Lucru</value>
         <value xml:lang="th">งานระยะต้น ๆ</value>
+        <value xml:lang="vi">Lượng giá nguồn lực thành phần</value>
         <value xml:lang="zh">下一级人工服务</value>
         <value xml:lang="zh_TW">下一級工項</value>
     </property>
@@ -1384,6 +1516,7 @@
         <value xml:lang="nl">View Activity and Task List</value>
         <value xml:lang="ro">Afiseaza Activitate si Lista Sarcini</value>
         <value xml:lang="th">แสดงกิจกรรมและรายการงาน</value>
+        <value xml:lang="vi">Xem các Hoạt động và Tác vụ - Đầu việc</value>
         <value xml:lang="zh">浏览行动和任务列表</value>
         <value xml:lang="zh_TW">瀏覽行動和任務列表</value>
     </property>
@@ -1395,6 +1528,7 @@
         <value xml:lang="nl">Activiteit Related Summary</value>
         <value xml:lang="ro">Sarcina de Lucru Breviar Relativ</value>
         <value xml:lang="th">สรุปซึ่งเกี่ยวข้องกับงาน</value>
+        <value xml:lang="vi">Tổng quan Lượng giá nguồn lực liên quan</value>
         <value xml:lang="zh">人工服务相关摘要</value>
         <value xml:lang="zh_TW">工項相關摘要</value>
     </property>
@@ -1406,6 +1540,7 @@
         <value xml:lang="nl">Activiteit Shopping Lists</value>
         <value xml:lang="ro">Liste Cumparari, Prestari Serviciu</value>
         <value xml:lang="th">งานรายการซื้อสินค้า</value>
+        <value xml:lang="vi">Danh sách mua hàng Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务购买列表</value>
         <value xml:lang="zh_TW">工項購買列表</value>
     </property>
@@ -1419,6 +1554,7 @@
         <value xml:lang="ro">Accepta Atribuire</value>
         <value xml:lang="ru">Принять назначение</value>
         <value xml:lang="th">ยอมรับการมอบหมายงาน</value>
+        <value xml:lang="vi">Nhận giao việc</value>
         <value xml:lang="zh">接受指派</value>
         <value xml:lang="zh_TW">接受指派</value>
     </property>
@@ -1432,6 +1568,7 @@
         <value xml:lang="ro">Detaliu Activitate</value>
         <value xml:lang="ru">Подробности действия</value>
         <value xml:lang="th">รายละเอียดกิจกรรม</value>
+        <value xml:lang="vi">Chi tiết hoạt động</value>
         <value xml:lang="zh">行动细节</value>
         <value xml:lang="zh_TW">行動細節</value>
     </property>
@@ -1445,6 +1582,7 @@
         <value xml:lang="ro">Nume Activitate</value>
         <value xml:lang="ru">Название действия</value>
         <value xml:lang="th">ชื่อกิจกรรม</value>
+        <value xml:lang="vi">Tên hoạt động</value>
         <value xml:lang="zh">行动名称</value>
         <value xml:lang="zh_TW">行動名稱</value>
     </property>
@@ -1458,6 +1596,7 @@
         <value xml:lang="ro">Stato Activitate</value>
         <value xml:lang="ru">Статус действия</value>
         <value xml:lang="th">สถานะกิจกรรม</value>
+        <value xml:lang="vi">Trạng thái hoạt động</value>
         <value xml:lang="zh">行动状态</value>
         <value xml:lang="zh_TW">行動狀態</value>
     </property>
@@ -1466,6 +1605,7 @@
         <value xml:lang="en">Add/modify a calendar event</value>
         <value xml:lang="fr">Ajouter/modifier un évènement</value>
         <value xml:lang="it">Aggiunta/Modifica evento</value>
+        <value xml:lang="vi">Thêm/Sửa sự kiện trên lịch</value>
         <value xml:lang="zh">添加/修改一个日历事件</value>
     </property>
     <property key="WorkEffortAddChild">
@@ -1476,6 +1616,7 @@
         <value xml:lang="nl">Add New WorkEffort Child</value>
         <value xml:lang="ro">Adauga Fiu</value>
         <value xml:lang="th">เพิ่มงานขั้นต้นใหม่</value>
+        <value xml:lang="vi">Thêm Lượng giá nguồn lực thành phần</value>
         <value xml:lang="zh">新建下一级人工服务</value>
         <value xml:lang="zh_TW">新建子工項</value>
     </property>
@@ -1489,6 +1630,7 @@
         <value xml:lang="ro">Adauga o Sarcina Existenta (Sarcina de Lucru) </value>
         <value xml:lang="ru">Добавить существующее задание (WorkEffortId) </value>
         <value xml:lang="th">เพิ่มงานที่มีอยู่ (รหัสงาน) </value>
+        <value xml:lang="vi">Thêm Tác vụ - Đầu việc đã tồn tại (Lượng giá nguồn lực)</value>
         <value xml:lang="zh">添加已存在的任务(人工服务编号) </value>
         <value xml:lang="zh_TW">新增一個已有任務(工項ID) </value>
     </property>
@@ -1499,6 +1641,7 @@
         <value xml:lang="it">Aggiungi un impegno di lavoro figlio esistente</value>
         <value xml:lang="nl">Add Existing WorkEffort Child</value>
         <value xml:lang="th">เพิ่มงานขั้นต้นที่มีอยู่</value>
+        <value xml:lang="vi">Thêm Lượng giá nguồn lực con đã tồn tại</value>
         <value xml:lang="zh">添加已存在的下一级人工服务</value>
         <value xml:lang="zh_TW">新增已有子工項</value>
     </property>
@@ -1507,6 +1650,7 @@
         <value xml:lang="fr">Ajouter un bien standard</value>
         <value xml:lang="it">Aggiungi bene standard</value>
         <value xml:lang="th">เพิ่มมาตรฐานงานที่เหมาะสม</value>
+        <value xml:lang="vi">Thêm tiêu chuẩn đánh giá là TỐT</value>
         <value xml:lang="zh">添加良好标准</value>
         <value xml:lang="zh_TW">添加成品規範</value>
     </property>
@@ -1520,6 +1664,7 @@
         <value xml:lang="ro">Adauga Sarcina</value>
         <value xml:lang="ru">Добавить задание</value>
         <value xml:lang="th">เพิ่มภารกิจ</value>
+        <value xml:lang="vi">Thêm Tác vụ - Đầu việc</value>
         <value xml:lang="zh">添加任务</value>
         <value xml:lang="zh_TW">添加任務</value>
     </property>
@@ -1527,6 +1672,7 @@
         <value xml:lang="en">Agreement Appls</value>
         <value xml:lang="fr">Applications d'accords</value>
         <value xml:lang="it">Applicazioni contratto</value>
+        <value xml:lang="vi">Ứng dụng Hợp đồng</value>
         <value xml:lang="zh">合同用途</value>
         <value xml:lang="zh_TW">合同用途</value>
     </property>
@@ -1540,6 +1686,7 @@
         <value xml:lang="ro">Toate Fazele</value>
         <value xml:lang="ru">Все фазы</value>
         <value xml:lang="th">ขั้นตอนทั้งหมด</value>
+        <value xml:lang="vi">Tất cả các pha</value>
         <value xml:lang="zh">全部阶段</value>
         <value xml:lang="zh_TW">全部階段</value>
     </property>
@@ -1553,6 +1700,7 @@
         <value xml:lang="ro">Toate Sarcinile </value>
         <value xml:lang="ru">Все задания </value>
         <value xml:lang="th">ภารกิจทั้งหมด</value>
+        <value xml:lang="vi">Tất cả các Tác vụ - Đầu việc</value>
         <value xml:lang="zh">全部任务 </value>
         <value xml:lang="zh_TW">全部任務 </value>
     </property>
@@ -1561,6 +1709,7 @@
         <value xml:lang="fr">Tout type d'association</value>
         <value xml:lang="it">Tutti i tipo di associazione</value>
         <value xml:lang="th">ทุก ๆ กลุ่มประเภท</value>
+        <value xml:lang="vi">Bất kỳ kiểu kết hợp nào</value>
         <value xml:lang="zh">任一关联类型</value>
         <value xml:lang="zh_TW">任一關聯類型</value>
     </property>
@@ -1573,6 +1722,7 @@
         <value xml:lang="ro">Aceasta aplicatie este dedicata pentru cei care gestioneaza si folosesc sarcini evenimente din calendar si activitate fluxuri de lucru </value>
         <value xml:lang="ru">Это приложение предназначено для календарного планирования событий и управления работами, заданиями и документами</value>
         <value xml:lang="th">นี่คือโปรแกรมประยุกต์ใช้มีความหมายสำหรับสิ่งเหล่านี้ซึ่งรักษาและใช้ปฏิทินผลที่ได้จากภารกิจและกิจกรรมขั้นตอนการทำงาน</value>
+        <value xml:lang="vi">Ứng dụng này phục vụ cho nhân sự hỗ trợ khách hàng, sử dụng Tác vụ - Đầu việc trên lịch làm việc và quy trình hoạt động </value>
         <value xml:lang="zh">这个应用程序对那些维护和使用日历事件和工作流行动的人有用</value>
         <value xml:lang="zh_TW">這個應用程式對那些維護和使用日歷事件和工作流行動的人有用</value>
     </property>
@@ -1586,6 +1736,7 @@
         <value xml:lang="ro">Sarcini Atribuite</value>
         <value xml:lang="ru">Назначенные задания</value>
         <value xml:lang="th">มอบหมายภารกิจ</value>
+        <value xml:lang="vi">Các Tác vụ - Đầu việc đã được giao</value>
         <value xml:lang="zh">已指派的任务</value>
         <value xml:lang="zh_TW">已指派的任務</value>
     </property>
@@ -1594,6 +1745,7 @@
         <value xml:lang="fr">Association de la tâche</value>
         <value xml:lang="it">Associazione impegno di lavoro </value>
         <value xml:lang="th">กลุ่มงาน</value>
+        <value xml:lang="vi">Lượng giá nguồn lực kết hợp</value>
         <value xml:lang="zh">人工服务关联</value>
         <value xml:lang="zh_TW">工項關聯</value>
     </property>
@@ -1604,6 +1756,7 @@
         <value xml:lang="nl">(associated from parent to child)</value>
         <value xml:lang="ro">(asociat de la parinte la fiu)</value>
         <value xml:lang="th">(associated from parent to child)</value>
+        <value xml:lang="vi">(đã kết hợp từ Cha tới Thành phần)</value>
         <value xml:lang="zh">(把上级与下级关联起来)</value>
         <value xml:lang="zh_TW">(把上級與下級關聯起來)</value>
     </property>
@@ -1617,6 +1770,7 @@
         <value xml:lang="ro">Asistent</value>
         <value xml:lang="ru">Приглашенный</value>
         <value xml:lang="th">ผู้มีส่วนร่วม</value>
+        <value xml:lang="vi">Khách tham dự</value>
         <value xml:lang="zh">参加者</value>
         <value xml:lang="zh_TW">參加者</value>
     </property>
@@ -1628,6 +1782,7 @@
         <value xml:lang="nl">Enter existing CommunicationEvent Id below</value>
         <value xml:lang="ro">Introduceti aici dedesubt un eveniment comunicatii</value>
         <value xml:lang="th">เข้าสู่รหัสผลที่ได้จากการติดต่อที่มีอยู่ข้างล่าง</value>
+        <value xml:lang="vi">Hãy nhập ID sự kiện truyền thông vào mục dưới</value>
         <value xml:lang="zh">在下面输入已存在的沟通事件</value>
         <value xml:lang="zh_TW">在下面輸入已存在的溝通事件</value>
     </property>
@@ -1638,6 +1793,7 @@
         <value xml:lang="nl">OR add new CommunicationEvent data below to create new entity (leave CommunicationEvent Id empty)</value>
         <value xml:lang="ro">sau adaugati un nou eveniment comunicatie mai jos pentru  a crea o noua entitate (lasati gol)</value>
         <value xml:lang="th">หรือเพิ่มข้อมูลผลที่ได้จากการติดต่อใหม่ข้างล่างถึงสร้างเอนทิตีใหม่ (จากรหัสผลที่ได้จากการติดต่อว่าง)</value>
+        <value xml:lang="vi">HOẶC thêm mới dữ liệu Sự kiện truyền thông dưới đây để tạo mới thực thể ( hãy để trống Id Sự kiện truyền thông)</value>
         <value xml:lang="zh">或者在下面新建沟通事件数据以便新建实体 (沟通事件编号保留为空)</value>
         <value xml:lang="zh_TW">或者在下面新建溝通事件資料以便新建實體 (溝通事件編號保留為空)</value>
     </property>
@@ -1648,6 +1804,7 @@
         <value xml:lang="nl">Enter existing Requirement Id below</value>
         <value xml:lang="ro">Introduceti mai jos un necesar existent</value>
         <value xml:lang="th">เข้าสู่รหัสความต้องการที่มีอยู่ข้างล่าง</value>
+        <value xml:lang="vi">Nhập Yêu cầu Nguồn lực sẵn có sau đây</value>
         <value xml:lang="zh">在下面输入已存在的需求标识</value>
         <value xml:lang="zh_TW">在下面輸入已有要求ID</value>
     </property>
@@ -1658,6 +1815,7 @@
         <value xml:lang="nl">OR add new Requirement data below to create new entity (leave Requirement Id empty)</value>
         <value xml:lang="ro">Sau adaugati un nou necesar mai jos, pentru a crea o noua entitate (lasati gol)</value>
         <value xml:lang="th">หรือเพิ่มข้อมูลความต้องการใหม่ข้างล่างถึงการสร้างเอนทิตีใหม่ (จากรหัสผลที่ได้จากการติดต่อว่าง)</value>
+        <value xml:lang="vi">HOẶC thêm mới Yêu cầu dữ liệu nghiệp vụ dưới đây để tạo thực thể mới (để ID rỗng)</value>
         <value xml:lang="zh">或者在下面新建需求数据以便新建实体(需求标识保留为空)</value>
         <value xml:lang="zh_TW">或在下面增新的要求資料以建立新的實體(要求ID保留為空)</value>
     </property>
@@ -1668,6 +1826,7 @@
         <value xml:lang="nl">Enter an existing workEffortId below,</value>
         <value xml:lang="ro">Introduceti aici dedesubt o sarcina de lucru existenta,</value>
         <value xml:lang="th">เข้าสู่รหัสงานที่มีอยู่ข้างล่าง</value>
+        <value xml:lang="vi">Nhập Lượng giá nguồn lực đã có sẵn dưới đây,</value>
         <value xml:lang="zh">在下面输入一个已存在的人工服务编号，</value>
         <value xml:lang="zh_TW">在下面輸入一個已有工項ID,</value>
     </property>
@@ -1678,6 +1837,7 @@
         <value xml:lang="nl">OR enter the WorkEffort Details below</value>
         <value xml:lang="ro">Sau Introduceti dedesubt Sarcina de lucru (lasand gol)</value>
         <value xml:lang="th">หรือเข้าสู่รายละเอียดงานข้างล่าง</value>
+        <value xml:lang="vi">HOẶC nhập chi tiết Lượng giá nguồn lực dưới đây</value>
         <value xml:lang="zh">或者在下面输入人工服务详细</value>
         <value xml:lang="zh_TW">或在下面輸入工項細節</value>
     </property>
@@ -1691,6 +1851,7 @@
         <value xml:lang="ro">Pentru Compartiment</value>
         <value xml:lang="ru">по объектам</value>
         <value xml:lang="th">โดยคลังสินค้า</value>
+        <value xml:lang="vi">Bởi cơ sở (facility)</value>
         <value xml:lang="zh">安场所</value>
         <value xml:lang="zh_TW">安場所</value>
     </property>
@@ -1703,6 +1864,7 @@
         <value xml:lang="nl">By Fixed Asset</value>
         <value xml:lang="ro">Pentru Mijloc Fix</value>
         <value xml:lang="th">โดยทรัพย์สินไม่หมุนเวียน</value>
+        <value xml:lang="vi">Bởi tài sản cố định</value>
         <value xml:lang="zh">按固定资产</value>
         <value xml:lang="zh_TW">按固定資產</value>
     </property>
@@ -1716,6 +1878,7 @@
         <value xml:lang="ro">Pentru Cod Subiect</value>
         <value xml:lang="ru">по ID участника</value>
         <value xml:lang="th">โดยกลุ่มผู้ใช้</value>
+        <value xml:lang="vi">Bởi tác nhân</value>
         <value xml:lang="zh">按会员</value>
         <value xml:lang="zh_TW">按會員</value>
     </property>
@@ -1729,6 +1892,7 @@
         <value xml:lang="ro">Calendar</value>
         <value xml:lang="ru">Календарь</value>
         <value xml:lang="th">ปฏิทิน</value>
+        <value xml:lang="vi">Quản lý thời gian (Lịch-Calendar)</value>
         <value xml:lang="zh">日历</value>
         <value xml:lang="zh_TW">日歷</value>
     </property>
@@ -1742,6 +1906,7 @@
         <value xml:lang="ro">Afiseaza Ziua Calendar</value>
         <value xml:lang="ru">Просмотр дня</value>
         <value xml:lang="th">แสดงปฏิทินวัน</value>
+        <value xml:lang="vi">Xem lịch theo ngày</value>
         <value xml:lang="zh">浏览日历日</value>
         <value xml:lang="zh_TW">瀏覽日歷日</value>
     </property>
@@ -1755,6 +1920,7 @@
         <value xml:lang="ro">Date Calendar</value>
         <value xml:lang="ru">Список событий</value>
         <value xml:lang="th">การกรอกข้อมูลปฏิทิน</value>
+        <value xml:lang="vi">Điểm nhập lịch</value>
         <value xml:lang="zh">日历记录</value>
         <value xml:lang="zh_TW">日歷記錄</value>
     </property>
@@ -1768,6 +1934,7 @@
         <value xml:lang="ro">Evenimente Calendar</value>
         <value xml:lang="ru">Событие</value>
         <value xml:lang="th">ผลที่ได้จากปฏิทิน</value>
+        <value xml:lang="vi">Sự kiện lịch</value>
         <value xml:lang="zh">日历事件</value>
         <value xml:lang="zh_TW">日歷事件</value>
     </property>
@@ -1781,6 +1948,7 @@
         <value xml:lang="ro">Contacte Eveniment Calendar</value>
         <value xml:lang="ru">Контакты по событию</value>
         <value xml:lang="th">ติดต่อผลที่ได้จากปฏิทิน</value>
+        <value xml:lang="vi">Liên hệ của sự kiện lịch</value>
         <value xml:lang="zh">日历事件联系</value>
         <value xml:lang="zh_TW">日歷事件聯系</value>
     </property>
@@ -1794,6 +1962,7 @@
         <value xml:lang="ro">Detalii Eveniment Calendar</value>
         <value xml:lang="ru">Детали события</value>
         <value xml:lang="th">รายละเอียดผลที่ได้จากปฏิทิน</value>
+        <value xml:lang="vi">Chi tiết của sự kiện lịch</value>
         <value xml:lang="zh">日历事件详细</value>
         <value xml:lang="zh_TW">日歷事件詳細</value>
     </property>
@@ -1807,6 +1976,7 @@
         <value xml:lang="ro">Roluri Eveniment Calendar</value>
         <value xml:lang="ru">Роли по событию</value>
         <value xml:lang="th">สถานะผลที่ได้จากปฏิทิน</value>
+        <value xml:lang="vi">Vai trò sự kiện lịch</value>
         <value xml:lang="zh">日历事件角色</value>
         <value xml:lang="zh_TW">日歷事件角色</value>
     </property>
@@ -1816,6 +1986,7 @@
         <value xml:lang="fr">Rechercher les inscriptions au calendrier</value>
         <value xml:lang="it">Ricerca voci di calendario</value>
         <value xml:lang="th">ค้นหาการกรอกข้อมูลปฏิทิน</value>
+        <value xml:lang="vi">Tìm các điểm nhập lịch</value>
         <value xml:lang="zh">查找日历记录</value>
         <value xml:lang="zh_TW">查找日歷記錄</value>
     </property>
@@ -1829,6 +2000,7 @@
         <value xml:lang="ro">Afiseaza Luna Calendar</value>
         <value xml:lang="ru">Просмотр месяца</value>
         <value xml:lang="th">แสดงปฏิทินรายเดือน</value>
+        <value xml:lang="vi">Xem lịch theo tháng</value>
         <value xml:lang="zh">浏览日历月</value>
         <value xml:lang="zh_TW">瀏覽日歷月</value>
     </property>
@@ -1842,6 +2014,7 @@
         <value xml:lang="ro">Afiseaza Evenimente Calendar care vor fi  </value>
         <value xml:lang="ru">Список наступающих событий</value>
         <value xml:lang="th">แสดงผลที่ได้จากปฏิทินล่วงหน้า</value>
+        <value xml:lang="vi">Xem theo các sự kiện sắp tới</value>
         <value xml:lang="zh">浏览日历即将到来的事件</value>
         <value xml:lang="zh_TW">瀏覽日歷即將到來的事件</value>
     </property>
@@ -1855,6 +2028,7 @@
         <value xml:lang="ro">Afiseaza Calendar Saptamana</value>
         <value xml:lang="ru">Просмотр недели</value>
         <value xml:lang="th">แสดงปฏิทินรายสัปดาห์</value>
+        <value xml:lang="vi">Xem lịch theo tuần</value>
         <value xml:lang="zh">浏览日历周</value>
         <value xml:lang="zh_TW">瀏覽日歷周</value>
     </property>
@@ -1863,21 +2037,25 @@
         <value xml:lang="en">Cancel a calendar event</value>
         <value xml:lang="fr">Annuler un évènement</value>
         <value xml:lang="it">Annulla evento calendario</value>
+        <value xml:lang="vi">Hủy bỏ sự kiện lịch</value>
         <value xml:lang="zh">取消一个日历事件</value>
     </property>
     <property key="WorkEffortCannotDeleteContactInfo">
         <value xml:lang="en">ERROR: Cannot delete specified contact info because it does not correspond to the specified work effort</value>
         <value xml:lang="it">ERRORE: Non è possibile cancellare il contatto perchè non corrisponde all'impegno di lavoro specificato</value>
+        <value xml:lang="vi">Lỗi xảy ra: Không thể xóa Liên hệ này vì không liên quan đến Lượng giá nguồn lực hiện tại</value>
         <value xml:lang="zh">错误：不能删除指定的联系信息，因为它没有关联到指定的人工服务</value>
     </property>
     <property key="WorkEffortCannotUpdateContactInfo">
         <value xml:lang="en">ERROR: Cannot update specified contact info because it does not correspond to the specified work effort</value>
         <value xml:lang="it">ERRORE: Non è possibile aggiornare il contatto perchè non corrisponde all'impegno di lavoro specificato</value>
+        <value xml:lang="vi">Lỗi xảy ra: Không thể cập nhật Liên hệ này vì không liên quan đến Lượng giá nguồn lực hiện tại</value>
         <value xml:lang="zh">错误：不能更新指定的联系信息，因为它没有关联到指定的人工服务</value>
     </property>
     <property key="WorkEffortCommEventId">
         <value xml:lang="en">Comm Event Id</value>
         <value xml:lang="it">Evento comunicazioni</value>
+        <value xml:lang="vi">Sự kiện truyền thông</value>
         <value xml:lang="zh">沟通事件标识</value>
         <value xml:lang="zh_TW">通訊事件ID</value>
     </property>
@@ -1890,6 +2068,7 @@
         <value xml:lang="nl">Communications</value>
         <value xml:lang="ro">Evenimente Comunicatii</value>
         <value xml:lang="th">การติดต่อสื่อสาร</value>
+        <value xml:lang="vi">Truyền thông (communication)</value>
         <value xml:lang="zh">通讯</value>
         <value xml:lang="zh_TW">通訊</value>
     </property>
@@ -1903,6 +2082,7 @@
         <value xml:lang="ro">Comentarii </value>
         <value xml:lang="ru">Комментарии</value>
         <value xml:lang="th">ความคิดเห็น</value>
+        <value xml:lang="vi">Diễn giải</value>
         <value xml:lang="zh">评论</value>
         <value xml:lang="zh_TW">評論</value>
     </property>
@@ -1916,6 +2096,7 @@
         <value xml:lang="ro">OFBiz: Gestiune Sarcini de Lucru </value>
         <value xml:lang="ru">OFBiz: WorkEffort Manager</value>
         <value xml:lang="th">OFBiz: การจัดการความพยายามในการทำงาน</value>
+        <value xml:lang="vi">OFBiz: Quản lý công việc (Lượng giá nguồn lực)</value>
         <value xml:lang="zh">OFBiz: 人工服务管理程序</value>
         <value xml:lang="zh_TW">OFBiz: 工項管理程式</value>
     </property>
@@ -1940,6 +2121,7 @@
         <!--value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value-->
         <value xml:lang="th">ส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
         <!--value xml:lang="zh">开源软件OFBiz的组成部分</valuevalue xml:lang="zh">开源软件OFBiz的组成部分</value-->
+        <value xml:lang="vi">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="zh">开源软件OFBiz家族的一部分</value>
         <value xml:lang="zh_CN">OFBiz的一部分</value>
         <value xml:lang="zh_TW">開源軟件OFBiz家族的一部分</value>
@@ -1951,6 +2133,7 @@
         <value xml:lang="fr">Date d'achèvement</value>
         <value xml:lang="it">Data completamento</value>
         <value xml:lang="th">สำเร็จวันที่</value>
+        <value xml:lang="vi">Ngày hoàn thành</value>
         <value xml:lang="zh">完成日期</value>
         <value xml:lang="zh_TW">完成日期</value>
     </property>
@@ -1960,6 +2143,7 @@
         <value xml:lang="fr">coordonnée</value>
         <value xml:lang="it">Contatto</value>
         <value xml:lang="th">วิธีการติดต่อ</value>
+        <value xml:lang="vi">Liên lạc chi tiết</value>
         <value xml:lang="zh">联系方法</value>
         <value xml:lang="zh_TW">聯系方法</value>
     </property>
@@ -1969,6 +2153,7 @@
         <value xml:lang="fr">Contacts</value>
         <value xml:lang="it">Contatti</value>
         <value xml:lang="th">วิธีการติดต่อ</value>
+        <value xml:lang="vi">Liên lạc chi tiết</value>
         <value xml:lang="zh">联系方法</value>
         <value xml:lang="zh_TW">聯系方法</value>
     </property>
@@ -1982,6 +2167,7 @@
         <value xml:lang="ro">Tip Contact</value>
         <value xml:lang="ru">Тип контакта</value>
         <value xml:lang="th">ประเภทการติดต่อ</value>
+        <value xml:lang="vi">Loại Liên lạc</value>
         <value xml:lang="zh">联系类型</value>
         <value xml:lang="zh_TW">聯系類型</value>
     </property>
@@ -1994,6 +2180,7 @@
         <value xml:lang="nl">Nieuw actie</value>
         <value xml:lang="ro">Creat Sarcina de Lucru</value>
         <value xml:lang="th">สร้าง</value>
+        <value xml:lang="vi">Tạo mới Lượng giá nguồn lực</value>
         <value xml:lang="zh">新建人工服务</value>
         <value xml:lang="zh_TW">新建工項</value>
     </property>
@@ -2002,6 +2189,7 @@
         <value xml:lang="fr">Erreur de sécurité: pour exécuter ${resourceDescription} vous devez avoir l'autorisation WORKEFFORTMGR_CREATE or WORKEFFORTMGR_ADMIN</value>
         <value xml:lang="it">Errore sicurezza: per eseguire ${resourceDescription} devi avere il permesso WORKEFFORTMGR_CREATE o WORKEFFORTMGR_ADMIN</value>
         <value xml:lang="th">Security Error: ${resourceDescription} ความปลอดภัยผิดพลาด ! ถึงการดำเนินการกิจการนี้คุณต้องมี WORKEFFORTMGR_CREATE หรือ WORKEFFORTMGR_ADMIN อนุญาต</value>
+        <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần có quyền WORKEFFORTMGR_CREATE hoặc WORKEFFORTMGR_ADMIN</value>
         <value xml:lang="zh">安全错误：要运行这个操作你必须具有 ${resourceDescription} WORKEFFORTMGR_CREATE 或 WORKEFFORTMGR_ADMIN 权限</value>
         <value xml:lang="zh_TW">安全錯誤：要運行這個操作你必須具有 ${resourceDescription} WORKEFFORTMGR_CREATE 或 WORKEFFORTMGR_ADMIN 權限</value>
     </property>
@@ -2015,39 +2203,46 @@
         <value xml:lang="ro">Creat</value>
         <value xml:lang="ru">Создано</value>
         <value xml:lang="th">สร้าง</value>
+        <value xml:lang="vi">Đã tạo</value>
         <value xml:lang="zh">已创建</value>
         <value xml:lang="zh_TW">已創建</value>
     </property>
     <property key="WorkEffortCreatedSuccessfully">
         <value xml:lang="en">Work Effort successfully created.</value>
         <value xml:lang="it">Impegno di lavoro creato con successo.</value>
+        <value xml:lang="vi">Lượng giá nguồn lực được tạo thành công.</value>
         <value xml:lang="zh">成功创建人工服务。</value>
     </property>
     <property key="WorkEffortCustomerRating">
         <value xml:lang="de">Kundenbewertung</value>
         <value xml:lang="en">Customer Rating</value>
         <value xml:lang="it">Posizione cliente</value>
+        <value xml:lang="vi">Xếp hạng khách hàng</value>
         <value xml:lang="zh">客户评价</value>
         <value xml:lang="zh_TW">客戶評價</value>
     </property>
     <property key="WorkEffortCustRequestAlreadyExists">
         <value xml:lang="en">ERROR: CustRequestWorkEffort [${parameters.custRequestId}][${parameters.workEffortId}] already exists</value>
         <value xml:lang="it">ERRORE: Richiesta impegno di lavoro [${parameters.custRequestId}][${parameters.workEffortId}] esiste già</value>
+        <value xml:lang="vi">Lỗi xảy ra: Công việc [${parameters.custRequestId}][${parameters.workEffortId}] theo Yêu cầu khách hàng đã tồn tại</value>
         <value xml:lang="zh">错误：已存在客户请求人工服务（CustRequestWorkEffort）[${parameters.custRequestId}][${parameters.workEffortId}]</value>
     </property>
     <property key="WorkEffortCustRequestDoesNotExists">
         <value xml:lang="en">ERROR: CustRequestWorkEffort [${parameters.custRequestId}][${parameters.workEffortId}] does not exist</value>
         <value xml:lang="it">ERRORE: Richiesta impegno di lavoro [${parameters.custRequestId}][${parameters.workEffortId}] non esiste</value>
+        <value xml:lang="vi">Lỗi xảy ra: Công việc [${parameters.custRequestId}][${parameters.workEffortId}] theo Yêu cầu khách hàng chưa tồn tại</value>
         <value xml:lang="zh">错误：不存在客户请求人工服务（CustRequestWorkEffort）[${parameters.custRequestId}][${parameters.workEffortId}]</value>
     </property>
     <property key="WorkEffortCustRequestItemAlreadyExists">
         <value xml:lang="en">ERROR: CustRequestItemWorkEffort [${parameters.custRequestItemSeqId}][${parameters.workEffortId}] already exists.</value>
         <value xml:lang="it">ERRORE: Riga richiesta impegno di lavoro [${parameters.custRequestItemSeqId}][${parameters.workEffortId}] esiste già</value>
+        <value xml:lang="vi">Lỗi xảy ra: Hạng mục công việc [${parameters.custRequestId}][${parameters.workEffortId}] theo Yêu cầu khách hàng đã tồn tại</value>
         <value xml:lang="zh">错误：已存在客户请求明细人工服务（CustRequestItemWorkEffort）[${parameters.custRequestItemSeqId}][${parameters.workEffortId}]</value>
     </property>
     <property key="WorkEffortCustRequestItemDoesNotExists">
         <value xml:lang="en">ERROR: CustRequestItemWorkEffort [${parameters.custRequestItemSeqId}][${parameters.workEffortId}] does not exists.</value>
         <value xml:lang="it">ERRORE: Riga richiesta impegno di lavoro [${parameters.custRequestItemSeqId}][${parameters.workEffortId}] non esiste</value>
+        <value xml:lang="vi">Lỗi xảy ra: Hạng mục công việc [${parameters.custRequestId}][${parameters.workEffortId}] theo Yêu cầu khách hàng chưa tồn tại</value>
         <value xml:lang="zh">错误：不存在客户请求明细人工服务（CustRequestItemWorkEffort）[${parameters.custRequestItemSeqId}][${parameters.workEffortId}]</value>
     </property>
     <property key="WorkEffortDayView">
@@ -2060,6 +2255,7 @@
         <value xml:lang="ro">Afiseaza Ziua</value>
         <value xml:lang="ru">По дням</value>
         <value xml:lang="th">แสดงวัน</value>
+        <value xml:lang="vi">Xem theo ngày</value>
         <value xml:lang="zh">浏览日</value>
         <value xml:lang="zh_TW">瀏覽日</value>
     </property>
@@ -2067,6 +2263,7 @@
         <value xml:lang="en">Delegate Reason</value>
         <value xml:lang="fr">Motif de déléguation</value>
         <value xml:lang="it">Motivazione delega</value>
+        <value xml:lang="vi">Lí do chuyển quyền</value>
         <value xml:lang="zh">委托原因</value>
         <value xml:lang="zh_TW">委托原因</value>
     </property>
@@ -2076,6 +2273,7 @@
         <value xml:lang="fr">Erreur de sécurité: pour exécuter ${resourceDescription} vous devez avoir l'autorisation WORKEFFORTMGR_DELETE or WORKEFFORTMGR_ADMIN</value>
         <value xml:lang="it">Errore sicurezza: per eseguire ${resourceDescription} devi avere il permesso WORKEFFORTMGR_DELETE o WORKEFFORTMGR_ADMIN</value>
         <value xml:lang="th">Security Error: ${resourceDescription} ความปลอดภัยผิดพลาด ! ถึงการดำเนินการกิจการนี้คุณต้องมี WORKEFFORTMGR_DELETE หรือ WORKEFFORTMGR_ADMIN อนุญาต</value>
+        <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần có quyền WORKEFFORTMGR_DELETE hoặc WORKEFFORTMGR_ADMIN</value>
         <value xml:lang="zh">安全错误：要运行这个操作你必须具有 ${resourceDescription} WORKEFFORTMGR_DELETE 或 WORKEFFORTMGR_ADMIN 权限</value>
         <value xml:lang="zh_TW">安全錯誤：要運行這個操作你必須具有 ${resourceDescription} WORKEFFORTMGR_DELETE 或 WORKEFFORTMGR_ADMIN 權限</value>
     </property>
@@ -2085,6 +2283,7 @@
         <value xml:lang="fr">Dupliquer la tâche</value>
         <value xml:lang="it">Duplica impegno di lavoro</value>
         <value xml:lang="th">งานที่เหมือนกัน</value>
+        <value xml:lang="vi">Nhân bản Lượng giá nguồn lực</value>
         <value xml:lang="zh">复制人工服务</value>
         <value xml:lang="zh_TW">複製工項</value>
     </property>
@@ -2094,6 +2293,7 @@
         <value xml:lang="fr">Modifier l'assoc.</value>
         <value xml:lang="it">Aggiorna associazioni</value>
         <value xml:lang="th">แก้ไขกลุ่ม</value>
+        <value xml:lang="vi">Cập nhật Liên kết (association).</value>
         <value xml:lang="zh">编辑关联</value>
         <value xml:lang="zh_TW">編輯關聯</value>
     </property>
@@ -2103,6 +2303,7 @@
         <value xml:lang="fr">Modifier le détail de l'assoc.</value>
         <value xml:lang="it">Aggiorna i dettagli dell'associazione</value>
         <value xml:lang="th">แก้ไขรายละเอียดกลุ่ม</value>
+        <value xml:lang="vi">Cập nhật Liên kết (association) chi tiết.</value>
         <value xml:lang="zh">编辑关联详细信息</value>
         <value xml:lang="zh_TW">編輯關聯詳細資訊</value>
     </property>
@@ -2113,6 +2314,7 @@
         <value xml:lang="it">L'indirizzo Email è mancante</value>
         <value xml:lang="ro">Adresa Email lipseste </value>
         <value xml:lang="th">ไม่พบที่อยู่อีเมล</value>
+        <value xml:lang="vi">Địa chỉ thư điện tử bị thiếu</value>
         <value xml:lang="zh">缺少电子邮件地址</value>
         <value xml:lang="zh_TW">缺少電子郵件位址</value>
     </property>
@@ -2123,6 +2325,7 @@
         <value xml:lang="it">L'indirizzo Email non è formattato correttamente, deve essere simile a foo@bar.com</value>
         <value xml:lang="ro">Adresa Email nu este formatata corect, trebuie sa fie de forma foo@bar.com</value>
         <value xml:lang="th">ที่อยู่อีเมลไม่เป็นรูปแบบที่ถูกต้อง, ต้องเหมือน foo@bar.com</value>
+        <value xml:lang="vi">Địa chỉ thư điện thử định dạng không hợp lệ, ví dụ tri@vssic.com</value>
         <value xml:lang="zh">电子邮件格式错误，必须类似foo@bar.com</value>
         <value xml:lang="zh_TW">電子郵件格式錯誤，必須類似foo@bar.com</value>
     </property>
@@ -2136,6 +2339,7 @@
         <value xml:lang="ro">EROARE: Nu  este  posibila gasirea  activitatii cu codul</value>
         <value xml:lang="ru">ОШИБКА: не могу найти действие с таким ID</value>
         <value xml:lang="th">ERROR: ความผิดพลาด ! ไม่สามารถค้นหากิจกรรมด้วยรหัส</value>
+        <value xml:lang="vi">Lỗi xảy ra: Không tìm thấy Hoạt động với Id</value>
         <value xml:lang="zh">错误: 无法找到行动，行动编号</value>
         <value xml:lang="zh_TW">錯誤: 無法找到行動，行動編號</value>
     </property>
@@ -2149,6 +2353,7 @@
         <value xml:lang="ro">Eroare: Nu este posibila gasirea Evenimentului cu Codul</value>
         <value xml:lang="ru">ОШИБКА: не могу найти событие с таким ID</value>
         <value xml:lang="th">Error: ความผิดพลาด ! ไม่สามารถค้นหาเหตุการณ์ด้วยรหัส</value>
+        <value xml:lang="vi">Lỗi xảy ra: Không tìm thấy Sự kiện với Id</value>
         <value xml:lang="zh">错误: 无法找到事件，事件标识</value>
         <value xml:lang="zh_TW">錯誤: 無法找到事件，事件ID</value>
     </property>
@@ -2162,6 +2367,7 @@
         <value xml:lang="ro">EROARE: Nu este posibila gasirea Sarcinii cu  Codul</value>
         <value xml:lang="ru">ОШИБКА: не могу найти задание с таким ID</value>
         <value xml:lang="th">ERROR: ความผิดพลาด ! ไม่สามารถค้นหาภารกิจด้วยรหัส</value>
+        <value xml:lang="vi">Lỗi xảy ra: Không tìm thấy Tác vụ - Đầu việc với Id</value>
         <value xml:lang="zh">错误: 无法找到任务，任务编号</value>
         <value xml:lang="zh_TW">錯誤: 無法找到任務，任務編號</value>
     </property>
@@ -2174,6 +2380,7 @@
         <value xml:lang="ro">EROARE: Tu nu esti autorizat sa vezi  aceasta activitate. Aceasta activitate trebuie sa iti corespunda tie sau tu trebuie sa fii un administrator.</value>
         <value xml:lang="ru">ОШИБКА: У Вас нет прав на просмотр этого действия. Они есть только у его владельца и администратора</value>
         <value xml:lang="th">ERROR: ความผิดพลาด ! คุณไม่มีการอนุญาตให้แสดงถึงกิจกรรมนี้. กิจกรรมนี้ต้องเป็นของคุณหรือคุณต้องเป็นผู้ดูแลระบบ</value>
+        <value xml:lang="vi">Lỗi xảy ra: Bạn không có quyền xem Hoạt động này. Hoạt động này cần thuộc về bạn hoặc bạn là quản trị viên</value>
         <value xml:lang="zh">错误: 你没有浏览这个行动的权限。这个行动必须属于你或者你必须是一个管理员</value>
         <value xml:lang="zh_TW">錯誤: 你沒有瀏覽這個行動的權限。這個行動必須屬于你或者你必須是一個管理員</value>
     </property>
@@ -2186,6 +2393,7 @@
         <value xml:lang="ro">EROARE: Tu nu esti autorizat sa vezi acest eveniment.Acest eveniment trebuie sa iti corespunda tie sau tu trebuie sa fii un administrator.</value>
         <value xml:lang="ru">ОШИБКА: У Вас нет прав на просмотр этого события. Они есть только у его владельца и администратора</value>
         <value xml:lang="th">ERROR: ความผิดพลาด ! คุณไม่มีการอนุญาตให้แสดงถึงเหตุการณ์นี้. เหตุการณ์นี้ต้องเป็นของคุณหรือคุณต้องเป็นผู้ดูแลระบบ</value>
+        <value xml:lang="vi">Lỗi xảy ra: Bạn không có quyền xem Sự kiện này. Hoạt động này cần thuộc về bạn hoặc bạn là quản trị viên</value>
         <value xml:lang="zh">错误:你没有浏览这个事件的权限。这个事件必须属于你或者你必须是一个管理员</value>
         <value xml:lang="zh_TW">錯誤:你沒有瀏覽這個事件的權限。這個事件必須屬于你或者你必須是一個管理員</value>
     </property>
@@ -2198,6 +2406,7 @@
         <value xml:lang="ro">Buget Stimat</value>
         <value xml:lang="ru">Бюджет</value>
         <value xml:lang="th">งบประมาณ</value>
+        <value xml:lang="vi">Chi phí ước tính</value>
         <value xml:lang="zh">估计预算</value>
         <value xml:lang="zh_TW">估計預算</value>
     </property>
@@ -2209,6 +2418,7 @@
         <value xml:lang="nl">Gepl. datum afgerond</value>
         <value xml:lang="ro">Data Terminare Stimata</value>
         <value xml:lang="th">วันที่สำเร็จประมาณ</value>
+        <value xml:lang="vi">Ngày hoàn thành dự tính</value>
         <value xml:lang="zh">预计完成日期</value>
         <value xml:lang="zh_TW">預計完成日期</value>
     </property>
@@ -2221,6 +2431,7 @@
         <value xml:lang="nl">Datum start</value>
         <value xml:lang="ro">Data Initiere Stimata</value>
         <value xml:lang="th">วันที่เริ่มประมาณ</value>
+        <value xml:lang="vi">Ngày bắt đầu dự tính</value>
         <value xml:lang="zh">预计开始日期</value>
         <value xml:lang="zh_TW">預計開始日期</value>
     </property>
@@ -2233,6 +2444,7 @@
         <value xml:lang="ro">Buget Stimat</value>
         <value xml:lang="ru">Предполагаемый бюджет</value>
         <value xml:lang="th">งบประมาณ</value>
+        <value xml:lang="vi">Ngân sách ước tính</value>
         <value xml:lang="zh">估计预算</value>
         <value xml:lang="zh_TW">估計預算</value>
     </property>
@@ -2245,6 +2457,7 @@
         <value xml:lang="ro">Eveniment</value>
         <value xml:lang="ru">Событие</value>
         <value xml:lang="th">เหตุการณ์</value>
+        <value xml:lang="vi">Sự kiện</value>
         <value xml:lang="zh">事件</value>
         <value xml:lang="zh_TW">事件</value>
     </property>
@@ -2257,6 +2470,7 @@
         <value xml:lang="ro">Nume Eveniment</value>
         <value xml:lang="ru">Название события</value>
         <value xml:lang="th">ชื่อเหตุการณ์</value>
+        <value xml:lang="vi">Tên sự kiện</value>
         <value xml:lang="zh">事件名称</value>
         <value xml:lang="zh_TW">事件名稱</value>
     </property>
@@ -2264,6 +2478,7 @@
         <value xml:lang="en">Event Reminder</value>
         <value xml:lang="fr">Evènement de tâche</value>
         <value xml:lang="it">Promemoria evento</value>
+        <value xml:lang="vi">Nhắc nhở sự kiện</value>
         <value xml:lang="zh">事件提醒</value>
         <value xml:lang="zh_TW">事件提醒</value>
     </property>
@@ -2271,17 +2486,20 @@
         <value xml:lang="en">Event Reminders</value>
         <value xml:lang="fr">Evènements de tâche</value>
         <value xml:lang="it">Promemoria eventi</value>
+        <value xml:lang="vi">Nhắc nhở sự kiện</value>
         <value xml:lang="zh">事件提醒</value>
         <value xml:lang="zh_TW">事件提醒</value>
     </property>
     <property key="WorkEffortEventRemindersRetrivingError">
         <value xml:lang="en">Error while retrieving work effort event reminders: ${errorString}</value>
         <value xml:lang="it">Errore durante la ricerca dell'impegno di lavoro promemoria eventi: ${errorString}</value>
+        <value xml:lang="vi">Lỗi khi lấy thông tin nhắc nhở sự kiện Lượng giá nguồn lực: ${errorString}</value>
         <value xml:lang="zh">获取人工服务事件提醒时出错：${errorString}</value>
     </property>
     <property key="WorkEffortEventRemindersMigrationError">
         <value xml:lang="en">Error while migrating work effort event reminders: ${errorString}</value>
         <value xml:lang="it">Errore durante la migrazione dell'impegno di lavoro promemoria eventi: ${errorString}</value>
+        <value xml:lang="vi">Lỗi khi lấy chuyển đổi nhắc nhở sự kiện Lượng giá nguồn lực: ${errorString}</value>
         <value xml:lang="zh">迁移人工服务事件提醒时出错：${errorString}</value>
     </property>
     <property key="WorkEffortEventStatus">
@@ -2293,6 +2511,7 @@
         <value xml:lang="ro">Stat Eveniment</value>
         <value xml:lang="ru">Статус события</value>
         <value xml:lang="th">สถานะเหตุการณ์</value>
+        <value xml:lang="vi">Trạng thái sự kiện</value>
         <value xml:lang="zh">事件状态</value>
         <value xml:lang="zh_TW">事件狀態</value>
     </property>
@@ -2305,6 +2524,7 @@
         <value xml:lang="ro">Expetativa</value>
         <value xml:lang="ru">Ожидания</value>
         <value xml:lang="th">สิ่งที่คาดหวัง</value>
+        <value xml:lang="vi">Mong đợi</value>
         <value xml:lang="zh">期望</value>
         <value xml:lang="zh_TW">期望</value>
     </property>
@@ -2317,12 +2537,14 @@
         <value xml:lang="ro">Falita citirea datelor din calendar</value>
         <value xml:lang="ru">Не удалось получить записи из календаря</value>
         <value xml:lang="th">ผิดพลาดถึงการดึงค่าการกรอกข้อมูลปฏิทิน</value>
+        <value xml:lang="vi">Lấy thông tin điểm nhập lịch không thành công</value>
         <value xml:lang="zh">获取日历记录时失败</value>
         <value xml:lang="zh_TW">獲取日歷記錄時失敗</value>
     </property>
     <property key="WorkEffortFixedAssetAlreadyExist">
         <value xml:lang="en">Fixed Asset Already Exist</value>
         <value xml:lang="it">Cespite già esistente</value>
+        <value xml:lang="vi">Tài sản cố định đã tồn tại</value>
         <value xml:lang="zh">固定资产已经存在</value>
         <value xml:lang="zh_TW">固定資產已經存在</value>
     </property>
@@ -2335,6 +2557,7 @@
         <value xml:lang="ro">Pentru Necesar</value>
         <value xml:lang="ru">К требованию</value>
         <value xml:lang="th">สำหรับความต้องการ</value>
+        <value xml:lang="vi">Cho Yêu cầu Nguồn lực</value>
         <value xml:lang="zh">对于需求</value>
         <value xml:lang="zh_TW">對于要求</value>
     </property>
@@ -2344,6 +2567,7 @@
         <value xml:lang="it">Dalla data non è una data valida.</value>
         <value xml:lang="ro">De La Data nu o data valida.</value>
         <value xml:lang="th">จากวันที่ไม่เป็นผลที่ต้องการวันที่-เวลา</value>
+        <value xml:lang="vi">Ngày bắt đầu không đúng định dạng Ngày-Giờ</value>
         <value xml:lang="zh">开始日期不是一个有效的日期-时间。</value>
         <value xml:lang="zh_TW">開始日期不是一個有效的日期-時間。</value>
     </property>
@@ -2354,6 +2578,7 @@
         <value xml:lang="nl">General</value>
         <value xml:lang="ro">General</value>
         <value xml:lang="th">ทั่วไป</value>
+        <value xml:lang="vi">Toàn cục</value>
         <value xml:lang="zh">概要</value>
         <value xml:lang="zh_TW">概要</value>
     </property>
@@ -2363,6 +2588,7 @@
         <value xml:lang="fr">Bien standard</value>
         <value xml:lang="it">Bene standard</value>
         <value xml:lang="th">มาตรฐานที่ดี</value>
+        <value xml:lang="vi">Tiêu chuẩn (là TỐT)</value>
         <value xml:lang="zh">良好标准</value>
         <value xml:lang="zh_TW">成品規範</value>
     </property>
@@ -2370,53 +2596,62 @@
         <value xml:lang="de">iCalendar</value>
         <value xml:lang="en">iCalendar</value>
         <value xml:lang="it">iCalendar</value>
+        <value xml:lang="vi">iCalendar (Xuất bản URL .ics)</value>
     </property>
     <property key="WorkEffortICalendarAdd">
         <value xml:lang="de">iCalendar hinzufügen</value>
         <value xml:lang="en">Add iCalendar</value>
         <value xml:lang="it">Aggiungi iCalendar</value>
+        <value xml:lang="vi">Thêm iCalendar</value>
         <value xml:lang="zh">添加iCalendar</value>
         <value xml:lang="zh_TW">新增iCal</value>
     </property>
     <property key="WorkEffortICalendarAddFixedAsset">
         <value xml:lang="de">iCalendar Anlage hinzufügen</value>
         <value xml:lang="en">Add iCalendar Fixed Asset</value>
+        <value xml:lang="vi">Thêm tài sản cố định iCalendar</value>
         <value xml:lang="zh">添加iCalendar固定资产</value>
         <value xml:lang="zh_TW">新增iCal固定資產</value>
     </property>
     <property key="WorkEffortICalendarAddParty">
         <value xml:lang="de">iCalendar Akteur hinzufügen</value>
         <value xml:lang="en">Add iCalendar Party</value>
+        <value xml:lang="vi">Thêm người dùng iCalendar</value>
         <value xml:lang="zh">添加iCalendar会员</value>
         <value xml:lang="zh_TW">新增iCal成員</value>
     </property>
     <property key="WorkEffortICalendarData">
         <value xml:lang="de">Daten</value>
         <value xml:lang="en">Data</value>
+        <value xml:lang="vi">Dữ liệu</value>
         <value xml:lang="zh">数据</value>
         <value xml:lang="zh_TW">資料</value>
     </property>
     <property key="WorkEffortICalendarEdit">
         <value xml:lang="de">Editiere iCalendar</value>
         <value xml:lang="en">Edit iCalendar</value>
+        <value xml:lang="vi">Sửa đổi iCalendar</value>
         <value xml:lang="zh">编辑iCalendar</value>
         <value xml:lang="zh_TW">編輯iCal</value>
     </property>
     <property key="WorkEffortICalendarEditData">
         <value xml:lang="de">Editiere iCalendar Daten</value>
         <value xml:lang="en">Edit iCalendar Data</value>
+        <value xml:lang="vi">Cập nhật dữ liệu iCalendar</value>
         <value xml:lang="zh">编辑iCalendar数据</value>
         <value xml:lang="zh_TW">編輯iCal資料</value>
     </property>
     <property key="WorkEffortICalendarFind">
         <value xml:lang="de">Finde iCalendars</value>
         <value xml:lang="en">Find iCalendars</value>
+        <value xml:lang="vi">Tìm kiếm iCalendar</value>
         <value xml:lang="zh">查找iCalendar</value>
         <value xml:lang="zh_TW">查詢iCal</value>
     </property>
     <property key="WorkEffortICalendarHelp">
         <value xml:lang="de">iCalendar Hilfe</value>
         <value xml:lang="en">iCalendar Help</value>
+        <value xml:lang="vi">Trợ giúp iCalendar</value>
         <value xml:lang="zh">iCalendar帮助</value>
         <value xml:lang="zh_TW">iCal輔助</value>
     </property>
@@ -2426,24 +2661,28 @@
     <property key="WorkEffortICalendarName">
         <value xml:lang="de">Kalendername</value>
         <value xml:lang="en">Calendar Name</value>
+        <value xml:lang="vi">Tên việc</value>
         <value xml:lang="zh">日历名称</value>
         <value xml:lang="zh_TW">行事曆名稱</value>
     </property>
     <property key="WorkEffortICalendarOwner">
         <value xml:lang="de">Kalenderbesitzer</value>
         <value xml:lang="en">Calendar Owner</value>
+        <value xml:lang="vi">Sở hữu bởi</value>
         <value xml:lang="zh">日历拥有者</value>
         <value xml:lang="zh_TW">行事曆擁有者</value>
     </property>
     <property key="WorkEffortICalendarUrl">
         <value xml:lang="de">iCalendar Url</value>
         <value xml:lang="en">iCalendar Url</value>
+        <value xml:lang="vi">Liên kết URL iCalendar</value>
         <value xml:lang="zh">iCalendar网址</value>
         <value xml:lang="zh_TW">iCal網址</value>
     </property>
     <property key="WorkEffortICalendarVisibility">
         <value xml:lang="de">Kalendersichtbarkeit</value>
         <value xml:lang="en">Calendar Visibility</value>
+        <value xml:lang="vi">Quyền xem</value>
         <value xml:lang="zh">日历可见度</value>
         <value xml:lang="zh_TW">行事曆檢視</value>
     </property>
@@ -2454,6 +2693,7 @@
         <value xml:lang="it">Impegno di lavoro è mancante.</value>
         <value xml:lang="ro">Sarcina de Lucru lipseste.</value>
         <value xml:lang="th">ไม่พบรหัสงาน</value>
+        <value xml:lang="vi">Lượng giá nguồn lực bị thiếu</value>
         <value xml:lang="zh">缺少人工服务编号。</value>
         <value xml:lang="zh_TW">無工項ID。</value>
     </property>
@@ -2463,6 +2703,7 @@
         <value xml:lang="fr">Inclure toutes les sous-tâches</value>
         <value xml:lang="it">Includi tutti i sotto-impegni di Lavoro</value>
         <value xml:lang="th">รวมงานย่อยทั้งหมด</value>
+        <value xml:lang="vi">Bao gồm các các Lượng giá nguồn lực thành phần</value>
         <value xml:lang="zh">包括全部子人工服务</value>
         <value xml:lang="zh_TW">包括全部子項工項</value>
     </property>
@@ -2476,6 +2717,7 @@
         <value xml:lang="ro">Informatie</value>
         <value xml:lang="ru">Информация</value>
         <value xml:lang="th">ข้อมูล</value>
+        <value xml:lang="vi">Thông tin</value>
         <value xml:lang="zh">信息</value>
         <value xml:lang="zh_TW">資訊</value>
     </property>
@@ -2488,6 +2730,7 @@
         <value xml:lang="ro">In orice caz tu trebuie sa fii sigur ca te-ai logat, incearca: Nume Utilizator;Admin;Password Ofbiz</value>
         <value xml:lang="ru">Проверьте : Username;Admin;Password Ofbiz</value>
         <value xml:lang="th">สำหรับการสนใจบางสิ่งทำให้มั่นใจ, คุณพยายามลอกอินเข้าสู่ระบบ : ชื่อผู้เข้าใช้;Admin;รหัสผ่าน Ofbiz</value>
+        <value xml:lang="vi">Ban có thể đăng nhập thử với tài khoản : Username;Admin;Password Ofbiz</value>
         <value xml:lang="zh">如果你对某些内容感兴趣，你需要登录系统，可以尝试用户名：admin;密码：Ofbiz</value>
         <value xml:lang="zh_TW">如果你對某些內容感興趣, 你需要登錄系統, 可以嘗試用戶名: admin; 密碼: ofbiz</value>
     </property>
@@ -2497,6 +2740,7 @@
         <value xml:lang="fr">Note interne</value>
         <value xml:lang="it">Nota interna</value>
         <value xml:lang="th">ข้อความภายใน</value>
+        <value xml:lang="vi">Ghi nhớ nội bộ</value>
         <value xml:lang="zh">内部便笺</value>
         <value xml:lang="zh_TW">內部註記</value>
     </property>
@@ -2510,6 +2754,7 @@
         <value xml:lang="ro">Linie</value>
         <value xml:lang="ru">Пункт</value>
         <value xml:lang="th">รายการ</value>
+        <value xml:lang="vi">Hạng mục</value>
         <value xml:lang="zh">明细</value>
         <value xml:lang="zh_TW">明細</value>
     </property>
@@ -2519,6 +2764,7 @@
         <value xml:lang="fr">Tâches demandées</value>
         <value xml:lang="it">Lavori sottomessi</value>
         <value xml:lang="th">เสนองาน</value>
+        <value xml:lang="vi">Các Tác vụ - Đầu việc đã Có</value>
         <value xml:lang="zh">已提交的任务</value>
         <value xml:lang="zh_TW">已提交的任務</value>
     </property>
@@ -2528,6 +2774,7 @@
         <value xml:lang="fr">Mot-clé</value>
         <value xml:lang="it">Chiave</value>
         <value xml:lang="th">คีย์เวิร์ด</value>
+        <value xml:lang="vi">Từ khóa</value>
         <value xml:lang="zh">关键字</value>
         <value xml:lang="zh_TW">關鍵字</value>
     </property>
@@ -2537,6 +2784,7 @@
         <value xml:lang="fr">Tout les mots correspondants</value>
         <value xml:lang="it">tutti le parole corrispondenti</value>
         <value xml:lang="th">คำที่ตรงกันทั้งหมด</value>
+        <value xml:lang="vi">Gặp tất cả các từ</value>
         <value xml:lang="zh">全部文字匹配</value>
         <value xml:lang="zh_TW">全部文字匹配</value>
     </property>
@@ -2546,6 +2794,7 @@
         <value xml:lang="fr">Tâche - Mot-clé existant déjà</value>
         <value xml:lang="it">Impegno di lavoro - chiave già esistente</value>
         <value xml:lang="th">งาน - ยังคงมีคีย์เวิร์ดอยู่แล้ว</value>
+        <value xml:lang="vi">Lượng giá nguồn lực - từ khóa đã tồn tại</value>
         <value xml:lang="zh">人工服务 - 关键字已经存在了</value>
         <value xml:lang="zh_TW">工項 - 關鍵字已經存在了</value>
     </property>
@@ -2555,6 +2804,7 @@
         <value xml:lang="fr">Chaque mot correspondant</value>
         <value xml:lang="it">qualsiasi parola corrispondente</value>
         <value xml:lang="th">ทุก ๆ คีย์เวิร์ดที่ตรงกัน</value>
+        <value xml:lang="vi">Gặp bất cứ từ nào</value>
         <value xml:lang="zh">任一文字匹配</value>
         <value xml:lang="zh_TW">任一文字匹配</value>
     </property>
@@ -2564,6 +2814,7 @@
         <value xml:lang="fr">Pertinence de mot-clé</value>
         <value xml:lang="it">Rilevanza chiave</value>
         <value xml:lang="th">Keyword  Relevancy</value>
+        <value xml:lang="vi">Từ khóa thông dụng</value>
         <value xml:lang="zh">关键字关联</value>
         <value xml:lang="zh_TW">關鍵字關聯</value>
     </property>
@@ -2573,6 +2824,7 @@
         <value xml:lang="fr">Où</value>
         <value xml:lang="it">dove</value>
         <value xml:lang="th">ซึ่ง</value>
+        <value xml:lang="vi">Ở đâu</value>
         <value xml:lang="zh">哪里</value>
         <value xml:lang="zh_TW">哪里</value>
     </property>
@@ -2582,6 +2834,7 @@
         <value xml:lang="fr">Mots-clé</value>
         <value xml:lang="it">Chiavi</value>
         <value xml:lang="th">คีย์เวิร์ด</value>
+        <value xml:lang="vi">Từ khóa</value>
         <value xml:lang="zh">关键字</value>
         <value xml:lang="zh_TW">關鍵字</value>
     </property>
@@ -2595,6 +2848,7 @@
         <value xml:lang="ro">Ultima Modificare</value>
         <value xml:lang="ru">Изменено последний раз</value>
         <value xml:lang="th">ปรับปรุงครั้งสุดท้าย</value>
+        <value xml:lang="vi">Cập nhật cuối cùng</value>
         <value xml:lang="zh">上次修改</value>
         <value xml:lang="zh_TW">上次修改</value>
     </property>
@@ -2604,6 +2858,7 @@
         <value xml:lang="fr">Filtre de dernière date de mise à jour</value>
         <value xml:lang="it">Filtro per ultima data di aggiornamento</value>
         <value xml:lang="th">ปรับปรุงครั้งสุดท้ายวันที่</value>
+        <value xml:lang="vi">Bộ lọc ngày cập nhật cuối cùng</value>
         <value xml:lang="zh">上次更新日期过滤</value>
         <value xml:lang="zh_TW">上次更新日期過濾</value>
     </property>
@@ -2617,6 +2872,7 @@
         <value xml:lang="ro">Pozitie</value>
         <value xml:lang="ru">Местонахождение</value>
         <value xml:lang="th">ที่ตั้ง</value>
+        <value xml:lang="vi">Nơi chốn</value>
         <value xml:lang="zh">位置</value>
         <value xml:lang="zh_TW">位置</value>
     </property>
@@ -2630,6 +2886,7 @@
         <value xml:lang="ro">Cauta</value>
         <value xml:lang="ru">Поиск</value>
         <value xml:lang="th">ค้นหา</value>
+        <value xml:lang="vi">Tìm kiếm</value>
         <value xml:lang="zh">查找</value>
         <value xml:lang="zh_TW">查找</value>
     </property>
@@ -2643,6 +2900,7 @@
         <value xml:lang="ro">Aplicatie Gestiune Sarcini de Lucru</value>
         <value xml:lang="ru">WorkEffort: Управление приложением</value>
         <value xml:lang="th">โปรแกรมประยุกต์ใช้การจัดการความพยายามในการทำงาน</value>
+        <value xml:lang="vi">Quản lý Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务管理应用</value>
         <value xml:lang="zh_TW">工項管理應用</value>
     </property>
@@ -2656,12 +2914,14 @@
         <value xml:lang="ro">Aplicatie Gestiune Sarcini de Lucru</value>
         <value xml:lang="ru">WorkEffort: Управление приложением</value>
         <value xml:lang="th">โปรแกรมประยุกต์ใช้การจัดการความพยายามในการทำงาน</value>
+        <value xml:lang="vi">Ứng dụng quản lý Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务管理应用</value>
         <value xml:lang="zh_TW">工項管理應用</value>
     </property>
     <property key="WorkEffortManufacturingError">
         <value xml:lang="en">Error retrieving manufacturing data for productId ${productId}: " ${errorString}</value>
         <value xml:lang="it">Errore nella ricerca dei dati per la produzione per il prodotto ${productId}: " ${errorString}</value>
+        <value xml:lang="vi">Lỗi khi lấy dữ liệu nhà sản xuất cho sản phẩm ${productId}: " ${errorString}</value>
         <value xml:lang="zh">获取产品标识为 ${productId} 的制造数据时出错： " ${errorString}</value>
     </property>
     <property key="WorkEffortMaxAmount">
@@ -2674,17 +2934,20 @@
         <value xml:lang="ro">Valoare Maxima</value>
         <value xml:lang="ru">Макс. количество</value>
         <value xml:lang="th">จำนวนมาก</value>
+        <value xml:lang="vi">Số lượng tối đa</value>
         <value xml:lang="zh">最大金额</value>
         <value xml:lang="zh_TW">最大金額</value>
     </property>
     <property key="WorkEffortMaxNumberOfEvents">
         <value xml:lang="en">Max # of Events</value>
         <value xml:lang="it">Max numero di eventi</value>
+        <value xml:lang="vi">Số tối đa của Sự kiện</value>
         <value xml:lang="zh">最大事件编号</value>
     </property>
     <property key="WorkEffortMaxNumberOfPersons">
         <value xml:lang="en">Max # of Persons</value>
         <value xml:lang="it">Max numero di persone</value>
+        <value xml:lang="vi">Số tối đa của nhân sự</value>
         <value xml:lang="zh">最大人数</value>
     </property>
     <property key="WorkEffortMonthView">
@@ -2697,6 +2960,7 @@
         <value xml:lang="ro">Afiseaza Luna</value>
         <value xml:lang="ru">По месяцам</value>
         <value xml:lang="th">แสดงเดือน</value>
+        <value xml:lang="vi">Xem theo tháng</value>
         <value xml:lang="zh">浏览月</value>
         <value xml:lang="zh_TW">瀏覽月</value>
     </property>
@@ -2710,6 +2974,7 @@
         <value xml:lang="ro">Trebuie RSVP</value>
         <value xml:lang="ru">Запросить ответ</value>
         <value xml:lang="th">Must RSVP</value>
+        <value xml:lang="vi">Phải phản hồi</value>
         <value xml:lang="zh">必须回复</value>
         <value xml:lang="zh_TW">必須回覆</value>
     </property>
@@ -2723,6 +2988,7 @@
         <value xml:lang="ro">Lista Mea Actuala de Sarcini</value>
         <value xml:lang="ru">Список моих текущих заданий</value>
         <value xml:lang="th">รายการภารกิจของฉันซึ่งเกิดขึ้นอยู่ในปัจจุบัน</value>
+        <value xml:lang="vi">Danh sách công việc của tôi</value>
         <value xml:lang="zh">我现在的任务列表</value>
         <value xml:lang="zh_TW">我現在的任務列表</value>
     </property>
@@ -2734,6 +3000,7 @@
         <value xml:lang="nl">My Current Timesheets</value>
         <value xml:lang="ro">Pontajul meu Actual</value>
         <value xml:lang="th">ตารางการทำงานของฉันซึ่งเกิดขึ้นอยู่ในปัจจุัน</value>
+        <value xml:lang="vi">Danh sách Khai báo công việc của tôi</value>
         <value xml:lang="zh">我现在的工单</value>
         <value xml:lang="zh_TW">我現在的時間表</value>
     </property>
@@ -2745,6 +3012,7 @@
         <value xml:lang="nl">My Rates</value>
         <value xml:lang="ro">Procentele Mele</value>
         <value xml:lang="th">อัตราของฉัน</value>
+        <value xml:lang="vi">Xếp hạng của tôi</value>
         <value xml:lang="zh">我的费率</value>
         <value xml:lang="zh_TW">我的費率</value>
     </property>
@@ -2758,6 +3026,7 @@
         <value xml:lang="ro">Lista mea de Cereri</value>
         <value xml:lang="ru">Список моих запросов</value>
         <value xml:lang="th">รายการคำร้องของฉัน</value>
+        <value xml:lang="vi">Danh sách Yêu cầu khách hàng liên quan đến Bạn</value>
         <value xml:lang="zh">我的请求列表</value>
         <value xml:lang="zh_TW">我的要求列表</value>
     </property>
@@ -2771,6 +3040,7 @@
         <value xml:lang="ro">Starea Mea</value>
         <value xml:lang="ru">Мой статус</value>
         <value xml:lang="th">สถานะของฉัน</value>
+        <value xml:lang="vi">Trạng thái của tôi</value>
         <value xml:lang="zh">我的状态</value>
         <value xml:lang="zh_TW">我的狀態</value>
     </property>
@@ -2781,6 +3051,7 @@
         <value xml:lang="it">Miei compiti</value>
         <value xml:lang="nl">Mijn taken</value>
         <value xml:lang="th">ภารกิจของฉัน</value>
+        <value xml:lang="vi">Tác vụ - Đầu việc của tôi</value>
         <value xml:lang="zh">我的任务</value>
         <value xml:lang="zh_TW">我的任務</value>
     </property>
@@ -2792,6 +3063,7 @@
         <value xml:lang="nl">My Timesheets</value>
         <value xml:lang="ro">Pontajul Meu</value>
         <value xml:lang="th">ตารางการทำงานของฉัน</value>
+        <value xml:lang="vi">Khai báo công việc của tôi</value>
         <value xml:lang="zh">我的工单</value>
         <value xml:lang="zh_TW">我的時間表</value>
     </property>
@@ -2805,6 +3077,7 @@
         <value xml:lang="ro">Nume</value>
         <value xml:lang="ru">Имя</value>
         <value xml:lang="th">ชื่อ</value>
+        <value xml:lang="vi">Tên</value>
         <value xml:lang="zh">名称</value>
         <value xml:lang="zh_TW">名稱</value>
     </property>
@@ -2815,6 +3088,7 @@
         <value xml:lang="it">Il nome impegno di Lavoro è mancante.</value>
         <value xml:lang="ro">Nume Sarcina de Lucru lipseste.</value>
         <value xml:lang="th">ไม่พบชื่องาน</value>
+        <value xml:lang="vi">Lượng giá nguồn lực bị thiếu</value>
         <value xml:lang="zh">缺少人工服务名称。</value>
         <value xml:lang="zh_TW">無工項名稱。</value>
     </property>
@@ -2828,6 +3102,7 @@
         <value xml:lang="ro">Nota Noua </value>
         <value xml:lang="ru">Новая заметка</value>
         <value xml:lang="th">ข้อความใหม่</value>
+        <value xml:lang="vi">Thêm mới ghi chú</value>
         <value xml:lang="zh">新便笺</value>
         <value xml:lang="zh_TW">新註記</value>
     </property>
@@ -2841,6 +3116,7 @@
         <value xml:lang="ro">Faza Noua </value>
         <value xml:lang="ru">Новая фаза</value>
         <value xml:lang="th">ขั้นตอนการทำงานใหม่</value>
+        <value xml:lang="vi">Thêm mới Pha</value>
         <value xml:lang="zh">新阶段</value>
         <value xml:lang="zh_TW">新階段</value>
     </property>
@@ -2854,6 +3130,7 @@
         <value xml:lang="ro">Proiect Nou</value>
         <value xml:lang="ru">Новый проект</value>
         <value xml:lang="th">โปรเจคใหม่</value>
+        <value xml:lang="vi">Thêm Dự án</value>
         <value xml:lang="zh">新项目</value>
         <value xml:lang="zh_TW">新專案</value>
     </property>
@@ -2863,6 +3140,7 @@
         <value xml:lang="fr">Nouvelle demande</value>
         <value xml:lang="it">Nuova richiesta</value>
         <value xml:lang="th">การร้องขอใหม่</value>
+        <value xml:lang="vi">Thêm Yêu cầu</value>
         <value xml:lang="zh">新请求</value>
         <value xml:lang="zh_TW">新請求</value>
     </property>
@@ -2875,6 +3153,7 @@
         <value xml:lang="ro">Necesar</value>
         <value xml:lang="ru">Новое требование</value>
         <value xml:lang="th">ความต้องการใหม่</value>
+        <value xml:lang="vi">Thêm Yêu cầu Nguồn lực</value>
         <value xml:lang="zh">新需求</value>
         <value xml:lang="zh_TW">新需求</value>
     </property>
@@ -2888,6 +3167,7 @@
         <value xml:lang="ro">Noua Sarcina</value>
         <value xml:lang="ru">Новое задание</value>
         <value xml:lang="th">ภารกิจใหม่</value>
+        <value xml:lang="vi">Thêm Tác vụ - Đầu việc</value>
         <value xml:lang="zh">新任务</value>
         <value xml:lang="zh_TW">新任務</value>
     </property>
@@ -2901,6 +3181,7 @@
         <value xml:lang="ro">Zi Succesiva</value>
         <value xml:lang="ru">Следующий день</value>
         <value xml:lang="th">วันต่อไป</value>
+        <value xml:lang="vi">Ngày tiếp theo</value>
         <value xml:lang="zh">下一天</value>
         <value xml:lang="zh_TW">下一天</value>
     </property>
@@ -2914,6 +3195,7 @@
         <value xml:lang="ro">Luna Succesiva</value>
         <value xml:lang="ru">Следующий месяц</value>
         <value xml:lang="th">เดือนต่อไป</value>
+        <value xml:lang="vi">Tháng tiếp theo</value>
         <value xml:lang="zh">下个月</value>
         <value xml:lang="zh_TW">下個月</value>
     </property>
@@ -2927,6 +3209,7 @@
         <value xml:lang="ro">Saptamana Succesiva</value>
         <value xml:lang="ru">Следующая неделя</value>
         <value xml:lang="th">สัปดาห์ต่อไป</value>
+        <value xml:lang="vi">Tuần  tiếp theo</value>
         <value xml:lang="zh">下一周</value>
         <value xml:lang="zh_TW">下一周</value>
     </property>
@@ -2939,6 +3222,7 @@
         <value xml:lang="ro">Nici-o Informatie Contact in Fisier</value>
         <value xml:lang="ru">Контактной информации по файлу не найдено</value>
         <value xml:lang="th">ไม่มีข้อมูลการติดต่อบนไฟล์</value>
+        <value xml:lang="vi">Không có thông tin liên lạc trong hồ sơ tập tin</value>
         <value xml:lang="zh">档案里没有联系信息</value>
         <value xml:lang="zh_TW">檔案里沒有聯絡資訊</value>
     </property>
@@ -2951,6 +3235,7 @@
         <value xml:lang="ro">Nici-un Eveniment Gasit</value>
         <value xml:lang="ru">Событий не найдено</value>
         <value xml:lang="th">ไม่พบเหตุการณ์</value>
+        <value xml:lang="vi">Không tìm thấy sự kiện nào</value>
         <value xml:lang="zh">没有找到事件</value>
         <value xml:lang="zh_TW">沒有找到事件</value>
     </property>
@@ -2963,6 +3248,7 @@
         <value xml:lang="ro">Nici-o Linie Creata</value>
         <value xml:lang="ru">Пунктов не создано</value>
         <value xml:lang="th">ไม่สร้างรายการ</value>
+        <value xml:lang="vi">Không hạng mục được tạo ra</value>
         <value xml:lang="zh">没有创建明细</value>
         <value xml:lang="zh_TW">沒有創建明細</value>
     </property>
@@ -2971,6 +3257,7 @@
         <value xml:lang="fr">Aucune note pour cette demande d'article</value>
         <value xml:lang="it">Nessuna nota per questa riga richiesta</value>
         <value xml:lang="th">ไม่มีข้อความสำหรับรายการคำร้องนี้</value>
+        <value xml:lang="vi">Không ghi chú cho Hạng mục yêu cầu (RequestItem) hiện tại</value>
         <value xml:lang="zh">对这个请求明细没有便笺</value>
         <value xml:lang="zh_TW">對這個請求明細沒有便箋</value>
     </property>
@@ -2983,6 +3270,7 @@
         <value xml:lang="ro">Nici-un Necesar Deschis Gasit</value>
         <value xml:lang="ru">Открытых требований не найдено</value>
         <value xml:lang="th">ไม่พบการเปิดความต้องการ</value>
+        <value xml:lang="vi">Không tìm thấy Yêu cầu Nguồn lực nào đang MỞ</value>
         <value xml:lang="zh">没有找到开放状态的需求</value>
         <value xml:lang="zh_TW">沒有找到開放狀態的要求</value>
     </property>
@@ -2995,6 +3283,7 @@
         <value xml:lang="ro">Nici-o Cerere Gasita</value>
         <value xml:lang="ru">Запросов не найдено</value>
         <value xml:lang="th">ไม่พบคำร้อง</value>
+        <value xml:lang="vi">Không tìm thấy Yêu cầu (Request) nào</value>
         <value xml:lang="zh">没有找到请求</value>
         <value xml:lang="zh_TW">沒有找到要求</value>
     </property>
@@ -3007,6 +3296,7 @@
         <value xml:lang="ro">Nici-un Necesar Creat</value>
         <value xml:lang="ru">Требований не создано</value>
         <value xml:lang="th">ไม่สร้างความต้องการ</value>
+        <value xml:lang="vi">Không Yêu cầu Nguồn lực nào được tạo ra</value>
         <value xml:lang="zh">没有已创建的需求</value>
         <value xml:lang="zh_TW">沒有已創建的要求</value>
     </property>
@@ -3015,6 +3305,7 @@
         <value xml:lang="fr">Aucun rôle associé avec cette demande</value>
         <value xml:lang="it">Nessun ruolo associato alla richiesta</value>
         <value xml:lang="th">ไม่มีสถานะกลุ่มคำร้อง</value>
+        <value xml:lang="vi">Không có yêu cầu kết hợp vai trò nào</value>
         <value xml:lang="zh">没有角色关联到请求</value>
         <value xml:lang="zh_TW">沒有角色關聯到要求</value>
     </property>
@@ -3027,6 +3318,7 @@
         <value xml:lang="ro">In acest moment nici-o Sarcina nu este asociata la acest Necesar</value>
         <value xml:lang="ru">С этим требованием не связано никаких заданий</value>
         <value xml:lang="th">ในปัจจุบันไม่มีกลุ่มภารกิจด้วยความต้องการนี้</value>
+        <value xml:lang="vi">Chưa có Tác vụ - Đầu việc nào kết hợp với Yêu cầu Nguồn lực này</value>
         <value xml:lang="zh">没有与这个需求关联的任务</value>
         <value xml:lang="zh_TW">沒有與這個要求關聯的任務</value>
     </property>
@@ -3035,12 +3327,14 @@
         <value xml:lang="fr">Aucune tâche associée avec cette demande</value>
         <value xml:lang="it">Nessun compito associata con i fabbisogni</value>
         <value xml:lang="th">ไม่มีภารกิจด้วยกลุ่มความต้องการ</value>
+        <value xml:lang="vi">Chưa có Tác vụ - Đầu việc nào kết hợp với Yêu cầu Nguồn lực này</value>
         <value xml:lang="zh">没有任务关联到需求</value>
         <value xml:lang="zh_TW">沒有任務關聯到要求</value>
     </property>
     <property key="WorkEffortNotFound">
         <value xml:lang="en">Error finding desired WorkEffort records: ${errorString}</value>
         <value xml:lang="it">Errore durante la ricerca del record di impegno di lavoro desiredato: ${errorString}</value>
+        <value xml:lang="vi">Lỗi tìm kiếm bản ghi Lượng giá nguồn lực: ${errorString}</value>
         <value xml:lang="zh">查找期望的人工服务记录时出错：${errorString}</value>
     </property>
     <property key="WorkEffortNotInRolePermissionError">
@@ -3048,12 +3342,14 @@
         <value xml:lang="fr">Erreur de sécurité: Pour exécuter ${resourceDescription} vous devez être dans le rôle ${roleTypeId} avec la tâche : ${workEffortId}</value>
         <value xml:lang="it">Errore sicurezza: per eseguire ${resourceDescription} devi avere il ruolo ${roleTypeId} con l'impegno di lavoro: ${workEffortId}</value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการ ${resourceDescription} คุณต้องเป็น ${roleTypeId} สถานะงาน: ${workEffortId}</value>
+        <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần trong nhóm vai trò ${roleTypeId} với Lượng giá nguồn lực: ${workEffortId}</value>
         <value xml:lang="zh">安全错误：要运行${resourceDescription}，你必须以${roleTypeId}角色做人工服务：${workEffortId}</value>
         <value xml:lang="zh_TW">安全錯誤：要運行${resourceDescription}，你必須以${roleTypeId}角色做工項：${workEffortId}</value>
     </property>
     <property key="WorkEffortNoteCreatedSuccessfully">
         <value xml:lang="en">Note is successfully created.</value>
         <value xml:lang="it">Nota è stato creata con successo.</value>
+        <value xml:lang="vi">Ghi chú đã được tạo thành công.</value>
         <value xml:lang="zh">成功创建了便笺。</value>
     </property>
     <property key="WorkEffortNoteMissing">
@@ -3062,6 +3358,7 @@
         <value xml:lang="fr">La note est manquante</value>
         <value xml:lang="it">Nota mancante</value>
         <value xml:lang="th">ไม่พบข้อความ</value>
+        <value xml:lang="vi">Ghi chú bị thiếu</value>
         <value xml:lang="zh">缺少便笺</value>
         <value xml:lang="zh_TW">缺少註記</value>
     </property>
@@ -3075,6 +3372,7 @@
         <value xml:lang="ro">Note</value>
         <value xml:lang="ru">Заметки</value>
         <value xml:lang="th">ข้อความ</value>
+        <value xml:lang="vi">Ghi chú</value>
         <value xml:lang="zh">便笺</value>
         <value xml:lang="zh_TW">註記</value>
     </property>
@@ -3083,6 +3381,7 @@
         <value xml:lang="fr">Notes pour la ligne de demande</value>
         <value xml:lang="it">Note per la riga richiesta</value>
         <value xml:lang="th">ข้อความสำหรับรายการคำร้อง</value>
+        <value xml:lang="vi">Ghi chú của Hạng mục yêu cầu (RequestItem)</value>
         <value xml:lang="zh">便笺用于请求明细</value>
         <value xml:lang="zh_TW">註記用於邀求明細</value>
     </property>
@@ -3095,6 +3394,7 @@
         <value xml:lang="ro">Aplicatie Sarcini de Lucru Deschisa </value>
         <value xml:lang="ru">WorkEffortOpenApplication</value>
         <value xml:lang="th">WorkEffortOpenApplication</value>
+        <value xml:lang="vi">Ứng dụng mở Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务开放状态任务应用</value>
         <value xml:lang="zh_TW">工項開放狀態任務應用</value>
     </property>
@@ -3107,17 +3407,20 @@
         <value xml:lang="ro">Deschide Pagina Intr-o Noua Fereastra</value>
         <value xml:lang="ru">Открыть страницу в новом окне</value>
         <value xml:lang="th">เปิดหน้านี้ในหน้าต่างใหม่</value>
+        <value xml:lang="vi">Mở trang trên cửa sổ mới</value>
         <value xml:lang="zh">在新窗口中打开页面</value>
         <value xml:lang="zh_TW">在新視窗中打開頁面</value>
     </property>
     <property key="WorkEffortOrderHeaderAlreadyExists">
         <value xml:lang="en">ERROR: OrderHeaderWorkEffort [${parameters.orderId}][${parameters.workEffortId}] already exists.</value>
         <value xml:lang="it">ERRORE: Testata ordine impegno di lavoro [${parameters.orderId}][${parameters.workEffortId}] esiste già.</value>
+        <value xml:lang="vi">Lỗi xảy ra: Phần đầu đặt hàng Lượng giá nguồn lực [${parameters.orderId}][${parameters.workEffortId}] ĐÃ tồn tại.</value>
         <value xml:lang="zh">错误：已经存在订单头人工服务（OrderHeaderWorkEffort）[${parameters.orderId}][${parameters.workEffortId}]</value>
     </property>
     <property key="WorkEffortOrderHeaderDoesNotExists">
         <value xml:lang="en">ERROR: OrderHeaderWorkEffort [${parameters.orderId}][${parameters.workEffortId}] does not exist.</value>
         <value xml:lang="it">ERRORE: Testata ordine impegno di lavoro [${parameters.orderId}][${parameters.workEffortId}] non esiste.</value>
+        <value xml:lang="vi">Lỗi xảy ra: Phần đầu đặt hàng Lượng giá nguồn lực [${parameters.orderId}][${parameters.workEffortId}] CHƯA tồn tại.</value>
         <value xml:lang="zh">错误：不存在订单头人工服务（OrderHeaderWorkEffort）[${parameters.orderId}][${parameters.workEffortId}]</value>
     </property>
     <property key="WorkEffortOrderHeaders">
@@ -3129,6 +3432,7 @@
         <value xml:lang="nl">Orders</value>
         <value xml:lang="ro">Comenzi</value>
         <value xml:lang="th">ลำดับ</value>
+        <value xml:lang="vi">Đơn hàng</value>
         <value xml:lang="zh">订单</value>
         <value xml:lang="zh_TW">訂單</value>
     </property>
@@ -3142,12 +3446,14 @@
         <value xml:lang="ro">Organizator</value>
         <value xml:lang="ru">Организатор</value>
         <value xml:lang="th">องค์กร</value>
+        <value xml:lang="vi">Tổ chứ</value>
         <value xml:lang="zh">组织者</value>
         <value xml:lang="zh_TW">組織者</value>
     </property>
     <property key="WorkEffortOverrideDefaultRateAmount">
         <value xml:lang="en">override Default Rate amount</value>
         <value xml:lang="it">Sostituisci tasso di default</value>
+        <value xml:lang="vi">Hiệu lực trên giá trị tỷ lệ mặc định</value>
         <value xml:lang="zh">覆盖缺省费率金额</value>
         <value xml:lang="zh_TW">覆蓋預設費率金額</value>
     </property>
@@ -3156,6 +3462,7 @@
         <value xml:lang="en">Participants</value>
         <value xml:lang="fr">Participants</value>
         <value xml:lang="it">Partecipanti</value>
+        <value xml:lang="vi">Người tham dự</value>
         <value xml:lang="zh">参加者</value>
         <value xml:lang="zh_TW">參與者</value>
     </property>
@@ -3169,6 +3476,7 @@
         <value xml:lang="ro">Subiecti</value>
         <value xml:lang="ru">Участники</value>
         <value xml:lang="th">กลุ่มผู้ใช้</value>
+        <value xml:lang="vi">Tác nhân</value>
         <value xml:lang="zh">会员</value>
         <value xml:lang="zh_TW">成員</value>
     </property>
@@ -3176,6 +3484,7 @@
         <value xml:lang="en">Party ${parameters.partyId} with role ${parameters.roleTypeId} is already assigned to work effort Id ${parameters.workEffortId}, not adding again</value>
         <value xml:lang="fr">L'acteur ${parameters.partyId} avec le rôle ${parameters.roleTypeId} est déjà affecté à la tâche de réf. ${parameters.workEffortId}</value>
         <value xml:lang="it">Soggetto ${parameters.partyId} con il ruolo ${parameters.roleTypeId} è già stato assegnato all'impegno di lavoro ${parameters.workEffortId}, non aggiungerlo nuovamente</value>
+        <value xml:lang="vi">Tác nhân ${parameters.partyId} với Vai trò ${parameters.roleTypeId} đã được gán đến Lượng giá nguồn lực ${parameters.workEffortId}, bạn không nên thêm vào lần nữa</value>
         <value xml:lang="zh">已经把角色为${parameters.roleTypeId}的会员${parameters.partyId}指派给了人工服务标识${parameters.workEffortId}，所以不再添加了</value>
         <value xml:lang="zh_TW">已經把角色為${parameters.roleTypeId}的會員${parameters.partyId}指派給了工項ID${parameters.workEffortId}，所以不再添加了</value>
     </property>
@@ -3189,12 +3498,14 @@
         <value xml:lang="ro">Cod Subiecti</value>
         <value xml:lang="ru">ID участника</value>
         <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
+        <value xml:lang="vi">Tác nhân</value>
         <value xml:lang="zh">会员标识</value>
         <value xml:lang="zh_TW">成員ID</value>
     </property>
     <property key="WorkEffortPartyPermissionError">
         <value xml:lang="en">You do not have permission to view information for party with ID ${partyId}, you must be logged in as a user associated with this party, or have the WORKEFFORTMGR_VIEW or WORKEFFORTMGR_ADMIN permissions.</value>
         <value xml:lang="it">Tu non il permesso di vedere le informazioni del soggetto ${partyId}, devi essere autenticato con un'utente associato con questo soggetto, o avere i permessi WORKEFFORTMGR_VIEW o WORKEFFORTMGR_ADMIN.</value>
+        <value xml:lang="vi">Bạn không có quyền xem thông tin của Tác nhân với Id ${partyId}, bạn cần đăng nhập như người dùng đã kết hợp với tác nhân này, hoặc có quyền WORKEFFORTMGR_VIEW hay quyền WORKEFFORTMGR_ADMIN.</value>
         <value xml:lang="zh">你没有浏览标识为 ${partyId} 的会员信息的权限，你必须以与这个会员有关联的用户身份登录，或者必须有 WORKEFFORTMGR_VIEW 或 WORKEFFORTMGR_ADMIN 权限。</value>
     </property>
     <property key="WorkEffortPassword">
@@ -3206,6 +3517,7 @@
         <value xml:lang="ro">Password</value>
         <value xml:lang="ru">Пароль</value>
         <value xml:lang="th">รหัสผ่าน</value>
+        <value xml:lang="vi">Mật khẩu</value>
         <value xml:lang="zh">密码</value>
         <value xml:lang="zh_TW">密碼</value>
     </property>
@@ -3217,6 +3529,7 @@
         <value xml:lang="nl">Percent Complete</value>
         <value xml:lang="ro">Procentaj Completat</value>
         <value xml:lang="th">เปอร์เว็นต์ที่สำเร็จ</value>
+        <value xml:lang="vi">Phần trăm hoàn thành</value>
         <value xml:lang="zh">完成的百分比</value>
         <value xml:lang="zh_TW">完成的百分比</value>
     </property>
@@ -3225,6 +3538,7 @@
         <value xml:lang="fr">Erreur de sécurité : pour exécuter ${resourceDescription} vous devez avoir l'autorisation WORKEFFORTMGR_${mainAction} ou WORKEFFORTMGR_ADMIN</value>
         <value xml:lang="it">Errore sicurezza: per eseguire ${resourceDescription} devi avere il permesso WORKEFFORTMGR_${mainAction} o WORKEFFORTMGR_ADMIN</value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! การดำเนินการ ${resourceDescription} คุณต้องมี WORKEFFORTMGR_${mainAction} หรือ WORKEFFORTMGR_ADMIN อนุญาต</value>
+        <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần có quyền WORKEFFORTMGR_${mainAction} hoặc WORKEFFORTMGR_ADMIN</value>
         <value xml:lang="zh">安全错误：要运行${resourceDescription}，你必须具有WORKEFFORTMGR_${mainAction}或WORKEFFORTMGR_ADMIN权限</value>
         <value xml:lang="zh_TW">安全錯誤：要運行${resourceDescription}，你必須具有WORKEFFORTMGR_${mainAction}或WORKEFFORTMGR_ADMIN權限</value>
     </property>
@@ -3238,6 +3552,7 @@
         <value xml:lang="ro">Faza</value>
         <value xml:lang="ru">Фаза</value>
         <value xml:lang="th">ขั้นตอนการทำงาน</value>
+        <value xml:lang="vi">Pha</value>
         <value xml:lang="zh">阶段</value>
         <value xml:lang="zh_TW">階段</value>
     </property>
@@ -3251,6 +3566,7 @@
         <value xml:lang="ro">Stari Faze</value>
         <value xml:lang="ru">Статус фазы</value>
         <value xml:lang="th">สถานะขั้นตอนการทำงาน</value>
+        <value xml:lang="vi">Trạng thái của Pha</value>
         <value xml:lang="zh">阶段状态</value>
         <value xml:lang="zh_TW">階段狀態</value>
     </property>
@@ -3264,6 +3580,7 @@
         <value xml:lang="ro">Faze Sarcini</value>
         <value xml:lang="ru">Задания фазы</value>
         <value xml:lang="th">ภารกิจขั้นตอนการทำงาน</value>
+        <value xml:lang="vi">Tác vụ - Đầu việc của Pha</value>
         <value xml:lang="zh">阶段任务</value>
         <value xml:lang="zh_TW">階段任務</value>
     </property>
@@ -3271,6 +3588,7 @@
         <value xml:lang="de">Beliebtheit nach Aufträgen</value>
         <value xml:lang="en">Popularity By Orders</value>
         <value xml:lang="it">Popolarità per ordini</value>
+        <value xml:lang="vi">Độ phổ biến theo Đơn hàng</value>
         <value xml:lang="zh">按订单的受欢迎程度</value>
         <value xml:lang="zh_TW">按訂單的受歡迎程度</value>
     </property>
@@ -3278,6 +3596,7 @@
         <value xml:lang="de">Beliebtheit nach Anzeigen</value>
         <value xml:lang="en">Popularity By Views</value>
         <value xml:lang="it">Popolarità per visti</value>
+        <value xml:lang="vi">Độ phổ biến theo Xem xét</value>
         <value xml:lang="zh">按浏览的受欢迎程度</value>
         <value xml:lang="zh_TW">按瀏覽的受歡迎程度</value>
     </property>
@@ -3291,6 +3610,7 @@
         <value xml:lang="ro">Ziua Precedenta</value>
         <value xml:lang="ru">Предыдущий день</value>
         <value xml:lang="th">กลับไปยังวัน</value>
+        <value xml:lang="vi">Ngày trước</value>
         <value xml:lang="zh">上一天</value>
         <value xml:lang="zh_TW">上一天</value>
     </property>
@@ -3304,6 +3624,7 @@
         <value xml:lang="ro">Luna Precedenta</value>
         <value xml:lang="ru">Предыдущий месяц</value>
         <value xml:lang="th">กลับไปยังเดือน</value>
+        <value xml:lang="vi">Tháng trước</value>
         <value xml:lang="zh">上个月</value>
         <value xml:lang="zh_TW">上個月</value>
     </property>
@@ -3317,6 +3638,7 @@
         <value xml:lang="ro">Saptamana Precedenta</value>
         <value xml:lang="ru">Предыдущая неделя</value>
         <value xml:lang="th">กลับไปยังสัปดาห์</value>
+        <value xml:lang="vi">Tuần trước</value>
         <value xml:lang="zh">上一周</value>
         <value xml:lang="zh_TW">上一周</value>
     </property>
@@ -3330,6 +3652,7 @@
         <value xml:lang="ro">Prioritate</value>
         <value xml:lang="ru">Приоритет</value>
         <value xml:lang="th">สิทธิพิเศษ</value>
+        <value xml:lang="vi">Độ ưu tiên</value>
         <value xml:lang="zh">优先级</value>
         <value xml:lang="zh_TW">優先級</value>
     </property>
@@ -3349,6 +3672,7 @@
         <value xml:lang="fr">Le format prioritaire est incorrect</value>
         <value xml:lang="it">Il formato priorità non è corretto</value>
         <value xml:lang="th">รูปแบบสิทธิพิเศษไม่ถูกต้อง</value>
+        <value xml:lang="vi">Định đạng độ ưu tiên không hợp lệ</value>
         <value xml:lang="zh">优先级格式不正确</value>
         <value xml:lang="zh_TW">優先級格式不正確</value>
     </property>
@@ -3365,6 +3689,7 @@
         <value xml:lang="nl">9 (Low)</value>
         <value xml:lang="ro">9 (Joasa)</value>
         <value xml:lang="th">9 (ต่ำ)</value>
+        <value xml:lang="vi">9 (Thấp)</value>
         <value xml:lang="zh">9 (低)</value>
         <value xml:lang="zh_TW">9 (低)</value>
     </property>
@@ -3376,6 +3701,7 @@
         <value xml:lang="nl">1 (High)</value>
         <value xml:lang="ro">1 (Inalta)</value>
         <value xml:lang="th">1 (สูง)</value>
+        <value xml:lang="vi">1 (Cao)</value>
         <value xml:lang="zh">1 (高)</value>
         <value xml:lang="zh_TW">1 (高)</value>
     </property>
@@ -3405,6 +3731,7 @@
         <value xml:lang="fr">Public/Privé</value>
         <value xml:lang="it">Privata/Pubblica</value>
         <value xml:lang="th">ส่วนตัว/สาธารณะ</value>
+        <value xml:lang="vi">Riêng tư/ Công khai</value>
         <value xml:lang="zh">私有/公开</value>
         <value xml:lang="zh_TW">私有/公開</value>
     </property>
@@ -3418,6 +3745,7 @@
         <value xml:lang="ro">Produs</value>
         <value xml:lang="ru">Продукт</value>
         <value xml:lang="th">สินค้า</value>
+        <value xml:lang="vi">Sản phẩm</value>
         <value xml:lang="zh">产品</value>
         <value xml:lang="zh_TW">產品</value>
     </property>
@@ -3431,6 +3759,7 @@
         <value xml:lang="ro">Cod Produs</value>
         <value xml:lang="ru">ID продукта</value>
         <value xml:lang="th">รหัสสินค้า</value>
+        <value xml:lang="vi">Id Sản phẩm</value>
         <value xml:lang="zh">产品标识</value>
         <value xml:lang="zh_TW">產品ID</value>
     </property>
@@ -3440,6 +3769,7 @@
         <value xml:lang="fr">Réf. 1 de l'article</value>
         <value xml:lang="it">Codice prodotto 1</value>
         <value xml:lang="th">รหัสสินค้า 1</value>
+        <value xml:lang="vi">Sản phẩm 1</value>
         <value xml:lang="zh">产品标识1</value>
         <value xml:lang="zh_TW">產品ID1</value>
     </property>
@@ -3449,6 +3779,7 @@
         <value xml:lang="fr">Réf. 2 de l'article</value>
         <value xml:lang="it">Codice prodotto 2</value>
         <value xml:lang="th">รหัสสินค้า 2</value>
+        <value xml:lang="vi">Sản phẩm 2</value>
         <value xml:lang="zh">产品标识2</value>
         <value xml:lang="zh_TW">產品ID2</value>
     </property>
@@ -3462,6 +3793,7 @@
         <value xml:lang="ro">Proiect</value>
         <value xml:lang="ru">Проект</value>
         <value xml:lang="th">โปรเจค</value>
+        <value xml:lang="vi">Dự án</value>
         <value xml:lang="zh">项目</value>
         <value xml:lang="zh_TW">專案</value>
     </property>
@@ -3475,6 +3807,7 @@
         <value xml:lang="ro">Faze Proiect</value>
         <value xml:lang="ru">Фазы проекта</value>
         <value xml:lang="th">ขั้นตอนการทำโปรเจค</value>
+        <value xml:lang="vi">Pha dự án</value>
         <value xml:lang="zh">项目阶段</value>
         <value xml:lang="zh_TW">專案階段</value>
     </property>
@@ -3488,6 +3821,7 @@
         <value xml:lang="ro">Stari Proiect</value>
         <value xml:lang="ru">Статус проекта</value>
         <value xml:lang="th">สถานะโปรเจค</value>
+        <value xml:lang="vi">Trạng thái dự án</value>
         <value xml:lang="zh">项目状态</value>
         <value xml:lang="zh_TW">專案狀態</value>
     </property>
@@ -3501,6 +3835,7 @@
         <value xml:lang="ro">Proiecte</value>
         <value xml:lang="ru">Проекты</value>
         <value xml:lang="th">โปรเจค</value>
+        <value xml:lang="vi">Dự án</value>
         <value xml:lang="zh">项目</value>
         <value xml:lang="zh_TW">專案</value>
     </property>
@@ -3508,20 +3843,24 @@
         <value xml:lang="en">ERROR: WorkRequirementFulfillment [${parameters.requirementId}][${parameters.workEffortId}] already exists.</value>
         <value xml:lang="it">ERRORE: Richiesta impegno di lavoro [${parameters.quoteId}][${parameters.workEffortId}] esiste già.</value>
         <value xml:lang="zh">错误：已存在工作需求执行（WorkRequirementFulfillment）[${parameters.requirementId}][${parameters.workEffortId}]</value>
+        <value xml:lang="vi">Lỗi xảy ra: Đáp ứng yêu cầu Nguồn lực (WorkRequirementFulfillment) [${parameters.requirementId}][${parameters.workEffortId}] ĐÃ tồn tại.</value>
     </property>
     <property key="WorkEffortRequirementFulfillmentDoesNotExists">
         <value xml:lang="en">ERROR: WorkRequirementFulfillment [${parameters.requirementId}][${parameters.workEffortId}] does not exists.</value>
         <value xml:lang="it">ERRORE: Richiesta impegno di lavoro [${parameters.quoteId}][${parameters.workEffortId}] non esiste.</value>
         <value xml:lang="zh">错误：不存在工作需求执行（WorkRequirementFulfillment）[${parameters.requirementId}][${parameters.workEffortId}]</value>
+        <value xml:lang="vi">Lỗi xảy ra: Đáp ứng yêu cầu Nguồn lực (WorkRequirementFulfillment) [${parameters.requirementId}][${parameters.workEffortId}] CHƯA tồn tại.</value>
     </property>
     <property key="WorkEffortShoppingListAlreadyExists">
         <value xml:lang="en">ERROR: ShoppingListWorkEffort [${parameters.shoppingListId}][${parameters.workEffortId}] already exists.</value>
         <value xml:lang="it">ERRORE: Lista d'acquisto impegno di lavoro [${parameters.shoppingListId}][${parameters.workEffortId}] esiste già.</value>
+        <value xml:lang="vi">Lỗi xảy ra: Lượng giá nguồn lực danh sách mua bán [${parameters.shoppingListId}][${parameters.workEffortId}] ĐÃ tồn tại.</value>
         <value xml:lang="zh">错误：已存在购物列表人工服务（ShoppingListWorkEffort）[${parameters.shoppingListId}][${parameters.workEffortId}]</value>
     </property>
     <property key="WorkEffortShoppingListDoesNotExists">
         <value xml:lang="en">ERROR: ShoppingListWorkEffort [${parameters.shoppingListId}][${parameters.workEffortId}] does not exists.</value>
         <value xml:lang="it">ERRORE: Lista d'acquisto impegno di lavoro [${parameters.shoppingListId}][${parameters.workEffortId}] non esiste.</value>
+        <value xml:lang="vi">Lỗi xảy ra: Lượng giá nguồn lực danh sách mua bán [${parameters.shoppingListId}][${parameters.workEffortId}] CHƯA tồn tại.</value>
         <value xml:lang="zh">错误：不存在购物列表人工服务（ShoppingListWorkEffort）[${parameters.shoppingListId}][${parameters.workEffortId}]</value>
     </property>
     <property key="WorkEffortQuantity">
@@ -3534,17 +3873,20 @@
         <value xml:lang="ro">Cantitate </value>
         <value xml:lang="ru">Количество</value>
         <value xml:lang="th">จำนวน</value>
+        <value xml:lang="vi">Số lượng</value>
         <value xml:lang="zh">数量</value>
         <value xml:lang="zh_TW">數量</value>
     </property>
     <property key="WorkEffortQuoteAlreadyExists">
         <value xml:lang="en">ERROR: QuoteWorkEffort [${parameters.quoteId}][${parameters.workEffortId}] already exists.</value>
         <value xml:lang="it">ERRORE: Preventivo impegno di lavoro [${parameters.quoteId}][${parameters.workEffortId}] esiste già.</value>
+        <value xml:lang="vi">Lỗi xảy ra: Báo giá Lượng giá nguồn lực [${parameters.quoteId}][${parameters.workEffortId}] ĐÃ tồn tại.</value>
         <value xml:lang="zh">错误：已存在询价人工服务（QuoteWorkEffort）[${parameters.quoteId}][${parameters.workEffortId}]</value>
     </property>
     <property key="WorkEffortQuoteDoesNotExists">
         <value xml:lang="en">ERROR: QuoteWorkEffort [${parameters.quoteId}][${parameters.workEffortId}] does not exists.</value>
         <value xml:lang="it">ERRORE: Preventivo impegno di lavoro [${parameters.quoteId}][${parameters.workEffortId}] non esiste.</value>
+        <value xml:lang="vi">Lỗi xảy ra: Báo giá Lượng giá nguồn lực [${parameters.quoteId}][${parameters.workEffortId}] CHƯA tồn tại.</value>
         <value xml:lang="zh">错误：不存在询价人工服务（QuoteWorkEffort）[${parameters.quoteId}][${parameters.workEffortId}]</value>
     </property>
     <property key="WorkEffortQuoteItems">
@@ -3555,6 +3897,7 @@
         <value xml:lang="nl">Quote Items</value>
         <value xml:lang="ro">Linii Oferta</value>
         <value xml:lang="th">รายการการอ้างอิง</value>
+        <value xml:lang="vi">Hạng mục báo giá</value>
         <value xml:lang="zh">询价明细</value>
         <value xml:lang="zh_TW">詢價明細</value>
     </property>
@@ -3566,6 +3909,7 @@
         <value xml:lang="nl">Quotes</value>
         <value xml:lang="ro">Oferte</value>
         <value xml:lang="th">การอ้างอิง</value>
+        <value xml:lang="vi">Báo giá</value>
         <value xml:lang="zh">询价</value>
         <value xml:lang="zh_TW">詢價</value>
     </property>
@@ -3578,6 +3922,7 @@
         <value xml:lang="ro">Utilizator Inregistrat</value>
         <value xml:lang="ru">Login зарегистрированного пользователя</value>
         <value xml:lang="th">การลงทะเบียนลอกอินเข้าสู่ระบบของผู้ใช้</value>
+        <value xml:lang="vi">Người dùng đăng ký</value>
         <value xml:lang="zh">注册用户登录</value>
         <value xml:lang="zh_TW">注冊用戶登錄</value>
     </property>
@@ -3589,6 +3934,7 @@
         <value xml:lang="nl">Related Summary</value>
         <value xml:lang="ro">Breviar Relativ</value>
         <value xml:lang="th">โดยสรุปซึ่งเกี่ยวข้องกัน</value>
+        <value xml:lang="vi">Tổng quan liên quan</value>
         <value xml:lang="zh">相关的摘要</value>
         <value xml:lang="zh_TW">相關的摘要</value>
     </property>
@@ -3598,6 +3944,7 @@
         <value xml:lang="fr">Demande</value>
         <value xml:lang="it">Richiesta</value>
         <value xml:lang="th">การร้องขอ</value>
+        <value xml:lang="vi">Yêu cầu</value>
         <value xml:lang="zh">请求</value>
         <value xml:lang="zh_TW">請求</value>
     </property>
@@ -3609,6 +3956,7 @@
         <value xml:lang="nl">Request Items</value>
         <value xml:lang="ro">Linii Cerere</value>
         <value xml:lang="th">รายการการร้องขอ</value>
+        <value xml:lang="vi">Hạng mục yêu cầu</value>
         <value xml:lang="zh">请求明细</value>
         <value xml:lang="zh_TW">請求明細</value>
     </property>
@@ -3622,6 +3970,7 @@
         <value xml:lang="ro">Lista Cerere</value>
         <value xml:lang="ru">Запросы</value>
         <value xml:lang="th">รายการการร้องขอ</value>
+        <value xml:lang="vi">Danh sách Yêu cầu</value>
         <value xml:lang="zh">请求列表</value>
         <value xml:lang="zh_TW">請求列表</value>
     </property>
@@ -3635,6 +3984,7 @@
         <value xml:lang="ro">Gestionar Cerere</value>
         <value xml:lang="ru">Менеджер запроса</value>
         <value xml:lang="th">การจัดการการร้องขอ</value>
+        <value xml:lang="vi">Quản lý Yêu cầu</value>
         <value xml:lang="zh">请求管理者</value>
         <value xml:lang="zh_TW">請求管理者</value>
     </property>
@@ -3648,6 +3998,7 @@
         <value xml:lang="ro">Nume Cerere</value>
         <value xml:lang="ru">Имя запроса</value>
         <value xml:lang="th">ชื่อการร้องขอ</value>
+        <value xml:lang="vi">Tên Yêu cầu</value>
         <value xml:lang="zh">请求名称</value>
         <value xml:lang="zh_TW">請求名稱</value>
     </property>
@@ -3657,6 +4008,7 @@
         <value xml:lang="fr">Rôles de la demande</value>
         <value xml:lang="it">Ruoli richiesta</value>
         <value xml:lang="th">สถานะการร้องขอ</value>
+        <value xml:lang="vi">Vai trò Yêu cầu</value>
         <value xml:lang="zh">请求角色</value>
         <value xml:lang="zh_TW">請求角色</value>
     </property>
@@ -3670,6 +4022,7 @@
         <value xml:lang="ro">Proprietar Cerere</value>
         <value xml:lang="ru">Запрос принял</value>
         <value xml:lang="th">ผู้รับการร้องขอ</value>
+        <value xml:lang="vi">Người lấy (Taker) Yêu cầu</value>
         <value xml:lang="zh">请求接受者</value>
         <value xml:lang="zh_TW">請求接受者</value>
     </property>
@@ -3680,6 +4033,7 @@
         <value xml:lang="nl">Requesting Party</value>
         <value xml:lang="ro">Subiect Cerere</value>
         <value xml:lang="th">กลุ่มการร้องขอ</value>
+        <value xml:lang="vi">Người yêu cầu</value>
         <value xml:lang="zh">发出请求的会员</value>
         <value xml:lang="zh_TW">發出請求的會員</value>
     </property>
@@ -3693,6 +4047,7 @@
         <value xml:lang="ro">Cereri</value>
         <value xml:lang="ru">Запросы</value>
         <value xml:lang="th">การร้องขอ</value>
+        <value xml:lang="vi">Yêu cầu</value>
         <value xml:lang="zh">请求</value>
         <value xml:lang="zh_TW">請求</value>
     </property>
@@ -3706,6 +4061,7 @@
         <value xml:lang="ro">Cerere pe</value>
         <value xml:lang="ru">Кем затребовано</value>
         <value xml:lang="th">การร้องขอโดย</value>
+        <value xml:lang="vi">Yêu cầu bởi</value>
         <value xml:lang="zh">提出需求</value>
         <value xml:lang="zh_TW">提出需求</value>
     </property>
@@ -3718,6 +4074,7 @@
         <value xml:lang="ro">Cerere la data</value>
         <value xml:lang="ru">Требуется к дате</value>
         <value xml:lang="th">การร้องขอโดยวันที่</value>
+        <value xml:lang="vi">Ngày yêu cầu</value>
         <value xml:lang="zh">提出需求的日期</value>
         <value xml:lang="zh_TW">提出需求的日期</value>
     </property>
@@ -3731,6 +4088,7 @@
         <value xml:lang="ro">Data Cererii</value>
         <value xml:lang="ru">Дата требования</value>
         <value xml:lang="th">วันที่ร้องขอ</value>
+        <value xml:lang="vi">Ngày bắt buộc phải có</value>
         <value xml:lang="zh">需求日期</value>
         <value xml:lang="zh_TW">需求日期</value>
     </property>
@@ -3743,6 +4101,7 @@
         <value xml:lang="ro">Cod Necesar</value>
         <value xml:lang="ru">ID требования</value>
         <value xml:lang="th">รหัสความต้องการ</value>
+        <value xml:lang="vi">Id Yêu cầu Nguồn lực</value>
         <value xml:lang="zh">需求标识</value>
         <value xml:lang="zh_TW">要求ID</value>
     </property>
@@ -3755,6 +4114,7 @@
         <value xml:lang="ro">Lista Necesar</value>
         <value xml:lang="ru">Список требований</value>
         <value xml:lang="th">รายการความต้องการ</value>
+        <value xml:lang="vi">Danh sách Yêu cầu Nguồn lực</value>
         <value xml:lang="zh">需求列表</value>
         <value xml:lang="zh_TW">要求列表</value>
     </property>
@@ -3767,6 +4127,7 @@
         <value xml:lang="ro">Tip Necesar</value>
         <value xml:lang="ru">Тип требований</value>
         <value xml:lang="th">ประเภทความต้องการ</value>
+        <value xml:lang="vi">Loại Yêu cầu Nguồn lực</value>
         <value xml:lang="zh">需求类型</value>
         <value xml:lang="zh_TW">要求類型</value>
     </property>
@@ -3779,6 +4140,7 @@
         <value xml:lang="ro">Necesaruri</value>
         <value xml:lang="ru">Требования</value>
         <value xml:lang="th">ความต้องการ</value>
+        <value xml:lang="vi">Yêu cầu Nguồn lực</value>
         <value xml:lang="zh">需求</value>
         <value xml:lang="zh_TW">需求</value>
     </property>
@@ -3791,6 +4153,7 @@
         <value xml:lang="ro">Necesar Pe Linie Cerere</value>
         <value xml:lang="ru">Требования к предмету запроса</value>
         <value xml:lang="th">ความต้องการสำหรับรายการการร้องขอ</value>
+        <value xml:lang="vi">Yêu cầu Nguồn lực cho Hạng mục yêu cầu</value>
         <value xml:lang="zh">用于请求明细的需求</value>
         <value xml:lang="zh_TW">用于請求明細的需求</value>
     </property>
@@ -3803,6 +4166,7 @@
         <value xml:lang="ro">Raspuns Cerere pe</value>
         <value xml:lang="ru">Кем запрошен ответ</value>
         <value xml:lang="th">การตอบการร้องขอโดย</value>
+        <value xml:lang="vi">Phản hồi được yêu cầu bởi</value>
         <value xml:lang="zh">答复提出需求</value>
         <value xml:lang="zh_TW">答覆提出需求</value>
     </property>
@@ -3816,6 +4180,7 @@
         <value xml:lang="ro">Rezultatul Cautarii</value>
         <value xml:lang="ru">Результаты выборки</value>
         <value xml:lang="th">ผลลัพธ์ของการค้นหา</value>
+        <value xml:lang="vi">Kết quả của tìm kiếm</value>
         <value xml:lang="zh">查找结果</value>
         <value xml:lang="zh_TW">查找結果</value>
     </property>
@@ -3825,6 +4190,7 @@
         <value xml:lang="fr">Vérifications</value>
         <value xml:lang="it">Recenzioni</value>
         <value xml:lang="th">ตรวจสอบ</value>
+        <value xml:lang="vi">Xem xét</value>
         <value xml:lang="zh">检查</value>
         <value xml:lang="zh_TW">檢查</value>
     </property>
@@ -3838,6 +4204,7 @@
         <value xml:lang="ro">Revizie</value>
         <value xml:lang="ru">Ревизия</value>
         <value xml:lang="th">การปรับปรุงใหม่</value>
+        <value xml:lang="vi">Phiên bản</value>
         <value xml:lang="zh">修订</value>
         <value xml:lang="zh_TW">修訂</value>
     </property>
@@ -3847,6 +4214,7 @@
         <value xml:lang="fr">Recherche de tâches</value>
         <value xml:lang="it">Ricerca impegni di lavoro</value>
         <value xml:lang="th">ค้นหางาน</value>
+        <value xml:lang="vi">Tìm kiếm Lượng giá nguồn lực</value>
         <value xml:lang="zh">搜索人工服务</value>
         <value xml:lang="zh_TW">搜詢工項</value>
     </property>
@@ -3860,6 +4228,7 @@
         <value xml:lang="ro">Selectioneaza un contact existent</value>
         <value xml:lang="ru">Выбрать существующий механизм контактов</value>
         <value xml:lang="th">เลือกวิธีการติดต่อที่มีอยู่</value>
+        <value xml:lang="vi">Chọn quy chế Liên hệ đã có</value>
         <value xml:lang="zh">选择一个已存在的联系方式</value>
         <value xml:lang="zh_TW">選擇一個已存在的聯系方式</value>
     </property>
@@ -3873,6 +4242,7 @@
         <value xml:lang="ro">Selectionat</value>
         <value xml:lang="ru">Выбрано</value>
         <value xml:lang="th">เลือก</value>
+        <value xml:lang="vi">Đã chọn</value>
         <value xml:lang="zh">已选</value>
         <value xml:lang="zh_TW">已選</value>
     </property>
@@ -3884,6 +4254,7 @@
         <value xml:lang="nl">Bestel lijst ID</value>
         <value xml:lang="ro">Cod Lista Cumparari</value>
         <value xml:lang="th">รหัสรายการซื้อสินค้า</value>
+        <value xml:lang="vi">Danh sách mua hàng</value>
         <value xml:lang="zh">购物列表标识</value>
         <value xml:lang="zh_TW">採購列表ID</value>
     </property>
@@ -3895,6 +4266,7 @@
         <value xml:lang="nl">Bestellijsten</value>
         <value xml:lang="ro">Liste Cumparari</value>
         <value xml:lang="th">รายการซื้อสินค้า</value>
+        <value xml:lang="vi">Danh sách mua hàng</value>
         <value xml:lang="zh">购物列表</value>
         <value xml:lang="zh_TW">採購列表</value>
     </property>
@@ -3908,6 +4280,7 @@
         <value xml:lang="ro">Afiseaza Active</value>
         <value xml:lang="ru">Показать все заметки</value>
         <value xml:lang="th">แสดงการทำงาน</value>
+        <value xml:lang="vi">Hiển thị hoạt động (Active)</value>
         <value xml:lang="zh">显示有效的</value>
         <value xml:lang="zh_TW">顯示有效的</value>
     </property>
@@ -3921,6 +4294,7 @@
         <value xml:lang="ro">Afiseaza Toate Notele</value>
         <value xml:lang="ru">Показать все заметки</value>
         <value xml:lang="th">แสดงข้อความทั้งหมด</value>
+        <value xml:lang="vi">Hiển thị tất cả các ghi chú</value>
         <value xml:lang="zh">显示全部便笺</value>
         <value xml:lang="zh_TW">顯示全部便箋</value>
     </property>
@@ -3933,6 +4307,7 @@
         <value xml:lang="ro">Afiseaza aceasta Linie a Notei</value>
         <value xml:lang="ru">Показать заметки</value>
         <value xml:lang="th">แสดงรายการข้อความนี้</value>
+        <value xml:lang="vi">Hiển thị các ghi chú của hạng mục này</value>
         <value xml:lang="zh">显示这个明细的便笺</value>
         <value xml:lang="zh_TW">顯示這個明細的便箋</value>
     </property>
@@ -3944,6 +4319,7 @@
         <value xml:lang="it">Data inizio</value>
         <value xml:lang="nl">Datum start</value>
         <value xml:lang="th">เริ่มวันที่</value>
+        <value xml:lang="vi">Ngày bắt đầu</value>
         <value xml:lang="zh">开始日期</value>
         <value xml:lang="zh_TW">開始日期</value>
     </property>
@@ -3957,12 +4333,14 @@
         <value xml:lang="ro">Stare</value>
         <value xml:lang="ru">Статус</value>
         <value xml:lang="th">สถานะ</value>
+        <value xml:lang="vi">Trạng thái</value>
         <value xml:lang="zh">状态</value>
         <value xml:lang="zh_TW">狀態</value>
     </property>
     <property key="WorkEffortStatusChangeNotValid">
         <value xml:lang="en">The status change from ${lookedUpValue.currentStatusId} to ${parameters.currentStatusId} is not a valid change</value>
         <value xml:lang="it">Il cambio di stato da ${lookedUpValue.currentStatusId} a ${parameters.currentStatusId} non è consentito</value>
+        <value xml:lang="vi">Trạng thái thay đổi từ ${lookedUpValue.currentStatusId} đến ${parameters.currentStatusId} là không hợp lệ</value>
         <value xml:lang="zh">从 ${lookedUpValue.currentStatusId} 到 ${parameters.currentStatusId} 不是一个有效的状态改变</value>
     </property>
     <property key="WorkEffortStatusIdMissing">
@@ -3971,6 +4349,7 @@
         <value xml:lang="it">Lo stato attuale è mancante.</value>
         <value xml:lang="ro">Starea Actuala Lipseste.</value>
         <value xml:lang="th">ไม่พบรหัสสถานะที่ใช้กันอยู่ในปัจจุบัน</value>
+        <value xml:lang="vi">Id trạng thái hiện tại bị thiếu.</value>
         <value xml:lang="zh">缺少当前状态标识。</value>
         <value xml:lang="zh_TW">無目前狀態ID。</value>
     </property>
@@ -3983,6 +4362,7 @@
         <value xml:lang="nl">Samenvatting</value>
         <value xml:lang="ro">Breviar</value>
         <value xml:lang="th">สรุป</value>
+        <value xml:lang="vi">Tổng quan</value>
         <value xml:lang="zh">摘要</value>
         <value xml:lang="zh_TW">摘要</value>
     </property>
@@ -3996,6 +4376,7 @@
         <value xml:lang="ro">Sarcina</value>
         <value xml:lang="ru">Задание</value>
         <value xml:lang="th">ภารกิจ</value>
+        <value xml:lang="vi">Tác vụ - Đầu việc</value>
         <value xml:lang="zh">任务</value>
         <value xml:lang="zh_TW">任務</value>
     </property>
@@ -4009,6 +4390,7 @@
         <value xml:lang="ro">Detaliu Sarcina</value>
         <value xml:lang="ru">Подробности задания</value>
         <value xml:lang="th">รายละเอียดภารกิจ</value>
+        <value xml:lang="vi">Chi tiết Tác vụ - Đầu việc</value>
         <value xml:lang="zh">任务详细</value>
         <value xml:lang="zh_TW">任務詳細</value>
     </property>
@@ -4022,6 +4404,7 @@
         <value xml:lang="ro">Lista Sarcina</value>
         <value xml:lang="ru">Задания</value>
         <value xml:lang="th">รายการภารกิจ</value>
+        <value xml:lang="vi">Danh sách Tác vụ - Đầu việc</value>
         <value xml:lang="zh">任务列表</value>
         <value xml:lang="zh_TW">任務列表</value>
     </property>
@@ -4035,6 +4418,7 @@
         <value xml:lang="ro">Nume Sarcina</value>
         <value xml:lang="ru">Имя задания</value>
         <value xml:lang="th">ชื่อภารกิจ</value>
+        <value xml:lang="vi">Tên Tác vụ - Đầu việc</value>
         <value xml:lang="zh">任务名称</value>
         <value xml:lang="zh_TW">任務名稱</value>
     </property>
@@ -4048,6 +4432,7 @@
         <value xml:lang="ro">Stare Sarcina</value>
         <value xml:lang="ru">Статус задания</value>
         <value xml:lang="th">สถานะภารกิจ</value>
+        <value xml:lang="vi">Trạng thái Tác vụ - Đầu việc</value>
         <value xml:lang="zh">任务状态</value>
         <value xml:lang="zh_TW">任務狀態</value>
     </property>
@@ -4061,6 +4446,7 @@
         <value xml:lang="ro">Sarcini</value>
         <value xml:lang="ru">Задания</value>
         <value xml:lang="th">ภารกิจ</value>
+        <value xml:lang="vi">Tác vụ - Đầu việc</value>
         <value xml:lang="zh">任务</value>
         <value xml:lang="zh_TW">任務</value>
     </property>
@@ -4074,6 +4460,7 @@
         <value xml:lang="ro">Luna Curenta</value>
         <value xml:lang="ru">Текущий месяц</value>
         <value xml:lang="th">เดือนนี้</value>
+        <value xml:lang="vi">Tháng này</value>
         <value xml:lang="zh">本月</value>
         <value xml:lang="zh_TW">本月</value>
     </property>
@@ -4087,6 +4474,7 @@
         <value xml:lang="ro">Saptamana Curenta</value>
         <value xml:lang="ru">Текущая неделя</value>
         <value xml:lang="th">สัปดาห์นี้</value>
+        <value xml:lang="vi">Tuần này</value>
         <value xml:lang="zh">本周</value>
         <value xml:lang="zh_TW">本周</value>
     </property>
@@ -4096,6 +4484,7 @@
         <value xml:lang="fr">A la date</value>
         <value xml:lang="it">Data fine</value>
         <value xml:lang="th">ถึงวันที่</value>
+        <value xml:lang="vi">Đến ngày</value>
         <value xml:lang="zh">结束日期</value>
         <value xml:lang="zh_TW">結束日期</value>
     </property>
@@ -4107,6 +4496,7 @@
         <value xml:lang="nl">Rekening van relatie</value>
         <value xml:lang="ro">Facturare De La Subiectul</value>
         <value xml:lang="th">ใบเสร็จรับเงินจากกลุ่มผู้ใช้</value>
+        <value xml:lang="vi">Cước phí từ tác nhân</value>
         <value xml:lang="zh">账单来自会员</value>
         <value xml:lang="zh_TW">賬單來自會員</value>
     </property>
@@ -4118,6 +4508,7 @@
         <value xml:lang="nl">Faktuur aan relatie</value>
         <value xml:lang="ro">Facturare la Subiectul </value>
         <value xml:lang="th">ใบเสร็จรับเงินถึงกลุ่มผู้ใช้</value>
+        <value xml:lang="vi">Cước phí đến tác nhân</value>
         <value xml:lang="zh">账单到会员</value>
         <value xml:lang="zh_TW">賬單到會員</value>
     </property>
@@ -4130,6 +4521,7 @@
         <value xml:lang="nl">Uren</value>
         <value xml:lang="ro">Pontaj</value>
         <value xml:lang="th">ตารางเวลาการทำงาน</value>
+        <value xml:lang="vi">Khai báo công việc</value>
         <value xml:lang="zh">工单</value>
         <value xml:lang="zh_TW">工單</value>
     </property>
@@ -4137,16 +4529,19 @@
         <value xml:lang="en">Time sheet already exist, not created an other one.</value>
         <value xml:lang="fr">La feuille d'activité existe déjà, pas de nouvelle création.</value>
         <value xml:lang="it">Timbratura già esistente, non crearne un'altra.</value>
+        <value xml:lang="vi">Khai báo công việc đã tồn tại, bạn hãy tạo Khai báo công việc khác.</value>
         <value xml:lang="zh">已经存在时间表，不能再建一个。</value>
     </property>
     <property key="WorkEffortTimesheetCannotFindInvoice">
         <value xml:lang="en">Could not find invoice with ID [${invoiceId}], not adding Timesheet Entries to it.</value>
         <value xml:lang="it">Non trovata fattura [${invoiceId}], non verrà aggiunta alla riga di timbratura.</value>
+        <value xml:lang="vi">Không tìm thấy hóa đơn với Id [${invoiceId}], nên không thể thêm mới điểm nhập Khai báo công việc vào hóa đơn này.</value>
         <value xml:lang="zh">不能找到标识为 [${invoiceId}] 的发票，没有向它添加时间表记录。</value>
     </property>
     <property key="WorkEffortTimesheetCouldNotBeFound">
         <value xml:lang="en">Timesheet could not be found, timesheetId: ${parameters.timesheetId}</value>
         <value xml:lang="it">Timbratura ${parameters.timesheetId} non trovata</value>
+        <value xml:lang="vi">Khai báo công việc không tìm thấy, với Id : ${parameters.timesheetId}</value>
         <value xml:lang="zh">无法找到时间表，时间表标识：${parameters.timesheetId}</value>
     </property>
     <property key="WorkEffortTimesheetCreate">
@@ -4158,6 +4553,7 @@
         <value xml:lang="nl">Nieuwe urenstaat</value>
         <value xml:lang="ro">Creare Pontaj</value>
         <value xml:lang="th">สร้างตารางการทำงาน</value>
+        <value xml:lang="vi">Tạo mới Khai báo công việc</value>
         <value xml:lang="zh">新建工单</value>
         <value xml:lang="zh_TW">新建工單</value>
     </property>
@@ -4169,6 +4565,7 @@
         <value xml:lang="nl">Uren</value>
         <value xml:lang="ro">Ore</value>
         <value xml:lang="th">ชั่งโมง</value>
+        <value xml:lang="vi">Giờ</value>
         <value xml:lang="zh">小时</value>
         <value xml:lang="zh_TW">小時</value>
     </property>
@@ -4181,17 +4578,20 @@
         <value xml:lang="nl">Mijn tijd</value>
         <value xml:lang="ro">Timpul Meu</value>
         <value xml:lang="th">เวลาของฉัน</value>
+        <value xml:lang="vi"> Khai báo công việc của tôi</value>
         <value xml:lang="zh">我的时间</value>
         <value xml:lang="zh_TW">我的時間</value>
     </property>
     <property key="WorkEffortTimesheetInvoiceShuoldBeInProgressStatus">
         <value xml:lang="en">Invoice ${invoiceId} should have the status 'in progress', the status is however: ${invoice.statusId}</value>
         <value xml:lang="it">La fattura ${invoiceId} dovrebbe avere lo stato 'in corso', lo stato invece è: ${invoice.statusId}</value>
+        <value xml:lang="vi">Hóa đơn ${invoiceId} phải có trạng thái là 'Đang thực hiện', trạng thái hiện tại là : ${invoice.statusId}</value>
         <value xml:lang="zh">发票 ${invoiceId} 应该处于'处理中'状态，然后现在状态是：${invoice.statusId}</value>
     </property>
     <property key="WorkEffortTimesheetNotInProcessStatus">
         <value xml:lang="en">Can only update Timesheet, when status is in-process...current status: ${statusItem.description}</value>
         <value xml:lang="it">La timbratura può essere aggiornata solo quanto lo stato è "in-corso"... stato corrente: ${statusItem.description}</value>
+        <value xml:lang="vi">Không thể cập nhật Khai báo công việc, khi trạng thái là 'Đang thực hiện'... trạng thái hiện tại là :${statusItem.description}</value>
         <value xml:lang="zh">当状态是处理中时，只能更新时间表...当前状态：${statusItem.description}</value>
     </property>
     <property key="WorkEffortTimesheetNotInRolePermissionError">
@@ -4199,6 +4599,7 @@
         <value xml:lang="fr">Erreur de sécurité: pour exécuter ${resourceDescription} vous devez être dans le rôle ${roleTypeId} avec la tâche ${workEffortId}</value>
         <value xml:lang="it">Errore sicurezza: per eseguire ${resourceDescription} devi avere il ruolo ${roleTypeId} con l'impegno di lavoro: ${workEffortId}</value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! การดำเนินการ ${resourceDescription} คุณต้องเป็น ${roleTypeId} ด้วยสถานะงาน: ${workEffortId}</value>
+        <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần có quyền ${roleTypeId} với Lượng giá nguồn lực ${workEffortId}</value>
         <value xml:lang="zh">安全错误：要运行${resourceDescription}，你必须以${roleTypeId}角色做人工服务：${workEffortId}</value>
         <value xml:lang="zh_TW">安全錯誤：要運行${resourceDescription}，你必須以${roleTypeId}角色做工項:${workEffortId}</value>
     </property>
@@ -4210,6 +4611,7 @@
         <value xml:lang="nl">Snel een tijd invoeren</value>
         <value xml:lang="ro">Introducere Rapida Ore</value>
         <value xml:lang="th">กรอกข้อมูลเวลาอย่างรวดเร็ว</value>
+        <value xml:lang="vi">Thêm nhanh điểm nhập thời gian</value>
         <value xml:lang="zh">快速时间记录</value>
         <value xml:lang="zh_TW">快速時間記錄</value>
     </property>
@@ -4222,6 +4624,7 @@
         <value xml:lang="nl">Soort tarief</value>
         <value xml:lang="ro">Tip Procent</value>
         <value xml:lang="th">ประเภทอัตรา</value>
+        <value xml:lang="vi">Kiểu tỷ lệ</value>
         <value xml:lang="zh">费率类型</value>
         <value xml:lang="zh_TW">費率類型</value>
     </property>
@@ -4234,6 +4637,7 @@
         <value xml:lang="nl">Tarieven</value>
         <value xml:lang="ro">Procente</value>
         <value xml:lang="th">อัตรา</value>
+        <value xml:lang="vi">Tỷ lệ</value>
         <value xml:lang="zh">费率</value>
         <value xml:lang="zh_TW">費率</value>
     </property>
@@ -4246,6 +4650,7 @@
         <value xml:lang="nl">Invoer tijden</value>
         <value xml:lang="ro">Linie Timp</value>
         <value xml:lang="th">ตารางเวลา</value>
+        <value xml:lang="vi">Điểm nhập thời gian</value>
         <value xml:lang="zh">时间记录</value>
         <value xml:lang="zh_TW">時間記錄</value>
     </property>
@@ -4258,6 +4663,7 @@
         <value xml:lang="nl">Tijd invoer</value>
         <value xml:lang="ro">Linie Timp</value>
         <value xml:lang="th">ตารางเวลา</value>
+        <value xml:lang="vi">Điểm nhập thời gian</value>
         <value xml:lang="zh">时间记录</value>
         <value xml:lang="zh_TW">時間記錄</value>
     </property>
@@ -4270,6 +4676,7 @@
         <value xml:lang="nl">Urenstaat</value>
         <value xml:lang="ro">Numar Pontaj</value>
         <value xml:lang="th">รหัสตารางเวลาการทำงาน</value>
+        <value xml:lang="vi">Định danh</value>
         <value xml:lang="zh">工单编号</value>
         <value xml:lang="zh_TW">工單編號</value>
     </property>
@@ -4279,6 +4686,7 @@
         <value xml:lang="fr">Modifier la feuille d'activité</value>
         <value xml:lang="it">Aggiorna timbratura</value>
         <value xml:lang="th">แก้ไขตารางเวลาการทำงาน</value>
+        <value xml:lang="vi">Cập nhật Khai báo công việc</value>
         <value xml:lang="zh">编辑工单</value>
         <value xml:lang="zh_TW">編輯工單</value>
     </property>
@@ -4292,6 +4700,7 @@
         <value xml:lang="ro">Urmatoarele Evenimente</value>
         <value xml:lang="ru">Наступающие события</value>
         <value xml:lang="th">เหตุการณ์ที่จะเกิดขึ้น</value>
+        <value xml:lang="vi">Sự kiện sắp tới</value>
         <value xml:lang="zh">即将发生的事件</value>
         <value xml:lang="zh_TW">即將發生的事件</value>
     </property>
@@ -4300,6 +4709,7 @@
         <value xml:lang="fr">Erreur de sécurité: pour exécuter ${resourceDescription} vous devez avoir l'autorisation WORKEFFORTMGR_UPDATE ou WORKEFFORTMGR_ADMIN</value>
         <value xml:lang="it">Errore sicurezza: per eseguire ${resourceDescription} devi avere il permesso WORKEFFORTMGR_UPDATE o WORKEFFORTMGR_ADMIN</value>
         <value xml:lang="th">Security Error: ${resourceDescription} ความปลอดภัยผิดพลาด ! ในการดำเนินการเชื่อมต่อนี้คุณต้องมี WORKEFFORTMGR_UPDATE หรือ WORKEFFORTMGR_ADMIN อนุญาต</value>
+        <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần có quyền WORKEFFORTMGR_UPDATE hoặc WORKEFFORTMGR_ADMIN</value>
         <value xml:lang="zh">安全错误：要运行这个操作你必须具有 ${resourceDescription} WORKEFFORTMGR_UPDATE 或 WORKEFFORTMGR_ADMIN 权限</value>
         <value xml:lang="zh_TW">安全錯誤：要運行這個操作你必須具有 ${resourceDescription} WORKEFFORTMGR_UPDATE 或 WORKEFFORTMGR_ADMIN 權限</value>
     </property>
@@ -4313,6 +4723,7 @@
         <value xml:lang="ro">Nume Utilizator</value>
         <value xml:lang="ru">Имя пользователя</value>
         <value xml:lang="th">ชื่อผู้เข้าใช้</value>
+        <value xml:lang="vi">Tên người dùng</value>
         <value xml:lang="zh">用户名</value>
         <value xml:lang="zh_TW">用戶名</value>
     </property>
@@ -4324,6 +4735,7 @@
         <value xml:lang="nl">U heeft geen rechten om dit scherm te kunnen zien (WORKEFFORTMGR_VIEW needed)</value>
         <value xml:lang="ro">Tu nu esti autorizat sa vezi aceasta videata (Este necesar permisul WORKEFFORTMGR_VIEW)</value>
         <value xml:lang="th">คุณไม่มีการอนุญาตในการแสดงหน้าจอนี้ (WORKEFFORTMGR_VIEW ต้องการ)</value>
+        <value xml:lang="vi">Bạn không đủ quyền xem giao diện này (cần có WORKEFFORTMGR_VIEW)</value>
         <value xml:lang="zh">你没有浏览这个屏幕的权限(需要WORKEFFORTMGR_VIEW)</value>
         <value xml:lang="zh_TW">你沒有瀏覽這個螢幕的權限(需要WORKEFFORTMGR_VIEW)</value>
     </property>
@@ -4337,6 +4749,7 @@
         <value xml:lang="ro">Afiseaza / Actualizeaza Sarcini</value>
         <value xml:lang="ru">Просмотр/редактирование заданий</value>
         <value xml:lang="th">แสดงภารกิจ / แก้ไข</value>
+        <value xml:lang="vi">Xem và Cập nhật Tác vụ - Đầu việc</value>
         <value xml:lang="zh">浏览任务/编辑</value>
         <value xml:lang="zh_TW">瀏覽任務/編輯</value>
     </property>
@@ -4350,6 +4763,7 @@
         <value xml:lang="ro">Afiseaza Saptamana</value>
         <value xml:lang="ru">По неделям</value>
         <value xml:lang="th">แสดงัปดาห์</value>
+        <value xml:lang="vi">Hiển thị tuần</value>
         <value xml:lang="zh">浏览周</value>
         <value xml:lang="zh_TW">瀏覽周</value>
     </property>
@@ -4363,6 +4777,7 @@
         <value xml:lang="ro">Bun venit</value>
         <value xml:lang="ru">Добро пожаловать!</value>
         <value xml:lang="th">ยินดีต้อนรับ</value>
+        <value xml:lang="vi">Chào mừng VSSIC</value>
         <value xml:lang="zh">欢迎</value>
         <value xml:lang="zh_TW">歡迎</value>
     </property>
@@ -4375,6 +4790,7 @@
         <value xml:lang="nl">Actie</value>
         <value xml:lang="ro">Sarcina de Lucru</value>
         <value xml:lang="th">งาน</value>
+        <value xml:lang="vi">Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务</value>
         <value xml:lang="zh_TW">工項</value>
     </property>
@@ -4387,6 +4803,7 @@
         <value xml:lang="ro">Asociere Sarcina de Lucru deja Existenta</value>
         <value xml:lang="ru">WorkEffortAssocId уже существует</value>
         <value xml:lang="th">ยังคงมีรหัสกลุ่มงานอยู่แล้ว</value>
+        <value xml:lang="vi">Lượng giá nguồn lực đã tồn tại</value>
         <value xml:lang="zh">人工服务关联标识已经存在</value>
         <value xml:lang="zh_TW">工項關聯ID已經存在</value>
     </property>
@@ -4399,6 +4816,7 @@
         <value xml:lang="ro">Sarcina de Lucru - GoodStandard asociere deja existenta</value>
         <value xml:lang="ru">Ассоциация "WorkEffort - GoodStandard" уже существует</value>
         <value xml:lang="th">งาน - ยังคงมีกลุ่มงานมาตรฐานดีอยู่แล้ว</value>
+        <value xml:lang="vi">Tiêu chuẩn đánh giá là Tốt của Lượng giá nguồn lực đã tồn tại</value>
         <value xml:lang="zh">人工服务 - 良好标准关联已存在</value>
         <value xml:lang="zh_TW">工項 - 成品規範關聯已存在</value>
     </property>
@@ -4411,6 +4829,7 @@
         <value xml:lang="nl">Taak ID</value>
         <value xml:lang="ro">Numar Sarcina de Lucru</value>
         <value xml:lang="th">รหัสงาน</value>
+        <value xml:lang="vi">Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务标识</value>
         <value xml:lang="zh_TW">工項ID</value>
     </property>
@@ -4423,6 +4842,7 @@
         <value xml:lang="nl">Taak ID is empty</value>
         <value xml:lang="ro">Numar Sarcina de lucru este gol</value>
         <value xml:lang="th">รหัสงานว่าง</value>
+        <value xml:lang="vi">Lượng giá nguồn lực rỗng</value>
         <value xml:lang="zh">人工服务标识为空</value>
         <value xml:lang="zh_TW">工項ID為空</value>
     </property>
@@ -4436,6 +4856,7 @@
         <value xml:lang="ro">Pagina Principala Gestiune Sarcini de Lucru </value>
         <value xml:lang="ru">WorkEffort Manager: Главная страница</value>
         <value xml:lang="th">หน้าหลักการจัดการความพยายามในการทำงาน</value>
+        <value xml:lang="vi">Trang chủ ứng dụng quản trị Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务首页</value>
         <value xml:lang="zh_TW">工項首頁</value>
     </property>
@@ -4445,6 +4866,7 @@
         <value xml:lang="fr">Tâche - Cette vérification existe déjà</value>
         <value xml:lang="it">Revisione impegno di lavoro già esistente</value>
         <value xml:lang="th">งาน - ยังคงมีการตรวจสอบอยู่แล้ว</value>
+        <value xml:lang="vi">Xem xét của Lượng giá nguồn lực đã tồn tại</value>
         <value xml:lang="zh">人工服务 - 检查已存在</value>
         <value xml:lang="zh_TW">工項 - 檢查已存在</value>
     </property>
@@ -4457,6 +4879,7 @@
         <value xml:lang="nl">Acties</value>
         <value xml:lang="ro">Sarcini de Lucru </value>
         <value xml:lang="th">งาน</value>
+        <value xml:lang="vi">Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务</value>
         <value xml:lang="zh_TW">工項</value>
     </property>
@@ -4469,6 +4892,7 @@
         <value xml:lang="ro">Activitati Flux de Lucru atribuite utilizatorului</value>
         <value xml:lang="ru">Работы, задания и документы, назначенные пользователю</value>
         <value xml:lang="th">กำหนดกิจกรรมขั้นตอนการทำงานถึงผู้ใช้</value>
+        <value xml:lang="vi">Hành động Lượng giá nguồn lực đã gán cho Người dùng</value>
         <value xml:lang="zh">把工作流行动指派给用户</value>
         <value xml:lang="zh_TW">把工作流行動指派給用戶</value>
     </property>
@@ -4481,6 +4905,7 @@
         <value xml:lang="ro">Activitati Flux de Lucru atribuite Grupului Utilizator</value>
         <value xml:lang="ru">Работы, задания и документы, назначенные группе пользователя</value>
         <value xml:lang="th">กำหนดกิจกรรมขั้นตอนการทำงานถึงกลุ่มผู้ใช้</value>
+        <value xml:lang="vi">Hành động Lượng giá nguồn lực đã gán cho Nhóm</value>
         <value xml:lang="zh">把工作流行动指派给用户组</value>
         <value xml:lang="zh_TW">把工作流行動指派給用戶組</value>
     </property>
@@ -4493,6 +4918,7 @@
         <value xml:lang="ro">Activitati Flux de Lucru atribuite  Rolului Utilizator</value>
         <value xml:lang="ru">Работы, задания и документы, назначенные роли пользователя</value>
         <value xml:lang="th">กำหนดกิจกรรมขั้นตอนการทำงานถึงสถานะของผู้ใช้</value>
+        <value xml:lang="vi">Hành động Lượng giá nguồn lực đã gán cho Vai trò</value>
         <value xml:lang="zh">把工作流行动指派给用户角色</value>
         <value xml:lang="zh_TW">把工作流行動指派給用戶角色</value>
     </property>

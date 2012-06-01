@@ -126,7 +126,7 @@
         <value xml:lang="ro">Adauga Lista la Cos</value>
         <value xml:lang="ru">Добавить список в корзину</value>
         <value xml:lang="th">เพิ่มรายการลงตระกร้า</value>
-        <value xml:lang="vi">Thêm danh sách vào gio hàng</value>
+        <value xml:lang="vi">Thêm danh sách vào giỏ hàng</value>
         <value xml:lang="zh">把列表放入购物车</value>
         <value xml:lang="zh_TW">把列表放入購物車</value>
     </property>
@@ -203,7 +203,7 @@
     <property key="EcommerceAddTagsDetail">
         <value xml:lang="en">Use spaces to separate tags. Use single quotes(') for phrases.</value>
         <value xml:lang="fr">Utiliser un espace pour séparer les étiquettes et des apostrophes pour les phrases.</value>
-        <value xml:lang="vi">Use spaces to separate tags. Use single quotes(') for phrases.</value>
+        <value xml:lang="vi">Dùng phím cách (space) để ngăn cách các Tag, sử dụng dấu nháy đơn (') cho các từ.</value>
     </property>
     <property key="EcommerceAdditionalAddresses">
         <value xml:lang="da">Ekstra adresser</value>
@@ -213,7 +213,7 @@
         <value xml:lang="it">Indirizzi aggiuntivi</value>
         <value xml:lang="nl">Overige adressen</value>       
         <value xml:lang="pt_BR">Endereços adicionais</value>
-        <value xml:lang="vi">Địa chỉ bổ xung</value>
+        <value xml:lang="vi">Địa chỉ bổ sung</value>
         <value xml:lang="zh">附加地址</value>
         <value xml:lang="zh_TW">附加地址</value>
     </property>
@@ -295,7 +295,7 @@
         <value xml:lang="ro">Vezi cosul numai dupa ce ai adaugat o linie</value>
         <value xml:lang="ru">Всегда просматривать корзину перед добавлением позиции</value>
         <value xml:lang="th">ดูรายการในตะกร้าหลังจากเพิ่มสินค้าเสมอ</value>
-        <value xml:lang="vi">Luôn hiển thị giỏ hang khi thêm vào một sản phẩm</value>
+        <value xml:lang="vi">Luôn hiển thị giỏ hàng khi thêm vào một sản phẩm</value>
         <value xml:lang="zh">总是在添加一个明细后浏览购物车</value>
         <value xml:lang="zh_TW">總是在增加一項目後檢視購物車</value>
     </property>
@@ -313,7 +313,7 @@
         <value xml:lang="ro">Articol</value>
         <value xml:lang="ru">Информация по статье</value>
         <value xml:lang="th">ข้อมูลบทความ</value>
-        <value xml:lang="vi">Thông tin điều khoản</value>
+        <value xml:lang="vi">Thông tin bài viết</value>
         <value xml:lang="zh">文章信息</value>
         <value xml:lang="zh_TW">文章資訊</value>
     </property>
@@ -381,7 +381,7 @@
     <property key="EcommerceBlogAddCommentPermissionError">
         <value xml:lang="en">You do not have permission to add comment.</value>
         <value xml:lang="th">คุณไม่มีสิทธิ์ในการแสดงความคิดเห็น</value>
-        <value xml:lang="vi">Bạn không được quyền thêm bình luận.</value>
+        <value xml:lang="vi">Bạn không được quyền thêm Diễn giải.</value>
         <value xml:lang="zh_TW">您沒權限增加評論。</value>
     </property>
     <property key="EcommerceBlogAddThread">
@@ -391,7 +391,7 @@
         <value xml:lang="it">Aggiungi una discussione:</value>
         <value xml:lang="nl">Start een discussie:</value>       
         <value xml:lang="pt_BR">Adicionar um tópico de discussão</value>
-        <value xml:lang="vi">Thêm một chủ đề:</value>
+        <value xml:lang="vi">Thêm luồng thảo luận:</value>
         <value xml:lang="zh">添加一个线索：</value>
         <value xml:lang="zh_TW">增加一個討論:</value>
     </property>
@@ -413,7 +413,7 @@
         <value xml:lang="it">Devi essere autenticato per poter aggiornare un commento.</value>
         <value xml:lang="nl">U moet ingelogd zijn om commentaren te wijzigen.</value>       
         <value xml:lang="pt_BR">Você deve registrar-se para editar comentários</value>
-        <value xml:lang="vi">Bạn cần phải đăng nhập để thực hiện việc chỉnh sửa bình luận.</value>
+        <value xml:lang="vi">Bạn cần phải đăng nhập để thực hiện việc chỉnh sửa Diễn giải.</value>
         <value xml:lang="zh">你必须登录以便编辑评论。</value>
         <value xml:lang="zh_TW">你必須登入以便編輯評論。</value>
     </property>
@@ -446,7 +446,7 @@
         <value xml:lang="it">Albero messaggi</value>
         <value xml:lang="nl">Berichten structuur</value>        
         <value xml:lang="pt_BR">Árvore de mensagens</value>
-        <value xml:lang="vi">Cấu trúc tin nhắn</value>
+        <value xml:lang="vi">Cây tin nhắn</value>
         <value xml:lang="zh">消息树</value>
         <value xml:lang="zh_TW">訊息樹</value>
     </property>
@@ -457,7 +457,7 @@
         <value xml:lang="it">Devi essere autenticato e visualizzare un record pubblicato per poter inviare un commento.</value>
         <value xml:lang="nl">U moet ingelogd zijn en een bericht bekijken om commentaar te kunnen plaatsten.</value>        
         <value xml:lang="pt_BR">Você deve registrar-se e estar visualizando um item publicado para poder fazer comentários.</value>
-        <value xml:lang="vi">Bạn cần phải đăng nhập và xem lại bản ghi trước khi yêu cầu đăng bình luận.</value>
+        <value xml:lang="vi">Bạn cần phải đăng nhập và xem lại bản ghi trước khi yêu cầu đăng Diễn giải.</value>
         <value xml:lang="zh">为了提交评论，你必须登录，并浏览一条已发布的记录。</value>
         <value xml:lang="zh_TW">為了提交評論，你必須登入，並檢視一筆已發佈的資料。</value>
     </property>
@@ -479,7 +479,7 @@
         <value xml:lang="it">Mostra articolo blog</value>
         <value xml:lang="nl">Bekijk blog artikel</value>        
         <value xml:lang="pt_BR">Ver artigo do blog</value>
-        <value xml:lang="vi">Xem nội dung chương mục blog</value>
+        <value xml:lang="vi">Xem nội dung bài viết blog</value>
         <value xml:lang="zh">浏览博客文章</value>
         <value xml:lang="zh_TW">瀏覽部落格文章</value>
     </property>
@@ -490,7 +490,7 @@
         <value xml:lang="it">Bronzo</value>
         <value xml:lang="nl">Brons</value>      
         <value xml:lang="pt_BR">Bronze</value>
-        <value xml:lang="vi">Màu đồng</value>
+        <value xml:lang="vi">Đồng (kim loại)</value>
         <value xml:lang="zh">铜牌</value>
         <value xml:lang="zh_TW">銅牌</value>
     </property>
@@ -594,7 +594,7 @@
         <value xml:lang="ro">Schimbare Optiuni Expediere </value>
         <value xml:lang="ru">Изменить параметры доставки</value>
         <value xml:lang="th">เปลี่ยนแปลงทางเลือกในการส่งของ</value>
-        <value xml:lang="vi">Thay đổi các lựa chọn nhận hàng</value>
+        <value xml:lang="vi">Thay đổi các tùy chọn nhận hàng</value>
         <value xml:lang="zh">修改货运选项</value>
         <value xml:lang="zh_TW">修改貨運選項</value>
     </property>
@@ -629,7 +629,7 @@
         <value xml:lang="ro">Liste Fice Pret Total</value>
         <value xml:lang="ru">Общая цена подчиненного списка</value>
         <value xml:lang="th">รายการราคาของสินค้าเด็ก</value>
-        <value xml:lang="vi">Tổng giá danh mục con</value>
+        <value xml:lang="vi">Tổng giá danh mục thành phần</value>
         <value xml:lang="zh">子列表合计价格</value>
         <value xml:lang="zh_TW">子列表合計價格</value>
     </property>
@@ -648,7 +648,7 @@
         <value xml:lang="ro">Liste Fice Cumparari </value>
         <value xml:lang="ru">Подчиненный список покупок</value>
         <value xml:lang="th">รายการที่สั่งซื้อสินค้าเด็ก</value>
-        <value xml:lang="vi">Danh sách mua hàng con</value>
+        <value xml:lang="vi">Danh sách mua hàng thành phần</value>
         <value xml:lang="zh">子购物列表</value>
         <value xml:lang="zh_TW">子購物列表</value>
     </property>
@@ -782,7 +782,7 @@
         <value xml:lang="ro">Cod Resursa Date</value>
         <value xml:lang="ru">Data Resource Id</value>
         <value xml:lang="th">หมายเลขแหล่งที่มา</value>
-        <value xml:lang="vi">Mã nguồn dữ liệu</value>
+        <value xml:lang="vi">Tài nguyên dữ liệu</value>
         <value xml:lang="zh">数据资源标识</value>
         <value xml:lang="zh_TW">資料資源ID</value>
     </property>
@@ -845,7 +845,7 @@
         <value xml:lang="ro">Adauga Din Fisierele mele</value>
         <value xml:lang="ru">Добавить из моих файлов</value>
         <value xml:lang="th">สินค้าดิจิตัลที่เพิ่มจากไฟล์ของฉัน</value>
-        <value xml:lang="vi">Thêm nội dung số hóa từ Tài liệu của tôi</value>
+        <value xml:lang="vi">Thêm nội dung từ Tài liệu của tôi</value>
         <value xml:lang="zh">从我的文件添加</value>
         <value xml:lang="zh_TW">從我的文件增加</value>
     </property>
@@ -861,7 +861,7 @@
         <value xml:lang="ro">Nou Produs Digital</value>
         <value xml:lang="ru">Новый цифровой продукт</value>
         <value xml:lang="th">สินค้าดิจิตัลใหม่</value>
-        <value xml:lang="vi">Thêm sản phẩm số hóa</value>
+        <value xml:lang="vi">Thêm sản phẩm</value>
         <value xml:lang="zh">新建数字产品</value>
         <value xml:lang="zh_TW">新的數位產品</value>
     </property>
@@ -877,7 +877,7 @@
         <value xml:lang="ro">Fisiere Produse Digitale</value>
         <value xml:lang="ru">Файлы цифровых продуктов</value>
         <value xml:lang="th">ไฟล์สินค้าดิจิตัล</value>
-        <value xml:lang="vi">Tài liệu sản phẩm số hóa</value>
+        <value xml:lang="vi">Tài liệu sản phẩm</value>
         <value xml:lang="zh">数字产品文件</value>
         <value xml:lang="zh_TW">數位產品檔案</value>
     </property>
@@ -893,7 +893,7 @@
         <value xml:lang="ro">Storia Cumparari si  Provizioane Produse Digitale</value>
         <value xml:lang="ru">История и комиссии приобретения цифровых продуктов</value>
         <value xml:lang="th">ข้อมูลค่าคอมมิชชั่นในการสั่งซื้อสินค้าดิจิตัล</value>
-        <value xml:lang="vi">Lịch sử hoa hồng mua hàng sản phẩm số hóa</value>
+        <value xml:lang="vi">Lịch sử hoa hồng mua hàng</value>
         <value xml:lang="zh">数字产品购买历史记录和佣金</value>
         <value xml:lang="zh_TW">數位產品購買歷史記錄</value>
     </property>
@@ -910,7 +910,7 @@
         <value xml:lang="ro">Upload Produs Digital</value>
         <value xml:lang="ru">Загрузка цифровой продукции</value>
         <value xml:lang="th">โหลดสินค้าดิจิตัล</value>
-        <value xml:lang="vi">Tải lên sản phẩm số hóa</value>
+        <value xml:lang="vi">Tải lên sản phẩm</value>
         <value xml:lang="zh">数字产品上传</value>
         <value xml:lang="zh_TW">數位產品上傳</value>
     </property>
@@ -927,7 +927,7 @@
         <value xml:lang="ro">Nici-un Download de Fisiere Gasit</value>
         <value xml:lang="ru">Нет файлов для загрузки</value>
         <value xml:lang="th">ไม่พบที่ดาวโหลด</value>
-        <value xml:lang="vi">Tải xuống không tìm thấy</value>
+        <value xml:lang="vi">Hiện không có nội dung tải xuống</value>
         <value xml:lang="zh">没有找到下载文件</value>
         <value xml:lang="zh_TW">沒找到下載檔案</value>
     </property>
@@ -943,7 +943,7 @@
         <value xml:lang="ro">Download de Fisiere Disponibile</value>
         <value xml:lang="ru">Доступны файлы для загрузки</value>
         <value xml:lang="th">โหลดหัวข้อที่มีอยู่</value>
-        <value xml:lang="vi">Tải xuống có sẵn</value>
+        <value xml:lang="vi">Tên các nội dung có sẵn để tải xuống</value>
         <value xml:lang="zh">可用的下载文件</value>
         <value xml:lang="zh_TW">可用的下載檔案</value>
     </property>
@@ -966,7 +966,7 @@
         <value xml:lang="it">Aggiorna questo commento</value>
         <value xml:lang="nl">Wijzig dit commentaar</value>      
         <value xml:lang="pt_BR">Editar este comentário</value>
-        <value xml:lang="vi">Chỉnh sửa bình luận này</value>
+        <value xml:lang="vi">Chỉnh sửa Diễn giải này</value>
         <value xml:lang="zh">编辑这个评论</value>
         <value xml:lang="zh_TW">編輯這個評論</value>
     </property>
@@ -1071,7 +1071,7 @@
         <value xml:lang="ro">La fiecare a-3-a</value>
         <value xml:lang="ru">Каждый 3-й</value>
         <value xml:lang="th">ทุก ๆ วันที่ 3</value>
-        <value xml:lang="vi">Vào mỗi 3 lần</value>
+        <value xml:lang="vi">Vào mỗi lần thứ 3</value>
         <value xml:lang="zh">每3天</value>
         <value xml:lang="zh_TW">每3天</value>
     </property>
@@ -1089,7 +1089,7 @@
         <value xml:lang="ro">La fiecare a-6-a</value>
         <value xml:lang="ru">Каждый 6-й</value>
         <value xml:lang="th">ทุก ๆ วันที่ 6</value>
-        <value xml:lang="vi">Vào mỗi 6 lần</value>
+        <value xml:lang="vi">Vào mỗi lần thứ 6</value>
         <value xml:lang="zh">每6天</value>
         <value xml:lang="zh_TW">每6天</value>
     </property>
@@ -1107,7 +1107,7 @@
         <value xml:lang="ro">La fiecare a-9-a</value>
         <value xml:lang="ru">Каждый 9-й</value>
         <value xml:lang="th">ทุก ๆ วันที่ 9</value>
-        <value xml:lang="vi">Vào mỗi 9 lần</value>
+        <value xml:lang="vi">Vào mỗi lần thứ 9</value>
         <value xml:lang="zh">每9天</value>
         <value xml:lang="zh_TW">每9天</value>
     </property>
@@ -1180,7 +1180,7 @@
         <value xml:lang="ro">Factoids</value>
         <value xml:lang="ru">Факты</value>
         <value xml:lang="th">คุณทราบหรือไม่ ?</value>
-        <value xml:lang="vi">Bạn có biết?</value>
+        <value xml:lang="vi">Tin nóng bạn cần biết</value>
         <value xml:lang="zh">你知道吗？</value>
         <value xml:lang="zh_TW">你知道嗎？</value>
     </property>
@@ -1198,7 +1198,7 @@
         <value xml:lang="ro">Gestiune Fisier</value>
         <value xml:lang="ru">Менеджер файлов</value>
         <value xml:lang="th">จัดการไฟล์</value>
-        <value xml:lang="vi">Quản lý tệp tin</value>
+        <value xml:lang="vi">Quản lý tập tin</value>
         <value xml:lang="zh">文件管理</value>
         <value xml:lang="zh_TW">檔案管理</value>
     </property>
@@ -1233,7 +1233,7 @@
         <value xml:lang="ro">De La Articolul Parinte</value>
         <value xml:lang="ru">От родительской статьи</value>
         <value xml:lang="th">จากครอบครัว</value>
-        <value xml:lang="vi">Từ chương mục gốc</value>
+        <value xml:lang="vi">Từ bài viết cấp trên</value>
         <value xml:lang="zh">来自上级文章</value>
         <value xml:lang="zh_TW">來自上級文章</value>
     </property>
@@ -1251,7 +1251,7 @@
         <value xml:lang="ro">De la Sit:</value>
         <value xml:lang="ru">От сайта:</value>
         <value xml:lang="th">จากที่ทำงาน</value>
-        <value xml:lang="vi">Từ website</value>
+        <value xml:lang="vi">Từ trang thông tin</value>
         <value xml:lang="zh">来自站点：</value>
         <value xml:lang="zh_TW">來自站台:</value>
     </property>
@@ -1280,7 +1280,7 @@
         <value xml:lang="ro">Valoare Omagiu :</value>
         <value xml:lang="ru">Сумма подарков:</value>
         <value xml:lang="th">จำนวนของขวัญ</value>
-        <value xml:lang="vi">Tổng số quà tặng:</value>
+        <value xml:lang="vi">Giá trị quà tặng:</value>
         <value xml:lang="zh">礼品金额     :</value>
         <value xml:lang="zh_TW">禮品金額:</value>
     </property>
@@ -1352,7 +1352,7 @@
         <value xml:lang="ro">Proces de Reincarcare Carte Omagiu Falita cu  cod de raspuns:</value>
         <value xml:lang="ru">Перезагрузка дисконтной карты не удалась с кодом ответа:</value>
         <value xml:lang="th">เกิดความผิดพลาดในการใส่บัตรของขวัญเพิ่ม</value>
-        <value xml:lang="vi">Thẻ quà tặng nhập lại bị lỗi</value>
+        <value xml:lang="vi">Tải lại thông tin Thẻ quà tặng không thành công</value>
         <value xml:lang="zh">礼品卡充值过程失败，响应码为：</value>
         <value xml:lang="zh_TW">禮品卡重新載入失敗</value>
     </property>
@@ -1370,7 +1370,7 @@
         <value xml:lang="ro">a fost reincarcata.</value>
         <value xml:lang="ru">перезагружена.</value>
         <value xml:lang="th">ใส่บัตรของขวัญเพิ่ม</value>
-        <value xml:lang="vi">Thẻ quà tặng được nhập lại</value>
+        <value xml:lang="vi">Thẻ quà tặng đã được tải lại</value>
         <value xml:lang="zh">已经充值了。</value>
         <value xml:lang="zh_TW">禮品卡已重新載入</value>
     </property>
@@ -1388,7 +1388,7 @@
         <value xml:lang="ro">Omagiul Inglobeaza Toate Liniile</value>
         <value xml:lang="ru">Подарочная упаковка для всех позиций</value>
         <value xml:lang="th">ห่อของขวัญทั้งหมด</value>
-        <value xml:lang="vi">Gift Wrap All Items</value>
+        <value xml:lang="vi">Gói tất cả hàng hóa</value>
         <value xml:lang="zh">礼品包装全部明细</value>
         <value xml:lang="zh_TW">禮品包裝全部明細</value>
     </property>
@@ -1426,7 +1426,7 @@
         <value xml:lang="ro">Aur</value>
         <value xml:lang="ru">Золотой</value>
         <value xml:lang="th">สีอง</value>
-        <value xml:lang="vi">Vàng</value>
+        <value xml:lang="vi">(hạng)Vàng</value>
         <value xml:lang="zh">金牌</value>
         <value xml:lang="zh_TW">金牌</value>
     </property>
@@ -1480,7 +1480,7 @@
         <value xml:lang="ro">Imagine centrata dedesubt</value>
         <value xml:lang="ru">Изображение по центру ниже</value>
         <value xml:lang="th">จัดภาพไว้ด้านบนตรงกลาง</value>
-        <value xml:lang="vi">Hình ảnh ở chính giữa trên</value>
+        <value xml:lang="vi">Hình ảnh căn giữa</value>
         <value xml:lang="zh">图像居中顶对齐</value>
         <value xml:lang="zh_TW">圖片居中往上對齊</value>
     </property>
@@ -1498,7 +1498,7 @@
         <value xml:lang="ro">Imagine centrata sub fisier</value>
         <value xml:lang="ru">Изображение из файла по центру ниже</value>
         <value xml:lang="th">จัดภาพไว้ตรงกลางบนไฟล์</value>
-        <value xml:lang="vi">Hình ảnh ở chính giữa trên tệp tài liệu</value>
+        <value xml:lang="vi">Hình ảnh căn giữa trên tệp tài liệu</value>
         <value xml:lang="zh">图像居中顶对齐来自文件</value>
         <value xml:lang="zh_TW">圖片居中往上對齊來自檔案</value>
     </property>
@@ -1628,7 +1628,7 @@
         <value xml:lang="ro">Linii dintr-o lista de cumparari; actualizeaza cantitatile de la lista din pagina</value>
         <value xml:lang="ru">Позиций из списка покупок; обновить количество со страницы списка</value>
         <value xml:lang="th">สินค้าจากรายการที่ซื้อ</value>
-        <value xml:lang="vi">Danh mục sản phẩm từ danh sách mua hàng</value>
+        <value xml:lang="vi">Hàng hóa từ Danh sách mua hàng</value>
         <value xml:lang="zh">明细来自购物清单；从列表页更新数量</value>
         <value xml:lang="zh_TW">明細來自購物清單; 從列表頁更新數量</value>
     </property>
@@ -1651,7 +1651,7 @@
         <value xml:lang="ro">Ultimele Categorii</value>
         <value xml:lang="ru">Последние категории</value>
         <value xml:lang="th">หมวดหมู่สุดท้าย</value>
-        <value xml:lang="vi">Các danh mục mới xem</value>
+        <value xml:lang="vi">Các Phân loại Quản lý vừa xem</value>
         <value xml:lang="zh">最近浏览的分类</value>
         <value xml:lang="zh_TW">最近瀏覽分類</value>
     </property>
@@ -1688,7 +1688,7 @@
         <value xml:lang="ro">Ultimele Produse</value>
         <value xml:lang="ru">Последние продукты</value>
         <value xml:lang="th">สินค้าสุดท้าย</value>
-        <value xml:lang="vi">Các sản phẩm mới xem</value>
+        <value xml:lang="vi">Sản phẩm vừa xem</value>
         <value xml:lang="zh">最近浏览的产品</value>
         <value xml:lang="zh_TW">最近瀏覽產品</value>
     </property>
@@ -1708,7 +1708,7 @@
         <value xml:lang="ro">Ultimele Vizite</value>
         <value xml:lang="ru">Последними просмотрены</value>
         <value xml:lang="th">ดูครั้งสุดท้าย</value>
-        <value xml:lang="vi">Mới được xem</value>
+        <value xml:lang="vi">Xem gần nhất</value>
         <value xml:lang="zh">最近浏览</value>
         <value xml:lang="zh_TW">最近瀏覽</value>
     </property>
@@ -1787,7 +1787,7 @@
         <value xml:lang="ro">Linii Liste Cumparaturi</value>
         <value xml:lang="ru">Позиции списка покупок</value>
         <value xml:lang="th">รายการสิ่งของ</value>
-        <value xml:lang="vi">Danh sách danh mục sản phẩm</value>
+        <value xml:lang="vi">Danh sách hàng hóa</value>
         <value xml:lang="zh">购物清单明细</value>
         <value xml:lang="zh_TW">購物清單明細</value>
     </property>
@@ -1806,7 +1806,7 @@
         <value xml:lang="ro">Pret Total Linii din aceasta Lista</value>
         <value xml:lang="ru">Общая цена позиций в этом списке</value>
         <value xml:lang="th">รายการรวมราคาสินค้า</value>
-        <value xml:lang="vi">Danh sách danh mục tổng giá</value>
+        <value xml:lang="vi">Tổng giá trị hàng hóa</value>
         <value xml:lang="zh">这个列表明细总价</value>
         <value xml:lang="zh_TW">這個列表明細總價</value>
     </property>
@@ -1826,7 +1826,7 @@
         <value xml:lang="ro">Nume Lista</value>
         <value xml:lang="ru">Имя списка</value>
         <value xml:lang="th">ชื่อรายการ</value>
-        <value xml:lang="vi">Danh sách tên</value>
+        <value xml:lang="vi">Tên Danh sách</value>
         <value xml:lang="zh">列表名称</value>
         <value xml:lang="zh_TW">列表名稱</value>
     </property>
@@ -1843,7 +1843,7 @@
         <value xml:lang="ro">NOTA: Dupa ce ai subscris un email la lista de contact tu vei primi un email cu un cod de verificare si un link pentru verificarea subinscrierii tale. In alternativa la link tu poti sa introduci codul tau de verificare aici.</value>
         <value xml:lang="ru">ПРИМЕЧАНИЕ: В процессе подписки на список рассылки вы получите сообщение с проверочным кодом и ссылкой на страницу подтверждения. В качестве альтернативы, вы можете ввести этот код здесь.</value>
         <value xml:lang="th">รายการข้อสังเกต</value>
-        <value xml:lang="vi">LƯU Ý: Khi bạn đăng ký một địa chỉ email liên lạc bạn sẽ nhận được một email với lựa chọn là mã xác xận hoặc một liên kết để xác nhận việc đăng ký nhận tin. Như là một lựa chọn cho liên kết mà bạn có thể nhập mã xác nhận tại đây.</value>
+        <value xml:lang="vi">LƯU Ý: Khi bạn đăng ký địa chỉ thư điện tử liên lạc bạn sẽ nhận được một thư điện tử với lựa chọn là mã xác nhận hoặc một liên kết để xác nhận việc Bảo lãnh bán hàng. Hoặc bạn sử dụng liên kết mà bạn có thể nhập mã xác nhận tại đây.</value>
         <value xml:lang="zh">注意：当你注册一个电子邮件联系列表，你会收到一个带有验证码和一个链接的电子邮件以便验证你的电子邮件有效。作为那个链接的替代方式，你可以在这里输入你的验证码。</value>
         <value xml:lang="zh_TW">注意：當你註冊一電子郵件聯絡列表, 會收到一個帶有驗証碼和一個連結的電子郵件以便驗證你的電子郵件有效。替代方式是, 你可以在這裡輸入你的驗證碼。</value>
     </property>
@@ -1854,7 +1854,7 @@
         <value xml:lang="it">Luogo</value>
         <value xml:lang="nl">Locatie</value>        
         <value xml:lang="pt_BR">Local</value>
-        <value xml:lang="vi">Khu vực</value>
+        <value xml:lang="vi">Địa điểm</value>
         <value xml:lang="zh">地点</value>
         <value xml:lang="zh_TW">地點</value>
     </property>
@@ -1871,7 +1871,7 @@
         <value xml:lang="ro">(Trebuie sa te loghezi la Posta)</value>
         <value xml:lang="ru">(Вы должны зарегистрироваться, чтобы иметь возможность писать самому)</value>
         <value xml:lang="th">บันทึกเพื่อแจ้ง</value>
-        <value xml:lang="vi">(Bạn phải đăng nhập để đăng bài)</value>
+        <value xml:lang="vi">(Bạn phải đăng nhập trước khi đăng bài)</value>
         <value xml:lang="zh">(你必须登录才能留言)</value>
         <value xml:lang="zh_TW">(你必須登入才能留言)</value>
     </property>
@@ -1907,7 +1907,7 @@
         <value xml:lang="ro">Daca nu iti mai amintesti parola, poti oricand sa ceri una noua.</value>
         <value xml:lang="ru">Если вы забыли пароль, можете запросить новый в любое время.</value>
         <value xml:lang="th">ลืมรหัสผ่าน</value>
-        <value xml:lang="vi">Nếu bạn quên mật khẩu, bạn có thể yêu cầu một mật khẩu mới bất kỳ khi nào.</value>
+        <value xml:lang="vi">Trường hợp quên mật khẩu, bạn có thể yêu cầu một mật khẩu mới bất kỳ khi nào.</value>
         <value xml:lang="zh">如果你丢了你的密码，你能随时得到一个新的。</value>
         <value xml:lang="zh_TW">如果你遺失密碼, 你隨時得到一個新的。</value>
     </property>
@@ -1925,7 +1925,7 @@
         <value xml:lang="ro">De Jos in Sus </value>
         <value xml:lang="ru">От меньшего к большему</value>
         <value xml:lang="th">ต่ำถึงสูง</value>
-        <value xml:lang="vi">Thấp đến cao</value>
+        <value xml:lang="vi">Thấp đến Cao</value>
         <value xml:lang="zh">从低到高</value>
         <value xml:lang="zh_TW">從低到高</value>
     </property>
@@ -1943,7 +1943,7 @@
         <value xml:lang="ro">Puncte de Fidelitate </value>
         <value xml:lang="ru">Точки лояльности</value>
         <value xml:lang="th">เห็นด้วย</value>
-        <value xml:lang="vi">Điểm thân thiết</value>
+        <value xml:lang="vi">Điểm gắn bó</value>
         <value xml:lang="zh">忠诚度点数</value>
         <value xml:lang="zh_TW">忠誠度點數</value>
     </property>
@@ -1971,7 +1971,7 @@
         <value xml:lang="ro">Imi pare rau, pare ca produsul specificat </value>
         <value xml:lang="ru">Sorry, it appears that the specified product ID</value>
         <value xml:lang="th">ขอโทษค่ะ , มันปรากฏเฉพาะรหัสสินค้า</value>
-        <value xml:lang="vi">Rất tiếc, nó xuất hiện cho Mã sản phẩm cụ thể đã xác định trước</value>
+        <value xml:lang="vi">Rất tiếc, Id sản phẩm bạn chọn bị trùng với sản phẩm đã có</value>
         <value xml:lang="zh">对不起，指定的产品标识</value>
         <value xml:lang="zh_TW">對不起, 指定的產品ID</value>
     </property>
@@ -2003,7 +2003,7 @@
         <value xml:lang="ro">Selectioneaza o Noua Adresa Facturare:</value>
         <value xml:lang="ru">Выберите новый платежный адрес:</value>
         <value xml:lang="th">เลือกที่อยู่ใบแจ้งค่าบริการใหม่ :</value>
-        <value xml:lang="vi">Lựa chọn một địa chỉ ghi hóa đơn:</value>
+        <value xml:lang="vi">Lựa chọn địa chỉ thanh toán mới:</value>
         <value xml:lang="zh">选择一个新的寄账单地址：</value>
         <value xml:lang="zh_TW">選擇一個新的帳單地址:</value>
     </property>
@@ -2076,12 +2076,12 @@
     <property key="EcommerceMonthsAtAddressNotValid">
         <value xml:lang="en">Months at address not a valid number: ${parameters.monthsAtAddress}</value>
         <value xml:lang="it">Mesi all'indirizzo non è un numero valido: ${parameters.monthsAtAddress}</value>
-        <value xml:lang="vi">Số tháng không hợp lệ được ghi tại: ${parameters.monthsAtAddress}</value>
+        <value xml:lang="vi">Số tháng tại địa chỉ không là số hợp lệ: ${parameters.monthsAtAddress}</value>
     </property>
     <property key="EcommerceMonthsWithEmployeeNotValid">
         <value xml:lang="en">Months with Employer was not a valid number: ${parameters.monthsWithEmployer}</value>
         <value xml:lang="it">Mesi come impiegato non è un numero valido: ${parameters.monthsWithEmployer}</value>
-        <value xml:lang="vi">Số tháng không hợp lệ với chủ quản: ${parameters.monthsWithEmployer}</value>
+        <value xml:lang="vi">Số tháng với nhân viên không là số hợp lệ: ${parameters.monthsWithEmployer}</value>
     </property>
     <property key="EcommerceMyAccount">
         <value xml:lang="da">Min konto</value>
@@ -2103,7 +2103,7 @@
         <value xml:lang="it">Imposta come indirizzo di fatturazione predefinito</value>
         <value xml:lang="nl">Van dit adres het standaard factuuradres maken</value>     
         <value xml:lang="pt_BR">Faça deste o meu endereço padrão para cobrança</value>
-        <value xml:lang="vi">Đặt mặc định thành địa chỉ ghi hóa đơn của tôi</value>
+        <value xml:lang="vi">Cũng là địa chỉ mặc định ghi hóa đơn</value>
         <value xml:lang="zh">把这个设置为我的缺省寄账单地址</value>
         <value xml:lang="zh_TW">把此項設為我的預設帳單地址</value>
     </property>
@@ -2115,7 +2115,7 @@
         <value xml:lang="it">Imposta come indirizzo di spedizione predefinito</value>
         <value xml:lang="nl">Van dit adres het standaard verzendadres maken</value>     
         <value xml:lang="pt_BR">Faça deste o meu endereço padrão para envio</value>
-        <value xml:lang="vi">Đặt mặc định thành đại chỉ nhận hàng của tôi</value>
+        <value xml:lang="vi">Cũng là địa chỉ mặc định nhận hàng</value>
         <value xml:lang="zh">把这个设置为我的缺省送货地址</value>
         <value xml:lang="zh_TW">把此項設為我的預設貨運地址</value>
     </property>
@@ -2187,7 +2187,7 @@
         <value xml:lang="ro">Noua Carte de Credit</value>
         <value xml:lang="ru">Новая кредитная карта</value>
         <value xml:lang="th">บัตรเครดิตใหม่</value>
-        <value xml:lang="vi">Thẻ tín dụng mới</value>
+        <value xml:lang="vi">Thêm thông tin thẻ tín dụng</value>
         <value xml:lang="zh">新建信用卡</value>
         <value xml:lang="zh_TW">新的信用卡</value>
     </property>
@@ -2221,7 +2221,7 @@
         <value xml:lang="ro">Noua Lista Subscriere </value>
         <value xml:lang="ru">Новая подписка на рассылку</value>
         <value xml:lang="th">รายการสั่งซื้อใหม่</value>
-        <value xml:lang="vi">Danh sách đăng ký nhận tin mới</value>
+        <value xml:lang="vi">Danh sách Bảo lãnh bán hàng mới</value>
         <value xml:lang="zh">新注册列表</value>
         <value xml:lang="zh_TW">新註冊列表</value>
     </property>
@@ -2234,7 +2234,7 @@
         <value xml:lang="nl">Uw wachtwoord is :</value>     
         <value xml:lang="pt_BR">Sua senha é:</value>
         <value xml:lang="zh">你的密码是：- </value>
-        <value xml:lang="vi">Mật khẩu của bạn là :-</value>
+        <value xml:lang="vi">Mật khẩu của bạn :-</value>
         <value xml:lang="zh_TW">你的密碼是 :- </value>
     </property>
     <property key="EcommerceNewPasswordMssgEncryptionOn">
@@ -2247,7 +2247,7 @@
         <value xml:lang="pt_BR">Sua nova senha é:</value>
         <value xml:lang="zh">你的新密码是：- </value>
         <value xml:lang="zh_TW">你的新密碼是 :- </value>
-        <value xml:lang="vi">Mật khẩu mới của bạn là :-</value>
+        <value xml:lang="vi">Mật khẩu mới của bạn :-</value>
     </property>
     <property key="EcommerceNoDigitalProductsFound">
         <value xml:lang="da">Der er ikke fundet nogen digitale produkter</value>
@@ -2261,7 +2261,7 @@
         <value xml:lang="ro">Nici-un Produs Digital Gasit</value>
         <value xml:lang="ru">Нет цифровых продуктов</value>
         <value xml:lang="th">ไม่พบสินค้าดิจิตัลที่ค้นหา</value>
-        <value xml:lang="vi">Không tìm thấy sản phẩm số hóa</value>
+        <value xml:lang="vi">Không tìm thấy sản phẩm</value>
         <value xml:lang="zh">没有找到数字产品</value>
         <value xml:lang="zh_TW">沒找到數位產品</value>
     </property>
@@ -2279,7 +2279,7 @@
         <value xml:lang="ro">Nu ai fisiere.</value>
         <value xml:lang="ru">У вас нет файлов.</value>
         <value xml:lang="th">ไม่มีไฟล์</value>
-        <value xml:lang="vi">Không có tệp tin</value>
+        <value xml:lang="vi">Không có tập tin</value>
         <value xml:lang="zh">你没有文件。</value>
         <value xml:lang="zh_TW">沒有檔案。</value>
     </property>
@@ -2297,7 +2297,7 @@
         <value xml:lang="ro">Nici-un Omagiu</value>
         <value xml:lang="ru">No Gift Wrap</value>
         <value xml:lang="th">ไม่ห่อของขวัญ</value>
-        <value xml:lang="vi">No Gift Wrap</value>
+        <value xml:lang="vi">Không gói quà</value>
         <value xml:lang="zh">没有礼品包装</value>
         <value xml:lang="zh_TW">無禮品包裝</value>
     </property>
@@ -2333,7 +2333,7 @@
         <value xml:lang="ro">Nici-o Categorie PROMOTIONALA gasita pentru CATALOG</value>
         <value xml:lang="ru">В каталоге не найдена акционная категория</value>
         <value xml:lang="th">ไม่มีโปรโมชั่นในหมวดหมู่นี้</value>
-        <value xml:lang="vi">Không có danh mục khuyến mại</value>
+        <value xml:lang="vi">Không có Phân loại Quản lý KHUYẾN MẠI cho Phân loại Trình diễn</value>
         <value xml:lang="zh">没有找到促销分类——目录</value>
         <value xml:lang="zh_TW">沒找到促銷分類——目錄</value>
     </property>
@@ -2352,7 +2352,7 @@
         <value xml:lang="ro">Nici-un Parinte </value>
         <value xml:lang="ru">Нет родителя</value>
         <value xml:lang="th">กำพร้า</value>
-        <value xml:lang="vi">Không có gốc</value>
+        <value xml:lang="vi">Không có cấp trên</value>
         <value xml:lang="zh">没有上一级</value>
         <value xml:lang="zh_TW">沒有上一級</value>
     </property>
@@ -2369,7 +2369,7 @@
         <value xml:lang="ro">Nu este nici un ProductStore pentru acest WebSite; Controlati Setarile.</value>
         <value xml:lang="ru">Нет существует ProductStore для этого сайта; Проверьте настройки.</value>
         <value xml:lang="th">ไม่มีสินค้าในคลังสินค้า</value>
-        <value xml:lang="vi">Không có kho hàng</value>
+        <value xml:lang="vi">Không có cửa hàng</value>
         <value xml:lang="zh">这个站点没有产品店铺；请检查设置。</value>
         <value xml:lang="zh_TW">此站台沒有產品商店; 請檢查設置。</value>
     </property>
@@ -2389,7 +2389,7 @@
         <value xml:lang="ro">Nici-o lista de cumparare selectionata, creaza una noua</value>
         <value xml:lang="ru">Нет выбранных списков покупок, создать новый</value>
         <value xml:lang="th">ไม่มีการสร้างรายการซื้อ</value>
-        <value xml:lang="vi">Không có danh sách mua hàng được chọn, tạo mới một</value>
+        <value xml:lang="vi">Hiện tại bạn chưa có Danh sách mua hàng nào, mời bạn tham gia mua hàng</value>
         <value xml:lang="zh">没有可选的购物列表，请新建一个</value>
         <value xml:lang="zh_TW">沒可選的購物列表, 請新建一個</value>
     </property>
@@ -2465,7 +2465,7 @@
         <value xml:lang="it">Acquisto su pagina singola</value>
         <value xml:lang="nl">Bestellen in 1 stap</value>        
         <value xml:lang="pt_BR">Finalização da compra em uma página</value>
-        <value xml:lang="vi">Trang thanh toán</value>
+        <value xml:lang="vi">Thanh toán luôn</value>
         <value xml:lang="zh">一页结账</value>
         <value xml:lang="zh_TW">單頁結帳</value>
     </property>
@@ -2556,7 +2556,7 @@
         <value xml:lang="ro">Divizie Posedata</value>
         <value xml:lang="ru">Отдел владелец</value>
         <value xml:lang="th">ของแผนก</value>
-        <value xml:lang="vi">Bộ phận thuộc chủ sở hữu</value>
+        <value xml:lang="vi">Phòng ban sở hữu</value>
         <value xml:lang="zh">拥有的部门</value>
         <value xml:lang="zh_TW">擁有的部門</value>
     </property>
@@ -2575,7 +2575,7 @@
         <value xml:lang="ro">Lista Parinte</value>
         <value xml:lang="ru">Родительский список</value>
         <value xml:lang="th">รายชื่อกลุ่ม</value>
-        <value xml:lang="vi">Danh sách gốc</value>
+        <value xml:lang="vi">Danh sách cấp trên</value>
         <value xml:lang="zh">上一级列表</value>
         <value xml:lang="zh_TW">上一級列表</value>
     </property>
@@ -2731,7 +2731,7 @@
         <value xml:lang="it">Prodotto non configurato</value>
         <value xml:lang="nl">Product niet geconfigureerd</value>        
         <value xml:lang="pt_BR">Produto não configurado</value>
-        <value xml:lang="vi">Sản phẩm không được cấu hình</value>
+        <value xml:lang="vi">Sản phẩm chưa được cấu hình</value>
         <value xml:lang="zh">产品没有配置</value>
         <value xml:lang="zh_TW">產品沒有配置</value>
     </property>
@@ -2756,7 +2756,7 @@
     <property key="EcommerceProductTags">
         <value xml:lang="en">Product Tags</value>
         <value xml:lang="fr">Étiquettes</value>
-        <value xml:lang="vi">Các đánh dấu sản phẩm</value>
+        <value xml:lang="vi">Các đánh dấu (tag) sản phẩm</value>
     </property>
     <property key="EcommerceProductTagsDetail">
         <value xml:lang="en">Other people marked this product with these tags</value>
@@ -2779,7 +2779,7 @@
         <value xml:lang="ro">Linii Promotie; Cantitatile nu pot sa fie modificate</value>
         <value xml:lang="ru">Акционные позиции; количество не может быть изменено</value>
         <value xml:lang="th">สินค้าในโปรโมชั่น</value>
-        <value xml:lang="vi">Danh mục khuyến mại</value>
+        <value xml:lang="vi">Hàng hóa khuyến mại</value>
         <value xml:lang="zh">属于促销的明细；不能更改数量</value>
         <value xml:lang="zh_TW">屬於促銷項目; 不能更改數量</value>
     </property>
@@ -2954,7 +2954,7 @@
         <value xml:lang="ro">Sterge Selectiuni</value>
         <value xml:lang="ru">Удалить выбранное</value>
         <value xml:lang="th">ลบที่เลือกไว้</value>
-        <value xml:lang="vi">Bỏ các đánh dấu</value>
+        <value xml:lang="vi">Bỏ các mục đã chọn</value>
         <value xml:lang="zh">删除所选的</value>
         <value xml:lang="zh_TW">刪除所選的</value>
     </property>
@@ -2974,7 +2974,7 @@
         <value xml:lang="ro">Rescrie cu Variante</value>
         <value xml:lang="ru">Заменить вариантами</value>
         <value xml:lang="th">แทนที่ด้วยสิ่งที่เปลี่ยนแปลง</value>
-        <value xml:lang="vi">Thay đổi với các biến thể</value>
+        <value xml:lang="vi">Thay đổi với Sản phẩm 'tự tùy chỉnh'</value>
         <value xml:lang="zh">替换为选择</value>
         <value xml:lang="zh_TW">替換為選擇</value>
     </property>
@@ -3008,7 +3008,7 @@
         <value xml:lang="ro">Raspuns</value>
         <value xml:lang="ru">Ответ</value>
         <value xml:lang="th">ตอบรับ</value>
-        <value xml:lang="vi">Phản hồi</value>
+        <value xml:lang="vi">Trả lời</value>
         <value xml:lang="zh">回答</value>
         <value xml:lang="zh_TW">回覆</value>
     </property>
@@ -3080,7 +3080,7 @@
         <value xml:lang="ro">a fost sters.</value>
         <value xml:lang="ru">был отменен.</value>
         <value xml:lang="th">แสดงคำร้องที่ถูกยกเลิก</value>
-        <value xml:lang="vi">Yêu cầu hoàn trả không được chấp nhận</value>
+        <value xml:lang="vi">Yêu cầu hoàn trả được hủy bỏ</value>
         <value xml:lang="zh">已被取消。</value>
         <value xml:lang="zh_TW">取消退貨要求已取消</value>
     </property>
@@ -3164,7 +3164,7 @@
         <value xml:lang="ro">Selectioneaza Frecventa</value>
         <value xml:lang="ru">Выбрать частоту</value>
         <value xml:lang="th">เลือกความถี่</value>
-        <value xml:lang="vi">Lựa chọn tần số</value>
+        <value xml:lang="vi">Lựa chọn tần suất lặp lại</value>
         <value xml:lang="zh">选择频率</value>
         <value xml:lang="zh_TW">選擇頻率</value>
     </property>
@@ -3182,7 +3182,7 @@
         <value xml:lang="ro">Selectioneaza Intervalul</value>
         <value xml:lang="ru">Выбрать интервал</value>
         <value xml:lang="th">เลือกช่วงเวลา</value>
-        <value xml:lang="vi">Lựa chọn khoảng</value>
+        <value xml:lang="vi">Lựa chọn khoảng lặp lại</value>
         <value xml:lang="zh">选择间隔</value>
         <value xml:lang="zh_TW">選擇間隔</value>
     </property>
@@ -3200,7 +3200,7 @@
         <value xml:lang="ro">Selectioneaza Omagiu indisponibil pentru toate liniile. Liniile care sunt disponibile vor fi selectionate, celelalte vor ramane invariate.</value>
         <value xml:lang="ru">Выбранная подарочная упаковка не доступна для всех позиций. Выбраны только позиции для которых упаковка доступна.</value>
         <value xml:lang="th">เลือกห่อของขวัญ</value>
-        <value xml:lang="vi">Selected Gift Wrap</value>
+        <value xml:lang="vi">Đã chọn kiểu gói quà</value>
         <value xml:lang="zh">所选的礼品包装无法对全部明细使用。这些选中的明细是可用的，其它没有改变。</value>
         <value xml:lang="zh_TW">所選禮品包裝無法對全部項目使用。這些選中的項目是可用的, 其他沒有改變。</value>
     </property>
@@ -3236,7 +3236,7 @@
         <value xml:lang="ro">Setare de Default</value>
         <value xml:lang="ru">Установить по умолчанию</value>
         <value xml:lang="th">กำหนดค่าที่เลือก</value>
-        <value xml:lang="vi">Đặt thành mặc định</value>
+        <value xml:lang="vi">Đặt mặc định</value>
         <value xml:lang="zh">设为缺省值</value>
         <value xml:lang="zh_TW">設為預設值</value>
     </property>
@@ -3249,7 +3249,7 @@
         <value xml:lang="nl">Verzenditems</value>       
         <value xml:lang="pt_BR">Itens do envio</value>
         <value xml:lang="th">รายการการขนส่ง</value>
-        <value xml:lang="vi">Danh mục giao hàng</value>
+        <value xml:lang="vi">Hàng hóa được chuyển</value>
         <value xml:lang="zh">货运明细</value>
         <value xml:lang="zh_TW">貨運明細</value>
     </property>
@@ -3410,7 +3410,7 @@
         <value xml:lang="nl">Aanmelden voor nieuwsbrief</value>         
         <value xml:lang="pt_BR">Registre-se na lista de contato</value>
         <value xml:lang="th">ข่าวสาร</value>
-        <value xml:lang="vi">Đăng ký danh sách liên hệ</value>
+        <value xml:lang="vi">Đăng ký nhận Tin</value>
         <value xml:lang="zh">注册用于联系列表</value>
         <value xml:lang="zh_TW">註冊用於聯系列表</value>
     </property>
@@ -3423,7 +3423,7 @@
         <value xml:lang="nl">Registreren om aan te melden voor nieuwsbrief commentaren</value>      
         <value xml:lang="pt_BR">Registre-se para comentar a lista de contatos</value>
         <value xml:lang="th">ถ้าคุณสนใจในข่าวสารให้คุณกรอกที่อยู่อีเมลข้างล่างนี้และลงทะเบียน :</value>
-        <value xml:lang="vi">Đăng ký danh sách liên hệ</value>
+        <value xml:lang="vi">Đăng ký vào danh sách Thảo luận</value>
         <value xml:lang="zh">注册用于联系列表评论</value>
         <value xml:lang="zh_TW">註冊於連絡列表評論</value>
     </property>
@@ -3436,7 +3436,7 @@
         <value xml:lang="nl">Registreren om aan te melden voor nieuwsbrief</value>      
         <value xml:lang="pt_BR">Registre-se para entrar na lista de contatos</value>
         <value xml:lang="th">ถ้าคุณสนใจข่าวสารกรุณาลอกอินเข้าสู่ระบบและลงทะเบียน:</value>
-        <value xml:lang="vi">Đăng ký danh sách liên hệ đăng nhập</value>
+        <value xml:lang="vi">Đăng nhập</value>
         <value xml:lang="zh">注册用于联系列表登录</value>
         <value xml:lang="zh_TW">註冊用於連絡列表登入</value>
     </property>
@@ -3465,7 +3465,7 @@
         <value xml:lang="it">Spiacente, l'upload di prodotti digitali non è abilitato.</value>
         <value xml:lang="nl">Excusus, het uploaden van digitale producten is gedeactiveerd.</value>     
         <value xml:lang="pt_BR">Desculpe, o upload de produtos digitais não está ativado.</value>
-        <value xml:lang="vi">Rất tiếc, phần tải liên sản phẩm số hóa không được kích hoạt.</value>
+        <value xml:lang="vi">Rất tiếc, Quản trị không cho phép Tải lên sản phẩm .</value>
         <value xml:lang="zh">对不起，不允许上传数字产品。</value>
         <value xml:lang="zh_TW">抱歉, 不允許上傳數位產品。</value>
     </property>
@@ -3513,7 +3513,7 @@
         <value xml:lang="it">Passo</value>
         <value xml:lang="nl">Stap</value>       
         <value xml:lang="pt_BR">Passo</value>
-        <value xml:lang="vi">Các bước</value>
+        <value xml:lang="vi">Bước</value>
         <value xml:lang="zh">步骤</value>
         <value xml:lang="zh_TW">步驟</value>
     </property>
@@ -3531,13 +3531,13 @@
         <value xml:lang="ro">Subiect </value>
         <value xml:lang="ru">Тема</value>
         <value xml:lang="th">หัวข้อ</value>
-        <value xml:lang="vi">Tiêu đề</value>
+        <value xml:lang="vi">Chủ đề</value>
         <value xml:lang="zh">主题</value>
         <value xml:lang="zh_TW">標題</value>
     </property>
     <property key="EcommerceSubjectMissing">
         <value xml:lang="en">Subject is missing</value>
-        <value xml:lang="vi">Tiêu đề bị bỏ quên</value>
+        <value xml:lang="vi">Chủ đề chưa có</value>
     </property>
     <property key="EcommerceSubscribe">
         <value xml:lang="da">Abonnér</value>
@@ -3551,7 +3551,7 @@
         <value xml:lang="ro">Subscrie </value>
         <value xml:lang="ru">Подписаться</value>
         <value xml:lang="th">ชำระค่าสั่งซื้อ</value>
-        <value xml:lang="vi">Đăng ký nhận tin</value>
+        <value xml:lang="vi">Ghi danh Nhận</value>
         <value xml:lang="zh">注册</value>
         <value xml:lang="zh_TW">註冊</value>
     </property>
@@ -3562,7 +3562,7 @@
         <value xml:lang="it">Sottiscrivi verifica email</value>
         <value xml:lang="nl">Verificatie aanmelden abonnement</value>       
         <value xml:lang="pt_BR">E-mail de verificação de inscrição</value>
-        <value xml:lang="vi">Email xác nhận đăng ký nhận tin</value>
+        <value xml:lang="vi">Thư điện tử xác nhận Ghi danh</value>
         <value xml:lang="zh">订阅验证电子邮件</value>
         <value xml:lang="zh_TW">訂閱驗證電子郵件</value>
     </property>
@@ -3580,7 +3580,7 @@
         <value xml:lang="ro">Informatii Breviar</value>
         <value xml:lang="ru">Итоговая информация</value>
         <value xml:lang="th">สรุปข้อมูล</value>
-        <value xml:lang="vi">Tổng hợp thông tin</value>
+        <value xml:lang="vi">Thông tin tổng hợp </value>
         <value xml:lang="zh">摘要信息</value>
         <value xml:lang="zh_TW">摘要資訊</value>
     </property>
@@ -3639,7 +3639,7 @@
         <value xml:lang="ro">Spunei unui Amic</value>
         <value xml:lang="ru">Расказать другу</value>
         <value xml:lang="th">แนะนำเพื่อน</value>
-        <value xml:lang="vi">Giới thiệu bạn bè</value>
+        <value xml:lang="vi">Giới thiệu với Bạn</value>
         <value xml:lang="zh">告诉朋友</value>
         <value xml:lang="zh_TW">告訴朋友</value>
     </property>
@@ -3657,7 +3657,7 @@
         <value xml:lang="ro">Ne pare rau, nu este posibila trimiterea acestei pagini la un amic. Va rugam selectionti de la o alta categorie sau produs.</value>
         <value xml:lang="ru">Извините, вы не можете переслать эту страницу другу. Пожалуйста выберите или категорию или продукт.</value>
         <value xml:lang="th">แสดงความเสียใจกับเพื่อน</value>
-        <value xml:lang="vi">Gửi lời xin lỗi đến bạn bè</value>
+        <value xml:lang="vi">Xin lỗi tới Bạn bè</value>
         <value xml:lang="zh">对不起，你不能把这个页面发送给朋友。请从一个分类或产品中进行选择。</value>
         <value xml:lang="zh_TW">抱歉, 你不能把這個頁面發送給朋友。請從一個分類或產品中進行選擇。</value>
     </property>
@@ -3675,7 +3675,7 @@
         <value xml:lang="ro">Numai text</value>
         <value xml:lang="ru">Только текст</value>
         <value xml:lang="th">ตัวหนังสือเท่านั้น</value>
-        <value xml:lang="vi">Chỉ viết chữ</value>
+        <value xml:lang="vi">(chỉ có) Chữ</value>
         <value xml:lang="zh">纯文本</value>
         <value xml:lang="zh_TW">純文字</value>
     </property>
@@ -3693,7 +3693,7 @@
         <value xml:lang="ro">Multumesc, pentru ca te-ai inregistrat cu </value>
         <value xml:lang="ru">Спасибо что зарегистрировались с</value>
         <value xml:lang="th">ขอบคุณสำหรับการลงทะเบียน</value>
-        <value xml:lang="vi">Cám ơn đã đăng ký</value>
+        <value xml:lang="vi">Cảm ơn đã đăng ký</value>
         <value xml:lang="zh">谢谢你注册，</value>
         <value xml:lang="zh_TW">謝謝註冊</value>
     </property>
@@ -3711,7 +3711,7 @@
         <value xml:lang="ro">Multumesc</value>
         <value xml:lang="ru">Спасибо</value>
         <value xml:lang="th">ขอบคุณ</value>
-        <value xml:lang="vi">Cám ơn</value>
+        <value xml:lang="vi">Cảm ơn</value>
         <value xml:lang="zh">谢谢你</value>
         <value xml:lang="zh_TW">謝謝你</value>
     </property>
@@ -3724,7 +3724,7 @@
         <value xml:lang="nl">Deze email is verzonden naar aanleiding van uw verzoek.</value>    
         <value xml:lang="pt_BR">Este e-mail lhe foi enviado devido ao seu pedido</value>
         <value xml:lang="th">คำร้องของคุณมีการตอบในอีเมลนี้</value>
-        <value xml:lang="vi">Email này để phản hồi việc bạn yêu cầu có</value>
+        <value xml:lang="vi">Thư điện tử này để phản hồi việc bạn yêu cầu muốn có</value>
         <value xml:lang="zh">这个电子邮件是回答你要求的</value>
         <value xml:lang="zh_TW">此電子郵件是回覆你的要求的</value>
     </property>
@@ -3742,7 +3742,7 @@
         <value xml:lang="ro">pentru a crea o cerere pentru cotare</value>
         <value xml:lang="ru">запросить коммерческое предложение</value>
         <value xml:lang="th">การสร้างรายการสั่งซื้อของลูกค้าจากตะกร้า</value>
-        <value xml:lang="vi">To Order Create CustRequest From Cart</value>
+        <value xml:lang="vi">Tới 'Đơn hàng tạo từ yêu cầu khách hàng' Từ giỏ hàng</value>
         <value xml:lang="zh">创建一个询价请求</value>
         <value xml:lang="zh_TW">從購物車建立客訴</value>
     </property>
@@ -3782,7 +3782,7 @@
         <value xml:lang="ro">Pret Unitar</value>
         <value xml:lang="ru">Стоимость единицы</value>
         <value xml:lang="th">ราคาต่อหน่วย</value>
-        <value xml:lang="vi">Đơn giá</value>
+        <value xml:lang="vi">Giá (đơn chiếc)</value>
         <value xml:lang="zh">单价</value>
         <value xml:lang="zh_TW">單價</value>
     </property>
@@ -3798,7 +3798,7 @@
         <value xml:lang="ro">Sterge Subscrierea</value>
         <value xml:lang="ru">Отменить подписку</value>
         <value xml:lang="th">ไม่ได้ชำระค่าสั่งซื้อ</value>
-        <value xml:lang="vi">Hủy đăng ký nhận tin</value>
+        <value xml:lang="vi">Hủy ghi danh Nhận</value>
         <value xml:lang="zh">注销</value>
         <value xml:lang="zh_TW">取消訂閱</value>
     </property>
@@ -3832,7 +3832,7 @@
         <value xml:lang="ro">Adauga Produs Digital</value>
         <value xml:lang="ru">Обновить цифровые продукты</value>
         <value xml:lang="th">เปลี่ยนแปลงสินค้าดิจิตัล</value>
-        <value xml:lang="vi">Cập nhật sản phẩm số hóa</value>
+        <value xml:lang="vi">Cập nhật sản phẩm</value>
         <value xml:lang="zh">更新数字产品</value>
         <value xml:lang="zh_TW">更新數位產品</value>
     </property>
@@ -3850,7 +3850,7 @@
         <value xml:lang="ro">Actualizeaza Sondaj</value>
         <value xml:lang="ru">Обновить обзор</value>
         <value xml:lang="th">เปลี่ยนแปลงการสำรวจ</value>
-        <value xml:lang="vi">Cập nhật khảo sát</value>
+        <value xml:lang="vi">Cập nhật Bản khảo sát</value>
         <value xml:lang="zh">更新调查</value>
         <value xml:lang="zh_TW">更新問卷</value>
     </property>
@@ -3867,7 +3867,7 @@
         <value xml:lang="ro">Incarca un Nou Fisier</value>
         <value xml:lang="ru">Загрузить новый файл</value>
         <value xml:lang="th">โหลดไฟล์ใหม่</value>
-        <value xml:lang="vi">Tải liên một tệp tin mới</value>
+        <value xml:lang="vi">Tải lên một tập tin mới</value>
         <value xml:lang="zh">上传新文件</value>
         <value xml:lang="zh_TW">上傳新的檔案</value>
     </property>
@@ -3885,7 +3885,7 @@
         <value xml:lang="ro">Foloseste Adresa Email</value>
         <value xml:lang="ru">Использовать Email</value>
         <value xml:lang="th">ใช้ที่อยู่อีเมล์</value>
-        <value xml:lang="vi">Sử dụng địa chỉ email</value>
+        <value xml:lang="vi">Sử dụng địa chỉ thư điện tử</value>
         <value xml:lang="zh">使用电子邮件地址</value>
         <value xml:lang="zh_TW">使用電子郵件位址</value>
     </property>
@@ -3906,7 +3906,7 @@
         <value xml:lang="ro">de Variante De Cos</value>
         <value xml:lang="ru">вариант в корзину</value>
         <value xml:lang="th">เปลี่ยนแปลงสู่ตะกร้า</value>
-        <value xml:lang="vi">Biến thể vào giỏ hàng</value>
+        <value xml:lang="vi">Sản phẩm 'tự tùy chỉnh' vào giỏ hàng</value>
         <value xml:lang="zh">的选择到购物车</value>
         <value xml:lang="zh_TW">的選擇到購物車</value>
     </property>
@@ -3922,7 +3922,7 @@
         <value xml:lang="ro">Verifica Subscrierea</value>
         <value xml:lang="ru">Проверить подписку</value>
         <value xml:lang="th">ตรวจสอบการชำระค่าสั่งซื้อ</value>
-        <value xml:lang="vi">Xác nhận đăng ký nhận tin</value>
+        <value xml:lang="vi">Xác nhận Bảo lãnh bán hàng</value>
         <value xml:lang="zh">验证注册</value>
         <value xml:lang="zh_TW">驗證訂閱</value>
     </property>
@@ -3976,7 +3976,7 @@
         <value xml:lang="ro">Vizualizeaza Mesaje Primite </value>
         <value xml:lang="ru">Просмотреть принятые сообщения</value>
         <value xml:lang="th">ดูที่ได้รับเพียงอย่างเดียว</value>
-        <value xml:lang="vi">Chỉ xem phần đã nhận</value>
+        <value xml:lang="vi">Hiển thị các thông điệp đã Nhận</value>
         <value xml:lang="zh">浏览已收到的消息</value>
         <value xml:lang="zh_TW">瀏覽已收到</value>
     </property>
@@ -3994,19 +3994,19 @@
         <value xml:lang="ro">Vizualizeaza Trimite si Primeste</value>
         <value xml:lang="ru">Просмотреть отосланные и принятые</value>
         <value xml:lang="th">ดูที่ส่ง</value>
-        <value xml:lang="vi">Xem phần đã gửi</value>
+        <value xml:lang="vi">Hiển thị các thông điệp đã Gửi</value>
         <value xml:lang="zh">浏览已发送和已接收</value>
         <value xml:lang="zh_TW">瀏覽已發送</value>
     </property>
     <property key="EcommerceYearsAtAddressNotValid">
         <value xml:lang="en">Years at address not a valid number: ${parameters.yearsAtAddress}</value>
         <value xml:lang="it">Anni all'indirizzo non è un numero valido: ${parameters.yearsAtAddress}</value>
-        <value xml:lang="vi">Số năm không hợp lệ trong phần: ${parameters.yearsAtAddress}</value>
+        <value xml:lang="vi">Số năm không phải là số hợp lệ tại địa chỉ: ${parameters.yearsAtAddress}</value>
     </property>
     <property key="EcommerceYearsWithEmployeeNotValid">
         <value xml:lang="en">Years with Employer was not a valid number: ${parameters.yearsWithEmployer}</value>
         <value xml:lang="it">Anni come impiegato non è un numero valido: ${parameters.yearsWithEmployer}</value>
-        <value xml:lang="vi">Số năm không hợp lệ với chủ sở hữu: ${parameters.yearsWithEmployer}</value>
+        <value xml:lang="vi">Số năm không phải là số hợp lệ với Nhân viên: ${parameters.yearsWithEmployer}</value>
     </property>
     <property key="EcommerceYouHave">
         <value xml:lang="da">De har</value>
@@ -4060,7 +4060,7 @@
         <value xml:lang="ro">Ai putea sa fii interesat si de </value>
         <value xml:lang="ru">Вас может также заинтересовать</value>
         <value xml:lang="th">สิ่งที่คุณสนใจ</value>
-        <value xml:lang="vi">Bạn có thể cũng quan tâm đến</value>
+        <value xml:lang="vi">Có thể cũng Bạn cũng thích thú với</value>
         <value xml:lang="zh">你可能还会有兴趣了解</value>
         <value xml:lang="zh_TW">你可能會有興趣瞭解</value>
     </property>
@@ -4140,7 +4140,7 @@
         <value xml:lang="it">La tua carta regalo è stata ricaricata</value>
         <value xml:lang="nl">Uw geschenkkaart heeft</value>     
         <value xml:lang="pt_BR">Seu cartão de presente recarregado tem</value>
-        <value xml:lang="vi">Thẻ tặng quà của bạn tải lại có</value>
+        <value xml:lang="vi">Thẻ tặng quà đã tải lại của bạn có</value>
         <value xml:lang="zh">你充值的礼品卡有</value>
         <value xml:lang="zh_TW">你重新載入禮品卡有</value>
     </property>
@@ -4152,7 +4152,7 @@
     <property key="EcommerceYourNamePhoneAndEmail">
         <value xml:lang="de">Ihr Name, Telefon und E-Mail</value>
         <value xml:lang="en">Your Name, Phone Number and E-Mail</value>
-        <value xml:lang="vi">Tên, số điện thoại và email của bạn</value>
+        <value xml:lang="vi">Tên, số điện thoại và thư điện tử của bạn</value>
     </property>
     <property key="EcommerceYourPinNumber">
         <value xml:lang="da">Deres PIN kode</value>
@@ -4189,7 +4189,7 @@
         <value xml:lang="ro">Cosul de cumparaturi este gol </value>
         <value xml:lang="ru">Ваша корзина пустая</value>
         <value xml:lang="th">ไม่มีการซื้อสินค้าลงตะกร้าของคุณ</value>
-        <value xml:lang="vi">Giỏ hàng của bạn còn trống</value>
+        <value xml:lang="vi">Giỏ hàng của bạn rỗng</value>
         <value xml:lang="zh">你的购物车是空的</value>
         <value xml:lang="zh_TW">你的購物車是空的</value>
     </property>
@@ -4225,7 +4225,7 @@
         <value xml:lang="ro">Informatii Suplimentare</value>
         <value xml:lang="ru">Дополнительная информация</value>
         <value xml:lang="th">ข้อมูลเพิ่มเติม</value>
-        <value xml:lang="vi">Thông tin bổ xung</value>
+        <value xml:lang="vi">Thông tin miêu tả thêm</value>
         <value xml:lang="zh">附加信息</value>
         <value xml:lang="zh_TW">附加資訊</value>
     </property>
@@ -4263,7 +4263,7 @@
         <value xml:lang="ro">Schimbare Password</value>
         <value xml:lang="ru">Изменить пароль</value>
         <value xml:lang="th">เปลี่ยนรหัสผ่าน</value>
-        <value xml:lang="vi">Thay đổi mật khẩu</value>
+        <value xml:lang="vi">Đổi mật khẩu</value>
         <value xml:lang="zh">修改密码</value>
         <value xml:lang="zh_TW">修改密碼</value>
     </property>
@@ -4316,7 +4316,7 @@
         <value xml:lang="ro">Actualizeaza Produsul meu Digital</value>
         <value xml:lang="ru">Редактировать мои цифровые продукты</value>
         <value xml:lang="th">แก้ไขสินค้าดิจิตัลของฉัน</value>
-        <value xml:lang="vi">Chỉnh sửa sản phẩm số hóa của tôi</value>
+        <value xml:lang="vi">Chỉnh sửa sản phẩm của tôi</value>
         <value xml:lang="zh">编辑我的数字产品</value>
         <value xml:lang="zh_TW">編輯我的數字產品</value>
     </property>
@@ -4333,7 +4333,7 @@
         <value xml:lang="ro">Listeaza Produsele mele Digitale</value>
         <value xml:lang="ru">Список моих цифровых продуктов</value>
         <value xml:lang="th">รายการสินค้าดิจิตัลของฉัน</value>
-        <value xml:lang="vi">Danh sách các sản phẩm số hóa của tôi</value>
+        <value xml:lang="vi">Danh sách các sản phẩm của tôi</value>
         <value xml:lang="zh">列出我的数字产品</value>
         <value xml:lang="zh_TW">列出我的數位產品</value>
     </property>
@@ -4387,7 +4387,7 @@
         <value xml:lang="ro">Adauga Contact</value>
         <value xml:lang="ru">Редактировать контактный механизм</value>
         <value xml:lang="th">แก้ไขข้อมูลการทำงาน</value>
-        <value xml:lang="vi">Chỉnh sửa cơ cấu liên hệ</value>
+        <value xml:lang="vi">Chỉnh sửa cơ chế (mechanism) liên hệ</value>
         <value xml:lang="zh">编辑联系方式</value>
         <value xml:lang="zh_TW">編輯連絡方式</value>
     </property>
@@ -4460,7 +4460,7 @@
         <value xml:lang="ro">Forum Articole</value>
         <value xml:lang="ru">Статья форума</value>
         <value xml:lang="th">หัวข้อแสดงความคิดเห็น</value>
-        <value xml:lang="vi">Chủ đề trong diễn đàn</value>
+        <value xml:lang="vi">Bài viết trên diễn đàn</value>
         <value xml:lang="zh">论坛文章</value>
         <value xml:lang="zh_TW">論壇文章</value>
     </property>
@@ -4550,7 +4550,7 @@
         <value xml:lang="ro">Ultimile Produse Vazute</value>
         <value xml:lang="ru">Последний просмотр продуктов</value>
         <value xml:lang="th">ดูสินค้าครั้งสุดท้าย</value>
-        <value xml:lang="vi">Các sản phẩm mới vừa được xem</value>
+        <value xml:lang="vi">Các sản phẩm vừa được xem</value>
         <value xml:lang="zh">上次浏览的产品</value>
         <value xml:lang="zh_TW">上次瀏覽產品</value>
     </property>
@@ -4594,7 +4594,7 @@
         <value xml:lang="ro">Detalii Mesaj</value>
         <value xml:lang="ru">Подробности сообщения</value>
         <value xml:lang="th">รายละเอียดข้อความ</value>
-        <value xml:lang="vi">Chi tiết tin nhắn</value>
+        <value xml:lang="vi">Chi tiết thông điệp</value>
         <value xml:lang="zh">消息详细</value>
         <value xml:lang="zh_TW">詳細訊息</value>
     </property>
@@ -4650,7 +4650,7 @@
         <value xml:lang="ro">Nou Mesaj</value>
         <value xml:lang="ru">Новое сообщение</value>
         <value xml:lang="th">ข้อความใหม่</value>
-        <value xml:lang="vi">Tin nhắn mới</value>
+        <value xml:lang="vi">Thông điệp mới</value>
         <value xml:lang="zh">新消息</value>
         <value xml:lang="zh_TW">新訊息</value>
     </property>
@@ -4663,7 +4663,7 @@
         <value xml:lang="nl">Notificatie bestelling retour</value>      
         <value xml:lang="pt_BR">Notificação de pedido a ser processado</value>
         <value xml:lang="th">พบว่าไม่สามรถส่งสินค้าตามรายการสั่งซื้อได้ในขณะนั้นเนื่องจากสินค้าหมด</value>
-        <value xml:lang="vi">Thông báo Backorder đặt hàng</value>
+        <value xml:lang="vi">Thông báo đơn hàng trả về (Backorder)</value>
         <value xml:lang="zh">订单延期交货通知</value>
         <value xml:lang="zh_TW">訂單延期交貨通知</value>
     </property>
@@ -4774,7 +4774,7 @@
         <value xml:lang="ro">Stare  Comanda </value>
         <value xml:lang="ru">Статус заказа</value>
         <value xml:lang="th">สถานะการสั่งซื้อสินค้า</value>
-        <value xml:lang="vi">Tình trạng đặt hàng</value>
+        <value xml:lang="vi">Trạng thái đặt hàng</value>
         <value xml:lang="zh">订单状态</value>
         <value xml:lang="zh_TW">訂單狀態</value>
     </property>
@@ -4794,7 +4794,7 @@
         <value xml:lang="ro">Rezumat Comanda - Multumim pentru comanda ta!</value>
         <value xml:lang="ru">Итоги по заказу - спасибо за ваш заказ!</value>
         <value xml:lang="th">สรุปการสั่งซื้อสินค้า - ขอบคุณสำหรับการทำรายการสั่งซื้อสินค้า!</value>
-        <value xml:lang="vi">Tổng kết đặt hàng - Cám ơn bạn đã mua hàng!</value>
+        <value xml:lang="vi">Cảm ơn bạn đã đặt hàng. Đơn đặt hàng toàn bộ như sau. </value>
         <value xml:lang="zh">订单摘要 - 谢谢你的惠顾！</value>
         <value xml:lang="zh_TW">訂單摘要 - 謝謝你的惠顧！</value>
     </property>
@@ -4887,7 +4887,7 @@
         <value xml:lang="ro">Trimite Mesaje</value>
         <value xml:lang="ru">Послать сообщение</value>
         <value xml:lang="th">ส่งข้อความ</value>
-        <value xml:lang="vi">Gửi tin nhắn</value>
+        <value xml:lang="vi">Thông điệp đã gửi</value>
         <value xml:lang="zh">发送消息</value>
         <value xml:lang="zh_TW">發送訊息</value>
     </property>
@@ -4900,7 +4900,7 @@
         <value xml:lang="nl">Notificatie verzending gereed</value>          
         <value xml:lang="pt_BR">Notificação de envio efetuado</value>
         <value xml:lang="th">การชำระเงินเสร็จสมบูรณ์แล้ว</value>
-        <value xml:lang="vi">Thông báo giao hàng hoàn thành</value>
+        <value xml:lang="vi">Thông báo đã hoàn thành giao hàng</value>
         <value xml:lang="zh">送货完成通知</value>
         <value xml:lang="zh_TW">送貨完成通知</value>
     </property>
@@ -4936,7 +4936,7 @@
         <value xml:lang="ro">Optiuni Expediere </value>
         <value xml:lang="ru">Параметры поставки</value>
         <value xml:lang="th">ลักษณะการขนส่ง</value>
-        <value xml:lang="vi">Lựa chọn giao hàng</value>
+        <value xml:lang="vi">Tùy chọn giao hàng</value>
         <value xml:lang="zh">送货选项</value>
         <value xml:lang="zh_TW">送貨選項</value>
     </property>
@@ -4957,7 +4957,7 @@
         <value xml:lang="ro">Cos Cumparari</value>
         <value xml:lang="ru">Корзина покупок</value>
         <value xml:lang="th">การซื้อสินค้าลงตะกร้า</value>
-        <value xml:lang="vi">Giỏ mua sắm</value>
+        <value xml:lang="vi">Giỏ hàng</value>
         <value xml:lang="zh">购物车</value>
         <value xml:lang="zh_TW">購物車</value>
     </property>
@@ -4974,14 +4974,14 @@
         <value xml:lang="ro">Divide linii pe expedieri </value>
         <value xml:lang="ru">Разделить позиции для доставки</value>
         <value xml:lang="th">แยกสินค้าเพื่อการขนส่ง</value>
-        <value xml:lang="vi">Phân chia danh mục sản phẩm để vận chuyển</value>
+        <value xml:lang="vi">Phân chia hàng hóa để vận chuyển</value>
         <value xml:lang="zh">为送货分拆明细</value>
         <value xml:lang="zh_TW">為送貨分拆明細</value>
     </property>
     <property key="PageTitleTagResults">
         <value xml:lang="en">Tag results</value>
         <value xml:lang="fr">Résultats de la recherche par étiquette</value>
-        <value xml:lang="vi">Đánh dấu kết quả</value>
+        <value xml:lang="vi">Đánh dấu (Tag) kết quả</value>
     </property>
     <property key="PageTitleViewBlog">
         <value xml:lang="da">Vis blog</value>
