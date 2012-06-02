@@ -16512,8 +16512,7 @@
     <property key="ProductInventoryNotAvailableForFacility">
         <value xml:lang="en">Could not find inventory for facility ${facilityId}</value>
         <value xml:lang="it">Non è possibile trovare lo stabilimento ${facilityId}</value>
-        <value xml:lang="vi">Không tìm thấy kho của Chi nhánh / Cơ sở ${facilityId}</value>
-        <value xml:lang="vi">Không tìm thấy Cung ứng cho Chi nhánh / Cơ sở ${facilityId}</value>
+        <value xml:lang="vi">Không tìm thấy Cung ứng (kho) cho Chi nhánh / Cơ sở ${facilityId}</value>
     </property>
     <property key="ProductInventoryReceive">
         <value xml:lang="de">Bestandseingang</value>
