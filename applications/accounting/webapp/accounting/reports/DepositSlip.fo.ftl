@@ -84,7 +84,7 @@ under the License.
                                 </fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" border="1pt solid" border-width=".1mm">
-                                <fo:block text-align="right">${paymentMethodType.description?if_exists} <#if creditCard?has_content && creditCard!= null>(${creditCard.cardType?if_exists})</#if></fo:block>
+                                <fo:block text-align="right">${paymentMethodType.description?if_exists} <#if creditCard?has_content && creditCard??>(${creditCard.cardType?if_exists})</#if></fo:block>
                                 <#assign creditCard = null/>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" border="1pt solid" border-width=".1mm">

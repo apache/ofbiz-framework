@@ -41,7 +41,7 @@ jQuery(document).ready(function(){
                     <#assign userLoginApprovers  = delegator.findByAnd("UserLogin",Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", partyRole.partyId))/>
                     <#assign userLoginApprover = userLoginApprovers[0]>
                     <#assign userLoginAndPartyDetails = delegator.findOne("UserLoginAndPartyDetails", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", userLoginApprover.partyId, "userLoginId", userLoginApprover.userLoginId), false)?if_exists>
-                    <#if userLoginAndPartyDetails != null && userLoginAndPartyDetails?has_content>
+                    <#if userLoginAndPartyDetails?has_content>
                         <#assign partyContentDetail  = delegator.findByAnd("ContentApproval",Static["org.ofbiz.base.util.UtilMisc"].toMap("roleTypeId", "IMAGEAPPROVER", "approvalStatusId", "IM_PENDING", "partyId", userLoginAndPartyDetails.partyId))/>
                         <#assign imageApproveSize = partyContentDetail.size()>
                         <#if userLoginAndPartyDetails.userLoginId == userLogin.userLoginId>
