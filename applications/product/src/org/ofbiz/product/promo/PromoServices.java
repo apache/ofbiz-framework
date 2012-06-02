@@ -234,19 +234,18 @@ public class PromoServices {
     }
 
     public static Map<String, Object> importPromoCodeEmailsFromFile(DispatchContext dctx, Map<String, ? extends Object> context) {
-       LocalDispatcher dispatcher = dctx.getDispatcher();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
         String productPromoCodeId = (String) context.get("productPromoCodeId");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
-       
+
         ByteBuffer bytebufferwrapper = (ByteBuffer) context.get("uploadedFile");
-    
+
         if (bytebufferwrapper == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
-                    "ProductPromoCodeImportUploadedFileNotValid", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ProductPromoCodeImportUploadedFileNotValid", locale));
         }
 
-        byte[] wrapper =  bytebufferwrapper.array();
+        byte[] wrapper = bytebufferwrapper.array();
        
       // read the bytes into a reader
         BufferedReader reader = new BufferedReader(new StringReader(new String(wrapper)));
