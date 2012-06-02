@@ -77,7 +77,7 @@ under the License.
                   </#if>
                   <option value='${allCustomTimePeriod.customTimePeriodId}'<#if isDefault> selected="selected"</#if>>
                     ${allCustomTimePeriod.organizationPartyId}
-                    <#if allPeriodType != null>${allPeriodType.description}:</#if>
+                    <#if allPeriodType??>${allPeriodType.description}:</#if>
                     ${allCustomTimePeriod.periodNum}
                     [${allCustomTimePeriod.customTimePeriodId}]
                   </option>
@@ -177,7 +177,7 @@ under the License.
                   </#if>
                   <option value='${allCustomTimePeriod.customTimePeriodId}'<#if isDefault> selected="selected"</#if>>
                     ${allCustomTimePeriod.organizationPartyId}
-                    <#if allPeriodType != null> ${allPeriodType.description}: </#if>
+                    <#if allPeriodType??> ${allPeriodType.description}: </#if>
                     ${allCustomTimePeriod.periodNum}
                     [${allCustomTimePeriod.customTimePeriodId}]
                   </option>
@@ -258,7 +258,7 @@ under the License.
               <option value="${allCustomTimePeriod.customTimePeriodId}"<#if isDefault> selected="selected"</#if>>
                 ${allCustomTimePeriod.organizationPartyId}
                 <#if (allCustomTimePeriod.parentPeriodId)?exists>Par:${allCustomTimePeriod.parentPeriodId}</#if>
-                <#if allPeriodType != null> ${allPeriodType.description}:</#if>
+                <#if allPeriodType??> ${allPeriodType.description}:</#if>
                 ${allCustomTimePeriod.periodNum}
                 [${allCustomTimePeriod.customTimePeriodId}]
               </option>

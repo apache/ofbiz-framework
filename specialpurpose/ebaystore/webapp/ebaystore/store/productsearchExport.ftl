@@ -715,7 +715,7 @@ under the License.
                                                                 <table>
                                                                     <#assign j = 0>
                                                                     <#list paymentMethods as paymentMethod>
-                                                                        <#if paymentMethod.value() != null>
+                                                                        <#if paymentMethod.value()??>
                                                                             <#if j == 0><tr></#if>
                                                                         <#if paymentMethod.compareTo(buyerPayMethCode_PAY_PAL?if_exists) == 0 >
                                                                                 <#assign is_payPal = true>

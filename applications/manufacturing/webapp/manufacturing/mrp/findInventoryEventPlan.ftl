@@ -161,7 +161,7 @@ document.lookupinventory.productId.focus();
                 <#if qohEvents?has_content>
                     <#assign initialQohEvent = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(qohEvents)>
                 </#if>
-                <#if initialQohEvent != null>
+                <#if initialQohEvent??>
                     <#if initialQohEvent.quantity?has_content>
                         <#assign quantityAvailableAtDate = initialQohEvent.quantity>
                     </#if>
@@ -176,7 +176,7 @@ document.lookupinventory.productId.focus();
                       <b>[${inven.productId}]</b>&nbsp;&nbsp;${product.internalName?if_exists}
                   </th>
                   <td>
-                    <#if productFacility != null && productFacility?has_content>
+                    <#if productFacility?has_content>
                       <div>
                       <b>${uiLabelMap.ProductFacility}:</b>&nbsp;${productFacility.facilityId?if_exists}
                       </div>

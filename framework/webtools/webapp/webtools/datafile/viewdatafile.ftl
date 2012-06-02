@@ -33,7 +33,7 @@ under the License.
                 <select name="DEFINITION_NAME">
                   <option value=""></option>
                   <#list definitionNames as oneDefinitionName>
-                    boolean isSelected = definitionName != null && definitionName.equals(oneDefinitionName);
+                    boolean isSelected = definitionName?? && definitionName.equals(oneDefinitionName);
                     <option value="${oneDefinitionName}" <#if parameters.DEFINITION_NAME?exists && parameters.DEFINITION_NAME == oneDefinitionName> selected="selected" </#if>>${oneDefinitionName}</option>
                   </#list>
                 </select>
@@ -82,7 +82,7 @@ under the License.
           <#assign modelRecord = record.getModelRecord()>
           <#-- if record is different than the last displayed, make a new table and header row -->
           <#if !modelRecord.name.equals(lastRecordName)>
-            <#if lastRecordName != null>
+            <#if lastRecordName??>
               </table><br />
             </#if>
             <table class="basic-table hover-bar" cellspacing="0">
@@ -113,7 +113,7 @@ under the License.
               </#if>
             </#list>
           </tr>
-          <#if record.getChildRecords() != null && (record.getChildRecords().size() > 0)>
+          <#if (record.getChildRecords())?has_content>
             <@displayrecords records = record.getChildRecords()/>
           </#if>
         </#list>

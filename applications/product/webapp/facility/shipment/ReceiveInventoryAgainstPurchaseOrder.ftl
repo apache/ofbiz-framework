@@ -24,7 +24,7 @@ under the License.
         for (var x = 0; x <= rowCount; x++) {
           var quantityAcceptedInput = document.getElementById('quantityAccepted_o_' + x);
           var quantityInput = document.getElementById('quantity_o_' + x);
-          if (quantityAcceptedInput != null && quantityInput != null) {
+          if (quantityAcceptedInput?? && quantityInput??) {
             quantityInput.value = quantityAcceptedInput.value;
           }
         }
