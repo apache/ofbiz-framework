@@ -1271,9 +1271,8 @@
         <value xml:lang="fr">lun</value>
         <value xml:lang="it">Lun</value>
         <value xml:lang="nl">Ma</value>
-        <value xml:lang="vi">Thứ 2</value>
-        <value xml:lang="zh">周一</value>
         <value xml:lang="vi">Thứ hai</value>
+        <value xml:lang="zh">周一</value>
     </property>
     <property key="ProjectMgrMyRoleForThisTask">
         <value xml:lang="de">Meine Funktion für diese Aufgabe</value>
