@@ -355,7 +355,7 @@ $(function(){
     
     <hr />
     <div id="productImageBox">
-        <#if productImageList?has_content && productImageList?has_content>
+        <#if productImageList != null && productImageList?has_content>
             <#-- Product image/name/price -->
             <div id="detailImageBox">
                 <#assign productLargeImageUrl = productContentWrapper.get("LARGE_IMAGE_URL")?if_exists />
