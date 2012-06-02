@@ -22,6 +22,7 @@
     <property key="CommonErrorDublicateKey">
         <value xml:lang="de">Doppelter Primärschlüssel. Der Primärschlüssel existiert bereits.</value>
         <value xml:lang="en">Dublicate Key. The Key already exist.</value>
+        <value xml:lang="vi">Khóa đã tồn tại và bị trùng.</value>
     </property>
     <property key="ImageTransform.error_occurs_during_reading">
         <value xml:lang="da">Der opstår en fejl under læsning</value>
@@ -32,6 +33,7 @@
         <value xml:lang="it">E' successo un'errore durante la lettura</value>
         <value xml:lang="nl">Er is een fout opgetreden tijdens het lezen</value>
         <value xml:lang="pt_BR">Um erro ocorreu durante a leitura</value>
+        <value xml:lang="vi">Lỗi xảy ra trong quá trình đọc dữ liệu</value>
         <value xml:lang="zh">读取时发生了一个错误</value>
         <value xml:lang="zh_TW">讀取時發生了一個錯誤</value>
     </property>
@@ -44,6 +46,7 @@
         <value xml:lang="it">Errore previene il documento da essere completamente parsato</value>
         <value xml:lang="nl">Een fout verhinderd het volledig parsen van het document</value>
         <value xml:lang="pt_BR">Erro impede que o documento seja totalmente analisado</value>
+        <value xml:lang="vi">Có sự cố xảy ra nên hệ thống không thể phân tích được tài liệu</value>
         <value xml:lang="zh">发生错误阻止了文档完全解析</value>
         <value xml:lang="zh_TW">發生錯誤阻止了文檔完全解析</value>
     </property>
@@ -56,6 +59,7 @@
         <value xml:lang="it">Errore accaduti durante il parsing</value>
         <value xml:lang="nl">Er zijn fouten opgetreden tijdens het parsen</value>
         <value xml:lang="pt_BR">Ocorreram erros durante a análise (Parsing)</value>
+        <value xml:lang="vi">Lỗi xảy ra trong quá trình phân tích</value>
         <value xml:lang="zh">解析时发生错误</value>
         <value xml:lang="zh_TW">解析時發生錯誤</value>
     </property>
@@ -68,6 +72,7 @@
         <value xml:lang="it">Fattore di scala finale è nullo</value>
         <value xml:lang="nl">De definitieve schaalfactor is leeg</value>
         <value xml:lang="pt_BR">Fator de escala final é nulo</value>
+        <value xml:lang="vi">Thiếu Bộ xử lý chỉnh sửa ảnh</value>
         <value xml:lang="zh">最终的缩放因子是null</value>
         <value xml:lang="zh_TW">最終的縮放因數是null</value>
     </property>
@@ -80,6 +85,7 @@
         <value xml:lang="it">Fattore di scala altezza è nullo</value>
         <value xml:lang="nl">Schaalfactor hoogte is leeg</value>
         <value xml:lang="pt_BR">Fator da escala de Altura é nula</value>
+        <value xml:lang="vi">Thiếu Bộ xử lý chỉnh sửa chiều cao ảnh</value>
         <value xml:lang="zh">高度缩放因子是null</value>
         <value xml:lang="zh_TW">高度縮放因數是null</value>
     </property>
@@ -92,6 +98,7 @@
         <value xml:lang="it">Input è nullo</value>
         <value xml:lang="nl">De ingave is leeg</value>
         <value xml:lang="pt_BR">A entrada é nula</value>
+        <value xml:lang="vi">Tham số đầu vào Rỗng</value>
         <value xml:lang="zh">输入是null</value>
         <value xml:lang="zh_TW">輸入是null</value>
     </property>
@@ -104,6 +111,7 @@
         <value xml:lang="it">Dimensione uno di default è nullo</value>
         <value xml:lang="nl">Een standaad dimensie is leeg</value>
         <value xml:lang="pt_BR">Uma dimensão padrão é null</value>
+        <value xml:lang="vi">Chiều mặc định bị Rỗng</value>
         <value xml:lang="zh">一个缺省的纬度是null</value>
         <value xml:lang="zh_TW">一個缺省的緯度是null</value>
     </property>
@@ -116,6 +124,7 @@
         <value xml:lang="it">Elemento root non è stato impostato</value>
         <value xml:lang="nl">Root element is niet ingesteld</value>
         <value xml:lang="pt_BR">Elemento raiz não foi definido</value>
+        <value xml:lang="vi">Gốc tài liệu chưa được thiết lập</value>
         <value xml:lang="zh">已经设置了根元素</value>
         <value xml:lang="zh_TW">已經設置了根元素</value>
     </property>
@@ -128,6 +137,7 @@
         <value xml:lang="it">Tipo di immagine sconosciuta bufferizzata</value>
         <value xml:lang="nl">Onbekend gebufferde afbeeldingsoort</value>
         <value xml:lang="pt_BR">Tipo de imagem em buffer Desconhecido</value>
+        <value xml:lang="vi">Kiểu bộ đệm ảnh chưa xác định</value>
         <value xml:lang="zh">未知的缓冲的图片类型</value>
         <value xml:lang="zh_TW">未知的緩衝的圖片類型</value>
     </property>
@@ -140,6 +150,7 @@
         <value xml:lang="it">Fattore di scala altezza è nullo</value>
         <value xml:lang="nl">Schaalfactor breedte is leeg</value>
         <value xml:lang="pt_BR">Fator da escala de Largura é nula</value>
+        <value xml:lang="vi">Thiếu Bộ xử lý chỉnh sửa chiều rộng ảnh</value>
         <value xml:lang="zh">宽度缩放因子是null</value>
         <value xml:lang="zh_TW">寬度縮放因數是null</value>
     </property>
