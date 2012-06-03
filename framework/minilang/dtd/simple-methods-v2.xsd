@@ -128,9 +128,9 @@ under the License.
                 <xs:documentation>
                     The comparison operator. The operator describes the l-value compared to the r-value.
                     &lt;br/&gt;&lt;br/&gt;
-                    The &quot;contains&quot; operator returns true if the l-value contains the r-value.
+                    The "contains" operator returns true if the l-value contains the r-value.
                     This operator does not perform type conversions.
-                    The l-value must be a collection type or a String. A null l-value returns false.
+                    The l-value must be a collection type or a String. A null l-value evaluates to false.
                     &lt;br/&gt;&lt;br/&gt;
                     Required. Attribute type: constant.
                 </xs:documentation>
@@ -155,11 +155,11 @@ under the License.
                 <xs:documentation>
                     The comparison operator. The operator describes the l-value compared to the r-value.
                     &lt;br/&gt;&lt;br/&gt;
-                    The &quot;contains&quot; operator returns true if the l-value contains the r-value.
-                    This operator does not perform type conversions - the &quot;type&quot; attribute will be ignored.
+                    The "contains" operator returns true if the l-value contains the r-value.
+                    This operator does not perform type conversions.
                     The l-value must be a collection type or a String. A null l-value evaluates to false.
                     &lt;br/&gt;&lt;br/&gt;
-                    The &quot;is-null&quot;, &quot;is-not-null&quot;, and &quot;is-empty&quot; operators
+                    The "is-null", "is-not-null", and "is-empty" operators
                     do not require an r-value. Any r-values will be ignored.
                     &lt;br/&gt;&lt;br/&gt;
                     Required. Attribute type: constant.
@@ -273,8 +273,7 @@ under the License.
         <xs:attribute name="delegator-name" type="xs:string">
             <xs:annotation>
                 <xs:documentation>
-                    Name of a delegator to use.
-                    By default uses the delegator associated with that instance of the service engine.
+                    Overrides the delegator by specifying a delegator name.
                     &lt;br/&gt;&lt;br/&gt;
                     Optional. Attribute type: constant, ${expression}.
                 </xs:documentation>
@@ -1885,118 +1884,101 @@ under the License.
     <xs:element name="sequenced-id" substitutionGroup="EntityMiscOperations">
         <xs:annotation>
             <xs:documentation>
-                The sequenced-id tag gets a sequenced ID from the Entity Engine (through the delegator) and puts it in the specified method environment field.
-                The object will be a java.lang.Long, but can of course be converted to a String.
+                Generates a unique numeric sequence value. Sequence values are unique per sequence name.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.sequenced-id"/>
+            <xs:attribute type="xs:string" name="sequence-name" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The sequence name. In most cases, this is the name of the entity the sequence value
+                        will be used in, but any name can be used.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute ref="field" />
+            <xs:attribute type="xs:string" name="stagger-max">
+                <xs:annotation>
+                    <xs:documentation>
+                        Sequence stagger maximum. If set to "1" the sequence value will be incremented by 1,
+                        otherwise the sequence value will be incremented by an amount between 1 and the
+                        stagger maximum. Defaults to "1".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="get-long-only">
+                <xs:annotation>
+                    <xs:documentation>
+                        Preserve the sequence type - a numeric long. If set to "false" the sequence
+                        value will be converted to a string. Defaults to "false".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="false" />
+                        <xs:enumeration value="true" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.sequenced-id">
-        <xs:attribute type="xs:string" name="sequence-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the sequence to pass to the delegator.
-                    The same name must always be used for sequenced IDs that will be used for a certain entity field otherwise non-unique keys may result.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="field" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field the sequenced ID will be put in.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="get-long-only" default="false">
-            <xs:annotation>
-                <xs:documentation>
-                    Get a numerical long value and put it there, so it does not do that by default.
-                    By default getlong-only is false. If you want it to just get a long number
-                    then you can set that to true. That's in there for supporting lower level functionality,
-                    but that's not the typical pattern used in OFBiz as we do use strings for sequencing.
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="stagger-max">
-            <xs:annotation>
-                <xs:documentation>
-                    By default this is one. But if you want to have sequenced Ids that are staggered, instead
-                    of consecutive, then you can set this to something like twenty. And then it will do a random staggering for
-                    each sequenced id; instead of picking the next value all the time it will pick something between the next value
-                    and twenty away from the next value, if stagger-max is set to twenty.
-                    So that can be used to make the sequenced Ids more difficult to guess.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="make-next-seq-id" substitutionGroup="EntityMiscOperations">
         <xs:annotation>
             <xs:documentation>
-                sequenced-id is the primary key sequencer.
-                Make-next-seq-id is the secondary key sequencer. So
-                this would be something like an orderId for example,
-                where we're sequencing an orderId automatically. And
-                this would be something like an orderItemSequenceId,
-                where we have a sub-sequence that varies for order
-                item records related back to an orderHeader. So all of
-                them will have the same orderId.
+                Generates a sequence string and uses it to update the specified entity value.
+                The sequence is generated by scanning all similar values in the entity and adding
+                an increment amount to the highest sequence value found.
+                &lt;br/&gt;&lt;br/&gt;
+                This element is typically used to generate sequences for the child entity in a
+                parent-child relationship - like order items or invoice items.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.make-next-seq-id"/>
+            <xs:attribute type="xs:string" name="value-field" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field that contains the entity value to update.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="seq-field-name" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The entity value field that will receive the sub-sequenced value.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="numeric-padding">
+                <xs:annotation>
+                    <xs:documentation>
+                        Left-pad the sequence string with the specified number of zeros.
+                        Defaults to "5".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="increment-by">
+                <xs:annotation>
+                    <xs:documentation>
+                        Sequence increment amount. Defaults to "1".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.make-next-seq-id">
-        <xs:attribute type="xs:string" name="value-field" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Specify the name of the entity for a sequenced-id preparing the primarySequencedId.
-                    The name of the entity is typically what we use for the sequenced name, but you can use anything
-                    you want if you want to have different sets of sequences.
-
-                    The risk of course of many different sets of sequences
-                    for the same entity is unless you somehow prefix or
-                    suffix the value, you could have a key conflict. So we
-                    just use the entity name for these primary sequences.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="seq-field-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The field that will have the sub-sequenced value.
-                    We use the seqId suffix on the field names in the OFBiz
-                    data model to denote that that field is a secondary sequenced ID
-                    and should therefore be maintained for this sort of operation.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="numeric-padding" default="5">
-            <xs:annotation>
-                <xs:documentation>
-                    Since these are eventually strings we do numeric-padding so that the sort is consistent,
-                    By default we pad it with five positions.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="increment-by" default="1">
-            <xs:annotation>
-                <xs:documentation>
-                    Default to 1.
-                    If you want to leave some space in the sub-sequence you
-                    can use a greater increment.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
 
     <xs:element name="entity-data" substitutionGroup="EntityMiscOperations">
         <xs:annotation>
@@ -2046,7 +2028,8 @@ under the License.
             <xs:attribute type="xs:string" name="delegator-name">
                 <xs:annotation>
                     <xs:documentation>
-                        Overrides the delegator or default context by specifying a delegator-name.
+                        Overrides the delegator by specifying a delegator name.
+                        &lt;br/&gt;&lt;br/&gt;
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -2056,61 +2039,70 @@ under the License.
     <xs:element name="find-by-primary-key" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>
-                The find-by-primary-key tag uses the delegator to find an entity value by its primary key.
-                The resulting GenericValue object will be placed in the method environment using the specified value-field.
+                Returns a single entity value that is retrieved from the database by using the primary key.
+                The primary key used for the search is contained in a map.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.find-by-primary-key"/>
+            <xs:attribute type="xs:string" name="entity-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the entity to search in. If the primary key map is an entity value,
+                        then the value's entity name can be used instead of this attribute.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional if the entity name comes from the primary key map. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="value-field" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field that will contain the entity value.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="map" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of a map in the method environment that will be used for the entity fields.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="fields-to-select-list">
+                <xs:annotation>
+                    <xs:documentation>
+                        List containing name of fields to select, if empty defaults to all entity fields.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="use-cache">
+                <xs:annotation>
+                    <xs:documentation>
+                        Specifies whether or not the delegator's cache should be searched before going to the database.
+                        This results in much faster retrieval times, but can return stale data that is not the most current in the database.
+                        Must be "true" or "false", defaults to "false".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="delegator-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        Overrides the delegator by specifying a delegator name.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.find-by-primary-key">
-        <xs:attribute type="xs:string" name="entity-name" use="optional">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the entity to find an instance of.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="map" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of a map in the method environment that will be used for the entity fields.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="value-field" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field that will contain the GenericValue object.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="use-cache" default="false">
-            <xs:annotation>
-                <xs:documentation>
-                    Specifies whether or not the delegator's cache should be searched before going to the database.
-                    This results in much faster retrieval times, but can return stale data that is not the most current in the database.
-                    Must be "true" or "false", defaults to "false".
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="fields-to-select-list">
-            <xs:annotation>
-                <xs:documentation>
-                    List containing name of fields to select, if empty defaults to all entity fields.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="delegator-name">
-            <xs:annotation>
-                <xs:documentation>
-                    By default this operation is done using the delegator that is part of the simple-method calling context.
-                    This allows you to override the default delegator by naming an alternate delegator.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="find-by-and" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>
@@ -2140,7 +2132,8 @@ under the License.
             <xs:attribute type="xs:string" name="map" use="required">
                 <xs:annotation>
                     <xs:documentation>
-                        The name of the field containing a map that will be used for the entity fields.
+                        The name of the field containing a map that will be used for the search.
+                        The map name/value pairs will be combined using a boolean AND.
                         &lt;br/&gt;&lt;br/&gt;
                         Required. Attribute type: expression.
                     </xs:documentation>
@@ -2721,156 +2714,160 @@ under the License.
     <xs:element name="get-related-one" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>
-                If you have a generic value object sitting in the context and you want to get a related entity
-                following one of the type one relationships in the data model, then you can specify the name of the value
-                here, the relation-name, the name of the relationship between the two entities, and the to-value where it
-                should put the result, and you can tell it to use-cache or not, by default it doesn't.
+                Finds an entity value that is related to an existing entity value.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.get-related-one"/>
+            <xs:attribute name="value-field" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field containing the entity value.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="relation-name" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the entity value relation to use.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="to-value-field" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field that will contain the related entity value.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="use-cache" type="xs:string" default="false">
+                <xs:annotation>
+                    <xs:documentation>
+                        Specifies whether or not the delegator's cache should be searched before going to the database.
+                        This results in much faster retrieval times, but can return stale data that is not the most current in the database.
+                        Must be "true" or "false", defaults to "false".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.get-related-one">
-        <xs:attribute name="value-field" type="xs:string" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of a generic value sitting in the context from where you want to get a related-one generic value.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="relation-name" type="xs:string" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of the one-relation to use to relate generic value in value-field to generic value in to-value.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="use-cache" type="xs:string" default="false">
-            <xs:annotation>
-                <xs:documentation>
-                    Specifies whether or not the delegator's cache should be searched before going to the database.
-                    This results in much faster retrieval times, but can return stale data that is not the most current in the database.
-                    Must be "true" or "false", defaults to "false".
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="to-value-field" type="xs:string" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of a generic value where to put the result.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="get-related" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>
-                Get-related is just like get-related-one,
-                except that instead of getting a single value back to put in the to-value,
-                it gets a full list back.
-
-                You start with the the value object, specify the name of the relationship.
-                You can specify the name of a map that will restrain the query further,
-                beyond the field mappings and their relationship.
-
-                You can also specify how you want to order it.
-
-                Use-cache true or false, list-name for the output.
+                Finds entity values that are related to an existing entity value. Returns an empty list
+                if no related entity values are found.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.get-related"/>
+            <xs:attribute type="xs:string" name="value-field" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field containing the entity value.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="relation-name" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the entity value relation to use.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="list" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field that will contain the search results list.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="map">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field containing a map that will be used for the search.
+                        The map name/value pairs will be combined using a boolean AND.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="order-by-list">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field containing a list that contains field names that you want the find operation to order the results by.
+                        Each entry in the list is a field name. The field name can be preceded by a plus or a minus sign to specify an
+                        ascending or descending sort for that field. The default is ascending sort.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="use-cache">
+                <xs:annotation>
+                    <xs:documentation>
+                        Specifies whether or not the delegator's cache should be searched before going to the database.
+                        This results in much faster retrieval times, but can return stale data that is not the most current in the database.
+                        Must be "true" or "false", defaults to "false".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.get-related">
-        <xs:attribute type="xs:string" name="value-field" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of a generic value sitting in the context from where you want to get a related generic value.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="relation-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of the relation to use to relate generic value in value-field to generic value in to-value.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="map">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of a map that will restrain the query further,
-                    beyond the field mappings and their relationship.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="order-by-list">
-            <xs:annotation>
-                <xs:documentation>
-                    This will be a list sitting in the context that has string entries in it for each field that you want it to order by/
-                    Each field in the list, or each entry in the list, will just be a string with a field name.
-                    It can be preceded by a plus or a minus to specify an ascending or descending sort for that.
-                    The default is ascending sort, so you just put a minus in front of the field-name if you want it to be descending.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="use-cache" default="false">
-            <xs:annotation>
-                <xs:documentation>
-                    Specifies whether or not the delegator's cache should be searched before going to the database.
-                    This results in much faster retrieval times, but can return stale data that is not the most current in the database.
-                    Must be "true" or "false", defaults to "false".
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="list" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of a list where to put the result in.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="order-value-list" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>
-                Order-value-list does not actually do anything with the database.
-                It takes an exiting list that has been returned and sorts it.
+                Performs an in-memory sort of a list of entity values.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.order-value-list"/>
+            <xs:attribute type="xs:string" name="list" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field that contains the list of entity values.
+                        If the source list is not found, the target field will be set to null.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="order-by-list" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field that contains the list of field names to sort on.
+                        Field names can be preceded by a plus symbol (+) or a minus symbol (-) to specify an ascending or descending sort for that field.
+                        The default is ascending sort.
+                        If the order-by-list is not found the target field will be set to a copy of the source list
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="to-list">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field that will contain the sorted list. Defaults to the field specified
+                        in the list attribute.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.order-value-list">
-        <xs:attribute type="xs:string" name="list" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of the list of generic value objects that we want to sort.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="to-list">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of the output list. If it is empty, as it is optional, it will simply use the list-name.
-                    In other words it will take the ordered list and put it over top of the resource list.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="order-by-list" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    This will be a list sitting in the context that has string entries in it for each field that you want it to order by.
-                    Each field in the list, or each entry in the list, will just be a string with a field name.
-                    It can be preceded by a plus or a minus to specify an ascending or descending sort for that.
-                    The default is ascending sort, so you just put a minus in front of the field-name if you want it to be descending.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="filter-list-by-and" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>
@@ -2975,38 +2972,41 @@ under the License.
     <xs:element name="make-value" substitutionGroup="EntityValueOperations">
         <xs:annotation>
             <xs:documentation>
-                The make-value tag uses the delegator to construct an entity value.
-                The resulting value will not necessarily exist in the database, but will simply be assembled using the entity-name and fields map.
-                The resulting GenericValue object will be placed in the method environment using the specified value-field.
+                Creates a new entity value.
+                The new entity value exists only in memory - it is not persisted in the database until it is stored.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.make-value"/>
+            <xs:attribute type="xs:string" name="entity-name" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The entity name.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="value-field" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field that will contain the entity value.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="map">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field that contains a map that is used to initialize the entity value fields.
+                        Map values whose key matches one of the entity value fields will be copied to the entity value.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.make-value">
-        <xs:attribute type="xs:string" name="value-field" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field that contains the GenericValue object.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="entity-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the entity to construct an instance of.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="map">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of a map in the method environment that will be used for the entity fields.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="clone-value" substitutionGroup="EntityValueOperations">
         <xs:annotation>
             <xs:documentation>
@@ -3017,7 +3017,7 @@ under the License.
             <xs:attribute type="xs:string" name="value-field" use="required">
                 <xs:annotation>
                     <xs:documentation>
-                        The name of the field that contains the GenericValue object.
+                        The name of the field that contains the entity value.
                         &lt;br/&gt;&lt;br/&gt;
                         Required. Attribute type: expression.
                     </xs:documentation>
@@ -3119,172 +3119,158 @@ under the License.
     <xs:element name="refresh-value" substitutionGroup="EntityValueOperations">
         <xs:annotation>
             <xs:documentation>
-                Refresh from database the value given in value-field.
+                Refresh an entity value from the database.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.refresh-value"/>
+            <xs:attribute type="xs:string" name="value-field" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field that contains the entity value.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="do-cache-clear">
+                <xs:annotation>
+                    <xs:documentation>
+                        Clear the cache. Defaults to "true".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.refresh-value">
-        <xs:attribute type="xs:string" name="value-field" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of the value to refresh from database.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="do-cache-clear" default="true">
-            <xs:annotation>
-                <xs:documentation>
-                    Clear the cache, defaults to true.
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="remove-value" substitutionGroup="EntityValueOperations">
         <xs:annotation>
             <xs:documentation>
-                The remove-value tag removes the specified GenericValue object by removing the instance of the entity in the datasource.
-                An error will result if an instance of the entity does not exist in the datasource with the same primary key.
+                Removes an entity value from the database.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.remove-value"/>
+            <xs:attribute name="value-field" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field containing the entity value.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="do-cache-clear">
+                <xs:annotation>
+                    <xs:documentation>
+                        Clear the cache. Defaults to "true".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.remove-value">
-        <xs:attribute type="xs:string" name="value-field" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field that contains the GenericValue object.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="do-cache-clear" default="true">
-            <xs:annotation>
-                <xs:documentation>
-                    Clear the cache, defaults to true
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="remove-related" substitutionGroup="EntityValueOperations">
         <xs:annotation>
             <xs:documentation>
-                Given a value name and a relationship name,
-                follows the relationship and remove all related
-                records, whether they be a type one or type many
-                relationship.
-
-                For a type one relationship it will remove a
-                single record if it exists, and for a type many relationship
-                it will remove all the records that are related to it.
-
-                This of course can be dangerous, for example if you
-                have a product-type entity and you do a remove-related
-                with a certain product type value object here, and the
-                relation name product here, it will remove all products
-                of that type. This is of more value when you're doing
-                something like removing an order or removing a product,
-                and you want to remove all related elements before
-                removing the product to resolve foreign key issues.
-
-                Usually the best practice for that, for removing a product
-                for example, is to do a remove-related on certain
-                types of information related to the product, and then try
-                to remove the product but not remove all related tables.
-
-                In many cases, if the product has been ordered for example,
-                then you do not want to remove the product,
-                and so you can do all these remove-relateds.
+                Removes entity values from the database that are related to an existing entity value.
+                For a one-to-one relationship it will remove a single entity value if it exists,
+                and for a one-to-many relationship it will remove all related entity values.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.remove-related"/>
+            <xs:attribute name="value-field" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field containing the entity value.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="relation-name" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the entity value relation to use.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="do-cache-clear">
+                <xs:annotation>
+                    <xs:documentation>
+                        Clear the cache. Defaults to "true".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.remove-related">
-        <xs:attribute type="xs:string" name="value-field" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of a generic value to remove all related records.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="relation-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of a relation to use to remove related records.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="do-cache-clear" default="true">
-            <xs:annotation>
-                <xs:documentation>
-                    Clear the cache, defaults to true
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="remove-by-and" substitutionGroup="EntityValueOperations">
         <xs:annotation>
             <xs:documentation>
-                The remove-by-and tag uses the delegator to remove entity values from the datasource and is constrained by anding the fields passed in the map.
-                Make sure the map contains something, or all values will be removed.
+                Removes entity values from the datasource.
+                Uses a map of name/value pairs that will be combined using a boolean AND to constrain the removal.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.remove-by-and"/>
+            <xs:attribute type="xs:string" name="entity-name" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the entity.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="map" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field containing a map that will be used for the constraint.
+                        The map name/value pairs will be combined using a boolean AND.
+                        If the map is missing or empty, then all entity values will be removed.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="do-cache-clear">
+                <xs:annotation>
+                    <xs:documentation>
+                        Clear the cache. Defaults to "true".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.remove-by-and">
-        <xs:attribute type="xs:string" name="entity-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the entity to remove instances of.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="map" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of a map in the method environment that will be used for the entity fields.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="do-cache-clear" default="true">
-            <xs:annotation>
-                <xs:documentation>
-                    Clear the cache, defaults to true
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="clear-cache-line" substitutionGroup="EntityValueOperations">
         <xs:annotation>
             <xs:documentation>
@@ -3441,36 +3427,38 @@ under the License.
     <xs:element name="remove-list" substitutionGroup="EntityListOperations">
         <xs:annotation>
             <xs:documentation>
-                The remove-list tag uses the delegator to remove all entity values in the list.
-                For each value in the list if it is a primary key just that entity instance will be removed, but if it is not a full primary key all entity instances will be removed from the datasource that match the constraint of the field map.
+                Removes from the database all entity values in a list.
+                If an entity value in the list is a complete primary key, then just that entity value will be removed from the database.
+                If an entity value in the list is not a complete primary key, then all matching entity values will be removed from the database.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.remove-list"/>
+            <xs:attribute type="xs:string" name="list" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field that contains the list of entity values.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="do-cache-clear">
+                <xs:annotation>
+                    <xs:documentation>
+                        Clear the cache. Defaults to "true".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.remove-list">
-        <xs:attribute type="xs:string" name="list" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field that contains the list of GenericValue objects.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="do-cache-clear" default="true">
-            <xs:annotation>
-                <xs:documentation>
-                    Clear the cache, defaults to true
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-    </xs:attributeGroup>
 
     <!-- =================== CONTROL OPERATIONS =================== -->
     <xs:element name="iterate" substitutionGroup="ControlOperations">

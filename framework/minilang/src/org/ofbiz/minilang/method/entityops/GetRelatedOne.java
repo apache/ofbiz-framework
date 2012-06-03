@@ -18,60 +18,60 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.entityops;
 
-import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangRuntimeException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
+import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Gets a list of related entity instance according to the specified relation-name
+ * Implements the &lt;get-related-one&gt; element.
  */
-public class GetRelatedOne extends MethodOperation {
+public final class GetRelatedOne extends MethodOperation {
 
     public static final String module = GetRelatedOne.class.getName();
 
-    String relationName;
-    ContextAccessor<GenericValue> toValueAcsr;
-    String useCacheStr;
-    ContextAccessor<Object> valueAcsr;
+    private final FlexibleStringExpander relationNameFse;
+    private final FlexibleMapAccessor<GenericValue> toValueFma;
+    private final FlexibleStringExpander useCacheFse;
+    private final FlexibleMapAccessor<GenericValue> valueFma;
 
     public GetRelatedOne(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        valueAcsr = new ContextAccessor<Object>(element.getAttribute("value-field"), element.getAttribute("value-name"));
-        toValueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("to-value-field"), element.getAttribute("to-value-name"));
-        relationName = element.getAttribute("relation-name");
-        useCacheStr = element.getAttribute("use-cache");
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "value-field", "relation-name", "to-value-field", "use-cache");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "value-field", "relation-name", "to-value-field");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "value-field", "to-value-field");
+            MiniLangValidate.noChildElements(simpleMethod, element);
+        }
+        valueFma = FlexibleMapAccessor.getInstance(element.getAttribute("value-field"));
+        relationNameFse = FlexibleStringExpander.getInstance(element.getAttribute("relation-name"));
+        toValueFma = FlexibleMapAccessor.getInstance(element.getAttribute("to-value-field"));
+        useCacheFse = FlexibleStringExpander.getInstance(element.getAttribute("use-cache"));
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        String relationName = methodContext.expandString(this.relationName);
-        String useCacheStr = methodContext.expandString(this.useCacheStr);
-        boolean useCache = "true".equals(useCacheStr);
-        Object valueObject = valueAcsr.get(methodContext);
-        if (!(valueObject instanceof GenericValue)) {
-            String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [env variable for value-name " + valueAcsr.toString() + " is not a GenericValue object; for the relation-name: " + relationName + "]";
-            Debug.logError(errMsg, module);
-            methodContext.setErrorReturn(errMsg, simpleMethod);
-            return false;
-        }
-        GenericValue value = (GenericValue) valueObject;
+        GenericValue value = valueFma.get(methodContext.getEnvMap());
         if (value == null) {
-            Debug.logWarning("Value not found with name: " + valueAcsr + ", not getting related...", module);
-            return true;
+            throw new MiniLangRuntimeException("Entity value not found with name: " + valueFma, this);
         }
+        String relationName = relationNameFse.expandString(methodContext.getEnvMap());
+        boolean useCache = "true".equals(useCacheFse.expandString(methodContext.getEnvMap()));
         try {
-            toValueAcsr.put(methodContext, value.getRelatedOne(relationName, useCache));
+            toValueFma.put(methodContext.getEnvMap(), value.getRelatedOne(relationName, useCache));
         } catch (GenericEntityException e) {
-            String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [problem getting related one from entity with name " + value.getEntityName() + " for the relation-name: " + relationName + ": " + e.getMessage() + "]";
-            Debug.logError(e, errMsg, module);
-            methodContext.setErrorReturn(errMsg, simpleMethod);
+            String errMsg = "Exception thrown while finding related value: " + e.getMessage();
+            Debug.logWarning(e, errMsg, module);
+            simpleMethod.addErrorMessage(methodContext, errMsg);
             return false;
         }
         return true;
@@ -79,26 +79,42 @@ public class GetRelatedOne extends MethodOperation {
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public void gatherArtifactInfo(ArtifactInfoContext aic) {
-        aic.addEntityName(relationName);
+        aic.addEntityName(relationNameFse.toString());
     }
 
     @Override
     public String rawString() {
-        // TODO: something more than the empty tag
-        return "<get-related-one/>";
+        return toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<get-related-one ");
+        sb.append("value-field=\"").append(this.valueFma).append("\" ");
+        sb.append("relation-name=\"").append(this.relationNameFse).append("\" ");
+        sb.append("to-value-field=\"").append(this.toValueFma).append("\" ");
+        if (!useCacheFse.isEmpty()) {
+            sb.append("use-cache=\"").append(this.useCacheFse).append("\" ");
+        }
+        sb.append("/>");
+        return sb.toString();
+    }
+
+    /**
+     * A factory for the &lt;get-related-one&gt; element.
+     */
     public static final class GetRelatedOneFactory implements Factory<GetRelatedOne> {
+        @Override
         public GetRelatedOne createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new GetRelatedOne(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "get-related-one";
         }

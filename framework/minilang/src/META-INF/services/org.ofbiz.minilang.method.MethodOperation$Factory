@@ -49,15 +49,12 @@ org.ofbiz.minilang.method.entityops.GetRelated$GetRelatedFactory
 org.ofbiz.minilang.method.entityops.GetRelatedOne$GetRelatedOneFactory
 org.ofbiz.minilang.method.entityops.MakeNextSeqId$MakeNextSeqIdFactory
 org.ofbiz.minilang.method.entityops.MakeValue$MakeValueFactory
-org.ofbiz.minilang.method.entityops.NowDateToEnv$NowDateToEnvFactory
-org.ofbiz.minilang.method.entityops.NowTimestampToEnv$NowTimestampFactory
 org.ofbiz.minilang.method.entityops.OrderValueList$OrderValueListFactory
 org.ofbiz.minilang.method.entityops.RefreshValue$RefreshValueFactory
 org.ofbiz.minilang.method.entityops.RemoveByAnd$RemoveByAndFactory
 org.ofbiz.minilang.method.entityops.RemoveList$RemoveListFactory
 org.ofbiz.minilang.method.entityops.RemoveRelated$RemoveRelatedFactory
 org.ofbiz.minilang.method.entityops.RemoveValue$RemoveValueFactory
-org.ofbiz.minilang.method.entityops.SequencedIdToEnv$SequencedIdToEnvFactory
 org.ofbiz.minilang.method.entityops.SequencedIdToEnv$SequencedIdFactory
 org.ofbiz.minilang.method.entityops.SetCurrentUserLogin$SetCurrentUserLoginFactory
 org.ofbiz.minilang.method.entityops.SetNonpkFields$SetNonpkFieldsFactory
@@ -83,6 +80,8 @@ org.ofbiz.minilang.method.envops.ListToList$ListToListFactory
 org.ofbiz.minilang.method.envops.Loop$LoopFactory
 org.ofbiz.minilang.method.envops.MapToMap$MapToMapFactory
 org.ofbiz.minilang.method.envops.Now$NowFactory
+org.ofbiz.minilang.method.envops.Now$NowDateToEnvFactory
+org.ofbiz.minilang.method.envops.Now$NowTimestampFactory
 org.ofbiz.minilang.method.envops.OrderMapList$OrderMapListFactory
 org.ofbiz.minilang.method.envops.SetCalendar$SetCalendarFactory
 org.ofbiz.minilang.method.envops.SetOperation$SetOperationFactory

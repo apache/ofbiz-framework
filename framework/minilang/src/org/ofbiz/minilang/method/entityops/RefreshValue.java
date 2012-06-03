@@ -19,47 +19,53 @@
 package org.ofbiz.minilang.method.entityops;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangRuntimeException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Uses the delegator to refresh the specified value object entity from the datasource
+ * Implements the &lt;refresh-value&gt; element.
  */
-public class RefreshValue extends MethodOperation {
+public final class RefreshValue extends MethodOperation {
 
     public static final String module = RemoveValue.class.getName();
 
-    String doCacheClearStr;
-    ContextAccessor<GenericValue> valueAcsr;
+    private final FlexibleStringExpander doCacheClearFse;
+    private final FlexibleMapAccessor<GenericValue> valueFma;
 
     public RefreshValue(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-field"), element.getAttribute("value-name"));
-        doCacheClearStr = element.getAttribute("do-cache-clear");
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "value-field", "do-cache-clear");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "value-field");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "value-field");
+            MiniLangValidate.noChildElements(simpleMethod, element);
+        }
+        valueFma = FlexibleMapAccessor.getInstance(element.getAttribute("value-field"));
+        doCacheClearFse = FlexibleStringExpander.getInstance(element.getAttribute("do-cache-clear"));
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        boolean doCacheClear = !"false".equals(methodContext.expandString(doCacheClearStr));
-        GenericValue value = valueAcsr.get(methodContext);
+        GenericValue value = valueFma.get(methodContext.getEnvMap());
         if (value == null) {
-            String errMsg = "In remove-value a value was not found with the specified valueAcsr: " + valueAcsr + ", not removing";
-            Debug.logWarning(errMsg, module);
-            methodContext.setErrorReturn(errMsg, simpleMethod);
-            return false;
+            throw new MiniLangRuntimeException("Entity value not found with name: " + valueFma, this);
         }
+        boolean doCacheClear = !"false".equals(doCacheClearFse.expandString(methodContext.getEnvMap()));
         try {
             methodContext.getDelegator().refresh(value, doCacheClear);
         } catch (GenericEntityException e) {
-            String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [problem removing the " + valueAcsr + " value: " + e.getMessage() + "]";
-            Debug.logError(e, errMsg, module);
-            methodContext.setErrorReturn(errMsg, simpleMethod);
+            String errMsg = "Exception thrown while refreshing value: " + e.getMessage();
+            Debug.logWarning(e, errMsg, module);
+            simpleMethod.addErrorMessage(methodContext, errMsg);
             return false;
         }
         return true;
@@ -67,21 +73,35 @@ public class RefreshValue extends MethodOperation {
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public String rawString() {
-        // TODO: something more than the empty tag
-        return "<refresh-value/>";
+        return toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<refresh-value ");
+        sb.append("value-field=\"").append(this.valueFma).append("\" ");
+        if (!doCacheClearFse.isEmpty()) {
+            sb.append("do-cache-clear=\"").append(this.doCacheClearFse).append("\" ");
+        }
+        sb.append("/>");
+        return sb.toString();
+    }
+
+    /**
+     * A factory for the &lt;refresh-value&gt; element.
+     */
     public static final class RefreshValueFactory implements Factory<RefreshValue> {
+        @Override
         public RefreshValue createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new RefreshValue(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "refresh-value";
         }

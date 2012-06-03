@@ -21,48 +21,51 @@ package org.ofbiz.minilang.method.entityops;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
+import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Uses the delegator to remove entity values constrained by anding the map fields
+ * Implements the &lt;remove-by-and&gt; element.
  */
-public class RemoveByAnd extends MethodOperation {
+public final class RemoveByAnd extends MethodOperation {
 
     public static final String module = RemoveByAnd.class.getName();
 
-    String doCacheClearStr;
-    String entityName;
-    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    private final FlexibleStringExpander doCacheClearFse;
+    private final FlexibleStringExpander entityNameFse;
+    private final FlexibleMapAccessor<Map<String, ? extends Object>> mapFma;
 
     public RemoveByAnd(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        entityName = element.getAttribute("entity-name");
-        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map"), element.getAttribute("map-name"));
-        doCacheClearStr = element.getAttribute("do-cache-clear");
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "entity-name", "map", "do-cache-clear");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "entity-name", "map");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "map");
+            MiniLangValidate.noChildElements(simpleMethod, element);
+        }
+        entityNameFse = FlexibleStringExpander.getInstance(element.getAttribute("entity-name"));
+        mapFma = FlexibleMapAccessor.getInstance(element.getAttribute("map"));
+        doCacheClearFse = FlexibleStringExpander.getInstance(element.getAttribute("do-cache-clear"));
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        boolean doCacheClear = !"false".equals(doCacheClearStr);
-        String entityName = methodContext.expandString(this.entityName);
+        boolean doCacheClear = !"false".equals(doCacheClearFse.expandString(methodContext.getEnvMap()));
+        String entityName = entityNameFse.expandString(methodContext.getEnvMap());
         try {
-            methodContext.getDelegator().removeByAnd(entityName, mapAcsr.get(methodContext), doCacheClear);
+            methodContext.getDelegator().removeByAnd(entityName, mapFma.get(methodContext.getEnvMap()), doCacheClear);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
-            String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [problem removing the " + entityName + " entity by and: " + e.getMessage() + "]";
-            if (methodContext.getMethodType() == MethodContext.EVENT) {
-                methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errMsg);
-                methodContext.putEnv(simpleMethod.getEventResponseCodeName(), simpleMethod.getDefaultErrorCode());
-            } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
-                methodContext.putEnv(simpleMethod.getServiceErrorMessageName(), errMsg);
-                methodContext.putEnv(simpleMethod.getServiceResponseMessageName(), simpleMethod.getDefaultErrorCode());
-            }
+            String errMsg = "Exception thrown while removing entities: " + e.getMessage();
+            Debug.logWarning(e, errMsg, module);
+            simpleMethod.addErrorMessage(methodContext, errMsg);
             return false;
         }
         return true;
@@ -70,21 +73,41 @@ public class RemoveByAnd extends MethodOperation {
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
+    }
+
+    @Override
+    public void gatherArtifactInfo(ArtifactInfoContext aic) {
+        aic.addEntityName(entityNameFse.toString());
     }
 
     @Override
     public String rawString() {
-        // TODO: something more than the empty tag
-        return "<remove-by-and/>";
+        return toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<remove-by-and ");
+        sb.append("entity-name=\"").append(this.entityNameFse).append("\" ");
+        sb.append("map=\"").append(this.mapFma).append("\" ");
+        if (!doCacheClearFse.isEmpty()) {
+            sb.append("do-cache-clear=\"").append(this.doCacheClearFse).append("\" ");
+        }
+        sb.append("/>");
+        return sb.toString();
+    }
+
+    /**
+     * A factory for the &lt;remove-by-and&gt; element.
+     */
     public static final class RemoveByAndFactory implements Factory<RemoveByAnd> {
+        @Override
         public RemoveByAnd createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new RemoveByAnd(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "remove-by-and";
         }
