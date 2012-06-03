@@ -33,7 +33,6 @@ import org.ofbiz.product.store.*;
 import org.ofbiz.order.shoppingcart.*;
 import org.ofbiz.product.product.ProductWorker;
 import java.text.NumberFormat;
-import javolution.util.FastList;
 
 //either optProduct, optProductId or productId must be specified
 product = request.getAttribute("optProduct");
@@ -134,7 +133,7 @@ if (product) {
     boolean isAlternativePacking = ProductWorker.isAlternativePacking(delegator, product.productId, null);
     mainProducts = [];
     if(isAlternativePacking){
-        productVirtualVariants = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productIdTo", product.productId , "productAssocTypeId", "ALTERNATIVE_PACKAGE"), true);
+        productVirtualVariants = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productIdTo", product.productId , "productAssocTypeId", "ALTERNATIVE_PACKAGE"), null, true);
         if(productVirtualVariants){
             productVirtualVariants.each { virtualVariantKey ->
                 mainProductMap = [:];
