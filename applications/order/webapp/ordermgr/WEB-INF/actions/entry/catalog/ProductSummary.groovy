@@ -33,6 +33,7 @@ import org.ofbiz.product.store.*;
 import org.ofbiz.order.shoppingcart.*;
 import org.ofbiz.product.product.ProductWorker;
 import java.text.NumberFormat;
+import javolution.util.FastList;
 
 //either optProduct, optProductId or productId must be specified
 product = request.getAttribute("optProduct");
