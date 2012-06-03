@@ -26,17 +26,36 @@ import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangRuntimeException;
+import org.ofbiz.minilang.MiniLangUtil;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.ValidationException;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- * Sets a field to the current system time.
+ * Implements the &lt;now&gt;, &lt;now-date-to-env&gt;, and &lt;now-timestamp&gt; elements.
  */
 public final class Now extends MethodOperation {
+
+    // This method is needed only during the v1 to v2 transition
+    private static boolean autoCorrect(Element element) {
+        String tagName = element.getTagName();
+        if ("now-date-to-env".equals(tagName) || "now-timestamp".equals(tagName)) {
+            Document doc = element.getOwnerDocument();
+            Element newElement = doc.createElement("now");
+            newElement.setAttribute("field", element.getAttribute("field"));
+            if ("now-date-to-env".equals(tagName)) {
+                element.setAttribute("type", "java.sql.Date");
+                newElement.setAttribute("type", "java.sql.Date");
+            }
+            element.getParentNode().replaceChild(newElement, element);
+            return true;
+        }
+        return false;
+    }
 
     private final FlexibleMapAccessor<Object> fieldFma;
     private final String type;
@@ -45,17 +64,25 @@ public final class Now extends MethodOperation {
     public Now(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         if (MiniLangValidate.validationOn()) {
+            String tagName = element.getTagName();
+            if ("now-date-to-env".equals(tagName) || "now-timestamp".equals(tagName)) {
+                MiniLangValidate.handleError("Deprecated - use <now>", simpleMethod, element);
+            }
             MiniLangValidate.attributeNames(simpleMethod, element, "field", "type");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "field");
             MiniLangValidate.expressionAttributes(simpleMethod, element, "field");
             MiniLangValidate.constantAttributes(simpleMethod, element, "type");
             MiniLangValidate.noChildElements(simpleMethod, element);
         }
+        boolean elementModified = autoCorrect(element);
+        if (elementModified && MiniLangUtil.autoCorrectOn()) {
+            MiniLangUtil.flagDocumentAsCorrected(element);
+        }
         this.fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
         this.type = element.getAttribute("type");
         Class<?> targetClass = null;
         try {
-            if (this.type.length() > 0) {
+            if (!this.type.isEmpty()) {
                 targetClass = ObjectType.loadClass(this.type);
             }
             if (targetClass == null) {
@@ -93,7 +120,7 @@ public final class Now extends MethodOperation {
         if (!this.fieldFma.isEmpty()) {
             sb.append("field=\"").append(this.fieldFma).append("\" ");
         }
-        if (this.type.length() > 0) {
+        if (!this.type.isEmpty()) {
             sb.append("type=\"").append(this.type).append("\" ");
         }
         sb.append("/>");
@@ -101,13 +128,48 @@ public final class Now extends MethodOperation {
     }
 
 
+    /**
+     * A factory for the &lt;now&gt; element.
+     */
     public static final class NowFactory implements Factory<Now> {
+        @Override
         public Now createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new Now(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "now";
+        }
+    }
+
+    /**
+     * A factory for the &lt;now-date-to-env&gt; element.
+     */
+    public static final class NowDateToEnvFactory implements Factory<Now> {
+        @Override
+        public Now createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
+            return new Now(element, simpleMethod);
+        }
+
+        @Override
+        public String getName() {
+            return "now-date-to-env";
+        }
+    }
+
+    /**
+     * A factory for the &lt;now-timestamp&gt; element.
+     */
+    public static final class NowTimestampFactory implements Factory<Now> {
+        @Override
+        public Now createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
+            return new Now(element, simpleMethod);
+        }
+
+        @Override
+        public String getName() {
+            return "now-timestamp";
         }
     }
 }
