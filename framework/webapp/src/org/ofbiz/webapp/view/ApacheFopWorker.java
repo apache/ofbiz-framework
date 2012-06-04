@@ -44,8 +44,13 @@ import org.apache.fop.apps.MimeConstants;
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.DelegatorFactory;
+import org.ofbiz.entity.util.EntityUtilProperties;
 
 /**
  * Apache FOP worker class.
@@ -66,6 +71,16 @@ public class ApacheFopWorker {
      * @return FopFactory The FopFactory instance
      */
     public static FopFactory getFactoryInstance() {
+        Delegator delegator = DelegatorFactory.getDelegator("default");
+        return getFactoryInstance(delegator);
+    }
+
+    /** Returns an instance of the FopFactory class. FOP documentation recommends
+     * the reuse of the factory instance because of the startup time.
+     * @param delegator the delegator
+     * @return FopFactory The FopFactory instance
+     */
+    public static FopFactory getFactoryInstance(Delegator delegator) {
         if (fopFactory == null) {
             synchronized (ApacheFopWorker.class) {
                 if (fopFactory != null) {
@@ -78,13 +93,13 @@ public class ApacheFopWorker {
                 fopFactory.setStrictValidation(false);
 
                 try {
-                    String ofbizHome = System.getProperty("ofbiz.home");
-                    String fopPath = UtilProperties.getPropertyValue("fop.properties", "fop.path", ofbizHome + "/framework/webapp/config");
+                    String fopPath = EntityUtilProperties.getPropertyValue("url.properties", "fop.path", delegator);
                     File userConfigFile = FileUtil.getFile(fopPath + "/fop.xconf");
                     fopFactory.setUserConfig(userConfigFile);
-                    String fopFontBaseUrl = UtilProperties.getPropertyValue("fop.properties", "fop.font.base.url", "file:///" + ofbizHome + "/framework/webapp/config/");
-                    fopFactory.getFontManager().setFontBaseURL(fopFontBaseUrl);
-                    Debug.logInfo("FOP-FontBaseURL: " + fopFontBaseUrl, module);
+                    String fopFontBasePath = EntityUtilProperties.getPropertyValue("url.properties", "fop.font.base.path", delegator);
+                    File fopFontBasePathFile = new File(fopFontBasePath);
+                    URL fopFontBaseUrl = FlexibleLocation.resolveLocation(fopFontBasePathFile.toString());
+                    fopFactory.getFontManager().setFontBaseURL(fopFontBaseUrl.toString());
                 } catch (Exception e) {
                     Debug.logWarning("Error reading FOP configuration", module);
                 }
