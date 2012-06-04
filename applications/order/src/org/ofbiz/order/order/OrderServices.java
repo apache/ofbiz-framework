@@ -2252,6 +2252,7 @@ public class OrderServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String orderId = (String) context.get("orderId");
         String statusId = (String) context.get("statusId");
+        String changeReason = (String) context.get("changeReason");
         Map<String, Object> successResult = ServiceUtil.returnSuccess();
         Locale locale = (Locale) context.get("locale");
 
@@ -2304,6 +2305,7 @@ public class OrderServices {
             orderStatus.put("orderId", orderId);
             orderStatus.put("statusDatetime", UtilDateTime.nowTimestamp());
             orderStatus.put("statusUserLogin", userLogin.getString("userLoginId"));
+            orderStatus.put("changeReason", changeReason);
 
             orderHeader.store();
             orderStatus.create();
