@@ -336,11 +336,11 @@ public final class ScriptUtil {
      */
     public static Object executeScript(String filePath, String functionName, Map<String, Object> context, Object[] args) {
         try {
-            /* Enable this to run Groovy data preparation scripts using GroovyUtil rather than the generic JSR223 that doesn't support debug mode
+            // Enabled to run Groovy data preparation scripts using GroovyUtil rather than the generic JSR223 that doesn't support debug mode
+            // and does not return a stack trace with line number on error
             if (filePath.endsWith(".groovy")) {
                 return GroovyUtil.runScriptAtLocation(filePath, functionName, context);
             }
-            */
             return executeScript(filePath, functionName, createScriptContext(context), args);
         } catch (Exception e) {
             String errMsg = "Error running script at location [" + filePath + "]: " + e.toString();
