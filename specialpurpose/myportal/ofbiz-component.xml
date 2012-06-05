@@ -24,8 +24,8 @@
     <resource-loader name="main" type="component"/>
     <classpath type="dir" location="config"/>
 
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/MyPortalSecurityData.xml"/>
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/MyPortalTypeData.xml"/>
+    <entity-resource type="data" reader-name="security" loader="main" location="data/MyPortalSecurityData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/MyPortalPageDemoData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/MyPortalDemoData.xml"/>
 
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>

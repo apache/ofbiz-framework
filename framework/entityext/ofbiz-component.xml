@@ -29,7 +29,7 @@ under the License.
     
     <entity-resource type="data" reader-name="seed" loader="main" location="data/EntityExtTypeData.xml"/>
     <entity-resource type="data" reader-name="seed-initial" loader="main" location="data/EntityScheduledServices.xml"/>
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/EntityExtSecurityData.xml"/>
+    <entity-resource type="data" reader-name="security" loader="main" location="data/EntityExtSecurityData.xml"/>
     
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="group" loader="main" location="servicedef/groups.xml"/>
