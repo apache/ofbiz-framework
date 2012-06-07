@@ -98,18 +98,18 @@ access. For a detailed description see the core/docs/entityconfig.html file.
 
     <!-- need to at least define a name for each component to use -->
     <!-- defining:
+        security     = OFBiz security group and security permissions. are required to show a component.
         tenant       = OFBiz and External Tenant Data
         seed         = OFBiz and External Seed Data - to be maintained along with source and updated whenever a system deployment is updated
-        security     = OFBiz security group and security permissions. are required to show a component.
         seed-initial = OFBiz and External Seed Data - to be maintained along with source like other seed data, but only loaded initially and not updated when a system is updated except manually reviewing each line
         demo         = OFBiz Only Demo Data
         ext          = External General Data (custom)
         ext-test     = External Test Data (custom)
         ext-demo     = External Demo Data (custom)
     -->
+    <entity-data-reader name="security"/>
     <entity-data-reader name="tenant"/>
     <entity-data-reader name="seed"/>
-    <entity-data-reader name="security"/>
     <entity-data-reader name="seed-initial"/>
     <entity-data-reader name="demo"/>
     <entity-data-reader name="ext"/>
@@ -155,9 +155,9 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             use-fk-initially-deferred="false"
             join-style="ansi-no-parenthesis"
             alias-view-columns="true">
+        <read-data reader-name="security"/>
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
-        <read-data reader-name="security"/>
         <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
@@ -185,9 +185,9 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             use-indices-unique="false"
             alias-view-columns="false"
             use-order-by-nulls="true">
+        <read-data reader-name="security"/>
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
-        <read-data reader-name="security"/>
         <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
@@ -236,9 +236,9 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             alias-view-columns="false"
             use-order-by-nulls="true">
         <!-- beware use-indices-unique="false" is needed because of Derby bug with null values in a unique index -->
+        <read-data reader-name="security"/>
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
-        <read-data reader-name="security"/>
         <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
@@ -263,9 +263,9 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         use-indices-unique="false"
         alias-view-columns="false"
         use-order-by-nulls="true">
+        <read-data reader-name="security"/>
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
-        <read-data reader-name="security"/>
         <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
@@ -287,9 +287,9 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             field-type-name="daffodil"
             check-on-start="true"
             add-missing-on-start="true">
+        <read-data reader-name="security"/>
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
-        <read-data reader-name="security"/>
         <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
@@ -313,9 +313,9 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             check-on-start="true"
             add-missing-on-start="true"
             use-pk-constraint-names="false">
+        <read-data reader-name="security"/>
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
-        <read-data reader-name="security"/>
         <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
@@ -343,9 +343,9 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             table-type="InnoDB"
             character-set="latin1"
             collate="latin1_general_cs">
+        <read-data reader-name="security"/>
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
-        <read-data reader-name="security"/>
         <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
@@ -375,9 +375,9 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             table-type="InnoDB"
             character-set="latin1"
             collate="latin1_general_cs">
+        <read-data reader-name="security"/>
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
-        <read-data reader-name="security"/>
         <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
@@ -407,9 +407,9 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             table-type="InnoDB"
             character-set="latin1"
             collate="latin1_general_cs">
+        <read-data reader-name="security"/>
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
-        <read-data reader-name="security"/>
         <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
@@ -439,9 +439,9 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             table-type="InnoDB"
             character-set="latin1"
             collate="latin1_general_cs">
+        <read-data reader-name="security"/>
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
-        <read-data reader-name="security"/>
         <inline-jdbc
                 jdbc-driver="com.mysql.jdbc.Driver"
                 jdbc-uri="jdbc:mysql://127.0.0.1/ofbiz_odbc?autoReconnect=true"
@@ -468,9 +468,9 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             <!-- use this attribute to make the EntityListIterator more effective for pgjdbc 7.5devel and later:
                 result-fetch-size="50"
             -->
+        <read-data reader-name="security"/>
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
-        <read-data reader-name="security"/>
         <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
@@ -507,9 +507,9 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         result-fetch-size="50"
         use-binary-type-for-blob="true"
         use-order-by-nulls="true">
+        <read-data reader-name="security"/>
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
-        <read-data reader-name="security"/>
         <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
@@ -542,9 +542,9 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             result-fetch-size="50"
             use-binary-type-for-blob="true"
             use-order-by-nulls="true">
+        <read-data reader-name="security"/>
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
-        <read-data reader-name="security"/>
         <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
@@ -577,9 +577,9 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             result-fetch-size="50"
             use-binary-type-for-blob="true"
             use-order-by-nulls="true">
+        <read-data reader-name="security"/>
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
-        <read-data reader-name="security"/>
         <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
@@ -610,9 +610,9 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             alias-view-columns="false"
             join-style="ansi"
             use-order-by-nulls="true">
+        <read-data reader-name="security"/>
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
-        <read-data reader-name="security"/>
         <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
@@ -652,9 +652,9 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             add-missing-on-start="true"
             use-fk-initially-deferred="false"
             join-style="ansi">
+        <read-data reader-name="security"/>
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
-        <read-data reader-name="security"/>
         <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
@@ -677,9 +677,9 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             fk-style="name_fk"
             use-fk-initially-deferred="false"
             join-style="ansi-no-parenthesis">
+        <read-data reader-name="security"/>
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
-        <read-data reader-name="security"/>
         <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
@@ -706,9 +706,9 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             add-missing-on-start="true"
             alias-view-columns="false"
             join-style="ansi">
+        <read-data reader-name="security"/>
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
-        <read-data reader-name="security"/>
         <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
@@ -750,9 +750,9 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             join-style="ansi"
             alias-view-columns="false"
             use-fk-initially-deferred="false">
+        <read-data reader-name="security"/>
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
-        <read-data reader-name="security"/>
         <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
@@ -775,9 +775,9 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             check-on-start="true"
             add-missing-on-start="true"
             join-style="ansi">
+        <read-data reader-name="security"/>
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
-        <read-data reader-name="security"/>
         <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
@@ -804,9 +804,9 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             join-style="ansi-no-parenthesis"
             alias-view-columns="false"
             always-use-constraint-keyword="true">
+        <read-data reader-name="security"/>
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
-        <read-data reader-name="security"/>
         <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
