@@ -442,7 +442,8 @@ under the License.
                     request,
                     request-redirect,
                     request-redirect-noparam,
-                    url
+                    url,
+                    cross-redirect
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
@@ -502,7 +503,7 @@ under the License.
                         <xs:annotation>
                             <xs:documentation>
                                 Send a redirect down to the browser telling it to go to the new request.
-                                Automatically redirect all current request parameters to the new request.
+                                Automatically redirect all current request parameters to the new request or only redirected parameters if specified.                                
                             </xs:documentation>
                         </xs:annotation>
                     </xs:enumeration>
@@ -510,14 +511,21 @@ under the License.
                         <xs:annotation>
                             <xs:documentation>
                                 Send a redirect down to the browser telling it to go to the new request.
-                                No current request parameters are sent to the new request.
+                                No current request parameters are sent to the new request, nor redirected parameters if specified.
                             </xs:documentation>
                         </xs:annotation>
                     </xs:enumeration>
                     <xs:enumeration value="url">
                         <xs:annotation>
                             <xs:documentation>
-                                Any URL, relative or absolute
+                                Any URL, relative or absolute. Redirected parameters are not used, you can put them in the url.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="cross-redirect">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Works like URL but you can also pass redirected parameters.
                             </xs:documentation>
                         </xs:annotation>
                     </xs:enumeration>
