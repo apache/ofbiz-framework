@@ -48,7 +48,6 @@ under the License.
         <menu-item name="ExampleCharts" title="Chart examples">
             <link target="ExampleBarChart"/>
         </menu-item>
-        <menu-item name="ExampleJackrabbit" title="${uiLabelMap.PageTitleExampleJackrabbit}"><link target="ExampleJackrabbitShowContentData"/></menu-item>
     </menu>
 
     <menu name="EditExample" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
@@ -101,13 +100,5 @@ under the License.
     <menu name="ExampleCharts" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="ExampleBarChart" title="Bar chart"><link target="ExampleBarChart"/></menu-item>
         <menu-item name="ExamplePieChart" title="Pie chart"><link target="ExamplePieChart"/></menu-item>
-    </menu>
-
-    <menu name="ExampleJackrabbit" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
-        <menu-item name="ExampleJackrabbitShowContentData" title="${uiLabelMap.ExampleJackrabbitShowContentData}"><link target="ExampleJackrabbitShowContentData"/></menu-item>
-        <menu-item name="ExampleJackrabbitAddData" title="${uiLabelMap.ExampleAddNewContentEntry}"><link target="ExampleJackrabbitAddData"/></menu-item>
-        <menu-item name="ExampleJackrabbitUploadFileData" title="${uiLabelMap.ExampleJackrabbitUploadFileData}"><link target="ExampleJackrabbitUploadFileData"/></menu-item>
-        <menu-item name="ExampleJackrabbitShowUploadedFiles" title="${uiLabelMap.ExampleJackrabbitShowUploadedFiles}"><link target="ExampleJackrabbitShowUploadedFiles"/></menu-item>
-        <menu-item name="ExampleJackrabbitScanRepositoryStrukture" title="${uiLabelMap.ExampleScanRepositoryStrukture}"><link target="ExampleJackrabbitScanRepositoryStructure"/></menu-item>
     </menu>
 </menus>

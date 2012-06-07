@@ -294,32 +294,6 @@ under the License.
         </section>
     </screen>
 
-    <screen name="CommonExampleJackrabbitDecorator">
-        <section>
-            <actions>
-                <set field="headerItem" value="ExampleJackrabbit" />
-                <set field="labelFieldName" value="exampleTypeId" />
-                <set field="dataFieldName" value="total" />
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator"
-                    location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="pre-body">
-                        <include-menu name="ExampleJackrabbit" location="component://example/widget/example/ExampleMenus.xml"/>
-                    </decorator-section>
-                    <decorator-section name="body">
-                        <container style="clear" />
-                        <section>
-                            <widgets>
-                                <decorator-section-include name="body" />
-                            </widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
     <screen name="main">
         <!-- This is the screen for the Main page in the Example component. A common pattern
             in OFBiz is to have each component include a Main page as a starting point for

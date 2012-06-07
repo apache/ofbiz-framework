@@ -117,12 +117,4 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="CommonExampleJackrabbitDecorator">
-        <section>
-            <widgets>
-                <include-screen name="CommonExampleJackrabbitDecorator" location="component://example/widget/example/CommonScreens.xml"/>
-            </widgets>
-        </section>
-    </screen>
-
 </screens>
