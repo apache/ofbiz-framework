@@ -21,8 +21,6 @@ runtime/logs/*.log*
 runtime/logs/*.html*
 runtime/logs/test-results/*
 runtime/data/derby/*
-runtime/data/jcr/*
-runtime/data/jcr-test/*
 runtime/data/utilcache.*
 runtime/catalina/work/*
 runtime/jetty

@@ -32,7 +32,6 @@ under the License.
     <load-component component-location="common"/>
     <load-component component-location="service"/>
     <load-component component-location="entityext"/>
-    <load-component component-location="jcr"/>
     <load-component component-location="bi"/>
     <load-component component-location="birt"/>
     <load-component component-location="webapp"/>

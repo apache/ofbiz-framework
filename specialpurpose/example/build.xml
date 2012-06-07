@@ -51,7 +51,5 @@ under the License.
         <fileset dir="../../framework/webapp/lib" includes="*.jar"/>
         <fileset dir="../../framework/webapp/build/lib" includes="*.jar"/>
         <fileset dir="../../framework/common/build/lib" includes="*.jar"/>
-        <fileset dir="../../framework/jcr/lib" includes="*.jar"/>
-        <fileset dir="../../framework/jcr/build/lib" includes="*.jar"/>
     </path>
 </project>

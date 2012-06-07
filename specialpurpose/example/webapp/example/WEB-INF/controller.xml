@@ -236,95 +236,6 @@ under the License.
     </request-map>
     <!-- end of request mappings -->
 
-    <!-- Jackrabbit Example Requests -->
-    <request-map uri="ExampleJackrabbit">
-        <security auth="true" https="true" />
-        <response name="success" type="view" value="ExampleJackrabbit" />
-        <response name="error" type="view" value="ExampleJackrabbit" />
-    </request-map>
-    <request-map uri="ExampleJackrabbitAddData">
-        <security auth="true" https="true" />
-        <response name="success" type="view" value="ExampleJackrabbitAddData" />
-        <response name="error" type="view" value="ExampleJackrabbitAddData" />
-    </request-map>
-    <request-map uri="StoreNewRepositoryData">
-        <security auth="true" https="true" />
-        <event type="java" path="org.ofbiz.example.JackrabbitEvents" invoke="addNewTextMessageToJcrRepository" />
-        <response name="success" type="request" value="ExampleJackrabbitShowContentData" />
-        <response name="error" type="view" value="ExampleJackrabbitAddData" />
-    </request-map>
-    <request-map uri="ExampleJackrabbitScanRepositoryStructure">
-        <security auth="true" https="true" />
-        <event type="java" path="org.ofbiz.example.JackrabbitEvents" invoke="scanRepositoryStructure"/>
-        <response name="success" type="view" value="ExampleJackrabbitScanRepositoryStructure" />
-        <response name="error" type="view" value="ExampleJackrabbitScanRepositoryStructure" />
-    </request-map>
-    <request-map uri="EditRepositoryContent">
-        <security auth="true" https="true" />
-        <event type="java" path="org.ofbiz.example.JackrabbitEvents" invoke="getNodeContent"/>
-        <response name="success" type="view" value="ExampleJackrabbitEditRepositoryContent" />
-        <response name="error" type="request" value="ExampleJackrabbitShowContentData" />
-    </request-map>
-    <request-map uri="UpdateRepositoryData">
-        <security auth="true" https="true" />
-        <event type="java" path="org.ofbiz.example.JackrabbitEvents" invoke="updateRepositoryData"/>
-        <response name="success" type="request" value="EditRepositoryContent" />
-        <response name="error" type="request" value="EditRepositoryContent" />
-    </request-map>
-    <request-map uri="RemoveRepositoryNode">
-        <security auth="true" https="true" />
-        <event type="java" path="org.ofbiz.example.JackrabbitEvents" invoke="removeRepositoryNode"/>
-        <response name="success" type="request" value="ExampleJackrabbitShowContentData" />
-        <response name="error" type="request" value="ExampleJackrabbitShowContentData" />
-    </request-map>
-    <request-map uri="RemoveRepositoryFile">
-        <security auth="true" https="true" />
-        <event type="java" path="org.ofbiz.example.JackrabbitEvents" invoke="removeRepositoryNode"/>
-        <response name="success" type="request" value="ExampleJackrabbitShowUploadedFiles" />
-        <response name="error" type="request" value="ExampleJackrabbitShowUploadedFiles" />
-    </request-map>
-    <request-map uri="ExampleJackrabbitUploadFileData">
-        <security auth="true" https="true" />
-        <response name="success" type="view" value="ExampleJackrabbitUploadFileData" />
-        <response name="error" type="view" value="ExampleJackrabbitUploadFileData" />
-    </request-map>
-    <request-map uri="StoreNewRepositoryFileData">
-        <security auth="true" https="true" />
-        <event type="java" path="org.ofbiz.example.JackrabbitEvents" invoke="uploadFileData"/>
-        <response name="success" type="request" value="ExampleJackrabbitShowUploadedFiles" />
-        <response name="error" type="view" value="ExampleJackrabbitUploadFileData" />
-    </request-map>
-    <request-map uri="ExampleJackrabbitShowUploadedFiles">
-        <security auth="true" https="true" />
-        <event type="java" path="org.ofbiz.example.JackrabbitEvents" invoke="getRepositoryFileTree"/>
-        <response name="success" type="view" value="ExampleJackrabbitShowUploadedFiles" />
-        <response name="error" type="view" value="ExampleJackrabbitShowUploadedFiles" />
-    </request-map>
-    <request-map uri="GetFileFromRepository">
-        <security auth="true" https="true" />
-        <event type="java" path="org.ofbiz.example.JackrabbitEvents" invoke="getFileFromRepository"/>
-        <response name="success" type="none" />
-        <response name="error" type="none" />
-    </request-map>
-    <request-map uri="ExampleJackrabbitShowContentData">
-        <security auth="true" https="true" />
-        <event type="java" path="org.ofbiz.example.JackrabbitEvents" invoke="getRepositoryDataTree"/>
-        <response name="success" type="view" value="ExampleJackrabbitShowContentData"/>
-        <response name="error" type="view" value="ExampleJackrabbitShowContentData"/>
-    </request-map>
-    <request-map uri="OpenFileInformation">
-        <security auth="true" https="true" />
-        <event type="java" path="org.ofbiz.example.JackrabbitEvents" invoke="getFileInformation"/>
-        <response name="success" type="view" value="ExampleJackrabbitOpenFileInformation"/>
-        <response name="error" type="view" value="ExampleJackrabbitShowUploadedFiles"/>
-    </request-map>
-    <request-map uri="QueryRepositoryData">
-        <security auth="true" https="true" />
-        <event type="java" path="org.ofbiz.example.JackrabbitEvents" invoke="queryRepositoryData"/>
-        <response name="success" type="view" value="ExampleJackrabbitShowQueryResult"/>
-        <response name="error" type="request" value="ExampleJackrabbitShowContentData"/>
-    </request-map>
-
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://example/widget/example/CommonScreens.xml#main"/>
 
@@ -368,18 +279,6 @@ under the License.
     <!-- Flot view mapping -->
     <view-map name="ExampleBarChart" page="component://example/widget/example/ExampleScreens.xml#ExampleBarChart" type="screen"/>
     <view-map name="ExamplePieChart" page="component://example/widget/example/ExampleScreens.xml#ExamplePieChart" type="screen"/>
-
-    <!-- Jackrabbit View Mapping -->
-    <view-map name="ExampleJackrabbit" page="component://example/widget/example/ExampleJackrabbitScreens.xml#ListRepositoryData" type="screen" />
-    <view-map name="ExampleJackrabbitAddData" page="component://example/widget/example/ExampleJackrabbitScreens.xml#ExampleJackrabbitAddData" type="screen" />
-    <view-map name="ExampleJackrabbitScanRepositoryStructure" page="component://example/widget/example/ExampleJackrabbitScreens.xml#ExampleJackrabbitScanRepositoryStructure" type="screen" />
-    <view-map name="ExampleJackrabbitEditRepositoryContent" page="component://example/widget/example/ExampleJackrabbitScreens.xml#ExampleJackrabbitEditRepositoryContent" type="screen" />
-    <view-map name="ExampleJackrabbitUploadFileData" page="component://example/widget/example/ExampleJackrabbitScreens.xml#ExampleJackrabbitUploadFileData" type="screen" />
-    <view-map name="ExampleJackrabbitShowUploadedFiles" page="component://example/widget/example/ExampleJackrabbitScreens.xml#ExampleJackrabbitShowUploadedFiles" type="screen" />
-    <view-map name="ExampleJackrabbitShowContentData" page="component://example/widget/example/ExampleJackrabbitScreens.xml#ExampleJackrabbitShowContentData" type="screen" />
-    <view-map name="ExampleJackrabbitOpenFileInformation" page="component://example/widget/example/ExampleJackrabbitScreens.xml#ExampleJackrabbitShowFileInformation" type="screen" />
-    <view-map name="ExampleJackrabbitShowQueryResult" page="component://example/widget/example/ExampleJackrabbitScreens.xml#ExampleJackrabbitShowQueryResult" type="screen" />
-
 
     <!-- Supported Content Types -->
     <!--

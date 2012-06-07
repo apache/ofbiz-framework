@@ -19,34 +19,6 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <property key="ExampelsJackrabbitDownloadFile">
-        <value xml:lang="de">Datei herunterladen</value>
-        <value xml:lang="en">Download file</value>
-    </property>
-    <property key="ExampelsJackrabbitOpenData">
-        <value xml:lang="de">Content öffnen.</value>
-        <value xml:lang="en">Open content.</value>
-    </property>
-    <property key="ExampelsJackrabbitOpenFile">
-        <value xml:lang="de">Datei öffnen</value>
-        <value xml:lang="en">Open file</value>
-    </property>
-    <property key="ExampelsJackrabbitRemoveData">
-        <value xml:lang="de">Content löschen.</value>
-        <value xml:lang="en">Remove content.</value>
-    </property>
-    <property key="ExampelsJackrabbitRemoveFile">
-        <value xml:lang="de">Datei löschen</value>
-        <value xml:lang="en">Remove file</value>
-    </property>
-    <property key="ExampleAddNewContentEntry">
-        <value xml:lang="de">Einen neuen Content Eintrag hinzufügen</value>
-        <value xml:lang="en">Add a new content entry</value>
-    </property>
-    <property key="ExampleAddNewNodePath">
-        <value xml:lang="de">Füge einen neuen Node Pfad hinzu, z.B. /Foo/Baa speichert die Datei im Ordner "Baa"</value>
-        <value xml:lang="en">Add a (new) node path like /Foo/Baa will store the file under the folder "Baa"</value>
-    </property>
     <property key="ExampleAjaxExamples">
         <value xml:lang="en">Ajax Examples</value>
         <value xml:lang="fr">Exemples Ajax</value>
@@ -505,42 +477,6 @@
         <value xml:lang="it">Gruppi campi</value>
         <value xml:lang="zh">数据项组</value>
     </property>
-    <property key="ExampleJackrabbitCleanRepository">
-        <value xml:lang="de">Repository aufräumen</value>
-        <value xml:lang="en">Clean repository</value>
-    </property>
-    <property key="ExampleJackrabbitCleanRepositoryTooltip">
-        <value xml:lang="de">Löscht alle Nodes aus dem Repository, die keine Verkünpfung in der Content Tabelle haben.</value>
-        <value xml:lang="en">Removes all nodes which are not linked in the content table.</value>
-    </property>
-    <property key="ExampleJackrabbitListNodes">
-        <value xml:lang="de">Liste alles Knoten</value>
-        <value xml:lang="en">List Nodes</value>
-    </property>
-    <property key="ExampleJackrabbitQueryForContent">
-        <value xml:lang="de">Das Repository kann mit Hilfe der SQL2 oder JQOM Query Language durchsucht werden: z.B. SELECT * FROM [nt:unstructured] gibt alle nodes vom Typ nt:unstructured zurück.</value>
-        <value xml:lang="en">You can search the repository by using SQL2 or JQOM query syntax: i.e. SELECT * FROM [nt:unstructured] gives all nodes with the typ nt:unstructured.</value>
-    </property>
-    <property key="ExampleJackrabbitQuickContentSelect">
-        <value xml:lang="de">Content Schnellauswahl - Content Node auswählen und Sprache bestimmen.</value>
-        <value xml:lang="en">Content quick select - Choose your content node and select a language.</value>
-    </property>
-    <property key="ExampleJackrabbitShowContentData">
-        <value xml:lang="de">(Text) Content anzeigen</value>
-        <value xml:lang="en">Show (text) content</value>
-    </property>
-    <property key="ExampleJackrabbitShowUploadedFiles">
-        <value xml:lang="de">Dateien anzeigen</value>
-        <value xml:lang="en">Show uploaded Files</value>
-    </property>
-    <property key="ExampleJackrabbitTryRightClick">
-        <value xml:lang="de">Wähle eine Datei und versuche einen Rechtklick</value>
-        <value xml:lang="en">Choose a file and try a 'right click'</value>
-    </property>
-    <property key="ExampleJackrabbitUploadFileData">
-        <value xml:lang="de">Eine neue Datei speichern</value>
-        <value xml:lang="en">Upload a new file</value>
-    </property>
     <property key="ExampleLanguageTextVersion">
         <value xml:lang="de">Verion der gewählten sprache</value>
         <value xml:lang="en">Version of the choosen language</value>
@@ -825,10 +761,6 @@
         <value xml:lang="ru">Изменить позиции примера</value>
         <value xml:lang="th">แก้ไขสินค้าตัวอย่าง</value>
         <value xml:lang="zh">编辑样例明细</value>
-    </property>
-    <property key="PageTitleExampleJackrabbit">
-        <value xml:lang="de">Jackrabbit</value>
-        <value xml:lang="en">Jackrabbit</value>
     </property>
     <!-- Page Titles -->
     <property key="PageTitleFindExample">
