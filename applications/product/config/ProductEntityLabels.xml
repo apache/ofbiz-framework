@@ -2112,6 +2112,7 @@
         <value xml:lang="zh_TW">銷售</value>
     </property>
     <property key="ProductMaintType.description.CHASSIS_LUBE">
+        <value xml:lang="de">Fahrwerk Schmierung</value>
         <value xml:lang="en">Chassis Lubrication</value>
         <value xml:lang="it">Lubrificazione telaio</value>
         <value xml:lang="vi">Bôi trơn khung gầm</value>
@@ -2127,6 +2128,7 @@
         <value xml:lang="zh_TW">檢查電池</value>
     </property>
     <property key="ProductMaintType.description.HVAC_CHECK_REFR">
+        <value xml:lang="de">Kühlflüssigkeit prüfen/nachfüllen</value>
         <value xml:lang="en">Check/Recharge Refrigerant</value>
         <value xml:lang="it">Controllo/Ricarica refrigerante</value>
         <value xml:lang="vi">Kiểm tra/Nạp thêm gas làm lạnh</value>
@@ -2189,6 +2191,7 @@
         <value xml:lang="zh_TW">更換電池</value>
     </property>
     <property key="ProductMaintType.description.ROTATE_TIRES">
+        <value xml:lang="de">Reifen drehen</value>
         <value xml:lang="en">Rotate Tires</value>
         <value xml:lang="it">Invertire le gomme</value>
         <value xml:lang="vi">Rotate Tires</value>
@@ -2196,7 +2199,7 @@
         <value xml:lang="zh_TW">輪胎輪換</value>
     </property>
     <property key="ProductMaintType.description.SERP_BELT">
-        <value xml:lang="de">Keilriemen Ersatz</value>
+        <value xml:lang="de">Keilriemen ersetzen</value>
         <value xml:lang="en">Serpentine Belt Replacement</value>
         <value xml:lang="es">Cambio de correa</value>
         <value xml:lang="fr">Remplacement de courroie serpentine</value>
@@ -2209,6 +2212,7 @@
         <value xml:lang="zh_TW">更換平帶</value>
     </property>
     <property key="ProductMaintType.description.TUNE_UP">
+        <value xml:lang="de">Einstellen</value>
         <value xml:lang="en">Tune Up</value>
         <value xml:lang="it">Mettere a punto</value>
         <value xml:lang="vi">Lên dây</value>
@@ -2216,7 +2220,7 @@
         <value xml:lang="zh_TW">調音</value>
     </property>
     <property key="ProductMaintType.description.VEHICLE_MAINT">
-        <value xml:lang="de">Fahrzeug Instandhaltung</value>
+        <value xml:lang="de">Fahrzeugwartung</value>
         <value xml:lang="en">Vehicle Maintenance</value>
         <value xml:lang="es">Mantenimiento de vehículo</value>
         <value xml:lang="fr">Révision du véhicule</value>
@@ -2329,6 +2333,7 @@
         <value xml:lang="zh_TW">使用計數表</value>
     </property>
     <property key="ProductMeterType.description.TRIP_METER">
+        <value xml:lang="en">Tageskilometerzähler</value>
         <value xml:lang="en">Use Trip Meter</value>
         <value xml:lang="fr">Utiliser le compteur de distance par trajet</value>
         <value xml:lang="vi">Sử dụng đồng hồ đo quãng đường chuyến đi</value>
