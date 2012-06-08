@@ -122,6 +122,7 @@
         <value xml:lang="zh_TW">沒有科目號碼</value>
     </property>
     <property key="AccountingAccountTransactionId">
+        <value xml:lang="de">Buchungs-Id</value>
         <value xml:lang="en">Account Transaction Id</value>
         <value xml:lang="hi_IN">लेखा गतिविधि क्रमांक</value>
         <value xml:lang="nl">Transactie Id</value>
@@ -242,6 +243,7 @@
         <value xml:lang="zh_TW">交易記帳帳目</value>
     </property>
     <property key="AccountingAcctgTransEntriesFor">
+        <value xml:lang="de">Kontenbewegungen für</value>
         <value xml:lang="en">Accounting Transaction Entries For</value>
         <value xml:lang="hi_IN">लेखा गतिविधि प्रविष्टियों के लिए</value>
         <value xml:lang="nl">Boekingsregels voor</value>
@@ -251,6 +253,7 @@
         <value xml:lang="zh_TW">交易記帳帳目: </value>
     </property>
     <property key="AccountingAcctgTransFor">
+        <value xml:lang="de">Kontobewegungen für</value>
         <value xml:lang="en">Accounting Transactions For</value>
         <value xml:lang="hi_IN">लेखा गतिविधि के लिए</value>
         <value xml:lang="nl">Boekhoudtransacties voor</value>
@@ -313,6 +316,7 @@
         <value xml:lang="zh_TW">增加總帳科目分類</value>
     </property>
     <property key="AccountingAddCustomTimePeriod">
+        <value xml:lang="de">Individueller Zeitraum hinzufügen</value>
         <value xml:lang="en">Add Custom Time Period</value>
         <value xml:lang="fr">Ajouter une période de temps</value>
         <value xml:lang="hi_IN">स्वनिर्धारित समय अवधि जोड़ें</value>
@@ -325,6 +329,7 @@
         <value xml:lang="zh_TW">增加定制時間段</value>
     </property>
     <property key="AccountingAddFinAccountReconciliations">
+        <value xml:lang="de">Finanzkontenabstimmung für Finanzkonto : ${finAccount.finAccountName} [${finAccountId}] hinzufügen</value>
         <value xml:lang="en">Add Financial Account Reconciliations for Financial Account : ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="nl">Toevoegen afstemmingen voor Financiele rekening : ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="pt">Adicionar Reconciliação de Conta Financeira para Conta Financeira:  ${finAccount.finAccountName} [${finAccountId}]</value>
@@ -519,6 +524,7 @@
         <value xml:lang="zh_TW">增加成員總帳科目</value>
     </property>
     <property key="AccountingAddPaymentGroupMember">
+        <value xml:lang="de">Zahlungsgruppen-Mitglied hinzufügen</value>
         <value xml:lang="en">Add Payment Group Member</value>
         <value xml:lang="hi_IN">भुगतान समूह सदस्य जोड़ें</value>
         <value xml:lang="nl">Payment Group Member toevoegen</value>
@@ -528,6 +534,7 @@
         <value xml:lang="zh_TW">增加支付群組成員</value>
     </property>
     <property key="AccountingAddTax">
+        <value xml:lang="de">Steuer hinzufühen</value>
         <value xml:lang="en">Add Tax</value>
         <value xml:lang="fr">Ajouter les taxes</value>
         <value xml:lang="nl">Belastingen toevoegen</value>
@@ -659,6 +666,7 @@
         <value xml:lang="zh_TW">合同資訊</value>
     </property>
     <property key="AccountingAgreementIsNotSetForSupplierProducts">
+        <value xml:lang="de">Bitte Lieferanten und Währung festlegen bevor die Preisliste bearbeitet wird</value>
         <value xml:lang="en">Please set a supplier in Agreement.partyIdTo and a currency in the AgreementItem before editing the price list</value>
         <value xml:lang="fr">Veuillez placer un fournisseur dans Agreement.partyIdTo et une devise dans l'AgreementItem avant de modifier les tarifs</value>
         <value xml:lang="hi_IN">कृपया Agreement.partyIdTo में एक सप्लायर निश्चित करे और संपादन करने से पहले AgreementItem मुद्रा मूल्य सूची में जोड़े</value>
@@ -688,6 +696,7 @@
         <value xml:lang="zh_TW">合同條款</value>
     </property>
     <property key="AccountingAgreementItemProductsForReport">
+        <value xml:lang="de">Vereinbarungsposition für Bericht</value>
         <value xml:lang="en">Agreement Item Products For Report</value>
         <value xml:lang="fr">Point de l'accord commercial (articles) pour rapport</value>
         <value xml:lang="hi_IN">अनुबंध वस्तु उत्पाद के लिए ब्यौरेवार विवरण</value>
@@ -716,6 +725,7 @@
         <value xml:lang="zh_TW">合同條款順序編號</value>
     </property>
     <property key="AccountingAgreementItemSupplierProductsForReport">
+        <value xml:lang="de">Vereinbarungsposition Lieferentenprodukte für Bericht</value>
         <value xml:lang="en">Agreement Item Supplier Products For Report</value>
         <value xml:lang="fr">Point de l'accord commercial (articles/fournisseur) pour rapport</value>
         <value xml:lang="hi_IN">अनुबंध वस्तु प्रदायक के लिए ब्यौरेवार विवरण</value>
@@ -857,6 +867,7 @@
         <value xml:lang="zh_TW">合同類型編號</value>
     </property>
     <property key="AccountingAgreementWorkEffortApplicAlreadyExists">
+        <value xml:lang="de">Vereinbarung zu Arbeitseinsatz schon vorhanden</value>
         <value xml:lang="en">Agreement Work Effort Applic Already Exists</value>
         <value xml:lang="fr">Cette tâche d'application d'accord commercial existe déjà</value>
         <value xml:lang="hi_IN">अनुबंध - काम प्रयास का अनुप्रयोग पहले से ही मौजूद है</value>
@@ -868,6 +879,7 @@
         <value xml:lang="zh_TW">合同人工服務用途已存在</value>
     </property>
     <property key="AccountingAgreementWorkEffortApplics">
+        <value xml:lang="de">Vereinbarung zu Arbeitseinsatz</value>
         <value xml:lang="en">Agreement Work Effort Applics</value>
         <value xml:lang="fr">Applications de tâche d'accord commercial</value>
         <value xml:lang="hi_IN">अनुबंध- कार्य प्रयास अनुप्रयोग</value>
@@ -1115,6 +1127,7 @@
         <value xml:lang="zh_TW">供應商列表</value>
     </property>
     <property key="AccountingApPaymentGroupMenu">
+        <value xml:lang="de">Kreditoren Zahlungsgruppen</value>
         <value xml:lang="en">AP Payment Groups</value>
         <value xml:lang="fr">Groupes de paiement AP</value>
         <value xml:lang="nl">AP Betalingsgroepen</value>
@@ -1306,6 +1319,7 @@
         <value xml:lang="zh_TW">支付的發票明細</value>
     </property>
     <property key="AccountingApprovedGrandTotal">
+        <value xml:lang="de">Genehmigte Gesamtsumme</value>
         <value xml:lang="en">Approved Grand Total</value>
         <value xml:lang="hi_IN">स्वीकृत कुल योग</value>
         <value xml:lang="pt">Total Final Aprovado</value>
@@ -1373,6 +1387,7 @@
         <value xml:lang="zh_TW">報表列表</value>
     </property>
     <property key="AccountingArPaymentGroupMenu">
+        <value xml:lang="de">Debitoren Zahlungsgruppen</value>
         <value xml:lang="en">AR Payment Groups</value>
         <value xml:lang="fr">Groupes de paiement</value>
         <value xml:lang="nl">AP Betalingsgroepen</value>
@@ -1463,6 +1478,7 @@
         <value xml:lang="zh_TW">為收入總帳科目編號指定銷售發票類型</value>
     </property>
     <property key="AccountingAssignToReconciliation">
+        <value xml:lang="de">Zuweisen an Kontenabstimmung </value>
         <value xml:lang="en">Assign to Reconciliation</value>
         <value xml:lang="hi_IN">पुनर्मिलन के लिए निर्दिष्ट करे</value>
         <value xml:lang="pt">Atribuir para Reconciliação</value>
@@ -1487,6 +1503,7 @@
         <value xml:lang="zh_TW">授權</value>
     </property>
     <property key="AccountingAuthorizeNetApiVersion">
+        <value xml:lang="de">Authorize Dot Net API Version</value>
         <value xml:lang="en">Authorize Dot Net API Version</value>
         <value xml:lang="hi_IN">अधिकृत Dot Net API संस्करणः</value>
         <value xml:lang="it">Versione API Authorize Dot Net</value>
@@ -1651,6 +1668,7 @@
         <value xml:lang="zh_TW">結欠餘額</value>
     </property>
     <property key="AccountingBalanceOfTheAccount">
+        <value xml:lang="de">Kontensaldo</value>
         <value xml:lang="en">Balance Of The Account</value>
         <value xml:lang="hi_IN">शेष खाते के</value>
         <value xml:lang="pt">Saldo da Conta</value>
@@ -1694,6 +1712,7 @@
         <value xml:lang="zh_TW">銀行</value>
     </property>
     <property key="AccountingBankAccount">
+        <value xml:lang="de">Bankkonto</value>
         <value xml:lang="en">Bank Account</value>
         <value xml:lang="fr">Relevé d'identité bancaire</value>
         <value xml:lang="hi_IN">बैन्क खाता</value>
@@ -1731,6 +1750,7 @@
         <value xml:lang="zh_TW">沒有銀行名稱</value>
     </property>
     <property key="AccountingBankReconciliation">
+        <value xml:lang="de">Bankkontoabstimmung</value>
         <value xml:lang="en">Bank Reconciliation</value>
         <value xml:lang="hi_IN">बैन्क पुनर्मिलान</value>
         <value xml:lang="pt">Reconciliação com o Banco</value>
@@ -2225,6 +2245,7 @@
         <value xml:lang="zh_TW">按日期</value>
     </property>
     <property key="AccountingCOGSCostingMethodIsNotSupported">
+        <value xml:lang="de">Kostenrechnungs-Art ${partyAcctgPreference.cogsMethodId} wird nicht unterstützt</value>
         <value xml:lang="en">COGS costing method is not supported: ${partyAcctgPreference.cogsMethodId}</value>
         <value xml:lang="it">Metodo costi COGS non è supportato: ${partyAcctgPreference.cogsMethodId}</value>
         <value xml:lang="pt">Método de custeio de CPV não é suportado: ${partyAcctgPreference.cogsMethodId}</value>
@@ -2232,6 +2253,7 @@
         <value xml:lang="zh">不支持商品销售成本的成本计算方法：${partyAcctgPreference.cogsMethodId}</value>
     </property>
     <property key="AccountingCancelBankReconciliation">
+        <value xml:lang="de">Bankkontoabstimmung abbrechen</value>
         <value xml:lang="en">Cancel Bank Reconciliation</value>
         <value xml:lang="hi_IN">बैन्क पुनर्मिलान रद्द करें</value>
         <value xml:lang="pt">Cancelar reconciliação de banco</value>
@@ -2239,6 +2261,7 @@
         <value xml:lang="zh">取消银行对账</value>
     </property>
     <property key="AccountingCancelBatchPayments">
+        <value xml:lang="de">Sammel-Zahlungen abbrechen</value>
         <value xml:lang="en">Cancel Batch Payments</value>
         <value xml:lang="hi_IN">भुगतान का  बैच रद्द करे</value>
         <value xml:lang="pt">Cancelar Lote de Pagamentos</value>
@@ -2246,6 +2269,7 @@
         <value xml:lang="zh">取消批量支付</value>
     </property>
     <property key="AccountingCancelBatchPaymentsError">
+        <value xml:lang="de">Sammelzahlung [${paymentGroupId}] kann nicht abgebrochen werden, da sie zur Kontenabstimung [${glReconciliationId}] zugeordnet ist</value>
         <value xml:lang="en">Cannot Cancel Batch Payment [${paymentGroupId}], is associated to glReconciliation [${glReconciliationId}]</value>
         <value xml:lang="hi_IN">बैच भुगतान [${paymentGroupId}], glReconciliation [${glReconciliationId}] से जुड़ा है , इसे रद्द नहीं कर सकते |</value>
         <value xml:lang="pt">Não é possível cancelar pagamento em lote [$ {paymentGroupId}], está associada a glReconciliation [$ {glReconciliationId}]</value>
@@ -2253,6 +2277,7 @@
         <value xml:lang="zh">无法取消批量支付 [${paymentGroupId}]，它被关联到了总账对账 [${glReconciliationId}]</value>
     </property>
     <property key="AccountingCancelCheckRun">
+        <value xml:lang="de">Scheck-Lauf abbrechen</value>
         <value xml:lang="en">Cancel Check Run</value>
         <value xml:lang="fr">Annuler le traitement du chèque</value>
         <value xml:lang="hi_IN">चेक/हुंडी रद्द करे</value>
@@ -2261,6 +2286,7 @@
         <value xml:lang="zh">取消支票处理</value>
     </property>
     <property key="AccountingCancelTransactionStatus">
+        <value xml:lang="de">Transaktions-Status abbrechen</value>
         <value xml:lang="en">Cancel Transaction Status</value>
         <value xml:lang="fr">Annuler le statut de la transaction</value>
         <value xml:lang="hi_IN">लेन-देन की स्थिति रद्द करे</value>
@@ -2269,6 +2295,7 @@
         <value xml:lang="zh">取消交易状态</value>
     </property>
     <property key="AccountingCannotCreateIncomingPaymentError">
+        <value xml:lang="de">Eingangszahlung kann nicht zu Zahlungsgruppe der Art Scheck-Lauf hinzugefügt werden</value>
         <value xml:lang="en">Cannot add incoming payment to paymentGroup type Check Run</value>
         <value xml:lang="hi_IN">भुगतान समूह चेक रन प्रकार में  आने वाली भुगतान नहीं जोड़ सकते हैं</value>
         <value xml:lang="pt">Não é possível adicionar o recebimento ao tipo de grupo de pagamentos de verificação</value>
@@ -2276,6 +2303,7 @@
         <value xml:lang="zh">不能把进账添加到 支票处理 这个支付组类型</value>
     </property>
     <property key="AccountingCannotCreateOutgoingPaymentError">
+        <value xml:lang="de">Ausgangszahlung kann nicht zu Zahlungsgruppe der Art Stapel-Zahlung hinzugefügt werden</value>
         <value xml:lang="en">Cannot add outgoing payment to paymentGroup type Batch Of Payments</value>
         <value xml:lang="hi_IN">भुगतान समूह के प्रकार भुगतान बैच में  बाहर जाने वाले भुगतान नहीं जोड़ सकते हैं</value>
         <value xml:lang="pt">Não é possível adicionar o pagamento para o tipo de grupo de pagamentos em lote</value>
@@ -2284,6 +2312,7 @@
     </property>
     <property key="AccountingCannotGetPaymentForApplication">
         <value xml:lang="ar">لا يمكن الحصول على التسديد للتطبيق  [${payAppl}] من أجل ${msg}</value>
+        <value xml:lang="de">Zahlung zu Zuweisung [${payAppl}] kann wegen ${msg} nicht ermittelt werden</value>
         <value xml:lang="en">Cannot get payment for application [${payAppl}] due to ${msg}</value>
         <value xml:lang="es">No pudo obtener pago para aplicación [${payAppl}] debido a ${msg}</value>
         <value xml:lang="fr">Pas trouvé de paiement relatif à [${payAppl}] à cause de ${msg}</value>
@@ -2299,6 +2328,7 @@
         <value xml:lang="zh_TW">無法為應用[${payAppl}]獲得支付，由于${msg}</value>
     </property>
     <property key="AccountingCannotIncludeApPaymentError">
+        <value xml:lang="de">Sammel-Anzahlung kann keine Lieferantenzahlungen ${disbursementPaymentIds} beinhalten</value>
         <value xml:lang="en">Cannot include AP payments ${disbursementPaymentIds} in a deposit batch</value>
         <value xml:lang="hi_IN">भुगतान ${disbursementPaymentIds} को देय खाते(AP) के  जमा बैच (deposit batch) खाते में शामिल नहीं कर सकते</value>
         <value xml:lang="pt">Não é possível incluir os pagamentos de cotnas a receber ${disbursementPaymentIds} em um lote de depósito</value>
@@ -2424,6 +2454,7 @@
         <value xml:lang="zh_TW">沒有信用卡類型</value>
     </property>
     <property key="AccountingCashBalance">
+        <value xml:lang="de">Kassenbestand</value>
         <value xml:lang="en">Cash Balance</value>
         <value xml:lang="fr">Solde de trésorerie</value>
         <value xml:lang="hi_IN">à¤°à¥‹à¤•à¤¡à¤¼ à¤¶à¥‡à¤·</value>
@@ -2433,6 +2464,7 @@
         <value xml:lang="zh_TW">現金餘額</value>
     </property>
     <property key="AccountingCashFlowStatement">
+        <value xml:lang="de">Kapitalflussrechnung</value>
         <value xml:lang="en">Cash Flow Statement</value>
         <value xml:lang="fr">Tableau des flux de trésorerie</value>
         <value xml:lang="hi_IN">रोकड प्रवाह विवरण</value>
@@ -2443,6 +2475,7 @@
         <value xml:lang="zh_TW">現金流量表</value>
     </property>
     <property key="AccountingChartOfAcctsFor">
+        <value xml:lang="de">Kontenrahmen für</value>
         <value xml:lang="en">Chart of accounts for</value>
         <value xml:lang="fr">Plan comptable pour</value>
         <value xml:lang="hi_IN">लेखा-चित्र के लिए</value>
@@ -2504,6 +2537,7 @@
         <value xml:lang="zh_TW">檢查你今天是否有禮品卡可用</value>
     </property>
     <property key="AccountingCheckIsAlreadyIssued">
+        <value xml:lang="de">Scheck wurde schon ausgegeben</value>
         <value xml:lang="en">Check Is Already Issued</value>
         <value xml:lang="fr">Vérifie si déjà sorti</value>
         <value xml:lang="hi_IN">जांच पहले से ही निर्गत किया जाता है</value>
@@ -2512,6 +2546,7 @@
         <value xml:lang="zh">支票已签发</value>
     </property>
     <property key="AccountingCheckNumber">
+        <value xml:lang="de">Schecknummer</value>
         <value xml:lang="en">Check Number</value>
         <value xml:lang="fr">Vérifie nombre</value>
         <value xml:lang="hi_IN">चेक/हुंडी नम्बर</value>
@@ -2550,6 +2585,7 @@
         <value xml:lang="zh_TW">子時間段</value>
     </property>
     <property key="AccountingClearCommerceCannotExecuteReport">
+        <value xml:lang="de">'orderId' wird benötigt.</value>
         <value xml:lang="en">orderId is required.</value>
         <value xml:lang="it">Numero ordine è richiesto.</value>
         <value xml:lang="vi">Id Đặt hàng bắt buộc phải có thông tin.</value>
@@ -2569,6 +2605,7 @@
         <value xml:lang="zh_TW">已結束時段</value>
     </property>
     <property key="AccountingClosingCashBalance">
+        <value xml:lang="de">Kassenbestand bei Kassenschluss</value>
         <value xml:lang="en">Closing Cash Balance</value>
         <value xml:lang="fr">Solde de clôture de trésorerie</value>
         <value xml:lang="hi_IN">बंद नकदी शेष</value>
@@ -2604,6 +2641,7 @@
         <value xml:lang="zh">佣金金额</value>
     </property>
     <property key="AccountingCommissionInvoicesCreated">
+        <value xml:lang="de">Provisionsabrechnungen wurden für alle Akteure, die Provisionen erhalten, erstellt ${invoicesCreated}</value>
         <value xml:lang="en">Created Commission invoices for each commission receiving parties ${invoicesCreated}</value>
         <value xml:lang="it">Create fatture provvigioni per ogni provvigione ricevuta dai soggetti ${invoicesCreated}</value>
         <value xml:lang="vi">Đã tạo hoa hồng hóa đơn với từng Tác nhân được nhận hoa hồng ${invoicesCreated}</value>
@@ -2769,6 +2807,7 @@
         <value xml:lang="zh_TW">比較資產負債表</value>
     </property>
     <property key="AccountingComparativeCashFlowStatement">
+        <value xml:lang="de">Vergleichs-Kapitalflussrechnung</value>
         <value xml:lang="en">Comparative Cash Flow Statement</value>
         <value xml:lang="fr">Tableau comparatif de flux de trésorerie</value>
         <value xml:lang="hi_IN">तुलनात्मक रोकड प्रवाह विवरण</value>
@@ -2791,6 +2830,7 @@
         <value xml:lang="zh_TW">比較損益表</value>
     </property>
     <property key="AccountingCompleteAcctgTransFields">
+        <value xml:lang="de">Felder für Buchung ausfüllen</value>
         <value xml:lang="en">Complete transaction fields</value>
         <value xml:lang="fr">Remplissez les champs de la transaction</value>
         <value xml:lang="hi_IN">इस सौदे को पूरा</value>
@@ -2810,6 +2850,7 @@
         <value xml:lang="zh">从分部 ${partyNameList} 合并的数据</value>
     </property>
     <property key="AccountingConfirmationCancelOrder">
+        <value xml:lang="de">Wollen Sie diese Rechnungsnummer annulieren ${invoice.invoiceId}?</value>
         <value xml:lang="en">Do you want to cancel this invoice number ${invoice.invoiceId}?</value>
         <value xml:lang="fr">Voulez-vous annuler la facture n° ${invoice.invoiceId} ?</value>
         <value xml:lang="vi">Bạn có thực sự muốn hủy số hóa đơn ${invoice.invoiceId}?</value>
@@ -2833,6 +2874,7 @@
         <value xml:lang="zh_TW">複制合同</value>
     </property>
     <property key="AccountingCostOfGoodsSold">
+        <value xml:lang="de">Umsatzkosten</value>
         <value xml:lang="en">Cost Of Good Sold</value>
         <value xml:lang="pt">Custo de produtos vendidos</value>
         <value xml:lang="vi">Giá trị của Hàng hóa đã bán</value>
@@ -2912,6 +2954,7 @@
         <value xml:lang="zh_TW">新建指定</value>
     </property>
     <property key="AccountingCreateBatch">
+        <value xml:lang="de">Sammelzahlung erstellen</value>
         <value xml:lang="en">Create Batch</value>
         <value xml:lang="hi_IN">बैच  बनाएँ</value>
         <value xml:lang="pt">Criar lote</value>
@@ -2986,6 +3029,7 @@
         <value xml:lang="zh_TW">新建成本元件計算</value>
     </property>
     <property key="AccountingCreateFixedAssetMaintOrderPermissionError">
+        <value xml:lang="de">Berechtigungsfehler: Um 'createFixedAssetMaintOrder' auszuführen muss man ACCOUNTING_CREATEUPDATE or ACCOUNTING_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error: to run createFixedAssetMaintOrder you must have the ACCOUNTING_CREATEUPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_CREATE permission</value>
         <value xml:lang="fr">Erreur de sécurité: pour exécuter createFixedAssetMaintOrder vous devez avoir les autorisations ACCOUNTING_CREATEUPDATE ou ACCOUNTING_ADMIN, ou bien la autorisation limitée ACCOUNTING_ROLE_CREATE</value>
         <value xml:lang="hi_IN">सुरक्षा त्रुटि: createFixedAssetMaintOrder चलाने के लिए आप को ACCOUNTING_CREATEUPDATE या ACCOUNTING_ADMIN अनुमति, या सीमित ACCOUNTING_ROLE_CREATE अनुमति होना चाहिए</value>
@@ -3017,6 +3061,7 @@
         <value xml:lang="zh_TW">創建新信用卡</value>
     </property>
     <property key="AccountingCreateNewDepositPayment">
+        <value xml:lang="de">Neue Einzahlung</value>
         <value xml:lang="en">Create New Deposit Payment</value>
         <value xml:lang="hi_IN">नई जमा भुगतान बनाएँ</value>
         <value xml:lang="pt">Criar Novo Depósito de Pagamento</value>
@@ -3024,6 +3069,7 @@
         <value xml:lang="zh">新建押金</value>
     </property>
     <property key="AccountingCreateNewDepositPaymentFor">
+        <value xml:lang="de">Neue Einzahlung für Finanzkonto : ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="en">Create New Deposit Payment For Financial Account : ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="hi_IN">${finAccount.finAccountName} [${finAccountId}] वित्तीय खाते के लिए नई जमा भुगतान बनाएँ</value>
         <value xml:lang="pt">Criar novo depósito de pagamento da Conta Financeira: ${finAccount.finAccountName} [${finAccountId}]</value>
@@ -3031,6 +3077,7 @@
         <value xml:lang="zh">为财务账户新建押金：${finAccount.finAccountName} [${finAccountId}]</value>
     </property>
     <property key="AccountingCreateNewDepositSlip">
+        <value xml:lang="de">Erstelle neuen Einzahlungsschein</value>
         <value xml:lang="en">Create New Deposit Slip</value>
         <value xml:lang="hi_IN">नई जमा पर्ची बनाएँ</value>
         <value xml:lang="pt">Criar novo comprovante de depósito</value>
@@ -3038,6 +3085,7 @@
         <value xml:lang="zh">新建存款单</value>
     </property>
     <property key="AccountingCreateNewDepositSlipForFinancialAccount">
+        <value xml:lang="de">Erstelle neuen Einzahlungsschein für Finanzkonto: ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="en">Create New Deposit Slip for Financial Account: ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="hi_IN">नई जमा पर्ची वित्तीय खाते ${finAccount.finAccountName} [${finAccountId}] के लिए बनाएँ</value>
         <value xml:lang="pt">Criar novo deslizamento de Depósito para Conta Financeira: $ {finAccount.finAccountName} [${finAccountId}]</value>
@@ -3072,6 +3120,7 @@
         <value xml:lang="zh">新建财务账目</value>
     </property>
     <property key="AccountingCreateNewFinAccountReconciliations">
+        <value xml:lang="de">Neue Finanzkonto-Abstimmung erstellen</value>
         <value xml:lang="en">Create New Financial Account Reconciliations</value>
         <value xml:lang="fr">Créer un nouveau compte financier de rapprochement</value>
         <value xml:lang="pt">Criar nova reconciliações de conta Financeira</value>
@@ -3108,6 +3157,7 @@
         <value xml:lang="zh_TW">新建發票</value>
     </property>
     <property key="AccountingCreateNewPaymentGroup">
+        <value xml:lang="de">Neue Zahlungsgruppe erstellen</value>
         <value xml:lang="en">Create New Payment Group</value>
         <value xml:lang="fr">Créer un groupe de paiement</value>
         <value xml:lang="hi_IN">नया  भुगतान समूह बनाएँ</value>
@@ -3145,6 +3195,7 @@
         <value xml:lang="zh_TW">新建銷售發票</value>
     </property>
     <property key="AccountingCreateNewWithdrawalPayment">
+        <value xml:lang="de">Neue Abbuchung</value>
         <value xml:lang="en">Create New Withdrawal Payment</value>
         <value xml:lang="hi_IN">नई वापसी भुगतान बनाएँ</value>
         <value xml:lang="pt">Criar Novo Pagamento de Saque</value>
@@ -3152,6 +3203,7 @@
         <value xml:lang="zh">新建取款支付</value>
     </property>
     <property key="AccountingCreateNewWithdrawalPaymentFor">
+        <value xml:lang="de">Neue Abbuchung für Finanzkonto : ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="en">Create New Withdrawal Payment For Financial Account : ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="hi_IN">${finAccount.finAccountName} [${finAccountId}] वित्तीय खाते के लिए नई वापसी भुगतान बनाएँ</value>
         <value xml:lang="pt">Criar novo pagamento de saque para Conta Financeira: ${finAccount.finAccountName} [${finAccountId}]</value>
@@ -3189,6 +3241,7 @@
         <value xml:lang="zh_TW">新建支付會計交易</value>
     </property>
     <property key="AccountingCreatePaymentPermissionError">
+        <value xml:lang="de">Berechtigungsfehler: Um eine Zahlung erstellen muss man entweder Zahlender oder Empfänger oder die Berechtigungen PAY_INFO_CREATE or PAY_INFO_ADMIN besitzen</value>
         <value xml:lang="en">Security Error : To Create a Payment you must either be the to or from party or have the PAY_INFO_CREATE or PAY_INFO_ADMIN permissions.</value>
         <value xml:lang="es">Error de seguridad : Para crear un pago debe ser cualquiera de el grupo de o para o tener el permiso PAY_INFO_CREATE o PAY_INFO_ADMIN.</value>
         <value xml:lang="fr">Erreur de sécurité : pour saisir un paiement, vous devez être soit être l'acteur demandeur ou payeur, ou bien avoir l'autorisation PAY_INFO_CREATE ou PAY_INFO_ADMIN</value>
@@ -3205,6 +3258,7 @@
         <value xml:lang="zh_TW">安全錯誤：要新建支付，你必須或者是支付方或接收方，或具有PAY_INFO_CREATE或PAY_INFO_ADMIN權限。</value>
     </property>
     <property key="AccountingCreatePermissionError">
+        <value xml:lang="de">Berechtigungsfehler: Um 'createGlAccount' auszuführen muss man die Berechtigungen ACCOUNTING_CREATE or PAY_INFO_CREATE besitzen</value>
         <value xml:lang="en">Security Error: to run createGlAccount you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar createGlAccount debe tener el permiso ACCOUNTING_CREATE o ACCOUNTING_ADMIN </value>
         <value xml:lang="fr">Erreur de sécurité : pour créer un compte de facturation, vous devez avoir l'autorisation ACCOUNTING_CREATE ou ACCOUNTING_ADMIN.</value>
@@ -3234,6 +3288,7 @@
         <value xml:lang="zh_TW">新建銷售會計交易</value>
     </property>
     <property key="AccountingCreatedApprovedGrandTotal">
+        <value xml:lang="de">Gesamtsumme erstellt/genehmigt</value>
         <value xml:lang="en">Created/Approved Grand Total</value>
         <value xml:lang="hi_IN">निर्मित/स्वीकृत कुल योग</value>
         <value xml:lang="pt">Criado/Total final aprovado</value>
@@ -3241,6 +3296,7 @@
         <value xml:lang="zh">已创建/已批准的总额</value>
     </property>
     <property key="AccountingCreatedGrandTotal">
+        <value xml:lang="de">Gesamtsumme erstellt</value>
         <value xml:lang="en">Created Grand Total</value>
         <value xml:lang="hi_IN">निर्मित कुल योग</value>
         <value xml:lang="pt">Criado total final</value>
@@ -3297,6 +3353,7 @@
         <value xml:lang="zh">无法创建信用卡（生成标识时出错）</value>
     </property>
     <property key="AccountingCreditCardCreatedSuccessfully">
+        <value xml:lang="de">Kreditkarte erfolgreich erstellt.</value>
         <value xml:lang="en">Credit Card successfully created.</value>
         <value xml:lang="it">Carta di credito creato con succcesso.</value>
         <value xml:lang="vi">Thẻ tín dụng được tạo thành công.</value>
@@ -3408,12 +3465,14 @@
         <value xml:lang="zh">无法获得要更新的信用卡（读取时出错）</value>
     </property>
     <property key="AccountingCreditCardUpdatedSuccessfully">
+        <value xml:lang="de">Kreditkarteninformation erfolgreich geändert.</value>
         <value xml:lang="en">Credit Card Info successfully updated.</value>
         <value xml:lang="it">Informazioni sulla carta di credito aggiornati con succcesso.</value>
         <value xml:lang="vi">Thông tin thẻ tín dụng được cập nhật thành công.</value>
         <value xml:lang="zh">成功更新了信用卡。</value>
     </property>
     <property key="AccountingCreditCardUpdateWithPaymentMethodId">
+        <value xml:lang="de">FEHLER: Die Zahlungsmethode konnte nicht geändert werden da die Kreditkarte nicht gefunden wurde</value>
         <value xml:lang="en">ERROR: Could not find credit card to update with payment method id </value>
         <value xml:lang="it">Non è possibile trovare la carta di credito da aggiornare con il metodo di pagamento </value>
         <value xml:lang="pt">ERRO: Não foi possível encontrar o cartão de crédito para atualizar com o ID de método de pagamento</value>
@@ -3453,6 +3512,7 @@
         <value xml:lang="zh">贷记</value>
     </property>
     <property key="AccountingCurrenciesOfInvoiceAndPaymentNotCompatible">
+        <value xml:lang="de">Die Währungen der Rechnung und der Zahlung passen nicht zusammen</value>
         <value xml:lang="en">Currencies of invoice and payment not compatible</value>
         <value xml:lang="vi">Loại tiền tệ của Hóa đơn và Thanh toán không giống nhau</value>
         <value xml:lang="zh">发票和支付的币种不一致</value>
@@ -3471,6 +3531,7 @@
         <value xml:lang="zh_TW">幣別</value>
     </property>
     <property key="AccountingCurrentAsset">
+        <value xml:lang="de">Umlaufvermögen</value>
         <value xml:lang="en">Current Asset</value>
         <value xml:lang="fr">Actif circulant</value>
         <value xml:lang="hi_IN">à¤šà¤¾à¤²à¥‚ à¤¸à¤®à¥&#141;à¤ªà¤¤à¥&#141;à¤¤à¤¿</value>
@@ -3480,6 +3541,7 @@
         <value xml:lang="zh_TW">目前資產</value>
     </property>
     <property key="AccountingCurrentAssets">
+        <value xml:lang="de">Umlaufvermögen</value>
         <value xml:lang="en">Current Assets</value>
         <value xml:lang="pt">Ativo Circulante</value>
         <value xml:lang="vi">Tài sản hiện tại</value>
@@ -3520,6 +3582,7 @@
         <value xml:lang="zh_TW">檢查你的余額時出現問題；請檢查你的卡和密碼，然後重試</value>
     </property>
     <property key="AccountingCurrentBankReconciliation">
+        <value xml:lang="de">Aktuelle Bankabstimmung</value>
         <value xml:lang="en">Current Bank Reconciliation</value>
         <value xml:lang="fr">Rapprochement bancaire courant</value>
         <value xml:lang="hi_IN">वर्तमान बैन्क मिलाप</value>
@@ -3540,6 +3603,7 @@
         <value xml:lang="zh_TW">當前定制時間段</value>
     </property>
     <property key="AccountingCurrentLiabilities">
+        <value xml:lang="de">kurzfristige Verbindlichkeiten</value>
         <value xml:lang="en">Current Liabilities</value>
         <value xml:lang="pt">Passivo Circulante</value>
         <value xml:lang="vi">Quy định pháp lý hiện tại</value>
@@ -3810,6 +3874,7 @@
         <value xml:lang="zh">借/贷余额</value>
     </property>
     <property key="AccountingDeleteFixedAssetMaintOrderPermissionError">
+        <value xml:lang="de">Berechtigungsfehler: Um 'deleteFixedAssetMaintOrder' auszuführen muss man ACCOUNTING_DELETE or ACCOUNTING_ADMIN oder die eingeschränkte ACCOUNTING_ROLE_UPDATE Berechtigungen haben</value>
         <value xml:lang="en">Security Error: to run deleteFixedAssetMaintOrder you must have the ACCOUNTING_DELETE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission</value>
         <value xml:lang="fr">Erreur de sécurité: pour exécuter deleteFixedAssetMaintOrdervous devez avoir les autorisations ACCOUNTING_DELETE ou ACCOUNTING_ADMIN, ou bien la autorisation limitée  ACCOUNTING_ROLE_UPDATE</value>
         <value xml:lang="hi_IN">सुरक्षा त्रुटि: deleteFixedAssetMaintOrder चलाने के लिए आप को ACCOUNTING_DELETE or ACCOUNTING_ADMIN की अनुमति या सीमित ACCOUNTING_ROLE_UPDATE की अनुमति होना चाहिए</value>
@@ -3823,6 +3888,7 @@
         <value xml:lang="zh_TW">安全錯誤：要運行刪除固定資產維修保養訂單(deleteFixedAssetMaintOrder)，你必須有ACCOUNTING_DELETE或ACCOUNTING_ADMIN權限，或者受限制的ACCOUNTING_ROLE_UPDATE權限</value>
     </property>
     <property key="AccountingDeposit">
+        <value xml:lang="de">Einzahlung</value>
         <value xml:lang="en">Deposit</value>
         <value xml:lang="fr">Dépôt</value>
         <value xml:lang="hi_IN">जमा</value>
@@ -3831,6 +3897,7 @@
         <value xml:lang="zh">存款</value>
     </property>
     <property key="AccountingDepositOrWithdrawPayments">
+        <value xml:lang="de">Ein- oder Auszahlung für Finanzkonto: ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="en">Deposit Or Withdraw Payments for Financial Account: ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="fr">Dépôt ou retrait de paiements pour compte financier: ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="hi_IN">${finAccount.finAccountName} [${finAccountId}] वित्तीय खाते के लिए जमा भुगतान या भुगतान वापस करे</value>
@@ -3839,6 +3906,7 @@
         <value xml:lang="zh">财务账户存取款：${finAccount.finAccountName} [${finAccountId}]</value>
     </property>
     <property key="AccountingDepositPaymentInFinAccount">
+        <value xml:lang="de">Einzahlung auf: ${finAccount.finAccountName}</value>
         <value xml:lang="en">Deposit Payment in: ${finAccount.finAccountName}</value>
         <value xml:lang="fr">Dépôt du paiement dans: ${finAccount.finAccountName}</value>
         <value xml:lang="hi_IN">वित्तीय खाते में जमा करे: ${finAccount.finAccountName}</value>
@@ -3847,6 +3915,7 @@
         <value xml:lang="zh">存款到：${finAccount.finAccountName}</value>
     </property>
     <property key="AccountingDepositSlip">
+        <value xml:lang="de">Einzahlungsschein</value>
         <value xml:lang="en">Deposit Slip</value>
         <value xml:lang="fr">Récépissé de dépôt</value>
         <value xml:lang="hi_IN">जमा पर्ची</value>
@@ -3855,6 +3924,7 @@
         <value xml:lang="zh">存款单</value>
     </property>
     <property key="AccountingDepositSlipId">
+        <value xml:lang="de">Einzahlungsschein-Nr.</value>
         <value xml:lang="en">Deposit Slip Id</value>
         <value xml:lang="fr">Réf. récépissé de dépôt</value>
         <value xml:lang="pt">ID de comprovante de Depósito</value>
@@ -3862,6 +3932,7 @@
         <value xml:lang="zh">存款单标识</value>
     </property>
     <property key="AccountingDepositSlips">
+        <value xml:lang="de">Einzahlungsscheine</value>
         <value xml:lang="en">Deposit Slips</value>
         <value xml:lang="fr">Récépissés de dépôt</value>
         <value xml:lang="hi_IN">जमा पर्चीयां</value>
@@ -3870,6 +3941,7 @@
         <value xml:lang="zh">存款单</value>
     </property>
     <property key="AccountingDepositWithdraw">
+        <value xml:lang="de">Einzahlung/Auszahlung</value>
         <value xml:lang="en">Deposit/Withdraw</value>
         <value xml:lang="fr">Dépôt/Retrait</value>
         <value xml:lang="hi_IN">जमा/वापस</value>
@@ -3878,6 +3950,7 @@
         <value xml:lang="zh">存/取</value>
     </property>
     <property key="AccountingDepreciation">
+        <value xml:lang="de">Abschreibung</value>
         <value xml:lang="en">Depreciation</value>
         <value xml:lang="pt">Depreciação</value>
         <value xml:lang="vi">Khấu hao</value>
@@ -3951,6 +4024,7 @@
         <value xml:lang="zh_TW">電子資金轉賬賬戶</value>
     </property>
     <property key="AccountingEFTAccountCreatedSuccessfully">
+        <value xml:lang="de">Bankverbindung erfolgreich erstellt.</value>
         <value xml:lang="en">EFT Account successfully created.</value>
         <value xml:lang="it">Conto EFT creato con successo.</value>
         <value xml:lang="vi">Tài khoản EFT được tạo thành công.</value>
@@ -3982,6 +4056,7 @@
         <value xml:lang="zh_TW">沒有EFT帳戶支付方式ID</value>
     </property>
     <property key="AccountingEFTAccountUpdatedSuccessfully">
+        <value xml:lang="de">Bankverbindung erfolgreich geändert.</value>
         <value xml:lang="en">EFT Account Info successfully updated.</value>
         <value xml:lang="it">Informazioni sul conto EFT aggiornate con successo.</value>
         <value xml:lang="vi">Tài khoản EFT được cập nhật thành công.</value>
@@ -4065,6 +4140,7 @@
         <value xml:lang="zh_TW">創建/更新金融賬戶</value>
     </property>
     <property key="AccountingEditFinAccountAuthorityFor">
+        <value xml:lang="de">Berechtigungen für Finanzkonto ${finAccount.finAccountName} [${finAccountId}] bearbeiten</value>
         <value xml:lang="en">Edit Financial Account Authority For ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="hi_IN">वित्तीय खाता प्राधिकरण ${finAccount.finAccountName} [${finAccountId}] के लिए सम्पादित करे</value>
         <value xml:lang="pt">Editar Autoridade da Conta Financeira para ${finAccount.finAccountName} [${finAccountId}]</value>
@@ -4072,6 +4148,7 @@
         <value xml:lang="zh">编辑财务账目 ${finAccount.finAccountName} [${finAccountId}] 的授权</value>
     </property>
     <property key="AccountingEditFinAccountReconciliations">
+        <value xml:lang="de">Abstimmung für Finanzkonto ${finAccount.finAccountName} [${finAccountId}] bearbeiten</value>
         <value xml:lang="en">Edit Financial Account Reconciliations for Financial Account : ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="hi_IN">${finAccount.finAccountName} [${finAccountId}] वित्तीय खाते के लिए वित्तीय लेखा मिलाप सम्पादित करे</value>
         <value xml:lang="pt">Editar reconciliações da Conta Financeira: $ {finAccount.finAccountName} [$ {finAccountId}]</value>
@@ -4079,6 +4156,7 @@
         <value xml:lang="zh">编辑财务账目  ${finAccount.finAccountName} [${finAccountId}] 的对账</value>
     </property>
     <property key="AccountingEditFinAccountRoleFor">
+        <value xml:lang="de">Rolle für Finanzkonto ${finAccount.finAccountName} [${finAccountId}] bearbeiten</value>
         <value xml:lang="en">Edit Financial Account Role For ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="hi_IN">वित्तीय खाता भूमिका ${finAccount.finAccountName} [${finAccountId}] के लिए सम्पादित करे</value>
         <value xml:lang="pt">Editar Papel da Conta Financeira para ${finAccount.finAccountName} [${finAccountId}]</value>
@@ -4086,6 +4164,7 @@
         <value xml:lang="zh">编辑财务账目  ${finAccount.finAccountName} [${finAccountId}] 的角色</value>
     </property>
     <property key="AccountingEditFinAccountTransactionFor">
+        <value xml:lang="de">Transaktion für Finanzkonto ${finAccount.finAccountName} [${finAccountId}] bearbeiten</value>
         <value xml:lang="en">Edit Financial Account Transaction For ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="hi_IN">लेनदेन वित्तीय खाते ${finAccount.finAccountName} [${finAccountId}] के लिए सम्पादित करे</value>
         <value xml:lang="pt">Editar Conta Financeira transação de ${finAccount.finAccountName} [${finAccountId}]</value>
@@ -4128,6 +4207,7 @@
         <value xml:lang="zh_TW">編輯支付</value>
     </property>
     <property key="AccountingEditPaymentGroup">
+        <value xml:lang="de">Zahlungsgruppe bearbeiten</value>
         <value xml:lang="en">Edit Payment Group</value>
         <value xml:lang="fr">Modifier un groupe de paiement</value>
         <value xml:lang="hi_IN">भुगतान समूह सम्पादित करें</value>
@@ -4137,6 +4217,7 @@
         <value xml:lang="zh_TW">編輯支付群組</value>
     </property>
     <property key="AccountingEditPaymentGroupFor">
+        <value xml:lang="de">Zahlungsgruppe für ${finAccount.finAccountName} [${finAccountId}] bearbeiten</value>
         <value xml:lang="en">Edit Payment Group For ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="fr">Modifier un groupe de paiement pour ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="hi_IN">भुगतान समूह ${finAccount.finAccountName} [${finAccountId}] के लिए सम्पादित करें</value>
@@ -4146,6 +4227,7 @@
         <value xml:lang="zh_TW">編輯 ${finAccount.finAccountName} [${finAccountId}] 支付群組</value>
     </property>
     <property key="AccountingEditPaymentGroupMember">
+        <value xml:lang="de">Mitglied der Zahlungsgruppe bearbeiten</value>
         <value xml:lang="en">Edit Payment Group Member</value>
         <value xml:lang="fr">Modifier un membre du grp. de paiement</value>
         <value xml:lang="hi_IN">भुगतान समूह सदस्य को सम्पादित करें</value>
@@ -4155,6 +4237,7 @@
         <value xml:lang="zh_TW">編輯支付群組成員</value>
     </property>
     <property key="AccountingEditPaymentGroupMemberFor">
+        <value xml:lang="de">Mitglied der Zahlungsgruppe ${finAccount.finAccountName} [${finAccountId}] für bearbeiten</value>
         <value xml:lang="en">Edit Payment Group Member For ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="fr">Modifier un membre du grp. de paiement pour ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="hi_IN">भुगतान समूह सदस्य  को ${finAccount.finAccountName} [${finAccountId}] के लिए सम्पादित करें</value>
@@ -4245,6 +4328,7 @@
         <value xml:lang="zh_TW">空白時取最大金額</value>
     </property>
     <property key="AccountingEndingBalance">
+        <value xml:lang="de">Schlussbilanz</value>
         <value xml:lang="en">Ending Balance</value>
         <value xml:lang="fr">Solde de clôture</value>
         <value xml:lang="hi_IN">अंतिम शेष</value>
@@ -4253,6 +4337,7 @@
         <value xml:lang="zh">期末余额</value>
     </property>
     <property key="AccountingEndingCashBalance">
+        <value xml:lang="de">Kassenbestand</value>
         <value xml:lang="en">Ending Cash Balance</value>
         <value xml:lang="fr">Trésorerie de clôture</value>
         <value xml:lang="hi_IN">अंतिम नकदी शेष</value>
@@ -4458,6 +4543,7 @@
     </property>
     <property key="AccountingErrorCreatingOrderAdjustmentBillingFromOrder">
         <value xml:lang="ar">مشكل أثناء استحداث تعديل فوترة الطلبية من الطلبية</value>
+        <value xml:lang="de">Fehler bei der Erstellung einer Auftrags-Anpassung zu einer Rechnung</value>
         <value xml:lang="en">Error creating OrderAdjustmentBilling from order</value>
         <value xml:lang="fr">Erreur lors de la création d'un ajustement facturation à partir de la commande</value>
         <value xml:lang="hi_IN">आर्डर से आर्डर समायोजन देयकांकन(बिलिंग) (OrderAdjustmentBilling) बनाने में त्रुटि</value>
@@ -4472,6 +4558,7 @@
     </property>
     <property key="AccountingErrorCreatingOrderItemBillingFromOrder">
         <value xml:lang="ar">مشكل أثناء استحداث بند فوترة الطلبية من الطلبية</value>
+        <value xml:lang="de">Fehler bei der Erstellung einer Auftragspositions-Anpassung zu einer Rechnung</value>
         <value xml:lang="en">Error creating OrderItemBilling from order</value>
         <value xml:lang="fr">Erreur lors de la création d'une ligne de facturation à partir de la commande</value>
         <value xml:lang="hi_IN">आर्डर से आर्डर मद देयकांकन(बिलिंग) (OrderItemBilling) बनाने में त्रुटि</value>
@@ -4498,6 +4585,7 @@
         <value xml:lang="zh_TW">固定資產資料中的期望使用壽命結束為空。</value>
     </property>
     <property key="AccountingExpenses">
+        <value xml:lang="de">Aufwendungen</value>
         <value xml:lang="en">Expenses</value>
         <value xml:lang="hi_IN">व्यय</value>
         <value xml:lang="pt">Despesas</value>
@@ -4549,6 +4637,7 @@
         <value xml:lang="zh_TW">沒有失效年份</value>
     </property>
     <property key="AccountingExportAsCsv">
+        <value xml:lang="de">Als CSV exportieren</value>
         <value xml:lang="en">Export as CSV</value>
         <value xml:lang="hi_IN">सीएसवी के रूप में करे निर्यात</value>
         <value xml:lang="pt">Exportar como CSV</value>
@@ -4557,6 +4646,7 @@
         <value xml:lang="zh_TW">輸出CSV檔</value>
     </property>
     <property key="AccountingExportAsPdf">
+        <value xml:lang="de">Als PDF exportieren</value>
         <value xml:lang="en">Export as PDF</value>
         <value xml:lang="hi_IN">पीडीएफ के रूप में करे निर्यात</value>
         <value xml:lang="pt">Exportar como PDF</value>
@@ -4565,6 +4655,7 @@
         <value xml:lang="zh_TW">輸出PDF檔</value>
     </property>
     <property key="AccountingExportWithInvoiceAndPaymentAsPdf">
+        <value xml:lang="de">Als PDF mit Rechnung und Zahlung exportieren</value>
         <value xml:lang="en">Export with Invoice and Payment as PDF</value>
         <value xml:lang="pt">Exportação com fatura e pagamento em formato PDF</value>
         <value xml:lang="vi">Kết xuất với Hóa đơn và Thanh toán ra định dạng PDF</value>
@@ -4605,7 +4696,7 @@
         <value xml:lang="zh_TW">外匯匯率</value>
     </property>
     <property key="AccountingFinAccount">
-        <value xml:lang="de">Geldkonto</value>
+        <value xml:lang="de">Finanzkonto</value>
         <value xml:lang="en">Financial Account</value>
         <value xml:lang="fr">Compte financier</value>
         <value xml:lang="hi_IN">वित्तीय खाता</value>
@@ -4633,6 +4724,7 @@
         <value xml:lang="zh_TW">授權</value>
     </property>
     <property key="AccountingFinAccountTransInvalidStatusError">
+        <value xml:lang="de">FinAccountTrans muss im Status 'erstellt' sein.</value>
         <value xml:lang="en">FinAccountTrans must be in created status.</value>
         <value xml:lang="hi_IN">FinAccountTrans निर्मित स्थिति में होना चाहिए</value>
         <value xml:lang="pt">FinAccountTrans deve ser estar no estado criado.</value>
@@ -4640,6 +4732,7 @@
         <value xml:lang="zh">财务账目交易（FinAccountTrans）必须处于已创建状态。</value>
     </property>
     <property key="AccountingFinAccountTransaction">
+        <value xml:lang="de">Finanzkonto Transaktion</value>
         <value xml:lang="en">Financial Account Transaction</value>
         <value xml:lang="hi_IN">वित्तीय खाता लेन-देन</value>
         <value xml:lang="pt">Transações de Contas financeiras</value>
@@ -4689,6 +4782,7 @@
         <value xml:lang="zh_TW">金融賬戶</value>
     </property>
     <property key="AccountingFinAcctTransAssociatedToGlReconciliation">
+        <value xml:lang="de">Finanzkonto-TransaktionFin zu Kontenabstimmung zugeordnet</value>
         <value xml:lang="en">Fin Account Trans Associated To Gl Reconciliation</value>
         <value xml:lang="hi_IN">Gl मिलान से जुड़े Fin खाता</value>
         <value xml:lang="pt">Transação associada à reconcilização da Conta Financeira</value>
@@ -4696,6 +4790,7 @@
         <value xml:lang="zh">把财务账目交易关联到总账对账</value>
     </property>
     <property key="AccountingFindApInvoices">
+        <value xml:lang="de">Kreditorenrechnungen finden</value>
         <value xml:lang="en">Find AP Invoices</value>
         <value xml:lang="fr">Recherche de factures fournisseur</value>
         <value xml:lang="hi_IN">एपी (AP) चालान खोजें</value>
@@ -4705,6 +4800,7 @@
         <value xml:lang="zh_TW">找尋應付發票</value>
     </property>
     <property key="AccountingFindApPaymentGroups">
+        <value xml:lang="de">Kreditoren-Zahlungsgruppen finden</value>
         <value xml:lang="en">Find AP Payment Groups</value>
         <value xml:lang="pt">Todos os grupos pagamento das contas a pagar</value>
         <value xml:lang="vi">Tìm nhóm thanh toán chi</value>
@@ -4712,6 +4808,7 @@
         <value xml:lang="zh_TW">找尋應付支付群組</value>
     </property>
     <property key="AccountingFindApPayments">
+        <value xml:lang="de">Kreditoren-Zahlungen finden</value>
         <value xml:lang="en">Find AP Payments</value>
         <value xml:lang="fr">Recherche de paiements fournisseur</value>
         <value xml:lang="hi_IN">लेखा देय भुगतान खोजें</value>
@@ -4721,6 +4818,7 @@
         <value xml:lang="zh_TW">找尋應付支付</value>
     </property>
     <property key="AccountingFindArInvoices">
+        <value xml:lang="de">Debitornrechnungen finden</value>
         <value xml:lang="en">Find AR Invoices</value>
         <value xml:lang="hi_IN">लेखा प्राप्य चालान खोजें</value>
         <value xml:lang="nl">Crediteuren facturen vinden</value>
@@ -4730,6 +4828,7 @@
         <value xml:lang="zh_TW">找尋應收發票</value>
     </property>
     <property key="AccountingFindArPaymentGroups">
+        <value xml:lang="de">Debitoren-Zahlungsgruppen finden</value>
         <value xml:lang="en">Find AR Payment Groups</value>
         <value xml:lang="fr">Recherche de groupes de paiement</value>
         <value xml:lang="nl">AR Betalingsgroepen vinden</value>
@@ -4739,6 +4838,7 @@
         <value xml:lang="zh_TW">找尋應收支付群組</value>
     </property>
     <property key="AccountingFindArPayments">
+        <value xml:lang="de">Debitoren-Zahlungen finden</value>
         <value xml:lang="en">Find AR Payments</value>
         <value xml:lang="hi_IN">लेखा प्राप्य भुगतान खोजें</value>
         <value xml:lang="nl">Crediteuren betalingen vinden</value>
@@ -4748,6 +4848,7 @@
         <value xml:lang="zh_TW">找尋應收支付</value>
     </property>
     <property key="AccountingFindDepositSlip">
+        <value xml:lang="de">Finde Einzahlungsscheine für Finanzkonto : ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="en">Find Deposit Slips for Financial Account : ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="hi_IN">वित्तीय खाता ${finAccount.finAccountName} [${finAccountId}] के लिए जमा पर्चीयां ढूँढें</value>
         <value xml:lang="pt">Encontrar recibos de depósito de Conta Financeira: ${finAccount.finAccountName} [${finAccountId}]</value>
@@ -4755,6 +4856,7 @@
         <value xml:lang="zh">查找财务账户的存款单：${finAccount.finAccountName} [${finAccountId}]</value>
     </property>
     <property key="AccountingFindFinAccountReconciliations">
+        <value xml:lang="de">Finde Finanzkonto Abstimmungen</value>
         <value xml:lang="en">Find Financial Account Reconciliations</value>
         <value xml:lang="nl">Afstemmingen financiele rekeningen vinden</value>
         <value xml:lang="pt">Encontrar reconciliações de Conta Financeira</value>
@@ -4796,6 +4898,7 @@
         <value xml:lang="zh_TW">查找發票</value>
     </property>
     <property key="AccountingFindPaymentGroup">
+        <value xml:lang="de">Suche Zahlungsgruppe</value>
         <value xml:lang="en">Find Payment Group</value>
         <value xml:lang="fr">Recherche de groupes de paiement</value>
         <value xml:lang="hi_IN">भुगतान समूह खोजें</value>
@@ -4806,6 +4909,7 @@
         <value xml:lang="zh_TW">找尋支付群組</value>
     </property>
     <property key="AccountingFindPurchaseInvoices">
+        <value xml:lang="de">Suche Einkaufsrechnung</value>
         <value xml:lang="en">Find Purchase Invoices</value>
         <value xml:lang="fr">Recherche de factures d'achat</value>
         <value xml:lang="hi_IN">खरीद चालान खोजें</value>
@@ -4842,6 +4946,7 @@
         <value xml:lang="zh_TW">按過期日期查找銷售發票</value>
     </property>
     <property key="AccountingFindSalesInvoicesForCommissionRun">
+        <value xml:lang="de">Suche Verkaufsrechnungen für Komissionslauf</value>
         <value xml:lang="en">Find Sales Invoices For Commission Run</value>
         <value xml:lang="hi_IN">दलाली भुगतान के लिए बिक्री चालान खोजें</value>
         <value xml:lang="it">Ricerca fatture di vendita per commissione</value>
@@ -5251,6 +5356,7 @@
         <value xml:lang="zh_TW">編號類型</value>
     </property>
     <property key="AccountingFixedAssetIdentTypeId">
+        <value xml:lang="de">Identifikationsart Id</value>
         <value xml:lang="en">Fixed Asset Ident Type Id</value>
         <value xml:lang="fr">réf. de type d'indent. d'immo.</value>
         <value xml:lang="hi_IN">अचल संपत्ति पहचान प्रकार क्रमांक</value>
@@ -5315,7 +5421,7 @@
     </property>
     <property key="AccountingFixedAssetMaintIntervalMeterType">
         <value xml:lang="ar">نوع مقياس المجال</value>
-        <value xml:lang="de">Abstandsmessgerät</value>
+        <value xml:lang="de">Interval-Zähler</value>
         <value xml:lang="en">Interval Meter Type</value>
         <value xml:lang="es">Intervalo Tipo de Contador</value>
         <value xml:lang="fr">Type d'intervalle de mesure</value>
@@ -5332,7 +5438,7 @@
     </property>
     <property key="AccountingFixedAssetMaintIntervalQuantity">
         <value xml:lang="ar">كمية المجال</value>
-        <value xml:lang="de">Abstandsmaß</value>
+        <value xml:lang="de">Interval</value>
         <value xml:lang="en">Interval Quantity</value>
         <value xml:lang="es">Cantidad de Intervalo</value>
         <value xml:lang="fr">Quantité d'intervalles</value>
@@ -5366,6 +5472,7 @@
     </property>
     <property key="AccountingFixedAssetMaintMessage1">
         <value xml:lang="ar">إذا حددت صيانة السلعة, فإنه سيتم الوضع/إعادة الوضع آليا</value>
+        <value xml:lang="de">Falls Produktwartung angegeben wurde wird dies automatisch (zurück-) gesetzt</value>
         <value xml:lang="en">If the Product Maintenance is specified, this will be set/reset automatically</value>
         <value xml:lang="es">Si el mantenimiento del producto es especificado, será establecido/reestablecido automaticamente</value>
         <value xml:lang="fr">Si la maintenance est définie au niveau du produit, ceci sera mis à jour automatiquement</value>
@@ -5382,6 +5489,7 @@
     </property>
     <property key="AccountingFixedAssetMaintMessage2">
         <value xml:lang="ar">استعمله فقط إذا كان قابلا للتطبيق, يمكن استعمال نوع الصيانة بدلا منه</value>
+        <value xml:lang="de">Nur nutzen falls zutreffend, ansonnsten kann Wartungs-Art genutzt werden</value>
         <value xml:lang="en">Only use if applicable, can use Maintenance Type instead</value>
         <value xml:lang="es">Solo usar si es aplicable, tambien puede usar Tipo de Mantenimiento</value>
         <value xml:lang="fr">Si adéquat, sinon utiliser le type de maintenance à la place</value>
@@ -5471,6 +5579,7 @@
         <value xml:lang="zh_TW">維修保養類型</value>
     </property>
     <property key="AccountingFixedAssetMaintWorkEffortName">
+        <value xml:lang="de">Wartung von Anlage ${fixedAsset.fixedAssetName} [${fixedAsset.fixedAssetId}]</value>
         <value xml:lang="en">Maintenance of Fixed Asset ${fixedAsset.fixedAssetName} [${fixedAsset.fixedAssetId}]</value>
         <value xml:lang="fr">Maintenance de l'immobilisation ${fixedAsset.fixedAssetName} [${fixedAsset.fixedAssetId}]</value>
         <value xml:lang="hi_IN"> अचल संपत्ति ${fixedAsset.fixedAssetName} [${fixedAsset.fixedAssetId}] का रखरखाव</value>
@@ -5525,6 +5634,7 @@
     </property>
     <property key="AccountingFixedAssetMessage1">
         <value xml:lang="ar">*) فارغة, لكن الحد الأقصى من الأصل الثابت معرض</value>
+        <value xml:lang="de">*) leer, es wird das Maximum der Anlagenkapazität angezeigt</value>
         <value xml:lang="en">*) empty, but maximum from fixed Asset capacity shown</value>
         <value xml:lang="es">*) vacio, pero maximo de la capacidad de activo fijo mostrada</value>
         <value xml:lang="fr">*) vide, mais indique le maximum à partir la capacité de l'actif</value>
@@ -5641,7 +5751,7 @@
     </property>
     <property key="AccountingFixedAssetProductAdd">
         <value xml:lang="ar">ربط سلعة جديدة بأصل ثابت</value>
-        <value xml:lang="de">Einen Link zu einer Anlage hinzufügen</value>
+        <value xml:lang="de">Ein Produkt mit einer Anlage verknüpfen</value>
         <value xml:lang="en">Link New product to Fixed Asset</value>
         <value xml:lang="es">Vincular nuevo producto a activo fijo</value>
         <value xml:lang="fr">Relier le nouveau produit à l'immobilisation</value>
@@ -5823,6 +5933,7 @@
         <value xml:lang="zh_TW">標准費用</value>
     </property>
     <property key="AccountingFixedAssetTypeGlAccounts">
+        <value xml:lang="de">Anlagen-Arten Konten-Zuordnung</value>
         <value xml:lang="en">Fixed Asset Type Gl Mappings</value>
         <value xml:lang="it">Mapping Contabili Per Cespiti</value>
         <value xml:lang="pt">Tipo de mapeamento de Ativos na contabilidade</value>
@@ -5899,6 +6010,7 @@
     </property>
     <property key="AccountingFromPartySameToParty">
         <value xml:lang="ar">على الأقل 'من' طرف يجب أن تكون مماثلة ل 'إلى' الطرف للتسديد الآخر</value>
+        <value xml:lang="de">Der 'von' Akteur sollte gleich dem 'an' Akteur der anderen Zahlung sein</value>
         <value xml:lang="en">At least the 'from' party should be the same as the 'to' party of the other payment</value>
         <value xml:lang="es">Al menos el grupo 'origen' debe ser el mismo que  el grupo 'destino' del otro pago</value>
         <value xml:lang="fr">L'acteur "de" doit être le même que l'acteur "vers" de l'autre paiement</value>
@@ -6153,6 +6265,7 @@
         <value xml:lang="zh_TW">總帳科目編號</value>
     </property>
     <property key="AccountingGlAccountNameAndGlAccountCode">
+        <value xml:lang="de">Konto-Code und Kontenname</value>
         <value xml:lang="en">Gl account code and Gl account name</value>
         <value xml:lang="hi_IN">जीएल(GL) खाते का कोड और जीएल(GL) खाते का नाम</value>
         <value xml:lang="pt">Código e nome da conta Razão</value>
@@ -14004,6 +14117,7 @@
         <value xml:lang="zh_TW">財務交易型態編號</value>
     </property>
     <property key="FormFieldTitle_acquireOrderId">
+        <value xml:lang="de">Auftragsnummer der Anschaffung</value>
         <value xml:lang="en">Acquire Order Id</value>
         <value xml:lang="fr">Obtenir une réf. de commande</value>
         <value xml:lang="hi_IN">प्राप्त आदेश क्रमांक</value>
@@ -14014,6 +14128,7 @@
         <value xml:lang="zh_TW">獲得訂單編號</value>
     </property>
     <property key="FormFieldTitle_acquireOrderItemSeqId">
+        <value xml:lang="de">Auftragspositionsnummer der Anschaffung</value>
         <value xml:lang="en">Acquire Order Item Seq Id</value>
         <value xml:lang="fr">Obtenir une réf. séq. de ligne de commande</value>
         <value xml:lang="hi_IN">प्राप्त आदेश मद अनुक्रम क्रमांक</value>
@@ -15871,7 +15986,7 @@
         <value xml:lang="zh_TW">最新更新的時間戳</value>
     </property>
     <property key="FormFieldTitle_locatedAtFacilityId">
-        <value xml:lang="de">Vor Ort ID</value>
+        <value xml:lang="de">Standort</value>
         <value xml:lang="en">Located At Facility Id</value>
         <value xml:lang="fr">Situé dans le magasin réf.</value>
         <value xml:lang="hi_IN">सुविधा क्रमांक(FacilityId) पर स्थित</value>
@@ -15886,6 +16001,7 @@
         <value xml:lang="zh_TW">位于場所編號</value>
     </property>
     <property key="FormFieldTitle_locatedAtLocationSeqId">
+        <value xml:lang="de">Lagerplatz</value>
         <value xml:lang="en">Located At Location Seq Id</value>
         <value xml:lang="fr">Situé dans l'emplacement réf.</value>
         <value xml:lang="hi_IN">स्थान अनुक्रम क्रमांक(LocationSeqId) पर स्थित</value>
@@ -16267,7 +16383,7 @@
         <value xml:lang="zh_TW">實際支付日期</value>
     </property>
     <property key="FormFieldTitle_parentFixedAssetId">
-        <value xml:lang="de">Ursprungsanlagevermögen ID</value>
+        <value xml:lang="de">Übergeordnete Anlage</value>
         <value xml:lang="en">Fixed Asset Parent Id</value>
         <value xml:lang="es">Id Padre Activo Fijo</value>
         <value xml:lang="fr">Immobilisation parente</value>
@@ -16844,6 +16960,7 @@
         <value xml:lang="zh_TW">代理端口</value>
     </property>
     <property key="FormFieldTitle_purchaseCost">
+        <value xml:lang="de">Anschaffungspreis</value>
         <value xml:lang="en">Purchase Cost</value>
         <value xml:lang="fr">Coût d'achat</value>
         <value xml:lang="hi_IN">क्रय मूल्य</value>
@@ -17213,6 +17330,7 @@
         <value xml:lang="zh_TW">銷售機會編號</value>
     </property>
     <property key="FormFieldTitle_salvageValue">
+        <value xml:lang="de">Restwert</value>
         <value xml:lang="en">Salvage Value</value>
         <value xml:lang="fr">Valeur résiduelle</value>
         <value xml:lang="hi_IN">निस्तारण मूल्य</value>
@@ -18590,7 +18708,7 @@
         <value xml:lang="zh_TW">查找賬單賬戶</value>
     </property>
     <property key="PageTitleFindFinAccount">
-        <value xml:lang="de">Suche Bankkonto</value>
+        <value xml:lang="de">Suche Finanzkonto</value>
         <value xml:lang="en">Find Financial Account</value>
         <value xml:lang="fr">Rechercher un compte financier</value>
         <value xml:lang="hi_IN">वित्तीय खाता खोजें</value>
