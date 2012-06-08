@@ -77,22 +77,6 @@ under the License.
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="SHIPRATE_VIEW"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="SHIPRATE_ADMIN"/>
 
-    <!-- Facility Manager security -->
-    <SecurityPermission description="View operations in the Facility Manager." permissionId="FACILITY_VIEW"/>
-    <SecurityPermission description="Create operations in the Facility Manager." permissionId="FACILITY_CREATE"/>
-    <SecurityPermission description="Update operations in the Facility Manager." permissionId="FACILITY_UPDATE"/>
-    <SecurityPermission description="Delete operations in the Facility Manager." permissionId="FACILITY_DELETE"/>
-    <SecurityPermission description="ALL operations in the Facility Manager." permissionId="FACILITY_ADMIN"/>
-    <SecurityPermission description="Limited view operations in the Facility Manager." permissionId="FACILITY_ROLE_VIEW"/>
-    <SecurityPermission description="Limited update operations in the Facility Manager." permissionId="FACILITY_ROLE_UPDATE"/>
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="FACILITY_ADMIN"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="FACILITY_CREATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="FACILITY_DELETE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="FACILITY_UPDATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="FACILITY_VIEW"/>
-    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="FACILITY_VIEW"/>
-    <SecurityGroupPermission groupId="BIZADMIN" permissionId="FACILITY_ADMIN"/>
-    
     <!-- Image Management security -->
     <SecurityGroup description="Image Management Admin." groupId="IMAGEADMIN"/>
     <SecurityPermission description="All operations in the Image Management." permissionId="IMAGE_MANAGEMENT_ADMIN"/>
