@@ -19,27 +19,34 @@
 package org.ofbiz.minilang.method.entityops;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Begins a transaction if one is not already in place; if does begin one puts true in the began-transaction-name env variable, otherwise it returns false.
+ * Implements the &lt;transaction-begin&gt; element.
  */
-public class TransactionBegin extends MethodOperation {
+public final class TransactionBegin extends MethodOperation {
 
     public static final String module = TransactionBegin.class.getName();
 
-    ContextAccessor<Boolean> beganTransactionAcsr;
+    private final FlexibleMapAccessor<Boolean> beganTransactionFma;
 
     public TransactionBegin(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        beganTransactionAcsr = new ContextAccessor<Boolean>(element.getAttribute("began-transaction-name"), "beganTransaction");
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "began-transaction-name");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "began-transaction-name");
+            MiniLangValidate.noChildElements(simpleMethod, element);
+        }
+        beganTransactionFma = FlexibleMapAccessor.getInstance(MiniLangValidate.checkAttribute(element.getAttribute("began-transaction-name"), "beganTransaction"));
     }
 
     @Override
@@ -48,32 +55,42 @@ public class TransactionBegin extends MethodOperation {
         try {
             beganTransaction = TransactionUtil.begin();
         } catch (GenericTransactionException e) {
-            Debug.logError(e, "Could not begin transaction in simple-method, returning error.", module);
-            String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [error beginning a transaction: " + e.getMessage() + "]";
-            methodContext.setErrorReturn(errMsg, simpleMethod);
+            String errMsg = "Exception thrown while beginning transaction: " + e.getMessage();
+            Debug.logWarning(e, errMsg, module);
+            simpleMethod.addErrorMessage(methodContext, errMsg);
             return false;
         }
-        beganTransactionAcsr.put(methodContext, beganTransaction);
+        beganTransactionFma.put(methodContext.getEnvMap(), beganTransaction);
         return true;
     }
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public String rawString() {
-        // TODO: something more than the empty tag
-        return "<transaction-begin/>";
+        return toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<transaction-begin ");
+        sb.append("began-transaction-name=\"").append(this.beganTransactionFma).append("\" />");
+        return sb.toString();
+    }
+
+    /**
+     * A factory for the &lt;transaction-begin&gt; element.
+     */
     public static final class TransactionBeginFactory implements Factory<TransactionBegin> {
+        @Override
         public TransactionBegin createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new TransactionBegin(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "transaction-begin";
         }

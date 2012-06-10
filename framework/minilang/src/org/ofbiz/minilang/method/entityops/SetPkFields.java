@@ -20,77 +20,86 @@ package org.ofbiz.minilang.method.entityops;
 
 import java.util.Map;
 
-import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangRuntimeException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Looks for each PK field in the named map and if it exists there it will copy it into the named value object.
+ * Implements the &lt;set-pk-fields&gt; element.
  */
-public class SetPkFields extends MethodOperation {
+public final class SetPkFields extends MethodOperation {
 
-    public static final String module = SetPkFields.class.getName();
-
-    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
-    String setIfNullStr;
-    ContextAccessor<GenericValue> valueAcsr;
+    private final FlexibleMapAccessor<Map<String, ? extends Object>> mapFma;
+    private final FlexibleStringExpander setIfNullFse;
+    private final FlexibleMapAccessor<GenericValue> valueFma;
 
     public SetPkFields(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-field"), element.getAttribute("value-name"));
-        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map"), element.getAttribute("map-name"));
-        setIfNullStr = element.getAttribute("set-if-null");
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "value-field", "set-if-null", "map");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "value-field", "map");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "value-field", "map");
+            MiniLangValidate.noChildElements(simpleMethod, element);
+        }
+        valueFma = FlexibleMapAccessor.getInstance(element.getAttribute("value-field"));
+        setIfNullFse = FlexibleStringExpander.getInstance(element.getAttribute("set-if-null"));
+        mapFma = FlexibleMapAccessor.getInstance(element.getAttribute("map"));
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        // if anything but false it will be true
-        boolean setIfNull = !"false".equals(methodContext.expandString(setIfNullStr));
-        GenericValue value = valueAcsr.get(methodContext);
+        GenericValue value = valueFma.get(methodContext.getEnvMap());
         if (value == null) {
-            String errMsg = "In set-pk-fields a value was not found with the specified valueAcsr: " + valueAcsr + ", not setting fields";
-
-            Debug.logWarning(errMsg, module);
-            if (methodContext.getMethodType() == MethodContext.EVENT) {
-                methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errMsg);
-                methodContext.putEnv(simpleMethod.getEventResponseCodeName(), simpleMethod.getDefaultErrorCode());
-            } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
-                methodContext.putEnv(simpleMethod.getServiceErrorMessageName(), errMsg);
-                methodContext.putEnv(simpleMethod.getServiceResponseMessageName(), simpleMethod.getDefaultErrorCode());
-            }
-            return false;
+            throw new MiniLangRuntimeException("Entity value not found with name: " + valueFma, this);
         }
-        Map<String, ? extends Object> theMap = mapAcsr.get(methodContext);
+        Map<String, ? extends Object> theMap = mapFma.get(methodContext.getEnvMap());
         if (theMap == null) {
-            Debug.logWarning("In set-pk-fields could not find map with name " + mapAcsr + ", not setting any fields", module);
-        } else {
-            value.setPKFields(theMap, setIfNull);
+            throw new MiniLangRuntimeException("Map not found with name: " + mapFma, this);
         }
+        boolean setIfNull = !"false".equals(setIfNullFse.expand(methodContext.getEnvMap()));
+        value.setPKFields(theMap, setIfNull);
         return true;
     }
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public String rawString() {
-        // TODO: something more than the empty tag
-        return "<set-pk-fields/>";
+        return toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<set-pk-fields ");
+        sb.append("value-field=\"").append(this.valueFma).append("\" ");
+        sb.append("map=\"").append(this.mapFma).append("\" ");
+        if (!setIfNullFse.isEmpty()) {
+            sb.append("set-if-null=\"").append(this.setIfNullFse).append("\" ");
+        }
+        sb.append("/>");
+        return sb.toString();
+    }
+
+    /**
+     * A factory for the &lt;set-pk-fields&gt; element.
+     */
     public static final class SetPkFieldsFactory implements Factory<SetPkFields> {
+        @Override
         public SetPkFields createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new SetPkFields(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "set-pk-fields";
         }

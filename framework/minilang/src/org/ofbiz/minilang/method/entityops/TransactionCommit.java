@@ -19,65 +19,82 @@
 package org.ofbiz.minilang.method.entityops;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Commits a transaction if beganTransaction is true, otherwise does nothing.
+ * Implements the &lt;transaction-commit&gt; element.
  */
-public class TransactionCommit extends MethodOperation {
+public final class TransactionCommit extends MethodOperation {
 
     public static final String module = TransactionCommit.class.getName();
 
-    ContextAccessor<Boolean> beganTransactionAcsr;
+    private final FlexibleMapAccessor<Boolean> beganTransactionFma;
 
     public TransactionCommit(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        beganTransactionAcsr = new ContextAccessor<Boolean>(element.getAttribute("began-transaction-name"), "beganTransaction");
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "began-transaction-name");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "began-transaction-name");
+            MiniLangValidate.noChildElements(simpleMethod, element);
+        }
+        beganTransactionFma = FlexibleMapAccessor.getInstance(MiniLangValidate.checkAttribute(element.getAttribute("began-transaction-name"), "beganTransaction"));
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         boolean beganTransaction = false;
-        Boolean beganTransactionBoolean = beganTransactionAcsr.get(methodContext);
+        Boolean beganTransactionBoolean = beganTransactionFma.get(methodContext.getEnvMap());
         if (beganTransactionBoolean != null) {
             beganTransaction = beganTransactionBoolean.booleanValue();
         }
         try {
             TransactionUtil.commit(beganTransaction);
         } catch (GenericTransactionException e) {
-            Debug.logError(e, "Could not commit transaction in simple-method, returning error.", module);
-            String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [error committing a transaction: " + e.getMessage() + "]";
-            methodContext.setErrorReturn(errMsg, simpleMethod);
+            String errMsg = "Exception thrown while committing transaction: " + e.getMessage();
+            Debug.logWarning(e, errMsg, module);
+            simpleMethod.addErrorMessage(methodContext, errMsg);
             return false;
         }
-        beganTransactionAcsr.remove(methodContext);
+        beganTransactionFma.remove(methodContext.getEnvMap());
         return true;
     }
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public String rawString() {
-        // TODO: something more than the empty tag
-        return "<transaction-commit/>";
+        return toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<transaction-commit ");
+        sb.append("began-transaction-name=\"").append(this.beganTransactionFma).append("\" />");
+        return sb.toString();
+    }
+
+    /**
+     * A factory for the &lt;transaction-commit&gt; element.
+     */
     public static final class TransactionCommitFactory implements Factory<TransactionCommit> {
+        @Override
         public TransactionCommit createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new TransactionCommit(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "transaction-commit";
         }
