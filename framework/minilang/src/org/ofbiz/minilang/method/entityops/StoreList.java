@@ -21,51 +21,53 @@ package org.ofbiz.minilang.method.entityops;
 import java.util.List;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangRuntimeException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Uses the delegator to store the specified value object list in the datasource
+ * Implements the &lt;store-list&gt; element.
  */
-public class StoreList extends MethodOperation {
+public final class StoreList extends MethodOperation {
 
     public static final String module = StoreList.class.getName();
 
-    String doCacheClearStr;
-    ContextAccessor<List<GenericValue>> listAcsr;
+    private final FlexibleStringExpander doCacheClearFse;
+    private final FlexibleMapAccessor<List<GenericValue>> listFma;
 
     public StoreList(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        listAcsr = new ContextAccessor<List<GenericValue>>(element.getAttribute("list"), element.getAttribute("list-name"));
-        doCacheClearStr = element.getAttribute("do-cache-clear");
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "list", "do-cache-clear");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "list");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "list");
+            MiniLangValidate.noChildElements(simpleMethod, element);
+        }
+        listFma = FlexibleMapAccessor.getInstance(element.getAttribute("list"));
+        doCacheClearFse = FlexibleStringExpander.getInstance(element.getAttribute("do-cache-clear"));
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        boolean doCacheClear = !"false".equals(methodContext.expandString(doCacheClearStr));
-        List<GenericValue> values = listAcsr.get(methodContext);
+        List<GenericValue> values = listFma.get(methodContext.getEnvMap());
         if (values == null) {
-            String errMsg = "In store-list a value list was not found with the specified listAcsr: " + listAcsr + ", not storing";
-            Debug.logInfo(errMsg, module);
+            throw new MiniLangRuntimeException("Entity value list not found with name: " + listFma, this);
         }
+        boolean doCacheClear = !"false".equals(doCacheClearFse.expandString(methodContext.getEnvMap()));
         try {
             methodContext.getDelegator().storeAll(values, doCacheClear);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
-            String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [problem storing the " + listAcsr + " value list: " + e.getMessage() + "]";
-            if (methodContext.getMethodType() == MethodContext.EVENT) {
-                methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errMsg);
-                methodContext.putEnv(simpleMethod.getEventResponseCodeName(), simpleMethod.getDefaultErrorCode());
-            } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
-                methodContext.putEnv(simpleMethod.getServiceErrorMessageName(), errMsg);
-                methodContext.putEnv(simpleMethod.getServiceResponseMessageName(), simpleMethod.getDefaultErrorCode());
-            }
+            String errMsg = "Exception thrown while storing entities: " + e.getMessage();
+            Debug.logWarning(e, errMsg, module);
+            simpleMethod.addErrorMessage(methodContext, errMsg);
             return false;
         }
         return true;
@@ -73,21 +75,35 @@ public class StoreList extends MethodOperation {
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public String rawString() {
-        // TODO: something more than the empty tag
-        return "<store-list/>";
+        return toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<store-list ");
+        sb.append("list=\"").append(this.listFma).append("\" ");
+        if (!doCacheClearFse.isEmpty()) {
+            sb.append("do-cache-clear=\"").append(this.doCacheClearFse).append("\" ");
+        }
+        sb.append("/>");
+        return sb.toString();
+    }
+
+    /**
+     * A factory for the &lt;store-list&gt; element.
+     */
     public static final class StoreListFactory implements Factory<StoreList> {
+        @Override
         public StoreList createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new StoreList(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "store-list";
         }

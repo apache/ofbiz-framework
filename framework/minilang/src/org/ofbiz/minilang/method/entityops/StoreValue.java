@@ -19,55 +19,53 @@
 package org.ofbiz.minilang.method.entityops;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangRuntimeException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Uses the delegator to store the specified value object entity in the datasource
+ * Implements the &lt;store-value&gt; element.
  */
-public class StoreValue extends MethodOperation {
+public final class StoreValue extends MethodOperation {
 
     public static final String module = StoreValue.class.getName();
 
-    String doCacheClearStr;
-    ContextAccessor<GenericValue> valueAcsr;
+    private final FlexibleStringExpander doCacheClearFse;
+    private final FlexibleMapAccessor<GenericValue> valueFma;
 
     public StoreValue(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-field"), element.getAttribute("value-name"));
-        doCacheClearStr = element.getAttribute("do-cache-clear");
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "value-field", "do-cache-clear");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "value-field");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "value-field");
+            MiniLangValidate.noChildElements(simpleMethod, element);
+        }
+        valueFma = FlexibleMapAccessor.getInstance(element.getAttribute("value-field"));
+        doCacheClearFse = FlexibleStringExpander.getInstance(element.getAttribute("do-cache-clear"));
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        boolean doCacheClear = !"false".equals(methodContext.expandString(doCacheClearStr));
-        GenericValue value = null;
-        try {
-            value = valueAcsr.get(methodContext);
-        } catch (ClassCastException e) {
-            String errMsg = "In store-value the value specified by valueAcsr [" + valueAcsr + "] was not an instance of GenericValue, not storing";
-            Debug.logError(errMsg, module);
-            methodContext.setErrorReturn(errMsg, simpleMethod);
-            return false;
-        }
+        GenericValue value = valueFma.get(methodContext.getEnvMap());
         if (value == null) {
-            String errMsg = "In store-value a value was not found with the specified valueAcsr: " + valueAcsr + ", not storing";
-            Debug.logWarning(errMsg, module);
-            methodContext.setErrorReturn(errMsg, simpleMethod);
-            return false;
+            throw new MiniLangRuntimeException("Entity value not found with name: " + valueFma, this);
         }
+        boolean doCacheClear = !"false".equals(doCacheClearFse.expandString(methodContext.getEnvMap()));
         try {
             methodContext.getDelegator().store(value, doCacheClear);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
-            String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [problem storing the " + valueAcsr + " value: " + e.getMessage() + "]";
-            methodContext.setErrorReturn(errMsg, simpleMethod);
+            String errMsg = "Exception thrown while storing entity value: " + e.getMessage();
+            Debug.logWarning(e, errMsg, module);
+            simpleMethod.addErrorMessage(methodContext, errMsg);
             return false;
         }
         return true;
@@ -75,21 +73,35 @@ public class StoreValue extends MethodOperation {
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public String rawString() {
-        // TODO: something more than the empty tag
-        return "<store-value/>";
+        return toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<store-value ");
+        sb.append("value-field=\"").append(this.valueFma).append("\" ");
+        if (!doCacheClearFse.isEmpty()) {
+            sb.append("do-cache-clear=\"").append(this.doCacheClearFse).append("\" ");
+        }
+        sb.append("/>");
+        return sb.toString();
+    }
+
+    /**
+     * A factory for the &lt;store-value&gt; element.
+     */
     public static final class StoreValueFactory implements Factory<StoreValue> {
+        @Override
         public StoreValue createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new StoreValue(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "store-value";
         }

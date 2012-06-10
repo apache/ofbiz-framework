@@ -57,6 +57,19 @@ under the License.
         </xs:choice>
     </xs:group>
 
+    <xs:simpleType name="booleanConst">
+        <xs:restriction base="xs:token">
+            <xs:enumeration value="true" />
+            <xs:enumeration value="false" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="booleanExpr">
+        <xs:restriction base="xs:token">
+            <xs:pattern value="\$\{[a-zA-Z_]{1}[a-zA-Z0-9_\-.]+\}|true|false" />
+        </xs:restriction>
+    </xs:simpleType>
+
     <xs:attribute name="field">
         <xs:annotation>
             <xs:documentation>
@@ -66,8 +79,7 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:simpleType>
-            <xs:restriction base="xs:string">
-                <xs:whiteSpace value="collapse" />
+            <xs:restriction base="xs:token">
                 <xs:minLength value="1" />
             </xs:restriction>
         </xs:simpleType>
@@ -342,12 +354,13 @@ under the License.
                 &lt;br/&gt;&lt;br/&gt;
                 A simple method can be called in either an event context from the Control
                 Servlet (or another event) or in a service context through the Service
-                Engine, or any other component that has access to a service dispatcher.
+                Engine, or any other component that has access to a service
+                dispatcher.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations" />
-            <xs:attribute type="xs:string" name="method-name" use="required">
+            <xs:attribute name="method-name" use="required">
                 <xs:annotation>
                     <xs:documentation>
                         A name (preferably a legal Java identifier) for this method.
@@ -356,6 +369,11 @@ under the License.
                         Required. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:pattern value="[a-zA-Z_]{1}[a-zA-Z0-9_\-.]+" />
+                    </xs:restriction>
+                </xs:simpleType>
             </xs:attribute>
             <xs:attribute type="xs:string" name="short-description">
                 <xs:annotation>
@@ -366,7 +384,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="login-required">
+            <xs:attribute name="login-required" type="booleanConst">
                 <xs:annotation>
                     <xs:documentation>
                         Require a user login to run this method. Defaults to "true".
@@ -374,14 +392,8 @@ under the License.
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
             </xs:attribute>
-            <xs:attribute name="use-transaction">
+            <xs:attribute name="use-transaction" type="booleanConst">
                 <xs:annotation>
                     <xs:documentation>
                         Create a transaction if none exists for this thread. Defaults to "true".
@@ -389,12 +401,6 @@ under the License.
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
             </xs:attribute>
             <xs:attribute type="xs:string" name="default-error-code">
                 <xs:annotation>
@@ -678,7 +684,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="include-user-login">
+            <xs:attribute name="include-user-login" type="booleanConst">
                 <xs:annotation>
                     <xs:documentation>
                         Include the current UserLogin GenericValue in the called service IN attributes.
@@ -687,16 +693,8 @@ under the License.
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
-                <xs:simpleType>
-                    <xs:annotation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
             </xs:attribute>
-            <xs:attribute name="break-on-error">
+            <xs:attribute name="break-on-error" type="booleanConst">
                 <xs:annotation>
                     <xs:documentation>
                         Halt script execution if the called service returns an error.
@@ -705,12 +703,6 @@ under the License.
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
             </xs:attribute>
             <xs:attribute type="xs:string" name="error-code">
                 <xs:annotation>
@@ -732,7 +724,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="require-new-transaction">
+            <xs:attribute name="require-new-transaction" type="booleanConst">
                 <xs:annotation>
                     <xs:documentation>
                         Require a new transaction for the called service.
@@ -741,12 +733,6 @@ under the License.
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
             </xs:attribute>
             <xs:attribute type="xs:string" name="transaction-timeout">
                 <xs:annotation>
@@ -997,7 +983,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="include-user-login">
+            <xs:attribute name="include-user-login" type="booleanConst">
                 <xs:annotation>
                     <xs:documentation>
                         Include the current UserLogin GenericValue in the called service IN attributes.
@@ -1006,14 +992,6 @@ under the License.
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
-                <xs:simpleType>
-                    <xs:annotation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
             </xs:attribute>
         </xs:complexType>
     </xs:element>
@@ -1815,72 +1793,53 @@ under the License.
         These operations are used to interact with a data source through the entity
         engine and facilitate related operations.
     -->
+    <xs:attribute type="xs:string" name="began-transaction-name">
+        <xs:annotation>
+            <xs:documentation>
+                The name of the field that contains a Boolean value specifying whether or not a transaction was begun in the current transaction demarcation.
+                Defaults to "beganTransaction".
+                &lt;br/&gt;&lt;br/&gt;
+                Optional. Attribute type: expression.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:attribute>
     <xs:element name="transaction-begin" substitutionGroup="EntityTxOperations">
         <xs:annotation>
             <xs:documentation>
-                The transaction-begin tag will begin a transaction if one is not already in place.
-                If a transaction is begun the environment field named as the began-transaction-name will be set to true, otherwise it will be set to false.
-
-                Note that unless the simple-method is flagged to not use a transaction all simple-methods will be inside a transaction.
-                The same is true for service calls through the Service Engine.
+                Begins a transaction if one is not already in place.
+                &lt;br/&gt;&lt;br/&gt;
+                Note that all simple-methods are executed inside a transaction unless
+                the simple-method is flagged to not use a transaction.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.transaction-begin"/>
+            <xs:attribute ref="began-transaction-name" />
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.transaction-begin">
-        <xs:attribute type="xs:string" name="began-transaction-name" default="beganTransaction">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field that contains a Boolean specifying whether or not a transaction was begun in the current transaction demarcation.
-                    Defaults to "beganTransaction".
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="transaction-commit" substitutionGroup="EntityTxOperations">
         <xs:annotation>
             <xs:documentation>
-                The transaction-commit tag will commit a transaction if a transaction was begun in the current demarcation context as represented by the environment field named as the began-transaction-name.
-                If the Boolean in that field is false no commit will be done.
+                Commits a transaction that was begun with the transaction-begin element.
+                Does nothing if no transaction was begun.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.transaction-commit"/>
+            <xs:attribute ref="began-transaction-name" />
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.transaction-commit">
-        <xs:attribute type="xs:string" name="began-transaction-name" default="beganTransaction">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field that contains a Boolean specifying whether or not a transaction was begun in the current transaction demarcation.
-                    Defaults to "beganTransaction".
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="transaction-rollback" substitutionGroup="EntityTxOperations">
         <xs:annotation>
             <xs:documentation>
-                The transaction-rollback tag will rollback a transaction if a transaction was begun in the current demarcation context as represented by the environment field named as the began-transaction-name.
-                If the Boolean in that field is false a set rollback only will operation will be done instead of rollback which will force the transaction to rollback regardless of which method or object is responsible for beginning and ending the transaction.
+                Rolls back a transaction that was begun with the transaction-begin element.
+                If no transaction was begun with the transaction-begin element, a "set rollback only"
+                operation will be performed - which will force the transaction to rollback regardless
+                of which method or object is responsible for beginning and ending the transaction.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.transaction-rollback"/>
+            <xs:attribute ref="began-transaction-name" />
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.transaction-rollback">
-        <xs:attribute type="xs:string" name="began-transaction-name" default="beganTransaction">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field that contains a Boolean specifying whether or not a transaction was begun in the current transaction demarcation.
-                    Defaults to "beganTransaction".
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="sequenced-id" substitutionGroup="EntityMiscOperations">
         <xs:annotation>
             <xs:documentation>
@@ -1910,7 +1869,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="get-long-only">
+            <xs:attribute name="get-long-only" type="booleanConst">
                 <xs:annotation>
                     <xs:documentation>
                         Preserve the sequence type - a numeric long. If set to "false" the sequence
@@ -1919,12 +1878,6 @@ under the License.
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="false" />
-                        <xs:enumeration value="true" />
-                    </xs:restriction>
-                </xs:simpleType>
             </xs:attribute>
         </xs:complexType>
     </xs:element>
@@ -2161,7 +2114,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="use-iterator">
+            <xs:attribute name="use-iterator" type="booleanExpr">
                 <xs:annotation>
                     <xs:documentation>
                         Specifies whether or not to use the EntityListIterator when doing the query.
@@ -2173,12 +2126,6 @@ under the License.
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="false" />
-                        <xs:enumeration value="true" />
-                    </xs:restriction>
-                </xs:simpleType>
             </xs:attribute>
             <xs:attribute type="xs:string" name="delegator-name">
                 <xs:annotation>
@@ -2246,7 +2193,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="auto-field-map">
+            <xs:attribute name="auto-field-map" type="booleanExpr">
                 <xs:annotation>
                     <xs:documentation>
                         When "true", the operation looks for all primary key field names in the current context as well as in the parameters map.
@@ -2255,12 +2202,6 @@ under the License.
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
             </xs:attribute>
         </xs:complexType>
     </xs:element>
@@ -3051,7 +2992,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="do-cache-clear">
+            <xs:attribute name="do-cache-clear" type="booleanConst">
                 <xs:annotation>
                     <xs:documentation>
                         Clear the cache. Defaults to "true".
@@ -3059,14 +3000,8 @@ under the License.
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
             </xs:attribute>
-            <xs:attribute name="or-store">
+            <xs:attribute name="or-store" type="booleanConst">
                 <xs:annotation>
                     <xs:documentation>
                         Store value if it already exists. Defaults to "false".
@@ -3074,48 +3009,37 @@ under the License.
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
             </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="store-value" substitutionGroup="EntityValueOperations">
         <xs:annotation>
             <xs:documentation>
-                The store-value tag persists the specified GenericValue object by updating the instance of the entity in the datasource.
-                An error will result if an instance of the entity does not exist in the datasource with the same primary key.
+                Stores an entity value in the database. An error will be generated
+                if the entity value does not exist in the database.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.store-value"/>
+            <xs:attribute name="value-field" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field containing the entity value.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="do-cache-clear" type="booleanExpr">
+                <xs:annotation>
+                    <xs:documentation>
+                        Clear the cache. Defaults to "true".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.store-value">
-        <xs:attribute type="xs:string" name="value-field" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field that contains the GenericValue object.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="do-cache-clear" default="true">
-            <xs:annotation>
-                <xs:documentation>
-                    Clear the cache, defaults to true
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="refresh-value" substitutionGroup="EntityValueOperations">
         <xs:annotation>
             <xs:documentation>
@@ -3132,7 +3056,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="do-cache-clear">
+            <xs:attribute name="do-cache-clear" type="booleanExpr">
                 <xs:annotation>
                     <xs:documentation>
                         Clear the cache. Defaults to "true".
@@ -3140,12 +3064,6 @@ under the License.
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
             </xs:attribute>
         </xs:complexType>
     </xs:element>
@@ -3165,7 +3083,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="do-cache-clear">
+            <xs:attribute name="do-cache-clear" type="booleanExpr">
                 <xs:annotation>
                     <xs:documentation>
                         Clear the cache. Defaults to "true".
@@ -3173,12 +3091,6 @@ under the License.
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
             </xs:attribute>
         </xs:complexType>
     </xs:element>
@@ -3209,7 +3121,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="do-cache-clear">
+            <xs:attribute name="do-cache-clear" type="booleanExpr">
                 <xs:annotation>
                     <xs:documentation>
                         Clear the cache. Defaults to "true".
@@ -3217,12 +3129,6 @@ under the License.
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
             </xs:attribute>
         </xs:complexType>
     </xs:element>
@@ -3254,7 +3160,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="do-cache-clear">
+            <xs:attribute name="do-cache-clear" type="booleanExpr">
                 <xs:annotation>
                     <xs:documentation>
                         Clear the cache. Defaults to "true".
@@ -3262,12 +3168,6 @@ under the License.
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
             </xs:attribute>
         </xs:complexType>
     </xs:element>
@@ -3314,116 +3214,106 @@ under the License.
     <xs:element name="set-pk-fields" substitutionGroup="EntityValueOperations">
         <xs:annotation>
             <xs:documentation>
-                Looks for each PK field in the named map and if it exists there it will copy it into the named value object.
+                Copies PK fields from a map to an entity value.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.set-pk-fields"/>
+            <xs:attribute type="xs:string" name="value-field" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field that contains the entity value.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="map" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field that contains a map that is used to initialize the entity value pk fields.
+                        Map values whose key matches one of the entity value fields will be copied to the entity value.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="set-if-null" type="booleanExpr">
+                <xs:annotation>
+                    <xs:documentation>
+                        Set entity value fields that are null or empty.
+                        Defaults to "true".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.set-pk-fields">
-        <xs:attribute type="xs:string" name="value-field" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field that contains the GenericValue object.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="map">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of a map in the method environment that will be used for the entity fields.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="set-if-null" default="true">
-            <xs:annotation>
-                <xs:documentation>
-                    Specifies whether or not to set fields that are null or empty.
-                    Defaults to true.
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="set-nonpk-fields" substitutionGroup="EntityValueOperations">
         <xs:annotation>
             <xs:documentation>
-                Looks for each non-PK field in the named map and if it exists there it will copy it into the named value object.
+                Copies non-PK fields from a map to an entity value.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.set-nonpk-fields"/>
+            <xs:attribute type="xs:string" name="value-field" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field that contains the entity value.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="map" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field that contains a map that is used to initialize the entity value non-pk fields.
+                        Map values whose key matches one of the entity value fields will be copied to the entity value.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="set-if-null" type="booleanExpr">
+                <xs:annotation>
+                    <xs:documentation>
+                        Set entity value fields that are null or empty.
+                        Defaults to "true".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.set-nonpk-fields">
-        <xs:attribute type="xs:string" name="value-field" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field that contains the GenericValue object.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="map">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of a map in the method environment that will be used for the entity fields.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="set-if-null" default="true">
-            <xs:annotation>
-                <xs:documentation>
-                    Specifies whether or not to set fields that are null or empty.
-                    Defaults to true.
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="store-list" substitutionGroup="EntityListOperations">
         <xs:annotation>
             <xs:documentation>
-                The store-list tag uses the delegator to store all entity values in the list.
-                This is different than storing a single value in that values in the list will be inserted if it does not exist or updated if it does exist.
+                Store all entity values in a list. Entity values that do not exist in the database will be added to the database.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.store-list"/>
+            <xs:attribute type="xs:string" name="list" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field that contains the list of entity values.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="do-cache-clear" type="booleanExpr">
+                <xs:annotation>
+                    <xs:documentation>
+                        Clear the cache. Defaults to "true".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.store-list">
-        <xs:attribute type="xs:string" name="list" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field that contains the list of GenericValue objects.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="do-cache-clear" default="true">
-            <xs:annotation>
-                <xs:documentation>
-                    Clear the cache, defaults to true
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="remove-list" substitutionGroup="EntityListOperations">
         <xs:annotation>
             <xs:documentation>
@@ -3442,7 +3332,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="do-cache-clear">
+            <xs:attribute name="do-cache-clear" type="booleanExpr">
                 <xs:annotation>
                     <xs:documentation>
                         Clear the cache. Defaults to "true".
@@ -3450,12 +3340,6 @@ under the License.
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
             </xs:attribute>
         </xs:complexType>
     </xs:element>
@@ -4338,23 +4222,25 @@ under the License.
     <xs:element name="set-current-user-login" substitutionGroup="OtherOperations">
         <xs:annotation>
             <xs:documentation>
-                The set-current-user-login tag sets the UserLogin GenericValue object to be used for authentication for the rest of the method.
+                Sets the UserLogin entity value to be used for authentication for the rest of the method.
                 This is mostly used for calling services, etc.
+                &lt;br/&gt;&lt;br/&gt;
+                This element is deprecated. You can pass an alternate UserLogin
+                entity value to the called service's IN attributes.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.set-current-user-login"/>
+            <xs:attribute type="xs:string" name="value-field" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field that contains the UserLogin entity value.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.set-current-user-login">
-        <xs:attribute type="xs:string" name="value-field" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field that contains the UserLogin GenericValue object.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="calculate" substitutionGroup="OtherOperations">
         <xs:annotation>
             <xs:documentation>

@@ -34,7 +34,7 @@ import org.w3c.dom.Element;
 /**
  * Implements the &lt;remove-value&gt; element.
  */
-public class RemoveValue extends MethodOperation {
+public final class RemoveValue extends MethodOperation {
 
     public static final String module = RemoveValue.class.getName();
 
