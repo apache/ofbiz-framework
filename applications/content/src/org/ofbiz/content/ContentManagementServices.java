@@ -21,13 +21,10 @@ package org.ofbiz.content;
 import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-
-import javax.servlet.http.HttpSession;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -45,7 +42,6 @@ import org.ofbiz.content.content.ContentServices;
 import org.ofbiz.content.content.ContentWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
@@ -131,27 +127,6 @@ public class ContentManagementServices {
         results.put("view", view);
         return results;
     }
-
-    /**
-     * addMostRecent
-     * A service for adding the most recently used of an entity class to the cache.
-     * Entities make it to the most recently used list primarily by being selected for editing,
-     * either by being created or being selected from a list.
-     */
-    public static Map<String, Object> addMostRecent(DispatchContext dctx, Map<String, ? extends Object> context) {
-        //Security security = dctx.getSecurity();
-        //Delegator delegator = dctx.getDelegator();
-        //LocalDispatcher dispatcher = dctx.getDispatcher();
-        //HttpServletRequest request = (HttpServletRequest)context.get("request");
-        //String suffix = (String) context.get("suffix");
-        GenericValue val = (GenericValue)context.get("pk");
-        GenericPK pk = val.getPrimaryKey();
-        HttpSession session = (HttpSession)context.get("session");
-
-        ContentManagementWorker.mruAdd(session, pk);
-        return ServiceUtil.returnSuccess();
-    }
-
 
     /**
      * persistContentAndAssoc

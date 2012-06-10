@@ -405,17 +405,6 @@
         <attribute mode="OUT" name="view" optional="true" type="org.ofbiz.entity.GenericValue"/>
         <attribute mode="OUT" name="content" optional="true" type="org.ofbiz.entity.GenericValue"/>
     </service>
-    <!--
-    <service name="addMostRecent"
-            engine="java"
-            location="org.ofbiz.content.ContentManagementServices"
-            invoke="addMostRecent" auth="false">
-        <description>Get subContent of passed contentId/mapKey or subContentId</description>
-        <attribute mode="IN" name="suffix" optional="true" type="String"/>
-        <attribute mode="IN" name="pk" optional="true" type="org.ofbiz.entity.GenericValue"/>
-        <attribute mode="IN" name="session" optional="true" type="javax.servlet.http.HttpSession"/>
-    </service>
-    -->
 
     <service name="persistContentAndAssoc" engine="java" transaction-timeout="7200"
             location="org.ofbiz.content.ContentManagementServices" invoke="persistContentAndAssoc" auth="true">
