@@ -21769,6 +21769,7 @@
     <property key="ProductPromoCodeLength">
         <value xml:lang="de">Aktionscodelänge</value>
         <value xml:lang="en">product promo code length</value>
+        <value xml:lang="fr">Longueur du code promo</value>
         <value xml:lang="vi">Độ dài mã khuyến mại</value>
     </property>
     <property key="ProductPromoCodeParties">
@@ -21875,22 +21876,27 @@
     <property key="ProductPromoLayoutSmart">
         <value xml:lang="de">clever</value>
         <value xml:lang="en">smart</value>
+        <value xml:lang="fr">intelligent</value>
     </property>
     <property key="ProductPromoLayoutNormal">
         <value xml:lang="de">normal</value>
         <value xml:lang="en">normal</value>
+        <value xml:lang="fr">normal</value>
     </property>
     <property key="ProductPromoLayoutSeqNum">
         <value xml:lang="de">Sequenz</value>
         <value xml:lang="en">sequence</value>
+        <value xml:lang="fr">séquence</value>
     </property>
     <property key="ProductPromoCodeLayout">
         <value xml:lang="de">Aussehen vom Aktionscode</value>
         <value xml:lang="en">Promo code layout</value>
+        <value xml:lang="fr">Format de code promo</value>
     </property>
     <property key="ProductPromoCodeLayoutTooltip">
         <value xml:lang="de">"clever": Vermeidet ähnliche Zeichen (0 und O, ...) | "normal": Alphanummerisch | "sequenz": Laufnummer</value>
         <value xml:lang="en">"smart": Avoids equal Chars (0 and O, ...) | "normal": alphanumeric | "sequence": Sequence Number</value>
+        <value xml:lang="fr">"intelligent": Éviter les charactères identiques (0 et O, ...) | "normal": alphanumérique | "séquence": séquence numérique</value>
     </property>
     <property key="ProductPromos">
         <value xml:lang="de">Aktionen</value>
