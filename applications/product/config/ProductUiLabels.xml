@@ -21805,6 +21805,10 @@
         <value xml:lang="zh">促销/优惠券代码</value>
         <value xml:lang="zh_TW">促銷/優惠券代碼</value>
     </property>
+    <property key="ProductPromoCodesCreated">
+        <value xml:lang="en">Following PromoCodes have been created: </value>
+        <value xml:lang="fr">Les codes promo suivants ont été créés : </value>
+    </property>
     <property key="ProductPromoCodesEntered">
         <value xml:lang="de">Eingegebene Codes:</value>
         <value xml:lang="en">Entered Codes:</value>
