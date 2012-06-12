@@ -19,82 +19,81 @@
 package org.ofbiz.minilang.method.envops;
 
 import java.util.List;
-import java.util.Map;
 
 import javolution.util.FastList;
 
-import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Copies an environment field to a list
+ * Implements the &lt;field-to-list&gt; element.
  */
-public class FieldToList extends MethodOperation {
+public final class FieldToList extends MethodOperation {
 
-    public static final String module = FieldToList.class.getName();
-
-    ContextAccessor<Object> fieldAcsr;
-    ContextAccessor<List<Object>> listAcsr;
-    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    private final FlexibleMapAccessor<Object> fieldFma;
+    private final FlexibleMapAccessor<List<Object>> listFma;
 
     public FieldToList(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
-        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
-        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
-        listAcsr = new ContextAccessor<List<Object>>(element.getAttribute("list"), element.getAttribute("list-name"));
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.handleError("<field-to-list> element is deprecated (use <set>)", simpleMethod, element);
+            MiniLangValidate.attributeNames(simpleMethod, element, "field", "list");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "field", "list");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "field", "list");
+            MiniLangValidate.noChildElements(simpleMethod, element);
+        }
+        fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
+        listFma = FlexibleMapAccessor.getInstance(element.getAttribute("list"));
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        Object fieldVal = null;
-        if (!mapAcsr.isEmpty()) {
-            Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
-            if (fromMap == null) {
-                Debug.logWarning("Map not found with name " + mapAcsr + ", Not copying to list", module);
-                return true;
+        Object fieldVal = fieldFma.get(methodContext.getEnvMap());
+        if (fieldVal != null) {
+            List<Object> toList = listFma.get(methodContext.getEnvMap());
+            if (toList == null) {
+                toList = FastList.newInstance();
+                listFma.put(methodContext.getEnvMap(), toList);
             }
-            fieldVal = fieldAcsr.get(fromMap, methodContext);
-        } else {
-            // no map name, try the env
-            fieldVal = fieldAcsr.get(methodContext);
+            toList.add(fieldVal);
         }
-        if (fieldVal == null) {
-            Debug.logWarning("Field value not found with name " + fieldAcsr + " in Map with name " + mapAcsr + ", Not copying to list", module);
-            return true;
-        }
-        List<Object> toList = listAcsr.get(methodContext);
-        if (toList == null) {
-            if (Debug.verboseOn())
-                Debug.logVerbose("List not found with name " + listAcsr + ", creating new list", module);
-            toList = FastList.newInstance();
-            listAcsr.put(methodContext, toList);
-        }
-        toList.add(fieldVal);
         return true;
     }
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public String rawString() {
-        return "<field-to-list list-name=\"" + this.listAcsr + "\" field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\"/>";
+        return toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<field-to-list ");
+        sb.append("field=\"").append(this.fieldFma).append("\" ");
+        sb.append("list=\"").append(this.listFma).append("\" />");
+        return sb.toString();
+    }
+
+    /**
+     * A factory for the &lt;field-to-list&gt; element.
+     */
     public static final class FieldToListFactory implements Factory<FieldToList> {
+        @Override
         public FieldToList createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new FieldToList(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "field-to-list";
         }

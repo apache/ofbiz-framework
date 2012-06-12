@@ -1183,53 +1183,33 @@ under the License.
             </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:element name="create-object" substitutionGroup="CallOperations">
+    <xs:element name="create-object" substitutionGroup="EnvOperations">
         <xs:annotation>
             <xs:documentation>
-                Creates an object of the given class and if the field attribute is specified saves it in that field.
+                Creates an object of the specified class.
                 The string and field sub-elements are passed to the constructor method as arguments in the order they are specified.
                 If the sub-elements do not match the constructor method arguments an error will be returned.
+                &lt;br/&gt;&lt;br/&gt;
+                Deprecated - use the script element.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:choice minOccurs="0" maxOccurs="unbounded">
-                <xs:element ref="field">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Used to specify a field to be passed as an argument to the constructor method.
-                            The field can be in a map in the environment or if no map-name is specified then
-                            the field will come directly from the environment.
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
-                <xs:element ref="string">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Used to specify an inline String argument to the method call.
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
+                <xs:element ref="field" />
+                <xs:element ref="string" />
             </xs:choice>
-            <xs:attributeGroup ref="attlist.create-object"/>
+            <xs:attribute type="xs:token" name="class-name" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the class to construct an instance of.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute ref="field" />
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.create-object">
-        <xs:attribute type="xs:string" name="class-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the class to construct an object of.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="field">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of a field to put the new object in.
-                    If not specified the object will be created but ignored after that.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <!-- Operations to copy map fields in the current env to context specific containers -->
     <!-- Event specific operations -->
     <xs:element name="field-to-request" substitutionGroup="EventOperations">
@@ -1436,50 +1416,90 @@ under the License.
     <xs:element name="map-to-map" substitutionGroup="EnvOperations">
         <xs:annotation>
             <xs:documentation>
-                The map-to-map tag copies all fields from one map to another map.
+                Copies a map to another map. Does nothing if the source map does not exist.
+                If a target map is not specified, the source map is copied to the current
+                envirnment (memory space).
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.map-to-map"/>
+            <xs:attribute type="xs:string" name="map" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the map to copy from.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="to-map">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the map to copy to. If the target map does not exist, one will be created.
+                        If this attribute is empty, the source map will be copied to the current environment.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.map-to-map">
-        <xs:attribute type="xs:string" name="map" use="required">
-            <xs:annotation><xs:documentation>The name of the map in the method environment the fields will come from.</xs:documentation></xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="to-map">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the map in the method environment the fields will go to.
-                    If empty the fields will be copied to the environment.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="field-to-list" substitutionGroup="EnvOperations">
-        <xs:annotation><xs:documentation>The field-to-list tag appends a field to the specified list.</xs:documentation></xs:annotation>
-        <xs:complexType><xs:attributeGroup ref="attlist.field-to-list"/></xs:complexType>
+        <xs:annotation>
+            <xs:documentation>
+                Appends an object to the specified list. Does nothing if the specified object does not exist.
+                &lt;br/&gt;&lt;br/&gt;
+                Deprecated - use the set element.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute type="xs:token" name="field" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The field name of the object to append.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:token" name="list" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The field name of the list that the object will be appended to.
+                        If the list does not exist, one will be created.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.field-to-list">
-        <xs:attribute type="xs:string" name="field" use="required">
-            <xs:annotation><xs:documentation>The name (key) of the map field to use.</xs:documentation></xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="list" use="required">
-            <xs:annotation><xs:documentation>The name of the list in the method environment that the object will be appended to.</xs:documentation></xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="list-to-list" substitutionGroup="EnvOperations">
-        <xs:annotation><xs:documentation>Copy a list to another list.</xs:documentation></xs:annotation>
-        <xs:complexType><xs:attributeGroup ref="attlist.list-to-list"/></xs:complexType>
+        <xs:annotation>
+            <xs:documentation>
+                Copy a list to another list. Does nothing if the source list does not exist.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute type="xs:string" name="list" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        Name of the list to copy from.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="to-list" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        Name of the list to copy to. If the list does not exist, one will be created.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.list-to-list">
-        <xs:attribute type="xs:string" name="list" use="required">
-            <xs:annotation><xs:documentation>Name of the list to copy from</xs:documentation></xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="to-list" use="required">
-            <xs:annotation><xs:documentation>Name of the list to copy to.</xs:documentation></xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="order-map-list" substitutionGroup="EnvOperations">
         <xs:annotation><xs:documentation>Sort a List containing Maps: order by fields names given in order-by sub-element.</xs:documentation>
         </xs:annotation>
@@ -1500,95 +1520,82 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.set"/>
+            <xs:attribute ref="field" use="required" />
+            <xs:attribute type="xs:string" name="from-field">
+                <xs:annotation>
+                    <xs:documentation>
+                        Deprecated - use the from attribute.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="from">
+                <xs:annotation>
+                    <xs:documentation>
+                        An expression or script that returns an object or null. The source of the assignment.
+                        &lt;br/&gt;&lt;br/&gt;
+                        A script must be prefixed with the script language followed by a colon (":").
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required if the value attribute is empty. Attribute types: expression, script.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="value">
+                <xs:annotation>
+                    <xs:documentation>
+                        A constant value, or a constant that includes an expression. The source of the assignment.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required if the from-field attribute is empty. Attribute type: constant+expr.
+                        Defaults to java.lang.String data type.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="default-value">
+                <xs:annotation>
+                    <xs:documentation>
+                        Deprecated - use the default attribute.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="default">
+                <xs:annotation>
+                    <xs:documentation>
+                        A default value that is used when the from-field attribute evaluates to null or empty.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute types: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:token" name="type">
+                <xs:annotation>
+                    <xs:documentation>
+                        The Java data type to convert to. "NewList" will create a new java.util.List, "NewMap" will create a new java.util.Map.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant. Attribute must contain a valid Java class name.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="set-if-null" type="booleanConst">
+                <xs:annotation>
+                    <xs:documentation>
+                        Controls if the target field can be set to null when the from-field attribute evaluates to null.
+                        Defaults to "false".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="set-if-empty" type="booleanConst">
+                <xs:annotation>
+                    <xs:documentation>
+                        Controls if the target field can be set to an empty value. The meaning of "empty" depends on the Java data type.
+                        Defaults to "true".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.set">
-        <xs:attribute ref="field" use="required" />
-        <xs:attribute type="xs:string" name="from-field">
-            <xs:annotation>
-                <xs:documentation>
-                    Deprecated - use &quot;from&quot;.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="from">
-            <xs:annotation>
-                <xs:documentation>
-                    An expression or script that returns an object or null. The source of the assignment.
-                    &lt;br/&gt;&lt;br/&gt;
-                    A script must be prefixed with the script language followed by a colon (&quot;:&quot;).
-                    &lt;br/&gt;&lt;br/&gt;
-                    Required if the value attribute is empty. Attribute types: expression, script.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="value">
-            <xs:annotation>
-                <xs:documentation>
-                    A constant value, or a constant that includes an expression. The source of the assignment.
-                    &lt;br/&gt;&lt;br/&gt;
-                    Required if the from-field attribute is empty. Attribute type: constant+expr.
-                    Defaults to java.lang.String data type.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="default-value">
-            <xs:annotation>
-                <xs:documentation>
-                    Deprecated - use &quot;default&quot;.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="default">
-            <xs:annotation>
-                <xs:documentation>
-                    A default value that is used if the from-field attribute evaluates to null or empty.
-                    &lt;br/&gt;&lt;br/&gt;
-                    Optional. Attribute types: constant+expr, expression. Expressions must be enclosed in ${}.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="type">
-            <xs:annotation>
-                <xs:documentation>
-                    The Java data type to convert to. &quot;NewList&quot; will create a new java.util.List, &quot;NewMap&quot; will create a new java.util.Map.
-                    &lt;br/&gt;&lt;br/&gt;
-                    Optional. Attribute type: constant. Attribute must contain a valid Java class name.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="set-if-null">
-            <xs:annotation>
-                <xs:documentation>
-                    Controls if the target field can be set to null when the from-field attribute evaluates to null.
-                    &lt;br/&gt;&lt;br/&gt;
-                    Optional. Attribute type: constant. Defaults to &quot;false&quot;.
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="set-if-empty">
-            <xs:annotation>
-                <xs:documentation>
-                    Controls if the target field can be set to an empty value. The meaning of &quot;empty&quot; depends on the Java data type.
-                    &lt;br/&gt;&lt;br/&gt;
-                    Optional. Attribute type: constant. Defaults to &quot;true&quot;.
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="string-append" substitutionGroup="EnvOperations">
         <xs:annotation>
             <xs:documentation>
@@ -1751,44 +1758,39 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.clear-field"/>
+            <xs:attribute ref="field" />
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.clear-field">
-        <xs:attribute type="xs:string" name="field" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name (key) of the map field to use.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="first-from-list" substitutionGroup="EnvOperations">
         <xs:annotation>
             <xs:documentation>
-                The first-from-list tag will get the first entry from the given list and put it in the environment field with the given entry-name.
+                Assigns the first (lowest order) entry in the specified list to a field.
+                If the list does not exist or is empty, assigns null to a field.
+                &lt;br/&gt;&lt;br/&gt;
+                Deprecated - use the set element.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.first-from-list"/>
+            <xs:attribute type="xs:token" name="entry" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field to set. The target of the assignment.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="list" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The field name of the list that contains the object.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.first-from-list">
-        <xs:attribute type="xs:string" name="entry" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field that will contain the first entry in the list.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="list" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field that contains the list to get the first entry from.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <!--
         These operations are used to interact with a data source through the entity
         engine and facilitate related operations.

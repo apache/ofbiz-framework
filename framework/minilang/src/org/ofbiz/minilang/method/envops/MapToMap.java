@@ -22,74 +22,84 @@ import java.util.Map;
 
 import javolution.util.FastMap;
 
-import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Copies a map field to a map field
+ * Implements the &lt;map-to-map&gt; element.
  */
-public class MapToMap extends MethodOperation {
+public final class MapToMap extends MethodOperation {
 
-    public static final String module = MapToMap.class.getName();
-
-    ContextAccessor<Map<String, Object>> mapAcsr;
-    ContextAccessor<Map<String, Object>> toMapAcsr;
+    private final FlexibleMapAccessor<Map<String, Object>> mapFma;
+    private final FlexibleMapAccessor<Map<String, Object>> toMapFma;
 
     public MapToMap(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map"), element.getAttribute("map-name"));
-        toMapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("to-map"), element.getAttribute("to-map-name"));
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "to-map", "map");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "map");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "to-map", "map");
+            MiniLangValidate.noChildElements(simpleMethod, element);
+        }
+        mapFma = FlexibleMapAccessor.getInstance(element.getAttribute("map"));
+        toMapFma = FlexibleMapAccessor.getInstance(element.getAttribute("to-map"));
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        Map<String, Object> fromMap = null;
-        if (!mapAcsr.isEmpty()) {
-            fromMap = mapAcsr.get(methodContext);
-            if (fromMap == null) {
-                if (Debug.infoOn())
-                    Debug.logInfo("Map not found with name " + mapAcsr + ", not copying from this map", module);
-                fromMap = FastMap.newInstance();
-                mapAcsr.put(methodContext, fromMap);
+        Map<String, Object> fromMap = mapFma.get(methodContext.getEnvMap());
+        if (fromMap != null) {
+            if (!toMapFma.isEmpty()) {
+                Map<String, Object> toMap = toMapFma.get(methodContext.getEnvMap());
+                if (toMap == null) {
+                    toMap = FastMap.newInstance();
+                    toMapFma.put(methodContext.getEnvMap(), toMap);
+                    toMap.putAll(fromMap);
+                }
+            } else {
+                methodContext.putAllEnv(fromMap);
             }
-        }
-        if (!toMapAcsr.isEmpty()) {
-            Map<String, Object> toMap = toMapAcsr.get(methodContext);
-            if (toMap == null) {
-                if (Debug.verboseOn())
-                    Debug.logVerbose("Map not found with name " + toMapAcsr + ", creating new map", module);
-                toMap = FastMap.newInstance();
-                toMapAcsr.put(methodContext, toMap);
-            }
-            toMap.putAll(fromMap);
-        } else {
-            methodContext.putAllEnv(fromMap);
         }
         return true;
     }
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public String rawString() {
-        // TODO: something more than the empty tag
-        return "<map-to-map/>";
+        return toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<map-to-map ");
+        sb.append("map=\"").append(this.mapFma).append("\" ");
+        if (!toMapFma.isEmpty()) {
+            sb.append("to-map=\"").append(this.toMapFma).append("\" ");
+        }
+        sb.append("/>");
+        return sb.toString();
+    }
+
+    /**
+     * A factory for the &lt;map-to-map&gt; element.
+     */
     public static final class MapToMapFactory implements Factory<MapToMap> {
+        @Override
         public MapToMap createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new MapToMap(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "map-to-map";
         }
