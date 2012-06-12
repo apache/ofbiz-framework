@@ -19,19 +19,19 @@
 package org.ofbiz.minilang.method.envops;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangRuntimeException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.FieldObject;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodObject;
@@ -40,57 +40,54 @@ import org.ofbiz.minilang.method.StringObject;
 import org.w3c.dom.Element;
 
 /**
- * Creates a Java object using the given fields as parameters
+ * Implements the &lt;create-object&gt; element.
  */
-public class CreateObject extends MethodOperation {
+public final class CreateObject extends MethodOperation {
 
     public static final String module = CreateObject.class.getName();
 
-    String className;
-    ContextAccessor<Object> fieldAcsr;
-    ContextAccessor<Map<String, Object>> mapAcsr;
-    /** A list of MethodObject objects to use as the method call parameters */
-    List<MethodObject<?>> parameters;
+    private final String className;
+    private final Class<?> targetClass;
+    private final FlexibleMapAccessor<Object> fieldFma;
+    private final List<MethodObject<?>> parameters;
 
     public CreateObject(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.handleError("<create-object> element is deprecated (use <script>)", simpleMethod, element);
+            MiniLangValidate.attributeNames(simpleMethod, element, "class-name", "field");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "field");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "class-name", "field");
+            MiniLangValidate.childElements(simpleMethod, element, "string", "field");
+        }
         className = element.getAttribute("class-name");
-        // the schema for this element now just has the "field" attribute, though the old
-        // "field-name" and "map-name" pair is still supported
-        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
-        mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
+        Class<?> targetClass = null;
+        try {
+            targetClass = ObjectType.loadClass(this.className);
+        } catch (ClassNotFoundException e) {
+            MiniLangValidate.handleError("Class not found with name " + this.className, simpleMethod, element);
+        }
+        this.targetClass = targetClass;
+        fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
         List<? extends Element> parameterElements = UtilXml.childElementList(element);
         if (parameterElements.size() > 0) {
-            parameters = FastList.newInstance();
+            ArrayList<MethodObject<?>> parameterList = new ArrayList<MethodObject<?>>(parameterElements.size());
             for (Element parameterElement : parameterElements) {
-                MethodObject<?> methodObject = null;
                 if ("string".equals(parameterElement.getNodeName())) {
-                    methodObject = new StringObject(parameterElement, simpleMethod);
+                    parameterList.add(new StringObject(parameterElement, simpleMethod));
                 } else if ("field".equals(parameterElement.getNodeName())) {
-                    methodObject = new FieldObject<Object>(parameterElement, simpleMethod);
-                } else {
-                    // whoops, invalid tag here, print warning
-                    Debug.logWarning("Found an unsupported tag under the call-object-method tag: " + parameterElement.getNodeName() + "; ignoring", module);
-                }
-                if (methodObject != null) {
-                    parameters.add(methodObject);
+                    parameterList.add(new FieldObject<Object>(parameterElement, simpleMethod));
                 }
             }
+            parameterList.trimToSize();
+            this.parameters = Collections.unmodifiableList(parameterList);
+        } else {
+            this.parameters = null;
         }
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        String className = methodContext.expandString(this.className);
-        Class<?> methodClass = null;
-        try {
-            methodClass = ObjectType.loadClass(className, methodContext.getLoader());
-        } catch (ClassNotFoundException e) {
-            Debug.logError(e, "Class to create not found with name " + className + " in create-object operation", module);
-            String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [Class to create not found with name " + className + ": " + e.toString() + "]";
-            methodContext.setErrorReturn(errMsg, simpleMethod);
-            return false;
-        }
         Object[] args = null;
         Class<?>[] parameterTypes = null;
         if (parameters != null) {
@@ -113,75 +110,42 @@ public class CreateObject extends MethodOperation {
             }
         }
         try {
-            Constructor<?> constructor = methodClass.getConstructor(parameterTypes);
-            try {
-                Object newObject = constructor.newInstance(args);
-                // if fieldAcsr is empty, ignore return value
-                if (!fieldAcsr.isEmpty()) {
-                    if (!mapAcsr.isEmpty()) {
-                        Map<String, Object> retMap = mapAcsr.get(methodContext);
-                        if (retMap == null) {
-                            retMap = FastMap.newInstance();
-                            mapAcsr.put(methodContext, retMap);
-                        }
-                        fieldAcsr.put(retMap, newObject, methodContext);
-                    } else {
-                        // no map name, use the env
-                        fieldAcsr.put(methodContext, newObject);
-                    }
-                }
-            } catch (InstantiationException e) {
-                Debug.logError(e, "Could not instantiate object in create-object operation", module);
-                String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [Could not instantiate object: " + e.toString() + "]";
-                methodContext.setErrorReturn(errMsg, simpleMethod);
-                return false;
-            } catch (IllegalAccessException e) {
-                Debug.logError(e, "Illegal access constructing object in create-object operation", module);
-                String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [Illegal access constructing object: " + e.toString() + "]";
-                methodContext.setErrorReturn(errMsg, simpleMethod);
-                return false;
-            } catch (IllegalArgumentException e) {
-                Debug.logError(e, "Illegal argument calling method in create-object operation", module);
-                String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [Illegal argument calling constructor: " + e.toString() + "]";
-                methodContext.setErrorReturn(errMsg, simpleMethod);
-                return false;
-            } catch (InvocationTargetException e) {
-                Debug.logError(e.getTargetException(), "Constructor in create-object operation threw an exception", module);
-                String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [Constructor in create-object threw an exception: " + e.getTargetException() + "]";
-                methodContext.setErrorReturn(errMsg, simpleMethod);
-                return false;
-            }
-        } catch (NoSuchMethodException e) {
-            Debug.logError(e, "Could not find constructor to execute in simple-method create-object operation", module);
-            String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [Could not find constructor to execute: " + e.toString() + "]";
-            methodContext.setErrorReturn(errMsg, simpleMethod);
-            return false;
-        } catch (SecurityException e) {
-            Debug.logError(e, "Security exception finding constructor to execute in simple-method create-object operation", module);
-            String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [Security exception finding constructor to execute: " + e.toString() + "]";
-            methodContext.setErrorReturn(errMsg, simpleMethod);
-            return false;
+            Constructor<?> constructor = targetClass.getConstructor(parameterTypes);
+            fieldFma.put(methodContext.getEnvMap(),constructor.newInstance(args));
+        } catch (Exception e) {
+            throw new MiniLangRuntimeException(e, this);
         }
         return true;
     }
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public String rawString() {
-        // TODO: something more than the empty tag
-        return "<create-object/>";
+        return toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<create-object ");
+        sb.append("class-name=\"").append(this.className).append("\" ");
+        sb.append("field=\"").append(this.fieldFma).append("\" />");
+        return sb.toString();
+    }
+
+    /**
+     * A factory for the &lt;create-object&gt; element.
+     */
     public static final class CreateObjectFactory implements Factory<CreateObject> {
+        @Override
         public CreateObject createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CreateObject(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "create-object";
         }

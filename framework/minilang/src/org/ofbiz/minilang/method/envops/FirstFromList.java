@@ -20,62 +20,76 @@ package org.ofbiz.minilang.method.envops;
 
 import java.util.List;
 
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Get the first entry from the list
+ * Implements the &lt;first-from-list&gt; element.
  */
-public class FirstFromList extends MethodOperation {
+public final class FirstFromList extends MethodOperation {
 
-    public static final String module = FirstFromList.class.getName();
-
-    ContextAccessor<Object> entryAcsr;
-    ContextAccessor<List<? extends Object>> listAcsr;
+    private final FlexibleMapAccessor<Object> entryFma;
+    private final FlexibleMapAccessor<List<Object>> listFma;
 
     public FirstFromList(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        this.entryAcsr = new ContextAccessor<Object>(element.getAttribute("entry"), element.getAttribute("entry-name"));
-        this.listAcsr = new ContextAccessor<List<? extends Object>>(element.getAttribute("list"), element.getAttribute("list-name"));
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.handleError("<first-from-list> element is deprecated (use <set>)", simpleMethod, element);
+            MiniLangValidate.attributeNames(simpleMethod, element, "entry", "list");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "entry", "list");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "entry", "list");
+            MiniLangValidate.noChildElements(simpleMethod, element);
+        }
+        entryFma = FlexibleMapAccessor.getInstance(element.getAttribute("entry"));
+        listFma = FlexibleMapAccessor.getInstance(element.getAttribute("list"));
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        if (listAcsr.isEmpty()) {
-            Debug.logWarning("No list-name specified in iterate tag, doing nothing", module);
-            return true;
-        }
-        List<? extends Object> theList = listAcsr.get(methodContext);
+        List<? extends Object> theList = listFma.get(methodContext.getEnvMap());
         if (UtilValidate.isEmpty(theList)) {
-            entryAcsr.put(methodContext, null);
-            return true;
+            entryFma.put(methodContext.getEnvMap(), null);
+        } else {
+            entryFma.put(methodContext.getEnvMap(), theList.get(0));
         }
-        entryAcsr.put(methodContext, theList.get(0));
         return true;
     }
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public String rawString() {
-        return "<first-from-list list-name=\"" + this.listAcsr + "\" entry-name=\"" + this.entryAcsr + "\"/>";
+        return toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<first-from-list ");
+        sb.append("entry=\"").append(this.entryFma).append("\" ");
+        sb.append("list=\"").append(this.listFma).append("\" />");
+        return sb.toString();
+    }
+
+    /**
+     * A factory for the &lt;first-from-list&gt; element.
+     */
     public static final class FirstFromListFactory implements Factory<FirstFromList> {
+        @Override
         public FirstFromList createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new FirstFromList(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "first-from-list";
         }

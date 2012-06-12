@@ -18,70 +18,66 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.envops;
 
-import java.util.Map;
-
-import javolution.util.FastMap;
-
-import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Clears the specified field
+ * Implements the &lt;clear-field&gt; element.
  */
-public class ClearField extends MethodOperation {
+public final class ClearField extends MethodOperation {
 
-    public static final String module = ClearField.class.getName();
-
-    ContextAccessor<Object> fieldAcsr;
-    ContextAccessor<Map<String, Object>> mapAcsr;
+    private final FlexibleMapAccessor<Object> fieldFma;
 
     public ClearField(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
-        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
-        mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "field");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "field");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "field");
+            MiniLangValidate.noChildElements(simpleMethod, element);
+        }
+        this.fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        if (!mapAcsr.isEmpty()) {
-            Map<String, Object> toMap = mapAcsr.get(methodContext);
-            if (toMap == null) {
-                // it seems silly to create a new map, but necessary since whenever
-                // an env field like a Map or List is referenced it should be created, even if empty
-                if (Debug.verboseOn())
-                    Debug.logVerbose("Map not found with name " + mapAcsr + ", creating new map", module);
-                toMap = FastMap.newInstance();
-                mapAcsr.put(methodContext, toMap);
-            }
-            fieldAcsr.put(toMap, null, methodContext);
-        } else {
-            fieldAcsr.put(methodContext, null);
-        }
+        fieldFma.put(methodContext.getEnvMap(), null);
         return true;
     }
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public String rawString() {
-        return "<clear-field field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\"/>";
+        return toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<set ");
+        sb.append("field=\"").append(this.fieldFma).append("\" />");
+        return sb.toString();
+    }
+
+    /**
+     * A factory for the &lt;clear-field&gt; element.
+     */
     public static final class ClearFieldFactory implements Factory<ClearField> {
+        @Override
         public ClearField createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new ClearField(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "clear-field";
         }
