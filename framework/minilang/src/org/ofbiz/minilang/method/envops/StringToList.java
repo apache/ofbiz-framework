@@ -23,43 +23,52 @@ import java.util.List;
 
 import javolution.util.FastList;
 
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.MessageString;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangRuntimeException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Appends the specified String to a List
+ * Implements the &lt;string-to-list&gt; element.
  */
-public class StringToList extends MethodOperation {
+public final class StringToList extends MethodOperation {
 
-    public static final String module = StringToList.class.getName();
-
-    ContextAccessor<List<? extends Object>> argListAcsr;
-    ContextAccessor<List<Object>> listAcsr;
-    String messageFieldName;
-    String string;
+    private final FlexibleMapAccessor<List<? extends Object>> argListFma;
+    private final FlexibleMapAccessor<List<Object>> listFma;
+    private final String messageFieldName;
+    private final FlexibleStringExpander stringFse;
 
     public StringToList(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        string = element.getAttribute("string");
-        listAcsr = new ContextAccessor<List<Object>>(element.getAttribute("list"), element.getAttribute("list-name"));
-        argListAcsr = new ContextAccessor<List<? extends Object>>(element.getAttribute("arg-list"), element.getAttribute("arg-list-name"));
-        messageFieldName = UtilValidate.isNotEmpty(element.getAttribute("message-field")) ? element.getAttribute("message-field") : element.getAttribute("message-field-name");
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.handleError("<string-to-list> element is deprecated (use <set>)", simpleMethod, element);
+            MiniLangValidate.attributeNames(simpleMethod, element, "list", "arg-list", "string", "message-field");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "list", "string");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "list", "arg-list");
+            MiniLangValidate.noChildElements(simpleMethod, element);
+        }
+        stringFse = FlexibleStringExpander.getInstance(element.getAttribute("string"));
+        listFma = FlexibleMapAccessor.getInstance(element.getAttribute("list"));
+        argListFma = FlexibleMapAccessor.getInstance(element.getAttribute("arg-list"));
+        messageFieldName = element.getAttribute("message-field");
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        String valueStr = methodContext.expandString(string);
-        if (!argListAcsr.isEmpty()) {
-            List<? extends Object> argList = argListAcsr.get(methodContext);
-            if (UtilValidate.isNotEmpty(argList)) {
+        String valueStr = stringFse.expandString(methodContext.getEnvMap());
+        List<? extends Object> argList = argListFma.get(methodContext.getEnvMap());
+        if (argList != null) {
+            try {
                 valueStr = MessageFormat.format(valueStr, argList.toArray());
+            } catch (IllegalArgumentException e) {
+                throw new MiniLangRuntimeException("Exception thrown while formatting the string attribute: " + e.getMessage(), this);
             }
         }
         Object value;
@@ -68,12 +77,10 @@ public class StringToList extends MethodOperation {
         } else {
             value = valueStr;
         }
-        List<Object> toList = listAcsr.get(methodContext);
+        List<Object> toList = listFma.get(methodContext.getEnvMap());
         if (toList == null) {
-            if (Debug.verboseOn())
-                Debug.logVerbose("List not found with name " + listAcsr + ", creating new List", module);
             toList = FastList.newInstance();
-            listAcsr.put(methodContext, toList);
+            listFma.put(methodContext.getEnvMap(), toList);
         }
         toList.add(value);
         return true;
@@ -81,21 +88,39 @@ public class StringToList extends MethodOperation {
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public String rawString() {
-        // TODO: something more than the empty tag
-        return "<string-to-list string=\"" + this.string + "\" list-name=\"" + this.listAcsr + "\"/>";
+        return toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<string-to-list ");
+        sb.append("string=\"").append(this.stringFse).append("\" ");
+        sb.append("list=\"").append(this.listFma).append("\" ");
+        if (!this.argListFma.isEmpty()) {
+            sb.append("arg-list=\"").append(this.argListFma).append("\" ");
+        }
+        if (!this.messageFieldName.isEmpty()) {
+            sb.append("message-field=\"").append(this.messageFieldName).append("\" ");
+        }
+        sb.append("/>");
+        return sb.toString();
+    }
+
+    /**
+     * A factory for the &lt;string-to-list&gt; element.
+     */
     public static final class StringToListFactory implements Factory<StringToList> {
+        @Override
         public StringToList createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new StringToList(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "string-to-list";
         }

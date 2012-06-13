@@ -86,7 +86,6 @@ org.ofbiz.minilang.method.envops.OrderMapList$OrderMapListFactory
 org.ofbiz.minilang.method.envops.SetCalendar$SetCalendarFactory
 org.ofbiz.minilang.method.envops.SetOperation$SetOperationFactory
 org.ofbiz.minilang.method.envops.StringAppend$StringAppendFactory
-org.ofbiz.minilang.method.envops.StringToField$StringToFieldFactory
 org.ofbiz.minilang.method.envops.StringToList$StringToListFactory
 org.ofbiz.minilang.method.envops.ToString$ToStringFactory
 org.ofbiz.minilang.method.envops.While$WhileFactory

@@ -20,110 +20,106 @@ package org.ofbiz.minilang.method.envops;
 
 import java.text.MessageFormat;
 import java.util.List;
-import java.util.Map;
 
-import javolution.util.FastMap;
-
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangRuntimeException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Appends the specified String to a field
+ * Implements the &lt;string-append&gt; element.
  */
-public class StringAppend extends MethodOperation {
+public final class StringAppend extends MethodOperation {
 
-    public static final String module = StringAppend.class.getName();
-
-    ContextAccessor<List<? extends Object>> argListAcsr;
-    ContextAccessor<String> fieldAcsr;
-    ContextAccessor<Map<String, Object>> mapAcsr;
-    String prefix;
-    String string;
-    String suffix;
+    private final FlexibleMapAccessor<List<? extends Object>> argListFma;
+    private final FlexibleMapAccessor<String> fieldFma;
+    private final FlexibleStringExpander prefixFse;
+    private final FlexibleStringExpander stringFse;
+    private final FlexibleStringExpander suffixFse;
 
     public StringAppend(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        string = element.getAttribute("string");
-        prefix = element.getAttribute("prefix");
-        suffix = element.getAttribute("suffix");
-        // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
-        fieldAcsr = new ContextAccessor<String>(element.getAttribute("field"), element.getAttribute("field-name"));
-        mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
-        argListAcsr = new ContextAccessor<List<? extends Object>>(element.getAttribute("arg-list"), element.getAttribute("arg-list-name"));
-    }
-
-    public String appendString(String oldValue, MethodContext methodContext) {
-        String value = methodContext.expandString(string);
-        String prefixValue = methodContext.expandString(prefix);
-        String suffixValue = methodContext.expandString(suffix);
-        if (!argListAcsr.isEmpty()) {
-            List<? extends Object> argList = argListAcsr.get(methodContext);
-            if (UtilValidate.isNotEmpty(argList)) {
-                value = MessageFormat.format(value, argList.toArray());
-            }
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "field", "arg-list", "prefix", "string", "suffix");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "field", "string");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "field", "arg-list");
+            MiniLangValidate.noChildElements(simpleMethod, element);
         }
-        StringBuilder newValue = new StringBuilder();
-        if (UtilValidate.isNotEmpty(value)) {
-            if (UtilValidate.isEmpty(oldValue)) {
-                newValue.append(value);
-            } else {
-                newValue.append(oldValue);
-                if (prefixValue != null)
-                    newValue.append(prefixValue);
-                newValue.append(value);
-                if (suffixValue != null)
-                    newValue.append(suffixValue);
-            }
-        } else {
-            if (UtilValidate.isEmpty(oldValue)) {
-                newValue.append(oldValue);
-            }
-        }
-        return newValue.toString();
+        argListFma = FlexibleMapAccessor.getInstance(element.getAttribute("arg-list"));
+        fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
+        prefixFse = FlexibleStringExpander.getInstance(element.getAttribute("prefix"));
+        stringFse = FlexibleStringExpander.getInstance(element.getAttribute("string"));
+        suffixFse = FlexibleStringExpander.getInstance(element.getAttribute("suffix"));
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        if (!mapAcsr.isEmpty()) {
-            Map<String, Object> toMap = mapAcsr.get(methodContext);
-            if (toMap == null) {
-                if (Debug.verboseOn())
-                    Debug.logVerbose("Map not found with name " + mapAcsr + ", creating new map", module);
-                toMap = FastMap.newInstance();
-                mapAcsr.put(methodContext, toMap);
+        String value = stringFse.expandString(methodContext.getEnvMap());
+        List<? extends Object> argList = argListFma.get(methodContext.getEnvMap());
+        if (argList != null) {
+            try {
+                value = MessageFormat.format(value, argList.toArray());
+            } catch (IllegalArgumentException e) {
+                throw new MiniLangRuntimeException("Exception thrown while formatting the string attribute: " + e.getMessage(), this);
             }
-            String oldValue = fieldAcsr.get(toMap, methodContext);
-            fieldAcsr.put(toMap, this.appendString(oldValue, methodContext), methodContext);
-        } else {
-            String oldValue = fieldAcsr.get(methodContext);
-            fieldAcsr.put(methodContext, this.appendString(oldValue, methodContext));
+        }
+        if (!value.isEmpty()) {
+            String prefixValue = prefixFse.expandString(methodContext.getEnvMap());
+            String suffixValue = suffixFse.expandString(methodContext.getEnvMap());
+            StringBuilder newValue = new StringBuilder();
+            String oldValue = fieldFma.get(methodContext.getEnvMap());
+            if (oldValue != null) {
+                newValue.append(oldValue);
+            }
+            newValue.append(prefixValue).append(value).append(suffixValue);
+            fieldFma.put(methodContext.getEnvMap(), newValue.toString());
         }
         return true;
     }
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public String rawString() {
-        // TODO: something more than the empty tag
-        return "<string-append string=\"" + this.string + "\" prefix=\"" + this.prefix + "\" suffix=\"" + this.suffix + "\" field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\"/>";
+        return toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<string-append ");
+        sb.append("field=\"").append(this.fieldFma).append("\" ");
+        sb.append("string=\"").append(this.stringFse).append("\" ");
+        if (!this.argListFma.isEmpty()) {
+            sb.append("arg-list=\"").append(this.argListFma).append("\" ");
+        }
+        if (!this.prefixFse.isEmpty()) {
+            sb.append("prefix=\"").append(this.prefixFse).append("\" ");
+        }
+        if (!this.suffixFse.isEmpty()) {
+            sb.append("suffix=\"").append(this.suffixFse).append("\" ");
+        }
+        sb.append("/>");
+        return sb.toString();
+    }
+
+    /**
+     * A factory for the &lt;string-append&gt; element.
+     */
     public static final class StringAppendFactory implements Factory<StringAppend> {
+        @Override
         public StringAppend createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new StringAppend(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "string-append";
         }

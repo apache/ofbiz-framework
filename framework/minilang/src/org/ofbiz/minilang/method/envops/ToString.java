@@ -18,111 +18,106 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.envops;
 
-import java.util.Map;
-
-import javolution.util.FastMap;
-
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.StringUtil;
-import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangRuntimeException;
 import org.ofbiz.minilang.MiniLangUtil;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Converts the specified field to a String, using toString()
+ * Implements the &lt;to-string&gt; element.
  */
-public class ToString extends MethodOperation {
+public final class ToString extends MethodOperation {
 
-    public static final String module = ToString.class.getName();
-
-    ContextAccessor<Object> fieldAcsr;
-    String format;
-    ContextAccessor<Map<String, Object>> mapAcsr;
-    Integer numericPadding;
+    private final FlexibleMapAccessor<Object> fieldFma;
+    private final String format;
+    private final Integer numericPadding;
 
     public ToString(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
-        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
-        mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.handleError("<to-string> element is deprecated (use <set>)", simpleMethod, element);
+            MiniLangValidate.attributeNames(simpleMethod, element, "field", "format", "numeric-padding");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "field");
+            MiniLangValidate.constantAttributes(simpleMethod, element, "format", "numeric-padding");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "field");
+            MiniLangValidate.noChildElements(simpleMethod, element);
+        }
+        fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
         format = element.getAttribute("format");
-        String npStr = element.getAttribute("numeric-padding");
-        if (UtilValidate.isNotEmpty(npStr)) {
+        Integer numericPadding = null;
+        String npAttribute = element.getAttribute("numeric-padding");
+        if (!npAttribute.isEmpty()) {
             try {
-                this.numericPadding = Integer.valueOf(npStr);
+                numericPadding = Integer.valueOf(npAttribute);
             } catch (Exception e) {
-                Debug.logError(e, "Error parsing numeric-padding attribute value on the to-string element", module);
+                MiniLangValidate.handleError("Exception thrown while parsing numeric-padding attribute: " + e.getMessage(), simpleMethod, element);
             }
         }
-    }
-
-    public String doToString(Object obj, MethodContext methodContext) {
-        String outStr = null;
-        try {
-            if (UtilValidate.isNotEmpty(format)) {
-                outStr = (String) MiniLangUtil.convertType(obj, String.class, methodContext.getLocale(), methodContext.getTimeZone(), format);
-            } else {
-                outStr = obj.toString();
-            }
-        } catch (Exception e) {
-            Debug.logError(e, "", module);
-            outStr = obj.toString();
-        }
-        if (this.numericPadding != null) {
-            outStr = StringUtil.padNumberString(outStr, this.numericPadding.intValue());
-        }
-        return outStr;
+        this.numericPadding = numericPadding;
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        if (!mapAcsr.isEmpty()) {
-            Map<String, Object> toMap = mapAcsr.get(methodContext);
-            if (toMap == null) {
-                // it seems silly to create a new map, but necessary since whenever
-                // an env field like a Map or List is referenced it should be created, even if empty
-                if (Debug.verboseOn())
-                    Debug.logVerbose("Map not found with name " + mapAcsr + ", creating new map", module);
-                toMap = FastMap.newInstance();
-                mapAcsr.put(methodContext, toMap);
+        Object value = fieldFma.get(methodContext.getEnvMap());
+        if (value != null) {
+            try {
+                if (!format.isEmpty()) {
+                    value = MiniLangUtil.convertType(value, String.class, methodContext.getLocale(), methodContext.getTimeZone(), format);
+                } else {
+                    value = value.toString();
+                }
+            } catch (Exception e) {
+                throw new MiniLangRuntimeException("Exception thrown while converting field to a string: " + e.getMessage(), this);
             }
-            Object obj = fieldAcsr.get(toMap, methodContext);
-            if (obj != null) {
-                fieldAcsr.put(toMap, doToString(obj, methodContext), methodContext);
+            if (this.numericPadding != null) {
+                value = StringUtil.padNumberString(value.toString(), this.numericPadding.intValue());
             }
-        } else {
-            Object obj = fieldAcsr.get(methodContext);
-            if (obj != null) {
-                fieldAcsr.put(methodContext, doToString(obj, methodContext));
-            }
+            fieldFma.put(methodContext.getEnvMap(), value);
         }
         return true;
     }
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public String rawString() {
-        // TODO: something more than the empty tag
-        return "<to-string field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\"/>";
+        return toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<to-string ");
+        sb.append("field=\"").append(this.fieldFma).append("\" ");
+        if (!this.format.isEmpty()) {
+            sb.append("format=\"").append(this.format).append("\" ");
+        }
+        if (numericPadding != null) {
+            sb.append("numeric-padding=\"").append(this.numericPadding).append("\" ");
+        }
+        sb.append("/>");
+        return sb.toString();
+    }
+
+    /**
+     * A factory for the &lt;to-string&gt; element.
+     */
     public static final class ToStringFactory implements Factory<ToString> {
+        @Override
         public ToString createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new ToString(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "to-string";
         }
