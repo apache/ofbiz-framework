@@ -18,92 +18,89 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.eventops;
 
-import java.util.Map;
-
-import javolution.util.FastMap;
-
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.collections.FlexibleServletAccessor;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Copies a Servlet request attribute to a map field
+ * Implements the &lt;request-to-field&gt; element.
  */
-public class RequestToField extends MethodOperation {
+public final class RequestToField extends MethodOperation {
 
-    public static final String module = RequestToField.class.getName();
-
-    String defaultVal;
-    ContextAccessor<Object> fieldAcsr;
-    ContextAccessor<Map<String, Object>> mapAcsr;
-    FlexibleServletAccessor<Object> requestAcsr;
+    private final FlexibleStringExpander defaultFse;
+    private final FlexibleMapAccessor<Object> fieldFma;
+    private final FlexibleStringExpander attributeNameFse;
 
     public RequestToField(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
-        mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
-        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
-        requestAcsr = new FlexibleServletAccessor<Object>(element.getAttribute("request-name"), fieldAcsr.toString());
-        defaultVal = element.getAttribute("default");
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "field", "request-name", "default");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "field");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "field");
+            MiniLangValidate.noChildElements(simpleMethod, element);
+        }
+        this.fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
+        String attributeName = element.getAttribute("request-name");
+        if (!attributeName.isEmpty()) {
+            this.attributeNameFse = FlexibleStringExpander.getInstance(attributeName);
+        } else {
+            this.attributeNameFse = FlexibleStringExpander.getInstance(this.fieldFma.toString());
+        }
+        this.defaultFse = FlexibleStringExpander.getInstance(element.getAttribute("default"));
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        String defaultVal = methodContext.expandString(this.defaultVal);
-        Object fieldVal = null;
-        // only run this if it is in an EVENT context
         if (methodContext.getMethodType() == MethodContext.EVENT) {
-            fieldVal = requestAcsr.get(methodContext.getRequest(), methodContext.getEnvMap());
-            if (fieldVal == null) {
-                Debug.logWarning("Request attribute value not found with name " + requestAcsr, module);
+            String attributeName = attributeNameFse.expandString(methodContext.getEnvMap());
+            Object value = methodContext.getRequest().getAttribute(attributeName);
+            if (value == null || (value instanceof String && ((String) value).isEmpty())) {
+                value = defaultFse.expandString(methodContext.getEnvMap());
             }
-        }
-        // if fieldVal is null, or is a String and has zero length, use defaultVal
-        if (fieldVal == null) {
-            fieldVal = defaultVal;
-        } else if (fieldVal instanceof String) {
-            String strVal = (String) fieldVal;
-
-            if (strVal.length() == 0) {
-                fieldVal = defaultVal;
-            }
-        }
-        if (!mapAcsr.isEmpty()) {
-            Map<String, Object> fromMap = mapAcsr.get(methodContext);
-            if (fromMap == null) {
-                Debug.logWarning("Map not found with name " + mapAcsr + " creating a new map", module);
-                fromMap = FastMap.newInstance();
-                mapAcsr.put(methodContext, fromMap);
-            }
-            fieldAcsr.put(fromMap, fieldVal, methodContext);
-        } else {
-            fieldAcsr.put(methodContext, fieldVal);
+            fieldFma.put(methodContext.getEnvMap(), value);
         }
         return true;
     }
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public String rawString() {
-        // TODO: add all attributes and other info
-        return "<request-to-field request-name=\"" + this.requestAcsr + "\" field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\"/>";
+        return toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<request-to-field ");
+        sb.append("field=\"").append(this.fieldFma).append("\" ");
+        if (!this.attributeNameFse.isEmpty()) {
+            sb.append("request-name=\"").append(this.attributeNameFse).append("\" ");
+        }
+        if (!this.defaultFse.isEmpty()) {
+            sb.append("default=\"").append(this.defaultFse).append("\" ");
+        }
+        sb.append("/>");
+        return sb.toString();
+    }
+
+    /**
+     * A factory for the &lt;request-to-field&gt; element.
+     */
     public static final class RequestToFieldFactory implements Factory<RequestToField> {
+        @Override
         public RequestToField createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new RequestToField(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "request-to-field";
         }

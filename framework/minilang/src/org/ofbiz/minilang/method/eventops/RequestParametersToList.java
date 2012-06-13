@@ -22,74 +22,108 @@ import java.util.List;
 
 import javolution.util.FastList;
 
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangUtil;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Copies a Servlet request parameter values to a list
+ * Implements the &lt;request-parameters-to-list&gt; element.
  */
-public class RequestParametersToList extends MethodOperation {
+public final class RequestParametersToList extends MethodOperation {
 
-    public static final String module = RequestParametersToList.class.getName();
+    // This method is needed only during the v1 to v2 transition
+    private static boolean autoCorrect(Element element) {
+        // Correct deprecated list-name attribute
+        String listAttr = element.getAttribute("list-name");
+        if (listAttr.length() > 0) {
+            element.setAttribute("list", listAttr);
+            element.removeAttribute("list-name");
+            return true;
+        }
+        return false;
+    }
 
-    ContextAccessor<List<String>> listAcsr;
-    String requestName;
+    private final FlexibleMapAccessor<List<String>> listFma;
+    private final FlexibleStringExpander attributeNameFse;
 
     public RequestParametersToList(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        requestName = element.getAttribute("request-name");
-        listAcsr = new ContextAccessor<List<String>>(element.getAttribute("list-name"), requestName);
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.deprecatedAttribute(simpleMethod, element, "list-name", "replace with \"list\"");
+            MiniLangValidate.attributeNames(simpleMethod, element, "list", "request-name");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "request-name");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "list");
+            MiniLangValidate.noChildElements(simpleMethod, element);
+        }
+        boolean elementModified = autoCorrect(element);
+        if (elementModified && MiniLangUtil.autoCorrectOn()) {
+            MiniLangUtil.flagDocumentAsCorrected(element);
+        }
+        this.attributeNameFse = FlexibleStringExpander.getInstance(element.getAttribute("request-name"));
+        String attributeName = element.getAttribute("list");
+        if (!attributeName.isEmpty()) {
+            this.listFma = FlexibleMapAccessor.getInstance(attributeName);
+        } else {
+            this.listFma = FlexibleMapAccessor.getInstance(attributeNameFse.toString());
+        }
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        List<String> listVal = null;
-        // only run this if it is in an EVENT context
         if (methodContext.getMethodType() == MethodContext.EVENT) {
-            String[] parameterValues = methodContext.getRequest().getParameterValues(requestName);
-            if (parameterValues == null) {
-                Debug.logWarning("Request parameter values not found with name " + requestName, module);
-            } else {
-                listVal = UtilMisc.toListArray(parameterValues);
+            String attributeName = attributeNameFse.expandString(methodContext.getEnvMap());
+            String[] parameterValues = methodContext.getRequest().getParameterValues(attributeName);
+            if (parameterValues != null) {
+                List<String> valueList = listFma.get(methodContext.getEnvMap());
+                if (valueList == null) {
+                    valueList = FastList.newInstance();
+                    listFma.put(methodContext.getEnvMap(), valueList);
+                }
+                for (int i = 0; i < parameterValues.length; i++) {
+                    valueList.add(parameterValues[i]);
+                }
             }
         }
-        // if listVal is null, use a empty list;
-        if (listVal == null) {
-            listVal = FastList.newInstance();
-        }
-        List<String> toList = listAcsr.get(methodContext);
-        if (toList == null) {
-            if (Debug.verboseOn())
-                Debug.logVerbose("List not found with name " + listAcsr + ", creating new list", module);
-            toList = FastList.newInstance();
-            listAcsr.put(methodContext, toList);
-        }
-        toList.addAll(listVal);
         return true;
     }
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public String rawString() {
-        return "<request-parameters-to-list request-name=\"" + this.requestName + "\" list-name=\"" + this.listAcsr + "\"/>";
+        return toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<request-parameters-to-list ");
+        sb.append("request-name=\"").append(this.attributeNameFse).append("\" ");
+        if (!this.listFma.isEmpty()) {
+            sb.append("list=\"").append(this.listFma).append("\" ");
+        }
+        sb.append("/>");
+        return sb.toString();
+    }
+
+    /**
+     * A factory for the &lt;request-parameters-to-list&gt; element.
+     */
     public static final class RequestParametersToListFactory implements Factory<RequestParametersToList> {
+        @Override
         public RequestParametersToList createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new RequestParametersToList(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "request-parameters-to-list";
         }

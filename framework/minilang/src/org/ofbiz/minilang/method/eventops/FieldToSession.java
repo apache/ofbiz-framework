@@ -18,79 +18,85 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.eventops;
 
-import java.util.Map;
-
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.collections.FlexibleServletAccessor;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Copies a map field to a Servlet session attribute
+ * Implements the &lt;field-to-session&gt; element.
  */
-public class FieldToSession extends MethodOperation {
+public final class FieldToSession extends MethodOperation {
 
-    public static final String module = FieldToSession.class.getName();
-
-    ContextAccessor<Object> fieldAcsr;
-    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
-    FlexibleServletAccessor<Object> sessionAcsr;
+    private final FlexibleMapAccessor<Object> fieldFma;
+    private final FlexibleStringExpander attributeNameFse;
 
     public FieldToSession(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
-        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
-        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
-        sessionAcsr = new FlexibleServletAccessor<Object>(element.getAttribute("session-name"), fieldAcsr.toString());
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "field", "session-name");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "field");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "field");
+            MiniLangValidate.noChildElements(simpleMethod, element);
+        }
+        this.fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
+        String attributeName = element.getAttribute("session-name");
+        if (!attributeName.isEmpty()) {
+            this.attributeNameFse = FlexibleStringExpander.getInstance(attributeName);
+        } else {
+            this.attributeNameFse = FlexibleStringExpander.getInstance(this.fieldFma.toString());
+        }
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        // only run this if it is in an EVENT context
         if (methodContext.getMethodType() == MethodContext.EVENT) {
-            Object fieldVal = null;
-            if (!mapAcsr.isEmpty()) {
-                Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
-                if (fromMap == null) {
-                    Debug.logWarning("Map not found with name " + mapAcsr, module);
-                    return true;
+            Object fieldVal = fieldFma.get(methodContext.getEnvMap());
+            if (fieldVal != null) {
+                String attributeName = attributeNameFse.expandString(methodContext.getEnvMap());
+                if (!attributeName.isEmpty()) {
+                    methodContext.getRequest().getSession().setAttribute(attributeName, fieldVal);
                 }
-                fieldVal = fieldAcsr.get(fromMap, methodContext);
-            } else {
-                // no map name, try the env
-                fieldVal = fieldAcsr.get(methodContext);
             }
-
-            if (fieldVal == null) {
-                Debug.logWarning("Field value not found with name " + fieldAcsr + " in Map with name " + mapAcsr, module);
-                return true;
-            }
-            sessionAcsr.put(methodContext.getRequest().getSession(), fieldVal, methodContext.getEnvMap());
         }
         return true;
     }
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public String rawString() {
-        // TODO: add all attributes and other info
-        return "<field-to-session field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\"/>";
+        return toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<field-to-session ");
+        sb.append("field=\"").append(this.fieldFma).append("\" ");
+        if (!this.attributeNameFse.isEmpty()) {
+            sb.append("session-name=\"").append(this.attributeNameFse).append("\" ");
+        }
+        sb.append("/>");
+        return sb.toString();
+    }
+
+    /**
+     * A factory for the &lt;field-to-session&gt; element.
+     */
     public static final class FieldToSessionFactory implements Factory<FieldToSession> {
+        @Override
         public FieldToSession createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new FieldToSession(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "field-to-session";
         }
