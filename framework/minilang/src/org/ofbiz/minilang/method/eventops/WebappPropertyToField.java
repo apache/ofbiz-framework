@@ -19,103 +19,101 @@
 package org.ofbiz.minilang.method.eventops;
 
 import java.net.URL;
-import java.util.Map;
 
 import javax.servlet.ServletContext;
 
-import javolution.util.FastMap;
-
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangRuntimeException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Copies a property value from a properties file in a ServletContext resource to a field
+ * Implements the &lt;webapp-property-to-field&gt; element.
  */
-public class WebappPropertyToField extends MethodOperation {
+public final class WebappPropertyToField extends MethodOperation {
 
-    public static final String module = WebappPropertyToField.class.getName();
-
-    String defaultVal;
-    ContextAccessor<Object> fieldAcsr;
-    ContextAccessor<Map<String, Object>> mapAcsr;
-    String property;
-    String resource;
+    private final FlexibleStringExpander defaultFse;
+    private final FlexibleMapAccessor<Object> fieldFma;
+    private final FlexibleStringExpander propertyFse;
+    private final FlexibleStringExpander resourceFse;
 
     public WebappPropertyToField(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        resource = element.getAttribute("resource");
-        property = element.getAttribute("property");
-        defaultVal = element.getAttribute("default");
-        // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
-        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
-        mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "field", "resource", "property", "default");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "field", "resource", "property");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "field");
+            MiniLangValidate.noChildElements(simpleMethod, element);
+        }
+        this.fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
+        this.resourceFse = FlexibleStringExpander.getInstance(element.getAttribute("resource"));
+        this.propertyFse = FlexibleStringExpander.getInstance(element.getAttribute("property"));
+        this.defaultFse = FlexibleStringExpander.getInstance(element.getAttribute("default"));
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        String resource = methodContext.expandString(this.resource);
-        String property = methodContext.expandString(this.property);
-        String defaultVal = methodContext.expandString(this.defaultVal);
-        String fieldVal = null;
-        // only run this if it is in an EVENT context
         if (methodContext.getMethodType() == MethodContext.EVENT) {
+            String resource = resourceFse.expandString(methodContext.getEnvMap());
             ServletContext servletContext = (ServletContext) methodContext.getRequest().getAttribute("servletContext");
             URL propsUrl = null;
             try {
                 propsUrl = servletContext.getResource(resource);
             } catch (java.net.MalformedURLException e) {
-                Debug.logWarning(e, "Error finding webapp resource (properties file) not found with name " + resource, module);
+                throw new MiniLangRuntimeException("Exception thrown while finding properties file " + resource + ": " + e.getMessage(), this);
             }
             if (propsUrl == null) {
-                Debug.logWarning("Webapp resource (properties file) not found with name " + resource, module);
-            } else {
-                fieldVal = UtilProperties.getPropertyValue(propsUrl, property);
-                if (UtilValidate.isEmpty(fieldVal)) {
-                    Debug.logWarning("Webapp resource property value not found with name " + property + " in resource " + resource, module);
-                }
+                throw new MiniLangRuntimeException("Properties file " + resource + " not found.", this);
             }
-        }
-        // if fieldVal is null, or has zero length, use defaultVal
-        if (UtilValidate.isEmpty(fieldVal))
-            fieldVal = defaultVal;
-        if (!mapAcsr.isEmpty()) {
-            Map<String, Object> fromMap = mapAcsr.get(methodContext);
-            if (fromMap == null) {
-                Debug.logWarning("Map not found with name " + mapAcsr + " creating a new map", module);
-                fromMap = FastMap.newInstance();
-                mapAcsr.put(methodContext, fromMap);
+            String property = propertyFse.expandString(methodContext.getEnvMap());
+            String fieldVal = UtilProperties.getPropertyValue(propsUrl, property);
+            if (fieldVal == null) {
+                fieldVal = defaultFse.expandString(methodContext.getEnvMap());
             }
-            fieldAcsr.put(fromMap, fieldVal, methodContext);
-        } else {
-            fieldAcsr.put(methodContext, fieldVal);
+            fieldFma.put(methodContext.getEnvMap(), fieldVal);
         }
         return true;
     }
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public String rawString() {
-        // TODO: add all attributes and other info
-        return "<webapp-property-to-field field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\"/>";
+        return toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<webapp-property-to-field ");
+        sb.append("field=\"").append(this.fieldFma).append("\" ");
+        sb.append("resource=\"").append(this.resourceFse).append("\" ");
+        sb.append("property=\"").append(this.propertyFse).append("\" ");
+        if (!this.defaultFse.isEmpty()) {
+            sb.append("default=\"").append(this.defaultFse).append("\" ");
+        }
+        sb.append("/>");
+        return sb.toString();
+    }
+
+    /**
+     * A factory for the &lt;webapp-property-to-field&gt; element.
+     */
     public static final class WebappPropertyToFieldFactory implements Factory<WebappPropertyToField> {
+        @Override
         public WebappPropertyToField createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new WebappPropertyToField(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "webapp-property-to-field";
         }

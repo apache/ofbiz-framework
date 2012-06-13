@@ -1215,166 +1215,194 @@ under the License.
     <xs:element name="field-to-request" substitutionGroup="EventOperations">
         <xs:annotation>
             <xs:documentation>
-                The field-to-request tag copies a field from a map to the specified servlet request attribute.
-                The tag is only used when the simple-method is called as an event, it is ignored otherwise.
+                Copies a field to the specified servlet request attribute.
+                Does nothing if the specified field does not exist.
+                Valid only when the simple-method is called as an event, it is ignored otherwise.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.field-to-request"/>
+            <xs:attribute type="xs:string" name="field" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field to copy.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="request-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The servlet request attribute name. Defaults to the value of field attribute.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute types: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.field-to-request">
-        <xs:attribute type="xs:string" name="field" use="required">
-            <xs:annotation><xs:documentation>The context name of the field to use.</xs:documentation></xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="request-name">
-            <xs:annotation><xs:documentation>The name of the request attribute to use. Defaults to the value of field attribute.</xs:documentation></xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="field-to-session" substitutionGroup="EventOperations">
         <xs:annotation>
             <xs:documentation>
-                The field-to-session tag copies a field from a map to the specified servlet session attribute.
-                The tag is only used when the simple-method is called as an event, it is ignored otherwise.
+                Copies a field to the specified servlet session attribute.
+                Does nothing if the specified field does not exist.
+                Valid only when the simple-method is called as an event, it is ignored otherwise.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.field-to-session"/>
+            <xs:attribute type="xs:string" name="field" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field to copy.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="session-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The servlet session attribute name. Defaults to the value of field attribute.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute types: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.field-to-session">
-        <xs:attribute type="xs:string" name="field" use="required">
-            <xs:annotation><xs:documentation>The context name of the field to use.</xs:documentation></xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="session-name">
-            <xs:annotation><xs:documentation>The name of the session attribute to use. Defaults to the value of field attribute.</xs:documentation></xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="request-to-field" substitutionGroup="EventOperations">
         <xs:annotation>
             <xs:documentation>
-                The request-to-field tag copies an attribute from the servlet request to a field of a map in the method environment.
-                The tag is only used when the simple-method is called as an event, it is ignored otherwise (except the default value, if specified).
+                Copies a servlet request attribute to a field.
+                Valid only when the simple-method is called as an event, it is ignored otherwise.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.request-to-field"/>
+            <xs:attribute ref="field" />
+            <xs:attribute type="xs:string" name="request-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The servlet request attribute name. Defaults to the value of field attribute.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute types: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="default">
+                <xs:annotation>
+                    <xs:documentation>
+                        A default value to use if the request attribute does not exist.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute types: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.request-to-field">
-        <xs:attribute type="xs:string" name="field" use="required">
-            <xs:annotation><xs:documentation>The context name of the field to use.</xs:documentation></xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="default">
-            <xs:annotation>
-                <xs:documentation>
-                    A default value to use if the request attribute is null or is a String and is empty.
-                    This will also be used when NOT running as an event.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="request-name">
-            <xs:annotation><xs:documentation>The name of the request attribute to use. Defaults to the value of the field attribute.</xs:documentation></xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="request-parameters-to-list" substitutionGroup="EventOperations">
         <xs:annotation>
             <xs:documentation>
-                The request-parameters-to-list tag appends a request parameter values from the servlet request to the specified list.
-                The tag is only used when the simple-method is called as an event, it is ignored otherwise.
+                Appends a servlet request parameter list to a list. If the target list does not exist, one will be created.
+                Valid only when the simple-method is called as an event, it is ignored otherwise.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.request-parameters-to-list"/>
+            <xs:attribute type="xs:string" name="request-name" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The servlet request parameter name.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute types: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="list">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field containing the list. Defaults to the request-name attribute value.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="list-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        Deprecated - use the list attribute.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.request-parameters-to-list">
-        <xs:attribute type="xs:string" name="request-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the request parameter values to use.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="list-name">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the list in the method environment that the request parameter values will be appended to.
-                    (default: request-name)
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="session-to-field" substitutionGroup="EventOperations">
         <xs:annotation>
             <xs:documentation>
-                The session-to-field tag copies an attribute from the servlet session to a field of a map in the method environment.
-                The tag is only used when the simple-method is called as an event, it is ignored otherwise (except the default value, if specified).
+                Copies a servlet request attribute to a field.
+                Valid only when the simple-method is called as an event, it is ignored otherwise.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.session-to-field"/>
+            <xs:attribute ref="field" />
+            <xs:attribute type="xs:string" name="session-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The servlet session attribute name. Defaults to the value of field attribute.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute types: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="default">
+                <xs:annotation>
+                    <xs:documentation>
+                        A default value to use if the request attribute does not exist.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute types: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.session-to-field">
-        <xs:attribute type="xs:string" name="field" use="required">
-            <xs:annotation><xs:documentation>The name (key) of the map field to use.</xs:documentation></xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="default">
-            <xs:annotation>
-                <xs:documentation>
-                    A default value to use if the session attribute is null or is a String and is empty.
-                    This will also be used when NOT running as an event.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="session-name">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the session attribute to use. Defaults to the value of field attribute.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="webapp-property-to-field" substitutionGroup="EventOperations">
         <xs:annotation>
             <xs:documentation>
                 The webapp-property-to-field tag copies a property value from a properties file in a ServletContext resource to a field.
-                The tag is only used when the simple-method is called as an event, it is ignored otherwise (except the default value, if specified).
+                Valid only when the simple-method is called as an event, it is ignored otherwise.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.webapp-property-to-field"/>
+            <xs:attribute ref="field" />
+            <xs:attribute type="xs:string" name="resource" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The resource location of the properties file inside the webapp,
+                        and relative to the root of the webapp (can be inside a war file).
+                        An example of this is "/WEB-INF/myprops.properties".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute types: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="property" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The property whose value will be put in the field.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute types: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="default">
+                <xs:annotation>
+                    <xs:documentation>
+                        A default value to use if the property value is null or empty.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute types: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.webapp-property-to-field">
-        <xs:attribute type="xs:string" name="resource" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The resource location of the properties file inside the webapp,
-                    and relative to the root of the webapp (can be inside a war file).
-                    An example of this is "/WEB-INF/myprops.properties".
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="property" use="required">
-            <xs:annotation><xs:documentation>The property whose value will be put in the field.</xs:documentation></xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="default">
-            <xs:annotation>
-                <xs:documentation>
-                    A default value to use if the property value is null or empty.
-                    This will also be used when NOT running as an event.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="field" use="required">
-            <xs:annotation><xs:documentation>The name (key) of the field to use.</xs:documentation></xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="session-name">
-            <xs:annotation><xs:documentation>The name of the session attribute to use. Defaults to the value of field attribute</xs:documentation></xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="field-to-result" substitutionGroup="EnvOperations">
         <xs:annotation>
             <xs:documentation>
