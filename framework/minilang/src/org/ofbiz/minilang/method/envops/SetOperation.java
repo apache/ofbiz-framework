@@ -36,7 +36,7 @@ import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Assigns a field from an expression or script, or from a constant value. Also supports a default value and type conversion.
+ * Implements the &lt;set&gt; element.
  */
 public final class SetOperation extends MethodOperation {
 
@@ -73,6 +73,7 @@ public final class SetOperation extends MethodOperation {
     }
 
     private final FlexibleStringExpander defaultFse;
+    private final FlexibleStringExpander formatFse;
     private final FlexibleMapAccessor<Object> fieldFma;
     private final FlexibleMapAccessor<Object> fromFma;
     private final Scriptlet scriptlet;
@@ -85,11 +86,9 @@ public final class SetOperation extends MethodOperation {
     public SetOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         if (MiniLangValidate.validationOn()) {
-            /*
             MiniLangValidate.deprecatedAttribute(simpleMethod, element, "from-field", "replace with \"from\"");
             MiniLangValidate.deprecatedAttribute(simpleMethod, element, "default-value", "replace with \"default\"");
-            */
-            MiniLangValidate.attributeNames(simpleMethod, element, "field", "from-field", "from", "value", "default-value", "default", "type", "set-if-null", "set-if-empty");
+            MiniLangValidate.attributeNames(simpleMethod, element, "field", "from-field", "from", "value", "default-value", "default", "format", "type", "set-if-null", "set-if-empty");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "field");
             MiniLangValidate.requireAnyAttribute(simpleMethod, element, "from-field", "from", "value");
             MiniLangValidate.constantPlusExpressionAttributes(simpleMethod, element, "value");
@@ -112,6 +111,7 @@ public final class SetOperation extends MethodOperation {
         }
         this.valueFse = FlexibleStringExpander.getInstance(element.getAttribute("value"));
         this.defaultFse = FlexibleStringExpander.getInstance(element.getAttribute("default"));
+        this.formatFse = FlexibleStringExpander.getInstance(element.getAttribute("format"));
         this.type = element.getAttribute("type");
         Class<?> targetClass = null;
         if (!this.type.isEmpty()) {
@@ -124,7 +124,7 @@ public final class SetOperation extends MethodOperation {
         this.targetClass = targetClass;
         this.setIfNull = "true".equals(element.getAttribute("set-if-null")); // default to false, anything but true is false
         this.setIfEmpty = !"false".equals(element.getAttribute("set-if-empty")); // default to true, anything but false is true
-        if (!this.fromFma.isEmpty() && !this.valueFse.isEmpty()) {
+        if (!fromAttribute.isEmpty() && !this.valueFse.isEmpty()) {
             throw new IllegalArgumentException("Cannot include both a from attribute and a value attribute in a <set> element.");
         }
     }
@@ -166,13 +166,17 @@ public final class SetOperation extends MethodOperation {
                 newValue = FastList.newInstance();
             } else {
                 try {
+                    String format = null;
+                    if (!this.formatFse.isEmpty()) {
+                        format = this.formatFse.expandString(methodContext.getEnvMap());
+                    }
                     Class<?> targetClass = this.targetClass;
                     if (targetClass == null) {
                         targetClass = MiniLangUtil.getObjectClassForConversion(newValue);
                     }
-                    newValue = MiniLangUtil.convertType(newValue, targetClass, methodContext.getLocale(), methodContext.getTimeZone(), null);
+                    newValue = MiniLangUtil.convertType(newValue, targetClass, methodContext.getLocale(), methodContext.getTimeZone(), format);
                 } catch (Exception e) {
-                    String errMsg = "Could not convert field value for the field: [" + this.fieldFma.toString() + "] to the [" + this.type + "] type for the value [" + newValue + "]: " + e.toString();
+                    String errMsg = "Could not convert field value for the field: [" + this.fieldFma.toString() + "] to the [" + this.type + "] type for the value [" + newValue + "]: " + e.getMessage();
                     Debug.logWarning(e, errMsg, module);
                     this.simpleMethod.addErrorMessage(methodContext, errMsg);
                     return false;
@@ -180,7 +184,7 @@ public final class SetOperation extends MethodOperation {
             }
         }
         if (Debug.verboseOn())
-            Debug.logVerbose("In screen setting field [" + this.fieldFma.toString() + "] to value: " + newValue, module);
+            Debug.logVerbose("Setting field [" + this.fieldFma.toString() + "] to value: " + newValue, module);
         this.fieldFma.put(methodContext.getEnvMap(), newValue);
         return true;
     }
@@ -216,15 +220,26 @@ public final class SetOperation extends MethodOperation {
         if (this.type.length() > 0) {
             sb.append("type=\"").append(this.type).append("\" ");
         }
+        if (this.setIfNull) {
+            sb.append("set-if-null=\"true\" ");
+        }
+        if (!this.setIfEmpty) {
+            sb.append("set-if-empty=\"false\" ");
+        }
         sb.append("/>");
         return sb.toString();
     }
 
+    /**
+     * A factory for the &lt;set&gt; element.
+     */
     public static final class SetOperationFactory implements Factory<SetOperation> {
+        @Override
         public SetOperation createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new SetOperation(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "set";
         }
