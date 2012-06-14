@@ -70,7 +70,7 @@ public final class CallService extends MethodOperation {
     private final List<ResultToRequest> resultToRequestList;
     private final List<ResultToResult> resultToResultList;
     private final List<ResultToSession> resultToSessionList;
-    private final String serviceName;
+    private final FlexibleStringExpander serviceNameFse;
     private final String successCode;
     private final FlexibleMessage successPrefix;
     private final FlexibleMessage successSuffix;
@@ -85,7 +85,7 @@ public final class CallService extends MethodOperation {
             MiniLangValidate.requiredAttributes(simpleMethod, element, "service-name");
             MiniLangValidate.childElements(simpleMethod, element, "error-prefix", "error-suffix", "success-prefix", "success-suffix", "message-prefix", "message-suffix", "default-message", "results-to-map", "result-to-field", "result-to-request", "result-to-session", "result-to-result");
         }
-        serviceName = element.getAttribute("service-name");
+        serviceNameFse = FlexibleStringExpander.getInstance(element.getAttribute("service-name"));
         inMapFma = FlexibleMapAccessor.getInstance(element.getAttribute("in-map-name"));
         includeUserLogin = !"false".equals(element.getAttribute("include-user-login"));
         breakOnError = !"false".equals(element.getAttribute("break-on-error"));
@@ -167,7 +167,7 @@ public final class CallService extends MethodOperation {
         if (methodContext.isTraceOn()) {
             outputTraceMessage(methodContext, "Begin call-service.");
         }
-        String serviceName = methodContext.expandString(this.serviceName);
+        String serviceName = serviceNameFse.expandString(methodContext.getEnvMap());
         String errorCode = this.errorCode;
         if (errorCode.isEmpty()) {
             errorCode = simpleMethod.getDefaultErrorCode();
@@ -370,7 +370,7 @@ public final class CallService extends MethodOperation {
 
     @Override
     public void gatherArtifactInfo(ArtifactInfoContext aic) {
-        aic.addServiceName(this.serviceName);
+        aic.addServiceName(this.serviceNameFse.toString());
     }
 
     @Override
@@ -381,7 +381,7 @@ public final class CallService extends MethodOperation {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("<call-service ");
-        sb.append("service-name=\"").append(this.serviceName).append("\" ");
+        sb.append("service-name=\"").append(this.serviceNameFse).append("\" ");
         if (!this.inMapFma.isEmpty()) {
             sb.append("in-map-name=\"").append(this.inMapFma).append("\" ");
         }

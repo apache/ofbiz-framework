@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method;
 
-import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
@@ -35,37 +34,35 @@ import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.security.Security;
 import org.ofbiz.security.authz.Authorization;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
 
 /**
- * A single operation, does the specified operation on the given field
+ * A container for the Mini-language script engine state.
  */
-public class MethodContext implements Iterable<Map.Entry<String, Object>> {
+public final class MethodContext {
 
     public static final int EVENT = 1;
     public static final int SERVICE = 2;
 
-    protected Authorization authz;
-    protected DispatchContext ctx;
-    protected Delegator delegator;
-    protected LocalDispatcher dispatcher;
-    protected Map<String, Object> env = FastMap.newInstance();
-    protected ClassLoader loader;
-    protected Locale locale;
-    protected int methodType;
-    protected Map<String, Object> parameters;
-    protected HttpServletRequest request = null;
-    protected HttpServletResponse response = null;
-    protected Map<String, Object> results = null;
-    protected Security security;
-    protected TimeZone timeZone;
+    private Authorization authz;
+    private Delegator delegator;
+    private LocalDispatcher dispatcher;
+    private Map<String, Object> env = FastMap.newInstance();
+    private ClassLoader loader;
+    private Locale locale;
+    private int methodType;
+    private Map<String, Object> parameters;
+    private HttpServletRequest request = null;
+    private HttpServletResponse response = null;
+    private Map<String, Object> results = FastMap.newInstance();
+    private Security security;
+    private TimeZone timeZone;
     private int traceCount = 0;
     private int traceLogLevel = Debug.INFO;
-    protected GenericValue userLogin;
+    private GenericValue userLogin;
 
     public MethodContext(DispatchContext ctx, Map<String, ? extends Object> context, ClassLoader loader) {
         this.methodType = MethodContext.SERVICE;
@@ -77,7 +74,6 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
         this.delegator = ctx.getDelegator();
         this.authz = ctx.getAuthorization();
         this.security = ctx.getSecurity();
-        this.results = FastMap.newInstance();
         this.userLogin = (GenericValue) context.get("userLogin");
         if (this.loader == null) {
             try {
@@ -147,8 +143,6 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
                 if (this.userLogin == null)
                     this.userLogin = (GenericValue) this.request.getSession().getAttribute("userLogin");
             }
-        } else if (methodType == MethodContext.SERVICE) {
-            this.results = FastMap.newInstance();
         }
         if (this.loader == null) {
             try {
@@ -157,15 +151,6 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
                 this.loader = this.getClass().getClassLoader();
             }
         }
-    }
-
-    public String expandString(FlexibleStringExpander originalExdr) {
-        return originalExdr.expandString(this.env);
-    }
-
-    /** Expands environment variables delimited with ${} */
-    public String expandString(String original) {
-        return FlexibleStringExpander.expandString(original, this.env);
     }
 
     public Authorization getAuthz() {
@@ -193,13 +178,9 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
      * @return The environment value if found, otherwise null.
      */
     public <T> T getEnv(String key) {
-        String ekey = this.expandString(key);
+        String ekey = FlexibleStringExpander.expandString(key, this.env);
         FlexibleMapAccessor<T> fma = FlexibleMapAccessor.getInstance(ekey);
         return this.getEnv(fma);
-    }
-
-    public Iterator<Map.Entry<String, Object>> getEnvEntryIterator() {
-        return this.env.entrySet().iterator();
     }
 
     public Map<String, Object> getEnvMap() {
@@ -262,10 +243,6 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
         return this.traceCount > 0;
     }
 
-    public Iterator<Map.Entry<String, Object>> iterator() {
-        return this.env.entrySet().iterator();
-    }
-
     /**
      * Calls putEnv for each entry in the Map, thus allowing for the additional flexibility in naming supported in that method.
      */
@@ -290,7 +267,7 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
      *            The value to set in the named environment location.
      */
     public <T> void putEnv(String key, T value) {
-        String ekey = this.expandString(key);
+        String ekey = FlexibleStringExpander.expandString(key, this.env);
         FlexibleMapAccessor<T> fma = FlexibleMapAccessor.getInstance(ekey);
         this.putEnv(fma, value);
     }
@@ -315,19 +292,9 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
      *            The name of the environment value to get. Can contain "." syntax elements as described above.
      */
     public <T> T removeEnv(String key) {
-        String ekey = this.expandString(key);
+        String ekey = FlexibleStringExpander.expandString(key, this.env);
         FlexibleMapAccessor<T> fma = FlexibleMapAccessor.getInstance(ekey);
         return this.removeEnv(fma);
-    }
-
-    public void setErrorReturn(String errMsg, SimpleMethod simpleMethod) {
-        if (getMethodType() == MethodContext.EVENT) {
-            putEnv(simpleMethod.getEventErrorMessageName(), errMsg);
-            putEnv(simpleMethod.getEventResponseCodeName(), simpleMethod.getDefaultErrorCode());
-        } else if (getMethodType() == MethodContext.SERVICE) {
-            putEnv(simpleMethod.getServiceErrorMessageName(), errMsg);
-            putEnv(simpleMethod.getServiceResponseMessageName(), simpleMethod.getDefaultErrorCode());
-        }
     }
 
     public void setTraceOff() {

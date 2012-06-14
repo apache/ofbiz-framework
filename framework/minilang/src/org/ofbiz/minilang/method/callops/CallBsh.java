@@ -84,7 +84,7 @@ public final class CallBsh extends MethodOperation {
         bsh.setClassLoader(methodContext.getLoader());
         try {
             // setup environment
-            for (Map.Entry<String, Object> entry : methodContext) {
+            for (Map.Entry<String, Object> entry : methodContext.getEnvMap().entrySet()) {
                 bsh.set(entry.getKey(), entry.getValue());
             }
             // run external, from resource, first if resource specified

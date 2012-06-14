@@ -101,8 +101,8 @@ public final class CreateObject extends MethodOperation {
                     typeClass = methodObjectDef.getTypeClass(methodContext);
                 } catch (ClassNotFoundException e) {
                     String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [Parameter type not found with name " + methodObjectDef.getTypeName() + "]";
-                    Debug.logError(errMsg, module);
-                    methodContext.setErrorReturn(errMsg, simpleMethod);
+                    Debug.logWarning(e, errMsg, module);
+                    simpleMethod.addErrorMessage(methodContext, errMsg);
                     return false;
                 }
                 parameterTypes[i] = typeClass;
