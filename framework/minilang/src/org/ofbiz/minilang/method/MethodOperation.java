@@ -23,6 +23,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangElement;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
@@ -47,14 +48,18 @@ public abstract class MethodOperation extends MiniLangElement {
     public abstract boolean exec(MethodContext methodContext) throws MiniLangException;
 
     /** Create a string representation of the operation, using the current context.
-     * <p><strong>Deprecated:</strong> No replacement.</p>
+     * @deprecated No replacement.
      */
-    public abstract String expandedString(MethodContext methodContext);
+    public String expandedString(MethodContext methodContext) {
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
+    }
 
     /** Create a string representation of the operation - similar to the original XML.
-     * <p><strong>Deprecated:</strong> Use {@link #toString()}.</p>
+     * @deprecated Use {@link #toString()}.
      */
-    public abstract String rawString();
+    public String rawString() {
+        return toString();
+    }
 
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.TYPE)

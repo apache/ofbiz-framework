@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
-import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.minilang.MiniLangException;
@@ -64,16 +63,6 @@ public final class FilterListByAnd extends MethodOperation {
         Map<String, ? extends Object> theMap = mapFma.get(methodContext.getEnvMap());
         toListFma.put(methodContext.getEnvMap(), EntityUtil.filterByAnd(listFma.get(methodContext.getEnvMap()), theMap));
         return true;
-    }
-
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
-    }
-
-    @Override
-    public String rawString() {
-        return toString();
     }
 
     @Override

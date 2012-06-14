@@ -20,7 +20,6 @@ package org.ofbiz.minilang.method.envops;
 
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
-import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangRuntimeException;
 import org.ofbiz.minilang.MiniLangUtil;
@@ -82,16 +81,6 @@ public final class ToString extends MethodOperation {
             fieldFma.put(methodContext.getEnvMap(), value);
         }
         return true;
-    }
-
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
-    }
-
-    @Override
-    public String rawString() {
-        return toString();
     }
 
     @Override

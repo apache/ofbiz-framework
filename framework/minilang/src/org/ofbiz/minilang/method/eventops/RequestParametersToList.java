@@ -94,16 +94,6 @@ public final class RequestParametersToList extends MethodOperation {
     }
 
     @Override
-    public String expandedString(MethodContext methodContext) {
-        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
-    }
-
-    @Override
-    public String rawString() {
-        return toString();
-    }
-
-    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("<request-parameters-to-list ");
         sb.append("request-name=\"").append(this.attributeNameFse).append("\" ");

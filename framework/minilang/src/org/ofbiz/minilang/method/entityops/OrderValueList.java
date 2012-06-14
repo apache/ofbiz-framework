@@ -21,7 +21,6 @@ package org.ofbiz.minilang.method.entityops;
 import java.util.List;
 
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
-import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.minilang.MiniLangException;
@@ -63,16 +62,6 @@ public final class OrderValueList extends MethodOperation {
         List<String> orderByList = orderByListFma.get(methodContext.getEnvMap());
         toListFma.put(methodContext.getEnvMap(), EntityUtil.orderBy(listFma.get(methodContext.getEnvMap()), orderByList));
         return true;
-    }
-
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
-    }
-
-    @Override
-    public String rawString() {
-        return toString();
     }
 
     @Override

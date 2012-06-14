@@ -108,18 +108,8 @@ public final class CallServiceAsynch extends MethodOperation {
     }
 
     @Override
-    public String expandedString(MethodContext methodContext) {
-        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
-    }
-
-    @Override
     public void gatherArtifactInfo(ArtifactInfoContext aic) {
         aic.addServiceName(this.serviceNameFse.toString());
-    }
-
-    @Override
-    public String rawString() {
-        return toString();
     }
 
     @Override

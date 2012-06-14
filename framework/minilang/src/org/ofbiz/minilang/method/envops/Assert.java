@@ -91,11 +91,6 @@ public final class Assert extends MethodOperation {
     }
 
     @Override
-    public String expandedString(MethodContext methodContext) {
-        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
-    }
-
-    @Override
     public String toString() {
         StringBuilder messageBuf = new StringBuilder("<assert");
         if (!titleExdr.isEmpty()) {
@@ -109,11 +104,6 @@ public final class Assert extends MethodOperation {
         }
         messageBuf.append("</assert>");
         return messageBuf.toString();
-    }
-
-    @Override
-    public String rawString() {
-        return expandedString(null);
     }
 
     public static final class AssertFactory implements Factory<Assert> {

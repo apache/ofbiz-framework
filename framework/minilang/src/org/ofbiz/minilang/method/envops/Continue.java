@@ -39,12 +39,7 @@ public class Continue extends MethodOperation {
     }
 
     @Override
-    public String expandedString(MethodContext methodContext) {
-        return this.rawString();
-    }
-
-    @Override
-    public String rawString() {
+    public String toString() {
         return "<continue/>";
     }
 

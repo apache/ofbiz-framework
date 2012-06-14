@@ -19,7 +19,6 @@
 package org.ofbiz.minilang.method.envops;
 
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
-import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
@@ -49,16 +48,6 @@ public final class ClearField extends MethodOperation {
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         fieldFma.put(methodContext.getEnvMap(), null);
         return true;
-    }
-
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
-    }
-
-    @Override
-    public String rawString() {
-        return toString();
     }
 
     @Override

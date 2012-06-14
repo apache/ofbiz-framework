@@ -22,7 +22,6 @@ import java.util.Collections;
 import java.util.List;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
@@ -67,16 +66,6 @@ public final class Trace extends MethodOperation {
             methodContext.setTraceOff();
             outputTraceMessage(methodContext, "Trace off.");
         }
-    }
-
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
-    }
-
-    @Override
-    public String rawString() {
-        return toString();
     }
 
     @Override

@@ -27,17 +27,16 @@ import java.util.Map;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.location.FlexibleLocation;
-import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
-import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangRuntimeException;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.ValidationException;
+import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
@@ -150,11 +149,6 @@ public final class CallSimpleMethod extends MethodOperation {
     }
 
     @Override
-    public String expandedString(MethodContext methodContext) {
-        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
-    }
-
-    @Override
     public void gatherArtifactInfo(ArtifactInfoContext aic) {
         SimpleMethod simpleMethodToCall;
         try {
@@ -180,11 +174,6 @@ public final class CallSimpleMethod extends MethodOperation {
 
     public String getXmlResource() {
         return this.xmlResource;
-    }
-
-    @Override
-    public String rawString() {
-        return toString();
     }
 
     @Override

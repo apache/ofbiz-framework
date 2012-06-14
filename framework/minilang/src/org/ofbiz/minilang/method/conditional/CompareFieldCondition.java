@@ -143,11 +143,6 @@ public final class CompareFieldCondition extends MethodOperation implements Cond
     }
 
     @Override
-    public String expandedString(MethodContext methodContext) {
-        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
-    }
-
-    @Override
     public void gatherArtifactInfo(ArtifactInfoContext aic) {
         if (this.subOps != null) {
             for (MethodOperation method : this.subOps) {
@@ -182,11 +177,6 @@ public final class CompareFieldCondition extends MethodOperation implements Cond
             messageBuffer.append(":");
             messageBuffer.append(format);
         }
-    }
-
-    @Override
-    public String rawString() {
-        return toString();
     }
 
     @Override

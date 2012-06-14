@@ -75,16 +75,6 @@ public final class SequencedIdToEnv extends MethodOperation {
     }
 
     @Override
-    public String expandedString(MethodContext methodContext) {
-        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
-    }
-
-    @Override
-    public String rawString() {
-        return toString();
-    }
-
-    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("<sequenced-id ");
         sb.append("sequence-name=\"").append(this.sequenceNameFse).append("\" ");

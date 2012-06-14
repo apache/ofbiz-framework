@@ -109,11 +109,6 @@ public class RegexpCondition extends MethodOperation implements Conditional {
     }
 
     @Override
-    public String expandedString(MethodContext methodContext) {
-        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
-    }
-
-    @Override
     public void gatherArtifactInfo(ArtifactInfoContext aic) {
         if (this.subOps != null) {
             for (MethodOperation method : this.subOps) {
@@ -136,11 +131,6 @@ public class RegexpCondition extends MethodOperation implements Conditional {
         messageBuffer.append("] matches ");
         messageBuffer.append(exprFse.expandString(methodContext.getEnvMap()));
         messageBuffer.append("]");
-    }
-
-    @Override
-    public String rawString() {
-        return toString();
     }
 
     @Override
