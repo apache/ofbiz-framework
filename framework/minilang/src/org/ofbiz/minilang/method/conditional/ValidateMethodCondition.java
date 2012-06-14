@@ -132,9 +132,6 @@ public final class ValidateMethodCondition extends MethodOperation implements Co
     }
 
     public void prettyPrint(StringBuilder messageBuffer, MethodContext methodContext) {
-        // allow methodContext to be null
-        String methodName = methodContext == null ? this.methodName : methodContext.expandString(this.methodName);
-        String className = methodContext == null ? this.className : methodContext.expandString(this.className);
         messageBuffer.append("validate-method[");
         messageBuffer.append(className);
         messageBuffer.append(".");
