@@ -309,7 +309,7 @@ public class ProductionRun {
         if (exist()) {
             if (currentStatus == null) {
                 try {
-                    currentStatus = productionRun.getRelatedOne("StatusItem", true);
+                    currentStatus = productionRun.getRelatedOne("CurrentStatusItem", true);
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e.getMessage(), module);
                 }
