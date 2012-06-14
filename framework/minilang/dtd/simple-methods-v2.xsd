@@ -4284,141 +4284,187 @@ under the License.
     <xs:element name="calculate" substitutionGroup="OtherOperations">
         <xs:annotation>
             <xs:documentation>
-                The calculate tag performs the specified calculation and puts the result in an object in the field of the specified map (see the calculate element attribute descriptions).
-                The type of the object can be specified with the type attribute, defaults to Double.
-
-                The calculate tag can contain calcop and number tags, and the calcop tag can also contain these two tags to enable nested calculations.
-
-                The operator specifies the operation to perform on the given field and nested calcops and numbers.
-                It must be one of the following: get | add | subtract | multiply | divide | negative.
+                Performs an arithmetic calculation and puts the result in the specified field.
+                Deprecated - use the set element.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:choice minOccurs="0" maxOccurs="unbounded">
-                <xs:element ref="calcop">
-                    <xs:annotation>
-                        <xs:documentation>
-                            This tag is used to apply an operator in the calculation.
-                            It can have calcop and number tags nested under it, making it also act like a parenthesis.
-                            It has three attributes: operator, map-name, and field-name. Operator and field-name are required.
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
-                <xs:element ref="number"/>
+                <xs:element ref="calcop" />
+                <xs:element ref="number" />
             </xs:choice>
-            <xs:attributeGroup ref="attlist.calculate"/>
+            <xs:attribute ref="field" />
+            <xs:attribute name="rounding-mode">
+                <xs:annotation>
+                    <xs:documentation>
+                        Rounding mode for BigDecimal calculation, primarily for divide operation.
+                        Defaults to "HalfEven".
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="Ceiling">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Round towards positive infinity.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="Floor">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Round towards negative infinity.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="Up">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Round towards "nearest neighbor" unless both neighbors are equidistant, in which case round up.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="Down">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Round towards "nearest neighbor" unless both neighbors are equidistant, in which case round down.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="HalfUp">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Round towards "nearest neighbor" unless both neighbors are equidistant, in which case round up.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="HalfDown">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Round towards "nearest neighbor" unless both neighbors are equidistant, in which case round down.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="HalfEven">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Round towards the "nearest neighbor" unless both neighbors are equidistant, in which case, round towards the even neighbor.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="Unnecessary">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Asserts that the requested operation has an exact result, hence no rounding is necessary.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="${roundingMode}">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Convention for variable name for this attribute, in cases where it is determined at run-time.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="decimal-scale">
+                <xs:annotation>
+                    <xs:documentation>
+                        Initial scale to use for the internal BigDecimal. Defaults to "2".
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="decimal-format">
+                <xs:annotation>
+                    <xs:documentation>
+                        Decimal format to use for conversion to string.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="type">
+                <xs:annotation>
+                    <xs:documentation>
+                        Data type of the calculation result. Defaults to "BigDecimal".
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="String" />
+                        <xs:enumeration value="Double" />
+                        <xs:enumeration value="Float" />
+                        <xs:enumeration value="Long" />
+                        <xs:enumeration value="Integer" />
+                        <xs:enumeration value="BigDecimal" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.calculate">
-        <xs:attribute type="xs:string" name="field" use="required">
-            <xs:annotation><xs:documentation>The name (key) of the map (or env if map-name is empty) field to use.</xs:documentation></xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="type" default="BigDecimal">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="String"/>
-                    <xs:enumeration value="Double"/>
-                    <xs:enumeration value="Float"/>
-                    <xs:enumeration value="Long"/>
-                    <xs:enumeration value="Integer"/>
-                    <xs:enumeration value="BigDecimal"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="rounding-mode" default="HalfEven">
-            <xs:annotation>
-                <xs:documentation>
-                    Rounding mode for BigDecimal calculation, primarily for divide operation.
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="Ceiling"><xs:annotation><xs:documentation>Rounding mode to round towards positive infinity</xs:documentation></xs:annotation></xs:enumeration>
-                    <xs:enumeration value="Floor"><xs:annotation><xs:documentation>Rounding mode to round towards negative infinity</xs:documentation></xs:annotation></xs:enumeration>
-                    <xs:enumeration value="Up"><xs:annotation><xs:documentation>Rounding mode to round towards "nearest neighbor" unless both neighbors are equidistant, in which case round up</xs:documentation></xs:annotation></xs:enumeration>
-                    <xs:enumeration value="Down"><xs:annotation><xs:documentation>Rounding mode to round towards "nearest neighbor" unless both neighbors are equidistant, in which case round down</xs:documentation></xs:annotation></xs:enumeration>
-                    <xs:enumeration value="HalfUp"><xs:annotation><xs:documentation>Rounding mode to round towards "nearest neighbor" unless both neighbors are equidistant, in which case round up</xs:documentation></xs:annotation></xs:enumeration>
-                    <xs:enumeration value="HalfDown"><xs:annotation><xs:documentation>Rounding mode to round towards "nearest neighbor" unless both neighbors are equidistant, in which case round down</xs:documentation></xs:annotation></xs:enumeration>
-                    <xs:enumeration value="HalfEven"><xs:annotation><xs:documentation>Rounding mode to round towards the "nearest neighbor" unless both neighbors are equidistant, in which case, round towards the even neighbor</xs:documentation></xs:annotation></xs:enumeration>
-                    <xs:enumeration value="Unnecessary"><xs:annotation><xs:documentation>Rounding mode to assert that the requested operation has an exact result, hence no rounding is necessary</xs:documentation></xs:annotation></xs:enumeration>
-                    <xs:enumeration value="${roundingMode}"><xs:annotation><xs:documentation>Convention for variable name for this attribute, in cases where it is determined at run-time.</xs:documentation></xs:annotation></xs:enumeration>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="decimal-scale" default="2">
-            <xs:annotation><xs:documentation>Initial scale to use for the internal BigDecimal. Defaults to 2 for monetary calculations.</xs:documentation></xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="decimal-format"/>
-    </xs:attributeGroup>
     <xs:element name="calcop">
         <xs:annotation>
             <xs:documentation>
-                The calcop tag has an operator: get, add, subtract, multiply, divide, and negative.
+                A basic arithmetic operation.
+                Supports these operations: get, add, subtract, multiply, divide, and negate.
                 So add, subtract, multiply, and divide are just the basic arithmetic operations.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:choice minOccurs="0" maxOccurs="unbounded">
-                <xs:element ref="calcop"/>
-                <xs:element ref="number"/>
+                <xs:element ref="calcop" />
+                <xs:element ref="number" />
             </xs:choice>
-            <xs:attributeGroup ref="attlist.calcop"/>
+            <xs:attribute name="operator" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="get">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Gets the positive value.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="add" />
+                        <xs:enumeration value="subtract" />
+                        <xs:enumeration value="multiply" />
+                        <xs:enumeration value="divide" />
+                        <xs:enumeration value="negative">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Negates the value
+                            </xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="field">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field to use.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.calcop">
-        <xs:attribute name="operator" use="required">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="get">
-                        <xs:annotation>
-                            <xs:documentation>
-                                Gets the positive value.
-                            </xs:documentation>
-                        </xs:annotation>
-                    </xs:enumeration>
-                    <xs:enumeration value="add"/>
-                    <xs:enumeration value="subtract"/>
-                    <xs:enumeration value="multiply"/>
-                    <xs:enumeration value="divide"/>
-                    <xs:enumeration value="negative">
-                        <xs:annotation>
-                            <xs:documentation>
-                                Negates the value
-                            </xs:documentation>
-                        </xs:annotation>
-                    </xs:enumeration>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="field">
-            <xs:annotation>
-                <xs:documentation>
-                    The name (key) of the map field to use.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="number">
         <xs:annotation>
             <xs:documentation>
                 This is used to put a numeric constant (a number) into the calculation.
                 It has one attribute: value. This must be a properly formatted number or an error will result.
-                May use flexible string.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.number"/>
+            <xs:attribute type="xs:string" name="value" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        Literal or flexible string.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.number">
-        <xs:attribute type="xs:string" name="value" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Literal or flexible string.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="set-calendar" substitutionGroup="EnvOperations">
         <xs:annotation>
             <xs:documentation>
@@ -4427,13 +4473,6 @@ under the License.
         </xs:annotation>
         <xs:complexType>
             <xs:attribute ref="field" />
-            <xs:attribute type="xs:string" name="from-field">
-                <xs:annotation>
-                    <xs:documentation>
-                        Deprecated - use the from attribute.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
             <xs:attribute type="xs:string" name="from">
                 <xs:annotation>
                     <xs:documentation>
@@ -4442,6 +4481,13 @@ under the License.
                         A script must be prefixed with the script language followed by a colon (":").
                         &lt;br/&gt;&lt;br/&gt;
                         Required if the value attribute is empty. Attribute types: expression, script.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="from-field">
+                <xs:annotation>
+                    <xs:documentation>
+                        Deprecated - use the from attribute.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
@@ -4455,19 +4501,19 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute type="xs:string" name="default-value">
-                <xs:annotation>
-                    <xs:documentation>
-                        Deprecated - use the default attribute.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
             <xs:attribute type="xs:string" name="default">
                 <xs:annotation>
                     <xs:documentation>
                         A default value that is used when the from attribute evaluates to null or empty.
                         &lt;br/&gt;&lt;br/&gt;
                         Optional. Attribute types: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="default-value">
+                <xs:annotation>
+                    <xs:documentation>
+                        Deprecated - use the default attribute.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
