@@ -78,14 +78,6 @@ public final class While extends MethodOperation {
     }
 
     @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: fill in missing details, if needed
-        StringBuilder messageBuf = new StringBuilder();
-        this.condition.prettyPrint(messageBuf, methodContext);
-        return "<while><condition>" + messageBuf + "</condition></while>";
-    }
-
-    @Override
     public void gatherArtifactInfo(ArtifactInfoContext aic) {
         for (MethodOperation method : this.thenSubOps) {
             method.gatherArtifactInfo(aic);
@@ -93,8 +85,10 @@ public final class While extends MethodOperation {
     }
 
     @Override
-    public String rawString() {
-        return expandedString(null);
+    public String toString() {
+        StringBuilder messageBuf = new StringBuilder();
+        this.condition.prettyPrint(messageBuf, null);
+        return "<while><condition>" + messageBuf + "</condition></while>";
     }
 
     public static final class WhileFactory implements Factory<While> {

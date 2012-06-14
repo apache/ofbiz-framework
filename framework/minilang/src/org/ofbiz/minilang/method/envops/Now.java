@@ -23,7 +23,6 @@ import org.ofbiz.base.conversion.Converter;
 import org.ofbiz.base.conversion.Converters;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
-import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangRuntimeException;
 import org.ofbiz.minilang.MiniLangUtil;
@@ -102,16 +101,6 @@ public final class Now extends MethodOperation {
             throw new MiniLangRuntimeException(e.getMessage(), this);
         }
         return true;
-    }
-
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
-    }
-
-    @Override
-    public String rawString() {
-        return toString();
     }
 
     @Override

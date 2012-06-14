@@ -26,7 +26,6 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
-import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMapProcessor;
@@ -99,16 +98,6 @@ public final class CallSimpleMapProcessor extends MethodOperation {
             inlineMapProcessor.exec(inMap, outMap, messages, methodContext.getLocale(), methodContext.getLoader());
         }
         return true;
-    }
-
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
-    }
-
-    @Override
-    public String rawString() {
-        return toString();
     }
 
     @Override

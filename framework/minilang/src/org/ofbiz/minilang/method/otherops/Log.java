@@ -84,16 +84,6 @@ public final class Log extends MethodOperation {
     }
 
     @Override
-    public String expandedString(MethodContext methodContext) {
-        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
-    }
-
-    @Override
-    public String rawString() {
-        return toString();
-    }
-
-    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("<log ");
         sb.append("level=\"").append(LEVEL_ARRAY[this.level]).append("\" ");

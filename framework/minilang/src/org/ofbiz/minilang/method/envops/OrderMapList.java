@@ -26,7 +26,6 @@ import java.util.Map;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.collections.MapComparator;
-import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangRuntimeException;
 import org.ofbiz.minilang.MiniLangValidate;
@@ -76,16 +75,6 @@ public final class OrderMapList extends MethodOperation {
             Collections.sort(orderList, mc);
         }
         return true;
-    }
-
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
-    }
-
-    @Override
-    public String rawString() {
-        return toString();
     }
 
     @Override

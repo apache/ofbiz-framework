@@ -74,16 +74,6 @@ public final class StoreList extends MethodOperation {
     }
 
     @Override
-    public String expandedString(MethodContext methodContext) {
-        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
-    }
-
-    @Override
-    public String rawString() {
-        return toString();
-    }
-
-    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("<store-list ");
         sb.append("list=\"").append(this.listFma).append("\" ");

@@ -18,15 +18,14 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.entityops;
 
-import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.finder.PrimaryKeyFinder;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
@@ -66,18 +65,8 @@ public final class EntityOne extends MethodOperation {
     }
 
     @Override
-    public String expandedString(MethodContext methodContext) {
-        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
-    }
-
-    @Override
     public void gatherArtifactInfo(ArtifactInfoContext aic) {
         aic.addEntityName(this.finder.getEntityName());
-    }
-
-    @Override
-    public String rawString() {
-        return toString();
     }
 
     @Override

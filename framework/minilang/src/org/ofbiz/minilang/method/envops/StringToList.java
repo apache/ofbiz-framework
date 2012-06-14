@@ -87,16 +87,6 @@ public final class StringToList extends MethodOperation {
     }
 
     @Override
-    public String expandedString(MethodContext methodContext) {
-        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
-    }
-
-    @Override
-    public String rawString() {
-        return toString();
-    }
-
-    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("<string-to-list ");
         sb.append("string=\"").append(this.stringFse).append("\" ");

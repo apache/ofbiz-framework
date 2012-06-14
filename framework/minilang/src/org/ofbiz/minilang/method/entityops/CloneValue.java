@@ -19,7 +19,6 @@
 package org.ofbiz.minilang.method.entityops;
 
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
-import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangValidate;
@@ -55,16 +54,6 @@ public final class CloneValue extends MethodOperation {
             newValueFma.put(methodContext.getEnvMap(), GenericValue.create(value));
         }
         return true;
-    }
-
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
-    }
-
-    @Override
-    public String rawString() {
-        return toString();
     }
 
     @Override

@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.entityops;
 
-import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
@@ -48,16 +47,6 @@ public final class ClearEntityCaches extends MethodOperation {
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         methodContext.getDelegator().clearAllCaches();
         return true;
-    }
-
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
-    }
-
-    @Override
-    public String rawString() {
-        return toString();
     }
 
     @Override

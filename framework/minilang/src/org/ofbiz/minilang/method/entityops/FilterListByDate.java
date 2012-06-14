@@ -23,7 +23,6 @@ import java.util.List;
 
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
-import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.minilang.MiniLangException;
@@ -73,16 +72,6 @@ public final class FilterListByDate extends MethodOperation {
             toListFma.put(methodContext.getEnvMap(), EntityUtil.filterByDate(listFma.get(methodContext.getEnvMap()), UtilDateTime.nowTimestamp(), fromFieldName, thruFieldName, true));
         }
         return true;
-    }
-
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
-    }
-
-    @Override
-    public String rawString() {
-        return toString();
     }
 
     @Override

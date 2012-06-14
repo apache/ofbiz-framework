@@ -105,11 +105,6 @@ public final class HasPermissionCondition extends MethodOperation implements Con
     }
 
     @Override
-    public String expandedString(MethodContext methodContext) {
-        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
-    }
-
-    @Override
     public void gatherArtifactInfo(ArtifactInfoContext aic) {
         if (this.subOps != null) {
             for (MethodOperation method : this.subOps) {
@@ -131,11 +126,6 @@ public final class HasPermissionCondition extends MethodOperation implements Con
             messageBuffer.append(this.actionFse);
         }
         messageBuffer.append("]");
-    }
-
-    @Override
-    public String rawString() {
-        return toString();
     }
 
     @Override

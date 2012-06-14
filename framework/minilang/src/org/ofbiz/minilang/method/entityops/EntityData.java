@@ -126,16 +126,6 @@ public final class EntityData extends MethodOperation {
     }
 
     @Override
-    public String expandedString(MethodContext methodContext) {
-        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
-    }
-
-    @Override
-    public String rawString() {
-        return toString();
-    }
-
-    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("<entity-data ");
         sb.append("location=\"").append(this.locationFse).append("\" ");

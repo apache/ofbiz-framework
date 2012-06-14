@@ -87,11 +87,6 @@ public final class EmptyCondition extends MethodOperation implements Conditional
     }
 
     @Override
-    public String expandedString(MethodContext methodContext) {
-        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
-    }
-
-    @Override
     public void gatherArtifactInfo(ArtifactInfoContext aic) {
         if (this.subOps != null) {
             for (MethodOperation method : this.subOps) {
@@ -111,11 +106,6 @@ public final class EmptyCondition extends MethodOperation implements Conditional
         messageBuffer.append("=");
         messageBuffer.append(fieldFma.get(methodContext.getEnvMap()));
         messageBuffer.append("]");
-    }
-
-    @Override
-    public String rawString() {
-        return toString();
     }
 
     @Override

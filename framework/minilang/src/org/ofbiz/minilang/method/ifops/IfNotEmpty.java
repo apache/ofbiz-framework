@@ -24,7 +24,6 @@ import java.util.List;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
-import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.artifact.ArtifactInfoContext;
@@ -68,11 +67,6 @@ public final class IfNotEmpty extends MethodOperation {
     }
 
     @Override
-    public String expandedString(MethodContext methodContext) {
-        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
-    }
-
-    @Override
     public void gatherArtifactInfo(ArtifactInfoContext aic) {
         for (MethodOperation method : this.subOps) {
             method.gatherArtifactInfo(aic);
@@ -82,11 +76,6 @@ public final class IfNotEmpty extends MethodOperation {
                 method.gatherArtifactInfo(aic);
             }
         }
-    }
-
-    @Override
-    public String rawString() {
-        return toString();
     }
 
     @Override

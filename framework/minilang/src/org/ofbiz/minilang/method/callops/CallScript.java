@@ -111,16 +111,6 @@ public final class CallScript extends MethodOperation {
     }
 
     @Override
-    public String expandedString(MethodContext methodContext) {
-        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
-    }
-
-    @Override
-    public String rawString() {
-        return toString();
-    }
-
-    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("<script ");
         if (this.location != null && this.location.length() > 0) {

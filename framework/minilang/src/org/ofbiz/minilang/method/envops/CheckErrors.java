@@ -63,22 +63,12 @@ public final class CheckErrors extends MethodOperation {
         return true;
     }
 
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
-    }
-
     private String getErrorCode(MethodContext methodContext) {
         String errorCode = this.errorCodeFse.expandString(methodContext.getEnvMap());
         if (errorCode.length() == 0) {
             errorCode = this.simpleMethod.getDefaultErrorCode();
         }
         return errorCode;
-    }
-
-    @Override
-    public String rawString() {
-        return toString();
     }
 
     @Override

@@ -100,16 +100,6 @@ public final class CheckPermission extends MethodOperation {
     }
 
     @Override
-    public String expandedString(MethodContext methodContext) {
-        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
-    }
-
-    @Override
-    public String rawString() {
-        return toString();
-    }
-
-    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("<check-permission ");
         sb.append("permission=\"").append(this.primaryPermissionInfo.permissionFse).append("\" ");
