@@ -67,7 +67,7 @@ under the License.
         <make-value entity-name="RateAmount" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set field="newEntity.fromDate" value="${groovy: org.ofbiz.base.util.UtilDateTime.getDayStart(nowTimestamp)}" type="Timestamp"/>
+        <if-empty field="newEntity.fromDate"><now-timestamp field="newEntity.fromDate"/></if-empty>
         <clear-field field="newEntity.thruDate"/>
         <create-value value-field="newEntity"/>
     </simple-method>
