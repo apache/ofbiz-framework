@@ -22,26 +22,24 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
-import javolution.util.FastMap;
-
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.ObjectType;
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.minilang.MiniLangElement;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangRuntimeException;
 import org.ofbiz.minilang.MiniLangUtil;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Calculates a result based on nested calcops.
+ * Implements the &lt;calculate&gt; element.
  */
-public class Calculate extends MethodOperation {
+public final class Calculate extends MethodOperation {
 
     public static final String module = Calculate.class.getName();
 
@@ -51,36 +49,40 @@ public class Calculate extends MethodOperation {
     public static final int TYPE_INTEGER = 4;
     public static final int TYPE_STRING = 5;
     public static final int TYPE_BIG_DECIMAL = 6;
-    public static final BigDecimal ZERO = BigDecimal.ZERO;
 
-    Calculate.SubCalc calcops[];
-    String decimalFormatString;
-    String decimalScaleString;
-    ContextAccessor<Object> fieldAcsr;
-    ContextAccessor<Map<String, Object>> mapAcsr;
-    String roundingModeString;
-    String typeString;
+    private final Calculate.SubCalc calcops[];
+    private final FlexibleStringExpander decimalFormatFse;
+    private final FlexibleStringExpander decimalScaleFse;
+    private final FlexibleMapAccessor<Object> fieldFma;
+    private final FlexibleStringExpander roundingModeFse;
+    private final FlexibleStringExpander typeFse;
 
     public Calculate(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
-        this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
-        this.mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
-        decimalScaleString = element.getAttribute("decimal-scale");
-        decimalFormatString = element.getAttribute("decimal-format");
-        typeString = element.getAttribute("type");
-        roundingModeString = element.getAttribute("rounding-mode");
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.handleError("<calculate> element is deprecated (use <set>)", simpleMethod, element);
+            MiniLangValidate.attributeNames(simpleMethod, element, "field", "decimal-scale", "decimal-format", "rounding-mode", "type");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "field");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "field");
+            MiniLangValidate.childElements(simpleMethod, element, "calcop", "number");
+        }
+        this.fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
+        this.decimalFormatFse = FlexibleStringExpander.getInstance(element.getAttribute("decimal-format"));
+        this.decimalScaleFse = FlexibleStringExpander.getInstance(element.getAttribute("decimal-scale"));
+        this.roundingModeFse = FlexibleStringExpander.getInstance(element.getAttribute("rounding-mode"));
+        this.typeFse = FlexibleStringExpander.getInstance(element.getAttribute("type"));
         List<? extends Element> calcopElements = UtilXml.childElementList(element);
         calcops = new Calculate.SubCalc[calcopElements.size()];
         int i = 0;
         for (Element calcopElement : calcopElements) {
             String nodeName = calcopElement.getNodeName();
             if ("calcop".equals(nodeName)) {
-                calcops[i] = new Calculate.CalcOp(calcopElement);
+                calcops[i] = new CalcOp(calcopElement, simpleMethod);
             } else if ("number".equals(nodeName)) {
-                calcops[i] = new Calculate.NumberOp(calcopElement);
+                calcops[i] = new NumberOp(calcopElement, simpleMethod);
             } else {
-                Debug.logError("Error: calculate operation with type " + nodeName, module);
+                MiniLangValidate.handleError("Invalid calculate sub-element.", simpleMethod, calcopElement);
+                calcops[i] = new InvalidOp(calcopElement, simpleMethod);
             }
             i++;
         }
@@ -88,7 +90,7 @@ public class Calculate extends MethodOperation {
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        String typeString = methodContext.expandString(this.typeString);
+        String typeString = typeFse.expandString(methodContext.getEnvMap());
         int type;
         if ("Double".equals(typeString)) {
             type = Calculate.TYPE_DOUBLE;
@@ -105,7 +107,7 @@ public class Calculate extends MethodOperation {
         } else {
             type = Calculate.TYPE_BIG_DECIMAL;
         }
-        String roundingModeString = methodContext.expandString(this.roundingModeString);
+        String roundingModeString = roundingModeFse.expandString(methodContext.getEnvMap());
         int roundingMode;
         if ("Ceiling".equals(roundingModeString)) {
             roundingMode = BigDecimal.ROUND_CEILING;
@@ -127,29 +129,21 @@ public class Calculate extends MethodOperation {
             // default to HalfEven, reduce cumulative errors
             roundingMode = BigDecimal.ROUND_HALF_EVEN;
         }
-        String decimalScaleString = methodContext.expandString(this.decimalScaleString);
+        String decimalScaleString = decimalScaleFse.expandString(methodContext.getEnvMap());
         int decimalScale = 2;
-        if (UtilValidate.isNotEmpty(decimalScaleString)) {
+        if (!decimalScaleString.isEmpty()) {
             decimalScale = Integer.valueOf(decimalScaleString).intValue();
         }
-        String decimalFormatString = methodContext.expandString(this.decimalFormatString);
+        String decimalFormatString = decimalFormatFse.expandString(methodContext.getEnvMap());
         DecimalFormat df = null;
-        if (UtilValidate.isNotEmpty(decimalFormatString)) {
+        if (!decimalFormatString.isEmpty()) {
             df = new DecimalFormat(decimalFormatString);
         }
-        BigDecimal resultValue = ZERO;
-        resultValue = resultValue.setScale(decimalScale, roundingMode);
+        BigDecimal resultValue = BigDecimal.ZERO.setScale(decimalScale, roundingMode);
         for (Calculate.SubCalc calcop : calcops) {
             resultValue = resultValue.add(calcop.calcValue(methodContext, decimalScale, roundingMode));
-            // Debug.logInfo("main total so far: " + resultValue, module);
         }
         resultValue = resultValue.setScale(decimalScale, roundingMode);
-        /*
-         * the old thing that did conversion to string and back, may want to use somewhere sometime...: for now just doing the setScale above (before and after calc ops) try { resultValue = new
-         * BigDecimal(df.format(resultValue)); } catch (ParseException e) { String errorMessage = "Unable to format [" + formatString + "] result [" + resultValue + "]"; Debug.logError(e,
-         * errorMessage, module); if (methodContext.getMethodType() == MethodContext.EVENT) { methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errorMessage); } else if
-         * (methodContext.getMethodType() == MethodContext.SERVICE) { methodContext.putEnv(simpleMethod.getServiceErrorMessageName(), errorMessage); } return false; }
-         */
         Object resultObj = null;
         switch (type) {
             case TYPE_DOUBLE:
@@ -168,7 +162,7 @@ public class Calculate extends MethodOperation {
                 break;
             case TYPE_STRING:
                 // run the decimal-formatting
-                if (df != null && resultValue.compareTo(ZERO) > 0) {
+                if (df != null && resultValue.compareTo(BigDecimal.ZERO) > 0) {
                     resultObj = df.format(resultValue);
                 } else {
                     resultObj = resultValue.toString();
@@ -178,71 +172,90 @@ public class Calculate extends MethodOperation {
                 resultObj = resultValue;
                 break;
         }
-
-        if (!mapAcsr.isEmpty()) {
-            Map<String, Object> toMap = mapAcsr.get(methodContext);
-            if (toMap == null) {
-                if (Debug.verboseOn())
-                    Debug.logVerbose("Map not found with name " + mapAcsr + ", creating new map", module);
-                toMap = FastMap.newInstance();
-                mapAcsr.put(methodContext, toMap);
-            }
-            fieldAcsr.put(toMap, resultObj, methodContext);
-        } else {
-            fieldAcsr.put(methodContext, resultObj);
-        }
-
+        fieldFma.put(methodContext.getEnvMap(), resultObj);
         return true;
     }
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public String rawString() {
-        // TODO: add all attributes and other info
-        return "<calculate field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\"/>";
+        return toString();
     }
 
-    protected static class CalcOp implements SubCalc {
-        public static final int OPERATOR_ADD = 1;
-        public static final int OPERATOR_DIVIDE = 4;
-        public static final int OPERATOR_MULTIPLY = 3;
-        public static final int OPERATOR_NEGATIVE = 5;
-        public static final int OPERATOR_SUBTRACT = 2;
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<set ");
+        sb.append("field=\"").append(this.fieldFma).append("\" ");
+        if (!this.roundingModeFse.isEmpty()) {
+            sb.append("rounding-mode=\"").append(this.roundingModeFse).append("\" ");
+        }
+        if (!this.decimalScaleFse.isEmpty()) {
+            sb.append("decimal-scale=\"").append(this.decimalScaleFse).append("\" ");
+        }
+        if (!this.decimalFormatFse.isEmpty()) {
+            sb.append("decimal-format=\"").append(this.decimalFormatFse).append("\" ");
+        }
+        if (!typeFse.isEmpty()) {
+            sb.append("type=\"").append(this.typeFse).append("\" ");
+        }
+        sb.append("/>");
+        return sb.toString();
+    }
 
-        Calculate.SubCalc calcops[];
-        ContextAccessor<Object> fieldAcsr;
-        ContextAccessor<Map<String, ? extends Object>> mapAcsr;
-        String operatorStr;
+    /**
+     * Interface for &lt;calculate&gt; sub-element implementations.
+     */
+    public interface SubCalc {
+        BigDecimal calcValue(MethodContext methodContext, int scale, int roundingMode) throws MiniLangException;
+    }
 
-        public CalcOp(Element element) {
-            // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
-            this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
-            this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
-            operatorStr = element.getAttribute("operator");
+    /**
+     * Implements the &lt;calcop&gt; element.
+     */
+    public final class CalcOp extends MiniLangElement implements SubCalc {
+        private static final int OPERATOR_ADD = 1;
+        private static final int OPERATOR_DIVIDE = 4;
+        private static final int OPERATOR_MULTIPLY = 3;
+        private static final int OPERATOR_NEGATIVE = 5;
+        private static final int OPERATOR_SUBTRACT = 2;
+
+        private final Calculate.SubCalc calcops[];
+        private final FlexibleMapAccessor<Object> fieldFma;
+        private final FlexibleStringExpander operatorFse;
+
+        private CalcOp(Element element, SimpleMethod simpleMethod) throws MiniLangException {
+            super(element, simpleMethod);
+            if (MiniLangValidate.validationOn()) {
+                MiniLangValidate.attributeNames(simpleMethod, element, "field", "operator");
+                MiniLangValidate.requiredAttributes(simpleMethod, element, "field");
+                MiniLangValidate.expressionAttributes(simpleMethod, element, "field");
+                MiniLangValidate.childElements(simpleMethod, element, "calcop", "number");
+            }
+            this.fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
+            this.operatorFse = FlexibleStringExpander.getInstance(element.getAttribute("operator"));
             List<? extends Element> calcopElements = UtilXml.childElementList(element);
             calcops = new Calculate.SubCalc[calcopElements.size()];
             int i = 0;
-
             for (Element calcopElement : calcopElements) {
-                String nodeName = calcopElement.getNodeName();
                 if ("calcop".equals(calcopElement.getNodeName())) {
-                    calcops[i] = new Calculate.CalcOp(calcopElement);
+                    calcops[i] = new Calculate.CalcOp(calcopElement, simpleMethod);
                 } else if ("number".equals(calcopElement.getNodeName())) {
-                    calcops[i] = new Calculate.NumberOp(calcopElement);
+                    calcops[i] = new Calculate.NumberOp(calcopElement, simpleMethod);
                 } else {
-                    Debug.logError("Error: calculate operation unknown with type " + nodeName, module);
+                    MiniLangValidate.handleError("Invalid calculate sub-element.", simpleMethod, calcopElement);
+                    calcops[i] = new InvalidOp(calcopElement, simpleMethod);
                 }
                 i++;
             }
         }
 
-        public BigDecimal calcValue(MethodContext methodContext, int scale, int roundingMode) {
-            String operatorStr = methodContext.expandString(this.operatorStr);
+        @Override
+        public BigDecimal calcValue(MethodContext methodContext, int scale, int roundingMode) throws MiniLangException {
+            String operatorStr = operatorFse.expandString(methodContext.getEnvMap());
             int operator = CalcOp.OPERATOR_ADD;
             if ("get".equals(operatorStr)) {
                 operator = CalcOp.OPERATOR_ADD;
@@ -257,45 +270,26 @@ public class Calculate extends MethodOperation {
             } else if ("negative".equals(operatorStr)) {
                 operator = CalcOp.OPERATOR_NEGATIVE;
             }
-            BigDecimal resultValue = ZERO;
-            resultValue = resultValue.setScale(scale, roundingMode);
+            BigDecimal resultValue = BigDecimal.ZERO.setScale(scale, roundingMode);
             boolean isFirst = true;
-            // if a fieldAcsr was specified, get the field from the map or result and use it as the initial value
-            if (!fieldAcsr.isEmpty()) {
-                Object fieldObj = null;
-                if (!mapAcsr.isEmpty()) {
-                    Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
-                    if (fromMap == null) {
-                        if (Debug.verboseOn())
-                            Debug.logVerbose("Map not found with name " + mapAcsr + ", creating new map", module);
-                        fromMap = FastMap.newInstance();
-                        mapAcsr.put(methodContext, fromMap);
-                    }
-                    fieldObj = fieldAcsr.get(fromMap, methodContext);
-                } else {
-                    fieldObj = fieldAcsr.get(methodContext);
+            Object fieldObj = fieldFma.get(methodContext.getEnvMap());
+            if (fieldObj != null) {
+                if (fieldObj instanceof Double) {
+                    resultValue = new BigDecimal(((Double) fieldObj).doubleValue());
+                } else if (fieldObj instanceof Long) {
+                    resultValue = BigDecimal.valueOf(((Long) fieldObj).longValue());
+                } else if (fieldObj instanceof Float) {
+                    resultValue = new BigDecimal(((Float) fieldObj).floatValue());
+                } else if (fieldObj instanceof Integer) {
+                    resultValue = BigDecimal.valueOf(((Integer) fieldObj).longValue());
+                } else if (fieldObj instanceof String) {
+                    resultValue = new BigDecimal((String) fieldObj);
+                } else if (fieldObj instanceof BigDecimal) {
+                    resultValue = (BigDecimal) fieldObj;
                 }
-                if (fieldObj != null) {
-                    if (fieldObj instanceof Double) {
-                        resultValue = new BigDecimal(((Double) fieldObj).doubleValue());
-                    } else if (fieldObj instanceof Long) {
-                        resultValue = BigDecimal.valueOf(((Long) fieldObj).longValue());
-                    } else if (fieldObj instanceof Float) {
-                        resultValue = new BigDecimal(((Float) fieldObj).floatValue());
-                    } else if (fieldObj instanceof Integer) {
-                        resultValue = BigDecimal.valueOf(((Integer) fieldObj).longValue());
-                    } else if (fieldObj instanceof String) {
-                        resultValue = new BigDecimal((String) fieldObj);
-                    } else if (fieldObj instanceof BigDecimal) {
-                        resultValue = (BigDecimal) fieldObj;
-                    }
-                    if (operator == OPERATOR_NEGATIVE)
-                        resultValue = resultValue.negate();
-                    isFirst = false;
-                } else {
-                    if (Debug.infoOn())
-                        Debug.logInfo("Field not found with field-name " + fieldAcsr + ", and map-name " + mapAcsr + "using a default of 0", module);
-                }
+                if (operator == OPERATOR_NEGATIVE)
+                    resultValue = resultValue.negate();
+                isFirst = false;
             }
             for (SubCalc calcop : calcops) {
                 if (isFirst) {
@@ -325,42 +319,62 @@ public class Calculate extends MethodOperation {
         }
     }
 
+    /**
+     * Implements the &lt;number&gt; element.
+     */
+    public final class NumberOp extends MiniLangElement implements SubCalc {
+
+        private final FlexibleStringExpander valueFse;
+
+        private NumberOp(Element element, SimpleMethod simpleMethod) throws MiniLangException {
+            super(element, simpleMethod);
+            if (MiniLangValidate.validationOn()) {
+                MiniLangValidate.attributeNames(simpleMethod, element, "value");
+                MiniLangValidate.requiredAttributes(simpleMethod, element, "value");
+                MiniLangValidate.noChildElements(simpleMethod, element);
+            }
+            valueFse = FlexibleStringExpander.getInstance(element.getAttribute("value"));
+        }
+
+        @Override
+        public BigDecimal calcValue(MethodContext methodContext, int scale, int roundingMode) throws MiniLangException {
+            String valueStr = valueFse.expandString(methodContext.getEnvMap());
+            Locale locale = methodContext.getLocale();
+            if (locale == null)
+                locale = Locale.getDefault();
+            try {
+                BigDecimal parsedVal = (BigDecimal) MiniLangUtil.convertType(valueStr, java.math.BigDecimal.class, locale, null, null);
+                return parsedVal.setScale(scale, roundingMode);
+            } catch (Exception e) {
+                throw new MiniLangRuntimeException("Exception thrown while parsing value attribute: " + e.getMessage(), this);
+            }
+        }
+    }
+
+    private final class InvalidOp extends MiniLangElement implements SubCalc {
+
+        private InvalidOp(Element element, SimpleMethod simpleMethod) throws MiniLangException {
+            super(element, simpleMethod);
+        }
+
+        @Override
+        public BigDecimal calcValue(MethodContext methodContext, int scale, int roundingMode) throws MiniLangException {
+            throw new MiniLangRuntimeException("Invalid calculate sub-element.", this);
+        }
+    }
+
+    /**
+     * A factory for the &lt;calculate&gt; element.
+     */
     public static final class CalculateFactory implements Factory<Calculate> {
+        @Override
         public Calculate createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new Calculate(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "calculate";
         }
-    }
-
-    protected static class NumberOp implements SubCalc {
-        String valueStr;
-
-        public NumberOp(Element element) {
-            valueStr = element.getAttribute("value");
-        }
-
-        public BigDecimal calcValue(MethodContext methodContext, int scale, int roundingMode) {
-            String valueStr = methodContext.expandString(this.valueStr);
-            Locale locale = methodContext.getLocale();
-            if (locale == null)
-                locale = Locale.getDefault();
-            BigDecimal value;
-            try {
-                BigDecimal parseVal = (BigDecimal) MiniLangUtil.convertType(valueStr, java.math.BigDecimal.class, locale, null, null);
-                value = parseVal.setScale(scale, roundingMode);
-            } catch (Exception e) {
-                Debug.logError(e, "Could not parse the number string: " + valueStr, module);
-                throw new IllegalArgumentException("Could not parse the number string: " + valueStr);
-            }
-            return value;
-        }
-
-    }
-
-    protected static interface SubCalc {
-        public BigDecimal calcValue(MethodContext methodContext, int scale, int roundingMode);
     }
 }
