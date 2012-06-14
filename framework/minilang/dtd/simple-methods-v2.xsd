@@ -4207,58 +4207,71 @@ under the License.
     <xs:element name="property-to-field" substitutionGroup="OtherOperations">
         <xs:annotation>
             <xs:documentation>
-                The property-to-field tag puts the inlined string value in the specified field.
+                Assigns a property value to a field.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.property-to-field"/>
+            <xs:attribute ref="field" />
+            <xs:attribute type="xs:string" name="resource" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of a properties resource. Can be a file on the classpath or
+                        a resource defined in the SystemProperty entity.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute types: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="property" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The property whose value will be put in the field.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute types: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="default">
+                <xs:annotation>
+                    <xs:documentation>
+                        The default value to use if the specified property value is null or empty.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute types: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="booleanConst" name="no-locale">
+                <xs:annotation>
+                    <xs:documentation>
+                        Suppress property value localization. The user's/system locale will be ignored
+                        when retriving the property value.
+                        Defaults to "false".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="arg-list">
+                <xs:annotation>
+                    <xs:documentation>
+                        An argument list to be used with a formatting string.
+                        The argument list is applied to the property value.
+                        Does nothing if the argument list is not found.
+                        See the java.text.MessageFormat class for more information.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="arg-list-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        Deprecated - use the arg-list attribute.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.property-to-field">
-        <xs:attribute type="xs:string" name="resource" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of a properties file on the classpath.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="property" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The property whose value will be put in the field.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="field" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name (key) of the map field to use.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="default">
-            <xs:annotation>
-                <xs:documentation>
-                    The default value to use if the specified property is empty.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="no-locale" default="false">
-            <xs:annotation>
-                <xs:documentation>
-                    If sets to true don't use the default locale variable.
-                    Defaults to false.
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="arg-list-name"/>
-    </xs:attributeGroup>
     <xs:element name="set-current-user-login" substitutionGroup="OtherOperations">
         <xs:annotation>
             <xs:documentation>
@@ -4299,6 +4312,8 @@ under the License.
                     <xs:documentation>
                         Rounding mode for BigDecimal calculation, primarily for divide operation.
                         Defaults to "HalfEven".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
                 <xs:simpleType>
@@ -4373,6 +4388,8 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Initial scale to use for the internal BigDecimal. Defaults to "2".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
@@ -4380,6 +4397,8 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Decimal format to use for conversion to string.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
@@ -4387,6 +4406,8 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Data type of the calculation result. Defaults to "BigDecimal".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
                 <xs:simpleType>
@@ -4432,7 +4453,7 @@ under the License.
                         <xs:enumeration value="negative">
                             <xs:annotation>
                                 <xs:documentation>
-                                    Negates the value
+                                    Negates the value.
                             </xs:documentation>
                             </xs:annotation>
                         </xs:enumeration>
@@ -4460,6 +4481,8 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Literal or flexible string.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
