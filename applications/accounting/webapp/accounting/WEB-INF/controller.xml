@@ -856,19 +856,19 @@ under the License.
     </request-map>
     <request-map uri="createCustomTimePeriod">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createCustomTimePeriod"/>
+        <event type="service" invoke="createCustomTimePeriod"/>
         <response name="success" type="view" value="EditCustomTimePeriod"/>
         <response name="error" type="view" value="EditCustomTimePeriod"/>
     </request-map>
     <request-map uri="updateCustomTimePeriod">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateCustomTimePeriod"/>
+        <event type="service" invoke="updateCustomTimePeriod"/>
         <response name="success" type="view" value="EditCustomTimePeriod"/>
         <response name="error" type="view" value="EditCustomTimePeriod"/>
     </request-map>
     <request-map uri="deleteCustomTimePeriod">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deleteCustomTimePeriod"/>
+        <event type="service" invoke="deleteCustomTimePeriod"/>
         <response name="success" type="view" value="EditCustomTimePeriod"/>
         <response name="error" type="view" value="EditCustomTimePeriod"/>
     </request-map>
@@ -879,13 +879,13 @@ under the License.
     <request-map uri="EditFixedAsset"><security https="true" auth="true"/><response name="success" type="view" value="EditFixedAsset"/></request-map>
     <request-map uri="createFixedAsset">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createFixedAsset"/>
+        <event type="service" invoke="createFixedAsset"/>
         <response name="success" type="view" value="EditFixedAsset"/>
         <response name="error" type="view" value="EditFixedAsset"/>
     </request-map>
     <request-map uri="updateFixedAsset">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateFixedAsset"/>
+        <event type="service" invoke="updateFixedAsset"/>
         <response name="success" type="view" value="EditFixedAsset"/>
         <response name="error" type="view" value="EditFixedAsset"/>
     </request-map>
@@ -894,19 +894,19 @@ under the License.
     <request-map uri="ListFixedAssetProducts"><security https="true" auth="true"/><response name="success" type="view" value="ListFixedAssetProducts"/></request-map>
     <request-map uri="addFixedAssetProduct">
         <security https="true" auth="true"/>
-        <event type="service" path="org.ofbiz.accounting.fixedasset.FixedAssetServices.xml" invoke="addFixedAssetProduct"/>
+        <event type="service" invoke="addFixedAssetProduct"/>
         <response name="success" type="view" value="ListFixedAssetProducts"/>
         <response name="error" type="view" value="ListFixedAssetProducts"/>
     </request-map>
     <request-map uri="updateFixedAssetProduct">
         <security https="true" auth="true"/>
-        <event type="service" path="org.ofbiz.accounting.fixedasset.FixedAssetServices.xml" invoke="updateFixedAssetProduct"/>
+        <event type="service" invoke="updateFixedAssetProduct"/>
         <response name="success" type="view" value="ListFixedAssetProducts"/>
         <response name="error" type="view" value="ListFixedAssetProducts"/>
     </request-map>
     <request-map uri="removeFixedAssetProduct">
         <security https="true" auth="true"/>
-        <event type="service" path="org.ofbiz.accounting.fixedasset.FixedAssetServices.xml" invoke="removeFixedAssetProduct"/>
+        <event type="service" invoke="removeFixedAssetProduct"/>
         <response name="success" type="view" value="ListFixedAssetProducts"/>
         <response name="error" type="view" value="ListFixedAssetProducts"/>
     </request-map>
@@ -981,17 +981,17 @@ under the License.
     </request-map>
     <request-map uri="createFixedAssetStdCost">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createFixedAssetStdCost"/>
+        <event type="service" invoke="createFixedAssetStdCost"/>
         <response name="success" type="view" value="EditFixedAssetStdCosts"/>
     </request-map>
     <request-map uri="updateFixedAssetStdCost">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateFixedAssetStdCost"/>
+        <event type="service" invoke="updateFixedAssetStdCost"/>
         <response name="success" type="view" value="EditFixedAssetStdCosts"/>
     </request-map>
     <request-map uri="cancelFixedAssetStdCost">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="cancelFixedAssetStdCost"/>
+        <event type="service" invoke="cancelFixedAssetStdCost"/>
         <response name="success" type="view" value="EditFixedAssetStdCosts"/>
     </request-map>
     <!-- FixedAssetIdent -->
@@ -1001,19 +1001,19 @@ under the License.
     </request-map>
     <request-map uri="createFixedAssetIdent">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createFixedAssetIdent"/>
+        <event type="service" invoke="createFixedAssetIdent"/>
         <response name="success" type="view" value="EditFixedAssetIdents"/>
         <response name="error" type="view" value="EditFixedAssetIdents"/>
     </request-map>
     <request-map uri="updateFixedAssetIdent">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateFixedAssetIdent"/>
+        <event type="service" invoke="updateFixedAssetIdent"/>
         <response name="success" type="view" value="EditFixedAssetIdents"/>
         <response name="error" type="view" value="EditFixedAssetIdents"/>
     </request-map>
     <request-map uri="removeFixedAssetIdent">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="removeFixedAssetIdent"/>
+        <event type="service" invoke="removeFixedAssetIdent"/>
         <response name="success" type="view" value="EditFixedAssetIdents"/>
         <response name="error" type="view" value="EditFixedAssetIdents"/>
     </request-map>
@@ -1025,19 +1025,19 @@ under the License.
     </request-map>
     <request-map uri="createFixedAssetRegistration">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createFixedAssetRegistration"/>
+        <event type="service" invoke="createFixedAssetRegistration"/>
         <response name="success" type="view" value="EditFixedAssetRegistrations"/>
         <response name="error" type="view" value="EditFixedAssetRegistrations"/>
     </request-map>
     <request-map uri="updateFixedAssetRegistration">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateFixedAssetRegistration"/>
+        <event type="service" invoke="updateFixedAssetRegistration"/>
         <response name="success" type="view" value="EditFixedAssetRegistrations"/>
         <response name="error" type="view" value="EditFixedAssetRegistrations"/>
     </request-map>
     <request-map uri="deleteFixedAssetRegistration">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deleteFixedAssetRegistration"/>
+        <event type="service" invoke="deleteFixedAssetRegistration"/>
         <response name="success" type="view" value="EditFixedAssetRegistrations"/>
         <response name="error" type="view" value="EditFixedAssetRegistrations"/>
     </request-map>
@@ -1048,19 +1048,19 @@ under the License.
     </request-map>
     <request-map uri="createFixedAssetMeter">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createFixedAssetMeter"/>
+        <event type="service" invoke="createFixedAssetMeter"/>
         <response name="success" type="view" value="EditFixedAssetMeters"/>
         <response name="error" type="view" value="EditFixedAssetMeters"/>
     </request-map>
     <request-map uri="updateFixedAssetMeter">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateFixedAssetMeter"/>
+        <event type="service" invoke="updateFixedAssetMeter"/>
         <response name="success" type="view" value="EditFixedAssetMeters"/>
         <response name="error" type="view" value="EditFixedAssetMeters"/>
     </request-map>
     <request-map uri="deleteFixedAssetMeter">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deleteFixedAssetMeter"/>
+        <event type="service" invoke="deleteFixedAssetMeter"/>
         <response name="success" type="view" value="EditFixedAssetMeters"/>
         <response name="error" type="view" value="EditFixedAssetMeters"/>
     </request-map>
@@ -1076,19 +1076,19 @@ under the License.
     </request-map>
     <request-map uri="createFixedAssetMaint">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createFixedAssetMaint"/>
+        <event type="service" invoke="createFixedAssetMaint"/>
         <response name="success" type="view" value="EditFixedAssetMaint"/>
         <response name="error" type="view" value="EditFixedAssetMaint"/>
     </request-map>
     <request-map uri="updateFixedAssetMaint">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateFixedAssetMaint"/>
+        <event type="service" invoke="updateFixedAssetMaint"/>
         <response name="success" type="view" value="EditFixedAssetMaint"/>
         <response name="error" type="view" value="EditFixedAssetMaint"/>
     </request-map>
     <request-map uri="deleteFixedAssetMaint">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deleteFixedAssetMaint"/>
+        <event type="service" invoke="deleteFixedAssetMaint"/>
         <response name="success" type="view" value="EditFixedAssetMaint"/>
         <response name="error" type="view" value="EditFixedAssetMaint"/>
     </request-map>
@@ -1120,13 +1120,13 @@ under the License.
     </request-map>
     <request-map uri="createFixedAssetMaintOrder">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createFixedAssetMaintOrder"/>
+        <event type="service" invoke="createFixedAssetMaintOrder"/>
         <response name="success" type="view" value="EditFixedAssetMaintOrders"/>
         <response name="error" type="view" value="EditFixedAssetMaintOrders"/>
     </request-map>
     <request-map uri="deleteFixedAssetMaintOrder">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deleteFixedAssetMaintOrder"/>
+        <event type="service" invoke="deleteFixedAssetMaintOrder"/>
         <response name="success" type="view" value="EditFixedAssetMaintOrders"/>
         <response name="error" type="view" value="EditFixedAssetMaintOrders"/>
     </request-map>
@@ -1135,7 +1135,7 @@ under the License.
     <request-map uri="FindAgreement"><security https="true" auth="true"/><response name="success" type="view" value="FindAgreement"/></request-map>
     <request-map uri="cancelAgreement">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="cancelAgreement"/>
+        <event type="service" invoke="cancelAgreement"/>
         <response name="success" type="view" value="FindAgreement"/>
         <response name="error" type="view" value="FindAgreement"/>
     </request-map>
@@ -1143,19 +1143,19 @@ under the License.
     <request-map uri="EditAgreement"><security https="true" auth="true"/><response name="success" type="view" value="EditAgreement"/></request-map>
     <request-map uri="createAgreement">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createAgreement"/>
+        <event type="service" invoke="createAgreement"/>
         <response name="success" type="view" value="EditAgreement"/>
         <response name="error" type="view" value="EditAgreement"/>
     </request-map>
     <request-map uri="updateAgreement">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateAgreement"/>
+        <event type="service" invoke="updateAgreement"/>
         <response name="success" type="view" value="EditAgreement"/>
         <response name="error" type="view" value="EditAgreement"/>
     </request-map>
     <request-map uri="copyAgreement">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="copyAgreement"/>
+        <event type="service" invoke="copyAgreement"/>
         <response name="success" type="view" value="EditAgreement"/>
         <response name="error" type="view" value="EditAgreement"/>
     </request-map>
@@ -1163,7 +1163,7 @@ under the License.
     <request-map uri="ListAgreementItems"><security https="true" auth="true"/><response name="success" type="view" value="ListAgreementItems"/></request-map>
     <request-map uri="removeAgreementItem">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="removeAgreementItem"/>
+        <event type="service" invoke="removeAgreementItem"/>
         <response name="success" type="view" value="ListAgreementItems"/>
         <response name="error" type="view" value="ListAgreementItems"/>
     </request-map>
@@ -1171,13 +1171,13 @@ under the License.
     <request-map uri="EditAgreementItem"><security https="true" auth="true"/><response name="success" type="view" value="EditAgreementItem"/></request-map>
     <request-map uri="createAgreementItem">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createAgreementItem"/>
+        <event type="service" invoke="createAgreementItem"/>
         <response name="success" type="view" value="EditAgreementItem"/>
         <response name="error" type="view" value="EditAgreementItem"/>
     </request-map>
     <request-map uri="updateAgreementItem">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateAgreementItem"/>
+        <event type="service" invoke="updateAgreementItem"/>
         <response name="success" type="view" value="EditAgreementItem"/>
         <response name="error" type="view" value="EditAgreementItem"/>
     </request-map>
@@ -1185,19 +1185,19 @@ under the License.
     <request-map uri="EditAgreementTerms"><security https="true" auth="true"/><response name="success" type="view" value="EditAgreementTerms"/></request-map>
     <request-map uri="createAgreementTerm">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createAgreementTerm"/>
+        <event type="service" invoke="createAgreementTerm"/>
         <response name="success" type="view" value="EditAgreementTerms"/>
         <response name="error" type="view" value="EditAgreementTerms"/>
     </request-map>
     <request-map uri="updateAgreementTerm">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateAgreementTerm"/>
+        <event type="service" invoke="updateAgreementTerm"/>
         <response name="success" type="view" value="EditAgreementTerms"/>
         <response name="error" type="view" value="EditAgreementTerms"/>
     </request-map>
     <request-map uri="deleteAgreementTerm">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deleteAgreementTerm"/>
+        <event type="service" invoke="deleteAgreementTerm"/>
         <response name="success" type="view" value="EditAgreementTerms"/>
         <response name="error" type="view" value="EditAgreementTerms"/>
     </request-map>
@@ -1206,7 +1206,7 @@ under the License.
     <request-map uri="ListAgreementPromoAppls"><security https="true" auth="true"/><response name="success" type="view" value="ListAgreementPromoAppls"/></request-map>
     <request-map uri="removeAgreementPromoAppl">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="removeAgreementPromoAppl"/>
+        <event type="service" invoke="removeAgreementPromoAppl"/>
         <response name="success" type="view" value="ListAgreementPromoAppls"/>
         <response name="error" type="view" value="ListAgreementPromoAppls"/>
     </request-map>
@@ -1214,13 +1214,13 @@ under the License.
     <request-map uri="EditAgreementPromoAppl"><security https="true" auth="true"/><response name="success" type="view" value="EditAgreementPromoAppl"/></request-map>
     <request-map uri="createAgreementPromoAppl">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createAgreementPromoAppl"/>
+        <event type="service" invoke="createAgreementPromoAppl"/>
         <response name="success" type="view" value="EditAgreementPromoAppl"/>
         <response name="error" type="view" value="EditAgreementPromoAppl"/>
     </request-map>
     <request-map uri="updateAgreementPromoAppl">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateAgreementPromoAppl"/>
+        <event type="service" invoke="updateAgreementPromoAppl"/>
         <response name="success" type="view" value="EditAgreementPromoAppl"/>
         <response name="error" type="view" value="EditAgreementPromoAppl"/>
     </request-map>
@@ -1228,7 +1228,7 @@ under the License.
     <request-map uri="ListAgreementItemTerms"><security https="true" auth="true"/><response name="success" type="view" value="ListAgreementItemTerms"/></request-map>
     <request-map uri="removeAgreementItemTerm">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deleteAgreementTerm"/>
+        <event type="service" invoke="deleteAgreementTerm"/>
         <response name="success" type="view" value="ListAgreementItemTerms"/>
         <response name="error" type="view" value="ListAgreementItemTerms"/>
     </request-map>
@@ -1236,13 +1236,13 @@ under the License.
     <request-map uri="EditAgreementItemTerm"><security https="true" auth="true"/><response name="success" type="view" value="EditAgreementItemTerm"/></request-map>
     <request-map uri="createAgreementItemTerm">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createAgreementTerm"/>
+        <event type="service" invoke="createAgreementTerm"/>
         <response name="success" type="view" value="EditAgreementItemTerm"/>
         <response name="error" type="view" value="EditAgreementItemTerm"/>
     </request-map>
     <request-map uri="updateAgreementItemTerm">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateAgreementTerm"/>
+        <event type="service" invoke="updateAgreementTerm"/>
         <response name="success" type="view" value="EditAgreementItemTerm"/>
         <response name="error" type="view" value="EditAgreementItemTerm"/>
     </request-map>
@@ -1251,7 +1251,7 @@ under the License.
     <request-map uri="ListAgreementItemProductsReport"><security https="true" auth="true"/><response name="success" type="view" value="ListAgreementItemProductsReport"/></request-map>
     <request-map uri="removeAgreementItemProduct">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="removeAgreementProductAppl"/>
+        <event type="service" invoke="removeAgreementProductAppl"/>
         <response name="success" type="view" value="ListAgreementItemProducts"/>
         <response name="error" type="view" value="ListAgreementItemProducts"/>
     </request-map>
@@ -1259,13 +1259,13 @@ under the License.
     <request-map uri="EditAgreementItemProduct"><security https="true" auth="true"/><response name="success" type="view" value="EditAgreementItemProduct"/></request-map>
     <request-map uri="createAgreementItemProduct">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createAgreementProductAppl"/>
+        <event type="service" invoke="createAgreementProductAppl"/>
         <response name="success" type="view" value="ListAgreementItemProducts"/>
         <response name="error" type="view" value="EditAgreementItemProduct"/>
     </request-map>
     <request-map uri="updateAgreementItemProduct">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateAgreementProductAppl"/>
+        <event type="service" invoke="updateAgreementProductAppl"/>
         <response name="success" type="view" value="ListAgreementItemProducts"/>
         <response name="error" type="view" value="EditAgreementItemProduct"/>
     </request-map>
@@ -1274,7 +1274,7 @@ under the License.
     <request-map uri="ListAgreementItemSupplierProductsReport"><security https="true" auth="true"/><response name="success" type="view" value="ListAgreementItemSupplierProductsReport"/></request-map>
     <request-map uri="removeAgreementItemSupplierProduct">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="removeSupplierProduct"/>
+        <event type="service" invoke="removeSupplierProduct"/>
         <response name="success" type="view" value="ListAgreementItemSupplierProducts"/>
         <response name="error" type="view" value="ListAgreementItemSupplierProducts"/>
     </request-map>
@@ -1282,13 +1282,13 @@ under the License.
     <request-map uri="EditAgreementItemSupplierProduct"><security https="true" auth="true"/><response name="success" type="view" value="EditAgreementItemSupplierProduct"/></request-map>
     <request-map uri="createAgreementItemSupplierProduct">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createSupplierProduct"/>
+        <event type="service" invoke="createSupplierProduct"/>
         <response name="success" type="view" value="ListAgreementItemSupplierProducts"/>
         <response name="error" type="view" value="EditAgreementItemSupplierProduct"/>
     </request-map>
     <request-map uri="updateAgreementItemSupplierProduct">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateSupplierProduct"/>
+        <event type="service" invoke="updateSupplierProduct"/>
         <response name="success" type="view" value="ListAgreementItemSupplierProducts"/>
         <response name="error" type="view" value="EditAgreementItemSupplierProduct"/>
     </request-map>
@@ -1296,20 +1296,20 @@ under the License.
     <request-map uri="ListAgreementItemParties"><security https="true" auth="true"/><response name="success" type="view" value="ListAgreementItemParties"/></request-map>
     <request-map uri="removeAgreementItemParty">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="removeAgreementPartyApplic"/>
+        <event type="service" invoke="removeAgreementPartyApplic"/>
         <response name="success" type="view" value="ListAgreementItemParties"/>
         <response name="error" type="view" value="ListAgreementItemParties"/>
     </request-map>
     <request-map uri="EditAgreementItemParty"><security https="true" auth="true"/><response name="success" type="view" value="EditAgreementItemParty"/></request-map>
     <request-map uri="createAgreementItemParty">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createAgreementPartyApplic"/>
+        <event type="service" invoke="createAgreementPartyApplic"/>
         <response name="success" type="view" value="EditAgreementItemParty"/>
         <response name="error" type="view" value="EditAgreementItemParty"/>
     </request-map>
     <request-map uri="updateAgreementItemParty">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateAgreementPartyApplic"/>
+        <event type="service" invoke="updateAgreementPartyApplic"/>
         <response name="success" type="view" value="EditAgreementItemParty"/>
         <response name="error" type="view" value="EditAgreementItemParty"/>
     </request-map>
@@ -1317,7 +1317,7 @@ under the License.
     <request-map uri="ListAgreementGeographicalApplic"><security https="true" auth="true"/><response name="success" type="view" value="ListAgreementGeographicalApplic"/></request-map>
     <request-map uri="removeAgreementGeographicalApplic">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="removeAgreementGeographicalApplic"/>
+        <event type="service" invoke="removeAgreementGeographicalApplic"/>
         <response name="success" type="view" value="ListAgreementGeographicalApplic"/>
         <response name="error" type="view" value="ListAgreementGeographicalApplic"/>
     </request-map>
@@ -1325,7 +1325,7 @@ under the License.
     <request-map uri="EditAgreementGeographicalApplic"><security https="true" auth="true"/><response name="success" type="view" value="EditAgreementGeographicalApplic"/></request-map>
     <request-map uri="createAgreementGeographicalApplic">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createAgreementGeographicalApplic"/>
+        <event type="service" invoke="createAgreementGeographicalApplic"/>
         <response name="success" type="view" value="ListAgreementGeographicalApplic"/>
         <response name="error" type="view" value="EditAgreementGeographicalApplic"/>
     </request-map>
@@ -1353,13 +1353,13 @@ under the License.
     <request-map uri="EditTaxAuthority"><security https="true" auth="true"/><response name="success" type="view" value="EditTaxAuthority"/></request-map>
     <request-map uri="createTaxAuthority">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createTaxAuthority"/>
+        <event type="service" invoke="createTaxAuthority"/>
         <response name="success" type="view" value="EditTaxAuthority"/>
         <response name="error" type="view" value="EditTaxAuthority"/>
     </request-map>
     <request-map uri="updateTaxAuthority">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateTaxAuthority"/>
+        <event type="service" invoke="updateTaxAuthority"/>
         <response name="success" type="view" value="EditTaxAuthority"/>
         <response name="error" type="view" value="EditTaxAuthority"/>
     </request-map>
@@ -1367,19 +1367,19 @@ under the License.
     <request-map uri="EditTaxAuthorityCategories"><security https="true" auth="true"/><response name="success" type="view" value="EditTaxAuthorityCategories"/></request-map>
     <request-map uri="createTaxAuthorityCategory">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createTaxAuthorityCategory"/>
+        <event type="service" invoke="createTaxAuthorityCategory"/>
         <response name="success" type="view" value="EditTaxAuthorityCategories"/>
         <response name="error" type="view" value="EditTaxAuthorityCategories"/>
     </request-map>
     <request-map uri="updateTaxAuthorityCategory">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateTaxAuthorityCategory"/>
+        <event type="service" invoke="updateTaxAuthorityCategory"/>
         <response name="success" type="view" value="EditTaxAuthorityCategories"/>
         <response name="error" type="view" value="EditTaxAuthorityCategories"/>
     </request-map>
     <request-map uri="deleteTaxAuthorityCategory">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deleteTaxAuthorityCategory"/>
+        <event type="service" invoke="deleteTaxAuthorityCategory"/>
         <response name="success" type="view" value="EditTaxAuthorityCategories"/>
         <response name="error" type="view" value="EditTaxAuthorityCategories"/>
     </request-map>
@@ -1387,19 +1387,19 @@ under the License.
     <request-map uri="EditTaxAuthorityAssocs"><security https="true" auth="true"/><response name="success" type="view" value="EditTaxAuthorityAssocs"/></request-map>
     <request-map uri="createTaxAuthorityAssoc">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createTaxAuthorityAssoc"/>
+        <event type="service" invoke="createTaxAuthorityAssoc"/>
         <response name="success" type="view" value="EditTaxAuthorityAssocs"/>
         <response name="error" type="view" value="EditTaxAuthorityAssocs"/>
     </request-map>
     <request-map uri="updateTaxAuthorityAssoc">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateTaxAuthorityAssoc"/>
+        <event type="service" invoke="updateTaxAuthorityAssoc"/>
         <response name="success" type="view" value="EditTaxAuthorityAssocs"/>
         <response name="error" type="view" value="EditTaxAuthorityAssocs"/>
     </request-map>
     <request-map uri="deleteTaxAuthorityAssoc">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deleteTaxAuthorityAssoc"/>
+        <event type="service" invoke="deleteTaxAuthorityAssoc"/>
         <response name="success" type="view" value="EditTaxAuthorityAssocs"/>
         <response name="error" type="view" value="EditTaxAuthorityAssocs"/>
     </request-map>
@@ -1407,13 +1407,13 @@ under the License.
     <request-map uri="EditTaxAuthorityGlAccounts"><security https="true" auth="true"/><response name="success" type="view" value="EditTaxAuthorityGlAccounts"/></request-map>
     <request-map uri="createTaxAuthorityGlAccount">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createTaxAuthorityGlAccount"/>
+        <event type="service" invoke="createTaxAuthorityGlAccount"/>
         <response name="success" type="view" value="EditTaxAuthorityGlAccounts"/>
         <response name="error" type="view" value="EditTaxAuthorityGlAccounts"/>
     </request-map>
     <request-map uri="deleteTaxAuthorityGlAccount">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deleteTaxAuthorityGlAccount"/>
+        <event type="service" invoke="deleteTaxAuthorityGlAccount"/>
         <response name="success" type="view" value="EditTaxAuthorityGlAccounts"/>
         <response name="error" type="view" value="EditTaxAuthorityGlAccounts"/>
     </request-map>
@@ -1421,19 +1421,19 @@ under the License.
     <request-map uri="EditTaxAuthorityRateProducts"><security https="true" auth="true"/><response name="success" type="view" value="EditTaxAuthorityRateProducts"/></request-map>
     <request-map uri="createTaxAuthorityRateProduct">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createTaxAuthorityRateProduct"/>
+        <event type="service" invoke="createTaxAuthorityRateProduct"/>
         <response name="success" type="view" value="EditTaxAuthorityRateProducts"/>
         <response name="error" type="view" value="EditTaxAuthorityRateProducts"/>
     </request-map>
     <request-map uri="updateTaxAuthorityRateProduct">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateTaxAuthorityRateProduct"/>
+        <event type="service" invoke="updateTaxAuthorityRateProduct"/>
         <response name="success" type="view" value="EditTaxAuthorityRateProducts"/>
         <response name="error" type="view" value="EditTaxAuthorityRateProducts"/>
     </request-map>
     <request-map uri="deleteTaxAuthorityRateProduct">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deleteTaxAuthorityRateProduct"/>
+        <event type="service" invoke="deleteTaxAuthorityRateProduct"/>
         <response name="success" type="view" value="EditTaxAuthorityRateProducts"/>
         <response name="error" type="view" value="EditTaxAuthorityRateProducts"/>
     </request-map>
@@ -1441,20 +1441,20 @@ under the License.
     <request-map uri="ListTaxAuthorityParties"><security https="true" auth="true"/><response name="success" type="view" value="ListTaxAuthorityParties"/></request-map>
     <request-map uri="deleteTaxAuthorityPartyInfo">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deletePartyTaxAuthInfo"/>
+        <event type="service" invoke="deletePartyTaxAuthInfo"/>
         <response name="success" type="view" value="ListTaxAuthorityParties"/>
         <response name="error" type="view" value="ListTaxAuthorityParties"/>
     </request-map>
     <request-map uri="EditTaxAuthorityPartyInfo"><security https="true" auth="true"/><response name="success" type="view" value="EditTaxAuthorityPartyInfo"/></request-map>
     <request-map uri="createTaxAuthorityPartyInfo">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createPartyTaxAuthInfo"/>
+        <event type="service" invoke="createPartyTaxAuthInfo"/>
         <response name="success" type="view" value="EditTaxAuthorityPartyInfo"/>
         <response name="error" type="view" value="EditTaxAuthorityPartyInfo"/>
     </request-map>
     <request-map uri="updateTaxAuthorityPartyInfo">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updatePartyTaxAuthInfo"/>
+        <event type="service" invoke="updatePartyTaxAuthInfo"/>
         <response name="success" type="view" value="EditTaxAuthorityPartyInfo"/>
         <response name="error" type="view" value="EditTaxAuthorityPartyInfo"/>
     </request-map>
@@ -1845,19 +1845,19 @@ under the License.
     </request-map>
     <request-map uri="createFinAccount">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createFinAccount"/>
+        <event type="service" invoke="createFinAccount"/>
         <response name="success" type="view" value="EditFinAccount"/>
         <response name="error" type="view" value="EditFinAccount"/>
     </request-map>
     <request-map uri="updateFinAccount">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateFinAccount"/>
+        <event type="service" invoke="updateFinAccount"/>
         <response name="success" type="view" value="EditFinAccount"/>
         <response name="error" type="view" value="EditFinAccount"/>
     </request-map>
     <request-map uri="deleteFinAccount">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deleteFinAccount"/>
+        <event type="service" invoke="deleteFinAccount"/>
         <response name="success" type="view" value="FindFinAccount"/>
         <response name="error" type="view" value="FindFinAccount"/>
     </request-map>
@@ -1930,19 +1930,19 @@ under the License.
     </request-map>
     <request-map uri="createFinAccountRole">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createFinAccountRole"/>
+        <event type="service" invoke="createFinAccountRole"/>
         <response name="success" type="view" value="EditFinAccountRoles"/>
         <response name="error" type="view" value="EditFinAccountRoles"/>
     </request-map>
     <request-map uri="updateFinAccountRole">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateFinAccountRole"/>
+        <event type="service" invoke="updateFinAccountRole"/>
         <response name="success" type="view" value="EditFinAccountRoles"/>
         <response name="error" type="view" value="EditFinAccountRoles"/>
     </request-map>
     <request-map uri="deleteFinAccountRole">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deleteFinAccountRole"/>
+        <event type="service" invoke="deleteFinAccountRole"/>
         <response name="success" type="view" value="EditFinAccountRoles"/>
         <response name="error" type="view" value="EditFinAccountRoles"/>
     </request-map>
@@ -1954,7 +1954,7 @@ under the License.
     </request-map>
     <request-map uri="createFinAccountTrans">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createFinAccountTrans"/>
+        <event type="service" invoke="createFinAccountTrans"/>
         <response name="success" type="view" value="FindFinAccountTrans"/>
         <response name="error" type="view" value="EditFinAccountTrans"/>
     </request-map>
@@ -1964,7 +1964,7 @@ under the License.
     </request-map>
     <request-map uri="setFinAccountTransStatus">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="setFinAccountTransStatus"/>
+        <event type="service" invoke="setFinAccountTransStatus"/>
         <response name="success" type="view" value="FindFinAccountTrans"/>
         <response name="error" type="view" value="FindFinAccountTrans"/>
     </request-map>
@@ -2045,13 +2045,13 @@ under the License.
     </request-map>
     <request-map uri="createFinAccountAuth">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createFinAccountAuth"/>
+        <event type="service" invoke="createFinAccountAuth"/>
         <response name="success" type="view" value="EditFinAccountAuths"/>
         <response name="error" type="view" value="EditFinAccountAuths"/>
     </request-map>
     <request-map uri="expireFinAccountAuth">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="expireFinAccountAuth"/>
+        <event type="service" invoke="expireFinAccountAuth"/>
         <response name="success" type="view" value="EditFinAccountAuths"/>
         <response name="error" type="view" value="EditFinAccountAuths"/>
     </request-map>
