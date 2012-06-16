@@ -473,6 +473,7 @@ under the License.
             <jvmarg value="${memory.maxpermsize.param}"/>
             <arg value="install"/>
             <arg value="readers=seed"/>
+        	<echo message="Please note that security data is not loaded with this action, so all components are not accessible, either load security data for a specific component or for all components with: ./ant load-readers -Ddata-readers=security"/>
         </java>
     </target>
     <target name="load-extseed" depends="build"
@@ -483,6 +484,7 @@ under the License.
             <jvmarg value="${memory.maxpermsize.param}"/>
             <arg value="install"/>
             <arg value="readers=seed,seed-initial,ext"/>
+            <echo message="Please note that security data is not loaded with this action, so all components are not accessible, either load security data for a specific component or for all components with: ./ant load-readers -Ddata-readers=security"/>
         </java>
     </target>
     <target name="load-exttest" depends="build"
