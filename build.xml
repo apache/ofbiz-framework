@@ -474,7 +474,6 @@ under the License.
             <arg value="install"/>
             <arg value="readers=seed"/>
         </java>
-        <echo message="Please note that security data is not loaded with this action, so all components are not accessible, either load security data for a specific component or for all components with: ./ant load-readers -Ddata-readers=security"/>
     </target>
     <target name="load-extseed" depends="build"
             description="Load seed, seed-initial and ext data; meant for manual/generic testing, development, or going into production with a derived system based on stock OFBiz where the ext data basically replaces the demo data">
@@ -485,7 +484,6 @@ under the License.
             <arg value="install"/>
             <arg value="readers=seed,seed-initial,ext"/>
         </java>
-        <echo message="Please note that security data is not loaded with this action, so all components are not accessible, either load security data for a specific component or for all components with: ./ant load-readers -Ddata-readers=security"/>
     </target>
     <target name="load-exttest" depends="build"
             description="Load seed, seed-initial, ext and ext-test data; meant for automated testing with a derived system based on stock OFBiz">
