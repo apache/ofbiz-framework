@@ -19,11 +19,6 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <!-- Remote Service security -->
-    <SecurityPermission description="Permission to invoke any service remotely." permissionId="SERVICE_INVOKE_ANY"/>
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="SERVICE_INVOKE_ANY"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SERVICE_INVOKE_ANY"/>
-    
     <!-- Temporal Expression seed data -->
 
     <!-- Pre-define all 60 minutes -->
