@@ -659,7 +659,7 @@ public class LoginWorker {
             String mgrClassName = null;
             try {
                 cc = ContainerConfig.getContainer("catalina-container", configFile);
-                mgrClassName = ContainerConfig.getPropertyValue(cc, "manager-class", "org.apache.catalina.ha.session.DeltaManager");
+                mgrClassName = ContainerConfig.getPropertyValue(cc, "manager-class", "");
             } catch (ContainerException e) {
                 Debug.logError(e, "No catalina-container configuration found in container config!");
             }
