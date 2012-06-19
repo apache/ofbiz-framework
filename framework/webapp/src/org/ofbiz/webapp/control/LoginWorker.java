@@ -1024,15 +1024,13 @@ public class LoginWorker {
     }
 
     protected static boolean hasBasePermission(GenericValue userLogin, HttpServletRequest request) {
-        ServletContext context = (ServletContext) request.getAttribute("servletContext");
-        Authorization authz = (Authorization) request.getAttribute("authz");
         Security security = (Security) request.getAttribute("security");
-
-        String serverId = (String) context.getAttribute("_serverId");
-        String contextPath = request.getContextPath();
-
-        ComponentConfig.WebappInfo info = ComponentConfig.getWebAppInfo(serverId, contextPath);
         if (security != null) {
+            ServletContext context = (ServletContext) request.getAttribute("servletContext");
+            Authorization authz = (Authorization) request.getAttribute("authz");
+            String serverId = (String) context.getAttribute("_serverId");
+            String contextPath = request.getContextPath();
+            ComponentConfig.WebappInfo info = ComponentConfig.getWebAppInfo(serverId, contextPath);
             if (info != null) {
                 for (String permission: info.getBasePermission()) {
                     if (!"NONE".equals(permission) && !security.hasEntityPermission(permission, "_VIEW", userLogin) &&
