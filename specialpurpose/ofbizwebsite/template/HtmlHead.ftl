@@ -28,7 +28,7 @@ under the License.
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <title>${(uiLabelMap.OfbizTitle)!"OFBiz, The Apache Open For Business Project"}</title>
     <link rel="shortcut icon" href="/ofbiz/images/favicon.ico">
-    <script language="javascript" src="/images/jquery/jquery-1.7.min.js" type="text/javascript"></script>
+    <script language="javascript" src="/images/jquery/jquery-1.7.2.min.js" type="text/javascript"></script>
     <script language="javascript" src="/images/fieldlookup.js" type="text/javascript"></script>
     <script language="javascript" src="/images/selectall.js" type="text/javascript"></script>
     <script language="javascript" src="/ofbiz/script/search.js" type="text/javascript"></script>

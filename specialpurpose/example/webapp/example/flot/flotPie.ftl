@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/images/jquery/plugins/flot/excanvas.min.js</@ofbizContentUrl>"></script>
-<script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/images/jquery/jquery-1.7.min.js</@ofbizContentUrl>"></script>
+<script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/images/jquery/jquery-1.7.2.min.js</@ofbizContentUrl>"></script>
 <script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/images/jquery/plugins/flot/jquery.flot.js</@ofbizContentUrl>"></script>
 <script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/images/jquery/plugins/flot/jquery.flot.pie.js</@ofbizContentUrl>"></script>
 
