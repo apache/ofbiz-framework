@@ -2945,6 +2945,7 @@ under the License.
     <request-map uri="LookupDataResource"><security auth="true" https="true"/><response name="success" type="view" value="LookupDataResource"/></request-map>
     <request-map uri="LookupPerson"><security auth="true" https="true"/><response name="success" type="view" value="LookupPerson"/></request-map>
     <request-map uri="LookupPreferredContactMech"><security https="true" auth="true"/><response name="success" type="view" value="LookupPreferredContactMech"/></request-map>
+    <request-map uri="LookupContactList"><security https="true" auth="true"/><response name="success" type="view" value="LookupContactList"/></request-map>
 
     <!-- ================ Vendor Product Requests ================= -->
     <request-map uri="EditVendorProduct">
@@ -3223,6 +3224,7 @@ under the License.
     <view-map name="LookupDataResource" page="component://content/widget/content/DataResourceScreens.xml#LookupDataResource" type="screen"/>
     <view-map name="LookupPerson" page="component://party/widget/partymgr/LookupScreens.xml#LookupPerson" type="screen"/>
     <view-map name="LookupPreferredContactMech" type="screen" page="component://marketing/widget/ContactListScreens.xml#LookupPreferredContactMech"/>
+	<view-map name="LookupContactList" type="screen" page="component://marketing/widget/ContactListScreens.xml#LookupContactList"/>
 
     <!-- Image Management request mappings -->
     <view-map name="Imagemanagement" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#Imagemanagement"/>
