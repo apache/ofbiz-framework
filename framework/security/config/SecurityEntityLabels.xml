@@ -1824,46 +1824,6 @@
         <value xml:lang="zh">使用服务维护页面。</value>
         <value xml:lang="zh_TW">使用服務維護頁面。</value>
     </property>
-    <property key="SecurityPermission.description.SHIPRATE_ADMIN">
-        <value xml:lang="en">ALL operations in the Shipping Rate Editor.</value>
-        <value xml:lang="es">TODAS las operaciones en el Editor de Tasas de Envío.</value>
-        <value xml:lang="fr">TOUTES les opérations dans l'éditeur de taux d'expédition.</value>
-        <value xml:lang="it">Tutte le operazioni nelle percentuali di spedizione.</value>
-        <value xml:lang="ru">Все операции в Редакторе рейтинга поставки.</value>
-        <value xml:lang="th">การทำงานทั้งหมดในการแก้ไขอัตราการขนส่ง</value>
-        <value xml:lang="zh">在送货费率编辑器中的全部操作。</value>
-        <value xml:lang="zh_TW">在送貨費率編輯器中的全部操作。</value>
-    </property>
-    <property key="SecurityPermission.description.SHIPRATE_CREATE">
-        <value xml:lang="en">Create operations in the Shipping Rate Editor.</value>
-        <value xml:lang="es">Operaciones de Creación en el Editor de Tasas de Envío.</value>
-        <value xml:lang="fr">Opérations de création dans l'éditeur de taux d'expédition.</value>
-        <value xml:lang="it">Operazioni di creazione nelle percentuali di spedizione.</value>
-        <value xml:lang="ru">Операции создания в Редакторе рейтинга поставки.</value>
-        <value xml:lang="th">สร้างการทำงานในการแก้ไขอัตราการขนส่ง</value>
-        <value xml:lang="zh">在送货费率编辑器中的创建操作。</value>
-        <value xml:lang="zh_TW">在送貨費率編輯器中的創建操作。</value>
-    </property>
-    <property key="SecurityPermission.description.SHIPRATE_DELETE">
-        <value xml:lang="en">Delete operations in the Shipping Rate Editor.</value>
-        <value xml:lang="es">Operaciones de Eliminación en el Editor de Tasas de Envío.</value>
-        <value xml:lang="fr">Opérations de suppression dans l'éditeur de taux d'expédition.</value>
-        <value xml:lang="it">Operazioni di cancellazione nelle percentuali di spedizione.</value>
-        <value xml:lang="ru">Операции удаления в Редакторе рейтинга поставки.</value>
-        <value xml:lang="th">ลบการทำงานในการแก้ไขอัตราการขนส่ง</value>
-        <value xml:lang="zh">在送货费率编辑器中的删除操作。</value>
-        <value xml:lang="zh_TW">在送貨費率編輯器中的刪除操作。</value>
-    </property>
-    <property key="SecurityPermission.description.SHIPRATE_VIEW">
-        <value xml:lang="en">View operations in the Shipping Rate Editor.</value>
-        <value xml:lang="es">Operaciones de Visualización en el Editor de Tasas de Envío.</value>
-        <value xml:lang="fr">Opérations de visualisation dans l'éditeur de taux d'expédition.</value>
-        <value xml:lang="it">Operazioni di visualizzazione nelle percentuali di spedizione.</value>
-        <value xml:lang="ru">Операции просмотра в Редакторе рейтинга поставки.</value>
-        <value xml:lang="th">แสดงการทำงานในการแก้ไขอัตราการขนส่ง</value>
-        <value xml:lang="zh">在送货费率编辑器中的浏览操作。</value>
-        <value xml:lang="zh_TW">在送貨費率編輯器中的瀏覽操作。</value>
-    </property>
     <property key="SecurityPermission.description.TAXRATE_ADMIN">
         <value xml:lang="en">ALL operations in the Tax Rate Editor.</value>
         <value xml:lang="es">TODAS las Operaciones el Editor de Tasas Impositivas.</value>

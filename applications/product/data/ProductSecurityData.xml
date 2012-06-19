@@ -65,18 +65,6 @@ under the License.
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="CATALOG_ADMIN"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="CATALOG_PRICE_MAINT"/>
 
-    <!-- Shipping Rate security -->
-    <SecurityPermission description="View operations in the Shipping Rate Editor." permissionId="SHIPRATE_VIEW"/>
-    <SecurityPermission description="Create operations in the Shipping Rate Editor." permissionId="SHIPRATE_CREATE"/>
-    <SecurityPermission description="Delete operations in the Shipping Rate Editor." permissionId="SHIPRATE_DELETE"/>
-    <SecurityPermission description="ALL operations in the Shipping Rate Editor." permissionId="SHIPRATE_ADMIN"/>
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="SHIPRATE_ADMIN"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SHIPRATE_CREATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SHIPRATE_DELETE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SHIPRATE_VIEW"/>
-    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="SHIPRATE_VIEW"/>
-    <SecurityGroupPermission groupId="BIZADMIN" permissionId="SHIPRATE_ADMIN"/>
-
     <!-- Facility Manager security -->
     <SecurityPermission description="View operations in the Facility Manager." permissionId="FACILITY_VIEW"/>
     <SecurityPermission description="Create operations in the Facility Manager." permissionId="FACILITY_CREATE"/>
