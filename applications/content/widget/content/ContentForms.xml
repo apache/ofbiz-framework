@@ -58,15 +58,12 @@ under the License.
         </field>
         <field name="createdByUserLogin" position="2"><lookup target-form-name="LookupUserLoginAndPartyDetails"/></field>
         <field name="localeString">
-            <lookup target-form-name="LookupLocale"></lookup>
-        </field>
-        <!--<field name="localeString">
             <drop-down allow-empty="true">
                 <entity-options entity-name="CountryCode" description="${countryName} [${countryCode}]" key-field-name="countryCode">
                     <entity-order-by field-name="countryName"/>
                 </entity-options>
             </drop-down>
-        </field>-->
+        </field>
         <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
@@ -190,7 +187,11 @@ under the License.
             </lookup>
         </field>
         <field name="localeString">
-            <lookup target-form-name="LookupLocale"></lookup>
+            <drop-down allow-empty="true">
+                <entity-options entity-name="CountryCode" description="${countryName} [${countryCode}]" key-field-name="countryCode">
+                    <entity-order-by field-name="countryName"/>
+                </entity-options>
+            </drop-down>
         </field>
         <field name="mimeTypeId" encode-output="false">
             <drop-down allow-empty="true">
