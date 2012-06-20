@@ -96,7 +96,7 @@ public class ControlServlet extends HttpServlet {
         RequestHandler requestHandler = this.getRequestHandler();
         HttpSession session = request.getSession();
 
-        // setup DEFAULT chararcter encoding and content type, this will be overridden in the RequestHandler for view rendering
+        // setup DEFAULT character encoding and content type, this will be overridden in the RequestHandler for view rendering
         String charset = getServletContext().getInitParameter("charset");
         if (UtilValidate.isEmpty(charset)) charset = request.getCharacterEncoding();
         if (UtilValidate.isEmpty(charset)) charset = "UTF-8";
