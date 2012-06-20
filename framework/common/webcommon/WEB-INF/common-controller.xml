@@ -207,7 +207,8 @@ under the License.
     <!-- Lookup requests -->
     <request-map uri="LookupGeo"><security https="true" auth="true"/><response name="success" type="view" value="LookupGeo"/></request-map>
     <request-map uri="LookupGeoName"><security https="true" auth="true"/><response name="success" type="view" value="LookupGeoName"/></request-map>
-
+    <request-map uri="LookupLocale"><security https="true" auth="true"/><response name="success" type="view" value="LookupLocale"/></request-map>
+    
     <!--========================== AJAX events =====================-->
     <!-- Get states related to a country -->
     <request-map uri="getAssociatedStateList">
@@ -279,4 +280,5 @@ under the License.
     
     <view-map name="LookupGeo" type="screen" page="component://common/widget/LookupScreens.xml#LookupGeo"/>
     <view-map name="LookupGeoName" type="screen" page="component://common/widget/LookupScreens.xml#LookupGeoName"/>
+    <view-map name="LookupLocale" type="screen" page="component://common/widget/LookupScreens.xml#LookupLocale"/>
 </site-conf>

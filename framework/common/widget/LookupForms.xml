@@ -115,4 +115,17 @@ under the License.
         </field>
     </form>
 
+    <form name="LookupLocale" type="single" target="LookupLocale">
+        <field name="localeString"><text-find hide-options="true"/></field>
+        <field name="localeName" title="${uiLabelMap.CommonLanguageTitle}"><text-find hide-options="true"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
+    </form>
+
+    <form name="ListLocales" type="list" list-name="locales" paginate-target="LookupLocale"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="localeString" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${localeString}" target="javascript:set_value('${localeString}', '${localeName}')"/>
+        </field>
+        <field name="localeName" title="${uiLabelMap.CommonLanguageTitle}"><display/></field>
+    </form>
 </forms>
