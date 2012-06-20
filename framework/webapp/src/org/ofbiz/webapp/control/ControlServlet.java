@@ -224,10 +224,17 @@ public class ControlServlet extends HttpServlet {
             requestHandler.doRequest(request, response, null, userLogin, delegator);
         } catch (RequestHandlerException e) {
             Throwable throwable = e.getNested() != null ? e.getNested() : e;
-            Debug.logError(throwable, "Error in request handler: ", module);
-            StringUtil.HtmlEncoder encoder = new StringUtil.HtmlEncoder();
-            request.setAttribute("_ERROR_MESSAGE_", encoder.encode(throwable.toString()));
-            errorPage = requestHandler.getDefaultErrorPage(request);
+            if (throwable instanceof IOException) {
+                // when an IOException occurs (most of the times caused by the browser window being closed before the request is completed)
+                // the connection with the browser is lost and so there is no need to serve the error page; a message is logged to record the event
+                if (Debug.warningOn()) Debug.logWarning("Communication error with the client while processing the request: " + request.getAttribute("_CONTROL_PATH_") + request.getPathInfo(), module);
+                if (Debug.verboseOn()) Debug.logVerbose(throwable, module);
+            } else {
+                Debug.logError(throwable, "Error in request handler: ", module);
+                StringUtil.HtmlEncoder encoder = new StringUtil.HtmlEncoder();
+                request.setAttribute("_ERROR_MESSAGE_", encoder.encode(throwable.toString()));
+                errorPage = requestHandler.getDefaultErrorPage(request);
+            }
         } catch (Exception e) {
             Debug.logError(e, "Error in request handler: ", module);
             StringUtil.HtmlEncoder encoder = new StringUtil.HtmlEncoder();
