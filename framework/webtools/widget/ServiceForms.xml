@@ -82,7 +82,11 @@ under the License.
             </service>
         </actions>
         <field name="jobName" title="${uiLabelMap.WebtoolsJob}" sort-field="true"><display/></field>
-        <field name="jobId" title="${uiLabelMap.CommonId}" sort-field="true"><display/></field>
+        <field name="jobId" title="${uiLabelMap.CommonId}" sort-field="true">
+            <hyperlink also-hidden="false" description="${jobId}" target="JobDetails">
+                <parameter param-name="jobId" from-field="jobId"/>
+            </hyperlink>
+        </field>
         <field name="poolId" title="${uiLabelMap.WebtoolsPool}" sort-field="true"><display/></field>
         <field name="runTime" title="${uiLabelMap.WebtoolsRunTime}" sort-field="true"><display/></field>
         <field name="startDateTime" title="${uiLabelMap.CommonStartDateTime}" sort-field="true"><display/></field>
@@ -98,6 +102,13 @@ under the License.
                 <parameter param-name="jobId"/>
             </hyperlink>
         </field>
+    </form>
+    <form name="JobDetails" type="single">
+        <auto-fields-entity entity-name="JobSandbox" map-name="job" default-field-type="display"/>
+    </form>
+    <form name="JobRuntimeDataInfo" type="list" list-name="runtimeInfoList" default-table-style="basic-table hover-bar" paginate="false">
+        <field name="key"><display/></field>
+        <field name="value"><display/></field>
     </form>
     <form name="ListJavaThread" type="list" list-name="threads" paginate-target="threadList" separate-columns="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
