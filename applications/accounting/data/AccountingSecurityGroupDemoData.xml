@@ -44,6 +44,11 @@ under the License.
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="ACCOUNTING_VIEW"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCOUNTING_ADMIN"/>
 
+    <!-- Manual Payment security -->
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="MANUAL_PAYMENT"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="MANUAL_PAYMENT"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="MANUAL_PAYMENT"/>
+
     <!-- ACCOUNTING_COMMs security -->
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="ACCOUNTING_COMM_VIEW"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ACCOUNTING_COMM_VIEW"/>
@@ -88,6 +93,7 @@ under the License.
     <SecurityGroupPermission groupId="ACCTG_FUNCTNL_ADMIN" permissionId="ACCTG_PREF_ADMIN"/>
     <SecurityGroupPermission groupId="ACCTG_FUNCTNL_ADMIN" permissionId="ACCOUNTING_PRINT_CHECKS"/>
     <SecurityGroupPermission groupId="ACCTG_FUNCTNL_ADMIN" permissionId="ACCOUNTING_COMM_VIEW"/>
+    <SecurityGroupPermission groupId="ACCTG_FUNCTNL_ADMIN" permissionId="MANUAL_PAYMENT"/>
     <SecurityGroupPermission groupId="ACCTG_FUNCTNL_ADMIN" permissionId="PAY_INFO_ADMIN"/>
     <SecurityGroupPermission groupId="ACCTG_FUNCTNL_ADMIN" permissionId="PAYPROC_ADMIN"/>
     <SecurityGroupPermission groupId="ACCTG_FUNCTNL_ADMIN" permissionId="ASSETMAINT_VIEW"/>
