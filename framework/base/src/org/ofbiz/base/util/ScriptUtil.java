@@ -184,7 +184,7 @@ public final class ScriptUtil {
                     Debug.logVerbose("Script engine " + engine.getClass().getName() + " does not implement Compilable", module);
                 }
             }
-            if (script != null) {
+            if (compiledScript != null) {
                 parsedScripts.putIfAbsent(cacheKey, compiledScript);
             }
         }
