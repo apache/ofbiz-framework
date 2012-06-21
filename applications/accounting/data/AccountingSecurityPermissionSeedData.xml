@@ -38,9 +38,6 @@ under the License.
     <SecurityPermission description="Delete operations in the Accounting Manager." permissionId="ACCOUNTING_DELETE"/>
     <SecurityPermission description="ALL operations in the Accounting Manager." permissionId="ACCOUNTING_ADMIN"/>
 
-    <!-- Manual Payment security -->
-    <SecurityPermission description="Manual Payment Transaction." permissionId="MANUAL_PAYMENT"/>
-
     <!-- ACCOUNTING_COMMs security -->
     <SecurityPermission description="View commission rates" permissionId="ACCOUNTING_COMM_VIEW"/>
 
@@ -70,7 +67,6 @@ under the License.
     <SecurityGroupPermission groupId="SUPER" permissionId="ACCOUNTING_ADMIN"/>
     <SecurityGroupPermission groupId="SUPER" permissionId="PAYPROC_ADMIN"/>
     <SecurityGroupPermission groupId="SUPER" permissionId="PAY_INFO_ADMIN"/>
-    <SecurityGroupPermission groupId="SUPER" permissionId="MANUAL_PAYMENT"/>
     <SecurityGroupPermission groupId="SUPER" permissionId="ACCOUNTING_COMM_VIEW"/>
     <SecurityGroupPermission groupId="SUPER" permissionId="ACCOUNTING_PRINT_CHECKS"/>
     <SecurityGroupPermission groupId="SUPER" permissionId="ACCTG_PREF_ADMIN"/>

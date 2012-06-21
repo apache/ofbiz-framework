@@ -930,16 +930,6 @@
         <value xml:lang="zh">浏览标签信息页面。</value>
         <value xml:lang="zh_TW">瀏覽標簽資訊頁面。</value>
     </property>
-    <property key="SecurityPermission.description.MANUAL_PAYMENT">
-        <value xml:lang="en">Manual Payment Transaction.</value>
-        <value xml:lang="es">Pago Manual de Transacciones.</value>
-        <value xml:lang="fr">Transaction de paiement manuel.</value>
-        <value xml:lang="it">Transazioni manuali pagamenti.</value>
-        <value xml:lang="ru">Ручная проводка платежа.</value>
-        <value xml:lang="th">รายการการชำระเงินด้วยมือ</value>
-        <value xml:lang="zh">手工支付交易。</value>
-        <value xml:lang="zh_TW">手工支付交易。</value>
-    </property>
     <property key="SecurityPermission.description.MANUFACTURING_ADMIN">
         <value xml:lang="en">ALL operations in the Manufacturing Manager.</value>
         <value xml:lang="es">TODAS las operaciones en el Administrador de Producción.</value>
