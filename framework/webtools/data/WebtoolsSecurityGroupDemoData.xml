@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <!-- Webtools security -->
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="WEBTOOLS_VIEW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="WEBTOOLS_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="WEBTOOLS_VIEW"/>
+
+    <!-- Server Stats security -->
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="SERVER_STATS_VIEW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SERVER_STATS_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="SERVER_STATS_VIEW"/>
+
+    <!-- Artifact Info security -->
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ARTIFACT_INFO_VIEW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ARTIFACT_INFO_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="ARTIFACT_INFO_VIEW"/>
+
+    <!-- Labels Info security -->
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="LABEL_MANAGER_VIEW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="LABEL_MANAGER_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="LABEL_MANAGER_VIEW"/>
+
+    <!-- Data File Maintenance security -->
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="DATAFILE_MAINT"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="DATAFILE_MAINT"/>
+
+    <!-- Service Maintenance security -->
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="SERVICE_MAINT"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SERVICE_MAINT"/>
+
+    <!-- Period Maintenance security -->
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="PERIOD_MAINT"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PERIOD_MAINT"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="PERIOD_MAINT"/>
+
+    <!-- Enum & Status Maintenance security -->
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ENUM_STATUS_MAINT"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ENUM_STATUS_MAINT"/>
+
+    <!-- Entity Maintenance security -->
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ENTITY_MAINT"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ENTITY_DATA_ADMIN"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ENTITY_MAINT"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ENTITY_DATA_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ENTITY_DATA_DELETE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ENTITY_DATA_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ENTITY_DATA_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="ENTITY_DATA_VIEW"/>
+
+    <!-- UtilCache security -->
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="UTIL_CACHE_EDIT"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="UTIL_CACHE_VIEW"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="UTIL_DEBUG_EDIT"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="UTIL_DEBUG_VIEW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="UTIL_CACHE_EDIT"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="UTIL_CACHE_VIEW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="UTIL_DEBUG_EDIT"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="UTIL_DEBUG_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="UTIL_CACHE_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="UTIL_DEBUG_VIEW"/>
+</entity-engine-xml>

@@ -22,6 +22,7 @@ under the License.
     <Person partyId="AcctBuyer" firstName="Acct" lastName="Buyer"/>
     <PartyRole partyId="AcctBuyer" roleTypeId="BUYER"/>
     <UserLogin partyId="AcctBuyer" userLoginId="AcctBuyer"/>
+    <SecurityGroup groupId="ORDERPURCH"/><!-- is needed because accounting is before order -->
     <UserLoginSecurityGroup userLoginId="AcctBuyer" groupId="ORDERPURCH" fromDate="2001-05-13 00:00:00"/>
 
     <Party partyId="AcctBigSupplier" partyTypeId="PARTY_GROUP"/>

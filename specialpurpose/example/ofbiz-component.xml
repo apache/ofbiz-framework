@@ -36,7 +36,8 @@ under the License.
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_view.xml"/>
     <!-- <entity-resource type="eca" reader-name="main" loader="main" location="entitydef/eecas.xml"/> -->
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ExampleTypeData.xml"/>
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/ExampleSecurityData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/ExampleSecurityPermissionSeedData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/ExampleSecurityGroupDemoData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ExamplePortletData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ExamplePortalSeedData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ExampleHelpData.xml"/>

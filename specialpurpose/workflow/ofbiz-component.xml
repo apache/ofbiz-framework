@@ -28,7 +28,8 @@ under the License.
 
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
 
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/WorkFlowSecurityData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/WorkFlowSecurityPermissionSeedData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/WorkFlowSecurityGroupDemoData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/WorkFlowTypeData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/OrderProcessWorkflow.xml"/>
 

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <!-- Webtools security -->
+    <SecurityPermission description="Permission to access the WebTools Menu." permissionId="WEBTOOLS_VIEW"/>
+
+    <!-- Server Stats security -->
+    <SecurityPermission description="View the Server Statistics pages." permissionId="SERVER_STATS_VIEW"/>
+
+    <!-- Artifact Info security -->
+    <SecurityPermission description="View the Artifact Info pages." permissionId="ARTIFACT_INFO_VIEW"/>
+
+    <!-- Labels Info security -->
+    <SecurityPermission description="View the Labels Info pages." permissionId="LABEL_MANAGER_VIEW"/>
+
+    <!-- Data File Maintenance security -->
+    <SecurityPermission description="Use the Data File Maintenance pages." permissionId="DATAFILE_MAINT"/>
+
+    <!-- Service Maintenance security -->
+    <SecurityPermission description="Use the Service Maintenance pages." permissionId="SERVICE_MAINT"/>
+
+    <!-- Period Maintenance security -->
+    <SecurityPermission description="Use the Period Maintenance pages." permissionId="PERIOD_MAINT"/>
+
+    <!-- Enum & Status Maintenance security -->
+    <SecurityPermission description="Use the Enum and Status Maintenance pages." permissionId="ENUM_STATUS_MAINT"/>
+
+    <!-- Entity Maintenance security -->
+    <SecurityPermission description="Use the Entity Maintenance pages." permissionId="ENTITY_MAINT"/>
+    <SecurityPermission description="View with the Entity Data Maintenance pages." permissionId="ENTITY_DATA_VIEW"/>
+    <SecurityPermission description="Create with the Entity Data Maintenance pages." permissionId="ENTITY_DATA_CREATE"/>
+    <SecurityPermission description="Update with the Entity Data Maintenance pages." permissionId="ENTITY_DATA_UPDATE"/>
+    <SecurityPermission description="Delete with the Entity Data Maintenance pages." permissionId="ENTITY_DATA_DELETE"/>
+    <SecurityPermission description="ALL with the Entity Data Maintenance pages." permissionId="ENTITY_DATA_ADMIN"/>
+
+    <!-- UtilCache security -->
+    <SecurityPermission description="View a UtilCache instance." permissionId="UTIL_CACHE_VIEW"/>
+    <SecurityPermission description="Edit a UtilCache instance." permissionId="UTIL_CACHE_EDIT"/>
+    <SecurityPermission description="View a UtilDebug instance." permissionId="UTIL_DEBUG_VIEW"/>
+    <SecurityPermission description="Edit a UtilDebug instance." permissionId="UTIL_DEBUG_EDIT"/>
+
+    <!-- add admin to SUPER permission group -->
+    <SecurityGroupPermission groupId="SUPER" permissionId="WEBTOOLS_VIEW"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="SERVER_STATS_VIEW"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="ARTIFACT_INFO_VIEW"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="LABEL_MANAGER_VIEW"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="DATAFILE_MAINT"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="DATAFILE_MAINT"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="SERVICE_MAINT"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="PERIOD_MAINT"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="ENUM_STATUS_MAINT"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="ENTITY_MAINT"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="ENTITY_DATA_ADMIN"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="UTIL_CACHE_EDIT"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="UTIL_CACHE_VIEW"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="UTIL_DEBUG_EDIT"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="UTIL_DEBUG_VIEW"/>
+
+</entity-engine-xml>
