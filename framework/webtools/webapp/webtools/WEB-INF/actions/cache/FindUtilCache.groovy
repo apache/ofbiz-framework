@@ -23,13 +23,8 @@ import org.ofbiz.security.Security;
 
 context.hasUtilCacheEdit = security.hasEntityPermission("UTIL_CACHE", "_EDIT", session);
 
-rt = Runtime.getRuntime();
-context.memory = UtilFormatOut.formatQuantity(rt.totalMemory());
-context.freeMemory = UtilFormatOut.formatQuantity(rt.freeMemory());
-context.usedMemory = UtilFormatOut.formatQuantity((rt.totalMemory() - rt.freeMemory()));
-context.maxMemory = UtilFormatOut.formatQuantity(rt.maxMemory());
-
 cacheList = [];
+totalCacheMemory = 0.0;
 names = new TreeSet(UtilCache.getUtilCacheTableKeySet());
 names.each { cacheName ->
         utilCache = UtilCache.findCache(cacheName);
@@ -48,7 +43,9 @@ names.each { cacheName ->
         cache.expireTime = UtilFormatOut.formatQuantity(utilCache.getExpireTime());
         cache.useSoftReference = utilCache.getUseSoftReference().toString();
         cache.useFileSystemStore = utilCache.getUseFileSystemStore().toString();
-
+        cache.useFileSystemStore = utilCache.getUseFileSystemStore().toString();
+        cache.cacheMemory = utilCache.getSizeInBytes();
+        totalCacheMemory += cache.cacheMemory;
         cacheList.add(cache);
 }
 sortField = parameters.sortField;
@@ -57,3 +54,13 @@ if (sortField) {
 } else {
     context.cacheList = cacheList;
 }
+context.totalCacheMemory = totalCacheMemory;
+
+rt = Runtime.getRuntime();
+memoryInfo = [:];
+memoryInfo.memory = UtilFormatOut.formatQuantity(rt.totalMemory());
+memoryInfo.freeMemory = UtilFormatOut.formatQuantity(rt.freeMemory());
+memoryInfo.usedMemory = UtilFormatOut.formatQuantity((rt.totalMemory() - rt.freeMemory()));
+memoryInfo.maxMemory = UtilFormatOut.formatQuantity(rt.maxMemory());
+memoryInfo.totalCacheMemory = totalCacheMemory;
+context.memoryInfo = memoryInfo;

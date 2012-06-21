@@ -36,9 +36,10 @@ under the License.
                                 <if-has-permission permission="UTIL_CACHE" action="_VIEW"/>
                             </condition>
                             <widgets>
+                                <screenlet title="${uiLabelMap.WebtoolsMemory}">
+                                    <include-form name="MemoryInfo" location="component://webtools/widget/CacheForms.xml"/>
+                                </screenlet>
                                 <screenlet>
-                                    <label>${uiLabelMap.WebtoolsMemory} ${uiLabelMap.WebtoolsTotalMemory} ${memory} ${uiLabelMap.WebtoolsFreeMemory} ${freeMemory} ${uiLabelMap.WebtoolsUsedMemory} ${usedMemory}
-                                        ${uiLabelMap.WebtoolsMaxMemory} ${maxMemory}</label>
                                     <include-menu name="FindCache" location="component://webtools/widget/Menus.xml"/>
                                     <include-form name="ListCache" location="component://webtools/widget/CacheForms.xml"/>
                                     <include-menu name="FindCache" location="component://webtools/widget/Menus.xml"/>

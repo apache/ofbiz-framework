@@ -826,6 +826,9 @@
         <value xml:lang="zh">缓存维护</value>
         <value xml:lang="zh_TW">緩存維護</value>
     </property>
+    <property key="WebtoolsCacheMemory">
+        <value xml:lang="en">Cache Memory</value>
+    </property>
     <property key="WebtoolsCacheName">
         <value xml:lang="de">Cache Name</value>
         <value xml:lang="en">Cache Name</value>
