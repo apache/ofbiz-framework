@@ -123,26 +123,6 @@ under the License.
     <EmplPositionType emplPositionTypeId="BIZ_ANALYST" hasTable="N" description="Business Analyst"/>
     <EmplPositionType emplPositionTypeId="_NA_"/>
 
-     <!-- OFBiz Recruitment security -->
-    <SecurityGroup groupId="HUMANRES_ADMIN" description="This security group is for those who have full access to the human resource component."/>
-    <SecurityGroup groupId="HUMANRES_APPROVER" description="This security group is for those who will approve the internal job posting application."/>
-    <SecurityGroup groupId="HUMANRES_EMPLOYEE" description="This security group is for all the employees who want to apply for internal Job Posting."/>
-
-    <!-- Recruitment  permission -->
-    <SecurityPermission description="Approver can update the IJP approval status with this permission." permissionId="HUMANRES_APPROVE"/>
-    
-    <SecurityGroupPermission groupId="HUMANRES_ADMIN" permissionId="HUMANRES_ADMIN"/>
-    <SecurityGroupPermission groupId="HUMANRES_APPROVER" permissionId="HUMANRES_VIEW"/>
-    <SecurityGroupPermission groupId="HUMANRES_APPROVER" permissionId="HUMANRES_CREATE"/>
-    <SecurityGroupPermission groupId="HUMANRES_APPROVER" permissionId="PARTYMGR_VIEW"/>
-    <SecurityGroupPermission groupId="HUMANRES_APPROVER" permissionId="OFBTOOLS_VIEW"/>
-    <SecurityGroupPermission groupId="HUMANRES_APPROVER" permissionId="HUMANRES_UPDATE"/>
-    <SecurityGroupPermission groupId="HUMANRES_APPROVER" permissionId="HUMANRES_APPROVE"/>
-    <SecurityGroupPermission groupId="HUMANRES_EMPLOYEE" permissionId="HUMANRES_VIEW"/>
-    <SecurityGroupPermission groupId="HUMANRES_EMPLOYEE" permissionId="HUMANRES_CREATE"/>
-    <SecurityGroupPermission groupId="HUMANRES_EMPLOYEE" permissionId="PARTYMGR_VIEW"/>
-    <SecurityGroupPermission groupId="HUMANRES_EMPLOYEE" permissionId="OFBTOOLS_VIEW"/>
-    
     <JobInterviewType jobInterviewTypeId="JOB_INTERVW" description="It is a process in which an employee is evaluated by an employer for prospective employment in their company"/>
     <JobInterviewType jobInterviewTypeId="EXIT_INTERVW" description="It is conducted by an employer of a departing employee"/>
     <JobInterviewType jobInterviewTypeId="INFORMAL_INTERVW" description="It is a meeting in which a job seeker asks for advice rather than employment"/>

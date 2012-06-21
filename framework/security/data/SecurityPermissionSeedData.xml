@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <!-- OFBiz Core security -->
+    
+    <!--  administrative security groups -->
+
+    <!--  Security 2.0 base permissions -->
+    <SecurityPermission permissionId="access" description="Base ACCESS permission"/>
+    <SecurityPermission permissionId="create" description="Base CREATE permission"/>
+    <SecurityPermission permissionId="read" description="Base READ permission"/>
+    <SecurityPermission permissionId="update" description="Base UPDATE permission"/>
+    <SecurityPermission permissionId="delete" description="Base DELETE permission"/>
+    <SecurityPermission permissionId="OFBTOOLS_VIEW" description="Permission to access the Stock OFBiz Manager Applications."/>
+
+    <!-- normally only permissions in this file, however permission group SUPER is an exception -->
+    <SecurityGroup groupId="SUPER" description="Super admin group, has all *_ADMIN permission loaded as seed data"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="OFBTOOLS_VIEW"/>
+
+    <!-- System UserLogin Account - see additional data in SecurityExtData -->
+    <UserLogin userLoginId="system" enabled="N" isSystem="Y"/>
+    <UserLoginSecurityGroup groupId="SUPER" userLoginId="system" fromDate="2001-01-01 12:00:00.0"/>
+    <!-- Anonymous UserLogin is referenced by services in various components -->
+    <UserLogin userLoginId="anonymous" enabled="N"/>
+    
+    <SecurityGroupPermission groupId="SUPER" permissionId="access"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="create"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="read"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="update"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="delete"/>
+    
+</entity-engine-xml>

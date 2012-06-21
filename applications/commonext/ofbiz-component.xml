@@ -26,11 +26,13 @@ under the License.
     
     <entity-resource type="data" reader-name="seed" loader="main" location="data/EntityDiagramGroupData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/CommonExtSeedData.xml"/>
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/CommonExtSecurityData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/CommonExtSecurityPermissionSeedData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/CommonExtSecurityGroupDemoData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/CommonExtHelpData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/SystemInfoPortletData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/SetupData.xml"/>
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/OfbizSetupSecurityData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/OfbizSetupSecurityPermissionSeedData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/OfbizSetupSecurityGroupDemoData.xml"/>
     
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
     

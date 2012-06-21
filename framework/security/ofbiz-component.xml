@@ -26,8 +26,8 @@ under the License.
     <classpath type="dir" location="dtd"/>
     <classpath type="jar" location="build/lib/*"/>
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/SecurityData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/SecurityPermissionSeedData.xml"/>
     <!-- NOTE: comment this line out to ensure no resetting of passwords -->
     <entity-resource type="data" reader-name="demo" loader="main" location="data/PasswordSecurityData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/SecurityDemoData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/SecurityGroupDemoData.xml"/>
 </ofbiz-component>
