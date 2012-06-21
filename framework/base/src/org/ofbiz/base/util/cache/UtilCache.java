@@ -497,9 +497,18 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
 
     private long findSizeInBytes(Object o) {
         try {
-            return UtilObject.getByteCount(o);
+            if (o == null) {
+                if (Debug.infoOn()) Debug.logInfo("Found null object in cache: " + getName(), module);
+                return 0;
+            }
+            if (o instanceof Serializable) {
+                return UtilObject.getByteCount(o);
+            } else {
+                if (Debug.infoOn()) Debug.logInfo("Unable to compute memory size for non serializable object; returning 0 byte size for object of " + o.getClass(), module);
+                return 0;
+            }
         } catch (Exception e) {
-            e.printStackTrace();
+            Debug.logWarning(e, "Unable to compute memory size for object of " + o.getClass(), module);
             return 0;
         }
     }
