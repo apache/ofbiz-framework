@@ -16,9 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
-// ================= FIELD LOOKUP METHODS ============================
-
 var mx, my;
 var ACTIVATED_LOOKUP = null;
 var LOOKUP_DIV = null;
@@ -31,59 +28,17 @@ var target2 = null;
 var targetW = null;
 var lookups = [];
 
-function call_fieldlookup(target, viewName, formName, viewWidth, viewheight) {
-	var fieldLookup = new fieldLookup1(target);
-	if (!viewWidth)
-		viewWidth = 350;
-	if (!viewheight)
-		viewheight = 200;
-	fieldLookup.popup(viewName, formName, viewWidth, viewheight);
+function getViewNameWithSeparator(view_name) {
+	var sep = "?";
+	if (view_name.indexOf("?") >= 0) {
+		sep = "&";
+	}
+	return view_name + sep;
 }
 
-function call_fieldlookup2(target, viewName, presentation) {
-	var fieldLookup = new fieldLookup1(target, arguments, presentation);
-	fieldLookup.popup2(viewName);
-}
-
-function call_fieldlookup3(target, target2, viewName, presentation) {
-	var fieldLookup = new fieldLookup2(target, target2, arguments, presentation);
-	fieldLookup.popup2(viewName);
-}
-
-function fieldLookup1(obj_target, args, presentation) {
-	this.args = args;
-	this.presentation = presentation;
-	// passing methods
-	this.popup = lookup_popup1;
-	this.popup2 = lookup_popup2;
-
-	// validate input parameters
-	if (!obj_target)
-		return lookup_error("Error calling the field lookup: no target control specified");
-	if (obj_target.value == null)
-		return lookup_error("Error calling the field lookup: parameter specified is not valid target control");
-	targetW = obj_target;
-}
-
-function fieldLookup2(obj_target, obj_target2, args, presentation) {
-	this.args = args;
-	this.presentation = presentation;
-	// passing methods
-	this.popup = lookup_popup1;
-	this.popup2 = lookup_popup2;
-	// validate input parameters
-	if (!obj_target)
-		return lookup_error("Error calling the field lookup: no target control specified");
-	if (obj_target.value == null)
-		return lookup_error("Error calling the field lookup: parameter specified is not valid target control");
-	targetW = obj_target;
-	// validate input parameters
-	if (!obj_target2)
-		return lookup_error("Error calling the field lookup: no target2 control specified");
-	if (obj_target2.value == null)
-		return lookup_error("Error calling the field lookup: parameter specified is not valid target2 control");
-	target2 = obj_target2;
-
+function lookup_error(str_message) {
+	var CommonErrorMessage2 = getJSONuiLabel("CommonUiLabels", "CommonErrorMessage2");
+	showErrorAlert(CommonErrorMessage2, str_message);
 }
 
 function lookup_popup1(view_name, form_name, viewWidth, viewheight) {
@@ -93,11 +48,13 @@ function lookup_popup1(view_name, form_name, viewWidth, viewheight) {
 	obj_lookupwindow.opener = window;
 	obj_lookupwindow.focus();
 }
+
 function lookup_popup2(view_name) {
 	var argString = "";
-	if (this.args != null) {
+	if (this.args !== null) {
 		if (this.args.length > 2) {
-			for ( var i = 2; i < this.args.length; i++) {
+			var i;
+			for (i = 2; i < this.args.length; i++) {
 				argString += "&parm" + (i - 3) + "=" + this.args[i];
 			}
 		}
@@ -109,48 +66,104 @@ function lookup_popup2(view_name) {
 	obj_lookupwindow.opener = window;
 	obj_lookupwindow.focus();
 }
-function lookup_error(str_message) {
-	var CommonErrorMessage2 = getJSONuiLabel("CommonUiLabels", "CommonErrorMessage2");
-	showErrorAlert(CommonErrorMessage2, str_message);
-	return null;
+
+function fieldLookup1(obj_target, args, presentation) {
+	this.args = args;
+	this.presentation = presentation;
+	// passing methods
+	this.popup = lookup_popup1;
+	this.popup2 = lookup_popup2;
+
+	// validate input parameters
+	if (!obj_target) {
+		return lookup_error("Error calling the field lookup: no target control specified");
+	}
+	if (obj_target.value === null) {
+		return lookup_error("Error calling the field lookup: parameter specified is not valid target control");
+	}
+	targetW = obj_target;
 }
 
-function getViewNameWithSeparator(view_name) {
-	var sep = "?";
-	if (view_name.indexOf("?") >= 0) {
-		sep = "&";
+function fieldLookup2(obj_target, obj_target2, args, presentation) {
+	this.args = args;
+	this.presentation = presentation;
+	// passing methods
+	this.popup = lookup_popup1;
+	this.popup2 = lookup_popup2;
+	// validate input parameters
+	if (!obj_target) {
+		return lookup_error("Error calling the field lookup: no target control specified");
 	}
-	return view_name + sep;
+	if (obj_target.value === null) {
+		return lookup_error("Error calling the field lookup: parameter specified is not valid target control");
+	}
+	targetW = obj_target;
+	// validate input parameters
+	if (!obj_target2) {
+		return lookup_error("Error calling the field lookup: no target2 control specified");
+	}
+	if (obj_target2.value === null) {
+		return lookup_error("Error calling the field lookup: parameter specified is not valid target2 control");
+	}
+	target2 = obj_target2;
 }
 
-function initiallyCollapse() {
-	if ((!LOOKUP_DIV) || (INITIALLY_COLLAPSED != "true"))
-		return;
-	var slTitleBars = LOOKUP_DIV.getElementsByClassName('screenlet-title-bar');
-	for (i in slTitleBars) {
-		var slTitleBar = slTitleBars[i];
-		var ul = slTitleBar.firstChild;
-		if ((typeof ul) != 'object')
-			continue;
+function call_fieldlookup3(target, target2, viewName, presentation) {
+	var fieldLookup = new fieldLookup2(target, target2, arguments, presentation);
+	fieldLookup.popup2(viewName);
+}
 
-		var childElements = ul.childNodes;
-		for (j in childElements) {
-			if (childElements[j].className == 'expanded' || childElements[j].className == 'collapsed') {
-				break;
-			}
-		}
-		var childEle = childElements[j].firstChild;
-		CollapsePanel(childEle, 'lec' + COLLAPSE_SEQUENCE_NUMBER);
-		break;
+function call_fieldlookup(target, viewName, formName, viewWidth, viewheight) {
+	var fieldLookup = new fieldLookup1(target);
+	if (!viewWidth) {
+		viewWidth = 350;
 	}
+	if (!viewheight) {
+		viewheight = 200;
+	}
+	fieldLookup.popup(viewName, formName, viewWidth, viewheight);
+}
+
+function call_fieldlookup2(target, viewName, presentation) {
+	var fieldLookup = new fieldLookup1(target, arguments, presentation);
+	fieldLookup.popup2(viewName);
 }
 
 function CollapsePanel(link, areaId) {
-	var container = $(areaId);
-	var liElement = $(link).up('li');
+	var container, liElement;
+
+	container = jQuery(areaId);
+	liElement = jQuery(link).up('li');
+
 	liElement.removeClassName('expanded');
 	liElement.addClassName('collapsed');
 	Effect.toggle(container, 'appear');
+}
+
+function initiallyCollapse() {
+	if ((!LOOKUP_DIV) || (INITIALLY_COLLAPSED != "true")) {
+		return;
+	}
+
+	var i, j, childEle, childElements, ul, slTitleBar, slTitleBars = LOOKUP_DIV.getElementsByClassName('screenlet-title-bar');
+	for (i in slTitleBars) {
+		slTitleBar = slTitleBars[i];
+		ul = slTitleBar.firstChild;
+		if ((typeof ul) != 'object') {
+			continue;
+		}
+
+		childElements = ul.childNodes;
+		for (j in childElements) {
+			if (childElements[j].className === 'expanded' || childElements[j].className === 'collapsed') {
+				break;
+			}
+		}
+
+		childEle = childElements[j].firstChild;
+		new CollapsePanel(childEle, 'lec' + COLLAPSE_SEQUENCE_NUMBER);
+		break;
+	}
 }
 
 function initiallyCollapseDelayed() {
@@ -160,7 +173,7 @@ function initiallyCollapseDelayed() {
 /*******************************************************************************
  * Lookup Object
  ******************************************************************************/
-var Lookup = function(options) {
+var Lookup = function (options) {
 	var _newInputBoxId, _lookupId, _inputBox, _lookupContainer, _backgroundCloseClickEvent;
 
 	options = {
@@ -183,7 +196,6 @@ var Lookup = function(options) {
 
 	function _init() {
 		_lookupId = GLOBAL_LOOKUP_REF.createNextKey();
-
 		_modifyContainer();
 		_createAjaxAutoComplete();
 
@@ -343,16 +355,13 @@ var Lookup = function(options) {
 
 	function _activateLookup(newAl) {
 		if (ACTIVATED_LOOKUP != newAl) {
-			console.log("set ACTIVATED_LOOKUP from " + ACTIVATED_LOOKUP + " to " + newAl)
 			ACTIVATED_LOOKUP = newAl;
 		}
 	}
 
 	function _addCloseEventForClickingOnBackgroundLayer() {
 		_backgroundCloseClickEvent = function() {
-			console.log("click outside box " + ACTIVATED_LOOKUP + " with lookupId " + _lookupId);
 			if (ACTIVATED_LOOKUP && ACTIVATED_LOOKUP == _lookupId) {
-				console.log("close layer " + ACTIVATED_LOOKUP);
 				GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).dialogRef.dialog("close");
 			}
 		}
@@ -395,11 +404,12 @@ var Lookup = function(options) {
 /*******************************************************************************
  * Lookup Counter Object
  ******************************************************************************/
-var FieldLookupCounter = function() {
+var FieldLookupCounter = function () {
 	this.refArr = {};
 
 	this.setReference = function(key, ref) {
 		// if key doesn't exist in the array and
+		var itm;
 		for (itm in this.refArr) {
 			if (itm == key) {
 				prefix = key.substring(0, key.indexOf("_"));
@@ -444,7 +454,7 @@ var GLOBAL_LOOKUP_REF = new FieldLookupCounter;
 /*******************************************************************************
  * Button Modifier Object
  ******************************************************************************/
-var ButtonModifier = function(lookupDiv) {
+var ButtonModifier = function (lookupDiv) {
 
 	function _modifySubmitButton() {
 		if (!lookupDiv) {
@@ -457,7 +467,7 @@ var ButtonModifier = function(lookupDiv) {
 		var lookupForm = jQuery("#" + lookupDiv + " form:first");
 
 		// set new form name and id
-		oldFormName = lookupForm.attr("name");
+		var oldFormName = lookupForm.attr("name");
 		lookupForm.attr("name", "form_" + lookupDiv);
 		lookupForm.attr("id", "form_" + lookupDiv);
 		lookupForm = jQuery("#form_" + lookupDiv);
@@ -600,7 +610,6 @@ var ButtonModifier = function(lookupDiv) {
 			});
 
 		});
-
 	}
 
 	function _modifyCollapseable() {
@@ -656,7 +665,7 @@ function lookupAjaxRequest(request) {
 }
 
 function lookupFormAjaxRequest(formAction, form) {
-	lookupId = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).lookupId;
+	var lookupId = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).lookupId;
 	var data = jQuery("#" + form).serialize();
 	data = data + "&presentation=" + GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).presentation;
 
@@ -691,10 +700,10 @@ function lookupFormAjaxRequest(formAction, form) {
 }
 
 function lookupPaginationAjaxRequest(navAction, type) {
-	lookupDiv = (GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).divRef);
-	lookupContent = (GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).contentRef);
+	var lookupDiv = (GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).divRef);
+	var lookupContent = (GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).contentRef);
 
-	lookupId = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).lookupId;
+	var lookupId = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).lookupId;
 	var screenletTitleBar = jQuery("#" + lookupId + " .screenlet-title-bar :visible:first");
 
 	jQuery.ajax({
@@ -781,8 +790,9 @@ function set_values(value, value2) {
 	var target2 = obj_caller.target2;
 	write_value(value, target);
 	write_value(value2, target2)
-	if (SHOW_DESCRIPTION)
+	if (SHOW_DESCRIPTION) {
 		setLookDescription(target.attr("id"), value + " " + value2, "", "", SHOW_DESCRIPTION);
+	}
 
 	closeLookup();
 }
@@ -826,8 +836,8 @@ function closeLookup() {
 	if (window.opener != null && GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP) == null) {
 		window.close();
 	} else {
-		obj = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).lookupId;
-		jQuery("#" + obj).dialog("close");
+		var lookupId = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).lookupId;
+		jQuery("#" + lookupId).dialog("close");
 	}
 }
 
@@ -835,7 +845,7 @@ function closeLookup() {
  * Lookup Description Helper
  ******************************************************************************/
 // load description for lookup fields
-var lookupDescriptionLoaded = function(fieldId, url, params, formName) {
+var lookupDescriptionLoaded = function (fieldId, url, params, formName) {
 	this.init(fieldId, url, params, formName);
 }
 lookupDescriptionLoaded.prototype.init = function(fieldId, url, params, formName) {
@@ -855,7 +865,7 @@ lookupDescriptionLoaded.prototype.update = function() {
 	if (jQuery("input[name=" + fieldName + "]").val()) {
 		var fieldSerialized = jQuery("input[name=" + fieldName + "]", jQuery("form[name=" + this.formName + "]")).serialize();
 		this.allParams = this.params + '&' + fieldSerialized + '&' + 'searchType=EQUALS';
-		_fieldId = this.fieldId;
+		var _fieldId = this.fieldId;
 
 		jQuery
 				.ajax({
