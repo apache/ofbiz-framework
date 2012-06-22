@@ -27,7 +27,10 @@ under the License.
         <menu-item name="PaymentGroup" title="${uiLabelMap.AccountingPaymentGroup}"><link target="FindPaymentGroup"/></menu-item>
         <menu-item name="transaction" title="${uiLabelMap.AccountingTransactions}">
             <condition>
+                <or>
                 <if-has-permission permission="MANUAL" action="_PAYMENT"/>
+                <if-has-permission permission="ACCOUNTING" action="_ADMIN"/>
+                </or>
             </condition>
             <link target="FindGatewayResponses"/>
         </menu-item>
