@@ -70,7 +70,6 @@ under the License.
     <SecurityGroupPermission groupId="SUPER" permissionId="ACCOUNTING_ADMIN"/>
     <SecurityGroupPermission groupId="SUPER" permissionId="PAYPROC_ADMIN"/>
     <SecurityGroupPermission groupId="SUPER" permissionId="PAY_INFO_ADMIN"/>
-    <SecurityGroupPermission groupId="SUPER" permissionId="MANUAL_PAYMENT"/>
     <SecurityGroupPermission groupId="SUPER" permissionId="ACCOUNTING_COMM_VIEW"/>
     <SecurityGroupPermission groupId="SUPER" permissionId="ACCOUNTING_PRINT_CHECKS"/>
     <SecurityGroupPermission groupId="SUPER" permissionId="ACCTG_PREF_ADMIN"/>
