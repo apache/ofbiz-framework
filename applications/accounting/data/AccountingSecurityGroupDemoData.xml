@@ -19,7 +19,6 @@ under the License.
 -->
 <entity-engine-xml>
     <!-- Payment Processors security -->
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="PAYPROC_ADMIN"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PAYPROC_CREATE"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PAYPROC_DELETE"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PAYPROC_VIEW"/>
@@ -45,7 +44,6 @@ under the License.
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCOUNTING_ADMIN"/>
 
     <!-- Manual Payment security -->
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="MANUAL_PAYMENT"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="MANUAL_PAYMENT"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="MANUAL_PAYMENT"/>
 
