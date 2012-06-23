@@ -76,7 +76,6 @@ import org.ofbiz.entity.util.EntityCrypto;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.SequenceUtil;
-//import org.ofbiz.service.ServiceDispatcher;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -105,7 +104,6 @@ public class GenericDelegator implements Delegator {
     protected Cache cache = null;
 
     protected DistributedCacheClear distributedCacheClear = null;
-    protected boolean enableJMS = true;
     protected EntityEcaHandler<?> entityEcaHandler = null;
     protected SequenceUtil sequencer = null;
     protected EntityCrypto crypto = null;
@@ -2922,9 +2920,6 @@ public class GenericDelegator implements Delegator {
         }
     }
     
-    /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#getEnableJMS()
-     */
     public boolean useDistributedCacheClear() {
         return this.getDelegatorInfo().useDistributedCacheClear;
     }
