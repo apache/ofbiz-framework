@@ -1080,15 +1080,6 @@ public class ServiceDispatcher {
         ServiceDispatcher.enableJMS = enable;
     }
 
-
-    /**
-     * Get Enabled/Disabled JMS listeners status
-     * @return boolean true is JMS listeners are enabled
-     */
-    public static boolean getEnableJMS() {
-        return ServiceDispatcher.enableJMS;
-    }
-
     /**
      * Enables/Disables the startup services globally
      * (this will not effect any dispatchers already running)
