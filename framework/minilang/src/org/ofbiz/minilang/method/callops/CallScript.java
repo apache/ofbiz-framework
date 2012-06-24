@@ -22,7 +22,6 @@ import org.ofbiz.base.util.ScriptUtil;
 import org.ofbiz.base.util.Scriptlet;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangRuntimeException;
 import org.ofbiz.minilang.MiniLangUtil;
@@ -33,7 +32,9 @@ import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Executes a script.
+ * Implements the &lt;script&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cscript%3E}}">Mini-language Reference</a>
  */
 public final class CallScript extends MethodOperation {
 
@@ -70,17 +71,11 @@ public final class CallScript extends MethodOperation {
         if (elementModified && MiniLangUtil.autoCorrectOn()) {
             MiniLangUtil.flagDocumentAsCorrected(element);
         }
-        String inlineScript = element.getAttribute("script");
-        if (inlineScript.length() == 0) {
-            inlineScript = UtilXml.elementValue(element);
-        }
-        if (inlineScript != null && MiniLangUtil.containsScript(inlineScript)) {
-            this.scriptlet = new Scriptlet(StringUtil.convertOperatorSubstitutions(inlineScript));
+        String scriptLocation = element.getAttribute("location");
+        if (scriptLocation.isEmpty()) {
             this.location = null;
             this.method = null;
         } else {
-            this.scriptlet = null;
-            String scriptLocation = element.getAttribute("location");
             int pos = scriptLocation.lastIndexOf("#");
             if (pos == -1) {
                 this.location = scriptLocation;
@@ -90,22 +85,32 @@ public final class CallScript extends MethodOperation {
                 this.method = scriptLocation.substring(pos + 1);
             }
         }
+        String inlineScript = element.getAttribute("script");
+        if (inlineScript.isEmpty()) {
+            inlineScript = UtilXml.elementValue(element);
+        }
+        if (inlineScript != null && MiniLangUtil.containsScript(inlineScript)) {
+            this.scriptlet = new Scriptlet(StringUtil.convertOperatorSubstitutions(inlineScript));
+        } else {
+            this.scriptlet = null;
+        }
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
+        if (this.location != null) {
+            if (location.endsWith(".xml")) {
+                SimpleMethod.runSimpleMethod(location, method, methodContext);
+            } else {
+                ScriptUtil.executeScript(this.location, this.method, methodContext.getEnvMap());
+            }
+        }
         if (this.scriptlet != null) {
             try {
                 this.scriptlet.executeScript(methodContext.getEnvMap());
             } catch (Exception e) {
                 throw new MiniLangRuntimeException(e.getMessage(), this);
             }
-            return true;
-        }
-        if (location.endsWith(".xml")) {
-            SimpleMethod.runSimpleMethod(location, method, methodContext);
-        } else {
-            ScriptUtil.executeScript(this.location, this.method, methodContext.getEnvMap());
         }
         return true;
     }
@@ -113,25 +118,30 @@ public final class CallScript extends MethodOperation {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("<script ");
-        if (this.location != null && this.location.length() > 0) {
+        if (this.location != null) {
             sb.append("location=\"").append(this.location);
-            if (this.method != null && this.method.length() > 0) {
+            if (this.method != null) {
                 sb.append("#").append(this.method);
             }
             sb.append("\" ");
         }
         if (this.scriptlet != null) {
-            sb.append("scriptlet=\"").append(this.scriptlet).append("\" ");
+            sb.append("script=\"").append(this.scriptlet).append("\" ");
         }
         sb.append("/>");
         return sb.toString();
     }
 
+    /**
+     * A factory for the &lt;script&gt; element.
+     */
     public static final class CallScriptFactory implements Factory<CallScript> {
+        @Override
         public CallScript createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CallScript(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "script";
         }
