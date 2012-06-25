@@ -305,7 +305,7 @@ public class ContextFilter implements Filter {
                     config.getServletContext().setAttribute("delegator", delegator);
 
                     // clear web context objects
-                    config.getServletContext().setAttribute("authorization", null);
+                    config.getServletContext().setAttribute("authz", null);
                     config.getServletContext().setAttribute("security", null);
                     config.getServletContext().setAttribute("dispatcher", null);
 
@@ -420,7 +420,7 @@ public class ContextFilter implements Filter {
     }
 
     protected Authorization getAuthz() {
-        Authorization authz = (Authorization) config.getServletContext().getAttribute("authorization");
+        Authorization authz = (Authorization) config.getServletContext().getAttribute("authz");
         if (authz == null) {
             Delegator delegator = (Delegator) config.getServletContext().getAttribute("delegator");
 

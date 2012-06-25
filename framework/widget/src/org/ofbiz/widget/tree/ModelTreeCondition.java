@@ -212,7 +212,7 @@ public class ModelTreeCondition {
                 String permission = permissionExdr.expandString(context);
                 String action = actionExdr.expandString(context);
 
-                Authorization authz = (Authorization) context.get("authorization");
+                Authorization authz = (Authorization) context.get("authz");
                 Security security = (Security) context.get("security");
                 if (UtilValidate.isNotEmpty(action)) {
                     //Debug.logWarning("Deprecated method hasEntityPermission() was called; the action field should no longer be used", module);
