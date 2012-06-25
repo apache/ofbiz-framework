@@ -54,7 +54,7 @@ under the License.
            <#assign statusItem = payment.getRelatedOne("StatusItem", false)>
            <#assign partyName = delegator.findOne("PartyNameView", {"partyId" : payment.partyIdTo}, true)>
            <tr>
-             <#if security.hasPermission("PAY_INFO_VIEW", session) || security.hasPermission("PAY_INFO_ADMIN", session)>
+             <#if security.hasEntityPermission("PAY_INFO", "_VIEW", session) || security.hasEntityPermission("ACCOUNTING", "_ADMIN", session)>
                <td><a href="/accounting/control/paymentOverview?paymentId=${payment.paymentId}">${payment.paymentId}</a></td>
              <#else>
                <td>${payment.paymentId}</td>
@@ -342,7 +342,7 @@ under the License.
                       <#if creditCard.suffixOnCard?has_content>&nbsp;${creditCard.suffixOnCard}</#if>
                       <br />
 
-                      <#if security.hasEntityPermission("PAY_INFO", "_VIEW", session)>
+                      <#if security.hasEntityPermission("PAY_INFO", "_VIEW", session) || security.hasEntityPermission("ACCOUNTING", "_ADMIN", session)>
                         ${creditCard.cardType}
                         <@maskSensitiveNumber cardNumber=creditCard.cardNumber?if_exists/>
                         ${creditCard.expireDate}
@@ -469,7 +469,7 @@ under the License.
                 <td valign="top" width="60%">
                   <div>
                     <#if giftCard?has_content>
-                      <#if security.hasEntityPermission("PAY_INFO", "_VIEW", session)>
+                      <#if security.hasEntityPermission("PAY_INFO", "_VIEW", session) || security.hasEntityPermission("ACCOUNTING", "_ADMIN", session)>
                         ${giftCard.cardNumber?default("N/A")} [${giftCard.pinNumber?default("N/A")}]
                         &nbsp;[<#if oppStatusItem?exists>${oppStatusItem.get("description",locale)}<#else>${orderPaymentPreference.statusId}</#if>]
                       <#else>
@@ -596,7 +596,7 @@ under the License.
                <#if "CREDIT_CARD" == paymentMethod.paymentMethodTypeId>
                  <#assign creditCard = paymentMethodValueMap.creditCard/>
                  <#if (creditCard?has_content)>
-                   <#if security.hasEntityPermission("PAY_INFO", "_VIEW", session)>
+                   <#if security.hasEntityPermission("PAY_INFO", "_VIEW", session) || security.hasEntityPermission("ACCOUNTING", "_ADMIN", session)>
                      ${creditCard.cardType?if_exists} <@maskSensitiveNumber cardNumber=creditCard.cardNumber?if_exists/> ${creditCard.expireDate?if_exists}
                    <#else>
                      ${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}
