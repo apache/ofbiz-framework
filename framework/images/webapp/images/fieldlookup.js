@@ -173,7 +173,7 @@ function initiallyCollapseDelayed() {
 /*******************************************************************************
  * Lookup Object
  ******************************************************************************/
-var Lookup = function (options) {
+var Lookup = function(options) {
 	var _newInputBoxId, _lookupId, _inputBox, _lookupContainer, _backgroundCloseClickEvent;
 
 	options = {
@@ -404,7 +404,7 @@ var Lookup = function (options) {
 /*******************************************************************************
  * Lookup Counter Object
  ******************************************************************************/
-var FieldLookupCounter = function () {
+var FieldLookupCounter = function() {
 	this.refArr = {};
 
 	this.setReference = function(key, ref) {
@@ -454,7 +454,7 @@ var GLOBAL_LOOKUP_REF = new FieldLookupCounter;
 /*******************************************************************************
  * Button Modifier Object
  ******************************************************************************/
-var ButtonModifier = function (lookupDiv) {
+var ButtonModifier = function(lookupDiv) {
 
 	function _modifySubmitButton() {
 		if (!lookupDiv) {
@@ -845,7 +845,7 @@ function closeLookup() {
  * Lookup Description Helper
  ******************************************************************************/
 // load description for lookup fields
-var lookupDescriptionLoaded = function (fieldId, url, params, formName) {
+var lookupDescriptionLoaded = function(fieldId, url, params, formName) {
 	this.init(fieldId, url, params, formName);
 }
 lookupDescriptionLoaded.prototype.init = function(fieldId, url, params, formName) {
@@ -859,8 +859,14 @@ lookupDescriptionLoaded.prototype.update = function() {
 	if (tooltipElement.length) {// first remove current description
 		tooltipElement.remove();
 	}
+
+	var indexOf = this.params.indexOf("searchValueFieldName");
+	if (indexOf == -1) {
+		return;
+	}
+
 	// actual server call
-	var fieldName = this.params.substring(this.params.indexOf("searchValueFieldName"));
+	var fieldName = this.params.substring(indexOf);
 	fieldName = fieldName.substring(fieldName.indexOf("=") + 1);
 	if (jQuery("input[name=" + fieldName + "]").val()) {
 		var fieldSerialized = jQuery("input[name=" + fieldName + "]", jQuery("form[name=" + this.formName + "]")).serialize();
