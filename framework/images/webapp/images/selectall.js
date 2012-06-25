@@ -304,7 +304,7 @@ function ajaxUpdateAreaPeriodic(areaId, target, targetParams, interval) {
                 },
                 error: function(data) {waitSpinnerHide()}
             });
-            
+
         }
     });
 }
@@ -398,19 +398,19 @@ function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
 function ajaxAutoCompleter(areaCsvString, showDescription, defaultMinLength, defaultDelay, formName){
     var areaArray = areaCsvString.replace(/&amp;/g, '&').split(",");
     var numAreas = parseInt(areaArray.length / 3);
-    
+
     for (var i = 0; i < numAreas * 3; i = i + 3) {
         var initUrl = areaArray[i + 1];
         if (initUrl.indexOf("?") > -1)
             var url = initUrl + "&" + areaArray[i + 2];
-        else 
+        else
             var url = initUrl + "?" + areaArray[i + 2];
         var div = areaArray[i];
         // create a separated div where the result JSON Opbject will be placed
         if ((jQuery("#" + div + "_auto")).length < 1) {
             jQuery("<div id='" + div + "_auto'></div>").insertBefore("#" + areaArray[i]);
         }
-        
+
         jQuery("#" + div).autocomplete({
             minLength: defaultMinLength,
             delay: defaultDelay,
@@ -447,13 +447,13 @@ function ajaxAutoCompleter(areaCsvString, showDescription, defaultMinLength, def
                         if(exception != 'abort') {
                             alert("An error occurred while communicating with the server:\n\n\nreason=" + reason + "\n\nexception=" + exception);
                         }
-                    },
+                    }
                 });
             },
             select: function(event, ui){
                 //jQuery("#" + areaArray[0]).html(ui.item);
-                jQuery("#" + areaArray[0]).val(ui.item.value); // setting a text field   
-                if (showDescription && (ui.item.value != undefined && ui.item.value != '')) { 
+                jQuery("#" + areaArray[0]).val(ui.item.value); // setting a text field
+                if (showDescription && (ui.item.value != undefined && ui.item.value != '')) {
                     setLookDescription(areaArray[0], ui.item.label, areaArray[2], formName, showDescription)
                 }
             }
@@ -473,8 +473,8 @@ function setLookDescription(textFieldId, description, params, formName, showDesc
         var start = description.lastIndexOf(' [');
         if (start != -1) {
             description = description.substring(0, start);
-            
-            // This sets a (possibly hidden) dependent field if a description-field-name is provided  
+
+            // This sets a (possibly hidden) dependent field if a description-field-name is provided
             var dependentField = params.substring(params.indexOf("searchValueFieldName"));
             dependentField = jQuery("#" + formName + "_" + dependentField.substring(dependentField.indexOf("=") + 1));
             var dependentFieldValue = description.substring(0, description.lastIndexOf(' '))
@@ -534,7 +534,7 @@ function ajaxAutoCompleteDropDown() {
                         }) );
                     },
                     select: function( event, ui ) {
-                        ui.item.option.selected = true;                        
+                        ui.item.option.selected = true;
                         //select.val( ui.item.option.value );
                         self._trigger( "selected", event, {
                             item: ui.item.option
@@ -752,7 +752,7 @@ function submitFormEnableButton(button) {
 
 /**
  * Expands or collapses all groups of one portlet
- * 
+ *
  * @param bool <code>true</code> to expand, <code>false</code> otherwise
  * @param portalPortletId The id of the portlet
  */
@@ -767,7 +767,7 @@ function expandAllP(bool, portalPortletId) {
 
 /**
  * Expands or collapses all groups of the page
- * 
+ *
  * @param bool <code>true</code> to expand, <code>false</code> otherwise
  */
 function expandAll(bool) {
@@ -800,7 +800,7 @@ function waitSpinnerShow() {
     lookupTop = (scrollOffY + winHeight / 2) - (jSpinner.height() / 2);
 
     jSpinner.css("display", "block");
-    jSpinner.css("left", lookupLeft + "px"); 
+    jSpinner.css("left", lookupLeft + "px");
     jSpinner.css("top", lookupTop + "px");
     jSpinner.show();
 }
