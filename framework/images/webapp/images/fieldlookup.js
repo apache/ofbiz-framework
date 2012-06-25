@@ -322,7 +322,7 @@ var Lookup = function(options) {
 
 			success : function(data) {
 				_lookupContainer.html(data);
-				new ButtonModifier(_lookupId).modifySubmitButton();
+				new ButtonModifier(_lookupId).modifyLookupLinks();
 			},
 
 			error : function(xhr, reason, exception) {
@@ -330,7 +330,7 @@ var Lookup = function(options) {
 					alert("An error occurred while communicating with the server:\n\n\nreason=" + reason + "\n\nexception=" + exception);
 				}
 				location.reload(true);
-			},
+			}
 		});
 	}
 
@@ -456,160 +456,18 @@ var GLOBAL_LOOKUP_REF = new FieldLookupCounter;
  ******************************************************************************/
 var ButtonModifier = function(lookupDiv) {
 
-	function _modifySubmitButton() {
+	function _modifyLookupLinks() {
 		if (!lookupDiv) {
 			return;
 		}
 
 		_modifyCollapseable();
 
-		// find the lookup form and input button
-		var lookupForm = jQuery("#" + lookupDiv + " form:first");
+		_modifySubmitButton();
 
-		// set new form name and id
-		var oldFormName = lookupForm.attr("name");
-		lookupForm.attr("name", "form_" + lookupDiv);
-		lookupForm.attr("id", "form_" + lookupDiv);
-		lookupForm = jQuery("#form_" + lookupDiv);
-		// set new links for lookups
-		var newLookups = jQuery("#" + lookupDiv + " .field-lookup");
+		_modifyPagination();
 
-		var formAction = lookupForm.attr("action");
-		// remove the form action
-		lookupForm.attr("action", "");
-		var input = jQuery("#" + lookupDiv + " input[type=submit]").css({
-			display : "block"
-		});
-
-		// remove the original input button and replace with a new one
-
-		var txt = input.attr("value");
-		(input.parent()).append(jQuery("<button/>", {
-			id : "lookupSubmitButton",
-			href : "javascript:void(0);",
-			click : function() {
-				lookupFormAjaxRequest(formAction, lookupForm.attr("id"));
-				return false;
-			},
-			text : txt
-		}));
-
-		input.remove();
-		// modify nav-pager
-		var navPagers = jQuery("#" + lookupDiv + " .nav-pager a");
-		jQuery.each(navPagers, function(navPager) {
-			jQuery(navPagers[navPager]).attr("href",
-					"javascript:lookupPaginationAjaxRequest('" + encodeURI(jQuery(navPagers[navPager]).attr("href")) + "','link')");
-		});
-
-		var navPagersSelect = jQuery("#" + lookupDiv + " .nav-pager select");
-		jQuery.each(navPagersSelect, function(navPager) {
-			// that's quite weird maybe someone have a better idea ...
-			// that's
-			// where the magic happens
-			try {
-				var oc = jQuery(navPagersSelect[navPager]).attr("onchange");
-				if ((typeof oc) == "function") { // IE6/7 Fix
-					oc = oc.toString();
-					var ocSub = oc.substring((oc.indexOf('=') + 3), (oc.length - 4));
-					// define search pattern we must seperate between IE and
-					// Other Browser
-					var searchPattern = /" \+ this.value \+ "/g;
-					var searchPattern_IE = /'\+this.value\+'/g;
-					var searchPattern2 = /" \+ this.valu/g;
-					var searchPattern2_IE = /'\+this.valu/g;
-
-					if (searchPattern.test(ocSub)) {
-						var viewSize = navPagersSelect[navPager].value;
-						var spl = ocSub.split(searchPattern);
-						navPagersSelect[navPager].onchange = function() {
-							lookupPaginationAjaxRequest(spl[0] + this.value + spl[1], 'select');
-						};
-					} else if (searchPattern_IE.test(ocSub)) {
-						var viewSize = navPagersSelect[navPager].value;
-						var spl = ocSub.split(searchPattern_IE);
-						navPagersSelect[navPager].onchange = function() {
-							lookupPaginationAjaxRequest("/" + spl[0] + this.value + spl[1], 'select');
-						};
-					} else if (searchPattern2.test(ocSub)) {
-						ocSub = ocSub.replace(searchPattern2, "");
-						if (searchPattern.test(ocSub)) {
-							ocSub.replace(searchPattern, viewSize);
-						}
-						navPagersSelect[navPager].onchange = function() {
-							lookupPaginationAjaxRequest(ocSub + this.value, 'select');
-						};
-					} else if (searchPattern2_IE.test(ocSub)) {
-						ocSub = ocSub.replace(searchPattern2_IE, "");
-						if (searchPattern_IE.test(ocSub)) {
-							ocSub.replace(searchPattern_IE, viewSize);
-						}
-						navPagersSelect[navPager].onchange = function() {
-							lookupPaginationAjaxRequest("/" + ocSub + this.value, 'select');
-						};
-					}
-				} else {
-					var ocSub = oc.substring((oc.indexOf('=') + 1), (oc.length - 1));
-					navPagersSelect[navPager].setAttribute("onchange", "lookupPaginationAjaxRequest(" + ocSub + ",'')");
-				}
-
-				if (resultTable == null) {
-					return;
-				}
-				resultTable = resultTable.childElements()[0];
-				var resultElements = resultTable.childElements();
-				for (i in resultElements) {
-					var childElements = resultElements[i].childElements();
-					if (childElements.size() == 1) {
-						continue;
-					}
-					for (k = 1; k < childElements.size(); k++) {
-						var cell = childElements[k];
-						var cellChild = null;
-						cellChild = cell.childElements();
-						if (cellChild.size() > 0) {
-							for (l in cellChild) {
-								var cellElement = cellChild[l];
-								if (cellElement.tagName == 'A') {
-									var link = cellElement.href;
-									var liSub = link.substring(link.lastIndexOf('/') + 1, (link.length));
-									if (liSub.indexOf("javascript:set_") != -1) {
-										cellElement.href = link;
-									} else {
-										cellElement.href = "javascript:lookupAjaxRequest('" + liSub + "&presentation=layer')";
-									}
-								}
-							}
-						}
-					}
-				}
-			} catch (ex) {
-			}
-		});
-		// modify links in result table ...
-		var resultTable = jQuery("#" + lookupDiv + " #search-results table:first tbody");
-		var tableChildren = resultTable.children();
-		jQuery.each(tableChildren, function(tableChild) {
-			var childElements = jQuery(tableChildren[tableChild]);
-			var tableRow = childElements.children();
-			jQuery.each(tableRow, function(cell) {
-				var cellChild = null;
-				cellChild = jQuery(tableRow[cell]).children();
-				jQuery.each(cellChild, function(child) {
-					if (cellChild[child].tagName == "A") {
-						var link = cellChild[child].href;
-						var liSub = link.substring(link.lastIndexOf('/') + 1, (link.length));
-						if (liSub.indexOf("javascript:set_") != -1) {
-							cellChild[child].href = link;
-						} else {
-							cellChild[child].href = "javascript:lookupAjaxRequest('" + liSub + "&presentation=layer')";
-						}
-					}
-				});
-
-			});
-
-		});
+		_modifyResultTable();
 	}
 
 	function _modifyCollapseable() {
@@ -646,8 +504,128 @@ var ButtonModifier = function(lookupDiv) {
 		return COLLAPSE_SEQUENCE_NUMBER;
 	}
 
+	function _modifySubmitButton() {
+		var lookupForm = jQuery("#" + lookupDiv + " form:first");
+
+		// set new form name and id
+		var oldFormName = lookupForm.attr("name");
+		lookupForm.attr("name", "form_" + lookupDiv);
+		lookupForm.attr("id", "form_" + lookupDiv);
+		lookupForm = jQuery("#form_" + lookupDiv);
+
+		// set new links for lookups
+		var newLookups = jQuery("#" + lookupDiv + " .field-lookup");
+
+		var formAction = lookupForm.attr("action");
+
+		// remove the form action
+		lookupForm.attr("action", "");
+		var input = jQuery("#" + lookupDiv + " input[type=submit]").css({
+			display : "block"
+		});
+
+		// remove the original input button and replace with a new one
+		var txt = input.attr("value");
+		(input.parent()).append(jQuery("<button/>", {
+			id : "lookupSubmitButton",
+			href : "javascript:void(0);",
+			click : function() {
+				lookupFormAjaxRequest(formAction, lookupForm.attr("id"));
+				return false;
+			},
+			text : txt
+		}));
+
+		input.remove();
+	}
+
+	function _modifyPagination() {
+		// modify nav-pager
+		var navPagers = jQuery("#" + lookupDiv + " .nav-pager a");
+		jQuery.each(navPagers, function(navPager) {
+			jQuery(navPagers[navPager]).attr("href",
+					"javascript:lookupPaginationAjaxRequest('" + encodeURI(jQuery(navPagers[navPager]).attr("href")) + "','link')");
+		});
+
+		var navPagersSelect = jQuery("#" + lookupDiv + " .nav-pager select");
+		jQuery.each(navPagersSelect, function(navPager) {
+			var onChangeEvent = jQuery(navPagersSelect[navPager]).attr("onchange");
+			if ((typeof onChangeEvent) == "function") { // IE6/7 Fix
+				onChangeEvent = onChangeEvent.toString();
+				var ocSub = onChangeEvent.substring((onChangeEvent.indexOf('=') + 3), (onChangeEvent.length - 4));
+				// define search pattern we must seperate between IE and
+				// Other Browser
+				var searchPattern = /" \+ this.value \+ "/g;
+				var searchPattern_IE = /'\+this.value\+'/g;
+				var searchPattern2 = /" \+ this.valu/g;
+				var searchPattern2_IE = /'\+this.valu/g;
+
+				if (searchPattern.test(ocSub)) {
+					var viewSize = navPagersSelect[navPager].value;
+					var spl = ocSub.split(searchPattern);
+					navPagersSelect[navPager].onchange = function() {
+						lookupPaginationAjaxRequest(spl[0] + this.value + spl[1], 'select');
+					};
+				} else if (searchPattern_IE.test(ocSub)) {
+					var viewSize = navPagersSelect[navPager].value;
+					var spl = ocSub.split(searchPattern_IE);
+					navPagersSelect[navPager].onchange = function() {
+						lookupPaginationAjaxRequest("/" + spl[0] + this.value + spl[1], 'select');
+					};
+				} else if (searchPattern2.test(ocSub)) {
+					ocSub = ocSub.replace(searchPattern2, "");
+					if (searchPattern.test(ocSub)) {
+						ocSub.replace(searchPattern, viewSize);
+					}
+					navPagersSelect[navPager].onchange = function() {
+						lookupPaginationAjaxRequest(ocSub + this.value, 'select');
+					};
+				} else if (searchPattern2_IE.test(ocSub)) {
+					ocSub = ocSub.replace(searchPattern2_IE, "");
+					if (searchPattern_IE.test(ocSub)) {
+						ocSub.replace(searchPattern_IE, viewSize);
+					}
+					navPagersSelect[navPager].onchange = function() {
+						lookupPaginationAjaxRequest("/" + ocSub + this.value, 'select');
+					};
+				}
+			} else {
+				var ocSub = onChangeEvent.substring((onChangeEvent.indexOf('=') + 1), (onChangeEvent.length - 1));
+				navPagersSelect[navPager].setAttribute("onchange", "lookupPaginationAjaxRequest(" + ocSub + ",'')");
+			}
+		});
+	}
+
+	function _modifyResultTable() {
+		var resultTable = jQuery("#" + lookupDiv + " #search-results table:first tbody");
+		var tableChilds = resultTable.children();
+
+		jQuery.each(tableChilds, function(tableChild) {
+			var childElements = jQuery(tableChilds[tableChild]);
+			var tableRows = childElements.children();
+
+			jQuery.each(tableRows, function(cell) {
+				var cellChilds = jQuery(tableRows[cell]).children();
+
+				jQuery.each(cellChilds, function(child) {
+					if (cellChilds[child].tagName == "A") {
+						var link = cellChilds[child].href;
+						var liSub = link.substring(link.lastIndexOf('/') + 1, (link.length));
+						if (liSub.indexOf("javascript:set_") != -1) {
+							cellChilds[child].href = link;
+						} else {
+							cellChilds[child].href = "javascript:lookupAjaxRequest('" + liSub + "&presentation=layer')";
+						}
+					}
+				});
+
+			});
+
+		});
+	}
+
 	return {
-		modifySubmitButton : _modifySubmitButton
+		modifyLookupLinks : _modifyLookupLinks
 	}
 }
 
@@ -660,7 +638,7 @@ function lookupAjaxRequest(request) {
 	request = request.substring(0, request.indexOf('?'));
 	lookupId = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).lookupId;
 	jQuery("#" + lookupId).load(request, arg, function(data) {
-		new ButtonModifier(lookupId).modifySubmitButton();
+		new ButtonModifier(lookupId).modifyLookupLinks();
 	});
 }
 
@@ -694,7 +672,7 @@ function lookupFormAjaxRequest(formAction, form) {
 				jQuery("span.indicator").remove();
 			}
 			jQuery("#" + lookupId).html(result);
-			new ButtonModifier(lookupId).modifySubmitButton();
+			new ButtonModifier(lookupId).modifyLookupLinks();
 		}
 	});
 }
@@ -729,7 +707,7 @@ function lookupPaginationAjaxRequest(navAction, type) {
 				jQuery("span.indicator").remove();
 			}
 			jQuery("#" + lookupId).html(result);
-			new ButtonModifier(lookupId).modifySubmitButton();
+			new ButtonModifier(lookupId).modifyLookupLinks();
 		}
 	});
 }
