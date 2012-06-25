@@ -26,7 +26,6 @@ under the License.
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="PAYPROC_ADMIN"/>
 
     <!-- Payment Information security -->
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="PAY_INFO_ADMIN"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PAY_INFO_CREATE"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PAY_INFO_DELETE"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PAY_INFO_UPDATE"/>

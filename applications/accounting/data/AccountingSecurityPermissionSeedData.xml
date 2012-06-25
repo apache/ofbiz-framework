@@ -68,7 +68,6 @@ under the License.
     
     <!-- add admin to SUPER permission group -->
     <SecurityGroupPermission groupId="SUPER" permissionId="ACCOUNTING_ADMIN"/>
-    <SecurityGroupPermission groupId="SUPER" permissionId="PAY_INFO_ADMIN"/>
     <SecurityGroupPermission groupId="SUPER" permissionId="ACCOUNTING_COMM_VIEW"/>
     <SecurityGroupPermission groupId="SUPER" permissionId="ACCOUNTING_PRINT_CHECKS"/>
     <SecurityGroupPermission groupId="SUPER" permissionId="ACCTG_PREF_ADMIN"/>

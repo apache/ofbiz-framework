@@ -184,6 +184,9 @@ public class ServiceUtil {
      *<b>security check</b>: userLogin partyId must equal partyId, or must have [secEntity][secOperation] permission
      */
     public static String getPartyIdCheckSecurity(GenericValue userLogin, Security security, Map<String, ? extends Object> context, Map<String, Object> result, String secEntity, String secOperation) {
+        return getPartyIdCheckSecurity(userLogin, security, context, result, secEntity, secOperation, null, null);
+    }
+    public static String getPartyIdCheckSecurity(GenericValue userLogin, Security security, Map<String, ? extends Object> context, Map<String, Object> result, String secEntity, String secOperation, String adminSecEntity, String adminSecOperation) {
         String partyId = (String) context.get("partyId");
         Locale locale = getLocale(context);
         if (UtilValidate.isEmpty(partyId)) {
@@ -198,9 +201,9 @@ public class ServiceUtil {
             return partyId;
         }
 
-        // <b>security check</b>: userLogin partyId must equal partyId, or must have PARTYMGR_CREATE permission
+        // <b>security check</b>: userLogin partyId must equal partyId, or must have either of the two permissions
         if (!partyId.equals(userLogin.getString("partyId"))) {
-            if (!security.hasEntityPermission(secEntity, secOperation, userLogin)) {
+            if (!security.hasEntityPermission(secEntity, secOperation, userLogin) && !(adminSecEntity != null && adminSecOperation != null && security.hasEntityPermission(adminSecEntity, adminSecOperation, userLogin))) {
                 result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
                 String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "serviceUtil.no_permission_to_operation", locale) + ".";
                 result.put(ModelService.ERROR_MESSAGE, errMsg);
