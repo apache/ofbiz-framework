@@ -474,34 +474,29 @@ public class LoginWorker {
             return "error";
         }
     }
+
     private static void setWebContextObjects(HttpServletRequest request, HttpServletResponse response, Delegator delegator, LocalDispatcher dispatcher) {
         HttpSession session = request.getSession();
+        // NOTE: we do NOT want to set this in the servletContext, only in the request and session
+        // We also need to setup the security and authz objects since they are dependent on the delegator
+        Security security = null;
+        try {
+            security = SecurityFactory.getInstance(delegator);
+        } catch (SecurityConfigurationException e) {
+            Debug.logError(e, module);
+        }
+        Authorization authz = null;
+        try {
+            authz = AuthorizationFactory.getInstance(delegator);
+        } catch (SecurityConfigurationException e) {
+            Debug.logError(e, module);
+        }
 
-        // NOTE: we do NOT want to set this in the servletContet, only in the request and session
         session.setAttribute("delegatorName", delegator.getDelegatorName());
-
         request.setAttribute("delegator", delegator);
-        session.setAttribute("delegator", delegator);
-
         request.setAttribute("dispatcher", dispatcher);
-        session.setAttribute("dispatcher", dispatcher);
-        
-        // we also need to setup the security and authz objects since they are dependent on the delegator
-        try {
-            Security security = SecurityFactory.getInstance(delegator);
-            request.setAttribute("security", security);
-            session.setAttribute("security", security);
-        } catch (SecurityConfigurationException e) {
-            Debug.logError(e, module);
-        }
-
-        try {
-            Authorization authz = AuthorizationFactory.getInstance(delegator);
-            request.setAttribute("authz", authz);
-            session.setAttribute("authz", authz);
-        } catch (SecurityConfigurationException e) {
-            Debug.logError(e, module);
-        }
+        request.setAttribute("security", security);
+        request.setAttribute("authz", authz);
 
         // get rid of the visit info since it was pointing to the previous database, and get a new one
         session.removeAttribute("visitor");

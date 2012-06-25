@@ -52,13 +52,6 @@ under the License.
         <response name="success" type="view" value="fonts.fo"/>
     </request-map>
 
-    <request-map uri="changeDelegator">
-        <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.webapp.event.CoreEvents" invoke="changeDelegator"/>
-        <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="error"/>
-    </request-map>
-
     <!-- ================ Blog Requests ================= -->
     <request-map uri="blogMain">
         <security https="true" auth="true"/>
