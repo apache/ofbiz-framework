@@ -45,13 +45,6 @@ under the License.
     <request-map uri="view"><security https="true" auth="false"/><response name="success" type="request" value="main"/></request-map>
     <request-map uri="main"><security https="true" auth="true"/><response name="success" type="view" value="main"/></request-map>
 
-    <request-map uri="changeDelegator">
-        <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.webapp.event.CoreEvents" invoke="changeDelegator"/>
-        <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="error"/>
-    </request-map>
-
     <!-- =========== DataSource =========== -->
     <request-map uri="FindDataSource"><security https="true" auth="true"/><response name="success" type="view" value="FindDataSource"/></request-map>
     <request-map uri="EditDataSource"><security https="true" auth="true"/><response name="success" type="view" value="EditDataSource"/></request-map>

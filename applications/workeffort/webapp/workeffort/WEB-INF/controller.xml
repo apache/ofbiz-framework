@@ -39,12 +39,6 @@ under the License.
 
     <!-- Request Mappings -->
 
-    <request-map uri="changeDelegator">
-        <event type="java" path="org.ofbiz.webapp.event.CoreEvents" invoke="changeDelegator"/>
-        <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="error"/>
-    </request-map>
-
     <request-map uri="view">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="main"/>

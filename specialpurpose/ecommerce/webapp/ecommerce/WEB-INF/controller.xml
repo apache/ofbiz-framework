@@ -1193,13 +1193,6 @@ under the License.
         <response name="error" type="view" value="login"/>
     </request-map>
 
-    <request-map uri="changeDelegator">
-        <security https="false" auth="false"/>
-        <event type="java" path="org.ofbiz.webapp.event.CoreEvents" invoke="changeDelegator"/>
-        <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="error"/>
-    </request-map>
-
     <request-map uri="tellafriend"><security https="false" auth="false"/><response name="success" type="view" value="tellafriend"/></request-map>
     <request-map uri="emailFriend">
         <security https="false" auth="false"/>
