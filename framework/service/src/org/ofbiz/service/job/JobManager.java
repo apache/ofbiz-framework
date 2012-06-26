@@ -410,6 +410,7 @@ public class JobManager {
 
         // set the max retry
         jFields.put("maxRetry", Long.valueOf(maxRetry));
+        jFields.put("currentRetryCount", new Long(0));
 
         // create the value and store
         GenericValue jobV;
