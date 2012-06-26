@@ -49,6 +49,8 @@ import org.ofbiz.service.calendar.RecurrenceInfo;
 import org.ofbiz.service.config.ServiceConfigUtil;
 import org.xml.sax.SAXException;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * Entity Service Job - Store => Schedule => Run
  */
@@ -206,8 +208,8 @@ public class PersistedServiceJob extends GenericServiceJob {
      * @see org.ofbiz.service.job.GenericServiceJob#finish()
      */
     @Override
-    protected void finish() throws InvalidJobException {
-        super.finish();
+    protected void finish(Map<String, Object> result) throws InvalidJobException {
+        super.finish(result);
 
         // set the finish date
         GenericValue job = getJob();
@@ -216,6 +218,15 @@ public class PersistedServiceJob extends GenericServiceJob {
             job.set("statusId", "SERVICE_FINISHED");
         }
         job.set("finishDateTime", UtilDateTime.nowTimestamp());
+        String jobResult = null;
+        if (ServiceUtil.isError(result)) {
+            jobResult = StringUtils.substring(ServiceUtil.getErrorMessage(result), 0, 255);
+        } else {
+            jobResult = StringUtils.substring(ServiceUtil.makeSuccessMessage(result, "", "", "", ""), 0, 255);
+        }
+        if (UtilValidate.isNotEmpty(jobResult)) {
+            job.set("jobResult", jobResult);
+        }
         try {
             job.store();
         } catch (GenericEntityException e) {
@@ -252,6 +263,7 @@ public class PersistedServiceJob extends GenericServiceJob {
         // set the failed status
         job.set("statusId", "SERVICE_FAILED");
         job.set("finishDateTime", UtilDateTime.nowTimestamp());
+        job.set("jobResult", StringUtils.substring(t.getMessage(), 0, 255));
         try {
             job.store();
         } catch (GenericEntityException e) {

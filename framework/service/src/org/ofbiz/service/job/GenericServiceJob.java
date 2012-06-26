@@ -24,7 +24,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericRequester;
 import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.ModelService;
+import org.ofbiz.service.ServiceUtil;
 
 /**
  * Generic Service Job - A generic async-service Job.
@@ -64,17 +64,16 @@ public class GenericServiceJob extends AbstractJob {
     public void exec() throws InvalidJobException {
         init();
 
+        Map<String, Object> result = null;
         // no transaction is necessary since runSync handles this
         try {
             // get the dispatcher and invoke the service via runSync -- will run all ECAs
             LocalDispatcher dispatcher = dctx.getDispatcher();
-            Map<String, Object> result = dispatcher.runSync(getServiceName(), getContext());
+            result = dispatcher.runSync(getServiceName(), getContext());
 
             // check for a failure
-            boolean isError = ModelService.RESPOND_ERROR.equals(result.get(ModelService.RESPONSE_MESSAGE));
-            if (isError) {
-                 String errorMessage = (String) result.get(ModelService.ERROR_MESSAGE);
-                 this.failed(new Exception(errorMessage));
+            if (ServiceUtil.isError(result)) {
+                 this.failed(new Exception(ServiceUtil.getErrorMessage(result)));
             }
 
             if (requester != null) {
@@ -92,7 +91,7 @@ public class GenericServiceJob extends AbstractJob {
         }
 
         // call the finish method
-        this.finish();
+        this.finish(result);
     }
 
     /**
@@ -105,7 +104,7 @@ public class GenericServiceJob extends AbstractJob {
     /**
      * Method is called after the service has finished.
      */
-    protected void finish() throws InvalidJobException {
+    protected void finish(Map<String, Object> result) throws InvalidJobException {
         if (Debug.verboseOn()) Debug.logVerbose("Async-Service finished.", module);
         runtime = 0;
     }
