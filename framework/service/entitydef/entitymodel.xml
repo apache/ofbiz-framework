@@ -51,6 +51,7 @@ under the License.
         <field name="serviceName" type="name"></field>
         <field name="loaderName" type="name"></field>
         <field name="maxRetry" type="numeric"></field>
+        <field name="currentRetryCount" type="numeric"></field>
         <field name="authUserLoginId" type="id-vlong"></field>
         <field name="runAsUser" type="id-vlong"></field>
         <field name="runtimeDataId" type="id"></field>
