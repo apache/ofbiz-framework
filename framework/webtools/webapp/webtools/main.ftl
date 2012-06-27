@@ -115,8 +115,6 @@ under the License.
         </#if>
         <li><h3>${uiLabelMap.WebtoolsCertsX509}</h3></li>
         <li><a href="<@ofbizUrl>myCertificates</@ofbizUrl>">${uiLabelMap.WebtoolsMyCertificates}</a></li>
-        <li><h3>Selenium</h3></li>
-        <li><a href="<@ofbizUrl>selenium</@ofbizUrl>">Selenium</a></li>
       </ul>
     </#if>
   </div>

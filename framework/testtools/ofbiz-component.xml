@@ -23,17 +23,13 @@
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
     <!-- define resource loaders; most common is to use the component resource loader -->
     <resource-loader name="main" type="component"/>
-    <classpath type="dir" location="config"/>
-    
+
     <!-- place the config directory on the classpath to access configuration files -->
     <classpath type="dir" location="dtd"/>
     
     <!-- load single or multiple external libraries -->
     <classpath type="jar" location="lib/*"/>
     <classpath type="jar" location="build/lib/*"/>
-    
-    <!-- entitydef -->
-    <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
     
     <!-- service resources: model(s), eca(s) and group definitions -->
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>

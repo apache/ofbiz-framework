@@ -58,9 +58,6 @@ under the License.
             </condition>
             <link target="security"/>
         </menu-item>
-        <menu-item name="tests" title="Tests">
-            <link target="selenium"/>
-        </menu-item>
         <menu-item name="LayoutDemo" title="${uiLabelMap.WebtoolsLayoutDemo}">
             <link target="WebtoolsLayoutDemo" />
         </menu-item>
