@@ -32,7 +32,6 @@ under the License.
     <path id="local.class.path">
         <fileset dir="${lib.dir}" includes="*.jar"/>
         <fileset dir="../base/lib" includes="*.jar"/>
-        <fileset dir="../base/lib/scripting" includes="*.jar"/>
         <fileset dir="../base/lib/j2eespecs" includes="*.jar"/>
         <fileset dir="../base/lib/commons" includes="*.jar"/>
         <fileset dir="../base/build/lib" includes="*.jar"/>
@@ -42,59 +41,10 @@ under the License.
         <fileset dir="../service/lib" includes="*.jar"/>
         <fileset dir="../service/build/lib" includes="*.jar"/>
         <fileset dir="../minilang/build/lib" includes="*.jar"/>
-        <fileset dir="../webapp/lib" includes="*.jar"/>
     </path>
     
     <path id="runtime.class.path">
         <fileset dir="${build.dir}/lib" includes="*.jar"/>
     </path>    
     
-    <target name="init">
-        
-        <property name="lib.dir" value="lib"/>
-        <property name="selenium.lib.dir" value="${lib.dir}"/>
-    </target>
-
-    <target name="run-seleniumxml" depends="init, jar" description="Runs the selenium xml test cases">
-        <java classname="org.ofbiz.testtools.seleniumxml.SeleniumXml" fork="true">
-            <jvmarg value="-Dselenium.config=config/seleniumXml.properties"/>
-            <arg value="testdef/seleniumxml/example/example_testsuite.xml"/>
-            <classpath>
-                   <path refid="runtime.class.path"/>
-                <path refid="local.class.path"/>
-              </classpath>
-        </java>
-    </target>
-
-    <target name="run-seleniumserver" depends="init, jar" description="Runs the selenium RC server">
-        <java jar="../../framework/testtools/lib/selenium-server.jar" fork="true">
-            <!-- arg value="-timeout 240"/ -->
-            <classpath>
-                   <path refid="runtime.class.path"/>
-                <path refid="local.class.path"/>
-              </classpath>
-            <arg value="-timeout"/>
-            <arg value="240"/>
-            <arg value="-firefoxProfileTemplate"/>
-            <arg value="./config/firefox_profile"/>
-        </java>
-    </target>
-    
-    <target name="install-seleniumxml" depends="init" description="Download the selenium files">
-        <!--
-            Quick way to download and extract the selenium-server.jar
-            If someone has a better way to do the same, please suggest !
-        -->
-        <get src="http://selenium.googlecode.com/files/selenium-remote-control-1.0.3.zip"
-             dest="${selenium.lib.dir}/selenium-remote-control-1.0.3.zip" usetimestamp="true" verbose="true"/>
-        <unzip src="${selenium.lib.dir}/selenium-remote-control-1.0.3.zip"
-                dest="${selenium.lib.dir}">
-            <patternset>
-                <include name="selenium-server-1.0.3/selenium-server.jar"/>
-            </patternset>
-        </unzip>
-        <move file="${selenium.lib.dir}/selenium-server-1.0.3/selenium-server.jar" todir="${selenium.lib.dir}"/>
-        <delete dir="${selenium.lib.dir}/selenium-server-1.0.3"/>
-        <delete file="${selenium.lib.dir}/selenium-remote-control-1.0.3.zip"/>
-    </target>
 </project>

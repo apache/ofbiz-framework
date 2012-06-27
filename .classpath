@@ -143,7 +143,6 @@
     <classpathentry kind="lib" path="framework/service/lib/commons-httpclient-3.1.jar"/>
     <classpathentry kind="lib" path="framework/service/lib/neethi-2.0.4.jar"/>
     <classpathentry kind="lib" path="framework/service/lib/XmlSchema-1.4.3.jar"/>
-    <classpathentry kind="lib" path="framework/testtools/lib/selenium-java-client-driver.jar"/>
     <classpathentry kind="lib" path="framework/testtools/lib/org.springframework.test-3.1.0.M2.jar"/>
     <classpathentry kind="lib" path="framework/testtools/lib/org.springframework.web-3.1.0.M2.jar"/>
     <classpathentry kind="lib" path="framework/testtools/lib/org.springframework.core-3.1.0.M2.jar"/>
@@ -192,7 +191,6 @@
     <classpathentry kind="src" path="framework/sql/src"/>
     <classpathentry kind="src" path="framework/sql/build/gen-src/javacc"/>
     <classpathentry kind="src" path="framework/start/src"/>
-    <classpathentry excluding="org/ofbiz/testtools/seleniumxml/**" kind="src" path="framework/testtools/src"/>
     <classpathentry excluding="org/ofbiz/webapp/ftl/FreeMarkerViewRenderer.java|org/ofbiz/webapp/ftl/JpCacheIncludeTransform.java|org/ofbiz/webapp/view/FopPdfViewHandler.java|org/ofbiz/webapp/view/GenericViewRenderer.java|org/ofbiz/webapp/view/JPublishViewHandler.java|org/ofbiz/webapp/view/JPublishWrapper.java|org/ofbiz/webapp/view/JasperReportsPdfViewHandler.java|org/ofbiz/webapp/view/JasperReportsXmlViewHandler.java|org/ofbiz/webapp/view/JasperReportsJXlsViewHandler.java|org/ofbiz/webapp/view/JasperReportsPoiXlsViewHandler.java" kind="src" path="framework/webapp/src"/>
     <classpathentry kind="src" path="framework/webtools/src"/>
     <classpathentry kind="src" path="framework/widget/src"/>

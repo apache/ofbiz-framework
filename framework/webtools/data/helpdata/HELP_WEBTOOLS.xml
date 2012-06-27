@@ -19,5 +19,4 @@ License.
     xmlns="http://docbook.org/ns/docbook">
     <title>The Webtools Introduction.</title>
     <xi:include href="HELP_WEBTOOLS_main.xml" />
-    <xi:include href="../../../testtools/data/helpdata/HELP_WEBTOOLS_selenium.xml" />
 </section>

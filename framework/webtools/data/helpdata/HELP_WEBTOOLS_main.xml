@@ -47,8 +47,5 @@ License.
       <listitem>
         <para>The <link xl:href="">Portal Page Admin.</link> section is used to browse and edit all Portal Pages defined in the system.</para>
       </listitem>
-      <listitem>
-        <para>The <link xl:href="showHelp?helpTopic=WEBTOOLS_selenium">Tests</link> section is used to run system tests.</para>
-      </listitem>
     </itemizedlist>
 </section>

@@ -63,8 +63,4 @@ under the License.
     <Example exampleId="EX10" exampleName="Example 10" exampleTypeId="MADE_UP" statusId="EXST_IN_DESIGN"/>
     <Example exampleId="EX11" exampleName="Example 11" exampleTypeId="INSPIRED" statusId="EXST_IN_DESIGN"/>
     <Example exampleId="EX12" exampleName="Example 12" exampleTypeId="INSPIRED" statusId="EXST_IN_DESIGN"/>
-
-    <!-- example test suite -->
-    <SeleniumTestSuitePath testSuiteId="EXAMPLE_TESTSUITE" testSuiteName="example_testsuite" testSuiteType="XML" testSuitePath="framework/testtools/testdef/seleniumxml/example/example_testsuite.xml" description="test suite for example component"/>
-    <SeleniumTestSuitePath testSuiteId="EX_HTML_TESTSUITE" testSuiteName="example_html_testsuite" testSuiteType="HTML" testSuitePath="framework/example/testdef/selenium/testSuite.html" description="HTML test suite for example component"/>
 </entity-engine-xml>
