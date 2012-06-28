@@ -800,6 +800,7 @@
         <value xml:lang="zh_TW">歡迎使用行銷管理程式！</value>
     </property>
     <property key="MarketingNoOfEmployees">
+        <value xml:lang="de">Anzahl Angestellte</value>
         <value xml:lang="en">No of Employees</value>
         <value xml:lang="es">Nº Empleados</value>
         <value xml:lang="fr">N° des employés</value>
