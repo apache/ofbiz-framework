@@ -52,6 +52,7 @@
         <value xml:lang="zh_TW">(從列表)把權限添加到安全組</value>
     </property>
     <property key="AddProtectedViewToSecurityGroup">
+        <value xml:lang="de">Geschützte Ansicht zu Sicherheitsgruppe hinzufügen</value>
         <value xml:lang="en">Add a Protected View to SecurityGroup</value>
         <value xml:lang="es">Añadir una vista protegida a grupo de seguridad</value>
         <value xml:lang="fr">Ajouter une vue protégée à ce groupe de sécurité</value>
@@ -91,6 +92,7 @@
         <value xml:lang="zh_TW">元件</value>
     </property>
     <property key="CertDetails">
+        <value xml:lang="de">Zertifikats-Details</value>
         <value xml:lang="en">Cert Details</value>
         <value xml:lang="es">Detalles del certificado</value>
         <value xml:lang="pt_BR">Detalhes do certificado</value>
@@ -229,6 +231,7 @@
         <value xml:lang="zh_TW">建立使用者登入</value>
     </property>
     <property key="FindUserLogin">
+        <value xml:lang="de">Benutzer Login suchen</value>
         <value xml:lang="en">Find User Login</value>
         <value xml:lang="es">Buscar nombre de usuario</value>
         <value xml:lang="it">Ricerca utenti</value>
@@ -265,6 +268,7 @@
         <value xml:lang="zh_TW">目前密碼驗証</value>
     </property>
     <property key="FormFieldTitle_disabledDateTime">
+        <value xml:lang="de">Deaktiviert am</value>
         <value xml:lang="en">Disabled Date Time</value>
         <value xml:lang="es">Deshabilitado el</value>
         <value xml:lang="it">Disabilitato dal</value>
@@ -288,16 +292,19 @@
         <value xml:lang="zh_TW">有效</value>
     </property>
     <property key="FormFieldTitle_externalAuthId">
+        <value xml:lang="de">Externe Authentifizierungs-ID</value>
         <value xml:lang="en">External Auth Id</value>
         <value xml:lang="es">Código de autentificación externa</value>
         <value xml:lang="it">Codice autenticazione esterna</value>
     </property>
     <property key="FormFieldTitle_hasLoggedOut">
+        <value xml:lang="de">Hat sich abgemeldet</value>
         <value xml:lang="en">Has Logged Out</value>
         <value xml:lang="es">Se ha desconectado</value>
         <value xml:lang="it">Uscito dal sistema</value>
     </property>
     <property key="FormFieldTitle_maxHits">
+        <value xml:lang="de">Maximale Anzahl der Besuche</value>
         <value xml:lang="en">Maximum number of visits</value>
         <value xml:lang="es">Número máximo de visitas</value>
         <value xml:lang="fr">Nombre maximum de visites</value>
@@ -309,6 +316,7 @@
         <value xml:lang="zh_TW">最大訪問數量</value>
     </property>
     <property key="FormFieldTitle_maxHitsDuration">
+        <value xml:lang="de">Zeitspanne die für einen Besuch angenommen werden (in Sekunden)</value>
         <value xml:lang="en">Duration during which the visits are considered (in seconds)</value>
         <value xml:lang="es">Período durante el que las visitas son consideradas (en segundos)</value>
         <value xml:lang="fr">Durée pendant laquelle les visites sont considérées (en secondes)</value>
@@ -348,11 +356,13 @@
         <value xml:lang="zh_TW">新密碼驗証</value>
     </property>
     <property key="FormFieldTitle_passwordHint">
+        <value xml:lang="de">Passwort Hinweis</value>
         <value xml:lang="en">Password Hint</value>
         <value xml:lang="es">Pista para la clave</value>
         <value xml:lang="it">Suggerimento password</value>
     </property>
     <property key="FormFieldTitle_requirePasswordChange">
+        <value xml:lang="de">Passwortänderung benötigt</value>
         <value xml:lang="en">Require Password Change</value>
         <value xml:lang="es">Debe cambiar la clave</value>
         <value xml:lang="fr">Changement mot de passe obligatoire</value>
@@ -363,11 +373,13 @@
         <value xml:lang="zh_TW">必須修改密碼</value>
     </property>
     <property key="FormFieldTitle_successiveFailedLogins">
+        <value xml:lang="de">Fehlgeschlagene, aufeinanderfolgende Anmeldeversuche</value>
         <value xml:lang="en">Successive Failed Logins</value>
         <value xml:lang="es">Intentos de acceso fallidos</value>
         <value xml:lang="it">Accessi falliti consecutivi</value>
     </property>
     <property key="FormFieldTitle_tarpitDuration">
+        <value xml:lang="de">Zeitspanne für die die Ansicht nicht angezeigt wird (in Sekunden)</value>
         <value xml:lang="en">Duration during which the view will not be accessible (in seconds)</value>
         <value xml:lang="es">Período durante el cual la vista no será accesible (en segundos)</value>
         <value xml:lang="fr">Durée pendant laquelle la vue ne sera plus accessible (en secondes)</value>
@@ -405,6 +417,7 @@
         <value xml:lang="zh_TW">使用者登入ID</value>
     </property>
     <property key="FormFieldTitle_viewNameId">
+        <value xml:lang="de">Ansicht Name</value>
         <value xml:lang="en">View Name</value>
         <value xml:lang="es">Nombre de la vista</value>
         <value xml:lang="fr">Nom de la vue</value>
@@ -415,6 +428,7 @@
         <value xml:lang="zh_TW">瀏覽名稱</value>
     </property>
     <property key="LookupUserLogin">
+        <value xml:lang="de">Benutzer Anmeldung suchen</value>
         <value xml:lang="en">Lookup User Login</value>
         <value xml:lang="es">Buscar nombre de usuario</value>
         <value xml:lang="pt_BR">Pesquisar Nome de Usuário</value>
@@ -571,6 +585,7 @@
         <value xml:lang="zh_TW">權限</value>
     </property>
     <property key="ProtectedViews">
+        <value xml:lang="de">Geschützte Ansichten</value>
         <value xml:lang="en">Protected Views</value>
         <value xml:lang="es">Vistas protegidas</value>
         <value xml:lang="fr">Vues protégées</value>
@@ -629,6 +644,7 @@
         <value xml:lang="zh_TW">SecurityViewPermissionError 你沒有權限瀏覽本頁面。 (需要"SECURITY_VIEW" 或 "SECURITY_ADMIN")</value>
     </property>
     <property key="UserLogin">
+        <value xml:lang="de">Benutzeranmeldung</value>
         <value xml:lang="en">User Login</value>
         <value xml:lang="es">Nombre de usuario</value>
         <value xml:lang="it">Utente</value>
