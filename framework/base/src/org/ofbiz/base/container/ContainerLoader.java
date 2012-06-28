@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.start.Config;
 import org.ofbiz.base.start.StartupException;
 import org.ofbiz.base.start.StartupLoader;
@@ -117,6 +118,12 @@ public class ContainerLoader implements StartupLoader {
         }
         if (this.unloading) {
             return;
+        }
+        List<ContainerConfig.Container> containersDefinedInComponents = ComponentConfig.getAllContainers();
+        for (ContainerConfig.Container containerCfg: containersDefinedInComponents) {
+            Container tmpContainer = loadContainer(containerCfg, args);
+            this.loadedContainers.add(tmpContainer);
+            containerMap.put(containerCfg.name, tmpContainer);
         }
         // Get hot-deploy container configuration files
         ClassLoader loader = Thread.currentThread().getContextClassLoader();

@@ -29,6 +29,7 @@ under the License.
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="test-suite"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="keystore"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="webapp"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="container"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.ofbiz-component"/>
         </xs:complexType>
@@ -242,6 +243,38 @@ under the License.
         <xs:attribute type="xs:string" name="name" use="required"/>
         <xs:attribute type="xs:string" name="value" use="required"/>
     </xs:attributeGroup>
+
+    <xs:element name="container">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="property"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.container"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.container">
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="class" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="property">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="property"/>
+                <xs:element minOccurs="0" ref="property-value"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.property"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.property">
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="value"/>
+    </xs:attributeGroup>
+    <xs:element name="property-value" type="any"/>
+    <xs:complexType name="any" mixed="true">
+        <xs:sequence>
+            <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip"/>
+        </xs:sequence>
+    </xs:complexType>
 </xs:schema>
 <!--
     <ofbiz-component name="core">
