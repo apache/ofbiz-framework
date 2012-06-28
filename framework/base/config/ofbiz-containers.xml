@@ -235,9 +235,6 @@ under the License.
         </property>
     </container>
 
-    <!-- load the BIRT container -->
-    <container name="birt-container" class="org.ofbiz.birt.container.BirtContainer"/>
-
     <!-- load BeanShell remote telnet server -->
     <!-- Commented out by default for security reasons -->
     <!-- the port below and port-1 will be opened by Beanshell -->
