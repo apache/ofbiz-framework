@@ -30,6 +30,7 @@ import java.util.Map;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.ofbiz.base.lang.LockedBy;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -47,6 +48,29 @@ public class ContainerConfig {
 
     @LockedBy("ContainerConfig.class")
     private static Map<String, Container> containers = new LinkedHashMap<String, Container>();
+
+    public static List<String> getLoaders(String configFile) throws ContainerException {
+        URL xmlUrl = UtilURL.fromResource(configFile);
+        if (xmlUrl == null) {
+            throw new ContainerException("Could not find container config file " + configFile);
+        }
+        Document containerDocument = null;
+        try {
+            containerDocument = UtilXml.readXmlDocument(xmlUrl, true);
+        } catch (SAXException e) {
+            throw new ContainerException("Error reading the container config file: " + xmlUrl, e);
+        } catch (ParserConfigurationException e) {
+            throw new ContainerException("Error reading the container config file: " + xmlUrl, e);
+        } catch (IOException e) {
+            throw new ContainerException("Error reading the container config file: " + xmlUrl, e);
+        }
+        Element root = containerDocument.getDocumentElement();
+        List<String> result = new ArrayList<String>();
+        for (Element curElement: UtilXml.childElementList(root, "loader")) {
+            result.add(curElement.getAttribute("name"));
+        }
+        return result;
+    }
 
     public static Container getContainer(String containerName, String configFile) throws ContainerException {
         Container container = containers.get(containerName);
@@ -172,13 +196,15 @@ public class ContainerConfig {
     }
 
     public static class Container {
-        public String name;
-        public String className;
-        public Map<String, Property> properties;
+        public final String name;
+        public final String className;
+        public final List<String> loaders;
+        public final Map<String, Property> properties;
 
         public Container(Element element) {
             this.name = element.getAttribute("name");
             this.className = element.getAttribute("class");
+            this.loaders = StringUtil.split(element.getAttribute("loaders"), ",");
 
             properties = new LinkedHashMap<String, Property>();
             for (Element curElement: UtilXml.childElementList(element, "property")) {
