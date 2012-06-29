@@ -41,6 +41,8 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;find-by-primary-key&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cfindbyprimarykey%3E}}">Mini-language Reference</a>
  */
 public final class FindByPrimaryKey extends MethodOperation {
 
@@ -92,7 +94,7 @@ public final class FindByPrimaryKey extends MethodOperation {
         Collection<String> fieldsToSelectList = fieldsToSelectListFma.get(methodContext.getEnvMap());
         try {
             if (fieldsToSelectList != null) {
-                valueFma.put(methodContext.getEnvMap(), delegator.findByPrimaryKeyPartial(delegator.makePK(entityName, inMap), UtilMisc.makeSetWritable(fieldsToSelectList)));
+                valueFma.put(methodContext.getEnvMap(), delegator.findByPrimaryKeyPartial(delegator.makePK(entityName, inMap), UtilMisc.toSet(fieldsToSelectList)));
             } else {
                 valueFma.put(methodContext.getEnvMap(), delegator.findOne(entityName, inMap, useCache));
             }
