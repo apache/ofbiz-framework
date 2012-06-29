@@ -59,7 +59,7 @@ under the License.
             <entity-xml action="load" entity-xml-url="component://scrum/data/scrumTypeData.xml"/>
         </test-case>
         <test-case case-name="scrum-security-data">
-            <entity-xml action="load" entity-xml-url="component://scrum/data/scrumSecurityData.xml"/>
+            <entity-xml action="load" entity-xml-url="component://scrum/data/scrumSecurityGroupDemoData.xml"/>
         </test-case>
         <test-case case-name="scrum-demo-data">
             <entity-xml action="load" entity-xml-url="component://scrum/data/scrumDemoData.xml"/>
