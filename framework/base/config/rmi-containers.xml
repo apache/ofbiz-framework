@@ -46,27 +46,4 @@ under the License.
         <property name="ssl-client-auth" value="true"/>
     </container>
 
-    <!-- JavaMail Listener Container - Triggers MCA Rules -->
-    <!-- if delete-mail is set to true, will delete messages after fetching them. otherwise, will try to mark them as seen
-        mail.store.protocol supports both imap and pop3, but pop3 will not be able to mark messages as seen, so you would need to delete them
-        Sounds like mail.store.protocol value should be "imaps" for GMail inbound emails to work.
-        Not tested found here https://sourceforge.net/forum/message.php?msg_id=5879468 -->
-    <!-- To use the mail listerner just uncomment and go...
-        <container name="javamail-container" class="org.ofbiz.service.mail.JavaMailContainer">
-        <property name="delegator-name" value="default"/>
-        <property name="dispatcher-name" value="JavaMailDispatcher"/>
-        <property name="run-as-user" value="system"/>
-        <property name="poll-delay" value="300000"/>
-        <property name="delete-mail" value="false"/>
-        <property name="maxSize" value="100000"/>
-        <property name="default-listener" value="store-listener">
-        <property name="mail.store.protocol" value="IMAP"/>
-        <property name="mail.host" value="[host]"/>
-        <property name="mail.user" value="[user]"/>
-        <property name="mail.pass" value="[pass]"/>
-        <property name="mail.debug" value="false"/>
-        </property>
-        </container>
-    -->
-
 </ofbiz-containers>

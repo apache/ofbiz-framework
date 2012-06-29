@@ -28,12 +28,6 @@ under the License.
     <!-- load the cached classloader container (always second) -->
     <container name="classloader-container" class="org.ofbiz.base.container.ClassLoaderContainer"/>
 
-    <!-- load JNDI/JOTM; this is no longer needed, leaving this in for now just in case someone wants to drop in JOTM from the specialized directory
-    <container name="jotm-container" class="org.ofbiz.jotm.container.JotmContainer">
-        <property name="jndi-config" value="iiop.properties"/>
-    </container>
-    -->
-
     <!-- load the naming (JNDI) server -->
     <container name="naming-container" class="org.ofbiz.base.container.NamingServiceContainer">
         <property name="host" value="0.0.0.0"/>
@@ -54,29 +48,6 @@ under the License.
         <property name="ssl-keystore-alias" value="rmissl"/>
         <property name="ssl-client-auth" value="false"/>
     </container>
-
-    <!-- JavaMail Listener Container - Triggers MCA Rules -->
-    <!-- if delete-mail is set to true, will delete messages after fetching them. otherwise, will try to mark them as seen
-        mail.store.protocol supports both imap and pop3, but pop3 will not be able to mark messages as seen, so you would need to delete them
-        Sounds like mail.store.protocol value should be "imaps" for GMail inbound emails to work.
-        Not tested found here https://sourceforge.net/forum/message.php?msg_id=5879468 -->
-    <!-- To use the mail listerner just uncomment and go...
-    <container name="javamail-container" class="org.ofbiz.service.mail.JavaMailContainer">
-        <property name="delegator-name" value="default"/>
-        <property name="dispatcher-name" value="JavaMailDispatcher"/>
-        <property name="run-as-user" value="system"/>
-        <property name="poll-delay" value="300000"/>
-        <property name="delete-mail" value="false"/>
-        <property name="maxSize" value="100000"/>
-        <property name="default-listener" value="store-listener">
-        <property name="mail.store.protocol" value="imap"/>
-        <property name="mail.host" value="[host]"/>
-        <property name="mail.user" value="[user]"/>
-        <property name="mail.pass" value="[pass]"/>
-        <property name="mail.debug" value="false"/>
-        </property>
-    </container>
-    -->
 
     <!-- load catalina (tomcat) and all web applications -->
     <container name="catalina-container" class="org.ofbiz.catalina.container.CatalinaContainer">
@@ -238,12 +209,5 @@ under the License.
             <property name="sslProtocol" value="TLS"/>
             <property name="ciphers" value=""/>
         </property>
-    </container>
-
-    <!-- load BeanShell remote telnet server -->
-    <container name="beanshell-container" class="org.ofbiz.base.container.BeanShellContainer">
-        <!-- the port below and port-1 will be opened by beanshell -->
-        <property name="telnet-port" value="9990"/>
-        <property name="app-name" value="OFBiz"/>
     </container>
 </ofbiz-containers>
