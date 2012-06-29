@@ -20,6 +20,7 @@ under the License.
 
 <ofbiz-containers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-containers.xsd">
+    <loader name="test"/>
     <!-- load the ofbiz component container (always first) -->
     <container name="component-container" class="org.ofbiz.base.container.ComponentContainer">
         <property name="ofbiz.instrumenterClassName" value="org.ofbiz.base.config.CoberturaInstrumenter"/>
@@ -206,6 +207,4 @@ under the License.
             <property name="ciphers" value=""/>
         </property>
     </container>
-
-    <container name="testtools-container" class="org.ofbiz.testtools.TestRunContainer"/>
 </ofbiz-containers>

@@ -20,16 +20,12 @@ under the License.
 
 <ofbiz-containers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-containers.xsd">
+    <loader name="install"/>
     <!-- load the ofbiz component container (always first) -->
     <container name="component-container" class="org.ofbiz.base.container.ComponentContainer"/>
 
     <!-- load the cached classloader container (always second) -->
     <container name="classloader-container" class="org.ofbiz.base.container.ClassLoaderContainer"/>
 
-    <!-- load the data load container, runs the entity data load stuff -->
-    <container name="dataload-container" class="org.ofbiz.entityext.data.EntityDataLoadContainer">
-        <property name="delegator-name" value="default"/>
-        <property name="entity-group-name" value="org.ofbiz"/>
-    </container>
 </ofbiz-containers>
 
