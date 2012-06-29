@@ -18,10 +18,12 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.entityops;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.Delegator;
@@ -38,6 +40,8 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;find-by-and&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cfindbyand%3E}}">Mini-language Reference</a>
  */
 public final class FindByAnd extends MethodOperation {
 
@@ -45,6 +49,7 @@ public final class FindByAnd extends MethodOperation {
 
     private final FlexibleStringExpander delegatorNameFse;
     private final FlexibleStringExpander entityNameFse;
+    private final FlexibleMapAccessor<Collection<String>> fieldsToSelectListFma;
     private final FlexibleMapAccessor<Object> listFma;
     private final FlexibleMapAccessor<Map<String, ? extends Object>> mapFma;
     private final FlexibleMapAccessor<List<String>> orderByListFma;
@@ -54,15 +59,16 @@ public final class FindByAnd extends MethodOperation {
     public FindByAnd(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         if (MiniLangValidate.validationOn()) {
-            MiniLangValidate.attributeNames(simpleMethod, element, "entity-name", "use-cache", "use-iterator", "list", "map", "order-by-list", "delegator-name");
+            MiniLangValidate.attributeNames(simpleMethod, element, "entity-name", "use-cache", "fields-to-select-list", "use-iterator", "list", "map", "order-by-list", "delegator-name");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "entity-name", "list", "map");
-            MiniLangValidate.expressionAttributes(simpleMethod, element, "list", "map", "order-by-list");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "list", "map", "fields-to-select-list", "order-by-list");
             MiniLangValidate.noChildElements(simpleMethod, element);
         }
         entityNameFse = FlexibleStringExpander.getInstance(element.getAttribute("entity-name"));
         listFma = FlexibleMapAccessor.getInstance(element.getAttribute("list"));
         mapFma = FlexibleMapAccessor.getInstance(element.getAttribute("map"));
         orderByListFma = FlexibleMapAccessor.getInstance(element.getAttribute("order-by-list"));
+        fieldsToSelectListFma = FlexibleMapAccessor.getInstance(element.getAttribute("fields-to-select-list"));
         useCacheFse = FlexibleStringExpander.getInstance(element.getAttribute("use-cache"));
         useIteratorFse = FlexibleStringExpander.getInstance(element.getAttribute("use-iterator"));
         delegatorNameFse = FlexibleStringExpander.getInstance(element.getAttribute("delegator-name"));
@@ -75,19 +81,21 @@ public final class FindByAnd extends MethodOperation {
         boolean useCache = "true".equals(useCacheFse.expandString(methodContext.getEnvMap()));
         boolean useIterator = "true".equals(useIteratorFse.expandString(methodContext.getEnvMap()));
         List<String> orderByNames = orderByListFma.get(methodContext.getEnvMap());
+        Collection<String> fieldsToSelectList = fieldsToSelectListFma.get(methodContext.getEnvMap());
         Delegator delegator = methodContext.getDelegator();
         if (!delegatorName.isEmpty()) {
             delegator = DelegatorFactory.getDelegator(delegatorName);
         }
         try {
+            EntityCondition whereCond = null;
+            Map<String, ? extends Object> fieldMap = mapFma.get(methodContext.getEnvMap());
+            if (fieldMap != null) {
+                whereCond = EntityCondition.makeCondition(fieldMap);
+            }
             if (useIterator) {
-                EntityCondition whereCond = null;
-                if (!mapFma.isEmpty()) {
-                    whereCond = EntityCondition.makeCondition(mapFma.get(methodContext.getEnvMap()));
-                }
-                listFma.put(methodContext.getEnvMap(), delegator.find(entityName, whereCond, null, null, orderByNames, null));
+                listFma.put(methodContext.getEnvMap(), delegator.find(entityName, whereCond, null, UtilMisc.toSet(fieldsToSelectList), orderByNames, null));
             } else {
-                listFma.put(methodContext.getEnvMap(), delegator.findByAnd(entityName, mapFma.get(methodContext.getEnvMap()), orderByNames, useCache));
+                listFma.put(methodContext.getEnvMap(), delegator.findList(entityName, whereCond, UtilMisc.toSet(fieldsToSelectList), orderByNames, null, useCache));
             }
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while performing entity find: " + e.getMessage();
@@ -111,6 +119,9 @@ public final class FindByAnd extends MethodOperation {
         sb.append("map=\"").append(this.mapFma).append("\" ");
         if (!orderByListFma.isEmpty()) {
             sb.append("order-by-list=\"").append(this.orderByListFma).append("\" ");
+        }
+        if (!fieldsToSelectListFma.isEmpty()) {
+            sb.append("fields-to-select-list=\"").append(this.fieldsToSelectListFma).append("\" ");
         }
         if (!useCacheFse.isEmpty()) {
             sb.append("use-cache=\"").append(this.useCacheFse).append("\" ");
