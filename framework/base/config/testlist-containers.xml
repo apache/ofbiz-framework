@@ -20,13 +20,7 @@ under the License.
 
 <ofbiz-containers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-containers.xsd">
-    <!-- load the ofbiz component container (always first) -->
-    <!--
-    <container name="component-container" class="org.ofbiz.base.container.ComponentContainer"/>
-    -->
-    <container name="component-container" class="org.ofbiz.base.container.JustLoadComponentsContainer"/>
 
-    <!--
-    -->
+    <container name="component-container" class="org.ofbiz.base.container.JustLoadComponentsContainer"/>
     <container name="testtools-container" class="org.ofbiz.testtools.TestListContainer"/>
 </ofbiz-containers>

@@ -41,11 +41,4 @@ under the License.
         <property name="ssl-keystore-alias" value="rmissl"/>
         <property name="ssl-client-auth" value="true"/>
     </container>
-
-    <!-- load BeanShell remote telnet server -->
-    <container name="beanshell-container" class="org.ofbiz.base.container.BeanShellContainer">
-        <!-- the port below and port-1 will be opened by beanshell -->
-        <property name="telnet-port" value="9990"/>
-        <property name="app-name" value="OFBiz"/>
-    </container>
 </ofbiz-containers>
