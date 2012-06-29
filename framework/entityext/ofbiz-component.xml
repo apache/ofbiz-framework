@@ -34,4 +34,10 @@ under the License.
     
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="group" loader="main" location="servicedef/groups.xml"/>
+
+    <!-- load the data load container, runs the entity data load stuff -->
+    <container name="dataload-container" loaders="install" class="org.ofbiz.entityext.data.EntityDataLoadContainer">
+        <property name="delegator-name" value="default"/>
+        <property name="entity-group-name" value="org.ofbiz"/>
+    </container>
 </ofbiz-component>

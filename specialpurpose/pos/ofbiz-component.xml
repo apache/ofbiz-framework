@@ -33,5 +33,34 @@ under the License.
     <entity-resource type="data" reader-name="seed" loader="main" location="data/PosTypeData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoRetail.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/PosSyncSettings.xml"/>
+
+    <!-- load the JPOS devices -->
+    <container name="jpos.device-container" loaders="pos" class="org.ofbiz.pos.container.JposDeviceContainer">
+        <property name="CashDrawer.1" value="NullCashDrawer"/>
+        <property name="Receipt" value="NullReceipt"/>
+        <!--property name="Receipt" value="TM-T88III"/-->
+        <!--property name="Receipt" value="StarTSP600"/-->
+        <property name="Keyboard" value="GenericKeyboard"/>
+        <property name="Scanner" value="GenericScanner"/>
+        <property name="Msr" value="TestMsr"/>
+        <property name="PinPad" value="[NOT IMPLEMENTED]"/>
+        <property name="Journal" value="[NOT IMPLEMENTED]"/>
+        <property name="LineDisplay" value="[NOT IMPLEMENTED]"/>
+        <property name="CheckScanner" value="[NOT IMPLEMENTED]"/>
+        <property name="SignatureCapture" value="[NOT IMPLEMENTED]"/>
+    </container>
+
+    <!-- load the POS GUI -->
+    <container name="pos-container" loaders="pos" class="org.ofbiz.pos.container.PosContainer">
+        <property name="startup-directory" value="specialpurpose/pos/config/"/>
+        <property name="startup-file" value="xpos.properties"/>
+        <property name="class-package-name " value="net.xoetrope.swing"/>
+        <property name="dispatcher-name" value="POSDispatcher"/>
+        <property name="delegator-name" value="default"/>
+        <property name="xui-session-id" value="pos-1"/>
+        <property name="facility-id" value="MyRetailStore"/>
+        <property name="look-and-feel" value="com.jgoodies.looks.plastic.PlasticLookAndFeel"/>
+    </container>
+
 </ofbiz-component>
 

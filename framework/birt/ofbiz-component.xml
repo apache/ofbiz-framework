@@ -26,4 +26,6 @@ under the License.
     <classpath type="jar" location="build/lib/*"/>
     <classpath type="dir" location="config"/>
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
+
+    <container name="birt-container" loaders="main" class="org.ofbiz.birt.container.BirtContainer"/>
 </ofbiz-component>

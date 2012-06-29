@@ -33,5 +33,6 @@
     
     <!-- service resources: model(s), eca(s) and group definitions -->
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
-    
+
+    <container name="testtools-container" loaders="test" class="org.ofbiz.testtools.TestRunContainer"/>
 </ofbiz-component>
