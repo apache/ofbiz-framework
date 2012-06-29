@@ -21,10 +21,19 @@ under the License.
     <xs:element name="ofbiz-containers">
         <xs:complexType>
             <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="loader"/>
                 <xs:element maxOccurs="unbounded" ref="container"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    <xs:element name="loader">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.loader"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.loader">
+        <xs:attribute type="xs:string" name="name" use="required"/>
+    </xs:attributeGroup>
     <xs:element name="container">
         <xs:complexType>
             <xs:sequence>
@@ -36,6 +45,7 @@ under the License.
     <xs:attributeGroup name="attlist.container">
         <xs:attribute type="xs:string" name="name" use="required"/>
         <xs:attribute type="xs:string" name="class" use="required"/>
+        <xs:attribute type="xs:string" name="loaders"/>
     </xs:attributeGroup>
     <xs:element name="property">
         <xs:complexType>

@@ -34,6 +34,7 @@ import org.ofbiz.base.start.StartupException;
 import org.ofbiz.base.start.StartupLoader;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilXml;
 
 /**
  * An object that loads containers (background processes).
@@ -75,10 +76,10 @@ public class ContainerLoader implements StartupLoader {
         if (this.loaded || this.unloading) {
             return;
         }
-        Debug.logInfo("[Startup] Loading containers...", module);
         this.loadedContainers.clear();
         // get this loader's configuration file
         this.configFile = config.containerConfig;
+        Debug.logInfo("[Startup] Loading containers from " + configFile, module);
         Collection<ContainerConfig.Container> containers = null;
         try {
             containers = ContainerConfig.getContainers(configFile);
@@ -92,6 +93,7 @@ public class ContainerLoader implements StartupLoader {
             if (this.unloading) {
                 return;
             }
+            Debug.logInfo("Loading container: " + containerCfg.name, module);
             Container tmpContainer = loadContainer(containerCfg, args);
             this.loadedContainers.add(tmpContainer);
             containerMap.put(containerCfg.name, tmpContainer);
@@ -119,11 +121,32 @@ public class ContainerLoader implements StartupLoader {
         if (this.unloading) {
             return;
         }
+
+        List<String> loaders = null;
+        try {
+            loaders = ContainerConfig.getLoaders(configFile);
+        } catch (ContainerException e) {
+            throw new StartupException(e);
+        }
         List<ContainerConfig.Container> containersDefinedInComponents = ComponentConfig.getAllContainers();
         for (ContainerConfig.Container containerCfg: containersDefinedInComponents) {
-            Container tmpContainer = loadContainer(containerCfg, args);
-            this.loadedContainers.add(tmpContainer);
-            containerMap.put(containerCfg.name, tmpContainer);
+            boolean matchingLoaderFound = false;
+            if (UtilValidate.isEmpty(containerCfg.loaders) && UtilValidate.isEmpty(loaders)) {
+                matchingLoaderFound = true;
+            } else {
+                for (String loader: loaders) {
+                    if (UtilValidate.isEmpty(containerCfg.loaders) || containerCfg.loaders.contains(loader)) {
+                        matchingLoaderFound = true;
+                        break;
+                    }
+                }
+            }
+            if (matchingLoaderFound) {
+                Debug.logInfo("Loading component's container: " + containerCfg.name, module);
+                Container tmpContainer = loadContainer(containerCfg, args);
+                this.loadedContainers.add(tmpContainer);
+                containerMap.put(containerCfg.name, tmpContainer);
+            }
         }
         // Get hot-deploy container configuration files
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
