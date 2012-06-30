@@ -35,7 +35,9 @@ public class JposDeviceContainer implements Container {
 
     public void init(String[] args, String name, String configFile) throws ContainerException {
         this.configFile = configFile;
+        this.name = name;
     }
+
 
     public boolean start() throws ContainerException {
         ContainerConfig.Container cc = ContainerConfig.getContainer(name, configFile);
