@@ -35,11 +35,13 @@ public class GeronimoContainer implements Container {
     public static final String module = GeronimoContainer.class.getName();
 
     protected String configFile = null;
+    private String name;
 
     /**
      * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
      */
-    public void init(String[] args, String configFile) throws ContainerException {
+    public void init(String[] args, String name, String configFile) throws ContainerException {
+        this.name = name;
         this.configFile = configFile;
         this.startGeronimo();
     }
@@ -50,7 +52,7 @@ public class GeronimoContainer implements Container {
 
     private void startGeronimo() throws ContainerException {
         // get the container config
-        ContainerConfig.Container cc = ContainerConfig.getContainer("geronimo-container", configFile);
+        ContainerConfig.Container cc = ContainerConfig.getContainer(name, configFile);
         if (cc == null) {
             throw new ContainerException("No geronimo-container configuration found in container config!");
         }

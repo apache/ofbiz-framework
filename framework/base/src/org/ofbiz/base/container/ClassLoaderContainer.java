@@ -36,7 +36,7 @@ public class ClassLoaderContainer implements Container {
     /**
      * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
      */
-    public void init(String[] args, String configFile) throws ContainerException {
+    public void init(String[] args, String name, String configFile) throws ContainerException {
         ClassLoader parent = Thread.currentThread().getContextClassLoader();
         if (parent == null) {
             parent = Classpath.class.getClassLoader();

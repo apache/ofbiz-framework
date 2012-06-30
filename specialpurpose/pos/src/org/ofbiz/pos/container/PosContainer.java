@@ -33,11 +33,6 @@ import org.ofbiz.product.store.ProductStoreWorker;
 public class PosContainer extends XuiContainer {
 
     @Override
-    public String getContainerConfigName() {
-        return "pos-container";
-    }
-
-    @Override
     public void configure(ContainerConfig.Container cc) throws ContainerException {
         XuiSession session = XuiContainer.getSession();
         GenericValue productStore = null;

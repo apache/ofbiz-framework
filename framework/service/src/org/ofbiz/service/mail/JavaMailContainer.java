@@ -67,7 +67,7 @@ public class JavaMailContainer implements Container {
 
     protected String configFile = null;
     protected Map<Store, Session> stores = null;
-
+    private String name;
     /**
      * Initialize the container
      *
@@ -76,7 +76,8 @@ public class JavaMailContainer implements Container {
      * @throws org.ofbiz.base.container.ContainerException
      *
      */
-    public void init(String[] args, String configFile) throws ContainerException {
+    public void init(String[] args, String name, String configFile) throws ContainerException {
+        this.name = name;
         this.configFile = configFile;
         this.stores = new LinkedHashMap<Store, Session>();
         this.pollTimer = new Timer();
@@ -90,7 +91,7 @@ public class JavaMailContainer implements Container {
      *
      */
     public boolean start() throws ContainerException {
-        ContainerConfig.Container cfg = ContainerConfig.getContainer("javamail-container", configFile);
+        ContainerConfig.Container cfg = ContainerConfig.getContainer(name, configFile);
         String dispatcherName = ContainerConfig.getPropertyValue(cfg, "dispatcher-name", "JavaMailDispatcher");
         String delegatorName = ContainerConfig.getPropertyValue(cfg, "delegator-name", "default");
         this.deleteMail = "true".equals(ContainerConfig.getPropertyValue(cfg, "delete-mail", "false"));

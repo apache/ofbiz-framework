@@ -44,10 +44,10 @@ public class NamingServiceContainer implements Container {
 
     protected RMIExtendedSocketFactory rmiSocketFactory;
 
-    public void init(String[] args, String configFile) throws ContainerException {
+    public void init(String[] args, String name, String configFile) throws ContainerException {
         this.configFileLocation = configFile;
 
-        ContainerConfig.Container cfg = ContainerConfig.getContainer("naming-container", configFileLocation);
+        ContainerConfig.Container cfg = ContainerConfig.getContainer(name, configFileLocation);
 
         // get the telnet-port
         ContainerConfig.Container.Property port = cfg.getProperty("port");

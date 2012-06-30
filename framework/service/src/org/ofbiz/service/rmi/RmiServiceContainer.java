@@ -45,19 +45,20 @@ public class RmiServiceContainer implements Container {
     protected RemoteDispatcherImpl remote = null;
     protected String configFile = null;
     protected String name = null;
-
+    private String containerName;
     // Container methods
 
     /**
      * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
      */
-    public void init(String[] args, String configFile) {
+    public void init(String[] args, String name, String configFile) {
+        this.containerName = name;
         this.configFile = configFile;
     }
 
     public boolean start() throws ContainerException {
         // get the container config
-        ContainerConfig.Container cfg = ContainerConfig.getContainer("rmi-dispatcher", configFile);
+        ContainerConfig.Container cfg = ContainerConfig.getContainer(containerName, configFile);
         ContainerConfig.Container.Property initialCtxProp = cfg.getProperty("use-initial-context");
         ContainerConfig.Container.Property lookupHostProp = cfg.getProperty("bound-host");
         ContainerConfig.Container.Property lookupPortProp = cfg.getProperty("bound-port");

@@ -32,7 +32,7 @@ public class JustLoadComponentsContainer implements Container {
     /**
      * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
      */
-    public void init(String[] args, String configFile) {
+    public void init(String[] args, String name, String configFile) {
         try {
             ComponentContainer.loadComponents(true);
         } catch (AlreadyLoadedException e) {
