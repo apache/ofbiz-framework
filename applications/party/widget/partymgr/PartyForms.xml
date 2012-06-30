@@ -1015,11 +1015,16 @@ under the License.
         <field name="add" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>
     <form name="AddPartyMainRole" type="single" title="${uiLabelMap.PartyAddToMainRole}" target="addrole/viewroles">
+        <actions>
+            <entity-condition entity-name="RoleType" list="parentRoleList">
+                <condition-expr field-name="parentTypeId" operator="equals" from-field="nullField"/>
+                <order-by field-name="description"/>
+            </entity-condition>                            
+        </actions>
         <field name="partyId"><hidden value="${parameters.partyId}"/></field>
         <field name="roleTypeId" event="onChange" action="ajaxUpdateArea('addPartySecondaryRole', 'addsecondaryroles', jQuery('#AddPartyMainRole').serialize());" entry-name="dummy">
             <drop-down allow-empty="false">
                 <entity-options entity-name="RoleType" description="${description}">
-                    <entity-constraint name="parentTypeId" value=""/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -1039,6 +1044,7 @@ under the License.
         <field name="add" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>
     <form name="AddRoleType" type="single" title="Add a new roletype" target="createroletype"  list-name="parentRoleList">
+        <field name="partyId"><hidden value="${parameters.partyId}"/></field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}" required-field="true" entry-name="dummy" position="1"><text/></field>
         <field name="parentTypeId" position="2">
             <drop-down allow-empty="true">
