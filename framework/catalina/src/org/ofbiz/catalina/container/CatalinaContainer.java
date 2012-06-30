@@ -174,9 +174,9 @@ public class CatalinaContainer implements Container {
     /**
      * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
      */
-    public void init(String[] args, String configFile) throws ContainerException {
+    public void init(String[] args, String name, String configFile) throws ContainerException {
         // get the container config
-        ContainerConfig.Container cc = ContainerConfig.getContainer("catalina-container", configFile);
+        ContainerConfig.Container cc = ContainerConfig.getContainer(name, configFile);
         if (cc == null) {
             throw new ContainerException("No catalina-container configuration found in container config!");
         }

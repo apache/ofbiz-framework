@@ -208,7 +208,7 @@ public class ContainerLoader implements StartupLoader {
 
         // initialize the container object
         try {
-            containerObj.init(args, configFile);
+            containerObj.init(args, containerCfg.name, configFile);
         } catch (ContainerException e) {
             throw new StartupException("Cannot init() " + containerCfg.name, e);
         } catch (java.lang.AbstractMethodError e) {

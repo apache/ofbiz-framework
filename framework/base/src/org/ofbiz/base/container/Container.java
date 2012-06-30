@@ -40,12 +40,13 @@ public interface Container {
      * should initialize internal structures and then return.
      *
      * @param args Command-line arguments.
+     * @param name Unique name of the container's instance.
      * @param configFile Location of the configuration file used to load this container.
      * @throws ContainerException If an error was encountered. Throwing this exception
      * will halt container loading, so it should be thrown only when other containers
      * might depend on this one.
      */
-    public void init(String[] args, String configFile) throws ContainerException;
+    public void init(String[] args, String name, String configFile) throws ContainerException;
 
     /**
      * Start the container process. This method must not block - implementations

@@ -59,7 +59,7 @@ public class TestRunContainer implements Container {
     /**
      * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
      */
-    public void init(String[] args, String configFile) {
+    public void init(String[] args, String name, String configFile) {
         this.configFile = configFile;
         if (args != null) {
             for (int i = 0; i < args.length; i++) {

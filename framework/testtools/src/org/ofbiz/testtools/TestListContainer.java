@@ -59,7 +59,7 @@ public class TestListContainer implements Container {
     /**
      * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
      */
-    public void init(String[] args, String configFile) {
+    public void init(String[] args, String name, String configFile) {
         this.outputLocation = args[0];
         for (int i = 1; i < args.length; i++) {
             if ("-ant".equals(args[i])) {

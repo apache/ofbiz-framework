@@ -77,6 +77,8 @@ public class EntityDataLoadContainer implements Container {
     protected boolean createConstraints = false;
     protected int txTimeout = -1;
 
+    private String name;
+
     public EntityDataLoadContainer() {
         super();
     }
@@ -84,7 +86,8 @@ public class EntityDataLoadContainer implements Container {
     /**
      * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
      */
-    public void init(String[] args, String configFile) throws ContainerException {
+    public void init(String[] args, String name, String configFile) throws ContainerException {
+        this.name = name;
         this.configFile = configFile;
         // disable job scheduler, JMS listener and startup services
         ServiceDispatcher.enableJM(false);
@@ -207,7 +210,7 @@ public class EntityDataLoadContainer implements Container {
                 Debug.logWarning("Please enable multitenant. (e.g. general.properties --> multitenant=Y)", module);
                 return true;
             }
-            ContainerConfig.Container cfg = ContainerConfig.getContainer("dataload-container", configFile);
+            ContainerConfig.Container cfg = ContainerConfig.getContainer(name, configFile);
             ContainerConfig.Container.Property delegatorNameProp = cfg.getProperty("delegator-name");
             String delegatorName = null;
             if (delegatorNameProp == null || UtilValidate.isEmpty(delegatorNameProp.value)) {
@@ -238,7 +241,7 @@ public class EntityDataLoadContainer implements Container {
         return true;
     }
     private void loadContainer() throws ContainerException{
-        ContainerConfig.Container cfg = ContainerConfig.getContainer("dataload-container", configFile);
+        ContainerConfig.Container cfg = ContainerConfig.getContainer(name, configFile);
         ContainerConfig.Container.Property delegatorNameProp = cfg.getProperty("delegator-name");
         ContainerConfig.Container.Property entityGroupNameProp = cfg.getProperty("entity-group-name");
 

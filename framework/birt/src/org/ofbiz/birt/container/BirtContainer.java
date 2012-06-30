@@ -38,8 +38,10 @@ public class BirtContainer implements Container {
     
     protected String configFile;
 
-    public void init(String[] args, String configFile)
-            throws ContainerException {
+    private String name;
+
+    public void init(String[] args, String name, String configFile) throws ContainerException {
+        this.name = name;
         this.configFile = configFile;
     }
 
@@ -102,6 +104,6 @@ public class BirtContainer implements Container {
     }
 
     public String getContainerConfigName() {
-        return "birt-container";
+        return name;
     }
 }

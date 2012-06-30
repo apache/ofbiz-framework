@@ -43,20 +43,22 @@ public abstract class XuiContainer implements Container {
     protected String startupDir = null;
     protected String startupFile = null;
     protected String configFile = null;
+    protected String name;
 
-    public void init(String[] args, String configFile) throws ContainerException {
+    public void init(String[] args, String name, String configFile) throws ContainerException {
+        this.name = name;
         this.configFile = configFile;
     }
 
     public boolean start() throws ContainerException {
         // make sure the subclass sets the config name
-        if (this.getContainerConfigName() == null) {
+        if (name == null) {
             throw new ContainerException("Unknown container config name");
         }
         // get the container config
-        ContainerConfig.Container cc = ContainerConfig.getContainer(this.getContainerConfigName(), configFile);
+        ContainerConfig.Container cc = ContainerConfig.getContainer(name, configFile);
         if (cc == null) {
-            throw new ContainerException("No " + this.getContainerConfigName() + " configuration found in container config!");
+            throw new ContainerException("No " + name + " configuration found in container config!");
         }
 
         // get the delegator
@@ -71,7 +73,7 @@ public abstract class XuiContainer implements Container {
         // get the pre-defined session ID
         String xuiSessionId = ContainerConfig.getPropertyValue(cc, "xui-session-id", null);
         if (UtilValidate.isEmpty(xuiSessionId)) {
-            throw new ContainerException("No xui-session-id value set in " + this.getContainerConfigName() + "!");
+            throw new ContainerException("No xui-session-id value set in " + name + "!");
         }
 
         String laf = ContainerConfig.getPropertyValue(cc, "look-and-feel", null);
@@ -111,11 +113,6 @@ public abstract class XuiContainer implements Container {
     public String getXuiPropertiesName() {
         return this.startupFile;
     }
-
-    /**
-     * @return String the name of the container name property
-     */
-    public abstract String getContainerConfigName();
 
     /**
      * Implementation specific configuration from the container config
