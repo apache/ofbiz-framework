@@ -27,6 +27,320 @@ under the License.
     <classpath type="dir" location="config"/>
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
 
+    <container name="catalina-container" loaders="main" class="org.ofbiz.catalina.container.CatalinaContainer">
+        <!-- static configuration for tomcat -->
+        <property name="delegator-name" value="default"/>
+        <property name="use-naming" value="false"/>
+        <property name="debug" value="0"/>
+        <property name="catalina-runtime-home" value="runtime/catalina"/>
+        <property name="apps-context-reloadable" value="false"/>
+        <property name="apps-cross-context" value="false"/>
+        <property name="apps-distributable" value="false"/><!-- you must also set all the webapps you want distributable, by adding <distributable/> in their web.xml file -->
+        <!-- one or more tomcat engines (servers); map to this + host -->
+        <property name="default-server" value="engine">
+            <property name="default-host" value="0.0.0.0"/>
+            <property name="jvm-route" value="jvm1"/>
+            <property name="access-log-pattern">
+                <property-value>%h %l %u %t "%r" %s %b "%{Referer}i" "%{User-Agent}i"</property-value>
+            </property>
+            <property name="access-log-resolve" value="true"/>
+            <property name="access-log-rotate" value="true"/>
+            <property name="access-log-prefix" value="access_log."/>
+            <property name="access-log-dir" value="runtime/logs"/>
+            <!-- uncomment for cluster support
+            <property name="default-server-cluster" value="cluster">
+                <property name="rep-valve-filter">
+                <property-value>.*\.gif;.*\.js;.*\.jpg;.*\.htm;.*\.html;.*\.txt;.*\.png;.*\.css;.*\.ico;.*\.htc;</property-value>
+                </property>
+                <property name="manager-class" value="org.apache.catalina.ha.session.DeltaManager"/>
+                <property name="debug" value="5"/>
+                <property name="replication-mode" value="org.apache.catalina.tribes.transport.bio.PooledMultiSender"/>
+                <property name="tcp-listen-host" value="auto"/>
+                <property name="tcp-listen-port" value="4001"/>
+                <property name="tcp-sector-timeout" value="100"/>
+                <property name="tcp-thread-count" value="6"/>
+                <property name="mcast-bind-addr" value="192.168.2.1"/>
+                <property name="mcast-addr" value="228.0.0.4"/>
+                <property name="mcast-port" value="45564"/>
+                <property name="mcast-freq" value="500"/>
+                <property name="mcast-drop-time" value="3000"/>
+            </property>
+            -->
+            <!-- <property name="ssl-accelerator-port" value="8443"/> -->
+            <property name="enable-cross-subdomain-sessions" value="false"/>
+        </property>
+        <!-- all connectors support type, host, port, enable-lookups -->
+        <property name="ajp-connector" value="connector">
+            <!-- see http://jakarta.apache.org/tomcat/tomcat-5.5-doc/config/ajp.html for reference -->
+            <property name="allowTrace" value="false"/>
+            <property name="emptySessionPath" value="false"/>
+            <property name="enableLookups" value="false"/>
+            <property name="maxPostSize" value="2097152"/>
+            <property name="protocol" value="AJP/1.3"/>
+            <property name="proxyName" value=""/>
+            <property name="proxyPort" value=""/>
+            <property name="redirectPort" value=""/>
+            <property name="scheme" value="http"/>
+            <property name="secure" value="false"/>
+            <property name="URIEncoding" value="UTF-8"/>
+            <property name="useBodyEncodingForURI" value="false"/>
+            <property name="xpoweredBy" value="true"/>
+            <!-- AJP/13 connector attributes -->
+            <property name="address" value="0.0.0.0"/>
+            <property name="backlog" value="10"/>
+            <property name="maxSpareThreads" value="50"/>
+            <property name="maxThreads" value="200"/>
+            <property name="minSpareThreads" value="4"/>
+            <property name="port" value="8009"/>
+            <property name="tcpNoDelay" value="true"/>
+            <property name="soTimeout" value="60000"/>
+            <property name="tomcatAuthentication" value="true"/>
+        </property>
+        <property name="http-connector" value="connector">
+            <!-- see http://jakarta.apache.org/tomcat/tomcat-5.5-doc/config/http.html for reference -->
+            <property name="allowTrace" value="false"/>
+            <property name="emptySessionPath" value="false"/>
+            <property name="enableLookups" value="false"/>
+            <property name="maxPostSize" value="2097152"/>
+            <property name="protocol" value="HTTP/1.1"/>
+            <property name="proxyName" value=""/>
+            <property name="proxyPort" value=""/>
+            <property name="redirectPort" value=""/>
+            <property name="scheme" value="http"/>
+            <property name="secure" value="false"/>
+            <property name="URIEncoding" value="UTF-8"/>
+            <property name="useBodyEncodingForURI" value="false"/>
+            <property name="xpoweredBy" value="true"/>
+            <!-- HTTP connector attributes -->
+            <property name="acceptCount" value="10"/>
+            <property name="address" value="0.0.0.0"/>
+            <property name="bufferSize" value="2048"/>
+            <property name="compression" value="on"/>
+            <property name="compressableMimeType" value="text/html,text/xml,text/plain,text/javascript,text/css"/>
+            <property name="noCompressionUserAgents" value=""/>
+            <property name="connectionLinger" value="-1"/>
+            <property name="connectionTimeout" value="60000"/>
+            <property name="disableUploadTimeout" value="false"/>
+            <property name="maxHttpHeaderSize" value="4096"/>
+            <property name="maxKeepAliveRequests" value="100"/>
+            <property name="maxSpareThreads" value="50"/>
+            <property name="maxThreads" value="100"/>
+            <property name="minSpareThreads" value="4"/>
+            <property name="port" value="8080"/>
+            <property name="restrictedUserAgents" value=""/>
+            <property name="server" value=""/>
+            <property name="socketBuffer" value="9000"/>
+            <property name="strategy" value="lf"/>
+            <property name="tcpNoDelay" value="true"/>
+            <property name="threadPriority" value="java.lang.Thread#NORM_PRIORITY"/>
+        </property>
+        <property name="https-connector" value="connector">
+            <!-- see http://jakarta.apache.org/tomcat/tomcat-5.5-doc/config/http.html for reference -->
+            <property name="allowTrace" value="false"/>
+            <property name="emptySessionPath" value="false"/>
+            <property name="enableLookups" value="false"/>
+            <property name="maxPostSize" value="2097152"/>
+            <property name="protocol" value="HTTP/1.1"/>
+            <property name="proxyName" value=""/>
+            <property name="proxyPort" value=""/>
+            <property name="redirectPort" value=""/>
+            <property name="scheme" value="https"/>
+            <property name="secure" value="true"/>
+            <property name="URIEncoding" value="UTF-8"/>
+            <property name="useBodyEncodingForURI" value="false"/>
+            <property name="xpoweredBy" value="true"/>
+            <!-- HTTP connector attributes -->
+            <property name="acceptCount" value="10"/>
+            <property name="address" value="0.0.0.0"/>
+            <property name="bufferSize" value="2048"/>
+            <property name="compression" value="on"/>
+            <property name="compressableMimeType" value="text/html,text/xml,text/plain,text/javascript,text/css"/>
+            <property name="noCompressionUserAgents" value=""/>
+            <property name="connectionLinger" value="-1"/>
+            <property name="connectionTimeout" value="60000"/>
+            <property name="disableUploadTimeout" value="false"/>
+            <property name="maxHttpHeaderSize" value="4096"/>
+            <property name="maxKeepAliveRequests" value="100"/>
+            <property name="maxSpareThreads" value="50"/>
+            <property name="maxThreads" value="100"/>
+            <property name="minSpareThreads" value="4"/>
+            <property name="port" value="8443"/>
+            <property name="restrictedUserAgents" value=""/>
+            <property name="server" value=""/>
+            <property name="socketBuffer" value="9000"/>
+            <property name="strategy" value="lf"/>
+            <property name="tcpNoDelay" value="true"/>
+            <property name="threadPriority" value="java.lang.Thread#NORM_PRIORITY"/>
+            <!-- SSL connector attributes -->
+            <property name="sSLImplementation" value="org.ofbiz.catalina.container.SSLImpl"/>
+            <property name="algorithm" value="SunX509"/>
+            <!-- the clientAuth to "want" in order to receive certs from the client;
+                note that this isn't set this way by default because with certain browsers
+                (like Safari) it breaks access via HTTPS, so until that problem is fixed
+                the default will be false -->
+            <property name="clientAuth" value="false"/>
+            <property name="keystoreFile" value="framework/base/config/ofbizssl.jks"/>
+            <property name="keystorePass" value="changeit"/>
+            <property name="keystoreType" value="JKS"/>
+            <property name="sslProtocol" value="TLS"/>
+            <property name="ciphers" value=""/>
+        </property>
+    </container>
+    <container name="catalina-container-test" loaders="test" class="org.ofbiz.catalina.container.CatalinaContainer">
+        <!-- static configuration for tomcat -->
+        <property name="delegator-name" value="default"/>
+        <property name="use-naming" value="false"/>
+        <property name="debug" value="0"/>
+        <property name="catalina-runtime-home" value="runtime/catalina"/>
+        <property name="apps-context-reloadable" value="false"/>
+        <property name="apps-cross-context" value="false"/>
+        <property name="apps-distributable" value="false"/><!-- you must also set all the webapps you want distributable, by adding <distributable/> in their web.xml file -->
+        <!-- one or more tomcat engines (servers); map to this + host -->
+        <property name="default-server" value="engine">
+            <property name="default-host" value="0.0.0.0"/>
+            <property name="jvm-route" value="jvm1"/>
+            <property name="access-log-pattern">
+                <property-value>%h %l %u %t "%r" %s %b "%{Referer}i" "%{User-Agent}i"</property-value>
+            </property>
+            <property name="access-log-resolve" value="true"/>
+            <property name="access-log-rotate" value="true"/>
+            <property name="access-log-prefix" value="access_log."/>
+            <property name="access-log-dir" value="runtime/logs"/>
+            <property name="enable-request-dump" value="false"/>
+            <!-- uncomment for cluster support
+            <property name="default-server-cluster" value="cluster">
+                <property name="rep-valve-filter">
+                <property-value>.*\.gif;.*\.js;.*\.jpg;.*\.htm;.*\.html;.*\.txt;.*\.png;.*\.css;.*\.ico;.*\.htc;</property-value>
+                </property>
+                <property name="manager-class" value="org.apache.catalina.cluster.session.DeltaManager"/>
+                <property name="debug" value="5"/>
+                <property name="replication-mode" value="org.apache.catalina.tribes.transport.bio.PooledMultiSender"/>
+                <property name="tcp-listen-host" value="auto"/>
+                <property name="tcp-listen-port" value="4001"/>
+                <property name="tcp-sector-timeout" value="100"/>
+                <property name="tcp-thread-count" value="6"/>
+                <property name="mcast-bind-addr" value="192.168.2.1"/>
+                <property name="mcast-addr" value="224.0.0.1"/>
+                <property name="mcast-port" value="45564"/>
+                <property name="mcast-freq" value="500"/>
+                <property name="mcast-drop-time" value="3000"/>
+            </property>
+            -->
+            <!-- <property name="ssl-accelerator-port" value="8443"/> -->
+        </property>
+        <!-- all connectors support type, host, port, enable-lookups -->
+        <property name="ajp-connector" value="connector">
+            <!-- see http://jakarta.apache.org/tomcat/tomcat-5.5-doc/config/ajp.html for reference -->
+            <property name="allowTrace" value="false"/>
+            <property name="emptySessionPath" value="false"/>
+            <property name="enableLookups" value="false"/>
+            <property name="maxPostSize" value="2097152"/>
+            <property name="protocol" value="AJP/1.3"/>
+            <property name="proxyName" value=""/>
+            <property name="proxyPort" value=""/>
+            <property name="redirectPort" value=""/>
+            <property name="scheme" value="http"/>
+            <property name="secure" value="false"/>
+            <property name="URIEncoding" value="UTF-8"/>
+            <property name="useBodyEncodingForURI" value="false"/>
+            <property name="xpoweredBy" value="true"/>
+            <!-- AJP/13 connector attributes -->
+            <property name="address" value="0.0.0.0"/>
+            <property name="backlog" value="10"/>
+            <property name="maxSpareThreads" value="50"/>
+            <property name="maxThreads" value="200"/>
+            <property name="minSpareThreads" value="4"/>
+            <property name="port" value="8010"/>
+            <property name="tcpNoDelay" value="true"/>
+            <property name="soTimeout" value="60000"/>
+            <property name="tomcatAuthentication" value="true"/>
+        </property>
+        <property name="http-connector" value="connector">
+            <!-- see http://jakarta.apache.org/tomcat/tomcat-5.5-doc/config/http.html for reference -->
+            <property name="allowTrace" value="false"/>
+            <property name="emptySessionPath" value="false"/>
+            <property name="enableLookups" value="false"/>
+            <property name="maxPostSize" value="2097152"/>
+            <property name="protocol" value="HTTP/1.1"/>
+            <property name="proxyName" value=""/>
+            <property name="proxyPort" value=""/>
+            <property name="redirectPort" value=""/>
+            <property name="scheme" value="http"/>
+            <property name="secure" value="false"/>
+            <property name="URIEncoding" value="UTF-8"/>
+            <property name="useBodyEncodingForURI" value="false"/>
+            <property name="xpoweredBy" value="true"/>
+            <!-- HTTP connector attributes -->
+            <property name="acceptCount" value="10"/>
+            <property name="address" value="0.0.0.0"/>
+            <property name="bufferSize" value="2048"/>
+            <property name="compressableMimeType" value="text/html,text/xml,text/plain"/>
+            <property name="compression" value="on"/>
+            <property name="connectionLinger" value="-1"/>
+            <property name="connectionTimeout" value="60000"/>
+            <property name="disableUploadTimeout" value="false"/>
+            <property name="maxHttpHeaderSize" value="4096"/>
+            <property name="maxKeepAliveRequests" value="100"/>
+            <property name="maxSpareThreads" value="50"/>
+            <property name="maxThreads" value="100"/>
+            <property name="minSpareThreads" value="4"/>
+            <property name="noCompressionUserAgents" value=""/>
+            <property name="port" value="8081"/>
+            <property name="restrictedUserAgents" value=""/>
+            <property name="server" value=""/>
+            <property name="socketBuffer" value="9000"/>
+            <property name="strategy" value="lf"/>
+            <property name="tcpNoDelay" value="true"/>
+            <property name="threadPriority" value="java.lang.Thread#NORM_PRIORITY"/>
+        </property>
+        <property name="https-connector" value="connector">
+            <!-- see http://jakarta.apache.org/tomcat/tomcat-5.5-doc/config/http.html for reference -->
+            <property name="allowTrace" value="false"/>
+            <property name="emptySessionPath" value="false"/>
+            <property name="enableLookups" value="false"/>
+            <property name="maxPostSize" value="2097152"/>
+            <property name="protocol" value="HTTP/1.1"/>
+            <property name="proxyName" value=""/>
+            <property name="proxyPort" value=""/>
+            <property name="redirectPort" value=""/>
+            <property name="scheme" value="https"/>
+            <property name="secure" value="true"/>
+            <property name="URIEncoding" value="UTF-8"/>
+            <property name="useBodyEncodingForURI" value="false"/>
+            <property name="xpoweredBy" value="true"/>
+            <!-- HTTP connector attributes -->
+            <property name="acceptCount" value="10"/>
+            <property name="address" value="0.0.0.0"/>
+            <property name="bufferSize" value="2048"/>
+            <property name="compressableMimeType" value="text/html,text/xml,text/plain"/>
+            <property name="compression" value="on"/>
+            <property name="connectionLinger" value="-1"/>
+            <property name="connectionTimeout" value="60000"/>
+            <property name="disableUploadTimeout" value="false"/>
+            <property name="maxHttpHeaderSize" value="4096"/>
+            <property name="maxKeepAliveRequests" value="100"/>
+            <property name="maxSpareThreads" value="50"/>
+            <property name="maxThreads" value="100"/>
+            <property name="minSpareThreads" value="4"/>
+            <property name="noCompressionUserAgents" value=""/>
+            <property name="port" value="8444"/>
+            <property name="restrictedUserAgents" value=""/>
+            <property name="server" value=""/>
+            <property name="socketBuffer" value="9000"/>
+            <property name="strategy" value="lf"/>
+            <property name="tcpNoDelay" value="true"/>
+            <property name="threadPriority" value="java.lang.Thread#NORM_PRIORITY"/>
+            <!-- SSL connector attributes -->
+            <property name="sSLImplementation" value="org.ofbiz.catalina.container.SSLImpl"/>
+            <property name="algorithm" value="SunX509"/>
+            <property name="clientAuth" value="want"/>
+            <property name="keystoreFile" value="framework/base/config/ofbizssl.jks"/>
+            <property name="keystorePass" value="changeit"/>
+            <property name="keystoreType" value="JKS"/>
+            <property name="sslProtocol" value="TLS"/>
+            <property name="ciphers" value=""/>
+        </property>
+    </container>
     <!--
         <webapp name="catalina-root"
                 title="ROOT"
