@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.lang.String;
 import java.util.List;
 
 import javolution.util.FastList;
@@ -43,6 +44,7 @@ public class TestListContainer implements Container {
 
     public static final String module = TestListContainer.class.getName();
 
+    private String name;
     private String outputLocation;
     private String mode = "text";
 
@@ -60,6 +62,7 @@ public class TestListContainer implements Container {
      * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
      */
     public void init(String[] args, String name, String configFile) {
+        this.name = name;
         this.outputLocation = args[0];
         for (int i = 1; i < args.length; i++) {
             if ("-ant".equals(args[i])) {
@@ -120,5 +123,9 @@ public class TestListContainer implements Container {
     }
 
     public void stop() throws ContainerException {
+    }
+
+    public String getName() {
+       return name;
     }
 }
