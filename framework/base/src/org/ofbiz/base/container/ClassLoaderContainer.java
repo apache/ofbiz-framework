@@ -32,11 +32,13 @@ public class ClassLoaderContainer implements Container {
 
     public static final String module = ClassLoaderContainer.class.getName();
     protected static CachedClassLoader cl = null;
+    private String name;
 
     /**
      * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
      */
     public void init(String[] args, String name, String configFile) throws ContainerException {
+        this.name = name;
         ClassLoader parent = Thread.currentThread().getContextClassLoader();
         if (parent == null) {
             parent = Classpath.class.getClassLoader();
@@ -61,6 +63,10 @@ public class ClassLoaderContainer implements Container {
      * @see org.ofbiz.base.container.Container#stop()
      */
     public void stop() throws ContainerException {
+    }
+
+    public String getName() {
+        return name;
     }
 
     public static ClassLoader getClassLoader() {

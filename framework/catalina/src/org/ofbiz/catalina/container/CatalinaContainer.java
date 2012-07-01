@@ -171,10 +171,13 @@ public class CatalinaContainer implements Container {
 
     protected String catalinaRuntimeHome;
 
+    private String name;
+
     /**
      * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
      */
     public void init(String[] args, String name, String configFile) throws ContainerException {
+        this.name = name;
         // get the container config
         ContainerConfig.Container cc = ContainerConfig.getContainer(name, configFile);
         if (cc == null) {
@@ -801,6 +804,10 @@ public class CatalinaContainer implements Container {
             // don't throw this; or it will kill the rest of the shutdown process
             Debug.logVerbose(e, module); // happens usually when running tests, disabled unless in verbose
         }
+    }
+
+    public String getName() {
+        return name;
     }
 
     protected void configureMimeTypes(Context context) throws ContainerException {

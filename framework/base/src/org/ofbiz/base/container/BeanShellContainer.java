@@ -117,4 +117,8 @@ public class BeanShellContainer implements Container {
     public void stop() throws ContainerException {
         bsh = null;
     }
+
+    public String getName() {
+        return containerName;
+    }
 }

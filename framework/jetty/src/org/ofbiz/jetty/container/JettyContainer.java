@@ -58,13 +58,14 @@ public class JettyContainer implements Container {
 
     public static final String module = JettyContainer.class.getName();
 
+    private String name;
     private Map<String, Server> servers = new HashMap<String, Server>();
 
     /**
      * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
      */
     public void init(String[] args, String name, String configFile) throws ContainerException {
-
+        this.name = name;
         // configure JSSE properties
         SSLUtil.loadJsseProperties();
 
@@ -374,6 +375,10 @@ public class JettyContainer implements Container {
                 throw new ContainerException(e);
             }
         }
+    }
+
+    public String getName() {
+        return name;
     }
 
 }

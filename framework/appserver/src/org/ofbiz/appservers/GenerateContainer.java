@@ -71,11 +71,13 @@ public class GenerateContainer implements Container {
 
     private boolean isGeronimo = false;
     private String geronimoHome = null;
+    private String name;
 
     /**
      * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
      */
     public void init(String[] args, String name, String configFile) {
+        this.name = name;
         ofbizHome = System.getProperty("ofbiz.home");
         this.configFile = configFile;
         this.args = args;
@@ -105,6 +107,10 @@ public class GenerateContainer implements Container {
      *
      */
     public void stop() throws ContainerException {
+    }
+
+    public String getName() {
+        return name;
     }
 
     private void generateFiles() throws ContainerException {

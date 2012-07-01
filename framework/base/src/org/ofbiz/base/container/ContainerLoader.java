@@ -256,6 +256,7 @@ public class ContainerLoader implements StartupLoader {
             if (this.unloading) {
                 return;
             }
+            Debug.logInfo("Starting container " + container.getName(), module);
             try {
                 container.start();
             } catch (ContainerException e) {
@@ -263,6 +264,7 @@ public class ContainerLoader implements StartupLoader {
             } catch (java.lang.AbstractMethodError e) {
                 throw new StartupException("Cannot start() " + container.getClass().getName(), e);
             }
+            Debug.logInfo("Started container " + container.getName(), module);
         }
     }
 
@@ -280,11 +282,13 @@ public class ContainerLoader implements StartupLoader {
                 // shutting down in reverse order
                 for (int i = this.loadedContainers.size(); i > 0; i--) {
                     Container container = this.loadedContainers.get(i-1);
+                    Debug.logInfo("Stopping container " + container.getName(), module);
                     try {
                         container.stop();
                     } catch (ContainerException e) {
                         Debug.logError(e, module);
                     }
+                    Debug.logInfo("Stopped container " + container.getName(), module);
                 }
             }
         }

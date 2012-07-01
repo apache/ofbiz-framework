@@ -67,4 +67,8 @@ public class JposDeviceContainer implements Container {
         }
         Debug.logInfo("JPOS Devices released and closed", module);
     }
+
+    public String getName() {
+        return name;
+    }
 }

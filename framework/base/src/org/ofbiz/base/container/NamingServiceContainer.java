@@ -44,7 +44,10 @@ public class NamingServiceContainer implements Container {
 
     protected RMIExtendedSocketFactory rmiSocketFactory;
 
+    private String name;
+
     public void init(String[] args, String name, String configFile) throws ContainerException {
+        this.name =name;
         this.configFileLocation = configFile;
 
         ContainerConfig.Container cfg = ContainerConfig.getContainer(name, configFileLocation);
@@ -92,5 +95,9 @@ public class NamingServiceContainer implements Container {
                 throw new ContainerException("Unable to shutdown naming registry");
             }
         }
+    }
+
+    public String getName() {
+        return name;
     }
 }

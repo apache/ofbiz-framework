@@ -63,4 +63,11 @@ public interface Container {
      * @throws ContainerException If an error was encountered.
      */
     public void stop() throws ContainerException;
+
+    /**
+     * Return the container name.
+     *
+     * @return Name of the container's instance.
+     */
+    public String getName();
 }

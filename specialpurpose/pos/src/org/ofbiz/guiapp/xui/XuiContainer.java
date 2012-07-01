@@ -110,6 +110,10 @@ public abstract class XuiContainer implements Container {
     public void stop() throws ContainerException {
     }
 
+    public String getName() {
+        return name;
+    }
+
     public String getXuiPropertiesName() {
         return this.startupFile;
     }
