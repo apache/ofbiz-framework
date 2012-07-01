@@ -64,6 +64,10 @@ public class GroovyShellContainer implements Container {
         gsh = null;
     }
 
+    public String getName() {
+        return name;
+    }
+
     private int getTelnetPort() throws ContainerException {
         ContainerConfig.Container config = ContainerConfig.getContainer(name, configFileLocation);
         Property telnetPort = config.getProperty("telnet-port");

@@ -171,4 +171,8 @@ public class RmiServiceContainer implements Container {
     public void stop() throws ContainerException {
         remote.deregister();
     }
+
+    public String getName() {
+        return containerName;
+    }
 }

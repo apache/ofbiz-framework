@@ -29,10 +29,13 @@ public class JustLoadComponentsContainer implements Container {
 
     public static final String module = JustLoadComponentsContainer.class.getName();
 
+    private String name;
+
     /**
      * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
      */
     public void init(String[] args, String name, String configFile) {
+        this.name = name;
         try {
             ComponentContainer.loadComponents(true);
         } catch (AlreadyLoadedException e) {
@@ -48,5 +51,9 @@ public class JustLoadComponentsContainer implements Container {
     }
 
     public void stop() throws ContainerException {
+    }
+
+    public String getName() {
+        return name;
     }
 }

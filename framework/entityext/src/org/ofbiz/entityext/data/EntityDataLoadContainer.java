@@ -573,4 +573,8 @@ public class EntityDataLoadContainer implements Container {
      */
     public void stop() throws ContainerException {
     }
+
+    public String getName() {
+        return name;
+    }
 }

@@ -85,4 +85,8 @@ public class GeronimoContainer implements Container {
         // TODO: how to stop the Geronimo transaction manager? is it even needed?
     }
 
+    public String getName() {
+        return name;
+    }
+
 }

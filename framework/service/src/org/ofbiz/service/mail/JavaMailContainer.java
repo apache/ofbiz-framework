@@ -146,6 +146,10 @@ public class JavaMailContainer implements Container {
         Debug.logWarning("stop JavaMail poller", module);
     }
 
+    public String getName() {
+        return name;
+    }
+
     // java-mail methods
     protected Session makeSession(ContainerConfig.Container.Property client) {
         Properties props = new Properties();
