@@ -23,7 +23,14 @@ under the License.
         </div>
         <div class="screenlet-body">
             <#list productPromoCodeEmails as productPromoCodeEmail>
-                <div><a href="<@ofbizUrl>deleteProductPromoCodeEmail?productPromoCodeId=${productPromoCodeEmail.productPromoCodeId}&amp;emailAddress=${productPromoCodeEmail.emailAddress}&amp;productPromoId=${productPromoId}</@ofbizUrl>" class="buttontext">X</a>&nbsp;${productPromoCodeEmail.emailAddress}</div>
+              <div>
+                <form name="deleteProductPromoCodeEmail_${productPromoCodeEmail_index}" method="post" action="<@ofbizUrl>deleteProductPromoCodeEmail</@ofbizUrl>">
+                  <input type="hidden" name="productPromoCodeId" value="${productPromoCodeEmail.productPromoCodeId}"/>                
+                  <input type="hidden" name="emailAddress" value="${productPromoCodeEmail.emailAddress}"/>                
+                  <input type="hidden" name="productPromoId" value="${productPromoId}"/>                
+                  <a href='javascript:document.deleteProductPromoCodeEmail_${productPromoCodeEmail_index}.submit()' class='buttontext'>${uiLabelMap.CommonRemove}</a>&nbsp;${productPromoCodeEmail.emailAddress}
+                </form>
+              </div>                
             </#list>
             <div>
                 <form method="post" action="<@ofbizUrl>createProductPromoCodeEmail</@ofbizUrl>" style="margin: 0;">
