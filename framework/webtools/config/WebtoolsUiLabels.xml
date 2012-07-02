@@ -3052,15 +3052,6 @@
         <value xml:lang="zh">内存</value>
         <value xml:lang="zh_TW">記憶體</value>
     </property>
-    <property key="WebtoolsMinervaConnectionObjects">
-        <value xml:lang="de">Minerva Verbindungsobjekte</value>
-        <value xml:lang="en">Minerva Connection Objects</value>
-        <value xml:lang="it">Oggetti connessione Minerva</value>
-        <value xml:lang="pt">Objetos de ConexÃ£o Minerva</value>
-        <value xml:lang="vi">Đối tượng kết nối Minerva</value>
-        <value xml:lang="zh">智能连接对象</value>
-        <value xml:lang="zh_TW">智慧連接物件</value>
-    </property>
     <property key="WebtoolsMiscSetupTools">
         <value xml:lang="de">Versch. Setup Tools</value>
         <value xml:lang="en">Misc. Setup Tools</value>

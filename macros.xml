@@ -109,8 +109,6 @@ under the License.
         <exclude name="**/JREntityListIteratorDataSource.java"/>
         <exclude name="**/JRMapCollectionDataSource.java"/>
         <exclude name="**/openoffice/"/>
-        <exclude name="**/XaPoolConnectionFactory.java"/>
-        <exclude name="**/JasperReportsPdfViewHandler.java"/>
         <exclude name="**/JasperReportsXmlViewHandler.java"/>
         <exclude name="**/JasperReportsJXlsViewHandler.java"/>
         <exclude name="**/JasperReportsPoiXlsViewHandler.java"/>
