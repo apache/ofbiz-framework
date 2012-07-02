@@ -262,7 +262,7 @@ public class EntityFinderUtil {
         public ConditionList(Element conditionListElement) {
             String operatorAttribute = conditionListElement.getAttribute("combine");
             if (operatorAttribute.isEmpty()) {
-                operatorAttribute = "equals";
+                operatorAttribute = "and";
             }
             this.operator = EntityOperator.lookup(operatorAttribute);
             if (this.operator == null) {
