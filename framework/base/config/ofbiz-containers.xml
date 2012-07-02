@@ -34,12 +34,6 @@ under the License.
     </container>
     -->
 
-    <!-- load the naming (JNDI) server -->
-    <container name="naming-container" class="org.ofbiz.base.container.NamingServiceContainer">
-        <property name="host" value="0.0.0.0"/>
-        <property name="port" value="1099"/>
-    </container>
-
     <!-- JavaMail Listener Container - Triggers MCA Rules -->
     <!-- if delete-mail is set to true, will delete messages after fetching them. otherwise, will try to mark them as seen
         mail.store.protocol supports both imap and pop3, but pop3 will not be able to mark messages as seen, so you would need to delete them-->

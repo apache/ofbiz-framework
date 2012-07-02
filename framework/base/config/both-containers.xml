@@ -29,9 +29,4 @@ under the License.
     <!-- load the cached classloader container (always second) -->
     <container name="classloader-container" class="org.ofbiz.base.container.ClassLoaderContainer"/>
 
-    <!-- load the naming (JNDI) server -->
-    <container name="naming-container" class="org.ofbiz.base.container.NamingServiceContainer">
-        <property name="host" value="0.0.0.0"/>
-        <property name="port" value="1099"/>
-    </container>
 </ofbiz-containers>
