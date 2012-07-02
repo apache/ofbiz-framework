@@ -20,6 +20,7 @@ under the License.
 
 <ofbiz-containers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-containers.xsd">
+    <loader name="rmi"/>
     <!-- load the ofbiz component container (always first) -->
     <container name="component-container" class="org.ofbiz.base.container.ComponentContainer">
         <property name="update-classpath" value="false"/>
@@ -28,17 +29,4 @@ under the License.
     <!-- load the cached classloader container (always second) -->
     <container name="classloader-container" class="org.ofbiz.base.container.ClassLoaderContainer"/>
 
-    <!-- RMI Service Dispatcher -->
-    <container name="rmi-dispatcher" class="org.ofbiz.service.rmi.RmiServiceContainer">
-        <property name="use-initial-context" value="true"/>
-        <property name="bound-name" value="RMIDispatcher"/>
-        <property name="delegator-name" value="default"/>
-        <property name="client-factory" value="org.ofbiz.service.rmi.socket.ssl.SSLClientSocketFactory"/>
-        <property name="server-factory" value="org.ofbiz.service.rmi.socket.ssl.SSLServerSocketFactory"/>
-        <property name="ssl-keystore" value="framework/base/config/ofbizrmi.jks"/>
-        <property name="ssl-keystore-type" value="JKS"/>
-        <property name="ssl-keystore-pass" value="changeit"/>
-        <property name="ssl-keystore-alias" value="rmissl"/>
-        <property name="ssl-client-auth" value="true"/>
-    </container>
 </ofbiz-containers>
