@@ -437,23 +437,6 @@ under the License.
         </section>
     </screen>
 
-    <screen name="minervaobjects">
-        <section>
-            <actions>
-                <set field="headerItem" value="main"/>
-                <set field="title" value="${uiLabelMap.WebtoolsMinervaConnectionObjects}"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.WebtoolsMinervaConnectionObjects}">
-                            <platform-specific><html><html-template location="component://webtools/webapp/webtools/entity/minervaObjects.ftl"/></html></platform-specific>
-                        </screenlet>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
     <screen name="ConnectionPoolStatus">
         <section>
             <actions>

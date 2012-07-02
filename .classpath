@@ -114,7 +114,6 @@
     <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.28.tomcat-embed-jasper.jar"/>
     <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.28.tomcat-embed-logging-log4j.jar"/>
     <classpathentry kind="lib" path="framework/entity/lib/commons-dbcp-1.4.jar"/>
-    <classpathentry kind="lib" path="framework/entity/lib/ofbiz-minerva.jar"/>
     <classpathentry kind="lib" path="framework/geronimo/lib/geronimo-connector-2.1.1.jar"/>
     <classpathentry kind="lib" path="framework/geronimo/lib/geronimo-transaction-2.1.1.jar"/>
     <classpathentry kind="lib" path="framework/jetty/lib/com.sun.el-2.2.0.v201108011116.jar"/>
@@ -181,7 +180,6 @@
     <classpathentry kind="src" path="framework/catalina/src"/>
     <classpathentry kind="src" path="framework/common/src"/>
     <classpathentry kind="src" path="framework/datafile/src"/>
-    <classpathentry excluding="org/ofbiz/entity/connection/XaPoolConnectionFactory.java" kind="src" path="framework/entity/src"/>
     <classpathentry kind="src" path="framework/entityext/src"/>
     <classpathentry kind="src" path="framework/geronimo/src"/>
     <classpathentry kind="src" path="framework/jetty/src"/>
