@@ -30,6 +30,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javolution.util.FastList;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.StringUtil;
@@ -328,6 +330,7 @@ public class EntityFinderUtil {
         public void handleOutput(EntityListIterator eli, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr);
         public void handleOutput(List<GenericValue> results, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr);
     }
+
     @SuppressWarnings("serial")
     public static class LimitRange implements OutputHandler {
         FlexibleStringExpander startExdr;
@@ -361,7 +364,7 @@ public class EntityFinderUtil {
         }
 
         public void handleOutput(EntityListIterator eli, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr) {
-            int start = getStart(context);
+            int start = getStart(context) + 1; // ELI index is one-based.
             int size = getSize(context);
             try {
                 listAcsr.put(context, eli.getPartialList(start, size));
@@ -374,15 +377,22 @@ public class EntityFinderUtil {
         }
 
         public void handleOutput(List<GenericValue> results, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr) {
+            List<GenericValue> result = null;
             int start = getStart(context);
-            int size = getSize(context);
-
-            int end = start + size;
-            if (end > results.size()) end = results.size();
-
-            listAcsr.put(context, results.subList(start, end));
+            if (start < results.size()) {
+                int size = getSize(context);
+                int end = start + size;
+                if (end > results.size()) {
+                    end = results.size();
+                }
+                result = results.subList(start, end);
+            } else {
+                result = FastList.newInstance();
+            }
+            listAcsr.put(context, result);
         }
     }
+
     @SuppressWarnings("serial")
     public static class LimitView implements OutputHandler {
         FlexibleStringExpander viewIndexExdr;
@@ -418,9 +428,8 @@ public class EntityFinderUtil {
         public void handleOutput(EntityListIterator eli, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr) {
             int index = this.getIndex(context);
             int size = this.getSize(context);
-
             try {
-                listAcsr.put(context, eli.getPartialList(((index - 1) * size) + 1, size));
+                listAcsr.put(context, eli.getPartialList(((index - 1) * size) + 1, size)); // ELI index is one-based.
                 eli.close();
             } catch (GenericEntityException e) {
                 String errMsg = "Error getting partial list in limit-view with index=" + index + " and size=" + size + ": " + e.toString();
@@ -430,16 +439,23 @@ public class EntityFinderUtil {
         }
 
         public void handleOutput(List<GenericValue> results, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr) {
+            List<GenericValue> result = null;
             int index = this.getIndex(context);
             int size = this.getSize(context);
-
-            int begin = index * size;
-            int end = index * size + size;
-            if (end > results.size()) end = results.size();
-
-            listAcsr.put(context, results.subList(begin, end));
+            int begin = (index - 1) * size;
+            if (begin < results.size()) {
+                int end = begin + size;
+                if (end > results.size()) {
+                    end = results.size();
+                }
+                result = results.subList(begin, end);
+            } else {
+                result = FastList.newInstance();
+            }
+            listAcsr.put(context, result);
         }
     }
+
     @SuppressWarnings("serial")
     public static class UseIterator implements OutputHandler {
         public UseIterator(Element useIteratorElement) {
