@@ -43,4 +43,19 @@ under the License.
 
     <keystore name="rmitrust" type="jks" password="changeit" is-truststore="true"
               is-certstore="false" loader="main" location="config/rmitrust.jks"/>
+
+    <!-- RMI Service Dispatcher -->
+    <container name="rmi-dispatcher" loaders="rmi" class="org.ofbiz.service.rmi.RmiServiceContainer">
+        <property name="bound-name" value="RMIDispatcher"/>
+        <property name="bound-host" value="127.0.0.1"/>
+        <property name="bound-port" value="1099"/>
+        <property name="delegator-name" value="default"/>
+        <property name="client-factory" value="org.ofbiz.service.rmi.socket.ssl.SSLClientSocketFactory"/>
+        <property name="server-factory" value="org.ofbiz.service.rmi.socket.ssl.SSLServerSocketFactory"/>
+        <property name="ssl-keystore" value="framework/base/config/ofbizrmi.jks"/>
+        <property name="ssl-keystore-type" value="JKS"/>
+        <property name="ssl-keystore-pass" value="changeit"/>
+        <property name="ssl-keystore-alias" value="rmissl"/>
+        <property name="ssl-client-auth" value="false"/>
+    </container>
 </ofbiz-component>
