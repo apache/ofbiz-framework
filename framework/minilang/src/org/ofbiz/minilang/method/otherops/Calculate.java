@@ -38,6 +38,8 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;calculate&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Ccalculate%3E}}">Mini-language Reference</a>
  */
 public final class Calculate extends MethodOperation {
 
@@ -55,7 +57,8 @@ public final class Calculate extends MethodOperation {
     private final FlexibleStringExpander decimalScaleFse;
     private final FlexibleMapAccessor<Object> fieldFma;
     private final FlexibleStringExpander roundingModeFse;
-    private final FlexibleStringExpander typeFse;
+    private final int type;
+    private final String typeString;
 
     public Calculate(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
@@ -70,7 +73,22 @@ public final class Calculate extends MethodOperation {
         this.decimalFormatFse = FlexibleStringExpander.getInstance(element.getAttribute("decimal-format"));
         this.decimalScaleFse = FlexibleStringExpander.getInstance(element.getAttribute("decimal-scale"));
         this.roundingModeFse = FlexibleStringExpander.getInstance(element.getAttribute("rounding-mode"));
-        this.typeFse = FlexibleStringExpander.getInstance(element.getAttribute("type"));
+        this.typeString = element.getAttribute("type");
+        int type = Calculate.TYPE_BIG_DECIMAL;
+        if ("Double".equals(typeString)) {
+            type = Calculate.TYPE_DOUBLE;
+        } else if ("Float".equals(typeString)) {
+            type = Calculate.TYPE_FLOAT;
+        } else if ("Long".equals(typeString)) {
+            type = Calculate.TYPE_LONG;
+        } else if ("Integer".equals(typeString)) {
+            type = Calculate.TYPE_INTEGER;
+        } else if ("String".equals(typeString)) {
+            type = Calculate.TYPE_STRING;
+        } else if ("BigDecimal".equals(typeString)) {
+            type = Calculate.TYPE_BIG_DECIMAL;
+        }
+        this.type = type;
         List<? extends Element> calcopElements = UtilXml.childElementList(element);
         calcops = new Calculate.SubCalc[calcopElements.size()];
         int i = 0;
@@ -90,25 +108,8 @@ public final class Calculate extends MethodOperation {
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        String typeString = typeFse.expandString(methodContext.getEnvMap());
-        int type;
-        if ("Double".equals(typeString)) {
-            type = Calculate.TYPE_DOUBLE;
-        } else if ("Float".equals(typeString)) {
-            type = Calculate.TYPE_FLOAT;
-        } else if ("Long".equals(typeString)) {
-            type = Calculate.TYPE_LONG;
-        } else if ("Integer".equals(typeString)) {
-            type = Calculate.TYPE_INTEGER;
-        } else if ("String".equals(typeString)) {
-            type = Calculate.TYPE_STRING;
-        } else if ("BigDecimal".equals(typeString)) {
-            type = Calculate.TYPE_BIG_DECIMAL;
-        } else {
-            type = Calculate.TYPE_BIG_DECIMAL;
-        }
         String roundingModeString = roundingModeFse.expandString(methodContext.getEnvMap());
-        int roundingMode;
+        int roundingMode = BigDecimal.ROUND_HALF_EVEN;
         if ("Ceiling".equals(roundingModeString)) {
             roundingMode = BigDecimal.ROUND_CEILING;
         } else if ("Floor".equals(roundingModeString)) {
@@ -121,23 +122,13 @@ public final class Calculate extends MethodOperation {
             roundingMode = BigDecimal.ROUND_HALF_UP;
         } else if ("HalfDown".equals(roundingModeString)) {
             roundingMode = BigDecimal.ROUND_HALF_DOWN;
-        } else if ("HalfEven".equals(roundingModeString)) {
-            roundingMode = BigDecimal.ROUND_HALF_EVEN;
         } else if ("Unnecessary".equals(roundingModeString)) {
             roundingMode = BigDecimal.ROUND_UNNECESSARY;
-        } else {
-            // default to HalfEven, reduce cumulative errors
-            roundingMode = BigDecimal.ROUND_HALF_EVEN;
         }
         String decimalScaleString = decimalScaleFse.expandString(methodContext.getEnvMap());
         int decimalScale = 2;
         if (!decimalScaleString.isEmpty()) {
             decimalScale = Integer.valueOf(decimalScaleString).intValue();
-        }
-        String decimalFormatString = decimalFormatFse.expandString(methodContext.getEnvMap());
-        DecimalFormat df = null;
-        if (!decimalFormatString.isEmpty()) {
-            df = new DecimalFormat(decimalFormatString);
         }
         BigDecimal resultValue = BigDecimal.ZERO.setScale(decimalScale, roundingMode);
         for (Calculate.SubCalc calcop : calcops) {
@@ -162,7 +153,12 @@ public final class Calculate extends MethodOperation {
                 break;
             case TYPE_STRING:
                 // run the decimal-formatting
-                if (df != null && resultValue.compareTo(BigDecimal.ZERO) > 0) {
+                String decimalFormatString = decimalFormatFse.expandString(methodContext.getEnvMap());
+                DecimalFormat df = null;
+                if (!decimalFormatString.isEmpty()) {
+                    df = new DecimalFormat(decimalFormatString);
+                }
+                if (df != null && resultValue.compareTo(BigDecimal.ZERO) != 0) {
                     resultObj = df.format(resultValue);
                 } else {
                     resultObj = resultValue.toString();
@@ -189,8 +185,8 @@ public final class Calculate extends MethodOperation {
         if (!this.decimalFormatFse.isEmpty()) {
             sb.append("decimal-format=\"").append(this.decimalFormatFse).append("\" ");
         }
-        if (!typeFse.isEmpty()) {
-            sb.append("type=\"").append(this.typeFse).append("\" ");
+        if (!typeString.isEmpty()) {
+            sb.append("type=\"").append(this.typeString).append("\" ");
         }
         sb.append("/>");
         return sb.toString();
@@ -205,6 +201,8 @@ public final class Calculate extends MethodOperation {
 
     /**
      * Implements the &lt;calcop&gt; element.
+     * 
+     * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Ccalcop%3E}}">Mini-language Reference</a>
      */
     public final class CalcOp extends MiniLangElement implements SubCalc {
         private static final int OPERATOR_ADD = 1;
@@ -215,18 +213,29 @@ public final class Calculate extends MethodOperation {
 
         private final Calculate.SubCalc calcops[];
         private final FlexibleMapAccessor<Object> fieldFma;
-        private final FlexibleStringExpander operatorFse;
+        private final int operator;
 
         private CalcOp(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             super(element, simpleMethod);
             if (MiniLangValidate.validationOn()) {
                 MiniLangValidate.attributeNames(simpleMethod, element, "field", "operator");
-                MiniLangValidate.requiredAttributes(simpleMethod, element, "field");
+                MiniLangValidate.requiredAttributes(simpleMethod, element, "operator");
                 MiniLangValidate.expressionAttributes(simpleMethod, element, "field");
                 MiniLangValidate.childElements(simpleMethod, element, "calcop", "number");
             }
             this.fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
-            this.operatorFse = FlexibleStringExpander.getInstance(element.getAttribute("operator"));
+            String operatorStr = element.getAttribute("operator");
+            int operator = CalcOp.OPERATOR_ADD;
+            if ("subtract".equals(operatorStr)) {
+                operator = CalcOp.OPERATOR_SUBTRACT;
+            } else if ("multiply".equals(operatorStr)) {
+                operator = CalcOp.OPERATOR_MULTIPLY;
+            } else if ("divide".equals(operatorStr)) {
+                operator = CalcOp.OPERATOR_DIVIDE;
+            } else if ("negative".equals(operatorStr)) {
+                operator = CalcOp.OPERATOR_NEGATIVE;
+            }
+            this.operator = operator;
             List<? extends Element> calcopElements = UtilXml.childElementList(element);
             calcops = new Calculate.SubCalc[calcopElements.size()];
             int i = 0;
@@ -245,21 +254,6 @@ public final class Calculate extends MethodOperation {
 
         @Override
         public BigDecimal calcValue(MethodContext methodContext, int scale, int roundingMode) throws MiniLangException {
-            String operatorStr = operatorFse.expandString(methodContext.getEnvMap());
-            int operator = CalcOp.OPERATOR_ADD;
-            if ("get".equals(operatorStr)) {
-                operator = CalcOp.OPERATOR_ADD;
-            } else if ("add".equals(operatorStr)) {
-                operator = CalcOp.OPERATOR_ADD;
-            } else if ("subtract".equals(operatorStr)) {
-                operator = CalcOp.OPERATOR_SUBTRACT;
-            } else if ("multiply".equals(operatorStr)) {
-                operator = CalcOp.OPERATOR_MULTIPLY;
-            } else if ("divide".equals(operatorStr)) {
-                operator = CalcOp.OPERATOR_DIVIDE;
-            } else if ("negative".equals(operatorStr)) {
-                operator = CalcOp.OPERATOR_NEGATIVE;
-            }
             BigDecimal resultValue = BigDecimal.ZERO.setScale(scale, roundingMode);
             boolean isFirst = true;
             Object fieldObj = fieldFma.get(methodContext.getEnvMap());
@@ -311,6 +305,8 @@ public final class Calculate extends MethodOperation {
 
     /**
      * Implements the &lt;number&gt; element.
+     * 
+     * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cnumber%3E}}">Mini-language Reference</a>
      */
     public final class NumberOp extends MiniLangElement implements SubCalc {
 
