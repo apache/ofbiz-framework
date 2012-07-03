@@ -29,6 +29,8 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;request-to-field&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Crequesttofield%3E}}">Mini-language Reference</a>
  */
 public final class RequestToField extends MethodOperation {
 

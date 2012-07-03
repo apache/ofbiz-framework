@@ -26,7 +26,6 @@ import java.util.List;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
-import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangUtil;
 import org.ofbiz.minilang.MiniLangValidate;
@@ -39,7 +38,9 @@ import org.ofbiz.minilang.method.StringObject;
 import org.w3c.dom.Element;
 
 /**
- * Calls a static method on a Java class.
+ * Implements the &lt;call-class-method&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Ccallclassmethod%3E}}">Mini-language Reference</a>
  */
 public final class CallClassMethod extends MethodOperation {
 
@@ -109,11 +110,16 @@ public final class CallClassMethod extends MethodOperation {
         return sb.toString();
     }
 
+    /**
+     * A factory for the &lt;call-class-method&gt; element.
+     */
     public static final class CallClassMethodFactory implements Factory<CallClassMethod> {
+        @Override
         public CallClassMethod createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CallClassMethod(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "call-class-method";
         }

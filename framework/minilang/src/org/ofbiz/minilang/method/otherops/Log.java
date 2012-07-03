@@ -28,7 +28,9 @@ import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Logs a message.
+ * Implements the &lt;log&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Clog%3E}}">Mini-language Reference</a>
  */
 public final class Log extends MethodOperation {
 
@@ -92,11 +94,16 @@ public final class Log extends MethodOperation {
         return sb.toString();
     }
 
+    /**
+     * A factory for the &lt;log&gt; element.
+     */
     public static final class LogFactory implements Factory<Log> {
+        @Override
         public Log createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new Log(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "log";
         }

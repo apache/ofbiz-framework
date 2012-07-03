@@ -32,6 +32,8 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;and&gt;, &lt;or&gt;, &lt;not&gt;, and &lt;xor&gt; elements.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-Conditional%2FLoopingStatements">Mini-language Reference</a>
  */
 public abstract class CombinedCondition extends MiniLangElement implements Conditional {
 

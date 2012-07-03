@@ -33,6 +33,8 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;if-not-empty&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cifnotempty%3E}}">Mini-language Reference</a>
  */
 public final class IfNotEmpty extends MethodOperation {
 

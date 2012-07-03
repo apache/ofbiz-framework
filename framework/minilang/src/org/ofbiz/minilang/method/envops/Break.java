@@ -25,7 +25,9 @@ import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Causes script execution to exit the nearest loop element.
+ * Implements the &lt;break&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cbreak%3E}}">Mini-language Reference</a>
  */
 public class Break extends MethodOperation {
 
@@ -60,11 +62,16 @@ public class Break extends MethodOperation {
         }
     }
 
+    /**
+     * A factory for the &lt;break&gt; element.
+     */
     public static final class BreakFactory implements Factory<Break> {
+        @Override
         public Break createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new Break(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "break";
         }

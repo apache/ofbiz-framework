@@ -41,21 +41,42 @@ public class MiniLangElement {
         this.tagName = element.getTagName().intern();
     }
 
+    /**
+     * Updates <code>aic</code> with this element's artifact information.
+     * @param aic The artifact information context
+     */
     public void gatherArtifactInfo(ArtifactInfoContext aic) {
     }
 
+    /**
+     * Returns the source code line number for this element.
+     * @return The source code line number for this element
+     */
     public String getLineNumber() {
         return this.lineNumber == null ? "unknown" : this.lineNumber.toString();
     }
 
+    /**
+     * Returns the containing {@link  SimpleMethod} object.
+     * @return The containing {@link  SimpleMethod} object
+     */
     public SimpleMethod getSimpleMethod() {
         return this.simpleMethod;
     }
 
+    /**
+     * Returns this element's tag name.
+     * @return This element's tag name
+     */
     public String getTagName() {
         return this.tagName;
     }
 
+    /**
+     * Logs a trace message.
+     * @param methodContext
+     * @param messages
+     */
     public void outputTraceMessage(MethodContext methodContext, String... messages) {
         String lineSep = System.getProperty("line.separator");
         StringBuilder buf = new StringBuilder(getSimpleMethod().getFileName());

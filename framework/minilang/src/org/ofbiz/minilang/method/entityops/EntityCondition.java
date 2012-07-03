@@ -31,7 +31,9 @@ import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Implements the &lt;entity-and&gt; element.
+ * Implements the &lt;entity-condition&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Centitycondition%3E}}">Mini-language Reference</a>
  */
 public final class EntityCondition extends MethodOperation {
 
@@ -78,10 +80,12 @@ public final class EntityCondition extends MethodOperation {
     }
 
     public static final class EntityConditionFactory implements Factory<EntityCondition> {
+        @Override
         public EntityCondition createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new EntityCondition(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "entity-condition";
         }

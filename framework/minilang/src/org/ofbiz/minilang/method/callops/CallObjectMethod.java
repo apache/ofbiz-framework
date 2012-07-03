@@ -24,7 +24,6 @@ import java.util.List;
 
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
-import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangRuntimeException;
 import org.ofbiz.minilang.MiniLangUtil;
@@ -38,7 +37,9 @@ import org.ofbiz.minilang.method.StringObject;
 import org.w3c.dom.Element;
 
 /**
- * Calls a Java object method using the given fields as parameters
+ * Implements the &lt;call-object-method&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Ccallobjectmethod%3E}}">Mini-language Reference</a>
  */
 public final class CallObjectMethod extends MethodOperation {
 
@@ -104,11 +105,16 @@ public final class CallObjectMethod extends MethodOperation {
         return sb.toString();
     }
 
+    /**
+     * A factory for the &lt;call-object-method&gt; element.
+     */
     public static final class CallObjectMethodFactory implements Factory<CallObjectMethod> {
+        @Override
         public CallObjectMethod createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CallObjectMethod(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "call-object-method";
         }

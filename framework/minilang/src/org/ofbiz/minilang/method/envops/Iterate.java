@@ -41,7 +41,9 @@ import org.ofbiz.minilang.method.envops.Continue.ContinueElementException;
 import org.w3c.dom.Element;
 
 /**
- * Process sub-operations for each entry in the list
+ * Implements the &lt;iterate&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Citerate%3E}}">Mini-language Reference</a>
  */
 public final class Iterate extends MethodOperation {
 
@@ -181,11 +183,16 @@ public final class Iterate extends MethodOperation {
         return sb.toString();
     }
 
+    /**
+     * A factory for the &lt;iterate&gt; element.
+     */
     public static final class IterateFactory implements Factory<Iterate> {
+        @Override
         public Iterate createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new Iterate(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "iterate";
         }

@@ -50,7 +50,6 @@ import org.ofbiz.minilang.method.MethodObject;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 /**
@@ -70,6 +69,11 @@ public final class MiniLangUtil {
         SCRIPT_PREFIXES = Collections.unmodifiableSet(scriptPrefixes);
     }
 
+    /**
+     * Returns <code>true</code> if <code>str</code> contains a script.
+     * @param str The string to test
+     * @return <code>true</code> if <code>str</code> contains a script
+     */
     public static boolean containsScript(String str) {
         if (str.length() > 0) {
             for (String scriptPrefix : SCRIPT_PREFIXES) {
@@ -81,10 +85,27 @@ public final class MiniLangUtil {
         return false;
     }
 
+    /**
+     * Returns <code>true</code> if the Mini-language script engine has been configured to
+     * auto-correct version changes.
+     * @return <code>true</code> if the Mini-language script engine has been configured to
+     * auto-correct version changes
+     */
     public static boolean autoCorrectOn() {
         return "true".equals(UtilProperties.getPropertyValue("minilang.properties", "autocorrect"));
     }
 
+    /**
+     * Calls an object method.
+     * @param operation A reference to the <code>MethodOperation</code> calling this method
+     * @param methodContext
+     * @param parameters
+     * @param methodClass
+     * @param methodObject
+     * @param methodName
+     * @param retFieldFma
+     * @throws MiniLangRuntimeException
+     */
     public static void callMethod(MethodOperation operation, MethodContext methodContext, List<MethodObject<?>> parameters, Class<?> methodClass, Object methodObject, String methodName, FlexibleMapAccessor<Object> retFieldFma) throws MiniLangRuntimeException {
         Object[] args = null;
         Class<?>[] parameterTypes = null;
@@ -115,6 +136,16 @@ public final class MiniLangUtil {
         }
     }
 
+    /**
+     * Returns <code>obj</code> converted to the type specified in <code>targetClass</code>.
+     * @param obj
+     * @param targetClass
+     * @param locale
+     * @param timeZone
+     * @param format
+     * @return The converted object
+     * @throws Exception
+     */
     @SuppressWarnings("unchecked")
     public static Object convertType(Object obj, Class<?> targetClass, Locale locale, TimeZone timeZone, String format) throws Exception {
         if (obj == null || obj == GenericEntity.NULL_FIELD) {
@@ -154,6 +185,10 @@ public final class MiniLangUtil {
         return converter.convert(obj);
     }
 
+    /**
+     * Flags a Mini-language XML document as corrected.
+     * @param element
+     */
     public static void flagDocumentAsCorrected(Element element) {
         Document doc = element.getOwnerDocument();
         if (doc != null) {
@@ -161,6 +196,16 @@ public final class MiniLangUtil {
         }
     }
 
+    /**
+     * Returns a <code>object</code>-derived <code>Class</code> that is
+     * suitable for use with the conversion framework. If the argument is
+     * <code>null</code> or a <code>String</code>, the method returns the
+     * {@link PlainString} class.
+     * 
+     * @param object
+     * @return A <code>Class</code> that is
+     * suitable for use with the conversion framework
+     */
     public static Class<?> getObjectClassForConversion(Object object) {
         if (object == null || object instanceof String) {
             return PlainString.class;
@@ -177,6 +222,14 @@ public final class MiniLangUtil {
         }
     }
 
+    /**
+     * Returns <code>true</code> if <code>attributeValue</code> is a
+     * constant value (it does not contain an expression).
+     * 
+     * @param attributeValue The value to test
+     * @return <code>true</code> if <code>attributeValue</code> is a
+     * constant value
+     */
     public static boolean isConstantAttribute(String attributeValue) {
         if (attributeValue.length() > 0) {
             return !FlexibleStringExpander.containsExpression(FlexibleStringExpander.getInstance(attributeValue));
@@ -184,6 +237,15 @@ public final class MiniLangUtil {
         return true;
     }
 
+    /**
+     * Returns <code>true</code> if <code>attributeValue</code> is a
+     * constant value (it does not contain an expression) or a constant
+     * plus expression value.
+     * 
+     * @param attributeValue The value to test
+     * @return <code>true</code> if <code>attributeValue</code> is a
+     * constant value or a constant plus expression value
+     */
     public static boolean isConstantPlusExpressionAttribute(String attributeValue) {
         if (attributeValue.length() > 0) {
             if (attributeValue.startsWith("${") && attributeValue.endsWith("}")) {
@@ -200,29 +262,23 @@ public final class MiniLangUtil {
         return true;
     }
 
+    /**
+     * Returns <code>true</code> if <code>document</code> contains corrections.
+     * 
+     * @param document The document to test
+     * @return  <code>true</code> if <code>document</code> contains corrections
+     */
     public static boolean isDocumentAutoCorrected(Document document) {
         return "true".equals(document.getUserData("autoCorrected"));
     }
 
-    public static void removeInvalidAttributes(Element element, String... validAttributeNames) {
-        Set<String> validNames = new HashSet<String>();
-        for (String name : validAttributeNames) {
-            validNames.add(name);
-        }
-        boolean elementModified = false;
-        NamedNodeMap nnm = element.getAttributes();
-        for (int i = 0; i < nnm.getLength(); i++) {
-            String attributeName = nnm.item(i).getNodeName();
-            if (!validNames.contains(attributeName)) {
-                element.removeAttribute(attributeName);
-                elementModified = true;
-            }
-        }
-        if (elementModified) {
-            flagDocumentAsCorrected(element);
-        }
-    }
-
+    /**
+     * Writes a Mini-language <code>Document</code> to disk. The XML file is styled by the
+     * config/MiniLang.xslt style sheet.
+     * 
+     * @param xmlURL
+     * @param document
+     */
     public static void writeMiniLangDocument(URL xmlURL, Document document) {
         URL styleSheetURL = null;
         InputStream styleSheetInStream = null;

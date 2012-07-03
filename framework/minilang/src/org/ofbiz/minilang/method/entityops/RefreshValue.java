@@ -33,6 +33,8 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;refresh-value&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Crefreshvalue%3E}}">Mini-language Reference</a>
  */
 public final class RefreshValue extends MethodOperation {
 

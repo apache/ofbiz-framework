@@ -28,6 +28,8 @@ import org.w3c.dom.NamedNodeMap;
 
 /**
  * Implements the &lt;clear-entity-caches&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cclearentitycaches%3E}}">Mini-language Reference</a>
  */
 public final class ClearEntityCaches extends MethodOperation {
 
@@ -58,10 +60,12 @@ public final class ClearEntityCaches extends MethodOperation {
      * A factory for the &lt;clear-entity-caches&gt; element.
      */
     public static final class ClearEntityCachesFactory implements Factory<ClearEntityCaches> {
+        @Override
         public ClearEntityCaches createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new ClearEntityCaches(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "clear-entity-caches";
         }

@@ -32,8 +32,10 @@ import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Adds an error message to an error message list.
- */
+ * Implements the &lt;add-error&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cadderror%3E}}">Mini-language Reference</a>
+*/
 public final class AddError extends MethodOperation {
 
     private final FlexibleMapAccessor<List<String>> errorListFma;
@@ -81,11 +83,16 @@ public final class AddError extends MethodOperation {
         return sb.toString();
     }
 
+    /**
+     * A factory for the &lt;add-error&gt; element.
+    */
     public static final class AddErrorFactory implements Factory<AddError> {
+        @Override
         public AddError createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new AddError(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "add-error";
         }

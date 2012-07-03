@@ -35,6 +35,8 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;store-list&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cstorelist%3E}}">Mini-language Reference</a>
  */
 public final class StoreList extends MethodOperation {
 

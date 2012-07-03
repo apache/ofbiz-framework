@@ -36,7 +36,9 @@ import org.ofbiz.minilang.method.envops.Continue.ContinueElementException;
 import org.w3c.dom.Element;
 
 /**
- * Process sub-operations for each entry in the map
+ * Implements the &lt;iterate-map&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Citeratemap%3E}}">Mini-language Reference</a>
  */
 public final class IterateMap extends MethodOperation {
 
@@ -131,11 +133,16 @@ public final class IterateMap extends MethodOperation {
         return sb.toString();
     }
 
+    /**
+     * A factory for the &lt;iterate-map&gt; element.
+     */
     public static final class IterateMapFactory implements Factory<IterateMap> {
+        @Override
         public IterateMap createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new IterateMap(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "iterate-map";
         }

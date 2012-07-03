@@ -37,7 +37,9 @@ import org.ofbiz.service.GenericServiceException;
 import org.w3c.dom.Element;
 
 /**
- * Calls a service using the given parameters
+ * Implements the &lt;call-service-asynch&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Ccallserviceasynch%3E}}">Mini-language Reference</a>
  */
 public final class CallServiceAsynch extends MethodOperation {
 
@@ -126,11 +128,16 @@ public final class CallServiceAsynch extends MethodOperation {
         return sb.toString();
     }
 
+    /**
+     * A factory for the &lt;call-service-asynch&gt; element.
+     */
     public static final class CallServiceAsynchFactory implements Factory<CallServiceAsynch> {
+        @Override
         public CallServiceAsynch createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CallServiceAsynch(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "call-service-asynch";
         }

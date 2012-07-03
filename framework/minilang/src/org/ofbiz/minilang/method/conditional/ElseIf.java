@@ -33,6 +33,8 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;else-if&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Celseif%3E}}">Mini-language Reference</a>
  */
 public final class ElseIf extends MiniLangElement {
 

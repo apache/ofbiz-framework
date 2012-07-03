@@ -35,6 +35,8 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;remove-list&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cremovelist%3E}}">Mini-language Reference</a>
  */
 public final class RemoveList extends MethodOperation {
 

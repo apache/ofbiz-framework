@@ -25,7 +25,9 @@ import org.ofbiz.minilang.SimpleMethod;
 import org.w3c.dom.Element;
 
 /**
- * Specifies an environment field to be passed as an argument to a method call.
+ * Implements the &lt;field&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cfield%3E}}">Mini-language Reference</a>
  */
 public final class FieldObject<T> extends MethodObject<T> {
 

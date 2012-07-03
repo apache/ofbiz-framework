@@ -31,6 +31,8 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;clear-cache-line&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cclearcacheline%3E}}">Mini-language Reference</a>
  */
 public final class ClearCacheLine extends MethodOperation {
 
@@ -76,10 +78,12 @@ public final class ClearCacheLine extends MethodOperation {
      * A factory for the &lt;clear-cache-line&gt; element.
      */
     public static final class ClearCacheLineFactory implements Factory<ClearCacheLine> {
+        @Override
         public ClearCacheLine createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new ClearCacheLine(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "clear-cache-line";
         }

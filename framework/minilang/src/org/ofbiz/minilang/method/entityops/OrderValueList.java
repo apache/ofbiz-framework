@@ -32,6 +32,8 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;order-value-list&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cordervaluelist%3E}}">Mini-language Reference</a>
  */
 public final class OrderValueList extends MethodOperation {
 

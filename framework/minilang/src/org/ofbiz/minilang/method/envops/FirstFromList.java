@@ -31,6 +31,8 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;first-from-list&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cfirstfromlist%3E}}">Mini-language Reference</a>
  */
 public final class FirstFromList extends MethodOperation {
 

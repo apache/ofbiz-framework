@@ -35,7 +35,9 @@ import org.ofbiz.minilang.method.envops.Continue.ContinueElementException;
 import org.w3c.dom.Element;
 
 /**
- * Loop
+ * Implements the &lt;loop&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cloop%3E}}">Mini-language Reference</a>
  */
 public final class Loop extends MethodOperation {
 
@@ -110,11 +112,16 @@ public final class Loop extends MethodOperation {
         return sb.toString();
     }
 
+    /**
+     * A factory for the &lt;loop&gt; element.
+     */
     public static final class LoopFactory implements Factory<Loop> {
+        @Override
         public Loop createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new Loop(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "loop";
         }

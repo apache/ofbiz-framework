@@ -48,7 +48,9 @@ import org.ofbiz.service.ServiceUtil;
 import org.w3c.dom.Element;
 
 /**
- * Calls a service using the given parameters
+ * Implements the &lt;call-service&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Ccallservice%3E}}">Mini-language Reference</a>
  */
 public final class CallService extends MethodOperation {
 
@@ -379,11 +381,16 @@ public final class CallService extends MethodOperation {
         return sb.toString();
     }
 
+    /**
+     * A factory for the &lt;call-service&gt; element.
+     */
     public static final class CallServiceFactory implements Factory<CallService> {
+        @Override
         public CallService createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CallService(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "call-service";
         }

@@ -29,6 +29,8 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;clone-value&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cclonevalue%3E}}">Mini-language Reference</a>
  */
 public final class CloneValue extends MethodOperation {
 
@@ -69,10 +71,12 @@ public final class CloneValue extends MethodOperation {
      * A factory for the &lt;clone-value&gt; element.
      */
     public static final class CloneValueFactory implements Factory<CloneValue> {
+        @Override
         public CloneValue createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CloneValue(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "clone-value";
         }

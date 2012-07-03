@@ -79,7 +79,7 @@ public abstract class Compare {
      * Returns a <code>Compare</code> instance for the specified operator.
      * 
      * @param operator
-     * @return
+     * @return A <code>Compare</code> instance for the specified operator
      */
     public static Compare getInstance(String operator) {
         Assert.notNull("operator", operator);
@@ -95,7 +95,7 @@ public abstract class Compare {
      * @param format Optional format to be used in object type conversions
      * @param locale Optional locale to be used in object type conversions
      * @param timeZone Optional time zone to be used in object type conversions
-     * @return
+     * @return The result of this comparison
      * @throws Exception
      */
     public abstract boolean doCompare(Object lValue, Object rValue, Class<?> type, Locale locale, TimeZone timeZone, String format) throws Exception;
