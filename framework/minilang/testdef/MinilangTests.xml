@@ -26,4 +26,8 @@
         <junit-test-suite class-name="org.ofbiz.minilang.method.ifops.test.IfRegexpTest"/>
     </test-case>
 
+    <test-case case-name="MiniLangUnitTests">
+        <junit-test-suite class-name="org.ofbiz.minilang.test.MiniLangTests"/>
+    </test-case>
+
 </test-suite>
