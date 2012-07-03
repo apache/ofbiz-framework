@@ -29,7 +29,9 @@ import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Halts script execution if the error message list contains any messages.
+ * Implements the &lt;check-errors&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Ccheckerrors%3E}}">Mini-language Reference</a>
  */
 public final class CheckErrors extends MethodOperation {
 
@@ -40,7 +42,6 @@ public final class CheckErrors extends MethodOperation {
         super(element, simpleMethod);
         if (MiniLangValidate.validationOn()) {
             MiniLangValidate.attributeNames(simpleMethod, element, "error-code", "error-list-name");
-            MiniLangValidate.constantPlusExpressionAttributes(simpleMethod, element, "error-code");
             MiniLangValidate.noChildElements(simpleMethod, element);
         }
         this.errorCodeFse = FlexibleStringExpander.getInstance(element.getAttribute("error-code"));
@@ -49,6 +50,9 @@ public final class CheckErrors extends MethodOperation {
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
+        if (methodContext.isTraceOn()) {
+            outputTraceMessage(methodContext, "Begin check-errors.");
+        }
         List<Object> messages = methodContext.getEnv(this.errorListNameFse.expandString(methodContext.getEnvMap()));
         if (messages != null && messages.size() > 0) {
             if (methodContext.getMethodType() == MethodContext.EVENT) {
@@ -58,14 +62,22 @@ public final class CheckErrors extends MethodOperation {
                 methodContext.putEnv(simpleMethod.getServiceErrorMessageListName(), messages);
                 methodContext.putEnv(this.simpleMethod.getServiceResponseMessageName(), getErrorCode(methodContext));
             }
+            if (methodContext.isTraceOn()) {
+                outputTraceMessage(methodContext, "Found error messages. Setting error status and halting script execution.");
+                outputTraceMessage(methodContext, "End check-errors.");
+            }
             return false;
+        }
+        if (methodContext.isTraceOn()) {
+            outputTraceMessage(methodContext, "No error messages found. Continuing script execution.");
+            outputTraceMessage(methodContext, "End check-errors.");
         }
         return true;
     }
 
     private String getErrorCode(MethodContext methodContext) {
         String errorCode = this.errorCodeFse.expandString(methodContext.getEnvMap());
-        if (errorCode.length() == 0) {
+        if (errorCode.isEmpty()) {
             errorCode = this.simpleMethod.getDefaultErrorCode();
         }
         return errorCode;
@@ -84,11 +96,16 @@ public final class CheckErrors extends MethodOperation {
         return sb.toString();
     }
 
+    /**
+     * A factory for the &lt;check-errors&gt; element.
+     */
     public static final class CheckErrorsFactory implements Factory<CheckErrors> {
+        @Override
         public CheckErrors createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CheckErrors(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "check-errors";
         }
