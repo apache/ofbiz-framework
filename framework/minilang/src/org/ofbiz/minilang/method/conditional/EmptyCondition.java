@@ -24,7 +24,6 @@ import java.util.List;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
-import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
@@ -35,6 +34,8 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;if-empty&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cifempty%3E}}">Mini-language Reference</a>
  */
 public final class EmptyCondition extends MethodOperation implements Conditional {
 
@@ -112,7 +113,6 @@ public final class EmptyCondition extends MethodOperation implements Conditional
     public String toString() {
         StringBuilder sb = new StringBuilder("<if-empty ");
         sb.append("field=\"").append(this.fieldFma).append("\"/>");
-        sb.append("/>");
         return sb.toString();
     }
 
