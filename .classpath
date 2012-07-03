@@ -180,6 +180,7 @@
     <classpathentry kind="src" path="framework/catalina/src"/>
     <classpathentry kind="src" path="framework/common/src"/>
     <classpathentry kind="src" path="framework/datafile/src"/>
+    <classpathentry kind="src" path="framework/entity/src"/>
     <classpathentry kind="src" path="framework/entityext/src"/>
     <classpathentry kind="src" path="framework/geronimo/src"/>
     <classpathentry kind="src" path="framework/jetty/src"/>
