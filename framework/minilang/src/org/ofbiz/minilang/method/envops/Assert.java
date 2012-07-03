@@ -37,7 +37,9 @@ import org.ofbiz.minilang.method.conditional.ConditionalFactory;
 import org.w3c.dom.Element;
 
 /**
- * Adds an error to the error list for each condition that evaluates to false.
+ * Implements the &lt;assert&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cassert%3E}}">Mini-language Reference</a>
  */
 public final class Assert extends MethodOperation {
 
@@ -68,11 +70,10 @@ public final class Assert extends MethodOperation {
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        List<Object> messages = errorListFma.get(methodContext.getEnvMap());
-        if (messages == null) {
-            messages = FastList.newInstance();
-            errorListFma.put(methodContext.getEnvMap(), messages);
+        if (methodContext.isTraceOn()) {
+            outputTraceMessage(methodContext, "Begin assert.");
         }
+        List<Object> messages = errorListFma.get(methodContext.getEnvMap());
         String title = titleExdr.expandString(methodContext.getEnvMap());
         for (Conditional condition : conditionalList) {
             if (!condition.checkCondition(methodContext)) {
@@ -84,8 +85,18 @@ public final class Assert extends MethodOperation {
                 }
                 messageBuffer.append("failed: ");
                 condition.prettyPrint(messageBuffer, methodContext);
+                if (messages == null) {
+                    messages = FastList.newInstance();
+                    errorListFma.put(methodContext.getEnvMap(), messages);
+                }
                 messages.add(messageBuffer.toString());
+                if (methodContext.isTraceOn()) {
+                    outputTraceMessage(methodContext, "Condition evaluated to false: " + condition + ", adding error message.");
+                }
             }
+        }
+        if (methodContext.isTraceOn()) {
+            outputTraceMessage(methodContext, "End assert.");
         }
         return true;
     }
@@ -106,11 +117,16 @@ public final class Assert extends MethodOperation {
         return messageBuf.toString();
     }
 
+    /**
+     * A factory for the &lt;assert&gt; element.
+     */
     public static final class AssertFactory implements Factory<Assert> {
+        @Override
         public Assert createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new Assert(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "assert";
         }
