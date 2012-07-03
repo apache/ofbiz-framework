@@ -25,7 +25,9 @@ import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Causes script execution to return to the beginning of the nearest enclosing loop element.
+ * Implements the &lt;continue&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Ccontinue%3E}}">Mini-language Reference</a>
  */
 public class Continue extends MethodOperation {
 
@@ -60,11 +62,16 @@ public class Continue extends MethodOperation {
         }
     }
 
+    /**
+     * A factory for the &lt;continue&gt; element.
+     */
     public static final class ContinueFactory implements Factory<Continue> {
+        @Override
         public Continue createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new Continue(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "continue";
         }

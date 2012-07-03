@@ -36,7 +36,9 @@ import org.ofbiz.minilang.operation.MapProcessor;
 import org.w3c.dom.Element;
 
 /**
- * An event operation that calls a simple map processor inlined or from a separate file
+ * Implements the &lt;call-map-processor&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Ccallmapprocessor%3E}}">Mini-language Reference</a>
  */
 public final class CallSimpleMapProcessor extends MethodOperation {
 
@@ -122,11 +124,16 @@ public final class CallSimpleMapProcessor extends MethodOperation {
         return sb.toString();
     }
 
+    /**
+     * A factory for the &lt;call-map-processor&gt; element.
+     */
     public static final class CallSimpleMapProcessorFactory implements Factory<CallSimpleMapProcessor> {
+        @Override
         public CallSimpleMapProcessor createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CallSimpleMapProcessor(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "call-map-processor";
         }

@@ -63,7 +63,7 @@ public final class MiniLangValidate {
      * 
      * @param attributeValue
      * @param defaultValue
-     * @return
+     * @return <code>attributeValue</code> if it is not empty, else returns <code>defaultValue</code>
      */
     public static String checkAttribute(String attributeValue, String defaultValue) {
         return attributeValue.isEmpty() ? defaultValue : attributeValue;

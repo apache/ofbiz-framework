@@ -35,7 +35,9 @@ import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * If the given ID field is not valid the fail-message or fail-property sub-elements are used to add a message to the error-list.
+ * Implements the &lt;check-id&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Ccheckid%3E}}">Mini-language Reference</a>
  */
 public final class CheckId extends MethodOperation {
 
@@ -51,6 +53,7 @@ public final class CheckId extends MethodOperation {
         super(element, simpleMethod);
         if (MiniLangValidate.validationOn()) {
             MiniLangValidate.attributeNames(simpleMethod, element, "field", "error-list-name");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "field");
             MiniLangValidate.constantAttributes(simpleMethod, element, "error-list-name");
             MiniLangValidate.expressionAttributes(simpleMethod, element, "field");
             MiniLangValidate.childElements(simpleMethod, element, "fail-message", "fail-property");
@@ -134,11 +137,16 @@ public final class CheckId extends MethodOperation {
         return sb.toString();
     }
 
+    /**
+     * A factory for the &lt;check-id&gt; element.
+     */
     public static final class CheckIdFactory implements Factory<CheckId> {
+        @Override
         public CheckId createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CheckId(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "check-id";
         }

@@ -27,7 +27,9 @@ import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Copies a field to the simple-method result Map.
+ * Implements the &lt;field-to-request&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cfieldtoresult%3E}}">Mini-language Reference</a>
  */
 public final class FieldToResult extends MethodOperation {
 
@@ -81,11 +83,16 @@ public final class FieldToResult extends MethodOperation {
         return sb.toString();
     }
 
+    /**
+     * A factory for the &lt;field-to-request&gt; element.
+     */
     public static final class FieldToResultFactory implements Factory<FieldToResult> {
+        @Override
         public FieldToResult createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new FieldToResult(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "field-to-result";
         }

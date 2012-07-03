@@ -32,6 +32,8 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;entity-and&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Centityand%3E}}">Mini-language Reference</a>
  */
 public final class EntityAnd extends MethodOperation {
 
@@ -81,10 +83,12 @@ public final class EntityAnd extends MethodOperation {
      * A factory for the &lt;entity-and&gt; element.
      */
     public static final class EntityAndFactory implements Factory<EntityAnd> {
+        @Override
         public EntityAnd createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new EntityAnd(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "entity-and";
         }

@@ -42,6 +42,8 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;entity-data&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Centitydata%3E}}">Mini-language Reference</a>
  */
 public final class EntityData extends MethodOperation {
 
@@ -63,7 +65,11 @@ public final class EntityData extends MethodOperation {
         }
         locationFse = FlexibleStringExpander.getInstance(element.getAttribute("location"));
         delegatorNameFse = FlexibleStringExpander.getInstance(element.getAttribute("delegator-name"));
+        mode = MiniLangValidate.checkAttribute(element.getAttribute("mode"), "load");
         String timeoutAttribute = element.getAttribute("timeout");
+        if (!"load".equals(mode) && !timeoutAttribute.isEmpty()) {
+            MiniLangValidate.handleError("timeout attribute is valid only when mode=\"load\".", simpleMethod, element);
+        }
         int timeout = -1;
         if (!timeoutAttribute.isEmpty()) {
             try {
@@ -74,7 +80,6 @@ public final class EntityData extends MethodOperation {
         }
         this.timeout = timeout;
         errorListFma = FlexibleMapAccessor.getInstance(MiniLangValidate.checkAttribute(element.getAttribute("error-list-name"), "error_list"));
-        mode = MiniLangValidate.checkAttribute(element.getAttribute("mode"), "load");
     }
 
     @Override

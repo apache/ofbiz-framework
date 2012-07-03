@@ -34,6 +34,8 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;request-parameters-to-list&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Crequestparameterstolist%3E}}">Mini-language Reference</a>
  */
 public final class RequestParametersToList extends MethodOperation {
 
@@ -50,7 +52,7 @@ public final class RequestParametersToList extends MethodOperation {
     }
 
     private final FlexibleMapAccessor<List<String>> listFma;
-    private final FlexibleStringExpander attributeNameFse;
+    private final FlexibleStringExpander parameterNameFse;
 
     public RequestParametersToList(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
@@ -65,20 +67,20 @@ public final class RequestParametersToList extends MethodOperation {
         if (elementModified && MiniLangUtil.autoCorrectOn()) {
             MiniLangUtil.flagDocumentAsCorrected(element);
         }
-        this.attributeNameFse = FlexibleStringExpander.getInstance(element.getAttribute("request-name"));
-        String attributeName = element.getAttribute("list");
-        if (!attributeName.isEmpty()) {
-            this.listFma = FlexibleMapAccessor.getInstance(attributeName);
+        this.parameterNameFse = FlexibleStringExpander.getInstance(element.getAttribute("request-name"));
+        String listAttribute = element.getAttribute("list");
+        if (!listAttribute.isEmpty()) {
+            this.listFma = FlexibleMapAccessor.getInstance(listAttribute);
         } else {
-            this.listFma = FlexibleMapAccessor.getInstance(attributeNameFse.toString());
+            this.listFma = FlexibleMapAccessor.getInstance(parameterNameFse.toString());
         }
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         if (methodContext.getMethodType() == MethodContext.EVENT) {
-            String attributeName = attributeNameFse.expandString(methodContext.getEnvMap());
-            String[] parameterValues = methodContext.getRequest().getParameterValues(attributeName);
+            String parameterName = parameterNameFse.expandString(methodContext.getEnvMap());
+            String[] parameterValues = methodContext.getRequest().getParameterValues(parameterName);
             if (parameterValues != null) {
                 List<String> valueList = listFma.get(methodContext.getEnvMap());
                 if (valueList == null) {
@@ -96,7 +98,7 @@ public final class RequestParametersToList extends MethodOperation {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("<request-parameters-to-list ");
-        sb.append("request-name=\"").append(this.attributeNameFse).append("\" ");
+        sb.append("request-name=\"").append(this.parameterNameFse).append("\" ");
         if (!this.listFma.isEmpty()) {
             sb.append("list=\"").append(this.listFma).append("\" ");
         }

@@ -32,7 +32,9 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;field-to-list&gt; element.
- */
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cfieldtolist%3E}}">Mini-language Reference</a>
+*/
 public final class FieldToList extends MethodOperation {
 
     private final FlexibleMapAccessor<Object> fieldFma;

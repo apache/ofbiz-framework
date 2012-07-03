@@ -38,6 +38,8 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;if-regexp&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cifregexp%3E}}">Mini-language Reference</a>
  */
 public class RegexpCondition extends MethodOperation implements Conditional {
 
@@ -55,7 +57,6 @@ public class RegexpCondition extends MethodOperation implements Conditional {
         if (MiniLangValidate.validationOn()) {
             MiniLangValidate.attributeNames(simpleMethod, element, "field", "expr");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "field", "expr");
-            MiniLangValidate.constantPlusExpressionAttributes(simpleMethod, element, "expr");
             MiniLangValidate.expressionAttributes(simpleMethod, element, "field");
         }
         this.fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));

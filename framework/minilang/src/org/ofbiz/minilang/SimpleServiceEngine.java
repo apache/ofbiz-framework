@@ -27,7 +27,7 @@ import org.ofbiz.service.ServiceDispatcher;
 import org.ofbiz.service.engine.GenericAsyncEngine;
 
 /**
- * Standard Java Static Method Service Engine
+ * Mini-language Service Engine.
  */
 public final class SimpleServiceEngine extends GenericAsyncEngine {
 

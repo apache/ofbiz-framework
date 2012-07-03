@@ -38,6 +38,8 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;if-compare&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cifcompare%3E}}">Mini-language Reference</a>
  */
 public final class CompareCondition extends MethodOperation implements Conditional {
 
@@ -58,7 +60,7 @@ public final class CompareCondition extends MethodOperation implements Condition
             MiniLangValidate.attributeNames(simpleMethod, element, "field", "format", "operator", "type", "value");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "field", "operator", "value");
             MiniLangValidate.constantAttributes(simpleMethod, element, "operator", "type");
-            MiniLangValidate.constantPlusExpressionAttributes(simpleMethod, element, "value", "format");
+            MiniLangValidate.constantPlusExpressionAttributes(simpleMethod, element, "value");
             MiniLangValidate.expressionAttributes(simpleMethod, element, "field");
         }
         this.fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
@@ -101,7 +103,7 @@ public final class CompareCondition extends MethodOperation implements Condition
     @Override
     public boolean checkCondition(MethodContext methodContext) throws MiniLangException {
         if (this.compare == null) {
-            throw new MiniLangRuntimeException("Invalid operator " + this.operator, this);
+            throw new MiniLangRuntimeException("Invalid operator \"" + this.operator + "\"", this);
         }
         Object fieldVal = fieldFma.get(methodContext.getEnvMap());
         Class<?> targetClass = this.targetClass;

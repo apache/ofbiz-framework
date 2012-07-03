@@ -36,6 +36,8 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;if-validate-method&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cifvalidatemethod%3E}}">Mini-language Reference</a>
  */
 public final class ValidateMethodCondition extends MethodOperation implements Conditional {
 

@@ -35,7 +35,9 @@ import org.ofbiz.minilang.method.envops.Continue.ContinueElementException;
 import org.w3c.dom.Element;
 
 /**
- * Continually processes sub-ops while the condition remains true
+ * Implements the &lt;while&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cwhile%3E}}">Mini-language Reference</a>
  */
 public final class While extends MethodOperation {
 
@@ -91,11 +93,18 @@ public final class While extends MethodOperation {
         return "<while><condition>" + messageBuf + "</condition></while>";
     }
 
+    /**
+     * A factory for the &lt;while&gt; element.
+     * 
+     * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cwhile%3E}}">Mini-language Reference</a>
+     */
     public static final class WhileFactory implements Factory<While> {
+        @Override
         public While createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new While(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "while";
         }

@@ -41,7 +41,9 @@ import bsh.EvalError;
 import bsh.Interpreter;
 
 /**
- * Executes a BSH script.
+ * Implements the &lt;call-bsh&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Ccallbsh%3E}}">Mini-language Reference</a>
  */
 public final class CallBsh extends MethodOperation {
 
@@ -147,11 +149,16 @@ public final class CallBsh extends MethodOperation {
         return sb.toString();
     }
 
+    /**
+     * A factory for the &lt;call-bsh&gt; element.
+     */
     public static final class CallBshFactory implements Factory<CallBsh> {
+        @Override
         public CallBsh createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CallBsh(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "call-bsh";
         }

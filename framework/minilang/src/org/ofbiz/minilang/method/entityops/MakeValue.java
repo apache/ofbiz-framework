@@ -34,6 +34,8 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;make-value&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cmakevalue%3E}}">Mini-language Reference</a>
  */
 public final class MakeValue extends MethodOperation {
 
@@ -58,7 +60,7 @@ public final class MakeValue extends MethodOperation {
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         String entityName = entityNameFse.expandString(methodContext.getEnvMap());
         if (entityName.isEmpty()) {
-            throw new MiniLangRuntimeException("Entity name not found: " + entityNameFse, this);
+            throw new MiniLangRuntimeException("Entity name not found.", this);
         }
         valueFma.put(methodContext.getEnvMap(), methodContext.getDelegator().makeValidValue(entityName, mapFma.get(methodContext.getEnvMap())));
         return true;

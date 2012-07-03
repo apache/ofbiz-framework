@@ -27,7 +27,9 @@ import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * An event operation that returns the given response code
+ * Implements the &lt;return&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Creturn%3E}}">Mini-language Reference</a>
  */
 public final class Return extends MethodOperation {
 
@@ -39,12 +41,15 @@ public final class Return extends MethodOperation {
             MiniLangValidate.attributeNames(simpleMethod, element, "response-code");
             MiniLangValidate.noChildElements(simpleMethod, element);
         }
-        responseCodeFse = FlexibleStringExpander.getInstance(MiniLangValidate.checkAttribute(element.getAttribute("response-code"), "success"));
+        responseCodeFse = FlexibleStringExpander.getInstance(element.getAttribute("response-code"));
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         String responseCode = responseCodeFse.expandString(methodContext.getEnvMap());
+        if (responseCode.isEmpty()) {
+            responseCode = simpleMethod.getDefaultSuccessCode();
+        }
         if (methodContext.getMethodType() == MethodContext.EVENT) {
             methodContext.putEnv(simpleMethod.getEventResponseCodeName(), responseCode);
         } else {
@@ -63,11 +68,16 @@ public final class Return extends MethodOperation {
         return sb.toString();
     }
 
+    /**
+     * A factory for the &lt;return&gt; element.
+     */
     public static final class ReturnFactory implements Factory<Return> {
+        @Override
         public Return createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new Return(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "return";
         }

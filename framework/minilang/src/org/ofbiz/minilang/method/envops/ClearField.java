@@ -28,6 +28,8 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;clear-field&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{<clearfield>}}">Mini-language Reference</a>
  */
 public final class ClearField extends MethodOperation {
 

@@ -30,7 +30,9 @@ import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Enables trace log messages in sub-elements.
+ * Implements the &lt;trace&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Ctrace%3E}}">Mini-language Reference</a>
  */
 public final class Trace extends MethodOperation {
 
@@ -75,11 +77,16 @@ public final class Trace extends MethodOperation {
         return sb.toString();
     }
 
+    /**
+     * A factory for the &lt;trace&gt; element.
+     */
     public static final class TraceFactory implements Factory<Trace> {
+        @Override
         public Trace createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new Trace(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "trace";
         }

@@ -37,6 +37,8 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;set&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cset%3E}}">Mini-language Reference</a>
  */
 public final class SetOperation extends MethodOperation {
 

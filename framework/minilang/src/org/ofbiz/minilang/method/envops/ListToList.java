@@ -32,6 +32,8 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;list-to-list&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Clisttolist%3E}}">Mini-language Reference</a>
  */
 public final class ListToList extends MethodOperation {
 

@@ -40,7 +40,9 @@ import org.ofbiz.service.ModelService;
 import org.w3c.dom.Element;
 
 /**
- * Sets all Service parameters/attributes in the to-map using the map as a source.
+ * Implements the &lt;set-service-fields&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Csetservicefields%3E}}">Mini-language Reference</a>
  */
 public final class SetServiceFields extends MethodOperation {
 
@@ -80,6 +82,13 @@ public final class SetServiceFields extends MethodOperation {
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
+        Map<String, ? extends Object> fromMap = mapFma.get(methodContext.getEnvMap());
+        if (fromMap == null) {
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("The from map in set-service-field was not found with name: " + mapFma, module);
+            }
+            return true;
+        }
         String serviceName = serviceNameFse.expandString(methodContext.getEnvMap());
         ModelService modelService = null;
         try {
@@ -91,13 +100,6 @@ public final class SetServiceFields extends MethodOperation {
         if (toMap == null) {
             toMap = FastMap.newInstance();
             toMapFma.put(methodContext.getEnvMap(), toMap);
-        }
-        Map<String, ? extends Object> fromMap = mapFma.get(methodContext.getEnvMap());
-        if (fromMap == null) {
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("The from map in set-service-field was not found with name: " + mapFma, module);
-            }
-            return true;
         }
         List<Object> errorMessages = FastList.newInstance();
         Map<String, Object> validAttributes = modelService.makeValid(fromMap, "IN", true, errorMessages, methodContext.getTimeZone(), methodContext.getLocale());
@@ -132,11 +134,16 @@ public final class SetServiceFields extends MethodOperation {
         return sb.toString();
     }
 
+    /**
+     * A factory for the &lt;set-service-fields&gt; element.
+     */
     public static final class SetServiceFieldsFactory implements Factory<SetServiceFields> {
+        @Override
         public SetServiceFields createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new SetServiceFields(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "set-service-fields";
         }

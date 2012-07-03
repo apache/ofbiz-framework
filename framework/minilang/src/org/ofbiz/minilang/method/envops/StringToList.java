@@ -37,6 +37,8 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;string-to-list&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cstringtolist%3E}}">Mini-language Reference</a>
  */
 public final class StringToList extends MethodOperation {
 

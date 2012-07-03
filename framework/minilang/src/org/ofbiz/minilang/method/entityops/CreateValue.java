@@ -31,6 +31,8 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;create-value&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Ccreatevalue%3E}}">Mini-language Reference</a>
  */
 public final class CreateValue extends MethodOperation {
 
@@ -96,10 +98,12 @@ public final class CreateValue extends MethodOperation {
      * A factory for the &lt;create-value&gt; element.
      */
     public static final class CreateValueFactory implements Factory<CreateValue> {
+        @Override
         public CreateValue createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CreateValue(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "create-value";
         }

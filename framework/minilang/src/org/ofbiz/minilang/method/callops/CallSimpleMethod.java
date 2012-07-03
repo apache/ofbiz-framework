@@ -42,7 +42,9 @@ import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Invokes a Mini-language simple method.
+ * Implements the &lt;call-simple-method&gt; element.
+ * 
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Ccallsimplemethod%3E}}">Mini-language Reference</a>
  */
 public final class CallSimpleMethod extends MethodOperation {
 
@@ -192,11 +194,16 @@ public final class CallSimpleMethod extends MethodOperation {
         return sb.toString();
     }
 
+    /**
+     * A factory for the &lt;call-simple-method&gt; element.
+     */
     public static final class CallSimpleMethodFactory implements Factory<CallSimpleMethod> {
+        @Override
         public CallSimpleMethod createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CallSimpleMethod(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "call-simple-method";
         }
