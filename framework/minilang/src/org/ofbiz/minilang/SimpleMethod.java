@@ -549,7 +549,7 @@ public final class SimpleMethod extends MiniLangElement {
                 }
             }
             methodContext.putResult(ModelService.RESPONSE_MESSAGE, response);
-            returnValue = null;
+            returnValue = response;
         }
         // decide whether or not to commit based on the response message, ie only rollback if error is returned and not finished
         boolean doCommit = true;
