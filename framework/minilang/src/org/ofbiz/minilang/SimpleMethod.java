@@ -72,16 +72,17 @@ import org.w3c.dom.Element;
  * <ul>
  * <li>Creating model classes that extend {@link org.ofbiz.minilang.method.MethodOperation}</li>
  * <li>Creating factories for the model classes that implement {@link org.ofbiz.minilang.method.MethodOperation.Factory}</li>
- * <li>Create a service provider information file
+ * <li>Create a service provider information file for the factory classes
  * (see <a href="http://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html" target="_blank">ServiceLoader</a>)
- * for the factory classes</li>
+ * </li>
  * </ul>
  * </p>
+ * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-The{{%3Csimplemethod%3E}}element">Mini-language Reference</a>
  */
 public final class SimpleMethod extends MiniLangElement {
 
     public static final String module = SimpleMethod.class.getName();
-    public static final String err_resource = "MiniLangErrorUiLabels";
+    private static final String err_resource = "MiniLangErrorUiLabels";
     private static final String[] DEPRECATED_ATTRIBUTES = {"parameter-map-name", "locale-name", "delegator-name", "security-name", "dispatcher-name", "user-login-name"};
     private static final Map<String, MethodOperation.Factory<MethodOperation>> methodOperationFactories;
     private static final UtilCache<String, Map<String, SimpleMethod>> simpleMethodsDirectCache = UtilCache.createUtilCache("minilang.SimpleMethodsDirect", 0, 0);
@@ -407,7 +408,7 @@ public final class SimpleMethod extends MiniLangElement {
                 Map<String, Object> messageMap = UtilMisc.<String, Object> toMap("shortDescription", shortDescription);
                 String errMsg = UtilProperties.getMessage(SimpleMethod.err_resource, "simpleMethod.must_logged_process", messageMap, locale) + ".";
                 if (methodContext.isTraceOn()) {
-                    outputTraceMessage(methodContext, "\"login-required\" attribute set to \"true\" but UserLogin GenericValue was not found, returning error message:", errMsg);
+                    outputTraceMessage(methodContext, "login-required attribute set to \"true\" but UserLogin GenericValue was not found, returning error message:", errMsg);
                 }
                 return returnError(methodContext, errMsg);
             }
@@ -433,7 +434,7 @@ public final class SimpleMethod extends MiniLangElement {
         boolean beganTransaction = false;
         if (useTransaction) {
             if (methodContext.isTraceOn()) {
-                outputTraceMessage(methodContext, "\"use-transaction\" attribute set to \"true\", beginning transaction.");
+                outputTraceMessage(methodContext, "use-transaction attribute set to \"true\", beginning transaction.");
             }
             try {
                 beganTransaction = TransactionUtil.begin();
