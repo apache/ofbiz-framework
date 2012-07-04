@@ -673,7 +673,7 @@ Parameter: lastViewName, String, optional - If the ajaxEnabled parameter is true
 				args : <#rt/>
 					    <#if targetParameterIter?has_content>
 						    <#assign isFirst = true>
-						    <#lt/>, [<#rt/>
+						    <#lt/>[<#rt/>
 						    <#list targetParameterIter as item>
 						      <#if isFirst>
 						          <#lt/>document.${formName}.${item}<#rt/>
