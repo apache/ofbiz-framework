@@ -2718,7 +2718,7 @@ under the License.
       <field name="requireInventory" type="indicator"></field>
       <field name="quantityUomId" type="id"></field>
       <field name="quantityIncluded" type="fixed-point"><description>If you have a six-pack of 12oz soda cans you would have quantityIncluded=12, quantityUomId=oz, piecesIncluded=6.</description></field> 
-        <field name="piecesIncluded" type="numeric"><description>Excerpt from http://markmail.org/message/tvyghkw7rgq5bmqi there are more things interesting in this thread, other solutions to other problems, etc.</description></field>
+      <field name="piecesIncluded" type="numeric"></field>
       <field name="requireAmount" type="indicator"></field>
       <field name="fixedAmount" type="currency-amount"><description>Use this for products which are sold in fixed denominations, such as gift certificates or calling cards.</description></field>
       <field name="amountUomTypeId" type="id"></field>
