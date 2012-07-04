@@ -2333,7 +2333,7 @@
         <value xml:lang="zh_TW">使用計數表</value>
     </property>
     <property key="ProductMeterType.description.TRIP_METER">
-        <value xml:lang="en">Tageskilometerzähler</value>
+        <value xml:lang="de">Tageskilometerzähler</value>
         <value xml:lang="en">Use Trip Meter</value>
         <value xml:lang="fr">Utiliser le compteur de distance par trajet</value>
         <value xml:lang="vi">Sử dụng đồng hồ đo quãng đường chuyến đi</value>
