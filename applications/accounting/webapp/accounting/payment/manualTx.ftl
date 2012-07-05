@@ -20,7 +20,7 @@ under the License.
 <h1>${uiLabelMap.AccountingManualTransaction}</h1>
 <br />
 
-<#if security.hasEntityPermission("MANUAL", "_PAYMENT", session) || security.hasEntityPermission("ACCOUNTING", "_ADMIN", session)>
+<#if security.hasEntityPermission("MANUAL", "_PAYMENT", session) || security.hasEntityPermission("ACCOUNTING", "_CREATE", session)>
   ${setRequestAttribute("validTx", "false")}
   <form name="manualTxForm" method="post" action="<@ofbizUrl>manualETx</@ofbizUrl>">
     <#if requestParameters.paymentMethodId?exists>

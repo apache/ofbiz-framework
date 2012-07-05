@@ -28,8 +28,8 @@ under the License.
         <menu-item name="transaction" title="${uiLabelMap.AccountingTransactions}">
             <condition>
                 <or>
-                <if-has-permission permission="MANUAL" action="_PAYMENT"/>
-                <if-has-permission permission="ACCOUNTING" action="_ADMIN"/>
+                    <if-has-permission permission="MANUAL" action="_PAYMENT"/>
+                    <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
                 </or>
             </condition>
             <link target="FindGatewayResponses"/>
