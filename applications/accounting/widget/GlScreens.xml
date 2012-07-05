@@ -447,7 +447,7 @@ under the License.
                         <section>
                         <condition>
                             <or>
-                                <if-has-permission permission="ACCOUNTING" action="_ADMIN"/>
+                                <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
                                 <if-has-permission permission="PAY_INFO" action="_UPDATE"/>
                             </or>
                         </condition>
