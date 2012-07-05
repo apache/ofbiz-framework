@@ -2995,7 +2995,7 @@ public class PaymentGatewayServices {
         Security security = dctx.getSecurity();
 
         // security check
-        if (!security.hasEntityPermission("MANUAL", "_PAYMENT", userLogin) && !security.hasEntityPermission("ACCOUNTING", "_ADMIN", userLogin)) {
+        if (!security.hasEntityPermission("MANUAL", "_PAYMENT", userLogin) && !security.hasEntityPermission("ACCOUNTING", "_CREATE", userLogin)) {
             Debug.logWarning("**** Security [" + (new Date()).toString() + "]: " + userLogin.get("userLoginId") + " attempt to run manual payment transaction!", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "AccountingPaymentTransactionNotAuthorized", locale));
@@ -3130,7 +3130,7 @@ public class PaymentGatewayServices {
         Delegator delegator = dctx.getDelegator();
         Security security = dctx.getSecurity();
         // security check
-        if (!security.hasEntityPermission("MANUAL", "_PAYMENT", userLogin) && !security.hasEntityPermission("ACCOUNTING", "_ADMIN", userLogin)) {
+        if (!security.hasEntityPermission("MANUAL", "_PAYMENT", userLogin) && !security.hasEntityPermission("ACCOUNTING", "_CREATE", userLogin)) {
             Debug.logWarning("**** Security [" + (new Date()).toString() + "]: " + userLogin.get("userLoginId") + " attempt to run manual payment transaction!", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "AccountingPaymentTransactionNotAuthorized", locale));
