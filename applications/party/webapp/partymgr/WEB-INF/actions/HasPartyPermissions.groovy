@@ -23,7 +23,7 @@ context.hasCreatePermission = security.hasEntityPermission("PARTYMGR", "_CREATE"
 context.hasUpdatePermission = security.hasEntityPermission("PARTYMGR", "_UPDATE", session);
 context.hasDeletePermission = security.hasEntityPermission("PARTYMGR", "_DELETE", session);
 // extended pay_info permissions
-context.hasPayInfoPermission = security.hasEntityPermission("PAY_INFO", "_VIEW", session) || security.hasEntityPermission("ACCOUNTING", "_ADMIN", session);
+context.hasPayInfoPermission = security.hasEntityPermission("PAY_INFO", "_VIEW", session) || security.hasEntityPermission("ACCOUNTING", "_VIEW", session);
 // extended pcm (party contact mechanism) permissions
 context.hasPcmCreatePermission = security.hasEntityPermission("PARTYMGR_PCM", "_CREATE", session);
 context.hasPcmUpdatePermission = security.hasEntityPermission("PARTYMGR_PCM", "_UPDATE", session);
