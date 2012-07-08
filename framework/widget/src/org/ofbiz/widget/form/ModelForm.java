@@ -1509,6 +1509,9 @@ public class ModelForm extends ModelWidget {
                 if (itemIndex < lowIndex) {
                     continue;
                 }
+                
+                // reset/remove the BshInterpreter now as well as later because chances are there is an interpreter at this level of the stack too
+                this.resetBshInterpreter(context);
 
                 Map<String, Object> itemMap = UtilGenerics.checkMap(item);
                 MapStack<String> localContext = MapStack.create(context);
