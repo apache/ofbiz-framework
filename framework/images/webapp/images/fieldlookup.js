@@ -449,7 +449,7 @@ var FieldLookupCounter = function() {
 	};
 
 };
-var GLOBAL_LOOKUP_REF = new FieldLookupCounter;
+var GLOBAL_LOOKUP_REF = new FieldLookupCounter();
 
 /*******************************************************************************
  * Button Modifier Object
@@ -474,8 +474,8 @@ var ButtonModifier = function(lookupDiv) {
 
 		var slTitleBars = jQuery("#" + lookupDiv + " .screenlet-title-bar");
 
-		jQuery.each(slTitleBars, function(i) {
-			var slTitleBar = slTitleBars[i];
+		jQuery.each(slTitleBars, function(index) {
+			var slTitleBar = slTitleBars[index];
 			var ul = slTitleBar.firstChild;
 			if ((typeof ul) != 'object') {
 				return true;
@@ -610,10 +610,10 @@ var ButtonModifier = function(lookupDiv) {
 				jQuery.each(cellChilds, function(child) {
 					if (cellChilds[child].tagName == "A") {
 						var link = cellChilds[child].href;
-						var liSub = link.substring(link.lastIndexOf('/') + 1, (link.length));
-						if (liSub.indexOf("javascript:set_") != -1) {
+						if (link.indexOf("javascript:set_") != -1) {
 							cellChilds[child].href = link;
 						} else {
+							var liSub = link.substring(link.lastIndexOf('/') + 1, (link.length));
 							cellChilds[child].href = "javascript:lookupAjaxRequest('" + liSub + "&presentation=layer')";
 						}
 					}
