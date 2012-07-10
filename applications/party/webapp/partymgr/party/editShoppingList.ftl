@@ -196,7 +196,7 @@ under the License.
           <td>&nbsp;</td>
         </tr>
         <#assign alt_row = false>
-        <#list shoppingListItemDatas[lowIndex-1..highIndex-1] as shoppingListItemData>
+        <#list shoppingListItemDatas[lowIndex..highIndex-1] as shoppingListItemData>
           <#assign shoppingListItem = shoppingListItemData.shoppingListItem>
           <#assign product = shoppingListItemData.product>
           <#assign productContentWrapper = Static["org.ofbiz.product.product.ProductContentWrapper"].makeProductContentWrapper(product, request)>
