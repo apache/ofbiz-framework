@@ -22652,6 +22652,17 @@
         <value xml:lang="zh">重新索引关键字</value>
         <value xml:lang="zh_TW">重新索引關鍵字</value>
     </property>
+    <property key="ProductReviewBy">
+        <value xml:lang="de">Bewertung durch</value>
+        <value xml:lang="en">Review By</value>
+        <value xml:lang="es">Revisión por</value>
+        <value xml:lang="fr">A approuver par</value>
+        <value xml:lang="it">Recensito da</value>
+        <value xml:lang="th">การตรวจสอบโดย</value>
+        <value xml:lang="vi">Xem xét bởi</value>
+        <value xml:lang="zh">检查员</value>
+        <value xml:lang="zh_TW">檢查員</value>
+    </property>
     <property key="ProductReWeighPackage">
         <value xml:lang="de">Paket neu wägeny</value>
         <value xml:lang="en">Re-Weigh Package</value>

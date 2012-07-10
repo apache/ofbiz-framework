@@ -2377,15 +2377,21 @@ under the License.
     </request-map>
 
     <!-- ================ Product Review Requests ================= -->
-    <request-map uri="pendingReviews">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="pendingReviews"/>
-    </request-map>
     <request-map uri="updateProductReview">
         <security https="true" auth="true"/>
-        <event type="service-multi" path="" invoke="updateProductReview"/>
-        <response name="success" type="view" value="pendingReviews"/>
-        <response name="error" type="view" value="pendingReviews"/>
+        <event type="service" path="" invoke="updateProductReview"/>
+        <response name="success" type="request-redirect-noparam" value="FindReviews"/>
+        <response name="error" type="view" value="FindReviews"/>
+    </request-map>
+    <request-map uri="FindReviews">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindReviews"/>
+    </request-map>
+    <request-map uri="updateProductReviewStatus">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="setProductReviewStatus"/>
+        <response name="success" type="view" value="FindReviews"/>
+        <response name="error" type="view" value="FindReviews"/>
     </request-map>
 
     <!-- ================ Supplier Product Requests ================= -->
@@ -3175,6 +3181,7 @@ under the License.
     <view-map name="EditKeywordThesaurus" type="screen" page="component://product/widget/catalog/ThesaurusScreens.xml#EditKeywordThesaurus"/>
 
     <view-map name="pendingReviews" type="screen" page="component://product/widget/catalog/ReviewScreens.xml#pendingReviews"/>
+    <view-map name="FindReviews" type="screen" page="component://product/widget/catalog/ReviewScreens.xml#FindReviews"/>
 
     <view-map name="ViewProductOrder" type="screen" page="component://product/widget/catalog/ProductScreens.xml#ViewProductOrder"/>
     <view-map name="EditProductCommunicationEvents" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductCommunicationEvents"/>

@@ -1688,4 +1688,8 @@ under the License.
     <ProductKeyword productId="WG-1111" keyword="chrome" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
     <ProductKeyword productId="GZ-1006" keyword="standard" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
     
+    <!-- Product review  demo -->
+    <ProductReview productId="GZ-1000" productRating="4.000000" productReview="Good" productReviewId="9000" productStoreId="9000" statusId="PRR_PENDING" userLoginId="DemoCustomer"/>
+    <ProductReview productId="GZ-2644" productRating="5.000000" productReview="It's useful." productReviewId="9000" productStoreId="9000" statusId="PRR_APPROVED" userLoginId="DemoCustomer"/>
+    
 </entity-engine-xml>
