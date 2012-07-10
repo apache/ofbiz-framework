@@ -219,7 +219,7 @@ under the License.
     <xs:element name="simple-methods">
         <xs:annotation>
             <xs:documentation>
-                Opening tag of simple-method files.
+                The document-level element of Mini-language files.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -531,6 +531,8 @@ under the License.
                 If the user does not have the specified permission or if there is no user associated with the context
                 then the failure message from fail-message or fail-property will be added to the
                 specified error list.
+                &lt;br/&gt;&lt;br/&gt;
+                Note that this element must be followed by the check-errors element for it to do anything meaningful. 
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -645,7 +647,7 @@ under the License.
     <xs:element name="field">
         <xs:annotation>
             <xs:documentation>
-                Specifies an environment field to be passed as an argument to an object method call.
+                Declares an environment field to be passed as an argument to an object method call.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -675,7 +677,7 @@ under the License.
     <xs:element name="field-to-list" substitutionGroup="EnvOperations">
         <xs:annotation>
             <xs:documentation>
-                Appends an object to the specified list. Does nothing if the specified object does not exist.
+                Appends an object to the specified list.
                 &lt;br/&gt;&lt;br/&gt;
                 Deprecated - use the set element.
             </xs:documentation>
@@ -684,7 +686,7 @@ under the License.
             <xs:attribute type="xs:string" name="field" use="required">
                 <xs:annotation>
                     <xs:documentation>
-                        The field name of the object to append.
+                        The field name of the object to append. The operation does nothing if the field does not exist.
                         &lt;br/&gt;&lt;br/&gt;
                         Required. Attribute type: expression.
                     </xs:documentation>
@@ -707,7 +709,6 @@ under the License.
         <xs:annotation>
             <xs:documentation>
                 Copies a field to a servlet request attribute.
-                Does nothing if the specified field does not exist.
                 Valid only when the simple-method is called as an event, it is ignored otherwise.
             </xs:documentation>
         </xs:annotation>
@@ -715,7 +716,8 @@ under the License.
             <xs:attribute type="xs:string" name="field" use="required">
                 <xs:annotation>
                     <xs:documentation>
-                        The name of the field to copy.
+                        The name of the field to copy from. The source of the assignment.
+                        The operation does nothing if the field does not exist.
                         &lt;br/&gt;&lt;br/&gt;
                         Required. Attribute type: expression.
                     </xs:documentation>
@@ -724,7 +726,8 @@ under the License.
             <xs:attribute type="xs:string" name="request-name">
                 <xs:annotation>
                     <xs:documentation>
-                        The servlet request attribute name. Defaults to the value of field attribute.
+                        The servlet request attribute name. The target of the assignment.
+                        Defaults to the value of the field attribute.
                         &lt;br/&gt;&lt;br/&gt;
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
@@ -744,6 +747,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field to copy from. The source of the assignment.
+                        The operation does nothing if the field does not exist.
                         &lt;br/&gt;&lt;br/&gt;
                         Required. Attribute type: expression.
                     </xs:documentation>
@@ -753,7 +757,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the result field to set. The target of the assignment.
-                        Defaults to the value of field attribute.
+                        Defaults to the value of the field attribute.
                         &lt;br/&gt;&lt;br/&gt;
                         Optional. Attribute type: expression.
                     </xs:documentation>
@@ -766,7 +770,6 @@ under the License.
         <xs:annotation>
             <xs:documentation>
                 Copies a field to a servlet session attribute.
-                Does nothing if the specified field does not exist.
                 Valid only when the simple-method is called as an event, it is ignored otherwise.
             </xs:documentation>
         </xs:annotation>
@@ -774,7 +777,8 @@ under the License.
             <xs:attribute type="xs:string" name="field" use="required">
                 <xs:annotation>
                     <xs:documentation>
-                        The name of the field to copy.
+                        The name of the field to copy from. The source of the assignment.
+                        The operation does nothing if the field does not exist.
                         &lt;br/&gt;&lt;br/&gt;
                         Required. Attribute type: expression.
                     </xs:documentation>
@@ -783,7 +787,8 @@ under the License.
             <xs:attribute type="xs:string" name="session-name">
                 <xs:annotation>
                     <xs:documentation>
-                        The servlet session attribute name. Defaults to the value of field attribute.
+                        The servlet session attribute name. The target of the assignment.
+                        Defaults to the value of the field attribute.
                         &lt;br/&gt;&lt;br/&gt;
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
@@ -826,14 +831,14 @@ under the License.
     <xs:element name="list-to-list" substitutionGroup="EnvOperations">
         <xs:annotation>
             <xs:documentation>
-                Copy a list to another list. Does nothing if the source list does not exist.
+                Copy a list to another list.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:attribute type="xs:string" name="list" use="required">
                 <xs:annotation>
                     <xs:documentation>
-                        Name of the list to copy from.
+                        Name of the list to copy from. The operation does nothing if the list does not exist.
                         &lt;br/&gt;&lt;br/&gt;
                         Required. Attribute type: expression.
                     </xs:documentation>
@@ -854,7 +859,7 @@ under the License.
     <xs:element name="map-to-map" substitutionGroup="EnvOperations">
         <xs:annotation>
             <xs:documentation>
-                Copies a map to another map. Does nothing if the source map does not exist.
+                Copies a map to another map.
                 If a target map is not specified, the source map is copied to the current
                 environment (memory space).
             </xs:documentation>
@@ -863,7 +868,7 @@ under the License.
             <xs:attribute type="xs:string" name="map" use="required">
                 <xs:annotation>
                     <xs:documentation>
-                        The name of the map to copy from.
+                        The name of the map to copy from. The operation does nothing if the map does not exist.
                         &lt;br/&gt;&lt;br/&gt;
                         Required. Attribute type: expression.
                     </xs:documentation>
@@ -938,14 +943,14 @@ under the License.
     <xs:element name="order-by">
         <xs:annotation>
             <xs:documentation>
-                Defines a field or map key to sort on.
+                Declares a field or map key to sort on.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:attribute name="field-name" type="xs:string" use="required">
                 <xs:annotation>
                     <xs:documentation>
-                        Name of the field or map key to sort on.
+                        The name of the field or map key to sort on.
                         &lt;br/&gt;&lt;br/&gt;
                         Required. Attribute type: expression.
                     </xs:documentation>
@@ -958,7 +963,6 @@ under the License.
         <xs:annotation>
             <xs:documentation>
                 Sorts a list of maps. Maps are sorted by the keys specified in the order-by sub-elements.
-                Does nothing if the list is not found.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -968,7 +972,7 @@ under the License.
             <xs:attribute type="xs:string" name="list" use="required">
                 <xs:annotation>
                     <xs:documentation>
-                        Name of the field containing the list to be sorted.
+                        The name of the field containing the list to be sorted. The operation does nothing if the list is not found.
                         &lt;br/&gt;&lt;br/&gt;
                         Required. Attribute type: expression.
                     </xs:documentation>
@@ -1027,9 +1031,9 @@ under the License.
             <xs:attribute type="xs:string" name="arg-list">
                 <xs:annotation>
                     <xs:documentation>
-                        An argument list to be used with a formatting string.
+                        The name of an argument list to be used with a formatting string.
                         The argument list is applied to the property value.
-                        Does nothing if the argument list is not found.
+                        The attribute does nothing if the argument list is not found.
                         See the java.text.MessageFormat class for more information.
                         &lt;br/&gt;&lt;br/&gt;
                         Optional. Attribute type: expression.
@@ -1049,7 +1053,7 @@ under the License.
     <xs:element name="request-parameters-to-list" substitutionGroup="EventOperations">
         <xs:annotation>
             <xs:documentation>
-                Appends a servlet request parameter list to a list. If the target list does not exist, one will be created.
+                Appends a servlet request parameter list to a list.
                 Valid only when the simple-method is called as an event, it is ignored otherwise.
             </xs:documentation>
         </xs:annotation>
@@ -1066,7 +1070,8 @@ under the License.
             <xs:attribute type="xs:string" name="list">
                 <xs:annotation>
                     <xs:documentation>
-                        The name of the field containing the list. Defaults to the request-name attribute value.
+                        The name of the field containing the list. If the list does not exist, one will be created.
+                        Defaults to the request-name attribute value.
                         &lt;br/&gt;&lt;br/&gt;
                         Optional. Attribute type: expression.
                     </xs:documentation>
@@ -1124,7 +1129,7 @@ under the License.
             <xs:attribute type="xs:string" name="session-name">
                 <xs:annotation>
                     <xs:documentation>
-                        The servlet session attribute name. Defaults to the value of field attribute.
+                        The servlet session attribute name. Defaults to the value of the field attribute.
                         &lt;br/&gt;&lt;br/&gt;
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
@@ -1198,8 +1203,9 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The Java data type to convert to. "NewList" will create a new java.util.List, "NewMap" will create a new java.util.Map.
+                        Otherwise, the attribute must contain a valid Java class name.
                         &lt;br/&gt;&lt;br/&gt;
-                        Optional. Attribute type: constant. Attribute must contain a valid Java class name.
+                        Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
@@ -1297,16 +1303,6 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="set-if-empty" type="booleanConst">
-                <xs:annotation>
-                    <xs:documentation>
-                        Controls if the target field can be set to an empty value. The meaning of "empty" depends on the Java data type.
-                        Defaults to "true".
-                        &lt;br/&gt;&lt;br/&gt;
-                        Optional. Attribute type: constant.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
             <xs:attribute type="xs:string" name="years">
                 <xs:annotation>
                     <xs:documentation>
@@ -1370,7 +1366,7 @@ under the License.
             <xs:attribute type="xs:string" name="millis">
                 <xs:annotation>
                     <xs:documentation>
-                        Add (optionally using +) or subtract (using -) a number of milli-second(s).
+                        Add (optionally using +) or subtract (using -) a number of millisecond(s).
                         If an expression is used, it should evaluate to an integer.
                         &lt;br/&gt;&lt;br/&gt;
                         Optional. Attribute types: constant, ${expression}.
@@ -1461,7 +1457,6 @@ under the License.
         <xs:annotation>
             <xs:documentation>
                 Copies elements from a source map that match a service's IN attributes to a target map.
-                If the target map does not exist, one will be created.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -1487,7 +1482,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The map to copy the matching IN attributes to.
-                        If the map does not exist, one will be created.
+                        If the map does not exist, a new one will be created.
                         &lt;br/&gt;&lt;br/&gt;
                         Required. Attribute type: expression.
                     </xs:documentation>
@@ -1500,11 +1495,20 @@ under the License.
         <xs:annotation>
             <xs:documentation>
                 Declares a java.lang.String to be passed as an argument to a method call.
-                The String can be contained in the value attribute or in the element body. 
+                The String can be contained in the value attribute and/or in the element body.
+                The element body text is appended to the value attribute text. 
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attribute type="xs:string" name="value" />
+            <xs:attribute type="xs:string" name="value">
+                <xs:annotation>
+                    <xs:documentation>
+                        The String text.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute types: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
 
@@ -1542,9 +1546,9 @@ under the License.
             <xs:attribute type="xs:string" name="arg-list">
                 <xs:annotation>
                     <xs:documentation>
-                        An argument list to be used with a formatting string.
+                        The name of an argument list to be used with a formatting string.
                         The argument list is applied to the string attribute value.
-                        Does nothing if the argument list is not found.
+                        The attribute does nothing if the argument list is not found.
                         See the java.text.MessageFormat class for more information.
                         &lt;br/&gt;&lt;br/&gt;
                         Optional. Attribute type: expression.
@@ -1600,9 +1604,9 @@ under the License.
             <xs:attribute type="xs:string" name="arg-list">
                 <xs:annotation>
                     <xs:documentation>
-                        An argument list to be used with a formatting string.
+                        The name of an argument list to be used with a formatting string.
                         The argument list is applied to the string attribute value.
-                        Does nothing if the argument list is not found.
+                        The attribute does nothing if the argument list is not found.
                         See the java.text.MessageFormat class for more information.
                         &lt;br/&gt;&lt;br/&gt;
                         Optional. Attribute type: expression.
@@ -1641,7 +1645,7 @@ under the License.
             <xs:attribute type="xs:string" name="format">
                 <xs:annotation>
                     <xs:documentation>
-                        Format to use for the conversion.
+                        The format to use for the conversion.
                         &lt;br/&gt;&lt;br/&gt;
                         Optional. Attribute type: constant.
                     </xs:documentation>
@@ -1739,7 +1743,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The error code to return to the calling process.
-                        Defaults to value of the containing simple-method "default-error-code" attribute.
+                        Defaults to value of the containing simple-method default-error-code attribute.
                         &lt;br/&gt;&lt;br/&gt;
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
@@ -3849,7 +3853,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="use-cache" type="xs:string" default="false">
+            <xs:attribute name="use-cache" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>
                         Use the entity cache.
@@ -3875,7 +3879,7 @@ under the License.
                 <xs:element ref="condition-list" />
                 <xs:element ref="condition-object" />
             </xs:choice>
-            <xs:attribute name="combine" default="and">
+            <xs:attribute name="combine">
                 <xs:annotation>
                     <xs:documentation>
                         The boolean operator used to combine conditions.
