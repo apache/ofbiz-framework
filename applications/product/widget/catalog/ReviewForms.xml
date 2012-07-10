@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+    
+    <form name="FindReviews" type="single" target="FindReviews" title="" header-row-style="header-row" default-table-style="basic-table" default-map-name="productReview">
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="productId" title="${uiLabelMap.ProductId}"><text-find/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="StatusItem" description="${description}">
+                    <entity-constraint name="statusTypeId" operator="equals" value="PRODUCT_REVIEW_STTS"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="productReview" title="${uiLabelMap.ProductReviews}"><text-find/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    
+    <form name="ListReviews" type="list" list-name="listIt" target="updateProductReview" title="" paginate-target="FindReviews"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
+        <actions>
+            <set field="entityName" value="ProductReview"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="requestParameters"/>
+                <field-map field-name="entityName" from-field="entityName"/>
+                <field-map field-name="orderBy" value="postedDateTime"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <row-actions>
+            <entity-and entity-name="UserLoginAndPartyDetails" list="userLoginAndPartyDetails">
+                <field-map field-name="userLoginId" from-field="userLoginId"/>
+            </entity-and>
+            <set field="reviewBy" value="${userLoginAndPartyDetails[0].firstName} ${userLoginAndPartyDetails[0].middleName} ${userLoginAndPartyDetails[0].lastName}"/>
+        </row-actions>
+        <field name="productReviewId"><hidden/></field>
+        <field name="productId">
+            <hyperlink also-hidden="false" description="${productId}" target="EditProduct">
+                <parameter param-name="productId"/>
+            </hyperlink>
+        </field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
+        <field name="userLoginId" title="${uiLabelMap.ProductReviewBy}" ><display/></field>
+        <field name="productRating" use-when="${statusId != 'PRR_DELETED'}"><text/></field>
+        <field name="productRating" use-when="${statusId == 'PRR_DELETED'}"><text disabled="true"/></field>
+        <field name="productReview" use-when="${statusId != 'PRR_DELETED'}"><textarea/></field>
+        <field name="productReview" use-when="${statusId == 'PRR_DELETED'}"><textarea read-only="true"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" use-when="${statusId != 'PRR_DELETED'}"><submit button-type="button"/></field>
+        <field name="approve" widget-style="buttontext" use-when="${statusId == 'PRR_PENDING'}">
+            <hyperlink target="updateProductReviewStatus" description="${uiLabelMap.FormFieldTitle_approve}" also-hidden="false">
+                <parameter param-name="statusId" value="PRR_APPROVED"/>
+                <parameter param-name="productReviewId" from-field="productReviewId"/>
+            </hyperlink>
+        </field>
+        <field name="rejectButton" widget-style="buttontext" use-when="${statusId != 'PRR_DELETED'}">
+            <hyperlink target="updateProductReviewStatus" description="${uiLabelMap.FormFieldTitle_rejectButton}" also-hidden="false" confirmation-message="Do you want to reject this review?">
+                <parameter param-name="statusId" value="PRR_DELETED"/>
+                <parameter param-name="productReviewId" from-field="productReviewId"/>
+            </hyperlink>
+        </field>
+    </form>
+</forms>

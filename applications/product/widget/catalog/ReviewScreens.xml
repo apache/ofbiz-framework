@@ -45,23 +45,24 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="pendingReviews">
+    
+    <screen name="FindReviews">
         <section>
             <actions>
-                <set field="titleProperty" value="ProductReviewsPendingApproval"/>
+                <set field="titleProperty" value="ProductReviews"/>
                 <set field="headerItem" value="reviews"/>
-
-                <entity-condition entity-name="ProductReview" list="pendingReviews">
-                    <condition-expr field-name="statusId" value="PRR_PENDING"/>
-                    <order-by field-name="+postedDateTime"/>
-                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonReviewDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/reviews/pendingReviews.ftl"/></html>
-                        </platform-specific>
+                        <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="search-options">
+                                <include-form name="FindReviews" location="component://product/widget/catalog/ReviewForms.xml"/>
+                            </decorator-section>
+                            <decorator-section name="search-results">
+                                <include-form name="ListReviews" location="component://product/widget/catalog/ReviewForms.xml"/>
+                            </decorator-section>
+                        </decorator-screen>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

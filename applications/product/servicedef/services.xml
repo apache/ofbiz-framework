@@ -204,6 +204,16 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
+    <service name="setProductReviewStatus" engine="simple"
+            location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="setProductReviewStatus" auth="true">
+        <description>Updates a product review record</description>
+        <required-permissions join-type="OR">
+            <check-permission permission="CATALOG_UPDATE"/>
+            <check-permission permission="CATALOG_ADMIN"/>
+        </required-permissions>
+        <attribute name="productReviewId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="statusId" type="String" mode="IN" optional="false"/>
+    </service>
 
     <service name="findProductById" engine="java"  auth="true" export="true"
         location="org.ofbiz.product.product.ProductServices" invoke="findProductById">

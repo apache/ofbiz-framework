@@ -27,7 +27,7 @@ under the License.
         <menu-item name="pricerules" title="${uiLabelMap.ProductPriceRules}"><link target="FindProductPriceRules"/></menu-item>
         <menu-item name="store" title="${uiLabelMap.ProductStores}"><link target="FindProductStore"/></menu-item>
         <menu-item name="thesaurus" title="${uiLabelMap.ProductThesaurus}"><link target="editKeywordThesaurus"/></menu-item>
-        <menu-item name="reviews" title="${uiLabelMap.ProductReviews}"><link target="pendingReviews"/></menu-item>
+        <menu-item name="reviews" title="${uiLabelMap.ProductReviews}"><link target="FindReviews"/></menu-item>
         <menu-item name="configs" title="${uiLabelMap.ProductConfigItems}"><link target="FindProductConfigItems"/></menu-item>
         <menu-item name="Subscription" title="${uiLabelMap.ProductSubscriptions}"><link target="FindSubscription"/></menu-item>
         <menu-item name="shipping" title="${uiLabelMap.ProductShipping}"><link target="ListShipmentMethodTypes"/></menu-item>

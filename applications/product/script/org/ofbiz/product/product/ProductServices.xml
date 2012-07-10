@@ -1236,4 +1236,33 @@ under the License.
             </if>
         </iterate>
     </simple-method>
+    
+    <simple-method method-name="setProductReviewStatus" short-description="change the product review Status">
+        <set value="setProductReviewStatus" field="callingMethodName"/>
+        <set value="UPDATE" field="checkAction"/>
+        <call-simple-method method-name="checkProductRelatedPermission"/>
+        <check-errors/>
+        
+        <entity-one value-field="productReview" entity-name="ProductReview"/>
+        <if-not-empty field="productReview">
+            <if-compare-field field="productReview.statusId" to-field="parameters.statusId" operator="not-equals">
+                <entity-one entity-name="StatusValidChange" value-field="statusChange">
+                    <field-map field-name="statusId" from-field="productReview.statusId"/>
+                    <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
+                </entity-one>
+                <if-empty field="statusChange">
+                    <set field="msg" value="Status is not a valid change: from ${productReview.statusId} to ${parameters.statusId}"/>
+                    <log level="error" message="${msg}"/>
+                    <add-error>
+                        <fail-property resource="ProductErrorUiLabels" property="ProductReviewErrorCouldNotChangeOrderStatusFromTo"/>
+                    </add-error>
+                </if-empty>
+            </if-compare-field>
+        </if-not-empty>
+        <check-errors/>
+        
+        <set field="productReview.statusId" from-field="parameters.statusId"/>
+        <store-value value-field="productReview"/>
+        <field-to-result field="productReview.productReviewId" result-name="productReviewId"/>
+    </simple-method>
 </simple-methods>

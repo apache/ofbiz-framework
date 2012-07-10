@@ -188,6 +188,12 @@
         <value xml:lang="zh">已请求退货。</value>
         <value xml:lang="zh_TW">已請求退貨。</value>
     </property>
+    <property key="ProductReviewErrorCouldNotChangeOrderStatusFromTo">
+        <value xml:lang="de">Status ist keine gültige Änderung: von ${productReview.statusId} nach ${parameters.statusId}</value>
+        <value xml:lang="en">Status is not a valid change: from ${productReview.statusId} to ${parameters.statusId}</value>
+        <value xml:lang="fr">Le changement de statut de ${productReview.statusId} à ${parameters.statusId} n'est pas autorisé</value>
+        <value xml:lang="it">Cambio di stato non è valido: da ${productReview.statusId} a ${parameters.statusId}</value>
+    </property>
     <property key="productSearchEvents.added_param_features">
         <value xml:lang="de">${numAdded} Merkmale hinzugefügt mit ID ${productFeatureId}</value>
         <value xml:lang="en">Added ${numAdded} features with ID ${productFeatureId}</value>
