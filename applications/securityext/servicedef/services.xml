@@ -36,23 +36,4 @@ under the License.
         <attribute name="alias" type="String" mode="IN" optional="false"/>
     </service>
 
-    <!--  authorization dynamic access implementation API -->
-    <service name="dynamicAccessInterface" engine="interface">
-        <description>Service interface for implementing Dynamic Access as a service</description>
-        <attribute name="userId" type="String" mode="IN" optional="false"/>
-        <attribute name="permission" type="String" mode="IN" optional="false"/>
-        <attribute name="accessString" type="String" mode="IN" optional="false"/>
-        <attribute name="permissionContext" type="Map" mode="IN" optional="true"/>
-        <attribute name="permissionGranted" type="Boolean" mode="OUT" optional="false"/>
-    </service>
-    
-    <!--  dynamic access test service -->
-    <service name="dynamicAccessTestService" engine="simple" auth="false"
-                location="component://securityext/testdef/da/DynamicAccessTest.xml" invoke="testDa">
-        <implements service="dynamicAccessInterface"/>
-    </service>
-    <service name="dynamicAccessRecursiveTest" engine="simple" auth="false"
-                location="component://securityext/testdef/da/DynamicAccessTest.xml" invoke="testDaRecursion">
-        <implements service="dynamicAccessInterface"/>
-    </service>
 </services>

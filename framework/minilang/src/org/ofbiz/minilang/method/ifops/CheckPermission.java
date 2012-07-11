@@ -35,7 +35,6 @@ import org.ofbiz.minilang.method.MessageElement;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.ofbiz.security.Security;
-import org.ofbiz.security.authz.Authorization;
 import org.w3c.dom.Element;
 
 /**
@@ -78,12 +77,11 @@ public final class CheckPermission extends MethodOperation {
         boolean hasPermission = false;
         GenericValue userLogin = methodContext.getUserLogin();
         if (userLogin != null) {
-            Authorization authz = methodContext.getAuthz();
             Security security = methodContext.getSecurity();
-            hasPermission = this.primaryPermissionInfo.hasPermission(methodContext, userLogin, authz, security);
+            hasPermission = this.primaryPermissionInfo.hasPermission(methodContext, userLogin, security);
             if (!hasPermission && altPermissionInfoList != null) {
                 for (PermissionInfo altPermInfo : altPermissionInfoList) {
-                    if (altPermInfo.hasPermission(methodContext, userLogin, authz, security)) {
+                    if (altPermInfo.hasPermission(methodContext, userLogin, security)) {
                         hasPermission = true;
                         break;
                     }
@@ -147,7 +145,7 @@ public final class CheckPermission extends MethodOperation {
             this.actionFse = FlexibleStringExpander.getInstance(element.getAttribute("action"));
         }
 
-        private boolean hasPermission(MethodContext methodContext, GenericValue userLogin, Authorization authz, Security security) {
+        private boolean hasPermission(MethodContext methodContext, GenericValue userLogin, Security security) {
             String permission = permissionFse.expandString(methodContext.getEnvMap());
             String action = actionFse.expandString(methodContext.getEnvMap());
             if (!action.isEmpty()) {
@@ -155,7 +153,7 @@ public final class CheckPermission extends MethodOperation {
                 return security.hasEntityPermission(permission, action, userLogin);
             } else {
                 // run hasPermission
-                return authz.hasPermission(userLogin.getString("userLoginId"), permission, methodContext.getEnvMap());
+                return security.hasPermission(permission, userLogin);
             }
         }
     }

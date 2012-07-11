@@ -40,7 +40,6 @@ import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.security.Security;
-import org.ofbiz.security.authz.Authorization;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 
@@ -76,10 +75,6 @@ public final class ContextHelper {
     /** Expands environment variables delimited with ${} */
     public String expandString(String original) {
         return FlexibleStringExpander.expandString(original, getBindings());
-    }
-
-    public Authorization getAuthz() {
-        return (Authorization) this.context.getAttribute("authz");
     }
 
     public Map<String, Object> getBindings() {

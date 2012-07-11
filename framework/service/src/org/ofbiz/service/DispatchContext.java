@@ -44,7 +44,6 @@ import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.security.Security;
-import org.ofbiz.security.authz.Authorization;
 import org.ofbiz.service.config.ServiceConfigUtil;
 import org.ofbiz.service.eca.ServiceEcaUtil;
 import org.w3c.dom.Document;
@@ -250,14 +249,6 @@ public class DispatchContext implements Serializable {
      */
     public Delegator getDelegator() {
         return dispatcher.getDelegator();
-    }
-
-    /**
-     * Gets the Authorization object associated with this dispatcher
-     * @return Authorization object associated with this dispatcher
-     */
-    public Authorization getAuthorization() {
-        return dispatcher.getAuthorization();
     }
 
     /**

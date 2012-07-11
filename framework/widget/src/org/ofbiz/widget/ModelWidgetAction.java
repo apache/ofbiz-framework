@@ -76,9 +76,8 @@ public abstract class ModelWidgetAction implements Serializable {
     public abstract void runAction(Map<String, Object> context) throws GeneralException;
 
     public static List<ModelWidgetAction> readSubActions(ModelWidget modelWidget, Element parentElement) {
-        List<ModelWidgetAction> actions = FastList.newInstance();
-
         List<? extends Element> actionElementList = UtilXml.childElementList(parentElement);
+        List<ModelWidgetAction> actions = new ArrayList<ModelWidgetAction>(actionElementList.size());
         for (Element actionElement: actionElementList) {
             if ("set".equals(actionElement.getNodeName())) {
                 actions.add(new SetField(modelWidget, actionElement));
@@ -104,7 +103,6 @@ public abstract class ModelWidgetAction implements Serializable {
                 throw new IllegalArgumentException("Action element not supported with name: " + actionElement.getNodeName());
             }
         }
-
         return actions;
     }
 

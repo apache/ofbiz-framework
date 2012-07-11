@@ -31,7 +31,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.security.authz.Authorization;
+import org.ofbiz.security.Security;
 
 /**
  * PortalPageWorker Class
@@ -151,9 +151,9 @@ public class PortalPageWorker {
             GenericValue userLogin = (GenericValue) context.get("userLogin");
             if (UtilValidate.isNotEmpty(userLogin)) {
                 String userLoginId = (String) userLogin.get("userLoginId");
-                Authorization authz = (Authorization) context.get("authz");
+                Security security = (Security) context.get("security");
 
-                Boolean hasPortalAdminPermission = authz.hasPermission(userLoginId, "PORTALPAGE_ADMIN", context);
+                Boolean hasPortalAdminPermission = security.hasPermission("PORTALPAGE_ADMIN", userLogin);
                 try {
                     Delegator delegator = WidgetWorker.getDelegator(context);
                     GenericValue portalPage = delegator.findOne("PortalPage", UtilMisc.toMap("portalPageId", portalPageId),false);

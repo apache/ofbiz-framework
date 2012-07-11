@@ -36,8 +36,6 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.security.Security;
 import org.ofbiz.security.SecurityFactory;
-import org.ofbiz.security.authz.Authorization;
-import org.ofbiz.security.authz.AuthorizationFactory;
 import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
 
@@ -54,7 +52,6 @@ public class WebDavServlet extends GenericServlet {
 
     public static final String module = WebDavServlet.class.getName();
 
-    protected Authorization authz = null;
     protected Delegator delegator = null;
     protected LocalDispatcher dispatcher = null;
     protected RequestHandlerFactory handlerFactory = null;
@@ -72,7 +69,6 @@ public class WebDavServlet extends GenericServlet {
             String dispatcherName = context.getInitParameter("localDispatcherName");
             this.dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, this.delegator);
             this.security = SecurityFactory.getInstance(this.delegator);
-            this.authz = AuthorizationFactory.getInstance(this.delegator);
             String factoryClassName = context.getInitParameter("requestHandlerFactoryClass");
             this.handlerFactory = (RequestHandlerFactory) loader.loadClass(factoryClassName).newInstance();
         } catch (Exception e) {
@@ -86,8 +82,6 @@ public class WebDavServlet extends GenericServlet {
             buff.append(this.dispatcher.getName());
             buff.append(", security = ");
             buff.append(this.security.getClass().getName());
-            buff.append(", authz = ");
-            buff.append(this.authz.getClass().getName());
             buff.append(", handler factory = ");
             buff.append(this.handlerFactory.getClass().getName());
             Debug.logVerbose(buff.toString(), module);
@@ -99,7 +93,6 @@ public class WebDavServlet extends GenericServlet {
         request.setAttribute("delegator", this.delegator);
         request.setAttribute("dispatcher", this.dispatcher);
         request.setAttribute("security", this.security);
-        request.setAttribute("authz", this.authz);
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         RequestHandler handler = this.handlerFactory.getHandler(httpRequest.getMethod());
         try {

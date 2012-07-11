@@ -87,7 +87,6 @@ public class FreeMarkerViewHandler extends AbstractViewHandler {
         // add in the OFBiz objects
         root.put("delegator", request.getAttribute("delegator"));
         root.put("dispatcher", request.getAttribute("dispatcher"));
-        root.put("authz", request.getAttribute("authz"));
         root.put("security", request.getAttribute("security"));
         root.put("userLogin", session.getAttribute("userLogin"));
 
