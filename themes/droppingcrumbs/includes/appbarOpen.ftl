@@ -45,7 +45,7 @@ under the License.
               <#assign selected = false>
               <#assign permissions = display.getBasePermission()>
               <#list permissions as perm>
-                <#if (perm != "NONE" && !security.hasEntityPermission(perm, "_VIEW", session) && !authz.hasPermission(session, perm, requestParameters))>
+                <#if (perm != "NONE" && !security.hasEntityPermission(perm, "_VIEW", session))>
                   <#-- User must have ALL permissions in the base-permission list -->
                   <#assign permission = false>
                 </#if>
@@ -75,7 +75,7 @@ under the License.
               <#assign selected = false>
               <#assign permissions = display.getBasePermission()>
               <#list permissions as perm>
-                <#if (perm != "NONE" && !security.hasEntityPermission(perm, "_VIEW", session) && !authz.hasPermission(session, perm, requestParameters))>
+                <#if (perm != "NONE" && !security.hasEntityPermission(perm, "_VIEW", session))>
                   <#-- User must have ALL permissions in the base-permission list -->
                   <#assign permission = false>
                 </#if>

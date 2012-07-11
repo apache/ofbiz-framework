@@ -63,8 +63,6 @@ import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.security.Security;
 import org.ofbiz.security.SecurityConfigurationException;
 import org.ofbiz.security.SecurityFactory;
-import org.ofbiz.security.authz.Authorization;
-import org.ofbiz.security.authz.AuthorizationFactory;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
@@ -478,25 +476,17 @@ public class LoginWorker {
     private static void setWebContextObjects(HttpServletRequest request, HttpServletResponse response, Delegator delegator, LocalDispatcher dispatcher) {
         HttpSession session = request.getSession();
         // NOTE: we do NOT want to set this in the servletContext, only in the request and session
-        // We also need to setup the security and authz objects since they are dependent on the delegator
+        // We also need to setup the security objects since they are dependent on the delegator
         Security security = null;
         try {
             security = SecurityFactory.getInstance(delegator);
         } catch (SecurityConfigurationException e) {
             Debug.logError(e, module);
         }
-        Authorization authz = null;
-        try {
-            authz = AuthorizationFactory.getInstance(delegator);
-        } catch (SecurityConfigurationException e) {
-            Debug.logError(e, module);
-        }
-
         session.setAttribute("delegatorName", delegator.getDelegatorName());
         request.setAttribute("delegator", delegator);
         request.setAttribute("dispatcher", dispatcher);
         request.setAttribute("security", security);
-        request.setAttribute("authz", authz);
 
         // get rid of the visit info since it was pointing to the previous database, and get a new one
         session.removeAttribute("visitor");
@@ -612,7 +602,6 @@ public class LoginWorker {
         request.removeAttribute("delegator");
         request.removeAttribute("dispatcher");
         request.removeAttribute("security");
-        request.removeAttribute("authz");
 
         // now empty out the session
         session.invalidate();
@@ -991,14 +980,12 @@ public class LoginWorker {
         Security security = (Security) request.getAttribute("security");
         if (security != null) {
             ServletContext context = (ServletContext) request.getAttribute("servletContext");
-            Authorization authz = (Authorization) request.getAttribute("authz");
             String serverId = (String) context.getAttribute("_serverId");
             String contextPath = request.getContextPath();
             ComponentConfig.WebappInfo info = ComponentConfig.getWebAppInfo(serverId, contextPath);
             if (info != null) {
                 for (String permission: info.getBasePermission()) {
-                    if (!"NONE".equals(permission) && !security.hasEntityPermission(permission, "_VIEW", userLogin) &&
-                            !authz.hasPermission(userLogin.getString("userLoginId"), permission, null)) {
+                    if (!"NONE".equals(permission) && !security.hasEntityPermission(permission, "_VIEW", userLogin)) {
                         return false;
                     }
                 }

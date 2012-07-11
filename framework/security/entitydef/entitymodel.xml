@@ -157,20 +157,7 @@ under the License.
             title="Security Component - Security Permission Entity">
       <field name="permissionId" type="id-long-ne"></field>
       <field name="description" type="description"></field>
-      <field name="dynamicAccess" type="value"></field>
       <prim-key field="permissionId"/>
-    </entity>
-    <entity entity-name="SecurityPermissionAutoGrant"
-            package-name="org.ofbiz.security.securitygroup"
-            default-resource-name="SecurityEntityLabels"
-            title="Security Component - Security Permission Auto Grant Entity">
-      <field name="permissionId" type="id-long-ne"></field>
-      <field name="grantPermission" type="id-vlong-ne"></field>
-      <prim-key field="permissionId"/>
-      <prim-key field="grantPermission"/>
-      <relation type="one" fk-name="SEC_PERM_AUTO_GRNT" rel-entity-name="SecurityPermission">
-        <key-map field-name="permissionId"/>
-      </relation>
     </entity>
     <view-entity entity-name="UserLoginAndSecurityGroup"
           package-name="org.ofbiz.security.securitygroup"

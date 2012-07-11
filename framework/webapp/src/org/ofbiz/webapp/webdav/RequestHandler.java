@@ -32,7 +32,6 @@ public interface RequestHandler {
      *   <tr><td>delegator</td><td>A <code>GenericDelgator</code> instance</td></tr>
      *   <tr><td>dispatcher</td><td>A <code>LocalDispatcher</code> instance</td></tr>
      *   <tr><td>security</td><td>A <code>Security</code> instance</td></tr>
-     *   <tr><td>authz</td><td>An <code>Authorization</code> instance</td></tr>
      * </table></p>
      */
     public void handleRequest(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws ServletException, IOException;

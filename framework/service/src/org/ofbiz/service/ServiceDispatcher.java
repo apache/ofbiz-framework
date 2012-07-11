@@ -45,8 +45,6 @@ import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.security.Security;
 import org.ofbiz.security.SecurityConfigurationException;
 import org.ofbiz.security.SecurityFactory;
-import org.ofbiz.security.authz.Authorization;
-import org.ofbiz.security.authz.AuthorizationFactory;
 import org.ofbiz.service.config.ServiceConfigUtil;
 import org.ofbiz.service.eca.ServiceEcaRule;
 import org.ofbiz.service.eca.ServiceEcaUtil;
@@ -79,7 +77,6 @@ public class ServiceDispatcher {
 
     protected Delegator delegator = null;
     protected GenericEngineFactory factory = null;
-    protected Authorization authz = null;
     protected Security security = null;
     protected Map<String, DispatchContext> localContext = null;
     protected Map<String, List<GenericServiceCallback>> callbacks = null;
@@ -98,7 +95,6 @@ public class ServiceDispatcher {
 
         if (delegator != null) {
             try {
-                this.authz = AuthorizationFactory.getInstance(delegator);
                 this.security = SecurityFactory.getInstance(delegator);
             } catch (SecurityConfigurationException e) {
                 Debug.logError(e, "[ServiceDispatcher.init] : No instance of security implementation found.", module);
@@ -810,18 +806,9 @@ public class ServiceDispatcher {
     }
 
     /**
-     * Gets the Authorization object associated with this dispatcher
-     * @return Authorization object associated with this dispatcher
-     */
-    public Authorization getAuthorization() {
-        return this.authz;
-    }
-
-    /**
      * Gets the Security object associated with this dispatcher
      * @return Security object associated with this dispatcher
      */
-    @Deprecated
     public Security getSecurity() {
         return this.security;
     }

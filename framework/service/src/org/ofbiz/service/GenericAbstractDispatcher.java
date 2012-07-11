@@ -29,7 +29,6 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.security.Security;
-import org.ofbiz.security.authz.Authorization;
 import org.ofbiz.service.jms.JmsListenerFactory;
 import org.ofbiz.service.job.JobManager;
 import org.ofbiz.service.job.JobManagerException;
@@ -214,16 +213,8 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
     }
 
     /**
-     * @see org.ofbiz.service.LocalDispatcher#getAuthorization()
-     */
-    public Authorization getAuthorization() {
-        return dispatcher.getAuthorization();
-    }
-
-    /**
      * @see org.ofbiz.service.LocalDispatcher#getSecurity()
      */
-    @Deprecated
     public Security getSecurity() {
         return dispatcher.getSecurity();
     }

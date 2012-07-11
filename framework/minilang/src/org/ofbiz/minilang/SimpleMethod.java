@@ -127,7 +127,7 @@ public final class SimpleMethod extends MiniLangElement {
         Map<String, SimpleMethod> simpleMethods = FastMap.newInstance();
         Document document = null;
         try {
-            document = UtilXml.readXmlDocument(content, true, true);
+            document = UtilXml.readXmlDocument(content, MiniLangValidate.validationOn(), true);
         } catch (Exception e) {
             throw new MiniLangException("Could not read SimpleMethod XML document [" + name + "]: ", e);
         }
@@ -139,7 +139,7 @@ public final class SimpleMethod extends MiniLangElement {
         Map<String, SimpleMethod> simpleMethods = FastMap.newInstance();
         Document document = null;
         try {
-            document = UtilXml.readXmlDocument(xmlURL, true, true);
+            document = UtilXml.readXmlDocument(xmlURL, MiniLangValidate.validationOn(), true);
         } catch (Exception e) {
             throw new MiniLangException("Could not read SimpleMethod XML document [" + xmlURL + "]: ", e);
         }
@@ -211,7 +211,7 @@ public final class SimpleMethod extends MiniLangElement {
         }
         Document document = null;
         try {
-            document = UtilXml.readXmlDocument(xmlURL, true, true);
+            document = UtilXml.readXmlDocument(xmlURL, MiniLangValidate.validationOn(), true);
         } catch (Exception e) {
             throw new MiniLangException("Could not read SimpleMethod XML document [" + xmlURL + "]: ", e);
         }

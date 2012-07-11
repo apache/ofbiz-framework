@@ -49,7 +49,6 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.security.Security;
-import org.ofbiz.security.authz.Authorization;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -145,11 +144,11 @@ public class ScreenRenderer {
         return this.screenStringRenderer;
     }
 
-    public void populateBasicContext(Map<String, Object> parameters, Delegator delegator, LocalDispatcher dispatcher, Authorization authz, Security security, Locale locale, GenericValue userLogin) {
-        populateBasicContext(context, this, parameters, delegator, dispatcher, authz, security, locale, userLogin);
+    public void populateBasicContext(Map<String, Object> parameters, Delegator delegator, LocalDispatcher dispatcher, Security security, Locale locale, GenericValue userLogin) {
+        populateBasicContext(context, this, parameters, delegator, dispatcher, security, locale, userLogin);
     }
 
-    public static void populateBasicContext(MapStack<String> context, ScreenRenderer screens, Map<String, Object> parameters, Delegator delegator, LocalDispatcher dispatcher, Authorization authz, Security security, Locale locale, GenericValue userLogin) {
+    public static void populateBasicContext(MapStack<String> context, ScreenRenderer screens, Map<String, Object> parameters, Delegator delegator, LocalDispatcher dispatcher, Security security, Locale locale, GenericValue userLogin) {
         // ========== setup values that should always be in a screen context
         // include an object to more easily render screens
         context.put("screens", screens);
@@ -163,7 +162,6 @@ public class ScreenRenderer {
         context.put("parameters", parameters);
         context.put("delegator", delegator);
         context.put("dispatcher", dispatcher);
-        context.put("authz", authz);
         context.put("security", security);
         context.put("locale", locale);
         context.put("userLogin", userLogin);
@@ -192,14 +190,14 @@ public class ScreenRenderer {
         HttpSession session = request.getSession();
 
         // attribute names to skip for session and application attributes; these are all handled as special cases, duplicating results and causing undesired messages
-        Set<String> attrNamesToSkip = UtilMisc.toSet("delegator", "dispatcher", "authz", "security", "webSiteId",
+        Set<String> attrNamesToSkip = UtilMisc.toSet("delegator", "dispatcher", "security", "webSiteId",
                 "org.apache.catalina.jsp_classpath");
         Map<String, Object> parameterMap = UtilHttp.getCombinedMap(request, attrNamesToSkip);
 
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 
         populateBasicContext(context, screens, parameterMap, (Delegator) request.getAttribute("delegator"),
-                (LocalDispatcher) request.getAttribute("dispatcher"), (Authorization) request.getAttribute("authz"),
+                (LocalDispatcher) request.getAttribute("dispatcher"),
                 (Security) request.getAttribute("security"), UtilHttp.getLocale(request), userLogin);
 
         context.put("autoUserLogin", session.getAttribute("autoUserLogin"));
@@ -313,7 +311,7 @@ public class ScreenRenderer {
     }
 
     public void populateContextForService(DispatchContext dctx, Map<String, Object> serviceContext) {
-        this.populateBasicContext(serviceContext, dctx.getDelegator(), dctx.getDispatcher(), dctx.getAuthorization(),
+        this.populateBasicContext(serviceContext, dctx.getDelegator(), dctx.getDispatcher(),
                 dctx.getSecurity(), (Locale) serviceContext.get("locale"), (GenericValue) serviceContext.get("userLogin"));
     }
 }

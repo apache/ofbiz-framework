@@ -26,22 +26,6 @@ under the License.
     <SecurityGroup groupId="VIEWADMIN" description="Demo Admin group, has all view permissions."/>
     <SecurityGroup groupId="BIZADMIN" description="Full Business Applications permission group, has all business app admin permissions, not technical permissions."/>
     
-    <!--  Security 2.0 base permissions -->
-    <SecurityPermission permissionId="access" description="Base ACCESS permission"/>
-    <SecurityPermission permissionId="create" description="Base CREATE permission"/>
-    <SecurityPermission permissionId="read" description="Base READ permission"/>
-    <SecurityPermission permissionId="update" description="Base UPDATE permission"/>
-    <SecurityPermission permissionId="delete" description="Base DELETE permission"/>
-    
-    <!-- base permissions to groups -->
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="access"/>
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="create"/>
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="read"/>
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="update"/>
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="delete"/>
-    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="access"/>
-    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="read"/>
-
     <!-- general admin tools permission -->
     <SecurityPermission description="Permission to access the Stock OFBiz Manager Applications." permissionId="OFBTOOLS_VIEW"/>
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="OFBTOOLS_VIEW"/>
