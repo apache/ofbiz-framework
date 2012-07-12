@@ -35,4 +35,6 @@
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
 
     <container name="testtools-container" loaders="test" class="org.ofbiz.testtools.TestRunContainer"/>
+    <container name="testtools-container" loaders="testlist" class="org.ofbiz.testtools.TestListContainer"/>
+
 </ofbiz-component>

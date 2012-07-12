@@ -31,6 +31,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -253,11 +254,12 @@ public class Start {
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         synchronized (this.loaders) {
             // initialize the loaders
-            for (String loaderClassName: config.loaders) {
+            for (Map loaderMap: config.loaders) {
                 if (this.serverState.get() == ServerState.STOPPING) {
                     return;
                 }
                 try {
+                    String loaderClassName = (String)loaderMap.get("class");
                     Class<?> loaderClass = classloader.loadClass(loaderClassName);
                     StartupLoader loader = (StartupLoader) loaderClass.newInstance();
                     loader.load(config, loaderArgs.toArray(new String[loaderArgs.size()]));
