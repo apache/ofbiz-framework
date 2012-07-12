@@ -81,20 +81,11 @@ public class ContainerLoader implements StartupLoader {
         // get this loader's configuration file
         this.configFile = config.containerConfig;
 
-        List<String> loaderProfiles = null;
+        List<String> loaders = null;
         for (Map loaderMap: config.loaders) {
             if (module.equals((String)loaderMap.get("class"))) {
-                loaderProfiles = StringUtil.split((String)loaderMap.get("profiles"), ",");
+                loaders = StringUtil.split((String)loaderMap.get("profiles"), ",");
             }
-        }
-        List<String> loaders = null;
-        try {
-            loaders = ContainerConfig.getLoaders(configFile);
-        } catch (ContainerException e) {
-            throw new StartupException(e);
-        }
-        if (loaderProfiles != null) {
-            loaders.addAll(loaderProfiles);
         }
 
         Debug.logInfo("[Startup] Loading containers from " + configFile + " for loaders " + loaders, module);
