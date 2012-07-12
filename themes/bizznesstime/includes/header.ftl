@@ -148,7 +148,7 @@ under the License.
             <#--if webSiteId?exists && requestAttributes._CURRENT_VIEW_?exists && helpTopic?exists-->
             <#if parameters.componentName?exists && requestAttributes._CURRENT_VIEW_?exists && helpTopic?exists>
               <#include "component://common/webcommon/includes/helplink.ftl" />
-              <span><a href="javascript:lookup_popup2('showHelp?helpTopic=${helpTopic}&amp;portalPageId=${parameters.portalPageId?if_exists}','help' ,500,500);">${uiLabelMap.CommonHelp}</a></span>
+              <span><a href="javascript:lookup_popup1('showHelp?helpTopic=${helpTopic}&amp;portalPageId=${parameters.portalPageId?if_exists}','help' ,500,500);">${uiLabelMap.CommonHelp}</a></span>
            </#if>
            <#if layoutSettings.middleTopMessage1?has_content && layoutSettings.middleTopMessage1 != " ">
              <span id="last-system-msg">
