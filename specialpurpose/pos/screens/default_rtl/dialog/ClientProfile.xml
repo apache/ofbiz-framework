@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<XPage class="net.xoetrope.swing.XDialog" resource="">
+    <Components>
+        <Panel name="ClientPanel" x="0" y="0" w="680" h="400" style="menu">
+            <Label name="nameLabel" x="37" y="5" w="100" h="40" content="nameClient" style="editAndList"/>
+            <Edit name="nameEdit"  x="120" y="20" w="300" h="40" style="editAndList"/>
+            <RadioButton name="NameRadioEquals" x="20" y="20" w="100" h="20" style="dialogButton" content="nameEquals" selected="true" alignment="left" image="xui_icon.png" tooltip="tipNameRadioEquals"/>
+            <RadioButton name="NameRadioContain" x="20" y="40" w="100" h="20" style="dialogButton" content="nameContains" selected="false" alignment="left" image="xui_icon.png" tooltip="tipNameRadioContain"/>
+            
+            <Label name="emailLabel" x="20" y="90" w="100" h="40" content="emailClient" style="editAndList"/>
+            <Edit name="emailEdit"  x="120" y="80" w="300" h="40" style="editAndList"/>
+            <Label name="phoneLabel" x="20" y="150" w="100" h="40" content="phoneClient" style="editAndList"/>
+            <Edit name="phoneEdit"  x="120" y="140" w="300" h="40" style="editAndList"/>
+            <Label name="cardLabel" x="20" y="210" w="100" h="40" content="cardClient" style="editAndList"/>
+            <Edit name="cardEdit"  x="120" y="200" w="300" h="40" style="editAndList"/>
+
+            <Button name="BtnSearch" x="460" y="20" w="180" h="40" content="Search" style="dialogButton"/>
+            <Button name="BtnCreate" x="460" y="80" w="180" h="40" content="Create" style="dialogButton"/>
+            <Button name="BtnEdit" x="460" y="140" w="180" h="40" content="Edit" style="dialogButton"/>
+            <Button name="BtnSelect" x="460" y="200" w="180" h="40" content="Select" style="dialogButton"/>
+            <Button name="BtnCancel" x="460" y="260" w="180" h="40" content="Cancel" style="dialogButton"/>
+
+            <Label name="clientListLabel" x="20" y="330" w="100" h="40" content="listClient" style="editAndList"/>
+            <ComboBox name="clientListCombo" x="120" y="320" w="520" h="40" editable="false" style="editAndList"/>
+
+            <Label name="tipLoginPwdLabel" x="10" y="380" w="630" h="20" content="tipLoginPwd" style="tip"/>
+
+        </Panel>
+    </Components>
+</XPage>
