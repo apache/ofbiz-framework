@@ -24,11 +24,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Properties;
-import java.util.TimeZone;
+import java.util.*;
 
 public class Config {
     public static final double REQUIRED_JDK = 1.6;
@@ -71,7 +67,7 @@ public class Config {
     public String containerConfig;
     public String instrumenterClassName;
     public String instrumenterFile;
-    public List<String> loaders;
+    public List<Map> loaders;
     public String logDir;
     public String ofbizHome;
     public boolean requireCommJar = false;
@@ -420,14 +416,18 @@ public class Config {
         instrumenterFile = getProp(props, "ofbiz.instrumenterFile", null);
 
         // loader classes
-        loaders = new ArrayList<String>();
+        loaders = new ArrayList<Map>();
         int currentPosition = 1;
+        Map loader = null;
         while (true) {
+            loader = new HashMap<String, String>();
             String loaderClass = props.getProperty("ofbiz.start.loader" + currentPosition);
             if (loaderClass == null || loaderClass.length() == 0) {
                 break;
             } else {
-                loaders.add(loaderClass);
+                loader.put("class", loaderClass);
+                loader.put("profiles", props.getProperty("ofbiz.start.loader" + currentPosition + ".loaders"));
+                loaders.add(loader);
                 currentPosition++;
             }
         }
