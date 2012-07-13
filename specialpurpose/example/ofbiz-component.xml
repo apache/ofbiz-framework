@@ -60,12 +60,5 @@ under the License.
         location="webapp/example"
         base-permission="OFBTOOLS,EXAMPLE"
         mount-point="/example"/>
-    <webapp name="birt"
-        title="BIRT"
-        server="default-server"
-        location="webapp/birt"
-        base-permission="OFBTOOLS,WEBTOOLS"
-        mount-point="/birt"
-        app-bar-display="false"/>
-        
+
 </ofbiz-component>

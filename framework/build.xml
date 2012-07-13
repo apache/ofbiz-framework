@@ -28,7 +28,7 @@ under the License.
                security/build.xml,service/build.xml,entityext/build.xml,
                bi/build.xml,minilang/build.xml,
                webapp/build.xml,widget/build.xml,
-               common/build.xml,datafile/build.xml,birt/build.xml,
+               common/build.xml,datafile/build.xml,
                testtools/build.xml,
                appserver/build.xml,webtools/build.xml"/>
 

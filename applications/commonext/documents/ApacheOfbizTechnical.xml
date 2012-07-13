@@ -201,7 +201,6 @@ image=/boot/vmlinuzNew
     <xi:include href="../../../framework/testtools/documents/TestTools.xml" />
     <xi:include href="../../../framework/documents/UnitTest.xml" />
     <xi:include href="../../../framework/documents/SingleSignOn.xml" />
-    <xi:include href="../../../framework/birt/documents/Birt.xml"/>
     <xi:include href="../../../framework/documents/DataFiles.xml"/>
 
     <appendix>

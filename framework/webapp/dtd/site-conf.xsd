@@ -652,8 +652,7 @@ under the License.
         <xs:attribute type="xs:string" name="type" default="default">
             <xs:annotation>
                 <xs:documentation>
-                    There are as much as types (of type view) as available defined and accessible event handlers.
-                    Most used is screen, others are notably screenxml, screentext, screencsv, screenfop, ftl, http and birt
+                    The name of the view handler that will render the output: screen, screenfop, ftl etc...
                     A most comprehensive list can be found in the common-controller.
                 </xs:documentation>
             </xs:annotation>

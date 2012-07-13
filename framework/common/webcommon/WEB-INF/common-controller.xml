@@ -44,7 +44,6 @@ under the License.
     <handler name="screenfop" type="view" class="org.ofbiz.widget.screen.ScreenFopViewHandler"/>
     <handler name="jsp" type="view" class="org.ofbiz.webapp.view.JspViewHandler"/>
     <handler name="http" type="view" class="org.ofbiz.webapp.view.HttpViewHandler"/>
-    <handler name="birt" type="view" class="org.ofbiz.birt.webapp.view.BirtViewHandler"/>
 
     <preprocessor>
         <!-- Events to run on every request before security (chains exempt) -->

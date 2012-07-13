@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+
+
+    <!--New From-->
+    <form name="SalesReport" type="single" target="checkReportBy" title=""
+          header-row-style="header-row" default-table-style="basic-table">
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time type="date"/></field>
+        <field name="reportBy" title="Report By">
+            <drop-down>
+                <option key="day" description="Days"></option>
+                <option key="week" description="Weeks"></option>
+                <option key="month" description="Months"></option>
+            </drop-down>
+        </field>
+        <field name="exportType" title="Format Type">
+            <drop-down>
+                <option key="pdf" description="PDF"></option>
+                <option key="excel" description="Excel"></option>
+                <option key="html" description="HTML"></option>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonRun}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="NetBeforeOverheadReport" type="single" target="NetBeforeOverheadReport.pdf" title=""
+          header-row-style="header-row" default-table-style="basic-table">
+        <field name="productStoreId">
+            <drop-down allow-empty="false">
+                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
+                <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
+                    <entity-order-by field-name="storeName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonRun}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="ProductDemandReport" type="single" target="ProductDemandReport.pdf" title=""
+          header-row-style="header-row" default-table-style="basic-table">
+        <field name="productStoreId">
+            <drop-down allow-empty="false">
+                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
+                <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
+                    <entity-order-by field-name="storeName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonRun}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="OrderByReferrer" type="single" target="OrderByReferrer.pdf" target-window="_BLANK">
+        <!--field name="referrerUrl"><text-find default-option="contains"/></field-->
+        <field name="referrerUrl" title=" "><display description="All Referrer"></display></field>
+        <field name="submit" title="${uiLabelMap.CommonRun}"><submit button-type="button"/></field>
+    </form>
+    <form name="SaleOrdersByChannel" type="single" target="OrdersByChannel.pdf" target-window="_BLANK">
+        <field name="saleChannel">
+            <drop-down allow-empty="false">
+                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
+                <entity-options description="${description}" entity-name="Enumeration" key-field-name="description">
+                    <entity-constraint name="enumTypeId" operator="equals" value="ORDER_SALES_CHANNEL"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submit" title="${uiLabelMap.CommonRun}"><submit button-type="button"/></field>
+    </form>
+    <form name="SaleOrderDiscountCode" type="single" target="OrderDiscountCode.pdf" target-window="_BLANK">
+        <field name="discountCodeUrl" title=" "><display description="All order items with discount code"></display></field>
+        <field name="submit" title="${uiLabelMap.CommonRun}"><submit button-type="button"/></field>
+    </form>
+    <form name="Last3MonthsSalesReport" type="single" target="Last3MonthsSalesReport.pdf" target-window="_BLANK">
+        <field name="submit" title="${uiLabelMap.CommonRun}"><submit button-type="button"/></field>
+    </form>
+    <form name="CouponSalesReport" type="single" target="CouponSalesReport.pdf" target-window="_BLANK">
+        <field name="submit" title="${uiLabelMap.CommonRun}"><submit button-type="button"/></field>
+    </form>
+</forms>
