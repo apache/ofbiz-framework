@@ -78,8 +78,8 @@ under the License.
     </xs:simpleType>
 
     <xs:simpleType name="booleanExpr">
-        <xs:restriction base="xs:token">
-            <xs:pattern value="\$\{[a-zA-Z_]{1}[a-zA-Z0-9_\-.]+\}|true|false" />
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\$\{.+\}|true|false" />
         </xs:restriction>
     </xs:simpleType>
 
