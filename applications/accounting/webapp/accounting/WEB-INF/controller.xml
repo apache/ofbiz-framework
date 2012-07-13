@@ -2169,11 +2169,6 @@ under the License.
         <response name="success" type="view" value="paymentOverview"/>
         <response name="error" type="view" value="paymentOverview"/>
     </request-map>
-    <request-map uri="PaymentAcctgTransEntriesPdf">
-        <security https="true" auth="true"/>
-        <event type="groovy" path="component://accounting/webapp/accounting/WEB-INF/actions/reports/PaymentAcctgTransEntryParameters.groovy"/>
-        <response name="success" type="view" value="PaymentAcctgTransEntriesPdf"/>
-    </request-map>
 
     <!-- ================ Entity Lookup Requests ================= -->
     <request-map uri="LookupProduct"><security auth="true" https="true"/><response name="success" type="view" value="LookupProduct"/></request-map>
@@ -2219,12 +2214,6 @@ under the License.
         <response name="success" type="view" value="PrintInvoices"/>
     </request-map>
 
-    <request-map uri="InvoiceAcctgTransEntriesPdf">
-        <security https="true" auth="true"/>
-        <event type="groovy" path="component://accounting/webapp/accounting/WEB-INF/actions/reports/InvoiceAcctgTransEntryParameters.groovy"/>
-        <response name="success" type="view" value="InvoiceAcctgTransEntriesPdf"/>
-    </request-map>
-
     <!--Global GL Settings -->
     <request-map uri="globalGLSettings">
         <security auth="true" https="true"/>
@@ -2242,6 +2231,7 @@ under the License.
         <response name="error" type="view" value="ComparativeIncomeStatement"/>
     </request-map>
     <request-map uri="BalanceSheet"><security https="true" auth="true"/><response name="success" type="view" value="BalanceSheet"/></request-map>
+    <request-map uri="BalanceSheet.pdf"><security https="true" auth="true"/><response name="success" type="view" value="BalanceSheetPdf"/></request-map>
     <request-map uri="ComparativeBalanceSheet"><security https="true" auth="true"/><response name="success" type="view" value="ComparativeBalanceSheet"/></request-map>
     <request-map uri="ComparativeBalanceSheet.pdf"><security https="true" auth="true"/><response name="success" type="view" value="ComparativeBalanceSheetPdf"/></request-map>
     <request-map uri="ComparativeBalanceSheet.csv"><security https="true" auth="true"/><response name="success" type="view" value="ComparativeBalanceSheetCsv"/></request-map>
@@ -2394,12 +2384,6 @@ under the License.
         <response name="success" type="view" value="AcctgTransEntriesSearchResultsPdf"/>
     </request-map>
 
-    <request-map uri="AcctgTransEntriesSearchResultsInvoiceAndPaymentPdf.pdf">
-        <security auth="true" https="true"/>
-        <event type="groovy" path="component://accounting/webapp/accounting/WEB-INF/actions/reports/AcctgTransEntriesSearchResultsParameters.groovy"/>
-        <response name="success" type="view" value="AcctgTransEntriesSearchResultsInvoiceAndPaymentPdf"/>
-    </request-map>
-
     <request-map uri="AcctgTransSearchResultsCsv.csv">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="AcctgTransSearchResultsCsv"/>
@@ -2422,10 +2406,8 @@ under the License.
 
     <request-map uri="IncomeStatementListPdf.pdf">
         <security https="true" auth="true"/>
-        <event type="groovy" path="component://accounting/webapp/accounting/WEB-INF/actions/reports/IncomeStatementParameters.groovy"/>
         <response name="success" type="view" value="IncomeStatementListPdf"/>
     </request-map>
-
     <request-map uri="IncomeStatementListCsv.csv">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="IncomeStatementListCsv"/>
@@ -2436,18 +2418,10 @@ under the License.
         <response name="success" type="view" value="BalanceSheetCsv"/>
     </request-map>
 
-    <request-map uri="BalanceSheet.pdf">
-        <security auth="true" https="true"/>
-        <event type="groovy" path="component://accounting/webapp/accounting/WEB-INF/actions/reports/BalanceSheetParameters.groovy"/>
-        <response name="success" type="view" value="BalanceSheetPdf"/>
-    </request-map>
-
     <request-map uri="TrialBalanceSearchResultsPdf.pdf">
         <security https="true" auth="true"/>
-        <event type="groovy" path="component://accounting/webapp/accounting/WEB-INF/actions/reports/TrialBalanceParameters.groovy"/>
         <response name="success" type="view" value="TrialBalanceSearchResultsPdf"/>
     </request-map>
-
     <request-map uri="TrialBalanceSearchResultsCsv.csv">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="TrialBalanceSearchResultsCsv"/>
@@ -2562,21 +2536,6 @@ under the License.
     </request-map>
 
     <!-- Reports -->
-    <request-map uri="paymentReport">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="paymentReport"/>
-    </request-map>
-    <request-map uri="paymentReportHtml">
-        <security https="true" auth="true"/>
-        <event type="groovy" path="component://accounting/webapp/accounting/WEB-INF/actions/payment/PaymentReport.groovy"/>
-        <response name="success" type="view" value="ViewPaymentReportHtml"/>
-    </request-map>
-    <request-map uri="paymentReportPdf">
-        <security https="true" auth="true"/>
-        <event type="groovy" path="component://accounting/webapp/accounting/WEB-INF/actions/payment/PaymentReport.groovy"/>
-        <response name="success" type="view" value="ViewPaymentReportPdf"/>
-    </request-map>
-
     <request-map uri="createWorkEffortAndPartyAssign">
         <security https="true" auth="true"/>
         <event type="service" invoke="createWorkEffortAndPartyAssign"/>
@@ -2626,7 +2585,6 @@ under the License.
     <view-map name="PrintChecks" type="screenfop" page="component://accounting/widget/PaymentScreens.xml#PrintChecks" content-type="application/pdf" encoding="none"/>
     <view-map name="FindSalesInvoicesByDueDate" type="screen" page="component://accounting/widget/PaymentScreens.xml#FindSalesInvoicesByDueDate"/>
     <view-map name="FindPurchaseInvoicesByDueDate" type="screen" page="component://accounting/widget/PaymentScreens.xml#FindPurchaseInvoicesByDueDate"/>
-    <view-map name="PaymentAcctgTransEntriesPdf" type="birt" page="component://accounting/webapp/accounting/reports/PaymentAcctgTransEntry.rptdesign" content-type="application/pdf" encoding="none"/>
 
     <!-- Payment Group -->
     <view-map name="FindPaymentGroup" type="screen" page="component://accounting/widget/PaymentGroupScreens.xml#FindPaymentGroup"/>
@@ -2828,23 +2786,22 @@ under the License.
     <view-map name="InvoicePDF" type="screenfop" page="component://accounting/widget/AccountingPrintScreens.xml#InvoicePDF" content-type="application/pdf" encoding="none"/>
     <view-map name="PrintCheckPDF" type="screenfop" page="component://accounting/widget/AccountingPrintScreens.xml#PrintCheckPDF" content-type="application/pdf" encoding="none"/>
     <view-map name="PrintInvoices" type="screenfop" page="component://accounting/widget/AccountingPrintScreens.xml#PrintInvoices" content-type="application/pdf" encoding="none"/>
-    <view-map name="InvoiceAcctgTransEntriesPdf" type="birt" page="component://accounting/webapp/accounting/reports/InvoiceAcctgTransEntry.rptdesign" content-type="application/pdf" encoding="none"/>
 
     <!-- Financial Summary Reports -->
     <view-map name="FinancialSummaryReportOptions" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#FinancialSummaryReportOptions"/>
     <view-map name="SalesInvoiceByProductCategorySummary" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#SalesInvoiceByProductCategorySummary"/>
     <view-map name="TrialBalance" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TrialBalance"/>
-    <view-map name="TrialBalanceSearchResultsPdf" type="birt" page="component://accounting/webapp/accounting/reports/TrialBalance.rptdesign" content-type="application/pdf" encoding="none"/>
+    <view-map name="TrialBalanceSearchResultsPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TrialBalanceSearchResultsPdf" content-type="application/pdf" encoding="none"/>
     <view-map name="TrialBalanceSearchResultsCsv" type="screencsv" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TrialBalanceSearchResultsCsv" content-type="text/csv" encoding="none"/>
     <view-map name="IncomeStatement" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#IncomeStatement"/>
-    <view-map name="IncomeStatementListPdf" type="birt" page="component://accounting/webapp/accounting/reports/IncomeStatement.rptdesign" content-type="application/pdf" encoding="none"/>
+    <view-map name="IncomeStatementListPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#IncomeStatementListPdf" content-type="application/pdf" encoding="none"/>
     <view-map name="IncomeStatementListCsv" type="screencsv" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#IncomeStatementListCsv" content-type="text/csv" encoding="none"/>
     <view-map name="ComparativeIncomeStatement" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#ComparativeIncomeStatement"/>
     <view-map name="ComparativeIncomeStatementsPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#ComparativeIncomeStatementsPdf" content-type="application/pdf" encoding="none"/>
     <view-map name="ComparativeIncomeStatementsCsv" type="screencsv" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#ComparativeIncomeStatementsCsv" content-type="text/csv" encoding="none"/>
     <view-map name="BalanceSheet" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#BalanceSheet"/>
+    <view-map name="BalanceSheetPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#BalanceSheetPdf" content-type="application/pdf" encoding="none"/>
     <view-map name="BalanceSheetCsv" type="screencsv" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#BalanceSheetCsv" content-type="text/csv" encoding="none"/>
-    <view-map name="BalanceSheetPdf" type="birt" page="component://accounting/webapp/accounting/reports/BalanceSheet.rptdesign" content-type="application/pdf" encoding="none"/>
     <view-map name="ComparativeBalanceSheet" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#ComparativeBalanceSheet"/>
     <view-map name="ComparativeBalanceSheetPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#ComparativeBalanceSheetPdf" content-type="application/pdf" encoding="none"/>
     <view-map name="ComparativeBalanceSheetCsv" type="screencsv" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#ComparativeBalanceSheetCsv" content-type="text/csv" encoding="none"/>
@@ -2883,7 +2840,6 @@ under the License.
     <view-map name="FixedAssetGeoLocation" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#FixedAssetGeoLocation"/>
     <view-map name="AcctgTransEntriesSearchResultsCsv" type="screencsv" page="component://accounting/widget/GlScreens.xml#AcctgTransEntriesSearchResultsCsv" content-type="text/csv" encoding="none"/>
     <view-map name="AcctgTransEntriesSearchResultsPdf" type="screenfop" page="component://accounting/widget/GlScreens.xml#AcctgTransEntriesSearchResultsPdf" content-type="application/pdf" encoding="none"/>
-    <view-map name="AcctgTransEntriesSearchResultsInvoiceAndPaymentPdf" type="birt" page="component://accounting/webapp/accounting/reports/AcctgTransEntriesSearchResultsInvoiceAndPayment.rptdesign" content-type="application/pdf" encoding="none"/>
     <view-map name="AcctgTransSearchResultsCsv" type="screencsv" page="component://accounting/widget/GlScreens.xml#AcctgTransSearchResultsCsv" content-type="text/csv" encoding="none"/>
     <view-map name="AcctgTransSearchResultPdf" type="screenfop" page="component://accounting/widget/GlScreens.xml#AcctgTransSearchResultPdf" content-type="application/pdf" encoding="none"/>
 
@@ -2897,11 +2853,6 @@ under the License.
     <view-map name="CostCenters" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#CostCenters"/>
     <view-map name="GlAccountBalanceByCostCenter" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#GlAccountBalanceByCostCenter"/>
     <view-map name="GlAccountBalanceByCostCenterPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#GlAccountBalanceByCostCenterPdf" content-type="application/pdf" encoding="none"/>
-
-    <view-map name="paymentReport" type="screen" page="component://accounting/widget/PaymentScreens.xml#PaymentReport"/>
-    <view-map name="ViewPaymentReportHtml" type="birt" page="component://accounting/webapp/accounting/payment/report/PaymentReport.rptdesign" content-type="text/html"/>
-    <view-map name="ViewPaymentReportPdf" type="birt" page="component://accounting/webapp/accounting/payment/report/PaymentReport.rptdesign" content-type="application/pdf"/>
-
 
     <!-- end of view mappings -->
 </site-conf>

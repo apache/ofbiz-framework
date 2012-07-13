@@ -53,27 +53,6 @@
         <value xml:lang="de">Verion des Content Knoten</value>
         <value xml:lang="en">Version of the base content node</value>
     </property>
-    <property key="ExampleBirtExamples">
-        <value xml:lang="en">BIRT Examples</value>
-        <value xml:lang="th">ตัวอย่าง BIRT</value>
-    </property>
-    <property key="ExampleBirtChartReport">
-        <value xml:lang="en">HTML chart report</value>
-        <value xml:lang="fr">Graphiques HTML</value>
-    </property>
-    <property key="ExampleBirtChartViewHandler">
-        <value xml:lang="en">PDF chart report</value>
-        <value xml:lang="fr">Graphiques PDF</value>
-    </property>
-    <property key="ExampleBirtMail">
-        <value xml:lang="en">Send any format through Mail</value>
-    </property>
-    <property key="ExampleBirtReport">
-        <value xml:lang="en">HTML</value>
-    </property>
-    <property key="ExampleBirtViewHandler">
-        <value xml:lang="en">PDF</value>
-    </property>
     <property key="ExampleCalendarFromLayer">
         <value xml:lang="en">Calendar field (only test purp.)</value>
         <value xml:lang="fr">Calendrier (only test)</value>

@@ -36,6 +36,7 @@
         crowd/build.xml,
         webpos/build.xml
         googlecheckout/build.xml,
+        birt/build.xml,
         example/build.xml
     "/>
     <!-- For the old OFBiz Workflow Engine add "workflow/build.xml" to the list above -->

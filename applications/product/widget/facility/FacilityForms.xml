@@ -853,35 +853,6 @@ under the License.
             <submit/>
         </field>
     </form>
-    
-    <form name="ViewFacilityInventoryHistoryReportForm" extends="FindFacilityInventoryByProduct" target="RenderInventoryReportHtml" target-window="_BLANK">
-        <field name="facilityId"><hidden/></field>
-        <field name="productId"><hidden/></field>
-        <field name="internalName"><hidden/></field>
-        <field name="productTypeId"><hidden/></field>
-        <field name="searchInProductCategoryId"><hidden/></field>
-        <field name="productSupplierId"><hidden/></field>
-        <field name="statusId"><hidden/></field>
-        <field name="productsSoldThruTimestamp"><hidden/></field>
-        <field name="VIEW_SIZE"><hidden/></field>
-        <field name="monthsInPastLimit"><hidden/></field>
-        <field name="fromDateSellThrough"><hidden/></field>
-        <field name="thruDateSellThrough"><hidden/></field>
-        <field name="offsetQOHQty"><hidden/></field>
-        <field name="offsetATPQty"><hidden/></field>
-        <field name="lastIntMonth" title="Number of last month to sold out"><text size="15" default-value="0"></text></field>
-        <field name="contentType" action="document.ViewFacilityInventoryHistoryReportForm.action=this.value" event="onchange">
-            <drop-down allow-empty="false" >
-                <option key="RenderInventoryReportHtml" description="HTML"/>
-                <option key="RenderInventoryReportPDF" description="PDF"/>
-                <!--option key="RenderInventoryReportExcel" description="MS-Excel"/>
-                <option key="RenderInventoryReportMSWord" description="MS-Word"/>
-                <option key="RenderInventoryReportPPT" description="MS-Powerpoint"/-->
-            </drop-down>
-        </field>
-        <field name="submitButton"><hidden/></field>
-        <field name="report" title="Export Report" widget-style="smallSubmit"><submit button-type="button"/></field>
-    </form>
 
     <!--Facility Content-->
     <form name="AddFacilityContent" type="upload" focus-field-name="contentId" 

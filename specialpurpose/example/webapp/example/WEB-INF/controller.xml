@@ -25,7 +25,6 @@ under the License.
          elements found in the common-controller.xml file. -->
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     <include location="component://common/webcommon/WEB-INF/portal-controller.xml"/>
-    <include location="component://example/webapp/birt/WEB-INF/controller.xml"/>
 
     <description>Example Component Site Configuration File</description>
 
@@ -218,22 +217,6 @@ under the License.
     <request-map uri="ExampleOsmGeoLocationPointSet2"><security https="true" auth="true"/><response name="success" type="view" value="ExampleOsmGeoLocationPointSet2"/></request-map>
     <request-map uri="ExampleOsmGeoLocationPointSet3"><security https="true" auth="true"/><response name="success" type="view" value="ExampleOsmGeoLocationPointSet3"/></request-map>
     <request-map uri="ExampleOsmGeoLocationPointSet4"><security https="true" auth="true"/><response name="success" type="view" value="ExampleOsmGeoLocationPointSet4"/></request-map>
-
-    <!-- BIRT example Requests -->
-    <request-map uri="BirtMain">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="BirtMain"/>
-    </request-map>
-
-    <!--flot example requests-->
-    <request-map uri="ExampleBarChart">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ExampleBarChart"/>
-    </request-map>
-    <request-map uri="ExamplePieChart">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ExamplePieChart"/>
-    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -272,9 +255,6 @@ under the License.
     <view-map name="ExampleOsmGeoLocationPointSet2" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleOsmGeoLocationPointSet2"/>
     <view-map name="ExampleOsmGeoLocationPointSet3" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleOsmGeoLocationPointSet3"/>
     <view-map name="ExampleOsmGeoLocationPointSet4" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleOsmGeoLocationPointSet4"/>
-
-    <!-- BIRT example View Mappings -->
-    <view-map name="BirtMain" type="screen" page="component://example/widget/example/BirtScreens.xml#main"/>
 
     <!-- Flot view mapping -->
     <view-map name="ExampleBarChart" page="component://example/widget/example/ExampleScreens.xml#ExampleBarChart" type="screen"/>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+
+
+    <screen name="SalesReport">
+        <section>
+            <actions>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <screenlet title="Sales Report">
+                    <include-form name="SalesReport" location="component://birt/widget/order/OrderForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="NetBeforeOverheadReport">
+        <section>
+            <actions>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <screenlet title="Net Before Overhead Report">
+                    <include-form name="NetBeforeOverheadReport" location="component://birt/widget/order/OrderForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ProductDemandReport">
+        <section>
+            <actions>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <screenlet title="Product Demand Report">
+                    <include-form name="ProductDemandReport" location="component://birt/widget/order/OrderForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <!-- Sale Order By Referrer -->
+    <screen name="SaleOrdersByReferrerReport">
+        <section>
+            <widgets>
+                <screenlet title="Sale Orders by Referrer Report">
+                    <include-form name="OrderByReferrer" location="component://birt/widget/order/OrderForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <!-- Sale Order By Channel -->
+    <screen name="SaleOrdersByChannelReport">
+        <section>
+            <widgets>
+                <screenlet title="Sale Orders By Channel Report">
+                    <include-form name="SaleOrdersByChannel" location="component://birt/widget/order/OrderForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <!-- Sale Order with Discount Code -->
+    <screen name="SaleOrderDiscountCodeReport">
+        <section>
+            <widgets>
+                <screenlet title="Sale Orders Discount Code Report">
+                    <include-form name="SaleOrderDiscountCode" location="component://birt/widget/order/OrderForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <!-- Last Three Months Sales Report -->
+    <screen name="Last3MonthsSalesReport">
+        <section>
+            <widgets>
+                <screenlet title="Last Three Months Sales Report">
+                    <include-form name="Last3MonthsSalesReport" location="component://birt/widget/order/OrderForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <!-- Coupon Sales Report -->
+    <screen name="CouponSalesReport">
+        <section>
+            <widgets>
+                <screenlet title="Coupon Sales Report">
+                    <include-form name="CouponSalesReport" location="component://birt/widget/order/OrderForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+
+
+
+
+    <screen name="SalesOrderReport">
+        <section>
+            <actions>
+                <entity-condition entity-name="SalesOrderItemStarSchema" list="SalesReportList">
+                    <condition-list combine="and">
+                        <condition-expr field-name="orderDate" operator="greater-equals" from-field="parameters.fromOrderDate" ignore-if-null="true"/>
+                        <condition-expr field-name="orderDate" operator="less" from-field="parameters.thruOrderDate" ignore-if-null="true"/>
+                    </condition-list>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <xml><html-template location="component://order/webapp/ordermgr/reports/SalesReport.rptdesign"/></xml>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="NetBeforeOverheadOrderReport">
+        <section>
+            <widgets>
+                <platform-specific>
+                    <xml><html-template location="component://order/webapp/ordermgr/reports/NetBeforeOverheadReport.rptdesign"/></xml>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ProductDemandOrderReport ">
+        <section>
+            <widgets>
+                <platform-specific>
+                    <xml><html-template location="component://order/webapp/ordermgr/reports/ProductDemandReport.rptdesign"/></xml>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+</screens>

@@ -26,7 +26,8 @@ under the License.
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     
     <description>BIRT Component Site Configuration File</description>
-    
+
+    <handler name="birt" type="view" class="org.ofbiz.birt.webapp.view.BirtViewHandler"/>
     <!--
       These can be used to return the reports as views; make sure the classes are compiled and available
         <handler name="datavision" type="view" class="org.ofbiz.webapp.view.DataVisionViewHandler"/>
@@ -70,6 +71,22 @@ under the License.
         <response name="success" type="view" value="ViewHandler"/>
     </request-map>
 
+    <!-- BIRT example Requests -->
+    <request-map uri="BirtMain">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="BirtMain"/>
+    </request-map>
+
+    <!--flot example requests-->
+    <request-map uri="ExampleBarChart">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ExampleBarChart"/>
+    </request-map>
+    <request-map uri="ExamplePieChart">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ExamplePieChart"/>
+    </request-map>
+
     <request-map uri="chartReport">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="chartReport"/>
@@ -82,10 +99,10 @@ under the License.
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
-    <view-map name="main" type="screen" page="component://example/widget/example/BirtScreens.xml#main"/>
-    <view-map name="Report" type="screen" page="component://example/widget/example/BirtScreens.xml#Report"/>
-    <view-map name="chartReport" type="screen" page="component://example/widget/example/BirtScreens.xml#chartReport"/>
-    <view-map name="Mail" type="screen" page="component://example/widget/example/BirtScreens.xml#EditMail"/>
+    <view-map name="main" type="screen" page="component://birt/widget/birt/BirtScreens.xml#main"/>
+    <view-map name="Report" type="screen" page="component://birt/widget/birt/BirtScreens.xml#Report"/>
+    <view-map name="chartReport" type="screen" page="component://birt/widget/birt/BirtScreens.xml#chartReport"/>
+    <view-map name="Mail" type="screen" page="component://birt/widget/birt/BirtScreens.xml#EditMail"/>
     
     <!-- Supported Content Types -->
     <!--
@@ -99,7 +116,7 @@ under the License.
         application/vnd.oasis.opendocument.spreadsheet
         application/vnd.oasis.opendocument.presentation
      -->
-    <view-map name="ViewHandler" type="birt" page="component://example/webapp/birt/report/example.rptdesign" content-type="application/pdf"/>
-    <view-map name="chartViewHandler" type="birt" page="component://example/webapp/birt/report/chart.rptdesign" content-type="application/pdf"/>
+    <view-map name="ViewHandler" type="birt" page="component://birt/webapp/birt/report/example.rptdesign" content-type="application/pdf"/>
+    <view-map name="chartViewHandler" type="birt" page="component://birt/webapp/birt/report/chart.rptdesign" content-type="application/pdf"/>
     <!-- end of view mappings -->
 </site-conf>

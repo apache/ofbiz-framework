@@ -18,14 +18,46 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<ofbiz-component name="birt"
+<ofbiz-component name="birt" enabled="true"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
     <resource-loader name="main" type="component"/>
     <classpath type="jar" location="lib/*"/>
     <classpath type="jar" location="build/lib/*"/>
     <classpath type="dir" location="config"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/BirtHelpData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/OrderPortletData.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
 
+    <webapp name="accounting"
+            title="Accounting"
+            server="default-server"
+            location="webapp/accounting"
+            base-permission="OFBTOOLS,ACCOUNTING"
+            mount-point="/accounting"/>
+    <webapp name="facility"
+            title="Facility"
+            description="FacilityComponentDescription"
+            server="default-server"
+            location="webapp/facility"
+            base-permission="OFBTOOLS,FACILITY"
+            mount-point="/facility"/>
+    <webapp name="order"
+            title="Order"
+            description="OrderComponentDescription"
+            server="default-server"
+            location="webapp/ordermgr"
+            base-permission="OFBTOOLS,ORDERMGR"
+            mount-point="/ordermgr"/>
+    <!-- example -->
+    <webapp name="birt"
+            title="BIRT"
+            server="default-server"
+            location="webapp/birt"
+            base-permission="OFBTOOLS,WEBTOOLS"
+            mount-point="/birt"
+            app-bar-display="false"/>
+
     <container name="birt-container" loaders="main" class="org.ofbiz.birt.container.BirtContainer"/>
+
 </ofbiz-component>

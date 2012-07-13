@@ -1473,33 +1473,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
-    <screen name="ViewFacilityInventoryHistoryReport">
-        <section>
-            <actions>
-                <set field="headerItem" value="reports"/>
-                <set field="facilityId" from-field="parameters.facilityId"/>
-                <entity-one entity-name="Facility" value-field="facility" use-cache="true"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <container>
-                            <label style="h1" text="${uiLabelMap.ProductInventoryByProduct} ${uiLabelMap.CommonFor} ${facility.facilityName}"/>
-                        </container>
-                        <container>
-                            <link target="ViewFacilityInventoryByProductReport?facilityId=${parameters.facilityId}" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
-                            <link target="ViewFacilityInventoryByProductExport?facilityId=${parameters.facilityId}" text="${uiLabelMap.CommonExport}" style="buttontext"/>
-                            <link target="ViewFacilityInventoryHistoryReport?facilityId=${parameters.facilityId}" text="${uiLabelMap.FacilityInventoryHistoryReport}" style="buttontext"/>
-                        </container>
-                        <screenlet title="${uiLabelMap.FacilityInventoryHistoryReport}">
-                            <include-form name="ViewFacilityInventoryHistoryReportForm" location="component://product/widget/facility/FacilityForms.xml"/>
-                        </screenlet>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
 
     <screen name="EditFacilityContent">
         <section>
