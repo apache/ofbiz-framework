@@ -3186,6 +3186,11 @@
         <value xml:lang="zh">选择间隔</value>
         <value xml:lang="zh_TW">選擇間隔</value>
     </property>
+    <property key="EcommerceSelectOption">
+        <value xml:lang="de">Option wählen</value>
+        <value xml:lang="en">Select Option</value>
+        <value xml:lang="fr">Sélectionnez une option</value>
+    </property>
     <property key="EcommerceSelectedGiftWrap">
         <value xml:lang="da">Vælg gavepapir</value>
         <value xml:lang="de">Ausgewählte Geschenkverpackung</value>
