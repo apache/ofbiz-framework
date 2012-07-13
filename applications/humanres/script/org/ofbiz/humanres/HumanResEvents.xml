@@ -55,6 +55,12 @@
     
     <!-- Public Holiday -->
     <simple-method method-name="createPublicHoliday" short-description="Create Public Holiday">
+        <if-empty field="parameters.workEffortName">            
+            <add-error>
+                <fail-message message="The Holiday Name is missing."/>
+            </add-error>
+            <check-errors/>
+        </if-empty>     
         <if-empty field="parameters.estimatedStartDate">
             <add-error>
                 <fail-message message="The FromDate is missing"/>
