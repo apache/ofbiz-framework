@@ -429,10 +429,9 @@ $(function(){
           <#if sizeProductFeatureAndAppls?has_content>
             <div>
               <#if (sizeProductFeatureAndAppls?size == 1)>
-                <#-- TODO : i18n -->
-                Size:
+                ${uiLabelMap.OrderSizeAvailableSingle}:
               <#else>
-                Sizes Available:
+                ${uiLabelMap.OrderSizeAvailableMultiple}:
               </#if>
               <#list sizeProductFeatureAndAppls as sizeProductFeatureAndAppl>
                 ${sizeProductFeatureAndAppl.description?default(sizeProductFeatureAndAppl.abbrev?default(sizeProductFeatureAndAppl.productFeatureId))}<#if sizeProductFeatureAndAppl_has_next>,</#if>
@@ -564,7 +563,7 @@ $(function(){
                     <#list featureList as feature>
                         <#if feature_index == 0>
                             <div>${feature.description}: <select id="FT${feature.productFeatureTypeId}" name="FT${feature.productFeatureTypeId}" onchange="javascript:checkRadioButton();">
-                            <option value="select" selected="selected"> select option </option>
+                            <option value="select" selected="selected">${uiLabelMap.EcommerceSelectOption}</option>
                         <#else>
                             <option value="${feature.productFeatureId}">${feature.description} <#if feature.price?exists>(+ <@ofbizCurrency amount=feature.price?string isoCode=feature.currencyUomId />)</#if></option>
                         </#if>
