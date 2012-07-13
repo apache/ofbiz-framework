@@ -27,7 +27,7 @@ under the License.
     <property name="memory.initial.param" value="-Xms128M"/>
     <property name="memory.max.param" value="-Xmx512M"/>
     <property name="pos.memory.max.param" value="-Xmx512M"/>
-    <property name="memory.maxpermsize.param" value="-XX:MaxPermSize=512m"/>
+    <property name="memory.maxpermsize.param" value="-XX:MaxPermSize=512M"/>
 
     <available file="applications/build.xml" property="applications.present"/>
     <available file="specialpurpose/build.xml" property="specialpurpose.present"/>
@@ -376,7 +376,7 @@ under the License.
             description="Start OFBiz">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
-            <jvmarg value="${pos.memory.max.param}"/>
+            <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
         </java>
     </target>
@@ -384,7 +384,7 @@ under the License.
             description="Start OFBiz as a separate process">
         <java jar="ofbiz.jar" fork="true" spawn="true">
             <jvmarg value="${memory.initial.param}"/>
-            <jvmarg value="${pos.memory.max.param}"/>
+            <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
         </java>
     </target>
