@@ -18,11 +18,14 @@
  *******************************************************************************/
 package org.ofbiz.common;
 
+import static org.ofbiz.base.util.UtilGenerics.checkList;
+import static org.ofbiz.base.util.UtilGenerics.checkMap;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.RandomAccessFile;
@@ -43,14 +46,14 @@ import javolution.util.FastMap;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.ofbiz.base.metrics.Metrics;
+import org.ofbiz.base.metrics.MetricsFactory;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.UtilValidate;
-
-import static org.ofbiz.base.util.UtilGenerics.checkList;
-import static org.ofbiz.base.util.UtilGenerics.checkMap;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -63,6 +66,7 @@ import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.ServiceXaWrapper;
 import org.ofbiz.service.mail.MimeMessageWrapper;
+import org.owasp.esapi.errors.EncodingException;
 
 /**
  * Common Services
@@ -541,4 +545,35 @@ public class CommonServices {
         }
     }
 
+    public static Map<String, Object> getAllMetrics(DispatchContext dctx, Map<String, ?> context) {
+        List<Map<String, Object>> metricsMapList = FastList.newInstance();
+        List<Metrics> metricsList = MetricsFactory.getMetrics();
+        for (Metrics metrics : metricsList) {
+            Map<String, Object> metricsMap = FastMap.newInstance();
+            metricsMap.put("name", metrics.getName());
+            metricsMap.put("serviceRate", metrics.getServiceRate());
+            metricsMap.put("threshold", metrics.getThreshold());
+            metricsMap.put("totalEvents", metrics.getTotalEvents());
+            metricsMapList.add(metricsMap);
+        }
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        result.put("metricsList", metricsMapList);
+        return result;
+    }
+
+    public static Map<String, Object> resetMetric(DispatchContext dctx, Map<String, ?> context) {
+        String name = (String) context.get("name");
+        try {
+            name = StringUtil.defaultWebEncoder.decodeFromURL(name);
+        } catch (EncodingException e) {
+            return ServiceUtil.returnError("Exception thrown while decoding metric name \"" + name + "\"");
+        }
+        Metrics metric = MetricsFactory.getMetric(name);
+        if (metric != null) {
+            metric.reset();
+            return ServiceUtil.returnSuccess();
+
+        }
+        return ServiceUtil.returnError("Metric \"" + name + "\" not found.");
+    }
 }

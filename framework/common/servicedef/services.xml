@@ -787,4 +787,20 @@ under the License.
         <attribute name="encoding" mode="IN" type="String" optional="true" default-value="UTF-8"></attribute>
     </service>
 
+    <!-- Metrics services -->
+    <service name="getAllMetrics" auth="true" use-transaction="false"
+            engine="java" location="org.ofbiz.common.CommonServices" invoke="getAllMetrics">
+        <description>
+            Get all metrics. Returns a List of Maps - one Map per metric. Each Map includes the following keys:
+            name, serviceRate, threshold, totalEvents. See org.ofbiz.base.metrics.Metrics.
+        </description>
+        <attribute name="metricsList" mode="OUT" type="java.util.List" optional="false" />
+    </service>
+
+    <service name="resetMetric" auth="true" use-transaction="false"
+         engine="java" location="org.ofbiz.common.CommonServices" invoke="resetMetric">
+        <description>Resets a metric. See org.ofbiz.base.metrics.Metrics.</description>
+        <attribute name="name" mode="IN" type="String" optional="false"/>
+    </service>
+
 </services>
