@@ -43,6 +43,7 @@ under the License.
                 <xs:element minOccurs="0" maxOccurs="1" ref="permission-service"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="required-permissions"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="implements"/>
+                <xs:element minOccurs="0" ref="metric"/>
                 <xs:choice maxOccurs="1" minOccurs="0">
                     <xs:choice minOccurs="0" maxOccurs="unbounded">
                         <xs:element ref="auto-attributes"/>
@@ -260,6 +261,48 @@ under the License.
 
         </xs:attribute>
     </xs:attributeGroup>
+    <xs:element name="metric">
+        <xs:annotation>
+            <xs:documentation>
+                Calculate and maintain an average response time for this service. Service metrics can be used
+                for monitoring and reporting.
+                &lt;br/&gt;&lt;br/&gt;
+                The metric works by gathering statistics until a configurable maximum is reached (number of
+                requests or elapsed time), then the average is calculated. A smoothing factor is used to
+                smooth differences between calculations.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute name="name" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        Each metric must have a unique name. 
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="estimation-size" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        Positive integer number of requests to include in the metrics calculation. Defaults to "100". 
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="estimation-time" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        Positive integer number of milliseconds to include in the metrics calculation. Defaults to "1000". 
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="smoothing" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        Positive decimal smoothing factor - used to smooth the differences between calculations. A value of "1" disables smoothing. Defaults to "0.7". 
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="auto-attributes">
         <xs:complexType>
             <xs:sequence>
