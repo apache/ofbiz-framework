@@ -595,6 +595,9 @@ public class ServiceDispatcher {
             }
             Debug.logVerbose("Sync service [" + localName + "/" + modelService.name + "] finished with response [" + resultStr + "]", module);
         }
+        if (modelService.metrics != null) {
+            modelService.metrics.recordServiceRate(1, timeToRun);
+        }
         return result;
     }
 
