@@ -46,7 +46,9 @@ under the License.
 
     <menu name="EditExample" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="EditExample" title="${uiLabelMap.ExampleExample}">
-            <link target="EditExample"/>
+            <link target="EditExample">
+                <parameter param-name="exampleId"/>
+            </link>            
         </menu-item>
         <menu-item name="EditExampleItems" title="${uiLabelMap.CommonItems}">
             <link target="EditExampleItems">
