@@ -881,6 +881,38 @@ background: #FC7455;
 /* button column style - for the small
 collection of buttons used in lists */
 vertical-align: top;
+padding: 0.3em;
+}
+.basic-table tr .button-col a,
+.basic-table tr .button-col button,
+.basic-table tr .button-col input[type="reset"],
+.basic-table tr .button-col input[type="submit"],
+.basic-table tr .button-col input[type="button"] {
+    -webkit-appearance: none;
+    -moz-border-radius: 1em;
+    -webkit-border-radius: 1em;
+    border-radius: 1em;
+    background: #ddd url(images/button.png) repeat-x;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #ddd));
+    background: -moz-linear-gradient(top center, #fff 0%, #ddd 100%);
+    border: 0.1em solid;
+    border-color: #ddd #bbb #999;
+    cursor: pointer;
+    color: #333;
+    display:inline-block;
+    font-size: 0.9em;
+    font-weight: bold;
+    outline: 0;
+    overflow: visible;
+    padding: 0.1em 0.5em 0.2em 0.5em;
+    text-decoration: none;
+    text-shadow: #fff 0 1px 1px; /* Setting must be in px */
+    /*text-transform:uppercase;*/
+    width: auto;
+    
+    /* IE7 */
+    *padding-top: 0.2em;
+    *padding-bottom: 0;
 }
 
 .basic-table .collapsed {
@@ -1426,7 +1458,6 @@ a.buttontextbig,
 .button-style-1 ul a,
 .button-style-2 ul a, 
 .button-style-2 a, 
-.basic-table tr .button-col a, 
 .button,
 button,
 input[type="reset"],
