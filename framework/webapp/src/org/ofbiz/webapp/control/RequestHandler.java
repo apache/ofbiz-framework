@@ -106,6 +106,7 @@ public class RequestHandler {
     public void doRequest(HttpServletRequest request, HttpServletResponse response, String chain,
             GenericValue userLogin, Delegator delegator) throws RequestHandlerException {
 
+        long startTime = System.currentTimeMillis();
         HttpSession session = request.getSession();
 
         // get the controllerConfig once for this method so we don't have to get it over and over inside the method
@@ -155,8 +156,11 @@ public class RequestHandler {
         if (requestMap == null) {
             throw new RequestHandlerException(requestMissingErrorMessage);
         }
-
         String eventReturn = null;
+        if (requestMap.metrics != null && requestMap.metrics.getThreshold() != 0.0 && requestMap.metrics.getTotalEvents() > 3 && requestMap.metrics.getThreshold() < requestMap.metrics.getServiceRate()) {
+            eventReturn = "threshold-exceeded";
+        }
+
         boolean interruptRequest = false;
 
         // Check for chained request.
@@ -649,6 +653,9 @@ public class RequestHandler {
                 // no view to render (meaning the return was processed by the event)
                 if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is handled by the event." + " sessionId=" + UtilHttp.getSessionId(request), module);
             }
+        }
+        if (requestMap.metrics != null) {
+            requestMap.metrics.recordServiceRate(1, System.currentTimeMillis() - startTime);
         }
     }
 

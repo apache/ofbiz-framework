@@ -33,6 +33,8 @@ import javolution.util.FastMap;
 import javolution.util.FastSet;
 
 import org.ofbiz.base.location.FlexibleLocation;
+import org.ofbiz.base.metrics.Metrics;
+import org.ofbiz.base.metrics.MetricsFactory;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.GeneralException;
@@ -523,6 +525,7 @@ public class ConfigXMLReader {
         public boolean securityDirectRequest = true;
 
         public Map<String, RequestResponse> requestResponseMap = FastMap.newInstance();
+        public Metrics metrics = null;
 
         public RequestMap(Element requestMapElement) {
 
@@ -555,6 +558,11 @@ public class ConfigXMLReader {
             for (Element responseElement: UtilXml.childElementList(requestMapElement, "response")) {
                 RequestResponse response = new RequestResponse(responseElement);
                 requestResponseMap.put(response.name, response);
+            }
+            // Get metrics.
+            Element metricsElement = UtilXml.firstChildElement(requestMapElement, "metric");
+            if (metricsElement != null) {
+                this.metrics = MetricsFactory.getInstance(metricsElement);
             }
         }
     }
