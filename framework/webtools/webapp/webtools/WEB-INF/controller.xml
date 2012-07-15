@@ -226,6 +226,18 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="StatBinsHistory"/>
     </request-map>
+    <request-map uri="ViewMetrics">
+        <security https="true" auth="true"/>
+        <metric name="URL: webtools/ViewMetrics" /><!-- Here for demonstration -->
+        <response name="success" type="view" value="ViewMetrics"/>
+    </request-map>
+    <request-map uri="ResetMetric">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="resetMetric"/>
+        <response name="success" type="view" value="ViewMetrics"/>
+        <response name="error" type="view" value="ViewMetrics"/>
+    </request-map>
+
 
     <!-- Loggin Setup -->
     <request-map uri="LogConfiguration">
@@ -639,6 +651,7 @@ under the License.
 
     <view-map name="StatsSinceStart" type="screen" page="component://webtools/widget/StatsScreens.xml#StatsSinceStart"/>
     <view-map name="StatBinsHistory" type="screen" page="component://webtools/widget/StatsScreens.xml#StatBinsHistory"/>
+    <view-map name="ViewMetrics" type="screen" page="component://webtools/widget/StatsScreens.xml#ViewMetrics"/>
 
     <view-map name="EntityPerformanceTest" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityPerformanceTest"/>
 

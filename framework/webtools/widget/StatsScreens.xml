@@ -21,12 +21,10 @@ under the License.
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
-    <screen name="StatsSinceStart">
+    <screen name="StatsDecorator">
         <section>
             <actions>
-                <set field="titleProperty" value="WebtoolsStatsMainPageTitle"/>
                 <set field="headerItem" value="stats"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/stats/StatsSinceStart.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -36,23 +34,46 @@ under the License.
                                 <if-has-permission permission="SERVER_STATS" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <screenlet title="${uiLabelMap.WebtoolsStatsMainPageTitle}">
-                                    <include-menu name="StatsSinceStart" location="component://webtools/widget/Menus.xml"/>
-                                    <label>${uiLabelMap.WebtoolsStatsCurrentTime} ${nowTimestamp}</label>
-                                    <screenlet title="${uiLabelMap.WebtoolsStatsRequestStats}">
-                                        <include-form name="ListRequestStats" location="component://webtools/widget/StatsForms.xml"/>
-                                    </screenlet>
-                                    <screenlet title="${uiLabelMap.WebtoolsStatsEventStats}">
-                                        <include-form name="ListEventStats" location="component://webtools/widget/StatsForms.xml"/>
-                                    </screenlet>
-                                    <screenlet title="${uiLabelMap.WebtoolsStatsViewStats}">
-                                        <include-form name="ListViewStats" location="component://webtools/widget/StatsForms.xml"/>
-                                    </screenlet>
-                                </screenlet>
+                                <include-menu name="StatsTabBar" location="component://webtools/widget/Menus.xml"/>
+                                <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="h3">${uiLabelMap.WebtoolsStatsPermissionMsg}</label>
+                                <label style="h3">${uiLabelMap.WebtoolsPermissionError}</label>
                             </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="StatsSinceStart">
+        <section>
+            <actions>
+                <set field="titleProperty" value="WebtoolsStatsMainPageTitle"/>
+                <set field="tabButtonItem" value="stats"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/stats/StatsSinceStart.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="StatsDecorator" location="${parameters.statsDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <container style="page-title">
+                                    <label text="${uiLabelMap[titleProperty]}"/>
+                                </container>
+                                <include-menu name="StatsSinceStart" location="component://webtools/widget/Menus.xml"/>
+                                <label>${uiLabelMap.WebtoolsStatsCurrentTime} ${nowTimestamp}</label>
+                                <screenlet title="${uiLabelMap.WebtoolsStatsRequestStats}" padded="false">
+                                    <include-form name="ListRequestStats" location="component://webtools/widget/StatsForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.WebtoolsStatsEventStats}" padded="false">
+                                    <include-form name="ListEventStats" location="component://webtools/widget/StatsForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.WebtoolsStatsViewStats}" padded="false">
+                                    <include-form name="ListViewStats" location="component://webtools/widget/StatsForms.xml"/>
+                                </screenlet>
+                            </widgets>
                         </section>
                     </decorator-section>
                 </decorator-screen>
@@ -64,24 +85,43 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="WebtoolsStatsBinsPageTitle"/>
-                <set field="headerItem" value="stats"/>
+                <set field="tabButtonItem" value="stats"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/stats/StatBinsHistory.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="StatsDecorator" location="${parameters.statsDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
-                            <condition>
-                                <if-has-permission permission="SERVER_STATS" action="_VIEW"/>
-                            </condition>
                             <widgets>
-                                <screenlet title="${uiLabelMap.WebtoolsStatsBinsPageTitle}">
-                                    <include-menu name="StatsBinHistory" location="component://webtools/widget/Menus.xml"/>
-                                    <label>${uiLabelMap.WebtoolsStatsCurrentTime} ${nowTimestamp}</label>
-                                    <screenlet title="${uiLabelMap.WebtoolsStatsRequestStats}">
-                                        <include-form name="ListRequestBins" location="component://webtools/widget/StatsForms.xml"/>
-                                    </screenlet>
-                                </screenlet>
+                                <container style="page-title">
+                                    <label text="${uiLabelMap[titleProperty]}"/>
+                                </container>
+                                <include-menu name="StatsBinHistory" location="component://webtools/widget/Menus.xml"/>
+                                <label>${uiLabelMap.WebtoolsStatsCurrentTime} ${nowTimestamp}</label>
+                                <include-form name="ListRequestBins" location="component://webtools/widget/StatsForms.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ViewMetrics">
+        <section>
+            <actions>
+                <set field="titleProperty" value="WebtoolsViewMetrics" />
+                <set field="tabButtonItem" value="metrics"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="StatsDecorator" location="${parameters.statsDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <container style="page-title">
+                                    <label text="${uiLabelMap[titleProperty]}"/>
+                                </container>
+                                <include-form name="ListMetrics" location="component://webtools/widget/StatsForms.xml" />
                             </widgets>
                         </section>
                     </decorator-section>

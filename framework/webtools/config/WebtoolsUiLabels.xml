@@ -18,7 +18,7 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz.properties.xsd">
     <property key="ConnectionPoolStatus">
         <value xml:lang="en">Connection Pool Status</value>
         <value xml:lang="vi">Trạng thái chia sẻ kết nối cơ sở dữ liệu</value>
@@ -3052,6 +3052,18 @@
         <value xml:lang="zh">内存</value>
         <value xml:lang="zh_TW">記憶體</value>
     </property>
+    <property key="WebtoolsMetrics">
+        <value xml:lang="en">Metrics</value>
+    </property>
+    <property key="WebtoolsMetricsRate">
+        <value xml:lang="en">Service Rate (mS)</value>
+    </property>
+    <property key="WebtoolsMetricsThreshold">
+        <value xml:lang="en">Threshold</value>
+    </property>
+    <property key="WebtoolsMetricsTotalEvents">
+        <value xml:lang="en">Total Events</value>
+    </property>
     <property key="WebtoolsMiscSetupTools">
         <value xml:lang="de">Versch. Setup Tools</value>
         <value xml:lang="en">Misc. Setup Tools</value>
@@ -5112,6 +5124,9 @@
         <value xml:lang="vi">Hiển thị Vết</value>
         <value xml:lang="zh">浏览日志</value>
         <value xml:lang="zh_TW">瀏覽日誌</value>
+    </property>
+    <property key="WebtoolsViewMetrics">
+        <value xml:lang="en">View Metrics</value>
     </property>
     <property key="WebtoolsViewPermissionError">
         <value xml:lang="de">Sie haben keine Berechtigung um diesen Bereich anzusehen (Sie benötigen OFBTOOLS_VIEW oder OFBIZTOOLS_ADMIN Berechtigung)</value>
