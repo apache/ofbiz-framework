@@ -428,6 +428,12 @@
         <value xml:lang="th">ลักษณะ</value>
         <value xml:lang="zh">特征</value>
     </property>
+    <property key="ExampleFeaturesAddToExample">
+        <value xml:lang="en">Add Feature To Example</value>
+    </property>      
+    <property key="ExampleFeaturesByExample">
+        <value xml:lang="en">Features by Example</value>
+    </property>    
     <property key="ExampleField">
         <value xml:lang="en">Field</value>
         <value xml:lang="it">Campo</value>

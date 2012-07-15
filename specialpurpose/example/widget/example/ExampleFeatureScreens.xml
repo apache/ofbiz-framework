@@ -70,7 +70,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonExampleFeatureDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="EditExampleFeature" location="component://example/widget/example/ExampleFeatureForms.xml"/>
+                        <screenlet title="${uiLabelMap.ExampleFeature}">
+                            <include-form name="EditExampleFeature" location="component://example/widget/example/ExampleFeatureForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -87,8 +89,12 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonExampleFeatureDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListExampleFeatureAppls" location="component://example/widget/example/ExampleFeatureForms.xml"/>
-                        <include-form name="AddExampleFeatureAppl" location="component://example/widget/example/ExampleFeatureForms.xml"/>
+                        <screenlet title="${uiLabelMap.ExampleFeaturesByExample}">
+                            <include-form name="ListExampleFeatureAppls" location="component://example/widget/example/ExampleFeatureForms.xml"/>
+                        </screenlet>
+                        <screenlet title="Add Feature To Example">
+                            <include-form name="AddExampleFeatureAppl" location="component://example/widget/example/ExampleFeatureForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

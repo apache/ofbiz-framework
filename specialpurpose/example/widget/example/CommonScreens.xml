@@ -70,7 +70,7 @@ under the License.
                             <condition>
                                 <and>
                                     <if-has-permission permission="EXAMPLE" action="_VIEW"/>
-                                    <not><if-empty field="example"/></not>
+                                    <not><if-empty field="example"/></not><!-- This is a check useful when only seed data are loaded -->
                                 </and>
                             </condition>
                             <widgets>
@@ -87,7 +87,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field="example"/></not>
+                                        <not><if-empty field="example"/></not><!-- This is a check useful when only seed data are loaded -->
                                     </condition>
                                     <widgets>
                                         <container style="h1"><label>${uiLabelMap[titleProperty]} ${uiLabelMap.CommonFor} ${example.exampleName} [${exampleId}]</label></container>
@@ -139,7 +139,7 @@ under the License.
                             <condition>
                                 <and>
                                     <if-has-permission permission="EXAMPLE" action="_VIEW"/>
-                                    <not><if-empty field="exampleFeature"/></not>
+                                    <not><if-empty field="exampleFeature"/></not><!-- This is a check useful when only seed data are loaded -->
                                 </and>
                             </condition>
                             <widgets>
@@ -156,7 +156,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field="exampleFeature"/></not>
+                                        <not><if-empty field="exampleFeature"/></not><!-- This is a check useful when only seed data are loaded -->
                                     </condition>
                                     <widgets>
                                         <container style="h1">
