@@ -326,7 +326,7 @@ under the License.
         <xs:attribute name="direct-request" default="true">
             <xs:annotation>
                 <xs:documentation>
-                    If false the request can only be accessed in a chained request
+                    If false the request can only be accessed in a chained request, default to true.
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
