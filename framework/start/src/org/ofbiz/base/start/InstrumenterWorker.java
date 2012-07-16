@@ -26,7 +26,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.lang.management.ManagementFactory;
+import java.lang.Runtime;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.List;
@@ -73,7 +73,7 @@ public final class InstrumenterWorker {
         } catch (ClassNotFoundException e) {
             return srcPaths;
         }
-        ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(ManagementFactory.getOperatingSystemMXBean().getAvailableProcessors());
+        ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(Runtime.getRuntime().availableProcessors());
         try {
             File instrumenterFile = new File(instrumenterFileName);
             instrumenterFile.delete();
