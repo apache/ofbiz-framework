@@ -255,8 +255,7 @@ public class ServiceDispatcher {
         }
 
         long serviceStartTime = System.currentTimeMillis();
-        boolean debugging = checkDebug(modelService, 1, true);
-        if (Debug.verboseOn()) {
+        if (Debug.verboseOn() || modelService.debug) {
             Debug.logVerbose("[ServiceDispatcher.runSync] : invoking service " + modelService.name + " [" + modelService.location +
                 "/" + modelService.invoke + "] (" + modelService.engineName + ")", module);
         }
@@ -512,7 +511,6 @@ public class ServiceDispatcher {
                 } catch (GenericTransactionException te) {
                     Debug.logError(te, "Cannot rollback transaction", module);
                 }
-                checkDebug(modelService, 0, debugging);
                 rs.setEndStamp();
                 if (t instanceof ServiceAuthException) {
                     throw (ServiceAuthException) t;
@@ -578,7 +576,6 @@ public class ServiceDispatcher {
         // pre-return ECA
         if (eventMap != null) ServiceEcaUtil.evalRules(modelService.name, eventMap, "return", ctx, ecaContext, result, isError, isFailure);
 
-        checkDebug(modelService, 0, debugging);
         rs.setEndStamp();
 
         long timeToRun = System.currentTimeMillis() - serviceStartTime;
@@ -587,7 +584,7 @@ public class ServiceDispatcher {
         } else if (Debug.infoOn() && timeToRun > 200) {
             Debug.logInfo("Very slow sync service execution detected: service [" + localName + "/" + modelService.name + "] finished in [" + timeToRun + "] milliseconds", module);
         }
-        if (Debug.verboseOn() && timeToRun > 50 && !modelService.hideResultInLog) {
+        if ((Debug.verboseOn() || modelService.debug) && timeToRun > 50 && !modelService.hideResultInLog) {
             // Sanity check - some service results can be multiple MB in size. Limit message size to 10K.
             String resultStr = result.toString();
             if (resultStr.length() > 10240) {
@@ -616,8 +613,7 @@ public class ServiceDispatcher {
         if (Debug.timingOn()) {
             UtilTimer.timerLog(localName + " / " + service.name, "ASync service started...", module);
         }
-        boolean debugging = checkDebug(service, 1, true);
-        if (Debug.verboseOn()) {
+        if (Debug.verboseOn() || service.debug) {
             Debug.logVerbose("[ServiceDispatcher.runAsync] : preparing service " + service.name + " [" + service.location + "/" + service.invoke +
                 "] (" + service.engineName + ")", module);
         }
@@ -713,7 +709,6 @@ public class ServiceDispatcher {
                 if (Debug.timingOn()) {
                     UtilTimer.closeTimer(localName + " / " + service.name, "ASync service finished...", module);
                 }
-                checkDebug(service, 0, debugging);
             } catch (Throwable t) {
                 if (Debug.timingOn()) {
                     UtilTimer.closeTimer(localName + " / " + service.name, "ASync service failed...", module);
@@ -726,7 +721,6 @@ public class ServiceDispatcher {
                 } catch (GenericTransactionException te) {
                     Debug.logError(te, "Cannot rollback transaction", module);
                 }
-                checkDebug(service, 0, debugging);
                 if (t instanceof ServiceAuthException) {
                     throw (ServiceAuthException) t;
                 } else if (t instanceof ServiceValidationException) {
@@ -972,32 +966,6 @@ public class ServiceDispatcher {
         }
         context.put("locale", newLocale);
         return newLocale;
-    }
-
-    // mode 1 = beginning (turn on) mode 0 = end (turn off)
-    private boolean checkDebug(ModelService model, int mode, boolean enable) {
-        boolean debugOn = Debug.verboseOn();
-        switch (mode) {
-            case 0:
-                if (model.debug && enable && debugOn) {
-                    // turn it off
-                    Debug.set(Debug.VERBOSE, false);
-                    Debug.logInfo("Verbose logging turned OFF", module);
-                    return true;
-                }
-                break;
-            case 1:
-                if (model.debug && enable && !debugOn) {
-                    // turn it on
-                    Debug.set(Debug.VERBOSE, true);
-                    Debug.logInfo("Verbose logging turned ON", module);
-                    return true;
-                }
-                break;
-            default:
-                Debug.logError("Invalid mode for checkDebug should be (0 or 1)", module);
-        }
-        return false;
     }
 
     // run startup services
