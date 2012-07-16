@@ -531,6 +531,7 @@ public class ServiceDispatcher {
                     try {
                         TransactionUtil.commit(beganTrans);
                     } catch (GenericTransactionException e) {
+                        GenericDelegator.popUserIdentifier();
                         String errMsg = "Could not commit transaction for service [" + modelService.name + "] call";
                         Debug.logError(e, errMsg, module);
                         if (e.getMessage() != null) {
