@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.base.concurrent;
 
-import java.lang.management.ManagementFactory;
+import java.lang.Runtime;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -78,7 +78,7 @@ public final class ExecutionPool {
         if (threadCount == 0) {
             threadCount = 1;
         } else if (threadCount < 0) {
-            int numCpus = ManagementFactory.getOperatingSystemMXBean().getAvailableProcessors();
+            int numCpus = Runtime.getRuntime().availableProcessors();
             threadCount = Math.abs(threadCount) * numCpus;
         }
         ThreadFactory threadFactory = createThreadFactory(group, namePrefix);
@@ -134,7 +134,7 @@ public final class ExecutionPool {
 
     static {
         ExecutionPoolPulseWorker worker = new ExecutionPoolPulseWorker();
-        int processorCount = ManagementFactory.getOperatingSystemMXBean().getAvailableProcessors();
+        int processorCount = Runtime.getRuntime().availableProcessors();
         for (int i = 0; i < processorCount; i++) {
             Thread t = new Thread(worker);
             t.setDaemon(true);
