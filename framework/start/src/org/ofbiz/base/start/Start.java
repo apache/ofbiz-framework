@@ -400,7 +400,7 @@ public class Start {
         private ServerSocket serverSocket = null;
 
         AdminPortThread() throws StartupException {
-            super("AdminPortThread");
+            super("OFBiz-AdminPortThread");
             try {
                 this.serverSocket = new ServerSocket(config.adminPort, 1, config.adminAddress);
             } catch (IOException e) {

@@ -96,7 +96,7 @@ public class GenericDAO {
         this.helperInfo = helperInfo;
         this.modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperInfo.getHelperBaseName());
         this.datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperInfo.getHelperBaseName());
-        this.executor = ExecutionPool.getExecutor(GENERIC_DAO_THREAD_GROUP, "entity-datasource(" + helperInfo.getHelperFullName() + ")", datasourceInfo.maxWorkerPoolSize, false);
+        this.executor = ExecutionPool.getExecutor(GENERIC_DAO_THREAD_GROUP, "OFBiz-entity-datasource(" + helperInfo.getHelperFullName() + ")", datasourceInfo.maxWorkerPoolSize, false);
     }
 
     public <T> Future<T> submitWork(Callable<T> callable) throws GenericEntityException {
