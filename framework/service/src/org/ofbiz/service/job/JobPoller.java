@@ -44,7 +44,6 @@ public class JobPoller implements Runnable {
     public static final int POLL_WAIT = 20000;
     public static final long THREAD_TTL = 18000000;
 
-    private Thread thread = null;
     private JobManager jm = null;
     private ThreadPoolExecutor executor = null;
     private String name = null;
@@ -72,7 +71,7 @@ public class JobPoller implements Runnable {
             if (pollEnabled()) {
 
                 // create the poller thread
-                thread = new Thread(this, "OFBiz-JobPoller-" + this.name);
+                Thread thread = new Thread(this, "OFBiz-JobPoller-" + this.name);
                 thread.setDaemon(false);
 
                 // start the poller
