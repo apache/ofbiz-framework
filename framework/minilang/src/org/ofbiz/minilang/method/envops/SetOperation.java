@@ -116,7 +116,7 @@ public final class SetOperation extends MethodOperation {
         this.formatFse = FlexibleStringExpander.getInstance(element.getAttribute("format"));
         this.type = element.getAttribute("type");
         Class<?> targetClass = null;
-        if (!this.type.isEmpty()) {
+        if (!this.type.isEmpty() && !"NewList".equals(this.type) && !"NewMap".equals(this.type)) {
             try {
                 targetClass = ObjectType.loadClass(this.type);
             } catch (ClassNotFoundException e) {
