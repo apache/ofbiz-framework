@@ -130,66 +130,63 @@ public class JobManager {
         boolean pollDone = false;
 
         while (!pollDone) {
-            // an extra protection for synchronization, help make sure we don't get in here more than once
-            synchronized (this) {
-                boolean beganTransaction = false;
+            boolean beganTransaction = false;
 
-                try {
-                    beganTransaction = TransactionUtil.begin();
-                    if (!beganTransaction) {
-                        Debug.logError("Unable to poll for jobs; transaction was not started by this process", module);
-                        return null;
-                    }
+            try {
+                beganTransaction = TransactionUtil.begin();
+                if (!beganTransaction) {
+                    Debug.logError("Unable to poll for jobs; transaction was not started by this process", module);
+                    return null;
+                }
 
-                    List<Job> localPoll = FastList.newInstance();
+                List<Job> localPoll = FastList.newInstance();
 
-                    // first update the jobs w/ this instance running information
-                    delegator.storeByCondition("JobSandbox", updateFields, mainCondition);
+                // first update the jobs w/ this instance running information
+                delegator.storeByCondition("JobSandbox", updateFields, mainCondition);
 
-                    // now query all the 'queued' jobs for this instance
-                    List<GenericValue> jobEnt = delegator.findByAnd("JobSandbox", updateFields, order, false);
-                    //jobEnt = delegator.findByCondition("JobSandbox", mainCondition, null, order);
+                // now query all the 'queued' jobs for this instance
+                List<GenericValue> jobEnt = delegator.findByAnd("JobSandbox", updateFields, order, false);
+                //jobEnt = delegator.findByCondition("JobSandbox", mainCondition, null, order);
 
-                    if (UtilValidate.isNotEmpty(jobEnt)) {
-                        for (GenericValue v: jobEnt) {
-                            DispatchContext dctx = getDispatcher().getDispatchContext();
-                            if (dctx == null) {
-                                Debug.logError("Unable to locate DispatchContext object; not running job!", module);
-                                continue;
-                            }
-                            Job job = new PersistedServiceJob(dctx, v, null); // TODO fix the requester
-                            try {
-                                job.queue();
-                                localPoll.add(job);
-                            } catch (InvalidJobException e) {
-                                Debug.logError(e, module);
-                            }
+                if (UtilValidate.isNotEmpty(jobEnt)) {
+                    for (GenericValue v: jobEnt) {
+                        DispatchContext dctx = getDispatcher().getDispatchContext();
+                        if (dctx == null) {
+                            Debug.logError("Unable to locate DispatchContext object; not running job!", module);
+                            continue;
                         }
-                    } else {
-                        pollDone = true;
+                        Job job = new PersistedServiceJob(dctx, v, null); // TODO fix the requester
+                        try {
+                            job.queue();
+                            localPoll.add(job);
+                        } catch (InvalidJobException e) {
+                            Debug.logError(e, module);
+                        }
                     }
+                } else {
+                    pollDone = true;
+                }
 
-                    // nothing should go wrong at this point, so add to the general list
-                    poll.addAll(localPoll);
-                } catch (Throwable t) {
-                    // catch Throwable so nothing slips through the cracks... this is a fairly sensitive operation
-                    String errMsg = "Error in polling JobSandbox: [" + t.toString() + "]. Rolling back transaction.";
-                    Debug.logError(t, errMsg, module);
-                    try {
-                        // only rollback the transaction if we started one...
-                        TransactionUtil.rollback(beganTransaction, errMsg, t);
-                    } catch (GenericEntityException e2) {
-                        Debug.logError(e2, "[Delegator] Could not rollback transaction: " + e2.toString(), module);
-                    }
-                } finally {
-                    try {
-                        // only commit the transaction if we started one... but make sure we try
-                        TransactionUtil.commit(beganTransaction);
-                    } catch (GenericTransactionException e) {
-                        String errMsg = "Transaction error trying to commit when polling and updating the JobSandbox: " + e.toString();
-                        // we don't really want to do anything different, so just log and move on
-                        Debug.logError(e, errMsg, module);
-                    }
+                // nothing should go wrong at this point, so add to the general list
+                poll.addAll(localPoll);
+            } catch (Throwable t) {
+                // catch Throwable so nothing slips through the cracks... this is a fairly sensitive operation
+                String errMsg = "Error in polling JobSandbox: [" + t.toString() + "]. Rolling back transaction.";
+                Debug.logError(t, errMsg, module);
+                try {
+                    // only rollback the transaction if we started one...
+                    TransactionUtil.rollback(beganTransaction, errMsg, t);
+                } catch (GenericEntityException e2) {
+                    Debug.logError(e2, "[Delegator] Could not rollback transaction: " + e2.toString(), module);
+                }
+            } finally {
+                try {
+                    // only commit the transaction if we started one... but make sure we try
+                    TransactionUtil.commit(beganTransaction);
+                } catch (GenericTransactionException e) {
+                    String errMsg = "Transaction error trying to commit when polling and updating the JobSandbox: " + e.toString();
+                    // we don't really want to do anything different, so just log and move on
+                    Debug.logError(e, errMsg, module);
                 }
             }
         }
