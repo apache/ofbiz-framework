@@ -30,8 +30,6 @@ under the License.
                      purge-job-days="4"
                      failed-retry-min="3"
                      ttl="18000000"
-                     wait-millis="750"
-                     jobs="10"
                      min-threads="5"
                      max-threads="15"
                      poll-enabled="true"

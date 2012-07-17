@@ -35,19 +35,9 @@ uiLabelMap = UtilProperties.getResourceBundleMap("WebtoolsUiLabels", locale);
 uiLabelMap.addBottomResourceBundle("CommonUiLabels");
 
 threads = [];
-jobs = dispatcher.getJobManager().processList();
-jobs.each { job ->
-    state = job.status;
-    switch (state) {
-        case 0 : status = uiLabelMap.WebtoolsStatusSleeping; break;
-        case 1 : status = uiLabelMap.WebtoolsStatusRunning; break;
-        case -1: status = uiLabelMap.WebtoolsStatusShuttingDown; break;
-        default: status = uiLabelMap.WebtoolsStatusInvalid; break;
-    }
-    job.status = status;
-    threads.add(job);
-}
-context.threads = threads;
+poolState = dispatcher.getJobManager().getPoolState();
+context.poolState = poolState;
+context.threads = poolState.taskList;
 
 // Some stuff for general threads on the server
 currentThread = Thread.currentThread();

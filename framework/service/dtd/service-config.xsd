@@ -68,8 +68,8 @@ under the License.
         <xs:attribute type="xs:nonNegativeInteger" name="purge-job-days" default="30"/>
         <xs:attribute type="xs:nonNegativeInteger" name="failed-retry-min" default="30"/>
         <xs:attribute type="xs:nonNegativeInteger" name="ttl" use="required"/>
-        <xs:attribute type="xs:nonNegativeInteger" name="wait-millis" use="required"/>
-        <xs:attribute type="xs:nonNegativeInteger" name="jobs" use="required"/>
+        <xs:attribute type="xs:nonNegativeInteger" name="wait-millis"/> <!-- deprecated -->
+        <xs:attribute type="xs:nonNegativeInteger" name="jobs"/> <!-- deprecated -->
         <xs:attribute type="xs:nonNegativeInteger" name="min-threads" use="required"/>
         <xs:attribute type="xs:nonNegativeInteger" name="max-threads" use="required"/>
         <xs:attribute name="poll-enabled" default="true">

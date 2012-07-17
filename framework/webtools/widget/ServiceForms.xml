@@ -110,14 +110,24 @@ under the License.
         <field name="key"><display/></field>
         <field name="value"><display/></field>
     </form>
+    <form name="PoolState" type="single" default-map-name="poolState">
+        <field name="pollerName"><display/></field>
+        <field name="pollerThreadName"><display/></field>
+        <field name="invokerThreadNameFormat"><display/></field>
+        <field name="keepAliveTimeInSeconds"><display/></field>
+        <field name="numberOfCoreInvokerThreads"><display/></field>
+        <field name="currentNumberOfInvokerThreads"><display/></field>
+        <field name="numberOfActiveInvokerThreads"><display/></field>
+        <field name="maxNumberOfInvokerThreads"><display/></field>
+        <field name="greatestNumberOfInvokerThreads"><display/></field>
+        <field name="numberOfCompletedTasks"><display/></field>
+    </form>
     <form name="ListJavaThread" type="list" list-name="threads" paginate-target="threadList" separate-columns="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="threadId" title="${uiLabelMap.WebtoolsThread}"><display description="${threadId} ${threadName}"/></field>
-        <field name="status" title="${uiLabelMap.CommonStatus}"><display/></field>
-        <field name="jobName" title="${uiLabelMap.WebtoolsJob}"><display default-value="${uiLabelMap.CommonNone}"/></field>
+        <field name="id" title="${uiLabelMap.WebtoolsThread}"><display description="${threadId} ${threadName}"/></field>
+        <field name="name" title="${uiLabelMap.WebtoolsJob}"><display default-value="${uiLabelMap.CommonNone}"/></field>
         <field name="serviceName" title="${uiLabelMap.WebtoolsService}"><display default-value="${uiLabelMap.CommonNone}"/></field>
-        <field name="usage" title="${uiLabelMap.WebtoolsUsage}"><display/></field>
-        <field name="ttl" title="${uiLabelMap.WebtoolsTTL} (ms)"><display/></field>
+        <field name="time"><display/></field>
         <field name="runTime" title="${uiLabelMap.CommonTime} (ms)"><display/></field>
     </form>
     <form name="ListServices" type="list" list-name="services" paginate-target="ServiceLog" separate-columns="true"

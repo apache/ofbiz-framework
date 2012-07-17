@@ -423,18 +423,10 @@ public class JobManager {
     }
 
     /**
-     * Kill a JobInvoker Thread.
-     * @param threadName Name of the JobInvoker Thread to kill.
-     */
-    public void killThread(String threadName) {
-        jp.killThread(threadName);
-    }
-
-    /**
      * Get a List of each threads current state.
      * @return List containing a Map of each thread's state.
      */
-    public List<Map<String, Object>> processList() {
+    public Map<String, Object> getPoolState() {
         return jp.getPoolState();
     }
 
