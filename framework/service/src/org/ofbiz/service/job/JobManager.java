@@ -21,11 +21,11 @@ package org.ofbiz.service.job;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralRuntimeException;
@@ -59,34 +59,25 @@ public class JobManager {
     public static final String instanceId = UtilProperties.getPropertyValue("general.properties", "unique.instanceId", "ofbiz0");
     public static final Map<String, Object> updateFields = UtilMisc.<String, Object>toMap("runByInstanceId", instanceId, "statusId", "SERVICE_QUEUED");
     public static final String module = JobManager.class.getName();
-    public static Map<String, JobManager> registeredManagers = FastMap.newInstance();
+
+    private static final Map<String, JobManager> registeredManagers = new HashMap<String, JobManager>();
 
     protected Delegator delegator;
     protected JobPoller jp;
 
-    /** Creates a new JobManager object. */
-    public JobManager(Delegator delegator) {
-        this(delegator, true);
-    }
-
-    public JobManager(Delegator delegator, boolean enabled) {
+    private JobManager(Delegator delegator, boolean enabled) {
         if (delegator == null) {
             throw new GeneralRuntimeException("ERROR: null delegator passed, cannot create JobManager");
         }
-        if (JobManager.registeredManagers.get(delegator.getDelegatorName()) != null) {
-            throw new GeneralRuntimeException("JobManager for [" + delegator.getDelegatorName() + "] already running");
-        }
-
         this.delegator = delegator;
         jp = new JobPoller(this, enabled);
-        JobManager.registeredManagers.put(delegator.getDelegatorName(), this);
     }
 
-    public static JobManager getInstance(Delegator delegator, boolean enabled)
-    {
+    public synchronized static JobManager getInstance(Delegator delegator, boolean enabled) {
         JobManager jm = JobManager.registeredManagers.get(delegator.getDelegatorName());
         if (jm == null) {
             jm = new JobManager(delegator, enabled);
+            JobManager.registeredManagers.put(delegator.getDelegatorName(), jm);
         }
         return jm;
     }
