@@ -103,6 +103,7 @@ under the License.
                 <decorator-screen name="CommonServiceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.WebtoolsServiceEngineThreads}">
+                            <include-form name="PoolState" location="component://webtools/widget/ServiceForms.xml"/>
                             <include-form name="ListJavaThread" location="component://webtools/widget/ServiceForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.WebtoolsGeneralJavaThreads}">
