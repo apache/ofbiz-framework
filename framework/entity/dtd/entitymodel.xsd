@@ -92,6 +92,15 @@ under the License.
         <xs:attribute name="never-cache" default="false" type="boolean"/>
         <xs:attribute name="never-check" default="false" type="boolean"/>
         <xs:attribute name="auto-clear-cache" default="true" type="boolean"/>
+        <xs:attribute name="redefinition" type="boolean">
+            <xs:annotation>
+                <xs:documentation>
+                    Indicates if this entity redefines an existing entity.
+                    When set to "true" it will suppress "Entity is defined more than once" warnings.
+                    Defaults to "false".
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="title" type="xs:string"/>
         <xs:attribute name="copyright" type="xs:string"/>
         <xs:attribute name="author" type="xs:string"/>

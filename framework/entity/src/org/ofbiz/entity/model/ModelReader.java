@@ -127,6 +127,7 @@ public class ModelReader implements Serializable {
     private ModelEntity buildEntity(ResourceHandler entityResourceHandler, Element curEntityElement, int i, ModelInfo def) throws GenericEntityException {
         boolean isEntity = "entity".equals(curEntityElement.getNodeName());
         String entityName = UtilXml.checkEmpty(curEntityElement.getAttribute("entity-name")).intern();
+        boolean redefinedEntity = "true".equals(curEntityElement.getAttribute("redefinition"));
 
         // add entityName to appropriate resourceHandlerEntities collection
         Collection<String> resourceHandlerEntityNames = resourceHandlerEntities.get(entityResourceHandler);
@@ -138,7 +139,7 @@ public class ModelReader implements Serializable {
         resourceHandlerEntityNames.add(entityName);
 
         // check to see if entity with same name has already been read
-        if (entityCache.containsKey(entityName)) {
+        if (entityCache.containsKey(entityName) && !redefinedEntity) {
             Debug.logWarning("WARNING: Entity " + entityName +
                 " is defined more than once, most recent will over-write " +
                 "previous definition(s)", module);
