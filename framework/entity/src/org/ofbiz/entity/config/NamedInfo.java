@@ -21,7 +21,7 @@ package org.ofbiz.entity.config;
 import org.w3c.dom.Element;
 
 /**
- * Misc. utility method for dealing with the entityengine.xml file
+ * A base class for entity engine element models.
  *
  */
 public abstract class NamedInfo {

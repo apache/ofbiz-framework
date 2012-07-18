@@ -21,7 +21,7 @@ package org.ofbiz.entity.config;
 import org.w3c.dom.Element;
 
 /**
- * Misc. utility method for dealing with the entityengine.xml file
+ * A model for the &lt;entity-model-reader&gt; element.
  *
  */
 public class EntityModelReaderInfo extends ResourceInfo {

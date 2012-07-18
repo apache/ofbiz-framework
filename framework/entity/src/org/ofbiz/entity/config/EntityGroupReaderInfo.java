@@ -18,11 +18,10 @@
  *******************************************************************************/
 package org.ofbiz.entity.config;
 
-import org.ofbiz.base.util.UtilValidate;
 import org.w3c.dom.Element;
 
 /**
- * Misc. utility method for dealing with the entityengine.xml file
+ * A model for the &lt;entity-group-reader&gt; element.
  *
  */
 public class EntityGroupReaderInfo extends ResourceInfo {
@@ -30,8 +29,7 @@ public class EntityGroupReaderInfo extends ResourceInfo {
         super(element);
         String loader = element.getAttribute("loader");
         String location = element.getAttribute("location");
-
-        if (UtilValidate.isNotEmpty(loader) && UtilValidate.isNotEmpty(location)) {
+        if (!loader.isEmpty() && !location.isEmpty()) {
             resourceElements.add(0, element);
         }
     }

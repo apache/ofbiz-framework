@@ -26,10 +26,11 @@ import org.ofbiz.base.util.UtilXml;
 import javolution.util.FastList;
 
 /**
- * Misc. utility method for dealing with the entityengine.xml file
+ * A container for &lt;resource&gt; elements.
  *
  */
 public abstract class ResourceInfo extends NamedInfo {
+    // FIXME: Do not keep a reference to DOM Elements.
     public List<Element> resourceElements = FastList.newInstance();
 
     public ResourceInfo(Element element) {
