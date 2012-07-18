@@ -26,13 +26,12 @@ import org.ofbiz.base.util.UtilXml;
 import org.w3c.dom.Element;
 
 /**
- * Misc. utility method for dealing with the entityengine.xml file
+ * A model for the &lt;datasource&gt; element.
  *
  */
-public class DatasourceInfo {
+public class DatasourceInfo extends NamedInfo {
     public static final String module = DatasourceInfo.class.getName();
 
-    public String name;
     public String helperClass;
     public String fieldTypeName;
     public List<? extends Element> sqlLoadPaths;
@@ -79,7 +78,7 @@ public class DatasourceInfo {
     public int maxWorkerPoolSize = 1;
 
     public DatasourceInfo(Element element) {
-        this.name = element.getAttribute("name");
+        super(element);
         this.helperClass = element.getAttribute("helper-class");
         this.fieldTypeName = element.getAttribute("field-type-name");
 

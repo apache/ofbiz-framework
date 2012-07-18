@@ -21,12 +21,11 @@ package org.ofbiz.entity.config;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.w3c.dom.Element;
 
 /**
- * Misc. utility method for dealing with the entityengine.xml file
+ * A model for the &lt;delegator&gt; element.
  *
  */
 public class DelegatorInfo extends NamedInfo {
@@ -57,15 +56,15 @@ public class DelegatorInfo extends NamedInfo {
         // this defaults to false, ie anything but true is false
         this.useDistributedCacheClear = "true".equalsIgnoreCase(element.getAttribute("distributed-cache-clear-enabled"));
         this.distributedCacheClearClassName = element.getAttribute("distributed-cache-clear-class-name");
-        if (UtilValidate.isEmpty(this.distributedCacheClearClassName)) this.distributedCacheClearClassName = "org.ofbiz.entityext.cache.EntityCacheServices";
+        if (this.distributedCacheClearClassName.isEmpty()) this.distributedCacheClearClassName = "org.ofbiz.entityext.cache.EntityCacheServices";
 
         this.distributedCacheClearUserLoginId = element.getAttribute("distributed-cache-clear-user-login-id");
-        if (UtilValidate.isEmpty(this.distributedCacheClearUserLoginId)) this.distributedCacheClearUserLoginId = "system";
+        if (this.distributedCacheClearUserLoginId.isEmpty()) this.distributedCacheClearUserLoginId = "system";
 
         this.sequencedIdPrefix = element.getAttribute("sequenced-id-prefix");
 
         this.defaultGroupName = element.getAttribute("default-group-name");
-        if (UtilValidate.isEmpty(this.defaultGroupName)) this.defaultGroupName = "org.ofbiz";
+        if (this.defaultGroupName.isEmpty()) this.defaultGroupName = "org.ofbiz";
 
         for (Element groupMapElement: UtilXml.childElementList(element, "group-map")) {
             groupMap.put(groupMapElement.getAttribute("group-name"), groupMapElement.getAttribute("datasource-name"));

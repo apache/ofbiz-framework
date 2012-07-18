@@ -21,10 +21,11 @@ package org.ofbiz.entity.config;
 import org.w3c.dom.Element;
 
 /**
- * Misc. utility method for dealing with the entityengine.xml file
+ * A model for the &lt;field-type&gt; element.
  *
  */
 public class FieldTypeInfo extends NamedInfo {
+    // FIXME: Do not keep a reference to the DOM Element.
     public Element resourceElement;
 
     public FieldTypeInfo(Element element) {
