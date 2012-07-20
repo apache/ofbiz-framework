@@ -421,10 +421,11 @@ public class JobManager {
     /** Close out the scheduler thread. */
     public void shutdown() {
         if (jp != null) {
+            Debug.logInfo("Stopping the JobManager...", module);
             jp.stop();
             jp = null;
-            Debug.logInfo("JobManager: Stopped Scheduler Thread.", module);
         }
+        Debug.logInfo("JobManager stopped.", module);
     }
 
     @Override
