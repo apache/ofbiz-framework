@@ -24,7 +24,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Properties;
+import java.util.TimeZone;
 
 public class Config {
     public static final double REQUIRED_JDK = 1.6;
@@ -205,8 +211,6 @@ public class Config {
                     fis = new FileInputStream(propsFile);
                     if (fis != null) {
                         props.load(fis);
-                    } else {
-                        throw new FileNotFoundException();
                     }
                 } catch (FileNotFoundException e2) {
                     // do nothing; we will see empty props below
