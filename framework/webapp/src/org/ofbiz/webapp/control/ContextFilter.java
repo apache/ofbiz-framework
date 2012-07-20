@@ -401,12 +401,12 @@ public class ContextFilter implements Filter {
                 try {
                     security = SecurityFactory.getInstance(delegator);
                 } catch (SecurityConfigurationException e) {
-                    Debug.logError(e, "[ServiceDispatcher.init] : No instance of security imeplemtation found.", module);
+                    Debug.logError(e, "Unable to obtain an instance of the security object.", module);
                 }
             }
             config.getServletContext().setAttribute("security", security);
             if (security == null) {
-                Debug.logError("[ContextFilter.init] ERROR: security create failed.", module);
+                Debug.logError("An invalid (null) Security object has been set in the servlet context.", module);
             }
         }
         return security;
