@@ -40,9 +40,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import javolution.util.FastList;
 
-import org.ofbiz.base.container.Container;
-import org.ofbiz.base.container.ContainerException;
-import org.ofbiz.base.container.ContainerLoader;
 import org.ofbiz.base.util.CachedClassLoader;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
@@ -70,14 +67,11 @@ import org.ofbiz.service.LocalDispatcher;
 public class ContextFilter implements Filter {
 
     public static final String module = ContextFilter.class.getName();
-    public static final String CONTAINER_CONFIG = "limited-containers.xml";
     public static final String FORWARDED_FROM_SERVLET = "_FORWARDED_FROM_SERVLET_";
 
     protected ClassLoader localCachedClassLoader = null;
     protected FilterConfig config = null;
     protected boolean debug = false;
-    protected Container rmiLoadedContainer = null; // used in Geronimo/WASCE to allow to deregister
-
 
     /**
      * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
@@ -98,11 +92,6 @@ public class ContextFilter implements Filter {
             debug = Debug.verboseOn();
         }
 
-        // load the containers
-        Container container = getContainers();
-        if (container != null) {
-            rmiLoadedContainer = container; // used in Geronimo/WASCE to allow to deregister
-        }
         // check the serverId
         getServerId();
         // initialize the delegator
@@ -334,11 +323,6 @@ public class ContextFilter implements Filter {
      */
     public void destroy() {
         getDispatcher(config.getServletContext()).deregister();
-        try {
-            destroyRmiContainer(); // used in Geronimo/WASCE to allow to deregister
-        } catch (ServletException e) {
-            Debug.logError("Error when stopping containers, this exception should not arise...", module);
-        }
         config = null;
     }
 
@@ -454,21 +438,5 @@ public class ContextFilter implements Filter {
             config.getServletContext().setAttribute("_serverId", serverId);
         }
         return serverId;
-    }
-
-    protected Container getContainers() throws ServletException {
-        return ContainerLoader.getContainer("rmi-dispatcher");
-    }
-
-    // used in Geronimo/WASCE to allow to deregister
-    protected void destroyRmiContainer() throws ServletException {
-        if (rmiLoadedContainer != null) {
-            try {
-                rmiLoadedContainer.stop();
-            } catch (ContainerException e) {
-                Debug.logError(e, module);
-                throw new ServletException("Error when stopping the RMI loaded container");
-            }
-        }
     }
 }
