@@ -120,17 +120,17 @@ public class JobPoller implements Runnable {
      * Stops the JobPoller
      */
     void stop() {
-        Debug.logInfo("Shutting down thread pool for " + this.name, module);
+        Debug.logInfo("Shutting down thread pool for JobPoller " + this.name, module);
         this.executor.shutdown();
         try {
             // Wait 60 seconds for existing tasks to terminate
             if (!this.executor.awaitTermination(60, TimeUnit.SECONDS)) {
                 // abrupt shutdown (cancel currently executing tasks)
-                Debug.logInfo("Attempting abrupt shut down of thread pool for " + this.name, module);
+                Debug.logInfo("Attempting abrupt shut down of thread pool for JobPoller " + this.name, module);
                 this.executor.shutdownNow();
                 // Wait 60 seconds for tasks to respond to being cancelled
                 if (!this.executor.awaitTermination(60, TimeUnit.SECONDS)) {
-                    Debug.logWarning("Unable to shutdown the thread pool for " + this.name, module);
+                    Debug.logWarning("Unable to shutdown the thread pool for JobPoller " + this.name, module);
                 }
             }
         } catch (InterruptedException ie) {
@@ -139,7 +139,7 @@ public class JobPoller implements Runnable {
             // preserve interrupt status
             Thread.currentThread().interrupt();
         }
-        Debug.logInfo("Shutdown completed of thread pool for " + this.name, module);
+        Debug.logInfo("Shutdown completed of thread pool for JobPoller " + this.name, module);
     }
 
     /**
