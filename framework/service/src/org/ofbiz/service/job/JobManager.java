@@ -89,7 +89,7 @@ public class JobManager {
         }
     }
 
-    /** Returns the ServiceDispatcher. */
+    /** Returns the LocalDispatcher. */
     public LocalDispatcher getDispatcher() {
         LocalDispatcher thisDispatcher = GenericDispatcher.getLocalDispatcher(delegator.getDelegatorName(), delegator);
         return thisDispatcher;
