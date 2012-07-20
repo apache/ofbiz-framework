@@ -48,22 +48,6 @@ import org.ofbiz.base.util.UtilXml;
 public class ContainerLoader implements StartupLoader {
 
     public static final String module = ContainerLoader.class.getName();
-    private static Map<String, Container> containerMap = new ConcurrentHashMap<String, Container>();
-
-    /**
-     * Returns a <code>Container</code> that has the specified name. Returns
-     * <code>null</code> if the specified container was not loaded. If more than one
-     * instance of the container was loaded, then the last instance that was loaded is
-     * returned. The returned <code>Container</code> will be initialized, but there is no
-     * guarantee that it will be in the running state.
-     * 
-     * @param containerName
-     *            The name of the container.
-     * @return A <code>Container</code> that has the specified name.
-     */
-    public static Container getContainer(String containerName) {
-        return containerMap.get(containerName);
-    }
 
     private String configFile = null;
     private final List<Container> loadedContainers = new LinkedList<Container>();
@@ -114,28 +98,7 @@ public class ContainerLoader implements StartupLoader {
                 Debug.logInfo("Loading container: " + containerCfg.name, module);
                 Container tmpContainer = loadContainer(containerCfg, args);
                 this.loadedContainers.add(tmpContainer);
-                containerMap.put(containerCfg.name, tmpContainer);
                 Debug.logInfo("Loaded container: " + containerCfg.name, module);
-
-                // TODO: Put container-specific code in the container.
-                // This is only used in case of OFBiz running in Geronimo or WASCE. It allows to use the RMIDispatcher
-                if (containerCfg.name.equals("rmi-dispatcher") && configFile.equals("limited-containers.xml")) {
-                    try {
-                        ContainerConfig.Container.Property initialCtxProp = containerCfg.getProperty("use-initial-context");
-                        String useCtx = initialCtxProp == null || initialCtxProp.value == null ? "false" : initialCtxProp.value;
-                        if (!useCtx.equalsIgnoreCase("true")) {
-                            //system.setProperty("java.security.policy", "client.policy"); maybe used if needed...
-                            if (System.getSecurityManager() == null) { // needed by WASCE with a client.policy file.
-                                System.setSecurityManager(new java.rmi.RMISecurityManager());
-                            }
-                            tmpContainer.start();
-                        }
-                    } catch (ContainerException e) {
-                        throw new StartupException("Cannot start() " + tmpContainer.getClass().getName(), e);
-                    } catch (java.lang.AbstractMethodError e) {
-                        throw new StartupException("Cannot start() " + tmpContainer.getClass().getName(), e);
-                    }
-                }
             }
         }
         if (this.unloading) {
@@ -159,7 +122,6 @@ public class ContainerLoader implements StartupLoader {
                 Debug.logInfo("Loading component's container: " + containerCfg.name, module);
                 Container tmpContainer = loadContainer(containerCfg, args);
                 this.loadedContainers.add(tmpContainer);
-                containerMap.put(containerCfg.name, tmpContainer);
                 Debug.logInfo("Loaded component's container: " + containerCfg.name, module);
             }
         }
@@ -178,7 +140,6 @@ public class ContainerLoader implements StartupLoader {
                     }
                     Container tmpContainer = loadContainer(containerCfg, args);
                     this.loadedContainers.add(tmpContainer);
-                    containerMap.put(containerCfg.name, tmpContainer);
                 }
             }
         } catch (Exception e) {
