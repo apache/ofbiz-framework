@@ -46,6 +46,7 @@ under the License.
         <event type="java" path="org.ofbiz.content.data.DataEvents" invoke="serveObjectData"/>
         <response name="success" type="none"/>
         <response name="error" type="view" value="error"/>
+        <response name="io-error" type="none"/>
     </request-map>
     
 </site-conf>

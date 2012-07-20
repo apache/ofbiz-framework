@@ -209,7 +209,9 @@ public class DataEvents {
             } catch (IOException e) {
                 Debug.logError(e, "Unable to write content to browser", module);
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
-                return "error";
+                // this must be handled with a special error string because the output stream has been already used and we will not be able to return the error page;
+                // the "io-error" should be associated to a response of type "none"
+                return "io-error";
             }
         } else {
             String errorMsg = "No data is available.";
