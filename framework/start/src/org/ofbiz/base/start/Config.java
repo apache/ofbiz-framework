@@ -422,7 +422,7 @@ public class Config {
         // loader classes
         loaders = new ArrayList<Map>();
         int currentPosition = 1;
-        Map loader = null;
+        Map<String, String> loader = null;
         while (true) {
             loader = new HashMap<String, String>();
             String loaderClass = props.getProperty("ofbiz.start.loader" + currentPosition);
