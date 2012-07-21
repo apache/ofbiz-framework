@@ -80,7 +80,7 @@ under the License.
     <OrderStatus orderStatusId="9008" statusId="ITEM_CREATED" orderId="DEMO10091" orderItemSeqId="00001" statusDatetime="2008-06-10 13:27:07.024" statusUserLogin="admin" lastUpdatedStamp="2008-06-10 13:27:07.279" lastUpdatedTxStamp="2008-06-10 13:27:07.022" createdStamp="2008-06-10 13:27:07.279" createdTxStamp="2008-06-10 13:27:07.022"/>
     <OrderContactMech orderId="DEMO10091" contactMechPurposeTypeId="SHIPPING_LOCATION" contactMechId="9200" lastUpdatedStamp="2008-06-10 13:27:07.294" lastUpdatedTxStamp="2008-06-10 13:27:07.022" createdStamp="2008-06-10 13:27:07.294" createdTxStamp="2008-06-10 13:27:07.022"/>
 
-    <Shipment shipmentId="9999" shipmentTypeId="PURCHASE_SHIPMENT" statusId="PURCH_SHIP_CREATED" primaryOrderId="DEMO10091" primaryShipGroupSeqId="00001" lastUpdatedStamp="2008-06-10 12:59:26.852" lastUpdatedTxStamp="2008-06-10 12:59:26.8" createdStamp="2008-06-10 12:59:26.852" createdTxStamp="2008-06-10 12:59:26.8"/>
+    <Shipment shipmentId="9999" shipmentTypeId="PURCHASE_SHIPMENT" statusId="PURCH_SHIP_CREATED" primaryOrderId="DEMO10091" primaryShipGroupSeqId="00001" lastUpdatedStamp="2008-06-10 12:59:26.852" lastUpdatedTxStamp="2008-06-10 12:59:26.8" createdStamp="2008-06-10 12:59:26.852" createdTxStamp="2008-06-10 12:59:26.8" createdDate="2008-06-10 12:59:26.8"/>
     <ShipmentItem shipmentId="9999" shipmentItemSeqId="00001" productId="GZ-2644" quantity="5"/>
     <ItemIssuance itemIssuanceId="9003" orderId="DEMO10091" orderItemSeqId="00001" shipGroupSeqId="00001" shipmentId="9999" shipmentItemSeqId="00001" issuedDateTime="2009-08-13 17:46:29.603" quantity="5"/>
 
