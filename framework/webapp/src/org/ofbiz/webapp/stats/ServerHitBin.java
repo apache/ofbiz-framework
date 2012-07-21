@@ -207,7 +207,11 @@ public class ServerHitBin {
                 }
                 if (bin == null) {
                     bin = new ServerHitBin(id, type, true, delegator);
-                    binList.add(0, bin);
+                    if (binList.size() > 0) {
+                        binList.add(0, bin);
+                    } else {
+                        binList.add(bin);
+                    }
                 }
             }
         }
