@@ -98,7 +98,7 @@ public class ModelReader implements Serializable {
         return reader;
     }
 
-    public ModelReader(String modelName) throws GenericEntityException {
+    private ModelReader(String modelName) throws GenericEntityException {
         this.modelName = modelName;
         entityResourceHandlers = FastList.newInstance();
         resourceHandlerEntities = FastMap.newInstance();
