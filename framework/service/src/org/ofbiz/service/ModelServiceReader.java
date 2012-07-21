@@ -65,7 +65,6 @@ public class ModelServiceReader implements Serializable {
     protected boolean isFromURL;
     protected URL readerURL = null;
     protected ResourceHandler handler = null;
-    protected Map<String, ModelService> modelServices = null;
     protected DispatchContext dctx = null;
 
     public static Map<String, ModelService> getModelServiceMap(URL readerURL, DispatchContext dctx) {
