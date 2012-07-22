@@ -342,22 +342,6 @@ public class ContextFilter implements Filter {
             Debug.logError("[ContextFilter.init] ERROR: delegator not defined.", module);
             return null;
         }
-        Collection<URL> readers = null;
-        String readerFiles = servletContext.getInitParameter("serviceReaderUrls");
-
-        if (readerFiles != null) {
-            readers = FastList.newInstance();
-            for (String name: StringUtil.split(readerFiles, ";")) {
-                try {
-                    URL readerURL = servletContext.getResource(name);
-                    if (readerURL != null) readers.add(readerURL);
-                } catch (NullPointerException npe) {
-                    Debug.logInfo(npe, "[ContextFilter.init] ERROR: Null pointer exception thrown.", module);
-                } catch (MalformedURLException e) {
-                    Debug.logError(e, "[ContextFilter.init] ERROR: cannot get URL from String.", module);
-                }
-            }
-        }
         // get the unique name of this dispatcher
         String dispatcherName = servletContext.getInitParameter("localDispatcherName");
 
@@ -366,7 +350,7 @@ public class ContextFilter implements Filter {
             dispatcherName = delegator.getDelegatorName();
         }
 
-        LocalDispatcher dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator, readers, null);
+        LocalDispatcher dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator);
         if (dispatcher == null) {
             Debug.logError("[ContextFilter.init] ERROR: dispatcher could not be initialized.", module);
         }

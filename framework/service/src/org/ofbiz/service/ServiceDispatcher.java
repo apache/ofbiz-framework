@@ -127,28 +127,28 @@ public class ServiceDispatcher {
 
     /**
      * Returns a pre-registered instance of the ServiceDispatcher associated with this delegator.
+     * @param name the name of the DispatchContext
      * @param delegator the local delegator
-     * @return A reference to this global ServiceDispatcher
+     * @return A reference to the LocalDispatcher associated with the DispatchContext
      */
-    public static ServiceDispatcher getInstance(String name, Delegator delegator) {
-        ServiceDispatcher sd = getInstance(null, null, delegator);
-
-        if (!sd.containsContext(name)) {
-            return null;
+    public static LocalDispatcher getLocalDispatcher(String name, Delegator delegator) {
+        // get the ServiceDispatcher associated to the delegator (if not found in the cache, it will be created and added to the cache)
+        ServiceDispatcher sd = getInstance(delegator);
+        // if a DispatchContext has already been already registered as "name" then return the LocalDispatcher associated with it
+        if (sd.containsContext(name)) {
+            return sd.getLocalDispatcher(name);
         }
-        return sd;
+        // otherwise return null
+        return null;
     }
 
     /**
-     * Returns an instance of the ServiceDispatcher associated with this delegator and registers the loader.
-     * @param name the local dispatcher
-     * @param context the context of the local dispatcher
+     * Returns an instance of the ServiceDispatcher associated with this delegator.
      * @param delegator the local delegator
      * @return A reference to this global ServiceDispatcher
      */
-    public static ServiceDispatcher getInstance(String name, DispatchContext context, Delegator delegator) {
+    public static ServiceDispatcher getInstance(Delegator delegator) {
         ServiceDispatcher sd;
-
         String dispatcherKey = delegator != null ? delegator.getDelegatorName() : "null";
         sd = dispatchers.get(dispatcherKey);
         if (sd == null) {
@@ -161,10 +161,6 @@ public class ServiceDispatcher {
                 }
             }
         }
-
-        if (name != null && context != null) {
-            sd.register(name, context);
-        }
         return sd;
     }
 
@@ -173,11 +169,10 @@ public class ServiceDispatcher {
      * @param name the local dispatcher
      * @param context the context of the local dispatcher
      */
-    public void register(String name, DispatchContext context) {
-        if (Debug.verboseOn()) Debug.logVerbose("Registered dispatcher: " + context.getName(), module);
-        this.localContext.put(name, context);
+    public void register(DispatchContext context) {
+        if (Debug.infoOn()) Debug.logInfo("Registering dispatcher: " + context.getName(), module);
+        this.localContext.put(context.getName(), context);
     }
-
     /**
      * De-Registers the loader with this ServiceDispatcher
      * @param local the LocalDispatcher to de-register
@@ -185,13 +180,13 @@ public class ServiceDispatcher {
     public void deregister(LocalDispatcher local) {
         if (Debug.infoOn()) Debug.logInfo("De-Registering dispatcher: " + local.getName(), module);
         localContext.remove(local.getName());
-         if (localContext.size() == 1) { // 1 == the JMSDispatcher
-             try {
+        if (localContext.size() == 1) { // TODO: this is a tweak that is currently not working (2 contexts are not deregistered)
+            try {
                  this.shutdown();
              } catch (GenericServiceException e) {
                  Debug.logError(e, "Trouble shutting down ServiceDispatcher!", module);
              }
-         }
+        }
     }
 
     public synchronized void registerCallback(String serviceName, GenericServiceCallback cb) {

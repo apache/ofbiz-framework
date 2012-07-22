@@ -39,6 +39,8 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.config.DelegatorInfo;
+import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelReader;
 import org.ofbiz.entityext.eca.EntityEcaRule;
@@ -129,9 +131,16 @@ public class ArtifactInfoFactory {
     protected ArtifactInfoFactory(String delegatorName) throws GeneralException {
         this.delegatorName = delegatorName;
         this.entityModelReader = ModelReader.getModelReader(delegatorName);
-        this.dispatchContext = new DispatchContext("ArtifactInfoDispCtx", null, this.getClass().getClassLoader(), null);
         this.entityEcaCache = EntityEcaUtil.getEntityEcaCache(EntityEcaUtil.getEntityEcaReaderName(delegatorName));
         this.serviceEcaCache = ServiceEcaUtil.ecaCache;
+        DelegatorInfo delegatorInfo = EntityConfigUtil.getDelegatorInfo(delegatorName);
+        String modelName;
+        if (delegatorInfo != null) {
+            modelName = delegatorInfo.entityModelReader;
+        } else {
+            modelName = "main";
+        }
+        this.dispatchContext = new DispatchContext(modelName, this.getClass().getClassLoader());
 
         this.prepareAll();
     }

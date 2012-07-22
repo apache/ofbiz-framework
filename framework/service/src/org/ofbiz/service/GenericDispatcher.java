@@ -18,8 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.service;
 
-import java.net.URL;
-import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
@@ -40,23 +38,13 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
     protected static Map<String, LocalDispatcher> dispatcherCache = FastMap.newInstance();
 
     public static LocalDispatcher getLocalDispatcher(String dispatcherName, Delegator delegator) {
-        return getLocalDispatcher(dispatcherName, delegator, null, null, null);
-    }
-
-    public static LocalDispatcher getLocalDispatcher(String dispatcherName, Delegator delegator, Collection<URL> readerURLs, ClassLoader loader) {
-        return getLocalDispatcher(dispatcherName, delegator, readerURLs, loader, null);
-    }
-
-    public static LocalDispatcher getLocalDispatcher(String dispatcherName, Delegator delegator, Collection<URL> readerURLs, ClassLoader loader, ServiceDispatcher serviceDispatcher) {
         if (dispatcherName == null) {
             dispatcherName = delegator.getDelegatorName();
             Debug.logWarning("Got a getGenericDispatcher call with a null dispatcherName, assuming default for the name.", module);
         }
 
-        if (UtilValidate.isNotEmpty(delegator)) {
-            if (UtilValidate.isNotEmpty(delegator.getDelegatorTenantId())) {
-                dispatcherName += "#" + delegator.getDelegatorTenantId();
-            }
+        if (UtilValidate.isNotEmpty(delegator.getDelegatorTenantId())) {
+            dispatcherName += "#" + delegator.getDelegatorTenantId();
         }
 
         LocalDispatcher dispatcher = dispatcherCache.get(dispatcherName);
@@ -67,23 +55,11 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
                 dispatcher = dispatcherCache.get(dispatcherName);
                 if (dispatcher == null) {
                     if (Debug.infoOn()) Debug.logInfo("Creating new dispatcher [" + dispatcherName + "] (" + Thread.currentThread().getName() + ")", module);
-                    //Debug.logInfo(new Exception(), "Showing stack where new dispatcher is being created...", module);
-
-                    if (delegator == null && serviceDispatcher != null) {
-                        delegator = serviceDispatcher.getDelegator();
-                    }
-
-                    if (loader == null) {
-                        loader = GenericDispatcher.class.getClassLoader();
-                    }
-
-                    ServiceDispatcher sd = serviceDispatcher != null ? serviceDispatcher : ServiceDispatcher.getInstance(dispatcherName, delegator);
-
-                    if (sd != null) {
-                        dispatcher = sd.getLocalDispatcher(dispatcherName);
-                    }
+                    // attempts to retrieve an already registered DispatchContext with the name dispatcherName
+                    dispatcher = ServiceDispatcher.getLocalDispatcher(dispatcherName, delegator);
+                    // if not found then create a new GenericDispatcher object; the constructor will also register a new DispatchContext in the ServiceDispatcher with name "dispatcherName"
                     if (dispatcher == null) {
-                        dispatcher = new GenericDispatcher(dispatcherName, delegator, readerURLs, loader, sd);
+                        dispatcher = new GenericDispatcher(dispatcherName, delegator);
                     }
 
                     dispatcherCache.put(dispatcherName, dispatcher);
@@ -93,53 +69,30 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
         return dispatcher;
     }
 
-    /** special method to obtain a new 'unique' reference with a variation on parameters */
-    public static LocalDispatcher newInstance(String name, Delegator delegator, boolean enableJM, boolean enableJMS, boolean enableSvcs) throws GenericServiceException {
-        return newInstance(name, delegator, null, enableJM, enableJMS, enableSvcs);
-    }
-
-    public static LocalDispatcher newInstance(String name, Delegator delegator, Collection<URL> readerURLs, boolean enableJM, boolean enableJMS, boolean enableSvcs) throws GenericServiceException {
-        ServiceDispatcher sd = new ServiceDispatcher(delegator, enableJM, enableJMS, enableSvcs);
-        ClassLoader loader = null;
-        try {
-            loader = Thread.currentThread().getContextClassLoader();
-        } catch (SecurityException e) {
-            loader = GenericDispatcher.class.getClassLoader();
-        }
-        return new GenericDispatcher(name, delegator, readerURLs, loader, sd);
-    }
-
     public static Set<String> getAllDispatcherNames() {
         return dispatcherCache.keySet();
     }
 
     protected GenericDispatcher() {}
 
-    protected GenericDispatcher(String name, Delegator delegator, Collection<URL> readerURLs, ClassLoader loader, ServiceDispatcher serviceDispatcher) {
-        if (serviceDispatcher != null) {
-            this.dispatcher = serviceDispatcher;
-        }
-        if (loader == null) {
-            try {
-                loader = Thread.currentThread().getContextClassLoader();
-            } catch (SecurityException e) {
-                loader = this.getClass().getClassLoader();
-            }
-        }
-        DispatchContext dc = new DispatchContext(name, readerURLs, loader, null);
-        init(name, delegator, dc);
-    }
-
-    protected void init(String name, Delegator delegator, DispatchContext ctx) {
-        if (UtilValidate.isEmpty(name))
+    protected GenericDispatcher(String name, Delegator delegator) {
+        if (UtilValidate.isEmpty(name)) {
             throw new IllegalArgumentException("The name of a LocalDispatcher cannot be a null or empty String");
+        }
+        ClassLoader loader;
+        try {
+            loader = Thread.currentThread().getContextClassLoader();
+        } catch (SecurityException e) {
+            loader = this.getClass().getClassLoader();
+        }
+        DispatchContext ctx = new DispatchContext(name, loader);
 
         this.name = name;
+        this.dispatcher = ServiceDispatcher.getInstance(delegator);
+        this.dispatcher.register(ctx);
         this.ctx = ctx;
-        this.dispatcher = ServiceDispatcher.getInstance(name, ctx, delegator);
-
-        ctx.setDispatcher(this);
-        ctx.loadReaders();
+        this.ctx.setDispatcher(this);
+        this.ctx.loadReaders();
         if (Debug.verboseOn()) Debug.logVerbose("[LocalDispatcher] : Created Dispatcher for: " + name, module);
     }
 

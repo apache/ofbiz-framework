@@ -19,9 +19,6 @@
 package org.ofbiz.service;
 
 import java.io.Serializable;
-import java.net.URL;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -43,6 +40,8 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.config.DelegatorInfo;
+import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.config.ServiceConfigUtil;
 import org.ofbiz.service.eca.ServiceEcaUtil;
@@ -57,31 +56,26 @@ public class DispatchContext implements Serializable {
 
     public static final String module = DispatchContext.class.getName();
 
-    protected static final String GLOBAL_KEY = "global.services";
-    private static final UtilCache<String, Map<String, ModelService>> modelServiceMapByDispatcher = UtilCache.createUtilCache("service.ModelServiceMapByDispatcher", 0, 0, false);
+    private static final UtilCache<String, Map<String, ModelService>> modelServiceMapByModel = UtilCache.createUtilCache("service.ModelServiceMapByModel", 0, 0, false);
 
     protected transient LocalDispatcher dispatcher;
     protected transient ClassLoader loader;
-    protected Collection<URL> localReaders;
     protected Map<String, Object> attributes;
     protected String name;
+    private String model;
 
     /**
      * Creates new DispatchContext
-     * @param localReaders a collection of reader URLs
-     * @param loader the classloader to use for dispatched services
      */
-    public DispatchContext(String name, Collection<URL> localReaders, ClassLoader loader, LocalDispatcher dispatcher) {
+    public DispatchContext(String name, ClassLoader loader) {
         this.name = name;
-        this.localReaders = localReaders;
+        this.model = name; // this will change when a dispatcher is set to match the model name associated to the delegator's dispatcher
         this.loader = loader;
-        this.dispatcher = dispatcher;
         this.attributes = FastMap.newInstance();
     }
 
     public void loadReaders() {
-        this.getLocalServiceMap();
-        this.getGlobalServiceMap();
+        getGlobalServiceMap();
     }
 
     /**
@@ -113,14 +107,6 @@ public class DispatchContext implements Serializable {
     }
 
     /**
-     * Gets the collection of readers associated with this context
-     * @return Collection of reader URLs
-     */
-    public Collection<URL> getReaders() {
-        return localReaders;
-    }
-
-    /**
      * Gets the name of the local dispatcher
      * @return String name of the LocalDispatcher object
      */
@@ -138,7 +124,7 @@ public class DispatchContext implements Serializable {
      * @throws GenericServiceException
      */
     public Map<String, Object> makeValidContext(String serviceName, String mode, Map<String, ? extends Object> context) throws GenericServiceException {
-        ModelService model = this.getModelService(serviceName);
+        ModelService model = getModelService(serviceName);
         return makeValidContext(model, mode, context);
 
     }
@@ -152,7 +138,7 @@ public class DispatchContext implements Serializable {
      * @return Map contains any valid values
      * @throws GenericServiceException
      */
-    public Map<String, Object> makeValidContext(ModelService model, String mode, Map<String, ? extends Object> context) throws GenericServiceException {
+    public static Map<String, Object> makeValidContext(ModelService model, String mode, Map<String, ? extends Object> context) throws GenericServiceException {
         Map<String, Object> newContext;
 
         int modeInt = 0;
@@ -186,35 +172,17 @@ public class DispatchContext implements Serializable {
      */
     public ModelService getModelService(String serviceName) throws GenericServiceException {
         //long timeStart = System.currentTimeMillis();
-        ModelService retVal = getLocalModelService(serviceName);
-        if (retVal == null) {
-            retVal = getGlobalModelService(serviceName);
-        }
+        ModelService retVal = getGlobalModelService(serviceName);
 
         if (retVal == null) {
             throw new GenericServiceException("Cannot locate service by name (" + serviceName + ")");
         }
-
         //Debug.logTiming("Got ModelService for name [" + serviceName + "] in [" + (System.currentTimeMillis() - timeStart) + "] milliseconds", module);
         return retVal;
     }
 
-    private ModelService getLocalModelService(String serviceName) throws GenericServiceException {
-        Map<String, ModelService> serviceMap = this.getLocalServiceMap();
-
-        ModelService retVal = null;
-        if (serviceMap != null) {
-            retVal = serviceMap.get(serviceName);
-            if (retVal != null && !retVal.inheritedParameters()) {
-                retVal.interfaceUpdate(this);
-            }
-        }
-
-        return retVal;
-    }
-
     private ModelService getGlobalModelService(String serviceName) throws GenericServiceException {
-        Map<String, ModelService> serviceMap = this.getGlobalServiceMap();
+        Map<String, ModelService> serviceMap = getGlobalServiceMap();
 
         ModelService retVal = null;
         if (serviceMap != null) {
@@ -239,8 +207,17 @@ public class DispatchContext implements Serializable {
      * Sets the LocalDispatcher used with this context
      * @param dispatcher The LocalDispatcher to re-assign to this context
      */
-    public void setDispatcher(LocalDispatcher dispatcher) {
+    public synchronized void setDispatcher(LocalDispatcher dispatcher) {
         this.dispatcher = dispatcher;
+        if (this.dispatcher != null) {
+            Delegator delegator = dispatcher.getDelegator();
+            if (delegator != null) {
+                DelegatorInfo delegatorInfo = EntityConfigUtil.getDelegatorInfo(delegator.getDelegatorBaseName());
+                if (delegatorInfo != null) {
+                    this.model = delegatorInfo.entityModelReader;
+                }
+            }
+        }
     }
 
     /**
@@ -259,28 +236,6 @@ public class DispatchContext implements Serializable {
         return dispatcher.getSecurity();
     }
 
-    private Map<String, ModelService> getLocalServiceMap() {
-        Map<String, ModelService> serviceMap = modelServiceMapByDispatcher.get(name);
-        if (serviceMap == null) {
-            if (this.localReaders != null) {
-                serviceMap = FastMap.newInstance();
-                for (URL readerURL: this.localReaders) {
-                    Map<String, ModelService> readerServiceMap = ModelServiceReader.getModelServiceMap(readerURL, this);
-                    if (readerServiceMap != null) {
-                        serviceMap.putAll(readerServiceMap);
-                    }
-                }
-                serviceMap = new HashMap<String, ModelService>(serviceMap);
-            }
-            if (serviceMap != null) {
-                serviceMap = modelServiceMapByDispatcher.putIfAbsentAndGet(name, serviceMap);
-                // NOTE: the current ECA per dispatcher for local services stuff is a bit broken, so now just doing this on the global def load: ServiceEcaUtil.reloadConfig();
-            }
-        }
-
-        return serviceMap;
-    }
-
     private Callable<Map<String, ModelService>> createServiceReaderCallable(final ResourceHandler handler) {
         return new Callable<Map<String, ModelService>>() {
             public Map<String, ModelService> call() throws Exception {
@@ -289,8 +244,8 @@ public class DispatchContext implements Serializable {
         };
     }
 
-    private Map<String, ModelService> getGlobalServiceMap() {
-        Map<String, ModelService> serviceMap = modelServiceMapByDispatcher.get(GLOBAL_KEY);
+    private synchronized Map<String, ModelService> getGlobalServiceMap() {
+        Map<String, ModelService> serviceMap = modelServiceMapByModel.get(this.model);
         if (serviceMap == null) {
             serviceMap = FastMap.newInstance();
 
@@ -322,26 +277,21 @@ public class DispatchContext implements Serializable {
             }
 
             if (serviceMap != null) {
-                Map<String, ModelService> cachedServiceMap = modelServiceMapByDispatcher.putIfAbsentAndGet(GLOBAL_KEY, serviceMap);
+                Map<String, ModelService> cachedServiceMap = modelServiceMapByModel.putIfAbsentAndGet(this.model, serviceMap);
                 if (cachedServiceMap == serviceMap) { // same object: this means that the object created by this thread was actually added to the cache
                     ServiceEcaUtil.reloadConfig();
                 }
             }
         }
-
         return serviceMap;
     }
 
-    public Set<String> getAllServiceNames() {
+    public synchronized Set<String> getAllServiceNames() {
         Set<String> serviceNames = new TreeSet<String>();
 
-        Map<String, ModelService> globalServices = modelServiceMapByDispatcher.get(GLOBAL_KEY);
-        Map<String, ModelService> localServices = modelServiceMapByDispatcher.get(name);
+        Map<String, ModelService> globalServices = modelServiceMapByModel.get(this.model);
         if (globalServices != null) {
             serviceNames.addAll(globalServices.keySet());
-        }
-        if (localServices != null) {
-            serviceNames.addAll(localServices.keySet());
         }
         return serviceNames;
     }
