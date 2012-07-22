@@ -35,11 +35,6 @@ under the License.
     <description>A unique name used to identify/recognize the local dispatcher for the Service Engine</description>
   </context-param>
   <context-param>
-    <param-name>serviceReaderUrls</param-name>
-    <param-value>/WEB-INF/services.xml</param-value>
-    <description>Configuration File(s) For The Service Dispatcher</description>
-  </context-param>
-  <context-param>
     <param-name>scriptLocationPath</param-name>
     <param-value>/WEB-INF/bsh</param-value>
     <description>BeanShell Script Location</description>
