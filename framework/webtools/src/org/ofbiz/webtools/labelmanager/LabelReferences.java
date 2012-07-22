@@ -39,6 +39,8 @@ import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.config.DelegatorInfo;
+import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.service.DispatchContext;
@@ -67,7 +69,14 @@ public class LabelReferences {
     public LabelReferences(Delegator delegator, LabelManagerFactory factory) {
         this.delegator = delegator;
         this.labels = factory.getLabels();
-        this.dispatchContext = new DispatchContext("LabelManagerDispCtx:" + delegator.getDelegatorName(), null, this.getClass().getClassLoader(), null);
+        DelegatorInfo delegatorInfo = EntityConfigUtil.getDelegatorInfo(delegator.getDelegatorBaseName());
+        String modelName;
+        if (delegatorInfo != null) {
+            modelName = delegatorInfo.entityModelReader;
+        } else {
+            modelName = "main";
+        }
+        this.dispatchContext = new DispatchContext(modelName, this.getClass().getClassLoader());
         Collection<LabelInfo> infoList = this.labels.values();
         for (LabelInfo labelInfo : infoList) {
             this.labelSet.add(labelInfo.getLabelKey());
