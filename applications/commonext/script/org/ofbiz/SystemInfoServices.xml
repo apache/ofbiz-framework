@@ -49,7 +49,6 @@ under the License.
 
     <simple-method method-name="deleteSystemInfoNote" short-description="Delete SystemInfo Note">
         <entity-one value-field="noteData" entity-name="NoteData"/>
-        <remove-related relation-name="ContentNote" value-field="noteData"/>
         <remove-related relation-name="CustRequestItemNote" value-field="noteData"/>
         <remove-related relation-name="CustRequestNote" value-field="noteData"/>
         <remove-related relation-name="MarketingCampaignNote" value-field="noteData"/>
