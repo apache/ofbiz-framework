@@ -34,11 +34,6 @@
         <description>A unique name used to identify/recognize the local dispatcher for the Service Engine</description>
     </context-param>
     <context-param>
-        <param-name>serviceReaderUrls</param-name>
-        <param-value>/WEB-INF/services.xml</param-value>
-        <description>Configuration File(s) For The Service Dispatcher</description>
-    </context-param>
-    <context-param>
         <param-name>entityDelegatorName</param-name>
         <param-value>default</param-value>
         <description>The Name of the Entity Delegator to use, defined in entityengine.xml</description>
