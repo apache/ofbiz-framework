@@ -2536,7 +2536,7 @@ under the License.
                                         <container>
                                             <label style="h2" text="${uiLabelMap.PartyEmailMessage}"/>
                                         </container>
-                                        <include-form name="allocateMsgToPartyForm" location="component://custserv/widget/CommunicationEventForms.xml"/>
+                                        <include-form name="allocateMsgToPartyForm" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                                     </screenlet>
                                 </widgets>
                             </section>
