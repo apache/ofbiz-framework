@@ -183,20 +183,6 @@ under the License.
     
     <simple-method method-name="testNewProductBacklogEmail" short-description="Test New Product Backlog Email" login-required="false">
         <entity-one value-field="userLogin" entity-name="UserLogin">
-            <field-map field-name="userLoginId" value="admin"/>
-        </entity-one>
-        <set-current-user-login value-field="userLogin"/>
-        <set field="parameters.productId" value="DEMO-PRODUCT-1"/>
-        <set field="parameters.custRequestId" value="TEST10"/>
-        <set field="parameters.communicationEventTypeId" value="EMAIL_COMMUNICATION" />
-        <set field="parameters.partyIdFrom" value="DemoCustomer-1"/>
-        <set field="parameters.partyIdTo" value="SCRUMASTER"/>
-        <set field="parameters.subject" value="Test New Product Backlog Email"/>
-        <call-service service-name="createCommunicationEvent" in-map-name="parameters"></call-service>
-    </simple-method>
-    
-    <simple-method method-name="testNewProductBacklogEmail" short-description="Test New Product Backlog Email" login-required="false">
-        <entity-one value-field="userLogin" entity-name="UserLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set field="serviceCtx.userLogin" from-field="userLogin"/>

@@ -106,28 +106,6 @@ under the License.
        <if-compare field="dataResource.dataResourceTypeId" operator="equals" value="IMAGE_OBJECT"><return response-code="${dataResource.dataResourceTypeId}"/></if-compare>       
     </simple-method>
 
-  <!-- Methods for DataCategory -->
-    <simple-method method-name="createDataCategory" short-description="Create a Data Category">
-        <make-value entity-name="DataCategory" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-        <field-to-result field="newEntity.dataCategoryId" result-name="dataCategoryId"/>
-    </simple-method>
-    <simple-method method-name="updateDataCategory" short-description="Update a Data Category">
-        <make-value entity-name="DataCategory" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="DataCategory" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteDataCategory" short-description="Delete a Data Category">
-        <make-value entity-name="DataCategory" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="DataCategory" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
   <!-- Methods for DataResourceMetaData -->
     <simple-method method-name="createDataResourceMetaData" short-description="Create Data Resource Meta Data">
         <check-permission permission="CONTENTMGR" action="_CREATE">
