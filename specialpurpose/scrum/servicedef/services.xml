@@ -217,10 +217,6 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="hours" type="Double" mode="OUT" optional="true"/>
     </service>
-    <service name="createDefaultTask" engine="simple" invoke="createDefaultTask" auth="true"
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml">
-        <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
-    </service>
     <service name="checkSprintStatus" engine="simple" auth="true"
         location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="checkSprintStatus">
     </service>

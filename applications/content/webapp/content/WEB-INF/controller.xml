@@ -1843,12 +1843,6 @@ under the License.
         <response name="success" type="view" value="EditContentKeywords"/>
         <response name="error" type="view" value="EditContentKeywords"/>
     </request-map>
-    <request-map uri="createContentKeywords">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createContentKeywords"/>
-        <response name="success" type="view" value="EditContentKeywords"/>
-        <response name="error" type="view" value="EditContentKeywords"/>
-    </request-map>
     <request-map uri="deleteContentKeywords">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteContentKeywords"/>
