@@ -55,22 +55,6 @@ under the License.
         <field name="catalogName" sort-field="true"><display/></field>
         <field name="useQuickAdd" title="${uiLabelMap.ProductUseQuickAdd}" sort-field="true"><display/></field>
     </form>
-    <!-- form name="ListProdCatalog" list-name="listIt" target="" title="" type="list" paginate-target="FindProdCatalog"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
-        <actions>
-            <set field="parameters.sortField" from-field="parameters.sortField" default-value="prodCatalogId"/>
-            <entity-and entity-name="ProdCatalog" use-cache="true" list="listIt">
-                <order-by field-name="${parameters.sortField}"/>
-            </entity-and>
-        </actions>
-        <field name="prodCatalogId" title="${uiLabelMap.ProductCatalogNameId}" widget-style="buttontext" sort-field="true">
-            <hyperlink also-hidden="false" description="${prodCatalogId}" target="EditProdCatalog">
-                <parameter param-name="prodCatalogId"/>
-            </hyperlink>
-        </field>
-        <field name="catalogName" title="${uiLabelMap.ProductCatalogName}" sort-field="true"><display/></field>
-        <field name="useQuickAdd" title="${uiLabelMap.ProductUseQuickAdd}" sort-field="true"><display/></field>
-    </form-->
     <form name="EditProdCatalog" type="single" target="updateProdCatalog" title="" default-map-name="prodCatalog"
         header-row-style="header-row" default-table-style="basic-table" default-entity-name="ProdCatalog">
 
