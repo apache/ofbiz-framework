@@ -85,13 +85,12 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
         } catch (SecurityException e) {
             loader = this.getClass().getClassLoader();
         }
-        DispatchContext ctx = new DispatchContext(name, loader);
 
         this.name = name;
         this.dispatcher = ServiceDispatcher.getInstance(delegator);
+        DispatchContext ctx = new DispatchContext(name, loader, this);
         this.dispatcher.register(ctx);
         this.ctx = ctx;
-        this.ctx.setDispatcher(this);
         if (Debug.verboseOn()) Debug.logVerbose("[LocalDispatcher] : Created Dispatcher for: " + name, module);
     }
 
