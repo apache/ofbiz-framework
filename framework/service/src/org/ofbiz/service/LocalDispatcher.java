@@ -338,7 +338,7 @@ public interface LocalDispatcher {
     public DispatchContext getDispatchContext();
 
     /**
-     * De-Registers this LocalDispatcher with the ServiceDispatcher
+     * De-Registers this LocalDispatcher
      */
     public void deregister();
 }
