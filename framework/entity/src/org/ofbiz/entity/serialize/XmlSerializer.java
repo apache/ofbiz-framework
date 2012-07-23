@@ -264,7 +264,8 @@ public class XmlSerializer {
             } else {
                 String byteHex = StringUtil.toHexString(objBytes);
                 Element element = document.createElement("cus-obj");
-                element.appendChild(document.createCDATASection(byteHex));
+                // this is hex encoded so does not need to be in a CDATA block
+                element.appendChild(document.createTextNode(byteHex));
                 return element;
             }
         } else {

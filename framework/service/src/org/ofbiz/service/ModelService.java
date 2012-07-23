@@ -1631,7 +1631,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         cusObjElement.appendChild(cusObjElement0);
         Element cusObjElement1 = document.createElement("xsd:documentation");
         cusObjElement0.appendChild(cusObjElement1);
-        cusObjElement1.setTextContent("Object content need to be in CDATA such as <cus-obj><![CDATA[--byteHex--]]></cus-obj>");
+        cusObjElement1.setTextContent("Object content is hex encoded so does not need to be in a CDATA block.");
         schema.appendChild(cusObjElement);
 
         /*-----------------------------------*/
