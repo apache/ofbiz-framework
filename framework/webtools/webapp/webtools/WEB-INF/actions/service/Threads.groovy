@@ -25,7 +25,6 @@ import java.util.Map;
 import java.sql.Timestamp;
 
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.service.ServiceDispatcher;
 import org.ofbiz.service.RunningService;
 import org.ofbiz.service.engine.GenericEngine;
 import org.ofbiz.base.util.UtilHttp;
