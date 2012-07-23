@@ -60,8 +60,7 @@ public class DispatchContext implements Serializable {
 
     protected transient LocalDispatcher dispatcher;
     protected transient ClassLoader loader;
-    protected Map<String, Object> attributes;
-    protected String name;
+    protected final String name;
     private String model;
 
     /**
@@ -71,31 +70,6 @@ public class DispatchContext implements Serializable {
         this.name = name;
         this.model = name; // this will change when a dispatcher is set to match the model name associated to the delegator's dispatcher
         this.loader = loader;
-        this.attributes = FastMap.newInstance();
-    }
-
-    public void loadReaders() {
-        getGlobalServiceMap();
-    }
-
-    /**
-     * Returns the service attribute for the given name, or null if there is no attribute by that name.
-     * @param name a String specifying the name of the attribute
-     * @return an Object containing the value of the attribute, or null if there is no attribute by that name.
-     */
-    public Object getAttribute(String name) {
-        if (attributes.containsKey(name))
-            return attributes.get(name);
-        return null;
-    }
-
-    /**
-     * Binds an object to a given attribute name in this context.
-     * @param name a String specifying the name of the attribute
-     * @param object an Object representing the attribute to be bound.
-     */
-    public void setAttribute(String name, Object object) {
-        attributes.put(name, object);
     }
 
     /**
@@ -218,6 +192,7 @@ public class DispatchContext implements Serializable {
                 }
             }
         }
+        getGlobalServiceMap();
     }
 
     /**

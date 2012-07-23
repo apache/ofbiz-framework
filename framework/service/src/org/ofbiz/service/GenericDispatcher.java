@@ -92,7 +92,6 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
         this.dispatcher.register(ctx);
         this.ctx = ctx;
         this.ctx.setDispatcher(this);
-        this.ctx.loadReaders();
         if (Debug.verboseOn()) Debug.logVerbose("[LocalDispatcher] : Created Dispatcher for: " + name, module);
     }
 
