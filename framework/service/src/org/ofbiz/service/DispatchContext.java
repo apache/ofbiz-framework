@@ -58,18 +58,43 @@ public class DispatchContext implements Serializable {
 
     private static final UtilCache<String, Map<String, ModelService>> modelServiceMapByModel = UtilCache.createUtilCache("service.ModelServiceMapByModel", 0, 0, false);
 
-    protected transient LocalDispatcher dispatcher;
-    protected transient ClassLoader loader;
-    protected final String name;
-    private String model;
+    // these four fields represent the immutable state of a DispatchContext object
+    private final String name;
+    private final transient ClassLoader loader;
+    private final transient LocalDispatcher dispatcher;
+    private final String model;
 
     /**
-     * Creates new DispatchContext
+     * Creates new DispatchContext as an immutable object.
+     * The "dispatcher" argument can be null if the "name" argument matches the name of a valid entity model reader.
+     * The thread safety of a DispatchContext object is a consequence of its immutability.
+     *
+     * @param name The immutable name of the DispatchContext
+     * @param loader The immutable class loader
+     * @param dispatcher The immutable dispatcher associated to the DispatchContext
+     *
      */
-    public DispatchContext(String name, ClassLoader loader) {
+    public DispatchContext(String name, ClassLoader loader, LocalDispatcher dispatcher) {
         this.name = name;
-        this.model = name; // this will change when a dispatcher is set to match the model name associated to the delegator's dispatcher
         this.loader = loader;
+        this.dispatcher = dispatcher;
+        String modelName = null;
+        if (this.dispatcher != null) {
+            Delegator delegator = dispatcher.getDelegator();
+            if (delegator != null) {
+                DelegatorInfo delegatorInfo = EntityConfigUtil.getDelegatorInfo(delegator.getDelegatorBaseName());
+                if (delegatorInfo != null) {
+                    modelName = delegatorInfo.entityModelReader;
+                }
+            }
+        }
+        if (modelName == null) {
+            // if a modelName is not associated to the dispatcher (e.g. dispatcher is null) then use the name
+            // of the DispatchContext as the model reader name
+            modelName = name;
+        }
+        this.model = modelName;
+        getGlobalServiceMap();
     }
 
     /**
@@ -89,6 +114,37 @@ public class DispatchContext implements Serializable {
     }
 
     /**
+     * Gets the LocalDispatcher used with this context
+     * @return LocalDispatcher that was used to create this context
+     */
+    public LocalDispatcher getDispatcher() {
+        return this.dispatcher;
+    }
+
+    /**
+     * Gets the Delegator associated with this context/dispatcher
+     * @return Delegator associated with this context
+     */
+    public Delegator getDelegator() {
+        return dispatcher.getDelegator();
+    }
+
+    /**
+     * Gets the Security object associated with this dispatcher
+     * @return Security object associated with this dispatcher
+     */
+    public Security getSecurity() {
+        return dispatcher.getSecurity();
+    }
+
+    // All the methods that follow are helper methods to retrieve service model information from cache (and manage the cache)
+    // The cache object is static but most of these methods are not because the same service definition, is used with different
+    // DispatchContext objects may result in different in/out attributes: this happens because the DispatchContext is associated to
+    // a LocalDispatcher that is associated to a Delegator that is associated to a ModelReader; different ModelReaders could load the
+    // same entity name from different files with different fields, and the service definition could automatically get the input/output
+    // attributes from an entity.
+
+    /**
      * Uses an existing map of name value pairs and extracts the keys which are used in serviceName
      * Note: This goes not guarantee the context will be 100% valid, there may be missing fields
      * @param serviceName The name of the service to obtain parameters for
@@ -100,7 +156,6 @@ public class DispatchContext implements Serializable {
     public Map<String, Object> makeValidContext(String serviceName, String mode, Map<String, ? extends Object> context) throws GenericServiceException {
         ModelService model = getModelService(serviceName);
         return makeValidContext(model, mode, context);
-
     }
 
     /**
@@ -145,19 +200,7 @@ public class DispatchContext implements Serializable {
      * @return GenericServiceModel that corresponds to the serviceName
      */
     public ModelService getModelService(String serviceName) throws GenericServiceException {
-        //long timeStart = System.currentTimeMillis();
-        ModelService retVal = getGlobalModelService(serviceName);
-
-        if (retVal == null) {
-            throw new GenericServiceException("Cannot locate service by name (" + serviceName + ")");
-        }
-        //Debug.logTiming("Got ModelService for name [" + serviceName + "] in [" + (System.currentTimeMillis() - timeStart) + "] milliseconds", module);
-        return retVal;
-    }
-
-    private ModelService getGlobalModelService(String serviceName) throws GenericServiceException {
         Map<String, ModelService> serviceMap = getGlobalServiceMap();
-
         ModelService retVal = null;
         if (serviceMap != null) {
             retVal = serviceMap.get(serviceName);
@@ -165,50 +208,25 @@ public class DispatchContext implements Serializable {
                 retVal.interfaceUpdate(this);
             }
         }
-
+        if (retVal == null) {
+            throw new GenericServiceException("Cannot locate service by name (" + serviceName + ")");
+        }
         return retVal;
     }
 
-    /**
-     * Gets the LocalDispatcher used with this context
-     * @return LocalDispatcher that was used to create this context
-     */
-    public LocalDispatcher getDispatcher() {
-        return this.dispatcher;
-    }
+    public Set<String> getAllServiceNames() {
+        Set<String> serviceNames = new TreeSet<String>();
 
-    /**
-     * Sets the LocalDispatcher used with this context
-     * @param dispatcher The LocalDispatcher to re-assign to this context
-     */
-    public synchronized void setDispatcher(LocalDispatcher dispatcher) {
-        this.dispatcher = dispatcher;
-        if (this.dispatcher != null) {
-            Delegator delegator = dispatcher.getDelegator();
-            if (delegator != null) {
-                DelegatorInfo delegatorInfo = EntityConfigUtil.getDelegatorInfo(delegator.getDelegatorBaseName());
-                if (delegatorInfo != null) {
-                    this.model = delegatorInfo.entityModelReader;
-                }
-            }
+        Map<String, ModelService> globalServices = modelServiceMapByModel.get(this.model);
+        if (globalServices != null) {
+            serviceNames.addAll(globalServices.keySet());
         }
-        getGlobalServiceMap();
+        return serviceNames;
     }
 
-    /**
-     * Gets the Delegator associated with this context/dispatcher
-     * @return Delegator associated with this context
-     */
-    public Delegator getDelegator() {
-        return dispatcher.getDelegator();
-    }
-
-    /**
-     * Gets the Security object associated with this dispatcher
-     * @return Security object associated with this dispatcher
-     */
-    public Security getSecurity() {
-        return dispatcher.getSecurity();
+    public Document getWSDL(String serviceName, String locationURI) throws GenericServiceException, WSDLException {
+        ModelService model = this.getModelService(serviceName);
+        return model.toWSDL(locationURI);
     }
 
     private Callable<Map<String, ModelService>> createServiceReaderCallable(final ResourceHandler handler) {
@@ -219,7 +237,7 @@ public class DispatchContext implements Serializable {
         };
     }
 
-    private synchronized Map<String, ModelService> getGlobalServiceMap() {
+    private Map<String, ModelService> getGlobalServiceMap() {
         Map<String, ModelService> serviceMap = modelServiceMapByModel.get(this.model);
         if (serviceMap == null) {
             serviceMap = FastMap.newInstance();
@@ -259,20 +277,5 @@ public class DispatchContext implements Serializable {
             }
         }
         return serviceMap;
-    }
-
-    public synchronized Set<String> getAllServiceNames() {
-        Set<String> serviceNames = new TreeSet<String>();
-
-        Map<String, ModelService> globalServices = modelServiceMapByModel.get(this.model);
-        if (globalServices != null) {
-            serviceNames.addAll(globalServices.keySet());
-        }
-        return serviceNames;
-    }
-
-    public Document getWSDL(String serviceName, String locationURI) throws GenericServiceException, WSDLException {
-        ModelService model = this.getModelService(serviceName);
-        return model.toWSDL(locationURI);
     }
 }

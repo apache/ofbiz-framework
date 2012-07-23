@@ -76,7 +76,9 @@ public class LabelReferences {
         } else {
             modelName = "main";
         }
-        this.dispatchContext = new DispatchContext(modelName, this.getClass().getClassLoader());
+        // since we do not associate a dispatcher to this DispatchContext, it is important to set a name of an existing entity model reader:
+        // in this way it will be possible to retrieve the service models from the cache
+        this.dispatchContext = new DispatchContext(modelName, this.getClass().getClassLoader(), null);
         Collection<LabelInfo> infoList = this.labels.values();
         for (LabelInfo labelInfo : infoList) {
             this.labelSet.add(labelInfo.getLabelKey());
