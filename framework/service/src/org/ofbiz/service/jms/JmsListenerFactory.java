@@ -80,6 +80,10 @@ public class JmsListenerFactory implements Runnable {
         while (firstPass || connected < loadable) {
             if (Debug.verboseOn()) Debug.logVerbose("First Pass: " + firstPass + " Connected: " + connected + " Available: " + loadable, module);
             this.loadListeners();
+            if (loadable == 0) {
+                // if there is nothing to do then we can break without sleeping
+                break;
+            }
             firstPass = false;
             try {
                 Thread.sleep(20000);
