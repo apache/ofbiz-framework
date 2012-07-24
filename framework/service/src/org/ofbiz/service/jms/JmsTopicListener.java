@@ -33,6 +33,7 @@ import org.ofbiz.service.ServiceDispatcher;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.JNDIContextFactory;
+import org.ofbiz.entity.Delegator;
 
 /**
  * JmsTopicListener - Topic (Pub/Sub) Message Listener.
@@ -50,8 +51,8 @@ public class JmsTopicListener extends AbstractJmsListener {
     /**
      * Creates a new JmsTopicListener - Should only be called by the JmsListenerFactory.
      */
-    public JmsTopicListener(ServiceDispatcher dispatcher, String jndiServer, String jndiName, String topicName, String userName, String password) {
-        super(dispatcher);
+    public JmsTopicListener(Delegator delegator, String jndiServer, String jndiName, String topicName, String userName, String password) {
+        super(delegator);
         this.jndiServer = jndiServer;
         this.jndiName = jndiName;
         this.topicName = topicName;

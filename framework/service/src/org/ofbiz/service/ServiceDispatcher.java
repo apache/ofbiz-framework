@@ -113,7 +113,7 @@ public class ServiceDispatcher {
 
         // make sure we haven't disabled these features from running
         if (enableJMS) {
-            this.jlf = JmsListenerFactory.getInstance(this);
+            this.jlf = JmsListenerFactory.getInstance(delegator);
         }
 
         if (enableSvcs) {
