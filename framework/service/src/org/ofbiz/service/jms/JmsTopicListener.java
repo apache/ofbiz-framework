@@ -29,7 +29,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.service.ServiceDispatcher;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.JNDIContextFactory;

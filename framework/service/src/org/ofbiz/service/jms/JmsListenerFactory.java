@@ -95,7 +95,7 @@ public class JmsListenerFactory implements Runnable {
             Element rootElement = ServiceConfigUtil.getXmlRootElement();
             NodeList nodeList = rootElement.getElementsByTagName("jms-service");
 
-            if (Debug.verboseOn()) Debug.logVerbose("[ServiceDispatcher] : Loading JMS Listeners.", module);
+            if (Debug.verboseOn()) Debug.logVerbose("Loading JMS Listeners.", module);
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element element = (Element) nodeList.item(i);
                 StringBuilder serverKey = new StringBuilder();

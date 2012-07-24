@@ -34,7 +34,6 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceContainer;
-import org.ofbiz.service.ServiceDispatcher;
 
 /**
  * AbstractJmsListener
@@ -48,7 +47,7 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
 
     /**
      * Initializes the LocalDispatcher for this service listener.
-     * @param serviceDispatcher the service dispatcher
+     * @param delegator the delegator associated to the dispatcher
      */
     protected AbstractJmsListener(Delegator delegator) {
         this.dispatcher = ServiceContainer.getLocalDispatcher("JMSDispatcher", delegator);
