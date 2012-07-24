@@ -29,10 +29,10 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.entity.serialize.XmlSerializer;
-import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.service.ServiceContainer;
 import org.ofbiz.service.ServiceDispatcher;
 
 /**
@@ -50,7 +50,7 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
      * @param serviceDispatcher the service dispatcher
      */
     protected AbstractJmsListener(ServiceDispatcher serviceDispatcher) {
-        this.dispatcher = GenericDispatcher.getLocalDispatcher("JMSDispatcher", serviceDispatcher.getDelegator());
+        this.dispatcher = ServiceContainer.getLocalDispatcher("JMSDispatcher", serviceDispatcher.getDelegator());
     }
 
     /**

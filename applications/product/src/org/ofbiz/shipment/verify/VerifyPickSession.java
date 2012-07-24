@@ -37,8 +37,8 @@ import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceContainer;
 import org.ofbiz.service.ServiceUtil;
 
 @SuppressWarnings("serial")
@@ -71,7 +71,7 @@ public class VerifyPickSession implements Serializable {
 
     public LocalDispatcher getDispatcher() {
         if (_dispatcher == null) {
-            _dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, this.getDelegator());
+            _dispatcher = ServiceContainer.getLocalDispatcher(dispatcherName, this.getDelegator());
         }
         return _dispatcher;
     }

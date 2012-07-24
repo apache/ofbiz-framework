@@ -31,9 +31,9 @@ import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
-import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.service.ServiceContainer;
 
 public abstract class XuiContainer implements Container {
 
@@ -68,7 +68,7 @@ public abstract class XuiContainer implements Container {
 
         // get the dispatcher
         String dispatcherName = ContainerConfig.getPropertyValue(cc, "dispatcher-name", "xui-dispatcher");
-        LocalDispatcher dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator);
+        LocalDispatcher dispatcher = ServiceContainer.getLocalDispatcher(dispatcherName, delegator);
 
         // get the pre-defined session ID
         String xuiSessionId = ContainerConfig.getPropertyValue(cc, "xui-session-id", null);

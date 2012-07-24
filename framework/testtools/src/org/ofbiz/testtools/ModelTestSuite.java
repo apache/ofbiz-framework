@@ -38,8 +38,8 @@ import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.testtools.EntityTestCase;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceContainer;
 import org.ofbiz.service.testtools.OFBizTestCase;
 import org.w3c.dom.Element;
 
@@ -71,7 +71,7 @@ public class ModelTestSuite {
         String uniqueSuffix = "-" + RandomStringUtils.randomAlphanumeric(10);
 
         this.delegator = DelegatorFactory.getDelegator(this.originalDelegatorName).makeTestDelegator(this.originalDelegatorName + uniqueSuffix);
-        this.dispatcher = GenericDispatcher.getLocalDispatcher(originalDispatcherName + uniqueSuffix, delegator);
+        this.dispatcher = ServiceContainer.getLocalDispatcher(originalDispatcherName + uniqueSuffix, delegator);
 
         for (Element testCaseElement : UtilXml.childElementList(mainElement, UtilMisc.toSet("test-case", "test-group"))) {
             String caseName = testCaseElement.getAttribute("case-name");

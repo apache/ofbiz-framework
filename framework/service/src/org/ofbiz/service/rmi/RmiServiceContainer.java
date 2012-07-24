@@ -32,8 +32,8 @@ import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
-import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceContainer;
 
 /**
  * RMI Service Engine Container / Dispatcher
@@ -126,7 +126,7 @@ public class RmiServiceContainer implements Container {
         Delegator delegator = DelegatorFactory.getDelegator(delegatorProp.value);
 
         // create the LocalDispatcher
-        LocalDispatcher dispatcher = GenericDispatcher.getLocalDispatcher(name, delegator);
+        LocalDispatcher dispatcher = ServiceContainer.getLocalDispatcher(name, delegator);
 
         // create the RemoteDispatcher
         try {

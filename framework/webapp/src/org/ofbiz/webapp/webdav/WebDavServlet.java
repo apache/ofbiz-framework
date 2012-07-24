@@ -36,8 +36,8 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.security.Security;
 import org.ofbiz.security.SecurityFactory;
-import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceContainer;
 
 /** Implements a WebDAV servlet. The servlet simply forwards WebDAV requests
  * to a <code>RequestHandlerFactory</code> instance, whose class is specified
@@ -67,7 +67,7 @@ public class WebDavServlet extends GenericServlet {
             String delegatorName = context.getInitParameter("entityDelegatorName");
             this.delegator = DelegatorFactory.getDelegator(delegatorName);
             String dispatcherName = context.getInitParameter("localDispatcherName");
-            this.dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, this.delegator);
+            this.dispatcher = ServiceContainer.getLocalDispatcher(dispatcherName, this.delegator);
             this.security = SecurityFactory.getInstance(this.delegator);
             String factoryClassName = context.getInitParameter("requestHandlerFactoryClass");
             this.handlerFactory = (RequestHandlerFactory) loader.loadClass(factoryClassName).newInstance();

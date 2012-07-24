@@ -52,10 +52,10 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.service.ServiceContainer;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.webapp.control.ConfigXMLReader;
 import org.ofbiz.webapp.control.ConfigXMLReader.Event;
@@ -76,7 +76,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
     public void init(ServletContext context) throws EventHandlerException {
         String delegatorName = context.getInitParameter("entityDelegatorName");
         this.delegator = DelegatorFactory.getDelegator(delegatorName);
-        this.dispatcher = GenericDispatcher.getLocalDispatcher(delegator.getDelegatorName(), delegator);
+        this.dispatcher = ServiceContainer.getLocalDispatcher(delegator.getDelegatorName(), delegator);
         this.setHandlerMapping(new ServiceRpcHandler());
 
         String extensionsEnabledString = context.getInitParameter("xmlrpc.enabledForExtensions");

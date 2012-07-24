@@ -41,8 +41,8 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelUtil;
 import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceContainer;
 
 /**
  * Product Config Item Content Worker: gets product content to display
@@ -98,7 +98,7 @@ public class ProductConfigItemContentWrapper implements java.io.Serializable {
 
     public LocalDispatcher getDispatcher() {
         if (dispatcher == null) {
-            dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, this.getDelegator());
+            dispatcher = ServiceContainer.getLocalDispatcher(dispatcherName, this.getDelegator());
         }
         return dispatcher;
     }
