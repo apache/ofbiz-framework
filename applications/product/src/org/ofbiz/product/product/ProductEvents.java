@@ -57,6 +57,7 @@ import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.webapp.website.WebSiteWorker;
 
 /**
  * Product Information Related Events
@@ -1018,6 +1019,10 @@ public class ProductEvents {
         }
 
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
+        String websiteId = (String) paramMap.get("websiteId");
+        if (UtilValidate.isEmpty(websiteId)) {
+            websiteId = WebSiteWorker.getWebSiteId(request);
+        }
         paramMap.put("locale", UtilHttp.getLocale(request));
         paramMap.put("userLogin", session.getAttribute("userLogin"));
 
@@ -1030,6 +1035,7 @@ public class ProductEvents {
         context.put("sendCc", productStoreEmail.get("ccAddress"));
         context.put("sendBcc", productStoreEmail.get("bccAddress"));
         context.put("subject", productStoreEmail.getString("subject"));
+        context.put("webSiteId", websiteId);
 
         try {
             dispatcher.runAsync("sendMailFromScreen", context);
