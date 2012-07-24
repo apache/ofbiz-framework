@@ -29,10 +29,10 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.service.ServiceDispatcher;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.JNDIContextFactory;
+import org.ofbiz.entity.Delegator;
 
 /**
  * JmsQueueListener - Queue (P2P) Message Listener.
@@ -50,8 +50,8 @@ public class JmsQueueListener extends AbstractJmsListener {
     /**
      * Creates a new JmsQueueListener - Should only be called by the JmsListenerFactory.
      */
-    public JmsQueueListener(ServiceDispatcher dispatcher, String jndiServer, String jndiName, String queueName, String userName, String password) {
-        super(dispatcher);
+    public JmsQueueListener(Delegator delegator, String jndiServer, String jndiName, String queueName, String userName, String password) {
+        super(delegator);
         this.jndiServer = jndiServer;
         this.jndiName = jndiName;
         this.queueName = queueName;
