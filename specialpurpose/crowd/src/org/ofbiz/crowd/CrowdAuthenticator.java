@@ -58,7 +58,7 @@ public class CrowdAuthenticator extends CrowdWorker implements Authenticator {
      * Method called when authenticator is first initialized (the delegator
      * object can be obtained from the LocalDispatcher)
      *
-     * @param dispatcher The ServiceDispatcher to use for this Authenticator
+     * @param dispatcher The LocalDispatcher to use for this Authenticator
      */
     public void initialize(LocalDispatcher dispatcher) {
         this.dispatcher = dispatcher;

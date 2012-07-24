@@ -118,7 +118,7 @@ under the License.
         <xs:attribute name="hideResultInLog" default="false">
             <xs:annotation>
                 <xs:documentation>
-                    If set to true the result will be hidden from possible exposition in ServiceDispatcher.runSync() 
+                    If set to true the result will be hidden from possible exposition in LocalDispatcher.runSync()
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
