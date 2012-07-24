@@ -20,7 +20,11 @@ package org.ofbiz.service;
 
 import org.ofbiz.entity.Delegator;
 
+/**
+ * A default {@link LocalDispatcherFactory} implementation.
+ */
 public class GenericDispatcherFactory implements LocalDispatcherFactory {
+    @Override
     public LocalDispatcher createLocalDispatcher(String name, Delegator delegator) {
         // attempts to retrieve an already registered DispatchContext with the name "name"
         LocalDispatcher dispatcher = ServiceDispatcher.getLocalDispatcher(name, delegator);

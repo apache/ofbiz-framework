@@ -25,22 +25,26 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 
+import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * A container for the service engine. 
+ */
 public class ServiceContainer implements Container {
     private static final String module = ServiceContainer.class.getName();
-    private static ConcurrentHashMap<String, LocalDispatcher> dispatcherCache = new ConcurrentHashMap<String, LocalDispatcher>();
+    private static final ConcurrentHashMap<String, LocalDispatcher> dispatcherCache = new ConcurrentHashMap<String, LocalDispatcher>();
     private static LocalDispatcherFactory dispatcherFactory;
 
     private String name;
 
+    @Override
     public void init(String[] args, String name, String configFile) throws ContainerException {
         this.name = name;
         // initialize the LocalDispatcherFactory
         ContainerConfig.Container cfg = ContainerConfig.getContainer(name, configFile);
         ContainerConfig.Container.Property dispatcherFactoryProperty = cfg.getProperty("dispatcher-factory");
-
         if (dispatcherFactoryProperty == null || UtilValidate.isEmpty(dispatcherFactoryProperty.value)) {
             throw new ContainerException("Unable to initialize container " + name + ": dispatcher-factory property is not set");
         }
@@ -53,17 +57,20 @@ public class ServiceContainer implements Container {
         }
     }
 
+    @Override
     public boolean start() throws ContainerException {
         return true;
     }
 
+    @Override
     public void stop() throws ContainerException {
         Set<String> dispatcherNames = getAllDispatcherNames();
         for (String dispatcherName: dispatcherNames) {
-            ServiceContainer.deregister(dispatcherName);
+            deregister(dispatcherName);
         }
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -71,16 +78,17 @@ public class ServiceContainer implements Container {
     public static LocalDispatcher getLocalDispatcher(String dispatcherName, Delegator delegator) {
         if (dispatcherName == null) {
             dispatcherName = delegator.getDelegatorName();
-            Debug.logWarning("Got a getLocalDispatcher call with a null dispatcherName, assuming default for the name.", module);
+            Debug.logWarning("ServiceContainer.getLocalDispatcher method called with a null dispatcherName, defaulting to delegator name.", module);
         }
         if (UtilValidate.isNotEmpty(delegator.getDelegatorTenantId())) {
-            dispatcherName += "#" + delegator.getDelegatorTenantId();
+            dispatcherName = dispatcherName.concat("#").concat(delegator.getDelegatorTenantId());
         }
         LocalDispatcher dispatcher = dispatcherCache.get(dispatcherName);
         if (dispatcher == null) {
-            if (Debug.infoOn()) Debug.logInfo("Creating new dispatcher [" + dispatcherName + "] (" + Thread.currentThread().getName() + ")", module);
             dispatcher = dispatcherFactory.createLocalDispatcher(dispatcherName, delegator);
             dispatcherCache.putIfAbsent(dispatcherName, dispatcher);
+            dispatcher = dispatcherCache.get(dispatcherName);
+            if (Debug.infoOn()) Debug.logInfo("Created new dispatcher [" + dispatcherName + "] (" + Thread.currentThread().getName() + ")", module);
         }
         return dispatcher;
     }
@@ -98,6 +106,6 @@ public class ServiceContainer implements Container {
     }
 
     public static Set<String> getAllDispatcherNames() {
-        return dispatcherCache.keySet();
+        return Collections.unmodifiableSet(dispatcherCache.keySet());
     }
 }

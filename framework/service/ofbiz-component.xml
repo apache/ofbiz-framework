@@ -47,6 +47,7 @@ under the License.
     <container name="service-container" loaders="main,rmi,pos,install,test" class="org.ofbiz.service.ServiceContainer">
         <property name="dispatcher-factory" value="org.ofbiz.service.GenericDispatcherFactory"/>
     </container>
+
     <!-- RMI Service Dispatcher -->
     <container name="rmi-dispatcher" loaders="rmi" class="org.ofbiz.service.rmi.RmiServiceContainer">
         <property name="bound-name" value="RMIDispatcher"/>
