@@ -16,28 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.ofbiz.entityext;
+package org.ofbiz.service;
 
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.ServiceContainer;
 
-/**
- * EntityEcaUtil
- */
-public class EntityServiceFactory {
-
-    public static final String module = EntityServiceFactory.class.getName();
-
-    public static LocalDispatcher getLocalDispatcher(Delegator delegator) {
-        LocalDispatcher dispatcher = ServiceContainer.getLocalDispatcher("entity-" + delegator.getDelegatorName(), delegator);
-        return dispatcher;
-    }
-
-    public static DispatchContext getDispatchContext(Delegator delegator) {
-        LocalDispatcher dispatcher = getLocalDispatcher(delegator);
-        if (dispatcher == null) return null;
-        return dispatcher.getDispatchContext();
-    }
+public interface LocalDispatcherFactory {
+    public LocalDispatcher createLocalDispatcher(String name, Delegator delegator);
 }

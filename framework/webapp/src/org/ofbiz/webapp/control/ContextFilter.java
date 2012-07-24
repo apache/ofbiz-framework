@@ -58,8 +58,8 @@ import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.Security;
 import org.ofbiz.security.SecurityConfigurationException;
 import org.ofbiz.security.SecurityFactory;
-import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceContainer;
 
 /**
  * ContextFilter - Restricts access to raw files and configures servlet objects.
@@ -350,7 +350,7 @@ public class ContextFilter implements Filter {
             dispatcherName = delegator.getDelegatorName();
         }
 
-        LocalDispatcher dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator);
+        LocalDispatcher dispatcher = ServiceContainer.getLocalDispatcher(dispatcherName, delegator);
         if (dispatcher == null) {
             Debug.logError("[ContextFilter.init] ERROR: dispatcher could not be initialized.", module);
         }

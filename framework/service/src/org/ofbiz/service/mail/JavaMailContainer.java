@@ -49,9 +49,9 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.ServiceContainer;
 
 public class JavaMailContainer implements Container {
 
@@ -98,7 +98,7 @@ public class JavaMailContainer implements Container {
         this.deleteMail = "true".equals(ContainerConfig.getPropertyValue(cfg, "delete-mail", "false"));
 
         this.delegator = DelegatorFactory.getDelegator(delegatorName);
-        this.dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator);
+        this.dispatcher = ServiceContainer.getLocalDispatcher(dispatcherName, delegator);
         this.timerDelay = ContainerConfig.getPropertyValue(cfg, "poll-delay", 300000);
         this.maxSize = ContainerConfig.getPropertyValue(cfg, "maxSize", 1000000); // maximum size in bytes
 

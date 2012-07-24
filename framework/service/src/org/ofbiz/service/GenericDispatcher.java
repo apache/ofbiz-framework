@@ -19,9 +19,6 @@
 package org.ofbiz.service;
 
 import java.util.Map;
-import java.util.Set;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
@@ -35,43 +32,6 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
     public static final String module = GenericDispatcher.class.getName();
 
     protected static boolean ecasDisabled = false;
-    protected static Map<String, LocalDispatcher> dispatcherCache = FastMap.newInstance();
-
-    public static LocalDispatcher getLocalDispatcher(String dispatcherName, Delegator delegator) {
-        if (dispatcherName == null) {
-            dispatcherName = delegator.getDelegatorName();
-            Debug.logWarning("Got a getGenericDispatcher call with a null dispatcherName, assuming default for the name.", module);
-        }
-
-        if (UtilValidate.isNotEmpty(delegator.getDelegatorTenantId())) {
-            dispatcherName += "#" + delegator.getDelegatorTenantId();
-        }
-
-        LocalDispatcher dispatcher = dispatcherCache.get(dispatcherName);
-
-        if (dispatcher == null) {
-            synchronized (GenericDispatcher.class) {
-                // must check if null again as one of the blocked threads can still enter
-                dispatcher = dispatcherCache.get(dispatcherName);
-                if (dispatcher == null) {
-                    if (Debug.infoOn()) Debug.logInfo("Creating new dispatcher [" + dispatcherName + "] (" + Thread.currentThread().getName() + ")", module);
-                    // attempts to retrieve an already registered DispatchContext with the name dispatcherName
-                    dispatcher = ServiceDispatcher.getLocalDispatcher(dispatcherName, delegator);
-                    // if not found then create a new GenericDispatcher object; the constructor will also register a new DispatchContext in the ServiceDispatcher with name "dispatcherName"
-                    if (dispatcher == null) {
-                        dispatcher = new GenericDispatcher(dispatcherName, delegator);
-                    }
-
-                    dispatcherCache.put(dispatcherName, dispatcher);
-                }
-            }
-        }
-        return dispatcher;
-    }
-
-    public static Set<String> getAllDispatcherNames() {
-        return dispatcherCache.keySet();
-    }
 
     protected GenericDispatcher() {}
 

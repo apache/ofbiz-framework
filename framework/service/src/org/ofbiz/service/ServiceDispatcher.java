@@ -180,7 +180,7 @@ public class ServiceDispatcher {
     public void deregister(LocalDispatcher local) {
         if (Debug.infoOn()) Debug.logInfo("De-Registering dispatcher: " + local.getName(), module);
         localContext.remove(local.getName());
-        if (localContext.size() == 1) { // TODO: this is a tweak that is currently not working (2 contexts are not deregistered)
+        if (localContext.size() == 0) {
             try {
                  this.shutdown();
              } catch (GenericServiceException e) {
@@ -831,8 +831,10 @@ public class ServiceDispatcher {
 
     protected void shutdown() throws GenericServiceException {
         Debug.logImportant("Shutting down the service engine...", module);
-        // shutdown JMS listeners
-        jlf.closeListeners();
+        if (jlf != null) {
+            // shutdown JMS listeners
+            jlf.closeListeners();
+        }
         // shutdown the job scheduler
         jm.shutdown();
     }

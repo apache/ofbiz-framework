@@ -45,8 +45,8 @@ import org.ofbiz.entity.serialize.XmlSerializer;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceContainer;
 import org.ofbiz.service.calendar.RecurrenceInfo;
 import org.ofbiz.service.calendar.RecurrenceInfoException;
 import org.ofbiz.service.config.ServiceConfigUtil;
@@ -91,7 +91,7 @@ public class JobManager {
 
     /** Returns the LocalDispatcher. */
     public LocalDispatcher getDispatcher() {
-        LocalDispatcher thisDispatcher = GenericDispatcher.getLocalDispatcher(delegator.getDelegatorName(), delegator);
+        LocalDispatcher thisDispatcher = ServiceContainer.getLocalDispatcher(delegator.getDelegatorName(), delegator);
         return thisDispatcher;
     }
 

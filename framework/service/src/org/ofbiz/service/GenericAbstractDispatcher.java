@@ -237,6 +237,7 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
      * @see org.ofbiz.service.LocalDispatcher#deregister()
      */
     public void deregister() {
+        ServiceContainer.removeFromCache(getName());
         dispatcher.deregister(this);
     }
 

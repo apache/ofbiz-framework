@@ -24,13 +24,13 @@ under the License.
     <load-component component-location="geronimo"/>
     <load-component component-location="sql"/>
     <load-component component-location="entity"/>
-    <load-component component-location="catalina"/>
-    <!-- <load-component component-location="jetty"/> -->
     <load-component component-location="security"/>
     <load-component component-location="datafile"/>
     <load-component component-location="minilang"/>
     <load-component component-location="common"/>
     <load-component component-location="service"/>
+    <!-- <load-component component-location="jetty"/> -->
+    <load-component component-location="catalina"/>
     <load-component component-location="entityext"/>
     <load-component component-location="bi"/>
     <load-component component-location="webapp"/>
