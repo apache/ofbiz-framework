@@ -63,14 +63,10 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
             String fullScreenName = this.viewInfoMap.page;
             if (UtilValidate.isNotEmpty(fullScreenName)) {
                 int poundIndex = fullScreenName.indexOf('#');
-                try {
-                    this.screenCalledByThisView = this.aif.getScreenWidgetArtifactInfo(fullScreenName.substring(poundIndex+1), fullScreenName.substring(0, poundIndex));
-                    if (this.screenCalledByThisView != null) {
-                        // add the reverse association
-                        UtilMisc.addToSortedSetInMap(this, aif.allViewInfosReferringToScreen, this.screenCalledByThisView.getUniqueId());
-                    }
-                } catch (GeneralException e) {
-                    Debug.logWarning(e.toString(), module);
+                this.screenCalledByThisView = this.aif.getScreenWidgetArtifactInfo(fullScreenName.substring(poundIndex+1), fullScreenName.substring(0, poundIndex));
+                if (this.screenCalledByThisView != null) {
+                    // add the reverse association
+                    UtilMisc.addToSortedSetInMap(this, aif.allViewInfosReferringToScreen, this.screenCalledByThisView.getUniqueId());
                 }
             }
         }
