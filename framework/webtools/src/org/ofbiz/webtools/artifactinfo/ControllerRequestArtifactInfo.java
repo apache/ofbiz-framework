@@ -57,10 +57,6 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
         if (this.requestInfoMap == null) {
             throw new GeneralException("Controller request with name [" + requestUri + "] is not defined in controller file [" + controllerXmlUrl + "].");
         }
-
-        if (this.requestInfoMap == null) {
-            throw new GeneralException("Could not find Controller Request [" + requestUri + "] at URL [" + controllerXmlUrl.toExternalForm() + "]");
-        }
     }
 
     /** note this is mean to be called after the object is created and added to the ArtifactInfoFactory.allControllerRequestInfos in ArtifactInfoFactory.getControllerRequestArtifactInfo */
@@ -69,14 +65,10 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
 
         if (this.requestInfoMap.event != null && this.requestInfoMap.event.type != null && (this.requestInfoMap.event.type.indexOf("service") >= 0)) {
             String serviceName = this.requestInfoMap.event.invoke;
-            try {
-                this.serviceCalledByRequestEvent = this.aif.getServiceArtifactInfo(serviceName);
-                if (this.serviceCalledByRequestEvent != null) {
-                    // add the reverse association
-                    UtilMisc.addToSortedSetInMap(this, aif.allRequestInfosReferringToServiceName, this.serviceCalledByRequestEvent.getUniqueId());
-                }
-            } catch (GeneralException e) {
-                Debug.logWarning(e.toString(), module);
+            this.serviceCalledByRequestEvent = this.aif.getServiceArtifactInfo(serviceName);
+            if (this.serviceCalledByRequestEvent != null) {
+                // add the reverse association
+                UtilMisc.addToSortedSetInMap(this, aif.allRequestInfosReferringToServiceName, this.serviceCalledByRequestEvent.getUniqueId());
             }
         }
 
