@@ -23,54 +23,16 @@ under the License.
 
     <!-- load the ofbiz component container (always first) -->
     <container name="component-container" loaders="main,rmi,pos,install" class="org.ofbiz.base.container.ComponentContainer"/>
+
     <container name="component-container-test" loaders="test" class="org.ofbiz.base.container.ComponentContainer">
         <property name="ofbiz.instrumenterClassName" value="org.ofbiz.base.config.CoberturaInstrumenter"/>
         <property name="ofbiz.instrumenterFile" value="runtime/logs/cobertura-components.dat"/>
     </container>
+
     <container name="component-container-limited" loaders="limited" class="org.ofbiz.base.container.ComponentContainer">
         <property name="update-classpath" value="false"/>
     </container>
+
     <container name="component-container" loaders="testlist" class="org.ofbiz.base.container.JustLoadComponentsContainer"/>
 
-    <!-- load JNDI/JOTM; this is no longer needed, leaving this in for now just in case someone wants to drop in JOTM from the specialized directory
-    <container name="jotm-container" class="org.ofbiz.jotm.container.JotmContainer">
-        <property name="jndi-config" value="iiop.properties"/>
-    </container>
-    -->
-
-    <!-- JavaMail Listener Container - Triggers MCA Rules -->
-    <!-- if delete-mail is set to true, will delete messages after fetching them. otherwise, will try to mark them as seen
-        mail.store.protocol supports both imap and pop3, but pop3 will not be able to mark messages as seen, so you would need to delete them-->
-    <!-- To use the mail listerner just uncomment and go...
-    <container name="javamail-container" class="org.ofbiz.service.mail.JavaMailContainer">
-        <property name="delegator-name" value="default"/>
-        <property name="dispatcher-name" value="JavaMailDispatcher"/>
-        <property name="run-as-user" value="system"/>
-        <property name="poll-delay" value="300000"/>
-        <property name="delete-mail" value="false"/>
-        <property name="maxSize" value="100000"/>
-        <property name="default-listener" value="store-listener">
-        <property name="mail.store.protocol" value="imap"/>
-        <property name="mail.host" value="[host]"/>
-        <property name="mail.user" value="[user]"/>
-        <property name="mail.pass" value="[pass]"/>
-        <property name="mail.debug" value="false"/>
-        </property>
-    </container>
-    -->
-
-    <!-- load BeanShell remote telnet server -->
-    <!-- Commented out by default for security reasons -->
-    <!-- the port below and port-1 will be opened by Beanshell -->
-    <!--container name="beanshell-container" class="org.ofbiz.base.container.BeanShellContainer">
-        <property name="telnet-port" value="9990"/>
-        <property name="app-name" value="OFBiz"/>
-    </container-->
-
-    <!-- load Groovy remote telnet server -->
-    <!-- Commented out by default for security reasons -->
-    <!-- the port below will be opened by Groovy -->
-    <!--container name="groovyshell-container" class="org.ofbiz.base.container.GroovyShellContainer">
-        <property name="telnet-port" value="9991"/>
-    </container-->
 </ofbiz-containers>
