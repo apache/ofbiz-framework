@@ -25,7 +25,7 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.service.eca.ServiceEcaUtil;
 import org.ofbiz.service.ModelPermGroup;
 import org.ofbiz.service.ModelPermission;
-import org.ofbiz.service.GenericDispatcher;
+import org.ofbiz.service.ServiceContainer;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilProperties;
 
@@ -331,7 +331,7 @@ List getEcaListForService(String selectedService) {
 
 //Local Dispatchers
 dispArrList = new TreeSet();
-dispArrList.addAll(GenericDispatcher.getAllDispatcherNames());
+dispArrList.addAll(ServiceContainer.getAllDispatcherNames());
 context.dispArrList = dispArrList;
 
 uiLabelMap = UtilProperties.getResourceBundleMap("WebtoolsUiLabels", locale);
@@ -339,9 +339,8 @@ uiLabelMap.addBottomResourceBundle("CommonUiLabels");
 
 selDisp = parameters.selDisp ?: "webtools";
 
-curLocalDispatcher = dispatcher.getLocalDispatcher(selDisp, delegator);
-curDispatchContext = curLocalDispatcher.getDispatchContext();
-context.dispatcherName = curLocalDispatcher.getName();
+curDispatchContext = dispatcher.getDispatchContext();
+context.dispatcherName = dispatcher.getName();
 
 selectedService = parameters.sel_service_name;
 
