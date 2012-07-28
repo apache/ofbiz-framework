@@ -52,7 +52,7 @@ function getDependentDropdownValues(request, paramKey, paramField, targetField, 
                 jQuery.each(list, function(key, value){
                     if (typeof value == 'string') {
                         values = value.split(': ');
-                        if (values[1].indexOf(selected) >= 0) {
+                        if (values[1].indexOf(selected) >= 0 && selected.length > 0) {
                             optionList += "<option selected='selected' value = " + values[1] + " >" + values[0] + "</option>";
                         } else {
                             optionList += "<option value = " + values[1] + " >" + values[0] + "</option>";
