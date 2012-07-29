@@ -94,11 +94,11 @@
         </field>        
         <field name="condValueInput" title="${uiLabelMap.ProductValue}" entry-name="condValue"><text size="10"/></field>
         <field name="condValue" title=" ">
-            <drop-down allow-empty="false">
-                <list-options list-name="productPriceRulesCondValues" key-name="condValue"/>                
+            <drop-down allow-empty="false" current="selected">
+                <list-options list-name="productPriceRulesCondValues" key-name="condValue"/>
             </drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit/></field>        
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit/></field>
         <field name="deleteLink" title=" " widget-style="buttontext" widget-area-style="align-text">
             <hyperlink target="deleteProductPriceCond" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="productPriceRuleId" from-field="productPriceCond.productPriceRuleId"/>
