@@ -23,9 +23,9 @@ jQuery(document).ready( function() {
     if (document.getElementById('EditProductPriceRulesCond_o_${i}')) {
       jQuery('#EditProductPriceRulesCond_condValueInput_o_${i}').hide();
       jQuery('#EditProductPriceRulesCond_inputParamEnumId_o_${i}').change( function() {
-        getDependentDropdownValues('getAssociatedPriceRulesConds', 'inputParamEnumId', 'EditProductPriceRulesCond_inputParamEnumId_o_${i}', 'EditProductPriceRulesCond_condValue_o_${i}', 'productPriceRulesCondValues', 'condValue_o_${i}', 'description', '', '', '', '', 'EditProductPriceRulesCond_condValueInput_o_${i}');
+        getDependentDropdownValues('getAssociatedPriceRulesConds', 'inputParamEnumId', 'EditProductPriceRulesCond_inputParamEnumId_o_${i}', 'EditProductPriceRulesCond_condValue_o_${i}', 'productPriceRulesCondValues', 'condValue_o_${i}', 'description', '${productPriceConds[i].condValue}', '', '', '', 'EditProductPriceRulesCond_condValueInput_o_${i}');
     });
-    getDependentDropdownValues('getAssociatedPriceRulesConds', 'inputParamEnumId', 'EditProductPriceRulesCond_inputParamEnumId_o_${i}', 'EditProductPriceRulesCond_condValue_o_${i}', 'productPriceRulesCondValues', 'condValue_o_${i}', 'description', '', '', '', '', 'EditProductPriceRulesCond_condValueInput_o_${i}');
+    getDependentDropdownValues('getAssociatedPriceRulesConds', 'inputParamEnumId', 'EditProductPriceRulesCond_inputParamEnumId_o_${i}', 'EditProductPriceRulesCond_condValue_o_${i}', 'productPriceRulesCondValues', 'condValue_o_${i}', 'description', '${productPriceConds[i].condValue}', '', '', '', 'EditProductPriceRulesCond_condValueInput_o_${i}');
     }
   </#list>
 </#if>

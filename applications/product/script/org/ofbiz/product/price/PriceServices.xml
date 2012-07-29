@@ -307,9 +307,12 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <if-not-empty field="parameters.condValueInput">
+        <if-compare field="parameters.inputParamEnumId" operator="equals" value="PRIP_QUANTITY">
             <set field="parameters.condValue" from-field="parameters.condValueInput"/>
-        </if-not-empty>
+        </if-compare>
+        <if-compare field="parameters.inputParamEnumId" operator="equals" value="PRIP_LIST_PRICE">
+            <set field="parameters.condValue" from-field="parameters.condValueInput"/>
+        </if-compare>
         <make-value entity-name="ProductPriceCond" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPriceCond" map="lookupPKMap" value-field="lookedUpValue"/>
