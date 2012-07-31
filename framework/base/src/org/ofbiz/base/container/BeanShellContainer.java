@@ -39,7 +39,7 @@ public class BeanShellContainer implements Container {
     protected int port;
 
     /**
-     * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
+     * @see org.ofbiz.base.container.Container#init(String[] args, String name, String configFile)
      */
     public void init(String[] args, String name, String configFile) {
         this.containerName = name;
@@ -47,7 +47,7 @@ public class BeanShellContainer implements Container {
     }
 
     /**
-     * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
+     * @see org.ofbiz.base.container.Container#init(String[] args, String name, String configFile)
      */
     public boolean start() throws ContainerException {
         // get the container config

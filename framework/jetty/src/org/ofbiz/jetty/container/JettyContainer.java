@@ -62,7 +62,7 @@ public class JettyContainer implements Container {
     private Map<String, Server> servers = new HashMap<String, Server>();
 
     /**
-     * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
+     * @see org.ofbiz.base.container.Container#init(String[] args, String name, String configFile)
      */
     public void init(String[] args, String name, String configFile) throws ContainerException {
         this.name = name;
