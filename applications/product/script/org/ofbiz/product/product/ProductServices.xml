@@ -1199,21 +1199,23 @@ under the License.
                     <field-map field-name="groupOrderId" from-field="orderItemGroupOrder.groupOrderId"/>
                 </entity-one>
                 <if-not-empty field="productGroupOrder">
-                    <if-compare field="orderItem.statusId" operator="equals" value="ITEM_CANCELLED">
-                        <if-not-empty field="orderItem.cancelQuantity">
-                            <set field="cancelQuantity" from-field="orderItem.cancelQuantity"/>
-                        <else>
-                            <set field="cancelQuantity" from-field="orderItem.quantity"/>
-                        </else>
-                        </if-not-empty>
-                        <calculate field="productGroupOrder.soldOrderQty">
-                            <calcop field="productGroupOrder.soldOrderQty" operator="subtract">
-                                <calcop field="cancelQuantity" operator="get"/>
-                            </calcop>
-                        </calculate>
+                    <if-compare field="productGroupOrder.statusId" operator="equals" value="GO_CREATED">
+                        <if-compare field="orderItem.statusId" operator="equals" value="ITEM_CANCELLED">
+                            <if-not-empty field="orderItem.cancelQuantity">
+                                <set field="cancelQuantity" from-field="orderItem.cancelQuantity"/>
+                            <else>
+                                <set field="cancelQuantity" from-field="orderItem.quantity"/>
+                            </else>
+                            </if-not-empty>
+                            <calculate field="productGroupOrder.soldOrderQty">
+                                <calcop field="productGroupOrder.soldOrderQty" operator="subtract">
+                                    <calcop field="cancelQuantity" operator="get"/>
+                                </calcop>
+                            </calculate>
+                        </if-compare>
+                        <store-value value-field="productGroupOrder"/>
+                        <remove-value value-field="orderItemGroupOrder"/>
                     </if-compare>
-                    <store-value value-field="productGroupOrder"/>
-                    <remove-value value-field="orderItemGroupOrder"/>
                 </if-not-empty>
             </if-not-empty>
         </iterate>
@@ -1231,6 +1233,10 @@ under the License.
             </else>
             </if-compare>
             
+            <set field="updateProductGroupOrderMap.groupOrderId" from-field="productGroupOrder.groupOrderId"/>
+            <set field="updateProductGroupOrderMap.statusId" from-field="groupOrderStatusId"/>
+            <call-service service-name="updateProductGroupOrder" in-map-name="updateProductGroupOrderMap"/>
+            
             <entity-and entity-name="OrderItemGroupOrder" list="orderItemGroupOrders">
                 <field-map field-name="groupOrderId" from-field="productGroupOrder.groupOrderId"/>
             </entity-and>
@@ -1240,10 +1246,6 @@ under the License.
                 <set field="changeOrderItemStatusMap.statusId" from-field="newItemStatusId"/>
                 <call-service service-name="changeOrderItemStatus" in-map-name="changeOrderItemStatusMap"/>
             </iterate>
-            
-            <set field="updateProductGroupOrderMap.groupOrderId" from-field="productGroupOrder.groupOrderId"/>
-            <set field="updateProductGroupOrderMap.statusId" from-field="groupOrderStatusId"/>
-            <call-service service-name="updateProductGroupOrder" in-map-name="updateProductGroupOrderMap"/>
         </if-not-empty>
     </simple-method>
     
