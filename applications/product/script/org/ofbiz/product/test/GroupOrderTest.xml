@@ -43,6 +43,7 @@ under the License.
         <set field="createProductGroupOrderMap.productId" value="GZ-1000"/>
         <set field="createProductGroupOrderMap.fromDate" from-field="nowTimestamp"/>
         <set field="createProductGroupOrderMap.thruDate" from-field="thruDate"/>
+        <set field="createProductGroupOrderMap.statusId" value="GO_CREATED"/>
         <set field="createProductGroupOrderMap.reqOrderQty" value="1" type="BigDecimal"/>
         <set field="createProductGroupOrderMap.soldOrderQty" value="0" type="BigDecimal"/>
         <call-service service-name="createProductGroupOrder" in-map-name="createProductGroupOrderMap">

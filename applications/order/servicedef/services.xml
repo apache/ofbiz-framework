@@ -1142,4 +1142,10 @@ under the License.
         <auto-attributes mode="IN" entity-name="OrderItemAttribute" include="pk" optional="false"/>
     </service>
     
+    <!-- Order Item Group Order -->
+    <service name="createOrderItemGroupOrder" engine="entity-auto" default-entity-name="OrderItemGroupOrder" invoke="create" auth="true">
+        <description>Create Order Item Group Order</description>
+        <auto-attributes mode="IN" entity-name="OrderItemGroupOrder" include="pk" optional="false"/>
+    </service>
+    
 </services>

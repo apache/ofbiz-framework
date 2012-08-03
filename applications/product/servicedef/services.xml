@@ -1685,21 +1685,15 @@ under the License.
     <service name="createProductGroupOrder" default-entity-name="ProductGroupOrder" engine="simple"
         location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="createProductGroupOrder" auth="true">
         <description>Create ProductGroupOrder</description>
-        <attribute name="productId" mode="IN" type="String" optional="false"/>
-        <attribute name="soldOrderQty" mode="IN" type="BigDecimal" optional="false"/>
-        <attribute name="reqOrderQty" mode="IN" type="BigDecimal" optional="false"/>
-        <attribute name="fromDate" mode="IN" type="Timestamp" optional="false"/>
-        <attribute name="thruDate" mode="IN" type="Timestamp" optional="false"/>
-        <attribute name="groupOrderId" mode="OUT" type="String" optional="true"/>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
     <service name="updateProductGroupOrder" default-entity-name="ProductGroupOrder" engine="simple"
         location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="updateProductGroupOrder" auth="true">
         <description>Update ProductGroupOrder</description>
-        <attribute name="groupOrderId" mode="IN" type="String" optional="false"/>
-        <attribute name="reqOrderQty" mode="IN" type="BigDecimal" optional="false"/>
-        <attribute name="fromDate" mode="IN" type="Timestamp" optional="false"/>
-        <attribute name="thruDate" mode="IN" type="Timestamp" optional="false"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
     <service name="deleteProductGroupOrder" default-entity-name="ProductGroupOrder" engine="simple"
@@ -1721,19 +1715,17 @@ under the License.
         <attribute name="orderId" mode="IN" type="String" optional="false"/>
     </service>
 
+    <service name="cancleOrderItemGroupOrder" engine="simple"
+        location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="cancleOrderItemGroupOrder" auth="true">
+        <description>Cancle OrderItemGroupOrder</description>
+        <attribute name="orderId" mode="IN" type="String" optional="false"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
+    </service>
+
     <service name="checkProductGroupOrderExpired" engine="simple"
         location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="checkProductGroupOrderExpired" auth="true">
         <description>Check ProductGroupOrder Expired</description>
         <attribute name="groupOrderId" mode="IN" type="String" optional="false"/>
-    </service>
-
-    <service name="findOrderItemForProductGroupOrder" engine="simple"
-        location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="findOrderItemForProductGroupOrder" auth="true">
-        <description>Find OrderItem For ProductGroupOrder</description>
-        <attribute name="productId" mode="IN" type="String" optional="false"/>
-        <attribute name="newItemStatusId" mode="IN" type="String" optional="false"/>
-        <attribute name="fromDate" mode="IN" type="Timestamp" optional="false"/>
-        <attribute name="thruDate" mode="IN" type="Timestamp" optional="false"/>
     </service>
 
 </services>

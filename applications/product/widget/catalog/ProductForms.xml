@@ -2166,6 +2166,7 @@ under the License.
         <field name="soldOrderQty" title="${uiLabelMap.ProductSoldQuantity}"><display/></field>
         <field name="fromDate" title="${uiLabelMap.ProductDealStartDate}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.ProductDealEndDate}"><display/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="editLink" use-when="${groovy: return reqOrderQty.compareTo(soldOrderQty)!= 0;}&amp;&amp;${groovy: return thruDate.compareTo(org.ofbiz.base.util.UtilDateTime.nowTimestamp()) == 1}" title=" " widget-style="buttontext">
             <hyperlink target="EditProductGroupOrder" description="${uiLabelMap.CommonEdit}" also-hidden="false">
                 <parameter param-name="productId"/>
@@ -2183,6 +2184,7 @@ under the License.
     <form name="CreateProductGroupOrder" type="single" target="createProductGroupOrder" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productId"><hidden/></field>
+        <field name="statusId"><hidden value="GO_CREATED"/></field>
         <field name="soldOrderQty"><hidden value="0"/></field>
         <field name="reqOrderQty" title="${uiLabelMap.ProductDealQuantity}*"><text/></field>
         <field name="fromDate" title="${uiLabelMap.ProductDealStartDate}*"><date-time/></field>
@@ -2194,6 +2196,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="groupOrderId"><hidden/></field>
         <field name="productId"><hidden/></field>
+        <field name="statusId"><hidden/></field>
         <field name="reqOrderQty" title="${uiLabelMap.ProductDealQuantity}*"><text/></field>
         <field name="fromDate" title="${uiLabelMap.ProductDealStartDate}*"><date-time/></field>
         <field name="thruDate" title="${uiLabelMap.ProductDealEndDate}*"><date-time/></field>

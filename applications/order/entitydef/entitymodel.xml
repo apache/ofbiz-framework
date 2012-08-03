@@ -769,6 +769,23 @@ under the License.
             <key-map field-name="parentGroupSeqId" rel-field-name="orderItemGroupSeqId"/>
         </relation>
     </entity>
+    <entity entity-name="OrderItemGroupOrder"
+            package-name="org.ofbiz.order.order"
+            title="Order Item Group Order Entity">
+      <field name="orderId" type="id-ne"></field>
+      <field name="orderItemSeqId" type="id-ne"></field>
+      <field name="groupOrderId" type="id-ne"></field>
+      <prim-key field="orderId"/>
+      <prim-key field="orderItemSeqId"/>
+      <prim-key field="groupOrderId"/>
+      <relation type="one" fk-name="OIGO_ORDER_ITEM" rel-entity-name="OrderItem">
+        <key-map field-name="orderId"/>
+        <key-map field-name="orderItemSeqId"/>
+      </relation>
+      <relation type="one" fk-name="OIGO_PRD_GROUP_ORDER" rel-entity-name="ProductGroupOrder">
+        <key-map field-name="groupOrderId"/>
+      </relation>
+    </entity>
     <entity entity-name="OrderItemPriceInfo"
             package-name="org.ofbiz.order.order"
             never-cache="true"
