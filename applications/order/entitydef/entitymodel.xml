@@ -782,7 +782,7 @@ under the License.
         <key-map field-name="orderId"/>
         <key-map field-name="orderItemSeqId"/>
       </relation>
-      <relation type="one" fk-name="OIGO_PRD_GROUP_ORDER" rel-entity-name="ProductGroupOrder">
+      <relation type="one" fk-name="OIGO_GROUP_ORDER" rel-entity-name="ProductGroupOrder">
         <key-map field-name="groupOrderId"/>
       </relation>
     </entity>

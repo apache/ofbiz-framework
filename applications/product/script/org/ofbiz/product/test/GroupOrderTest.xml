@@ -126,23 +126,20 @@ under the License.
         </assert>
         <!-- Step 4 -->
         <set field="checkProductGroupOrderExpiredMap.userLogin" from-field="systemUserLogin"/>
-        <set field="checkProductGroupOrderExpiredMap.groupOrderId" from-field="productGroupOrder.groupOrderId"/>
+        <set field="checkProductGroupOrderExpiredMap.groupOrderId" from-field="groupOrderId"/>
         <call-service service-name="checkProductGroupOrderExpired" in-map-name="checkProductGroupOrderExpiredMap"/>
         <!-- Step 5 -->
-        <entity-condition entity-name="OrderHeader" list="orderHeaders">
-            <condition-expr field-name="orderTypeId" value="SALES_ORDER"/>
-            <order-by field-name="-orderDate"/>
-        </entity-condition>
-        <first-from-list entry="orderHeader" list="orderHeaders"/>
-        <entity-and entity-name="OrderItem" list="orderItems">
-            <field-map field-name="orderId" from-field="orderHeader.orderId"/>
-            <field-map field-name="productId" value="GZ-1000"/>
+        <entity-and entity-name="OrderItemGroupOrder" list="orderItemGroupOrders">
+            <field-map field-name="groupOrderId" from-field="groupOrderId"/>
         </entity-and>
-        <first-from-list entry="orderItem" list="orderItems"/>
+        <first-from-list entry="orderItemGroupOrder" list="orderItemGroupOrders"/>
+        <entity-one entity-name="OrderItem" value-field="orderItem">
+            <field-map field-name="orderId" from-field="orderItemGroupOrder.orderId"/>
+            <field-map field-name="orderItemSeqId" from-field="orderItemGroupOrder.orderItemSeqId"/>
+        </entity-one>
         <assert>
             <if-compare field="orderItem.statusId" operator="equals" value="ITEM_APPROVED"/>
         </assert>
-        
         <check-errors/>
     </simple-method>
 
@@ -165,9 +162,10 @@ under the License.
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set field="createProductGroupOrderMap.userLogin" from-field="systemUserLogin"/>
-        <set field="createProductGroupOrderMap.productId" value="GZ-1000"/>
+        <set field="createProductGroupOrderMap.productId" value="GZ-1001"/>
         <set field="createProductGroupOrderMap.fromDate" from-field="nowTimestamp"/>
         <set field="createProductGroupOrderMap.thruDate" from-field="thruDate"/>
+        <set field="createProductGroupOrderMap.statusId" value="GO_CREATED"/>
         <set field="createProductGroupOrderMap.reqOrderQty" value="2" type="BigDecimal"/>
         <set field="createProductGroupOrderMap.soldOrderQty" value="0" type="BigDecimal"/>
         <call-service service-name="createProductGroupOrder" in-map-name="createProductGroupOrderMap">
@@ -204,7 +202,7 @@ under the License.
         </call-class-method>
         <log level="info" message="===== >>> Event : setOrderCurrencyAgreementShipDates, Response : ${result}"/>
         <call-bsh><![CDATA[
-            request.setParameter("add_product_id", "GZ-1000");
+            request.setParameter("add_product_id", "GZ-1001");
         ]]></call-bsh>
         <call-class-method method-name="addToCart" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
@@ -250,23 +248,20 @@ under the License.
         </assert>
         <!-- Step 4 -->
         <set field="checkProductGroupOrderExpiredMap.userLogin" from-field="systemUserLogin"/>
-        <set field="checkProductGroupOrderExpiredMap.groupOrderId" from-field="productGroupOrder.groupOrderId"/>
+        <set field="checkProductGroupOrderExpiredMap.groupOrderId" from-field="groupOrderId"/>
         <call-service service-name="checkProductGroupOrderExpired" in-map-name="checkProductGroupOrderExpiredMap"/>
         <!-- Step 5 -->
-        <entity-condition entity-name="OrderHeader" list="orderHeaders">
-            <condition-expr field-name="orderTypeId" value="SALES_ORDER"/>
-            <order-by field-name="-orderDate"/>
-        </entity-condition>
-        <first-from-list entry="orderHeader" list="orderHeaders"/>
-        <entity-and entity-name="OrderItem" list="orderItems">
-            <field-map field-name="orderId" from-field="orderHeader.orderId"/>
-            <field-map field-name="productId" value="GZ-1000"/>
+        <entity-and entity-name="OrderItemGroupOrder" list="orderItemGroupOrders">
+            <field-map field-name="groupOrderId" from-field="groupOrderId"/>
         </entity-and>
-        <first-from-list entry="orderItem" list="orderItems"/>
+        <first-from-list entry="orderItemGroupOrder" list="orderItemGroupOrders"/>
+        <entity-one entity-name="OrderItem" value-field="orderItem">
+            <field-map field-name="orderId" from-field="orderItemGroupOrder.orderId"/>
+            <field-map field-name="orderItemSeqId" from-field="orderItemGroupOrder.orderItemSeqId"/>
+        </entity-one>
         <assert>
             <if-compare field="orderItem.statusId" operator="equals" value="ITEM_CANCELLED"/>
         </assert>
-        
         <check-errors/>
     </simple-method>
 </simple-methods>
