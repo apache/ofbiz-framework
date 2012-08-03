@@ -60,6 +60,7 @@ under the License.
     <eca service="changeOrderItemStatus" event="commit">
         <condition field-name="statusId" operator="equals" value="ITEM_CANCELLED"/>
         <action service="cancelOrderInventoryReservation" mode="sync"/>
+        <action service="cancleOrderItemGroupOrder" mode="sync"/>
         <action service="recalcShippingTotal" mode="sync"/>
         <action service="recalcTaxTotal" mode="sync"/>
         <action service="resetGrandTotal" mode="sync"/>
@@ -445,10 +446,6 @@ under the License.
     <!-- Group Buying -->
     <eca service="storeOrder" event="commit">
         <condition field-name="orderTypeId" operator="equals" value="SALES_ORDER"/>
-        <action service="checkOrderItemForProductGroupOrder" mode="sync"/>
-    </eca>
-    <eca service="changeOrderStatus" event="commit">
-        <condition field-name="statusId" operator="equals" value="ORDER_CANCELLED"/>
         <action service="checkOrderItemForProductGroupOrder" mode="sync"/>
     </eca>
 </service-eca>

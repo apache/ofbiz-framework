@@ -650,4 +650,10 @@ under the License.
     <Enumeration description="Remove Logo" enumCode="REMOVE_LOGO" enumId="REMOVE_LOGO" sequenceId="02" enumTypeId="IMAGE_REJECT_REASON"/>
     <Enumeration description="Other" enumCode="OTHER" enumId="OTHER" sequenceId="03" enumTypeId="IMAGE_REJECT_REASON"/>
     
+    <!-- Group Order -->
+    <StatusType description="Group Order Status" hasTable="N" parentTypeId="" statusTypeId="GROUP_ORDER_STATUS"/>
+    <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="GO_CREATED" statusTypeId="GROUP_ORDER_STATUS"/>
+    <StatusItem description="Success" sequenceId="02" statusCode="SUCCESS" statusId="GO_SUCCESS" statusTypeId="GROUP_ORDER_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="03" statusCode="CANCELLED" statusId="GO_CANCELLED" statusTypeId="GROUP_ORDER_STATUS"/>
+    
 </entity-engine-xml>
