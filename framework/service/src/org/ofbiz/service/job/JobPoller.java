@@ -161,9 +161,11 @@ public final class JobPoller implements Runnable {
 
     /**
      * Adds a job to the RUN queue.
+     * @throws InvalidJobException if the job is in an invalid state.
      * @throws RejectedExecutionException if the poller is stopped.
      */
-    public void queueNow(Job job) {
+    public void queueNow(Job job) throws InvalidJobException {
+        job.queue();
         this.executor.execute(new JobInvoker(job));
     }
 
@@ -177,11 +179,11 @@ public final class JobPoller implements Runnable {
             try {
                 // grab a list of jobs to run.
                 List<Job> pollList = jm.poll();
-                // Debug.logInfo("Received poll list from JobManager [" + pollList.size() + "]", module);
                 for (Job job : pollList) {
-                    if (job.isValid()) {
+                    try {
                         queueNow(job);
-                        // Debug.logInfo("Job [" + job.getJobId() + "] is queued", module);
+                    } catch (InvalidJobException e) {
+                        Debug.logError(e, module);
                     }
                 }
                 // NOTE: using sleep instead of wait for stricter locking

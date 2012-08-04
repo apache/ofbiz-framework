@@ -18,68 +18,43 @@
  *******************************************************************************/
 package org.ofbiz.service.job;
 
+import org.ofbiz.base.util.Assert;
+
 /**
- * Abstract Service Job - Invokes a service
+ * Abstract Job.
  */
-@SuppressWarnings("serial")
 public abstract class AbstractJob implements Job {
 
-    public static final String module = AbstractJob.class.getName();
-
-    protected long runtime = -1;
-    protected long sequence = 0;
-    private String jobId;
-    private String jobName;
-    private boolean queued = false;
+    private final String jobId;
+    private final String jobName;
+    protected State currentState = State.CREATED;
 
     protected AbstractJob(String jobId, String jobName) {
+        Assert.notNull("jobId", jobId, "jobName", jobName);
         this.jobId = jobId;
         this.jobName = jobName;
     }
 
-    /**
-     * Returns the time to run in milliseconds.
-     */
-    public long getRuntime() {
-        return runtime;
+    @Override
+    public State currentState() {
+        return currentState;
     }
 
-    /**
-     * Returns true if this job is still valid.
-     */
-    public boolean isValid() {
-        if (runtime > 0)
-            return true;
-        return false;
-    }
-
-    /**
-     * Returns the ID of this Job.
-     */
+    @Override
     public String getJobId() {
         return this.jobId;
     }
 
-    /**
-     * Returns the name of this Job.
-     */
+    @Override
     public String getJobName() {
         return this.jobName;
     }
 
-    /**
-     * Flags this job as 'is-queued'
-     */
+    @Override
     public void queue() throws InvalidJobException {
-        this.queued = true;
-    }
-
-    /**
-     *  Executes the Job.
-     */
-    public abstract void exec() throws InvalidJobException;
-
-    public boolean isQueued() {
-        return queued;
+        if (currentState != State.CREATED) {
+            throw new InvalidJobException("Illegal state change");
+        }
+        this.currentState = State.QUEUED;
     }
 }
