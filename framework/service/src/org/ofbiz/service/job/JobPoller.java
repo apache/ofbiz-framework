@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -35,7 +36,7 @@ import org.apache.commons.lang.math.NumberUtils;
 /**
  * JobPoller - Polls for persisted jobs to run.
  */
-public class JobPoller implements Runnable {
+public final class JobPoller implements Runnable {
 
     public static final String module = JobPoller.class.getName();
     public static final int MIN_THREADS = 1;
@@ -43,12 +44,10 @@ public class JobPoller implements Runnable {
     public static final int POLL_WAIT = 20000;
     public static final long THREAD_TTL = 18000000;
 
-    private JobManager jm = null;
-    private ThreadPoolExecutor executor = null;
-    private String name = null;
-
-    protected JobPoller() {
-    }
+    private final JobManager jm;
+    private final ThreadPoolExecutor executor;
+    private final String name;
+    private boolean enabled = false;
 
     /**
      * Creates a new JobScheduler
@@ -56,14 +55,16 @@ public class JobPoller implements Runnable {
      * @param jm
      *            JobManager associated with this scheduler
      */
-    public JobPoller(JobManager jm, boolean enabled) {
-        this.name = (jm.getDelegator() != null ? jm.getDelegator().getDelegatorName() : "NA");
+    public JobPoller(JobManager jm) {
+        this.name = jm.getDelegator().getDelegatorName();
         this.jm = jm;
         this.executor = new ThreadPoolExecutor(minThreads(), maxThreads(), getTTL(), TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(),
                 new JobInvokerThreadFactory(this.name), new ThreadPoolExecutor.AbortPolicy());
-        if (enabled) {
-            // re-load crashed jobs
-            this.jm.reloadCrashedJobs();
+    }
+
+    public synchronized void enable() {
+        if (!enabled) {
+            enabled = true;
             // start the thread only if polling is enabled
             if (pollEnabled()) {
                 // create the poller thread
@@ -83,7 +84,7 @@ public class JobPoller implements Runnable {
     }
 
     public Map<String, Object> getPoolState() {
-        Map poolState = new HashMap();
+        Map<String, Object> poolState = new HashMap<String, Object>();
         poolState.put("pollerName", this.name);
         poolState.put("pollerThreadName", "OFBiz-JobPoller-" + this.name);
         poolState.put("invokerThreadNameFormat", "OFBiz-JobInvoker-" + this.name + "-<SEQ>");
@@ -95,19 +96,17 @@ public class JobPoller implements Runnable {
         poolState.put("greatestNumberOfInvokerThreads", this.executor.getLargestPoolSize());
         poolState.put("numberOfCompletedTasks", this.executor.getCompletedTaskCount());
         BlockingQueue<Runnable> queue = this.executor.getQueue();
-        List taskList = new ArrayList();
-        Map taskInfo = null;
+        List<Map<String, Object>> taskList = new ArrayList<Map<String, Object>>();
+        Map<String, Object> taskInfo = null;
         for (Runnable task : queue) {
-            if (task instanceof JobInvoker) {
-                JobInvoker jobInvoker = (JobInvoker) task;
-                taskInfo = new HashMap();
-                taskInfo.put("id", jobInvoker.getJobId());
-                taskInfo.put("name", jobInvoker.getJobName());
-                taskInfo.put("serviceName", jobInvoker.getServiceName());
-                taskInfo.put("time", jobInvoker.getTime());
-                taskInfo.put("runtime", jobInvoker.getCurrentRuntime());
-                taskList.add(taskInfo);
-            }
+            JobInvoker jobInvoker = (JobInvoker) task;
+            taskInfo = new HashMap<String, Object>();
+            taskInfo.put("id", jobInvoker.getJobId());
+            taskInfo.put("name", jobInvoker.getJobName());
+            taskInfo.put("serviceName", jobInvoker.getServiceName());
+            taskInfo.put("time", jobInvoker.getTime());
+            taskInfo.put("runtime", jobInvoker.getCurrentRuntime());
+            taskList.add(taskInfo);
         }
         poolState.put("taskList", taskList);
         return poolState;
@@ -147,12 +146,6 @@ public class JobPoller implements Runnable {
         String enabled = ServiceConfigUtil.getElementAttr("thread-pool", "poll-enabled");
         if (enabled.equalsIgnoreCase("false"))
             return false;
-
-        // also make sure we have a delegator to use for polling
-        if (jm.getDelegator() == null) {
-            Debug.logWarning("No delegator referenced; not starting job poller.", module);
-            return false;
-        }
         return true;
     }
 
@@ -167,7 +160,8 @@ public class JobPoller implements Runnable {
     }
 
     /**
-     * Adds a job to the RUN queue
+     * Adds a job to the RUN queue.
+     * @throws RejectedExecutionException if the poller is stopped.
      */
     public void queueNow(Job job) {
         this.executor.execute(new JobInvoker(job));
@@ -197,6 +191,7 @@ public class JobPoller implements Runnable {
                 stop();
             }
         }
+        Debug.logInfo("JobPoller " + this.name + " thread terminated.", module);
     }
 
     /**

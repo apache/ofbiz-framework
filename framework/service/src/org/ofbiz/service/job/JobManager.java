@@ -21,14 +21,15 @@ package org.ofbiz.service.job;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.RejectedExecutionException;
 
 import javolution.util.FastList;
 
+import org.ofbiz.base.util.Assert;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -54,18 +55,31 @@ import org.ofbiz.service.config.ServiceConfigUtil;
 /**
  * JobManager
  */
-public class JobManager {
+public final class JobManager {
 
     public static final String module = JobManager.class.getName();
     public static final String instanceId = UtilProperties.getPropertyValue("general.properties", "unique.instanceId", "ofbiz0");
-    public static final Map<String, Object> updateFields = UtilMisc.<String, Object> toMap("runByInstanceId", instanceId, "statusId", "SERVICE_QUEUED");
-    private static final Map<String, JobManager> registeredManagers = new HashMap<String, JobManager>();
+    public static final Map<String, Object> updateFields = UtilMisc.<String, Object>toMap("runByInstanceId", instanceId, "statusId", "SERVICE_QUEUED");
+    private static final ConcurrentHashMap<String, JobManager> registeredManagers = new ConcurrentHashMap<String, JobManager>();
+    private static boolean isShutDown = false;
 
-    public synchronized static JobManager getInstance(Delegator delegator, boolean enabled) {
+    private static void assertIsRunning() {
+        if (isShutDown) {
+            throw new IllegalStateException("OFBiz shutting down");
+        }
+    }
+
+    public static JobManager getInstance(Delegator delegator, boolean enablePoller) {
+        assertIsRunning();
+        Assert.notNull("delegator", delegator);
         JobManager jm = JobManager.registeredManagers.get(delegator.getDelegatorName());
         if (jm == null) {
-            jm = new JobManager(delegator, enabled);
-            JobManager.registeredManagers.put(delegator.getDelegatorName(), jm);
+            jm = new JobManager(delegator);
+            JobManager.registeredManagers.putIfAbsent(delegator.getDelegatorName(), jm);
+            jm = JobManager.registeredManagers.get(delegator.getDelegatorName());
+            if (enablePoller) {
+                jm.enablePoller();
+            }
         }
         return jm;
     }
@@ -79,7 +93,6 @@ public class JobManager {
                     return null;
                 }
                 GenericValue ri = job.getRelatedOne("RecurrenceInfo", false);
-
                 if (ri != null) {
                     return new RecurrenceInfo(ri);
                 } else {
@@ -89,30 +102,35 @@ public class JobManager {
                 return null;
             }
         } catch (GenericEntityException e) {
-            e.printStackTrace();
             Debug.logError(e, "Problem getting RecurrenceInfo entity from JobSandbox", module);
         } catch (RecurrenceInfoException re) {
-            re.printStackTrace();
             Debug.logError(re, "Problem creating RecurrenceInfo instance: " + re.getMessage(), module);
         }
         return null;
     }
 
-    protected Delegator delegator;
-    protected JobPoller jp;
-
-    private JobManager(Delegator delegator, boolean enabled) {
-        if (delegator == null) {
-            throw new GeneralRuntimeException("ERROR: null delegator passed, cannot create JobManager");
+    public static void shutDown() {
+        isShutDown = true;
+        for (JobManager jm : registeredManagers.values()) {
+            jm.shutdown();
         }
-        this.delegator = delegator;
-        jp = new JobPoller(this, enabled);
     }
 
-    @Override
-    public void finalize() throws Throwable {
-        this.shutdown();
-        super.finalize();
+    private final Delegator delegator;
+    private final JobPoller jp;
+    private boolean pollerEnabled = false;
+
+    private JobManager(Delegator delegator) {
+        this.delegator = delegator;
+        jp = new JobPoller(this);
+    }
+
+    private synchronized void enablePoller() {
+        if (!pollerEnabled) {
+            pollerEnabled = true;
+            reloadCrashedJobs();
+            jp.enable();
+        }
     }
 
     /** Returns the Delegator. */
@@ -136,6 +154,7 @@ public class JobManager {
     }
 
     public synchronized List<Job> poll() {
+        assertIsRunning();
         List<Job> poll = FastList.newInstance();
         // sort the results by time
         List<String> order = UtilMisc.toList("runTime");
@@ -215,8 +234,7 @@ public class JobManager {
         return poll;
     }
 
-    public synchronized void reloadCrashedJobs() {
-        String instanceId = UtilProperties.getPropertyValue("general.properties", "unique.instanceId", "ofbiz0");
+    private void reloadCrashedJobs() {
         List<GenericValue> crashed = null;
         List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("runByInstanceId", instanceId));
         exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "SERVICE_RUNNING"));
@@ -231,8 +249,7 @@ public class JobManager {
                 int rescheduled = 0;
                 for (GenericValue job : crashed) {
                     Timestamp now = UtilDateTime.nowTimestamp();
-                    Debug.log("Scheduling Job : " + job, module);
-
+                    Debug.logInfo("Scheduling Job : " + job, module);
                     String pJobId = job.getString("parentJobId");
                     if (pJobId == null) {
                         pJobId = job.getString("jobId");
@@ -245,12 +262,10 @@ public class JobManager {
                     newJob.set("startDateTime", null);
                     newJob.set("runByInstanceId", null);
                     delegator.createSetNextSeqId(newJob);
-
                     // set the cancel time on the old job to the same as the re-schedule time
                     job.set("statusId", "SERVICE_CRASHED");
                     job.set("cancelDateTime", now);
                     delegator.store(job);
-
                     rescheduled++;
                 }
                 if (Debug.infoOn())
@@ -264,8 +279,12 @@ public class JobManager {
         }
     }
 
-    /** Queues a Job to run now. */
+    /** Queues a Job to run now.
+     * @throws IllegalStateException if the Job Manager is shut down.
+     * @throws RejectedExecutionException if the poller is stopped.
+     */
     public void runJob(Job job) throws JobManagerException {
+        assertIsRunning();
         if (job.isValid()) {
             jp.queueNow(job);
         }
@@ -400,10 +419,6 @@ public class JobManager {
      */
     public void schedule(String jobName, String poolName, String serviceName, Map<String, ? extends Object> context, long startTime,
             int frequency, int interval, int count, long endTime, int maxRetry) throws JobManagerException {
-        if (delegator == null) {
-            Debug.logWarning("No delegator referenced; cannot schedule job.", module);
-            return;
-        }
         // persist the context
         String dataId = null;
         try {
@@ -445,13 +460,11 @@ public class JobManager {
      *            The time in milliseconds the service should expire
      *@param maxRetry
      *            The max number of retries on failure (-1 for no max)
+     * @throws IllegalStateException if the Job Manager is shut down.
      */
     public void schedule(String jobName, String poolName, String serviceName, String dataId, long startTime, int frequency, int interval,
             int count, long endTime, int maxRetry) throws JobManagerException {
-        if (delegator == null) {
-            Debug.logWarning("No delegator referenced; cannot schedule job.", module);
-            return;
-        }
+        assertIsRunning();
         // create the recurrence
         String infoId = null;
         if (frequency > -1 && count != 0) {
@@ -491,11 +504,9 @@ public class JobManager {
 
     /** Close out the scheduler thread. */
     public void shutdown() {
-        if (jp != null) {
-            Debug.logInfo("Stopping the JobManager...", module);
-            jp.stop();
-            jp = null;
-        }
+        Debug.logInfo("Stopping the JobManager...", module);
+        registeredManagers.remove(delegator.getDelegatorName(), this);
+        jp.stop();
         Debug.logInfo("JobManager stopped.", module);
     }
 
