@@ -97,7 +97,7 @@ public class GenericServiceJob extends AbstractJob implements Serializable {
     }
 
     /**
-     * Method is called after the service has finished.
+     * Method is called after the service has finished successfully.
      */
     protected void finish(Map<String, Object> result) throws InvalidJobException {
         if (currentState != State.RUNNING) {

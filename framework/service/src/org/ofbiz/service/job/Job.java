@@ -20,6 +20,10 @@ package org.ofbiz.service.job;
 
 /**
  * A scheduled job.
+ * <p>A job starts out in the created state. When the job is queued for execution, it
+ * transitions to the queued state. While the job is executing it is in the running state.
+ * When the job execution ends, it transitions to the finished or failed state - depending
+ * on the outcome of the task that was performed.</p>
  */
 public interface Job {
 
