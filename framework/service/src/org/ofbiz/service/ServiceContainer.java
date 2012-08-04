@@ -18,16 +18,17 @@
  *******************************************************************************/
 package org.ofbiz.service;
 
+import java.util.Collections;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerConfig;
 import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
-
-import java.util.Collections;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
+import org.ofbiz.service.job.JobManager;
 
 /**
  * A container for the service engine. 
@@ -64,6 +65,7 @@ public class ServiceContainer implements Container {
 
     @Override
     public void stop() throws ContainerException {
+        JobManager.shutDown();
         Set<String> dispatcherNames = getAllDispatcherNames();
         for (String dispatcherName: dispatcherNames) {
             deregister(dispatcherName);
