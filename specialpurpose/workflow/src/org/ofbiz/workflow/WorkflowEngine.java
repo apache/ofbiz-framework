@@ -18,12 +18,12 @@
  *******************************************************************************/
 package org.ofbiz.workflow;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.transaction.Transaction;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
@@ -39,6 +39,7 @@ import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceDispatcher;
 import org.ofbiz.service.engine.AbstractEngine;
 import org.ofbiz.service.job.AbstractJob;
+import org.ofbiz.service.job.InvalidJobException;
 import org.ofbiz.service.job.Job;
 import org.ofbiz.service.job.JobManagerException;
 
@@ -283,27 +284,28 @@ public class WorkflowEngine extends AbstractEngine {
 }
 
 /** Workflow Runner class runs inside its own thread using the Scheduler API */
-@SuppressWarnings("serial")
 class WorkflowRunner extends AbstractJob {
+
+    public static final String module = WorkflowRunner.class.getName();
 
     GenericRequester requester;
     WfProcess process;
     String startActivityId;
+    private final long runtime = System.currentTimeMillis();
 
     WorkflowRunner(WfProcess process, GenericRequester requester, String startActivityId) {
         super(process.toString() + "." + System.currentTimeMillis(), process.toString());
         this.process = process;
         this.requester = requester;
         this.startActivityId = startActivityId;
-        runtime = new Date().getTime();
-    }
-
-    protected void finish() {
-        runtime = -1;
     }
 
     @Override
-    public void exec() {
+    public void exec() throws InvalidJobException {
+        if (currentState != State.QUEUED) {
+            throw new InvalidJobException("Illegal state change");
+        }
+        currentState = State.RUNNING;
         try {
             if (startActivityId != null)
                 process.start(startActivityId);
@@ -314,7 +316,17 @@ class WorkflowRunner extends AbstractJob {
             if (requester != null)
                 requester.receiveResult(null);
         }
-        finish();
+        currentState = State.FINISHED;
+    }
+
+    @Override
+    public long getRuntime() {
+        return runtime;
+    }
+
+    @Override
+    public boolean isValid() {
+        return currentState == State.CREATED;
     }
 }
 
