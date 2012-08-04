@@ -21,7 +21,7 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
 
-    <simple-method method-name="testTimesheetToComplete" short-description="Test set timesheet status to complete" login-required="false" user-login-name="userLogin">
+    <simple-method method-name="testTimesheetToComplete" short-description="Test set timesheet status to complete" login-required="false">
         <entity-one value-field="userLogin" entity-name="UserLogin">
             <field-map field-name="userLoginId" value="scrumteam2"/>
         </entity-one>
@@ -30,7 +30,7 @@ under the License.
         <set field="inMap.statusId" value="TIMESHEET_COMPLETED"/>
         <call-service service-name="updateTimesheet" in-map-name="inMap"></call-service>
     </simple-method>
-    <simple-method method-name="testTimesheetToInProcess" short-description="Test set timesheet status to In Process" login-required="false" user-login-name="userLogin">
+    <simple-method method-name="testTimesheetToInProcess" short-description="Test set timesheet status to In Process" login-required="false">
         <entity-one value-field="userLogin" entity-name="UserLogin">
             <field-map field-name="userLoginId" value="scrumteam2"/>
         </entity-one>

@@ -20,7 +20,7 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
-    <simple-method method-name="testUpdateTimesheetEntryByWorkeffortNotComplete" short-description="Test update timesheet entry by workeffort" login-required="false" user-login-name="userLogin">
+    <simple-method method-name="testUpdateTimesheetEntryByWorkeffortNotComplete" short-description="Test update timesheet entry by workeffort" login-required="false">
         <entity-one value-field="userLogin" entity-name="UserLogin">
             <field-map field-name="userLoginId" value="scrumteam1"/>
         </entity-one>
@@ -33,7 +33,7 @@ under the License.
         <call-service service-name="updateTimesheetEntryByWorkeffort" in-map-name="inMap"></call-service>
     </simple-method>
     
-    <simple-method method-name="testUpdateTimesheetEntryByWorkeffortComplete" short-description="Test update timesheet entry by workeffort" login-required="false" user-login-name="userLogin">
+    <simple-method method-name="testUpdateTimesheetEntryByWorkeffortComplete" short-description="Test update timesheet entry by workeffort" login-required="false">
         <entity-one value-field="userLogin" entity-name="UserLogin">
             <field-map field-name="userLoginId" value="scrumteam1"/>
         </entity-one>
@@ -45,7 +45,7 @@ under the License.
         <set field="inMap.checkComplete" value="Y"/>
         <call-service service-name="updateTimesheetEntryByWorkeffort" in-map-name="inMap"></call-service>
     </simple-method>
-    <simple-method method-name="testUpdateTask" short-description="Test update tasks" login-required="false" user-login-name="userLogin">
+    <simple-method method-name="testUpdateTask" short-description="Test update tasks" login-required="false">
         <entity-one value-field="userLogin" entity-name="UserLogin">
             <field-map field-name="userLoginId" value="scrumteam2"/>
         </entity-one>
@@ -57,7 +57,7 @@ under the License.
         <call-simple-method method-name="updateTask" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
     </simple-method>
     
-    <simple-method method-name="testRemoveTaskAssignToMe" short-description="Test remove task assign to me" login-required="false" user-login-name="userLogin">
+    <simple-method method-name="testRemoveTaskAssignToMe" short-description="Test remove task assign to me" login-required="false">
         <entity-one value-field="userLogin" entity-name="UserLogin">
             <field-map field-name="userLoginId" value="scrumteam2"/>
         </entity-one>
@@ -73,7 +73,7 @@ under the License.
         <call-service service-name="unassignPartyFromWorkEffort" in-map-name="parameters"></call-service>
     </simple-method>
     
-    <simple-method method-name="testAddNewTimesheet" short-description="Test add a new timesheet" login-required="false" user-login-name="userLogin">
+    <simple-method method-name="testAddNewTimesheet" short-description="Test add a new timesheet" login-required="false">
         <entity-one value-field="userLogin" entity-name="UserLogin">
             <field-map field-name="userLoginId" value="scrumteam2"/>
         </entity-one>
@@ -83,7 +83,7 @@ under the License.
         <call-service service-name="createTimesheetForThisWeek" in-map-name="inMap" >
         </call-service>
     </simple-method>
-    <simple-method method-name="testSetTimeSheetStatusToComplete" short-description="Test set timesheet status to complete" login-required="false" user-login-name="userLogin">
+    <simple-method method-name="testSetTimeSheetStatusToComplete" short-description="Test set timesheet status to complete" login-required="false">
         <entity-one value-field="userLogin" entity-name="UserLogin">
             <field-map field-name="userLoginId" value="scrumteam2"/>
         </entity-one>
