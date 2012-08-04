@@ -37,9 +37,7 @@ public class GeronimoContainer implements Container {
     protected String configFile = null;
     private String name;
 
-    /**
-     * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
-     */
+    @Override
     public void init(String[] args, String name, String configFile) throws ContainerException {
         this.name = name;
         this.configFile = configFile;
