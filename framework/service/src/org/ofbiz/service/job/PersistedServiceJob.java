@@ -284,7 +284,7 @@ public class PersistedServiceJob extends GenericServiceJob {
             }
 
             // check the runAsUser
-            if (!UtilValidate.isEmpty(jobObj.get("runAsUser"))) {
+            if (!UtilValidate.isEmpty(jobObj.getString("runAsUser"))) {
                 context.put("userLogin", ServiceUtil.getUserLogin(dctx, context, jobObj.getString("runAsUser")));
             }
         } catch (GenericEntityException e) {
