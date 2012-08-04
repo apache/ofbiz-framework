@@ -34,9 +34,7 @@ public class ClassLoaderContainer implements Container {
     protected static CachedClassLoader cl = null;
     private String name;
 
-    /**
-     * @see org.ofbiz.base.container.Container#init(String[] args, String name, String configFile)
-     */
+    @Override
     public void init(String[] args, String name, String configFile) throws ContainerException {
         this.name = name;
         ClassLoader parent = Thread.currentThread().getContextClassLoader();

@@ -48,9 +48,7 @@ public class RmiServiceContainer implements Container {
     private String containerName;
     // Container methods
 
-    /**
-     * @see org.ofbiz.base.container.Container#init(String[] args, String name, String configFile)
-     */
+    @Override
     public void init(String[] args, String name, String configFile) {
         this.containerName = name;
         this.configFile = configFile;

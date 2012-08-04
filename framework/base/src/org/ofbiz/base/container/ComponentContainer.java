@@ -55,9 +55,7 @@ public class ComponentContainer implements Container {
     private String instrumenterClassName;
     private String instrumenterFile;
 
-    /**
-     * @see org.ofbiz.base.container.Container#init(String[] args, String name, String configFile)
-     */
+    @Override
     public void init(String[] args, String name, String configFile) throws ContainerException {
         this.name = name;
         this.configFileLocation = configFile;
