@@ -121,8 +121,8 @@ public class ScrumServices {
      * <p>
      * Use for view Scrum Revision
      *
-     * @param   revision         Revision number
-     * @param   repository       Repository url
+     * @param ctx The DispatchContext that this service is operating in
+     * @param context Map containing the input parameters
      * @return Map with the result of the service, the output parameters.
      */
     public static Map<String, Object> viewScrumRevision(DispatchContext ctx, Map<String, ? extends Object> context) {
@@ -166,8 +166,8 @@ public class ScrumServices {
      * <p>
      * Use for retrieve the missing data of the Revision
      *
-     * @param   latestRevision       The latest revision number
-     * @param   repositoryRoot       The repository root url
+     * @param ctx The DispatchContext that this service is operating in
+     * @param context Map containing the input parameters
      * @return Map with the result of the service, the output parameters.
      */
     public static Map<String, Object> retrieveMissingScrumRevision(DispatchContext ctx, Map<String, ? extends Object> context) {
@@ -259,7 +259,8 @@ public class ScrumServices {
      * <p>
      * Use for remove duplicate scrum revision
      *
-     * @param   repositoryRoot       The repository root url
+     * @param ctx The DispatchContext that this service is operating in
+     * @param context Map containing the input parameters
      * @return Map with the result of the service.
      */
     public static Map<String, Object> removeDuplicateScrumRevision(DispatchContext ctx, Map<String, ? extends Object> context) {
