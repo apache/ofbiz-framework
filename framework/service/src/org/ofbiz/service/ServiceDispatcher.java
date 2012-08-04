@@ -166,7 +166,6 @@ public class ServiceDispatcher {
 
     /**
      * Registers the loader with this ServiceDispatcher
-     * @param name the local dispatcher
      * @param context the context of the local dispatcher
      */
     public void register(DispatchContext context) {
