@@ -21,7 +21,7 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
 
-        <simple-method method-name="testCreateProductByAdmin" short-description="" login-required="false" user-login-name="userLogin">
+        <simple-method method-name="testCreateProductByAdmin" short-description="" login-required="false">
             <entity-one value-field="userLogin" entity-name="UserLogin">
                 <field-map field-name="userLoginId" value="admin"/>
             </entity-one>
@@ -36,7 +36,7 @@ under the License.
             <call-simple-method method-name="createProductAndRole" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
         </simple-method>
         
-        <simple-method method-name="testUpdateProductByAdmin" short-description="" login-required="false" user-login-name="userLogin">
+        <simple-method method-name="testUpdateProductByAdmin" short-description="" login-required="false">
             <entity-one value-field="userLogin" entity-name="UserLogin">
                 <field-map field-name="userLoginId" value="admin"/>
             </entity-one>
@@ -53,7 +53,7 @@ under the License.
         </simple-method>
         
         <!-- Billing -->
-        <simple-method method-name="testAddProductTimeToNewInvoice" short-description="Test Add Product Time To New Invoice" login-required="false" user-login-name="userLogin">
+        <simple-method method-name="testAddProductTimeToNewInvoice" short-description="Test Add Product Time To New Invoice" login-required="false">
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
                 </entity-one>

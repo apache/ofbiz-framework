@@ -21,7 +21,7 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
         
-        <simple-method method-name="testViewScrumRevision" short-description="Test View Scrum Revision" login-required="false" user-login-name="userLogin">
+        <simple-method method-name="testViewScrumRevision" short-description="Test View Scrum Revision" login-required="false">
             <entity-one value-field="userLogin" entity-name="UserLogin">
                 <field-map field-name="userLoginId" value="system"/>
             </entity-one>
@@ -40,7 +40,7 @@ under the License.
             </assert>
             <check-errors/>
         </simple-method>
-        <simple-method method-name="testRetrieveMissingScrumRevision" short-description="Test Retrieve Missing Scrum Revision" login-required="false" user-login-name="userLogin">
+        <simple-method method-name="testRetrieveMissingScrumRevision" short-description="Test Retrieve Missing Scrum Revision" login-required="false">
             <entity-one value-field="userLogin" entity-name="UserLogin">
                 <field-map field-name="userLoginId" value="system"/>
             </entity-one>
@@ -58,7 +58,7 @@ under the License.
             </assert>
             <check-errors/>
         </simple-method>
-        <simple-method method-name="testRemoveDuplicateScrumRevision" short-description="Test Remove Duplicate Scrum Revision" login-required="false" user-login-name="userLogin">
+        <simple-method method-name="testRemoveDuplicateScrumRevision" short-description="Test Remove Duplicate Scrum Revision" login-required="false">
             <entity-one value-field="userLogin" entity-name="UserLogin">
                 <field-map field-name="userLoginId" value="system"/>
             </entity-one>
