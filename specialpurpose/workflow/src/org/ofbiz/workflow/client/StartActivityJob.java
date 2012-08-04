@@ -18,24 +18,24 @@
  *******************************************************************************/
 package org.ofbiz.workflow.client;
 
-import java.util.Date;
 import java.util.HashMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.service.GenericRequester;
 import org.ofbiz.service.job.AbstractJob;
+import org.ofbiz.service.job.InvalidJobException;
 import org.ofbiz.workflow.WfActivity;
 
 /**
  * Workflow Client API - Start Activity Async-Job
  */
-@SuppressWarnings("serial")
 public class StartActivityJob extends AbstractJob {
 
     public static final String module = StartActivityJob.class.getName();
 
     protected WfActivity activity = null;
     protected GenericRequester requester = null;
+    private final long runtime = System.currentTimeMillis();
 
     public StartActivityJob(WfActivity activity) {
         this(activity, null);
@@ -45,19 +45,15 @@ public class StartActivityJob extends AbstractJob {
         super(activity.toString() + "." + System.currentTimeMillis(), activity.toString());
         this.activity = activity;
         this.requester = requester;
-        runtime = new Date().getTime();
         if (Debug.verboseOn()) Debug.logVerbose("Created new StartActivityJob : " + activity, module);
     }
 
-    protected void finish() {
-        runtime = -1;
-    }
-
-    /**
-     * @see org.ofbiz.service.job.Job#exec()
-     */
     @Override
-    public void exec() {
+    public void exec() throws InvalidJobException {
+        if (currentState != State.QUEUED) {
+            throw new InvalidJobException("Illegal state change");
+        }
+        currentState = State.RUNNING;
         try {
             Debug.logVerbose("Executing job now : " + activity, module);
             activity.activate();
@@ -68,6 +64,16 @@ public class StartActivityJob extends AbstractJob {
             if (requester != null)
                 requester.receiveThrowable(e);
         }
-        finish();
+        currentState = State.FINISHED;
+    }
+
+    @Override
+    public long getRuntime() {
+        return runtime;
+    }
+
+    @Override
+    public boolean isValid() {
+        return currentState == State.CREATED;
     }
 }
