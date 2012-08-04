@@ -230,7 +230,7 @@ public class DynamicViewEntity {
     }
 
     /**
-     * @deprecated use {@link #addAliasAll(String, String, Collection<String>)}
+     * @deprecated use {@link #addAliasAll(String, String, Collection)}
      */
     @Deprecated
     public void addAliasAll(String entityAlias, String prefix) {
