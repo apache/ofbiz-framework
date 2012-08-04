@@ -434,8 +434,9 @@ public class CategoryWorker {
      * Its best use is to generate the trail every so often and store somewhere 
      * (a lucene/solr tree, entities, cache or so). 
      * 
-     * @param  productCategoryId  id of category the trail should be generated for
-     * @returns List organized trail from root point to categoryId.
+     * @param dctx The DispatchContext that this service is operating in
+     * @param context Map containing the input parameters
+     * @return Map organized trail from root point to categoryId.
      * */
     public static Map getCategoryTrail(DispatchContext dctx, Map context) {
         String productCategoryId = (String) context.get("productCategoryId");
