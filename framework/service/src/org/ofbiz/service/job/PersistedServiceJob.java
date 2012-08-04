@@ -52,7 +52,8 @@ import org.xml.sax.SAXException;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * Entity Service Job - Store => Schedule => Run
+ * A {@link Job} that is backed by the entity engine. Job data is stored
+ * in the JobSandbox entity.
  */
 @SuppressWarnings("serial")
 public class PersistedServiceJob extends GenericServiceJob {
@@ -60,7 +61,6 @@ public class PersistedServiceJob extends GenericServiceJob {
     public static final String module = PersistedServiceJob.class.getName();
 
     private transient Delegator delegator = null;
-    private Timestamp storedDate = null;
     private long nextRecurrence = -1;
     private long maxRetry = -1;
     private long currentRetryCount = 0;
@@ -73,11 +73,9 @@ public class PersistedServiceJob extends GenericServiceJob {
      * @param req
      */
     public PersistedServiceJob(DispatchContext dctx, GenericValue jobValue, GenericRequester req) {
-        super(jobValue.getString("jobId"), jobValue.getString("jobName"));
+        super(dctx, jobValue.getString("jobId"), jobValue.getString("jobName"), null, null, req);
         this.delegator = dctx.getDelegator();
-        this.requester = req;
-        this.dctx = dctx;
-        this.storedDate = jobValue.getTimestamp("runTime");
+        Timestamp storedDate = jobValue.getTimestamp("runTime");
         this.runtime = storedDate.getTime();
         this.maxRetry = jobValue.get("maxRetry") != null ? jobValue.getLong("maxRetry").longValue() : -1;
         Long retryCount = jobValue.getLong("currentRetryCount");
@@ -87,51 +85,36 @@ public class PersistedServiceJob extends GenericServiceJob {
             // backward compatibility
             this.currentRetryCount = PersistedServiceJob.getRetries(jobValue, this.delegator);
         }
-
-        // Debug.logInfo("=============== New PersistedServiceJob, delegator from dctx is [" + dctx.getDelegator().getDelegatorName() + "] and delegator from jobValue is [" + jobValue.getDelegator().getDelegatorName() + "]", module);
     }
 
     @Override
     public void queue() throws InvalidJobException {
         super.queue();
-
         // refresh the job object
         GenericValue jobValue = null;
         try {
             jobValue = this.getJob();
             jobValue.refresh();
         } catch (GenericEntityException e) {
-            runtime = -1;
-            throw new InvalidJobException("Unable to refresh Job object", e);
+            throw new InvalidJobException("Unable to refresh JobSandbox value", e);
         }
-
-        // make sure it isn't already set/cancelled
-        if (runtime != -1) {
-            Timestamp cancelTime = jobValue.getTimestamp("cancelDateTime");
-            Timestamp startTime = jobValue.getTimestamp("startDateTime");
-            if (cancelTime != null || startTime != null) {
-                // job not available
-                runtime = -1;
-                throw new InvalidJobException("Job [" + getJobId() + "] is not available");
-
-            } else {
-                // set the start time to now
-                jobValue.set("startDateTime", UtilDateTime.nowTimestamp());
-                jobValue.set("statusId", "SERVICE_RUNNING");
-                try {
-                    jobValue.store();
-                } catch (GenericEntityException e) {
-                    runtime = -1;
-                    throw new InvalidJobException("Unable to set the startDateTime on the current job [" + getJobId() + "]; not running!", e);
-
-                }
+        Timestamp cancelTime = jobValue.getTimestamp("cancelDateTime");
+        Timestamp startTime = jobValue.getTimestamp("startDateTime");
+        if (cancelTime != null || startTime != null) {
+            // job not available
+            throw new InvalidJobException("Job [" + getJobId() + "] is not available");
+        } else {
+            // set the start time to now
+            jobValue.set("startDateTime", UtilDateTime.nowTimestamp());
+            jobValue.set("statusId", "SERVICE_RUNNING");
+            try {
+                jobValue.store();
+            } catch (GenericEntityException e) {
+                throw new InvalidJobException("Unable to set the startDateTime on the current job [" + getJobId() + "]; not running!", e);
             }
         }
     }
 
-    /**
-     * @see org.ofbiz.service.job.GenericServiceJob#init()
-     */
     @Override
     protected void init() throws InvalidJobException {
         super.init();
@@ -217,19 +200,13 @@ public class PersistedServiceJob extends GenericServiceJob {
         }
     }
 
-    /**
-     * @see org.ofbiz.service.job.GenericServiceJob#finish(Map)
-     */
     @Override
     protected void finish(Map<String, Object> result) throws InvalidJobException {
         super.finish(result);
 
         // set the finish date
         GenericValue job = getJob();
-        String status = job.getString("statusId");
-        if (status == null || "SERVICE_RUNNING".equals(status)) {
-            job.set("statusId", "SERVICE_FINISHED");
-        }
+        job.set("statusId", "SERVICE_FINISHED");
         job.set("finishDateTime", UtilDateTime.nowTimestamp());
         String jobResult = null;
         if (ServiceUtil.isError(result)) {
@@ -247,9 +224,6 @@ public class PersistedServiceJob extends GenericServiceJob {
         }
     }
 
-    /**
-     * @see org.ofbiz.service.job.GenericServiceJob#failed(Throwable)
-     */
     @Override
     protected void failed(Throwable t) throws InvalidJobException {
         super.failed(t);
@@ -284,9 +258,6 @@ public class PersistedServiceJob extends GenericServiceJob {
         }
     }
 
-    /**
-     * @see org.ofbiz.service.job.GenericServiceJob#getServiceName()
-     */
     @Override
     protected String getServiceName() throws InvalidJobException {
         GenericValue jobObj = getJob();
@@ -296,9 +267,6 @@ public class PersistedServiceJob extends GenericServiceJob {
         return jobObj.getString("serviceName");
     }
 
-    /**
-     * @see org.ofbiz.service.job.GenericServiceJob#getContext()
-     */
     @Override
     protected Map<String, Object> getContext() throws InvalidJobException {
         Map<String, Object> context = null;
@@ -341,7 +309,6 @@ public class PersistedServiceJob extends GenericServiceJob {
     private GenericValue getJob() throws InvalidJobException {
         try {
             GenericValue jobObj = delegator.findOne("JobSandbox", false, "jobId", getJobId());
-
             if (jobObj == null) {
                 throw new InvalidJobException("Job [" + getJobId() + "] came back null from datasource from delegator " + delegator.getDelegatorName());
             }

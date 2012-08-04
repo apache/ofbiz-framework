@@ -20,6 +20,7 @@ package org.ofbiz.service.job;
 
 import java.util.Date;
 
+import org.ofbiz.base.util.Assert;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
@@ -31,17 +32,14 @@ public class JobInvoker implements Runnable {
 
     public static final String module = JobInvoker.class.getName();
 
-    private Date created = null;
+    private final Date created = new Date();
     private long jobStart;
-
-    private Job currentJob = null;
+    private final Job currentJob;
 
     public JobInvoker(Job job) {
-        this.created = new Date();
+        Assert.notNull("job", job);
         this.currentJob = job;
     }
-
-    protected JobInvoker() {}
 
     /**
      * Gets the time when this thread was created.
@@ -69,11 +67,7 @@ public class JobInvoker implements Runnable {
      * @return String ID of the current running job.
      */
     public String getJobId() {
-        if (this.currentJob != null) {
-            return this.currentJob.getJobId();
-        } else {
-            return "WARNING: Invalid Job!";
-        }
+        return this.currentJob.getJobId();
     }
 
     /**
@@ -81,11 +75,7 @@ public class JobInvoker implements Runnable {
      * @return String name of the current running job.
      */
     public String getJobName() {
-        if (this.currentJob != null) {
-            return this.currentJob.getJobName();
-        } else {
-            return "WARNING: Invalid Job!";
-        }
+        return this.currentJob.getJobName();
     }
 
     /**
@@ -93,31 +83,26 @@ public class JobInvoker implements Runnable {
      * @return The name of the service being run.
      */
     public String getServiceName() {
-        String serviceName = null;
-        if (this.currentJob != null) {
-            if (this.currentJob instanceof GenericServiceJob) {
-                GenericServiceJob gsj = (GenericServiceJob) this.currentJob;
-                try {
-                    serviceName = gsj.getServiceName();
-                } catch (InvalidJobException e) {
-                    Debug.logError(e, module);
-                }
+        if (this.currentJob instanceof GenericServiceJob) {
+            GenericServiceJob gsj = (GenericServiceJob) this.currentJob;
+            try {
+                return gsj.getServiceName();
+            } catch (InvalidJobException e) {
+                Debug.logWarning(e, module);
             }
         }
-        return serviceName;
+        return null;
     }
 
     public void run() {
         // setup the current job settings
         this.jobStart = System.currentTimeMillis();
-
         // execute the job
         try {
             this.currentJob.exec();
         } catch (InvalidJobException e) {
             Debug.logWarning(e.getMessage(), module);
         }
-
         // sanity check; make sure we don't have any transactions in place
         try {
             // roll back current TX first
@@ -125,7 +110,6 @@ public class JobInvoker implements Runnable {
                 Debug.logWarning("*** NOTICE: JobInvoker finished w/ a transaction in place! Rolling back.", module);
                 TransactionUtil.rollback();
             }
-
             // now resume/rollback any suspended txs
             if (TransactionUtil.suspendedTransactionsHeld()) {
                 int suspended = TransactionUtil.cleanSuspendedTransactions();

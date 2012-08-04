@@ -18,41 +18,46 @@
  *******************************************************************************/
 package org.ofbiz.service.job;
 
-import java.io.Serializable;
-
 /**
- * Job Interface
+ * A scheduled job.
  */
-public interface Job extends Serializable {
+public interface Job {
+
+    public static enum State {CREATED, QUEUED, RUNNING, FINISHED, FAILED};
 
     /**
-     *  Executes the Job.
+     * Returns the current state of this job.
      */
-    public void exec() throws InvalidJobException;
+    State currentState();
+
+    /**
+     *  Executes this Job.
+     */
+    void exec() throws InvalidJobException;
 
     /**
      * Returns the ID of this Job.
      */
-    public String getJobId();
+    String getJobId();
 
     /**
      * Returns the name of this Job.
      */
-    public String getJobName();
+    String getJobName();
 
     /**
      *  Returns the time to run in milliseconds.
      */
-    public long getRuntime();
+    long getRuntime();
 
     /**
-     * Returns true if this job is still valid.
+     * Returns true if this job is ready to be queued.
      */
-    public boolean isValid();
+    boolean isValid();
 
     /**
-     * Flags this job as 'is-queued'
+     * Transitions the job to the queued state.
      */
-    public void queue() throws InvalidJobException;
+    void queue() throws InvalidJobException;
 }
 

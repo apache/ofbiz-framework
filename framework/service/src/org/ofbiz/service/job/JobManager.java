@@ -155,13 +155,19 @@ public final class JobManager {
 
     public synchronized List<Job> poll() {
         assertIsRunning();
+        DispatchContext dctx = getDispatcher().getDispatchContext();
+        if (dctx == null) {
+            Debug.logError("Unable to locate DispatchContext object; not running job!", module);
+            return null;
+        }
         List<Job> poll = FastList.newInstance();
         // sort the results by time
         List<String> order = UtilMisc.toList("runTime");
         // basic query
         List<EntityExpr> expressions = UtilMisc.toList(EntityCondition.makeCondition("runTime", EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.nowTimestamp()),
-                EntityCondition.makeCondition("startDateTime", EntityOperator.EQUALS, null), EntityCondition.makeCondition("cancelDateTime",
-                EntityOperator.EQUALS, null), EntityCondition.makeCondition("runByInstanceId", EntityOperator.EQUALS, null));
+                EntityCondition.makeCondition("startDateTime", EntityOperator.EQUALS, null),
+                EntityCondition.makeCondition("cancelDateTime", EntityOperator.EQUALS, null),
+                EntityCondition.makeCondition("runByInstanceId", EntityOperator.EQUALS, null));
         // limit to just defined pools
         List<String> pools = ServiceConfigUtil.getRunPools();
         List<EntityExpr> poolsExpr = UtilMisc.toList(EntityCondition.makeCondition("poolId", EntityOperator.EQUALS, null));
@@ -174,61 +180,40 @@ public final class JobManager {
         EntityCondition baseCondition = EntityCondition.makeCondition(expressions);
         EntityCondition poolCondition = EntityCondition.makeCondition(poolsExpr, EntityOperator.OR);
         EntityCondition mainCondition = EntityCondition.makeCondition(UtilMisc.toList(baseCondition, poolCondition));
-        // we will loop until we have no more to do
-        boolean pollDone = false;
-        while (!pollDone) {
-            boolean beganTransaction = false;
+        boolean beganTransaction = false;
+        try {
+            beganTransaction = TransactionUtil.begin();
+            if (!beganTransaction) {
+                Debug.logError("Unable to poll for jobs; transaction was not started by this process", module);
+                return null;
+            }
+            // first update the jobs w/ this instance running information
+            delegator.storeByCondition("JobSandbox", updateFields, mainCondition);
+            // now query all the 'queued' jobs for this instance
+            List<GenericValue> jobEnt = delegator.findByAnd("JobSandbox", updateFields, order, false);
+            if (UtilValidate.isNotEmpty(jobEnt)) {
+                for (GenericValue v : jobEnt) {
+                    poll.add(new PersistedServiceJob(dctx, v, null)); // TODO fix the requester
+                }
+            }
+        } catch (Throwable t) {
+            // catch Throwable so nothing slips through the cracks... this is a fairly sensitive operation
+            String errMsg = "Error in polling JobSandbox: [" + t.toString() + "]. Rolling back transaction.";
+            Debug.logError(t, errMsg, module);
             try {
-                beganTransaction = TransactionUtil.begin();
-                if (!beganTransaction) {
-                    Debug.logError("Unable to poll for jobs; transaction was not started by this process", module);
-                    return null;
-                }
-                List<Job> localPoll = FastList.newInstance();
-                // first update the jobs w/ this instance running information
-                delegator.storeByCondition("JobSandbox", updateFields, mainCondition);
-                // now query all the 'queued' jobs for this instance
-                List<GenericValue> jobEnt = delegator.findByAnd("JobSandbox", updateFields, order, false);
-                // jobEnt = delegator.findByCondition("JobSandbox", mainCondition, null, order);
-                if (UtilValidate.isNotEmpty(jobEnt)) {
-                    for (GenericValue v : jobEnt) {
-                        DispatchContext dctx = getDispatcher().getDispatchContext();
-                        if (dctx == null) {
-                            Debug.logError("Unable to locate DispatchContext object; not running job!", module);
-                            continue;
-                        }
-                        Job job = new PersistedServiceJob(dctx, v, null); // TODO fix the requester
-                        try {
-                            job.queue();
-                            localPoll.add(job);
-                        } catch (InvalidJobException e) {
-                            Debug.logError(e, module);
-                        }
-                    }
-                } else {
-                    pollDone = true;
-                }
-                // nothing should go wrong at this point, so add to the general list
-                poll.addAll(localPoll);
-            } catch (Throwable t) {
-                // catch Throwable so nothing slips through the cracks... this is a fairly sensitive operation
-                String errMsg = "Error in polling JobSandbox: [" + t.toString() + "]. Rolling back transaction.";
-                Debug.logError(t, errMsg, module);
-                try {
-                    // only rollback the transaction if we started one...
-                    TransactionUtil.rollback(beganTransaction, errMsg, t);
-                } catch (GenericEntityException e2) {
-                    Debug.logError(e2, "[Delegator] Could not rollback transaction: " + e2.toString(), module);
-                }
-            } finally {
-                try {
-                    // only commit the transaction if we started one... but make sure we try
-                    TransactionUtil.commit(beganTransaction);
-                } catch (GenericTransactionException e) {
-                    String errMsg = "Transaction error trying to commit when polling and updating the JobSandbox: " + e.toString();
-                    // we don't really want to do anything different, so just log and move on
-                    Debug.logError(e, errMsg, module);
-                }
+                // only rollback the transaction if we started one...
+                TransactionUtil.rollback(beganTransaction, errMsg, t);
+            } catch (GenericEntityException e2) {
+                Debug.logError(e2, "[Delegator] Could not rollback transaction: " + e2.toString(), module);
+            }
+        } finally {
+            try {
+                // only commit the transaction if we started one... but make sure we try
+                TransactionUtil.commit(beganTransaction);
+            } catch (GenericTransactionException e) {
+                String errMsg = "Transaction error trying to commit when polling and updating the JobSandbox: " + e.toString();
+                // we don't really want to do anything different, so just log and move on
+                Debug.logError(e, errMsg, module);
             }
         }
         return poll;
