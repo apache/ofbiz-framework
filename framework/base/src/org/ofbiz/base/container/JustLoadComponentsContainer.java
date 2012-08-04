@@ -31,9 +31,7 @@ public class JustLoadComponentsContainer implements Container {
 
     private String name;
 
-    /**
-     * @see org.ofbiz.base.container.Container#init(String[] args, String name, String configFile)
-     */
+    @Override
     public void init(String[] args, String name, String configFile) {
         this.name = name;
         try {

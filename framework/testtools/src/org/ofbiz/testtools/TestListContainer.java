@@ -58,9 +58,7 @@ public class TestListContainer implements Container {
         }
     }
 
-    /**
-     * @see org.ofbiz.base.container.Container#init(String[] args, String name, String configFile)
-     */
+    @Override
     public void init(String[] args, String name, String configFile) {
         this.name = name;
         this.outputLocation = args[0];

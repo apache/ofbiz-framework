@@ -173,9 +173,7 @@ public class CatalinaContainer implements Container {
 
     private String name;
 
-    /**
-     * @see org.ofbiz.base.container.Container#init(String[] args, String name, String configFile)
-     */
+    @Override
     public void init(String[] args, String name, String configFile) throws ContainerException {
         this.name = name;
         // get the container config

@@ -38,17 +38,13 @@ public class BeanShellContainer implements Container {
     protected String name;
     protected int port;
 
-    /**
-     * @see org.ofbiz.base.container.Container#init(String[] args, String name, String configFile)
-     */
+    @Override
     public void init(String[] args, String name, String configFile) {
         this.containerName = name;
         this.configFileLocation = configFile;
     }
 
-    /**
-     * @see org.ofbiz.base.container.Container#init(String[] args, String name, String configFile)
-     */
+    @Override
     public boolean start() throws ContainerException {
         // get the container config
         ContainerConfig.Container cfg = ContainerConfig.getContainer(containerName, configFileLocation);
