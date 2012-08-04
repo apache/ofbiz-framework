@@ -27,7 +27,6 @@ import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericRequester;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.service.job.Job.State;
 
 /**
  * Generic Service Job - A generic async-service Job.
@@ -62,35 +61,32 @@ public class GenericServiceJob extends AbstractJob implements Serializable {
         }
         currentState = State.RUNNING;
         init();
-
+        Throwable thrown = null;
         Map<String, Object> result = null;
         // no transaction is necessary since runSync handles this
         try {
             // get the dispatcher and invoke the service via runSync -- will run all ECAs
             LocalDispatcher dispatcher = dctx.getDispatcher();
             result = dispatcher.runSync(getServiceName(), getContext());
-
             // check for a failure
             if (ServiceUtil.isError(result)) {
-                 this.failed(new Exception(ServiceUtil.getErrorMessage(result)));
+                thrown = new Exception(ServiceUtil.getErrorMessage(result));
             }
-
             if (requester != null) {
                 requester.receiveResult(result);
             }
-
         } catch (Throwable t) {
-            // pass the exception back to the requester.
             if (requester != null) {
+                // pass the exception back to the requester.
                 requester.receiveThrowable(t);
             }
-
-            // call the failed method
-            this.failed(t);
+            thrown = t;
         }
-
-        // call the finish method
-        this.finish(result);
+        if (thrown == null) {
+            finish(result);
+        } else {
+            failed(thrown);
+        }
     }
 
     /**
