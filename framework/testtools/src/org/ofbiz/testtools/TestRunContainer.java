@@ -64,8 +64,7 @@ public class TestRunContainer implements Container {
         this.name = name;
         this.configFile = configFile;
         if (args != null) {
-            for (int i = 0; i < args.length; i++) {
-                String argument = args[i];
+            for (String argument : args) {
                 // arguments can prefix w/ a '-'. Just strip them off
                 if (argument.startsWith("-")) {
                     int subIdx = 1;
