@@ -33,7 +33,6 @@ public class GroovyShellContainer implements Container {
     private GroovyService gsh = null;
 
     @Override
-    @Override
     public void init(String[] args, String name, String configFile) {
         this.name = name;
         configFileLocation = configFile;
