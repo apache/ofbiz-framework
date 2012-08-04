@@ -218,7 +218,7 @@ public class PersistedServiceJob extends GenericServiceJob {
     }
 
     /**
-     * @see org.ofbiz.service.job.GenericServiceJob#finish()
+     * @see org.ofbiz.service.job.GenericServiceJob#finish(Map)
      */
     @Override
     protected void finish(Map<String, Object> result) throws InvalidJobException {
