@@ -851,22 +851,21 @@ lookupDescriptionLoaded.prototype.update = function() {
 		this.allParams = this.params + '&' + fieldSerialized + '&' + 'searchType=EQUALS';
 		var _fieldId = this.fieldId;
 
-		jQuery
-				.ajax({
-					url : this.url,
-					type : "POST",
-					data : this.allParams,
-					async : false,
-					success : function(result) {
-						// This would be far more reliable if we were removing
-						// the widget boundaries in LookupDecorator using
-						// widgetVerbose in context :/
-						if (result.split("ajaxAutocompleteOptions.ftl -->")[1]) {
-							setLookDescription(_fieldId, result.split("ajaxAutocompleteOptions.ftl -->")[1].trim().split("<!--")[0].trim(),
-									"", "");
-						}
-					}
-				});
+		jQuery.ajax({
+			url : this.url,
+			type : "POST",
+			data : this.allParams,
+			async : false,
+			success : function(result) {
+				// This would be far more reliable if we were removing
+				// the widget boundaries in LookupDecorator using
+				// widgetVerbose in context :/
+				if (result.split("ajaxAutocompleteOptions.ftl -->")[1]) {
+					setLookDescription(_fieldId, result.split("ajaxAutocompleteOptions.ftl -->")[1].trim().split("<!--")[0].trim(),
+							"", "");
+				}
+			}
+		});
 	}
 }
 
