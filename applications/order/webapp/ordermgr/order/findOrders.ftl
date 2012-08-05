@@ -532,12 +532,12 @@ document.lookuporder.orderId.focus();
         </#list>
       </#if>
     </form>
-    <form name="massOrderChangeForm" method="post" action="javascript:void();">
+    <form name="massOrderChangeForm" method="post" action="javascript:void(0);">
       <div>&nbsp;</div>
       <div align="right">
         <input type="hidden" name="screenLocation" value="component://order/widget/ordermgr/OrderPrintScreens.xml#OrderPDF"/>
         <select name="serviceName" onchange="javascript:setServiceName(this);">
-           <option value="javascript:void();">&nbsp;</option>
+           <option value="javascript:void(0);">&nbsp;</option>
            <option value="<@ofbizUrl>massApproveOrders?hideFields=${requestParameters.hideFields?default("N")}${paramList}</@ofbizUrl>">${uiLabelMap.OrderApproveOrder}</option>
            <option value="<@ofbizUrl>massHoldOrders?hideFields=${requestParameters.hideFields?default("N")}${paramList}</@ofbizUrl>">${uiLabelMap.OrderHold}</option>
            <option value="<@ofbizUrl>massProcessOrders?hideFields=${requestParameters.hideFields?default("N")}${paramList}</@ofbizUrl>">${uiLabelMap.OrderProcessOrder}</option>
@@ -550,7 +550,7 @@ document.lookuporder.orderId.focus();
            <option value="<@ofbizUrl>massCreateFileForOrders?hideFields=${requestParameters.hideFields?default('N')}${paramList}</@ofbizUrl>">${uiLabelMap.ContentCreateFile}</option>
         </select>
         <select name="printerName">
-           <option value="javascript:void();">&nbsp;</option>
+           <option value="javascript:void(0);">&nbsp;</option>
            <#list printers as printer>
            <option value="${printer}">${printer}</option>
            </#list>
