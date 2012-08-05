@@ -390,7 +390,7 @@ function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
    });
 }
 
-/** Enable auto-completion for text elements.
+/** Enable auto-completion for text elements, with a possible span of tooltip class showing description.
  * @param areaCsvString The area CSV string. The CSV string is a flat array in the
  * form of: areaId, target, target parameters [, areaId, target, target parameters...].
 */
