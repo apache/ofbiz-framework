@@ -20,9 +20,9 @@ under the License.
   <div class="screenlet-title-bar">
     <ul>
       <li class="h3">
-        <a id="billingAddressSelected" href="javascript:void();">${uiLabelMap.WebPosBillingAddress}</a>
+        <a id="billingAddressSelected" href="javascript:void(0);">${uiLabelMap.WebPosBillingAddress}</a>
         &nbsp;
-        <a id="shippingAddressSelected" href="javascript:void();">${uiLabelMap.WebPosShippingAddress}</a>
+        <a id="shippingAddressSelected" href="javascript:void(0);">${uiLabelMap.WebPosShippingAddress}</a>
       </li>
     </ul>
     <br class="clear" />
