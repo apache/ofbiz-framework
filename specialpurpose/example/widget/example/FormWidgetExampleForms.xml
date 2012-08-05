@@ -30,7 +30,7 @@ under the License.
         <!-- ***************** -->
         <field name="field1"
                title="${uiLabelMap.ExampleDateField1Title}"
-               tooltip="${uiLabelMap.ExampleToDo}">
+               tooltip="${uiLabelMap.ExampleToDo}" tooltip-style="button-text">
             <date-time mask="Y"/>
         </field>
         <!-- ***************** -->
@@ -38,7 +38,7 @@ under the License.
         <!-- ***************** -->
         <field name="field9"
             title="${uiLabelMap.ExampleDateField9Title}">
-            <!--tooltip="${uiLabelMap.ExampleDateField9Tooltip}"-->
+            <!--tooltip="${uiLabelMap.ExampleDateField9Tooltip}" tooltip-style="button-text"-->
             <date-time default-value="${groovy:org.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/>
         </field>
         <!-- ***************** -->
@@ -46,7 +46,7 @@ under the License.
         <!-- ***************** -->
         <field name="field10"
                title="${uiLabelMap.ExampleDateField10Title}"
-               tooltip="${uiLabelMap.ExampleDateField10Tooltip}">
+               tooltip="${uiLabelMap.ExampleDateField10Tooltip}" tooltip-style="button-text">
             <date-time default-value="${nowTimestamp}"/>
         </field>
         <!-- ***************** -->
@@ -54,7 +54,7 @@ under the License.
         <!-- ***************** -->
         <field name="field11"
                title="${uiLabelMap.ExampleDateField11Title}"
-               tooltip="${uiLabelMap.ExampleDateField11Tooltip}">
+               tooltip="${uiLabelMap.ExampleDateField11Tooltip}" tooltip-style="button-text">
             <date-time default-value="${date:dayStart(nowTimestamp, timeZone, locale)}"/>
         </field>
         <!-- ***************** -->
@@ -62,7 +62,7 @@ under the License.
         <!-- ***************** -->
         <field name="field2"
                title="${uiLabelMap.ExampleDateField2Title}"
-               tooltip="${uiLabelMap.ExampleToDo}">
+               tooltip="${uiLabelMap.ExampleToDo}" tooltip-style="button-text">
             <date-time type="date"/>
         </field>
         <!-- ***************** -->
@@ -70,7 +70,7 @@ under the License.
         <!-- ***************** -->
         <field name="field3"
                title="${uiLabelMap.ExampleDateField3Title}"
-               tooltip="${uiLabelMap.ExampleToDo}">
+               tooltip="${uiLabelMap.ExampleToDo}" tooltip-style="button-text">
             <date-time type="time"/>
         </field>
         <!-- ***************** -->
@@ -78,7 +78,7 @@ under the License.
         <!-- ***************** -->
         <field name="field4"
                title="${uiLabelMap.ExampleDateField4Title}"
-               tooltip="${uiLabelMap.ExampleDateField4Tooltip}">
+               tooltip="${uiLabelMap.ExampleDateField4Tooltip}" tooltip-style="button-text">
             <date-time input-method="time-dropdown" clock="24" default-value="${exampleDateField}"/>
         </field>
         <!-- ***************** -->
@@ -86,7 +86,7 @@ under the License.
         <!-- ***************** -->
         <field name="field5"
                title="${uiLabelMap.ExampleDateField5Title}"
-               tooltip="${uiLabelMap.ExampleDateField4Tooltip}">
+               tooltip="${uiLabelMap.ExampleDateField4Tooltip}" tooltip-style="button-text">
             <date-time input-method="time-dropdown" clock="12" default-value="${exampleDateField}"/>
         </field>
         <!-- ***************** -->
@@ -95,7 +95,7 @@ under the License.
         <field name="field6"
                entry-name="exampleDateField"
                title="${uiLabelMap.ExampleDateField6Title}"
-               tooltip="${uiLabelMap.ExampleToDo}">
+               tooltip="${uiLabelMap.ExampleToDo}" tooltip-style="button-text">
             <display type="date-time"/>
         </field>
         <!-- ***************** -->
@@ -104,7 +104,7 @@ under the License.
         <field name="field7"
                entry-name="exampleDateField"
                title="${uiLabelMap.ExampleDateField7Title}"
-               tooltip="${uiLabelMap.ExampleDateField7Tooltip}">
+               tooltip="${uiLabelMap.ExampleDateField7Tooltip}" tooltip-style="button-text">
             <display description="${groovy:org.ofbiz.base.util.UtilDateTime.toDateString(exampleDateField, &quot;MM/dd/yyyy&quot;);}"/>
         </field>
         <!-- ***************** -->
@@ -113,7 +113,7 @@ under the License.
         <field name="field8"
                entry-name="exampleDateField"
                title="${uiLabelMap.ExampleDateField8Title}"
-               tooltip="${uiLabelMap.ExampleDateField8Tooltip}">
+               tooltip="${uiLabelMap.ExampleDateField8Tooltip}" tooltip-style="button-text">
             <display description="${groovy:org.ofbiz.base.util.UtilDateTime.toDateString(exampleDateField, &quot;MMMM,dd,yyyy&quot;);}"/>
         </field>
         <!-- ***************** -->
@@ -121,7 +121,7 @@ under the License.
         <!-- ***************** -->
         <field name="field12"
                title="${uiLabelMap.ExampleDateField12Title}"
-               tooltip="${uiLabelMap.ExampleDateField12Tooltip}">
+               tooltip="${uiLabelMap.ExampleDateField12Tooltip}" tooltip-style="button-text">
             <date-time input-method="time-dropdown" clock="24" default-value="${exampleDateField}" step="5"/>
         </field>
     </form>
@@ -135,7 +135,7 @@ under the License.
         <!-- ***************** -->
         <field name="field1"
                title="${uiLabelMap.ExampleDropDownField1Title}"
-               tooltip="${uiLabelMap.ExampleDropDownField1Tooltip}">
+               tooltip="${uiLabelMap.ExampleDropDownField1Tooltip}" tooltip-style="button-text">
             <drop-down allow-empty="true">
                 <option key="Y" description="${uiLabelMap.CommonY}"/>
                 <option key="N" description="${uiLabelMap.CommonN}"/>
@@ -146,7 +146,7 @@ under the License.
         <!-- ***************** -->
         <field name="field2"
                title="${uiLabelMap.ExampleDropDownField2Title}"
-               tooltip="${uiLabelMap.ExampleDropDownField2Tooltip}">
+               tooltip="${uiLabelMap.ExampleDropDownField2Tooltip}" tooltip-style="button-text">
             <drop-down allow-empty="false"> <!-- allow-empty="false" is also the default value, so you can also not specify this attribute here -->
                 <option key="Y" description="${uiLabelMap.CommonY}"/>
                 <option key="N" description="${uiLabelMap.CommonN}"/>
@@ -157,7 +157,7 @@ under the License.
         <!-- ***************** -->
         <field name="field5"
                title="${uiLabelMap.ExampleDropDownField5Title}"
-               tooltip="${uiLabelMap.ExampleDropDownField5Tooltip}">
+               tooltip="${uiLabelMap.ExampleDropDownField5Tooltip}" tooltip-style="button-text">
             <drop-down no-current-selected-key="N">
                 <option key="Y" description="${uiLabelMap.CommonY}"/>
                 <option key="N" description="${uiLabelMap.CommonN}"/>
@@ -170,7 +170,7 @@ under the License.
                title="${uiLabelMap.ExampleDropDownField8Title}"
                event="onchange"
                action="return showErrorAlert('${uiLabelMap.CommonErrorMessage2}','${uiLabelMap.YouChangedTheSelectBoxValue}');"
-               tooltip="${uiLabelMap.ExampleDropDownField8Tooltip}">
+               tooltip="${uiLabelMap.ExampleDropDownField8Tooltip}" tooltip-style="button-text">
             <drop-down>
                 <option key="Y" description="${uiLabelMap.CommonY}"/>
                 <option key="N" description="${uiLabelMap.CommonN}"/>
@@ -185,7 +185,7 @@ under the License.
         <!-- ***************** -->
         <field name="field3"
                title="${uiLabelMap.ExampleDropDownField3Title}"
-               tooltip="${uiLabelMap.ExampleToDo}">
+               tooltip="${uiLabelMap.ExampleToDo}" tooltip-style="button-text">
             <drop-down>
                 <entity-options entity-name="ExampleType"
                                 key-field-name="exampleTypeId"
@@ -199,7 +199,7 @@ under the License.
         <!-- ***************** -->
         <field name="field4"
                title="${uiLabelMap.ExampleDropDownField4Title}"
-               tooltip="${uiLabelMap.ExampleToDo}">
+               tooltip="${uiLabelMap.ExampleToDo}" tooltip-style="button-text">
             <drop-down>
                 <entity-options entity-name="ExampleType"
                                 key-field-name="exampleTypeId"
@@ -213,7 +213,7 @@ under the License.
         <!-- ***************** -->
         <field name="exampleTypeId"
                title="${uiLabelMap.ExampleDropDownField6Title}"
-               tooltip="${uiLabelMap.ExampleToDo}">
+               tooltip="${uiLabelMap.ExampleToDo}" tooltip-style="button-text">
             <drop-down>
                 <entity-options entity-name="ExampleType"
                                 description="${description}"/>
@@ -224,7 +224,7 @@ under the License.
         <!-- ***************** -->
         <field name="field7"
             title="${uiLabelMap.ExampleDropDownField7Title}"
-            tooltip="${uiLabelMap.ExampleToDo}">
+            tooltip="${uiLabelMap.ExampleToDo}" tooltip-style="button-text">
             <drop-down>
                 <entity-options entity-name="ExampleType"
                     key-field-name="exampleTypeId"
@@ -242,7 +242,7 @@ under the License.
         <!-- TODO : return only the Id, else you need to edit the field to remove the description -->
         <field name="emptyField1" title=" "><display/></field>
         <field name="geoId" title="${uiLabelMap.ExampleAutocompleteDropdown}"
-            tooltip="${uiLabelMap.ExampleAutocompleteTooltip}">
+            tooltip="${uiLabelMap.ExampleAutocompleteTooltip}" tooltip-style="button-text">
             <drop-down>
                 <auto-complete/>
                 <entity-options entity-name="Geo" description="${geoId}: ${geoName}">
@@ -341,20 +341,35 @@ under the License.
     <!-- Lookup Examples -->
     <form name="ExampleLookupFields" type="single" title="">
         <!-- Old style lookup (in a popup window without autocompletion), geoIdAlone because we have another geoId below -->
-        <field name="geoIdAlone" title="${uiLabelMap.CommonGeoId}">
+        <field name="geoIdAlone" title="${uiLabelMap.CommonGeoId}"  tooltip="${uiLabelMap.ExampleLookupFields1}" tooltip-style="button-text">
             <lookup target-form-name="LookupGeo" presentation="window"/>
         </field>
         <!-- Standard lookup (in a layer with autocompletion) -->
+        <field name="geoIdStd" title="${uiLabelMap.CommonGeoId}" tooltip="${uiLabelMap.ExampleLookupFields2}" tooltip-style="button-text">
+            <lookup target-form-name="LookupGeo"/>
+        </field>
+        <!-- Standard read only lookup (in a layer with autocompletion) -->
+        <field name="geoIdReadOnly" title="${uiLabelMap.CommonGeoId}"  tooltip="${uiLabelMap.ExampleLookupFields3}" tooltip-style="button-text">
+            <lookup target-form-name="LookupGeo" read-only="true"/>
+        </field>
+        <!-- Standard lookup (in a layer with autocompletion) -->
         <!-- passes the name in one field and the id in another, passing the id in the other field does not work yet with autocompletion, WIP... -->
-        <field name="geoName" title="${uiLabelMap.CommonGeoName}">
+        <field name="geoName" title="${uiLabelMap.CommonGeoName}" tooltip="${uiLabelMap.ExampleLookupFields4}" tooltip-style="button-text">
             <lookup target-form-name="LookupGeoName" description-field-name="geoId"/>
         </field>
         <!-- This field may be hidden and the name rendered in geoName using default-value if geoId is known when loading the form-->
         <field name="geoId" title="${uiLabelMap.CommonGeoId}"><text/></field><!-- the text field is only used for rendering. In the "real life" you would use the hidden field commented below to pass the data to the request  -->
-        <!--field name="geoId"><hidden/></field-->        
+        <!--field name="geoId"><hidden/></field-->
+        
         <sort-order>
             <field-group>
                 <sort-field name="geoIdAlone"/>
+            </field-group>
+            <field-group>
+                <sort-field name="geoIdStd"/>
+            </field-group>
+            <field-group>
+                <sort-field name="geoIdReadOnly"/>
             </field-group>
             <field-group>
                 <sort-field name="geoName"/>

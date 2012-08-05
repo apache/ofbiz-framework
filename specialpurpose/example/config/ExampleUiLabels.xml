@@ -218,13 +218,11 @@
     </property>
     <property key="ExampleDefinitionFileTooltip">
         <value xml:lang="en">framework/example/widget/example/FormWidgetExampleForms.xml</value>
-        <value xml:lang="fr">framework/example/widget/example/FormWidgetExampleForms.xml</value>
-        <value xml:lang="it">framework/example/widget/example/FormWidgetExampleForms.xml</value>
     </property>
     <property key="ExampleDefinitionName">
-        <value xml:lang="en"> - see the form definition with name</value>
-        <value xml:lang="fr"> - voir la défintion avec la form de nom </value>
-        <value xml:lang="it"> - vedi la definizione della form con il nome</value>
+        <value xml:lang="en">See the form definition with name</value>
+        <value xml:lang="fr">Voir la défintion avec la form de nom </value>
+        <value xml:lang="it">Vedi la definizione della form con il nome</value>
         <value xml:lang="zh"> - 参见表单定义，名称为</value>
     </property>
     <property key="ExampleDependentDropDownTooltip">
@@ -475,9 +473,21 @@
         <value xml:lang="it">Descrizione lunga</value>
         <value xml:lang="zh">详细描述</value>
     </property>
-    <property key="ExampleLookupFields">
-        <value xml:lang="en">Lookup Fields: First of type popup, second layered and showing use of set_values underneath, ie returning not only Id but also another value. Both using also autocomplete</value>
-        <value xml:lang="fr">Champs de recherche: le premier de type popup, le second de type layer avec usage sous-jacent de set_values qui permet de traiter non seulement une référence mais aussi une autre valeur. Les 2 utilisent aussi l'autocompletion</value>
+    <property key="ExampleLookupFields1">
+        <value xml:lang="en">Popup lookup field (old way, maybe be useful in some cases, notably if javascript is not enabled)</value>
+        <value xml:lang="fr">Champ de recherche type popup (ancienne manière, encore utile, notamment si javascript n'est pas disponible)</value>
+    </property>
+    <property key="ExampleLookupFields2">
+        <value xml:lang="en">Layered lookup field with autocompletion and description at right</value>
+        <value xml:lang="fr">Champs de recherche de type layer avec autocompletion et description à droite</value>
+    </property>
+    <property key="ExampleLookupFields3">
+        <value xml:lang="en">Read only layered lookup field, only the button is available</value>
+        <value xml:lang="fr">Champs de recherche de type layer en mode lecture seule, seul le bouton est utilisable</value>
+    </property>
+    <property key="ExampleLookupFields4">
+        <value xml:lang="en">Lookup Field of type layered and showing use of set_values underneath, ie returning not only Id but also another value. Both using also autocomplete</value>
+        <value xml:lang="fr">Champ de recherche de type layer avec usage sous-jacent de set_values qui permet de traiter non seulement une référence mais aussi une autre valeur. Les 2 utilisent aussi l'autocompletion</value>
     </property>
     <property key="ExampleLookupFieldsTitle">
         <value xml:lang="en">Lookup Fields</value>
