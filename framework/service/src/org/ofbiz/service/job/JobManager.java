@@ -53,7 +53,11 @@ import org.ofbiz.service.calendar.RecurrenceInfoException;
 import org.ofbiz.service.config.ServiceConfigUtil;
 
 /**
- * JobManager
+ * Job manager. The job manager queues jobs. It contains a <code>JobPoller</code> and a
+ * <code>Delegator</code>. Client code can queue a job to be run immediately by calling the
+ * {@link #runJob(Job)} method, or schedule a job to be run later by calling the
+ * {@link #schedule(String, String, String, Map, long, int, int, int, long, int)} method.
+ * Scheduled jobs are persisted in the JobSandbox entity.
  */
 public final class JobManager {
 
@@ -69,6 +73,12 @@ public final class JobManager {
         }
     }
 
+    /**
+     * Returns a <code>JobManager</code> instance.
+     * @param delegator
+     * @param enablePoller Enables polling of the JobSandbox entity.
+     * @throws IllegalStateException if the Job Manager is shut down.
+     */
     public static JobManager getInstance(Delegator delegator, boolean enablePoller) {
         assertIsRunning();
         Assert.notNull("delegator", delegator);
@@ -84,31 +94,9 @@ public final class JobManager {
         return jm;
     }
 
-    /** gets the recurrence info object for a job. */
-    public static RecurrenceInfo getRecurrenceInfo(GenericValue job) {
-        try {
-            if (job != null && !UtilValidate.isEmpty(job.getString("recurrenceInfoId"))) {
-                if (job.get("cancelDateTime") != null) {
-                    // cancel has been flagged, no more recurrence
-                    return null;
-                }
-                GenericValue ri = job.getRelatedOne("RecurrenceInfo", false);
-                if (ri != null) {
-                    return new RecurrenceInfo(ri);
-                } else {
-                    return null;
-                }
-            } else {
-                return null;
-            }
-        } catch (GenericEntityException e) {
-            Debug.logError(e, "Problem getting RecurrenceInfo entity from JobSandbox", module);
-        } catch (RecurrenceInfoException re) {
-            Debug.logError(re, "Problem creating RecurrenceInfo instance: " + re.getMessage(), module);
-        }
-        return null;
-    }
-
+    /**
+     * Shuts down all job managers. This method is called when OFBiz shuts down.
+     */
     public static void shutDown() {
         isShutDown = true;
         for (JobManager jm : registeredManagers.values()) {
@@ -153,7 +141,12 @@ public final class JobManager {
         return jp.getPoolState();
     }
 
-    public synchronized List<Job> poll() {
+    /**
+     * Scans the JobSandbox entity and returns a list of jobs that are due to run.
+     * Returns an empty list if there are no jobs due to run.
+     * This method is called by the {@link JobPoller} polling thread.
+     */
+    protected synchronized List<Job> poll() {
         assertIsRunning();
         DispatchContext dctx = getDispatcher().getDispatchContext();
         if (dctx == null) {

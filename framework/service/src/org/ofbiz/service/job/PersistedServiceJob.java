@@ -33,6 +33,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.service.calendar.RecurrenceInfoException;
 import org.ofbiz.service.calendar.TemporalExpression;
 import org.ofbiz.service.calendar.TemporalExpressionWorker;
 import org.ofbiz.entity.Delegator;
@@ -132,7 +133,7 @@ public class PersistedServiceJob extends GenericServiceJob {
         long maxRecurrenceCount = -1;
         long currentRecurrenceCount = 0;
         TemporalExpression expr = null;
-        RecurrenceInfo recurrence = JobManager.getRecurrenceInfo(jobValue);
+        RecurrenceInfo recurrence = getRecurrenceInfo();
         if (recurrence != null) {
             Debug.logWarning("Persisted Job [" + getJobId() + "] references a RecurrenceInfo, recommend using TemporalExpression instead", module);
             currentRecurrenceCount = recurrence.getCurrentCount();
@@ -313,5 +314,21 @@ public class PersistedServiceJob extends GenericServiceJob {
             return true;
         }
         return currentRetryCount < maxRetry;
+    }
+
+    private RecurrenceInfo getRecurrenceInfo() {
+        try {
+            if (UtilValidate.isNotEmpty(jobValue.getString("recurrenceInfoId"))) {
+                GenericValue ri = jobValue.getRelatedOne("RecurrenceInfo", false);
+                if (ri != null) {
+                    return new RecurrenceInfo(ri);
+                }
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Problem getting RecurrenceInfo entity from JobSandbox", module);
+        } catch (RecurrenceInfoException re) {
+            Debug.logError(re, "Problem creating RecurrenceInfo instance: " + re.getMessage(), module);
+        }
+        return null;
     }
 }

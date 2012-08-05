@@ -34,7 +34,7 @@ import org.ofbiz.service.config.ServiceConfigUtil;
 import org.apache.commons.lang.math.NumberUtils;
 
 /**
- * JobPoller - Polls for persisted jobs to run.
+ * Job poller. Queues and runs jobs.
  */
 public final class JobPoller implements Runnable {
 
