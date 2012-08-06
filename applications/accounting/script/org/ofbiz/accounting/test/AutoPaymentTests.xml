@@ -501,7 +501,7 @@ under the License.
         <log level="info" message="AFTER RUNNING VOID PAYMENT : GENERAL CHECKING ACCOUNT ;debitTotal :${undepositedDebitTotal} ; creditTotal:${undepositedCreditTotal} ; debitCreditDifference : ${undepositedDebitCreditDifference}"/>
     </simple-method>
 
-    <simple-method method-name="disabled-testUpdatePaymentMethodAddress" short-description="Creates a new postal address for Company and then calls updatePaymentMethodAddress with the new contactMechId" login-required="false">
+    <simple-method method-name="disabledTestUpdatePaymentMethodAddress" short-description="Creates a new postal address for Company and then calls updatePaymentMethodAddress with the new contactMechId" login-required="false">
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="flexadmin"/>
         </entity-one>

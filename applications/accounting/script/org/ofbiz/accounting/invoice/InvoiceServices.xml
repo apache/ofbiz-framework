@@ -43,7 +43,7 @@ under the License.
                     <set field="customMethodName" value="invoiceSequence-enforced"/>
                 </if-compare>
                 <if-compare operator="equals" value="INVSQ_RESTARTYR" field="partyAcctgPreference.oldInvoiceSequenceEnumId">
-                    <set field="customMethodName" value="invoiceSequence-restart"/>
+                    <set field="customMethodName" value="invoiceSequenceRestart"/>
                 </if-compare>
             </else>
         </if-not-empty>        
@@ -74,7 +74,7 @@ under the License.
         <field-to-result field="invoiceId" result-name="invoiceId"/>
     </simple-method>
 
-    <simple-method method-name="invoiceSequence-enforced" short-description="Enforced Sequence (no gaps, per organization)">
+    <simple-method method-name="invoiceSequenceEnforced" short-description="Enforced Sequence (no gaps, per organization)">
         <log level="info" message="In createInvoice sequence enum Enforced"/>
         <set field="partyAcctgPreference" from-field="parameters.partyAcctgPreference"/>
         <!-- this is sequential sequencing, we can't skip a number, also it must be a unique sequence per partyIdFrom -->
@@ -93,7 +93,7 @@ under the License.
         <field-to-result field="invoiceId" result-name="invoiceId"/>
    </simple-method>
 
-    <simple-method method-name="invoiceSequence-restart" short-description="Restart on Fiscal Year (no gaps, per org, reset to 1 each year)">
+    <simple-method method-name="invoiceSequenceRestart" short-description="Restart on Fiscal Year (no gaps, per org, reset to 1 each year)">
         <log level="info" message="In createInvoice sequence enum Restart"/>
         <set field="partyAcctgPreference" from-field="parameters.partyAcctgPreference"/>
         <!-- this is sequential sequencing, we can't skip a number; except that it is restarted each fiscal year -->

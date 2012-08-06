@@ -33,15 +33,15 @@ under the License.
         <attribute name="invoiceId" type="String" mode="OUT" optional="false"/>
     </service>
 
-    <service name="invoiceSequence-enforced" engine="simple"
-        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="invoiceSequence-enforced">
+    <service name="invoiceSequenceEnforced" engine="simple"
+        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="invoiceSequenceEnforced">
         <implements service="getNextInvoiceId"/>
         <attribute name="partyAcctgPreference" type="org.ofbiz.entity.GenericValue" mode="IN"/>
         <override name="invoiceId" type="Long" mode="OUT"/>
     </service>
 
-    <service name="invoiceSequence-restart" engine="simple"
-        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="invoiceSequence-restart">
+    <service name="invoiceSequenceRestart" engine="simple"
+        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="invoiceSequenceRestart">
         <implements service="getNextInvoiceId"/>
         <attribute name="partyAcctgPreference" type="org.ofbiz.entity.GenericValue" mode="IN"/>
     </service>
