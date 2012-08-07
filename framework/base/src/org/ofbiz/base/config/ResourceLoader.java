@@ -89,6 +89,8 @@ public abstract class ResourceLoader {
         UtilCache.clearCachesThatStartWith(xmlFilename);
     }
 
+    // This method should be avoided. DOM object trees take a lot of memory, so they should
+    // not be cached.
     public static Document getXmlDocument(String xmlFilename) throws GenericConfigException {
         Document document = (Document) loaderCache.get(xmlFilename);
 
