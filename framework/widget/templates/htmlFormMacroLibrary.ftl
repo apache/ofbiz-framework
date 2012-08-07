@@ -146,12 +146,16 @@ under the License.
                       jQuery("#${id}_i18n").val(newValue);
                   });
                   jQuery("#${id}_i18n").change(function() {
-                      var dateFormat = Date.CultureInfo.formatPatterns.shortDate<#if shortDateInput?exists && !shortDateInput> + " " + Date.CultureInfo.formatPatterns.longTime</#if>;
-                      var newValue = ""
-                      if (this.value != "") {
-                          var dateObj = Date.parseExact(this.value, dateFormat);
-                          var ofbizTime = "<#if shortDateInput?exists && shortDateInput>yyyy-MM-dd<#else>yyyy-MM-dd HH:mm:ss</#if>";
+                      var dateFormat = Date.CultureInfo.formatPatterns.shortDate<#if shortDateInput?exists && !shortDateInput> + " " + Date.CultureInfo.formatPatterns.longTime</#if>,
+                          newValue = "",
+                          dateObj = Date.parseExact(this.value, dateFormat),
+                          ofbizTime;
+                      if (this.value != "" && dateObj !== null) {
+                          ofbizTime = "<#if shortDateInput?exists && shortDateInput>yyyy-MM-dd<#else>yyyy-MM-dd HH:mm:ss</#if>";
                           newValue = dateObj.toString(ofbizTime);
+                      }
+                      else { // invalid input
+                          jQuery("#${id}_i18n").val("");
                       }
                       jQuery("#${id}").val(newValue);
                   });
