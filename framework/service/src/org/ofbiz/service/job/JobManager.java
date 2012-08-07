@@ -63,7 +63,6 @@ public final class JobManager {
 
     public static final String module = JobManager.class.getName();
     public static final String instanceId = UtilProperties.getPropertyValue("general.properties", "unique.instanceId", "ofbiz0");
-    public static final Map<String, Object> updateFields = UtilMisc.<String, Object>toMap("runByInstanceId", instanceId, "statusId", "SERVICE_QUEUED");
     private static final ConcurrentHashMap<String, JobManager> registeredManagers = new ConcurrentHashMap<String, JobManager>();
     private static boolean isShutDown = false;
 
@@ -150,7 +149,7 @@ public final class JobManager {
         assertIsRunning();
         DispatchContext dctx = getDispatcher().getDispatchContext();
         if (dctx == null) {
-            Debug.logError("Unable to locate DispatchContext object; not running job!", module);
+            Debug.logWarning("Unable to locate DispatchContext object; not running job!", module);
             return null;
         }
         List<Job> poll = FastList.newInstance();
@@ -176,13 +175,13 @@ public final class JobManager {
         try {
             beganTransaction = TransactionUtil.begin();
             if (!beganTransaction) {
-                Debug.logError("Unable to poll JobSandbox for jobs; transaction was not started by this process", module);
+                Debug.logWarning("Unable to poll JobSandbox for jobs; transaction was not started by this process", module);
                 return null;
             }
             jobsIterator = delegator.find("JobSandbox", mainCondition, null, null, UtilMisc.toList("runTime"), null);
             GenericValue jobValue = jobsIterator.next();
             while (jobValue != null) {
-                jobValue.putAll(updateFields);
+                jobValue.set("runByInstanceId", instanceId);  // Claim ownership of this value.
                 jobValue.store();
                 poll.add(new PersistedServiceJob(dctx, jobValue, null));
                 if (poll.size() == limit) {
@@ -191,14 +190,12 @@ public final class JobManager {
                 jobValue = jobsIterator.next();
             }
         } catch (Throwable t) {
-            // catch Throwable so nothing slips through the cracks... this is a fairly sensitive operation
             String errMsg = "Error in polling JobSandbox: [" + t.toString() + "]. Rolling back transaction.";
-            Debug.logError(t, errMsg, module);
+            Debug.logWarning(t, errMsg, module);
             try {
-                // only rollback the transaction if we started one...
                 TransactionUtil.rollback(beganTransaction, errMsg, t);
             } catch (GenericEntityException e2) {
-                Debug.logError(e2, "[Delegator] Could not rollback transaction: " + e2.toString(), module);
+                Debug.logWarning(e2, "[Delegator] Could not rollback transaction: " + e2.toString(), module);
             }
         } finally {
             if (jobsIterator != null) {
@@ -209,12 +206,10 @@ public final class JobManager {
                 }
             }
             try {
-                // only commit the transaction if we started one... but make sure we try
                 TransactionUtil.commit(beganTransaction);
             } catch (GenericTransactionException e) {
                 String errMsg = "Transaction error trying to commit when polling and updating the JobSandbox: " + e.toString();
-                // we don't really want to do anything different, so just log and move on
-                Debug.logError(e, errMsg, module);
+                Debug.logWarning(e, errMsg, module);
             }
         }
         return poll;
@@ -222,7 +217,9 @@ public final class JobManager {
 
     private void reloadCrashedJobs() {
         List<GenericValue> crashed = null;
-        List<EntityExpr> statusExprList = UtilMisc.toList(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "SERVICE_QUEUED"), EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "SERVICE_RUNNING"));
+        List<EntityExpr> statusExprList = UtilMisc.toList(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "SERVICE_PENDING"),
+                EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "SERVICE_QUEUED"),
+                EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "SERVICE_RUNNING"));
         EntityCondition statusCondition = EntityCondition.makeCondition(statusExprList, EntityOperator.OR);
         List<EntityExpr> poolsExpr = UtilMisc.toList(EntityCondition.makeCondition("poolId", EntityOperator.EQUALS, null));
         List<String> pools = ServiceConfigUtil.getRunPools();
@@ -236,13 +233,13 @@ public final class JobManager {
         try {
             crashed = delegator.findList("JobSandbox", mainCondition, null, UtilMisc.toList("startDateTime"), null, false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Unable to load crashed jobs", module);
+            Debug.logWarning(e, "Unable to load crashed jobs", module);
         }
         if (UtilValidate.isNotEmpty(crashed)) {
-            try {
-                int rescheduled = 0;
-                for (GenericValue job : crashed) {
-                    Timestamp now = UtilDateTime.nowTimestamp();
+            int rescheduled = 0;
+            Timestamp now = UtilDateTime.nowTimestamp();
+            for (GenericValue job : crashed) {
+                try {
                     Debug.logInfo("Scheduling Job : " + job, module);
                     String pJobId = job.getString("parentJobId");
                     if (pJobId == null) {
@@ -261,12 +258,12 @@ public final class JobManager {
                     job.set("cancelDateTime", now);
                     delegator.store(job);
                     rescheduled++;
+                } catch (GenericEntityException e) {
+                    Debug.logWarning(e, module);
                 }
-                if (Debug.infoOn())
-                    Debug.logInfo("-- " + rescheduled + " jobs re-scheduled", module);
-            } catch (GenericEntityException e) {
-                Debug.logError(e, module);
             }
+            if (Debug.infoOn())
+                Debug.logInfo("-- " + rescheduled + " jobs re-scheduled", module);
         } else {
             if (Debug.infoOn())
                 Debug.logInfo("No crashed jobs to re-schedule", module);

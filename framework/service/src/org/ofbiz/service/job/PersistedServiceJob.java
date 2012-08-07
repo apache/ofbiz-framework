@@ -20,7 +20,6 @@ package org.ofbiz.service.job;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import com.ibm.icu.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
@@ -28,14 +27,12 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastMap;
 
+import org.apache.commons.lang.StringUtils;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.service.calendar.RecurrenceInfoException;
-import org.ofbiz.service.calendar.TemporalExpression;
-import org.ofbiz.service.calendar.TemporalExpressionWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -47,10 +44,13 @@ import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericRequester;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.calendar.RecurrenceInfo;
+import org.ofbiz.service.calendar.RecurrenceInfoException;
+import org.ofbiz.service.calendar.TemporalExpression;
+import org.ofbiz.service.calendar.TemporalExpressionWorker;
 import org.ofbiz.service.config.ServiceConfigUtil;
 import org.xml.sax.SAXException;
 
-import org.apache.commons.lang.StringUtils;
+import com.ibm.icu.util.Calendar;
 
 /**
  * A {@link Job} that is backed by the entity engine. Job data is stored
@@ -100,13 +100,14 @@ public class PersistedServiceJob extends GenericServiceJob {
             // job not available
             throw new InvalidJobException("Job [" + getJobId() + "] is not available");
         } else {
-            // set the start time to now
-            jobValue.set("startDateTime", UtilDateTime.nowTimestamp());
-            jobValue.set("statusId", "SERVICE_RUNNING");
+            jobValue.set("statusId", "SERVICE_QUEUED");
             try {
                 jobValue.store();
             } catch (GenericEntityException e) {
                 throw new InvalidJobException("Unable to set the startDateTime and statusId on the current job [" + getJobId() + "]; not running!", e);
+            }
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Placing job [" + getJobId() + "] in queue", module);
             }
         }
     }
@@ -128,6 +129,16 @@ public class PersistedServiceJob extends GenericServiceJob {
         if (!instanceId.equals(jobValue.getString("runByInstanceId"))) {
             // This condition isn't possible, but we will leave it here.
             throw new InvalidJobException("Job has been accepted by a different instance!");
+        }
+        jobValue.set("startDateTime", UtilDateTime.nowTimestamp());
+        jobValue.set("statusId", "SERVICE_RUNNING");
+        try {
+            jobValue.store();
+        } catch (GenericEntityException e) {
+            throw new InvalidJobException("Unable to set the startDateTime and statusId on the current job [" + getJobId() + "]; not running!", e);
+        }
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Job [" + getJobId() + "] running", module);
         }
         // configure any additional recurrences
         long maxRecurrenceCount = -1;
@@ -330,5 +341,25 @@ public class PersistedServiceJob extends GenericServiceJob {
             Debug.logError(re, "Problem creating RecurrenceInfo instance: " + re.getMessage(), module);
         }
         return null;
+    }
+
+    @Override
+    public void deQueue() throws InvalidJobException {
+        if (currentState != State.QUEUED) {
+            throw new InvalidJobException("Illegal state change");
+        }
+        currentState = State.CREATED;
+        try {
+            jobValue.refresh();
+            jobValue.set("startDateTime", null);
+            jobValue.set("runByInstanceId", null);
+            jobValue.set("statusId", "SERVICE_PENDING");
+            jobValue.store();
+        } catch (GenericEntityException e) {
+            throw new InvalidJobException("Unable to dequeue job [" + getJobId() + "]", e);
+        }
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Job [" + getJobId() + "] not queued, rescheduling", module);
+        }
     }
 }
