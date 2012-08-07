@@ -33,8 +33,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.service.config.ServiceConfigUtil;
 
-import org.apache.commons.lang.math.NumberUtils;
-
 /**
  * Job poller. Queues and runs jobs.
  */
@@ -42,10 +40,11 @@ public final class JobPoller implements Runnable {
 
     public static final String module = JobPoller.class.getName();
     private static final AtomicInteger created = new AtomicInteger();
-    public static final int MIN_THREADS = 1;
-    public static final int MAX_THREADS = 15;
-    public static final int POLL_WAIT = 20000;
-    public static final long THREAD_TTL = 18000000;
+    private static final int MIN_THREADS = 1; // Must be no less than one or the executor will shut down.
+    private static final int MAX_THREADS = 5; // Values higher than 5 might slow things down.
+    private static final int POLL_WAIT = 30000; // Database polling interval - 30 seconds.
+    private static final int QUEUE_SIZE = 100;
+    private static final long THREAD_TTL = 120000; // Idle thread lifespan - 2 minutes.
 
     private final JobManager jm;
     private final ThreadPoolExecutor executor;
@@ -61,7 +60,7 @@ public final class JobPoller implements Runnable {
     public JobPoller(JobManager jm) {
         this.name = jm.getDelegator().getDelegatorName();
         this.jm = jm;
-        this.executor = new ThreadPoolExecutor(minThreads(), maxThreads(), getTTL(), TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(),
+        this.executor = new ThreadPoolExecutor(minThreads(), maxThreads(), getTTL(), TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(queueSize()),
                 new JobInvokerThreadFactory(this.name), new ThreadPoolExecutor.AbortPolicy());
     }
 
@@ -116,33 +115,48 @@ public final class JobPoller implements Runnable {
     }
 
     private long getTTL() {
-        long ttl = THREAD_TTL;
-        try {
-            ttl = NumberUtils.toLong(ServiceConfigUtil.getElementAttr("thread-pool", "ttl"));
-        } catch (NumberFormatException nfe) {
-            Debug.logError("Problems reading value from attribute [ttl] of element [thread-pool] in serviceengine.xml file [" + nfe.toString() + "]. Using default (" + THREAD_TTL + ").", module);
+        String threadTTLAttr = ServiceConfigUtil.getElementAttr("thread-pool", "ttl");
+        if (!threadTTLAttr.isEmpty()) {
+            try {
+                int threadTTL = Integer.parseInt(threadTTLAttr);
+                if (threadTTL > 0) {
+                    return threadTTL;
+                }
+            } catch (NumberFormatException e) {
+                Debug.logError("Exception thrown while parsing thread TTL from serviceengine.xml file [" + e + "]. Using default value.", module);
+            }
         }
-        return ttl;
+        return THREAD_TTL;
     }
 
     private int maxThreads() {
-        int max = MAX_THREADS;
-        try {
-            max = Integer.parseInt(ServiceConfigUtil.getElementAttr("thread-pool", "max-threads"));
-        } catch (NumberFormatException nfe) {
-            Debug.logError("Problems reading values from serviceengine.xml file [" + nfe.toString() + "]. Using defaults.", module);
+        String maxThreadsAttr = ServiceConfigUtil.getElementAttr("thread-pool", "max-threads");
+        if (!maxThreadsAttr.isEmpty()) {
+            try {
+                int maxThreads = Integer.parseInt(maxThreadsAttr);
+                if (maxThreads > 0) {
+                    return maxThreads;
+                }
+            } catch (NumberFormatException e) {
+                Debug.logError("Exception thrown while parsing maximum threads from serviceengine.xml file [" + e + "]. Using default value.", module);
+            }
         }
-        return max;
+        return MAX_THREADS;
     }
 
     private int minThreads() {
-        int min = MIN_THREADS;
-        try {
-            min = Integer.parseInt(ServiceConfigUtil.getElementAttr("thread-pool", "min-threads"));
-        } catch (NumberFormatException nfe) {
-            Debug.logError("Problems reading values from serviceengine.xml file [" + nfe.toString() + "]. Using defaults.", module);
+        String minThreadsAttr = ServiceConfigUtil.getElementAttr("thread-pool", "min-threads");
+        if (!minThreadsAttr.isEmpty()) {
+            try {
+                int minThreads = Integer.parseInt(minThreadsAttr);
+                if (minThreads > 0) {
+                    return minThreads;
+                }
+            } catch (NumberFormatException e) {
+                Debug.logError("Exception thrown while parsing minimum threads from serviceengine.xml file [" + e + "]. Using default value.", module);
+            }
         }
-        return min;
+        return MIN_THREADS;
     }
 
     private boolean pollEnabled() {
@@ -153,13 +167,33 @@ public final class JobPoller implements Runnable {
     }
 
     private int pollWaitTime() {
-        int poll = POLL_WAIT;
-        try {
-            poll = Integer.parseInt(ServiceConfigUtil.getElementAttr("thread-pool", "poll-db-millis"));
-        } catch (NumberFormatException nfe) {
-            Debug.logError("Problems reading values from serviceengine.xml file [" + nfe.toString() + "]. Using defaults.", module);
+        String pollIntervalAttr = ServiceConfigUtil.getElementAttr("thread-pool", "poll-db-millis");
+        if (!pollIntervalAttr.isEmpty()) {
+            try {
+                int pollInterval = Integer.parseInt(pollIntervalAttr);
+                if (pollInterval > 0) {
+                    return pollInterval;
+                }
+            } catch (NumberFormatException e) {
+                Debug.logError("Exception thrown while parsing database polling interval from serviceengine.xml file [" + e + "]. Using default value.", module);
+            }
         }
-        return poll;
+        return POLL_WAIT;
+    }
+
+    private int queueSize() {
+        String queueSizeAttr = ServiceConfigUtil.getElementAttr("thread-pool", "jobs");
+        if (!queueSizeAttr.isEmpty()) {
+            try {
+                int queueSize = Integer.parseInt(queueSizeAttr);
+                if (queueSize > 0) {
+                    return queueSize;
+                }
+            } catch (NumberFormatException e) {
+                Debug.logError("Exception thrown while parsing queue size from serviceengine.xml file [" + e + "]. Using default value.", module);
+            }
+        }
+        return QUEUE_SIZE;
     }
 
     /**
@@ -172,29 +206,28 @@ public final class JobPoller implements Runnable {
         this.executor.execute(new JobInvoker(job));
     }
 
-    public synchronized void run() {
+    public void run() {
         try {
             // wait 30 seconds before the first poll
-            java.lang.Thread.sleep(30000);
-        } catch (InterruptedException e) {
-        }
-        while (!executor.isShutdown()) {
-            try {
-                // grab a list of jobs to run.
-                List<Job> pollList = jm.poll();
-                for (Job job : pollList) {
-                    try {
-                        queueNow(job);
-                    } catch (InvalidJobException e) {
-                        Debug.logError(e, module);
+            Thread.sleep(30000);
+            while (!executor.isShutdown()) {
+                int remainingCapacity = executor.getQueue().remainingCapacity();
+                if (remainingCapacity > 0) {
+                    List<Job> pollList = jm.poll(remainingCapacity);
+                    for (Job job : pollList) {
+                        try {
+                            queueNow(job);
+                        } catch (InvalidJobException e) {
+                            Debug.logError(e, module);
+                        }
                     }
                 }
-                // NOTE: using sleep instead of wait for stricter locking
-                java.lang.Thread.sleep(pollWaitTime());
-            } catch (InterruptedException e) {
-                Debug.logError(e, module);
-                stop();
+                Thread.sleep(pollWaitTime());
             }
+        } catch (InterruptedException e) {
+            Debug.logError(e, module);
+            stop();
+            Thread.currentThread().interrupt();
         }
         Debug.logInfo("JobPoller " + this.name + " thread terminated.", module);
     }
@@ -234,7 +267,7 @@ public final class JobPoller implements Runnable {
         }
 
         public Thread newThread(Runnable runnable) {
-            return new Thread(runnable, "OFBiz-JobInvoker-" + poolName + "-" + created.getAndIncrement());
+            return new Thread(runnable, "OFBiz-JobQueue-" + poolName + "-" + created.getAndIncrement());
         }
     }
 }
