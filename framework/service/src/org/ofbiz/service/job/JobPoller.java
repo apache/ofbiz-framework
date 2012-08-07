@@ -203,7 +203,11 @@ public final class JobPoller implements Runnable {
      */
     public void queueNow(Job job) throws InvalidJobException {
         job.queue();
-        this.executor.execute(new JobInvoker(job));
+        try {
+            this.executor.execute(new JobInvoker(job));
+        } catch (Exception e) {
+            job.deQueue();
+        }
     }
 
     public void run() {

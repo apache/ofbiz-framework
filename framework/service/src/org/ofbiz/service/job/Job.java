@@ -60,7 +60,13 @@ public interface Job {
     boolean isValid();
 
     /**
-     * Transitions the job to the queued state.
+     * Transitions this job to the pre-queued (created) state. The job manager
+     * will call this method when there was a problem adding this job to the queue.
+     */
+    void deQueue() throws InvalidJobException;
+
+    /**
+     * Transitions this job to the queued state.
      */
     void queue() throws InvalidJobException;
 }
