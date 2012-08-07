@@ -38,13 +38,13 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.serialize.SerializeException;
 import org.ofbiz.entity.serialize.XmlSerializer;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
+import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceContainer;
@@ -146,7 +146,7 @@ public final class JobManager {
      * Returns an empty list if there are no jobs due to run.
      * This method is called by the {@link JobPoller} polling thread.
      */
-    protected synchronized List<Job> poll() {
+    protected List<Job> poll(int limit) {
         assertIsRunning();
         DispatchContext dctx = getDispatcher().getDispatchContext();
         if (dctx == null) {
@@ -154,8 +154,6 @@ public final class JobManager {
             return null;
         }
         List<Job> poll = FastList.newInstance();
-        // sort the results by time
-        List<String> order = UtilMisc.toList("runTime");
         // basic query
         List<EntityExpr> expressions = UtilMisc.toList(EntityCondition.makeCondition("runTime", EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.nowTimestamp()),
                 EntityCondition.makeCondition("startDateTime", EntityOperator.EQUALS, null),
@@ -173,21 +171,24 @@ public final class JobManager {
         EntityCondition baseCondition = EntityCondition.makeCondition(expressions);
         EntityCondition poolCondition = EntityCondition.makeCondition(poolsExpr, EntityOperator.OR);
         EntityCondition mainCondition = EntityCondition.makeCondition(UtilMisc.toList(baseCondition, poolCondition));
+        EntityListIterator jobsIterator = null;
         boolean beganTransaction = false;
         try {
             beganTransaction = TransactionUtil.begin();
             if (!beganTransaction) {
-                Debug.logError("Unable to poll for jobs; transaction was not started by this process", module);
+                Debug.logError("Unable to poll JobSandbox for jobs; transaction was not started by this process", module);
                 return null;
             }
-            // first update the jobs w/ this instance running information
-            delegator.storeByCondition("JobSandbox", updateFields, mainCondition);
-            // now query all the 'queued' jobs for this instance
-            List<GenericValue> jobEnt = delegator.findByAnd("JobSandbox", updateFields, order, false);
-            if (UtilValidate.isNotEmpty(jobEnt)) {
-                for (GenericValue v : jobEnt) {
-                    poll.add(new PersistedServiceJob(dctx, v, null)); // TODO fix the requester
+            jobsIterator = delegator.find("JobSandbox", mainCondition, null, null, UtilMisc.toList("runTime"), null);
+            GenericValue jobValue = jobsIterator.next();
+            while (jobValue != null) {
+                jobValue.putAll(updateFields);
+                jobValue.store();
+                poll.add(new PersistedServiceJob(dctx, jobValue, null));
+                if (poll.size() == limit) {
+                    break;
                 }
+                jobValue = jobsIterator.next();
             }
         } catch (Throwable t) {
             // catch Throwable so nothing slips through the cracks... this is a fairly sensitive operation
@@ -200,6 +201,13 @@ public final class JobManager {
                 Debug.logError(e2, "[Delegator] Could not rollback transaction: " + e2.toString(), module);
             }
         } finally {
+            if (jobsIterator != null) {
+                try {
+                    jobsIterator.close();
+                } catch (GenericEntityException e) {
+                    Debug.logWarning(e, module);
+                }
+            }
             try {
                 // only commit the transaction if we started one... but make sure we try
                 TransactionUtil.commit(beganTransaction);
@@ -214,11 +222,19 @@ public final class JobManager {
 
     private void reloadCrashedJobs() {
         List<GenericValue> crashed = null;
-        List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("runByInstanceId", instanceId));
-        exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "SERVICE_RUNNING"));
-        EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(exprs);
+        List<EntityExpr> statusExprList = UtilMisc.toList(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "SERVICE_QUEUED"), EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "SERVICE_RUNNING"));
+        EntityCondition statusCondition = EntityCondition.makeCondition(statusExprList, EntityOperator.OR);
+        List<EntityExpr> poolsExpr = UtilMisc.toList(EntityCondition.makeCondition("poolId", EntityOperator.EQUALS, null));
+        List<String> pools = ServiceConfigUtil.getRunPools();
+        if (pools != null) {
+            for (String poolName : pools) {
+                poolsExpr.add(EntityCondition.makeCondition("poolId", EntityOperator.EQUALS, poolName));
+            }
+        }
+        EntityCondition poolCondition = EntityCondition.makeCondition(poolsExpr, EntityOperator.OR);
+        EntityCondition mainCondition = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("runByInstanceId", instanceId), statusCondition, poolCondition));
         try {
-            crashed = delegator.findList("JobSandbox", ecl, null, UtilMisc.toList("startDateTime"), null, false);
+            crashed = delegator.findList("JobSandbox", mainCondition, null, UtilMisc.toList("startDateTime"), null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to load crashed jobs", module);
         }

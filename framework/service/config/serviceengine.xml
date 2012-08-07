@@ -25,15 +25,16 @@ under the License.
         <!-- Name of the service to use for authorization -->
         <authorization service-name="userLogin"/>
 
-        <!-- Thread pool configuration (max/min threads, uses to live and time to live) -->
+        <!-- Job poller configuration. Many of these attributes are set to the job poller defaults, but they are included here for convenience. -->
         <thread-pool send-to-pool="pool"
                      purge-job-days="4"
                      failed-retry-min="3"
-                     ttl="18000000"
-                     min-threads="5"
-                     max-threads="15"
+                     ttl="120000"
+                     jobs="100"
+                     min-threads="2"
+                     max-threads="5"
                      poll-enabled="true"
-                     poll-db-millis="20000">
+                     poll-db-millis="30000">
             <run-from-pool name="pool"/>
         </thread-pool>
 
