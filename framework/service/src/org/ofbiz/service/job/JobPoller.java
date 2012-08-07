@@ -25,8 +25,10 @@ import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.RejectedExecutionException;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.service.config.ServiceConfigUtil;
@@ -39,6 +41,7 @@ import org.apache.commons.lang.math.NumberUtils;
 public final class JobPoller implements Runnable {
 
     public static final String module = JobPoller.class.getName();
+    private static final AtomicInteger created = new AtomicInteger();
     public static final int MIN_THREADS = 1;
     public static final int MAX_THREADS = 15;
     public static final int POLL_WAIT = 20000;
@@ -220,5 +223,18 @@ public final class JobPoller implements Runnable {
             Thread.currentThread().interrupt();
         }
         Debug.logInfo("Shutdown completed of thread pool for JobPoller " + this.name, module);
+    }
+
+
+    private class JobInvokerThreadFactory implements ThreadFactory {
+        private final String poolName;
+
+        public JobInvokerThreadFactory(String poolName) {
+            this.poolName = poolName;
+        }
+
+        public Thread newThread(Runnable runnable) {
+            return new Thread(runnable, "OFBiz-JobInvoker-" + poolName + "-" + created.getAndIncrement());
+        }
     }
 }
