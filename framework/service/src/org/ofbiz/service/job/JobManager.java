@@ -226,7 +226,13 @@ public final class JobManager {
             List<EntityExpr> canExp = UtilMisc.toList(EntityCondition.makeCondition("cancelDateTime", EntityOperator.NOT_EQUAL, null), EntityCondition.makeCondition("cancelDateTime", EntityOperator.LESS_THAN, purgeTime));
             EntityCondition doneCond = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition(canExp), EntityCondition.makeCondition(finExp)), EntityOperator.OR);
             mainCondition = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("runByInstanceId", instanceId), doneCond));
+            beganTransaction = false;
             try {
+                beganTransaction = TransactionUtil.begin();
+                if (!beganTransaction) {
+                    Debug.logWarning("Unable to poll JobSandbox for jobs; transaction was not started by this process", module);
+                    return poll;
+                }
                 jobsIterator = delegator.find("JobSandbox", mainCondition, null, null, UtilMisc.toList("jobId"), null);
                 GenericValue jobValue = jobsIterator.next();
                 while (jobValue != null) {
@@ -238,7 +244,13 @@ public final class JobManager {
                 }
             } catch (Throwable t) {
                 poll.clear();
-                Debug.logWarning(t, "Exception thrown while polling JobSandbox: ", module);
+                String errMsg =  "Exception thrown while polling JobSandbox: ";
+                Debug.logWarning(t, errMsg, module);
+                try {
+                    TransactionUtil.rollback(beganTransaction, errMsg + t.getMessage(), t);
+                } catch (GenericEntityException e) {
+                    Debug.logWarning(e, "Exception thrown while rolling back transaction: ", module);
+                }
             } finally {
                 if (jobsIterator != null) {
                     try {
@@ -246,6 +258,11 @@ public final class JobManager {
                     } catch (GenericEntityException e) {
                         Debug.logWarning(e, module);
                     }
+                }
+                try {
+                    TransactionUtil.commit(beganTransaction);
+                } catch (GenericTransactionException e) {
+                    Debug.logWarning(e, "Transaction error trying to commit when polling the JobSandbox: ", module);
                 }
             }
         }
