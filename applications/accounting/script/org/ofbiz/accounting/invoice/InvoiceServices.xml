@@ -40,7 +40,7 @@ under the License.
             <set field="customMethodName" from-field="customMethod.customMethodName"/>
             <else><!-- retreive service from deprecated enumeration -->
                 <if-compare operator="equals" value="INVSQ_ENF_SEQ" field="partyAcctgPreference.oldInvoiceSequenceEnumId">
-                    <set field="customMethodName" value="invoiceSequence-enforced"/>
+                    <set field="customMethodName" value="invoiceSequenceEnforced"/>
                 </if-compare>
                 <if-compare operator="equals" value="INVSQ_RESTARTYR" field="partyAcctgPreference.oldInvoiceSequenceEnumId">
                     <set field="customMethodName" value="invoiceSequenceRestart"/>
