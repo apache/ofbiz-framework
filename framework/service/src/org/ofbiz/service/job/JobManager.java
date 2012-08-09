@@ -20,13 +20,12 @@ package org.ofbiz.service.job;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.RejectedExecutionException;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.Assert;
 import org.ofbiz.base.util.Debug;
@@ -147,12 +146,12 @@ public final class JobManager {
      */
     protected List<Job> poll(int limit) {
         assertIsRunning();
+        List<Job> poll = new ArrayList<Job>(limit);
         DispatchContext dctx = getDispatcher().getDispatchContext();
         if (dctx == null) {
             Debug.logWarning("Unable to locate DispatchContext object; not running job!", module);
-            return null;
+            return poll;
         }
-        List<Job> poll = FastList.newInstance();
         // basic query
         List<EntityExpr> expressions = UtilMisc.toList(EntityCondition.makeCondition("runTime", EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.nowTimestamp()),
                 EntityCondition.makeCondition("startDateTime", EntityOperator.EQUALS, null),
@@ -176,7 +175,7 @@ public final class JobManager {
             beganTransaction = TransactionUtil.begin();
             if (!beganTransaction) {
                 Debug.logWarning("Unable to poll JobSandbox for jobs; transaction was not started by this process", module);
-                return null;
+                return poll;
             }
             jobsIterator = delegator.find("JobSandbox", mainCondition, null, null, UtilMisc.toList("runTime"), null);
             GenericValue jobValue = jobsIterator.next();
@@ -190,12 +189,13 @@ public final class JobManager {
                 jobValue = jobsIterator.next();
             }
         } catch (Throwable t) {
-            String errMsg = "Error in polling JobSandbox: [" + t.toString() + "]. Rolling back transaction.";
+            poll.clear();
+            String errMsg =  "Exception thrown while polling JobSandbox: ";
             Debug.logWarning(t, errMsg, module);
             try {
-                TransactionUtil.rollback(beganTransaction, errMsg, t);
-            } catch (GenericEntityException e2) {
-                Debug.logWarning(e2, "[Delegator] Could not rollback transaction: " + e2.toString(), module);
+                TransactionUtil.rollback(beganTransaction, errMsg + t.getMessage(), t);
+            } catch (GenericEntityException e) {
+                Debug.logWarning(e, "Exception thrown while rolling back transaction: ", module);
             }
         } finally {
             if (jobsIterator != null) {
@@ -208,8 +208,7 @@ public final class JobManager {
             try {
                 TransactionUtil.commit(beganTransaction);
             } catch (GenericTransactionException e) {
-                String errMsg = "Transaction error trying to commit when polling and updating the JobSandbox: " + e.toString();
-                Debug.logWarning(e, errMsg, module);
+                Debug.logWarning(e, "Transaction error trying to commit when polling and updating the JobSandbox: ", module);
             }
         }
         return poll;
