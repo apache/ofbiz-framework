@@ -51,6 +51,8 @@ import org.ofbiz.service.calendar.RecurrenceInfo;
 import org.ofbiz.service.calendar.RecurrenceInfoException;
 import org.ofbiz.service.config.ServiceConfigUtil;
 
+import com.ibm.icu.util.Calendar;
+
 /**
  * Job manager. The job manager queues jobs. It contains a <code>JobPoller</code> and a
  * <code>Delegator</code>. Client code can queue a job to be run immediately by calling the
@@ -146,6 +148,9 @@ public final class JobManager {
      */
     protected List<Job> poll(int limit) {
         assertIsRunning();
+        // The rest of this method logs exceptions and does not throw them.
+        // The idea is to keep the JobPoller working even when a database
+        // connection is not available (possible on a saturated server).
         List<Job> poll = new ArrayList<Job>(limit);
         DispatchContext dctx = getDispatcher().getDispatchContext();
         if (dctx == null) {
@@ -209,6 +214,39 @@ public final class JobManager {
                 TransactionUtil.commit(beganTransaction);
             } catch (GenericTransactionException e) {
                 Debug.logWarning(e, "Transaction error trying to commit when polling and updating the JobSandbox: ", module);
+            }
+        }
+        if (poll.isEmpty()) {
+            // No jobs to run, see if there are any jobs to purge
+            int daysToKeep = ServiceConfigUtil.getPurgeJobDays();
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.DAY_OF_YEAR, -daysToKeep);
+            Timestamp purgeTime = new Timestamp(cal.getTimeInMillis());
+            List<EntityExpr> finExp = UtilMisc.toList(EntityCondition.makeCondition("finishDateTime", EntityOperator.NOT_EQUAL, null), EntityCondition.makeCondition("finishDateTime", EntityOperator.LESS_THAN, purgeTime));
+            List<EntityExpr> canExp = UtilMisc.toList(EntityCondition.makeCondition("cancelDateTime", EntityOperator.NOT_EQUAL, null), EntityCondition.makeCondition("cancelDateTime", EntityOperator.LESS_THAN, purgeTime));
+            EntityCondition doneCond = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition(canExp), EntityCondition.makeCondition(finExp)), EntityOperator.OR);
+            mainCondition = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("runByInstanceId", instanceId), doneCond));
+            try {
+                jobsIterator = delegator.find("JobSandbox", mainCondition, null, null, UtilMisc.toList("jobId"), null);
+                GenericValue jobValue = jobsIterator.next();
+                while (jobValue != null) {
+                    poll.add(new PurgeJob(jobValue));
+                    if (poll.size() == limit) {
+                        break;
+                    }
+                    jobValue = jobsIterator.next();
+                }
+            } catch (Throwable t) {
+                poll.clear();
+                Debug.logWarning(t, "Exception thrown while polling JobSandbox: ", module);
+            } finally {
+                if (jobsIterator != null) {
+                    try {
+                        jobsIterator.close();
+                    } catch (GenericEntityException e) {
+                        Debug.logWarning(e, module);
+                    }
+                }
             }
         }
         return poll;
