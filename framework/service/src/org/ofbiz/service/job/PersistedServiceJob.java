@@ -31,7 +31,6 @@ import org.apache.commons.lang.StringUtils;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -94,6 +93,14 @@ public class PersistedServiceJob extends GenericServiceJob {
     @Override
     public void queue() throws InvalidJobException {
         super.queue();
+        try {
+            jobValue.refresh();
+        } catch (GenericEntityException e) {
+            throw new InvalidJobException("Unable to refresh JobSandbox value", e);
+        }
+        if (!JobManager.instanceId.equals(jobValue.getString("runByInstanceId"))) {
+            throw new InvalidJobException("Job has been accepted by a different instance");
+        }
         Timestamp cancelTime = jobValue.getTimestamp("cancelDateTime");
         Timestamp startTime = jobValue.getTimestamp("startDateTime");
         if (cancelTime != null || startTime != null) {
@@ -116,19 +123,16 @@ public class PersistedServiceJob extends GenericServiceJob {
     protected void init() throws InvalidJobException {
         super.init();
         try {
-            // Job might have been canceled after it was placed in the queue.
             jobValue.refresh();
         } catch (GenericEntityException e) {
             throw new InvalidJobException("Unable to refresh JobSandbox value", e);
         }
+        if (!JobManager.instanceId.equals(jobValue.getString("runByInstanceId"))) {
+            throw new InvalidJobException("Job has been accepted by a different instance");
+        }
         if (jobValue.getTimestamp("cancelDateTime") != null) {
             // Job cancelled
             throw new InvalidJobException("Job [" + getJobId() + "] was cancelled");
-        }
-        String instanceId = UtilProperties.getPropertyValue("general.properties", "unique.instanceId", "ofbiz0");
-        if (!instanceId.equals(jobValue.getString("runByInstanceId"))) {
-            // This condition isn't possible, but we will leave it here.
-            throw new InvalidJobException("Job has been accepted by a different instance!");
         }
         jobValue.set("startDateTime", UtilDateTime.nowTimestamp());
         jobValue.set("statusId", "SERVICE_RUNNING");

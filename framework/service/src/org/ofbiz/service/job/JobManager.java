@@ -185,11 +185,14 @@ public final class JobManager {
             jobsIterator = delegator.find("JobSandbox", mainCondition, null, null, UtilMisc.toList("runTime"), null);
             GenericValue jobValue = jobsIterator.next();
             while (jobValue != null) {
-                jobValue.set("runByInstanceId", instanceId);  // Claim ownership of this value.
-                jobValue.store();
-                poll.add(new PersistedServiceJob(dctx, jobValue, null));
-                if (poll.size() == limit) {
-                    break;
+                // Claim ownership of this value. Using storeByCondition to avoid a race condition.
+                List<EntityExpr> updateExpression = UtilMisc.toList(EntityCondition.makeCondition("jobId", EntityOperator.EQUALS, jobValue.get("jobId")), EntityCondition.makeCondition("runByInstanceId", EntityOperator.EQUALS, null));
+                int rowsUpdated = delegator.storeByCondition("JobSandbox", UtilMisc.toMap("runByInstanceId", instanceId), EntityCondition.makeCondition(updateExpression));
+                if (rowsUpdated == 1) {
+                    poll.add(new PersistedServiceJob(dctx, jobValue, null));
+                    if (poll.size() == limit) {
+                        break;
+                    }
                 }
                 jobValue = jobsIterator.next();
             }
