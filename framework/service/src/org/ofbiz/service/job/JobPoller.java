@@ -241,23 +241,14 @@ public final class JobPoller implements Runnable {
      */
     void stop() {
         Debug.logInfo("Shutting down thread pool for JobPoller " + this.name, module);
-        this.executor.shutdown();
-        try {
-            // Wait 60 seconds for existing tasks to terminate
-            if (!this.executor.awaitTermination(60, TimeUnit.SECONDS)) {
-                // abrupt shutdown (cancel currently executing tasks)
-                Debug.logInfo("Attempting abrupt shut down of thread pool for JobPoller " + this.name, module);
-                this.executor.shutdownNow();
-                // Wait 60 seconds for tasks to respond to being cancelled
-                if (!this.executor.awaitTermination(60, TimeUnit.SECONDS)) {
-                    Debug.logWarning("Unable to shutdown the thread pool for JobPoller " + this.name, module);
-                }
+        List<Runnable> queuedJobs = this.executor.shutdownNow();
+        for (Runnable task : queuedJobs) {
+            try {
+                Job queuedJob = (Job) task;
+                queuedJob.deQueue();
+            } catch (Exception e) {
+                Debug.logWarning(e, module);
             }
-        } catch (InterruptedException ie) {
-            // re cancel if current thread was also interrupted
-            this.executor.shutdownNow();
-            // preserve interrupt status
-            Thread.currentThread().interrupt();
         }
         Debug.logInfo("Shutdown completed of thread pool for JobPoller " + this.name, module);
     }
