@@ -278,15 +278,7 @@ public final class JobManager {
                 EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "SERVICE_QUEUED"),
                 EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "SERVICE_RUNNING"));
         EntityCondition statusCondition = EntityCondition.makeCondition(statusExprList, EntityOperator.OR);
-        List<EntityExpr> poolsExpr = UtilMisc.toList(EntityCondition.makeCondition("poolId", EntityOperator.EQUALS, null));
-        List<String> pools = ServiceConfigUtil.getRunPools();
-        if (pools != null) {
-            for (String poolName : pools) {
-                poolsExpr.add(EntityCondition.makeCondition("poolId", EntityOperator.EQUALS, poolName));
-            }
-        }
-        EntityCondition poolCondition = EntityCondition.makeCondition(poolsExpr, EntityOperator.OR);
-        EntityCondition mainCondition = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("runByInstanceId", instanceId), statusCondition, poolCondition));
+        EntityCondition mainCondition = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("runByInstanceId", instanceId), statusCondition));
         try {
             crashed = delegator.findList("JobSandbox", mainCondition, null, UtilMisc.toList("startDateTime"), null, false);
         } catch (GenericEntityException e) {
