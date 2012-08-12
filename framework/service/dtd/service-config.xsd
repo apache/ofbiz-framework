@@ -56,40 +56,101 @@ under the License.
         <xs:attribute type="xs:string" name="service-name" use="required"/>
     </xs:attributeGroup>
     <xs:element name="thread-pool">
+        <xs:annotation>
+            <xs:documentation>
+                Configures the Job Manager and Job Poller.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="run-from-pool" minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The Job Pool(s) this server should service. Only valid when the
+                            thread-pool element poll-enabled attribute is set to "true".
+                            A database can contain any number of job pools, and different
+                            servers can service different pools. Since the pools are in a common
+                            (shared) database, there is the potential for database locking problems
+                            when multiple servers service the pools.
+                        </xs:documentation>
+                    </xs:annotation>
                     <xs:complexType>
                         <xs:attribute type="xs:string" name="name" use="required" />
                     </xs:complexType>
                 </xs:element>
             </xs:sequence>
-            <xs:attribute type="xs:string" name="send-to-pool" use="required" />
-            <xs:attribute type="xs:nonNegativeInteger" name="purge-job-days" default="30" />
-            <xs:attribute type="xs:nonNegativeInteger" name="failed-retry-min" default="30" />
+            <xs:attribute type="xs:string" name="send-to-pool" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The Job Pool that jobs originating on this server should be sent to.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:nonNegativeInteger" name="purge-job-days" default="30">
+                <xs:annotation>
+                    <xs:documentation>
+                        The number of days to keep completed/canceled jobs in the database.
+                        Only valid when the poll-enabled attribute is set to "true".
+                        This value should be reduced for applications that create a lot of jobs.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:nonNegativeInteger" name="failed-retry-min" default="30">
+                <xs:annotation>
+                    <xs:documentation>
+                        The number of minutes to wait before retrying a failed job.
+                        Only valid when the poll-enabled attribute is set to "true".
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
             <xs:attribute type="xs:nonNegativeInteger" name="ttl">
                 <xs:annotation>
-                    <xs:documentation>Idle queue service thread lifespan in milliseconds. Defaults to "120000" (2 minutes).</xs:documentation>
+                    <xs:documentation>
+                        Idle queue service thread lifespan in milliseconds. Defaults to "120000" (2 minutes).
+                        This setting should be a multiple of the poll-db-millis attribute value. If there are
+                        no jobs after multiple database polls, then idle queue service threads should be
+                        released - to help keep the system responsive.
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute type="xs:nonNegativeInteger" name="jobs">
                 <xs:annotation>
-                    <xs:documentation>Job queue size. Defaults to "100".</xs:documentation>
+                    <xs:documentation>
+                        Job queue size. Defaults to "100".
+                        The default setting is for "normal" installations. If an application generates a lot of jobs,
+                        then this setting should be increased. If you are getting "Unable to queue job"
+                        exceptions, then increase this setting gradually until the exceptions stop appearing. 
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute type="xs:nonNegativeInteger" name="min-threads">
                 <xs:annotation>
-                    <xs:documentation>Minimum number of queue service threads. Defaults to "1".</xs:documentation>
+                    <xs:documentation>
+                        Minimum number of queue service threads. Defaults to "1".
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute type="xs:nonNegativeInteger" name="max-threads">
                 <xs:annotation>
-                    <xs:documentation>Maximum number of queue service threads. Defaults to "5".</xs:documentation>
+                    <xs:documentation>
+                        Maximum number of queue service threads. Defaults to "5".
+                        The Job Poller will add jobs to the job queue until it is full, then it will add
+                        queue service threads until the maximum in this setting is reached. The additional
+                        queue service threads are released when they are idle for the period of time
+                        set in the ttl attribute.
+                        The default setting is for a server with two CPUs. The value can be increased
+                        on servers with more CPUs. Higher values do not always result in better throughput -
+                        additional threads can slow the server down because of thread maintenance overhead.
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute name="poll-enabled">
                 <xs:annotation>
-                    <xs:documentation>Enable database polling. Defaults to "true".</xs:documentation>
+                    <xs:documentation>
+                        Enable database polling. Defaults to "true".
+                        In multi-server (load balanced) environments, only one server should have this
+                        attribute set to "true" - otherwise you might experience database locking problems.
+                    </xs:documentation>
                 </xs:annotation>
                 <xs:simpleType>
                     <xs:restriction base="xs:token">
@@ -100,7 +161,14 @@ under the License.
             </xs:attribute>
             <xs:attribute type="xs:nonNegativeInteger" name="poll-db-millis">
                 <xs:annotation>
-                    <xs:documentation>Database polling interval in milliseconds. Defaults to "30000" (30 seconds).</xs:documentation>
+                    <xs:documentation>
+                        Database polling interval in milliseconds. Defaults to "30000" (30 seconds).
+                        Only valid when the poll-enabled attribute is set to "true".
+                        When the database is polled, there will be a burst of activity (database "hits")
+                        while the Job Manager queues jobs, then after the burst each queued job will
+                        update the database after it runs. Decreasing this value will increase database activity.
+                        Increasing this value will reduce the timeliness of job servicing.
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
         </xs:complexType>
