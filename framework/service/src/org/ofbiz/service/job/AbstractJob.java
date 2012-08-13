@@ -57,4 +57,12 @@ public abstract class AbstractJob implements Job {
         }
         this.currentState = State.QUEUED;
     }
+
+    @Override
+    public void deQueue() throws InvalidJobException {
+        if (currentState != State.QUEUED) {
+            throw new InvalidJobException("Illegal state change");
+        }
+        this.currentState = State.CREATED;
+    }
 }
