@@ -51,10 +51,12 @@ under the License.
          }
      }
      function hideShowUsaStates() {
-         if (document.getElementById('customerCountry').value == "USA" || document.getElementById('customerCountry').value == "UMI") {
-             document.getElementById('customerState').style.display = "block";
+		 var customerStateElement = document.getElementById('newuserform_stateProvinceGeoId');
+     	 var customerCountryElement = document.getElementById('newuserform_countryGeoId');
+         if (customerCountryElement.value == "USA" || customerCountryElement.value == "UMI") {
+             customerStateElement.style.display = "block";
          } else {
-             document.getElementById('customerState').style.display = "none";
+             customerStateElement.style.display = "none";
          }
      }
    //]]>
