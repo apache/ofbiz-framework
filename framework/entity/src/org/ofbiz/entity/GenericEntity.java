@@ -650,12 +650,8 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
     public Double getDouble(String name) {
         // this "hack" is needed for now until the Double/BigDecimal issues are all resolved
         Object value = get(name);
-        if (value != null) {
-            try {
-                BigDecimal numValue = (BigDecimal) value;
-                return new Double(numValue.doubleValue());
-            } catch (ClassCastException e) {
-            }
+        if (value instanceof BigDecimal) {
+            return new Double(((BigDecimal) value).doubleValue());
         }
         return (Double) value;
     }
@@ -664,12 +660,8 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         // this "hack" is needed for now until the Double/BigDecimal issues are all resolved
         // NOTE: for things to generally work properly BigDecimal should really be used as the java-type in the field type def XML files
         Object value = get(name);
-        if (value != null) {
-            try {
-                Double numValue = (Double) value;
-                return new BigDecimal(numValue.doubleValue());
-            } catch (ClassCastException e) {
-            }
+        if (value instanceof Double) {
+            return new BigDecimal(((Double) value).doubleValue());
         }
         return (BigDecimal) value;
     }
