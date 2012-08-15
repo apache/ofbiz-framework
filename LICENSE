@@ -31,7 +31,7 @@ ofbiz/trunk/framework/base/lib/jpim-0.1.jar
 ofbiz/trunk/framework/base/lib/juel-2.2.1.jar
 ofbiz/trunk/framework/base/lib/mx4j-3.0.1.jar
 ofbiz/trunk/framework/base/lib/mx4j-remote-3.0.1.jar
-ofbiz/trunk/framework/base/lib/nekohtml.jar
+ofbiz/trunk/framework/base/lib/nekohtml-1.9.16.jar
 ofbiz/trunk/framework/base/lib/resolver-2.9.1.jar
 ofbiz/trunk/framework/base/lib/serializer-2.9.1.jar
 ofbiz/trunk/framework/base/lib/ws-commons-java5-1.0.1.jar
