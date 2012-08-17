@@ -92,8 +92,7 @@ public class SearchWorker {
     }
 
     public static void indexContentList(List<String> idList, Delegator delegator, LocalDispatcher dispatcher, Map<String, Object> context) throws Exception {
-        String path = null;
-        indexContentList(dispatcher, delegator, context, idList, path);
+        indexContentList(dispatcher, delegator, context, idList, null);
     }
 
     public static void indexContentList(LocalDispatcher dispatcher, Delegator delegator, Map<String, Object> context,List<String> idList, String path) throws Exception {
