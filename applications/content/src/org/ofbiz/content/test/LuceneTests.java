@@ -85,9 +85,9 @@ public class LuceneTests extends OFBizTestCase {
         String queryLine = "hand";
 
         IndexSearcher searcher = new IndexSearcher(r);
-        Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_35);
+        Analyzer analyzer = new StandardAnalyzer(SearchWorker.LUCENE_VERSION);
 
-        QueryParser parser = new QueryParser(Version.LUCENE_35, "content", analyzer);
+        QueryParser parser = new QueryParser(SearchWorker.LUCENE_VERSION, "content", analyzer);
         Query query = parser.parse(queryLine);
         combQuery.add(query, BooleanClause.Occur.MUST);
 

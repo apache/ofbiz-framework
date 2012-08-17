@@ -58,6 +58,8 @@ public class SearchWorker {
 
     public static final String module = SearchWorker.class.getName();
 
+    public static final Version LUCENE_VERSION = Version.LUCENE_35;
+
     public static Map<String, Object> indexTree(LocalDispatcher dispatcher, Delegator delegator, String siteId, Map<String, Object> context, String path) throws Exception {
         Map<String, Object> results = FastMap.newInstance();
         GenericValue content = delegator.makeValue("Content", UtilMisc.toMap("contentId", siteId));
@@ -95,24 +97,21 @@ public class SearchWorker {
         indexContentList(dispatcher, delegator, context, idList, null);
     }
 
-    public static void indexContentList(LocalDispatcher dispatcher, Delegator delegator, Map<String, Object> context,List<String> idList, String path) throws Exception {
+    public static void indexContentList(LocalDispatcher dispatcher, Delegator delegator, Map<String, Object> context, List<String> idList, String path) throws Exception {
         Directory directory = FSDirectory.open(new File(getIndexPath(path)));
         if (Debug.infoOn()) Debug.logInfo("in indexContent, indexAllPath: " + directory.toString(), module);
-        GenericValue content = null;
         // Delete existing documents
-        List<GenericValue> contentList = null;
         IndexReader reader = null;
         try {
             reader = IndexReader.open(directory, false);
         } catch (Exception e) {
             // ignore
         }
-
-        contentList = FastList.newInstance();
+        List<GenericValue> contentList = FastList.newInstance();
         for (String id : idList) {
             if (Debug.infoOn()) Debug.logInfo("in indexContent, id:" + id, module);
             try {
-                content = delegator.findOne("Content", UtilMisc .toMap("contentId", id), true);
+                GenericValue content = delegator.findOne("Content", UtilMisc .toMap("contentId", id), true);
                 if (content != null) {
                     if (reader != null) {
                         deleteContentDocument(content, reader);
@@ -130,8 +129,8 @@ public class SearchWorker {
         // Now create
         IndexWriter writer = null;
         long savedWriteLockTimeout = IndexWriterConfig.getDefaultWriteLockTimeout();
-        Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_34);
-        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_34, analyzer);
+        Analyzer analyzer = new StandardAnalyzer(LUCENE_VERSION);
+        IndexWriterConfig conf = new IndexWriterConfig(LUCENE_VERSION, analyzer);
 
         try {
             IndexWriterConfig.setDefaultWriteLockTimeout(2000);
@@ -176,8 +175,8 @@ public class SearchWorker {
     public static void indexContent(LocalDispatcher dispatcher, Delegator delegator, Map<String, Object> context, GenericValue content, String path) throws Exception {
         Directory directory = FSDirectory.open(new File(getIndexPath(path)));
         long savedWriteLockTimeout = IndexWriterConfig.getDefaultWriteLockTimeout();
-        Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_35);
-        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_35, analyzer);
+        Analyzer analyzer = new StandardAnalyzer(LUCENE_VERSION);
+        IndexWriterConfig conf = new IndexWriterConfig(LUCENE_VERSION, analyzer);
         IndexWriter writer = null;
         try {
             try {
@@ -227,8 +226,8 @@ public class SearchWorker {
     public static void indexDataResource(Delegator delegator, Map<String, Object> context, String id, String path) throws Exception {
         Directory directory = FSDirectory.open(new File(getIndexPath(path)));
         long savedWriteLockTimeout = IndexWriterConfig.getDefaultWriteLockTimeout();
-        Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_35);
-        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_35, analyzer);
+        Analyzer analyzer = new StandardAnalyzer(LUCENE_VERSION);
+        IndexWriterConfig conf = new IndexWriterConfig(LUCENE_VERSION, analyzer);
         IndexWriter writer = null;
 
         try {
