@@ -57,7 +57,7 @@ Searcher searcher = null;
 Analyzer analyzer = null;
 try {
     searcher = new IndexSearcher(reader);
-    analyzer = new StandardAnalyzer(Version.LUCENE_30);
+    analyzer = new StandardAnalyzer(SearchWorker.LUCENE_VERSION);
 } catch (java.io.FileNotFoundException e) {
     Debug.logError(e, "Search.groovy");
     request.setAttribute("errorMsgReq", "No index file exists.");
@@ -69,7 +69,7 @@ combQuery.add(termQuery, BooleanClause.Occur.MUST);
 //Debug.logInfo("in search, combQuery(1):" + combQuery, "");
 if (queryLine && analyzer) {
     Query query = null;
-    QueryParser parser = new QueryParser(Version.LUCENE_30, "content", analyzer);
+    QueryParser parser = new QueryParser(SearchWorker.LUCENE_VERSION, "content", analyzer);
     query = parser.parse(queryLine);
     combQuery.add(query, BooleanClause.Occur.MUST);
 }

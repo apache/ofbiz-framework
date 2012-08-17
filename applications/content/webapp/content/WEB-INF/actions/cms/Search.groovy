@@ -56,7 +56,7 @@ try {
     Debug.logInfo("in search, indexPath:" + directory.toString(), "");
     searcher = new IndexSearcher(reader);
     Debug.logInfo("in search, searcher:" + searcher, "");
-    analyzer = new StandardAnalyzer(Version.LUCENE_30);
+    analyzer = new StandardAnalyzer(SearchWorker.LUCENE_VERSION);
 } catch (java.io.FileNotFoundException e) {
     request.setAttribute("errorMsgReq", "No index file exists.");
     Debug.logError("in search, error:" + e.getMessage(), "");
@@ -66,7 +66,7 @@ try {
 if (queryLine || siteId) {
     Query query = null;
     if (queryLine) {
-        QueryParser parser = new QueryParser(Version.LUCENE_30, "content", analyzer);
+        QueryParser parser = new QueryParser(SearchWorker.LUCENE_VERSION, "content", analyzer);
         query = parser.parse(queryLine);
         combQuery.add(query, BooleanClause.Occur.MUST);
     }
