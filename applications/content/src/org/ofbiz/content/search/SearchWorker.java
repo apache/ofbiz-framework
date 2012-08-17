@@ -59,7 +59,6 @@ public class SearchWorker {
     public static final String module = SearchWorker.class.getName();
 
     public static Map<String, Object> indexTree(LocalDispatcher dispatcher, Delegator delegator, String siteId, Map<String, Object> context, String path) throws Exception {
-
         Map<String, Object> results = FastMap.newInstance();
         GenericValue content = delegator.makeValue("Content", UtilMisc.toMap("contentId", siteId));
         if (Debug.infoOn()) Debug.logInfo("in indexTree, siteId:" + siteId + " content:" + content, module);
@@ -75,11 +74,8 @@ public class SearchWorker {
                     for (GenericValue subContent : subContentList) {
                         contentIdList.add(subContent.getString("contentId"));
                     }
-
                     indexContentList(contentIdList, delegator, dispatcher, context);
-
-                    String subSiteId = siteContent.getString("contentId");
-                    indexTree(dispatcher, delegator, subSiteId, context, path);
+                    indexTree(dispatcher, delegator, siteContentId, context, path);
                 } else {
                     List<String> badIndexList = UtilGenerics.checkList(context.get("badIndexList"));
                     badIndexList.add(siteContentId + " had no sub-entities.");
