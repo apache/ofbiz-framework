@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="@base-permission@_ADMIN"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="@base-permission@_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="@base-permission@_DELETE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="@base-permission@_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="@base-permission@_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="@base-permission@_VIEW"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="@base-permission@_ADMIN"/>
+</entity-engine-xml>

@@ -1190,7 +1190,10 @@ under the License.
         <copy file="${basedir}/framework/resources/templates/TypeData.xml" tofile="${basedir}/hot-deploy/${component-name}/data/${component-resource-name}TypeData.xml" encoding="utf-8">
             <filterset refid="replacePlaceholders"/>
         </copy>
-        <copy file="${basedir}/framework/resources/templates/SecurityData.xml" tofile="${basedir}/hot-deploy/${component-name}/data/${component-resource-name}SecurityData.xml" encoding="utf-8">
+        <copy file="${basedir}/framework/resources/templates/SecurityPermissionSeedData.xml" tofile="${basedir}/hot-deploy/${component-name}/data/${component-resource-name}SecurityPermissionSeedData.xml" encoding="utf-8">
+            <filterset refid="replacePlaceholders"/>
+        </copy>
+        <copy file="${basedir}/framework/resources/templates/SecurityGroupDemoData.xml" tofile="${basedir}/hot-deploy/${component-name}/data/${component-resource-name}SecurityGroupDemoData.xml" encoding="utf-8">
             <filterset refid="replacePlaceholders"/>
         </copy>
         <copy file="${basedir}/framework/resources/templates/DemoData.xml" tofile="${basedir}/hot-deploy/${component-name}/data/${component-resource-name}DemoData.xml" encoding="utf-8">
