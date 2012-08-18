@@ -223,6 +223,7 @@ public final class JobManager {
             EntityCondition doneCond = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition(canExp), EntityCondition.makeCondition(finExp)), EntityOperator.OR);
             mainCondition = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("runByInstanceId", instanceId), doneCond));
             beganTransaction = false;
+            jobsIterator = null;
             try {
                 beganTransaction = TransactionUtil.begin();
                 if (!beganTransaction) {
