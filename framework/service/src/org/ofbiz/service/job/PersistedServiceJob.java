@@ -367,4 +367,9 @@ public class PersistedServiceJob extends GenericServiceJob {
             Debug.logVerbose("Job [" + getJobId() + "] not queued, rescheduling", module);
         }
     }
+
+    @Override
+    public Date getStartTime() {
+        return new Date(startTime);
+    }
 }
