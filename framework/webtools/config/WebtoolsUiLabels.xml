@@ -4181,7 +4181,7 @@
     </property>
     <property key="WebtoolsServiceEngineThreads">
         <value xml:lang="de">Dienste-Engine Threads</value>
-        <value xml:lang="en">Service Engine Threads</value>
+        <value xml:lang="en">Job Queue Service Threads</value>
         <value xml:lang="fr">Threads du Service Engine</value>
         <value xml:lang="it">Threads dell' Engine Servizi</value>
         <value xml:lang="pt">Threads do Engine de serviÃ§os</value>

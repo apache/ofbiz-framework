@@ -96,7 +96,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" sort-field="true"><display-entity entity-name="StatusItem" description="${description}"/></field>
-        <field name="cancelDateTime" title="${uiLabelMap.CommonEndDateTime}" sort-field="true"><display/></field>
+        <field name="finishDateTime" title="${uiLabelMap.CommonEndDateTime}" sort-field="true"><display/></field>
         <field name="cancelButton" title=" " use-when="startDateTime==null&amp;&amp;finishDateTime==null&amp;&amp;cancelDateTime==null" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.WebtoolsCancelJob}" target="cancelJob">
                 <parameter param-name="jobId"/>
@@ -111,9 +111,6 @@ under the License.
         <field name="value"><display/></field>
     </form>
     <form name="PoolState" type="single" default-map-name="poolState">
-        <field name="pollerName"><display/></field>
-        <field name="pollerThreadName"><display/></field>
-        <field name="invokerThreadNameFormat"><display/></field>
         <field name="keepAliveTimeInSeconds"><display/></field>
         <field name="numberOfCoreInvokerThreads"><display/></field>
         <field name="currentNumberOfInvokerThreads"><display/></field>
@@ -127,7 +124,7 @@ under the License.
         <field name="id" title="${uiLabelMap.WebtoolsThread}"><display description="${threadId} ${threadName}"/></field>
         <field name="name" title="${uiLabelMap.WebtoolsJob}"><display default-value="${uiLabelMap.CommonNone}"/></field>
         <field name="serviceName" title="${uiLabelMap.WebtoolsService}"><display default-value="${uiLabelMap.CommonNone}"/></field>
-        <field name="time"><display/></field>
+        <field name="time" title="${uiLabelMap.CommonStartDateTime}"><display/></field>
         <field name="runTime" title="${uiLabelMap.CommonTime} (ms)"><display/></field>
     </form>
     <form name="ListServices" type="list" list-name="services" paginate-target="ServiceLog" separate-columns="true"
