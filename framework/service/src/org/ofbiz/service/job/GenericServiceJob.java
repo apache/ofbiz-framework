@@ -147,9 +147,7 @@ public class GenericServiceJob extends AbstractJob implements Serializable {
 
     @Override
     public void deQueue() throws InvalidJobException {
-        if (currentState != State.QUEUED) {
-            throw new InvalidJobException("Illegal state change");
-        }
+        super.deQueue();
         throw new InvalidJobException("Unable to queue job [" + getJobId() + "]");
     }
 }
