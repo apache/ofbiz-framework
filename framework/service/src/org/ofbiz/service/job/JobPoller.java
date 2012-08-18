@@ -177,13 +177,17 @@ public final class JobPoller {
         List<Map<String, Object>> taskList = new ArrayList<Map<String, Object>>();
         Map<String, Object> taskInfo = null;
         for (Runnable task : queue) {
-            JobInvoker jobInvoker = (JobInvoker) task;
+            Job job = (Job) task;
             taskInfo = new HashMap<String, Object>();
-            taskInfo.put("id", jobInvoker.getJobId());
-            taskInfo.put("name", jobInvoker.getJobName());
-            taskInfo.put("serviceName", jobInvoker.getServiceName());
-            taskInfo.put("time", jobInvoker.getTime());
-            taskInfo.put("runtime", jobInvoker.getCurrentRuntime());
+            taskInfo.put("id", job.getJobId());
+            taskInfo.put("name", job.getJobName());
+            String serviceName = "";
+            if (job instanceof GenericServiceJob) {
+                serviceName = ((GenericServiceJob) job).getServiceName();
+            }
+            taskInfo.put("serviceName", serviceName);
+            taskInfo.put("time", job.getStartTime());
+            taskInfo.put("runtime", job.getRuntime());
             taskList.add(taskInfo);
         }
         poolState.put("taskList", taskList);
@@ -203,7 +207,7 @@ public final class JobPoller {
     public void queueNow(Job job) throws InvalidJobException {
         job.queue();
         try {
-            executor.execute(new JobInvoker(job));
+            executor.execute(job);
         } catch (Exception e) {
             job.deQueue();
         }

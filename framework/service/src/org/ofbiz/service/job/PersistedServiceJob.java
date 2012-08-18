@@ -67,6 +67,7 @@ public class PersistedServiceJob extends GenericServiceJob {
     private final long maxRetry;
     private final long currentRetryCount;
     private final GenericValue jobValue;
+    private final long startTime;
 
     /**
      * Creates a new PersistedServiceJob
@@ -79,7 +80,7 @@ public class PersistedServiceJob extends GenericServiceJob {
         this.delegator = dctx.getDelegator();
         this.jobValue = jobValue;
         Timestamp storedDate = jobValue.getTimestamp("runTime");
-        this.runtime = storedDate.getTime();
+        this.startTime = storedDate.getTime();
         this.maxRetry = jobValue.get("maxRetry") != null ? jobValue.getLong("maxRetry").longValue() : -1;
         Long retryCount = jobValue.getLong("currentRetryCount");
         if (retryCount != null) {
@@ -189,7 +190,7 @@ public class PersistedServiceJob extends GenericServiceJob {
 
     private void createRecurrence(long next, boolean isRetryOnFailure) throws GenericEntityException {
         if (Debug.verboseOn()) Debug.logVerbose("Next runtime returned: " + next, module);
-        if (next > runtime) {
+        if (next > startTime) {
             String pJobId = jobValue.getString("parentJobId");
             if (pJobId == null) {
                 pJobId = jobValue.getString("jobId");
@@ -267,7 +268,7 @@ public class PersistedServiceJob extends GenericServiceJob {
     }
 
     @Override
-    protected String getServiceName() throws InvalidJobException {
+    protected String getServiceName() {
         if (jobValue == null || jobValue.get("serviceName") == null) {
             return null;
         }
