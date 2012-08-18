@@ -59,6 +59,10 @@ import com.ibm.icu.util.Calendar;
  * {@link #runJob(Job)} method, or schedule a job to be run later by calling the
  * {@link #schedule(String, String, String, Map, long, int, int, int, long, int)} method.
  * Scheduled jobs are persisted in the JobSandbox entity.
+ * <p>A scheduled job's start time is an approximation - the actual start time will depend
+ * on the job manager/job poller configuration (poll interval) and the load on the server.
+ * Scheduled jobs might be rescheduled if the server is busy. Therefore, applications
+ * requiring a precise job start time should use a different method to schedule the job.</p>
  */
 public final class JobManager {
 
@@ -82,13 +86,14 @@ public final class JobManager {
     public static JobManager getInstance(Delegator delegator, boolean enablePoller) {
         assertIsRunning();
         Assert.notNull("delegator", delegator);
-        JobManager jm = JobManager.registeredManagers.get(delegator.getDelegatorName());
+        JobManager jm = registeredManagers.get(delegator.getDelegatorName());
         if (jm == null) {
             jm = new JobManager(delegator);
-            JobManager.registeredManagers.putIfAbsent(delegator.getDelegatorName(), jm);
-            jm = JobManager.registeredManagers.get(delegator.getDelegatorName());
+            registeredManagers.putIfAbsent(delegator.getDelegatorName(), jm);
+            jm = registeredManagers.get(delegator.getDelegatorName());
             if (enablePoller) {
-                jm.enablePoller();
+                jm.reloadCrashedJobs();
+                JobPoller.registerJobManager(jm);
             }
         }
         return jm;
@@ -99,26 +104,14 @@ public final class JobManager {
      */
     public static void shutDown() {
         isShutDown = true;
-        for (JobManager jm : registeredManagers.values()) {
-            jm.shutdown();
-        }
+        JobPoller.getInstance().stop();
     }
 
     private final Delegator delegator;
-    private final JobPoller jp;
-    private boolean pollerEnabled = false;
+    private boolean crashedJobsReloaded = false;
 
     private JobManager(Delegator delegator) {
         this.delegator = delegator;
-        jp = new JobPoller(this);
-    }
-
-    private synchronized void enablePoller() {
-        if (!pollerEnabled) {
-            pollerEnabled = true;
-            reloadCrashedJobs();
-            jp.enable();
-        }
     }
 
     /** Returns the Delegator. */
@@ -138,7 +131,7 @@ public final class JobManager {
      * @return List containing a Map of each thread's state.
      */
     public Map<String, Object> getPoolState() {
-        return jp.getPoolState();
+        return JobPoller.getInstance().getPoolState();
     }
 
     /**
@@ -272,7 +265,11 @@ public final class JobManager {
         return poll;
     }
 
-    private void reloadCrashedJobs() {
+    private synchronized void reloadCrashedJobs() {
+        assertIsRunning();
+        if (crashedJobsReloaded) {
+            return;
+        }
         List<GenericValue> crashed = null;
         List<EntityExpr> statusExprList = UtilMisc.toList(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "SERVICE_PENDING"),
                 EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "SERVICE_QUEUED"),
@@ -317,6 +314,7 @@ public final class JobManager {
             if (Debug.infoOn())
                 Debug.logInfo("No crashed jobs to re-schedule", module);
         }
+        crashedJobsReloaded = true;
     }
 
     /** Queues a Job to run now.
@@ -326,7 +324,7 @@ public final class JobManager {
     public void runJob(Job job) throws JobManagerException {
         assertIsRunning();
         if (job.isValid()) {
-            jp.queueNow(job);
+            JobPoller.getInstance().queueNow(job);
         }
     }
 
@@ -541,13 +539,4 @@ public final class JobManager {
             throw new JobManagerException(e.getMessage(), e);
         }
     }
-
-    /** Close out the scheduler thread. */
-    public void shutdown() {
-        Debug.logInfo("Stopping the JobManager...", module);
-        registeredManagers.remove(delegator.getDelegatorName(), this);
-        jp.stop();
-        Debug.logInfo("JobManager stopped.", module);
-    }
-
 }
