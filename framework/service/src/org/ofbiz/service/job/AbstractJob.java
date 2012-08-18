@@ -18,16 +18,25 @@
  *******************************************************************************/
 package org.ofbiz.service.job;
 
+import java.util.Date;
+
 import org.ofbiz.base.util.Assert;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.entity.transaction.GenericTransactionException;
+import org.ofbiz.entity.transaction.TransactionUtil;
 
 /**
  * Abstract Job.
  */
 public abstract class AbstractJob implements Job {
 
+    public static final String module = AbstractJob.class.getName();
+
     private final String jobId;
     private final String jobName;
     protected State currentState = State.CREATED;
+    private long elapsedTime = 0;
+    private final Date startTime = new Date();
 
     protected AbstractJob(String jobId, String jobName) {
         Assert.notNull("jobId", jobId, "jobName", jobName);
@@ -64,5 +73,46 @@ public abstract class AbstractJob implements Job {
             throw new InvalidJobException("Illegal state change");
         }
         this.currentState = State.CREATED;
+    }
+
+    /**
+     *  Executes this Job. The {@link #run()} method calls this method.
+     */
+    public abstract void exec() throws InvalidJobException;
+
+    @Override
+    public void run() {
+        long startMillis = System.currentTimeMillis();
+        try {
+            exec();
+        } catch (InvalidJobException e) {
+            Debug.logWarning(e.getMessage(), module);
+        }
+        // sanity check; make sure we don't have any transactions in place
+        try {
+            // roll back current TX first
+            if (TransactionUtil.isTransactionInPlace()) {
+                Debug.logWarning("*** NOTICE: JobInvoker finished w/ a transaction in place! Rolling back.", module);
+                TransactionUtil.rollback();
+            }
+            // now resume/rollback any suspended txs
+            if (TransactionUtil.suspendedTransactionsHeld()) {
+                int suspended = TransactionUtil.cleanSuspendedTransactions();
+                Debug.logWarning("Resumed/Rolled Back [" + suspended + "] transactions.", module);
+            }
+        } catch (GenericTransactionException e) {
+            Debug.logWarning(e, module);
+        }
+        elapsedTime = System.currentTimeMillis() - startMillis;
+    }
+
+    @Override
+    public long getRuntime() {
+        return elapsedTime;
+    }
+
+    @Override
+    public Date getStartTime() {
+        return startTime;
     }
 }

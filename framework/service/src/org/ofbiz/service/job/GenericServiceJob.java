@@ -29,7 +29,7 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
 /**
- * Generic Service Job - A generic async-service Job.
+ * A generic async-service job.
  */
 @SuppressWarnings("serial")
 public class GenericServiceJob extends AbstractJob implements Serializable {
@@ -40,7 +40,6 @@ public class GenericServiceJob extends AbstractJob implements Serializable {
     protected final transient DispatchContext dctx;
     private final String service;
     private final Map<String, Object> context;
-    protected long runtime = System.currentTimeMillis();
 
     public GenericServiceJob(DispatchContext dctx, String jobId, String jobName, String service, Map<String, Object> context, GenericRequester req) {
         super(jobId, jobName);
@@ -131,13 +130,8 @@ public class GenericServiceJob extends AbstractJob implements Serializable {
      * Gets the name of the service as defined in the definition file.
      * @return The name of the service to be invoked.
      */
-    protected String getServiceName() throws InvalidJobException {
+    protected String getServiceName() {
         return service;
-    }
-
-    @Override
-    public long getRuntime() {
-        return runtime;
     }
 
     @Override

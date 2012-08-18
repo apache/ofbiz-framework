@@ -72,11 +72,6 @@ public class PurgeJob extends AbstractJob implements Serializable {
     }
 
     @Override
-    public long getRuntime() {
-        return System.currentTimeMillis();
-    }
-
-    @Override
     public boolean isValid() {
         return currentState == State.CREATED;
     }
