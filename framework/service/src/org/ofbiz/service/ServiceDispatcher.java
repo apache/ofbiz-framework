@@ -834,8 +834,6 @@ public class ServiceDispatcher {
             // shutdown JMS listeners
             jlf.closeListeners();
         }
-        // shutdown the job scheduler
-        jm.shutdown();
     }
 
     // checks if parameters were passed for authentication
