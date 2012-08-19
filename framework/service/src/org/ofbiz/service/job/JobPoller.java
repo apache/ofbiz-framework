@@ -33,6 +33,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.ofbiz.base.start.Start;
 import org.ofbiz.base.util.Assert;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.service.config.ServiceConfigUtil;
@@ -249,8 +250,9 @@ public final class JobPoller {
         public void run() {
             Debug.logInfo("JobPoller thread started.", module);
             try {
-                // wait 30 seconds before the first poll
-                Thread.sleep(30000);
+                while (Start.getInstance().getCurrentState() != Start.ServerState.RUNNING) {
+                    Thread.sleep(1000);
+                }
                 while (!executor.isShutdown()) {
                     int remainingCapacity = executor.getQueue().remainingCapacity();
                     if (remainingCapacity > 0) {
