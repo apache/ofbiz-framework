@@ -73,7 +73,7 @@ public class Config {
     public String containerConfig;
     public String instrumenterClassName;
     public String instrumenterFile;
-    public List<Map> loaders;
+    public List<Map<String, String>> loaders;
     public String logDir;
     public String ofbizHome;
     public boolean requireCommJar = false;
@@ -420,7 +420,7 @@ public class Config {
         instrumenterFile = getProp(props, "ofbiz.instrumenterFile", null);
 
         // loader classes
-        loaders = new ArrayList<Map>();
+        loaders = new ArrayList<Map<String, String>>();
         int currentPosition = 1;
         Map<String, String> loader = null;
         while (true) {
