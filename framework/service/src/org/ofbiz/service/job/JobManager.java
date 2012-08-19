@@ -54,15 +54,14 @@ import org.ofbiz.service.config.ServiceConfigUtil;
 import com.ibm.icu.util.Calendar;
 
 /**
- * Job manager. The job manager queues jobs. It contains a <code>JobPoller</code> and a
- * <code>Delegator</code>. Client code can queue a job to be run immediately by calling the
- * {@link #runJob(Job)} method, or schedule a job to be run later by calling the
+ * Job manager. The job manager queues and manages jobs. Client code can queue a job to be run immediately
+ * by calling the {@link #runJob(Job)} method, or schedule a job to be run later by calling the
  * {@link #schedule(String, String, String, Map, long, int, int, int, long, int)} method.
  * Scheduled jobs are persisted in the JobSandbox entity.
  * <p>A scheduled job's start time is an approximation - the actual start time will depend
  * on the job manager/job poller configuration (poll interval) and the load on the server.
  * Scheduled jobs might be rescheduled if the server is busy. Therefore, applications
- * requiring a precise job start time should use a different method to schedule the job.</p>
+ * requiring a precise job start time should use a different mechanism to schedule the job.</p>
  */
 public final class JobManager {
 
