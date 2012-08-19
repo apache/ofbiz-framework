@@ -35,10 +35,12 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * Start - OFBiz Container(s) Startup Class
+ * OFBiz startup class.
  * 
  */
-public class Start {
+public final class Start {
+
+    private static final Start instance = new Start();
 
     private static Command checkCommand(Command command, Command wanted) {
         if (wanted == Command.HELP || wanted.equals(command)) {
@@ -49,6 +51,13 @@ public class Start {
             System.err.println("Duplicate command detected(was " + command + ", wanted " + wanted);
             return Command.HELP_ERROR;
         }
+    }
+
+    /**
+     * Returns the <code>Start</code> instance.
+     */
+    public static Start getInstance() {
+        return instance;
     }
 
     private static void help(PrintStream out) {
@@ -100,16 +109,15 @@ public class Start {
             help(System.err);
             System.exit(1);
         }
-        Start start = new Start();
-        start.init(args, command == Command.COMMAND);
+        instance.init(args, command == Command.COMMAND);
         try {
             if (command == Command.STATUS) {
-                System.out.println("Current Status : " + start.status());
+                System.out.println("Current Status : " + instance.status());
             } else if (command == Command.SHUTDOWN) {
-                System.out.println("Shutting down server : " + start.shutdown());
+                System.out.println("Shutting down server : " + instance.shutdown());
             } else {
                 // general start
-                start.start();
+                instance.start();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -120,9 +128,9 @@ public class Start {
     // ---------------------------------------------- //
 
     private Config config = null;
-    private List<String> loaderArgs = new ArrayList<String>();
+    private final List<String> loaderArgs = new ArrayList<String>();
     private final ArrayList<StartupLoader> loaders = new ArrayList<StartupLoader>();
-    private AtomicReference<ServerState> serverState = new AtomicReference<ServerState>(ServerState.STARTING);
+    private final AtomicReference<ServerState> serverState = new AtomicReference<ServerState>(ServerState.STARTING);
     private Thread adminPortThread = null;
 
     private Start() {}
@@ -143,6 +151,13 @@ public class Start {
                 System.out.println("Created OFBiz log dir [" + logDir.getAbsolutePath() + "]");
             }
         }
+    }
+
+    /**
+     * Returns the server's current state.
+     */
+    public ServerState getCurrentState() {
+        return serverState.get();
     }
 
     private void init(String[] args, boolean fullInit) throws StartupException {
