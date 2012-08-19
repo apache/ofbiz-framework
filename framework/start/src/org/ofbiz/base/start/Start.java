@@ -117,11 +117,15 @@ public class Start {
         }
     }
 
+    // ---------------------------------------------- //
+
     private Config config = null;
     private List<String> loaderArgs = new ArrayList<String>();
     private final ArrayList<StartupLoader> loaders = new ArrayList<StartupLoader>();
     private AtomicReference<ServerState> serverState = new AtomicReference<ServerState>(ServerState.STARTING);
     private Thread adminPortThread = null;
+
+    private Start() {}
 
     private void createListenerThread() throws StartupException {
         if (config.adminPort > 0) {
@@ -141,16 +145,7 @@ public class Start {
         }
     }
 
-    // org.apache.commons.daemon.Daemon.destroy()
-    public void destroy() {
-        // FIXME: undo init() calls.
-    }
-
-    public void init(String[] args) throws StartupException {
-        init(args, true);
-    }
-
-    public void init(String[] args, boolean fullInit) throws StartupException {
+    private void init(String[] args, boolean fullInit) throws StartupException {
         String globalSystemPropsFileName = System.getProperty("ofbiz.system.props");
         if (globalSystemPropsFileName != null) {
             FileInputStream stream = null;
@@ -268,7 +263,7 @@ public class Start {
         return response;
     }
 
-    public String shutdown() throws IOException {
+    private String shutdown() throws IOException {
         return sendSocketCommand(Control.SHUTDOWN);
     }
 
@@ -298,20 +293,6 @@ public class Start {
         }
     }
 
-    // org.apache.commons.daemon.Daemon.start()
-    public void start() throws Exception {
-        if (!startStartLoaders()) {
-            if (this.serverState.get() == ServerState.STOPPING) {
-                return;
-            } else {
-                throw new Exception("Error during start.");
-            }
-        }
-        if (config.shutdownAfterLoad) {
-            stopServer();
-        }
-    }
-
     /**
      * Returns <code>true</code> if all loaders were started.
      * 
@@ -335,7 +316,7 @@ public class Start {
         return this.serverState.compareAndSet(ServerState.STARTING, ServerState.RUNNING);
     }
 
-    public String status() throws IOException {
+    private String status() throws IOException {
         try {
             return sendSocketCommand(Control.STATUS);
         } catch (ConnectException e) {
@@ -345,15 +326,40 @@ public class Start {
         }
     }
 
+    private void stopServer() {
+        shutdownServer();
+        System.exit(0);
+    }
+
+    // ----------------------------------------------- //
+    // org.apache.commons.daemon.Daemon implementation //
+    // ----------------------------------------------- //
+
+    // org.apache.commons.daemon.Daemon.destroy()
+    public void destroy() {
+        // FIXME: undo init() calls.
+    }
+
+    // org.apache.commons.daemon.Daemon.start()
+    public void start() throws Exception {
+        if (!startStartLoaders()) {
+            if (this.serverState.get() == ServerState.STOPPING) {
+                return;
+            } else {
+                throw new Exception("Error during start.");
+            }
+        }
+        if (config.shutdownAfterLoad) {
+            stopServer();
+        }
+    }
+
     // org.apache.commons.daemon.Daemon.stop()
     public void stop() {
         shutdownServer();
     }
 
-    public void stopServer() {
-        shutdownServer();
-        System.exit(0);
-    }
+    // ----------------------------------------------- //
 
     private class AdminPortThread extends Thread {
         private ServerSocket serverSocket = null;
@@ -447,7 +453,7 @@ public class Start {
         abstract void processRequest(Start start, PrintWriter writer);
     }
 
-    private enum ServerState {
+    public enum ServerState {
         STARTING, RUNNING, STOPPING;
 
         public String toString() {
