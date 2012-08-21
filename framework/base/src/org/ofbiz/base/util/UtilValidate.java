@@ -23,7 +23,7 @@ import com.ibm.icu.util.Calendar;
 import java.util.Collection;
 import java.util.Map;
 
-import org.apache.commons.validator.EmailValidator;
+import org.apache.commons.validator.routines.EmailValidator;
 
 import org.ofbiz.base.lang.IsEmpty;
 
