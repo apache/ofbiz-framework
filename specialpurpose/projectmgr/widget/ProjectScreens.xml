@@ -423,7 +423,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleProjectGanttChart}">
                             <platform-specific>
-                                <html><html-template location="component://projectmgr/webapp/projectmgr/project/gantChart.ftl"/></html>
+                                <html><html-template location="component://projectmgr/webapp/projectmgr/project/ganttChart.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -1027,7 +1027,7 @@ under the License.
                             <container style="clear"/>
                             <screenlet title="${uiLabelMap.PageTitleProjectGanttChart}">
                                 <platform-specific>
-                                    <html><html-template location="component://projectmgr/webapp/projectmgr/project/gantChart.ftl"/></html>
+                                    <html><html-template location="component://projectmgr/webapp/projectmgr/project/ganttChart.ftl"/></html>
                                 </platform-specific>
                             </screenlet>
                         </widgets>
