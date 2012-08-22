@@ -24,7 +24,6 @@ import org.apache.lucene.index.IndexReader
 import org.apache.lucene.index.Term
 import org.apache.lucene.queryParser.QueryParser
 import org.apache.lucene.store.FSDirectory
-import org.apache.lucene.util.Version
 import org.ofbiz.base.util.Debug
 import org.ofbiz.base.util.UtilHttp
 import org.ofbiz.content.search.SearchWorker
