@@ -954,9 +954,10 @@ public class ModelFormField {
 
     public String getTooltip(Map<String, Object> context) {
         if (UtilValidate.isNotEmpty(tooltip)) return tooltip.expandString(context);
-        return "";
-    }
+            return "";
+        }
 
+    
     public String getUseWhen(Map<String, Object> context) {
         if (UtilValidate.isNotEmpty(this.useWhen)) return this.useWhen.expandString(context);
         return "";
@@ -1964,7 +1965,6 @@ public class ModelFormField {
 
         public String getDescription(Map<String, Object> context) {
             String retVal = null;
-            // Don't replace by UtilValidate.isNotEmpty: this.description is a FlexibleStringExpander and issues occur
             if (UtilValidate.isNotEmpty(this.description)) retVal = this.description.expandString(context);
             else retVal = this.modelFormField.getEntry(context);
 
@@ -2047,7 +2047,6 @@ public class ModelFormField {
                     throw new IllegalArgumentException(errMsg);
                 }
             }
-         // Don't replace by UtilValidate.isNotEmpty: this.description is a FlexibleStringExpander and issues occur
             if (UtilValidate.isNotEmpty(this.description) && retVal != null && this.getModelFormField().getEncodeOutput()) {
                 StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
                 if (simpleEncoder != null) {
@@ -2143,10 +2142,7 @@ public class ModelFormField {
             this.cache = !"false".equals(element.getAttribute("cache"));
             this.size = element.getAttribute("size");
 
-         // Don't replace by UtilValidate.isNotEmpty: this.description is a FlexibleStringExpander and issues occur
-            if (this.description == null || this.description.isEmpty()) {
-                this.setDescription("${description}");
-            }
+            if (UtilValidate.isEmpty(this.description))  this.setDescription("${description}");
 
             Element subHyperlinkElement = UtilXml.firstChildElement(element, "sub-hyperlink");
             if (subHyperlinkElement != null) {
@@ -3726,7 +3722,6 @@ public class ModelFormField {
         }
 
         public String getDescription(Map<String, Object> context) {
-         // Don't replace by UtilValidate.isNotEmpty: this.description is a FlexibleStringExpander and issues occur
             if (UtilValidate.isNotEmpty(this.description)) return this.description.expandString(context);
             return "";
         }
