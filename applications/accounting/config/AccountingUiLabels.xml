@@ -3846,7 +3846,7 @@
     </property>
     <property key="AccountingCyberSourceMerchantContact">
         <value xml:lang="en">Merchant Contact</value>
-        <value xml:lang="fr">Coordonnée du marchant</value>
+        <value xml:lang="fr">Coordonnée du vendeur</value>
         <value xml:lang="hi_IN">व्यापारी से संपर्क</value>
         <value xml:lang="it">Contatto negoziante</value>
         <value xml:lang="pt">Contato do comerciante</value>
@@ -3855,7 +3855,7 @@
     </property>
     <property key="AccountingCyberSourceMerchantDescr">
         <value xml:lang="en">Merchant Description</value>
-        <value xml:lang="fr">Descritpion du marchant</value>
+        <value xml:lang="fr">Descritpion du vendeur</value>
         <value xml:lang="hi_IN">व्यापारी का विवरण</value>
         <value xml:lang="it">Descrizione negoziante</value>
         <value xml:lang="pt">Descrição do comerciante</value>
@@ -10663,7 +10663,7 @@
     </property>
     <property key="AccountingPaymentRefundError">
         <value xml:lang="en">Refund processor problems; see logs</value>
-        <value xml:lang="fr">Le remboursement a échouén voir les logs</value>
+        <value xml:lang="fr">Le remboursement a échoué, voir les logs</value>
         <value xml:lang="it">Problemi nel rimborso chiesto al gateway pagamenti; controllare i logs</value>
         <value xml:lang="vi">Xử lý hoàn phí không thành công, bạn hãy xem vết hệ thống</value>
         <value xml:lang="zh">退款处理器错误；参见日志</value>
@@ -13849,7 +13849,7 @@
     </property>
     <property key="AccountingValueLinkUnableToRedeemGiftCardFailure">
         <value xml:lang="en">Redeem service failed</value>
-        <value xml:lang="fr">>Échec dans le racheter de la carte cadeau</value>
+        <value xml:lang="fr">Échec dans le rachat de la carte cadeau</value>
         <value xml:lang="it">Fallito servizio di ritiro</value>
         <value xml:lang="vi">Dịch vụ mua lại không thành công</value>
         <value xml:lang="zh">兑换服务失败</value>
