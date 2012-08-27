@@ -3113,6 +3113,7 @@
     <property key="InvoiceItemType.description.PAYROL_SALARY_SICK">
         <value xml:lang="de">Krankengeld</value>
         <value xml:lang="en">Sick Salary</value>
+        <value xml:lang="fr">Salaire en cas de maladie</value>
         <value xml:lang="hi_IN">बीमारी वेतन</value>
         <value xml:lang="it">Salario per la malattia</value>
         <value xml:lang="pt">Salário por doença</value>
@@ -3123,6 +3124,7 @@
     <property key="InvoiceItemType.description.PAYROL_SALARY_VAC">
         <value xml:lang="de">Urlaubsgeld</value>
         <value xml:lang="en">Vacation Salary</value>
+        <value xml:lang="fr">Salaire vacataire</value>
         <value xml:lang="hi_IN">अवकाश वेतन</value>
         <value xml:lang="it">Salario per le ferie</value>
         <value xml:lang="pt">Salário de férias</value>
@@ -3132,6 +3134,7 @@
     </property>
     <property key="InvoiceItemType.description.PAYROL_SOC_SEC_EMPL">
         <value xml:lang="en">Social Security Employee</value>
+        <value xml:lang="fr">Sécurité Social salarié</value>
         <value xml:lang="it">Previdenza sociale impiegato</value>
         <value xml:lang="pt">Funcionário da Previdência Social</value>
         <value xml:lang="vi">Bảo hiểm xã hội</value>
@@ -3141,6 +3144,7 @@
     <property key="InvoiceItemType.description.PAYROL_TAXES">
         <value xml:lang="de">Steuern</value>
         <value xml:lang="en">Taxes</value>
+        <value xml:lang="fr">Taxes</value>
         <value xml:lang="hi_IN">करों</value>
         <value xml:lang="it">Tasse sulle paghe</value>
         <value xml:lang="pt">Impostos</value>
@@ -3150,6 +3154,7 @@
     </property>
     <property key="InvoiceItemType.description.PAYROL_TAX_FEDERAL">
         <value xml:lang="en">Federal Withholding</value>
+        <value xml:lang="fr">Taxe SS sur salaire</value>
         <value xml:lang="hi_IN">संघीय टैक्स withholding</value>
         <value xml:lang="it">Tasse federali trattenute</value>
         <value xml:lang="pt">Retido na Fonte</value>
@@ -4144,6 +4149,7 @@
     <property key="PaymentMethodType.description.FIN_ACCOUNT">
         <value xml:lang="de">Finanzkonto</value>
         <value xml:lang="en">Financial Account</value>
+        <value xml:lang="fr">Compte financier</value>
         <value xml:lang="hi_IN">वित्तीय खाता</value>
         <value xml:lang="it">Conto finanziario</value>
         <value xml:lang="nl">Financiële rekening</value>
