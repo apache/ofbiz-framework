@@ -22,6 +22,7 @@
     <property key="AccountingDeleteRateAmount">
         <value xml:lang="de">Kann die zu löschende Raten-Summe nicht finden</value>    
         <value xml:lang="en">Could not find RateAmount record to be deleted</value>
+        <value xml:lang="fr">Impossible de supprimer le taux</value>
         <value xml:lang="it">Non è possibile trovare un record di RateAmount che deve essere cancellato</value>
         <value xml:lang="pt">Não foi possível localizar o registro a ser excluído RateAmount</value>
         <value xml:lang="zh">找不到要删除的费率金额（RateAmount）记录</value>
@@ -29,6 +30,7 @@
     <property key="AccountingEftAccountCannotBeCreated">
         <value xml:lang="de">FEHLER: Kann die Bezahlmethoden-ID nicht anlegen (ID Generierungsfehler)</value>    
         <value xml:lang="en">ERROR: Could not create payment method Id (id generation failure)</value>
+        <value xml:lang="fr">Erreur : impossible de créer la méthode de paiement (échec de la génération de sa séquence)</value>
         <value xml:lang="it">ERRORE: Non è possibile creare il metodo pagamento (fallimento generazione id)</value>
         <value xml:lang="pt">ERRO: Não foi possível criar Id de étodo de pagamento (falha ao gerar ID)</value>
         <value xml:lang="zh">错误：无法创建支付方法标识（生成标识时失败）</value>
@@ -36,6 +38,7 @@
     <property key="AccountingEftAccountCannotBeCreatedWriteFailure">
         <value xml:lang="de">FEHLER: Kann den Elektr. Zahlungsverkehr-Zugang nicht anlegen (Schreib-Fehler): ${errorString}</value>
         <value xml:lang="en">ERROR: Could not create EFT account (write failure): ${errorString}</value>
+        <value xml:lang="fr">Erreur : Impossible de créer le RIB : ${errorString}</value>
         <value xml:lang="it">ERRORE: Non è possibile creare il conto EFT (fallita scrittura): ${errorString}</value>
         <value xml:lang="pt">ERRO: Não foi possível criar conta de EFT (falha de escrita): ${errorString}</value>
         <value xml:lang="zh">错误：无法创建电子资金转账账户（写操作失败）：${errorString}</value>
@@ -43,6 +46,7 @@
     <property key="AccountingEftAccountCannotBeUpdated">
         <value xml:lang="de">FEHLER: Kann den Elektr. Zahlungsverkehr-Zugang nicht ändern (Schreib-Fehler): ${errorString}</value>
         <value xml:lang="en">ERROR: Could not update EFT Account (write failure): ${errorString}</value>
+        <value xml:lang="fr">Erreur : Impossible de mettre à jour le RIB : ${errorString}</value>
         <value xml:lang="it">ERRORE: Non è possibile aggiornare il conto EFT (scrittura fallita): ${errorString}</value>
         <value xml:lang="pt">ERRO: Não foi possível atualizar Conta EFT (falha de escrita): ${errorString}</value>
         <value xml:lang="zh">错误：无法更新电子资金转账账户（写操作失败）：${errorString}</value>
@@ -50,6 +54,7 @@
     <property key="AccountingEftAccountCannotBeUpdatedReadFailure">
         <value xml:lang="de">FEHLER: Kann den Elektr. Zahlungsverkehr-Zugang nicht ändern (Lese-Fehler): ${errorString}</value>
         <value xml:lang="en">ERROR: Could not update EFT Account (read error): ${errorString}</value>
+        <value xml:lang="fr">Erreur : Impossible de mettre à jour le RIB : ${errorString}</value>
         <value xml:lang="it">ERRORE: Non è possibile aggiornare il conto EFT (fallita lettura): ${errorString}</value>
         <value xml:lang="pt">ERRO: Não foi possível atualizar Conta EFT (erro de leitura): ${errorString}</value>
         <value xml:lang="zh">错误：无法更新电子资金转账账户（读取时出错）：${errorString}</value>
