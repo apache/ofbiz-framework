@@ -981,7 +981,13 @@ public class LoginWorker {
         if (security != null) {
             ServletContext context = (ServletContext) request.getAttribute("servletContext");
             String serverId = (String) context.getAttribute("_serverId");
+            
+            // get a context path from the request, if it is empty then assume it is the root mount point
             String contextPath = request.getContextPath();
+            if (UtilValidate.isEmpty(contextPath)) {
+                contextPath = "/";
+            }
+            
             ComponentConfig.WebappInfo info = ComponentConfig.getWebAppInfo(serverId, contextPath);
             if (info != null) {
                 for (String permission: info.getBasePermission()) {
