@@ -650,6 +650,7 @@ function lookupFormAjaxRequest(formAction, form) {
 	var screenletTitleBar = jQuery("#" + lookupId + " .screenlet-title-bar :visible:first");
 	jQuery.ajax({
 		url : formAction,
+		type: "POST",
 		data : data,
 		beforeSend : function(jqXHR, settings) {
 			// Here we append the spinner to the lookup screenlet and it will
