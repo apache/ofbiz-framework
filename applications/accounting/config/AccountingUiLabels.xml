@@ -3855,7 +3855,7 @@
     </property>
     <property key="AccountingCyberSourceMerchantDescr">
         <value xml:lang="en">Merchant Description</value>
-        <value xml:lang="fr">Descritpion du vendeur</value>
+        <value xml:lang="fr">Description du vendeur</value>
         <value xml:lang="hi_IN">व्यापारी का विवरण</value>
         <value xml:lang="it">Descrizione negoziante</value>
         <value xml:lang="pt">Descrição do comerciante</value>
