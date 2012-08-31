@@ -1221,6 +1221,8 @@ ofbiz/trunk/framework/base/lib/jcl-over-slf4j-1.6.4.jar
 ofbiz/trunk/framework/base/lib/slf4j-api-1.6.4.jar
 ofbiz/trunk/framework/base/lib/slf4j-simple-1.6.4.jar
 ofbiz/trunk/framework/images/webapp/images/jquery/*
+ofbiz/trunk/specialpurpose/webpos/webapp/webpos/images/js/jquery.hotkeys-0.7.9.min.js
+ofbiz/trunk/specialpurpose/webpos/webapp/webpos/images/js/WebPosHotkeys.js
 =========================================================================
 The MIT License
 
