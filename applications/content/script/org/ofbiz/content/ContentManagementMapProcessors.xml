@@ -27,8 +27,7 @@ under the License.
       <process field="dataResourceId"><copy to-field="dataResourceId" replace="true" set-if-null="false"/></process>
       <process field="dataSourceId"><copy to-field="dataSourceId" replace="true" set-if-null="false"/></process>
       <process field="statusId"><copy to-field="statusId" replace="true" set-if-null="false"/></process>
-      <process field="customMethodId"><copy to-field="customMethodId" replace="true" set-if-null="false"/></process>
-      <process field="oldServiceName"><copy to-field="oldServiceName" replace="true" set-if-null="false"/></process>
+      <process field="serviceName"><copy to-field="serviceName" replace="true" set-if-null="false"/></process>
       <process field="contentName"><copy to-field="contentName" replace="true" set-if-null="false"/></process>
       <process field="description"><copy to-field="description" replace="true" set-if-null="false"/></process>
       <process field="localeString"><copy to-field="localeString" replace="true" set-if-null="false"/></process>
@@ -113,8 +112,7 @@ under the License.
       <process field="dataResourceId"><copy to-field="dataResourceId" replace="true" set-if-null="false"/></process>
       <process field="dataSourceId"><copy to-field="dataSourceId" replace="true" set-if-null="false"/></process>
       <process field="statusId"><copy to-field="statusId" replace="true" set-if-null="false"/></process>
-      <process field="customMethodId"><copy to-field="customMethodId" replace="true" set-if-null="false"/></process>
-      <process field="oldServiceName"><copy to-field="oldServiceName" replace="true" set-if-null="false"/></process>
+      <process field="serviceName"><copy to-field="serviceName" replace="true" set-if-null="false"/></process>
       <process field="contentName"><copy to-field="contentName" replace="true" set-if-null="false"/></process>
       <process field="description"><copy to-field="description" replace="true" set-if-null="false"/></process>
       <process field="localeString"><copy to-field="localeString" replace="true" set-if-null="false"/></process>
