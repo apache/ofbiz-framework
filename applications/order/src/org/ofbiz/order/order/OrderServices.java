@@ -3337,8 +3337,18 @@ public class OrderServices {
 
                         String fulfillmentType = productContentItem.getString("productContentTypeId");
                         if ("FULFILLMENT_EXTASYNC".equals(fulfillmentType) || "FULFILLMENT_EXTSYNC".equals(fulfillmentType)) {
-                            // enternal service fulfillment
-                            String fulfillmentService = (String) content.get("serviceName");
+                            // external service fulfillment
+                            String fulfillmentService = (String) content.get("serviceName"); // Kept for backward compatibility
+                            GenericValue custMethod = null;
+                            if (UtilValidate.isNotEmpty(content.getString("customMethodId"))) {
+                                try {
+                                    custMethod = delegator.findOne("CustomMethod", UtilMisc.toMap("customMethodId", content.get("customMethodId")), true);
+                                } catch (GenericEntityException e) {
+                                    Debug.logError(e,"ERROR: Cannot get CustomMethod associate to Content entity: " + e.getMessage(),module);
+                                    continue;
+                                }
+                            }
+                            if (custMethod != null) fulfillmentService = custMethod.getString("customMethodName");
                             if (fulfillmentService == null) {
                                 Debug.logError("ProductContent of type FULFILLMENT_EXTERNAL had Content with empty serviceName, can not run fulfillment", module);
                             }
