@@ -177,7 +177,12 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             Map<String,Object>templateContext, Locale locale, String mimeTypeId, boolean cache, List<GenericValue> webAnalytics) throws GeneralException, IOException {
         // if the content has a service attached run the service
 
-        String serviceName = content.getString("serviceName");
+        String serviceName = content.getString("serviceName"); //Kept for backward compatibility
+        GenericValue custMethod = null;
+        if (UtilValidate.isNotEmpty(content.getString("customMethodId"))) {
+            custMethod = delegator.findOne("CustomMethod", UtilMisc.toMap("customMethodId", content.get("customMethodId")), true);
+        }
+        if (custMethod != null) serviceName = custMethod.getString("customMethodName");
         if (dispatcher != null && UtilValidate.isNotEmpty(serviceName)) {
             DispatchContext dctx = dispatcher.getDispatchContext();
             ModelService service = dctx.getModelService(serviceName);

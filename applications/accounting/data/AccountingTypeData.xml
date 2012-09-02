@@ -728,11 +728,13 @@ under the License.
     <CustomMethodType customMethodTypeId="FIN_CAPTURE" parentTypeId="" hasTable="N" description="FIN account capture methods"/>
     <CustomMethodType customMethodTypeId="FIN_REFUND" parentTypeId="" hasTable="N" description="FIN account refund methods"/>
     <CustomMethodType customMethodTypeId="FIN_RELEASE" parentTypeId="" hasTable="N" description="FIN account release methods"/>
+    <CustomMethodType customMethodTypeId="FIN_PURCHASE" parentTypeId="" hasTable="N" description="FIN account purchase methods"/>
 
     <CustomMethodType customMethodTypeId="GIFT_AUTH" parentTypeId="" hasTable="N" description="GIFT card authorize methods"/>
     <CustomMethodType customMethodTypeId="GIFT_CAPTURE" parentTypeId="" hasTable="N" description="GIFT card capture methods"/>
     <CustomMethodType customMethodTypeId="GIFT_REFUND" parentTypeId="" hasTable="N" description="GIFT card refund methods"/>
     <CustomMethodType customMethodTypeId="GIFT_RELEASE" parentTypeId="" hasTable="N" description="GIFT card release methods"/>
+    <CustomMethodType customMethodTypeId="GIFT_PURCHASE" parentTypeId="" hasTable="N" description="GIFT card purchase methods"/>
 
     <CustomMethodType customMethodTypeId="PAYPAL_AUTH" parentTypeId="" hasTable="N" description="PayPal authorize methods"/>
     <CustomMethodType customMethodTypeId="PAYPAL_CAPTURE" parentTypeId="" hasTable="N" description="PayPal capture methods"/>
@@ -809,6 +811,7 @@ under the License.
     <CustomMethod customMethodId="FIN_CAPTURE_OFBIZ" customMethodTypeId="FIN_CAPTURE" customMethodName="ofbFaCapture" description="FIN account capture"/>
     <CustomMethod customMethodId="FIN_REFUND_OFBIZ" customMethodTypeId="FIN_REFUND" customMethodName="ofbFaRefund" description="FIN account refund"/>
     <CustomMethod customMethodId="FIN_RELEASE_OFBIZ" customMethodTypeId="FIN_RELEASE" customMethodName="ofbFaRelease" description="FIN account release"/>
+    <CustomMethod customMethodId="FIN_PURCH_OFBIZ" customMethodTypeId="FIN_PURCHASE" customMethodName="createPartyFinAccountFromPurchase" description="FIN account purchase"/>
 
     <CustomMethod customMethodId="GIFT_AUTH_OFBIZ" customMethodTypeId="GIFT_AUTH" customMethodName="ofbGcAuthorize" description="GIFT card authorize"/>
     <CustomMethod customMethodId="GIFT_AUTH_ALWAYSAPPR" customMethodTypeId="GIFT_AUTH" customMethodName="alwaysApproveGCProcessor" description="GIFT card always authorize"/>
@@ -820,6 +823,7 @@ under the License.
     <CustomMethod customMethodId="GIFT_RELEASE_OFBIZ" customMethodTypeId="GIFT_RELEASE" customMethodName="ofbGcRelease" description="GIFT card release"/>
     <CustomMethod customMethodId="GIFT_RELEASE_TEST" customMethodTypeId="GIFT_RELEASE" customMethodName="testGCRelease" description="GIFT card test release"/>
     <CustomMethod customMethodId="GIFT_RELEASE_VALUEL" customMethodTypeId="GIFT_RELEASE" customMethodName="valueLinkRelease" description="GIFT card ValueLink release"/>
+    <CustomMethod customMethodId="GIFT_PURCH_OFBIZ" customMethodTypeId="GIFT_PURCHASE" customMethodName="ofbGcPurchase" description="GIFT card Purchase Fulfillment Service"/>
 
     <CustomMethod customMethodId="PAYPAL_AUTH_PFP" customMethodTypeId="PAYPAL_AUTH" customMethodName="payflowPayPalProcessor" description="Payflow PayPal payment authorize"/>
     <CustomMethod customMethodId="PAYPAL_AUTH" customMethodTypeId="PAYPAL_AUTH" customMethodName="payPalProcessor" description="PayPal payment authorize"/>

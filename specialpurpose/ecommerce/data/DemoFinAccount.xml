@@ -83,7 +83,7 @@
     <ProductStoreSurveyAppl productStoreSurveyId="1100" productStoreId="9000" surveyApplTypeId="CART_ADD" surveyId="1100" productId="FA-001" fromDate="2003-11-24 16:00:02.467" surveyTemplate="/applications/content/template/survey/genericsurvey.ftl" lastUpdatedStamp="2003-12-04 21:40:23.27" lastUpdatedTxStamp="2003-12-04 21:40:20.607"/>
 
     <!-- fulfillment service -->
-    <Content contentId="FA_ACTIVATION" serviceName="createPartyFinAccountFromPurchase"/>
+    <Content contentId="FA_ACTIVATION" customMethodId="FIN_PURCH_OFBIZ"/>
 
     <!-- associate the fulfillment service with the products -->
     <ProductContent productId="FA-001" contentId="FA_ACTIVATION" productContentTypeId="FULFILLMENT_EXTASYNC" fromDate="2000-01-01 00:00:00"/>

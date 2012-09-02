@@ -159,7 +159,10 @@ under the License.
       <field name="dataSourceId" type="id"></field>
       <field name="statusId" type="id"></field>
       <field name="privilegeEnumId" type="id"></field>
-      <field name="serviceName" type="long-varchar"></field>
+      <field name="serviceName" type="long-varchar">
+          <description>Deprecated : use customMethod pattern instead of. Kept for backward compatibility</description>
+      </field>
+      <field name="customMethodId" type="id"></field>
       <field name="contentName" type="name"></field>
       <field name="description" type="description"></field>
       <field name="localeString" type="very-short"></field>
@@ -186,6 +189,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="CONTENT_PRIVENM" title="Privilege" rel-entity-name="Enumeration">
         <key-map field-name="privilegeEnumId" rel-field-name="enumId"/>
+      </relation>
+      <relation type="one" fk-name="CONTENT_CUSTMET" rel-entity-name="CustomMethod">
+        <key-map field-name="customMethodId"/>
       </relation>
       <!-- the relationship to MimeType is one-nofk so that you can still do a lookup on MimeType but a new
       and unexpected mime type would not cause a foreign key constraint violation, so MimeType can store the
