@@ -86,6 +86,7 @@
     </property>
     <property key="TrackingCodeType.description.ACCESS">
         <value xml:lang="en">Access Code</value>
+        <value xml:lang="fr">Code d'accès</value>
         <value xml:lang="it">Codice di accesso</value>
         <value xml:lang="pt_BR">Código de acesso</value>
         <value xml:lang="vi">Mã truy nhập</value>

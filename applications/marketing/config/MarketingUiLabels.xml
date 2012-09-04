@@ -53,6 +53,7 @@
     </property>
     <property key="FormFieldTitle_changeNote">
         <value xml:lang="en">Change Note</value>
+        <value xml:lang="fr">Note du changement</value>
         <value xml:lang="it">Nota per variazione</value>
         <value xml:lang="pt_BR">Comunicação de mudança</value>
         <value xml:lang="vi">Cập nhật Ghi chú</value>
@@ -604,6 +605,7 @@
     </property>
     <property key="MarketingContactListPartiesImport">
         <value xml:lang="en">Import Parties</value>
+        <value xml:lang="fr">Import d'acteurs</value>
         <value xml:lang="th">นำเข้ากลุ่มผู้ใช้</value>
         <value xml:lang="vi">Nhập vào các Tác nhân</value>
     </property>
@@ -697,6 +699,7 @@
     </property>
     <property key="MarketingCreatePermissionError">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the MARKETING_CREATE or MARKETING_ADMIN permission</value>
+        <value xml:lang="fr">Erreur de sécurité : pour lancer ${resourceDescription}, vous devez avoir la permission MARKETING_CREATE ou MARKETING_ADMIN</value>
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso MARKETING_CREATE o MARKETING_ADMIN</value>
         <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần có quyền MARKETING_CREATE hoặc quyền MARKETING_ADMIN</value>
     </property>
@@ -715,12 +718,14 @@
     </property>
     <property key="MarketingDeletePermissionError">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the MARKETING_DELETE or MARKETING_ADMIN permission</value>
+        <value xml:lang="fr">Erreur de sécurité : pour lancer ${resourceDescription}, vous devez avoir la permission MARKETING_DELETE ou MARKETING_ADMIN</value>
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso MARKETING_DELETE o MARKETING_ADMIN</value>
         <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần có quyền MARKETING_DELETE hoặc quyền MARKETING_ADMIN</value>
     </property>
     <property key="MarketingEmailStatusReport">
         <value xml:lang="de">E-Mail Statusbericht</value>
         <value xml:lang="en">Email Status Report</value>
+        <value xml:lang="fr">Rapport du statut des courriels</value>
         <value xml:lang="it">Report stato e-mail</value>
         <value xml:lang="pt_BR">Relatório de estado de e-mail</value>
         <value xml:lang="vi">Báo cáo tình trạng thư điện tử</value>
@@ -850,6 +855,7 @@
     </property>
     <property key="MarketingPartyStatusReport">
         <value xml:lang="en">Party Status Report</value>
+        <value xml:lang="fr">Rapport du statut des acteurs</value>
         <value xml:lang="it">Report stato soggetti</value>
         <value xml:lang="pt_BR">Relatório de estado de participante</value>
         <value xml:lang="vi">Báo cáo tình trạng Tác nhân</value>
@@ -916,6 +922,7 @@
     </property>
     <property key="MarketingSegmentGroupDeletePermissionError">
         <value xml:lang="en">Error on delete Segment Group</value>
+        <value xml:lang="fr">Erreur dans la suppression d'un groupe de segment</value>
         <value xml:lang="it">Errore durante la cancellazione di un gruppo segmento</value>
         <value xml:lang="pt_BR">Erro ao excluir grupo de segmento</value>
         <value xml:lang="vi">Lỗi trong việc xóa nhóm phân đoạn</value>
@@ -951,6 +958,7 @@
     </property>
     <property key="MarketingSegmentGroupMgrViewPermissionError">
         <value xml:lang="en">Segment Group View Permission Error</value>
+        <value xml:lang="fr">Permission de visualisation d'un groupe de segment refusé</value>
         <value xml:lang="it">Errore permesso di visualizzare i gruppi segmento</value>
         <value xml:lang="pt_BR">Erro de permissões para visualização de grupo de segmento</value>
         <value xml:lang="vi">Lỗi quyền xem Nhóm phân đoạn</value>
@@ -972,6 +980,7 @@
     </property>
     <property key="MarketingSegmentGroupPartyClassificationGroupId">
         <value xml:lang="en">Segment GroupParty ClassificationGroup Id</value>
+        <value xml:lang="fr">Réf du groupe de classification d'acteur</value>
         <value xml:lang="it">Soggetto gruppo segmento classificazione</value>
         <value xml:lang="nl">ID Classificatiegroep Segmentgroep</value>
         <value xml:lang="pt_BR">ID de segmento de grupo de participante classificação de grupo</value>
@@ -1614,14 +1623,17 @@
     </property>
     <property key="MarketingWebSiteContactList">
         <value xml:lang="en">WebSites</value>
+        <value xml:lang="fr">Sites Web</value>
         <value xml:lang="vi">Trang thông tin (website)</value>
     </property>
     <property key="MarketingWebSiteContactListCreate">
         <value xml:lang="en">Create WebSite</value>
+        <value xml:lang="fr">Créer un site Web</value>
         <value xml:lang="vi">Tạo mới trang thông tin</value>
     </property>
     <property key="MarketingWebSiteContactListView">
         <value xml:lang="en">WebSites View</value>
+        <value xml:lang="fr">Visualiser les sites Web</value>
         <value xml:lang="vi">Xem Trang thông tin</value>
     </property>
     <property key="PageTitleAccountSummary">
@@ -1683,12 +1695,14 @@
     </property>
     <property key="PageTitleAssignAccountFromExisting">
         <value xml:lang="en">Assign Existing Account</value>
+        <value xml:lang="fr">Associer un compte existant</value>
         <value xml:lang="pt_BR">Designar uma conta existente</value>
         <value xml:lang="th">กำหนด Account ที่มีอยู่</value>
         <value xml:lang="vi">Gán Tài khoản đã có</value>
     </property>
     <property key="PageTitleAssignLeadFromExisting">
         <value xml:lang="en">Assign Existing Lead</value>
+        <value xml:lang="fr">Associer un prospect existant</value>
         <value xml:lang="pt_BR">Designar um Lead existente</value>
         <value xml:lang="th">กำหนด Lead ที่มีอยู่</value>
         <value xml:lang="vi">Gán Đầu mối đã có</value>
@@ -1964,6 +1978,7 @@
     </property>
     <property key="PageTitleFindImportContactListParties">
         <value xml:lang="en">Find Import Contact List Parties</value>
+        <value xml:lang="fr">Rechercher des acteurs importés sur une liste de contact</value>
         <value xml:lang="th">ค้นหารายการติดต่อกลุ่มผู้ใช้เพื่อการนำเข้า</value>
         <value xml:lang="vi">Tìm Danh sách liên hệ của Tác nhân đã nhập khẩu</value>
     </property>
@@ -2581,21 +2596,25 @@
     </property>
     <property key="SfaExportVCardError">
         <value xml:lang="en">Error during export data from VCard: ${errorString}</value>
+        <value xml:lang="fr">Erreur durant l'export de la VCard : ${errorString}</value>
         <value xml:lang="it">Errore durante l'esportazione dei dati da VCard: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi kết xuất dữ liệu từ VCard: ${errorString}</value>
     </property>
     <property key="SfaExportVCardErrorOpeningFile">
         <value xml:lang="en">Error during export data from VCard, unable to open file for writing: ${errorString}</value>
+        <value xml:lang="fr">Erreur durant l'export de la VCard, impossible d'ouvrir le fichier en écriture : ${errorString}</value>
         <value xml:lang="it">Errore durante l'esportazione dei dati da VCard, non è possibile aprire il file in scrittura: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi kết xuất dữ liệu từ VCard, không thể mở tập tin để ghi: ${errorString}</value>
     </property>
     <property key="SfaExportVCardErrorWritingFile">
         <value xml:lang="en">Error during export data from VCard, unable to write data to: ${errorString}</value>
+        <value xml:lang="fr">Erreur durant l'export de la VCard, impossible d'écrire les données : ${errorString}</value>
         <value xml:lang="it">Errore durante l'esportazione dei dati da VCard, non è possibile scrivere i dati in: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi kết xuất dữ liệu từ VCard, không thể ghi dữ liệu tới: ${errorString}</value>
     </property>
     <property key="SfaFindAccountLeads">
         <value xml:lang="en">Find Account Leads</value>
+        <value xml:lang="fr">Recherche de prospects</value>
         <value xml:lang="pt_BR">Buscar contas de Leads</value>
         <value xml:lang="th">ค้นหา Account Leads</value>
         <value xml:lang="vi">Tìm kiếm Tài khoản đầu mối</value>
@@ -2603,6 +2622,7 @@
     <property key="SfaFindAccounts">
         <value xml:lang="de">Finde Konten</value>
         <value xml:lang="en">Find Accounts</value>
+        <value xml:lang="fr">Recherche de compte</value>
         <value xml:lang="pt_BR">Buscar contas</value>
         <value xml:lang="th">ค้นหา Accounts</value>
         <value xml:lang="vi">Tìm kiếm Tài khoản</value>
@@ -2661,6 +2681,7 @@
     <property key="SfaFirstNameLastNameAndCompanyNameMissingError">
         <value xml:lang="de">Bitte geben Sie den Vornamen, Nachnamen oder Firmennamen ein</value>
         <value xml:lang="en">Please enter Person First name or Last name or Company name</value>
+        <value xml:lang="fr">Merci de saisir le prénom ou le nom pour une personne ou le nom pour une société</value>
         <value xml:lang="pt_BR">Por favor, digite o nome da pessoa, sobrenome ou nome da empresa</value>
         <value xml:lang="vi">Bạn hãy nhập Tên hoặc Họ hoặc Tên công ty</value>
     </property>
@@ -2687,6 +2708,7 @@
     </property>
     <property key="SfaImportVCardError">
         <value xml:lang="en">Error during import data from VCard: ${errorString}</value>
+        <value xml:lang="fr">Erreur durant l'import de la VCard : ${errorString}</value>
         <value xml:lang="it">Errore durante l'importazione dei dati da VCard: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi nhập khẩu dữ liệu từ VCard: ${errorString}</value>
     </property>
@@ -2967,6 +2989,7 @@
     </property>
     <property key="SfaSelectLeadOwners">
         <value xml:lang="en">Select Lead Owners</value>
+        <value xml:lang="fr">Selection de vos propects</value>
         <value xml:lang="pt_BR">Selecionar donos do Lead</value>
         <value xml:lang="vi">Chọn Sở hữu Đầu mối</value>
     </property>
