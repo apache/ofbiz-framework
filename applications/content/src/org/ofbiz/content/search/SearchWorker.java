@@ -19,12 +19,14 @@
 package org.ofbiz.content.search;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import org.apache.lucene.index.*;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
@@ -40,14 +42,10 @@ import org.ofbiz.service.LocalDispatcher;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
-import org.apache.lucene.index.IndexReader;
-import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.index.IndexWriterConfig;
-import org.apache.lucene.index.Term;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.store.LockObtainFailedException;
 import org.apache.lucene.util.Version;
-
 
 /**
  * SearchWorker Class
@@ -56,7 +54,7 @@ public class SearchWorker {
 
     public static final String module = SearchWorker.class.getName();
 
-    public static final Version LUCENE_VERSION = Version.LUCENE_35;
+    public static final Version LUCENE_VERSION = Version.LUCENE_36;
 
     public static Map<String, Object> indexTree(LocalDispatcher dispatcher, Delegator delegator, String siteId, Map<String, Object> context, String path) throws Exception {
         Map<String, Object> results = FastMap.newInstance();
@@ -99,24 +97,39 @@ public class SearchWorker {
         return indexAllPath;
     }
 
-    private static void indexContentList(LocalDispatcher dispatcher, Delegator delegator, Map<String, Object> context, List<String> idList, String path) throws Exception {
+    private static IndexWriter getDefaultIndexWriter(Directory directory) {
+        IndexWriter writer = null;
+        long savedWriteLockTimeout = IndexWriterConfig.getDefaultWriteLockTimeout();
+        Analyzer analyzer = new StandardAnalyzer(LUCENE_VERSION);
+        IndexWriterConfig conf = new IndexWriterConfig(LUCENE_VERSION, analyzer);
+        IndexWriterConfig.setDefaultWriteLockTimeout(2000);
+        try {
+            writer  = new IndexWriter(directory, conf);
+        } catch (CorruptIndexException e) {
+            Debug.logError("Corrupted lucene index: "  + e.getMessage(), module);
+        } catch (LockObtainFailedException e) {
+            Debug.logError("Could not obtain Lock on lucene index "  + e.getMessage(), module);
+        } catch (IOException e) {
+            Debug.logError(e.getMessage(), module);
+        } finally {
+            IndexWriterConfig.setDefaultWriteLockTimeout(savedWriteLockTimeout);
+        }
+        return writer;
+    }
+
+    public static void indexContentList(LocalDispatcher dispatcher, Delegator delegator, Map<String, Object> context,List<String> idList, String path) throws Exception {
         Directory directory = FSDirectory.open(new File(getIndexPath(path)));
         if (Debug.infoOn()) Debug.logInfo("in indexContentList, indexAllPath: " + directory.toString(), module);
         // Delete existing documents
-        IndexReader reader = null;
-        try {
-            reader = IndexReader.open(directory, false);
-        } catch (Exception e) {
-            // ignore
-        }
+        IndexWriter writer = getDefaultIndexWriter(directory);
         List<GenericValue> contentList = FastList.newInstance();
         for (String id : idList) {
             if (Debug.infoOn()) Debug.logInfo("in indexContentList, id:" + id, module);
             try {
                 GenericValue content = delegator.findOne("Content", UtilMisc .toMap("contentId", id), true);
                 if (content != null) {
-                    if (reader != null) {
-                        deleteContentDocuments(content, reader);
+                    if (writer != null) {
+                        deleteContentDocuments(content, writer);
                     }
                     contentList.add(content);
                 }
@@ -125,43 +138,39 @@ public class SearchWorker {
                 return;
             }
         }
-        if (reader != null) {
-            reader.close();
-        }
-        // Now create
-        IndexWriter writer = null;
-        long savedWriteLockTimeout = IndexWriterConfig.getDefaultWriteLockTimeout();
-        Analyzer analyzer = new StandardAnalyzer(LUCENE_VERSION);
-        IndexWriterConfig conf = new IndexWriterConfig(LUCENE_VERSION, analyzer);
-
-        try {
-            IndexWriterConfig.setDefaultWriteLockTimeout(2000);
-            writer  = new IndexWriter(directory, conf);
-        } finally {
-            IndexWriterConfig.setDefaultWriteLockTimeout(savedWriteLockTimeout);
-        }
-
         for (GenericValue gv : contentList) {
             indexContent(dispatcher, delegator, context, gv, writer);
         }
-        writer.forceMerge(1);
+        try {
+            writer.forceMerge(1);
+        } catch (NullPointerException e) {
+            Debug.logError(e, module);
+        }
         writer.close();
     }
 
-    private static void deleteContentDocuments(GenericValue content, IndexReader reader) throws Exception {
+    private static void deleteContentDocuments(GenericValue content, IndexWriter writer) throws Exception {
         String contentId = content.getString("contentId");
         Term term = new Term("contentId", contentId);
-        deleteDocumentsByTerm(term, reader);
+        deleteDocumentsByTerm(term, writer);
         String dataResourceId = content.getString("dataResourceId");
         if (dataResourceId != null) {
             term = new Term("dataResourceId", dataResourceId);
-            deleteDocumentsByTerm(term, reader);
+            deleteDocumentsByTerm(term, writer);
         }
     }
 
-    private static void deleteDocumentsByTerm(Term term, IndexReader reader) throws Exception {
-        int qtyDeleted = reader.deleteDocuments(term);
-        if (Debug.infoOn()) Debug.logInfo("Deleted " + qtyDeleted + "documents for term: " + term, module);
+    private static void deleteDocumentsByTerm(Term term, IndexWriter writer) throws Exception {
+        IndexReader reader = IndexReader.open(writer, false);
+        int qtyBefore = reader.docFreq(term);
+
+        //deletes documents, all the rest is for logging
+        writer.deleteDocuments(term);
+
+        int qtyAfter = reader.docFreq(term);
+        reader.close();
+
+        if (Debug.infoOn()) Debug.logInfo("For term " + term.toString() + ", documents deleted: " + qtyBefore + ", remaining: " + qtyAfter, module);
     }
 
     private static void indexContent(LocalDispatcher dispatcher, Delegator delegator, Map<String, Object> context, GenericValue content, IndexWriter writer) throws Exception {
