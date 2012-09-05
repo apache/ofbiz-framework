@@ -135,4 +135,12 @@ under the License.
         <action service="removeImageContentApproval" mode="sync"/>
     </eca>
 
+    <!-- ProductStoreGroup seca  -->
+    <eca service="updateProductStoreGroup" event="commit">
+        <condition field-name="primaryParentGroupId" operator="not-equals" value=""/>
+        <action service="checkProductStoreGroupRollup" mode="sync"/>
+    </eca>
+    <eca service="createProductStoreGroupRollup" event="commit">
+        <action service="checkProductStoreGroupRollup" mode="sync"/>
+    </eca>
 </service-eca>

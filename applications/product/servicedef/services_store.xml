@@ -306,4 +306,47 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
+    <!--ProductStoreGroup Services -->
+    <service name="createProductStoreGroup" default-entity-name="ProductStoreGroup" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductStoreGroup</description>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateProductStoreGroup" default-entity-name="ProductStoreGroup" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProductStoreGroup</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductStoreGroup" default-entity-name="ProductStoreGroup" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductStoreGroup</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="createProductStoreGroupMember" default-entity-name="ProductStoreGroupMember" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductStoreGroupMember</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateProductStoreGroupMember" default-entity-name="ProductStoreGroupMember" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProductStoreGroupMember</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="createProductStoreGroupRollup" default-entity-name="ProductStoreGroupRollup" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductStoreGroupRollup</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateProductStoreGroupRollup" default-entity-name="ProductStoreGroupRollup" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProductStoreGroupRollup</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="checkProductStoreGroupRollup" engine="simple"
+            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="checkProductStoreGroupRollup" auth="true">
+        <description>Check if a productStoreGroupId with a primaryParentGroupId has related productStoreGroupRollup or for first ProductStoreGroupRollup on a ProductStoreGroup set relation on primaryParentGroupId</description>
+        <attribute name="productStoreGroupId" mode="IN" type="String"/>
+        <attribute name="primaryParentGroupId" mode="IN" type="String" optional="true"/>
+        <attribute name="parentGroupId" mode="IN" type="String" optional="true"/>
+        <attribute name="fromDate" mode="IN" type="String" optional="true"/>
+    </service>
 </services>
