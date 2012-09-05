@@ -43,4 +43,6 @@ under the License.
     <UserLoginSecurityGroup userLoginId="imageUpload" groupId="IMAGEUPLOAD" fromDate="2010-01-01 12:00:00.0"/>
     
     <PartyRole partyId="admin" roleTypeId="IMAGEAPPROVER"/>
+    <!-- Product store group management demo -->
+    <ProductStoreGroupType productStoreGroupTypeId="PSGT_AREA" description="Area cover"/>
 </entity-engine-xml>

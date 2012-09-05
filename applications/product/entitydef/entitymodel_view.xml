@@ -80,4 +80,29 @@ under the License.
             <key-map field-name="productId"/>
         </view-link>
     </view-entity>
+
+    <view-entity entity-name="ProductStoreGroupAndMember" package-name="org.ofbiz.product.store" title="ProductStoreGroup And ProductStore View Entiry">
+        <member-entity entity-alias="PSG" entity-name="ProductStoreGroup"/>
+        <member-entity entity-alias="PSGM" entity-name="ProductStoreGroupMember"/>
+        <member-entity entity-alias="PS" entity-name="ProductStore"/>
+        <alias-all entity-alias="PSG"/>
+        <alias-all entity-alias="PSGM"/>
+        <alias-all entity-alias="PS"/>
+        <view-link entity-alias="PSG" rel-entity-alias="PSGM">
+            <key-map field-name="productStoreGroupId"/>
+        </view-link>
+        <view-link entity-alias="PSGM" rel-entity-alias="PS">
+            <key-map field-name="productStoreId"/>
+        </view-link>
+    </view-entity>
+
+    <view-entity entity-name="ProductStoreGroupRollupAndChild" package-name="org.ofbiz.product.store" title="ProductStoreGroupRollup And ProductStoreGroup View Entiry">
+        <member-entity entity-alias="PSGR" entity-name="ProductStoreGroupRollup"/>
+        <member-entity entity-alias="PSG" entity-name="ProductStoreGroup"/>
+        <alias-all entity-alias="PSG"/>
+        <alias-all entity-alias="PSGR"/>
+        <view-link entity-alias="PSG" rel-entity-alias="PSGR">
+            <key-map field-name="productStoreGroupId"/>
+        </view-link>
+    </view-entity>
 </entitymodel>

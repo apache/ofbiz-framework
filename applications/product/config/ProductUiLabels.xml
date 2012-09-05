@@ -4975,6 +4975,41 @@
         <value xml:lang="zh">产品店铺组标识</value>
         <value xml:lang="zh_TW">產品商店群組ID</value>
     </property>
+    <property key="FormFieldTitle_productStoreGroupName">
+        <value xml:lang="ar">إسم</value>
+        <value xml:lang="de">Name</value>
+        <value xml:lang="en">Name</value>
+        <value xml:lang="es">Nombre</value>
+        <value xml:lang="fr">Nom</value>
+        <value xml:lang="hi_IN">नाम</value>
+        <value xml:lang="it">Nome</value>
+        <value xml:lang="nl">Naam</value>
+        <value xml:lang="pt">Nome</value>
+        <value xml:lang="ro">Nume</value>
+        <value xml:lang="ru">Имя</value>
+        <value xml:lang="th">ชื่อ</value>
+        <value xml:lang="zh">名称</value>
+        <value xml:lang="zh_CN">名称</value>
+        <value xml:lang="zh_TW">名稱</value>
+    </property>
+    <property key="FormFieldTitle_productStoreGroupTypeId">
+        <value xml:lang="ar">النوع</value>
+        <value xml:lang="de">Typ</value>
+        <value xml:lang="en">Type</value>
+        <value xml:lang="es">Tipo</value>
+        <value xml:lang="fr">Type</value>
+        <value xml:lang="hi_IN">प्रकार</value>
+        <value xml:lang="it">Tipo</value>
+        <value xml:lang="nl">Soort</value>
+        <value xml:lang="pt">Tipo</value>
+        <value xml:lang="ro">Tip</value>
+        <value xml:lang="ru">Тип</value>
+        <value xml:lang="th">ประเภท</value>
+        <value xml:lang="vi">Chủng loại</value>
+        <value xml:lang="zh">类型</value>
+        <value xml:lang="zh_CN">类型</value>
+        <value xml:lang="zh_TW">類型</value>
+    </property>
     <property key="FormFieldTitle_productStoreId">
         <value xml:lang="ar">تعريف المتجر</value>
         <value xml:lang="de">Produkt Laden ID</value>
@@ -10242,6 +10277,10 @@
         <value xml:lang="vi">Thêm vào Kiện hàng</value>
         <value xml:lang="zh">添加到包装</value>
         <value xml:lang="zh_TW">添加到包裝</value>
+    </property>
+    <property key="ProductAddToProductStoreGroup">
+        <value xml:lang="en">Add To Product Store Group</value>
+        <value xml:lang="fr">Ajout au groupe de centre de profit</value>
     </property>
     <property key="ProductAddToShoppingList">
         <value xml:lang="de">Zu Einkaufsliste hinzufügen</value>
@@ -20211,6 +20250,14 @@
         <value xml:lang="zh">上级组 [标识]</value>
         <value xml:lang="zh_TW">上級組 [ID]</value>
     </property>
+    <property key="ProductParentProductStoreGroups">
+        <value xml:lang="en">Parent Product Store Groups</value>
+        <value xml:lang="fr">Groupes de centre de profit parent</value>
+    </property>
+    <property key="ProductParentProductStoreGroupList">
+        <value xml:lang="en">Parent Product Store Group List</value>
+        <value xml:lang="fr">Liste des groupes de centre de profit parent</value>
+    </property>
     <property key="ProductParentType">
         <value xml:lang="de">Übergeordneter Produkttyp</value>
         <value xml:lang="en">Product Parent Type</value>
@@ -21563,6 +21610,22 @@
         <value xml:lang="vi">Id nhóm Cửa hàng</value>
         <value xml:lang="zh">产品店铺组标识</value>
         <value xml:lang="zh_TW">產品商店群組ID</value>
+    </property>
+    <property key="ProductProductStoreGroupRollup">
+        <value xml:lang="en">Product Store Rollup</value>
+        <value xml:lang="fr">Groupes de centre de profit enfant</value>
+    </property>
+    <property key="ProductProductStoreGroups">
+        <value xml:lang="en">Product Store Groups</value>
+        <value xml:lang="fr">Groupes de centre de profit</value>
+    </property>
+    <property key="ProductProductStoreGroupMain">
+        <value xml:lang="en">Product Store main</value>
+        <value xml:lang="fr">Accueil groupes</value>
+    </property>
+    <property key="ProductProductStoreMember">
+        <value xml:lang="en">Product Store Member</value>
+        <value xml:lang="fr">Centres de profit associés</value>
     </property>
     <property key="ProductProductStoreNotFound">
         <value xml:lang="en">No ProductStore found with id ${parameters.productStoreId}, not reserving inventory.</value>

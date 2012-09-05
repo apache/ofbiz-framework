@@ -26,6 +26,7 @@ under the License.
         <menu-item name="promos" title="${uiLabelMap.ProductPromos}"><link target="FindProductPromo"/></menu-item>
         <menu-item name="pricerules" title="${uiLabelMap.ProductPriceRules}"><link target="FindProductPriceRules"/></menu-item>
         <menu-item name="store" title="${uiLabelMap.ProductStores}"><link target="FindProductStore"/></menu-item>
+        <menu-item name="storeGroup" title="${uiLabelMap.ProductProductStoreGroups}"><link target="ListParentProductStoreGroup"/></menu-item>
         <menu-item name="thesaurus" title="${uiLabelMap.ProductThesaurus}"><link target="editKeywordThesaurus"/></menu-item>
         <menu-item name="reviews" title="${uiLabelMap.ProductReviews}"><link target="FindReviews"/></menu-item>
         <menu-item name="configs" title="${uiLabelMap.ProductConfigItems}"><link target="FindProductConfigItems"/></menu-item>
@@ -283,6 +284,12 @@ under the License.
                 </or>
             </condition>
             <link target="javascript:expandAll(false);" url-mode="plain"/>
+        </menu-item>
+    </menu>
+
+    <menu name="ProductStoreGroupButtonBar" extends="CommonButtonBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="editstoregroup">
+            <link target="EditProductStoreGroup" text="${uiLabelMap.ProductNewGroup}" style="create"/>
         </menu-item>
     </menu>
 

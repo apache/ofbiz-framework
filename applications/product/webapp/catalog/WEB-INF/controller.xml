@@ -1439,6 +1439,39 @@ under the License.
         <response name="error" type="view" value="EditProdCatalogStores"/>
     </request-map>
 
+    <request-map uri="ListParentProductStoreGroup"><security https="true" auth="true"/><response name="success" type="view" value="ListParentProductStoreGroup"/></request-map>
+    <request-map uri="EditProductStoreGroup"><security https="true" auth="true"/><response name="success" type="view" value="EditProductStoreGroup"/></request-map>
+    <request-map uri="EditProductStoreGroupAndAssoc"><security https="true" auth="true"/><response name="success" type="view" value="EditProductStoreGroupAndAssoc"/></request-map>
+    <request-map uri="createProductStoreGroup">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createProductStoreGroup"/>
+        <response name="success" type="view" value="ListParentProductStoreGroup"/>
+        <response name="error" type="view" value="EditProductStoreGroup"/>
+    </request-map>
+    <request-map uri="updateProductStoreGroup">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateProductStoreGroup"/>
+        <response name="success" type="view" value="ListParentProductStoreGroup"/>
+        <response name="error" type="view" value="EditProductStoreGroup"/>
+    </request-map>
+    <request-map uri="getProductStoreGroupRollupHierarchy">
+        <security auth="false" https="true"/>
+        <event type="java" path="org.ofbiz.product.store.ProductStoreEvents" invoke="getChildProductStoreGroupTree"/>
+        <response name="success" type="none"/>
+    </request-map>
+    <request-map uri="AddProductStoreToGroup">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="createProductStoreGroupMember"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    <request-map uri="updateProductStoreGroupRollup">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateProductStoreGroupRollup"/>
+        <response name="success" type="view" value="ListParentProductStoreGroup"/>
+        <response name="error" type="view" value="EditProductStoreGroup"/>
+    </request-map>
+
     <!-- ================ ProdCatalog Parties Requests ================= -->
     <request-map uri="EditProdCatalogParties">
         <security https="true" auth="true"/>
@@ -3178,6 +3211,9 @@ under the License.
     <view-map name="EditProductStoreFacility" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreFacility" type="screen"/>
     <view-map name="EditVendorProduct" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditVendorProduct"/>
     <view-map name="EditKeywordThesaurus" type="screen" page="component://product/widget/catalog/ThesaurusScreens.xml#EditKeywordThesaurus"/>
+    <view-map name="ListParentProductStoreGroup" type="screen" page="component://product/widget/catalog/StoreScreens.xml#ListParentProductStoreGroup"/>
+    <view-map name="EditProductStoreGroup" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreGroup"/>
+    <view-map name="EditProductStoreGroupAndAssoc" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreGroupAndAssoc"/>
 
     <view-map name="FindReviews" type="screen" page="component://product/widget/catalog/ReviewScreens.xml#FindReviews"/>
 

@@ -771,5 +771,28 @@ under the License.
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
+    <simple-method method-name="checkProductStoreGroupRollup" short-description="When product store group hierarchy has been operate, synchronize primaryParentGroupId with ProductStoreGroupRollup">
+        <entity-one value-field="productStoreGroup" entity-name="ProductStoreGroup"/>
+        <if-empty field="parameters.primaryParentGroupId">
+            <entity-one value-field="productStoreGroupRollup" entity-name="ProductStoreGroupRollup"/>
+            <if-not-empty field="productStoreGroupRollup">
+                <set field="productStoreGroup.primaryParentGroupId"/>
+                <set-service-fields service-name="updateProductStoreGroup" to-map="productStoreGroupMap" map="productStoreGroup"/>
+                <call-service service-name="updateProductStoreGroup" in-map-name="productStoreGroupMap"/>
+            </if-not-empty>
+            <else>
+                <entity-and list="productStoreGroupRollups" entity-name="ProductStoreGroupRollup" filter-by-date="true">
+                    <field-map field-name="productStoreGroupId" from-field="productStoreGroup.productStoreGroupId"/>
+                    <field-map field-name="parentGroupId" from-field="parameters.primaryParentGroupId"/>
+                </entity-and>
+                <if-empty field="productStoreGroupRollups">
+                    <set field="productStoreGroupRollupMap.productStoreGroupId" from="productStoreGroup.productStoreGroupId"/>
+                    <set field="productStoreGroupRollupMap.parentGroupId" from="parameters.primaryParentGroupId"/>
+                    <set field="productStoreGroupRollupMap.fromDate" from="date:nowTimestamp()"/>
+                    <call-service service-name="createProductStoreGroupRollup" in-map-name="productStoreGroupRollupMap"/>
+                </if-empty>
+            </else>
+        </if-empty>
+    </simple-method>
 </simple-methods>
 
