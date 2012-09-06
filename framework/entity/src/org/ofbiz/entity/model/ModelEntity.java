@@ -346,6 +346,9 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
                     if (UtilValidate.isNotEmpty(field.getDescription())) {
                         existingField.setDescription(field.getDescription());
                     }
+                    if (UtilValidate.isNotEmpty(field.getEnableAuditLog())) {
+                        existingField.setEnableAuditLog(field.getEnableAuditLog());
+                    }
                 } else {
                     // add to the entity as a new field
                     field.setModelEntity(this);
