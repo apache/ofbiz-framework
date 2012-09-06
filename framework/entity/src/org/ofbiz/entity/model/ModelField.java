@@ -179,6 +179,10 @@ public class ModelField extends ModelChild {
     public boolean getEnableAuditLog() {
         return this.enableAuditLog;
     }
+    
+    public void setEnableAuditLog(boolean enableAuditLog) {
+        this.enableAuditLog = enableAuditLog;
+    }
 
     public boolean getIsAutoCreatedInternal() {
         return this.isAutoCreatedInternal;
