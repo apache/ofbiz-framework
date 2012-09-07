@@ -74,11 +74,11 @@ ofbiz/trunk/framework/base/lib/scripting/jansi-1.2.1.jar
 ofbiz/trunk/framework/base/lib/xmlrpc-client-3.1.2.jar
 ofbiz/trunk/framework/base/lib/xmlrpc-common-3.1.2.jar
 ofbiz/trunk/framework/base/lib/xmlrpc-server-3.1.2.jar
-ofbiz/framework/catalina/lib/tomcat-7.0.29-catalina-ha.jar
-ofbiz/framework/catalina/lib/tomcat-7.0.29-catalina-tribes.jar
-ofbiz/framework/catalina/lib/tomcat-7.0.29-tomcat-embed-core.jar
-ofbiz/framework/catalina/lib/tomcat-7.0.29-tomcat-embed-jasper.jar
-ofbiz/framework/catalina/lib/tomcat-7.0.29-tomcat-embed-logging-log4j.jar
+ofbiz/framework/catalina/lib/tomcat-7.0.30-catalina-ha.jar
+ofbiz/framework/catalina/lib/tomcat-7.0.30-catalina-tribes.jar
+ofbiz/framework/catalina/lib/tomcat-7.0.30-tomcat-embed-core.jar
+ofbiz/framework/catalina/lib/tomcat-7.0.30-tomcat-embed-jasper.jar
+ofbiz/framework/catalina/lib/tomcat-7.0.30-tomcat-embed-logging-log4j.jar
 ofbiz/trunk/framework/entity/lib/commons-dbcp-1.4.jar
 ofbiz/trunk/framework/entity/lib/jdbc/derby-10.8.2.2.jar
 ofbiz/trunk/framework/entity/lib/jdbc/derbytools-10.8.2.2.jar
