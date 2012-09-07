@@ -39,7 +39,6 @@
         birt/build.xml,
         example/build.xml
     "/>
-    <!-- For the old OFBiz Workflow Engine add "workflow/build.xml" to the list above -->
 
     <!-- ================================================================== -->
     <!-- Removes all created files and directories                          -->

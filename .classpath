@@ -207,7 +207,6 @@
     <classpathentry kind="src" path="specialpurpose/pos/src"/>
     <classpathentry kind="src" path="specialpurpose/projectmgr/src"/>
     <classpathentry kind="src" path="specialpurpose/webpos/src"/>
-    <classpathentry kind="src" path="specialpurpose/workflow/src"/>
     <classpathentry exported="true" kind="con" path="GROOVY_DSL_SUPPORT"/>
     <classpathentry kind="output" path="bin"/>
 </classpath>

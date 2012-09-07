@@ -259,8 +259,6 @@ under the License.
     <EntityGroupEntry entityGroupId="6920" entityOrPackage="org.ofbiz.content.website" applEnumId="ESIA_INCLUDE"/>
     <EntityGroup entityGroupId="6930" entityGroupName="Technical: Login and Security"/>
     <EntityGroupEntry entityGroupId="6930" entityOrPackage="org.ofbiz.security" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroup entityGroupId="6940" entityGroupName="Technical: Workflow"/>
-    <EntityGroupEntry entityGroupId="6940" entityOrPackage="org.ofbiz.workflow" applEnumId="ESIA_INCLUDE"/>
     <EntityGroup entityGroupId="6990" entityGroupName="Technical: POS, OAGIS, Other"/>
     <EntityGroupEntry entityGroupId="6990" entityOrPackage="org.ofbiz.pos.terminal" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="6990" entityOrPackage="org.ofbiz.specialpurpose.oagis" applEnumId="ESIA_INCLUDE"/>
