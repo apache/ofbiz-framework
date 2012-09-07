@@ -25,11 +25,6 @@ under the License.
     <version>1.0</version>
 
     <!-- Order processing services -->
-    <service name="processOrderWf" engine="workflow" location="org.ofbiz.order" invoke="ProcessOrder">
-        <description>Service for testing the workflow engine</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
-    </service>
-
     <service name="orderNotificationInterface" engine="interface" location="" invoke="">
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
