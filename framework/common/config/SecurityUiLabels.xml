@@ -95,6 +95,7 @@
         <value xml:lang="de">Zertifikats-Details</value>
         <value xml:lang="en">Cert Details</value>
         <value xml:lang="es">Detalles del certificado</value>
+        <value xml:lang="fr">Détail du certificat</value>
         <value xml:lang="pt_BR">Detalhes do certificado</value>
     </property>
     <property key="CertImportIssuer">
@@ -234,6 +235,7 @@
         <value xml:lang="de">Benutzer Login suchen</value>
         <value xml:lang="en">Find User Login</value>
         <value xml:lang="es">Buscar nombre de usuario</value>
+        <value xml:lang="fr">Recherche d'identifiant de connexion</value>
         <value xml:lang="it">Ricerca utenti</value>
         <value xml:lang="pt_BR">Encontrar Nome de Usuário</value>
     </property>
@@ -271,6 +273,7 @@
         <value xml:lang="de">Deaktiviert am</value>
         <value xml:lang="en">Disabled Date Time</value>
         <value xml:lang="es">Deshabilitado el</value>
+        <value xml:lang="fr">Désactiver (à date)</value>
         <value xml:lang="it">Disabilitato dal</value>
     </property>
     <property key="FormFieldTitle_enabled">
@@ -295,12 +298,14 @@
         <value xml:lang="de">Externe Authentifizierungs-ID</value>
         <value xml:lang="en">External Auth Id</value>
         <value xml:lang="es">Código de autentificación externa</value>
+        <value xml:lang="fr">Ident. Externe</value>
         <value xml:lang="it">Codice autenticazione esterna</value>
     </property>
     <property key="FormFieldTitle_hasLoggedOut">
         <value xml:lang="de">Hat sich abgemeldet</value>
         <value xml:lang="en">Has Logged Out</value>
         <value xml:lang="es">Se ha desconectado</value>
+        <value xml:lang="fr">A été déconnecté</value>
         <value xml:lang="it">Uscito dal sistema</value>
     </property>
     <property key="FormFieldTitle_maxHits">
@@ -359,6 +364,7 @@
         <value xml:lang="de">Passwort Hinweis</value>
         <value xml:lang="en">Password Hint</value>
         <value xml:lang="es">Pista para la clave</value>
+        <value xml:lang="fr">Indice pour le mot de passe</value>
         <value xml:lang="it">Suggerimento password</value>
     </property>
     <property key="FormFieldTitle_requirePasswordChange">
@@ -376,6 +382,7 @@
         <value xml:lang="de">Fehlgeschlagene, aufeinanderfolgende Anmeldeversuche</value>
         <value xml:lang="en">Successive Failed Logins</value>
         <value xml:lang="es">Intentos de acceso fallidos</value>
+        <value xml:lang="fr">Plusieurs tentatives de connexion ont échoué</value>
         <value xml:lang="it">Accessi falliti consecutivi</value>
     </property>
     <property key="FormFieldTitle_tarpitDuration">
@@ -431,6 +438,7 @@
         <value xml:lang="de">Benutzer Anmeldung suchen</value>
         <value xml:lang="en">Lookup User Login</value>
         <value xml:lang="es">Buscar nombre de usuario</value>
+        <value xml:lang="fr">Recherche d'identifiant de connexion</value>
         <value xml:lang="pt_BR">Pesquisar Nome de Usuário</value>
     </property>
     <property key="NewSecurityGroup">
@@ -647,6 +655,7 @@
         <value xml:lang="de">Benutzeranmeldung</value>
         <value xml:lang="en">User Login</value>
         <value xml:lang="es">Nombre de usuario</value>
+        <value xml:lang="fr">Identifiant de connexion</value>
         <value xml:lang="it">Utente</value>
         <value xml:lang="pt_BR">Nome de Usuário</value>
     </property>

@@ -935,10 +935,12 @@
     <property key="CommonAuthenticate">
         <value xml:lang="en">Authenticate</value>
         <value xml:lang="es">Autentificar</value>
+        <value xml:lang="fr">Authentifier</value>
     </property>
     <property key="CommonAuthorise">
         <value xml:lang="en">Authorise</value>
         <value xml:lang="es">Autorizar</value>
+        <value xml:lang="fr">Autoriser</value>
         <value xml:lang="vi">Cấp phép</value>
     </property>
     <property key="CommonAutoAssignedId">
@@ -974,6 +976,7 @@
     <property key="CommonAvailablePortlets">
         <value xml:lang="en">Available Portlets</value>
         <value xml:lang="es">Portlets disponibles</value>
+        <value xml:lang="fr">Portlets disponibles</value>
         <value xml:lang="it">Portlet disponibili</value>
         <value xml:lang="pt-BR">Portlets Disponíveis</value>
         <value xml:lang="vi">Các ứng dụng porlet sẵn có</value>
@@ -1171,21 +1174,25 @@
     <property key="CommonCDyneAddressError">
         <value xml:lang="en">Got AddressError=true from CDyne ReturnCityState service; zipcode=${zipcode}</value>
         <value xml:lang="es">Se obtuvo AddressError=true del servicio CDyne ReturnCityState; zipcode=${zipcode}</value>
+        <value xml:lang="fr">Obtention d'AddressError=true depuis le service CDyne ReturnCityState; zipcode = ${zipcode}</value>
         <value xml:lang="it">Ottenuto AddressError=true dal servizio CDyne ReturnCityState; zipcode=${zipcode}</value>
     </property>
     <property key="CommonCDyneCallingError">
         <value xml:lang="en">Error calling CDyne service at URL ${serviceUrl}: ${errorString}</value>
         <value xml:lang="es">Error al llamar al servicio CDyne en la URL ${serviceUrl}: ${errorString}</value>
+        <value xml:lang="fr">Erreur de l'appel du service CDyne sur l'adresse ${serviceUrl} : ${errorString}</value>
         <value xml:lang="it">Errore durante la chiamata del servizio CDyne dell'URL ${serviceUrl}: ${errorString})</value>
     </property>
     <property key="CommonCDyneParsingError">
         <value xml:lang="en">Error parsing XML result from CDyne service at URL ${serviceUrl}: ${errorString}</value>
         <value xml:lang="es">Error al analizar el XML devuelto por el servicio CDyne en la URL ${serviceUrl}: ${errorString}</value>
+        <value xml:lang="fr">Erreur de lecture XML depuis le service CDyne sur l'adresse ${serviceUrl} : ${errorString}</value>
         <value xml:lang="it">Errore di parsing XML risposta dal servizio CDyne dell'URL ${serviceUrl}: ${errorString})</value>
     </property>
     <property key="CommonCDyneServiceError">
         <value xml:lang="en">Got ServiceError=true from CDyne ReturnCityState service; zipcode=${zipcode}</value>
         <value xml:lang="es">Se obtuvo ServiceError=true del servicio CDyne ReturnCityState; zipcode=${zipcode}</value>
+        <value xml:lang="fr">Obtention de ServiceError=true depuis le service CDyne ReturnCityState; zipcode=${zipcode}</value>
         <value xml:lang="it">Ottenuto ServiceError=true dal servizio CDyne ReturnCityState; zipcode=${zipcode}</value>
     </property>
     <property key="CommonCancel">
@@ -1279,6 +1286,7 @@
     <property key="CommonCaptchaCode">
         <value xml:lang="en">Captcha Code</value>
         <value xml:lang="es">Código captcha</value>
+        <value xml:lang="fr">Code captcha</value>
         <value xml:lang="pt-BR">Código Captcha</value>
         <value xml:lang="vi">Mã ảnh xác thực</value>
     </property>
@@ -1304,6 +1312,7 @@
         <value xml:lang="de">Zeichen übrig.</value>
         <value xml:lang="en">charactors left.</value>
         <value xml:lang="es">caracteres restantes.</value>
+        <value xml:lang="fr">caractères restants.</value>
         <value xml:lang="pt-BR">Caracteres sobrando.</value>
         <value xml:lang="vi">ký tự bên trái.</value>
     </property>
@@ -2298,6 +2307,7 @@
     </property>
     <property key="CommonDeferred">
         <value xml:lang="en">Deferred</value>
+        <value xml:lang="fr">Différé</value>
     </property>
     <property key="CommonDelete">
         <value xml:lang="ar">حذف</value>
@@ -2514,6 +2524,7 @@
         <value xml:lang="de">Daten empfangen.</value>
         <value xml:lang="en">Downloaded.</value>
         <value xml:lang="es">Descargado.</value>
+        <value xml:lang="fr">Téléchargé</value>
         <value xml:lang="pt-BR">Transferido.</value>
         <value xml:lang="vi">Đã tải xuống</value>
     </property>
@@ -2616,24 +2627,28 @@
     <property key="CommonEmailAlreadyExist">
         <value xml:lang="en">Email already exist</value>
         <value xml:lang="es">Correo electrónico ya existe</value>
+        <value xml:lang="fr">Courriel déjà existant</value>
         <value xml:lang="pt-BR">E-mail já existe</value>
         <value xml:lang="vi">Thư điện tử đã tồn tại</value>
     </property>
     <property key="CommonEmailDeliveryFailed">
         <value xml:lang="en">Delivery to the following recipient(s) failed:</value>
         <value xml:lang="es">El envío a los siguientes destinatarios ha fallado:</value>
+        <value xml:lang="fr">La distribution du courriel a échoué pour les destinataires suivants : </value>
         <value xml:lang="it">Consegna ai seguenti destinatario(i) fallita:</value>
         <value xml:lang="vi">Gửi thông tin đến các người nhận sau không thành công:</value>
     </property>
     <property key="CommonEmailDeliveryOriginalMessage">
         <value xml:lang="en">----- Original message -----</value>
         <value xml:lang="es">----- Mensaje original -----</value>
+        <value xml:lang="fr">----- Message d'origine -----</value>
         <value xml:lang="it">----- messaggio originale -----</value>
         <value xml:lang="vi">----- Thông điệp gốc -----</value>
     </property>
     <property key="CommonEmailNotValid">
         <value xml:lang="en">PartyId: ${parameters.partyIdTo} has no valid email address!</value>
         <value xml:lang="es">Id de participante: ${parameters.partyIdTo} no tiene dirección de correo electrónico válida!</value>
+        <value xml:lang="fr">La réf. acteur : ${parameters.partyIdTo} n'a aucun courriel valide !</value>
         <value xml:lang="it">Id soggetto: ${parameters.partyIdTo} non ha un'indirizzo e-mail valido!</value>
         <value xml:lang="pt-BR">ID de Participante (PartyId): ${parameters.partyIdTo} não tem endereço de email válido!</value>
         <value xml:lang="vi">Mã đối tượng: ${parameters.partyIdTo} không có địa chỉ thư điện tử thích hợp</value>
@@ -2661,65 +2676,77 @@
     <property key="CommonEmailSendAddressError">
         <value xml:lang="en">[ADDRERR] Address error when sending message to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} subject ${subject}</value>
         <value xml:lang="es">[ADDRERR] Error en la dirección al enviar el mensaje para ${sendTo} de ${sendFrom} cc ${sendCc} bcc ${sendBcc} asunto ${subject}</value>
+        <value xml:lang="fr">[ADDRERR] Erreur lors de l'envoi du courriel à ${sendTo}, depuis ${sendFrom}, en copie, ${sendCc}, en copie cachée ${sendBcc}, avec le sujet ${subject}</value>
         <value xml:lang="it">[ADDRERR] Errore indirizzo durante l'invio del messaggio a ${sendTo} da ${sendFrom} cc ${sendCc} cn ${sendBcc} soggetto ${subject}</value>
         <value xml:lang="vi">[ADDRESS] lỗi địa chỉ khi gửi thông điệp tới ${sendTo} từ ${sendFrom} cc ${sendCc} bcc ${sendBcc} tiêu đề ${subject}</value>
     </property>
     <property key="CommonEmailSendConnectionError">
         <value xml:lang="en">[CON] Connection error when sending message to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} subject ${subject}</value>
         <value xml:lang="es">[CON] Error de conexión al enviar el mensaje para ${sendTo} de ${sendFrom} cc ${sendCc} bcc ${sendBcc} asunto ${subject}</value>
+        <value xml:lang="fr">[CON] Erreur de connexion lors de l'envoi du courriel à ${sendTo}, depuis ${sendFrom}, en copie, ${sendCc}, en copie cachée ${sendBcc}, avec le sujet ${subject}</value>
         <value xml:lang="it">[CON] Errore connessione durante l'invio del messaggio a ${sendTo} da ${sendFrom} cc ${sendCc} cn ${sendBcc} soggetto ${subject}</value>
         <value xml:lang="vi">[CON] lỗi kết nối khi gửi thông điệp tới ${sendTo} từ ${sendFrom} cc ${sendCc} bcc ${sendBcc} tiêu đề ${subject}</value>
     </property>
     <property key="CommonEmailSendError">
         <value xml:lang="en">Error send email: ${errorString}</value>
         <value xml:lang="es">Error enviando correo electrónico: ${errorString}</value>
+        <value xml:lang="fr">Erreur dans l'envoi du courriel : ${errorString}</value>
         <value xml:lang="it">Errore invio email: ${errorString}</value>
         <value xml:lang="vi">Lỗi gửi email: ${errorString}</value>
     </property>
     <property key="CommonEmailSendGettingError">
         <value xml:lang="en">Error getting content: ${errorString}</value>
         <value xml:lang="es">Error obteniendo contenido: ${errorString}</value>
+        <value xml:lang="fr">Erreur dans l'obtention du contenu du courriel : ${errorString}</value>
         <value xml:lang="it">Errore nel ricavare contenuto: ${errorString}</value>
         <value xml:lang="vi">Lỗi lấy nội dung: ${errorString}</value>
     </property>
     <property key="CommonEmailSendIOException">
         <value xml:lang="en">IOException when creating message to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} subject ${subject}</value>
         <value xml:lang="es">IOException creando el mensaje para ${sendTo} de ${sendFrom} cc ${sendCc} bcc ${sendBcc} asunto ${subject}</value>
+        <value xml:lang="fr">Erreur d'Entrée/Sortie lors de la création du courriel à ${sendTo}, depuis ${sendFrom}, en copie, ${sendCc}, en copie cachée ${sendBcc}, avec le sujet ${subject}</value>
         <value xml:lang="it">IOException durante la creazione del messaggio a ${sendTo} da ${sendFrom} cc ${sendCc} cn ${sendBcc} soggetto ${subject}</value>
     </property>
     <property key="CommonEmailSendMalformedUrl">
         <value xml:lang="en">Malformed URL: ${bodyUrl}; error was: ${errorString}</value>
         <value xml:lang="es">URL mal formada: ${bodyUrl}; el error fue: ${errorString}</value>
+        <value xml:lang="fr">URL invalide : ${bodyUrl}; erreur levée : ${errorString}</value>
         <value xml:lang="it">URL malformato : ${bodyUrl}; errore era: ${errorString}</value>
     </property>
     <property key="CommonEmailSendMessagingException">
         <value xml:lang="en">MessagingException when creating message to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} subject ${subject}</value>
         <value xml:lang="es">MessagingException creando el mensaje para ${sendTo} de ${sendFrom} cc ${sendCc} bcc ${sendBcc} asunto ${subject}</value>
+        <value xml:lang="fr">MessagingException lors de la création du courriel à ${sendTo}, depuis ${sendFrom}, en copie, ${sendCc}, en copie cachée ${sendBcc}, avec le sujet ${subject}</value>
         <value xml:lang="it">MessagingException durante la creazione del messaggio a ${sendTo} da ${sendFrom} cc ${sendCc} cn ${sendBcc} soggetto ${subject}</value>
     </property>
     <property key="CommonEmailSendMissingParameterSendVia">
         <value xml:lang="en">Parameter sendVia is required when sendType is not mail.smtp.host</value>
         <value xml:lang="es">El parámetro sendVia debe indicarse cuando sendType no es mail.smtp.host</value>
+        <value xml:lang="fr">Le paramêtre sendVia est requis lorsque sendType n'est pas mail.smtp.host</value>
         <value xml:lang="it">Parametro sendVia è richiesto quando sendType non è mail.smtp.host</value>
     </property>
     <property key="CommonEmailSendRenderingScreenEmailError">
         <value xml:lang="en">Error rendering screen for email: ${errorString}</value>
         <value xml:lang="es">Error componiendo pantalla para el correo electrónico: ${errorString}</value>
+        <value xml:lang="fr">Erreur lors du rendu du contenu du courriel : ${errorString}</value>
         <value xml:lang="it">Errore di visualizzazione videata per email: ${errorString}</value>
     </property>
     <property key="CommonEmailSendRenderingScreenPdfError">
         <value xml:lang="en">Error rendering PDF attachment for email: ${errorString}</value>
         <value xml:lang="es">Error componiendo el PDF para adjuntar por correo electrónico: ${errorString}</value>
+        <value xml:lang="fr">Erreur dans le rendu des PDF en pièce jointe du courriel : ${errorString}</value>
         <value xml:lang="it">Errore di visualizzazione allegato PDF per email: ${errorString}</value>
     </property>
     <property key="CommonEmailSendUndeliveredMail">
         <value xml:lang="en">Undelivered Mail Returned to Sender</value>
         <value xml:lang="es">Correo electrónico que no puede ser entregado devuelto al remitente</value>
+        <value xml:lang="fr">Non distribution du courriel, retourné à l'expéditeur</value>
         <value xml:lang="it">Mail non consegnabile restituita a colui che l'ha inviata</value>
     </property>
     <property key="CommonEmailShouldBeSpecified">
         <value xml:lang="en">PartyId or Email Address (sendTo) should be specified!</value>
         <value xml:lang="es">Debe especificarse el código de participante o la dirección de correo electrónico de destino!</value>
+        <value xml:lang="fr">Une réf. acteur ou un courriel (sendTo) doit être spécifié</value>
         <value xml:lang="it">Id soggetto o indirizzo e-mail (inviare a) deve essere specificato!</value>
         <value xml:lang="pt-BR">ID de participante (PartyId) ou E-mail (SendTo) deve ser especificado!</value>
         <value xml:lang="vi">Thông tin người dùng nhận hoặc Địa chỉ thư điện tử (gửi đến) cần phải có</value>
@@ -2789,6 +2816,7 @@
     <property key="CommonEnable">
         <value xml:lang="en">Enable</value>
         <value xml:lang="es">Habilitar</value>
+        <value xml:lang="fr">Actif</value>
         <value xml:lang="th">เปิดใช้งาน</value>
         <value xml:lang="vi">Bật (cho phép)</value>
     </property>
@@ -2868,6 +2896,7 @@
     <property key="CommonEntityTestFailure">
         <value xml:lang="en">Unable to create test entity</value>
         <value xml:lang="es">No se puede crear la entidad de prueba</value>
+        <value xml:lang="fr">Impossible de créer l'entité de test</value>
         <value xml:lang="it">Non è possibile creare un test entità</value>
         <value xml:lang="vi">Không thể khởi tạo thực thể để thử nghiệm</value>
     </property>
@@ -2988,6 +3017,7 @@
         <value xml:lang="de">Ein Fehler beim abschicken der Form ist aufgetreten.</value>
         <value xml:lang="en">An error occurred submitting form.</value>
         <value xml:lang="es">Ocurrió un error enviando el formulario.</value>
+        <value xml:lang="fr">Erreur dans la soumission du formulaire.</value>
         <value xml:lang="vi">Lỗi xảy ra khi gửi thông tin (form) lên máy chủ.</value>
     </property>
     <property key="CommonEventDate">
@@ -3184,6 +3214,7 @@
     <property key="CommonExtHelpDefinition">
         <value xml:lang="en">Definition, what is it?</value>
         <value xml:lang="es">Definición, ¿qué és?</value>
+        <value xml:lang="fr">Définition, qu'est-ce ?</value>
         <value xml:lang="it">Definizione, che cose'è ?</value>
         <value xml:lang="pt-BR">Definição, o que é isso?</value>
         <value xml:lang="vi">Định nghĩa, đó là cái gì ?</value>
@@ -3191,6 +3222,7 @@
     <property key="CommonExtHelpOnScreen">
         <value xml:lang="en">What's on the screen?</value>
         <value xml:lang="es">¿Qué hay en la plantalla?</value>
+        <value xml:lang="fr">Que dire sur les écrans (screen) ?</value>
         <value xml:lang="it">Che cosa ci sarà in questa videata ?</value>
         <value xml:lang="pt-BR">O que está na tela?</value>
         <value xml:lang="vi">Thông tin gì đang hiển thị trên màn hình</value>
@@ -3206,6 +3238,7 @@
     <property key="CommonExtHelpUsedFor">
         <value xml:lang="en">What is it used for?</value>
         <value xml:lang="es">¿Para qué se usa?</value>
+        <value xml:lang="fr">A quoi cela sert-il ?</value>
         <value xml:lang="it">Per cosa verrà usato ?</value>
         <value xml:lang="pt-BR">Para que é usado?</value>
         <value xml:lang="vi">Thông tin này được sử dụng để làm gì</value>
@@ -3213,6 +3246,7 @@
     <property key="CommonExtIndex">
         <value xml:lang="en">Index</value>
         <value xml:lang="es">Índice</value>
+        <value xml:lang="fr">Index</value>
         <value xml:lang="it">Indice</value>
         <value xml:lang="pt-BR">Índice</value>
         <value xml:lang="vi">Chỉ mục</value>
@@ -3403,18 +3437,21 @@
     <property key="CommonFindErrorPreparingConditions">
         <value xml:lang="en">Error preparing conditions: ${errorString}</value>
         <value xml:lang="es">Error preparando las condiciones: ${errorString}</value>
+        <value xml:lang="fr">Erreur dans la préparation des conditions de recherche : ${errorString}</value>
         <value xml:lang="it">Errore duranta la preparazione delle condizioni di ricerca: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi chuẩn bị điều kiện: ${errorString}</value>
     </property>
     <property key="CommonFindErrorRetrieveIterator">
         <value xml:lang="en">Error finding iterator: ${errorString}</value>
         <value xml:lang="es">Error buscando iterador: ${errorString}</value>
+        <value xml:lang="fr">Erreur dans la récupération de l'itérateur : ${errorString}</value>
         <value xml:lang="it">Errore duranta la ricerca, iterator non restituito: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi tìm kiếm lặp: ${errorString}</value>
     </property>
     <property key="CommonFindErrorRunning">
         <value xml:lang="en">Error running Find on the ${entityName} entity: ${errorString}</value>
         <value xml:lang="es">Error buscando en la entidad ${entityName}: ${errorString}</value>
+        <value xml:lang="fr">Erreur dans l'exécution de la recherche sur l'entité ${entityName} : ${errorString}</value>
         <value xml:lang="it">Errore duranta la ricerca sull'entità ${entityName}: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi Tìm kiếm thực thể ${entityName} : ${errorString}</value>
     </property>
@@ -3805,36 +3842,42 @@
     <property key="CommonFtpConnectionRefused">
         <value xml:lang="en">connection refused</value>
         <value xml:lang="es">conexión rechazada</value>
+        <value xml:lang="fr">Connexion refusée</value>
         <value xml:lang="it">connessione rifiutata</value>
         <value xml:lang="vi">kết nối bị từ chối</value>
     </property>
     <property key="CommonFtpFileCannotBeOpen">
         <value xml:lang="en">ERROR: Could not open local file</value>
         <value xml:lang="es">Error: no se puede abrir el fichero local</value>
+        <value xml:lang="fr">Erreur : le fichier local n'a pas pu être ouvert</value>
         <value xml:lang="it">ERRORE: Non è possibile aprire il file locale</value>
         <value xml:lang="vi">Lỗi xảy ra: Không thể mở tập tin trên máy người dùng</value>
     </property>
     <property key="CommonFtpFileNotSentSuccesfully">
         <value xml:lang="en">File not sent succesfully: ${replyString}</value>
         <value xml:lang="es">Fichero no enviado correctamente: ${replyString}</value>
+        <value xml:lang="fr">L'envoi du fichier a échoué : ${replyString}</value>
         <value xml:lang="it">File non inviato con successo: ${replyString}</value>
         <value xml:lang="vi">Tập tin gửi đi không thành công: ${replyString}</value>
     </property>
     <property key="CommonFtpLoginFailure">
         <value xml:lang="en">Login failed (${username}, ${password})</value>
         <value xml:lang="es">Fallo de conexión (${username}, ${password})</value>
+        <value xml:lang="fr">Échec de l'authentification (${username}, ${password})</value>
         <value xml:lang="it">Login fallito (${username}, ${password})</value>
         <value xml:lang="vi">Đăng nhập không thành công (${username}, ${password})</value>
     </property>
     <property key="CommonFtpProblemWithTransfer">
         <value xml:lang="en">Problem with FTP transfer: ${errorString}</value>
         <value xml:lang="es">Problema con la transferencia FTP: ${errorString}</value>
+        <value xml:lang="fr">Erreur pendant le transfert FTP : ${errorString}</value>
         <value xml:lang="it">Problema durante il trasferimento FTP: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra trong quá trình truyền file (FTP): ${errorString}</value>
     </property>
     <property key="CommonFtpSiteCommandFailed">
         <value xml:lang="en">SITE command ${command} failed: ${replyString}</value>
         <value xml:lang="es">Ha fallado el comando ${command}: ${replyString}</value>
+        <value xml:lang="fr">La commande ${command} a échoué sur le site distant : ${replyString}</value>
         <value xml:lang="it">Comando sito ${command} fallito: ${replyString}</value>
         <value xml:lang="vi">Yêu cầu ${command} đến trang thông tin không thành công: ${replyString}</value>
     </property>
@@ -4180,6 +4223,7 @@
     <property key="CommonHelpNotFound">
         <value xml:lang="en">Help file or URL not found</value>
         <value xml:lang="es">Fichero de ayuda o URL no encontrada</value>
+        <value xml:lang="fr">Le fichier ou l'URL d'aide n'a pas été trouvé</value>
         <value xml:lang="hi-IN">सहायता फ़ाइल या URL नहीं मिला</value>
         <value xml:lang="it">File di aiuto o URL non trovato</value>
         <value xml:lang="pt-BR">Arquivo de Ajuda ou URL não encontrado</value>
@@ -4357,6 +4401,7 @@
     <property key="CommonImage">
         <value xml:lang="en">Image</value>
         <value xml:lang="es">Imagen</value>
+        <value xml:lang="fr">Image</value>
         <value xml:lang="th">รูปภาพ</value>
         <value xml:lang="vi">Ảnh</value>
     </property>
@@ -4995,6 +5040,7 @@
     <property key="CommonLookupLocale">
         <value xml:lang="en">Lookup Locale</value>
         <value xml:lang="es">Buscar Locale</value>
+        <value xml:lang="fr">Recherche langue</value>
         <value xml:lang="vi">Chọn Đất nước</value>
     </property>
     <property key="CommonLookupWhitepages">
@@ -5077,6 +5123,7 @@
     <property key="CommonManage">
         <value xml:lang="en">Manage</value>
         <value xml:lang="es">Gestionar</value>
+        <value xml:lang="fr">Gestion</value>
         <value xml:lang="th">จัดการ</value>
         <value xml:lang="vi">Quản lý</value>
     </property>
@@ -5284,6 +5331,7 @@
     <property key="CommonMessageMissing">
         <value xml:lang="en">Message is missing</value>
         <value xml:lang="es">Falta el mensaje</value>
+        <value xml:lang="fr">Message manquant</value>
         <value xml:lang="pt-BR">A Mensagem está faltando</value>
         <value xml:lang="vi">Thông điệp bị mất</value>
     </property>
@@ -5978,6 +6026,7 @@
         <value xml:lang="de">Bitte wählen Sie erneut eine neue Kategorie. Keine Portlets in dieser Kategorie.</value>
         <value xml:lang="en">Please, choose new category again, No portlet in this category.</value>
         <value xml:lang="es">No hay portlets en esta categoría, escoja nuevamente otra categoría.</value>
+        <value xml:lang="fr">Aucune portlet n'est présente dans cette catégorie</value>
         <value xml:lang="it">Nessun portlet in questa categoria.</value>
         <value xml:lang="pt-BR">Por favor, escolha uma nova categoria de novo, sem portlet nesta categoria.</value>
         <value xml:lang="vi">Bạn hãy chọn Phân loại Quản lý khác, không có ứng dụng portlet trong Phân loại Quản lý này</value>
@@ -6242,6 +6291,7 @@
     <property key="CommonNoteCannotBeUpdated">
         <value xml:lang="en">Could update note data (write failure): ${errorString}</value>
         <value xml:lang="es">No se pueden actualizar los datos de la nota (fallo de escritura): ${errorString}</value>
+        <value xml:lang="fr">Impossible de mettre à jour la note : ${errorString}</value>
         <value xml:lang="it">Non è possibile aggiornare i dati della nota (scrittura fallita): ${errorString}</value>
         <value xml:lang="vi">Không thể cập nhật thông tin Ghi chú (lỗi ghi): ${errorString}</value>
     </property>
@@ -6266,36 +6316,42 @@
     <property key="CommonNotifyEmailDeliveryError">
         <value xml:lang="en">Email delivery error, see error log</value>
         <value xml:lang="es">Error en el envío de correo electrónico, verifique el log</value>
+        <value xml:lang="fr">Erreur de distribution de courriel, voir le journal</value>
         <value xml:lang="it">Email delivery error, see error log</value>
         <value xml:lang="vi">Bên nhận thư điện tử không thành công, bạn hãy xem vết hệ thống</value>
     </property>
     <property key="CommonNotifyEmailInvalidBody">
         <value xml:lang="en">Invalid email body; null is not allowed</value>
         <value xml:lang="es">Contenido del correo electrónico no válido; no se permite null</value>
+        <value xml:lang="fr">Contenu du courriel non valide. Un contenu vide n'est pas permis</value>
         <value xml:lang="it">Corpo email invalido; null non è consentito</value>
         <value xml:lang="vi">Phần thân Thư điện tử không được để trống</value>
     </property>
     <property key="CommonNotifyEmailMessageBodyGeneratedSuccessfully">
         <value xml:lang="en">Message body generated successfully</value>
         <value xml:lang="es">Contenido del correo electrónico generado correctamente</value>
+        <value xml:lang="fr">Contenu du courriel généré avec succès</value>
         <value xml:lang="it">Corpo messaggio generato con successo</value>
         <value xml:lang="vi">Nội dung thông điệp được tạo thành công</value>
     </property>
     <property key="CommonNotifyEmailProblemFindingTemplate">
         <value xml:lang="en">Problem finding template; see logs</value>
         <value xml:lang="es">Problema localizando la plantilla; verifique el log</value>
+        <value xml:lang="fr">Problèmpe lors de la récupération du modèle. Voir le journal pour plus de détail</value>
         <value xml:lang="it">Problema nella ricerca del template; controllare i logs</value>
         <value xml:lang="vi">Lỗi xảy ra khi tìm Biểu mẫu, bạn hãy xem vết hệ thống</value>
     </property>
     <property key="CommonNotifyEmailProblemProcessingTemplate">
         <value xml:lang="en">Template processing problem, see error logs</value>
         <value xml:lang="es">Problema accediendo a la plantilla, verifique el log de errores</value>
+        <value xml:lang="fr">Problème lors de l'exécution du modèle. Voir le journal pour plus de détail</value>
         <value xml:lang="it">Problema nell'esecuzione del template; controllare gli errori nei logs</value>
         <value xml:lang="vi">Lỗi xảy ra khi xử lý Biểu mẫu, bạn hãy xem vết hệ thống</value>
     </property>
     <property key="CommonNotifyEmailProblemReadingTemplate">
         <value xml:lang="en">Template reading problem, see error logs</value>
         <value xml:lang="es">Problema leyendo la plantilla, verifique el log de errores</value>
+        <value xml:lang="fr">Problème dans la lecture du modèle. Voir le journal pour plus de détail</value>
         <value xml:lang="it">Problema nella lettura del template; controllare gli errori nei logs</value>
         <value xml:lang="vi">Lỗi xảy ra khi đọc Biểu mẫu, bạn hãy xem vết hệ thống</value>
     </property>
@@ -6583,6 +6639,7 @@
     <property key="CommonOrganizationLogo">
         <value xml:lang="en">Organization Logo</value>
         <value xml:lang="es">Logo de la organización</value>
+        <value xml:lang="fr">Logo de l'organisation</value>
         <value xml:lang="th">โลโก้องค์กร</value>
     </property>
     <property key="CommonOther">
@@ -6792,6 +6849,7 @@
         <value xml:lang="de">Bezahlung</value>
         <value xml:lang="en">Payment</value>
         <value xml:lang="es">Pago</value>
+        <value xml:lang="fr">Paiement</value>
         <value xml:lang="vi">Thanh toán</value>
     </property>
     <property key="CommonPaymentMethodType">
@@ -6952,6 +7010,7 @@
         <value xml:lang="de">Die Verbindung zur Datenquelle kann nicht aufgebaut werden!</value>
         <value xml:lang="en">Unable to connect to datasource!</value>
         <value xml:lang="es">No se puede conectar a la fuente de datos!</value>
+        <value xml:lang="fr">Impossible de se connecter à la source de données</value>
         <value xml:lang="it">Non è possibile connettersi al datasource!</value>
         <value xml:lang="vi">Không thể kết nối đến nguồn dữ liệu</value>
     </property>
@@ -6959,6 +7018,7 @@
         <value xml:lang="de">Ungültige Anzahl wurde von der Datenbank zurückgegeben</value>
         <value xml:lang="en">Invalid count returned from database</value>
         <value xml:lang="es">No es válido el contador devuelto por la base de datos</value>
+        <value xml:lang="fr">Comptage invalide retourné par la source de données</value>
         <value xml:lang="it">Contantore invalido restituito dal database</value>
         <value xml:lang="vi">Bộ đếm số lượng trả về từ cơ sở dữ liệu không hợp lệ</value>
     </property>
@@ -6966,6 +7026,7 @@
         <value xml:lang="de">Bitte eine gültige Zahl in dieses Feld eingeben.</value>
         <value xml:lang="en">Please enter a valid number in this field.</value>
         <value xml:lang="es">Por favor, introduzca un número válido en este campo.</value>
+        <value xml:lang="fr">SVP, entrer un nombre valide pour ce champ.</value>
         <value xml:lang="pt-BR">Por favor insira um número válido neste campo.</value>
         <value xml:lang="vi">Bạn hãy nhập số đúng định dạng cho trường này.</value>
     </property>
@@ -6973,6 +7034,7 @@
         <value xml:lang="de">Bitte wählen</value>
         <value xml:lang="en">please select</value>
         <value xml:lang="es">Por favor, seleccione</value>
+        <value xml:lang="fr">SVP, séléctionnez</value>
         <value xml:lang="pt-BR">Por favor, selecione</value>
         <value xml:lang="vi">làm ơn hãy chọn</value>
     </property>
@@ -6980,18 +7042,21 @@
         <value xml:lang="de">Bitte wählen Sie erst alle Merkmale aus.</value>
         <value xml:lang="en">Please select all features first.</value>
         <value xml:lang="es">Por favor, seleccione todas las características primero.</value>
+        <value xml:lang="fr">SVP, sélectionnez toutes les caractéristiques en premier</value>
         <value xml:lang="vi">Bạn hãy chọn tất cả Tính năng trước.</value>
     </property>
     <property key="CommonPleaseSelectAllRequiredOptions">
         <value xml:lang="de">Bitte selektieren Sie alle benötigten Optionen.</value>
         <value xml:lang="en">Please select all of the required options.</value>
         <value xml:lang="es">Pro favor, seleccione todas las opciones requeridas.</value>
+        <value xml:lang="fr">SVP, sélectionnez toutes les options obligatoires</value>
         <value xml:lang="vi">Bạn hãy chọn tất cả các Tùy chọn bắt buộc.</value>
     </property>
     <property key="CommonPleaseWait">
         <value xml:lang="de">Bitte warten Sie ...</value>
         <value xml:lang="en">please wait ...</value>
         <value xml:lang="es">Por favor, espere ...</value>
+        <value xml:lang="fr">Merci de patienter ...</value>
         <value xml:lang="pt-BR">por favor aguarde ...</value>
         <value xml:lang="vi">bạn hãy đợi ...</value>
     </property>
@@ -7093,12 +7158,14 @@
         <value xml:lang="de">Bevorzugte Gruppe</value>
         <value xml:lang="en">Preference Group</value>
         <value xml:lang="es">Grupo de preferencias</value>
+        <value xml:lang="fr">Groupe de préférences</value>
         <value xml:lang="vi">Nhóm tham chiếu</value>
     </property>
     <property key="CommonPreferenceName">
         <value xml:lang="de">Bevorzugter Name</value>
         <value xml:lang="en">Preference Name</value>
         <value xml:lang="es">Nombre de la preferencia</value>
+        <value xml:lang="fr">Nom de la préférence</value>
         <value xml:lang="vi">Tên tham chiếu</value>
     </property>
     <property key="CommonPreferences">
@@ -7135,6 +7202,7 @@
         <value xml:lang="de">Vorschau</value>
         <value xml:lang="en">Preview</value>
         <value xml:lang="es">Vista previa</value>
+        <value xml:lang="fr">Prévisualisation</value>
         <value xml:lang="th">แสดงตัวอย่าง</value>
         <value xml:lang="vi">Xem trước</value>
     </property>
@@ -7713,12 +7781,14 @@
         <value xml:lang="de">Release</value>
         <value xml:lang="en">Release</value>
         <value xml:lang="es">Distribución</value>
+        <value xml:lang="fr">Distribution</value>
         <value xml:lang="vi">Ban hành</value>
     </property>
     <property key="CommonReleaseDate">
         <value xml:lang="de">Release Datum</value>
         <value xml:lang="en">Release Date</value>
         <value xml:lang="es">Fecha distribución</value>
+        <value xml:lang="fr">Date de distribution</value>
         <value xml:lang="pt-BR">Data de Lançamento</value>
         <value xml:lang="vi">Ngày ban hành</value>
     </property>
@@ -7740,6 +7810,7 @@
         <value xml:lang="de">Captcha Code neu laden</value>
         <value xml:lang="en">Reload Captcha Code</value>
         <value xml:lang="es">Recargar código captcha</value>
+        <value xml:lang="fr">Recharger le code captcha</value>
         <value xml:lang="pt-BR">Recarregar Código Captcha</value>
         <value xml:lang="vi">Tải lại mã ảnh xác thực</value>
     </property>
@@ -7822,6 +7893,7 @@
         <value xml:lang="de">Erneute Abfrage</value>
         <value xml:lang="en">Requery</value>
         <value xml:lang="es">Reconsulta</value>
+        <value xml:lang="fr">Réinterroger</value>
         <value xml:lang="vi">Truy vấn lại</value>
     </property>
     <property key="CommonRequired">
@@ -8525,6 +8597,7 @@
     <property key="CommonServiceReturnError">
         <value xml:lang="en">Return Error Service : Returning Error</value>
         <value xml:lang="es">El servicio ha devuelto un error: Devolviendo error</value>
+        <value xml:lang="fr">Le service a retourné une erreur</value>
         <value xml:lang="it">Servizio ha restituito un'errore: errore restituito</value>
         <value xml:lang="vi">Dịch vụ thực hiện không thành công : trả về lỗi</value>
     </property>
@@ -8719,6 +8792,7 @@
         <value xml:lang="de">Größe</value>
         <value xml:lang="en">Size</value>
         <value xml:lang="es">Talla</value>
+        <value xml:lang="fr">Taille</value>
         <value xml:lang="th">ขนาด</value>
         <value xml:lang="vi">Cỡ</value>
     </property>
@@ -8958,6 +9032,7 @@
         <value xml:lang="de">Parameter statusTypeIds darf nicht leer sein und muß mindestens ein Element enthalten</value>
         <value xml:lang="en">Parameter statusTypeIds can not be null and must contain at least one element</value>
         <value xml:lang="es">El parámetro statusTypeIds no puede ser nulo, debe contener al menos un elemento</value>
+        <value xml:lang="fr">Le paramêtre statusTypeIds ne peut être vide et doit contenir au moins un élément</value>
         <value xml:lang="it">Parametro statusTypeIds non può essere nullo e deve contenere almeno un'elemento</value>
     </property>
     <property key="CommonStatustoComplete">
@@ -9262,6 +9337,7 @@
         <value xml:lang="de">Zurückrollen!</value>
         <value xml:lang="en">Rolling back!</value>
         <value xml:lang="es">Restableciendo!</value>
+        <value xml:lang="fr">Test d'annulation transactionnelle</value>
         <value xml:lang="it">Rolling back!</value>
         <value xml:lang="vi">Khôi phục về!</value>
     </property>
@@ -9844,6 +9920,7 @@
         <value xml:lang="de">Ein unbestimmter Fehler ist aufgetreten!</value>
         <value xml:lang="en">An unspecified error occurred!</value>
         <value xml:lang="es">Ha ocurrido un error no contemplado!</value>
+        <value xml:lang="fr">Une erreur non identifiée a été levée</value>
         <value xml:lang="vi">Xuất hiện lỗi không xác định!</value>
     </property>
     <property key="CommonUntil">
@@ -10000,6 +10077,7 @@
     <property key="CommonUpdatingData">
         <value xml:lang="de">Aktualisiere Daten</value>
         <value xml:lang="en">Updating data</value>
+        <value xml:lang="fr">Mise à jour des données</value>
         <value xml:lang="vi">Đang cập nhật dữ liệu</value>
     </property>
     <property key="CommonUpload">
@@ -10228,6 +10306,7 @@
         <value xml:lang="de">Wiederhole Captcha Code</value>
         <value xml:lang="en">Verify Captcha Code</value>
         <value xml:lang="es">Verifique el código captcha</value>
+        <value xml:lang="fr">Vérifier le code captcha</value>
         <value xml:lang="pt-BR">Verifique o Código Captcha</value>
         <value xml:lang="vi">Mã ảnh xác thực</value>
     </property>
@@ -11019,6 +11098,7 @@
     <property key="FormFieldTitle_approve">
         <value xml:lang="en">Approve</value>
         <value xml:lang="es">Aprobar</value>
+        <value xml:lang="fr">Approuver</value>
         <value xml:lang="th">อนุมัติ</value>
         <value xml:lang="vi">Phê duyệt</value>
     </property>
@@ -11081,6 +11161,7 @@
     <property key="FormFieldTitle_confirmButton">
         <value xml:lang="en">Confirm</value>
         <value xml:lang="es">Confirmar</value>
+        <value xml:lang="fr">Confirmer</value>
         <value xml:lang="th">ยืนยัน</value>
         <value xml:lang="vi">Xác nhận</value>
     </property>
@@ -11521,6 +11602,7 @@
     <property key="FormFieldTitle_pending">
         <value xml:lang="en">Pending</value>
         <value xml:lang="es">Pendiente</value>
+        <value xml:lang="fr">En attente</value>
         <value xml:lang="th">รอดำเนินการ</value>
         <value xml:lang="vi">Tồn đọng</value>
     </property>

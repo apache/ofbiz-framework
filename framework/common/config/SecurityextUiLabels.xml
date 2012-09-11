@@ -211,6 +211,7 @@
     <property key="loginevents.unable_to_login_tenant">
         <value xml:lang="en">You cannot login to this tenant</value>
         <value xml:lang="es">No puede conectarse con esta organización</value>
+        <value xml:lang="fr">Vous ne pouvez pas vous connecter avec cet identifiant sur cette instance</value>
         <value xml:lang="pt_BR">Você não pode acessar este inquilino</value>
         <value xml:lang="zh_TW">無法登入使用此承租戶</value>
     </property>
