@@ -9920,7 +9920,7 @@
         <value xml:lang="de">Ein unbestimmter Fehler ist aufgetreten!</value>
         <value xml:lang="en">An unspecified error occurred!</value>
         <value xml:lang="es">Ha ocurrido un error no contemplado!</value>
-        <value xml:lang="fr">Une erreur non identifiée a été levée</value>
+        <value xml:lang="fr">Une erreur non identifiée s'est produite</value>
         <value xml:lang="vi">Xuất hiện lỗi không xác định!</value>
     </property>
     <property key="CommonUntil">
