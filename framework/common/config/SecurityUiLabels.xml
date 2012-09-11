@@ -95,7 +95,7 @@
         <value xml:lang="de">Zertifikats-Details</value>
         <value xml:lang="en">Cert Details</value>
         <value xml:lang="es">Detalles del certificado</value>
-        <value xml:lang="fr">Détail du certificat</value>
+        <value xml:lang="fr">Détails du certificat</value>
         <value xml:lang="pt_BR">Detalhes do certificado</value>
     </property>
     <property key="CertImportIssuer">
