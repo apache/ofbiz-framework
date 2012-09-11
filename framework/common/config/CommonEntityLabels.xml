@@ -66,6 +66,7 @@
     </property>
     <property key="CustomMethod.description.DBL_DECL_DEP_FORMULA">
         <value xml:lang="en">Double decline depreciatiion algorithm for fixed asset((NetBookValue - salvageCost)*2/remainingLifeInYears)</value>
+        <value xml:lang="fr">Algorithme de dépréciation d'immobilisation ((valeur - coût déjà déprécié)*2/ années restantes)</value>
         <value xml:lang="it">Declina algoritmo doppio svalutazione per cespiti((NetBookValue - salvageCost)*2/remainingLifeInYears)</value>
         <value xml:lang="pt_BR">Algoritmo de deprereciação de declínio duplo para ativos fixos ((CustoOriginal - CustoDeRecuperação)*2/AnosRestantes)</value>
         <value xml:lang="vi">Thuật toán khấu hao chia đôi (Double decline) áp dụng cho tài sản cố định ((NetBookValue - salvageCost)*2/remainingLifeInYears)</value>
@@ -74,6 +75,7 @@
     </property>
     <property key="CustomMethod.description.STR_LINE_DEP_FORMULA">
         <value xml:lang="en">Straight Line depreciatiion algorithm for fixed asset((purchaseCost - salvageCost)/expectedLifeInYears)</value>
+        <value xml:lang="fr">Dépréciation linéaire d'immmobilisation (valeur d'achat - coût déjà déprécié) / années d'utilisation)</value>
         <value xml:lang="it">Riga semplice algoritmo svalutazione per cespiti((purchaseCost - salvageCost)/expectedLifeInYears)</value>
         <value xml:lang="pt_BR">Algoritmo de depreciação linear para ativos fixos ((CustodeCompra - CustoDeRecuperação) / AnosDeDuraçãoEsperada)</value>
         <value xml:lang="vi">Thuật toán  khấu hao 'Straight Line' áp dụng cho tài sản cố định ((purchaseCost - salvageCost)/expectedLifeInYears)</value>
@@ -2140,6 +2142,7 @@
     <property key="Enumeration.description.PRDS_ODR_SHIP_COMPLT">
         <value xml:lang="en">Shipment Complete</value>
         <value xml:lang="es">Envío completo</value>
+        <value xml:lang="fr">Expédition terminée</value>
         <value xml:lang="it">Spedizione completata</value>
         <value xml:lang="pt_BR">Envio Completado</value>
         <value xml:lang="vi">Hoàn thành chuyển hàng</value>
@@ -2294,6 +2297,7 @@
     <property key="Enumeration.description.PRDS_QUO_CREATED">
         <value xml:lang="en">Quote Created</value>
         <value xml:lang="es">Presupuesto creado</value>
+        <value xml:lang="fr">Devis créé</value>
         <value xml:lang="it">Creazione preventivo</value>
         <value xml:lang="pt_BR">Cotação criada</value>
         <value xml:lang="vi">Tạo báo giá</value>
@@ -8024,6 +8028,7 @@
     <property key="StatusItem.description.CNTAP_SOFT_REJ">
         <value xml:lang="en">Soft Rejected</value>
         <value xml:lang="es">Rechazado (admite mejoras)</value>
+        <value xml:lang="fr">Support rejetée</value>
         <value xml:lang="it">Rifiutato leggermente</value>
         <value xml:lang="pt_BR">Rejeitado para melhorias (Soft rejected)</value>
         <value xml:lang="vi">Từ chối mềm</value>
@@ -8694,6 +8699,7 @@
     <property key="StatusItem.description.FNACT_NEGPENDREPL">
         <value xml:lang="en">Negative Pending Replenishment</value>
         <value xml:lang="es">Negativo pendiente de reposición</value>
+        <value xml:lang="fr">Replanification en attente</value>
         <value xml:lang="it">Rifornimento in attesa negativo</value>
         <value xml:lang="pt_BR">Reposição pendente Negativa</value>
         <value xml:lang="vi">Negative Pending Replenishment</value>
@@ -8733,6 +8739,7 @@
     <property key="StatusItem.description.HR_JS_CONTRACTOR">
         <value xml:lang="en">Contractor</value>
         <value xml:lang="es">Contratante</value>
+        <value xml:lang="fr">Entrepreneur</value>
         <value xml:lang="it">Imprenditore</value>
         <value xml:lang="pt_BR">Contratante</value>
         <value xml:lang="vi">Người đấu thầu</value>

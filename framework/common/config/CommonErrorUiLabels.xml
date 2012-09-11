@@ -22,6 +22,7 @@
     <property key="CommonErrorDublicateKey">
         <value xml:lang="de">Doppelter Primärschlüssel. Der Primärschlüssel existiert bereits.</value>
         <value xml:lang="en">Dublicate Key. The Key already exist.</value>
+        <value xml:lang="fr">Clé dupliquée. Cette valeur est déjà présente.</value>
         <value xml:lang="vi">Khóa đã tồn tại và bị trùng.</value>
     </property>
     <property key="ImageTransform.error_occurs_during_reading">
