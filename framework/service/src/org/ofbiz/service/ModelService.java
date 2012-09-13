@@ -1374,6 +1374,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         /* null Element */
         Element stdNullElement = document.createElement("xsd:element");
         stdNullElement.setAttribute("name", "null");
+        stdNullElement.setAttribute("nillable", "true");
         Element stdNullElement0 = document.createElement("xsd:complexType");
         stdNullElement.appendChild(stdNullElement0);
         Element stdNullElement1 = document.createElement("xsd:attribute");
@@ -1381,7 +1382,6 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         stdNullElement1.setAttribute("name", "value");
         stdNullElement1.setAttribute("type", "xsd:string");
         stdNullElement1.setAttribute("use", "required");
-        stdNullElement1.setAttribute("nillable", "true");
         schema.appendChild(stdNullElement);
         /* std-String Element */
         Element stdStringElement = document.createElement("xsd:element");
@@ -1685,7 +1685,6 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         mapValueComplexTypeNull.setAttribute("ref", "tns:null");
         mapValueComplexTypeNull.setAttribute("minOccurs", "1");
         mapValueComplexTypeNull.setAttribute("maxOccurs", "1");
-        mapValueComplexTypeNull.setAttribute("nillable", "true");
         mapValueComplexType0.appendChild(mapValueComplexTypeNull);
         Element mapValueComplexType1 = document.createElement("xsd:element");
         mapValueComplexType1.setAttribute("ref", "tns:std-String");
@@ -1829,7 +1828,6 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         colCollectionComplexTypeNull.setAttribute("ref", "tns:null");
         colCollectionComplexTypeNull.setAttribute("minOccurs", "0");
         colCollectionComplexTypeNull.setAttribute("maxOccurs", "unbounded");
-        colCollectionComplexTypeNull.setAttribute("nillable", "true");
         colCollectionComplexType0.appendChild(colCollectionComplexTypeNull);
         Element colCollectionComplexType1 = document.createElement("xsd:element");
         colCollectionComplexType1.setAttribute("ref", "tns:std-String");
