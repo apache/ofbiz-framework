@@ -588,8 +588,8 @@ public class PaymentGatewayServices {
                 }
             }
         } catch (GenericServiceException e) {
-            Debug.logError(e, "Error occurred on: " + serviceName + " => " + processContext, module);
-            throw new GeneralException("Problems invoking payment processor! Will retry later. Order ID is: [" + orh.getOrderId() + "", e);
+            Debug.logError(e, "Error occurred on: " + serviceName + ", Order ID is: [" + orh.getOrderId() + "]", module);
+            throw new GeneralException("Problems invoking payment processor! Will retry later. Order ID is: [" + orh.getOrderId() + "]", e);
         }
 
         if (processorResult != null) {
