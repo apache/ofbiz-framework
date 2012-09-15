@@ -456,6 +456,8 @@ under the License.
     <simple-method method-name="reserveStoreInventory" short-description="Reserve Store Inventory">
         <entity-one entity-name="Product" value-field="product" use-cache="true"/>
         <entity-one entity-name="ProductStore" value-field="productStore" use-cache="true"/>
+        <entity-one entity-name="OrderHeader" value-field="orderHeader" use-cache="true"/>
+        <set field="parameters.priority" from-field="orderHeader.priority"/>
         <if-empty field="productStore">
             <add-error>
                 <fail-property resource="ProductUiLabels" property="ProductProductStoreNotFound"/>
