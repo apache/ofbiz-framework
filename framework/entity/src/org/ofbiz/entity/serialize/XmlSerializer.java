@@ -46,12 +46,12 @@ import java.util.WeakHashMap;
 import javax.xml.bind.DatatypeConverter;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilObject;
-import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
