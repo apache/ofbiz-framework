@@ -664,7 +664,13 @@ public class ModelTree extends ModelWidget {
                     ModelField modelField = modelEntity.getOnlyPk();
                     this.pkName = modelField.getName();
                 } else {
-                    // TODO: what to do here?
+                    List<String> pkFieldsName = modelEntity.getPkFieldNames();
+                    StringBuilder sb = new StringBuilder();
+                    for (String pk: pkFieldsName) {
+                            sb.append(pk);
+                            sb.append("|");
+                    }
+                    this.pkName = sb.toString();
                 }
             }
         }
