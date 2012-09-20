@@ -805,7 +805,7 @@ public class UtilXml {
         if (node != null) {
             do {
                 if (node.getNodeType() == Node.ELEMENT_NODE && (childElementName == null ||
-                        childElementName.equals(node.getNodeName()))) {
+                        childElementName.equals(node.getLocalName() != null ? node.getLocalName() : node.getNodeName()))) {
                     Element childElement = (Element) node;
                     return childElement;
                 }
@@ -824,7 +824,7 @@ public class UtilXml {
         if (node != null) {
             do {
                 if (node.getNodeType() == Node.ELEMENT_NODE && (childElementName == null ||
-                        childElementName.equals(node.getNodeName()))) {
+                        childElementName.equals(node.getLocalName() != null ? node.getLocalName() : node.getNodeName()))) {
                     Element childElement = (Element) node;
 
                     String value = childElement.getAttribute(attrName);
