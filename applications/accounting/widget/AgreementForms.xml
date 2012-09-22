@@ -205,7 +205,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    <form name="ListAgreementTerms" target="updateAgreementTerm" list-name="agreementTerms" paginate-target="ListAgreementTerms" title="" type="list"
+    <form name="ListAgreementTerms" target="updateAgreementTerm" list-name="agreementTerms" paginate-target="EditAgreementTerms" title="" type="list"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="AgreementTerm" list="agreementTerms">
@@ -594,7 +594,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    <form name="ListAgreementRoles" list-name="agreementRoles" type="list" paginate-target="FindAgreementRoles"
+    <form name="ListAgreementRoles" list-name="agreementRoles" type="list" paginate-target="EditAgreementRoles"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="AgreementRole" use-cache="true" list="agreementRoles">
