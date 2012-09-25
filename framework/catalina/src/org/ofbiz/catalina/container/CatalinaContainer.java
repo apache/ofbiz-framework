@@ -622,21 +622,25 @@ public class CatalinaContainer implements Container {
         }
 
         final String webXmlFilePath = new StringBuilder().append("file:///").append(location).append("/WEB-INF/web.xml").toString();
-
-        URL webXmlUrl;
+        boolean appIsDistributable = distribute;
+        URL webXmlUrl = null;
         try {
             webXmlUrl = FlexibleLocation.resolveLocation(webXmlFilePath);
         } catch (MalformedURLException e) {
             throw new ContainerException(e);
         }
-        Document webXmlDoc = null;
-        try {
-            webXmlDoc = UtilXml.readXmlDocument(webXmlUrl);
-        } catch (Exception e) {
-            throw new ContainerException(e);
+        File webXmlFile = new File(webXmlUrl.getFile());
+        if (webXmlFile.exists()) {
+            Document webXmlDoc = null;
+            try {
+                webXmlDoc = UtilXml.readXmlDocument(webXmlUrl);
+            } catch (Exception e) {
+                throw new ContainerException(e);
+            }
+            appIsDistributable = webXmlDoc.getElementsByTagName("distributable").getLength() > 0;
+        } else {
+            Debug.logInfo(webXmlFilePath + " not found.", module);
         }
-
-        boolean appIsDistributable = webXmlDoc.getElementsByTagName("distributable").getLength() > 0;
         final boolean contextIsDistributable = distribute && appIsDistributable;
 
         // configure persistent sessions
