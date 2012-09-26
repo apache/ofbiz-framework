@@ -546,6 +546,11 @@ public class CatalinaContainer implements Container {
                     connector.setProperty(prop.name, prop.value);
                     //connector.setAttribute(prop.name, prop.value);
                 }
+
+                if (connectorProp.properties.containsKey("URIEncoding")) {
+                    connector.setURIEncoding(connectorProp.properties.get("URIEncoding").value);
+                }
+
                 tomcat.getService().addConnector(connector);
             } catch (Exception e) {
                 throw new ContainerException(e);
