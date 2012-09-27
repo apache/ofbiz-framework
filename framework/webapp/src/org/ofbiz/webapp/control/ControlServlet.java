@@ -225,6 +225,9 @@ public class ControlServlet extends HttpServlet {
                 request.setAttribute("_ERROR_MESSAGE_", encoder.encode(throwable.toString()));
                 errorPage = requestHandler.getDefaultErrorPage(request);
             }
+         } catch (RequestHandlerExceptionAllowExternalRequests e) {
+              errorPage = requestHandler.getDefaultErrorPage(request);
+              Debug.logInfo("Going to external page: " + request.getPathInfo(), module);
         } catch (Exception e) {
             Debug.logError(e, "Error in request handler: ", module);
             StringUtil.HtmlEncoder encoder = new StringUtil.HtmlEncoder();
