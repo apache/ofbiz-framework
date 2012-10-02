@@ -3730,24 +3730,31 @@ public class OrderServices {
         // Create Estimated Delivery dates
         for (Map.Entry<String, String> entry : itemEstimatedDeliveryDateMap.entrySet()) {
             String itemSeqId =  entry.getKey();
-            String estimatedDeliveryDate = entry.getValue();
-            if (UtilValidate.isNotEmpty(estimatedDeliveryDate)) {
-                Timestamp deliveryDate = Timestamp.valueOf(estimatedDeliveryDate);
-                ShoppingCartItem cartItem = cart.findCartItem(itemSeqId);
-                cartItem.setDesiredDeliveryDate(deliveryDate);
+
+            // ignore internationalised variant of dates
+            if (!itemSeqId.endsWith("_i18n")) {
+                String estimatedDeliveryDate = entry.getValue();
+                if (UtilValidate.isNotEmpty(estimatedDeliveryDate)) {
+                    Timestamp deliveryDate = Timestamp.valueOf(estimatedDeliveryDate);
+                    ShoppingCartItem cartItem = cart.findCartItem(itemSeqId);
+                    cartItem.setDesiredDeliveryDate(deliveryDate);
+                }
             }
         }
 
         // Create Estimated ship dates
         for (Map.Entry<String, String> entry : itemEstimatedShipDateMap.entrySet()) {
             String itemSeqId =  entry.getKey();
-            String estimatedShipDate = entry.getValue();
-            if (UtilValidate.isNotEmpty(estimatedShipDate)) {
-                Timestamp shipDate = Timestamp.valueOf(estimatedShipDate);
-                ShoppingCartItem cartItem = cart.findCartItem(itemSeqId);
-                cartItem.setEstimatedShipDate(shipDate);
-            }
 
+            // ignore internationalised variant of dates
+            if (!itemSeqId.endsWith("_i18n")) {
+                String estimatedShipDate = entry.getValue();
+                if (UtilValidate.isNotEmpty(estimatedShipDate)) {
+                    Timestamp shipDate = Timestamp.valueOf(estimatedShipDate);
+                    ShoppingCartItem cartItem = cart.findCartItem(itemSeqId);
+                    cartItem.setEstimatedShipDate(shipDate);
+                }
+            }
         }
 
         // update the group amounts
