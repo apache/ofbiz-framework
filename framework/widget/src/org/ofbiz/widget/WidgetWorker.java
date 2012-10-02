@@ -283,10 +283,15 @@ public class WidgetWorker {
 
         for (Map.Entry<String, String> parameter: parameterMap.entrySet()) {
             if (parameter.getValue() != null) {
+                String key = parameter.getKey();
+
                 writer.append("<input name=\"");
-                writer.append(parameter.getKey());
+                writer.append(key);
                 writer.append("\" value=\"");
-                writer.append(parameter.getValue());
+
+                String valueFromContext = context.containsKey(key) ?
+                        context.get(key).toString() : parameter.getValue();
+                writer.append(valueFromContext);
                 writer.append("\" type=\"hidden\"/>");
             }
         }
