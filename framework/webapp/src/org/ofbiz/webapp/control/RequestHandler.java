@@ -67,7 +67,7 @@ public class RequestHandler {
 
     public static final String module = RequestHandler.class.getName();
     private static final Boolean THROW_REQUEST_HANDLER_EXCEPTION_ON_MISSING_LOCAL_REQUEST =  
-        UtilProperties.propertyValueEqualsIgnoreCase("general.properties", "throwRequestHandlerExceptionOnMissingLocalRequest", "Y");  
+        UtilProperties.propertyValueEqualsIgnoreCase("requestHandler.properties", "throwRequestHandlerExceptionOnMissingLocalRequest", "Y");  
 
     public static RequestHandler getRequestHandler(ServletContext servletContext) {
         RequestHandler rh = (RequestHandler) servletContext.getAttribute("_REQUEST_HANDLER_");
