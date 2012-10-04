@@ -667,7 +667,8 @@ public class ShoppingCartHelper {
         for(String parameterName : context.keySet()) {
             int underscorePos = parameterName.lastIndexOf('_');
 
-            if (underscorePos >= 0) {
+            // ignore localized date input elements, just use their counterpart without the _i18n suffix
+            if (underscorePos >= 0 && (!parameterName.endsWith("_i18n"))) {
                 try {
                     String indexStr = parameterName.substring(underscorePos + 1);
                     int index = Integer.parseInt(indexStr);
