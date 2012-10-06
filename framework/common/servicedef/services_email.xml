@@ -41,6 +41,7 @@ under the License.
         <attribute name="socketFactoryFallback" type="String" mode="IN" optional="true"/>        
         <attribute name="sendFailureNotification" mode="IN" type="Boolean" optional="true"/>
         <attribute name="sendPartial" mode="IN" type="Boolean" optional="true"/>
+        <attribute name="startTLSEnabled" mode="IN" type="Boolean" optional="true"/>
         <attribute name="subject" type="String" mode="INOUT" optional="true" allow-html="safe"/>
         <attribute name="contentType" type="String" mode="INOUT" optional="true"/>
         <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
