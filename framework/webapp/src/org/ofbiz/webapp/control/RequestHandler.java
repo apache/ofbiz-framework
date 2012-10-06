@@ -1140,7 +1140,7 @@ public class RequestHandler {
                 if (response != null) {
                     encodedUrl = response.encodeURL(newURL.toString());
                 } else {
-                    encodedUrl = newURL.toString();    
+                    encodedUrl = newURL.toString();
                 }
             }
         } else {
