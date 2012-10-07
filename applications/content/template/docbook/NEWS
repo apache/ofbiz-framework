@@ -1,6 +1,6 @@
-Changes since the 1.75.1 release
+Changes since the 1.77.0 release
 
-Note: This document lists changes only since the 1.75.1 release. If you instead
+Note: This document lists changes only since the 1.77.0 release. If you instead
 want a record of the complete list of changes for the codebase over its entire
 history, you can obtain one by running the following commands:
 
@@ -11,149 +11,141 @@ history, you can obtain one by running the following commands:
 
 Table of Contents
 
-Release Notes: 1.75.2
+Release Notes: 1.77.1
 
-    Gentext
-    Common
     FO
     HTML
-    Manpages
-    Epub
-    Params
-    Profiling
-    XSL-Saxon
-    XSL-Xalan
+    Roundtrip
+    Slides
+    Website
+    Webhelp
+    Template
 
-Release Notes: 1.75.2
+Release Notes: 1.77.1
 
-The following is a list of changes that have been made since the 1.75.1
+The following is a list of changes that have been made since the 1.77.0
 release.
-
-Gentext
-
-The following changes have been made to the gentext code since the 1.75.1
-release.
-
-  ● Keith Fahlgren: Makefile
-
-    Add Icelandic
-
-  ● dleidert: locale/ja.xml
-
-    Improved Japanese translation for Note(s). Closes bug #2823965.
-
-  ● dleidert: locale/pl.xml
-
-    Polish alphabet contains O with acute accent, not with grave accent. Closes bug #2823964.
-
-  ● Robert Stayton: locale/ja.xml
-
-    Fix translation of "index", per bug report 2796064.
-
-  ● Robert Stayton: locale/is.xml
-
-    New Icelandic locale file.
-
-Common
-
-The following changes have been made to the common code since the 1.75.1
-release.
-
-  ● Keith Fahlgren: Makefile
-
-    Add Icelandic
-
-  ● Norman Walsh: stripns.xsl
-
-    Support more downconvert cases
-
-  ● Robert Stayton: titles.xsl
-
-    Make sure title inside info is used if no other title.
 
 FO
 
-The following changes have been made to the fo code since the 1.75.1 release.
+The following changes have been made to the fo code since the 1.77.0 release.
 
-  ● Robert Stayton: pi.xsl
+  • Robert Stayton: docbook.xsl
 
-    Turn off dbfo-need for fop1.extensions also, per bug #2816141.
+    Import the VERSION.xsl file instead of VERSION so mimetype is interpreted correctly
+    from the filename.
+
+  • Robert Stayton: block.xsl
+
+    In sidebar, turn off space before first para if there is no title.
+
+  • Robert Stayton: math.xsl
+
+    Restored templates for mml:* elements that were accidentally deleted.
 
 HTML
 
-The following changes have been made to the html code since the 1.75.1 release.
+The following changes have been made to the html code since the 1.77.0 release.
 
-  ● Mauritz Jeanson: titlepage.xsl
+  • Robert Stayton: docbook.xsl
 
-    Output "Copyright" heading in XHTML too.
+    Import the VERSION.xsl file instead of VERSION so mimetype is interpreted correctly
+    from the filename.
 
-  ● Mauritz Jeanson: titlepage.xsl
+  • Robert Stayton: sections.xsl
 
-    Added stylesheet.result.type test for copyright. Closes bug #2813289.
+    Use $div.element variable in place of div to support html5 section element.
+    output
 
-  ● Norman Walsh: htmltbl.xsl
+  • Robert Stayton: autoidx.xsl
 
-    Remove ambiguity wrt @span, @rowspan, and @colspan
+    Fix bug 3528673, missing "separator" param on template with
+    match="indexterm" mode="reference".  That param is passed
+    for endofrange processing to output the range separator.
 
-Manpages
+Roundtrip
 
-The following changes have been made to the manpages code since the 1.75.1
+The following changes have been made to the roundtrip code since the 1.77.0
 release.
 
-  ● Mauritz Jeanson: endnotes.xsl
+  • Robert Stayton: dbk2ooo.xsl; dbk2pages.xsl; dbk2wordml.xsl; dbk2wp.xsl
 
-    Added normalize-space() for ulink content. Closes bug #2793877.
+    Import the VERSION.xsl file instead of VERSION so mimetype is interpreted correctly
+    from the filename.
 
-  ● Mauritz Jeanson: docbook.xsl
+Slides
 
-    Added stylesheet.result.type test for copyright. Closes bug #2813289.
-
-Epub
-
-The following changes have been made to the epub code since the 1.75.1 release.
-
-  ● Keith Fahlgren: bin/dbtoepub; bin/lib/docbook.rb
-
-    Corrected bugs caused by path and file assumptions were not met
-
-  ● Keith Fahlgren: bin/lib/docbook.rb; docbook.xsl
-
-    Cleaning up hardcoded values into parameters and fixing Ruby library to pass them properly; all thanks to patch from Liza Daly
-
-Params
-
-The following changes have been made to the params code since the 1.75.1
+The following changes have been made to the slides code since the 1.77.0
 release.
 
-  ● Mauritz Jeanson: highlight.source.xml
+  • Robert Stayton: html/slides-common.xsl
 
-    Fixed typo.
+    Import the VERSION.xsl file instead of VERSION so mimetype is interpreted correctly
+    from the filename.
 
-Profiling
+Website
 
-The following changes have been made to the profiling code since the 1.75.1
+The following changes have been made to the website code since the 1.77.0
 release.
 
-  ● Robert Stayton: profile.xsl
+  • Robert Stayton: website-common.xsl
 
-    Fix bug 2815493 missing exsl.node.set.available parameter.
+    Import the VERSION.xsl file instead of VERSION so mimetype is interpreted correctly
+    from the filename.
 
-XSL-Saxon
+Webhelp
 
-The following changes have been made to the xsl-saxon code since the 1.75.1
+The following changes have been made to the webhelp code since the 1.77.0
 release.
 
-  ● Mauritz Jeanson: src/com/nwalsh/saxon/ColumnUpdateEmitter.java; src/com/
-    nwalsh/saxon/Colum⋯
+  • David Cramer: xsl/webhelp-common.xsl
 
-    Added fixes so that colgroups in the XHTML namespace are processed properly.
+    Webhelp: Increase default value for chunk.section.depth
 
-XSL-Xalan
+  • kasunbg: docsrc/readme.xml
 
-The following changes have been made to the xsl-xalan code since the 1.75.1
+    updated webhelp documentation
+
+  • kasunbg: template/content/search/nwSearchFnt.js; xsl/webhelp-common.xsl
+
+    Removed the script htmlFileList.js since it's content is in htmlFileInfoList.js
+
+  • Robert Stayton: xsl/webhelp-common.xsl
+
+    In the <h1> output, replace call to 'get.doc.title' with
+    mode="title.markup" because get.doc.title returns only
+    the string value of the title, losing any markup such
+    as <trademark> or <superscript>.
+
+  • kasunbg: template/common/css/positioning.css; template/content/search/
+    nwSearchFnt.js
+
+    Remove unnecessary bits of code from webhelp
+
+  • David Cramer: docsrc/readme.xml
+
+    Webhelp: Minor edits to the readme
+
+  • David Cramer: xsl/webhelp.xsl; xsl/titlepage.templates.xsl; xsl/
+    titlepage.templates.xml
+
+    Webhelp: Suppress abstracts from titlepages. These are used to create the search result summary sentence and should not be shown
+
+  • David Cramer: build.xml
+
+    Webhelp: calculate path to profile.xsl from main build.xml file
+
+Template
+
+The following changes have been made to the template code since the 1.77.0
 release.
 
-  ● Mauritz Jeanson: nbproject/project.xml
+  • Robert Stayton: titlepage.xsl
 
-    Added missing NetBeans configuration.
+    Undo last change because not implemented correctly.
+
+  • Robert Stayton: titlepage.xsl
+
+    Fix xsl:element to not overwrite the incoming fo: namespace
+    if the $ns param is not set.
 
