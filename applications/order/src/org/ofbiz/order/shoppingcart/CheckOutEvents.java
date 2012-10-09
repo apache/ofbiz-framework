@@ -828,7 +828,8 @@ public class CheckOutEvents {
                     if (UtilValidate.isNotEmpty(request.getParameter(shipGroupIndex + "_ship_estimate"))) {
                         shipEstimate = new BigDecimal(request.getParameter(shipGroupIndex + "_ship_estimate"));
                     }
-                    
+                    cart.clearOrderNotes();
+                    cart.clearInternalOrderNotes();
                     if (shipEstimate == null) {  // allow ship estimate to be set manually if a purchase order
                         callResult = checkOutHelper.finalizeOrderEntryOptions(shipGroupIndex, shippingMethod, shippingInstructions, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate, internalOrderNotes, shippingNotes);
                     } else {
