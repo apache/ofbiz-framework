@@ -920,8 +920,8 @@
     </property>
     <property key="WebtoolsCheckAll">
         <value xml:lang="de">Alle auswählen</value>
-        <value xml:lang="en">Check All</value>
-        <value xml:lang="fr">Tout sélectionner</value>
+        <value xml:lang="en">Check All (not views)</value>
+        <value xml:lang="fr">Tout sélectionner (pas les views)</value>
         <value xml:lang="it">Seleziona tutto</value>
         <value xml:lang="pt">Selecionar todos</value>
         <value xml:lang="th">ตรวจสอบทั้งหมด</value>
