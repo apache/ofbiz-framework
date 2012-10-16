@@ -345,7 +345,7 @@ public final class ScriptUtil {
         } catch (Exception e) {
             String errMsg = "Error running script at location [" + filePath + "]: " + e.toString();
             Debug.logWarning(e, errMsg, module);
-            throw new IllegalArgumentException(errMsg);
+            throw new IllegalArgumentException(errMsg, e);
         }
     }
 
