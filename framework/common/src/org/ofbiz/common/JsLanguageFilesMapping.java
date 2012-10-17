@@ -191,10 +191,10 @@ public final class JsLanguageFilesMapping {
         }
 
         public static String getFilePath(String locale) {
-            if (datejs.localeFiles.get(locale) == null) {
-                return datejs.defaultDateJs;
+            if (datejs.localeFiles.containsKey(locale)) {
+                return datejs.localeFiles.get(locale);
             }
-            return datejs.localeFiles.get(locale);
+            return datejs.defaultDateJs;
         }
 
     }
@@ -359,10 +359,10 @@ public final class JsLanguageFilesMapping {
         }
 
         public static String getFilePath(String locale) {
-            if (datejs.localeFiles.get(locale) == null) {
-                return jquery.defaultDateJs;
+            if (datejs.localeFiles.containsKey(locale)) {
+                return jquery.localeFiles.get(locale);
             }
-            return jquery.localeFiles.get(locale);
+            return jquery.defaultDateJs;
         }
 
     }
@@ -694,10 +694,10 @@ public final class JsLanguageFilesMapping {
         }
 
         public static String getFilePath(String locale) {
-            if (dateTime.localeFiles.get(locale) == null) {
-                return dateTime.defaultDateTime;
+            if (dateTime.localeFiles.containsKey(locale)) {
+                return dateTime.localeFiles.get(locale);
             }
-            return dateTime.localeFiles.get(locale);
+            return dateTime.defaultDateTime;
         }
     }
 }
