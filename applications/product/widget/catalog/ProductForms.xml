@@ -1884,7 +1884,7 @@ under the License.
             <entity-one entity-name="Enumeration" value-field="locationType">
                 <field-map field-name="enumId" from-field="facilityLocation.locationTypeEnumId"/>
             </entity-one>
-            <set field="showPosition1" value="${bsh:String prev=(String)previousItem.get(&quot;facilityId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(facilityId)));}" type="Boolean"/>
+            <set field="showPosition1" value="${groovy:String prev=(String)previousItem.get(&quot;facilityId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(facilityId)));}" type="Boolean"/>
         </row-actions>
         <auto-fields-service service-name="updateProductFacilityLocation" default-position="2"/>
         <field name="productId" position="2"><hidden/></field>

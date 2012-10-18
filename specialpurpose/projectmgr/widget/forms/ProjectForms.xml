@@ -124,7 +124,7 @@
             </entity-condition>
         </actions>
         <row-actions>
-            <set field="showPosition1" value="${bsh:String prev=(String)previousItem.get(&quot;workEffortId&quot;);return !(prev!=null&amp;&amp;prev.equals(workEffortId));}" type="Boolean"/>
+            <set field="showPosition1" value="${groovy:String prev=(String)previousItem.get(&quot;workEffortId&quot;);return !(prev!=null&amp;&amp;prev.equals(workEffortId));}" type="Boolean"/>
         </row-actions>
         <field name="workEffortId"><hidden/></field>
         <field name="phaseName" position="1" use-when="showPosition1"><display description="${phaseName}[${phaseId}]"/></field>
