@@ -115,7 +115,7 @@ under the License.
             </service>
             <set field="planHours" from-field="taskPlanHourOutMap.planHours"/>
             <!-- condition -->
-             <set field="showPosition1" value="${bsh:String prev=(String)previousItem.get(&quot;custRequestId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(custRequestId)));}" type="Boolean"/>
+             <set field="showPosition1" value="${groovy:String prev=(String)previousItem.get(&quot;custRequestId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(custRequestId)));}" type="Boolean"/>
             <!-- Get list of task for each sprint backlog -->
             <entity-and entity-name="WorkEffortPartyAssignView" list="sprintMember">
                 <field-map field-name="workEffortId" from-field="sprintId"/>
@@ -926,7 +926,7 @@ under the License.
             <set field="description" from-field="custRequest.description"/>
             <set field="custRequestCategoryGroupId" from-field="parentCustRequestId"/>
             <set field="estimatedHours" value="${groovy:custEstimatedMilliSeconds!=null?custEstimatedMilliSeconds/3600000:0;}"/>
-            <set field="showPosition1" value="${bsh:String prev=(String)previousItem.get(&quot;parentCustRequestId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(parentCustRequestId)));}" type="Boolean"/>
+            <set field="showPosition1" value="${groovy:String prev=(String)previousItem.get(&quot;parentCustRequestId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(parentCustRequestId)));}" type="Boolean"/>
         </row-actions>
         <field name="postWorkHours"><hidden value="1"/></field>
         <field name="priority"><hidden/></field>
@@ -1802,7 +1802,7 @@ under the License.
     <form name="hoursNotYetBilled" type="multi" list-name="hoursNotYetBilledTasks" use-row-submit="false" paginate-target="ProductBilling" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" 
         target="updateNotBilledBacklog?productId=${productId}&amp;fromDate=${fromDate}&amp;thruDate=${thruDate}&amp;includeMeeting=${includeMeeting}&amp;VIEW_SIZE_1=${parameters.VIEW_SIZE_1}&amp;VIEW_INDEX_1=${parameters.VIEW_INDEX_1}">
         <row-actions>
-            <set field="showPosition1" value="${bsh:String prev=(String)previousItem.get(&quot;custRequestId&quot;);return !(prev!=null&amp;&amp;prev.equals(custRequestId));}" type="Boolean"/>
+            <set field="showPosition1" value="${groovy:String prev=(String)previousItem.get(&quot;custRequestId&quot;);return !(prev!=null&amp;&amp;prev.equals(custRequestId));}" type="Boolean"/>
             <entity-one entity-name="WorkEffort" value-field="project">
                 <field-map field-name="workEffortId" from-field="projectId"/>
             </entity-one>
@@ -2013,7 +2013,7 @@ under the License.
             <set field="description" from-field="custRequest.description"/>
             <set field="custRequestCategoryGroupId" from-field="parentCustRequestId"/>
             <set field="estimatedHours" value="${groovy:custEstimatedMilliSeconds!=null?custEstimatedMilliSeconds/3600000:0;}"/>
-            <set field="showPosition1" value="${bsh:String prev=(String)previousItem.get(&quot;parentCustRequestId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(parentCustRequestId)));}" type="Boolean"/>
+            <set field="showPosition1" value="${groovy:String prev=(String)previousItem.get(&quot;parentCustRequestId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(parentCustRequestId)));}" type="Boolean"/>
         </row-actions>
         <field name="custSequenceNum" position="2" title="${uiLabelMap.ScrumSeq}"><display/></field>
         <field name="custRequestId" position="2" title="${uiLabelMap.ScrumProductBacklogItem}">
@@ -2046,7 +2046,7 @@ under the License.
             <entity-one entity-name="CustRequest" value-field="custRequest"/>
             <set field="description" from-field="custRequest.description"/>
             <set field="estimatedHours" value="${groovy:custEstimatedMilliSeconds!=null?custEstimatedMilliSeconds/3600000:0;}"/>
-            <set field="showPosition1" value="${bsh:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}" type="Boolean"/>
+            <set field="showPosition1" value="${groovy:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}" type="Boolean"/>
         </row-actions>
         <field name="productId" title="${uiLabelMap.PageTitleProduct}" position="1" use-when="showPosition1">
             <display-entity entity-name="Product" description="${internalName} " key-field-name="productId">
@@ -3003,7 +3003,7 @@ under the License.
             </service>
             <set field="planHours" from-field="taskPlanHourOutMap.planHours"/>
             <!-- condition -->
-            <set field="showPosition1" value="${bsh:String prev=(String)previousItem.get(&quot;custRequestId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(custRequestId)));}" type="Boolean"/>
+            <set field="showPosition1" value="${groovy:String prev=(String)previousItem.get(&quot;custRequestId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(custRequestId)));}" type="Boolean"/>
             <!-- Get list of task for each sprint backlog -->
             <entity-and entity-name="WorkEffortPartyAssignView" list="assignedTos">
                 <field-map field-name="workEffortId" from-field="workEffortId"/>
@@ -3156,7 +3156,7 @@ under the License.
             <set field="description" from-field="custRequest.description"/>
             <set field="custRequestCategoryGroupId" from-field="parentCustRequestId"/>
             <set field="estimatedHours" value="${groovy:custEstimatedMilliSeconds!=null?custEstimatedMilliSeconds/3600000:0;}"/>
-            <set field="showPosition1" value="${bsh:String prev=(String)previousItem.get(&quot;parentCustRequestId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(parentCustRequestId)));}" type="Boolean"/>
+            <set field="showPosition1" value="${groovy:String prev=(String)previousItem.get(&quot;parentCustRequestId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(parentCustRequestId)));}" type="Boolean"/>
         </row-actions>
         <!--<field name="custRequestCategoryGroupId" position="1" use-when="${groovy:showPosition1}" title="${uiLabelMap.ScrumCategory}">
             <display-entity entity-name="CustRequest" key-field-name="custRequestId" description="${custRequestName}"/>
