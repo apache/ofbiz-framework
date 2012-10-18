@@ -156,8 +156,8 @@ document.lookupinventory.productId.focus();
                 <#assign errorEvents = delegator.findByAnd("MrpEvent", Static["org.ofbiz.base.util.UtilMisc"].toMap("mrpEventTypeId", "ERROR", "productId", inven.productId), null, false)>
                 <#assign qohEvents = delegator.findByAnd("MrpEvent", Static["org.ofbiz.base.util.UtilMisc"].toMap("mrpEventTypeId", "INITIAL_QOH", "productId", inven.productId), null, false)>
                 <#assign additionalErrorMessage = "">
-                <#assign initialQohEvent = null>
-                <#assign productFacility = null>
+                <#assign initialQohEvent = "">
+                <#assign productFacility = "">
                 <#if qohEvents?has_content>
                     <#assign initialQohEvent = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(qohEvents)>
                 </#if>
