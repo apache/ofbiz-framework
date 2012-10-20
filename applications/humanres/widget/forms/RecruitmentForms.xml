@@ -178,21 +178,24 @@ under the License.
             <hyperlink target="EditInternalJobPosting" description="${applicationId}">
                 <parameter param-name="applicationId"/>
             </hyperlink>
-        </field>
-        <field name="applyingPartyId" field-name="partyId">
-            <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}">
+        </field>        
+
+        <field name="approverPartyId">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}" key-field-name="partyId">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${approverPartyId}" link-style="buttontext">
+                    <parameter param-name="partyId" from-field="approverPartyId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>      
+
+        <field name="applyingPartyId">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}" key-field-name="partyId">
                 <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${applyingPartyId}" link-style="buttontext">
                     <parameter param-name="partyId" from-field="applyingPartyId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="approverPartyId" field-name="partyId">
-            <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${approverPartyId}" link-style="buttontext">
-                    <parameter param-name="partyId" from-field="approverPartyId"/>
-                </sub-hyperlink>
-            </display-entity>
-        </field>
+
         <field name="statusId" title="${uiLabelMap.HumanResIJPStatus}"><display/></field>
         <field name="jobRequisitionId" widget-style="buttontext">
             <hyperlink target="EditJobRequisition" description="${jobRequisitionId}">
