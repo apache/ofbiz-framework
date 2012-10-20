@@ -73,10 +73,12 @@ under the License.
         base-permission="CONTENTMGR"
         mount-point="/content"/>
 
+    <!-- 
     <webapp name="ofbizhelp"
         title="OFBiz Help"
         server="default-server"
         location="webapp/ofbizhelp"
         base-permission="OFBTOOLS"
-        mount-point="/ofbizhelp"/>  
+        mount-point="/ofbizhelp"/>
+     -->
 </ofbiz-component>
