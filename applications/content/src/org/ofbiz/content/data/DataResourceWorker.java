@@ -818,8 +818,10 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             writeText(dataResource, text, templateContext, mimeTypeId, locale, out);
         } else if ("ELECTRONIC_TEXT".equals(dataResourceTypeId)) {
             GenericValue electronicText = delegator.findOne("ElectronicText", UtilMisc.toMap("dataResourceId", dataResourceId), cache);
-            String text = electronicText.getString("textData");
-            writeText(dataResource, text, templateContext, mimeTypeId, locale, out);
+            if (electronicText != null) {
+                String text = electronicText.getString("textData");
+                writeText(dataResource, text, templateContext, mimeTypeId, locale, out);
+            }
 
         // object types
         } else if (dataResourceTypeId.endsWith("_OBJECT")) {
