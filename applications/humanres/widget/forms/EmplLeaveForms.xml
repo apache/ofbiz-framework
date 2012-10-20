@@ -71,7 +71,7 @@
         <field name="approverPartyId">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}" key-field-name="partyId">
                 <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${approverPartyId}" link-style="buttontext">
-                    <parameter param-name="approverPartyId" from-field="approverPartyId"/>
+                    <parameter param-name="partyId" from-field="approverPartyId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
@@ -151,7 +151,7 @@
         <field name="approverPartyId" field-name="approverPartyId">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}" key-field-name="partyId">
                 <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${approverPartyId}" link-style="buttontext">
-                    <parameter param-name="approverPartyId" from-field="approverPartyId"/>
+                    <parameter param-name="partyId" from-field="approverPartyId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
