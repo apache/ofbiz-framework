@@ -17,15 +17,13 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<chapter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+<chapter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0"
+    xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../applications/content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
     <title>BIRT report generator.</title>
+    <para> An example report sales can be found in the example component. </para>
     <para>
-        An example report sales can be found in the example component.
-    </para>
-    <para>
-        <xi:include href="../../../framework/birt/data/helpdata/HELP_BIRT.xml" />
+        <xi:include href="../../../specialpurpose/birt/data/helpdata/HELP_BIRT.xml"/>
     </para>
 </chapter>

@@ -114,7 +114,7 @@ under the License.
     -->
     <context-param>
         <param-name>BIRT_VIEWER_SCRIPTLIB_DIR</param-name>
-        <param-value>${ofbiz.home}/framework/birt/lib/scriptlib</param-value>
+        <param-value>${ofbiz.home}/specialpurpose/birt/lib/scriptlib</param-value>
     </context-param>
     
     <!-- Resource location directory. Defaults to ${birt home} -->
