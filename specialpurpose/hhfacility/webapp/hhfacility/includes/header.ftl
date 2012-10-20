@@ -16,17 +16,30 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
-
-<!DOCTYPE html>
-<html>
+<#assign docLangAttr = locale.toString()?replace("_", "-")>
+<#assign langDir = "ltr">
+<#if "ar.iw"?contains(docLangAttr?substring(0, 2))>
+    <#assign langDir = "rtl">
+</#if>
+<html lang="${docLangAttr}" dir="${langDir}" xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>${applicationTitle?if_exists}</title>
-    <link rel="stylesheet" href="/images/jquery/jquery.mobile-1.1.0-rc.1/jquery.mobile-1.1.0-rc.1.css" />
-    <script src="/images/jquery/jquery-1.8.2.min.js" type="text/javascript"></script>
-    <script src="/images/jquery/jquery.mobile-1.1.0-rc.1/jquery.mobile-1.1.0-rc.1.js" type="text/javascript"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <#if layoutSettings.javaScripts?has_content>
+        <#assign javaScriptsSet = Static["org.ofbiz.base.util.UtilMisc"].toSet(layoutSettings.javaScripts)/>
+        <#list layoutSettings.javaScripts as javaScript>
+            <#if javaScriptsSet.contains(javaScript)>
+                <#assign nothing = javaScriptsSet.remove(javaScript)/>
+                <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="text/javascript"></script>
+            </#if>
+        </#list>
+    </#if>
+    <#if layoutSettings.VT_HDR_JAVASCRIPT?has_content>
+        <#list layoutSettings.VT_HDR_JAVASCRIPT as javaScript>
+            <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="text/javascript"></script>
+        </#list>
+    </#if>
   </head>
   <body>
     <div data-role="header">
