@@ -20,13 +20,32 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
     <screen name="GlobalDecorator">
         <section>
+            <actions>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true" />
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true" />
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true" />
+            </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://hhfacility/webapp/hhfacility/includes/header.ftl"/></html></platform-specific>
-                <platform-specific><html><html-template location="component://hhfacility/webapp/hhfacility/includes/messages.ftl"/></html></platform-specific>
-                <decorator-section-include name="body"/>
-                <platform-specific><html><html-template location="component://hhfacility/webapp/hhfacility/includes/footer.ftl"/></html></platform-specific>
+                <include-screen name="GlobalActions" location="component://common/widget/CommonScreens.xml" />
+                <platform-specific>
+                    <html>
+                        <html-template location="component://hhfacility/webapp/hhfacility/includes/header.ftl" />
+                    </html>
+                </platform-specific>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://hhfacility/webapp/hhfacility/includes/messages.ftl" />
+                    </html>
+                </platform-specific>
+                <decorator-section-include name="body" />
+                <platform-specific>
+                    <html>
+                        <html-template location="component://hhfacility/webapp/hhfacility/includes/footer.ftl" />
+                    </html>
+                </platform-specific>
             </widgets>
         </section>
     </screen>

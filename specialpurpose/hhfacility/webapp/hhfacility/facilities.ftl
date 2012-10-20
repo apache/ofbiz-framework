@@ -30,4 +30,5 @@ under the License.
       </li>
     </#list>
   </ul>
+</div>
 </#if>
