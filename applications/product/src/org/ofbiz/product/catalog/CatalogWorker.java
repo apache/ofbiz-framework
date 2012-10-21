@@ -50,10 +50,19 @@ public class CatalogWorker {
 
     private CatalogWorker () {}
 
+    
+    /**
+     * @deprecated - Use WebSiteWorker.getWebSiteId(ServletRequest) instead
+     */
+    @Deprecated
     public static String getWebSiteId(ServletRequest request) {
         return WebSiteWorker.getWebSiteId(request);
     }
 
+    /**
+     * @deprecated - Use WebSiteWorker.getWebSite(ServletRequest) instead
+     */
+    @Deprecated
     public static GenericValue getWebSite(ServletRequest request) {
         return WebSiteWorker.getWebSite(request);
     }

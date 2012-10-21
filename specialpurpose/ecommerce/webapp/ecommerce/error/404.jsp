@@ -20,10 +20,11 @@ under the License.
 <%@ page import="org.ofbiz.base.util.*" %>
 <%@ page import="org.ofbiz.entity.*" %>
 <%@ page import="org.ofbiz.entity.util.*" %>
+<%@ page import="org.ofbiz.webapp.website.WebSiteWorker" %>
 <jsp:useBean id="delegator" type="org.ofbiz.entity.GenericDelegator" scope="request" />
 <%
 ServletContext context = pageContext.getServletContext();
-String webSiteId = (String) context.getAttribute("webSiteId");
+String webSiteId = WebSiteWorker.getWebSiteId(request);
 List<GenericValue> webAnalytics = delegator.findByAnd("WebAnalyticsConfig", UtilMisc.toMap("webSiteId", webSiteId), null, false);
 %>
 <html>

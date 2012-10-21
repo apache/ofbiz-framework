@@ -29,6 +29,7 @@ import org.ofbiz.party.contact.*;
 import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.store.*;
 import org.ofbiz.service.calendar.*;
+import org.ofbiz.webapp.website.WebSiteWorker;
 
 party = userLogin.getRelatedOne("Party", false);
 
@@ -37,7 +38,7 @@ currencyUomId = cart.getCurrency();
 
 productStoreId = ProductStoreWorker.getProductStoreId(request);
 prodCatalogId = CatalogWorker.getCurrentCatalogId(request);
-webSiteId = CatalogWorker.getWebSiteId(request);
+webSiteId = WebSiteWorker.getWebSiteId(request);
 
 context.productStoreId = productStoreId;
 context.currencyUomId = currencyUomId;

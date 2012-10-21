@@ -41,6 +41,7 @@ import org.ofbiz.product.config.ProductConfigWrapper.ConfigOption;
 import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.webapp.website.WebSiteWorker;
 import org.ofbiz.base.util.cache.UtilCache;
 
 /**
@@ -57,7 +58,7 @@ public class ProductConfigWorker {
     public static ProductConfigWrapper getProductConfigWrapper(String productId, String currencyUomId, HttpServletRequest request) {
         ProductConfigWrapper configWrapper = null;
         String catalogId = CatalogWorker.getCurrentCatalogId(request);
-        String webSiteId = CatalogWorker.getWebSiteId(request);
+        String webSiteId = WebSiteWorker.getWebSiteId(request);
         String productStoreId = ProductStoreWorker.getProductStoreId(request);
         GenericValue autoUserLogin = (GenericValue)request.getSession().getAttribute("autoUserLogin");
         try {

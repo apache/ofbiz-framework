@@ -57,6 +57,7 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.webapp.website.WebSiteWorker;
 
 /**
  * Shopping cart events.
@@ -459,7 +460,7 @@ public class ShoppingListEvents {
 
         // safety check for missing required parameter.
         if (cart.getWebSiteId() == null) {
-            cart.setWebSiteId(CatalogWorker.getWebSiteId(request));
+            cart.setWebSiteId(WebSiteWorker.getWebSiteId(request));
         }
 
         // locate the user's identity

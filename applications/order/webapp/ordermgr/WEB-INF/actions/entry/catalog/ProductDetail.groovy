@@ -37,6 +37,7 @@ import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.store.*;
 import org.ofbiz.webapp.stats.VisitHandler;
+import org.ofbiz.webapp.website.WebSiteWorker
 import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
 
@@ -165,7 +166,7 @@ if (product) {
     // get the product price
     catalogId = CatalogWorker.getCurrentCatalogId(request);
     currentCatalogId = catalogId;
-    webSiteId = CatalogWorker.getWebSiteId(request);
+    webSiteId = WebSiteWorker.getWebSiteId(request);
     autoUserLogin = request.getSession().getAttribute("autoUserLogin");
     if (cart.isSalesOrder()) {
         // sales order: run the "calculateProductPrice" service

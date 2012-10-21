@@ -28,6 +28,7 @@ import org.ofbiz.product.catalog.*;
 import org.ofbiz.order.shoppingcart.*;
 import org.ofbiz.product.store.*;
 import org.ofbiz.party.party.PartyWorker;
+import org.ofbiz.webapp.website.WebSiteWorker
 
 cart = ShoppingCartEvents.getCartObject(request);
 context.cart = cart;
@@ -90,7 +91,7 @@ if (paymentMethodTypeIds) {
     context.paymentMethodType = paymentMethodType;
 }
 
-webSiteId = CatalogWorker.getWebSiteId(request);
+webSiteId = WebSiteWorker.getWebSiteId(request);
 productStoreId = ProductStoreWorker.getProductStoreId(request);
 productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
 if (productStore) {

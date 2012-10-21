@@ -27,6 +27,7 @@ import org.ofbiz.entity.condition.*;
 import org.ofbiz.entity.util.*;
 import org.ofbiz.webapp.taglib.*;
 import org.ofbiz.webapp.stats.VisitHandler;
+import org.ofbiz.webapp.website.WebSiteWorker
 import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
 import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.category.*;
@@ -122,7 +123,7 @@ if (inlineProduct) {
 
 
     // get the product price
-    webSiteId = CatalogWorker.getWebSiteId(request);
+    webSiteId = WebSiteWorker.getWebSiteId(request);
     autoUserLogin = request.getSession().getAttribute("autoUserLogin");
     if (cart.isSalesOrder()) {
         // sales order: run the "calculateProductPrice" service

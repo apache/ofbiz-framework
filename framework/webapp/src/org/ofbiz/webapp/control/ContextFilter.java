@@ -60,6 +60,7 @@ import org.ofbiz.security.SecurityConfigurationException;
 import org.ofbiz.security.SecurityFactory;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceContainer;
+import org.ofbiz.webapp.website.WebSiteWorker;
 
 /**
  * ContextFilter - Restricts access to raw files and configures servlet objects.
@@ -126,7 +127,7 @@ public class ContextFilter implements Filter {
 
         // set the webSiteId in the session
         if (UtilValidate.isEmpty(httpRequest.getSession().getAttribute("webSiteId"))){
-            httpRequest.getSession().setAttribute("webSiteId", config.getServletContext().getAttribute("webSiteId"));
+            httpRequest.getSession().setAttribute("webSiteId", WebSiteWorker.getWebSiteId(httpRequest));
         }
 
         // set the filesystem path of context root.

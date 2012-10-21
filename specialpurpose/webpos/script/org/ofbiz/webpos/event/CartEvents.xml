@@ -196,7 +196,7 @@ under the License.
                         parameters.put("webPosSession", webPosSession);
                         parameters.put("productStoreId", org.ofbiz.product.store.ProductStoreWorker.getProductStoreId(request));
                         parameters.put("catalogId", org.ofbiz.product.catalog.CatalogWorker.getCurrentCatalogId(request));
-                        parameters.put("webSiteId", org.ofbiz.product.catalog.CatalogWorker.getWebSiteId(request));
+                        parameters.put("webSiteId", org.ofbiz.webapp.website.WebSiteWorker.getWebSiteId(request));
                         session = request.getSession();
                         parameters.put("autoUserLogin", session.getAttribute("autoUserLogin"));
                         cart = webPosSession.getCart();

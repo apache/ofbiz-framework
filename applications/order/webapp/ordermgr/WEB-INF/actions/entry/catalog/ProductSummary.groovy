@@ -32,6 +32,7 @@ import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.store.*;
 import org.ofbiz.order.shoppingcart.*;
 import org.ofbiz.product.product.ProductWorker;
+import org.ofbiz.webapp.website.WebSiteWorker
 import java.text.NumberFormat;
 
 //either optProduct, optProductId or productId must be specified
@@ -39,7 +40,7 @@ product = request.getAttribute("optProduct");
 optProductId = request.getAttribute("optProductId");
 productId = product?.productId ?: optProductId ?: request.getAttribute("productId");
 
-webSiteId = CatalogWorker.getWebSiteId(request);
+webSiteId = WebSiteWorker.getWebSiteId(request);
 catalogId = CatalogWorker.getCurrentCatalogId(request);
 cart = ShoppingCartEvents.getCartObject(request);
 productStore = null;

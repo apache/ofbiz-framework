@@ -28,10 +28,11 @@ import org.ofbiz.product.config.ProductConfigWorker;
 import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.store.*;
 import org.ofbiz.order.shoppingcart.*;
+import org.ofbiz.webapp.website.WebSiteWorker;
 
 miniProduct = request.getAttribute("miniProduct");
 optProductId = request.getAttribute("optProductId");
-webSiteId = CatalogWorker.getWebSiteId(request);
+webSiteId = WebSiteWorker.getWebSiteId(request);
 prodCatalogId = CatalogWorker.getCurrentCatalogId(request);
 productStoreId = ProductStoreWorker.getProductStoreId(request);
 cart = ShoppingCartEvents.getCartObject(request);
