@@ -48,6 +48,7 @@ import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceAuthException;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.webapp.event.CoreEvents;
+import org.ofbiz.webapp.website.WebSiteWorker;
 
 
 /**
@@ -151,14 +152,11 @@ public class CompDocEvents {
         String contentId = (String)paramMap.get("contentId");
         Locale locale = UtilHttp.getLocale(request);
         String rootDir = null;
-        String webSiteId = null;
+        String webSiteId = WebSiteWorker.getWebSiteId(request);
         String https = null;
 
         if (UtilValidate.isEmpty(rootDir)) {
             rootDir = servletContext.getRealPath("/");
-        }
-        if (UtilValidate.isEmpty(webSiteId)) {
-            webSiteId = (String) servletContext.getAttribute("webSiteId");
         }
         if (UtilValidate.isEmpty(https)) {
             https = (String) servletContext.getAttribute("https");
@@ -225,14 +223,11 @@ public class CompDocEvents {
         String contentId = (String)paramMap.get("contentId");
         Locale locale = UtilHttp.getLocale(request);
         String rootDir = null;
-        String webSiteId = null;
+        String webSiteId = WebSiteWorker.getWebSiteId(request);
         String https = null;
 
         if (UtilValidate.isEmpty(rootDir)) {
             rootDir = servletContext.getRealPath("/");
-        }
-        if (UtilValidate.isEmpty(webSiteId)) {
-            webSiteId = (String) servletContext.getAttribute("webSiteId");
         }
         if (UtilValidate.isEmpty(https)) {
             https = (String) servletContext.getAttribute("https");

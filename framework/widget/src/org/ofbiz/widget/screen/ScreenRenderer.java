@@ -53,6 +53,7 @@ import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.control.LoginWorker;
+import org.ofbiz.webapp.website.WebSiteWorker;
 import org.ofbiz.widget.cache.GenericWidgetOutput;
 import org.ofbiz.widget.cache.ScreenCache;
 import org.ofbiz.widget.cache.WidgetContextCacheKey;
@@ -225,7 +226,7 @@ public class ScreenRenderer {
                 context.put("rootDir", rootDir);
             }
             if (UtilValidate.isEmpty(webSiteId)) {
-                webSiteId = (String) servletContext.getAttribute("webSiteId");
+                webSiteId = WebSiteWorker.getWebSiteId(request);
                 context.put("webSiteId", webSiteId);
             }
             if (UtilValidate.isEmpty(https)) {
