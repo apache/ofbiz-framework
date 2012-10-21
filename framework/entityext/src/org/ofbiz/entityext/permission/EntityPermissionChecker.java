@@ -801,9 +801,9 @@ public class EntityPermissionChecker {
      */
     public static List<String> getUserRoles(GenericValue entity, GenericValue userLogin, Delegator delegator) throws GenericEntityException {
 
-        String entityName = entity.getEntityName();
         List<String> roles = FastList.newInstance();
         if (entity == null) return roles;
+        String entityName = entity.getEntityName();
             // TODO: Need to use ContentManagementWorker.getAuthorContent first
 
 
