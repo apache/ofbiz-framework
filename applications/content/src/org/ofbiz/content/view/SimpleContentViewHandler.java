@@ -43,6 +43,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.webapp.view.AbstractViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
+import org.ofbiz.webapp.website.WebSiteWorker;
 
 /**
  * Uses XSL-FO formatted templates to generate PDF views
@@ -71,14 +72,11 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
         String mimeTypeId = request.getParameter("mimeTypeId");
         Locale locale = UtilHttp.getLocale(request);
         String rootDir = null;
-        String webSiteId = null;
+        String webSiteId = WebSiteWorker.getWebSiteId(request);
         String https = null;
 
         if (UtilValidate.isEmpty(rootDir)) {
             rootDir = servletContext.getRealPath("/");
-        }
-        if (UtilValidate.isEmpty(webSiteId)) {
-            webSiteId = (String) servletContext.getAttribute("webSiteId");
         }
         if (UtilValidate.isEmpty(https)) {
             https = (String) servletContext.getAttribute("https");

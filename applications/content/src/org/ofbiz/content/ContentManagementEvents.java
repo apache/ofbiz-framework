@@ -46,6 +46,7 @@ import org.ofbiz.security.Security;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.webapp.website.WebSiteWorker;
 
 
 
@@ -61,7 +62,7 @@ public class ContentManagementEvents {
         Security security = (Security)request.getAttribute("security");
         GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
         ServletContext servletContext = session.getServletContext();
-        String webSiteId = (String) servletContext.getAttribute("webSiteId");
+        String webSiteId = WebSiteWorker.getWebSiteId(request);
         Delegator delegator = (Delegator)request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
@@ -157,7 +158,7 @@ public class ContentManagementEvents {
         Security security = (Security)request.getAttribute("security");
         GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
         ServletContext servletContext = session.getServletContext();
-        String webSiteId = (String) servletContext.getAttribute("webSiteId");
+        String webSiteId = WebSiteWorker.getWebSiteId(request);
         Delegator delegator = (Delegator)request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
