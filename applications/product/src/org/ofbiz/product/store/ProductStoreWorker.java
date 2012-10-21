@@ -47,6 +47,7 @@ import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.webapp.website.WebSiteWorker;
 
 /**
  * ProductStoreWorker - Worker class for store related functionality
@@ -80,7 +81,7 @@ public class ProductStoreWorker {
         if (session != null && session.getAttribute("productStoreId") != null) {
             return (String) session.getAttribute("productStoreId");
         } else {
-            GenericValue webSite = CatalogWorker.getWebSite(request);
+            GenericValue webSite = WebSiteWorker.getWebSite(httpRequest);
             if (webSite != null) {
                 String productStoreId = webSite.getString("productStoreId");
                 // might be nice to do this, but not needed and has a problem with dependencies: setSessionProductStore(productStoreId, httpRequest);

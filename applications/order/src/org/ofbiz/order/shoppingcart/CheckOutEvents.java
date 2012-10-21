@@ -54,6 +54,7 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.webapp.stats.VisitHandler;
+import org.ofbiz.webapp.website.WebSiteWorker;
 
 /**
  * Events used for processing checkout and orders.
@@ -446,7 +447,7 @@ public class CheckOutEvents {
         String distributorId = (String) session.getAttribute("_DISTRIBUTOR_ID_");
         String affiliateId = (String) session.getAttribute("_AFFILIATE_ID_");
         String visitId = VisitHandler.getVisitId(session);
-        String webSiteId = CatalogWorker.getWebSiteId(request);
+        String webSiteId = WebSiteWorker.getWebSiteId(request);
 
         callResult = checkOutHelper.createOrder(userLogin, distributorId, affiliateId, trackingCodeOrders, areOrderItemsExploded, visitId, webSiteId);
         if (callResult != null) {

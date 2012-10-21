@@ -20,9 +20,10 @@
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.product.catalog.CatalogWorker;
+import org.ofbiz.webapp.website.WebSiteWorker
 
 prodCatalogId = CatalogWorker.getCurrentCatalogId(request);
-webSiteId = CatalogWorker.getWebSiteId(request);
+webSiteId = WebSiteWorker.getWebSiteId(request);
 
 currencyUomId = parameters.currencyUomId ?: UtilHttp.getCurrencyUom(request);
 context.currencyUomId = currencyUomId;

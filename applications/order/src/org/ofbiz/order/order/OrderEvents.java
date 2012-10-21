@@ -40,6 +40,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.webapp.website.WebSiteWorker;
 
 import javolution.util.FastMap;
 
@@ -75,7 +76,7 @@ public class OrderEvents {
                 response.setContentType(orderRoleAndProductContentInfo.getString("mimeTypeId"));
             }
             OutputStream os = response.getOutputStream();
-            DataResourceWorker.streamDataResource(os, delegator, dataResourceId, "", application.getInitParameter("webSiteId"), UtilHttp.getLocale(request), application.getRealPath("/"));
+            DataResourceWorker.streamDataResource(os, delegator, dataResourceId, "", WebSiteWorker.getWebSiteId(request), UtilHttp.getLocale(request), application.getRealPath("/"));
             os.flush();
         } catch (GenericEntityException e) {
             String errMsg = "Error downloading digital product content: " + e.toString();
