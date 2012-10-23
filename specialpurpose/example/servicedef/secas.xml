@@ -23,8 +23,13 @@ under the License.
     <eca service="createExample" event="return">
         <action service="createExampleStatus" mode="sync"/>
     </eca>
+    <!-- FIXME: This ECA assumes the updateExample service was called with a statusId parameter.
+         The ECAs in this file demonstrate a bad design pattern. The action services should be
+         invoked within the called service, not invoked by ECAs. -->
+    <!--
     <eca service="updateExample" event="return">
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
         <action service="createExampleStatus" mode="sync"/>
     </eca>
+    -->
 </service-eca>
