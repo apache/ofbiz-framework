@@ -34,7 +34,8 @@ outpath = parameters.outpath;
 filename = parameters.filename;
 maxRecStr = parameters.maxrecords;
 entitySyncId = parameters.entitySyncId;
-passedEntityNames = parameters.entityName instanceof Collection ? parameters.entityName as TreeSet : [parameters.entityName] as TreeSet;
+passedEntityNames = null;
+if (parameters.entityName) passedEntityNames = parameters.entityName instanceof Collection ? parameters.entityName as TreeSet : [parameters.entityName] as TreeSet;
 
 // get the max records per file setting and convert to a int
 maxRecordsPerFile = 0;
@@ -179,151 +180,153 @@ reader = delegator.getModelReader();
 modelEntities = reader.getEntityCache().values() as TreeSet;
 context.modelEntities = modelEntities;
 
-if (tobrowser) {
-    session.setAttribute("xmlrawdump_entitylist", passedEntityNames);
-    session.setAttribute("entityDateCond", entityDateCond);
-} else {
-    efo = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
-    numberOfEntities = passedEntityNames?.size() ?: 0;
-    context.numberOfEntities = numberOfEntities;
-    numberWritten = 0;
-
-    // single file
-    if (filename && numberOfEntities) {
-        writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), "UTF-8")));
-        writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-        writer.println("<entity-engine-xml>");
-
-        passedEntityNames.each { curEntityName ->
-            if (entityFrom) {
-                curModelEntity = reader.getModelEntity(curEntityName);
-                if (curModelEntity instanceof ModelViewEntity) {
-                    return;
-                }
-            }
-
-            beganTransaction = TransactionUtil.begin(3600);
-            try {
-                me = reader.getModelEntity(curEntityName);
-                if (me.getNoAutoStamp() || me instanceof ModelViewEntity) {
-                    values = delegator.find(curEntityName, null, null, null, me.getPkFieldNames(), efo);
-                } else {
-                    values = delegator.find(curEntityName, entityDateCond, null, null, UtilMisc.toList("-createdTxStamp"), efo);
-                }
-
-                curNumberWritten = 0;
-                while (value = values.next()) {
-                    value.writeXmlText(writer, "");
-                    numberWritten++;
-                    curNumberWritten++;
-                    if (curNumberWritten % 500 == 0 || curNumberWritten == 1) {
-                        Debug.log("Records written [$curEntityName]: $curNumberWritten Total: $numberWritten");
-                    }
-                }
-                values.close();
-                Debug.log("Wrote [$curNumberWritten] from entity : $curEntityName");
-                TransactionUtil.commit(beganTransaction);
-            } catch (Exception e) {
-                errMsg = "Error reading data for XML export:";
-                Debug.logError(e, errMsg, "JSP");
-                TransactionUtil.rollback(beganTransaction, errMsg, e);
-            }
-        }
-        writer.println("</entity-engine-xml>");
-        writer.close();
-        Debug.log("Total records written from all entities: $numberWritten");
-        context.numberWritten = numberWritten;
-    }
-
-    // multiple files in a directory
-    results = [];
-    fileNumber = 1;
-    context.results = results;
-    if (outpath) {
-        outdir = new File(outpath);
-        if (!outdir.exists()) {
-            outdir.mkdir();
-        }
-        if (outdir.isDirectory() && outdir.canWrite()) {
+if (passedEntityNames) {
+    if (tobrowser) {
+        session.setAttribute("xmlrawdump_entitylist", passedEntityNames);
+        session.setAttribute("entityDateCond", entityDateCond);
+    } else {
+        efo = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
+        numberOfEntities = passedEntityNames?.size() ?: 0;
+        context.numberOfEntities = numberOfEntities;
+        numberWritten = 0;
+    
+        // single file
+        if (filename && numberOfEntities) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), "UTF-8")));
+            writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+            writer.println("<entity-engine-xml>");
+    
             passedEntityNames.each { curEntityName ->
-                numberWritten = 0;
-                fileName = preConfiguredSetName ? UtilFormatOut.formatPaddedNumber((long) fileNumber, 3) + "_" : "";
-                fileName = fileName + curEntityName;
-
-                values = null;
-                beganTransaction = false;
-                try {
-                    beganTransaction = TransactionUtil.begin(3600);
-
-                    me = delegator.getModelEntity(curEntityName);
-                    if (me instanceof ModelViewEntity) {
-                        results.add("[$fileNumber] [vvv] $curEntityName skipping view entity");
+                if (entityFrom) {
+                    curModelEntity = reader.getModelEntity(curEntityName);
+                    if (curModelEntity instanceof ModelViewEntity) {
                         return;
                     }
+                }
+    
+                beganTransaction = TransactionUtil.begin(3600);
+                try {
+                    me = reader.getModelEntity(curEntityName);
                     if (me.getNoAutoStamp() || me instanceof ModelViewEntity) {
                         values = delegator.find(curEntityName, null, null, null, me.getPkFieldNames(), efo);
                     } else {
-                        values = delegator.find(curEntityName, entityDateCond, null, null, me.getPkFieldNames(), efo);
+                        values = delegator.find(curEntityName, entityDateCond, null, null, UtilMisc.toList("-createdTxStamp"), efo);
                     }
-                    isFirst = true;
-                    writer = null;
-                    fileSplitNumber = 1;
+    
+                    curNumberWritten = 0;
                     while (value = values.next()) {
-                        //Don't bother writing the file if there's nothing
-                        //to put into it
-                        if (isFirst) {
-                            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, fileName +".xml")), "UTF-8")));
-                            writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-                            writer.println("<entity-engine-xml>");
-                            isFirst = false;
-                        }
                         value.writeXmlText(writer, "");
                         numberWritten++;
-
-                        // split into small files
-                        if (maxRecordsPerFile > 0 && (numberWritten % maxRecordsPerFile == 0)) {
-                            fileSplitNumber++;
-                            // close the file
-                            writer.println("</entity-engine-xml>");
-                            writer.close();
-
-                            // create a new file
-                            splitNumStr = UtilFormatOut.formatPaddedNumber((long) fileSplitNumber, 3);
-                            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, fileName + "_" + splitNumStr +".xml")), "UTF-8")));
-                            writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-                            writer.println("<entity-engine-xml>");
+                        curNumberWritten++;
+                        if (curNumberWritten % 500 == 0 || curNumberWritten == 1) {
+                            Debug.log("Records written [$curEntityName]: $curNumberWritten Total: $numberWritten");
                         }
-
-                        if (numberWritten % 500 == 0 || numberWritten == 1) {
-                            Debug.log("Records written [$curEntityName]: $numberWritten");
-                        }
-
-                    }
-                    if (writer) {
-                        writer.println("</entity-engine-xml>");
-                        writer.close();
-                        String thisResult = "[$fileNumber] [$numberWritten] $curEntityName wrote $numberWritten records";
-                        Debug.log(thisResult);
-                        results.add(thisResult);
-                    } else {
-                        thisResult = "[$fileNumber] [---] $curEntityName has no records, not writing file";
-                        Debug.log(thisResult);
-                        results.add(thisResult);
                     }
                     values.close();
-                } catch (Exception ex) {
-                    if (values != null) {
-                        values.close();
-                    }
-                    thisResult = "[$fileNumber] [xxx] Error when writing $curEntityName: $ex";
-                    Debug.log(thisResult);
-                    results.add(thisResult);
-                    TransactionUtil.rollback(beganTransaction, thisResult, ex);
-                } finally {
-                    // only commit the transaction if we started one... this will throw an exception if it fails
+                    Debug.log("Wrote [$curNumberWritten] from entity : $curEntityName");
                     TransactionUtil.commit(beganTransaction);
+                } catch (Exception e) {
+                    errMsg = "Error reading data for XML export:";
+                    Debug.logError(e, errMsg, "JSP");
+                    TransactionUtil.rollback(beganTransaction, errMsg, e);
                 }
-                fileNumber++;
+            }
+            writer.println("</entity-engine-xml>");
+            writer.close();
+            Debug.log("Total records written from all entities: $numberWritten");
+            context.numberWritten = numberWritten;
+        }
+    
+        // multiple files in a directory
+        results = [];
+        fileNumber = 1;
+        context.results = results;
+        if (outpath) {
+            outdir = new File(outpath);
+            if (!outdir.exists()) {
+                outdir.mkdir();
+            }
+            if (outdir.isDirectory() && outdir.canWrite()) {
+                passedEntityNames.each { curEntityName ->
+                    numberWritten = 0;
+                    fileName = preConfiguredSetName ? UtilFormatOut.formatPaddedNumber((long) fileNumber, 3) + "_" : "";
+                    fileName = fileName + curEntityName;
+    
+                    values = null;
+                    beganTransaction = false;
+                    try {
+                        beganTransaction = TransactionUtil.begin(3600);
+    
+                        me = delegator.getModelEntity(curEntityName);
+                        if (me instanceof ModelViewEntity) {
+                            results.add("[$fileNumber] [vvv] $curEntityName skipping view entity");
+                            return;
+                        }
+                        if (me.getNoAutoStamp() || me instanceof ModelViewEntity) {
+                            values = delegator.find(curEntityName, null, null, null, me.getPkFieldNames(), efo);
+                        } else {
+                            values = delegator.find(curEntityName, entityDateCond, null, null, me.getPkFieldNames(), efo);
+                        }
+                        isFirst = true;
+                        writer = null;
+                        fileSplitNumber = 1;
+                        while (value = values.next()) {
+                            //Don't bother writing the file if there's nothing
+                            //to put into it
+                            if (isFirst) {
+                                writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, fileName +".xml")), "UTF-8")));
+                                writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+                                writer.println("<entity-engine-xml>");
+                                isFirst = false;
+                            }
+                            value.writeXmlText(writer, "");
+                            numberWritten++;
+    
+                            // split into small files
+                            if (maxRecordsPerFile > 0 && (numberWritten % maxRecordsPerFile == 0)) {
+                                fileSplitNumber++;
+                                // close the file
+                                writer.println("</entity-engine-xml>");
+                                writer.close();
+    
+                                // create a new file
+                                splitNumStr = UtilFormatOut.formatPaddedNumber((long) fileSplitNumber, 3);
+                                writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, fileName + "_" + splitNumStr +".xml")), "UTF-8")));
+                                writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+                                writer.println("<entity-engine-xml>");
+                            }
+    
+                            if (numberWritten % 500 == 0 || numberWritten == 1) {
+                                Debug.log("Records written [$curEntityName]: $numberWritten");
+                            }
+    
+                        }
+                        if (writer) {
+                            writer.println("</entity-engine-xml>");
+                            writer.close();
+                            String thisResult = "[$fileNumber] [$numberWritten] $curEntityName wrote $numberWritten records";
+                            Debug.log(thisResult);
+                            results.add(thisResult);
+                        } else {
+                            thisResult = "[$fileNumber] [---] $curEntityName has no records, not writing file";
+                            Debug.log(thisResult);
+                            results.add(thisResult);
+                        }
+                        values.close();
+                    } catch (Exception ex) {
+                        if (values != null) {
+                            values.close();
+                        }
+                        thisResult = "[$fileNumber] [xxx] Error when writing $curEntityName: $ex";
+                        Debug.log(thisResult);
+                        results.add(thisResult);
+                        TransactionUtil.rollback(beganTransaction, thisResult, ex);
+                    } finally {
+                        // only commit the transaction if we started one... this will throw an exception if it fails
+                        TransactionUtil.commit(beganTransaction);
+                    }
+                    fileNumber++;
+                }
             }
         }
     }
