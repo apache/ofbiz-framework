@@ -1665,16 +1665,16 @@ under the License.
     <view-entity entity-name="PartyIdentificationAndParty"
                 package-name="org.ofbiz.party.party"
                 title="PartyIdentification and Party View Entity">
-      <member-entity entity-alias="PI" entity-name="PartyIdentification"/>
+      <member-entity entity-alias="PIN" entity-name="PartyIdentification"/>
       <member-entity entity-alias="PIT" entity-name="PartyIdentificationType"/>
       <member-entity entity-alias="PA" entity-name="Party"/>
-      <alias-all entity-alias="PI" />
+      <alias-all entity-alias="PIN" />
       <alias-all entity-alias="PA" />
       <alias name="partyIdentTypeDesc" field="description"  entity-alias="PIT"/>
-      <view-link entity-alias="PI" rel-entity-alias="PA">
+      <view-link entity-alias="PIN" rel-entity-alias="PA">
         <key-map field-name="partyId"/>
       </view-link>
-      <view-link entity-alias="PI" rel-entity-alias="PIT">
+      <view-link entity-alias="PIN" rel-entity-alias="PIT">
         <key-map field-name="partyIdentificationTypeId"/>
       </view-link>
     </view-entity>
