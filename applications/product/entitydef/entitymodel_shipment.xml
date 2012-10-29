@@ -268,10 +268,10 @@ under the License.
                  package-name="org.ofbiz.shipment.picklist"
                  title="Picklist Item and Bin View Entity">
       <member-entity entity-alias="PB" entity-name="PicklistBin"/>
-      <member-entity entity-alias="PI" entity-name="PicklistItem"/>
+      <member-entity entity-alias="PIM" entity-name="PicklistItem"/>
       <alias-all entity-alias="PB"/>
-      <alias-all entity-alias="PI"/>
-      <view-link entity-alias="PB" rel-entity-alias="PI">
+      <alias-all entity-alias="PIM"/>
+      <view-link entity-alias="PB" rel-entity-alias="PIM">
         <key-map field-name="picklistBinId"/>
       </view-link>
     </view-entity>
