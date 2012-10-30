@@ -23,6 +23,7 @@
         <value xml:lang="en">Information Systems Management Application</value>
         <value xml:lang="fr">Gestion du parc informatique</value>
         <value xml:lang="it">Applicazione gestione sistemi informativi</value>
+        <value xml:lang="ja">情報システム管理</value>
         <value xml:lang="vi">Ứng dụng Quản lý hệ thống thông tin</value>
         <value xml:lang="zh">信息系统管理应用程序</value>
     </property>
@@ -30,6 +31,7 @@
         <value xml:lang="en">OFBiz: Is Manager</value>
         <value xml:lang="fr">OFBiz: application de gestion du parc informatique</value>
         <value xml:lang="it">OFBiz: Gestione sistemi informativi</value>
+        <value xml:lang="ja">OFBiz: 情報システム管理者</value>
         <value xml:lang="vi">OFBiz: Là Quản lý</value>
         <value xml:lang="zh">OFBiz: 信息系统管理</value>
     </property>
@@ -37,6 +39,7 @@
         <value xml:lang="en">Information Systems Department</value>
         <value xml:lang="fr">Département du système d'information</value>
         <value xml:lang="it">Dipartimento sistemi informativi</value>
+        <value xml:lang="ja">情報システム部門</value>
         <value xml:lang="vi">Phòng/Ban</value>
         <value xml:lang="zh">信息系统部门</value>
     </property>
@@ -44,6 +47,7 @@
         <value xml:lang="en">Hardware</value>
         <value xml:lang="fr">Matériel informatique</value>
         <value xml:lang="it">Hardware</value>
+        <value xml:lang="ja">ハードウェア</value>
         <value xml:lang="vi">Phần cứng</value>
         <value xml:lang="zh">硬件</value>
     </property>
@@ -51,6 +55,7 @@
         <value xml:lang="en">Software</value>
         <value xml:lang="fr">Logiciels</value>
         <value xml:lang="it">Software</value>
+        <value xml:lang="ja">ソフトウェア</value>
         <value xml:lang="vi">Phần mềm</value>
         <value xml:lang="zh">软件</value>
     </property>
@@ -58,6 +63,7 @@
         <value xml:lang="en">Find Hardware</value>
         <value xml:lang="fr">Rechercher du matériel informatique</value>
         <value xml:lang="it">Ricerca hardware</value>
+        <value xml:lang="ja">ハードウェアを検索</value>
         <value xml:lang="vi">Tìm phần cứng</value>
         <value xml:lang="zh">查找硬件</value>
     </property>
@@ -65,6 +71,7 @@
         <value xml:lang="en">Find Software</value>
         <value xml:lang="fr">Rechercher du logiciel</value>
         <value xml:lang="it">Ricerca software</value>
+        <value xml:lang="ja">ソフトウェアを検索</value>
         <value xml:lang="vi">Tìm phần mềm</value>
         <value xml:lang="zh">查找软件</value>
     </property>
@@ -72,6 +79,7 @@
         <value xml:lang="en">Accessories</value>
         <value xml:lang="fr">Accessoires</value>
         <value xml:lang="it">Accessori</value>
+        <value xml:lang="ja">アクセサリ</value>
         <value xml:lang="vi">Ngoại vi</value>
         <value xml:lang="zh">零配件</value>
     </property>
@@ -79,6 +87,7 @@
         <value xml:lang="en">Installed Software</value>
         <value xml:lang="fr">Logiciels installés</value>
         <value xml:lang="it">Software installati</value>
+        <value xml:lang="ja">導入済ソフトウェア</value>
         <value xml:lang="vi">Phần mềm đã cài</value>
         <value xml:lang="zh">已安装的软件</value>
     </property>
@@ -86,6 +95,7 @@
         <value xml:lang="en">New Hardware</value>
         <value xml:lang="fr">Nouveau matériel informatique</value>
         <value xml:lang="it">Nuovo hardware</value>
+        <value xml:lang="ja">新規ハードウェア</value>
         <value xml:lang="vi">Phần cứng mới</value>
         <value xml:lang="zh">新硬件</value>
     </property>
@@ -93,6 +103,7 @@
         <value xml:lang="en">New Software</value>
         <value xml:lang="fr">Nouveau logiciel</value>
         <value xml:lang="it">Nuovo software</value>
+        <value xml:lang="ja">新規ソフトウェア</value>
         <value xml:lang="vi">Phần mềm mới</value>
         <value xml:lang="zh">新软件</value>
     </property>
@@ -100,6 +111,7 @@
         <value xml:lang="en">Edit Hardware</value>
         <value xml:lang="fr">Modifier le matériel informatique</value>
         <value xml:lang="it">Aggiorna hardware</value>
+        <value xml:lang="ja">ハードウェアを編集</value>
         <value xml:lang="vi">Cập nhật Phần cứng</value>
         <value xml:lang="zh">编辑硬件</value>
     </property>
@@ -107,6 +119,7 @@
         <value xml:lang="en">Edit Software</value>
         <value xml:lang="fr">Modifier le logiciel</value>
         <value xml:lang="it">Aggiorna software</value>
+        <value xml:lang="ja">ソフトウェアを編集</value>
         <value xml:lang="vi">Cập nhật Phần mềm</value>
         <value xml:lang="zh">编辑软件</value>
     </property>
@@ -114,6 +127,7 @@
         <value xml:lang="en">Lookup Computer Hardware</value>
         <value xml:lang="fr">Rechercher du matériel informatique</value>
         <value xml:lang="it">Ricerca hardware per computer</value>
+        <value xml:lang="ja">コンピュータハードウェアを検索</value>
         <value xml:lang="vi">Tìm phần cứng máy tính</value>
         <value xml:lang="zh">查找计算机硬件</value>
     </property>
@@ -121,6 +135,7 @@
         <value xml:lang="en">Lookup Computer Software</value>
         <value xml:lang="fr">Consultation de logiciel(s)</value>
         <value xml:lang="it">Ricerca software per computer</value>
+        <value xml:lang="ja">コンピュータソフトウェアを検索</value>
         <value xml:lang="vi">Tìm phần mềm máy tính</value>
         <value xml:lang="zh">查找计算机软件</value>
     </property>

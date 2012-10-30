@@ -23,6 +23,7 @@
         <value xml:lang="de">Doppelter Primärschlüssel. Der Primärschlüssel existiert bereits.</value>
         <value xml:lang="en">Dublicate Key. The Key already exist.</value>
         <value xml:lang="fr">Clé dupliquée. Cette valeur est déjà présente.</value>
+        <value xml:lang="ja">重複キー。キーはすでに存在します。</value>
         <value xml:lang="vi">Khóa đã tồn tại và bị trùng.</value>
     </property>
     <property key="ImageTransform.error_occurs_during_reading">
@@ -32,6 +33,7 @@
         <value xml:lang="fr">Une erreur est survenue lors de la lecture</value>
         <value xml:lang="hi_IN">पढ़ने के दौरान एक त्रुटि हो रही है</value>
         <value xml:lang="it">E' successo un'errore durante la lettura</value>
+        <value xml:lang="ja">読込中にエラーが発生しました</value>
         <value xml:lang="nl">Er is een fout opgetreden tijdens het lezen</value>
         <value xml:lang="pt_BR">Um erro ocorreu durante a leitura</value>
         <value xml:lang="vi">Lỗi xảy ra trong quá trình đọc dữ liệu</value>
@@ -45,6 +47,7 @@
         <value xml:lang="fr">Une erreur empêche que le document soit entièrement analysé</value>
         <value xml:lang="hi_IN">त्रुटि दस्तावेज़ को पूरी तरह पार्स करने से रोक रही है</value>
         <value xml:lang="it">Errore previene il documento da essere completamente parsato</value>
+        <value xml:lang="ja">文書の解析時にエラーが発生しました</value>
         <value xml:lang="nl">Een fout verhinderd het volledig parsen van het document</value>
         <value xml:lang="pt_BR">Erro impede que o documento seja totalmente analisado</value>
         <value xml:lang="vi">Có sự cố xảy ra nên hệ thống không thể phân tích được tài liệu</value>
@@ -58,6 +61,7 @@
         <value xml:lang="fr">Des erreurs sont survenues lors de l'analyse</value>
         <value xml:lang="hi_IN">पार्सिंग के दौरान त्रुटियाँ हुई</value>
         <value xml:lang="it">Errore accaduti durante il parsing</value>
+        <value xml:lang="ja">解析中にエラーが発生しました</value>
         <value xml:lang="nl">Er zijn fouten opgetreden tijdens het parsen</value>
         <value xml:lang="pt_BR">Ocorreram erros durante a análise (Parsing)</value>
         <value xml:lang="vi">Lỗi xảy ra trong quá trình phân tích</value>
@@ -71,6 +75,7 @@
         <value xml:lang="fr">Le facteur final de redimensionnement est nul</value>
         <value xml:lang="hi_IN">अंतिम पैमाने पहलू null है</value>
         <value xml:lang="it">Fattore di scala finale è nullo</value>
+        <value xml:lang="ja">最終的なスケールが空です</value>
         <value xml:lang="nl">De definitieve schaalfactor is leeg</value>
         <value xml:lang="pt_BR">Fator de escala final é nulo</value>
         <value xml:lang="vi">Thiếu Bộ xử lý chỉnh sửa ảnh</value>
@@ -84,6 +89,7 @@
         <value xml:lang="fr">Le ratio 'hauteur' de redimensionnement est nul</value>
         <value xml:lang="hi_IN">ऊँचाई पैमाने पहलू null है</value>
         <value xml:lang="it">Fattore di scala altezza è nullo</value>
+        <value xml:lang="ja">高さのスケールが空です</value>
         <value xml:lang="nl">Schaalfactor hoogte is leeg</value>
         <value xml:lang="pt_BR">Fator da escala de Altura é nula</value>
         <value xml:lang="vi">Thiếu Bộ xử lý chỉnh sửa chiều cao ảnh</value>
@@ -97,6 +103,7 @@
         <value xml:lang="fr">La valeur saisie est nulle</value>
         <value xml:lang="hi_IN">इनपुट null है</value>
         <value xml:lang="it">Input è nullo</value>
+        <value xml:lang="ja">入力が空です</value>
         <value xml:lang="nl">De ingave is leeg</value>
         <value xml:lang="pt_BR">A entrada é nula</value>
         <value xml:lang="vi">Tham số đầu vào Rỗng</value>
@@ -110,6 +117,7 @@
         <value xml:lang="fr">Une des dimensions par défaut est nulle</value>
         <value xml:lang="hi_IN">एक डिफ़ॉल्ट आयाम null है</value>
         <value xml:lang="it">Dimensione uno di default è nullo</value>
+        <value xml:lang="ja">デフォルトの次元が空です</value>
         <value xml:lang="nl">Een standaad dimensie is leeg</value>
         <value xml:lang="pt_BR">Uma dimensão padrão é null</value>
         <value xml:lang="vi">Chiều mặc định bị Rỗng</value>
@@ -123,6 +131,7 @@
         <value xml:lang="fr">L'élement racine n'a pas pu être chargé</value>
         <value xml:lang="hi_IN">रूट तत्व निर्धारित नहीं किया गया है</value>
         <value xml:lang="it">Elemento root non è stato impostato</value>
+        <value xml:lang="ja">ルート要素が設定されていません</value>
         <value xml:lang="nl">Root element is niet ingesteld</value>
         <value xml:lang="pt_BR">Elemento raiz não foi definido</value>
         <value xml:lang="vi">Gốc tài liệu chưa được thiết lập</value>
@@ -136,6 +145,7 @@
         <value xml:lang="fr">Le type d'image bufferisée est inconnu</value>
         <value xml:lang="hi_IN">buffered छवि का अज्ञात प्रकार</value>
         <value xml:lang="it">Tipo di immagine sconosciuta bufferizzata</value>
+        <value xml:lang="ja">イメージタイプが不明です</value>
         <value xml:lang="nl">Onbekend gebufferde afbeeldingsoort</value>
         <value xml:lang="pt_BR">Tipo de imagem em buffer Desconhecido</value>
         <value xml:lang="vi">Kiểu bộ đệm ảnh chưa xác định</value>
@@ -149,6 +159,7 @@
         <value xml:lang="fr">Le ratio 'largeur' de redimensionnement est nul</value>
         <value xml:lang="hi_IN">चौड़ाई पैमाने कारक(Width scale factor) null है</value>
         <value xml:lang="it">Fattore di scala altezza è nullo</value>
+        <value xml:lang="ja">幅のスケールが空です</value>
         <value xml:lang="nl">Schaalfactor breedte is leeg</value>
         <value xml:lang="pt_BR">Fator da escala de Largura é nula</value>
         <value xml:lang="vi">Thiếu Bộ xử lý chỉnh sửa chiều rộng ảnh</value>

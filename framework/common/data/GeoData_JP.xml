@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+
+    <Geo abbreviation="01" geoCode="01" geoId="JP-01" geoName="北海道" geoTypeId="PROVINCE" wellKnownText="Hokkaido"/>
+    <Geo abbreviation="02" geoCode="02" geoId="JP-02" geoName="青森県" geoTypeId="PROVINCE" wellKnownText="Aomori"/>
+    <Geo abbreviation="03" geoCode="03" geoId="JP-03" geoName="岩手県" geoTypeId="PROVINCE" wellKnownText="Iwate"/>
+    <Geo abbreviation="04" geoCode="04" geoId="JP-04" geoName="宮城県" geoTypeId="PROVINCE" wellKnownText="Miyagi"/>
+    <Geo abbreviation="05" geoCode="05" geoId="JP-05" geoName="秋田県" geoTypeId="PROVINCE" wellKnownText="Akita"/>
+    <Geo abbreviation="06" geoCode="06" geoId="JP-06" geoName="山形県" geoTypeId="PROVINCE" wellKnownText="Yamagata"/>
+    <Geo abbreviation="07" geoCode="07" geoId="JP-07" geoName="福島県" geoTypeId="PROVINCE" wellKnownText="Fukushima"/>
+    <Geo abbreviation="08" geoCode="08" geoId="JP-08" geoName="茨城県" geoTypeId="PROVINCE" wellKnownText="Ibaraki"/>
+    <Geo abbreviation="09" geoCode="09" geoId="JP-09" geoName="栃木県" geoTypeId="PROVINCE" wellKnownText="Tochigi"/>
+    <Geo abbreviation="10" geoCode="10" geoId="JP-10" geoName="群馬県" geoTypeId="PROVINCE" wellKnownText="Gunma"/>
+    <Geo abbreviation="11" geoCode="11" geoId="JP-11" geoName="埼玉県" geoTypeId="PROVINCE" wellKnownText="Saitama"/>
+    <Geo abbreviation="12" geoCode="12" geoId="JP-12" geoName="千葉県" geoTypeId="PROVINCE" wellKnownText="Chiba"/>
+    <Geo abbreviation="13" geoCode="13" geoId="JP-13" geoName="東京都" geoTypeId="PROVINCE" wellKnownText="Tokyo"/>
+    <Geo abbreviation="14" geoCode="14" geoId="JP-14" geoName="神奈川県" geoTypeId="PROVINCE" wellKnownText="Kanagawa"/>
+    <Geo abbreviation="15" geoCode="15" geoId="JP-15" geoName="新潟県" geoTypeId="PROVINCE" wellKnownText="Niigata"/>
+    <Geo abbreviation="16" geoCode="16" geoId="JP-16" geoName="富山県" geoTypeId="PROVINCE" wellKnownText="Toyama"/>
+    <Geo abbreviation="17" geoCode="17" geoId="JP-17" geoName="石川県" geoTypeId="PROVINCE" wellKnownText="Ishikawa"/>
+    <Geo abbreviation="18" geoCode="18" geoId="JP-18" geoName="福井県" geoTypeId="PROVINCE" wellKnownText="Fukui"/>
+    <Geo abbreviation="19" geoCode="19" geoId="JP-19" geoName="山梨県" geoTypeId="PROVINCE" wellKnownText="Yamanashi"/>
+    <Geo abbreviation="20" geoCode="20" geoId="JP-20" geoName="長野県" geoTypeId="PROVINCE" wellKnownText="Nagano"/>
+    <Geo abbreviation="21" geoCode="21" geoId="JP-21" geoName="岐阜県" geoTypeId="PROVINCE" wellKnownText="Gifu"/>
+    <Geo abbreviation="22" geoCode="22" geoId="JP-22" geoName="静岡県" geoTypeId="PROVINCE" wellKnownText="Shizuoka"/>
+    <Geo abbreviation="23" geoCode="23" geoId="JP-23" geoName="愛知県" geoTypeId="PROVINCE" wellKnownText="Aichi"/>
+    <Geo abbreviation="24" geoCode="24" geoId="JP-24" geoName="三重県" geoTypeId="PROVINCE" wellKnownText="Mie"/>
+    <Geo abbreviation="25" geoCode="25" geoId="JP-25" geoName="滋賀県" geoTypeId="PROVINCE" wellKnownText="Shiga"/>
+    <Geo abbreviation="26" geoCode="26" geoId="JP-26" geoName="京都府" geoTypeId="PROVINCE" wellKnownText="Kyoto"/>
+    <Geo abbreviation="27" geoCode="27" geoId="JP-27" geoName="大阪府" geoTypeId="PROVINCE" wellKnownText="Osaka"/>
+    <Geo abbreviation="28" geoCode="28" geoId="JP-28" geoName="兵庫県" geoTypeId="PROVINCE" wellKnownText="Hyogo"/>
+    <Geo abbreviation="29" geoCode="29" geoId="JP-29" geoName="奈良県" geoTypeId="PROVINCE" wellKnownText="Nara"/>
+    <Geo abbreviation="30" geoCode="30" geoId="JP-30" geoName="和歌山県" geoTypeId="PROVINCE" wellKnownText="Wakayama"/>
+    <Geo abbreviation="31" geoCode="31" geoId="JP-31" geoName="鳥取県" geoTypeId="PROVINCE" wellKnownText="Tottori"/>
+    <Geo abbreviation="32" geoCode="32" geoId="JP-32" geoName="島根県" geoTypeId="PROVINCE" wellKnownText="Shimane"/>
+    <Geo abbreviation="33" geoCode="33" geoId="JP-33" geoName="岡山県" geoTypeId="PROVINCE" wellKnownText="Okayama"/>
+    <Geo abbreviation="34" geoCode="34" geoId="JP-34" geoName="広島県" geoTypeId="PROVINCE" wellKnownText="Hiroshima"/>
+    <Geo abbreviation="35" geoCode="35" geoId="JP-35" geoName="山口県" geoTypeId="PROVINCE" wellKnownText="Yamaguchi"/>
+    <Geo abbreviation="36" geoCode="36" geoId="JP-36" geoName="徳島県" geoTypeId="PROVINCE" wellKnownText="Tokushima"/>
+    <Geo abbreviation="37" geoCode="37" geoId="JP-37" geoName="香川県" geoTypeId="PROVINCE" wellKnownText="Kagawa"/>
+    <Geo abbreviation="38" geoCode="38" geoId="JP-38" geoName="愛媛県" geoTypeId="PROVINCE" wellKnownText="Ehime"/>
+    <Geo abbreviation="39" geoCode="39" geoId="JP-39" geoName="高知県" geoTypeId="PROVINCE" wellKnownText="Kochi"/>
+    <Geo abbreviation="40" geoCode="40" geoId="JP-40" geoName="福岡県" geoTypeId="PROVINCE" wellKnownText="Fukuoka"/>
+    <Geo abbreviation="41" geoCode="41" geoId="JP-41" geoName="佐賀県" geoTypeId="PROVINCE" wellKnownText="Saga"/>
+    <Geo abbreviation="42" geoCode="42" geoId="JP-42" geoName="長崎県" geoTypeId="PROVINCE" wellKnownText="Nagasaki"/>
+    <Geo abbreviation="43" geoCode="43" geoId="JP-43" geoName="熊本県" geoTypeId="PROVINCE" wellKnownText="Kumamoto"/>
+    <Geo abbreviation="44" geoCode="44" geoId="JP-44" geoName="大分県" geoTypeId="PROVINCE" wellKnownText="Oita"/>
+    <Geo abbreviation="45" geoCode="45" geoId="JP-45" geoName="宮崎県" geoTypeId="PROVINCE" wellKnownText="Miyazaki"/>
+    <Geo abbreviation="46" geoCode="46" geoId="JP-46" geoName="鹿児島県" geoTypeId="PROVINCE" wellKnownText="Kagoshima"/>
+    <Geo abbreviation="47" geoCode="47" geoId="JP-47" geoName="沖縄県" geoTypeId="PROVINCE" wellKnownText="Okinawa"/>
+
+    <GeoAssoc geoId="JPN" geoIdTo="JP-01" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-02" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-03" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-04" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-05" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-06" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-07" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-08" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-09" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-10" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-11" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-12" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-13" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-14" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-15" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-16" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-17" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-18" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-19" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-20" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-21" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-22" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-23" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-24" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-25" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-26" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-27" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-28" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-29" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-30" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-31" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-32" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-33" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-34" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-35" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-36" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-37" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-38" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-39" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-40" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-41" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-42" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-43" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-44" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-45" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-46" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="JPN" geoIdTo="JP-47" geoAssocTypeId="REGIONS"/>
+</entity-engine-xml>

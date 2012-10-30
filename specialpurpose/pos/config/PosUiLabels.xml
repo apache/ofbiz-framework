@@ -25,6 +25,7 @@
         <value xml:lang="es">(adjustment)</value>
         <value xml:lang="fr">(ajustement)</value>
         <value xml:lang="it">(adjustment)</value>
+        <value xml:lang="ja">(調整)</value>
         <value xml:lang="ro">(adjustment)</value>
         <value xml:lang="zh">(调整)</value>
     </property>
@@ -34,6 +35,7 @@
         <value xml:lang="es">Precio</value>
         <value xml:lang="fr">Prix</value>
         <value xml:lang="it">IMP</value>
+        <value xml:lang="ja">金額</value>
         <value xml:lang="ro">IMP</value>
         <value xml:lang="zh">金额</value>
     </property>
@@ -43,6 +45,7 @@
         <value xml:lang="es">Ingrese el código secreto :</value>
         <value xml:lang="fr">Entrez le code secret :</value>
         <value xml:lang="it">Inserire Codice Autorizzazione:</value>
+        <value xml:lang="ja">認証コードを入力:</value>
         <value xml:lang="ro">Introduceti Codul de Autorizatie:</value>
         <value xml:lang="zh">输入授权码:</value>
     </property>
@@ -52,6 +55,7 @@
         <value xml:lang="es">CONTADO</value>
         <value xml:lang="fr">Espèces</value>
         <value xml:lang="it">CONTANTE</value>
+        <value xml:lang="ja">現金</value>
         <value xml:lang="ro">Numerar</value>
         <value xml:lang="zh">现金</value>
     </property>
@@ -61,6 +65,7 @@
         <value xml:lang="es">Cambio :</value>
         <value xml:lang="fr">A rendre :</value>
         <value xml:lang="it">Cambio Dovuto:</value>
+        <value xml:lang="ja">予定を変更:</value>
         <value xml:lang="ro">Schimb Valutar:</value>
         <value xml:lang="zh">找零:</value>
     </property>
@@ -70,6 +75,7 @@
         <value xml:lang="es">CHEQUE</value>
         <value xml:lang="fr">Chèque(s)</value>
         <value xml:lang="it">ASSEGNO</value>
+        <value xml:lang="ja">小切手</value>
         <value xml:lang="ro">CEC</value>
         <value xml:lang="zh">支票</value>
     </property>
@@ -79,6 +85,7 @@
         <value xml:lang="es">Empleado</value>
         <value xml:lang="fr">Vendeur :</value>
         <value xml:lang="it">Impieg.:</value>
+        <value xml:lang="ja">店員</value>
         <value xml:lang="ro">Ang:</value>
         <value xml:lang="zh">收银员:</value>
     </property>
@@ -86,6 +93,7 @@
         <value xml:lang="ar">معلومات الزبون, اختياره يضيف رقم البطاقة كرمز لترويج</value>
         <value xml:lang="en">Customer informations, selection adds the card number as a promo code</value>
         <value xml:lang="fr">Informations sur le client, sa sélection entraîne celle de son n° de carte comme code de promotion.</value>
+        <value xml:lang="ja">顧客情報、選択、プロモーションコードとしてカード番号を追加</value>
         <value xml:lang="zh">客户资料,选择添加卡号作为优惠券代码</value>
     </property>
     <property key="PosConfigureItem">
@@ -93,6 +101,7 @@
         <value xml:lang="en">Item Configuration</value>
         <value xml:lang="fr">Configuration de l'article</value>
         <value xml:lang="it">Riga configurazione</value>
+        <value xml:lang="ja">アイテムカスタマイズ</value>
         <value xml:lang="zh">明细配置</value>
     </property>
     <property key="PosCreateOrChooseReasonInOut">
@@ -100,6 +109,7 @@
         <value xml:lang="en">You have to create or choose a reason</value>
         <value xml:lang="fr">Vous devez créer ou choisir le motif de ce mouvement de caisse</value>
         <value xml:lang="it">Tu devi creare o scegliere una motivazione</value>
+        <value xml:lang="ja">理由の作成/選択が必要です</value>
         <value xml:lang="zh">你必须创建或选择一个原因</value>
     </property>
     <property key="PosCredNo">
@@ -108,6 +118,7 @@
         <value xml:lang="es">Ingrese número de tarjeta :</value>
         <value xml:lang="fr">Entrez le n° de carte :</value>
         <value xml:lang="it">Inserire Numero Carta:</value>
+        <value xml:lang="ja">カード番号の入力:</value>
         <value xml:lang="ro">Introduceti Numarul Cartii:</value>
         <value xml:lang="zh">输入卡号:</value>
     </property>
@@ -117,6 +128,7 @@
         <value xml:lang="es">Ingrese código postal de facturación</value>
         <value xml:lang="fr">Entrez le code postal de facturation :</value>
         <value xml:lang="it">Inserire C.A.P. Fatturazione:</value>
+        <value xml:lang="ja">請求先郵便番号を入力:</value>
         <value xml:lang="ro">Introduceti zipCod Facturare:</value>
         <value xml:lang="zh">输入账单邮政编码:</value>
     </property>
@@ -126,6 +138,7 @@
         <value xml:lang="es">Ingrese los últimos 4 dígitos</value>
         <value xml:lang="fr">Entrez les 4 derniers chiffres :</value>
         <value xml:lang="it">Inserire Ultimi 4 Numeri:</value>
+        <value xml:lang="ja">下4桁を入力:</value>
         <value xml:lang="ro">Introduceti ultimale 4 Numere:</value>
         <value xml:lang="zh">输入最后4位卡号:</value>
     </property>
@@ -135,6 +148,7 @@
         <value xml:lang="es">Ingrese fecha de expiración (MMYY)</value>
         <value xml:lang="fr">Entrez la date d'expiration (MMYY):</value>
         <value xml:lang="it">Inserire Data Scadenza (MMYY):</value>
+        <value xml:lang="ja">有効期限を入力(MMYY):</value>
         <value xml:lang="ro">Introduceti Data Expirarii (LLAA):</value>
         <value xml:lang="zh">输入到期日 (MMYY):</value>
     </property>
@@ -144,6 +158,7 @@
         <value xml:lang="es">TARJETA DE CRÉDITO</value>
         <value xml:lang="fr">Carte(s) de crédit</value>
         <value xml:lang="it">CARTA CREDITO</value>
+        <value xml:lang="ja">クレジットカード</value>
         <value xml:lang="ro">CARTE DE CREDIT</value>
         <value xml:lang="zh">信用卡</value>
     </property>
@@ -151,6 +166,7 @@
         <value xml:lang="ar">الزبون</value>
         <value xml:lang="en">Customer:</value>
         <value xml:lang="fr">Client :</value>
+        <value xml:lang="ja">顧客:</value>
         <value xml:lang="zh">客户:</value>
     </property>
     <property key="PosDate">
@@ -159,6 +175,7 @@
         <value xml:lang="es">FECHA</value>
         <value xml:lang="fr">Date</value>
         <value xml:lang="it">DATA</value>
+        <value xml:lang="ja">日付</value>
         <value xml:lang="ro">DATA</value>
         <value xml:lang="zh">日期</value>
     </property>
@@ -168,6 +185,7 @@
         <value xml:lang="es">EEE MMM dd</value>
         <value xml:lang="fr">EE dd MMM</value>
         <value xml:lang="it">EEE MMM dd</value>
+        <value xml:lang="ja">yyyy MM dd</value>
         <value xml:lang="ro">EEE MMM dd</value>
         <value xml:lang="zh">EEE MMM dd</value>
     </property>
@@ -177,6 +195,7 @@
         <value xml:lang="es">'the' yyyy MMMMM dd 'at'  hh:mm:ss aaa</value>
         <value xml:lang="fr">'le' dd MMMMM yyyy 'à'  HH:mm:ss</value>
         <value xml:lang="it">'il' yyyy MMMMM dd 'alle'  hh:mm:ss aaa</value>
+        <value xml:lang="ja">yyyy MMMMM dd HH:mm:ss</value>
         <value xml:lang="ro">yyyy MMMMM dd 'la' hh:mm:ss aaa </value>
         <value xml:lang="zh">yyyy MMMMM dd HH:mm:ss</value>
     </property>
@@ -186,6 +205,7 @@
         <value xml:lang="es">Dr.</value>
         <value xml:lang="fr">Tiroir :</value>
         <value xml:lang="it">Cass.:</value>
+        <value xml:lang="ja">ドクター:</value>
         <value xml:lang="ro">Cas:</value>
         <value xml:lang="zh">钞箱:</value>
     </property>
@@ -195,6 +215,7 @@
         <value xml:lang="es">Caja</value>
         <value xml:lang="fr">Caisse</value>
         <value xml:lang="it">CASSIERE</value>
+        <value xml:lang="ja">キャッシュレジスタ</value>
         <value xml:lang="ro">CASIER</value>
         <value xml:lang="zh">钞箱</value>
     </property>
@@ -204,6 +225,7 @@
         <value xml:lang="es">VENDEDOR</value>
         <value xml:lang="fr">Vendeur</value>
         <value xml:lang="it">IMPIEGATO</value>
+        <value xml:lang="ja">従業員</value>
         <value xml:lang="ro">Angajat</value>
         <value xml:lang="zh">收银员</value>
     </property>
@@ -213,6 +235,7 @@
         <value xml:lang="es">Ingrese monto en efectivo</value>
         <value xml:lang="fr">Entrez le montant en espèce :</value>
         <value xml:lang="it">Inserire Importo Contante:</value>
+        <value xml:lang="ja">現金金額を入力:</value>
         <value xml:lang="ro">Introduceti Valoare Numerar:</value>
         <value xml:lang="zh">输入现金额:</value>
     </property>
@@ -222,6 +245,7 @@
         <value xml:lang="es">Ingrese monto en cheque</value>
         <value xml:lang="fr">Entrez le montant en chèque :</value>
         <value xml:lang="it">Inserire Importo Assegno:</value>
+        <value xml:lang="ja">小切手金額を入力:</value>
         <value xml:lang="ro">Introduceti Valoare  CEC:</value>
         <value xml:lang="zh">输入支票额:</value>
     </property>
@@ -231,6 +255,7 @@
         <value xml:lang="es">Ingrese monto en tarjeta de crédito</value>
         <value xml:lang="fr">Entrez le montant en carte de crédit :</value>
         <value xml:lang="it">Inserire Importo Carta di Credito:</value>
+        <value xml:lang="ja">クレジットカード金額を入力:</value>
         <value xml:lang="ro">Introduceti Valoare Carte de Credit:</value>
         <value xml:lang="zh">输入信用卡额:</value>
     </property>
@@ -240,6 +265,7 @@
         <value xml:lang="es">Ingrese monto de certificado de regalo: </value>
         <value xml:lang="fr">Entrez le montant en bon d'achat :</value>
         <value xml:lang="it">Inserire Importo Carta Omaggio:</value>
+        <value xml:lang="ja">ギフトカード金額を入力:</value>
         <value xml:lang="ro">Introduceti Valoare Carte Omagiu:</value>
         <value xml:lang="zh">输入礼品卡额:</value>
     </property>
@@ -249,6 +275,7 @@
         <value xml:lang="es">Ingrese monto de otros pagos</value>
         <value xml:lang="fr">Entrez le mt en autre moyen de paiement :</value>
         <value xml:lang="it">Inserire Importo Altri Pagamenti:</value>
+        <value xml:lang="ja">その他支払金額を入力:</value>
         <value xml:lang="ro">Introduceti Valoare Alte Plati:</value>
         <value xml:lang="zh">输入其他付款额:</value>
     </property>
@@ -257,6 +284,7 @@
         <value xml:lang="en">Enter Promo Code:</value>
         <value xml:lang="fr">Entrez le code promo:</value>
         <value xml:lang="it">Inserire codice promozione:</value>
+        <value xml:lang="ja">プロモーションコードを入力:</value>
         <value xml:lang="zh">输入促销代码:</value>
     </property>
     <property key="PosGiftCard">
@@ -265,6 +293,7 @@
         <value xml:lang="es">Certificado de regalo</value>
         <value xml:lang="fr">Bon(s) d'achat</value>
         <value xml:lang="it">CARTA OMAGGIO</value>
+        <value xml:lang="ja">ギフトカード</value>
         <value xml:lang="ro">CARTE OMAGIU</value>
         <value xml:lang="zh">礼品卡</value>
     </property>
@@ -274,6 +303,7 @@
         <value xml:lang="es">Gran total</value>
         <value xml:lang="fr">Total</value>
         <value xml:lang="it">Totale Generale</value>
+        <value xml:lang="ja">総合計</value>
         <value xml:lang="ro">Total General</value>
         <value xml:lang="zh">总计</value>
     </property>
@@ -283,12 +313,14 @@
         <value xml:lang="es">Total</value>
         <value xml:lang="fr">Total</value>
         <value xml:lang="it">LORDO VENDITA</value>
+        <value xml:lang="ja">販売額合計</value>
         <value xml:lang="ro">Valoare BRUTA-VANZARE</value>
         <value xml:lang="zh">毛销售额</value>
     </property>
     <property key="PosFieldsRequired">
         <value xml:lang="ar">الإسم إجباري</value>
         <value xml:lang="en">Name is required</value>
+        <value xml:lang="ja">名前は必須です。</value>
         <value xml:lang="fr">Le nom doit être renseignés</value>
     </property>
     <property key="PosInvalidSelection">
@@ -297,6 +329,7 @@
         <value xml:lang="es">Selección inválida</value>
         <value xml:lang="fr">Sélection non valide !</value>
         <value xml:lang="it">Selezione Non Valida!</value>
+        <value xml:lang="ja">選択が正しくありません</value>
         <value xml:lang="ro">Selectare InValida!</value>
         <value xml:lang="zh">非法选项!</value>
     </property>
@@ -306,6 +339,7 @@
         <value xml:lang="es">El registro está cerrado</value>
         <value xml:lang="fr">Le registre est fermé.</value>
         <value xml:lang="it">Registratore di Cassa è Chiuso</value>
+        <value xml:lang="ja">レジスタを閉じました</value>
         <value xml:lang="ro">Registru de Casa este Inchis</value>
         <value xml:lang="zh">提示牌已关闭</value>
     </property>
@@ -315,6 +349,7 @@
         <value xml:lang="es">El registro está abierto</value>
         <value xml:lang="fr">Le registre est ouvert.</value>
         <value xml:lang="it">Registratore di Cassa è Aperto</value>
+        <value xml:lang="ja">レジスタは開いています</value>
         <value xml:lang="ro">Registru de Casa este Deschis</value>
         <value xml:lang="zh">提示牌已打开</value>
     </property>
@@ -324,6 +359,7 @@
         <value xml:lang="es">ITEM</value>
         <value xml:lang="fr">Désignation</value>
         <value xml:lang="it">PRODOTTO</value>
+        <value xml:lang="ja">アイテム</value>
         <value xml:lang="ro">PRODUS</value>
         <value xml:lang="zh">项</value>
     </property>
@@ -333,6 +369,7 @@
         <value xml:lang="es">(Item discount)</value>
         <value xml:lang="fr">Remise sur l'article</value>
         <value xml:lang="it">(Item discount)</value>
+        <value xml:lang="ja">(アイテム値引)</value>
         <value xml:lang="ro">(Item discount)</value>
         <value xml:lang="zh">(明细折扣)</value>
     </property>
@@ -341,6 +378,7 @@
         <value xml:lang="en">Load a sale</value>
         <value xml:lang="fr">Charger une vente</value>
         <value xml:lang="it">Carica una vendita</value>
+        <value xml:lang="ja">販売を追加</value>
         <value xml:lang="zh">载入一个销售</value>
     </property>
     <property key="PosLoadSaleListDblClickTip">
@@ -348,6 +386,7 @@
         <value xml:lang="en">You may use a double click to replace the current sale and delete this one</value>
         <value xml:lang="fr">Vous pouvez utiliser le double-clic pour remplacer la vente en cours et supprimer celle ci</value>
         <value xml:lang="it">Tu devi usare un doppio click per sostituire l'attuale vendita and cancellarla</value>
+        <value xml:lang="ja">ダブルクリックで現在の販売の置換/削除ができます</value>
         <value xml:lang="ro">Poti folosi dublu click  pentru a rescrie vanzarea cruenta si pentru a o sterge.</value>
         <value xml:lang="zh">你可以双击鼠标来替换当前的销售并删除这个</value>
     </property>
@@ -355,6 +394,7 @@
         <value xml:lang="ar">ما من زبون للتحديث</value>
         <value xml:lang="en">Any customer profile to update</value>
         <value xml:lang="fr">Aucun client à mettre à jour</value>
+        <value xml:lang="ja">任意の更新顧客プロファイル</value>
         <value xml:lang="zh">更新客户资料</value>
     </property>    
     <property key="PosOpDrAm">
@@ -363,6 +403,7 @@
         <value xml:lang="es">Monto inicial de la caja:</value>
         <value xml:lang="fr">Contenu initial du tiroir :</value>
         <value xml:lang="it">Importo Iniziale Cassiere:</value>
+        <value xml:lang="ja">当初キャッシュレジスタ金額:</value>
         <value xml:lang="ro">Valoare Initiala Casierie:</value>
         <value xml:lang="zh">开始钞箱金额:</value>
     </property>
@@ -372,6 +413,7 @@
         <value xml:lang="es">OTROS</value>
         <value xml:lang="fr">Autres</value>
         <value xml:lang="it">ALTRO</value>
+        <value xml:lang="ja">その他</value>
         <value xml:lang="ro">ALTE</value>
         <value xml:lang="zh">其他</value>
     </property>
@@ -380,6 +422,7 @@
         <value xml:lang="en">Enter amount to paid in and create or choose a reason</value>
         <value xml:lang="fr">Entrez le montant à remettre en caisse et créez ou choisissez un motif</value>
         <value xml:lang="it">Inserire importo da pagare in ingresso e creare o scegliere una motivazione</value>
+        <value xml:lang="ja">支払金額の入力および理由の作成/選択</value>
         <value xml:lang="zh">输入要收取的金额并创建或选择一个原因</value>
     </property>
     <property key="PosPaidOutTitle">
@@ -387,6 +430,7 @@
         <value xml:lang="en">Enter amount to withdraw and create or choose a reason</value>
         <value xml:lang="fr">Entrez le montant à retirer et créez ou choisissez un motif</value>
         <value xml:lang="it">Inserire un'importo da prelevare e crea o scegliere una motivazione</value>
+        <value xml:lang="ja">消込金額の入力および理由の作成/選択</value>
         <value xml:lang="zh">输入要撤销的金额并创建或输入一个原因</value>
     </property>
     <property key="PosPayFin">
@@ -395,6 +439,7 @@
         <value xml:lang="es">Presione FINISH para completar la venta</value>
         <value xml:lang="fr">Appuyez sur [Fin] pour terminer la vente !</value>
         <value xml:lang="it">Premere Fine Per Completare la Vendita</value>
+        <value xml:lang="ja">完了を押して販売を完了してください</value>
         <value xml:lang="ro">Apasa Terminare(FINISH) Pentru a Completa Vanzarea</value>
         <value xml:lang="zh">按完成键结束销售</value>
     </property>
@@ -402,6 +447,7 @@
         <value xml:lang="ar">رقم الهاتف يجب أن يحوي 5 رموز على الأقل (يستعمل أيضا ككلمة سر)</value>
         <value xml:lang="en">The phone number must be at least 5 characters long (also used as password).</value>
         <value xml:lang="fr">Le n° de téléphone doit être au moins de 5 caractèrs (sert aussi de mot de passe).</value>
+        <value xml:lang="ja">電話番号は少なくとも5文字入力してください(パスワードとして使用します)</value>
         <value xml:lang="zh">电话号码必须有五位数字以上(也作为密码用途)</value>
     </property>
     <property key="PosPostalCode">
@@ -409,6 +455,7 @@
         <value xml:lang="en">Enter the billing postal code:</value>
         <value xml:lang="fr">Entrez le code postal :</value>
         <value xml:lang="it">Inserire il codice postale di fatturazione:</value>
+        <value xml:lang="ja">請求先郵便番号の入力:</value>
         <value xml:lang="zh">输入寄账单邮政编码:</value>
     </property>
     <property key="PosProcessing">
@@ -417,6 +464,7 @@
         <value xml:lang="es">Procesando pagos...</value>
         <value xml:lang="fr">Traitement du paiement...</value>
         <value xml:lang="it">Esecuzione pagamenti...</value>
+        <value xml:lang="ja">支払処理中...</value>
         <value xml:lang="ro">Executie plati...</value>
         <value xml:lang="zh">处理支付...</value>
     </property>
@@ -424,6 +472,7 @@
         <value xml:lang="ar">رموز الترويج</value>
         <value xml:lang="en">Promo code(s):</value>
         <value xml:lang="fr">Code(s) de promotion :</value>
+        <value xml:lang="ja">プロモーションコード:</value>
         <value xml:lang="zh">优惠券代码:</value>
     </property>    
     <property key="PosQty">
@@ -432,6 +481,7 @@
         <value xml:lang="es">Cantidad</value>
         <value xml:lang="fr">Nb</value>
         <value xml:lang="it">QNT</value>
+        <value xml:lang="ja">数量</value>
         <value xml:lang="ro">CANT</value>
         <value xml:lang="zh">件数</value>
     </property>
@@ -441,6 +491,7 @@
         <value xml:lang="es">Ingrese número  de referencia</value>
         <value xml:lang="fr">Entrez le n° du chèque ou la référence :</value>
         <value xml:lang="it">Inserire Numero Riferimento:</value>
+        <value xml:lang="ja">参照番号の入力:</value>
         <value xml:lang="ro">Introduceti Numar de Referinta:</value>
         <value xml:lang="zh">输入流水号:</value>
     </property>
@@ -450,6 +501,7 @@
         <value xml:lang="es">(Sales discount)</value>
         <value xml:lang="fr">Remise sur la vente</value>
         <value xml:lang="it">(Sales discount)</value>
+        <value xml:lang="ja">(販売時値引)</value>
         <value xml:lang="ro">(Sales discount)</value>
         <value xml:lang="zh">(销售折扣)</value>
     </property>
@@ -459,6 +511,7 @@
         <value xml:lang="es">Impuestos de ventas</value>
         <value xml:lang="fr">TVA</value>
         <value xml:lang="it">Tasse di Vendita</value>
+        <value xml:lang="ja">消費税</value>
         <value xml:lang="ro">Taxe de Vanzare</value>
         <value xml:lang="zh">销售税</value>
     </property>
@@ -467,6 +520,7 @@
         <value xml:lang="en">Save current sale</value>
         <value xml:lang="fr">Sauver la vente en cours</value>
         <value xml:lang="it">Salvare attuale vendita</value>
+        <value xml:lang="ja">現在の販売を保存</value>
         <value xml:lang="ro">Salveaza vanzarea curenta</value>
         <value xml:lang="zh">保存当前销售</value>
     </property>
@@ -476,6 +530,7 @@
         <value xml:lang="es">Usted ahorra....</value>
         <value xml:lang="fr">Enregistrement de la vente...</value>
         <value xml:lang="it">Salvataggio vendita...</value>
+        <value xml:lang="ja">販売を保存中...</value>
         <value xml:lang="ro">Salveaza vanzarea...</value>
         <value xml:lang="zh">保存销售...</value>
     </property>
@@ -484,6 +539,7 @@
         <value xml:lang="en">Enter security code:</value>
         <value xml:lang="fr">Entrez votre code :</value>
         <value xml:lang="it">Inserire codice sicurezza:</value>
+        <value xml:lang="ja">セキュリティコードの入力:</value>
         <value xml:lang="zh">输入安全码:</value>
     </property>
     <property key="PosSelectAProduct">
@@ -491,12 +547,14 @@
         <value xml:lang="en">Select a product</value>
         <value xml:lang="fr">Sélectionnez un produit</value>
         <value xml:lang="it">Selezionare un prodotto</value>
+        <value xml:lang="ja">製品を選択</value>
         <value xml:lang="zh">选择一个产品</value>
     </property>
     <property key="PosSelectClientToEdit">
         <value xml:lang="ar">إختر زبون للتغيير أو للإختيار</value>
         <value xml:lang="en">Select a customer to edit or select</value>
         <value xml:lang="fr">Choisissez le client à modifier ou à sélectionner</value>
+        <value xml:lang="ja">編集/選択する顧客を選択</value>
         <value xml:lang="zh">选择编辑客户资料</value>
     </property>
     <property key="PosSelectProductListDblClickTip">
@@ -504,6 +562,7 @@
         <value xml:lang="en">You may use a double click to select the current product</value>
         <value xml:lang="fr">Vous pouvez utiliser le double-clic pour choisir un produit</value>
         <value xml:lang="it">Tu devi usare un doppio clieck per selezionare il prodotto corrente</value>
+        <value xml:lang="ja">ダブルクリックで現在の製品を選択することができます</value>
         <value xml:lang="zh">你可以双击鼠标来选择当前产品</value>
     </property>
     <property key="PosShuttingDown">
@@ -512,6 +571,7 @@
         <value xml:lang="es">Cerrando...</value>
         <value xml:lang="fr">Arrêt en cours...</value>
         <value xml:lang="it">Chiusura...</value>
+        <value xml:lang="ja">シャットダウン中...</value>
         <value xml:lang="ro">Inchidere...</value>
         <value xml:lang="zh">关闭...</value>
     </property>
@@ -521,6 +581,7 @@
         <value xml:lang="es">SKU</value>
         <value xml:lang="fr">Code</value>
         <value xml:lang="it">CODICE PRODOTTO</value>
+        <value xml:lang="ja">最小管理単位</value>
         <value xml:lang="ro">COD PRODUS</value>
         <value xml:lang="zh">产品统一编号</value>
     </property>
@@ -530,6 +591,7 @@
         <value xml:lang="es">Terminal:</value>
         <value xml:lang="fr">Terminal :</value>
         <value xml:lang="it">Termine:</value>
+        <value xml:lang="ja">端末:</value>
         <value xml:lang="ro">Term:</value>
         <value xml:lang="zh">终端:</value>
     </property>
@@ -537,12 +599,14 @@
         <value xml:lang="ar">للبحث عن أسماء تحوي الإسم المدون</value>
         <value xml:lang="en">To look for names which contain the name entered</value>
         <value xml:lang="fr">Pour rechercher des noms contenant celui entré</value>
+        <value xml:lang="ja">入力された文字を含む名前を検索</value>
         <value xml:lang="zh">用部分名字去查找全名</value>
     </property>    
     <property key="PosTipNameRadioEquals">
         <value xml:lang="ar">للبحث عن أسماء تساري تماما الإسم المدون</value>
         <value xml:lang="en">To look for names strictly equals to the name entered</value>
         <value xml:lang="fr">Pour rechercher des noms exactement égaux à celui entré</value>
+        <value xml:lang="ja">入力された文字と完全一致する名前を検索</value>
         <value xml:lang="zh">查找的名字需要与资料一致</value>
     </property>    
     <property key="PosTotal">
@@ -551,6 +615,7 @@
         <value xml:lang="es">Total</value>
         <value xml:lang="fr">Total</value>
         <value xml:lang="it">TOTALE</value>
+        <value xml:lang="ja">合計</value>
         <value xml:lang="ro">TOTAL</value>
         <value xml:lang="zh">合计</value>
     </property>
@@ -560,6 +625,7 @@
         <value xml:lang="es">Total debido:</value>
         <value xml:lang="fr">Total dû :</value>
         <value xml:lang="it">Totale Dovuto:</value>
+        <value xml:lang="ja">請求合計:</value>
         <value xml:lang="ro">Total(dovuto)?:</value>
         <value xml:lang="zh">合计额:</value>
     </property>
@@ -569,6 +635,7 @@
         <value xml:lang="es">REPORTE TOTAL:</value>
         <value xml:lang="fr">TOTAUX</value>
         <value xml:lang="it">TOTALI STAMPA</value>
+        <value xml:lang="ja">全体帳票</value>
         <value xml:lang="ro">TOTAL REPORT</value>
         <value xml:lang="zh">合计报表</value>
     </property>
@@ -578,6 +645,7 @@
         <value xml:lang="es">Número de venta</value>
         <value xml:lang="fr">N°vente</value>
         <value xml:lang="it">IDTAX</value>
+        <value xml:lang="ja">トランザクションID</value>
         <value xml:lang="ro">IDTAX</value>
         <value xml:lang="zh">交易号</value>
     </property>
@@ -587,6 +655,7 @@
         <value xml:lang="es">Ingrese su login:</value>
         <value xml:lang="fr">Entrez votre identifiant :</value>
         <value xml:lang="it">Inserire Id Utente:</value>
+        <value xml:lang="ja">ユーザIDを入力:</value>
         <value xml:lang="ro">Introduceti Id Utilizator:</value>
         <value xml:lang="zh">输入用户 ID:</value>
     </property>
@@ -596,6 +665,7 @@
         <value xml:lang="es">Ingrese password</value>
         <value xml:lang="fr">Entrez votre mot de passe :</value>
         <value xml:lang="it">Inserire Password:</value>
+        <value xml:lang="ja">パスワードを入力:</value>
         <value xml:lang="ro">Introduceti Parola:</value>
         <value xml:lang="zh">输入口令:</value>
     </property>
@@ -605,6 +675,7 @@
         <value xml:lang="es">El usuario no es administrador válido</value>
         <value xml:lang="fr">Cet utilisateur n'est pas un gérant !</value>
         <value xml:lang="it">Utente non è un manager valido!</value>
+        <value xml:lang="ja">ユーザは有効な管理者ではありません!</value>
         <value xml:lang="ro">Utilizatorul nu este un manager valid!</value>
         <value xml:lang="zh">用户非合法管理员!</value>
     </property>
@@ -614,6 +685,7 @@
         <value xml:lang="es">Validando...</value>
         <value xml:lang="fr">Validation...</value>
         <value xml:lang="it">Validazione...</value>
+        <value xml:lang="ja">確認中...</value>
         <value xml:lang="ro">Validare...</value>
         <value xml:lang="zh">确认...</value>
     </property>
@@ -621,12 +693,14 @@
         <value xml:lang="ar"> لتعطيل لوحة المفاتيح الافتراضية: 1. دائما, parameters.properties . 2. مؤقتا ,الزر (افتراضي) في الملف </value>
         <value xml:lang="en">To inactivate the virtual keyboard: 1. Permanently, parameters.properties file. 2. Temporarily, button VIRTUAL on Admin Panel.</value>
         <value xml:lang="fr">Pour désactiver le clavier virtuel : 1. En permanence, fichier parameters.properties. 2. Temporairement, bouton Clavier virtuel du panneau Gestion.</value>
+        <value xml:lang="ja">仮想キーボードの設定は: 1.永続的には、parameters.propertiesファイルで、2.一時的には、管理パネルの仮想ボタンで行います。</value>
         <value xml:lang="zh">关闭虚拟键盘: 1.永远的,parameters.properties 文件. 2.临时的,控制页面的[虚拟键盘]按钮</value>
     </property>        
     <property key="PosVirtualNumPadTitle">
         <value xml:lang="ar">للتعطيل أنظر لوجة المفاتيح الافتراضية</value>
         <value xml:lang="en">To inactivate: see virtual keyboard.</value>
         <value xml:lang="fr">Pour désactiver voir le clavier virtuel.</value>
+        <value xml:lang="ja">設定は: 仮想キーボードを参照</value>
         <value xml:lang="zh">要关闭: 看虚拟键盘</value>
     </property>        
     <property key="PosVoid">
@@ -635,6 +709,7 @@
         <value xml:lang="es">Ingrese número de orden a anular</value>
         <value xml:lang="fr">Entrez le n° de commande à annuler :</value>
         <value xml:lang="it">Inserire Numero Ordine Da Svuotare:</value>
+        <value xml:lang="ja">無効にする注文Noを入力:</value>
         <value xml:lang="ro">Introduceti Numarul Comenzii de Descarcat:</value>
         <value xml:lang="zh">输入要作废的订单号:</value>
     </property>
@@ -644,6 +719,7 @@
         <value xml:lang="es">Esperando transmisión de datos...</value>
         <value xml:lang="fr">En attente de transmission de données ...</value>
         <value xml:lang="it">In Attesa di trasmissione dei dati vendite finali...</value>
+        <value xml:lang="ja">最後の販売データ送信を待機中...</value>
         <value xml:lang="ro">Asteptare pentru transmiterea datelor de vanzare finale...</value>
         <value xml:lang="zh">等待最终销售数据传输...</value>
     </property>

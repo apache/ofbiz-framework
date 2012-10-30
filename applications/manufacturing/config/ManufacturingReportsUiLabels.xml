@@ -24,6 +24,7 @@
         <value xml:lang="es">Fecha de Términación</value>
         <value xml:lang="fr">Date d'achèvement</value>
         <value xml:lang="it">Data completamento</value>
+        <value xml:lang="ja">完了日</value>
         <value xml:lang="pt_BR">Data de término</value>
         <value xml:lang="ro">Data Varsamant</value>
         <value xml:lang="th">วันที่ทำเสร็จ</value>
@@ -35,6 +36,7 @@
         <value xml:lang="es">Componentes del Plan de Envío</value>
         <value xml:lang="fr">Composants du plan d'expédition</value>
         <value xml:lang="it">Componenti del Piano di Spedizione</value>
+        <value xml:lang="ja">発送計画コンポーネント</value>
         <value xml:lang="pt_BR">Componentes do plano de envio</value>
         <value xml:lang="ro">Componetele Planului de Expediere</value>
         <value xml:lang="th">ส่วนประกอบของแผนการขนส่ง</value>
@@ -46,6 +48,7 @@
         <value xml:lang="es">Longitud a medida</value>
         <value xml:lang="fr">Longueur sur commande</value>
         <value xml:lang="it">Lungh. su misura</value>
+        <value xml:lang="ja">カスタム長</value>
         <value xml:lang="pt_BR">Comprimento personalizado</value>
         <value xml:lang="ro">Lungime comandata</value>
         <value xml:lang="th">ระยะเวลาในการดูแลลูกค้า</value>
@@ -57,6 +60,7 @@
         <value xml:lang="es">Destino</value>
         <value xml:lang="fr">Destination</value>
         <value xml:lang="it">Destinazione</value>
+        <value xml:lang="ja">対象</value>
         <value xml:lang="pt_BR">Destino</value>
         <value xml:lang="ro">Destinatie</value>
         <value xml:lang="th">เป้าหมาย</value>
@@ -68,6 +72,7 @@
         <value xml:lang="es">Fecha de Términación</value>
         <value xml:lang="fr">Date d'expédition estimée</value>
         <value xml:lang="it">Data Spedizione Stimata</value>
+        <value xml:lang="ja">完了日</value>
         <value xml:lang="pt_BR">Data de término</value>
         <value xml:lang="ro">Data Expediere Stimata</value>
         <value xml:lang="th">วันที่ทำเสร็จ</value>
@@ -79,6 +84,7 @@
         <value xml:lang="es">Hardware</value>
         <value xml:lang="fr">Matériel informatique</value>
         <value xml:lang="it">Hardware</value>
+        <value xml:lang="ja">ハードウェア</value>
         <value xml:lang="pt_BR">Hardware</value>
         <value xml:lang="ro">Hardwer</value>
         <value xml:lang="th">ฮาร์ดแวร์</value>
@@ -90,6 +96,7 @@
         <value xml:lang="es">Nº de Etiqueta</value>
         <value xml:lang="fr">Numéro d'étiquette</value>
         <value xml:lang="it">Numero etichetta</value>
+        <value xml:lang="ja">ラベル番号</value>
         <value xml:lang="pt_BR">Número de etiqueta</value>
         <value xml:lang="ro">Numar de eticheta</value>
         <value xml:lang="th">หมายเลขฉลาก</value>
@@ -101,6 +108,7 @@
         <value xml:lang="es">Modelo</value>
         <value xml:lang="fr">Modèle</value>
         <value xml:lang="it">Modello Cucina</value>
+        <value xml:lang="ja">モデル</value>
         <value xml:lang="pt_BR">Modelo</value>
         <value xml:lang="ro">Model </value>
         <value xml:lang="th">แบบจำลอง</value>
@@ -112,6 +120,7 @@
         <value xml:lang="es">Cantidad necesaria</value>
         <value xml:lang="fr">Quantité nécessaire</value>
         <value xml:lang="it">Quantità Necessaria</value>
+        <value xml:lang="ja">必要数量</value>
         <value xml:lang="pt_BR">Quantidade necessária</value>
         <value xml:lang="ro">Cantitate Necesara</value>
         <value xml:lang="th">จำนวนที่ต้องการ</value>
@@ -123,6 +132,7 @@
         <value xml:lang="es">Cantidad disponible (QOH)</value>
         <value xml:lang="fr">Quantité disponible</value>
         <value xml:lang="it">Quantità Disponibile</value>
+        <value xml:lang="ja">手持数量</value>
         <value xml:lang="pt_BR">Quantidade disponível</value>
         <value xml:lang="ro">Cantitate Disponibila</value>
         <value xml:lang="th">จำนวนที่มีอยู่</value>
@@ -134,6 +144,7 @@
         <value xml:lang="es">Código de operación y descripción</value>
         <value xml:lang="fr">Code et description d'opération</value>
         <value xml:lang="it">Codice Operazione e Descrizione</value>
+        <value xml:lang="ja">操作コードおよび詳細</value>
         <value xml:lang="pt_BR">Código de operação e descrição</value>
         <value xml:lang="ro">Cod Operatie si Descriere</value>
         <value xml:lang="th">รหัสปฏิบัติการและรายละเอียด</value>
@@ -145,6 +156,7 @@
         <value xml:lang="es">Operación de Producción para el Envío</value>
         <value xml:lang="fr">Cadence d'opération pour expédition</value>
         <value xml:lang="it">Operazioni di Produzione per la Spedizione</value>
+        <value xml:lang="ja">発送の操作実行</value>
         <value xml:lang="pt_BR">Andamento da operação para envio</value>
         <value xml:lang="ro">Operatii de Productie pentru Expediere</value>
         <value xml:lang="th">การดำเนินการสำหรับการขนส่ง</value>
@@ -156,6 +168,7 @@
         <value xml:lang="es">Paquete</value>
         <value xml:lang="fr">Paquet</value>
         <value xml:lang="it">Pacco</value>
+        <value xml:lang="ja">梱包</value>
         <value xml:lang="pt_BR">Pacote</value>
         <value xml:lang="ro">Pachet</value>
         <value xml:lang="th">หีบห่อ</value>
@@ -167,6 +180,7 @@
         <value xml:lang="es">Número de panneau</value>
         <value xml:lang="fr">Nombre d'invité</value>
         <value xml:lang="it">Numero pannelli</value>
+        <value xml:lang="ja">パネル番号</value>
         <value xml:lang="pt_BR">Número de painel</value>
         <value xml:lang="ro">Numar placi</value>
         <value xml:lang="th">หมายเลขบัญชีรายชื่อ</value>
@@ -178,6 +192,7 @@
         <value xml:lang="es">Fecha de Recogida</value>
         <value xml:lang="fr">Date de prélèvement</value>
         <value xml:lang="it">Data di Prelievo</value>
+        <value xml:lang="ja">ピッキング日</value>
         <value xml:lang="pt_BR">Data de retirada</value>
         <value xml:lang="ro">Data Distributie</value>
         <value xml:lang="th">วันที่เลือก</value>
@@ -189,6 +204,7 @@
         <value xml:lang="es">Recogida para liberación</value>
         <value xml:lang="fr">Prélèvement pour approbation</value>
         <value xml:lang="it">Richiesta per Rilascio</value>
+        <value xml:lang="ja">リリースのピッキング</value>
         <value xml:lang="pt_BR">Retirada para liberação</value>
         <value xml:lang="ro">Cerere  Distribuire</value>
         <value xml:lang="th">การเลือกเพื่อการยกเว้น</value>
@@ -200,6 +216,7 @@
         <value xml:lang="es">Periodo de recogida</value>
         <value xml:lang="fr">Période de prélèvement</value>
         <value xml:lang="it">Periodo prelievo</value>
+        <value xml:lang="ja">ピッキング期間</value>
         <value xml:lang="pt_BR">Período de retirada</value>
         <value xml:lang="ro">Perioda distributie</value>
         <value xml:lang="th">เลือกระยะเวลา</value>
@@ -211,6 +228,7 @@
         <value xml:lang="es">Plan de producción</value>
         <value xml:lang="fr">Plan de fabrication</value>
         <value xml:lang="it">Piano di produzione</value>
+        <value xml:lang="ja">生産計画</value>
         <value xml:lang="pt_BR">Plano de produção</value>
         <value xml:lang="ro">Plan de productie</value>
         <value xml:lang="th">แผนการผลิต</value>
@@ -222,6 +240,7 @@
         <value xml:lang="es">Fecha de Impresión</value>
         <value xml:lang="fr">Date de sortie sur imprimante</value>
         <value xml:lang="it">Data Emissione</value>
+        <value xml:lang="ja">印刷日</value>
         <value xml:lang="pt_BR">Data de impressão</value>
         <value xml:lang="ro">Data Emisie</value>
         <value xml:lang="th">วันที่พิมพ์</value>
@@ -233,6 +252,7 @@
         <value xml:lang="es">Marca</value>
         <value xml:lang="fr">N° de dessin</value>
         <value xml:lang="it">n. disegno</value>
+        <value xml:lang="ja">設計番号</value>
         <value xml:lang="pt_BR">Nº de desenho</value>
         <value xml:lang="ro">n.desen</value>
         <value xml:lang="th">หมายเลขการวาด</value>
@@ -242,6 +262,7 @@
     <property key="ManufacturingProductionRunComponentsByFeature">
         <value xml:lang="en">Production Runs Componentes By Feature</value>
         <value xml:lang="it">Componenti ordini di produzione per caratteristica</value>
+        <value xml:lang="ja">機能別生産実行コンポーネント</value>
         <value xml:lang="pt_BR">Ritmo de produção por características de produtos</value>
         <value xml:lang="zh">按特征的生产运行组件</value>
         <value xml:lang="zh_TW">按特征的生產運行元件</value>
@@ -249,6 +270,7 @@
     <property key="ManufacturingProductionRunInfoAndOrder">
         <value xml:lang="en">Production Runs Info And Order</value>
         <value xml:lang="it">Ordini di produzione ifnroper caratteristica</value>
+        <value xml:lang="ja">生産実行情報および注文</value>
         <value xml:lang="pt_BR">Detalhes de Ritmo de produção e pedidos</value>
         <value xml:lang="zh">生产运行信息和订单</value>
         <value xml:lang="zh_TW">生產運行資訊和訂單</value>
@@ -258,6 +280,7 @@
         <value xml:lang="es">Orden de Producción</value>
         <value xml:lang="fr">Cadences de production</value>
         <value xml:lang="it">Ordini di Produzione</value>
+        <value xml:lang="ja">生産実行</value>
         <value xml:lang="pt_BR">Ritmo de produção</value>
         <value xml:lang="ro">Comenzi de Productie</value>
         <value xml:lang="th">การผลิตสินค้า</value>
@@ -269,6 +292,7 @@
         <value xml:lang="es">Componentes de productos</value>
         <value xml:lang="fr">Composants de production</value>
         <value xml:lang="it">Prodotto Componente</value>
+        <value xml:lang="ja">製品コンポーネント</value>
         <value xml:lang="pt_BR">Componentes de produtos</value>
         <value xml:lang="ro">Componente Produse</value>
         <value xml:lang="th">ส่วนประกอบของสินค้า</value>
@@ -278,6 +302,7 @@
     <property key="ManufacturingProductsStacks">
         <value xml:lang="en">Products Stacks</value>
         <value xml:lang="it">Pila prodotti</value>
+        <value xml:lang="ja">製品スタック</value>
         <value xml:lang="pt_BR">Pilha de produtos</value>
         <value xml:lang="zh">产品堆垛</value>
         <value xml:lang="zh_TW">產品堆垛</value>
@@ -287,6 +312,7 @@
         <value xml:lang="es">Metros cuadrados</value>
         <value xml:lang="fr">Mètres carrés</value>
         <value xml:lang="it">M.Q.</value>
+        <value xml:lang="ja">平方メートル</value>
         <value xml:lang="pt_BR">Metros quadrados</value>
         <value xml:lang="ro">M.P.</value>
         <value xml:lang="th">หน่วยวัดที่เป็นสี่เหลี่ยมจัตุรัส</value>
@@ -298,6 +324,7 @@
         <value xml:lang="es">Referencia</value>
         <value xml:lang="fr">Référence</value>
         <value xml:lang="it">Riferimento</value>
+        <value xml:lang="ja">参照</value>
         <value xml:lang="pt_BR">Referência</value>
         <value xml:lang="ro">Referente</value>
         <value xml:lang="th">อ้างอิง</value>
@@ -309,6 +336,7 @@
         <value xml:lang="es">Publicado</value>
         <value xml:lang="fr">Approbation</value>
         <value xml:lang="it">Rilasciato</value>
+        <value xml:lang="ja">リリース済</value>
         <value xml:lang="pt_BR">Liberado</value>
         <value xml:lang="ro">Eliberat</value>
         <value xml:lang="th">การยกเว้น</value>
@@ -320,6 +348,7 @@
         <value xml:lang="es">Publicado/Nota</value>
         <value xml:lang="fr">Note d'approbation</value>
         <value xml:lang="it">Rilasciato/Note</value>
+        <value xml:lang="ja">リリース済/注釈</value>
         <value xml:lang="pt_BR">Liberado/Nota</value>
         <value xml:lang="ro">Eliberat/Note</value>
         <value xml:lang="th">การยกเว้น/หมายเหตุ</value>
@@ -331,6 +360,7 @@
         <value xml:lang="es">Solicitante</value>
         <value xml:lang="fr">Demandeur</value>
         <value xml:lang="it">Richiedente</value>
+        <value xml:lang="ja">リクエスト者</value>
         <value xml:lang="pt_BR">Solicitante</value>
         <value xml:lang="ro">Petitionar</value>
         <value xml:lang="th">ผู้ยื่นคำร้อง</value>
@@ -342,6 +372,7 @@
         <value xml:lang="es">Enviar a</value>
         <value xml:lang="fr">Expédié à</value>
         <value xml:lang="it">Spedire A</value>
+        <value xml:lang="ja">発送先</value>
         <value xml:lang="pt_BR">Enviar para</value>
         <value xml:lang="ro">Expediere A</value>
         <value xml:lang="th">ส่งถึง</value>
@@ -353,6 +384,7 @@
         <value xml:lang="es">Código de Envío</value>
         <value xml:lang="fr">Réf. d'expédition</value>
         <value xml:lang="it">Numero Spedizione</value>
+        <value xml:lang="ja">発送ID</value>
         <value xml:lang="pt_BR">Id de envio</value>
         <value xml:lang="ro">Numar Expediere</value>
         <value xml:lang="th">รหัสการขนส่ง</value>
@@ -364,6 +396,7 @@
         <value xml:lang="es">Orden de trabajo</value>
         <value xml:lang="fr">Ordre de magasin</value>
         <value xml:lang="it">Ordine di Lavoro</value>
+        <value xml:lang="ja">発送注文</value>
         <value xml:lang="pt_BR">Pedido de compra</value>
         <value xml:lang="ro">Comanda de Lucru</value>
         <value xml:lang="th">รายการสั่งซื้อจากร้าน</value>
@@ -375,6 +408,7 @@
         <value xml:lang="es">Tiempo de ejecución</value>
         <value xml:lang="fr">Temps d'exécution de tâche</value>
         <value xml:lang="it">Tempo di Esecuzione Compito</value>
+        <value xml:lang="ja">タスク実行時間</value>
         <value xml:lang="pt_BR">Tempo de execução de tarefa</value>
         <value xml:lang="ro">Timp de Executie Dedicat</value>
         <value xml:lang="th">การทำงานในเวลา</value>
@@ -386,6 +420,7 @@
         <value xml:lang="es">Tiempo de preparación</value>
         <value xml:lang="fr">Temps d'installation de tâche</value>
         <value xml:lang="it">Tempo Configurazione Compito</value>
+        <value xml:lang="ja">タスク設定時間</value>
         <value xml:lang="pt_BR">Tempo de preparação de tarefa</value>
         <value xml:lang="ro">Timp Configurare Dedicat</value>
         <value xml:lang="th">ตั้งเวลาทำงาน</value>
@@ -397,6 +432,7 @@
         <value xml:lang="es">Centro de trabajo</value>
         <value xml:lang="fr">Centre de travail</value>
         <value xml:lang="it">Centro di Lavoro</value>
+        <value xml:lang="ja">ワークセンター</value>
         <value xml:lang="pt_BR">Centro de trabalho</value>
         <value xml:lang="ro">Centru de Lucru</value>
         <value xml:lang="th">ศูนย์กลางการทำงาน</value>

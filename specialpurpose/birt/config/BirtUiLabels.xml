@@ -21,36 +21,44 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="BirtCompanyName">
         <value xml:lang="en">OFBiz: Eclipse BIRT</value>
+        <value xml:lang="ja">OFBiz: Eclipse BIRT</value>
         <value xml:lang="th">OFBiz : Eclipse BIRT</value>
     </property>
     <property key="BirtCompanySubtitle">
         <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="it">Un modulo della famiglia di software open source Open For Business</value>
+        <value xml:lang="ja">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
     </property>
     <property key="BirtApplication">
         <value xml:lang="en">Eclipse BIRT Application</value>
+        <value xml:lang="ja">Eclipse BIRT 業務</value>
         <value xml:lang="th">Eclipse BIRT Application</value>
     </property>
     <property key="FrameworkBirt">
         <value xml:lang="en">Framework Eclipse BIRT</value>
+        <value xml:lang="ja">Eclipse BIRT フレームワーク</value>
         <value xml:lang="th">Framework Eclipse BIRT</value>
     </property>
 
     <property key="ExampleBirtExamples">
         <value xml:lang="en">BIRT Examples</value>
+        <value xml:lang="ja">BIRT サンプル</value>
         <value xml:lang="th">ตัวอย่าง BIRT</value>
     </property>
     <property key="ExampleBirtChartReport">
         <value xml:lang="en">HTML chart report</value>
         <value xml:lang="fr">Graphiques HTML</value>
+        <value xml:lang="ja">HTML 表レポート</value>
     </property>
     <property key="ExampleBirtChartViewHandler">
         <value xml:lang="en">PDF chart report</value>
         <value xml:lang="fr">Graphiques PDF</value>
+        <value xml:lang="ja">PDF 表レポート</value>
     </property>
     <property key="ExampleBirtMail">
         <value xml:lang="en">Send any format through Mail</value>
+        <value xml:lang="ja">任意の書式をメールで送信する</value>
     </property>
     <property key="ExampleBirtReport">
         <value xml:lang="en">HTML</value>

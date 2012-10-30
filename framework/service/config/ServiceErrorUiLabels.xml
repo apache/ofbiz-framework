@@ -25,6 +25,7 @@
         <value xml:lang="es">Se necesita ingresar el siguiente parametro :</value>
         <value xml:lang="fr">Le paramètre requis suivant manque :</value>
         <value xml:lang="it">Parametro richiesto mancante:</value>
+        <value xml:lang="ja">次の必須パラメータが正しくありません:</value>
         <value xml:lang="nl">De volgende vereiste parameters werden niet gevonden:</value>
         <value xml:lang="ro">Parametrul Cerut lipseste:</value>
         <value xml:lang="th">กรุณากรอกข้อมูลให้ครบถ้วน</value>
@@ -37,6 +38,7 @@
         <value xml:lang="es">Usted no cuenta con permisos para realizar la acción</value>
         <value xml:lang="fr">Vous n'avez pas l'autorisation pour effectuer cette opération</value>
         <value xml:lang="it">Non hai il permesso per eseguire questa operazione per questo soggetto</value>
+        <value xml:lang="ja">この取引先に対してこの操作を実行する権限がありません</value>
         <value xml:lang="nl">U bezit niet de benodigde persmissie om deze opdracht uit te voeren</value>
         <value xml:lang="ro">Tu nu ai dreptul sa executi aceasta operatie pentru acest Subiect.</value>
         <value xml:lang="th">ไม่ได้รับการอนุญาติให้จัดการข้อมูลในส่วนของกลุ่มผู้ใช้นี้</value>
@@ -49,6 +51,7 @@
         <value xml:lang="es">Usted no cuenta con permisos para realizar la acción</value>
         <value xml:lang="fr">Vous n'avez pas l'autorisation pour effectuer ce service</value>
         <value xml:lang="it">Non hai il permesso di eseguire questo servizio</value>
+        <value xml:lang="ja">このサービスを実行する権限がありません</value>
         <value xml:lang="nl">U bezit niet de benodigde permissies om deze service uit te voeren</value>
         <value xml:lang="ro">Nu ai dreptul sa folosesti acest serviciu.</value>
         <value xml:lang="th">ไม่ได้รับอนุญาติให้ดำเนินการในส่วนของ service นี้</value>
@@ -61,6 +64,7 @@
         <value xml:lang="es">No existe el código de Participante</value>
         <value xml:lang="fr">Il manque la Party ID</value>
         <value xml:lang="it">Party ID mancante</value>
+        <value xml:lang="ja">取引先IDが正しくありません</value>
         <value xml:lang="nl">Relatie nummer van deze partij is niet gevonden</value>
         <value xml:lang="ro">Cod Subiect Lipseste</value>
         <value xml:lang="th">ไม่ได้ใส่รหัสกลุ่มผู้ใช้</value>
@@ -73,6 +77,7 @@
         <value xml:lang="es">No se puede cancelar la terea</value>
         <value xml:lang="fr">Impossible d'annuler ce job</value>
         <value xml:lang="it">Impossibile annullare il lavoro</value>
+        <value xml:lang="ja">ジョブをキャンセルすることができません</value>
         <value xml:lang="nl">Niet mogelijk om deze Job te stoppen</value>
         <value xml:lang="ro">Nu este posibila stergerea Lucrului</value>
         <value xml:lang="th">ไม่สามารถยกเลิกงานได้</value>
@@ -85,6 +90,7 @@
         <value xml:lang="es">No se puede cancelar los reintentos de la terea</value>
         <value xml:lang="fr">Impossible d'annuler les nouvelles tentatives de traitement par lot</value>
         <value xml:lang="it">Impossibile annullare il nuovo tentativo di lavoro</value>
+        <value xml:lang="ja">ジョブ再実行をキャンセルすることができません</value>
         <value xml:lang="nl">Niet mogelijk om deze Job regels te verwijderen.</value>
         <value xml:lang="ro">Nu este posibila stergerea noilor tentative de lucru</value>
         <value xml:lang="th">ไม่สามารถยกเลิกงานได้ กรุณาลองอีกครั้ง</value>
@@ -94,105 +100,131 @@
     <property key="ServiceEntityAutoOperation">
         <value xml:lang="en">Error doing entity-auto operation for entity ${entityName} in service ${serviceName}: ${errorString}</value>
         <value xml:lang="it">Errore mentre faceva l'operazione entity-auto per l'entità ${entityName} nel servizio ${serviceName}: ${errorString}</value>
+        <value xml:lang="ja">サービス ${serviceName} で、エンティティ ${entityName} にエンティティ自動操作実行中にエラー: ${errorString}</value>
     </property>
     <property key="ServiceParameterValueNotValid">
         <value xml:lang="en">The ID value in the parameter ${parameterName} was not valid: ${errorDetails}</value>
         <value xml:lang="it">Il valore ID nel parametro ${parameterName} non è valido: ${errorDetails}</value>
+        <value xml:lang="ja">パラメータ ${parameterName} の中のIDが正しくありません: ${errorDetails}</value>
     </property>
     <property key="ServiceTestDeadLockError">
         <value xml:lang="en">Error running deadlock test services: ${errorString}</value>
         <value xml:lang="it">Errore durante il test del servizio deadlock: ${errorString}</value>
+        <value xml:lang="ja">デッドロックテストサービス実行中にエラー: ${errorString}</value>
     </property>
     <property key="ServiceTestDeadLockRetry">
         <value xml:lang="en">Error(s) running sub-services in testServiceDeadLockRetry</value>
         <value xml:lang="it">Errore(i) durante l'esecuzione dei sotto-servizi in testServiceDeadLockRetry</value>
+        <value xml:lang="ja">testServiceDeadLockRetryの中のサブサービス実行中にエラー</value>
     </property>
     <property key="ServiceTestDeadLockThreadA">
         <value xml:lang="en">Error running testServiceDeadLockRetryThreadA: ${errorString}</value>
         <value xml:lang="it">Errore durante l'esecuzione di testServiceDeadLockRetryThreadA: ${errorString}</value>
+        <value xml:lang="ja">testServiceDeadLockRetryThreadAの実行中にエラー: ${errorString}</value>
     </property>
     <property key="ServiceTestDeadLockThreadB">
         <value xml:lang="en">Error running testServiceDeadLockRetryThreadB: ${errorString}</value>
         <value xml:lang="it">Errore durante l'esecuzione di testServiceDeadLockRetryThreadB: ${errorString}</value>
+        <value xml:lang="ja">testServiceDeadLockRetryThreadBの実行中にエラー: ${errorString}</value>
     </property>
     <property key="ServiceTestEntityEngineError">
         <value xml:lang="en">Entity Engine Exception: ${errorString}</value>
         <value xml:lang="it">Eccezione Entity Engine: ${errorString}</value>
+        <value xml:lang="ja">エンティティエンジン例外: ${errorString}</value>
     </property>
     <property key="ServiceTestEntityEngineExceptionThreadA">
         <value xml:lang="en">Entity Engine Exception running dead lock test thread A: ${errorString}</value>
         <value xml:lang="it">Eccezione Entity Engine durante l'esecuzione del test dead lock thread A: ${errorString}</value>
+        <value xml:lang="ja">デッドロックテストスレッドA実行中にエンティティエンジン例外: ${errorString}</value>
     </property>
     <property key="ServiceTestEntityEngineExceptionThreadB">
         <value xml:lang="en">Entity Engine Exception running dead lock test thread B: ${errorString}</value>
         <value xml:lang="it">Eccezione Entity Engine durante l'esecuzione del test dead lock thread B: ${errorString}</value>
+        <value xml:lang="ja">デッドロックテストスレッドB実行中にエンティティエンジン例外: ${errorString}</value>
     </property>
     <property key="ServiceTestEntityEngineWaitInterruptedExceptionThreadA">
         <value xml:lang="en">Entity Engine Exception running dead lock test thread A: ${errorString}</value>
         <value xml:lang="it">Eccezione Entity Engine durante l'esecuzione del test dead lock thread A: ${errorString}</value>
+        <value xml:lang="ja">デッドロックテストスレッドA実行中にエンティティエンジン例外: ${errorString}</value>
     </property>
     <property key="ServiceTestEntityEngineWaitInterruptedExceptionThreadB">
         <value xml:lang="en">Entity Engine Exception running dead lock test thread B: ${errorString}</value>
         <value xml:lang="it">Eccezione Entity Engine durante l'esecuzione del test dead lock thread B: ${errorString}</value>
+        <value xml:lang="ja">デッドロックテストスレッドB実行中にエンティティエンジン例外: ${errorString}</value>
     </property>
     <property key="ServiceTestLockWaitTimeoutRetry">
         <value xml:lang="en">Error(s) running sub-services in testServiceLockWaitTimeoutRetry</value>
         <value xml:lang="it">Errore(i) durante l'esecuzione dei sotto-servizi in testServiceLockWaitTimeoutRetry</value>
+        <value xml:lang="ja">testServiceLockWaitTimeoutRetryの中のサブサービス実行中にエラー</value>
     </property>
     <property key="ServiceTestLockWaitTimeoutRetryGrabber">
         <value xml:lang="en">Entity Engine Exception running lock wait timeout test Grabber thread: ${errorString}</value>
         <value xml:lang="it">Eccezione Entity Engine durante l'esecuzione del lock wait timeout test Grabber thread: ${errorString}</value>
+        <value xml:lang="ja">ロック待タイムアウトテスト獲得スレッド実行中にエンティティエンジン例外: ${errorString}</value>
     </property>
     <property key="ServiceTestLockWaitTimeoutRetryWaiter">
         <value xml:lang="en">Entity Engine Exception running lock wait timeout test Grabber thread: ${errorString}</value>
         <value xml:lang="it">Eccezione Entity Engine durante l'esecuzione del lock wait timeout test Grabber thread: ${errorString}</value>
+        <value xml:lang="ja">ロック待タイムアウトテスト待機スレッド実行中にエンティティエンジン例外: ${errorString}</value>
     </property>
     <property key="ServiceTestLockInterruptedExceptionRetryGrabber">
         <value xml:lang="en">Wait Interrupted Exception running lock wait timeout test Grabber thread: ${errorString}</value>
         <value xml:lang="it">Eccezione Wait Interrupted Exception durante l'esecuzione del lock wait timeout test Grabber thread: ${errorString}</value>
+        <value xml:lang="ja">ロック待タイムアウトテスト獲得スレッド実行中にウェイト割込例外: ${errorString}</value>
     </property>
     <property key="ServiceTestLockInterruptedExceptionRetryWaiter">
         <value xml:lang="en">Wait Interrupted Exception running lock wait timeout test Waiter thread: ${errorString}</value>
         <value xml:lang="it">Eccezione Wait Interrupted Exception durante l'esecuzione del lock wait timeout test Waiter thread: ${errorString}</value>
+        <value xml:lang="ja">ロック待タイムアウトテスト待機スレッド実行中にウェイト割込例外: ${errorString}</value>
     </property>
     <property key="ServiceTestLockWaitTimeoutRetryCantRecoverWaiter">
         <value xml:lang="en">Error running testServiceLockWaitTimeoutRetryCantRecoverWaiter</value>
         <value xml:lang="it">Errore durante l'esecuzione di testServiceLockWaitTimeoutRetryCantRecoverWaiter</value>
+        <value xml:lang="ja">testServiceLockWaitTimeoutRetryCantRecoverWaiter実行中にエラー</value>
     </property>
     <property key="ServiceTestOwnTxError">
         <value xml:lang="en">Error running sub-service with own tx: ${errorString}</value>
         <value xml:lang="it">Errore durante l'esecuzione del sotto-servizio con proprie transazione: ${errorString}</value>
+        <value xml:lang="ja">自Txでサブサービス実行中にエラー: ${errorString}</value>
     </property>
     <property key="ServiceTestOwnTxSubServiceAfterSetRollbackOnlyInParentErrorCatchWrapper">
         <value xml:lang="en">Error running ServiceTestOwnTxSubServiceAfterSetRollbackOnlyInParentErrorCatchWrapper</value>
         <value xml:lang="it">Errore durante l'esecuzione di ServiceTestOwnTxSubServiceAfterSetRollbackOnlyInParentErrorCatchWrapper</value>
+        <value xml:lang="ja">ServiceTestOwnTxSubServiceAfterSetRollbackOnlyInParentErrorCatchWrapper実行中にエラー</value>
     </property>
     <property key="ServiceTestOwnTxSubServiceAfterSetRollbackOnlyInParent">
         <value xml:lang="en">Error running sub-service in testServiceOwnTxSubServiceAfterSetRollbackOnlyInParent</value>
         <value xml:lang="it">Errore durante l'esecuzione di testServiceOwnTxSubServiceAfterSetRollbackOnlyInParent</value>
+        <value xml:lang="ja">testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentの中のサブサービス実行中にエラー</value>
     </property>
     <property key="ServiceTestRollback">
         <value xml:lang="en">Intentional rollback to test global-rollback</value>
         <value xml:lang="it">Rollback intenzionale per testare il global-rollback</value>
+        <value xml:lang="ja">グローバル・ロールバックのテストのため意図的なロールバック</value>
     </property>
     <property key="ServiceTestSubServiceError">
         <value xml:lang="en">Error calling sub-service, it should return an error but not throw an exception, so something went wrong: ${errorString}</value>
         <value xml:lang="it">Errore durante l'esecuzione del sotto-servizio, dovrebbe restituire un'errore ma non generare un'eccezione, così qualcosa è andato male: ${errorString}</value>
+        <value xml:lang="ja">サブサービス呼び出し中にエラー。エラーを戻しましたが例外がスローされませんでした。なにか誤りがあります: ${errorString}</value>
     </property>
     <property key="ServiceTestXmlRpcCalculationOK">
         <value xml:lang="en">adding integer 125 to 365 yields </value>
         <value xml:lang="it">aggiungere intero 125 a 365 yields </value>
+        <value xml:lang="ja">整数 125 ～ 365 の加算が生じます </value>
     </property>
     <property key="ServiceTestXmlRpcCalculationKO">
         <value xml:lang="en">calcul is wrong ! Why ?</value>
         <value xml:lang="it">calcolo è errato ! Perchè ?</value>
+        <value xml:lang="ja">計算に誤りがあります!なぜ?</value>
     </property>
     <property key="ServiceTestXmlRpcMissingParameters">
         <value xml:lang="en">missing parameters</value>
         <value xml:lang="it">parametri mancanti</value>
+        <value xml:lang="ja">パラメータに誤りがあります</value>
     </property>
     <property key="ServiceValueNotFound">
         <value xml:lang="en">Value not found, cannot update</value>
         <value xml:lang="it">Valore non troavato, non è possibile aggiornare</value>
+        <value xml:lang="ja">値が見つかりません。更新できません</value>
     </property>
 </resource>

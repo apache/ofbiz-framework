@@ -23,6 +23,7 @@
         <value xml:lang="en">conversion failed</value>
         <value xml:lang="fr">La conversion a échoué. "${fval}" est erroné</value>
         <value xml:lang="it">conversione fallita</value>
+        <value xml:lang="ja">変換が失敗しました</value>
         <value xml:lang="pt">Falha na conversÃ£o</value>
         <value xml:lang="th">การเปลี่ยนแปลงล้มเหลว</value>
         <value xml:lang="zh">转换失败</value>
@@ -33,6 +34,7 @@
         <value xml:lang="es">Ya existe esta llave primaria: "${primaryKey}; cambiarla.</value>
         <value xml:lang="fr">Existe déjà avec la clé primaire "${primaryKey}"</value>
         <value xml:lang="it">già esistente con chiave primaria: "${primaryKey}; per favore cambiarla</value>
+        <value xml:lang="ja">プライマリキーがすでに存在します: "${primaryKey}、変更してください</value>
         <value xml:lang="pt">jÃ¡ existe com a chave primÃ¡ria: "${primaryKey}, por favor mude</value>
         <value xml:lang="ro">deja exista cu cheia primara: "${primaryKey}; Va rugam schimbati-o</value>
         <value xml:lang="th">ยังคงมีอยู่แล้วด้วยคีย์หลัก: "${primaryKey}; กรุณาเปลี่ยน</value>
@@ -43,6 +45,7 @@
         <value xml:lang="en">conversion failed</value>
         <value xml:lang="fr">La conversion a échoué</value>
         <value xml:lang="it">conversione fallita</value>
+        <value xml:lang="ja">変換が失敗しました</value>
         <value xml:lang="pt">Falha na conversÃ£o</value>
         <value xml:lang="ro">conversie falita: "${fval}" nu este valida</value>
         <value xml:lang="th">การเปลี่ยนแปลงล้มเหลว</value>
@@ -54,6 +57,7 @@
         <value xml:lang="es">Registro fallido durante revisión (error de lectura)</value>
         <value xml:lang="fr">La création a échoué durant la vérification d'existence (erreur de lecture)</value>
         <value xml:lang="it">Creazione fallita durante il controllo di esistenza (errore di lettura)</value>
+        <value xml:lang="ja">作成が失敗しました、存在チェック中読み込みエラーが発生しました</value>
         <value xml:lang="pt">Falaha na criaÃ§Ã£o ao verificar se existe (erro de leitura)</value>
         <value xml:lang="ro">Creare falita in timpul controului de existenta (eroare de citire)</value>
         <value xml:lang="th">การสร้างล้มเหลวขณะกำลังตรวจสอบถ้ายังคงมีอยู่ (การอ่านผิดพลาด)</value>
@@ -65,6 +69,7 @@
         <value xml:lang="es">Registro de ${entityName} fallido por la entidad</value>
         <value xml:lang="fr">La création de ${entityName} a échoué pour l'entité </value>
         <value xml:lang="it">Creazione dell'${entityName} fallita per entità</value>
+        <value xml:lang="ja">エンティティ ${entityName} の作成に失敗しました</value>
         <value xml:lang="pt">CriaÃ§Ã£o de ${entityName} falhou para entidade</value>
         <value xml:lang="ro">Creatie ${entityName} falita pentru entitatea</value>
         <value xml:lang="th">การสร้างของ${entityName} ล้มเหลวสำหรับเอนทิตี</value>
@@ -76,6 +81,7 @@
         <value xml:lang="es">Objeto deletar no fue encontrado en el request, favor revisar el init del servlet</value>
         <value xml:lang="fr">Impossible de trouver l'objet delegator dans la requête, SVP vérifiez l'initialisation du control servlet</value>
         <value xml:lang="it">L'oggetto delegator non è stato trovato nella request, per favore controlla la control servlet init</value>
+        <value xml:lang="ja">リクエスト中にデリゲーターオブジェクトが見つかりません、コントロールサーブレットを確認してください</value>
         <value xml:lang="pt">O objeto delegator nÃ£o foi encontrado no pedido, verifique o init do control servlet</value>
         <value xml:lang="ro">Obiectul delegator nu a fost gasit in cerere, va rugam controlati controlul servlet init.</value>
         <value xml:lang="th">The delegator object was not found in the request, please check the control servlet init</value>
@@ -87,6 +93,7 @@
         <value xml:lang="es">Eliminación fallida(error de escritura)</value>
         <value xml:lang="fr">L'annulation a échouée: (erreur d'écriture)</value>
         <value xml:lang="it">Cancellazione fallita (errore di scrittura)</value>
+        <value xml:lang="ja">削除が失敗しました（書き込みエラー）</value>
         <value xml:lang="pt">Falha na exclusÃ£o (erro de escrita)</value>
         <value xml:lang="ro">Stergere falita (eroare la scriere)</value>
         <value xml:lang="th">การลบล้มเหลว (การเขียนผิดพลาด)</value>
@@ -98,6 +105,7 @@
         <value xml:lang="es">El nombre de la entidad no fue especificado, pero es requerido</value>
         <value xml:lang="fr">Le nom de l'entité (entityName) n'a pas ete spécifié, mais il est nécessaire</value>
         <value xml:lang="it">Nome entità non è stato specificato, ma è richiesto</value>
+        <value xml:lang="ja">必要なエンティティ名が指定されませんでした</value>
         <value xml:lang="pt">O entityName nÃ£o foi especificado, mas Ã© necessÃ¡rio</value>
         <value xml:lang="ro">Nume entitate nu a fost nespecificata, dar este ceruta.</value>
         <value xml:lang="th">ไม่ระบุชื่อเอนทิตี, แต่ต้องการ</value>
@@ -109,6 +117,7 @@
         <value xml:lang="es">Falló</value>
         <value xml:lang="fr">échoué</value>
         <value xml:lang="it">fallita</value>
+        <value xml:lang="ja">失敗しました</value>
         <value xml:lang="pt">Falha</value>
         <value xml:lang="ro">falita</value>
         <value xml:lang="th">ล้มเหลว</value>
@@ -120,6 +129,7 @@
         <value xml:lang="es">Error fatal: Tipo de campo "${fieldType}" no encontrado genericWebEvent.conversion_failed=conversion failed: "${fval}" invalido</value>
         <value xml:lang="fr">Erreur fatale: le type de champ ${fieldType} introuvable, genericWebEvent.conversion_failed=conversion échouée : "${fval}" est erroné</value>
         <value xml:lang="it">Errore Fatale: tipo campo "${fieldType}" non trovato genericWebEvent.conversion_failed=conversione fallita: "${fval}" non è valido</value>
+        <value xml:lang="ja">致命的エラー: 項目種類 "${fieldType}" が見つかりません genericWebEvent.conversion_failed=conversion が失敗しました: "${fval}" が有効ではありません</value>
         <value xml:lang="pt">Erro fatal: tipo de campo "${fieldType}" nÃ£o encontrado genericWebEvent.conversion_failed=conversion falha: "${FVal}" nÃ£o Ã© vÃ¡lido</value>
         <value xml:lang="ro">Eroare Fatala: tip camp "${fieldType}" ne gasit </value>
         <value xml:lang="th">ผิดพลาดซึ่งทำให้ล้มเหลว: ประเภทฟิลด์ "${fieldType}" ไม่พบ    genericWebEvent.conversion_failed=การเปลี่ยนแปลงล้มเหลว: "${fval}" ไม่มีค่า</value>
@@ -131,6 +141,7 @@
         <value xml:lang="es">El siguiente error ha ocurrido</value>
         <value xml:lang="fr">L'erreur suivante est apparue</value>
         <value xml:lang="it">Il seguente(i) errore(i) sono successi</value>
+        <value xml:lang="ja">次のエラーが発生しました</value>
         <value xml:lang="pt">O seguinte erro (s) ocorreu(eram)</value>
         <value xml:lang="ro">A aparut Urmatoarea(le) eroare(i).</value>
         <value xml:lang="th">ตามความผิดพลาดที่เกิดขึ้น</value>
@@ -142,6 +153,7 @@
         <value xml:lang="es">No cuenta con suficientes permisos</value>
         <value xml:lang="fr">Vous n'avez pas d'autorisations suffisantes pour </value>
         <value xml:lang="it">Tu non hai sufficienti permessi per</value>
+        <value xml:lang="ja">必要な権限がありません</value>
         <value xml:lang="pt">VocÃª nÃ£o tem permissÃµes suficientes para</value>
         <value xml:lang="ro">Tu nu ai suficiente drepturi pentru </value>
         <value xml:lang="th">คุณไม่มีการอนุญาตเพียงพอถึง</value>
@@ -152,6 +164,7 @@
         <value xml:lang="en">genericWebEvent.not_sufficient_permissions_01Tu</value>
         <value xml:lang="fr">Vous n'avez pas les autorisations nécessaires</value>
         <value xml:lang="it">non hai sufficienti permessi per</value>
+        <value xml:lang="ja">genericWebEvent.not_sufficient_permissions_01Tu</value>
         <value xml:lang="zh">没有足够的权限</value>
         <value xml:lang="zh_TW">沒有足夠的權限</value>
     </property>
@@ -160,6 +173,7 @@
         <value xml:lang="es">${updateMode}   ${entityName} (${entityPlainTableName}_${updateMode} o ${entityPlainTableName}_ADMIN necesarios)</value>
         <value xml:lang="fr">${updateMode}   ${entityName} (${entityPlainTableName}_${updateMode} ou ${entityPlainTableName}_ADMIN demandée)</value>
         <value xml:lang="it">${updateMode}   ${entityName} (${entityPlainTableName}_${updateMode} o ${entityPlainTableName}_ADMIN necessitano)</value>
+        <value xml:lang="ja">${updateMode}   ${entityName} (${entityPlainTableName}_${updateMode} または ${entityPlainTableName}_ADMIN が必要です)</value>
         <value xml:lang="pt">${updateMode}   ${entityName} (${entityPlainTableName}_${updateMode} ou ${entityPlainTableName}_ADMIN necessÃ¡rio)</value>
         <value xml:lang="ro">${updateMode}   ${entityName} (sunt necesare ${entityPlainTableName}_${updateMode} sau ${entityPlainTableName}_ADMIN)</value>
         <value xml:lang="th">${updateMode}   ${entityName} (${entityPlainTableName}_${updateMode} หรือ ${entityPlainTableName}_ADMIN ต้องการ)</value>
@@ -171,6 +185,7 @@
         <value xml:lang="es">El token de seguridad no fue encontrado, revisar el inicio del servlet</value>
         <value xml:lang="fr">Impossible de trouver l'objet security dans la requête, SVP vérifiez l'initialisation du control servlet</value>
         <value xml:lang="it">L'oggetto sicurezza non è stato trovato nella request, per favore controlla la control servlet init</value>
+        <value xml:lang="ja">リクエスト中にセキュリティオブジェクトが見つかりません、コントロールサーブレットを確認してください</value>
         <value xml:lang="pt">O objeto de seguranÃ§a nÃ£o foi encontrado no pedido, verifique o init do control servlet</value>
         <value xml:lang="ro">Obiectul siguranta nu a fost gasit  in cerere, va rugam controlati controlul servlet init.</value>
         <value xml:lang="th">ไม่พบเป้าหมายความปลอดภัยในการร้องขอ, กรุณาเริ่มตรวจสอบการควบคุมเซิร์ฟเลท</value>
@@ -182,6 +197,7 @@
         <value xml:lang="es">Modo de actualización (${updateMode}) invalido</value>
         <value xml:lang="fr">Le mode de mise à jour (${updateMode}) spécifié est erroné</value>
         <value xml:lang="it">Modo aggiornamento specificato (${updateMode}) non è valido</value>
+        <value xml:lang="ja">指定された更新モード (${updateMode}) は有効ではありません</value>
         <value xml:lang="pt">Modo de atualizaÃ§Ã£o especificado (${UpdateMode}) nÃ£o Ã© vÃ¡lido</value>
         <value xml:lang="ro">Modul de  Actualizare specificat (${updateMode}) nu este valid</value>
         <value xml:lang="th">อัพเดทการระบุโหมด (${updateMode}) ไม่มีค่า</value>
@@ -193,6 +209,7 @@
         <value xml:lang="es">Modo de actualización no especificado, pero requerido</value>
         <value xml:lang="fr">Le mode de mise à jour n'a pas ete spécifié, mais il est nécessaire</value>
         <value xml:lang="it">Modo aggiornamento non è stato specificato, ma è richiesto</value>
+        <value xml:lang="ja">必要な更新モードが指定されていません</value>
         <value xml:lang="pt">Modo de atualizaÃ§Ã£o nÃ£o foi especificado mas Ã© necessÃ¡rio</value>
         <value xml:lang="ro">Mod Actualizare nu a fost specificat, dar este cerut.</value>
         <value xml:lang="th">ไม่ระบุการอัพเดทโหมด , แต่ต้องการ</value>
@@ -204,6 +221,7 @@
         <value xml:lang="es">Actualización de ${entityName} fallo</value>
         <value xml:lang="fr">La mise à jour de ${entityName} a échoué pour la valeur </value>
         <value xml:lang="it">Aggiornamento dell'${entityName} fallita per il valore</value>
+        <value xml:lang="ja">${entityName} の値の更新が失敗しました</value>
         <value xml:lang="pt">AtualizaÃ§Ã£o de ${entityName} falhou para o valor</value>
         <value xml:lang="ro">Actualizarea {entityName} falita pentru  valoare</value>
         <value xml:lang="th">อัพเดทของ ${entityName} ผิดพลาดสำหรับค่า</value>
@@ -215,6 +233,7 @@
         <value xml:lang="es">validación fallida</value>
         <value xml:lang="fr">la validation a échoué</value>
         <value xml:lang="it">validazione fallita</value>
+        <value xml:lang="ja">バリデーションが失敗しました</value>
         <value xml:lang="pt">Falha de validaÃ§Ã£o</value>
         <value xml:lang="ro">Validare falita</value>
         <value xml:lang="th">การให้เหตุผลผิดพลาด</value>
@@ -225,6 +244,7 @@
         <value xml:lang="en">Exception during saving labels to xml file</value>
         <value xml:lang="fr">Erreur durant la sauvegarde des traductions dans le fichier XML</value>
         <value xml:lang="it">Eccezione durante il salvataggio delle labels su file xml</value>
+        <value xml:lang="ja">ラベルをxmlファイルに保存中、例外が発生しました</value>
         <value xml:lang="pt">ExceÃ§Ã£o durante a gravaÃ§Ã£o das labels para o arquivo xml</value>
         <value xml:lang="zh">把标签保存到xml文件时出错</value>
         <value xml:lang="zh_TW">把標簽保存到xml文件時出錯</value>
@@ -233,6 +253,7 @@
         <value xml:lang="en">Cleared all caches</value>
         <value xml:lang="fr">Tous les caches ont été purgés</value>
         <value xml:lang="it">Tutte le cache sono state pulite</value>
+        <value xml:lang="ja">すべてのキャッシュがクリアされました</value>
         <value xml:lang="pt">Todos os caches foram limpos</value>
         <value xml:lang="ro">Toate cache-urile au fost curatate</value>
         <value xml:lang="th">เคลียร์หน่วยความจำทั้งหมด</value>
@@ -243,6 +264,7 @@
         <value xml:lang="en">Cleared all expired elements from all caches</value>
         <value xml:lang="fr">Tous les éléments périmés ont été purgés des caches</value>
         <value xml:lang="it">Pulite tutti gli elementi scaduti da tutte le caches</value>
+        <value xml:lang="ja">失効したすべての要素がキャッシュからクリアされました</value>
         <value xml:lang="pt">Todos elementos expirados foram limpos de todas as caches</value>
         <value xml:lang="ro">Au fost Curatate toate elementele expirate din toate cach-urile</value>
         <value xml:lang="th">เคลียร์สิ่งเล็กน้อยหมดอายุทั้งหมดจากหน่วยความจำทั้งหมด</value>
@@ -253,6 +275,7 @@
         <value xml:lang="en">Cleared cache with name: ${name}</value>
         <value xml:lang="fr">Tous les caches de nom ${name} ont été purgés</value>
         <value xml:lang="it">Pulita cache con nome: ${name}</value>
+        <value xml:lang="ja">キャッシュがクリアされました: ${name}</value>
         <value xml:lang="pt">Os seguinte cache foi limpo: $ {nome}</value>
         <value xml:lang="ro">Curatire cache cu nume: ${name}</value>
         <value xml:lang="th">เคลียร์หน่วยความจำด้วยชื่อ: ${name}</value>
@@ -263,6 +286,7 @@
         <value xml:lang="en">Could not clear cache, no name specified</value>
         <value xml:lang="fr">Impossible de vider le cache, aucun nom fourni</value>
         <value xml:lang="it">Non è possibile pulire la cache, nessun nome specificato</value>
+        <value xml:lang="ja">名前が指定されていないため、キャッシュがクリアできませんでした</value>
         <value xml:lang="pt">NÃ£o foi possÃ­vel limpar o cache, nenhum nome especificado</value>
         <value xml:lang="ro">Nu este posibila curatarea cach-ului, nici-un nume  specificat</value>
         <value xml:lang="th">ไม่สามารถเคลียร์หน่วยความจำ , ไม่ระบุชื่อ</value>
@@ -273,6 +297,7 @@
         <value xml:lang="en">Could not clear cache, cache not found with name: ${name}</value>
         <value xml:lang="fr">Impossible de vider le cache, aucun cache trouvé ayant comme nom ${name}</value>
         <value xml:lang="it">Non è possibile pulire la cache, cache non trovata con nome: ${name}</value>
+        <value xml:lang="ja">キャッシュが見つからないため、クリアできませんでした: ${name}</value>
         <value xml:lang="pt">NÃ£o foi possÃ­vel limpar o cache, nenhum cache foi encontrado com o nome: ${nome}</value>
         <value xml:lang="ro">Nu este posibila curatirea cache,nu gaseste nume cache: ${name}</value>
         <value xml:lang="th">ไม่สามารถเคลียร์หน่วยความจำ , ไม่พบหน่วยความจำด้วยชื่อ: ${name}</value>
@@ -283,6 +308,7 @@
         <value xml:lang="en">Could not remove cache element, cache not found with name: ${name}</value>
         <value xml:lang="fr">Impossible de supprimer l'élément du cache, aucun cache trouvé ayant comme nom ${name}</value>
         <value xml:lang="it">Non è possibile rimuovere l'elemento della cache, cache non trovata con nome: ${name}</value>
+        <value xml:lang="ja">キャッシュが見つからないため、キャッシュの要素を削除できませんでした: ${name}</value>
         <value xml:lang="pt">NÃ£o foi possÃ­vel remover o elemento de cache, nenhum cache foi encontrado com o nome: ${nome}</value>
         <value xml:lang="ro">Nu este posibila stergerea elementului din chash, nu gaseste chash cu nume: ${name}</value>
         <value xml:lang="th">ไม่สามารถย้ายองค์ประกอบจากหน่วยความจำ, ไม่พบหน่วยความจำด้วยชื่อ: ${name}</value>
@@ -293,6 +319,7 @@
         <value xml:lang="en">Could not remove cache element, element not found with cache name: ${name} , element number: ${numString}</value>
         <value xml:lang="fr">Impossible de supprimer l'élément du cache, aucun élément trouvé ayant comme nom de cache ${name} et n° d'élément:  ${numString}</value>
         <value xml:lang="it">Non è possibile rimuovere l'elemento della cache, elemento non trovato con nome cache: ${name} , elemento numero: ${numString}</value>
+        <value xml:lang="ja">キャッシュが見つからないため、キャッシュの要素を削除できませんでした。名前: ${name} , 要素番号: ${numString}</value>
         <value xml:lang="pt">NÃ£o foi possÃ­vel remover o elemento de cache, nenhum elemento foi encontrado com o nome de cache: ${name}, nÂº do elemento: ${numString}</value>
         <value xml:lang="ro">Nu este possibila stergerea elementului din chesh-ul, nu gaseste elementul cu numele cache: ${name} , element numar: ${numString}</value>
         <value xml:lang="th">ไม่สามารถย้ายองค์ประกอบจากหน่วยความจำ, ไม่พบองค์ประกอบด้วยชื่อหน่วยความจำ: ${name} , หมายเลของค์ประกอบ: ${numString}</value>
@@ -303,6 +330,7 @@
         <value xml:lang="en">Could not update cache settings, no name specified</value>
         <value xml:lang="fr">Impossible de mettre à jour la configuration du cache, aucun nom fourni</value>
         <value xml:lang="it">Non è possibile aggiornare le impostazioni della cache, nessun nome specificato</value>
+        <value xml:lang="ja">名前が指定されていないため、キャッシュの設定を更新できませんでした</value>
         <value xml:lang="pt">NÃ£o foi possÃ­vel atualizar as configuraÃ§Ãµes de cache, nenhum nome especificado</value>
         <value xml:lang="ro">Nu e posibila actualizarea setarilor cache, nici un nume specificat</value>
         <value xml:lang="th">ไม่สามารถอัพเดทการตั้งค่าหน่วยความจำ, ไม่ระบุชื่อ</value>
@@ -313,6 +341,7 @@
         <value xml:lang="en">Removed element from cache with key: ${key}</value>
         <value xml:lang="fr">Tous les éléments du cache ayant comme clef ${key} ont été supprimés</value>
         <value xml:lang="it">Rimosso elemento dalla cache con chiave: ${key}</value>
+        <value xml:lang="ja">キャッシュから要素を削除しました: ${key}</value>
         <value xml:lang="pt">elemento removido do cache com a chave: ${chave}</value>
         <value xml:lang="ro">A fost sters elementul din chash-ul cu cheia: ${key}</value>
         <value xml:lang="th">ย้ายองค์ประกอบจากหน่วยความจำด้วยคีย์: ${key}</value>
@@ -323,6 +352,7 @@
         <value xml:lang="en">Could not remove cache line/element, no cache name specified</value>
         <value xml:lang="fr">Impossible de supprimer la ligne/élément du cache, aucun nom fourni</value>
         <value xml:lang="it">Non è possibile rimuovere la riga/elemento, nessun nome di cache specificato</value>
+        <value xml:lang="ja">キャッシュ名が指定されていないため、キャッシュから要素/行が削除できませんでした</value>
         <value xml:lang="pt">NÃ£o foi possÃ­vel remover linha de cache/elemento, nenhum nome de cache especificado</value>
         <value xml:lang="ro">Nu este posibila stergerea linieri/element, nici-un nume de chash specificata</value>
         <value xml:lang="th">ไม่สามารถลบหน่วยความจำ/องค์ประกอบ, ไม่ระบุชื่อหน่วยความจำ</value>
@@ -333,6 +363,7 @@
         <value xml:lang="en">Could not remove cache line/element, no element number specified</value>
         <value xml:lang="fr">Impossible de supprimer la ligne/élément du cache, aucun n° d'élément fourni</value>
         <value xml:lang="it">Non è possibile rimuovere la riga/elemento, nessun numero elemento specificato</value>
+        <value xml:lang="ja">要素番号が指定されていないため、キャッシュから要素/行が削除できませんでした</value>
         <value xml:lang="pt">NÃ£o foi possÃ­vel remover linha de cache/elemento, nenhum nÃºmero de elemento especificado</value>
         <value xml:lang="ro">Nu este posibila stergerea liniei/element, nici-un numar de elemente specificate</value>
         <value xml:lang="th">ไม่สามารถลบหน่วยความจำ/องค์ประกอบ, ไม่ระบุหมายเลขหน่วยความจำ</value>
@@ -343,6 +374,7 @@
         <value xml:lang="en">You do not have permission to perform this operation, UTIL_CACHE_EDIT required</value>
         <value xml:lang="fr">Vous n'avez pas l'autorisation pour exécuter cette opération, UTIL_CACHE_EDIT nécessaire</value>
         <value xml:lang="it">Tu non hai il permesso di eseguire questa operazione, permesso UTIL_CACHE_EDIT richiesto</value>
+        <value xml:lang="ja">この操作を行う権限がありません、UTIL_CACHE_EDIT が必要です</value>
         <value xml:lang="pt">VocÃª nÃ£o tem permissÃ£o para executar esta operaÃ§Ã£o, UTIL_CACHE_EDIT necessÃ¡ria</value>
         <value xml:lang="ro">Nu ai permisul de a executa aceasta operatie, permis UTIL_CACHE_EDIT cerut</value>
         <value xml:lang="th">คุณไม่มีการอนุญาตถึงการทำงานการดำเนินการนี้, UTIL_CACHE_EDIT ต้องการ</value>

@@ -24,6 +24,7 @@
         <value xml:lang="en">Create Public Message</value>
         <value xml:lang="fr">Créer un message public</value>
         <value xml:lang="it">Crea messaggio pubblico</value>
+        <value xml:lang="ja">公開メッセージを作成</value>
         <value xml:lang="pt_BR">Criar Mensagem Pública</value>
         <value xml:lang="vi">Tạo thông điệp công khai</value>
         <value xml:lang="zh">新建公共消息</value>
@@ -33,6 +34,7 @@
         <value xml:lang="en">Date info created</value>
         <value xml:lang="fr">Date de création</value>
         <value xml:lang="it">Data di creazione</value>
+        <value xml:lang="ja">作成日付情報</value>
         <value xml:lang="pt_BR">Data da informação criada</value>
         <value xml:lang="vi">Ngày tạo thông tin</value>
         <value xml:lang="zh">已创建日期信息</value>
@@ -42,6 +44,7 @@
         <value xml:lang="en">Date Last Changed</value>
         <value xml:lang="fr">Dernière date de changement</value>
         <value xml:lang="it">Data ultimo cambiamento</value>
+        <value xml:lang="ja">最終更新日</value>
         <value xml:lang="pt_BR">Data da última modificação</value>
         <value xml:lang="vi">Ngày thay đổi thông tin</value>
         <value xml:lang="zh">最后修改日期</value>
@@ -51,6 +54,7 @@
         <value xml:lang="en">System Info Note</value>
         <value xml:lang="fr">Message d'information système</value>
         <value xml:lang="it">Messaggio di sistema</value>
+        <value xml:lang="ja">システム情報連絡</value>
         <value xml:lang="pt_BR">Nota de Informação do Sistema</value>
         <value xml:lang="vi">Thông tin lưu ý mức hệ thống</value>
         <value xml:lang="zh">系统信息便笺</value>
@@ -60,6 +64,7 @@
         <value xml:lang="en">System Info note for user:</value>
         <value xml:lang="fr">Message d'information système pour l'utilisateur :</value>
         <value xml:lang="it">Messaggio di sistema per l'utente:</value>
+        <value xml:lang="ja">システム情報連絡 ユーザ:</value>
         <value xml:lang="pt_BR">Nota de Informação do Sistema para o usuário:</value>
         <value xml:lang="vi">Thông tin lưu ý mức hệ thống tới Người dùng:</value>
         <value xml:lang="zh">系统信息便笺致用户：</value>
@@ -69,6 +74,7 @@
         <value xml:lang="en">System Info Status</value>
         <value xml:lang="fr">Message d'information d'état</value>
         <value xml:lang="it">Stato messaggi di sistema</value>
+        <value xml:lang="ja">システム情報ステータス</value>
         <value xml:lang="pt_BR">Informação de estado do sistema</value>
         <value xml:lang="vi">Trạng thái mức hệ thống</value>
         <value xml:lang="zh">系统信息状态</value>
@@ -78,6 +84,7 @@
         <value xml:lang="en">System Info status for user:</value>
         <value xml:lang="fr">Message d'information d'état pour l'utilisateur :</value>
         <value xml:lang="it">Stato messaggi di sistema per l'utente:</value>
+        <value xml:lang="ja">システム情報ステータス ユーザ:</value>
         <value xml:lang="pt_BR">Informação de estado do sistema para o usuário:</value>
         <value xml:lang="vi">Trạng thái mức hệ thống tới Người dùng:</value>
         <value xml:lang="zh">系统信息状态为用户：</value>
