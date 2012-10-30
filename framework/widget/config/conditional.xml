@@ -25,6 +25,7 @@
         <value xml:lang="es">Inicia con</value>
         <value xml:lang="fr">débute</value>
         <value xml:lang="it">Inizia con</value>
+        <value xml:lang="ja">先頭が一致</value>
         <value xml:lang="nl">Begint met</value>
         <value xml:lang="ro">Incepe Cu</value>
         <value xml:lang="ru">Начинается с</value>
@@ -39,6 +40,7 @@
         <value xml:lang="es">Contiene</value>
         <value xml:lang="fr">contient</value>
         <value xml:lang="it">Contiene</value>
+        <value xml:lang="ja">含む</value>
         <value xml:lang="nl">Bevat</value>
         <value xml:lang="ro">Contine</value>
         <value xml:lang="ru">Содержит</value>
@@ -53,6 +55,7 @@
         <value xml:lang="es">Igual</value>
         <value xml:lang="fr">égal</value>
         <value xml:lang="it">Uguale</value>
+        <value xml:lang="ja">等しい</value>
         <value xml:lang="nl">Gelijk aan</value>
         <value xml:lang="ro">Egal</value>
         <value xml:lang="ru">Равняется</value>
@@ -67,6 +70,7 @@
         <value xml:lang="es">Mayor que</value>
         <value xml:lang="fr">plus grand</value>
         <value xml:lang="it">Maggiore di</value>
+        <value xml:lang="ja">より大きい</value>
         <value xml:lang="nl">Groter dan</value>
         <value xml:lang="ro">Mai Mare decat</value>
         <value xml:lang="ru">Больше чем</value>
@@ -81,6 +85,7 @@
         <value xml:lang="es">Mayor igual que</value>
         <value xml:lang="fr">plus grand ou égal</value>
         <value xml:lang="it">Maggiore uguale</value>
+        <value xml:lang="ja">以上</value>
         <value xml:lang="nl">Groter of gelijk aan</value>
         <value xml:lang="ro">Mai Mare sau Egal</value>
         <value xml:lang="ru">Больше чем равно</value>
@@ -95,6 +100,7 @@
         <value xml:lang="es">Mayor que el día</value>
         <value xml:lang="fr">plus grand que le jour</value>
         <value xml:lang="it">Maggiore del giorno di inizio</value>
+        <value xml:lang="ja">以降</value>
         <value xml:lang="nl">Later dan de begin dag</value>
         <value xml:lang="ro">Mai Mare decat ziua Initiala</value>
         <value xml:lang="ru">Больше чем на дату начала</value>
@@ -109,6 +115,7 @@
         <value xml:lang="es">Ignorar mayusculas</value>
         <value xml:lang="fr">(Maj/min)</value>
         <value xml:lang="it">Ignora maiuscole/minuscole</value>
+        <value xml:lang="ja">大文字/小文字を区別しない</value>
         <value xml:lang="nl">negeer gr/kl letters</value>
         <value xml:lang="ro">Ignora Majuscule/Minuscule</value>
         <value xml:lang="ru">Игнорировать регистр</value>
@@ -123,6 +130,7 @@
         <value xml:lang="es">Vacio</value>
         <value xml:lang="fr">est vide</value>
         <value xml:lang="it">E' vuoto</value>
+        <value xml:lang="ja">空</value>
         <value xml:lang="nl">Niet gevuld</value>
         <value xml:lang="ro">Este Gol</value>
         <value xml:lang="ru">Является пустым</value>
@@ -137,6 +145,7 @@
         <value xml:lang="es">Menor que</value>
         <value xml:lang="fr">plus petit</value>
         <value xml:lang="it">Minore di</value>
+        <value xml:lang="ja">より小さい</value>
         <value xml:lang="nl">Minder dan</value>
         <value xml:lang="ro">Mai Mic Decat</value>
         <value xml:lang="ru">Меньше чем</value>
@@ -151,6 +160,7 @@
         <value xml:lang="es">Menor que</value>
         <value xml:lang="fr">plus petit ou égal</value>
         <value xml:lang="it">Minore uguale</value>
+        <value xml:lang="ja">以下</value>
         <value xml:lang="nl">minder of gelijk aan</value>
         <value xml:lang="ro">Mai Mic sau Egal</value>
         <value xml:lang="ru">Меньше чем равно</value>
@@ -163,6 +173,7 @@
         <value xml:lang="en">Not Equal</value>
         <value xml:lang="fr">Diff.</value>
         <value xml:lang="it">Diverso da</value>
+        <value xml:lang="ja">異なる</value>
         <value xml:lang="th">ไม่เท่ากับ</value>
         <value xml:lang="zh">不等于</value>
         <value xml:lang="zh_TW">不等于</value>
@@ -174,6 +185,7 @@
         <value xml:lang="es">Igual</value>
         <value xml:lang="fr">même jour</value>
         <value xml:lang="it">Stesso giorno</value>
+        <value xml:lang="ja">同じ日</value>
         <value xml:lang="nl">Zelfde dag</value>
         <value xml:lang="ro">Aceiasi Zi</value>
         <value xml:lang="ru">Тот-же день</value>
@@ -188,6 +200,7 @@
         <value xml:lang="es">Hasta el día</value>
         <value xml:lang="fr">Inclus ce jour</value>
         <value xml:lang="it">Fino al giorno</value>
+        <value xml:lang="ja">以前</value>
         <value xml:lang="nl">t/m datum</value>
         <value xml:lang="ro">Pana in Ziua</value>
         <value xml:lang="ru">До дня</value>
@@ -202,6 +215,7 @@
         <value xml:lang="es">Hasta</value>
         <value xml:lang="fr">Jusqu'au jour</value>
         <value xml:lang="it">Fino ad oggi</value>
+        <value xml:lang="ja">今日まで</value>
         <value xml:lang="nl">tot de datum</value>
         <value xml:lang="ro">Pana Astazi</value>
         <value xml:lang="ru">На день</value>

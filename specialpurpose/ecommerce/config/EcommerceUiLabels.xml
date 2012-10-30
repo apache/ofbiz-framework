@@ -22,6 +22,7 @@
     <property key="EcommerceAboutUs">
         <value xml:lang="en">About Us</value>
         <value xml:lang="fr">A propos</value>
+        <value xml:lang="ja">会社案内</value>
         <value xml:lang="nl">Over ons</value>       
         <value xml:lang="pt_BR">Sobre</value>
         <value xml:lang="vi">Giới thiệu</value>
@@ -33,6 +34,7 @@
         <value xml:lang="en">a new</value>
         <value xml:lang="fr">un nouvel</value>
         <value xml:lang="it">una nuova</value>
+        <value xml:lang="ja">お知らせ</value>
         <value xml:lang="nl">een nieuw(e)</value>       
         <value xml:lang="pt_BR">uma nova</value>
         <value xml:lang="th">ใหม่</value>
@@ -45,6 +47,7 @@
         <value xml:lang="en">Account Information</value>
         <value xml:lang="fr">Information sur le compte</value>
         <value xml:lang="it">Informazioni utente</value>
+        <value xml:lang="ja">アカウント情報</value>
         <value xml:lang="nl">Account informatie</value>     
         <value xml:lang="pt_BR">Informações de sua conta</value>
         <value xml:lang="vi">Thông tin tài khoản</value>
@@ -59,7 +62,7 @@
         <value xml:lang="fr">Votre identifiant est :</value>
         <value xml:lang="hi_IN">आपका प्रवेश ख़ाता है:</value>
         <value xml:lang="it">Il tuo login è:</value>
-        <value xml:lang="ja">Your account login is:</value>
+        <value xml:lang="ja">アカウントログイン:</value>
         <value xml:lang="nl">Uw gebruikersnaam is:</value>
         <value xml:lang="pt_BR">Seu nome de usuário é:</value>
         <value xml:lang="ro">Utilizatorul logat este :</value>
@@ -78,7 +81,7 @@
         <value xml:lang="fr">Actif</value>
         <value xml:lang="hi_IN">सक्रिय</value>
         <value xml:lang="it">Attivo</value>
-        <value xml:lang="ja">Active</value>
+        <value xml:lang="ja">有効</value>
         <value xml:lang="nl">Actief</value>
         <value xml:lang="pt_BR">Ativo</value>
         <value xml:lang="ro">Activ</value>
@@ -98,7 +101,7 @@
         <value xml:lang="fr">Ajouter la liste et sous liste(s) au panier</value>
         <value xml:lang="hi_IN">इस पूरी सूची को टोकरी में डालें</value>
         <value xml:lang="it">Aggiungi questa lista e le liste figlie al Carrello</value>
-        <value xml:lang="ja">Add This List And Child List(s) To Cart</value>
+        <value xml:lang="ja">買い物かごにこの一覧と下位(子)の一覧を追加</value>
         <value xml:lang="nl">Voeg deze (sub)lijsten toe aan de winkelwagen</value>
         <value xml:lang="pt_BR">Adicionar esta lista e suas sublistas ao carrinho</value>
         <value xml:lang="pt_PT">Adicionar Esta Lista E Sua(s) Derivada(s) Ao Cesto</value>
@@ -119,7 +122,7 @@
         <value xml:lang="fr">Ajouter la liste au panier</value>
         <value xml:lang="hi_IN">सूची को टोकरी में डालें</value>
         <value xml:lang="it">Aggiungi la lista al carrello</value>
-        <value xml:lang="ja">Add List To Cart</value>
+        <value xml:lang="ja">買い物かごに一覧を追加</value>
         <value xml:lang="nl">Voeg deze lijst toe aan de winkelwagen</value>
         <value xml:lang="pt_BR">Adicionar lista ao carrinho</value>
         <value xml:lang="pt_PT">Adicionar Lista Ao Cesto</value>
@@ -136,6 +139,7 @@
         <value xml:lang="en">Add New Address</value>
         <value xml:lang="fr">Ajouter une nouvelle adresse</value>
         <value xml:lang="it">Aggiungi nuovo indirizzo</value>
+        <value xml:lang="ja">新規住所を追加</value>
         <value xml:lang="nl">Toevoegen nieuw adres</value>      
         <value xml:lang="pt_BR">Adicionar novo endereço</value>
         <value xml:lang="vi">Thêm địa chỉ mới</value>
@@ -149,6 +153,7 @@
         <value xml:lang="fr">Ajouter le nouvel article numérique</value>
         <value xml:lang="hi_IN">नयी डिजीटल फल जोडें</value>
         <value xml:lang="it">Aggiungi nuovo prodotto digitale</value>
+        <value xml:lang="ja">新規ソフトウェア製品を追加</value>
         <value xml:lang="nl">Toevoegen nieuw digitaal product</value>       
         <value xml:lang="pt_BR">Adicionar novo produto digital</value>
         <value xml:lang="ro">Adauga Nou Produs Digital</value>
@@ -166,7 +171,7 @@
         <value xml:lang="fr">Ajouter la réponse pour</value>
         <value xml:lang="hi_IN">उत्तर जोडें</value>
         <value xml:lang="it">Aggiungi risposte per</value>
-        <value xml:lang="ja">Add response for</value>
+        <value xml:lang="ja">回答を追加</value>
         <value xml:lang="nl">Toevoegen antwoord aan</value>
         <value xml:lang="pt_BR">Adicionar resposta para</value>
         <value xml:lang="ro">Adauga raspunsuri pentru EcommerceAddSelectedtoList=Adauga Selectionat La Lista</value>
@@ -185,7 +190,7 @@
         <value xml:lang="fr">Ajouter la sélection à la liste</value>
         <value xml:lang="hi_IN">सही निशान वाले को सूची में जोड़ें</value>
         <value xml:lang="it">Aggiungi la selezione alla lista</value>
-        <value xml:lang="ja">Add Selected To List</value>
+        <value xml:lang="ja">一覧に選択を追加</value>
         <value xml:lang="nl">Voeg geselecteerde toe aan de lijst</value>
         <value xml:lang="pt_BR">Adicionar selecionados à lista</value>
         <value xml:lang="pt_PT">Adicionar Seleccionado À Lista</value>
@@ -198,11 +203,13 @@
     <property key="EcommerceAddTags">
         <value xml:lang="en">Add Tags</value>
         <value xml:lang="fr">Ajouter une étiquette</value>
+        <value xml:lang="ja">タグを追加</value>
         <value xml:lang="vi">Thêm đánh dấu</value>
     </property>
     <property key="EcommerceAddTagsDetail">
         <value xml:lang="en">Use spaces to separate tags. Use single quotes(') for phrases.</value>
         <value xml:lang="fr">Utiliser un espace pour séparer les étiquettes et des apostrophes pour les phrases.</value>
+        <value xml:lang="ja">タグの区切りはスペースを使用してください。フレーズにはシングルクォート(')を使用してください。</value>
         <value xml:lang="vi">Dùng phím cách (space) để ngăn cách các Tag, sử dụng dấu nháy đơn (') cho các từ.</value>
     </property>
     <property key="EcommerceAdditionalAddresses">
@@ -211,6 +218,7 @@
         <value xml:lang="en">Additional Addresses</value>
         <value xml:lang="fr">Adresses additionelles</value>
         <value xml:lang="it">Indirizzi aggiuntivi</value>
+        <value xml:lang="ja">追加の住所</value>
         <value xml:lang="nl">Overige adressen</value>       
         <value xml:lang="pt_BR">Endereços adicionais</value>
         <value xml:lang="vi">Địa chỉ bổ sung</value>
@@ -223,6 +231,7 @@
         <value xml:lang="en">Address Book</value>
         <value xml:lang="fr">Carnet d'adresses</value>
         <value xml:lang="it">Indirizzario</value>
+        <value xml:lang="ja">住所録</value>
         <value xml:lang="nl">Adresboek</value>      
         <value xml:lang="pt_BR">Caderno de endereços</value>
         <value xml:lang="vi">Danh bạ địa chỉ</value>
@@ -232,6 +241,7 @@
     <property key="EcommerceAddYourTags">
         <value xml:lang="en">Add your tags</value>
         <value xml:lang="fr">Ajouter vos étiquettes</value>
+        <value xml:lang="ja">あなたのタグを追加</value>
         <value xml:lang="vi">Thêm vào đánh dấu của bạn</value>
     </property>
     <property key="EcommerceAdjustment">
@@ -243,7 +253,7 @@
         <value xml:lang="fr">Ajustement</value>
         <value xml:lang="hi_IN">समझौता</value>
         <value xml:lang="it">Aggiustamento</value>
-        <value xml:lang="ja">Adjustment</value>
+        <value xml:lang="ja">調整</value>
         <value xml:lang="nl">Aanpassing</value>
         <value xml:lang="pt_BR">Ajuste</value>
         <value xml:lang="pt_PT">Ajuste</value>
@@ -263,7 +273,7 @@
         <value xml:lang="fr">Ajustements</value>
         <value xml:lang="hi_IN">समझौतें</value>
         <value xml:lang="it">Aggiustamenti</value>
-        <value xml:lang="ja">Adjustments</value>
+        <value xml:lang="ja">調整</value>
         <value xml:lang="nl">Correcties</value>
         <value xml:lang="pt_BR">Ajustes</value>
         <value xml:lang="pt_PT">Ajustes</value>
@@ -277,6 +287,7 @@
     <property key="EcommerceAffiliateCreatedSuccessfully">
         <value xml:lang="en">Affiliate record successfully created.</value>
         <value xml:lang="it">Record affiliato creato con successo.</value>
+        <value xml:lang="ja">アフェリエイトレコードが正しく作成されました。</value>
         <value xml:lang="vi">Bản đăng ký hội viên được tạo thành công.</value>
     </property>
     <property key="EcommerceAlwaysViewCartAfterAddingAnItem">
@@ -289,7 +300,7 @@
         <value xml:lang="fr">Toujours voir le panier après l'ajout d'un article</value>
         <value xml:lang="hi_IN">हमेशा टोकरी देखें सामान जोडने के बाद</value>
         <value xml:lang="it">Visualizza sempre il carrello dopo aver aggiunto una riga</value>
-        <value xml:lang="ja">Always view cart after adding an item</value>
+        <value xml:lang="ja">アイテムを追加した後にいつも買い物かごを表示</value>
         <value xml:lang="nl">Bekijk de winkelwagen altijd na het toevoegen</value>
         <value xml:lang="pt_BR">Sempre exibir carrinho após adicionar um item</value>
         <value xml:lang="ro">Vezi cosul numai dupa ce ai adaugat o linie</value>
@@ -307,7 +318,7 @@
         <value xml:lang="fr">Information sur l'article</value>
         <value xml:lang="hi_IN">सामान की जानकारी</value>
         <value xml:lang="it">Articolo</value>
-        <value xml:lang="ja">Article Information</value>
+        <value xml:lang="ja">記事情報</value>
         <value xml:lang="nl">Artikelinformatie</value>
         <value xml:lang="pt_BR">Informação do artigo</value>
         <value xml:lang="ro">Articol</value>
@@ -320,6 +331,7 @@
     <property key="EcommerceAvailable">
         <value xml:lang="en">Available:</value>
         <value xml:lang="fr">Disponible :</value>
+        <value xml:lang="ja">有効</value>
         <value xml:lang="vi">Có sẵn:</value>
         <value xml:lang="zh_TW">可用:</value>
     </property>
@@ -329,7 +341,7 @@
         <value xml:lang="es">Asignar ítems</value>
         <value xml:lang="fr">Affecter les articles</value>
         <value xml:lang="it">Assegna articoli</value>
-        <value xml:lang="ja">Assign Items</value>
+        <value xml:lang="ja">アイテムを割当</value>
         <value xml:lang="nl">Wijs items toe</value>
         <value xml:lang="pt_BR">Atribuir itens</value>
         <value xml:lang="ro">Atribuie Linii</value>
@@ -346,7 +358,7 @@
         <value xml:lang="fr">Soyez sûr(e) d'inclure votre n° de commande</value>
         <value xml:lang="hi_IN">आर्डर सम्मिमित करना न भूलें</value>
         <value xml:lang="it">Assicurati di specificare il tuo ordine n°</value>
-        <value xml:lang="ja">Be sure to include your order #</value>
+        <value xml:lang="ja">注文Noを確認してください</value>
         <value xml:lang="nl">Vergeet niet het bestellingnummer op te geven</value>
         <value xml:lang="pt_BR">Certifique-se de incluir número de pedido</value>
         <value xml:lang="ro">Asigurate ca ai inclus comanda ta #</value>
@@ -361,6 +373,7 @@
         <value xml:lang="en">Add a response:</value>
         <value xml:lang="fr">Ajouter une réponse : </value>
         <value xml:lang="it">Aggiungi una risposta:</value>
+        <value xml:lang="ja">回答を追加</value>
         <value xml:lang="nl">Toevoegen antwoord:</value>        
         <value xml:lang="pt_BR">Adicionar uma resposta:</value>
         <value xml:lang="vi">Thêm một phản hồi:</value>
@@ -372,6 +385,7 @@
         <value xml:lang="en">You must be logged in to add a response.</value>
         <value xml:lang="fr">Vous devez être connecté(e) pour pouvoir ajouter une réponse : </value>
         <value xml:lang="it">Devi essere autenticato per aggiungere una risposta.</value>
+        <value xml:lang="ja">回答の追加はログインしてください。</value>
         <value xml:lang="nl">U moet ingelogd zijn om een antwoord toe te kunnen voegen.</value>     
         <value xml:lang="pt_BR">Você deve registrar-se para adicionar uma resposta</value>
         <value xml:lang="vi">Bạn cần phải đăng nhập để thêm một phản hồi.</value>
@@ -380,6 +394,7 @@
     </property>
     <property key="EcommerceBlogAddCommentPermissionError">
         <value xml:lang="en">You do not have permission to add comment.</value>
+        <value xml:lang="ja">コメントを追加する権限がありません。</value>
         <value xml:lang="th">คุณไม่มีสิทธิ์ในการแสดงความคิดเห็น</value>
         <value xml:lang="vi">Bạn không được quyền thêm Diễn giải.</value>
         <value xml:lang="zh_TW">您沒權限增加評論。</value>
@@ -389,6 +404,7 @@
         <value xml:lang="en">Add a thread:</value>
         <value xml:lang="fr">Ajouter un fil de discussion : </value>
         <value xml:lang="it">Aggiungi una discussione:</value>
+        <value xml:lang="ja">スレッドを追加:</value>
         <value xml:lang="nl">Start een discussie:</value>       
         <value xml:lang="pt_BR">Adicionar um tópico de discussão</value>
         <value xml:lang="vi">Thêm luồng thảo luận:</value>
@@ -400,6 +416,7 @@
         <value xml:lang="en">Unable to find Blog content!</value>
         <value xml:lang="fr">Impossible de trouver le contenu du blog !</value>
         <value xml:lang="it">Non è possibile trovare il contenuto Blog!</value>
+        <value xml:lang="ja">ブログのコンテンツが見つかりません!</value>
         <value xml:lang="nl">Kan blog content niet vinden!</value>      
         <value xml:lang="pt_BR">Impossível encontrar conteúdo de blog!</value>
         <value xml:lang="vi">Không thể tìm thấy nội dung Blog!</value>
@@ -411,6 +428,7 @@
         <value xml:lang="en">You must be logged in in order to edit comments.</value>
         <value xml:lang="fr">Vous devez être connecté(e) pour pouvoir modifier les commentaires.</value>
         <value xml:lang="it">Devi essere autenticato per poter aggiornare un commento.</value>
+        <value xml:lang="ja">コメントの編集はログインしてください。</value>
         <value xml:lang="nl">U moet ingelogd zijn om commentaren te wijzigen.</value>       
         <value xml:lang="pt_BR">Você deve registrar-se para editar comentários</value>
         <value xml:lang="vi">Bạn cần phải đăng nhập để thực hiện việc chỉnh sửa Diễn giải.</value>
@@ -422,6 +440,7 @@
         <value xml:lang="en">Full message</value>
         <value xml:lang="fr">Message complet</value>
         <value xml:lang="it">Messaggio completo</value>
+        <value xml:lang="ja">メッセージすべて</value>
         <value xml:lang="nl">Volledig(e) bericht</value>        
         <value xml:lang="pt_BR">Mensagem completa</value>
         <value xml:lang="vi">Tin nhắn đầy đủ</value>
@@ -433,6 +452,7 @@
         <value xml:lang="en">Latest Responses</value>
         <value xml:lang="fr">Dernière réponse</value>
         <value xml:lang="it">Ultime risposte</value>
+        <value xml:lang="ja">最新回答</value>
         <value xml:lang="nl">Laatste antwoorden</value>     
         <value xml:lang="pt_BR">Últimas respostas</value>
         <value xml:lang="vi">Phản hồi mới nhất</value>
@@ -444,6 +464,7 @@
         <value xml:lang="en">Message tree</value>
         <value xml:lang="fr">Arborescence de messages</value>
         <value xml:lang="it">Albero messaggi</value>
+        <value xml:lang="ja">メッセージツリー</value>
         <value xml:lang="nl">Berichten structuur</value>        
         <value xml:lang="pt_BR">Árvore de mensagens</value>
         <value xml:lang="vi">Cây tin nhắn</value>
@@ -455,6 +476,7 @@
         <value xml:lang="en">You must be logged in and viewing a published record in order to post comments.</value>
         <value xml:lang="fr">Vous devez être connecté(e) et entrain de visualiser un commentaire afinf de pouvoir envoyer les votres</value>
         <value xml:lang="it">Devi essere autenticato e visualizzare un record pubblicato per poter inviare un commento.</value>
+        <value xml:lang="ja">コメントの投稿は、ログインして公開済みのレコードを表示してください。</value>
         <value xml:lang="nl">U moet ingelogd zijn en een bericht bekijken om commentaar te kunnen plaatsten.</value>        
         <value xml:lang="pt_BR">Você deve registrar-se e estar visualizando um item publicado para poder fazer comentários.</value>
         <value xml:lang="vi">Bạn cần phải đăng nhập và xem lại bản ghi trước khi yêu cầu đăng Diễn giải.</value>
@@ -466,6 +488,7 @@
         <value xml:lang="en">Posted on</value>
         <value xml:lang="fr">Envoyé le </value>
         <value xml:lang="it">Inviato il</value>
+        <value xml:lang="ja">投稿</value>
         <value xml:lang="nl">Geplaatst op</value>       
         <value xml:lang="pt_BR">Enviado em</value>
         <value xml:lang="vi">Đăng vào lúc</value>
@@ -477,6 +500,7 @@
         <value xml:lang="en">View Blog Article</value>
         <value xml:lang="fr">Voir l'article du blog</value>
         <value xml:lang="it">Mostra articolo blog</value>
+        <value xml:lang="ja">ブログ記事の表示</value>
         <value xml:lang="nl">Bekijk blog artikel</value>        
         <value xml:lang="pt_BR">Ver artigo do blog</value>
         <value xml:lang="vi">Xem nội dung bài viết blog</value>
@@ -488,6 +512,7 @@
         <value xml:lang="en">Bronze</value>
         <value xml:lang="fr">Bronze</value>
         <value xml:lang="it">Bronzo</value>
+        <value xml:lang="ja">ブロンズ</value>
         <value xml:lang="nl">Brons</value>      
         <value xml:lang="pt_BR">Bronze</value>
         <value xml:lang="vi">Đồng (kim loại)</value>
@@ -504,7 +529,7 @@
         <value xml:lang="fr">Le panier contient</value>
         <value xml:lang="hi_IN">टोकरी में है</value>
         <value xml:lang="it">Il carrello contiene</value>
-        <value xml:lang="ja">Cart has</value>
+        <value xml:lang="ja">買い物かごには</value>
         <value xml:lang="nl">Winkelwagen heeft</value>
         <value xml:lang="pt_BR">Carrinho tem</value>
         <value xml:lang="pt_PT">O Cesto contém</value>
@@ -518,6 +543,7 @@
     <property key="EcommerceCartToGoogleCheckout">
         <value xml:lang="en">Google Checkout</value>
         <value xml:lang="it">Checkout con Google Checkout</value>
+        <value xml:lang="ja">Googleチェックアウト</value>
         <value xml:lang="nl">Google checkout</value>        
         <value xml:lang="pt_BR">Finalizar compra com Google Checkout</value>
         <value xml:lang="vi">Google Checkout</value>
@@ -532,7 +558,7 @@
         <value xml:lang="fr">Total du panier</value>
         <value xml:lang="hi_IN">टोकरी कुल</value>
         <value xml:lang="it">Totale carrello</value>
-        <value xml:lang="ja">Cart Total</value>
+        <value xml:lang="ja">買い物かご合計</value>
         <value xml:lang="nl">Winkelwagen totaal</value>
         <value xml:lang="pt_BR">Total do carrinho</value>
         <value xml:lang="pt_PT">Total no Cesto</value>
@@ -552,7 +578,7 @@
         <value xml:lang="fr">Changer les informations de paiement</value>
         <value xml:lang="hi_IN">भुगतान जानकारी बदलें</value>
         <value xml:lang="it">Cambio informazioni pagamento</value>
-        <value xml:lang="ja">Change Payment Info</value>
+        <value xml:lang="ja">支払情報を変更</value>
         <value xml:lang="nl">Aanpassen betaalinformatie</value>
         <value xml:lang="pt_BR">Alterar dados de pagamento</value>
         <value xml:lang="ro">Schimbare Informatii Plata </value>
@@ -572,7 +598,7 @@
         <value xml:lang="fr">Changer l'adresse de livraison</value>
         <value xml:lang="hi_IN">माल भेजने का पता बदलें</value>
         <value xml:lang="it">Cambio indirizzo spedizione</value>
-        <value xml:lang="ja">Change Shipping Address</value>
+        <value xml:lang="ja">発送先住所を変更</value>
         <value xml:lang="nl">Aanpassen verzendadres</value>
         <value xml:lang="pt_BR">Alterar endereço para envio</value>
         <value xml:lang="ro">Schimbare Adresa Expediere </value>
@@ -588,7 +614,7 @@
         <value xml:lang="es">Cambie las opciones de envío</value>
         <value xml:lang="fr">Changez les options d'expédition</value>
         <value xml:lang="it">Cambio opzioni spedizione</value>
-        <value xml:lang="ja">Change Shipping Options</value>
+        <value xml:lang="ja">発送オプションを変更</value>
         <value xml:lang="nl">Aanpassen verzendopties</value>
         <value xml:lang="pt_BR">Alterar opções de envio</value>
         <value xml:lang="ro">Schimbare Optiuni Expediere </value>
@@ -605,6 +631,7 @@
         <value xml:lang="fr">Vérifier le solde</value>
         <value xml:lang="hi_IN">टोकरी शेष जांच करें</value>
         <value xml:lang="it">Controlla il saldo</value>
+        <value xml:lang="ja">残高確認</value>
         <value xml:lang="nl">Bekijk saldo</value>       
         <value xml:lang="pt_BR">Verificar saldo</value>
         <value xml:lang="ro">Controleaza Bilantul </value>
@@ -622,7 +649,7 @@
         <value xml:lang="es">Mostrar total</value>
         <value xml:lang="fr">Prix total de la liste associée</value>
         <value xml:lang="it">Prezzo totale della lista figlia</value>
-        <value xml:lang="ja">Child Lists Total Price</value>
+        <value xml:lang="ja">下位(子)の一覧価格合計</value>
         <value xml:lang="nl">Sublijst totaalprijs</value>
         <value xml:lang="pt_BR">Preço total da sublista</value>
         <value xml:lang="pt_PT">Preço Total Das Listas Derivadas</value>
@@ -641,7 +668,7 @@
         <value xml:lang="es">Listas de compras hijas</value>
         <value xml:lang="fr">Liste d'achats associée</value>
         <value xml:lang="it">Lista d'acquisto figlia</value>
-        <value xml:lang="ja">Child Shopping Lists</value>
+        <value xml:lang="ja">下位(子)の買い物リスト</value>
         <value xml:lang="nl">Sub boodschappenlijst</value>
         <value xml:lang="pt_BR">Sublista de compras</value>
         <value xml:lang="pt_PT">Listas de Compras Derivadas</value>
@@ -658,6 +685,7 @@
         <value xml:lang="en">Click here to edit</value>
         <value xml:lang="fr">Cliquez-ici pour modifier</value>
         <value xml:lang="it">Clicca qui per aggiornare</value>
+        <value xml:lang="ja">編集はここをクリック</value>
         <value xml:lang="nl">Klik hier om te wijzgen</value>        
         <value xml:lang="pt_BR">Clique aqui para alterar</value>
         <value xml:lang="vi">Bấm vào đây để chỉnh sửa</value>
@@ -672,7 +700,7 @@
         <value xml:lang="fr">Terminé</value>
         <value xml:lang="hi_IN">समाप्त - धन्यवाद</value>
         <value xml:lang="it">Completato - Grazie!</value>
-        <value xml:lang="ja">Completed - Thank-you!</value>
+        <value xml:lang="ja">完了しました</value>
         <value xml:lang="nl">Volledig ingevuld, bedankt!</value>
         <value xml:lang="pt_BR">Completado</value>
         <value xml:lang="ro">Indeplinit - Multumesc!</value>
@@ -690,7 +718,7 @@
         <value xml:lang="fr">Contenu pour</value>
         <value xml:lang="hi_IN">अंतर्वस्तु अंश</value>
         <value xml:lang="it">Contenuto per</value>
-        <value xml:lang="ja">Content for</value>
+        <value xml:lang="ja">コンテンツ</value>
         <value xml:lang="nl">Content voor</value>
         <value xml:lang="pt_BR">Conteúdo para</value>
         <value xml:lang="ro">Continut pentru </value>
@@ -708,7 +736,7 @@
         <value xml:lang="fr">Information sur le contenu</value>
         <value xml:lang="hi_IN">अंतर्वस्तु अंश जानकारी</value>
         <value xml:lang="it">Informazione sul contenuto</value>
-        <value xml:lang="ja">Content Information</value>
+        <value xml:lang="ja">コンテンツ情報</value>
         <value xml:lang="nl">Content informatie</value>
         <value xml:lang="pt_BR">Informações de conteúdo</value>
         <value xml:lang="ro">Informatie Continut</value>
@@ -726,7 +754,7 @@
         <value xml:lang="fr">Nom du contenu</value>
         <value xml:lang="hi_IN">अंतर्वस्तु अंश नाम</value>
         <value xml:lang="it">Nome contenuto</value>
-        <value xml:lang="ja">Content Name</value>
+        <value xml:lang="ja">コンテンツ名称</value>
         <value xml:lang="nl">Content naam</value>
         <value xml:lang="pt_BR">Nome de conteúdo</value>
         <value xml:lang="ro">Nume Continut</value>
@@ -762,6 +790,7 @@
         <value xml:lang="en">Continue to step</value>
         <value xml:lang="fr">Continuer (prochaine étape)</value>
         <value xml:lang="it">Continua al passo</value>
+        <value xml:lang="ja">ステップを続ける</value>
         <value xml:lang="nl">Doorgaan naar stap</value>     
         <value xml:lang="pt_BR">Continuar (próxima etapa)</value>
         <value xml:lang="vi">Tiếp tục các bước</value>
@@ -776,7 +805,7 @@
         <value xml:lang="fr">Ref. de ressource de données</value>
         <value xml:lang="hi_IN">आंकड़े सहारा नम्बर</value>
         <value xml:lang="it">Codice risorsa dati</value>
-        <value xml:lang="ja">Data Resource Id</value>
+        <value xml:lang="ja">データリソースID</value>
         <value xml:lang="nl">Databron ID</value>
         <value xml:lang="pt_BR">ID de fonte de dados</value>
         <value xml:lang="ro">Cod Resursa Date</value>
@@ -792,6 +821,7 @@
         <value xml:lang="en">Default Addresses</value>
         <value xml:lang="fr">Adresses par défaut</value>
         <value xml:lang="it">Indirizzo di default</value>
+        <value xml:lang="ja">通常の住所</value>
         <value xml:lang="nl">Standaard adres</value>        
         <value xml:lang="pt_BR">Endereço principal</value>
         <value xml:lang="vi">Địa chỉ mặc định</value>
@@ -805,7 +835,7 @@
         <value xml:lang="es">Método de envío por defecto</value>
         <value xml:lang="fr">Méthode d'expédition par défaut</value>
         <value xml:lang="it">Metodo di spedizione di default</value>
-        <value xml:lang="ja">Default Shipment Method</value>
+        <value xml:lang="ja">通常の発送方法</value>
         <value xml:lang="nl">Standaard verzendmethode</value>
         <value xml:lang="pt_BR">Método de envio padrão</value>
         <value xml:lang="ro">Metoda de Expediere de Default</value>
@@ -823,7 +853,7 @@
         <value xml:lang="fr">Veuillez choisir votre adresse d'expédition par défaut. Choisissez alors une méthode d'expédition par défaut.</value>
         <value xml:lang="hi_IN">स्थयी पता चुनें माल भेजने के लिए</value>
         <value xml:lang="it">Per favore seleziona il tuo indirizzo di spedizione predefinito; quindi seleziona il metodo di spedizione predefinito.</value>
-        <value xml:lang="ja">Please select your default shipping address; then select a default shipping method.</value>
+        <value xml:lang="ja">通常使用する発送先住所を選択してください; その後通常使用する発送方法を選択してください。</value>
         <value xml:lang="nl">Selecteer uw standaard verzendadres en daarna uw standaard verzendopties</value>
         <value xml:lang="pt_BR">Por favor selecione seu endereço de envio padrão; então selecione o seu método de envio padrão.</value>
         <value xml:lang="ro">Te rugam sa selectionezi adresa ta de expediere de default; selectioneaza apoi o metoda de expediere de default.</value>
@@ -840,6 +870,7 @@
         <value xml:lang="fr">Ajout numérique depuis mes fichiers</value>
         <value xml:lang="hi_IN">मेरे फाइल से जोड़ें</value>
         <value xml:lang="it">Aggiungi dai miei files</value>
+        <value xml:lang="ja">ファイルからデータを追加</value>
         <value xml:lang="nl">Digitale toevoegen van mijn bestanden</value>      
         <value xml:lang="pt_BR">Adição com fonte nos meus arquivos</value>
         <value xml:lang="ro">Adauga Din Fisierele mele</value>
@@ -856,6 +887,7 @@
         <value xml:lang="fr">Nouvel article numérique</value>
         <value xml:lang="hi_IN">नया डिजीटल सामान</value>
         <value xml:lang="it">Nuovo prodotto digitale</value>
+        <value xml:lang="ja">新規ソフトウェア製品</value>
         <value xml:lang="nl">Nieuw digitaal product</value>     
         <value xml:lang="pt_BR">Novo produto digital</value>
         <value xml:lang="ro">Nou Produs Digital</value>
@@ -872,6 +904,7 @@
         <value xml:lang="fr">Fichiers d'article numérique</value>
         <value xml:lang="hi_IN">डिजीटल सामान फाइल</value>
         <value xml:lang="it">Files prodotti digitali</value>
+        <value xml:lang="ja">ソフトウェア製品ファイル</value>
         <value xml:lang="nl">Digitale product bestanden</value>     
         <value xml:lang="pt_BR">Arquivos de produtos digitais</value>
         <value xml:lang="ro">Fisiere Produse Digitale</value>
@@ -888,6 +921,7 @@
         <value xml:lang="fr">Historique des commissions sur l'achat d'articles(s) numérique(s)</value>
         <value xml:lang="hi_IN">डिजीटल सामान ख़रीदारी का इतिहास व दलाली</value>
         <value xml:lang="it">Storia delle provvigioni sugli acquisti di prodotti digitali</value>
+        <value xml:lang="ja">ソフトウェア製品購入履歴委託</value>
         <value xml:lang="nl">Commissie geschiedenis voor digitale producten</value>     
         <value xml:lang="pt_BR">Histórico de comissões por compras de produtos digitais</value>
         <value xml:lang="ro">Storia Cumparari si  Provizioane Produse Digitale</value>
@@ -905,6 +939,7 @@
         <value xml:lang="fr">Téléchargement de l'article numérique vers le serveur</value>
         <value xml:lang="hi_IN">अंकीय फल अपलोड</value>
         <value xml:lang="it">Upload prodotto digitale</value>
+        <value xml:lang="ja">ソフトウェア製品アップロード</value>
         <value xml:lang="nl">Uploaden digitale producten</value>        
         <value xml:lang="pt_BR">Upload de produto digital</value>
         <value xml:lang="ro">Upload Produs Digital</value>
@@ -922,6 +957,7 @@
         <value xml:lang="fr">Téléchargement non trouvé</value>
         <value xml:lang="hi_IN">प्राप्त योग्य फाइलें नहीं मिली</value>
         <value xml:lang="it">Nessun file trovato</value>
+        <value xml:lang="ja">ダウンロード対象はありません</value>
         <value xml:lang="nl">Download niet gevonden</value>     
         <value xml:lang="pt_BR">Arquivo não encontrado</value>
         <value xml:lang="ro">Nici-un Download de Fisiere Gasit</value>
@@ -939,6 +975,7 @@
         <value xml:lang="fr">Fichiers à télécharger disponibles</value>
         <value xml:lang="hi_IN">प्राप्त योग्य फाइलें उपस्थित</value>
         <value xml:lang="it">File disponibili per il download</value>
+        <value xml:lang="ja">ダウンロード可能タイトル</value>
         <value xml:lang="pt_BR">Baixar os arquivos disponíveis</value>
         <value xml:lang="ro">Download de Fisiere Disponibile</value>
         <value xml:lang="ru">Доступны файлы для загрузки</value>
@@ -953,6 +990,7 @@
         <value xml:lang="en">Edit Profile</value>
         <value xml:lang="fr">Modifier le profil</value>
         <value xml:lang="it">Aggiorna profilo</value>
+        <value xml:lang="ja">プロファイルを編集</value>
         <value xml:lang="nl">Wijzigen profiel</value>       
         <value xml:lang="pt_BR">Editar perfil</value>
         <value xml:lang="vi">Soạn thảo hồ sơ</value>
@@ -964,6 +1002,7 @@
         <value xml:lang="en">Edit this comment</value>
         <value xml:lang="fr">Modifier ce commentaire</value>
         <value xml:lang="it">Aggiorna questo commento</value>
+        <value xml:lang="ja">このコメントを編集</value>
         <value xml:lang="nl">Wijzig dit commentaar</value>      
         <value xml:lang="pt_BR">Editar este comentário</value>
         <value xml:lang="vi">Chỉnh sửa Diễn giải này</value>
@@ -978,7 +1017,7 @@
         <value xml:lang="fr">Corps du message vide</value>
         <value xml:lang="hi_IN">ख़ाली शरीर</value>
         <value xml:lang="it">Corpo messaggio vuoto</value>
-        <value xml:lang="ja">Empty Body</value>
+        <value xml:lang="ja">何も入っていない本文</value>
         <value xml:lang="nl">Geen inhoud</value>
         <value xml:lang="pt_BR">Conteúdo vazio</value>
         <value xml:lang="ro">Corp Gol</value>
@@ -998,7 +1037,7 @@
         <value xml:lang="fr">Vider le panier</value>
         <value xml:lang="hi_IN">ख़ाली टोकरी</value>
         <value xml:lang="it">Svuota</value>
-        <value xml:lang="ja">Empty Cart</value>
+        <value xml:lang="ja">何も入っていない買い物かご</value>
         <value xml:lang="nl">Leeg winkelwagen</value>
         <value xml:lang="pt_BR">Carrinho vazio</value>
         <value xml:lang="pt_PT">Cesto Vazio</value>
@@ -1015,6 +1054,7 @@
         <value xml:lang="en">Enter Promo Code</value>
         <value xml:lang="fr">Saisissez votre code de promotion</value>
         <value xml:lang="it">Inserire codice promozione</value>
+        <value xml:lang="ja">プロモーションコードを入力</value>
         <value xml:lang="nl">Opgeven promotiecode</value>       
         <value xml:lang="pt_BR">Escreva o código promocional</value>
         <value xml:lang="vi">Nhập mã khuyến mại</value>
@@ -1029,7 +1069,7 @@
         <value xml:lang="fr">Entrer vos paramètres de recherche</value>
         <value xml:lang="hi_IN">पूछताछ प्राचल दें</value>
         <value xml:lang="it">Inserisci i parametri di ricerca</value>
-        <value xml:lang="ja">Enter query parameters</value>
+        <value xml:lang="ja">照会パラメータを入力</value>
         <value xml:lang="nl">Vul zoekwoorden in</value>
         <value xml:lang="pt_BR">Entre com os parâmetros para busca</value>
         <value xml:lang="ro">Introdu parametrii de cautare</value>
@@ -1047,7 +1087,7 @@
         <value xml:lang="fr">Date estimée de la prochaine commande</value>
         <value xml:lang="hi_IN">अगला आर्डर तिथी</value>
         <value xml:lang="it">Data stimata del prossimo ordine</value>
-        <value xml:lang="ja">Estimate Next Order Date</value>
+        <value xml:lang="ja">次回注文予定日</value>
         <value xml:lang="nl">Geschatte datum voor the volgende bestelling</value>
         <value xml:lang="pt_BR">Estimativa para a data do próximo pedido</value>
         <value xml:lang="ro">Stimeza Urmatoarea Data a Comenzii </value>
@@ -1065,7 +1105,7 @@
         <value xml:lang="fr">Tous les 3</value>
         <value xml:lang="hi_IN">हर तीसरा</value>
         <value xml:lang="it">Ogni 3°</value>
-        <value xml:lang="ja">Every 3rd</value>
+        <value xml:lang="ja">毎月3日</value>
         <value xml:lang="nl">Elke derde</value>
         <value xml:lang="pt_BR">Cada 3</value>
         <value xml:lang="ro">La fiecare a-3-a</value>
@@ -1083,7 +1123,7 @@
         <value xml:lang="fr">Tous les 6</value>
         <value xml:lang="hi_IN">हर छठा</value>
         <value xml:lang="it">Ogni 6°</value>
-        <value xml:lang="ja">Every 6th</value>
+        <value xml:lang="ja">毎月6日</value>
         <value xml:lang="nl">Elke zesde</value>
         <value xml:lang="pt_BR">Cada 6</value>
         <value xml:lang="ro">La fiecare a-6-a</value>
@@ -1101,7 +1141,7 @@
         <value xml:lang="fr">Tous les 9</value>
         <value xml:lang="hi_IN">हर नवां</value>
         <value xml:lang="it">Ogni 9°</value>
-        <value xml:lang="ja">Every 9th</value>
+        <value xml:lang="ja">毎月9日</value>
         <value xml:lang="nl">Elke negende</value>
         <value xml:lang="pt_BR">Cada 9</value>
         <value xml:lang="ro">La fiecare a-9-a</value>
@@ -1119,7 +1159,7 @@
         <value xml:lang="fr">Chaque jour</value>
         <value xml:lang="hi_IN">हर</value>
         <value xml:lang="it">Ogni giorno</value>
-        <value xml:lang="ja">Every</value>
+        <value xml:lang="ja">毎日</value>
         <value xml:lang="nl">Elke</value>
         <value xml:lang="pt_BR">Todos os dias</value>
         <value xml:lang="ro">In fiecare zi</value>
@@ -1137,7 +1177,7 @@
         <value xml:lang="fr">Tous les 2</value>
         <value xml:lang="hi_IN">हर दूसरे</value>
         <value xml:lang="it">Ogni altro</value>
-        <value xml:lang="ja">Every Other</value>
+        <value xml:lang="ja">隔日</value>
         <value xml:lang="nl">Elke andere</value>
         <value xml:lang="pt_BR">Todos os outros</value>
         <value xml:lang="ro">Oricand</value>
@@ -1155,7 +1195,7 @@
         <value xml:lang="fr">Quantité exempte</value>
         <value xml:lang="hi_IN">बचा हुआ राशी</value>
         <value xml:lang="it">Importo esente</value>
-        <value xml:lang="ja">Exempt Amount</value>
+        <value xml:lang="ja">税抜金額</value>
         <value xml:lang="nl">Uitgesloten hoeveelheid</value>
         <value xml:lang="pt_BR">Quantidade isenta</value>
         <value xml:lang="ro">Valoare Scutita</value>
@@ -1174,6 +1214,7 @@
         <value xml:lang="es">¿Sabía usted?</value>
         <value xml:lang="fr">Le saviez-vous ?</value>
         <value xml:lang="it">Sapevi che...?</value>
+        <value xml:lang="ja">ご存知ですか?</value>
         <value xml:lang="nl">Wist u dat?</value>
         <value xml:lang="pt">Você Sabia?</value>
         <value xml:lang="pt_BR">Você sabia?</value>
@@ -1192,7 +1233,7 @@
         <value xml:lang="fr">Gestionnaire de fichiers</value>
         <value xml:lang="hi_IN">फाइल संचालक</value>
         <value xml:lang="it">Gestione file</value>
-        <value xml:lang="ja">File Manager</value>
+        <value xml:lang="ja">ファイル管理</value>
         <value xml:lang="nl">Bestandsbeheerder</value>
         <value xml:lang="pt_BR">Gerenciador de arquivos</value>
         <value xml:lang="ro">Gestiune Fisier</value>
@@ -1209,7 +1250,7 @@
         <value xml:lang="es">ha pedido que le enviemos el siguiente mensaje :</value>
         <value xml:lang="fr">suite à une demande, nous vous envoyons ce lien avec le message suivant : </value>
         <value xml:lang="it">come richiesto ti inviamo questo link con il seguente messaggio:</value>
-        <value xml:lang="ja">has requested us to send you this link with the following message:</value>
+        <value xml:lang="ja">が、あなたに次のメッセージのリンクを送信するようにリクエストしています:</value>
         <value xml:lang="nl">is aangevraagd dat we u deze link sturen met het bericht:</value>
         <value xml:lang="pt_BR">foi pedido que lhe enviássemos este link com a seguinte mensagem:</value>
         <value xml:lang="ro">dupa cum ati cerut noi iti trimitem acest link cu urmatorul mesaj:</value>
@@ -1227,7 +1268,7 @@
         <value xml:lang="fr">Depuis l'article parent</value>
         <value xml:lang="hi_IN">पिता लेख से</value>
         <value xml:lang="it">Dall'articolo padre</value>
-        <value xml:lang="ja">From Parent Article</value>
+        <value xml:lang="ja">上位(親)の記事から</value>
         <value xml:lang="nl">Van het bovenliggende artikel</value>
         <value xml:lang="pt_BR">Do artigo superior</value>
         <value xml:lang="ro">De La Articolul Parinte</value>
@@ -1245,7 +1286,7 @@
         <value xml:lang="fr">Depuis site</value>
         <value xml:lang="hi_IN">किस साइट से</value>
         <value xml:lang="it">Dal sito:</value>
-        <value xml:lang="ja">From Site:</value>
+        <value xml:lang="ja">サイト(元):</value>
         <value xml:lang="nl">Van de website:</value>
         <value xml:lang="pt_BR">Do site:</value>
         <value xml:lang="ro">De la Sit:</value>
@@ -1260,6 +1301,7 @@
         <value xml:lang="en">Generated Description:</value>
         <value xml:lang="fr">Description générée : </value>
         <value xml:lang="it">Descrizione generata:</value>
+        <value xml:lang="ja">生成された詳細:</value>
         <value xml:lang="nl">Gegenereerde beschrijving:</value>     
         <value xml:lang="pt_BR">Descrição geral</value>
         <value xml:lang="vi">Miêu tả được tạo ra:</value>
@@ -1274,7 +1316,7 @@
         <value xml:lang="fr">Montant du cadeau : </value>
         <value xml:lang="hi_IN">उपहार कुल:</value>
         <value xml:lang="it">Importo omaggio:</value>
-        <value xml:lang="ja">Gift Amount:</value>
+        <value xml:lang="ja">ギフト金額:</value>
         <value xml:lang="nl">Geschenk saldo:</value>
         <value xml:lang="pt_BR">Quantidade de presente</value>
         <value xml:lang="ro">Valoare Omagiu :</value>
@@ -1292,7 +1334,7 @@
         <value xml:lang="fr">Carte cadeau de</value>
         <value xml:lang="hi_IN">उपहार कार्ड के द्वरा</value>
         <value xml:lang="it">Carta omaggio da</value>
-        <value xml:lang="ja">Gift Card from</value>
+        <value xml:lang="ja">ギフトカード送り主</value>
         <value xml:lang="nl">Geschenkkaart van</value>
         <value xml:lang="pt_BR">Cartão de presente de</value>
         <value xml:lang="ro">Carte Omagiu de la</value>
@@ -1310,7 +1352,7 @@
         <value xml:lang="fr">Nouveau solde de la carte cadeau</value>
         <value xml:lang="hi_IN">आपका नया शेष है:</value>
         <value xml:lang="it">Il nuovo saldo è:</value>
-        <value xml:lang="ja">The new balance is :</value>
+        <value xml:lang="ja">お買い上げ後の残高:</value>
         <value xml:lang="nl">Het nieuwe saldo is :</value>
         <value xml:lang="pt_BR">Novo saldo de cartão de presente:</value>
         <value xml:lang="ro">Noul bilant este :</value>
@@ -1328,7 +1370,7 @@
         <value xml:lang="fr">Carte cadeau remboursée</value>
         <value xml:lang="hi_IN">आपके आदेश को वापस करने के लिए चुना गया है</value>
         <value xml:lang="it">Il tuo ordine è stato rimborsato.</value>
-        <value xml:lang="ja">Your order has been flagged to be refunded.</value>
+        <value xml:lang="ja">注文は返金するように指定されています。</value>
         <value xml:lang="nl">Uw bestelling is gemarkeerd om terug te worden betaald.</value>
         <value xml:lang="pt_BR">Seu pedido foi marcado para ser reembolsado</value>
         <value xml:lang="ro">Comanda ta a fost setata pentru a fi rambursata.</value>
@@ -1346,7 +1388,7 @@
         <value xml:lang="fr">Le rechargement de la carte cadeau a échoué</value>
         <value xml:lang="hi_IN">उपहार कार्ड क्रिया असफल, जवाबी कोड है:</value>
         <value xml:lang="it">La ricarica della carta omaggio è fallita</value>
-        <value xml:lang="ja">Gift Card Reload Process Failed with response code:</value>
+        <value xml:lang="ja">ギフトカードの補充に失敗しました。レスポンスコード:</value>
         <value xml:lang="nl">Opwaarderen geschenkkaart mislukt</value>
         <value xml:lang="pt_BR">A recarga do cartão de presente falhou</value>
         <value xml:lang="ro">Proces de Reincarcare Carte Omagiu Falita cu  cod de raspuns:</value>
@@ -1364,7 +1406,7 @@
         <value xml:lang="fr">Carte cadeau rechargée</value>
         <value xml:lang="hi_IN">को लोड किया जा चुका है.</value>
         <value xml:lang="it">Carta regalo ricaricata.</value>
-        <value xml:lang="ja">has been reloaded.</value>
+        <value xml:lang="ja">が補充されました。</value>
         <value xml:lang="nl">is heropgewaardeerd</value>
         <value xml:lang="pt_BR">Cartão de presente recarregado</value>
         <value xml:lang="ro">a fost reincarcata.</value>
@@ -1382,7 +1424,7 @@
         <value xml:lang="fr">Emballage cadeau pour tous les articles</value>
         <value xml:lang="hi_IN">सारे सामान को पैक उपहार पैक कराऐं</value>
         <value xml:lang="it">Omaggio ingloba tutti gli articoli</value>
-        <value xml:lang="ja">Gift Wrap All Items</value>
+        <value xml:lang="ja">すべてのアイテムをギフト包装</value>
         <value xml:lang="nl">Geschenkverpakking voor alle items</value>
         <value xml:lang="pt_BR">Embrulhar todos os itens para presente</value>
         <value xml:lang="ro">Omagiul Inglobeaza Toate Liniile</value>
@@ -1401,7 +1443,7 @@
         <value xml:lang="fr">Aller à la liste</value>
         <value xml:lang="hi_IN">सुची पर जाऐं</value>
         <value xml:lang="it">Vai alla lista</value>
-        <value xml:lang="ja">Go To List</value>
+        <value xml:lang="ja">一覧に移動</value>
         <value xml:lang="nl">Ga naar de lijst</value>
         <value xml:lang="pt_BR">Ir para a lista</value>
         <value xml:lang="pt_PT">Ir à Lista</value>
@@ -1420,7 +1462,7 @@
         <value xml:lang="fr">Or</value>
         <value xml:lang="hi_IN">स्वर्ण</value>
         <value xml:lang="it">Oro</value>
-        <value xml:lang="ja">Gold</value>
+        <value xml:lang="ja">ゴールド</value>
         <value xml:lang="nl">Goud</value>
         <value xml:lang="pt_BR">Ouro</value>
         <value xml:lang="ro">Aur</value>
@@ -1438,7 +1480,7 @@
         <value xml:lang="fr">Descendant (du + haut au + bas)</value>
         <value xml:lang="hi_IN">ज्यादा से कम</value>
         <value xml:lang="it">Dall'alto in basso</value>
-        <value xml:lang="ja">High to Low</value>
+        <value xml:lang="ja">高から低へ</value>
         <value xml:lang="nl">Hoog tot laag</value>
         <value xml:lang="pt_BR">Do maior para o menor</value>
         <value xml:lang="ro">De Sus in Jos</value>
@@ -1456,7 +1498,7 @@
         <value xml:lang="fr">Image</value>
         <value xml:lang="hi_IN">तस्वीर</value>
         <value xml:lang="it">Immagine</value>
-        <value xml:lang="ja">Image</value>
+        <value xml:lang="ja">画像</value>
         <value xml:lang="nl">Plaatje</value>
         <value xml:lang="pt_BR">Imagem</value>
         <value xml:lang="ro">Imagine</value>
@@ -1474,7 +1516,7 @@
         <value xml:lang="fr">Image centrée au dessus</value>
         <value xml:lang="hi_IN">तस्वीर उपर बीच में है</value>
         <value xml:lang="it">Immagine centrata sotto</value>
-        <value xml:lang="ja">Image centered above</value>
+        <value xml:lang="ja">画像を中央上部に</value>
         <value xml:lang="nl">Plaatje gecentreerd erboven</value>
         <value xml:lang="pt_BR">Imagem centralizada acima</value>
         <value xml:lang="ro">Imagine centrata dedesubt</value>
@@ -1492,7 +1534,7 @@
         <value xml:lang="fr">Image centrée au dessus du fichier</value>
         <value xml:lang="hi_IN">फाइल का तस्वीर बीच में है</value>
         <value xml:lang="it">Immagine centrata sotto il file</value>
-        <value xml:lang="ja">Image centered above from file</value>
+        <value xml:lang="ja">ファイルから画像を中央上部に</value>
         <value xml:lang="nl">Plaatjes gecentreerd boven het bestand</value>
         <value xml:lang="pt_BR">Imagem centralizada acima do arquivo</value>
         <value xml:lang="ro">Imagine centrata sub fisier</value>
@@ -1510,7 +1552,7 @@
         <value xml:lang="fr">Nom du fichier image </value>
         <value xml:lang="hi_IN">फाइल की तस्वीर का नाम</value>
         <value xml:lang="it">Name file immagine</value>
-        <value xml:lang="ja">Image File Name</value>
+        <value xml:lang="ja">画像ファイル名</value>
         <value xml:lang="nl">Bestandsnaam van het plaatje</value>
         <value xml:lang="pt_BR">Nome do arquivo de imagem</value>
         <value xml:lang="ro">Nume Fisier Imagine</value>
@@ -1528,7 +1570,7 @@
         <value xml:lang="fr">Information sur l'image</value>
         <value xml:lang="hi_IN">तस्वीर जानकारी</value>
         <value xml:lang="it">Informazioni immagine</value>
-        <value xml:lang="ja">Image Information</value>
+        <value xml:lang="ja">画像情報</value>
         <value xml:lang="nl">Informatie over het plaatje</value>
         <value xml:lang="pt_BR">Dados da imagem</value>
         <value xml:lang="ro">Informatii Imagine</value>
@@ -1546,7 +1588,7 @@
         <value xml:lang="fr">Image à gauche, insérée dans le texte.</value>
         <value xml:lang="hi_IN">तस्वीर बाऐं, लिख़ीत आजू बाजू</value>
         <value xml:lang="it">Immagine sinistra, flusso del testo intorno.</value>
-        <value xml:lang="ja">Image left, text flows around.</value>
+        <value xml:lang="ja">画像は左、テキストは回り込む</value>
         <value xml:lang="nl">Plaatje links, de tekst wordt eromheen gegroepeerd</value>
         <value xml:lang="pt_BR">Imagem à esquerda, texto flutuante à direita</value>
         <value xml:lang="ro">Imagine stanga, flux de text imrejur.</value>
@@ -1564,7 +1606,7 @@
         <value xml:lang="fr">En réponse à</value>
         <value xml:lang="hi_IN">सेवा में:</value>
         <value xml:lang="it">In risposta a:</value>
-        <value xml:lang="ja">In response to:</value>
+        <value xml:lang="ja">回答:</value>
         <value xml:lang="nl">In antwoord op:</value>
         <value xml:lang="pt_BR">Em resposta a</value>
         <value xml:lang="ro">In timpul raspunsului la:</value>
@@ -1582,7 +1624,7 @@
         <value xml:lang="fr">Valeur par défaut</value>
         <value xml:lang="hi_IN">सामान्य है</value>
         <value xml:lang="it">E' predefinito</value>
-        <value xml:lang="ja">Is Default</value>
+        <value xml:lang="ja">通常使用</value>
         <value xml:lang="nl">Is standaard</value>
         <value xml:lang="pt_BR">É padrão</value>
         <value xml:lang="ro">Este de Default</value>
@@ -1601,7 +1643,7 @@
         <value xml:lang="fr">Total de la ligne</value>
         <value xml:lang="hi_IN">कुल सामान</value>
         <value xml:lang="it">Totale riga</value>
-        <value xml:lang="ja">Item Total</value>
+        <value xml:lang="ja">アイテム合計</value>
         <value xml:lang="nl">Item Totaal</value>
         <value xml:lang="pt_BR">Total</value>
         <value xml:lang="pt_PT">Total de Itens</value>
@@ -1621,7 +1663,7 @@
         <value xml:lang="fr">Articles de la liste d'achats</value>
         <value xml:lang="hi_IN">ख़रीदीरी सूची से सामान, सूची पृष्ठ से सामान ठीक करें</value>
         <value xml:lang="it">Articoli da una lista di acquisto</value>
-        <value xml:lang="ja">Items from a shopping list; update quantities from list page</value>
+        <value xml:lang="ja">買い物リストからのアイテム</value>
         <value xml:lang="nl">Items van de boodschappenlijst</value>
         <value xml:lang="pt_BR">Itens da lista de compras</value>
         <value xml:lang="pt_PT">Itens de uma Lista de Compras; actualizar quantidades da lista na página</value>
@@ -1634,6 +1676,7 @@
     </property>
     <property key="EcommerceLanguage">
         <value xml:lang="en">Language</value>
+        <value xml:lang="ja">言語</value>
         <value xml:lang="vi">Ngôn ngữ</value>
     </property>
     <property key="EcommerceLastCategories">
@@ -1663,7 +1706,7 @@
         <value xml:lang="fr">Dernier contenu visité</value>
         <value xml:lang="hi_IN">अतिंम अंतर्वस्तु अंश</value>
         <value xml:lang="it">Ultimo contenuto</value>
-        <value xml:lang="ja">Last Content</value>
+        <value xml:lang="ja">最近表示したコンテンツ</value>
         <value xml:lang="nl">Laatste content</value>
         <value xml:lang="pt_BR">último conteúdo</value>
         <value xml:lang="ro">Ultimul  Continut</value>
@@ -1682,7 +1725,7 @@
         <value xml:lang="fr">Derniers articles visités</value>
         <value xml:lang="hi_IN">अतिंम सामान</value>
         <value xml:lang="it">Ultimi prodotti</value>
-        <value xml:lang="ja">Last Products</value>
+        <value xml:lang="ja">最近表示した製品</value>
         <value xml:lang="nl">Laatste producten</value>
         <value xml:lang="pt_BR">Últimos produtos</value>
         <value xml:lang="ro">Ultimele Produse</value>
@@ -1701,7 +1744,7 @@
         <value xml:lang="fr">Derniers visités</value>
         <value xml:lang="hi_IN">अतिंम देख़ा हुआ</value>
         <value xml:lang="it">Ultime visite</value>
-        <value xml:lang="ja">Last Viewed</value>
+        <value xml:lang="ja">最近表示</value>
         <value xml:lang="nl">Laatst gezien</value>
         <value xml:lang="pt_BR">Últimos visualizados</value>
         <value xml:lang="pt_PT">Último Visto</value>
@@ -1720,7 +1763,7 @@
         <value xml:lang="fr">Longueur</value>
         <value xml:lang="hi_IN">दूरी</value>
         <value xml:lang="it">Lunghezza</value>
-        <value xml:lang="ja">Length</value>
+        <value xml:lang="ja">長さ</value>
         <value xml:lang="nl">Lengte</value>
         <value xml:lang="pt_BR">Comprimento</value>
         <value xml:lang="ro">Lungimea</value>
@@ -1733,6 +1776,7 @@
     <property key="EcommerceLimit">
         <value xml:lang="en">Limit:</value>
         <value xml:lang="fr">Limite :</value>
+        <value xml:lang="ja">制限:</value>
         <value xml:lang="vi">Giới hạn:</value>
         <value xml:lang="zh_TW">限制:</value>
     </property>
@@ -1743,6 +1787,7 @@
         <value xml:lang="fr">Connecter les cartes</value>
         <value xml:lang="hi_IN">कड़ी कार्ड</value>
         <value xml:lang="it">Link carte</value>
+        <value xml:lang="ja">カードにリンク</value>
         <value xml:lang="nl">Kaarten linken</value>     
         <value xml:lang="ro">Link Carte</value>
         <value xml:lang="ru">Ссылка на карты</value>
@@ -1760,7 +1805,7 @@
         <value xml:lang="fr">La liste ne vous appartient pas</value>
         <value xml:lang="hi_IN">आपका नहीं है, कृपया दुबारा कोशिश किजीये</value>
         <value xml:lang="it">La lista non corrisponde a te, prego riprovare</value>
-        <value xml:lang="ja">does not belong to you, please try again</value>
+        <value xml:lang="ja">あなたが所有した一覧ではありません</value>
         <value xml:lang="nl">hoort niet bij u, probeer het opnieuw a.u.b.</value>
         <value xml:lang="pt_BR">Esta lista não lhe pertence, por favor tente novamente.</value>
         <value xml:lang="pt_PT">Não lhe pertence, por favor, tente outra vez</value>
@@ -1780,7 +1825,7 @@
         <value xml:lang="fr">Liste d'articles</value>
         <value xml:lang="hi_IN">ख़रीदारी वस्तु सूची</value>
         <value xml:lang="it">Righe lista acquisto</value>
-        <value xml:lang="ja">Shopping List Items</value>
+        <value xml:lang="ja">アイテム一覧</value>
         <value xml:lang="nl">Boodschappenlijst artikelen</value>
         <value xml:lang="pt_BR">Itens da Lista de compras</value>
         <value xml:lang="pt_PT">Itens da Lista de Compras</value>
@@ -1799,7 +1844,7 @@
         <value xml:lang="fr">Prix total de la liste d'articles</value>
         <value xml:lang="hi_IN">सूची वस्तु का कुल मूल्य</value>
         <value xml:lang="it">Prezzo totale della lista di articoli</value>
-        <value xml:lang="ja">This List Items Total Price</value>
+        <value xml:lang="ja">一覧のアイテム価格合計</value>
         <value xml:lang="nl">De totale prijs van deze lijst</value>
         <value xml:lang="pt_BR">Preço total da lista de compras</value>
         <value xml:lang="pt_PT">Preço Total Desta Lista De Compras</value>
@@ -1819,7 +1864,7 @@
         <value xml:lang="fr">Nom de liste</value>
         <value xml:lang="hi_IN">सूची नाम</value>
         <value xml:lang="it">Nome lista</value>
-        <value xml:lang="ja">List Name</value>
+        <value xml:lang="ja">一覧名称</value>
         <value xml:lang="nl">Lijstnaam</value>
         <value xml:lang="pt_BR">Nome da lista</value>
         <value xml:lang="pt_PT">Nome da Lista</value>
@@ -1838,6 +1883,7 @@
         <value xml:lang="fr">NOTE : Quand vous vous abonnez à une liste de contact vous recevrez un e-mail avec un code de vérification et un lien pour vérifier votre souscription. Comme une alternative au lien vous pouvez saisir code de vérification ici.</value>
         <value xml:lang="hi_IN">नोट: जब आप हमसे जुङेगें तो आपको एक कोड व एक लिकं दिया जाएगा ई-मेल से, उस लिकं को इस्तमाल करके आप वही कोड दिजीये.</value>
         <value xml:lang="it">NOTA: Quando sottoscrivi una lista di contatto riceverai una email con un codice ed un link per la verifica della tua sottoscrizione. In alternativa al link puoi inserire il tuo codice di verifica qui.</value>
+        <value xml:lang="ja">注意: メール連絡リストを申し込むと、承諾の確認および申し込み確認のリンク先がメールで届きます。リンクの代わりの方法として承諾の確認コードをここで入力することもできます。</value>
         <value xml:lang="nl">Attentie: Wanneer u zich abonneert op een nieuwsbrief ontvangt u een email met daarin een verificatie code en een link naar de pagina waar u deze code kunt ingeven ter controle. U kunt de verificatie code ook hier ingeven.</value>
         <value xml:lang="pt_BR">Atenção: quando você se inscrever em uma lista de contatos de emails você receberá um email com um link de verificação e um código. Alternativamente você pode digitar o código aqui.</value>
         <value xml:lang="ro">NOTA: Dupa ce ai subscris un email la lista de contact tu vei primi un email cu un cod de verificare si un link pentru verificarea subinscrierii tale. In alternativa la link tu poti sa introduci codul tau de verificare aici.</value>
@@ -1852,6 +1898,7 @@
         <value xml:lang="en">Location</value>
         <value xml:lang="fr">Emplacement</value>
         <value xml:lang="it">Luogo</value>
+        <value xml:lang="ja">位置</value>
         <value xml:lang="nl">Locatie</value>        
         <value xml:lang="pt_BR">Local</value>
         <value xml:lang="vi">Địa điểm</value>
@@ -1865,7 +1912,7 @@
         <value xml:lang="es">(Debe loguearse para ejecutar la función que desea)</value>
         <value xml:lang="fr">(Vous devez être connecté pour écrire)</value>
         <value xml:lang="it">(Ti devi loggare per scrivere)</value>
-        <value xml:lang="ja">(You must be logged in to post)</value>
+        <value xml:lang="ja">(投稿はログインしてください)</value>
         <value xml:lang="nl">(U moet ingelogd zijn om een bericht toe te voegen)</value>
         <value xml:lang="pt_BR">(Você deve registrar-se para publicar algo)</value>
         <value xml:lang="ro">(Trebuie sa te loghezi la Posta)</value>
@@ -1883,7 +1930,7 @@
         <value xml:lang="fr">Sujet long</value>
         <value xml:lang="hi_IN">लम्बा विषय</value>
         <value xml:lang="it">Soggetto lungo</value>
-        <value xml:lang="ja">Long Subject</value>
+        <value xml:lang="ja">詳しい件名</value>
         <value xml:lang="nl">Onderwerp (lang)</value>
         <value xml:lang="pt_BR">Assunto longo</value>
         <value xml:lang="ro">Subiect Lung</value>
@@ -1901,7 +1948,7 @@
         <value xml:lang="fr">Si jamais vous perdez votre mot de passe, vous pouvez en demander un nouveau à tout moment.</value>
         <value xml:lang="hi_IN">अगर आपका पास कोड ख़ो गया है तो आप फिर से पा सकते हैं</value>
         <value xml:lang="it">Se hai perso la password, puoi richiederne una nuova in qualsiasi momento.</value>
-        <value xml:lang="ja">If you ever lose your password, you can request a new one at any time.</value>
+        <value xml:lang="ja">パスワードを忘れた場合は、いつでも新しいパスワードがリクエスト可能です。</value>
         <value xml:lang="nl">Als u uw wachtwoord vergeet kunt u altijd een nieuw wachtwoord aanvragen.</value>
         <value xml:lang="pt_BR">Se você perder sua senha, você pode requisitar uma nova a qualquer momento</value>
         <value xml:lang="ro">Daca nu iti mai amintesti parola, poti oricand sa ceri una noua.</value>
@@ -1919,7 +1966,7 @@
         <value xml:lang="fr">Ascendant (du + bas au + haut)</value>
         <value xml:lang="hi_IN">कम से ज्यादा</value>
         <value xml:lang="it">Dal basso in alto</value>
-        <value xml:lang="ja">Low to High</value>
+        <value xml:lang="ja">低から高へ</value>
         <value xml:lang="nl">Van laag tot hoog</value>
         <value xml:lang="pt_BR">Do menor para o maior</value>
         <value xml:lang="ro">De Jos in Sus </value>
@@ -1937,7 +1984,7 @@
         <value xml:lang="fr">Points de fidélité</value>
         <value xml:lang="hi_IN">ईमानदारी अंक</value>
         <value xml:lang="it">Punti fedeltà</value>
-        <value xml:lang="ja">Loyalty Points</value>
+        <value xml:lang="ja">ロイヤリティポイント</value>
         <value xml:lang="nl">Loyaliteitspunten</value>
         <value xml:lang="pt_BR">Pontos de fidelidade</value>
         <value xml:lang="ro">Puncte de Fidelitate </value>
@@ -1953,6 +2000,7 @@
         <value xml:lang="en">Manage Addresses</value>
         <value xml:lang="fr">Gérer les adresses</value>
         <value xml:lang="it">Gestione indirizzi</value>
+        <value xml:lang="ja">住所の管理</value>
         <value xml:lang="nl">Adressen beheren</value>       
         <value xml:lang="pt_BR">Gerenciar endereços</value>
         <value xml:lang="vi">Quản lý địa chỉ</value>
@@ -1966,6 +2014,7 @@
         <value xml:lang="fr">Désolé, il semble que l'article spécifié</value>
         <value xml:lang="hi_IN">माफ किजीये, ऐसा जान पडता है कि आपने जो सामान नम्बर दिया है</value>
         <value xml:lang="it">Spiacente, sembra che il prodotto specificato </value>
+        <value xml:lang="ja">申し訳ございません。指定製品ID</value>
         <value xml:lang="nl">Excuses, het gespecificeerde product</value>       
         <value xml:lang="pt_BR">Desculpe, parece que o ID do produto especificado</value>
         <value xml:lang="ro">Imi pare rau, pare ca produsul specificat </value>
@@ -1982,6 +2031,7 @@
         <value xml:lang="fr">ne vous appartient pas</value>
         <value xml:lang="hi_IN">आपका नहीं है</value>
         <value xml:lang="it">non corrisponde a te.</value>
+        <value xml:lang="ja">あなたが所有したものではありません</value>
         <value xml:lang="nl">niet bij u hoort.</value>      
         <value xml:lang="pt_BR">não lhe pertence</value>
         <value xml:lang="ro">nu iti corespunde tie.</value>
@@ -1998,6 +2048,7 @@
         <value xml:lang="fr">Sélectionnez une nouvelle adresse de facturation</value>
         <value xml:lang="hi_IN">नया लेखा पत्र चुनें</value>
         <value xml:lang="it">Seleziona un nuovo indirizzo fatturazione:</value>
+        <value xml:lang="ja">新規請求先住所を選択:</value>
         <value xml:lang="nl">Kies een nieuw factuuradres:</value>       
         <value xml:lang="pt_BR">Selecione num novo endereço de cobrança:</value>
         <value xml:lang="ro">Selectioneaza o Noua Adresa Facturare:</value>
@@ -2014,6 +2065,7 @@
         <value xml:lang="fr">Liste de messages du forum</value>
         <value xml:lang="hi_IN">फोरम के लिए संदेश</value>
         <value xml:lang="it">Lista messaggi per il forum:</value>
+        <value xml:lang="ja">フォーラムのメッセージ一覧:</value>
         <value xml:lang="nl">Berichtenlijst voor forum</value>      
         <value xml:lang="pt_BR">Lista de mensagens para o Forum</value>
         <value xml:lang="ro">Lista Messaje pentru forum:</value>
@@ -2029,6 +2081,7 @@
         <value xml:lang="en">Please Select Payment Method</value>
         <value xml:lang="fr">SVP, sélectionnez un moyen de paiement</value>
         <value xml:lang="it">Per favore seleziona il metodo di pagamento</value>
+        <value xml:lang="ja">支払方法を選択してください</value>
         <value xml:lang="nl">Selecteer a.u.b. een betaalwijze</value>       
         <value xml:lang="pt_BR">Por favor, selecione o método de pagamento</value>
         <value xml:lang="ru">Пожалуйста выберите метод оплаты</value>
@@ -2043,6 +2096,7 @@
         <value xml:lang="en">Please Select Shipping Method</value>
         <value xml:lang="fr">SVP, sélectionnez une méthode d'expédition</value>
         <value xml:lang="it">Per favore seleziona il metodo di spedizione</value>
+        <value xml:lang="ja">発送方法を選択してください</value>
         <value xml:lang="nl">Selecteer a.u.b. een verzendmethode</value>        
         <value xml:lang="pt_BR">Por favor, selecione o método de pagamento</value>
         <value xml:lang="ru">Пожалуйста выберите метод доставки</value>
@@ -2053,6 +2107,7 @@
     </property>
     <property key="EcommerceModifyDate">
         <value xml:lang="en">Modified Date</value>
+        <value xml:lang="ja">更新日</value>
         <value xml:lang="vi">Ngày chỉnh sửa</value>
     </property>
     <property key="EcommerceMonths">
@@ -2063,7 +2118,7 @@
         <value xml:lang="fr">Mois</value>
         <value xml:lang="hi_IN">महीना</value>
         <value xml:lang="it">Mesi</value>
-        <value xml:lang="ja">months</value>
+        <value xml:lang="ja">ヶ月</value>
         <value xml:lang="nl">maanden</value>
         <value xml:lang="pt_BR">Meses</value>
         <value xml:lang="ro">luni</value>
@@ -2076,11 +2131,13 @@
     <property key="EcommerceMonthsAtAddressNotValid">
         <value xml:lang="en">Months at address not a valid number: ${parameters.monthsAtAddress}</value>
         <value xml:lang="it">Mesi all'indirizzo non è un numero valido: ${parameters.monthsAtAddress}</value>
+        <value xml:lang="ja">住所が有効でない月数: ${parameters.monthsAtAddress}</value>
         <value xml:lang="vi">Số tháng tại địa chỉ không là số hợp lệ: ${parameters.monthsAtAddress}</value>
     </property>
     <property key="EcommerceMonthsWithEmployeeNotValid">
         <value xml:lang="en">Months with Employer was not a valid number: ${parameters.monthsWithEmployer}</value>
         <value xml:lang="it">Mesi come impiegato non è un numero valido: ${parameters.monthsWithEmployer}</value>
+        <value xml:lang="ja">雇用者が有効でない月数: ${parameters.monthsWithEmployer}</value>
         <value xml:lang="vi">Số tháng với nhân viên không là số hợp lệ: ${parameters.monthsWithEmployer}</value>
     </property>
     <property key="EcommerceMyAccount">
@@ -2089,6 +2146,7 @@
         <value xml:lang="en">My Account</value>
         <value xml:lang="fr">Mon compte</value>
         <value xml:lang="it">Il mio account</value>
+        <value xml:lang="ja">私のアカウント</value>
         <value xml:lang="nl">Mijn account</value>       
         <value xml:lang="pt_BR">Minha conta</value>
         <value xml:lang="vi">Tài khoản của tôi</value>
@@ -2101,6 +2159,7 @@
         <value xml:lang="en">Make this my default billing address</value>
         <value xml:lang="fr">Faites de ceci mon adresse de facturation par défaut</value>
         <value xml:lang="it">Imposta come indirizzo di fatturazione predefinito</value>
+        <value xml:lang="ja">これを私の通常の請求先住所にする</value>
         <value xml:lang="nl">Van dit adres het standaard factuuradres maken</value>     
         <value xml:lang="pt_BR">Faça deste o meu endereço padrão para cobrança</value>
         <value xml:lang="vi">Cũng là địa chỉ mặc định ghi hóa đơn</value>
@@ -2113,6 +2172,7 @@
         <value xml:lang="en">Make this my default shipping address</value>
         <value xml:lang="fr">Faites de ceci mon adresse d'expédition par défaut</value>
         <value xml:lang="it">Imposta come indirizzo di spedizione predefinito</value>
+        <value xml:lang="ja">これを私の通常の発送先住所にする</value>
         <value xml:lang="nl">Van dit adres het standaard verzendadres maken</value>     
         <value xml:lang="pt_BR">Faça deste o meu endereço padrão para envio</value>
         <value xml:lang="vi">Cũng là địa chỉ mặc định nhận hàng</value>
@@ -2127,7 +2187,7 @@
         <value xml:lang="fr">Nb de jours</value>
         <value xml:lang="hi_IN">दिन संख्या</value>
         <value xml:lang="it">N. di giorni</value>
-        <value xml:lang="ja">Nbr of days</value>
+        <value xml:lang="ja">日数</value>
         <value xml:lang="nl">Aantal dagen</value>
         <value xml:lang="pt_BR">Nº de dias</value>
         <value xml:lang="ro">N. de zile</value>
@@ -2145,7 +2205,7 @@
         <value xml:lang="fr">Nb de personnes</value>
         <value xml:lang="hi_IN">लोगों कि संख्या</value>
         <value xml:lang="it">N. di persone</value>
-        <value xml:lang="ja">Nbr of persons</value>
+        <value xml:lang="ja">人数</value>
         <value xml:lang="nl">Aantal personen</value>
         <value xml:lang="pt_BR">Nº de pessoas</value>
         <value xml:lang="ro">N. de persoane</value>
@@ -2163,7 +2223,7 @@
         <value xml:lang="fr">Contenu inclus</value>
         <value xml:lang="hi_IN">जुड़ी अंतर्वस्तु अंश</value>
         <value xml:lang="it">Contenuto incluso</value>
-        <value xml:lang="ja">Nested content.</value>
+        <value xml:lang="ja">ネストしたコンテンツ</value>
         <value xml:lang="nl">Ingesloten content</value>
         <value xml:lang="pt_BR">Conteúdo incluso</value>
         <value xml:lang="ro">Continut Inglobat.</value>
@@ -2181,7 +2241,7 @@
         <value xml:lang="fr">Nouvelle carte crédit </value>
         <value xml:lang="hi_IN">नया क्रेडिट कार्ड</value>
         <value xml:lang="it">Nuova carta di credito</value>
-        <value xml:lang="ja">New Credit Card</value>
+        <value xml:lang="ja">新規クレジットカード</value>
         <value xml:lang="nl">Nieuwe creditcard</value>
         <value xml:lang="pt_BR">Novo cartão de crédito</value>
         <value xml:lang="ro">Noua Carte de Credit</value>
@@ -2199,7 +2259,7 @@
         <value xml:lang="fr">Nouveau compte de virement électronique</value>
         <value xml:lang="hi_IN">नया EFT ख़ाता</value>
         <value xml:lang="it">Nuovo conto EFT</value>
-        <value xml:lang="ja">New EFT Account</value>
+        <value xml:lang="ja">新規電子取引(EFT)アカウント</value>
         <value xml:lang="nl">Nieuwe bankrekening</value>
         <value xml:lang="pt_BR">Nova conta EFT</value>
         <value xml:lang="ro">Nou Cont EFT</value>
@@ -2216,6 +2276,7 @@
         <value xml:lang="es">Nueva lista de subscripción</value>
         <value xml:lang="fr">Nouvelle liste de souscription</value>
         <value xml:lang="it">Nuova lista di sottoscrizione</value>
+        <value xml:lang="ja">新規一覧申込</value>
         <value xml:lang="nl">Op nieuwe lijst abonneren</value>      
         <value xml:lang="pt_BR">Nova assinatura de lista</value>
         <value xml:lang="ro">Noua Lista Subscriere </value>
@@ -2231,6 +2292,7 @@
         <value xml:lang="en">Your password is :- </value>
         <value xml:lang="fr">Votre mot de passe est : </value>
         <value xml:lang="it">La tua password è :- </value>
+        <value xml:lang="ja">あなたのパスワードは :-</value>
         <value xml:lang="nl">Uw wachtwoord is :</value>     
         <value xml:lang="pt_BR">Sua senha é:</value>
         <value xml:lang="zh">你的密码是：- </value>
@@ -2243,6 +2305,7 @@
         <value xml:lang="en">Your new password is :- </value>
         <value xml:lang="fr">Votre nouveau mot de passe est : </value>
         <value xml:lang="it">La nuova password è :- </value>
+        <value xml:lang="ja">あなたの新しいパスワードは :-</value>
         <value xml:lang="nl">Uw nieuwe wachtwoord is : </value>     
         <value xml:lang="pt_BR">Sua nova senha é:</value>
         <value xml:lang="zh">你的新密码是：- </value>
@@ -2256,6 +2319,7 @@
         <value xml:lang="fr">Aucun article numérique trouvé</value>
         <value xml:lang="hi_IN">कोई डिजीटल सामान नही मिला</value>
         <value xml:lang="it">Nessun prodotto digitale trovato</value>
+        <value xml:lang="ja">ソフトウェア製品はありません</value>
         <value xml:lang="nl">Geen digitale producten gevonden</value>       
         <value xml:lang="pt_BR">Nenhum produto digital encontrado</value>
         <value xml:lang="ro">Nici-un Produs Digital Gasit</value>
@@ -2273,7 +2337,7 @@
         <value xml:lang="fr">Aucun fichier</value>
         <value xml:lang="hi_IN">आपका कोई फाइल नहीं है</value>
         <value xml:lang="it">Non ci sono files</value>
-        <value xml:lang="ja">You have no files.</value>
+        <value xml:lang="ja">ファイルはありません</value>
         <value xml:lang="nl">U heeft geen bestanden</value>
         <value xml:lang="pt_BR">Nenhum arquivo</value>
         <value xml:lang="ro">Nu ai fisiere.</value>
@@ -2291,7 +2355,7 @@
         <value xml:lang="fr">Pas d'emballage cadeau</value>
         <value xml:lang="hi_IN">कोई उपहार लपेटन नहीं</value>
         <value xml:lang="it">Nessun omaggio</value>
-        <value xml:lang="ja">No Gift Wrap</value>
+        <value xml:lang="ja">ギフト包装はありません</value>
         <value xml:lang="nl">Geen geschenkverpakking</value>
         <value xml:lang="pt_BR">Sem embrulho para presente</value>
         <value xml:lang="ro">Nici-un Omagiu</value>
@@ -2309,7 +2373,7 @@
         <value xml:lang="fr">Aucun message</value>
         <value xml:lang="hi_IN">कोई संदेश नहीं है</value>
         <value xml:lang="it">Non ci sono messaggi</value>
-        <value xml:lang="ja">You have no messages</value>
+        <value xml:lang="ja">メッセージはありません</value>
         <value xml:lang="nl">Je hebt geen berichten</value>
         <value xml:lang="pt_BR">Nenhuma mensagem</value>
         <value xml:lang="ro">Nu sunt mesaje</value>
@@ -2327,7 +2391,7 @@
         <value xml:lang="fr">Aucune catégorie de promotion</value>
         <value xml:lang="hi_IN">कैटलाग में कोई प्रोत्साहन वस्तु नहीं है</value>
         <value xml:lang="it">Nessuna categoria di promozione</value>
-        <value xml:lang="ja">No PROMOTION Category found for CATALOG</value>
+        <value xml:lang="ja">プロモーションカテゴリはありません</value>
         <value xml:lang="nl">Geen promotie categorie gevonden</value>
         <value xml:lang="pt_BR">Não há promoções disponíveis</value>
         <value xml:lang="ro">Nici-o Categorie PROMOTIONALA gasita pentru CATALOG</value>
@@ -2345,7 +2409,7 @@
         <value xml:lang="es">No hay padre</value>
         <value xml:lang="fr">Aucun parent</value>
         <value xml:lang="it">Nessun padre</value>
-        <value xml:lang="ja">No Parent</value>
+        <value xml:lang="ja">上位(親)はありません</value>
         <value xml:lang="nl">Geen moeder</value>
         <value xml:lang="pt_BR">Não há superior</value>
         <value xml:lang="pt_PT">Sem Semelhança</value>
@@ -2363,7 +2427,7 @@
         <value xml:lang="es">No hay tienda asociada a este sitio web, revise su configuración</value>
         <value xml:lang="fr">Aucun centre de profit</value>
         <value xml:lang="it">Nessun negozio</value>
-        <value xml:lang="ja">There is no ProductStore for this WebSite; Check Settings.</value>
+        <value xml:lang="ja">製品店舗はありません</value>
         <value xml:lang="nl">Er is geen winkel voor deze website, kijk naar de instellingen.</value>
         <value xml:lang="pt_BR">Não há loja associada a est produto</value>
         <value xml:lang="ro">Nu este nici un ProductStore pentru acest WebSite; Controlati Setarile.</value>
@@ -2382,7 +2446,7 @@
         <value xml:lang="fr">Aucune liste d'achats à sélectionner, créez en une</value>
         <value xml:lang="hi_IN">कोई सूची चुनने योग्य नहीं, नया बनाऐं</value>
         <value xml:lang="it">Nessuna lista di acquisto da selezionare, crearne una nuova</value>
-        <value xml:lang="ja">No shopping lists to select, create a new one</value>
+        <value xml:lang="ja">発送一覧はありません。新規作成してください</value>
         <value xml:lang="nl">Er zijn geen boodschappenlijsten om te selecteren, maak een nieuwe aan</value>
         <value xml:lang="pt_BR">Nenhuma lista de compras selecionada, crie uma nova</value>
         <value xml:lang="pt_PT">Sem listas de compras para seleccionar,por favor, crie uma nova</value>
@@ -2401,7 +2465,7 @@
         <value xml:lang="fr">Pas d'objet</value>
         <value xml:lang="hi_IN">कोई विषय नहीं</value>
         <value xml:lang="it">Nessun oggetto</value>
-        <value xml:lang="ja">No subject</value>
+        <value xml:lang="ja">件名なし</value>
         <value xml:lang="nl">Geen onderwerp</value>
         <value xml:lang="pt_BR">Sem assunto</value>
         <value xml:lang="ro">Nici-un subiect</value>
@@ -2419,7 +2483,7 @@
         <value xml:lang="fr">Non renseigné</value>
         <value xml:lang="hi_IN">पूरी नहीं</value>
         <value xml:lang="it">Non completato</value>
-        <value xml:lang="ja">Not Completed</value>
+        <value xml:lang="ja">完了していません</value>
         <value xml:lang="nl">Niet volledig</value>
         <value xml:lang="pt_BR">Incompleto</value>
         <value xml:lang="ro">Nu este Terminat</value>
@@ -2435,6 +2499,7 @@
         <value xml:lang="en">Not Exists</value>
         <value xml:lang="fr">N'existe pas</value>
         <value xml:lang="it">Non esiste</value>
+        <value xml:lang="ja">存在しません</value>
         <value xml:lang="nl">Bestaat niet</value>       
         <value xml:lang="pt_BR">Não existe</value>
         <value xml:lang="vi">Không tồn tại</value>
@@ -2448,6 +2513,7 @@
         <value xml:lang="fr">Pas encore connu</value>
         <value xml:lang="hi_IN">अब तक जानकारी नहीं</value>
         <value xml:lang="it">Non ancora conosciuto</value>
+        <value xml:lang="ja">まだ不明です</value>
         <value xml:lang="nl">Nog onbekend</value>       
         <value xml:lang="pt_BR">Ainda desconhecido</value>
         <value xml:lang="ro">Nu este inca cunoscut</value>
@@ -2463,6 +2529,7 @@
         <value xml:lang="en">One Page Checkout</value>
         <value xml:lang="fr">Paiement sur une page</value>
         <value xml:lang="it">Acquisto su pagina singola</value>
+        <value xml:lang="ja">1ﾍﾟｰｼﾞﾁｪｯｸｱｳﾄ</value>
         <value xml:lang="nl">Bestellen in 1 stap</value>        
         <value xml:lang="pt_BR">Finalização da compra em uma página</value>
         <value xml:lang="vi">Thanh toán luôn</value>
@@ -2477,7 +2544,7 @@
         <value xml:lang="es">Confirmación de Compra</value>
         <value xml:lang="fr">Confirmation de commande</value>
         <value xml:lang="it">Conferma ordine</value>
-        <value xml:lang="ja">Order Confirmation</value>
+        <value xml:lang="ja">注文の確認</value>
         <value xml:lang="nl">Bevestiging bestelling</value>
         <value xml:lang="pt_BR">Confirmação de pedido</value>
         <value xml:lang="pt_PT">Confirmação de Encomenda</value>
@@ -2516,7 +2583,7 @@
         <value xml:lang="fr">commande(s) dans le(s) dernier(s)</value>
         <value xml:lang="hi_IN">आर्डर अन्त मे</value>
         <value xml:lang="it">ordine(i) negli ultimi</value>
-        <value xml:lang="ja">order(s) in the last</value>
+        <value xml:lang="ja">/ 最近</value>
         <value xml:lang="nl">bestelling(en) in de laatste</value>
         <value xml:lang="pt_BR">Pedidos nos últimos</value>
         <value xml:lang="ro">comenzi in ultimele</value>
@@ -2532,6 +2599,7 @@
         <value xml:lang="en">Order Not Active</value>
         <value xml:lang="fr">Commande non active</value>
         <value xml:lang="it">Ordine non attivo</value>
+        <value xml:lang="ja">注文は有効ではありません</value>
         <value xml:lang="nl">Bestelling niet actief</value>     
         <value xml:lang="pt_BR">Pedido não ativo</value>
         <value xml:lang="th">รายการสั่งซื้อสินค้าไม่ทำงาน</value>
@@ -2541,6 +2609,7 @@
     </property>
     <property key="EcommerceOwner">
         <value xml:lang="en">Owner</value>
+        <value xml:lang="ja">所有者</value>
         <value xml:lang="vi">Chủ sở hữu</value>
     </property>
     <property key="EcommerceOwningDepartment">
@@ -2550,7 +2619,7 @@
         <value xml:lang="es">Servicio de propiedades</value>
         <value xml:lang="fr">Rayon propriétaire</value>
         <value xml:lang="it">Divisione proprietaria</value>
-        <value xml:lang="ja">Owning Department</value>
+        <value xml:lang="ja">所有部門</value>
         <value xml:lang="nl">Afdelingseigendom</value>
         <value xml:lang="pt_BR">Departamento proprietário</value>
         <value xml:lang="ro">Divizie Posedata</value>
@@ -2568,7 +2637,7 @@
         <value xml:lang="es">Lista padre</value>
         <value xml:lang="fr">Liste mère</value>
         <value xml:lang="it">Lista padre</value>
-        <value xml:lang="ja">Parent List</value>
+        <value xml:lang="ja">上位(親)の一覧</value>
         <value xml:lang="nl">Afgeleidenlijst</value>
         <value xml:lang="pt_BR">Lista superior</value>
         <value xml:lang="pt_PT">Lista de Semelhantes</value>
@@ -2587,7 +2656,7 @@
         <value xml:lang="fr">Avec le mot de passe que vous avez choisi pendant l'enregistrement.</value>
         <value xml:lang="hi_IN">नामान्कन करते समय दिया हुआ पासकोड</value>
         <value xml:lang="it">Con la password impostata durante la registrazione.</value>
-        <value xml:lang="ja">With the password you set during registration.</value>
+        <value xml:lang="ja">登録時に設定したパスワード</value>
         <value xml:lang="nl">Met het wachtwoord dat u heeft ingegeven bij de registratie</value>
         <value xml:lang="pt_BR">Com a senha criada durante o registro</value>
         <value xml:lang="ro">cu parola pe care tu o setezi in timpul inregistrarii.</value>
@@ -2603,6 +2672,7 @@
         <value xml:lang="en">password is</value>
         <value xml:lang="fr">mot de passe est</value>
         <value xml:lang="it">password è</value>
+        <value xml:lang="ja">パスワード</value>
         <value xml:lang="nl">Wachtwoord is</value>      
         <value xml:lang="pt_BR">A senha é:</value>
         <value xml:lang="th">รหัสผ่านคือ</value>
@@ -2616,6 +2686,7 @@
         <value xml:lang="en">password sent to you</value>
         <value xml:lang="fr">mot de passe qui vous a été envoyé</value>
         <value xml:lang="it">password inviata a te</value>
+        <value xml:lang="ja">パスワードを送信しました</value>
         <value xml:lang="nl">Wachtwoord dat naar u verzonden is</value>     
         <value xml:lang="pt_BR">Senha enviada para você</value>
         <value xml:lang="th">ส่งรหัสผ่านถึงคุณ</value>
@@ -2629,6 +2700,7 @@
         <value xml:lang="en">Please wait</value>
         <value xml:lang="fr">Attendez SVP</value>
         <value xml:lang="it">Attendere prego</value>
+        <value xml:lang="ja">しばらくお待ちください</value>
         <value xml:lang="nl">Even wachten a.u.b.</value>        
         <value xml:lang="pt_BR">Por favor, aguarde</value>
         <value xml:lang="vi">Vui lòng chờ</value>
@@ -2643,7 +2715,7 @@
         <value xml:lang="fr">Points depuis</value>
         <value xml:lang="hi_IN">से अंक</value>
         <value xml:lang="it">punti da</value>
-        <value xml:lang="ja">points from</value>
+        <value xml:lang="ja">ポイント。注文回数</value>
         <value xml:lang="nl">punten van</value>
         <value xml:lang="pt_BR">Pontos de</value>
         <value xml:lang="ro">puncte de</value>
@@ -2662,7 +2734,7 @@
         <value xml:lang="fr">Envoi anonyme</value>
         <value xml:lang="hi_IN">अनाम विज्ञापन</value>
         <value xml:lang="it">Posta anonima</value>
-        <value xml:lang="ja">Post Anonymous</value>
+        <value xml:lang="ja">匿名で投稿</value>
         <value xml:lang="nl">Anoniem ingeven</value>
         <value xml:lang="pt_BR">Publicar como anônimo</value>
         <value xml:lang="pt_PT">Correio Anónimo</value>
@@ -2682,7 +2754,7 @@
         <value xml:lang="fr">Prix</value>
         <value xml:lang="hi_IN">मुल्य</value>
         <value xml:lang="it">Prezzo</value>
-        <value xml:lang="ja">Price</value>
+        <value xml:lang="ja">価格</value>
         <value xml:lang="nl">Prijs</value>
         <value xml:lang="pt_BR">Preço</value>
         <value xml:lang="pt_PT">Preço</value>
@@ -2695,6 +2767,7 @@
     </property>
     <property key="EcommercePriceRange">
         <value xml:lang="en">Price Range</value>
+        <value xml:lang="ja">価格レンジ</value>
         <value xml:lang="nl">Prijs range</value>        
         <value xml:lang="pt_BR">Faixa de preços</value>
         <value xml:lang="vi">Khoảng giá</value>
@@ -2706,6 +2779,7 @@
         <value xml:lang="en">Primary Billing Address</value>
         <value xml:lang="fr">Adresse de facturation principale</value>
         <value xml:lang="it">Indirizzo primario di fatturazione</value>
+        <value xml:lang="ja">主請求先住所</value>
         <value xml:lang="nl">Primair factuuradres</value>       
         <value xml:lang="pt_BR">Endereço de cobrança primário</value>
         <value xml:lang="vi">Địa chỉ ghi hóa đơn ưu tiên</value>
@@ -2718,6 +2792,7 @@
         <value xml:lang="en">Primary Shipping Address</value>
         <value xml:lang="fr">Adresse d'expédition principale</value>
         <value xml:lang="it">Indirizzo primario di spedizione</value>
+        <value xml:lang="ja">主発送先住所</value>
         <value xml:lang="nl">Primair verzendadres</value>       
         <value xml:lang="pt_BR">Endereço de envio primário</value>
         <value xml:lang="vi">Địa chỉ giao hàng ưu tiên</value>
@@ -2729,6 +2804,7 @@
         <value xml:lang="en">Product not configured</value>
         <value xml:lang="fr">Article non configuré</value>
         <value xml:lang="it">Prodotto non configurato</value>
+        <value xml:lang="ja">製品は設定されていません</value>
         <value xml:lang="nl">Product niet geconfigureerd</value>        
         <value xml:lang="pt_BR">Produto não configurado</value>
         <value xml:lang="vi">Sản phẩm chưa được cấu hình</value>
@@ -2743,7 +2819,7 @@
         <value xml:lang="fr">N° d'article : </value>
         <value xml:lang="hi_IN">सामान नम्बर:</value>
         <value xml:lang="it">Codice prodotto:</value>
-        <value xml:lang="ja">Product ID:</value>
+        <value xml:lang="ja">製品番号</value>
         <value xml:lang="nl">Productnummer:</value>
         <value xml:lang="pt_BR">Número do produto</value>
         <value xml:lang="ro">Cod Produs:</value>
@@ -2756,11 +2832,13 @@
     <property key="EcommerceProductTags">
         <value xml:lang="en">Product Tags</value>
         <value xml:lang="fr">Étiquettes</value>
+        <value xml:lang="ja">製品タグ</value>
         <value xml:lang="vi">Các đánh dấu (tag) sản phẩm</value>
     </property>
     <property key="EcommerceProductTagsDetail">
         <value xml:lang="en">Other people marked this product with these tags</value>
         <value xml:lang="fr">Cette étiquette a déjà été ajoutée pour ce produit</value>
+        <value xml:lang="ja">他の人がこの製品に同じタグ付け</value>
         <value xml:lang="vi">Người khác đã đánh dấu sản phẩm này với các đánh dấu</value>
     </property>
     <property key="EcommercePromotionalItems">
@@ -2772,7 +2850,7 @@
         <value xml:lang="fr">Articles promotionnels; quantité non modifiable</value>
         <value xml:lang="hi_IN">प्रोत्साहन सामान: मात्रा बदली नहीं जा सकती</value>
         <value xml:lang="it">Articoli promozionali; quantità non modificabile</value>
-        <value xml:lang="ja">Promotional items; quantities cannot be modified</value>
+        <value xml:lang="ja">お買い得商品</value>
         <value xml:lang="nl">Promoties; hoeveelheden kunnen niet worden aangepast</value>
         <value xml:lang="pt_BR">Itens promocionais</value>
         <value xml:lang="pt_PT">Itens em promoção; as quantidades não podem ser alteradas</value>
@@ -2792,7 +2870,7 @@
         <value xml:lang="fr">Public</value>
         <value xml:lang="hi_IN">सार्वजनिक</value>
         <value xml:lang="it">Pubblico</value>
-        <value xml:lang="ja">Public</value>
+        <value xml:lang="ja">公開</value>
         <value xml:lang="nl">Publiek</value>
         <value xml:lang="pt_BR">Público</value>
         <value xml:lang="pt_PT">Público</value>
@@ -2810,6 +2888,7 @@
         <value xml:lang="fr">Historique des devis</value>
         <value xml:lang="hi_IN">कोट इतिहास</value>
         <value xml:lang="it">Storia preventivi</value>
+        <value xml:lang="ja">見積履歴</value>
         <value xml:lang="nl">Aanvraaghistorie</value>       
         <value xml:lang="pt_BR">Histórico de citação</value>
         <value xml:lang="ro">Istoric Oferte</value>
@@ -2827,7 +2906,7 @@
         <value xml:lang="fr">Taux</value>
         <value xml:lang="hi_IN">कर</value>
         <value xml:lang="it">Tassa</value>
-        <value xml:lang="ja">Rate</value>
+        <value xml:lang="ja">評価</value>
         <value xml:lang="nl">Waardering</value>
         <value xml:lang="pt_BR">Taxa</value>
         <value xml:lang="ro">Pozitie</value>
@@ -2846,7 +2925,7 @@
         <value xml:lang="fr">Note(s) (de 1 à 5, 5 étant la meilleure)</value>
         <value xml:lang="hi_IN">श्रेणी (१-५, ५ सबसे अच्छा)</value>
         <value xml:lang="it">Voto (da 1 a 5; 5 è il migliore)</value>
-        <value xml:lang="ja">Rating (1-5; 5 being best)</value>
+        <value xml:lang="ja">評価</value>
         <value xml:lang="nl">Waardering (1-5; 5 is het beste)</value>
         <value xml:lang="pt_BR">Nota (de 1 a 5)</value>
         <value xml:lang="pt_PT">Classe (1-5; 5 para o melhor)</value>
@@ -2864,6 +2943,7 @@
         <value xml:lang="es">Leer</value>
         <value xml:lang="fr">Lire</value>
         <value xml:lang="it">Leggi</value>
+        <value xml:lang="ja">読む</value>
         <value xml:lang="nl">Lees</value>
         <value xml:lang="pt_BR">Ler</value>
         <value xml:lang="ro">Citeste</value>
@@ -2880,6 +2960,7 @@
         <value xml:lang="fr">Lire le message</value>
         <value xml:lang="hi_IN">संदेश पढिये</value>
         <value xml:lang="it">Leggi messaggio</value>
+        <value xml:lang="ja">メッセージを読む</value>
         <value xml:lang="nl">Lees bericht</value>       
         <value xml:lang="pt_BR">Ler mensagem</value>
         <value xml:lang="ro">Citeste Mesaj</value>
@@ -2899,7 +2980,7 @@
         <value xml:lang="fr">Recalculer le panier</value>
         <value xml:lang="hi_IN">टोकरी कि गणना फिर करें</value>
         <value xml:lang="it">Ricalcola</value>
-        <value xml:lang="ja">Recalculate Cart</value>
+        <value xml:lang="ja">買い物かごを再計算</value>
         <value xml:lang="nl">Bereken winkelwagen</value>
         <value xml:lang="pt_BR">Recalcular carrinho</value>
         <value xml:lang="pt_PT">Recalcular o Cesto</value>
@@ -2917,7 +2998,7 @@
         <value xml:lang="es">Recurrencia</value>
         <value xml:lang="fr">Récurrence</value>
         <value xml:lang="it">Ricorrenza</value>
-        <value xml:lang="ja">Recurrence</value>
+        <value xml:lang="ja">繰り返し</value>
         <value xml:lang="nl">Herhaling</value>
         <value xml:lang="pt_BR">Repetição</value>
         <value xml:lang="ro">Recurenta</value>
@@ -2932,6 +3013,7 @@
         <value xml:lang="en">Register</value>
         <value xml:lang="fr">S'enregistrer</value>
         <value xml:lang="it">Registrati</value>
+        <value xml:lang="ja">登録</value>
         <value xml:lang="nl">Registreren</value>        
         <value xml:lang="pt_BR">Registrar</value>
         <value xml:lang="vi">Đăng ký</value>
@@ -2947,7 +3029,7 @@
         <value xml:lang="fr">Supprimer la sélection</value>
         <value xml:lang="hi_IN">चुने को हटाऐं</value>
         <value xml:lang="it">Rimuovi selezione</value>
-        <value xml:lang="ja">Remove Selected</value>
+        <value xml:lang="ja">選択を削除</value>
         <value xml:lang="nl">Verwijder geselecteerde(n)</value>
         <value xml:lang="pt_BR">Remover selecionados</value>
         <value xml:lang="pt_PT">Remover a Selecção</value>
@@ -2967,7 +3049,7 @@
         <value xml:lang="fr">Remplacer avec une variante</value>
         <value xml:lang="hi_IN">भेद को हटाऐं</value>
         <value xml:lang="it">Rimpiazza con variante</value>
-        <value xml:lang="ja">Replace With Variation</value>
+        <value xml:lang="ja">別型と交換</value>
         <value xml:lang="nl">Vervang door variant</value>
         <value xml:lang="pt_BR">Substituir com variantes</value>
         <value xml:lang="pt_PT">Substituir Com A Alternativa</value>
@@ -2985,6 +3067,7 @@
         <value xml:lang="fr">Historique des demandes</value>
         <value xml:lang="hi_IN">इतिहास आग्रह किजीये</value>
         <value xml:lang="it">Storia richieste</value>
+        <value xml:lang="ja">リクエスト履歴</value>
         <value xml:lang="nl">Offertehistorie</value>        
         <value xml:lang="pt_BR">Histórico de pedidos</value>
         <value xml:lang="ro">Istoric Cereri</value>
@@ -3002,7 +3085,7 @@
         <value xml:lang="fr">Répondre</value>
         <value xml:lang="hi_IN">जवाब दें</value>
         <value xml:lang="it">Rispondi</value>
-        <value xml:lang="ja">Respond</value>
+        <value xml:lang="ja">回答</value>
         <value xml:lang="nl">Antwoord</value>
         <value xml:lang="pt_BR">Responder</value>
         <value xml:lang="ro">Raspuns</value>
@@ -3020,7 +3103,7 @@
         <value xml:lang="fr">Réponses</value>
         <value xml:lang="hi_IN">उत्तर:</value>
         <value xml:lang="it">Risposte:</value>
-        <value xml:lang="ja">Responses:</value>
+        <value xml:lang="ja">回答:</value>
         <value xml:lang="nl">Antwoorden:</value>
         <value xml:lang="pt_BR">Respostas</value>
         <value xml:lang="ro">Raspunsuri:</value>
@@ -3038,7 +3121,7 @@
         <value xml:lang="fr">Votre demande de retour des articles suivants :</value>
         <value xml:lang="hi_IN">सारे सामान का जवाब</value>
         <value xml:lang="it">La tua richiesta di reso per i seguenti articoli:</value>
-        <value xml:lang="ja">Your return request for the following items:</value>
+        <value xml:lang="ja">返品リクエスト</value>
         <value xml:lang="nl">Uw terugaveverzoek voor de volgende items:</value>
         <value xml:lang="pt_BR">Pedido de devolução</value>
         <value xml:lang="ro">Cererea ta de returnare pentru urmatoarele linii:</value>
@@ -3056,7 +3139,7 @@
         <value xml:lang="fr">A été acceptée. Votre autorisation de retour a le n°</value>
         <value xml:lang="hi_IN">स्वीकार किया गया. आपका प्राधिकरण है #</value>
         <value xml:lang="it">E' stato accettato. Il tuo numero di autorizzazione di reso è N°</value>
-        <value xml:lang="ja">Has been accepted. Your return authorization is #</value>
+        <value xml:lang="ja">返品リクエストを受付ました</value>
         <value xml:lang="nl">Is geaccepteerd. Het teruggavenummer is </value>
         <value xml:lang="pt_BR">Pedido de devolução aceito</value>
         <value xml:lang="ro">A fos acceptata. Numarul autorizatiei de returnare este #</value>
@@ -3074,7 +3157,7 @@
         <value xml:lang="fr">a été annulée.</value>
         <value xml:lang="hi_IN">रद्द किया गया</value>
         <value xml:lang="it">Richiesta di reso annullata.</value>
-        <value xml:lang="ja">has been cancelled.</value>
+        <value xml:lang="ja">返品リクエストを取り消しました</value>
         <value xml:lang="nl">is geannuleerd.</value>
         <value xml:lang="pt_BR">Pedido de devolução cancelado</value>
         <value xml:lang="ro">a fost sters.</value>
@@ -3092,7 +3175,7 @@
         <value xml:lang="fr">a été reçue et accomplie.</value>
         <value xml:lang="hi_IN">स्वीकार और समाप्त किया गया</value>
         <value xml:lang="it">è stato ricevuto e completato.</value>
-        <value xml:lang="ja">has been received and completed.</value>
+        <value xml:lang="ja">返品リクエストが完了しました</value>
         <value xml:lang="nl">is ontvangen en gereed.</value>
         <value xml:lang="pt_BR">Pedido de devolução compĺetado</value>
         <value xml:lang="ro">a fost primita si completata.</value>
@@ -3110,7 +3193,7 @@
         <value xml:lang="fr">Votre demande de retour n°</value>
         <value xml:lang="hi_IN">आपका जवाबी आग्रह है #</value>
         <value xml:lang="it">La tua richiesta di reso N°</value>
-        <value xml:lang="ja">Your return request #</value>
+        <value xml:lang="ja">返品リクエストNo</value>
         <value xml:lang="nl">Uw terugaveverzoeknummer</value>
         <value xml:lang="pt_BR">Número do pedido de devolução</value>
         <value xml:lang="ro">Cererea ta #</value>
@@ -3128,7 +3211,7 @@
         <value xml:lang="fr">Rechercher le n°</value>
         <value xml:lang="hi_IN">ख़ोज #</value>
         <value xml:lang="it">Ricerca N°</value>
-        <value xml:lang="ja">Search #</value>
+        <value xml:lang="ja">検索番号</value>
         <value xml:lang="nl">Zoek nummer</value>
         <value xml:lang="pt_BR">Buscar por número</value>
         <value xml:lang="ro">Cauta #</value>
@@ -3144,6 +3227,7 @@
         <value xml:lang="en">See Store Policies Here</value>
         <value xml:lang="fr">Conditions générales</value>
         <value xml:lang="it">Termini e condizioni</value>
+        <value xml:lang="ja">店舗ポリシーを参照</value>
         <value xml:lang="nl">Algemene voorwaarden</value>       
         <value xml:lang="pt_BR">Confira a política da loja aqui</value>
         <value xml:lang="th">ดูหลักการเก็บข้อมูลที่นี่</value>
@@ -3158,7 +3242,7 @@
         <value xml:lang="es">Seleccione frecuencia</value>
         <value xml:lang="fr">Sélectionnez une fréquence</value>
         <value xml:lang="it">Seleziona frequenza</value>
-        <value xml:lang="ja">Select Frequency</value>
+        <value xml:lang="ja">選択頻度</value>
         <value xml:lang="nl">Selecteer frequentie</value>
         <value xml:lang="pt_BR">Selecione a frequência</value>
         <value xml:lang="ro">Selectioneaza Frecventa</value>
@@ -3176,7 +3260,7 @@
         <value xml:lang="fr">Sélectionnez un intervalle</value>
         <value xml:lang="hi_IN">अन्तर चुनें</value>
         <value xml:lang="it">Seleziona intervallo</value>
-        <value xml:lang="ja">Select Interval</value>
+        <value xml:lang="ja">選択間隔</value>
         <value xml:lang="nl">Selecteer interval</value>
         <value xml:lang="pt_BR">Selecione o intervalo</value>
         <value xml:lang="ro">Selectioneaza Intervalul</value>
@@ -3190,6 +3274,7 @@
         <value xml:lang="de">Option wählen</value>
         <value xml:lang="en">Select Option</value>
         <value xml:lang="fr">Sélectionnez une option</value>
+        <value xml:lang="ja">オプションを選択</value>
     </property>
     <property key="EcommerceSelectedGiftWrap">
         <value xml:lang="da">Vælg gavepapir</value>
@@ -3199,7 +3284,7 @@
         <value xml:lang="fr">Emballage cadeau sélectionné</value>
         <value xml:lang="hi_IN">चुना गया लपेटन सभी सामान के लिये उपलब्ध नहीं है, जो सामान उपलब्ध है वह चुना गया है, बाकी वैसे ही है.</value>
         <value xml:lang="it">Selezione Omaggio non disponibile per tutte le righe. Le righe che sono disponibile saranno selezionate, le altre rimarrano invariate.</value>
-        <value xml:lang="ja">Selected Gift Wrap is not available for all items. The items which are available have been selected, the others remain unchanged.</value>
+        <value xml:lang="ja">選択したギフト包装</value>
         <value xml:lang="nl">De geselecteerde geschenkverpakking is niet beschikbaar voor alle items. De items die beschikbaar zijn, zijn geselecteerd, de anderen zijn niet veranderd.</value>
         <value xml:lang="pt_BR">Selecione o pacote para presente</value>
         <value xml:lang="ro">Selectioneaza Omagiu indisponibil pentru toate liniile. Liniile care sunt disponibile vor fi selectionate, celelalte vor ramane invariate.</value>
@@ -3217,7 +3302,7 @@
         <value xml:lang="fr">Date d'envoi</value>
         <value xml:lang="hi_IN">भेजा हुआ तारीख़</value>
         <value xml:lang="it">Data spedizione</value>
-        <value xml:lang="ja">Sent Date</value>
+        <value xml:lang="ja">送信日</value>
         <value xml:lang="nl">Datum verzonden</value>
         <value xml:lang="pt_BR">Data de envio</value>
         <value xml:lang="ro">Data Expedierii</value>
@@ -3235,7 +3320,7 @@
         <value xml:lang="fr">Choisir comme valeur par défaut</value>
         <value xml:lang="hi_IN">सामान्य स्थापित किजीये</value>
         <value xml:lang="it">Imposta come predefinito</value>
-        <value xml:lang="ja">Set Default</value>
+        <value xml:lang="ja">通常に設定</value>
         <value xml:lang="nl">Zet op de standaardwaarde</value>
         <value xml:lang="pt_BR">Escolher como padrão</value>
         <value xml:lang="ro">Setare de Default</value>
@@ -3251,6 +3336,7 @@
         <value xml:lang="en">Shipment Items</value>
         <value xml:lang="fr">Articles en expédition</value>
         <value xml:lang="it">Articoli in spedizione</value>
+        <value xml:lang="ja">発送アイテム</value>
         <value xml:lang="nl">Verzenditems</value>       
         <value xml:lang="pt_BR">Itens do envio</value>
         <value xml:lang="th">รายการการขนส่ง</value>
@@ -3267,7 +3353,7 @@
         <value xml:lang="fr">Détail de la liste d'achats</value>
         <value xml:lang="hi_IN">ख़रीदारी सूची विवरण</value>
         <value xml:lang="it">Dettagli lista di acquisto</value>
-        <value xml:lang="ja">Shopping List Detail</value>
+        <value xml:lang="ja">発送一覧詳細</value>
         <value xml:lang="nl">Boodschappenlijst detail</value>
         <value xml:lang="pt_BR">Detalhes da lista de compras</value>
         <value xml:lang="pt_PT">Detalhe da Lista de Compras</value>
@@ -3287,7 +3373,7 @@
         <value xml:lang="fr">Liste d'achats vide</value>
         <value xml:lang="hi_IN">आपकी ख़रीदारी सूची ख़ाली है</value>
         <value xml:lang="it">La tua lista di acquisto è vuota</value>
-        <value xml:lang="ja">Your shopping list is empty</value>
+        <value xml:lang="ja">買い物リストは何も入っていません</value>
         <value xml:lang="nl">Boodschappenlijst is leeg</value>
         <value xml:lang="pt_BR">Lista de compras vazia</value>
         <value xml:lang="pt_PT">A Sua Lista De Compras Está Vazia</value>
@@ -3307,7 +3393,7 @@
         <value xml:lang="fr">Erreur de la liste d'achats</value>
         <value xml:lang="hi_IN">गलत: दिया ख़रीदारी सूची (</value>
         <value xml:lang="it">ERRORE: La lista di acquisto specificata (con</value>
-        <value xml:lang="ja">ERROR: The specified shopping list (with</value>
+        <value xml:lang="ja">買い物リストエラー</value>
         <value xml:lang="nl">Fout: De gespecificeerde boodschappenlijst (met</value>
         <value xml:lang="pt_BR">Erro na lista de compras</value>
         <value xml:lang="pt_PT">ERRO:A lista de compras especificada</value>
@@ -3327,7 +3413,7 @@
         <value xml:lang="fr">Prix total de la liste d'achats</value>
         <value xml:lang="hi_IN">ख़रीदारी सूची कुल मुल्य</value>
         <value xml:lang="it">Prezzo totale lista di acquisto</value>
-        <value xml:lang="ja">Shopping List Price Totals</value>
+        <value xml:lang="ja">買い物リスト価格合計</value>
         <value xml:lang="nl">Boodschappenlijst prijs totalen</value>
         <value xml:lang="pt_BR">Preço total da lista de compras</value>
         <value xml:lang="pt_PT">Preços Totais Da Lista De Compras</value>
@@ -3347,7 +3433,7 @@
         <value xml:lang="fr">Commander à partir de la liste d'achats</value>
         <value xml:lang="hi_IN">ख़रीदारी सूची दुबारा आदेश जानकारी</value>
         <value xml:lang="it">Ordina a partire dalla lista di acquisto</value>
-        <value xml:lang="ja">Shopping List Re-Order Info</value>
+        <value xml:lang="ja">買い物リスト再注文</value>
         <value xml:lang="nl">Boodschappenlijst opnieuw bestellen informatie</value>
         <value xml:lang="pt_BR">Reordenar lista de compras</value>
         <value xml:lang="ro">Info Re-Comanda Lista Cumparare</value>
@@ -3366,7 +3452,7 @@
         <value xml:lang="fr">Listes d'achats</value>
         <value xml:lang="hi_IN">ख़रीदारी सूची</value>
         <value xml:lang="it">Liste acquisto</value>
-        <value xml:lang="ja">Shopping Lists</value>
+        <value xml:lang="ja">買い物リスト</value>
         <value xml:lang="nl">Boodschappenlijst</value>
         <value xml:lang="pt_BR">Listas de compras</value>
         <value xml:lang="pt_PT">Listas de Compras</value>
@@ -3382,6 +3468,7 @@
         <value xml:lang="en">Short Name</value>
         <value xml:lang="fr">Nom court</value>
         <value xml:lang="it">Nome corto</value>
+        <value xml:lang="ja">簡単な名称</value>
         <value xml:lang="nl">Korte naam</value>         
         <value xml:lang="pt_BR">Apelido</value>
         <value xml:lang="vi">Tên tắt</value>
@@ -3396,7 +3483,7 @@
         <value xml:lang="fr">Sujet court</value>
         <value xml:lang="hi_IN">छोटा विषय</value>
         <value xml:lang="it">Soggetto corto</value>
-        <value xml:lang="ja">Short Subject</value>
+        <value xml:lang="ja">簡単な件名</value>
         <value xml:lang="nl">Kort onderwerp</value>
         <value xml:lang="pt_BR">Assunto curto</value>
         <value xml:lang="ro">Subiect Scurt</value>
@@ -3412,6 +3499,7 @@
         <value xml:lang="en">Sign Up For Contact List</value>
         <value xml:lang="fr">S'inscrire à la liste de contacts</value>
         <value xml:lang="it">Iscriviti alla lista di contatti</value>
+        <value xml:lang="ja">連絡リストに会員登録</value>
         <value xml:lang="nl">Aanmelden voor nieuwsbrief</value>         
         <value xml:lang="pt_BR">Registre-se na lista de contato</value>
         <value xml:lang="th">ข่าวสาร</value>
@@ -3425,6 +3513,7 @@
         <value xml:lang="en">Sign Up For Contact List Comments</value>
         <value xml:lang="fr">S'inscrire aux commentaires de la liste de contacts</value>
         <value xml:lang="it">Autenticarsi per commenti alla lista di contatti</value>
+        <value xml:lang="ja">連絡リスト会員登録のコメント</value>
         <value xml:lang="nl">Registreren om aan te melden voor nieuwsbrief commentaren</value>      
         <value xml:lang="pt_BR">Registre-se para comentar a lista de contatos</value>
         <value xml:lang="th">ถ้าคุณสนใจในข่าวสารให้คุณกรอกที่อยู่อีเมลข้างล่างนี้และลงทะเบียน :</value>
@@ -3438,6 +3527,7 @@
         <value xml:lang="en">Sign Up For Contact List LogIn</value>
         <value xml:lang="fr">S'identifier pour s'inscrire au bulletin d'information</value>
         <value xml:lang="it">Autenticarsi per iscriversi alla lista di contatti</value>
+        <value xml:lang="ja">連絡リスト会員登録のログイン</value>
         <value xml:lang="nl">Registreren om aan te melden voor nieuwsbrief</value>      
         <value xml:lang="pt_BR">Registre-se para entrar na lista de contatos</value>
         <value xml:lang="th">ถ้าคุณสนใจข่าวสารกรุณาลอกอินเข้าสู่ระบบและลงทะเบียน:</value>
@@ -3453,7 +3543,7 @@
         <value xml:lang="fr">Argent</value>
         <value xml:lang="hi_IN">छोटा</value>
         <value xml:lang="it">Argento</value>
-        <value xml:lang="ja">Silver</value>
+        <value xml:lang="ja">シルバー</value>
         <value xml:lang="nl">Zilver</value>
         <value xml:lang="pt_BR">Prata</value>
         <value xml:lang="ro">Argent</value>
@@ -3468,6 +3558,7 @@
         <value xml:lang="en">Sorry, digital product upload is not enabled.</value>
         <value xml:lang="fr">Désolé, article numérique non accessible</value>
         <value xml:lang="it">Spiacente, l'upload di prodotti digitali non è abilitato.</value>
+        <value xml:lang="ja">申し訳ございません、ソフトウェア製品のアップロードは許可されていません。</value>
         <value xml:lang="nl">Excusus, het uploaden van digitale producten is gedeactiveerd.</value>     
         <value xml:lang="pt_BR">Desculpe, o upload de produtos digitais não está ativado.</value>
         <value xml:lang="vi">Rất tiếc, Quản trị không cho phép Tải lên sản phẩm .</value>
@@ -3482,7 +3573,7 @@
         <value xml:lang="fr">Début</value>
         <value xml:lang="hi_IN">शुरू तारीख़</value>
         <value xml:lang="it">Data Inizio</value>
-        <value xml:lang="ja">Start Date</value>
+        <value xml:lang="ja">開始</value>
         <value xml:lang="nl">Begindatum</value>
         <value xml:lang="pt_BR">Início</value>
         <value xml:lang="ro">Data Initiala</value>
@@ -3500,7 +3591,7 @@
         <value xml:lang="fr">Date de début</value>
         <value xml:lang="hi_IN">शुरू तारीख़</value>
         <value xml:lang="it">Data inizio</value>
-        <value xml:lang="ja">Startdate</value>
+        <value xml:lang="ja">開始日</value>
         <value xml:lang="nl">Begindatum</value>
         <value xml:lang="pt_BR">Data de início</value>
         <value xml:lang="ro">Data Initiala</value>
@@ -3516,6 +3607,7 @@
         <value xml:lang="en">Step</value>
         <value xml:lang="fr">Etape</value>
         <value xml:lang="it">Passo</value>
+        <value xml:lang="ja">ステップ</value>
         <value xml:lang="nl">Stap</value>       
         <value xml:lang="pt_BR">Passo</value>
         <value xml:lang="vi">Bước</value>
@@ -3530,7 +3622,7 @@
         <value xml:lang="fr">Objet</value>
         <value xml:lang="hi_IN">विषय</value>
         <value xml:lang="it">Soggetto</value>
-        <value xml:lang="ja">Subject</value>
+        <value xml:lang="ja">件名</value>
         <value xml:lang="nl">Onderwerp</value>
         <value xml:lang="pt_BR">Assunto</value>
         <value xml:lang="ro">Subiect </value>
@@ -3542,6 +3634,7 @@
     </property>
     <property key="EcommerceSubjectMissing">
         <value xml:lang="en">Subject is missing</value>
+        <value xml:lang="ja">件名に誤りがあります</value>
         <value xml:lang="vi">Chủ đề chưa có</value>
     </property>
     <property key="EcommerceSubscribe">
@@ -3551,6 +3644,7 @@
         <value xml:lang="es">Subscricir</value>
         <value xml:lang="fr">S'inscrire</value>
         <value xml:lang="it">Sottoscrivi</value>
+        <value xml:lang="ja">申込</value>
         <value xml:lang="nl">Abonneren</value>      
         <value xml:lang="pt_BR">Inscrever-se</value>
         <value xml:lang="ro">Subscrie </value>
@@ -3565,6 +3659,7 @@
         <value xml:lang="en">Subscription Verify Email</value>
         <value xml:lang="fr">Vérification d'adresse couriel pour subscription</value>
         <value xml:lang="it">Sottiscrivi verifica email</value>
+        <value xml:lang="ja">確認メールの申込</value>
         <value xml:lang="nl">Verificatie aanmelden abonnement</value>       
         <value xml:lang="pt_BR">E-mail de verificação de inscrição</value>
         <value xml:lang="vi">Thư điện tử xác nhận Ghi danh</value>
@@ -3579,7 +3674,7 @@
         <value xml:lang="fr">Information récapitulative</value>
         <value xml:lang="hi_IN">साराशं जानकारी</value>
         <value xml:lang="it">Informazioni sommario</value>
-        <value xml:lang="ja">Summary Information</value>
+        <value xml:lang="ja">サマリ情報</value>
         <value xml:lang="nl">Beknopte informatie</value>
         <value xml:lang="pt_BR">Dados do resumo</value>
         <value xml:lang="ro">Informatii Breviar</value>
@@ -3597,7 +3692,7 @@
         <value xml:lang="fr">Sondages</value>
         <value xml:lang="hi_IN">सर्वे</value>
         <value xml:lang="it">Sondaggi</value>
-        <value xml:lang="ja">Surveys</value>
+        <value xml:lang="ja">評価</value>
         <value xml:lang="nl">Enquete</value>
         <value xml:lang="pt_BR">Enquete</value>
         <value xml:lang="ro">Sondaje</value>
@@ -3610,6 +3705,7 @@
     <property key="EcommerceTags">
         <value xml:lang="en">Tag Cloud</value>
         <value xml:lang="fr">Nuage de mots</value>
+        <value xml:lang="ja">クラウドにタグ</value>
         <value xml:lang="vi">Đám mây đánh dấu</value>
     </property>
     <property key="EcommerceTakeSurvey">
@@ -3620,7 +3716,7 @@
         <value xml:lang="fr">Répondre au sondage</value>
         <value xml:lang="hi_IN">सर्वे किजीये</value>
         <value xml:lang="it">Rispondi sondaggio</value>
-        <value xml:lang="ja">Take Survey</value>
+        <value xml:lang="ja">評価する</value>
         <value xml:lang="nl">Vul enquete in</value>
         <value xml:lang="pt_BR">Responda a enquete</value>
         <value xml:lang="ro">Raspunde Sondaj</value>
@@ -3638,7 +3734,7 @@
         <value xml:lang="fr">Dites-le à un ami</value>
         <value xml:lang="hi_IN">दोस्त को बताऐं</value>
         <value xml:lang="it">Dillo ad un Amico</value>
-        <value xml:lang="ja">Tell-A-Friend</value>
+        <value xml:lang="ja">友達に教える</value>
         <value xml:lang="nl">Vertel het aan een kennis</value>
         <value xml:lang="pt_BR">Envie para um amigo</value>
         <value xml:lang="ro">Spunei unui Amic</value>
@@ -3656,7 +3752,7 @@
         <value xml:lang="fr">Désolé, vous ne pouvez envoyer cette page à un ami. Choisissez plutôt à partir d'une catégorie ou d'un article</value>
         <value xml:lang="hi_IN">माफ किजीये: यह पृष्ठ अपने दोस्त को नहीं भेज सकते, किसी प्रकार या सामान में से भेजें</value>
         <value xml:lang="it">Spiacente, non è possibile inviare questa pagina ad un amico. Per favore seleziona una categoria o un prodotto.</value>
-        <value xml:lang="ja">Sorry, you cannot send this page to a friend. Please select from either a category or product.</value>
+        <value xml:lang="ja">申し訳ございません。このページを友達に教えることはできません。カテゴリか製品を選択してください。</value>
         <value xml:lang="nl">Sorry, maar u kan deze pagina niet naar een kennis sturen. Selecteer een categorie of een product.</value>
         <value xml:lang="pt_BR">Desculpe-nos, impossível enviar este e-mail. Selecione outro produto ou categoria.</value>
         <value xml:lang="ro">Ne pare rau, nu este posibila trimiterea acestei pagini la un amic. Va rugam selectionti de la o alta categorie sau produs.</value>
@@ -3674,7 +3770,7 @@
         <value xml:lang="fr">Seulement le texte</value>
         <value xml:lang="hi_IN">सिर्फ लिख़ीत</value>
         <value xml:lang="it">Solo testo</value>
-        <value xml:lang="ja">Text only</value>
+        <value xml:lang="ja">文章のみ</value>
         <value xml:lang="nl">Alleen tekst</value>
         <value xml:lang="pt_BR">Apenas texto</value>
         <value xml:lang="ro">Numai text</value>
@@ -3692,7 +3788,7 @@
         <value xml:lang="fr">Merci pour votre inscription</value>
         <value xml:lang="hi_IN">हमसे जुडने के लिए धन्यवाद</value>
         <value xml:lang="it">Grazie per esserti registrato a </value>
-        <value xml:lang="ja">Thank you for registering with</value>
+        <value xml:lang="ja">登録ありがとうございます</value>
         <value xml:lang="nl">Onze dank voor het registeren bij</value>
         <value xml:lang="pt_BR">Obrigado por registrar-se</value>
         <value xml:lang="ro">Multumesc, pentru ca te-ai inregistrat cu </value>
@@ -3710,7 +3806,7 @@
         <value xml:lang="fr">Merci</value>
         <value xml:lang="hi_IN">धन्यवाद</value>
         <value xml:lang="it">Grazie</value>
-        <value xml:lang="ja">Thank you</value>
+        <value xml:lang="ja">ありがとうございます</value>
         <value xml:lang="nl">Dank u</value>
         <value xml:lang="pt_BR">Obrigado</value>
         <value xml:lang="ro">Multumesc</value>
@@ -3726,6 +3822,7 @@
         <value xml:lang="en">This email is in response to your request to have</value>
         <value xml:lang="fr">Ce courriel en réponse à votre demande d'obtenir</value>
         <value xml:lang="it">Questa email ti è stata inviata in seguito alla tua richiesta.</value>
+        <value xml:lang="ja">このメールはあなたがリクエストされたものです</value>
         <value xml:lang="nl">Deze email is verzonden naar aanleiding van uw verzoek.</value>    
         <value xml:lang="pt_BR">Este e-mail lhe foi enviado devido ao seu pedido</value>
         <value xml:lang="th">คำร้องของคุณมีการตอบในอีเมลนี้</value>
@@ -3741,7 +3838,7 @@
         <value xml:lang="fr">pour créer une commande faites une demande depuis le panier</value>
         <value xml:lang="hi_IN">कोट उत्पन्न करने के लिए आग्रह</value>
         <value xml:lang="it">Per creare una richesta di preventivo per il carrello</value>
-        <value xml:lang="ja">to create a request for quote</value>
+        <value xml:lang="ja">買い物かごから注文を作成する</value>
         <value xml:lang="nl">om een offerte aan te vragen</value>
         <value xml:lang="pt_BR">Para pedir crie uma requisição de cliente pelo carrinho</value>
         <value xml:lang="ro">pentru a crea o cerere pentru cotare</value>
@@ -3760,7 +3857,7 @@
         <value xml:lang="fr">Prix total</value>
         <value xml:lang="hi_IN">कुल मुल्य</value>
         <value xml:lang="it">Prezzo totale</value>
-        <value xml:lang="ja">Total Price</value>
+        <value xml:lang="ja">金額合計</value>
         <value xml:lang="nl">Totale Prijs</value>
         <value xml:lang="pt_BR">Preço total</value>
         <value xml:lang="pt_PT">Preço Total</value>
@@ -3780,7 +3877,7 @@
         <value xml:lang="fr">Prix à l'unité</value>
         <value xml:lang="hi_IN">ईकाई मुल्य</value>
         <value xml:lang="it">Prezzo unitario</value>
-        <value xml:lang="ja">Unit Price</value>
+        <value xml:lang="ja">単価</value>
         <value xml:lang="nl">Prijs per stuk</value>
         <value xml:lang="pt_BR">Preço unitário</value>
         <value xml:lang="pt_PT">Preço Unitário</value>
@@ -3798,6 +3895,7 @@
         <value xml:lang="es">des-Subscribir</value>
         <value xml:lang="fr">Se désinscrire</value>
         <value xml:lang="it">Annulla sottoscrizione</value>
+        <value xml:lang="ja">登録解除</value>
         <value xml:lang="nl">Beëindigen abonnement</value>      
         <value xml:lang="pt_BR">Encerrar seu registro</value>
         <value xml:lang="ro">Sterge Subscrierea</value>
@@ -3815,7 +3913,7 @@
         <value xml:lang="fr">Type de question non reconnue</value>
         <value xml:lang="hi_IN">प्रश्न प्रकार वैद्य नहीं</value>
         <value xml:lang="it">Tipo di domanda non suppportata</value>
-        <value xml:lang="ja">Unsupported question type</value>
+        <value xml:lang="ja">サポートしていない質問種類</value>
         <value xml:lang="nl">Niet ondersteunde vraag soort</value>
         <value xml:lang="pt_BR">Tipo de pergunta não suportada</value>
         <value xml:lang="ro">Tip de intrebare nesuportata</value>
@@ -3832,6 +3930,7 @@
         <value xml:lang="fr">Mise à jour de l'article numérique</value>
         <value xml:lang="hi_IN">डिजीटम सामान सुधार किजीये</value>
         <value xml:lang="it">Aggiorna prodotto digitale</value>
+        <value xml:lang="ja">ソフトウェア製品を更新</value>
         <value xml:lang="nl">Wijzig digitaal product</value>        
         <value xml:lang="pt_BR">Atualizar produto digital</value>
         <value xml:lang="ro">Adauga Produs Digital</value>
@@ -3849,7 +3948,7 @@
         <value xml:lang="fr">"[Mettre à jour le commentaire]"</value>
         <value xml:lang="hi_IN">सर्वे सुधार किजीये</value>
         <value xml:lang="it">Aggiorna sondaggio</value>
-        <value xml:lang="ja">Update Survey</value>
+        <value xml:lang="ja">評価を更新</value>
         <value xml:lang="nl">Wijzig enquete</value>
         <value xml:lang="pt_BR">Atualizar enquete</value>
         <value xml:lang="ro">Actualizeaza Sondaj</value>
@@ -3866,7 +3965,7 @@
         <value xml:lang="es">Subir nuevo archivo</value>
         <value xml:lang="fr">Télécharger le nouveau fichier vers le serveur</value>
         <value xml:lang="it">Upload nuovo file</value>
-        <value xml:lang="ja">Upload New File</value>
+        <value xml:lang="ja">新規ファイルをアップロード</value>
         <value xml:lang="nl">Upload nieuw bestand</value>
         <value xml:lang="pt_BR">Fazer upload de um novo arquivo</value>
         <value xml:lang="ro">Incarca un Nou Fisier</value>
@@ -3884,7 +3983,7 @@
         <value xml:lang="fr">Utiliser le courriel</value>
         <value xml:lang="hi_IN">ईमेल पता इस्तमाल करें</value>
         <value xml:lang="it">Usa indirizzo Email</value>
-        <value xml:lang="ja">Use Email Address</value>
+        <value xml:lang="ja">Eメールアドレスを使用</value>
         <value xml:lang="nl">Gebruik emailadres</value>
         <value xml:lang="pt_BR">Use o endereço de e-mail</value>
         <value xml:lang="ro">Foloseste Adresa Email</value>
@@ -3904,7 +4003,7 @@
         <value xml:lang="fr">Option au panier</value>
         <value xml:lang="hi_IN">अन्तर को टोकरी में</value>
         <value xml:lang="it">di variante di carrello</value>
-        <value xml:lang="ja">of Variation To Cart</value>
+        <value xml:lang="ja">別型を買い物かごに入れる</value>
         <value xml:lang="nl">van de variant naar de winkelwagen</value>
         <value xml:lang="pt_BR">Variação do carrinho</value>
         <value xml:lang="pt_PT">Alternativa Para o Cesto</value>
@@ -3922,6 +4021,7 @@
         <value xml:lang="es">Verificar subscripción</value>
         <value xml:lang="fr">Vérifier son inscription</value>
         <value xml:lang="it">Verifica sottoscrizione</value>
+        <value xml:lang="ja">申し込みを確認</value>
         <value xml:lang="nl">Verifieer abonnement</value>       
         <value xml:lang="pt_BR">Verificar inscrição</value>
         <value xml:lang="ro">Verifica Subscrierea</value>
@@ -3939,7 +4039,7 @@
         <value xml:lang="fr">Tout voir</value>
         <value xml:lang="hi_IN">सभी देखें</value>
         <value xml:lang="it">Visualizza tutto</value>
-        <value xml:lang="ja">View All</value>
+        <value xml:lang="ja">すべて表示</value>
         <value xml:lang="nl">Alles bekijken</value>
         <value xml:lang="pt_BR">Ver todos</value>
         <value xml:lang="ro">Visualizza Tot</value>
@@ -3957,7 +4057,7 @@
         <value xml:lang="fr">Voir la liste</value>
         <value xml:lang="hi_IN">सूची देखें</value>
         <value xml:lang="it">Visualizza lista</value>
-        <value xml:lang="ja">View List</value>
+        <value xml:lang="ja">一覧を表示</value>
         <value xml:lang="nl">Kijk in de lijst</value>
         <value xml:lang="pt_BR">Visualizar lista</value>
         <value xml:lang="ro">Vizualizeaza Lista</value>
@@ -3975,7 +4075,7 @@
         <value xml:lang="fr">Voir seulement ceux reçus</value>
         <value xml:lang="hi_IN">मिला हुआ संदेश देखें</value>
         <value xml:lang="it">Visualizza solo ricevuti</value>
-        <value xml:lang="ja">View Received Messages</value>
+        <value xml:lang="ja">受信のみ表示</value>
         <value xml:lang="nl">Bekijken ontvangen berichten</value>
         <value xml:lang="pt_BR">Visualizar apenas mensagens recebidas</value>
         <value xml:lang="ro">Vizualizeaza Mesaje Primite </value>
@@ -3993,7 +4093,7 @@
         <value xml:lang="fr">Voir ceux envoyés et ceux reçus</value>
         <value xml:lang="hi_IN">मिला हुआ व भेजा हुआ संदेश देखें</value>
         <value xml:lang="it">Visualizza inviati e ricevuti</value>
-        <value xml:lang="ja">View Sent and Received</value>
+        <value xml:lang="ja">送信を表示</value>
         <value xml:lang="nl">Bekijk verzonden en ontvangen</value>
         <value xml:lang="pt_BR">Visualizar apenas mensagens enviadas</value>
         <value xml:lang="ro">Vizualizeaza Trimite si Primeste</value>
@@ -4006,11 +4106,13 @@
     <property key="EcommerceYearsAtAddressNotValid">
         <value xml:lang="en">Years at address not a valid number: ${parameters.yearsAtAddress}</value>
         <value xml:lang="it">Anni all'indirizzo non è un numero valido: ${parameters.yearsAtAddress}</value>
+        <value xml:lang="ja">住所が有効でない年数: ${parameters.yearsAtAddress}</value>
         <value xml:lang="vi">Số năm không phải là số hợp lệ tại địa chỉ: ${parameters.yearsAtAddress}</value>
     </property>
     <property key="EcommerceYearsWithEmployeeNotValid">
         <value xml:lang="en">Years with Employer was not a valid number: ${parameters.yearsWithEmployer}</value>
         <value xml:lang="it">Anni come impiegato non è un numero valido: ${parameters.yearsWithEmployer}</value>
+        <value xml:lang="ja">雇用者が有効でない年数: ${parameters.yearsWithEmployer}</value>
         <value xml:lang="vi">Số năm không phải là số hợp lệ với Nhân viên: ${parameters.yearsWithEmployer}</value>
     </property>
     <property key="EcommerceYouHave">
@@ -4021,7 +4123,7 @@
         <value xml:lang="fr">Vous avez</value>
         <value xml:lang="hi_IN">आपके पास है</value>
         <value xml:lang="it">Tu hai</value>
-        <value xml:lang="ja">You have</value>
+        <value xml:lang="ja">現在</value>
         <value xml:lang="nl">U heeft</value>
         <value xml:lang="pt_BR">Você tem</value>
         <value xml:lang="ro">Tu ai</value>
@@ -4039,7 +4141,7 @@
         <value xml:lang="fr">On vous a envoyé</value>
         <value xml:lang="hi_IN">आपको भेजा गया है</value>
         <value xml:lang="it">Ti è stato inviato un</value>
-        <value xml:lang="ja">You have been sent a</value>
+        <value xml:lang="ja">送信済</value>
         <value xml:lang="nl">Verzonden naar u; </value>
         <value xml:lang="pt_BR">Você recebeu um</value>
         <value xml:lang="ro">Tu ai trimis un</value>
@@ -4058,7 +4160,7 @@
         <value xml:lang="fr">Vous pourriez aussi être intéressé(e) par</value>
         <value xml:lang="hi_IN">आप इसमें भी इच्छा रख़ते होगें</value>
         <value xml:lang="it">Potresti anche essere interessato a</value>
-        <value xml:lang="ja">You might also be interested in</value>
+        <value xml:lang="ja">おすすめ</value>
         <value xml:lang="nl">Misschien bent u ook geinteresserd in</value>
         <value xml:lang="pt_BR">Talvez isto lhe interesse também:</value>
         <value xml:lang="pt_PT">Também estará interessado neste(s)</value>
@@ -4078,7 +4180,7 @@
         <value xml:lang="fr">Vous pourriez aimer</value>
         <value xml:lang="hi_IN">आपको पसन्द होगा</value>
         <value xml:lang="it">Ti potrebbe piacere</value>
-        <value xml:lang="ja">You Might Like</value>
+        <value xml:lang="ja">推奨</value>
         <value xml:lang="nl">U wilt misschien graag</value>
         <value xml:lang="pt_BR">Você talvez goste:</value>
         <value xml:lang="pt_PT">Também vai gostar</value>
@@ -4095,6 +4197,7 @@
         <value xml:lang="en">your</value>
         <value xml:lang="fr">Votre</value>
         <value xml:lang="it">tuo</value>
+        <value xml:lang="ja">あなたの</value>
         <value xml:lang="nl">uw</value>     
         <value xml:lang="pt_BR">seu</value>
         <value xml:lang="th">ของคุณ</value>
@@ -4110,7 +4213,7 @@
         <value xml:lang="fr">Votre n° de carte</value>
         <value xml:lang="hi_IN">आपका कार्ड नम्बर:</value>
         <value xml:lang="it">La tua carta numero:</value>
-        <value xml:lang="ja">Your Card Number:</value>
+        <value xml:lang="ja">カード番号</value>
         <value xml:lang="nl">Uw kaartnummer:</value>
         <value xml:lang="pt_BR">O número de seu cartão:</value>
         <value xml:lang="ro">Numarul Cartii tale:</value>
@@ -4128,7 +4231,7 @@
         <value xml:lang="fr">Votre carte cadeau </value>
         <value xml:lang="hi_IN">आपका उपहार कार्ड:</value>
         <value xml:lang="it">La tua carta omaggio :</value>
-        <value xml:lang="ja">Your gift card :</value>
+        <value xml:lang="ja">ギフトカード</value>
         <value xml:lang="nl">Uw geschenkkaart :</value>
         <value xml:lang="pt_BR">Seu cartão de presente</value>
         <value xml:lang="ro">Cartea ta de omagiu :</value>
@@ -4143,6 +4246,7 @@
         <value xml:lang="en">Your Gift Card Reloaded Have</value>
         <value xml:lang="fr">Votre carte cadeau est rechargée</value>
         <value xml:lang="it">La tua carta regalo è stata ricaricata</value>
+        <value xml:lang="ja">ギフトカード補充後</value>
         <value xml:lang="nl">Uw geschenkkaart heeft</value>     
         <value xml:lang="pt_BR">Seu cartão de presente recarregado tem</value>
         <value xml:lang="vi">Thẻ tặng quà đã tải lại của bạn có</value>
@@ -4152,11 +4256,13 @@
     <property key="EcommerceYourOrderIsBeingProcessed">
         <value xml:lang="de">Ihre Bestellung wird verarbeitet, dies kann einige Minuten dauern...</value>
         <value xml:lang="en">Your order is being processed, this may take a moment...</value>
+        <value xml:lang="ja">注文は処理中です。しばらくお待ちください...</value>
         <value xml:lang="vi">Yêu cầu của bạn đang được xử lý, có thể mất một vài phút...</value>
     </property>
     <property key="EcommerceYourNamePhoneAndEmail">
         <value xml:lang="de">Ihr Name, Telefon und E-Mail</value>
         <value xml:lang="en">Your Name, Phone Number and E-Mail</value>
+        <value xml:lang="ja">あなたの名前、電話番号、および電子メール</value>
         <value xml:lang="vi">Tên, số điện thoại và thư điện tử của bạn</value>
     </property>
     <property key="EcommerceYourPinNumber">
@@ -4167,7 +4273,7 @@
         <value xml:lang="fr">Votre n° PIN</value>
         <value xml:lang="hi_IN">आपका पिन नम्बर</value>
         <value xml:lang="it">Il tuo numero di Pin :</value>
-        <value xml:lang="ja">Your Pin Number :</value>
+        <value xml:lang="ja">PIN番号</value>
         <value xml:lang="nl">Uw pinnummer :</value>
         <value xml:lang="pt_BR">Seu número de Pin é:</value>
         <value xml:lang="ro">Numarul tau de Pin :</value>
@@ -4187,7 +4293,7 @@
         <value xml:lang="fr">Votre panier est vide</value>
         <value xml:lang="hi_IN">आपकी ख़रीदारी टोकरी ख़ाली है</value>
         <value xml:lang="it">Il tuo carrello è vuoto</value>
-        <value xml:lang="ja">Your shopping cart is empty</value>
+        <value xml:lang="ja">買い物かごは何も入っていません</value>
         <value xml:lang="nl">Uw winkelwagen is leeg</value>
         <value xml:lang="pt_BR">Seu carrinho de compras está vazio</value>
         <value xml:lang="pt_PT">O seu Cesto de compras está vazio</value>
@@ -4206,7 +4312,7 @@
         <value xml:lang="fr">Ajouter une réponse</value>
         <value xml:lang="hi_IN">उत्तर जोड़ें</value>
         <value xml:lang="it">Aggiungi risposta</value>
-        <value xml:lang="ja">Add Response</value>
+        <value xml:lang="ja">回答を追加</value>
         <value xml:lang="nl">Voeg antwoord toe</value>
         <value xml:lang="pt_BR">Adicionar uma resposta</value>
         <value xml:lang="ro">Adauga Raspuns</value>
@@ -4224,7 +4330,7 @@
         <value xml:lang="fr">Information additionnelle</value>
         <value xml:lang="hi_IN">अतिरिक्त सूचना</value>
         <value xml:lang="it">Informazioni aggiuntive</value>
-        <value xml:lang="ja">Additional Info</value>
+        <value xml:lang="ja">追加の情報</value>
         <value xml:lang="nl">Extra informatie</value>
         <value xml:lang="pt_BR">Dados adicionais</value>
         <value xml:lang="ro">Informatii Suplimentare</value>
@@ -4242,7 +4348,7 @@
         <value xml:lang="fr">Information de facturation</value>
         <value xml:lang="hi_IN">बिल की जानकारी</value>
         <value xml:lang="it">Informazioni di fatturazione</value>
-        <value xml:lang="ja">Billing Information</value>
+        <value xml:lang="ja">請求情報</value>
         <value xml:lang="nl">Factuur informatie</value>
         <value xml:lang="pt_BR">Dados de cobrança</value>
         <value xml:lang="ro">Informatii Facturare</value>
@@ -4261,7 +4367,7 @@
         <value xml:lang="fr">Changement de mot de passe</value>
         <value xml:lang="hi_IN">पासवर्ड बदलिये</value>
         <value xml:lang="it">Cambio password</value>
-        <value xml:lang="ja">パスワード</value>
+        <value xml:lang="ja">パスワード変更</value>
         <value xml:lang="nl">Wijzig wachtwoord</value>
         <value xml:lang="pt_BR">Alterar senha</value>
         <value xml:lang="pt_PT">Alterar Senha</value>
@@ -4280,7 +4386,7 @@
         <value xml:lang="es">Revisión De la Comprobación</value>
         <value xml:lang="fr">Vérification du paiement</value>
         <value xml:lang="it">Verifica del pagamento</value>
-        <value xml:lang="ja">Checkout Review</value>
+        <value xml:lang="ja">チェックアウト確認</value>
         <value xml:lang="nl">Besteloverzicht</value>
         <value xml:lang="pt_BR">Revisão do pagamento</value>
         <value xml:lang="pt_PT">Revisão de Pagamento</value>
@@ -4298,7 +4404,7 @@
         <value xml:lang="es">Página de contenido</value>
         <value xml:lang="fr">Page de contenu</value>
         <value xml:lang="it">Contenuto pagina</value>
-        <value xml:lang="ja">Content Page</value>
+        <value xml:lang="ja">コンテンツページ</value>
         <value xml:lang="nl">Contentpagina</value>
         <value xml:lang="pt_BR">Página de conteúdo</value>
         <value xml:lang="ro">Continut Pagina</value>
@@ -4316,6 +4422,7 @@
         <value xml:lang="fr">Modifier mon article numérique</value>
         <value xml:lang="hi_IN">डिजीटल सामान सुधारें</value>
         <value xml:lang="it">Aggiorna mio prodotto digitale</value>
+        <value xml:lang="ja">私のソフトウェア製品を編集</value>
         <value xml:lang="nl">Wijzigen mijn digitale producten</value>       
         <value xml:lang="pt_BR">Editar meu produto digital</value>
         <value xml:lang="ro">Actualizeaza Produsul meu Digital</value>
@@ -4333,6 +4440,7 @@
         <value xml:lang="fr">Voir mes articles numériques</value>
         <value xml:lang="hi_IN">मेरी डिजीटल जानकारी बताइये</value>
         <value xml:lang="it">Lista miei prodotti digitali</value>
+        <value xml:lang="ja">私のソフトウェア製品一覧</value>
         <value xml:lang="nl">Toon mijn digitale producten</value>       
         <value xml:lang="pt_BR">Listar meus produtos digitais</value>
         <value xml:lang="ro">Listeaza Produsele mele Digitale</value>
@@ -4349,7 +4457,7 @@
         <value xml:lang="es">Añadir/Editar contenido</value>
         <value xml:lang="fr">Éditer/Ajouter le contenu</value>
         <value xml:lang="it">Aggiorna/Aggiungi contenuto</value>
-        <value xml:lang="ja">Edit/Add Content</value>
+        <value xml:lang="ja">コンテンツの編集/追加</value>
         <value xml:lang="nl">Verander/voeg content toe</value>
         <value xml:lang="pt_BR">Editar/adicionar conteúdo</value>
         <value xml:lang="ro">Actualizeaza/Adauga Continut</value>
@@ -4367,7 +4475,7 @@
         <value xml:lang="fr">Éditer/Ajouter une image</value>
         <value xml:lang="hi_IN">चित्र बदलिये/जोडिये</value>
         <value xml:lang="it">Aggiorna/Aggiungi immagine</value>
-        <value xml:lang="ja">画像の追加/</value>
+        <value xml:lang="ja">画像の編集/追加/</value>
         <value xml:lang="nl">Verander/voeg plaatje toe</value>
         <value xml:lang="pt_BR">Editar/adicionar conteúdo</value>
         <value xml:lang="ro">Actualizeaza/Adauga Imagine</value>
@@ -4385,7 +4493,7 @@
         <value xml:lang="es">Modificar Mecanismo de Contacto</value>
         <value xml:lang="fr">Modification des coordonnées</value>
         <value xml:lang="it">Aggiorna contatto</value>
-        <value xml:lang="ja">Edit Contact Mechanism</value>
+        <value xml:lang="ja">連絡方法を編集</value>
         <value xml:lang="nl">Verander de contactmethode</value>
         <value xml:lang="pt_BR">Editar mecanismo de contato</value>
         <value xml:lang="pt_PT">Editar Mecanismo de Contacto</value>
@@ -4404,7 +4512,7 @@
         <value xml:lang="fr">Modification des comptes de virement électronique</value>
         <value xml:lang="hi_IN">EFT ख़ाता बदलिये</value>
         <value xml:lang="it">Aggiorna conto EFT </value>
-        <value xml:lang="ja">Edit EFT Account</value>
+        <value xml:lang="ja">電子取引(EFT)アカウントを編集</value>
         <value xml:lang="nl">Wijzgen bankrekening</value>
         <value xml:lang="pt_BR">Editar conta EFT</value>
         <value xml:lang="pt_PT">Editar Conta EFT</value>
@@ -4422,7 +4530,7 @@
         <value xml:lang="es">Modificar información de contenido del fóro</value>
         <value xml:lang="fr">Modifier l'information contenue dans le forum</value>
         <value xml:lang="it">Aggiorna informazioni contenuto forum</value>
-        <value xml:lang="ja">Edit Forum Content Info</value>
+        <value xml:lang="ja">フォーラムコンテンツ情報を編集</value>
         <value xml:lang="nl">Pas de foruminhoud aan</value>
         <value xml:lang="pt_BR">Editar dados de conteúdo do Forum</value>
         <value xml:lang="ro">Actualizeaza Informatii Continut Forum</value>
@@ -4441,7 +4549,7 @@
         <value xml:lang="fr">Modification des données personnelles</value>
         <value xml:lang="hi_IN">व्यक्ति बदलिये</value>
         <value xml:lang="it">Aggiorna persona</value>
-        <value xml:lang="ja">Edit Person</value>
+        <value xml:lang="ja">人を編集</value>
         <value xml:lang="nl">Wijzigen persoonsgegevens</value>
         <value xml:lang="pt_BR">Editar Pessoa</value>
         <value xml:lang="pt_PT">Editar Indivíduo</value>
@@ -4459,7 +4567,7 @@
         <value xml:lang="es">Artículo de Foro</value>
         <value xml:lang="fr">Article du forum</value>
         <value xml:lang="it">Articoli forum</value>
-        <value xml:lang="ja">Forum Article</value>
+        <value xml:lang="ja">フォーラム記事</value>
         <value xml:lang="nl">Forum bericht</value>
         <value xml:lang="pt_BR">Artigo do forum</value>
         <value xml:lang="ro">Forum Articole</value>
@@ -4476,7 +4584,7 @@
         <value xml:lang="es">Respuesta de foro</value>
         <value xml:lang="fr">Réponse du forum</value>
         <value xml:lang="it">Risposte forum</value>
-        <value xml:lang="ja">Forum Response</value>
+        <value xml:lang="ja">フォーラム回答</value>
         <value xml:lang="nl">Forum antwoord</value>
         <value xml:lang="pt_BR">Resposta do forum</value>
         <value xml:lang="ro">Forum Raspunsuri </value>
@@ -4493,7 +4601,7 @@
         <value xml:lang="es">Resumen de fóro</value>
         <value xml:lang="fr">Sommaire du forum</value>
         <value xml:lang="it">Sommario forum</value>
-        <value xml:lang="ja">Forum Summary</value>
+        <value xml:lang="ja">フォーラムサマリ</value>
         <value xml:lang="nl">Forum overzicht</value>
         <value xml:lang="pt_BR">Resumo do forum</value>
         <value xml:lang="ro">Forum Rezumat</value>
@@ -4511,7 +4619,7 @@
         <value xml:lang="fr">Solde de la carte cadeau</value>
         <value xml:lang="hi_IN">उपहार कार्ड बचा मुल्य</value>
         <value xml:lang="it">Saldo carta omaggio</value>
-        <value xml:lang="ja">Gift Card Balance</value>
+        <value xml:lang="ja">ギフトカード残高</value>
         <value xml:lang="nl">Geschenkkaart saldo/waarde</value>
         <value xml:lang="pt_BR">Saldo do cartão de presentes</value>
         <value xml:lang="ro">Bilant Carte Omagiu</value>
@@ -4529,7 +4637,7 @@
         <value xml:lang="fr">Lien vers la carte cadeau</value>
         <value xml:lang="hi_IN">उपहार कार्ड लिंक</value>
         <value xml:lang="it">Link carta omaggio</value>
-        <value xml:lang="ja">Gift Card Link</value>
+        <value xml:lang="ja">ギフトカードリンク</value>
         <value xml:lang="nl">Geschenkkaart link</value>
         <value xml:lang="pt_BR">Conexão do cartão de presentes</value>
         <value xml:lang="ro">Link Carte Omagiu</value>
@@ -4548,7 +4656,7 @@
         <value xml:lang="fr">Derniers articles visités</value>
         <value xml:lang="hi_IN">अन्त माल देख़िये</value>
         <value xml:lang="it">Ultimi prodotti visti</value>
-        <value xml:lang="ja">商品表示履歴</value>
+        <value xml:lang="ja">最近表示した製品</value>
         <value xml:lang="nl">Laatst bekeken producten</value>
         <value xml:lang="pt_BR">Últimos produtos visualizados</value>
         <value xml:lang="pt_PT">Últimos Produtos Consultados</value>
@@ -4565,6 +4673,7 @@
         <value xml:lang="en">List Quotes</value>
         <value xml:lang="fr">Liste des devis</value>
         <value xml:lang="it">Lista preventivi</value>
+        <value xml:lang="ja">見積一覧</value>
         <value xml:lang="nl">Lijst offertes</value>     
         <value xml:lang="pt_BR">Listar citações</value>
         <value xml:lang="th">อ้างอิงการทำรายการ</value>
@@ -4578,6 +4687,7 @@
         <value xml:lang="en">List Requests</value>
         <value xml:lang="fr">Liste des demandes</value>
         <value xml:lang="it">Lista richieste</value>
+        <value xml:lang="ja">リクエスト一覧</value>
         <value xml:lang="nl">Lijst aanvragen</value>        
         <value xml:lang="pt_BR">Listar requisições</value>
         <value xml:lang="th">รายการคำร้อง</value>
@@ -4593,7 +4703,7 @@
         <value xml:lang="fr">Détail du message</value>
         <value xml:lang="hi_IN">सूचना विवरण</value>
         <value xml:lang="it">Dettagli messaggio</value>
-        <value xml:lang="ja">Message Detail</value>
+        <value xml:lang="ja">メッセージ詳細</value>
         <value xml:lang="nl">Bericht detail</value>
         <value xml:lang="pt_BR">Detalhe da mensagem</value>
         <value xml:lang="ro">Detalii Mesaj</value>
@@ -4611,7 +4721,7 @@
         <value xml:lang="fr">Liste des messages</value>
         <value xml:lang="hi_IN">सूचना सूची</value>
         <value xml:lang="it">Lista messaggi</value>
-        <value xml:lang="ja">Message List</value>
+        <value xml:lang="ja">メッセージ一覧</value>
         <value xml:lang="nl">Berichtenlijst</value>
         <value xml:lang="pt_BR">Lista de mensagens</value>
         <value xml:lang="ro">Lista Mesaj</value>
@@ -4630,7 +4740,7 @@
         <value xml:lang="fr">Nouveau client</value>
         <value xml:lang="hi_IN">नया ग्राहक</value>
         <value xml:lang="it">Nuovo soggetto</value>
-        <value xml:lang="ja">New Customer</value>
+        <value xml:lang="ja">新規顧客</value>
         <value xml:lang="nl">Nieuwe klant</value>
         <value xml:lang="pt_BR">Novo cliente</value>
         <value xml:lang="pt_PT">Novo Cliente</value>
@@ -4649,7 +4759,7 @@
         <value xml:lang="fr">Nouveau message</value>
         <value xml:lang="hi_IN">नयी सूचना</value>
         <value xml:lang="it">Nuovo messaggio</value>
-        <value xml:lang="ja">New Message</value>
+        <value xml:lang="ja">新規メッセージ</value>
         <value xml:lang="nl">Nieuw bericht</value>
         <value xml:lang="pt_BR">Nova mensagem</value>
         <value xml:lang="ro">Nou Mesaj</value>
@@ -4665,6 +4775,7 @@
         <value xml:lang="en">Order Backorder Notice</value>
         <value xml:lang="fr">Confirmation du retour de commande</value>
         <value xml:lang="it">Conferma restituzione ordine</value>
+        <value xml:lang="ja">注文取り寄せ通知</value>
         <value xml:lang="nl">Notificatie bestelling retour</value>      
         <value xml:lang="pt_BR">Notificação de pedido a ser processado</value>
         <value xml:lang="th">พบว่าไม่สามรถส่งสินค้าตามรายการสั่งซื้อได้ในขณะนั้นเนื่องจากสินค้าหมด</value>
@@ -4678,6 +4789,7 @@
         <value xml:lang="en">Order Change Notice</value>
         <value xml:lang="fr">Confirmation du changement de votre commande</value>
         <value xml:lang="it">Conferma modifica ordine</value>
+        <value xml:lang="ja">注文変更通知</value>
         <value xml:lang="nl">Notificatie bestelling gewijzigd</value>       
         <value xml:lang="pt_BR">Notificação de alteração de pedido</value>
         <value xml:lang="th">พบว่ามีการเปลี่ยนแปลงรายการสั่งซื้อสินค้า</value>
@@ -4692,6 +4804,7 @@
         <value xml:lang="fr">Confirmation de fin de commande</value>
         <value xml:lang="hi_IN">आर्डर खत्म होने पर नोटिस</value>
         <value xml:lang="it">Notifica ordine completato</value>
+        <value xml:lang="ja">注文完了通知</value>
         <value xml:lang="nl">Notificatie bestelling gereed</value>      
         <value xml:lang="pt_BR">Notificação de encerramento de pedido</value>
         <value xml:lang="ro">Notifica comanda Completata</value>
@@ -4724,6 +4837,7 @@
         <value xml:lang="en">Order Confirmation Notice</value>
         <value xml:lang="fr">Avis de confirmation de commande</value>
         <value xml:lang="it">Avviso di conferma ordine</value>
+        <value xml:lang="ja">注文確認通知</value>
         <value xml:lang="nl">Notificatie bestelling bevestigd</value>       
         <value xml:lang="pt_BR">Notificação de confirmação de pedido</value>
         <value xml:lang="vi">Thông báo xác nhận đặt hàng</value>
@@ -4756,6 +4870,7 @@
         <value xml:lang="en">Payment Retry Notice</value>
         <value xml:lang="fr">Nouvel essai de paiement</value>
         <value xml:lang="it">Nuovo tentativo di pagamento</value>
+        <value xml:lang="ja">支払再試行通知</value>
         <value xml:lang="nl">Notificatie nieuwe poging betaling</value>         
         <value xml:lang="pt_BR">Notificação de nova tentativa de pagamento</value>
         <value xml:lang="th">พบการชำระการสั่งซื้อสินค้าใหม่</value>
@@ -4792,7 +4907,7 @@
         <value xml:lang="fr">Résumé de la commande - Merci pour votre commande !</value>
         <value xml:lang="hi_IN">आर्डर विवरण - आर्डर के लिए धन्यवाद !</value>
         <value xml:lang="it">Sommario ordine - Grazie per il tuo ordine!</value>
-        <value xml:lang="ja">Order Summary - Thank you for your order!</value>
+        <value xml:lang="ja">注文サマリ - ご注文ありがとうございます</value>
         <value xml:lang="nl">Bestelling overzicht - We danken u voor uw bestelling!</value>
         <value xml:lang="pt_BR">Resumo do pedido - Muito Obrigado por seu pedido</value>
         <value xml:lang="pt_PT">Resumo das Encomendas - Gratos pela sua encomenda!</value>
@@ -4811,7 +4926,7 @@
         <value xml:lang="es">Revisión de Productos</value>
         <value xml:lang="fr">Revue d'article</value>
         <value xml:lang="it">Recensione del prodotto</value>
-        <value xml:lang="ja">Product Review</value>
+        <value xml:lang="ja">製品レビュー</value>
         <value xml:lang="nl">Product overzicht</value>
         <value xml:lang="pt_BR">Resenha do produto</value>
         <value xml:lang="pt_PT">Revisão do Produto</value>
@@ -4830,7 +4945,7 @@
         <value xml:lang="es">Encuesta de Perfíl</value>
         <value xml:lang="fr">Profil : sondage</value>
         <value xml:lang="it">Quadro Generale</value>
-        <value xml:lang="ja">Profile Survey</value>
+        <value xml:lang="ja">プロファイル評価</value>
         <value xml:lang="nl">Profiel enquete</value>
         <value xml:lang="pt_BR">Perfil da enquete</value>
         <value xml:lang="ro">Cadru General</value>
@@ -4849,7 +4964,7 @@
         <value xml:lang="es">Solicitud de devolución</value>
         <value xml:lang="fr">Demande de retour</value>
         <value xml:lang="it">Richiesta di reso</value>
-        <value xml:lang="ja">Request Return</value>
+        <value xml:lang="ja">返品リクエスト</value>
         <value xml:lang="nl">Retour aanvragen</value>
         <value xml:lang="pt_BR">Solicitação de devolução</value>
         <value xml:lang="pt_PT">Pedido De Devolução</value>
@@ -4868,7 +4983,7 @@
         <value xml:lang="fr">Sites de recherche</value>
         <value xml:lang="hi_IN">साइट देखिये</value>
         <value xml:lang="it">Siti di ricerca</value>
-        <value xml:lang="ja">Search Sites</value>
+        <value xml:lang="ja">サイトを検索</value>
         <value xml:lang="nl">Zoek sites</value>
         <value xml:lang="pt_BR">Procurar sites</value>
         <value xml:lang="ro">Cauta Situri</value>
@@ -4886,7 +5001,7 @@
         <value xml:lang="fr">Messages envoyés</value>
         <value xml:lang="hi_IN">भेजा हुआ सन्देश</value>
         <value xml:lang="it">Messaggi inviati</value>
-        <value xml:lang="ja">Sent Messages</value>
+        <value xml:lang="ja">送信メッセージ</value>
         <value xml:lang="nl">Verzonden berichten</value>
         <value xml:lang="pt_BR">Mensagens enviadas</value>
         <value xml:lang="ro">Trimite Mesaje</value>
@@ -4902,6 +5017,7 @@
         <value xml:lang="en">Shipment Complete Notice</value>
         <value xml:lang="fr">Avis de Livraison</value>
         <value xml:lang="it">Notifica di spedizione completata</value>
+        <value xml:lang="ja">発送完了通知</value>
         <value xml:lang="nl">Notificatie verzending gereed</value>          
         <value xml:lang="pt_BR">Notificação de envio efetuado</value>
         <value xml:lang="th">การชำระเงินเสร็จสมบูรณ์แล้ว</value>
@@ -4973,7 +5089,7 @@
         <value xml:lang="es">Dividir Artículos para envío</value>
         <value xml:lang="fr">Dissocier les articles lors de l'expédition</value>
         <value xml:lang="it">Dividi gli articoli per spedizioni</value>
-        <value xml:lang="ja">Split Items For Shipping</value>
+        <value xml:lang="ja">発送時にアイテムを分割</value>
         <value xml:lang="nl">Splits items op voor verzending</value>
         <value xml:lang="pt_BR">Dividir itens em grupos para o envio</value>
         <value xml:lang="ro">Divide linii pe expedieri </value>
@@ -4986,6 +5102,7 @@
     <property key="PageTitleTagResults">
         <value xml:lang="en">Tag results</value>
         <value xml:lang="fr">Résultats de la recherche par étiquette</value>
+        <value xml:lang="ja">タグ結果</value>
         <value xml:lang="vi">Đánh dấu (Tag) kết quả</value>
     </property>
     <property key="PageTitleViewBlog">
@@ -5012,7 +5129,7 @@
         <value xml:lang="es">Ver Contenido</value>
         <value xml:lang="fr">Voir le contenu</value>
         <value xml:lang="it">Mostra contenuto</value>
-        <value xml:lang="ja">View Content</value>
+        <value xml:lang="ja">コンテンツの表示</value>
         <value xml:lang="nl">Bekijk content</value>
         <value xml:lang="pt_BR">Visualizar conteúdo</value>
         <value xml:lang="ro">Afiseaza Continut</value>
@@ -5030,7 +5147,7 @@
         <value xml:lang="es">Ver perfil</value>
         <value xml:lang="fr">Visualisation du profil</value>
         <value xml:lang="it">Mostra profilo</value>
-        <value xml:lang="ja">View Profile</value>
+        <value xml:lang="ja">プロファイルの表示</value>
         <value xml:lang="nl">Bekijk profiel</value>
         <value xml:lang="pt_BR">Visualizar perfil</value>
         <value xml:lang="pt_PT">Ver Perfil</value>
@@ -5046,6 +5163,7 @@
         <value xml:lang="en">View Quote</value>
         <value xml:lang="fr">Voir les devis</value>
         <value xml:lang="it">Mostra preventivo</value>
+        <value xml:lang="ja">見積の表示</value>
         <value xml:lang="nl">Bekijk offerte</value>     
         <value xml:lang="pt_BR">Visualizar citação</value>
         <value xml:lang="vi">Xem báo giá</value>

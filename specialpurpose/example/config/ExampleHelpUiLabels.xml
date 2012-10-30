@@ -23,6 +23,7 @@
         <value xml:lang="en">An example of a Help screen.</value>
         <value xml:lang="fr">Un exemple d'écran d'aide</value>
         <value xml:lang="it">Un esempio di schermata di aiuto.</value>
+        <value xml:lang="ja">ヘルプ画面のサンプル。</value>
         <value xml:lang="zh">帮助屏幕的样例</value>
     </property>
 </resource>

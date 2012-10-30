@@ -23,6 +23,7 @@
         <value xml:lang="en">Error: </value>
         <value xml:lang="fr">Erreur : </value>
         <value xml:lang="it">Errore: </value>
+        <value xml:lang="ja">エラー:</value>
         <value xml:lang="nl">Fout: </value>     
     </property>
     <property key="check.error.suffix">
@@ -40,6 +41,7 @@
         <value xml:lang="es">Se ha realizado la acción correctamente</value>
         <value xml:lang="fr">Opération réussie.</value>
         <value xml:lang="it">L'azione è stata eseguita con successo.</value>
+        <value xml:lang="ja">操作は成功しました。</value>
         <value xml:lang="nl">De acties is met succes uitgevoerd.</value>        
         <value xml:lang="ro">Operatia a fost executata cu succes.</value>
         <value xml:lang="ru">Действие выполнено успешно.</value>
@@ -52,6 +54,7 @@
         <value xml:lang="en">Error: </value>
         <value xml:lang="fr">Erreur : </value>
         <value xml:lang="it">Errore: </value>
+        <value xml:lang="ja">エラー:</value>
         <value xml:lang="nl">Fout: </value>     
     </property>
     <property key="service.error.suffix">

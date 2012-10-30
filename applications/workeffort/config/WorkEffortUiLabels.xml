@@ -23,6 +23,7 @@
         <value xml:lang="en">Accommodation Map Id</value>
         <value xml:lang="fr">Réf. de plan de logement</value>
         <value xml:lang="it">Mappa alloggio</value>
+        <value xml:lang="ja">設備配置ID</value>
         <value xml:lang="vi">Id địa điểm trên bản đồ</value>
         <value xml:lang="zh">接待地图标识</value>
         <value xml:lang="zh_TW">接待地圖示識</value>
@@ -31,6 +32,7 @@
         <value xml:lang="en">Accommodation Spot Id</value>
         <value xml:lang="fr">Réf. de lieu de logement</value>
         <value xml:lang="it">Luogo alloggio</value>
+        <value xml:lang="ja">設備地点ID</value>
         <value xml:lang="vi">Nơi ở</value>
         <value xml:lang="zh">接待地点标识</value>
         <value xml:lang="zh_TW">接待處ID</value>
@@ -40,6 +42,7 @@
         <value xml:lang="en">Actual Completion Date</value>
         <value xml:lang="fr">Date d'achèvement réelle</value>
         <value xml:lang="it">Data completamento attuale</value>
+        <value xml:lang="ja">実績完了日</value>
         <value xml:lang="nl">Datum gereed</value>
         <value xml:lang="ro">Data Finalizare Actuala</value>
         <value xml:lang="th">วันที่สำเร็จตามความจริง</value>
@@ -52,6 +55,7 @@
         <value xml:lang="en">Actual End Date</value>
         <value xml:lang="fr">Date d'achèvement réelle</value>
         <value xml:lang="it">Data fine attuale</value>
+        <value xml:lang="ja">実績終了日</value>
         <value xml:lang="ro">Data Finala Actuala</value>
         <value xml:lang="th">วันสิ้นสุดตามความจริง</value>
         <value xml:lang="vi">Ngày kết thúc thực tế</value>
@@ -63,6 +67,7 @@
         <value xml:lang="en">Actual Milli Seconds</value>
         <value xml:lang="fr">Millisecondes</value>
         <value xml:lang="it">Millisecondi attuali</value>
+        <value xml:lang="ja">実績ミリ秒</value>
         <value xml:lang="nl">Actual Milli Seconds</value>
         <value xml:lang="ro">Millisecunde Actuale</value>
         <value xml:lang="th">พันวินาทีตามความจริง</value>
@@ -75,6 +80,7 @@
         <value xml:lang="en">Actual Setup Millis</value>
         <value xml:lang="fr">Configuration en millisecondes</value>
         <value xml:lang="it">Millisecondi Configurazione Attuali</value>
+        <value xml:lang="ja">実績設定ミリ秒</value>
         <value xml:lang="nl">Actual Setup Millis</value>
         <value xml:lang="ro">Configuratie Milisecunde Actuala </value>
         <value xml:lang="th">Actual Setup Millis</value>
@@ -88,6 +94,7 @@
         <value xml:lang="es">Fecha de comienzo real</value>
         <value xml:lang="fr">Date de début réelle</value>
         <value xml:lang="it">Data inizio attuale</value>
+        <value xml:lang="ja">実績開始日</value>
         <value xml:lang="nl">Datum start</value>
         <value xml:lang="ro">Data Initiere Actuala</value>
         <value xml:lang="th">วันที่เริ่มตามความจริง</value>
@@ -100,6 +107,7 @@
         <value xml:lang="en">Approved By User Login Id</value>
         <value xml:lang="fr">Approuvé par</value>
         <value xml:lang="it">Approvato dall'utente</value>
+        <value xml:lang="ja">承認ユーザID</value>
         <value xml:lang="vi">Duyệt bởi người dùng đăng nhập</value>
         <value xml:lang="zh">批准者用户登录标识</value>
         <value xml:lang="zh_TW">核准使用者登入ID</value>
@@ -109,6 +117,7 @@
         <value xml:lang="en">Availability</value>
         <value xml:lang="fr">Disponibilité</value>
         <value xml:lang="it">Disponibilità</value>
+        <value xml:lang="ja">有効時間</value>
         <value xml:lang="vi">Sẵn có</value>
         <value xml:lang="zh">有效性</value>
         <value xml:lang="zh_TW">可用性</value>
@@ -117,6 +126,7 @@
         <value xml:lang="en">Calendar Type</value>
         <value xml:lang="fr">Type de calendrier</value>
         <value xml:lang="it">Tipo ti calendario</value>
+        <value xml:lang="ja">カレンダ種類</value>
         <value xml:lang="vi">Loại lịch</value>
         <value xml:lang="zh">日历类型</value>
         <value xml:lang="zh_TW">行事曆形態</value>
@@ -126,6 +136,7 @@
         <value xml:lang="en">Client Party Id</value>
         <value xml:lang="fr">Code client</value>
         <value xml:lang="it">Codice soggetto cliente</value>
+        <value xml:lang="ja">顧客取引先ID</value>
         <value xml:lang="nl">Klant relatie Id</value>
         <value xml:lang="ro">Client Cod Subiect</value>
         <value xml:lang="th">รหัสกลุ่มลูกข่าย</value>
@@ -138,6 +149,7 @@
         <value xml:lang="en">Cust Request Type Description</value>
         <value xml:lang="fr">Description de type de requête client</value>
         <value xml:lang="it">Descrizione tipo richiesta cliente</value>
+        <value xml:lang="ja">顧客リクエスト種類詳細</value>
         <value xml:lang="nl">Cust Request Type Description</value>
         <value xml:lang="ro">Descriere Tip Cerere Client</value>
         <value xml:lang="th">รายละเอียดประเภทคำร้องของลูกค้า</value>
@@ -150,6 +162,7 @@
         <value xml:lang="en">Estimated Completion Date</value>
         <value xml:lang="fr">Date d'achèvement estimée</value>
         <value xml:lang="it">Data completamento stimata</value>
+        <value xml:lang="ja">予定完了日</value>
         <value xml:lang="nl">Gepl. datum afgerond</value>
         <value xml:lang="ro">Data Finalizare Stimata</value>
         <value xml:lang="th">วันที่สำเร็จประมาณ</value>
@@ -162,6 +175,7 @@
         <value xml:lang="en">Estimated Milli Seconds</value>
         <value xml:lang="fr">Millisecondes estimées</value>
         <value xml:lang="it">Millisecondi stimati</value>
+        <value xml:lang="ja">予定ミリ秒</value>
         <value xml:lang="nl">Estimated Milli Seconds</value>
         <value xml:lang="ro">Milisecunde Stimate</value>
         <value xml:lang="th">ประมาณพันวินาที</value>
@@ -174,6 +188,7 @@
         <value xml:lang="en">Estimated Setup Millis</value>
         <value xml:lang="fr">Configuration estimée en millisecondes</value>
         <value xml:lang="it">Millisecondi Configurazione Stimati</value>
+        <value xml:lang="ja">予定設定ミリ秒</value>
         <value xml:lang="nl">Estimated Setup Millis</value>
         <value xml:lang="ro">Configuratie Milisecunde Stimate </value>
         <value xml:lang="th">Estimated Setup Millis</value>
@@ -187,6 +202,7 @@
         <value xml:lang="es">Fecha de comienzo estimada</value>
         <value xml:lang="fr">Date de début estimée</value>
         <value xml:lang="it">Data di inizio stimata</value>
+        <value xml:lang="ja">予定開始日</value>
         <value xml:lang="nl">Gepl. datum start</value>
         <value xml:lang="ro">Data Initiala Stimata</value>
         <value xml:lang="th">เริ่มประมาณวันที่</value>
@@ -199,6 +215,7 @@
         <value xml:lang="en">Finish Date Time</value>
         <value xml:lang="fr">Date-heure de fin</value>
         <value xml:lang="it">Data/Ora fine</value>
+        <value xml:lang="ja">終了日時</value>
         <value xml:lang="th">วันเวลาที่เสร็จ</value>
         <value xml:lang="vi">Ngày giờ kết thúc</value>
         <value xml:lang="zh">完成日期时间</value>
@@ -208,6 +225,7 @@
         <value xml:lang="en">Hide events</value>
         <value xml:lang="fr">Cacher les évènements</value>
         <value xml:lang="it">Nascondi eventi</value>
+        <value xml:lang="ja">イベントを隠す</value>
         <value xml:lang="vi">Ẩn sự kiện</value>
         <value xml:lang="zh">隐藏事件</value>
     </property>
@@ -216,6 +234,7 @@
         <value xml:lang="en">Hours</value>
         <value xml:lang="fr">Heures</value>
         <value xml:lang="it">Ore</value>
+        <value xml:lang="ja">時間</value>
         <value xml:lang="nl">Uren</value>
         <value xml:lang="ro">Ore</value>
         <value xml:lang="th">ชั่วโมง</value>
@@ -228,6 +247,7 @@
         <value xml:lang="en">Info Url</value>
         <value xml:lang="fr">URL d'information</value>
         <value xml:lang="it">Informazione URL</value>
+        <value xml:lang="ja">情報URL</value>
         <value xml:lang="nl">Info Url</value>
         <value xml:lang="ro">Informatie Url</value>
         <value xml:lang="th">ข้อมูล Url</value>
@@ -239,6 +259,7 @@
         <value xml:lang="de">initiale Ansicht</value>
         <value xml:lang="en">Initial View</value>
         <value xml:lang="it">Vista iniziale</value>
+        <value xml:lang="ja">初期ビュー</value>
         <value xml:lang="vi">Giao diện khởi tạo</value>
         <value xml:lang="zh">初始化视图</value>
     </property>
@@ -247,6 +268,7 @@
         <value xml:lang="en">Invoice Info</value>
         <value xml:lang="fr">Information de facture</value>
         <value xml:lang="it">Informazioni fattura</value>
+        <value xml:lang="ja">請求書情報</value>
         <value xml:lang="nl">Faktuur info</value>
         <value xml:lang="ro">Informatii Factura</value>
         <value xml:lang="th">ข้อมูลใบส่งของ</value>
@@ -259,6 +281,7 @@
         <value xml:lang="en">is Printable</value>
         <value xml:lang="fr">Est imprimable</value>
         <value xml:lang="it">E' stampabile</value>
+        <value xml:lang="ja">印刷可</value>
         <value xml:lang="th">ซึ่งเหมาะกับการพิมพ์</value>
         <value xml:lang="vi">Có thể in được không</value>
         <value xml:lang="zh">可以打印吗</value>
@@ -269,6 +292,7 @@
         <value xml:lang="en">Issue Date</value>
         <value xml:lang="fr">Date de sortie</value>
         <value xml:lang="it">Data emissione</value>
+        <value xml:lang="ja">発行日</value>
         <value xml:lang="nl">Issue Datum</value>
         <value xml:lang="ro">Data Probleme</value>
         <value xml:lang="th">ฉบับวันที่</value>
@@ -281,6 +305,7 @@
         <value xml:lang="en">Last Status Update</value>
         <value xml:lang="fr">Dernière mise à jour de statut</value>
         <value xml:lang="it">Ultimo aggiornamento stato</value>
+        <value xml:lang="ja">最終ステータス更新</value>
         <value xml:lang="nl">Laatste wijziging status</value>
         <value xml:lang="ro">Ultima Stare Actualizata </value>
         <value xml:lang="th">อัพเดทสถานะครั้งสุดท้าย</value>
@@ -293,6 +318,7 @@
         <value xml:lang="en">Location Desc</value>
         <value xml:lang="fr">Description de l'emplacement</value>
         <value xml:lang="it">Descrizione luogo</value>
+        <value xml:lang="ja">位置詳細</value>
         <value xml:lang="nl">Location Desc</value>
         <value xml:lang="ro">Descriere Locatie</value>
         <value xml:lang="th">รายละเอียดที่ตั้ง</value>
@@ -305,6 +331,7 @@
         <value xml:lang="en">Must Rsvp</value>
         <value xml:lang="fr">Répondez S'il Vous Plaît</value>
         <value xml:lang="it">Deve Rsvp</value>
+        <value xml:lang="ja">要回復</value>
         <value xml:lang="nl">Must Rsvp</value>
         <value xml:lang="ro">Trebuie Rsvp</value>
         <value xml:lang="th">Must Rsvp</value>
@@ -316,6 +343,7 @@
         <value xml:lang="en">Order Type Description</value>
         <value xml:lang="fr">Description de type de commande</value>
         <value xml:lang="it">Descrizione tipo ordine</value>
+        <value xml:lang="ja">注文種類詳細</value>
         <value xml:lang="nl">Soort order omschrijving</value>
         <value xml:lang="ro">Descriere Tip Comanda</value>
         <value xml:lang="th">รายละเอียดประเภทรายการสั่งซื้อ</value>
@@ -328,6 +356,7 @@
         <value xml:lang="en">Posted Anonymous</value>
         <value xml:lang="fr">Envoyé anonymement</value>
         <value xml:lang="it">Inviato da anonimo</value>
+        <value xml:lang="ja">匿名で投稿</value>
         <value xml:lang="th">ไม่ระบุชื่อการโพสต์</value>
         <value xml:lang="vi">Gửi bởi Ẩn danh</value>
         <value xml:lang="zh">匿名张贴的</value>
@@ -338,6 +367,7 @@
         <value xml:lang="en">Product Id</value>
         <value xml:lang="fr">Code article</value>
         <value xml:lang="it">Codice prodotto</value>
+        <value xml:lang="ja">製品ID</value>
         <value xml:lang="nl">Produkt Id</value>
         <value xml:lang="ro">Cod Produs</value>
         <value xml:lang="th">รหัสสินค้า</value>
@@ -350,6 +380,7 @@
         <value xml:lang="en">Quantity Produced</value>
         <value xml:lang="fr">Quantité produite</value>
         <value xml:lang="it">Quantità prodotta</value>
+        <value xml:lang="ja">生産済数量</value>
         <value xml:lang="nl">Aantal geproduceerd</value>
         <value xml:lang="ro">Cantitatea Produsa</value>
         <value xml:lang="th">จำนวนผลผลิต</value>
@@ -362,6 +393,7 @@
         <value xml:lang="en">Quantity To Produce</value>
         <value xml:lang="fr">Quantité à produire</value>
         <value xml:lang="it">Quantità da produrre</value>
+        <value xml:lang="ja">要生産数量</value>
         <value xml:lang="nl">Quantity To Produce</value>
         <value xml:lang="ro">Cantitatea De Produs</value>
         <value xml:lang="th">ผลผลิตถึงจำนวน</value>
@@ -375,6 +407,7 @@
         <value xml:lang="en">Quote Name</value>
         <value xml:lang="fr">Nom du devis</value>
         <value xml:lang="it">Nome preventivo</value>
+        <value xml:lang="ja">見積名称</value>
         <value xml:lang="nl">Offerte naam</value>
         <value xml:lang="ro">Nume Preventiv</value>
         <value xml:lang="th">ชื่อการอ้างอิง</value>
@@ -387,6 +420,7 @@
         <value xml:lang="en">Rate</value>
         <value xml:lang="fr">Taux</value>
         <value xml:lang="it">Tasso</value>
+        <value xml:lang="ja">レート</value>
         <value xml:lang="nl">Percentage</value>
         <value xml:lang="ro">Procent</value>
         <value xml:lang="th">อัตราร้อยละ</value>
@@ -399,6 +433,7 @@
         <value xml:lang="en">Rating</value>
         <value xml:lang="fr">Coefficient</value>
         <value xml:lang="it">Classifica</value>
+        <value xml:lang="ja">評点</value>
         <value xml:lang="th">การประเมิณ</value>
         <value xml:lang="vi">Tỷ lệ</value>
         <value xml:lang="zh">评级</value>
@@ -408,6 +443,7 @@
         <value xml:lang="en">Reminder Date Time</value>
         <value xml:lang="fr">Date heure de rappel</value>
         <value xml:lang="it">Data ora promemoria</value>
+        <value xml:lang="ja">リマインダ日時</value>
         <value xml:lang="vi">Ngày giờ nhắc nhở</value>
         <value xml:lang="zh">提醒日期时间</value>
         <value xml:lang="zh_TW">提醒日期時間</value>
@@ -416,6 +452,7 @@
         <value xml:lang="en">Reminder Offset</value>
         <value xml:lang="fr">Décalage 1er rappel</value>
         <value xml:lang="it">Intervallo promemoria</value>
+        <value xml:lang="ja">リマインダオフセット</value>
         <value xml:lang="vi">Thành phần (offset) nhắc nhở</value>
         <value xml:lang="zh">提醒偏移量</value>
     </property>
@@ -424,6 +461,7 @@
         <value xml:lang="en">Repeat Interval</value>
         <value xml:lang="fr">Intervalle de répétition</value>
         <value xml:lang="it">Ripeti intervallo</value>
+        <value xml:lang="ja">繰り返し間隔</value>
         <value xml:lang="vi">Tần suất lặp</value>
         <value xml:lang="zh">重复间隔</value>
         <value xml:lang="zh_TW">重複間隔</value>
@@ -433,6 +471,7 @@
         <value xml:lang="en">Requirement Description</value>
         <value xml:lang="fr">Description de besoin</value>
         <value xml:lang="it">Descrizione fabbisogno</value>
+        <value xml:lang="ja">要求詳細</value>
         <value xml:lang="nl">Omschrijving aanvraag</value>
         <value xml:lang="ro">Descriere Necesar</value>
         <value xml:lang="th">รายละเอียดความต้องการ</value>
@@ -445,6 +484,7 @@
         <value xml:lang="en">Reserv2nd P P Perc</value>
         <value xml:lang="fr">% d'augmentation pour une 2d personne</value>
         <value xml:lang="it">% di aumento per seconda persona</value>
+        <value xml:lang="ja">第2要員予約率(%)</value>
         <value xml:lang="nl">Reserv2nd P P Perc</value>
         <value xml:lang="ro">2 Persoane de Rezerva Procent</value>
         <value xml:lang="th">ร้อยละต่อการจองสองคน</value>
@@ -457,6 +497,7 @@
         <value xml:lang="en">Reserv Nth P P Perc</value>
         <value xml:lang="fr">% d'augmentation pour une nième personne</value>
         <value xml:lang="it">% di aumento per N-esima persona</value>
+        <value xml:lang="ja">第N要員予約率(%)</value>
         <value xml:lang="nl">Reserv Nth P P Perc</value>
         <value xml:lang="ro">N-a Persoana de Rezerva Procent</value>
         <value xml:lang="th">ร้อยละต่อการจอง Nth</value>
@@ -469,6 +510,7 @@
         <value xml:lang="en">Review Date</value>
         <value xml:lang="fr">Date de vérification</value>
         <value xml:lang="it">Data revisione</value>
+        <value xml:lang="ja">レビュー日</value>
         <value xml:lang="th">วันที่ตรวจสอบ</value>
         <value xml:lang="vi">Ngày xem xét</value>
         <value xml:lang="zh">检查日期</value>
@@ -479,6 +521,7 @@
         <value xml:lang="en">Review Text</value>
         <value xml:lang="fr">Vérification du texte</value>
         <value xml:lang="it">Testo revisione</value>
+        <value xml:lang="ja">レビュー本文</value>
         <value xml:lang="th">ข้อความที่ตรวจสอบ</value>
         <value xml:lang="vi">Diễn giải xem xét</value>
         <value xml:lang="zh">检查文本</value>
@@ -489,6 +532,7 @@
         <value xml:lang="en">Revision Number</value>
         <value xml:lang="fr">Nombre de vérification</value>
         <value xml:lang="it">Numero revisione</value>
+        <value xml:lang="ja">リビジョン番号</value>
         <value xml:lang="nl">Revisie nummer</value>
         <value xml:lang="ro">Numar Reviziune</value>
         <value xml:lang="th">หมายเลขการแก้ไขใหม่</value>
@@ -500,6 +544,7 @@
         <value xml:lang="en">Scope</value>
         <value xml:lang="fr">Possibilité d'accès</value>
         <value xml:lang="it">Scopo</value>
+        <value xml:lang="ja">スコープ</value>
         <value xml:lang="nl">Scope</value>
         <value xml:lang="ro">Scop</value>
         <value xml:lang="th">ขอบเขต</value>
@@ -511,6 +556,7 @@
         <value xml:lang="en">Service Loader Name </value>
         <value xml:lang="fr">Nom du service chargeur</value>
         <value xml:lang="it">Nome servizio loader</value>
+        <value xml:lang="ja">サービスローダ名称</value>
         <value xml:lang="nl">Service Loader Name</value>
         <value xml:lang="ro">Nume Serviciu Loader</value>
         <value xml:lang="th">ชื่อบริการโหลด</value>
@@ -523,6 +569,7 @@
         <value xml:lang="en">Show As Enum Id</value>
         <value xml:lang="fr">Montrer comme une ref. d'énumération </value>
         <value xml:lang="it">Mostra come enumerazione</value>
+        <value xml:lang="ja">列挙IDとして表示</value>
         <value xml:lang="vi">Hiển thị kiểu liệt kê</value>
         <value xml:lang="zh">显示为枚举标识</value>
         <value xml:lang="zh_TW">顯示列舉ID</value>
@@ -532,6 +579,7 @@
         <value xml:lang="en">Source Reference Id</value>
         <value xml:lang="fr">Réf. de la source</value>
         <value xml:lang="it">Codice dell'origine</value>
+        <value xml:lang="ja">ソース参照ID</value>
         <value xml:lang="nl">Source Reference Id</value>
         <value xml:lang="ro">Cod Origine Referiment</value>
         <value xml:lang="th">รหัสข้อมูลแหล่งอ้างอิง</value>
@@ -544,6 +592,7 @@
         <value xml:lang="en">Special Terms</value>
         <value xml:lang="fr">Termes spéciaux</value>
         <value xml:lang="it">Termini speciali</value>
+        <value xml:lang="ja">特別条項</value>
         <value xml:lang="nl">Special Terms</value>
         <value xml:lang="ro">Termene Speciale</value>
         <value xml:lang="th">ช่วงระยะเวลาพิเศษ</value>
@@ -555,6 +604,7 @@
         <value xml:lang="en">Status Date Time</value>
         <value xml:lang="fr">Date-heure de statut</value>
         <value xml:lang="it">Data ora stato</value>
+        <value xml:lang="ja">ステータス日時</value>
         <value xml:lang="nl">Status Datum tijd</value>
         <value xml:lang="ro">Stat Data Ora </value>
         <value xml:lang="th">สถานะวันเวลา</value>
@@ -567,6 +617,7 @@
         <value xml:lang="en">Status</value>
         <value xml:lang="fr">Statut</value>
         <value xml:lang="it">Stato</value>
+        <value xml:lang="ja">ステータス</value>
         <value xml:lang="nl">Status</value>
         <value xml:lang="ro">Stare</value>
         <value xml:lang="th">สถานะ</value>
@@ -579,6 +630,7 @@
         <value xml:lang="en">Time Transparency</value>
         <value xml:lang="fr">Temps transparent</value>
         <value xml:lang="it">Trasparenza tempo</value>
+        <value xml:lang="ja">時間透過</value>
         <value xml:lang="nl">Time Transparency</value>
         <value xml:lang="ro">Transparenta Timp</value>
         <value xml:lang="th">ภาพเวลา</value>
@@ -591,6 +643,7 @@
         <value xml:lang="en">Timesheet Id</value>
         <value xml:lang="fr">Feuille d'activité</value>
         <value xml:lang="it">Codice timbratura</value>
+        <value xml:lang="ja">予定表ID</value>
         <value xml:lang="nl">Urenstaat Id</value>
         <value xml:lang="ro">Numar Pontaj</value>
         <value xml:lang="th">รหัสตารางการทำงาน</value>
@@ -603,6 +656,7 @@
         <value xml:lang="en">Total Milli Seconds Allowed</value>
         <value xml:lang="fr">Total alloué en millisecondes</value>
         <value xml:lang="it">Totale millisecondi permessi</value>
+        <value xml:lang="ja">許可合計ミリ秒</value>
         <value xml:lang="nl">Total Milli Seconds Allowed</value>
         <value xml:lang="ro">Total Milisecondi Permise</value>
         <value xml:lang="th">พิจารณาผลรวมพันวินาที</value>
@@ -615,6 +669,7 @@
         <value xml:lang="en">Total Money Allowed</value>
         <value xml:lang="fr">Total alloué en argent</value>
         <value xml:lang="it">Totale soldi permessi</value>
+        <value xml:lang="ja">許可合計金額</value>
         <value xml:lang="nl">Total Money Allowed</value>
         <value xml:lang="ro">Total Bani Permisi</value>
         <value xml:lang="th">พิจารณาผลรวมของเงิน</value>
@@ -627,6 +682,7 @@
         <value xml:lang="en">Universal Id</value>
         <value xml:lang="fr">Réf. universelle</value>
         <value xml:lang="it">Codice universale</value>
+        <value xml:lang="ja">汎用ID</value>
         <value xml:lang="nl">Universal Id</value>
         <value xml:lang="ro">Cod Universal</value>
         <value xml:lang="th">รหัสทั้งหมด</value>
@@ -639,6 +695,7 @@
         <value xml:lang="en">Work Effort Assoc Type Id</value>
         <value xml:lang="fr">Type d'assoc. de la tâche</value>
         <value xml:lang="it">Tipo associazione impegno di lavoro</value>
+        <value xml:lang="ja">作業成果関連付け種類ID</value>
         <value xml:lang="nl">Activiteit Assoc Type Id</value>
         <value xml:lang="ro">Tip Asociere Sarcina de Lucru</value>
         <value xml:lang="th">รหัสประเภกลุ่มงาน</value>
@@ -651,6 +708,7 @@
         <value xml:lang="en">Work Effort Content Type Id</value>
         <value xml:lang="fr">Type de contenu de la tâche</value>
         <value xml:lang="it">Tipo di contenuto impegno di lavoro</value>
+        <value xml:lang="ja">作業成果コンテンツタイプID</value>
         <value xml:lang="th">รหัสประเภทหัวข้องาน</value>
         <value xml:lang="vi">Id loại nội dung Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务内容类型标识</value>
@@ -662,6 +720,7 @@
         <value xml:lang="es">Código del esfuerzo de trabajo</value>
         <value xml:lang="fr">Tâche</value>
         <value xml:lang="it">Impegno di lavoro</value>
+        <value xml:lang="ja">作業成果ID</value>
         <value xml:lang="nl">Activiteit Id</value>
         <value xml:lang="ro">Numar Sarcina de Lucru </value>
         <value xml:lang="ru">Код задачи</value>
@@ -676,6 +735,7 @@
         <value xml:lang="es">Código del esfuerzo de trabajo desde</value>
         <value xml:lang="fr">Tâche depuis</value>
         <value xml:lang="it">Impegno di lavoro da</value>
+        <value xml:lang="ja">作業成果ID(元)</value>
         <value xml:lang="nl">Actie Id van</value>
         <value xml:lang="ro">Sarcina de Lucru De la</value>
         <value xml:lang="th">จากรหัสงาน</value>
@@ -689,6 +749,7 @@
         <value xml:lang="es">Código del esfuerzo de trabajo para</value>
         <value xml:lang="fr">Tâche vers</value>
         <value xml:lang="it">Impegno di lavoro a</value>
+        <value xml:lang="ja">作業成果ID(先)</value>
         <value xml:lang="nl">Activiteit Id To</value>
         <value xml:lang="ro">Sarcina de Lucru La</value>
         <value xml:lang="th">ถึงรหัสงาน</value>
@@ -702,6 +763,7 @@
         <value xml:lang="es">Nombre del esfuerzo de trabajo</value>
         <value xml:lang="fr">Nom de la tâche</value>
         <value xml:lang="it">Nome impegno di lavoro</value>
+        <value xml:lang="ja">作業成果名称</value>
         <value xml:lang="nl">Actie naam</value>
         <value xml:lang="ro">Nume Sarcina de Lucru </value>
         <value xml:lang="th">ชื่องาน</value>
@@ -715,6 +777,7 @@
         <value xml:lang="es">Código del esfuerzo de trabajo precursor</value>
         <value xml:lang="fr">Tâche parente</value>
         <value xml:lang="it">Codice impegno di lavoro padre</value>
+        <value xml:lang="ja">作業成果上位(親)ID</value>
         <value xml:lang="nl">Activiteit Parent Id</value>
         <value xml:lang="ro">Cod Parinte Sarcina de Lucru</value>
         <value xml:lang="th">รหัสกลุ่มงาน</value>
@@ -726,6 +789,7 @@
         <value xml:lang="en">Work Effort Purpose Type Id</value>
         <value xml:lang="fr">Type de but de la tâche</value>
         <value xml:lang="it">Tipo di scopo impegno di lavoro</value>
+        <value xml:lang="ja">作業成果目的種類ID</value>
         <value xml:lang="nl">Soort actie doel Id</value>
         <value xml:lang="ro">Tip Functie Sarcina de Lucru </value>
         <value xml:lang="th">รหัสประเภทเป้าหมายงาน</value>
@@ -738,6 +802,7 @@
         <value xml:lang="en">Work Effort Type Id</value>
         <value xml:lang="fr">Type de tâche</value>
         <value xml:lang="it">Tipo impegno di lavoro</value>
+        <value xml:lang="ja">作業成果種類ID</value>
         <value xml:lang="nl">Actie type Id</value>
         <value xml:lang="ro">Tip Sarcina de Lucru </value>
         <value xml:lang="th">รหัสประเภทงาน</value>
@@ -749,6 +814,7 @@
         <value xml:lang="en">Work Req Fulf Type Description</value>
         <value xml:lang="fr">Description de type d'éxécution de demande de travail</value>
         <value xml:lang="it">Descrizione del tipo di soddisfazione fabbisogno impegno di lavoro</value>
+        <value xml:lang="ja">作業リクエスト履行種類詳細</value>
         <value xml:lang="nl">Work Req Fulf Type Description</value>
         <value xml:lang="ro">Descriere Tip Aprovizionare Sarcina de Lucru Necesar</value>
         <value xml:lang="th">รายละเอียดประเภทรายการงานที่สำเร็จ</value>
@@ -760,6 +826,7 @@
         <value xml:lang="en">Work Req Fulf Type Id </value>
         <value xml:lang="fr">Type d'éxécution de demande de travail </value>
         <value xml:lang="it">Tipo di soddisfazione fabbisogno impegno di lavoro</value>
+        <value xml:lang="ja">作業リクエスト履行種類ID</value>
         <value xml:lang="nl">Work Req Fulf Type Id</value>
         <value xml:lang="ro">Tip Aprovizionare Sarcina de Lucru Necesar</value>
         <value xml:lang="th">รหัสประเภทรายการงานที่สำเร็จ</value>
@@ -773,6 +840,7 @@
         <value xml:lang="es">Crear hoja de tiempos</value>
         <value xml:lang="fr">Ajouter une feuille d'activité</value>
         <value xml:lang="it">Aggiungi timbratura</value>
+        <value xml:lang="ja">予定表を追加</value>
         <value xml:lang="nl">Add Timesheet</value>
         <value xml:lang="ro">Adauga Pontaj</value>
         <value xml:lang="th">เพิ่มตารางการทำงาน</value>
@@ -785,6 +853,7 @@
         <value xml:lang="en">Add Timesheet Entries</value>
         <value xml:lang="fr">Ajouter des lignes à la feuille d'activité</value>
         <value xml:lang="it">Aggiungi righe timbratura</value>
+        <value xml:lang="ja">予定表のエントリを追加</value>
         <value xml:lang="th">เพิ่มการกรอกข้อมูลตารางการทำงาน</value>
         <value xml:lang="vi">Thêm điểm nhập (entry) Khai báo công việc</value>
         <value xml:lang="zh">添加工单记录</value>
@@ -795,6 +864,7 @@
         <value xml:lang="en">Add Timesheet Roles</value>
         <value xml:lang="fr">Ajouter les rôles de feuille d'activité</value>
         <value xml:lang="it">Aggiungi ruoli timbrature</value>
+        <value xml:lang="ja">予定表のロールを追加</value>
         <value xml:lang="th">เพิ่มสถานะตารางการทำงาน</value>
         <value xml:lang="vi">Thêm vai trò Khai báo công việc</value>
         <value xml:lang="zh">添加工单角色</value>
@@ -805,6 +875,7 @@
         <value xml:lang="en">Add Timesheet To Invoice</value>
         <value xml:lang="fr">Ajouter une feuille d'activité à la facture</value>
         <value xml:lang="it">Aggiungi timbrature alla fattura</value>
+        <value xml:lang="ja">予定表に請求書を追加</value>
         <value xml:lang="th">เพิ่มตารางการทำงานถึงใบส่งของ</value>
         <value xml:lang="vi">Thêm 'Khai báo công việc' Đến Hóa đơn</value>
         <value xml:lang="zh">把工单添加到发票</value>
@@ -815,6 +886,7 @@
         <value xml:lang="en">Add Timesheet To New Invoice</value>
         <value xml:lang="fr">Ajouter une feuille d'activité à la nouvelle facture</value>
         <value xml:lang="it">Aggiungi timbrature alla nuova fattura</value>
+        <value xml:lang="ja">予定表に新規請求書を追加</value>
         <value xml:lang="th">เพิ่มตารางการทำงานถึงใบส่งของใหม่</value>
         <value xml:lang="vi">Thêm 'Khai báo công việc' Đến Hóa đơn mới</value>
         <value xml:lang="zh">把工单添加到新发票</value>
@@ -826,6 +898,7 @@
         <value xml:lang="es">Crear esfuerzo de trabajo</value>
         <value xml:lang="fr">Ajouter une tâche</value>
         <value xml:lang="it">Aggiungi impegno di lavoro</value>
+        <value xml:lang="ja">作業成果を追加</value>
         <value xml:lang="nl">Nieuwe actie</value>
         <value xml:lang="ro">Adauga Sarcina de Lucru</value>
         <value xml:lang="th">เพิ่มงาน</value>
@@ -838,6 +911,7 @@
         <value xml:lang="es">Añadir tasa de asignación a esfuerzo de trabajo</value>
         <value xml:lang="fr">Ajouter un taux d'affectation à la tâche</value>
         <value xml:lang="it">Aggiungi un tasso di assegnazione all'impegno di lavoro</value>
+        <value xml:lang="ja">作業成果割当レートを追加</value>
         <value xml:lang="nl">Add Activiteit Assignment Rate</value>
         <value xml:lang="ro">Adauga Procent Sarcina de Lucru Atribuire</value>
         <value xml:lang="th">เพิ่มอัตราการมอบหมายงาน</value>
@@ -851,6 +925,7 @@
         <value xml:lang="es">Añadir evento de comunicación a esfuerzo de trabajo</value>
         <value xml:lang="fr">Ajouter un évènement de communication à la tâche</value>
         <value xml:lang="it">Aggiungi una comunicazione di impegno di lavoro</value>
+        <value xml:lang="ja">作業成果通信イベントを追加</value>
         <value xml:lang="nl">Nieuwe communicatie actie voor evenement</value>
         <value xml:lang="ro">Adauga Sarcina de Lucru Eveniment Comunicatii</value>
         <value xml:lang="th">เพิ่มผลที่ได้จากการติดต่องาน</value>
@@ -863,6 +938,7 @@
         <value xml:lang="en">Add Work Effort Event Reminder</value>
         <value xml:lang="fr">Ajouter un rappel d'évènement de tâche</value>
         <value xml:lang="it">Aggiungi promemoria di impegno di lavoro</value>
+        <value xml:lang="ja">作業成果イベントリマインダを追加</value>
         <value xml:lang="vi">Thêm mới nhắc nhở sự kiện của Lượng giá nguồn lực</value>
         <value xml:lang="zh">添加人工服务事件提醒</value>
         <value xml:lang="zh_TW">新增工項事件提醒</value>
@@ -871,6 +947,7 @@
         <value xml:lang="en">Add Work Effort Fixed Asset Assignment</value>
         <value xml:lang="fr">Ajouter l'affectation d'unetâche à une immobilisation</value>
         <value xml:lang="it">Aggiungi assegnazione impegno di lavoro su cespite</value>
+        <value xml:lang="ja">作業成果固定資産割当を追加</value>
         <value xml:lang="vi">Thêm gán tài sản cho Lượng giá nguồn lực</value>
         <value xml:lang="zh">添加人工服务固定资产分配</value>
         <value xml:lang="zh_TW">新增工項固定資產分配</value>
@@ -880,6 +957,7 @@
         <value xml:lang="en">Add Work Effort Keyword</value>
         <value xml:lang="fr">Ajouter un mot clé à la tâche</value>
         <value xml:lang="it">Aggiungi chiave all'impegno di lavoro</value>
+        <value xml:lang="ja">作業成果キーワードを追加</value>
         <value xml:lang="th">เพิ่มคีย์เวิร์ดงาน</value>
         <value xml:lang="vi">Thêm từ khóa Lượng giá nguồn lực</value>
         <value xml:lang="zh">添加人工服务关键字</value>
@@ -890,6 +968,7 @@
         <value xml:lang="en">Add Work Effort Notes</value>
         <value xml:lang="fr">Ajouter une note à la tâche</value>
         <value xml:lang="it">Aggiungi note all'impegno di lavoro</value>
+        <value xml:lang="ja">作業成果連絡を追加</value>
         <value xml:lang="th">เพิ่มข้อความงาน</value>
         <value xml:lang="vi">Thêm ghi chú của Lượng giá nguồn lực</value>
         <value xml:lang="zh">添加人工服务便笺</value>
@@ -901,6 +980,7 @@
         <value xml:lang="es">Añadir orden a esfuerzo de trabajo</value>
         <value xml:lang="fr">Ajouter une commande à la tâche</value>
         <value xml:lang="it">Aggiungi un ordine all'impegno di lavoro</value>
+        <value xml:lang="ja">作業成果に注文を追加</value>
         <value xml:lang="nl">Add Order to Activiteit</value>
         <value xml:lang="ro">Adauga Comanda Prestare serviciu</value>
         <value xml:lang="th">เพิ่มคำสั่งงาน</value>
@@ -914,6 +994,7 @@
         <value xml:lang="es">Añadir participante a esfuerzo de trabajo</value>
         <value xml:lang="fr">Ajouter une affectation d'acteur à la tâche</value>
         <value xml:lang="it">Aggiungi assegnazione soggetto all'impegno di lavoro</value>
+        <value xml:lang="ja">作業成果取引先割当を追加</value>
         <value xml:lang="nl">Wij actie aan een relatie toe</value>
         <value xml:lang="ro">Adauga Sarcina de Lucru Atribuire Subiect</value>
         <value xml:lang="th">เพิ่มการมอบหมายกลุ่มงาน</value>
@@ -926,6 +1007,7 @@
         <value xml:lang="es">Añadir cotización a esfuerzo de trabajo</value>
         <value xml:lang="fr">Ajouter un devis à la tâche</value>
         <value xml:lang="it">Aggiungi preventivo all'impegno di lavoro</value>
+        <value xml:lang="ja">作業成果見積を追加</value>
         <value xml:lang="nl">Add Activiteit Quote</value>
         <value xml:lang="th">เพิ่มการอ้างอิงงาน</value>
         <value xml:lang="vi">Thêm mới báo giá của Lượng giá nguồn lực</value>
@@ -937,6 +1019,7 @@
         <value xml:lang="es">Añadir ítem a la cotización</value>
         <value xml:lang="fr">Ajouter une ligne de devis à la tâche</value>
         <value xml:lang="it">Aggiungi riga di preventivo all'impegno di lavoro</value>
+        <value xml:lang="ja">作業成果見積アイテムを追加</value>
         <value xml:lang="nl">Add Activiteit QuoteItem</value>
         <value xml:lang="ro">Adauga Sarcina de Lucru Linie Preventiv</value>
         <value xml:lang="th">เพิ่มหัวข้อการอ้างอิงงาน</value>
@@ -949,6 +1032,7 @@
         <value xml:lang="es">Añadir petición a esfuerzo de trabajo</value>
         <value xml:lang="fr">Ajouter une demande à la tâche</value>
         <value xml:lang="it">Aggiungi una richiesta di impegno di lavoro</value>
+        <value xml:lang="ja">作業成果リクエストを追加</value>
         <value xml:lang="nl">Add Activiteit Request</value>
         <value xml:lang="ro">Adauga Sarcina de Lucru Cerere</value>
         <value xml:lang="th">เพิ่มคำร้องงาน</value>
@@ -961,6 +1045,7 @@
         <value xml:lang="es">Añadir ítem de petición</value>
         <value xml:lang="fr">Ajouter une ligne de demande à la tâche</value>
         <value xml:lang="it">Aggiungi una riga di richiesta impegno di lavoro</value>
+        <value xml:lang="ja">作業成果リクエストアイテムを追加</value>
         <value xml:lang="nl">Add Activiteit RequestItem</value>
         <value xml:lang="ro">Adauga Sarcina de Lucru Linie Cerere</value>
         <value xml:lang="th">เพิ่มรายการคำร้องงาน</value>
@@ -973,6 +1058,7 @@
         <value xml:lang="es">Añadir requerimiento a esfuerzo de trabajo</value>
         <value xml:lang="fr">Ajouter un besoin à la tâche</value>
         <value xml:lang="it">Aggiungi un fabbisogno all'impegno di lavoro</value>
+        <value xml:lang="ja">作業成果要求を追加</value>
         <value xml:lang="nl">Add Activiteit Requirement</value>
         <value xml:lang="ro">Adauga Sarcina de Lucru Necesar</value>
         <value xml:lang="th">เพิ่มความต้องการงาน</value>
@@ -985,6 +1071,7 @@
         <value xml:lang="en">Add Work Effort Reviews</value>
         <value xml:lang="fr">Ajouter une vérification de texte à la tâche</value>
         <value xml:lang="it">Aggiungi revisioni all'impegno di lavoro</value>
+        <value xml:lang="ja">作業成果レビューを追加</value>
         <value xml:lang="th">เพิ่มการตรวจสอบงาน</value>
         <value xml:lang="vi">Thêm xem xét Lượng giá nguồn lực</value>
         <value xml:lang="zh">添加人工服务检查</value>
@@ -996,6 +1083,7 @@
         <value xml:lang="es">Añadir lista de compras a esfuerzo de trabajo</value>
         <value xml:lang="fr">Ajouter une liste d'achats à la tâche</value>
         <value xml:lang="it">Aggiungi una liste di acquisto all'impegno di lavoro</value>
+        <value xml:lang="ja">作業成果買い物リストを追加</value>
         <value xml:lang="nl">Add Activiteit Shopping List</value>
         <value xml:lang="ro">Adauga Listele Cumparari Prestari servicii </value>
         <value xml:lang="th">เพิ่มงานรายการซื้อสินค้า</value>
@@ -1009,6 +1097,7 @@
         <value xml:lang="es">Añadir entrada de tiempo a esfuerzo de trabajo</value>
         <value xml:lang="fr">Ajouter une ligne d'activité à la tâche</value>
         <value xml:lang="it">Aggiungi una riga di tempo all'impegno di lavoro</value>
+        <value xml:lang="ja">作業成果に予定エントリを追加</value>
         <value xml:lang="nl">Add Time Entry to Activiteit</value>
         <value xml:lang="ro">Adauga Linie Timp pentru Sarcina de Lucru</value>
         <value xml:lang="th">เพิ่มตารางเวลาไปยังงาน</value>
@@ -1021,6 +1110,7 @@
         <value xml:lang="en">Add Work Effort Time to Invoice</value>
         <value xml:lang="fr">Ajouter à la facture une planification d'heure liée à la tâche</value>
         <value xml:lang="it">Aggiungi tempo impegno di lavoro alla fattura</value>
+        <value xml:lang="ja">請求書に作業成果予定を追加</value>
         <value xml:lang="nl">Add Activiteit Time to Invoice</value>
         <value xml:lang="ro">Adauga Timp Sarcina de Lucru</value>
         <value xml:lang="th">เพิ่มเวลางานถึงใบส่งของ</value>
@@ -1033,6 +1123,7 @@
         <value xml:lang="en">Add Work Effort Time to New Invoice</value>
         <value xml:lang="fr">Ajouter à une nouvelle facture une planification d'heure liée à la tâche</value>
         <value xml:lang="it">Aggiungi tempo impegno di lavoro a una nuova fattura</value>
+        <value xml:lang="ja">新規請求書に作業成果予定を追加</value>
         <value xml:lang="nl">Add Activiteit Time to New Invoice</value>
         <value xml:lang="ro">Adauga Timp Sarcina de Lucru</value>
         <value xml:lang="th">เพิ่มเวลางานถึงใบส่งของใหม่</value>
@@ -1045,6 +1136,7 @@
         <value xml:lang="en">Calendar Day</value>
         <value xml:lang="fr">Calendrier par jour</value>
         <value xml:lang="it">Calendario giorno</value>
+        <value xml:lang="ja">カレンダ日</value>
         <value xml:lang="nl">Calendar Day</value>
         <value xml:lang="ro">Calendar Zilier </value>
         <value xml:lang="th">ปฏิทินวัน</value>
@@ -1057,6 +1149,7 @@
         <value xml:lang="en">Calendar Month</value>
         <value xml:lang="fr">Calendrier par mois</value>
         <value xml:lang="it">Calendario mese</value>
+        <value xml:lang="ja">カレンダ月</value>
         <value xml:lang="nl">Calendar Month</value>
         <value xml:lang="ro">Calendar Lunar</value>
         <value xml:lang="th">ปฏิทินเดือน</value>
@@ -1069,6 +1162,7 @@
         <value xml:lang="en">Calendar Upcoming</value>
         <value xml:lang="fr">Prochain calendrier</value>
         <value xml:lang="it">Prossimi eventi</value>
+        <value xml:lang="ja">カレンダ予定</value>
         <value xml:lang="nl">Calendar Upcoming</value>
         <value xml:lang="ro">Calendar Urmatoarele Evenimente</value>
         <value xml:lang="th">ปฏิทินล่วงหน้า</value>
@@ -1081,6 +1175,7 @@
         <value xml:lang="en">Calendar Week</value>
         <value xml:lang="fr">Calendrier par semaine</value>
         <value xml:lang="it">Calendario settimana</value>
+        <value xml:lang="ja">カレンダ週</value>
         <value xml:lang="nl">Calendar Week</value>
         <value xml:lang="ro">Calendar Saptamanal</value>
         <value xml:lang="th">ปฏิทินสัปดาห์</value>
@@ -1093,6 +1188,7 @@
         <value xml:lang="en">Create Timesheet for This Week</value>
         <value xml:lang="fr">Créer une feuille d'activité pour cette semaine</value>
         <value xml:lang="it">Creare timbratura per questa settimana</value>
+        <value xml:lang="ja">今週に予定表を作成</value>
         <value xml:lang="nl">Create Timesheet for This Week</value>
         <value xml:lang="ro">Creare Pontaj pentru Saptamana Curenta</value>
         <value xml:lang="th">สร้างตารางการทำงานสำหรับสัปดาห์นี้</value>
@@ -1105,6 +1201,7 @@
         <value xml:lang="en">Display Timesheet Entries</value>
         <value xml:lang="fr">Afficher les lignes de la feuille d'activité</value>
         <value xml:lang="it">Visualizza righe timbrature</value>
+        <value xml:lang="ja">予定表のエントリを表示</value>
         <value xml:lang="th">แสดงการกรอกข้อมูลตารางการทำงาน</value>
         <value xml:lang="vi">Hiển thị các điểm nhập Khai báo công việc</value>
         <value xml:lang="zh">显示工单记录</value>
@@ -1116,6 +1213,7 @@
         <value xml:lang="es">Editar hoja de tiempos</value>
         <value xml:lang="fr">Modifier la feuille d'activité</value>
         <value xml:lang="it">Aggiorna timbratura</value>
+        <value xml:lang="ja">予定表を編集</value>
         <value xml:lang="nl">Edit Timesheet</value>
         <value xml:lang="ro">Actualizeaza Pontaj</value>
         <value xml:lang="th">แก้ไขตารางการทำงาน</value>
@@ -1129,6 +1227,7 @@
         <value xml:lang="es">Editar entradas de hoja de tiempos</value>
         <value xml:lang="fr">Modifier les lignes de la feuille d'activité</value>
         <value xml:lang="it">Aggiorna righe timbrature</value>
+        <value xml:lang="ja">予定表のエントリを編集</value>
         <value xml:lang="nl">Edit Timesheet Entries</value>
         <value xml:lang="ro">Actualizeaza Linii Pontaj</value>
         <value xml:lang="th">แก้ไขการกรอกข้อมูลตารางการทำงาน</value>
@@ -1142,6 +1241,7 @@
         <value xml:lang="es">Editar roles de hoja de tiempos</value>
         <value xml:lang="fr">Modifier les rôles de la feuille d'activité</value>
         <value xml:lang="it">Aggiorna ruoli timbratura</value>
+        <value xml:lang="ja">予定表のロールを編集</value>
         <value xml:lang="nl">Edit Timesheet Roles</value>
         <value xml:lang="ro">Adauga Roluri Pontaj </value>
         <value xml:lang="th">แก้ไขสถานะตารางการทำงาน</value>
@@ -1154,6 +1254,7 @@
         <value xml:lang="es">Editar esfuerzo de trabajo</value>
         <value xml:lang="fr">Modifier la tâche</value>
         <value xml:lang="it">Aggiorna impegno di lavoro</value>
+        <value xml:lang="ja">作業成果を編集</value>
         <value xml:lang="nl">Wijzig actie</value>
         <value xml:lang="ro">Actualizeaza Sarcina de Lucru</value>
         <value xml:lang="th">แก้ไขงาน</value>
@@ -1165,6 +1266,7 @@
         <value xml:lang="en">Edit Work Effort Assoc</value>
         <value xml:lang="fr">Modifier l'association de la tâche</value>
         <value xml:lang="it">Aggiorna associazione impegno di lavoro</value>
+        <value xml:lang="ja">作業成果の関連付けを編集</value>
         <value xml:lang="th">แก้ไขกลุ่มงาน</value>
         <value xml:lang="vi">Cập nhật kết hợp của Lượng giá nguồn lực</value>
         <value xml:lang="zh">编辑人工服务关联</value>
@@ -1175,6 +1277,7 @@
         <value xml:lang="es">Editar evento de comunicación de esfuerzo de trabajo</value>
         <value xml:lang="fr">Modifier l'évènement de communication de la tâche</value>
         <value xml:lang="it">Aggiorna comunicazione dell'impegno di lavoro</value>
+        <value xml:lang="ja">作業成果の通信イベントを編集</value>
         <value xml:lang="nl">Wijzig communicaie actie voor evenement</value>
         <value xml:lang="ro">Actualizeaza Sarcina de Lucru Eveniment Comunictii </value>
         <value xml:lang="th">แก้ไขผลที่ได้จากการติดต่องาน</value>
@@ -1186,6 +1289,7 @@
         <value xml:lang="en">Edit Work Effort Contact Mechs</value>
         <value xml:lang="fr">Modifier les contacts de la tâche</value>
         <value xml:lang="it">Aggiorna i contatti dell'impegno di lavoro</value>
+        <value xml:lang="ja">作業成果の連絡方法を編集</value>
         <value xml:lang="th">แก้ไขวิธีการติดต่องาน</value>
         <value xml:lang="vi">Cập nhật thông tin liên lạc chi tiết của Lượng giá nguồn lực</value>
         <value xml:lang="zh">编辑人工服务联系方法</value>
@@ -1195,6 +1299,7 @@
         <value xml:lang="en">Work Effort Content</value>
         <value xml:lang="fr">Contenu de la tâche</value>
         <value xml:lang="it">Contenuto dell'impegno di lavoro</value>
+        <value xml:lang="ja">作業成果コンテンツ</value>
         <value xml:lang="th">หัวข้องาน</value>
         <value xml:lang="vi">Nội dung Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务内容</value>
@@ -1204,6 +1309,7 @@
         <value xml:lang="en">Work Effort Good Standards </value>
         <value xml:lang="fr">Biens standarts</value>
         <value xml:lang="it">Beni standard</value>
+        <value xml:lang="ja">作業成果の参考指針</value>
         <value xml:lang="th">งานมีวามสามาถมาตรฐาน</value>
         <value xml:lang="vi">Chuẩn yêu cầu tốt của Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务良好标准 </value>
@@ -1214,6 +1320,7 @@
         <value xml:lang="es">Editar asignación de participante a esfuerzo de trabajo</value>
         <value xml:lang="fr">Modifier l'affectation de l'acteur à la tâche</value>
         <value xml:lang="it">Aggiorna assegnazione del soggetto all'impegno di lavoro</value>
+        <value xml:lang="ja">作業成果の取引先割当を編集</value>
         <value xml:lang="nl">Wijzig toegewezen actie van relatie</value>
         <value xml:lang="ro">Actualizeaza Sarcina de Lucru Atribuire Subiect </value>
         <value xml:lang="th">แก้ไขกลุ่มงานที่ได้รับมอบหมาย</value>
@@ -1226,6 +1333,7 @@
         <value xml:lang="es">Editar cotización de esfuerzo de trabajo</value>
         <value xml:lang="fr">Modifier le devis de la tâche</value>
         <value xml:lang="it">Aggiorna preventivo dell'impegno di lavoro</value>
+        <value xml:lang="ja">作業成果見積を編集</value>
         <value xml:lang="nl">Edit Activiteit Quote</value>
         <value xml:lang="ro">Actualizeaza Sarcina de Lucru Preventiva</value>
         <value xml:lang="th">แก้ไขการอ้างอิงงาน</value>
@@ -1238,6 +1346,7 @@
         <value xml:lang="es">Editar ítem de cotización de esfuerzo de trabajo</value>
         <value xml:lang="fr">Modifier la ligne de devis de la tâche</value>
         <value xml:lang="it">Aggiorna riga preventivo dell'impegno di lavoro</value>
+        <value xml:lang="ja">作業成果見積アイテムを編集</value>
         <value xml:lang="nl">Edit Activiteit QuoteItem</value>
         <value xml:lang="ro">Actualizeaza Sarcina de Lucru Linie Preventiv</value>
         <value xml:lang="th">แก้ไขรายการอ้างอิงงาน</value>
@@ -1250,6 +1359,7 @@
         <value xml:lang="es">Editar petición de esfuerzo de trabajo</value>
         <value xml:lang="fr">Modifier la demande de tâche</value>
         <value xml:lang="it">Aggiorna richiesta di impegno di lavoro</value>
+        <value xml:lang="ja">作業成果リクエストを編集</value>
         <value xml:lang="nl">Edit Activiteit Request</value>
         <value xml:lang="ro">Actualizeaza Sarcina de Lucru Cerere</value>
         <value xml:lang="th">แก้ไขการร้องของาน</value>
@@ -1262,6 +1372,7 @@
         <value xml:lang="es">Editar ítem de petición de esfuerzo de trabajo</value>
         <value xml:lang="fr">Modifier la ligne de demande de tâche</value>
         <value xml:lang="it">Aggiorna riga richiesta di impegno di lavoro</value>
+        <value xml:lang="ja">作業成果リクエストアイテムを編集</value>
         <value xml:lang="nl">Edit Activiteit RequestItem</value>
         <value xml:lang="ro">Actualizeaza Sarcina de Lucru Linie  Cerere</value>
         <value xml:lang="th">แก้ไขรายการร้องของาน</value>
@@ -1274,6 +1385,7 @@
         <value xml:lang="es">Editar requerimiento de esfuerzo de trabajo</value>
         <value xml:lang="fr">Modifier le besoin de tâche</value>
         <value xml:lang="it">Aggiorna fabbisogno dell'impegno di lavoro</value>
+        <value xml:lang="ja">作業成果要求を編集</value>
         <value xml:lang="nl">Edit Activiteit Requirement</value>
         <value xml:lang="ro">Actualizeaza Sarcina de Lucru Necesar</value>
         <value xml:lang="th">แก้ไขความต้องการงาน</value>
@@ -1287,6 +1399,7 @@
         <value xml:lang="es">Buscar hoja de tiempos</value>
         <value xml:lang="fr">Recherche de feuille d'activité</value>
         <value xml:lang="it">Ricerca timbratura</value>
+        <value xml:lang="ja">予定表を検索</value>
         <value xml:lang="nl">Find Timesheet</value>
         <value xml:lang="ro">Cauta Pontaj</value>
         <value xml:lang="th">ค้นหาตารางการทำงาน</value>
@@ -1300,6 +1413,7 @@
         <value xml:lang="es">Buscar esfuerzo de trabajo</value>
         <value xml:lang="fr">Rechercher la tâche</value>
         <value xml:lang="it">Ricerca impegno di lavoro</value>
+        <value xml:lang="ja">作業成果を検索</value>
         <value xml:lang="nl">Find Activiteit</value>
         <value xml:lang="ro">Cauta Sarcina de Lucru</value>
         <value xml:lang="th">ต้นหางาน</value>
@@ -1312,6 +1426,7 @@
         <value xml:lang="es">Tasas de asignación</value>
         <value xml:lang="fr">Taux d'affectation de la tâche</value>
         <value xml:lang="it">Tassi di assegnazione dell'impegno di lavoro</value>
+        <value xml:lang="ja">作業成果割当レート</value>
         <value xml:lang="nl">Activiteit Assignment Rates</value>
         <value xml:lang="ro">Procent Sarcina de Lucru Atribuire</value>
         <value xml:lang="th">อัตราการมอบหมายงาน</value>
@@ -1324,6 +1439,7 @@
         <value xml:lang="es">Eventos de comunicación</value>
         <value xml:lang="fr">Evènement de communication de la tâche</value>
         <value xml:lang="it">Lista comunicazioni dell'impegno di lavoro</value>
+        <value xml:lang="ja">作業成果通信イベント</value>
         <value xml:lang="nl">Communicatie evenementen</value>
         <value xml:lang="ro">Lista Sarcina de Lucru Evenimente Comunicatii</value>
         <value xml:lang="th">ผลที่ได้จากการติดต่องาน</value>
@@ -1335,6 +1451,7 @@
         <value xml:lang="en">Work Effort Event Reminders</value>
         <value xml:lang="fr">Rappels d'évènements de tâche</value>
         <value xml:lang="it">Promemoria impegno di lavoro</value>
+        <value xml:lang="ja">作業成果イベントリマインダ</value>
         <value xml:lang="vi">Nhắc nhở sự kiện cho Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务事件提醒</value>
         <value xml:lang="zh_TW">工項事件提醒</value>
@@ -1343,6 +1460,7 @@
         <value xml:lang="en">Work Effort Fixed Asset Assignments</value>
         <value xml:lang="fr">Immobilisations affectées à la tâche</value>
         <value xml:lang="it">Assegnazioni impegno di lavoro a cespite</value>
+        <value xml:lang="ja">作業成果固定資産割当</value>
         <value xml:lang="vi">Gán tài sản cố định cho Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务固定资产分配</value>
         <value xml:lang="zh_TW">工項固定資產分配</value>
@@ -1351,6 +1469,7 @@
         <value xml:lang="en">Work Effort Keywords</value>
         <value xml:lang="fr">Mots-clés de la tâche</value>
         <value xml:lang="it">Chiavi dell'impegno di lavoro</value>
+        <value xml:lang="ja">作業成果キーワード</value>
         <value xml:lang="th">คีย์เวิร์ดงาน</value>
         <value xml:lang="vi">Từ khóa Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务关键字</value>
@@ -1361,6 +1480,7 @@
         <value xml:lang="en">Work Effort Notes</value>
         <value xml:lang="fr">Notes de la tâche</value>
         <value xml:lang="it">Note dell'impegno di lavoro</value>
+        <value xml:lang="ja">作業成果連絡</value>
         <value xml:lang="th">ข้อความงาน</value>
         <value xml:lang="vi">Ghi chú Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务便笺</value>
@@ -1372,6 +1492,7 @@
         <value xml:lang="es">Órdenes</value>
         <value xml:lang="fr">Commandes de la tâche</value>
         <value xml:lang="it">Ordini impegno di lavoro</value>
+        <value xml:lang="ja">作業成果注文</value>
         <value xml:lang="nl">Activiteit Orders</value>
         <value xml:lang="ro">Comenzi Prestari serviciu </value>
         <value xml:lang="th">คำสั่งงาน</value>
@@ -1384,6 +1505,7 @@
         <value xml:lang="es">Participantes asociados</value>
         <value xml:lang="fr">Affectations de l'acteur à la tâche</value>
         <value xml:lang="it">Soggetti assegnati all'impegno di lavoro</value>
+        <value xml:lang="ja">作業成果取引先割当</value>
         <value xml:lang="nl">Acties toegewezen aan relaties</value>
         <value xml:lang="ro">Lista Sarcina de Lucru Atributie Subiect</value>
         <value xml:lang="th">กลุ่มงานที่ได้รับมอบหมาย</value>
@@ -1396,6 +1518,7 @@
         <value xml:lang="es">Cotizaciones</value>
         <value xml:lang="fr">Devis de la tâche</value>
         <value xml:lang="it">Preventivi dell'iimpegno di lavoro</value>
+        <value xml:lang="ja">作業成果見積</value>
         <value xml:lang="nl">Activiteit Quotes</value>
         <value xml:lang="ro">Lista Sarcini de Lucru Preventive</value>
         <value xml:lang="th">การอ้างอิงงาน</value>
@@ -1408,6 +1531,7 @@
         <value xml:lang="es">Peticiones</value>
         <value xml:lang="fr">Demandes de la tâche</value>
         <value xml:lang="it">Richieste dell'mpegno di lavoro</value>
+        <value xml:lang="ja">作業成果リクエスト</value>
         <value xml:lang="nl">Activiteit Requests</value>
         <value xml:lang="ro">Lista Sarcina de Lucru Cerere</value>
         <value xml:lang="th">คำร้องงาน</value>
@@ -1420,6 +1544,7 @@
         <value xml:lang="es">Requerimientos</value>
         <value xml:lang="fr">Besoins de la tâche</value>
         <value xml:lang="it">Fabbisogni dell'impegno di lavoro</value>
+        <value xml:lang="ja">作業成果要求</value>
         <value xml:lang="nl">Activiteit Requirements</value>
         <value xml:lang="ro">Lista Sarcini de Lucru Necesar</value>
         <value xml:lang="th">ความต้องการงาน</value>
@@ -1432,6 +1557,7 @@
         <value xml:lang="en">Work Effort Reviews</value>
         <value xml:lang="fr">Vérifications de textes liés à la tâche</value>
         <value xml:lang="it">Revisioni dell'impegno di lavoro</value>
+        <value xml:lang="ja">作業成果レビュー</value>
         <value xml:lang="th">ตรวจสอบงาน</value>
         <value xml:lang="vi">Xem xét Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务检查</value>
@@ -1442,6 +1568,7 @@
         <value xml:lang="es">Listas de compras</value>
         <value xml:lang="fr">Liste d'achats de la tâche</value>
         <value xml:lang="it">Liste di acquisto dell'impegno di lavoro</value>
+        <value xml:lang="ja">作業成果買い物リスト</value>
         <value xml:lang="nl">Activiteit Shopping Lists</value>
         <value xml:lang="ro">Lista Listelor de Cumparari Prestari Servicii </value>
         <value xml:lang="th">งานรายการซื้อสินค้า</value>
@@ -1454,6 +1581,7 @@
         <value xml:lang="es">Entradas de tiempo</value>
         <value xml:lang="fr">Détails des temps passés sur la tâche</value>
         <value xml:lang="it">Pianificazione oraria dell'impegno di lavoro</value>
+        <value xml:lang="ja">作業成果予定エントリ</value>
         <value xml:lang="nl">Activiteit Time Entries</value>
         <value xml:lang="ro">Introducere Sarcina de Lucru Timp</value>
         <value xml:lang="th">กรอกข้อมูลเวลางาน</value>
@@ -1467,6 +1595,7 @@
         <value xml:lang="es">Hojas de trabajo</value>
         <value xml:lang="fr">Tâches</value>
         <value xml:lang="it">Impegni di lavoro</value>
+        <value xml:lang="ja">作業成果</value>
         <value xml:lang="nl">Acties</value>
         <value xml:lang="ro">Lista Sarcina de Lucru </value>
         <value xml:lang="th">งาน</value>
@@ -1478,6 +1607,7 @@
         <value xml:lang="en">Lookup Timesheet by Name</value>
         <value xml:lang="fr">Rechercher une ou des feuilles de présence par nom</value>
         <value xml:lang="it">Ricerca timbrature per nome</value>
+        <value xml:lang="ja">名称で予定表を検索</value>
         <value xml:lang="nl">Lookup Timesheet by Name</value>
         <value xml:lang="ro">Cauta Pontaj pe Nume</value>
         <value xml:lang="th">ค้นหาตารางการทำงานโดยชื่อ</value>
@@ -1489,6 +1619,7 @@
         <value xml:lang="en">Lookup WorkEffort by Name</value>
         <value xml:lang="fr">Rechercher une ou des tâches par nom</value>
         <value xml:lang="it">Ricerca impegno di lavoro per nome</value>
+        <value xml:lang="ja">名称で作業成果を検索</value>
         <value xml:lang="nl">Zoek werk inspanningen op naam</value>
         <value xml:lang="ro">Cauta Sarcina de Lucru dupa Nume</value>
         <value xml:lang="th">ค้นหางานโดยชื่อ</value>
@@ -1501,6 +1632,7 @@
         <value xml:lang="es">Esfuerzos de trabajo hijos</value>
         <value xml:lang="fr">Tâches descendantes</value>
         <value xml:lang="it">Impegni di lavoro dipendenti</value>
+        <value xml:lang="ja">下位(子)の作業成果</value>
         <value xml:lang="nl">Afhankelijke acties</value>
         <value xml:lang="ro">Fiu Sarcini de Lucru</value>
         <value xml:lang="th">งานระยะต้น ๆ</value>
@@ -1513,6 +1645,7 @@
         <value xml:lang="en">View Activity and Task List</value>
         <value xml:lang="fr">Voir l'activité et la liste de la tâche</value>
         <value xml:lang="it">Mostra attività e lista compiti</value>
+        <value xml:lang="ja">活動とタスク一覧を表示</value>
         <value xml:lang="nl">View Activity and Task List</value>
         <value xml:lang="ro">Afiseaza Activitate si Lista Sarcini</value>
         <value xml:lang="th">แสดงกิจกรรมและรายการงาน</value>
@@ -1525,6 +1658,7 @@
         <value xml:lang="es">Resumen realcionado al esfuerzo de trabajo</value>
         <value xml:lang="fr">Résumé lié à la tâche</value>
         <value xml:lang="it">Sommario degli impegni di lavoro</value>
+        <value xml:lang="ja">作業成果関連サマリ</value>
         <value xml:lang="nl">Activiteit Related Summary</value>
         <value xml:lang="ro">Sarcina de Lucru Breviar Relativ</value>
         <value xml:lang="th">สรุปซึ่งเกี่ยวข้องกับงาน</value>
@@ -1537,6 +1671,7 @@
         <value xml:lang="es">Listas de compras de esfuerzo de trabajo</value>
         <value xml:lang="fr">Listes d'achats de la tâche</value>
         <value xml:lang="it">Liste di acquisto dell'impegno di lavoro</value>
+        <value xml:lang="ja">作業成果買い物リスト</value>
         <value xml:lang="nl">Activiteit Shopping Lists</value>
         <value xml:lang="ro">Liste Cumparari, Prestari Serviciu</value>
         <value xml:lang="th">งานรายการซื้อสินค้า</value>
@@ -1550,6 +1685,7 @@
         <value xml:lang="es">Aceptar tarea</value>
         <value xml:lang="fr">Accepter l'affectation</value>
         <value xml:lang="it">Accetta assegnazione</value>
+        <value xml:lang="ja">割当の受付</value>
         <value xml:lang="nl">Accepteer Toewijzing</value>
         <value xml:lang="ro">Accepta Atribuire</value>
         <value xml:lang="ru">Принять назначение</value>
@@ -1564,6 +1700,7 @@
         <value xml:lang="es">Detalle de la actividad</value>
         <value xml:lang="fr">Détail de l'activité</value>
         <value xml:lang="it">Dettaglio attività</value>
+        <value xml:lang="ja">活動詳細</value>
         <value xml:lang="nl">Actiev detail</value>
         <value xml:lang="ro">Detaliu Activitate</value>
         <value xml:lang="ru">Подробности действия</value>
@@ -1578,6 +1715,7 @@
         <value xml:lang="es">Nombre de la actividad</value>
         <value xml:lang="fr">Nom de l'activité</value>
         <value xml:lang="it">Nome attività</value>
+        <value xml:lang="ja">活動名称</value>
         <value xml:lang="nl">Actie naam</value>
         <value xml:lang="ro">Nume Activitate</value>
         <value xml:lang="ru">Название действия</value>
@@ -1592,6 +1730,7 @@
         <value xml:lang="es">Estado de la actividad</value>
         <value xml:lang="fr">Etat de l'activité</value>
         <value xml:lang="it">Stato attività</value>
+        <value xml:lang="ja">活動ステータス</value>
         <value xml:lang="nl">Actie status</value>
         <value xml:lang="ro">Stato Activitate</value>
         <value xml:lang="ru">Статус действия</value>
@@ -1605,6 +1744,7 @@
         <value xml:lang="en">Add/modify a calendar event</value>
         <value xml:lang="fr">Ajouter/modifier un évènement</value>
         <value xml:lang="it">Aggiunta/Modifica evento</value>
+        <value xml:lang="ja">カレンダイベントを追加/更新</value>
         <value xml:lang="vi">Thêm/Sửa sự kiện trên lịch</value>
         <value xml:lang="zh">添加/修改一个日历事件</value>
     </property>
@@ -1613,6 +1753,7 @@
         <value xml:lang="en">Add New WorkEffort Child</value>
         <value xml:lang="fr">Ajouter une nouvelle tâche enfant</value>
         <value xml:lang="it">Aggiungi figlio</value>
+        <value xml:lang="ja">新規下位(子)の作業成果</value>
         <value xml:lang="nl">Add New WorkEffort Child</value>
         <value xml:lang="ro">Adauga Fiu</value>
         <value xml:lang="th">เพิ่มงานขั้นต้นใหม่</value>
@@ -1626,6 +1767,7 @@
         <value xml:lang="es">Añadir una tarea existente (código de tarea)</value>
         <value xml:lang="fr">Ajouter une tâche existante (réf de tâche) </value>
         <value xml:lang="it">Aggiungi un compito esistente (Impegno di lavoro) </value>
+        <value xml:lang="ja">既存のタスクを追加(作業成果ID)</value>
         <value xml:lang="nl">Add An Existing Task (WorkEffortId) </value>
         <value xml:lang="ro">Adauga o Sarcina Existenta (Sarcina de Lucru) </value>
         <value xml:lang="ru">Добавить существующее задание (WorkEffortId) </value>
@@ -1639,6 +1781,7 @@
         <value xml:lang="en">Add Existing WorkEffort Child</value>
         <value xml:lang="fr">Ajouter une tâche enfant existante</value>
         <value xml:lang="it">Aggiungi un impegno di lavoro figlio esistente</value>
+        <value xml:lang="ja">既存作業成果の下位(子)を追加</value>
         <value xml:lang="nl">Add Existing WorkEffort Child</value>
         <value xml:lang="th">เพิ่มงานขั้นต้นที่มีอยู่</value>
         <value xml:lang="vi">Thêm Lượng giá nguồn lực con đã tồn tại</value>
@@ -1649,6 +1792,7 @@
         <value xml:lang="en">Add Good Standard</value>
         <value xml:lang="fr">Ajouter un bien standard</value>
         <value xml:lang="it">Aggiungi bene standard</value>
+        <value xml:lang="ja">参考指針を追加</value>
         <value xml:lang="th">เพิ่มมาตรฐานงานที่เหมาะสม</value>
         <value xml:lang="vi">Thêm tiêu chuẩn đánh giá là TỐT</value>
         <value xml:lang="zh">添加良好标准</value>
@@ -1660,6 +1804,7 @@
         <value xml:lang="es">Añadir tarea</value>
         <value xml:lang="fr">Ajouter une tâche</value>
         <value xml:lang="it">Aggiungi compito</value>
+        <value xml:lang="ja">タスクを追加</value>
         <value xml:lang="nl">Taak toevoegen</value>
         <value xml:lang="ro">Adauga Sarcina</value>
         <value xml:lang="ru">Добавить задание</value>
@@ -1672,6 +1817,7 @@
         <value xml:lang="en">Agreement Appls</value>
         <value xml:lang="fr">Applications d'accords</value>
         <value xml:lang="it">Applicazioni contratto</value>
+        <value xml:lang="ja">同意書業務</value>
         <value xml:lang="vi">Ứng dụng Hợp đồng</value>
         <value xml:lang="zh">合同用途</value>
         <value xml:lang="zh_TW">合同用途</value>
@@ -1682,6 +1828,7 @@
         <value xml:lang="es">Todas las fases</value>
         <value xml:lang="fr">Toutes les phases</value>
         <value xml:lang="it">Tutte le fasi</value>
+        <value xml:lang="ja">全てのフェーズ</value>
         <value xml:lang="nl">Alle fases</value>
         <value xml:lang="ro">Toate Fazele</value>
         <value xml:lang="ru">Все фазы</value>
@@ -1696,6 +1843,7 @@
         <value xml:lang="es">Todas las tareas</value>
         <value xml:lang="fr">Ensemble des tâches</value>
         <value xml:lang="it">Tutti i compiti </value>
+        <value xml:lang="ja">すべてのタスク</value>
         <value xml:lang="nl">Alle taken</value>
         <value xml:lang="ro">Toate Sarcinile </value>
         <value xml:lang="ru">Все задания </value>
@@ -1708,6 +1856,7 @@
         <value xml:lang="en">Any Assoc Type</value>
         <value xml:lang="fr">Tout type d'association</value>
         <value xml:lang="it">Tutti i tipo di associazione</value>
+        <value xml:lang="ja">任意の関連付け種類</value>
         <value xml:lang="th">ทุก ๆ กลุ่มประเภท</value>
         <value xml:lang="vi">Bất kỳ kiểu kết hợp nào</value>
         <value xml:lang="zh">任一关联类型</value>
@@ -1718,6 +1867,7 @@
         <value xml:lang="es">Esta aplicación está destinada para las personas que administran los eventos, las tareas y los flujos de trabajo</value>
         <value xml:lang="fr">Cette application est destinées aux personnes qui gèrent et utilisent les événements des tâches du calendrier, et le déroulement d'opérations</value>
         <value xml:lang="it">Questa applicazione è dedicata per quelli che gestiscono e usano compiti eventi di calendario e attività flussi di lavoro</value>
+        <value xml:lang="ja">この業務はカレンダイベントタスクおよびワークフローの活動を使う人向けです</value>
         <value xml:lang="nl">This application is meant for those who maintain and use calendar events tasks and workflow activities</value>
         <value xml:lang="ro">Aceasta aplicatie este dedicata pentru cei care gestioneaza si folosesc sarcini evenimente din calendar si activitate fluxuri de lucru </value>
         <value xml:lang="ru">Это приложение предназначено для календарного планирования событий и управления работами, заданиями и документами</value>
@@ -1732,6 +1882,7 @@
         <value xml:lang="es">Tareas asignadas</value>
         <value xml:lang="fr">Tâches assignées</value>
         <value xml:lang="it">Compiti assegnati</value>
+        <value xml:lang="ja">割当済タスク</value>
         <value xml:lang="nl">Assigned Tasks</value>
         <value xml:lang="ro">Sarcini Atribuite</value>
         <value xml:lang="ru">Назначенные задания</value>
@@ -1744,6 +1895,7 @@
         <value xml:lang="en">WorkEffort Association</value>
         <value xml:lang="fr">Association de la tâche</value>
         <value xml:lang="it">Associazione impegno di lavoro </value>
+        <value xml:lang="ja">作業成果関連付け</value>
         <value xml:lang="th">กลุ่มงาน</value>
         <value xml:lang="vi">Lượng giá nguồn lực kết hợp</value>
         <value xml:lang="zh">人工服务关联</value>
@@ -1753,6 +1905,7 @@
         <value xml:lang="en">(associated from parent to child)</value>
         <value xml:lang="fr">(associé depuis parent à enfant)</value>
         <value xml:lang="it">(associato dal padre al figlio)</value>
+        <value xml:lang="ja">(上位(親)から下位(子)に関連付け)</value>
         <value xml:lang="nl">(associated from parent to child)</value>
         <value xml:lang="ro">(asociat de la parinte la fiu)</value>
         <value xml:lang="th">(associated from parent to child)</value>
@@ -1766,6 +1919,7 @@
         <value xml:lang="es">Participante</value>
         <value xml:lang="fr">Participant</value>
         <value xml:lang="it">Partecipante</value>
+        <value xml:lang="ja">参加者</value>
         <value xml:lang="nl">Attender</value>
         <value xml:lang="ro">Asistent</value>
         <value xml:lang="ru">Приглашенный</value>
@@ -1779,6 +1933,7 @@
         <value xml:lang="en">Enter existing Communication Event Id below</value>
         <value xml:lang="fr">Entrer la réf. existante d'événement de communication ci-dessous</value>
         <value xml:lang="it">Inserire un evento comunicazione esistente qui sotto</value>
+        <value xml:lang="ja">次の既存通信イベントIDを入力してください</value>
         <value xml:lang="nl">Enter existing CommunicationEvent Id below</value>
         <value xml:lang="ro">Introduceti aici dedesubt un eveniment comunicatii</value>
         <value xml:lang="th">เข้าสู่รหัสผลที่ได้จากการติดต่อที่มีอยู่ข้างล่าง</value>
@@ -1790,6 +1945,7 @@
         <value xml:lang="en">OR add new Communication Event data below to create new entity (leave Communication Event Id empty)</value>
         <value xml:lang="fr">OU Ajouter une nouvelle donnée d'événement de communication ci-dessous pour créer la nouvelle entité (Laisser la réf. d'évènement de communication vide)</value>
         <value xml:lang="it">O aggiungi un nuovo evento comunicazione qui sotto per creare una nuova entità (lasciare vuoto)</value>
+        <value xml:lang="ja">または新規エンティティを作成するために、次の新規通信イベントデータを追加してください(通信イベントIDは入力しないでください)</value>
         <value xml:lang="nl">OR add new CommunicationEvent data below to create new entity (leave CommunicationEvent Id empty)</value>
         <value xml:lang="ro">sau adaugati un nou eveniment comunicatie mai jos pentru  a crea o noua entitate (lasati gol)</value>
         <value xml:lang="th">หรือเพิ่มข้อมูลผลที่ได้จากการติดต่อใหม่ข้างล่างถึงสร้างเอนทิตีใหม่ (จากรหัสผลที่ได้จากการติดต่อว่าง)</value>
@@ -1801,6 +1957,7 @@
         <value xml:lang="en">Enter existing Requirement Id below</value>
         <value xml:lang="fr">Entrer la réf. de besoin existant ci-dessous</value>
         <value xml:lang="it">Inserire qui sotto un fabbisogno esistente</value>
+        <value xml:lang="ja">次の既存要求IDを入力してください</value>
         <value xml:lang="nl">Enter existing Requirement Id below</value>
         <value xml:lang="ro">Introduceti mai jos un necesar existent</value>
         <value xml:lang="th">เข้าสู่รหัสความต้องการที่มีอยู่ข้างล่าง</value>
@@ -1812,6 +1969,7 @@
         <value xml:lang="en">OR add new Requirement data below to create new entity (leave Requirement Id empty)</value>
         <value xml:lang="fr">OU ajouter une nouvelle donnée de besoin ci-dessous pour créer la nouvelle entité (laisser la réf. de besoin vide)</value>
         <value xml:lang="it">O aggiungi un nuovo fabbisogno qui sotto per creare una nuova entità (lasciare vuoto)</value>
+        <value xml:lang="ja">または新規エンティティを作成するために、次の新規要求データを追加してください(要求IDは入力しないでください)</value>
         <value xml:lang="nl">OR add new Requirement data below to create new entity (leave Requirement Id empty)</value>
         <value xml:lang="ro">Sau adaugati un nou necesar mai jos, pentru a crea o noua entitate (lasati gol)</value>
         <value xml:lang="th">หรือเพิ่มข้อมูลความต้องการใหม่ข้างล่างถึงการสร้างเอนทิตีใหม่ (จากรหัสผลที่ได้จากการติดต่อว่าง)</value>
@@ -1823,6 +1981,7 @@
         <value xml:lang="en">Enter an existing workEffortId below,</value>
         <value xml:lang="fr">Entrer la réf. de tâche existante ci-dessous,</value>
         <value xml:lang="it">Inserire qui sotto un'impegno di lavoro esistente,</value>
+        <value xml:lang="ja">次の既存作業リクエストIDを入力してください</value>
         <value xml:lang="nl">Enter an existing workEffortId below,</value>
         <value xml:lang="ro">Introduceti aici dedesubt o sarcina de lucru existenta,</value>
         <value xml:lang="th">เข้าสู่รหัสงานที่มีอยู่ข้างล่าง</value>
@@ -1834,6 +1993,7 @@
         <value xml:lang="en">OR enter the WorkEffort Details below</value>
         <value xml:lang="fr">OU entrer les détails de la tâche ci-dessous</value>
         <value xml:lang="it">O inserisci qui sotto l'Impegno di Lavoro (lasciando vuoto)</value>
+        <value xml:lang="ja">または次の作業成果詳細を入力してください</value>
         <value xml:lang="nl">OR enter the WorkEffort Details below</value>
         <value xml:lang="ro">Sau Introduceti dedesubt Sarcina de lucru (lasand gol)</value>
         <value xml:lang="th">หรือเข้าสู่รายละเอียดงานข้างล่าง</value>
@@ -1847,6 +2007,7 @@
         <value xml:lang="es">Ver por almacén</value>
         <value xml:lang="fr">Par service</value>
         <value xml:lang="it">Per stabilimento</value>
+        <value xml:lang="ja">拠点で</value>
         <value xml:lang="nl">Op faciliteit</value>
         <value xml:lang="ro">Pentru Compartiment</value>
         <value xml:lang="ru">по объектам</value>
@@ -1861,6 +2022,7 @@
         <value xml:lang="es">Ver por activo fijo</value>
         <value xml:lang="fr">Par immobilisation</value>
         <value xml:lang="it">Per cespite</value>
+        <value xml:lang="ja">固定資産で</value>
         <value xml:lang="nl">By Fixed Asset</value>
         <value xml:lang="ro">Pentru Mijloc Fix</value>
         <value xml:lang="th">โดยทรัพย์สินไม่หมุนเวียน</value>
@@ -1874,6 +2036,7 @@
         <value xml:lang="es">Ver por código de participante</value>
         <value xml:lang="fr">Par acteur</value>
         <value xml:lang="it">Per soggetto</value>
+        <value xml:lang="ja">取引先で</value>
         <value xml:lang="nl">Op relatie</value>
         <value xml:lang="ro">Pentru Cod Subiect</value>
         <value xml:lang="ru">по ID участника</value>
@@ -1888,6 +2051,7 @@
         <value xml:lang="es">Calendario</value>
         <value xml:lang="fr">Calendrier</value>
         <value xml:lang="it">Calendario</value>
+        <value xml:lang="ja">カレンダ</value>
         <value xml:lang="nl">Kalender</value>
         <value xml:lang="ro">Calendar</value>
         <value xml:lang="ru">Календарь</value>
@@ -1902,6 +2066,7 @@
         <value xml:lang="es">Vista del calendario por días</value>
         <value xml:lang="fr">Vue du calendrier journalier</value>
         <value xml:lang="it">Calendario giornaliero</value>
+        <value xml:lang="ja">カレンダ日ビュー</value>
         <value xml:lang="nl">Kalender per dag</value>
         <value xml:lang="ro">Afiseaza Ziua Calendar</value>
         <value xml:lang="ru">Просмотр дня</value>
@@ -1916,6 +2081,7 @@
         <value xml:lang="es">Entradas de calendario</value>
         <value xml:lang="fr">Inscriptions au calendrier</value>
         <value xml:lang="it">Voci calendario</value>
+        <value xml:lang="ja">カレンダエントリ</value>
         <value xml:lang="nl">Kalender acties</value>
         <value xml:lang="ro">Date Calendar</value>
         <value xml:lang="ru">Список событий</value>
@@ -1930,6 +2096,7 @@
         <value xml:lang="es">Eventos de calendario</value>
         <value xml:lang="fr">Evènement du calendrier</value>
         <value xml:lang="it">Evento calendario</value>
+        <value xml:lang="ja">カレンダイベント</value>
         <value xml:lang="nl">Calendar Event</value>
         <value xml:lang="ro">Evenimente Calendar</value>
         <value xml:lang="ru">Событие</value>
@@ -1944,6 +2111,7 @@
         <value xml:lang="es">Contactos de eventos de calendario</value>
         <value xml:lang="fr">Contacts des évènements du calendrier</value>
         <value xml:lang="it">Contatti dell'evento calendario</value>
+        <value xml:lang="ja">カレンダイベント連絡</value>
         <value xml:lang="nl">Calendar Event Contacts</value>
         <value xml:lang="ro">Contacte Eveniment Calendar</value>
         <value xml:lang="ru">Контакты по событию</value>
@@ -1958,6 +2126,7 @@
         <value xml:lang="es">Detalles de eventos de calendario</value>
         <value xml:lang="fr">Détails des évènements du calendrier</value>
         <value xml:lang="it">Dettagli dell'evento calendario</value>
+        <value xml:lang="ja">カレンダイベント詳細</value>
         <value xml:lang="nl">Calendar Event Details</value>
         <value xml:lang="ro">Detalii Eveniment Calendar</value>
         <value xml:lang="ru">Детали события</value>
@@ -1972,6 +2141,7 @@
         <value xml:lang="es">Roles de eventos de calendario</value>
         <value xml:lang="fr">Rôles des évènements du calendrier</value>
         <value xml:lang="it">Ruoli dell'evento calendario</value>
+        <value xml:lang="ja">カレンダイベントロール</value>
         <value xml:lang="nl">Calendar Event Roles</value>
         <value xml:lang="ro">Roluri Eveniment Calendar</value>
         <value xml:lang="ru">Роли по событию</value>
@@ -1985,6 +2155,7 @@
         <value xml:lang="en">Find Calendar Entries</value>
         <value xml:lang="fr">Rechercher les inscriptions au calendrier</value>
         <value xml:lang="it">Ricerca voci di calendario</value>
+        <value xml:lang="ja">カレンダエントリを検索</value>
         <value xml:lang="th">ค้นหาการกรอกข้อมูลปฏิทิน</value>
         <value xml:lang="vi">Tìm các điểm nhập lịch</value>
         <value xml:lang="zh">查找日历记录</value>
@@ -1996,6 +2167,7 @@
         <value xml:lang="es">Vista del calendario por días</value>
         <value xml:lang="fr">Vue du calendrier mensuel</value>
         <value xml:lang="it">Calendario mensile</value>
+        <value xml:lang="ja">カレンダ月ビュー</value>
         <value xml:lang="nl">Calendar Month View</value>
         <value xml:lang="ro">Afiseaza Luna Calendar</value>
         <value xml:lang="ru">Просмотр месяца</value>
@@ -2010,6 +2182,7 @@
         <value xml:lang="es">Vista del calendario por eventos próximos</value>
         <value xml:lang="fr">Vue du calendrier des évènements à venir</value>
         <value xml:lang="it">Mostra prossimi eventi</value>
+        <value xml:lang="ja">カレンダ予定イベントビュー</value>
         <value xml:lang="nl">Calendar Up-Coming Events View</value>
         <value xml:lang="ro">Afiseaza Evenimente Calendar care vor fi  </value>
         <value xml:lang="ru">Список наступающих событий</value>
@@ -2024,6 +2197,7 @@
         <value xml:lang="es">Vista del calendario por semanas</value>
         <value xml:lang="fr">Vue du calendrier hebdomadaire</value>
         <value xml:lang="it">Calendario settimanale</value>
+        <value xml:lang="ja">カレンダ週ビュー</value>
         <value xml:lang="nl">Calendar Week View</value>
         <value xml:lang="ro">Afiseaza Calendar Saptamana</value>
         <value xml:lang="ru">Просмотр недели</value>
@@ -2037,24 +2211,28 @@
         <value xml:lang="en">Cancel a calendar event</value>
         <value xml:lang="fr">Annuler un évènement</value>
         <value xml:lang="it">Annulla evento calendario</value>
+        <value xml:lang="ja">カレンダイベントを取消</value>
         <value xml:lang="vi">Hủy bỏ sự kiện lịch</value>
         <value xml:lang="zh">取消一个日历事件</value>
     </property>
     <property key="WorkEffortCannotDeleteContactInfo">
         <value xml:lang="en">ERROR: Cannot delete specified contact info because it does not correspond to the specified work effort</value>
         <value xml:lang="it">ERRORE: Non è possibile cancellare il contatto perchè non corrisponde all'impegno di lavoro specificato</value>
+        <value xml:lang="ja">エラー: 指定した作業成果に対応しないため、指定した連絡情報を削除できません</value>
         <value xml:lang="vi">Lỗi xảy ra: Không thể xóa Liên hệ này vì không liên quan đến Lượng giá nguồn lực hiện tại</value>
         <value xml:lang="zh">错误：不能删除指定的联系信息，因为它没有关联到指定的人工服务</value>
     </property>
     <property key="WorkEffortCannotUpdateContactInfo">
         <value xml:lang="en">ERROR: Cannot update specified contact info because it does not correspond to the specified work effort</value>
         <value xml:lang="it">ERRORE: Non è possibile aggiornare il contatto perchè non corrisponde all'impegno di lavoro specificato</value>
+        <value xml:lang="ja">エラー: 指定した作業成果に対応しないため、指定した連絡情報を更新できません</value>
         <value xml:lang="vi">Lỗi xảy ra: Không thể cập nhật Liên hệ này vì không liên quan đến Lượng giá nguồn lực hiện tại</value>
         <value xml:lang="zh">错误：不能更新指定的联系信息，因为它没有关联到指定的人工服务</value>
     </property>
     <property key="WorkEffortCommEventId">
         <value xml:lang="en">Comm Event Id</value>
         <value xml:lang="it">Evento comunicazioni</value>
+        <value xml:lang="ja">通信イベントID</value>
         <value xml:lang="vi">Sự kiện truyền thông</value>
         <value xml:lang="zh">沟通事件标识</value>
         <value xml:lang="zh_TW">通訊事件ID</value>
@@ -2065,6 +2243,7 @@
         <value xml:lang="es">Comunicaciones</value>
         <value xml:lang="fr">Communications</value>
         <value xml:lang="it">Comunicazioni</value>
+        <value xml:lang="ja">通信</value>
         <value xml:lang="nl">Communications</value>
         <value xml:lang="ro">Evenimente Comunicatii</value>
         <value xml:lang="th">การติดต่อสื่อสาร</value>
@@ -2078,6 +2257,7 @@
         <value xml:lang="es">Comentarios</value>
         <value xml:lang="fr">Commentaires</value>
         <value xml:lang="it">Commenti</value>
+        <value xml:lang="ja">コメント</value>
         <value xml:lang="nl">Comments</value>
         <value xml:lang="ro">Comentarii </value>
         <value xml:lang="ru">Комментарии</value>
@@ -2092,6 +2272,7 @@
         <value xml:lang="es">OFBiz: Administración de tareas</value>
         <value xml:lang="fr">OFBiz: Gestion de tâches</value>
         <value xml:lang="it">OFBiz: Gestione impegni di lavoro</value>
+        <value xml:lang="ja">OFBiz: 作業成果管理</value>
         <value xml:lang="nl">OFBiz: WorkEffort Manager</value>
         <value xml:lang="ro">OFBiz: Gestiune Sarcini de Lucru </value>
         <value xml:lang="ru">OFBiz: WorkEffort Manager</value>
@@ -2110,6 +2291,7 @@
         <value xml:lang="fr">Un module de la famille Open For Business, logiciel libre de gestion d'entreprise.</value>
         <value xml:lang="it">Un modulo della famiglia di software open source Open For Business</value>
         <!--value xml:lang="nl">Onderdeel van de Open For Business'-suite</value-->
+        <value xml:lang="ja">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="nl">Deel van de Open For Business-suite van Open Source Software</value>
         <value xml:lang="pt_BR">Parte da família OfBiz de software de fonte aberta</value>
         <!--value xml:lang="pt_PT">Parte do Software de Fonte Aberta para Grupos Abertos Para o Negócio</value-->
@@ -2132,6 +2314,7 @@
         <value xml:lang="es">Fecha de terminación</value>
         <value xml:lang="fr">Date d'achèvement</value>
         <value xml:lang="it">Data completamento</value>
+        <value xml:lang="ja">完了日</value>
         <value xml:lang="th">สำเร็จวันที่</value>
         <value xml:lang="vi">Ngày hoàn thành</value>
         <value xml:lang="zh">完成日期</value>
@@ -2142,6 +2325,7 @@
         <value xml:lang="en">Contact Mech</value>
         <value xml:lang="fr">coordonnée</value>
         <value xml:lang="it">Contatto</value>
+        <value xml:lang="ja">連絡方法</value>
         <value xml:lang="th">วิธีการติดต่อ</value>
         <value xml:lang="vi">Liên lạc chi tiết</value>
         <value xml:lang="zh">联系方法</value>
@@ -2152,6 +2336,7 @@
         <value xml:lang="en">Contact Mechs</value>
         <value xml:lang="fr">Contacts</value>
         <value xml:lang="it">Contatti</value>
+        <value xml:lang="ja">連絡方法</value>
         <value xml:lang="th">วิธีการติดต่อ</value>
         <value xml:lang="vi">Liên lạc chi tiết</value>
         <value xml:lang="zh">联系方法</value>
@@ -2163,6 +2348,7 @@
         <value xml:lang="es">Tipo de contacto</value>
         <value xml:lang="fr">Catégorie de relations</value>
         <value xml:lang="it">Tipo contatto</value>
+        <value xml:lang="ja">連絡種類</value>
         <value xml:lang="nl">Contact Type</value>
         <value xml:lang="ro">Tip Contact</value>
         <value xml:lang="ru">Тип контакта</value>
@@ -2177,6 +2363,7 @@
         <value xml:lang="es">Crear esfuerzo de trabajo</value>
         <value xml:lang="fr">Créer une tâche</value>
         <value xml:lang="it">Nuovo impegno di lavoro</value>
+        <value xml:lang="ja">作業成果を作成</value>
         <value xml:lang="nl">Nieuw actie</value>
         <value xml:lang="ro">Creat Sarcina de Lucru</value>
         <value xml:lang="th">สร้าง</value>
@@ -2188,6 +2375,7 @@
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the WORKEFFORTMGR_CREATE or WORKEFFORTMGR_ADMIN permission</value>
         <value xml:lang="fr">Erreur de sécurité: pour exécuter ${resourceDescription} vous devez avoir l'autorisation WORKEFFORTMGR_CREATE or WORKEFFORTMGR_ADMIN</value>
         <value xml:lang="it">Errore sicurezza: per eseguire ${resourceDescription} devi avere il permesso WORKEFFORTMGR_CREATE o WORKEFFORTMGR_ADMIN</value>
+        <value xml:lang="ja">セキュリティエラー: この操作の実行には WORKEFFORTMGR_CREATE または WORKEFFORTMGR_ADMIN 権限が必要です</value>
         <value xml:lang="th">Security Error: ${resourceDescription} ความปลอดภัยผิดพลาด ! ถึงการดำเนินการกิจการนี้คุณต้องมี WORKEFFORTMGR_CREATE หรือ WORKEFFORTMGR_ADMIN อนุญาต</value>
         <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần có quyền WORKEFFORTMGR_CREATE hoặc WORKEFFORTMGR_ADMIN</value>
         <value xml:lang="zh">安全错误：要运行这个操作你必须具有 ${resourceDescription} WORKEFFORTMGR_CREATE 或 WORKEFFORTMGR_ADMIN 权限</value>
@@ -2199,6 +2387,7 @@
         <value xml:lang="es">Creado</value>
         <value xml:lang="fr">Création</value>
         <value xml:lang="it">Creato</value>
+        <value xml:lang="ja">作成</value>
         <value xml:lang="nl">Aangemaakt op</value>
         <value xml:lang="ro">Creat</value>
         <value xml:lang="ru">Создано</value>
@@ -2210,6 +2399,7 @@
     <property key="WorkEffortCreatedSuccessfully">
         <value xml:lang="en">Work Effort successfully created.</value>
         <value xml:lang="it">Impegno di lavoro creato con successo.</value>
+        <value xml:lang="ja">作業成果が正しく作成されました。</value>
         <value xml:lang="vi">Lượng giá nguồn lực được tạo thành công.</value>
         <value xml:lang="zh">成功创建人工服务。</value>
     </property>
@@ -2217,6 +2407,7 @@
         <value xml:lang="de">Kundenbewertung</value>
         <value xml:lang="en">Customer Rating</value>
         <value xml:lang="it">Posizione cliente</value>
+        <value xml:lang="ja">顧客評価</value>
         <value xml:lang="vi">Xếp hạng khách hàng</value>
         <value xml:lang="zh">客户评价</value>
         <value xml:lang="zh_TW">客戶評價</value>
@@ -2224,24 +2415,28 @@
     <property key="WorkEffortCustRequestAlreadyExists">
         <value xml:lang="en">ERROR: CustRequestWorkEffort [${parameters.custRequestId}][${parameters.workEffortId}] already exists</value>
         <value xml:lang="it">ERRORE: Richiesta impegno di lavoro [${parameters.custRequestId}][${parameters.workEffortId}] esiste già</value>
+        <value xml:lang="ja">エラー: 顧客リクエスト作業成果 [${parameters.custRequestId}][${parameters.workEffortId}] はすでに存在します。</value>
         <value xml:lang="vi">Lỗi xảy ra: Công việc [${parameters.custRequestId}][${parameters.workEffortId}] theo Yêu cầu khách hàng đã tồn tại</value>
         <value xml:lang="zh">错误：已存在客户请求人工服务（CustRequestWorkEffort）[${parameters.custRequestId}][${parameters.workEffortId}]</value>
     </property>
     <property key="WorkEffortCustRequestDoesNotExists">
         <value xml:lang="en">ERROR: CustRequestWorkEffort [${parameters.custRequestId}][${parameters.workEffortId}] does not exist</value>
         <value xml:lang="it">ERRORE: Richiesta impegno di lavoro [${parameters.custRequestId}][${parameters.workEffortId}] non esiste</value>
+        <value xml:lang="ja">エラー: 顧客リクエスト作業成果 [${parameters.custRequestId}][${parameters.workEffortId}] は存在しません。</value>
         <value xml:lang="vi">Lỗi xảy ra: Công việc [${parameters.custRequestId}][${parameters.workEffortId}] theo Yêu cầu khách hàng chưa tồn tại</value>
         <value xml:lang="zh">错误：不存在客户请求人工服务（CustRequestWorkEffort）[${parameters.custRequestId}][${parameters.workEffortId}]</value>
     </property>
     <property key="WorkEffortCustRequestItemAlreadyExists">
         <value xml:lang="en">ERROR: CustRequestItemWorkEffort [${parameters.custRequestItemSeqId}][${parameters.workEffortId}] already exists.</value>
         <value xml:lang="it">ERRORE: Riga richiesta impegno di lavoro [${parameters.custRequestItemSeqId}][${parameters.workEffortId}] esiste già</value>
+        <value xml:lang="ja">エラー: 顧客リクエストアイテム作業成果 [${parameters.custRequestItemSeqId}][${parameters.workEffortId}] はすでに存在します。</value>
         <value xml:lang="vi">Lỗi xảy ra: Hạng mục công việc [${parameters.custRequestId}][${parameters.workEffortId}] theo Yêu cầu khách hàng đã tồn tại</value>
         <value xml:lang="zh">错误：已存在客户请求明细人工服务（CustRequestItemWorkEffort）[${parameters.custRequestItemSeqId}][${parameters.workEffortId}]</value>
     </property>
     <property key="WorkEffortCustRequestItemDoesNotExists">
         <value xml:lang="en">ERROR: CustRequestItemWorkEffort [${parameters.custRequestItemSeqId}][${parameters.workEffortId}] does not exists.</value>
         <value xml:lang="it">ERRORE: Riga richiesta impegno di lavoro [${parameters.custRequestItemSeqId}][${parameters.workEffortId}] non esiste</value>
+        <value xml:lang="ja">エラー: 顧客リクエストアイテム作業成果 [${parameters.custRequestItemSeqId}][${parameters.workEffortId}] は存在しません。</value>
         <value xml:lang="vi">Lỗi xảy ra: Hạng mục công việc [${parameters.custRequestId}][${parameters.workEffortId}] theo Yêu cầu khách hàng chưa tồn tại</value>
         <value xml:lang="zh">错误：不存在客户请求明细人工服务（CustRequestItemWorkEffort）[${parameters.custRequestItemSeqId}][${parameters.workEffortId}]</value>
     </property>
@@ -2251,6 +2446,7 @@
         <value xml:lang="es">Vista por días</value>
         <value xml:lang="fr">Vue par jour</value>
         <value xml:lang="it">Mostra giorno</value>
+        <value xml:lang="ja">日ビュー</value>
         <value xml:lang="nl">Dag overzicht</value>
         <value xml:lang="ro">Afiseaza Ziua</value>
         <value xml:lang="ru">По дням</value>
@@ -2263,6 +2459,7 @@
         <value xml:lang="en">Delegate Reason</value>
         <value xml:lang="fr">Motif de déléguation</value>
         <value xml:lang="it">Motivazione delega</value>
+        <value xml:lang="ja">委任理由</value>
         <value xml:lang="vi">Lí do chuyển quyền</value>
         <value xml:lang="zh">委托原因</value>
         <value xml:lang="zh_TW">委托原因</value>
@@ -2272,6 +2469,7 @@
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the WORKEFFORTMGR_DELETE or WORKEFFORTMGR_ADMIN permission</value>
         <value xml:lang="fr">Erreur de sécurité: pour exécuter ${resourceDescription} vous devez avoir l'autorisation WORKEFFORTMGR_DELETE or WORKEFFORTMGR_ADMIN</value>
         <value xml:lang="it">Errore sicurezza: per eseguire ${resourceDescription} devi avere il permesso WORKEFFORTMGR_DELETE o WORKEFFORTMGR_ADMIN</value>
+        <value xml:lang="ja">セキュリティエラー: この操作の実行は WORKEFFORTMGR_DELETE または WORKEFFORTMGR_ADMIN 権限が必要です</value>
         <value xml:lang="th">Security Error: ${resourceDescription} ความปลอดภัยผิดพลาด ! ถึงการดำเนินการกิจการนี้คุณต้องมี WORKEFFORTMGR_DELETE หรือ WORKEFFORTMGR_ADMIN อนุญาต</value>
         <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần có quyền WORKEFFORTMGR_DELETE hoặc WORKEFFORTMGR_ADMIN</value>
         <value xml:lang="zh">安全错误：要运行这个操作你必须具有 ${resourceDescription} WORKEFFORTMGR_DELETE 或 WORKEFFORTMGR_ADMIN 权限</value>
@@ -2282,6 +2480,7 @@
         <value xml:lang="en">Duplicate Work Effort</value>
         <value xml:lang="fr">Dupliquer la tâche</value>
         <value xml:lang="it">Duplica impegno di lavoro</value>
+        <value xml:lang="ja">作業成果をコピー</value>
         <value xml:lang="th">งานที่เหมือนกัน</value>
         <value xml:lang="vi">Nhân bản Lượng giá nguồn lực</value>
         <value xml:lang="zh">复制人工服务</value>
@@ -2292,6 +2491,7 @@
         <value xml:lang="en">Edit Assoc</value>
         <value xml:lang="fr">Modifier l'assoc.</value>
         <value xml:lang="it">Aggiorna associazioni</value>
+        <value xml:lang="ja">関連付けを編集</value>
         <value xml:lang="th">แก้ไขกลุ่ม</value>
         <value xml:lang="vi">Cập nhật Liên kết (association).</value>
         <value xml:lang="zh">编辑关联</value>
@@ -2302,6 +2502,7 @@
         <value xml:lang="en">Edit Assoc Detail</value>
         <value xml:lang="fr">Modifier le détail de l'assoc.</value>
         <value xml:lang="it">Aggiorna i dettagli dell'associazione</value>
+        <value xml:lang="ja">関連付け詳細を編集</value>
         <value xml:lang="th">แก้ไขรายละเอียดกลุ่ม</value>
         <value xml:lang="vi">Cập nhật Liên kết (association) chi tiết.</value>
         <value xml:lang="zh">编辑关联详细信息</value>
@@ -2312,6 +2513,7 @@
         <value xml:lang="en">Email Address is missing</value>
         <value xml:lang="fr">L'adresse courriel est manquante</value>
         <value xml:lang="it">L'indirizzo Email è mancante</value>
+        <value xml:lang="ja">Eメールアドレスが正しくありません</value>
         <value xml:lang="ro">Adresa Email lipseste </value>
         <value xml:lang="th">ไม่พบที่อยู่อีเมล</value>
         <value xml:lang="vi">Địa chỉ thư điện tử bị thiếu</value>
@@ -2323,6 +2525,7 @@
         <value xml:lang="en">Email Address is not formatted correctly, must be like foo@bar.com</value>
         <value xml:lang="fr">L'adresse courriel n'est pas formatée correctement, elle doit ressemblée à foo@bar.com</value>
         <value xml:lang="it">L'indirizzo Email non è formattato correttamente, deve essere simile a foo@bar.com</value>
+        <value xml:lang="ja">Eメールアドレスの書式が正しくありません。foo@bar.com のように入力してください</value>
         <value xml:lang="ro">Adresa Email nu este formatata corect, trebuie sa fie de forma foo@bar.com</value>
         <value xml:lang="th">ที่อยู่อีเมลไม่เป็นรูปแบบที่ถูกต้อง, ต้องเหมือน foo@bar.com</value>
         <value xml:lang="vi">Địa chỉ thư điện thử định dạng không hợp lệ, ví dụ tri@vssic.com</value>
@@ -2335,6 +2538,7 @@
         <value xml:lang="es">ERROR: No se pudo encontrar la actividad con el código</value>
         <value xml:lang="fr">ERREUR :Impossible de trouver l'activité avec la référence</value>
         <value xml:lang="it">ERRORE: Non è possibile trovare attività con codice</value>
+        <value xml:lang="ja">エラー: 活動のIDが見つかりません</value>
         <value xml:lang="nl">ERROR: Could not find activity with ID</value>
         <value xml:lang="ro">EROARE: Nu  este  posibila gasirea  activitatii cu codul</value>
         <value xml:lang="ru">ОШИБКА: не могу найти действие с таким ID</value>
@@ -2349,6 +2553,7 @@
         <value xml:lang="es">ERROR: No se pudo encontrar el evento con el código</value>
         <value xml:lang="fr">ERREUR :Impossible de trouver l'évènement avec la référence</value>
         <value xml:lang="it">Errore: Non è possibile trovare evento con codice</value>
+        <value xml:lang="ja">エラー: イベントのIDが見つかりません</value>
         <value xml:lang="nl">Error: Could not find Event with ID</value>
         <value xml:lang="ro">Eroare: Nu este posibila gasirea Evenimentului cu Codul</value>
         <value xml:lang="ru">ОШИБКА: не могу найти событие с таким ID</value>
@@ -2363,6 +2568,7 @@
         <value xml:lang="es">ERROR: No se pudo encontrar la tarea con el código</value>
         <value xml:lang="fr">ERREUR :Impossible de trouver la tâche avec la réf.</value>
         <value xml:lang="it">ERRORE: Non è possibile trovare compito con codice</value>
+        <value xml:lang="ja">エラー: タスクのIDが見つかりません</value>
         <value xml:lang="nl">ERROR: Could not find task with ID</value>
         <value xml:lang="ro">EROARE: Nu este posibila gasirea Sarcinii cu  Codul</value>
         <value xml:lang="ru">ОШИБКА: не могу найти задание с таким ID</value>
@@ -2376,6 +2582,7 @@
         <value xml:lang="es">ERROR: No tiene permiso para ver esta actividad. Debe ser el dueño de la actividad o tener permisos de administrardor para verla.</value>
         <value xml:lang="fr">ERREUR : Vous n'avez pas l'autorisation d'accéder à cette activité. Cette activité doit vous appartenir ou vous devez être administrateur</value>
         <value xml:lang="it">ERRORE: Non sei autorizzato a vedere questa attività. L'attività deve essere associata a te o devi essere un amministratore</value>
+        <value xml:lang="ja">エラー: この活動を表示する権限がありません。この活動は所有者と管理者のみ表示できます</value>
         <value xml:lang="nl">ERROR: You do not have permission to view this activity.This activity must belong to you or you must be an administrator</value>
         <value xml:lang="ro">EROARE: Tu nu esti autorizat sa vezi  aceasta activitate. Aceasta activitate trebuie sa iti corespunda tie sau tu trebuie sa fii un administrator.</value>
         <value xml:lang="ru">ОШИБКА: У Вас нет прав на просмотр этого действия. Они есть только у его владельца и администратора</value>
@@ -2389,6 +2596,7 @@
         <value xml:lang="es">ERROR: No tiene permiso para ver este evento. Debe ser el dueño del evento o tener permisos de administrardor para verlo.</value>
         <value xml:lang="fr">ERREUR : Vous n'avez pas l'autorisation de voir cet évènement. Cet évènement doit vous appartenir ou vous devez être administrateur</value>
         <value xml:lang="it">ERRORE: Non sei autorizzato a vedere questo evento. L'evento deve corrispondere a te o devi essere un amministratore</value>
+        <value xml:lang="ja">エラー: このイベントを表示する権限がありません。このイベントは所有者と管理者のみ表示できます</value>
         <value xml:lang="nl">ERROR: You do not have permission to view this event.This event must be long to you or you must be an administrator</value>
         <value xml:lang="ro">EROARE: Tu nu esti autorizat sa vezi acest eveniment.Acest eveniment trebuie sa iti corespunda tie sau tu trebuie sa fii un administrator.</value>
         <value xml:lang="ru">ОШИБКА: У Вас нет прав на просмотр этого события. Они есть только у его владельца и администратора</value>
@@ -2402,6 +2610,7 @@
         <value xml:lang="es">Presupuesto estimado</value>
         <value xml:lang="fr">Budget estimé</value>
         <value xml:lang="it">Budget stimato</value>
+        <value xml:lang="ja">予算</value>
         <value xml:lang="nl">Est.Budget</value>
         <value xml:lang="ro">Buget Stimat</value>
         <value xml:lang="ru">Бюджет</value>
@@ -2415,6 +2624,7 @@
         <value xml:lang="en">Estimated Completion Date</value>
         <value xml:lang="fr">Date estimée d'achèvement</value>
         <value xml:lang="it">Data completamento stimata</value>
+        <value xml:lang="ja">予定完了日</value>
         <value xml:lang="nl">Gepl. datum afgerond</value>
         <value xml:lang="ro">Data Terminare Stimata</value>
         <value xml:lang="th">วันที่สำเร็จประมาณ</value>
@@ -2428,6 +2638,7 @@
         <value xml:lang="es">Fecha de comienzo estimada</value>
         <value xml:lang="fr">Date estimée de début</value>
         <value xml:lang="it">Data inizio stimata</value>
+        <value xml:lang="ja">予定開始日</value>
         <value xml:lang="nl">Datum start</value>
         <value xml:lang="ro">Data Initiere Stimata</value>
         <value xml:lang="th">วันที่เริ่มประมาณ</value>
@@ -2440,6 +2651,7 @@
         <value xml:lang="es">Presupuesto estimado</value>
         <value xml:lang="fr">Budget estimé</value>
         <value xml:lang="it">Budget stimato</value>
+        <value xml:lang="ja">予算</value>
         <value xml:lang="nl">Estimated Budget</value>
         <value xml:lang="ro">Buget Stimat</value>
         <value xml:lang="ru">Предполагаемый бюджет</value>
@@ -2453,6 +2665,7 @@
         <value xml:lang="es">Evento</value>
         <value xml:lang="fr">Evènement</value>
         <value xml:lang="it">Evento</value>
+        <value xml:lang="ja">イベント</value>
         <value xml:lang="nl">Event</value>
         <value xml:lang="ro">Eveniment</value>
         <value xml:lang="ru">Событие</value>
@@ -2466,6 +2679,7 @@
         <value xml:lang="es">Nombre del evento</value>
         <value xml:lang="fr">Nom de l'évènement</value>
         <value xml:lang="it">Nome evento</value>
+        <value xml:lang="ja">イベント名称</value>
         <value xml:lang="nl">Event Name</value>
         <value xml:lang="ro">Nume Eveniment</value>
         <value xml:lang="ru">Название события</value>
@@ -2478,6 +2692,7 @@
         <value xml:lang="en">Event Reminder</value>
         <value xml:lang="fr">Evènement de tâche</value>
         <value xml:lang="it">Promemoria evento</value>
+        <value xml:lang="ja">イベントリマインダ</value>
         <value xml:lang="vi">Nhắc nhở sự kiện</value>
         <value xml:lang="zh">事件提醒</value>
         <value xml:lang="zh_TW">事件提醒</value>
@@ -2486,6 +2701,7 @@
         <value xml:lang="en">Event Reminders</value>
         <value xml:lang="fr">Evènements de tâche</value>
         <value xml:lang="it">Promemoria eventi</value>
+        <value xml:lang="ja">イベントリマインダ</value>
         <value xml:lang="vi">Nhắc nhở sự kiện</value>
         <value xml:lang="zh">事件提醒</value>
         <value xml:lang="zh_TW">事件提醒</value>
@@ -2493,12 +2709,14 @@
     <property key="WorkEffortEventRemindersRetrivingError">
         <value xml:lang="en">Error while retrieving work effort event reminders: ${errorString}</value>
         <value xml:lang="it">Errore durante la ricerca dell'impegno di lavoro promemoria eventi: ${errorString}</value>
+        <value xml:lang="ja">作業成果イベントリマインダの確認時にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi khi lấy thông tin nhắc nhở sự kiện Lượng giá nguồn lực: ${errorString}</value>
         <value xml:lang="zh">获取人工服务事件提醒时出错：${errorString}</value>
     </property>
     <property key="WorkEffortEventRemindersMigrationError">
         <value xml:lang="en">Error while migrating work effort event reminders: ${errorString}</value>
         <value xml:lang="it">Errore durante la migrazione dell'impegno di lavoro promemoria eventi: ${errorString}</value>
+        <value xml:lang="ja">作業成果イベントリマインダの移行時にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi khi lấy chuyển đổi nhắc nhở sự kiện Lượng giá nguồn lực: ${errorString}</value>
         <value xml:lang="zh">迁移人工服务事件提醒时出错：${errorString}</value>
     </property>
@@ -2507,6 +2725,7 @@
         <value xml:lang="es">Estado del evento</value>
         <value xml:lang="fr">Statut de l'évènement</value>
         <value xml:lang="it">Stato evento</value>
+        <value xml:lang="ja">イベントステータス</value>
         <value xml:lang="nl">Event Status</value>
         <value xml:lang="ro">Stat Eveniment</value>
         <value xml:lang="ru">Статус события</value>
@@ -2520,6 +2739,7 @@
         <value xml:lang="es">E</value>
         <value xml:lang="fr">Prévision</value>
         <value xml:lang="it">Aspettativa</value>
+        <value xml:lang="ja">期待</value>
         <value xml:lang="nl">Expectation</value>
         <value xml:lang="ro">Expetativa</value>
         <value xml:lang="ru">Ожидания</value>
@@ -2533,6 +2753,7 @@
         <value xml:lang="es">Error al obtener las entradas del calendario</value>
         <value xml:lang="fr">Accès refusé des entrées de calendrier</value>
         <value xml:lang="it">Fallita la lettura delle voci calendario</value>
+        <value xml:lang="ja">カレンダエントリの取得に失敗しました</value>
         <value xml:lang="nl">Failed to get calendar entries</value>
         <value xml:lang="ro">Falita citirea datelor din calendar</value>
         <value xml:lang="ru">Не удалось получить записи из календаря</value>
@@ -2544,6 +2765,7 @@
     <property key="WorkEffortFixedAssetAlreadyExist">
         <value xml:lang="en">Fixed Asset Already Exist</value>
         <value xml:lang="it">Cespite già esistente</value>
+        <value xml:lang="ja">固定資産はすでに存在します</value>
         <value xml:lang="vi">Tài sản cố định đã tồn tại</value>
         <value xml:lang="zh">固定资产已经存在</value>
         <value xml:lang="zh_TW">固定資產已經存在</value>
@@ -2553,6 +2775,7 @@
         <value xml:lang="es">Para requerimieto</value>
         <value xml:lang="fr">Pour le besoin</value>
         <value xml:lang="it">Per fabbisogno</value>
+        <value xml:lang="ja">要求する</value>
         <value xml:lang="nl">For Requirement</value>
         <value xml:lang="ro">Pentru Necesar</value>
         <value xml:lang="ru">К требованию</value>
@@ -2565,6 +2788,7 @@
         <value xml:lang="en">From Date is not a valid Date-Time.</value>
         <value xml:lang="fr">La date de départ n'est pas valide.</value>
         <value xml:lang="it">Dalla data non è una data valida.</value>
+        <value xml:lang="ja">開始日が有効な日時ではありません</value>
         <value xml:lang="ro">De La Data nu o data valida.</value>
         <value xml:lang="th">จากวันที่ไม่เป็นผลที่ต้องการวันที่-เวลา</value>
         <value xml:lang="vi">Ngày bắt đầu không đúng định dạng Ngày-Giờ</value>
@@ -2575,6 +2799,7 @@
         <value xml:lang="en">General</value>
         <value xml:lang="fr">Général</value>
         <value xml:lang="it">Generale</value>
+        <value xml:lang="ja">概要</value>
         <value xml:lang="nl">General</value>
         <value xml:lang="ro">General</value>
         <value xml:lang="th">ทั่วไป</value>
@@ -2587,6 +2812,7 @@
         <value xml:lang="en">Good Standard</value>
         <value xml:lang="fr">Bien standard</value>
         <value xml:lang="it">Bene standard</value>
+        <value xml:lang="ja">参考指針</value>
         <value xml:lang="th">มาตรฐานที่ดี</value>
         <value xml:lang="vi">Tiêu chuẩn (là TỐT)</value>
         <value xml:lang="zh">良好标准</value>
@@ -2596,12 +2822,14 @@
         <value xml:lang="de">iCalendar</value>
         <value xml:lang="en">iCalendar</value>
         <value xml:lang="it">iCalendar</value>
+        <value xml:lang="ja">iCalendar</value>
         <value xml:lang="vi">iCalendar (Xuất bản URL .ics)</value>
     </property>
     <property key="WorkEffortICalendarAdd">
         <value xml:lang="de">iCalendar hinzufügen</value>
         <value xml:lang="en">Add iCalendar</value>
         <value xml:lang="it">Aggiungi iCalendar</value>
+        <value xml:lang="ja">iCalendarを追加</value>
         <value xml:lang="vi">Thêm iCalendar</value>
         <value xml:lang="zh">添加iCalendar</value>
         <value xml:lang="zh_TW">新增iCal</value>
@@ -2609,6 +2837,7 @@
     <property key="WorkEffortICalendarAddFixedAsset">
         <value xml:lang="de">iCalendar Anlage hinzufügen</value>
         <value xml:lang="en">Add iCalendar Fixed Asset</value>
+        <value xml:lang="ja">iCalendarに固定資産を追加</value>
         <value xml:lang="vi">Thêm tài sản cố định iCalendar</value>
         <value xml:lang="zh">添加iCalendar固定资产</value>
         <value xml:lang="zh_TW">新增iCal固定資產</value>
@@ -2616,6 +2845,7 @@
     <property key="WorkEffortICalendarAddParty">
         <value xml:lang="de">iCalendar Akteur hinzufügen</value>
         <value xml:lang="en">Add iCalendar Party</value>
+        <value xml:lang="ja">iCalendarに取引先を追加</value>
         <value xml:lang="vi">Thêm người dùng iCalendar</value>
         <value xml:lang="zh">添加iCalendar会员</value>
         <value xml:lang="zh_TW">新增iCal成員</value>
@@ -2623,6 +2853,7 @@
     <property key="WorkEffortICalendarData">
         <value xml:lang="de">Daten</value>
         <value xml:lang="en">Data</value>
+        <value xml:lang="ja">データ</value>
         <value xml:lang="vi">Dữ liệu</value>
         <value xml:lang="zh">数据</value>
         <value xml:lang="zh_TW">資料</value>
@@ -2630,6 +2861,7 @@
     <property key="WorkEffortICalendarEdit">
         <value xml:lang="de">Editiere iCalendar</value>
         <value xml:lang="en">Edit iCalendar</value>
+        <value xml:lang="ja">iCalendarを編集</value>
         <value xml:lang="vi">Sửa đổi iCalendar</value>
         <value xml:lang="zh">编辑iCalendar</value>
         <value xml:lang="zh_TW">編輯iCal</value>
@@ -2637,6 +2869,7 @@
     <property key="WorkEffortICalendarEditData">
         <value xml:lang="de">Editiere iCalendar Daten</value>
         <value xml:lang="en">Edit iCalendar Data</value>
+        <value xml:lang="ja">iCalendarデータを編集</value>
         <value xml:lang="vi">Cập nhật dữ liệu iCalendar</value>
         <value xml:lang="zh">编辑iCalendar数据</value>
         <value xml:lang="zh_TW">編輯iCal資料</value>
@@ -2644,6 +2877,7 @@
     <property key="WorkEffortICalendarFind">
         <value xml:lang="de">Finde iCalendars</value>
         <value xml:lang="en">Find iCalendars</value>
+        <value xml:lang="ja">iCalendarを検索</value>
         <value xml:lang="vi">Tìm kiếm iCalendar</value>
         <value xml:lang="zh">查找iCalendar</value>
         <value xml:lang="zh_TW">查詢iCal</value>
@@ -2651,6 +2885,7 @@
     <property key="WorkEffortICalendarHelp">
         <value xml:lang="de">iCalendar Hilfe</value>
         <value xml:lang="en">iCalendar Help</value>
+        <value xml:lang="ja">iCalendarヘルプ</value>
         <value xml:lang="vi">Trợ giúp iCalendar</value>
         <value xml:lang="zh">iCalendar帮助</value>
         <value xml:lang="zh_TW">iCal輔助</value>
@@ -2661,6 +2896,7 @@
     <property key="WorkEffortICalendarName">
         <value xml:lang="de">Kalendername</value>
         <value xml:lang="en">Calendar Name</value>
+        <value xml:lang="ja">カレンダ名称</value>
         <value xml:lang="vi">Tên việc</value>
         <value xml:lang="zh">日历名称</value>
         <value xml:lang="zh_TW">行事曆名稱</value>
@@ -2668,6 +2904,7 @@
     <property key="WorkEffortICalendarOwner">
         <value xml:lang="de">Kalenderbesitzer</value>
         <value xml:lang="en">Calendar Owner</value>
+        <value xml:lang="ja">カレンダ所有者</value>
         <value xml:lang="vi">Sở hữu bởi</value>
         <value xml:lang="zh">日历拥有者</value>
         <value xml:lang="zh_TW">行事曆擁有者</value>
@@ -2675,6 +2912,7 @@
     <property key="WorkEffortICalendarUrl">
         <value xml:lang="de">iCalendar Url</value>
         <value xml:lang="en">iCalendar Url</value>
+        <value xml:lang="ja">iCalendar URL</value>
         <value xml:lang="vi">Liên kết URL iCalendar</value>
         <value xml:lang="zh">iCalendar网址</value>
         <value xml:lang="zh_TW">iCal網址</value>
@@ -2682,6 +2920,7 @@
     <property key="WorkEffortICalendarVisibility">
         <value xml:lang="de">Kalendersichtbarkeit</value>
         <value xml:lang="en">Calendar Visibility</value>
+        <value xml:lang="ja">カレンダ表示</value>
         <value xml:lang="vi">Quyền xem</value>
         <value xml:lang="zh">日历可见度</value>
         <value xml:lang="zh_TW">行事曆檢視</value>
@@ -2691,6 +2930,7 @@
         <value xml:lang="en">Work Effort ID is missing.</value>
         <value xml:lang="fr">La réf. de tâche est manquante</value>
         <value xml:lang="it">Impegno di lavoro è mancante.</value>
+        <value xml:lang="ja">作業成果IDが正しくありません</value>
         <value xml:lang="ro">Sarcina de Lucru lipseste.</value>
         <value xml:lang="th">ไม่พบรหัสงาน</value>
         <value xml:lang="vi">Lượng giá nguồn lực bị thiếu</value>
@@ -2702,6 +2942,7 @@
         <value xml:lang="en">Include all Sub-WorkEfforts</value>
         <value xml:lang="fr">Inclure toutes les sous-tâches</value>
         <value xml:lang="it">Includi tutti i sotto-impegni di Lavoro</value>
+        <value xml:lang="ja">すべてのサブ作業成果IDを含む</value>
         <value xml:lang="th">รวมงานย่อยทั้งหมด</value>
         <value xml:lang="vi">Bao gồm các các Lượng giá nguồn lực thành phần</value>
         <value xml:lang="zh">包括全部子人工服务</value>
@@ -2713,6 +2954,7 @@
         <value xml:lang="es">Información</value>
         <value xml:lang="fr">Information</value>
         <value xml:lang="it">Informazione</value>
+        <value xml:lang="ja">情報</value>
         <value xml:lang="nl">Information</value>
         <value xml:lang="ro">Informatie</value>
         <value xml:lang="ru">Информация</value>
@@ -2726,6 +2968,7 @@
         <value xml:lang="es">Para ingresar, Nombre de usuario: admin, contraseña: ofbiz</value>
         <value xml:lang="fr">Pour que quelque chose d'intéressant, essayez de vous connecter. Identifiant de connexion : admin / Mot de passe : ofbiz</value>
         <value xml:lang="it">Assicurati di essere autenticato, prova: Nome Utente;Admin; Password Ofbiz</value>
+        <value xml:lang="ja">興味を感じたことを確実なものにするため、Username;Admin;Password Ofbiz でログインしてください</value>
         <value xml:lang="nl">For something interesting make sure, you are logged in try : Username;Admin;Password Ofbiz</value>
         <value xml:lang="ro">In orice caz tu trebuie sa fii sigur ca te-ai logat, incearca: Nume Utilizator;Admin;Password Ofbiz</value>
         <value xml:lang="ru">Проверьте : Username;Admin;Password Ofbiz</value>
@@ -2739,6 +2982,7 @@
         <value xml:lang="en">Internal Note</value>
         <value xml:lang="fr">Note interne</value>
         <value xml:lang="it">Nota interna</value>
+        <value xml:lang="ja">内部連絡</value>
         <value xml:lang="th">ข้อความภายใน</value>
         <value xml:lang="vi">Ghi nhớ nội bộ</value>
         <value xml:lang="zh">内部便笺</value>
@@ -2750,6 +2994,7 @@
         <value xml:lang="es">Artículo</value>
         <value xml:lang="fr">Article</value>
         <value xml:lang="it">Riga</value>
+        <value xml:lang="ja">アイテム</value>
         <value xml:lang="nl">Item</value>
         <value xml:lang="ro">Linie</value>
         <value xml:lang="ru">Пункт</value>
@@ -2763,6 +3008,7 @@
         <value xml:lang="en">Submitted Jobs</value>
         <value xml:lang="fr">Tâches demandées</value>
         <value xml:lang="it">Lavori sottomessi</value>
+        <value xml:lang="ja">実行済ジョブ</value>
         <value xml:lang="th">เสนองาน</value>
         <value xml:lang="vi">Các Tác vụ - Đầu việc đã Có</value>
         <value xml:lang="zh">已提交的任务</value>
@@ -2773,6 +3019,7 @@
         <value xml:lang="en">Keyword</value>
         <value xml:lang="fr">Mot-clé</value>
         <value xml:lang="it">Chiave</value>
+        <value xml:lang="ja">キーワード</value>
         <value xml:lang="th">คีย์เวิร์ด</value>
         <value xml:lang="vi">Từ khóa</value>
         <value xml:lang="zh">关键字</value>
@@ -2783,6 +3030,7 @@
         <value xml:lang="en">all words match</value>
         <value xml:lang="fr">Tout les mots correspondants</value>
         <value xml:lang="it">tutti le parole corrispondenti</value>
+        <value xml:lang="ja">すべての単語が一致</value>
         <value xml:lang="th">คำที่ตรงกันทั้งหมด</value>
         <value xml:lang="vi">Gặp tất cả các từ</value>
         <value xml:lang="zh">全部文字匹配</value>
@@ -2793,6 +3041,7 @@
         <value xml:lang="en">WorkEffort - Keyword already exist</value>
         <value xml:lang="fr">Tâche - Mot-clé existant déjà</value>
         <value xml:lang="it">Impegno di lavoro - chiave già esistente</value>
+        <value xml:lang="ja">作業成果 - キーワードがすでに存在します</value>
         <value xml:lang="th">งาน - ยังคงมีคีย์เวิร์ดอยู่แล้ว</value>
         <value xml:lang="vi">Lượng giá nguồn lực - từ khóa đã tồn tại</value>
         <value xml:lang="zh">人工服务 - 关键字已经存在了</value>
@@ -2803,6 +3052,7 @@
         <value xml:lang="en">any word matches</value>
         <value xml:lang="fr">Chaque mot correspondant</value>
         <value xml:lang="it">qualsiasi parola corrispondente</value>
+        <value xml:lang="ja">任意の単語が一致</value>
         <value xml:lang="th">ทุก ๆ คีย์เวิร์ดที่ตรงกัน</value>
         <value xml:lang="vi">Gặp bất cứ từ nào</value>
         <value xml:lang="zh">任一文字匹配</value>
@@ -2813,6 +3063,7 @@
         <value xml:lang="en">Keyword  Relevancy</value>
         <value xml:lang="fr">Pertinence de mot-clé</value>
         <value xml:lang="it">Rilevanza chiave</value>
+        <value xml:lang="ja">キーワードの関連</value>
         <value xml:lang="th">Keyword  Relevancy</value>
         <value xml:lang="vi">Từ khóa thông dụng</value>
         <value xml:lang="zh">关键字关联</value>
@@ -2823,6 +3074,7 @@
         <value xml:lang="en">where</value>
         <value xml:lang="fr">Où</value>
         <value xml:lang="it">dove</value>
+        <value xml:lang="ja">条件</value>
         <value xml:lang="th">ซึ่ง</value>
         <value xml:lang="vi">Ở đâu</value>
         <value xml:lang="zh">哪里</value>
@@ -2833,6 +3085,7 @@
         <value xml:lang="en">Keywords</value>
         <value xml:lang="fr">Mots-clé</value>
         <value xml:lang="it">Chiavi</value>
+        <value xml:lang="ja">キーワード</value>
         <value xml:lang="th">คีย์เวิร์ด</value>
         <value xml:lang="vi">Từ khóa</value>
         <value xml:lang="zh">关键字</value>
@@ -2844,6 +3097,7 @@
         <value xml:lang="es">Última modificación</value>
         <value xml:lang="fr">Dernière modification</value>
         <value xml:lang="it">Ultima modifica</value>
+        <value xml:lang="ja">最終更新</value>
         <value xml:lang="nl">Last Modified</value>
         <value xml:lang="ro">Ultima Modificare</value>
         <value xml:lang="ru">Изменено последний раз</value>
@@ -2857,6 +3111,7 @@
         <value xml:lang="en">Last Updated Date Filter</value>
         <value xml:lang="fr">Filtre de dernière date de mise à jour</value>
         <value xml:lang="it">Filtro per ultima data di aggiornamento</value>
+        <value xml:lang="ja">最終更新日フィルタ</value>
         <value xml:lang="th">ปรับปรุงครั้งสุดท้ายวันที่</value>
         <value xml:lang="vi">Bộ lọc ngày cập nhật cuối cùng</value>
         <value xml:lang="zh">上次更新日期过滤</value>
@@ -2868,6 +3123,7 @@
         <value xml:lang="es">Localización</value>
         <value xml:lang="fr">Emplacement</value>
         <value xml:lang="it">Posizione</value>
+        <value xml:lang="ja">位置</value>
         <value xml:lang="nl">Location</value>
         <value xml:lang="ro">Pozitie</value>
         <value xml:lang="ru">Местонахождение</value>
@@ -2882,6 +3138,7 @@
         <value xml:lang="es">Buscar</value>
         <value xml:lang="fr">Rechercher</value>
         <value xml:lang="it">Ricerca</value>
+        <value xml:lang="ja">検索</value>
         <value xml:lang="nl">Lookup</value>
         <value xml:lang="ro">Cauta</value>
         <value xml:lang="ru">Поиск</value>
@@ -2896,6 +3153,7 @@
         <value xml:lang="es">Aplicación de administración de tareas</value>
         <value xml:lang="fr">Application de gestion de tâches</value>
         <value xml:lang="it">Gestione impegni di lavoro</value>
+        <value xml:lang="ja">作業成果管理</value>
         <value xml:lang="nl">Activiteiten Manager</value>
         <value xml:lang="ro">Aplicatie Gestiune Sarcini de Lucru</value>
         <value xml:lang="ru">WorkEffort: Управление приложением</value>
@@ -2910,6 +3168,7 @@
         <value xml:lang="es">Aplicación de administración de tareas</value>
         <value xml:lang="fr">Application de gestion de tâches</value>
         <value xml:lang="it">Applicazione gestione impegni di lavoro</value>
+        <value xml:lang="ja">作業成果管理業務</value>
         <value xml:lang="nl">Activiteiten Manager Application</value>
         <value xml:lang="ro">Aplicatie Gestiune Sarcini de Lucru</value>
         <value xml:lang="ru">WorkEffort: Управление приложением</value>
@@ -2921,6 +3180,7 @@
     <property key="WorkEffortManufacturingError">
         <value xml:lang="en">Error retrieving manufacturing data for productId ${productId}: " ${errorString}</value>
         <value xml:lang="it">Errore nella ricerca dei dati per la produzione per il prodotto ${productId}: " ${errorString}</value>
+        <value xml:lang="ja">製品ID$ {productId} の生産確認時にエラー: " ${errorString}</value>
         <value xml:lang="vi">Lỗi khi lấy dữ liệu nhà sản xuất cho sản phẩm ${productId}: " ${errorString}</value>
         <value xml:lang="zh">获取产品标识为 ${productId} 的制造数据时出错： " ${errorString}</value>
     </property>
@@ -2930,6 +3190,7 @@
         <value xml:lang="es">Monto máximo</value>
         <value xml:lang="fr">Quantité maximum</value>
         <value xml:lang="it">Importo massimo</value>
+        <value xml:lang="ja">最大金額</value>
         <value xml:lang="nl">Maximale hoeveelheid</value>
         <value xml:lang="ro">Valoare Maxima</value>
         <value xml:lang="ru">Макс. количество</value>
@@ -2941,12 +3202,14 @@
     <property key="WorkEffortMaxNumberOfEvents">
         <value xml:lang="en">Max # of Events</value>
         <value xml:lang="it">Max numero di eventi</value>
+        <value xml:lang="ja">イベントの最大数</value>
         <value xml:lang="vi">Số tối đa của Sự kiện</value>
         <value xml:lang="zh">最大事件编号</value>
     </property>
     <property key="WorkEffortMaxNumberOfPersons">
         <value xml:lang="en">Max # of Persons</value>
         <value xml:lang="it">Max numero di persone</value>
+        <value xml:lang="ja">取引先の最大数</value>
         <value xml:lang="vi">Số tối đa của nhân sự</value>
         <value xml:lang="zh">最大人数</value>
     </property>
@@ -2956,6 +3219,7 @@
         <value xml:lang="es">Vista por meses</value>
         <value xml:lang="fr">Vue par mois</value>
         <value xml:lang="it">Mostra per mese</value>
+        <value xml:lang="ja">月ビュー</value>
         <value xml:lang="nl">Month View</value>
         <value xml:lang="ro">Afiseaza Luna</value>
         <value xml:lang="ru">По месяцам</value>
@@ -2970,6 +3234,7 @@
         <value xml:lang="es">debe RSVP</value>
         <value xml:lang="fr">Doit répondre SVP</value>
         <value xml:lang="it">Deve RSVP</value>
+        <value xml:lang="ja">要回復</value>
         <value xml:lang="nl">Must RSVP</value>
         <value xml:lang="ro">Trebuie RSVP</value>
         <value xml:lang="ru">Запросить ответ</value>
@@ -2984,6 +3249,7 @@
         <value xml:lang="es">Mi lista actual de tareas</value>
         <value xml:lang="fr">Ma liste de tâche courante</value>
         <value xml:lang="it">Mia lista compiti corrente</value>
+        <value xml:lang="ja">現在の私のタスク一覧</value>
         <value xml:lang="nl">My Current TaskList</value>
         <value xml:lang="ro">Lista Mea Actuala de Sarcini</value>
         <value xml:lang="ru">Список моих текущих заданий</value>
@@ -2997,6 +3263,7 @@
         <value xml:lang="en">My Current Timesheets</value>
         <value xml:lang="fr">Ma feuille d'activité courante</value>
         <value xml:lang="it">Mie timbrature correnti</value>
+        <value xml:lang="ja">現在の私の予定表</value>
         <value xml:lang="nl">My Current Timesheets</value>
         <value xml:lang="ro">Pontajul meu Actual</value>
         <value xml:lang="th">ตารางการทำงานของฉันซึ่งเกิดขึ้นอยู่ในปัจจุัน</value>
@@ -3009,6 +3276,7 @@
         <value xml:lang="en">My Rates</value>
         <value xml:lang="fr">Mes taux</value>
         <value xml:lang="it">Mie tariffe</value>
+        <value xml:lang="ja">私のレート</value>
         <value xml:lang="nl">My Rates</value>
         <value xml:lang="ro">Procentele Mele</value>
         <value xml:lang="th">อัตราของฉัน</value>
@@ -3022,6 +3290,7 @@
         <value xml:lang="es">Mi lista de peticiones</value>
         <value xml:lang="fr">Ma liste de demandes</value>
         <value xml:lang="it">Mia lista richieste</value>
+        <value xml:lang="ja">私のリクエスト一覧</value>
         <value xml:lang="nl">My Request List</value>
         <value xml:lang="ro">Lista mea de Cereri</value>
         <value xml:lang="ru">Список моих запросов</value>
@@ -3036,6 +3305,7 @@
         <value xml:lang="es">Mi estado</value>
         <value xml:lang="fr">Mon statut</value>
         <value xml:lang="it">Mio stato</value>
+        <value xml:lang="ja">私のステータス</value>
         <value xml:lang="nl">My Status</value>
         <value xml:lang="ro">Starea Mea</value>
         <value xml:lang="ru">Мой статус</value>
@@ -3049,6 +3319,7 @@
         <value xml:lang="en">My Tasks</value>
         <value xml:lang="fr">Mes tâches</value>
         <value xml:lang="it">Miei compiti</value>
+        <value xml:lang="ja">私のタスク</value>
         <value xml:lang="nl">Mijn taken</value>
         <value xml:lang="th">ภารกิจของฉัน</value>
         <value xml:lang="vi">Tác vụ - Đầu việc của tôi</value>
@@ -3060,6 +3331,7 @@
         <value xml:lang="en">My Timesheets</value>
         <value xml:lang="fr">Mes feuilles d'activité</value>
         <value xml:lang="it">Mie timbrature</value>
+        <value xml:lang="ja">私の予定表</value>
         <value xml:lang="nl">My Timesheets</value>
         <value xml:lang="ro">Pontajul Meu</value>
         <value xml:lang="th">ตารางการทำงานของฉัน</value>
@@ -3073,6 +3345,7 @@
         <value xml:lang="es">Nombre</value>
         <value xml:lang="fr">Nom</value>
         <value xml:lang="it">Nome</value>
+        <value xml:lang="ja">名称</value>
         <value xml:lang="nl">Name</value>
         <value xml:lang="ro">Nume</value>
         <value xml:lang="ru">Имя</value>
@@ -3086,6 +3359,7 @@
         <value xml:lang="en">Work Effort Name is missing.</value>
         <value xml:lang="fr">Le nom de tâche est manquant</value>
         <value xml:lang="it">Il nome impegno di Lavoro è mancante.</value>
+        <value xml:lang="ja">作業成果名称が正しくありません</value>
         <value xml:lang="ro">Nume Sarcina de Lucru lipseste.</value>
         <value xml:lang="th">ไม่พบชื่องาน</value>
         <value xml:lang="vi">Lượng giá nguồn lực bị thiếu</value>
@@ -3098,6 +3372,7 @@
         <value xml:lang="es">Nueva nota</value>
         <value xml:lang="fr">Nouvelle note</value>
         <value xml:lang="it">Nuova nota</value>
+        <value xml:lang="ja">新規連絡</value>
         <value xml:lang="nl">New Note</value>
         <value xml:lang="ro">Nota Noua </value>
         <value xml:lang="ru">Новая заметка</value>
@@ -3112,6 +3387,7 @@
         <value xml:lang="es">Nueva fase</value>
         <value xml:lang="fr">Nouvelle phase</value>
         <value xml:lang="it">Nuova fase</value>
+        <value xml:lang="ja">新規フェーズ</value>
         <value xml:lang="nl">New Phase</value>
         <value xml:lang="ro">Faza Noua </value>
         <value xml:lang="ru">Новая фаза</value>
@@ -3126,6 +3402,7 @@
         <value xml:lang="es">Nuevo proyecto</value>
         <value xml:lang="fr">Nouveau Projet</value>
         <value xml:lang="it">Nuovo progetto</value>
+        <value xml:lang="ja">新規プロジェクト</value>
         <value xml:lang="nl">New Project</value>
         <value xml:lang="ro">Proiect Nou</value>
         <value xml:lang="ru">Новый проект</value>
@@ -3139,6 +3416,7 @@
         <value xml:lang="en">New  Request</value>
         <value xml:lang="fr">Nouvelle demande</value>
         <value xml:lang="it">Nuova richiesta</value>
+        <value xml:lang="ja">新規リクエスト</value>
         <value xml:lang="th">การร้องขอใหม่</value>
         <value xml:lang="vi">Thêm Yêu cầu</value>
         <value xml:lang="zh">新请求</value>
@@ -3149,6 +3427,7 @@
         <value xml:lang="es">Nuevo requerimiento</value>
         <value xml:lang="fr">Nouveau besoin</value>
         <value xml:lang="it">Nuovo fabbisogno</value>
+        <value xml:lang="ja">新規要求</value>
         <value xml:lang="nl">New Requirement</value>
         <value xml:lang="ro">Necesar</value>
         <value xml:lang="ru">Новое требование</value>
@@ -3163,6 +3442,7 @@
         <value xml:lang="es">Nueva tarea</value>
         <value xml:lang="fr">Nouvelle tâche</value>
         <value xml:lang="it">Nuovo compito</value>
+        <value xml:lang="ja">新規タスク</value>
         <value xml:lang="nl">New Task</value>
         <value xml:lang="ro">Noua Sarcina</value>
         <value xml:lang="ru">Новое задание</value>
@@ -3177,6 +3457,7 @@
         <value xml:lang="es">Siguiente día</value>
         <value xml:lang="fr">Jour suivant</value>
         <value xml:lang="it">Giorno successivo</value>
+        <value xml:lang="ja">次の日</value>
         <value xml:lang="nl">Next Day</value>
         <value xml:lang="ro">Zi Succesiva</value>
         <value xml:lang="ru">Следующий день</value>
@@ -3191,6 +3472,7 @@
         <value xml:lang="es">Siguiente mes</value>
         <value xml:lang="fr">Mois suivant</value>
         <value xml:lang="it">Mese successivo</value>
+        <value xml:lang="ja">次の月</value>
         <value xml:lang="nl">Next Month</value>
         <value xml:lang="ro">Luna Succesiva</value>
         <value xml:lang="ru">Следующий месяц</value>
@@ -3205,6 +3487,7 @@
         <value xml:lang="es">Siguiente semana</value>
         <value xml:lang="fr">Semaine suivante</value>
         <value xml:lang="it">Settimana successiva</value>
+        <value xml:lang="ja">次の週</value>
         <value xml:lang="nl">Next Week</value>
         <value xml:lang="ro">Saptamana Succesiva</value>
         <value xml:lang="ru">Следующая неделя</value>
@@ -3218,6 +3501,7 @@
         <value xml:lang="es">No hay información de contacto en el archivo</value>
         <value xml:lang="fr">Aucune coordonnée dans le dossier</value>
         <value xml:lang="it">Nessun informazione contatto in archivio</value>
+        <value xml:lang="ja">連絡情報はありません</value>
         <value xml:lang="nl">No Contact Information On File</value>
         <value xml:lang="ro">Nici-o Informatie Contact in Fisier</value>
         <value xml:lang="ru">Контактной информации по файлу не найдено</value>
@@ -3231,6 +3515,7 @@
         <value xml:lang="es">No se encontraron los eventos</value>
         <value xml:lang="fr">Pas d'évènement trouvés</value>
         <value xml:lang="it">Nessun evento trovato</value>
+        <value xml:lang="ja">イベントはありません</value>
         <value xml:lang="nl">No Events Found</value>
         <value xml:lang="ro">Nici-un Eveniment Gasit</value>
         <value xml:lang="ru">Событий не найдено</value>
@@ -3244,6 +3529,7 @@
         <value xml:lang="es">No se crearon ítems</value>
         <value xml:lang="fr">Pas d'articles créés</value>
         <value xml:lang="it">Nessuna riga creata</value>
+        <value xml:lang="ja">アイテムは作成されませんでした</value>
         <value xml:lang="nl">Geen items aangemaakt</value>
         <value xml:lang="ro">Nici-o Linie Creata</value>
         <value xml:lang="ru">Пунктов не создано</value>
@@ -3256,6 +3542,7 @@
         <value xml:lang="en">No  Notes  For  This  RequestItem</value>
         <value xml:lang="fr">Aucune note pour cette demande d'article</value>
         <value xml:lang="it">Nessuna nota per questa riga richiesta</value>
+        <value xml:lang="ja">このリクエストアイテムに連絡はありません</value>
         <value xml:lang="th">ไม่มีข้อความสำหรับรายการคำร้องนี้</value>
         <value xml:lang="vi">Không ghi chú cho Hạng mục yêu cầu (RequestItem) hiện tại</value>
         <value xml:lang="zh">对这个请求明细没有便笺</value>
@@ -3266,6 +3553,7 @@
         <value xml:lang="es">No se encontraron requerimientos abiertos</value>
         <value xml:lang="fr">Aucun besoin ouvert trouvé</value>
         <value xml:lang="it">Nessun fabbisogno aperto trovato</value>
+        <value xml:lang="ja">開いている要求はありません</value>
         <value xml:lang="nl">No Open Requirements Found</value>
         <value xml:lang="ro">Nici-un Necesar Deschis Gasit</value>
         <value xml:lang="ru">Открытых требований не найдено</value>
@@ -3279,6 +3567,7 @@
         <value xml:lang="es">No se encontraron peticiones</value>
         <value xml:lang="fr">Aucune demande trouvée</value>
         <value xml:lang="it">Nessun richiesta trovata</value>
+        <value xml:lang="ja">リクエストはありません</value>
         <value xml:lang="nl">No Request Found</value>
         <value xml:lang="ro">Nici-o Cerere Gasita</value>
         <value xml:lang="ru">Запросов не найдено</value>
@@ -3292,6 +3581,7 @@
         <value xml:lang="es">No se crearon requerimientos</value>
         <value xml:lang="fr">Aucun besoin créé</value>
         <value xml:lang="it">Nessun fabbisogno creato</value>
+        <value xml:lang="ja">要求は作成されませんでした</value>
         <value xml:lang="nl">No Requirements Created</value>
         <value xml:lang="ro">Nici-un Necesar Creat</value>
         <value xml:lang="ru">Требований не создано</value>
@@ -3304,6 +3594,7 @@
         <value xml:lang="en">No  Roles  Associated  Request</value>
         <value xml:lang="fr">Aucun rôle associé avec cette demande</value>
         <value xml:lang="it">Nessun ruolo associato alla richiesta</value>
+        <value xml:lang="ja">リクエストに関連付けられたロールはありません</value>
         <value xml:lang="th">ไม่มีสถานะกลุ่มคำร้อง</value>
         <value xml:lang="vi">Không có yêu cầu kết hợp vai trò nào</value>
         <value xml:lang="zh">没有角色关联到请求</value>
@@ -3314,6 +3605,7 @@
         <value xml:lang="es">No hay tareas actualmente asociadas con este requerimiento</value>
         <value xml:lang="fr">Aucune tâche associée avec ce besoin</value>
         <value xml:lang="it">Nessun compito attualmente associato con questo fabbisogno</value>
+        <value xml:lang="ja">この要求に現在関連付けられたタスクはありません</value>
         <value xml:lang="nl">No Tasks currently associated with this Requirement</value>
         <value xml:lang="ro">In acest moment nici-o Sarcina nu este asociata la acest Necesar</value>
         <value xml:lang="ru">С этим требованием не связано никаких заданий</value>
@@ -3326,6 +3618,7 @@
         <value xml:lang="en">No  Tasks  Associated  With  Requirement</value>
         <value xml:lang="fr">Aucune tâche associée avec cette demande</value>
         <value xml:lang="it">Nessun compito associata con i fabbisogni</value>
+        <value xml:lang="ja">この要求に関連付けられたタスクはありません</value>
         <value xml:lang="th">ไม่มีภารกิจด้วยกลุ่มความต้องการ</value>
         <value xml:lang="vi">Chưa có Tác vụ - Đầu việc nào kết hợp với Yêu cầu Nguồn lực này</value>
         <value xml:lang="zh">没有任务关联到需求</value>
@@ -3334,6 +3627,7 @@
     <property key="WorkEffortNotFound">
         <value xml:lang="en">Error finding desired WorkEffort records: ${errorString}</value>
         <value xml:lang="it">Errore durante la ricerca del record di impegno di lavoro desiredato: ${errorString}</value>
+        <value xml:lang="ja">要求した作業成果レコードの検索時にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi tìm kiếm bản ghi Lượng giá nguồn lực: ${errorString}</value>
         <value xml:lang="zh">查找期望的人工服务记录时出错：${errorString}</value>
     </property>
@@ -3341,6 +3635,7 @@
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must be in ${roleTypeId} role with WorkEffort: ${workEffortId}</value>
         <value xml:lang="fr">Erreur de sécurité: Pour exécuter ${resourceDescription} vous devez être dans le rôle ${roleTypeId} avec la tâche : ${workEffortId}</value>
         <value xml:lang="it">Errore sicurezza: per eseguire ${resourceDescription} devi avere il ruolo ${roleTypeId} con l'impegno di lavoro: ${workEffortId}</value>
+        <value xml:lang="ja">セキュリティエラー: 作業成果: ${workEffortId} で ${resourceDescription} の実行は ${roleTypeId} ロールが必要です</value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการ ${resourceDescription} คุณต้องเป็น ${roleTypeId} สถานะงาน: ${workEffortId}</value>
         <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần trong nhóm vai trò ${roleTypeId} với Lượng giá nguồn lực: ${workEffortId}</value>
         <value xml:lang="zh">安全错误：要运行${resourceDescription}，你必须以${roleTypeId}角色做人工服务：${workEffortId}</value>
@@ -3349,6 +3644,7 @@
     <property key="WorkEffortNoteCreatedSuccessfully">
         <value xml:lang="en">Note is successfully created.</value>
         <value xml:lang="it">Nota è stato creata con successo.</value>
+        <value xml:lang="ja">連絡が正しく作成されました。</value>
         <value xml:lang="vi">Ghi chú đã được tạo thành công.</value>
         <value xml:lang="zh">成功创建了便笺。</value>
     </property>
@@ -3357,6 +3653,7 @@
         <value xml:lang="en">Note is missing</value>
         <value xml:lang="fr">La note est manquante</value>
         <value xml:lang="it">Nota mancante</value>
+        <value xml:lang="ja">連絡が正しくありません</value>
         <value xml:lang="th">ไม่พบข้อความ</value>
         <value xml:lang="vi">Ghi chú bị thiếu</value>
         <value xml:lang="zh">缺少便笺</value>
@@ -3368,6 +3665,7 @@
         <value xml:lang="es">Notas</value>
         <value xml:lang="fr">Notes</value>
         <value xml:lang="it">Note</value>
+        <value xml:lang="ja">連絡</value>
         <value xml:lang="nl">Notes</value>
         <value xml:lang="ro">Note</value>
         <value xml:lang="ru">Заметки</value>
@@ -3380,6 +3678,7 @@
         <value xml:lang="en">Notes  For  RequestItem</value>
         <value xml:lang="fr">Notes pour la ligne de demande</value>
         <value xml:lang="it">Note per la riga richiesta</value>
+        <value xml:lang="ja">要求アイテムの連絡</value>
         <value xml:lang="th">ข้อความสำหรับรายการคำร้อง</value>
         <value xml:lang="vi">Ghi chú của Hạng mục yêu cầu (RequestItem)</value>
         <value xml:lang="zh">便笺用于请求明细</value>
@@ -3390,6 +3689,7 @@
         <value xml:lang="es">Abrir la aplicación</value>
         <value xml:lang="fr">Ouvrir l'application de gestion de tâches</value>
         <value xml:lang="it">Aprire l'applicazione impegni di lavoro</value>
+        <value xml:lang="ja">作業成果の開いている業務</value>
         <value xml:lang="nl">WorkEffortOpenApplication</value>
         <value xml:lang="ro">Aplicatie Sarcini de Lucru Deschisa </value>
         <value xml:lang="ru">WorkEffortOpenApplication</value>
@@ -3403,6 +3703,7 @@
         <value xml:lang="es">Abrir página en una ventana nueva</value>
         <value xml:lang="fr">Ouvrir une page dans une nouvelle fenètre</value>
         <value xml:lang="it">Aprire pagina in una nuova finestra</value>
+        <value xml:lang="ja">新しいウインドウで開く</value>
         <value xml:lang="nl">Open Page In New Window</value>
         <value xml:lang="ro">Deschide Pagina Intr-o Noua Fereastra</value>
         <value xml:lang="ru">Открыть страницу в новом окне</value>
@@ -3414,12 +3715,14 @@
     <property key="WorkEffortOrderHeaderAlreadyExists">
         <value xml:lang="en">ERROR: OrderHeaderWorkEffort [${parameters.orderId}][${parameters.workEffortId}] already exists.</value>
         <value xml:lang="it">ERRORE: Testata ordine impegno di lavoro [${parameters.orderId}][${parameters.workEffortId}] esiste già.</value>
+        <value xml:lang="ja">エラー: 注文ヘッダ作業成果 [${parameters.orderId}][${parameters.workEffortId}] はすでに存在します。</value>
         <value xml:lang="vi">Lỗi xảy ra: Phần đầu đặt hàng Lượng giá nguồn lực [${parameters.orderId}][${parameters.workEffortId}] ĐÃ tồn tại.</value>
         <value xml:lang="zh">错误：已经存在订单头人工服务（OrderHeaderWorkEffort）[${parameters.orderId}][${parameters.workEffortId}]</value>
     </property>
     <property key="WorkEffortOrderHeaderDoesNotExists">
         <value xml:lang="en">ERROR: OrderHeaderWorkEffort [${parameters.orderId}][${parameters.workEffortId}] does not exist.</value>
         <value xml:lang="it">ERRORE: Testata ordine impegno di lavoro [${parameters.orderId}][${parameters.workEffortId}] non esiste.</value>
+        <value xml:lang="ja">エラー: 注文ヘッダ作業成果 [${parameters.orderId}][${parameters.workEffortId}] は存在しません。</value>
         <value xml:lang="vi">Lỗi xảy ra: Phần đầu đặt hàng Lượng giá nguồn lực [${parameters.orderId}][${parameters.workEffortId}] CHƯA tồn tại.</value>
         <value xml:lang="zh">错误：不存在订单头人工服务（OrderHeaderWorkEffort）[${parameters.orderId}][${parameters.workEffortId}]</value>
     </property>
@@ -3429,6 +3732,7 @@
         <value xml:lang="es">Órdenes</value>
         <value xml:lang="fr">Commandes</value>
         <value xml:lang="it">Ordini</value>
+        <value xml:lang="ja">注文</value>
         <value xml:lang="nl">Orders</value>
         <value xml:lang="ro">Comenzi</value>
         <value xml:lang="th">ลำดับ</value>
@@ -3442,6 +3746,7 @@
         <value xml:lang="es">Organizador</value>
         <value xml:lang="fr">Organisateur</value>
         <value xml:lang="it">Organizzatore</value>
+        <value xml:lang="ja">主催者</value>
         <value xml:lang="nl">Organizer</value>
         <value xml:lang="ro">Organizator</value>
         <value xml:lang="ru">Организатор</value>
@@ -3453,6 +3758,7 @@
     <property key="WorkEffortOverrideDefaultRateAmount">
         <value xml:lang="en">override Default Rate amount</value>
         <value xml:lang="it">Sostituisci tasso di default</value>
+        <value xml:lang="ja">デフォルトのレート金額を上書きする</value>
         <value xml:lang="vi">Hiệu lực trên giá trị tỷ lệ mặc định</value>
         <value xml:lang="zh">覆盖缺省费率金额</value>
         <value xml:lang="zh_TW">覆蓋預設費率金額</value>
@@ -3462,6 +3768,7 @@
         <value xml:lang="en">Participants</value>
         <value xml:lang="fr">Participants</value>
         <value xml:lang="it">Partecipanti</value>
+        <value xml:lang="ja">参加者</value>
         <value xml:lang="vi">Người tham dự</value>
         <value xml:lang="zh">参加者</value>
         <value xml:lang="zh_TW">參與者</value>
@@ -3472,6 +3779,7 @@
         <value xml:lang="es">Participantes</value>
         <value xml:lang="fr">Acteurs</value>
         <value xml:lang="it">Soggetti</value>
+        <value xml:lang="ja">取引先</value>
         <value xml:lang="nl">Parties</value>
         <value xml:lang="ro">Subiecti</value>
         <value xml:lang="ru">Участники</value>
@@ -3484,6 +3792,7 @@
         <value xml:lang="en">Party ${parameters.partyId} with role ${parameters.roleTypeId} is already assigned to work effort Id ${parameters.workEffortId}, not adding again</value>
         <value xml:lang="fr">L'acteur ${parameters.partyId} avec le rôle ${parameters.roleTypeId} est déjà affecté à la tâche de réf. ${parameters.workEffortId}</value>
         <value xml:lang="it">Soggetto ${parameters.partyId} con il ruolo ${parameters.roleTypeId} è già stato assegnato all'impegno di lavoro ${parameters.workEffortId}, non aggiungerlo nuovamente</value>
+        <value xml:lang="ja">${parameters.roleTypeId} ロールの取引先 ${parameters.partyId} は、すでに作業成果ID ${parameters.workEffortId} に割当られています、追加できません</value>
         <value xml:lang="vi">Tác nhân ${parameters.partyId} với Vai trò ${parameters.roleTypeId} đã được gán đến Lượng giá nguồn lực ${parameters.workEffortId}, bạn không nên thêm vào lần nữa</value>
         <value xml:lang="zh">已经把角色为${parameters.roleTypeId}的会员${parameters.partyId}指派给了人工服务标识${parameters.workEffortId}，所以不再添加了</value>
         <value xml:lang="zh_TW">已經把角色為${parameters.roleTypeId}的會員${parameters.partyId}指派給了工項ID${parameters.workEffortId}，所以不再添加了</value>
@@ -3494,6 +3803,7 @@
         <value xml:lang="es">Código del participante</value>
         <value xml:lang="fr">Acteur</value>
         <value xml:lang="it">Codice soggetto</value>
+        <value xml:lang="ja">取引先ID</value>
         <value xml:lang="nl">Party Id</value>
         <value xml:lang="ro">Cod Subiecti</value>
         <value xml:lang="ru">ID участника</value>
@@ -3505,6 +3815,7 @@
     <property key="WorkEffortPartyPermissionError">
         <value xml:lang="en">You do not have permission to view information for party with ID ${partyId}, you must be logged in as a user associated with this party, or have the WORKEFFORTMGR_VIEW or WORKEFFORTMGR_ADMIN permissions.</value>
         <value xml:lang="it">Tu non il permesso di vedere le informazioni del soggetto ${partyId}, devi essere autenticato con un'utente associato con questo soggetto, o avere i permessi WORKEFFORTMGR_VIEW o WORKEFFORTMGR_ADMIN.</value>
+        <value xml:lang="ja">取引先ID ${partyId} の情報を表示する権限がありません。この取引先に関連付けられたユーザとしてログインするか、WORKEFFORTMGR_VIEW または WORKEFFORTMGR_ADMIN 権限が必要です。</value>
         <value xml:lang="vi">Bạn không có quyền xem thông tin của Tác nhân với Id ${partyId}, bạn cần đăng nhập như người dùng đã kết hợp với tác nhân này, hoặc có quyền WORKEFFORTMGR_VIEW hay quyền WORKEFFORTMGR_ADMIN.</value>
         <value xml:lang="zh">你没有浏览标识为 ${partyId} 的会员信息的权限，你必须以与这个会员有关联的用户身份登录，或者必须有 WORKEFFORTMGR_VIEW 或 WORKEFFORTMGR_ADMIN 权限。</value>
     </property>
@@ -3513,6 +3824,7 @@
         <value xml:lang="es">Contraseña</value>
         <value xml:lang="fr">Mot de passe</value>
         <value xml:lang="it">Password</value>
+        <value xml:lang="ja">パスワード</value>
         <value xml:lang="nl">Password</value>
         <value xml:lang="ro">Password</value>
         <value xml:lang="ru">Пароль</value>
@@ -3526,6 +3838,7 @@
         <value xml:lang="en">Percent Complete</value>
         <value xml:lang="fr">Pourcentage de complétion</value>
         <value xml:lang="it">Percentuale completata</value>
+        <value xml:lang="ja">完了率(%)</value>
         <value xml:lang="nl">Percent Complete</value>
         <value xml:lang="ro">Procentaj Completat</value>
         <value xml:lang="th">เปอร์เว็นต์ที่สำเร็จ</value>
@@ -3537,6 +3850,7 @@
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the WORKEFFORTMGR_${mainAction} or WORKEFFORTMGR_ADMIN permission</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter ${resourceDescription} vous devez avoir l'autorisation WORKEFFORTMGR_${mainAction} ou WORKEFFORTMGR_ADMIN</value>
         <value xml:lang="it">Errore sicurezza: per eseguire ${resourceDescription} devi avere il permesso WORKEFFORTMGR_${mainAction} o WORKEFFORTMGR_ADMIN</value>
+        <value xml:lang="ja">セキュリティエラー: ${resourceDescription} の実行は、WORKEFFORTMGR_${mainAction} または WORKEFFORTMGR_ADMIN 権限が必要です</value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! การดำเนินการ ${resourceDescription} คุณต้องมี WORKEFFORTMGR_${mainAction} หรือ WORKEFFORTMGR_ADMIN อนุญาต</value>
         <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần có quyền WORKEFFORTMGR_${mainAction} hoặc WORKEFFORTMGR_ADMIN</value>
         <value xml:lang="zh">安全错误：要运行${resourceDescription}，你必须具有WORKEFFORTMGR_${mainAction}或WORKEFFORTMGR_ADMIN权限</value>
@@ -3548,6 +3862,7 @@
         <value xml:lang="es">Fase</value>
         <value xml:lang="fr">Phase</value>
         <value xml:lang="it">Fase</value>
+        <value xml:lang="ja">フェーズ</value>
         <value xml:lang="nl">Phase</value>
         <value xml:lang="ro">Faza</value>
         <value xml:lang="ru">Фаза</value>
@@ -3562,6 +3877,7 @@
         <value xml:lang="es">Estado de fase</value>
         <value xml:lang="fr">Statut de la phase</value>
         <value xml:lang="it">Stato fase</value>
+        <value xml:lang="ja">フェーズステータス</value>
         <value xml:lang="nl">Phase Status</value>
         <value xml:lang="ro">Stari Faze</value>
         <value xml:lang="ru">Статус фазы</value>
@@ -3576,6 +3892,7 @@
         <value xml:lang="es">Tareas de fase</value>
         <value xml:lang="fr">Tâches de la phase</value>
         <value xml:lang="it">Compiti della fase</value>
+        <value xml:lang="ja">フェーズタスク</value>
         <value xml:lang="nl">PhaseTasks</value>
         <value xml:lang="ro">Faze Sarcini</value>
         <value xml:lang="ru">Задания фазы</value>
@@ -3588,6 +3905,7 @@
         <value xml:lang="de">Beliebtheit nach Aufträgen</value>
         <value xml:lang="en">Popularity By Orders</value>
         <value xml:lang="it">Popolarità per ordini</value>
+        <value xml:lang="ja">注文の人気度</value>
         <value xml:lang="vi">Độ phổ biến theo Đơn hàng</value>
         <value xml:lang="zh">按订单的受欢迎程度</value>
         <value xml:lang="zh_TW">按訂單的受歡迎程度</value>
@@ -3596,6 +3914,7 @@
         <value xml:lang="de">Beliebtheit nach Anzeigen</value>
         <value xml:lang="en">Popularity By Views</value>
         <value xml:lang="it">Popolarità per visti</value>
+        <value xml:lang="ja">ページビューの人気度</value>
         <value xml:lang="vi">Độ phổ biến theo Xem xét</value>
         <value xml:lang="zh">按浏览的受欢迎程度</value>
         <value xml:lang="zh_TW">按瀏覽的受歡迎程度</value>
@@ -3606,6 +3925,7 @@
         <value xml:lang="es">Día anterior</value>
         <value xml:lang="fr">Jour précédent</value>
         <value xml:lang="it">Giorno precedente</value>
+        <value xml:lang="ja">前の日</value>
         <value xml:lang="nl">Previous Day</value>
         <value xml:lang="ro">Ziua Precedenta</value>
         <value xml:lang="ru">Предыдущий день</value>
@@ -3620,6 +3940,7 @@
         <value xml:lang="es">Mes anterior</value>
         <value xml:lang="fr">Mois précédent</value>
         <value xml:lang="it">Mese precedente</value>
+        <value xml:lang="ja">前の月</value>
         <value xml:lang="nl">Previous Month</value>
         <value xml:lang="ro">Luna Precedenta</value>
         <value xml:lang="ru">Предыдущий месяц</value>
@@ -3634,6 +3955,7 @@
         <value xml:lang="es">Semana anterior</value>
         <value xml:lang="fr">Semaine précédente</value>
         <value xml:lang="it">Settimana precedente</value>
+        <value xml:lang="ja">前の週</value>
         <value xml:lang="nl">Previous Week</value>
         <value xml:lang="ro">Saptamana Precedenta</value>
         <value xml:lang="ru">Предыдущая неделя</value>
@@ -3648,6 +3970,7 @@
         <value xml:lang="es">Prioridad</value>
         <value xml:lang="fr">Priorité</value>
         <value xml:lang="it">Priorità</value>
+        <value xml:lang="ja">優先度</value>
         <value xml:lang="nl">Priority</value>
         <value xml:lang="ro">Prioritate</value>
         <value xml:lang="ru">Приоритет</value>
@@ -3671,6 +3994,7 @@
         <value xml:lang="en">Priority format is incorrect</value>
         <value xml:lang="fr">Le format prioritaire est incorrect</value>
         <value xml:lang="it">Il formato priorità non è corretto</value>
+        <value xml:lang="ja">優先度の書式が正しくありません</value>
         <value xml:lang="th">รูปแบบสิทธิพิเศษไม่ถูกต้อง</value>
         <value xml:lang="vi">Định đạng độ ưu tiên không hợp lệ</value>
         <value xml:lang="zh">优先级格式不正确</value>
@@ -3686,6 +4010,7 @@
         <value xml:lang="en">9 (Low)</value>
         <value xml:lang="fr">9 (Basse)</value>
         <value xml:lang="it">9 (Bassa)</value>
+        <value xml:lang="ja">9 (低)</value>
         <value xml:lang="nl">9 (Low)</value>
         <value xml:lang="ro">9 (Joasa)</value>
         <value xml:lang="th">9 (ต่ำ)</value>
@@ -3698,6 +4023,7 @@
         <value xml:lang="en">1 (High)</value>
         <value xml:lang="fr">1 (Haute)</value>
         <value xml:lang="it">1 (Alta)</value>
+        <value xml:lang="ja">1 (高)</value>
         <value xml:lang="nl">1 (High)</value>
         <value xml:lang="ro">1 (Inalta)</value>
         <value xml:lang="th">1 (สูง)</value>
@@ -3730,6 +4056,7 @@
         <value xml:lang="en">Private/Public</value>
         <value xml:lang="fr">Public/Privé</value>
         <value xml:lang="it">Privata/Pubblica</value>
+        <value xml:lang="ja">限定/公開</value>
         <value xml:lang="th">ส่วนตัว/สาธารณะ</value>
         <value xml:lang="vi">Riêng tư/ Công khai</value>
         <value xml:lang="zh">私有/公开</value>
@@ -3741,6 +4068,7 @@
         <value xml:lang="es">Producto</value>
         <value xml:lang="fr">Produit</value>
         <value xml:lang="it">Prodotto</value>
+        <value xml:lang="ja">製品</value>
         <value xml:lang="nl">Product</value>
         <value xml:lang="ro">Produs</value>
         <value xml:lang="ru">Продукт</value>
@@ -3755,6 +4083,7 @@
         <value xml:lang="es">Código de producto</value>
         <value xml:lang="fr">Référence du produit</value>
         <value xml:lang="it">Codice prodotto</value>
+        <value xml:lang="ja">製品ID</value>
         <value xml:lang="nl">ProductID</value>
         <value xml:lang="ro">Cod Produs</value>
         <value xml:lang="ru">ID продукта</value>
@@ -3768,6 +4097,7 @@
         <value xml:lang="en">ProductID 1</value>
         <value xml:lang="fr">Réf. 1 de l'article</value>
         <value xml:lang="it">Codice prodotto 1</value>
+        <value xml:lang="ja">製品ID 1</value>
         <value xml:lang="th">รหัสสินค้า 1</value>
         <value xml:lang="vi">Sản phẩm 1</value>
         <value xml:lang="zh">产品标识1</value>
@@ -3778,6 +4108,7 @@
         <value xml:lang="en">ProductID 2</value>
         <value xml:lang="fr">Réf. 2 de l'article</value>
         <value xml:lang="it">Codice prodotto 2</value>
+        <value xml:lang="ja">製品ID 2</value>
         <value xml:lang="th">รหัสสินค้า 2</value>
         <value xml:lang="vi">Sản phẩm 2</value>
         <value xml:lang="zh">产品标识2</value>
@@ -3789,6 +4120,7 @@
         <value xml:lang="es">Proyecto</value>
         <value xml:lang="fr">Projet</value>
         <value xml:lang="it">Progetto</value>
+        <value xml:lang="ja">プロジェクト</value>
         <value xml:lang="nl">Project</value>
         <value xml:lang="ro">Proiect</value>
         <value xml:lang="ru">Проект</value>
@@ -3803,6 +4135,7 @@
         <value xml:lang="es">Fases de proyecto</value>
         <value xml:lang="fr">Phases du projet</value>
         <value xml:lang="it">Fasi del progetto</value>
+        <value xml:lang="ja">プロジェクトフェーズ</value>
         <value xml:lang="nl">ProjectPhases</value>
         <value xml:lang="ro">Faze Proiect</value>
         <value xml:lang="ru">Фазы проекта</value>
@@ -3817,6 +4150,7 @@
         <value xml:lang="es">Estado de proyecto</value>
         <value xml:lang="fr">Statut du projet</value>
         <value xml:lang="it">Stati del progetto</value>
+        <value xml:lang="ja">プロジェクトステータス</value>
         <value xml:lang="nl">Project Status</value>
         <value xml:lang="ro">Stari Proiect</value>
         <value xml:lang="ru">Статус проекта</value>
@@ -3831,6 +4165,7 @@
         <value xml:lang="es">Proyectos</value>
         <value xml:lang="fr">Projets</value>
         <value xml:lang="it">Progetti</value>
+        <value xml:lang="ja">プロジェクト</value>
         <value xml:lang="nl">Projecten</value>
         <value xml:lang="ro">Proiecte</value>
         <value xml:lang="ru">Проекты</value>
@@ -3842,24 +4177,28 @@
     <property key="WorkEffortRequirementFulfillmentAlreadyExists">
         <value xml:lang="en">ERROR: WorkRequirementFulfillment [${parameters.requirementId}][${parameters.workEffortId}] already exists.</value>
         <value xml:lang="it">ERRORE: Richiesta impegno di lavoro [${parameters.quoteId}][${parameters.workEffortId}] esiste già.</value>
+        <value xml:lang="ja">エラー: 作業要求執行 [${parameters.requirementId}][${parameters.workEffortId}] はすでに存在します。</value>
         <value xml:lang="zh">错误：已存在工作需求执行（WorkRequirementFulfillment）[${parameters.requirementId}][${parameters.workEffortId}]</value>
         <value xml:lang="vi">Lỗi xảy ra: Đáp ứng yêu cầu Nguồn lực (WorkRequirementFulfillment) [${parameters.requirementId}][${parameters.workEffortId}] ĐÃ tồn tại.</value>
     </property>
     <property key="WorkEffortRequirementFulfillmentDoesNotExists">
         <value xml:lang="en">ERROR: WorkRequirementFulfillment [${parameters.requirementId}][${parameters.workEffortId}] does not exists.</value>
         <value xml:lang="it">ERRORE: Richiesta impegno di lavoro [${parameters.quoteId}][${parameters.workEffortId}] non esiste.</value>
+        <value xml:lang="ja">エラー: 作業要求執行 [${parameters.requirementId}][${parameters.workEffortId}] は存在しません。</value>
         <value xml:lang="zh">错误：不存在工作需求执行（WorkRequirementFulfillment）[${parameters.requirementId}][${parameters.workEffortId}]</value>
         <value xml:lang="vi">Lỗi xảy ra: Đáp ứng yêu cầu Nguồn lực (WorkRequirementFulfillment) [${parameters.requirementId}][${parameters.workEffortId}] CHƯA tồn tại.</value>
     </property>
     <property key="WorkEffortShoppingListAlreadyExists">
         <value xml:lang="en">ERROR: ShoppingListWorkEffort [${parameters.shoppingListId}][${parameters.workEffortId}] already exists.</value>
         <value xml:lang="it">ERRORE: Lista d'acquisto impegno di lavoro [${parameters.shoppingListId}][${parameters.workEffortId}] esiste già.</value>
+        <value xml:lang="ja">エラー: 買い物リスト作業成果 [${parameters.shoppingListId}][${parameters.workEffortId}] はすでに存在します。</value>
         <value xml:lang="vi">Lỗi xảy ra: Lượng giá nguồn lực danh sách mua bán [${parameters.shoppingListId}][${parameters.workEffortId}] ĐÃ tồn tại.</value>
         <value xml:lang="zh">错误：已存在购物列表人工服务（ShoppingListWorkEffort）[${parameters.shoppingListId}][${parameters.workEffortId}]</value>
     </property>
     <property key="WorkEffortShoppingListDoesNotExists">
         <value xml:lang="en">ERROR: ShoppingListWorkEffort [${parameters.shoppingListId}][${parameters.workEffortId}] does not exists.</value>
         <value xml:lang="it">ERRORE: Lista d'acquisto impegno di lavoro [${parameters.shoppingListId}][${parameters.workEffortId}] non esiste.</value>
+        <value xml:lang="ja">エラー: 買い物リスト作業成果 [${parameters.shoppingListId}][${parameters.workEffortId}] は存在しません。</value>
         <value xml:lang="vi">Lỗi xảy ra: Lượng giá nguồn lực danh sách mua bán [${parameters.shoppingListId}][${parameters.workEffortId}] CHƯA tồn tại.</value>
         <value xml:lang="zh">错误：不存在购物列表人工服务（ShoppingListWorkEffort）[${parameters.shoppingListId}][${parameters.workEffortId}]</value>
     </property>
@@ -3869,6 +4208,7 @@
         <value xml:lang="es">Cantidad</value>
         <value xml:lang="fr">Quantité</value>
         <value xml:lang="it">Quantità</value>
+        <value xml:lang="ja">数量</value>
         <value xml:lang="nl">Quantity</value>
         <value xml:lang="ro">Cantitate </value>
         <value xml:lang="ru">Количество</value>
@@ -3880,12 +4220,14 @@
     <property key="WorkEffortQuoteAlreadyExists">
         <value xml:lang="en">ERROR: QuoteWorkEffort [${parameters.quoteId}][${parameters.workEffortId}] already exists.</value>
         <value xml:lang="it">ERRORE: Preventivo impegno di lavoro [${parameters.quoteId}][${parameters.workEffortId}] esiste già.</value>
+        <value xml:lang="ja">エラー: 見積作業成果 [${parameters.quoteId}][${parameters.workEffortId}] はすでに存在します。</value>
         <value xml:lang="vi">Lỗi xảy ra: Báo giá Lượng giá nguồn lực [${parameters.quoteId}][${parameters.workEffortId}] ĐÃ tồn tại.</value>
         <value xml:lang="zh">错误：已存在询价人工服务（QuoteWorkEffort）[${parameters.quoteId}][${parameters.workEffortId}]</value>
     </property>
     <property key="WorkEffortQuoteDoesNotExists">
         <value xml:lang="en">ERROR: QuoteWorkEffort [${parameters.quoteId}][${parameters.workEffortId}] does not exists.</value>
         <value xml:lang="it">ERRORE: Preventivo impegno di lavoro [${parameters.quoteId}][${parameters.workEffortId}] non esiste.</value>
+        <value xml:lang="ja">エラー: 見積作業成果 [${parameters.quoteId}][${parameters.workEffortId}] は存在しません。</value>
         <value xml:lang="vi">Lỗi xảy ra: Báo giá Lượng giá nguồn lực [${parameters.quoteId}][${parameters.workEffortId}] CHƯA tồn tại.</value>
         <value xml:lang="zh">错误：不存在询价人工服务（QuoteWorkEffort）[${parameters.quoteId}][${parameters.workEffortId}]</value>
     </property>
@@ -3894,6 +4236,7 @@
         <value xml:lang="es">Items de cotización</value>
         <value xml:lang="fr">Lignes de devis</value>
         <value xml:lang="it">Righe preventivo</value>
+        <value xml:lang="ja">見積アイテム</value>
         <value xml:lang="nl">Quote Items</value>
         <value xml:lang="ro">Linii Oferta</value>
         <value xml:lang="th">รายการการอ้างอิง</value>
@@ -3906,6 +4249,7 @@
         <value xml:lang="es">Cotizaciones</value>
         <value xml:lang="fr">Devis</value>
         <value xml:lang="it">Preventivi</value>
+        <value xml:lang="ja">見積</value>
         <value xml:lang="nl">Quotes</value>
         <value xml:lang="ro">Oferte</value>
         <value xml:lang="th">การอ้างอิง</value>
@@ -3918,6 +4262,7 @@
         <value xml:lang="es">Ingreso de usuario registrado</value>
         <value xml:lang="fr">Identifiant de connexion enregistré</value>
         <value xml:lang="it">Utente registrato</value>
+        <value xml:lang="ja">登録ユーザ</value>
         <value xml:lang="nl">Geregsistreerde ingelogde Registered User Login</value>
         <value xml:lang="ro">Utilizator Inregistrat</value>
         <value xml:lang="ru">Login зарегистрированного пользователя</value>
@@ -3931,6 +4276,7 @@
         <value xml:lang="es">Resumen relacionado</value>
         <value xml:lang="fr">Résumé lié</value>
         <value xml:lang="it">Sommario relativo</value>
+        <value xml:lang="ja">関連サマリ</value>
         <value xml:lang="nl">Related Summary</value>
         <value xml:lang="ro">Breviar Relativ</value>
         <value xml:lang="th">โดยสรุปซึ่งเกี่ยวข้องกัน</value>
@@ -3943,6 +4289,7 @@
         <value xml:lang="en">Request</value>
         <value xml:lang="fr">Demande</value>
         <value xml:lang="it">Richiesta</value>
+        <value xml:lang="ja">リクエスト</value>
         <value xml:lang="th">การร้องขอ</value>
         <value xml:lang="vi">Yêu cầu</value>
         <value xml:lang="zh">请求</value>
@@ -3953,6 +4300,7 @@
         <value xml:lang="es">Ítems de petición</value>
         <value xml:lang="fr">Lignes de demande</value>
         <value xml:lang="it">Righe della richiesta</value>
+        <value xml:lang="ja">リクエストアイテム</value>
         <value xml:lang="nl">Request Items</value>
         <value xml:lang="ro">Linii Cerere</value>
         <value xml:lang="th">รายการการร้องขอ</value>
@@ -3966,6 +4314,7 @@
         <value xml:lang="es">Lista de peticiones</value>
         <value xml:lang="fr">Liste de demandes</value>
         <value xml:lang="it">Lista delle richieste</value>
+        <value xml:lang="ja">リクエスト一覧</value>
         <value xml:lang="nl">Request List</value>
         <value xml:lang="ro">Lista Cerere</value>
         <value xml:lang="ru">Запросы</value>
@@ -3980,6 +4329,7 @@
         <value xml:lang="es">Adminstración de peticiones</value>
         <value xml:lang="fr">Administrateur de la requête</value>
         <value xml:lang="it">Gestore della richiesta</value>
+        <value xml:lang="ja">リクエスト管理</value>
         <value xml:lang="nl">Request Manager</value>
         <value xml:lang="ro">Gestionar Cerere</value>
         <value xml:lang="ru">Менеджер запроса</value>
@@ -3994,6 +4344,7 @@
         <value xml:lang="es">Nombre de la petición</value>
         <value xml:lang="fr">Nom de requête</value>
         <value xml:lang="it">Nome richiesta</value>
+        <value xml:lang="ja">リクエスト名称</value>
         <value xml:lang="nl">Request Name</value>
         <value xml:lang="ro">Nume Cerere</value>
         <value xml:lang="ru">Имя запроса</value>
@@ -4007,6 +4358,7 @@
         <value xml:lang="en">Request  Roles</value>
         <value xml:lang="fr">Rôles de la demande</value>
         <value xml:lang="it">Ruoli richiesta</value>
+        <value xml:lang="ja">リクエストロール</value>
         <value xml:lang="th">สถานะการร้องขอ</value>
         <value xml:lang="vi">Vai trò Yêu cầu</value>
         <value xml:lang="zh">请求角色</value>
@@ -4018,6 +4370,7 @@
         <value xml:lang="es">Encargado de la petición</value>
         <value xml:lang="fr">Destinataire de la demande</value>
         <value xml:lang="it">Proprietario della richiesta</value>
+        <value xml:lang="ja">リクエスト受付者</value>
         <value xml:lang="nl">Request Taker</value>
         <value xml:lang="ro">Proprietar Cerere</value>
         <value xml:lang="ru">Запрос принял</value>
@@ -4030,6 +4383,7 @@
         <value xml:lang="en">Requesting Party</value>
         <value xml:lang="fr">Acteur de la demande</value>
         <value xml:lang="it">Soggetto richiedente</value>
+        <value xml:lang="ja">リクエスト元取引先</value>
         <value xml:lang="nl">Requesting Party</value>
         <value xml:lang="ro">Subiect Cerere</value>
         <value xml:lang="th">กลุ่มการร้องขอ</value>
@@ -4043,6 +4397,7 @@
         <value xml:lang="es">Peticiones</value>
         <value xml:lang="fr">Demandes</value>
         <value xml:lang="it">Richieste</value>
+        <value xml:lang="ja">リクエスト</value>
         <value xml:lang="nl">Requests</value>
         <value xml:lang="ro">Cereri</value>
         <value xml:lang="ru">Запросы</value>
@@ -4057,6 +4412,7 @@
         <value xml:lang="es">Pedido por</value>
         <value xml:lang="fr">Demandés par</value>
         <value xml:lang="it">Richiesto da</value>
+        <value xml:lang="ja">要求元:</value>
         <value xml:lang="nl">Required By</value>
         <value xml:lang="ro">Cerere pe</value>
         <value xml:lang="ru">Кем затребовано</value>
@@ -4070,6 +4426,7 @@
         <value xml:lang="es">Se necesita hasta fecha</value>
         <value xml:lang="fr">Demandés par date</value>
         <value xml:lang="it">Richiesta entro</value>
+        <value xml:lang="ja">要求された日</value>
         <value xml:lang="nl">Required By Date</value>
         <value xml:lang="ro">Cerere la data</value>
         <value xml:lang="ru">Требуется к дате</value>
@@ -4084,6 +4441,7 @@
         <value xml:lang="es">Fecha para la cual se requiere el pedido</value>
         <value xml:lang="fr">Date demandée</value>
         <value xml:lang="it">Data richiesta</value>
+        <value xml:lang="ja">要求日</value>
         <value xml:lang="nl">Required Date</value>
         <value xml:lang="ro">Data Cererii</value>
         <value xml:lang="ru">Дата требования</value>
@@ -4097,6 +4455,7 @@
         <value xml:lang="es">Código del requerimiento</value>
         <value xml:lang="fr">Code besoin</value>
         <value xml:lang="it">Codice fabbisogno</value>
+        <value xml:lang="ja">要求ID</value>
         <value xml:lang="nl">Requirement ID</value>
         <value xml:lang="ro">Cod Necesar</value>
         <value xml:lang="ru">ID требования</value>
@@ -4110,6 +4469,7 @@
         <value xml:lang="es">Lista de requerimientos</value>
         <value xml:lang="fr">Liste des besoins</value>
         <value xml:lang="it">Lista dei fabbisogni</value>
+        <value xml:lang="ja">要求一覧</value>
         <value xml:lang="nl">Requirement List</value>
         <value xml:lang="ro">Lista Necesar</value>
         <value xml:lang="ru">Список требований</value>
@@ -4123,6 +4483,7 @@
         <value xml:lang="es">Tipo de requerimiento</value>
         <value xml:lang="fr">Type de besoin</value>
         <value xml:lang="it">Tipo fabbisogno</value>
+        <value xml:lang="ja">要求種類</value>
         <value xml:lang="nl">Requirement Type</value>
         <value xml:lang="ro">Tip Necesar</value>
         <value xml:lang="ru">Тип требований</value>
@@ -4136,6 +4497,7 @@
         <value xml:lang="es">Requerimientos</value>
         <value xml:lang="fr">Besoins</value>
         <value xml:lang="it">Fabbisogni</value>
+        <value xml:lang="ja">要求</value>
         <value xml:lang="nl">Requirements</value>
         <value xml:lang="ro">Necesaruri</value>
         <value xml:lang="ru">Требования</value>
@@ -4149,6 +4511,7 @@
         <value xml:lang="es">Requisitos para ítem de petición</value>
         <value xml:lang="fr">Besoins pour la ligne de demande</value>
         <value xml:lang="it">Fabbisogni per la riga di richiesta</value>
+        <value xml:lang="ja">リクエストアイテムへの要求</value>
         <value xml:lang="nl">Requirements For Request Item</value>
         <value xml:lang="ro">Necesar Pe Linie Cerere</value>
         <value xml:lang="ru">Требования к предмету запроса</value>
@@ -4162,6 +4525,7 @@
         <value xml:lang="es">Respuesta requerida por</value>
         <value xml:lang="fr">Réponse demandée par</value>
         <value xml:lang="it">Risposta richiesta entro</value>
+        <value xml:lang="ja">回答、要求元:</value>
         <value xml:lang="nl">Response Required By</value>
         <value xml:lang="ro">Raspuns Cerere pe</value>
         <value xml:lang="ru">Кем запрошен ответ</value>
@@ -4176,6 +4540,7 @@
         <value xml:lang="es">Resultado de la búsqueda</value>
         <value xml:lang="fr">Résultat de la consultation</value>
         <value xml:lang="it">Risultato della ricerca</value>
+        <value xml:lang="ja">検索結果</value>
         <value xml:lang="nl">Result Of Lookup</value>
         <value xml:lang="ro">Rezultatul Cautarii</value>
         <value xml:lang="ru">Результаты выборки</value>
@@ -4189,6 +4554,7 @@
         <value xml:lang="en">Reviews</value>
         <value xml:lang="fr">Vérifications</value>
         <value xml:lang="it">Recenzioni</value>
+        <value xml:lang="ja">レビュー</value>
         <value xml:lang="th">ตรวจสอบ</value>
         <value xml:lang="vi">Xem xét</value>
         <value xml:lang="zh">检查</value>
@@ -4200,6 +4566,7 @@
         <value xml:lang="es">Revisión</value>
         <value xml:lang="fr">Révision</value>
         <value xml:lang="it">Revisione</value>
+        <value xml:lang="ja">リビジョン</value>
         <value xml:lang="nl">Revision</value>
         <value xml:lang="ro">Revizie</value>
         <value xml:lang="ru">Ревизия</value>
@@ -4213,6 +4580,7 @@
         <value xml:lang="en">Search WorkEfforts</value>
         <value xml:lang="fr">Recherche de tâches</value>
         <value xml:lang="it">Ricerca impegni di lavoro</value>
+        <value xml:lang="ja">作業成果を検索</value>
         <value xml:lang="th">ค้นหางาน</value>
         <value xml:lang="vi">Tìm kiếm Lượng giá nguồn lực</value>
         <value xml:lang="zh">搜索人工服务</value>
@@ -4224,6 +4592,7 @@
         <value xml:lang="es">Seleccione un mecanismo de contacto existente</value>
         <value xml:lang="fr">Sélection des contacts existants</value>
         <value xml:lang="it">Seleziona un contatto esistente</value>
+        <value xml:lang="ja">既存の連絡方法を選択してください</value>
         <value xml:lang="nl">Select an existing contact mechanism</value>
         <value xml:lang="ro">Selectioneaza un contact existent</value>
         <value xml:lang="ru">Выбрать существующий механизм контактов</value>
@@ -4238,6 +4607,7 @@
         <value xml:lang="es">Seleccionar</value>
         <value xml:lang="fr">Sélection</value>
         <value xml:lang="it">Selezionato</value>
+        <value xml:lang="ja">選択済</value>
         <value xml:lang="nl">Selected</value>
         <value xml:lang="ro">Selectionat</value>
         <value xml:lang="ru">Выбрано</value>
@@ -4251,6 +4621,7 @@
         <value xml:lang="es">Codigo de lista de compras</value>
         <value xml:lang="fr">Liste d'achats</value>
         <value xml:lang="it">Codice lista acquisto</value>
+        <value xml:lang="ja">買い物リストID</value>
         <value xml:lang="nl">Bestel lijst ID</value>
         <value xml:lang="ro">Cod Lista Cumparari</value>
         <value xml:lang="th">รหัสรายการซื้อสินค้า</value>
@@ -4263,6 +4634,7 @@
         <value xml:lang="es">Listas de compras</value>
         <value xml:lang="fr">Listes d'achats</value>
         <value xml:lang="it">Liste acquisto</value>
+        <value xml:lang="ja">買い物リスト</value>
         <value xml:lang="nl">Bestellijsten</value>
         <value xml:lang="ro">Liste Cumparari</value>
         <value xml:lang="th">รายการซื้อสินค้า</value>
@@ -4276,6 +4648,7 @@
         <value xml:lang="es">Mostar activos</value>
         <value xml:lang="fr">Montrer les éléments actifs</value>
         <value xml:lang="it">Mostra attivi</value>
+        <value xml:lang="ja">活動の表示</value>
         <value xml:lang="nl">Laat actie zien</value>
         <value xml:lang="ro">Afiseaza Active</value>
         <value xml:lang="ru">Показать все заметки</value>
@@ -4290,6 +4663,7 @@
         <value xml:lang="es">Mostrar todas las notas</value>
         <value xml:lang="fr">Montrer toutes les notes</value>
         <value xml:lang="it">Mostra tutte le note</value>
+        <value xml:lang="ja">連絡をすべて表示</value>
         <value xml:lang="nl">Laat alle notities zien</value>
         <value xml:lang="ro">Afiseaza Toate Notele</value>
         <value xml:lang="ru">Показать все заметки</value>
@@ -4303,6 +4677,7 @@
         <value xml:lang="es">Mostrar las notas de este ítem</value>
         <value xml:lang="fr">Montrer ces lignes de notes</value>
         <value xml:lang="it">Mostra le note di questa riga</value>
+        <value xml:lang="ja">このアイテムの連絡を表示</value>
         <value xml:lang="nl">Laat deze notitie zien</value>
         <value xml:lang="ro">Afiseaza aceasta Linie a Notei</value>
         <value xml:lang="ru">Показать заметки</value>
@@ -4317,6 +4692,7 @@
         <value xml:lang="es">Fecha de comienzo</value>
         <value xml:lang="fr">Date de début</value>
         <value xml:lang="it">Data inizio</value>
+        <value xml:lang="ja">開始日</value>
         <value xml:lang="nl">Datum start</value>
         <value xml:lang="th">เริ่มวันที่</value>
         <value xml:lang="vi">Ngày bắt đầu</value>
@@ -4329,6 +4705,7 @@
         <value xml:lang="es">Estado</value>
         <value xml:lang="fr">Statut</value>
         <value xml:lang="it">Stato</value>
+        <value xml:lang="ja">ステータス</value>
         <value xml:lang="nl">Status</value>
         <value xml:lang="ro">Stare</value>
         <value xml:lang="ru">Статус</value>
@@ -4340,6 +4717,7 @@
     <property key="WorkEffortStatusChangeNotValid">
         <value xml:lang="en">The status change from ${lookedUpValue.currentStatusId} to ${parameters.currentStatusId} is not a valid change</value>
         <value xml:lang="it">Il cambio di stato da ${lookedUpValue.currentStatusId} a ${parameters.currentStatusId} non è consentito</value>
+        <value xml:lang="ja">ステータス ${lookedUpValue.currentStatusId} から ${parameters.currentStatusId} へ変更は正しくありません。</value>
         <value xml:lang="vi">Trạng thái thay đổi từ ${lookedUpValue.currentStatusId} đến ${parameters.currentStatusId} là không hợp lệ</value>
         <value xml:lang="zh">从 ${lookedUpValue.currentStatusId} 到 ${parameters.currentStatusId} 不是一个有效的状态改变</value>
     </property>
@@ -4347,6 +4725,7 @@
         <value xml:lang="en">Current Status ID is missing.</value>
         <value xml:lang="fr">La réf. de statut courant est manquante</value>
         <value xml:lang="it">Lo stato attuale è mancante.</value>
+        <value xml:lang="ja">現在のステータスIDが正しくありません</value>
         <value xml:lang="ro">Starea Actuala Lipseste.</value>
         <value xml:lang="th">ไม่พบรหัสสถานะที่ใช้กันอยู่ในปัจจุบัน</value>
         <value xml:lang="vi">Id trạng thái hiện tại bị thiếu.</value>
@@ -4359,6 +4738,7 @@
         <value xml:lang="es">Resumen</value>
         <value xml:lang="fr">Résumé</value>
         <value xml:lang="it">Sommario</value>
+        <value xml:lang="ja">サマリ</value>
         <value xml:lang="nl">Samenvatting</value>
         <value xml:lang="ro">Breviar</value>
         <value xml:lang="th">สรุป</value>
@@ -4372,6 +4752,7 @@
         <value xml:lang="es">Tarea</value>
         <value xml:lang="fr">Tâche</value>
         <value xml:lang="it">Compito</value>
+        <value xml:lang="ja">タスク</value>
         <value xml:lang="nl">Taak</value>
         <value xml:lang="ro">Sarcina</value>
         <value xml:lang="ru">Задание</value>
@@ -4386,6 +4767,7 @@
         <value xml:lang="es">Detalle de tarea</value>
         <value xml:lang="fr">Détail de la tâche</value>
         <value xml:lang="it">Dettaglio compito</value>
+        <value xml:lang="ja">タスク詳細</value>
         <value xml:lang="nl">Taakdetail</value>
         <value xml:lang="ro">Detaliu Sarcina</value>
         <value xml:lang="ru">Подробности задания</value>
@@ -4400,6 +4782,7 @@
         <value xml:lang="es">Lista de tareas</value>
         <value xml:lang="fr">Liste de tâche</value>
         <value xml:lang="it">Lista compiti</value>
+        <value xml:lang="ja">タスク一覧</value>
         <value xml:lang="nl">Takenlijst</value>
         <value xml:lang="ro">Lista Sarcina</value>
         <value xml:lang="ru">Задания</value>
@@ -4414,6 +4797,7 @@
         <value xml:lang="es">Nombre de tarea</value>
         <value xml:lang="fr">Nom de tâche</value>
         <value xml:lang="it">Nome compito</value>
+        <value xml:lang="ja">タスク名称</value>
         <value xml:lang="nl">Taaknaam</value>
         <value xml:lang="ro">Nume Sarcina</value>
         <value xml:lang="ru">Имя задания</value>
@@ -4428,6 +4812,7 @@
         <value xml:lang="es">Estado de tarea</value>
         <value xml:lang="fr">Statut de la tâche</value>
         <value xml:lang="it">Stato compito</value>
+        <value xml:lang="ja">タスクステータス</value>
         <value xml:lang="nl">TaskStatus</value>
         <value xml:lang="ro">Stare Sarcina</value>
         <value xml:lang="ru">Статус задания</value>
@@ -4442,6 +4827,7 @@
         <value xml:lang="es">Tareas</value>
         <value xml:lang="fr">Tâches</value>
         <value xml:lang="it">Compiti</value>
+        <value xml:lang="ja">タスク</value>
         <value xml:lang="nl">Taken</value>
         <value xml:lang="ro">Sarcini</value>
         <value xml:lang="ru">Задания</value>
@@ -4456,6 +4842,7 @@
         <value xml:lang="es">Este mes</value>
         <value xml:lang="fr">Ce mois</value>
         <value xml:lang="it">Questo mese</value>
+        <value xml:lang="ja">今月</value>
         <value xml:lang="nl">Deze maand</value>
         <value xml:lang="ro">Luna Curenta</value>
         <value xml:lang="ru">Текущий месяц</value>
@@ -4470,6 +4857,7 @@
         <value xml:lang="es">Esta semana</value>
         <value xml:lang="fr">Cette semaine</value>
         <value xml:lang="it">Questa settimana</value>
+        <value xml:lang="ja">今週</value>
         <value xml:lang="nl">Deze week</value>
         <value xml:lang="ro">Saptamana Curenta</value>
         <value xml:lang="ru">Текущая неделя</value>
@@ -4483,6 +4871,7 @@
         <value xml:lang="en">ThruDate</value>
         <value xml:lang="fr">A la date</value>
         <value xml:lang="it">Data fine</value>
+        <value xml:lang="ja">終了日</value>
         <value xml:lang="th">ถึงวันที่</value>
         <value xml:lang="vi">Đến ngày</value>
         <value xml:lang="zh">结束日期</value>
@@ -4493,6 +4882,7 @@
         <value xml:lang="en">Bill From Party</value>
         <value xml:lang="fr">Acteur facturant</value>
         <value xml:lang="it">Soggetto fatturante</value>
+        <value xml:lang="ja">請求元取引先</value>
         <value xml:lang="nl">Rekening van relatie</value>
         <value xml:lang="ro">Facturare De La Subiectul</value>
         <value xml:lang="th">ใบเสร็จรับเงินจากกลุ่มผู้ใช้</value>
@@ -4505,6 +4895,7 @@
         <value xml:lang="en">Bill To Party</value>
         <value xml:lang="fr">Acteur facturé</value>
         <value xml:lang="it">Soggetto fatturato</value>
+        <value xml:lang="ja">請求先取引先</value>
         <value xml:lang="nl">Faktuur aan relatie</value>
         <value xml:lang="ro">Facturare la Subiectul </value>
         <value xml:lang="th">ใบเสร็จรับเงินถึงกลุ่มผู้ใช้</value>
@@ -4518,6 +4909,7 @@
         <value xml:lang="es">Hoja de tiempos</value>
         <value xml:lang="fr">Feuille d'activité</value>
         <value xml:lang="it">Timbratura</value>
+        <value xml:lang="ja">予定表</value>
         <value xml:lang="nl">Uren</value>
         <value xml:lang="ro">Pontaj</value>
         <value xml:lang="th">ตารางเวลาการทำงาน</value>
@@ -4529,18 +4921,21 @@
         <value xml:lang="en">Time sheet already exist, not created an other one.</value>
         <value xml:lang="fr">La feuille d'activité existe déjà, pas de nouvelle création.</value>
         <value xml:lang="it">Timbratura già esistente, non crearne un'altra.</value>
+        <value xml:lang="ja">予定表はすでに存在します。作成できません。</value>
         <value xml:lang="vi">Khai báo công việc đã tồn tại, bạn hãy tạo Khai báo công việc khác.</value>
         <value xml:lang="zh">已经存在时间表，不能再建一个。</value>
     </property>
     <property key="WorkEffortTimesheetCannotFindInvoice">
         <value xml:lang="en">Could not find invoice with ID [${invoiceId}], not adding Timesheet Entries to it.</value>
         <value xml:lang="it">Non trovata fattura [${invoiceId}], non verrà aggiunta alla riga di timbratura.</value>
+        <value xml:lang="ja">請求ID [${invoiceId}] は見つかりません。予定表エントリに追加できません。</value>
         <value xml:lang="vi">Không tìm thấy hóa đơn với Id [${invoiceId}], nên không thể thêm mới điểm nhập Khai báo công việc vào hóa đơn này.</value>
         <value xml:lang="zh">不能找到标识为 [${invoiceId}] 的发票，没有向它添加时间表记录。</value>
     </property>
     <property key="WorkEffortTimesheetCouldNotBeFound">
         <value xml:lang="en">Timesheet could not be found, timesheetId: ${parameters.timesheetId}</value>
         <value xml:lang="it">Timbratura ${parameters.timesheetId} non trovata</value>
+        <value xml:lang="ja">予定表が見つかりません。予定表ID${parameters.timesheetId}</value>
         <value xml:lang="vi">Khai báo công việc không tìm thấy, với Id : ${parameters.timesheetId}</value>
         <value xml:lang="zh">无法找到时间表，时间表标识：${parameters.timesheetId}</value>
     </property>
@@ -4550,6 +4945,7 @@
         <value xml:lang="es">Crear hoja de tiempos</value>
         <value xml:lang="fr">Créer une feuille d'activité</value>
         <value xml:lang="it">Creare timbratura</value>
+        <value xml:lang="ja">予定表を作成</value>
         <value xml:lang="nl">Nieuwe urenstaat</value>
         <value xml:lang="ro">Creare Pontaj</value>
         <value xml:lang="th">สร้างตารางการทำงาน</value>
@@ -4562,6 +4958,7 @@
         <value xml:lang="en">Hours</value>
         <value xml:lang="fr">Heures</value>
         <value xml:lang="it">Ore</value>
+        <value xml:lang="ja">時間</value>
         <value xml:lang="nl">Uren</value>
         <value xml:lang="ro">Ore</value>
         <value xml:lang="th">ชั่งโมง</value>
@@ -4575,6 +4972,7 @@
         <value xml:lang="es">Mi tiempo</value>
         <value xml:lang="fr">Mon temps</value>
         <value xml:lang="it">Mio tempo</value>
+        <value xml:lang="ja">私の予定</value>
         <value xml:lang="nl">Mijn tijd</value>
         <value xml:lang="ro">Timpul Meu</value>
         <value xml:lang="th">เวลาของฉัน</value>
@@ -4585,12 +4983,14 @@
     <property key="WorkEffortTimesheetInvoiceShuoldBeInProgressStatus">
         <value xml:lang="en">Invoice ${invoiceId} should have the status 'in progress', the status is however: ${invoice.statusId}</value>
         <value xml:lang="it">La fattura ${invoiceId} dovrebbe avere lo stato 'in corso', lo stato invece è: ${invoice.statusId}</value>
+        <value xml:lang="ja">請求 ${invoiceId} のステータスは'処理中'の必要がありますが、ステータスは: ${invoice.statusId}</value>
         <value xml:lang="vi">Hóa đơn ${invoiceId} phải có trạng thái là 'Đang thực hiện', trạng thái hiện tại là : ${invoice.statusId}</value>
         <value xml:lang="zh">发票 ${invoiceId} 应该处于'处理中'状态，然后现在状态是：${invoice.statusId}</value>
     </property>
     <property key="WorkEffortTimesheetNotInProcessStatus">
         <value xml:lang="en">Can only update Timesheet, when status is in-process...current status: ${statusItem.description}</value>
         <value xml:lang="it">La timbratura può essere aggiornata solo quanto lo stato è "in-corso"... stato corrente: ${statusItem.description}</value>
+        <value xml:lang="ja">予定表の更新はステータスが処理中のみ可能です。現在のステータスは: ${statusItem.description}</value>
         <value xml:lang="vi">Không thể cập nhật Khai báo công việc, khi trạng thái là 'Đang thực hiện'... trạng thái hiện tại là :${statusItem.description}</value>
         <value xml:lang="zh">当状态是处理中时，只能更新时间表...当前状态：${statusItem.description}</value>
     </property>
@@ -4598,6 +4998,7 @@
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must be in ${roleTypeId} role with WorkEffort: ${workEffortId}</value>
         <value xml:lang="fr">Erreur de sécurité: pour exécuter ${resourceDescription} vous devez être dans le rôle ${roleTypeId} avec la tâche ${workEffortId}</value>
         <value xml:lang="it">Errore sicurezza: per eseguire ${resourceDescription} devi avere il ruolo ${roleTypeId} con l'impegno di lavoro: ${workEffortId}</value>
+        <value xml:lang="ja">セキュリティーエラー: 作業成果ID: ${workEffortId} で ${resourceDescription} の実行は、${roleTypeId} ロールが必要です</value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! การดำเนินการ ${resourceDescription} คุณต้องเป็น ${roleTypeId} ด้วยสถานะงาน: ${workEffortId}</value>
         <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần có quyền ${roleTypeId} với Lượng giá nguồn lực ${workEffortId}</value>
         <value xml:lang="zh">安全错误：要运行${resourceDescription}，你必须以${roleTypeId}角色做人工服务：${workEffortId}</value>
@@ -4608,6 +5009,7 @@
         <value xml:lang="en">Quick Time Entry</value>
         <value xml:lang="fr">Entrée rapide d'une ligne d'activité</value>
         <value xml:lang="it">Inserimento veloce ore</value>
+        <value xml:lang="ja">クイック予定エントリ</value>
         <value xml:lang="nl">Snel een tijd invoeren</value>
         <value xml:lang="ro">Introducere Rapida Ore</value>
         <value xml:lang="th">กรอกข้อมูลเวลาอย่างรวดเร็ว</value>
@@ -4621,6 +5023,7 @@
         <value xml:lang="es">Tipo de tasa</value>
         <value xml:lang="fr">Type de taux</value>
         <value xml:lang="it">Tipo percentuale</value>
+        <value xml:lang="ja">レート種類</value>
         <value xml:lang="nl">Soort tarief</value>
         <value xml:lang="ro">Tip Procent</value>
         <value xml:lang="th">ประเภทอัตรา</value>
@@ -4634,6 +5037,7 @@
         <value xml:lang="es">Tasas</value>
         <value xml:lang="fr">Taux</value>
         <value xml:lang="it">Percentuali</value>
+        <value xml:lang="ja">レート</value>
         <value xml:lang="nl">Tarieven</value>
         <value xml:lang="ro">Procente</value>
         <value xml:lang="th">อัตรา</value>
@@ -4647,6 +5051,7 @@
         <value xml:lang="es">Entradas de tiempo</value>
         <value xml:lang="fr">Lignes d'activité</value>
         <value xml:lang="it">Voci timbrature</value>
+        <value xml:lang="ja">予定エントリ</value>
         <value xml:lang="nl">Invoer tijden</value>
         <value xml:lang="ro">Linie Timp</value>
         <value xml:lang="th">ตารางเวลา</value>
@@ -4660,6 +5065,7 @@
         <value xml:lang="es">Entrada de tiempo</value>
         <value xml:lang="fr">Ligne d'activité</value>
         <value xml:lang="it">Voce timbratura</value>
+        <value xml:lang="ja">予定エントリ</value>
         <value xml:lang="nl">Tijd invoer</value>
         <value xml:lang="ro">Linie Timp</value>
         <value xml:lang="th">ตารางเวลา</value>
@@ -4673,6 +5079,7 @@
         <value xml:lang="es">Código de hoja de tiempos</value>
         <value xml:lang="fr">Feuille d'activité</value>
         <value xml:lang="it">Numero timbratura</value>
+        <value xml:lang="ja">予定表ID</value>
         <value xml:lang="nl">Urenstaat</value>
         <value xml:lang="ro">Numar Pontaj</value>
         <value xml:lang="th">รหัสตารางเวลาการทำงาน</value>
@@ -4685,6 +5092,7 @@
         <value xml:lang="en">Edit Timesheet</value>
         <value xml:lang="fr">Modifier la feuille d'activité</value>
         <value xml:lang="it">Aggiorna timbratura</value>
+        <value xml:lang="ja">予定表を編集</value>
         <value xml:lang="th">แก้ไขตารางเวลาการทำงาน</value>
         <value xml:lang="vi">Cập nhật Khai báo công việc</value>
         <value xml:lang="zh">编辑工单</value>
@@ -4696,6 +5104,7 @@
         <value xml:lang="es">Eventos próximos</value>
         <value xml:lang="fr">Evènements à venir</value>
         <value xml:lang="it">Prossimi eventi</value>
+        <value xml:lang="ja">予定イベント</value>
         <value xml:lang="nl">Aankomende evenementen</value>
         <value xml:lang="ro">Urmatoarele Evenimente</value>
         <value xml:lang="ru">Наступающие события</value>
@@ -4708,6 +5117,7 @@
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the WORKEFFORTMGR_UPDATE or WORKEFFORTMGR_ADMIN permission</value>
         <value xml:lang="fr">Erreur de sécurité: pour exécuter ${resourceDescription} vous devez avoir l'autorisation WORKEFFORTMGR_UPDATE ou WORKEFFORTMGR_ADMIN</value>
         <value xml:lang="it">Errore sicurezza: per eseguire ${resourceDescription} devi avere il permesso WORKEFFORTMGR_UPDATE o WORKEFFORTMGR_ADMIN</value>
+        <value xml:lang="ja">セキュリティエラー: この操作の実行は WORKEFFORTMGR_UPDATE または WORKEFFORTMGR_ADMIN 権限が必要です</value>
         <value xml:lang="th">Security Error: ${resourceDescription} ความปลอดภัยผิดพลาด ! ในการดำเนินการเชื่อมต่อนี้คุณต้องมี WORKEFFORTMGR_UPDATE หรือ WORKEFFORTMGR_ADMIN อนุญาต</value>
         <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần có quyền WORKEFFORTMGR_UPDATE hoặc WORKEFFORTMGR_ADMIN</value>
         <value xml:lang="zh">安全错误：要运行这个操作你必须具有 ${resourceDescription} WORKEFFORTMGR_UPDATE 或 WORKEFFORTMGR_ADMIN 权限</value>
@@ -4719,6 +5129,7 @@
         <value xml:lang="es">Nombre de usuario</value>
         <value xml:lang="fr">Nom d'utilisateur</value>
         <value xml:lang="it">Nome utente</value>
+        <value xml:lang="ja">ユーザ名</value>
         <value xml:lang="nl">Gebruikersnaam</value>
         <value xml:lang="ro">Nume Utilizator</value>
         <value xml:lang="ru">Имя пользователя</value>
@@ -4732,6 +5143,7 @@
         <value xml:lang="es">No tiene permisos para ver esta pantalla (se necesita el permiso WORKEFFORTMGR_VIEW)</value>
         <value xml:lang="fr">Vous n'avez pas l'autorisation de voir cet écran, cela nécessite l'autorisation WORKEFFORTMGR_VIEW</value>
         <value xml:lang="it">Non sei autorizzato a vedere questa videata (permesso WORKEFFORTMGR_VIEW necessario)</value>
+        <value xml:lang="ja">この画面を表示する権限がありません (WORKEFFORTMGR_VIEW が必要です)</value>
         <value xml:lang="nl">U heeft geen rechten om dit scherm te kunnen zien (WORKEFFORTMGR_VIEW needed)</value>
         <value xml:lang="ro">Tu nu esti autorizat sa vezi aceasta videata (Este necesar permisul WORKEFFORTMGR_VIEW)</value>
         <value xml:lang="th">คุณไม่มีการอนุญาตในการแสดงหน้าจอนี้ (WORKEFFORTMGR_VIEW ต้องการ)</value>
@@ -4745,6 +5157,7 @@
         <value xml:lang="es">Ver tareas / Editar</value>
         <value xml:lang="fr">Vue des tâches / Modification</value>
         <value xml:lang="it">Mostra/Aggiorna compiti</value>
+        <value xml:lang="ja">タスクを表示/編集</value>
         <value xml:lang="nl">Laat taken zien en/of wijzig</value>
         <value xml:lang="ro">Afiseaza / Actualizeaza Sarcini</value>
         <value xml:lang="ru">Просмотр/редактирование заданий</value>
@@ -4759,6 +5172,7 @@
         <value xml:lang="es">Vista semanal</value>
         <value xml:lang="fr">Vue hebdomadaire</value>
         <value xml:lang="it">Mostra settimana</value>
+        <value xml:lang="ja">週ビュー</value>
         <value xml:lang="nl">Week overzicht</value>
         <value xml:lang="ro">Afiseaza Saptamana</value>
         <value xml:lang="ru">По неделям</value>
@@ -4773,6 +5187,7 @@
         <value xml:lang="es">Bienvenido</value>
         <value xml:lang="fr">Bienvenue</value>
         <value xml:lang="it">Benvenuto</value>
+        <value xml:lang="ja">ようこそ</value>
         <value xml:lang="nl">Welkom</value>
         <value xml:lang="ro">Bun venit</value>
         <value xml:lang="ru">Добро пожаловать!</value>
@@ -4787,6 +5202,7 @@
         <value xml:lang="es">Esfuerzo de trabajo</value>
         <value xml:lang="fr">Tâche</value>
         <value xml:lang="it">Impegno di lavoro</value>
+        <value xml:lang="ja">作業成果</value>
         <value xml:lang="nl">Actie</value>
         <value xml:lang="ro">Sarcina de Lucru</value>
         <value xml:lang="th">งาน</value>
@@ -4799,6 +5215,7 @@
         <value xml:lang="es">El código de asociación del esfuerzo de trabajo ya existe.</value>
         <value xml:lang="fr">La référence de l'association de tâche existe déja</value>
         <value xml:lang="it">Associazione impegno di lavoro già esistente</value>
+        <value xml:lang="ja">作業成果関連付けIDはすでに存在します</value>
         <value xml:lang="nl">WorkEffortAssocId already Exist</value>
         <value xml:lang="ro">Asociere Sarcina de Lucru deja Existenta</value>
         <value xml:lang="ru">WorkEffortAssocId уже существует</value>
@@ -4812,6 +5229,7 @@
         <value xml:lang="es">La asociación esfuerzo de trabajo - buen estándar ya existe</value>
         <value xml:lang="fr">L'association Tâche - Bien standard existe déja</value>
         <value xml:lang="it">Associazione impegno di lavoro - Bene standard già esistente</value>
+        <value xml:lang="ja">作業成果 - 参考指針の関連付けはすでに存在します</value>
         <value xml:lang="nl">WorkEffort - GoodStandard association already exist</value>
         <value xml:lang="ro">Sarcina de Lucru - GoodStandard asociere deja existenta</value>
         <value xml:lang="ru">Ассоциация "WorkEffort - GoodStandard" уже существует</value>
@@ -4826,6 +5244,7 @@
         <value xml:lang="es">Código de esfuerzo de trabajo</value>
         <value xml:lang="fr">Tâche</value>
         <value xml:lang="it">Numero impegno di lavoro</value>
+        <value xml:lang="ja">作業成果ID</value>
         <value xml:lang="nl">Taak ID</value>
         <value xml:lang="ro">Numar Sarcina de Lucru</value>
         <value xml:lang="th">รหัสงาน</value>
@@ -4839,6 +5258,7 @@
         <value xml:lang="es">El código del esfuerzo de trabajo está vacío</value>
         <value xml:lang="fr">La réf. de tâche est vide</value>
         <value xml:lang="it">Il codice impegno di lavoro è vuoto</value>
+        <value xml:lang="ja">作業成果IDが入力されていません</value>
         <value xml:lang="nl">Taak ID is empty</value>
         <value xml:lang="ro">Numar Sarcina de lucru este gol</value>
         <value xml:lang="th">รหัสงานว่าง</value>
@@ -4852,6 +5272,7 @@
         <value xml:lang="es">Página principal de adminstración de tareas</value>
         <value xml:lang="fr">Page d'accueil de gestion des tâches</value>
         <value xml:lang="it">Pagina principale gestione impegni di lavoro</value>
+        <value xml:lang="ja">作業成果管理メインページ</value>
         <value xml:lang="nl">WorkEffort Manager Main Page</value>
         <value xml:lang="ro">Pagina Principala Gestiune Sarcini de Lucru </value>
         <value xml:lang="ru">WorkEffort Manager: Главная страница</value>
@@ -4865,6 +5286,7 @@
         <value xml:lang="en">Work Effort - Review already exist</value>
         <value xml:lang="fr">Tâche - Cette vérification existe déjà</value>
         <value xml:lang="it">Revisione impegno di lavoro già esistente</value>
+        <value xml:lang="ja">作業成果 - レビューはすでに存在します</value>
         <value xml:lang="th">งาน - ยังคงมีการตรวจสอบอยู่แล้ว</value>
         <value xml:lang="vi">Xem xét của Lượng giá nguồn lực đã tồn tại</value>
         <value xml:lang="zh">人工服务 - 检查已存在</value>
@@ -4876,6 +5298,7 @@
         <value xml:lang="es">Hojas de trabajo</value>
         <value xml:lang="fr">Tâches</value>
         <value xml:lang="it">Impegni di lavoro</value>
+        <value xml:lang="ja">作業成果</value>
         <value xml:lang="nl">Acties</value>
         <value xml:lang="ro">Sarcini de Lucru </value>
         <value xml:lang="th">งาน</value>
@@ -4888,6 +5311,7 @@
         <value xml:lang="es">Actividades de flujo de trabajo asignadas al usuario</value>
         <value xml:lang="fr">Activités des processus métier affectées à l'usager</value>
         <value xml:lang="it">Attività del processo assegnata all'utente</value>
+        <value xml:lang="ja">ワークフローの活動がユーザに割当られました</value>
         <value xml:lang="nl">Workflow activities assigned to user</value>
         <value xml:lang="ro">Activitati Flux de Lucru atribuite utilizatorului</value>
         <value xml:lang="ru">Работы, задания и документы, назначенные пользователю</value>
@@ -4901,6 +5325,7 @@
         <value xml:lang="es">Actividades de flujo de trabajo asignadas al grupo de usuarios</value>
         <value xml:lang="fr">Activités des processus métier affectées au groupe d'usagers</value>
         <value xml:lang="it">Attività del processo assegnata al Gruppo Utente</value>
+        <value xml:lang="ja">ワークフローの活動がユーザグループに割当られました</value>
         <value xml:lang="nl">Workflow activities assigned to User Group</value>
         <value xml:lang="ro">Activitati Flux de Lucru atribuite Grupului Utilizator</value>
         <value xml:lang="ru">Работы, задания и документы, назначенные группе пользователя</value>
@@ -4914,6 +5339,7 @@
         <value xml:lang="es">Actividades de flujo de trabajo asignadas al rol de usuario</value>
         <value xml:lang="fr">Activités des processus métier affectées au rôle de l'usager</value>
         <value xml:lang="it">Attività del processo assegnata al Ruolo Utente</value>
+        <value xml:lang="ja">ワークフローの活動がユーザロールに割当られました</value>
         <value xml:lang="nl">Workflow activities assigned to User Role</value>
         <value xml:lang="ro">Activitati Flux de Lucru atribuite  Rolului Utilizator</value>
         <value xml:lang="ru">Работы, задания и документы, назначенные роли пользователя</value>

@@ -24,6 +24,7 @@
         <value xml:lang="es">Anuncio</value>
         <value xml:lang="fr">Annonce</value>
         <value xml:lang="it">Annunci</value>
+        <value xml:lang="ja">告知</value>
         <value xml:lang="nl">Aankondiging</value>
         <value xml:lang="pt_BR">Anúncio</value>
         <value xml:lang="ro">Anunturi</value>
@@ -37,6 +38,7 @@
         <value xml:lang="es">Marketing</value>
         <value xml:lang="fr">Marketing</value>
         <value xml:lang="it">Vendite</value>
+        <value xml:lang="ja">マーケティング</value>
         <value xml:lang="nl">Marketing</value>
         <value xml:lang="pt_BR">Marketing</value>
         <value xml:lang="ro">Vanzari</value>
@@ -50,6 +52,7 @@
         <value xml:lang="es">Carta de información</value>
         <value xml:lang="fr">Lettre d'information</value>
         <value xml:lang="it">Newsletter</value>
+        <value xml:lang="ja">ニュースレター</value>
         <value xml:lang="nl">Nieuwsbrief</value>
         <value xml:lang="pt_BR">Mala direta</value>
         <value xml:lang="ro">Noutati</value>
@@ -63,6 +66,7 @@
         <value xml:lang="es">Segmento de marketing</value>
         <value xml:lang="fr">Segment de marché</value>
         <value xml:lang="it">Segmento di Mercato</value>
+        <value xml:lang="ja">市場セグメント</value>
         <value xml:lang="nl">Marktsegment</value>
         <value xml:lang="pt_BR">Segmento de marketing</value>
         <value xml:lang="ro">Segment de Piata</value>
@@ -76,6 +80,7 @@
         <value xml:lang="es">Segmento de ventas</value>
         <value xml:lang="fr">Segment de vente</value>
         <value xml:lang="it">Segmento di Vendita</value>
+        <value xml:lang="ja">販売セグメント</value>
         <value xml:lang="nl">Salessegment</value>
         <value xml:lang="pt_BR">Segmento de vendas</value>
         <value xml:lang="ro">Segment de Vanzare</value>
@@ -88,6 +93,7 @@
         <value xml:lang="en">Access Code</value>
         <value xml:lang="fr">Code d'accès</value>
         <value xml:lang="it">Codice di accesso</value>
+        <value xml:lang="ja">アクセスコード</value>
         <value xml:lang="pt_BR">Código de acesso</value>
         <value xml:lang="vi">Mã truy nhập</value>
         <value xml:lang="zh">访问码</value>
@@ -98,6 +104,7 @@
         <value xml:lang="es">Externo</value>
         <value xml:lang="fr">Externe</value>
         <value xml:lang="it">Esterno</value>
+        <value xml:lang="ja">外部</value>
         <value xml:lang="nl">Extern</value>
         <value xml:lang="pt_BR">Externo</value>
         <value xml:lang="ro">Extern</value>
@@ -111,6 +118,7 @@
         <value xml:lang="es">Interno</value>
         <value xml:lang="fr">Interne</value>
         <value xml:lang="it">Interno</value>
+        <value xml:lang="ja">内部</value>
         <value xml:lang="nl">Intern</value>
         <value xml:lang="pt_BR">Interno</value>
         <value xml:lang="ro">Intern</value>
@@ -124,6 +132,7 @@
         <value xml:lang="es">Partner</value>
         <value xml:lang="fr">Géré par un tiers</value>
         <value xml:lang="it">Gestito da un Partner</value>
+        <value xml:lang="ja">パートナー</value>
         <value xml:lang="nl">Partner</value>
         <value xml:lang="pt_BR">Parceiro</value>
         <value xml:lang="ro">Gestit de un Partener</value>

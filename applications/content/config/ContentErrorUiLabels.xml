@@ -21,16 +21,19 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="contentevents.error_getting_content_list">
         <value xml:lang="en">Error getting the content list to index: ${gee}.</value>
+        <value xml:lang="ja">コンテンツリストの取得時にエラー。索引: ${gee}.</value>
         <value xml:lang="pt">Erro ao obter a lista de conteúdo ao índice: ${gee}.</value>
         <value xml:lang="zh">获取内容列表来进行索引时出错：${gee}。</value>
     </property>
     <property key="contentevents.keyword_creation_complete_for_contents">
         <value xml:lang="en">Keyword creation complete for ${numConts} contents.</value>
+        <value xml:lang="ja">${numConts} コンテンツのキーワード作成が完了しました。</value>
         <value xml:lang="pt">Criação de palavras-chave completa para conteúdo de ${numConts}.</value>
         <value xml:lang="zh">完成 ${numConts} 个内容的关键字创建。</value>
     </property>
     <property key="contentevents.keyword_creation_complete_for_contents_with_errors">
         <value xml:lang="en">Keyword creation complete for ${numConts} contents, with errors in ${errConts} contents (see the log for more details).</value>
+        <value xml:lang="ja">${numConts} コンテンツのキーワード作成が完了しました。${errConts} コンテンツでエラーがあります (詳細はログを参照してください)。</value>
         <value xml:lang="pt">Criação de palavras-chave concluída para o conteúdo de ${numConts}, com erros no conteúdo de ${errConts} (veja o log para mais detalhes).</value>
         <value xml:lang="zh">完成 ${numConts} 个内容的关键字创建，${errConts} 个内容的关键字出错（详见日志）。</value>
     </property>
@@ -40,6 +43,7 @@
         <value xml:lang="es">No tiene suficientes permisos para ${updateMode} se necesitan permisos de CONTENTMGR (CONTENTMGR_${updateMode} o CONTENTMGR_ADMIN).</value>
         <value xml:lang="fr">Vous n'avez pas les autorisations suffisantes pour ${updatemode} le CONTENTMGR (CONTENTMGR_${updateMode} ou CONTENTMGR_ADMIN requis).</value>
         <value xml:lang="it">Non hai permessi sufficienti per ${updateMode} CONTENTMGR (permesso CONTENTMGR_${updateMode} o CONTENTMGR_ADMIN necessario).</value>
+        <value xml:lang="ja">${updateMode} CONTENTMGR に必要な権限がありません (CONTENTMGR_${updateMode} または CONTENTMGR_ADMIN が必要です)。</value>
         <value xml:lang="pt">Você não tem permissões suficientes para ${updateMode} CONTENTMGR (CONTENTMGR_$ {updateMode} ou CONTENTMGR_ADMIN necessários).</value>
         <value xml:lang="ro">Nu aidestule permise pentru ${updateMode} CONTENTMGR (este necesar permisul CONTENTMGR_${updateMode} sau CONTENTMGR_ADMIN).</value>
         <value xml:lang="ru">У вас нет достаточных прав для ${updateMode} CONTENTMGR (необходимы права CONTENTMGR_${updateMode} или CONTENTMGR_ADMIN).</value>
@@ -54,6 +58,7 @@
         <value xml:lang="es">Error al llamar al servicio 'createDataResource'</value>
         <value xml:lang="fr">Erreur pendant l'appel du service createDataResource</value>
         <value xml:lang="it">Errore esecuzione servizio createDataResource</value>
+        <value xml:lang="ja">データリソース作成サービス呼び出し時エラー</value>
         <value xml:lang="pt">Erro ao chamar o serviço de createDataResource</value>
         <value xml:lang="ro">Eroare executie serviciu createDataResource</value>
         <value xml:lang="th">Error : ผิดพลาด ! ในการเรียกบริการสร้างข้อมูลแหล่งที่มา</value>
@@ -67,6 +72,7 @@
         <value xml:lang="es">Error al llamar al servicio 'updateDataResource'</value>
         <value xml:lang="fr">Erreur pendant l'appel du service update data resource</value>
         <value xml:lang="it">Errore esecuzione servizio updateDataResource</value>
+        <value xml:lang="ja">データリソース更新サービス呼び出し時エラー</value>
         <value xml:lang="pt">Erro ao chamar o serviço de updateDataResource</value>
         <value xml:lang="ro">Eroare la executarea serviciului updateDataResource</value>
         <value xml:lang="th">Error : ผิดพลาด ! ในการเรียกบริการเปลี่ยนแปลงข้อมูลแหล่งที่มา</value>
@@ -80,6 +86,7 @@
         <value xml:lang="es">Error al obtener la imagen a partir de la captura de imagenes</value>
         <value xml:lang="fr">Erreur d'obtention de compte-rendu d'image depuis acquireImage</value>
         <value xml:lang="it">Errore lettura record immagine da aquireImage</value>
+        <value xml:lang="ja">取込画像の画像レコード取得時エラー</value>
         <value xml:lang="pt">Erro ao obter o registro de imagem de acquireImage</value>
         <value xml:lang="ro">Eroare la citirea record imagine din aquireImage</value>
         <value xml:lang="th">Error : ผิดพลาด ! ในการรับรูปภาพจากรูปที่ได้</value>
@@ -93,6 +100,7 @@
         <value xml:lang="es">Error al imprimir la imagen en la salida</value>
         <value xml:lang="fr">Erreur pendant "l'écriture" de l'image vers OutputStream</value>
         <value xml:lang="it">Errore scrittura immagine su OutputStream</value>
+        <value xml:lang="ja">画像の出力ストリーム書き出し時エラー</value>
         <value xml:lang="pt">Erro ao gravar imagem para o OutputStream</value>
         <value xml:lang="ro">Eroare la scrierea imaginii in OutputStream</value>
         <value xml:lang="th">Error : ผิดพลาด ! ในการเขียนรูปภาพเป็นข้อมูลออกไป</value>
@@ -106,6 +114,7 @@
         <value xml:lang="es">imagen({b}) o tipo(${imageType}) son nulos o están vacios</value>
         <value xml:lang="fr">image ({b}) ou type (${imageType}) irrecevable ou vide</value>
         <value xml:lang="it">immagine({b}) o tipo (${imageType}) è nullo o vuoto</value>
+        <value xml:lang="ja">画像({b}) または 種類(${imageType}) がヌルまたは空です</value>
         <value xml:lang="pt">Image({b}) ou type(${imageType}) é nulo ou vazio</value>
         <value xml:lang="ro">imagine({b}) sau tip (${imageType}) este zero sau o lipseste</value>
         <value xml:lang="th">รูปภาพ ({b}) หรือ ประภท (${imageType}) ไม่มีค่าหรือเป็นค่าว่าง</value>
@@ -119,6 +128,7 @@
         <value xml:lang="es">Imagen(${imageFi}) or Campo(${idFieldValue}) son nulos</value>
         <value xml:lang="fr">imageFi (${imageFi}) ou idFieldValue (${idFieldValue}) est irrecevable</value>
         <value xml:lang="it">imageFi(${imageFi}) o idFieldValue(${idFieldValue}) è nullo</value>
+        <value xml:lang="ja">画像ファイル(${imageFi}) または、ID項目値(${idFieldValue}) が空です</value>
         <value xml:lang="pt">imageFi(${imageFi}) ou idFieldValue(${idFieldValue}) é nulo</value>
         <value xml:lang="ro">imageFi(${imageFi}) sau idFieldValue(${idFieldValue}) este zero</value>
         <value xml:lang="th">ช่องรูปภาพ (${imageFi}) หรือรหัสค่า (${idFieldValue}) ไม่มีค่า</value>
@@ -132,6 +142,7 @@
         <value xml:lang="es">No se cargaron los archivos</value>
         <value xml:lang="fr">Aucun fichier téléversé</value>
         <value xml:lang="it">Nessun file caricato</value>
+        <value xml:lang="ja">アップロードされたファイルはありません</value>
         <value xml:lang="pt">Os arquivos não foram enviados</value>
         <value xml:lang="ro">Nici-un fisier incarcat</value>
         <value xml:lang="th">ไม่มีไฟล์โหลด</value>
@@ -145,6 +156,7 @@
         <value xml:lang="es">El contenido está vacio</value>
         <value xml:lang="fr">Le contenu est vide</value>
         <value xml:lang="it">content è vuoto</value>
+        <value xml:lang="ja">コンテンツはありません</value>
         <value xml:lang="pt">conteúdo está vazio</value>
         <value xml:lang="ro">content este fara continut</value>
         <value xml:lang="th">หัวข้อเป็นค่าว่าง</value>
@@ -158,6 +170,7 @@
         <value xml:lang="es">El id del contenido está vacío</value>
         <value xml:lang="fr">contentId est vide</value>
         <value xml:lang="it">contentId è vuoto</value>
+        <value xml:lang="ja">コンテンツIDがありません</value>
         <value xml:lang="pt">contentId está vazio</value>
         <value xml:lang="ro">contentId este fara continut</value>
         <value xml:lang="th">รหัสหัวข้อเป็นค่าว่าง</value>
@@ -171,6 +184,7 @@
         <value xml:lang="es">El id del contenido es nulo</value>
         <value xml:lang="fr">contentIdTo est irrecevable</value>
         <value xml:lang="it">contentIdTo è nullo</value>
+        <value xml:lang="ja">コンテンツID(先)が空です</value>
         <value xml:lang="pt">contentIdTo é nulo</value>
         <value xml:lang="ro">contentIdTo este zero</value>
         <value xml:lang="th">ไม่มีค่าในรหัสหัวข้อ</value>
@@ -184,6 +198,7 @@
         <value xml:lang="es">El id del recurso de datos está vacío</value>
         <value xml:lang="fr">DataRessourceId est irrecevable</value>
         <value xml:lang="it">DataRessourceId è nullo</value>
+        <value xml:lang="ja">データリソースIDが空です</value>
         <value xml:lang="pt">DataRessourceId é nulo</value>
         <value xml:lang="ro">DataRessourceId este zero</value>
         <value xml:lang="th">ไม่มีค่าในรหัสแหล่งที่มา</value>
@@ -197,6 +212,7 @@
         <value xml:lang="es">Vacío</value>
         <value xml:lang="fr">est vide</value>
         <value xml:lang="it">è vuoto</value>
+        <value xml:lang="ja">は空です</value>
         <value xml:lang="pt">está vazio</value>
         <value xml:lang="ro">este fara continut</value>
         <value xml:lang="th">เป็นค่าว่าง</value>
@@ -210,6 +226,7 @@
         <value xml:lang="es">'entityName' está vacío</value>
         <value xml:lang="fr">'entityName' est vide</value>
         <value xml:lang="it">'entityName' è vuoto</value>
+        <value xml:lang="ja">'エンティティ名'は空です</value>
         <value xml:lang="pt">'entityName' está vazio</value>
         <value xml:lang="ro">'entityName' este fara continut</value>
         <value xml:lang="th">'entityName' เป็นค่าว่าง</value>
@@ -223,6 +240,7 @@
         <value xml:lang="es">Imagen es nula</value>
         <value xml:lang="fr">Image data est vide</value>
         <value xml:lang="it">Image data è nullo</value>
+        <value xml:lang="ja">画像データは空です</value>
         <value xml:lang="pt">Dados de imagem são nulos</value>
         <value xml:lang="ro">Image data este zero</value>
         <value xml:lang="th">ข้อมูลรูปภาพเป็นไม่มีค่า</value>
@@ -236,6 +254,7 @@
         <value xml:lang="es">No se encontro subcontenido</value>
         <value xml:lang="fr">Aucun 'subcontent' trouvé</value>
         <value xml:lang="it">Nessun sotto-contenuto trovato</value>
+        <value xml:lang="ja">サブコンテンツはありません</value>
         <value xml:lang="pt">Nenhum sub conteúdo encontrado</value>
         <value xml:lang="ro">Nici-un sub-continut gasit</value>
         <value xml:lang="th">ไม่พบหัวข้อย่อย</value>
@@ -249,6 +268,7 @@
         <value xml:lang="es">Imagen(${imageFi}) eestá vacía</value>
         <value xml:lang="fr">imageFi(${imageFi}) est irrecevable</value>
         <value xml:lang="it">imageFi(${imageFi}) è nullo</value>
+        <value xml:lang="ja">画像ファイル(${imageFi}) は空です</value>
         <value xml:lang="pt">imageFi(${imageFi}) é nulo</value>
         <value xml:lang="ro">imageFi(${imageFi}) este zero</value>
         <value xml:lang="th">ไม่มีค่าในช่องรูปภาพ (${imageFi}) </value>
@@ -262,6 +282,7 @@
         <value xml:lang="es">No se cargaron archivos</value>
         <value xml:lang="fr">Aucun fichier téléversé</value>
         <value xml:lang="it">Nessun file caricato</value>
+        <value xml:lang="ja">アップロードされたファイルはありません</value>
         <value xml:lang="pt">Não há arquivos enviados</value>
         <value xml:lang="ro">Nici-un fisier incarcat</value>
         <value xml:lang="th">ไม่มีไฟล์โหลด</value>
@@ -275,6 +296,7 @@
         <value xml:lang="es">No se cargaron archivos</value>
         <value xml:lang="fr">Aucun fichier téléversé</value>
         <value xml:lang="it">Nessun file caricato</value>
+        <value xml:lang="ja">アップロードされたファイルはありません</value>
         <value xml:lang="pt">Não há arquivos enviados</value>
         <value xml:lang="ro">Nici-un  fisier incarcat</value>
         <value xml:lang="th">ไม่มีไฟล์</value>

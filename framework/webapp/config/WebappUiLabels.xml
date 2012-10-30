@@ -25,6 +25,7 @@
         <value xml:lang="es">No se proporciono el parametro 'delegator'</value>
         <value xml:lang="fr">Le paramètre obligatoire 'delegator' n'a pas fonctionné.</value>
         <value xml:lang="it">Parametro 'delegator' richiesto non passato.</value>
+        <value xml:lang="ja">必要なパラメータ 'デリゲータ' が渡されませんでした。</value>
         <value xml:lang="ro">Parametru 'delegat' cerut ne trecut.</value>
         <value xml:lang="ru">Не передан обязательный параметр 'delegator'.</value>
         <value xml:lang="th">ความต้องการของตัวแปร 'delegator' ไม่ถูกต้อง
@@ -38,6 +39,7 @@
         <value xml:lang="es">Nombre del Context es nulo</value>
         <value xml:lang="fr">Le contexte du dispatch est irrecevable</value>
         <value xml:lang="it">Contesto Dispatch è nullo</value>
+        <value xml:lang="ja">ディスパッチ内容がnullです</value>
         <value xml:lang="ro">Continut Dispecer este nul</value>
         <value xml:lang="ru">Контекст диспетчера не имеет значения</value>
         <value xml:lang="th">รายละเอียดของสิ่งที่ส่งไปเป็นค่าว่าง
@@ -51,6 +53,7 @@
         <value xml:lang="es">Nombre del Dispatcher es nulo</value>
         <value xml:lang="fr">Le nom du dispatcher est irrecevable</value>
         <value xml:lang="it">Nome Dispatcher è nullo</value>
+        <value xml:lang="ja">ディスパッチ名称がnullです</value>
         <value xml:lang="ro">Nume Dispecer este nul</value>
         <value xml:lang="ru">Имя диспетчера не имеет значения</value>
         <value xml:lang="th">ชื่อของสิ่งที่ส่งไปเป็นค่าว่าง</value>
@@ -63,6 +66,7 @@
         <value xml:lang="es">El parametro 'dispatcher' no se transmitio</value>
         <value xml:lang="fr">le paramètre obligatoire 'dispatcher' n'a pas fonctionné</value>
         <value xml:lang="it">Parameter 'dispatcher' richiesto non passato</value>
+        <value xml:lang="ja">必要なパラメータ 'ディスパッチャ' が渡されませんでした。</value>
         <value xml:lang="ro">Parametru 'dispecer' cerut ne trecut</value>
         <value xml:lang="ru">Не передан обязательный параметр 'dispatcher'</value>
         <value xml:lang="th">ความต้องการของตัวแปร 'dispatcher' ไม่ถูกต้อง</value>
@@ -75,6 +79,7 @@
         <value xml:lang="es">Error al buscar el 'ModelService' del servicio</value>
         <value xml:lang="fr">Error looking up ModelService for serviceName </value>
         <value xml:lang="it">Errore nella ricerca di ModelService per serviceName</value>
+        <value xml:lang="ja">エラー: サービス名に対するモデルサービスが見つかりませんでした</value>
         <value xml:lang="ro">Eroare in cererea de ModelService pentru serviceName</value>
         <value xml:lang="ru">Не найден ModelService для serviceName</value>
         <value xml:lang="th">ผิดพลาด ! ในการค้นหา ModelService สำหรับ serviceName
@@ -88,6 +93,7 @@
         <value xml:lang="es">Formato invalido de cantidad de sevicio</value>
         <value xml:lang="fr">Format irrecevable pour SERVICE_COUNT</value>
         <value xml:lang="it">Formato invalido per SERVICE_COUNT</value>
+        <value xml:lang="ja">SERVICE_COUNTの書式が正しくありません</value>
         <value xml:lang="ro">Format invalid pentru SERVICE_COUNT</value>
         <value xml:lang="ru">Неверный формат SERVICE_COUNT</value>
         <value xml:lang="th">รูปแบบไม่ถูกต้องสำหรับ SERVICE_COUNT</value>
@@ -100,6 +106,7 @@
         <value xml:lang="es">Formato invalido de frecuencia de sevicio</value>
         <value xml:lang="fr">Format irrecevable pour SERIVCE_FREQUENCY</value>
         <value xml:lang="it">Formato invalido per SERIVCE_FREQUENCY</value>
+        <value xml:lang="ja">SERVICE_FREQUENCYの書式が正しくありません</value>
         <value xml:lang="ro">Format invalid pentru SERIVCE_FREQUENCY</value>
         <value xml:lang="ru">Неверный формат SERVICE_FREQUENCY</value>
         <value xml:lang="th">รูปแบบไม่ถูกต้องสำหรับ SERVICE_FREQUENCY</value>
@@ -112,6 +119,7 @@
         <value xml:lang="es">Formato invalido de intervalo de sevicio</value>
         <value xml:lang="fr">Format irrecevable pour SERVICE_INTERVAL</value>
         <value xml:lang="it">Formato invalido per SERVICE_INTERVAL</value>
+        <value xml:lang="ja">SERVICE_INTERVALの書式が正しくありません</value>
         <value xml:lang="ro">Format Invalid pentru SERVICE_INTERVAL</value>
         <value xml:lang="ru">Неверный формат SERVICE_INTERVAL</value>
         <value xml:lang="th">รูปแบบไม่ถูกต้องสำหรับ SERVICE_INTERVAL</value>
@@ -124,6 +132,7 @@
         <value xml:lang="es">Formato invalido de tiempo de sevicio</value>
         <value xml:lang="fr">Format irrecevable pour SERVICE_TIME</value>
         <value xml:lang="it">Formato invalido per SERVICE_TIME</value>
+        <value xml:lang="ja">SERVICE_TIMEの書式が正しくありません</value>
         <value xml:lang="ro">Format invalid pentru SERVICE_TIME</value>
         <value xml:lang="ru">Неверный формат SERVICE_TIME</value>
         <value xml:lang="th">รูปแบบไม่ถูกต้องสำหรับ SERVICE_TIME</value>
@@ -136,6 +145,7 @@
         <value xml:lang="es">Debe especificar nombre de servicio(además de: tiempo, frecuencia, intervalos y cantidad de servicios)</value>
         <value xml:lang="fr">Vous devez spécifier un 'SERVICE_NAME'. Les autres paramètres incluent : SERVICE_TIME, SERVICE_FREQUENCY, SERVICE_INTERVAL, SERVICE_COUNT</value>
         <value xml:lang="it">Tu devi specificare un 'SERVICE_NAME' (altri parametri inclusi: SERVICE_TIME, SERVICE_FREQUENCY, SERVICE_INTERVAL, SERVICE_COUNT)</value>
+        <value xml:lang="ja">'SERVICE_NAME'を指定してください (その他のパラメータも含みます: SERVICE_TIME, SERVICE_FREQUENCY, SERVICE_INTERVAL, SERVICE_COUNT)</value>
         <value xml:lang="ro">Trebbie sa specifici un 'SERVICE_NAME' (alti parametri inclusi: SERVICE_TIME, SERVICE_FREQUENCY, SERVICE_INTERVAL, SERVICE_COUNT)</value>
         <value xml:lang="ru">Вы должны указать 'SERVICE_NAME' (другие параметры: SERVICE_TIME, SERVICE_FREQUENCY, SERVICE_INTERVAL, SERVICE_COUNT)</value>
         <value xml:lang="th">คุณต้องระบุ 'SERVICE_NAME' (รวมถึงตัวแปรอื่น ๆ: SERVICE_TIME, SERVICE_FREQUENCY, SERVICE_INTERVAL, SERVICE_COUNT)</value>
@@ -148,6 +158,7 @@
         <value xml:lang="es">Debe especificar un nombre de servicio y opcionalmente el modo (síncrono o asíncrono, Síncrono por defecto)</value>
         <value xml:lang="fr">Vous devez spécifier un 'service Name', et optionnellement un mode (sync ou async, standard: sync)</value>
         <value xml:lang="it">Tu devi specificare un 'serviceName', e opzionalmente un 'mode' (sincrono o asincrono, defaults è sincrono)</value>
+        <value xml:lang="ja">'サービス名'を指定してください、オプションで'モード' (同期/非同期、デフォルトは同期)も指定できます</value>
         <value xml:lang="ro">Trebbie sa specifici un 'serviceName', si  optional un 'mod' (sincron sau asincron, de default este sincron)</value>
         <value xml:lang="ru">Вы должны указать 'serviceName', и не объязательно 'mode' (sync или async, обычное значение sync)</value>
         <value xml:lang="th">คุณต้องระบุ 'serviceName', และเลือก 'mode' (sync หรือ async, ค่ามาตรฐานถึง sync)</value>
@@ -160,6 +171,7 @@
         <value xml:lang="es">No se ha definido un delegator con ese nombre</value>
         <value xml:lang="fr">Aucun delegator défini par ce nom</value>
         <value xml:lang="it">Nessun delegator definito da questo nome</value>
+        <value xml:lang="ja">'サービス名'を指定してください、オプションで'モード' (同期/非同期、デフォルトは同期)も指定できます</value>
         <value xml:lang="ro">Nici-un delegat definit la acest nume</value>
         <value xml:lang="ru">Нет делегаторов определенных под таким именем</value>
         <value xml:lang="th">ไม่มีตัวแปรที่ระบุด้วยชื่อนี้
@@ -173,6 +185,7 @@
         <value xml:lang="es">No se ha registrado un dispachador con ese nombre</value>
         <value xml:lang="fr">Aucun dispatcher défini par ce nom</value>
         <value xml:lang="it">Nessun dispatcher con questo nome è stato registrato</value>
+        <value xml:lang="ja">指定した名称のディスパッチャが登録されていません</value>
         <value xml:lang="ro">Nu a fost inregistrat nici-un dispecer cu acest nume</value>
         <value xml:lang="ru">Нет диспетчеров зарегистрированных под таким именем</value>
         <value xml:lang="th">ไม่มีการส่งของด้วยชื่อที่ลงทะเบียนนี้
@@ -185,6 +198,7 @@
         <value xml:lang="en">No previous fields found in session</value>
         <value xml:lang="fr">Aucun champ précédent appartenant à la session</value>
         <value xml:lang="it">Nessun campo precedentemente trovato in questa sessione</value>
+        <value xml:lang="ja">セッションに前の項目が見つかりません</value>
         <value xml:lang="ru">Предыдущие поля в сессии не найдены</value>
         <value xml:lang="th">ไม่พบข้อมูลก่อนหน้านี้ใน session
         </value>
@@ -197,6 +211,7 @@
         <value xml:lang="es">Usten no está autorizada a invocar a este servicio, para lo cual debe contar con el permiso: SERVICE_INVOKE_ANY</value>
         <value xml:lang="fr">Vous n'êtes pas autorisé à appeler ce sercie non exporté, vous devez  être connecté et avoir l'autorisation du SERVICE_INVOKE_ANY.</value>
         <value xml:lang="it">Tu non sei autorizzato ad eseguire questo servizio non-esportato, tu devi essere autenticato e avere il permesso SERVICE_INVOKE_ANY</value>
+        <value xml:lang="ja">このサービスを呼び出す権限がありません。ログインして SERVICE_INVOKE_ANY 権限が必要です</value>
         <value xml:lang="ro">Nu esti autorizat sa chemi acest serviciu ne-exportat, trebuie sa fii autentificat si sa ai permisul SERVICE_INVOKE_ANY</value>
         <value xml:lang="ru">Вы не авторизированны для вызова этой не экспортируемой службы, вы должны быть зарегистрированным в системе и иметь права SERVICE_INVOKE_ANY</value>
         <value xml:lang="th">คุณไม่สามารถเรียก service ออกมาได้ คุณต้องเข้าสู่ระบบและได้รับอนุญาตจาก SERVICE_INVOKE_ANY ก่อน
@@ -210,6 +225,7 @@
         <value xml:lang="es">Usted no está autorizada a usar esta función</value>
         <value xml:lang="fr">Vous n'êtes pas autorisé à utiliser cette fonction</value>
         <value xml:lang="it">Tu non sei autorizzato ad usare questa funzione</value>
+        <value xml:lang="ja">この機能を使用する権限がありません</value>
         <value xml:lang="ro">Tu nu esti autorizat sa folosesti aceasta functie</value>
         <value xml:lang="ru">Вы не авторизированны для использования этой функции</value>
         <value xml:lang="th">คุณยังไม่ได้รับสิทธิ์ให้ใช้ฟังก์ชันนี้</value>
@@ -222,6 +238,7 @@
         <value xml:lang="es">Service dispatcher lanzo una excepción</value>
         <value xml:lang="fr">Le service dispatcher a envoyer une exception</value>
         <value xml:lang="it">Dispatcher servizio ha lanciato una eccezione</value>
+        <value xml:lang="ja">サービスディスパッチャが例外を投げました</value>
         <value xml:lang="ro">Dispeceratul de serviciu a lansat o exceptie</value>
         <value xml:lang="ru">Диспетчер служб вызвал исключение</value>
         <value xml:lang="th">Service dispatcher threw an exception</value>
@@ -234,6 +251,7 @@
         <value xml:lang="es">ServiceEventHandler lanzo una excepción</value>
         <value xml:lang="fr">Le ServiceEventHandler a envoyer une exception</value>
         <value xml:lang="it">ServiceEventHandler ha lanciato una eccezione</value>
+        <value xml:lang="ja">サービスイベントハンドラが例外を投げました</value>
         <value xml:lang="ro">ServiceEventHandler a lansat o exceptie</value>
         <value xml:lang="ru">ServiceEventHandler вызвал исключение</value>
         <value xml:lang="th">ข้อยกเว้นของ ServiceEventHandler</value>
@@ -246,6 +264,7 @@
         <value xml:lang="es">No se pudo encontrar un servicio con ese nombre</value>
         <value xml:lang="fr">Un service ne peut être trouvé par ce nom de service</value>
         <value xml:lang="it">Non è possibile trovare un servizio con serviceName</value>
+        <value xml:lang="ja">サービスが見つかりません、サービス名:</value>
         <value xml:lang="ro">Nu este posibila gasirea unui serviciu cu serviceName</value>
         <value xml:lang="ru">Не могу найти службу с serviceName</value>
         <value xml:lang="th">ไม่พบ service ด้วย serviceName นี้</value>
@@ -258,6 +277,7 @@
         <value xml:lang="es">El servicio a sido programado</value>
         <value xml:lang="fr">Le service a été planifié</value>
         <value xml:lang="it">Servizio è stato schedulato</value>
+        <value xml:lang="ja">サービスがスケジュールされました</value>
         <value xml:lang="ro">Serviciu a fost Planificat</value>
         <value xml:lang="ru">Служба запланирована</value>
         <value xml:lang="th">Service มีการทำรายการ</value>
@@ -270,6 +290,7 @@
         <value xml:lang="es">El tiempo de servicio a concluido</value>
         <value xml:lang="fr">SERVICE_TIME a déjà réussi </value>
         <value xml:lang="it">SERVICE_TIME è già stato passato</value>
+        <value xml:lang="ja">SERVICE_TIMEはすでに渡されています</value>
         <value xml:lang="ro">SERVICE_TIME a fost deja trecut</value>
         <value xml:lang="ru">SERVICE_TIME уже передан</value>
         <value xml:lang="th">SERVICE_TIME ผ่านเรียบร้อยแล้ว</value>
@@ -280,6 +301,7 @@
         <value xml:lang="en">This is the blocked message (to be adapted).</value>
         <value xml:lang="fr">Ceci est le message de bloquage (à adapter).</value>
         <value xml:lang="it">Questo è il messaggio bloccante (che deve essere adattato).</value>
+        <value xml:lang="ja">これはブロックされたメッセージです(適用してください)。</value>
         <value xml:lang="zh">这是(要被采用的)被阻塞的信息。</value>
         <value xml:lang="zh_TW">這是(要被採用的)被阻塞的資訊。</value>
     </property>
@@ -287,6 +309,7 @@
         <value xml:lang="en">This is the tarpitted message (to be adapted).</value>
         <value xml:lang="fr">Ceci est le message d'engluage (à adapter).</value>
         <value xml:lang="it">Questo è il messaggio (che deve essere adattato).</value>
+        <value xml:lang="ja">これは応答遅延メッセージです(適用してください)。</value>
         <value xml:lang="zh">这是(要被采用的)被延迟的信息。</value>
         <value xml:lang="zh_TW">這是(要被採用的)被延遲的資訊。</value>
     </property>
@@ -296,6 +319,7 @@
         <value xml:lang="es">Error en la llamada el evento</value>
         <value xml:lang="fr">Erreur lors de l'appel de l'événement</value>
         <value xml:lang="it">Errore esecuzione evento</value>
+        <value xml:lang="ja">エラー: イベント呼び出し</value>
         <value xml:lang="ro">Eroare la executia evenimentului</value>
         <value xml:lang="ru">Ошибка вызова события</value>
         <value xml:lang="th">เกิดความผิดพลาดในการเรียกเหตุการณ์</value>
@@ -305,6 +329,7 @@
     <property key="requestHandler.InsecureFormPostToSecureRequest">
         <value xml:lang="en">Not accepting insecure form data posted to a secure request</value>
         <value xml:lang="es">No permite enviarle un forma inseguro a un pedido seguro</value>
+        <value xml:lang="ja">セキュアなリクエストに対して送信された、インセキュアなフォームデータを受け付けることはできません</value>
         <value xml:lang="zh">不接受把不安全的表单数据提交到安全的请求</value>
         <value xml:lang="zh_TW">不接受把不安全的表單資料提交到安全的請求</value>
     </property>
@@ -314,6 +339,7 @@
         <value xml:lang="es">No se pudo completar el evento</value>
         <value xml:lang="fr">L'événement n'a pas pu être terminé</value>
         <value xml:lang="it">Non è possibile completare questo evento</value>
+        <value xml:lang="ja">イベントを完了できません</value>
         <value xml:lang="ro">Nu este posibila completarea acestui eveniment</value>
         <value xml:lang="ru">Не могу завершить событие</value>
         <value xml:lang="th">เหตุการณ์ยังไม่เสร็จสมบูรณ์</value>

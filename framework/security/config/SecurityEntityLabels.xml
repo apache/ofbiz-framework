@@ -22,12 +22,14 @@
     <property key="SecurityGroup.description.ASSETMAINTADMIN">
         <value xml:lang="en">Asset Maintenance Admin group, has all maintenance permissions.</value>
         <value xml:lang="it">Gruppo permesso manutenzione cespiti, ha tutti i permessi di manutenzione.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">资产维护管理组，具有全部维护权限。</value>
         <value xml:lang="zh_TW">資產維護管理組，具有全部維護權限。</value>
     </property>
     <property key="SecurityGroup.description.ASSETMAINTTECH">
         <value xml:lang="en">Asset Maintenance Technician group, has view and update.</value>
         <value xml:lang="it">Gruppo permesso manutenzione tecnica cespiti, ha i permessi di visualizzazione e aggiornamento.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">资产维护技术人员组，具有浏览和更新权限。</value>
         <value xml:lang="zh_TW">資產維護技術人員組，具有瀏覽和更新權限。</value>
     </property>
@@ -36,6 +38,7 @@
         <value xml:lang="es">Permisos completos para las Aplicaciones de Negocio, no posee permisos técnicos.</value>
         <value xml:lang="fr">Groupe à autorisation complète sur les applications de gestion : ayant toutes les autorisations d'administration des application de gestion, sans autorisations techniques.</value>
         <value xml:lang="it">Gruppo permesso applicazioni full busines, hai tutti i permessi amministratore sulle applicazioni, nessun permesso tecnico.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Полная группа прав 'Деловые приложения', содержит все права для администрирования деловых приложений, нет технических прав.</value>
         <value xml:lang="zh">全部商业应用程序权限组，具有全部商业应用程序管理权限，不是技术人员权限。</value>
         <value xml:lang="zh_TW">全部商業應用程式權限組，具有全部商業應用程式管理權限，不是技術人員權限。</value>
@@ -45,6 +48,7 @@
         <value xml:lang="es">Administrador del Catálogo, tiene todos los permisos de Catálogo.</value>
         <value xml:lang="fr">Groupe d'administration de catalogue, ayant toutes les autorisations sur le catalogue</value>
         <value xml:lang="it">Gruppo amministratore catalogo, ha tutti i permessi catalogo.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Группа 'Администратор каталога', содержит все права на каталог.</value>
         <value xml:lang="th">กลุ่มผู้ดูแลระบบหมวดหมู่, มีการอนุญาตหมวดหมู่ทั้งหมด.</value>
         <value xml:lang="zh">目录管理组，具有全部目录权限。</value>
@@ -55,6 +59,7 @@
         <value xml:lang="es">Administrador Limitado del Catálogo, tiene permisos limitados de Catálogo.</value>
         <value xml:lang="fr">Groupe d'administration limitée de catalogue, ayant des autorisations limitées sur le catalogue.</value>
         <value xml:lang="it">Gruppo limitato amministratore catalogo, ha limitati permessi catalogo.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Группа 'Ограниченный администратор каталога', содержит ограниченные права на каталог.</value>
         <value xml:lang="th">กลุ่มผู้ดูแลระบบหมวดหมู่จำกัด, มีการอนุญาตหมวดหมู่จำกัด.</value>
         <value xml:lang="zh">有限的目录管理组，具有有限的目录权限。</value>
@@ -63,6 +68,7 @@
     <property key="SecurityGroup.description.COMPDOCADMIN">
         <value xml:lang="en">CompDoc admin group, all permissions.</value>
         <value xml:lang="it">Gruppo permesso amministratore composizione documenti, ha tutti permessi di manutenzione.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">合成文档管理组，全部权限。</value>
         <value xml:lang="zh_TW">合成文檔管理組，全部權限。</value>
     </property>
@@ -71,6 +77,7 @@
         <value xml:lang="es">Grupo de usuarios de contenidos; todos los permisos de contenido limitados</value>
         <value xml:lang="fr">Groupe d'utilisateurs de contenu, toutes autorisations de contenu limitées.</value>
         <value xml:lang="it">Gruppo utenti contenuto; ha tutti i permessi limitati ai contenuti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">内容用户组；全部有限的内容权限。</value>
         <value xml:lang="zh_TW">內容用戶組；全部有限的內容權限。</value>
     </property>
@@ -79,6 +86,7 @@
         <value xml:lang="es">Permisos de Administración Flexible, posee todos los permisos granulares.</value>
         <value xml:lang="fr">Groupe d'administration flexible, ayant toutes les autorisations définies de manière granulaire.</value>
         <value xml:lang="it">Gruppo amministratore flessibile, ha tutti i permessi specificati.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Группа 'Гибкий администратор', содержит все гранулированные права.</value>
         <value xml:lang="th">Flexible Admin group, has all granular permissions.</value>
         <value xml:lang="zh">缓存管理组，具有全部颗粒的权限。</value>
@@ -89,6 +97,7 @@
         <value xml:lang="es">Permisos de Administración Completos, posee todos los permisos generales.</value>
         <value xml:lang="fr">Groupe d'administration totale, ayant toutes les autorisations.</value>
         <value xml:lang="it">Gruppo amministratore completo, ha tutti i permessi.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Группа 'Полный администратор', содержит все общие права.</value>
         <value xml:lang="th">Full Admin group, has all general permissions.</value>
         <value xml:lang="zh">完全管理组，具有全部通用权限。</value>
@@ -97,18 +106,21 @@
     <property key="SecurityGroup.description.MYPORTAL_CUSTOMER">
         <value xml:lang="en">Customer user of MYPORTAL, Limited access to own custRequests, and project</value>
         <value xml:lang="it">Utente di myportal, accesso limitato al proprietario delle richieste cliente, e progetti</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">我的门户客户用户，受限访问自己的客户请求，以及项目</value>
         <value xml:lang="zh_TW">我的門戶客戶用戶，受限訪問自己的客戶請求，以及專案</value>
     </property>
     <property key="SecurityGroup.description.MYPORTAL_EMPL-NOEML">
         <value xml:lang="en">Employee user of MYPORTAL, Limited access to the projectmgr and comms, custReq, no email</value>
         <value xml:lang="it">Utente impiegato di myportal, accesso limitato ai progetti e comunicazioni, richieste cliente, no email</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">我的门户雇员用户，受限访问项目管理以及沟通、客户请求，不包括电子邮件</value>
         <value xml:lang="zh_TW">我的門戶雇員用戶，受限訪問專案管理以及溝通、客戶請求，不包括電子郵件</value>
     </property>
     <property key="SecurityGroup.description.MYPORTAL_EMPLOYEE">
         <value xml:lang="en">Employee user of myportal, Limited access to the projectmgr, comms,custRequests</value>
         <value xml:lang="it">Utente impiegato di myportal, accesso limitato ai progetti e comunicazioni, richieste cliente</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">我的门户雇员用户，受限访问项目管理、沟通、客户请求</value>
         <value xml:lang="zh_TW">我的門戶雇員用戶，受限訪問專案管理、溝通、客戶請求</value>
     </property>
@@ -117,6 +129,7 @@
         <value xml:lang="es">Administrador de Órdenes, tiene todos los permisos de Órdenes.</value>
         <value xml:lang="fr">Groupe d'administration des commandes, ayant toutes les autorisations  sur les commandes.</value>
         <value xml:lang="it">Gruppo amministratore ordini, ha tutti i permessi ordini.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Группа 'Администратор заказов', содержит все права на заказ.</value>
         <value xml:lang="th">คำสั่งซื้อสินค้าของกลุ่มผู้ดูแลระบบ, มีการอนุญาตคำสั่งซื้อสินค้าทั้งหมด.</value>
         <value xml:lang="zh">订单管理组，具有全部订单权限。</value>
@@ -127,6 +140,7 @@
         <value xml:lang="es">Administrador Limitado de Órdenes, tiene permisos limitados de Órdenes.</value>
         <value xml:lang="fr">Groupe d'administration limité, ayant toutes les autorisations limitées sur les commandes.</value>
         <value xml:lang="it">Gruppo amministratore limitato ordini, ha tutti i permessi limitati ordini.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Группа 'Ограниченный администратор заказов', содержит все ограниченные права на заказ.</value>
         <value xml:lang="th">คำสั่งซื้อสินค้าจำกัดของกลุ่มผู้ดูแลระบบ, มีการอนุญาตคำสั่งซื้อสินค้าจำกัดทั้งหมด.</value>
         <value xml:lang="zh">受限的订单管理组，具有全部受限的订单权限。</value>
@@ -137,6 +151,7 @@
         <value xml:lang="es">Administrador de Entrada de Órdenes, tiene permisos para crear Órdenes.</value>
         <value xml:lang="fr">Groupe d'administration de saisie de commande,  autorisations pour créer des commandes.</value>
         <value xml:lang="it">Gruppo amministratore inserimento ordini, ha tutti i permessi per creare ordini.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Грппа 'Администратор ввода заказов'; права для создания заказов.</value>
         <value xml:lang="th">กลุ่มผู้ดูแลระบบกรอกข้อมูลคำสั่งซื้อสินค้า ; การอนุญาตสำหรับการสร้างคำสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单记录管理组；创建订单权限。</value>
@@ -147,6 +162,7 @@
         <value xml:lang="es">Permisos para entrada de Órdenes para todas las tiendas. No es necesario un rol especial.</value>
         <value xml:lang="fr">Autorisation de saisie de commande pour tous les centres de profit.  Aucun rôle spécial n'est nécessaire.</value>
         <value xml:lang="it">Gruppo amministratore inserimento ordini per tutti i negozi, nessun ruolo è necessario.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Права на ввод заказов для всех торговых точек. Специальные роли не требуются.</value>
         <value xml:lang="th">การอนุญาตการกรอกข้อมูลคำสั่งซื้อสินค้าสำหรับคลังทั้งหมด. ไม่มีสถานะพิเศษที่ต้องการ</value>
         <value xml:lang="zh">全部店铺的订单记录管理组。不需要特别的角色。</value>
@@ -157,6 +173,7 @@
         <value xml:lang="es">Administrador para procesamiento de Órdenes restringido.</value>
         <value xml:lang="fr">Groupe d'administration pour le traitement restreint de commande.</value>
         <value xml:lang="it">Gruppo amministratore con permessi ridotti all'avanzamento ordini.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Административная группа для ограниченной обработки заказов.</value>
         <value xml:lang="th">กลุ่มผู้ดูแลระบบสำหรับจำกัดการประมวลผลคำสั่งซื้อสินค้า</value>
         <value xml:lang="zh">管理组用于受限制的订单流程。</value>
@@ -167,6 +184,7 @@
         <value xml:lang="es">Entrada de Órdenes con permisos de compra.</value>
         <value xml:lang="fr">Saisie de commande avec autorisations d'achat.</value>
         <value xml:lang="it">Inserimento ordini con permessi acquisto ordini.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Ввод заказов с правами на закупку.</value>
         <value xml:lang="th">การกรอกข้อมูลคำสั่งซื้อสินค้าด้วยการอนุญาตการสั่งซื้อ</value>
         <value xml:lang="zh">具有采购权限的订单记录。</value>
@@ -177,6 +195,7 @@
         <value xml:lang="es">Administrador Limitado de Órdenes para Agentes Proveedores.</value>
         <value xml:lang="fr">Groupe d'administration de commande limitée pour les  fournisseurs</value>
         <value xml:lang="it">Gruppo amministratore ordini limitato per agenti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Группа 'Ограниченный администратор заказов' для Агентов поставщика.</value>
         <value xml:lang="th">คำสั่งซื้อสินค้าจำกัดขงกลุ่มผู้ดูแลระบบสำหรับตัวแทนผู้จัดหาสิ่งของ</value>
         <value xml:lang="zh">有限的订单管理组用于供货商。</value>
@@ -187,6 +206,7 @@
         <value xml:lang="es">Administrador de Entidades, tiene todos los permisos de Entidad.</value>
         <value xml:lang="fr">Groupe d'administration d'acteur, ayant toutes les autorisations sur les acteurs.</value>
         <value xml:lang="it">Gruppo amministratore soggetti, ha tutti i permessi soggetti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Группа 'Администратор участников', содержит все права на участников.</value>
         <value xml:lang="th">กลุ่มผู้ใช้กลุ่มผู้ดูแลระบบ , มีการอนุญาตกลุ่มผู้ใช้ทั้งหมด</value>
         <value xml:lang="zh">会员管理组，具有全部会员权限。</value>
@@ -197,6 +217,7 @@
         <value xml:lang="es">Cajero</value>
         <value xml:lang="fr">Employé POS</value>
         <value xml:lang="it">Impiegato POS</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Служащий POS</value>
         <value xml:lang="th">พนักงาน ณ.จุดขาย</value>
         <value xml:lang="zh">柜员机操作员</value>
@@ -205,12 +226,14 @@
     <property key="SecurityGroup.description.PROJECTADMIN">
         <value xml:lang="en">Project Admin group, has update access to own projects.</value>
         <value xml:lang="it">Gruppo permesso amministrazione progetti, ha accesso in aggiornamento come proprietario progetti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">项目管理组，具有对自己项目的更新权限。</value>
         <value xml:lang="zh_TW">專案管理組，具有對自己專案的更新權限。</value>
     </property>
     <property key="SecurityGroup.description.PROJECTUSER">
         <value xml:lang="en">Project User group, has read, task create/assign and timesheet create/update access to own projects.</value>
         <value xml:lang="it">Gruppo permesso utente progetti, può leggere, creare/assegnare compiti e creare/aggiornare timbrature accedere ai propri progetti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">项目用户组，具有对自己项目的读、任务创建/指派以及工单创建/更新权限。</value>
         <value xml:lang="zh_TW">專案用戶組，具有對自己專案的讀、任務創建/指派以及工單創建/更新權限。</value>
     </property>
@@ -219,6 +242,7 @@
         <value xml:lang="es">Grupo de administradores de seguridad, tiene todos los permisos para modificar ajustes de seguridad en el gestor de participantes.</value>
         <value xml:lang="fr">Groupe d'administration de sécurité, ayant toutes les autorisations pour modifier les paramètres de sécurité dans la gestion d'acteur.</value>
         <value xml:lang="it">Gruppo amministratore sicurezza, ha tutti i permessi per modificare le impostazioni sicurezza nella gestione soggetti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">安全管理组，具有在会员管理中修改安全设置的全部权限</value>
         <value xml:lang="zh_TW">安全管理組，具有在會員管理中修改安全設置的全部權限</value>
     </property>
@@ -227,6 +251,7 @@
         <value xml:lang="es">Demo de Administración, tiene todos los permisos de visualización.</value>
         <value xml:lang="fr">Groupe d'administration de démonstration, ayant toutes les autorisations de visualisation.</value>
         <value xml:lang="it">Gruppo amministratore demo, ha tutti i permessi in visualizzazione.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Группа 'Демо администратор', содержит все права на просмотр.</value>
         <value xml:lang="th">ตัวอย่างกลุ่มผู้ดูแลระบบ, มีการอนุญาตการแสดงทั้งหมด</value>
         <value xml:lang="zh">演示管理组，具有全部浏览权限。</value>
@@ -237,6 +262,7 @@
         <value xml:lang="es">Grupo de usuarios de esfuerzos de trabajo; todos los permisos de esfuerzo de trabajo limitados</value>
         <value xml:lang="fr">Groupe d'utilisateurs des tâches, toutes autorisations limitées sur les tâches.</value>
         <value xml:lang="it">Gruppo utente impiegno di lavoro, ha tutti i permessi limitati agli impegni di lavoro.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">人工服务用户组；全部受限的人工服务权限。</value>
         <value xml:lang="zh_TW">人工服務用戶組；全部受限的人工服務權限。</value>
     </property>
@@ -245,6 +271,7 @@
         <value xml:lang="es">Usar las páginas de Administración de Sincronización de Entidad.</value>
         <value xml:lang="fr">Utiliser les pages d'administration de synchronisation d'entités.</value>
         <value xml:lang="it">Usare le pagine di amministrazione per la sincronizzazione dei dati.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Использование страниц Администрирование синхронизации сущностей.</value>
         <value xml:lang="th">Use the Entity Sync Admin pages.</value>
         <value xml:lang="zh">使用实体同步管理页面。</value>
@@ -255,6 +282,7 @@
         <value xml:lang="es">TODAS las operaciones en las pantallas de Administración de Ejemplo.</value>
         <value xml:lang="fr">TOUTES les opérations dans les écrans d'exemples.</value>
         <value xml:lang="it">Tutte le operazioni nella gestione degli Esempio.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Все операции в приложении Управление примерами.</value>
         <value xml:lang="th">การทำงานทั้งหมดในหน้าจอการจัดการตัวอย่าง</value>
         <value xml:lang="zh">在样例管理屏中的全部操作。</value>
@@ -265,6 +293,7 @@
         <value xml:lang="es">Operaciones de Creación en las pantallas de Administración de Ejemplo.</value>
         <value xml:lang="fr">Opérations de création dans les écrans d'exemples</value>
         <value xml:lang="it">Operazioni di creazione nella gestione Esempi.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции создания в приложении Управление примерами.</value>
         <value xml:lang="th">สร้างการทำงานในหน้าจอการจัดการตัวอย่าง</value>
         <value xml:lang="zh">在样例管理屏中创建操作。</value>
@@ -275,6 +304,7 @@
         <value xml:lang="es">Operaciones de Eliminación en las pantallas de Administración de Ejemplo.</value>
         <value xml:lang="fr">Opérations de suppression dans les écrans d'exemples.</value>
         <value xml:lang="it">Operazioni di cancellazione nella gestione Esempi.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции удаления в приложении Управление примерами.</value>
         <value xml:lang="th">ลบการทำงานในหน้าจอการจัดการตัวอย่าง</value>
         <value xml:lang="zh">在样例管理屏中删除操作。</value>
@@ -285,6 +315,7 @@
         <value xml:lang="es">Operaciones de Actualización en las pantallas de Administración de Ejemplo.</value>
         <value xml:lang="fr">Opérations de mise à jour dans les écrans d'exemples.</value>
         <value xml:lang="it">Operazioni di aggiornamento nella gestione Esempi.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции обновления в приложении Управление примерами.</value>
         <value xml:lang="th">อัพเดทการทำงานในหน้าจอการจัดการตัวอย่าง</value>
         <value xml:lang="zh">在样例管理屏中更新操作。</value>
@@ -295,6 +326,7 @@
         <value xml:lang="es">Operaciones de Visualización en las pantallas de Administración de Ejemplo.</value>
         <value xml:lang="fr">Voir les opérations dans les écrans d'exemples.</value>
         <value xml:lang="it">Operazioni di visualizzazione nella gestione Esempi.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции просмотра в приложении Управление примерами.</value>
         <value xml:lang="th">แสดงการทำงานในหน้าจอการจัดการตัวอย่าง</value>
         <value xml:lang="zh">在样例管理屏中浏览操作。</value>
@@ -305,6 +337,7 @@
         <value xml:lang="es">TODAS las operaciones en el Administrador de Contabilidad.</value>
         <value xml:lang="fr">TOUTES les opérations dans la gestion de comptabilité.</value>
         <value xml:lang="it">Tutte le operazioni nella gestione della contabilità.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Все операции в приложении Управление учетом.</value>
         <value xml:lang="th">การทำงานทั้งหมดในการจัดการบัญชี</value>
         <value xml:lang="zh">在财务管理中的全部操作。</value>
@@ -315,6 +348,7 @@
         <value xml:lang="es">Ver tasas de comisión.</value>
         <value xml:lang="fr">Voir les taux de commission.</value>
         <value xml:lang="it">Visualizzazione percentuali commissioni.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Просмотр ставок комиссионных.</value>
         <value xml:lang="th">แสดงอัตราค่าคอมมิชชัน</value>
         <value xml:lang="zh">浏览佣金比例。</value>
@@ -325,6 +359,7 @@
         <value xml:lang="es">Operaciones de Creación en el Administrador de Contabilidad.</value>
         <value xml:lang="fr">Opérations de création dans la gestion de comptabilité.</value>
         <value xml:lang="it">Operazioni di creazione nella gestione della contabilità.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции создания в приложении Управление учетом.</value>
         <value xml:lang="th">สร้างการทำงานในการจัดการบัญชี</value>
         <value xml:lang="zh">在财务管理中创建操作。</value>
@@ -335,6 +370,7 @@
         <value xml:lang="es">Operaciones de Eliminación en el Administrador de Contabilidad.</value>
         <value xml:lang="fr">Opérations de suppression dans la gestion de comptabilité.</value>
         <value xml:lang="it">Operazioni di cancellazione nella gestione della contabilità.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции удаления в приложении Управление учетом.</value>
         <value xml:lang="th">ลบการทำงานในการจัดการบัญชี</value>
         <value xml:lang="zh">在财务管理中删除操作。</value>
@@ -345,6 +381,7 @@
         <value xml:lang="es">Imprimir cheques.</value>
         <value xml:lang="fr">Imprimer les chèques.</value>
         <value xml:lang="it">Stampa degli assegni.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Печать чеков.</value>
         <value xml:lang="th">ตรวจสอบการพิมพ์</value>
         <value xml:lang="zh">打印支票。</value>
@@ -355,6 +392,7 @@
         <value xml:lang="es">Operaciones de Actualización en el Administrador de Contabilidad.</value>
         <value xml:lang="fr">Metre à jour les opérations dans la gestion de comptabilité.</value>
         <value xml:lang="it">Operazioni di aggiornamento nella gestione della contabilità.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции обновления в приложении Управление учетом.</value>
         <value xml:lang="th">อัพเดทการทำงานในการจัดการบัญชี</value>
         <value xml:lang="zh">在财务管理中更新操作。</value>
@@ -365,6 +403,7 @@
         <value xml:lang="es">Operaciones de Visualización en el Administrador de Contabilidad.</value>
         <value xml:lang="fr">Voir les opérations dans la gestion de comptabilité.</value>
         <value xml:lang="it">Operazioni di visualizzazione nella gestione della contabilità.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции просмотра в приложении Управление учетом.</value>
         <value xml:lang="th">แสดงการทำงานในการจัดการบัญชี</value>
         <value xml:lang="zh">财务管理中浏览操作。</value>
@@ -373,6 +412,7 @@
     <property key="SecurityPermission.description.ACCTG_ATX_ADMIN">
         <value xml:lang="en">ALL operations involving general ledger accounting transactions and entries.</value>
         <value xml:lang="it">Tutte le operazioni che coinvolgono transazioni e voci di contabilità</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">涉及总账账户交易和记录的全部操作。</value>
         <value xml:lang="zh_TW">涉及總賬賬戶交易和記錄的全部操作。</value>
     </property>
@@ -381,6 +421,7 @@
         <value xml:lang="es">Creación de transacciones y entradas de contabilidad de libro mayor.</value>
         <value xml:lang="fr">Créer les transactions et entrées du registre général de comptabilité.</value>
         <value xml:lang="it">Creazione delle transazioni nella contabilità generale.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Создание проводок и занесений главной книги.</value>
         <value xml:lang="th">สร้างรายการบัญชีแยกประเภททั่วไปและสิทธิในการเข้า</value>
         <value xml:lang="zh">创建总账账户交易和记录。</value>
@@ -391,6 +432,7 @@
         <value xml:lang="es">Eliminar transacciones y entradas de contabilidad de libro mayor.</value>
         <value xml:lang="fr">Supprimer les transactions et entrées du registre général de comptabilité.</value>
         <value xml:lang="it">Eliminare le transazioni nella contabilità generale.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Удаление проводок и занесений главной книги.</value>
         <value xml:lang="th">ลบรายการบัญชีแยกประเภททั่วไปและสิทธิในการเข้า</value>
         <value xml:lang="zh">删除总账账户交易和记录。</value>
@@ -401,6 +443,7 @@
         <value xml:lang="es">Publicar transacciones de contabilidad de libro mayor.</value>
         <value xml:lang="fr">Publier les transactions du registre général de comptabilité.</value>
         <value xml:lang="it">Contabilizzare le transazioni nella contabilità generale.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Использование бухгалтерских проводок главной книги.</value>
         <value xml:lang="th">ประกาศรายการบัญชีแยกประเภททั่วไป</value>
         <value xml:lang="zh">过账总账账户交易和记录。</value>
@@ -411,6 +454,7 @@
         <value xml:lang="es">Actualizar transacciones y entradas de contabilidad de libro mayor.</value>
         <value xml:lang="fr">Mettre à jour les transactions du registre général de comptabilité.</value>
         <value xml:lang="it">Aggiornare le transazioni nella contabilità generale.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Обновление проводок и занесений главной книги.</value>
         <value xml:lang="th">อัพเดทรายการบัญชีแยกประเภททั่วไปและสิทธิในการเข้า</value>
         <value xml:lang="zh">更新总账账户交易和记录。</value>
@@ -419,6 +463,7 @@
     <property key="SecurityPermission.description.ACCTG_ATX_VIEW">
         <value xml:lang="en">View general ledger accounting transaction and entries.</value>
         <value xml:lang="it">Visualizzare le transazioni nella contabilità generale.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">浏览总账账户交易和记录。</value>
         <value xml:lang="zh_TW">瀏覽總賬賬戶交易和記錄。</value>
     </property>
@@ -427,6 +472,7 @@
         <value xml:lang="es">Establecer tasas de cambio de divisa.</value>
         <value xml:lang="fr">Fixer les taux de devises étrangères.</value>
         <value xml:lang="it">Impostare i valori cambio valuta.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Устанавливать курсы иностранных валют.</value>
         <value xml:lang="th">กำหนดอัตราการปริวรรตเงินตรา</value>
         <value xml:lang="zh">设置外汇汇率。</value>
@@ -435,6 +481,7 @@
     <property key="SecurityPermission.description.ACCTG_PREF_ADMIN">
         <value xml:lang="en">ALL organization accounting preferences operations</value>
         <value xml:lang="it">Tutte le operazioni nelle preferenze di contabilità.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">所有机构账户设置操作</value>
         <value xml:lang="zh_TW">所有機構賬戶設置操作</value>
     </property>
@@ -443,6 +490,7 @@
         <value xml:lang="es">Establecer preferencias contables de la organización.</value>
         <value xml:lang="fr">Définir les préférences d'organisation de comptabilité.</value>
         <value xml:lang="it">Impostare le preferenze di contabilità per l'organizzazione.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Устанавливать учетные параметры организации.</value>
         <value xml:lang="th">กำหนดสิทธิพิเศษให้บัญชีขององค์กร</value>
         <value xml:lang="zh">设置机构账户设置</value>
@@ -451,54 +499,63 @@
     <property key="SecurityPermission.description.ACCTG_PREF_DELETE">
         <value xml:lang="en">Delete organization accounting preferences</value>
         <value xml:lang="it">Operazioni di cancellazione nelle preferenze di contabilità.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">删除机构账户设置</value>
         <value xml:lang="zh_TW">刪除機構賬戶設置</value>
     </property>
     <property key="SecurityPermission.description.ACCTG_PREF_UPDATE">
         <value xml:lang="en">Update organization accounting preferences</value>
         <value xml:lang="it">Operazioni di aggiornamento nelle preferenze di contabilità.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">更新机构账户设置</value>
         <value xml:lang="zh_TW">更新機構賬戶設置</value>
     </property>
     <property key="SecurityPermission.description.ACCTG_PREF_VIEW">
         <value xml:lang="en">View organization accounting preferences</value>
         <value xml:lang="it">Operazioni di visualizzazione nelle preferenze di contabilità.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">浏览机构账户设置</value>
         <value xml:lang="zh_TW">瀏覽機構賬戶設置</value>
     </property>
     <property key="SecurityPermission.description.ARTIFACT_INFO_VIEW">
         <value xml:lang="en">View the Artifact Info pages.</value>
         <value xml:lang="it">Visualizzazione pagine informazioni artifatti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">浏览人工制品信息页面。</value>
         <value xml:lang="zh_TW">瀏覽人工制品資訊頁面。</value>
     </property>
     <property key="SecurityPermission.description.ASSETMAINT_ADMIN">
         <value xml:lang="en">ALL Asset Maintenance operations.</value>
         <value xml:lang="it">Tutte le operazioni per la gestione cespiti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">全部资产维护操作。</value>
         <value xml:lang="zh_TW">全部資產維護操作。</value>
     </property>
     <property key="SecurityPermission.description.ASSETMAINT_CREATE">
         <value xml:lang="en">Asset Maintenance Create operations.</value>
         <value xml:lang="it">Operazioni di creazione per la gestione cespiti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">资产维护创建操作。</value>
         <value xml:lang="zh_TW">資產維護創建操作。</value>
     </property>
     <property key="SecurityPermission.description.ASSETMAINT_DELETE">
         <value xml:lang="en">Asset Maintenance Delete operations.</value>
         <value xml:lang="it">Operazioni di cancellazione per la gestione cespiti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">资产维护删除操作。</value>
         <value xml:lang="zh_TW">資產維護刪除操作。</value>
     </property>
     <property key="SecurityPermission.description.ASSETMAINT_UPDATE">
         <value xml:lang="en">Asset Maintenance Update operations.</value>
         <value xml:lang="it">Operazioni di aggiornamento per la gestione cespiti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">资产维护更新操作。</value>
         <value xml:lang="zh_TW">資產維護更新操作。</value>
     </property>
     <property key="SecurityPermission.description.ASSETMAINT_VIEW">
         <value xml:lang="en">Asset Maintenance View permission.</value>
         <value xml:lang="it">Operazioni di visualizzazione per la gestione cespiti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">资产维护浏览权限。</value>
         <value xml:lang="zh_TW">資產維護瀏覽權限。</value>
     </property>
@@ -507,6 +564,7 @@
         <value xml:lang="es">TODAS las operaciones en el Administrador del Catálogo.</value>
         <value xml:lang="fr">TOUTES opérations en gestion de catalogue.</value>
         <value xml:lang="it">Tutte le operazioni nella gestione cataloghi.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Все операции в приложении Управление каталогом продуктов.</value>
         <value xml:lang="th">การทำงานทั้งหมดในการจัดการหมวดหมู่</value>
         <value xml:lang="zh">目录管理中的全部操作。</value>
@@ -517,6 +575,7 @@
         <value xml:lang="es">Operaciones de Creación en el Administrador del Catálogo.</value>
         <value xml:lang="fr">Opérations de création en gestion de catalogue.</value>
         <value xml:lang="it">Operazioni di creazione nella gestione cataloghi.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции создания в приложении Управление каталогом продуктов.</value>
         <value xml:lang="th">สร้างการทำงานในการจัดการหมวดหมู่</value>
         <value xml:lang="zh">目录管理中的创建操作。</value>
@@ -527,6 +586,7 @@
         <value xml:lang="es">Operaciones de Eliminación en el Administrador del Catálogo.</value>
         <value xml:lang="fr">Opérations de suppression en gestion de catalogue.</value>
         <value xml:lang="it">Operazioni di cancellazione nella gestione cataloghi.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции удаления в приложении Управление каталогом продуктов.</value>
         <value xml:lang="th">ลบการทำงานในการจัดการหมวดหมู่</value>
         <value xml:lang="zh">目录管理中的删除操作。</value>
@@ -537,6 +597,7 @@
         <value xml:lang="es">Se requiere un permiso, además de otros permisos aplicables, para mantener la información de precios de productos incluyendo, precios, promociones y reglas de precios.</value>
         <value xml:lang="fr">Autorisation exigée, en plus d'autres autorisations applicables, pour mettre à jour l'information sur les prix de produit, comprenant des prix, des promotions, et des règles de prix.</value>
         <value xml:lang="it">Permesso richiesto, in aggiunya agli altri permessi applicabili, per manutenere le informazioni sui prezzi prodotti, promozioni, e regole prezzi.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Дополнительные права для редактирования ценовой информации, включая цены, акции и правила ценообразования.</value>
         <value xml:lang="th">ต้องการการอนุญาต, ในการเพิ่มถึงการอนุญาตการปฏิบัติอื่น ๆ, ถึงการรักษาราคาสินค้าข้อมูลการรวมราคา,โปรโมชัน,และข้อบังคับราคา</value>
         <value xml:lang="zh">需要权限，除了其它可用的权限，还要能维护产品价格、促销和价格规则。</value>
@@ -545,6 +606,7 @@
     <property key="SecurityPermission.description.CATALOG_PURCHASE_ALLOW">
         <value xml:lang="en">Allow create/update of 'Purchase Allow' in the Catalog Manager.</value>
         <value xml:lang="it">Permetti la creazione/aggiornamento di gestione cataloghi di 'Permetti acquisto'.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">目录管理中“允许采购”的允许创建/更新。</value>
         <value xml:lang="zh_TW">目錄管理中『允許採購』的允許創建/更新。</value>
     </property>
@@ -553,6 +615,7 @@
         <value xml:lang="es">Operaciones de Creación Limitadas en el Administrador del Catálogo.</value>
         <value xml:lang="fr">Opérations de création limitée en gestion de catalogue.</value>
         <value xml:lang="it">Operazioni di creazione limitata nella gestione cataloghi.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Ограниченные права на операции создания в приложении Управление каталогом продуктов.</value>
         <value xml:lang="th">ขอบเขตการสร้างการทำงานในการจัดการหมวดหมู่</value>
         <value xml:lang="zh">目录管理中有限的创建操作。</value>
@@ -563,6 +626,7 @@
         <value xml:lang="es">Operaciones de Eliminación Limitadas en el Administrador del Catálogo.</value>
         <value xml:lang="fr">Opérations de suppression limitée en gestion de catalogue.</value>
         <value xml:lang="it">Operazioni di cancellazione limitata nella gestione cataloghi.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Ограниченные права на операции удаления в приложении Управление каталогом продуктов.</value>
         <value xml:lang="th">ขอบเขตการลบการทำงานในการจัดการหมวดหมู่</value>
         <value xml:lang="zh">目录管理中有限的删除操作。</value>
@@ -573,6 +637,7 @@
         <value xml:lang="es">Operaciones de Actualización Limitadas en el Administrador del Catálogo.</value>
         <value xml:lang="fr">Opérations de mise à jour limitée en gestion de catalogue.</value>
         <value xml:lang="it">Operazioni di aggiornamento limitata nella gestione cataloghi.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Ограниченные права на операции обновления в приложении Управление каталогом продуктов.</value>
         <value xml:lang="th">ขอบเขตการอัพเดทการทำงานในการจัดการหมวดหมู่</value>
         <value xml:lang="zh">目录管理中有限的更新操作。</value>
@@ -583,6 +648,7 @@
         <value xml:lang="es">Operaciones de Actualización en el Administrador del Catálogo.</value>
         <value xml:lang="fr">Opérations de mise à jour en gestion de catalogue.</value>
         <value xml:lang="it">Operazioni di aggiornamento nella gestione cataloghi.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции обновления в приложении Управление каталогом продуктов.</value>
         <value xml:lang="th">การอัพเดทการทำงานในการจัดการหมวดหมู่</value>
         <value xml:lang="zh">目录管理中的更新操作。</value>
@@ -593,6 +659,7 @@
         <value xml:lang="es">Operaciones de Visualización en el Administrador del Catálogo.</value>
         <value xml:lang="fr">Opérations de visualisation en gestion de catalogue.</value>
         <value xml:lang="it">Operazioni di visualizzazione nella gestione cataloghi.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции просмотра в приложении Управление каталогом продуктов.</value>
         <value xml:lang="th">การแสดงการทำงานในการจัดการหมวดหมู่</value>
         <value xml:lang="zh">目录管理中的浏览操作。</value>
@@ -601,30 +668,35 @@
     <property key="SecurityPermission.description.CATALOG_VIEW_ALLOW">
         <value xml:lang="en">Allow create/update of 'View Allow' in the Catalog Manager.</value>
         <value xml:lang="it">Permetti la creazione/aggiornamento di gestione cataloghi di 'Visualizzazione permessa'.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">目录管理中“允许浏览”的允许创建/更新。</value>
         <value xml:lang="zh_TW">目錄管理中『允許瀏覽』的允許創建/更新。</value>
     </property>
     <property key="SecurityPermission.description.COMMON_CREATE">
         <value xml:lang="en">Create operations in the Common Component.</value>
         <value xml:lang="it">Operazioni di creazione nel componente Common.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">通用组件中的创建操作。</value>
         <value xml:lang="zh_TW">通用元件中的創建操作。</value>
     </property>
     <property key="SecurityPermission.description.COMMON_DELETE">
         <value xml:lang="en">Delete operations in the Common Component.</value>
         <value xml:lang="it">Operazioni di cancellazione nel componente Common.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">通用组件中的删除操作。</value>
         <value xml:lang="zh_TW">通用元件中的刪除操作。</value>
     </property>
     <property key="SecurityPermission.description.COMMON_UPDATE">
         <value xml:lang="en">Update operations in the Common Component.</value>
         <value xml:lang="it">Operazioni di aggiornamento nel componente Common.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">通用组件中的更新操作。</value>
         <value xml:lang="zh_TW">通用元件中的更新操作。</value>
     </property>
     <property key="SecurityPermission.description.COMMON_VIEW">
         <value xml:lang="en">View operations in the Common Component.</value>
         <value xml:lang="it">Operazioni di visualizzazione nel componente Common.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">通用组件中的浏览操作。</value>
         <value xml:lang="zh_TW">通用元件中的瀏覽操作。</value>
     </property>
@@ -633,6 +705,7 @@
         <value xml:lang="es">TODAS las operaciones en el Administrador de Contenido.</value>
         <value xml:lang="fr">TOUTES les opérations en gestion de catalogue.</value>
         <value xml:lang="it">Tutte le operazioni nella gestione contenuti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Все операции в приложении Управление контентом.</value>
         <value xml:lang="th">การทำงานทั้งหมดในการจัดการหัวข้อ</value>
         <value xml:lang="zh">内容管理中的全部操作。</value>
@@ -643,6 +716,7 @@
         <value xml:lang="es">Operaciones de Creación en el Administrador de Contenido.</value>
         <value xml:lang="fr">Création d'opérations en gestion de catalogue.</value>
         <value xml:lang="it">Operazioni di creazione nella gestione contenuti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции создания в приложении Управление каталогом продуктов.</value>
         <value xml:lang="th">การสร้างการทำงานในการจัดการหัวข้อ</value>
         <value xml:lang="zh">内容管理中的创建操作。</value>
@@ -653,6 +727,7 @@
         <value xml:lang="es">Operaciones de Eliminación en el Administrador de Contenido.</value>
         <value xml:lang="fr">Suppression d'opérations en gestion de catalogue.</value>
         <value xml:lang="it">Operazioni di cancellazione nella gestione contenuti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции удаления в приложении Управление каталогом продуктов.</value>
         <value xml:lang="th">การลบการทำงานในการจัดการหัวข้อ</value>
         <value xml:lang="zh">内容管理中的删除操作。</value>
@@ -661,24 +736,28 @@
     <property key="SecurityPermission.description.CONTENTMGR_ROLE_CREATE">
         <value xml:lang="en">Limited Create operations in the Content Manager.</value>
         <value xml:lang="it">Operazioni limitate di creazione nella gestione contenuti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">内容管理中有限的创建操作。</value>
         <value xml:lang="zh_TW">內容管理中有限的創建操作。</value>
     </property>
     <property key="SecurityPermission.description.CONTENTMGR_ROLE_DELETE">
         <value xml:lang="en">Limited Delete operations in the Content Manager.</value>
         <value xml:lang="it">Operazioni limitate di cancellazione nella gestione contenuti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">内容管理中有限的删除操作。</value>
         <value xml:lang="zh_TW">內容管理中有限的刪除操作。</value>
     </property>
     <property key="SecurityPermission.description.CONTENTMGR_ROLE_UPDATE">
         <value xml:lang="en">Limited Update operations in the Content Manager.</value>
         <value xml:lang="it">Operazioni limitate di aggiornamento nella gestione contenuti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">内容管理中有限的更新操作。</value>
         <value xml:lang="zh_TW">內容管理中有限的更新操作。</value>
     </property>
     <property key="SecurityPermission.description.CONTENTMGR_ROLE_VIEW">
         <value xml:lang="en">Limited View operations in the Content Manager.</value>
         <value xml:lang="it">Operazioni limitate di visualizzazione nella gestione contenuti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">内容管理中有限的浏览操作。</value>
         <value xml:lang="zh_TW">內容管理中有限的瀏覽操作。</value>
     </property>
@@ -687,6 +766,7 @@
         <value xml:lang="es">Operaciones de Actualización en el Administrador de Contenido.</value>
         <value xml:lang="fr">Mise à jour d'opérations en gestion de catalogue.</value>
         <value xml:lang="it">Operazioni di aggiornamento nella gestione contenuti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции обновления в приложении Управление каталогом продуктов.</value>
         <value xml:lang="th">การอัพเดทการทำงานในการจัดการหัวข้อ</value>
         <value xml:lang="zh">内容管理中的更新操作。</value>
@@ -697,6 +777,7 @@
         <value xml:lang="es">Operaciones de Visualización en el Administrador de Contenido.</value>
         <value xml:lang="fr">Visualisation d'opérations en gestion de catalogue.</value>
         <value xml:lang="it">Operazioni di visualizzazione nella gestione contenuti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции просмотра в приложении Управление каталогом продуктов.</value>
         <value xml:lang="th">การแสดงการทำงานในการจัดการหัวข้อ</value>
         <value xml:lang="zh">内容管理中的浏览操作。</value>
@@ -707,6 +788,7 @@
         <value xml:lang="es">Usar las páginas de Mantenimiento de Archivos de Datos.</value>
         <value xml:lang="fr">Utiliser les pages de maintenance du fichier de données.</value>
         <value xml:lang="it">Usare le pagine di gestione file dati.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Использование страниц Обслуживание файлов данных.</value>
         <value xml:lang="th">ใช้ไฟล์ข้อมูลในหน้าการบำรุงรักษา</value>
         <value xml:lang="zh">使用数据文件维护页面。</value>
@@ -715,6 +797,7 @@
     <property key="SecurityPermission.description.EBAY_VIEW">
         <value xml:lang="en">View operations in the eBay application.</value>
         <value xml:lang="it">Operazioni di visualizzazione nell'applicazione eBay.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">EBay应用程序中的浏览操作。</value>
         <value xml:lang="zh_TW">EBay應用程式中的瀏覽操作。</value>
     </property>
@@ -723,6 +806,7 @@
         <value xml:lang="es">TODO dentro de las páginas de Mantenimiento de Datos de Entidad.</value>
         <value xml:lang="fr">TOUT avec les pages de maintenance des données d'entité.</value>
         <value xml:lang="it">Tutte le pagine nella gestione dei dati entità.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Все права для страниц Обслуживание файлов данных.</value>
         <value xml:lang="th">ทั้งหมดด้วยหน้าการบำรุงรักษาข้อมูลเอนทิตี</value>
         <value xml:lang="zh">全部具有实体数据维护的页面。</value>
@@ -733,6 +817,7 @@
         <value xml:lang="es">Creación con las páginas de Mantenimiento de Datos de Entidad.</value>
         <value xml:lang="fr">Créer avec les pages de maintenance des données d'entité.</value>
         <value xml:lang="it">Pagine per creare dati entità.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Создание для страниц Обслуживание данных сущностей.</value>
         <value xml:lang="th">สร้างด้วยหน้าการบำรุงรักษาข้อมูลเอนทิตี</value>
         <value xml:lang="zh">具有实体数据维护页面的创建。</value>
@@ -743,6 +828,7 @@
         <value xml:lang="es">Eliminación con las páginas de Mantenimiento de Datos de Entidad.</value>
         <value xml:lang="fr">Supprimer avec les pages de maintenance des données d'entité.</value>
         <value xml:lang="it">Pagine per eliminare dati entità.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Удаление для страниц Обслуживание данных сущностей.</value>
         <value xml:lang="th">ลบด้วยหน้าการบำรุงรักษาข้อมูลเอนทิตี</value>
         <value xml:lang="zh">具有实体数据维护页面的删除。</value>
@@ -753,6 +839,7 @@
         <value xml:lang="es">Actualización con las páginas de Mantenimiento de Datos de Entidad.</value>
         <value xml:lang="fr">Mettre à jour avec les pages de maintenance des données d'entité.</value>
         <value xml:lang="it">Pagine per aggiornare dati entità.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Обновление для страниц Обслуживание данных сущностей.</value>
         <value xml:lang="th">อัพเดทด้วยหน้าการบำรุงรักษาข้อมูลเอนทิตี</value>
         <value xml:lang="zh">具有实体数据维护页面的更新。</value>
@@ -763,6 +850,7 @@
         <value xml:lang="es">Visualización con las páginas de Mantenimiento de Datos de Entidad.</value>
         <value xml:lang="fr">Visualiser avec les pages de maintenance des données d'entité.</value>
         <value xml:lang="it">Pagine per visualizzare dati entità.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Просмотр для страниц  Обслуживание данных сущностей.</value>
         <value xml:lang="th">แสดงด้วยหน้าการบำรุงรักษาข้อมูลเอนทิตี</value>
         <value xml:lang="zh">具有实体数据维护页面的浏览。</value>
@@ -773,6 +861,7 @@
         <value xml:lang="es">Usar las páginas de Mantenimiento de Datos de Entidad.</value>
         <value xml:lang="fr">Utiliser les pages de maintenance d'entité.</value>
         <value xml:lang="it">Pagine per gestire le entità.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Использование страниц Обслуживание данных сущностей.</value>
         <value xml:lang="th">ใช้หน้าการรักษาสภาพเอนทิตี</value>
         <value xml:lang="zh">使用实体数据维护页面。</value>
@@ -781,6 +870,7 @@
     <property key="SecurityPermission.description.ENTITY_SYNC_ADMIN">
         <value xml:lang="en">Use the Entity Sync Admin pages.</value>
         <value xml:lang="it">Usare le pagine di amministrazione sincronizzazione entità.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">使用实体同步管理页面。</value>
         <value xml:lang="zh_TW">使用實體同步管理頁面。</value>
     </property>
@@ -789,6 +879,7 @@
         <value xml:lang="es">Usar las páginas de Mantenimiento de Enumeraciones y Estados.</value>
         <value xml:lang="fr">Utiliser les pages de maintenance de statut et énumération.</value>
         <value xml:lang="it">Pagine per gestire enumerazioni e stati.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Использование страниц Обслуживание перечеслений и статусов.</value>
         <value xml:lang="th">Use the Enum and Status Maintenance pages.</value>
         <value xml:lang="zh">使用枚举和状态维护页面。</value>
@@ -797,30 +888,35 @@
     <property key="SecurityPermission.description.EXAMPLE_ADMIN">
         <value xml:lang="en">ALL operations in the Example Management Screens.</value>
         <value xml:lang="it">Tutte le operazioni di gestione esempi.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">样例管理屏中的全部操作。</value>
         <value xml:lang="zh_TW">樣例管理屏中的全部操作。</value>
     </property>
     <property key="SecurityPermission.description.EXAMPLE_CREATE">
         <value xml:lang="en">Create operations in the Example Management Screens.</value>
         <value xml:lang="it">Operazioni di creazione nella gestione esempi.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">样例管理屏中的创建操作。</value>
         <value xml:lang="zh_TW">樣例管理屏中的創建操作。</value>
     </property>
     <property key="SecurityPermission.description.EXAMPLE_DELETE">
         <value xml:lang="en">Delete operations in the Example Management Screens.</value>
         <value xml:lang="it">Operazioni di cancellazione nella gestione esempi.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">样例管理屏中的删除操作。</value>
         <value xml:lang="zh_TW">樣例管理屏中的刪除操作。</value>
     </property>
     <property key="SecurityPermission.description.EXAMPLE_UPDATE">
         <value xml:lang="en">Update operations in the Example Management Screens.</value>
         <value xml:lang="it">Operazioni di aggiornamento nella gestione esempi.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">样例管理屏中的更新操作。</value>
         <value xml:lang="zh_TW">樣例管理屏中的更新操作。</value>
     </property>
     <property key="SecurityPermission.description.EXAMPLE_VIEW">
         <value xml:lang="en">View operations in the Example Management Screens.</value>
         <value xml:lang="it">Operazioni di visualizzazione nella gestione esempi.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">样例管理屏中的浏览操作。</value>
         <value xml:lang="zh_TW">樣例管理屏中的瀏覽操作。</value>
     </property>
@@ -829,6 +925,7 @@
         <value xml:lang="es">TODAS las operaciones en el Administrador de Establecimientos.</value>
         <value xml:lang="fr">TOUTES opérations en gestion d'entreposage.</value>
         <value xml:lang="it">Tutte le pagine nella gestione stabilimenti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Все операции в приложении Управление объектами.</value>
         <value xml:lang="th">การทำงานทั้งหมดในการจัดการคลังสินค้า</value>
         <value xml:lang="zh">场所管理中的全部操作。</value>
@@ -839,6 +936,7 @@
         <value xml:lang="es">Operaciones de Creación en el Administrador de Establecimientos.</value>
         <value xml:lang="fr">Opérations de création en gestion d'entreposage.</value>
         <value xml:lang="it">Operazioni di creazione nella gestione stabilimenti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции создания в приложении Управление объектами.</value>
         <value xml:lang="th">สร้างการทำงานในการจัดการคลังสินค้า</value>
         <value xml:lang="zh">场所管理中的创建操作。</value>
@@ -849,6 +947,7 @@
         <value xml:lang="es">Operaciones de Eliminación en el Administrador de Establecimientos.</value>
         <value xml:lang="fr">Opérations de suppression en gestion d'entreposage.</value>
         <value xml:lang="it">Operazioni di cancellazione nella gestione stabilimenti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции удаления в приложении Управление объектами.</value>
         <value xml:lang="th">ลบการทำงานในการจัดการคลังสินค้า</value>
         <value xml:lang="zh">场所管理中的删除操作。</value>
@@ -859,6 +958,7 @@
         <value xml:lang="es">Operaciones de Actualización Limitadas en el Administrador de Establecimientos.</value>
         <value xml:lang="fr">Opérations de mise à jour limitée en gestion d'entreposage.</value>
         <value xml:lang="it">Operazioni di aggiornamento limitate nella gestione stabilimenti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции ограниченного обновления в приложении Управление объектами.</value>
         <value xml:lang="th">ขอบเขตการอัพเดทการทำงานในการจัดการคลังสินค้า</value>
         <value xml:lang="zh">场所管理中有限的更新操作。</value>
@@ -869,6 +969,7 @@
         <value xml:lang="es">Operaciones de Visualización Limitada en el Administrador de Establecimientos.</value>
         <value xml:lang="fr">Opérations de visualisation limitée en gestion d'entreposage.</value>
         <value xml:lang="it">Operazioni di visualizzazione limitate nella gestione stabilimenti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции ограниченного просмотра в Управление объектами.</value>
         <value xml:lang="th">ขอบเขตการแสดงการทำงานในการจัดการคลังสินค้า</value>
         <value xml:lang="zh">场所管理中有限的浏览操作。</value>
@@ -879,6 +980,7 @@
         <value xml:lang="es">Operaciones de Actualización en el Administrador de Establecimientos.</value>
         <value xml:lang="fr">Opérations d'actualisation en gestion d'entreposage.</value>
         <value xml:lang="it">Operazioni di aggiornamento nella gestione stabilimenti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции обновления в приложении Управление объектами.</value>
         <value xml:lang="th">การอัพเดทการทำงานในการจัดการคลังสินค้า</value>
         <value xml:lang="zh">场所管理中的更新操作。</value>
@@ -889,6 +991,7 @@
         <value xml:lang="es">Operaciones de Visualización en el Administrador de Establecimientos.</value>
         <value xml:lang="fr">Opérations de visualisation en gestion d'entreposage.</value>
         <value xml:lang="it">Operazioni di visualizzazione nella gestione stabilimenti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции просмотра в приложении Управление объектами.</value>
         <value xml:lang="th">การแสดงการทำงานในการจัดการคลังสินค้า</value>
         <value xml:lang="zh">场所管理中的浏览操作。</value>
@@ -897,36 +1000,42 @@
     <property key="SecurityPermission.description.GOOGLEBASE_VIEW">
         <value xml:lang="en">View operations in the Google Base application.</value>
         <value xml:lang="it">Operazioni di visualizzazione nell'applicazione Google Base.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">Google Base应用程序中的浏览操作。</value>
         <value xml:lang="zh_TW">Google Base應用程式中的瀏覽操作。</value>
     </property>
     <property key="SecurityPermission.description.HUMANRES_CREATE">
         <value xml:lang="en">Create operations in the HumanRes Manager.</value>
         <value xml:lang="it">Operazioni di creazione nella gestione risorse umane.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">人力资源管理中的创建操作。</value>
         <value xml:lang="zh_TW">人力資源管理中的創建操作。</value>
     </property>
     <property key="SecurityPermission.description.HUMANRES_DELETE">
         <value xml:lang="en">Delete operations in the HumanRes Manager.</value>
         <value xml:lang="it">Operazioni di cancellazione nella gestione risorse umane.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">人力资源管理中的删除操作。</value>
         <value xml:lang="zh_TW">人力資源管理中的刪除操作。</value>
     </property>
     <property key="SecurityPermission.description.HUMANRES_UPDATE">
         <value xml:lang="en">Update operations in the HumanRes Manager.</value>
         <value xml:lang="it">Operazioni di aggiornamento nella gestione risorse umane.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">人力资源管理中的更新操作。</value>
         <value xml:lang="zh_TW">人力資源管理中的更新操作。</value>
     </property>
     <property key="SecurityPermission.description.HUMANRES_VIEW">
         <value xml:lang="en">View operations in the HumanRes Manager.</value>
         <value xml:lang="it">Operazioni di visualizzazione nella gestione risorse umane.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">人力资源管理中的浏览操作。</value>
         <value xml:lang="zh_TW">人力資源管理中的瀏覽操作。</value>
     </property>
     <property key="SecurityPermission.description.LABEL_MANAGER_VIEW">
         <value xml:lang="en">View the Labels Info pages.</value>
         <value xml:lang="it">Visualizzazione pagine per gestione labels.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">浏览标签信息页面。</value>
         <value xml:lang="zh_TW">瀏覽標簽資訊頁面。</value>
     </property>
@@ -935,6 +1044,7 @@
         <value xml:lang="es">Pago Manual de Transacciones.</value>
         <value xml:lang="fr">Transaction de paiement manuel.</value>
         <value xml:lang="it">Transazioni manuali pagamenti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Ручная проводка платежа.</value>
         <value xml:lang="th">รายการการชำระเงินด้วยมือ</value>
         <value xml:lang="zh">手工支付交易。</value>
@@ -945,6 +1055,7 @@
         <value xml:lang="es">TODAS las operaciones en el Administrador de Producción.</value>
         <value xml:lang="fr">Toutes les opérations en gestion de fabrication.</value>
         <value xml:lang="it">Tutte le pagine nella gestione produzione.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Все операции в приложении Управление производством.</value>
         <value xml:lang="th">การทำงานทั้งหมดในการจัดการการผลิต</value>
         <value xml:lang="zh">制造管理中的全部操作。</value>
@@ -955,6 +1066,7 @@
         <value xml:lang="es">Operaciones de Creación en el Administrador de Producción.</value>
         <value xml:lang="fr">Opérations de création en gestion de fabrication.</value>
         <value xml:lang="it">Operazioni di creazione nella gestione produzione.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции создания в приложении  Управление производством.</value>
         <value xml:lang="th">สร้างการทำงานในการจัดการการผลิต</value>
         <value xml:lang="zh">制造管理中的创建操作。</value>
@@ -965,6 +1077,7 @@
         <value xml:lang="es">Operaciones de Eliminación en el Administrador de Producción.</value>
         <value xml:lang="fr">Opérations de suppression en gestion de fabrication.</value>
         <value xml:lang="it">Operazioni di cancellazione nella gestione produzione.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции удаления в приложении  Управление производством.</value>
         <value xml:lang="th">ลบการทำงานในการจัดการการผลิต</value>
         <value xml:lang="zh">制造管理中的删除操作。</value>
@@ -975,6 +1088,7 @@
         <value xml:lang="es">Operaciones de Actualización en el Administrador de Producción.</value>
         <value xml:lang="fr">Opérations d'actualisation en gestion de fabrication.</value>
         <value xml:lang="it">Operazioni di aggiornamento nella gestione produzione.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции обновления в приложении  Управление производством.</value>
         <value xml:lang="th">การอัพเดทการทำงานในการจัดการการผลิต</value>
         <value xml:lang="zh">制造管理中的更新操作。</value>
@@ -985,6 +1099,7 @@
         <value xml:lang="es">Operaciones de Visualización en el Administrador de Producción.</value>
         <value xml:lang="fr">Opérations de visualisation en gestion de fabrication.</value>
         <value xml:lang="it">Operazioni di visualizzazione nella gestione produzione.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции просмотра в приложении Управление производством.</value>
         <value xml:lang="th">การแสดงการทำงานในการจัดการการผลิต</value>
         <value xml:lang="zh">制造管理中的浏览操作。</value>
@@ -995,6 +1110,7 @@
         <value xml:lang="es">TODAS las operaciones en el Administrador de Marketing.</value>
         <value xml:lang="fr">Toutes les opérations en gestion de marketing.</value>
         <value xml:lang="it">Tutte le pagine nella gestione vendite.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Все операции в приложении Управление маркетингом.</value>
         <value xml:lang="th">การทำงานทั้งหมดในการจัดการการตลาด</value>
         <value xml:lang="zh">市场管理中的全部操作。</value>
@@ -1005,6 +1121,7 @@
         <value xml:lang="es">Operaciones de Creación en el Administrador de Marketing.</value>
         <value xml:lang="fr">Opérations de création en gestion de marketing.</value>
         <value xml:lang="it">Operazioni di creazione nella gestione vendite.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции создания в приложении Управление маркетингом.</value>
         <value xml:lang="th">การสร้างการทำงานในการจัดการการตลาด</value>
         <value xml:lang="zh">市场管理中的创建操作。</value>
@@ -1015,6 +1132,7 @@
         <value xml:lang="es">Operaciones de Eliminación en el Administrador de Marketing.</value>
         <value xml:lang="fr">Opérations de suppression en gestion de marketing.</value>
         <value xml:lang="it">Operazioni di cancellazione nella gestione vendite.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции удаления в приложении Управление маркетингом.</value>
         <value xml:lang="th">การลบการทำงานในการจัดการการตลาด</value>
         <value xml:lang="zh">市场管理中的删除操作。</value>
@@ -1025,6 +1143,7 @@
         <value xml:lang="es">Operaciones de Actualización Limitadas en el Administrador de Marketing.</value>
         <value xml:lang="fr">Opérations d'actualisation limitée en gestion de marketing.</value>
         <value xml:lang="it">Operazioni di aggiornamento limitate nella gestione vendite.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции ограниченного обновления в приложении Управление маркетингом.</value>
         <value xml:lang="th">ขอบเขตการอัพเดทการทำงานในการจัดการการตลาด</value>
         <value xml:lang="zh">市场管理中有限的更新操作。</value>
@@ -1035,6 +1154,7 @@
         <value xml:lang="es">Operaciones de Visualización Limitadas en el Administrador de Marketing.</value>
         <value xml:lang="fr">Opérations de visualisation limitée en gestion de marketing.</value>
         <value xml:lang="it">Operazioni di visualizzazione limitate nella gestione vendite.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции ограниченного просмотра в приложении Управление маркетингом.</value>
         <value xml:lang="th">ขอบเขตการแสดงการทำงานในการจัดการการตลาด</value>
         <value xml:lang="zh">市场管理中有限的浏览操作。</value>
@@ -1045,6 +1165,7 @@
         <value xml:lang="es">Operaciones de Actualización en el Administrador de Marketing.</value>
         <value xml:lang="fr">Opérations d'actualisation en gestion de marketing.</value>
         <value xml:lang="it">Operazioni di aggiornamento nella gestione vendite.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции обновления в приложении Управление маркетингом.</value>
         <value xml:lang="th">การอัพเดทการทำงานในการจัดการการตลาด</value>
         <value xml:lang="zh">市场管理中的更新操作。</value>
@@ -1055,6 +1176,7 @@
         <value xml:lang="es">Operaciones de Visualización en el Administrador de Marketing.</value>
         <value xml:lang="fr">Opérations de visualisation en gestion de marketing.</value>
         <value xml:lang="it">Operazioni di visualizzazione nella gestione vendite.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции просмотра в приложении Управление маркетингом.</value>
         <value xml:lang="th">การแสดงการทำงานในการจัดการการตลาด</value>
         <value xml:lang="zh">市场管理中的浏览操作。</value>
@@ -1063,24 +1185,28 @@
     <property key="SecurityPermission.description.MYPORTAL_CUSTOMER">
         <value xml:lang="en">Use the customer screens in myportal.</value>
         <value xml:lang="it">Usare la visualizzazione clienti in myportal.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">我的门户中使用客户屏幕。</value>
         <value xml:lang="zh_TW">我的門戶中使用客戶螢幕。</value>
     </property>
     <property key="SecurityPermission.description.MYPORTAL_EMPL-NOEML">
         <value xml:lang="en">Usage of the employee screens in myportal: projectmanager and internal notes.</value>
         <value xml:lang="it">Usare la visualizzazione clienti in myportal: gestione progetti e note interne.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">我的门户中使用雇员屏幕：项目管理和内部便笺。</value>
         <value xml:lang="zh_TW">我的門戶中使用雇員螢幕：專案管理和內部便箋。</value>
     </property>
     <property key="SecurityPermission.description.MYPORTAL_EMPLOYEE">
         <value xml:lang="en">Use the employee screens in myportal.</value>
         <value xml:lang="it">Usare la visualizzazione impiegati in myportal.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">我的门户中使用雇员屏幕。</value>
         <value xml:lang="zh_TW">我的門戶中使用雇員螢幕。</value>
     </property>
     <property key="SecurityPermission.description.OAGIS_VIEW">
         <value xml:lang="en">View operations in the Oagis application.</value>
         <value xml:lang="it">Operazioni di visualizzazione nell'applicazione Oagis.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">Oagis应用程序中的浏览操作。</value>
         <value xml:lang="zh_TW">Oagis應用程式中的瀏覽操作。</value>
     </property>
@@ -1089,6 +1215,7 @@
         <value xml:lang="es">Permisos para acceder el menú de Herramientas Web.</value>
         <value xml:lang="fr">Autorisation d'accéder aux applications de gestion d'OFBiz existant par défaut.</value>
         <value xml:lang="it">Permesso per accedere alle applicazione di gestione strumenti OFBiz.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Права доступа к меню Инструменты.</value>
         <value xml:lang="th">Permission to access the Stock OFBiz Manager Applications.</value>
         <value xml:lang="zh">访问库存OFBiz管理程序的权限。</value>
@@ -1099,6 +1226,7 @@
         <value xml:lang="es">Crear pronósticos de ventas en el Administrador de Órdenes.</value>
         <value xml:lang="fr">Créer les prévisions de ventes en gestion de commandes</value>
         <value xml:lang="it">Creare previsioni di vendita nella gestione ordini.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Создание прогнозов продаж в Управлении заказами.</value>
         <value xml:lang="th">สร้างการวางแผนการขายในการจัดการรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单管理中创建销售预测。</value>
@@ -1109,6 +1237,7 @@
         <value xml:lang="es">Actualizar pronósticos de ventas en el Administrador de Órdenes.</value>
         <value xml:lang="fr">Mettre à jour les prévisions de ventes en gestion de commandes</value>
         <value xml:lang="it">Aggiornare previsioni di vendita nella gestione ordini.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Обновление прогнозов продаж в Управлении заказами.</value>
         <value xml:lang="th">อัพเดทการวางแผนการขายในการจัดการรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单管理中更新销售预测。</value>
@@ -1119,6 +1248,7 @@
         <value xml:lang="es">TODAS las operaciones en el Administrador de Órdenes.</value>
         <value xml:lang="fr">TOUTES les opérations en gestion de commandes</value>
         <value xml:lang="it">Tutte le operazioni nella gestione ordini.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Все операции в приложении Управление заказами.</value>
         <value xml:lang="th">การทำงานทั้งหมดในการจัดการรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单管理中的全部操作。</value>
@@ -1129,6 +1259,7 @@
         <value xml:lang="es">Operaciones de Creación en el Administrador de Órdenes.</value>
         <value xml:lang="fr">Opérations de création en gestion de commandes</value>
         <value xml:lang="it">Operazioni di creazione nella gestione ordini.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции создания в приложении Управление заказами.</value>
         <value xml:lang="th">สร้างการทำงานในการจัดการรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单管理中的创建操作。</value>
@@ -1139,6 +1270,7 @@
         <value xml:lang="es">Crear Solicitudes de Clientes en el Administrador de Órdenes.</value>
         <value xml:lang="fr">Créer les demandes de client en gestion de commandes</value>
         <value xml:lang="it">Creazioni richieste clienti nella gestione ordini.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Создание пользовательских запросов в приложении Управление заказами.</value>
         <value xml:lang="th">สร้างคำร้องขอของลูกค้าในการจัดการรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单管理中的创建客户请求。</value>
@@ -1149,6 +1281,7 @@
         <value xml:lang="es">Operaciones de Eliminación en el Administrador de Órdenes.</value>
         <value xml:lang="fr">Opérations de suppression en gestion de commandes</value>
         <value xml:lang="it">Operazioni di cancellazione nella gestione ordini.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции удаления  в приложении Управление заказами.</value>
         <value xml:lang="th">ลบการทำงานในการจัดการรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单管理中的删除操作。</value>
@@ -1159,6 +1292,7 @@
         <value xml:lang="es">Crear Notas en el Administrador de Órdenes.</value>
         <value xml:lang="fr">Créer les notes en gestion de commandes</value>
         <value xml:lang="it">Creare note nella gestione ordini.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Создание примечаний в приложении Управление заказами.</value>
         <value xml:lang="th">สร้างข้อความในการจัดการรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单管理中的创建便笺。</value>
@@ -1169,6 +1303,7 @@
         <value xml:lang="es">Crear órdenes de compra en el Administrador de Órdenes.</value>
         <value xml:lang="fr">Créer les commandes d'achat en gestion de commandes</value>
         <value xml:lang="it">Operazioni di creazione ordini di acquisto nella gestione ordini.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Создание закупочных заказов в приложении Управление заказами.</value>
         <value xml:lang="th">สร้างรายการสั่งซื้อในการจัดการรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单管理中的创建采购订单。</value>
@@ -1179,6 +1314,7 @@
         <value xml:lang="es">Entrada de Órdenes de Compra en el Administrador de Órdenes.</value>
         <value xml:lang="fr">Saisie de commande d'achat en gestion de commandes</value>
         <value xml:lang="it">Operazioni di inserimento ordini di acquisto nella gestione ordini.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Ввод закупочного заказа в приложении Управление заказами.</value>
         <value xml:lang="th">การเข้าสู่รายการสั่งซื้อในการจัดการรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单管理中的采购订单记录。</value>
@@ -1189,6 +1325,7 @@
         <value xml:lang="es">Ver órdenes de compra en el Administrador de Órdenes.</value>
         <value xml:lang="fr">Visualiser les commandes d'achat en gestion de commandes</value>
         <value xml:lang="it">Operazioni di visualizzazione ordini di acquisto nella gestione ordini.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Просмотр закупочных заказов в приложении Управление заказами.</value>
         <value xml:lang="th">แสดงรายการสั่งซื้อในการจัดการรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单管理中浏览采购订单。</value>
@@ -1199,6 +1336,7 @@
         <value xml:lang="es">Administrar de precios de Cotizaciones en el Administrador de Órdenes.</value>
         <value xml:lang="fr">Gestion des prix des devis en gestion de commandes</value>
         <value xml:lang="it">Gestione prezzi preventivi nella gestione ordini.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Менеджер ценовых предложений в приложении Управление заказами.</value>
         <value xml:lang="th">การจัดการการแจ้งราคาในการจัดการรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单管理中的询价管理。</value>
@@ -1209,6 +1347,7 @@
         <value xml:lang="es">Procesar Devoluciones en el Administrador de Órdenes.</value>
         <value xml:lang="fr">Traiter les retours en gestion de commandes</value>
         <value xml:lang="it">Avanzamento resi ordini nella gestione ordini.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Обработка возвратов в приложении Управление заказами.</value>
         <value xml:lang="th">ดำเนินการผลตอบแทนในการจัดการรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单管理中的处理退货。</value>
@@ -1219,6 +1358,7 @@
         <value xml:lang="es">Operaciones de Creación Limitadas en el Administrador de Órdenes.</value>
         <value xml:lang="fr">Opérations de création limitée en gestion de commandes</value>
         <value xml:lang="it">Operazioni di creazione limitati nella gestione ordini.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Ограниченные операции создания в приложении Управление заказами.</value>
         <value xml:lang="th">ขอบเขตการสร้างการทำงานในการจัดการรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单管理中有限的创建操作。</value>
@@ -1229,6 +1369,7 @@
         <value xml:lang="es">Operaciones de Eliminación Limitadas en el Administrador de Órdenes.</value>
         <value xml:lang="fr">Opérations de suppression limitée en gestion de commandes</value>
         <value xml:lang="it">Operazioni di cancellazione limitati nella gestione ordini.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Ограниченные операции удаления в приложении Управление заказами.</value>
         <value xml:lang="th">ขอบเขตการลบการทำงานในการจัดการรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单管理中有限的删除操作。</value>
@@ -1239,6 +1380,7 @@
         <value xml:lang="es">Operaciones de Actualización Limitadas en el Administrador de Órdenes.</value>
         <value xml:lang="fr">Opérations de mise à jour limitée en gestion de commandes</value>
         <value xml:lang="it">Operazioni di aggiornamento limitati nella gestione ordini.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Ограниченные операции обновления в приложении Управление заказами.</value>
         <value xml:lang="th">ขอบเขตการอัพเดทการทำงานในการจัดการรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单管理中有限的更新操作。</value>
@@ -1249,6 +1391,7 @@
         <value xml:lang="es">Operaciones de Visualización Limitadas en el Administrador de Órdenes.</value>
         <value xml:lang="fr">Opérations de visualisation limitée en gestion de commandes</value>
         <value xml:lang="it">Operazioni di visualizzaione limitati nella gestione ordini.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Ограниченные операции просмотра в приложении Управление заказами.</value>
         <value xml:lang="th">ขอบเขตการแสดงการทำงานในการจัดการรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单管理中有限的浏览操作。</value>
@@ -1259,6 +1402,7 @@
         <value xml:lang="es">Crear órdenes de venta para todas las tiendas en el Administrador de Órdenes.</value>
         <value xml:lang="fr">Créer des commandes de vente pour tous les centres de profit en gestion de commandes</value>
         <value xml:lang="it">Creazionei ordini di vendita per tutti i negozi nella gestione ordini.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Создание сбытовых заказов для всех торговых точек в приложении Управление заказами.</value>
         <value xml:lang="th">สร้างรายการขายสำหรับคลังทั้งหมดในการจัดการรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单管理中为全部店铺创建销售订单。</value>
@@ -1269,6 +1413,7 @@
         <value xml:lang="es">Entrada de Órdenes de Venta en el Administrador de Órdenes.</value>
         <value xml:lang="fr">Saisie de commande de vente en gestion de commandes</value>
         <value xml:lang="it">Inserimento ordini di vendita nella gestione ordini.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Ввод сбытьвого заказа в приложении Управление заказами.</value>
         <value xml:lang="th">การเข้าสู่รายการขายในการจัดการรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单管理中的销售订单记录。</value>
@@ -1279,6 +1424,7 @@
         <value xml:lang="es">Permisos de cambio de precios para órdenes de venta.</value>
         <value xml:lang="fr">Autorisation de changer le prix pour des commandes de vente</value>
         <value xml:lang="it">Permesso di cambio prezzo per ordini di vendita.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Права на изменение цены в сбытовых заказах.</value>
         <value xml:lang="th">การอนุญาตการเปลี่ยนแปลงราคาสำหรับรายการขาย</value>
         <value xml:lang="zh">销售订单的价格变更权限。</value>
@@ -1287,6 +1433,7 @@
     <property key="SecurityPermission.description.ORDERMGR_SALES_UPDATE">
         <value xml:lang="en">Update sales orders for all stores in the Order Manager.</value>
         <value xml:lang="it">Permesso di aggiornamento ordini di vendita per tutti i negozi della gestione ordini.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">订单管理中为全部店铺更新销售订单。</value>
         <value xml:lang="zh_TW">訂單管理中為全部商店更新銷售訂單。</value>
     </property>
@@ -1295,6 +1442,7 @@
         <value xml:lang="es">Enviar notificación de confirmación de órden.</value>
         <value xml:lang="fr">Envoyer une notification de confirmation de commande</value>
         <value xml:lang="it">Inviare notifica conferma ordine.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Рассылка уведомлений подтверждающих статус заказа.</value>
         <value xml:lang="th">ส่งการแจ้งการยืนยันรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">发送订单确认通知。</value>
@@ -1305,6 +1453,7 @@
         <value xml:lang="es">Operaciones de Actualización en el Administrador de Órdenes.</value>
         <value xml:lang="fr">Opérations de mise à jour en gestion de commandes</value>
         <value xml:lang="it">Operazioni di aggiornamento nella gestione ordini.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции обновления в приложении Управление заказами.</value>
         <value xml:lang="th">อัพเดทการทำงานในการจัดการรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单管理中的更新操作。</value>
@@ -1315,6 +1464,7 @@
         <value xml:lang="es">Operaciones de Visualización en el Administrador de Órdenes.</value>
         <value xml:lang="fr">Opération de visualisation en gestion de commandes</value>
         <value xml:lang="it">Operazioni di visualizzazione nella gestione ordini.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции просмотра в приложении Управление заказами.</value>
         <value xml:lang="th">แสดงการทำงานในการจัดการรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单管理中的浏览操作。</value>
@@ -1325,6 +1475,7 @@
         <value xml:lang="es">TODAS las operaciones en el Administrador de Entidades.</value>
         <value xml:lang="fr">TOUTES les opérations en gestion d'acteurs</value>
         <value xml:lang="it">Tutte le operazioni nella gestione soggetti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Все операции в приложении Управление участниками</value>
         <value xml:lang="th">การทำงานทั้งหมดในการจัดการกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员管理中的全部操作。</value>
@@ -1333,24 +1484,28 @@
     <property key="SecurityPermission.description.PARTYMGR_CME-EMAIL_CREATE">
         <value xml:lang="en">Can create Email communication events for logged-in user.</value>
         <value xml:lang="it">Può creare eventi comunicazione email per l'utente autenticato.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">能为已登录用户创建电子邮件沟通事件。</value>
         <value xml:lang="zh_TW">能為已登錄用戶創建電子郵件溝通事件。</value>
     </property>
     <property key="SecurityPermission.description.PARTYMGR_CME-EMAIL_DELETE">
         <value xml:lang="en">Can delete Email communication events for logged-in user.</value>
         <value xml:lang="it">Può cancellare eventi comunicazione email per l'utente autenticato.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">能为已登录用户删除电子邮件沟通事件。</value>
         <value xml:lang="zh_TW">能為已登錄用戶刪除電子郵件溝通事件。</value>
     </property>
     <property key="SecurityPermission.description.PARTYMGR_CME-EMAIL_UPDATE">
         <value xml:lang="en">Can update Email communication events for logged-in user.</value>
         <value xml:lang="it">Può aggiornare eventi comunicazione email per l'utente autenticato.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">能为已登录用户更新电子邮件沟通事件。</value>
         <value xml:lang="zh_TW">能為已登錄用戶更新電子郵件溝通事件。</value>
     </property>
     <property key="SecurityPermission.description.PARTYMGR_CME-NOTE_CREATE">
         <value xml:lang="en">Can create Internal note communication event for logged-in user.</value>
         <value xml:lang="it">Può creare note interne eventi comunicazione per l'utente autenticato.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">能为已登录用户创建内部便笺沟通事件。</value>
         <value xml:lang="zh_TW">能為已登錄用戶創建內部便箋溝通事件。</value>
     </property>
@@ -1359,6 +1514,7 @@
         <value xml:lang="es">Crear eventos de comunicación.</value>
         <value xml:lang="fr">Créer l'évènement de communication</value>
         <value xml:lang="it">Creare eventi comunicazione.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Создание события связи.</value>
         <value xml:lang="th">สร้างเหตุการณ์ในการติดต่อสื่อสาร</value>
         <value xml:lang="zh">创建沟通事件。</value>
@@ -1369,6 +1525,7 @@
         <value xml:lang="es">Eliminar eventos de comunicación.</value>
         <value xml:lang="fr">Supprimer l'évènement de communication</value>
         <value xml:lang="it">Cancellazione eventi comunicazione.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Удаление события связи.</value>
         <value xml:lang="th">ลบเหตุการณ์ในการติดต่อสื่อสาร</value>
         <value xml:lang="zh">删除沟通事件。</value>
@@ -1379,6 +1536,7 @@
         <value xml:lang="es">Actualizar eventos de comunicación.</value>
         <value xml:lang="fr">Mettre à jour l'évènement de communication</value>
         <value xml:lang="it">Aggiornare eventi comunicazione.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Обновление события связи.</value>
         <value xml:lang="th">อัพเดทเหตุการณ์ในการติดต่อสื่อสาร</value>
         <value xml:lang="zh">更新沟通事件。</value>
@@ -1389,6 +1547,7 @@
         <value xml:lang="es">Operaciones de Creación en el Administrador de Entidades.</value>
         <value xml:lang="fr">Opérations de création en gestion d'acteurs</value>
         <value xml:lang="it">Operazioni di creazione nella gestione soggetti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции создания в приложении Управление участниками.</value>
         <value xml:lang="th">สร้างการทำงานในการจัดการกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员管理中的创建操作。</value>
@@ -1399,6 +1558,7 @@
         <value xml:lang="es">Operaciones de Eliminación en el Administrador de Entidades.</value>
         <value xml:lang="fr">Opérations de suppression en gestion d'acteurs</value>
         <value xml:lang="it">Operazioni di cancellazione nella gestione soggetti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции удаления в приложении Управление участниками.</value>
         <value xml:lang="th">ลบการทำงานในการจัดการกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员管理中的删除操作。</value>
@@ -1409,6 +1569,7 @@
         <value xml:lang="es">Actualizar información detallada de Grupo de Entidad o Persona.</value>
         <value xml:lang="fr">Mettre à jour l'information détaillée des groupes d'acteurs ou de personnes</value>
         <value xml:lang="it">Operazioni di aggiornamento nella gestione soggetti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Обновление подробной информации о групповом участнике и персоне.</value>
         <value xml:lang="th">อัพเดทกลุ่มผู้ใช้หรือข้อมูลรายละเอียดบุคคล</value>
         <value xml:lang="zh">更新会员组或人员详细信息。</value>
@@ -1419,6 +1580,7 @@
         <value xml:lang="es">Crear notas en el Administrador de Entidades.</value>
         <value xml:lang="fr">Créer les notes en gestion d'acteurs</value>
         <value xml:lang="it">Creare note nella gestione soggetti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Создание примечаний в приложении Управление участниками.</value>
         <value xml:lang="th">สร้างขัอความในการจัดการกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员管理中创建便笺。</value>
@@ -1429,6 +1591,7 @@
         <value xml:lang="es">Crear mecanismos de contacto en el Administrador de Entidades.</value>
         <value xml:lang="fr">Créer des coordonnées en gestion d'acteurs</value>
         <value xml:lang="it">Creare contatti nella gestione soggetti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Создание контактного механизма участника в приложении Управление участниками.</value>
         <value xml:lang="th">สร้างวิธีการติดต่อกลุ่มผู้ใช้ในการจัดการกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员管理中创建会员联系方法。</value>
@@ -1439,6 +1602,7 @@
         <value xml:lang="es">Eliminar mecanismos de contacto en el Administrador de Entidades.</value>
         <value xml:lang="fr">Supprimer des coordonnées en gestion d'acteurs</value>
         <value xml:lang="it">Cancellare contatti nella gestione soggetti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Удаление контактного механизма участника в приложении Управление участниками.</value>
         <value xml:lang="th">ลบวิธีการติดต่อกลุ่มผู้ใช้ในการจัดการกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员管理中删除会员联系方法。</value>
@@ -1449,6 +1613,7 @@
         <value xml:lang="es">Actualizar mecanismos de contacto en el Administrador de Entidades.</value>
         <value xml:lang="fr">Mise en jour de coordonnées en gestion d'acteurs</value>
         <value xml:lang="it">Aggiornare contatti nella gestione soggetti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Обновление контактного механизма участника в приложении Управление участниками.</value>
         <value xml:lang="th">อัพเดทวิธีการติดต่อกลุ่มผู้ใช้ในการจัดการกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员管理中更新会员联系方法。</value>
@@ -1459,6 +1624,7 @@
         <value xml:lang="es">Crear calificaciones en el Administrador de Entidades.</value>
         <value xml:lang="fr">Créer des qualifications d'acteur en gestion d'acteurs</value>
         <value xml:lang="it">Creare qualificazione soggetti nella gestione soggetti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Создание свойств участника в приложении Управление участниками.</value>
         <value xml:lang="th">สร้างกลุ่มผู้ใช้เท่าเทียมกันในการจัดการกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员管理中创建会员资格。</value>
@@ -1469,6 +1635,7 @@
         <value xml:lang="es">Eliminar calificaciones en el Administrador de Entidades.</value>
         <value xml:lang="fr">Supprimer des qualifications d'acteur en gestion d'acteurs</value>
         <value xml:lang="it">Eliminare qualificazione soggetti nella gestione soggetti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Удаление свойств участника в приложении Управление участниками.</value>
         <value xml:lang="th">ลบกลุ่มผู้ใช้เท่าเทียมกันในการจัดการกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员管理中删除会员资格。</value>
@@ -1479,6 +1646,7 @@
         <value xml:lang="es">Actualizar calificaciones en el Administrador de Entidades.</value>
         <value xml:lang="fr">Mise en jour de qualifications d'acteur en gestion d'acteurs</value>
         <value xml:lang="it">Aggiornare qualificazione soggetti nella gestione soggetti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Обновление свойств участника в приложении Управление участниками.</value>
         <value xml:lang="th">อัพเดทกลุ่มผู้ใช้เท่าเทียมกันในการจัดการกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员管理中更新会员资格。</value>
@@ -1489,6 +1657,7 @@
         <value xml:lang="es">Crear relaciones en el Administrador de Entidades.</value>
         <value xml:lang="fr">Créer des relations entre acteurs en gestion d'acteurs</value>
         <value xml:lang="it">Creare rapporti soggetti nella gestione soggetti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Создание отношений в приложении Управление участниками.</value>
         <value xml:lang="th">สร้างความสัมพันธ์ของกลุ่มผู้ใช้ในการจัดการกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员管理中创建会员关系。</value>
@@ -1499,6 +1668,7 @@
         <value xml:lang="es">Eliminar relaciones en el Administrador de Entidades.</value>
         <value xml:lang="fr">Supprimer des relations entre acteurs en gestion d'acteurs</value>
         <value xml:lang="it">Cancellare rapporti soggetti nella gestione soggetti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Удаление отношений в приложении Управление участниками.</value>
         <value xml:lang="th">ลบความสัมพันธ์ของกลุ่มผู้ใช้ในการจัดการกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员管理中删除会员关系。</value>
@@ -1509,6 +1679,7 @@
         <value xml:lang="es">Actualizar relaciones en el Administrador de Entidades.</value>
         <value xml:lang="fr">Mettre à jour des relations entre acteurs en gestion d'acteurs</value>
         <value xml:lang="it">Aggiornare rapporti soggetti nella gestione soggetti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Обновление отношений в приложении Управление участниками.</value>
         <value xml:lang="th">อัพเดทความสัมพันธ์ของกลุ่มผู้ใช้ในการจัดการกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员管理中更新会员关系。</value>
@@ -1519,6 +1690,7 @@
         <value xml:lang="es">Crear roles en el Administrador de Entidades.</value>
         <value xml:lang="fr">Créer des rôles d'acteur en gestion d'acteurs</value>
         <value xml:lang="it">Creare ruoli soggetti nella gestione soggetti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Создание ролей в приложении Управление участниками.</value>
         <value xml:lang="th">สร้างสถานะของกลุ่มผู้ใช้ในการจัดการกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员管理中创建会员角色。</value>
@@ -1529,6 +1701,7 @@
         <value xml:lang="es">Eliminar roles en el Administrador de Entidades.</value>
         <value xml:lang="fr">Supprimer des rôles d'acteur en gestion d'acteurs</value>
         <value xml:lang="it">Cancellare ruoli soggetti nella gestione soggetti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Удаление ролей в приложении Управление участниками.</value>
         <value xml:lang="th">ลบสถานะของกลุ่มผู้ใช้ในการจัดการกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员管理中删除会员角色。</value>
@@ -1539,6 +1712,7 @@
         <value xml:lang="es">Crear relaciones de orígen entidad a dato.</value>
         <value xml:lang="fr">Créer des relations de source de données à acteur</value>
         <value xml:lang="it">Creare rapporti sorgenti dati soggetti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Создание отношений участника и источника данных.</value>
         <value xml:lang="th">สร้างกลุ่มผู้ใช้ถึงความสัมพันธ์ของแหล่งข้อมูล</value>
         <value xml:lang="zh">创建会员到数据源的关系。</value>
@@ -1549,6 +1723,7 @@
         <value xml:lang="es">Actualizar estados en el Administrador de Entidades.</value>
         <value xml:lang="fr">Mettre à jour des statuts d'acteur en gestion d'acteurs</value>
         <value xml:lang="it">Aggiornare stato soggetti nella gestione soggetti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Обновление статуса участника в приложении Управление участниками.</value>
         <value xml:lang="th">อัพเดทสถานะของกลุ่มผู้ใช้ในการจัดการกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员管理中更新会员状态。</value>
@@ -1559,6 +1734,7 @@
         <value xml:lang="es">Operaciones de Actualización en el Administrador de Entidades.</value>
         <value xml:lang="fr">Opérations de mise à jour des en gestion d'acteurs</value>
         <value xml:lang="it">Operazione di aggiornamento nella gestione soggetti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции обновления в приложении Управление участниками.</value>
         <value xml:lang="th">อัพเดทการทำงานในการจัดการกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员管理中的更新操作。</value>
@@ -1569,6 +1745,7 @@
         <value xml:lang="es">Operaciones de Visualización en el Administrador de Entidades.</value>
         <value xml:lang="fr">Opérations de visualisation en gestion d'acteurs</value>
         <value xml:lang="it">Operazione di visualizzazione nella gestione soggetti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции просмотра в приложении Управление участниками.</value>
         <value xml:lang="th">แสดงการทำงานในการจัดการกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员管理中的浏览操作。</value>
@@ -1579,6 +1756,7 @@
         <value xml:lang="es">TODAS las operaciones en el Procesador de Pagos.</value>
         <value xml:lang="fr">TOUTES les opérations dans l'organisation des processeurs de paiement</value>
         <value xml:lang="it">Tutte le operazioni nella configurazione processori pagamenti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Все операции в приложении Настройка платежных процессоров.</value>
         <value xml:lang="th">การทำงานทั้งหมดในการติดตั้งหน่วยประมวลผลกลางการชำระเงิน</value>
         <value xml:lang="zh">支付处理程序设置中的全部操作。</value>
@@ -1589,6 +1767,7 @@
         <value xml:lang="es">Operaciones de Creación en el Procesador de Pagos.</value>
         <value xml:lang="fr">Opérations de création l'organisation des processeurs de paiement</value>
         <value xml:lang="it">Operazioni di creazione nella configurazione processori pagamenti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции создания в приложении Настройка платежных процессоров.</value>
         <value xml:lang="th">สร้างการทำงานในการติดตั้งหน่วยประมวลผลกลางการชำระเงิน</value>
         <value xml:lang="zh">支付处理程序设置中的创建操作。</value>
@@ -1599,6 +1778,7 @@
         <value xml:lang="es">Operaciones de Eliminación en el Procesador de Pagos.</value>
         <value xml:lang="fr">Opérations de suppression dans l'organisation des processeurs de paiement</value>
         <value xml:lang="it">Operazioni di cancellazione nella configurazione processori pagamenti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции удаления в приложении Настройка платежных процессоров.</value>
         <value xml:lang="th">ลบการทำงานในการติดตั้งหน่วยประมวลผลกลางการชำระเงิน</value>
         <value xml:lang="zh">支付处理程序设置中的删除操作。</value>
@@ -1609,6 +1789,7 @@
         <value xml:lang="es">Operaciones de Visualización en el Procesador de Pagos.</value>
         <value xml:lang="fr">Opérations de visualisation dans l'organisation des processeurs de paiement</value>
         <value xml:lang="it">Operazioni di visualizzazione nella configurazione processori pagamenti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции просмотра в приложении Настройка платежных процессоров.</value>
         <value xml:lang="th">แสดงการทำงานในการติดตั้งหน่วยประมวลผลกลางการชำระเงิน</value>
         <value xml:lang="zh">支付处理程序设置中的浏览操作。</value>
@@ -1619,6 +1800,7 @@
         <value xml:lang="es">TODAS las Operaciones de Información de Pagos.</value>
         <value xml:lang="fr">TOUTES les opérations d'information de paiement</value>
         <value xml:lang="it">Tutte le operazioni sulle informazioni pagamenti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Все операции связанные с платежной информацией.</value>
         <value xml:lang="th">การทำงานข้อมูลการชำระเงินทั้งหมด</value>
         <value xml:lang="zh">全部支付信息操作。</value>
@@ -1629,6 +1811,7 @@
         <value xml:lang="es">Crear Información de Pagos.</value>
         <value xml:lang="fr">Créer l'information de paiement</value>
         <value xml:lang="it">Creare informazioni pagamenti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Создание платежной информации.</value>
         <value xml:lang="th">สร้างข้อมูลการชำระเงิน</value>
         <value xml:lang="zh">创建支付信息。</value>
@@ -1639,6 +1822,7 @@
         <value xml:lang="es">Eliminar Información de Pagos.</value>
         <value xml:lang="fr">Supprimer l'information de paiement</value>
         <value xml:lang="it">Cancellare informazioni pagamenti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Удаление платежной информации.</value>
         <value xml:lang="th">ลบข้อมูลการชำระเงิน</value>
         <value xml:lang="zh">删除支付信息。</value>
@@ -1649,6 +1833,7 @@
         <value xml:lang="es">Actualizar Información de Pagos.</value>
         <value xml:lang="fr">Mettre à jour l'information de paiement</value>
         <value xml:lang="it">Aggiornare informazioni pagamenti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Обновление платежной информации.</value>
         <value xml:lang="th">อัพเดทข้อมูลการชำระเงิน</value>
         <value xml:lang="zh">更新支付信息。</value>
@@ -1659,6 +1844,7 @@
         <value xml:lang="es">Ver Información de Pagos.</value>
         <value xml:lang="fr">Visualiser l'information de paiement</value>
         <value xml:lang="it">Visualizzare informazioni pagamenti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Просмотр платежной информации.</value>
         <value xml:lang="th">แสดงข้อมูลการชำระเงิน</value>
         <value xml:lang="zh">浏览支付信息。</value>
@@ -1669,6 +1855,7 @@
         <value xml:lang="es">Usar las páginas de Mantenimiento de Períodos.</value>
         <value xml:lang="fr">Utiliser les pages de gestion des périodes de temps</value>
         <value xml:lang="it">Usare le pagine di manutenzione periodi.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Использование страниц Обслуживание периода.</value>
         <value xml:lang="th">ใช้หน้าการรักษาช่วงเวลา</value>
         <value xml:lang="zh">使用阶段维护页面。</value>
@@ -1677,60 +1864,70 @@
     <property key="SecurityPermission.description.PROJECTMGR_ADMIN">
         <value xml:lang="en">ALL operations in the Project Manager.</value>
         <value xml:lang="it">Tutte le operazioni nella gestione progetti.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">项目管理中的全部操作。</value>
         <value xml:lang="zh_TW">專案管理中的全部操作。</value>
     </property>
     <property key="SecurityPermission.description.PROJECTMGR_ROLE_ADMIN">
         <value xml:lang="en">All admin operations in the Project Manager for a project/phase/task the user is member of.</value>
         <value xml:lang="it">Tutte le operazioni di amministrazione nella gestione progetti per un progetto/fase/compito di cui l'utente è membro.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">项目管理中的全部管理操作，用于用户作为成员的项目/阶段/任务。</value>
         <value xml:lang="zh_TW">專案管理中的全部管理操作，用于用戶作為成員的專案/階段/任務。</value>
     </property>
     <property key="SecurityPermission.description.PROJECTMGR_ROLE_TASK_CREATE">
         <value xml:lang="en">Be able to create a task (should be member of project)</value>
         <value xml:lang="it">Essere autorizzato a creare un compito (dovrebbe essere membro del progetto)</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">能够创建任务(应该是项目成员)</value>
         <value xml:lang="zh_TW">能夠創建任務(應該是專案成員)</value>
     </property>
     <property key="SecurityPermission.description.PROJECTMGR_ROLE_TIMESHEET_CREATE">
         <value xml:lang="en">Be able to create a weekly timesheet for the loginid.</value>
         <value xml:lang="it">Essere autorizzato a creare una timbratura settimanale per l'utente autenticato.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">能够为登录用户创建每周的工时单。</value>
         <value xml:lang="zh_TW">能夠為登錄用戶創建每周的工時單。</value>
     </property>
     <property key="SecurityPermission.description.PROJECTMGR_ROLE_TIMESHEET_UPDATE">
         <value xml:lang="en">Be able to update(report) on an existing own timesheet</value>
         <value xml:lang="it">Essere autorizzato ad aggiornare una timbratura esistente</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">能够对一个已存在的自己的工时单进行更新(报告)</value>
         <value xml:lang="zh_TW">能夠對一個已存在的自己的工時單進行更新(報告)</value>
     </property>
     <property key="SecurityPermission.description.PROJECTMGR_ROLE_UPDATE">
         <value xml:lang="en">Update operations in the Project Manager for a project/phase/task the user is member of.</value>
         <value xml:lang="it">Operazioni di aggiornamento nella gestione progetti per un progetto/fase/compito ci cui l'utente è membro.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">项目管理中的更新操作，用于用户作为成员的项目/阶段/任务。</value>
         <value xml:lang="zh_TW">專案管理中的更新操作，用于用戶作為成員的專案/階段/任務。</value>
     </property>
     <property key="SecurityPermission.description.PROJECTMGR_ROLE_VIEW">
         <value xml:lang="en">All view operations in the Project Manager for a project/phase/task the user is member of..</value>
         <value xml:lang="it">Tutte le perazioni di visualizzazione nella gestione progetti per un progetto/fase/compito ci cui l'utente è membro.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">项目管理中的全部浏览操作，用于用户作为成员的项目/阶段/任务。</value>
         <value xml:lang="zh_TW">專案管理中的全部瀏覽操作，用于用戶作為成員的專案/階段/任務。</value>
     </property>
     <property key="SecurityPermission.description.PROJECTMGR_TIMESHEET_CREATE">
         <value xml:lang="en">Be able to create any weekly timesheet.</value>
         <value xml:lang="it">Essere autorizzato a creare qualiasi timbratura settimanale.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">能够创建任一周工时单。</value>
         <value xml:lang="zh_TW">能夠創建任一周工時單。</value>
     </property>
     <property key="SecurityPermission.description.PROJECTMGR_TIMESHEET_UPDATE">
         <value xml:lang="en">Be able to update any weekly timesheet.</value>
         <value xml:lang="it">Essere autorizzato ad aggiornare qualiasi timbratura settimanale.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">能够更新任一周工时单。</value>
         <value xml:lang="zh_TW">能夠更新任一周工時單。</value>
     </property>
     <property key="SecurityPermission.description.PROJECTMGR_VIEW">
         <value xml:lang="en">ALL View operations in the Project Manager(but can be limited by ROLE_VIEW)</value>
         <value xml:lang="it">Tutte le operazioni di visualizzazione nella gestione progetti (ma può essere limitato a ROLE_VIEW)</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">项目管理中的全部浏览操作(能够被ROLE_VIEW限制)</value>
         <value xml:lang="zh_TW">專案管理中的全部瀏覽操作(能夠被ROLE_VIEW限制)</value>
     </property>
@@ -1739,6 +1936,7 @@
         <value xml:lang="es">TODAS las operaciones en las pantallas de Administración de Seguridad.</value>
         <value xml:lang="fr">TOUTES les opérations dans les écrans de gestion de sécurité</value>
         <value xml:lang="it">Tutte le operazioni nella gestione della sicurezza.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Все операции в приложении Управление безопасностью.</value>
         <value xml:lang="th">การทำงานทั้งหมดในหน้าจอการจัดการความปลอดภัย</value>
         <value xml:lang="zh">在安全管理屏幕中的全部操作。</value>
@@ -1749,6 +1947,7 @@
         <value xml:lang="es">Operaciones de Creación en las pantallas de Administración de Seguridad.</value>
         <value xml:lang="fr">Opérations de création les dans les écrans de gestion de sécurité</value>
         <value xml:lang="it">Operazioni di creazione nella gestione della sicurezza.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции создания в приложении Управление безопасностью.</value>
         <value xml:lang="th">สร้างการทำงานในหน้าจอการจัดการความปลอดภัย</value>
         <value xml:lang="zh">在安全管理屏幕中的创建操作。</value>
@@ -1759,6 +1958,7 @@
         <value xml:lang="es">Operaciones de Eliminación en las pantallas de Administración de Seguridad.</value>
         <value xml:lang="fr">Opérations de suppression dans les écrans de gestion de sécurité</value>
         <value xml:lang="it">Operazioni di cancellazione nella gestione della sicurezza.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции удаления в приложении Управление безопасностью.</value>
         <value xml:lang="th">ลบการทำงานในหน้าจอการจัดการความปลอดภัย</value>
         <value xml:lang="zh">在安全管理屏幕中的删除操作。</value>
@@ -1769,6 +1969,7 @@
         <value xml:lang="es">Operaciones de Actualización en las pantallas de Administración de Seguridad.</value>
         <value xml:lang="fr">Opérations de mise à jour dans les écrans de gestion de sécurité</value>
         <value xml:lang="it">Operazioni di aggiornamento nella gestione della sicurezza.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции обновления в приложении Управление безопасностью.</value>
         <value xml:lang="th">อัพเดทการทำงานในหน้าจอการจัดการความปลอดภัย</value>
         <value xml:lang="zh">在安全管理屏幕中的更新操作。</value>
@@ -1779,6 +1980,7 @@
         <value xml:lang="es">Operaciones de Visualización en las pantallas de Administración de Seguridad.</value>
         <value xml:lang="fr">Opérations de visualisation dans les écrans de gestion de sécurité</value>
         <value xml:lang="it">Operazioni di visualizzazione nella gestione della sicurezza.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции просмотра в приложении Управление безопасностью.</value>
         <value xml:lang="th">แสดงการทำงานในหน้าจอการจัดการความปลอดภัย</value>
         <value xml:lang="zh">在安全管理屏幕中的浏览操作。</value>
@@ -1789,6 +1991,7 @@
         <value xml:lang="es">Enviar a Applet de Control.</value>
         <value xml:lang="fr">Envoyer à l'applet de contrôle</value>
         <value xml:lang="it">Invia all'Applet.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Отсылка в контрольный апплет.</value>
         <value xml:lang="th">Send to the Control Applet.</value>
         <value xml:lang="zh">发送到控制小程序。</value>
@@ -1799,6 +2002,7 @@
         <value xml:lang="es">Ver las páginas de Estadísticas del Servidor.</value>
         <value xml:lang="fr">Visualiser les pages de statistiques du serveur</value>
         <value xml:lang="it">Mostra pagine statistiche server.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Просмотр статистики по работе сервера.</value>
         <value xml:lang="th">แสดงหน้าจอสถิติผู้ให้บริการ</value>
         <value xml:lang="zh">浏览服务器统计页面。</value>
@@ -1809,6 +2013,7 @@
         <value xml:lang="es">Permisos para invocar remotamente cualquier servicio.</value>
         <value xml:lang="fr">Autorisation pour appeler tout service à distance.</value>
         <value xml:lang="it">Permessi di invocare qualsiasi servizio remotamente.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Права за удаленное выполнение любой службы.</value>
         <value xml:lang="th">การอนุญาตถึงการร้องขอบริการเล็กน้อยบางอย่าง</value>
         <value xml:lang="zh">远程调用任何服务的权限。</value>
@@ -1819,6 +2024,7 @@
         <value xml:lang="es">Usar las páginas de Mantenimiento de Servicios.</value>
         <value xml:lang="fr">Utiliser les pages du service de maintenance.</value>
         <value xml:lang="it">Usare le pagine di manutenzione servizi.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Использование страниц приложения Обслуживание служб.</value>
         <value xml:lang="th">ใช้หน้าการรักษาสภาพการบริการ</value>
         <value xml:lang="zh">使用服务维护页面。</value>
@@ -1829,6 +2035,7 @@
         <value xml:lang="es">TODAS las Operaciones el Editor de Tasas Impositivas.</value>
         <value xml:lang="fr">TOUTES les opérations dans l'éditeur de taux d'expédition.</value>
         <value xml:lang="it">Tutte le operazioni nelle percentuali delle tasse.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Все операции в Редакторе налоговых ставок.</value>
         <value xml:lang="th">การทำงานทั้งหมดในการแก้ไขอัตราภาษี</value>
         <value xml:lang="zh">在税率编辑器中的全部操作。</value>
@@ -1839,6 +2046,7 @@
         <value xml:lang="es">Operaciones de Creación el Editor de Tasas Impositivas.</value>
         <value xml:lang="fr">Opérations de création dans l'éditeur de taux de taxe.</value>
         <value xml:lang="it">Operazioni di creazione nelle percentuali delle tasse.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции создания в Редакторе налоговых ставок.</value>
         <value xml:lang="th">สร้างการทำงานในการแก้ไขอัตราภาษี</value>
         <value xml:lang="zh">在税率编辑器中的创建操作。</value>
@@ -1849,6 +2057,7 @@
         <value xml:lang="es">Operaciones de Eliminación el Editor de Tasas Impositivas.</value>
         <value xml:lang="fr">Opérations de suppression dans l'éditeur de taux de taxe.</value>
         <value xml:lang="it">Operazioni di cancellazione nelle percentuali delle tasse.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции удаления в Редакторе налоговых ставок.</value>
         <value xml:lang="th">ลบการทำงานในการแก้ไขอัตราภาษี</value>
         <value xml:lang="zh">在税率编辑器中的删除操作。</value>
@@ -1859,6 +2068,7 @@
         <value xml:lang="es">Operaciones de Visualización el Editor de Tasas Impositivas.</value>
         <value xml:lang="fr">Opérations de visualisation dans l'éditeur de taux de taxe.</value>
         <value xml:lang="it">Operazioni di visualizzazione nelle percentuali delle tasse.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции просмотра в Редакторе налоговых ставок.</value>
         <value xml:lang="th">แสดงการทำงานในการแก้ไขอัตราภาษี</value>
         <value xml:lang="zh">在税率编辑器中的浏览操作。</value>
@@ -1867,12 +2077,14 @@
     <property key="SecurityPermission.description.TEMPEXPR_ADMIN">
         <value xml:lang="en">Temporal expression admin</value>
         <value xml:lang="it">Amministrazione espressioni temporali</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">时间表达式管理</value>
         <value xml:lang="zh_TW">時間運算式管理</value>
     </property>
     <property key="SecurityPermission.description.USERPREF_ADMIN">
         <value xml:lang="en">User preferences admin</value>
         <value xml:lang="it">Amministrazione preferenze utente</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">用户设置管理</value>
         <value xml:lang="zh_TW">用戶設置管理</value>
     </property>
@@ -1881,6 +2093,7 @@
         <value xml:lang="es">Editar una instancia de UtilCache.</value>
         <value xml:lang="fr">Modifier une instance de cache.</value>
         <value xml:lang="it">Aggiornare una instanza della cache.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Изменение экземпляра UtilCache.</value>
         <value xml:lang="th">Edit a UtilCache instance.</value>
         <value xml:lang="zh">编辑一个应用缓存实例。</value>
@@ -1891,6 +2104,7 @@
         <value xml:lang="es">Ver una instancia de UtilCache.</value>
         <value xml:lang="fr">Visualiser une instance de cache.</value>
         <value xml:lang="it">Visualizzare una instanza della cache.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Просмотр экземпляра UtilCache.</value>
         <value xml:lang="th">View a UtilCache instance.</value>
         <value xml:lang="zh">浏览一个应用缓存实例。</value>
@@ -1901,6 +2115,7 @@
         <value xml:lang="es">Editar una instancia de UtilDebug</value>
         <value xml:lang="fr">Modifier une instance de débogage.</value>
         <value xml:lang="it">Aggiornare una instanza di debug.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Изменение экземпляра UtilDebug.</value>
         <value xml:lang="th">Edit a UtilDebug instance.</value>
         <value xml:lang="zh">编辑一个应用调试实例。</value>
@@ -1911,6 +2126,7 @@
         <value xml:lang="es">Ver una instancia de UtilDebug</value>
         <value xml:lang="fr">Visualiser une instance de débogage.</value>
         <value xml:lang="it">Visualizzzare una instanza di debug.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Просмотр экземпляра UtilDebug.</value>
         <value xml:lang="th">View a UtilDebug instance.</value>
         <value xml:lang="zh">浏览一个应用调试实例。</value>
@@ -1919,24 +2135,28 @@
     <property key="SecurityPermission.description.VISUALTHEME_ADMIN">
         <value xml:lang="en">ALL operations on Visual Themes and Visual Theme Resources.</value>
         <value xml:lang="it">Tutte le operazioni sui temi visuali e risorse dei temi visuali</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">视觉风格和视觉风格资源的全部操作。</value>
         <value xml:lang="zh_TW">視覺風格和視覺風格資源的全部操作。</value>
     </property>
     <property key="SecurityPermission.description.VISUALTHEME_CREATE">
         <value xml:lang="en">Create Visual Themes and Visual Theme Resources.</value>
         <value xml:lang="it">Creare temi visuali e risorse dei temi visuali</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">创建视觉风格和视觉风格资源。</value>
         <value xml:lang="zh_TW">創建視覺風格和視覺風格資源。</value>
     </property>
     <property key="SecurityPermission.description.VISUALTHEME_DELETE">
         <value xml:lang="en">Delete Visual Themes and Visual Theme Resources.</value>
         <value xml:lang="it">Cancella temi visuali e risorse dei temi visuali</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">删除视觉风格和视觉风格资源。</value>
         <value xml:lang="zh_TW">刪除視覺風格和視覺風格資源。</value>
     </property>
     <property key="SecurityPermission.description.VISUALTHEME_UPDATE">
         <value xml:lang="en">Update Visual Themes and Visual Theme Resources.</value>
         <value xml:lang="it">Aggiorna temi visuali e risorse dei temi visuali</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">更新视觉风格和视觉风格资源。</value>
         <value xml:lang="zh_TW">更新視覺風格和視覺風格資源。</value>
     </property>
@@ -1945,6 +2165,7 @@
         <value xml:lang="es">Permisos para acceder el menú de Herramientas Web.</value>
         <value xml:lang="fr">Autorisation pour accèder au menu Adm. Sys.</value>
         <value xml:lang="it">Permessi di accedere ai menu strumenti web.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Права на доступ к меню Инструменты.</value>
         <value xml:lang="th">การอนุญาตถึงสิทธ์ในการเข้าเมนูเว็บทูล</value>
         <value xml:lang="zh">访问Web工具菜单的权限。</value>
@@ -1955,6 +2176,7 @@
         <value xml:lang="es">TODAS las operaciones en el Administrador de Esfuerzos de Trabajo.</value>
         <value xml:lang="fr">TOUTES opérations en gestion de tâche.</value>
         <value xml:lang="it">Tutte le operazioni nella gestione impegni di lavoro.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Все операции в приложении Организатор.</value>
         <value xml:lang="th">การทำงานทั้งหมดในการจัดการความพยายามในการทำงาน</value>
         <value xml:lang="zh">人工服务管理中的全部操作。</value>
@@ -1965,6 +2187,7 @@
         <value xml:lang="es">Operaciones de Creación en el Administrador de Esfuerzos de Trabajo.</value>
         <value xml:lang="fr">Opérations de création en gestion de tâche.</value>
         <value xml:lang="it">Operazioni di creazione nella gestione impegni di lavoro.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции создания в приложении Организатор.</value>
         <value xml:lang="th">สร้างการทำงานในการจัดการความพยายามในการทำงาน</value>
         <value xml:lang="zh">人工服务管理中的创建操作。</value>
@@ -1975,6 +2198,7 @@
         <value xml:lang="es">Operaciones de Eliminación en el Administrador de Esfuerzos de Trabajo.</value>
         <value xml:lang="fr">Opérations de suppression en gestion de tâche.</value>
         <value xml:lang="it">Operazioni di cancellazione nella gestione impegni di lavoro.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции удаления в приложении Организатор.</value>
         <value xml:lang="th">ลบการทำงานในการจัดการความพยายามในการทำงาน</value>
         <value xml:lang="zh">人工服务管理中的删除操作。</value>
@@ -1983,24 +2207,28 @@
     <property key="SecurityPermission.description.WORKEFFORTMGR_ROLE_CREATE">
         <value xml:lang="en">Limited Create operations in the Work Effort Manager.</value>
         <value xml:lang="it">Operazioni limitate in creazione nelle gestione impegni di lavoro.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">人工服务管理中有限的创建操作。</value>
         <value xml:lang="zh_TW">人工服務管理中有限的創建操作。</value>
     </property>
     <property key="SecurityPermission.description.WORKEFFORTMGR_ROLE_DELETE">
         <value xml:lang="en">Limited Delete operations the Work Effort Manager.</value>
         <value xml:lang="it">Operazioni limitate in cancellazione nelle gestione impegni di lavoro.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">人工服务管理中有限的删除操作。</value>
         <value xml:lang="zh_TW">人工服務管理中有限的刪除操作。</value>
     </property>
     <property key="SecurityPermission.description.WORKEFFORTMGR_ROLE_UPDATE">
         <value xml:lang="en">Limited Update operations in the Work Effort Manager.</value>
         <value xml:lang="it">Operazioni limitate in aggiornamento nelle gestione impegni di lavoro.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">人工服务管理中有限的更新操作。</value>
         <value xml:lang="zh_TW">人工服務管理中有限的更新操作。</value>
     </property>
     <property key="SecurityPermission.description.WORKEFFORTMGR_ROLE_VIEW">
         <value xml:lang="en">Limited View operations in the Work Effort Manager.</value>
         <value xml:lang="it">Operazioni limitate in visualizzazione nelle gestione impegni di lavoro.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="zh">人工服务管理中有限的浏览操作。</value>
         <value xml:lang="zh_TW">人工服務管理中有限的瀏覽操作。</value>
     </property>
@@ -2009,6 +2237,7 @@
         <value xml:lang="es">Operaciones de Actualización en el Administrador de Esfuerzos de Trabajo.</value>
         <value xml:lang="fr">Opérations de mise à jour en gestion de tâche.</value>
         <value xml:lang="it">Operazioni di aggiornamento nella gestione impegni di lavoro.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции обновления в приложении Организатор.</value>
         <value xml:lang="th">อัพเดทการทำงานในการจัดการความพยายามในการทำงาน</value>
         <value xml:lang="zh">人工服务管理中的更新操作。</value>
@@ -2019,6 +2248,7 @@
         <value xml:lang="es">Operaciones de Visualización en el Administrador de Esfuerzos de Trabajo.</value>
         <value xml:lang="fr">Opérations de visualisation en gestion de tâche.</value>
         <value xml:lang="it">Operazioni di visualizzazione nella gestione impegni di lavoro.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Операции просмотра в приложении Организатор.</value>
         <value xml:lang="th">แสดงการทำงานในการจัดการความพยายามในการทำงาน</value>
         <value xml:lang="zh">人工服务管理中的浏览操作。</value>
@@ -2029,6 +2259,7 @@
         <value xml:lang="es">Usar las páginas de Mantenimiento de Flujo de Trabajo.</value>
         <value xml:lang="fr">Utiliser les pages d'entretien du Workflow.</value>
         <value xml:lang="it">Usare le pagine di gestion flussi di lavoro.</value>
+        <value xml:lang="ja"></value>
         <value xml:lang="ru">Использование приложения Обслуживание процессов(WF).</value>
         <value xml:lang="th">ใช้หน้าการรักษาสภาพขั้นตอนการทำงาน</value>
         <value xml:lang="zh">使用工作流维护页面。</value>

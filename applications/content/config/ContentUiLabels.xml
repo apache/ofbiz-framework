@@ -48,6 +48,7 @@
         <value xml:lang="en">Absolute File</value>
         <value xml:lang="fr">Fichier à nom absolu</value>
         <value xml:lang="it">File assoluto</value>
+        <value xml:lang="ja">フルパス</value>
         <value xml:lang="pt">Arquivo absoluto</value>
         <value xml:lang="vi">Tập tin tuyệt đối</value>
         <value xml:lang="zh">绝对地址文件</value>
@@ -61,6 +62,7 @@
         <value xml:lang="es">respuesta</value>
         <value xml:lang="fr">Réponse</value>
         <value xml:lang="it">risposta</value>
+        <value xml:lang="ja">回答</value>
         <value xml:lang="nl">Antwoord</value>
         <value xml:lang="pt">resposta</value>
         <value xml:lang="ro">raspuns</value>
@@ -77,6 +79,7 @@
         <value xml:lang="es">respuestas</value>
         <value xml:lang="fr">Réponses</value>
         <value xml:lang="it">risposte</value>
+        <value xml:lang="ja">回答</value>
         <value xml:lang="nl">Antwoorden</value>
         <value xml:lang="pt">respostas</value>
         <value xml:lang="ro">raspunsuri</value>
@@ -116,6 +119,7 @@
         <value xml:lang="es">Asociación de Contenido</value>
         <value xml:lang="fr">Association de contenus</value>
         <value xml:lang="it">Associazione Contenuto</value>
+        <value xml:lang="ja">コンテンツ関連付け</value>
         <value xml:lang="nl">Content associatie</value>
         <value xml:lang="pt">Associação de Conteúdo</value>
         <value xml:lang="ro">Asociatie Continut</value>
@@ -164,6 +168,7 @@
         <value xml:lang="es">Asociación</value>
         <value xml:lang="fr">Association</value>
         <value xml:lang="it">Associazione</value>
+        <value xml:lang="ja">関連付け</value>
         <value xml:lang="nl">Associatie</value>
         <value xml:lang="pt">Associação</value>
         <value xml:lang="ro">Asociatie</value>
@@ -180,6 +185,7 @@
         <value xml:lang="es">Atributo</value>
         <value xml:lang="fr">Attribut</value>
         <value xml:lang="it">Attributi</value>
+        <value xml:lang="ja">属性</value>
         <value xml:lang="nl">Attribuut</value>
         <value xml:lang="pt">Atributo</value>
         <value xml:lang="ro">Atribute</value>
@@ -193,6 +199,7 @@
         <value xml:lang="en">Attribute Name</value>
         <value xml:lang="fr">Nom d'attribut</value>
         <value xml:lang="it">Nome attributo</value>
+        <value xml:lang="ja">属性名称</value>
         <value xml:lang="nl">Naam attribuut</value>
         <value xml:lang="pt">Nome do atributo</value>
         <value xml:lang="vi">Tên thuộc tính</value>
@@ -211,6 +218,7 @@
         <value xml:lang="en">Blog</value>
         <value xml:lang="fr">Blog</value>
         <value xml:lang="it">Blog</value>
+        <value xml:lang="ja">ブログ</value>
         <value xml:lang="nl">Blog</value>
         <value xml:lang="pt">Blog</value>
         <value xml:lang="vi">Blog</value>
@@ -222,6 +230,7 @@
         <value xml:lang="en">Article</value>
         <value xml:lang="fr">Article</value>
         <value xml:lang="it">Articolo</value>
+        <value xml:lang="ja">記事</value>
         <value xml:lang="nl">Artikel</value>
         <value xml:lang="pt_BR">Artigo</value>
         <value xml:lang="vi">Bài viết</value>
@@ -233,6 +242,7 @@
         <value xml:lang="en">List of Blog articles</value>
         <value xml:lang="fr">Liste des articles du blog</value>
         <value xml:lang="it">Lista degli articoli Blog</value>
+        <value xml:lang="ja">ブログ記事の一覧</value>
         <value xml:lang="nl">Lijst blog artikelen</value>
         <value xml:lang="pt">Lista de artigos do Blog</value>
         <value xml:lang="vi">Danh sách các bài viết blog</value>
@@ -244,6 +254,7 @@
         <value xml:lang="en">Blog Description</value>
         <value xml:lang="fr">Description du blog</value>
         <value xml:lang="it">Descrizione blog</value>
+        <value xml:lang="ja">ブログ詳細</value>
         <value xml:lang="nl">Beschrijving blog</value>
         <value xml:lang="pt">Descrição do blog</value>
         <value xml:lang="vi">Miêu tả Blog</value>
@@ -255,6 +266,7 @@
         <value xml:lang="en">Edit a Blog</value>
         <value xml:lang="fr">Modifier un blog</value>
         <value xml:lang="it">Aggiorna un Blog</value>
+        <value xml:lang="ja">ブログを編集</value>
         <value xml:lang="nl">Wijzig een blog</value>
         <value xml:lang="pt">Editar um Blog</value>
         <value xml:lang="vi">Cập nhật một Blog</value>
@@ -277,6 +289,7 @@
         <value xml:lang="en">List of Blogs</value>
         <value xml:lang="fr">Liste des blogs</value>
         <value xml:lang="it">Lista dei Blog</value>
+        <value xml:lang="ja">ブログの一覧</value>
         <value xml:lang="nl">Lijst van blogs</value>
         <value xml:lang="pt">Lista de Blogs</value>
         <value xml:lang="vi">Danh sách các Blog</value>
@@ -288,6 +301,7 @@
         <value xml:lang="en">Blog Name</value>
         <value xml:lang="fr">Nom du blog</value>
         <value xml:lang="it">Nome blog</value>
+        <value xml:lang="ja">ブログ名称</value>
         <value xml:lang="nl">Naam blog</value>
         <value xml:lang="pt">Nome do blog</value>
         <value xml:lang="vi">Tên Blog</value>
@@ -299,6 +313,7 @@
         <value xml:lang="en">POST</value>
         <value xml:lang="fr">POST</value>
         <value xml:lang="it">Inviare</value>
+        <value xml:lang="ja">投稿</value>
         <value xml:lang="nl">POST</value>
         <value xml:lang="pt">Postar</value>
         <value xml:lang="vi">GỬI</value>
@@ -332,6 +347,7 @@
         <value xml:lang="en">Summary</value>
         <value xml:lang="fr">Summario</value>
         <value xml:lang="it">Sommario</value>
+        <value xml:lang="ja">サマリ</value>
         <value xml:lang="nl">Samenvatting</value>
         <value xml:lang="pt">Resumo</value>
         <value xml:lang="vi">Tổng quan</value>
@@ -365,6 +381,7 @@
         <value xml:lang="en">Blogs</value>
         <value xml:lang="fr">Blogs</value>
         <value xml:lang="it">Blogs</value>
+        <value xml:lang="ja">ブログ</value>
         <value xml:lang="nl">Blogs</value>
         <value xml:lang="pt">Blogs</value>
         <value xml:lang="vi">Blog</value>
@@ -376,6 +393,7 @@
         <value xml:lang="en">Browse</value>
         <value xml:lang="fr">Consulter</value>
         <value xml:lang="it">Sfoglia</value>
+        <value xml:lang="ja">参照</value>
         <value xml:lang="nl">Blader</value>
         <value xml:lang="pt">Navegar</value>
         <value xml:lang="vi">Chọn</value>
@@ -403,6 +421,7 @@
         <value xml:lang="en">CMS Content Add Sub Content</value>
         <value xml:lang="fr">Ajout d'un sous-contenu au contenu de CMS</value>
         <value xml:lang="it">CMS aggiungi sotto contenuto</value>
+        <value xml:lang="ja">CMSコンテンツにサブコンテンツを追加</value>
         <value xml:lang="nl">CMS toevoegen sub-content</value>
         <value xml:lang="pt">Adicionar sub conteúdo ao CMS</value>
         <value xml:lang="vi">Nội dung CMS và Nội dung thành phần</value>
@@ -414,6 +433,7 @@
         <value xml:lang="en">CMS Content Edit Page</value>
         <value xml:lang="fr">Modifier la page du contenu de CMS</value>
         <value xml:lang="it">CMS aggiorna pagina</value>
+        <value xml:lang="ja">CMSコンテンツ編集ページ</value>
         <value xml:lang="nl">CMS wijzigen pagina</value>
         <value xml:lang="pt">Página de edição de conteúdo do CMS</value>
         <value xml:lang="vi">Cập nhật trang CMS nội dung</value>
@@ -426,6 +446,7 @@
         <value xml:lang="en">There is no Content PUBLISH_POINT for this WebSite!</value>
         <value xml:lang="fr">Il n'y a aucun contenu PUBLISH_POINT pour ce site Web !</value>
         <value xml:lang="it">Non c'è nessun Contenuto PUBLISH_POINT per questo Sito Web!</value>
+        <value xml:lang="ja">このWebサイトにはコンテンツ公開場所がありません!</value>
         <value xml:lang="nl">Er is geen PUBLISH_POINT voor deze website!</value>
         <value xml:lang="pt">Não há nenhum conteúdo PUBLISH_POINT para este site!</value>
         <value xml:lang="th">ไม่มีหัวข้อ PUBLISH_POINT สำหรับเว็บไซต์นี้</value>
@@ -438,6 +459,7 @@
         <value xml:lang="en">CMS Search Page</value>
         <value xml:lang="fr">Recherche de la page de CMS</value>
         <value xml:lang="it">CMS pagina di ricerca</value>
+        <value xml:lang="ja">CMS検索ページ</value>
         <value xml:lang="nl">CMS zoekpagina</value>
         <value xml:lang="pt">Página de pesquisa do CMS</value>
         <value xml:lang="vi">Trang tìm kiếm CMS</value>
@@ -476,6 +498,7 @@
         <value xml:lang="es">Categoría</value>
         <value xml:lang="fr">Catégorie</value>
         <value xml:lang="it">Categoria</value>
+        <value xml:lang="ja">カテゴリ</value>
         <value xml:lang="nl">Categorie</value>
         <value xml:lang="pt">Categoria</value>
         <value xml:lang="ro">Categoria</value>
@@ -492,6 +515,7 @@
         <value xml:lang="es">Set de caracteres</value>
         <value xml:lang="fr">Jeu de caractères</value>
         <value xml:lang="it">Set di Caratteri</value>
+        <value xml:lang="ja">キャラクタセット</value>
         <value xml:lang="nl">Karakterset</value>
         <value xml:lang="pt">Conjunto de caracteres</value>
         <value xml:lang="ro">Set de Caractere</value>
@@ -513,6 +537,7 @@
         <value xml:lang="en">Clip</value>
         <value xml:lang="fr">Extraire</value>
         <value xml:lang="it">Taglia</value>
+        <value xml:lang="ja">クリップ</value>
         <value xml:lang="nl">Clip</value>
         <value xml:lang="pt">Clipe</value>
         <value xml:lang="vi">Đoạn phim</value>
@@ -525,6 +550,7 @@
         <value xml:lang="en">Clone Layout</value>
         <value xml:lang="fr">Répliquer une mise en page</value>
         <value xml:lang="it">Clona Layout</value>
+        <value xml:lang="ja">レイアウトを複製</value>
         <value xml:lang="nl">Kopiëren layout</value>
         <value xml:lang="pt">Clonar Layout</value>
         <value xml:lang="th">คัดลอกแผนงาน</value>
@@ -540,6 +566,7 @@
         <value xml:lang="es">ComponerDoc</value>
         <value xml:lang="fr">Document composite</value>
         <value xml:lang="it">Composizione documenti</value>
+        <value xml:lang="ja">複合文書</value>
         <value xml:lang="nl">Samengesteld document (CompDoc)</value>
         <value xml:lang="pt">Documento composto (CompDoc)</value>
         <value xml:lang="ro">CompDoc</value>
@@ -553,6 +580,7 @@
         <value xml:lang="en">Add Composite Document Instance Page for Template</value>
         <value xml:lang="fr">Ajouter une page, instance de document composite pour modèle</value>
         <value xml:lang="it">Aggiungi composizione documenti pagina istanza per template.</value>
+        <value xml:lang="ja">テンプレートに複合文書インスタンスページを追加</value>
         <value xml:lang="nl">Toevoegen deel samengesteld document aan sjabloon.</value>
         <value xml:lang="pt">Adicionar instância de página de documento composto para modelo</value>
         <value xml:lang="vi">Thêm Trang khởi tạo Tài liệu kết hợp (Composite Document Instance Page) cho Biểu mẫu (Template)</value>
@@ -564,6 +592,7 @@
         <value xml:lang="en">+Aft</value>
         <value xml:lang="fr">+Après</value>
         <value xml:lang="it">+Dopo</value>
+        <value xml:lang="ja">+後</value>
         <value xml:lang="nl">+Na</value>
         <value xml:lang="pt">+Depois</value>
         <value xml:lang="vi">+Sau</value>
@@ -575,6 +604,7 @@
         <value xml:lang="en">Approval Status</value>
         <value xml:lang="fr">Statut de l'approbation</value>
         <value xml:lang="it">Stato approvazione</value>
+        <value xml:lang="ja">承認ステータス</value>
         <value xml:lang="pt">Status de aprovação</value>
         <value xml:lang="vi">Trạng thái duyệt</value>
         <value xml:lang="zh">审批状态</value>
@@ -586,6 +616,7 @@
         <value xml:lang="en">Approvals</value>
         <value xml:lang="fr">Approbations</value>
         <value xml:lang="it">Approvazioni</value>
+        <value xml:lang="ja">承認</value>
         <value xml:lang="nl">Goedkeuringen</value>
         <value xml:lang="pt">Aprovações</value>
         <value xml:lang="th">อนุญาต</value>
@@ -599,6 +630,7 @@
         <value xml:lang="en">Content Approvals for</value>
         <value xml:lang="fr">Approbations de contenu pour</value>
         <value xml:lang="it">Approvazioni Contenuto</value>
+        <value xml:lang="ja">コンテンツの承認</value>
         <value xml:lang="nl">Goedkeuringen content voor</value>
         <value xml:lang="pt">Aprovações de Conteúdo para</value>
         <value xml:lang="th">หัวข้อความคิดเห็นสำหรับ</value>
@@ -611,6 +643,7 @@
         <value xml:lang="en">+Bef</value>
         <value xml:lang="fr">+Avant</value>
         <value xml:lang="it">+Prima</value>
+        <value xml:lang="ja">+前</value>
         <value xml:lang="nl">+Voor</value>
         <value xml:lang="pt">+Antes</value>
         <value xml:lang="vi">+Sau</value>
@@ -622,6 +655,7 @@
         <value xml:lang="en">+Child</value>
         <value xml:lang="fr">+Enfant</value>
         <value xml:lang="it">+Figlio</value>
+        <value xml:lang="ja">+下位(子)</value>
         <value xml:lang="pt">+filho</value>
         <value xml:lang="vi">+Thành phần</value>
         <value xml:lang="zh">+下级</value>
@@ -632,6 +666,7 @@
         <value xml:lang="en">Content Role Edit Page</value>
         <value xml:lang="fr">Page d'étition des rôles de contenu</value>
         <value xml:lang="it">Pagina aggiornamento ruolo contenuto composizione documenti</value>
+        <value xml:lang="ja">コンテンツロール編集ページ</value>
         <value xml:lang="pt">Página de edição de papel de conteúdo</value>
         <value xml:lang="vi">Cập nhật vai trò</value>
         <value xml:lang="zh">内容角色编辑页面</value>
@@ -642,6 +677,7 @@
         <value xml:lang="en">Comp Doc Current Instance</value>
         <value xml:lang="fr">Instance courante de document composite</value>
         <value xml:lang="it">Istanza attuale</value>
+        <value xml:lang="ja">複合文書の現在のインスタンス</value>
         <value xml:lang="pt">Instância atual do Documento composto (CompDoc)</value>
         <value xml:lang="vi">Tài liệu kết hợp hiện tại</value>
         <value xml:lang="zh">合成文档当前实例</value>
@@ -652,6 +688,7 @@
         <value xml:lang="en">Current Template CompDoc</value>
         <value xml:lang="fr">Modèle courant de document composite</value>
         <value xml:lang="it">Template attuale</value>
+        <value xml:lang="ja">現在のテンプレート複合文書</value>
         <value xml:lang="pt">Modelo atual de CompDoc</value>
         <value xml:lang="vi">Biểu mẫu của Tài liệu kết hợp hiện tại</value>
         <value xml:lang="zh">合成文档当前模板</value>
@@ -662,6 +699,7 @@
         <value xml:lang="en">vDn</value>
         <value xml:lang="fr">vBas</value>
         <value xml:lang="it">vGiù</value>
+        <value xml:lang="ja">v下</value>
         <value xml:lang="pt">vDn</value>
         <value xml:lang="vi">Tải về (vDn)</value>
         <value xml:lang="zh">v下</value>
@@ -672,6 +710,7 @@
         <value xml:lang="en">Generate Composite PDF</value>
         <value xml:lang="fr">Générer un document PDF composite</value>
         <value xml:lang="it">Genera PDF composizione</value>
+        <value xml:lang="ja">複合PDFの生成</value>
         <value xml:lang="pt">Gerar PDF composto</value>
         <value xml:lang="vi">Sinh định dạng PDF</value>
         <value xml:lang="zh">生成PDF</value>
@@ -682,6 +721,7 @@
         <value xml:lang="en">Go Back to CompDoc Root</value>
         <value xml:lang="fr">Retourner à la racine du document composite</value>
         <value xml:lang="it">Torna indietro alla composizione documenti</value>
+        <value xml:lang="ja">複合文書ルートに戻る</value>
         <value xml:lang="pt">Voltar à raiz do CompDoc</value>
         <value xml:lang="vi">Trở về Trang gốc Tài liệu kết hợp</value>
         <value xml:lang="zh">返回合成文档根目录</value>
@@ -701,6 +741,7 @@
         <value xml:lang="en">Parent Content ID</value>
         <value xml:lang="fr">Contenu parent</value>
         <value xml:lang="it">Contenuto padre</value>
+        <value xml:lang="ja">上位(親)のコンテンツID</value>
         <value xml:lang="pt">ID de conteúdo pai</value>
         <value xml:lang="vi">Nội dung cha</value>
         <value xml:lang="zh">上级内容标识</value>
@@ -712,6 +753,7 @@
         <value xml:lang="en">rev.</value>
         <value xml:lang="fr">Ver.</value>
         <value xml:lang="it">rev.</value>
+        <value xml:lang="ja">Ver.</value>
         <value xml:lang="pt">Rev.</value>
         <value xml:lang="th">รายได้</value>
         <value xml:lang="vi">Phiên bản</value>
@@ -724,6 +766,7 @@
         <value xml:lang="en">Revision Item Edit Page</value>
         <value xml:lang="fr">Page de modification de révision d'article</value>
         <value xml:lang="it">Riga Revisione Pagina Aggiornamento per Contenuto</value>
+        <value xml:lang="ja">リビジョンアイテム編集ページ</value>
         <value xml:lang="pt">Página de edição do Item de revisão</value>
         <value xml:lang="th">ปรับปรุงรายการในหน้าแก้ไข</value>
         <value xml:lang="vi">Trang cập nhật phiên bản</value>
@@ -736,6 +779,7 @@
         <value xml:lang="en">Revision List Page For Content</value>
         <value xml:lang="fr">Page de liste de révision pour le contenu</value>
         <value xml:lang="it">Lista Revisioni Pagina per Contenuto</value>
+        <value xml:lang="ja">コンテンツのリビジョン一覧ページ</value>
         <value xml:lang="pt">Página de lista de revisão para conteúdo</value>
         <value xml:lang="th">ปรับปรุงหน้ารายการสำหรับหัวข้อ</value>
         <value xml:lang="vi">Danh sách các phiên bản</value>
@@ -748,6 +792,7 @@
         <value xml:lang="en">Revisions</value>
         <value xml:lang="fr">Révisions</value>
         <value xml:lang="it">Revisioni</value>
+        <value xml:lang="ja">リビジョン</value>
         <value xml:lang="pt">Revisões</value>
         <value xml:lang="th">ปรับปรุงใหม่</value>
         <value xml:lang="vi">Phiên bản</value>
@@ -759,6 +804,7 @@
         <value xml:lang="en">Start Approval Proces</value>
         <value xml:lang="fr">Démarrer le processus d'approbation</value>
         <value xml:lang="it">Inizio processo approvazione</value>
+        <value xml:lang="ja">承認プロセスを開始</value>
         <value xml:lang="pt">Iniciar o processo de aprovação</value>
         <value xml:lang="vi">Bắt đầu quá trình xét duyệt</value>
         <value xml:lang="zh">启动审批流程</value>
@@ -769,6 +815,7 @@
         <value xml:lang="en">Comp Doc Template Name</value>
         <value xml:lang="fr">Nom du modèle de document composite</value>
         <value xml:lang="it">Nome template composizione documenti</value>
+        <value xml:lang="ja">複合文書テンプレート名称</value>
         <value xml:lang="pt">Nome do Modelo de CompDoc </value>
         <value xml:lang="vi">Tên biểu mẫu Tài liệu kết hợp</value>
         <value xml:lang="zh">合成文档模板名称</value>
@@ -779,6 +826,7 @@
         <value xml:lang="en">^Up</value>
         <value xml:lang="fr">^Haut</value>
         <value xml:lang="it">^Sù</value>
+        <value xml:lang="ja">^上</value>
         <value xml:lang="pt">^Cima</value>
         <value xml:lang="vi">Tải lên (^Up)</value>
         <value xml:lang="zh">^上</value>
@@ -790,6 +838,7 @@
         <value xml:lang="en">View Instances</value>
         <value xml:lang="fr">Exemples de vue</value>
         <value xml:lang="it">Mostra Istanze di CompDoc</value>
+        <value xml:lang="ja">インスタンスの表示</value>
         <value xml:lang="pt">Exibir Instâncias</value>
         <value xml:lang="th">ดูตัวอย่าง</value>
         <value xml:lang="vi">Xem các Khởi tạo</value>
@@ -802,6 +851,7 @@
         <value xml:lang="en">View Tree</value>
         <value xml:lang="fr">Voir l'arborescence</value>
         <value xml:lang="it">Mostra Albero</value>
+        <value xml:lang="ja">ツリーの表示</value>
         <value xml:lang="pt">Exibir árvore</value>
         <value xml:lang="th">แสดงแผนผังรูปต้นไม้</value>
         <value xml:lang="vi">Xem cây</value>
@@ -814,6 +864,7 @@
         <value xml:lang="en">View Waiting Approvals</value>
         <value xml:lang="fr">Voir les approbations en attente</value>
         <value xml:lang="it">Mostra Approvazioni in Attesa</value>
+        <value xml:lang="ja">承認待ちの表示</value>
         <value xml:lang="pt">Ver aprovações pendentes</value>
         <value xml:lang="th">รอการอนุมัติ</value>
         <value xml:lang="vi">Xem các Đợi duyệt</value>
@@ -828,6 +879,7 @@
         <value xml:lang="es">OFBiz: Administración de Contenidos</value>
         <value xml:lang="fr">OFBiz: gestion de contenu</value>
         <value xml:lang="it">OFBiz: Gestione contenuti</value>
+        <value xml:lang="ja">OFBiz: コンテンツ管理</value>
         <value xml:lang="pt">OFBiz: Gerenciador de conteúdo</value>
         <value xml:lang="ro">OFBiz: Gestiune Continut</value>
         <value xml:lang="th">OFBiz:หัวข้อการจัดการ</value>
@@ -862,6 +914,7 @@
         <value xml:lang="es">Contenido</value>
         <value xml:lang="fr">Contenu</value>
         <value xml:lang="it">Contenuto</value>
+        <value xml:lang="ja">コンテンツ</value>
         <value xml:lang="nl">Content</value>
         <value xml:lang="pt">Conteúdo</value>
         <value xml:lang="ro">Continut</value>
@@ -894,6 +947,7 @@
         <value xml:lang="es">Aplicación de Administración de Contenidos</value>
         <value xml:lang="fr">Application de gestion de contenu</value>
         <value xml:lang="it">Gestione contenuti</value>
+        <value xml:lang="ja">コンテンツ管理</value>
         <value xml:lang="nl">Content Manager</value>
         <value xml:lang="pt">Gerenciador de conteúdo</value>
         <value xml:lang="ro">Aplicatie Gestiune Continuturi</value>
@@ -910,6 +964,7 @@
         <value xml:lang="es">Aplicación de Administración de Contenidos</value>
         <value xml:lang="fr">Application de gestion de contenu</value>
         <value xml:lang="it">Applicazione gestione contenuti</value>
+        <value xml:lang="ja">コンテンツ管理業務</value>
         <value xml:lang="nl">Content Manager Applicatie</value>
         <value xml:lang="pt">Aplicativo do Gerenciador de conteúdo</value>
         <value xml:lang="ro">Aplicatie Gestiune Continuturi</value>
@@ -934,6 +989,7 @@
         <value xml:lang="es">Administración de contenido</value>
         <value xml:lang="fr">Configuration du contenu</value>
         <value xml:lang="it">Configurazione contenuto</value>
+        <value xml:lang="ja">コンテンツ設定</value>
         <value xml:lang="nl">Content instellingen</value>
         <value xml:lang="pt">Configuração do conteúdo</value>
         <value xml:lang="ro">Configurare Continut</value>
@@ -979,6 +1035,7 @@
         <value xml:lang="en">Content Entries Associated to this Data Resource</value>
         <value xml:lang="fr">Elément de contenu associé à cette ressource</value>
         <value xml:lang="it">Voci contenuto associate a questa risorsa dati</value>
+        <value xml:lang="ja">このデータリソースに関連付けられたコンテンツのエントリ</value>
         <value xml:lang="nl">Content geassocieerd met deze databron</value>
         <value xml:lang="pt">Conteúdos associados a este recurso de dados</value>
         <value xml:lang="vi">Điểm nhập nội dung liên kết đến Tài nguyên dữ liệu này</value>
@@ -1023,6 +1080,7 @@
         <value xml:lang="en">Create File</value>
         <value xml:lang="fr">Créer le fichier</value>
         <value xml:lang="it">Creare File</value>
+        <value xml:lang="ja">ファイル作成</value>
         <value xml:lang="nl">Aanmaken bestand</value>
         <value xml:lang="pt">Criar arquivo</value>
         <value xml:lang="th">สร้างไฟล์</value>
@@ -1035,6 +1093,7 @@
         <value xml:lang="en">Create New Blog</value>
         <value xml:lang="fr">Créer un nouveau blog</value>
         <value xml:lang="it">Nuovo blog</value>
+        <value xml:lang="ja">新規ブログを作成</value>
         <value xml:lang="nl">Aanmaken nieuwe blog</value>
         <value xml:lang="pt">Criar novo Blog</value>
         <value xml:lang="vi">Tạo mới Blog</value>
@@ -1046,6 +1105,7 @@
         <value xml:lang="en">Create New Art.</value>
         <value xml:lang="fr">Créer un nouvel article</value>
         <value xml:lang="it">Creare nuovo articolo</value>
+        <value xml:lang="ja">新規記事を作成</value>
         <value xml:lang="nl">Aanmaken nieuw artikel</value>
         <value xml:lang="pt">Criar novo artigo</value>
         <value xml:lang="vi">Tạo mới bài viết Blog</value>
@@ -1057,6 +1117,7 @@
         <value xml:lang="en">Create New Root CompDoc Template</value>
         <value xml:lang="fr">Créer une nouvelle racine de modèle de document composite</value>
         <value xml:lang="it">Creare un nuovo template CompDoc Root</value>
+        <value xml:lang="ja">新規ルート複合文書テンプレートを作成</value>
         <value xml:lang="pt">Criar novo modelo de raiz CompDoc</value>
         <value xml:lang="vi">Tạo mới biểu mẫu cho tài liệu kết hợp gốc</value>
         <value xml:lang="zh">新建根合成文档模板</value>
@@ -1067,6 +1128,7 @@
         <value xml:lang="en">Create New WebSite</value>
         <value xml:lang="fr">Créer un nouveau Site Web</value>
         <value xml:lang="it">Nuovo sito web</value>
+        <value xml:lang="ja">新規Webサイトを作成</value>
         <value xml:lang="nl">Aanmaken nieuwe website</value>
         <value xml:lang="pt">Criar novo site</value>
         <value xml:lang="vi">Tạo mới trang thông tin</value>
@@ -1077,6 +1139,7 @@
         <value xml:lang="en">DataBase Text</value>
         <value xml:lang="fr">Texte de base de données</value>
         <value xml:lang="it">Testo database</value>
+        <value xml:lang="ja">データベーステキスト</value>
         <value xml:lang="nl">Database tekst</value>
         <value xml:lang="pt">Texto de Banco de dados</value>
         <value xml:lang="vi">Chữ kiểu cơ bản</value>
@@ -1091,6 +1154,7 @@
         <value xml:lang="es">Recurso de datos</value>
         <value xml:lang="fr">Ressource de données</value>
         <value xml:lang="it">Risorsa dati</value>
+        <value xml:lang="ja">データリソース</value>
         <value xml:lang="nl">Databron</value>
         <value xml:lang="pt">Recurso de dados</value>
         <value xml:lang="ro">Resursa Date</value>
@@ -1107,6 +1171,7 @@
         <value xml:lang="es">Atributo</value>
         <value xml:lang="fr">Attribut</value>
         <value xml:lang="it">Attributo</value>
+        <value xml:lang="ja">属性</value>
         <value xml:lang="nl">Attribuut</value>
         <value xml:lang="pt">Atributo</value>
         <value xml:lang="ro">Atribut</value>
@@ -1123,6 +1188,7 @@
         <value xml:lang="es">Html</value>
         <value xml:lang="fr">Html</value>
         <value xml:lang="it">Html</value>
+        <value xml:lang="ja">HTML</value>
         <value xml:lang="nl">Html</value>
         <value xml:lang="pt">HTML</value>
         <value xml:lang="ro">Html</value>
@@ -1139,6 +1205,7 @@
         <value xml:lang="es">Imágen</value>
         <value xml:lang="fr">Image</value>
         <value xml:lang="it">Immagine</value>
+        <value xml:lang="ja">画像</value>
         <value xml:lang="nl">Afbeelding</value>
         <value xml:lang="pt">Imagem</value>
         <value xml:lang="ro">Imagine</value>
@@ -1171,6 +1238,7 @@
         <value xml:lang="es">Características del Producto</value>
         <value xml:lang="fr">Caractéristiques du produit</value>
         <value xml:lang="it">Caratteristiche Prodotto</value>
+        <value xml:lang="ja">製品の機能</value>
         <value xml:lang="nl">Eigenschappen product</value>
         <value xml:lang="pt">Recursos do produto</value>
         <value xml:lang="ro">Caracteristiche Produs</value>
@@ -1187,6 +1255,7 @@
         <value xml:lang="es">Tol</value>
         <value xml:lang="fr">Rôle</value>
         <value xml:lang="it">Ruolo</value>
+        <value xml:lang="ja">ロール</value>
         <value xml:lang="nl">Rol</value>
         <value xml:lang="pt">Papel</value>
         <value xml:lang="ro">Drept</value>
@@ -1203,6 +1272,7 @@
         <value xml:lang="es">Texto</value>
         <value xml:lang="fr">Texte</value>
         <value xml:lang="it">Testo</value>
+        <value xml:lang="ja">本文</value>
         <value xml:lang="nl">Tekst</value>
         <value xml:lang="pt">Texto</value>
         <value xml:lang="ro">Text</value>
@@ -1216,6 +1286,7 @@
         <value xml:lang="en">Upload</value>
         <value xml:lang="fr">Télécharger vers le serveur</value>
         <value xml:lang="it">Carica</value>
+        <value xml:lang="ja">アップロード</value>
         <value xml:lang="nl">Upload</value>
         <value xml:lang="pt">Carregar</value>
         <value xml:lang="vi">Tải lên</value>
@@ -1229,6 +1300,7 @@
         <value xml:lang="es">Administración de recurso de datos</value>
         <value xml:lang="fr">Configuration des ressources de données</value>
         <value xml:lang="it">Configurazione risorsa dati</value>
+        <value xml:lang="ja">データリソース設定</value>
         <value xml:lang="nl">Databron instellingen</value>
         <value xml:lang="pt">Configuração de recurso de dados</value>
         <value xml:lang="ro">Configurare Resurse Date</value>
@@ -1243,6 +1315,7 @@
         <value xml:lang="en">Data Type </value>
         <value xml:lang="fr">Type de données</value>
         <value xml:lang="it">Tipo Dati</value>
+        <value xml:lang="ja">データ種類</value>
         <value xml:lang="nl">Datasoort</value>
         <value xml:lang="pt">Tipo de dados </value>
         <value xml:lang="th">ประเภทข้อมูล</value>
@@ -1263,6 +1336,7 @@
         <value xml:lang="en">Decorator</value>
         <value xml:lang="fr">Décorateur</value>
         <value xml:lang="it">Decorazione</value>
+        <value xml:lang="ja">デコレータ</value>
         <value xml:lang="pt">Decorator</value>
         <value xml:lang="vi">Trang trí</value>
         <value xml:lang="zh">修饰程序</value>
@@ -1273,6 +1347,7 @@
         <value xml:lang="en">Delete Folder</value>
         <value xml:lang="fr">Suppression de répertoire</value>
         <value xml:lang="it">Cancella cartella</value>
+        <value xml:lang="ja">フォルダを削除</value>
         <value xml:lang="pt">Excluir a pasta</value>
         <value xml:lang="th">ลบกล่อง</value>
         <value xml:lang="vi">Xóa thư mục</value>
@@ -1284,6 +1359,7 @@
         <value xml:lang="en">Document Type</value>
         <value xml:lang="fr">Type de document</value>
         <value xml:lang="it">Tipo documento</value>
+        <value xml:lang="ja">文書</value>
         <value xml:lang="nl">Soort document</value>
         <value xml:lang="pt">Tipo de documento</value>
         <value xml:lang="vi">Kiểu tài liệu</value>
@@ -1295,6 +1371,7 @@
         <value xml:lang="en">Download</value>
         <value xml:lang="fr">Télécharger</value>
         <value xml:lang="it">Scarica</value>
+        <value xml:lang="ja">ダウンロード</value>
         <value xml:lang="nl">Download</value>
         <value xml:lang="pt">Download</value>
         <value xml:lang="vi">Tải về</value>
@@ -1308,6 +1385,7 @@
         <value xml:lang="es">Modificar Tienda</value>
         <value xml:lang="fr">Modifier le centre de profit</value>
         <value xml:lang="it">Aggiorna Negozio</value>
+        <value xml:lang="ja">製品店舗を編集</value>
         <value xml:lang="nl">Wijzigen winkel</value>
         <value xml:lang="pt">Editar Loja de produtos</value>
         <value xml:lang="ro">Actualizeaza Magazin</value>
@@ -1321,6 +1399,7 @@
         <value xml:lang="en">Editing Latest Revision</value>
         <value xml:lang="fr">Modification de la dernière version</value>
         <value xml:lang="it">Aggiorna ultima revisione</value>
+        <value xml:lang="ja">修正中最新リビジョン</value>
         <value xml:lang="pt">Editando última revisão</value>
         <value xml:lang="vi">Cập nhật phiên bản mới nhất</value>
         <value xml:lang="zh">编辑最新修订</value>
@@ -1342,6 +1421,7 @@
         <value xml:lang="es">Archivo</value>
         <value xml:lang="fr">Fichier</value>
         <value xml:lang="it">File</value>
+        <value xml:lang="ja">ファイル</value>
         <value xml:lang="nl">Bestand</value>
         <value xml:lang="pt">Arquivo</value>
         <value xml:lang="ro">Fisier</value>
@@ -1358,6 +1438,7 @@
         <value xml:lang="es">Extesión de Archivo</value>
         <value xml:lang="fr">Extension de fichier</value>
         <value xml:lang="it">Estensione File</value>
+        <value xml:lang="ja">ファイル拡張子</value>
         <value xml:lang="nl">Bestand extensie</value>
         <value xml:lang="pt">Arquivo Ext</value>
         <value xml:lang="ro">Estensione Fisier</value>
@@ -1374,6 +1455,7 @@
         <value xml:lang="es">Ruta del archivo</value>
         <value xml:lang="fr">Chemin d'accès au fichier</value>
         <value xml:lang="it">Percorso File</value>
+        <value xml:lang="ja">ファイルパス</value>
         <value xml:lang="pt">Caminho do arquivo</value>
         <value xml:lang="ro">Parcurs Fisier</value>
         <value xml:lang="th">ไฟล์ Path</value>
@@ -1386,6 +1468,7 @@
         <value xml:lang="en">File Rel. to OFBIZ_HOME</value>
         <value xml:lang="fr">Fichier au nom relatif à OFBIZ_HOME</value>
         <value xml:lang="it">File relativo alla OFBIZ_HOME</value>
+        <value xml:lang="ja">OFBIZ_HOMEへの相対パス</value>
         <value xml:lang="pt">Arquivo relativo a OFBIZ_HOME</value>
         <value xml:lang="vi">Đường dẫn so với thư mục gốc OFBIZ_HOME</value>
         <value xml:lang="zh">文件相对于OFBIZ_HOME</value>
@@ -1396,6 +1479,7 @@
         <value xml:lang="en">File Rel. to webapp root</value>
         <value xml:lang="fr">Fichier au nom relatif à la racine de l'application (webapp)</value>
         <value xml:lang="it">File relativo alla webapp root</value>
+        <value xml:lang="ja">webappルートへの相対パス</value>
         <value xml:lang="pt">Arquivo relativo à raiz do aplicativo web</value>
         <value xml:lang="vi">Đường dẫn so với gốc trang thông tin (webapp root)</value>
         <value xml:lang="zh">文件相对于webapp根目录</value>
@@ -1409,6 +1493,7 @@
         <value xml:lang="es">Foro</value>
         <value xml:lang="fr">Forum</value>
         <value xml:lang="it">Forum</value>
+        <value xml:lang="ja">フォーラム</value>
         <value xml:lang="pt">Fórum</value>
         <value xml:lang="ro">Forum</value>
         <value xml:lang="th">ความคิดเห็น</value>
@@ -1423,6 +1508,7 @@
         <value xml:lang="en">Add purpose to</value>
         <value xml:lang="fr">Ajouter le but à</value>
         <value xml:lang="it">Aggiungi funzione a</value>
+        <value xml:lang="ja">目的を追加</value>
         <value xml:lang="pt">Adicionar objetivo a</value>
         <value xml:lang="ro">Adauga functie la </value>
         <value xml:lang="th">เพิ่มวัตถุประสงค์ถึง</value>
@@ -1436,6 +1522,7 @@
         <value xml:lang="en">Add a response to message</value>
         <value xml:lang="fr">Ajouter une réponse au message</value>
         <value xml:lang="it">Aggiungi una risposta al messaggio</value>
+        <value xml:lang="ja">メッセージに回答を追加</value>
         <value xml:lang="pt">Adicionar uma resposta à mensagem</value>
         <value xml:lang="th">ผลตอบรับถึงข้อความ</value>
         <value xml:lang="vi">Thêm phản hồi tới thông điệp</value>
@@ -1449,6 +1536,7 @@
         <value xml:lang="en">Add role to</value>
         <value xml:lang="fr">Ajoutez le rôle à</value>
         <value xml:lang="it">Aggiungi ruolo a</value>
+        <value xml:lang="ja">ロールを追加</value>
         <value xml:lang="pt">Adicionar papel a</value>
         <value xml:lang="ro">Adauga Drept la</value>
         <value xml:lang="th">เพิ่มสถานะถึง</value>
@@ -1463,6 +1551,7 @@
         <value xml:lang="en">Add new thread to this Forum</value>
         <value xml:lang="fr">Ajouter un nouveau fil de discussion à ce forum</value>
         <value xml:lang="it">Aggiungi nuova discussione a questo forum</value>
+        <value xml:lang="ja">このフォーラムに新規スレッドを追加</value>
         <value xml:lang="pt">Adicionar novo tópico ao fórum</value>
         <value xml:lang="ro">Adauga nou thread la acest Forum</value>
         <value xml:lang="th">เพิ่มเรื่องเข้าสู่ความคิดเห็นนี้</value>
@@ -1477,6 +1566,7 @@
         <value xml:lang="en">Add forum to</value>
         <value xml:lang="fr">Ajouter le forum à</value>
         <value xml:lang="it">Aggiungi al forum</value>
+        <value xml:lang="ja">フォーラムを追加</value>
         <value xml:lang="pt">Adicionar forum a</value>
         <value xml:lang="ro">Adauga la forum</value>
         <value xml:lang="th">เพิ่มความคิดเห็นถึง</value>
@@ -1489,6 +1579,7 @@
         <value xml:lang="en">Thread description</value>
         <value xml:lang="fr">Description du fil de discussion</value>
         <value xml:lang="it">Descrizione discussione</value>
+        <value xml:lang="ja">スレッド詳細</value>
         <value xml:lang="pt">Descrição de tópico</value>
         <value xml:lang="vi">Miêu tả luồng thảo luận</value>
         <value xml:lang="zh">线索描述</value>
@@ -1501,6 +1592,7 @@
         <value xml:lang="en">Create new forum group</value>
         <value xml:lang="fr">Créer un nouveau groupe de forum</value>
         <value xml:lang="it">Creare nuovo gruppo forum</value>
+        <value xml:lang="ja">新規フォーラムグループを作成</value>
         <value xml:lang="pt">Criar novo grupo de fórum</value>
         <value xml:lang="ro">Creare un nou grup forum</value>
         <value xml:lang="th">สร้างกลุ่มความคิดเห็นใหม่</value>
@@ -1514,6 +1606,7 @@
         <value xml:lang="en">Message</value>
         <value xml:lang="fr">Message</value>
         <value xml:lang="it">Messaggio</value>
+        <value xml:lang="ja">メッセージ</value>
         <value xml:lang="pt">Mensagem</value>
         <value xml:lang="th">ข้อความ</value>
         <value xml:lang="vi">Thông điệp</value>
@@ -1526,6 +1619,7 @@
         <value xml:lang="en">Messages</value>
         <value xml:lang="fr">Messages</value>
         <value xml:lang="it">Messaggi</value>
+        <value xml:lang="ja">メッセージ</value>
         <value xml:lang="nl">Berichten</value>
         <value xml:lang="pt">Mensagens</value>
         <value xml:lang="th">ข้อความ</value>
@@ -1539,6 +1633,7 @@
         <value xml:lang="en">Thread</value>
         <value xml:lang="fr">Fil de discussion</value>
         <value xml:lang="it">Discussione</value>
+        <value xml:lang="ja">スレッド</value>
         <value xml:lang="pt">Tópico</value>
         <value xml:lang="th">Thread</value>
         <value xml:lang="vi">Luồng thảo luận</value>
@@ -1550,6 +1645,7 @@
         <value xml:lang="en">Forums</value>
         <value xml:lang="fr">Forums</value>
         <value xml:lang="it">Forums</value>
+        <value xml:lang="ja">フォーラム</value>
         <value xml:lang="pt">Fóruns</value>
         <value xml:lang="vi">Diễn đàn</value>
         <value xml:lang="zh">论坛</value>
@@ -1577,6 +1673,7 @@
         <value xml:lang="en">Go to Content</value>
         <value xml:lang="fr">Aller au contenu</value>
         <value xml:lang="it">Vai al contenuto</value>
+        <value xml:lang="ja">コンテンツに移動</value>
         <value xml:lang="nl">Tonen content</value>
         <value xml:lang="pt">Ir para conteúdo</value>
         <value xml:lang="vi">Đi đến nội dung</value>
@@ -1591,6 +1688,7 @@
         <value xml:lang="es">Ir al recurso de información</value>
         <value xml:lang="fr">Aller à la ressource de données</value>
         <value xml:lang="it">Vai alla risorsa dati</value>
+        <value xml:lang="ja">データリソースに移動</value>
         <value xml:lang="nl">Tonen databron</value>
         <value xml:lang="pt">Ir para o recurso de dados</value>
         <value xml:lang="ro">Dute la Resursa Date</value>
@@ -1604,6 +1702,7 @@
         <value xml:lang="en">Goto Find</value>
         <value xml:lang="fr">Aller à la recherche</value>
         <value xml:lang="it">Torna alla ricerca</value>
+        <value xml:lang="ja">検索に移動</value>
         <value xml:lang="pt">Ir para localizar</value>
         <value xml:lang="vi">Đi đến tìm kiếm</value>
         <value xml:lang="zh">转到查找</value>
@@ -1617,6 +1716,7 @@
         <value xml:lang="es">Html</value>
         <value xml:lang="fr">HTML</value>
         <value xml:lang="it">Html</value>
+        <value xml:lang="ja">HTML</value>
         <value xml:lang="nl">Html</value>
         <value xml:lang="pt">HTML</value>
         <value xml:lang="ro">Html</value>
@@ -1630,6 +1730,7 @@
         <value xml:lang="en">Html Text</value>
         <value xml:lang="fr">Texte HTML</value>
         <value xml:lang="it">Teso html</value>
+        <value xml:lang="ja">HTML文書</value>
         <value xml:lang="nl">Html tekst</value>
         <value xml:lang="pt">Texto HTML</value>
         <value xml:lang="vi">Chữ HTML</value>
@@ -1644,6 +1745,7 @@
         <value xml:lang="es">Imágen</value>
         <value xml:lang="fr">Image</value>
         <value xml:lang="it">Immagine</value>
+        <value xml:lang="ja">画像</value>
         <value xml:lang="nl">Afbeelding</value>
         <value xml:lang="pt">Imagem</value>
         <value xml:lang="ro">Imagine</value>
@@ -1667,6 +1769,7 @@
         <value xml:lang="es">Indice</value>
         <value xml:lang="fr">Index</value>
         <value xml:lang="it">Indicizza</value>
+        <value xml:lang="ja">索引</value>
         <value xml:lang="pt">Índice</value>
         <value xml:lang="ro">Indicizeaza</value>
         <value xml:lang="th">ดัชนี</value>
@@ -1682,6 +1785,7 @@
         <value xml:lang="es">Indice de todo el contenido</value>
         <value xml:lang="fr">Indexez tout le contenu dessous</value>
         <value xml:lang="it">Indicizza Tutti i Contenuti Sotto</value>
+        <value xml:lang="ja">すべてのコンテンツの索引を作成</value>
         <value xml:lang="pt">Indexar todo o conteúdo sob</value>
         <value xml:lang="ro">Indicizeaza Toate Continuturile dedesubt</value>
         <value xml:lang="th">ดัชนีรวมหัวข้อทั้งหมด</value>
@@ -1696,6 +1800,7 @@
         <value xml:lang="en">Index Entered Ids</value>
         <value xml:lang="fr">Indexez les réfs. entrées</value>
         <value xml:lang="it">Inserire Codici da Indicizzare</value>
+        <value xml:lang="ja">入力されたIDの索引を作成</value>
         <value xml:lang="pt">Indexar Ids fornecidos</value>
         <value xml:lang="ro">Introduceti Coduri de Indicizare</value>
         <value xml:lang="th">ดัชนีเข้าสู่รหัส</value>
@@ -1815,6 +1920,7 @@
         <value xml:lang="en">Latest</value>
         <value xml:lang="fr">Dernier</value>
         <value xml:lang="it">Ultimo</value>
+        <value xml:lang="ja">最新</value>
         <value xml:lang="pt">Mais recente</value>
         <value xml:lang="vi">Mới nhất</value>
         <value xml:lang="zh">最新</value>
@@ -1827,6 +1933,7 @@
         <value xml:lang="en">Layout</value>
         <value xml:lang="fr">Mise en page</value>
         <value xml:lang="it">Layout</value>
+        <value xml:lang="ja">レイアウト</value>
         <value xml:lang="pt">Layout</value>
         <value xml:lang="ro">Layout</value>
         <value xml:lang="th">แผนงาน</value>
@@ -1840,6 +1947,7 @@
         <value xml:lang="en">List own created Templates</value>
         <value xml:lang="fr">Voir vos propres modèles</value>
         <value xml:lang="it">Lista templates personali creati</value>
+        <value xml:lang="ja">自分で作成したテンプレート一覧</value>
         <value xml:lang="pt">Listar próprios modelos criados</value>
         <value xml:lang="vi">Liệt kê các Biểu mẫu do bạn sở hữu</value>
         <value xml:lang="zh">列出自建模板</value>
@@ -1858,6 +1966,7 @@
         <value xml:lang="en">MS Word</value>
         <value xml:lang="fr">MS Word</value>
         <value xml:lang="it">MS Word</value>
+        <value xml:lang="ja">MSワード</value>
         <value xml:lang="pt">MS Word</value>
         <value xml:lang="vi">MS Word</value>
         <value xml:lang="zh">微软Word</value>
@@ -1870,6 +1979,7 @@
         <value xml:lang="es">Principal</value>
         <value xml:lang="fr">Page d'accueil</value>
         <value xml:lang="it">Pagina Principale</value>
+        <value xml:lang="ja">メイン</value>
         <value xml:lang="pt">Pricipal</value>
         <value xml:lang="ro">Pagina Principala</value>
         <value xml:lang="th">หน้าหลัก</value>
@@ -1883,6 +1993,7 @@
         <value xml:lang="en">MapKey</value>
         <value xml:lang="fr">Clef d'association</value>
         <value xml:lang="it">Chiave Mappa</value>
+        <value xml:lang="ja">マップキー</value>
         <value xml:lang="pt">MapKey</value>
         <value xml:lang="th">แผนที่สำคัญ</value>
         <value xml:lang="vi">Ánh xạ từ khóa</value>
@@ -1896,6 +2007,7 @@
         <value xml:lang="en">MetaData Predicate</value>
         <value xml:lang="fr">Attribut de méta-données</value>
         <value xml:lang="it">Predicato MetaData</value>
+        <value xml:lang="ja">メタデータ属性</value>
         <value xml:lang="pt">Predicado de Metadados</value>
         <value xml:lang="ro">Predicat MetaData</value>
         <value xml:lang="th">ข้อมูลยืนยัน</value>
@@ -1909,6 +2021,7 @@
         <value xml:lang="en">Meta Tags</value>
         <value xml:lang="fr">Méta-étiquettes</value>
         <value xml:lang="it">Meta Tags</value>
+        <value xml:lang="ja">メタタグ</value>
         <value xml:lang="pt">Meta Tags</value>
         <value xml:lang="vi">Đánh dấu (Tag)</value>
         <value xml:lang="zh">Meta标签</value>
@@ -1921,6 +2034,7 @@
         <value xml:lang="en">Metadata</value>
         <value xml:lang="fr">Méta-données</value>
         <value xml:lang="it">Metadati</value>
+        <value xml:lang="ja">メタデータ</value>
         <value xml:lang="pt">Metadados</value>
         <value xml:lang="ro">Metadate</value>
         <value xml:lang="th">ที่มาของข้อมูล</value>
@@ -1935,6 +2049,7 @@
         <value xml:lang="en">Mime Type</value>
         <value xml:lang="fr">Type mime</value>
         <value xml:lang="it">Tipo Mime</value>
+        <value xml:lang="ja">MIMEタイプ</value>
         <value xml:lang="pt">Mime Type</value>
         <value xml:lang="ro">Tip Mime</value>
         <value xml:lang="th">ประเภทแบบจำลอง</value>
@@ -1949,6 +2064,7 @@
         <value xml:lang="en">Mime Type Template</value>
         <value xml:lang="fr">Type modèle Mime</value>
         <value xml:lang="it">Tipo Mime Template</value>
+        <value xml:lang="ja">MIMEタイプテンプレート</value>
         <value xml:lang="pt">Modelo de Mime Type</value>
         <value xml:lang="th">รูปแบบประเภทแบบจำลอง</value>
         <value xml:lang="vi">Biểu mẫu hiển thị dữ liệu</value>
@@ -1961,6 +2077,7 @@
         <value xml:lang="en">Navigate</value>
         <value xml:lang="fr">Naviguer</value>
         <value xml:lang="it">Naviga</value>
+        <value xml:lang="ja">ナビゲート</value>
         <value xml:lang="nl">Navigeren</value>
         <value xml:lang="pt">Navegar</value>
         <value xml:lang="th">หาเส้นทาง</value>
@@ -1982,6 +2099,7 @@
         <value xml:lang="en">New Content in Folder</value>
         <value xml:lang="fr">New Content in Folder</value>
         <value xml:lang="it">New Content in Folder</value>
+        <value xml:lang="ja">フォルダに新規コンテンツ</value>
         <value xml:lang="pt">Novo conteúdo na pasta</value>
         <value xml:lang="th">สร้างเนื้อหาใหม่ในกล่อง</value>
         <value xml:lang="vi">Tạo Nội dung trong Thư mục</value>
@@ -1994,6 +2112,7 @@
         <value xml:lang="en">New Folder</value>
         <value xml:lang="fr">New Folder</value>
         <value xml:lang="it">New Folder</value>
+        <value xml:lang="ja">新規フォルダ</value>
         <value xml:lang="pt">Nova pasta</value>
         <value xml:lang="th">สร้างกล่องใหม่</value>
         <value xml:lang="vi">Tạo mới thư mục</value>
@@ -2042,6 +2161,7 @@
         <value xml:lang="en">Other Layouts that use this subcontent</value>
         <value xml:lang="fr">D'autres mise en pages qui emploient ce contenu secondaire</value>
         <value xml:lang="it">Altri Layoutsche usano questo sotto-contenuto</value>
+        <value xml:lang="ja">このサブコンテンツを使用する別のレイアウト</value>
         <value xml:lang="pt">Outros Layouts que usam este sub conteúdo</value>
         <value xml:lang="ro">Alte Layout folosesc acest  sub-continut</value>
         <value xml:lang="th">แผนงานอื่นที่ใช้สำหรับหัวข้อย่อยนี้</value>
@@ -2056,6 +2176,7 @@
         <value xml:lang="en">PDF Content ID</value>
         <value xml:lang="fr">Contenu PDF</value>
         <value xml:lang="it">Contenuto PDF</value>
+        <value xml:lang="ja">PDFコンテンツID</value>
         <value xml:lang="pt">ID de conteúdo do PDF</value>
         <value xml:lang="ro">Continut PDF</value>
         <value xml:lang="th">หัวข้อ PDF</value>
@@ -2068,6 +2189,7 @@
         <value xml:lang="en">PDF File</value>
         <value xml:lang="fr">Fichier PDF</value>
         <value xml:lang="it">File PDF</value>
+        <value xml:lang="ja">PDFファイル</value>
         <value xml:lang="pt">Arquivo PDF</value>
         <value xml:lang="vi">Tập tin PDF</value>
         <value xml:lang="zh">PDF文件</value>
@@ -2078,6 +2200,7 @@
         <value xml:lang="en">Enter a PDF file path to automatically create a survey.</value>
         <value xml:lang="fr">Entrez un chemin vers un fichier PDF pour créer automatiquement le sondage</value>
         <value xml:lang="it">Inserire un path file PDF che automaticamente creerà un sondaggio.</value>
+        <value xml:lang="ja">自動的に評価を作成するため、PDFのパスを入力してください。</value>
         <value xml:lang="pt">Digite um caminho de arquivo PDF para criar automaticamente uma pesquisa.</value>
         <value xml:lang="vi">Nhập đường dẫn tập tin PDF để tự động tạo bản điều tra</value>
         <value xml:lang="zh">输入PDF文件路径来自动创建一份调查。</value>
@@ -2095,6 +2218,7 @@
         <value xml:lang="en">PDF/Survey Name</value>
         <value xml:lang="fr">PDF/Nom de sondage</value>
         <value xml:lang="it">PDF/Nome sondaggio</value>
+        <value xml:lang="ja">PDF/評価名称</value>
         <value xml:lang="pt">Nome PDF/pesquisa.</value>
         <value xml:lang="vi">PDF/ Tên bản điều tra</value>
         <value xml:lang="zh">PDF/调查名称</value>
@@ -2115,6 +2239,7 @@
         <value xml:lang="en">Parent Content</value>
         <value xml:lang="fr">Contenu parent</value>
         <value xml:lang="it">Contenuto Padre</value>
+        <value xml:lang="ja">上位(親)のコンテンツ</value>
         <value xml:lang="pt">Conteúdo pai</value>
         <value xml:lang="th">ครอบครัว</value>
         <value xml:lang="vi">Nội dung cấp trên</value>
@@ -2128,6 +2253,7 @@
         <value xml:lang="en">Paste</value>
         <value xml:lang="fr">Coller</value>
         <value xml:lang="it">Incolla</value>
+        <value xml:lang="ja">貼り付け</value>
         <value xml:lang="pt">Colar</value>
         <value xml:lang="ro">Incolla</value>
         <value xml:lang="th">วาง</value>
@@ -2141,6 +2267,7 @@
         <value xml:lang="en">Path Alias</value>
         <value xml:lang="fr">Alias de chemin d'accès</value>
         <value xml:lang="it">Path alias</value>
+        <value xml:lang="ja">パス別名</value>
         <value xml:lang="pt">Alias de caminho</value>
         <value xml:lang="vi">Đường dẫn thay thế</value>
         <value xml:lang="zh">路径别名</value>
@@ -2151,6 +2278,7 @@
         <value xml:lang="en">Path Alias list</value>
         <value xml:lang="fr">Liste d'alias de chemin d'accès</value>
         <value xml:lang="it">Lista path alias</value>
+        <value xml:lang="ja">パス別名一覧</value>
         <value xml:lang="pt">Listar de Alias de caminho</value>
         <value xml:lang="vi">Danh sách Đường dẫn thay thế</value>
         <value xml:lang="zh">路径别名列表</value>
@@ -2169,6 +2297,7 @@
         <value xml:lang="en">Plain Text</value>
         <value xml:lang="fr">Texte simple</value>
         <value xml:lang="it">Testo fisso</value>
+        <value xml:lang="ja">プレーンテキスト</value>
         <value xml:lang="pt">Texto sem formatação</value>
         <value xml:lang="vi">Chữ đơn giản</value>
         <value xml:lang="zh">纯文本</value>
@@ -2203,6 +2332,7 @@
         <value xml:lang="en">Publish-to content</value>
         <value xml:lang="fr">Contenu à publier</value>
         <value xml:lang="it">Pubblica sul contenuto</value>
+        <value xml:lang="ja">公開先コンテンツ</value>
         <value xml:lang="pt">Conteúdo para publicar</value>
         <value xml:lang="vi">Xuất bản đến</value>
         <value xml:lang="zh">发布到内容</value>
@@ -2215,6 +2345,7 @@
         <value xml:lang="en">Enter query parameters</value>
         <value xml:lang="fr">Entrez les paramètres de question</value>
         <value xml:lang="it">Inserire parametri ricerca</value>
+        <value xml:lang="ja">照会パラメータを入力してください</value>
         <value xml:lang="pt">Digite os parâmetros de consulta</value>
         <value xml:lang="ro">Introduceti parametri cautare</value>
         <value xml:lang="th">เข้าสู่ปัญหาข้อข้องใจ</value>
@@ -2236,6 +2367,7 @@
         <value xml:lang="en">Quick Sub-Content</value>
         <value xml:lang="fr">Sous-contenu rapide</value>
         <value xml:lang="it">Sotto-contenuto veloce</value>
+        <value xml:lang="ja">クイックサブコンテンツ</value>
         <value xml:lang="pt">Sub conteúdo Rápido</value>
         <value xml:lang="th">หัวข้อย่อยอย่างรวดเร็ว</value>
         <value xml:lang="vi">Thêm nhanh nội dung thành phần</value>
@@ -2247,6 +2379,7 @@
         <value xml:lang="en">Rejected</value>
         <value xml:lang="fr">Rejeté</value>
         <value xml:lang="it">Rifiutato</value>
+        <value xml:lang="ja">否認</value>
         <value xml:lang="nl">Afgewezen</value>
         <value xml:lang="pt">Rejeitado</value>
         <value xml:lang="vi">Từ chối</value>
@@ -2258,6 +2391,7 @@
         <value xml:lang="en">Rename Folder</value>
         <value xml:lang="fr">Renommer le répertoire</value>
         <value xml:lang="it">Rinomina cartella</value>
+        <value xml:lang="ja">フォルダ名変更</value>
         <value xml:lang="pt">Renomear pasta</value>
         <value xml:lang="th">เปลี่ยนชื่อกล่อง</value>
         <value xml:lang="vi">Đổi tên thư mục</value>
@@ -2286,6 +2420,7 @@
         <value xml:lang="en">Audio</value>
         <value xml:lang="fr">Audio</value>
         <value xml:lang="it">Audio</value>
+        <value xml:lang="ja">音声</value>
         <value xml:lang="pt">Áudio</value>
         <value xml:lang="th">เสียง</value>
         <value xml:lang="vi">Âm thanh</value>
@@ -2298,6 +2433,7 @@
         <value xml:lang="en">Long Text</value>
         <value xml:lang="fr">Texte long</value>
         <value xml:lang="it">Testo Lungo</value>
+        <value xml:lang="ja">詳細な本文</value>
         <value xml:lang="pt">Texto longo</value>
         <value xml:lang="th">ตัวอักษรยาว</value>
         <value xml:lang="vi">Chữ dài</value>
@@ -2310,6 +2446,7 @@
         <value xml:lang="en">None (Tree, Category, etc)</value>
         <value xml:lang="fr">Aucun (arborescence, catégorie, etc.)</value>
         <value xml:lang="it">Nessuno (Albero, Categoria, etc)</value>
+        <value xml:lang="ja">なし (ツリー, カテゴリなど)</value>
         <value xml:lang="pt">Nenhum (árvore, categoria etc)</value>
         <value xml:lang="th">ไม่มี</value>
         <value xml:lang="vi">Không có (Cây, Chuyên mục, ...)</value>
@@ -2322,6 +2459,7 @@
         <value xml:lang="en">Other</value>
         <value xml:lang="fr">Autre</value>
         <value xml:lang="it">Altro</value>
+        <value xml:lang="ja">その他</value>
         <value xml:lang="pt">Outros</value>
         <value xml:lang="th">อื่น ๆ</value>
         <value xml:lang="vi">Khác</value>
@@ -2334,6 +2472,7 @@
         <value xml:lang="en">Short Text (255 chars.)</value>
         <value xml:lang="fr">Texte court (255 caract.))</value>
         <value xml:lang="it">Testo Breve (255 carat.)</value>
+        <value xml:lang="ja">簡単な本文 (255文字)</value>
         <value xml:lang="pt">Texto curto (255 caracteres).</value>
         <value xml:lang="th">ตัวอักษรสั้น</value>
         <value xml:lang="vi">Chữ ngắn (255 ký tự)</value>
@@ -2346,6 +2485,7 @@
         <value xml:lang="en">URL Resource</value>
         <value xml:lang="fr">URL de ressource</value>
         <value xml:lang="it">Risorsa URL</value>
+        <value xml:lang="ja">URLリソース</value>
         <value xml:lang="pt">URL do recurso</value>
         <value xml:lang="th">ที่มาของ Url</value>
         <value xml:lang="vi">URL tài nguyên</value>
@@ -2358,6 +2498,7 @@
         <value xml:lang="en">Video</value>
         <value xml:lang="fr">Video</value>
         <value xml:lang="it">Video</value>
+        <value xml:lang="ja">動画</value>
         <value xml:lang="pt">Vídeo</value>
         <value xml:lang="th">วิดีโอ</value>
         <value xml:lang="vi">Phim hình</value>
@@ -2369,6 +2510,7 @@
         <value xml:lang="en">Root</value>
         <value xml:lang="fr">Racine</value>
         <value xml:lang="it">Principale</value>
+        <value xml:lang="ja">ルート</value>
         <value xml:lang="pt">Raiz</value>
         <value xml:lang="vi">Gốc</value>
         <value xml:lang="zh">根</value>
@@ -2413,6 +2555,7 @@
         <value xml:lang="en">Soft Rejected</value>
         <value xml:lang="fr">Rejeté publiquement(?)</value>
         <value xml:lang="it">Rifiutato leggermente</value>
+        <value xml:lang="ja">謝絶</value>
         <value xml:lang="pt">Rejeição suave</value>
         <value xml:lang="vi">Từ chối mềm</value>
         <value xml:lang="zh">柔和地拒绝</value>
@@ -2433,6 +2576,7 @@
         <value xml:lang="en">SubContent</value>
         <value xml:lang="fr">Sous-contenu</value>
         <value xml:lang="it">Sotto-Contenuto</value>
+        <value xml:lang="ja">サブコンテンツ</value>
         <value xml:lang="pt">Sub conteúdo</value>
         <value xml:lang="ro">Sub-Continut</value>
         <value xml:lang="th">หัวข้อย่อย</value>
@@ -2447,6 +2591,7 @@
         <value xml:lang="en">Sub Sites</value>
         <value xml:lang="fr">Sites secondaires</value>
         <value xml:lang="it">SottoSiti</value>
+        <value xml:lang="ja">サブサイト</value>
         <value xml:lang="pt">Sub sites</value>
         <value xml:lang="ro">SubSituri</value>
         <value xml:lang="th">Sites ย่อย</value>
@@ -2478,6 +2623,7 @@
         <value xml:lang="en">Category</value>
         <value xml:lang="fr">Catégorie</value>
         <value xml:lang="it">Categoria</value>
+        <value xml:lang="ja">カテゴリ</value>
         <value xml:lang="pt">Categoria</value>
         <value xml:lang="ro">Categoria</value>
         <value xml:lang="th">หมวดหมู่</value>
@@ -2493,6 +2639,7 @@
         <value xml:lang="es">Encuesta</value>
         <value xml:lang="fr">Sondage</value>
         <value xml:lang="it">Sondaggio</value>
+        <value xml:lang="ja">評価</value>
         <value xml:lang="nl">Onderzoek</value>
         <value xml:lang="pt">Pesquisa</value>
         <value xml:lang="ro">Sondaj</value>
@@ -2509,6 +2656,7 @@
         <value xml:lang="es">Añadir Grupo de respuestas a encuesta</value>
         <value xml:lang="fr">Ajouter un groupe multi-réponses au sondage</value>
         <value xml:lang="it">Aggiungi risposte multiple gruppo sondaggio</value>
+        <value xml:lang="ja">評価複数回答グループを追加</value>
         <value xml:lang="pt">Adicionar grupo de pesquisa Multi-Response</value>
         <value xml:lang="ro">Adauga Raspunsuri Multiple Grup Sondaj</value>
         <value xml:lang="th">เพิ่มการสำรวจกลุ่มคำตอบ</value>
@@ -2524,6 +2672,7 @@
         <value xml:lang="es">Añadir Columna de Grupo de respuestas</value>
         <value xml:lang="fr">Ajouter une colonne multi-réponses au sondage</value>
         <value xml:lang="it">Aggiungi risposte multiple colonna sondaggio</value>
+        <value xml:lang="ja">評価複数回答項目を追加</value>
         <value xml:lang="pt">Adicionar coluna de Multi-Resp à pesquisa</value>
         <value xml:lang="ro">Adauga Raspunsuri Multiple Coloana Sondaj</value>
         <value xml:lang="th">เพิ่มแถวการสำรวจคำตอบ</value>
@@ -2562,6 +2711,7 @@
         <value xml:lang="en">Apply Question(s) From Category</value>
         <value xml:lang="fr">Appliquer les questions à partir de la catégorie</value>
         <value xml:lang="it">Applica domanda(e) dalla categoria</value>
+        <value xml:lang="ja">カテゴリから質問を引用</value>
         <value xml:lang="pt">Aplicar questões da categoria</value>
         <value xml:lang="ro">Aplica Intrebare(i) De la Categoria</value>
         <value xml:lang="th">ใช้คำถามจากหมวดหมู่</value>
@@ -2576,6 +2726,7 @@
         <value xml:lang="en">Build Survey Response from PDF</value>
         <value xml:lang="fr">Construire une réponse de sondage depuis le PDF</value>
         <value xml:lang="it">Prepare risposte sondaggio dal PDF</value>
+        <value xml:lang="ja">PDFから評価回答を構築</value>
         <value xml:lang="pt">Criar respostas para pesquisa a partir de PDF</value>
         <value xml:lang="ro">Prepara Raspuns Sondaj De la PDF</value>
         <value xml:lang="th">สร้างการสำรวจคำตอบจาก PDF</value>
@@ -2591,6 +2742,7 @@
         <value xml:lang="es">Crear Encuesta</value>
         <value xml:lang="fr">Créer un sondage</value>
         <value xml:lang="it">Nuovo sondaggio</value>
+        <value xml:lang="ja">評価を作成</value>
         <value xml:lang="pt">Criar pesquisa</value>
         <value xml:lang="ro">Creare Sondaj</value>
         <value xml:lang="th">สร้างการสำรวจ</value>
@@ -2605,6 +2757,7 @@
         <value xml:lang="en">Create New Question</value>
         <value xml:lang="fr">Créer une nouvelle question</value>
         <value xml:lang="it">Creare nuova domanda</value>
+        <value xml:lang="ja">新規質問を作成</value>
         <value xml:lang="pt">Criar nova pergunta</value>
         <value xml:lang="ro">Creare Noua Intrebare</value>
         <value xml:lang="th">สร้างคำถามใหม่</value>
@@ -2619,6 +2772,7 @@
         <value xml:lang="en">Create Question Category</value>
         <value xml:lang="fr">Créer une catégorie de question</value>
         <value xml:lang="it">Creare categoria domanda</value>
+        <value xml:lang="ja">質問カテゴリを作成</value>
         <value xml:lang="pt">Criar categoria de perguntas</value>
         <value xml:lang="ro">Creare Categorie Intrebare</value>
         <value xml:lang="th">สร้างคำถามหมวดหมู่คำถาม</value>
@@ -2633,6 +2787,7 @@
         <value xml:lang="en">Create Question Option</value>
         <value xml:lang="fr">Créer une question</value>
         <value xml:lang="it">Creare opzione domanda</value>
+        <value xml:lang="ja">質問オプションを作成</value>
         <value xml:lang="pt">Criar opção de pergunta</value>
         <value xml:lang="ro">Creare Optiune Intrebare</value>
         <value xml:lang="th">สร้างทางเลือกคำถาม</value>
@@ -2648,6 +2803,7 @@
         <value xml:lang="es">Crear respuesta</value>
         <value xml:lang="fr">Créer une réponse</value>
         <value xml:lang="it">Nuova risposta sondaggio</value>
+        <value xml:lang="ja">評価の回答を作成</value>
         <value xml:lang="pt">Criar resposta à pesquisa</value>
         <value xml:lang="ro">Creare Raspuns Sondaj</value>
         <value xml:lang="th">สร้างคำตอบ</value>
@@ -2662,6 +2818,7 @@
         <value xml:lang="en">Edit Question Option</value>
         <value xml:lang="fr">Modifier la question</value>
         <value xml:lang="it">Aggiorna opzione domanda</value>
+        <value xml:lang="ja">質問オプションを編集</value>
         <value xml:lang="pt">Editar opção de pergunta</value>
         <value xml:lang="ro">Actualizeaza Optiune Intrebare</value>
         <value xml:lang="th">แก้ไขลักษณะคำถาม</value>
@@ -2677,6 +2834,7 @@
         <value xml:lang="es">Modificar grupo multi-respuesta</value>
         <value xml:lang="fr">Modifier le groupe multi-réponses</value>
         <value xml:lang="it">Aggiorna risposte multiple gruppo sondaggio</value>
+        <value xml:lang="ja">評価複数回答グループを編集</value>
         <value xml:lang="pt">Editar Grupo de pesquisa Multi-Response</value>
         <value xml:lang="ro">Actualizeaza Raspunsuri Multiple Grup Sondaj</value>
         <value xml:lang="th">แก้ไขการสำรวจกลุ่มคำตอบ</value>
@@ -2708,6 +2866,7 @@
         <value xml:lang="es">Buscar respuesta</value>
         <value xml:lang="fr">Rechercher la réponse</value>
         <value xml:lang="it">Ricerca risposte</value>
+        <value xml:lang="ja">回答を検索</value>
         <value xml:lang="pt">Encontrar resposta</value>
         <value xml:lang="ro">Cautare Raspuns</value>
         <value xml:lang="th">ค้นหาคำตอบ</value>
@@ -2722,6 +2881,7 @@
         <value xml:lang="en">Generate Questions from AcroForm PDF</value>
         <value xml:lang="fr">Générer les questions depuis AcroForm PDF</value>
         <value xml:lang="it">Genera domande da PDF</value>
+        <value xml:lang="ja">AcroForm PDFから質問を生成</value>
         <value xml:lang="pt">Gerar questões a partir de PDF AcroForm</value>
         <value xml:lang="ro">GenereazaIntrebari de la  AcroForm PDF</value>
         <value xml:lang="th">สร้างคำถามจากรูปแบบใน PDF</value>
@@ -2736,6 +2896,7 @@
         <value xml:lang="en">Multi-Resp</value>
         <value xml:lang="fr">multi-réponses</value>
         <value xml:lang="it">Risposta multipla</value>
+        <value xml:lang="ja">複数回答</value>
         <value xml:lang="pt">Multi-Resp.</value>
         <value xml:lang="ro">Raspuns Multiplu</value>
         <value xml:lang="th">หลายคำตอบ</value>
@@ -2750,6 +2911,7 @@
         <value xml:lang="en">Multi-Resp Column</value>
         <value xml:lang="fr">Colonne multi-réponses</value>
         <value xml:lang="it">Colonna risposta multipla</value>
+        <value xml:lang="ja">複数回答項目</value>
         <value xml:lang="pt">Coluna de multi-Resp.</value>
         <value xml:lang="ro">Coloana Raspuns Multiplu</value>
         <value xml:lang="th">ช่องของหลายคำตอบ</value>
@@ -2765,6 +2927,7 @@
         <value xml:lang="es">Multi-respuesta</value>
         <value xml:lang="fr">Multi-réponses</value>
         <value xml:lang="it">Risposte multiple</value>
+        <value xml:lang="ja">複数回答</value>
         <value xml:lang="pt">Multi-Resps</value>
         <value xml:lang="ro">Raspunsuri Multiple</value>
         <value xml:lang="th">หลายคำตอบ</value>
@@ -2779,6 +2942,7 @@
         <value xml:lang="en">No questions in survey; no responses can be located.</value>
         <value xml:lang="fr">Aucune question dans le sondage, aucune réponse ne peut être localisée.</value>
         <value xml:lang="it">Nessuna domanda nel sondaggio; nessuna risposta può essere localizzata.</value>
+        <value xml:lang="ja">評価に質問がありません; 回答は設定できません。</value>
         <value xml:lang="pt">Nenhuma pergunta na pesquisa; nenhuma resposta pode ser localizada.</value>
         <value xml:lang="ro">Nici-o intrebare in sondaj; nu poate fi localizat nici-un raspuns.</value>
         <value xml:lang="th">ไม่มีคำถามในการสำรวจ;ไม่สามารถสร้างคำตอบได้</value>
@@ -2793,6 +2957,7 @@
         <value xml:lang="en">Option</value>
         <value xml:lang="fr">Option</value>
         <value xml:lang="it">Opzione</value>
+        <value xml:lang="ja">オプション</value>
         <value xml:lang="pt">Opção</value>
         <value xml:lang="ro">Optiune</value>
         <value xml:lang="th">ทางเลือก</value>
@@ -2807,6 +2972,7 @@
         <value xml:lang="en">Survey Options</value>
         <value xml:lang="fr">Options du sondage</value>
         <value xml:lang="it">Opzioni sondaggio</value>
+        <value xml:lang="ja">評価オプション</value>
         <value xml:lang="pt">Opções de pesquisa</value>
         <value xml:lang="ro">Optiune Sondaj</value>
         <value xml:lang="th">การสำรวจทางเลือก</value>
@@ -2821,6 +2987,7 @@
         <value xml:lang="en">Question</value>
         <value xml:lang="fr">Question</value>
         <value xml:lang="it">Domanda</value>
+        <value xml:lang="ja">質問</value>
         <value xml:lang="pt">Pergunta</value>
         <value xml:lang="ro">Intrebare</value>
         <value xml:lang="th">คำถาม</value>
@@ -2833,6 +3000,7 @@
         <value xml:lang="en">Question #</value>
         <value xml:lang="fr">Question n°</value>
         <value xml:lang="it">Domanda #</value>
+        <value xml:lang="ja">質問No</value>
         <value xml:lang="pt">Pergunta #</value>
         <value xml:lang="vi">Câu hỏi số</value>
         <value xml:lang="zh">问题 #</value>
@@ -2917,6 +3085,7 @@
         <value xml:lang="es">Preguntas</value>
         <value xml:lang="fr">Questions</value>
         <value xml:lang="it">Domande</value>
+        <value xml:lang="ja">質問</value>
         <value xml:lang="pt">Perguntas</value>
         <value xml:lang="ro">Intrebari</value>
         <value xml:lang="th">คำถาม</value>
@@ -2931,6 +3100,7 @@
         <value xml:lang="en">Response</value>
         <value xml:lang="fr">Réponse</value>
         <value xml:lang="it">Risposta</value>
+        <value xml:lang="ja">回答</value>
         <value xml:lang="pt">Resposta</value>
         <value xml:lang="ro">Raspuns</value>
         <value xml:lang="th">คำตอบ</value>
@@ -2946,6 +3116,7 @@
         <value xml:lang="es">Resumen de respuestas</value>
         <value xml:lang="fr">Résumé de réponse</value>
         <value xml:lang="it">Sommario risposte</value>
+        <value xml:lang="ja">回答サマリ</value>
         <value xml:lang="pt">Resumo de resposta</value>
         <value xml:lang="ro">Sumar Raspuns</value>
         <value xml:lang="th">คำตอบโดยสรุป</value>
@@ -2961,6 +3132,7 @@
         <value xml:lang="es">Respuestas</value>
         <value xml:lang="fr">Réponses</value>
         <value xml:lang="it">Risposte</value>
+        <value xml:lang="ja">回答</value>
         <value xml:lang="pt">Respostas</value>
         <value xml:lang="ro">Raspunsuri</value>
         <value xml:lang="th">คำตอบ</value>
@@ -2976,6 +3148,7 @@
         <value xml:lang="es">Id de Encuesta</value>
         <value xml:lang="fr">Sondage</value>
         <value xml:lang="it">Numero sondaggio</value>
+        <value xml:lang="ja">評価ID</value>
         <value xml:lang="pt">ID de pesquisa</value>
         <value xml:lang="ro">Numer Sondaj</value>
         <value xml:lang="th">รหัสการสำรวจ</value>
@@ -2990,6 +3163,7 @@
         <value xml:lang="en">W/Option</value>
         <value xml:lang="fr">Avec option</value>
         <value xml:lang="it">Con opzione</value>
+        <value xml:lang="ja">オプションで</value>
         <value xml:lang="pt">Com opção</value>
         <value xml:lang="ro">Cu Optiune</value>
         <value xml:lang="th">W/ทางเลือก </value>
@@ -3004,6 +3178,7 @@
         <value xml:lang="en">W/Question</value>
         <value xml:lang="fr">Avec question</value>
         <value xml:lang="it">Con domanda</value>
+        <value xml:lang="ja">質問で</value>
         <value xml:lang="pt">Com questão.</value>
         <value xml:lang="ro">Cu Intrebare</value>
         <value xml:lang="th">W/คำถาม</value>
@@ -3028,6 +3203,7 @@
         <value xml:lang="es">Plantilla</value>
         <value xml:lang="fr">Modèle</value>
         <value xml:lang="it">Template</value>
+        <value xml:lang="ja">テンプレート</value>
         <value xml:lang="pt">Modelo</value>
         <value xml:lang="ro">Template</value>
         <value xml:lang="th">รูปแบบ</value>
@@ -3040,6 +3216,7 @@
         <value xml:lang="en">Template Child</value>
         <value xml:lang="fr">Modèle enfant</value>
         <value xml:lang="it">Template figlio</value>
+        <value xml:lang="ja">下位(子)のテンプレート</value>
         <value xml:lang="pt">Modelo filho</value>
         <value xml:lang="vi">Biểu mẫu thành phần</value>
         <value xml:lang="zh">子模板</value>
@@ -3050,6 +3227,7 @@
         <value xml:lang="en">Image centered above</value>
         <value xml:lang="fr">Image centrée au-dessus</value>
         <value xml:lang="it">Immagine centrata sopra</value>
+        <value xml:lang="ja">画像を中央上部に</value>
         <value xml:lang="pt">Imagem centrada acima</value>
         <value xml:lang="vi">Ảnh căn giữa</value>
         <value xml:lang="zh">图像居中置顶</value>
@@ -3060,6 +3238,7 @@
         <value xml:lang="en">Image left, text flows around.</value>
         <value xml:lang="fr">Image à gauche, texte flottant autour</value>
         <value xml:lang="it">Immagine a sinistra.</value>
+        <value xml:lang="ja">画像を左に、テキストは回り込む。</value>
         <value xml:lang="pt">Imagem à esquerda, o texto flui ao redor.</value>
         <value xml:lang="vi">Ảnh bên trái, chữ xung quanh</value>
         <value xml:lang="zh">图像居左，文本环绕</value>
@@ -3070,6 +3249,7 @@
         <value xml:lang="en">Instance Child</value>
         <value xml:lang="fr">Instance enfant</value>
         <value xml:lang="it">Istanza figlia</value>
+        <value xml:lang="ja">下位(子)のインスタンス</value>
         <value xml:lang="pt">Instância de filho</value>
         <value xml:lang="vi">Khởi tạo thành phần</value>
         <value xml:lang="zh">子实例</value>
@@ -3080,6 +3260,7 @@
         <value xml:lang="en">Root Template</value>
         <value xml:lang="fr">Racine du modèle</value>
         <value xml:lang="it">Template principale</value>
+        <value xml:lang="ja">ルートテンプレート</value>
         <value xml:lang="pt">Modelo de raiz</value>
         <value xml:lang="vi">Biểu mẫu mức gốc</value>
         <value xml:lang="zh">根模板</value>
@@ -3090,6 +3271,7 @@
         <value xml:lang="en">Root Instance</value>
         <value xml:lang="fr">Instance racine</value>
         <value xml:lang="it">Istanza principale</value>
+        <value xml:lang="ja">ルートインスタンス</value>
         <value xml:lang="pt">Instância de raiz</value>
         <value xml:lang="vi">Khởi tạo mức gốc</value>
         <value xml:lang="zh">根实例</value>
@@ -3100,6 +3282,7 @@
         <value xml:lang="en">Text only</value>
         <value xml:lang="fr">Texte seulement</value>
         <value xml:lang="it">Solo testo</value>
+        <value xml:lang="ja">テキストのみ</value>
         <value xml:lang="pt">Somente texto</value>
         <value xml:lang="vi">Chỉ nhập chữ</value>
         <value xml:lang="zh">仅文本</value>
@@ -3112,6 +3295,7 @@
         <value xml:lang="en">Templates</value>
         <value xml:lang="fr">Modèles</value>
         <value xml:lang="it">Templates</value>
+        <value xml:lang="ja">テンプレート</value>
         <value xml:lang="nl">Sjablonen</value>
         <value xml:lang="pt">Modelos</value>
         <value xml:lang="ro">Templates</value>
@@ -3125,6 +3309,7 @@
         <value xml:lang="en">Test Permission</value>
         <value xml:lang="fr">Tester l'autorisation</value>
         <value xml:lang="it">Test Permesso</value>
+        <value xml:lang="ja">権限をテスト</value>
         <value xml:lang="pt">Permissão de teste</value>
         <value xml:lang="vi">Kiểm tra quyền</value>
         <value xml:lang="zh">测试权限</value>
@@ -3137,6 +3322,7 @@
         <value xml:lang="en">Text</value>
         <value xml:lang="fr">Texte</value>
         <value xml:lang="it">Testo</value>
+        <value xml:lang="ja">本文</value>
         <value xml:lang="nl">Tekst</value>
         <value xml:lang="pt">Texto</value>
         <value xml:lang="ro">Text</value>
@@ -3160,6 +3346,7 @@
         <value xml:lang="en">Tree</value>
         <value xml:lang="fr">Arbre</value>
         <value xml:lang="it">Albero</value>
+        <value xml:lang="ja">ツリー</value>
         <value xml:lang="pt">Árvore</value>
         <value xml:lang="ro">Arbore</value>
         <value xml:lang="th">ต้นไม้</value>
@@ -3173,6 +3360,7 @@
         <value xml:lang="en">Content Type</value>
         <value xml:lang="fr">Type de contenu</value>
         <value xml:lang="it">Tipo Contenuto</value>
+        <value xml:lang="ja">コンテンツタイプ</value>
         <value xml:lang="nl">Soort content</value>
         <value xml:lang="pt">Tipo de conteúdo</value>
         <value xml:lang="th">หัวข้อประเภท</value>
@@ -3187,6 +3375,7 @@
         <value xml:lang="en">Type Attribute</value>
         <value xml:lang="fr">Type d'attribut</value>
         <value xml:lang="it">Tipo Attributo</value>
+        <value xml:lang="ja">タイプ属性</value>
         <value xml:lang="pt">Tipo de Atributo</value>
         <value xml:lang="ro">Tip Atribut</value>
         <value xml:lang="th">ประเภทลักษณะ</value>
@@ -3233,6 +3422,7 @@
         <value xml:lang="en">You do not have permission to view this page. ("CONTENTMGR_UPDATE" or "CONTENTMGR_ADMIN" needed)</value>
         <value xml:lang="fr">Vous n'avez pas l'autorisation de regarder cette page. ("CONTENTMGR_UPDATE" ou "CONTENTMGR_ADMIN" nécessaire)</value>
         <value xml:lang="it">Tu non hai il permesso di visualizzare questa pagina. (Necessario "CONTENTMGR_UPDATE" o "CONTENTMGR_ADMIN")</value>
+        <value xml:lang="ja">このページを表示する権限がありません。"CONTENTMGR_UPDATE" または "CONTENTMGR_ADMIN" 権限が必要です。</value>
         <value xml:lang="pt">Você não tem permissão para ver esta página. ("CONTENTMGR_UPDATE" ou "CONTENTMGR_ADMIN" necessário)</value>
         <value xml:lang="th">คุณยังไม่ได้รับอนุญาตให้ดูหน้านี้("CONTENTMGR_UPDATE" หรือ "CONTENTMGR_ADMIN" )</value>
         <value xml:lang="vi">Bạn không có quyền xem trang này. (yêu cầu có quyền "CONTENTMGR_UPDATE" hoặc "CONTENTMGR_ADMIN")</value>
@@ -3252,6 +3442,7 @@
         <value xml:lang="en">Uploaded File</value>
         <value xml:lang="fr">Fichier téléversé</value>
         <value xml:lang="it">File caricato</value>
+        <value xml:lang="ja">アップロードファイル</value>
         <value xml:lang="pt">Arquivo carregado</value>
         <value xml:lang="vi">Tập tind đã tải lên</value>
         <value xml:lang="zh">已上传的文件</value>
@@ -3264,6 +3455,7 @@
         <value xml:lang="en">Url</value>
         <value xml:lang="fr">URL</value>
         <value xml:lang="it">Url</value>
+        <value xml:lang="ja">UR</value>
         <value xml:lang="pt">URL</value>
         <value xml:lang="ro">Url</value>
         <value xml:lang="th">Url</value>
@@ -3278,6 +3470,7 @@
         <value xml:lang="en">You do not have permission to view this page. ("CONTENTMGR_VIEW" or "CONTENTMGR_ADMIN" needed)</value>
         <value xml:lang="fr">Vous n'avez pas l'autorisation de regarder cette page. ("CONTENTMGR_VIEW" or "CONTENTMGR_ADMIN" nécessaire)</value>
         <value xml:lang="it">Tu non sei autorizzato a vedere questa pagina. ("CONTENTMGR_VIEW" o "CONTENTMGR_ADMIN" necessari)</value>
+        <value xml:lang="ja">このページを表示する権限がありません。"CONTENTMGR_VIEW" または "CONTENTMGR_ADMIN" 権限が必要です。</value>
         <value xml:lang="pt">Você não tem permissão para ver esta página. ("CONTENTMGR_VIEW" ou "CONTENTMGR_ADMIN" necessário)</value>
         <value xml:lang="ro">Tu nu esti autorizat sa vezi aceasta pagina. ("CONTENTMGR_VIEW" sau "CONTENTMGR_ADMIN" necesari)</value>
         <value xml:lang="th">คุณยังไม่ได้รับอนุญาตให้ดูหน้านี้("CONTENTMGR_UPDATE" หรือ "CONTENTMGR_ADMIN" )</value>
@@ -3300,6 +3493,7 @@
         <value xml:lang="en">WebSite</value>
         <value xml:lang="fr">Site Web</value>
         <value xml:lang="it">Sito Web</value>
+        <value xml:lang="ja">Webサイト</value>
         <value xml:lang="nl">Website</value>
         <value xml:lang="pt">Site</value>
         <value xml:lang="ro">Sit Web</value>
@@ -3314,6 +3508,7 @@
         <value xml:lang="en">Add Menu</value>
         <value xml:lang="fr">Ajouter un menu</value>
         <value xml:lang="it">Aggiungi Menu</value>
+        <value xml:lang="ja">メニューを追加</value>
         <value xml:lang="pt">Adicionar Menu</value>
         <value xml:lang="th">เพิ่มเมนู</value>
         <value xml:lang="vi">Thêm thực đơn</value>
@@ -3326,6 +3521,7 @@
         <value xml:lang="en">*Right click to add new menus</value>
         <value xml:lang="fr">*Cliquer droit pour ajouter de nouveaux menus</value>
         <value xml:lang="it">*Click destro per aggiungere un nuovo menu</value>
+        <value xml:lang="ja">*右クリックして新規メニューを追加してください</value>
         <value xml:lang="pt">*Clique com o botão direito para adicionar novos menus</value>
         <value xml:lang="th">คลิกขวาในการเพิ่มเมนูใหม่</value>
         <value xml:lang="vi">*Nhấp chuột phải để thêm thực đơn</value>
@@ -3338,6 +3534,7 @@
         <value xml:lang="en">*Right click to add sub-content</value>
         <value xml:lang="fr">*Cliquer droit pour ajouter un nouveau sous-contenu</value>
         <value xml:lang="it">*Click destro per aggiungere il sotto-contenuto</value>
+        <value xml:lang="ja">*右クリックしてサブコンテンツを追加してください</value>
         <value xml:lang="pt">*Clique com o botão direito para adicionar sub conteúdo</value>
         <value xml:lang="th">คลิกขวาในการเพิ่มหัวข้อย่อย</value>
         <value xml:lang="vi">*Nhấp chuột phải để thêm nội dung thành phần</value>
@@ -3350,6 +3547,7 @@
         <value xml:lang="en">Add Tree</value>
         <value xml:lang="fr">AJouter une arborescence</value>
         <value xml:lang="it">Aggiungi Albero</value>
+        <value xml:lang="ja">ツリーを追加</value>
         <value xml:lang="pt">Adicionar árvore</value>
         <value xml:lang="th">เพิ่มแผนผังต้นไม้</value>
         <value xml:lang="vi">Thêm cây</value>
@@ -3362,6 +3560,7 @@
         <value xml:lang="en">Attached to Content</value>
         <value xml:lang="fr">Attaché au contenu</value>
         <value xml:lang="it">allegato al Contenuto</value>
+        <value xml:lang="ja">コンテンツに添付</value>
         <value xml:lang="pt">Anexado ao conteúdo</value>
         <value xml:lang="th">เชื่อมกับหัวข้อ</value>
         <value xml:lang="vi">Đính kèm tới nội dung</value>
@@ -3392,6 +3591,7 @@
         <value xml:lang="en">Web Site Content</value>
         <value xml:lang="fr">Contenu du site Web</value>
         <value xml:lang="it">Contenuto Sito Web</value>
+        <value xml:lang="ja">Webサイトのコンテンツ</value>
         <value xml:lang="nl">Website content</value>
         <value xml:lang="pt">Conteúdo do Web Site</value>
         <value xml:lang="th">หัวข้อเว็บไซต์</value>
@@ -3411,6 +3611,7 @@
         <value xml:lang="en">Web Site Menus</value>
         <value xml:lang="fr">Menus du site Web</value>
         <value xml:lang="it">Menu Sito Web</value>
+        <value xml:lang="ja">Webサイトのメニュー</value>
         <value xml:lang="pt">Menus de web sites</value>
         <value xml:lang="th">เมนูเว็บไซต์</value>
         <value xml:lang="vi">Thực đơn trang thông tin</value>
@@ -3425,6 +3626,7 @@
         <value xml:lang="es">Sitios web</value>
         <value xml:lang="fr">Sites Web</value>
         <value xml:lang="it">Siti web</value>
+        <value xml:lang="ja">Webサイト</value>
         <value xml:lang="nl">Websites</value>
         <value xml:lang="pt">WebSites</value>
         <value xml:lang="ro">Situri Web</value>
@@ -3438,6 +3640,7 @@
         <value xml:lang="en">Welcome to the Content Manager!</value>
         <value xml:lang="fr">Gestionnaire de contenu : bienvenue !</value>
         <value xml:lang="it">Benvenuti nella gestione contenuti!</value>
+        <value xml:lang="ja">コンテンツ管理へようこそ!</value>
         <value xml:lang="nl">Welkom in de Content Manager</value>
         <value xml:lang="pt">Bem-vindo ao Gerenciador de conteúdo!</value>
         <value xml:lang="vi">Chào mừng bạn đến với khu vực Quản trị nội dung!</value>
@@ -3459,6 +3662,7 @@
         <value xml:lang="en">AcroForm (PDF) Content ID</value>
         <value xml:lang="fr">Contenu AcroForm (PDF)</value>
         <value xml:lang="it">Contenuto AcroForm (PDF)</value>
+        <value xml:lang="ja">AcroForm (PDF) コンテンツID</value>
         <value xml:lang="pt">ID de conteúdo AcroForm (PDF)</value>
         <value xml:lang="ro">Continut AcroForm (PDF)</value>
         <value xml:lang="th">AcroForm (PDF) Content ID</value>
@@ -3473,6 +3677,7 @@
         <value xml:lang="en">Amount Base</value>
         <value xml:lang="fr">Quantité de base</value>
         <value xml:lang="it">Importo Base</value>
+        <value xml:lang="ja">金額ベース</value>
         <value xml:lang="nl">Basisbedrag</value>
         <value xml:lang="pt">Base de montante</value>
         <value xml:lang="ro">Valoare Baza</value>
@@ -3488,6 +3693,7 @@
         <value xml:lang="en">Amount Base Uom Id</value>
         <value xml:lang="fr">Unité de mesure de qantité de base</value>
         <value xml:lang="it">Udm Importo Base</value>
+        <value xml:lang="ja">金額ベース単位ID</value>
         <value xml:lang="nl">Basisbedrag eenheid ID</value>
         <value xml:lang="pt">Montante Base Uom Id</value>
         <value xml:lang="ro">Udm Valoare Baza</value>
@@ -3503,6 +3709,7 @@
         <value xml:lang="en">Approval Date</value>
         <value xml:lang="fr">Date d'approbation</value>
         <value xml:lang="it">Data Approvazione</value>
+        <value xml:lang="ja">承認日</value>
         <value xml:lang="nl">Datum goedkeuring</value>
         <value xml:lang="pt">Data de aprovação</value>
         <value xml:lang="ro">Data Aprovare</value>
@@ -3516,6 +3723,7 @@
         <value xml:lang="en">Approval Status Id</value>
         <value xml:lang="fr">Statut d'approbation</value>
         <value xml:lang="it">Stato approvazione</value>
+        <value xml:lang="ja">承認ステータスID</value>
         <value xml:lang="nl">Goedkeuring status ID</value>
         <value xml:lang="pt">Id do Status de aprovação</value>
         <value xml:lang="vi">Trạng thái duyệt</value>
@@ -3529,6 +3737,7 @@
         <value xml:lang="en">Content Assoc Predicate Id</value>
         <value xml:lang="fr">Prédicat de contenu d'association</value>
         <value xml:lang="it">Predicato Associazione Contenuto</value>
+        <value xml:lang="ja">コンテンツ関連付け属性ID</value>
         <value xml:lang="pt">ID de predicado de associação de conteúdo</value>
         <value xml:lang="ro">Predicat Asociatie Continut</value>
         <value xml:lang="th">รหัสหัวข้อแสดงความคิดเห็น</value>
@@ -3543,6 +3752,7 @@
         <value xml:lang="en">Content Id To</value>
         <value xml:lang="fr">Contenu vers</value>
         <value xml:lang="it">Contenuto A</value>
+        <value xml:lang="ja">コンテンツID(先)</value>
         <value xml:lang="nl">Content ID naar</value>
         <value xml:lang="pt">Id de conteúdo para</value>
         <value xml:lang="ro">Continut A</value>
@@ -3555,6 +3765,7 @@
         <value xml:lang="da">Oprettet dato</value>
         <value xml:lang="en">ca Created Date</value>
         <value xml:lang="it">Data creazione</value>
+        <value xml:lang="ja">CA作成日</value>
         <value xml:lang="nl">Datum aangemaakt</value>
         <value xml:lang="pt">Data de criação</value>
         <value xml:lang="vi">Ngày tạo</value>
@@ -3566,6 +3777,7 @@
         <value xml:lang="en">From Date &amp; Time</value>
         <value xml:lang="fr">Date et heure de début</value>
         <value xml:lang="it">Dalla Data e Ora</value>
+        <value xml:lang="ja">開始日時</value>
         <value xml:lang="nl">Vanaf datum en tijd</value>
         <value xml:lang="pt">Da data &amp; hora</value>
         <value xml:lang="th">จากวัน เวลา</value>
@@ -3580,6 +3792,7 @@
         <value xml:lang="en">Map Key</value>
         <value xml:lang="fr">Clef d'association</value>
         <value xml:lang="it">Chiave Mappa</value>
+        <value xml:lang="ja">マップキー</value>
         <value xml:lang="pt">Map Key</value>
         <value xml:lang="ro">Cheie Mapa</value>
         <value xml:lang="th">แผนที่สำคัญ</value>
@@ -3594,6 +3807,7 @@
         <value xml:lang="en">Child Branch Count</value>
         <value xml:lang="fr">Compte de branche descendante</value>
         <value xml:lang="it">Conta Rami Figli</value>
+        <value xml:lang="ja">下位(子)の分岐件数</value>
         <value xml:lang="pt">Contagem de ramo de filhos</value>
         <value xml:lang="ro">Contorizeaza Ramuri Fii</value>
         <value xml:lang="th">นับแผนกเด็ก</value>
@@ -3608,6 +3822,7 @@
         <value xml:lang="en">Child Leaf Count</value>
         <value xml:lang="fr">Compte de feuille enfant</value>
         <value xml:lang="it">Conta Foglie Figli</value>
+        <value xml:lang="ja">下位(子)の要素件数</value>
         <value xml:lang="pt">Contagem de folhas filho</value>
         <value xml:lang="ro">Contorizeaza File Fii</value>
         <value xml:lang="th">นับหน้ากระดาษของเด็ก</value>
@@ -3621,6 +3836,7 @@
         <value xml:lang="en">Content Id</value>
         <value xml:lang="fr">Contenu</value>
         <value xml:lang="it">Contenuto</value>
+        <value xml:lang="ja">コンテンツID</value>
         <value xml:lang="nl">Content ID</value>
         <value xml:lang="pt">Id de conteúdo</value>
         <value xml:lang="th">รหัสแหล่งหัวข้อ</value>
@@ -3634,6 +3850,7 @@
         <value xml:lang="en">Content Name</value>
         <value xml:lang="fr">Nom de contenu</value>
         <value xml:lang="it">Nome Conteunto</value>
+        <value xml:lang="ja">コンテンツ名称</value>
         <value xml:lang="nl">Naam content</value>
         <value xml:lang="pt">Nome do conteúdo</value>
         <value xml:lang="th">ชื่อหัวข้อ</value>
@@ -3647,6 +3864,7 @@
         <value xml:lang="en">Content Description</value>
         <value xml:lang="fr">Description de contenu</value>
         <value xml:lang="it">Descrizione Contenuto</value>
+        <value xml:lang="ja">コンテンツ詳細</value>
         <value xml:lang="nl">Beschrijving content</value>
         <value xml:lang="pt">Descrição do conteúdo</value>
         <value xml:lang="th">รายละเอียด</value>
@@ -3661,6 +3879,7 @@
         <value xml:lang="en">Column Title</value>
         <value xml:lang="fr">Titre de colonne</value>
         <value xml:lang="it">Titolo Colonna</value>
+        <value xml:lang="ja">項目見出し</value>
         <value xml:lang="nl">Titel kolom</value>
         <value xml:lang="pt">Título de coluna</value>
         <value xml:lang="ro">Titlu Coloana</value>
@@ -3676,6 +3895,7 @@
         <value xml:lang="en">Committed By Party Id</value>
         <value xml:lang="fr">Téléchargement par acteur</value>
         <value xml:lang="it">Registrato Dal Soggetto</value>
+        <value xml:lang="ja">実行取引先ID</value>
         <value xml:lang="nl">Toegevoegd door partij ID</value>
         <value xml:lang="pt">Committed pelo participante com ID</value>
         <value xml:lang="ro">Registrat de Partenerul</value>
@@ -3691,6 +3911,7 @@
         <value xml:lang="en">Content Approval Id</value>
         <value xml:lang="fr">Contenu d'approbation</value>
         <value xml:lang="it">Codice Approvazione Contenuto</value>
+        <value xml:lang="ja">コンテンツ承認ID</value>
         <value xml:lang="nl">Content goedkeuring ID</value>
         <value xml:lang="pt">Id de aprovação de conteúdo</value>
         <value xml:lang="ro">Cod Aprovare Continut</value>
@@ -3706,6 +3927,7 @@
         <value xml:lang="en">Content Assoc Predicate Id</value>
         <value xml:lang="fr">Prédicat de contenu d'association</value>
         <value xml:lang="it">Predicato Associazione Contenuto</value>
+        <value xml:lang="ja">コンテンツ関連付け属性ID</value>
         <value xml:lang="pt">Id do predicado de associação de conteúdo</value>
         <value xml:lang="ro">Predicat Asociatie Continut</value>
         <value xml:lang="th">รหัสกลุ่หัวข้อควาคิดเห็น</value>
@@ -3720,6 +3942,7 @@
         <value xml:lang="en">Content Assoc Type Id</value>
         <value xml:lang="fr">Contenu d'association</value>
         <value xml:lang="it">Tipo Associazione Contenuto</value>
+        <value xml:lang="ja">コンテンツ関連付け種類ID</value>
         <value xml:lang="pt">Id do tipo de associação de conteúdo</value>
         <value xml:lang="ro">Tip Asociatie Continut</value>
         <value xml:lang="th">รหัสประเภทกลุ่หัวข้อควาคิดเห็น</value>
@@ -3735,6 +3958,7 @@
         <value xml:lang="es">Código de contenido</value>
         <value xml:lang="fr">Contenu</value>
         <value xml:lang="it">Contenuto</value>
+        <value xml:lang="ja">コンテンツID</value>
         <value xml:lang="nl">Content ID</value>
         <value xml:lang="pt">Id de conteúdo</value>
         <value xml:lang="ro">Continut</value>
@@ -3751,6 +3975,7 @@
         <value xml:lang="en">Content Id From</value>
         <value xml:lang="fr">Contenu depuis</value>
         <value xml:lang="it">Codice Contenuto A</value>
+        <value xml:lang="ja">コンテンツID(元)</value>
         <value xml:lang="nl">Content ID van</value>
         <value xml:lang="pt">Id do conteúdo De</value>
         <value xml:lang="ro">Cod Continut A</value>
@@ -3766,6 +3991,7 @@
         <value xml:lang="en">Content Id To</value>
         <value xml:lang="fr">Contenu vers</value>
         <value xml:lang="it">Codice Contenuto A</value>
+        <value xml:lang="ja">コンテンツID(先)</value>
         <value xml:lang="nl">Content ID naar</value>
         <value xml:lang="pt">Id de conteúdo Para</value>
         <value xml:lang="ro">Cod Continut A</value>
@@ -3782,6 +4008,7 @@
         <value xml:lang="es">Nombre de contenido</value>
         <value xml:lang="fr">Nom de contenu</value>
         <value xml:lang="it">Nome contenuto</value>
+        <value xml:lang="ja">コンテンツ名称</value>
         <value xml:lang="nl">Naam content</value>
         <value xml:lang="pt">Nome do conteúdo</value>
         <value xml:lang="ro">Nume Continut</value>
@@ -3798,6 +4025,7 @@
         <value xml:lang="en">Content Operation Id</value>
         <value xml:lang="fr">Opération de contenu</value>
         <value xml:lang="it">Operazione Contenuto</value>
+        <value xml:lang="ja">コンテンツ操作ID</value>
         <value xml:lang="pt">Id de operação de conteúdo</value>
         <value xml:lang="ro">Operatie Continut</value>
         <value xml:lang="th">รหัสหัวข้อปฏิบัติการ</value>
@@ -3812,6 +4040,7 @@
         <value xml:lang="en">Content Purpose List</value>
         <value xml:lang="fr">Liste de but de contenu</value>
         <value xml:lang="it">Lista Funzione Contenuto</value>
+        <value xml:lang="ja">コンテンツ目的一覧</value>
         <value xml:lang="pt">Lista de finalidades de conteúdo</value>
         <value xml:lang="ro">Lista Functie Continut</value>
         <value xml:lang="th">หัวข้อวัตถุประสงค์</value>
@@ -3826,6 +4055,7 @@
         <value xml:lang="en">Content Purpose String</value>
         <value xml:lang="fr">Chaîne de caractères de but de contenu</value>
         <value xml:lang="it">Stringa Funzione Contenuto</value>
+        <value xml:lang="ja">コンテンツ目的文字列</value>
         <value xml:lang="pt">String de objetivo de conteúdo</value>
         <value xml:lang="ro">Sirul Functie Continut</value>
         <value xml:lang="th">หัวข้อวัตถุประสงค์ตัวอักษร</value>
@@ -3841,6 +4071,7 @@
         <value xml:lang="es">Código Propósito de contenido</value>
         <value xml:lang="fr">Type de but de contenu</value>
         <value xml:lang="it">Tipo funzione contenuto</value>
+        <value xml:lang="ja">コンテンツ目的種類ID</value>
         <value xml:lang="pt">Id do tipo de objetivo de conteúdo</value>
         <value xml:lang="ro">Tip Functie Continut</value>
         <value xml:lang="ru">Код типа назначения контента</value>
@@ -3856,6 +4087,7 @@
         <value xml:lang="en">Content Revision Seq Id</value>
         <value xml:lang="fr">Séq. de révision de contenu</value>
         <value xml:lang="it">Numero Sequenza Revisione Contenuto</value>
+        <value xml:lang="ja">コンテンツリビジョン連番ID</value>
         <value xml:lang="pt">Id de seq. de revisão de conteúdo</value>
         <value xml:lang="ro">Numar Secventa Reviziune Continut</value>
         <value xml:lang="th">รหัสหัวข้อที่ปรับปรุง</value>
@@ -3867,6 +4099,7 @@
         <value xml:lang="da">Status id</value>
         <value xml:lang="en">Status Id</value>
         <value xml:lang="it">Stato</value>
+        <value xml:lang="ja">ステータスID</value>
         <value xml:lang="nl">Status ID</value>
         <value xml:lang="pt">Id de status</value>
         <value xml:lang="vi">Trạng thái</value>
@@ -3880,6 +4113,7 @@
         <value xml:lang="es">Tipo de contenido</value>
         <value xml:lang="fr">Type de contenu</value>
         <value xml:lang="it">Tipo contenuto</value>
+        <value xml:lang="ja">コンテンツタイプ</value>
         <value xml:lang="nl">Soort content</value>
         <value xml:lang="pt">Tipo de conteúdo</value>
         <value xml:lang="ro">Tip Continut</value>
@@ -3897,6 +4131,7 @@
         <value xml:lang="es">Código Tipo de contenido</value>
         <value xml:lang="fr">Type de contenu</value>
         <value xml:lang="it">Tipo Contenuto</value>
+        <value xml:lang="ja">コンテンツタイプID</value>
         <value xml:lang="nl">Content soort ID</value>
         <value xml:lang="pt">Id do tipo de conteúdo</value>
         <value xml:lang="ro">Tip Continut</value>
@@ -3914,6 +4149,7 @@
         <value xml:lang="es">Dominio de cookie</value>
         <value xml:lang="fr">Cookie de domaine</value>
         <value xml:lang="it">Dominio cookie</value>
+        <value xml:lang="ja">ドメインクッキー</value>
         <value xml:lang="nl">Cookie domein</value>
         <value xml:lang="pt">Cookie de Domínio</value>
         <value xml:lang="ro">Domeniu Cookie</value>
@@ -3931,6 +4167,7 @@
         <value xml:lang="es">Código Categoría de datos</value>
         <value xml:lang="fr">Catégorie de données</value>
         <value xml:lang="it">Categoria Dati</value>
+        <value xml:lang="ja">データカテゴリID</value>
         <value xml:lang="nl">Datacategorie ID</value>
         <value xml:lang="pt">Id de categoria de dados</value>
         <value xml:lang="ro">Categorie Date</value>
@@ -3948,6 +4185,7 @@
         <value xml:lang="es">Código Recurso de datos</value>
         <value xml:lang="fr">Ressource de données</value>
         <value xml:lang="it">Risorsa dati</value>
+        <value xml:lang="ja">データリソースID</value>
         <value xml:lang="nl">Databron ID</value>
         <value xml:lang="pt">Id de recurso de dados</value>
         <value xml:lang="ro">Resurse Date</value>
@@ -3965,6 +4203,7 @@
         <value xml:lang="es">Código Recurso de datos</value>
         <value xml:lang="fr">Nom de ressource de données</value>
         <value xml:lang="it">Nome Risorsa Dati</value>
+        <value xml:lang="ja">データリソース名称</value>
         <value xml:lang="nl">Naam databron</value>
         <value xml:lang="pt">Nome do recurso de dados</value>
         <value xml:lang="ro">Nome Resurse Date</value>
@@ -3981,6 +4220,7 @@
         <value xml:lang="en">Data Resource</value>
         <value xml:lang="fr">Ressource de données</value>
         <value xml:lang="it">Risorsa dati</value>
+        <value xml:lang="ja">データリソース</value>
         <value xml:lang="nl">Titel databron</value>
         <value xml:lang="pt">Recurso de dados</value>
         <value xml:lang="ro">Resursa Date</value>
@@ -3997,6 +4237,7 @@
         <value xml:lang="es">Código Tipo de recurso de datos</value>
         <value xml:lang="fr">Type de ressource de données</value>
         <value xml:lang="it">Tipo risorsa dati</value>
+        <value xml:lang="ja">データリソース種類ID</value>
         <value xml:lang="nl">Soort databron</value>
         <value xml:lang="pt">ID do tipo de recurso de dados</value>
         <value xml:lang="ro">Tip Resurse Date</value>
@@ -4014,6 +4255,7 @@
         <value xml:lang="es">Código Fuente de datos</value>
         <value xml:lang="fr">Source de données</value>
         <value xml:lang="it">Risorsa dati</value>
+        <value xml:lang="ja">データソースID</value>
         <value xml:lang="nl">Databron ID</value>
         <value xml:lang="pt">ID de recurso de dados</value>
         <value xml:lang="ro">Risursa Date</value>
@@ -4031,6 +4273,7 @@
         <value xml:lang="es">Código Plantilla de datos</value>
         <value xml:lang="fr">Type de modèle de données</value>
         <value xml:lang="it">Tipo Template Dati</value>
+        <value xml:lang="ja">データテンプレート種類ID</value>
         <value xml:lang="nl">Data sjabloonsoort ID</value>
         <value xml:lang="pt">Id do tipo de modelo de dados</value>
         <value xml:lang="ro">Tip Template Date</value>
@@ -4047,6 +4290,7 @@
         <value xml:lang="en">Deactivate Existing</value>
         <value xml:lang="fr">Désactiver l'existant</value>
         <value xml:lang="it">Disattivazione Esistente</value>
+        <value xml:lang="ja">既存を無効にする</value>
         <value xml:lang="pt">Desativar existentes</value>
         <value xml:lang="ro">Dezactiveaza Existent</value>
         <value xml:lang="th">ยับยั้งสิ่งที่มีอยู่</value>
@@ -4059,6 +4303,7 @@
         <value xml:lang="en">Decorator Content Id</value>
         <value xml:lang="fr">Ressource de décorateur</value>
         <value xml:lang="it">Decoratore contenuto</value>
+        <value xml:lang="ja">デコレータコンテンツID</value>
         <value xml:lang="pt">Id de conteúdo de Decorator</value>
         <value xml:lang="vi">Trang trí nội dung</value>
         <value xml:lang="zh">修饰程序内容标识</value>
@@ -4071,6 +4316,7 @@
         <value xml:lang="en">Display Fail Cond</value>
         <value xml:lang="fr">Afficher les condition(s) d'échec</value>
         <value xml:lang="it">Visualizza Condizione Fallita</value>
+        <value xml:lang="ja">表示失敗状況</value>
         <value xml:lang="pt">Exibir condição de falha</value>
         <value xml:lang="ro">Vizualizeaza Conditie Falita</value>
         <value xml:lang="th">แสดงข้อผิดพลาด</value>
@@ -4085,6 +4331,7 @@
         <value xml:lang="en">Character Set Id</value>
         <value xml:lang="fr">Jeu de caractères</value>
         <value xml:lang="it">Set di Caratteri</value>
+        <value xml:lang="ja">キャラクタセットID</value>
         <value xml:lang="pt">Id de conjunto de caracteres</value>
         <value xml:lang="ro">Set de Caractere</value>
         <value xml:lang="th">รหัสเซ็ตลักษณะ</value>
@@ -4099,6 +4346,7 @@
         <value xml:lang="en">Data Category</value>
         <value xml:lang="fr">Catégorie de données</value>
         <value xml:lang="it">Categoria Dati</value>
+        <value xml:lang="ja">データカテゴリID</value>
         <value xml:lang="nl">Datacategorie</value>
         <value xml:lang="pt">Categoria de dados</value>
         <value xml:lang="ro">Categorie Date</value>
@@ -4114,6 +4362,7 @@
         <value xml:lang="en">Dr Data Resource Type Id</value>
         <value xml:lang="fr">Type de ressource de données (Dr)</value>
         <value xml:lang="it">Tipo Risorsa Dati</value>
+        <value xml:lang="ja">DRデータリソース種類ID</value>
         <value xml:lang="nl">Databron soort ID</value>
         <value xml:lang="pt">Id do tipo de recurso de dados Dr</value>
         <value xml:lang="ro">Tip Resurse Date</value>
@@ -4129,6 +4378,7 @@
         <value xml:lang="en">Data Source</value>
         <value xml:lang="fr">Source de données</value>
         <value xml:lang="it">Sorgente Dati</value>
+        <value xml:lang="ja">データソース</value>
         <value xml:lang="pt">Fonte de dados</value>
         <value xml:lang="ro">Sursa Date</value>
         <value xml:lang="th">แหล่งข้อมูล</value>
@@ -4143,6 +4393,7 @@
         <value xml:lang="en">Dr Data Template Type Id</value>
         <value xml:lang="fr">Type de modèle de données (Dr)</value>
         <value xml:lang="it">Tipo Template Dati</value>
+        <value xml:lang="ja">DRデータテンプレート種類ID</value>
         <value xml:lang="pt">Id do tipo de modelo de dados do Dr</value>
         <value xml:lang="ro">Tip Template Date</value>
         <value xml:lang="th">รหัสประเภท Template ของข้อมูล</value>
@@ -4157,6 +4408,7 @@
         <value xml:lang="en">Locale String</value>
         <value xml:lang="fr">Langue et région</value>
         <value xml:lang="it">Stringa Locale</value>
+        <value xml:lang="ja">地域文字列</value>
         <value xml:lang="nl">Taal en regio</value>
         <value xml:lang="pt">Texto de locale</value>
         <value xml:lang="ro">Sir Local</value>
@@ -4173,6 +4425,7 @@
         <value xml:lang="es">Tipo de documento</value>
         <value xml:lang="fr">Type Mime (Dr)</value>
         <value xml:lang="it">Tipo Mime</value>
+        <value xml:lang="ja">DR MIMEタイプID</value>
         <value xml:lang="nl">Documentsoort</value>
         <value xml:lang="pt">ID do Mime Type Dr</value>
         <value xml:lang="ro">Tip Mime</value>
@@ -4189,6 +4442,7 @@
         <value xml:lang="es">Nombre de fichero</value>
         <value xml:lang="fr">Modèle de fichier</value>
         <value xml:lang="it">File Template</value>
+        <value xml:lang="ja">テンプレートファイル</value>
         <value xml:lang="nl">Naam bestand</value>
         <value xml:lang="pt">Arquivo modelo</value>
         <value xml:lang="ro">Nume File</value>
@@ -4205,6 +4459,7 @@
         <value xml:lang="en">Duration</value>
         <value xml:lang="fr">Durée</value>
         <value xml:lang="it">Durata</value>
+        <value xml:lang="ja">存続期間</value>
         <value xml:lang="nl">Duur</value>
         <value xml:lang="pt">Duração</value>
         <value xml:lang="ro">Durata</value>
@@ -4220,6 +4475,7 @@
         <value xml:lang="en">Duration Uom Id</value>
         <value xml:lang="fr">Durée UOM</value>
         <value xml:lang="it">Udm Durata</value>
+        <value xml:lang="ja">存続期間単位ID</value>
         <value xml:lang="nl">Duur eenheid ID</value>
         <value xml:lang="pt">Uom Id de Duração</value>
         <value xml:lang="ro">Udm Durata</value>
@@ -4235,6 +4491,7 @@
         <value xml:lang="en">Edit</value>
         <value xml:lang="fr">Modifier</value>
         <value xml:lang="it">Aggiorna</value>
+        <value xml:lang="ja">編集</value>
         <value xml:lang="nl">Wijzigen</value>
         <value xml:lang="pt">Editar</value>
         <value xml:lang="ro">Actualizeaza</value>
@@ -4251,6 +4508,7 @@
         <value xml:lang="es">Habilitar Https</value>
         <value xml:lang="fr">Permettre Https</value>
         <value xml:lang="it">Abilita Https</value>
+        <value xml:lang="ja">HTTPSを有効</value>
         <value xml:lang="nl">Maak Https mogelijk</value>
         <value xml:lang="pt">Habilitar Https</value>
         <value xml:lang="ro">Abilitate Https</value>
@@ -4265,6 +4523,7 @@
         <value xml:lang="en">Enum Type Id</value>
         <value xml:lang="fr">Type d'énumération</value>
         <value xml:lang="it">Tipo enumerazione</value>
+        <value xml:lang="ja">種類ID</value>
         <value xml:lang="pt">ID do tipo enum</value>
         <value xml:lang="vi">Kiểu liệt kê</value>
         <value xml:lang="zh">枚举类型标识</value>
@@ -4276,6 +4535,7 @@
         <value xml:lang="en">Existing Content Id</value>
         <value xml:lang="fr">Document existant</value>
         <value xml:lang="it">Codice contenuto esitente</value>
+        <value xml:lang="ja">既存のコンテンツID</value>
         <value xml:lang="pt">Id do conteúdo existente</value>
         <value xml:lang="vi">Nội dung có sẵn</value>
         <value xml:lang="zh">现有内容标识</value>
@@ -4287,6 +4547,7 @@
         <value xml:lang="en">File Extension Id</value>
         <value xml:lang="fr">Extension de fichier</value>
         <value xml:lang="it">Estensione File</value>
+        <value xml:lang="ja">ファイル拡張子ID</value>
         <value xml:lang="pt">ID de extensão de arquivo</value>
         <value xml:lang="ro">Extensie Fisier</value>
         <value xml:lang="th">รหัสไฟล์ที่เพิ่ม</value>
@@ -4299,6 +4560,7 @@
         <value xml:lang="en">Format String</value>
         <value xml:lang="fr">Format chaîne de caractères</value>
         <value xml:lang="it">Formato Stringa</value>
+        <value xml:lang="ja">書式文字列</value>
         <value xml:lang="pt">String de formatação</value>
         <value xml:lang="vi">Chuối định dạng</value>
         <value xml:lang="zh">格式字符串</value>
@@ -4311,6 +4573,7 @@
         <value xml:lang="en">Forum Description</value>
         <value xml:lang="fr">Description de forum</value>
         <value xml:lang="it">Descrizione Forum</value>
+        <value xml:lang="ja">フォーラム詳細</value>
         <value xml:lang="pt">Descrição do Fórum</value>
         <value xml:lang="ro">Descriere Forum</value>
         <value xml:lang="th">รายละเอียดความคิดเห็น</value>
@@ -4325,6 +4588,7 @@
         <value xml:lang="en">Forum Group Description</value>
         <value xml:lang="fr">Description de groupe de forum</value>
         <value xml:lang="it">Descrizione Gruppo Forum</value>
+        <value xml:lang="ja">フォーラムグループ詳細</value>
         <value xml:lang="pt">Descrição do Grupo de Fórum</value>
         <value xml:lang="ro">Descriere Grup Forum</value>
         <value xml:lang="th">รายละเอียดกลุ่มความคิดเห็น</value>
@@ -4339,6 +4603,7 @@
         <value xml:lang="en">Forum Group Name</value>
         <value xml:lang="fr">Nom de groupe de forum</value>
         <value xml:lang="it">Nome Gruppo Forum</value>
+        <value xml:lang="ja">フォーラムグループ名称</value>
         <value xml:lang="pt">Nome do grupo de fórum</value>
         <value xml:lang="ro">Nume Grup Forum</value>
         <value xml:lang="th">ชื่อกลุ่มความคิดเห็น</value>
@@ -4353,6 +4618,7 @@
         <value xml:lang="en">Forum Groups</value>
         <value xml:lang="fr">Groupes de forum</value>
         <value xml:lang="it">Gruppi Forum</value>
+        <value xml:lang="ja">フォーラムグループ</value>
         <value xml:lang="pt">Grupos de fórum</value>
         <value xml:lang="ro">Grupuri Forum</value>
         <value xml:lang="th">กลุ่มความคิดเห็น</value>
@@ -4367,6 +4633,7 @@
         <value xml:lang="en">Message Body text</value>
         <value xml:lang="fr">Corps de texte du message</value>
         <value xml:lang="it">Testo Corpo Messaggio</value>
+        <value xml:lang="ja">メッセージ本文</value>
         <value xml:lang="pt">Texto do corpo da mensagem</value>
         <value xml:lang="ro">Text Corp Mesaj</value>
         <value xml:lang="th">ข้อความตัวหนังสือ</value>
@@ -4381,6 +4648,7 @@
         <value xml:lang="en">Message Title</value>
         <value xml:lang="fr">Titre du message</value>
         <value xml:lang="it">Titolo Messaggio</value>
+        <value xml:lang="ja">メッセージ見出し</value>
         <value xml:lang="pt">Título da mensagem</value>
         <value xml:lang="ro">Titlu Mesaj</value>
         <value xml:lang="th">หัวเรื่องข้อความ</value>
@@ -4395,6 +4663,7 @@
         <value xml:lang="en">Forum Name</value>
         <value xml:lang="fr">Nom du forum</value>
         <value xml:lang="it">Nome Forum</value>
+        <value xml:lang="ja">フォーラム名称</value>
         <value xml:lang="pt">Nome do Fórum</value>
         <value xml:lang="ro">Nume Forum</value>
         <value xml:lang="th">ชื่อความคิดเห็น</value>
@@ -4409,6 +4678,7 @@
         <value xml:lang="en">Forums</value>
         <value xml:lang="fr">Forums</value>
         <value xml:lang="it">Forum </value>
+        <value xml:lang="ja">フォーラム</value>
         <value xml:lang="pt">Fóruns</value>
         <value xml:lang="ro">Forum </value>
         <value xml:lang="th">ความคิดเห็น</value>
@@ -4420,6 +4690,7 @@
         <value xml:lang="da">Ftl indholds id</value>
         <value xml:lang="en">Ftl Content Id</value>
         <value xml:lang="it">Contenuto ftl</value>
+        <value xml:lang="ja">FTLコンテンツID</value>
         <value xml:lang="pt">Id de conteúdo FTL</value>
         <value xml:lang="vi">Nôi dung định dạng FTL</value>
         <value xml:lang="zh">Ftl内容标识</value>
@@ -4432,6 +4703,7 @@
         <value xml:lang="en">General Feedback</value>
         <value xml:lang="fr">Remarque générale</value>
         <value xml:lang="it">Ritorno Generale</value>
+        <value xml:lang="ja">全般フィードバック</value>
         <value xml:lang="pt">Feedback geral</value>
         <value xml:lang="ro">Return General</value>
         <value xml:lang="th">ผลตอบรับทั่วไป</value>
@@ -4446,6 +4718,7 @@
         <value xml:lang="en">Hint</value>
         <value xml:lang="fr">Indication</value>
         <value xml:lang="it">Suggerimento</value>
+        <value xml:lang="ja">ヒント</value>
         <value xml:lang="pt">Dica</value>
         <value xml:lang="ro">Sugeriment</value>
         <value xml:lang="th">ซ่อน</value>
@@ -4461,6 +4734,7 @@
         <value xml:lang="es">Host Http</value>
         <value xml:lang="fr">Centre serveur HTTP</value>
         <value xml:lang="it">Host Http</value>
+        <value xml:lang="ja">HTTPサーバ</value>
         <value xml:lang="pt">Host http</value>
         <value xml:lang="ro">Host Http</value>
         <value xml:lang="ru">Http хост</value>
@@ -4477,6 +4751,7 @@
         <value xml:lang="es">Puerto Http</value>
         <value xml:lang="fr">Port HTTP</value>
         <value xml:lang="it">Porta Http</value>
+        <value xml:lang="ja">HTTPポート</value>
         <value xml:lang="pt">Porta http</value>
         <value xml:lang="ro">Poarta Http</value>
         <value xml:lang="ru">Http порт</value>
@@ -4493,6 +4768,7 @@
         <value xml:lang="es">Host Https</value>
         <value xml:lang="fr">Centre serveur HTTPS</value>
         <value xml:lang="it">Host Https</value>
+        <value xml:lang="ja">HTTPSサーバ</value>
         <value xml:lang="pt">Host https</value>
         <value xml:lang="ro">Host Https</value>
         <value xml:lang="ru">Https хост</value>
@@ -4509,6 +4785,7 @@
         <value xml:lang="es">Puerto Https</value>
         <value xml:lang="fr">Port HTTPS</value>
         <value xml:lang="it">Porta Https</value>
+        <value xml:lang="ja">HTTPSポート</value>
         <value xml:lang="pt">Porta HTTPS</value>
         <value xml:lang="ro">Poarta Https</value>
         <value xml:lang="ru">Https порт</value>
@@ -4525,6 +4802,7 @@
         <value xml:lang="es">Fichero</value>
         <value xml:lang="fr">Données d'image</value>
         <value xml:lang="it">Dati Immagine</value>
+        <value xml:lang="ja">画像データ</value>
         <value xml:lang="nl">Bestand</value>
         <value xml:lang="pt">Dados de imagem</value>
         <value xml:lang="ro">Date Imagine</value>
@@ -4541,6 +4819,7 @@
         <value xml:lang="en">Image</value>
         <value xml:lang="fr">Image</value>
         <value xml:lang="it">Immagine</value>
+        <value xml:lang="ja">画像</value>
         <value xml:lang="pt">Imagem</value>
         <value xml:lang="ro">Imagine</value>
         <value xml:lang="th">รูปภาพ</value>
@@ -4555,6 +4834,7 @@
         <value xml:lang="en">Image File Name</value>
         <value xml:lang="fr">Nom de fichier image</value>
         <value xml:lang="it">Nome File Immagine</value>
+        <value xml:lang="ja">画像ファイル名</value>
         <value xml:lang="nl">Bestandnaam afbeelding</value>
         <value xml:lang="pt">Nome do arquivo de imagem</value>
         <value xml:lang="ro">Nume Fisier Imagine</value>
@@ -4570,6 +4850,7 @@
         <value xml:lang="en">Content ids to index (separate ids with a space)</value>
         <value xml:lang="fr">Contenus à indexer (séparées par un espace)</value>
         <value xml:lang="it">Codici Contenuto da indicizzare (separare codici con uno spazio)</value>
+        <value xml:lang="ja">索引を作成するコンテンツID (スペース区切りでIDを入力)</value>
         <value xml:lang="pt">Ids de conteúdo para indexar (separe Ids por espaços)</value>
         <value xml:lang="ro">Cod Continut de indicizat (separare cod cu un spatiu)</value>
         <value xml:lang="th">รหัสหัวข้อถึงดัชนี(แยกตามรหัสและที่อยู่)</value>
@@ -4585,6 +4866,7 @@
         <value xml:lang="es">Código Instancia de contenido</value>
         <value xml:lang="fr">Exemple de contenu</value>
         <value xml:lang="it">Instanza Del Contenuto</value>
+        <value xml:lang="ja">コンテンツIDのインスタンス</value>
         <value xml:lang="pt">Instância de Id de conteúdo</value>
         <value xml:lang="ro">Instanta Continutului</value>
         <value xml:lang="ru">Код экземпляра контента</value>
@@ -4601,6 +4883,7 @@
         <value xml:lang="es">Es anónimo</value>
         <value xml:lang="fr">Est anonyme</value>
         <value xml:lang="it">E' Anonimo</value>
+        <value xml:lang="ja">匿名</value>
         <value xml:lang="nl">Is anoniem</value>
         <value xml:lang="pt">É anônimo</value>
         <value xml:lang="ro">Este Anonim</value>
@@ -4617,6 +4900,7 @@
         <value xml:lang="en">Item Content Id</value>
         <value xml:lang="fr">Contenu d'article</value>
         <value xml:lang="it">Numero Riga Contenuto</value>
+        <value xml:lang="ja">アイテムコンテンツID</value>
         <value xml:lang="pt">Id do item de conteúdo</value>
         <value xml:lang="ro">Numar Linie Continut</value>
         <value xml:lang="th">รหัสหัวข้อสิ่งของ</value>
@@ -4631,6 +4915,7 @@
         <value xml:lang="en">Left Coordinate</value>
         <value xml:lang="fr">Coordonnée gauche</value>
         <value xml:lang="it">Coordinata Sinistra</value>
+        <value xml:lang="ja">左の座標</value>
         <value xml:lang="pt">Coordenada esquerda</value>
         <value xml:lang="ro">Coordinata Stanga</value>
         <value xml:lang="th">เท่ากันกับทางซ้าย</value>
@@ -4645,6 +4930,7 @@
         <value xml:lang="en">Locale String</value>
         <value xml:lang="fr">Langue et région</value>
         <value xml:lang="it">Stringa locale</value>
+        <value xml:lang="ja">地域文字列</value>
         <value xml:lang="nl">Taal en regio</value>
         <value xml:lang="pt">String de locale</value>
         <value xml:lang="ro">Sir Local</value>
@@ -4660,6 +4946,7 @@
         <value xml:lang="en">Main Action</value>
         <value xml:lang="fr">Action principale</value>
         <value xml:lang="it">Azione Principale</value>
+        <value xml:lang="ja">メイン操作</value>
         <value xml:lang="pt">Ação principal</value>
         <value xml:lang="th">หลักการปฏิบัติ</value>
         <value xml:lang="vi">Tác động chính</value>
@@ -4672,6 +4959,7 @@
         <value xml:lang="en">Map Key</value>
         <value xml:lang="fr">Clef d'association</value>
         <value xml:lang="it">Chiave Mappa</value>
+        <value xml:lang="ja">マップキー</value>
         <value xml:lang="pt">Map Key</value>
         <value xml:lang="ro">Cheie Mapa</value>
         <value xml:lang="th">แผนที่สำคัญ</value>
@@ -4686,6 +4974,7 @@
         <value xml:lang="en">Msgs List</value>
         <value xml:lang="fr">Liste de messages</value>
         <value xml:lang="it">Lista Messaggi</value>
+        <value xml:lang="ja">メッセージ一覧</value>
         <value xml:lang="nl">Berichtenlijst</value>
         <value xml:lang="pt">Lista de mensagens</value>
         <value xml:lang="ro">Lista Mesaje</value>
@@ -4701,6 +4990,7 @@
         <value xml:lang="en">Message Text </value>
         <value xml:lang="fr">Texte du message</value>
         <value xml:lang="it">Testo Messaggio</value>
+        <value xml:lang="ja">メッセージ本文</value>
         <value xml:lang="nl">Berichttekst</value>
         <value xml:lang="pt">Texto da mensagem </value>
         <value xml:lang="ro">Text Mesaj</value>
@@ -4716,6 +5006,7 @@
         <value xml:lang="en">Msgs Thread</value>
         <value xml:lang="fr">Fil de discussion des msgs</value>
         <value xml:lang="it">Messaggi discussione</value>
+        <value xml:lang="ja">メッセージスレッド</value>
         <value xml:lang="pt">Tópico das mensagens</value>
         <value xml:lang="ro">Thread Mesaje</value>
         <value xml:lang="th">ข้อความต่อเนื่อง</value>
@@ -4730,6 +5021,7 @@
         <value xml:lang="en">Message Title</value>
         <value xml:lang="fr">Titre du message</value>
         <value xml:lang="it">Titolo Messaggio</value>
+        <value xml:lang="ja">メッセージ見出し</value>
         <value xml:lang="pt">Título da mensagem</value>
         <value xml:lang="ro">Titlu Mesaj</value>
         <value xml:lang="th">หัวเรื่องข้อความ</value>
@@ -4744,6 +5036,7 @@
         <value xml:lang="en">Meta Data Predicate Id</value>
         <value xml:lang="fr">Prédicat de méta-données</value>
         <value xml:lang="it">Predicato Meta Data</value>
+        <value xml:lang="ja">メタデータ属性ID</value>
         <value xml:lang="pt">Id do predicado de Meta dados</value>
         <value xml:lang="ro">Predicat Meta Data</value>
         <value xml:lang="th">รหัสข้อมูลยืนยันหลังการเปลี่ยนแปลง</value>
@@ -4758,6 +5051,7 @@
         <value xml:lang="en">Meta Data Value</value>
         <value xml:lang="fr">Valeur de méta-données</value>
         <value xml:lang="it">Valore Meta Data</value>
+        <value xml:lang="ja">メタデータ値</value>
         <value xml:lang="pt">Valores de meta dados</value>
         <value xml:lang="ro">Valoare Meta Data</value>
         <value xml:lang="th">ข้อมูลยืนยันหลังการเปลี่ยนแปลง</value>
@@ -4773,6 +5067,7 @@
         <value xml:lang="es">Tipo MIME</value>
         <value xml:lang="fr">Type MIME</value>
         <value xml:lang="it">Tipo Mime</value>
+        <value xml:lang="ja">MIMEタイプID</value>
         <value xml:lang="pt">Id do Mime Type</value>
         <value xml:lang="ro">Tip Mime</value>
         <value xml:lang="ru">Mime тип</value>
@@ -4788,6 +5083,7 @@
         <value xml:lang="en">Multi Response Title</value>
         <value xml:lang="fr">Titre multi-réponses</value>
         <value xml:lang="it">Titolo Risposta Multipla</value>
+        <value xml:lang="ja">複数回答見出し</value>
         <value xml:lang="pt">Título de resposta múltipla</value>
         <value xml:lang="ro">Titlu Raspuns Multiplu</value>
         <value xml:lang="th">หลายคำตอบ</value>
@@ -4802,6 +5098,7 @@
         <value xml:lang="en">Msg Count</value>
         <value xml:lang="fr">Compte du msg</value>
         <value xml:lang="it">Conta Messaggio</value>
+        <value xml:lang="ja">メッセージ件数</value>
         <value xml:lang="pt">Contagem de mensagens</value>
         <value xml:lang="ro">Contorizeaza Mesajul</value>
         <value xml:lang="th">จำนวนข้อความทั้งหมด</value>
@@ -4816,6 +5113,7 @@
         <value xml:lang="en">New Data Resource Id</value>
         <value xml:lang="fr">Nouvelle ressource de données</value>
         <value xml:lang="it">Nuovo Codice Risorsa Dati</value>
+        <value xml:lang="ja">新規データリソースID</value>
         <value xml:lang="nl">Nieuwe databron</value>
         <value xml:lang="pt">ID de recurso de dados novo</value>
         <value xml:lang="ro">Cod Nou Resurse Date</value>
@@ -4832,6 +5130,7 @@
         <value xml:lang="es">Información del objeto</value>
         <value xml:lang="fr">Information d'objet</value>
         <value xml:lang="it">Informazione Oggetto</value>
+        <value xml:lang="ja">オブジェクト情報</value>
         <value xml:lang="nl">Object informatie</value>
         <value xml:lang="pt">Informações do objeto</value>
         <value xml:lang="ro">Informatie Obiect</value>
@@ -4848,6 +5147,7 @@
         <value xml:lang="en">Old Data Resource Id</value>
         <value xml:lang="fr">Ancienne ressource de données</value>
         <value xml:lang="it">Vecchio Codice Risorsa Dati</value>
+        <value xml:lang="ja">旧データリソースID</value>
         <value xml:lang="nl">Oude databron ID</value>
         <value xml:lang="pt">Id de recurso de dados antigos</value>
         <value xml:lang="ro">Cod Vechi Resurse Date</value>
@@ -4864,6 +5164,7 @@
         <value xml:lang="es">Código del propietario</value>
         <value xml:lang="fr">Contenu propriétaire</value>
         <value xml:lang="it">Proprietario Contenuto</value>
+        <value xml:lang="ja">所有者コンテンツID</value>
         <value xml:lang="nl">Eigenaar content ID</value>
         <value xml:lang="pt">Id do proprietário de conteúdo</value>
         <value xml:lang="ro">Proprietar Continut</value>
@@ -4880,6 +5181,7 @@
         <value xml:lang="en">Page Name</value>
         <value xml:lang="fr">Nom de page</value>
         <value xml:lang="it">Nome Pagina</value>
+        <value xml:lang="ja">ページ名称</value>
         <value xml:lang="nl">Naam pagina</value>
         <value xml:lang="pt">Nome da página</value>
         <value xml:lang="ro">Nume Pagina</value>
@@ -4895,6 +5197,7 @@
         <value xml:lang="en">Parent Category Id</value>
         <value xml:lang="fr">Catégorie parente</value>
         <value xml:lang="it">Categoria Padre</value>
+        <value xml:lang="ja">上位(親)のカテゴリID</value>
         <value xml:lang="pt">Id de categoria pai</value>
         <value xml:lang="ro">Categorie Parinte</value>
         <value xml:lang="th">รหัสหมวดหมู่ผู้ปกครอง</value>
@@ -4908,6 +5211,7 @@
         <value xml:lang="en">Paste Content</value>
         <value xml:lang="fr">Coller le contenu</value>
         <value xml:lang="it">Incolla Contenuto</value>
+        <value xml:lang="ja">コンテンツを貼り付け</value>
         <value xml:lang="nl">Invoegen content</value>
         <value xml:lang="pt">Colar conteúdo</value>
         <value xml:lang="th">หัวข้อที่ผ่านมา</value>
@@ -4920,6 +5224,7 @@
         <value xml:lang="en">Path Alias</value>
         <value xml:lang="fr">Raccourci</value>
         <value xml:lang="it">Path alias</value>
+        <value xml:lang="ja">パス別名</value>
         <value xml:lang="pt">Alias de caminho</value>
         <value xml:lang="vi">Đường dẫn thay thế</value>
         <value xml:lang="zh">路径别名</value>
@@ -4930,6 +5235,7 @@
         <value xml:lang="en">Path Alias To</value>
         <value xml:lang="fr">Raccourci vers</value>
         <value xml:lang="it">Path alias a</value>
+        <value xml:lang="ja">パス別名(先)</value>
         <value xml:lang="pt">Alias de caminho Para</value>
         <value xml:lang="vi">Đường dẫn thay thế tới</value>
         <value xml:lang="zh">路径别名到</value>
@@ -4942,6 +5248,7 @@
         <value xml:lang="en">Pdf File Name In</value>
         <value xml:lang="fr">Nom de fichier PDF inclus</value>
         <value xml:lang="it">Nome File Pdf Ingresso</value>
+        <value xml:lang="ja">PDFファイル名</value>
         <value xml:lang="pt">Nome do arquivo PDF em</value>
         <value xml:lang="ro">Nume Fisier Pdf Intrare</value>
         <value xml:lang="th">ชื่อในไฟล์ Pdf</value>
@@ -4957,6 +5264,7 @@
         <value xml:lang="es">Tipo privilegio</value>
         <value xml:lang="fr">Enumération de privilège</value>
         <value xml:lang="it">Enumerazione Privilegio</value>
+        <value xml:lang="ja">特権ID</value>
         <value xml:lang="pt">Privilégio Enum Id</value>
         <value xml:lang="ro">Enumerare Privilegiu</value>
         <value xml:lang="ru">Код привилегий</value>
@@ -4972,6 +5280,7 @@
         <value xml:lang="en">Purposes</value>
         <value xml:lang="fr">Buts</value>
         <value xml:lang="it">Funzioni</value>
+        <value xml:lang="ja">目的</value>
         <value xml:lang="pt">Objetivos</value>
         <value xml:lang="ro">Functii</value>
         <value xml:lang="th">วัตถุประสงค์</value>
@@ -4984,6 +5293,7 @@
         <value xml:lang="en">Query Line</value>
         <value xml:lang="fr">Ligne de requête</value>
         <value xml:lang="it">Riga query</value>
+        <value xml:lang="ja">照会行</value>
         <value xml:lang="pt">Linha de consulta</value>
         <value xml:lang="vi">Dòng truy vấn</value>
         <value xml:lang="zh">查询行</value>
@@ -4996,6 +5306,7 @@
         <value xml:lang="en">Question</value>
         <value xml:lang="fr">Question</value>
         <value xml:lang="it">Domanda</value>
+        <value xml:lang="ja">質問</value>
         <value xml:lang="pt">Pergunta</value>
         <value xml:lang="ro">Intrebare</value>
         <value xml:lang="th">คำถาม</value>
@@ -5010,6 +5321,7 @@
         <value xml:lang="en">Reference Id</value>
         <value xml:lang="fr">Référence</value>
         <value xml:lang="it">Numero Riferimento</value>
+        <value xml:lang="ja">参照ID</value>
         <value xml:lang="pt">Id de referência</value>
         <value xml:lang="ro">Numar de Referinta</value>
         <value xml:lang="th">รหัสการอ้างอิง</value>
@@ -5024,6 +5336,7 @@
         <value xml:lang="en">Related Detail Id</value>
         <value xml:lang="fr">Détail lié</value>
         <value xml:lang="it">Dettaglio Relativo</value>
+        <value xml:lang="ja">関連詳細ID</value>
         <value xml:lang="pt">Id de detalhes relacionados</value>
         <value xml:lang="ro">Detaliu Relativ</value>
         <value xml:lang="th">รหัสรายละเอียดที่เกี่ยวข้อง</value>
@@ -5037,6 +5350,7 @@
         <value xml:lang="en">Replace</value>
         <value xml:lang="fr">Remplacer</value>
         <value xml:lang="it">Sostituisci</value>
+        <value xml:lang="ja">置換</value>
         <value xml:lang="pt">Substituir</value>
         <value xml:lang="th">แทนที่</value>
         <value xml:lang="vi">Thay thế</value>
@@ -5050,6 +5364,7 @@
         <value xml:lang="en">Resp.</value>
         <value xml:lang="fr">Réponse</value>
         <value xml:lang="it">Risp.</value>
+        <value xml:lang="ja">回答</value>
         <value xml:lang="pt">Resposta</value>
         <value xml:lang="ro">Rasp.</value>
         <value xml:lang="th">ประเด็น</value>
@@ -5063,6 +5378,7 @@
         <value xml:lang="en">Resource Description</value>
         <value xml:lang="fr">Description de ressource</value>
         <value xml:lang="it">Descrizione Risorsa</value>
+        <value xml:lang="ja">リソース詳細</value>
         <value xml:lang="pt">Descrição do recurso</value>
         <value xml:lang="th">รายละเอียดแหล่งที่มา</value>
         <value xml:lang="vi">Miêu tả tài nguyên</value>
@@ -5076,6 +5392,7 @@
         <value xml:lang="en">Response Date</value>
         <value xml:lang="fr">Date de réponse</value>
         <value xml:lang="it">Data Risposta</value>
+        <value xml:lang="ja">回答日</value>
         <value xml:lang="pt">Data de resposta</value>
         <value xml:lang="ro">Data Raspuns</value>
         <value xml:lang="th">วันที่ตอบ</value>
@@ -5090,6 +5407,7 @@
         <value xml:lang="en">Roles</value>
         <value xml:lang="fr">Rôles</value>
         <value xml:lang="it">Ruoli</value>
+        <value xml:lang="ja">ロール</value>
         <value xml:lang="nl">Rollen</value>
         <value xml:lang="pt">Papéis</value>
         <value xml:lang="ro">Drepturi</value>
@@ -5103,6 +5421,7 @@
         <value xml:lang="en">section</value>
         <value xml:lang="fr">section</value>
         <value xml:lang="it">sezione</value>
+        <value xml:lang="ja">セクション</value>
         <value xml:lang="nl">sectie</value>
         <value xml:lang="pt">seção</value>
         <value xml:lang="vi">Phân vùng</value>
@@ -5117,6 +5436,7 @@
         <value xml:lang="es">Prefijo contenido seguro</value>
         <value xml:lang="fr">Sécuriser le préfixe de contenu</value>
         <value xml:lang="it">Prefisso Contenuto Sicuro</value>
+        <value xml:lang="ja">安全なコンテンツの接頭語</value>
         <value xml:lang="pt">Prefixo de conteúdo seguro</value>
         <value xml:lang="ro">Prefix Continut Sigur</value>
         <value xml:lang="ru">Секретный префикс контента</value>
@@ -5132,6 +5452,7 @@
         <value xml:lang="en">Select</value>
         <value xml:lang="fr">Sélectionner</value>
         <value xml:lang="it">Scegli</value>
+        <value xml:lang="ja">選択</value>
         <value xml:lang="nl">Selecteer</value>
         <value xml:lang="pt">Selecionar</value>
         <value xml:lang="ro">Alege</value>
@@ -5148,6 +5469,7 @@
         <value xml:lang="es">Nombre del servicio</value>
         <value xml:lang="fr">Nom de service</value>
         <value xml:lang="it">Nome Servizio</value>
+        <value xml:lang="ja">サービス名称</value>
         <value xml:lang="nl">Naam service</value>
         <value xml:lang="pt">Nome do serviço</value>
         <value xml:lang="ro">Nume Serviciu</value>
@@ -5165,6 +5487,7 @@
         <value xml:lang="es">Nombre del sitio</value>
         <value xml:lang="fr">Nom de site</value>
         <value xml:lang="it">Nome Sito</value>
+        <value xml:lang="ja">サイト名称</value>
         <value xml:lang="nl">Naam site</value>
         <value xml:lang="pt">Nome do site</value>
         <value xml:lang="ro">Nume Sit</value>
@@ -5181,6 +5504,7 @@
         <value xml:lang="en">Skip Permission Check</value>
         <value xml:lang="fr">Sauter le contrôle d'autorisation</value>
         <value xml:lang="it">Salta Controllo Permesso</value>
+        <value xml:lang="ja">権限チェックをスキップ</value>
         <value xml:lang="nl">Sla toestemmingscontrole over</value>
         <value xml:lang="pt">Ignorar verificação de permissão</value>
         <value xml:lang="ro">Salta Controlul Permis</value>
@@ -5197,6 +5521,7 @@
         <value xml:lang="es">Prefijo de contenido estándar</value>
         <value xml:lang="fr">Préfixe de contenu standard</value>
         <value xml:lang="it">Prefisso contenuto standard </value>
+        <value xml:lang="ja">標準コンテンツの接頭語</value>
         <value xml:lang="pt">Prefixo de conteúdo padrão</value>
         <value xml:lang="ro">Prefix Continut Standard </value>
         <value xml:lang="ru">Стандартный префикс контента</value>
@@ -5213,6 +5538,7 @@
         <value xml:lang="es">Código de encuesta</value>
         <value xml:lang="fr">Sondage</value>
         <value xml:lang="it">Numero sondaggio</value>
+        <value xml:lang="ja">評価ID</value>
         <value xml:lang="nl">Onderzoek ID</value>
         <value xml:lang="pt">Id de pesquisa</value>
         <value xml:lang="ro">Numar Sondaj</value>
@@ -5229,6 +5555,7 @@
         <value xml:lang="en">Survey Multi Resp Col Id</value>
         <value xml:lang="fr">Colonne (sondage multi réponse)</value>
         <value xml:lang="it">Colonna Risposta Multipla Sondaggio</value>
+        <value xml:lang="ja">評価複数回答項目ID</value>
         <value xml:lang="pt">Id de coluna de Pesquisa Multi Resp</value>
         <value xml:lang="ro">Coloana Raspuns Multiplu Sondaj</value>
         <value xml:lang="th">รหัสการสำรวจคำตอบหลายๆคำตอบ</value>
@@ -5243,6 +5570,7 @@
         <value xml:lang="en">Survey Multi Resp Id</value>
         <value xml:lang="fr">Sondage multi réponse</value>
         <value xml:lang="it">Risposta Multipla Sondaggio</value>
+        <value xml:lang="ja">評価複数回答ID</value>
         <value xml:lang="pt">Id de Pesquisa Multi Resp</value>
         <value xml:lang="ro">Raspuns Multiplu Sondaj</value>
         <value xml:lang="th">รหัสการสำรวจคำตอบหลายๆคำตอบ</value>
@@ -5258,6 +5586,7 @@
         <value xml:lang="es">Nombre de la encuesta</value>
         <value xml:lang="fr">Nom du sondage</value>
         <value xml:lang="it">Nome sondaggio</value>
+        <value xml:lang="ja">評価名称</value>
         <value xml:lang="pt">Nome de pesquisa</value>
         <value xml:lang="ro">Numar Sondaj</value>
         <value xml:lang="ru">Имя обзора</value>
@@ -5273,6 +5602,7 @@
         <value xml:lang="en">Survey Page Seq Id</value>
         <value xml:lang="fr">Séq. de page de sondage</value>
         <value xml:lang="it">Numero Sequenza Pagina Sondaggio</value>
+        <value xml:lang="ja">評価ページ連番ID</value>
         <value xml:lang="pt">Id de seq. de página Pesquisa</value>
         <value xml:lang="ro">Numar Secventa Pagina Sondaj</value>
         <value xml:lang="th">รหัสหน้าการสำรวจ</value>
@@ -5287,6 +5617,7 @@
         <value xml:lang="en">Survey Question Category Id</value>
         <value xml:lang="fr">Catégorie de question (sondage)</value>
         <value xml:lang="it">Categoria Domanda Sondaggio</value>
+        <value xml:lang="ja">評価質問カテゴリID</value>
         <value xml:lang="pt">Id da categoria de pergunta de pesquisa</value>
         <value xml:lang="ro">Categorie Intrebare Sondaj</value>
         <value xml:lang="th">รหัสการสำรวจหมวดหมู่คำถาม</value>
@@ -5301,6 +5632,7 @@
         <value xml:lang="en">Survey Question Type Id</value>
         <value xml:lang="fr">Type de question (sondage)</value>
         <value xml:lang="it">Tipo Domanda Sondaggio</value>
+        <value xml:lang="ja">評価質問種類ID</value>
         <value xml:lang="pt">Id do tipo de pergunta de pesquisa</value>
         <value xml:lang="ro">Tip Intrebare</value>
         <value xml:lang="th">รหัสการสำรวจประเภทคำถาม</value>
@@ -5315,6 +5647,7 @@
         <value xml:lang="en">Survey Response Id</value>
         <value xml:lang="fr">Réponse au sondage</value>
         <value xml:lang="it">Risposta sondaggio</value>
+        <value xml:lang="ja">評価質問回答ID</value>
         <value xml:lang="pt">Id de resposta de pesquisa</value>
         <value xml:lang="ro">Raspuns Sondaj</value>
         <value xml:lang="th">รหัสการสำรวจคำตอบ</value>
@@ -5329,6 +5662,7 @@
         <value xml:lang="en">Target Operation List</value>
         <value xml:lang="fr">Liste d'opération cible</value>
         <value xml:lang="it">Lista Operazione Destinazione</value>
+        <value xml:lang="ja">対象操作一覧</value>
         <value xml:lang="pt">Lista de operação de destino</value>
         <value xml:lang="ro">Lista Operatii Destinatie</value>
         <value xml:lang="th">การดำเนินการตามวัตถุประสงค์</value>
@@ -5343,6 +5677,7 @@
         <value xml:lang="en">Target Operation String</value>
         <value xml:lang="fr">Chaîne de caractère d'opération cible</value>
         <value xml:lang="it">Stringa Operazione Destinazione</value>
+        <value xml:lang="ja">対象操作文字列</value>
         <value xml:lang="pt">String de destino de operação</value>
         <value xml:lang="ro">Sirul Operatie Destinatie</value>
         <value xml:lang="th">วิธีการดำเนินการ</value>
@@ -5358,6 +5693,7 @@
         <value xml:lang="es">Código Plantilla de fuente de datos</value>
         <value xml:lang="fr">Modèle de ressource de données</value>
         <value xml:lang="it">Template Risorsa Dati</value>
+        <value xml:lang="ja">テンプレートデータリソースID</value>
         <value xml:lang="pt">Id de modelo de recurso de dados</value>
         <value xml:lang="ro">Template Resurse Date</value>
         <value xml:lang="ru">Код шаблона ресурса данных</value>
@@ -5372,6 +5708,7 @@
         <value xml:lang="en">template Location</value>
         <value xml:lang="fr">Emplacement du modèle</value>
         <value xml:lang="it">Posizione Template</value>
+        <value xml:lang="ja">テンプレートの場所</value>
         <value xml:lang="pt">Localização de modelo</value>
         <value xml:lang="th">ที่ตั้ง template</value>
         <value xml:lang="vi">Nơi lưu biểu mẫu</value>
@@ -5383,6 +5720,7 @@
         <value xml:lang="en">Template Tree</value>
         <value xml:lang="fr">Modèle d'arbre</value>
         <value xml:lang="it">Albero template</value>
+        <value xml:lang="ja">テンプレートツリー</value>
         <value xml:lang="pt">Árvore modelo</value>
         <value xml:lang="vi">Cây biểu mẫu</value>
         <value xml:lang="zh">模板树</value>
@@ -5395,6 +5733,7 @@
         <value xml:lang="en">Text</value>
         <value xml:lang="fr">Données textuelles</value>
         <value xml:lang="it">Testo</value>
+        <value xml:lang="ja">本文</value>
         <value xml:lang="nl">Tekst</value>
         <value xml:lang="pt">Texto</value>
         <value xml:lang="ro">Text</value>
@@ -5408,6 +5747,7 @@
         <value xml:lang="en">Topic</value>
         <value xml:lang="fr">Sujet</value>
         <value xml:lang="it">Argomento</value>
+        <value xml:lang="ja">主題</value>
         <value xml:lang="nl">Onderwerp</value>
         <value xml:lang="pt">Tópico</value>
         <value xml:lang="vi">Chuyên đề (Topic)</value>
@@ -5421,6 +5761,7 @@
         <value xml:lang="en">Tree</value>
         <value xml:lang="fr">Arborescence</value>
         <value xml:lang="it">Albero</value>
+        <value xml:lang="ja">ツリー</value>
         <value xml:lang="pt">Árvore</value>
         <value xml:lang="ro">Arbore</value>
         <value xml:lang="th">ต้นไม้</value>
@@ -5433,6 +5774,7 @@
         <value xml:lang="en">Update Survey Response</value>
         <value xml:lang="fr">Màj de la réponse du sondage</value>
         <value xml:lang="it">Aggiorna risposta sondaggio</value>
+        <value xml:lang="ja">評価の回答を更新</value>
         <value xml:lang="pt">Atualizar resposta de pesquisa</value>
         <value xml:lang="vi">Cập nhật phản hồi</value>
         <value xml:lang="zh">更新调查回答</value>
@@ -5445,6 +5787,7 @@
         <value xml:lang="en">Upper Coordinate</value>
         <value xml:lang="fr">Coordonnée du dessus</value>
         <value xml:lang="it">Coordinata Superiore</value>
+        <value xml:lang="ja">上の座標</value>
         <value xml:lang="pt">Coordenada superior</value>
         <value xml:lang="ro">Coordinata Superioara</value>
         <value xml:lang="th">ระดับสูงเท่ากัน</value>
@@ -5457,6 +5800,7 @@
         <value xml:lang="en">Visual Theme Set</value>
         <value xml:lang="fr">Ensemble de thèmes visuels</value>
         <value xml:lang="it">Set di temi grafici</value>
+        <value xml:lang="ja">外観のテーマセット</value>
         <value xml:lang="nl">Visueel thema set ID</value>
         <value xml:lang="pt">Conjunto de tema Visual</value>
         <value xml:lang="vi">Giao diện hiển thị</value>
@@ -5469,6 +5813,7 @@
         <value xml:lang="en">Web Site Content Type Id</value>
         <value xml:lang="fr">Type de contenu de site Web</value>
         <value xml:lang="it">Tipo Contenuto Sito Web</value>
+        <value xml:lang="ja">WebサイトコンテンツタイプID</value>
         <value xml:lang="nl">Website contentsoort ID</value>
         <value xml:lang="pt">Id de tipo de conteúdo de Web Site</value>
         <value xml:lang="th">รหัสประเภทหัวข้อ Web Site</value>
@@ -5484,6 +5829,7 @@
         <value xml:lang="es">Código del sitio web</value>
         <value xml:lang="fr">Site web</value>
         <value xml:lang="it">Sito web</value>
+        <value xml:lang="ja">WebサイトID</value>
         <value xml:lang="nl">Website ID</value>
         <value xml:lang="pt">Id do Web Site</value>
         <value xml:lang="ro">Sit Web</value>
@@ -5500,6 +5846,7 @@
         <value xml:lang="en">Weight Factor</value>
         <value xml:lang="fr">Facteur de pondération</value>
         <value xml:lang="it">Fattore Peso</value>
+        <value xml:lang="ja">ウェイト係数</value>
         <value xml:lang="pt">Fator de peso</value>
         <value xml:lang="ro">Factor Greutate</value>
         <value xml:lang="th">มาตรฐานน้ำหนัก</value>
@@ -5514,6 +5861,7 @@
         <value xml:lang="en">Add an association</value>
         <value xml:lang="fr">Ajouter une association</value>
         <value xml:lang="it">Aggiungi una associazione</value>
+        <value xml:lang="ja">関連付けを追加</value>
         <value xml:lang="nl">Toevoegen associatie</value>
         <value xml:lang="pt">Adicionar uma associação</value>
         <value xml:lang="ro">Adauga o asociatie</value>
@@ -5529,6 +5877,7 @@
         <value xml:lang="en">Add an attribute</value>
         <value xml:lang="fr">Ajouter un attribut</value>
         <value xml:lang="it">Aggiungi un'attributo</value>
+        <value xml:lang="ja">属性を追加</value>
         <value xml:lang="nl">Toevoegen attribuut</value>
         <value xml:lang="pt">Adicionar um atributo</value>
         <value xml:lang="ro">Adauga un'atribut</value>
@@ -5542,6 +5891,7 @@
         <value xml:lang="en">Add CompDoc Instance</value>
         <value xml:lang="fr">Ajouter une instance de document composite</value>
         <value xml:lang="it">Aggiungi Istanza CompDoc</value>
+        <value xml:lang="ja">複合文書インスタンスを追加</value>
         <value xml:lang="pt">Adicionar instância de CompDoc</value>
         <value xml:lang="vi">Thêm khởi tạo tài liệu</value>
         <value xml:lang="zh">添加合成文档实例</value>
@@ -5552,6 +5902,7 @@
         <value xml:lang="en">Add Composite Document Instance Part Page</value>
         <value xml:lang="fr">Ajouter une instance d'une partie de page de document composite</value>
         <value xml:lang="it">Aggiungi instanza composizione documenti</value>
+        <value xml:lang="ja">複合文書インスタンスの部品ページを追加</value>
         <value xml:lang="pt">Adicionar página parte da instância de documento composto</value>
         <value xml:lang="vi">Thêm trang của Tài liệu kết hợp (Composite Document Instance Part Page)</value>
         <value xml:lang="zh">添加合成文档的文档实例页面</value>
@@ -5562,6 +5913,7 @@
         <value xml:lang="en">Add Composite Document Template Page</value>
         <value xml:lang="fr">Ajouter une page de modèle de document composite</value>
         <value xml:lang="it">Aggiungi template composizione documenti</value>
+        <value xml:lang="ja">複合文書テンプレートページを追加</value>
         <value xml:lang="pt">Adicionar página de modelo de documento composto</value>
         <value xml:lang="vi">Thêm biểu mẫu của Tài liệu kết hợp (Composite Document Template Page)</value>
         <value xml:lang="zh">添加合成文档的模板页面</value>
@@ -5575,6 +5927,7 @@
         <value xml:lang="es">Añadir Contenido</value>
         <value xml:lang="fr">Ajouter un contenu</value>
         <value xml:lang="it">Aggiungi contenuto</value>
+        <value xml:lang="ja">コンテンツを追加</value>
         <value xml:lang="nl">Toevoegen content</value>
         <value xml:lang="pt">Adicionar conteúdo</value>
         <value xml:lang="ro">Adaugia Continut</value>
@@ -5598,6 +5951,7 @@
         <value xml:lang="en">Add DataResource</value>
         <value xml:lang="fr">Ajouter une ressource de données</value>
         <value xml:lang="it">Aggiungi Risorsa Dati</value>
+        <value xml:lang="ja">データリソースを追加</value>
         <value xml:lang="nl">Toevoegen databron</value>
         <value xml:lang="pt">Adicionar recurso de dados</value>
         <value xml:lang="ro">Adauga Resursa Date</value>
@@ -5620,6 +5974,7 @@
         <value xml:lang="en">Add DataResource Text</value>
         <value xml:lang="fr">Ajouter une ressource de données (texte)</value>
         <value xml:lang="it">Aggiungi Testo Risorsa Dati</value>
+        <value xml:lang="ja">データリソーステキストを追加</value>
         <value xml:lang="nl">Toevoegen databron tekst</value>
         <value xml:lang="pt">Adicionar texto de Recurso de Dados</value>
         <value xml:lang="ro">Adauga Text Resurse Date</value>
@@ -5635,6 +5990,7 @@
         <value xml:lang="en">Add DataResource Upload</value>
         <value xml:lang="fr">Ajouter une ressource de données (téléchargement vers serveur)</value>
         <value xml:lang="it">Aggiungi Caricamento Risorsa Dati</value>
+        <value xml:lang="ja">データリソースアップロードを追加</value>
         <value xml:lang="nl">Toevoegen databron upload</value>
         <value xml:lang="pt">Adicionar Upload de Recurso de Dados</value>
         <value xml:lang="ro">Adauga Incarcare Resursa Dati</value>
@@ -5650,6 +6006,7 @@
         <value xml:lang="en">Add DataResource Url</value>
         <value xml:lang="fr">Ajouter une ressource de données (URL)</value>
         <value xml:lang="it">Aggiungi Url Risorsa Dati</value>
+        <value xml:lang="ja">データリソースURLを追加</value>
         <value xml:lang="nl">Toevoegen databron url</value>
         <value xml:lang="pt">Adicionar Url de Recurso de Dados</value>
         <value xml:lang="ro">Adauga Url Resursa Date</value>
@@ -5665,6 +6022,7 @@
         <value xml:lang="en">Add a message to forum: </value>
         <value xml:lang="fr">Ajoutez un message au forum : </value>
         <value xml:lang="it">Aggiungi un messaggio al forum: </value>
+        <value xml:lang="ja">フォーラムにメッセージを追加</value>
         <value xml:lang="pt">Adicionar uma mensagem ao Fórum: </value>
         <value xml:lang="ro">Adauga un mesaj la forum: </value>
         <value xml:lang="th">เพิ่มข้อความในความคิดเห็น: </value>
@@ -5679,6 +6037,7 @@
         <value xml:lang="en">Add a response to message: </value>
         <value xml:lang="fr">Ajoutez une réponse au message : </value>
         <value xml:lang="it">Aggiungi una risposta al messaggio: </value>
+        <value xml:lang="ja">メッセージに回答を追加</value>
         <value xml:lang="pt">Adicionar uma resposta a mensagem: </value>
         <value xml:lang="ro">Adauga un raspuns la mesaj: </value>
         <value xml:lang="th">เพิ่มคำตอบในข้อความ:</value>
@@ -5693,6 +6052,7 @@
         <value xml:lang="en">Add a MetaData</value>
         <value xml:lang="fr">Ajouter une méta-donnée</value>
         <value xml:lang="it">Aggiungi Metadati</value>
+        <value xml:lang="ja">メタデータを追加</value>
         <value xml:lang="nl">Toevoegen metadata</value>
         <value xml:lang="pt">Adicionar um metadado</value>
         <value xml:lang="ro">Adauga Metadate</value>
@@ -5708,6 +6068,7 @@
         <value xml:lang="en">Add a Purpose</value>
         <value xml:lang="fr">Ajouter un but</value>
         <value xml:lang="it">Aggiungi una Funzione</value>
+        <value xml:lang="ja">目的を追加</value>
         <value xml:lang="pt">Adicionar um objetivo</value>
         <value xml:lang="ro">Adauga o Functie </value>
         <value xml:lang="th">เพิ่มวัตถุประสงค์</value>
@@ -5722,6 +6083,7 @@
         <value xml:lang="en">Add a Role</value>
         <value xml:lang="fr">Ajouter un rôle</value>
         <value xml:lang="it">Aggiungi un Ruolo</value>
+        <value xml:lang="ja">ロールを追加</value>
         <value xml:lang="nl">Toevoegen rol</value>
         <value xml:lang="pt">Adicionar um papel</value>
         <value xml:lang="ro">Adauga un Rol</value>
@@ -5737,6 +6099,7 @@
         <value xml:lang="en">Add workeffort content</value>
         <value xml:lang="fr">Ajoutez un contenu de tâche</value>
         <value xml:lang="it">Aggiorna contenuto impegno di lavoro</value>
+        <value xml:lang="ja">作業成果コンテンツを追加</value>
         <value xml:lang="pt">Adicionar conteúdo de esforço de trabalho</value>
         <value xml:lang="th">เพิ่มหัวข้อ workeffort</value>
         <value xml:lang="vi">Thêm Lượng giá nguồn lực</value>
@@ -5749,6 +6112,7 @@
         <value xml:lang="en">Auto-Create Content Publish Points</value>
         <value xml:lang="fr">Créer automatiquement un contenu de points publiés</value>
         <value xml:lang="it">Creazioni-Automatica Contenuto Punti Pubblicati</value>
+        <value xml:lang="ja">コンテンツ公開場所を自動作成</value>
         <value xml:lang="pt">Auto-criar conteúdo de pontos de publicação</value>
         <value xml:lang="th">สร้างหัวข้อความคิดเห็นอัตโนมัติ</value>
         <value xml:lang="vi">Tự động tạo điểm xuất bản công khai (Content Publish Point)</value>
@@ -5761,6 +6125,7 @@
         <value xml:lang="en">Create Instance Of This Template</value>
         <value xml:lang="fr">Créer une instance de ce modèle</value>
         <value xml:lang="it">Creare Istanza per Questo Template</value>
+        <value xml:lang="ja">このテンプレートのインスタンスを作成</value>
         <value xml:lang="pt">Criar instância desse modelo</value>
         <value xml:lang="th">สร้างตัวอย่างของ Template นี้</value>
         <value xml:lang="vi">Tạo khởi tạo của biểu mẫu này</value>
@@ -5773,6 +6138,7 @@
         <value xml:lang="en">Create New Root CompDoc Template</value>
         <value xml:lang="fr">Créer un nouveau modèle de racine de document composite</value>
         <value xml:lang="it">Nuovo template radice CompDoc</value>
+        <value xml:lang="ja">新規ルート複合文書テンプレートを作成</value>
         <value xml:lang="pt">Criar novo modelo de raiz de CompDoc</value>
         <value xml:lang="th">สร้างที่มาของ Template เอกสารใหม่</value>
         <value xml:lang="vi">Tạo cây gốc Biểu mẫu tài liệu kết hợp</value>
@@ -5787,6 +6153,7 @@
         <value xml:lang="es">Crear Encuesta</value>
         <value xml:lang="fr">Créer un sondage</value>
         <value xml:lang="it">Nuovo sondaggio</value>
+        <value xml:lang="ja">評価を作成</value>
         <value xml:lang="nl">Aanmaken onderzoek</value>
         <value xml:lang="pt">Criar pesquisa</value>
         <value xml:lang="ro">Creare Sondaj</value>
@@ -5801,6 +6168,7 @@
         <value xml:lang="en">Create Web Site Content</value>
         <value xml:lang="fr">Créer le contenu du site Web</value>
         <value xml:lang="it">Creare Contenuto Sito Web</value>
+        <value xml:lang="ja">Webサイトコンテンツを作成</value>
         <value xml:lang="nl">Aanmaken website content</value>
         <value xml:lang="pt">Criar conteúdo do Web Site</value>
         <value xml:lang="th">สร้างหัวข้อเว็บไซต์</value>
@@ -5814,6 +6182,7 @@
         <value xml:lang="en">Create Web Site Parties</value>
         <value xml:lang="fr">Créer les acteurs du site Web</value>
         <value xml:lang="it">Creare Soggetti Sito Web</value>
+        <value xml:lang="ja">Webサイト取引先を作成</value>
         <value xml:lang="nl">Aanmaken website partijen</value>
         <value xml:lang="pt">Criar participantes do Web Site</value>
         <value xml:lang="th">สร้างกลุ่มผู้ใช้เว็บไซต์</value>
@@ -5828,6 +6197,7 @@
         <value xml:lang="en">Edit an association</value>
         <value xml:lang="fr">Modifier une association</value>
         <value xml:lang="it">Aggiorna una associazione</value>
+        <value xml:lang="ja">関連付けを編集</value>
         <value xml:lang="nl">Wijzig associatie</value>
         <value xml:lang="pt">Editar uma associação</value>
         <value xml:lang="ro">Adauga o asociatie</value>
@@ -5841,6 +6211,7 @@
         <value xml:lang="en">Permissions failed to edit Article</value>
         <value xml:lang="fr">Les autorisations ne permettent pas de modifier l'article</value>
         <value xml:lang="it">Aggiorna una associazione</value>
+        <value xml:lang="ja">記事の編集で権限エラー</value>
         <value xml:lang="pt">Permissões falharam para Editar artigo</value>
         <value xml:lang="vi">Thiếu quyền để cập nhật Bài viết</value>
         <value xml:lang="zh">无权编辑文章</value>
@@ -5852,6 +6223,7 @@
         <value xml:lang="en">CMS Content Edit</value>
         <value xml:lang="fr">Modifier le contenu CMS</value>
         <value xml:lang="it">Aggiorna Contenuto CMS</value>
+        <value xml:lang="ja">CMSコンテンツを編集</value>
         <value xml:lang="nl">Wijzigen content CMS</value>
         <value xml:lang="pt">Editar conteúdo CMS</value>
         <value xml:lang="th">แก้ไขหัวข้อ CMS</value>
@@ -5865,6 +6237,7 @@
         <value xml:lang="en">Edit CompDoc Instance</value>
         <value xml:lang="fr">Modifier l'instance de document composite</value>
         <value xml:lang="it">Aggiorna Istanza CompDoc</value>
+        <value xml:lang="ja">複合文書インスタンスを編集</value>
         <value xml:lang="pt">Editar a instância de CompDoc</value>
         <value xml:lang="th">แก้ไขตัวอย่างเอกสาร</value>
         <value xml:lang="vi">Cập nhật khởi tạo (của tài liệu kết hợp)</value>
@@ -5877,6 +6250,7 @@
         <value xml:lang="en">Edit CompDoc Template</value>
         <value xml:lang="fr">Modifier le modèle de document composite</value>
         <value xml:lang="it">Aggiorna Template CompDoc</value>
+        <value xml:lang="ja">複合文書テンプレートを編集</value>
         <value xml:lang="pt">Editar modelo de CompDoc</value>
         <value xml:lang="th">แก้ไข Template เอกสาร</value>
         <value xml:lang="vi">Sửa đổi biểu mẫu</value>
@@ -5891,7 +6265,7 @@
         <value xml:lang="es">Modificar Contenido</value>
         <value xml:lang="fr">Modifier le contenu</value>
         <value xml:lang="it">Aggiorna contenuto</value>
-        <value xml:lang="ja">Edit Content</value>
+        <value xml:lang="ja">コンテンツを編集</value>
         <value xml:lang="nl">Wijzigen content</value>
         <value xml:lang="pt">Editar conteúdo</value>
         <value xml:lang="ro">Actualizeaza Continut</value>
@@ -5907,6 +6281,7 @@
         <value xml:lang="en">Edit Content Approval Edit Page</value>
         <value xml:lang="fr">Modifier le contenu d'approbation de modification de page</value>
         <value xml:lang="it">Pagina per Editare Approvazione Contenuto per</value>
+        <value xml:lang="ja">コンテンツ承認編集ページを編集</value>
         <value xml:lang="pt">Editar a página de edição de aprovação de conteúdo</value>
         <value xml:lang="th">แก้ไขหัวข้อการอนุมัติในหน้าแก้ไข</value>
         <value xml:lang="vi">Sửa đổi 'Trang duyệt sửa đổi nội dung'</value>
@@ -5920,6 +6295,7 @@
         <value xml:lang="en">Edit Content Association</value>
         <value xml:lang="fr">Modifier le contenu d'association</value>
         <value xml:lang="it">Aggiorna associazione contenuto</value>
+        <value xml:lang="ja">コンテンツ関連付けを編集</value>
         <value xml:lang="nl">Wijzigen content associatie</value>
         <value xml:lang="pt">Editar conteúdo de associação</value>
         <value xml:lang="ro">Actualizeaza Asociatie Continut</value>
@@ -5935,6 +6311,7 @@
         <value xml:lang="en">Edit Content Association Predicate</value>
         <value xml:lang="fr">Modifier le contenu de prédicat d'association</value>
         <value xml:lang="it">Aggiorna Associazione Contenuto Predicato</value>
+        <value xml:lang="ja">コンテンツ関連付け属性を編集</value>
         <value xml:lang="pt">Editar predicado de conteúdo de associação</value>
         <value xml:lang="ro">Actualizeaza Asociatie Continut Predicat</value>
         <value xml:lang="th">แก้ไขหัวข้อความคิดเห็น</value>
@@ -5949,6 +6326,7 @@
         <value xml:lang="en">Edit Content Association Type</value>
         <value xml:lang="fr">Modifier le type de contenu d'association</value>
         <value xml:lang="it">Aggiorna Tipo Associazione Contenuto</value>
+        <value xml:lang="ja">コンテンツ関連付け種類を編集</value>
         <value xml:lang="nl">Wijzigen content associatie soort</value>
         <value xml:lang="pt">Editar tipo de conteúdo de associação</value>
         <value xml:lang="th">แก้ไขประเภทหัวข้อความคิดเห็น</value>
@@ -5963,6 +6341,7 @@
         <value xml:lang="en">Edit Content Attribute</value>
         <value xml:lang="fr">Modifier l'attribut du contenu</value>
         <value xml:lang="it">Aggiorna Attributo Contenuto</value>
+        <value xml:lang="ja">コンテンツ属性を編集</value>
         <value xml:lang="nl">Wijzigen content attribuut</value>
         <value xml:lang="pt">Editar atributo de conteúdo</value>
         <value xml:lang="ro">Actualizeaza Atribut Continut</value>
@@ -5985,6 +6364,7 @@
         <value xml:lang="en">Edit Content Metadata</value>
         <value xml:lang="fr">Modifier le contenu méta-données</value>
         <value xml:lang="it">Aggiorna Metadata Contenuto</value>
+        <value xml:lang="ja">コンテンツメタデータを編集</value>
         <value xml:lang="nl">Wijzigen content metadata</value>
         <value xml:lang="pt">Editar metadados de conteúdo</value>
         <value xml:lang="ro">Actualizeaza Metadata Continut</value>
@@ -6000,6 +6380,7 @@
         <value xml:lang="en">Edit Content Operation</value>
         <value xml:lang="fr">Modifier l'opération de contenu</value>
         <value xml:lang="it">Aggiorna Operazione Contenuto</value>
+        <value xml:lang="ja">コンテンツ操作を編集</value>
         <value xml:lang="pt">Editar conteúdo de operação</value>
         <value xml:lang="ro">Actualizeaza Operatie Continut</value>
         <value xml:lang="th">แก้ไขหัวข้อการดำเนินการ</value>
@@ -6014,6 +6395,7 @@
         <value xml:lang="en">Edit Content Purpose</value>
         <value xml:lang="fr">Modifier le but du contenu</value>
         <value xml:lang="it">Aggiorna Funzione Contenuto</value>
+        <value xml:lang="ja">コンテンツ目的を編集</value>
         <value xml:lang="pt">Editar objetivo de conteúdo</value>
         <value xml:lang="ro">Actualizeaza Functie Continut</value>
         <value xml:lang="th">แก้ไขหัวข้อวัตถุประสงค์</value>
@@ -6028,6 +6410,7 @@
         <value xml:lang="en">Edit Content Purpose Operation</value>
         <value xml:lang="fr">Modifier le but d'opération du contenu</value>
         <value xml:lang="it">Aggiorna Funzione Operazione Contenuto</value>
+        <value xml:lang="ja">コンテンツ目的操作を編集</value>
         <value xml:lang="pt">Editar operação de  objetivo de conteúdo</value>
         <value xml:lang="ro">Actualizeaza Functie Operatie Continut</value>
         <value xml:lang="th">แก้ไขหัวข้อวัตถุประสงค์ที่ใช้ในการดำเนินการ</value>
@@ -6042,6 +6425,7 @@
         <value xml:lang="en">Edit Content Purpose Type</value>
         <value xml:lang="fr">Modifier le type de but du contenu</value>
         <value xml:lang="it">Aggiorna Contenuto Tipo Funzione</value>
+        <value xml:lang="ja">コンテンツ目的種類を編集</value>
         <value xml:lang="pt">Editar tipo de objetivo de conteúdo</value>
         <value xml:lang="th">แก้ไขหัวข้อประเภทวัตถุประสงค์</value>
         <value xml:lang="vi">Sửa đổi kiểu mục đích</value>
@@ -6055,6 +6439,7 @@
         <value xml:lang="en">Edit Content Role</value>
         <value xml:lang="fr">Modifier le rôle du contenu</value>
         <value xml:lang="it">Aggiorna Ruolo Contenuto</value>
+        <value xml:lang="ja">コンテンツロールを編集</value>
         <value xml:lang="nl">Wijzigen content rol</value>
         <value xml:lang="pt">Editar papel de conteúdo</value>
         <value xml:lang="ro">Actualizeaza Drept Continut</value>
@@ -6070,6 +6455,7 @@
         <value xml:lang="en">Edit Content Type</value>
         <value xml:lang="fr">Modifier le type du contenu</value>
         <value xml:lang="it">Aggiorna Tipo Contenuto</value>
+        <value xml:lang="ja">コンテンツタイプを編集</value>
         <value xml:lang="nl">Wijzigen content soort</value>
         <value xml:lang="pt">Editar o tipo de conteúdo</value>
         <value xml:lang="ro">Actualizeaza Tip Continut</value>
@@ -6085,6 +6471,7 @@
         <value xml:lang="en">Edit Content Type Attribute</value>
         <value xml:lang="fr">Modifier le le type d'attribut du contenu</value>
         <value xml:lang="it">Aggiorna Attributo Tipo Contenuto</value>
+        <value xml:lang="ja">コンテンツタイプ属性を編集</value>
         <value xml:lang="nl">Wijzigen content soort attribuut</value>
         <value xml:lang="pt">Editar atributo do tipo de conteúdo</value>
         <value xml:lang="th">แก้ไขหัวข้อประเภทคุณสมบัติ</value>
@@ -6099,6 +6486,7 @@
         <value xml:lang="en">Permissions</value>
         <value xml:lang="fr">Autorisations</value>
         <value xml:lang="it">Permessi</value>
+        <value xml:lang="ja">権限</value>
         <value xml:lang="nl">Rechten</value>
         <value xml:lang="pt">Permissões</value>
         <value xml:lang="ro">Permisiuni</value>
@@ -6114,6 +6502,7 @@
         <value xml:lang="en">Edit Content WorkEffort</value>
         <value xml:lang="fr">Modifier le contenu des tâches</value>
         <value xml:lang="it">Aggiorna Contenuto Impegni di Lavoro</value>
+        <value xml:lang="ja">コンテンツ作業成果を編集</value>
         <value xml:lang="pt">Editar conteúdo de esforço de trabalho</value>
         <value xml:lang="th">แก้ไขหัวข้อ WorkEffort</value>
         <value xml:lang="vi">Sửa đổi Lượng giá nguồn lực</value>
@@ -6127,6 +6516,7 @@
         <value xml:lang="en">Edit Data Resource</value>
         <value xml:lang="fr">Modifier la ressource de données</value>
         <value xml:lang="it">Aggiorna Risorsa Dati</value>
+        <value xml:lang="ja">データリソースを編集</value>
         <value xml:lang="nl">Wijzigen databron</value>
         <value xml:lang="pt">Editar recurso dados</value>
         <value xml:lang="ro">Actualizeaza Resursa Date</value>
@@ -6142,6 +6532,7 @@
         <value xml:lang="en">Edit Data Resource Attribute</value>
         <value xml:lang="fr">Modifier l'attribut de ressources de données</value>
         <value xml:lang="it">Aggiorna Attributo Risorsa Dati</value>
+        <value xml:lang="ja">データリソース属性を編集</value>
         <value xml:lang="nl">Wijzigen databron attribuut</value>
         <value xml:lang="pt">Editar atributo de recurso de dados</value>
         <value xml:lang="ro">Actualizeaza Atribut Resursa Date</value>
@@ -6156,6 +6547,7 @@
         <value xml:lang="en">Edit Data Resource Category</value>
         <value xml:lang="fr">Modifier la catégorie de ressources de données</value>
         <value xml:lang="it">Aggiorna Categoria Risorsa Dati</value>
+        <value xml:lang="ja">データリソースカテゴリを編集</value>
         <value xml:lang="nl">Wijzigen databron categorie</value>
         <value xml:lang="pt">Editar categoria de recurso de dados</value>
         <value xml:lang="th">แก้ไขแหล่งที่มาของข้อมูลหมวดหมู่</value>
@@ -6169,6 +6561,7 @@
         <value xml:lang="en">Edit Character Set</value>
         <value xml:lang="fr">Modifier le jeu de caractères</value>
         <value xml:lang="it">Aggiorna Set di Caratteri</value>
+        <value xml:lang="ja">キャラクタセットを編集</value>
         <value xml:lang="nl">Databron karakter set</value>
         <value xml:lang="pt">Editar o conjunto de caracteres</value>
         <value xml:lang="th">แก้ไขการเซ็ตลักษณะ</value>
@@ -6182,6 +6575,7 @@
         <value xml:lang="en">Edit File Extension</value>
         <value xml:lang="fr">Modifier l'extension de fichier</value>
         <value xml:lang="it">Aggiorna Estensione File</value>
+        <value xml:lang="ja">ファイル拡張子を編集</value>
         <value xml:lang="nl">Databron bestandsextensie</value>
         <value xml:lang="pt">Editar a extensão de arquivo</value>
         <value xml:lang="th">แก้ไขไฟล์ที่เพิ่ม</value>
@@ -6195,6 +6589,7 @@
         <value xml:lang="en">Edit Meta Data Predicate</value>
         <value xml:lang="fr">Modifier le prédicat de méta-données</value>
         <value xml:lang="it">Aggiorna Predicato Meta Data</value>
+        <value xml:lang="ja">メタデータ属性を編集</value>
         <value xml:lang="pt">Editar predicado de meta dados</value>
         <value xml:lang="th">แก้ไขการสรุปข้อมูล</value>
         <value xml:lang="vi">Cập nhật thông tin đặc tả đã tồn tại</value>
@@ -6207,6 +6602,7 @@
         <value xml:lang="en">Edit Mime Type</value>
         <value xml:lang="fr">Modifier le type MIME</value>
         <value xml:lang="it">Aggiorna Tipo Mime</value>
+        <value xml:lang="ja">MIMEタイプを編集</value>
         <value xml:lang="pt">Editar Mime Type</value>
         <value xml:lang="th">แก้ไขประเภทสำเนา</value>
         <value xml:lang="vi">Sửa đổi kiểu Mime</value>
@@ -6219,6 +6615,7 @@
         <value xml:lang="en">Edit Mime Type Html Template</value>
         <value xml:lang="fr">Modifier le modèle de type de mime HTML</value>
         <value xml:lang="it">Aggiorna Tipo Mime Template Html</value>
+        <value xml:lang="ja">MIMEタイプHTMLテンプレート</value>
         <value xml:lang="pt">Editar modelo de Html de Mime Type</value>
         <value xml:lang="th">แก้ไขประเภทสำเนา Template Html</value>
         <value xml:lang="vi">Sửa đổi biểu mẫu HTML</value>
@@ -6232,6 +6629,7 @@
         <value xml:lang="en">Edit Data Resource Product Features</value>
         <value xml:lang="fr">Modifier la ressource de données (caractéristiques du produit)</value>
         <value xml:lang="it">Aggiorna Caratteristiche Prodotto Risorsa Dati</value>
+        <value xml:lang="ja">データリソース製品機能を編集</value>
         <value xml:lang="nl">Wijzigen databron producteigenschappen</value>
         <value xml:lang="pt">Editar recurso de dados das funções de produtos</value>
         <value xml:lang="ro">Actualizeaza Caracteristicile Produs Resurse Date</value>
@@ -6247,6 +6645,7 @@
         <value xml:lang="en">Edit Data Resource Role</value>
         <value xml:lang="fr">Modifier la ressource de données (rôle)</value>
         <value xml:lang="it">Aggiorna Ruolo Risorsa Dati</value>
+        <value xml:lang="ja">データリソースロールを編集</value>
         <value xml:lang="nl">Wijgen databron rol</value>
         <value xml:lang="pt">Editar papel de recurso de dados</value>
         <value xml:lang="ro">Actualizeaza Drept Resursa Date</value>
@@ -6262,6 +6661,7 @@
         <value xml:lang="en">Edit Data Resource Text</value>
         <value xml:lang="fr">Modifier la ressource de données (texte)</value>
         <value xml:lang="it">Aggiorna Testo Risorsa Dati</value>
+        <value xml:lang="ja">データリソーステキストを編集</value>
         <value xml:lang="nl">Wijzigen tekst databron</value>
         <value xml:lang="pt">Editar texto do recurso de dados</value>
         <value xml:lang="ro">Actualizeaza Text Resursa Date</value>
@@ -6277,6 +6677,7 @@
         <value xml:lang="en">Edit Data Resource Type</value>
         <value xml:lang="fr">Modifier la ressource de données (type)</value>
         <value xml:lang="it">Aggiorna Tipo Risorsa Dati</value>
+        <value xml:lang="ja">データリソース種類を編集</value>
         <value xml:lang="nl">Wijzigen databron soort</value>
         <value xml:lang="pt">Editar o tipo de recurso de dados</value>
         <value xml:lang="ro">Actualizeaza Tip Risursa Date</value>
@@ -6291,6 +6692,7 @@
         <value xml:lang="en">Edit Data Resource Type Attribute</value>
         <value xml:lang="fr">Modifier la ressource de données (type d'attibut)</value>
         <value xml:lang="it">Aggiorna Attributo Tipo Risorsa Dati</value>
+        <value xml:lang="ja">データリソース種類属性を編集</value>
         <value xml:lang="nl">Wijzigen databron soort attribuut</value>
         <value xml:lang="pt">Editar atributo de tipo de recurso de dados</value>
         <value xml:lang="th">แก้ไขข้อมูลแหล่งที่มาของประเภทคุณสมบัติ</value>
@@ -6305,6 +6707,7 @@
         <value xml:lang="en">Edit Data Resource Upload</value>
         <value xml:lang="fr">Modifier la ressource de données (téléchargement vers serveur)</value>
         <value xml:lang="it">Aggiorna Caricamento Risorsa Dati</value>
+        <value xml:lang="ja">データリソースアップロードを編集</value>
         <value xml:lang="nl">Wijzigen databron upload</value>
         <value xml:lang="pt">Editar Upload de recurso de dados</value>
         <value xml:lang="ro">Actualizeaza Incarcare Risurse Date</value>
@@ -6320,6 +6723,7 @@
         <value xml:lang="en">Edit Data Resource Url</value>
         <value xml:lang="fr">Modifier la ressource de données (URL)</value>
         <value xml:lang="it">Aggiorna Url Risorsa Dati</value>
+        <value xml:lang="ja">データリソースURLを編集</value>
         <value xml:lang="nl">Wijzigen databron url</value>
         <value xml:lang="pt">Editar url de recurso de dados</value>
         <value xml:lang="ro">Actualizeaza Url Resura Date</value>
@@ -6335,6 +6739,7 @@
         <value xml:lang="en">Edit Electronic Text</value>
         <value xml:lang="fr">Modifier le texte électronique</value>
         <value xml:lang="it">Aggiorna Testo Elettronico</value>
+        <value xml:lang="ja">電子テキストを編集</value>
         <value xml:lang="nl">Wijzigen electronische tekst</value>
         <value xml:lang="pt">Editar texto electrônico</value>
         <value xml:lang="ro">Actualizeaza Text Electronic</value>
@@ -6350,6 +6755,7 @@
         <value xml:lang="en">Edit message:</value>
         <value xml:lang="fr">Modifier le message : </value>
         <value xml:lang="it">Aggiorna messaggio:</value>
+        <value xml:lang="ja">メッセージを編集</value>
         <value xml:lang="pt">Editar a mensagem:</value>
         <value xml:lang="ro">Adauga mesaj:</value>
         <value xml:lang="th">แก้ไขข้อความ:</value>
@@ -6364,6 +6770,7 @@
         <value xml:lang="en">Edit Html Text</value>
         <value xml:lang="fr">Modifier le texte HTML</value>
         <value xml:lang="it">Aggiorna Testo Html</value>
+        <value xml:lang="ja">HTML文書を編集</value>
         <value xml:lang="nl">Wijzigen Html tekst</value>
         <value xml:lang="pt">Editar texto Html</value>
         <value xml:lang="ro">Actualizeaza Text Html</value>
@@ -6378,6 +6785,7 @@
         <value xml:lang="en">Edit Layout</value>
         <value xml:lang="fr">Modifier la mise en page</value>
         <value xml:lang="it">Aggiorna Layout</value>
+        <value xml:lang="ja">レイアウトを編集</value>
         <value xml:lang="pt">Editar Layout</value>
         <value xml:lang="th">แก้ไข Layout</value>
         <value xml:lang="vi">Sửa đổi bố cục</value>
@@ -6390,6 +6798,7 @@
         <value xml:lang="en">Edit Layout Sub Content</value>
         <value xml:lang="fr">Modifier le sous-contenu de la mise en page</value>
         <value xml:lang="it">Aggiorna Layout Sotto-Contenuto</value>
+        <value xml:lang="ja">レイアウトサブコンテンツを編集</value>
         <value xml:lang="pt">Editar o Layout do Sub conteúdo</value>
         <value xml:lang="th">แก้ไข Layout หัวข้อย่อย</value>
         <value xml:lang="vi">Sửa đổi bố cục nội dung thành phần</value>
@@ -6404,6 +6813,7 @@
         <value xml:lang="es">Modificar Documento compuesto Raíz</value>
         <value xml:lang="fr">Modifier la racine du document composite</value>
         <value xml:lang="it">Aggiorna Radice Documento Composito</value>
+        <value xml:lang="ja">ルート複合文書を編集</value>
         <value xml:lang="pt">Editar a raiz do documento composto</value>
         <value xml:lang="ro">Actualizeaza Radacina Document Compus</value>
         <value xml:lang="th">แก้ไขส่วนประกอบของเอกสาร</value>
@@ -6419,6 +6829,7 @@
         <value xml:lang="es">Modificar Encuesta</value>
         <value xml:lang="fr">Modifier le sondage</value>
         <value xml:lang="it">Aggiorna sondaggio</value>
+        <value xml:lang="ja">評価を編集</value>
         <value xml:lang="pt">Editar pesquisa</value>
         <value xml:lang="ro">Aggiorna Sondaj</value>
         <value xml:lang="th">แก้ไขการสำรวจ</value>
@@ -6434,6 +6845,7 @@
         <value xml:lang="es">Modificar Encuesta de grupo de respuestas</value>
         <value xml:lang="fr">Modifier les groupes multi-réponses du sondage</value>
         <value xml:lang="it">Aggiorna Risposte Multiple Gruppo Sondaggio</value>
+        <value xml:lang="ja">評価複数回答グループを編集</value>
         <value xml:lang="pt">Editar grupos de Multi-Response de pesquisa</value>
         <value xml:lang="ro">Adauga Raspunsuri Multiple Grup Sondaj</value>
         <value xml:lang="th">แก้ไขการสำรวจกลุ่มคำตอบหลาย ๆ คำตอบ</value>
@@ -6449,6 +6861,7 @@
         <value xml:lang="es">Modificar página de encuestas</value>
         <value xml:lang="fr">Modifier les pages du sondage</value>
         <value xml:lang="it">Aggiorna Pagine Sondaggio</value>
+        <value xml:lang="ja">評価ページを編集</value>
         <value xml:lang="pt">Editar páginas de pesquisa</value>
         <value xml:lang="ro">AActualizeaza Pagina Sondaj</value>
         <value xml:lang="th">แก้ไขหน้าการสำรวจ</value>
@@ -6464,6 +6877,7 @@
         <value xml:lang="es">Modificar Preeguntas de Encuesta</value>
         <value xml:lang="fr">Modifier les questions du sondage</value>
         <value xml:lang="it">Aggiorna domande sondaggio</value>
+        <value xml:lang="ja">評価質問を編集</value>
         <value xml:lang="pt">Editar perguntas da pesquisa</value>
         <value xml:lang="ro">Actualizeaza Intrebari Sondaj</value>
         <value xml:lang="th">แก้ไขการสำรวจคำถาม</value>
@@ -6479,6 +6893,7 @@
         <value xml:lang="es">Modificar Respuestas de Encuesta</value>
         <value xml:lang="fr">Modifier les réponses du sondage</value>
         <value xml:lang="it">Aggiorna risposta sondaggio</value>
+        <value xml:lang="ja">評価回答を編集</value>
         <value xml:lang="pt">Editar a resposta da pesquisa</value>
         <value xml:lang="ro">Adauga Raspuns Sondaj</value>
         <value xml:lang="th">แก้ไขการสำรวจคำตอบ</value>
@@ -6493,6 +6908,7 @@
         <value xml:lang="en">Edit WebSite</value>
         <value xml:lang="fr">Modifier le site web</value>
         <value xml:lang="it">Aggiorna Sito Web</value>
+        <value xml:lang="ja">Webサイトを編集</value>
         <value xml:lang="nl">Wijzigen website</value>
         <value xml:lang="pt">Editar site</value>
         <value xml:lang="ro">Actualizeaza Sit Web</value>
@@ -6507,6 +6923,7 @@
         <value xml:lang="en">Edit WebSite CMS</value>
         <value xml:lang="fr">Modifier le site web CMS</value>
         <value xml:lang="it">Aggiorna CMS Sito Web</value>
+        <value xml:lang="ja">WebサイトCMSを編集</value>
         <value xml:lang="nl">Wijzigen website CMS</value>
         <value xml:lang="pt">Editar site CMS</value>
         <value xml:lang="th">แก้ไข WebSite CMS</value>
@@ -6520,6 +6937,7 @@
         <value xml:lang="en">Edit WebSite Content</value>
         <value xml:lang="fr">Modifier le contenu du site web</value>
         <value xml:lang="it">Aggiorna Contenuto Sito Web</value>
+        <value xml:lang="ja">Webサイトコンテンツを編集</value>
         <value xml:lang="nl">Wijzigen website content</value>
         <value xml:lang="pt">Editar conteúdo do site</value>
         <value xml:lang="th">แก้ไขหัวข้อ WebSite</value>
@@ -6534,6 +6952,7 @@
         <value xml:lang="en">Edit WebSite Parties</value>
         <value xml:lang="fr">Modifier les acteurs du site web</value>
         <value xml:lang="it">Aggiorna Soggetti Sito Web</value>
+        <value xml:lang="ja">Webサイト取引先を編集</value>
         <value xml:lang="nl">Wijzigen website partijen</value>
         <value xml:lang="pt">Editar participantes do site</value>
         <value xml:lang="ro">Actualizeaza Subiecti Sit Web</value>
@@ -6548,6 +6967,7 @@
         <value xml:lang="en">CMS Content Find</value>
         <value xml:lang="fr">Rechercher le contenu CMS</value>
         <value xml:lang="it">Ricerca Contenuto CMS</value>
+        <value xml:lang="ja">CMSコンテンツ検索</value>
         <value xml:lang="nl">Zoeken CMS content</value>
         <value xml:lang="pt">Localizar conteúdo do CMS</value>
         <value xml:lang="th">ค้นหาหัวข้อ CMS</value>
@@ -6562,6 +6982,7 @@
         <value xml:lang="en">Find CompDoc</value>
         <value xml:lang="fr">Rechercher le document composite</value>
         <value xml:lang="it">Ricerca composizione documenti</value>
+        <value xml:lang="ja">複合文書を検索</value>
         <value xml:lang="nl">Zoeken samengesteld document</value>
         <value xml:lang="pt">Localizar CompDoc</value>
         <value xml:lang="ro">Cauta CompDoc</value>
@@ -6577,6 +6998,7 @@
         <value xml:lang="en">Search Content</value>
         <value xml:lang="fr">Rechercher le contenu</value>
         <value xml:lang="it">Ricerca Contenuto</value>
+        <value xml:lang="ja">コンテンツを検索</value>
         <value xml:lang="nl">Zoeken content</value>
         <value xml:lang="pt">Pesquisar Conteúdo</value>
         <value xml:lang="ro">Actualizeaza Continut</value>
@@ -6592,6 +7014,7 @@
         <value xml:lang="en">Find Data Resource</value>
         <value xml:lang="fr">Rechercher la ressource de données</value>
         <value xml:lang="it">Ricerca Risorsa Dati</value>
+        <value xml:lang="ja">データリソースを検索</value>
         <value xml:lang="nl">Zoeken databron</value>
         <value xml:lang="pt">Encontrar recurso de dados</value>
         <value xml:lang="ro">Actualizeaza Resurse Date</value>
@@ -6607,6 +7030,7 @@
         <value xml:lang="en">Forumgroup list</value>
         <value xml:lang="fr">Liste des groupes de forum</value>
         <value xml:lang="it">Lista gruppo Forum</value>
+        <value xml:lang="ja">フォーラムグループ一覧</value>
         <value xml:lang="pt">Lista de grupo de fórum</value>
         <value xml:lang="ro">Lista grup Forum</value>
         <value xml:lang="th">รายการกลุ่มความคิดเห็น</value>
@@ -6621,6 +7045,7 @@
         <value xml:lang="en">Messages for Forum: ${objectName} [${objectId}]</value>
         <value xml:lang="fr">Messages pour le forum : ${objectName} [${objectId}]</value>
         <value xml:lang="it">Mesasggi per forum: ${objectName} [${objectId}]</value>
+        <value xml:lang="ja">フォーラム: ${objectName} [${objectId}] に対するメッセージ</value>
         <value xml:lang="pt">Mensagens para o Fórum: ${objectName} [${objectId}]</value>
         <value xml:lang="ro">Mesaj pe forum: ${objectName} [${objectId}]</value>
         <value xml:lang="th">ข้อความสำหรับความคิดเห็น: ${objectName} [${objectId}]</value>
@@ -6635,6 +7060,7 @@
         <value xml:lang="en">Forum List for Forum Group: ${objectName} [${objectId}]</value>
         <value xml:lang="fr">Liste des forums pour les groupes de forum : ${objectName} [${objectId}]</value>
         <value xml:lang="it">Lista Forum per gruppo forum: ${objectName} [${objectId}]</value>
+        <value xml:lang="ja">フォーラムグループ: ${objectName} [${objectId}] に対するフォーラム一覧</value>
         <value xml:lang="pt">Lista de fórum para o Grupo do Fórum: ${objectName} [${objectId}]</value>
         <value xml:lang="ro">Lista Forum pe grup forum: ${objectName} [${objectId}]</value>
         <value xml:lang="th">รายการความคิดเห็นสำหรับกลุ่มความคิดเห็น: ${objectName} [${objectId}]</value>
@@ -6648,6 +7074,7 @@
         <value xml:lang="en">Find Layout</value>
         <value xml:lang="fr">Rechercher la mise en page</value>
         <value xml:lang="it">Ricerca Layout</value>
+        <value xml:lang="ja">レイアウトを検索</value>
         <value xml:lang="pt">Encontrar o Layout</value>
         <value xml:lang="th">ค้นหา Layout</value>
         <value xml:lang="vi">Tìm bố cục</value>
@@ -6662,6 +7089,7 @@
         <value xml:lang="es">Buscar Encuesta</value>
         <value xml:lang="fr">Rechercher le sondage</value>
         <value xml:lang="it">Ricerca sondaggi</value>
+        <value xml:lang="ja">評価を検索</value>
         <value xml:lang="pt">Localizar pesquisa</value>
         <value xml:lang="ro">Cauta Sondaj</value>
         <value xml:lang="th">ค้นหาการสำรวจ</value>
@@ -6677,6 +7105,7 @@
         <value xml:lang="es">Buscar Respuesta de Encuestas</value>
         <value xml:lang="fr">Rechercher les réponses du sondage</value>
         <value xml:lang="it">Ricerca risposte sondaggio</value>
+        <value xml:lang="ja">評価回答を検索</value>
         <value xml:lang="pt">Encontrar a resposta da pesquisa</value>
         <value xml:lang="ro">Cauta Raspuns Sondaj</value>
         <value xml:lang="th">ค้นหาการสำรวจคำตอบ</value>
@@ -6691,6 +7120,7 @@
         <value xml:lang="en">Find WebSite</value>
         <value xml:lang="fr">Rechercher le site web</value>
         <value xml:lang="it">Ricerca Sito Web</value>
+        <value xml:lang="ja">Webサイトの検索</value>
         <value xml:lang="nl">Zoeken website</value>
         <value xml:lang="pt">Procurar Site</value>
         <value xml:lang="ro">Cauta Sit Web</value>
@@ -6706,6 +7136,7 @@
         <value xml:lang="en">Purposes for forumgroup:</value>
         <value xml:lang="fr">Buts pour le groupe de forums</value>
         <value xml:lang="it">Funzioni per gruppo forum:</value>
+        <value xml:lang="ja">フォーラムグループの目的</value>
         <value xml:lang="pt">Objetivo do grupo de fórum:</value>
         <value xml:lang="ro">Functii pe grup forum:</value>
         <value xml:lang="th">วัตถุประสงค์สำหรับกลุ่มแสดงความคิดเห็น:</value>
@@ -6720,6 +7151,7 @@
         <value xml:lang="en">Roles for forumgroup:</value>
         <value xml:lang="fr">Rôles pour le groupe de forums : </value>
         <value xml:lang="it">Ruoli per gruppo forum:</value>
+        <value xml:lang="ja">フォーラムグループのロール</value>
         <value xml:lang="pt">Papéis para o grupo de fórum:</value>
         <value xml:lang="ro">Drepturi pe grup forum:</value>
         <value xml:lang="th">สถานะสำหรับแสดงความคิดเห็น:</value>
@@ -6734,6 +7166,7 @@
         <value xml:lang="en">List associations</value>
         <value xml:lang="fr">Liste d'associations</value>
         <value xml:lang="it">Lista associazioni</value>
+        <value xml:lang="ja">関連付け一覧</value>
         <value xml:lang="nl">Lijst van associaties</value>
         <value xml:lang="pt">Lista de associações</value>
         <value xml:lang="ro">Lista asociatii</value>
@@ -6749,6 +7182,7 @@
         <value xml:lang="en">Content List</value>
         <value xml:lang="fr">Liste de contenus</value>
         <value xml:lang="it">Lista Contenuti</value>
+        <value xml:lang="ja">コンテンツ一覧</value>
         <value xml:lang="nl">Contentlijst</value>
         <value xml:lang="pt">Lista de conteúdo</value>
         <value xml:lang="ro">Lista Continuturi</value>
@@ -6763,6 +7197,7 @@
         <value xml:lang="en">List Content Approval</value>
         <value xml:lang="fr">Liste d'autorisations de contenu</value>
         <value xml:lang="it">Lista Approvazione Contenuto</value>
+        <value xml:lang="ja">コンテンツ承認一覧</value>
         <value xml:lang="pt">Listar aprovações de conteúdo</value>
         <value xml:lang="th">รายการหัวข้อที่อนุมัติ</value>
         <value xml:lang="vi">Danh sách nội dung đã duyệt</value>
@@ -6776,6 +7211,7 @@
         <value xml:lang="en">Data Resource List</value>
         <value xml:lang="fr">Liste de ressources de données</value>
         <value xml:lang="it">Lista Risorse Dati</value>
+        <value xml:lang="ja">データリソース一覧</value>
         <value xml:lang="nl">Lijst van databronnen</value>
         <value xml:lang="pt">Lista de recursos de dados</value>
         <value xml:lang="ro">Lista Resurse Date</value>
@@ -6790,6 +7226,7 @@
         <value xml:lang="en">List Layout</value>
         <value xml:lang="fr">Liste de mises en page</value>
         <value xml:lang="it">Lista Layout</value>
+        <value xml:lang="ja">レイアウト一覧</value>
         <value xml:lang="pt">Listar Layout</value>
         <value xml:lang="th">รายการ Layout</value>
         <value xml:lang="vi">Danh sách bố cục</value>
@@ -6802,6 +7239,7 @@
         <value xml:lang="en">List Survey Response</value>
         <value xml:lang="fr">Liste des réponses au sondage</value>
         <value xml:lang="it">Lista risposte sondaggio</value>
+        <value xml:lang="ja">評価回答一覧</value>
         <value xml:lang="pt">Lista de respostas de pesquisa</value>
         <value xml:lang="th">รายการสำรวจคำตอบ</value>
         <value xml:lang="vi">Danh sách phản hồi khảo sát</value>
@@ -6815,6 +7253,7 @@
         <value xml:lang="en">WebSite List</value>
         <value xml:lang="fr">Liste de sites web</value>
         <value xml:lang="it">Lista siti web</value>
+        <value xml:lang="ja">Webサイト一覧</value>
         <value xml:lang="nl">Lijst van websites</value>
         <value xml:lang="pt">Lista de sites</value>
         <value xml:lang="ro">Lista Situri Web</value>
@@ -6830,6 +7269,7 @@
         <value xml:lang="en">Lookup Content</value>
         <value xml:lang="fr">Consultation de contenu</value>
         <value xml:lang="it">Ricerca contenuto</value>
+        <value xml:lang="ja">コンテンツを検索</value>
         <value xml:lang="nl">Zoeken content</value>
         <value xml:lang="pt">Pesquisar conteúdo</value>
         <value xml:lang="ro">Cauta Continut</value>
@@ -6845,6 +7285,7 @@
         <value xml:lang="en">Lookup Data Resource</value>
         <value xml:lang="fr">Consultation de ressource de données</value>
         <value xml:lang="it">Ricerca Risorse Dati</value>
+        <value xml:lang="ja">データリソースを検索</value>
         <value xml:lang="nl">Zoeken databron</value>
         <value xml:lang="pt">Pesquisar por recurso de dados</value>
         <value xml:lang="ro">Cauta Resurse Date</value>
@@ -6859,6 +7300,7 @@
         <value xml:lang="en">Lookup List Layout</value>
         <value xml:lang="fr">Consultation de mise en page</value>
         <value xml:lang="it">Ricerca Layout</value>
+        <value xml:lang="ja">レイアウト検索一覧</value>
         <value xml:lang="pt">Pesquisar por lista de layout</value>
         <value xml:lang="vi">Chọn bố cục</value>
         <value xml:lang="zh">查找列表版式</value>
@@ -6870,6 +7312,7 @@
         <value xml:lang="en">Lookup Sub Content</value>
         <value xml:lang="fr">Consultation de sous-contenu</value>
         <value xml:lang="it">Ricerca Sotto-Contenuto</value>
+        <value xml:lang="ja">サブコンテンツを検索</value>
         <value xml:lang="nl">Zoeken subcontent</value>
         <value xml:lang="pt">Pesquisar Sub conteúdo</value>
         <value xml:lang="th">ค้นหาหัวข้อย่อย</value>
@@ -6884,6 +7327,7 @@
         <value xml:lang="en">Lookup Survey</value>
         <value xml:lang="fr">Consultation de sondage</value>
         <value xml:lang="it">Ricerca sondaggi</value>
+        <value xml:lang="ja">評価を検索</value>
         <value xml:lang="pt">Pesquisar por pesquisas</value>
         <value xml:lang="ro">Cauta Sondaj</value>
         <value xml:lang="th">ค้นหาการสำรวจ</value>
@@ -6898,6 +7342,7 @@
         <value xml:lang="en">Lookup Survey Response</value>
         <value xml:lang="fr">Consultation de réponse de sondage</value>
         <value xml:lang="it">Ricerca risposte sondaggio</value>
+        <value xml:lang="ja">評価回答を検索</value>
         <value xml:lang="pt">Pesquisar por respostas à pesquisas</value>
         <value xml:lang="ro">Cauta Raspuns Sondaj</value>
         <value xml:lang="th">ค้นหาการสำรวจคำตอบ</value>
@@ -6910,6 +7355,7 @@
         <value xml:lang="en">Navigate Content</value>
         <value xml:lang="fr">Naviguer dans le contenu</value>
         <value xml:lang="it">Naviga contenuto</value>
+        <value xml:lang="ja">コンテンツをナビゲート</value>
         <value xml:lang="pt">Navegar pelo conteúdo</value>
         <value xml:lang="th">เลือกดูเนื้อหา</value>
         <value xml:lang="vi">Thực đơn truy nhập</value>
@@ -6922,6 +7368,7 @@
         <value xml:lang="en">Navigate Data Resources using Data Categories</value>
         <value xml:lang="fr">Parcourir les ressources de données utilisant des catégories de données</value>
         <value xml:lang="it">Naviga nelle Risorse Dati usando i Dati Categorie</value>
+        <value xml:lang="ja">データカテゴリを使用してデータリソースをナビゲート</value>
         <value xml:lang="pt">Naveguar recursos de dados usando categorias de dados</value>
         <value xml:lang="th">หาแหล่งที่มาของข้อมูลที่ใช้ในหมวดหมู่ของข้อมูล</value>
         <value xml:lang="vi">Duyệt theo Phân loại dữ liệu</value>
@@ -6933,6 +7380,7 @@
         <value xml:lang="en">Please select data</value>
         <value xml:lang="fr">Merci de sélectionner une donnée</value>
         <value xml:lang="it">Perfacore seleziona i dati</value>
+        <value xml:lang="ja">データを選択してください</value>
         <value xml:lang="pt">Por favor selecionar dados</value>
         <value xml:lang="vi">Bạn hãy chọn dữ liệu</value>
         <value xml:lang="zh">请选择数据</value>
@@ -6942,6 +7390,7 @@
         <value xml:lang="en">Search Content</value>
         <value xml:lang="fr">Recherche de contenu</value>
         <value xml:lang="it">Ricerca contenuti</value>
+        <value xml:lang="ja">コンテンツを検索</value>
         <value xml:lang="nl">Zoeken content</value>
         <value xml:lang="pt">Procurar conteúdo</value>
         <value xml:lang="vi">Tìm kiếm nội dung</value>
@@ -6955,6 +7404,7 @@
         <value xml:lang="en">Upload Image</value>
         <value xml:lang="fr">Télécharger une image vers le serveur</value>
         <value xml:lang="it">Carica Immagine</value>
+        <value xml:lang="ja">画像をアップロード</value>
         <value xml:lang="pt">Enviar imagem</value>
         <value xml:lang="ro">Incarca Imagine</value>
         <value xml:lang="th">โหลดรูปภาพ</value>
@@ -6967,6 +7417,7 @@
         <value xml:lang="en">View CompDoc Content</value>
         <value xml:lang="fr">Voir le contenu du document composite</value>
         <value xml:lang="it">Mostra contenuto composizione documenti</value>
+        <value xml:lang="ja">複合文書の表示</value>
         <value xml:lang="pt">Exibir o conteúdo de CompDoc</value>
         <value xml:lang="vi">Xem nội dung tài liệu kết hợp</value>
         <value xml:lang="zh">浏览合成文档内容</value>
@@ -6977,6 +7428,7 @@
         <value xml:lang="en">View CompDoc Content Binary</value>
         <value xml:lang="fr">Voir le contenu du document composite au format binaire</value>
         <value xml:lang="it">Mostra contenuto binario CompDoc</value>
+        <value xml:lang="ja">複合文書コンテンツバイナリの表示</value>
         <value xml:lang="pt">Visualizar binário do conteúdo CompDoc</value>
         <value xml:lang="vi">Xem Tài liệu kiểu nhị phân</value>
         <value xml:lang="zh">浏览合成文档二进制内容</value>
@@ -6987,6 +7439,7 @@
         <value xml:lang="en">View CompDoc Content Html</value>
         <value xml:lang="fr">Voir le contenu du document composite au format HTML</value>
         <value xml:lang="it">Mostra contenuto html CompDoc</value>
+        <value xml:lang="ja">複合文書コンテンツHTMLの表示</value>
         <value xml:lang="pt">Visualizar conteúdo Html do CompDoc</value>
         <value xml:lang="vi">Xem Tài liệu html</value>
         <value xml:lang="zh">浏览合成文档网页内容</value>
@@ -6997,6 +7450,7 @@
         <value xml:lang="en">View Template Tree</value>
         <value xml:lang="fr">Voir l'arborescence modèle</value>
         <value xml:lang="it">Mostra albero template</value>
+        <value xml:lang="ja">テンプレートツリーの表示</value>
         <value xml:lang="pt">Exibir modelo de árvore</value>
         <value xml:lang="vi">Duyệt cây biểu mẫu</value>
         <value xml:lang="zh">浏览模板树</value>
@@ -7007,6 +7461,7 @@
         <value xml:lang="en">View Tree</value>
         <value xml:lang="fr">Voir l'arborescence</value>
         <value xml:lang="it">Mostra albero</value>
+        <value xml:lang="ja">ツリーの表示</value>
         <value xml:lang="pt">Exibir árvore</value>
         <value xml:lang="vi">Duyệt cây</value>
         <value xml:lang="zh">浏览树</value>
@@ -7020,6 +7475,7 @@
         <value xml:lang="es">Ver Respuesta de Encuestas</value>
         <value xml:lang="fr">Réponses des sondages d'opinion</value>
         <value xml:lang="it">Mostra risposte sondaggio</value>
+        <value xml:lang="ja">評価回答の表示</value>
         <value xml:lang="pt">Exibir respostas da pesquisa</value>
         <value xml:lang="ro">Afiseaza Sondaj</value>
         <value xml:lang="th">ดูการสำรวจคำตอบ</value>
@@ -7033,6 +7489,7 @@
         <value xml:lang="en">Web Site CMS Content</value>
         <value xml:lang="fr">Contenu du site Web CMS</value>
         <value xml:lang="it">Sito Web CMS Contenuto</value>
+        <value xml:lang="ja">WebサイトCMSコンテンツ</value>
         <value xml:lang="nl">Website CMS content</value>
         <value xml:lang="pt">Conteúdo do Site CMS</value>
         <value xml:lang="th">เว็บไซต์หัวข้อ CMS</value>
@@ -7046,6 +7503,7 @@
         <value xml:lang="en">Web Site CMS Nav</value>
         <value xml:lang="fr">Navigation (site Web CMS)</value>
         <value xml:lang="it">Sito Web CMS Navigazione</value>
+        <value xml:lang="ja">WebサイトCMSナビゲート</value>
         <value xml:lang="nl">Navigatie (Website CMS)</value>
         <value xml:lang="pt">Navegação do site CMS</value>
         <value xml:lang="th">เว็บไซต์ CMSNav</value>
@@ -7059,6 +7517,7 @@
         <value xml:lang="en">WebSite Content</value>
         <value xml:lang="fr">Contenu de site web</value>
         <value xml:lang="it">Contenuto Sito Web</value>
+        <value xml:lang="ja">Webサイトコンテンツ</value>
         <value xml:lang="nl">Website content</value>
         <value xml:lang="pt">Conteúdo do site</value>
         <value xml:lang="th">หัวข้อ WebSite</value>
