@@ -54,7 +54,7 @@ public class SearchWorker {
 
     public static final String module = SearchWorker.class.getName();
 
-    public static final Version LUCENE_VERSION = Version.LUCENE_36;
+    public static final Version LUCENE_VERSION = Version.LUCENE_40;
 
     public static Map<String, Object> indexTree(LocalDispatcher dispatcher, Delegator delegator, String siteId, Map<String, Object> context, String path) throws Exception {
         Map<String, Object> results = FastMap.newInstance();
@@ -161,7 +161,7 @@ public class SearchWorker {
     }
 
     private static void deleteDocumentsByTerm(Term term, IndexWriter writer) throws Exception {
-        IndexReader reader = IndexReader.open(writer, false);
+        DirectoryReader reader = DirectoryReader.open(writer, false);
         int qtyBefore = reader.docFreq(term);
 
         //deletes documents, all the rest is for logging

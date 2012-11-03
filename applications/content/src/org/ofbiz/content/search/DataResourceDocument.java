@@ -34,10 +34,9 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 
 import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field;
-import org.apache.lucene.document.Field.Index;
 import org.apache.lucene.document.Field.Store;
-import org.apache.lucene.document.Field.TermVector;
+import org.apache.lucene.document.StringField;
+import org.apache.lucene.document.TextField;
 
 /**
  * DataResourceDocument Class
@@ -60,7 +59,7 @@ public class DataResourceDocument {
           // make a new, empty document
           doc = new Document();
 
-          doc.add(new Field("dataResourceId", id, Store.YES, Index.NOT_ANALYZED, TermVector.NO));
+          doc.add(new StringField("dataResourceId", id, Store.YES));
 
           String mimeTypeId = dataResource.getString("mimeTypeId");
         if (UtilValidate.isEmpty(mimeTypeId)) {
@@ -84,7 +83,7 @@ public class DataResourceDocument {
           String text = outWriter.toString();
           Debug.logInfo("in DataResourceDocument, text:" + text, module);
                 if (UtilValidate.isNotEmpty(text))
-              doc.add(new Field("content", text, Store.NO, Index.ANALYZED, TermVector.NO));
+              doc.add(new TextField("content", text, Store.NO));
 
         return doc;
     }
