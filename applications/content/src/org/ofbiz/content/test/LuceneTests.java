@@ -27,8 +27,8 @@ import javolution.util.FastMap;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.index.IndexReader;
-import org.apache.lucene.queryParser.QueryParser;
+import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.BooleanClause;
 import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.IndexSearcher;
@@ -73,9 +73,9 @@ public class LuceneTests extends OFBizTestCase {
 
     public void testSearchTermHand() throws Exception {
         Directory directory = FSDirectory.open(new File(SearchWorker.getIndexPath(null)));
-        IndexReader r = null;
+        DirectoryReader r = null;
         try {
-            r = IndexReader.open(directory);
+            r = DirectoryReader.open(directory);
         } catch (Exception e) {
             // ignore
         }

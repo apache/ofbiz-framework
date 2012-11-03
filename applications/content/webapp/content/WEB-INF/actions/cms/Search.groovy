@@ -17,12 +17,10 @@
  * under the License.
  */
 
-import org.apache.lucene.analysis.Analyzer
 import org.apache.lucene.analysis.standard.StandardAnalyzer
 import org.apache.lucene.document.Document
-import org.apache.lucene.index.IndexReader
 import org.apache.lucene.index.Term
-import org.apache.lucene.queryParser.QueryParser
+import org.apache.lucene.queryparser.classic.QueryParser
 import org.apache.lucene.store.FSDirectory
 import org.ofbiz.base.util.Debug
 import org.ofbiz.base.util.UtilHttp
@@ -30,6 +28,7 @@ import org.ofbiz.content.search.SearchWorker
 import org.ofbiz.product.feature.ParametricSearch
 import org.apache.lucene.search.*
 import org.apache.lucene.store.Directory
+import org.apache.lucene.index.DirectoryReader
 
 paramMap = UtilHttp.getParameterMap(request);
 queryLine = paramMap.queryLine.toString();
@@ -47,9 +46,7 @@ Debug.logInfo("in search, featureIdByType:" + featureIdByType, "");
 
 combQuery = new BooleanQuery();
 Directory directory = FSDirectory.open(new File(SearchWorker.getIndexPath(null)));
-IndexReader reader = IndexReader.open(directory, true); // only searching, so read-only=true
-Searcher searcher = null;
-Analyzer analyzer = null;
+DirectoryReader reader = DirectoryReader.open(directory);
 
 try {
     Debug.logInfo("in search, indexPath:" + directory.toString(), "");
