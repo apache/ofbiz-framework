@@ -102,12 +102,12 @@ ofbiz/trunk/framework/webapp/lib/serializer-2.7.0.jar
 ofbiz/trunk/framework/webapp/lib/xalan-2.7.1.jar
 ofbiz/trunk/framework/geronimo/lib/geronimo-connector-2.1.1.jar
 ofbiz/trunk/framework/geronimo/lib/geronimo-transaction-2.1.1.jar
-ofbiz/trunk/applications/content/lib/fontbox-1.4.0.jar
-ofbiz/trunk/applications/content/lib/jempbox-1.4.0.jar
+ofbiz/trunk/applications/content/lib/fontbox-1.7.1.jar
+ofbiz/trunk/applications/content/lib/jempbox-1.7.1.jar
 ofbiz/trunk/applications/content/lib/lucene-analyzers-common-4.0.0.jar
 ofbiz/trunk/applications/content/lib/lucene-core-4.0.0.jar
 ofbiz/trunk/applications/content/lib/lucene-queryparser-4.0.0.jar
-ofbiz/trunk/applications/content/lib/pdfbox-1.4.0.jar
+ofbiz/trunk/applications/content/lib/pdfbox-1.7.1.jar
 ofbiz/trunk/applications/content/lib/poi-3.8-20120326.jar
 ofbiz/trunk/applications/content/lib/poi-ooxml-3.8-20120326.jar
 ofbiz/trunk/applications/content/lib/poi-ooxml-schemas-3.8-20120326.jar
