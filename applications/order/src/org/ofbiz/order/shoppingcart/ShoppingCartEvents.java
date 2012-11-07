@@ -1349,6 +1349,10 @@ public class ShoppingCartEvents {
                     UtilMisc.<String, Object>toMap("quoteId", quoteId,
                             "applyQuoteAdjustments", "true",
                             "userLogin", userLogin));
+            if (!ServiceUtil.isSuccess(outMap)) {
+                request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(outMap));
+                return "error";
+            }
             cart = (ShoppingCart) outMap.get("shoppingCart");
         } catch (GenericServiceException exc) {
             request.setAttribute("_ERROR_MESSAGE_", exc.getMessage());
