@@ -279,7 +279,7 @@ public class GoogleCheckoutHelper {
 
         cart.setOrderPartyId(partyInfo[0]);
         cart.setPlacingCustomerPartyId(partyInfo[0]);
-        cart.setShippingContactMechId(partyInfo[1]);
+        cart.setAllShippingContactMechId(partyInfo[1]);
 
         // contact info
         String shippingEmail = shippingAddress.getEmail();
@@ -418,10 +418,10 @@ public class GoogleCheckoutHelper {
             String carrierPartyId = googleShipping.getString("carrierPartyId");
             Boolean maySplit = Boolean.FALSE;
 
-            cart.setShipmentMethodTypeId(shipmentMethodTypeId);
-            cart.setCarrierPartyId(carrierPartyId);
-            cart.setMaySplit(maySplit);
-            cart.setShippingContactMechId(shipContactMechId);
+            cart.setAllShipmentMethodTypeId(shipmentMethodTypeId);
+            cart.setAllCarrierPartyId(carrierPartyId);
+            cart.setAllMaySplit(maySplit);
+            cart.setAllShippingContactMechId(shipContactMechId);
         } else {
             Debug.logWarning("No valid fulfillment method found! No shipping info set!", module);
         }

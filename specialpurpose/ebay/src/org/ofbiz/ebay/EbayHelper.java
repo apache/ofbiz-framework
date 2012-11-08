@@ -187,8 +187,8 @@ public class EbayHelper {
         } catch (GenericEntityException e) {
             Debug.logInfo("Unable to find EbayShippingMethod", module);
         }
-        cart.setCarrierPartyId(partyId);
-        cart.setShipmentMethodTypeId(shipmentMethodTypeId);
+        cart.setAllCarrierPartyId(partyId);
+        cart.setAllShipmentMethodTypeId(shipmentMethodTypeId);
     }
 
     public static boolean createPaymentFromPaymentPreferences(Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin,
