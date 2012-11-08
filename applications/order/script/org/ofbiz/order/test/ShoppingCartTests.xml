@@ -194,31 +194,31 @@ under the License.
 
         <!-- Shopping Cart Set ShippingContactMechId-->
         <set field="contactMechId" value="9015"/>
-        <call-object-method method-name="setShippingContactMechId" obj-field="shoppingCart">
+        <call-object-method method-name="setAllShippingContactMechId" obj-field="shoppingCart">
             <field field="contactMechId" type="String"/>
         </call-object-method>
 
         <!-- Shopping Cart Set Method Type ID-->
         <set field="shipmentMethodTypeId" value="NEXT_DAY" type="String"/>
-        <call-object-method method-name="setShipmentMethodTypeId" obj-field="shoppingCart">
+        <call-object-method method-name="setAllShipmentMethodTypeId" obj-field="shoppingCart">
             <field field="shipmentMethodTypeId" type="String"/>
         </call-object-method>
 
         <!-- Shopping Cart Set Carrier Party ID-->
         <set field="carrierPartyId" value="UPS" type="String"/>
-        <call-object-method method-name="setCarrierPartyId" obj-field="shoppingCart">
+        <call-object-method method-name="setAllCarrierPartyId" obj-field="shoppingCart">
             <field field="carrierPartyId" type="String"/>
         </call-object-method>
 
         <!-- Shopping Cart Set Is Gift-->
         <set field="isGift" value="false" type="Boolean"/>
-        <call-object-method method-name="setIsGift" obj-field="shoppingCart">
+        <call-object-method method-name="setAllIsGift" obj-field="shoppingCart">
             <field field="isGift" type="Boolean"/>
         </call-object-method>
 
         <!-- Shopping Cart Set May Split-->
         <set field="maySplit" value="false" type="Boolean"/>
-        <call-object-method method-name="setMaySplit" obj-field="shoppingCart">
+        <call-object-method method-name="setAllMaySplit" obj-field="shoppingCart">
             <field field="maySplit" type="Boolean"/>
         </call-object-method>
 
