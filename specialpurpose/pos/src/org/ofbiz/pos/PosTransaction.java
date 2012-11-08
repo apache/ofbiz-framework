@@ -820,8 +820,8 @@ public class PosTransaction implements Serializable {
         // attach the party ID to the cart
         cart.setOrderPartyId(partyId);
         // Set the shipping type
-        cart.setShipmentMethodTypeId("NO_SHIPPING");
-       // cart.setCarrierPartyId();
+        cart.setAllShipmentMethodTypeId("NO_SHIPPING");
+       // cart.setAllCarrierPartyId();
 
         // validate payment methods
         output.print(UtilProperties.getMessage(resource, "PosValidating", locale));

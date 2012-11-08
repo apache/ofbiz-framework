@@ -781,8 +781,8 @@ public class ImportOrdersFromEbay {
                 cart.setEndUserCustomerPartyId(partyId);
 
                 Debug.logInfo("Setting contact mech in cart: " + contactMechId, module);
-                cart.setShippingContactMechId(contactMechId);
-                cart.setMaySplit(Boolean.FALSE);
+                cart.setAllShippingContactMechId(contactMechId);
+                cart.setAllMaySplit(Boolean.FALSE);
 
                 Debug.logInfo("Setting shipment method: " + (String) parameters.get("shippingService"), module);
                 EbayHelper.setShipmentMethodType(cart, (String) parameters.get("shippingService"), productStoreId, delegator);

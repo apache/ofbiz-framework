@@ -265,8 +265,8 @@ public class EbayStoreOrder {
                 cart.setEndUserCustomerPartyId(partyId);
 
                 Debug.logInfo("Setting contact mech in cart: " + contactMechId, module);
-                cart.setShippingContactMechId(contactMechId);
-                cart.setMaySplit(Boolean.FALSE);
+                cart.setAllShippingContactMechId(contactMechId);
+                cart.setAllMaySplit(Boolean.FALSE);
 
                 Debug.logInfo("Setting shipment method: " + context.get("shippingService").toString(), module);
                 EbayHelper.setShipmentMethodType(cart, context.get("shippingService").toString(), productStoreId, delegator);
@@ -499,8 +499,8 @@ public class EbayStoreOrder {
             cart.setEndUserCustomerPartyId(partyId);
 
             Debug.logInfo("Setting contact mech in cart: " + contactMechId, module);
-            cart.setShippingContactMechId(contactMechId);
-            cart.setMaySplit(Boolean.FALSE);
+            cart.setAllShippingContactMechId(contactMechId);
+            cart.setAllMaySplit(Boolean.FALSE);
 
             Debug.logInfo("Setting shipment method: " + (String) shippingServiceSelectedCtx.get("shippingService"), module);
             EbayHelper.setShipmentMethodType(cart, (String) shippingServiceSelectedCtx.get("shippingService"), productStoreId, delegator);
