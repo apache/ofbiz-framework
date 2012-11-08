@@ -3569,7 +3569,7 @@ public class PaymentGatewayServices {
         String lastNumberStr = expireDate.substring(expireDate.length() - 1);
         int lastNumber = Integer.parseInt(lastNumberStr);
 
-        if (lastNumber / 2.0 == 0.0) {
+        if (lastNumber % 2.0 == 0.0) {
             return alwaysBadExpireProcessor(dctx, context);
         } else {
             return alwaysApproveProcessor(dctx, context);
