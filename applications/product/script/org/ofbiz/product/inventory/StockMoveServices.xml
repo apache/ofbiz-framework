@@ -490,12 +490,11 @@ under the License.
                          OISGIR (reservation), so we would have to split it up
                     -->
                     <clear-field field="reservedQuantityLeftOver"/>
+                    <clear-field field="currentQuantityToMove"/>
+                    <clear-field field="quantityNotAvailableToMove"/>
+                    <if-compare field="quantityLeftToProcess" operator="greater" value="0" type="Double">
                     <if-compare-field field="quantityLeftToProcess" to-field="orderItemShipGrpInvRes.quantity" operator="less" type="BigDecimal">
                         <!-- the complicated part: can split up the OISGIR (reservation) into two parts, and then transfer the inventory, somewhat complicated... -->
-                        <calculate field="reservedQuantityLeftOver">
-                            <calcop field="orderItemShipGrpInvRes.quantity" operator="get"/>
-                            <calcop field="quantityLeftToProcess" operator="negative"/>
-                        </calculate>
 
                         <set from-field="quantityLeftToProcess" field="currentQuantityToMove"/>
 
@@ -512,21 +511,25 @@ under the License.
                     <if-compare-field field="currentQuantityToMove" to-field="remainingQuantityOnHand" operator="greater" type="BigDecimal">
                         <set from-field="remainingQuantityOnHand" field="currentQuantityToMove"/>
                     </if-compare-field>
+                    <if-empty field="orderItemShipGrpInvRes.quantityNotAvailable">
+                        <set value="0" field="orderItemShipGrpInvRes.quantityNotAvailable" type="BigDecimal" />
+                    </if-empty>
 
+                    <calculate field="reservedQuantityLeftOver" type="BigDecimal">
+                        <calcop field="orderItemShipGrpInvRes.quantity" operator="get"/>
+                        <calcop field="orderItemShipGrpInvRes.quantityNotAvailable" operator="negative"/>
+                        <calcop field="currentQuantityToMove" operator="negative"/>
+                    </calculate>
                     <!-- now one other little trick: reservedQuantityLeftOver is not empty and if orderItemShipGrpInvRes.quantityNotAvailable is greater than reservedQuantityLeftOver, then the difference should be moved -->
                     <if>
                         <condition>
                             <and>
-                                <not><if-empty field="orderItemShipGrpInvRes.quantityNotAvailable"/></not>
                                 <not><if-empty field="reservedQuantityLeftOver"/></not>
-                                <if-compare-field field="orderItemShipGrpInvRes.quantityNotAvailable" to-field="reservedQuantityLeftOver" operator="greater" type="BigDecimal"/>
+                                <if-compare field="reservedQuantityLeftOver" value="0" operator="greater" type="BigDecimal"/>
                             </and>
                         </condition>
                         <then>
-                            <calculate field="quantityNotAvailableToMove">
-                                <calcop field="orderItemShipGrpInvRes.quantityNotAvailable" operator="get"/>
-                                <calcop field="reservedQuantityLeftOver" operator="negative"/>
-                            </calculate>
+                            <set value="0" field="quantityNotAvailableToMove" type="BigDecimal" />
                         </then>
                         <else>
                             <set from-field="orderItemShipGrpInvRes.quantityNotAvailable" field="quantityNotAvailableToMove"/>
@@ -571,22 +574,39 @@ under the License.
                     <call-service service-name="createInventoryItemDetail" in-map-name="createOisgirTargetDetailMap"/>
 
                     <!-- create the new and remove or update the old OISGIRs -->
+                    <calculate field="targetOrderItemShipGrpInvRes.quantity" type="BigDecimal">
+                         <calcop field="currentQuantityToMove" operator="get"/>
+                         <calcop field="quantityNotAvailableToMove" operator="get"/>
+                    </calculate>
+                    <calculate field="targetOrderItemShipGrpInvRes.quantityNotAvailable" type="BigDecimal">
+                        <calcop field="quantityNotAvailableToMove" operator="get"/>
+                    </calculate>
                     <create-value value-field="targetOrderItemShipGrpInvRes"/>
-                    <if-empty field="reservedQuantityLeftOver">
-                        <remove-value value-field="orderItemShipGrpInvRes"/>
-                    <else>
                         <calculate field="orderItemShipGrpInvRes.quantity">
                             <calcop field="orderItemShipGrpInvRes.quantity" operator="get"/>
-                            <calcop field="reservedQuantityLeftOver" operator="negative"/>
+                            <calcop field="currentQuantityToMove" operator="negative"/>
+                            <calcop field="quantityNotAvailableToMove" operator="negative"/>
                         </calculate>
                         <calculate field="orderItemShipGrpInvRes.quantityNotAvailable">
                             <calcop field="orderItemShipGrpInvRes.quantityNotAvailable" operator="get"/>
                             <calcop field="quantityNotAvailableToMove" operator="negative"/>
                         </calculate>
                         <store-value value-field="orderItemShipGrpInvRes"/>
-                    </else>
-                    </if-empty>
 
+                    <if>
+                        <condition>
+                            <and>
+                                <if-compare field="orderItemShipGrpInvRes.quantity" operator="equals" value="0" type="BigDecimal" />
+                                <if-compare field="orderItemShipGrpInvRes.quantityNotAvailable" operator="equals" value="0" type="BigDecimal" />
+                            </and>
+                        </condition>
+                        <then>
+                            <remove-value value-field="orderItemShipGrpInvRes"/>
+                        </then>
+                        <else>
+                            <store-value value-field="orderItemShipGrpInvRes"/>
+                        </else>
+                    </if>
                     <set value="Y" field="haveSetIiDetail"/>
 
                     <!-- deduct the orderItemShipGrpInvRes.quantity from quantityLeftToProcess -->
@@ -600,6 +620,7 @@ under the License.
                     </calculate>
                     <!-- part of the following log data prep: <refresh-value value-field="targetInventoryItem"/> -->
                     <!-- <log level="info" message="Just update targetInventoryItem from OISGIR [${targetInventoryItem}]"/> -->
+                    </if-compare>
                 </iterate>
 
                 <if-compare field="haveSetIiDetail" operator="equals" value="N">
