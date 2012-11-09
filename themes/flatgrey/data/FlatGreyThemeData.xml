@@ -21,12 +21,12 @@ under the License.
 <entity-engine-xml>
     <VisualTheme visualThemeId="FLAT_GREY" visualThemeSetId="BACKOFFICE" description="Flat Grey - Floating Layout, Sight-Impaired Accessible, Bidirectional"/>
     <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_NAME" resourceValue="FLAT_GREY" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/flatgrey/maincss.css" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/flatgrey/javascript.css" sequenceId="02"/>
+    <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/flatgrey/maincss-min.css" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/flatgrey/javascript-min.css" sequenceId="02"/>
     <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_HELPSTYLESHEET" resourceValue="/flatgrey/help.css" sequenceId="01"/>    
     <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_DOCBOOKSTYLESHEET" resourceValue="/flatgrey/webapp/flatgrey/docbook.css" sequenceId="01"/>    
-    <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_RTL_STYLESHEET" resourceValue="/flatgrey/mainrtl.css" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/flatgrey/js/application.js" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_RTL_STYLESHEET" resourceValue="/flatgrey/mainrtl-min.css" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/flatgrey/js/application-min.js" sequenceId="01"/>
     <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="01"/>
     <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/flatgrey/images/ofbiz_logo.gif" sequenceId="01"/>
     <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://flatgrey/includes/header.ftl" sequenceId="01"/>
