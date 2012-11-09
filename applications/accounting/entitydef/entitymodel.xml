@@ -1732,7 +1732,9 @@ under the License.
       <field name="receiptId" type="id"></field>
       <field name="workEffortId" type="id"></field>
       <field name="theirAcctgTransId" type="id-long"></field>
+      <field name="createdDate" type="date-time"></field>      
       <field name="createdByUserLogin" type="id-vlong"></field>
+      <field name="lastModifiedDate" type="date-time"></field>
       <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <prim-key field="acctgTransId"/>
       <relation type="one" fk-name="ACCTTX_TYPE" rel-entity-name="AcctgTransType">
@@ -2322,7 +2324,9 @@ under the License.
       <field name="glReconciliationId" type="id-ne"></field>
       <field name="glReconciliationName" type="name"></field>
       <field name="description" type="description"></field>
+      <field name="createdDate" type="date-time"></field>
       <field name="createdByUserLogin" type="id-vlong"></field>
+      <field name="lastModifiedDate" type="date-time"></field>
       <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <field name="glAccountId" type="id-ne"></field>
       <field name="statusId" type="id-ne"></field>
@@ -3679,6 +3683,9 @@ under the License.
       <field name="workingKey" type="very-long"></field>
       <field name="workingKeyIndex" type="numeric"></field>
       <field name="lastWorkingKey" type="very-long"></field>
+      <field name="createdDate" type="date-time"></field>
+      <field name="createdByTerminal" type="short-varchar"></field>
+      <field name="createdByUserLogin" type="id-vlong"></field>
       <field name="lastModifiedDate" type="date-time"></field>
       <field name="lastModifiedByTerminal" type="short-varchar"></field>
       <field name="lastModifiedByUserLogin" type="id-vlong"></field>

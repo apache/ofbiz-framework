@@ -232,6 +232,21 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                     }
                 }
 
+                if (modelEntity.getField("createdDate") != null) {
+                    newEntity.set("createdDate", UtilDateTime.nowTimestamp());
+                    if (modelEntity.getField("createdByUserLogin") != null) {
+                        GenericValue userLogin = (GenericValue) parameters.get("userLogin");
+                        if (userLogin != null) {
+                            newEntity.set("createdByUserLogin", userLogin.get("userLoginId"));
+                            if (modelEntity.getField("lastModifiedByUserLogin") != null) {
+                                newEntity.set("lastModifiedByUserLogin", userLogin.get("userLoginId"));
+                            }
+                        }
+                    }
+                    if (modelEntity.getField("lastModifiedDate") != null) {
+                        newEntity.set("lastModifiedDate", UtilDateTime.nowTimestamp());
+                    }
+                }
                 newEntity.setNonPKFields(parameters, true);
                 newEntity.create();
             } else if ("update".equals(modelService.invoke)) {
@@ -301,6 +316,16 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                 }
 
                 // NOTE: nothing here to maintain the status history, that should be done with a custom service called by SECA rule
+
+                if (modelEntity.getField("lastModifiedDate") != null) {
+                    lookedUpValue.set("lastModifiedDate", UtilDateTime.nowTimestamp());
+                    if (modelEntity.getField("lastModifiedByUserLogin") != null) {
+                        GenericValue userLogin = (GenericValue) parameters.get("userLogin");
+                        if (userLogin != null) {
+                            lookedUpValue.set("lastModifiedByUserLogin", userLogin.get("userLoginId"));
+                        }
+                    }
+                }
 
                 lookedUpValue.setNonPKFields(parameters, true);
                 lookedUpValue.store();
