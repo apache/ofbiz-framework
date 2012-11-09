@@ -93,6 +93,8 @@ under the License.
       <field name="includeInShipping" type="indicator"></field>
       <field name="createdDate" type="date-time"></field>
       <field name="createdByUserLogin" type="id-vlong"></field>
+      <field name="lastModifiedDate" type="date-time"></field>
+      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <field name="originalAdjustmentId" type="id">
           <description>specifies relation to source OrderAdjustment - eg. for tax on shipping charges</description>
       </field>
@@ -1061,6 +1063,8 @@ under the License.
       <field name="needsNsfRetry" type="indicator"></field>
       <field name="createdDate" type="date-time"></field>
       <field name="createdByUserLogin" type="id-vlong"></field>
+      <field name="lastModifiedDate" type="date-time"></field>
+      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <prim-key field="orderPaymentPreferenceId"/>
       <relation type="one" fk-name="ORDER_PMPRF_OHDR" rel-entity-name="OrderHeader">
         <key-map field-name="orderId"/>
@@ -1641,6 +1645,8 @@ under the License.
       <field name="includeInShipping" type="indicator"></field>
       <field name="createdDate" type="date-time"></field>
       <field name="createdByUserLogin" type="id-vlong"></field>
+      <field name="lastModifiedDate" type="date-time"></field>
+      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <prim-key field="quoteAdjustmentId"/>
       <relation type="one" fk-name="QUOTE_ADJ_TYPE" rel-entity-name="OrderAdjustmentType">
         <key-map field-name="quoteAdjustmentTypeId" rel-field-name="orderAdjustmentTypeId"/>
@@ -2338,6 +2344,8 @@ under the License.
       <field name="includeInShipping" type="indicator"></field>
       <field name="createdDate" type="date-time"></field>
       <field name="createdByUserLogin" type="id-vlong"></field>
+      <field name="lastModifiedDate" type="date-time"></field>
+      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <prim-key field="returnAdjustmentId"/>
       <relation type="one" fk-name="RETURN_ADJ_TYPE" rel-entity-name="ReturnAdjustmentType">
         <key-map field-name="returnAdjustmentTypeId"/>
