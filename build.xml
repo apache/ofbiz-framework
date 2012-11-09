@@ -215,6 +215,11 @@ under the License.
         <subant inheritall="false" failonerror="${specialpurpose.present}">
             <filelist dir="." files="specialpurpose/build.xml"/>
         </subant>
+        <subant inheritall="false">
+            <fileset dir="${basedir}/themes">
+                <include name="*/build.xml" />
+            </fileset>
+        </subant>
 
         <!-- a check is done, if no build.xml file is present in hot-deploy dir,
             then the build.xml files - if present - in hot-deploy sub-dirs will be used.
