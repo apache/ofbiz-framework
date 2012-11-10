@@ -28,187 +28,162 @@ under the License.
     <xs:element name="tree">
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" ref="node"/>
+                <xs:element maxOccurs="unbounded" ref="node" />
             </xs:sequence>
-            <xs:attributeGroup ref="attlist.tree"/>
+            <xs:attribute type="xs:string" name="name" use="required" />
+            <xs:attribute type="xs:string" name="root-node-name" use="required" />
+            <xs:attribute name="default-render-style" default="simple">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="simple" />
+                        <xs:enumeration value="follow-trail" />
+                        <xs:enumeration value="show-peers" />
+                        <xs:enumeration value="expand-collapse" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="default-wrap-style" />
+            <xs:attribute type="xs:string" name="expand-collapse-request" />
+            <xs:attribute type="xs:string" name="trail-name" />
+            <xs:attribute type="xs:string" name="open-depth" default="0" />
+            <xs:attribute type="xs:string" name="post-trail-open-depth" default="0" />
+            <xs:attribute type="xs:string" name="entity-name" />
+            <xs:attribute name="force-child-check" default="true">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.tree">
-        <xs:attribute type="xs:string" name="name" use="required"/>
-        <xs:attribute type="xs:string" name="root-node-name" use="required"/>
-        <xs:attribute name="default-render-style" default="simple">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="simple"/>
-                    <xs:enumeration value="follow-trail"/>
-                    <xs:enumeration value="show-peers"/>
-                    <xs:enumeration value="expand-collapse"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="default-wrap-style"/>
-        <xs:attribute type="xs:string" name="expand-collapse-request"/>
-        <xs:attribute type="xs:string" name="trail-name"/>
-        <xs:attribute type="xs:string" name="open-depth" default="0"/>
-        <xs:attribute type="xs:string" name="post-trail-open-depth" default="0"/>
-        <xs:attribute type="xs:string" name="entity-name"/>
-        <xs:attribute name="force-child-check" default="true">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="node">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" ref="condition"/>
+                <xs:element minOccurs="0" ref="condition" />
                 <xs:choice minOccurs="0">
-                    <xs:element ref="entity-one"/>
-                    <xs:element ref="service"/>
+                    <xs:element ref="entity-one" />
+                    <xs:element ref="service" />
                 </xs:choice>
                 <xs:choice minOccurs="0">
-                    <xs:element ref="include-screen"/>
-                    <xs:element ref="label"/>
-                    <xs:element ref="link"/>
+                    <xs:element ref="include-screen" />
+                    <xs:element ref="label" />
+                    <xs:element ref="link" />
                 </xs:choice>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="sub-node"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="sub-node" />
             </xs:sequence>
-            <xs:attributeGroup ref="attlist.node"/>
+            <xs:attribute type="xs:string" name="name" use="required" />
+            <xs:attribute type="xs:string" name="wrap-style" />
+            <xs:attribute name="render-style">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="simple" />
+                        <xs:enumeration value="follow-trail" />
+                        <xs:enumeration value="show-peers" />
+                        <xs:enumeration value="expand-collapse" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="entry-name" />
+            <xs:attribute type="xs:string" name="entity-name" />
+            <xs:attribute type="xs:string" name="join-field-name" />
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.node">
-        <xs:attribute type="xs:string" name="name" use="required"/>
-        <xs:attribute type="xs:string" name="wrap-style"/>
-        <xs:attribute name="render-style">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="simple"/>
-                    <xs:enumeration value="follow-trail"/>
-                    <xs:enumeration value="show-peers"/>
-                    <xs:enumeration value="expand-collapse"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="entry-name" />
-        <xs:attribute type="xs:string" name="entity-name" />
-        <xs:attribute type="xs:string" name="join-field-name" />
-    </xs:attributeGroup>
     <xs:element name="sub-node">
         <xs:complexType>
             <xs:sequence>
                 <xs:choice>
-                    <xs:element ref="entity-and"/>
-                    <xs:element ref="service"/>
-                    <xs:element ref="entity-condition"/>
+                    <xs:element ref="entity-and" />
+                    <xs:element ref="service" />
+                    <xs:element ref="entity-condition" />
                 </xs:choice>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="out-field-map"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="out-field-map" />
             </xs:sequence>
-            <xs:attributeGroup ref="attlist.sub-node"/>
+            <xs:attribute type="xs:string" name="node-name" use="required" />
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.sub-node">
-        <xs:attribute type="xs:string" name="node-name" use="required"/>
-    </xs:attributeGroup>
 
     <xs:element name="include-screen">
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.include-screen"/>
+            <xs:attribute type="xs:string" name="name" use="required" />
+            <xs:attribute type="xs:string" name="location" use="required" />
+            <xs:attribute name="share-scope" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.include-screen">
-        <xs:attribute type="xs:string" name="name" use="required"/>
-        <xs:attribute type="xs:string" name="location" use="required"/>
-        <xs:attribute name="share-scope" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="label">
         <xs:complexType mixed="true">
-            <xs:attributeGroup ref="attlist.label"/>
+            <xs:attribute type="xs:string" name="text" />
+            <xs:attribute type="xs:string" name="id" />
+            <xs:attribute type="xs:string" name="style" />
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.label">
-        <xs:attribute type="xs:string" name="text"/>
-        <xs:attribute type="xs:string" name="id"/>
-        <xs:attribute type="xs:string" name="style"/>
-    </xs:attributeGroup>
     <xs:element name="link">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="parameter"/>
-                <xs:element minOccurs="0" ref="image"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="parameter" />
+                <xs:element minOccurs="0" ref="image" />
             </xs:sequence>
-            <xs:attributeGroup ref="attlist.link"/>
+            <xs:attribute type="xs:string" name="text" />
+            <xs:attribute type="xs:string" name="id" />
+            <xs:attribute type="xs:string" name="style" />
+            <xs:attribute type="xs:string" name="name" />
+            <xs:attribute type="xs:string" name="title" />
+            <xs:attribute type="xs:string" name="target" />
+            <xs:attribute type="xs:string" name="target-window" />
+            <xs:attribute type="xs:string" name="prefix" />
+            <xs:attribute name="url-mode" default="intra-app">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="intra-app" />
+                        <xs:enumeration value="inter-app" />
+                        <xs:enumeration value="content" />
+                        <xs:enumeration value="plain" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="full-path" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="secure" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="encode" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.link">
-        <xs:attribute type="xs:string" name="text"/>
-        <xs:attribute type="xs:string" name="id"/>
-        <xs:attribute type="xs:string" name="style"/>
-        <xs:attribute type="xs:string" name="name"/>
-        <xs:attribute type="xs:string" name="title"/>
-        <xs:attribute type="xs:string" name="target"/>
-        <xs:attribute type="xs:string" name="target-window"/>
-        <xs:attribute type="xs:string" name="prefix"/>
-        <xs:attribute name="url-mode" default="intra-app">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="intra-app"/>
-                    <xs:enumeration value="inter-app"/>
-                    <xs:enumeration value="content"/>
-                    <xs:enumeration value="plain"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="full-path" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="secure" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="encode" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="parameter">
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.parameter"/>
+            <xs:attribute type="xs:string" name="param-name" use="required" />
+            <xs:attribute type="xs:string" name="from-field" />
+            <xs:attribute type="xs:string" name="value" />
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.parameter">
-        <xs:attribute type="xs:string" name="param-name" use="required"/>
-        <xs:attribute type="xs:string" name="from-field"/>
-        <xs:attribute type="xs:string" name="value"/>
-    </xs:attributeGroup>    
     <xs:element name="image">
         <xs:complexType mixed="true">
-            <xs:attributeGroup ref="attlist.image"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:attributeGroup name="attlist.image">
         <xs:attribute type="xs:string" name="src"/>
         <xs:attribute type="xs:string" name="id"/>
         <xs:attribute type="xs:string" name="style"/>
@@ -224,306 +199,284 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-    </xs:attributeGroup>
+        </xs:complexType>
+    </xs:element>
 
     <xs:element name="service">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="field-map"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="field-map" />
             </xs:sequence>
-            <xs:attributeGroup ref="attlist.service"/>
+            <xs:attribute type="xs:string" name="service-name" use="required" />
+            <xs:attribute type="xs:string" name="result-map" />
+            <xs:attribute type="xs:string" name="auto-field-map" default="true">
+                <xs:annotation>
+                    <xs:documentation>This can be "true", "false" or the name of a Map in the context to use as the source Map for the service context.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="result-map-list" />
+            <!-- deprecated, use result-map-list instead <xs:attribute type="xs:string" name="result-map-list-iterator-name"/> -->
+            <xs:attribute type="xs:string" name="result-map-value" />
+            <xs:attribute type="xs:string" name="value" />
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.service">
-        <xs:attribute type="xs:string" name="service-name" use="required"/>
-        <xs:attribute type="xs:string" name="result-map"/>
-        <xs:attribute type="xs:string" name="auto-field-map" default="true">
-            <xs:annotation><xs:documentation>This can be "true", "false" or the name of a Map in the context to use as the source Map for the service context.</xs:documentation></xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="result-map-list"/>
-        <!-- deprecated, use result-map-list instead <xs:attribute type="xs:string" name="result-map-list-iterator-name"/> -->
-        <xs:attribute type="xs:string" name="result-map-value"/>
-        <xs:attribute type="xs:string" name="value"/>
-    </xs:attributeGroup>
 
     <xs:element name="entity-and">
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" ref="field-map"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="select-field"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="order-by"/>
+                <xs:element maxOccurs="unbounded" ref="field-map" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="select-field" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="order-by" />
             </xs:sequence>
-            <xs:attributeGroup ref="attlist.entity-and"/>
+            <xs:attribute name="entity-name" type="xs:string" use="required" />
+            <xs:attribute name="list" type="xs:string" />
+            <xs:attribute name="use-cache" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="filter-by-date" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                        <xs:enumeration value="by-name" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="result-set-type" default="scroll">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="forward" />
+                        <xs:enumeration value="scroll" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.entity-and">
-        <xs:attribute name="entity-name" type="xs:string" use="required"/>
-        <xs:attribute name="list" type="xs:string"/>
-        <xs:attribute name="use-cache" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="filter-by-date" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                    <xs:enumeration value="by-name"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="result-set-type" default="scroll">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="forward"/>
-                    <xs:enumeration value="scroll"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="entity-condition">
         <xs:complexType>
             <xs:sequence>
                 <xs:choice>
-                    <xs:element ref="condition-expr"/>
-                    <xs:element ref="condition-list"/>
+                    <xs:element ref="condition-expr" />
+                    <xs:element ref="condition-list" />
                 </xs:choice>
-                <xs:element minOccurs="0" ref="having-condition-list"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="select-field"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="order-by"/>
+                <xs:element minOccurs="0" ref="having-condition-list" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="select-field" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="order-by" />
                 <xs:choice minOccurs="0">
-                    <xs:element ref="limit-range"/>
-                    <xs:element ref="limit-view"/>
-                    <xs:element ref="use-iterator"/>
+                    <xs:element ref="limit-range" />
+                    <xs:element ref="limit-view" />
+                    <xs:element ref="use-iterator" />
                 </xs:choice>
             </xs:sequence>
-            <xs:attributeGroup ref="attlist.entity-condition"/>
+            <xs:attribute name="entity-name" type="xs:string" use="required" />
+            <xs:attribute name="use-cache" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="filter-by-date" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                        <xs:enumeration value="by-name" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="distinct" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="delegator-name" type="xs:string" />
+            <xs:attribute name="list" type="xs:string" />
+            <xs:attribute name="result-set-type" default="scroll">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="forward" />
+                        <xs:enumeration value="scroll" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.entity-condition">
-        <xs:attribute name="entity-name" type="xs:string" use="required"/>
-        <xs:attribute name="use-cache" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="filter-by-date" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                    <xs:enumeration value="by-name"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="distinct" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="delegator-name" type="xs:string"/>
-        <xs:attribute name="list" type="xs:string"/>
-        <xs:attribute name="result-set-type" default="scroll">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="forward"/>
-                    <xs:enumeration value="scroll"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="entity-one">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="field-map"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="select-field"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="field-map" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="select-field" />
             </xs:sequence>
-            <xs:attributeGroup ref="attlist.entity-one"/>
+            <xs:attribute name="entity-name" type="xs:string" use="required" />
+            <xs:attribute name="value-field" type="xs:string" />
+            <xs:attribute name="use-cache" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="auto-field-map" default="true">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.entity-one">
-        <xs:attribute name="entity-name" type="xs:string" use="required"/>
-        <xs:attribute name="value-field" type="xs:string"/>
-        <xs:attribute name="use-cache" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="auto-field-map" default="true">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-    </xs:attributeGroup>
 
     <xs:element name="order-by">
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.order-by"/>
+            <xs:attribute type="xs:string" name="field-name" use="required" />
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.order-by">
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
-    </xs:attributeGroup>
     <xs:element name="select-field">
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.select-field"/>
+            <xs:attribute type="xs:string" name="field-name" use="required" />
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.select-field">
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
-    </xs:attributeGroup>
     <xs:element name="limit-range">
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.limit-range"/>
+            <xs:attribute name="start" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>Should resolve into a non-negative integer.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="size" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>Should resolve into a non-negative integer.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.limit-range">
-        <xs:attribute name="start" type="xs:string" use="required"><xs:annotation><xs:documentation>Should resolve into a non-negative integer.</xs:documentation></xs:annotation></xs:attribute>
-        <xs:attribute name="size" type="xs:string" use="required"><xs:annotation><xs:documentation>Should resolve into a non-negative integer.</xs:documentation></xs:annotation></xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="limit-view">
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.limit-view"/>
+            <xs:attribute name="view-index" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>Should resolve into a non-negative integer.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="view-size" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>Should resolve into a positive integer.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.limit-view">
-        <xs:attribute name="view-index" type="xs:string" use="required"><xs:annotation><xs:documentation>Should resolve into a non-negative integer.</xs:documentation></xs:annotation></xs:attribute>
-        <xs:attribute name="view-size" type="xs:string" use="required"><xs:annotation><xs:documentation>Should resolve into a positive integer.</xs:documentation></xs:annotation></xs:attribute>
-    </xs:attributeGroup>
-    <xs:element name="use-iterator">
-        <xs:complexType/>
-    </xs:element>
+    <xs:element name="use-iterator" />
     <xs:element name="field-map">
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.field-map"/>
+            <xs:attribute type="xs:string" name="field-name" use="required" />
+            <xs:attribute type="xs:string" name="from-field" />
+            <xs:attribute type="xs:string" name="value" />
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.field-map">
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
-        <xs:attribute type="xs:string" name="from-field"/>
-        <xs:attribute type="xs:string" name="value"/>
-    </xs:attributeGroup>
     <xs:element name="out-field-map">
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.out-field-map"/>
+            <xs:attribute type="xs:string" name="field-name" use="required" />
+            <xs:attribute type="xs:string" name="to-field-name" />
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.out-field-map">
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
-        <xs:attribute type="xs:string" name="to-field-name"/>
-    </xs:attributeGroup>
 
     <xs:element name="condition-list">
         <xs:complexType>
             <xs:choice maxOccurs="unbounded">
-                <xs:element ref="condition-expr"/>
-                <xs:element ref="condition-list"/>
+                <xs:element ref="condition-expr" />
+                <xs:element ref="condition-list" />
             </xs:choice>
-            <xs:attributeGroup ref="attlist.condition-list"/>
+            <xs:attribute name="combine" default="and">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="and" />
+                        <xs:enumeration value="or" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.condition-list">
-        <xs:attribute name="combine" default="and">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="and"/>
-                    <xs:enumeration value="or"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="having-condition-list">
         <xs:complexType>
             <xs:choice maxOccurs="unbounded">
-                <xs:element ref="condition-expr"/>
-                <xs:element ref="condition-list"/>
+                <xs:element ref="condition-expr" />
+                <xs:element ref="condition-list" />
             </xs:choice>
-            <xs:attributeGroup ref="attlist.having-condition-list"/>
+            <xs:attribute name="combine" default="and">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="and" />
+                        <xs:enumeration value="or" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.having-condition-list">
-        <xs:attribute name="combine" default="and">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="and"/>
-                    <xs:enumeration value="or"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="condition-expr">
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.condition-expr"/>
+            <xs:attribute name="field-name" type="xs:string" use="required" />
+            <xs:attribute name="operator" default="equals">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="less" />
+                        <xs:enumeration value="greater" />
+                        <xs:enumeration value="less-equals" />
+                        <xs:enumeration value="greater-equals" />
+                        <xs:enumeration value="equals" />
+                        <xs:enumeration value="not-equals" />
+                        <xs:enumeration value="in" />
+                        <xs:enumeration value="between" />
+                        <xs:enumeration value="like" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="from-field" type="xs:string" />
+            <xs:attribute name="value" type="xs:string" />
+            <xs:attribute name="ignore-if-null" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="ignore-if-empty" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="ignore-case" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="ignore" default="false">
+                <xs:annotation>
+                    <xs:documentation>
+                        Ignore the condition if flag is true.
+                        Defaults to false.
+                </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.condition-expr">
-        <xs:attribute name="field-name" type="xs:string" use="required"/>
-        <xs:attribute name="operator" default="equals">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="less"/>
-                    <xs:enumeration value="greater"/>
-                    <xs:enumeration value="less-equals"/>
-                    <xs:enumeration value="greater-equals"/>
-                    <xs:enumeration value="equals"/>
-                    <xs:enumeration value="not-equals"/>
-                    <xs:enumeration value="in"/>
-                    <xs:enumeration value="between"/>
-                    <xs:enumeration value="like"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="from-field" type="xs:string"/>
-        <xs:attribute name="value" type="xs:string"/>
-        <xs:attribute name="ignore-if-null" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="ignore-if-empty" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="ignore-case" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="ignore" default="false">
-            <xs:annotation>
-                <xs:documentation>
-                    Ignore the condition if flag is true.
-                    Defaults to false.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
 
     <!-- ================ CONDITIONS ================ -->
     <xs:element name="AllConditionals" abstract="true"/>
@@ -564,183 +517,151 @@ under the License.
     </xs:element>
     <xs:element name="if-has-permission" substitutionGroup="AllConditionals">
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.if-has-permission"/>
+            <xs:attribute type="xs:string" name="permission" use="required" />
+            <xs:attribute type="xs:string" name="action" />
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.if-has-permission">
-        <xs:attribute type="xs:string" name="permission" use="required"/>
-        <xs:attribute type="xs:string" name="action"/>
-    </xs:attributeGroup>
     <xs:element name="if-entity-permission" substitutionGroup="AllConditionals">
         <xs:complexType>
             <xs:choice minOccurs="0">
-                <xs:element minOccurs="0" maxOccurs="1" ref="permission-condition-getter"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="related-role-getter"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="auxiliary-value-getter"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="permission-condition-getter" />
+                <xs:element minOccurs="0" maxOccurs="1" ref="related-role-getter" />
+                <xs:element minOccurs="0" maxOccurs="1" ref="auxiliary-value-getter" />
             </xs:choice>
-            <xs:attributeGroup ref="attlist.if-entity-permission"/>
+            <xs:attribute type="xs:string" name="entity-name" use="required" />
+            <xs:attribute type="xs:string" name="entity-id" use="required" />
+            <xs:attribute type="xs:string" name="target-operation" use="required" />
+            <xs:attribute name="display-fail-cond" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <!-- entity-id and target-operation can have multiple pipe separated values. Don't use spaces. -->
-    <xs:attributeGroup name="attlist.if-entity-permission">
-        <xs:attribute type="xs:string" name="entity-name" use="required"/>
-        <xs:attribute type="xs:string" name="entity-id" use="required"/>
-        <xs:attribute type="xs:string" name="target-operation" use="required"/>
-        <xs:attribute name="display-fail-cond" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="permission-condition-getter">
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.permission-condition-getter"/>
+            <xs:attribute type="xs:string" name="entity-name" />
+            <xs:attribute type="xs:string" name="operation-field-name" />
+            <xs:attribute type="xs:string" name="role-field-name" />
+            <xs:attribute type="xs:string" name="auxiliary-field-name" />
+            <xs:attribute type="xs:string" name="status-field-name" />
+            <xs:attribute type="xs:string" name="privilege-field-name" />
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.permission-condition-getter">
-        <xs:attribute type="xs:string" name="entity-name" />
-        <xs:attribute type="xs:string" name="operation-field-name" />
-        <xs:attribute type="xs:string" name="role-field-name" />
-        <xs:attribute type="xs:string" name="auxiliary-field-name" />
-        <xs:attribute type="xs:string" name="status-field-name" />
-        <xs:attribute type="xs:string" name="privilege-field-name" />
-    </xs:attributeGroup>
     <xs:element name="related-role-getter">
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.related-role-getter"/>
+            <xs:attribute type="xs:string" name="entity-name" />
+            <xs:attribute type="xs:string" name="role-entity-name" />
+            <xs:attribute type="xs:string" name="role-type-field-name" />
+            <xs:attribute type="xs:string" name="party-field-name" />
+            <xs:attribute type="xs:string" name="owner-entity-field-name" />
+            <xs:attribute type="xs:string" name="entity-id-name" />
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.related-role-getter">
-        <xs:attribute type="xs:string" name="entity-name" />
-        <xs:attribute type="xs:string" name="role-entity-name" />
-        <xs:attribute type="xs:string" name="role-type-field-name" />
-        <xs:attribute type="xs:string" name="party-field-name" />
-        <xs:attribute type="xs:string" name="owner-entity-field-name" />
-        <xs:attribute type="xs:string" name="entity-id-name" />
-    </xs:attributeGroup>
     <xs:element name="auxiliary-value-getter">
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.auxiliary-value-getter"/>
+            <xs:attribute type="xs:string" name="entity-name" />
+            <xs:attribute type="xs:string" name="auxiliary-field-name" />
+            <xs:attribute type="xs:string" name="entity-id-name" />
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.auxiliary-value-getter">
-        <xs:attribute type="xs:string" name="entity-name" />
-        <xs:attribute type="xs:string" name="auxiliary-field-name" />
-        <xs:attribute type="xs:string" name="entity-id-name" />
-    </xs:attributeGroup>
-    <!-- if-validate-method calls a static Java method that takes a String and returns a boolean -->
     <xs:element name="if-validate-method" substitutionGroup="AllConditionals">
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.if-validate-method"/>
+            <xs:attribute type="xs:string" name="field" use="required" />
+            <xs:attribute type="xs:string" name="method" use="required" />
+            <xs:attribute type="xs:string" name="class" default="org.ofbiz.base.util.UtilValidate" />
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.if-validate-method">
-        <xs:attribute type="xs:string" name="field" use="required"/>
-        <xs:attribute type="xs:string" name="method" use="required"/>
-        <xs:attribute type="xs:string" name="class" default="org.ofbiz.base.util.UtilValidate"/>
-    </xs:attributeGroup>
     <xs:element name="if-compare" substitutionGroup="AllConditionals">
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.if-compare"/>
+            <xs:attribute name="field" type="xs:string" use="required" />
+            <xs:attribute name="operator" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="less" />
+                        <xs:enumeration value="greater" />
+                        <xs:enumeration value="less-equals" />
+                        <xs:enumeration value="greater-equals" />
+                        <xs:enumeration value="equals" />
+                        <xs:enumeration value="not-equals" />
+                        <xs:enumeration value="contains" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="value" use="required" />
+            <xs:attribute name="type" default="String">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="PlainString" />
+                        <xs:enumeration value="String" />
+                        <xs:enumeration value="BigDecimal" />
+                        <xs:enumeration value="Double" />
+                        <xs:enumeration value="Float" />
+                        <xs:enumeration value="Long" />
+                        <xs:enumeration value="Integer" />
+                        <xs:enumeration value="Date" />
+                        <xs:enumeration value="Time" />
+                        <xs:enumeration value="Timestamp" />
+                        <xs:enumeration value="Boolean" />
+                        <xs:enumeration value="Object" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="format" type="xs:string" />
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.if-compare">
-        <xs:attribute name="field" type="xs:string" use="required"/>
-        <xs:attribute name="operator" use="required">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="less"/>
-                    <xs:enumeration value="greater"/>
-                    <xs:enumeration value="less-equals"/>
-                    <xs:enumeration value="greater-equals"/>
-                    <xs:enumeration value="equals"/>
-                    <xs:enumeration value="not-equals"/>
-                    <xs:enumeration value="contains"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="value" use="required"/>
-        <xs:attribute name="type" default="String">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="PlainString"/>
-                    <xs:enumeration value="String"/>
-                    <xs:enumeration value="BigDecimal"/>
-                    <xs:enumeration value="Double"/>
-                    <xs:enumeration value="Float"/>
-                    <xs:enumeration value="Long"/>
-                    <xs:enumeration value="Integer"/>
-                    <xs:enumeration value="Date"/>
-                    <xs:enumeration value="Time"/>
-                    <xs:enumeration value="Timestamp"/>
-                    <xs:enumeration value="Boolean"/>
-                    <xs:enumeration value="Object"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="format" type="xs:string"/>
-    </xs:attributeGroup>
     <xs:element name="if-compare-field" substitutionGroup="AllConditionals">
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.if-compare-field"/>
+            <xs:attribute name="field" type="xs:string" use="required" />
+            <xs:attribute name="operator" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="less" />
+                        <xs:enumeration value="greater" />
+                        <xs:enumeration value="less-equals" />
+                        <xs:enumeration value="greater-equals" />
+                        <xs:enumeration value="equals" />
+                        <xs:enumeration value="not-equals" />
+                        <xs:enumeration value="contains" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="to-field" type="xs:string" />
+            <xs:attribute name="type" default="String">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="PlainString" />
+                        <xs:enumeration value="String" />
+                        <xs:enumeration value="BigDecimal" />
+                        <xs:enumeration value="Double" />
+                        <xs:enumeration value="Float" />
+                        <xs:enumeration value="Long" />
+                        <xs:enumeration value="Integer" />
+                        <xs:enumeration value="Date" />
+                        <xs:enumeration value="Time" />
+                        <xs:enumeration value="Timestamp" />
+                        <xs:enumeration value="Boolean" />
+                        <xs:enumeration value="Object" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="format" />
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.if-compare-field">
-        <xs:attribute name="field" type="xs:string" use="required"/>
-        <xs:attribute name="operator" use="required">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="less"/>
-                    <xs:enumeration value="greater"/>
-                    <xs:enumeration value="less-equals"/>
-                    <xs:enumeration value="greater-equals"/>
-                    <xs:enumeration value="equals"/>
-                    <xs:enumeration value="not-equals"/>
-                    <xs:enumeration value="contains"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="to-field" type="xs:string"/>
-        <xs:attribute name="type" default="String">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="PlainString"/>
-                    <xs:enumeration value="String"/>
-                    <xs:enumeration value="BigDecimal"/>
-                    <xs:enumeration value="Double"/>
-                    <xs:enumeration value="Float"/>
-                    <xs:enumeration value="Long"/>
-                    <xs:enumeration value="Integer"/>
-                    <xs:enumeration value="Date"/>
-                    <xs:enumeration value="Time"/>
-                    <xs:enumeration value="Timestamp"/>
-                    <xs:enumeration value="Boolean"/>
-                    <xs:enumeration value="Object"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="format"/>
-    </xs:attributeGroup>
     <xs:element name="if-regexp" substitutionGroup="AllConditionals">
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.if-regexp"/>
+            <xs:attribute type="xs:string" name="field" use="required" />
+            <xs:attribute type="xs:string" name="expr" use="required" />
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.if-regexp">
-        <xs:attribute type="xs:string" name="field" use="required"/>
-        <xs:attribute type="xs:string" name="expr" use="required"/>
-    </xs:attributeGroup>
     <xs:element name="if-empty" substitutionGroup="AllConditionals">
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.if-empty"/>
+        <xs:attribute type="xs:string" name="field" use="required"/>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.if-empty">
-        <xs:attribute type="xs:string" name="field" use="required"/>
-    </xs:attributeGroup>
 </xs:schema>
 <!--
     examples
