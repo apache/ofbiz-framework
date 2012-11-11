@@ -3212,7 +3212,7 @@ public class PaymentGatewayServices {
             requestContext.put("paymentGatewayConfigId", paymentGatewayConfigId);
         }
         // check the service name
-        if (paymentService == null || (paymentGatewayConfigId == null && paymentConfig == null)) {
+        if (paymentService == null || paymentGatewayConfigId == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "AccountingPaymentSettingNotValid", locale));
         }
