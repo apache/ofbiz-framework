@@ -1970,9 +1970,9 @@ public class PaymentGatewayServices {
             }
 
             // set the status of the OrderPaymentPreference
-            if (context != null && authResult.booleanValue()) {
+            if (authResult.booleanValue()) {
                 orderPaymentPreference.set("statusId", "PAYMENT_AUTHORIZED");
-            } else if (context != null && !authResult.booleanValue()) {
+            } else if (!authResult.booleanValue()) {
                 orderPaymentPreference.set("statusId", "PAYMENT_DECLINED");
             } else {
                 orderPaymentPreference.set("statusId", "PAYMENT_ERROR");
