@@ -525,8 +525,8 @@
         <row-actions>
             <entity-one entity-name="PartyAcctgPreference" value-field="orgParty"/>
             <entity-one entity-name="Party" value-field="clientParty"/>
-            <set field="currencyUomId" value="${bsh:orgParty!=null&amp;&amp;orgParty.getString(&quot;baseCurrencyUomId&quot;)!=null?orgParty.getString(&quot;baseCurrencyUomId&quot;):&quot;&quot;}"/>
-            <set field="currencyUomId" value="${bsh:clientParty!=null&amp;&amp;clientParty.getString(&quot;preferredCurrencyUomId&quot;)!=null?clientParty.getString(&quot;preferredCurrencyUomId&quot;):currencyUomId}"/>
+            <set field="currencyUomId" value="${groovy: orgParty?.getString('baseCurrencyUomId') ?: ''}"/>
+            <set field="currencyUomId" value="${groovy: clientParty?.getString('preferredCurrencyUomId') ?: currencyUomId}"/>
         </row-actions>
         <field name="projectId"><hidden/></field>
         <field name="partyName" title="${uiLabelMap.CommonName}">
