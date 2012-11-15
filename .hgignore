@@ -5,11 +5,5 @@ syntax: regexp
 ^runtime/logs/.*(log|html)(|.\d+)$
 ^runtime/logs/access_log.\d\d\d\d-\d\d-\d\d$
 ^runtime/(catalina/work|logs/test-results)/.*$
-^debian/(EncryptPassword.class|files)$
-^debian/stamps/.*$
-^debian/ofbiz(|-(framework|applications|specialpurpose))/.*
-^debian/ofbiz(|-(framework|applications|specialpurpose))\.debhelper\.log$
-^debian/ofbiz(|-(framework|applications|specialpurpose))\.(pre|post)(inst|rm)\.debhelper$
-^debian/ofbiz(|-(framework|applications|specialpurpose))\.substvars$
 ^runtime/data.zip$
 ^runtime/test-list-build.xml$
