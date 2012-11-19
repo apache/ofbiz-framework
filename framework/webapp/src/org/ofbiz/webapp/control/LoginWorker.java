@@ -483,10 +483,14 @@ public class LoginWorker {
         } catch (SecurityConfigurationException e) {
             Debug.logError(e, module);
         }
-        session.setAttribute("delegatorName", delegator.getDelegatorName());
         request.setAttribute("delegator", delegator);
         request.setAttribute("dispatcher", dispatcher);
         request.setAttribute("security", security);
+
+        session.setAttribute("delegatorName", delegator.getDelegatorName());
+        session.setAttribute("delegator", delegator);
+        session.setAttribute("dispatcher", dispatcher);
+        session.setAttribute("security", security);
 
         // get rid of the visit info since it was pointing to the previous database, and get a new one
         session.removeAttribute("visitor");
