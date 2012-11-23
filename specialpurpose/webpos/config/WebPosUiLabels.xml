@@ -756,7 +756,7 @@
     <property key="WebPosBillingOrShippingLocationMissing">
         <value xml:lang="en">Billing or Shipping Location Missing</value>
         <value xml:lang="it">Indirizzo di fatturazione o spedizione mancante</value>
-        <value xml:lang="ja">請求先または発送先の場所に誤りがあります</value>
+        <value xml:lang="ja">請求先または発送先の場所が正しくありません</value>
     </property>
     <property key="WebPosShortcuts">
         <value xml:lang="en">Keyboard Shortcuts</value>

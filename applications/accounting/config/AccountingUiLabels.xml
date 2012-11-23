@@ -316,7 +316,7 @@
         <value xml:lang="fr">Ajouter une application de tâche d'accord commercial</value>
         <value xml:lang="hi_IN">अनुबंध कार्य प्रयास अनुप्रयोग(AgreementWorkEffortApplic) बनाएँ</value>
         <value xml:lang="it">Aggiungi Applicazione Termine Impegno di Lavoro</value>
-        <value xml:lang="ja">契約作業成果申請を追加</value>
+        <value xml:lang="ja">契約作業成果適用を追加</value>
         <value xml:lang="nl">Voeg Werkinzettoepassing van overeenkomt toe</value>
         <value xml:lang="pt">Adicionar acordo esforço de trabalho ao aplicativo</value>
         <value xml:lang="vi">Thêm Ứng dụng Lượng giá nguồn lực</value>
@@ -329,7 +329,7 @@
         <value xml:lang="fr">Ajouter la catégorie de compte au GL</value>
         <value xml:lang="hi_IN">श्रेणी सामान्य बही खाता जोड़ें</value>
         <value xml:lang="it">Aggiungi una Categoria Conto GL</value>
-        <value xml:lang="ja">カテゴリ勘定科目を追加</value>
+        <value xml:lang="ja">カテゴリGL勘定を追加</value>
         <value xml:lang="nl">Voeg categorie van GB-rekening toe</value>
         <value xml:lang="pt">Adicionar Categoria de Conta da contabilidade</value>
         <value xml:lang="th">เพิ่มหมวดหมู่บัญชีแยกประเภททั่วไป</value>
@@ -367,7 +367,7 @@
         <value xml:lang="fr">Ajouter le type de compte financier au GL</value>
         <value xml:lang="hi_IN">वित्तीय खाता प्रकार का सामान्य खाता जोड़ें</value>
         <value xml:lang="it">Aggiungi Tipo Conto Finanziario Gl</value>
-        <value xml:lang="ja">金融アカウント種類勘定科目を追加</value>
+        <value xml:lang="ja">金融アカウント種類GL勘定を追加</value>
         <value xml:lang="nl">Voeg Fin. rekening type GB-rekening toe</value>
         <value xml:lang="pt">Adicionar Conta Tipo de FinAccount à contabilidade</value>
         <value xml:lang="th">เพิ่มบัญชีประเภทบัญชีแยกประเภททั่วไป</value>
@@ -549,7 +549,7 @@
         <value xml:lang="fr">Ajouter le compte de tiers au GL</value>
         <value xml:lang="hi_IN">सामान्य खाता बही खाते में जोड़ने के लिए पार्टी</value>
         <value xml:lang="it">Aggiungi Conto Gl Soggetto</value>
-        <value xml:lang="ja">取引先勘定科目を追加</value>
+        <value xml:lang="ja">取引先GL勘定を追加</value>
         <value xml:lang="nl">Voeg nieuwe GB-rekening van relatie toe</value>
         <value xml:lang="pt">Adicionar Conta do participante à contabilidade</value>
         <value xml:lang="th">เพิ่มกลุ่มผู้ใช้บัญชีแยกประเภททั่วไป</value>
@@ -584,7 +584,7 @@
         <value xml:lang="fr">Ajouter le compte de taxe au GL</value>
         <value xml:lang="hi_IN">सामान्य बही खातों कर अधिकारियों को जोड़ने के लिए</value>
         <value xml:lang="it">Aggiungi Conto Gl Autorità Tasse</value>
-        <value xml:lang="ja">税務機関勘定科目を追加</value>
+        <value xml:lang="ja">税務機関GL勘定を追加</value>
         <value xml:lang="nl">Voeg nieuwe GB-rekening van belastinginstantie toe</value>
         <value xml:lang="pt">Adicionar Conta do  entidade tributária (TaxAuthority)</value>
         <value xml:lang="th">เพิ่มบัญชีประเภทบัญชีแยกประเภททั่วไป</value>
@@ -930,7 +930,7 @@
         <value xml:lang="fr">Cette tâche d'application d'accord commercial existe déjà</value>
         <value xml:lang="hi_IN">अनुबंध - काम प्रयास का अनुप्रयोग पहले से ही मौजूद है</value>
         <value xml:lang="it">Applicazioni contratto impegno di labovo già esistente</value>
-        <value xml:lang="ja">契約作業成果申請はすでに存在します</value>
+        <value xml:lang="ja">契約作業成果適用はすでに存在します</value>
         <value xml:lang="nl">Overeenkomst Work Effort Applic bestaat al</value>
         <value xml:lang="pt">Aplicação do Acordo de esforço de trabalho já existe</value>
         <value xml:lang="vi">Ứng dụng Lượng giá nguồn lực đã tồn tại</value>
@@ -943,7 +943,7 @@
         <value xml:lang="fr">Applications de tâche d'accord commercial</value>
         <value xml:lang="hi_IN">अनुबंध- कार्य प्रयास अनुप्रयोग</value>
         <value xml:lang="it">Applicazioni Impegni di Lavoro</value>
-        <value xml:lang="ja">契約作業成果申請</value>
+        <value xml:lang="ja">契約作業成果適用</value>
         <value xml:lang="nl">Applicaties overeenkomst Werkitem</value>
         <value xml:lang="pt">Aplicações de Acordo de Esforço Trabalho</value>
         <value xml:lang="vi">Ứng dụng Lượng giá nguồn lực</value>
@@ -1325,7 +1325,7 @@
         <value xml:lang="fr">Allocations</value>
         <value xml:lang="hi_IN">अनुप्रयोग</value>
         <value xml:lang="it">Pagamenti Applicati</value>
-        <value xml:lang="ja">申請</value>
+        <value xml:lang="ja">適用</value>
         <value xml:lang="nl">Toewijzingen</value>
         <value xml:lang="pt">Aplicativos</value>
         <value xml:lang="ro">Plati Aplicate</value>
@@ -1550,7 +1550,7 @@
         <value xml:lang="fr">Assigner le type facture d'achat au n° du compte de produit</value>
         <value xml:lang="hi_IN">राजस्व सामान्य बही खाता निरुपित करने के लिए खरीद चालान प्रकार संख्या</value>
         <value xml:lang="it">Assegna Tipo Fattura Acquisto al Numero Conto Profitti Gl</value>
-        <value xml:lang="ja">収入勘定科目に購買請求種類を割当</value>
+        <value xml:lang="ja">収入GL勘定に購買請求種類を割当</value>
         <value xml:lang="nl">wijs inkoopfactuurtype toe aan GB-rekeningnr</value>
         <value xml:lang="pt">Atribuir fatura de compra do tipo de Receita para Número de Conta de contabilidade</value>
         <value xml:lang="th">กำหนดประเภทใบกำกับสินค้าการสั่งซื้อไปยังหมายเลขบัญชีประเภททั่วไป</value>
@@ -1566,7 +1566,7 @@
         <value xml:lang="fr">Allouer un type de facture de vente au compte comptable no.</value>
         <value xml:lang="hi_IN">राजस्व सामान्य बही खाता निरुपित करने के लिए बिक्री चालान प्रकार संख्या</value>
         <value xml:lang="it">Assegna Tipo Fattura Vendita al Numero Conto Profitti Gl</value>
-        <value xml:lang="ja">収入勘定科目に販売請求種類を割当</value>
+        <value xml:lang="ja">収入GL勘定に販売請求種類を割当</value>
         <value xml:lang="nl">Wijs verkoopfactuur to aan GB-rekeningnr</value>
         <value xml:lang="pt">Atribuir fatura de venda do tipo de Receita para Número de Conta de contabilidade</value>
         <value xml:lang="ro">Anexeaza Tipul Facturii de Vanzare la Nr.Cont Profituri Gl</value>
@@ -1594,7 +1594,7 @@
         <value xml:lang="fr">Autoriser</value>
         <value xml:lang="hi_IN">अधिकृत</value>
         <value xml:lang="it">Autorizza</value>
-        <value xml:lang="ja">許可</value>
+        <value xml:lang="ja">認証</value>
         <value xml:lang="nl">Machtig</value>
         <value xml:lang="pt">Autorizar</value>
         <value xml:lang="ro">Autorizeaza</value>
@@ -1610,7 +1610,7 @@
         <value xml:lang="fr">Version de l'API Authorize Dot Net</value>
         <value xml:lang="hi_IN">अधिकृत Dot Net API संस्करणः</value>
         <value xml:lang="it">Versione API Authorize Dot Net</value>
-        <value xml:lang="ja">許可 .Net API バージョン</value>
+        <value xml:lang="ja">認証 .Net API バージョン</value>
         <value xml:lang="pt">Autorizar Versão da API Dot Net</value>
         <value xml:lang="vi">Phiên bản API .Net để Chứng nhận</value>
         <value xml:lang="zh">授权.NET API版本</value>
@@ -1619,12 +1619,14 @@
         <value xml:lang="en">Cannot perform a VOID transaction: authAmount ${authAmount} is different than voidAmount ${refundAmount}</value>
         <value xml:lang="fr">Impossible d'exécuter une transaction vide, le montant ${authAmount} est différent du montant donné ${refundAmount}</value>
         <value xml:lang="it">Non è possibile eseguira la cancellazione della transazione: importo autorizzato ${authAmount} è diverso da quello da cancellare ${refundAmount}</value>
+        <value xml:lang="ja">無効なトランザクションを実行できません: 認証金額 ${authAmount} が無効な払出金額 ${refundAmount} と異なります</value>
         <value xml:lang="vi">Không thể tiến hành Bút toán VOID: 'giá trị chứng nhận' ${authAmount} khác với 'giá trị hoàn phí' ${refundAmount}</value>
         <value xml:lang="zh">不能执行一个作废金额的交易：授权金额 ${authAmount} 不同于作废金额 ${refundAmount}</value>
     </property>
     <property key="AccountingAuthorizeNetCpDevice">
         <value xml:lang="en">Card Present Device Type</value>
         <value xml:lang="fr">Type de dispositif de carte</value>
+        <value xml:lang="ja">カード提示デバイス種類</value>
         <value xml:lang="pt">Tipo de dispositivos de cartãovalue</value>
         <value xml:lang="vi">Kiểu thiết bị</value>
         <value xml:lang="zh">读卡设备类型</value>
@@ -1632,6 +1634,7 @@
     <property key="AccountingAuthorizeNetCpMarket">
         <value xml:lang="en">Card Present Market Type</value>
         <value xml:lang="fr">Type de carte de vente</value>
+        <value xml:lang="ja">カード提示マーケット種類</value>
         <value xml:lang="pt">Tipo de mercado de cartão</value>
         <value xml:lang="vi">Kiểu thương mại</value>
         <value xml:lang="zh">读卡商户类型</value>
@@ -1639,6 +1642,7 @@
     <property key="AccountingAuthorizeNetCpVersion">
         <value xml:lang="en">Card Present API Version</value>
         <value xml:lang="fr">Version de l'API de carte</value>
+        <value xml:lang="ja">カード提示APIバージョン</value>
         <value xml:lang="pt">Versão da API de Cartão</value>
         <value xml:lang="vi">Phiên bản API</value>
         <value xml:lang="zh">读卡API类型</value>
@@ -1749,6 +1753,7 @@
         <value xml:lang="en">No payment.authorizedotnet.url found.</value>
         <value xml:lang="fr">valeur pour payment.authorizedotnet.url non trouvée</value>
         <value xml:lang="it">Nessun url trovato.</value>
+        <value xml:lang="ja">payment.authorizedotnet.url が見つかりません。</value>
         <value xml:lang="vi">Không tìm thấy liên kết .Net thanh toán (payment.authorizedotnet.url)</value>
         <value xml:lang="zh">没有找到 payment.authorizedotnet.url 。</value>
     </property>
@@ -2417,6 +2422,7 @@
         <value xml:lang="en">COGS costing method is not supported: ${partyAcctgPreference.cogsMethodId}</value>
         <value xml:lang="fr">La méthode de coût COGS n'est pas supportée : ${partyAcctgPreference.cogsMethodId}</value>
         <value xml:lang="it">Metodo costi COGS non è supportato: ${partyAcctgPreference.cogsMethodId}</value>
+        <value xml:lang="ja">売上原価法(COGS)はサポートされていません: ${partyAcctgPreference.cogsMethodId}</value>
         <value xml:lang="pt">Método de custeio de CPV não é suportado: ${partyAcctgPreference.cogsMethodId}</value>
         <value xml:lang="vi">Phương thức chi phí COGS không được hỗ trợ: ${partyAcctgPreference.cogsMethodId}</value>
         <value xml:lang="zh">不支持商品销售成本的成本计算方法：${partyAcctgPreference.cogsMethodId}</value>
@@ -2580,6 +2586,7 @@
         <value xml:lang="de">Kartennummer fehlerhaft</value>
         <value xml:lang="en">Card Number is erroneous</value>
         <value xml:lang="fr">Numéro de carte incorrect</value>
+        <value xml:lang="ja">カード番号が正しくありません</value>
         <value xml:lang="pt">Número do cartão está errado</value>
         <value xml:lang="vi">Số thẻ không đúng</value>
         <value xml:lang="zh">卡号错误</value>
@@ -2788,6 +2795,7 @@
         <value xml:lang="en">orderId is required.</value>
         <value xml:lang="fr">Réf. de commande requise.</value>
         <value xml:lang="it">Numero ordine è richiesto.</value>
+        <value xml:lang="ja">注文IDは必須です。</value>
         <value xml:lang="vi">Id Đặt hàng bắt buộc phải có thông tin.</value>
         <value xml:lang="zh">必须有订单编号。</value>
     </property>
@@ -2849,6 +2857,7 @@
         <value xml:lang="en">Created Commission invoices for each commission receiving parties ${invoicesCreated}</value>
         <value xml:lang="fr">Création des commissions sur facture pour les acteurs concernés</value>
         <value xml:lang="it">Create fatture provvigioni per ogni provvigione ricevuta dai soggetti ${invoicesCreated}</value>
+        <value xml:lang="ja">取引先から受け取る各委託料に対して委託請求書が作成されました ${invoicesCreated}</value>
         <value xml:lang="vi">Đã tạo hoa hồng hóa đơn với từng Tác nhân được nhận hoa hồng ${invoicesCreated}</value>
         <value xml:lang="zh">为每个佣金收款会员创建的佣金发票 ${invoicesCreated}</value>
     </property>
@@ -3071,6 +3080,7 @@
         <value xml:lang="de">Wollen Sie diese Rechnungsnummer annulieren ${invoice.invoiceId}?</value>
         <value xml:lang="en">Do you want to cancel this invoice number ${invoice.invoiceId}?</value>
         <value xml:lang="fr">Voulez-vous annuler la facture n° ${invoice.invoiceId} ?</value>
+        <value xml:lang="ja">この請求書番号を取り消しますか ${invoice.invoiceId}?</value>
         <value xml:lang="vi">Bạn có thực sự muốn hủy số hóa đơn ${invoice.invoiceId}?</value>
         <value xml:lang="zh">确实要取消这个 ${invoice.invoiceId} 发票编号吗？</value>
     </property>
@@ -3096,6 +3106,7 @@
         <value xml:lang="de">Umsatzkosten</value>
         <value xml:lang="en">Cost Of Good Sold</value>
         <value xml:lang="fr">Coût des produit vendus</value>
+        <value xml:lang="ja">売上原価法(COGS)</value>
         <value xml:lang="pt">Custo de produtos vendidos</value>
         <value xml:lang="vi">Giá trị của Hàng hóa đã bán</value>
         <value xml:lang="zh">商品销售费用</value>
@@ -3108,7 +3119,7 @@
         <value xml:lang="fr">Pas trouvé le compte comptable correspondant à cette réf.</value>
         <value xml:lang="hi_IN">इस क्रमांक(Id) के साथ  सामान्य बही खाता (GlAccount) नहीं मिला</value>
         <value xml:lang="it">Non trovato Conto Gl con Codice</value>
-        <value xml:lang="ja">勘定科目が見つかりません、ID:</value>
+        <value xml:lang="ja">GL勘定が見つかりません、ID:</value>
         <value xml:lang="nl">Kan Gb-rekening niet vinden</value>
         <value xml:lang="pt">Não foi possível encontrar conta de contabilidade com ID</value>
         <value xml:lang="ro">Nu gaseste Contul Gl cu Codul</value>
@@ -3448,7 +3459,7 @@
         <value xml:lang="en">Create New Withdrawal Payment</value>
         <value xml:lang="fr">Créer un nouveau retrait</value>
         <value xml:lang="hi_IN">नई वापसी भुगतान बनाएँ</value>
-        <value xml:lang="ja">新規払戻支払を作成</value>
+        <value xml:lang="ja">新規払出支払を作成</value>
         <value xml:lang="pt">Criar Novo Pagamento de Saque</value>
         <value xml:lang="vi">Tạo mới thanh toán Thu hồi</value>
         <value xml:lang="zh">新建取款支付</value>
@@ -3458,7 +3469,7 @@
         <value xml:lang="en">Create New Withdrawal Payment For Financial Account : ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="fr">Créer un nouveau retrait pour le compte financier ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="hi_IN">${finAccount.finAccountName} [${finAccountId}] वित्तीय खाते के लिए नई वापसी भुगतान बनाएँ</value>
-        <value xml:lang="ja">金融アカウント: ${finAccount.finAccountName} [${finAccountId}] に対して払戻支払を新規作成</value>
+        <value xml:lang="ja">金融アカウント: ${finAccount.finAccountName} [${finAccountId}] に対して払出支払を新規作成</value>
         <value xml:lang="pt">Criar novo pagamento de saque para Conta Financeira: ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="vi">Tạo mới thanh toán Thu hồi cho tài khoản tài chính : ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="zh">为财务账户新建取款支付：${finAccount.finAccountName} [${finAccountId}]</value>
@@ -3520,7 +3531,7 @@
         <value xml:lang="fr">Erreur de sécurité : pour créer un compte de facturation, vous devez avoir l'autorisation ACCOUNTING_CREATE ou ACCOUNTING_ADMIN.</value>
         <value xml:lang="hi_IN">सुरक्षा त्रुटि: createGlAccount चलाने के लिए आप को ACCOUNTING_CREATE या ACCOUNTING_ADMIN अनुमति होना चाहिए</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createGlAccount tu devi avere il permesso ACCOUNTING_CREATE o ACCOUNTING_ADMIN</value>
-        <value xml:lang="ja">セキュリティエラー: 勘定科目の作成は ACCOUNTING_CREATE または ACCOUNTING_ADMIN 権限が必要です</value>
+        <value xml:lang="ja">セキュリティエラー: GL勘定の作成は ACCOUNTING_CREATE または ACCOUNTING_ADMIN 権限が必要です</value>
         <value xml:lang="nl">Toegangfout: om GB-rekeningen aan te maken heb je ACCOUNTING_CREATE- of ACCOUNTING_ADMIN-permissie nodig</value>
         <value xml:lang="pt_BR">Erro de Segurança: para "Criar Conta de contabilidade" deverá obter permissões para  ACCOUNTING_CREATE ou ACCOUNTING_ADMIN </value>
         <value xml:lang="pt_PT">Erro de Segurança: para correr "Criar Conta GL" deverá obter permissões para  ACCOUNTING_CREATE ou ACCOUNTING_ADMIN </value>
@@ -3624,6 +3635,7 @@
         <value xml:lang="en">Credit Card successfully created.</value>
         <value xml:lang="fr">Carte de crédit créée avec succès</value>
         <value xml:lang="it">Carta di credito creato con succcesso.</value>
+        <value xml:lang="ja">クレジットカードが作成されました。</value>
         <value xml:lang="vi">Thẻ tín dụng được tạo thành công.</value>
         <value xml:lang="zh">成功创建了信用卡。</value>
     </property>
@@ -3719,7 +3731,7 @@
         <value xml:lang="fr">Compte de carte de crédit</value>
         <value xml:lang="hi_IN">क्रेडिट कार्ड प्रकार का GlAccount</value>
         <value xml:lang="it">Conto Gl Tipo Carta di Credito</value>
-        <value xml:lang="ja">クレジットカード種類勘定科目</value>
+        <value xml:lang="ja">クレジットカード種類GL勘定</value>
         <value xml:lang="nl">Kredietkaarttype GB-rekening</value>
         <value xml:lang="pt">Tipo de cartão de crédito conta razão</value>
         <value xml:lang="th">บัตรเครดิตประเภทบัญชีแยกประเภททั่วไป</value>
@@ -3752,6 +3764,7 @@
         <value xml:lang="en">Credit Card Info successfully updated.</value>
         <value xml:lang="fr">Mise à jour de la carte réussie</value>
         <value xml:lang="it">Informazioni sulla carta di credito aggiornati con succcesso.</value>
+        <value xml:lang="ja">クレジットカード情報が更新されました。</value>
         <value xml:lang="vi">Thông tin thẻ tín dụng được cập nhật thành công.</value>
         <value xml:lang="zh">成功更新了信用卡。</value>
     </property>
@@ -3809,6 +3822,7 @@
         <value xml:lang="de">Die Währungen der Rechnung und der Zahlung passen nicht zusammen</value>
         <value xml:lang="en">Currencies of invoice and payment not compatible</value>
         <value xml:lang="fr">Le type de devise de la facture et du paiement ne sont pas compatibles</value>
+        <value xml:lang="ja">請求書と支払の通貨が一致しません</value>
         <value xml:lang="vi">Loại tiền tệ của Hóa đơn và Thanh toán không giống nhau</value>
         <value xml:lang="zh">发票和支付的币种不一致</value>
     </property>
@@ -3831,7 +3845,7 @@
         <value xml:lang="en">Current Asset</value>
         <value xml:lang="fr">Actif circulant</value>
         <value xml:lang="hi_IN">à¤šà¤¾à¤²à¥‚ à¤¸à¤®à¥&#141;à¤ªà¤¤à¥&#141;à¤¤à¤¿</value>
-        <value xml:lang="ja">現在の資産</value>
+        <value xml:lang="ja">流動資産</value>
         <value xml:lang="pt">Capital circulante atual</value>
         <value xml:lang="vi">Tài sản hiện tại</value>
         <value xml:lang="zh">流动资产</value>
@@ -3841,6 +3855,7 @@
         <value xml:lang="de">Umlaufvermögen</value>
         <value xml:lang="en">Current Assets</value>
         <value xml:lang="fr">Actifs circulants</value>
+        <value xml:lang="ja">流動資産</value>
         <value xml:lang="pt">Ativo Circulante</value>
         <value xml:lang="vi">Tài sản hiện tại</value>
         <value xml:lang="zh">流动资产</value>
@@ -3906,6 +3921,7 @@
         <value xml:lang="de">kurzfristige Verbindlichkeiten</value>
         <value xml:lang="en">Current Liabilities</value>
         <value xml:lang="fr">Passifs circulants</value>
+        <value xml:lang="ja">流動負債</value>
         <value xml:lang="pt">Passivo Circulante</value>
         <value xml:lang="vi">Quy định pháp lý hiện tại</value>
         <value xml:lang="zh">流动性负债</value>
@@ -3962,7 +3978,7 @@
         <value xml:lang="fr">Facturation automatique sur autorisation</value>
         <value xml:lang="hi_IN">ऑटो-विधेयक प्राधिकरण (अभिग्रहण) में</value>
         <value xml:lang="it">Cattura automaticamente durante autorizzazione</value>
-        <value xml:lang="ja">自動請求承認中(キャプチャ)</value>
+        <value xml:lang="ja">自動請求認証中(キャプチャ)</value>
         <value xml:lang="pt">Autorização de cobrança automática (Capturar)</value>
         <value xml:lang="vi">Auto-Bill In Authorization (Capture)</value>
         <value xml:lang="zh">自动月付在进行授权（捕捉）</value>
@@ -4001,6 +4017,7 @@
         <value xml:lang="en">Unable to communicate with CyberSource</value>
         <value xml:lang="fr">Impossible de communiquer avec CyberSource</value>
         <value xml:lang="it">Non è possibile comunicare con Cybersource</value>
+        <value xml:lang="ja">CyberSourceと通信できません</value>
         <value xml:lang="vi">Không thể giao tiếp được với CyberSource</value>
         <value xml:lang="zh">无法与CyberSource通讯</value>
     </property>
@@ -4008,6 +4025,7 @@
         <value xml:lang="en">ERROR: Getting CyberSource property configuration</value>
         <value xml:lang="fr">ERREUR lors du chargement de la configuration CyberSource</value>
         <value xml:lang="it">ERRORE: Non è possibile ottenere la configuration di CyberSource</value>
+        <value xml:lang="ja">エラー: CyberSourceプロパティ設定取得中にエラー</value>
         <value xml:lang="vi">Lỗi: Lấy  thuộc tính cấu hình CyberSource</value>
         <value xml:lang="zh">错误：获取CyberSource属性设置</value>
     </property>
@@ -4170,6 +4188,7 @@
     <property key="AccountingDateOpened">
         <value xml:lang="en">Date opened</value>
         <value xml:lang="fr">Date d'ouverture</value>
+        <value xml:lang="ja">オープン日</value>
         <value xml:lang="vi">Ngày đã mở</value>
     </property>
     <property key="AccountingDebitAmount">
@@ -4250,7 +4269,7 @@
         <value xml:lang="en">Deposit Or Withdraw Payments for Financial Account: ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="fr">Dépôt ou retrait de paiements pour compte financier: ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="hi_IN">${finAccount.finAccountName} [${finAccountId}] वित्तीय खाते के लिए जमा भुगतान या भुगतान वापस करे</value>
-        <value xml:lang="ja">金融アカウント: ${finAccount.finAccountName} [${finAccountId}] に対する預入または払戻支払</value>
+        <value xml:lang="ja">金融アカウント: ${finAccount.finAccountName} [${finAccountId}] に対する預入または払出支払</value>
         <value xml:lang="pt">Pagamentos de depósito ou saque por Conta Financeira: ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="vi">Thanh toán Ký quỹ hoặc Thu hồi cho Tài khoản tài chính: ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="zh">财务账户存取款：${finAccount.finAccountName} [${finAccountId}]</value>
@@ -4299,7 +4318,7 @@
         <value xml:lang="en">Deposit/Withdraw</value>
         <value xml:lang="fr">Dépôt/Retrait</value>
         <value xml:lang="hi_IN">जमा/वापस</value>
-        <value xml:lang="ja">預入/払戻</value>
+        <value xml:lang="ja">預入/払出</value>
         <value xml:lang="pt">Depósito/Saque</value>
         <value xml:lang="vi">Ký quỹ/Thu hồi</value>
         <value xml:lang="zh">存/取</value>
@@ -4308,6 +4327,7 @@
         <value xml:lang="de">Abschreibung</value>
         <value xml:lang="en">Depreciation</value>
         <value xml:lang="fr">Dépréciation</value>
+        <value xml:lang="ja">減価償却</value>
         <value xml:lang="pt">Depreciação</value>
         <value xml:lang="vi">Khấu hao</value>
         <value xml:lang="zh">折旧</value>
@@ -4387,6 +4407,7 @@
         <value xml:lang="en">EFT Account successfully created.</value>
         <value xml:lang="fr">Succès de la création du compte</value>
         <value xml:lang="it">Conto EFT creato con successo.</value>
+        <value xml:lang="ja">電子取引(EFT)アカウントが作成されました。</value>
         <value xml:lang="vi">Tài khoản EFT được tạo thành công.</value>
         <value xml:lang="zh">成功创建了电子资金转账。</value>
     </property>
@@ -4422,6 +4443,7 @@
         <value xml:lang="en">EFT Account Info successfully updated.</value>
         <value xml:lang="fr">Succès de la mise à jour du compte</value>
         <value xml:lang="it">Informazioni sul conto EFT aggiornate con successo.</value>
+        <value xml:lang="ja">電子取引(EFT)アカウント情報が更新されました。</value>
         <value xml:lang="vi">Tài khoản EFT được cập nhật thành công.</value>
         <value xml:lang="zh">成功更新了电子资金转账账户信息。</value>
     </property>
@@ -4631,7 +4653,7 @@
         <value xml:lang="fr">Modifier les comptes de l'administration fiscale</value>
         <value xml:lang="hi_IN">टैक्स प्राधिकरण जीएल(GL) लेखा कोसम्पादित करें</value>
         <value xml:lang="it">Aggiorna conti Gl autorità tasse</value>
-        <value xml:lang="ja">税務機関勘定科目を編集</value>
+        <value xml:lang="ja">税務機関GL勘定を編集</value>
         <value xml:lang="nl">Wijzig GB-rekeningen belastinginstantie</value>
         <value xml:lang="pt">Editar contas financeiras da autoridade tributária</value>
         <value xml:lang="th">แก้ไขภาษีบัญชีแยกประเภททั่วไป</value>
@@ -5069,6 +5091,7 @@
         <value xml:lang="de">Als PDF mit Rechnung und Zahlung exportieren</value>
         <value xml:lang="en">Export with Invoice and Payment as PDF</value>
         <value xml:lang="fr">Exporter avec les factures et paiement en PDF</value>
+        <value xml:lang="ja">請求書および支払書をPDF形式でエクスポート</value>
         <value xml:lang="pt">Exportação com fatura e pagamento em formato PDF</value>
         <value xml:lang="vi">Kết xuất với Hóa đơn và Thanh toán ra định dạng PDF</value>
         <value xml:lang="zh">把发票和支付导出为PDF</value>
@@ -5081,7 +5104,7 @@
         <value xml:lang="fr">Réf. du compte externe</value>
         <value xml:lang="hi_IN">बाहरी लेखा खाता क्रमांक</value>
         <value xml:lang="it">Numero Conto Contabilità Esterna</value>
-        <value xml:lang="ja">外部勘定科目ID</value>
+        <value xml:lang="ja">外部GL勘定ID</value>
         <value xml:lang="nl">ID externe rekening</value>
         <value xml:lang="pt">ID de conta de Contabilidade Externa</value>
         <value xml:lang="ro">Nr.Cont Contabil Extern</value>
@@ -5130,7 +5153,7 @@
         <value xml:lang="fr">Authentifications</value>
         <value xml:lang="hi_IN">प्राधिकरण</value>
         <value xml:lang="it">Autorizzazioni</value>
-        <value xml:lang="ja">許可</value>
+        <value xml:lang="ja">認証</value>
         <value xml:lang="nl">Authorizaties</value>
         <value xml:lang="pt">Autorizações</value>
         <value xml:lang="ru">Авторизации</value>
@@ -5180,7 +5203,7 @@
         <value xml:lang="fr">Compte financier</value>
         <value xml:lang="hi_IN">जीएल(GL) में वित्तीय खाता प्रकार</value>
         <value xml:lang="it">Conto Gl Tipo Conto Finanaziario</value>
-        <value xml:lang="ja">金融アカウント種類勘定科目</value>
+        <value xml:lang="ja">金融アカウント種類GL勘定</value>
         <value xml:lang="nl">Financiele rekening type GB-rekening</value>
         <value xml:lang="pt">Conta financeira do tipo FinAccount</value>
         <value xml:lang="th">งบกำไรสะสมประเภทบัญชีแยกประเภททั่วไป</value>
@@ -6699,7 +6722,7 @@
         <value xml:lang="fr">Compte</value>
         <value xml:lang="hi_IN">जीएल(GL) खाता</value>
         <value xml:lang="it">Conto Contabilità Generale</value>
-        <value xml:lang="ja">勘定科目</value>
+        <value xml:lang="ja">GL勘定</value>
         <value xml:lang="nl">GB-rekening</value>
         <value xml:lang="pt">Conta razão</value>
         <value xml:lang="ro">Cont Contabilitate Generala</value>
@@ -6713,6 +6736,7 @@
         <value xml:lang="en">Amount not set for ${acctgTransEntry.acctgTransEntrySeqId} or failed to convert the original amount ${acctgTransEntry.origAmount} with currency ${acctgTransEntry.origCurrencyUomId}</value>
         <value xml:lang="fr">Montant non indiqué pour ${acctgTransEntry.acctgTransEntrySeqId} ou échec de conversion du montant initial ${acctgTransEntry.origAmount} pour la device ${acctgTransEntry.origCurrencyUomId}</value>
         <value xml:lang="it">Importo non impostato per ${acctgTransEntry.acctgTransEntrySeqId} o fallimento durante la conversion dell'importo originale ${acctgTransEntry.origAmount} con valuta ${acctgTransEntry.origCurrencyUomId}</value>
+        <value xml:lang="ja">${acctgTransEntry.acctgTransEntrySeqId} の金額が設定されていないか、元の金額 ${acctgTransEntry.origAmount} 通貨 ${acctgTransEntry.origCurrencyUomId} が変換できませんでした</value>
         <value xml:lang="pt">Valor não definido para ${acctgTransEntry.acctgTransEntrySeqId} ou falha ao converter o montante original de ${acctgTransEntry.origAmount} com moeda ${acctgTransEntry.origCurrencyUomId}</value>
         <value xml:lang="vi">Chưa thiết lập số lượng cho ${acctgTransEntry.acctgTransEntrySeqId} hoặc chuyển đổi số lượng nguyên gốc không thành công ${acctgTransEntry.origAmount} với tiền tệ ${acctgTransEntry.origCurrencyUomId}</value>
         <value xml:lang="zh">没有为 ${acctgTransEntry.acctgTransEntrySeqId} 设置金额，或在把币种为 ${acctgTransEntry.origCurrencyUomId} 的初始金额 ${acctgTransEntry.origAmount} 进行转换时出错</value>
@@ -6725,7 +6749,7 @@
         <value xml:lang="fr">Allocations du compte comptable</value>
         <value xml:lang="hi_IN">जीएल(GL) खाता नियत कार्य</value>
         <value xml:lang="it">Assegnazione Conti Gl</value>
-        <value xml:lang="ja">勘定科目割当</value>
+        <value xml:lang="ja">GL勘定割当</value>
         <value xml:lang="nl">Toewijzingen GB-rekening</value>
         <value xml:lang="pt">Atribuições de Contas Razão</value>
         <value xml:lang="ro">Alocare Conturi Gl</value>
@@ -6743,7 +6767,7 @@
         <value xml:lang="fr">Classe du compte comptable</value>
         <value xml:lang="hi_IN">जीएल(GL) खाता वर्ग</value>
         <value xml:lang="it">Classe Conto Contabilità Generale</value>
-        <value xml:lang="ja">勘定科目分類</value>
+        <value xml:lang="ja">GL勘定分類</value>
         <value xml:lang="nl">Klasse GB-rekening</value>
         <value xml:lang="pt">Classe da conta Razão</value>
         <value xml:lang="ro">Clasa Cont Contabilitate Generala</value>
@@ -6761,7 +6785,7 @@
         <value xml:lang="fr">Comptes par défaut</value>
         <value xml:lang="hi_IN">जीएल(GL) खाता डिफ़ॉल्ट्स</value>
         <value xml:lang="it">Defaults Conto Contabilità Generale</value>
-        <value xml:lang="ja">勘定科目デフォルト</value>
+        <value xml:lang="ja">GL勘定デフォルト</value>
         <value xml:lang="nl">Standaardwaarden GB-rekening</value>
         <value xml:lang="pt">Contas Razão padrão</value>
         <value xml:lang="ro">Default Cont Contabilitate Generala</value>
@@ -6779,7 +6803,7 @@
         <value xml:lang="fr">Réf. compte comptable</value>
         <value xml:lang="hi_IN">जीएल(GL) खाता क्रमांक</value>
         <value xml:lang="it">Codice Conto Contabilità Generale</value>
-        <value xml:lang="ja">勘定科目ID</value>
+        <value xml:lang="ja">GL勘定ID</value>
         <value xml:lang="nl">ID GB-rekening</value>
         <value xml:lang="pt">ID da conta Razão</value>
         <value xml:lang="ro">Cod Cont Contabilitate Generala</value>
@@ -6794,7 +6818,7 @@
         <value xml:lang="en">Gl account code and Gl account name</value>
         <value xml:lang="fr">Code et nom du compte</value>
         <value xml:lang="hi_IN">जीएल(GL) खाते का कोड और जीएल(GL) खाते का नाम</value>
-        <value xml:lang="ja">勘定科目コードおよび勘定科目名称</value>
+        <value xml:lang="ja">GL勘定科目およびGL勘定名</value>
         <value xml:lang="pt">Código e nome da conta Razão</value>
         <value xml:lang="vi">Mã và Tên tài khoản</value>
         <value xml:lang="zh">总账账户代码和名称</value>
@@ -6803,6 +6827,7 @@
         <value xml:lang="en">Gl account id is not set for ${acctgTransEntry.acctgTransEntrySeqId} or mapping not found for account type ${acctgTransEntry.glAccountTypeId}</value>
         <value xml:lang="fr">Le compte n'est pas indiqué pour ${acctgTransEntry.acctgTransEntrySeqId} ou la correspondance n'est pas trouvée pour le type ${acctgTransEntry.glAccountTypeId}</value>
         <value xml:lang="it">Conto contabilità generale non è impostato per ${acctgTransEntry.acctgTransEntrySeqId} o mappatura non trovata per il tipo conto ${acctgTransEntry.glAccountTypeId}</value>
+        <value xml:lang="ja">${acctgTransEntry.acctgTransEntrySeqId} のGL勘定IDが設定されていないか、アカウント種類 ${acctgTransEntry.glAccountTypeId} のマッピングが見つかりません</value>
         <value xml:lang="pt">ID de conta contábil não está definida para ${acctgTransEntry.acctgTransEntrySeqId} mapeamento não foi encontrado para o tipo de conta de ${acctgTransEntry.glAccountTypeId}</value>
         <value xml:lang="vi">Id tài khoản sổ cái chưa được thiết lập cho ${acctgTransEntry.acctgTransEntrySeqId} hoặc tham chiếu (sổ cái) không tìm thấy với loại tài khoản ${acctgTransEntry.glAccountTypeId}</value>
         <value xml:lang="zh">Gl account id is not set for 没有为 ${acctgTransEntry.acctgTransEntrySeqId} 设置总账账户，或没有找到账户类型 ${acctgTransEntry.glAccountTypeId} 的映射</value>
@@ -6812,7 +6837,7 @@
         <value xml:lang="en">GL Account Trial Balance</value>
         <value xml:lang="fr">Balance</value>
         <value xml:lang="hi_IN">जीएल(GL) खाता तलपट(Trial Balance)</value>
-        <value xml:lang="ja">勘定科目試算</value>
+        <value xml:lang="ja">GL勘定試算</value>
         <value xml:lang="nl">Grootboekrekening Proefbalans</value>
         <value xml:lang="pt">Balancete Teste da Conta Razão</value>
         <value xml:lang="vi">Giá trị tài khoản thử nghiệm</value>
@@ -6824,7 +6849,7 @@
         <value xml:lang="en">GL Account Trial Balance Report</value>
         <value xml:lang="fr">Rapport des balances</value>
         <value xml:lang="hi_IN">जीएल(GL) खाता तलपट(Trial Balance) ब्यौरेवार विवरण</value>
-        <value xml:lang="ja">勘定科目試算表</value>
+        <value xml:lang="ja">GL勘定試算表</value>
         <value xml:lang="pt">Relatório teste Balancete de conta razão</value>
         <value xml:lang="vi">Báo cáo tài khoản thử nghiệm</value>
         <value xml:lang="zh">总账账户试算余额报表</value>
@@ -6836,7 +6861,7 @@
         <value xml:lang="fr">Types par défaut de compte du GL</value>
         <value xml:lang="hi_IN">जीएल(GL) खाता  प्रकार डिफ़ॉल्ट्स</value>
         <value xml:lang="it">Default Tipo Conto Contabilità Generale</value>
-        <value xml:lang="ja">勘定科目種類デフォルト</value>
+        <value xml:lang="ja">GL勘定種類デフォルト</value>
         <value xml:lang="nl">Standaardwaarden GB-rekeningtype</value>
         <value xml:lang="pt">Tipo Padrão de Conta Razão</value>
         <value xml:lang="th">ค่าเริ่มต้นอัตโนมัติของประเภทบัญชีแยกประเภททั่วไป</value>
@@ -6852,7 +6877,7 @@
         <value xml:lang="fr">Comptes</value>
         <value xml:lang="hi_IN">जीएल(GL) खातें</value>
         <value xml:lang="it">Conti Contabilità Generale</value>
-        <value xml:lang="ja">勘定科目</value>
+        <value xml:lang="ja">GL勘定</value>
         <value xml:lang="nl">GB Rekeningen</value>
         <value xml:lang="pt">Contas Razão</value>
         <value xml:lang="ro">Conturi Contabilitate Generala</value>
@@ -6870,7 +6895,7 @@
         <value xml:lang="fr">Cptes comptables</value>
         <value xml:lang="hi_IN">जीएल(GL) खातें</value>
         <value xml:lang="it">Conti Contabilità Generale</value>
-        <value xml:lang="ja">勘定科目</value>
+        <value xml:lang="ja">GL勘定</value>
         <value xml:lang="nl">GB Rekeningen</value>
         <value xml:lang="pt">Contas Razão</value>
         <value xml:lang="ro">Conturi Contabilitate Generala</value>
@@ -6906,6 +6931,7 @@
     <property key="AccountingGlMappings">
         <value xml:lang="en">GL Mappings</value>
         <value xml:lang="fr">Correspondances comptables</value>
+        <value xml:lang="ja">GLマッピング</value>
         <value xml:lang="vi">Tham chiếu sổ cái</value>
     </property>
     <property key="AccountingGlobalGLSettings">
@@ -6925,6 +6951,7 @@
     <property key="AccountingGrossMargin">
         <value xml:lang="en">Gross Margin</value>
         <value xml:lang="fr">Marge brute</value>
+        <value xml:lang="ja">粗利</value>
         <value xml:lang="nl">Bruto marge</value>
         <value xml:lang="pt">Margem Bruta</value>
         <value xml:lang="vi">Biên độ thu nhập (cả thuế)</value>
@@ -7030,6 +7057,7 @@
     <property key="AccountingIncomeFromOperations">
         <value xml:lang="en">Income From Operations</value>
         <value xml:lang="fr">Revenu depuis les opérations</value>
+        <value xml:lang="ja">営業利益</value>
         <value xml:lang="nl">Operationele inkomsten</value>
         <value xml:lang="pt">Resultado Operacional</value>
         <value xml:lang="vi">Thu nhập từ điều hành</value>
@@ -7173,6 +7201,7 @@
         <value xml:lang="en">The amount value is mandatory</value>
         <value xml:lang="fr">Le montant est obligatoire</value>
         <value xml:lang="it">L'importo fattura è obbligatorio</value>
+        <value xml:lang="ja">金額は必須です</value>
         <value xml:lang="pt">O valor da quantia é obrigatório</value>
         <value xml:lang="vi">Số lượng bắt buộc phải nhập</value>
         <value xml:lang="zh">必须有金额</value>
@@ -7181,6 +7210,7 @@
         <value xml:lang="en">Error creating invoice application</value>
         <value xml:lang="fr">Erreur dans l'application à la facture</value>
         <value xml:lang="it">Errore durante la creazione delle applicazioni fattura</value>
+        <value xml:lang="ja">請求書申請作成中にエラー</value>
         <value xml:lang="vi">Lỗi xảy ra khi tạo ứng dụng Hóa đơn</value>
         <value xml:lang="zh">新建发票应用时出错</value>
     </property>
@@ -7188,6 +7218,7 @@
         <value xml:lang="en">Bad invoiceTypeId ${invoiceType.invoiceTypeId}. Service createAcctgTransForCustomerReturnInvoice for type CUST_RTN_INVOICE.</value>
         <value xml:lang="fr">Mauvais type de facture ${invoiceType.invoiceTypeId}. Le service de création d'une transaction depuis une facture retour client attent le type CUST_RTN_INVOICE.</value>
         <value xml:lang="it">Tipo fattura errato ${invoiceType.invoiceTypeId}. Il servizio createAcctgTransForCustomerReturnInvoice vuole il tipo CUST_RTN_INVOICE.</value>
+        <value xml:lang="ja">請求書種類ID ${invoiceType.invoiceTypeId} が正しくありません。CUST_RTN_INVOICE に対するサービス createAcctgTransForCustomerReturnInvoice。</value>
         <value xml:lang="pt">invoiceTypeId inadequado ${invoiceType.invoiceTypeId}. Serviço createAcctgTransForCustomerReturnInvoice para tipo CUST_RTN_INVOICE.</value>
         <value xml:lang="vi">Kiểu hóa đơn không hợp lệ ${invoiceType.invoiceTypeId}. Dịch vụ createAcctgTransForCustomerReturnInvoice với loại CUST_RTN_INVOICE.</value>
         <value xml:lang="zh">发票类型标识 ${invoiceType.invoiceTypeId} 错误。对服务 createAcctgTransForCustomerReturnInvoice 使用类型 CUST_RTN_INVOICE。</value>
@@ -7214,6 +7245,7 @@
         <value xml:lang="en">Attempt to settle Invoice ${invoiceId} which contained none/multiple orders</value>
         <value xml:lang="fr">Le règlement de la facture ${invoiceId} contient aucune/plusieurs commandes</value>
         <value xml:lang="it">Attempt to settle Invoice ${invoiceId} which contained none/multiple orders</value>
+        <value xml:lang="ja">確定しようとした請求書 ${invoiceId} は0または複数の注文があります</value>
         <value xml:lang="vi">Bạn đang cố xử lý Hóa đơn ${invoiceId} là Hóa đơn không gồm Đặt hàng nào , hoặc là Hóa đơn có nhiều Đặt hàng</value>
         <value xml:lang="zh">尝试确定发票 ${invoiceId} 对应了零个/多个订单</value>
     </property>
@@ -7221,6 +7253,7 @@
         <value xml:lang="en">Cannot change status to 'paid', invoice ${invoice.invoiceId} has an unapplied balance of ${notApplied}</value>
         <value xml:lang="fr">Impossible de changer le statut à "Payé", la facture ${invoice.invoiceId} a une attente de paiement d'un montant de ${notApplied}</value>
         <value xml:lang="it">Non è possibile cambiare lo stato a 'pagato', fattura ${invoice.invoiceId} ha un bilancio non applicato di ${notApplied}</value>
+        <value xml:lang="ja">ステータスを'支払済'に変更できません。請求書 ${invoice.invoiceId} は未消込残 ${notApplied} です</value>
         <value xml:lang="pt">Não é possível alterar o estado de "pago", fatura ${invoice.invoiceId} tem um saldo não aplicado de ${notApplied}</value>
         <value xml:lang="vi">Không thể chuyển trạng thái thành 'Đã thanh toán', hóa đơn ${invoice.invoiceId} vẫn còn khoản chưa được xử lý ${notApplied}</value>
         <value xml:lang="zh">不能把状态改为'已支付'，发票 ${invoice.invoiceId} 有一个未应用的余额 ${notApplied}</value>
@@ -7446,6 +7479,7 @@
         <value xml:lang="en">Invoice with id ${parameters.invoiceId} doesn't exist.</value>
         <value xml:lang="fr">La facture ${parameters.invoiceId} n'existe pas</value>
         <value xml:lang="it">Fattura con id ${parameters.invoiceId} non esiste.</value>
+        <value xml:lang="ja">ID ${parameters.invoiceId} の請求書は存在しません</value>
         <value xml:lang="pt">Fatura com ID ${parameters.invoiceId} não existe.</value>
         <value xml:lang="vi">Hóa đơn với Id ${parameters.invoiceId} không tồn tại.</value>
         <value xml:lang="zh">不存在标识为 ${parameters.invoiceId} 的发票。</value>
@@ -7546,6 +7580,7 @@
         <value xml:lang="en">The Invoice Item with id ${parameters.invoiceItemSeqId} doesn't exist.</value>
         <value xml:lang="fr">La ligne de facture ${parameters.invoiceItemSeqId} n'existe pas</value>
         <value xml:lang="it">Riga fattura con id ${parameters.invoiceItemSeqId} non esiste.</value>
+        <value xml:lang="ja">ID ${parameters.invoiceItemSeqId} の請求アイテムは存在しません。</value>
         <value xml:lang="pt">O item da fatura com o ID ${parameters.invoiceItemSeqId} não existe.</value>
         <value xml:lang="vi">Hạng mục hóa đơn với Id ${parameters.invoiceItemSeqId} không tồn tại.</value>
         <value xml:lang="zh">不存在标识为 ${parameters.invoiceItemSeqId} 的发票明细。</value>
@@ -7719,7 +7754,7 @@
         <value xml:lang="fr">Remplace la réf. de compte de frais pour la facture</value>
         <value xml:lang="hi_IN">चालान अधिरोहण खर्च जीएल(Gl) खाता क्रमांक</value>
         <value xml:lang="it">Sovrapponi Conto Spese GL Fattura</value>
-        <value xml:lang="ja">請求を上書する費用勘定科目ID</value>
+        <value xml:lang="ja">請求を上書する費用GL勘定ID</value>
         <value xml:lang="pt">ID da fatura para sobrescrever despesa da Conta Razão</value>
         <value xml:lang="vi">Tài khoản Chi thiết lập ưu tiên</value>
         <value xml:lang="zh">覆盖费用总账账户标识的发票</value>
@@ -7829,6 +7864,7 @@
         <value xml:lang="de">Rechnung pro Lieferung</value>
         <value xml:lang="fr">Facturation pour chaque expédition</value>
         <value xml:lang="en">Invoice Per Shipment</value>
+        <value xml:lang="ja">発送ごとの請求書</value>
         <value xml:lang="vi">Hóa đơn với mỗi Chuyển vận</value>
     </property>
     <property key="AccountingInvoicePurchase">
@@ -7901,6 +7937,7 @@
         <value xml:lang="en">Save Invoice As Template</value>
         <value xml:lang="fr">Sauvegarder comme modèle</value>
         <value xml:lang="it">Salva fattura come template</value>
+        <value xml:lang="ja">テンプレートとして請求書を保存</value>
         <value xml:lang="vi">Lưu Hóa đơn thành Biểu mẫu</value>
         <value xml:lang="zh">把发票保存为模板</value>
     </property>
@@ -8120,6 +8157,7 @@
         <value xml:lang="en">Can only update Invoice, when status is in-process...current status: ${lookedUpValue.statusId}</value>
         <value xml:lang="fr">Il n'est possible de mettre à jour une facture que si son statut est "en cours", actuellement il est ${lookedUpValue.statusId}</value>
         <value xml:lang="it">La fattura può essere aggiornata solo quando lo stato è in-corso...stato attuale: ${lookedUpValue.statusId}</value>
+        <value xml:lang="ja">処理中の請求書のみ更新可能です...現在のステータス: ${lookedUpValue.statusId}</value>
         <value xml:lang="pt">Só é possível atualizar fatura quando o estado é "em processo"... estado atual: ${lookedUpValue.statusId}</value>
         <value xml:lang="vi">Chỉ có thể cập nhật Hóa đơn khi trạng thái là 'Đang xử lý'... trạng thái hiện tại là: ${lookedUpValue.statusId}</value>
         <value xml:lang="zh">只有在状态为处理中（in-process）时才能更新发票（Invoice），当前状态：${lookedUpValue.statusId}</value>
@@ -8333,7 +8371,7 @@
         <value xml:lang="fr">Liste des applications d'accords commerciaux de service</value>
         <value xml:lang="hi_IN">अनुबंध- कार्य प्रयास अनुप्रयोग की सूची</value>
         <value xml:lang="it">Lista applicazioni contratto impegno di lavoro</value>
-        <value xml:lang="ja">契約作業成果申請一覧</value>
+        <value xml:lang="ja">契約作業成果適用一覧</value>
         <value xml:lang="nl">Toon overzicht werkinzet toepassingen</value>
         <value xml:lang="pt">Lista de aplicações de acordos de Esforço Trabalho</value>
         <value xml:lang="vi">Ứng dụng liệt kê Lượng giá nguồn lực </value>
@@ -8421,6 +8459,7 @@
     <property key="AccountingLongTermAssets">
         <value xml:lang="en">Long Term Assets</value>
         <value xml:lang="fr">Actifs à long terme</value>
+        <value xml:lang="ja">固定資産</value>
         <value xml:lang="pt">Realizável a Longo Prazo</value>
         <value xml:lang="vi">Tài sản dài hạn</value>
         <value xml:lang="zh">长期资产</value>
@@ -9292,6 +9331,7 @@
         <value xml:lang="en">CustomTimePeriod (fiscal period) ${customTimePeriod.customTimePeriodId} is CLOSED, cannot post to it (is for the Transaction Date ${acctgTrans.transactionDate} and Organization Party with ID ${acctgTransEntry.organizationPartyId})</value>
         <value xml:lang="fr">La période  ${customTimePeriod.customTimePeriodId} est fermée, il n'est pas possible de la publier (pour la date de transaction ${acctgTrans.transactionDate} et la société ${acctgTransEntry.organizationPartyId})</value>
         <value xml:lang="it">CustomTimePeriod (periodo fiscale) ${customTimePeriod.customTimePeriodId} è CHIUSO, non è possibile contabilizzare (è la data transazione ${acctgTrans.transactionDate} e organizzazione con ID ${acctgTransEntry.organizationPartyId})</value>
+        <value xml:lang="ja">カスタム期間(会計年度) ${customTimePeriod.customTimePeriodId} はクローズされています。転記できません (トランザクション日 ${acctgTrans.transactionDate} 組織取引先ID ${acctgTransEntry.organizationPartyId})</value>
         <value xml:lang="pt">CustomTimePeriod (período fiscal) {$customTimePeriod.customTimePeriodId} está fechado, não pode postá-lo (é para a data da operação ${acctgTrans.transactionDate} e Organização do Participante com ID ${acctgTransEntry.organizationPartyId})</value>
         <value xml:lang="vi">CustomTimePeriod (kỳ vật lý) ${customTimePeriod.customTimePeriodId} đã ĐÓNG, không thể ghi vào nó (là Ngày Bút toán ${acctgTrans.transactionDate} và Tổ chức tác nhân có tên mã  ${acctgTransEntry.organizationPartyId}) </value>
         <value xml:lang="zh">定制时间段（CustomTimePeriod）(财年时间段) ${customTimePeriod.customTimePeriodId} 已结束，不能过账给它 (交易日期： ${acctgTrans.transactionDate} ，机构会员标识： ${acctgTransEntry.organizationPartyId})</value>
@@ -9300,6 +9340,7 @@
         <value xml:lang="en">Cannot close time period ${customTimePeriod.customTimePeriodId} because the child time period ${openChildTimePeriod.periodName} ${openChildTimePeriod.customTimePeriodId} is not closed.</value>
         <value xml:lang="fr">Impossible de clôturer la période ${customTimePeriod.customTimePeriodId} car la période fille ${openChildTimePeriod.periodName} ${openChildTimePeriod.customTimePeriodId} n'est pas fermée.</value>
         <value xml:lang="it">Non è possibile chiudere il periodo ${customTimePeriod.customTimePeriodId} perchè il periodo filgio ${openChildTimePeriod.periodName} ${openChildTimePeriod.customTimePeriodId} non è chiuso.</value>
+        <value xml:lang="ja">期間 ${customTimePeriod.customTimePeriodId} はクローズできません。下位(子)の期間 ${openChildTimePeriod.periodName} ${openChildTimePeriod.customTimePeriodId} がクローズされていません。</value>
         <value xml:lang="pt">Não é possível fechar período ${customTimePeriod.customTimePeriodId}, porque o período de tempo do nivel inferior ${openChildTimePeriod.periodName} ${openChildTimePeriod.customTimePeriodId} não está fechado.</value>
         <value xml:lang="vi">Không thể đóng kỳ kế toán ${customTimePeriod.customTimePeriodId} bởi vì Kỳ phụ bên trong ${openChildTimePeriod.periodName} ${openChildTimePeriod.customTimePeriodId} chưa được đóng</value>
         <value xml:lang="zh">无法关闭时间段 ${customTimePeriod.customTimePeriodId}，因为子时间段 ${openChildTimePeriod.periodName} ${openChildTimePeriod.customTimePeriodId} 还没有关闭。</value>
@@ -9308,6 +9349,7 @@
         <value xml:lang="en">Unable to find a last closed date for time period ${customTimePeriod.customTimePeriodId} of type ${customTimePeriod.customTimePeriodId} for organization ${customTimePeriod.organizationPartyId}</value>
         <value xml:lang="fr">Impossible de trouver la dernière date de clôture pour la periode ${customTimePeriod.customTimePeriodId} de type ${customTimePeriod.customTimePeriodId} pour la société ${customTimePeriod.organizationPartyId}</value>
         <value xml:lang="it">Non è possibil trovate una data ultima chiusura per il periodo di tempo ${customTimePeriod.customTimePeriodId} del tipo ${customTimePeriod.customTimePeriodId} per l'organizzazione ${customTimePeriod.organizationPartyId}</value>
+        <value xml:lang="ja">組織 ${customTimePeriod.organizationPartyId} 種類 ${customTimePeriod.customTimePeriodId} の期間 ${customTimePeriod.customTimePeriodId} のクローズ日が見つかりません。</value>
         <value xml:lang="pt">Incapaz de encontrar uma última data de fechamento de período ${customTimePeriod.customTimePeriodId} do tipo ${customTimePeriod.customTimePeriodId} para organização ${customTimePeriod.organizationPartyId}</value>
         <value xml:lang="vi">Không thể tìm kiếm chu kỳ thời gian vừa đóng là ${customTimePeriod.customTimePeriodId} thuộc nhóm ${customTimePeriod.customTimePeriodId} của tổ chức ${customTimePeriod.organizationPartyId}</value>
         <value xml:lang="zh">无法找到上次关闭的日期，时间段： ${customTimePeriod.customTimePeriodId} ，类型： ${customTimePeriod.customTimePeriodId} ，机构： ${customTimePeriod.organizationPartyId}</value>
@@ -9316,6 +9358,7 @@
         <value xml:lang="en">Could not find a CustomTimePeriod (fiscal period) for the Transaction Date ${acctgTrans.transactionDate} (is for Organization Party with ID ${acctgTransEntry.organizationPartyId})</value>
         <value xml:lang="fr">Aucune période trouvée pour la date ${acctgTrans.transactionDate}</value>
         <value xml:lang="it">Non è possibile trova un CustomTimePeriod (periodo fiscale) per la data transazione ${acctgTrans.transactionDate} (è una organizzazione con ID ${acctgTransEntry.organizationPartyId})</value>
+        <value xml:lang="ja">トランザクション日 ${acctgTrans.transactionDate} のカスタム期間(会計年度)が見つかりません。(組織取引先ID ${acctgTransEntry.organizationPartyId})</value>
         <value xml:lang="pt">Não foi possível encontrar um CustomTimePeriod (período fiscal) para a data de operação ${acctgTrans.transactionDate} (é a organização Participante com a ID ${acctgTransEntry.organizationPartyId})</value>
         <value xml:lang="vi">Không thể tìm một CustomTimePeriod (kỳ vật lý) cho Bút toán ngày ${acctgTrans.transactionDate} (của Tổ chức tác nhân có mã ${acctgTransEntry.organizationPartyId})</value>
         <value xml:lang="zh">无法找到定制时间段（CustomTimePeriod） (财年时间段)， 交易日期：${acctgTrans.transactionDate} (机构会员标识： ${acctgTransEntry.organizationPartyId})</value>
@@ -9370,6 +9413,7 @@
         <value xml:lang="en">No invoice items found for invoice ${invoiceId} to match payment against...</value>
         <value xml:lang="fr">Pas de ligne de facture trouvée pour la facture ${invoiceId} pour faire correspondre un paiement</value>
         <value xml:lang="it">Nessuna riga fattura trovata per la fattura ${invoiceId} che corrisponde al pagamento...</value>
+        <value xml:lang="ja">支払に対する請求書 ${invoiceId} の請求アイテムが見つかりません。</value>
         <value xml:lang="vi">Không tìm thấy thành phần của hóa đơn ${invoiceId} phản ánh phù hợp việc thanh toán...</value>
         <value xml:lang="zh">找不到发票 ${invoiceId} 来匹配支付...</value>
     </property>
@@ -9456,6 +9500,7 @@
         <value xml:lang="en">No payment created for invoice ${invoiceId} and billing account ${billingAccountId}</value>
         <value xml:lang="fr">Pas de paiement créé pour la facture ${invoiceId} et l'encours ${billingAccountId}</value>
         <value xml:lang="it">Nessun pagamento creato per la fattura ${invoiceId} e conto di fatturazione ${billingAccountId}</value>
+        <value xml:lang="ja">請求書 ${invoiceId} 請求アカウント ${billingAccountId} の支払が作成できません</value>
         <value xml:lang="vi">Không tạo thành toán cho hóa đơn ${invoiceId} và tài khoản thanh toán ${billingAccountId}</value>
         <value xml:lang="zh">没有为发票 ${invoiceId} 和账单账户 ${billingAccountId} 创建支付</value>
     </property>
@@ -9463,6 +9508,7 @@
         <value xml:lang="en">Unable to create PaymentGatewayResponse for failed service call!</value>
         <value xml:lang="fr">Impossible de créer une réponse du portail de paiement, échec dans l'appel de service !</value>
         <value xml:lang="it">Non è possibile creare la risposta gateway pagamento per il fallimento al servizio!</value>
+        <value xml:lang="ja">支払ゲートウェイレスポンスが作成できません。サービス呼び出しに失敗しました!</value>
         <value xml:lang="vi">Không thể tạo Phản hồi cổng thanh toán khi lỗi gọi dịch vụ xảy ra!</value>
         <value xml:lang="zh">无法为失败的服务调用创建支付网关响应（PaymentGatewayResponse）！</value>
     </property>
@@ -9470,6 +9516,7 @@
         <value xml:lang="en">No paymentGatewayResponse created for invoice ${invoiceId} and billing account ${billingAccountId}: Order with ID ${orderId} not found!</value>
         <value xml:lang="fr">Impossible de créer une réponse du portail de paiement pour la facture ${invoiceId} et l'encours ${billingAccountId} : la commande ${orderId} n'a pas été trouvée</value>
         <value xml:lang="it">Nessun risposta gateway pagamento creata per la fattura ${invoiceId} e conto di fatturazione ${billingAccountId}: Ordine ${orderId} non trovato!</value>
+        <value xml:lang="ja">請求書 ${invoiceId} 請求アカウント ${billingAccountId} に対する支払ゲートウェイレスポンスが作成できません。注文ID ${orderId} が見つかりません!</value>
         <value xml:lang="vi">Không tạo phản hồi cổng thanh toán cho hóa đơn ${invoiceId} và tài khoản thanh toán ${billingAccountID}: đặt hàng với mã ${orderId} không tồn tại!</value>
         <value xml:lang="zh">没有为发票 ${invoiceId} 和账单账户 ${billingAccountId} 创建支付网关响应（PaymentGatewayResponse）：无法找到标识为 ${orderId} 的订单！</value>
     </property>
@@ -9604,6 +9651,7 @@
         <value xml:lang="en">Could not find enough accounting inventory for product ${inventoryItem.productId}; remaining quantity: ${remainingQuantity}</value>
         <value xml:lang="fr">Impossible d'équilibrer l'inventaire comptable pour le produit ${inventoryItem.productId}. Il reste une quantité de ${remainingQuantity}</value>
         <value xml:lang="it">Non è possibile trovare abbastanza inventario contabile per il prodotto ${inventoryItem.productId}; quantità rimanente: ${remainingQuantity}ै</value>
+        <value xml:lang="ja">製品 ${inventoryItem.productId} に対する十分な会計上の在庫がありません。残数量: ${remainingQuantity}</value>
         <value xml:lang="pt">Não foi possível localizar contabilidade suficiente para o inventário do produto ${inventoryItem.productId}; quantidade restante: ${remainingQuantity}</value>
         <value xml:lang="vi">Không thể tìm thấy đủ số lượng hàng trong tài khoản kho cho sản phẩm ${inventoryItem.productId}; số lượng còn lại là: ${remainingQuantity}</value>
         <value xml:lang="zh">对产品 ${inventoryItem.productId} 找不到足够的账上库存；存量：${remainingQuantity}</value>
@@ -9616,7 +9664,7 @@
         <value xml:lang="fr">Ceci ne peut pas être modifié sans recréer un compte comptable</value>
         <value xml:lang="hi_IN">पुन: जीएल(Gl) खाता बनाये बिना यह बदला नहीं जा सकता है</value>
         <value xml:lang="it">Questo non può essere cambiato senza ricreare il Conto Gl.</value>
-        <value xml:lang="ja">変更できません、勘定科目を再作成してください</value>
+        <value xml:lang="ja">変更できません、GL勘定を再作成してください</value>
         <value xml:lang="nl">Dit kan niet worden gewijzigd zonder dat Gb-rekening opnieuw wordt aangemaakt.</value>
         <value xml:lang="pt">Isso não pode ser alterado sem re-criar a conta razão.</value>
         <value xml:lang="ro">Acesta nu poate fi schimbat fara fara a ricrea Contul GL.</value>
@@ -9630,6 +9678,7 @@
         <value xml:lang="en">AcctgTrans ${parameters.acctgTransId} has already been posted. Not posting again</value>
         <value xml:lang="fr">La transaction ${parameters.acctgTransId} a déjà été publiée. Pas de nouvelle publication</value>
         <value xml:lang="it">AcctgTrans ${parameters.acctgTransId} è già stata contabilizzata. Non contabilizzabile nuovamente</value>
+        <value xml:lang="ja">アカウントトランザクション ${parameters.acctgTransId} は転記済です。再度転記できません</value>
         <value xml:lang="pt">AcctgTrans ${parameters.acctgTransId} já foi enviado. Não será enviado novamente</value>
         <value xml:lang="vi">Bút toán tài khoản ${parameters.acctgTransId} đã được ghi. Không ghi lại lần nữa</value>
         <value xml:lang="zh">账目交易（AcctgTrans） ${parameters.acctgTransId} 已经过账。不能再过账了</value>
@@ -9638,6 +9687,7 @@
         <value xml:lang="en">Bad debitCreditFlag ${acctgTransEntry.debitCreditFlag} (was not D or C) in Accounting Transaction Entry with acctgTransId=${acctgTransEntry.acctgTransId} and acctgTransEntrySeqId=${acctgTransEntry.acctgTransEntrySeqId}</value>
         <value xml:lang="fr">L'indication Débit/Crédit pour la ligne est mal positionnée</value>
         <value xml:lang="it">Flag debito/credito errato ${acctgTransEntry.debitCreditFlag} (non è D o C) in Accounting Transaction Entry con acctgTransId=${acctgTransEntry.acctgTransId} e acctgTransEntrySeqId=${acctgTransEntry.acctgTransEntrySeqId}</value>
+        <value xml:lang="ja">会計仕訳ID=${acctgTransEntry.acctgTransId} 会計仕訳エントリ連番ID=${acctgTransEntry.acctgTransEntrySeqId} の会計仕訳エントリで、貸借フラグ ${acctgTransEntry.debitCreditFlag} が正しくありません (D:借 または C:貸)</value>
         <value xml:lang="pt">debitCreditFlag Inadequado ${acctgTransEntry.debitCreditFlag} (não foi D ou C) na transação contábil com acctgTransId=${acctgTransEntry.acctgTransId} e acctgTransEntrySeqId=${acctgTransEntry.acctgTransEntrySeqId}</value>
         <value xml:lang="vi">Định khoản Nợ xấu được gắn cờ ${acctgTransEntry.debitCreditFlag} (không phải là D hay C) trong dòng Bút toán tài khoản với acctgTransId=${acctgTransEntry.acctgTransId} và acctgTransEntrySeqId=${acctgTransEntry.acctgTransEntrySeqId}</value>
         <value xml:lang="zh">账目交易记录中的借贷标志（debitCreditFlag） ${acctgTransEntry.debitCreditFlag} 错误，不是 D（借） 或 C（贷），acctgTransId=${acctgTransEntry.acctgTransId}，acctgTransEntrySeqId=${acctgTransEntry.acctgTransEntrySeqId}</value>
@@ -9646,6 +9696,7 @@
         <value xml:lang="en">Not posting GL Accounting Transaction with ID ${parameters.acctgTransId} because credit total is zero: Debit Total=${trialBalanceResultMap.debitTotal} Credit Total=${trialBalanceResultMap.creditTotal} Debit/Credit Difference=${trialBalanceResultMap.debitCreditDifference}</value>
         <value xml:lang="fr">Imposible d'équilibrer la transaction ${parameters.acctgTransId} car le total crédit est à zéro : Total débit = ${trialBalanceResultMap.debitTotal}, total crédit = ${trialBalanceResultMap.creditTotal}, différence = ${trialBalanceResultMap.debitCreditDifference}</value>
         <value xml:lang="it">Non è possibile contabilizzare la GL Accounting Transaction con ID ${parameters.acctgTransId} perchè il credito totale è zero: Debito Totale=${trialBalanceResultMap.debitTotal} Credito Totale=${trialBalanceResultMap.creditTotal} Debito/Credito Differenza=${trialBalanceResultMap.debitCreditDifference}</value>
+        <value xml:lang="ja">ID ${parameters.acctgTransId} のGL会計仕訳が転記できません。貸方の合計がゼロです。借方合計=${trialBalanceResultMap.debitTotal} 貸方合計=${trialBalanceResultMap.creditTotal} 借方/貸方差額=${trialBalanceResultMap.debitCreditDifference}</value>
         <value xml:lang="pt">Sem enviar a transação da conta Razão com ID ${parameters.acctgTransId} pois o total de crédito é zero: Débito Total =${trialBalanceResultMap.debitTotal} Crédito Total==${trialBalanceResultMap.creditTotal} Diferença de Débito/Crédito=${trialBalanceResultMap.debitCreditDifference}</value>
         <value xml:lang="vi">Không thể ghi lại Bút toán kế toán vào sổ cái với mã ${parameters.acctgTransId} bởi vì tổng số có là bằng không: Tổng nợ=${trialBalanceResultMap.debitTotal} Tổng có=${trialBalanceResultMap.creditTotal} Chênh lệch nợ/có=${trialBalanceResultMap.debitCreditDifference}</value>
         <value xml:lang="zh">没有过账标识为${parameters.acctgTransId}的总账账目交易，因为贷款额为零：借款额=${trialBalanceResultMap.debitTotal} 贷款额=${trialBalanceResultMap.creditTotal} 借/贷差额=${trialBalanceResultMap.debitCreditDifference}</value>
@@ -9654,6 +9705,7 @@
         <value xml:lang="en">Not posting GL Accounting Transaction with ID ${parameters.acctgTransId} because debit total is zero: Debit Total=${trialBalanceResultMap.debitTotal} Credit Total=${trialBalanceResultMap.creditTotal} Debit/Credit Difference=${trialBalanceResultMap.debitCreditDifference}</value>
         <value xml:lang="fr">Imposible d'équilibrer la transaction ${parameters.acctgTransId} car le total débit est à zéro : Total débit = ${trialBalanceResultMap.debitTotal}, total crédit = ${trialBalanceResultMap.creditTotal}, différence = ${trialBalanceResultMap.debitCreditDifference</value>
         <value xml:lang="it">Non è possibile contabilizzare la GL Accounting Transaction con ID ${parameters.acctgTransId} perchè il debito totale è zero: Debito Totale=${trialBalanceResultMap.debitTotal} Credito Totale=${trialBalanceResultMap.creditTotal} Debito/Credito Differenza=${trialBalanceResultMap.debitCreditDifference}</value>
+        <value xml:lang="ja">ID ${parameters.acctgTransId} のGL会計仕訳が転記できません。借方の合計がゼロです。借方合計=${trialBalanceResultMap.debitTotal} 貸方合計=${trialBalanceResultMap.creditTotal} 借方/貸方差額=${trialBalanceResultMap.debitCreditDifference}</value>
         <value xml:lang="pt">Sem enviar a transação da conta Razão com ID ${parameters.acctgTransId} pois o total do débito é zero: Débito Total=${trialBalanceResultMap.debitTotal} Crédito Total=${trialBalanceResultMap.creditTotal} Diferença de Débito/Crédito=${trialBalanceResultMap.debitCreditDifference}</value>
         <value xml:lang="vi">Không thể ghi lại Bút toán kế toán vào sổ cái với mã ${parameters.acctgTransId} bởi vì tổng số nợ là bằng không: Tổng nợ=${trialBalanceResultMap.debitTotal} Tổng có=${trialBalanceResultMap.creditTotal} Chênh lệch nợ/có=${trialBalanceResultMap.debitCreditDifference}</value>
         <value xml:lang="zh">没有过账标识为${parameters.acctgTransId}的总账账目交易，因为借款额为零：借款额=${trialBalanceResultMap.debitTotal} 贷款额=${trialBalanceResultMap.creditTotal} 借/贷差额=${trialBalanceResultMap.debitCreditDifference}</value>
@@ -9662,6 +9714,7 @@
         <value xml:lang="en">Not posting GL Accounting Transaction with ID ${parameters.acctgTransId} because it's not scheduled to be posted yet. The scheduled posting date is ${acctgTrans.scheduledPostingDate}</value>
         <value xml:lang="fr">Pas de publication de la transaction ${parameters.acctgTransId}, aucune publication n'est prévu pour le moment : Prochaine date ${acctgTrans.scheduledPostingDate</value>
         <value xml:lang="it">Non è possibile contabilizzare la GL Accounting Transaction con ID ${parameters.acctgTransId} perchè non è schedulato di essere ancora contabilizzato. La data di schedulazione contabilizzazione è ${acctgTrans.scheduledPostingDate}</value>
+        <value xml:lang="ja">ID ${parameters.acctgTransId} のGL会計仕訳が転記できません。まだ転記するようにスケジュールされていません。予定日は ${acctgTrans.scheduledPostingDate} です</value>
         <value xml:lang="pt">Sem enviar a transação da conta Razão com ID ${parameters.acctgTransId} pois não é programado para ser publicado ainda. A data agendada para lançamento é ${acctgTrans.scheduledPostingDate}</value>
         <value xml:lang="vi">Không thể ghi lại Bút toán kế toán vào sổ cái với mã ${parameters.acctgTransId} bởi vì không được ghi lập kế hoạch tiến độ trước. Kế hoạch tiến độ được ghi là ${acctgTrans.scheduledPostingDate}</value>
         <value xml:lang="zh">没有过账标识为${parameters.acctgTransId}的总账账目交易，因为还没有列入过账计划。计划的过账日期是${acctgTrans.scheduledPostingDate}</value>
@@ -9670,6 +9723,7 @@
         <value xml:lang="en">Not posting GL Accounting Transaction with ID ${parameters.acctgTransId} because the trial balance failed: Debit Total=${trialBalanceResultMap.debitTotal} Credit Total=${trialBalanceResultMap.creditTotal} Debit/Credit Difference=${trialBalanceResultMap.debitCreditDifference}</value>
         <value xml:lang="fr">Imposible d'équilibrer la transaction ${parameters.acctgTransId} : Total débit = ${trialBalanceResultMap.debitTotal}, total crédit = ${trialBalanceResultMap.creditTotal}, différence = ${trialBalanceResultMap.debitCreditDifference}</value>
         <value xml:lang="it">Non è possibile contabilizzare la GL Accounting Transaction con ID ${parameters.acctgTransId} perchè il bilancio di prova è fallito: Debito Totale=${trialBalanceResultMap.debitTotal} Credito Totale=${trialBalanceResultMap.creditTotal} Debito/Credito Differenza=${trialBalanceResultMap.debitCreditDifference}</value>
+        <value xml:lang="ja">ID ${parameters.acctgTransId} のGL会計仕訳が転記できません。貸借の資産に失敗しました。借方合計=${trialBalanceResultMap.debitTotal} 貸方合計=${trialBalanceResultMap.creditTotal} 借方/貸方差額=${trialBalanceResultMap.debitCreditDifference}</value>
         <value xml:lang="pt">Sem enviar a transação da conta Razão com ID ${parameters.acctgTransId} pois o balancete falhou: Débito Total=${trialBalanceResultMap.debitTotal} Crédito Total=${trialBalanceResultMap.creditTotal} Diferença de Débito/Crédito=${trialBalanceResultMap.debitCreditDifference}</value>
         <value xml:lang="vi">Không thể ghi lại Bút toán kế toán vào sổ cái với mã ${parameters.acctgTransId} bởi vì kế toán kiểm tra thất bại: Tổng nợ=${trialBalanceResultMap.debitTotal} Tổng có=${trialBalanceResultMap.creditTotal} Chênh lệch nợ/có=${trialBalanceResultMap.debitCreditDifference}</value>
         <value xml:lang="zh">没有过账标识为${parameters.acctgTransId}的总账账目交易，因为试算余额时失败了：借款额=${trialBalanceResultMap.debitTotal} 贷款额=${trialBalanceResultMap.creditTotal} 借/贷差额=${trialBalanceResultMap.debitCreditDifference}</value>
@@ -9678,6 +9732,7 @@
         <value xml:lang="en">Not posting GL Journal with ID ${parameters.glJournalId} because the trial balance failed: Debit Total=${trialBalanceResultMap.debitTotal} Credit Total=${trialBalanceResultMap.creditTotal} Debit/Credit Difference=${trialBalanceResultMap.debitCreditDifference}</value>
         <value xml:lang="fr">Échec de la publication du journal ${parameters.glJournalId}, erreur dans l'équilibre : Total débit = ${trialBalanceResultMap.debitTotal}, total crédit = ${trialBalanceResultMap.creditTotal}, différence = ${trialBalanceResultMap.debitCreditDifference}</value>
         <value xml:lang="it">Non è possibile contabilizzare il giornale con ID ${parameters.glJournalId} perchè il bilancio di prova è fallito: Debito Totale=${trialBalanceResultMap.debitTotal} Credito Totale=${trialBalanceResultMap.creditTotal} Debito/Credito Differenza=${trialBalanceResultMap.debitCreditDifference}</value>
+        <value xml:lang="ja">ID ${parameters.acctgTransId} のGLジャーナルが転記できません。貸借の資産に失敗しました。借方合計=${trialBalanceResultMap.debitTotal} 貸方合計=${trialBalanceResultMap.creditTotal} 借方/貸方差額=${trialBalanceResultMap.debitCreditDifference}</value>
         <value xml:lang="pt">Sem enviar diário de contabilidade com ID ${parameters.glJournalId} pois o balancete falhou: Débito Total=${trialBalanceResultMap.debitTotal} Crédito Total=${trialBalanceResultMap.creditTotal} Diferença de Débito/Crédito=${trialBalanceResultMap.debitCreditDifference}</value>
         <value xml:lang="vi">Không thể ghi lại nhật ký vào sổ cái với mã ${parameters.glJournalId} bởi vì kế toán kiểm tra thất bại: Tổng nợ=${trialBalanceResultMap.debitTotal} Tổng có=${trialBalanceResultMap.creditTotal} Chênh lệch nợ/có=${trialBalanceResultMap.debitCreditDifference}</value>
         <value xml:lang="zh">没有过账标识为${parameters.glJournalId}的总账日记账，因为试算余额时失败：借款额=${trialBalanceResultMap.debitTotal} 贷款额=${trialBalanceResultMap.creditTotal} 借/贷差额=${trialBalanceResultMap.debitCreditDifference}</value>
@@ -9686,6 +9741,7 @@
         <value xml:lang="en">The accounting transaction entry ${acctgTransEntry.acctgTransId}/${acctgTransEntry.acctgTransEntrySeqId} is already reconciled: cannot reconcile.</value>
         <value xml:lang="fr">La ligne ${acctgTransEntry.acctgTransId}/${acctgTransEntry.acctgTransEntrySeqId} est déjà rapprochée</value>
         <value xml:lang="it">La voce transazione ${acctgTransEntry.acctgTransId}/${acctgTransEntry.acctgTransEntrySeqId} è già riconcialita: non può essere riconciliata.</value>
+        <value xml:lang="ja">会計仕訳エントリ ${acctgTransEntry.acctgTransId}/${acctgTransEntry.acctgTransEntrySeqId} はすでに照合済です。照合できません。</value>
         <value xml:lang="pt">A entrada de operação contabilística ${acctgTransEntry.acctgTransId}/${acctgTransEntry.acctgTransEntrySeqId} já está reconciliado: não se pode reconciliar.</value>
         <value xml:lang="vi">Dòng Bút toán kế toán ${acctgTransEntry.acctgTransId}/${acctgTransEntry.acctgTransEntrySeqId} đã được điều chỉnh: không thể điều chỉnh thêm.</value>
         <value xml:lang="zh">账目交易记录 ${acctgTransEntry.acctgTransId}/${acctgTransEntry.acctgTransEntrySeqId} 已经对账了，不能再对账了。</value>
@@ -9694,7 +9750,7 @@
         <value xml:lang="en">Not a withdrawal financial account transaction.</value>
         <value xml:lang="fr">Pas une transaction sur un compte de désengagement financier</value>
         <value xml:lang="hi_IN">वापसी वित्तीय खाता गतिविधि नहीं है</value>
-        <value xml:lang="ja">払戻できない金融アカウントトランザクションです。</value>
+        <value xml:lang="ja">払出できない金融アカウントトランザクションです。</value>
         <value xml:lang="pt">Não é uma operação de retirada da conta financeira.</value>
         <value xml:lang="vi">Không thể rút một Bút toán tài khoản tài chính.</value>
         <value xml:lang="zh">不是一个取款财务账目交易。</value>
@@ -9811,6 +9867,7 @@
     <property key="AccountingOperatingExpenses">
         <value xml:lang="en">Operating Expenses</value>
         <value xml:lang="fr">Charges d'exploitation</value>
+        <value xml:lang="ja">営業費用</value>
         <value xml:lang="nl">Operationele kosten</value>
         <value xml:lang="pt">Despesas Operacionais</value>
         <value xml:lang="vi">Chi phí quản lý</value>
@@ -9969,7 +10026,7 @@
         <value xml:lang="fr">Substituer compte comptable pour les ventes</value>
         <value xml:lang="hi_IN">राजस्व जीएल(Gl) खाता क्रमांक को अधिरोहण</value>
         <value xml:lang="it">Sostituzione Conto Profitti Gl</value>
-        <value xml:lang="ja">上書収入勘定科目ID</value>
+        <value xml:lang="ja">上書収入GL勘定ID</value>
         <value xml:lang="nl">Verander Revenue GB-rekening Id</value>
         <value xml:lang="pt">Sobrescrever ID da receira na conta razão</value>
         <value xml:lang="ro">Substituire Cont Profit Gl</value>
@@ -10173,7 +10230,7 @@
         <value xml:lang="fr">Comptes de tiers</value>
         <value xml:lang="hi_IN">पार्टी जीएल(Gl) खाता</value>
         <value xml:lang="it">Conti Gl Soggetto</value>
-        <value xml:lang="ja">取引先勘定科目</value>
+        <value xml:lang="ja">取引先GL勘定</value>
         <value xml:lang="nl">GB-rekeningen relatie</value>
         <value xml:lang="pt">Contas razão do participante</value>
         <value xml:lang="th">กลุ่มผู้ใช้บัญชีแยกประเภททั่วไป</value>
@@ -10282,6 +10339,7 @@
     <property key="AccountingPaymentParentTypesNotCompatible">
         <value xml:lang="en">Payment parent types not compatible for application</value>
         <value xml:lang="fr">Le type de paiement parent n'est pas compatible avec cet usage</value>
+        <value xml:lang="ja">支払上位(親)種類が申請と一致しません</value>
         <value xml:lang="vi">Loại thanh toán gốc không thích hợp cho lệnh này</value>
         <value xml:lang="zh">支付的上级类型与申请不一致</value>
     </property>
@@ -10329,6 +10387,7 @@
         <value xml:lang="es">Pagar con SecurePay</value>
         <value xml:lang="fr">Paiement avec SecurePay</value>
         <value xml:lang="it">Paga con SecurePay</value>
+        <value xml:lang="ja">SecurePayで支払</value>
         <value xml:lang="nl">Betaal met SecurePay</value>
         <value xml:lang="pt">Paguar com securePay</value>
         <value xml:lang="pt_PT">Pagar Com SecurePay</value>
@@ -10360,6 +10419,7 @@
         <value xml:lang="en">An error occurred while retreiving cart details</value>
         <value xml:lang="fr">Une erreur est survenue dans la récupération du détail du panier</value>
         <value xml:lang="it">Un'errore è successo durante l'ottenimento dei dettagli del carrello</value>
+        <value xml:lang="ja">買い物かごの詳細を取得中にエラーが発生しました</value>
         <value xml:lang="vi">Một lỗi xảy ra trong quá trình xử lý lại chi tiết giỏ hàng</value>
         <value xml:lang="zh">获取购物车详细信息时出错</value>
     </property>
@@ -10596,6 +10656,7 @@
         <value xml:lang="en">PaymentID ${payment.paymentId} has status 'confirmed', cannot remove application.</value>
         <value xml:lang="fr">Le paiement ${payment.paymentId} a été confirmé, il n'est plus possible de supprimer l'application</value>
         <value xml:lang="it">ID pagamento ${payment.paymentId} ha lo stato 'confermato', non è possibile rimuovere l'applicazione pagamento.</value>
+        <value xml:lang="ja">支払ID ${payment.paymentId} はステータス'確認済'です。申請を削除できません。</value>
         <value xml:lang="pt">ID de pagamento ${payment.paymentId} possui estado de 'confirmado', não pode remover o aplicativo.</value>
         <value xml:lang="vi">Id thanh toán ${payment.paymentId} có tình trạng 'đã xác nhận' thì không thể thực hiện loại bỏ.</value>
         <value xml:lang="zh">支付标识 ${payment.paymentId} 状态为'已确认'，无法删除应用。</value>
@@ -10621,6 +10682,7 @@
         <value xml:lang="en">??unsuitable parameters passed...?? This message.... should never be shown\n</value>
         <value xml:lang="fr">?? Incohérence de paramètres (ce message ne devrait jamais apparaître)</value>
         <value xml:lang="it">??parametri passati non corretti...?? Questo messaggio.... non dovrebbe essere mai mostrato\n</value>
+        <value xml:lang="ja">??渡されたパラメータが不適切です...?? このメッセージは....表示されません\n</value>
         <value xml:lang="vi">??các thông số không đúng khi kiểm duyệt...?? Những thông tin này ... không bao giờ được hiển thị\n</value>
         <value xml:lang="zh">??传递了不当参数...?? 本信息.... 应该永远不显示\n</value>
     </property>
@@ -10628,6 +10690,7 @@
         <value xml:lang="en">--Input parameters...InvoiceId: ${invoiceId} invoiceItemSeqId: ${invoiceItemSeqId} PaymentId: ${paymentId} toPaymentId: ${toPaymentId} \n  paymentApplicationId: ${paymentApplicationId} amountApplied: ${amountApplied}</value>
         <value xml:lang="fr">--Input parameters...InvoiceId: ${invoiceId} invoiceItemSeqId: ${invoiceItemSeqId} PaymentId: ${paymentId} toPaymentId: ${toPaymentId} \n  paymentApplicationId: ${paymentApplicationId} amountApplied: ${amountApplied}</value>
         <value xml:lang="it">--Parametri...Fattura: ${invoiceId} riga fattura: ${invoiceItemSeqId} pagamento: ${paymentId} al pagamento: ${toPaymentId} \n  paymentApplicationId: ${paymentApplicationId} importo applicato: ${amountApplied}</value>
+        <value xml:lang="ja">--入力パラメータ...請求書ID: ${invoiceId} 請求アイテム連番ID: ${invoiceItemSeqId} 支払ID: ${paymentId} 支払先ID: ${toPaymentId} \n  支払申請ID: ${paymentApplicationId} 消込済金額: ${amountApplied}</value>
         <value xml:lang="vi">--Thông số nhập vào...InvoiceId: ${invoiceId} invoiceItemSeqId: ${invoiceItemSeqId} PaymentId: ${paymentId} toPaymentId: ${toPaymentId} \n  paymentApplicationId: ${paymentApplicationId} amountApplied: ${amountApplied}</value>
         <value xml:lang="zh">--输入参数...InvoiceId: ${invoiceId} invoiceItemSeqId: ${invoiceItemSeqId} PaymentId: ${paymentId} toPaymentId: ${toPaymentId} \n  paymentApplicationId: ${paymentApplicationId} amountApplied: ${amountApplied}</value>
     </property>
@@ -10638,7 +10701,7 @@
         <value xml:lang="fr">Pour allouer ce paiement, il faut ou bien une réf. de facture, un compte de facturation, une administration fiscale ou un compte comptable</value>
         <value xml:lang="hi_IN">PaymentApplication के लिए या तो एक invoiceId, एक billingAccountId, एक taxAuthGeoId या एक glAccountId आवश्यक है</value>
         <value xml:lang="it">Applicazione pagamento richiede entrambi un fattura, un conto fatturazione, o una autorità tasse geografia</value>
-        <value xml:lang="ja">支払申請は請求ID、請求先アカウントID、税務機関位置ID、または勘定科目IDのいずれかが必要です</value>
+        <value xml:lang="ja">支払申請は請求ID、請求先アカウントID、税務機関位置ID、またはGL勘定IDのいずれかが必要です</value>
         <value xml:lang="nl">Betalingstoewijzing vereist tenminste een factuurnummer of een factuurrekeningnr, een belasting instantie of GB-rekening</value>
         <value xml:lang="pt">Pedido de pagamento exige ou um InvoiceID, um billingAccountId, um taxAuthGeoId ou glAccountId</value>
         <value xml:lang="ro">Pentru Aplicatia Plata sunt necesare o factura, un cont facturare, sau o TaxAuthGeold??</value>
@@ -10652,6 +10715,7 @@
         <value xml:lang="en">Authorization failed</value>
         <value xml:lang="fr">Echec de l'autorisation de paiement</value>
         <value xml:lang="it">Autorizzazione fallita</value>
+        <value xml:lang="ja">認証に失敗しました</value>
         <value xml:lang="vi">Xác định quyền hạn thất bại</value>
         <value xml:lang="zh">授权失败</value>
     </property>
@@ -10676,6 +10740,7 @@
         <value xml:lang="en">Trouble running captureOrderPayments service</value>
         <value xml:lang="fr">Le paiement ne peut pas être récupéré</value>
         <value xml:lang="it">Problemi durante l'esecuzione del servizio cattura pagamento ordine</value>
+        <value xml:lang="ja">captureOrderPaymentsサービスの実行中にエラー</value>
         <value xml:lang="vi">Lỗi chạy dịch vụ （captureOrderPayments）</value>
         <value xml:lang="zh">运行捕捉订单支付（captureOrderPayments）服务时出错</value>
     </property>
@@ -10718,6 +10783,7 @@
         <value xml:lang="en">Error creating payment record</value>
         <value xml:lang="fr">Erreur dans l'enregistrement du paiement</value>
         <value xml:lang="it">Errore durante la creazione del pagamento</value>
+        <value xml:lang="ja">支払レコード作成中にエラー</value>
         <value xml:lang="vi">Lỗi trong việc tạo bản ghi thanh toán</value>
         <value xml:lang="zh">新建支付记录时出错</value>
     </property>
@@ -10725,6 +10791,7 @@
         <value xml:lang="en">Credit card billing address is missing required fields.</value>
         <value xml:lang="fr">L'adresse de facturation de la carte est manquante</value>
         <value xml:lang="it">Campo richiesti mancanti per l'indirizzo di fatturazione della carta di credito.</value>
+        <value xml:lang="ja">クレジットカード請求先住所が正しくありません。必須です。</value>
         <value xml:lang="vi">Trường ghi Địa chỉ trong thanh toán bằng thẻ tín dụng không phù hợp với yêu cầu</value>
         <value xml:lang="zh">信用卡账单地址缺少必须的数据项。</value>
     </property>
@@ -10732,6 +10799,7 @@
         <value xml:lang="en">Email address field cannot be empty.</value>
         <value xml:lang="fr">L'adresse de courriel ne peut pas être vide</value>
         <value xml:lang="it">Indirizzo e-mail non può essere vuoto.</value>
+        <value xml:lang="ja">Eメールアドレスは空にできません。</value>
         <value xml:lang="vi">Trường ghi địa chỉ email không được bỏ trống.</value>
         <value xml:lang="zh">电子邮件不能空。</value>
     </property>
@@ -10739,6 +10807,7 @@
         <value xml:lang="en">Credit card is missing required fields.</value>
         <value xml:lang="fr">Des champs obligatoires pour la carte de crédit sont manquants.</value>
         <value xml:lang="it">Campo richiesti mancanti per la carta di credito.</value>
+        <value xml:lang="ja">クレジットカードが正しくありません。必須です。</value>
         <value xml:lang="vi">Trường ghi thẻ tín dụng không phù hợp yêu cầu.</value>
         <value xml:lang="zh">信用卡缺少必须的数据项。</value>
     </property>
@@ -10746,6 +10815,7 @@
         <value xml:lang="en">CreditCard object not found for paymentMethodId: ${paymentMethodId}</value>
         <value xml:lang="fr">La carte de crédit n'a pas été trouvée pour la méthode ${paymentMethodId}</value>
         <value xml:lang="it">Carta di credito non trovata per il metodo pagamento: ${paymentMethodId}</value>
+        <value xml:lang="ja">支払方法ID: ${paymentMethodId} のクレジットカードオブジェクトが見つかりません</value>
         <value xml:lang="vi">Phần thanh toán bằng thẻ tín dụng không tìm thấy cho mã Phương thức thanh toán: ${paymentMethodId}</value>
         <value xml:lang="zh">信用卡对象（CreditCard）没有找到，支付方法标识（paymentMethodId）：${paymentMethodId}</value>
     </property>
@@ -10753,6 +10823,7 @@
         <value xml:lang="en">Trouble processing the release results: ${errorString}</value>
         <value xml:lang="fr">Erreur lors du paiement : ${errorString}</value>
         <value xml:lang="it">Problemi nel rilascio transazione chiesto al gateway pagamenti, risultato: ${errorString}</value>
+        <value xml:lang="ja">解除処理中にエラー、結果: ${errorString}</value>
         <value xml:lang="vi">Lỗi trong quá trình xử lý và trả về kết quả: ${errorString} </value>
         <value xml:lang="zh">处理解除结果时出错：${errorString}</value>
     </property>
@@ -11087,6 +11158,7 @@
         <value xml:lang="en">Manual CC auth service can only be used with PaymentMethodType of CREDIT_CARD</value>
         <value xml:lang="fr">Service manuel CC auth est le seul utilisable pour la méthode de paiement par carte de crédit</value>
         <value xml:lang="it">Servizio maniale autorizzazione CC può essere usato con il tipo metodo pagamento CARTA DI CREDITO</value>
+        <value xml:lang="ja">手動クレジットカード認証サービスは支払方法種類が CREDIT_CARD のみ使用できます</value>
         <value xml:lang="vi">Dịch vụ thanh toán thẻ tín dụng chỉ được sử dụng với Phương thức thanh toán là CREDIT_CARD</value>
         <value xml:lang="zh">人工信用卡授权服务仅能用于把信用卡（CREDIT_CARD）作为支付方法类型（PaymentMethodType）</value>
     </property>
@@ -11122,6 +11194,7 @@
         <value xml:lang="en">Payment Method successfully deleted.</value>
         <value xml:lang="fr">Méthode de paiement supprimée</value>
         <value xml:lang="it">Metodo pagamento cancellato con successo.</value>
+        <value xml:lang="ja">支払方法が削除されました。</value>
         <value xml:lang="vi">Phương thức thanh toán được xóa bỏ thành công.</value>
         <value xml:lang="zh">成功删除支付方法</value>
     </property>
@@ -11326,6 +11399,7 @@
         <value xml:lang="en">Refund processor problems; see logs</value>
         <value xml:lang="fr">Le remboursement a échoué, voir les logs</value>
         <value xml:lang="it">Problemi nel rimborso chiesto al gateway pagamenti; controllare i logs</value>
+        <value xml:lang="ja">払出プロセッサでエラー。ログを参照してください</value>
         <value xml:lang="vi">Xử lý hoàn phí không thành công, bạn hãy xem vết hệ thống</value>
         <value xml:lang="zh">退款处理器错误；参见日志</value>
     </property>
@@ -11333,6 +11407,7 @@
         <value xml:lang="en">No refund service defined</value>
         <value xml:lang="fr">Pas de service de remboursement défini</value>
         <value xml:lang="it">Nessun servizio per il rimborso definito</value>
+        <value xml:lang="ja">払出サービスが定義されていません</value>
         <value xml:lang="vi">Chưa có dịch vụ Hoàn phí nào được định nghĩa</value>
         <value xml:lang="zh">没有定义退款服务</value>
     </property>
@@ -11344,7 +11419,7 @@
         <value xml:lang="fr">envoyé par</value>
         <value xml:lang="hi_IN">द्वारा भेजा</value>
         <value xml:lang="it">inviati da</value>
-        <value xml:lang="ja">送信元</value>
+        <value xml:lang="ja">差出人</value>
         <value xml:lang="nl">Verzonden via</value>
         <value xml:lang="pt">enviado de</value>
         <value xml:lang="ro">Trimise de</value>
@@ -11358,6 +11433,7 @@
         <value xml:lang="en">Cannot get model service for ${serviceName}</value>
         <value xml:lang="fr">Impossible de récupérer la définition du service ${serviceName}</value>
         <value xml:lang="it">Non è possibile ottenere il modello del servizio ${serviceName}</value>
+        <value xml:lang="ja">${serviceName} のモデルサービスが取得できません</value>
         <value xml:lang="vi">Không tìm thấy Kiểu dữ liệu dịch vụ cho ${serviceName}</value>
         <value xml:lang="zh">无法为 ${serviceName} 得到模型服务</value>
     </property>
@@ -11365,6 +11441,7 @@
         <value xml:lang="en">Error calling service : ${paymentService} / ${authContext}</value>
         <value xml:lang="fr">Erreur dans l'appel du service : ${paymentService} / ${authContext}</value>
         <value xml:lang="it">Errore durante l'esecuzione del servizio : ${paymentService} / ${authContext}</value>
+        <value xml:lang="ja">サービスの呼び出し中にエラー: ${paymentService} / ${authContext}</value>
         <value xml:lang="vi">Lỗi khi gọi dịch vụ : ${paymentService} / ${authContext}</value>
         <value xml:lang="zh">调用服务时出错：${paymentService} / ${authContext}</value>
     </property>
@@ -11372,6 +11449,7 @@
         <value xml:lang="en">Service ${serviceName} does not have a captureAmount or processAmount. Its parameters are: ${inParams}</value>
         <value xml:lang="fr">Le service ${serviceName} n'a pas de champs captureAmount ou processAmount, est attendu ${inParams}</value>
         <value xml:lang="it">Il servizio ${serviceName} non ha un'importo da catturare o autorizzare. I parametri sono: ${inParams}</value>
+        <value xml:lang="ja">サービス ${serviceName} はキャプチャ金額または処理金額がありません。パラメータ: ${inParams}</value>
         <value xml:lang="vi">Dịch vụ ${serviceName} không nhận được giá trị captureAmount hoặc processAmount. Các thuộc tính cần có gồm: ${inParams}</value>
         <value xml:lang="zh">服务 ${serviceName} 没有捕捉金额（captureAmount）或处理金额（processAmount）。它的参数是：${inParams}</value>
     </property>
@@ -11379,6 +11457,7 @@
         <value xml:lang="en">No valid payment settings found for : ${productStoreId} / ${transactionType}</value>
         <value xml:lang="fr">Configuration du paiement invalide pour ${productStoreId} / ${transactionType}</value>
         <value xml:lang="it">Nessun configurazione pagamento trovata per : ${productStoreId} / ${transactionType}</value>
+        <value xml:lang="ja">有効な支払設定がありません: ${productStoreId} / ${transactionType}</value>
         <value xml:lang="vi">Thiết lập thanh toán không hợp lệ cho: ${productStoreId} / ${transactionType}</value>
         <value xml:lang="zh">支付设置无效：${productStoreId} / ${transactionType}</value>
     </property>
@@ -11386,6 +11465,7 @@
         <value xml:lang="en">Invalid product store payment settings</value>
         <value xml:lang="fr">Configuration du centre de profit pour le paiement non valide</value>
         <value xml:lang="it">Configurazione gateway pagamenti negozio non valida</value>
+        <value xml:lang="ja">製品店舗支払設定が正しくありません</value>
         <value xml:lang="vi">Thiết lập thanh toán của Cửa hàng không hợp lệ</value>
         <value xml:lang="zh">产品店铺支付设置无效</value>
     </property>
@@ -11427,7 +11507,7 @@
         <value xml:lang="fr">Allocations</value>
         <value xml:lang="hi_IN">अनुप्रयोग</value>
         <value xml:lang="it">Applicazioni Pagamento</value>
-        <value xml:lang="ja">申請</value>
+        <value xml:lang="ja">適用</value>
         <value xml:lang="nl">Toewijzingen</value>
         <value xml:lang="pt">Aplicativos</value>
         <value xml:lang="ro">Aplicatii Plati</value>
@@ -11559,6 +11639,7 @@
         <value xml:lang="en">Test authorization always failed</value>
         <value xml:lang="fr">Le test d'autorisation échoue toujours</value>
         <value xml:lang="it">Test autorizzazione sempre fallita</value>
+        <value xml:lang="ja">テスト認証は常に失敗です</value>
         <value xml:lang="vi">Quá trình kiểm thử việc Xác nhận luôn luôn không thành công</value>
         <value xml:lang="zh">测试授权总是失败。</value>
     </property>
@@ -11566,6 +11647,7 @@
         <value xml:lang="en">This is a test processor; no payments were captured or authorized</value>
         <value xml:lang="fr">Ceci est un test, aucune autorisation ou récupération de paiement sera effectuée</value>
         <value xml:lang="it">Questo è un test di cattura transazione; nessun pagamento verrà catturato o autorizzato</value>
+        <value xml:lang="ja">これはテストプロセッサです。支払はキャプチャまたは認証されません</value>
         <value xml:lang="vi">Đây là quá trình thử nghiệm nên không thanh toán nào được xử lý hoặc xác nhận</value>
         <value xml:lang="zh">这是测试处理器；没有捕捉或授权的支付</value>
     </property>
@@ -11573,6 +11655,7 @@
         <value xml:lang="en">This is a test capture; no money was transferred</value>
         <value xml:lang="fr">Ceci est un test de récupération, aucun transfert de somme</value>
         <value xml:lang="it">Questo è un test di cattura transazione; i soldi non verranno trasferiti</value>
+        <value xml:lang="ja">これはテストキャプチャです。現金は転送されません</value>
         <value xml:lang="vi">Đây là quá trình kiểm thử xử lý nên tiền sẽ không được chuyển</value>
         <value xml:lang="zh">这是测试捕捉；没有钱会被转移</value>
     </property>
@@ -11580,6 +11663,7 @@
         <value xml:lang="en">This is a test processor; no payments were captured or authorized</value>
         <value xml:lang="fr">Ceci est un test de récupération; aucun paiement ne sera effectué ou autorisé</value>
         <value xml:lang="it">Questo è un test di cattura transazione; nessun pagamento verrà catturato o autorizzato</value>
+        <value xml:lang="ja">これはテストプロセッサです。支払はキャプチャまたは認証されません</value>
         <value xml:lang="vi">Đây là quá trình thử nghiệm nên không thanh toán nào được xử lý và xác nhận</value>
         <value xml:lang="zh">这是测试处理器；没有捕捉或授权的支付</value>
     </property>
@@ -11587,6 +11671,7 @@
         <value xml:lang="en">This is a test capture; no money was transferred</value>
         <value xml:lang="fr">Ceci est un test de récupération, aucun transfert de somme</value>
         <value xml:lang="it">Questo è un test di cattura transazione; i soldi non verranno trasferiti</value>
+        <value xml:lang="ja">これはテストキャプチャです。現金は転送されません</value>
         <value xml:lang="vi">Đây là quá trình kiểm thử xử lý nên tiền sẽ không được chuyển</value>
         <value xml:lang="zh">这是测试捕捉；没有钱会被转移</value>
     </property>
@@ -11594,6 +11679,7 @@
         <value xml:lang="en">This is a test processor; no payments were captured or authorized.</value>
         <value xml:lang="fr">Ceci est un test de récupération, aucun paiement ne sera effectué ou autorisé</value>
         <value xml:lang="it">Questo è un test di autorizzazione transazione; nessun pagamento verrà catturato o autorizzato</value>
+        <value xml:lang="ja">これはテストプロセッサです。支払はキャプチャまたは認証されません。</value>
         <value xml:lang="vi">Đây là quá trình kiểm thử xử lý nên sẽ không có Thanh toán nào được Giữ lại hoặc Xác nhận.</value>
         <value xml:lang="zh">这是测试处理器；没有捕捉或授权的支付</value>
     </property>
@@ -11601,6 +11687,7 @@
         <value xml:lang="en">This is a test processor; no payments were captured or authorized</value>
         <value xml:lang="fr">Ceci est un test de récupération, aucun paiement ne sera effectué ou autorisé</value>
         <value xml:lang="it">Questo è un test di autorizzazione transazione; nessun pagamento verrà catturato o autorizzato</value>
+        <value xml:lang="ja">これはテストプロセッサです。支払はキャプチャまたは認証されません</value>
         <value xml:lang="vi">Đây là quá trình thử nghiệm nên không thanh toán nào được xử lý và xác nhận</value>
         <value xml:lang="zh">这是测试处理器；没有捕捉或授权的支付</value>
     </property>
@@ -11608,6 +11695,7 @@
         <value xml:lang="en">Sorry this processor requires at least a $100.00 purchase.</value>
         <value xml:lang="fr">Désolé, cette procédure requière un minimum de $100 d'achat</value>
         <value xml:lang="it">Mi dispiace ma per questa autorizzazione sono necessari almeno $100 per l'acquisto</value>
+        <value xml:lang="ja">申し訳ございません、この処理は少なくとも$100.00の支払が必要です。</value>
         <value xml:lang="vi">Quá trình xử lý yêu cầu Bút toán nhỏ nhất là $100.00.</value>
         <value xml:lang="zh">对不起，这个处理器要求每笔采购至少$100.00</value>
     </property>
@@ -11615,6 +11703,7 @@
         <value xml:lang="en">This is a test refund; no money was transferred</value>
         <value xml:lang="fr">Ceci est un test de récupération, aucun transfert de somme</value>
         <value xml:lang="it">Questo è un test di rimborso transazione; i soldi non verranno trasferiti</value>
+        <value xml:lang="ja">これはテスト払出です。現金は転送されません</value>
         <value xml:lang="vi">Đây là quá trình thử nghiệm hoàn phí nên tiền sẽ không được chuyển</value>
         <value xml:lang="zh">这是退款测试；没有钱会被转移</value>
     </property>
@@ -11622,6 +11711,7 @@
         <value xml:lang="en">This is a test refund failure; no money was transferred</value>
         <value xml:lang="fr">Ceci est un test de retour d'échec, aucun transfert de somme</value>
         <value xml:lang="it">Questo è un test di fallimento rimborso transazione; i soldi non verranno trasferiti</value>
+        <value xml:lang="ja">これはテスト払出失敗です。現金は転送されません</value>
         <value xml:lang="vi">Đây là thử nghiệm hoàn phí trong trường hợp Không thành công và tiền sẽ không được chuyển</value>
         <value xml:lang="zh">这是退款失败测试；没有钱会被转移</value>
     </property>
@@ -11629,6 +11719,7 @@
         <value xml:lang="en">This is a test release; no authorizations exist</value>
         <value xml:lang="fr">Ceci est un test de version, aucun transfert de somme</value>
         <value xml:lang="it">Questo è un test di rilascio transazione; nessuna autorizzazione esiste</value>
+        <value xml:lang="ja">これはテスト解除です。認証は存在しません</value>
         <value xml:lang="vi">Đây là phiên bản thử nghiệm nên không có Xác nhận nào</value>
         <value xml:lang="zh">这是解除测试；不存在授权</value>
     </property>
@@ -11636,6 +11727,7 @@
         <value xml:lang="en">No authorization transaction found; cannot capture</value>
         <value xml:lang="fr">Aucune autorisation trouvée, impossible de récupérer un paiement</value>
         <value xml:lang="it">Nessuna transazione di autorizzazione trovata; non è possibile catturare</value>
+        <value xml:lang="ja">認証トランザクションはありません。キャプチャできません</value>
         <value xml:lang="vi">Không tìm thấy Bút toán Xác nhận nên không thể Xử lý</value>
         <value xml:lang="zh">找不到授权交易；无法捕捉</value>
     </property>
@@ -11643,6 +11735,7 @@
         <value xml:lang="en">No authorization transaction found; cannot re-auth</value>
         <value xml:lang="fr">Aucune autorisation trouvée, impossible de ré-authentifier</value>
         <value xml:lang="it">Nessuna transazione di autorizzazione trovata; non è possibile ri-autorizzare</value>
+        <value xml:lang="ja">認証トランザクションはありません。再認証できません</value>
         <value xml:lang="vi">Không tìm thấy Bút toán Xác nhận nên không thể thực hiện Xác nhận lại</value>
         <value xml:lang="zh">找不到授权交易；不能再授权</value>
     </property>
@@ -11650,6 +11743,7 @@
         <value xml:lang="en">No authorization transaction found; cannot refund</value>
         <value xml:lang="fr">Aucune autorisation trouvée, remboursement impossible</value>
         <value xml:lang="it">Nessuna transazione di autorizzazione trovata; non è possibile rimborsare</value>
+        <value xml:lang="ja">認証トランザクションはありません。払出できません</value>
         <value xml:lang="vi">Không tìm thấy Bút toán Xác nhận nên không thể Hoàn phí</value>
         <value xml:lang="zh">没有找到授权交易；无法退款</value>
     </property>
@@ -11657,6 +11751,7 @@
         <value xml:lang="en">No authorization transaction found; cannot release</value>
         <value xml:lang="fr">Aucune autorisation trouvée, version impossible</value>
         <value xml:lang="it">Nessuna transazione di autorizzazione trovata; non è possibile rilasciare</value>
+        <value xml:lang="ja">認証トランザクションはありません。解除できません</value>
         <value xml:lang="vi">Không tìm thấy Bút toán Xác nhận nên không thể Phát hành</value>
         <value xml:lang="zh">没有找到授权交易；无法解除</value>
     </property>
@@ -11664,6 +11759,7 @@
         <value xml:lang="en">Transaction result ${msg} / ${code} Ref#: ${refNum}</value>
         <value xml:lang="fr">Résultat de la transaction : ${msg} / ${code} Ref#: ${refNum}</value>
         <value xml:lang="it">Risultato transazione ${msg} / ${code} Rif.: ${refNum}</value>
+        <value xml:lang="ja">トランザクション結果 ${msg} / ${code} 照会#: ${refNum}</value>
         <value xml:lang="vi">Kết quả Bút toán ${msg} / ${code} Ref#: ${refNum}</value>
         <value xml:lang="zh">交易结果 ${msg} / ${code} 引用#: ${refNum}</value>
     </property>
@@ -11671,6 +11767,7 @@
         <value xml:lang="en">You do not have permission for this transaction.</value>
         <value xml:lang="fr">Vous n'avez pas les droits nécessaires à cette transaction</value>
         <value xml:lang="it">Non sei autorizzato per questa transazione.</value>
+        <value xml:lang="ja">このトランザクションを実行する権限がありません。</value>
         <value xml:lang="vi">Bạn không đủ quyền cho Bút toán này.</value>
         <value xml:lang="zh">你没有这个交易的权限。</value>
     </property>
@@ -11678,6 +11775,7 @@
         <value xml:lang="en">This transaction type is not yet supported.</value>
         <value xml:lang="fr">Ce type de transaction n'est pas encore supporté</value>
         <value xml:lang="it">Questo tipo transazione non è ancora supportata.</value>
+        <value xml:lang="ja">このトランザクション種類はまだサポートされていません。</value>
         <value xml:lang="vi">Loại Bút toán hiện tại chưa được hỗ trợ</value>
         <value xml:lang="zh">还不支持这个交易类型。</value>
     </property>
@@ -11714,6 +11812,7 @@
         <value xml:lang="en">Unable to obtain cc information from payment preference</value>
         <value xml:lang="fr">Impossible d'obtenir les informations sur carte de crédit pour la préférence de paiement</value>
         <value xml:lang="it">Non è possibile le informazioni della carta di carta dalle preferenze pagamento ordine</value>
+        <value xml:lang="ja">支払設定からクレジットカード情報を取得できません</value>
         <value xml:lang="vi">Không thể lấy thông tin Đồng gửi từ Tham số thanh toán</value>
         <value xml:lang="zh">无法从支付设置中获得信用卡信息</value>
     </property>
@@ -11866,6 +11965,7 @@
         <value xml:lang="en">PcCharge does not support releasing pre-auths.</value>
         <value xml:lang="fr">PcCharge ne supporte pas la pré-authentification</value>
         <value xml:lang="it">PcCharge non supporta rilascio pre-autorizzazioni.</value>
+        <value xml:lang="ja">事前認証の解除でPcChargeはサポートされていません。</value>
         <value xml:lang="vi">PcCharge không hỗ trợ Xác thực lại.</value>
         <value xml:lang="zh">PcCharge不支持解除预授权。</value>
     </property>
@@ -11873,6 +11973,7 @@
         <value xml:lang="en">PcCharge is not configured properly</value>
         <value xml:lang="fr">PcCharge n'est pas configuré</value>
         <value xml:lang="it">PcCharge non è configurato propriamente</value>
+        <value xml:lang="ja">PcChargeが適切に設定されていません</value>
         <value xml:lang="vi">PcCharge không được cấu hình hợp lệ</value>
         <value xml:lang="zh">PcCharge配置不当</value>
     </property>
@@ -11880,6 +11981,7 @@
         <value xml:lang="en">Receive a null result from PcCharge</value>
         <value xml:lang="fr">Réception d'un resultat vide depuis PcCharge</value>
         <value xml:lang="it">Ricevuto risultato nullo da PcCharge</value>
+        <value xml:lang="ja">PcChargeから空の結果を受け取りました</value>
         <value xml:lang="vi">Nhận được giá trị Rỗng từ PcCharge</value>
         <value xml:lang="zh">从PcCharge收到了一个空（null）的结果</value>
     </property>
@@ -11906,7 +12008,7 @@
         <value xml:lang="en">Period1 Net Income</value>
         <value xml:lang="fr">Période 1 bénéfice</value>
         <value xml:lang="hi_IN">अवधि 1 शुद्ध आय</value>
-        <value xml:lang="ja">期間1 正味利益</value>
+        <value xml:lang="ja">期間1 正味損益</value>
         <value xml:lang="pt">Lucro Líquido do período 1</value>
         <value xml:lang="vi">Doanh thu thuần kỳ 1</value>
         <value xml:lang="zh">时间段1 净收入</value>
@@ -11944,7 +12046,7 @@
         <value xml:lang="en">Period2 Net Income</value>
         <value xml:lang="fr">Période 2 bénéfice</value>
         <value xml:lang="hi_IN">अवधि 2 शुद्ध आय</value>
-        <value xml:lang="ja">期間2 正味利益</value>
+        <value xml:lang="ja">期間2 正味損益</value>
         <value xml:lang="pt">Lucro Líquido período 2</value>
         <value xml:lang="vi">Doanh thu thuần kỳ 2</value>
         <value xml:lang="zh">时间段2 净收入</value>
@@ -11963,6 +12065,7 @@
         <value xml:lang="en">Cannot get a starting date for net income</value>
         <value xml:lang="fr">Impossible de récupérer la date de départ pour le bénéfice</value>
         <value xml:lang="it">Non è possibile ricavare una data d'inizio per l'utile netto</value>
+        <value xml:lang="ja">正味損益の開始日が取得できません</value>
         <value xml:lang="vi">Không thể lấy giá trị ngày bắt đầu cho doanh thu thuần</value>
         <value xml:lang="zh">无法得到净收入的起始日期</value>
     </property>
@@ -12130,6 +12233,7 @@
         <value xml:lang="en">There is already a posted balance ${postedBalance} that doesn't match with the current one ${totalAmount}.</value>
         <value xml:lang="fr">Il y a déjà un solde d'enregistrement ${postedBalance} qui ne correspond pas à l'actuel ${totalAmount}.</value>
         <value xml:lang="it">C'è già un bilancio contabilizzato ${postedBalance} che non corrisponde con quello attuale ${totalAmount}.</value>
+        <value xml:lang="ja">現在の金額 ${totalAmount} と一致しない転記済の貸借 ${postedBalance} があります。</value>
         <value xml:lang="pt">Já existe um balanço publicado ${postedBalance} que não corresponde com o atual ${totalAmount}.</value>
         <value xml:lang="vi">Có một số dư công bố ${postedBalance} không phù hợp với một tài khoản hiện tại là ${totalAmount}.</value>
         <value xml:lang="zh">已经存在的过账余额 ${postedBalance} 与当前的余额 ${totalAmount} 不一致。</value>
@@ -12408,7 +12512,7 @@
         <value xml:lang="fr">Compte de catégorie de produit</value>
         <value xml:lang="hi_IN">उत्पाद श्रेणी जीएल(Gl) खाता</value>
         <value xml:lang="it">Conto Gl Categoria Prodotto</value>
-        <value xml:lang="ja">製品カテゴリ勘定科目</value>
+        <value xml:lang="ja">製品カテゴリGL勘定</value>
         <value xml:lang="nl">GB-rekening Productcategorie</value>
         <value xml:lang="pt">Conta financeira da Categoria de Produto</value>
         <value xml:lang="th">หมวดหมู่สินค้าบัญชีแยกประเภททั่วไป</value>
@@ -12422,7 +12526,7 @@
         <value xml:lang="fr">Comptes de produit</value>
         <value xml:lang="hi_IN">उत्पाद जीएल(Gl) खाता</value>
         <value xml:lang="it">Conti Gl Prodotto</value>
-        <value xml:lang="ja">製品勘定科目</value>
+        <value xml:lang="ja">製品GL勘定</value>
         <value xml:lang="nl">GB-rekeningen Product</value>
         <value xml:lang="pt">Contas financeiras do produto</value>
         <value xml:lang="th">สินค้าบัญชีแยกประเภททั่วไป</value>
@@ -12471,7 +12575,7 @@
         <value xml:lang="fr">Liste d'affectation du type facture d'achat au n° de compte de produit</value>
         <value xml:lang="hi_IN">खरीद चालान प्रकार में राजस्व जीएल(Gl) खाता नम्बर कार्य सूची</value>
         <value xml:lang="it">Lista assegnazioni tipo fattura acquisto numero conto GL profitti</value>
-        <value xml:lang="ja">収入勘定科目への購入請求種類割当一覧</value>
+        <value xml:lang="ja">収入GL勘定への購入請求種類割当一覧</value>
         <value xml:lang="nl">Inkoopfactuurtype naar Revenue BG-rekening toewijzingslijst</value>
         <value xml:lang="pt">Lista de números de atribuiçõe de Tipo de fatura de compra para conta financeira de receita</value>
         <value xml:lang="th">Purchase Invoice type to Revenue GL Account Number assignment list</value>
@@ -12672,6 +12776,7 @@
         <value xml:lang="en">RiTA does not support releasing pre-auths.</value>
         <value xml:lang="fr">RiTA ne supporte pas la pré-authentification</value>
         <value xml:lang="it">RiTA non supporta rilascio pre-autorizzazioni.</value>
+        <value xml:lang="ja">RiTAは事前認証の解除をサポートしていません。</value>
         <value xml:lang="vi">RiTA không hỗ trợ cấp phép Chứng nhận trước</value>
         <value xml:lang="zh">RiTA不支持解除预授权。</value>
     </property>
@@ -12679,6 +12784,7 @@
         <value xml:lang="en">RiTA is not configured properly</value>
         <value xml:lang="fr">RiTA n'est pas configuré</value>
         <value xml:lang="it">RiTA non è configurato propriamente</value>
+        <value xml:lang="ja">RiTAが適切に設定されていません。</value>
         <value xml:lang="vi">RiTA không cấu hình tài sản</value>
         <value xml:lang="zh">RiTA配置不当</value>
     </property>
@@ -12686,6 +12792,7 @@
         <value xml:lang="en">Service invocation exception</value>
         <value xml:lang="fr">Erreur lors de l'appel de service</value>
         <value xml:lang="it">Eccezione durante l'invocazione del servizio</value>
+        <value xml:lang="ja">サービス呼び出し例外</value>
         <value xml:lang="vi">Dịch vụ viện dẫn ngoại lệ</value>
         <value xml:lang="zh">服务调用时出错</value>
     </property>
@@ -12693,6 +12800,7 @@
         <value xml:lang="en">Receive a null result from RiTA</value>
         <value xml:lang="fr">Réception d'un resultat non conforme depuis RiTA</value>
         <value xml:lang="it">Ricevuto risultato nullo da RiTA</value>
+        <value xml:lang="ja">RiTAから空の結果を受け取りました</value>
         <value xml:lang="vi">Nhận được kết quả rỗng từ RiTA</value>
         <value xml:lang="zh">从RiTA接收到一个空（null）结果</value>
     </property>
@@ -12802,7 +12910,7 @@
     <property key="AccountingSagePayAuthenticationTransType">
         <value xml:lang="en">Authentication Type</value>
         <value xml:lang="fr">Type d'authentification</value>
-        <value xml:lang="ja">認証種類</value>
+        <value xml:lang="ja">承認種類</value>
         <value xml:lang="pt">Tipo de autenticação</value>
         <value xml:lang="vi">Kiểu xác thực</value>
         <value xml:lang="zh">认证类型</value>
@@ -12811,7 +12919,7 @@
     <property key="AccountingSagePayAuthenticationUrl">
         <value xml:lang="en">Authentication Url</value>
         <value xml:lang="fr">Url d'authentification</value>
-        <value xml:lang="ja">認証URL</value>
+        <value xml:lang="ja">承認URL</value>
         <value xml:lang="pt">Url de Autenticação</value>
         <value xml:lang="vi">Liên kết xác thực</value>
         <value xml:lang="zh">认证网址</value>
@@ -12820,7 +12928,7 @@
     <property key="AccountingSagePayAuthorisationTransType">
         <value xml:lang="en">Authorisation Type</value>
         <value xml:lang="fr">Type d'authentifiction</value>
-        <value xml:lang="ja">承認種類</value>
+        <value xml:lang="ja">認証種類</value>
         <value xml:lang="pt">Tipo de Autorização</value>
         <value xml:lang="vi">Kiểu xác nhận</value>
         <value xml:lang="zh">授权类型</value>
@@ -12828,7 +12936,7 @@
     <property key="AccountingSagePayAuthorisationUrl">
         <value xml:lang="en">Authorisation Url</value>
         <value xml:lang="fr">URL d'authentification</value>
-        <value xml:lang="ja">承認URL</value>
+        <value xml:lang="ja">認証URL</value>
         <value xml:lang="pt">Url de Autorização</value>
         <value xml:lang="vi">Liên kết xác nhận</value>
         <value xml:lang="zh">授权网址</value>
@@ -12837,6 +12945,7 @@
         <value xml:lang="en">Error occured in encoding parameters for HttpPost (${errorString})</value>
         <value xml:lang="fr">Erreur lors de l'encodage des paramètres pour HttpPost (${errorString})</value>
         <value xml:lang="it">Errore accaduto durante encoding parametri per HttpPost (${errorString})</value>
+        <value xml:lang="ja">HTTP POSTのパラメータをエンコード中にエラーが発生しました (${errorString})</value>
         <value xml:lang="vi">Lỗi xảy ra khi mã hóa tham số cho HttpPost (${errorString})</value>
         <value xml:lang="zh">对HttpPost进行参数编码时出错：${errorString}</value>
     </property>
@@ -12844,6 +12953,7 @@
         <value xml:lang="en">Error occured in HttpClient execute (${errorString})</value>
         <value xml:lang="fr">Erreur lors de l'exécution de HttpClient (${errorString})</value>
         <value xml:lang="it">Errore accaduto durante esecuzione HttpClient (${errorString})</value>
+        <value xml:lang="ja">HTTPクライアント実行中にエラーが発生しました (${errorString})</value>
         <value xml:lang="vi">Lỗi xảy ra khi thực hiện lời gọi HttpClient (${errorString})</value>
         <value xml:lang="zh">执行HttpClient时出错：${errorString}</value>
     </property>
@@ -12851,6 +12961,7 @@
         <value xml:lang="en">Error occured in HttpClient execute or getting response (${errorString})</value>
         <value xml:lang="fr">Erreur lors de la réception de la réponse par HttpClient (${errorString})</value>
         <value xml:lang="it">Errore accaduto durante esecuzione HttpClient o ottendendo la risposta (${errorString})</value>
+        <value xml:lang="ja">HTTPクライアント実行中またはレスポンス取得中にエラーが発生しました (${errorString})</value>
         <value xml:lang="vi">Lỗi xảy ra khi thực hiện lời gọi HttpClient hoặc thu nhập kết quả trả về (${errorString})</value>
         <value xml:lang="zh">执行HttpClient或获得响应时出错：${errorString}</value>
     </property>
@@ -12858,6 +12969,7 @@
         <value xml:lang="en">Problem at SagePay</value>
         <value xml:lang="fr">Problème sur SagePay</value>
         <value xml:lang="it">Problemi di SagePay</value>
+        <value xml:lang="ja">SagePayでエラー</value>
         <value xml:lang="nl">Probleem bij SagePay</value>
         <value xml:lang="vi">Có lỗi ở SagePay</value>
         <value xml:lang="zh">SagePay出错</value>
@@ -12866,6 +12978,7 @@
         <value xml:lang="en">Invalid information passed in parameters</value>
         <value xml:lang="fr">Information invalide passée en paramètre</value>
         <value xml:lang="it">Informazioni invalide passate nei paramatri</value>
+        <value xml:lang="ja">パラメータに不正な情報が渡されました</value>
         <value xml:lang="vi">Thông tin tham số đã gửi không hợp lệ</value>
         <value xml:lang="zh">传入的参数中有无效信息</value>
     </property>
@@ -12873,6 +12986,7 @@
         <value xml:lang="en">Refund not authorized by the acquiring bank</value>
         <value xml:lang="fr">Remboursement non authorisé par la banque acquéreuse</value>
         <value xml:lang="it">Rimborso non autorizzato dalla banca</value>
+        <value xml:lang="ja">請求先の銀行で払出が認証されませんでした</value>
         <value xml:lang="vi">Hoàn phí không được xác nhận bởi ngân hàng</value>
         <value xml:lang="zh">退款没有得到所请求银行的授权</value>
     </property>
@@ -12880,6 +12994,7 @@
         <value xml:lang="en">Refund request not formed properly or parameters missing</value>
         <value xml:lang="fr">La demande de remboursement n'est pas correcte ou un paramètre est manquant</value>
         <value xml:lang="it">Richiesta rimborso pagamento non formato correttamente o parametro mancante</value>
+        <value xml:lang="ja">払出リクエストが正しい形式でないか、パラメータが正しくありません</value>
         <value xml:lang="vi">Yêu cầu Hoàn phí chưa đúng khuôn mẫu hoặc tham số bị thiếu</value>
         <value xml:lang="zh">退款请求格式错误或缺少参数</value>
     </property>
@@ -12887,6 +13002,7 @@
         <value xml:lang="en">Payment Refunded</value>
         <value xml:lang="fr">Remboursement</value>
         <value xml:lang="it">Pagamento rimborsato</value>
+        <value xml:lang="ja">支払が払出されました</value>
         <value xml:lang="nl">Betaling teruggewezen</value>
         <value xml:lang="vi">Thanh toán đã hoàn phí</value>
         <value xml:lang="zh">支付已退</value>
@@ -12895,6 +13011,7 @@
         <value xml:lang="en">Released request not formed properly or parameters missing</value>
         <value xml:lang="fr">La demande n'est pas construite correctement ou des paramètres sont manquants</value>
         <value xml:lang="it">Richiesta rilascio pagamento non formato correttamente o parametro mancante</value>
+        <value xml:lang="ja">解除リクエストが正しい形式でないか、パラメータが正しくありません</value>
         <value xml:lang="vi">Yêu cầu Phát hành chưa đúng khuôn mẫu hoặc tham số bị thiếu</value>
         <value xml:lang="zh">解除请求格式错误或缺少参数</value>
     </property>
@@ -12902,6 +13019,7 @@
         <value xml:lang="en">Payment Released</value>
         <value xml:lang="fr">Paiement effectué</value>
         <value xml:lang="it">Pagamento rilasciato</value>
+        <value xml:lang="ja">支払が解除されました</value>
         <value xml:lang="vi">Phát hành thanh toán</value>
         <value xml:lang="zh">支付已解除</value>
     </property>
@@ -12909,6 +13027,7 @@
         <value xml:lang="en">Void request not formed properly or parameters missing</value>
         <value xml:lang="fr">La demande d'annulation n'est pas correcte ou un paramètre est manquant</value>
         <value xml:lang="it">Richiesta annullamento pagamento non formato correttamente o parametro mancante</value>
+        <value xml:lang="ja">無効リクエストが正しい形式でないか、パラメータが正しくありません</value>
         <value xml:lang="vi">Yêu cầu Thủ tục (void) chưa đúng khuôn mẫu hoặc tham số bị thiếu</value>
         <value xml:lang="zh">作废请求格式错误或缺少参数</value>
     </property>
@@ -12916,6 +13035,7 @@
         <value xml:lang="en">Payment Voided</value>
         <value xml:lang="fr">Annulation</value>
         <value xml:lang="it">Pagamento annullato</value>
+        <value xml:lang="ja">支払が無効になりました</value>
         <value xml:lang="vi">Thủ tục (void) thanh toán</value>
         <value xml:lang="zh">支付已作废</value>
     </property>
@@ -12932,6 +13052,7 @@
         <value xml:lang="en">OrderPaymentPreference for order : ${orderId} is null: ${orderPaymentPreference}</value>
         <value xml:lang="fr">Le paiement de la commande ${orderId} est vide (${orderPaymentPreference})</value>
         <value xml:lang="it">Preferenze pagamento per l'ordine : ${orderId} è nullo: ${orderPaymentPreference}</value>
+        <value xml:lang="ja">注文 ${orderId} の注文支払設定が空です: ${orderPaymentPreference}</value>
         <value xml:lang="vi">Tham chiếu thanh toán đặt hàng cho Đặt hàng : ${orderId} đang RỖNG: ${orderPaymentPreference}</value>
         <value xml:lang="zh">订单 ${orderId } 的订单支付设置（OrderPaymentPreference）${orderPaymentPreference} 是空的（null）</value>
     </property>
@@ -12939,6 +13060,7 @@
         <value xml:lang="en">Exception in calling SagePayPaymentAuthorisation: ${errorString}</value>
         <value xml:lang="fr">Erreur dans l'appel de l'autorisation de paiement sur SagePay : ${errorString}</value>
         <value xml:lang="it">Eccezione durante la chiamata a SagePayPaymentAuthorisation: ${errorString}</value>
+        <value xml:lang="ja">SagePayPaymentAuthorisationの呼び出し中に例外: ${errorString}</value>
         <value xml:lang="vi">Có lỗi ngoại lệ khi gọi SagePayPaymentAuthorisation: ${errorString}</value>
         <value xml:lang="zh">调用SagePay支付授权（SagePayPaymentAuthorisation）时出错：${errorString}</value>
     </property>
@@ -12946,6 +13068,7 @@
         <value xml:lang="en">Exception in calling SagePayPaymentRefund: ${errorString}</value>
         <value xml:lang="fr">Erreur dans l'appel de remboursement sur SagePay : ${errorString}</value>
         <value xml:lang="it">Eccezione durante la chiamata a SagePayPaymentRefund: ${errorString}</value>
+        <value xml:lang="ja">SagePayPaymentRefundの呼び出し中に例外: ${errorString}</value>
         <value xml:lang="vi">Có lỗi ngoại lệ khi gọi SagePayPaymentRefund: ${errorString}</value>
         <value xml:lang="zh">调用SagePay支付退款（SagePayPaymentRefund）时出错：${errorString}</value>
     </property>
@@ -12953,6 +13076,7 @@
         <value xml:lang="en">Exception in calling SagePayPaymentRelease: ${errorString}</value>
         <value xml:lang="fr">Erreur dans l'appel de sortie des paiements sur SagePay : ${errorString}</value>
         <value xml:lang="it">Eccezione durante la chiamata a SagePayPaymentRelease: ${errorString}</value>
+        <value xml:lang="ja">SagePayPaymentReleaseの呼び出し中に例外: ${errorString}</value>
         <value xml:lang="vi">Có lỗi ngoại lệ khi gọi SagePayPaymentRelease: ${errorString}</value>
         <value xml:lang="zh">调用SagePay支付解除（SagePayPaymentRelease）时出错：${errorString}</value>
     </property>
@@ -12960,6 +13084,7 @@
         <value xml:lang="en">Exception in calling SagePayPaymentVoid: ${errorString}</value>
         <value xml:lang="fr">Erreur dans l'appel d'annulation sur SagePay : ${errorString}</value>
         <value xml:lang="it">Eccezione durante la chiamata a SagePayPaymentVoid: ${errorString}</value>
+        <value xml:lang="ja">SagePayPaymentVoidの呼び出し中に例外: ${errorString}</value>
         <value xml:lang="vi">Có lỗi ngoại lệ khi gọi SagePayPaymentVoid: ${errorString}</value>
         <value xml:lang="zh">调用SagePay支付作废（SagePayPaymentVoid）时出错：${errorString}</value>
     </property>
@@ -13000,7 +13125,7 @@
     <property key="AccountingSagePayReleaseTransType">
         <value xml:lang="en">Release Type</value>
         <value xml:lang="fr">Type de sortie</value>
-        <value xml:lang="ja">リリース種類</value>
+        <value xml:lang="ja">解除種類</value>
         <value xml:lang="pt">Tipo de Lançamento</value>
         <value xml:lang="vi">Kiểu phát hành</value>
         <value xml:lang="zh">解除类型</value>
@@ -13008,7 +13133,7 @@
     <property key="AccountingSagePayReleaseUrl">
         <value xml:lang="en">Release Url</value>
         <value xml:lang="fr">URL de sortie</value>
-        <value xml:lang="ja">リリースURL</value>
+        <value xml:lang="ja">解除URL</value>
         <value xml:lang="pt">Url de Lançamento</value>
         <value xml:lang="vi">Url phát hành</value>
         <value xml:lang="zh">解除网址</value>
@@ -13066,7 +13191,7 @@
         <value xml:lang="fr">Associations entre types de factures et comptes de ventes</value>
         <value xml:lang="hi_IN">बिक्री चालान प्रकार में राजस्व जीएल(Gl) खाता नम्बर कार्य सूची</value>
         <value xml:lang="it">Lista Tipo Fattura Vendita assegnate al Numero Conto Profitti Gl</value>
-        <value xml:lang="ja">収入勘定科目への販売請求種類割当一覧</value>
+        <value xml:lang="ja">収入GL勘定への販売請求種類割当一覧</value>
         <value xml:lang="nl">Verkoopfactuur type naar Gb-rekening toewijzingslijst</value>
         <value xml:lang="pt">Lista de números de atribuição de tipo de fatura de venda para conta financeira de receita</value>
         <value xml:lang="ro">Lista Tip Factura Vanzare anexata la  Nr.Cont Profituri Gl</value>
@@ -13109,6 +13234,7 @@
         <value xml:lang="en">ERROR: Getting SecurePay property configuration</value>
         <value xml:lang="fr">ERREUR lors de la récupération des configurations pour SecurePay</value>
         <value xml:lang="it">ERRORE: Ricavando la configurazione di SecurePay</value>
+        <value xml:lang="ja">エラー: SecurePayプロパティ設定の取得中にエラー</value>
         <value xml:lang="nl">ERROR: ophalen SecurePay configuratie</value>
         <value xml:lang="vi">LỖI trong quá trình lấy thông tin cấu hình cho SecurePay</value>
         <value xml:lang="zh">错误：获取SecurePay属性设置时</value>
@@ -13117,6 +13243,7 @@
         <value xml:lang="en">Payment was not sent to server.</value>
         <value xml:lang="fr">Paiement non transmis au serveur.</value>
         <value xml:lang="it">Pagamento non è stato inviato al server.</value>
+        <value xml:lang="ja">支払はサーバに送信されませんでした。</value>
         <value xml:lang="nl">Betaling is niet naar de server verzonden</value>
         <value xml:lang="vi">Thanh toán không được gửi đến máy chủ.</value>
         <value xml:lang="zh">支付没有发送到服务器。</value>
@@ -13603,6 +13730,7 @@
     <property key="AccountingTaxAuthorityCategoryAdvice">
         <value xml:lang="en">Beware: don't use more than one line with "Tax Shipping" and/or "Tax Promotions" value = "Y"</value>
         <value xml:lang="fr">Attention: n'utilisez pas plus d'une ligne avec "Taxes sur livraison" et/ou "Taxes sur promotions" = "Y"</value>
+        <value xml:lang="ja">注意: "発送税"および/または"プロモーション税"に値="Y"の行を複数使用しないでください</value>
         <value xml:lang="vi">Lưu ý: bạn không sử dụng nhiều hơn một dòng với "Thuế chuyển hàng" và/hoặc "Thuế khuyến mãi giá trị"= "Y"</value>
         <value xml:lang="zh">注意："航运税"不能多于一行，且/或"业务推广税"的值 = "Y"</value>
     </property>
@@ -13625,7 +13753,7 @@
         <value xml:lang="fr">Comptes de l'administration fiscale</value>
         <value xml:lang="hi_IN">टैक्स प्राधिकरण जीएल(Gl) लेखा</value>
         <value xml:lang="it">Conti Gl Autorità Tasse</value>
-        <value xml:lang="ja">税務機関勘定科目</value>
+        <value xml:lang="ja">税務機関GL勘定</value>
         <value xml:lang="nl">GB-rekeningen belastinginstantie(s)</value>
         <value xml:lang="pt">Contas financeiras da autoridade tributária</value>
         <value xml:lang="th">ภาษีบัญชีแยกประเภททั่วไป</value>
@@ -13678,6 +13806,7 @@
         <value xml:lang="en">Cannot calculate tax, no shipping or.......</value>
         <value xml:lang="fr">Impossible de calculer la taxe, pas d'expédition ou ... </value>
         <value xml:lang="it">Non è possibile calcolare le tasse, nessuna spedizione o.......</value>
+        <value xml:lang="ja">税を計算できません。発送がないか.......</value>
         <value xml:lang="nl">Belasting kan niet berekend worden, geen transport of .....</value>
         <value xml:lang="pt">Não é possível calcular o imposto, não envio ou .......</value>
         <value xml:lang="vi">Không thể tính thuế vì không có chuyển vận hoặc.......</value>
@@ -13687,6 +13816,7 @@
         <value xml:lang="en">The address(es) used for tax calculation did not have State/Province or Country or other tax jurisdiction values set, so we cannot determine the taxes to charge.</value>
         <value xml:lang="fr">L'adresse utilisée pour calculer la taxe n'a pas de province ou pays, ou mauvaise configuration de la juridiction de taxe, donc nous ne pouvons pas déterminer la taxe à appliquer</value>
         <value xml:lang="it">L'indirizzo(i) usato per il calcolo delle tasse non ha impostato i valori dello stato/provincia o paese o giurisdizione tasse, così non è possibile determinare le tasse.</value>
+        <value xml:lang="ja">税の計算に使用される住所に都道府県/州/地方または国またはその他計算に必要な値が設定されていないため、税額を決定することができません。</value>
         <value xml:lang="vi">Địa chỉ sử dụng cho tính thuế không có thông tin Tỉnh/Thành hoặc Quốc gia hoặc phải áp dụng luật thuế khác, vì vậy hệ thống không thể chọn được Thuế để thay đổi.</value>
         <value xml:lang="zh">用于算税的地址没有州/省或国家或其它税务管辖权设置，所以我们无法确定要收取的税。</value>
     </property>
@@ -13694,6 +13824,7 @@
         <value xml:lang="en"> [ID: ${contactMechId}, Address 1: ${address1}, Postal Code/ID: ${postalCodeGeoId} / ${postalCodeGeoId}, State/Province: ${stateProvinceGeoId}, Country: ${countryGeoId}}</value>
         <value xml:lang="fr">[ID: ${contactMechId}, adresse 1: ${address1}, CP : ${postalCodeGeoId} / ${postalCodeGeoId}, Province : ${stateProvinceGeoId}, Pays : ${countryGeoId}}</value>
         <value xml:lang="it"> [ID: ${contactMechId}, Indirizzo 1: ${address1}, C.A.P.: ${postalCodeGeoId} / ${postalCodeGeoId}, Stato/Provincia: ${stateProvinceGeoId}, Paese: ${countryGeoId}}</value>
+        <value xml:lang="ja"> [ID: ${contactMechId}, 住所1: ${address1}, 郵便番号/ID: ${postalCodeGeoId} / ${postalCodeGeoId}, 都道府県/州/地方: ${stateProvinceGeoId}, 国: ${countryGeoId}}</value>
         <value xml:lang="vi">[ID: ${contactMechId}, Địa chỉ 1: ${address1}, Mã bưu chính: ${postalCodeGeoId} / ${postalCodeGeoId}, Tỉnh/Thành: ${stateProvinceGeoId}, Quốc gia: ${countryGeoId}}</value>
         <value xml:lang="zh"> [标识: ${contactMechId}, 地址1: ${address1}, 邮编/ID: ${postalCodeGeoId} / ${postalCodeGeoId}, 州/省: ${stateProvinceGeoId}, 国家: ${countryGeoId}}</value>
     </property>
@@ -13701,6 +13832,7 @@
         <value xml:lang="en">productId don't have value, cannot call calcTax service.</value>
         <value xml:lang="fr">Pas de produit associé, le calcul des taxes ne peut être effectué</value>
         <value xml:lang="it">Codice prodotto non ha nessun valore, non è possibile eseguire il servizio calcTax.</value>
+        <value xml:lang="ja">製品IDに値がないため、calcTaxサービスを呼び出しできません。</value>
         <value xml:lang="pt">productId não têm valor, não pode chamar o serviço calcTax.</value>
         <value xml:lang="vi">ID sản phẩm chưa có giá trị nên hệ thống không thể gọi được dịch vụ Tính thuế.</value>
         <value xml:lang="zh">产品标识（productId）没有值，无法调用算税（calcTax）服务。</value>
@@ -13865,6 +13997,7 @@
     <property key="AccountingTotalAccumulatedDepreciation">
         <value xml:lang="en">Total Accumulated Depreciation</value>
         <value xml:lang="fr">Montant cumulé de la dépréciation</value>
+        <value xml:lang="ja">減価償却累計額</value>
         <value xml:lang="nl">Geaccumuleerde afschrijvingen totaal</value>
         <value xml:lang="pt">Depreciação Acumulada Total</value>
         <value xml:lang="vi">Tổng khấu hao lũy kế</value>
@@ -13882,6 +14015,7 @@
     <property key="AccountingTotalAssets">
         <value xml:lang="en">Total Assets</value>
         <value xml:lang="fr">Total de l'actif</value>
+        <value xml:lang="ja">資産合計</value>
         <value xml:lang="nl">Totaal activa</value>
         <value xml:lang="pt">Ativos Totais</value>
         <value xml:lang="vi">Tổng Tài sản</value>
@@ -13957,7 +14091,7 @@
         <value xml:lang="en">Total Current Asset Balance</value>
         <value xml:lang="fr">Total de l'actif courant</value>
         <value xml:lang="hi_IN">à¤•à¥&#129;à¤² à¤šà¤¾à¤²à¥‚ à¤¸à¤®à¥&#141;à¤ªà¤¤à¥&#141;à¤¤à¤¿ à¤°à¤¾à¤¶à¥€</value>
-        <value xml:lang="ja">現在資産残高合計</value>
+        <value xml:lang="ja">流動資産残高合計</value>
         <value xml:lang="nl">Totaal vlottende activa</value>
         <value xml:lang="pt">Total do Balanço Patrimonial atual</value>
         <value xml:lang="vi">Tổng số dư tài sản hiện tại</value>
@@ -13999,6 +14133,7 @@
     <property key="AccountingTotalLiabilitiesAndEquities">
         <value xml:lang="en">Total Liabilities and Equities</value>
         <value xml:lang="fr">Total du passif et Actions</value>
+        <value xml:lang="ja">負債および正味資産合計</value>
         <value xml:lang="pt">Total do Passivo e Ações</value>
         <value xml:lang="vi">Tổng Nợ Phải Trả và Cổ phiếu</value>
         <value xml:lang="zh">债务和股票证券合计</value>
@@ -14006,6 +14141,7 @@
     <property key="AccountingTotalLiabilities">
         <value xml:lang="en">Total Liabilities</value>
         <value xml:lang="fr">Total du passif</value>
+        <value xml:lang="ja">負債合計</value>
         <value xml:lang="nl">Totaal kortlopende schulden</value>
         <value xml:lang="vi">Tổng Nợ Phải Trả</value>
         <value xml:lang="zh">债务合计</value>
@@ -14013,6 +14149,7 @@
     <property key="AccountingTotalEquities">
         <value xml:lang="en">Total Equities</value>
         <value xml:lang="fr">Total Actions</value>
+        <value xml:lang="ja">正味資産合計</value>
         <value xml:lang="nl">Totaal eigen vermogen</value>
         <value xml:lang="vi">Tổng Cổ phiếu</value>
         <value xml:lang="zh">股票证券合计</value>
@@ -14217,7 +14354,7 @@
         <value xml:lang="fr">Problème rencontré en invoquant le service authOrderPaymentPreference</value>
         <value xml:lang="hi_IN">authOrderPaymentPreference सर्विस कॉल करने में परेशानी</value>
         <value xml:lang="it">Problemi nell'esecuzione del servizio authOrderPaymentPreference</value>
-        <value xml:lang="ja">注文支払設定承認サービスの呼び出し時にエラー</value>
+        <value xml:lang="ja">注文支払設定認証サービスの呼び出し時にエラー</value>
         <value xml:lang="nl">Probleem met aanroepen OFBiz-service 'authOrderPaymentPreference'.</value>
         <value xml:lang="pt">Problema ao invocar serviço authOrderPaymentPreference</value>
         <value xml:lang="ru">Сбой вызова службы authOrderPaymentPreference</value>
@@ -14330,6 +14467,7 @@
         <value xml:lang="en">Credit failed for pref : ${paymentPref}</value>
         <value xml:lang="fr">Échec lors du crédit du paiement : ${paymentPref}</value>
         <value xml:lang="it">Fallito credito per la preferenza pagamento: ${paymentPref}</value>
+        <value xml:lang="ja">設定の記入時に失敗しました: ${paymentPref}</value>
         <value xml:lang="vi">Thanh toán tín dụng không thành công với cấu hình: ${paymentPref}</value>
         <value xml:lang="zh">使用设置时发生贷方错误：${paymentPref}</value>
     </property>
@@ -14338,7 +14476,7 @@
         <value xml:lang="fr">Problème rencontré en invoquant le service releaseOrderPaymentPreference </value>
         <value xml:lang="hi_IN">releaseOrderPaymentPreference सर्विस कॉल करने में परेशानी</value>
         <value xml:lang="it">Problema nell'esecuzione del servizio releaseOrderPaymentPreference</value>
-        <value xml:lang="ja">注文支払設定リリースサービスの呼び出し時にエラー</value>
+        <value xml:lang="ja">注文支払設定解除サービスの呼び出し時にエラー</value>
         <value xml:lang="nl">Probleem met aanroepen OFBiz-service 'releaseOrderPaymentPreference'.</value>
         <value xml:lang="pt">Problemas invocando o serviço releaseOrderPaymentPreference</value>
         <value xml:lang="ru">Сбой вызова службы releaseOrderPaymentPreference</value>
@@ -14416,7 +14554,7 @@
         <value xml:lang="fr">Impossible d'autoriser des frais d'expédition supplémentaires pour la livraison [ ${shipmentId}] à la méthode de paiement ${paymentMethodId} (orderPaymentPreferenceId ${orderPaymentPreferenceId})</value>
         <value xml:lang="hi_IN">paymentMethodId ${paymentMethodId} (orderPaymentPreferenceId ${orderPaymentPreferenceId}) से shipmentId ${shipmentId} के लिए माल लदान अतिरिक्त शुल्क को प्राधिकृत करने में असमर्थ</value>
         <value xml:lang="it">Non è possibile autorizzare i ricarichi spedizione aggiuntivi per la spedizione ${shipmentId} metodo di pagamento ${paymentMethodId} (orderPaymentPreferenceId ${orderPaymentPreferenceId})</value>
-        <value xml:lang="ja">発送ID ${shipmentId} に対する paymentMethodId支払方法ID ${paymentMethodId} (注文支払設定ID ${orderPaymentPreferenceId}) への追加発送手数料の承認ができませんでした</value>
+        <value xml:lang="ja">発送ID ${shipmentId} に対する paymentMethodId支払方法ID ${paymentMethodId} (注文支払設定ID ${orderPaymentPreferenceId}) への追加発送手数料の認証ができませんでした</value>
         <value xml:lang="nl">Niet in staat om additioneel verzendadres te authoriseren voor zending ${shipmentId} naar paymentMethodId ${paymentMethodId} (orderPaymentPreferenceId ${orderPaymentPreferenceId})</value>
         <value xml:lang="pt">Não é possível autorizar as despesas adicionais de envio para shipmentId ${shipmentId} para paymentMethodId ${paymentMethodId} (orderPaymentPreferenceId ${orderPaymentPreferenceId})</value>
         <value xml:lang="ru">Невозможно авторизовать дополнительные затраты поставки для поставки с кодом ${shipmentId} для paymentMethodId ${paymentMethodId} (orderPaymentPreferenceId ${orderPaymentPreferenceId})</value>
@@ -14515,6 +14653,7 @@
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter ${resourceDescription} vous devez avoir l'autorisation ACCOUNTING_UPDATE ou ACCOUNTING_ADMIN, ou l'autorisation limitée ACCOUNTING_ROLE_UPDATE</value>
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} tu devi avere il permesso ACCOUNTING_UPDATE o ACCOUNTING_ADMIN, o il permesso limitato ACCOUNTING_ROLE_UPDATE</value>
+        <value xml:lang="ja">セキュリティエラー: ${resourceDescription} の実行には ACCOUNTING_UPDATE または ACCOUNTING_ADMIN 権限、または限定された ACCOUNTING_ROLE_UPDATE 権限が必要です</value>
         <value xml:lang="pt">Erro de segurança: para executar ${resourceDescription} você deve ter a permissão ACCOUNTING_UPDATE ou ACCOUNTING_ADMIN, ou a permissão limitada ACCOUNTING_ROLE_UPDATE</value>
         <value xml:lang="vi">Lỗi phân quyền: Để thực thi ${resourceDescription} bạn cần có quyền ACCOUNTING_UPDATE hoặc ACCOUNTING_ADMIN, hoặc quyền giới hạn ACCOUNTING_ROLE_UPDATE</value>
         <value xml:lang="zh">安全错误：要运行 ${resourceDescription} ，你必须有 ACCOUNTING_UPDATE 或 ACCOUNTING_ADMIN 权限，或者有限的 ACCOUNTING_ROLE_UPDATE 权限</value>
@@ -14587,6 +14726,7 @@
         <value xml:lang="en">Unable to store updated keys</value>
         <value xml:lang="fr">Impossible de sauvegarder les clés mises à jour</value>
         <value xml:lang="it">Non è possibile registrare chiavi aggiornate</value>
+        <value xml:lang="ja">更新キーを格納できません</value>
         <value xml:lang="vi">Hệ thống không thể lưu khóa đã được sửa đổi</value>
         <value xml:lang="zh">无法存储更新的密钥</value>
     </property>
@@ -14594,6 +14734,7 @@
         <value xml:lang="en">Unable to update MWK</value>
         <value xml:lang="fr">Impossible de mettre à jour le MWK</value>
         <value xml:lang="it">Non è possibile aggiornare MWK</value>
+        <value xml:lang="ja">MWKを更新できません</value>
         <value xml:lang="vi">Hệ thống không thể cập nhật MWK</value>
         <value xml:lang="zh">无法更新商户工作密钥（MWK）</value>
     </property>
@@ -14601,6 +14742,7 @@
         <value xml:lang="en">Required feature type TYPE not found for product: ${productId}</value>
         <value xml:lang="fr">Le type de caractéristique requis n'a pas été trouvé pour l'article ${productId}</value>
         <value xml:lang="it">Richiesta tipo caratteristica TIPO non trovata per il prodotto: ${productId}</value>
+        <value xml:lang="ja">製品: ${productId} に必要な機能種類TYPEが見つかりませんでした</value>
         <value xml:lang="vi">Kiểu tính năng (thuộc tính bắt buộc có) không tìm thấy với sản phẩm: ${productId}</value>
         <value xml:lang="zh">没有找到产品必须的特征类型TYPE：${productId}</value>
     </property>
@@ -14608,6 +14750,7 @@
         <value xml:lang="en">Activation of physical card complete.</value>
         <value xml:lang="fr">Activation de la carte complète</value>
         <value xml:lang="it">Attivazione della carta completata.</value>
+        <value xml:lang="ja">カードのアクティベーションが完了しました。</value>
         <value xml:lang="vi">Kích hoạt Thẻ vật lý thành công.</value>
         <value xml:lang="zh">完成卡激活。</value>
     </property>
@@ -14615,6 +14758,7 @@
         <value xml:lang="en">PIN disabled.</value>
         <value xml:lang="fr">PIN désactivé</value>
         <value xml:lang="it">PIN disabilitato.</value>
+        <value xml:lang="ja">PINが無効になりました。</value>
         <value xml:lang="vi">Vô hiệu hóa PI.</value>
         <value xml:lang="zh">禁用了密码。</value>
     </property>
@@ -14622,6 +14766,7 @@
         <value xml:lang="en">Invalid promo code set on idCode field of feature type TYPE</value>
         <value xml:lang="fr">Code promo non valide sur le champs idCode du type de caractéristique TYPE</value>
         <value xml:lang="it">Codice promozione invalido imposta sul campo idCode del tipo caratteristica TIPO</value>
+        <value xml:lang="ja">機能種類TYPEのIDコード項目に設定されたプロモーションコードが正しくありません</value>
         <value xml:lang="vi">Mã khuyến mãi không hợp lệ của trường idCode của Kiểu tính năng TYPE</value>
         <value xml:lang="zh">特征类型TYPE的idCode数据项设置了无效的促销代码</value>
     </property>
@@ -14629,6 +14774,7 @@
         <value xml:lang="en">Received back an empty response from ValueLink</value>
         <value xml:lang="fr">Réception d'une réponse vide depuis ValueLink</value>
         <value xml:lang="it">Ricevuta indietro una risposta vuota da ValueLink</value>
+        <value xml:lang="ja">ValueLinkから空のレスポンスが戻りました</value>
         <value xml:lang="vi">Nhận về giá trị phản hồi rỗng từ ValueLink</value>
         <value xml:lang="zh">从ValueLink收到了一个返回的空响应</value>
     </property>
@@ -14636,6 +14782,7 @@
         <value xml:lang="en">This transaction is not supported by ValueLink</value>
         <value xml:lang="fr">Cette transaction n'est pas supportée par ValueLink</value>
         <value xml:lang="it">Questa transazione non è supportata da ValueLink</value>
+        <value xml:lang="ja">このトランザクションはValueLinkでサポートされていません</value>
         <value xml:lang="vi">Bút toán này không được hỗ trợ bởi ValueLink</value>
         <value xml:lang="zh">ValueLink不支持这个交易</value>
     </property>
@@ -14643,6 +14790,7 @@
         <value xml:lang="en">Transaction failed with response code: ${responseCode}</value>
         <value xml:lang="fr">Échec de la transaction avec comme réponse : ${responseCode}</value>
         <value xml:lang="it">Transazione fallita con codice risposta: ${responseCode}</value>
+        <value xml:lang="ja">トランザクションが失敗しました。レスポンスコード: ${responseCode}</value>
         <value xml:lang="vi">Bút toán không thành công với mã trả về: ${responseCode}</value>
         <value xml:lang="zh">交易失败，响应代码：${responseCode}</value>
     </property>
@@ -14650,6 +14798,7 @@
         <value xml:lang="en">Not a valid 0704 transaction</value>
         <value xml:lang="fr">N'est pas une transaction 0704 valide</value>
         <value xml:lang="it">Transazione 0704 non valida</value>
+        <value xml:lang="ja">有効な0704トランザクションではありません</value>
         <value xml:lang="vi">Không phải là Bút toán 0704 hợp lệ</value>
         <value xml:lang="zh">不是一个有效的0704交易</value>
     </property>
@@ -14657,6 +14806,7 @@
         <value xml:lang="en">Unable to activate gift card</value>
         <value xml:lang="fr">Impossible d'activer la carte cadeau</value>
         <value xml:lang="it">Non è possibile attivare la carta regalo</value>
+        <value xml:lang="ja">ギフトカードをアクティベーションできません</value>
         <value xml:lang="vi">Không thể kích hoạt thẻ quà tặng</value>
         <value xml:lang="zh">不能激活礼品卡</value>
     </property>
@@ -14664,6 +14814,7 @@
         <value xml:lang="en">Unable to call balance inquire</value>
         <value xml:lang="fr">Impossible d'équilibrer la balance</value>
         <value xml:lang="it">Non è possibile eseguire l'interrogazione bilancio</value>
+        <value xml:lang="ja">残高照会呼び出しできません</value>
         <value xml:lang="vi">Không thể thực hiện truy vấn Số dư</value>
         <value xml:lang="zh">无法调用余额查询</value>
     </property>
@@ -14671,6 +14822,7 @@
         <value xml:lang="en">Unable to call history inquire</value>
         <value xml:lang="fr">Appel à l'historique impossible</value>
         <value xml:lang="it">Non è possibile eseguire l'interrogazione dello storico</value>
+        <value xml:lang="ja">履歴照会呼び出しできません</value>
         <value xml:lang="vi">Không thể thực hiện truy vấn Lịch sử</value>
         <value xml:lang="zh">无法调用历史记录查询</value>
     </property>
@@ -14678,6 +14830,7 @@
         <value xml:lang="en">Unable to call disable pin</value>
         <value xml:lang="fr">Impossible de désactiver le code PIN</value>
         <value xml:lang="it">Non è possibile eseguire la disabilitazione del pin</value>
+        <value xml:lang="ja">PIN無効呼び出しできません</value>
         <value xml:lang="vi">Không thể thực hiện vô hiệu hóa PIN</value>
         <value xml:lang="zh">无法调用禁用密码</value>
     </property>
@@ -14685,6 +14838,7 @@
         <value xml:lang="en">Unable to get the required feature type TYPE from Product</value>
         <value xml:lang="fr">Impossible de récupérer le type caractéristique obligatoire pour le produit</value>
         <value xml:lang="it">Non è possibile ottenete il tipo caratteristica TIPO richiesto da prodotto</value>
+        <value xml:lang="ja">製品から必要な機能種類TYPEを取得できません</value>
         <value xml:lang="vi">Không thể thu nhận Kiểu tính năng (TYPE) từ Sản phẩm</value>
         <value xml:lang="zh">从产品无法得到必须的特征类型TYPE</value>
     </property>
@@ -14692,6 +14846,7 @@
         <value xml:lang="en">Unable to link gift card(s)</value>
         <value xml:lang="fr">Impossible de lier la carte cadeau</value>
         <value xml:lang="it">Non è possibile legare la carta(e) regalo</value>
+        <value xml:lang="ja">ギフトカードをリンクできません</value>
         <value xml:lang="vi">Không thể thu nhận liên kết Thẻ quà tặng</value>
         <value xml:lang="zh">无法链接到礼品卡</value>
     </property>
@@ -14699,6 +14854,7 @@
         <value xml:lang="en">Unable to redeem gift card</value>
         <value xml:lang="fr">Impossible de racheter la carte cadeau</value>
         <value xml:lang="it">Non è possibile ritirare la carta regalo</value>
+        <value xml:lang="ja">ギフトカードを弁済できません</value>
         <value xml:lang="vi">Không thể thực hiện mua lại Thẻ quà tặng</value>
         <value xml:lang="zh">无法兑换礼品卡</value>
     </property>
@@ -14706,6 +14862,7 @@
         <value xml:lang="en">Redeem service failed</value>
         <value xml:lang="fr">Échec dans le rachat de la carte cadeau</value>
         <value xml:lang="it">Fallito servizio di ritiro</value>
+        <value xml:lang="ja">弁済サービスに失敗しました</value>
         <value xml:lang="vi">Dịch vụ mua lại không thành công</value>
         <value xml:lang="zh">兑换服务失败</value>
     </property>
@@ -14713,6 +14870,7 @@
         <value xml:lang="en">Unable to refund gift card</value>
         <value xml:lang="fr">Impossible de rembourser la carte cadeau</value>
         <value xml:lang="it">Non è possibile rimborsare la carta regalo</value>
+        <value xml:lang="ja">ギフトカードを払出できません</value>
         <value xml:lang="vi">Không thể Hoàn phí thẻ quà tặng</value>
         <value xml:lang="zh">无法退款到礼品卡</value>
     </property>
@@ -14720,6 +14878,7 @@
         <value xml:lang="en">Refund service failed</value>
         <value xml:lang="fr">Échec dans le remboursement de la carte cadeau</value>
         <value xml:lang="it">Servizio rimborso fallito</value>
+        <value xml:lang="ja">払出サービスに失敗しました</value>
         <value xml:lang="vi">Dịch vụ Hoàn phí không thành công</value>
         <value xml:lang="zh">退款服务失败</value>
     </property>
@@ -14727,6 +14886,7 @@
         <value xml:lang="en">Gift Card Reload Failed: Max Balance Exceeded; charges will be refunded</value>
         <value xml:lang="fr">Échec dans le rechargement de la carte cadeau : Le plafond a été dépassé. Les frais vous seront remboursés.</value>
         <value xml:lang="it">Fallita ricarica carta regalo: bilancio massimo oltrepassato; l'importo verrà rimborsato</value>
+        <value xml:lang="ja">ギフトカードのチャージに失敗しました。限度を超えました。チャージは払い戻されます。</value>
         <value xml:lang="vi">Tải lại thông tin Thẻ quà tặng không thành công vì đã đạt đến hơn hạn mức tối đa của số dư, giá trị tiền đã tính sẽ không bị trừ</value>
         <value xml:lang="zh">重新载入礼品卡失败：超过了余额上线；将退回充值</value>
     </property>
@@ -14734,6 +14894,7 @@
         <value xml:lang="en">Attempt to release GiftCard payment failed; not a valid GiftCard record</value>
         <value xml:lang="fr">Le paiement par la carte cadeau à échoué, votre numéro de carte n'est pas valide</value>
         <value xml:lang="it">Tentativo di rilascio pagamento carta regalo fallito; non c'è un record GiftCard valido</value>
+        <value xml:lang="ja">ギフトカード支払の解除に失敗しました。有効なギフトカード記録ではありません。</value>
         <value xml:lang="vi">Hệ thống thực hiện giải phóng thanh toán Thẻ tín dụng không thành công do dữ liệu Thẻ tín dụng không đúng</value>
         <value xml:lang="zh">试图解除礼品卡支付时失败；不是一个有效的礼品卡（GiftCard）记录</value>
     </property>
@@ -14741,6 +14902,7 @@
         <value xml:lang="en">Unable to reload gift card</value>
         <value xml:lang="fr">Impossible de recharger la carte cadeau</value>
         <value xml:lang="it">Non è possibile ricaricare la carta regalo</value>
+        <value xml:lang="ja">ギフトカードをチャージできません</value>
         <value xml:lang="vi">Không thể tải lại thẻ tín dụng</value>
         <value xml:lang="zh">无法重新载入礼品卡</value>
     </property>
@@ -14748,6 +14910,7 @@
         <value xml:lang="en">Gift Card Reload Failed: Processing Error; charges will be refunded</value>
         <value xml:lang="fr">Le rechargement de la carte cadeau a échoué, le frais vous seront remboursés</value>
         <value xml:lang="it">Fallita ricarica carta regalo: errore durante autorizzazione; l'importo verrà rimborsato</value>
+        <value xml:lang="ja">ギフトカードのチャージに失敗しました。処理エラーです。チャージは払い戻されます。</value>
         <value xml:lang="vi">Tải lại Thẻ quà tặng không thành công, giá trị tiền đã tính sẽ không bị trừ</value>
         <value xml:lang="zh">重新载入礼品卡时失败：处理错误；将退回充值</value>
     </property>
@@ -14756,7 +14919,7 @@
         <value xml:lang="fr">Motif de la divergence du Grand Livre général</value>
         <value xml:lang="hi_IN">वेरिएंस रीज़न जीएल(Gl) लेखा</value>
         <value xml:lang="it">Motivazione Varianza Conti Gl</value>
-        <value xml:lang="ja">差異理由勘定科目</value>
+        <value xml:lang="ja">差異理由GL勘定</value>
         <value xml:lang="nl">Reden afwijking GB-rekening</value>
         <value xml:lang="pt">Razão de variação das contas razão</value>
         <value xml:lang="vi">Nguyên nhân vênh giá trị</value>
@@ -14851,7 +15014,7 @@
         <value xml:lang="en">Withdrawal Payment from: ${finAccount.finAccountName}</value>
         <value xml:lang="fr">Retrait sur ${finAccount.finAccountName}</value>
         <value xml:lang="hi_IN">वित्तीय खाते द्वारा वापस भुगतान: ${finAccount.finAccountName}</value>
-        <value xml:lang="ja">払戻支払元: ${finAccount.finAccountName}</value>
+        <value xml:lang="ja">払出支払元: ${finAccount.finAccountName}</value>
         <value xml:lang="pt">Saque do pagamento a partir de: $ ${finAccount.finAccountName}</value>
         <value xml:lang="vi">Thu hồi thanh toán từ: ${finAccount.finAccountName}</value>
         <value xml:lang="zh">取款来自：${finAccount.finAccountName}</value>
@@ -14871,7 +15034,7 @@
         <value xml:lang="fr">Mode d'autorisation</value>
         <value xml:lang="hi_IN">प्राधिकरण मोड</value>
         <value xml:lang="it">Modalità autorizzazione</value>
-        <value xml:lang="ja">許可モード</value>
+        <value xml:lang="ja">認証モード</value>
         <value xml:lang="pt">Modo de autorização</value>
         <value xml:lang="vi">Chế độ xác nhận</value>
         <value xml:lang="zh">授权状态</value>
@@ -14901,7 +15064,7 @@
         <value xml:lang="fr">Autorisation complète</value>
         <value xml:lang="hi_IN">पूर्ण अधिकृत</value>
         <value xml:lang="it">Autorizzazione completa</value>
-        <value xml:lang="ja">全面許可</value>
+        <value xml:lang="ja">全面認証</value>
         <value xml:lang="pt">Autorização completa</value>
         <value xml:lang="vi">Xác nhận đầy đủ</value>
         <value xml:lang="zh">完全授权</value>
@@ -14971,7 +15134,7 @@
         <value xml:lang="fr">Pré-Auth</value>
         <value xml:lang="hi_IN">पूर्व प्राधिकृत</value>
         <value xml:lang="it">Pre-Autorizzazione</value>
-        <value xml:lang="ja">事前承認</value>
+        <value xml:lang="ja">事前認証</value>
         <value xml:lang="pt">Pré-autorização</value>
         <value xml:lang="vi">Tiền-Xác nhận</value>
         <value xml:lang="zh">预授权</value>
@@ -15004,7 +15167,7 @@
         <value xml:lang="fr">Assigner un compte comptable</value>
         <value xml:lang="hi_IN">निरुपित जीएल(Gl) खाता</value>
         <value xml:lang="it">Assegna Conto Contabilità Generale</value>
-        <value xml:lang="ja">勘定科目を割当</value>
+        <value xml:lang="ja">GL勘定を割当</value>
         <value xml:lang="nl">Gb-rekening toewijzen</value>
         <value xml:lang="pt">Atribuir Conta razão</value>
         <value xml:lang="ro">Atribuire Cont Contabil General</value>
@@ -15070,7 +15233,7 @@
         <value xml:lang="fr">Compte: </value>
         <value xml:lang="hi_IN">जीएल(Gl) खाता :</value>
         <value xml:lang="it">Conti Contabilità Generale: </value>
-        <value xml:lang="ja">勘定科目 :</value>
+        <value xml:lang="ja">GL勘定 :</value>
         <value xml:lang="nl">GB-rekening:</value>
         <value xml:lang="pt">Conta razão:</value>
         <value xml:lang="ro">Conturi Contabilitate Generala: </value>
@@ -15206,7 +15369,7 @@
         <value xml:lang="fr">Naviguer dans les comptes</value>
         <value xml:lang="hi_IN">नेविगेट लेखा</value>
         <value xml:lang="it">Naviga nei Conti</value>
-        <value xml:lang="ja">ナビゲートアカウント</value>
+        <value xml:lang="ja">勘定のナビゲート</value>
         <value xml:lang="nl">Blader door klanten</value>
         <value xml:lang="pt">Naveguar Contas</value>
         <value xml:lang="ro">Navigheaza in Conturi</value>
@@ -15247,7 +15410,7 @@
     <property key="FormFieldTitle_accDepGlAccountId">
         <value xml:lang="en">Accumulated depreciation GL account</value>
         <value xml:lang="fr">Compte d'amortissement dégressif</value>
-        <value xml:lang="ja">減価償却累計額勘定科目</value>
+        <value xml:lang="ja">減価償却累計額GL勘定</value>
         <value xml:lang="pt">Conta razão de depreciação acumulada</value>
         <value xml:lang="vi">Tài khoản khấu hao lũy kế</value>
         <value xml:lang="zh">累计折旧总账账目</value>
@@ -15259,7 +15422,7 @@
         <value xml:lang="fr">Code du compte</value>
         <value xml:lang="hi_IN">खाता कोड</value>
         <value xml:lang="it">Codice Conto</value>
-        <value xml:lang="ja">アカウントコード</value>
+        <value xml:lang="ja">勘定科目</value>
         <value xml:lang="nl">Grootboekrekeningnummer</value>
         <value xml:lang="pt">Código da conta</value>
         <value xml:lang="ro">Cod Cont</value>
@@ -15275,7 +15438,7 @@
         <value xml:lang="fr">Unité de la monnaie</value>
         <value xml:lang="hi_IN">खाता मुद्रा माप की इकाई(Uom) क्रमांक</value>
         <value xml:lang="it">Valuta Conto</value>
-        <value xml:lang="ja">アカウント通貨単位ID</value>
+        <value xml:lang="ja">勘定通貨単位ID</value>
         <value xml:lang="nl">Valutacode</value>
         <value xml:lang="pt">Id de UDM de Conta corrente</value>
         <value xml:lang="ro">Cont Valuta </value>
@@ -15311,7 +15474,7 @@
         <value xml:lang="fr">Nom du compte</value>
         <value xml:lang="hi_IN">खाता नाम</value>
         <value xml:lang="it">Nome Conto</value>
-        <value xml:lang="ja">アカウント名称</value>
+        <value xml:lang="ja">勘定科目名</value>
         <value xml:lang="nl">Grootboekrekeningnaam</value>
         <value xml:lang="pt">Nome da Conta</value>
         <value xml:lang="ro">Nume Cont</value>
@@ -15717,7 +15880,7 @@
     <property key="FormFieldTitle_assetGlAccountId">
         <value xml:lang="en">Asset GL account</value>
         <value xml:lang="fr">Compte d'actif immobilisé</value>
-        <value xml:lang="ja">資産勘定科目</value>
+        <value xml:lang="ja">資産GL勘定</value>
         <value xml:lang="pt">Conta razão de ativo</value>
         <value xml:lang="vi">Tài khoản của tài sản</value>
         <value xml:lang="zh">资产总账账目</value>
@@ -15727,7 +15890,7 @@
         <value xml:lang="fr">Date d'autorisation</value>
         <value xml:lang="hi_IN">प्राधिकरण दिनांक</value>
         <value xml:lang="it">Data Autorizzazione</value>
-        <value xml:lang="ja">承認日</value>
+        <value xml:lang="ja">認証日</value>
         <value xml:lang="nl">Datum authorisatie</value>
         <value xml:lang="pt">Data de Autorização</value>
         <value xml:lang="ru">Дата авторизации</value>
@@ -15962,7 +16125,7 @@
         <value xml:lang="fr">Méthode du coût direct (COGS)</value>
         <value xml:lang="hi_IN">माल बिक्री विधि की लागत (COGS)</value>
         <value xml:lang="it">Metodo Costo dei Beni Venduti (COGS)</value>
-        <value xml:lang="ja">売上原価(COGS)方法</value>
+        <value xml:lang="ja">売上原価法(COGS)</value>
         <value xml:lang="nl">Cost Of Goods Sold (COGS) Methode</value>
         <value xml:lang="pt">Método de Custo dos Produtos Vendidos (CPV)</value>
         <value xml:lang="ro">Metoda Costui Bunurilor Vandute (COGS)</value>
@@ -16039,7 +16202,7 @@
         <value xml:lang="fr">Compte de crédit</value>
         <value xml:lang="hi_IN">जमा जीएल(Gl) खाता क्रमांक</value>
         <value xml:lang="it">Codice Conto Credito Gl</value>
-        <value xml:lang="ja">貸方勘定科目ID</value>
+        <value xml:lang="ja">貸方GL勘定ID</value>
         <value xml:lang="nl">Credit GB-rekening ID</value>
         <value xml:lang="pt">ID de conta razão de crédito</value>
         <value xml:lang="ro">Cod Cont Credit Gl</value>
@@ -16212,7 +16375,7 @@
         <value xml:lang="fr">Compte de débit</value>
         <value xml:lang="hi_IN">नामे जीएल(Gl) खाता क्रमांक</value>
         <value xml:lang="it">Codice Conto Debito Gl</value>
-        <value xml:lang="ja">借方勘定科目ID</value>
+        <value xml:lang="ja">借方GL勘定ID</value>
         <value xml:lang="nl">Debit GB-rekening</value>
         <value xml:lang="pt">ID de conta razão de débito</value>
         <value xml:lang="ro">Cod Cont Debit Gl</value>
@@ -16229,7 +16392,7 @@
         <value xml:lang="fr">Réf. de compte par défaut</value>
         <value xml:lang="hi_IN">डिफ़ॉल्ट जीएल(Gl) खाता क्रमांक</value>
         <value xml:lang="it">Default Conto Gl</value>
-        <value xml:lang="ja">標準勘定科目ID</value>
+        <value xml:lang="ja">標準GL勘定ID</value>
         <value xml:lang="nl">Standaard GB-rekening</value>
         <value xml:lang="pt">ID da conta razão padrão</value>
         <value xml:lang="ro">Default Cont Gl</value>
@@ -16242,7 +16405,7 @@
     <property key="FormFieldTitle_depGlAccountId">
         <value xml:lang="en">Depreciation GL account</value>
         <value xml:lang="fr">Compte d'amortissment</value>
-        <value xml:lang="ja">減価償却勘定科目</value>
+        <value xml:lang="ja">減価償却GL勘定</value>
         <value xml:lang="pt">Conta razão de depreciação</value>
         <value xml:lang="vi">Tài khoản khấu hao</value>
         <value xml:lang="zh">折旧总账账户</value>
@@ -16290,7 +16453,7 @@
         <value xml:lang="en">Edit GL Account Category</value>
         <value xml:lang="fr">Éditer la catégorie de compte</value>
         <value xml:lang="hi_IN">जीएल(Gl)खाता श्रेणी को संपादित करें</value>
-        <value xml:lang="ja">勘定科目カテゴリを編集</value>
+        <value xml:lang="ja">GL勘定カテゴリを編集</value>
         <value xml:lang="pt">Editar Categoria Conta razão</value>
         <value xml:lang="vi">Chuyên mục tài khoản</value>
         <value xml:lang="zh">编辑总账账户分类</value>
@@ -16299,7 +16462,7 @@
         <value xml:lang="en">Edit GL Account Category Member</value>
         <value xml:lang="fr">Éditer les membres de la catégorie de compte</value>
         <value xml:lang="hi_IN">जीएल(Gl) खाता श्रेणी सदस्य को संपादित करें</value>
-        <value xml:lang="ja">勘定科目カテゴリメンバを編集</value>
+        <value xml:lang="ja">GL勘定カテゴリメンバを編集</value>
         <value xml:lang="pt">Editar membro de conta razão</value>
         <value xml:lang="vi">Thành viên chuyên mục tài khoản</value>
         <value xml:lang="zh">编辑总账账户分类成员</value>
@@ -16573,7 +16736,7 @@
         <value xml:lang="en">Find Gl Account Category</value>
         <value xml:lang="fr">Recherche d'une catégorie de compte GL</value>
         <value xml:lang="hi_IN">जीएल(Gl) खाता श्रेणी खोजें</value>
-        <value xml:lang="ja">勘定科目カテゴリを検索</value>
+        <value xml:lang="ja">GL勘定カテゴリを検索</value>
         <value xml:lang="pt">Encontrar Categoria de Conta razão</value>
         <value xml:lang="vi">Chuyên mục</value>
         <value xml:lang="zh">查找总账账户分类</value>
@@ -16788,7 +16951,7 @@
         <value xml:lang="en">GL Account Category</value>
         <value xml:lang="fr">Catégorie de compte GL</value>
         <value xml:lang="hi_IN">जीएल(Gl) खाता श्रेणी</value>
-        <value xml:lang="ja">勘定科目カテゴリ</value>
+        <value xml:lang="ja">GL勘定カテゴリ</value>
         <value xml:lang="pt">Categoria da Conta razão</value>
         <value xml:lang="vi">Chuyên mục</value>
         <value xml:lang="zh">总账账户分类</value>
@@ -16797,7 +16960,7 @@
         <value xml:lang="en">GL Account Category Id</value>
         <value xml:lang="fr">Réf. de catégorie de cpt. GL</value>
         <value xml:lang="hi_IN">जीएल(Gl) खाता श्रेणी क्रमांक</value>
-        <value xml:lang="ja">勘定科目カテゴリID</value>
+        <value xml:lang="ja">GL勘定カテゴリID</value>
         <value xml:lang="pt">ID da categoria da conta razão</value>
         <value xml:lang="vi">Id chuyên mục</value>
         <value xml:lang="zh">总账账户分类标识</value>
@@ -16806,7 +16969,7 @@
         <value xml:lang="en">GL Account Category Member</value>
         <value xml:lang="fr">Membre de la catégorie compte GL</value>
         <value xml:lang="hi_IN">जीएल(Gl) खाता श्रेणी सदस्य</value>
-        <value xml:lang="ja">勘定科目カテゴリメンバ</value>
+        <value xml:lang="ja">GL勘定カテゴリメンバ</value>
         <value xml:lang="pt">Membro da categoria da conta razão</value>
         <value xml:lang="vi">Thành viên chuyên mục</value>
         <value xml:lang="zh">总账账户分类成员</value>
@@ -16815,7 +16978,7 @@
         <value xml:lang="en">GL Account Category Type</value>
         <value xml:lang="fr">Type de catégorie de compte GL</value>
         <value xml:lang="hi_IN">जीएल(Gl) खाता श्रेणी प्रकार</value>
-        <value xml:lang="ja">勘定科目カテゴリ種類</value>
+        <value xml:lang="ja">GL勘定カテゴリ種類</value>
         <value xml:lang="pt">Tipo de categoria de conta razão</value>
         <value xml:lang="vi">Loại chuyên mục</value>
         <value xml:lang="zh">总账账户分类类型</value>
@@ -16824,7 +16987,7 @@
         <value xml:lang="en">GL Account Category Type Id</value>
         <value xml:lang="fr">Réf. de type de catégorie de compte GL</value>
         <value xml:lang="hi_IN">जीएल(Gl) खाता श्रेणी प्रकार क्रमांक</value>
-        <value xml:lang="ja">勘定科目カテゴリ種類ID</value>
+        <value xml:lang="ja">GL勘定カテゴリ種類ID</value>
         <value xml:lang="pt">ID do tipo de categoria de conta razão</value>
         <value xml:lang="vi">Id loại chuyên mục</value>
         <value xml:lang="zh">总账账户分类类型标识</value>
@@ -16836,7 +16999,7 @@
         <value xml:lang="fr">Classe de comptes</value>
         <value xml:lang="hi_IN">जीएल(Gl) खाता वर्ग क्रमांक</value>
         <value xml:lang="it">Codice Classe Conto Gl</value>
-        <value xml:lang="ja">勘定科目分類ID</value>
+        <value xml:lang="ja">GL勘定分類ID</value>
         <value xml:lang="nl">ID klasse Gb-rekening</value>
         <value xml:lang="pt">ID da classe de conta razão</value>
         <value xml:lang="ro">Cod Clasa Cont Gl</value>
@@ -16853,7 +17016,7 @@
         <value xml:lang="fr">Réf. de compte</value>
         <value xml:lang="hi_IN">जीएल(Gl)खाता क्रमांक</value>
         <value xml:lang="it">Codice Conto Gl</value>
-        <value xml:lang="ja">勘定科目ID</value>
+        <value xml:lang="ja">GL勘定ID</value>
         <value xml:lang="nl">ID GB-rekening</value>
         <value xml:lang="pt">ID da conta razão</value>
         <value xml:lang="ro">Cod Cont Gl</value>
@@ -16867,7 +17030,7 @@
         <value xml:lang="en">Gl Account Type</value>
         <value xml:lang="fr">Type de compte GL</value>
         <value xml:lang="hi_IN">सामान्य बही खाते का प्रकार</value>
-        <value xml:lang="ja">勘定科目種類</value>
+        <value xml:lang="ja">GL勘定種類</value>
         <value xml:lang="pt">Tipo de Conta razão</value>
         <value xml:lang="vi">Loại</value>
         <value xml:lang="zh">总账账目类型</value>
@@ -16880,7 +17043,7 @@
         <value xml:lang="fr">Type du compte comptable</value>
         <value xml:lang="hi_IN">जीएल(Gl)खाता प्रकार क्रमांक</value>
         <value xml:lang="it">Tipo Conto Gl</value>
-        <value xml:lang="ja">勘定科目種類ID</value>
+        <value xml:lang="ja">GL勘定種類ID</value>
         <value xml:lang="nl">ID type GB-rekening</value>
         <value xml:lang="pt">ID do tipo da conta razão</value>
         <value xml:lang="ro">Tip Cont Gl</value>
@@ -17494,7 +17657,7 @@
     <property key="FormFieldTitle_lossGlAccountId">
         <value xml:lang="en">Loss GL account</value>
         <value xml:lang="fr">Compte de charges</value>
-        <value xml:lang="ja">損失勘定科目</value>
+        <value xml:lang="ja">損失GL勘定</value>
         <value xml:lang="pt">Conta razão de perdas</value>
         <value xml:lang="vi">Tài khoản hao tổn</value>
         <value xml:lang="zh">遗失总账账目</value>
@@ -17649,7 +17812,7 @@
         <value xml:lang="en">New GL Account Category</value>
         <value xml:lang="fr">Nouvelle catégorie de compte</value>
         <value xml:lang="hi_IN">नई जीएल(Gl) खाता श्रेणी</value>
-        <value xml:lang="ja">新規勘定科目カテゴリ</value>
+        <value xml:lang="ja">新規GL勘定カテゴリ</value>
         <value xml:lang="pt">Nova categoria de Conta Razão</value>
         <value xml:lang="vi">Thêm mới chuyên mục tài khoản</value>
         <value xml:lang="zh">新建总账账户分类</value>
@@ -17657,6 +17820,7 @@
     <property key="FormFieldTitle_NextDepreciationAmount">
         <value xml:lang="en">Next depreciation amount</value>
         <value xml:lang="fr">Prochain montant de la dépréciation</value>
+        <value xml:lang="ja">次回減価償却額</value>
         <value xml:lang="vi">Giá trị khấu hao tiếp theo</value>
     </property>
     <property key="FormFieldTitle_notApplied">
@@ -17827,7 +17991,7 @@
         <value xml:lang="fr">Remplacer le compte comptable</value>
         <value xml:lang="hi_IN">जीएल(Gl) खाता क्रमांक को अधिरोहणकरे</value>
         <value xml:lang="it">Sostituisci Codice Conto Gl</value>
-        <value xml:lang="ja">上書勘定科目ID</value>
+        <value xml:lang="ja">上書GL勘定ID</value>
         <value xml:lang="nl">ID GB-rekening overschrijven</value>
         <value xml:lang="pt">Substituir ID de conta razão</value>
         <value xml:lang="ro">Substituie Cod Cont Gl</value>
@@ -17904,7 +18068,7 @@
         <value xml:lang="fr">Compte parent</value>
         <value xml:lang="hi_IN">पेरेंट जीएल(Gl) खाता क्रमांक</value>
         <value xml:lang="it">Codice Conto Padre Gl</value>
-        <value xml:lang="ja">上位(親)の勘定科目ID</value>
+        <value xml:lang="ja">上位(親)のGL勘定ID</value>
         <value xml:lang="nl">Ouder-ID GB-rekening</value>
         <value xml:lang="pt">ID da conta razão superior</value>
         <value xml:lang="ro">Cod Cont Parinte Gl</value>
@@ -18323,7 +18487,7 @@
         <value xml:lang="fr">Comptabilisé à la réf. de compte</value>
         <value xml:lang="hi_IN">जीएल(Gl) खाता क्रमांक में पोस्ट करे</value>
         <value xml:lang="it">Contabilizza su Conto Gl</value>
-        <value xml:lang="ja">転記先勘定科目ID</value>
+        <value xml:lang="ja">転記先GL勘定ID</value>
         <value xml:lang="nl">Boeken op GB-rekening</value>
         <value xml:lang="pt">Enviar para conta razão de ID</value>
         <value xml:lang="ru">На счет ГК с кодом</value>
@@ -18378,7 +18542,7 @@
         <value xml:lang="fr">Pré-auth</value>
         <value xml:lang="hi_IN">पूर्व प्राधिकरण</value>
         <value xml:lang="it">Pre-autorizzazione</value>
-        <value xml:lang="ja">事前承認</value>
+        <value xml:lang="ja">事前認証</value>
         <value xml:lang="pt">Pré-autorização</value>
         <value xml:lang="vi">Tiền-xác thực</value>
         <value xml:lang="zh">预授权</value>
@@ -18465,7 +18629,7 @@
     <property key="FormFieldTitle_profitGlAccountId">
         <value xml:lang="en">Profit GL account</value>
         <value xml:lang="fr">Compte de produits</value>
-        <value xml:lang="ja">利益勘定科目</value>
+        <value xml:lang="ja">利益GL勘定</value>
         <value xml:lang="pt">Lucro da conta razão</value>
         <value xml:lang="vi">Tài khoản lợi nhuận</value>
         <value xml:lang="zh">利润总账账户</value>
@@ -19612,7 +19776,7 @@
         <value xml:lang="fr">Ajouter un compte comptable</value>
         <value xml:lang="hi_IN">जीएल(Gl) खाता जोड़ें</value>
         <value xml:lang="it">Aggiungi Conto Gl</value>
-        <value xml:lang="ja">勘定科目を追加</value>
+        <value xml:lang="ja">GL勘定を追加</value>
         <value xml:lang="nl">GB-rekening toevoegen</value>
         <value xml:lang="pt">Adicionar Conta razão</value>
         <value xml:lang="ro">Adauga Cont Gl</value>
@@ -19660,7 +19824,7 @@
         <value xml:lang="fr">Ajouter un compte comptable d'administration fiscale</value>
         <value xml:lang="hi_IN">टैक्स प्राधिकरण जीएल(Gl) खाता बनाएँ</value>
         <value xml:lang="it">Aggiungi Autorità Tasse Conto Contabilità Generale</value>
-        <value xml:lang="ja">税務機関勘定科目を追加</value>
+        <value xml:lang="ja">税務機関GL勘定を追加</value>
         <value xml:lang="nl">Nieuw GB-rekening voor belastingsinstantie</value>
         <value xml:lang="pt">Adicionar conta razão da Autoridade Tributária</value>
         <value xml:lang="ro">Adauga Autoritati Taxe Cont Contabilitate Generale</value>
@@ -19733,6 +19897,7 @@
     <property key="PageTitleFixedAssetDepreciationHistory">
         <value xml:lang="en">Deprecation history</value>
         <value xml:lang="fr">Historique de la dépréciation</value>
+        <value xml:lang="ja">減価償却履歴</value>
         <value xml:lang="vi">Lịch sử mong muốn</value>
     </property>
     <property key="PageTitleEditAgreement">
@@ -19859,7 +20024,7 @@
         <value xml:lang="fr">Modifier les application d'accords commerciaux de service</value>
         <value xml:lang="hi_IN">अनुबंध-कार्य प्रयास अनुप्रयोग संपादित करें</value>
         <value xml:lang="it">Aggiorna Applicazioni Impegno di Lavoro</value>
-        <value xml:lang="ja">契約作業成果申請を編集</value>
+        <value xml:lang="ja">契約作業成果適用を編集</value>
         <value xml:lang="nl">Toepassing werkinzet overeenkomst aanpassen</value>
         <value xml:lang="pt">Editar aplicações do acordo de esforço de trabalho</value>
         <value xml:lang="vi">Chỉnh sửa ứng dụng Lượng giá nguồn lực</value>
@@ -20134,7 +20299,7 @@
         <value xml:lang="fr">Modifier un compte comptable</value>
         <value xml:lang="hi_IN">जीएल(Gl) खाता संपादित करें</value>
         <value xml:lang="it">Aggiorna Conto Contabilità Generale</value>
-        <value xml:lang="ja">勘定科目を編集</value>
+        <value xml:lang="ja">GL勘定を編集</value>
         <value xml:lang="nl">GB-rekening aanpassen</value>
         <value xml:lang="pt_BR">Editar Conta razão</value>
         <value xml:lang="pt_PT">Editar Conta GL</value>
@@ -20152,7 +20317,7 @@
         <value xml:lang="fr">Modifier un compte comptable global</value>
         <value xml:lang="hi_IN">ग्लोबल जीएल(Gl) खाता संपादित करें</value>
         <value xml:lang="it">Aggiorna Conto Contabilità Generale Globale</value>
-        <value xml:lang="ja">グローバル勘定科目を編集</value>
+        <value xml:lang="ja">グローバルGL勘定を編集</value>
         <value xml:lang="nl">Globale GB-rekening aanpassen</value>
         <value xml:lang="pt">Editar conta razão Global</value>
         <value xml:lang="ro">Actualizeaza Cont Contabilitate Generala Globala</value>
@@ -20196,7 +20361,7 @@
         <value xml:lang="fr">Modifier les comptes de tiers</value>
         <value xml:lang="hi_IN">पार्टी जीएल(Gl) खाता संपादित करें</value>
         <value xml:lang="it">Aggiorna Conti Gl Soggetto</value>
-        <value xml:lang="ja">取引先勘定科目を編集</value>
+        <value xml:lang="ja">取引先GL勘定を編集</value>
         <value xml:lang="nl">Gb-rekeningen relatie aanpassen</value>
         <value xml:lang="pt">Editar Contas Razão do Participante</value>
         <value xml:lang="th">แก้ไขกลุ่มผู้ใช้บัญชีแยกประเภททั่วไป</value>
@@ -20276,7 +20441,7 @@
         <value xml:lang="fr">Modifier les comptes des administrations fiscales</value>
         <value xml:lang="hi_IN">टैक्स प्राधिकरण जीएल(Gl) खाता संपादित करें</value>
         <value xml:lang="it">Aggiorna Autorità Tasse Conti Contabilità Generale</value>
-        <value xml:lang="ja">税務機関勘定科目を編集</value>
+        <value xml:lang="ja">税務機関GL勘定を編集</value>
         <value xml:lang="nl">GB-rekening(en) belastingsinstantie aanpassen</value>
         <value xml:lang="pt">Editar contas razão da autoridade tributária</value>
         <value xml:lang="ro">Actualizeaza Autoritati Taxe Conturi Contabile Generale</value>
@@ -20472,7 +20637,7 @@
         <value xml:lang="fr">Chercher un compte</value>
         <value xml:lang="hi_IN">जीएल(Gl) खाता खोजें</value>
         <value xml:lang="it">Ricerca conto Gl</value>
-        <value xml:lang="ja">勘定科目を検索</value>
+        <value xml:lang="ja">GL勘定を検索</value>
         <value xml:lang="nl">Vind GB-rekening(en)</value>
         <value xml:lang="pt">Bsucar conta razão</value>
         <value xml:lang="th">ค้นหาบัญชีแยกประเภททั่วไป</value>
@@ -20487,7 +20652,7 @@
         <value xml:lang="fr">Recherche de comptes globaux</value>
         <value xml:lang="hi_IN">ग्लोबल जीएल(Gl) खाता खोजें</value>
         <value xml:lang="it">Ricerca Conto Contabilità Generale Globale</value>
-        <value xml:lang="ja">グローバル勘定科目を検索</value>
+        <value xml:lang="ja">グローバルGL勘定を検索</value>
         <value xml:lang="nl">Vind globaal GB-rekening(en)</value>
         <value xml:lang="pt">Bsucar Conta razão global</value>
         <value xml:lang="ro">Cauta Cont Contabilitate Generala Globala</value>
@@ -20656,7 +20821,7 @@
         <value xml:lang="fr">Liste des comptes</value>
         <value xml:lang="hi_IN">लेखा सूची</value>
         <value xml:lang="it">Lista Conti</value>
-        <value xml:lang="ja">アカウント一覧</value>
+        <value xml:lang="ja">勘定科目一覧</value>
         <value xml:lang="nl">Toon accounts</value>
         <value xml:lang="pt">Listar Contas</value>
         <value xml:lang="ro">Lista Conturi</value>
@@ -20815,7 +20980,7 @@
         <value xml:lang="fr">Liste des autorisations de compte financier</value>
         <value xml:lang="hi_IN">वित्तीय खाता प्राधिकरण की सूची</value>
         <value xml:lang="it">Lista Autorizzazioni Conto Finanziario</value>
-        <value xml:lang="ja">金融アカウント承認一覧</value>
+        <value xml:lang="ja">金融アカウント認証一覧</value>
         <value xml:lang="nl">Toon authorisaties financiële rekeningen</value>
         <value xml:lang="pt">Listar atorizações da Conta Financeira</value>
         <value xml:lang="th">List Fin Account Auths</value>
@@ -21107,7 +21272,7 @@
         <value xml:lang="fr">Consultation de compte</value>
         <value xml:lang="hi_IN">जीएल(Gl) खाता लुकअप</value>
         <value xml:lang="it">Ricerca Conto Contabilità Generale</value>
-        <value xml:lang="ja">勘定科目を検索</value>
+        <value xml:lang="ja">GL勘定を検索</value>
         <value xml:lang="nl">Gb-rekening zoeken</value>
         <value xml:lang="pt">Buscar Conta razão</value>
         <value xml:lang="ro">Cauta Cont Contabilitate Generala</value>
@@ -21166,7 +21331,7 @@
         <value xml:lang="fr">Résumé des factures de vente par compte de produit</value>
         <value xml:lang="hi_IN">उत्पाद जीएल(Gl) खातें से बिक्री चालान सारांश</value>
         <value xml:lang="it">Sommario fatture di vendita per conto GL prodotto</value>
-        <value xml:lang="ja">製品勘定科目別販売請求サマリ</value>
+        <value xml:lang="ja">製品GL勘定別販売請求サマリ</value>
         <value xml:lang="nl">Samenvatting verkoopfacturen per product-GB-rekening</value>
         <value xml:lang="pt">Fatura de vendas por Resumo de produto da conta razão</value>
         <value xml:lang="ru">Резюме Расходные накладные по продуктовым счетам</value>
@@ -21224,7 +21389,7 @@
         <value xml:lang="fr">Mise à jour de la configuration de l'interface de paiement Authorize Dot Net</value>
         <value xml:lang="hi_IN">भुगतान गेटवे विन्यास अधिकृत Dot Net उन्नत करे</value>
         <value xml:lang="it">Aggiorna configurazione gateway pagamento Authorize Dot Net</value>
-        <value xml:lang="ja">許可 .Net 支払ゲートウェイ設定を更新</value>
+        <value xml:lang="ja">認証 .Net 支払ゲートウェイ設定を更新</value>
         <value xml:lang="pt">Atualizar configuração de autorização de Gateway de pagamento Dot Net</value>
         <value xml:lang="vi">Sửa đổi cấu hình Cổng thanh toán Authorize Dot Net</value>
         <value xml:lang="zh">更新.NET支付网关授权配置</value>
@@ -21256,6 +21421,7 @@
     <property key="PageTitleUpdatePaymentGatewayConfigEway">
         <value xml:lang="en">Update Payment Gateway Config eWay</value>
         <value xml:lang="fr">Mise à jour de la configuration de l'interface de paiement eWay</value>
+        <value xml:lang="ja">eWay支払ゲートウェイ設定を更新</value>
         <value xml:lang="pt">Atualizar configuração do Gateway de Pagamento eWay</value>
         <value xml:lang="vi">Sửa đổi cấu hình Cổng thanh toán eWay</value>
         <value xml:lang="zh">更新eWay支付网关配置</value>
@@ -21298,6 +21464,7 @@
         <value xml:lang="fr">Mise à jour de la configuration de l'interface de paiement SecurePay</value>
         <value xml:lang="hi_IN">भुगतान गेटवे विन्यास SecurePay उन्नत करे</value>
         <value xml:lang="it">Aggiorna configurazione gateway pagamento SecurePay</value>
+        <value xml:lang="ja">SecurePay支払ゲートウェイ設定を更新</value>
         <value xml:lang="pt">Atualizar configuração do Gateway de Pagamento securePay</value>
         <value xml:lang="vi">Sửa đổi cấu hình Cổng thanh toán SecurePay</value>
         <value xml:lang="zh">更新SecurePay支付网关配置</value>
@@ -21359,7 +21526,7 @@
         <value xml:lang="fr">Voir les entrées sur le compte comptable</value>
         <value xml:lang="hi_IN">जीएल(Gl) खातें की प्रविष्टियां देखें</value>
         <value xml:lang="it">Mostra Voci Conto Gl</value>
-        <value xml:lang="ja">勘定科目エントリを表示</value>
+        <value xml:lang="ja">GL勘定エントリを表示</value>
         <value xml:lang="nl">Boekingen GB-rekening bekijken</value>
         <value xml:lang="pt">Visualizar registros de conta razão</value>
         <value xml:lang="ro">Afiseaza Date Cont Gl</value>
@@ -21398,6 +21565,7 @@
         <value xml:lang="fr">Mise à jour de la configuration de l'interface iDEAL</value>
         <value xml:lang="hi_IN">भुगतान गेटवे विन्यास iDEAL उन्नत करे</value>
         <value xml:lang="it">Aggiorna configurazione gateway pagamento iDEAL</value>
+        <value xml:lang="ja">iDEAL支払ゲートウェイ設定を更新</value>
         <value xml:lang="vi">Cập nhật cấu hình cổng thanh toán iDEAL</value>
         <value xml:lang="zh">更新iDEAL支付网关配置</value>
     </property>
@@ -21408,7 +21576,7 @@
         <value xml:lang="es">Pagar con iDEAL</value>
         <value xml:lang="fr">Paiement avec iDEAL</value>
         <value xml:lang="it">Paga con iDEAL</value>
-        <value xml:lang="ja">Pay With iDEAL</value>
+        <value xml:lang="ja">iDEALで支払</value>
         <value xml:lang="nl">Betaal met iDEAL</value>
         <value xml:lang="pt_PT">Pagar Com iDEAL</value>
         <value xml:lang="ro">Plateste cu iDEAL</value>
@@ -21423,6 +21591,7 @@
         <value xml:lang="fr">Paiement reçu par iDEAL</value>
         <value xml:lang="hi_IN">भुगतान iDEAL के माध्यम से प्राप्त</value>
         <value xml:lang="it">Pagamento ricevuto da iDEAL</value>
+        <value xml:lang="ja">iDEAL経由で支払を受取</value>
         <value xml:lang="nl">Betalingsontvangst via iDEAL</value>
         <value xml:lang="vi">Thanh toán nhận qua iDEAL</value>
         <value xml:lang="zh">通过iDEAL接收到的支付</value>
@@ -21430,6 +21599,7 @@
     <property key="IdealSuccessFull">
         <value xml:lang="en">The transaction has been successfull.</value>
         <value xml:lang="fr">La transaction a été réussie.</value>
+        <value xml:lang="ja">トランザクションは成功しました。</value>
         <value xml:lang="nl">De betaling is met succes ontvangen.</value>
         <value xml:lang="vi">Bút toán đã thành công.</value>
         <value xml:lang="zh">交易成功了。</value>

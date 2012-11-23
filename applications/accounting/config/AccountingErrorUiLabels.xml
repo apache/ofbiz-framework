@@ -76,7 +76,7 @@
         <value xml:lang="de">Authroisierungs-Transaktion ${paymentGatewayResponseId} ist seit ${authExpiration} abgelaufen</value>    
         <value xml:lang="en">Authorization transaction ${paymentGatewayResponseId} has expired as of ${authExpiration}</value>
         <value xml:lang="it">Autorizzazione transazione ${paymentGatewayResponseId} ha una scadenza del ${authExpiration}</value>
-        <value xml:lang="ja">認証トランザクション ${paymentGatewayResponseId} は ${authExpiration} のため期限切れです。</value>
+        <value xml:lang="ja">認証トランザクション ${paymentGatewayResponseId} は ${authExpiration} のため失効しています。</value>
         <value xml:lang="pt">Autorização de transação de ${paymentGatewayResponseId} expirou como de ${authExpiration}</value>
         <value xml:lang="zh">授权交易 ${paymentGatewayResponseId} 已过期，原因是 ${authExpiration}</value>
     </property>
@@ -100,7 +100,7 @@
         <value xml:lang="de">Es ist nicht möglich die Abrechnungs-Authorisierung zu stornieren: </value>
         <value xml:lang="en">Unable to expire financial account authorization: </value>
         <value xml:lang="it">Non è possibile cancellare l'autorizzazione per il conto finanziario: </value>
-        <value xml:lang="ja">金融アカウントの認証を期限切れにできません: </value>
+        <value xml:lang="ja">金融アカウントの認証を失効できません: </value>
         <value xml:lang="pt">Incapaz de expirar a autorização da conta financeira:</value>
         <value xml:lang="zh">无法过期财务账目授权：</value>
     </property>
@@ -132,7 +132,7 @@
         <value xml:lang="de">Es ist nicht möglich ein Finanz-Konto anzulegen; Keine Product-Laden-Id am Bestell-Kopf: ${orderId}</value>
         <value xml:lang="en">Unable to create financial accout; no productStoreId on OrderHeader: ${orderId}</value>
         <value xml:lang="it">Non è possibile creare conto finanziario; nessun negozio impostato sulla testata ordine: ${orderId}</value>
-        <value xml:lang="ja">金融アカウントを作成できません。製品店舗IDが注文ヘッダーにありません: ${orderId}</value>
+        <value xml:lang="ja">金融アカウントを作成できません。製品店舗IDが注文ヘッダにありません: ${orderId}</value>
         <value xml:lang="pt">Não é possível criar accout financeira; sem productStoreId em OrderHeader: ${orderId}</value>
         <value xml:lang="zh">无法创建财务账目；订单头（OrderHeader）中没有产品店铺标识（productStoreId），订单编号：${orderId}</value>
     </property>
@@ -179,7 +179,7 @@
         <value xml:lang="de">Konto ist zum ${thruDate} abgelaufen</value>
         <value xml:lang="en">Account has expired as of ${thruDate}</value>
         <value xml:lang="it">Conto scaduto dal ${thruDate}</value>
-        <value xml:lang="ja">アカウントは ${thruDate} に期限切れです</value>
+        <value xml:lang="ja">アカウントは ${thruDate} に失効しています</value>
         <value xml:lang="pt">Conta expirou a partir de ${thruDate}</value>
         <value xml:lang="zh">账目已过期，过期日期为 ${thruDate}</value>
     </property>
@@ -320,7 +320,7 @@
     <property key="AccountingGiftCerticateNumberCannotBeExpired">
         <value xml:lang="en">Unable to expire financial account authorization for Gift Certificate: </value>
         <value xml:lang="it">Non è possibile cancellare l'autorizzazione per il conto finanziario per il certificato regalo: </value>
-        <value xml:lang="ja">ギフトカードに対する金融アカウントの認証を期限切れにすることができません: </value>
+        <value xml:lang="ja">ギフトカードに対する金融アカウントの認証を失効させることができません: </value>
         <value xml:lang="pt">Incapaz de expirar a autorização para a conta financeira para vale presente:</value>
         <value xml:lang="zh">无法令礼券的财务账目授权失效，礼券为：</value>
     </property>
@@ -334,7 +334,7 @@
     <property key="AccountingGiftCerticateNumberCannotFulfillFromSurveyAnswers">
         <value xml:lang="en">Unable to get survey response answers from survey response; cannot fulfill gift card</value>
         <value xml:lang="it">Non è possibile ottenere la risposta sondaggio dalle domande; non è possibile caricare la carta regalo</value>
-        <value xml:lang="ja">評価の回答を取得できません。ギフトカードの補充を執行できません</value>
+        <value xml:lang="ja">評価の回答を取得できません。ギフトカードの執行ができません</value>
         <value xml:lang="pt">Não foi possível obter respostas da pesquisa, não pode atender ao cartão de presente</value>
         <value xml:lang="zh">无法从调查答复中获得调查答复的回答；不能应用礼品卡</value>
     </property>
@@ -369,14 +369,14 @@
     <property key="AccountingGiftCerticateNumberCannotReload">
         <value xml:lang="en">Unable to process gift card reload; no productStoreId on OrderHeader: ${orderId}</value>
         <value xml:lang="it">Non è possibile processare la ricarica con la carta regalo; nessun negozio impostato sulla testata ordine: ${orderId}</value>
-        <value xml:lang="ja">ギフトカードの充填を処理できません。注文ヘッダに製品店舗IDがありません: ${orderId}</value>
+        <value xml:lang="ja">ギフトカードのチャージを処理できません。注文ヘッダに製品店舗IDがありません: ${orderId}</value>
         <value xml:lang="pt">Não foi possível processar a recarga do cartão de presente, sem productStoreId em OrderHeader: ${orderId}</value>
         <value xml:lang="zh">无法处理礼品卡重新载入；订单头中没有产品店铺标识，订单标识：${orderId}</value>
     </property>
     <property key="AccountingGiftCerticateNumberCannotReloadFromSurveyAnswers">
         <value xml:lang="en">Unable to get survey response answers from survey response; cannot fulfill gift card reload</value>
         <value xml:lang="it">Non è possibile ottenere l'informazione relativa alla risposta sondaggio dalle domande; non è possibile ricaricare la carta regalo</value>
-        <value xml:lang="ja">評価の回答を取得できません。ギフトカードの補充が執行できません</value>
+        <value xml:lang="ja">評価の回答を取得できません。ギフトカードのチャージが執行できません</value>
         <value xml:lang="pt">Não foi possível obter respostas da pesquisa, não é possível realizar recarga do cartão do presente</value>
         <value xml:lang="zh">无法从调查答复中获得调查答复的回答；不能重新载入礼品卡</value>
     </property>
@@ -404,7 +404,7 @@
     <property key="AccountingGiftCerticateNumberExpired">
         <value xml:lang="en">Gift certificate has expired as of  ${thruDate}</value>
         <value xml:lang="it">Certificato regalo scaduto dal ${thruDate}</value>
-        <value xml:lang="ja">ギフトカードは ${thruDate} で期限切れです</value>
+        <value xml:lang="ja">ギフトカードは ${thruDate} に失効しています</value>
         <value xml:lang="pt">O cartão de presente expirou a partir de ${thruDate}</value>
         <value xml:lang="zh">礼券已过期，过期日期是 ${thruDate}</value>
     </property>
@@ -763,7 +763,7 @@
         <value xml:lang="fr">Problème de récupération de la commande</value>
         <value xml:lang="hi_IN">OrderHeader में समस्याएँ हो रही</value>
         <value xml:lang="it">Problema nel ricavare la testata ordine</value>
-        <value xml:lang="ja">注文ヘッダー取得時にエラー</value>
+        <value xml:lang="ja">注文ヘッダ取得時にエラー</value>
         <value xml:lang="zh">获取订单头时出错</value>
     </property>
 </resource>

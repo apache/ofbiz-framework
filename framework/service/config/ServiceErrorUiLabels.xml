@@ -220,7 +220,7 @@
     <property key="ServiceTestXmlRpcMissingParameters">
         <value xml:lang="en">missing parameters</value>
         <value xml:lang="it">parametri mancanti</value>
-        <value xml:lang="ja">パラメータに誤りがあります</value>
+        <value xml:lang="ja">パラメータが正しくありません</value>
     </property>
     <property key="ServiceValueNotFound">
         <value xml:lang="en">Value not found, cannot update</value>

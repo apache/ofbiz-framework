@@ -4162,7 +4162,7 @@
         <value xml:lang="de"> Nachricht ignoriert: keine 'From' Adresse angegeben</value>
         <value xml:lang="en"> Message Ignored: no 'From' address specified</value>
         <value xml:lang="it"> Messaggio Ignorato: nessu indirizzo 'Da' specificato</value>
-        <value xml:lang="ja"> メッセージは無視されました: '送信元'アドレスが指定されていません</value>
+        <value xml:lang="ja"> メッセージは無視されました: '差出人'アドレスが指定されていません</value>
         <value xml:lang="vi"> Thư bị từ chối: không có trường địa chỉ GỬI tới</value>
     </property>
     <property key="PartyCommEventOrders">
@@ -6021,7 +6021,7 @@
         <value xml:lang="de">E-Mail Adresse wird benötigt</value>
         <value xml:lang="en">Email address is required</value>
         <value xml:lang="it">L'indirizzo e-mail è richiesto</value>
-        <value xml:lang="ja">電子メールアドレスを入力してください</value>
+        <value xml:lang="ja">Eメールアドレスを入力してください</value>
         <value xml:lang="vi">Thư điện tử bắt buộc phải nhập</value>
     </property>
     <property key="PartyEmailAddressSuccessfullyCreated">
@@ -6134,7 +6134,7 @@
         <value xml:lang="fr">Mél issu d'une origine inconnue</value>
         <value xml:lang="hi_IN">अज्ञात मूल से ईमेल</value>
         <value xml:lang="it">Emails da origini conosciuta</value>
-        <value xml:lang="ja">未知の送信元からのEメール</value>
+        <value xml:lang="ja">未知の差出人からのEメール</value>
         <value xml:lang="pt_BR">E-mails com remetente desconhecido</value>
         <value xml:lang="th">อีเมล์ที่ไม่ระบุ</value>
         <value xml:lang="vi">Thư nhận từ người gửi mới chưa liên lạc</value>
@@ -9261,7 +9261,7 @@
         <value xml:lang="fr">Origine du mél inconnue</value>
         <value xml:lang="hi_IN">उत्पत्ति ईमेल पता अज्ञात!</value>
         <value xml:lang="it">Indirizzo origine email address not conosciuto!</value>
-        <value xml:lang="ja">送信元Eメールアドレスが未知です!</value>
+        <value xml:lang="ja">差出人Eメールアドレスが未知です!</value>
         <value xml:lang="pt_BR">Endereço do e-mail de origem desconhecido</value>
         <value xml:lang="vi">Chưa người dùng nào có thư điện tử này !</value>
         <value xml:lang="zh">原始电子邮件地址未知！</value>

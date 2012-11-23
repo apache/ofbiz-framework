@@ -742,7 +742,7 @@
         <value xml:lang="es">Materiales reales</value>
         <value xml:lang="fr">Matériels rééls</value>
         <value xml:lang="it">Materiali attuali</value>
-        <value xml:lang="ja">実績材料</value>
+        <value xml:lang="ja">実績部品</value>
         <value xml:lang="pt_BR">Materiais reais</value>
         <value xml:lang="th">ข้อเท็จจริง</value>
         <value xml:lang="vi">Vật liệu thực tế</value>
@@ -941,48 +941,56 @@
     <property key="ManufacturingBomErrorCreatingBillOfMaterialsTree">
         <value xml:lang="en">Error creating bill of materials tree: ${errorString}</value>
         <value xml:lang="it">Errore durante la creazione dell'albero dei materiali: ${errorString}</value>
+        <value xml:lang="ja">部品表ツリー作成中にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi tạo cây chào giá vật liệu: ${errorString}</value>
         <value xml:lang="zh">创建物料清单树时出错：${errorString}</value>
     </property>
     <property key="ManufacturingBomErrorLoadingShipmentItems">
         <value xml:lang="en">Error loading the ShipmentItems</value>
         <value xml:lang="it">Errore durante il caricamento di ShipmentItems</value>
+        <value xml:lang="ja">発送アイテムのロード中にエラー</value>
         <value xml:lang="vi">Lỗi xảy ra khi tải thông tin Hàng hóa chuyển vận</value>
         <value xml:lang="zh">载入送货明细时出错</value>
     </property>
     <property key="ManufacturingBomErrorLoadingShipmentPackages">
         <value xml:lang="en">Error loading the ShipmentPackages</value>
         <value xml:lang="it">Errore durante il caricamento di ShipmentPackages</value>
+        <value xml:lang="ja">発送パッケージのロード中にエラー</value>
         <value xml:lang="vi">Lỗi xảy ra khi tải thông tin Đóng gói chuyển vận</value>
         <value xml:lang="zh">载入送货包装时出错</value>
     </property>
     <property key="ManufacturingBomErrorRunningDuplicatedAncestorSearch">
         <value xml:lang="en">Error running duplicated ancestor search: ${errorString}</value>
         <value xml:lang="it">Errore durante l'esecuzione della ricerca duplicati antenato: ${errorString}</value>
+        <value xml:lang="ja">重複した原型の検索実行中にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi thực thi toán tử tìm kiếm Trùng: ${errorString}</value>
         <value xml:lang="zh">查找重复的根时出错：${errorString}</value>
     </property>
     <property key="ManufacturingBomErrorRunningInitLowLevelCode">
         <value xml:lang="en">Error running initLowLevelCode: ${errorString}</value>
         <value xml:lang="it">Errore durante l'esecuzione di initLowLevelCode: ${errorString}</value>
+        <value xml:lang="ja">低レベルコードの初期化実行中にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi thực thi initLowLevelCode: ${errorString}</value>
         <value xml:lang="zh">运行低层代码初始化时出错：${errorString}</value>
     </property>
     <property key="ManufacturingBomErrorRunningMaxDethAlgorithm">
         <value xml:lang="en">Error running max depth algorithm: ${errorString}</value>
         <value xml:lang="it">Errore durante l'esecuzione dell'algoritmo massima profondità: ${errorString}</value>
+        <value xml:lang="ja">最大深度アルゴリズム実行中にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi thực thi thuật toán tìm kiếm độ sâu tối đa: ${errorString}</value>
         <value xml:lang="zh">运行最大深度算法时出错：${errorString}</value>
     </property>
     <property key="ManufacturingBomErrorRunningUpdateLowLevelCode">
         <value xml:lang="en">Error running updateLowLevelCode: ${errorString}</value>
         <value xml:lang="it">Errore durante l'esecuzione di updateLowLevelCode: ${errorString}</value>
+        <value xml:lang="ja">低レベルコード更新実行中にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi thực thi updateLowLevelCode: ${errorString}</value>
         <value xml:lang="zh">运行更新低层代码（updateLowLevelCode）时发生错误：${errorString}</value>
     </property>
     <property key="ManufacturingBomPackageAlreadyFound">
         <value xml:lang="en">Packages already found.</value>
         <value xml:lang="it">Pacchi già trovati.</value>
+        <value xml:lang="ja">パッケージが見つかりました。</value>
         <value xml:lang="vi">Đóng gói đã được tìm thấy.</value>
         <value xml:lang="zh">已经找到包装了。</value>
     </property>
@@ -1330,6 +1338,7 @@
         <value xml:lang="fr">Un module de la famille Open For Business, logiciel libre de gestion d'entreprise.</value>
         <value xml:lang="it">Un modulo della famiglia di software open source Open For Business</value>
         <!--value xml:lang="nl">Onderdeel van de Open For Business'-suite</value-->
+        <value xml:lang="ja">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="nl">Deel van de Open For Business-suite van Open Source Software</value>
         <value xml:lang="pt_BR">Parte da família OfBiz de software de código livre</value>
         <!--value xml:lang="pt_PT">Parte do Software de Fonte Aberta para Grupos Abertos Para o Negócio</value-->
@@ -1481,6 +1490,7 @@
     <property key="ManufacturingCreateDependentProductionRuns">
         <value xml:lang="en">Create Dependent Production Runs</value>
         <value xml:lang="it">Crea ordini di produzione dipendenti</value>
+        <value xml:lang="ja">従属生産実行の作成</value>
         <value xml:lang="vi">Thêm các 'Chế tác lô hàng' phụ thuộc</value>
         <value xml:lang="zh">创建相关生产运行</value>
     </property>
@@ -2730,107 +2740,125 @@
     <property key="ManufacturingMrpCannotCountRecords">
         <value xml:lang="en">Unable to count MrpEvent records.</value>
         <value xml:lang="it">Non è possibile contare i records da  i records da MrpEvent.</value>
+        <value xml:lang="ja">MRPイベントレコードがカウントできません。</value>
         <value xml:lang="vi">Không thể đếm được bản ghi sự kiện MRP.</value>
         <value xml:lang="zh">无法统计生产资源计划事件（MrpEvent）记录数。</value>
     </property>
     <property key="ManufacturingMrpCannotFindCustomTimePeriod">
         <value xml:lang="en">Problem, we can not find CustomTimePeriod, for more detail look at the log</value>
         <value xml:lang="it">Problema, non è possibile trovare CustomTimePeriod, più dettagli possono essere trovati nel log</value>
+        <value xml:lang="ja">問題、カスタム時期間を見つけることができません。詳細はログを参照してください。</value>
         <value xml:lang="vi">Có lỗi, chúng tôi không thể tìm thấy Kỳ kế toán của Đơn vị, bạn hãy xem vết để biết thêm chi tiết</value>
         <value xml:lang="zh">问题：我们不能找到定制时间段（CustomTimePeriod），详见日志</value>
     </property>
     <property key="ManufacturingMrpCannotFindProductFacility">
         <value xml:lang="en">Unable to retrieve ProductFacility records.</value>
         <value xml:lang="it">Non è possibile ricavare i records da ProductFacility.</value>
+        <value xml:lang="ja">製品拠点レコードの取得ができません。</value>
         <value xml:lang="vi">Hệ thống không lấy được dữ liệu bản ghi Chi nhánh / Cơ sở.</value>
         <value xml:lang="zh">无法获取产品设施（ProductFacility）记录。</value>
     </property>
     <property key="ManufacturingMrpCannotFindSalesForecasts">
         <value xml:lang="en">Problem, we can not find SalesForecasts, for more detail look at the log</value>
         <value xml:lang="it">Problema, non è possibile trovare SalesForecasts, più dettagli possono essere trovati nel log</value>
+        <value xml:lang="ja">問題、販売予測を見つけることができません。詳細はログを参照してください。</value>
         <value xml:lang="vi">Có lỗi, chúng tôi không thể tìm thấy Dự báo kinh doanh, bạn hãy xem vết để biết thêm chi tiết</value>
         <value xml:lang="zh">问题：我们不能找到销售预测（SalesForecasts），详见日志</value>
     </property>
     <property key="ManufacturingMrpCannotFindSalesForecastDetails">
         <value xml:lang="en">Problem, we can not find SalesForecastDetails, for more detail look at the log</value>
         <value xml:lang="it">Problema, non è possibile trovare SalesForecastDetails, più dettagli possono essere trovati nel log</value>
+        <value xml:lang="ja">問題、販売予測詳細を見つけることができません。詳細はログを参照してください。</value>
         <value xml:lang="vi">Có lỗi, chúng tôi không thể tìm thấy Dự báo kinh doanh chi tiết, bạn hãy xem vết để biết thêm chi tiết</value>
         <value xml:lang="zh">问题：我们不能找到销售预测详细信息（SalesForecastDetails），详见日志</value>
     </property>
     <property key="ManufacturingMrpCannotFindProductForEvent">
         <value xml:lang="en">Problem, can not find the product for a event, for more detail look at the log</value>
         <value xml:lang="it">Problema, non è possibile trovare il prodotto per un'evento, più dettagli possono essere trovati nel log</value>
+        <value xml:lang="ja">問題、イベントに対する製品を見つけることができません。詳細はログを参照してください。</value>
         <value xml:lang="vi">Có lỗi, chúng tôi không thể tìm thấy sản phẩm cho sự kiện này, bạn hãy xem vết để biết thêm chi tiết</value>
         <value xml:lang="zh">问题：不能找到一个事件的产品，详见日志</value>
     </property>
     <property key="ManufacturingMrpCreateOrUpdateEvent">
         <value xml:lang="en">Error during creation or update MrpEvent, parameters: ${parameters}</value>
         <value xml:lang="it">Errore durante la creazione o aggiornamento MrpEvent, parametri: ${parameters}</value>
+        <value xml:lang="ja">MRPイベントの作成または更新中にエラー。パラメータ: ${parameters}</value>
         <value xml:lang="vi">Lỗi khi tạo mới hoặc cập nhật sự kiện Mrp, tham số : ${parameters}</value>
         <value xml:lang="zh">创建或更新生产资源计划事件（MrpEvent）时出错，参数：${parameters}</value>
     </property>
     <property key="ManufacturingMrpErrorForBomLevel">
         <value xml:lang="en">MRP Error retieving MRP event for the bom level: ${bomLevel}. Error: ${errorString}</value>
         <value xml:lang="it">Errore MRP ricavando l'evento MRP per il livello di distinta base: ${bomLevel}. Errore: ${errorString}</value>
+        <value xml:lang="ja">部品表レベル: ${bomLevel} に対するMRPイベント取得中にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi khi lấy thông tin sự kiện MRP ở mức chào giá : ${bomLevel}. Lỗi: ${errorString}</value>
         <value xml:lang="zh">获取物料清单层的生产资源计划事件时出错，物料清单层：${bomLevel}，错误：${errorString}</value>
     </property>
     <property key="ManufacturingMrpErrorExplodingProduct">
         <value xml:lang="en">An error occurred exploding the product ${productId}</value>
         <value xml:lang="it">E' successo un'errore durante l'espolosizione del prodotto ${productId}</value>
+        <value xml:lang="ja">製品 ${productId} の分散中にエラーが発生しました</value>
         <value xml:lang="vi">Lỗi xảy ra khi bóc tách sản phẩm ${productId}</value>
         <value xml:lang="zh">分解产品时出错：${productId}</value>
     </property>
     <property key="ManufacturingMrpErrorRunningInitMrpEvents">
         <value xml:lang="en">Error running the initMrpEvents service: ${errorString}</value>
         <value xml:lang="it">Errore durante l'esecuzione del servizio initMrpEvents: ${errorString}</value>
+        <value xml:lang="ja">MRPイベント初期化サービスの実行中にエラー: ${errorString}</value>
         <value xml:lang="zh">运行初始化生产资源计划事件（initMrpEvents）服务时出错：${errorString}</value>
     </property>
     <property key="ManufacturingMrpEventFindError">
         <value xml:lang="en">Problem, we can not find all the items of MrpEvent, for more detail look at the log</value>
         <value xml:lang="it">Problema, non possaimo trovare tutte le righe di MrpEvent, per più dettagli controllare il log</value>
+        <value xml:lang="ja">問題、MRPイベントのすべてのアイテムを見つけることができません。詳細はログを参照してください</value>
         <value xml:lang="vi">Lỗi xảy ra, chúng tôi không tìm thấy các hạng mục của sự kiện MRP, bạn hãy xem vết để biết thêm chi tiết</value>
         <value xml:lang="zh">问题：我们无法找到生产资源计划事件（MrpEvent）的全部明细，详见日志</value>
     </property>
     <property key="ManufacturingMrpEventProblemInitializing">
         <value xml:lang="en">Problem initializing the MrpEvent entity (${mrpEventTypeId})</value>
         <value xml:lang="it">Problema di inizializzazione entità MrpEvent (${mrpEventTypeId})</value>
+        <value xml:lang="ja">MRPイベントエンティティ ${mrpEventTypeId} の初期化中にエラー</value>
         <value xml:lang="vi">Lỗi xảy ra khi khởi tạo thực thể MrpEvent : ${mrpEventTypeId}</value>
         <value xml:lang="zh">初始化生产资源计划事件（MrpEvent）实体（${mrpEventTypeId}）时出问题了</value>
     </property>
     <property key="ManufacturingMrpEventRemoveError">
         <value xml:lang="en">Problem, we can not remove the MrpEvent items, for more detail look at the log</value>
         <value xml:lang="it">Problema, non possaimo rimuovere le righe di MrpEvent, per più dettagli controllare il log</value>
+        <value xml:lang="ja">問題、MRPイベントアイテムが削除できません。詳細はログを参照してください</value>
         <value xml:lang="vi">Lỗi xảy ra, chúng tôi không xóa bỏ được sự kiện MRP, bạn hãy xem vết để biết thêm chi tiết</value>
         <value xml:lang="zh">问题：我们不能删除生产资源计划事件（MrpEvent）的明细，详见日志</value>
     </property>
     <property key="ManufacturingMrpFacilityGroupCannotBeLoad">
         <value xml:lang="en">Problem loading facility group information: ${errorString}</value>
         <value xml:lang="it">Problema durante il caricamento delle informazioni relative al gruppo stabilimento: ${errorString}</value>
+        <value xml:lang="ja">拠点グループ情報のロード中にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra kho tải thông tin nhóm Chi nhánh / Cơ sở: ${errorString}</value>
         <value xml:lang="zh">载入场所组信息时出错：${errorString}</value>
     </property>
     <property key="ManufacturingMrpFacilityGroupIsNotAssociatedToFacility">
         <value xml:lang="en">No facility associated to facilityGroupId ${facilityGroupId}</value>
         <value xml:lang="it">Nessuna stabilimento associato al gruppo stabilimento ${facilityGroupId}</value>
+        <value xml:lang="ja">拠点グループID ${facilityGroupId} に関連付けられた拠点がありません</value>
         <value xml:lang="vi">Không có Chi nhánh / Cơ sở kết hợp với Nhóm chi nhánh / Cơ sở ${facilityGroupId}</value>
         <value xml:lang="zh">没有场所关联到场所组标识（facilityGroupId）${facilityGroupId}</value>
     </property>
     <property key="ManufacturingMrpFacilityGroupIsNotValid">
         <value xml:lang="en">facilityGroupId ${facilityGroupId} is not valid</value>
         <value xml:lang="it">Gruppo stabilimento ${facilityGroupId} non è valido</value>
+        <value xml:lang="ja">拠点グループID ${facilityGroupId} が有効ではありません</value>
         <value xml:lang="vi">Nhóm chi nhánh / Cơ sở ${facilityGroupId} không hợp lệ</value>
         <value xml:lang="zh">场所组标识（facilityGroupId）${facilityGroupId} 无效</value>
     </property>
     <property key="ManufacturingMrpFacilityNotAvailable">
         <value xml:lang="en">facilityId and facilityGroupId cannot be both null</value>
         <value xml:lang="it">Stabilimento e gruppo stabilimento non possono essere entrambi nulli</value>
+        <value xml:lang="ja">拠点IDおよび拠点グループIDの両方とも空にできません</value>
         <value xml:lang="vi">Chi nhánh / Cơ sở và Nhóm chi nhánh / Cơ sở không thể cùng rỗng</value>
         <value xml:lang="zh">场所标识（facilityId）和场所组标识（facilityGroupId）不能都为空（null）</value>
     </property>
     <property key="ManufacturingMrpFacilityOrManufacturingFacilityNotAvailable">
         <value xml:lang="en">facilityId and manufacturingFacilityId cannot be null</value>
         <value xml:lang="it">Stabilimento e stabilimento di produzione non possono essere nulli</value>
+        <value xml:lang="ja">拠点IDおよび生産拠点IDは空にできません</value>
         <value xml:lang="vi">Chi nhánh / Cơ sở và Chi nhánh / Cơ sở sản xuất không thể cùng rỗng</value>
         <value xml:lang="zh">场所标识（facilityId）和生产场所标识（manufacturingFacilityId）不能为空</value>
     </property>
@@ -2840,7 +2868,7 @@
         <value xml:lang="es">Inic. MRP</value>
         <value xml:lang="fr">Init. MRP</value>
         <value xml:lang="it">IEP init.</value>
-        <value xml:lang="ja">MRP初期化</value>
+        <value xml:lang="ja">IEP初期化</value>
         <value xml:lang="pt_BR">Inic. MRP</value>
         <value xml:lang="ro">IEP init.</value>
         <value xml:lang="th">ข้อมูลความต้องการโดยประมาณในเบื้องต้น</value>
@@ -3409,24 +3437,28 @@
     <property key="ManufacturingProductionRunCannotBeCancelled">
         <value xml:lang="en">Cannot cancel productionRun, not in a valid status</value>
         <value xml:lang="it">Non è possibile cancellare l'ordin di produzione, non è in uno stato valido</value>
+        <value xml:lang="ja">生産実行を取消できません。有効なステータスではありません</value>
         <value xml:lang="vi">Không thể hủy bỏ Chế tác lô hàng, trạng thái không hợp lệ</value>
         <value xml:lang="zh">无法取消生产运行（productionRun），状态无效</value>
     </property>
      <property key="ManufacturingProductionRunCannotDecomposingInventoryItem">
         <value xml:lang="en">Error decomposing inventory item: inventory item with id ${inventoryItemId} not found.</value>
         <value xml:lang="it">Errore duranta la decomposizione della riga inventario: riga inventario ${inventoryItemId} non trovata.</value>
+        <value xml:lang="ja">在庫アイテムの分解中にエラー、ID ${inventoryItemId} の在庫アイテムが見つかりません。</value>
         <value xml:lang="vi">Lỗi khi bóc tách hàng hóa trong kho: hàng hóa với Id ${inventoryItemId} không được tìm thấy.</value>
         <value xml:lang="zh">分解库存明细时出错：没有找到标识为 ${inventoryItemId} 的库存明细</value>
     </property>
     <property key="ManufacturingProductionRunCannotDecomposingInventoryItemNoComponentsFound">
         <value xml:lang="en">Error decomposing inventory item: no components found for marketing package ${productId}.</value>
         <value xml:lang="it">Errore duranta la decomposizione della riga inventario: nessun componente trovato per il pacco di vendita ${productId}.</value>
+        <value xml:lang="ja">在庫アイテムの分解中にエラー、販売コンポーネント ${productId} に対するコンポーネントがありません。</value>
         <value xml:lang="vi">Lỗi khi bóc tách hàng hóa trong kho: không thành phần nào được tìm thấy cho gói tiếp thị ${productId}.</value>
         <value xml:lang="zh">分解库存明细时出错：没有找到促销包 ${productId} 的组件。</value>
     </property>
     <property key="ManufacturingProductionRunCannotDecomposingInventoryItemNoMarketingPackagesFound">
         <value xml:lang="en">Error decomposing inventory item: no marketing packages found in inventory item ${inventoryItemId}.</value>
         <value xml:lang="it">Errore duranta la decomposizione della riga inventario: nessun pacco di vendita trovato nella riga di inventario ${inventoryItemId}.</value>
+        <value xml:lang="ja">在庫アイテムの分解中にエラー、在庫アイテム ${inventoryItemId} に販売コンポーネントがありません。</value>
         <value xml:lang="vi">Lỗi khi bóc tách hàng hóa trong kho: không gói tiếp thị nào được tìm thấy trong hàng hóa của kho ${productId}.</value>
         <value xml:lang="zh">分解库存明细时出错：没有在库存明细 ${inventoryItemId} 中找到促销包。</value>
     </property>
@@ -3505,6 +3537,7 @@
     <property key="ManufacturingProductionRunErrorRunningSetEstimatedDeliveryDates">
         <value xml:lang="en">Problem running the setEstimatedDeliveryDates service</value>
         <value xml:lang="it">Problema di esecuzione del servizio setEstimatedDeliveryDates</value>
+        <value xml:lang="ja">見積配送日付設定サービスの実行中にエラー</value>
         <value xml:lang="vi">Lỗi khi thực thi dịch vụ setEstimatedDeliveryDates</value>
         <value xml:lang="zh">运行设置预计交货日期（setEstimatedDeliveryDates）服务时出错</value>
     </property>
@@ -3601,24 +3634,28 @@
     <property key="ManufacturingProductionRunForMarketingPackagesCreationError">
         <value xml:lang="en">Error creating a production run for marketing package for order ${orderId} ${orderItemSeqId}: ${errorString}</value>
         <value xml:lang="it">Errore durante la creazione dell'ordine di produzione per il pacco di vendita per l'ordine ${orderId} ${orderItemSeqId}: ${errorString}</value>
+        <value xml:lang="ja">注文 ${orderId} ${orderItemSeqId} に対する販売パッケージの生産実行作成中にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi khi tạo Chế tác lô hàng cho Gói tiếp thị của Đặt hàng ${orderId} ${orderItemSeqId}: ${errorString}</value>
         <value xml:lang="zh">为订单 ${orderId} ${orderItemSeqId} 的促销包创建一个生产运行时出错：${errorString}</value>
     </property>
     <property key="ManufacturingProductionRunForMarketingPackagesOrderItemNotFound">
         <value xml:lang="en">Error creating a production run for marketing package for order ${orderId} ${orderItemSeqId}: order item not found.</value>
         <value xml:lang="it">Errore durante la creazione dell'ordine di produzione per il pacco di vendita per l'ordine ${orderId} ${orderItemSeqId}: riga ordine non trovata.</value>
+        <value xml:lang="ja">注文 ${orderId} ${orderItemSeqId} に対する販売パッケージの生産実行作成中にエラー、注文アイテムが見つかりません</value>
         <value xml:lang="vi">Lỗi khi tạo Chế tác lô hàng cho Gói tiếp thị của Đặt hàng ${orderId} ${orderItemSeqId}: hàng hóa đặt hàng không tìm thấy.</value>
         <value xml:lang="zh">为订单 ${orderId} ${orderItemSeqId} 的促销包创建一个生产运行时出错：没有找到订单明细</value>
     </property>
     <property key="ManufacturingProductionRunFromConfigurationNotYetImplemented">
         <value xml:lang="en">Operation not yet implemented</value>
         <value xml:lang="it">Operazione non è ancora implementata</value>
+        <value xml:lang="ja">操作はまだ実装されていません</value>
         <value xml:lang="vi">Chưa thực hiện việc điều hành</value>
         <value xml:lang="zh">还没有完成操作</value>
     </property>
     <property key="ManufacturingProductionRunFromConfigurationNotValid">
         <value xml:lang="en">Product Configuration Not Valid</value>
         <value xml:lang="it">Configurazione non valida</value>
+        <value xml:lang="ja">製品設定が無効です</value>
         <value xml:lang="vi">Cấu hình sản phẩm không đúng định dạng</value>
     </property>
     <property key="ManufacturingProductionRunId">
@@ -3638,6 +3675,7 @@
     <property key="ManufacturingProductionRunIsNotRequiredForProductId">
         <value xml:lang="en">No production run is required for product with id ${productId} in date ${startDate}; please verify the validity dates of the bill of materials and routing.</value>
         <value xml:lang="it">Nessun ordine di produzione è richiesto per il prodotto ${productId} in data ${startDate}; verificare le date di validità dei materiali.</value>
+        <value xml:lang="ja">製品ID ${productId} 日付 ${startDate} の生産実行は必要ではありません、部品表の日付を確認して経路制御してください。</value>
         <value xml:lang="vi">Không có Chế tác lô hàng với sản phẩm id ${productId} trong ngày ${startDate}; bạn hãy xem xét lại ngày kiểm hàng (validity date) trên Chào giá và Quy trình</value>
     </property>
     <property key="ManufacturingProductionRunName">
@@ -3848,6 +3886,7 @@
     <property key="ManufacturingProductionRunTaskCannotReturnMoreItems">
         <value xml:lang="en">Production Run Task with id ${productionRunTaskId} cannot return more items ${quantity} than the ones currently allocated ${quantityAllocated}</value>
         <value xml:lang="it">Compito ordine di produzione ${productionRunTaskId} non può restituire più righe ${quantity} di quelle allocate attualmente ${quantityAllocated}</value>
+        <value xml:lang="ja">ID ${productionRunTaskId} の生産実行タスクは現在割り当てられた ${quantityAllocated} より多いアイテム ${quantity} を戻すことはできません</value>
         <value xml:lang="vi">Tác vụ - Đầu việc với Id ${productionRunTaskId} không thể trả về nhiều hơn số hàng hóa ${quantity} hơn số lượng đang được phân bổ ${quantityAllocated}</value>
     </property>
     <property key="ManufacturingProductionRunTaskCannotStartDocsNotPrinted">
@@ -3871,6 +3910,7 @@
     <property key="ManufacturingProductionRunTaskNotFound">
         <value xml:lang="en">Cannot find the production run task with id: ${productionRunTaskId}</value>
         <value xml:lang="it">Non è possibile trovare il compito dell'ordine di produzione: ${productionRunTaskId}</value>
+        <value xml:lang="ja">ID ${productionRunTaskId} の生産実行タスクが見つかりません</value>
         <value xml:lang="vi">Không tìm thấy Tác vụ - Đầu việc với Id: ${productionRunTaskId}</value>
     </property>
     <property key="ManufacturingProductionRunTaskNotExists">
@@ -3894,6 +3934,7 @@
     <property key="ManufacturingProductionRunTaskProduceError">
         <value xml:lang="en">Error calling productionRunTaskProduce: </value>
         <value xml:lang="it">Errore durante l'esecuzione di productionRunTaskProduce: </value>
+        <value xml:lang="ja">productionRunTaskProduce の呼び出し中にエラー: </value>
         <value xml:lang="vi">Lỗi khi thực thi dịch vụ productionRunTaskProduce: </value>
     </property>
     <property key="ManufacturingProductionRunTaskStatusChanged">
@@ -3921,41 +3962,49 @@
     <property key="ManufacturingProductionRunTryToCreateWorkEffortAssoc">
         <value xml:lang="en">Error try to create workeffort assoc</value>
         <value xml:lang="it">Errore durante il tentativo di creazione associazione impegno di lavoro</value>
+        <value xml:lang="ja">作業成果関連付け作成中にエラー</value>
         <value xml:lang="vi">Lỗi khi tạo Lượng giá nguồn lực kết hợp</value>
     </property>
     <property key="ManufacturingProductionRunTryToGetBomListError">
         <value xml:lang="en">Error try to get BOM list from productAssoc</value>
         <value xml:lang="it">Errore durante il tentativo di ottenere la lista della distinta base da productAssoc</value>
+        <value xml:lang="ja">製品関連付けからBOM一覧を取得中にエラー</value>
         <value xml:lang="vi">Lỗi khi lấy thông tin danh sách Chào giá từ Sản phẩm</value>
     </property>
     <property key="ManufacturingProductionRunUnableToCreateMaterialsCosts">
         <value xml:lang="en">Unable to create materials costs for the production run task ${productionRunTaskId}: ${errorString}</value>
         <value xml:lang="it">Non è possibile create i costi dei materiali per il compito dell'ordine di produzione ${productionRunTaskId}: ${errorString}</value>
+        <value xml:lang="ja">生産実行タスク ${productionRunTaskId} に対する部品原価が作成できません: ${errorString}</value>
         <value xml:lang="vi">Không thể tạo Chi phí vật liệu cho Tác vụ - Đầu việc ${productionRunTaskId}: ${errorString}</value>
     </property>
     <property key="ManufacturingProductionRunUnableToCreateRoutingCosts">
         <value xml:lang="en">Unable to create routing costs for the production run task ${productionRunTaskId}: ${errorString}</value>
         <value xml:lang="it">Non è possibile create i costi per il compito dell'ordine di produzione ${productionRunTaskId}: ${errorString}</value>
+        <value xml:lang="ja">生産実行タスク ${productionRunTaskId} に対する経路制御原価が作成できません: ${errorString}</value>
         <value xml:lang="vi">Không thể tạo Chi phí quy trình cho Tác vụ - Đầu việc ${productionRunTaskId}: ${errorString}</value>
     </property>
     <property key="ManufacturingProductionRunUnableToFindCosts">
         <value xml:lang="en">Unable to find a currency for production run costs</value>
         <value xml:lang="it">Non è possibile trovare una valuta per i costi dell'ordine di produzione</value>
+        <value xml:lang="ja">生産実行原価に対する通貨を見つけることができません</value>
         <value xml:lang="vi">Không thể tìm thấy kiểu Tiền tệ cho Chi phí</value>
     </property>
     <property key="ManufacturingProductionRunUnableToFindCostsForWorkEffort">
         <value xml:lang="en">Cannot retrieve costs for work effort ${workEffortId}: ${errorString}</value>
         <value xml:lang="it">Non è possibile ricavare i costi per l'impegno di lavoro ${workEffortId}: ${errorString}</value>
+        <value xml:lang="ja">作業成果 ${workEffortId} に対する原価が取得できません: ${errorString}</value>
         <value xml:lang="vi">Không thể lấy thông tin Chi phí cho Lượng giá nguồn lực ${workEffortId}: ${errorString}</value>
     </property>
     <property key="ManufacturingProductionRunUnableToFindOverheadCosts">
         <value xml:lang="en">Unable to compute overhead costs for production run: ${errorString}</value>
         <value xml:lang="it">Non è possibile elaborare gli ulteriori costo dell'ordine di produzione: ${errorString}</value>
+        <value xml:lang="ja">生産実行に対する間接原価が計算できません: ${errorString}</value>
         <value xml:lang="vi">Không thể tính Chi phí phát sinh cho Chế tác lô hàng: ${errorString}</value>
     </property>
     <property key="ManufacturingProductionRunUnableToProgressTaskStatus">
         <value xml:lang="en">Unable to progress from status ${prevStatusId} for task ${taskId}</value>
         <value xml:lang="it">Non è possibile cambiare lo stato da 'in corso' ${prevStatusId} per il compito ${taskId}</value>
+        <value xml:lang="ja">タスク ${taskId} に対するステータス ${prevStatusId} から進めることができません</value>
         <value xml:lang="vi">Không thể tiến hành từ trạng thái ${prevStatusId} cho Tác vụ - Đầu việc ${taskId}</value>
     </property>
     <property key="ManufacturingProposedOrder">
@@ -4058,7 +4107,7 @@
         <value xml:lang="es">Cant. a producir</value>
         <value xml:lang="fr">Qté à produire</value>
         <value xml:lang="it">Quantità Da Produrre</value>
-        <value xml:lang="ja">生産予定数量</value>
+        <value xml:lang="ja">要生産数量</value>
         <value xml:lang="pt_BR">Quantidade a produzir</value>
         <value xml:lang="ro">Cantitate de Produs</value>
         <value xml:lang="th">จำนวนสินค้า</value>
@@ -4275,6 +4324,7 @@
     <property key="ManufacturingRoutingErrorFindingTask">
         <value xml:lang="en">Error finding routing task with id: ${taskId}</value>
         <value xml:lang="it">Errore durante la ricerca del ciclo per il compito: ${taskId}</value>
+        <value xml:lang="ja">ID ${taskId} の経路制御タスク検索時にエラー</value>
         <value xml:lang="vi">Lỗi tìm tác vụ quy trình với Id: ${taskId}</value>
     </property>
     <property key="ManufacturingRoutingHasNoRoutingTask">
@@ -4875,11 +4925,13 @@
     <property key="ManufacturingTechDataWorkEffortNotExist">
         <value xml:lang="en">Error finding desired WorkEffort records: ${errorString}</value>
         <value xml:lang="it">Errore durante la ricerca dei records di WorkEffort: ${errorString}</value>
+        <value xml:lang="ja">要求された作業成果レコードの検索中にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi tìm dữ liệu Lượng giá nguồn lực mong muốn: ${errorString}</value>
     </property>
     <property key="ManufacturingTechDataWorkEffortAssocNotExist">
         <value xml:lang="en">Error finding desired WorkEffortAssoc records: ${errorString}</value>
         <value xml:lang="it">Errore durante la ricerca dei records di WorkEffortAssoc: ${errorString}</value>
+        <value xml:lang="ja">要求された作業成果関連付けレコードの検索中にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi tìm dữ liệu Lượng giá nguồn lực kết hợp mong muốn: ${errorString}</value>
     </property>
     <property key="ManufacturingTimePeriod">
@@ -5118,6 +5170,7 @@
     <property key="ManufacturinWorkOrderItemFulfillmentError">
         <value xml:lang="en">Error reading the WorkOrderItemFulfillment: ${errorString}</value>
         <value xml:lang="it">Errore durante la letture di WorkOrderItemFulfillment: ${errorString}</value>
+        <value xml:lang="ja">作業注文アイテム執行の読み込み中にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi khi đọc thông tin Đáp ứng hàng hóa của Đặt hàng (WorkOrderItemFulfillment) : ${errorString}</value>
     </property>
     <property key="ManufacturingWorkWithShipmentPlans">

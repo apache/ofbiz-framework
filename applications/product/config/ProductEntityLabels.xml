@@ -2318,7 +2318,7 @@
         <value xml:lang="de">Kühlflüssigkeit prüfen/nachfüllen</value>
         <value xml:lang="en">Check/Recharge Refrigerant</value>
         <value xml:lang="it">Controllo/Ricarica refrigerante</value>
-        <value xml:lang="ja">冷却水検査/充填</value>
+        <value xml:lang="ja">冷却水検査/補充</value>
         <value xml:lang="vi">Kiểm tra/Nạp thêm gas làm lạnh</value>
         <value xml:lang="zh">检查/补充制冷剂</value>
         <value xml:lang="zh_TW">檢查/補充制冷劑</value>
@@ -3677,7 +3677,7 @@
     </property>
     <property key="FieldDescription.ProductStore.manualAuthIsCapture">
         <value xml:lang="en">Drop-down Y/N box on the question of whether a Manual Authorization is captured.</value> <!--  TODO - what does this really mean? -->
-        <value xml:lang="ja">手動承認が獲得されるかを選択します。</value>
+        <value xml:lang="ja">手動承認がキャプチャされるかを選択します。</value>
         <value xml:lang="vi">Bảng sổ xuống Y/N có câu hỏi cho dù một Ủy quyền Hướng dẫn sử dụng được ghi nhận</value>
     </property>
     <property key="FieldDescription.ProductStore.prorateShipping">
@@ -3741,7 +3741,7 @@
     </property>
     <property key="FieldDescription.ProductStore.balanceResOnOrderCreation">
         <value xml:lang="en">If set to Y, when a new sales order is created with backordered items, then reservations on the facility/product are reassigned according to the priority given by the shipBeforeDate field.</value>
-        <value xml:lang="ja">Y にセットした場合、発送待ちのアイテムで新しい販売注文が作成されると、発送期限日で与えられた優先順位にしたがって拠点/製品の予約が再割当されます。</value>
+        <value xml:lang="ja">Y にセットした場合、発送待ちのアイテムで新規販売注文が作成されると、発送期限日で与えられた優先順位にしたがって拠点/製品の予約が再割当されます。</value>
         <value xml:lang="vi">Nếu cài đặt là Y, khi một đặt hàng mới được tạo ra với sản phẩm được đặt gia công, sau đó sự hạn chế đối với cơ sở/sản phẩm sẽ được tái chuyển giao tới đơn vị ủy quyền và cài đặt trường giao hàng trước ngày (shipBeforeDate).</value>
     </property>
     <property key="FieldDescription.ProductStore.requirementMethodEnumId">

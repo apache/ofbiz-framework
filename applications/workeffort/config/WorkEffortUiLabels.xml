@@ -814,7 +814,7 @@
         <value xml:lang="en">Work Req Fulf Type Description</value>
         <value xml:lang="fr">Description de type d'éxécution de demande de travail</value>
         <value xml:lang="it">Descrizione del tipo di soddisfazione fabbisogno impegno di lavoro</value>
-        <value xml:lang="ja">作業リクエスト履行種類詳細</value>
+        <value xml:lang="ja">作業リクエスト執行種類詳細</value>
         <value xml:lang="nl">Work Req Fulf Type Description</value>
         <value xml:lang="ro">Descriere Tip Aprovizionare Sarcina de Lucru Necesar</value>
         <value xml:lang="th">รายละเอียดประเภทรายการงานที่สำเร็จ</value>
@@ -826,7 +826,7 @@
         <value xml:lang="en">Work Req Fulf Type Id </value>
         <value xml:lang="fr">Type d'éxécution de demande de travail </value>
         <value xml:lang="it">Tipo di soddisfazione fabbisogno impegno di lavoro</value>
-        <value xml:lang="ja">作業リクエスト履行種類ID</value>
+        <value xml:lang="ja">作業リクエスト執行種類ID</value>
         <value xml:lang="nl">Work Req Fulf Type Id</value>
         <value xml:lang="ro">Tip Aprovizionare Sarcina de Lucru Necesar</value>
         <value xml:lang="th">รหัสประเภทรายการงานที่สำเร็จ</value>
@@ -1817,7 +1817,7 @@
         <value xml:lang="en">Agreement Appls</value>
         <value xml:lang="fr">Applications d'accords</value>
         <value xml:lang="it">Applicazioni contratto</value>
-        <value xml:lang="ja">同意書業務</value>
+        <value xml:lang="ja">契約業務</value>
         <value xml:lang="vi">Ứng dụng Hợp đồng</value>
         <value xml:lang="zh">合同用途</value>
         <value xml:lang="zh_TW">合同用途</value>
