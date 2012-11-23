@@ -1388,7 +1388,7 @@
         <value xml:lang="fr">Le rechargement de la carte cadeau a échoué</value>
         <value xml:lang="hi_IN">उपहार कार्ड क्रिया असफल, जवाबी कोड है:</value>
         <value xml:lang="it">La ricarica della carta omaggio è fallita</value>
-        <value xml:lang="ja">ギフトカードの補充に失敗しました。レスポンスコード:</value>
+        <value xml:lang="ja">ギフトカードのチャージに失敗しました。レスポンスコード:</value>
         <value xml:lang="nl">Opwaarderen geschenkkaart mislukt</value>
         <value xml:lang="pt_BR">A recarga do cartão de presente falhou</value>
         <value xml:lang="ro">Proces de Reincarcare Carte Omagiu Falita cu  cod de raspuns:</value>
@@ -1406,7 +1406,7 @@
         <value xml:lang="fr">Carte cadeau rechargée</value>
         <value xml:lang="hi_IN">को लोड किया जा चुका है.</value>
         <value xml:lang="it">Carta regalo ricaricata.</value>
-        <value xml:lang="ja">が補充されました。</value>
+        <value xml:lang="ja">がチャージされました。</value>
         <value xml:lang="nl">is heropgewaardeerd</value>
         <value xml:lang="pt_BR">Cartão de presente recarregado</value>
         <value xml:lang="ro">a fost reincarcata.</value>
@@ -3634,7 +3634,7 @@
     </property>
     <property key="EcommerceSubjectMissing">
         <value xml:lang="en">Subject is missing</value>
-        <value xml:lang="ja">件名に誤りがあります</value>
+        <value xml:lang="ja">件名が正しくありません</value>
         <value xml:lang="vi">Chủ đề chưa có</value>
     </property>
     <property key="EcommerceSubscribe">
@@ -4246,7 +4246,7 @@
         <value xml:lang="en">Your Gift Card Reloaded Have</value>
         <value xml:lang="fr">Votre carte cadeau est rechargée</value>
         <value xml:lang="it">La tua carta regalo è stata ricaricata</value>
-        <value xml:lang="ja">ギフトカード補充後</value>
+        <value xml:lang="ja">ギフトカードチャージ後</value>
         <value xml:lang="nl">Uw geschenkkaart heeft</value>     
         <value xml:lang="pt_BR">Seu cartão de presente recarregado tem</value>
         <value xml:lang="vi">Thẻ tặng quà đã tải lại của bạn có</value>

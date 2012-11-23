@@ -681,7 +681,7 @@
         <value xml:lang="es">E-mail de verificación</value>
         <value xml:lang="fr">Adresse courriel de vérification</value>
         <value xml:lang="it">Verifica Email da</value>
-        <value xml:lang="ja">確認Eメール送信元</value>
+        <value xml:lang="ja">確認Eメール差出人</value>
         <value xml:lang="nl">Verifieer email van</value>
         <value xml:lang="pt_BR">Verificação de e-mail de origem</value>
         <value xml:lang="ro">Verifica Email De la</value>

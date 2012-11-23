@@ -2665,6 +2665,7 @@
         <value xml:lang="de">Von Benutzer geändert</value>
         <value xml:lang="en">Changed by user</value>
         <value xml:lang="fr">Par l'utilisateur</value>
+        <value xml:lang="ja">ユーザが変更</value>
         <value xml:lang="vi">Thay đổi bởi người dùng</value>
     </property>
     <property key="OrderCheckout">
@@ -2884,6 +2885,7 @@
         <value xml:lang="es">Parte de la familia de software Open For Business de código abierto</value>
         <value xml:lang="fr">Un module de la famille Open For Business, logiciel libre de gestion d'entreprise.</value>
         <value xml:lang="it">Un modulo della famiglia di software open source Open For Business</value>
+        <value xml:lang="ja">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="nl">Deel van de Open For Business-suite van Open Source Software</value>
         <value xml:lang="pt_BR">Parte da família OfBiz de software de fonte aberta</value>
         <value xml:lang="pt_PT">Parte da família OfBiz de software de fonte aberta</value>
@@ -3061,6 +3063,7 @@
         <value xml:lang="en">No products found in category ${productCategoryId}; no orders will be created</value>
         <value xml:lang="fr">Pas de produits trouvés dans la catégorie ${productCategoryId}, aucune commande ne peut être créée</value>
         <value xml:lang="it">Nessun prodotto trovato nella categoria ${productCategoryId}; nessun ordine verrà creato</value>
+        <value xml:lang="ja">カテゴリ ${productCategoryId} に製品が見つかりません。注文は作成されません</value>
         <value xml:lang="vi">Không hàng hóa nào được tìm thấy trong Phân loại Quản lý ${productCategoryId} nên sẽ không có Đặt hàng nào được tạo ra</value>
     </property>
     <property key="OrderCreateAsNewOrder">
@@ -3440,6 +3443,7 @@
         <value xml:lang="en">Create New Ship Group</value>
         <value xml:lang="fr">Créer un nouveau groupe d'expédition</value>
         <value xml:lang="it">Creare Nuovo Gruppo di Spedizione</value>
+        <value xml:lang="ja">新規発送グループを作成</value>
         <value xml:lang="vi">Thêm mới nhóm chuyển hàng bằng đường thủy</value>
         <value xml:lang="zh_TW">建立新遞送群組</value>
     </property>
@@ -5093,6 +5097,7 @@
         <value xml:lang="en">Item description must not be empty</value>
         <value xml:lang="fr">La description de la ligne ne doit pas être vide</value>
         <value xml:lang="it">Descrizione riga ordine non può essere vuota</value>
+        <value xml:lang="ja">アイテムの詳細は空にできません</value>
         <value xml:lang="vi">Miêu tả hàng hóa cần có thông tin</value>
     </property>
     <property key="OrderItemQtyMustBePositive">
@@ -5100,6 +5105,7 @@
         <value xml:lang="en">Quantity must be >0, use cancel item to cancel completely!</value>
         <value xml:lang="fr">La quantité doit être supérieure à zéro, utiliser "Annuler la ligne" pour l'annuler complètement !</value>
         <value xml:lang="it">Quantità deve essere maggiore di zero, usare le righe cancellate per cancellare completamente l'ordine!</value>
+        <value xml:lang="ja">数量は0より大きくしてください。キャンセルを完了するには、アイテムの取消を使用してください。</value>
         <value xml:lang="vi">Số lượng phải >0, bạn hãy hủy các Hàng hóa trước để hoàn thành quá trình hủy bỏ !</value>
     </property>
     <property key="OrderItemStatus">
@@ -5596,6 +5602,7 @@
     <property key="OrderMyReturns">
         <value xml:lang="en">My returns</value>
         <value xml:lang="fr">Mes retours</value>
+        <value xml:lang="ja">私の返品</value>
         <value xml:lang="vi">Các hoàn trả của tôi</value>
     </property>
     <property key="OrderNOTEMultipleShipmentsExist">
@@ -6651,7 +6658,7 @@
         <value xml:lang="en">Online UPS Shipping estimates based on weight and dimensions of packages</value>
         <value xml:lang="fr">Estimation d'expédition UPS en ligne basé sur le poids et les dimensions des colis</value>
         <value xml:lang="it">Stima spedizione online UPS basata su peso e dimensione dei pacchi</value>
-        <value xml:lang="ja">オンラインUPS発送の見積は重量とパッケージの3辺のサイズにもとづいて計算されます</value>
+        <value xml:lang="ja">オンラインUPS発送の見積は重量とパッケージの寸法にもとづいて計算されます</value>
         <value xml:lang="pt_BR">Estimativa de envio online UPS baseada no peso e dimensões dos pacotes</value>
         <value xml:lang="vi">Chuyển hàng trực tuyến qua UPS ước lượng dựa trên cân nặng và độ lớn của gói hàng</value>
         <value xml:lang="zh_TW">線上UPS貨運評估是基於貨品的重量與尺寸</value>
@@ -7117,6 +7124,7 @@
         <value xml:lang="en">Error running external fulfillment service</value>
         <value xml:lang="fr">Erreur lors de l'appel du service de traitement externe</value>
         <value xml:lang="it">Errore durante l'esecuzione del servizio esterno di avanzamento ordine</value>
+        <value xml:lang="ja">外部執行サービスの実行中にエラー</value>
         <value xml:lang="vi">Lỗi khi thực thi dịch vụ cung cấp của bên ngoài</value>
     </property>
     <property key="OrderOrderContachMechNotFound">
@@ -7124,6 +7132,7 @@
         <value xml:lang="en">ERROR: Problems getting contact mech: ${errorString}</value>
         <value xml:lang="fr">ERREUR: Problème de récupération du contact : ${errorString}</value>
         <value xml:lang="it">ERRORE: Problema nel ricavare il contatto: ${errorString}</value>
+        <value xml:lang="ja">エラー: 連絡方法の取得時にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra: Lấy thông tin liên lạc chi tiết không thành công: ${errorString}</value>
     </property>
     <property key="OrderOrderNoteCannotBeCreated">
@@ -7131,6 +7140,7 @@
         <value xml:lang="en">Problem associating note with order: ${errorString}</value>
         <value xml:lang="fr">Problème lors de l'association de la note à la commande : ${errorString}</value>
         <value xml:lang="it">Problema nella creazione della note ordine: ${errorString}</value>
+        <value xml:lang="ja">連絡を注文に関連付け時にエラー: ${errorString}</value>
         <value xml:lang="vi">Đính kèm Ghi chú với Đặt hàng không thành công: ${errorString}</value>
     </property>
     <property key="OrderOrderNotFound">
@@ -7138,6 +7148,7 @@
         <value xml:lang="en">Could not find OrderHeader with ID ${orderId}</value>
         <value xml:lang="fr">Aucun entête de commande trouvé avec la référence ${orderId}</value>
         <value xml:lang="it">Non è possibile trovare l'ordine ${orderId}</value>
+        <value xml:lang="ja">ID ${orderId} の注文ヘッダが見つかりません</value>
         <value xml:lang="vi">Không tìm thấy Phần đầu đặt hàng với Id ${orderId}</value>
     </property>
     <property key="OrderOrderWithoutWebSite">
@@ -7145,6 +7156,7 @@
         <value xml:lang="en">No website attached to order; cannot generate notification ${orderId}</value>
         <value xml:lang="fr">Pas de site attaché à la commande ${orderId}, impossible de générer la notification</value>
         <value xml:lang="it">Nessun sito web legato all'ordine; non possibile generare la notifica ordine ${orderId}</value>
+        <value xml:lang="ja">注文にWebサイトが結びついていません。通知を生成できません ${orderId}</value>
         <value xml:lang="vi">Không có trang thông tin nào đính kèm với Đặt hàng; nên không gửi được thông báo ${orderId}</value>
     </property>
     <property key="OrderOrderWithoutEmailAddress">
@@ -7152,6 +7164,7 @@
         <value xml:lang="en">Customer is not setup to receive emails; no address(s) found ${orderId}</value>
         <value xml:lang="fr">Le client sur la commande ${orderId} n'a pas d'email pour recevoir la notification</value>
         <value xml:lang="it">Il cliente non è abilitato a ricevere email; nessun indirizzo email trovato ${orderId}</value>
+        <value xml:lang="ja">顧客が受信の電子メールを設定していません。アドレスが見つかりません ${orderId}</value>
         <value xml:lang="vi">Không tim thấy thông tin thư điện tử nhận nào với Đặt hàng ${orderId}</value>
     </property>
     <property key="OrderOrderNumber">
@@ -7193,6 +7206,7 @@
         <value xml:lang="en">Problems getting PaymentMethodTypes: ${errorString}</value>
         <value xml:lang="fr">Problème dans la récupération des types de paiement : ${errorString}</value>
         <value xml:lang="it">Problema nel ricavare i tipi metodo di pagamento: ${errorString}</value>
+        <value xml:lang="ja">支払方法種類取得時にエラー: ${errorString}</value>
         <value xml:lang="vi">Lấy thông tin Kiểu phương thức thanh toán không thành công: ${errorString}</value>
     </property>
     <property key="OrderOrderPaymentGatewayResponseCannotBeCreated">
@@ -7200,6 +7214,7 @@
         <value xml:lang="en">Unable to create PaymentGatewayResponse record</value>
         <value xml:lang="fr">Échec de la création de la réponse de l'interface de paiement</value>
         <value xml:lang="it">Non è possibile creare il record di risposta al gateway dei pagamenti</value>
+        <value xml:lang="ja">支払ゲートウェイレスポンスレコードが作成できません</value>
         <value xml:lang="vi">Không thể tạo bản ghi PaymentGatewayResponse</value>
     </property>
     <property key="OrderOrderPaymentPreferencesCannotBeCreated">
@@ -7207,6 +7222,7 @@
         <value xml:lang="en">ERROR: Could not create OrderPaymentPreference: ${errorString}</value>
         <value xml:lang="fr">ERREUR lors de la création de la préférence de paiement : ${errorString}</value>
         <value xml:lang="it">ERRORE: Non è possibile creare le preferenze pagamenti ordine: ${errorString}</value>
+        <value xml:lang="ja">エラー: 注文支払設定が作成できません: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra: không thể tạo OrderPaymentPreference: ${errorString}</value>
     </property>
     <property key="OrderOrderPaymentFailed">
@@ -7214,6 +7230,7 @@
         <value xml:lang="en">Problem creating Payment: ${errorString}</value>
         <value xml:lang="fr">Problème lors de la création du paiement : ${errorString}</value>
         <value xml:lang="it">Fallita creazione Pagamento: ${errorString}</value>
+        <value xml:lang="ja">支払作成時にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi tạo thanh toán: ${errorString}</value>
     </property>
     <property key="OrderOrderPaymentApplicationFailed">
@@ -7221,6 +7238,7 @@
         <value xml:lang="en">Problem creating PaymentApplication: ${errorString}</value>
         <value xml:lang="fr">Problème lors de la création de l'association du paiement à une facture : ${errorString}</value>
         <value xml:lang="it">Fallita creazione PaymentApplication: ${errorString}</value>
+        <value xml:lang="ja">支払申請作成時にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi tạo ứng dụng thanh toán: ${errorString}</value>
     </property>
     <property key="OrderOrderPaymentCannotBeCreated">
@@ -7228,6 +7246,7 @@
         <value xml:lang="en">Failed to create Payment: Cannot find OrderPaymentPreference with orderPaymentPreferenceId: ${orderPaymentPreferenceId}</value>
         <value xml:lang="fr">Échec de la création du paiement : aucune préférence de paiement trouvée sous la référence : ${orderPaymentPreferenceId}</value>
         <value xml:lang="it">Fallita creazione Pagamento: Non è possibile trovare OrderPaymentPreference con orderPaymentPreferenceId: ${orderPaymentPreferenceId}</value>
+        <value xml:lang="ja">支払の作成に失敗しました。注文支払設定が見つかりません。注文支払設定ID: ${orderPaymentPreferenceId}</value>
     	<value xml:lang="vi">Tạo thanh toán không thành công: không tìm thấy thiết lập thanh toán với Id : ${orderPaymentPreferenceId}</value>
     </property>
     <property key="OrderOrderPaymentCannotBeCreatedPayToPartyIdNotSet">
@@ -7235,6 +7254,7 @@
         <value xml:lang="en">Failed to create Payment: payToPartyId not set in ProductStore</value>
         <value xml:lang="fr">Échec de la création du paiement : l'acteur créditeur n'est pas défini sur le centre de profit</value>
         <value xml:lang="it">Fallita creazione Pagamento: pagare a non impostato sul negozio</value>
+        <value xml:lang="ja">支払の作成に失敗しました。支払先取引先IDが製品店舗に設定されていません。</value>
         <value xml:lang="vi">Tạo thanh toán không thành công: Cửa hàng không có Tác nhân nhận thanh toán</value>
     </property>
     <property key="OrderOrderPaymentCannotBeCreatedWithRelatedOrderHeader">
@@ -7242,6 +7262,7 @@
         <value xml:lang="en">Failed to create Payment: Cannot get related OrderHeader from payment preference</value>
         <value xml:lang="fr">Échec de la création du paiement : impossible de retrouver l'entête de commande depuis la préférence de paiement</value>
         <value xml:lang="it">Fallita creazione Pagamento: Non è possibile trovare la testata ordine relazionata alle preferenza pagamento</value>
+        <value xml:lang="ja">支払の作成に失敗しました。支払設定から関連する注文ヘッダが取得できません</value>
         <value xml:lang="vi">Tạo thanh toán không thành công: Không thể lấy Phần đầu đặt hàng liên quan từ thiết lập thanh toán</value>
     </property>
     <property key="OrderOrderPaymentCannotBeCreatedWithRelatedProductStore">
@@ -7249,6 +7270,7 @@
         <value xml:lang="en">Failed to create Payment: Cannot get the ProductStore for the order header</value>
         <value xml:lang="fr">Échec de la création du paiement : le centre de profit n'a pas été trouvé depuis l'entête de commande</value>
         <value xml:lang="it">Fallita creazione Pagamento: Non è possibile trovare il negozio relazionato alla testata ordine</value>
+        <value xml:lang="ja">支払の作成に失敗しました。注文ヘッダに対する製品店舗が取得できません</value>
         <value xml:lang="vi">Tạo thanh toán không thành công: Không thể lấy thông tin Cửa hàng với các Phần đầu đặt hàng khác</value>
     </property>
     <property key="OrderOrderCancelRemainingPurchaseOrderItemsError">
@@ -7256,6 +7278,7 @@
         <value xml:lang="en">Error cancelRemainingPurchaseOrderItems for order: </value>
         <value xml:lang="fr">Erreur dans l'annulation des lignes d'achat restantes  pour la commande </value>
         <value xml:lang="it">Errore durante la cancellazione delle rimanenza ordini d'acquisto dagli ordini: </value>
+        <value xml:lang="ja">残購買注文アイテムの取消でエラー、注文:</value>
         <value xml:lang="vi">Lỗi 'hủy bỏ hàng hóa đặt hàng còn lại' với Đặt hàng:</value>
     </property>
     <property key="OrderOrderCheckOrderItemStatusError">
@@ -7263,6 +7286,7 @@
         <value xml:lang="en">Error checkOrderItemStatus for order: </value>
         <value xml:lang="fr">Erreur dans la vérification des statuts des lignes de la commande : </value>
         <value xml:lang="it">Errore durante la verifica dello stato riga ordine dagli ordini: </value>
+        <value xml:lang="ja">注文アイテムステータス確認でエラー、注文:</value>
         <value xml:lang="vi">Lỗi kiểm tra trạng thái hàng hóa đặt hàng với Đơn hàng:</value>
     </property>
     <property key="OrderOrderCreatingDropShipmentsError">
@@ -7270,6 +7294,7 @@
         <value xml:lang="en">The following error occurred creating drop shipments for order ${orderId}: ${errorString}</value>
         <value xml:lang="fr">Les erreurs suivantes ont été soulevées lors de la création de la commande de tiers ${orderId}: ${errorString}</value>
         <value xml:lang="it">Il seguente error è accaduto durante la creazione delle spedizioni conto terzi per l'ordine ${orderId}: ${errorString}</value>
+        <value xml:lang="ja">注文 ${orderId} に対する直送の作成中に次のエラーが発生しました: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra như sau khi tạo 'giảm giá chuyển vận' cho Đặt hàng ${orderId}: ${errorString}</value>
     </property>
     <property key="OrderOrderPickingListCreationError">
@@ -7277,6 +7302,7 @@
         <value xml:lang="en">Error creating picklist from orders: </value>
         <value xml:lang="fr">Erreur dans la création de la liste de prélèvement pour la commande : </value>
         <value xml:lang="it">Errore durante la creazione della lista di prelievo dagli ordini: </value>
+        <value xml:lang="ja">ピッキングリストの作成中にエラー、注文: </value>
         <value xml:lang="vi">Lỗi xảy ra khi tạo Danh sách lấy hàng từ các Đơn hàng: </value>
     </property>
     <property key="OrderOrderPurchaseToBeScheduled">
@@ -7317,6 +7343,7 @@
         <value xml:lang="en">Error quickShipEntireOrder for order: </value>
         <value xml:lang="fr">Erreur dans l'expédition expresse pour la commande : </value>
         <value xml:lang="it">Errore durante spedizione veloce intero ordine: </value>
+        <value xml:lang="ja">注文全体のクイック発送でエラー、注文: </value>
         <value xml:lang="vi">Lỗi gửi hàng (quickShipEntireOrder) nhanh cho Đặt hàng: </value>
     </property>
     <property key="OrderOrderQuote">
@@ -7477,6 +7504,7 @@
         <value xml:lang="en">Could not find Quote with ID ${quoteId}</value>
         <value xml:lang="fr">Devis non trouvé sous la référence ${quoteId}</value>
         <value xml:lang="it">Non è possibile trovare il preventivo ${quoteId}</value>
+        <value xml:lang="ja">ID ${quoteId} の見積が見つかりません</value>
         <value xml:lang="vi">Không tìm thấy Báo giá với Id ${quoteId}</value>
     </property>
     <property key="OrderOrderQuoteCannotBeStored">
@@ -7484,6 +7512,7 @@
         <value xml:lang="en">Could not storing Quote</value>
         <value xml:lang="fr">Enregistrement du devis impossible</value>
         <value xml:lang="it">Non è possibile registrare il preventivo</value>
+        <value xml:lang="ja">見積の格納ができません</value>
         <value xml:lang="vi">Không thể lưu trữ Báo giá</value>
     </property>
     <property key="OrderOrderQuoteCoeffName">
@@ -7996,10 +8025,12 @@
     </property>
     <property key="OrderOrderQuoteNoteList">
         <value xml:lang="en">Quote Note List</value>
+        <value xml:lang="ja">見積連絡一覧</value>
         <value xml:lang="vi">Danh sách Ghi chú</value>
     </property>
     <property key="OrderOrderQuoteNotes">
         <value xml:lang="en">Quote Notes</value>
+        <value xml:lang="ja">見積連絡</value>
         <value xml:lang="vi">Ghi chú</value>
     </property>
     <property key="OrderOrderQuotePercProfit">
@@ -8128,12 +8159,14 @@
         <value xml:lang="de">Angebotsbedingung</value>
         <value xml:lang="en">Quote Term</value>
         <value xml:lang="fr">Conditions de règlement du devis</value>
+        <value xml:lang="ja">見積条件</value>
         <value xml:lang="vi">Khái niệm</value>
     </property>
     <property key="OrderOrderQuoteTermList">
         <value xml:lang="de">Liste der Angebotsbedingungen</value>
         <value xml:lang="en">Quote Term List</value>
         <value xml:lang="fr">Liste de conditions de règlement de devis</value>
+        <value xml:lang="ja">見積条件一覧</value>
         <value xml:lang="vi">Danh sách khái niệm</value>
     </property>
     <property key="OrderOrderQuoteType">
@@ -8564,6 +8597,7 @@
         <value xml:lang="de">Geschätzter Versandbetrag</value>
         <value xml:lang="en">Shipping estimate amount</value>
         <value xml:lang="fr">Montant d'expédition estimé</value>
+        <value xml:lang="ja">発送見積金額</value>
         <value xml:lang="vi">Giá trị chuyển vận ước tính</value>
     </property>
     <property key="OrderOrdersTotals">
@@ -9347,6 +9381,7 @@
         <value xml:lang="en">Error processing payments:</value>
         <value xml:lang="fr">Erreur dans l'exécution du paiement :</value>
         <value xml:lang="it">Errore durante l'esecuzione dei pagamenti:</value>
+        <value xml:lang="ja">支払処理中にエラー:</value>
         <value xml:lang="vi">Lỗi khi xử lý thanh toán:</value>
     </property>
     <property key="OrderProcessOrderPaymentsStatusInvalid">
@@ -9354,6 +9389,7 @@
         <value xml:lang="en">ERROR: the Order status is </value>
         <value xml:lang="fr">ERREUR : la commande est au status </value>
         <value xml:lang="it">ERRORE: lo stato ordine è </value>
+        <value xml:lang="ja">エラー: 注文ステータスは </value>
         <value xml:lang="vi">Lỗi xảy ra:  Trạng thái Đặt hàng là</value>
     </property>
     <property key="OrderProduct">
@@ -9985,6 +10021,7 @@
         <value xml:lang="en">Term Description</value>
         <value xml:lang="fr">Description de la cond. de réglement</value>
         <value xml:lang="it">Descrizione termini preventivo</value>
+        <value xml:lang="ja">条件詳細</value>
         <value xml:lang="vi">Miêu tả khái niệm</value>
     </property>
     <property key="OrderRanking">
@@ -10507,6 +10544,7 @@
         <value xml:lang="en">Request Information</value>
         <value xml:lang="fr">Information de la demande</value>
         <value xml:lang="it">Informazioni sulla richiesta</value>
+        <value xml:lang="ja">リクエスト情報</value>
         <value xml:lang="vi">Thông tin yêu cầu</value>
     </property>
     <property key="OrderRequestItem">
@@ -10838,6 +10876,7 @@
         <value xml:lang="de">Bedarf mit ID ${requirementId} existiert nicht.</value>
         <value xml:lang="en">Requirement with id ${requirementId} doesn't exist.</value>
         <value xml:lang="it">Fabbisogno ${requirementId} non esiste</value>
+        <value xml:lang="ja">ID ${requirementId} の要求は存在しません。</value>
         <value xml:lang="vi">Yêu cầu Nguồn lực với Id ${requirementId} không tồn tại.</value>
     </property>
     <property key="OrderRequirementId">
@@ -11036,6 +11075,7 @@
         <value xml:lang="de">Retoure Artikel RA#</value>
         <value xml:lang="en">Returned Item RA#</value>
         <value xml:lang="fr">Retour, autorisation n°</value>
+        <value xml:lang="ja">返品アイテムRA#</value>
         <value xml:lang="vi">RA# của hàng hóa đã hoàn trả</value>
         <value xml:lang="zh_TW">退貨項目RA#</value>
     </property>
@@ -11694,6 +11734,7 @@
         <value xml:lang="en">Sales Reps</value>
         <value xml:lang="fr">Responsable des ventes</value>
         <value xml:lang="it">Venditori</value>
+        <value xml:lang="ja">販売レポート</value>
         <value xml:lang="vi">Đại diện bán hàng</value>
     </property>
     <property key="OrderSalesTax">
@@ -12347,6 +12388,7 @@
         <value xml:lang="en">Invalid shipGroupSeqId ${shipGroupSeqId}</value>
         <value xml:lang="fr">Le groupe d'expédition sous la référence ${shipGroupSeqId} est invalide</value>
         <value xml:lang="it">Gruppo spedizione ${shipGroupSeqId} invalido</value>
+        <value xml:lang="ja">発送グループ連番ID ${shipGroupSeqId} が正しくありません</value>
         <value xml:lang="vi">Id thứ tự 'nhóm hàng chuyển' ${shipGroupSeqId} không hợp lệ</value>
     </property>
     <property key="OrderShipGroupTo">
@@ -12664,6 +12706,7 @@
         <value xml:lang="en">runSubscriptionAutoReorders finished, ${count} subscription extended.</value>
         <value xml:lang="fr">Le réabonnement automatique a été effectué, ${count} abonnement(s) prolongé(s).</value>
         <value xml:lang="it">runSubscriptionAutoReorders completato, ${count} abbonamenti estesi.</value>
+        <value xml:lang="ja">申込自動記録の実行が完了しました。${count} 件の申込を延長しました。</value>
         <value xml:lang="vi">Thực hiện 'thuê bao cho Đặt hàng lại tự động' đã kết thúc, đã mở rộng ${count} thuê bao (subscription).</value>
     </property>
     <property key="OrderShoppingListCreationError">
@@ -12671,6 +12714,7 @@
         <value xml:lang="en">Error while creating new shopping list based automatic reorder ${errorString}</value>
         <value xml:lang="fr">Erreur lors de la création d'une liste d'achat : ${errorString}</value>
         <value xml:lang="it">Error durante la creazione di una nuova lista d'acquisto basata sui ri-ordini automatici ${errorString}</value>
+        <value xml:lang="ja">自動記録に基づく新規発送一覧の作成中にエラー ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi tạo mới Danh sách mua hàng dựa trên 'Đặt hàng lại tự động' ${errorString}</value>
     </property>
     <property key="OrderShortfalled">
@@ -13626,7 +13670,7 @@
         <value xml:lang="es">Valor de compra</value>
         <value xml:lang="fr">Estimer l'achat</value>
         <value xml:lang="it">Valore Acquisto</value>
-        <value xml:lang="ja">購入値</value>
+        <value xml:lang="ja">購入額</value>
         <value xml:lang="nl">Value Purch</value>
         <value xml:lang="pt_BR">Valor da compra</value>
         <value xml:lang="ro">Valoare Cumparare </value>
@@ -13642,7 +13686,7 @@
         <value xml:lang="es">Valor de venta</value>
         <value xml:lang="fr">Valeur</value>
         <value xml:lang="it">Valore Vendita</value>
-        <value xml:lang="ja">販売値</value>
+        <value xml:lang="ja">販売額</value>
         <value xml:lang="nl">Value Sold</value>
         <value xml:lang="pt_BR">Valor de venda</value>
         <value xml:lang="ro">Valoare Vanzare</value>
@@ -14801,11 +14845,13 @@
     <property key="QuoteEditNote">
         <value xml:lang="de">Anmerkung bearbeiten</value>
         <value xml:lang="en">Update Note</value>
+        <value xml:lang="ja">連絡を更新</value>
         <value xml:lang="vi">Cập nhật ghi chú</value>
     </property>
     <property key="OrderRent">
         <value xml:lang="de">Miete</value>
         <value xml:lang="en">Rent</value>
+        <value xml:lang="ja">賃貸</value>
         <value xml:lang="vi">Thuê</value>
     </property>
 </resource>

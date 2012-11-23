@@ -645,7 +645,7 @@
     <property key="ExamplePermissionMainActionAttributeMissing">
         <value xml:lang="en">In the permission-service element for the exampleGenericPermission service the main-action attribute was missing but is required</value>
         <value xml:lang="it">Nell'elemento permission-service per il servizio exampleGenericPermission l'attributo è mancancate ma è richiesto</value>
-        <value xml:lang="ja">exampleGenericPermission サービスの中の permission-service 要素で、必要な main-action 属性に誤りがあります</value>
+        <value xml:lang="ja">exampleGenericPermission サービスの中の permission-service 要素で、必要な main-action 属性が正しくありません</value>
     </property>
     <property key="ExamplePointAddress">
         <value xml:lang="en">Geolocation via address</value>

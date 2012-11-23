@@ -54,7 +54,7 @@
     <property key="ScaleImage.one_current_image_dimension_is_null">
         <value xml:lang="en">One current image dimension is null</value>
         <value xml:lang="fr">Une des dimensions de l'image courrante est nulle</value>
-        <value xml:lang="ja">現在の画像のディメンジョンが空です</value>
+        <value xml:lang="ja">現在の画像の寸法が空です</value>
         <value xml:lang="zh">一个当前图像尺寸是null</value>
         <value xml:lang="zh_TW">一個當前圖像尺寸是null</value>
     </property>
@@ -110,7 +110,7 @@
     </property>
     <property key="ProductErrorEnteredBothDimensionAndPackageInputBoxField">
         <value xml:lang="en">ERROR: Entered Dimension and Package input box, both the fields cannot be processed together (should enter one of them)</value>
-        <value xml:lang="ja">エラー: 3辺のサイズと梱包箱の両方は同時に指定できません (1つのみ入力してください)</value>
+        <value xml:lang="ja">エラー: 寸法と梱包箱の両方は同時に指定できません (1つのみ入力してください)</value>
     </property>
     <property key="ProductErrorNoItemsCurrentlySetToBeShippedCannotComplete">
         <value xml:lang="en">ERROR: No items currently set to be shipped cannot complete</value>
@@ -118,7 +118,7 @@
     </property>
     <property key="ProductErrorNotEnteredAllFieldsInDimension">
         <value xml:lang="en">ERROR: Not entered all fields (length, width and height) in Dimension</value>
-        <value xml:lang="ja">エラー: すべての項目が入力されていません (長さ、幅、および重量)</value>
+        <value xml:lang="ja">エラー: 寸法のすべての項目が入力されていません (長さ、幅、および重量)</value>
     </property>
     <property key="ProductErrorInventoryItemLabelIdNotFound">
         <value xml:lang="en">Error Inventory Item Label Id Not Found</value>
@@ -1270,7 +1270,7 @@
         <value xml:lang="es">Se requiere el código del producto variante, pero no se especificó, por favor ingrese un código para el nuevo producto variante.</value>
         <value xml:lang="fr">La réf. de variante d'article est indispensable mais manque. S'il vous plaît entrez une réf. pour la nouvelle variante d'article.</value>
         <value xml:lang="it">Il codice della variante prodotto è richiesto ma mancante.</value>
-        <value xml:lang="ja">必要な別型製品IDが正しくありません。新しい別型製品のIDを入力してください。</value>
+        <value xml:lang="ja">必要な別型製品IDが正しくありません。新規別型製品のIDを入力してください。</value>
         <value xml:lang="ro">variantProductId este cerut dar lipseste, va rugam introduceti un Cod pentru noua Varianta produs.</value>
         <value xml:lang="ru">Отсутствует необходимый variantProductId, пожалуйста введите код для нового варианта продукта.</value>
         <value xml:lang="th">รหัสการเปลี่ยนแปลงสินค้าต้องการแต่ไม่พบ, กรุณากรอกรหัสสำหรับการเปลี่ยนแปลงสินค้าใหม่.</value>

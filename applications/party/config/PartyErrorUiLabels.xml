@@ -26,7 +26,7 @@
         <value xml:lang="fr">ERREUR: la réf. d'évènement de communication doit avoir une coordonnée qui soit un courriel pour évènement de communication</value>
         <value xml:lang="hi_IN">त्रुटि: संचार आयोजन के पास एक संपर्क तंत्र होगा अर्थात संचार घटना(event) क्रमांक के लिए एक ईमेल</value>
         <value xml:lang="it">ERRORE: Evento comunicazioni deve avere un contatto che è un'evento comunicazione email</value>
-        <value xml:lang="ja">エラー: 通信イベントは電子メールの連絡方法(元)を持つ必要があります。通信イベントID</value>
+        <value xml:lang="ja">エラー: 通信イベントはEメールの連絡方法(元)を持つ必要があります。通信イベントID</value>
         <value xml:lang="nl">Fout: Communicatie moet een 'van' adres hebben dat als mechanisme email heeft.</value>
         <value xml:lang="pt_BR">ERRO: Os eventos de comunicação devem ter um e-mail associado</value>
         <value xml:lang="ro">EROARE: Eveniment Comunicatii Trebbie sa aibe un contact mech din moment ce este un cod eveniment de  comunicatie email</value>
@@ -42,7 +42,7 @@
         <value xml:lang="fr">ERREUR: l'évènement de communication n'est pas un courriel et ne peut être envoyé comme réf. d'évènement de communication </value>
         <value xml:lang="hi_IN">त्रुटि: संचार घटना(event) एक ईमेल संचार नहीं है और संचार घटना(event) क्रमांक के लिए ईमेल नहीं किया जा सकता है</value>
         <value xml:lang="it">ERRORE: Evento comunicazioni non è una comunicazione email e non può essere inviata email per l'evento comunicazioni</value>
-        <value xml:lang="ja">エラー: 通信イベントは電子メールではないため電子メールを受け取ることはできません。通信イベントID</value>
+        <value xml:lang="ja">エラー: 通信イベントはEメールではないためEメールを受け取ることはできません。通信イベントID</value>
         <value xml:lang="nl">Fout: Communicatie is geen email communicatie en kan niet gemaild worden voor communicatie event Id</value>
         <value xml:lang="pt_BR">ERRO: A comunicação não é um e-mail e não pode ser enviado para o ID de evento de comunicação</value>
         <value xml:lang="ro">EROARE: Eveniment Comunicatii nu este un email de comunicatie si nu poate fi emailed pentru codul  evenimentului comunicatii</value>
@@ -84,7 +84,7 @@
         <value xml:lang="fr">ERREUR: l'évènement de communication doit avoir une coordonnée destinataire qui soit un courriel pour réf. d'évènement de communication</value>
         <value xml:lang="hi_IN">त्रुटि: संचार आयोजन के पास एक संपर्क तंत्र होगा अर्थात संचार घटना(event) क्रमांक के लिए एक ईमेल</value>
         <value xml:lang="it">ERRORE: Evento comunicazioni deve avere un contatto che ha un email per l'evento comunicazioni</value>
-        <value xml:lang="ja">エラー: 通信イベントは電子メールの連絡方法(先)を持つ必要があります。通信イベントID</value>
+        <value xml:lang="ja">エラー: 通信イベントはEメールの連絡方法(先)を持つ必要があります。通信イベントID</value>
         <value xml:lang="nl">Fout: Communicatie event moet een 'naar' adres hebben dat een email is voor communicatie event Id</value>
         <value xml:lang="pt_BR">ERRO: O evento de comunicação deve ter um mecanismo de contato associado que seja um e-mail para o ID de evento de comunicação</value>
         <value xml:lang="ro">EROARE: Evenimentul Comunicatii Trebbie sa aibe un contact mech ca si un email pentru codul eveniment comunicatii</value>
@@ -160,7 +160,7 @@
         <value xml:lang="fr">Adresse courriel n'est pas valide</value>
         <value xml:lang="hi_IN">अवैध ईमेल पता छोड़दिया</value>
         <value xml:lang="it">Scartato email non valido</value>
-        <value xml:lang="ja">不正な電子メールアドレスをスキップします</value>
+        <value xml:lang="ja">不正なEメールアドレスをスキップします</value>
         <value xml:lang="nl">Foutief e-mailadres wordt overgeslagen</value>
         <value xml:lang="pt_BR">Omitindo endereço de e-mail inválido</value>
         <value xml:lang="ru">Пропускаем неверный адрес эл.почты</value>
@@ -521,7 +521,7 @@
         <value xml:lang="fr">ERREUR: Echec lors de la génération d'un nouvelle identifiant acteur</value>
         <value xml:lang="hi_IN">त्रुटि: नया पार्टी क्रमांक बनाने में असफल</value>
         <value xml:lang="it">ERRORE: Fallita generazione nuovo codice soggetto</value>
-        <value xml:lang="ja">エラー: 新しい取引先IDの生成に失敗しました</value>
+        <value xml:lang="ja">エラー: 新規取引先IDの生成に失敗しました</value>
         <value xml:lang="nl">Fout: Relatie ID kan niet worden gegenereerd.</value>
         <value xml:lang="pt_BR">ERRO: Falha ao gerar ID para o novo participante</value>
         <value xml:lang="pt_PT">Erro: Falha na geração de Nova Identificação de Secção</value>
@@ -1094,7 +1094,7 @@
         <value xml:lang="fr">Le type d'acteur avec l'identifiant PARTY_GROUP n'a pas été trouvé dans la base de données, impossible de créer le nouveau groupe d'acteur.</value>
         <value xml:lang="hi_IN">डेटाबेस में पार्टी प्रकार क्रमांक PARTY_GROUP के साथ नहीं मिला, नया पार्टी समूह नहीं बना सकते|</value>
         <value xml:lang="it">Il tipo soggetto con codice PARTY_GROUP non è stato trovato nel database, non è possibile creare un nuovo grupop soggetto.</value>
-        <value xml:lang="ja">PARTY_GROUP IDの取引先種類がデータベースに見つかりません。新しい取引先グループを作成できません。</value>
+        <value xml:lang="ja">PARTY_GROUP IDの取引先種類がデータベースに見つかりません。新規取引先グループを作成できません。</value>
         <value xml:lang="nl">De relatiesoort met ID PARTY_GROUP is niet gevonden in de database, kan geen nieuwe relatiegroep aanmaken.</value>
         <value xml:lang="pt_BR">O tipo de participante com ID PARTY_GROUP não foi encontrado no banco de dados, impossível criar novo grupo de participantes.</value>
         <value xml:lang="ro">Tipul Subiect cu Cod PARTY_GROUP nu a fost gasit in database, nu este posibila crearea    unui nou grup Subiect.</value>
@@ -1142,7 +1142,7 @@
         <value xml:lang="fr">Le paramètre requis couriel ne peut pas être vide.</value>
         <value xml:lang="hi_IN">आवश्यक मानक 'ईमेल' खाली नहीं हो सकता|</value>
         <value xml:lang="it">Parametro richiesto 'email' non può essere vuoto.</value>
-        <value xml:lang="ja">必須項目'電子メール'は空にできません。</value>
+        <value xml:lang="ja">必須項目'Eメール'は空にできません。</value>
         <value xml:lang="nl">Verplicht veld 'email' is leeg.</value>
         <value xml:lang="pt_BR">Parâmetro "e-mail" obrigatório, não pode ser vazio.</value>
         <value xml:lang="ro">Parametru cerut 'email' nu poate fi gol.</value>

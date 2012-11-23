@@ -752,7 +752,7 @@
         <value xml:lang="es">Recargar</value>
         <value xml:lang="fr">Recharger</value>
         <value xml:lang="it">Ricaricata</value>
-        <value xml:lang="ja">再ロード</value>
+        <value xml:lang="ja">チャージ</value>
         <value xml:lang="pt_BR">Recarregar</value>
         <value xml:lang="th">ใส่เพิ่ม</value>
         <value xml:lang="vi">GC_RELOAD</value>
@@ -1375,7 +1375,7 @@
         <value xml:lang="es">Capturar</value>
         <value xml:lang="fr">Prélèvement</value>
         <value xml:lang="it">Cattura</value>
-        <value xml:lang="ja">獲得</value>
+        <value xml:lang="ja">キャプチャ</value>
         <value xml:lang="pt">Capturar</value>
         <value xml:lang="ro">Inregistreaza</value>
         <value xml:lang="ru">Захват</value>
@@ -2341,7 +2341,7 @@
         <value xml:lang="es">Servicio de recepción de pagos</value>
         <value xml:lang="fr">Saisie du paiement</value>
         <value xml:lang="it">Pagamento servizio di cattura</value>
-        <value xml:lang="ja">支払獲得サービス</value>
+        <value xml:lang="ja">支払キャプチャサービス</value>
         <value xml:lang="pt">Serviço de Captura de Pagamento</value>
         <value xml:lang="pt_BR">Serviço de Captação de pagamento</value>
         <value xml:lang="ro">Plata Serviciu Registratura</value>

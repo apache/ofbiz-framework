@@ -25,6 +25,7 @@
         <value xml:lang="es">Error trying to begin transaction, could not process method</value>
         <value xml:lang="fr">La transaction ne peut débuter, une erreur est survenue</value>
         <value xml:lang="it">Errore provando a iniziare una transazione, non è possibile eseguire il metodo</value>
+        <value xml:lang="ja">トランザクションの開始時にエラー、メソッドを処理できません</value>
         <value xml:lang="ro">Eroare la incercarea de a initia  o</value>
         <value xml:lang="ru">Попытка начать транзакцию завершилась ошибкой, невозможно обработать метод</value>
         <value xml:lang="th">Error : ผิดพลด ! ในการเริ่มต้นดำเนินการ ไม่สามารถประมวลผลวิธีการนี้ได้</value>
@@ -37,6 +38,7 @@
         <value xml:lang="es">Error running the simple-method</value>
         <value xml:lang="fr">Erreur pendant la simple-method</value>
         <value xml:lang="it">Errore nell'esecuzione del metodo-semplice</value>
+        <value xml:lang="ja">シンプルメソッド実行時エラー</value>
         <value xml:lang="ro">Eroare in executia metodei-simple</value>
         <value xml:lang="ru">Ошибка выполнения simple-method</value>
         <value xml:lang="th">Error : ผิดพลาด ! ในการรัน simple-method</value>
@@ -46,6 +48,7 @@
     <property key="simpleMethod.error_show_service_name">
         <value xml:lang="en">calling service ${serviceName} in ${methodName}</value>
         <value xml:lang="it">eseguendo il servizio ${serviceName} in ${methodName}</value>
+        <value xml:lang="ja">サービス ${serviceName} を ${methodName} で呼び出し</value>
     </property>
     <property key="simpleMethod.must_logged_process">
         <value xml:lang="de">Sie müssen am System angemeldet sein um [${shortDescription}] auszuführen</value>
@@ -53,6 +56,7 @@
         <value xml:lang="es">You must be logged in to complete the [${shortDescription}] process</value>
         <value xml:lang="fr">Vous devez être connecté pour pouvoir achever le process ${shortDescription}</value>
         <value xml:lang="it">Tu devi essere autenticato per completare il processo ${shortDescription}</value>
+        <value xml:lang="ja">[${shortDescription}] プロセスの完了にはログインが必要です</value>
         <value xml:lang="ro">Trebbie sa fii autentificat pentru a putea completa procesul ${shortDescription}</value>
         <value xml:lang="ru">Для завершения процесса ${shortDescription} вы должны зарегистрироваться в системе</value>
         <value xml:lang="th">คุณต้องทำการเข้าสู่ระบบในการประมวลผล  [${shortDescription}] ให้เสร็จสมบูรณ์</value>
