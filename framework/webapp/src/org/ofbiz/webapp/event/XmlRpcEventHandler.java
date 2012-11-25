@@ -258,7 +258,9 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
             }
 
             // add the locale to the context
-            context.put("locale", Locale.getDefault());
+            if (context.get("locale") == null) {
+                context.put("locale", Locale.getDefault());
+            }
 
             // invoke the service
             Map<String, Object> resp;
