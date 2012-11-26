@@ -1324,6 +1324,11 @@ under the License.
         <response name="error" type="request" value="json"/>
     </request-map>
 
+    <request-map uri="EditFacilityAgreements">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditFacilityAgreements"/>
+    </request-map>
+
     <!-- ================ Lookup Requests ================= -->
     <request-map uri="LookupOrderHeaderAndShipInfo"><security https="true" auth="true"/><response name="success" type="view" value="LookupOrderHeaderAndShipInfo"/></request-map>
     <request-map uri="LookupPurchaseOrderHeaderAndShipInfo"><security https="true" auth="true"/><response name="success" type="view" value="LookupPurchaseOrderHeaderAndShipInfo"/></request-map>
@@ -1445,5 +1450,6 @@ under the License.
     <view-map name="FindShipmentGatewayConfigTypes" page="component://product//widget/facility/ShipmentGatewayConfigScreens.xml#FindShipmentGatewayConfigTypes" type="screen"/>
     <view-map name="EditShipmentGatewayConfigType" page="component://product//widget/facility/ShipmentGatewayConfigScreens.xml#EditShipmentGatewayConfigType" type="screen"/>
 
+    <view-map name="EditFacilityAgreements" type="screen" page="component://product/widget/facility/FacilityScreens.xml#EditFacilityAgreements"/>
     <!-- end of view mappings -->
 </site-conf>

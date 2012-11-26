@@ -10287,6 +10287,9 @@
         <value xml:lang="zh">浏览产品合同</value>
         <value xml:lang="zh_TW">檢示產品合約</value>
     </property>
+    <property key="PageTitleViewFacilityAgreements">
+        <value xml:lang="en">View Facility Agreements</value>
+    </property>
     <property key="PageTitleViewProductManufacturing">
         <value xml:lang="de">Produkt Fertigung anzeigen</value>
         <value xml:lang="en">View Product Manufacturing</value>
@@ -11501,6 +11504,9 @@
         <value xml:lang="vi">Giá sản phẩm</value>
         <value xml:lang="zh">产品综合价格</value>
         <value xml:lang="zh_TW">產品綜合價格</value>
+    </property>
+    <property key="FacilityAgreements">
+        <value xml:lang="en">Agreements</value>
     </property>
     <property key="ProductAgreements">
         <value xml:lang="de">Vereinbarungen</value>

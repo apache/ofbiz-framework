@@ -755,6 +755,9 @@
         <value xml:lang="zh">用于报表的合同条款产品</value>
         <value xml:lang="zh_TW">用于報表的合同條款產品</value>
     </property>
+    <property key="AccountingAgreementItemFacilitiesForReport">
+        <value xml:lang="en">Agreement Item Facilities For Report</value>
+    </property>
     <property key="AccountingAgreementItemSeqId">
         <value xml:lang="ar">رمز التسلسلي لبند إتفاق</value>
         <value xml:lang="de">Vereinbarungs-Positions-Nr.</value>
@@ -19989,6 +19992,9 @@
         <value xml:lang="zh">编辑合同条款条件</value>
         <value xml:lang="zh_TW">修改合同條款條件</value>
     </property>
+    <property key="PageTitleEditAgreementItemFacility">
+        <value xml:lang="en">Edit Agreement Item Facility</value>
+    </property>
     <property key="PageTitleEditAgreementPromoAppl">
         <value xml:lang="en">Edit Agreement Promo Appl</value>
         <value xml:lang="fr">Modifier l'application de la promotion d'accord commercial</value>
@@ -20900,6 +20906,9 @@
         <value xml:lang="vi">Danh sách Quy ước</value>
         <value xml:lang="zh">列出合同条款条件</value>
         <value xml:lang="zh_TW">列出合同條款條件</value>
+    </property>
+    <property key="PageTitleListAgreementItemFacilities">
+        <value xml:lang="en">List Agreement Item Facilities</value>
     </property>
     <property key="PageTitleListAgreementItems">
         <value xml:lang="en">List Agreement Items</value>

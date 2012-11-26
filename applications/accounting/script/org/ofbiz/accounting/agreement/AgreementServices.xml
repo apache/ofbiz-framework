@@ -99,6 +99,15 @@ under the License.
                 <call-service service-name="createAgreementProductAppl" in-map-name="createAgreementProductApplInMap"/>
             </iterate>
         </if-compare>
+        <if-compare field="parameters.copyAgreementFacilities" value="Y" operator="equals">
+            <get-related value-field="agreement" relation-name="AgreementFaclityAppl" list="agreementFaclityAppls"/>
+            <iterate list="agreementFaclityAppls" entry="agreementFaclityAppl">
+                <clear-field field="createAgreementFaclityApplInMap"/>
+                <set-service-fields service-name="createAgreementFaclityAppl" to-map="createAgreementFaclityApplInMap" map="agreementFaclityAppl"/>
+                <set from-field="agreementIdTo" field="createAgreementFaclityApplInMap.agreementId"/>
+                <call-service service-name="createAgreementFaclityAppl" in-map-name="createAgreementFaclityApplInMap"/>
+            </iterate>
+        </if-compare>
         <if-compare field="parameters.copyAgreementParties" value="Y" operator="equals">
             <get-related value-field="agreement" relation-name="AgreementPartyApplic" list="agreementPartyApplic"/>
             <iterate list="agreementPartyApplics" entry="agreementPartyApplic">

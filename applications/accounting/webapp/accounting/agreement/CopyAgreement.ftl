@@ -32,6 +32,7 @@ under the License.
             ${uiLabelMap.AccountingAgreementTerms}&nbsp;<input type="checkbox" name="copyAgreementTerms" value="Y" checked="checked" />
             ${uiLabelMap.ProductProducts}&nbsp;<input type="checkbox" name="copyAgreementProducts" value="Y" checked="checked" />
             ${uiLabelMap.Party}&nbsp;<input type="checkbox" name="copyAgreementParties" value="Y" checked="checked" />
+            ${uiLabelMap.ProductFacilities}&nbsp;<input type="checkbox" name="copyAgreementFacilities" value="Y" checked="checked" />
         </div>
         <div class="button-bar">
             <input type="submit" value="${uiLabelMap.CommonCopy}"/>
