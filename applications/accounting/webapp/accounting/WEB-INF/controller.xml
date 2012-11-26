@@ -1264,6 +1264,29 @@ under the License.
         <response name="error" type="view" value="EditAgreementItemProduct"/>
     </request-map>
 
+    <request-map uri="ListAgreementItemFacilities"><security https="true" auth="true"/><response name="success" type="view" value="ListAgreementItemFacilities"/></request-map>
+    <request-map uri="ListAgreementItemFacilitiesReport"><security https="true" auth="true"/><response name="success" type="view" value="ListAgreementItemFacilitiesReport"/></request-map>
+    <request-map uri="removeAgreementItemFacility">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeAgreementFacilityAppl"/>
+        <response name="success" type="view" value="ListAgreementItemFacilities"/>
+        <response name="error" type="view" value="ListAgreementItemFacilities"/>
+    </request-map>
+
+    <request-map uri="EditAgreementItemFacility"><security https="true" auth="true"/><response name="success" type="view" value="EditAgreementItemFacility"/></request-map>
+    <request-map uri="createAgreementItemFacility">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createAgreementFacilityAppl"/>
+        <response name="success" type="view" value="ListAgreementItemFacilities"/>
+        <response name="error" type="view" value="EditAgreementItemFacility"/>
+    </request-map>
+    <request-map uri="updateAgreementItemFacility">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateAgreementFacilityAppl"/>
+        <response name="success" type="view" value="ListAgreementItemFacilities"/>
+        <response name="error" type="view" value="EditAgreementItemFacility"/>
+    </request-map>
+
     <request-map uri="ListAgreementItemSupplierProducts"><security https="true" auth="true"/><response name="success" type="view" value="ListAgreementItemSupplierProducts"/></request-map>
     <request-map uri="ListAgreementItemSupplierProductsReport"><security https="true" auth="true"/><response name="success" type="view" value="ListAgreementItemSupplierProductsReport"/></request-map>
     <request-map uri="removeAgreementItemSupplierProduct">
@@ -2704,6 +2727,9 @@ under the License.
     <view-map name="ListAgreementGeographicalApplic" type="screen" page="component://accounting/widget/AgreementScreens.xml#ListAgreementGeographicalApplic"/>
     <view-map name="EditAgreementGeographicalApplic" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementGeographicalApplic"/>
     <view-map name="EditAgreementWorkEffortApplics" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementWorkEffortApplics"/>
+    <view-map name="ListAgreementItemFacilities" type="screen" page="component://accounting/widget/AgreementScreens.xml#ListAgreementItemFacilities"/>
+    <view-map name="EditAgreementItemFacility" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementItemFacility"/>
+    <view-map name="ListAgreementItemFacilitiesReport" type="screenfop" page="component://accounting/widget/AgreementScreens.xml#ListAgreementItemFacilitiesReport" content-type="application/pdf" encoding="none"/>
 
     <!-- TaxAuthority -->
     <view-map name="FindTaxAuthority" type="screen" page="component://accounting/widget/TaxAuthorityScreens.xml#FindTaxAuthority"/>

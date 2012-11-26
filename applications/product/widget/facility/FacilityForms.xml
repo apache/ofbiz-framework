@@ -928,4 +928,19 @@ under the License.
         <field name="information"><text size="50" maxlength="60"/></field>
         <field name="selectButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
+
+    <form name="ListFacilityAgreements" type="list" list-name="facilityAgreements"
+        odd-row-style="alternate-row" default-table-style="basic-table">
+        <field name="agreementId" widget-style="buttontext">
+            <hyperlink target="/accounting/control/EditAgreementItemFacility" target-type="inter-app" description="${agreementId}/${agreementItemSeqId}" also-hidden="false">
+                <parameter param-name="agreementId"/>
+                <parameter param-name="agreementItemSeqId"/>
+                <parameter param-name="faclityId"/>
+            </hyperlink>
+        </field>
+        <field name="agreementText"><display/></field>
+        <field name="description"><display/></field>
+        <field name="fromDate"><display/></field>
+        <field name="thruDate"><display/></field>
+    </form>
 </forms>

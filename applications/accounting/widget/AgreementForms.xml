@@ -307,6 +307,29 @@ under the License.
             </hyperlink>
         </field>
     </form>
+    <form name="ListAgreementItemFacilities" list-name="agreementFacilities" target="" title="" type="list" paginate-target="ListAgreementItemFacilities"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <auto-fields-entity entity-name="AgreementFacilityAppl" default-field-type="display"/>
+        <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
+        <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}"><hidden/></field>
+        <field name="facilityId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
+           <hyperlink also-hidden="false" description="${facilityId}" target="EditAgreementItemFacility">
+                <parameter param-name="facilityId"/>
+                <parameter param-name="agreementId"/>
+                <parameter param-name="agreementItemSeqId"/>
+            </hyperlink>
+        </field>
+        <field name="internalName" entry-name="facilityId">
+            <display-entity entity-name="Facility" key-field-name="facilityId" description="${internalName}"/>
+        </field>
+        <field name="deleteLink" title=" " widget-style="buttontext">
+            <hyperlink target="removeAgreementItemFacility" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+                <parameter param-name="facilityId"/>
+                <parameter param-name="agreementId"/>
+                <parameter param-name="agreementItemSeqId"/>
+            </hyperlink>
+        </field>
+    </form>
     <form name="ListAgreementItemSupplierProducts" list-name="agreementProducts" target="" title="" type="list" paginate-target="ListAgreementItemSupplierProducts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="SupplierProduct" default-field-type="display"/>
@@ -385,6 +408,20 @@ under the License.
             <lookup target-form-name="LookupProduct"/>
         </field>
         <field name="productId" use-when="agreementProductAppl!=null"><display/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="EditAgreementItemFacility" type="single" target="updateAgreementItemFacility" title="" default-map-name="agreementFacilityAppl"
+        header-row-style="header-row" default-table-style="basic-table">
+        <alt-target use-when="agreementFacilityAppl==null" target="createAgreementItemFacility"/>
+        <auto-fields-entity entity-name="AgreementFacilityAppl" default-field-type="edit"/>
+        <field name="agreementId"><hidden/></field>
+        <field name="agreementItemSeqId"><hidden/></field>
+        <field name="facilityId" use-when="agreementFacilityAppl==null">
+            <lookup target-form-name="LookupFacility"/>
+        </field>
+        <field name="facilityId" use-when="agreementFacilityAppl!=null"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>

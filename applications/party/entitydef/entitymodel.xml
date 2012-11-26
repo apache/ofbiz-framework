@@ -281,6 +281,26 @@ under the License.
         <key-map field-name="agreementItemSeqId"/>
       </relation>
     </entity>
+    <entity entity-name="AgreementFacilityAppl"
+            package-name="org.ofbiz.party.agreement"
+            title="Agreement Facility Application Entity">
+      <field name="agreementId" type="id-ne"></field>
+      <field name="agreementItemSeqId" type="id-ne"></field>
+      <field name="facilityId" type="id-ne"></field>
+      <prim-key field="agreementId"/>
+      <prim-key field="agreementItemSeqId"/>
+      <prim-key field="faciliyId"/>
+      <relation type="one-nofk" rel-entity-name="Agreement">
+        <key-map field-name="agreementId"/>
+      </relation>
+      <relation type="one" fk-name="AGRMNT_FACLT_AITM" rel-entity-name="AgreementItem">
+        <key-map field-name="agreementId"/>
+        <key-map field-name="agreementItemSeqId"/>
+      </relation>
+      <relation type="one" fk-name="AGRMNT_FACLT_PRD" rel-entity-name="Facility">
+        <key-map field-name="faciliyId"/>
+      </relation>
+    </entity>
     <entity entity-name="AgreementRole"
             package-name="org.ofbiz.party.agreement"
             title="Agreement Role Entity">
@@ -491,6 +511,26 @@ under the License.
             <exclude field="productId"/>
         </alias-all>
         <view-link entity-alias="AGI" rel-entity-alias="AGPA">
+            <key-map field-name="agreementId"/>
+            <key-map field-name="agreementItemSeqId"/>
+        </view-link>
+        <view-link entity-alias="AGI" rel-entity-alias="AG">
+            <key-map field-name="agreementId"/>
+        </view-link>
+        <relation type="one-nofk" rel-entity-name="Agreement">
+            <key-map field-name="agreementId"/>
+        </relation>
+    </view-entity>
+    <view-entity entity-name="AgreementItemAndFacilityAppl"
+        package-name="org.ofbiz.party.agreement"
+        title="Agreement Item and Agreement Facility Applicability View Entity">
+        <member-entity entity-alias="AGI" entity-name="AgreementItem"/>
+        <member-entity entity-alias="AGFA" entity-name="AgreementFacilityAppl"/>
+        <member-entity entity-alias="AG" entity-name="Agreement"/>
+        <alias-all entity-alias="AGI"/>
+        <alias-all entity-alias="AGFA"/>
+        <alias-all entity-alias="AG"/>
+        <view-link entity-alias="AGI" rel-entity-alias="AGFA">
             <key-map field-name="agreementId"/>
             <key-map field-name="agreementItemSeqId"/>
         </view-link>

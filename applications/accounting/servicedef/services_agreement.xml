@@ -53,6 +53,7 @@ under the License.
         <attribute name="copyAgreementTerms" type="String" mode="IN" optional="true"/>
         <attribute name="copyAgreementProducts" type="String" mode="IN" optional="true"/>
         <attribute name="copyAgreementParties" type="String" mode="IN" optional="true"/>
+        <attribute name="copyAgreementFacilities" type="String" mode="IN" optional="true"/>
     </service>
 
     <!-- AgreementItem  -->
@@ -142,6 +143,26 @@ under the License.
     <service name="removeAgreementProductAppl" default-entity-name="AgreementProductAppl" engine="simple"
                 location="component://accounting/script/org/ofbiz/accounting/agreement/AgreementServices.xml" invoke="removeAgreementProductAppl" auth="true">
         <description>Remove an AgreementProductAppl</description>
+        <permission-service service-name="acctgAgreementPermissionCheck" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <!-- AgreementFacilityAppl  -->
+    <service name="createAgreementFacilityAppl" default-entity-name="AgreementFacilityAppl" engine="entity-auto" invoke="create" auth="true">
+        <description>Create an AgreementFacilityAppl</description>
+        <permission-service service-name="acctgAgreementPermissionCheck" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateAgreementFacilityAppl" default-entity-name="AgreementFacilityAppl" engine="entity-auto" invoke="update" auth="true">
+        <description>Update an AgreementFacilityAppl</description>
+        <permission-service service-name="acctgAgreementPermissionCheck" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeAgreementFacilityAppl" default-entity-name="AgreementFacilityAppl" engine="entity-auto" invoke="delete" auth="true">
+        <description>Remove an AgreementFacilityAppl</description>
         <permission-service service-name="acctgAgreementPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
