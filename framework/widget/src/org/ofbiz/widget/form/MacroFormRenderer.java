@@ -28,9 +28,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.WeakHashMap;
-import java.util.Map.Entry;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +38,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import javolution.util.FastList;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilFormatOut;
@@ -183,11 +182,8 @@ public class MacroFormRenderer implements FormStringRenderer {
 
     public void renderDisplayField(Appendable writer, Map<String, Object> context, DisplayField displayField) throws IOException {
         ModelFormField modelFormField = displayField.getModelFormField();
-        ModelForm modelForm = modelFormField.getModelForm();
-        String idName = modelFormField.getIdName();
-        if (UtilValidate.isNotEmpty(idName) && ("list".equals(modelForm.getType()) || "multi".equals(modelForm.getType()))) {
-            idName += "_" + modelForm.getRowCount();
-        }
+        String idName = modelFormField.getCurrentContainerId(context);
+
         String description = displayField.getDescription(context);
         String type = displayField.getType();
         String imageLocation = displayField.getImageLocation(context);
