@@ -560,6 +560,22 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
+    <!-- Facility Attribute -->
+    <service name="createFacilityAttribute" engine="entity-auto" default-entity-name="FacilityAttribute" invoke="create" auth="true">
+        <description>Create Facility Attribute</description>
+        <auto-attributes mode="IN" entity-name="FacilityAttribute" include="pk" optional="false"/>
+        <auto-attributes mode="IN" entity-name="FacilityAttribute" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateFacilityAttribute" engine="entity-auto" default-entity-name="FacilityAttribute" invoke="update" auth="true">
+        <description>Update Facility Attribute</description>
+        <auto-attributes mode="IN" entity-name="FacilityAttribute" include="pk" optional="false"/>
+        <auto-attributes mode="IN" entity-name="FacilityAttribute" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteFacilityAttribute" engine="entity-auto" default-entity-name="FacilityAttribute" invoke="delete" auth="true">
+        <description>Delete Facility Attribute</description>
+        <auto-attributes mode="IN" entity-name="FacilityAttribute" include="pk" optional="false"/>
+    </service>
+
     <service name="createFacilityLocation" default-entity-name="FacilityLocation" engine="simple"
                 location="component://product/script/org/ofbiz/product/storage/StorageServices.xml" invoke="createFacilityLocation" auth="true">
         <description>Create a Facility Location</description>
