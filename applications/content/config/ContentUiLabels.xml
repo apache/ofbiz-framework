@@ -23,6 +23,7 @@
         <value xml:lang="de">Die CMS Form kann nicht gefunden werden!</value>
         <value xml:lang="en">Cannot find the cmsform!</value>
         <value xml:lang="fr">Le formulaire CMS n'a pas été trouvé</value>
+        <value xml:lang="ja">CMSフォームが見つかりません!</value>
         <value xml:lang="pt">Não é possível localizar o cmsform!</value>
         <value xml:lang="vi">Không tìm thấy giao diện tin tức (cmsform)</value>
         <value xml:lang="zh">无法找到cmsform！</value>
@@ -31,6 +32,7 @@
         <value xml:lang="en">CommEventContentAssoc entity not found for delete, communicationEventId: ${parameters.communicationEventId} and contentId: ${parameters.contentId}</value>
         <value xml:lang="fr">L'association avec la communication ${parameters.communicationEventId} et le document ${parameters.contentId} pour la suppression n'a pas été trouvée</value>
         <value xml:lang="it">Entità CommEventContentAssoc non trovata da cancellare, communicationEventId: ${parameters.communicationEventId} e contentId: ${parameters.contentId}</value>
+        <value xml:lang="ja">削除するCommEventContentAssocエンティティが見つかりません。通信イベントID: ${parameters.communicationEventId} およびコンテンツID: ${parameters.contentId}</value>
         <value xml:lang="pt">Entity CommEventContentAssoc não encontrada para excluir, communicationEventId: ${parameters.communicationEventId} e contentId: ${parameters.contentId}</value>
         <value xml:lang="vi">Thực thể CommEventContentAssoc không tìm thấy để xóa, Id sự kiện truyền thông : ${parameters.communicationEventId} và Id Nội dung: ${parameters.contentId}</value>
         <value xml:lang="zh">没有找到要删除的沟通事件内容关联（CommEventContentAssoc）实体，沟通事件标识（communicationEventId）：${parameters.communicationEventId}， 内容标识（contentId）：${parameters.contentId}</value>
@@ -39,6 +41,7 @@
         <value xml:lang="en">CommEventContentAssoc entity not found for update, communicationEventId: ${parameters.communicationEventId} and contentId: ${parameters.contentId}</value>
         <value xml:lang="fr">L'association avec la communication ${parameters.communicationEventId} et le document ${parameters.contentId} pour la mise à jour n'a pas été trouvée</value>
         <value xml:lang="it">Entità CommEventContentAssoc non trovata da aggiornare, communicationEventId: ${parameters.communicationEventId} e contentId: ${parameters.contentId}</value>
+        <value xml:lang="ja">更新するCommEventContentAssocエンティティが見つかりません。通信イベントID: ${parameters.communicationEventId} およびコンテンツID: ${parameters.contentId}</value>
         <value xml:lang="pt">Entity CommEventContentAssoc não encontrada para atualização, communicationEventId: ${parameters.communicationEventId} e contentId: ${parameters.contentId}</value>
         <value xml:lang="vi">Thực thể CommEventContentAssoc không tìm thấy để sửa đổi, Id sự kiện truyền thông : ${parameters.communicationEventId} và Id Nội dung: ${parameters.contentId}</value>
         <value xml:lang="zh">没有找到要更新的沟通事件内容关联（CommEventContentAssoc）实体，沟通事件标识（communicationEventId）：${parameters.communicationEventId}， 内容标识（contentId）：${parameters.contentId}</value>
@@ -91,6 +94,7 @@
     <property key="ContentAnyAssocType">
         <value xml:lang="FR">Tous types d'asso</value>
         <value xml:lang="en">Any Assoc Type</value>
+        <value xml:lang="ja">任意の関連付け種類</value>
         <value xml:lang="pt">Qualquer tipo de associação</value>
         <value xml:lang="vi">Bất kỳ loại kết hợp nào</value>
         <value xml:lang="zh">任一关联类型</value>
@@ -98,6 +102,7 @@
     <property key="ContentArticleName">
         <value xml:lang="en">Article Name</value>
         <value xml:lang="fr">Nom de l'article</value>
+        <value xml:lang="ja">記事名</value>
         <value xml:lang="pt">Nome do artigo</value>
         <value xml:lang="th">ชื่อบทความ</value>
         <value xml:lang="vi">Tên bài viết</value>
@@ -107,6 +112,7 @@
         <value xml:lang="en">Article Name is missing.</value>
         <value xml:lang="fr">Le nom de l'article est manquant.</value>
         <value xml:lang="it">Nome articolo è mancante.</value>
+        <value xml:lang="ja">記事名が正しくありません。</value>
         <value xml:lang="pt">O nome do artigo está faltando.</value>
         <value xml:lang="vi">Tên bài viết chưa có.</value>
         <value xml:lang="zh">缺少文章名称。</value>
@@ -132,6 +138,7 @@
         <value xml:lang="en">Error in deactivating ContentAssoc. Entity is null.</value>
         <value xml:lang="fr">Erreur dans la désactivation de l'association. Entité inexistante.</value>
         <value xml:lang="it">Errore nella disattivazione dell'entità ContentAssoc che è nulla.</value>
+        <value xml:lang="ja">コンテンツ関連付けの無効化時にエラー。エンティティが空です。</value>
         <value xml:lang="pt">Erro na desativação de ContentAssoc. Entidade é nula.</value>
         <value xml:lang="vi">Lỗi khi vô hiệu hóa Nội dung kết hợp (ContentAssoc). Thực thể rỗng</value>
         <value xml:lang="zh">让内容关联（ContentAssoc）失效时出错。实体是空的（null）。</value>
@@ -140,6 +147,7 @@
         <value xml:lang="en">No association found for contentId ${activeContentId} and contentIdTo ${contentIdTo} and contentAssocTypeId ${contentAssocTypeId} and fromDate ${fromDate}</value>
         <value xml:lang="fr">Pas d'association trouvée pour le document référencé ${activeContentId} et le document associé référencé ${contentIdTo} sous le type d'association ${contentAssocTypeId} et pour la date ${fromDate}</value>
         <value xml:lang="it">Nessuna associazione trovata per il contenuto ${activeContentId} e il contenuto a ${contentIdTo} e il tipo associazione contenuto ${contentAssocTypeId} e dalla data ${fromDate}</value>
+        <value xml:lang="ja">関連付けが見つかりません、コンテンツID ${activeContentId} コンテンツID(先) ${contentIdTo} コンテンツ関連付け種類ID ${contentAssocTypeId} 開始日付 ${fromDate}</value>
         <value xml:lang="pt">Nenhuma associação encontrada para contentId ${activeContentId}, contentIdTo ${contentIdTo}, contentAssocTypeId ${contentAssocTypeId} e fromDate ${fromDate}</value>
         <value xml:lang="vi">Không có kết hợp (association) nào được tìm thấy thỏa mãn các Tiêu chí : Nội dung ${activeContentId} , Liên kết kết tới ${contentIdTo} , Kiểu kết hợp ${contentAssocTypeId} , Từ ngày ${fromDate}</value>
         <value xml:lang="zh">没有找到关联：内容标识（contentId） ${activeContentId}， 内容标识到（contentIdTo） ${contentIdTo}，内容关联类型标识（contentAssocTypeId） ${contentAssocTypeId}，开始日期（fromDate） ${fromDate}</value>
@@ -148,6 +156,7 @@
         <value xml:lang="en">Error in retrieving Content: ${errorString}</value>
         <value xml:lang="fr">Erreur dans la recherche de document : ${errorString}</value>
         <value xml:lang="it">Errore nel ricavare ContentAsssoc entity: ${errorString}</value>
+        <value xml:lang="ja">コンテンツ取得中にエラー: ${errorString}</value>
         <value xml:lang="pt">Erro na recuperação de conteúdo: ${errorString}</value>
         <value xml:lang="vi">Lỗi khi nhận về Nội dung: ${errorString}</value>
         <value xml:lang="zh">获取内容（Content）时出错：${errorString}</value>
@@ -156,6 +165,7 @@
         <value xml:lang="en">Error in updating ContentAssoc. Entity is null.</value>
         <value xml:lang="fr">Erreur dans la mise à jour de l'association. Entité inexistante.</value>
         <value xml:lang="it">Errore nell'aggiornamento dell'entità ContentAssoc che è nulla.</value>
+        <value xml:lang="ja">コンテンツ関連付けの更新中にエラー。エンティティが空です。</value>
         <value xml:lang="pt">Erro ao atualizar o ContentAssoc. Entidade é nula.</value>
         <value xml:lang="vi">Lỗi khi cập nhật Nội dung kết hợp (ContentAssoc). Thực thể rỗng</value>
         <value xml:lang="zh">更新内容关联（ContentAssoc）时出错。实体是空的（null）。</value>
@@ -209,6 +219,7 @@
     <property key="ContentAutoCreateKeywords">
         <value xml:lang="en">Auto Create Keywords</value>
         <value xml:lang="fr">Création automatique des mots clés</value>
+        <value xml:lang="ja">キーワード自動作成</value>
         <value xml:lang="pt">Auto criar palavras-chave</value>
         <value xml:lang="vi">Tự động tạo từ khóa</value>
         <value xml:lang="zh">自动创建关键字</value>
@@ -278,6 +289,7 @@
         <value xml:lang="en">Blog entry Id</value>
         <value xml:lang="fr">Réf. de note de blog</value>
         <value xml:lang="it">Voce blog</value>
+        <value xml:lang="ja">ブログエントリID</value>
         <value xml:lang="nl">Blog ingave ID</value>
         <value xml:lang="pt_BR">ID de entrada de blog</value>
         <value xml:lang="vi">Điểm nhập Blog</value>
@@ -325,6 +337,7 @@
         <value xml:lang="en">Preview</value>
         <value xml:lang="fr">Visionner</value>
         <value xml:lang="it">Anteprima</value>
+        <value xml:lang="ja">プレビュー</value>
         <value xml:lang="nl">Bekijken</value>
         <value xml:lang="pt_BR">Pré-visualizar</value>
         <value xml:lang="vi">Xem xét</value>
@@ -336,6 +349,7 @@
         <value xml:lang="en">Publish</value>
         <value xml:lang="fr">Publier</value>
         <value xml:lang="it">Pubblica</value>
+        <value xml:lang="ja">公開</value>
         <value xml:lang="nl">Publiceren</value>
         <value xml:lang="pt_BR">Publicar</value>
         <value xml:lang="vi">Xuất bản</value>
@@ -359,6 +373,7 @@
         <value xml:lang="en">Top Center</value>
         <value xml:lang="fr">En haut au centre</value>
         <value xml:lang="it">Alto al centro</value>
+        <value xml:lang="ja">上部中央</value>
         <value xml:lang="nl">Boven in het midden</value>
         <value xml:lang="pt_BR">Centralizado no topo</value>
         <value xml:lang="vi">Trung tâm số 1</value>
@@ -370,6 +385,7 @@
         <value xml:lang="en">Top Left</value>
         <value xml:lang="fr">En haut à gauche</value>
         <value xml:lang="it">Alto a sinistra</value>
+        <value xml:lang="ja">上部左</value>
         <value xml:lang="nl">Boven rechts</value>
         <value xml:lang="pt_BR">No topo à esquerda</value>
         <value xml:lang="vi">Cao nhất bên trái</value>
@@ -408,6 +424,7 @@
         <value xml:lang="es">CMS</value>
         <value xml:lang="fr">CMS</value>
         <value xml:lang="it">CMS</value>
+        <value xml:lang="ja">CMS</value>
         <value xml:lang="nl">CMS</value>
         <value xml:lang="pt">CMS</value>
         <value xml:lang="ro">CMS</value>
@@ -470,6 +487,7 @@
         <value xml:lang="en">Cannot find CONTEXT_FILE with an empty context root!</value>
         <value xml:lang="fr">Impossible de trouver CONTEXT_FILE avec un contexte racine vide !</value>
         <value xml:lang="it">Non è possibile trovare il CONTEXT_FILE con un contesto principale vuoto!</value>
+        <value xml:lang="ja">コンテキストルートが空のCONTEXT_FILEが見つかりません!</value>
         <value xml:lang="pt">Não é possível encontrar CONTEXT_FILE com uma raiz de contexto vazio!</value>
         <value xml:lang="vi">Không thể tìm thấy Tập tin ngữ cảnh(CONTEXT_FILE) với ngữ cảnh gốc rỗng (empty context root)!</value>
         <value xml:lang="zh">不能用一个空的Context根找到Context文件（CONTEXT_FILE）！</value>
@@ -478,6 +496,7 @@
         <value xml:lang="en">Not able to generate RSS feed for content: ${contentId}</value>
         <value xml:lang="fr">Impossible de générer le flux RSS pour le document : ${contentId}</value>
         <value xml:lang="it">Non è possibile generare il feed RSS per il contenuto: ${contentId}</value>
+        <value xml:lang="ja">コンテンツ: ${contentId} のRSSフィードが生成できません</value>
         <value xml:lang="pt">Não é possível gerar RSS feed para conteúdo: ${contentId}</value>
         <value xml:lang="vi">Không sinh ra nguồn tin RSS cho nội dung: ${contentId}</value>
         <value xml:lang="zh">无法为内容生成RSS：${contentId}</value>
@@ -486,6 +505,7 @@
         <value xml:lang="en">Cannot process both character and binary data in the same file</value>
         <value xml:lang="fr">Impossible de procéder avec la présence de données binaires et textuelles dans le même fichier</value>
         <value xml:lang="it">Non è possibile processare i dati di entrambi i file binari e carattere</value>
+        <value xml:lang="ja">同じファイルでテキストとバイナリは一緒に処理できません</value>
         <value xml:lang="pt">Não é possível processar caracteres e dados binários no mesmo arquivo</value>
         <value xml:lang="vi">Không thể thực thi cho Ký tự và Dữ liệu nhị phân trong cùng tập tin</value>
         <value xml:lang="zh">不能在同一个文件中既有字符数据，又有二进制数据</value>
@@ -528,6 +548,7 @@
         <value xml:lang="en">Unable to clear associated render cache with dataResourceId ${dataResourceId}</value>
         <value xml:lang="fr">Impossible de nettoyer la mémoire cache pour la ressource référencée ${dataResourceId}</value>
         <value xml:lang="it">Non è possibile pulire la cache associata alla risorsa dati ${dataResourceId}</value>
+        <value xml:lang="ja">データソースID ${dataResourceId} と関連付けられたレンダーキャッシュをクリアできません</value>
         <value xml:lang="pt">Não é possível limpar cache de processamento associado com dataResourceId ${dataResourceId}</value>
         <value xml:lang="vi">Không thể xóa thông tin trên bộ nhớ đệm của dữ liệu ${dataResourceId}</value>
         <value xml:lang="zh">不能用数据资源标识（dataResourceId）${dataResourceId} 清除相关缓存</value>
@@ -731,6 +752,7 @@
         <value xml:lang="en">Instance compdoc Content for ${parameters.rootInstanceContentId} already exists</value>
         <value xml:lang="fr">L'instance de composition de document pour ${parameters.rootInstanceContentId} existe déjà</value>
         <value xml:lang="it">Istanza composizione documenti contenuto per ${parameters.rootInstanceContentId} esiste già</value>
+        <value xml:lang="ja">${parameters.rootInstanceContentId} の複合文書コンテンツインスタンスはすでに存在します</value>
         <value xml:lang="pt">Instância do conteúdo de Compdoc para ${parameters.rootInstanceContentId} já existe</value>
         <value xml:lang="vi">Tài liệu kết hợp ${parameters.rootInstanceContentId} đã tồn tại</value>
         <value xml:lang="zh">对应${parameters.rootInstanceContentId}的实例compdoc内容已经存在</value>
@@ -895,6 +917,7 @@
         <value xml:lang="es">Parte de la familia de software Open For Business de código abierto</value>
         <value xml:lang="fr">Un module de la famille Open For Business, logiciel libre de gestion d'entreprise.</value>
         <value xml:lang="it">Un modulo della famiglia di software open source Open For Business</value>
+        <value xml:lang="ja">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="nl">Deel van de Open For Business-suite van Open Source Software</value>
         <value xml:lang="pt_BR">Parte da família OfBiz de software de código livre</value>
         <value xml:lang="pt_PT">Parte da família OfBiz de software de fonte aberta</value>
@@ -927,6 +950,7 @@
         <value xml:lang="en">Error creating content in ${serviceName}</value>
         <value xml:lang="fr">Erreur de création du document dans le service ${serviceName}</value>
         <value xml:lang="it">Errore durante la creazione del contenuto in ${serviceName}</value>
+        <value xml:lang="ja">${serviceName} にコンテンツ作成中にエラー</value>
         <value xml:lang="pt">Erro ao criar conteúdo em ${serviceName}</value>
         <value xml:lang="vi">Lỗi khi tạo nội dung với ${serviceName}</value>
         <value xml:lang="zh">在${serviceName}中创建内容时出错</value>
@@ -935,6 +959,7 @@
         <value xml:lang="en">Content Id or Upload file is missing.</value>
         <value xml:lang="fr">La référence du document ou le fichier à charger est manquant.</value>
         <value xml:lang="it">Id contenuto o file da caricare è mancante.</value>
+        <value xml:lang="ja">コンテンツIDまたはアップロードファイルが正しくありません。</value>
         <value xml:lang="pt">ID de conteúdo ou envio de arquivo está faltando.</value>
         <value xml:lang="vi">Id nội dung hoặc Tập tin tải lên bị thiếu.</value>
         <value xml:lang="zh">无权上传图片</value>
@@ -977,6 +1002,7 @@
         <value xml:lang="en">no access to upload image</value>
         <value xml:lang="fr">Pas d'accès pour charger l'image</value>
         <value xml:lang="it">nessun accesso per caricare l'immagine</value>
+        <value xml:lang="ja">アップロード画像にアクセスできません</value>
         <value xml:lang="pt">Sem acesso para enviar imagem</value>
         <value xml:lang="vi">Không truy nhập để tải lên hình ảnh</value>
         <value xml:lang="zh">无权上传图片</value>
@@ -1002,6 +1028,7 @@
         <value xml:lang="en">Error in retrieving content To or From.</value>
         <value xml:lang="fr">Erreur dans la récupération du document de destination ou d'origine.</value>
         <value xml:lang="it">Errore nel ricavare il contenuto a o da.</value>
+        <value xml:lang="ja">コンテンツ先または元の取得中にエラー</value>
         <value xml:lang="pt">Erro ao recuperar conteúdo para ou a partir de.</value>
         <value xml:lang="vi">Lỗi khi nhận nội dung Từ hoặc Đến</value>
         <value xml:lang="zh">获取内容到或内容自时出错</value>
@@ -1010,6 +1037,7 @@
         <value xml:lang="en">contentTo ${contentTo}/From ${contentFrom} is null.</value>
         <value xml:lang="fr">Document vers ${contentTo}/Depuis ${contentFrom} est inexistant.</value>
         <value xml:lang="it">Contenuto a ${contentTo}/da ${contentFrom} è nullo.</value>
+        <value xml:lang="ja">コンテンツ先 ${contentTo}/元 ${contentFrom} が空です。</value>
         <value xml:lang="pt">contentTo ${contentTo} / De ${contentFrom} é nula.</value>
         <value xml:lang="vi">Nội dung Đến ${contentTo}/Từ ${contentFrom} chưa nhập.</value>
         <value xml:lang="zh">内容到（contentTo） ${contentTo}/内容自（contentFrom） ${contentFrom} 是空的（null）</value>
@@ -1018,6 +1046,7 @@
         <value xml:lang="en">Error updating content in ${serviceName}</value>
         <value xml:lang="fr">Erreur lors de la mise à jour du document ${serviceName}</value>
         <value xml:lang="it">Errore durante l'aggiornamento del contenuto in ${serviceName}</value>
+        <value xml:lang="ja">${serviceName} にコンテンツをアップロード中にエラー</value>
         <value xml:lang="pt">Erro ao atualizar o conteúdo em ${serviceName}</value>
         <value xml:lang="vi">Lỗi khi cập nhật nội dung tại ${serviceName}</value>
         <value xml:lang="zh">在${serviceName}中更新内容时出错</value>
@@ -1025,6 +1054,7 @@
     <property key="ContentContents">
         <value xml:lang="en">Contents</value>
         <value xml:lang="fr">Contenus</value>
+        <value xml:lang="ja">コンテンツ</value>
         <value xml:lang="pt">Conteúdo</value>
         <value xml:lang="vi">Các nội dung</value>
         <value xml:lang="zh">内容</value>
@@ -1046,6 +1076,7 @@
         <value xml:lang="en">Error converting document byte buffer: </value>
         <value xml:lang="fr">Erreur dans la conversion de document sur les tampons de donnée : </value>
         <value xml:lang="it">Errore durante la conversione del documento in byte buffer: </value>
+        <value xml:lang="ja">ドキュメントバイトバッファ変換中にエラー: </value>
         <value xml:lang="pt">Erro ao converter buffer de bytes do documento: </value>
         <value xml:lang="vi">Lỗi khi chuyển đổi dữ liệu tài liệu:</value>
         <value xml:lang="zh">转换文档字节缓存时出错：</value>
@@ -1054,6 +1085,7 @@
         <value xml:lang="en">Error converting document: ${errorString}</value>
         <value xml:lang="fr">Erreur dans la conversion du document : ${errorString}</value>
         <value xml:lang="it">Errore durante la conversione del documento: ${errorString}</value>
+        <value xml:lang="ja">ドキュメント変換中にエラー: ${errorString}</value>
         <value xml:lang="pt">Erro ao converter o documento: ${errorString}</value>
         <value xml:lang="vi">Lỗi khi chuyển đổi tài liệu: ${errorString}</value>
         <value xml:lang="zh">转换文档时出错：${errorString}</value>
@@ -1062,6 +1094,7 @@
         <value xml:lang="en">Not 2 out of ContentId/To/From</value>
         <value xml:lang="fr">Not 2 out of ContentId/To/From</value>
         <value xml:lang="it">Necessari 2 dei tre parametri ContentId/To/From necessari</value>
+        <value xml:lang="ja">コンテンツID/先/元が2ではありません</value>
         <value xml:lang="pt">Não 2 de ContentId/To/From</value>
         <value xml:lang="vi">Không đủ 2 ngoài Nội dung/Đến/Từ</value>
         <value xml:lang="zh">内容到和内容自的内容标识不是2个</value>
@@ -1070,6 +1103,7 @@
         <value xml:lang="en">Created Date is not a valid Timestamp input format.</value>
         <value xml:lang="fr">La date de création n'est pas dans un format valide.</value>
         <value xml:lang="it">Data creazione non è nel formato valido.</value>
+        <value xml:lang="ja">作成日の書式が正しくありません。</value>
         <value xml:lang="pt">Data de criação não é um formato de entrada de Timestamp válido.</value>
         <value xml:lang="vi">Ngày tạo không đúng định dạng</value>
         <value xml:lang="zh">创建日期不是有效的Timestamp输入格式。</value>
@@ -1218,6 +1252,7 @@
         <value xml:lang="en">dataResourceId is null.</value>
         <value xml:lang="fr">La référence de ressource est non présente.</value>
         <value xml:lang="it">dataResourceId è nullo.</value>
+        <value xml:lang="ja">データリソースIDが空です。</value>
         <value xml:lang="pt">dataResourceId é nulo.</value>
         <value xml:lang="vi">Tài nguyên dữ liệu rỗng.</value>
         <value xml:lang="zh">数据资源标识（dataResourceId）是空的（null）。</value>
@@ -1226,6 +1261,7 @@
         <value xml:lang="en">No data resource found for ID: ${parameters.dataResourceId}</value>
         <value xml:lang="fr">Pas de donnée trouvée pour la ressource sous la référence : ${parameters.dataResourceId}</value>
         <value xml:lang="it">Nessuna risorsa dati trovata con ID: ${parameters.dataResourceId}</value>
+        <value xml:lang="ja">ID: ${parameters.dataResourceId} のデータリソースがみつかりません</value>
         <value xml:lang="pt">Nenhum recurso de dados encontrados para ID: ${parameters.dataResourceId}</value>
         <value xml:lang="vi">Không Tài nguyên dữ liệu nào tìm thấy với Id: ${parameters.dataResourceId}</value>
         <value xml:lang="zh">没有找到数据资源，标识：${parameters.dataResourceId}</value>
@@ -1327,6 +1363,7 @@
         <value xml:lang="en">Data type ${dataResourceTypeId} is not yet supported!</value>
         <value xml:lang="fr">Le type de donnée ${dataResourceTypeId} n'est pas supporté !</value>
         <value xml:lang="it">Tipo dati ${dataResourceTypeId} non è ancora supportato!</value>
+        <value xml:lang="ja">データ種類 ${dataResourceTypeId} はまだサポートされていません!</value>
         <value xml:lang="pt">Tipo de dados ${dataResourceTypeId} ainda não é suportado!</value>
         <value xml:lang="vi">Kiểu dữ liệu ${dataResourceTypeId} chưa được hỗ trợ !</value>
         <value xml:lang="zh">还不支持数据类型${dataResourceTypeId}！</value>
@@ -1409,6 +1446,7 @@
         <value xml:lang="en">Electronic Text not found.</value>
         <value xml:lang="fr">Le texte n'a pas été trouvé.</value>
         <value xml:lang="it">Electronic Text non trovato.</value>
+        <value xml:lang="ja">電子テキストが見つかりません。</value>
         <value xml:lang="pt">Texto eletrônico não foi encontrado.</value>
         <value xml:lang="vi">Tài liệu điện tử không thấy.</value>
         <value xml:lang="zh">没有找到电子文本。</value>
@@ -1655,6 +1693,7 @@
         <value xml:lang="en">fromDate not a valid date format</value>
         <value xml:lang="fr">La date de début n'est pas dans un format valide</value>
         <value xml:lang="it">Data dal non è nel formato valido.</value>
+        <value xml:lang="ja">開始日の書式が正しくありません</value>
         <value xml:lang="pt">fromDate não é um formato de data válido</value>
         <value xml:lang="vi">Từ ngày không đúng định dạng ngày</value>
         <value xml:lang="zh">开始日期（fromDate）不是有效的日期格式</value>
@@ -1664,6 +1703,7 @@
         <value xml:lang="en">GIF</value>
         <value xml:lang="fr">GIF</value>
         <value xml:lang="it">GIF</value>
+        <value xml:lang="ja">GIF</value>
         <value xml:lang="pt">GIF</value>
         <value xml:lang="vi">Ảnh GIF</value>
         <value xml:lang="zh">GIF</value>
@@ -1757,6 +1797,7 @@
     <property key="ContentIncludeAllSubContents">
         <value xml:lang="en">Include all Sub-Contents</value>
         <value xml:lang="fr">Inclure tous les sous doucments</value>
+        <value xml:lang="ja">すべてのサブコンテンツを含む</value>
         <value xml:lang="pt">Incluir todos os subconteúdos</value>
         <value xml:lang="vi">Gồm tất cả các nội dung thành phần</value>
         <value xml:lang="zh">包含全部子内容</value>
@@ -1812,6 +1853,7 @@
         <value xml:lang="en">Error indexing tree: ${errorString}</value>
         <value xml:lang="fr">Erreur dans l'indexation de l'arbre : ${errorString}</value>
         <value xml:lang="it">Errore di indicizzazione albero: ${errorString}</value>
+        <value xml:lang="ja">ツリー索引中にエラー: ${errorString}</value>
         <value xml:lang="pt">Erro ao indexar árvore: ${errorString}</value>
         <value xml:lang="vi">Lỗi khi tạo chỉ mục cả cây: ${errorString}</value>
         <value xml:lang="zh">索引树时出错：${errorString}</value>
@@ -1821,6 +1863,7 @@
         <value xml:lang="en">JPEG</value>
         <value xml:lang="fr">JPG</value>
         <value xml:lang="it">JPEG</value>
+        <value xml:lang="ja">JPEG</value>
         <value xml:lang="pt">JPEG</value>
         <value xml:lang="vi">Ảnh JPEG</value>
         <value xml:lang="zh">JPEG</value>
@@ -1830,6 +1873,7 @@
         <value xml:lang="en">Keyword</value>
         <value xml:lang="fr">Mot-clé</value>
         <value xml:lang="it">Chiave</value>
+        <value xml:lang="ja">キーワード</value>
         <value xml:lang="pt">Palavra-chave</value>
         <value xml:lang="th">คีย์เวิร์ด</value>
         <value xml:lang="vi">Từ khóa</value>
@@ -1842,6 +1886,7 @@
         <value xml:lang="es">cualquier palabra coincide</value>
         <value xml:lang="fr">Au moins un des mots égal</value>
         <value xml:lang="it">qualsiasi parola uguale</value>
+        <value xml:lang="ja">いずれかの語が一致</value>
         <value xml:lang="pt">Ocorrência de qualquer palavra</value>
         <value xml:lang="ro">orice cuvant egal</value>
         <value xml:lang="ru">соответствие любому слову</value>
@@ -1857,7 +1902,7 @@
         <value xml:lang="es">Relevancia de palabra clave</value>
         <value xml:lang="fr">Pertinence du mot-clé</value>
         <value xml:lang="it">Rilevanza chiave</value>
-        <value xml:lang="ja">Keyword Relevancy</value>
+        <value xml:lang="ja">キーワード関連性</value>
         <value xml:lang="nl">Sleutelwoord relevantie</value>
         <value xml:lang="pt">Relevância de Palavra-chave</value>
         <value xml:lang="ro">Relevare Cheie</value>
@@ -1873,6 +1918,7 @@
         <value xml:lang="es">donde</value>
         <value xml:lang="fr">où</value>
         <value xml:lang="it">dove</value>
+        <value xml:lang="ja">条件</value>
         <value xml:lang="pt">onde</value>
         <value xml:lang="ro">Unde</value>
         <value xml:lang="ru">где</value>
@@ -1889,7 +1935,7 @@
         <value xml:lang="fr">Mots-clés</value>
         <value xml:lang="hi_IN">मुख्य शब्द</value>
         <value xml:lang="it">Chiavi</value>
-        <value xml:lang="ja">Keywords</value>
+        <value xml:lang="ja">キーワード</value>
         <value xml:lang="nl">Sleutelwoorden</value>
         <value xml:lang="pt">Palavras-chave</value>
         <value xml:lang="pt_PT">Palavras-Chave</value>
@@ -1904,6 +1950,7 @@
         <value xml:lang="en">Last Modified Date is not a valid Timestamp input format.</value>
         <value xml:lang="fr">La date de dernière modification n'est pas dans un format valide.</value>
         <value xml:lang="it">Data modifica non è nel formato valido.</value>
+        <value xml:lang="ja">最終更新日の書式が正しくありません。</value>
         <value xml:lang="pt">Data da última modificação não é um formato de entrada de Timestamp válido.</value>
         <value xml:lang="vi">Thời gian sửa đổi cuối cùng không đúng định dạng</value>
         <value xml:lang="zh">最后修改日期不是有效的Timestamp格式。</value>
@@ -1911,6 +1958,7 @@
     <property key="ContentLastUpdatedDateFilter">
         <value xml:lang="en">Last Updated Date Filter</value>
         <value xml:lang="fr">Dernière mise à jour du filtre de donnée</value>
+        <value xml:lang="ja">最終更新日フィルタ</value>
         <value xml:lang="pt">Filtro de última data de atualização</value>
         <value xml:lang="vi">Bộ lọc ngày cập nhật cuối cùng</value>
         <value xml:lang="zh">最后更新日期过滤器</value>
@@ -1957,6 +2005,7 @@
         <value xml:lang="en">DataResource LOCAL_FILE does not point to an absolute location</value>
         <value xml:lang="fr">La ressource LOCAL_FILE ne doit pas indiquer un emplacement absolu</value>
         <value xml:lang="it">La risorda dati LOCAL_FILE non punta ad una posizione assoluta</value>
+        <value xml:lang="ja">データリソースLOCAL_FILEが絶対パスで指定されていません</value>
         <value xml:lang="pt">DataResource LOCAL_FILE não aponta para um local absoluto</value>
         <value xml:lang="vi">Tham số cấu hình LOCAL_FILE không trỏ tới vị trí tuyệt đối </value>
         <value xml:lang="zh">数据资源（DataResource）本地文件（LOCAL_FILE）没有指向一个绝对位置</value>
@@ -2089,6 +2138,7 @@
         <value xml:lang="en">Neither content nor contentId supplied.</value>
         <value xml:lang="fr">Ni le document ni sa référence ne sont fournis.</value>
         <value xml:lang="it">Nessuno contenuto specificato.</value>
+        <value xml:lang="ja">コンテンツまたはコンテンツIDが指定されていません。</value>
         <value xml:lang="pt">Nem Conteúdo nem contentId fornecido.</value>
         <value xml:lang="vi">Hệ thống chưa nhận được thông tin Nội dung hoặc và Id Nội dung</value>
         <value xml:lang="zh">没有提供内容或内容标识</value>
@@ -2122,6 +2172,7 @@
     <property key="ContentNoContentFilePassed">
         <value xml:lang="en">No file content passed for: ${fileName}</value>
         <value xml:lang="it">Nessun file contenuto passato per:  ${fileName}</value>
+        <value xml:lang="ja">ファイルコンテンツが渡されませんでした: ${fileName}</value>
         <value xml:lang="pt">Nenhum conteúdo de arquivo passado para: ${nome}</value>
         <value xml:lang="vi">Không tập tin nào hợp lệ cho : ${fileName}</value>
         <value xml:lang="zh">没有传递文件内容：${fileName}</value>
@@ -2129,6 +2180,7 @@
     <property key="ContentNoContentFound">
         <value xml:lang="en">Content record not found for ID ${contentId}</value>
         <value xml:lang="it">Contenuto non trovato ${contentId}</value>
+        <value xml:lang="ja">ID ${contentId} のコンテンツレコードが見つかりません</value>
         <value xml:lang="pt">Registro de conteúdo não encontrado para o ID ${contentId}</value>
         <value xml:lang="vi">Bản ghi nội dung không tìm thấy với Id ${contentId}</value>
         <value xml:lang="zh">没有找到内容记录，标识：${contentId}</value>
@@ -2136,6 +2188,7 @@
     <property key="ContentNoQuestionsSurveyFound">
         <value xml:lang="en">No questions found for survey ID: ${survey.surveyId}</value>
         <value xml:lang="it">Nessuna domanda sondaggio trovata con ID: ${surveyLookup.surveyId}</value>
+        <value xml:lang="ja">評価ID: ${survey.surveyId} の質問がみつかりません</value>
         <value xml:lang="pt">Nenhuma pergunta encontrada para pesquisa com ID: ${survey.surveyId}</value>
         <value xml:lang="vi">Không có câu hỏi nào trong Bản điều tra : ${survey.surveyId}</value>
         <value xml:lang="zh">没有找到问题，调查标识：${survey.surveyId}</value>
@@ -2143,6 +2196,7 @@
     <property key="ContentNoSurveyFound">
         <value xml:lang="en">No survey found for survey ID: ${surveyLookup.surveyId}</value>
         <value xml:lang="it">Nessun sondaggio trovato con ID: ${surveyLookup.surveyId}</value>
+        <value xml:lang="ja">評価ID: ${surveyLookup.surveyId} の評価がみつかりません</value>
         <value xml:lang="pt">Nenhuma pesquisa encontrada para ID de pesquisa: ${surveyLookup.surveyId}</value>
         <value xml:lang="vi">Không Bản điều tra nào tìm thấy với Id: ${surveyLookup.surveyId}</value>
         <value xml:lang="zh">没有找到调查，调查标识：${surveyLookup.surveyId}</value>
@@ -2150,6 +2204,7 @@
     <property key="ContentNoUploadedContentFound">
         <value xml:lang="en">No uploaded content found in context</value>
         <value xml:lang="it">Nessun contenuto caricato trovato</value>
+        <value xml:lang="ja">コンテキストにアップロードされたコンテンツが見つかりません</value>
         <value xml:lang="pt">Nenhum conteúdo carregado encontrado no contexto</value>
         <value xml:lang="vi">Không có nội dung tải lên nào với ngữ cảnh hiện tại</value>
         <value xml:lang="zh">Context中没有找到要上传的内容</value>
@@ -2209,6 +2264,7 @@
     <property key="ContentPDFGeneratingError">
         <value xml:lang="en">Error generating PDF: ${errorString}</value>
         <value xml:lang="it">Errore di generazione PDF: ${errorString}</value>
+        <value xml:lang="ja">PDFの生成中にエラー: ${errorString}</value>
         <value xml:lang="pt">Erro ao gerar PDF: ${errorString}</value>
         <value xml:lang="vi">Lỗi khi kết xuất ra PDF: ${errorString}</value>
         <value xml:lang="zh">生成PDF时出错：${errorString}</value>
@@ -2229,6 +2285,7 @@
         <value xml:lang="en">PNG</value>
         <value xml:lang="fr">PNG</value>
         <value xml:lang="it">PNG</value>
+        <value xml:lang="ja">PNG</value>
         <value xml:lang="pt">PNG</value>
         <value xml:lang="vi">Ảnh PNG</value>
         <value xml:lang="zh">PNG</value>
@@ -2288,6 +2345,7 @@
         <value xml:lang="en">Permission not granted.</value>
         <value xml:lang="fr">Permission non accordée.</value>
         <value xml:lang="it">Permesso non abilitato.</value>
+        <value xml:lang="ja">権限が付与されていません。</value>
         <value xml:lang="pt">Permissão não concedida.</value>
         <value xml:lang="vi">Chưa được gán quyền.</value>
         <value xml:lang="zh">没有授权。</value>
@@ -2307,6 +2365,7 @@
         <value xml:lang="en">No printer available</value>
         <value xml:lang="fr">Pas d'imprimante disponible</value>
         <value xml:lang="it">Nessuna stampante disponibile</value>
+        <value xml:lang="ja">有効なプリンタがありません</value>
         <value xml:lang="pt">Não existe uma impressora disponível</value>
         <value xml:lang="vi">Không có máy in</value>
         <value xml:lang="zh">没有可用的打印机</value>
@@ -2315,6 +2374,7 @@
         <value xml:lang="en">No printer found with name: ${printerName}</value>
         <value xml:lang="fr">Pas d'imprimante disponible sous le nom ${printerName}</value>
         <value xml:lang="it">Nessuna stampante trovate con il nome: ${printerName}</value>
+        <value xml:lang="ja">プリンタが見つかりません。名称: ${printerName}</value>
         <value xml:lang="pt">Nenhuma impressora encontrada com nome: ${printerName}</value>
         <value xml:lang="vi">Không thấy máy in: ${printerName}</value>
         <value xml:lang="zh">没有找到打印机，名称：${printerName}</value>
@@ -2323,6 +2383,7 @@
         <value xml:lang="en">DocFlavor ${psInFormat} not supported by printer: ${printerName}</value>
         <value xml:lang="fr">DocFlavor ${psInFormat} n'est pas supporté par l'imprimante ${printerName}</value>
         <value xml:lang="it">Il formato Doc Flavor ${psInFormat} non è supportato dalla stampante: ${printerName}</value>
+        <value xml:lang="ja">文書形式 ${psInFormat} はプリンタ ${printerName} でサポートされていません</value>
         <value xml:lang="pt">DocFlavor ${psInFormat} não suportada pela impressora: ${printerName}</value>
         <value xml:lang="vi">Định dạng nội dung ${psInFormat} không được máy in : ${printerName} hỗ trợ.</value>
         <value xml:lang="zh">打印机不支持 DocFlavor ${psInFormat} ：${printerName}</value>
@@ -2357,6 +2418,7 @@
         <value xml:lang="en">Question type ${questionType} requires ${requiredField} to be set</value>
         <value xml:lang="fr">Le type de question ${questionType} requiert le champ ${requiredField} pour être défini</value>
         <value xml:lang="it">Tipo domanda ${questionType} richiede ${requiredField} di essere impostato</value>
+        <value xml:lang="ja">質問種類 ${questionType} は ${requiredField} を設定する必要があります</value>
         <value xml:lang="pt">Pergunta tipo ${questionType} requer ${requiredField} para ser definido</value>
         <value xml:lang="vi">Loại câu hỏi ${questionType} yêu cầu trường ${requiredField} có giá trị</value>
         <value xml:lang="zh">问题类型 ${questionType} 需要设置 ${requiredField}</value>
@@ -2402,6 +2464,7 @@
         <value xml:lang="en">Error rendering ${contentType}: ${errorString}</value>
         <value xml:lang="fr">Erreur lors du rendu pour ${contentType} : ${errorString}</value>
         <value xml:lang="it">Errore di rendering ${contentType}: ${errorString}</value>
+        <value xml:lang="ja">${contentType} レンダリング中にエラー: ${errorString}</value>
         <value xml:lang="pt">Erro ao renderizar ${contentType}: ${errorString}</value>
         <value xml:lang="vi">Lỗi hiển thị ${contentType}: ${errorString}</value>
         <value xml:lang="zh">生成${contentType}是出错：${errorString}</value>
@@ -2410,6 +2473,7 @@
         <value xml:lang="en">Required field ${requiredField} is missing in simple method call ${resourceDescription}</value>
         <value xml:lang="fr">Le champ requis ${requiredField} est manquant dans l'appel d'une méthode simple : ${resourceDescription}</value>
         <value xml:lang="it">Campo ${requiredField} è richiesto ed è mancante nella chiamata a ${resourceDescription}</value>
+        <value xml:lang="ja">シンプルメソッド呼び出し ${resourceDescription} で、必須項目 ${requiredField} が正しくありません</value>
         <value xml:lang="pt">Campo obrigatório ${requiredField} está ausente na chamada do método simples ${resourceDescription}</value>
         <value xml:lang="vi">Trường bắt buộc ${requiredField} bị thiếu khi gọi hàm ${resourceDescription}</value>
         <value xml:lang="zh">在用简单方法调用 ${resourceDescription} 时，缺少必须的数据项 ${requiredField}</value>
@@ -2518,6 +2582,7 @@
     </property>
     <property key="ContentSEO">
         <value xml:lang="en">SEO</value>
+        <value xml:lang="ja">SEO</value>
         <value xml:lang="pt">SEO</value>
         <value xml:lang="vi">SEO</value>
         <value xml:lang="zh">搜索引擎优化</value>
@@ -2525,6 +2590,7 @@
     <property key="ContentSearchContents">
         <value xml:lang="en">Search Contents</value>
         <value xml:lang="fr">Recherche de documents</value>
+        <value xml:lang="ja">コンテンツを検索</value>
         <value xml:lang="pt">Pesquisar conteúdos</value>
         <value xml:lang="vi">Tìm kiếm nội dung</value>
         <value xml:lang="zh">搜索内容</value>
@@ -2532,6 +2598,7 @@
     <property key="ContentSecurityCreatePermission">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission</value>
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso CONTENTMGR_CREATE o CONTENTMGR_ADMIN</value>
+        <value xml:lang="ja">セキュリティエラー: ${resourceDescription} の実行には CONTENTMGR_CREATE または CONTENTMGR_ADMIN 権限が必要です</value>
         <value xml:lang="pt">Erro de segurança: para executar o ${resourceDescription} você deve ter a permissão de CONTENTMGR_CREATE ou CONTENTMGR_ADMIN</value>
         <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần có quyền CONTENTMGR_CREATE hoặc quyền CONTENTMGR_ADMIN</value>
         <value xml:lang="zh">安全错误：要运行${resourceDescription}，你必须有 CONTENTMGR_CREATE 或 CONTENTMGR_ADMIN 权限</value>
@@ -2539,6 +2606,7 @@
     <property key="ContentSecurityDeletePermission">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission</value>
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso CONTENTMGR_DELETE o CONTENTMGR_ADMIN</value>
+        <value xml:lang="ja">セキュリティエラー: ${resourceDescription} の実行には CONTENTMGR_DELETE または CONTENTMGR_ADMIN 権限が必要です</value>
         <value xml:lang="pt">Erro de segurança: para executar o ${resourceDescription} você deve ter a permissão de CONTENTMGR_DELETE ou CONTENTMGR_ADMIN</value>
         <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần có quyền CONTENTMGR_DELETE hoặc quyền CONTENTMGR_ADMIN</value>
         <value xml:lang="zh">安全错误：要运行${resourceDescription}，你必须有 CONTENTMGR_DELETE 或 CONTENTMGR_ADMIN 权限</value>
@@ -2546,6 +2614,7 @@
     <property key="ContentSecurityUpdatePermission">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission</value>
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso CONTENTMGR_UPDATE o CONTENTMGR_ADMIN</value>
+        <value xml:lang="ja">セキュリティエラー: ${resourceDescription} の実行には CONTENTMGR_UPDATE または CONTENTMGR_ADMIN 権限が必要です</value>
         <value xml:lang="pt">Erro de segurança: para executar o ${resourceDescription} você deve ter a permissão de CONTENTMGR_UPDATE ou CONTENTMGR_ADMIN</value>
         <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần có quyền CONTENTMGR_UPDATE hoặc quyền CONTENTMGR_ADMIN</value>
         <value xml:lang="zh">安全错误：要运行${resourceDescription}，你必须有 CONTENTMGR_UPDATE 或 CONTENTMGR_ADMIN 权限</value>
@@ -2565,6 +2634,7 @@
         <value xml:lang="en">Problem updating content Status: ${errorString}</value>
         <value xml:lang="fr">Problème lors de la mise à jour du statut du document : ${errorString}</value>
         <value xml:lang="it">Problema durante l'aggiornamento dello stato del contenuto: ${errorString}</value>
+        <value xml:lang="ja">コンテンツステータスの更新中にエラー: ${errorString}</value>
         <value xml:lang="pt">Problema ao atualizar o Status do conteúdo: ${errorString}</value>
         <value xml:lang="vi">Cập nhật trạng thái nội dung không thành công: ${errorString}</value>
         <value xml:lang="zh">更新内容状态时出错：${errorString}</value>
@@ -2607,7 +2677,7 @@
         <value xml:lang="fr">Résumé</value>
         <value xml:lang="hi_IN">साराशं</value>
         <value xml:lang="it">Sommario</value>
-        <value xml:lang="ja">Summary</value>
+        <value xml:lang="ja">サマリ</value>
         <value xml:lang="nl">Samenvatting</value>
         <value xml:lang="pt_BR">Resumo</value>
         <value xml:lang="ro">Breviar</value>
@@ -2684,6 +2754,7 @@
         <value xml:lang="en">You have already responded to this survey; multiple responses are not allowed</value>
         <value xml:lang="fr">Vous avez déjà répondu au questionnaire. De multiples réponses ne sont pas autorisées</value>
         <value xml:lang="it">Tu hai già risposto a questo sondaggio; risposte multiple non sono consentite</value>
+        <value xml:lang="ja">すでにこの評価に回答しています。重複しての回答はできません</value>
         <value xml:lang="pt">Você já respondeu a esta pesquisa; múltiplas respostas não são permitidas.</value>
         <value xml:lang="vi">Bạn đã phản hồi cho bản khảo sát này rồi; phản hồi nhiều lần không được cho phép</value>
         <value xml:lang="zh">你已经回答这个调查了；不允许多个回答</value>
@@ -2692,6 +2763,7 @@
         <value xml:lang="en">Anonymous response to this survey is not allowed (you must be logged in)</value>
         <value xml:lang="fr">Les réponses anonymes ne sont pas autorisées pour ce questionnaire (Vous devez être connecté)</value>
         <value xml:lang="it">Risposta anonima per questo sondaggio non è consentita (ti devi autenticare)</value>
+        <value xml:lang="ja">匿名での回答はできません（ログインしてください）</value>
         <value xml:lang="pt">Respostas anônimas para esta pesquisa não são permitidas (você precisa estar logado)</value>
         <value xml:lang="vi">Khách không được quyền phản hồi Bản khảo sát này (bạn cần đăng nhập)</value>
         <value xml:lang="zh">不允许对这个调查匿名回答（你必须登录）</value>
@@ -2700,6 +2772,7 @@
         <value xml:lang="en">No answers were found</value>
         <value xml:lang="fr">Pas de réponses trouvées</value>
         <value xml:lang="it">Nessuna risposta è stata trovata</value>
+        <value xml:lang="ja">回答が見つかりません</value>
         <value xml:lang="pt">Não foram encontradas respostas</value>
         <value xml:lang="vi">Hệ thống chưa có Ý kiến trả lời nào</value>
         <value xml:lang="zh">没有找到回答</value>
@@ -2846,6 +2919,7 @@
         <value xml:lang="en">Error building PDF from SurveyResponse: </value>
         <value xml:lang="fr">Erreur dans la construction du PDF des réponses du sondage : </value>
         <value xml:lang="it">Errore durante la creazione del PDF dalla risposta del sondaggio: </value>
+        <value xml:lang="ja">評価回答からPDFの生成中にエラー: </value>
         <value xml:lang="pt">Erro ao criar PDF de SurveyResponse: </value>
         <value xml:lang="vi">Lỗi kết xuất PDF từ phản hồi khảo sát: </value>
         <value xml:lang="zh">从调查回答（SurveyResponse）生成PDF时出错：</value>
@@ -2854,6 +2928,7 @@
         <value xml:lang="en">Error setting AcroFields from SurveyResponse: </value>
         <value xml:lang="fr">Erreur dans l'enregistrement des AcroFields des réponses du sondage: </value>
         <value xml:lang="it">Errore durante l'impostazioni di AcroFields dalla risposta del sondaggio: </value>
+        <value xml:lang="ja">評価回答からAcroフィールドの設定中にエラー: </value>
         <value xml:lang="pt">Erro ao definir o AcroFields a partir de SurveyResponse: </value>
         <value xml:lang="vi">Lỗi thiết lập AcroFields từ Phản hồi khảo sát: </value>
         <value xml:lang="zh">根据调查回答（SurveyResponse）设置AcroFields时出错：</value>
@@ -3009,6 +3084,7 @@
         <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a response.</value>
         <value xml:lang="fr">La question ${surveyQuestionAndAppl.question} nécessite une réponse.</value>
         <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede una risposta.</value>
+        <value xml:lang="ja">質問 ${surveyQuestionAndAppl.question} は必ず入力してください。</value>
         <value xml:lang="pt">A pergunta ${surveyQuestionAndAppl.question} requer uma resposta.</value>
         <value xml:lang="vi">Câu hỏi ${surveyQuestionAndAppl.question} yêu cầu cần phản hồi.</value>
         <value xml:lang="zh">必须回答问题${surveyQuestionAndAppl.question}。</value>
@@ -3017,6 +3093,7 @@
         <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid credit-card number.</value>
         <value xml:lang="fr">La question ${surveyQuestionAndAppl.question} nécessite un numéro de carte de crédit valide.</value>
         <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede una carta di credito valida.</value>
+        <value xml:lang="ja">質問 ${surveyQuestionAndAppl.question} はクレジットカード番号を入力してください。</value>
         <value xml:lang="pt">A pergunta ${surveyQuestionAndAppl.question} requer um número de cartão de crédito válido.</value>
         <value xml:lang="vi">Câu hỏi ${surveyQuestionAndAppl.question} yêu cầu số thẻ tín dụng hợp lệ.</value>
         <value xml:lang="zh">问题${surveyQuestionAndAppl.question}必须用一个有效的信用卡号码回答。</value>
@@ -3025,6 +3102,7 @@
         <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid currency amount.</value>
         <value xml:lang="fr">La question ${surveyQuestionAndAppl.question} nécessite un montant valide.</value>
         <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede un'importo in valuta valido.</value>
+        <value xml:lang="ja">質問 ${surveyQuestionAndAppl.question} は正しい金額を入力してください。</value>
         <value xml:lang="pt">A pergunta ${surveyQuestionAndAppl.question} requer uma quantidade de moeda válida.</value>
         <value xml:lang="vi">Câu hỏi ${surveyQuestionAndAppl.question} yêu cầu có đủ tiền.</value>
         <value xml:lang="zh">问题${surveyQuestionAndAppl.question}必须用一个有效的金额回答。</value>
@@ -3033,6 +3111,7 @@
         <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid date string (mm/dd/yyyy).</value>
         <value xml:lang="fr">La question ${surveyQuestionAndAppl.question} nécessite une date valide (mm/jj/aaaa).</value>
         <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede una data valida (mm/gg/aaaa).</value>
+        <value xml:lang="ja">質問 ${surveyQuestionAndAppl.question} は正しい書式(mm/dd/yyyy)で日付を入力してください。</value>
         <value xml:lang="pt">A pergunta ${surveyQuestionAndAppl.question} requer uma Cadeia de caracteres válida de data (dd/mm/aaaa).</value>
         <value xml:lang="vi">Câu hỏi ${surveyQuestionAndAppl.question} yêu cầu định dạng ngày hợp lệ (mm/dd/yyyy).</value>
         <value xml:lang="zh">问题${surveyQuestionAndAppl.question}必须用一个有效的日期字符串（mm/dd/yyyy, 说明：按月/日/年的格式）回答。</value>
@@ -3041,6 +3120,7 @@
         <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid decimal number.</value>
         <value xml:lang="fr">La question ${surveyQuestionAndAppl.question} nécessite un nombre décimal.</value>
         <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede un numero con decimali valido.</value>
+        <value xml:lang="ja">質問 ${surveyQuestionAndAppl.question} を正しく小数で入力してください。</value>
         <value xml:lang="pt">A pergunta ${surveyQuestionAndAppl.question} requer um número decimal válido.</value>
         <value xml:lang="vi">Câu hỏi ${surveyQuestionAndAppl.question} yêu cầu định dạng số hệ 10 hợp lệ.</value>
         <value xml:lang="zh">问题${surveyQuestionAndAppl.question}必须用一个有效数字回答。</value>
@@ -3049,6 +3129,7 @@
         <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid email address.</value>
         <value xml:lang="fr">La question ${surveyQuestionAndAppl.question} nécessite une adresse courriel valide.</value>
         <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede un'indirizzo e-mail valido.</value>
+        <value xml:lang="ja">質問 ${surveyQuestionAndAppl.question} は正しいEメールアドレスを入力してください。</value>
         <value xml:lang="pt">A pergunta ${surveyQuestionAndAppl.question} requer um endereço de e-mail válido.</value>
         <value xml:lang="vi">Câu hỏi ${surveyQuestionAndAppl.question} yêu cầu định dạng thư điện tử hợp lệ.</value>
         <value xml:lang="zh">问题${surveyQuestionAndAppl.question}必须用一个有效的电子邮件地址回答。</value>
@@ -3057,6 +3138,7 @@
         <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid gift-card number.</value>
         <value xml:lang="fr">La question ${surveyQuestionAndAppl.question} nécessite un numéro de carte cadeau.</value>
         <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede una carta regalo valida.</value>
+        <value xml:lang="ja">質問 ${surveyQuestionAndAppl.question} は正しいギフトカード番号を入力してください。</value>
         <value xml:lang="pt">A pergunta ${surveyQuestionAndAppl.question} requer um número válido de cartão de presente.</value>
         <value xml:lang="vi">Câu hỏi ${surveyQuestionAndAppl.question} yêu cầu định dạng số thẻ quà tặng hợp lệ.</value>
         <value xml:lang="zh">问题${surveyQuestionAndAppl.question}必须用一个有效的礼品卡号回答。</value>
@@ -3065,6 +3147,7 @@
         <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid URL.</value>
         <value xml:lang="fr">La question ${surveyQuestionAndAppl.question} nécessite une URL valide.</value>
         <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede un URL valido.</value>
+        <value xml:lang="ja">質問 ${surveyQuestionAndAppl.question} は正しいURLを入力してください。</value>
         <value xml:lang="pt">A pergunta ${surveyQuestionAndAppl.question} requer uma URL válida.</value>
         <value xml:lang="vi">Câu hỏi ${surveyQuestionAndAppl.question} yêu cầu định dạng URL hợp lệ.</value>
         <value xml:lang="zh">问题${surveyQuestionAndAppl.question}必须用一个有效的网址回答。</value>
@@ -3073,6 +3156,7 @@
         <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid whole number.</value>
         <value xml:lang="fr">La question ${surveyQuestionAndAppl.question} nécessite un nombre entier.</value>
         <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede un numero intero valido.</value>
+        <value xml:lang="ja">質問 ${surveyQuestionAndAppl.question} を正しく整数で入力してください。</value>
         <value xml:lang="pt">A pergunta ${surveyQuestionAndAppl.question} requer um número inteiro válido.</value>
         <value xml:lang="vi">Câu hỏi ${surveyQuestionAndAppl.question} yêu cầu định dạng số hợp lệ,</value>
         <value xml:lang="zh">问题${surveyQuestionAndAppl.question}必须用一个有效的整数回答。</value>
@@ -3191,6 +3275,7 @@
         <value xml:lang="en">TIFF</value>
         <value xml:lang="fr">TIFF</value>
         <value xml:lang="it">TIFF</value>
+        <value xml:lang="ja">TIFF</value>
         <value xml:lang="pt">TIFF</value>
         <value xml:lang="vi">Ảnh TIFF</value>
         <value xml:lang="zh">TIFF</value>
@@ -3335,6 +3420,7 @@
         <value xml:lang="en">thruDate not a valid date format</value>
         <value xml:lang="fr">le champ thruDate n'est pas au bon format</value>
         <value xml:lang="it">Data al non è nel formato valido.</value>
+        <value xml:lang="ja">終了日の書式が正しくありません</value>
         <value xml:lang="pt">thruDate não um formato de data válida</value>
         <value xml:lang="vi">Ngày đến không đúng định dạng</value>
         <value xml:lang="zh">截止日期（thruDate）不是一个有效的日期格式</value>
@@ -3387,6 +3473,7 @@
         <value xml:lang="en">Unable to obtain a reference to file ${objectInfo}</value>
         <value xml:lang="fr">Impossible d'obtenir la référence du fichier ${objectInfo}</value>
         <value xml:lang="it">Non è possibile ottenere un riferimento al file ${objectInfo}</value>
+        <value xml:lang="ja">ファイル ${objectInfo} を読み込みできません</value>
         <value xml:lang="pt">Não é possível obter uma referência ao arquivo ${objectInfo}</value>
         <value xml:lang="vi">Không tạo được tham chiếu đến tập tin ${objectInfo}</value>
         <value xml:lang="zh">无法获得到文件${objectInfo}的引用</value>
@@ -3395,6 +3482,7 @@
         <value xml:lang="en">Unable to open file for writing: ${fileName}</value>
         <value xml:lang="fr">Impossible d'ouvrir le fichier ${fileName} en écriture</value>
         <value xml:lang="it">Non è possibile aprire il file in scrittura: ${fileName}</value>
+        <value xml:lang="ja">ファイル ${fileName} が書き込みできません</value>
         <value xml:lang="pt">Não é possível abrir o arquivo para gravação: ${nome}</value>
         <value xml:lang="vi">Không mở được tập tin để ghi vào: ${fileName}</value>
         <value xml:lang="zh">无法打开文件来写入：${fileName}</value>
@@ -3403,6 +3491,7 @@
         <value xml:lang="en">Unable to write binary data to: ${fileName}</value>
         <value xml:lang="fr">Impossible d'écrire les données binaires dans le fichier ${fileName}</value>
         <value xml:lang="it">Non è possibile scrivere i dati binari in: ${fileName}</value>
+        <value xml:lang="ja">ファイル ${fileName} にバイナリデータを書き込みできません</value>
         <value xml:lang="pt">Não é possível gravar dados binários para: ${nome}</value>
         <value xml:lang="vi">Không thể ghi dữ liệu nhị phân tới: ${fileName}</value>
         <value xml:lang="zh">无法把二进制数据写到：${fileName}</value>
@@ -3411,6 +3500,7 @@
         <value xml:lang="en">Unable to write character data to: ${fileName}</value>
         <value xml:lang="fr">Impossible d'écrire les données dans le fichier ${fileName}</value>
         <value xml:lang="it">Non è possibile scrivere i dati carattere in: ${fileName}</value>
+        <value xml:lang="ja">ファイル ${fileName} に文字データを書き込みできません</value>
         <value xml:lang="pt">Não é possível gravar dados de caracteres para: ${nome}</value>
         <value xml:lang="vi">Không thể ghi dữ liệu ký tự tới: ${fileName}</value>
         <value xml:lang="zh">无法把字符数据写到：${fileName}</value>
@@ -3433,6 +3523,7 @@
         <value xml:lang="en">Upload file type not match your selected.</value>
         <value xml:lang="fr">Le type de fichier chargé ne correspond pas avec votre selection.</value>
         <value xml:lang="it">Tipo file da caricare non corrisponde alla tua selezione.</value>
+        <value xml:lang="ja">選択したアップロードファイルの種類が一致しません。</value>
         <value xml:lang="pt">Tipo de arquivo do upload não coincide com o selecionado.</value>
         <value xml:lang="vi">Kiểu tập tin tải lên không đúng với kiểu bạn đã chọn.</value>
         <value xml:lang="zh">上传文件类型与你选择的不符。</value>
@@ -3482,6 +3573,7 @@
         <value xml:lang="en">visitedSet already contains: </value>
         <value xml:lang="fr">visitedSet contient déjà : </value>
         <value xml:lang="it">visitedSet contiene già: </value>
+        <value xml:lang="ja">訪問設定はすでにあります: </value>
         <value xml:lang="pt">visitedSet já contém: </value>
         <value xml:lang="vi">Nội dung đã xem:</value>
         <value xml:lang="zh">访问设置（visitedSet）已包含：</value>
@@ -3569,18 +3661,21 @@
     </property>
     <property key="ContentWebSiteContactList">
         <value xml:lang="en">Contact Lists</value>
+        <value xml:lang="ja">連絡リスト</value>
         <value xml:lang="pt">Listas de contatos</value>
         <value xml:lang="vi">Danh sách liên hệ</value>
         <value xml:lang="zh">联系方式列表</value>
     </property>
     <property key="ContentWebSiteContactListCreate">
         <value xml:lang="en">Create Contact List</value>
+        <value xml:lang="ja">連絡リストを作成</value>
         <value xml:lang="pt">Criar lista de contatos</value>
         <value xml:lang="vi">Tạo danh sách liên hệ</value>
         <value xml:lang="zh">创建联系方式列表</value>
     </property>
     <property key="ContentWebSiteContactListView">
         <value xml:lang="en">Contact Lists View</value>
+        <value xml:lang="ja">連絡リスト表示</value>
         <value xml:lang="pt">Visualizar lista de contatos</value>
         <value xml:lang="vi">Xem danh sách liên hệ</value>
         <value xml:lang="zh">联系方式列表视图</value>
@@ -3601,6 +3696,7 @@
     </property>
     <property key="ContentWebSiteGenerateMissingSeoUrl">
         <value xml:lang="en">Generate missing seo url's</value>
+        <value xml:lang="ja">SEO URLの生成に失敗しました</value>
         <value xml:lang="pt">Gerar urls necessárias para SEO</value>
         <value xml:lang="vi">Sinh các liên kết URL phục vụ SEO bị thiếu</value>
         <value xml:lang="zh">生成缺失的搜索引擎优化的网址</value>
@@ -3651,6 +3747,7 @@
         <value xml:lang="de">Ein Fehler beim Laden des Inhaltes ist aufgetrete!</value>
         <value xml:lang="en">An error occured loading content!</value>
         <value xml:lang="fr">Erreur dans le chargement du document !</value>
+        <value xml:lang="ja">コンテンツのロード中にエラーが発生しました!</value>
         <value xml:lang="pt">Um erro ocorreu ao carregar conteúdo!</value>
         <value xml:lang="vi">Lỗi khi tải nội dung !</value>
         <value xml:lang="zh">载入内容时发生错误！</value>
@@ -5940,6 +6037,7 @@
     <property key="PageTitleAddContentKeyword">
         <value xml:lang="en">Add Content Keyword</value>
         <value xml:lang="fr">Ajout de mot clé document</value>
+        <value xml:lang="ja">コンテンツキーワードを追加</value>
         <value xml:lang="pt">Adicionar palavra-chave de conteúdo</value>
         <value xml:lang="vi">Thêm từ khóa cho nội dung</value>
         <value xml:lang="zh">添加内容关键字</value>
@@ -5963,6 +6061,7 @@
     <property key="PageTitleAddDataResourceFromContent">
         <value xml:lang="en">Add DataResource From Content</value>
         <value xml:lang="fr">Ajouter une ressource de données pour un contenu</value>
+        <value xml:lang="ja">コンテンツからデータリソースを追加</value>
         <value xml:lang="pt">Adicionar Recurso de dados de conteúdo</value>
         <value xml:lang="vi">Thêm tài nguyên dữ liệu từ nội dung</value>
         <value xml:lang="zh">从内容（Content）添加数据资源（DataResource）</value>
@@ -6353,6 +6452,7 @@
     <property key="PageTitleEditContentKeywords">
         <value xml:lang="en">Edit Content Keywords</value>
         <value xml:lang="fr">Édition des mots-clés document</value>
+        <value xml:lang="ja">コンテンツキーワードを編集</value>
         <value xml:lang="pt">Editar conteúdo palavras-chave</value>
         <value xml:lang="vi">Sửa đổi từ khóa nội dung</value>
         <value xml:lang="zh">编辑内容关键字</value>
@@ -7355,7 +7455,7 @@
         <value xml:lang="en">Navigate Content</value>
         <value xml:lang="fr">Naviguer dans le contenu</value>
         <value xml:lang="it">Naviga contenuto</value>
-        <value xml:lang="ja">コンテンツをナビゲート</value>
+        <value xml:lang="ja">コンテンツのナビゲート</value>
         <value xml:lang="pt">Navegar pelo conteúdo</value>
         <value xml:lang="th">เลือกดูเนื้อหา</value>
         <value xml:lang="vi">Thực đơn truy nhập</value>
@@ -7527,6 +7627,7 @@
     </property>
     <property key="PageTitleWebSiteSEO">
         <value xml:lang="en">Generate Missing SEO URL's</value>
+        <value xml:lang="ja">SEO URLの生成に失敗しました</value>
         <value xml:lang="pt">Gerar URL's faltantes para SEO</value>
         <value xml:lang="vi">Sinh lại các URL dành cho SEO bị thiếu</value>
         <value xml:lang="zh">生成缺失的搜索引擎优化的网址</value>
