@@ -289,7 +289,7 @@ under the License.
       <field name="facilityId" type="id-ne"></field>
       <prim-key field="agreementId"/>
       <prim-key field="agreementItemSeqId"/>
-      <prim-key field="faciliyId"/>
+      <prim-key field="facilityId"/>
       <relation type="one-nofk" rel-entity-name="Agreement">
         <key-map field-name="agreementId"/>
       </relation>
@@ -298,7 +298,7 @@ under the License.
         <key-map field-name="agreementItemSeqId"/>
       </relation>
       <relation type="one" fk-name="AGRMNT_FACLT_PRD" rel-entity-name="Facility">
-        <key-map field-name="faciliyId"/>
+        <key-map field-name="facilityId"/>
       </relation>
     </entity>
     <entity entity-name="AgreementRole"
