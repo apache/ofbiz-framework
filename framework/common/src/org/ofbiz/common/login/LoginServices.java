@@ -118,7 +118,7 @@ public class LoginServices {
             }
 
             boolean repeat = true;
-            // starts at zero but it incremented at the beggining so in the first pass passNumber will be 1
+            // starts at zero but it incremented at the beginning so in the first pass passNumber will be 1
             int passNumber = 0;
 
             while (repeat) {

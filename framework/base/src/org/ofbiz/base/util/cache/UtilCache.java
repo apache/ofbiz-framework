@@ -106,11 +106,11 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
     /** Specifies whether or not to use soft references for this cache, defaults to false */
     protected boolean useSoftReference = false;
 
-    /** Specifies whether or not to use file base stored for this cache, defautls to false */
+    /** Specifies whether or not to use file base stored for this cache, defaults to false */
     protected boolean useFileSystemStore = false;
     private String fileStore = "runtime/data/utilcache";
 
-    /** The set of listeners to receive notifcations when items are modidfied(either delibrately or because they were expired). */
+    /** The set of listeners to receive notifications when items are modified (either deliberately or because they were expired). */
     protected Set<CacheListener<K, V>> listeners = new CopyOnWriteArraySet<CacheListener<K, V>>();
 
     protected transient HTree<Object, V> fileTable = null;
@@ -278,7 +278,7 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
     }
 
     /** Puts or loads the passed element into the cache
-     * @param key The key for the element, used to reference it in the hastables and LRU linked list
+     * @param key The key for the element, used to reference it in the hashtables and LRU linked list
      * @param value The value of the element
      */
     public V put(K key, V value) {
@@ -363,7 +363,7 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
     }
 
     /** Puts or loads the passed element into the cache
-     * @param key The key for the element, used to reference it in the hastables and LRU linked list
+     * @param key The key for the element, used to reference it in the hashtables and LRU linked list
      * @param value The value of the element
      * @param expireTimeMillis how long to keep this key in the cache
      */
@@ -435,7 +435,7 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
     }
 
     /** Gets an element from the cache according to the specified key.
-     * @param key The key for the element, used to reference it in the hastables and LRU linked list
+     * @param key The key for the element, used to reference it in the hashtables and LRU linked list
      * @return The value of the element specified by the key
      */
     public V get(Object key) {
@@ -538,7 +538,7 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
     }
 
     /** Removes an element from the cache according to the specified key
-     * @param key The key for the element, used to reference it in the hastables and LRU linked list
+     * @param key The key for the element, used to reference it in the hashtables and LRU linked list
      * @return The value of the removed element specified by the key
      */
     public V remove(Object key) {
@@ -820,7 +820,7 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
     }
 
     /** Returns a boolean specifying whether or not an element with the specified key is in the cache.
-     * @param key The key for the element, used to reference it in the hastables and LRU linked list
+     * @param key The key for the element, used to reference it in the hashtables and LRU linked list
      * @return True is the cache contains an element corresponding to the specified key, otherwise false
      */
     public boolean containsKey(Object key) {
