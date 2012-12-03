@@ -105,6 +105,7 @@ ofbiz/trunk/framework/geronimo/lib/geronimo-transaction-2.1.1.jar
 ofbiz/trunk/applications/content/lib/fontbox-1.7.1.jar
 ofbiz/trunk/applications/content/lib/jempbox-1.7.1.jar
 ofbiz/trunk/applications/content/lib/lucene-analyzers-common-4.0.0.jar
+ofbiz/trunk/applications/content/lib/lucene-core-3.0.0.jar
 ofbiz/trunk/applications/content/lib/lucene-core-4.0.0.jar
 ofbiz/trunk/applications/content/lib/lucene-queryparser-4.0.0.jar
 ofbiz/trunk/applications/content/lib/pdfbox-1.7.1.jar
@@ -112,10 +113,13 @@ ofbiz/trunk/applications/content/lib/poi-3.8-20120326.jar
 ofbiz/trunk/applications/content/lib/poi-ooxml-3.8-20120326.jar
 ofbiz/trunk/applications/content/lib/poi-ooxml-schemas-3.8-20120326.jar
 ofbiz/trunk/applications/content/lib/poi-scratchpad-3.8-20120326.jar
+ofbiz/trunk/applications/content/template/docbook/extensions/tagsoup-1.2.1.jar
 ofbiz/trunk/applications/content/lib/tika-core-1.0.jar
 ofbiz/trunk/applications/content/lib/tika-parsers-1.0.jar
+ofbiz/trunk/applications/content/template/docbook/extensions/xalan27.jar
 ofbiz/trunk/applications/product/lib/dozer-4.2.1.jar
 ofbiz/trunk/applications/product/lib/watermarker-0.0.4.jar
+ofbiz/trunk/applications/content/template/docbook/extensions/webhelpindexer.jar
 ofbiz/trunk/specialpurpose/googlecheckout/lib/checkout-sdk-0.8.8.jar
 =========================================================================
                                  Apache License
@@ -823,7 +827,7 @@ ofbiz/trunk/applications/content/template/docbook/extensions/saxon65.jar
      "MPL", "NPL" or any confusingly similar phrase do not appear in your
      license (except to note that your license differs from this License)
      and (b) otherwise make it clear that Your version of the license
-     contains terms which differ from the Mozilla Public License and
+     contains terms which differ from thella Public License and
      Netscape Public License. (Filling in the name of the Initial
      Developer, Original Code or Contributor in the notice described in
      Exhibit A shall not of themselves be deemed to be modifications of
