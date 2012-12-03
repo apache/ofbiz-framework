@@ -522,6 +522,7 @@ Mozilla Public License Version 1.1:
 ofbiz/trunk/specialpurpose/pos/lib/XuiCoreSwing-v3.2rc2b.jar
 ofbiz/trunk/specialpurpose/pos/lib/XuiOptional-v3.2rc2b.jar
 ofbiz/trunk/framework/webapp/lib/iText-2.1.7.jar
+ofbiz/trunk/applications/content/template/docbook/extensions/saxon65.jar
 =========================================================================
                           MOZILLA PUBLIC LICENSE
                                 Version 1.1
@@ -1225,6 +1226,7 @@ ofbiz/trunk/framework/base/lib/slf4j-simple-1.6.4.jar
 ofbiz/trunk/framework/images/webapp/images/jquery/*
 ofbiz/trunk/specialpurpose/webpos/webapp/webpos/images/js/jquery.hotkeys-0.7.9.min.js
 ofbiz/trunk/specialpurpose/webpos/webapp/webpos/images/js/WebPosHotkeys.js
+ofbiz/trunk/applications/content/template/docbook/webhelp/* 
 =========================================================================
 The MIT License
 
@@ -2784,4 +2786,50 @@ OF SUCH DAMAGES.
      Licensor shall not be bound by any additional provisions that may appear
      in any communication from You. This License may not be modified without
      the mutual written agreement of the Licensor and You.
+=========================================================================
+Web-based Help from DocBook XML license
+David Cramer <dcramer AT motive DOT com><david AT thingbag DOT net>
+Kasun Gajasinghe <kasunbg AT gmail DOT com>
+Copyright © 2008-2010 Kasun Gajasinghe, David Cramer
 
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+and associated documentation files (the “Software”), to deal in the Software without restriction, 
+including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, 
+subject to the following conditions:
+
+    * The above copyright notice and this permission notice shall be included in all copies or substantial 
+    portions of the Software.
+    * Except as contained in this notice, the names of individuals credited with contribution to this software 
+    shall not be used in advertising or otherwise to promote the sale, use or other dealings in this Software 
+    without prior written authorization from the individuals in question.
+    * Any stylesheet derived from this Software that is publicly distributed will be identified with a different 
+    name and the version strings in any derived Software will be changed so that no possibility of confusion 
+    between the derived package and this Software will exist.
+
+Warranty: THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE 
+AND NONINFRINGEMENT. IN NO EVENT SHALL DAVID CRAMER, KASUN GAJASINGHE, OR ANY OTHER CONTRIBUTOR 
+BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
+OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+This package is maintained by Kasun Gajasinghe, <kasunbg AT gmail DOT com> and David Cramer, <david AT thingbag DOT net>.
+
+This package also includes the following software written and copyrighted by others:
+
+This package also includes the following software written and copyrighted by others:
+    * Files in template/common/jquery are copyrighted by JQuery under the MIT License. 
+      The file jquery.cookie.js Copyright (c) 2006 Klaus Hartl under the MIT license.
+    * Some files in the template/content/search and indexer directories were originally 
+      part of N. Quaine's htmlsearch DITA plugin. The htmlsearch DITA plugin is 
+      available from the files page of the DITA-users yahoogroup. 
+      The htmlsearch plugin was released under a BSD-style license. 
+      See indexer/license.txt for details.
+    * Stemmers from the Snowball project released under a BSD license.
+    * Code from the Apache Lucene search engine provides support for tokenizing Chinese, 
+      Japanese, and Korean content released under the Apache 2.0 license.
+    * Code that provides weighted search results and some other improvements was graciously 
+      donated by SyncRO Soft Ltd., the publishers of the oXygen XML Editor.
+    * Cosmetic improvements provided by OpenStack.
+
+Webhelp for DocBook was developed as a Google Summer of Code project. August 2010
