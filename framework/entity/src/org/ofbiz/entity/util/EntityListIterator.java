@@ -485,13 +485,11 @@ public class EntityListIterator implements ListIterator<GenericValue> {
             list.add(this.currentGenericValue());
 
             GenericValue nextValue = null;
-            // init numRetrieved to one since we have already grabbed the initial one
-            int numRetrieved = 1;
 
-            //number > numRetrieved comparison goes first to avoid the unwanted call to next
-            while (number > numRetrieved && (nextValue = this.next()) != null) {
+            //number > 1 comparison goes first to avoid the unwanted call to next
+            while (number > 1 && (nextValue = this.next()) != null) {
                 list.add(nextValue);
-                numRetrieved++;
+                number--;
             }
             return list;
         } catch (SQLException e) {
