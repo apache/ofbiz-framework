@@ -211,7 +211,12 @@ public class EntityListIterator implements ListIterator<GenericValue> {
         if (closed) throw new GenericResultSetClosedException("This EntityListIterator has been closed, this operation cannot be performed");
 
         try {
-            return resultSet.absolute(rowNum);
+            if (rowNum == 0) {
+                resultSet.beforeFirst();
+                return true;
+            } else {
+                return resultSet.absolute(rowNum);
+            }
         } catch (SQLException e) {
             if (!closed) {
                 this.close();
