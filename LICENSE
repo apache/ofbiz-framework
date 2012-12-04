@@ -38,6 +38,7 @@ ofbiz/trunk/framework/base/lib/ws-commons-java5-1.0.1.jar
 ofbiz/trunk/framework/base/lib/ws-commons-util-1.0.2.jar
 ofbiz/trunk/framework/base/lib/xercesImpl-2.9.1.jar
 ofbiz/trunk/framework/base/lib/xml-apis-2.9.1.jar
+ofbiz/trunk/framework/base/lib/xml-apis-ext-1.3.04.jar
 ofbiz/trunk/framework/base/lib/commons/commons-beanutils-1.8.3.jar
 ofbiz/trunk/framework/base/lib/commons/commons-cli-1.2.jar
 ofbiz/trunk/framework/base/lib/commons/commons-codec-1.6.jar
@@ -2575,10 +2576,13 @@ It was allowed by the author to use the docbook files within the
 Apache OFBiz system in an email to H.Bakker from N.Walsh dd
 Tue, 25 Aug 2009 07:27:51 -0400 (18:27 ICT)
 =========================================================================
+The following libraries are licensed under the Creative Commons Attribution 
+2.5 License:
+jcip-annotations-1.0.jar
+
 Apache Ofbiz includes images in the ofbiz/framework/images/webapp/images/icons
 directory with the following licence: Creative Commons Attribution 2.5 License
 and condition :
-
 
 =========================================================================
 Creative Commons Attribution 2.5 License.
