@@ -467,37 +467,21 @@ public class EntityListIterator implements ListIterator<GenericValue> {
             // just in case the caller missed the 1 based thingy
             if (start == 0) start = 1;
 
-            // if starting on result 1 just call next() to avoid scrollable issues in some databases
-            if (start == 1) {
-                if (!resultSet.next()) {
-                    return list;
-                }
-            } else {
-                // if can't reposition to desired index, throw exception
-                if (!this.absolute(start)) {
-                    // maybe better to just return an empty list here...
-                    return list;
-                    //throw new GenericEntityException("Could not move to the start position of " + start + ", there are probably not that many results for this find.");
-                }
+            // if can't reposition to desired index, throw exception
+            if (!this.absolute(start - 1)) {
+                // maybe better to just return an empty list here...
+                return list;
+                //throw new GenericEntityException("Could not move to the start position of " + start + ", there are probably not that many results for this find.");
             }
-
-            // get the first as the current one
-            list.add(this.currentGenericValue());
 
             GenericValue nextValue = null;
 
-            //number > 1 comparison goes first to avoid the unwanted call to next
-            while (number > 1 && (nextValue = this.next()) != null) {
+            //number > 0 comparison goes first to avoid the unwanted call to next
+            while (number > 0 && (nextValue = this.next()) != null) {
                 list.add(nextValue);
                 number--;
             }
             return list;
-        } catch (SQLException e) {
-            if (!closed) {
-                this.close();
-                Debug.logWarning("Warning: auto-closed EntityListIterator because of exception: " + e.toString(), module);
-            }
-            throw new GeneralRuntimeException("Error getting results", e);
         } catch (GeneralRuntimeException e) {
             if (!closed) {
                 this.close();
