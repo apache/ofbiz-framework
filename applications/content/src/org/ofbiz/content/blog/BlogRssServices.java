@@ -20,7 +20,6 @@
 package org.ofbiz.content.blog;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;

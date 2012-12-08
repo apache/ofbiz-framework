@@ -33,7 +33,6 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Assert;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ScriptUtil;
-import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;

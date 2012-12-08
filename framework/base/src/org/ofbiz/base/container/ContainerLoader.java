@@ -26,7 +26,6 @@ import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.start.Config;
@@ -35,7 +34,6 @@ import org.ofbiz.base.start.StartupLoader;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.UtilXml;
 
 /**
  * An object that loads containers (background processes).

@@ -27,7 +27,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
