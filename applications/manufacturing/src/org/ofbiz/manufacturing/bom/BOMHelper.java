@@ -20,7 +20,6 @@
 package org.ofbiz.manufacturing.bom;
 
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import org.ofbiz.base.util.Debug;
@@ -112,7 +111,6 @@ public class BOMHelper {
                 UtilMisc.toMap("productIdTo", productId, "productAssocTypeId", bomType), null, true);
         productNodesList = EntityUtil.filterByDate(productNodesList, inDate);
         GenericValue duplicatedNode = null;
-        Iterator<GenericValue> nodesIterator = productNodesList.iterator();
         for(GenericValue oneNode : productNodesList) {
             for (int i = 0; i < productIdKeys.size(); i++) {
                 if (oneNode.getString("productId").equals(productIdKeys.get(i))) {
