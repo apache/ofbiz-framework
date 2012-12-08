@@ -21,7 +21,6 @@ package org.ofbiz.manufacturing.mrp;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;

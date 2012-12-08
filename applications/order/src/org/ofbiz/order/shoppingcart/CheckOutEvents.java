@@ -47,7 +47,6 @@ import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.marketing.tracking.TrackingCodeEvents;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.party.party.PartyWorker;
-import org.ofbiz.product.catalog.CatalogWorker;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;

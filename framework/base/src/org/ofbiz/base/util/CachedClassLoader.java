@@ -20,7 +20,6 @@ package org.ofbiz.base.util;
 
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.Set;

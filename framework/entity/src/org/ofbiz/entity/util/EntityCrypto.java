@@ -20,18 +20,14 @@ package org.ofbiz.entity.util;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import javax.crypto.SecretKey;
-import javax.transaction.Transaction;
 
 import org.apache.commons.codec.binary.Base64;
-
 import org.ofbiz.base.crypto.DesCrypt;
 import org.ofbiz.base.crypto.HashCrypt;
 import org.ofbiz.base.util.Debug;
@@ -39,11 +35,10 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.EntityCryptoException;
 import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.EntityCryptoException;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 
 public final class EntityCrypto {

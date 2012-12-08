@@ -18,7 +18,14 @@
  */
 package org.ofbiz.webapp.event;
 
-import java.util.*;
+import groovy.lang.GroovyClassLoader;
+import groovy.lang.Script;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import javax.script.ScriptContext;
 import javax.servlet.ServletContext;
@@ -26,16 +33,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import groovy.lang.GroovyClassLoader;
-import groovy.lang.Script;
 import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.runtime.InvokerHelper;
-import javolution.util.FastMap;
-
 import org.ofbiz.base.config.GenericConfigException;
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.service.ExecutionServiceException;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GroovyUtil;
+import org.ofbiz.base.util.ScriptHelper;
+import org.ofbiz.base.util.ScriptUtil;
+import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.service.config.ServiceConfigUtil;
 import org.ofbiz.webapp.control.ConfigXMLReader.Event;
 import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;

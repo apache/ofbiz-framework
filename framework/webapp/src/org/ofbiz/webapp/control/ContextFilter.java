@@ -21,9 +21,6 @@ package org.ofbiz.webapp.control;
 import static org.ofbiz.base.util.UtilGenerics.checkMap;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Collection;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
@@ -37,8 +34,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.CachedClassLoader;
 import org.ofbiz.base.util.Debug;

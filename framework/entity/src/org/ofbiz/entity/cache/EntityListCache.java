@@ -20,7 +20,6 @@ package org.ofbiz.entity.cache;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
 import org.ofbiz.entity.GenericValue;
