@@ -329,7 +329,7 @@ public class WebPosTransaction {
             boolean isExternal = true;
             Iterator<GenericValue> i = values.iterator();
             while (i.hasNext() && isExternal) {
-                GenericValue v = (GenericValue) i.next();
+                GenericValue v = i.next();
                 //Debug.logInfo("Testing [" + paymentMethodTypeId + "] - " + v, module);
                 if (!externalCode.equals(v.getString("paymentServiceTypeEnumId"))) {
                     isExternal = false;

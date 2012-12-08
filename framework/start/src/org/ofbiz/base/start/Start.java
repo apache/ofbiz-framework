@@ -238,7 +238,7 @@ public final class Start {
                     return;
                 }
                 try {
-                    String loaderClassName = (String) loaderMap.get("class");
+                    String loaderClassName = loaderMap.get("class");
                     Class<?> loaderClass = classloader.loadClass(loaderClassName);
                     StartupLoader loader = (StartupLoader) loaderClass.newInstance();
                     loader.load(config, loaderArgs.toArray(new String[loaderArgs.size()]));

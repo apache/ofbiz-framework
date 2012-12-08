@@ -261,7 +261,7 @@ public class OfbizUrlTransform implements TemplateTransformModel {
     String value = "";
         try{
             NodeList nlList= eElement.getElementsByTagName(sTag).item(0).getChildNodes();
-            Node nValue = (Node) nlList.item(0);
+            Node nValue = nlList.item(0);
             return value = nValue.getNodeValue();
         } catch (Exception e) {
             return value;

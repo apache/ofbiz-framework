@@ -69,7 +69,7 @@ public class PosDialog {
     }
 
     public static PosDialog getInstance(XPage page, boolean modal, int padding) {
-        PosDialog dialog = (PosDialog) instances.get(page);
+        PosDialog dialog = instances.get(page);
         if (dialog == null) {
             dialog = instances.putIfAbsentAndGet(page, new PosDialog(page, modal, padding));
         }

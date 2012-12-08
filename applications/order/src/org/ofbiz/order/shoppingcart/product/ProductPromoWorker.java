@@ -1446,7 +1446,7 @@ public class ProductPromoWorker {
                             if (ServiceUtil.isError(invReqResult)) {
                                 Debug.logError("Error calling isStoreInventoryAvailable service, result is: " + invReqResult, module);
                                 throw new CartItemModifyException((String) invReqResult.get(ModelService.ERROR_MESSAGE));
-                            } else if (!"Y".equals((String) invReqResult.get("available"))) {
+                            } else if (!"Y".equals(invReqResult.get("available"))) {
                                 Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderNotApplyingGwpBecauseProductIdIsOutOfStockForProductPromoAction", UtilMisc.toMap("productId", productId, "productPromoAction", productPromoAction), cart.getLocale()), module);
                                 productId = null;
                                 product = null;
@@ -1483,7 +1483,7 @@ public class ProductPromoWorker {
                         if (ServiceUtil.isError(invReqResult)) {
                             Debug.logError("Error calling isStoreInventoryAvailable service, result is: " + invReqResult, module);
                             throw new CartItemModifyException((String) invReqResult.get(ModelService.ERROR_MESSAGE));
-                        } else if (!"Y".equals((String) invReqResult.get("available"))) {
+                        } else if (!"Y".equals(invReqResult.get("available"))) {
                             optionProductIdIter.remove();
                         }
                     } catch (GenericServiceException e) {

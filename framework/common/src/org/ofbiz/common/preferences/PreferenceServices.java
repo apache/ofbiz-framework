@@ -242,7 +242,7 @@ public class PreferenceServices {
 
         try {
             for (Map.Entry<String, Object> mapEntry: userPrefMap.entrySet()) {
-                GenericValue rec = delegator.makeValidValue("UserPreference", PreferenceWorker.toFieldMap(userLoginId, mapEntry.getKey(), userPrefGroupTypeId, (String) mapEntry.getValue()));
+                GenericValue rec = delegator.makeValidValue("UserPreference", PreferenceWorker.toFieldMap(userLoginId, mapEntry.getKey(), userPrefGroupTypeId, mapEntry.getValue()));
                 delegator.createOrStore(rec);
             }
         } catch (GenericEntityException e) {

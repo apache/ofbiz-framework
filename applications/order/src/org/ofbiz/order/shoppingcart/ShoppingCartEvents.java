@@ -1990,7 +1990,7 @@ public class ShoppingCartEvents {
                     appendOrderItemMap.put("shipGroupSeqId", shipGroupSeqId);
                     try {
                         Map<String, Object> result = dispatcher.runSync("appendOrderItem", appendOrderItemMap);
-                        request.setAttribute("shoppingCart", (ShoppingCart) result.get("shoppingCart"));
+                        request.setAttribute("shoppingCart", result.get("shoppingCart"));
                         ShoppingCartEvents.destroyCart(request, response);
                     } catch (GenericServiceException e) {
                         Debug.logError(e, "Failed to execute service appendOrderItem", module);

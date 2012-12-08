@@ -278,7 +278,7 @@ TEMP_VIEW_LOOP:
                             mveIt.remove();
                             curViewEntity.populateFields(this);
                             for (ModelViewEntity.ModelMemberEntity mve: curViewEntity.getAllModelMemberEntities()) {
-                                ModelEntity me = (ModelEntity) entityCache.get(mve.getEntityName());
+                                ModelEntity me = entityCache.get(mve.getEntityName());
                                 me.addViewEntity(curViewEntity);
                             }
                             entityCache.put(curViewEntity.getEntityName(), curViewEntity);

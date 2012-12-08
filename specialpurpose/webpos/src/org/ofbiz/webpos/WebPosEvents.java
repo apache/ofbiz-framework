@@ -55,7 +55,7 @@ public class WebPosEvents {
         HttpSession session = request.getSession(true);
         
         // get the posTerminalId
-        String posTerminalId = (String) request.getParameter("posTerminalId");
+        String posTerminalId = request.getParameter("posTerminalId");
         session.removeAttribute("shoppingCart");
         session.removeAttribute("webPosSession");
         WebPosSession webPosSession = WebPosEvents.getWebPosSession(request, posTerminalId);
@@ -186,7 +186,7 @@ public class WebPosEvents {
                                             List<String> featureOrder = FastList.newInstance();
                                             featureOrder = UtilMisc.toList(featureSet);
                                             for (int i=0; i < featureOrder.size(); i++) {
-                                                String featureKey = (String) featureOrder.get(i);
+                                                String featureKey = featureOrder.get(i);
                                                 GenericValue featureValue = delegator.findOne("ProductFeatureType", UtilMisc.toMap("productFeatureTypeId", featureOrder.get(i)), true);
                                                 if (UtilValidate.isNotEmpty(featureValue) && 
                                                     UtilValidate.isNotEmpty(featureValue.get("description"))) {

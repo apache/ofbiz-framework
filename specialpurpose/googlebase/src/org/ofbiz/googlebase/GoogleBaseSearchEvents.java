@@ -103,7 +103,7 @@ public class GoogleBaseSearchEvents {
                 String webSiteMountPoint = request.getParameter("webSiteMountPoint");
                 String countryCode = request.getParameter("countryCode");
                 String productStoreId = request.getParameter("productStoreId");
-                String allowRecommended = (String) request.getParameter("allowRecommended");
+                String allowRecommended = request.getParameter("allowRecommended");
 
                 // Export all or selected products to Google Base
                 try {

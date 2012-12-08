@@ -160,7 +160,7 @@ public class BOMNode {
                     if (productFeatures != null) {
                         for (int j = 0; j < productFeatures.size(); j++) {
                             feature = productFeatures.get(j);
-                            if (ruleCondition.equals((String)feature.get("productFeatureId"))) {
+                            if (ruleCondition.equals(feature.get("productFeatureId"))) {
                                 ruleSatisfied = true;
                                 break;
                             }

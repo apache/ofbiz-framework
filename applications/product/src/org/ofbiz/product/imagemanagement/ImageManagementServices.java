@@ -359,8 +359,8 @@ public class ImageManagementServices {
             bufImg = (BufferedImage) resultBufImgMap.get("bufferedImage");
             
             // get Dimensions
-            imgHeight = (double) bufImg.getHeight();
-            imgWidth = (double) bufImg.getWidth();
+            imgHeight = bufImg.getHeight();
+            imgWidth = bufImg.getWidth();
             if (imgHeight == 0.0 || imgWidth == 0.0) {
                 String errMsg = UtilProperties.getMessage(resource, "ScaleImage.one_current_image_dimension_is_null", locale) + " : imgHeight = " + imgHeight + " ; imgWidth = " + imgWidth;
                 Debug.logError(errMsg, module);
@@ -390,7 +390,7 @@ public class ImageManagementServices {
                     
                     // write new image
                     try {
-                        ImageIO.write((RenderedImage) bufNewImg, imgExtension, new File(imageServerPath + "/" + productId + "/" + filenameToUse));
+                        ImageIO.write(bufNewImg, imgExtension, new File(imageServerPath + "/" + productId + "/" + filenameToUse));
                         File deleteFile = new File(imageServerPath + "/"  + filenameToUse);
                         deleteFile.delete();
                         //FIXME can be removed ?
@@ -941,7 +941,7 @@ public class ImageManagementServices {
             
             if (imageType.equals(mimeType)) {
                 BufferedImage bufImg = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + dataResourceName));
-                ImageIO.write((RenderedImage) bufImg, imgExtension, new File(imageServerPath + "/" + productId + "/" + filenameToUse));
+                ImageIO.write(bufImg, imgExtension, new File(imageServerPath + "/" + productId + "/" + filenameToUse));
                 
                 File file = new File(imageServerPath + "/" + productId + "/" + dataResourceName);
                 file.delete();
@@ -1000,7 +1000,7 @@ public class ImageManagementServices {
                         String imageUrlAssoc = imageServerUrl + "/" + productId + "/" + filenameToUseAssoc;
                         
                         BufferedImage bufImgAssoc = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + drDataResourceNameAssoc));
-                        ImageIO.write((RenderedImage) bufImgAssoc, imgExtension, new File(imageServerPath + "/" + productId + "/" + filenameToUseAssoc));
+                        ImageIO.write(bufImgAssoc, imgExtension, new File(imageServerPath + "/" + productId + "/" + filenameToUseAssoc));
                         
                         File fileAssoc = new File(imageServerPath + "/" + productId + "/" + drDataResourceNameAssoc);
                         fileAssoc.delete();
