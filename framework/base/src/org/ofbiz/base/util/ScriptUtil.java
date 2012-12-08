@@ -438,12 +438,14 @@ public final class ScriptUtil {
         public Set<java.util.Map.Entry<String, Object>> entrySet() {
             return bindings.entrySet();
         }
+        @Override
         public boolean equals(Object o) {
             return bindings.equals(o);
         }
         public Object get(Object key) {
             return bindings.get(key);
         }
+        @Override
         public int hashCode() {
             return bindings.hashCode();
         }

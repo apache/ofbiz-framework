@@ -200,6 +200,7 @@ public final class Start {
         // set the shutdown hook
         if (config.useShutdownHook) {
             Runtime.getRuntime().addShutdownHook(new Thread() {
+                @Override
                 public void run() {
                     shutdownServer();
                 }
@@ -444,6 +445,7 @@ public final class Start {
 
     private enum Control {
         SHUTDOWN {
+            @Override
             void processRequest(Start start, PrintWriter writer) {
                 if (start.serverState.get() == ServerState.STOPPING) {
                     writer.println("IN-PROGRESS");
@@ -455,11 +457,13 @@ public final class Start {
             }
         },
         STATUS {
+            @Override
             void processRequest(Start start, PrintWriter writer) {
                 writer.println(start.serverState.get());
             }
         },
         FAIL {
+            @Override
             void processRequest(Start start, PrintWriter writer) {
                 writer.println("FAIL");
             }
@@ -471,6 +475,7 @@ public final class Start {
     public enum ServerState {
         STARTING, RUNNING, STOPPING;
 
+        @Override
         public String toString() {
             return name().charAt(0) + name().substring(1).toLowerCase();
         }

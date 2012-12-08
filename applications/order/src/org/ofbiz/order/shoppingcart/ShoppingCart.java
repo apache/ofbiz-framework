@@ -4287,6 +4287,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
         }
 
+        @Override
         public boolean equals(java.lang.Object obj) {
             if (obj instanceof BasePriceOrderComparator) {
                 return this.ascending == ((BasePriceOrderComparator) obj).ascending;
@@ -4358,6 +4359,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
         }
 
+        @Override
         public boolean equals(Object obj) {
             if (obj == null) return false;
             ShoppingCartItemGroup that = (ShoppingCartItemGroup) obj;
@@ -4963,11 +4965,13 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
         }
 
+        @Override
         public String toString() {
             return "Pm: " + paymentMethodId + " / PmType: " + paymentMethodTypeId + " / Amt: " + amount + " / Ref: " + refNum[0] + "!" + refNum[1];
         }
     }
 
+    @Override
     protected void finalize() throws Throwable {
         // DEJ20050518 we should not call clear because it kills the auto-save shopping list and is unnecessary given that when this object is GC'ed it will cause everything it points to that isn't referenced anywhere else to be GC'ed too: this.clear();
         super.finalize();

@@ -50,6 +50,7 @@ public class CompilerMatcher {
     public static ThreadLocal<CompilerMatcher> getThreadLocal() {
         return new ThreadLocal<CompilerMatcher>() {
 
+            @Override
             protected CompilerMatcher initialValue() {
                 return new CompilerMatcher();
             }
