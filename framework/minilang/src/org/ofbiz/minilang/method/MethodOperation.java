@@ -50,6 +50,7 @@ public abstract class MethodOperation extends MiniLangElement {
     /** Create a string representation of the operation, using the current context.
      * @deprecated No replacement.
      */
+    @Deprecated
     public String expandedString(MethodContext methodContext) {
         return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
@@ -57,6 +58,7 @@ public abstract class MethodOperation extends MiniLangElement {
     /** Create a string representation of the operation - similar to the original XML.
      * @deprecated Use {@link #toString()}.
      */
+    @Deprecated
     public String rawString() {
         return toString();
     }
