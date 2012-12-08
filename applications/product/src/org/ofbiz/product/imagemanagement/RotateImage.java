@@ -105,7 +105,7 @@ public class RotateImage {
             g.dispose();
             
             String mimeType = imageName.substring(imageName.lastIndexOf(".") + 1);
-            ImageIO.write((RenderedImage) bufNewImg, mimeType, new File(imageServerPath + "/" + productId + "/" + filenameToUse));
+            ImageIO.write(bufNewImg, mimeType, new File(imageServerPath + "/" + productId + "/" + filenameToUse));
             
             double imgHeight = bufNewImg.getHeight();
             double imgWidth = bufNewImg.getWidth();

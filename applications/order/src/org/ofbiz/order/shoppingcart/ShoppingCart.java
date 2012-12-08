@@ -236,7 +236,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         // clone the additionalPartyRoleMap
         this.additionalPartyRole = new HashMap<String, List<String>>();
         for (Map.Entry<String, List<String>> me : cart.additionalPartyRole.entrySet()) {
-            this.additionalPartyRole.put(me.getKey(), new LinkedList<String>((Collection<String>) me.getValue()));
+            this.additionalPartyRole.put(me.getKey(), new LinkedList<String>(me.getValue()));
         }
 
         // clone the groups

@@ -942,7 +942,7 @@ public class ProductionRunServices {
                             Map<String, Object> inMap = UtilMisc.<String, Object>toMap("userLogin", userLogin, "workEffortId", productionRunId);
                             inMap.put("costComponentCalcId", costComponentCalc.getString("costComponentCalcId"));
                             inMap.put("costComponentTypeId", "ACTUAL_" + productCostComponentCalc.getString("costComponentTypeId"));
-                            inMap.put("costUomId", (String)partyAccountingPreference.get("baseCurrencyUomId"));
+                            inMap.put("costUomId", partyAccountingPreference.get("baseCurrencyUomId"));
                             inMap.put("cost", productCostAdjustment);
                             dispatcher.runSync("createCostComponent", inMap);
                         }
@@ -2101,9 +2101,9 @@ public class ProductionRunServices {
                                     "fromDate", component.getTimestamp("fromDate"));
                             serviceContext.put("quantity", requiredQuantity);
                             if (componentsLocation != null) {
-                                serviceContext.put("locationSeqId", (String)componentsLocation.get("locationSeqId"));
-                                serviceContext.put("secondaryLocationSeqId", (String)componentsLocation.get("secondaryLocationSeqId"));
-                                serviceContext.put("failIfItemsAreNotAvailable", (String)componentsLocation.get("failIfItemsAreNotAvailable"));
+                                serviceContext.put("locationSeqId", componentsLocation.get("locationSeqId"));
+                                serviceContext.put("secondaryLocationSeqId", componentsLocation.get("secondaryLocationSeqId"));
+                                serviceContext.put("failIfItemsAreNotAvailable", componentsLocation.get("failIfItemsAreNotAvailable"));
                             }
                             serviceContext.put("userLogin", userLogin);
                             Map<String, Object> resultService = dispatcher.runSync("issueProductionRunTaskComponent", 

@@ -65,7 +65,7 @@ public class ContainerLoader implements StartupLoader {
 
         List<String> loaders = null;
         for (Map loaderMap: config.loaders) {
-            if (module.equals((String)loaderMap.get("class"))) {
+            if (module.equals(loaderMap.get("class"))) {
                 loaders = StringUtil.split((String)loaderMap.get("profiles"), ",");
             }
         }

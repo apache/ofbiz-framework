@@ -154,7 +154,7 @@ public class FrameImage {
             Image newImg2 = bufImg2.getScaledInstance(width , height , Image.SCALE_SMOOTH);
             BufferedImage bufNewImg = combineBufferedImage(newImg1, newImg2, bufImgType);
             String mimeType = imageName.substring(imageName.lastIndexOf(".") + 1);
-            ImageIO.write((RenderedImage) bufNewImg, mimeType, new File(imageServerPath + "/" + productId + "/" + filenameToUse));
+            ImageIO.write(bufNewImg, mimeType, new File(imageServerPath + "/" + productId + "/" + filenameToUse));
             
             double imgHeight = bufNewImg.getHeight();
             double imgWidth = bufNewImg.getWidth();
@@ -384,7 +384,7 @@ public class FrameImage {
             Image newImg2 = bufImg2.getScaledInstance(width , height , Image.SCALE_SMOOTH);
             BufferedImage bufNewImg = combineBufferedImage(newImg1, newImg2, bufImgType);
             String mimeType = imageName.substring(imageName.lastIndexOf(".") + 1);
-            ImageIO.write((RenderedImage) bufNewImg, mimeType, new File(imageServerPath + "/preview/" + "/previewImage.jpg"));
+            ImageIO.write(bufNewImg, mimeType, new File(imageServerPath + "/preview/" + "/previewImage.jpg"));
             
         }
          else{

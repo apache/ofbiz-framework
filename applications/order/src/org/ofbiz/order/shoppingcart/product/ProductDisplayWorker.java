@@ -272,7 +272,7 @@ public class ProductDisplayWorker {
                 Integer quantity = entry.getValue();
                 BigDecimal occs = productQuantities.get(prodId);
                 //For quantity we should test if we allow to add decimal quantity for this product an productStore : if not then round to 0
-                if(! ProductWorker.isDecimalQuantityOrderAllowed(delegator, (String)prodId, cart.getProductStoreId())){
+                if(! ProductWorker.isDecimalQuantityOrderAllowed(delegator, prodId, cart.getProductStoreId())){
                     occs = occs.setScale(0, UtilNumber.getBigDecimalRoundingMode("order.rounding"));
                 }
                 else {

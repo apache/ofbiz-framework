@@ -1841,7 +1841,7 @@ public class OrderReturnServices {
                                             if (ServiceUtil.isError(invReqResult)) {
                                                 Debug.logError("Error calling isStoreInventoryAvailable service, result is: " + invReqResult, module);
                                             } else {
-                                                inventoryAvailable = "Y".equals((String) invReqResult.get("available"));
+                                                inventoryAvailable = "Y".equals(invReqResult.get("available"));
                                             }
                                         } catch (GenericServiceException e) {
                                             Debug.logError(e, "Fatal error calling inventory checking services: " + e.toString(), module);
@@ -1961,7 +1961,7 @@ public class OrderReturnServices {
                                                 }
 
                                                 if (priceResult.get("listPrice") != null) {
-                                                    newItem.set("unitListPrice", (BigDecimal)priceResult.get("listPrice"));
+                                                    newItem.set("unitListPrice", priceResult.get("listPrice"));
                                                 }
 
                                                 BigDecimal repairUnitPrice = null;
