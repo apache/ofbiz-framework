@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Map;
 
 import javolution.context.ObjectFactory;
-import javolution.lang.Reusable;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
@@ -44,7 +43,7 @@ import org.ofbiz.entity.util.EntityUtil;
  *
  */
 @SuppressWarnings("serial")
-public class GenericValue extends GenericEntity implements Reusable {
+public class GenericValue extends GenericEntity {
 
     public static final GenericValue NULL_VALUE = new NullGenericValue();
 
