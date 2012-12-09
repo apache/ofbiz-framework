@@ -752,6 +752,13 @@
         <value xml:lang="en">Password Reminder (${userLoginId})".</value>
         <value xml:lang="fr">Rappel du mot de passe (${userLoginId})".</value>
     </property>
+    <property key="loginservices.password.pattern.errmsg">
+        <value xml:lang="ar">كلمة السر ليست مطابقة للنمط، يرجى الرجوع النمط التالي: ${passwordPatternMessage}</value>
+        <value xml:lang="en">The password does not match the pattern: ${passwordPatternMessage} </value>
+        <value xml:lang="fr">Le mot de passe ne correspond pas au modèle: ${passwordPatternMessage}.</value>
+        <value xml:lang="hi_IN">पासवर्ड पैटर्न मिलान नहीं है, कृपया निम्नलिखित पैटर्न देखें: ${passwordPatternMessage}</value>
+        <value xml:lang="it">La password non è corrispondente al modello, fare riferimento seguente schema: ${passwordPatternMessage}.</value>
+    </property>
     <property key="loginservices.since_datetime">
         <value xml:lang="de">(seit ${disabledDateTime})</value>
         <value xml:lang="en">since ${disabledDateTime}.</value>
