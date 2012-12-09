@@ -23,6 +23,8 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.transaction.Transaction;
 
@@ -62,6 +64,8 @@ public class LoginServices {
 
     public static final String module = LoginServices.class.getName();
     public static final String resource = "SecurityextUiLabels";
+    public static boolean usePasswordPattern = "true".equals(UtilProperties.getPropertyValue("security.properties", "security.login.password.pattern.enable"));
+    public static String passwordPattern = UtilProperties.getPropertyValue("security.properties", "security.login.password.pattern");
 
     /** Login service to authenticate username and password
      * @return Map of results including (userLogin) GenericValue object
@@ -954,10 +958,27 @@ public class LoginServices {
         }
 
         if (newPassword != null) {
-            if (!(newPassword.length() >= minPasswordLength)) {
-                Map<String, String> messageMap = UtilMisc.toMap("minPasswordLength", Integer.toString(minPasswordLength));
-                errMsg = UtilProperties.getMessage(resource,"loginservices.password_must_be_least_characters_long", messageMap, locale);
-                errorMessageList.add(errMsg);
+            // Matching password with pattern
+            if (usePasswordPattern) {
+                Pattern pattern = Pattern.compile(passwordPattern);
+                Matcher matcher = pattern.matcher(newPassword);
+                boolean matched = matcher.matches();
+                if (!matched) {
+                    // This is a mix to handle the OOTB pattern which is only a fixed length
+                    Map<String, String> messageMap = UtilMisc.toMap("minPasswordLength", Integer.toString(minPasswordLength));
+                    String passwordPatternMessage = UtilProperties.getPropertyValue("security.properties",
+                            "security.login.password.pattern.description", "loginservices.password_must_be_least_characters_long");
+                    errMsg = UtilProperties.getMessage(resource, passwordPatternMessage, messageMap, locale);
+                    messageMap = UtilMisc.toMap("passwordPatternMessage", errMsg);
+                    errMsg = UtilProperties.getMessage(resource,"loginservices.password.pattern.errmsg", messageMap, locale);
+                    errorMessageList.add(errMsg);
+                }
+            } else {
+                if (!(newPassword.length() >= minPasswordLength)) {
+                    Map<String, String> messageMap = UtilMisc.toMap("minPasswordLength", Integer.toString(minPasswordLength));
+                    errMsg = UtilProperties.getMessage(resource,"loginservices.password_must_be_least_characters_long", messageMap, locale);
+                    errorMessageList.add(errMsg);
+                }
             }
             if (userLogin != null && newPassword.equalsIgnoreCase(userLogin.getString("userLoginId"))) {
                 errMsg = UtilProperties.getMessage(resource,"loginservices.password_may_not_equal_username", locale);
