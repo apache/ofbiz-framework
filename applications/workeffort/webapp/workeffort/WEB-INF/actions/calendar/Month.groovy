@@ -58,7 +58,7 @@ if (followingMonthDays < 0) {
 }
 numDays += followingMonthDays; 
 Map serviceCtx = dispatcher.getDispatchContext().makeValidContext("getWorkEffortEventsByPeriod", "IN", parameters);
-serviceCtx.putAll(UtilMisc.toMap("userLogin", userLogin, "start", getFrom, "numPeriods", numDays, "periodType", Calendar.DATE, "locale", locale, "timeZone", timeZone));
+serviceCtx.putAll(UtilMisc.toMap("userLogin", userLogin, "start", getFrom, "calendarType", "VOID", "numPeriods", numDays, "periodType", Calendar.DATE, "locale", locale, "timeZone", timeZone));
 if (context.entityExprList) {
     serviceCtx.entityExprList = entityExprList;
 }
