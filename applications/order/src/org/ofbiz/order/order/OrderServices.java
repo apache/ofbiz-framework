@@ -720,6 +720,7 @@ public class OrderServices {
                 String workEffortId = delegator.getNextSeqId("WorkEffort"); // find next available workEffortId
                 workEffort.set("workEffortId", workEffortId);
                 workEffort.set("workEffortTypeId", "ASSET_USAGE");
+                workEffort.set("currentStatusId", "_NA_"); // a lot of workefforts selection services expect a value here....
                 toBeStored.add(workEffort);  // store workeffort before workOrderItemFulfillment because of workEffortId key constraint
                 // workOrderItemFulfillment
                 workOrderItemFulfillment.set("workEffortId", workEffortId);
