@@ -515,8 +515,7 @@ public class LoginServices {
             }
         }
 
-        LoginServices loginServices = new LoginServices();  
-        loginServices.checkNewPassword(null, null, currentPassword, currentPasswordVerify, passwordHint, errorMessageList, true, locale);
+        checkNewPassword(null, null, currentPassword, currentPasswordVerify, passwordHint, errorMessageList, true, locale);
 
         GenericValue userLoginToCreate = delegator.makeValue("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
         userLoginToCreate.set("externalAuthId", externalAuthId);
@@ -655,8 +654,7 @@ public class LoginServices {
 
         List<String> errorMessageList = FastList.newInstance();
         if (newPassword != null) {
-            LoginServices loginServices = new LoginServices();  
-            loginServices.checkNewPassword(userLoginToUpdate, currentPassword, newPassword, newPasswordVerify,
+            checkNewPassword(userLoginToUpdate, currentPassword, newPassword, newPasswordVerify,
                 passwordHint, errorMessageList, adminUser, locale);
         }
 
@@ -887,7 +885,7 @@ public class LoginServices {
         return result;
     }
 
-    public void checkNewPassword(GenericValue userLogin, String currentPassword, String newPassword, String newPasswordVerify, String passwordHint, List<String> errorMessageList, boolean ignoreCurrentPassword, Locale locale) {
+    public static void checkNewPassword(GenericValue userLogin, String currentPassword, String newPassword, String newPasswordVerify, String passwordHint, List<String> errorMessageList, boolean ignoreCurrentPassword, Locale locale) {
         boolean useEncryption = "true".equals(UtilProperties.getPropertyValue("security.properties", "password.encrypt"));
 
         String errMsg = null;
