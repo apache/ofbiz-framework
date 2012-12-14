@@ -64,8 +64,6 @@ public class LoginServices {
 
     public static final String module = LoginServices.class.getName();
     public static final String resource = "SecurityextUiLabels";
-    public boolean usePasswordPattern = UtilProperties.getPropertyAsBoolean("security.properties", "security.login.password.pattern.enable", true);
-    public String passwordPattern = UtilProperties.getPropertyValue("security.properties", "security.login.password.pattern", "^.*(?=.{5,}).*$");
 
     /** Login service to authenticate username and password
      * @return Map of results including (userLogin) GenericValue object
@@ -961,6 +959,8 @@ public class LoginServices {
 
         if (newPassword != null) {
             // Matching password with pattern
+            String passwordPattern = UtilProperties.getPropertyValue("security.properties", "security.login.password.pattern", "^.*(?=.{5,}).*$");
+            boolean usePasswordPattern = UtilProperties.getPropertyAsBoolean("security.properties", "security.login.password.pattern.enable", true);
             if (usePasswordPattern) {
                 Pattern pattern = Pattern.compile(passwordPattern);
                 Matcher matcher = pattern.matcher(newPassword);
