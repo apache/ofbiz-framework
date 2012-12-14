@@ -92,7 +92,7 @@
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="udpateWebSitePathAlias" default-entity-name="WebSitePathAlias" engine="simple" auth="true"
+    <service name="updateWebSitePathAlias" default-entity-name="WebSitePathAlias" engine="simple" auth="true"
             location="component://content/script/org/ofbiz/content/website/WebSiteServices.xml" invoke="updateWebSitePathAlias">
         <description>Update a WebSite Path Alias</description>
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
