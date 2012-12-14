@@ -64,8 +64,8 @@ public class LoginServices {
 
     public static final String module = LoginServices.class.getName();
     public static final String resource = "SecurityextUiLabels";
-    public static boolean usePasswordPattern = "true".equals(UtilProperties.getPropertyValue("security.properties", "security.login.password.pattern.enable"));
-    public static String passwordPattern = UtilProperties.getPropertyValue("security.properties", "security.login.password.pattern");
+    public boolean usePasswordPattern = UtilProperties.getPropertyAsBoolean("security.properties", "security.login.password.pattern.enable", true);
+    public String passwordPattern = UtilProperties.getPropertyValue("security.properties", "security.login.password.pattern", "^.*(?=.{5,}).*$");
 
     /** Login service to authenticate username and password
      * @return Map of results including (userLogin) GenericValue object
@@ -517,7 +517,8 @@ public class LoginServices {
             }
         }
 
-        checkNewPassword(null, null, currentPassword, currentPasswordVerify, passwordHint, errorMessageList, true, locale);
+        LoginServices loginServices = new LoginServices();  
+        loginServices.checkNewPassword(null, null, currentPassword, currentPasswordVerify, passwordHint, errorMessageList, true, locale);
 
         GenericValue userLoginToCreate = delegator.makeValue("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
         userLoginToCreate.set("externalAuthId", externalAuthId);
@@ -656,7 +657,8 @@ public class LoginServices {
 
         List<String> errorMessageList = FastList.newInstance();
         if (newPassword != null) {
-            checkNewPassword(userLoginToUpdate, currentPassword, newPassword, newPasswordVerify,
+            LoginServices loginServices = new LoginServices();  
+            loginServices.checkNewPassword(userLoginToUpdate, currentPassword, newPassword, newPasswordVerify,
                 passwordHint, errorMessageList, adminUser, locale);
         }
 
@@ -887,7 +889,7 @@ public class LoginServices {
         return result;
     }
 
-    public static void checkNewPassword(GenericValue userLogin, String currentPassword, String newPassword, String newPasswordVerify, String passwordHint, List<String> errorMessageList, boolean ignoreCurrentPassword, Locale locale) {
+    public void checkNewPassword(GenericValue userLogin, String currentPassword, String newPassword, String newPasswordVerify, String passwordHint, List<String> errorMessageList, boolean ignoreCurrentPassword, Locale locale) {
         boolean useEncryption = "true".equals(UtilProperties.getPropertyValue("security.properties", "password.encrypt"));
 
         String errMsg = null;
