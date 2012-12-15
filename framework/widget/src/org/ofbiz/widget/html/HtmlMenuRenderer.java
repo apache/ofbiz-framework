@@ -455,10 +455,12 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
                 writer.append(name);
                 writer.append("\"");
             }
-            if (UtilValidate.isNotEmpty(targetWindow)) {
-                writer.append(" target=\"");
-                writer.append(targetWindow);
-                writer.append("\"");
+            if (!"hidden-form".equals(linkType)) {
+                if (UtilValidate.isNotEmpty(targetWindow)) {
+                    writer.append(" target=\"");
+                    writer.append(targetWindow);
+                    writer.append("\"");
+                }
             }
 
             writer.append(" href=\"");
