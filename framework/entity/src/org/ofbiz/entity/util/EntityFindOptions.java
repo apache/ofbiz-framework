@@ -48,6 +48,12 @@ public class EntityFindOptions implements java.io.Serializable {
     protected int maxRows = -1;
     protected boolean distinct = false;
 
+    /** LIMIT option */
+    protected int limit = -1;
+    
+    /** OFFSET option */
+    protected int offset = -1;
+
     /** Default constructor. Defaults are as follows:
      *      specifyTypeAndConcur = true
      *      resultSetType = TYPE_FORWARD_ONLY
@@ -144,5 +150,26 @@ public class EntityFindOptions implements java.io.Serializable {
     /** Specifies whether the values returned should be filtered to remove duplicate values. */
     public void setDistinct(boolean distinct) {
         this.distinct = distinct;
+    }
+
+
+    /** Get the LIMIT number. */
+    public int getLimit() {
+        return limit;
+    }
+
+    /** Specifies the LIMIT number. */
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
+
+    /** Get the OFFSET number. */
+    public int getOffset() {
+        return offset;
+    }
+
+    /** Specifies the OFFSET number. */
+    public void setOffset(int offset) {
+        this.offset = offset;
     }
 }
