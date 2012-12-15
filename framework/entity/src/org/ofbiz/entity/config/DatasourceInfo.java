@@ -72,6 +72,7 @@ public class DatasourceInfo extends NamedInfo {
     public boolean dropFkUseForeignKeyKeyword = false;
     public boolean useBinaryTypeForBlob = false;
     public boolean useOrderByNulls = false;
+    public String offsetStyle = null;
     public String tableType = null;
     public String characterSet = null;
     public String collate = null;
@@ -158,7 +159,8 @@ public class DatasourceInfo extends NamedInfo {
             this.dropFkUseForeignKeyKeyword = "true".equals(datasourceElement.getAttribute("drop-fk-use-foreign-key-keyword"));
             this.useBinaryTypeForBlob = "true".equals(datasourceElement.getAttribute("use-binary-type-for-blob"));
             this.useOrderByNulls = "true".equals(datasourceElement.getAttribute("use-order-by-nulls"));
-
+            
+            this.offsetStyle = datasourceElement.getAttribute("offset-style");
             this.tableType = datasourceElement.getAttribute("table-type");
             this.characterSet = datasourceElement.getAttribute("character-set");
             this.collate = datasourceElement.getAttribute("collate");

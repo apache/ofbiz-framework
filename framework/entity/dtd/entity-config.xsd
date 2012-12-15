@@ -399,6 +399,15 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="offset-style" default="none">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="none"/>
+                    <xs:enumeration value="fetch"/>
+                    <xs:enumeration value="limit"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
         <xs:attribute type="xs:string" name="table-type"/>
         <xs:attribute type="xs:string" name="character-set"/>
         <xs:attribute type="xs:string" name="collate"/>

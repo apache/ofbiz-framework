@@ -763,6 +763,9 @@ public class GenericDAO {
         }
         sqlBuffer.append(SqlJdbcUtil.makeOrderByClause(modelEntity, orderByExpanded, datasourceInfo));
 
+        // OFFSET clause
+        makeOffsetString(sqlBuffer, findOptions);
+        
         // make the final SQL String
         String sql = sqlBuffer.toString();
 
@@ -882,6 +885,29 @@ public class GenericDAO {
         }
 
         return havingString;
+    }
+
+    protected StringBuilder makeOffsetString(StringBuilder offsetString, EntityFindOptions findOptions) {
+        if (UtilValidate.isNotEmpty(datasourceInfo.offsetStyle)) {
+            if (datasourceInfo.offsetStyle.equals("limit")) {
+                // use the LIMIT/OFFSET style
+                if (findOptions.getLimit() > -1) {
+                    offsetString.append(" LIMIT " + findOptions.getLimit());
+                    if (findOptions.getOffset() > -1) {
+                        offsetString.append(" OFFSET " + findOptions.getOffset());
+                    }
+                }
+            } else if (datasourceInfo.offsetStyle.equals("fetch")) {
+                // use SQL2008 OFFSET/FETCH style by default
+                if (findOptions.getOffset() > -1) {
+                    offsetString.append(" OFFSET ").append(findOptions.getOffset()).append(" ROWS");
+                    if (findOptions.getLimit() > -1) {
+                        offsetString.append(" FETCH FIRST ").append(findOptions.getLimit()).append(" ROWS ONLY");
+                    }
+                }
+            }
+        }
+        return offsetString;
     }
 
     public List<GenericValue> selectByMultiRelation(GenericValue value, ModelRelation modelRelationOne, ModelEntity modelEntityOne,
