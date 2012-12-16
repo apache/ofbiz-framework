@@ -335,16 +335,6 @@ under the License.
     <ProductCategory categoryName="Toys &amp; Games"
         primaryParentCategoryId="GOOGLE_BASE" productCategoryId="GB_TYS_GMS" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
 
-    <!--Catalog specific to eBay-->
-    <ProdCatalog prodCatalogId="eBayCatalog" catalogName="eBay Catalog" useQuickAdd="Y"/>
-    <ProductStoreCatalog productStoreId="9000" prodCatalogId="eBayCatalog" fromDate="2009-11-05 12:00:00.0" sequenceNum="4"/>
-
-    <!-- Category specific to eBay -->
-    <ProductCategory categoryName="15064" productCategoryId="eBay_Category" productCategoryTypeId="EBAY_CATEGORY"/>
-    <ProdCatalogCategory prodCatalogId="eBayCatalog" productCategoryId="eBay_Category" fromDate="2009-11-05 12:00:00.0" sequenceNum="1" prodCatalogCategoryTypeId="PCCT_EBAY_ROOT"/>
-    
-    <ProductCategory productCategoryId="eBay_ECom_Category" categoryName="15064" productCategoryTypeId="EBAY_CATEGORY"/>
-
     <ProdCatalogCategory prodCatalogId="GoogleCatalog" productCategoryId="GOOGLE_BASE" fromDate="2001-05-13 12:00:00.0"
         sequenceNum="1" prodCatalogCategoryTypeId="PCCT_BROWSE_ROOT"/>
         
@@ -618,13 +608,6 @@ under the License.
     <ProductPrice productId="WG-9944" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="594.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <ProductPrice productId="WG-9944" productPricePurposeId="PURCHASE" productPriceTypeId="AVERAGE_COST" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="320.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
 
-    <!-- ProductPrice specific to eBay -->
-    <ProductPrice productId="GZ-1000" productPricePurposeId="EBAY" productPriceTypeId="MINIMUM_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="15.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <ProductPrice productId="GZ-1000" productPricePurposeId="EBAY" productPriceTypeId="MAXIMUM_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="18.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>    
-    <ProductPrice productId="GZ-1001" productPricePurposeId="EBAY" productPriceTypeId="MINIMUM_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="25.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <ProductPrice productId="GZ-2644" productPricePurposeId="EBAY" productPriceTypeId="MINIMUM_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="48.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <ProductPrice productId="GZ-2644" productPricePurposeId="EBAY" productPriceTypeId="MAXIMUM_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="55.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>    
-    
     <!-- test Subscription product, a Gizmo Newsletter -->
     <Product productId="GZ-NEWS-1MO" productTypeId="DIGITAL_GOOD" primaryProductCategoryId="101" productName="Gizmo Newsletter 1 Month" internalName="Gizmo Newsletter 1 Month Subscription" description="A 1 month subscription to the Gizmo Newsletter: can be used immediately after purchase." longDescription="This newsletter will give you regular updates on the wonderful world of Gizmos!" taxable="Y" chargeShipping="N" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <SubscriptionResource subscriptionResourceId="GZ-NEWS" description="Gizmo Newsletter"/>
@@ -1049,12 +1032,7 @@ under the License.
     <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_SOFTWARE"/>
     <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_SPRTNG_GDS"/>
     <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GOOGLE_BASE" productCategoryId="GB_TYS_GMS"/>
-    
-    <!-- ProductCategoryMember record specific to eBay -->
-    <ProductCategoryMember productCategoryId="eBay_ECom_Category" productId="GZ-1000" fromDate="2009-11-05 12:15:00.0"/>
-    <ProductCategoryMember productCategoryId="eBay_ECom_Category" productId="GZ-1001" fromDate="2009-11-05 12:15:00.0"/>
-    <ProductCategoryMember productCategoryId="eBay_ECom_Category" productId="GZ-2644" fromDate="2009-11-05 12:15:00.0"/>
-    
+
     <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="CATALOG1" productCategoryId="100"/>
     <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="100" productCategoryId="101"/>
     <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="100" productCategoryId="102"/>
@@ -1064,9 +1042,6 @@ under the License.
     <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="201" productCategoryId="2011"/>
     <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="201" productCategoryId="2012"/>
     <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="2011" productCategoryId="20111"/>
-
-    <!-- ProductCategoryRollup record specific to eBay -->
-    <ProductCategoryRollup parentProductCategoryId="eBay_Category" productCategoryId="eBay_ECom_Category" fromDate="2009-11-05 12:00:00.0"/>
 
     <!-- some default product facility settings -->
     <ProductFacility productId="GZ-2644" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="15"/>

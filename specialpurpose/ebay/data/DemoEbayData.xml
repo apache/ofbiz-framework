@@ -26,6 +26,30 @@ under the License.
         <customXml><![CDATA[<custom-xml><Currency>USD</Currency><UseTaxTable>false</UseTaxTable><DispatchTimeMax>3</DispatchTimeMax><ReturnPolicy><ReturnsAcceptedOption>ReturnsNotAccepted</ReturnsAcceptedOption></ReturnPolicy><ShippingDetails><ShippingType>Flat</ShippingType><ShippingServiceOptions><ShippingService>UPS2ndDay</ShippingService><ShippingServicePriority>1</ShippingServicePriority><ShippingServiceCost>5</ShippingServiceCost><ShippingServiceAdditionalCost>2</ShippingServiceAdditionalCost><ShippingSurcharge>1</ShippingSurcharge></ShippingServiceOptions></ShippingDetails></custom-xml>]]></customXml>
     </EbayConfig>
 
+    <!--Catalog specific to eBay-->
+    <ProdCatalog prodCatalogId="eBayCatalog" catalogName="eBay Catalog" useQuickAdd="Y"/>
+    <ProductStoreCatalog productStoreId="9000" prodCatalogId="eBayCatalog" fromDate="2009-11-05 12:00:00.0" sequenceNum="4"/>
+
+    <!-- Category specific to eBay -->
+    <ProductCategory categoryName="15064" productCategoryId="eBay_Category" productCategoryTypeId="EBAY_CATEGORY"/>
+    <ProdCatalogCategory prodCatalogId="eBayCatalog" productCategoryId="eBay_Category" fromDate="2009-11-05 12:00:00.0" sequenceNum="1" prodCatalogCategoryTypeId="PCCT_EBAY_ROOT"/>
+
+    <ProductCategory productCategoryId="eBay_ECom_Category" categoryName="15064" productCategoryTypeId="EBAY_CATEGORY"/>
+
+    <ProductCategoryRollup parentProductCategoryId="eBay_Category" productCategoryId="eBay_ECom_Category" fromDate="2009-11-05 12:00:00.0"/>
+
+    <!-- ProductCategoryMember record specific to eBay -->
+    <ProductCategoryMember productCategoryId="eBay_ECom_Category" productId="GZ-1000" fromDate="2009-11-05 12:15:00.0"/>
+    <ProductCategoryMember productCategoryId="eBay_ECom_Category" productId="GZ-1001" fromDate="2009-11-05 12:15:00.0"/>
+    <ProductCategoryMember productCategoryId="eBay_ECom_Category" productId="GZ-2644" fromDate="2009-11-05 12:15:00.0"/>
+
+    <!-- ProductPrice specific to eBay -->
+    <ProductPrice productId="GZ-1000" productPricePurposeId="EBAY" productPriceTypeId="MINIMUM_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="15.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="GZ-1000" productPricePurposeId="EBAY" productPriceTypeId="MAXIMUM_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="18.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>    
+    <ProductPrice productId="GZ-1001" productPricePurposeId="EBAY" productPriceTypeId="MINIMUM_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="25.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="GZ-2644" productPricePurposeId="EBAY" productPriceTypeId="MINIMUM_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="48.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="GZ-2644" productPricePurposeId="EBAY" productPriceTypeId="MAXIMUM_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="55.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>    
+
     <EbayShippingMethod methodTypeEnumId="EBAY_FLAT_RATE" shipmentMethodName="USPSPriority" productStoreId="9000" amount="20.00" carrierPartyId="USPS" shipmentMethodTypeId="STANDARD"/>
     <EbayShippingMethod methodTypeEnumId="EBAY_FLAT_RATE" shipmentMethodName="UPSGround" productStoreId="9000" amount="10.00" carrierPartyId="UPS" shipmentMethodTypeId="GROUND"/>
     <EbayShippingMethod methodTypeEnumId="EBAY_FLAT_RATE" shipmentMethodName="UPS3rdDay" productStoreId="9000" amount="0.00" carrierPartyId="UPS" shipmentMethodTypeId="THIRD_DAY"/>
