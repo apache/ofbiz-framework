@@ -2760,7 +2760,7 @@
         <value xml:lang="pt">Verifiquar número</value>
         <value xml:lang="vi">Số kiểm tra</value>
         <value xml:lang="zh">支票号</value>
-        <value xml:lang="zh_Tw">支票號碼</value>
+        <value xml:lang="zh_TW">支票號碼</value>
     </property>
     <property key="AccountingChecks">
         <value xml:lang="ar">صكوك</value>
