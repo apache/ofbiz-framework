@@ -547,7 +547,7 @@ under the License.
                 <string value="SHIPPING_LOCATION"/>
                 <field field="parameters.shippingContactMechId"/>
             </call-object-method>
-            <call-object-method obj-field="cart" method-name="setShippingContactMechId">
+            <call-object-method obj-field="cart" method-name="setAllShippingContactMechId">
                 <field field="parameters.shippingContactMechId"/>
             </call-object-method>
         </if-not-empty>
@@ -577,23 +577,23 @@ under the License.
        <session-to-field field="cart" session-name="shoppingCart"/>
        <if-not-empty field="cart">
            <set field="shipmentMethodTypeId" from-field="parameters.shipmentMethodTypeId"/>
-           <call-object-method obj-field="cart" method-name="setShipmentMethodTypeId">
+           <call-object-method obj-field="cart" method-name="setAllShipmentMethodTypeId">
                <field field="shipmentMethodTypeId"/>
            </call-object-method>
 
            <set field="carrierPartyId" from-field="parameters.carrierPartyId"/>
-           <call-object-method obj-field="cart" method-name="setCarrierPartyId">
+           <call-object-method obj-field="cart" method-name="setAllCarrierPartyId">
                <field field="carrierPartyId"/>
            </call-object-method>
 
            <set field="maySplit" from-field="parameters.may_split" type="Boolean" default-value="false"/>
-           <call-object-method obj-field="cart" method-name="setMaySplit">
+           <call-object-method obj-field="cart" method-name="setAllMaySplit">
                <field field="maySplit" type="Boolean"/>
            </call-object-method>
 
            <set field="shippingInstruction" from-field="parameters.shipping_instructions" type="String"/>
            <if-not-empty field="shippingInstruction">
-               <call-object-method obj-field="cart" method-name="setShippingInstructions">
+               <call-object-method obj-field="cart" method-name="setAllShippingInstructions">
                    <field field="shippingInstruction" type="String"/>
                </call-object-method>
            </if-not-empty>
@@ -606,13 +606,13 @@ under the License.
            </if-not-empty>
 
            <set field="isGift" from-field="parameters.is_gift" type="Boolean" default-value="false"/>
-           <call-object-method obj-field="cart" method-name="setIsGift">
+           <call-object-method obj-field="cart" method-name="setAllIsGift">
                <field field="isGift" type="Boolean"/>
            </call-object-method>
 
            <set field="giftMessage" from-field="parameters.gift_message" type="String"/>
            <if-not-empty field="giftMessage">
-               <call-object-method obj-field="cart" method-name="setGiftMessage">
+               <call-object-method obj-field="cart" method-name="setAllGiftMessage">
                    <field field="giftMessage" type="String"/>
                </call-object-method>
            </if-not-empty>
