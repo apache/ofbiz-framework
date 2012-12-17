@@ -31,7 +31,6 @@ import java.util.Map;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
@@ -45,8 +44,6 @@ import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.config.EntityConfigUtil;
-import org.ofbiz.entity.datasource.GenericHelperDAO;
-import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.testtools.EntityTestCase;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
@@ -608,10 +605,12 @@ public class EntityTestSuite extends EntityTestCase {
         return strBufTemp.toString();
     }
     
+    
     /*
      * This test will verify that the LIMIT and OFFSET options can work properly.
+     * Commented out because it makes the framework dependent on the content component
      */
-    public void testLimitOffsetOptions() throws Exception {
+    /*public void testLimitOffsetOptions() throws Exception {
         String entityName = "Content";
         DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(delegator.getEntityHelper(entityName).getHelperName());
         if (UtilValidate.isEmpty(datasourceInfo.offsetStyle) || datasourceInfo.offsetStyle.equals("none")) {
@@ -696,5 +695,5 @@ public class EntityTestSuite extends EntityTestCase {
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
-    }
+    }*/
 }
