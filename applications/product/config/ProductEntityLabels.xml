@@ -3686,7 +3686,17 @@
         <value xml:lang="vi">Khi một số chia sẻ chi phí vận chuyển được chi trả dưới một tài khoản khác hơn so với hóa đơn.</value>
     </property>
     <property key="FieldDescription.ProductStore.prorateTaxes">
-        <value xml:lang="en"></value>
+        <value xml:lang="de">Steuern Anteilsmässig</value>
+        <value xml:lang="en">Prorate Taxes</value>
+        <value xml:lang="es">Prorratear impuestos</value>
+        <value xml:lang="fr">Taxes au prorata</value>
+        <value xml:lang="it">Dividi Proporzionalmente le Tasse</value>
+        <value xml:lang="ja">税を按分</value>
+        <value xml:lang="ru">Пропорциональные налоги</value>
+        <value xml:lang="th">แบ่งตามส่วนภาษี</value>
+        <value xml:lang="vi">Thuế theo tỉ lệ</value>
+        <value xml:lang="zh">税收比例</value>
+        <value xml:lang="zh_TW">稅收比例</value>
     </property>
     <property key="FieldDescription.ProductStore.viewCartOnAdd">
         <value xml:lang="en">Controls whether the user is taken to the shopping cart immediately after adding a product to his cart.</value>
@@ -3785,7 +3795,18 @@
         <value xml:lang="vi">Nếu thiết lập Y thì mục bất kỳ giỏ mua hàng với số lượng lớn hơn sẽ được chia thành các mục đặt hàng riêng biệt với số lượng của mỗi 1 sản phẩm</value>
     </property>
     <property key="FieldDescription.ProductStore.checkGcBalance">
-        <value xml:lang="en"></value>
+        <value xml:lang="de">Gutschein Guthaben prüfen</value>
+        <value xml:lang="en">Check Gc Balance</value>
+        <value xml:lang="es">Comprobar saldo de la tarjeta de regalo</value>
+        <value xml:lang="fr">Contrôle du crédit de carte cadeau</value>
+        <value xml:lang="it">Controlla Bilancio Gc</value>
+        <value xml:lang="ja">ギフトカード残高を確認</value>
+        <value xml:lang="ro">Control Bilant Gc GcFormFieldTitle_retryFailedAuths=Mai Incearca, Autorizari Falite</value>
+        <value xml:lang="ru">Проверить Gc баланс</value>
+        <value xml:lang="th">Check Gc Balance</value>
+        <value xml:lang="vi">Kiểm tra số dư</value>
+        <value xml:lang="zh">检查总账账户余额</value>
+        <value xml:lang="zh_TW">檢查總帳帳戶餘額</value>
     </property>
     <property key="FieldDescription.ProductStore.retryFailedAuths">
         <value xml:lang="en">How many times can an unsuccessful attempt to authorize an order be allowed?</value>

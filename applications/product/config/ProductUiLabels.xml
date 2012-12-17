@@ -21225,6 +21225,7 @@
     </property>
     <property key="ProductNoteRequireEmailParty">
         <value xml:lang="de">ANMERKUNG: Die "Benötigt E-Mail oder Akteur" Einstellung ist auf N (Nein) eingestellt, alle hier angegebenen E-Mail Adressen oder Akteure werden ignoriert. Um eine E-Mail Adresse oder Akteur von dieser Liste zu verwenden muss die Einstellung auf J (Ja) vorgenommen werden.</value>
+        <value xml:lang="en">NOTE: The Require Email Or Party flag is set to N (No), so any email addresses or parties listed here will be ignored. To require an email address or party from these lists, set the flag to Y (Yes).</value>
         <value xml:lang="es">NOTA: El flag "Requerir E-mail" está configurado como N (No). Cualquier dirección de e-mail o participantes listados aquí serán ignorados. Para usar alguna de estas direcciones, debe configurar el flag a Y(Si)</value>
         <value xml:lang="fr">NOTE: Pour rendre obligatoire et prendre en compte le champ acteur ou courriel, cocher (O), sinon mettre (N)</value>
         <value xml:lang="it">NOTA: L'email richiesta o se il flag soggetto è impostato a N (No), così qualsiasi indirizzo email o soggetti listati qui saranno ignorati. Per richiedere un'indirizzo email o il soggetto da queste liste, imposta il flag a Y (Si).</value>
