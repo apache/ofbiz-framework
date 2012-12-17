@@ -421,13 +421,13 @@ under the License.
                 <field-map field-name="roleTypeId" value="CARRIER"/>
             </entity-one>
             <field-to-request field="shipmentMethod.description" request-name="shippingDescription"/>
-            <call-object-method obj-field="shoppingCart" method-name="setShipmentMethodTypeId">
+            <call-object-method obj-field="shoppingCart" method-name="setAllShipmentMethodTypeId">
                 <field field="shipmentMethodTypeId"/>
             </call-object-method>
-            <call-object-method obj-field="shoppingCart" method-name="setCarrierPartyId">
+            <call-object-method obj-field="shoppingCart" method-name="setAllCarrierPartyId">
                 <field field="carrierPartyId"/>
             </call-object-method>
-            <call-object-method obj-field="shoppingCart" method-name="setProductStoreShipMethId">
+            <call-object-method obj-field="shoppingCart" method-name="setAllProductStoreShipMethId">
                 <field field="productStoreShipMethId"/>
             </call-object-method>
             <call-object-method  obj-field="shoppingCart" method-name="getCurrency" ret-field="isoCode"/>
