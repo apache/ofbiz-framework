@@ -193,7 +193,7 @@ under the License.
         <field name="requirePostalCodeExt" type="indicator"></field>
         <field name="addressFormat" type="long-varchar"></field>
         <prim-key field="geoId"/>
-        <relation rel-entity-name="Geo" type="one">
+        <relation type="one" rel-entity-name="Geo" fk-name="CNY_ADR_GEO">
             <key-map field-name="geoId"/>
         </relation>
         <relation type="one" fk-name="CNY_ADR_GEO_TYPE" rel-entity-name="GeoAssocType" >
