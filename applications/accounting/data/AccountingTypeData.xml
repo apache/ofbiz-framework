@@ -958,7 +958,7 @@ under the License.
     <CustomMethod customMethodId="QUOTE_HOOK_ENF_SEQ" customMethodTypeId="QUOTE_HOOK" customMethodName="quoteSequence-enforced" description="Enforced Sequence (no gaps, per organization)"/>
     <!-- order sequencing mode for accounting preferences -->
     <CustomMethodType customMethodTypeId="ORDER_HOOK" parentTypeId="HOOK" hasTable="N" description="Order Sequence methods"/>
-    <CustomMethod customMethodId="ORDER_HOOK_ENF_SEQ" customMethodTypeId="ORDER_HOOK" customMethodName="orderSequence-enforced" description="Enforced Sequence (no gaps, per organization)"/>
+    <CustomMethod customMethodId="ORDER_HOOK_ENF_SEQ" customMethodTypeId="ORDER_HOOK" customMethodName="orderSequence_enforced" description="Enforced Sequence (no gaps, per organization)"/>
     <!-- Deprecated sequencing mode by enumeration -->
     <EnumerationType description="Invoice Sequence Mode" enumTypeId="INVOICE_SEQMD" hasTable="N" parentTypeId=""/>
     <Enumeration description="Standard (faster, may have gaps, per system)" enumCode="STANDARD" enumId="INVSQ_STANDARD" sequenceId="01" enumTypeId="INVOICE_SEQMD"/>
