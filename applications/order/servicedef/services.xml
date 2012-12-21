@@ -645,8 +645,8 @@ under the License.
         <attribute name="orderId" type="String" mode="OUT" optional="false"/>
     </service>
 
-    <service name="orderSequence-enforced" engine="simple"
-        location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="orderSequence-enforced">
+    <service name="orderSequence_enforced" engine="simple"
+        location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="orderSequence_enforced">
         <implements service="getNextOrderId"/>
         <attribute name="partyAcctgPreference" type="org.ofbiz.entity.GenericValue" mode="IN"/>
         <override name="orderId" type="Long" mode="OUT"/>
