@@ -380,7 +380,7 @@ under the License.
                                 <label for="cardNumber">${uiLabelMap.AccountingCardNumber}*
                                     <span id="advice-required-cardNumber" style="display: none;" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                                 </label>
-                                <input id="cardNumber" name="cardNumber" class="required" type="text" value="${cardNumber?if_exists}" size="30" maxlength="16" />
+                                <input id="cardNumber" name="cardNumber" class="required creditcard" type="text" value="${cardNumber?if_exists}" size="30" maxlength="16" />
                             </span>
                             <span>
                                 <label for="billToCardSecurityCode">CVV2</label>

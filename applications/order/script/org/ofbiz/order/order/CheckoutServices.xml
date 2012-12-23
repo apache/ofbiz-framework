@@ -105,7 +105,7 @@ under the License.
             <string value="SHIPPING_LOCATION"/>
             <field field="parameters.shipToContactMechId"/>
         </call-object-method>
-        <call-object-method obj-field="shoppingCart" method-name="setShippingContactMechId">
+        <call-object-method obj-field="shoppingCart" method-name="setAllShippingContactMechId">
             <field field="parameters.shipToContactMechId"/>
         </call-object-method>
         <call-object-method obj-field="shoppingCart" method-name="setOrderPartyId">
@@ -190,6 +190,7 @@ under the License.
         </create-object>
         <set field="callResult" value="${groovy:checkOutHelper.finalizeOrderEntryPayment(paymentMethodId, null, false, false)}"/>
         <set field="cartPaymentInfo" value="${groovy: org.ofbiz.order.shoppingcart.ShoppingCart.CartPaymentInfo cpi = shoppingCart.getPaymentInfo(paymentMethodId, null, null, null, true); cpi.securityCode = cardSecurityCode; return cpi;}"/>
+        <check-errors/>
     </simple-method>
 
     <simple-method method-name="setAnonUserLogin" short-description="Set user login in the session" login-required="false">
