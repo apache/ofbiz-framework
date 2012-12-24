@@ -358,7 +358,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         
         List<ModelForm.UpdateArea> updateAreas = modelFormField.getOnChangeUpdateAreas();
         boolean ajaxEnabled = updateAreas != null && this.javaScriptEnabled;
-        if (!textField.getClientAutocompleteField() || ajaxEnabled) {
+        if (textField.getClientAutocompleteField() || ajaxEnabled) {
             clientAutocomplete = "true";
         }
 
