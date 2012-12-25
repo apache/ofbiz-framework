@@ -27,6 +27,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
@@ -105,26 +106,22 @@ public class PrimaryKeyFinder extends Finder {
             GenericValue tempVal = delegator.makeValue(modelEntity.getEntityName());
 
             // try a map called "parameters", try it first so values from here are overridden by values in the main context
-            Object parametersObj = context.get("parameters");
+            Map<String, Object> parametersObj = UtilMisc.toMap(UtilGenerics.checkMap(context.get("parameters")));
             if (parametersObj != null && parametersObj instanceof Map<?, ?>) {
-                tempVal.setAllFields(UtilGenerics.checkMap(parametersObj), true, null, Boolean.TRUE);
+                // need the timeZone and locale for conversion, so add here and remove after
+                parametersObj.put("locale", context.get("locale"));
+                parametersObj.put("timeZone", context.get("timeZone"));
+                modelEntity.convertFieldMapInPlace(parametersObj, delegator);
+                entityContext.remove("locale");
+                entityContext.remove("timeZone");
+                tempVal.setAllFields(parametersObj, true, null, Boolean.TRUE);
             }
 
             // just get the primary keys, and hopefully will get all of them, if not they must be manually filled in below in the field-maps
             tempVal.setAllFields(context, true, null, Boolean.TRUE);
-
             entityContext.putAll(tempVal);
         }
-        EntityFinderUtil.expandFieldMapToContext(fieldMap, context, entityContext);
-        //Debug.logInfo("PrimaryKeyFinder: entityContext=" + entityContext, module);
-        // then convert the types...
-        
-        // need the timeZone and locale for conversion, so add here and remove after
-        entityContext.put("locale", context.get("locale"));
-        entityContext.put("timeZone", context.get("timeZone"));
-        modelEntity.convertFieldMapInPlace(entityContext, delegator);
-        entityContext.remove("locale");
-        entityContext.remove("timeZone");
+        EntityFinderUtil.expandFieldMapToContext(fieldMap, context, entityContext);        
 
         // get the list of fieldsToSelect from selectFieldExpanderList
         Set<String> fieldsToSelect = EntityFinderUtil.makeFieldsToSelect(selectFieldExpanderList, context);
