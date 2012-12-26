@@ -61,6 +61,20 @@ under the License.
     <Example exampleId="EX08" exampleName="Example 8" exampleTypeId="MADE_UP" statusId="EXST_IN_DESIGN"/>
     <Example exampleId="EX09" exampleName="Example 9" exampleTypeId="MADE_UP" statusId="EXST_IN_DESIGN"/>
     <Example exampleId="EX10" exampleName="Example 10" exampleTypeId="MADE_UP" statusId="EXST_IN_DESIGN"/>
-    <Example exampleId="EX11" exampleName="Example 11" exampleTypeId="INSPIRED" statusId="EXST_IN_DESIGN"/>
-    <Example exampleId="EX12" exampleName="Example 12" exampleTypeId="INSPIRED" statusId="EXST_IN_DESIGN"/>
+    <Example exampleId="EX11" exampleName="Example 11" exampleTypeId="INSPIRED" statusId="EXST_IN_DESIGN" description="mMy inspired example 11 description"/>
+    <Example exampleId="EX12" exampleName="Example 12" exampleTypeId="INSPIRED" statusId="EXST_IN_DESIGN" description="mMy inspired example 12 description"/>
+    <create>
+        <Example exampleId="EX13" exampleName="Example 13" exampleTypeId="INSPIRED" statusId="EXST_IN_DESIGN"/>
+        <Example exampleId="EX14" exampleName="Example 14" exampleTypeId="INSPIRED" statusId="EXST_IN_DESIGN"/>
+    </create>
+    <create-replace>
+        <Example exampleId="EX12" exampleName="Example 12 after replace" exampleTypeId="INSPIRED" statusId="EXST_IN_DESIGN"/>
+    </create-replace>
+    <create-update>
+        <Example exampleId="EX12" exampleName="Example 11 after update" exampleTypeId="INSPIRED" statusId="EXST_IN_DESIGN"/>
+    </create-update>
+    <delete>
+        <Example exampleId="EX09"/>
+    </delete>
+    <Example exampleId="EX10" exampleName="Example 10 after update"/>
 </entity-engine-xml>
