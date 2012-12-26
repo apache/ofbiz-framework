@@ -694,6 +694,20 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return nameList;
     }
 
+    /**
+     * @return field names list, managed by entity-engine
+     */
+    public List<String> getAutomaticFieldNames() {
+        List<String> nameList = FastList.newInstance();
+        if (! this.noAutoStamp) {
+            nameList.add(STAMP_FIELD);
+            nameList.add(STAMP_TX_FIELD);
+            nameList.add(CREATE_STAMP_FIELD);
+            nameList.add(CREATE_STAMP_TX_FIELD);
+        }
+        return nameList;
+    }
+
     public int getRelationsSize() {
         return this.relations.size();
     }
