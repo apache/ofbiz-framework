@@ -21,19 +21,22 @@ package org.ofbiz.base.util;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.text.DateFormat;
 import java.util.Enumeration;
 import java.util.Formatter;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 import org.apache.avalon.util.exception.ExceptionHelper;
+import org.apache.log4j.Appender;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.RollingFileAppender;
-import org.apache.log4j.Appender;
 import org.apache.log4j.spi.LoggerRepository;
+import org.ofbiz.base.conversion.ConversionException;
+import org.ofbiz.base.conversion.DateTimeConverters.DateToString;
 
 /**
  * Configurable Debug logging wrapper class
@@ -59,8 +62,6 @@ public final class Debug {
     public static final String[] levels = {"Always", "Verbose", "Timing", "Info", "Important", "Warning", "Error", "Fatal", "Notify"};
     public static final String[] levelProps = {"", "print.verbose", "print.timing", "print.info", "print.important", "print.warning", "print.error", "print.fatal", "print.notify"};
     public static final Level[] levelObjs = {Level.INFO, Level.DEBUG, Level.INFO, Level.INFO, Level.INFO, Level.WARN, Level.ERROR, Level.FATAL, NotifyLevel.NOTIFY};
-
-    private static final DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM);
 
     protected static Map<String, Integer> levelStringMap = new HashMap<String, Integer>();
 
@@ -183,7 +184,13 @@ public final class Debug {
             } else {
                 StringBuilder prefixBuf = new StringBuilder();
 
-                prefixBuf.append(dateFormat.format(new java.util.Date()));
+                DateToString dateToString = new DateToString(); 
+                try {
+                    prefixBuf.append(dateToString.convert(new java.util.Date(), Locale.getDefault(), 
+                            TimeZone.getDefault(), UtilDateTime.DATE_TIME_FORMAT));
+                } catch (ConversionException e) {
+                    logFatal(e, Debug.class.getName());
+                }
                 prefixBuf.append(" [OFBiz");
                 if (module != null) {
                     prefixBuf.append(":");
@@ -438,6 +445,12 @@ public final class Debug {
         if (!useLevelOnCache)
             return;
         levelOnCache[level] = on;
+    }
+
+    public static boolean get(int level) {
+        if (!useLevelOnCache)
+            return true;
+        return levelOnCache[level];
     }
 
     public static synchronized Appender getNewFileAppender(String name, String logFile, long maxSize, int backupIdx, String pattern) {
