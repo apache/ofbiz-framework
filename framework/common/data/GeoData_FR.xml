@@ -124,7 +124,7 @@ under the License.
     <Geo abbreviation="SPM" geoCode="975" geoId="FR-975" geoName="St Pierre et Miquelon" geoTypeId="COUNTY"/>
     <Geo abbreviation="MAY" geoCode="976" geoId="FR-976" geoName="Mayotte" geoTypeId="COUNTY"/>
     <Geo abbreviation="WeF" geoCode="986" geoId="FR-986" geoName="Wallis et Futuna" geoTypeId="COUNTY"/>
-    <Geo abbreviation="POF" geoCode="987" geoId="FR-987" geoName="Polynésie Française" geoTypeId="COUNTY"/>
+    <Geo abbreviation="POF" geoCode="987" geoId="FR-987" geoName="Polynésie française" geoTypeId="COUNTY"/>
     <Geo abbreviation="NOC" geoCode="988" geoId="FR-988" geoName="Nouvelle Calédonie" geoTypeId="COUNTY"/>
 
     <Geo abbreviation="BEB" geoCode="BEB" geoId="FR-BEB01" geoName="Bourg-en-Bresse" geoTypeId="COUNTY_CITY"/>
