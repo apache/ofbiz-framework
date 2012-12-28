@@ -95,7 +95,7 @@ under the License.
         <xs:annotation>
             <xs:documentation>
                 The name of the field to set. The target of the assignment.
-                &lt;br/&gt;&lt;br/&gt;
+                
                 Required. Attribute type: expression.
             </xs:documentation>
         </xs:annotation>
@@ -111,7 +111,7 @@ under the License.
             <xs:documentation>
                 The name of the error message list. It will be created if it does not exist.
                 Defaults to "error_list".
-                &lt;br/&gt;&lt;br/&gt;
+                
                 Optional. Attribute types: constant, ${expression}.
             </xs:documentation>
         </xs:annotation>
@@ -121,7 +121,7 @@ under the License.
         <xs:annotation>
             <xs:documentation>
                 The Java data type.
-                &lt;br/&gt;&lt;br/&gt;
+                
                 Optional. Attribute type: constant. Attribute must contain a valid Java class name.
             </xs:documentation>
         </xs:annotation>
@@ -132,11 +132,11 @@ under the License.
             <xs:annotation>
                 <xs:documentation>
                     The comparison operator. The operator describes the l-value compared to the r-value.
-                    &lt;br/&gt;&lt;br/&gt;
+                    
                     The "contains" operator returns true if the l-value contains the r-value.
                     This operator does not perform type conversions.
                     The l-value must be a collection type or a String. A null l-value evaluates to false.
-                    &lt;br/&gt;&lt;br/&gt;
+                    
                     Required. Attribute type: constant.
                 </xs:documentation>
             </xs:annotation>
@@ -159,14 +159,14 @@ under the License.
             <xs:annotation>
                 <xs:documentation>
                     The comparison operator. The operator describes the l-value compared to the r-value.
-                    &lt;br/&gt;&lt;br/&gt;
+                    
                     The "contains" operator returns true if the l-value contains the r-value.
                     This operator does not perform type conversions.
                     The l-value must be a collection type or a String. A null l-value evaluates to false.
-                    &lt;br/&gt;&lt;br/&gt;
+                    
                     The "is-null", "is-not-null", and "is-empty" operators
                     do not require an r-value. Any r-values will be ignored.
-                    &lt;br/&gt;&lt;br/&gt;
+                    
                     Required. Attribute type: constant.
                 </xs:documentation>
             </xs:annotation>
@@ -193,7 +193,7 @@ under the License.
                 <xs:documentation>
                     The name of the permission.
                     The user must belong to a security group that includes this permission.
-                    &lt;br/&gt;&lt;br/&gt;
+                    
                     Required. Attribute types: constant, ${expression}.
                 </xs:documentation>
             </xs:annotation>
@@ -203,7 +203,7 @@ under the License.
                 <xs:documentation>
                     If an action is specified the user can have one of two permissions: the permission + "_ADMIN" or permission + action.
                     Examples of actions include "_CREATE", "_VIEW", etc.
-                    &lt;br/&gt;&lt;br/&gt;
+                    
                     Optional. Attribute types: constant, ${expression}.
                 </xs:documentation>
             </xs:annotation>
@@ -233,7 +233,7 @@ under the License.
         <xs:annotation>
             <xs:documentation>
                 Contains a block of Mini-language code.
-                &lt;br/&gt;&lt;br/&gt;
+                
                 A simple method can be called in either an event context from the Control
                 Servlet (or another event) or in a service context through the Service
                 Engine, or any other component that has access to a service
@@ -247,7 +247,7 @@ under the License.
                     <xs:documentation>
                         A name (preferably a legal Java identifier) for this method.
                         This name must be unique for the XML file it is in as it will be used to reference this method externally.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -256,7 +256,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         A short description of the method - used for documentation.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -265,7 +265,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Require a user login to run this method. Defaults to "true".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -274,7 +274,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Create a transaction if none exists for this thread. Defaults to "true".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -283,7 +283,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The default error return code. Defaults to "error".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -292,7 +292,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The default success return code. Defaults to "success".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -301,9 +301,9 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field containing the javax.servlet.ServletRequest object. Defaults to "request".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Used when the simple method is invoked as an event, it is ignored otherwise.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -312,9 +312,9 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field containing the javax.servlet.ServletResponse object. Defaults to "response".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Used when the simple method is invoked as an event, it is ignored otherwise.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -323,9 +323,9 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field containing the javax.servlet.http.HttpSession object. Defaults to "session".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Used when the simple method is invoked as an event, it is ignored otherwise.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -334,9 +334,9 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field containing the event response code. Defaults to "_response_code_".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Used when the simple method is invoked as an event, it is ignored otherwise.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -345,9 +345,9 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field containing the event error message. Defaults to "_error_message_".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Used when the simple method is invoked as an event, it is ignored otherwise.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -356,9 +356,9 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field containing the event error message list. Defaults to "_error_message_list_".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Used when the simple method is invoked as an event, it is ignored otherwise.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -367,9 +367,9 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field containing the event message. Defaults to "_event_message_".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Used when the simple method is invoked as an event, it is ignored otherwise.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -378,9 +378,9 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field containing the event message list. Defaults to "_event_message_list_".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Used when the simple method is invoked as an event, it is ignored otherwise.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -389,9 +389,9 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field containing the service response message. Defaults to "responseMessage".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Used when the simple method is invoked as a service, it is ignored otherwise.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -400,9 +400,9 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field containing the service error message. Defaults to "errorMessage".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Used when the simple method is invoked as a service, it is ignored otherwise.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -411,9 +411,9 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field containing the service error message list. Defaults to "errorMessageList".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Used when the simple method is invoked as a service, it is ignored otherwise.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -422,9 +422,9 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field containing the service error message map. Defaults to "errorMessageMap".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Used when the simple method is invoked as a service, it is ignored otherwise.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -433,9 +433,9 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field containing the service success message. Defaults to "successMessage".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Used when the simple method is invoked as a service, it is ignored otherwise.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -444,9 +444,9 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field containing the service success message list. Defaults to "successMessageList".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Used when the simple method is invoked as a service, it is ignored otherwise.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -487,7 +487,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The title of the assert operation. The title is used in test reports.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -500,7 +500,7 @@ under the License.
         <xs:annotation>
             <xs:documentation>
                 Evaluates the specified field, and adds an error message to the error message list if the field's value is not a valid database ID value.
-                &lt;br/&gt;&lt;br/&gt;
+                
                 <![CDATA[Valid IDs can be any sequence of characters or digits but must not contain the following characters:
                 space [ ], double quote ["], single quote ['], ampersand [&], question mark [?],
                 less-than sign [<], greater-than sign [>], forward-slash [/], back-slash [\].]]>
@@ -515,7 +515,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field that contains the ID value to check.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -531,7 +531,7 @@ under the License.
                 If the user does not have the specified permission or if there is no user associated with the context
                 then the failure message from fail-message or fail-property will be added to the
                 specified error list.
-                &lt;br/&gt;&lt;br/&gt;
+                
                 Note that this element must be followed by the check-errors element for it to do anything meaningful. 
             </xs:documentation>
         </xs:annotation>
@@ -574,7 +574,7 @@ under the License.
                 Creates an instance of the specified class.
                 The string and field sub-elements are passed to the constructor method as arguments in the order they are specified.
                 A runtime exception will be thrown if the sub-elements do not match the constructor method arguments.
-                &lt;br/&gt;&lt;br/&gt;
+                
                 Deprecated - use the script element.
             </xs:documentation>
         </xs:annotation>
@@ -588,7 +588,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the class to construct an instance of.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -607,7 +607,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The error message text.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant+expr
                     </xs:documentation>
                 </xs:annotation>
@@ -627,7 +627,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of a properties file on the classpath.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant
                     </xs:documentation>
                 </xs:annotation>
@@ -636,7 +636,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The property key.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant
                     </xs:documentation>
                 </xs:annotation>
@@ -655,7 +655,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the environment field to use.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -666,7 +666,7 @@ under the License.
                         The Java class of the argument. Defaults to "java.lang.String".
                         It should be the type specified in the method signature, not the type of the object being
                         passed in.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -678,7 +678,7 @@ under the License.
         <xs:annotation>
             <xs:documentation>
                 Appends an object to the specified list.
-                &lt;br/&gt;&lt;br/&gt;
+                
                 Deprecated - use the set element.
             </xs:documentation>
         </xs:annotation>
@@ -687,7 +687,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The field name of the object to append. The operation does nothing if the field does not exist.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -697,7 +697,7 @@ under the License.
                     <xs:documentation>
                         The field name of the list that the object will be appended to.
                         If the list does not exist, one will be created.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -718,7 +718,7 @@ under the License.
                     <xs:documentation>
                         The name of the field to copy from. The source of the assignment.
                         The operation does nothing if the field does not exist.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -728,7 +728,7 @@ under the License.
                     <xs:documentation>
                         The servlet request attribute name. The target of the assignment.
                         Defaults to the value of the field attribute.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -748,7 +748,7 @@ under the License.
                     <xs:documentation>
                         The name of the field to copy from. The source of the assignment.
                         The operation does nothing if the field does not exist.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -758,7 +758,7 @@ under the License.
                     <xs:documentation>
                         The name of the result field to set. The target of the assignment.
                         Defaults to the value of the field attribute.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -779,7 +779,7 @@ under the License.
                     <xs:documentation>
                         The name of the field to copy from. The source of the assignment.
                         The operation does nothing if the field does not exist.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -789,7 +789,7 @@ under the License.
                     <xs:documentation>
                         The servlet session attribute name. The target of the assignment.
                         Defaults to the value of the field attribute.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -802,7 +802,7 @@ under the License.
             <xs:documentation>
                 Assigns the first (lowest order) entry in a list to a field.
                 If the list does not exist or is empty, assigns null to a field.
-                &lt;br/&gt;&lt;br/&gt;
+                
                 Deprecated - use the set element.
             </xs:documentation>
         </xs:annotation>
@@ -811,7 +811,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field to set. The target of the assignment.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -820,7 +820,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the list that contains the object to copy.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -839,7 +839,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Name of the list to copy from. The operation does nothing if the list does not exist.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -848,7 +848,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Name of the list to copy to. If the list does not exist, one will be created.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -869,7 +869,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the map to copy from. The operation does nothing if the map does not exist.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -879,7 +879,7 @@ under the License.
                     <xs:documentation>
                         The name of the map to copy to. If the target map does not exist, one will be created.
                         If this attribute is empty, the source map will be copied to the current environment.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -899,7 +899,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The field data type. Defaults to "java.sql.Timestamp".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -951,7 +951,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field or map key to sort on.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -973,7 +973,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field containing the list to be sorted. The operation does nothing if the list is not found.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -994,7 +994,7 @@ under the License.
                     <xs:documentation>
                         The name of a properties resource. Can be a file on the classpath or
                         a resource defined in the SystemProperty entity.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1003,7 +1003,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The property key.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1012,7 +1012,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The default value to use if the specified property value is null or empty.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1023,7 +1023,7 @@ under the License.
                         Suppress property value localization. The user's/system locale will be ignored
                         when retriving the property value.
                         Defaults to "false".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -1035,7 +1035,7 @@ under the License.
                         The argument list is applied to the property value.
                         The attribute does nothing if the argument list is not found.
                         See the java.text.MessageFormat class for more information.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -1062,7 +1062,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The servlet request parameter name. All matching parameter values will be added to the list.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1072,7 +1072,7 @@ under the License.
                     <xs:documentation>
                         The name of the field containing the list. If the list does not exist, one will be created.
                         Defaults to the request-name attribute value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -1100,7 +1100,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The servlet request attribute name. Defaults to the value of field attribute.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1109,7 +1109,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         A default value to use if the request attribute does not exist.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1130,7 +1130,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The servlet session attribute name. Defaults to the value of the field attribute.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1139,7 +1139,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         A default value to use if the request attribute does not exist.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1159,9 +1159,9 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         An expression or script that returns an object or null. The source of the assignment.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         A script must be prefixed with the script language followed by a colon (":").
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required if the value attribute is empty. Attribute types: expression, script.
                     </xs:documentation>
                 </xs:annotation>
@@ -1177,7 +1177,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         A constant value, or a constant that includes an expression. The source of the assignment.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required if the from attribute is empty. Attribute type: constant+expr.
                         Defaults to java.lang.String data type.
                     </xs:documentation>
@@ -1187,7 +1187,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         A default value that is used when the from attribute evaluates to null or empty.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1204,7 +1204,7 @@ under the License.
                     <xs:documentation>
                         The Java data type to convert to. "NewList" will create a new java.util.List, "NewMap" will create a new java.util.Map.
                         Otherwise, the attribute must contain a valid Java class name.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -1213,7 +1213,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Format to be used for object type conversion. Used when the type attribute is not empty.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1223,7 +1223,7 @@ under the License.
                     <xs:documentation>
                         Controls if the target field can be set to null when the from attribute evaluates to null.
                         Defaults to "false".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -1233,7 +1233,7 @@ under the License.
                     <xs:documentation>
                         Controls if the target field can be set to an empty value. The meaning of "empty" depends on the Java data type.
                         Defaults to "true".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -1253,9 +1253,9 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         An expression or script that returns an object or null. The source of the assignment.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         A script must be prefixed with the script language followed by a colon (":").
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required if the value attribute is empty. Attribute types: expression, script.
                     </xs:documentation>
                 </xs:annotation>
@@ -1271,7 +1271,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         A constant value, or a constant that includes an expression. The source of the assignment.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required if the from attribute is empty. Attribute type: constant+expr.
                         Defaults to java.lang.String data type.
                     </xs:documentation>
@@ -1281,7 +1281,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         A default value that is used when the from attribute evaluates to null or empty.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1298,7 +1298,7 @@ under the License.
                     <xs:documentation>
                         Controls if the target field can be set to null when the from attribute evaluates to null.
                         Defaults to "false".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -1308,7 +1308,7 @@ under the License.
                     <xs:documentation>
                         Add (optionally using +) or subtract (using -) a number of year(s).
                         If an expression is used, it should evaluate to an integer.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1318,7 +1318,7 @@ under the License.
                     <xs:documentation>
                         Add (optionally using +) or subtract (using -) a number of month(s).
                         If an expression is used, it should evaluate to an integer.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1328,7 +1328,7 @@ under the License.
                     <xs:documentation>
                         Add (optionally using +) or subtract (using -) a number of days(s).
                         If an expression is used, it should evaluate to an integer.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1338,7 +1338,7 @@ under the License.
                     <xs:documentation>
                         Add (optionally using +) or subtract (using -) a number of hour(s).
                         If an expression is used, it should evaluate to an integer.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1348,7 +1348,7 @@ under the License.
                     <xs:documentation>
                         Add (optionally using +) or subtract (using -) a number of minute(s).
                         If an expression is used, it should evaluate to an integer.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1358,7 +1358,7 @@ under the License.
                     <xs:documentation>
                         Add (optionally using +) or subtract (using -) a number of second(s).
                         If an expression is used, it should evaluate to an integer.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1368,7 +1368,7 @@ under the License.
                     <xs:documentation>
                         Add (optionally using +) or subtract (using -) a number of millisecond(s).
                         If an expression is used, it should evaluate to an integer.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1377,7 +1377,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Align the adjusted date to the start of a period.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1394,7 +1394,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Align the adjusted date to the end of a period.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1412,7 +1412,7 @@ under the License.
                     <xs:documentation>
                         A locale value (eg: en). The locale selects the calendar to be used for the adjustment.
                         Defaults to the environment locale.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1422,7 +1422,7 @@ under the License.
                     <xs:documentation>
                         A time zone value (eg: GMT).
                         Defaults to the environment time zone.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1435,7 +1435,7 @@ under the License.
             <xs:documentation>
                 Sets the UserLogin entity value to be used for authentication for the rest of the method.
                 This is mostly used for calling services, etc.
-                &lt;br/&gt;&lt;br/&gt;
+                
                 This element is deprecated. You can pass an alternate UserLogin
                 entity value to the called service's IN attributes.
             </xs:documentation>
@@ -1445,7 +1445,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field that contains the UserLogin entity value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -1464,7 +1464,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the service.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1473,7 +1473,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The map to copy the matching IN attributes from.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -1483,7 +1483,7 @@ under the License.
                     <xs:documentation>
                         The map to copy the matching IN attributes to.
                         If the map does not exist, a new one will be created.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -1504,7 +1504,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The String text.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1527,7 +1527,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The target of the string concatention.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -1538,7 +1538,7 @@ under the License.
                         The string to append to the field named in the field attribute.
                         This can be a formatting string that is used with the argument list
                         specified in the arg-list attribute.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1550,7 +1550,7 @@ under the License.
                         The argument list is applied to the string attribute value.
                         The attribute does nothing if the argument list is not found.
                         See the java.text.MessageFormat class for more information.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -1559,7 +1559,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         A string that will be prepended to the string attribute value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1568,7 +1568,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         A string that will be appended to the string attribute value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1587,7 +1587,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The string to add to the list specified in the list attribute.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1596,7 +1596,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         List to add the string to. If the list does not exist, one will be created.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -1608,7 +1608,7 @@ under the License.
                         The argument list is applied to the string attribute value.
                         The attribute does nothing if the argument list is not found.
                         See the java.text.MessageFormat class for more information.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -1617,7 +1617,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Inserts a message above a field (used in conjunction with @fieldErrors FTL macro).
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -1637,7 +1637,7 @@ under the License.
                     <xs:documentation>
                         The name of the field containing the object to convert.
                         The operation does nothing if the object is not found.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -1646,7 +1646,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The format to use for the conversion.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -1655,7 +1655,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Left-pad the string with the specified number of zeroes.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -1678,7 +1678,7 @@ under the License.
                         The resource location of the properties file inside the webapp,
                         and relative to the root of the webapp (can be inside a war file).
                         An example of this is "/WEB-INF/myprops.properties".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1687,7 +1687,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The property key.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1696,7 +1696,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         A default value to use if the property value is null or empty.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1744,7 +1744,7 @@ under the License.
                     <xs:documentation>
                         The error code to return to the calling process.
                         Defaults to value of the containing simple-method default-error-code attribute.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1835,7 +1835,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field that will be compared. The l-value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -1845,7 +1845,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The value that the field will be compared to. The r-value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Ignored when the operator attribute equals "is-null", "is-not-null", or "is-empty" - required otherwise. Attribute type: constant+expr.
                     </xs:documentation>
                 </xs:annotation>
@@ -1855,7 +1855,7 @@ under the License.
                     <xs:documentation>
                         The Java data type. Both values will be converted to this type before comparison.
                         Invalid when the operator attribute value is "contains".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant. Attribute must contain a valid Java class name.
                     </xs:documentation>
                 </xs:annotation>
@@ -1864,7 +1864,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Format used for type conversions. Valid only when the type attribute is not empty.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1888,7 +1888,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field that will be compared. The l-value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -1899,7 +1899,7 @@ under the License.
                     <xs:documentation>
                         The name of the field that will be compared to the field specified in the field attribute.
                         The r-value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -1909,7 +1909,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Format used for type conversions. Valid only when the type attribute is not empty.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1934,7 +1934,7 @@ under the License.
                     <xs:documentation>
                         The name of the field to test.
                         Object to test must be a collection, string, or a class that implements org.ofbiz.base.lang.IsEmpty.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -1975,7 +1975,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field to test.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -1984,7 +1984,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the class to test for.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant. Attribute must contain a valid Java class name.
                     </xs:documentation>
                 </xs:annotation>
@@ -2010,7 +2010,7 @@ under the License.
                     <xs:documentation>
                         The name of the field to test.
                         Object to test must be a collection, string, or a class that implements org.ofbiz.base.lang.IsEmpty.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -2036,7 +2036,7 @@ under the License.
                         The name of the field to test.
                         The field object will be converted to a string before the test.
                         An empty string will be used if the field object is not found.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -2045,7 +2045,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The regular expression to test for.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -2071,7 +2071,7 @@ under the License.
                         The name of the field to use as the method argument.
                         The field object will be converted to a string before the method call.
                         An empty string will be used if the field object is not found.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression
                     </xs:documentation>
                 </xs:annotation>
@@ -2081,7 +2081,7 @@ under the License.
                     <xs:documentation>
                         The name of the method that will be called to validate the field.
                         It must be a static method that takes a single String parameter and return a boolean.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant
                     </xs:documentation>
                 </xs:annotation>
@@ -2090,7 +2090,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the class that contains the validation method. Defaults to "org.ofbiz.base.util.UtilValidate".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant
                     </xs:documentation>
                 </xs:annotation>
@@ -2111,7 +2111,7 @@ under the License.
                     <xs:documentation>
                         The name of the field that contains the collection to iterate over.
                         The operation does nothing if the field is not found.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -2120,7 +2120,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field that will contain the current collection entry.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -2141,7 +2141,7 @@ under the License.
                     <xs:documentation>
                         The name of the field that contains the map to iterate over.
                         The operation does nothing if the field is not found.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -2150,7 +2150,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field that will contain the current map entry key.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -2159,7 +2159,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field that will contain the current map entry value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -2179,7 +2179,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         A maximum count expression. Defaults to "0" (zero).
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -2188,7 +2188,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field that will contain the current count.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -2232,7 +2232,7 @@ under the License.
                     <xs:documentation>
                         A response code to return to the calling process. Defaults to the
                         value of the containing simple-method element "default-success-code" attribute.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -2287,7 +2287,7 @@ under the License.
         <xs:annotation>
             <xs:documentation>
                 The name of the called service's OUT attribute.
-                &lt;br/&gt;&lt;br/&gt;
+                
                 Required. Attribute type: expression.
             </xs:documentation>
         </xs:annotation>
@@ -2298,7 +2298,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of a properties file on the classpath.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant
                     </xs:documentation>
                 </xs:annotation>
@@ -2307,7 +2307,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The property key.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant
                     </xs:documentation>
                 </xs:annotation>
@@ -2318,7 +2318,7 @@ under the License.
         <xs:annotation>
             <xs:documentation>
                 Executes a BSH script. Deprecated - replace with script.
-                &lt;br/&gt;&lt;br/&gt;
+                
                 The script can be contained in a Java resource, and/or a short
                 script can be included in the element body.
                 If a Java resource is specified, and the element body contains a script,
@@ -2330,7 +2330,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         A Java resource that contains the script.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required if the element body is empty. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -2342,7 +2342,7 @@ under the License.
         <xs:annotation>
             <xs:documentation>
                 Calls a static method on a Java class. Deprecated - replace with script.
-                &lt;br/&gt;&lt;br/&gt;
+                
                 The string and field sub-elements are passed to the method as arguments in the order they are specified.
                 If the method returns a value, the value will be put in the named field.
             </xs:documentation>
@@ -2356,7 +2356,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the class containing the static method.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -2365,7 +2365,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the static method to call.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -2374,7 +2374,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field to put the method return value in.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -2386,11 +2386,11 @@ under the License.
         <xs:annotation>
             <xs:documentation>
                 Invokes a simple map processor.
-                &lt;br/&gt;&lt;br/&gt;
+                
                 An inline map processor can be used by including a simple-map-processor element in the call-map-processor element.
                 If both an external and an inline map processor are specified, the external
                 one will be called first, allowing the inline one to override its behavior.
-                &lt;br/&gt;&lt;br/&gt;
+                
                 Map processor messages are added to an error message list.
             </xs:documentation>
         </xs:annotation>
@@ -2402,7 +2402,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field that contains the map to be processed.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -2413,7 +2413,7 @@ under the License.
                         The name of the field that will receive the processed map.
                         If the map does not exist, one will be created.
                         If the map already exists it will be added to in place.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -2423,7 +2423,7 @@ under the License.
                     <xs:documentation>
                         The full path and filename on the classpath of the XML file which contains an external map processor to execute.
                         This is only required if an external map processor is desired.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -2433,7 +2433,7 @@ under the License.
                     <xs:documentation>
                         The name of the external map processor to execute in the specified xml-resource.
                         This is only required if an external map processor is desired.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -2446,7 +2446,7 @@ under the License.
         <xs:annotation>
             <xs:documentation>
                 Calls a method on an existing Java object. Deprecated - replace with script.
-                &lt;br/&gt;&lt;br/&gt;
+                
                 The string and field sub-elements are passed to the method as arguments in the order they are specified.
                 If the method returns a value, the value will be put in the named field.
             </xs:documentation>
@@ -2461,7 +2461,7 @@ under the License.
                     <xs:documentation>
                         The name of the field containing the object to be called.
                         A runtime exception is thrown if the object is not found.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -2470,7 +2470,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the method to call.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -2479,7 +2479,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field to put the method return value in.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -2584,7 +2584,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the service to invoke.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -2593,7 +2593,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of a field containing a map that will be used for the service's IN parameters.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -2603,7 +2603,7 @@ under the License.
                     <xs:documentation>
                         Include the current UserLogin entity value in the called service's IN parameters.
                         Defaults to "true".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -2613,7 +2613,7 @@ under the License.
                     <xs:documentation>
                         Halt script execution if the called service returns an error.
                         Defaults to "true".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -2623,7 +2623,7 @@ under the License.
                     <xs:documentation>
                         The error code returned by the called service.
                         Defaults to the enclosing simple-method default-error-code attribute value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -2633,7 +2633,7 @@ under the License.
                     <xs:documentation>
                         The success code returned by the called service.
                         Defaults to the enclosing simple-method default-success-code attribute value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -2643,7 +2643,7 @@ under the License.
                     <xs:documentation>
                         Require a new transaction for the called service.
                         Defaults to "false".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -2653,7 +2653,7 @@ under the License.
                     <xs:documentation>
                         The timeout for the new transaction, in seconds.
                         Defaults to the value set in the called service definition.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -2674,7 +2674,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the service to invoke.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -2683,7 +2683,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of a field containing a map that will be used for the service's IN parameters.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -2693,7 +2693,7 @@ under the License.
                     <xs:documentation>
                         Include the current UserLogin entity value in the called service's IN parameters.
                         Defaults to "true".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -2726,7 +2726,7 @@ under the License.
                     <xs:documentation>
                         The name of the simple-method to execute in the specified xml-resource,
                         or in the current XML file if no xml-resource is specified.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -2736,7 +2736,7 @@ under the License.
                     <xs:documentation>
                         The full path and filename on the classpath of the XML file which contains an external simple-method to execute.
                         This is only required if a simple-method in a different file is desired.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -2748,7 +2748,7 @@ under the License.
                         will be reflected back to the calling method - as if the called method was inline. In a &quot;function&quot; memory
                         scope, fields declared or modified in the called method are local to the called method - they are not
                         reflected back to the calling method.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -2773,7 +2773,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the target field.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -2793,7 +2793,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of target field. Defaults to the result-name attribute value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -2814,7 +2814,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the target request attribute. Defaults to the result-name attribute value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -2835,7 +2835,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the target session attribute. Defaults to the result-name attribute value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -2849,7 +2849,7 @@ under the License.
                 Copies service OUT attributes from a called service to the calling service's OUT attributes.
                 This element can also be used to copy the called service OUT attributes to the return result of
                 a simple-method called as a function.
-                &lt;br/&gt;&lt;br/&gt;
+                
                 Note that the attribute names are somewhat confusing:
                 "result-name" is the name of the OUT attribute of the called service, and
                 "service-result-name" is the name of the OUT attribute of the calling service.
@@ -2863,7 +2863,7 @@ under the License.
                     <xs:documentation>
                         The name of the calling service's OUT attribute (or function return result).
                         Defaults to the result-name attribute value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -2885,7 +2885,7 @@ under the License.
                         The script location. The location attribute accepts the component:// file location
                         protocol. Script functions/methods can be invoked by appending a hash (#) and the
                         function/method name.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required if the script attribute is empty. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -2895,7 +2895,7 @@ under the License.
                     <xs:documentation>
                         A short script (scriptlet). Can be used instead of a file.
                         The script must be prefixed with the script language followed by a colon (":").
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required if the location attribute is empty. Attribute type: script.
                     </xs:documentation>
                 </xs:annotation>
@@ -2914,7 +2914,7 @@ under the License.
             <xs:documentation>
                 The name of the field that contains a Boolean value specifying whether or not a transaction was begun in the current transaction demarcation.
                 Defaults to "beganTransaction".
-                &lt;br/&gt;&lt;br/&gt;
+                
                 Optional. Attribute type: expression.
             </xs:documentation>
         </xs:annotation>
@@ -2925,7 +2925,7 @@ under the License.
             <xs:annotation>
                 <xs:documentation>
                     The name of the entity to search in.
-                    &lt;br/&gt;&lt;br/&gt;
+                    
                     Required. Attribute type: constant, ${expression}.
                 </xs:documentation>
             </xs:annotation>
@@ -2934,7 +2934,7 @@ under the License.
             <xs:annotation>
                 <xs:documentation>
                     The name of the field that will contain the result list.
-                    &lt;br/&gt;&lt;br/&gt;
+                    
                     Required. Attribute type: expression.
                 </xs:documentation>
             </xs:annotation>
@@ -2945,7 +2945,7 @@ under the License.
                     Filter the result list by the current date. The entity must have "fromDate" and
                     "thruDate" fields.
                     Defaults to "false".
-                    &lt;br/&gt;&lt;br/&gt;
+                    
                     Optional. Attribute type: constant, ${expression}.
                 </xs:documentation>
             </xs:annotation>
@@ -2955,7 +2955,7 @@ under the License.
                 <xs:documentation>
                     Filter the results so that all of them are unique.
                     Defaults to "false".
-                    &lt;br/&gt;&lt;br/&gt;
+                    
                     Optional. Attribute type: constant, ${expression}.
                 </xs:documentation>
             </xs:annotation>
@@ -2965,7 +2965,7 @@ under the License.
                 <xs:documentation>
                     Use the entity cache.
                     Defaults to "false".
-                    &lt;br/&gt;&lt;br/&gt;
+                    
                     Optional. Attribute type: constant, ${expression}.
                 </xs:documentation>
             </xs:annotation>
@@ -2974,7 +2974,7 @@ under the License.
             <xs:annotation>
                 <xs:documentation>
                     Overrides the current delegator by specifying a delegator name.
-                    &lt;br/&gt;&lt;br/&gt;
+                    
                     Optional. Attribute type: constant, ${expression}.
                 </xs:documentation>
             </xs:annotation>
@@ -2993,7 +2993,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the entity.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -3005,7 +3005,7 @@ under the License.
                         If the fields in the map form the full primary key the entry will be removed from the byPrimaryKey cache.
                         If the map exists but the fields do not include a full primary key the entry will be removed from the byAnd cache.
                         If no map name is specified the entry will be removed from the all caches.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: expression.
                 </xs:documentation>
                 </xs:annotation>
@@ -3035,7 +3035,7 @@ under the License.
                     <xs:documentation>
                         The name of the field that contains the entity value to be copied.
                         The operation does nothing if the entity value is not found.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -3044,7 +3044,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field that will contain the new entity value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -3063,7 +3063,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the entity field that will be compared. The l-value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -3075,7 +3075,7 @@ under the License.
                         If set to "between" then the r-value must be a collection that has two entries in it.
                         If set to "in" or "not-in" then the r-value must be a collection.
                         Defaults to "equals".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -3099,7 +3099,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of an environment field that the entity field will be compared to. The r-value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required if the value attribute is empty. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -3108,7 +3108,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         A constant value that the entity field will be compared to. The r-value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required if the from-field attribute is empty. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -3118,7 +3118,7 @@ under the License.
                     <xs:documentation>
                         Ignore the condition if the r-value is null.
                         Defaults to "false".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -3128,7 +3128,7 @@ under the License.
                     <xs:documentation>
                         Ignore the condition if the r-value is empty.
                         Defaults to "false".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -3138,7 +3138,7 @@ under the License.
                     <xs:documentation>
                         Perform a case-insensitive comparison.
                         Defaults to "false".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -3148,7 +3148,7 @@ under the License.
                     <xs:documentation>
                         Ignore the condition if the r-value evaluates to "true".
                         Defaults to "false".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -3175,7 +3175,7 @@ under the License.
                     <xs:documentation>
                         The SQL operator.
                         Defaults to "and".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -3200,7 +3200,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field that contains an entity find condition expression object.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -3219,7 +3219,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field that contains the entity value to be created.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -3228,7 +3228,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Clear the cache. Defaults to "true".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -3239,7 +3239,7 @@ under the License.
                         Store the entity value if it already exists. Defaults to "false".
                         If set to "false", an error will result if an instance of the entity value exists
                         in the data source with the same primary key.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -3314,7 +3314,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Name of entity to count in.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -3323,7 +3323,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Name of the field that will contain the count result.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -3332,7 +3332,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Overrides the current delegator by specifying a delegator name.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -3354,7 +3354,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The location of an XML file to load in database mode or to verify in assert mode.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant, ${expression}.
                 </xs:documentation>
                 </xs:annotation>
@@ -3363,7 +3363,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Operation mode: "load" or "assert". Defaults to "load".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -3379,7 +3379,7 @@ under the License.
                     <xs:documentation>
                         Override the current transaction to start a new transaction and load the data with a different timeout.
                         Valid only when mode="load".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -3389,7 +3389,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Overrides the current delegator by specifying a delegator name.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -3414,7 +3414,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Name of the entity to search in.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -3423,7 +3423,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Name of the field that will contain the entity value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -3433,7 +3433,7 @@ under the License.
                     <xs:documentation>
                         Use the entity cache.
                         Defaults to "false".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -3443,7 +3443,7 @@ under the License.
                     <xs:documentation>
                         Look for all primary key field names in the current context as well as in the parameters map.
                         Defaults to "true".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -3462,7 +3462,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Name of the entity field. Defaults to from-field attribute value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -3471,7 +3471,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of an environment field that contains the entity field value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required if the value attribute is empty. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -3480,7 +3480,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         A constant entity field value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required if the from-field attribute is empty. Attribute type: constant+expr.
                         Defaults to java.lang.String data type.
                     </xs:documentation>
@@ -3503,7 +3503,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field that contains the list of entity values.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -3512,7 +3512,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field that contains the map that will be used for the entity field comparison.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -3522,7 +3522,7 @@ under the License.
                     <xs:documentation>
                         The name of the field the filtered list will be put into.
                         Defaults to the value of the list attribute (operation replaces the old list).
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -3544,7 +3544,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field that contains the list of entity values.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -3554,7 +3554,7 @@ under the License.
                     <xs:documentation>
                         The name of the field the filtered list will be put into.
                         Defaults to the value of the list-name attribute (operation replaces the old list).
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -3564,7 +3564,7 @@ under the License.
                     <xs:documentation>
                         The name of a field that contains the date object to filter by.
                         The date object must be a java.sql.Timestamp data type. Defaults to now.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -3574,7 +3574,7 @@ under the License.
                     <xs:documentation>
                         The name of the entity field to use as the beginning date.
                         Defaults to "fromDate".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -3584,7 +3584,7 @@ under the License.
                     <xs:documentation>
                         The name of the entity field to use as the ending date.
                         Defaults to "thruDate".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -3604,7 +3604,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the entity to search in.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -3613,7 +3613,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field that will contain the list of entity values.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -3624,7 +3624,7 @@ under the License.
                         The name of the field containing a map that will be used for the search.
                         The map name/value pairs will be combined using a boolean AND.
                         All entity values will be found if this attribute is empty.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -3635,7 +3635,7 @@ under the License.
                         The name of the field containing a list that contains field names that you want the operation to order the results by.
                         Each entry in the list is a field name. The field name can be preceded by a plus or a minus sign to specify an
                         ascending or descending sort for that field. The default is ascending sort.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -3644,7 +3644,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of a list or set in the method environment that contains field names to select.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -3654,7 +3654,7 @@ under the License.
                     <xs:documentation>
                         Use the entity cache.
                         Defaults to "false". Ignored when the use-iterator attribute equals "true". 
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -3666,7 +3666,7 @@ under the License.
                         This is much more efficient for large data sets because the results are read incrementaly instead of all at once.
                         The EntityListIterator must be closed when you are finished, but this is done automatically by the iterate operation.
                         Defaults to "false".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -3675,7 +3675,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Overrides the current delegator by specifying a delegator name.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -3696,7 +3696,7 @@ under the License.
                     <xs:documentation>
                         The name of the entity to search in. If the primary key map is an entity value,
                         then the value's entity name can be used instead of this attribute.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional if the entity name comes from the primary key map. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -3705,7 +3705,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field that will contain the entity value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -3714,7 +3714,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field containing a map that will be used for the search.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -3723,7 +3723,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of a list or set in the method environment that contains field names to select.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -3733,7 +3733,7 @@ under the License.
                     <xs:documentation>
                         Use the entity cache.
                         Defaults to "false". 
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -3742,7 +3742,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Overrides the current delegator by specifying a delegator name.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -3761,7 +3761,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field containing the entity value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -3770,7 +3770,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the entity value relation to use.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -3779,7 +3779,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field that will contain the search results list.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -3790,7 +3790,7 @@ under the License.
                         The name of the field containing a map that will be used for the search.
                         The map name/value pairs will be combined using a boolean AND.
                         All entity values will be found if this attribute is empty.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -3801,7 +3801,7 @@ under the License.
                         The name of the field containing a list that contains field names that you want the find operation to order the results by.
                         Each entry in the list is a field name. The field name can be preceded by a plus or a minus sign to specify an
                         ascending or descending sort for that field. The default is ascending sort.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -3811,7 +3811,7 @@ under the License.
                     <xs:documentation>
                         Use the entity cache.
                         Defaults to "false". 
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -3830,7 +3830,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field containing the entity value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -3839,7 +3839,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the entity value relation to use.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -3848,7 +3848,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field that will contain the related entity value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -3858,7 +3858,7 @@ under the License.
                     <xs:documentation>
                         Use the entity cache.
                         Defaults to "false". 
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -3907,7 +3907,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         A zero-based starting index. The attribute value must resolve to a non-negative integer.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -3916,7 +3916,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The number of results to include. The attribute value must resolve to a non-negative integer.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -3936,7 +3936,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         A one-based view index. The attribute value must resolve to a non-negative integer.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -3945,7 +3945,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The number of results to view. The attribute value must resolve to a non-negative integer.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -3959,7 +3959,7 @@ under the License.
                 Generates a sequence string and uses it to update an entity value field.
                 The sequence is generated by scanning all similar values in the entity and adding
                 an increment amount to the highest sequence value found.
-                &lt;br/&gt;&lt;br/&gt;
+                
                 This element is typically used to generate sequences for the child entity in a
                 parent-child relationship - like order items or invoice items.
             </xs:documentation>
@@ -3969,7 +3969,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field that contains the entity value to update.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -3978,7 +3978,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the entity value field that will receive the sequence string.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -3988,7 +3988,7 @@ under the License.
                     <xs:documentation>
                         Left-pad the sequence string with the specified number of zeros.
                         Defaults to "5".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -3997,7 +3997,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Sequence increment amount. Defaults to "1".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -4017,7 +4017,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The entity name.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -4026,7 +4026,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field that will contain the new entity value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -4036,7 +4036,7 @@ under the License.
                     <xs:documentation>
                         The name of the field that contains a map that is used to initialize the entity value fields.
                         Map values whose key matches one of the entity value fields will be copied to the corresponding entity value field.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -4056,7 +4056,7 @@ under the License.
                     <xs:documentation>
                         The name of the field that contains the list of entity values.
                         If the source list is not found, the target field will be set to null.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -4068,7 +4068,7 @@ under the License.
                         Field names can be preceded by a plus symbol (+) or a minus symbol (-) to specify an ascending or descending sort for that field.
                         The default is ascending sort.
                         If the order-by-list is not found the target field will be set to a copy of the source list.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -4078,7 +4078,7 @@ under the License.
                     <xs:documentation>
                         The name of the field that will contain the sorted list. Defaults to the field specified
                         in the list attribute.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -4097,7 +4097,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field that contains the entity value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -4106,7 +4106,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Clear the cache. Defaults to "true".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -4126,7 +4126,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the entity.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -4137,7 +4137,7 @@ under the License.
                         The name of the field containing a map that will be used for the constraint.
                         The map name/value pairs will be combined using a boolean AND.
                         If the map is missing or empty, then all entity values will be removed.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -4146,7 +4146,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Clear the cache. Defaults to "true".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -4167,7 +4167,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field that contains the list of entity values.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -4176,7 +4176,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Clear the cache. Defaults to "true".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -4197,7 +4197,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field containing the entity value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -4206,7 +4206,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the entity value relation to use.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -4215,7 +4215,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Clear the cache. Defaults to "true".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -4234,7 +4234,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field containing the entity value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -4243,7 +4243,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Clear the cache. Defaults to "true".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -4262,7 +4262,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The entity field name.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -4282,7 +4282,7 @@ under the License.
                     <xs:documentation>
                         The sequence name. In most cases, this is the name of the entity the sequence value
                         will be used in, but any name can be used.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -4294,7 +4294,7 @@ under the License.
                         Sequence stagger maximum. If set to "1" the sequence value will be incremented by 1,
                         otherwise the sequence value will be incremented by an amount between 1 and the
                         stagger maximum. Defaults to "1".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -4304,7 +4304,7 @@ under the License.
                     <xs:documentation>
                         Preserve the sequence type - a numeric long. If set to "false" the sequence
                         value will be converted to a string. Defaults to "false".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -4323,7 +4323,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field that contains the entity value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -4333,7 +4333,7 @@ under the License.
                     <xs:documentation>
                         The name of the field that contains a map that is used to initialize the entity value non-pk fields.
                         Map values whose key matches one of the entity value fields will be copied to the entity value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -4343,7 +4343,7 @@ under the License.
                     <xs:documentation>
                         Set entity value fields that are null or empty.
                         Defaults to "true".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -4362,7 +4362,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field that contains the entity value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -4372,7 +4372,7 @@ under the License.
                     <xs:documentation>
                         The name of the field that contains a map that is used to initialize the entity value pk fields.
                         Map values whose key matches one of the entity value fields will be copied to the entity value.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -4382,7 +4382,7 @@ under the License.
                     <xs:documentation>
                         Set entity value fields that are null or empty.
                         Defaults to "true".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -4402,7 +4402,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field that contains the list of entity values.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -4411,7 +4411,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Clear the cache. Defaults to "true".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -4431,7 +4431,7 @@ under the License.
                     <xs:documentation>
                         The name of the field containing the entity value.
                         An error will be generated if the entity value does not exist in the data source.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -4440,7 +4440,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Clear the cache. Defaults to "true".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -4452,7 +4452,7 @@ under the License.
         <xs:annotation>
             <xs:documentation>
                 Begins a transaction if one is not already in place.
-                &lt;br/&gt;&lt;br/&gt;
+                
                 Note that all simple-methods are executed inside a transaction unless
                 the simple-method is flagged to not use a transaction.
             </xs:documentation>
@@ -4511,7 +4511,7 @@ under the License.
                 The logging level to use.
                 Must be one of the following: "verbose", "timing", "info", "important", "warning", "error", "fatal", "always".
                 Defaults to "info".
-                &lt;br/&gt;&lt;br/&gt;
+                
                 Required. Attribute type: constant.
                 </xs:documentation>
         </xs:annotation>
@@ -4541,7 +4541,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The message to log.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant+expr.
                     </xs:documentation>
                 </xs:annotation>
@@ -4585,7 +4585,7 @@ under the License.
                     <xs:documentation>
                         Rounding mode for the calculation, primarily for divide operation.
                         Defaults to "HalfEven".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -4661,7 +4661,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Initial scale (decimals) to use. Defaults to "2".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -4670,7 +4670,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Decimal format to use for conversion to string.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -4679,7 +4679,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Data type of the calculation result. Defaults to "BigDecimal".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -4714,7 +4714,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The arithmetic operator. Defaults to "add".
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -4745,7 +4745,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field to use.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Optional. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -4764,7 +4764,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         A numeric constant.
-                        &lt;br/&gt;&lt;br/&gt;
+                        
                         Required. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>

@@ -343,7 +343,7 @@ under the License.
                 Calculate and maintain an average response time for this request. Request metrics can be used
                 for monitoring and reporting. Metrics can also be used to trigger an alternate
                 response if the optional threshold attribute is used.
-                &lt;br/&gt;&lt;br/&gt;
+                
                 The metric works by gathering statistics until a configurable maximum is reached (number of
                 requests or elapsed time), then the average is calculated. A smoothing factor is used to
                 smooth differences between calculations.
