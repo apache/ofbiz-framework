@@ -266,7 +266,7 @@ under the License.
             <xs:documentation>
                 Calculate and maintain an average response time for this service. Service metrics can be used
                 for monitoring and reporting.
-                &lt;br/&gt;&lt;br/&gt;
+                
                 The metric works by gathering statistics until a configurable maximum is reached (number of
                 requests or elapsed time), then the average is calculated. A smoothing factor is used to
                 smooth differences between calculations.
