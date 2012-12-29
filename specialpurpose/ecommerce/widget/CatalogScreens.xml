@@ -534,7 +534,7 @@ under the License.
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/Category.groovy"/>
-                <set field="check" type="PlainString" value="${groovy: return request.getAttribute('checkValue');}"/>
+                <set field="fromSetSessionLocale" value="${groovy: return request.getAttribute('fromSetSessionLocale');}"/>
                 <set field="visualThemeId" from-field="productStore.visualThemeId" default-value="EC_DEFAULT"/>
                 <service service-name="getVisualThemeResources">
                     <field-map field-name="visualThemeId"/>
@@ -545,7 +545,7 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <if-compare operator="equals" value="check" field="check" type="PlainString"/>
+                        <if-compare operator="equals" value="true" field="fromSetSessionLocale"/>
                     </condition>
                     <widgets>
                         <include-screen name="category"/>

@@ -27,12 +27,15 @@ import org.ofbiz.entity.*;
 import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.category.CategoryWorker;
 import org.ofbiz.product.category.CategoryContentWrapper;
+import org.ofbiz.product.store.ProductStoreWorker;
 
 detailScreen = "categorydetail";
 catalogName = CatalogWorker.getCatalogName(request);
 
 productCategoryId = request.getAttribute("productCategoryId") ?: parameters.category_id;
 context.productCategoryId = productCategoryId;
+
+context.productStore = ProductStoreWorker.getProductStore(request);
 
 pageTitle = null;
 metaDescription = null;
