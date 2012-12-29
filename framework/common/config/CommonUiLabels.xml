@@ -9152,6 +9152,10 @@
         <value xml:lang="zh-CN">序列编号</value>
         <value xml:lang="zh-TW">序號數</value>
     </property>
+    <property key="CommonServerHour">
+        <value xml:lang="en">Server Hour</value>
+        <value xml:lang="fr">Heure du serveur </value>
+    </property>
     <property key="CommonServiceReturnError">
         <value xml:lang="en">Return Error Service : Returning Error</value>
         <value xml:lang="es">El servicio ha devuelto un error: Devolviendo error</value>

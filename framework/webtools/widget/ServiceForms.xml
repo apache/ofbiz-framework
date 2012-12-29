@@ -55,11 +55,12 @@ under the License.
     </form>
 
     <form name="FindJobs" type="single" target="FindJob" default-entity-name="JobSandbox">
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="jobName" title="${uiLabelMap.WebtoolsJob}"><text-find/></field>
-        <field name="jobId" title="${uiLabelMap.CommonId}"><text-find/></field>
+        <field name="noConditionFind" position="1"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="jobName" title="${uiLabelMap.WebtoolsJob}" position="1"><text-find/></field>
+        <field name="clock" position="2" title="${uiLabelMap.CommonServerHour}:"><display/></field>
+        <field name="jobId" title="${uiLabelMap.CommonId}" position="1"><text-find/></field>
         <field name="serviceName" title="${uiLabelMap.WebtoolsServiceName}"><text-find/></field>
-        <field name="statusId" title="${uiLabelMap.CommonStatus}">
+        <field name="statusId" title="${uiLabelMap.CommonStatus}" position="1">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="SERVICE_STATUS"/>
@@ -67,7 +68,9 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" position="1">
+            <submit button-type="button"/>
+        </field>
     </form>
 
     <form name="ListJobs" type="list" list-name="listIt" paginate-target="FindJob" default-entity-name="JobSandbox" separate-columns="true"

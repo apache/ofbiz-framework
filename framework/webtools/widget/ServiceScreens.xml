@@ -49,12 +49,15 @@ under the License.
                 <set field="tabButtonItem" value="findJob"/>
                 <set field="jobCtx" from-field="parameters"/>
                 <set field="dummy" value="${groovy: if ('SERVICE_PENDING'.equals(jobCtx.statusId)) jobCtx.jobId = ''}"/> <!--  To more easily see current pending jobs and possibly cancel some others -->
+                <!-- field for WindowSetIntervalJs.ftl -->
+                <set field="clockField" value="FindJobs_clock_title"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonServiceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
+                                <platform-specific><html><html-template location="component://common/webcommon/includes/WindowSetIntervalJs.ftl"/></html></platform-specific>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="search-options">
                                         <include-form name="FindJobs" location="component://webtools/widget/ServiceForms.xml"/>
