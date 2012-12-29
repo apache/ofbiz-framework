@@ -371,13 +371,19 @@ Under the following conditions:
 
     * Attribution. You must attribute the work in the manner specified 
       by the author or licensor (but not in any way that suggests that 
-	  they endorse you or your use of the work).
+    they endorse you or your use of the work).
     * For any reuse or distribution, you must make clear to 
       others the license terms of this work. The best way to do 
-	  this is with a link to this web page.
+    this is with a link to this web page.
     * Any of the above conditions can be waived if you get 
     * For any reuse or distribution, you must make clear to 
       permission from the copyright holder.
     * Nothing in this license impairs or restricts the 
     * For any reuse or distribution, you must make clear to 
       author's moral rights.
+=========================================================================
+
+This product includes software developed by Steven Levithan
+(http://blog.stevenlevithan.com/archives/date-time-format). MIT license
+=========================================================================
+      

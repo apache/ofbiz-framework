@@ -1234,7 +1234,8 @@ ofbiz/trunk/framework/base/lib/slf4j-log4j12-1.6.4.jar
 ofbiz/trunk/framework/images/webapp/images/jquery/*
 ofbiz/trunk/specialpurpose/webpos/webapp/webpos/images/js/jquery.hotkeys-0.7.9.min.js
 ofbiz/trunk/specialpurpose/webpos/webapp/webpos/images/js/WebPosHotkeys.js
-ofbiz/trunk/applications/content/template/docbook/webhelp/* 
+ofbiz/trunk/applications/content/template/docbook/webhelp/*
+ofbiz/trunk/framework/images/webapp/images/date.format-1.2.3.js
 =========================================================================
 The MIT License
 
