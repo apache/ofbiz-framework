@@ -289,7 +289,7 @@ public class WidgetWorker {
                 writer.append(key);
                 writer.append("\" value=\"");
 
-                String valueFromContext = context.containsKey(key) ?
+                String valueFromContext = context.containsKey(key) && context.get(key)!= null ?
                         context.get(key).toString() : parameter.getValue();
                 writer.append(valueFromContext);
                 writer.append("\" type=\"hidden\"/>");
