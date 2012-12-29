@@ -1314,4 +1314,9 @@ under the License.
             <default-message property="CommonGenericServiceSuccessMessage" resource="CommonUiLabels"></default-message>
         </call-service>
     </simple-method>
+    <simple-method method-name="fromSetSessionLocale" 
+      short-description="Add field to request for redirection after SetSessionLocale" login-required="false">
+        <set field="fromSetSessionLocale" value="true"/>
+        <field-to-request field="fromSetSessionLocale" request-name="fromSetSessionLocale"/>
+    </simple-method>    
 </simple-methods>

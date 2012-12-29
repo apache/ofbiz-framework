@@ -132,7 +132,7 @@ under the License.
     <request-map uri="setSessionLocale">
         <security https="false" auth="false"/>
         <event type="java" path="org.ofbiz.common.CommonEvents" invoke="setSessionLocale"/>
-        <response name="success" type="request-redirect" value="checkValue"/>
+        <response name="success" type="request-redirect" value="fromSetSessionLocale"/>        
         <response name="error" type="view" value="main"/>
     </request-map>
 
@@ -1966,8 +1966,8 @@ under the License.
         <security https="true" auth="false"/>
         <response name="success" type="view" value="productCategoryList" save-current-view="true"/>
     </request-map>
-    <request-map uri="checkValue">
-        <event type="simple" path="component://ecommerce/script/org/ofbiz/ecommerce/misc/AffiliateSimpleEvents.xml" invoke="addCheckValue"/>
+    <request-map uri="fromSetSessionLocale">
+        <event type="simple" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="fromSetSessionLocale"/>
         <response name="success" type="view-last" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
