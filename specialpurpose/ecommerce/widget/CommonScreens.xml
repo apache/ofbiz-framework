@@ -63,7 +63,7 @@ under the License.
                 <entity-and list="webAnalyticsConfigs" entity-name="WebAnalyticsConfig">
                     <field-map field-name="webSiteId"/>
                 </entity-and>
-                <set field="layoutSettings.javaScripts[]" value="/images/getDependentDropdownValues.js" global="true" />
+                <set field="layoutSettings.javaScripts[]" value="/images/miscAjaxFunctions.js" global="true" />
             </actions>
             <widgets>
                <section>

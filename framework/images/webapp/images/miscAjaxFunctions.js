@@ -123,9 +123,28 @@ function getServiceResult(request, params){
     return data;
 }
 
+//*** calls any service already mounted as an event
+function getServiceResult(request){
+    var data;
+    jQuery.ajax({
+        type: 'POST',
+        url: request,
+        async: false,
+        cache: false,
+        success: function(result){
+            data = result;
+        }
+    });
+    return data;
+}
+
 //*** checkUomConversion returns true if an UomConversion exists
 function checkUomConversion(request, params){
     data = getServiceResult(request, params);
     return data['exist'];
 }
 
+function getServerHour(request){
+    data = getServiceResult(request);
+    return data['nowDateString'];
+}

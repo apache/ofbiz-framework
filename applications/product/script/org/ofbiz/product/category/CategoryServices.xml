@@ -847,7 +847,7 @@ under the License.
     </simple-method>
 
     <!-- To help dynamically populate a products dropdown given a product category id from a change in another dropdown, possibly sorted on sequenceNum -->    
-    <simple-method method-name="getAssociatedProductsList" short-description="Set the product options for selected product category, mostly used by getDependentDropdownValues.js" login-required="false">
+    <simple-method method-name="getAssociatedProductsList" short-description="Set the product options for selected product category, mostly used by getDependentDropdownValues" login-required="false">
         <set field="parameters.categoryId" from-field="parameters.productCategoryId"/>
         <set-service-fields service-name="getProductCategoryMembers" map="parameters" to-map="getProductCategoryMembersMap"/>        
         <call-service service-name="getProductCategoryMembers" in-map-name="getProductCategoryMembersMap">

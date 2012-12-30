@@ -253,6 +253,13 @@ under the License.
         <response name="error" type="request" value="json"/>
     </request-map>
     
+    <request-map uri="getServerHour">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="getServerHour"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    
     <!--========================== AJAX events =====================-->
 
     <!-- View Mappings -->
