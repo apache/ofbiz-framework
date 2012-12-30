@@ -345,5 +345,10 @@ under the License.
             </else>
         </if-not-empty>
         <field-to-result field="exist"/>
-    </simple-method>    
+    </simple-method>
+
+    <simple-method method-name="getServerHour" login-required="false">      
+        <set field="nowDateString" value="${groovy:org.ofbiz.base.util.UtilDateTime.nowDateString('yyyy-MM-dd HH:mm:ss')}"/>  
+        <field-to-result field="nowDateString"/>
+    </simple-method>        
 </simple-methods>

@@ -780,7 +780,12 @@ under the License.
         <attribute name="geoAssocTypeId" mode="IN" type="String"/>        
         <attribute name="geoList" mode="OUT" type="java.util.List"/>
     </service>
-
+    
+    <service name="getServerHour" engine="simple" auth="false"
+        location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="getServerHour">
+        <attribute name="nowDateString" mode="OUT" type="String"/>
+    </service>
+    
     <service name="createJsLanguageFileMapping" engine="java" auth="false" use-transaction="false"
         location="org.ofbiz.common.JsLanguageFileMappingCreator" invoke="createJsLanguageFileMapping">
         <description>Create or update the JsLanguageFilesMapping.java. You still need to compile thereafter</description>

@@ -20,7 +20,7 @@ under the License.
 jQuery(document).ready(function() {
   window.setInterval(function(){clock()}, 1000);
   function clock() {
-    jQuery("#${clockField}").text("${uiLabelMap.CommonServerHour}: "  + new Date().format("yyyy-mm-dd HH:MM:ss"));     
+    jQuery("#${clockField}").text("${uiLabelMap.CommonServerHour}: "  + getServerHour("getServerHour"));     
   }
 })
 </script>
