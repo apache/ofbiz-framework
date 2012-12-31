@@ -25,11 +25,10 @@ jQuery(document).ready(function() {
     if (jQuery("#${clockField}").text() === "${uiLabelMap.CommonServerHour}:") {
       serverTimestamp = getServerTimestamp("getServerTimestamp");
       date = new Date(serverTimestamp);
-      jQuery("#${clockField}").text("${uiLabelMap.CommonServerHour}: "  + dateFormat(date, "yyyy-mm-dd HH:MM:ss"));
     } else {
       date.setSeconds(date.getSeconds() + 1);
-      jQuery("#${clockField}").text("${uiLabelMap.CommonServerHour}: "  + dateFormat(date, "yyyy-mm-dd HH:MM:ss"));          
     }
+    jQuery("#${clockField}").text("${uiLabelMap.CommonServerHour}: "  + dateFormat(date, "yyyy-mm-dd HH:MM:ss"));
   }
 })
 </script>
