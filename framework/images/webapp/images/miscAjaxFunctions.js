@@ -144,7 +144,7 @@ function checkUomConversion(request, params){
     return data['exist'];
 }
 
-function getServerHour(request){
+function getServerTimestamp(request){
     data = getServiceResult(request);
-    return data['nowDateString'];
+    return data['serverTimestamp'];
 }

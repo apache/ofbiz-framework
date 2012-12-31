@@ -781,9 +781,9 @@ under the License.
         <attribute name="geoList" mode="OUT" type="java.util.List"/>
     </service>
     
-    <service name="getServerHour" engine="simple" auth="false"
-        location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="getServerHour">
-        <attribute name="nowDateString" mode="OUT" type="String"/>
+    <service name="getServerTimestamp" engine="simple" auth="false"
+        location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="getServerTimestamp">
+        <attribute name="serverTimestamp" mode="OUT" type="Long"/>
     </service>
     
     <service name="createJsLanguageFileMapping" engine="java" auth="false" use-transaction="false"

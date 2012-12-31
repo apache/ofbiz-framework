@@ -347,8 +347,9 @@ under the License.
         <field-to-result field="exist"/>
     </simple-method>
 
-    <simple-method method-name="getServerHour" login-required="false">      
-        <set field="nowDateString" value="${groovy:org.ofbiz.base.util.UtilDateTime.nowDateString('yyyy-MM-dd HH:mm:ss')}"/>  
-        <field-to-result field="nowDateString"/>
+    <simple-method method-name="getServerTimestamp" login-required="false">      
+        <now field="serverTimestamp" type="java.lang.Long"/>
+        <field-to-result field="serverTimestamp"/>
     </simple-method>        
+
 </simple-methods>

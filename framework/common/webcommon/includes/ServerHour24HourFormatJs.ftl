@@ -19,8 +19,17 @@ under the License.
 <script type="text/javascript">
 jQuery(document).ready(function() {
   window.setInterval(function(){clock()}, 1000);
+  var serverTimestamp = 0;
+  var date
   function clock() {
-    jQuery("#${clockField}").text("${uiLabelMap.CommonServerHour}: "  + getServerHour("getServerHour"));     
+    if (jQuery("#${clockField}").text() === "${uiLabelMap.CommonServerHour}:") {
+      serverTimestamp = getServerTimestamp("getServerTimestamp");
+      date = new Date(serverTimestamp);
+      jQuery("#${clockField}").text("${uiLabelMap.CommonServerHour}: "  + dateFormat(date, "yyyy-mm-dd HH:MM:ss"));
+    } else {
+      date.setSeconds(date.getSeconds() + 1);
+      jQuery("#${clockField}").text("${uiLabelMap.CommonServerHour}: "  + dateFormat(date, "yyyy-mm-dd HH:MM:ss"));          
+    }
   }
 })
 </script>
