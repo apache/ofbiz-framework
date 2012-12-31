@@ -253,9 +253,9 @@ under the License.
         <response name="error" type="request" value="json"/>
     </request-map>
     
-    <request-map uri="getServerHour">
+    <request-map uri="getServerTimestamp">
         <security https="true" auth="true"/>
-        <event type="service" invoke="getServerHour"/>
+        <event type="service" invoke="getServerTimestamp"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map>
