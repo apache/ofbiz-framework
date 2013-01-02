@@ -23,7 +23,7 @@ jQuery(document).ready(function() {
   var date
   function clock() {
     if (jQuery("#${clockField}").text() === "${uiLabelMap.CommonServerHour}:") {
-      serverTimestamp = getServerTimestamp("getServerTimestamp");
+      serverTimestamp = getServerTimestamp("getServerTimestampAsLong");
       date = new Date(serverTimestamp);
     } else {
       date.setSeconds(date.getSeconds() + 1);

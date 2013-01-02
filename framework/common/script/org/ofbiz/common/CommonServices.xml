@@ -347,9 +347,13 @@ under the License.
         <field-to-result field="exist"/>
     </simple-method>
 
-    <simple-method method-name="getServerTimestamp" login-required="false">      
+    <simple-method method-name="getServerTimestampAsLong" login-required="false">      
         <now field="serverTimestamp" type="java.lang.Long"/>
         <field-to-result field="serverTimestamp"/>
     </simple-method>        
-
+    
+    <simple-method method-name="getServerTimestamp" login-required="false">      
+        <now field="serverTimestamp" type="java.sql.Timestamp"/>
+        <field-to-result field="serverTimestamp"/>
+    </simple-method>            
 </simple-methods>
