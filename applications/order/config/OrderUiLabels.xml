@@ -7051,7 +7051,7 @@
     </property>
     <property key="OrderOrderItems">
         <value xml:lang="cs">Položky objednávky</value>
-        <value xml:lang="de">Auftragsposition</value>
+        <value xml:lang="de">Auftragspositionen</value>
         <value xml:lang="en">Order Items</value>
         <value xml:lang="es">Ítems del pedido</value>
         <value xml:lang="fr">Lignes de commande</value>
@@ -11719,7 +11719,7 @@
         <value xml:lang="zh_TW">銷售訂單</value>
     </property>
     <property key="OrderSalesOrderLookupFailed">
-        <value xml:lang="de">Suche nach Kundenauftrag fehlgeschlagne</value>
+        <value xml:lang="de">Suche nach Kundenauftrag fehlgeschlagen</value>
         <value xml:lang="en">Sales Order Lookup Failed</value>
         <value xml:lang="fr">Échec de la recherche des commandes de vente</value>
         <value xml:lang="it">Ricerca ordini di vendita fallita</value>
