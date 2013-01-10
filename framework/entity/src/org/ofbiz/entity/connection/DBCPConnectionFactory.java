@@ -31,6 +31,7 @@ import javolution.util.FastMap;
 
 import org.apache.commons.dbcp.ConnectionFactory;
 import org.apache.commons.dbcp.DriverConnectionFactory;
+import org.apache.commons.dbcp.PoolableConnectionFactory;
 import org.apache.commons.dbcp.managed.LocalXAConnectionFactory;
 import org.apache.commons.dbcp.managed.ManagedDataSource;
 import org.apache.commons.dbcp.managed.PoolableManagedConnectionFactory;
@@ -147,7 +148,7 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
 
 
             // create the pool object factory
-            PoolableManagedConnectionFactory factory = new PoolableManagedConnectionFactory(xacf, pool, null, null, true, true);
+            PoolableConnectionFactory factory = new PoolableManagedConnectionFactory(xacf, pool, null, null, true, true); 
             factory.setValidationQuery("select 1 from entity_key_store where key_name = ''");
             factory.setDefaultReadOnly(false);
 
