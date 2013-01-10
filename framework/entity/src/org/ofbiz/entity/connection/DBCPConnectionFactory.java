@@ -18,11 +18,22 @@
  *******************************************************************************/
 package org.ofbiz.entity.connection;
 
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+
+import javax.transaction.TransactionManager;
+
+import javolution.util.FastMap;
+
 import org.apache.commons.dbcp.ConnectionFactory;
 import org.apache.commons.dbcp.DriverConnectionFactory;
-import org.apache.commons.dbcp.PoolableConnectionFactory;
 import org.apache.commons.dbcp.managed.LocalXAConnectionFactory;
 import org.apache.commons.dbcp.managed.ManagedDataSource;
+import org.apache.commons.dbcp.managed.PoolableManagedConnectionFactory;
 import org.apache.commons.dbcp.managed.XAConnectionFactory;
 import org.apache.commons.pool.impl.GenericObjectPool;
 import org.ofbiz.base.util.Debug;
@@ -31,16 +42,6 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.datasource.GenericHelperInfo;
 import org.ofbiz.entity.transaction.TransactionFactory;
 import org.w3c.dom.Element;
-
-import javax.transaction.TransactionManager;
-import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-
-import javolution.util.FastMap;
 
 /**
  * DBCPConnectionFactory
@@ -146,7 +147,7 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
 
 
             // create the pool object factory
-            PoolableConnectionFactory factory = new PoolableConnectionFactory(xacf, pool, null, null, true, true);
+            PoolableManagedConnectionFactory factory = new PoolableManagedConnectionFactory(xacf, pool, null, null, true, true);
             factory.setValidationQuery("select 1 from entity_key_store where key_name = ''");
             factory.setDefaultReadOnly(false);
 
