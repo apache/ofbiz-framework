@@ -415,7 +415,12 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
 
         public String getTitle(Map<String, Object> context) {
-            return this.titleExdr.expandString(context);
+            String title = this.titleExdr.expandString(context);
+            StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+            if (simpleEncoder != null) {
+                title = simpleEncoder.encode(title);
+            }
+            return title;
         }
 
         public Menu getNavigationMenu() {
