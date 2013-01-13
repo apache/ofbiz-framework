@@ -125,6 +125,7 @@ ofbiz/trunk/applications/product/lib/dozer-4.2.1.jar
 ofbiz/trunk/applications/product/lib/watermarker-0.0.4.jar
 ofbiz/trunk/applications/content/template/docbook/extensions/webhelpindexer.jar
 ofbiz/trunk/specialpurpose/googlecheckout/lib/checkout-sdk-0.8.8.jar
+ofbiz/trunk/framework/images/webapp/images/date/timezones*
 =========================================================================
                                  Apache License
                            Version 2.0, January 2004
@@ -1235,7 +1236,7 @@ ofbiz/trunk/framework/images/webapp/images/jquery/*
 ofbiz/trunk/specialpurpose/webpos/webapp/webpos/images/js/jquery.hotkeys-0.7.9.min.js
 ofbiz/trunk/specialpurpose/webpos/webapp/webpos/images/js/WebPosHotkeys.js
 ofbiz/trunk/applications/content/template/docbook/webhelp/*
-ofbiz/trunk/framework/images/webapp/images/date.format-1.2.3.js
+ofbiz/trunk/framework/images/webapp/images/date/date.format-1.2.3*.js
 =========================================================================
 The MIT License
 
@@ -2802,10 +2803,9 @@ OF SUCH DAMAGES.
 Web-based Help from DocBook XML license
 David Cramer <dcramer AT motive DOT com><david AT thingbag DOT net>
 Kasun Gajasinghe <kasunbg AT gmail DOT com>
-Copyright © 2008-2010 Kasun Gajasinghe, David Cramer
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
-and associated documentation files (the “Software”), to deal in the Software without restriction, 
+and associated documentation files (the Software), to deal in the Software without restriction, 
 including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
 and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, 
 subject to the following conditions:

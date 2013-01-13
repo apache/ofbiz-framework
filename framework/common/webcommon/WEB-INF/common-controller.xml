@@ -253,16 +253,23 @@ under the License.
         <response name="error" type="request" value="json"/>
     </request-map>
     
-    <request-map uri="getServerTimestampAsLong">
+    <request-map uri="getServerTimestamp">
         <security https="true" auth="true"/>
-        <event type="service" invoke="getServerTimestampAsLong"/>
+        <event type="service" invoke="getServerTimestamp"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map>
     
-    <request-map uri="getServerTimestamp">
+    <request-map uri="getServerTimeZone">
         <security https="true" auth="true"/>
-        <event type="service" invoke="getServerTimestamp"/>
+        <event type="service" invoke="getServerTimeZone"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="getServerTimestampAsLong">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="getServerTimestampAsLong"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map>

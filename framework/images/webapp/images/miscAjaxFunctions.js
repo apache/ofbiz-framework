@@ -144,7 +144,37 @@ function checkUomConversion(request, params){
     return data['exist'];
 }
 
-function getServerTimestamp(request){
-    data = getServiceResult(request);
-    return data['serverTimestamp'];
+/* initTimeZone is used to intialise the path to timezones files
+  
+The timezone region that loads on initialization is North America (the Olson 'northamerica' file). 
+To change that to another reqion, set timezoneJS.timezone.defaultZoneFile to your desired region, like so:
+  timezoneJS.timezone.zoneFileBasePath = '/tz';
+  timezoneJS.timezone.defaultZoneFile = 'asia';
+  timezoneJS.timezone.init();
+
+If you want to preload multiple regions, set it to an array, like this:
+
+  timezoneJS.timezone.zoneFileBasePath = '/tz';
+  timezoneJS.timezone.defaultZoneFile = ['asia', 'backward', 'northamerica', 'southamerica'];
+  timezoneJS.timezone.init();
+
+By default the timezoneJS.Date timezone code lazy-loads the timezone data files, pulling them down and parsing them only as needed. 
+
+For example, if you go with the out-of-the-box setup, you'll have all the North American timezones pre-loaded -- 
+but if you were to add a date with a timezone of 'Asia/Seoul,' it would grab the 'asia' Olson file and parse it 
+before calculating the timezone offset for that date.
+
+You can change this behavior by changing the value of timezoneJS.timezone.loadingScheme. The three possible values are:
+
+  timezoneJS.timezone.loadingSchemes.PRELOAD_ALL -- this will preload all the timezone data files for all reqions up front. This setting would only make sense if you know your users will be using timezones from all around the world, and you prefer taking the up-front load time to the small on-the-fly lag from lazy loading.
+  timezoneJS.timezone.loadingSchemes.LAZY_LOAD -- the default. Loads some amount of data up front, then lazy-loads any other needed timezone data as needed.
+  timezoneJS.timezone.loadingSchemes.MANUAL_LOAD -- Preloads no data, and does no lazy loading. Use this setting if you're loading pre-parsed JSON timezone data.
+  
+  More at https://github.com/mde/timezone-js
+  
+*/  
+function initTimeZone() {
+  timezoneJS.timezone.zoneFileBasePath = '/images/date/timezones/min';
+  timezoneJS.timezone.loadingSchemes.PRELOAD_ALL;
+  timezoneJS.timezone.init();
 }

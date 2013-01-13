@@ -154,9 +154,10 @@ under the License.
                 <!-- jQuery CSSs -->
                 <set field="layoutSettings.styleSheets[+0]" value="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.css" global="true" />
                 <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true" />
-                <set field="layoutSettings.javaScripts[]" value="/images/date.format-1.2.3-min.js" global="true" />
                 <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true" />
                 <set field="layoutSettings.javaScripts[]" value="/images/GooglemapMarkers.js" global="true" />
+                <set field="layoutSettings.javaScripts[]" value="/images/date/date.format-1.2.3-min.js" global="true" />
+                <set field="layoutSettings.javaScripts[]" value="/images/date/timezones/date.timezone-min.js" global="true" />
                 <set field="layoutSettings.javaScripts[]" value="/images/miscAjaxFunctions.js" global="true" />
                 <set field="layoutSettings.javaScripts[]" value="/images/selectMultipleRelatedValues.js" global="true" />
                 <set field="visualThemeId" from-field="userPreferences.VISUAL_THEME" global="true" />
