@@ -20,15 +20,19 @@ under the License.
 jQuery(document).ready(function() {
   window.setInterval(function(){clock()}, 1000);
   var serverTimestamp = 0;
-  var date
+  var date;
   function clock() {
     if (jQuery("#${clockField}").text() === "${uiLabelMap.CommonServerHour}:") {
-      serverTimestamp = getServerTimestamp("getServerTimestampAsLong");
-      date = new Date(serverTimestamp);
+      serverTimestamp = getServiceResult("getServerTimestampAsLong")['serverTimestamp'];
+      serverTimeZone = getServiceResult("getServerTimeZone")['serverTimeZone'];;
+      initTimeZone();
+      date = new timezoneJS.Date(serverTimestamp, serverTimeZone);      
     } else {
       date.setSeconds(date.getSeconds() + 1);
     }
-    jQuery("#${clockField}").text("${uiLabelMap.CommonServerHour}: "  + dateFormat(date, "yyyy-mm-dd HH:MM:ss"));
+    // dateFormat does not respect the timezone :/ Fortunately toString is what we want :)
+    //jQuery("#${clockField}").text("${uiLabelMap.CommonServerHour}: "  + dateFormat(date, "yyyy-mm-dd HH:MM:ss"));
+    jQuery("#${clockField}").text("${uiLabelMap.CommonServerHour}: "  + date.toString());
   }
 })
 </script>
