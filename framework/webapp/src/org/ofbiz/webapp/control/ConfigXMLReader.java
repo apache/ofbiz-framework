@@ -82,6 +82,7 @@ public class ConfigXMLReader {
         private String owner;
         private String securityClass;
         private String defaultRequest;
+        private String statusCode;
 
         private List<URL> includes = FastList.newInstance();
         private Map<String, Event> firstVisitEventList = FastMap.newInstance();
@@ -140,6 +141,20 @@ public class ConfigXMLReader {
                 String protectView = controllerConfig.getProtectView();
                 if (protectView != null) {
                     return protectView;
+                }
+            }
+            return null;
+        }
+
+        public String getStatusCode() {
+            if (statusCode != null) {
+                return statusCode;
+            }
+            for (URL includeLocation: includes) {
+                ControllerConfig controllerConfig = getControllerConfig(includeLocation);
+                String statusCode = controllerConfig.getStatusCode();
+                if (statusCode != null) {
+                    return statusCode;
                 }
             }
             return null;
@@ -297,6 +312,7 @@ public class ConfigXMLReader {
             }
 
             this.errorpage = UtilXml.childElementValue(rootElement, "errorpage");
+            this.statusCode = UtilXml.childElementValue(rootElement, "status-code");
             Element protectElement = UtilXml.firstChildElement(rootElement, "protect");
             if (protectElement != null) {
                 this.protectView = protectElement.getAttribute("view");
@@ -593,6 +609,7 @@ public class ConfigXMLReader {
         public String name;
         public String type;
         public String value;
+        public String statusCode;
         public boolean saveLastView = false;
         public boolean saveCurrentView = false;
         public boolean saveHomeView = false;
@@ -603,6 +620,7 @@ public class ConfigXMLReader {
             this.name = responseElement.getAttribute("name");
             this.type = responseElement.getAttribute("type");
             this.value = responseElement.getAttribute("value");
+            this.statusCode = responseElement.getAttribute("status-code");
             this.saveLastView = "true".equals(responseElement.getAttribute("save-last-view"));
             this.saveCurrentView = "true".equals(responseElement.getAttribute("save-current-view"));
             this.saveHomeView = "true".equals(responseElement.getAttribute("save-home-view"));

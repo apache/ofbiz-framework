@@ -25,6 +25,7 @@ under the License.
                 <xs:element minOccurs="0" ref="description"/>
                 <xs:element minOccurs="0" ref="owner"/>
                 <xs:element minOccurs="0" ref="errorpage"/>
+                <xs:element minOccurs="0" ref="status-code"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="handler"/>
                 <xs:element minOccurs="0" ref="protect"/>
                 <xs:element minOccurs="0" ref="firstvisit"/>
@@ -58,6 +59,7 @@ under the License.
     <xs:element name="description" type="xs:string"/>
     <xs:element name="owner" type="xs:string"/>
     <xs:element name="errorpage" type="xs:string"/>
+    <xs:element name="status-code" type="xs:string"/>
     <xs:element name="handler">
         <xs:annotation>
             <xs:documentation>
@@ -639,6 +641,18 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="status-code" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    A redirection HTTP status-code
+                    If set it will override (cascading) the default status-code sets in requestHandler.properties
+                    and the possible status-code sets at the controller level (inclusive included controllers)
+                    
+                    Most possible redirection status-codes are 301, 303 and 307. 
+                    302 (the Java default) is not recommended for SEO reasons. 
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>        
     </xs:attributeGroup>
     <xs:element name="redirect-parameter">
         <xs:annotation>

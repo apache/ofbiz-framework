@@ -20,7 +20,6 @@ package org.ofbiz.webapp.control;
 
 import static org.ofbiz.base.util.UtilGenerics.checkMap;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
@@ -66,9 +65,9 @@ import org.owasp.esapi.errors.EncodingException;
 public class RequestHandler {
 
     public static final String module = RequestHandler.class.getName();
-    private static final Boolean THROW_REQUEST_HANDLER_EXCEPTION_ON_MISSING_LOCAL_REQUEST =  
-        UtilProperties.propertyValueEqualsIgnoreCase("requestHandler.properties", "throwRequestHandlerExceptionOnMissingLocalRequest", "Y");  
-
+    private boolean throwRequestHandlerExceptionOnMissingLocalRequest = UtilProperties.propertyValueEqualsIgnoreCase(
+            "requestHandler.properties", "throwRequestHandlerExceptionOnMissingLocalRequest", "Y");
+    private String statusCodeString = UtilProperties.getPropertyValue("requestHandler.properties", "status-code", "303");
     public static RequestHandler getRequestHandler(ServletContext servletContext) {
         RequestHandler rh = (RequestHandler) servletContext.getAttribute("_REQUEST_HANDLER_");
         if (rh == null) {
@@ -115,6 +114,9 @@ public class RequestHandler {
         // get the controllerConfig once for this method so we don't have to get it over and over inside the method
         ConfigXMLReader.ControllerConfig controllerConfig = this.getControllerConfig();
         Map<String, ConfigXMLReader.RequestMap> requestMapMap = controllerConfig.getRequestMapMap();
+        String controllerStatusCodeString = controllerConfig.getStatusCode();
+        if(UtilValidate.isNotEmpty(controllerStatusCodeString != null)) 
+            statusCodeString = controllerStatusCodeString;
 
         // workaround if we are in the root webapp
         String cname = UtilHttp.getApplicationName(request);
@@ -155,10 +157,10 @@ public class RequestHandler {
             }
         }
 
-        // if no matching request is found in the controller, depending on THROW_REQUEST_HANDLER_EXCEPTION_ON_MISSING_LOCAL_REQUEST
+        // if no matching request is found in the controller, depending on throwRequestHandlerExceptionOnMissingLocalRequest
         //  we throw a RequestHandlerException or RequestHandlerExceptionAllowExternalRequests
         if (requestMap == null) {
-            if (THROW_REQUEST_HANDLER_EXCEPTION_ON_MISSING_LOCAL_REQUEST) throw new RequestHandlerException(requestMissingErrorMessage);
+            if (throwRequestHandlerExceptionOnMissingLocalRequest) throw new RequestHandlerException(requestMissingErrorMessage);
             else throw new RequestHandlerExceptionAllowExternalRequests();
          }
 
@@ -245,7 +247,7 @@ public class RequestHandler {
                     String newUrl = RequestHandler.makeUrl(request, response, urlBuf.toString());
                     if (newUrl.toUpperCase().startsWith("HTTPS")) {
                         // if we are supposed to be secure, redirect secure.
-                        callRedirect(newUrl, response, request);
+                        callRedirect(newUrl, response, request, statusCodeString);
                         return;
                     }
                 }
@@ -260,7 +262,7 @@ public class RequestHandler {
                 }
                 String newUrl = RequestHandler.makeUrl(request, response, urlBuf.toString(), true, false, false);
                 if (newUrl.toUpperCase().startsWith("HTTP")) {
-                    callRedirect(newUrl, response, request);
+                    callRedirect(newUrl, response, request, statusCodeString);
                     return;
                 }
             }
@@ -507,7 +509,8 @@ public class RequestHandler {
                 if (UtilValidate.isNotEmpty(queryString)) {
                     redirectTarget += "?" + queryString;
                 }
-                callRedirect(makeLink(request, response, redirectTarget), response, request);
+                
+                callRedirect(makeLink(request, response, redirectTarget), response, request, statusCodeString);
 
                 // the old/uglier way: doRequest(request, response, previousRequest, userLogin, delegator);
 
@@ -569,20 +572,25 @@ public class RequestHandler {
                 }
             }
 
+            String responseStatusCode  = nextRequestResponse.statusCode;
+            if(UtilValidate.isNotEmpty(responseStatusCode))
+                statusCodeString = responseStatusCode;            
+            
+            
             if ("url".equals(nextRequestResponse.type)) {
                 if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a URL redirect." + " sessionId=" + UtilHttp.getSessionId(request), module);
-                callRedirect(nextRequestResponse.value, response, request);
+                callRedirect(nextRequestResponse.value, response, request, statusCodeString);
             } else if ("cross-redirect".equals(nextRequestResponse.type)) {
                 // check for a cross-application redirect
                 if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a Cross-Application redirect." + " sessionId=" + UtilHttp.getSessionId(request), module);
                 String url = nextRequestResponse.value.startsWith("/") ? nextRequestResponse.value : "/" + nextRequestResponse.value;
-                callRedirect(url + this.makeQueryString(request, nextRequestResponse), response, request);
+                callRedirect(url + this.makeQueryString(request, nextRequestResponse), response, request, statusCodeString);
             } else if ("request-redirect".equals(nextRequestResponse.type)) {
                 if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a Request redirect." + " sessionId=" + UtilHttp.getSessionId(request), module);
-                callRedirect(makeLinkWithQueryString(request, response, "/" + nextRequestResponse.value, nextRequestResponse), response, request);
+                callRedirect(makeLinkWithQueryString(request, response, "/" + nextRequestResponse.value, nextRequestResponse), response, request, statusCodeString);
             } else if ("request-redirect-noparam".equals(nextRequestResponse.type)) {
                 if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a Request redirect with no parameters." + " sessionId=" + UtilHttp.getSessionId(request), module);
-                callRedirect(makeLink(request, response, nextRequestResponse.value), response, request);
+                callRedirect(makeLink(request, response, nextRequestResponse.value), response, request, statusCodeString);
             } else if ("view".equals(nextRequestResponse.type)) {
                 if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a view." + " sessionId=" + UtilHttp.getSessionId(request), module);
 
@@ -681,6 +689,13 @@ public class RequestHandler {
         return "/error/error.jsp";
     }
 
+    /** Returns the default status-code for this request. */
+    public String getStatusCode(HttpServletRequest request) {
+        String statusCode = getControllerConfig().getStatusCode();
+        if (UtilValidate.isNotEmpty(statusCode)) return statusCode;
+        return null;
+    }
+
     /** Returns the ServletContext Object. */
     public ServletContext getServletContext() {
         return context;
@@ -728,11 +743,17 @@ public class RequestHandler {
         return nextPage;
     }
 
-    private void callRedirect(String url, HttpServletResponse resp, HttpServletRequest req) throws RequestHandlerException {
+    private void callRedirect(String url, HttpServletResponse resp, HttpServletRequest req, String statusCodeString) throws RequestHandlerException {
         if (Debug.infoOn()) Debug.logInfo("Sending redirect to: [" + url + "], sessionId=" + UtilHttp.getSessionId(req), module);
         // set the attributes in the session so we can access it.
         Enumeration<String> attributeNameEnum = UtilGenerics.cast(req.getAttributeNames());
         Map<String, Object> reqAttrMap = FastMap.newInstance();
+        Integer statusCode;
+        try {
+            statusCode = Integer.valueOf(statusCodeString);
+        } catch (NumberFormatException e) {
+            statusCode = 303;
+        } 
         while (attributeNameEnum.hasMoreElements()) {
             String name = attributeNameEnum.nextElement();
             Object obj = req.getAttribute(name);
@@ -749,10 +770,10 @@ public class RequestHandler {
         }
 
         // send the redirect
-        try {
-            resp.sendRedirect(url);
-        } catch (IOException ioe) {
-            throw new RequestHandlerException(ioe.getMessage(), ioe);
+        try {            
+            resp.setStatus(statusCode);
+            resp.setHeader("Location", url);
+            resp.setHeader("Connection", "close");
         } catch (IllegalStateException ise) {
             throw new RequestHandlerException(ise.getMessage(), ise);
         }
