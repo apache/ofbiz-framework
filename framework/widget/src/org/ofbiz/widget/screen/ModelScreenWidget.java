@@ -1554,7 +1554,12 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
 
         public String getAlt(Map<String, Object> context) {
-            return this.alt.expandString(context);
+            String alt = this.alt.expandString(context);
+            StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+            if (simpleEncoder != null) {
+                alt = simpleEncoder.encode(alt);
+            }
+            return alt;
         }
 
         public String getUrlMode() {
