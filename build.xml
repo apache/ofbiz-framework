@@ -327,7 +327,7 @@ under the License.
     <target name="build-website"
             description="For committers : Update dtds from OFBiz instance to site">
         <antcall target="copy-dtds"/>
-        <!-- now deprecated since Builbot creates and updates those automatically 
+        <!-- now deprecated since Buildbot creates and updates those automatically
         <antcall target="docs"/>
         <antcall target="copy-apis"/-->
     </target>
