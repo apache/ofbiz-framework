@@ -74,6 +74,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     private int elementId = 999;
     protected boolean widgetCommentsEnabled = false;
     private static final String formrenderer = UtilProperties.getPropertyValue("widget", "screen.formrenderer");
+    private int screenLetsIdCounter = 1;
 
     public MacroScreenRenderer(String name, String macroLibraryPath) throws TemplateException, IOException {
         macroLibrary = FreeMarkerWorker.getTemplate(macroLibraryPath);
@@ -627,11 +628,17 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         }
 
         Map<String, Object> parameters = FastMap.newInstance();
-        parameters.put("id", screenlet.getId(context));
         parameters.put("title", title);
         parameters.put("collapsible", collapsible);
         parameters.put("saveCollapsed", screenlet.saveCollapsed());
-        parameters.put("collapsibleAreaId", screenlet.getId(context) + "_col");
+        if (UtilValidate.isNotEmpty (screenlet.getId(context))) {
+            parameters.put("id", screenlet.getId(context));
+            parameters.put("collapsibleAreaId", screenlet.getId(context) + "_col");
+        } else {
+            parameters.put("id", "screenlet_" + screenLetsIdCounter);
+            parameters.put("collapsibleAreaId","screenlet_" + screenLetsIdCounter + "_col");
+            screenLetsIdCounter++;
+        }
         parameters.put("expandToolTip", expandToolTip);
         parameters.put("collapseToolTip", collapseToolTip);
         parameters.put("fullUrlString", fullUrlString);
