@@ -18,12 +18,11 @@
  *******************************************************************************/
 package org.ofbiz.base.concurrent;
 
-import java.lang.Runtime;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.Delayed;
 import java.util.concurrent.DelayQueue;
+import java.util.concurrent.Delayed;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
@@ -39,7 +38,7 @@ import org.ofbiz.base.util.Debug;
 @SourceMonitored
 public final class ExecutionPool {
     public static final String module = ExecutionPool.class.getName();
-    public static final ScheduledExecutorService GLOBAL_EXECUTOR = getExecutor(null, "OFBiz-config", -1, true);
+    public static final ScheduledExecutorService GLOBAL_EXECUTOR = getExecutor(null, "OFBiz-config", -1, false);
 
     protected static class ExecutionPoolThreadFactory implements ThreadFactory {
         private final ThreadGroup group;
@@ -60,18 +59,8 @@ public final class ExecutionPool {
         }
     }
 
-    @Deprecated
-    public static ThreadFactory createThreadFactory(String namePrefix) {
-        return createThreadFactory(null, namePrefix);
-    }
-
     public static ThreadFactory createThreadFactory(ThreadGroup group, String namePrefix) {
         return new ExecutionPoolThreadFactory(group, namePrefix);
-    }
-
-    @Deprecated
-    public static ScheduledExecutorService getExecutor(String namePrefix, int threadCount) {
-        return getExecutor(null, namePrefix, threadCount, true);
     }
 
     public static ScheduledExecutorService getExecutor(ThreadGroup group, String namePrefix, int threadCount, boolean preStart) {
@@ -87,16 +76,6 @@ public final class ExecutionPool {
             executor.prestartAllCoreThreads();
         }
         return executor;
-    }
-
-    @Deprecated
-    public static ScheduledExecutorService getNewExactExecutor(String namePrefix) {
-        return getExecutor(null, namePrefix, -1, true);
-    }
-
-    @Deprecated
-    public static ScheduledExecutorService getNewOptimalExecutor(String namePrefix) {
-        return getExecutor(null, namePrefix, -2, true);
     }
 
     public static <F> List<F> getAllFutures(Collection<Future<F>> futureList) {
