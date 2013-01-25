@@ -26,13 +26,14 @@
 // descName     = name of the dependent drop-down description
 // selected     = optional name of a selected option
 // callback     = optional javascript function called at end
+// allowEmpty   = optional boolean argument, allow selection of an empty value for the dependentId
 // hide         = optional boolean argument, if true the dependent drop-down field (targetField) will be hidden when no options are available else only disabled. False by default.
 // hideTitle    = optional boolean argument (hide must be set to true), if true the title of the dependent drop-down field (targetField) will be hidden when no options are available else only disabled. False by default.
 // inputField   = optional name of an input field    
 // 				  this is to handle a specific case where an input field is needed instead of a drop-down when no values are returned by the request
 // 				  this will be maybe extended later to use an auto-completed drop-down or a lookup, instead of straight drop-down currently, when there are too much values to populate
 // 				  this is e.g. currently used in the Product Price Rules screen
-function getDependentDropdownValues(request, paramKey, paramField, targetField, responseName, keyName, descName, selected, callback, hide, hideTitle, inputField){
+function getDependentDropdownValues(request, paramKey, paramField, targetField, responseName, keyName, descName, selected, callback, allowEmpty, hide, hideTitle, inputField){
     target = '#' + targetField;
     input = '#' + inputField;
     targetTitle = target + '_title'
@@ -49,6 +50,14 @@ function getDependentDropdownValues(request, paramKey, paramField, targetField, 
             list = result[responseName];
             // Create and show dependent select options            
             if (list) {
+                if(allowEmpty) {
+                    // Allow null selection in dependent and set it as default if no selection exists.
+                    if (selected == undefined || selected == "_none_") {
+                      optionList += "<option selected='selected' value=''></option>";
+                    } else {
+                      optionList += "<option value=''></option>";
+                    }
+                }
                 jQuery.each(list, function(key, value){
                     if (typeof value == 'string') {
                         values = value.split(': ');
