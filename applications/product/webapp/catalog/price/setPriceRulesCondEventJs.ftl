@@ -23,18 +23,18 @@ jQuery(document).ready( function() {
     if (document.getElementById('EditProductPriceRulesCond_o_${i}')) {
       jQuery('#EditProductPriceRulesCond_condValueInput_o_${i}').hide();
       jQuery('#EditProductPriceRulesCond_inputParamEnumId_o_${i}').change( function() {
-        getDependentDropdownValues('getAssociatedPriceRulesConds', 'inputParamEnumId', 'EditProductPriceRulesCond_inputParamEnumId_o_${i}', 'EditProductPriceRulesCond_condValue_o_${i}', 'productPriceRulesCondValues', 'condValue_o_${i}', 'description', '${productPriceConds[i].condValue}', '', '', '', 'EditProductPriceRulesCond_condValueInput_o_${i}');
+        getDependentDropdownValues('getAssociatedPriceRulesConds', 'inputParamEnumId', 'EditProductPriceRulesCond_inputParamEnumId_o_${i}', 'EditProductPriceRulesCond_condValue_o_${i}', 'productPriceRulesCondValues', 'condValue_o_${i}', 'description', '${productPriceConds[i].condValue}', '', '', '', '', 'EditProductPriceRulesCond_condValueInput_o_${i}');
     });
-    getDependentDropdownValues('getAssociatedPriceRulesConds', 'inputParamEnumId', 'EditProductPriceRulesCond_inputParamEnumId_o_${i}', 'EditProductPriceRulesCond_condValue_o_${i}', 'productPriceRulesCondValues', 'condValue_o_${i}', 'description', '${productPriceConds[i].condValue}', '', '', '', 'EditProductPriceRulesCond_condValueInput_o_${i}');
+    getDependentDropdownValues('getAssociatedPriceRulesConds', 'inputParamEnumId', 'EditProductPriceRulesCond_inputParamEnumId_o_${i}', 'EditProductPriceRulesCond_condValue_o_${i}', 'productPriceRulesCondValues', 'condValue_o_${i}', 'description', '${productPriceConds[i].condValue}', '', '', '', '', 'EditProductPriceRulesCond_condValueInput_o_${i}');
     }
   </#list>
 </#if>
   if (document.getElementById('AddProductPriceRulesCond_o_0')) {
     jQuery('#AddProductPriceRulesCond_condValueInput_o_0').hide();
     jQuery('#AddProductPriceRulesCond_inputParamEnumId_o_0').change( function() {
-      getDependentDropdownValues('getAssociatedPriceRulesConds', 'inputParamEnumId', 'AddProductPriceRulesCond_inputParamEnumId_o_0', 'AddProductPriceRulesCond_condValue_o_0', 'productPriceRulesCondValues', 'condValue_o_0', 'description', '', '', '', '', 'AddProductPriceRulesCond_condValueInput_o_0');
+      getDependentDropdownValues('getAssociatedPriceRulesConds', 'inputParamEnumId', 'AddProductPriceRulesCond_inputParamEnumId_o_0', 'AddProductPriceRulesCond_condValue_o_0', 'productPriceRulesCondValues', 'condValue_o_0', 'description', '', '', '', '', '', 'AddProductPriceRulesCond_condValueInput_o_0');
     });
-    getDependentDropdownValues('getAssociatedPriceRulesConds', 'inputParamEnumId', 'AddProductPriceRulesCond_inputParamEnumId_o_0', 'AddProductPriceRulesCond_condValue_o_0', 'productPriceRulesCondValues', 'condValue_o_0', 'description', '', '', '', '', 'AddProductPriceRulesCond_condValueInput_o_0');
+    getDependentDropdownValues('getAssociatedPriceRulesConds', 'inputParamEnumId', 'AddProductPriceRulesCond_inputParamEnumId_o_0', 'AddProductPriceRulesCond_condValue_o_0', 'productPriceRulesCondValues', 'condValue_o_0', 'description', '', '', '', '', '', 'AddProductPriceRulesCond_condValueInput_o_0');
   }
 })
 </script>
