@@ -2285,6 +2285,8 @@
         <value xml:lang="ja">注文に戻る</value>
         <value xml:lang="pt_BR">Voltar ao pedido</value>
         <value xml:lang="vi">Quay về Đặt hàng</value>
+        <value xml:lang="zh">返回订单</value>
+        <value xml:lang="zh_CN">返回订单</value>
         <value xml:lang="zh_TW">返回訂單</value>
     </property>
     <property key="OrderBacktoShoppingCart">
@@ -2667,6 +2669,9 @@
         <value xml:lang="fr">Par l'utilisateur</value>
         <value xml:lang="ja">ユーザが変更</value>
         <value xml:lang="vi">Thay đổi bởi người dùng</value>
+        <value xml:lang="zh">更改人</value>
+        <value xml:lang="zh_CN">更改人</value>
+        <value xml:lang="zh_TW">更改人</value>
     </property>
     <property key="OrderCheckout">
         <value xml:lang="cs">Objednávka</value>
@@ -3445,6 +3450,8 @@
         <value xml:lang="it">Creare Nuovo Gruppo di Spedizione</value>
         <value xml:lang="ja">新規発送グループを作成</value>
         <value xml:lang="vi">Thêm mới nhóm chuyển hàng bằng đường thủy</value>
+        <value xml:lang="zh">创建新货运组</value>
+        <value xml:lang="zh_CN">创建新货运组</value>
         <value xml:lang="zh_TW">建立新遞送群組</value>
     </property>
     <property key="OrderCreateShippingAddress">
@@ -4649,6 +4656,8 @@
         <value xml:lang="ja">履歴は有効ではありません</value>
         <value xml:lang="pt_BR">Histórico indisponível</value>
         <value xml:lang="vi">Không có lịch sử nào</value>
+        <value xml:lang="zh">无历史资料</value>
+        <value xml:lang="zh_CN">无历史资料</value>
         <value xml:lang="zh_TW">無歷史資料</value>
     </property>
     <property key="OrderHold">
@@ -5517,6 +5526,8 @@
         <value xml:lang="ja">表示済マーク</value>
         <value xml:lang="pt_BR">Marcar como visualizado</value>
         <value xml:lang="vi">Đánh dấu đã xem</value>
+        <value xml:lang="zh">标记已浏览</value>
+        <value xml:lang="zh_CN">标记已浏览</value>
         <value xml:lang="zh_TW">標示已檢視</value>
     </property>
     <property key="OrderMarketingPackageComposedBy">
@@ -5891,6 +5902,8 @@
         <value xml:lang="ja">新規発送先住所</value>
         <value xml:lang="pt_BR">Novo endereço de envio</value>
         <value xml:lang="vi">Địa chỉ chuyển hàng mới</value>
+        <value xml:lang="zh">新的货运地址</value>
+        <value xml:lang="zh_CN">新的货运地址</value>
         <value xml:lang="zh_TW">新的遞送地址</value>
     </property>
     <property key="OrderNewShoppingList">
@@ -6998,6 +7011,8 @@
         <value xml:lang="it">Storia ordine</value>
         <value xml:lang="ja">注文履歴</value>
         <value xml:lang="pt_BR">Histórico do pedido</value>
+        <value xml:lang="zh">订单历史</value>
+        <value xml:lang="zh_CN">订单历史</value>
         <value xml:lang="zh_TW">訂單歷史</value>
     </property>
     <property key="OrderOrderId">
@@ -9770,6 +9785,8 @@
         <value xml:lang="ja">アイテム数量履歴</value>
         <value xml:lang="pt_BR">Histórico de quantidade de item</value>
         <value xml:lang="vi">Lịch sử số lượng hàng hóa</value>
+        <value xml:lang="zh">明细数量历史</value>
+        <value xml:lang="zh_CN">明细数量历史</value>
         <value xml:lang="zh_TW">明細數量歷史</value>
     </property>
     <property key="OrderQuantityInShipGroup">
@@ -11736,6 +11753,9 @@
         <value xml:lang="it">Venditori</value>
         <value xml:lang="ja">販売レポート</value>
         <value xml:lang="vi">Đại diện bán hàng</value>
+        <value xml:lang="zh">销售代表</value>
+        <value xml:lang="zh_CN">销售代表</value>
+        <value xml:lang="zh_TW">銷售代表</value>
     </property>
     <property key="OrderSalesTax">
         <value xml:lang="cs">DPH</value>
@@ -12551,6 +12571,8 @@
         <value xml:lang="ja">発送方法履歴</value>
         <value xml:lang="pt_BR">Histórico de método de envio</value>
         <value xml:lang="vi">Lịch sử phương thức chuyển vận</value>
+        <value xml:lang="zh">货运方式历史</value>
+        <value xml:lang="zh_CN">货运方式历史</value>
         <value xml:lang="zh_TW">貨運方式歷史</value>
     </property>
     <property key="OrderShipmentReceived">
@@ -13536,6 +13558,8 @@
         <value xml:lang="ja">アイテム単価履歴</value>
         <value xml:lang="pt_BR">Histórico do preço unitário do item</value>
         <value xml:lang="vi">Lịch sử giá đơn vị hàng hóa</value>
+        <value xml:lang="zh">明细单价历史</value>
+        <value xml:lang="zh_CN">明细单价历史</value>
         <value xml:lang="zh_TW">明細歷史單價</value>
     </property>
     <property key="OrderUnitsPieces">
@@ -13839,6 +13863,8 @@
         <value xml:lang="nl">Bekijk eerdere bestellingen</value>
         <value xml:lang="pt_BR">Visualizar histórico de pedido</value>
         <value xml:lang="vi">Xem lịch sử đặt hàng</value>
+        <value xml:lang="zh">浏览订单历史</value>
+        <value xml:lang="zh_CN">查看订单历史</value>
         <value xml:lang="zh_TW">檢視訂單歷史</value>
     </property>
     <property key="OrderViewPermissionError">
