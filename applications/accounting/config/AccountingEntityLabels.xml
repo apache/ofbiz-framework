@@ -1765,7 +1765,7 @@
         <value xml:lang="zh_TW">利息收入</value>
     </property>
     <property key="GlAccountType.description.INTRSTINC_RECEIVABLE">
-        <value xml:lang="en">Zinsertragsforderungen</value>
+        <value xml:lang="de">Zinsertragsforderungen</value>
         <value xml:lang="en">Interest Income Receivables</value>
         <value xml:lang="hi_IN">ब्याज आय प्राप्तियों</value>
         <value xml:lang="it">Reddito da interessi a credito</value>
