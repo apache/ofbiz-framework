@@ -753,17 +753,15 @@ public class OrderReturnServices {
             }
 
             // if both billingAccountId and finAccountId are supplied, look for productStore.storeCreditAccountEnumId preference
-            if (finAccountId != null && billingAccountId != null) {
-                if (productStore != null && productStore.getString("storeCreditAccountEnumId") != null) {
+            if (finAccountId != null && billingAccountId != null && productStore != null && productStore.getString("storeCreditAccountEnumId") != null) {
                     Debug.logWarning("You have entered both financial account and billing account for store credit. Based on the configuration on product store, only one of them will be selected.", module);
                     if ("BILLING_ACCOUNT".equals(productStore.getString("storeCreditAccountEnumId"))) {
-                        Debug.logWarning("Default setting on product store is billing account. Store credit will goes to billing account [" + billingAccountId + "]", module);
                         finAccountId = null;
+                        Debug.logWarning("Default setting on product store is billing account. Store credit will goes to billing account [" + billingAccountId + "]", module);
                     } else {
                         billingAccountId = null;
                         Debug.logWarning("Default setting on product store is financial account. Store credit will goes to financial account [" + finAccountId + "]", module);
                    }
-                }
             }
 
             if (finAccountId == null && billingAccountId == null) {
