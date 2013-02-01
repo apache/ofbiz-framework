@@ -757,12 +757,12 @@ public class OrderReturnServices {
                 if (productStore != null && productStore.getString("storeCreditAccountEnumId") != null) {
                     Debug.logWarning("You have entered both financial account and billing account for store credit. Based on the configuration on product store, only one of them will be selected.", module);
                     if ("BILLING_ACCOUNT".equals(productStore.getString("storeCreditAccountEnumId"))) {
-                    Debug.logWarning("Default setting on product store is billing account. Store credit will goes to billing account [" + billingAccountId + "]", module);
-                    finAccountId = null;
-                } else {
-                    billingAccountId = null;
-                    Debug.logWarning("Default setting on product store is financial account. Store credit will goes to financial account [" + finAccountId + "]", module);
-                }
+                        Debug.logWarning("Default setting on product store is billing account. Store credit will goes to billing account [" + billingAccountId + "]", module);
+                        finAccountId = null;
+                    } else {
+                        billingAccountId = null;
+                        Debug.logWarning("Default setting on product store is financial account. Store credit will goes to financial account [" + finAccountId + "]", module);
+                   }
                 }
             }
 
