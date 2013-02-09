@@ -32,6 +32,7 @@ import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.config.MainResourceHandler;
 import org.ofbiz.base.config.ResourceHandler;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -99,6 +100,11 @@ public class EntityDataLoader {
                     throw new IllegalArgumentException("Reader name list does not contain String(s) or Element(s)");
                 }
                 readerName = readerName.trim();
+                
+                // ignore the "tenant" reader if the multitenant property is "N"
+                if ("tenant".equals(readerName) && "N".equals(UtilProperties.getPropertyValue("general.properties", "multitenant"))) {
+                    continue;
+                }
 
                 // get all of the main resource model stuff, ie specified in the entityengine.xml file
                 EntityDataReaderInfo entityDataReaderInfo = EntityConfigUtil.getEntityDataReaderInfo(readerName);
@@ -200,6 +206,12 @@ public class EntityDataLoader {
             } else {
                 throw new IllegalArgumentException("Reader name list does not contain String(s) or Element(s)");
             }
+            
+            // ignore the "tenant" reader if the multitenant property is "N"
+            if ("tenant".equals(readerName) && "N".equals(UtilProperties.getPropertyValue("general.properties", "multitenant"))) {
+                continue;
+            }
+            
             readerNames.add(readerName);
         }
         return getUrlByComponentList(helperName, components, readerNames);
