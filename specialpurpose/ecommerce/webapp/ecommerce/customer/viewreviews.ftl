@@ -32,11 +32,11 @@ under the License.
       </tr>
       <#list reviews as review>
         <tr>
-          <td>${review.postedDateTime}</td>
+          <td>${review.postedDateTime!}</td>
           <td><a href="<@ofbizCatalogAltUrl productId=review.productId/>">${review.productId}</a></td>
           <td>${review.productReview!}</td>
           <td>${review.productRating}</td>
-          <td>${review.postedAnonymous}</td>
+          <td>${review.postedAnonymous!}</td>
           <td>${review.getRelatedOne("StatusItem", false).get("description", locale)}</td>
         </tr>
       </#list>
