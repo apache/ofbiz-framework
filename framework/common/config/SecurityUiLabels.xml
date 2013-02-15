@@ -103,6 +103,7 @@
         <value xml:lang="fr">Détails du certificat</value>
         <value xml:lang="ja">証明書詳細</value>
         <value xml:lang="pt_BR">Detalhes do certificado</value>
+        <value xml:lang="zh">证书详细</value>
     </property>
     <property key="CertImportIssuer">
         <value xml:lang="de">Aussteller importieren</value>
@@ -255,6 +256,7 @@
         <value xml:lang="it">Ricerca utenti</value>
         <value xml:lang="ja">ユーザログインを検索</value>
         <value xml:lang="pt_BR">Encontrar Nome de Usuário</value>
+        <value xml:lang="zh">查找用户登录</value>
     </property>
     <property key="FormFieldTitle_currentPassword">
         <value xml:lang="de">Aktuelles Passwort</value>
@@ -295,6 +297,7 @@
         <value xml:lang="fr">Désactiver (à date)</value>
         <value xml:lang="it">Disabilitato dal</value>
         <value xml:lang="ja">無効日時</value>
+        <value xml:lang="zh">禁用的日期时间</value>
     </property>
     <property key="FormFieldTitle_enabled">
         <value xml:lang="ar">شغال</value>
@@ -322,6 +325,7 @@
         <value xml:lang="fr">Ident. Externe</value>
         <value xml:lang="it">Codice autenticazione esterna</value>
         <value xml:lang="ja">外部認証ID</value>
+        <value xml:lang="zh">外部认证标识</value>
     </property>
     <property key="FormFieldTitle_hasLoggedOut">
         <value xml:lang="de">Hat sich abgemeldet</value>
@@ -330,6 +334,7 @@
         <value xml:lang="fr">A été déconnecté</value>
         <value xml:lang="it">Uscito dal sistema</value>
         <value xml:lang="ja">ログアウトしました</value>
+        <value xml:lang="zh">已退出</value>
     </property>
     <property key="FormFieldTitle_maxHits">
         <value xml:lang="de">Maximale Anzahl der Besuche</value>
@@ -394,6 +399,7 @@
         <value xml:lang="fr">Indice pour le mot de passe</value>
         <value xml:lang="it">Suggerimento password</value>
         <value xml:lang="ja">パスワードのヒント</value>
+        <value xml:lang="zh">密码提示</value>
     </property>
     <property key="FormFieldTitle_requirePasswordChange">
         <value xml:lang="de">Passwortänderung benötigt</value>
@@ -414,6 +420,7 @@
         <value xml:lang="fr">Plusieurs tentatives de connexion ont échoué</value>
         <value xml:lang="it">Accessi falliti consecutivi</value>
         <value xml:lang="ja">連続ログイン失敗</value>
+        <value xml:lang="zh">连续失败登录次数</value>
     </property>
     <property key="FormFieldTitle_tarpitDuration">
         <value xml:lang="de">Zeitspanne für die die Ansicht nicht angezeigt wird (in Sekunden)</value>
@@ -475,6 +482,7 @@
         <value xml:lang="fr">Recherche d'identifiant de connexion</value>
         <value xml:lang="ja">ユーザログインを検索</value>
         <value xml:lang="pt_BR">Pesquisar Nome de Usuário</value>
+        <value xml:lang="zh">查找用户登录</value>
     </property>
     <property key="NewSecurityGroup">
         <value xml:lang="de">Neue Sicherheitsgruppe</value>
@@ -708,6 +716,7 @@
         <value xml:lang="it">Utente</value>
         <value xml:lang="ja">ユーザログイン</value>
         <value xml:lang="pt_BR">Nome de Usuário</value>
+        <value xml:lang="zh">用户登录</value>
     </property>
     <property key="UserLoginChangePassword">
         <value xml:lang="de">Passwort der Benutzeranmeldung ändern</value>

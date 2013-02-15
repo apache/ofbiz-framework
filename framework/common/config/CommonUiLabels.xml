@@ -133,6 +133,7 @@
         <value xml:lang="fr">Gestion des catalogues, Catégories, Articles, Promotions, Règles de prix, Centres de profit </value>
         <value xml:lang="ja">製品カタログ管理、カテゴリ、製品、価格ルール、プロモーション、製品店舗</value>
         <value xml:lang="vi">Quản lý Phân loại Trình diễn, Phân loại Quản lý, Sản phẩm, Công thức giá, Khuyến mãi, Cửa hàng</value>
+        <value xml:lang="zh">产品目录管理，包括分类、产品、价格规则、促销、产品店铺</value>
     </property>
     <property key="CommonAbort">
         <value xml:lang="en">Abort</value>
@@ -140,6 +141,7 @@
         <value xml:lang="fr">Abandonner</value>
         <value xml:lang="ja">アボート</value>
         <value xml:lang="vi">Hủy</value>
+        <value xml:lang="zh">放弃</value>
     </property>
     <property key="CommonAccepted">
         <value xml:lang="ar">مقبول</value>
@@ -264,6 +266,7 @@
         <value xml:lang="ja">このポータルに新規項目を追加</value>
         <value xml:lang="pt-BR">Adicionar uma nova coluna neste portal</value>
         <value xml:lang="vi">Thêm một cột cho Cổng thông tin này này</value>
+        <value xml:lang="zh">给这个门户新加一列</value>
     </property>
     <property key="CommonAddAPortlet">
         <value xml:lang="en">Add A Portlet...</value>
@@ -360,6 +363,7 @@
         <value xml:lang="ja">ポータルページにポートレットを追加</value>
         <value xml:lang="pt-BR">Adicionar um portlet à página do portal</value>
         <value xml:lang="vi">Thêm một portlet vào trang portal</value>
+        <value xml:lang="zh">给门户页面添加一个小窗口</value>
     </property>
     <property key="CommonAddProblem">
         <value xml:lang="ar">مشكل أثناء الإضافة</value>
@@ -445,6 +449,7 @@
         <value xml:lang="fr">Adresse inconnue</value>
         <value xml:lang="ja">住所が見つかりません。</value>
         <value xml:lang="vi">Không tìm thấy địa chỉ</value>
+        <value xml:lang="zh">没有找到地址。</value>
     </property>
     <property key="CommonAddresses">
         <value xml:lang="ar">عناوين</value>
@@ -993,6 +998,7 @@
         <value xml:lang="es">Autentificar</value>
         <value xml:lang="fr">Authentifier</value>
         <value xml:lang="ja">証明</value>
+        <value xml:lang="zh">认证</value>
     </property>
     <property key="CommonAuthorise">
         <value xml:lang="en">Authorise</value>
@@ -1000,6 +1006,7 @@
         <value xml:lang="fr">Autoriser</value>
         <value xml:lang="ja">許可</value>
         <value xml:lang="vi">Cấp phép</value>
+        <value xml:lang="zh">授权</value>
     </property>
     <property key="CommonAutoAssignedId">
         <value xml:lang="en">Unique ID - auto-assigned if blank</value>
@@ -1041,6 +1048,7 @@
         <value xml:lang="ja">有効なポートレット</value>
         <value xml:lang="pt-BR">Portlets Disponíveis</value>
         <value xml:lang="vi">Các ứng dụng porlet sẵn có</value>
+        <value xml:lang="zh">可用的小窗口</value>
     </property>
     <property key="CommonAverage">
         <value xml:lang="ar">متوسط</value>
@@ -1248,6 +1256,7 @@
         <value xml:lang="fr">Obtention d'AddressError=true depuis le service CDyne ReturnCityState; zipcode = ${zipcode}</value>
         <value xml:lang="it">Ottenuto AddressError=true dal servizio CDyne ReturnCityState; zipcode=${zipcode}</value>
         <value xml:lang="ja">CDyne ReturnCityState サービスで AddressError=true を取得しました; zipcode=${zipcode}</value>
+        <value xml:lang="zh">从CDyne的ReturnCityState服务得到 AddressError=true 的错误；zipcode=${zipcode}</value>
     </property>
     <property key="CommonCDyneCallingError">
         <value xml:lang="en">Error calling CDyne service at URL ${serviceUrl}: ${errorString}</value>
@@ -1255,6 +1264,7 @@
         <value xml:lang="fr">Erreur de l'appel du service CDyne sur l'adresse ${serviceUrl} : ${errorString}</value>
         <value xml:lang="it">Errore durante la chiamata del servizio CDyne dell'URL ${serviceUrl}: ${errorString})</value>
         <value xml:lang="ja">CDyne サービス呼び出し中にエラー URL ${serviceUrl}: ${errorString}</value>
+        <value xml:lang="zh">调用CDyne服务时出错，网址：${serviceUrl}，错误：${errorString}</value>
     </property>
     <property key="CommonCDyneParsingError">
         <value xml:lang="en">Error parsing XML result from CDyne service at URL ${serviceUrl}: ${errorString}</value>
@@ -1262,6 +1272,7 @@
         <value xml:lang="fr">Erreur de lecture XML depuis le service CDyne sur l'adresse ${serviceUrl} : ${errorString}</value>
         <value xml:lang="it">Errore di parsing XML risposta dal servizio CDyne dell'URL ${serviceUrl}: ${errorString})</value>
         <value xml:lang="ja">CDyne サービスのXML結果解析中にエラー URL ${serviceUrl}: ${errorString}</value>
+        <value xml:lang="zh">解析来自CDyne服务的XML结果时出错，网址：${serviceUrl}，错误：${errorString}</value>
     </property>
     <property key="CommonCDyneServiceError">
         <value xml:lang="en">Got ServiceError=true from CDyne ReturnCityState service; zipcode=${zipcode}</value>
@@ -1269,6 +1280,7 @@
         <value xml:lang="fr">Obtention de ServiceError=true depuis le service CDyne ReturnCityState; zipcode=${zipcode}</value>
         <value xml:lang="it">Ottenuto ServiceError=true dal servizio CDyne ReturnCityState; zipcode=${zipcode}</value>
         <value xml:lang="ja">CDyne ReturnCityState サービスで ServiceError=true を取得しました; zipcode=${zipcode}</value>
+        <value xml:lang="zh">从CDyne的ReturnCityState服务得到 ServiceError=true；zipcode=${zipcode}</value>
     </property>
     <property key="CommonCancel">
         <value xml:lang="ar">إلغاء</value>
@@ -1370,6 +1382,7 @@
         <value xml:lang="ja">キャプチャコード</value>
         <value xml:lang="pt-BR">Código Captcha</value>
         <value xml:lang="vi">Mã ảnh xác thực</value>
+        <value xml:lang="zh">验证码</value>
     </property>
     <property key="CommonChange">
         <value xml:lang="ar">تغيير</value>
@@ -1398,6 +1411,7 @@
         <value xml:lang="ja">文字 残り</value>
         <value xml:lang="pt-BR">Caracteres sobrando.</value>
         <value xml:lang="vi">ký tự bên trái.</value>
+        <value xml:lang="zh">个字符未输入</value>
     </property>
     <property key="CommonChart">
         <value xml:lang="ar">رسوم بيانية</value>
@@ -1814,6 +1828,7 @@
         <value xml:lang="ja">確認しましたか?</value>
         <value xml:lang="pt-BR">Você confirma?</value>
         <value xml:lang="vi">Bạn có xác nhận không?</value>
+        <value xml:lang="zh">你确定吗？</value>
     </property>
     <property key="CommonConfirmAdd">
         <value xml:lang="ar">ØªØ£ÙƒÙŠØ¯</value>
@@ -1847,7 +1862,7 @@
         <value xml:lang="ro">Confirma</value>
         <value xml:lang="ru">ÐŸÐ¾Ð´Ñ‚Ð²ÐµÑ€Ð´Ð¸Ñ‚ÑŒ</value>
         <value xml:lang="th">à¸¢à¸·à¸™à¸¢à¸±à¸™</value>
-        <value xml:lang="zh">ç¡®è®¤</value>
+        <value xml:lang="zh">你确定要删除吗？</value>
         <value xml:lang="zh-TW">ç¡®è®¤</value>
     </property>
     <property key="CommonContactMechID">
@@ -2394,6 +2409,7 @@
         <value xml:lang="ja">無効化、終了日に現在を設定</value>
         <value xml:lang="pt-BR">Desativar, para definir thruDate para agora</value>
         <value xml:lang="vi">Không kích hoạt, cài đặt từ ngày đến hiện tại</value>
+        <value xml:lang="zh">令其失效，可以把截至日期设为现在</value>
     </property>
     <property key="CommonDebit">
         <value xml:lang="ar">دين</value>
@@ -2450,6 +2466,7 @@
         <value xml:lang="en">Deferred</value>
         <value xml:lang="fr">Différé</value>
         <value xml:lang="ja">延期</value>
+        <value xml:lang="zh">已延期</value>
     </property>
     <property key="CommonDelete">
         <value xml:lang="ar">حذف</value>
@@ -2500,6 +2517,7 @@
         <value xml:lang="ja">項目を削除</value>
         <value xml:lang="pt-BR">Excluir Coluna</value>
         <value xml:lang="vi">Xóa cột</value>
+        <value xml:lang="zh">删除列</value>
     </property>
     <property key="CommonDeleteThisColumn">
         <value xml:lang="en">Delete this column</value>
@@ -2509,6 +2527,7 @@
         <value xml:lang="ja">この項目を削除</value>
         <value xml:lang="pt-BR">Apagar esta coluna</value>
         <value xml:lang="vi">Xóa cột này</value>
+        <value xml:lang="zh">删除该列</value>
     </property>
     <property key="CommonDeleteThisPortlet">
         <value xml:lang="en">Delete this portlet</value>
@@ -2518,6 +2537,7 @@
         <value xml:lang="ja">このポートレットを削除</value>
         <value xml:lang="pt-BR">Excluir este portlet</value>
         <value xml:lang="vi">Xóa ứng dụng portlet này</value>
+        <value xml:lang="zh">删除该小窗口</value>
     </property>
     <property key="CommonDepth">
         <value xml:lang="ar">عمق</value>
@@ -2607,6 +2627,7 @@
         <value xml:lang="ja">寸法</value>
         <value xml:lang="pt-BR">Dimensão</value>
         <value xml:lang="vi">Kích thước</value>
+        <value xml:lang="zh">尺寸</value>
     </property>
     <property key="CommonDisabled">
         <value xml:lang="ar">غير شغال</value>
@@ -2684,6 +2705,7 @@
         <value xml:lang="ja">ダウンロード済</value>
         <value xml:lang="pt-BR">Transferido.</value>
         <value xml:lang="vi">Đã tải xuống</value>
+        <value xml:lang="zh">已下载。</value>
     </property>
     <property key="CommonDuplicate">
         <value xml:lang="ar">مضاعفة</value>
@@ -2794,6 +2816,7 @@
         <value xml:lang="ja">電子メールはすでに存在します</value>
         <value xml:lang="pt-BR">E-mail já existe</value>
         <value xml:lang="vi">Thư điện tử đã tồn tại</value>
+        <value xml:lang="zh">电子邮件已存在</value>
     </property>
     <property key="CommonEmailDeliveryFailed">
         <value xml:lang="en">Delivery to the following recipient(s) failed:</value>
@@ -2802,6 +2825,7 @@
         <value xml:lang="it">Consegna ai seguenti destinatario(i) fallita:</value>
         <value xml:lang="ja">次の受信者への配送が失敗しました:</value>
         <value xml:lang="vi">Gửi thông tin đến các người nhận sau không thành công:</value>
+        <value xml:lang="zh">发送到下列收件人时失败：</value>
     </property>
     <property key="CommonEmailDeliveryOriginalMessage">
         <value xml:lang="en">----- Original message -----</value>
@@ -2810,6 +2834,7 @@
         <value xml:lang="it">----- messaggio originale -----</value>
         <value xml:lang="ja">----- 元のメッセージ -----</value>
         <value xml:lang="vi">----- Thông điệp gốc -----</value>
+        <value xml:lang="zh">----- 原始信息 -----</value>
     </property>
     <property key="CommonEmailNotValid">
         <value xml:lang="en">PartyId: ${parameters.partyIdTo} has no valid email address!</value>
@@ -2819,6 +2844,7 @@
         <value xml:lang="ja">取引先ID: ${parameters.partyIdTo} に有効な電子メールがありません!</value>
         <value xml:lang="pt-BR">ID de Participante (PartyId): ${parameters.partyIdTo} não tem endereço de email válido!</value>
         <value xml:lang="vi">Mã đối tượng: ${parameters.partyIdTo} không có địa chỉ thư điện tử thích hợp</value>
+        <value xml:lang="zh">会员标识：${parameters.partyIdTo} 没有有效的电子邮件地址！</value>
     </property>
     <property key="CommonEmailPassword">
         <value xml:lang="ar">كلمة سر البريد الإلكتروني</value>
@@ -2848,6 +2874,7 @@
         <value xml:lang="it">[ADDRERR] Errore indirizzo durante l'invio del messaggio a ${sendTo} da ${sendFrom} cc ${sendCc} cn ${sendBcc} soggetto ${subject}</value>
         <value xml:lang="ja">[ADDRERR] メッセージの送信中にエラー to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} 件名 ${subject}</value>
         <value xml:lang="vi">[ADDRESS] lỗi địa chỉ khi gửi thông điệp tới ${sendTo} từ ${sendFrom} cc ${sendCc} bcc ${sendBcc} tiêu đề ${subject}</value>
+        <value xml:lang="zh">[地址错误] 自 ${sendFrom} 发送信息到 ${sendTo}、 抄送 ${sendCc} 、密送 ${sendBcc} 、主题 ${subject} 时发生地址错误</value>
     </property>
     <property key="CommonEmailSendConnectionError">
         <value xml:lang="en">[CON] Connection error when sending message to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} subject ${subject}</value>
@@ -2856,6 +2883,7 @@
         <value xml:lang="it">[CON] Errore connessione durante l'invio del messaggio a ${sendTo} da ${sendFrom} cc ${sendCc} cn ${sendBcc} soggetto ${subject}</value>
         <value xml:lang="ja">[CON] メッセージの送信中に接続エラー to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} 件名 ${subject}</value>
         <value xml:lang="vi">[CON] lỗi kết nối khi gửi thông điệp tới ${sendTo} từ ${sendFrom} cc ${sendCc} bcc ${sendBcc} tiêu đề ${subject}</value>
+        <value xml:lang="zh">[连接] 自 ${sendFrom} 发送信息到 ${sendTo}、 抄送 ${sendCc} 、密送 ${sendBcc} 、主题 ${subject} 时发生连接错误</value>
     </property>
     <property key="CommonEmailSendError">
         <value xml:lang="en">Error send email: ${errorString}</value>
@@ -2864,6 +2892,7 @@
         <value xml:lang="it">Errore invio email: ${errorString}</value>
         <value xml:lang="ja">メール送信エラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi gửi email: ${errorString}</value>
+        <value xml:lang="zh">发送邮件时出错：${errorString}</value>
     </property>
     <property key="CommonEmailSendGettingError">
         <value xml:lang="en">Error getting content: ${errorString}</value>
@@ -2872,6 +2901,7 @@
         <value xml:lang="it">Errore nel ricavare contenuto: ${errorString}</value>
         <value xml:lang="ja">内容取得中にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi lấy nội dung: ${errorString}</value>
+        <value xml:lang="zh">获取内容时出错：${errorString}</value>
     </property>
     <property key="CommonEmailSendIOException">
         <value xml:lang="en">IOException when creating message to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} subject ${subject}</value>
@@ -2879,6 +2909,7 @@
         <value xml:lang="fr">Erreur d'Entrée/Sortie lors de la création du courriel à ${sendTo}, depuis ${sendFrom}, en copie, ${sendCc}, en copie cachée ${sendBcc}, avec le sujet ${subject}</value>
         <value xml:lang="it">IOException durante la creazione del messaggio a ${sendTo} da ${sendFrom} cc ${sendCc} cn ${sendBcc} soggetto ${subject}</value>
         <value xml:lang="ja">メッセージ作成中にI/O例外 to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} 件名 ${subject}</value>
+        <value xml:lang="zh">新建自 ${sendFrom} 、到 ${sendTo}、 抄送 ${sendCc} 、密送 ${sendBcc} 、主题 ${subject} 的信息时发生IO错误</value>
     </property>
     <property key="CommonEmailSendMalformedUrl">
         <value xml:lang="en">Malformed URL: ${bodyUrl}; error was: ${errorString}</value>
@@ -2886,6 +2917,7 @@
         <value xml:lang="fr">URL invalide : ${bodyUrl}; erreur levée : ${errorString}</value>
         <value xml:lang="it">URL malformato : ${bodyUrl}; errore era: ${errorString}</value>
         <value xml:lang="ja">不正なURL: ${bodyUrl}; エラー: ${errorString}</value>
+        <value xml:lang="zh">网址格式错误：${bodyUrl}；错误是：${errorString}</value>
     </property>
     <property key="CommonEmailSendMessagingException">
         <value xml:lang="en">MessagingException when creating message to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} subject ${subject}</value>
@@ -2893,6 +2925,7 @@
         <value xml:lang="fr">MessagingException lors de la création du courriel à ${sendTo}, depuis ${sendFrom}, en copie, ${sendCc}, en copie cachée ${sendBcc}, avec le sujet ${subject}</value>
         <value xml:lang="it">MessagingException durante la creazione del messaggio a ${sendTo} da ${sendFrom} cc ${sendCc} cn ${sendBcc} soggetto ${subject}</value>
         <value xml:lang="ja">メッセージ作成中にメッセージ例外 to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} 件名 ${subject}</value>
+        <value xml:lang="zh">新建自 ${sendFrom} 、到 ${sendTo}、 抄送 ${sendCc} 、密送 ${sendBcc} 、主题 ${subject} 的信息时发生消息错误</value>
     </property>
     <property key="CommonEmailSendMissingParameterSendVia">
         <value xml:lang="en">Parameter sendVia is required when sendType is not mail.smtp.host</value>
@@ -2900,6 +2933,7 @@
         <value xml:lang="fr">Le paramêtre sendVia est requis lorsque sendType n'est pas mail.smtp.host</value>
         <value xml:lang="it">Parametro sendVia è richiesto quando sendType non è mail.smtp.host</value>
         <value xml:lang="ja">sendTypeがmail.smtp.hostでない時、sendViaパラメータは必須です。</value>
+        <value xml:lang="zh">当 sendType 不是 mail.smtp.host 时，必须有参数 sendVia </value>
     </property>
     <property key="CommonEmailSendRenderingScreenEmailError">
         <value xml:lang="en">Error rendering screen for email: ${errorString}</value>
@@ -2907,6 +2941,7 @@
         <value xml:lang="fr">Erreur lors du rendu du contenu du courriel : ${errorString}</value>
         <value xml:lang="it">Errore di visualizzazione videata per email: ${errorString}</value>
         <value xml:lang="ja">電子メールの画面レンダリング中にエラー: ${errorString}</value>
+        <value xml:lang="zh">为邮件生成内容时出错：${errorString}</value>
     </property>
     <property key="CommonEmailSendRenderingScreenPdfError">
         <value xml:lang="en">Error rendering PDF attachment for email: ${errorString}</value>
@@ -2914,6 +2949,7 @@
         <value xml:lang="fr">Erreur dans le rendu des PDF en pièce jointe du courriel : ${errorString}</value>
         <value xml:lang="it">Errore di visualizzazione allegato PDF per email: ${errorString}</value>
         <value xml:lang="ja">電子メールのPDF添付レンダリング中にエラー: ${errorString}</value>
+        <value xml:lang="zh">为邮件生成PDF附件时出错：${errorString}</value>
     </property>
     <property key="CommonEmailSendUndeliveredMail">
         <value xml:lang="en">Undelivered Mail Returned to Sender</value>
@@ -2921,6 +2957,7 @@
         <value xml:lang="fr">Non distribution du courriel, retourné à l'expéditeur</value>
         <value xml:lang="it">Mail non consegnabile restituita a colui che l'ha inviata</value>
         <value xml:lang="ja">配達できなかったメールが送信者に戻されました</value>
+        <value xml:lang="zh">把无法投递的邮件退回发送者</value>
     </property>
     <property key="CommonEmailShouldBeSpecified">
         <value xml:lang="en">PartyId or Email Address (sendTo) should be specified!</value>
@@ -2930,6 +2967,7 @@
         <value xml:lang="ja">取引先IDまたは電子メールアドレス(送信先)を指定してください!</value>
         <value xml:lang="pt-BR">ID de participante (PartyId) ou E-mail (SendTo) deve ser especificado!</value>
         <value xml:lang="vi">Thông tin người dùng nhận hoặc Địa chỉ thư điện tử (gửi đến) cần phải có</value>
+        <value xml:lang="zh">必须制定会员标识（partyId）或电子邮件地址（sendTo）！</value>
     </property>
     <property key="CommonEmailTo">
         <value xml:lang="ar">بريد الإلكتروني إلى</value>
@@ -3003,6 +3041,7 @@
         <value xml:lang="ja">有効</value>
         <value xml:lang="th">เปิดใช้งาน</value>
         <value xml:lang="vi">Bật (cho phép)</value>
+        <value xml:lang="zh">启用</value>
     </property>
     <property key="CommonEnabled">
         <value xml:lang="ar">شغال</value>
@@ -3088,6 +3127,7 @@
         <value xml:lang="it">Non è possibile creare un test entità</value>
         <value xml:lang="ja">テストエンティティが作成できません</value>
         <value xml:lang="vi">Không thể khởi tạo thực thể để thử nghiệm</value>
+        <value xml:lang="zh">无法新建测试实体</value>
     </property>
     <property key="CommonEntries">
         <value xml:lang="ar">مداخيل</value>
@@ -3216,6 +3256,7 @@
         <value xml:lang="fr">Erreur dans la soumission du formulaire.</value>
         <value xml:lang="ja">フォームの送信中にエラーが発生しました。</value>
         <value xml:lang="vi">Lỗi xảy ra khi gửi thông tin (form) lên máy chủ.</value>
+        <value xml:lang="zh">提交表单时发生了一个错误。</value>
     </property>
     <property key="CommonEventDate">
         <value xml:lang="ar">تاريخ الحدث</value>
@@ -3427,6 +3468,7 @@
         <value xml:lang="ja">定義は何ですか?</value>
         <value xml:lang="pt-BR">Definição, o que é isso?</value>
         <value xml:lang="vi">Định nghĩa, đó là cái gì ?</value>
+        <value xml:lang="zh">定义它是什么？</value>
     </property>
     <property key="CommonExtHelpOnScreen">
         <value xml:lang="en">What's on the screen?</value>
@@ -3436,6 +3478,7 @@
         <value xml:lang="ja">画面に何がありますか?</value>
         <value xml:lang="pt-BR">O que está na tela?</value>
         <value xml:lang="vi">Thông tin gì đang hiển thị trên màn hình</value>
+        <value xml:lang="zh">界面上有什么？</value>
     </property>
     <property key="CommonExtHelpTitle">
         <value xml:lang="en">Help screen.</value>
@@ -3445,6 +3488,7 @@
         <value xml:lang="ja">ヘルプ画面</value>
         <value xml:lang="pt-BR">Tela de Ajuda.</value>
         <value xml:lang="vi">Màn hình trợ giúp</value>
+        <value xml:lang="zh">帮助界面。</value>
     </property>
     <property key="CommonExtHelpUsedFor">
         <value xml:lang="en">What is it used for?</value>
@@ -3454,6 +3498,7 @@
         <value xml:lang="ja">何に使いますか?</value>
         <value xml:lang="pt-BR">Para que é usado?</value>
         <value xml:lang="vi">Thông tin này được sử dụng để làm gì</value>
+        <value xml:lang="zh">它是用来做什么用的？</value>
     </property>
     <property key="CommonExtIndex">
         <value xml:lang="en">Index</value>
@@ -3463,6 +3508,7 @@
         <value xml:lang="ja">インデックス</value>
         <value xml:lang="pt-BR">Índice</value>
         <value xml:lang="vi">Chỉ mục</value>
+        <value xml:lang="zh">索引</value>
         <value xml:lang="zh-TW">索引</value>
     </property>
     <property key="CommonExternalDevice">
@@ -3471,6 +3517,7 @@
         <value xml:lang="fr">Mat. externe</value>
         <value xml:lang="ja">外部デバイス</value>
         <value xml:lang="vi">Thiết bị ngoài</value>
+        <value xml:lang="zh">外部设备</value>
     </property>
     <property key="CommonExternalDeviceUserAction">
         <value xml:lang="en">External Device User Action</value>
@@ -3478,6 +3525,7 @@
         <value xml:lang="fr">Assoc Action/Utilisateur avec Mat. externe</value>
         <value xml:lang="ja">外部デバイスユーザアクション</value>
         <value xml:lang="vi">Tác động người dùng</value>
+        <value xml:lang="zh">外部设备用户操作</value>
     </property>
     <property key="CommonFalse">
         <value xml:lang="ar">خطأ</value>
@@ -3666,6 +3714,7 @@
         <value xml:lang="it">Errore duranta la preparazione delle condizioni di ricerca: ${errorString}</value>
         <value xml:lang="ja">条件の準備中にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi chuẩn bị điều kiện: ${errorString}</value>
+        <value xml:lang="zh">准备查询条件时出错：${errorString}</value>
     </property>
     <property key="CommonFindErrorRetrieveIterator">
         <value xml:lang="en">Error finding iterator: ${errorString}</value>
@@ -3674,6 +3723,7 @@
         <value xml:lang="it">Errore duranta la ricerca, iterator non restituito: ${errorString}</value>
         <value xml:lang="ja">イテレータの検索中にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi tìm kiếm lặp: ${errorString}</value>
+        <value xml:lang="zh">查找迭代器（iterator）时出错：${errorString}</value>
     </property>
     <property key="CommonFindErrorRunning">
         <value xml:lang="en">Error running Find on the ${entityName} entity: ${errorString}</value>
@@ -3682,6 +3732,7 @@
         <value xml:lang="it">Errore duranta la ricerca sull'entità ${entityName}: ${errorString}</value>
         <value xml:lang="ja">${entityName} エンティティの検索実行中にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi Tìm kiếm thực thể ${entityName} : ${errorString}</value>
+        <value xml:lang="zh">对实体 ${entityName} 运行查找方法（Find）时出错：${errorString}</value>
     </property>
     <property key="CommonFinishDate">
         <value xml:lang="ar">تاريخ/وقت النهاية</value>
@@ -4095,6 +4146,7 @@
         <value xml:lang="it">connessione rifiutata</value>
         <value xml:lang="ja">接続が拒否されました</value>
         <value xml:lang="vi">kết nối bị từ chối</value>
+        <value xml:lang="zh">连接被拒</value>
     </property>
     <property key="CommonFtpFileCannotBeOpen">
         <value xml:lang="en">ERROR: Could not open local file</value>
@@ -4103,6 +4155,7 @@
         <value xml:lang="it">ERRORE: Non è possibile aprire il file locale</value>
         <value xml:lang="ja">エラー: ローカルファイルをオープンできません</value>
         <value xml:lang="vi">Lỗi xảy ra: Không thể mở tập tin trên máy người dùng</value>
+        <value xml:lang="zh">错误：不能打开本地文件</value>
     </property>
     <property key="CommonFtpFileNotSentSuccesfully">
         <value xml:lang="en">File not sent succesfully: ${replyString}</value>
@@ -4111,6 +4164,7 @@
         <value xml:lang="it">File non inviato con successo: ${replyString}</value>
         <value xml:lang="ja">ファイルが送信できませんでした: ${replyString}</value>
         <value xml:lang="vi">Tập tin gửi đi không thành công: ${replyString}</value>
+        <value xml:lang="zh">不能成功发送文件：${replyString}</value>
     </property>
     <property key="CommonFtpLoginFailure">
         <value xml:lang="en">Login failed (${username}, ${password})</value>
@@ -4119,6 +4173,7 @@
         <value xml:lang="it">Login fallito (${username}, ${password})</value>
         <value xml:lang="ja">ログイン失敗 (${username}, ${password})</value>
         <value xml:lang="vi">Đăng nhập không thành công (${username}, ${password})</value>
+        <value xml:lang="zh">登录失败（${username}，${password}）</value>
     </property>
     <property key="CommonFtpProblemWithTransfer">
         <value xml:lang="en">Problem with FTP transfer: ${errorString}</value>
@@ -4127,6 +4182,7 @@
         <value xml:lang="it">Problema durante il trasferimento FTP: ${errorString}</value>
         <value xml:lang="ja">FTP転送でエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra trong quá trình truyền file (FTP): ${errorString}</value>
+        <value xml:lang="zh">FTP传送时出问题：${errorString}</value>
     </property>
     <property key="CommonFtpSiteCommandFailed">
         <value xml:lang="en">SITE command ${command} failed: ${replyString}</value>
@@ -4135,6 +4191,7 @@
         <value xml:lang="it">Comando sito ${command} fallito: ${replyString}</value>
         <value xml:lang="ja">SITE コマンド ${command} でエラー: ${replyString}</value>
         <value xml:lang="vi">Yêu cầu ${command} đến trang thông tin không thành công: ${replyString}</value>
+        <value xml:lang="zh">运行站点命令 ${command} 时失败：${replyString}</value>
     </property>
     <property key="CommonGenericPermissionError">
         <value xml:lang="de">Sicherheitsfehler: Um ${resourceDescription} auszuführen, müssen Sie eine der folgenden Berechtigungen besitzen: ${primaryPermission}_${mainAction}, ${primaryPermission}_ADMIN${altPermissionList}</value>
@@ -4159,6 +4216,7 @@
         <value xml:lang="ja">サービス実行中にエラー</value>
         <value xml:lang="pt-BR">Erro ao executar serviço</value>
         <value xml:lang="vi">Lỗi khi thực thi dịch vụ</value>
+        <value xml:lang="zh">运行服务时出错</value>
     </property>
     <property key="CommonGenericServiceSuccessMessage">
         <value xml:lang="en">Service executed successfully</value>
@@ -4167,6 +4225,7 @@
         <value xml:lang="ja">サービスが正しく実行されました</value>
         <value xml:lang="pt-BR">Serviço executado com sucesso</value>
         <value xml:lang="vi">Dịch vụ được thực thi thành công</value>
+        <value xml:lang="zh">成功运行了服务</value>
     </property>
     <property key="CommonGeo">
         <value xml:lang="ar">جيو</value>
@@ -4205,6 +4264,7 @@
         <value xml:lang="ja">位置関連付け種類ID</value>
         <value xml:lang="pt-BR">Tipo de ID de associação geo referencial</value>
         <value xml:lang="vi">Kiểu địa lý kết hợp</value>
+        <value xml:lang="zh">地理相关类型标识</value>
     </property>
     <property key="CommonGeoCode">
         <value xml:lang="en">Code</value>
@@ -4298,6 +4358,7 @@
         <value xml:lang="ja">通称</value>
         <value xml:lang="pt-BR">Texto bem conhecido</value>
         <value xml:lang="vi">Miêu tả quen thuộc</value>
+        <value xml:lang="zh">众所周知的文本</value>
     </property>
     <property key="CommonGeos">
         <value xml:lang="de">Geo</value>
@@ -4508,6 +4569,7 @@
         <value xml:lang="ja">ヘルプファイルまたはURLが見つかりません</value>
         <value xml:lang="pt-BR">Arquivo de Ajuda ou URL não encontrado</value>
         <value xml:lang="vi">Tập tin trợ giúp hoặc liên kết URL không được tìm thấy</value>
+        <value xml:lang="zh">没有找到帮助文件或网址</value>
     </property>
     <property key="CommonHideFields">
         <value xml:lang="ar">اخفاء الحقول</value>
@@ -4695,6 +4757,7 @@
         <value xml:lang="ja">画像</value>
         <value xml:lang="th">รูปภาพ</value>
         <value xml:lang="vi">Ảnh</value>
+        <value xml:lang="zh">图片</value>
     </property>
     <property key="CommonIn">
         <value xml:lang="ar">داخل</value>
@@ -4956,6 +5019,7 @@
         <value xml:lang="ja">アイテム/ページ</value>
         <value xml:lang="pt-BR">Itens por página</value>
         <value xml:lang="vi">Số hạng mục trên trang</value>
+        <value xml:lang="zh">每页条数</value>
     </property>
     <property key="CommonJanuary">
         <value xml:lang="ar">جانفي</value>
@@ -5078,6 +5142,7 @@
         <value xml:lang="ja">最新システムメッセージ</value>
         <value xml:lang="pt-BR">Últimas notas do sistema</value>
         <value xml:lang="vi">Các thông báo mới nhất từ hệ thống</value>
+        <value xml:lang="zh">最近系统便笺</value>
         <value xml:lang="zh-TW">最近系統便箋</value>
     </property>
     <property key="CommonLastUpdated">
@@ -5123,6 +5188,7 @@
         <value xml:lang="ja">長さ</value>
         <value xml:lang="pt-BR">Comprimento</value>
         <value xml:lang="vi">Dài: </value>
+        <value xml:lang="zh">长度</value>
     </property>
     <property key="CommonLessThan">
         <value xml:lang="de">weniger als</value>
@@ -5366,6 +5432,7 @@
         <value xml:lang="it">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode}&amp;telephone=${telecomNumber.contactNumber}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
         <value xml:lang="ja">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode}&amp;telephone=${telecomNumber.contactNumber}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
         <value xml:lang="vi">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode}&amp;telephone=${telecomNumber.contactNumber}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
+        <value xml:lang="zh">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode}&amp;telephone=${telecomNumber.contactNumber}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
     </property>
     <property key="CommonLookupLocale">
         <value xml:lang="en">Lookup Locale</value>
@@ -5373,6 +5440,7 @@
         <value xml:lang="fr">Recherche langue</value>
         <value xml:lang="ja">地域を検索</value>
         <value xml:lang="vi">Chọn Đất nước</value>
+        <value xml:lang="zh">查询语言</value>
     </property>
     <property key="CommonLookupWhitepages">
         <value xml:lang="en">Look up White pages</value>
@@ -5395,6 +5463,7 @@
         <value xml:lang="hi-IN">http://www.whitepages.com/find_person_results.pl?fid=a</value>
         <value xml:lang="it">http://www.whitepages.com/find_person_results.pl?fid=a&amp;s_n=${addressNum}&amp;s_a=${addressOther}&amp;c=${postalAddress.city}&amp;s=${postalAddress.stateProvinceGeoId}&amp;x=29 y=18</value>
         <value xml:lang="ja">http://www.whitepages.com/find_person_results.pl?fid=a&amp;s_n=${addressNum}&amp;s_a=${addressOther}&amp;c=${postalAddress.city}&amp;s=${postalAddress.stateProvinceGeoId}&amp;x=29 y=18</value>
+        <value xml:lang="zh">http://www.whitepages.com/find_person_results.pl?fid=a&amp;s_n=${addressNum}&amp;s_a=${addressOther}&amp;c=${postalAddress.city}&amp;s=${postalAddress.stateProvinceGeoId}&amp;x=29 y=18</value>
     </property>
     <property key="CommonLookupWhitepagesTelNumberLink">
         <value xml:lang="en">http://whitepages.com/find_person_results.pl?fid=p&amp;ac=${telecomNumber.areaCode}&amp;s=&amp;p=${telecomNumber.contactNumber}&amp;pt=b&amp;x=40&amp;y=9</value>
@@ -5402,6 +5471,7 @@
         <value xml:lang="fr">http://www.pagesjaunes.fr/quidonc/aquiestcenumero.do</value>
         <value xml:lang="it">http://whitepages.com/find_person_results.pl?fid=p&amp;ac=${telecomNumber.areaCode}&amp;s=&amp;p=${telecomNumber.contactNumber}&amp;pt=b&amp;x=40&amp;y=9</value>
         <value xml:lang="ja">http://whitepages.com/find_person_results.pl?fid=p&amp;ac=${telecomNumber.areaCode}&amp;s=&amp;p=${telecomNumber.contactNumber}&amp;pt=b&amp;x=40&amp;y=9</value>
+        <value xml:lang="zh">http://whitepages.com/find_person_results.pl?fid=p&amp;ac=${telecomNumber.areaCode}&amp;s=&amp;p=${telecomNumber.contactNumber}&amp;pt=b&amp;x=40&amp;y=9</value>
     </property>
     <property key="CommonLow">
         <value xml:lang="de">Niedrig</value>
@@ -5463,6 +5533,7 @@
         <value xml:lang="ja">管理</value>
         <value xml:lang="th">จัดการ</value>
         <value xml:lang="vi">Quản lý</value>
+        <value xml:lang="zh">管理</value>
     </property>
     <property key="CommonManagePortalPages">
         <value xml:lang="de">Portalseiten verwalten...</value>
@@ -5565,6 +5636,7 @@
         <value xml:lang="ja">最大250文字</value>
         <value xml:lang="pt-BR">Máximo de 250 caracteres</value>
         <value xml:lang="vi">Tối đa 250 ký tự</value>
+        <value xml:lang="zh">最多250个字符（125个汉字）</value>
     </property>
     <property key="CommonMay">
         <value xml:lang="ar">ماي</value>
@@ -5684,6 +5756,7 @@
         <value xml:lang="ja">メッセージが正しくありません</value>
         <value xml:lang="pt-BR">A Mensagem está faltando</value>
         <value xml:lang="vi">Thông điệp bị mất</value>
+        <value xml:lang="zh">消息丢失了</value>
     </property>
     <property key="CommonMessages">
         <value xml:lang="de">Meldungen</value>
@@ -5732,6 +5805,7 @@
         <value xml:lang="pt-BR">Milisegundo</value>
         <value xml:lang="ro">Milisecunde</value>
         <value xml:lang="vi">Mi li giây</value>
+        <value xml:lang="zh">毫秒</value>
     </property>
     <property key="CommonMinute">
         <value xml:lang="ar">بدقة</value>
@@ -6163,6 +6237,7 @@
         <value xml:lang="ja">新規ポータルページ</value>
         <value xml:lang="pt-BR">Nova página do Portal</value>
         <value xml:lang="vi">Tạo mới trang của Cổng thông tin</value>
+        <value xml:lang="zh">新建门户页面</value>
     </property>
     <property key="CommonNewSelection">
         <value xml:lang="ar">إختيار جديد</value>
@@ -6344,6 +6419,7 @@
         <value xml:lang="ja">詳細な画像が有効ではありません</value>
         <value xml:lang="pt-BR">Nenhuma imagem de detalhes disponível para exibir.</value>
         <value xml:lang="vi">Chưa có thông tin ảnh chi tiết</value>
+        <value xml:lang="zh">没有可显示的详细图片</value>
     </property>
     <property key="CommonNoElementFound">
         <value xml:lang="ar">لا عنصر موجود</value>
@@ -6385,6 +6461,7 @@
         <value xml:lang="ja">オプションなし: _適用外_</value>
         <value xml:lang="pt-BR">Sem opções: _NA_</value>
         <value xml:lang="vi">Không có tùy chọn: _NA</value>
+        <value xml:lang="zh">没有选项：_NA_</value>
     </property>
     <property key="CommonNoParent">
         <value xml:lang="ar">لا والد</value>
@@ -6415,6 +6492,7 @@
         <value xml:lang="ja">ポータルページのデータはありません。</value>
         <value xml:lang="pt-BR">Não há dados da página do portal encontrados. Você pode não ter a semente ou outros dados necessários para isso.</value>
         <value xml:lang="vi">Không có dữ liệu trang của Cổng thông tin nào được tìm thấy. Bạn cần thêm dữ liệu.</value>
+        <value xml:lang="zh">没有找到门户页面数据。你可能没有它所需的种子或其它数据。</value>
     </property>
     <property key="CommonNoPortletsInCategory">
         <value xml:lang="de">Bitte wählen Sie erneut eine neue Kategorie. Keine Portlets in dieser Kategorie.</value>
@@ -6425,6 +6503,7 @@
         <value xml:lang="ja">再度新規カテゴリを選択してください、カテゴリにポートレットはありません。</value>
         <value xml:lang="pt-BR">Por favor, escolha uma nova categoria de novo, sem portlet nesta categoria.</value>
         <value xml:lang="vi">Bạn hãy chọn Phân loại Quản lý khác, không có ứng dụng portlet trong Phân loại Quản lý này</value>
+        <value xml:lang="zh">请再选择一次新建分类，这个分类中没有小窗口。</value>
     </property>
     <property key="CommonNoPostalAddress">
         <value xml:lang="ar">لا عنوان بريدي</value>
@@ -6469,6 +6548,7 @@
         <value xml:lang="ja">都道府県/州/地方が存在しません: _適用外_</value>
         <value xml:lang="pt-BR">Nenhum estados/municípios existem: _NA_</value>
         <value xml:lang="vi">Không Tỉnh/Thành nào tồn tại : _NA</value>
+        <value xml:lang="zh">没有省：_NA_</value>
     </property>
     <property key="CommonNoStatesProvincesExists">
         <value xml:lang="de">Es existiert kein Bundesland</value>
@@ -6478,6 +6558,7 @@
         <value xml:lang="ja">都道府県/州/地方が存在しません</value>
         <value xml:lang="pt-BR">Nenhum estados/municípios existem</value>
         <value xml:lang="vi">Không Tỉnh/Thành nào tồn tại</value>
+        <value xml:lang="zh">没有省</value>
     </property>
     <property key="CommonNoTaskAssigned">
         <value xml:lang="ar">لا مهام حالية تستوجب إهتمامكم</value>
@@ -6580,6 +6661,7 @@
         <value xml:lang="ja">割当なし</value>
         <value xml:lang="pt-BR">Não Atribuído</value>
         <value xml:lang="vi">Chưa gán việc</value>
+        <value xml:lang="zh">未指派</value>
     </property>
     <property key="CommonNotModifRecreat">
         <value xml:lang="de">kann nur mit Neuanlage geändert werden</value>
@@ -6705,6 +6787,7 @@
         <value xml:lang="it">Non è possibile aggiornare i dati della nota (scrittura fallita): ${errorString}</value>
         <value xml:lang="ja">連絡データが更新できません (書き込み失敗): ${errorString}</value>
         <value xml:lang="vi">Không thể cập nhật thông tin Ghi chú (lỗi ghi): ${errorString}</value>
+        <value xml:lang="zh">无法更新便笺数据（写失败）：${errorString}</value>
     </property>
     <property key="CommonNotes">
         <value xml:lang="ar">مذكرات</value>
@@ -6732,6 +6815,7 @@
         <value xml:lang="it">Email delivery error, see error log</value>
         <value xml:lang="ja">メール配送エラー。エラーログを参照してください</value>
         <value xml:lang="vi">Bên nhận thư điện tử không thành công, bạn hãy xem vết hệ thống</value>
+        <value xml:lang="zh">邮件递送时出错，参见错误日志</value>
     </property>
     <property key="CommonNotifyEmailInvalidBody">
         <value xml:lang="en">Invalid email body; null is not allowed</value>
@@ -6740,6 +6824,7 @@
         <value xml:lang="it">Corpo email invalido; null non è consentito</value>
         <value xml:lang="ja">メールの本文が正しくありません。空は許可されていません</value>
         <value xml:lang="vi">Phần thân Thư điện tử không được để trống</value>
+        <value xml:lang="zh">邮件主体无效；不允许是null</value>
     </property>
     <property key="CommonNotifyEmailMessageBodyGeneratedSuccessfully">
         <value xml:lang="en">Message body generated successfully</value>
@@ -6748,6 +6833,7 @@
         <value xml:lang="it">Corpo messaggio generato con successo</value>
         <value xml:lang="ja">メッセージ本文が正しく生成されました</value>
         <value xml:lang="vi">Nội dung thông điệp được tạo thành công</value>
+        <value xml:lang="zh">成功生成邮件主体</value>
     </property>
     <property key="CommonNotifyEmailProblemFindingTemplate">
         <value xml:lang="en">Problem finding template; see logs</value>
@@ -6756,6 +6842,7 @@
         <value xml:lang="it">Problema nella ricerca del template; controllare i logs</value>
         <value xml:lang="ja">テンプレートの検索中にエラー: ログを参照してください</value>
         <value xml:lang="vi">Lỗi xảy ra khi tìm Biểu mẫu, bạn hãy xem vết hệ thống</value>
+        <value xml:lang="zh">查找模板时出问题；参见日志</value>
     </property>
     <property key="CommonNotifyEmailProblemProcessingTemplate">
         <value xml:lang="en">Template processing problem, see error logs</value>
@@ -6764,6 +6851,7 @@
         <value xml:lang="it">Problema nell'esecuzione del template; controllare gli errori nei logs</value>
         <value xml:lang="ja">テンプレートの処理中にエラー。エラーログを参照してください</value>
         <value xml:lang="vi">Lỗi xảy ra khi xử lý Biểu mẫu, bạn hãy xem vết hệ thống</value>
+        <value xml:lang="zh">处理模板时出错，参见错误日志</value>
     </property>
     <property key="CommonNotifyEmailProblemReadingTemplate">
         <value xml:lang="en">Template reading problem, see error logs</value>
@@ -6772,6 +6860,7 @@
         <value xml:lang="it">Problema nella lettura del template; controllare gli errori nei logs</value>
         <value xml:lang="ja">テンプレートの読み込み中にエラー。エラーログを参照してください</value>
         <value xml:lang="vi">Lỗi xảy ra khi đọc Biểu mẫu, bạn hãy xem vết hệ thống</value>
+        <value xml:lang="zh">读取模板时出错，参见错误日志</value>
     </property>
     <property key="CommonNovember">
         <value xml:lang="ar">نوفمبر</value>
@@ -7076,6 +7165,7 @@
         <value xml:lang="fr">Logo de l'organisation</value>
         <value xml:lang="ja">組織ロゴ</value>
         <value xml:lang="th">โลโก้องค์กร</value>
+        <value xml:lang="zh">机构图标</value>
     </property>
     <property key="CommonOther">
         <value xml:lang="ar">أخرى</value>
@@ -7299,6 +7389,7 @@
         <value xml:lang="fr">Paiement</value>
         <value xml:lang="ja">支払</value>
         <value xml:lang="vi">Thanh toán</value>
+        <value xml:lang="zh">支付</value>
     </property>
     <property key="CommonPaymentMethodType">
         <value xml:lang="ar">نوع طريقة التسديد</value>
@@ -7346,6 +7437,7 @@
         <value xml:lang="it">Pdf</value>
         <value xml:lang="ja">PDF</value>
         <value xml:lang="pt-BR">Pdf</value>
+        <value xml:lang="zh">PDF</value>
     </property>
     <property key="CommonPerform">
         <value xml:lang="ar">إحراء</value>
@@ -7472,6 +7564,7 @@
         <value xml:lang="it">Non è possibile connettersi al datasource!</value>
         <value xml:lang="ja">データソースに接続できません!</value>
         <value xml:lang="vi">Không thể kết nối đến nguồn dữ liệu</value>
+        <value xml:lang="zh">无法连接到数据源！</value>
     </property>
     <property key="CommonPingDatasourceInvalidCount">
         <value xml:lang="de">Ungültige Anzahl wurde von der Datenbank zurückgegeben</value>
@@ -7481,6 +7574,7 @@
         <value xml:lang="it">Contantore invalido restituito dal database</value>
         <value xml:lang="ja">データベースから戻された件数が正しくありません</value>
         <value xml:lang="vi">Bộ đếm số lượng trả về từ cơ sở dữ liệu không hợp lệ</value>
+        <value xml:lang="zh">从数据库返回的计数无效</value>
     </property>
     <property key="CommonPleaseEnterValidNumberInThisField">
         <value xml:lang="de">Bitte eine gültige Zahl in dieses Feld eingeben.</value>
@@ -7490,6 +7584,7 @@
         <value xml:lang="ja">正しい数字を入力してください。</value>
         <value xml:lang="pt-BR">Por favor insira um número válido neste campo.</value>
         <value xml:lang="vi">Bạn hãy nhập số đúng định dạng cho trường này.</value>
+        <value xml:lang="zh">请在本项中输入一个有效数字。</value>
     </property>
     <property key="CommonPleaseSelect">
         <value xml:lang="de">Bitte wählen</value>
@@ -7499,6 +7594,7 @@
         <value xml:lang="ja">選択してください</value>
         <value xml:lang="pt-BR">Por favor, selecione</value>
         <value xml:lang="vi">làm ơn hãy chọn</value>
+        <value xml:lang="zh">请选择</value>
     </property>
     <property key="CommonPleaseSelectAllFeaturesFirst">
         <value xml:lang="de">Bitte wählen Sie erst alle Merkmale aus.</value>
@@ -7507,6 +7603,7 @@
         <value xml:lang="fr">SVP, sélectionnez toutes les caractéristiques en premier</value>
         <value xml:lang="ja">最初にすべての機能を選択してください</value>
         <value xml:lang="vi">Bạn hãy chọn tất cả Tính năng trước.</value>
+        <value xml:lang="zh">请先选择全部特征。</value>
     </property>
     <property key="CommonPleaseSelectAllRequiredOptions">
         <value xml:lang="de">Bitte selektieren Sie alle benötigten Optionen.</value>
@@ -7515,6 +7612,7 @@
         <value xml:lang="fr">SVP, sélectionnez toutes les options obligatoires</value>
         <value xml:lang="ja">最初に必要な機能をすべて選択してください</value>
         <value xml:lang="vi">Bạn hãy chọn tất cả các Tùy chọn bắt buộc.</value>
+        <value xml:lang="zh">请选择全部必选项。</value>
     </property>
     <property key="CommonPleaseWait">
         <value xml:lang="de">Bitte warten Sie ...</value>
@@ -7524,6 +7622,7 @@
         <value xml:lang="ja">しばらくお待ちください ...</value>
         <value xml:lang="pt-BR">por favor aguarde ...</value>
         <value xml:lang="vi">bạn hãy đợi ...</value>
+        <value xml:lang="zh">请稍候...</value>
     </property>
     <property key="CommonPortalCategoryPage">
         <value xml:lang="de">Kategorie der Portletseiten für Anwendung</value>
@@ -7633,6 +7732,7 @@
         <value xml:lang="fr">Groupe de préférences</value>
         <value xml:lang="ja">設定グループ</value>
         <value xml:lang="vi">Nhóm tham chiếu</value>
+        <value xml:lang="zh">设置的组</value>
     </property>
     <property key="CommonPreferenceName">
         <value xml:lang="de">Bevorzugter Name</value>
@@ -7641,6 +7741,7 @@
         <value xml:lang="fr">Nom de la préférence</value>
         <value xml:lang="ja">設定名称</value>
         <value xml:lang="vi">Tên tham chiếu</value>
+        <value xml:lang="zh">设置的名称</value>
     </property>
     <property key="CommonPreferences">
         <value xml:lang="de">Einstellungen</value>
@@ -7682,6 +7783,7 @@
         <value xml:lang="ja">プレビュー</value>
         <value xml:lang="th">แสดงตัวอย่าง</value>
         <value xml:lang="vi">Xem trước</value>
+        <value xml:lang="zh">预览</value>
     </property>
     <property key="CommonPrevious">
         <value xml:lang="ar">سابق</value>
@@ -8292,6 +8394,7 @@
         <value xml:lang="fr">Distribution</value>
         <value xml:lang="ja">リリース</value>
         <value xml:lang="vi">Ban hành</value>
+        <value xml:lang="zh">发布</value>
     </property>
     <property key="CommonReleaseDate">
         <value xml:lang="de">Release Datum</value>
@@ -8301,6 +8404,7 @@
         <value xml:lang="ja">リリース日</value>
         <value xml:lang="pt-BR">Data de Lançamento</value>
         <value xml:lang="vi">Ngày ban hành</value>
+        <value xml:lang="zh">发布日期</value>
     </property>
     <property key="CommonReleaseVersion">
         <value xml:lang="de">Releaseversion</value>
@@ -8325,6 +8429,7 @@
         <value xml:lang="ja">キャプチャコードを再ロード</value>
         <value xml:lang="pt-BR">Recarregar Código Captcha</value>
         <value xml:lang="vi">Tải lại mã ảnh xác thực</value>
+        <value xml:lang="zh">刷新验证码</value>
     </property>
     <property key="CommonRemove">
         <value xml:lang="ar">نزع</value>
@@ -8386,6 +8491,7 @@
         <value xml:lang="ja">レポート</value>
         <value xml:lang="pt-BR">Relatório</value>
         <value xml:lang="vi">Báo cáo</value>
+        <value xml:lang="zh">报表</value>
     </property>
     <property key="CommonReports">
         <value xml:lang="ar">تقارير</value>
@@ -8413,6 +8519,7 @@
         <value xml:lang="fr">Réinterroger</value>
         <value xml:lang="ja">再問合</value>
         <value xml:lang="vi">Truy vấn lại</value>
+        <value xml:lang="zh">重新查询</value>
     </property>
     <property key="CommonRequired">
         <value xml:lang="ar">إلزامي</value>
@@ -8938,6 +9045,7 @@
         <value xml:lang="fr">Liste des portlets contenues dans cette page, sélectionnez celle pour laquelle vous souhaitez de l'aide</value>
         <value xml:lang="ja">ヘルプを参照したいポートレットを選択してください....</value>
         <value xml:lang="vi">Lựa chọn một ứng dụng porlet mà muốn có sự giúp đỡ...</value>
+        <value xml:lang="zh">选择一个你希望有帮助信息的小窗口...</value>
     </property>
     <property key="CommonSelected">
         <value xml:lang="ar">مختارة</value>
@@ -9155,6 +9263,7 @@
     <property key="CommonServerHour">
         <value xml:lang="en">Server Hour</value>
         <value xml:lang="fr">Heure du serveur </value>
+        <value xml:lang="zh">服务器小时</value>
     </property>
     <property key="CommonServiceReturnError">
         <value xml:lang="en">Return Error Service : Returning Error</value>
@@ -9163,6 +9272,7 @@
         <value xml:lang="it">Servizio ha restituito un'errore: errore restituito</value>
         <value xml:lang="ja">サービスがエラーを戻しました</value>
         <value xml:lang="vi">Dịch vụ thực hiện không thành công : trả về lỗi</value>
+        <value xml:lang="zh">返回错误服务：正在返回错误</value>
     </property>
     <property key="CommonSessionTimeoutPleaseLogIn">
         <value xml:lang="de">Sie sind nicht mehr angemeldet. Bitte melden Sie sich erneut an.</value>
@@ -9171,6 +9281,7 @@
         <value xml:lang="fr">Votre session est terminée. Veuillez vous identifier à nouveau pour utiliser l'application.  Pour vous connecter, vous pouvez actualiser la page, sauvegarder vos données ou utiliser le lien Connexion (ou Déconnexion) en haut à droite.</value>
         <value xml:lang="ja">セッションは失効しています。ログインしてください。ログインすると画面が更新され、データを保存できます。</value>
         <value xml:lang="vi">Bạn chưa đăng nhập. Vui lòng đăng nhập lại.</value>
+        <value xml:lang="zh">你的会话过期了。必须登录。你可以刷新本页或保存你的登录数据。</value>
     </property>
     <property key="CommonSet">
         <value xml:lang="ar">وضع</value>
@@ -9371,6 +9482,7 @@
         <value xml:lang="ja">サイズ</value>
         <value xml:lang="th">ขนาด</value>
         <value xml:lang="vi">Cỡ</value>
+        <value xml:lang="zh">尺寸</value>
     </property>
     <property key="CommonSkipNavigation">
         <value xml:lang="de">Navigation auslassen</value>
@@ -9624,6 +9736,7 @@
         <value xml:lang="fr">Le paramêtre statusTypeIds ne peut être vide et doit contenir au moins un élément</value>
         <value xml:lang="it">Parametro statusTypeIds non può essere nullo e deve contenere almeno un'elemento</value>
         <value xml:lang="ja">パラメータ statusTypeIds は空にできません。少なくとも1つの要素が必要です。</value>
+        <value xml:lang="zh">参数 statusTypeIds 不能是null，并且必须至少有一个元素</value>
     </property>
     <property key="CommonStatustoComplete">
         <value xml:lang="de">Auf 'abgeschlossen' setzen</value>
@@ -9746,6 +9859,7 @@
         <value xml:lang="fr">Créé avec succès.</value>
         <value xml:lang="ja">正しく作成されました。</value>
         <value xml:lang="vi">Tạo mới thành công</value>
+        <value xml:lang="zh">新建成功。</value>
     </property>
     <property key="CommonSummary">
         <value xml:lang="de">Zusammenfassung</value>
@@ -9919,6 +10033,7 @@
         <value xml:lang="ja">テナントID</value>
         <value xml:lang="pt-BR">ID de Inquilino</value>
         <value xml:lang="vi">Id Doanh nghiệp ảo hóa</value>
+        <value xml:lang="zh">承租人标识</value>
     </property>
     <property key="CommonTest">
         <value xml:lang="ar">إختبار</value>
@@ -9949,6 +10064,7 @@
         <value xml:lang="it">Rolling back!</value>
         <value xml:lang="ja">ロールバック中!</value>
         <value xml:lang="vi">Khôi phục về!</value>
+        <value xml:lang="zh">正在回滚！</value>
     </property>
     <property key="CommonText">
         <value xml:lang="ar">نص</value>
@@ -9981,6 +10097,7 @@
         <value xml:lang="pt-BR">O</value>
         <value xml:lang="th">ที่</value>
         <value xml:lang="vi">Cái</value>
+        <value xml:lang="zh"> </value>
     </property>
     <property key="CommonTheFollowingRequiredFieldsWhereFoundEmpty">
         <value xml:lang="de">Die folgenden benötigten Felder sind leer</value>
@@ -10565,6 +10682,7 @@
         <value xml:lang="fr">Une erreur non identifiée s'est produite</value>
         <value xml:lang="ja">予期しないエラーが発生しました!</value>
         <value xml:lang="vi">Xuất hiện lỗi không xác định!</value>
+        <value xml:lang="zh">发生了一个不明错误！</value>
     </property>
     <property key="CommonUntil">
         <value xml:lang="ar">حتى</value>
@@ -10731,6 +10849,7 @@
         <value xml:lang="fr">Mise à jour des données</value>
         <value xml:lang="ja">データ更新中</value>
         <value xml:lang="vi">Đang cập nhật dữ liệu</value>
+        <value xml:lang="zh">正在更新数据</value>
     </property>
     <property key="CommonUpload">
         <value xml:lang="ar">الشحن الفوقي</value>
@@ -10974,6 +11093,7 @@
         <value xml:lang="ja">キャプチャコードを確認</value>
         <value xml:lang="pt-BR">Verifique o Código Captcha</value>
         <value xml:lang="vi">Mã ảnh xác thực</value>
+        <value xml:lang="zh">验证验证码</value>
     </property>
     <property key="CommonView">
         <value xml:lang="ar">مشهد</value>
@@ -11151,6 +11271,7 @@
         <value xml:lang="fr">Cliquer sur l'image pour afficher un aperçu, sur le lien pour sélectionner le thème puis sur terminer pour valider votre choix</value>
         <value xml:lang="ja">プレビューするには画像を、テーマを選択するにはリンクを、選択を有効にするには完了をクリックしてください。</value>
         <value xml:lang="vi">Bạn có thể xem trước Giao diện bằng cách bấm vào hình, sau đó vào liên kết chọn giao diện, và bấm vào nút 'Hoàn tất' để thực hiện thiết lập Giao diện</value>
+        <value xml:lang="zh">点击图片来预览，点击连接来选择风格，然后点击“完成”来让你的选择生效</value>
     </property>
     <property key="CommonVisualThemes">
         <value xml:lang="de">Layoutvorlagen</value>
@@ -11682,6 +11803,7 @@
         <value xml:lang="ja">eBay</value>
         <value xml:lang="pt-BR">eBay</value>
         <value xml:lang="th">อีเบย์</value>
+        <value xml:lang="zh">eBay</value>
         <value xml:lang="zh-TW">電子灣</value>
     </property>
     <property key="Example">
@@ -11739,6 +11861,7 @@
         <value xml:lang="fr">Gestion des stocks, lieux de stockage, emplacement, expédition, réception, inventaire</value>
         <value xml:lang="ja">在庫管理、拠点、位置、発送、受領、物理在庫</value>
         <value xml:lang="vi">Quản lý Kho bãi, Chi nhánh / Cơ sở, Địa điểm, Vận chuyển, Nhận hàng và Kho vật lý</value>
+        <value xml:lang="zh">库存管理，包括场、地点、送货、收货、物理库存</value>
     </property>
     <property key="Financials">
         <value xml:lang="ar">المالية</value>
@@ -11764,6 +11887,7 @@
         <value xml:lang="ja">受付</value>
         <value xml:lang="pt-BR">Aceitar</value>
         <value xml:lang="vi">Đồng ý</value>
+        <value xml:lang="zh">接受</value>
     </property>
     <property key="FormFieldTitle_actionEnumId">
         <value xml:lang="en">Action</value>
@@ -11771,6 +11895,7 @@
         <value xml:lang="fr">Action</value>
         <value xml:lang="ja">アクション</value>
         <value xml:lang="vi">Hành động</value>
+        <value xml:lang="zh">操作</value>
     </property>
     <property key="FormFieldTitle_addButton">
         <value xml:lang="ar">إضافة</value>
@@ -11816,6 +11941,7 @@
         <value xml:lang="ja">承認</value>
         <value xml:lang="th">อนุมัติ</value>
         <value xml:lang="vi">Phê duyệt</value>
+        <value xml:lang="zh">批准</value>
     </property>
     <property key="FormFieldTitle_attrName">
         <value xml:lang="ar">اسم الخاصية</value>
@@ -11858,6 +11984,7 @@
         <value xml:lang="es">Comando a llamar</value>
         <value xml:lang="fr">Cmd d'appel</value>
         <value xml:lang="ja">呼び出しコマンド</value>
+        <value xml:lang="zh">要调用的命令</value>
     </property>
     <property key="FormFieldTitle_comments">
         <value xml:lang="ar">تعاليق</value>
@@ -11884,6 +12011,7 @@
         <value xml:lang="ja">確認</value>
         <value xml:lang="th">ยืนยัน</value>
         <value xml:lang="vi">Xác nhận</value>
+        <value xml:lang="zh">确认</value>
     </property>
     <property key="FormFieldTitle_contactMechId">
         <value xml:lang="ar">دليل مكانزمة الصلة</value>
@@ -12107,6 +12235,7 @@
         <value xml:lang="fr">Emplacement</value>
         <value xml:lang="ja">デバイス位置</value>
         <value xml:lang="vi">Vị trí thiết bị</value>
+        <value xml:lang="zh">设备地点</value>
     </property>
     <property key="FormFieldTitle_effectiveDate">
         <value xml:lang="ar">تاريخ الفاعلية</value>
@@ -12158,6 +12287,7 @@
         <value xml:lang="es">Código acción dispositivo externo</value>
         <value xml:lang="fr">Obj. de l'action</value>
         <value xml:lang="ja">外部デバイス目的アクションID</value>
+        <value xml:lang="zh">外部设备目的操作标识</value>
     </property>
     <property key="FormFieldTitle_externalDeviceId">
         <value xml:lang="en">External Device Id</value>
@@ -12165,6 +12295,7 @@
         <value xml:lang="fr">Réf. Mat. Externe</value>
         <value xml:lang="ja">外部デバイスID</value>
         <value xml:lang="vi">Thiết bị ngoài</value>
+        <value xml:lang="zh">外部设备标识</value>
     </property>
     <property key="FormFieldTitle_externalDeviceTypeId">
         <value xml:lang="en">External Device Type Id</value>
@@ -12172,6 +12303,7 @@
         <value xml:lang="fr">Type de Mat. Externe</value>
         <value xml:lang="ja">外部デバイス種類ID</value>
         <value xml:lang="vi">Loại thiết bị ngoài</value>
+        <value xml:lang="zh">外部设备类型标识</value>
     </property>
     <property key="FormFieldTitle_fromDate">
         <value xml:lang="ar">تاريخ البدء</value>
@@ -12329,6 +12461,7 @@
         <value xml:lang="ja">元のページ</value>
         <value xml:lang="pt-BR">Página original</value>
         <value xml:lang="vi">Trang nguyên gốc</value>
+        <value xml:lang="zh">原页面</value>
     </property>
     <property key="FormFieldTitle_ownerUserLoginId">
         <value xml:lang="de">Benutzer-ID des Besitzers</value>
@@ -12339,6 +12472,7 @@
         <value xml:lang="ja">所有者ユーザログインID</value>
         <value xml:lang="pt-BR">Proprietário Login User ID</value>
         <value xml:lang="vi">Mã người dùng sở hữu</value>
+        <value xml:lang="zh">拥有人用户登录标识</value>
     </property>
     <property key="FormFieldTitle_parentPortalPageId">
         <value xml:lang="de">Elternseite</value>
@@ -12349,6 +12483,7 @@
         <value xml:lang="ja">上位(親)のページ</value>
         <value xml:lang="pt-BR">Página superior</value>
         <value xml:lang="vi">Trang quản lý (cha)</value>
+        <value xml:lang="zh">上级页面</value>
     </property>
     <property key="FormFieldTitle_pending">
         <value xml:lang="en">Pending</value>
@@ -12357,6 +12492,7 @@
         <value xml:lang="ja">保留中</value>
         <value xml:lang="th">รอดำเนินการ</value>
         <value xml:lang="vi">Tồn đọng</value>
+        <value xml:lang="zh">等待中</value>
     </property>
     <property key="FormFieldTitle_portalPageName">
         <value xml:lang="de">Portaseitenname</value>
@@ -12367,6 +12503,7 @@
         <value xml:lang="ja">ポータルページ名称</value>
         <value xml:lang="pt-BR">Nome da página do Portal</value>
         <value xml:lang="vi">Tên Cổng thông tin</value>
+        <value xml:lang="zh">门户页面名称</value>
     </property>
     <property key="FormFieldTitle_price">
         <value xml:lang="ar">السعر</value>
@@ -12665,6 +12802,7 @@
         <value xml:lang="pt-BR">Base do Google</value>
         <value xml:lang="th">Google Base</value>
         <value xml:lang="vi">Trên nền tảng Google</value>
+        <value xml:lang="zh">Google Base</value>
     </property>
     <property key="HR">
         <value xml:lang="de">Personal</value>
@@ -12795,6 +12933,7 @@
         <value xml:lang="pt-BR">Oagis</value>
         <value xml:lang="th">การรวมภาษาทางธุรกิจ</value>
         <value xml:lang="vi">Giao thức XML Oagis</value>
+        <value xml:lang="zh">Oagis</value>
     </property>
     <property key="Order">
         <value xml:lang="ar">طلبية</value>
@@ -12821,6 +12960,7 @@
         <value xml:lang="fr">Gestion des commandes de vente, d'achat, des demandes, des devis, des besoins, des stats</value>
         <value xml:lang="ja">販売注文管理、購買注音、顧客リクエスト、要求、見積、状態</value>
         <value xml:lang="vi">Quản lý Đặt hàng bán, Đặt mua, Yêu cầu khách hàng, Nguồn lực nội bộ, Báo giá, thống kê</value>
+        <value xml:lang="zh">销售订单管理，包括采购、客户请求、需求、询价、统计</value>
     </property>
     <property key="PageTitleAddDataSource">
         <value xml:lang="ar">إضافة مصدر المعلومات جديد</value>
@@ -13117,6 +13257,7 @@
         <value xml:lang="fr">Gestion des clients, Fournisseurs, Employés, Communications, Classifications</value>
         <value xml:lang="ja">顧客 - サプライヤ - 従業員管理、通信、分類</value>
         <value xml:lang="vi">Khách hàng - Nhà cung cấp - Quản lý nhân viên - Quan hệ thông tin - Sự phân loại - Phân quyền</value>
+        <value xml:lang="zh">客户－供货商－雇员管理，包括沟通、分类</value>
     </property>
     <property key="PortalPageNotFound">
         <value xml:lang="de">Die folgende Seite konnte nicht gefunden werden: (${parameters.portalPageId})!</value>
@@ -13283,6 +13424,7 @@
         <value xml:lang="fy">Danysk</value>
         <value xml:lang="ja">デンマーク語</value>
         <value xml:lang="pt-BR">Dinamarquês</value>
+        <value xml:lang="zh">丹麦语</value>
     </property>
     <property key="de">
         <value xml:lang="ar">ألمانية</value>
@@ -13392,6 +13534,7 @@
         <value xml:lang="fy">Frysk</value>
         <value xml:lang="ja">フリージア語</value>
         <value xml:lang="pt-BR">Frísio</value>
+        <value xml:lang="zh">弗里斯兰语</value>
     </property>
     <property key="gr">
         <value xml:lang="ar">يونانية</value>

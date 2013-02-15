@@ -25,6 +25,7 @@
         <value xml:lang="fr">Clé dupliquée. Cette valeur est déjà présente.</value>
         <value xml:lang="ja">重複キー。キーはすでに存在します。</value>
         <value xml:lang="vi">Khóa đã tồn tại và bị trùng.</value>
+        <value xml:lang="zh">键重复了。该键已存在。</value>
     </property>
     <property key="ImageTransform.error_occurs_during_reading">
         <value xml:lang="da">Der opstår en fejl under læsning</value>

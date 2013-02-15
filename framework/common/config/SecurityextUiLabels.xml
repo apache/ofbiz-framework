@@ -190,6 +190,7 @@
         <value xml:lang="ja">パスワードが変更されました。</value>
         <value xml:lang="nl">Uw wachtwoord is aangepast</value>
         <value xml:lang="pt_BR">Sua senha foi alterada com sucesso</value>
+        <value xml:lang="zh">你的密码已成功修改</value>
         <value xml:lang="zh_TW">你的密碼已成功變更。</value>
     </property>
     <property key="loginevents.password_was_empty_reenter">
@@ -228,6 +229,7 @@
         <value xml:lang="fr">Vous ne pouvez pas vous connecter avec cet identifiant sur cette instance</value>
         <value xml:lang="ja">このテナントは使用できません。</value>
         <value xml:lang="pt_BR">Você não pode acessar este inquilino</value>
+        <value xml:lang="zh">你不能登录到这个承租人</value>
         <value xml:lang="zh_TW">無法登入使用此承租戶</value>
     </property>
     <property key="loginevents.unable_to_login_this_application">
@@ -751,6 +753,7 @@
     <property key="loginservices.password_reminder_subject">
         <value xml:lang="en">Password Reminder (${userLoginId})".</value>
         <value xml:lang="fr">Rappel du mot de passe (${userLoginId})".</value>
+        <value xml:lang="zh">密码提示(${userLoginId})。</value>
     </property>
     <property key="loginservices.password.pattern.errmsg">
         <value xml:lang="ar">كلمة السر ليست مطابقة للنمط، يرجى الرجوع النمط التالي: ${passwordPatternMessage}</value>
@@ -758,6 +761,7 @@
         <value xml:lang="fr">Le mot de passe ne correspond pas au modèle: ${passwordPatternMessage}.</value>
         <value xml:lang="hi_IN">पासवर्ड पैटर्न मिलान नहीं है, कृपया निम्नलिखित पैटर्न देखें: ${passwordPatternMessage}</value>
         <value xml:lang="it">La password non è corrispondente al modello, fare riferimento seguente schema: ${passwordPatternMessage}.</value>
+        <value xml:lang="zh">密码不符合样式：${passwordPatternMessage} </value>
     </property>
     <property key="loginservices.since_datetime">
         <value xml:lang="de">(seit ${disabledDateTime})</value>

@@ -21,14 +21,17 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="EbayAddCatalogToStore">
         <value xml:lang="en">Add Catalog To Store</value>
+        <value xml:lang="zh">向店铺添加目录</value>
     </property>
     <property key="EbayAddEbayConfiguration">
         <value xml:lang="en">Add Ebay Configuration</value>
         <value xml:lang="it">Aggiungi configurazione eBay</value>
+        <value xml:lang="zh">添加eBay配置</value>
     </property>
     <property key="EbayAddEbayShippingMethod">
         <value xml:lang="en">Add Ebay Shipping Method</value>
         <value xml:lang="it">Aggiungi metodo di spedizione eBay</value>
+        <value xml:lang="zh">添加eBay送货方式</value>
     </property>
     <property key="EbayApplication">
         <value xml:lang="en">Ebay Integration</value>
@@ -42,21 +45,26 @@
         <value xml:lang="fr">OFBiz</value>
         <value xml:lang="it">OFBiz</value>
         <value xml:lang="th">OFBiz</value>
+        <value xml:lang="zh">OFBiz</value>
     </property>
     <property key="EbayConfigurations">
         <value xml:lang="en">Ebay Configurations</value>
         <value xml:lang="it">Configurazioni eBay</value>
+        <value xml:lang="zh">eBay配置</value>
     </property>
     <property key="EbayEBayOrders">
         <value xml:lang="en">eBay Orders Import</value>
         <value xml:lang="it">Importa ordini da eBay</value>
+        <value xml:lang="zh">eBay订单导入</value>
     </property>
     <property key="EbayEbayOrderIdOrTransactionId">
         <value xml:lang="en">OrderID / TransactionID</value>
         <value xml:lang="it">Numero Ordine / Numero Transazione</value>
+        <value xml:lang="zh">订单编号/交易编号</value>
     </property>
     <property key="EbayEditEbayConfiguration">
         <value xml:lang="en">Edit Ebay Configuration</value>
+        <value xml:lang="zh">编辑eBay配置</value>
     </property>
     <property key="EbayExportToEbay">
         <value xml:lang="de">zu eBay exportieren</value>
@@ -91,18 +99,22 @@
     <property key="EbayImportSearchSingleTransactionFromEbay">
         <value xml:lang="en">Search Single Transactions From eBay</value>
         <value xml:lang="it">Ricerca singole transazioni da eBay</value>
+        <value xml:lang="zh">从eBay搜索单个交易</value>
     </property>
     <property key="EbayImportSingleTransactionFromEbay">
         <value xml:lang="en">Import Single Transactions</value>
         <value xml:lang="it">Importa singole transazioni</value>
+        <value xml:lang="zh">导入单个交易</value>
     </property>
     <property key="EbayShippingMethodConfigurations">
         <value xml:lang="en">Shipping Method Configurations</value>
         <value xml:lang="it">Configurazioni metodi di spedizione</value>
+        <value xml:lang="zh">送货方式配置</value>
     </property>
     <property key="EbayUnableToCreatePostalAddress">
         <value xml:lang="en">Unable to create postalAddress with input map: </value>
         <value xml:lang="it">Non è possibile create l'indirizzo postal con l'input: </value>
+        <value xml:lang="zh">用输入的数据（map），无法创建postalAddress（邮政地址）</value>
     </property>
     <property key="EbayViewPermissionError">
         <value xml:lang="en">You do not have permission to view this page. ("EBAY_VIEW" needed)</value>
@@ -142,6 +154,7 @@
     <property key="FormFieldTitle_customXml">
         <value xml:lang="en">Custom XML</value>
         <value xml:lang="it">XML personalizzato</value>
+        <value xml:lang="zh">定制XML</value>
     </property>
     <property key="FormFieldTitle_eBayPaymentStatus">
         <value xml:lang="en">eBay Payment Status</value>
@@ -370,10 +383,12 @@
     <property key="buildEbayConfig.exceptionInGetOrdersFromEbay">
         <value xml:lang="en">Exception in getting orders from Ebay.</value>
         <value xml:lang="it">Eccezione nel ricevere gli ordini da eBay.</value>
+        <value xml:lang="zh">从eBay获取订单时出错</value>
     </property>
     <property key="buildEbayConfig.unableToFindEbayConfig">
         <value xml:lang="en">Unable to find eBay configurations.</value>
         <value xml:lang="it">Non è possibile trovare configurazioni eBay.</value>
+        <value xml:lang="zh">无法找到eBay配置。</value>
     </property>
     <property key="ordersImportFromEbay.cannotConvertFromDate">
         <value xml:lang="en">Cannot convert from date, from yyyy-MM-dd HH:mm:ss.SSS date format to yyyy-MM-dd'T'HH:mm:ss.SSS'Z' date format</value>

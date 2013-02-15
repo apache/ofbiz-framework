@@ -4889,6 +4889,7 @@
         <value xml:lang="fr">Prix moyen</value>
         <value xml:lang="ja">平均支払レート</value>
         <value xml:lang="vi">Tỷ lệ thanh toán trung bình</value>
+        <value xml:lang="zh">平均支付费率</value>
     </property>
     <property key="RateType.description.DISCOUNTED">
         <value xml:lang="de">Ermäßigter Satz</value>
@@ -4896,6 +4897,7 @@
         <value xml:lang="fr">Réduit</value>
         <value xml:lang="ja">割引レート</value>
         <value xml:lang="vi">Tỷ lệ giảm giá</value>
+        <value xml:lang="zh">贴现率</value>
     </property>
     <property key="RateType.description.HIGH_PAY_RATE">
         <value xml:lang="de">Höchster Satz</value>
@@ -4903,6 +4905,7 @@
         <value xml:lang="fr">Prix haut</value>
         <value xml:lang="ja">最高支払レート</value>
         <value xml:lang="vi">Tỷ lệ thanh toán cao nhất</value>
+        <value xml:lang="zh">最高支付费率</value>
     </property>
     <property key="RateType.description.LOW_PAY_RATE">
         <value xml:lang="de">Günstigster Satz</value>
@@ -4910,6 +4913,7 @@
         <value xml:lang="fr">Prix bas</value>
         <value xml:lang="ja">最低支払レート</value>
         <value xml:lang="vi">Tỷ lệ thanh toán thấp nhất</value>
+        <value xml:lang="zh">最低支付费率</value>
     </property>
     <property key="RateType.description.OVERTIME">
         <value xml:lang="de">Satz für Überstunden</value>
@@ -4917,6 +4921,7 @@
         <value xml:lang="fr">Majoré</value>
         <value xml:lang="ja">残業レート</value>
         <value xml:lang="vi">Tỷ lệ làm ngoài giờ</value>
+        <value xml:lang="zh">加班费率</value>
     </property>
     <property key="RateType.description.STANDARD">
         <value xml:lang="de">Standard-Satz</value>
@@ -4924,6 +4929,7 @@
         <value xml:lang="fr">Standard</value>
         <value xml:lang="ja">標準レート</value>
         <value xml:lang="vi">Tỷ lệ chuẩn</value>
+        <value xml:lang="zh">标准费率</value>
     </property>
     <property key="TaxAuthorityAssocType.description.COLLECT_AGENT">
         <value xml:lang="de">Inkassobevollmächtigter</value>
