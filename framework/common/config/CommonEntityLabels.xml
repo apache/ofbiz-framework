@@ -2304,6 +2304,7 @@
         <value xml:lang="ja">配送完了</value>
         <value xml:lang="pt_BR">Envio Completado</value>
         <value xml:lang="vi">Hoàn thành chuyển hàng</value>
+        <value xml:lang="zh">完成送货</value>
     </property>
     <property key="Enumeration.description.PRDS_PAY_AUTH">
         <value xml:lang="de">Zahlung Autorisierungs Dienst</value>
@@ -2470,6 +2471,7 @@
         <value xml:lang="ja">見積作成</value>
         <value xml:lang="pt_BR">Cotação criada</value>
         <value xml:lang="vi">Tạo báo giá</value>
+        <value xml:lang="zh">新建了询价</value>
     </property>
     <property key="Enumeration.description.PRDS_RTN_ACCEPT">
         <value xml:lang="de">Retoure angenommen</value>
@@ -8841,6 +8843,7 @@
         <value xml:lang="ja">原稿</value>
         <value xml:lang="pt_BR">Projeto</value>
         <value xml:lang="vi">Nháp</value>
+        <value xml:lang="zh">草稿</value>
         <value xml:lang="zh_TW">初稿</value>
     </property>
     <property key="StatusItem.description.CRQ_PENDING">
@@ -8850,6 +8853,7 @@
         <value xml:lang="ja">保留顧客</value>
         <value xml:lang="pt_BR">Pendente</value>
         <value xml:lang="vi">Yêu cầu từ khách hàng đang đợi xử lý</value>
+        <value xml:lang="zh">等待中的客户</value>
         <value xml:lang="zh_TW">等待客戶</value>
     </property>
     <property key="StatusItem.description.CRQ_REJECTED">
@@ -9196,6 +9200,7 @@
         <value xml:lang="ja">テスト済</value>
         <value xml:lang="pt_BR">Testado</value>
         <value xml:lang="vi">Đã kiểm thử</value>
+        <value xml:lang="zh">已测试</value>
     </property>
     <property key="StatusItem.description.FAM_CANCELLED">
         <value xml:lang="de">Annulliert</value>
@@ -9935,18 +9940,21 @@
         <value xml:lang="fr">Créé</value>
         <value xml:lang="ja">作成</value>
         <value xml:lang="vi">Đã tạo</value>
+        <value xml:lang="zh">已新建</value>
     </property>
     <property key="StatusItem.description.LEAVE_APPROVED">
         <value xml:lang="en">Approved</value>
         <value xml:lang="fr">Validé</value>
         <value xml:lang="ja">承認</value>
         <value xml:lang="vi">Đã duyệt</value>
+        <value xml:lang="zh">已批准</value>
     </property>
     <property key="StatusItem.description.LEAVE_REJECTED">
         <value xml:lang="en">Rejected</value>
         <value xml:lang="fr">Rejeté</value>
         <value xml:lang="ja">否認</value>
         <value xml:lang="vi">Từ chối</value>
+        <value xml:lang="zh">已拒绝</value>
     </property>
     <property key="StatusItem.description.MKTG_CAMP_APPROVED">
         <value xml:lang="de">Genehmigt</value>
@@ -11847,6 +11855,7 @@
     <property key="StatusItem.description.TRAINING_APPLIED">
         <value xml:lang="en">Applied</value>
         <value xml:lang="fr">Postulée</value>
+        <value xml:lang="zh">已申请</value>
     </property>
     <property key="StatusItem.description.TRAINING_APPROVED">
         <value xml:lang="en">Approved</value>
@@ -11864,6 +11873,7 @@
         <value xml:lang="fr">Affecté</value>
         <value xml:lang="ja">割当</value>
         <value xml:lang="vi">Đã giao việc</value>
+        <value xml:lang="zh">已指派</value>
     </property>
     <property key="StatusItem.description.TRAINING_PROPOSED">
         <value xml:lang="de">Vorgeschlagen</value>
@@ -15083,6 +15093,7 @@
         <value xml:lang="it">Stampa</value>
         <value xml:lang="ja">印刷済</value>
         <value xml:lang="pt_BR">Impresso</value>
+        <value xml:lang="zh">已打印</value>
     </property>
     <property key="StatusValidChange.transitionName.PICKLIST_INPUT.PICKLIST_ASSIGNED">
         <value xml:lang="de">Zuweisen</value>
@@ -15136,6 +15147,7 @@
         <value xml:lang="it">Stampa</value>
         <value xml:lang="ja">印刷</value>
         <value xml:lang="pt_BR">Imprimir</value>
+        <value xml:lang="zh">打印</value>
     </property>
     <property key="StatusValidChange.transitionName.PICKLIST_PRINTED.PICKLIST_CANCELLED">
         <value xml:lang="en">Cancel</value>
@@ -15145,6 +15157,7 @@
         <value xml:lang="ja">取消</value>
         <value xml:lang="pt_BR">Cancelar</value>
         <value xml:lang="vi">Hủy bỏ</value>
+        <value xml:lang="zh">取消</value>
     </property>
     <property key="StatusValidChange.transitionName.PICKLIST_PRINTED.PICKLIST_PICKED">
         <value xml:lang="en">Pick</value>
@@ -15154,6 +15167,7 @@
         <value xml:lang="ja">ピッキング</value>
         <value xml:lang="pt_BR">Recolher</value>
         <value xml:lang="vi">Chọn ra (pick)</value>
+        <value xml:lang="zh">分拣</value>
     </property>
     <property key="StatusValidChange.transitionName.PMNT_NOT_PAID.PMNT_CANCELLED">
         <value xml:lang="de">Zahlung annullieren</value>
@@ -20523,6 +20537,7 @@
         <value xml:lang="ja">さあ仕事をしよう。自分自身うまく言えない。このテーマはやめた</value>
         <value xml:lang="pt_BR">É Bizzness, é hora Bizzness. Eu não poderia ter dito melhor sozinho. Este tema fica para baixo</value>
         <value xml:lang="vi">It's bizzness, it's bizzness time.  I couldn't have said it better myself. This theme gets down</value>
+        <value xml:lang="zh">商务时代。我不能自己说它是最好的。本风格搞定</value>
     </property>
     <property key="VisualTheme.description.BLUELIGHT">
         <value xml:lang="en">BlueLight Theme: Breadcrumbs, drop-down menus and rounded corners</value>
@@ -20531,6 +20546,7 @@
         <value xml:lang="ja">ブルーライト: パンくずリスト、ドロップダウンメニュー、そして丸いコーナー</value>
         <value xml:lang="pt_BR">Bluelight Tema: Breadcrumbs, menus drop-down e cantos arredondados</value>
         <value xml:lang="vi">BlueLight Theme: Breadcrumbs, drop-down menus and rounded corners</value>
+        <value xml:lang="zh">浅蓝风格：自动的多级导航，下拉式菜单，以及圆角</value>
     </property>
     <property key="VisualTheme.description.DROPPINGCRUMBS">
         <value xml:lang="en">Dropping Crumbs: Evolution of Blue-Light, includes a drop down menu embedded in the breadcrumbs bar</value>
@@ -20539,6 +20555,7 @@
         <value xml:lang="ja">パンくず: ブルーライトの改良。パンくずリストバーに組み込まれたドロップダウンメニューを含む</value>
         <value xml:lang="pt_BR">Descartando Migalhas: Evolução da azul-luz, inclui um menu drop-down incorporado na barra de farinha de rosca</value>
         <value xml:lang="vi">Dropping Crumbs: Evolution of Blue-Light, includes a drop down menu embedded in the breadcrumbs bar</value>
+        <value xml:lang="zh">下拉多级：浅蓝风格的演化版，包括一个嵌入多级导航条的下拉式菜单</value>
     </property>
     <property key="VisualTheme.description.FLAT_GREY">
         <value xml:lang="en">Flat Grey - Floating Layout, Sight-Impaired Accessible, Bidirectional</value>
@@ -20547,6 +20564,7 @@
         <value xml:lang="ja">フラットグレー: 以前のOFBiz標準フローティングレイアウト</value>
         <value xml:lang="pt_BR">Apartamento Grey - Layout padrão antigo OFBiz flutuante</value>
         <value xml:lang="vi">Flat Grey - Floating Layout, Sight-Impaired Accessible, Bidirectional</value>
+        <value xml:lang="zh">浅灰－浮动样式，视觉阻挡，双向</value>
     </property>
     <property key="VisualTheme.description.MULTIFLEX">
         <value xml:lang="en">Alternative VisualTheme for Ecommerce</value>
@@ -20555,6 +20573,7 @@
         <value xml:lang="ja">マルチフレックス: 別のEコマース向けテーマ</value>
         <value xml:lang="pt_BR">Alternativa para VisualTheme Ecommerce</value>
         <value xml:lang="vi">Giao diện trực quan thay thế khác cho trang thương mại điện tử</value>
+        <value xml:lang="zh">电子商务的替代视觉风格</value>
     </property>
     <property key="VisualTheme.description.TOMAHAWK">
         <value xml:lang="en">Tomahawk: the evolution of the Dropping Crumbs theme</value>
@@ -20563,5 +20582,6 @@
         <value xml:lang="ja">トマホーク: パンくずの改良</value>
         <value xml:lang="pt_BR">Tomahawk: a evolução do tema Migalhas Descartando</value>
         <value xml:lang="vi">Tomahawk: Ôi võ đức trí djjava ơi. evolution of the Dropping Crumbs theme</value>
+        <value xml:lang="zh">印第安战斧：下拉多级风格的演化版</value>
     </property>
 </resource>

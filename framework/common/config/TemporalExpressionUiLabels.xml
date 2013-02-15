@@ -137,6 +137,7 @@
         <value xml:lang="it">hh:mm:ss</value>
         <value xml:lang="ja">hh:mm:ss</value>
         <value xml:lang="pt_BR">hh:mm:ss</value>
+        <value xml:lang="zh">HH:mm:ss</value>
     </property>
     <property key="TemporalExpressionType">
         <value xml:lang="de">Ausdruckstyp</value>
@@ -221,6 +222,7 @@
         <value xml:lang="es">Intervalo de horas</value>
         <value xml:lang="ja">時の範囲</value>
         <value xml:lang="pt_BR">Intervalo de Hora</value>
+        <value xml:lang="zh">小时范围</value>
     </property>
     <property key="TemporalExpression_INTERSECTION">
         <value xml:lang="de">Durchschnitt</value>    
@@ -239,6 +241,7 @@
         <value xml:lang="es">Intervalo de minutos</value>
         <value xml:lang="ja">分の範囲</value>
         <value xml:lang="pt_BR">Intervalo de Minutos</value>
+        <value xml:lang="zh">分钟范围</value>
     </property>
     <property key="TemporalExpression_MONTH_RANGE">
         <value xml:lang="de">Monatsauswahl</value>    
@@ -257,6 +260,7 @@
         <value xml:lang="es">Sustitución</value>
         <value xml:lang="ja">代用</value>
         <value xml:lang="pt_BR">Substituição</value>
+        <value xml:lang="zh">替换</value>
     </property>
     <property key="TemporalExpression_UNION">
         <value xml:lang="de">Vereinigung</value>    

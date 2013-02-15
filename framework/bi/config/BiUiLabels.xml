@@ -96,6 +96,7 @@
         <value xml:lang="en">The natural key: ${naturalKeyFields} is empty in value: ${dimensionValue}</value>
         <value xml:lang="it">La chiave naturale: ${naturalKeyFields} è vuota nel valore: ${dimensionValue}</value>
         <value xml:lang="ja">自然キー: ${naturalKeyFields} が値: ${dimensionValue} で空です</value>
+        <value xml:lang="zh">值：${dimensionValue} 中的自然键：${naturalKeyFields} 是空的</value>
     </property>
     <property key="BusinessIntelligenceNote10">
         <value xml:lang="en">The best practices for datawarehouses are mainly taken from the great book "The Data Warehouse Toolkit - Second Edition" by Ralph Kimball.</value>
@@ -413,5 +414,6 @@
         <value xml:lang="en">The update mode: ${updateMode} is still not supported.</value>
         <value xml:lang="it">Il metodo di aggiornamento: ${updateMode} non è ancora supportato.</value>
         <value xml:lang="ja">更新モード: ${updateMode} はまだサポートされていません。</value>
+        <value xml:lang="zh">还不支持更新状态：${updateMode}。</value>
     </property>
 </resource>

@@ -21,450 +21,579 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="EbayStoreApplication">
         <value xml:lang="en">eBay Store</value>
+        <value xml:lang="zh">eBay店铺</value>
     </property>
     <property key="EbayCompanyName">
         <value xml:lang="en">OFBiz</value>
         <value xml:lang="fr">OFBiz</value>
         <value xml:lang="it">OFBiz</value>
         <value xml:lang="th">OFBiz</value>
+        <value xml:lang="zh">OFBiz</value>
     </property>
     <property key="EbayStoreAccount">
         <value xml:lang="en">eBay Account</value>
         <value xml:lang="th">ส่งออกหมวดหมู่สินค้าเข้าคลังสินค้าในอีเบย์</value>
+        <value xml:lang="zh">eBay账户</value>
     </property>
     <property key="EbayExportAllCategoryToEbayStore">
         <value xml:lang="en">Export categories to eBay store</value>
         <value xml:lang="th">ส่งออกหมวดหมู่สินค้าเข้าคลังสินค้าในอีเบย์</value>
+        <value xml:lang="zh">把分类导出到eBay店铺</value>
     </property>
     <property key="EbayStoreCannotDecreaseQuantity">
         <value xml:lang="en">Can not decrease quantity of product ${parameters.productId} because it already to used created listing.</value>
         <value xml:lang="it">Non è possibile diminuire la quantità del prodotto ${parameters.productId} perchè è già usato da aste create.</value>
+        <value xml:lang="zh">不能减少产品 ${parameters.productId} 的数量，因为它已经被用来创建产品列表了。</value>
     </property>
     <property key="EbayExportToEbayStore">
         <value xml:lang="en">Export To eBay Store</value>
         <value xml:lang="th">การส่งออกไปยังคลังสินค้าอีเบย์</value>
+        <value xml:lang="zh">导出到eBay店铺</value>
     </property>
     <property key="EbayExportToEbayStoreFailed">
         <value xml:lang="en">Fail to export categories to an eBay store ${errorString}</value>
         <value xml:lang="it">Fallita esportazione delle categorie al negozio eBay ${errorString}</value>
+        <value xml:lang="zh">把分类导出到eBay店铺时出错：${errorString}</value>
     </property>
     <property key="EbayExportToEbayStoreSuccess">
         <value xml:lang="en">Export categories to ebay store success.</value>
         <value xml:lang="it">Esportazione delle categorie al negozio eBay avvenuta con successo.</value>
+        <value xml:lang="zh">成功把分类导出到eBay店铺</value>
     </property>
      <property key="EbaySellingManager">
         <value xml:lang="en">Selling Manager</value>
+        <value xml:lang="zh">销售管理工具</value>
     </property>
     <property key="EbayStore">
         <value xml:lang="en">Ebay Store</value>
         <value xml:lang="th">คลังสินค้าอีเบย์</value>
+        <value xml:lang="zh">eBay店铺</value>
     </property>
     <property key="EbayStoreAddSecondChanceOfferSuccessful">
         <value xml:lang="en">Add Second Chance Offer Successful.</value>
         <value xml:lang="it">Aggiunto secondo tentativo offerta con successo.</value>
+        <value xml:lang="zh">成功添加二次报价机会</value>
     </property>
     <property key="EbayStoreAutoPrefJobEmpty">
         <value xml:lang="en">If you add a new job, you have to add service name.</value>
         <value xml:lang="it">Se tu aggiungi un nuovo job, tu devi aggiungere un nuovo servizio.</value>
+        <value xml:lang="zh">如果你添加了一个新的任务，你必须添加服务名称。</value>
     </property>
     <property key="EbayStoreErrorFromDeleteContactStatus">
         <value xml:lang="en">Error from deleteContactAlert service </value>
         <value xml:lang="it">Errore dal servizio deleteContactAlert </value>
+        <value xml:lang="zh">deleteContactAlert服务出错 </value>
     </property>
     <property key="EbayStoreErrorFromListBestOfferIncludeMessage">
         <value xml:lang="en">Error from listBestOfferIncludeMessage service: </value>
         <value xml:lang="it">Errore dal servizio listBestOfferIncludeMessage: </value>
+        <value xml:lang="zh">listBestOfferIncludeMessage服务出错：</value>
     </property>
     <property key="EbayStoreErrorFromUpdateContactStatus">
         <value xml:lang="en">Error from updateContactStatus service </value>
         <value xml:lang="it">Errore dal servizio updateContactStatus </value>
+        <value xml:lang="zh">updateContactStatus服务出错 </value>
     </property>
     <property key="EbayStores">
         <value xml:lang="en">Ebay Stores</value>
         <value xml:lang="th">รายชื่อคลังสินค้าอีเบย์</value>
+        <value xml:lang="zh">eBay店铺</value>
     </property>
     <property key="EbayStoreSetting">
         <value xml:lang="en">Ebay Store Setting</value>
         <value xml:lang="th">รายชื่อคลังสินค้าอีเบย์</value>
+        <value xml:lang="zh">eBay店铺设置</value>
     </property>
     <property key="EbayStoreInventoryStatusUpdated">
         <value xml:lang="en">Updated inventory status of product ${productId}</value>
         <value xml:lang="it">Aggiornato stato inventario del prodotto ${productId}</value>
+        <value xml:lang="zh">已更新产品 ${productId} 的库存状态</value>
     </property>
     <property key="EbayStoreInventoryFolderIdLoaded">
         <value xml:lang="en">load eBay store folderId ${folderId} success..</value>
         <value xml:lang="it">Caricamento folderId ${folderId} per il negozio eBay avvenuto con successo..</value>
+        <value xml:lang="zh">已成功载入eBay店铺的 folderId ${folderId}。</value>
     </property>
     <property key="EbayStoreInventoryFolderIdRequired">
         <value xml:lang="en">The process was required productStoreId, productId and eBay inventory folderId.</value>
         <value xml:lang="it">Questo processo richiedere il productStoreId, productId e il folderId inventario eBay.</value>
+        <value xml:lang="zh">这个处理需要productStoreId、productId以及eBay库存的folderId。</value>
     </property>
     <property key="EbayStoreInventoryFolderIdUpdated">
         <value xml:lang="en">Updated eBay store inventory in folder ${folderId} success..</value>
         <value xml:lang="it">Aggiornato inventario negozio eBay del ${folderId} con successo..</value>
+        <value xml:lang="zh">已成功更新eBay店铺库存，文件夹：${folderId}。</value>
     </property>
     <property key="EbayStoreInventoryFolderIdUpdatedFailed">
         <value xml:lang="en">Fail to update eBay store inventory.</value>
         <value xml:lang="it">Fallito aggiornato dell'inventario negozio eBay.</value>
+        <value xml:lang="zh">更新eBay店铺库存时。</value>
     </property>
     <property key="EbayStoreLoadSuccess">
         <value xml:lang="en">Load Ebay Store success.</value>
         <value xml:lang="th">โหลดข้อมูลคลังสินค้าอีเบย์เรียบร้อย</value>
+        <value xml:lang="zh">已成功载入eBay店铺。</value>
     </property>
     <property key="EbayStoreLoadAdvancedThemeSuccess">
         <value xml:lang="en">load store advanced Theme option data success..</value>
         <value xml:lang="it">Caricamento opzioni avanzate temi negozio avvenuto con successo..</value>
+        <value xml:lang="zh">已成功载入店铺高级风格选项数据。</value>
     </property>
     <property key="EbayStoreLoadBasicThemeSuccess">
         <value xml:lang="en">load store Basic Theme option data success..</value>
         <value xml:lang="it">Caricamento opzioni base temi negozio avvenuto con successo..</value>
+        <value xml:lang="zh">已成功载入店铺基本风格选项数据。</value>
     </property>
     <property key="EbayStoreLoadLogoSuccess">
         <value xml:lang="en">load store logo data success..</value>
         <value xml:lang="it">Caricamento logo negozio avvenuto con successo..</value>
+        <value xml:lang="zh">已成功载入店铺图标数据。</value>
     </property>
     <property key="EbayStorePartyWithoutRoleEbayAccount">
         <value xml:lang="en">Party ${partyId} no roleTypeId EBAY_ACCOUNT for export categories to ebay store.</value>
         <value xml:lang="it">Soggetto ${partyId} non ha il ruolo EBAY_ACCOUNT per esportaor export categories to ebay store.</value>
+        <value xml:lang="zh">用来把分类导出到eBay店铺的会员${partyId}，没有角色类型标识（roleTypeId）EBAY_ACCOUNT。</value>
     </property>
     <property key="EbayStoreProblemConnectingToEbaySite">
         <value xml:lang="en">Problems to connect with eBay site message: </value>
         <value xml:lang="it">Problema durante la connesione con il sito eBay messaggio: </value>
+        <value xml:lang="zh">连接eBay站点消息时出错：</value>
     </property>
     <property key="EbayStoreRequiredContactStatusSetting">
         <value xml:lang="en">Required contactStatus setting.</value>
         <value xml:lang="it">Richiesto impostazioni stato contatto.</value>
+        <value xml:lang="zh">必须设置联系状态（contactStatus）</value>
     </property>
     <property key="EbayStoreRequiredProductStoreId">
         <value xml:lang="en">Required productStoreId for get api context to connect with eBay site.</value>
         <value xml:lang="it">Richiesto productStoreId per ottente il contesto api con il sito eBay.</value>
+        <value xml:lang="zh">必须有产品店铺标识（productStoreId），才能获得API环境来连接eBay站点。</value>
     </property>
     <property key="EbayStoreRequiredUserIdAndItemId">
         <value xml:lang="en">Required userId and itemId.</value>
         <value xml:lang="it">Richiesto userId e itemId.</value>
+        <value xml:lang="zh">必须有用户标识（userId）和商品标识（itemId）。</value>
     </property>
     <property key="EbayStoreRequiredUserIdAndItemIdAndProductStoreIdAndOfferIdAndContactStatus">
         <value xml:lang="en">Required userId, itemId, productStoreId, OfferId and contactStatus.</value>
         <value xml:lang="it">Richiesto userId, itemId, productStoreId, OfferId e contactStatus.</value>
+        <value xml:lang="zh">必须有用户标识（userId）、商品标识（itemId）、产品店铺标识（productStoreId）、报价标识（OfferId）和联系状态（contactStatus）。</value>
     </property>
     <property key="EbayStoreRequiredShippingAddressParameter">
         <value xml:lang="en">Required shippingAddress parameter.</value>
         <value xml:lang="it">Richiesto parametro indirizzo di spedizione.</value>
+        <value xml:lang="zh">必须有送货地址（shippingAddress）参数。</value>
     </property>
     <property key="EbayStoreRootCategoryNotFound">
         <value xml:lang="en">Not found product Category type EBAY_ROOT in catalog ${prodCatalogId}</value>
         <value xml:lang="it">Tipo categoria EBAY_ROOT non trovata nel catalogo ${prodCatalogId}</value>
+        <value xml:lang="zh">在目录${prodCatalogId}中没有找到产品目录类型EBAY_ROOT</value>
     </property>
     <property key="EbayStoreSaveSuccess">
         <value xml:lang="en">Save ebay setting success.</value>
         <value xml:lang="th">บันทึกข้อมูลคลังสินค้าอีเบย์เรียบร้อย</value>
+        <value xml:lang="zh">成功保存了eBay设置。</value>
     </property>
     <property key="EbayStoreSetCatalogIdAndProductStoreId">
         <value xml:lang="en">Please set catalogId and  productStoreId.</value>
         <value xml:lang="it">Per favore impostare il catalogId e il productStoreId.</value>
+        <value xml:lang="zh">请设置目录标识（catalogId）和产品店铺标识（productStoreId）。</value>
     </property>
     <property key="EbayStoreStoreName">
         <value xml:lang="en">Store Name</value>
         <value xml:lang="th">ชื่อร้านค้า</value>
+        <value xml:lang="zh">店铺名称</value>
     </property>
     <property key="EbayStoreStoreDesc">
         <value xml:lang="en">Store Description</value>
         <value xml:lang="th">รายละเอียดร้านค้า</value>
+        <value xml:lang="zh">店铺描述</value>
     </property>
     <property key="EbayStoreStoreURL">
         <value xml:lang="en">Store URL</value>
         <value xml:lang="th">URL</value>
+        <value xml:lang="zh">店铺网址</value>
     </property>
     <property key="EbayStoreStoreLogoURL">
         <value xml:lang="en">Logo URL</value>
         <value xml:lang="th">โลโก url</value>
+        <value xml:lang="zh">图标网址</value>
     </property>
     <property key="EbayStoreStoreAdvancedTheme">
         <value xml:lang="en">Store Advanced Theme</value>
         <value xml:lang="th">Theme สำเร็จรูป</value>
+        <value xml:lang="zh">店铺高级风格</value>
     </property>
     <property key="EbayStoreStoreAdvancedThemeColor">
         <value xml:lang="en">Store Advanced Theme Color</value>
         <value xml:lang="th">เลือกสีของ Theme</value>
+        <value xml:lang="zh">店铺高级风格颜色</value>
     </property>
     <property key="EbayStoreStoreBasicTheme">
         <value xml:lang="en">Store Basic Theme</value>
         <value xml:lang="th">ธีมแบบธรรมดา</value>
+        <value xml:lang="zh">店铺基本风格</value>
     </property>
     <property key="EbayStoreStoreColorTheme">
         <value xml:lang="en">Change Color</value>
         <value xml:lang="th">เปลี่ยนสี</value>
+        <value xml:lang="zh">修改颜色</value>
     </property>
     <property key="EbayStoreStorePrimaryColor">
         <value xml:lang="en">Primary color</value>
         <value xml:lang="th">สีหลัก</value>
+        <value xml:lang="zh">原色</value>
     </property>
     <property key="EbayStoreStoreSecondColor">
         <value xml:lang="en">Secondary color</value>
         <value xml:lang="th">สีรอง</value>
+        <value xml:lang="zh">调和色</value>
     </property>
     <property key="EbayStoreStoreSelectTransaction">
         <value xml:lang="en">Import with single transaction</value>
+        <value xml:lang="zh">随单个交易导入</value>
     </property>
     <property key="EbayStoreStoreSelectOrder">
         <value xml:lang="en">Import with order</value>
+        <value xml:lang="zh">随订单导入</value>
     </property>
     <property key="EbayStoreStoreAccentColor">
         <value xml:lang="en">Accent color</value>
         <value xml:lang="th">Accent color</value>
+        <value xml:lang="zh">重点色</value>
     </property>
     <property key="EbayStoreStoreChangeFont">
         <value xml:lang="en">Change Fonts</value>
         <value xml:lang="th">เปลี่ยนตัวอักษร</value>
+        <value xml:lang="zh">修改字体</value>
     </property>
     <property key="EbayStoreStoreSectionTitle">
         <value xml:lang="en">Section title</value>
         <value xml:lang="th">ส่วนของ title</value>
+        <value xml:lang="zh">段落标题</value>
     </property>
     <property key="EbayStoreStoreHeaderDisplay">
         <value xml:lang="en">Store Header Display</value>
         <value xml:lang="th">Store header</value>
+        <value xml:lang="zh">显示店铺页眉</value>
     </property>
     <property key="EbayStoreStoreHeaderStyle">
         <value xml:lang="en">Store Header Style</value>
         <value xml:lang="th">Store header Style</value>
+        <value xml:lang="zh">店铺页眉风格</value>
     </property>
     <property key="EbayStoreStoreItemListDesplay">
         <value xml:lang="en">Store Item List Display</value>
         <value xml:lang="th"></value>
+        <value xml:lang="zh">显示店铺商品列表</value>
     </property>
     <property key="EbayStoreStoreItemSortOrder">
         <value xml:lang="en">Store Item Sort Order</value>
         <value xml:lang="th"></value>
+        <value xml:lang="zh">店铺商品排序</value>
     </property>
     <property key="EbayStoreStoreMerchDisplay">
         <value xml:lang="en">Store Merch Display</value>
         <value xml:lang="th"></value>
+        <value xml:lang="zh">显示店铺商品</value>
     </property>
     <property key="EbayStoreStoreSubscriptionLevel">
         <value xml:lang="en">Store Subscription Level</value>
         <value xml:lang="th"></value>
+        <value xml:lang="zh">店铺订阅等级</value>
     </property>
     <property key="EbayStoreUpdateItemSuccessfully">
         <value xml:lang="en">Update Item Successfully.</value>
         <value xml:lang="it">Aggiornamento asta con successo.</value>
+        <value xml:lang="zh">成功更新商品。</value>
     </property>
     <property key="EbayStoreUnableToCreatePostalAddress">
         <value xml:lang="en">Unable to create postalAddress with input map: </value>
         <value xml:lang="it">Non è possibile create l'indirizzo postal con l'input: </value>
+        <value xml:lang="zh">无法用输入数据来创建通讯地址（postalAddress）：</value>
     </property>
     <property key="EbayPersonalInformation">
         <value xml:lang="en">Personal Information</value>
+        <value xml:lang="zh">个人信息</value>
     </property>
     <property key="EbayAccountInformation">
         <value xml:lang="en">Account Information</value>
+        <value xml:lang="zh">账户信息</value>
     </property>
     <property key="EbayUserPreference">
         <value xml:lang="en">User Preference</value>
+        <value xml:lang="zh">用户设置</value>
     </property>
     <property key="EbayAutomationRelistItems">
         <value xml:lang="en">Automation Re-list Items</value>
+        <value xml:lang="zh">自动重新列表商品</value>
     </property>
     <property key="EbayAutomatiionDisputeItems">
         <value xml:lang="en">Automation Dispute Items</value>
+        <value xml:lang="zh">自动争议商品</value>
     </property>
     <property key="EbayBoughtLeaveFeedback">
         <value xml:lang="en">Bought</value>
+        <value xml:lang="zh">已买</value>
     </property>
     <property key="EbayFeedback">
         <value xml:lang="en">Feedback</value>
         <value xml:lang="th">ผลตอบรับ</value>
+        <value xml:lang="zh">评价</value>
     </property>
     <property key="EbayFeedbackStore">
         <value xml:lang="en">Feedback Store</value>
+        <value xml:lang="zh">给店铺评价</value>
     </property>
     <property key="EbayLeaveFeedback">
         <value xml:lang="en">Leave Feedback</value>
+        <value xml:lang="zh">给店家评价</value>
     </property>
     <property key="EbaySold">
         <value xml:lang="en">Sold</value>
+        <value xml:lang="zh">售出</value>
     </property>
     <property key="EbayBlockItemOutOfStock">
         <value xml:lang="en">Block items out of stock</value>
+        <value xml:lang="zh">禁止无货商品</value>
     </property>
     <!-- ebay inventory -->
     <property key="EbayReserveProductFrom">
         <value xml:lang="en">Reserve Product From</value>
+        <value xml:lang="zh">预留产品自</value>
     </property>
     <property key="EbayReserveProductInventory">
         <value xml:lang="en">Reserve Product Inventory</value>
+        <value xml:lang="zh">预留产品库存</value>
     </property>
     <property key="EbayUpdateInventory">
         <value xml:lang="en">Update To Ebay Inventory</value>
+        <value xml:lang="zh">更新到eBay库存</value>
     </property>
     <property key="EbayUpdateInventoryStatus">
         <value xml:lang="en">Update Inventory Status</value>
+        <value xml:lang="zh">更新库存状态</value>
     </property>
     <property key="FormFieldTitle_buyItNowPrice">
         <value xml:lang="en">Buy It Now price</value>
         <value xml:lang="th">ราคาสุทธิ</value>
+        <value xml:lang="zh">一口价价格</value>
     </property>
     <property key="FormFieldTitle_webSiteUrl">
         <value xml:lang="en">Website Url</value>
+        <value xml:lang="zh">网站网址</value>
     </property>
     <property key="eBayOnlineAuction">
         <value xml:lang="en">Online Auction</value>
+        <value xml:lang="zh">在线竞买</value>
     </property>
     <property key="eBayFixedPrice">
         <value xml:lang="en">Fixed Price</value>
+        <value xml:lang="zh">固定价格</value>
     </property>
     <property key="EbayStoreOpenUnpaidItemDispute">
         <value xml:lang="en">Open unpaid item dispute</value>
+        <value xml:lang="zh">打开未支付商品争议</value>
     </property>
     <property key="requireEbayInventory">
         <value xml:lang="en">Require eBay Inventory</value>
+        <value xml:lang="zh">要求eBay库存</value>
     </property>
     <!-- Selling Manager preferences -->
     <property key="EbayAcceptTheBestOffer1">
         <value xml:lang="en">use this percent value to accept the Best Offer if it is greater or equal</value>
+        <value xml:lang="zh">如果大于或等于这个百分比，使用它作为最佳报价</value>
     </property>
     <property key="EbayAcceptTheBestOffer2">
         <value xml:lang="en">% of the above price.</value>
+        <value xml:lang="zh">%对于上述价格。</value>
     </property>
     <property key="EbayActive">
         <value xml:lang="en">Active</value>
+        <value xml:lang="zh">有效</value>
     </property>
     <property key="EbayAddSecondChanceOffer">
         <value xml:lang="en">Add Second Chance Offer</value>
+        <value xml:lang="zh">添加二次报价机会</value>
     </property>
     <property key="EbayAfter">
         <value xml:lang="en">After</value>
+        <value xml:lang="zh">之后</value>
     </property>
     <property key="EbayAutoBestOfferSetting">
         <value xml:lang="en">Best Offer (Buy-It-Now Only)</value>
+        <value xml:lang="zh">最佳报价（仅限一口价）</value>
     </property>
     <property key="EbayAutomationDispute">
         <value xml:lang="en">Automation Dispute</value>
+        <value xml:lang="zh">自动争议</value>
     </property>
     <property key="EbayAutoPaymentReceviedEmail">
         <value xml:lang="en">Automatically send email when payment has been received</value>
+        <value xml:lang="zh">当收到支付时，自动发送电子邮件。</value>
     </property>
     <property key="EbayAutoRelistingItems">
         <value xml:lang="en">Auto Relisting Items</value>
+        <value xml:lang="zh">自动重列商品</value>
     </property>
     <property key="EbayAutoRelistingItemsDescription">
         <value xml:lang="en">Auto Relisting Items when they are end item.</value>
+        <value xml:lang="zh">当它们是尾货时，自动重列商品。</value>
     </property>
     <property key="EbayAutoSendItemDispatchEmail">
         <value xml:lang="en">Automatic send item dispatched notification email</value>
+        <value xml:lang="zh">自动发送商品已处理的通知电子邮件</value>
     </property>
     <property key="EbayAutoSendWinBuyerEmail">
         <value xml:lang="en">Automatic send notification email to winning buyer on auction items</value>
+        <value xml:lang="zh">对于竞价商品，自动发送通知电子邮件给获胜买家</value>
     </property>
     <property key="EbayBasedOn">
         <value xml:lang="en">Best offer based on Price.</value>
+        <value xml:lang="zh">基于价格的最佳报价。</value>
     </property>
     <property key="EbayChangeCategory">
         <value xml:lang="en">Change</value>
+        <value xml:lang="zh">修改</value>
     </property>
     <property key="EbayCombineOrderSetting">
         <value xml:lang="en">Combine Orders Setting</value>
+        <value xml:lang="zh">结合订单设置</value>
     </property>
     <property key="EbayContinueListing">
         <value xml:lang="en">Countinue</value>
+        <value xml:lang="zh">继续</value>
     </property>
     <property key="EbayDisputeCheckoutNotComplete">
         <value xml:lang="en">Create Dispute if checkout has not been completed</value>
+        <value xml:lang="zh">如果没有完成结账，那么创建争议</value>
     </property>
     <property key="EbayDisputeNotPay">
         <value xml:lang="en">Create Dispute if checkout has been completed but no payment has been received</value>
+        <value xml:lang="zh">如果已完成结账而没有收到付款，那么创建争议</value>
     </property>
     <property key="EbayEditEmailTemplate">
         <value xml:lang="en">Edit Email Template</value>
+        <value xml:lang="zh">编辑电子邮件模板</value>
     </property>
     <property key="EbayErrorMessageList">
         <value xml:lang="en">Error Messages List</value>
+        <value xml:lang="zh">错误信息列表</value>
     </property>
     <property key="EbayEvaluateOn">
         <value xml:lang="en">Automatically evaluate Best Offers</value>
+        <value xml:lang="zh">自动评估最佳报价</value>
     </property>
     <property key="EbayExplanation">
         <value xml:lang="en">Explanation</value>
+        <value xml:lang="zh">解释</value>
     </property>
     <property key="EbayIgnoreTheOffer">
         <value xml:lang="en">Ignore the offer if the buyer included any message.</value>
+        <value xml:lang="zh">如果买家包含了任何信息，那么忽略该报价。</value>
     </property>
     <property key="EbayIncludeMyDefaultCrossPromotionInThisEmail">
         <value xml:lang="en">Include my default cross-promotion in this email</value>
+        <value xml:lang="zh">在这个电子邮件中包含我缺省的交叉促销</value>
     </property>
     <property key="EbayIncludePayNowButtonAndAcceptPaymentMethods">
         <value xml:lang="en">Include the Pay Now button and accepted payment methods</value>
+        <value xml:lang="zh">包括“立即付款”按钮和接受的支付方式</value>
     </property>
     <property key="EbayIsAutoPositiveFeedback">
         <value xml:lang="en">Automatically leave the positive feedback</value>
+        <value xml:lang="zh">自动给好评</value>
     </property>
     <property key="EbayIsAutoFeedbackReminder">
         <value xml:lang="en">Automatically send a Feedback Reminder email</value>
+        <value xml:lang="zh">自动发送评价提醒电子邮件</value>
     </property>
     <property key="EbayIsAutoFeedbackReminderTooltip">
         <value xml:lang="en">Automatically send a Feedback Reminder email if feedback has not been received</value>
+        <value xml:lang="zh">如果没有收到评价，自动发送评价提醒电子邮件</value>
     </property>
     <property key="EbayIsAutoSendEmail">
         <value xml:lang="en">Automatically send email</value>
+        <value xml:lang="zh">自动发送电子邮件</value>
     </property>
     <property key="EbayIsSendCopyEmailTooltip">
         <value xml:lang="en">How many days after shipping you want this email sent?</value>
+        <value xml:lang="zh">发货多少天后你想发送这个电子邮件？</value>
     </property>
     <property key="EbayIsSendCopyEmailToSeller">
         <value xml:lang="en">Copy and Send to Seller</value>
+        <value xml:lang="zh">复制并发送给卖家</value>
     </property>
     <property key="EbayListOrderImported">
         <value xml:lang="en">List Orders Imported</value>
+        <value xml:lang="zh">列出已导入订单</value>
     </property>
     <property key="EbayNoOrderImported">
         <value xml:lang="en">No orders imported found</value>
+        <value xml:lang="zh">没有找到已导入的订单</value>
     </property>
     <property key="EbayOpenListings">
         <value xml:lang="en">Open Listings</value>
+        <value xml:lang="zh">打开列表</value>
     </property>
     <property key="EbayReason">
         <value xml:lang="en">Reason</value>
+        <value xml:lang="zh">原因</value>
     </property>
     <property key="EbayRejectGreaterRate1">
         <value xml:lang="en">Reject the offer if it is greater or equal to this percent value.</value>
+        <value xml:lang="zh">如果报价大于或等于这个百分比数值，那么拒绝它。</value>
     </property>
     <property key="EbayRejectGreaterRate2">
         <value xml:lang="en">Reject the offer if it is less than this percent value.</value>
+        <value xml:lang="zh">如果报价低于这个百分比数值，那么拒绝它。</value>
     </property>
     <property key="EbayRejectGreaterRate3">
         <value xml:lang="en">Message:</value>
+        <value xml:lang="zh">消息：</value>
     </property>
     <property key="EbayRejectLessRate1">
         <value xml:lang="en">Reject the offer if it is less than this percent value.</value>
+        <value xml:lang="zh">如果报价低于这个百分比数值，那么拒绝它。</value>
     </property>
     <property key="EbayRejectLessRate2">
         <value xml:lang="en">Message:</value>
+        <value xml:lang="zh">消息：</value>
     </property>
     <property key="EbayRejectTheOffer">
         <value xml:lang="en">Reject the offer if it is more than the inventory item's Buy-It-Now Price.</value>
+        <value xml:lang="zh">如果报价高于现货一口价价格，那么拒绝它。</value>
     </property>
     <property key="EbaySet">
         <value xml:lang="en">Set</value>
+        <value xml:lang="zh">设置</value>
     </property>
     <property key="EbaySituations">
         <value xml:lang="en">Situations</value>
+        <value xml:lang="zh">情况</value>
     </property>
     <property key="EbayStoreCategory">
         <value xml:lang="en">eBay Store Category</value>
+        <value xml:lang="zh">eBay店铺分类</value>
     </property>
     <property key="EbayTxtAutoPositiveFeedbackBuyer">
         <value xml:lang="en">Automated Positive Feedback for Buyers</value>
+        <value xml:lang="zh">自动给买家好评</value>
     </property>
     <property key="EbayTxtPaymentReceive">
         <value xml:lang="en">Buyer has paid for this item.</value>
+        <value xml:lang="zh">买家已为该商品付款。</value>
     </property>
     <property key="EbayTxtPaymentReceiveAndPositive">
         <value xml:lang="en">Buyer has paid for this item and left me positive feedback. </value>
+        <value xml:lang="zh">买家已为该商品付款并给我好评。</value>
     </property>
     <property key="EbayWaitingToShipping">
         <value xml:lang="en">Waiting to shipping</value>
+        <value xml:lang="zh">等待发货</value>
     </property>
     <property key="unsold">
         <value xml:lang="en">unsold</value>
+        <value xml:lang="zh">未售</value>
     </property>
 </resource>

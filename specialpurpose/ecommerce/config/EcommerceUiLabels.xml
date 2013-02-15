@@ -26,6 +26,7 @@
         <value xml:lang="nl">Over ons</value>       
         <value xml:lang="pt_BR">Sobre</value>
         <value xml:lang="vi">Giới thiệu</value>
+        <value xml:lang="zh">关于我们</value>
         <value xml:lang="zh_TW">關於我們</value>
     </property>
     <property key="EcommerceANew">
@@ -205,12 +206,14 @@
         <value xml:lang="fr">Ajouter une étiquette</value>
         <value xml:lang="ja">タグを追加</value>
         <value xml:lang="vi">Thêm đánh dấu</value>
+        <value xml:lang="zh">添加标签</value>
     </property>
     <property key="EcommerceAddTagsDetail">
         <value xml:lang="en">Use spaces to separate tags. Use single quotes(') for phrases.</value>
         <value xml:lang="fr">Utiliser un espace pour séparer les étiquettes et des apostrophes pour les phrases.</value>
         <value xml:lang="ja">タグの区切りはスペースを使用してください。フレーズにはシングルクォート(')を使用してください。</value>
         <value xml:lang="vi">Dùng phím cách (space) để ngăn cách các Tag, sử dụng dấu nháy đơn (') cho các từ.</value>
+        <value xml:lang="zh">使用空格分隔标签。使用单引号(')来表示词组。</value>
     </property>
     <property key="EcommerceAdditionalAddresses">
         <value xml:lang="da">Ekstra adresser</value>
@@ -243,6 +246,7 @@
         <value xml:lang="fr">Ajouter vos étiquettes</value>
         <value xml:lang="ja">あなたのタグを追加</value>
         <value xml:lang="vi">Thêm vào đánh dấu của bạn</value>
+        <value xml:lang="zh">添加你的标签</value>
     </property>
     <property key="EcommerceAdjustment">
         <value xml:lang="cs">Úprava</value>
@@ -289,6 +293,7 @@
         <value xml:lang="it">Record affiliato creato con successo.</value>
         <value xml:lang="ja">アフェリエイトレコードが正しく作成されました。</value>
         <value xml:lang="vi">Bản đăng ký hội viên được tạo thành công.</value>
+        <value xml:lang="zh">成功创建了从属记录。</value>
     </property>
     <property key="EcommerceAlwaysViewCartAfterAddingAnItem">
         <value xml:lang="cs">Vždy se podívat do košíku, pokud byla přidána další položka</value>
@@ -333,6 +338,7 @@
         <value xml:lang="fr">Disponible :</value>
         <value xml:lang="ja">有効</value>
         <value xml:lang="vi">Có sẵn:</value>
+        <value xml:lang="zh">有效：</value>
         <value xml:lang="zh_TW">可用:</value>
     </property>
     <property key="EcommerceAssignItems">
@@ -397,6 +403,7 @@
         <value xml:lang="ja">コメントを追加する権限がありません。</value>
         <value xml:lang="th">คุณไม่มีสิทธิ์ในการแสดงความคิดเห็น</value>
         <value xml:lang="vi">Bạn không được quyền thêm Diễn giải.</value>
+        <value xml:lang="zh">你没有添加评论的权限。</value>
         <value xml:lang="zh_TW">您沒權限增加評論。</value>
     </property>
     <property key="EcommerceBlogAddThread">
@@ -547,6 +554,7 @@
         <value xml:lang="nl">Google checkout</value>        
         <value xml:lang="pt_BR">Finalizar compra com Google Checkout</value>
         <value xml:lang="vi">Google Checkout</value>
+        <value xml:lang="zh">Google结账</value>
     </property>
     <property key="EcommerceCartTotal">
         <value xml:lang="cs">Košík celkem</value>
@@ -1678,6 +1686,7 @@
         <value xml:lang="en">Language</value>
         <value xml:lang="ja">言語</value>
         <value xml:lang="vi">Ngôn ngữ</value>
+        <value xml:lang="zh">语言</value>
     </property>
     <property key="EcommerceLastCategories">
         <value xml:lang="cs">Poslední kategorie</value>
@@ -1778,6 +1787,7 @@
         <value xml:lang="fr">Limite :</value>
         <value xml:lang="ja">制限:</value>
         <value xml:lang="vi">Giới hạn:</value>
+        <value xml:lang="zh">限制：</value>
         <value xml:lang="zh_TW">限制:</value>
     </property>
     <property key="EcommerceLinkCards">
@@ -2109,6 +2119,7 @@
         <value xml:lang="en">Modified Date</value>
         <value xml:lang="ja">更新日</value>
         <value xml:lang="vi">Ngày chỉnh sửa</value>
+        <value xml:lang="zh">修改日期</value>
     </property>
     <property key="EcommerceMonths">
         <value xml:lang="da">Måneder</value>
@@ -2133,12 +2144,14 @@
         <value xml:lang="it">Mesi all'indirizzo non è un numero valido: ${parameters.monthsAtAddress}</value>
         <value xml:lang="ja">住所が有効でない月数: ${parameters.monthsAtAddress}</value>
         <value xml:lang="vi">Số tháng tại địa chỉ không là số hợp lệ: ${parameters.monthsAtAddress}</value>
+        <value xml:lang="zh">在地址的月数不是一个有效数字：${parameters.monthsAtAddress}</value>
     </property>
     <property key="EcommerceMonthsWithEmployeeNotValid">
         <value xml:lang="en">Months with Employer was not a valid number: ${parameters.monthsWithEmployer}</value>
         <value xml:lang="it">Mesi come impiegato non è un numero valido: ${parameters.monthsWithEmployer}</value>
         <value xml:lang="ja">雇用者が有効でない月数: ${parameters.monthsWithEmployer}</value>
         <value xml:lang="vi">Số tháng với nhân viên không là số hợp lệ: ${parameters.monthsWithEmployer}</value>
+        <value xml:lang="zh">雇主的月数不是一个有效数字：${parameters.monthsWithEmployer}</value>
     </property>
     <property key="EcommerceMyAccount">
         <value xml:lang="da">Min konto</value>
@@ -2611,6 +2624,7 @@
         <value xml:lang="en">Owner</value>
         <value xml:lang="ja">所有者</value>
         <value xml:lang="vi">Chủ sở hữu</value>
+        <value xml:lang="zh">拥有者</value>
     </property>
     <property key="EcommerceOwningDepartment">
         <value xml:lang="da">Ejende afdeling</value>
@@ -2771,6 +2785,7 @@
         <value xml:lang="nl">Prijs range</value>        
         <value xml:lang="pt_BR">Faixa de preços</value>
         <value xml:lang="vi">Khoảng giá</value>
+        <value xml:lang="zh">价格范围</value>
         <value xml:lang="zh_TW">價格範圍</value>
     </property>
     <property key="EcommercePrimaryBillingAddress">
@@ -2834,12 +2849,14 @@
         <value xml:lang="fr">Étiquettes</value>
         <value xml:lang="ja">製品タグ</value>
         <value xml:lang="vi">Các đánh dấu (tag) sản phẩm</value>
+        <value xml:lang="zh">产品标签</value>
     </property>
     <property key="EcommerceProductTagsDetail">
         <value xml:lang="en">Other people marked this product with these tags</value>
         <value xml:lang="fr">Cette étiquette a déjà été ajoutée pour ce produit</value>
         <value xml:lang="ja">他の人がこの製品に同じタグ付け</value>
         <value xml:lang="vi">Người khác đã đánh dấu sản phẩm này với các đánh dấu</value>
+        <value xml:lang="zh">其他人使用这些标签来标志这个产品</value>
     </property>
     <property key="EcommercePromotionalItems">
         <value xml:lang="cs">Reklamní položka; množství nelze změnit</value>
@@ -3275,6 +3292,7 @@
         <value xml:lang="en">Select Option</value>
         <value xml:lang="fr">Sélectionnez une option</value>
         <value xml:lang="ja">オプションを選択</value>
+        <value xml:lang="zh">选择选项</value>
     </property>
     <property key="EcommerceSelectedGiftWrap">
         <value xml:lang="da">Vælg gavepapir</value>
@@ -3636,6 +3654,7 @@
         <value xml:lang="en">Subject is missing</value>
         <value xml:lang="ja">件名が正しくありません</value>
         <value xml:lang="vi">Chủ đề chưa có</value>
+        <value xml:lang="zh">缺少主题</value>
     </property>
     <property key="EcommerceSubscribe">
         <value xml:lang="da">Abonnér</value>
@@ -3707,6 +3726,7 @@
         <value xml:lang="fr">Nuage de mots</value>
         <value xml:lang="ja">クラウドにタグ</value>
         <value xml:lang="vi">Đám mây đánh dấu</value>
+        <value xml:lang="zh">标签云</value>
     </property>
     <property key="EcommerceTakeSurvey">
         <value xml:lang="da">Foretag rundspørge</value>
@@ -4108,12 +4128,14 @@
         <value xml:lang="it">Anni all'indirizzo non è un numero valido: ${parameters.yearsAtAddress}</value>
         <value xml:lang="ja">住所が有効でない年数: ${parameters.yearsAtAddress}</value>
         <value xml:lang="vi">Số năm không phải là số hợp lệ tại địa chỉ: ${parameters.yearsAtAddress}</value>
+        <value xml:lang="zh">在地址的年数不是一个有效数字：${parameters.yearsAtAddress}</value>
     </property>
     <property key="EcommerceYearsWithEmployeeNotValid">
         <value xml:lang="en">Years with Employer was not a valid number: ${parameters.yearsWithEmployer}</value>
         <value xml:lang="it">Anni come impiegato non è un numero valido: ${parameters.yearsWithEmployer}</value>
         <value xml:lang="ja">雇用者が有効でない年数: ${parameters.yearsWithEmployer}</value>
         <value xml:lang="vi">Số năm không phải là số hợp lệ với Nhân viên: ${parameters.yearsWithEmployer}</value>
+        <value xml:lang="zh">雇主的年数不是一个有效数字：${parameters.yearsWithEmployer}</value>
     </property>
     <property key="EcommerceYouHave">
         <value xml:lang="da">De har</value>
@@ -4258,12 +4280,14 @@
         <value xml:lang="en">Your order is being processed, this may take a moment...</value>
         <value xml:lang="ja">注文は処理中です。しばらくお待ちください...</value>
         <value xml:lang="vi">Yêu cầu của bạn đang được xử lý, có thể mất một vài phút...</value>
+        <value xml:lang="zh">正在处理你的订单，可能需要一会儿...</value>
     </property>
     <property key="EcommerceYourNamePhoneAndEmail">
         <value xml:lang="de">Ihr Name, Telefon und E-Mail</value>
         <value xml:lang="en">Your Name, Phone Number and E-Mail</value>
         <value xml:lang="ja">あなたの名前、電話番号、および電子メール</value>
         <value xml:lang="vi">Tên, số điện thoại và thư điện tử của bạn</value>
+        <value xml:lang="zh">你的名字、电话号码和电子邮件</value>
     </property>
     <property key="EcommerceYourPinNumber">
         <value xml:lang="da">Deres PIN kode</value>
@@ -5104,6 +5128,7 @@
         <value xml:lang="fr">Résultats de la recherche par étiquette</value>
         <value xml:lang="ja">タグ結果</value>
         <value xml:lang="vi">Đánh dấu (Tag) kết quả</value>
+        <value xml:lang="zh">标签结果</value>
     </property>
     <property key="PageTitleViewBlog">
         <value xml:lang="da">Vis blog</value>

@@ -26,12 +26,14 @@
         <value xml:lang="ja">メイン</value>
         <value xml:lang="pt_BR">Principal</value>
         <value xml:lang="vi">Trang chủ</value>
+        <value xml:lang="zh">首页</value>
     </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE0">
         <value xml:lang="en">My Comms</value>
         <value xml:lang="fr">Mes communications</value>
         <value xml:lang="ja">私の通信</value>
         <value xml:lang="vi">Truyền thông Riêng</value>
+        <value xml:lang="zh">我的沟通</value>
     </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE1">
         <value xml:lang="en">My Profile</value>
@@ -40,12 +42,14 @@
         <value xml:lang="ja">私のプロファイル</value>
         <value xml:lang="pt_BR">Meu Perfil</value>
         <value xml:lang="vi">Hồ sơ Riêng</value>
+        <value xml:lang="zh">我的简介</value>
     </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE2">
         <value xml:lang="en">Other Party Comms</value>
         <value xml:lang="fr">Autres communications</value>
         <value xml:lang="ja">その他取引先の通信</value>
         <value xml:lang="vi">Truyền thông của Tác nhân liên quan</value>
+        <value xml:lang="zh">其他会员的沟通</value>
     </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE4">
         <value xml:lang="en">My Time Sheet</value>
@@ -54,30 +58,35 @@
         <value xml:lang="ja">私の予定表</value>
         <value xml:lang="pt_BR">Minha folha de tempo</value>
         <value xml:lang="vi">Khai báo công việc Riêng</value>
+        <value xml:lang="zh">我的工单</value>
     </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE5">
         <value xml:lang="en">My Tasks</value>
         <value xml:lang="fr">Mes tâches</value>
         <value xml:lang="ja">私のタスク</value>
         <value xml:lang="vi">Tác vụ - Đầu việc Riêng</value>
+        <value xml:lang="zh">我的任务</value>
     </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE6">
         <value xml:lang="en">My Leave</value>
         <value xml:lang="fr">Mes congés</value>
         <value xml:lang="ja">私の休暇</value>
         <value xml:lang="vi">Nghỉ phép Riêng</value>
+        <value xml:lang="zh">我的休假</value>
     </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE7">
         <value xml:lang="en">My trainings</value>
         <value xml:lang="fr">Mes formations</value>
         <value xml:lang="ja">私のトレーニング</value>
         <value xml:lang="vi">Đào tạo Riêng</value>
+        <value xml:lang="zh">我的培训</value>
     </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE8">
         <value xml:lang="en">My Payments</value>
         <value xml:lang="fr">Mes paiements</value>
         <value xml:lang="ja">私の支払</value>
         <value xml:lang="vi">Thanh toán Riêng</value>
+        <value xml:lang="zh">我的支付</value>
     </property>
     <property key="PortalPage.portalPageName.ProductStoreFacility">
         <value xml:lang="de">Lager</value>
