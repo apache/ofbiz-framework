@@ -43,7 +43,7 @@ under the License.
             <set field="customMethodName" from-field="customMethod.customMethodName"/>
             <else><!-- retreive service from deprecated enumeration -->
                 <if-compare operator="equals" value="QUOSQ_ENF_SEQ" field="partyAcctgPreference.oldQuoteSequenceEnumId">
-                    <set field="customMethodName" value="quoteSequence-enforced"/>
+                    <set field="customMethodName" value="quoteSequenceEnforced"/>
                 </if-compare>
             </else>
         </if-not-empty>
@@ -75,7 +75,7 @@ under the License.
         <field-to-result field="quoteId" result-name="quoteId"/>
     </simple-method>
 
-    <simple-method method-name="quoteSequence-enforced" short-description="Enforced Sequence (no gaps, per organization)">
+    <simple-method method-name="quoteSequenceEnforced" short-description="Enforced Sequence (no gaps, per organization)">
         <log level="info" message="In getNextQuoteId sequence enum Enforced"/> 
         <set field="partyAcctgPreference" from-field="parameters.partyAcctgPreference"/>
         <!-- this is sequential sequencing, we can't skip a number, also it must be a unique sequence per partyIdFrom -->

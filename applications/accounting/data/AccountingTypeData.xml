@@ -955,7 +955,7 @@ under the License.
     <CustomMethod customMethodId="INV_HOOK_RES_YR" customMethodTypeId="INVOICE_HOOK" customMethodName="invoiceSequenceRestart" description="Restart on Fiscal Year (no gaps, per org, reset to 1 each year)"/>
     <!-- quote sequencing mode for accounting preferences -->
     <CustomMethodType customMethodTypeId="QUOTE_HOOK" parentTypeId="HOOK" hasTable="N" description="Quote Sequence methods"/>
-    <CustomMethod customMethodId="QUOTE_HOOK_ENF_SEQ" customMethodTypeId="QUOTE_HOOK" customMethodName="quoteSequence-enforced" description="Enforced Sequence (no gaps, per organization)"/>
+    <CustomMethod customMethodId="QUOTE_HOOK_ENF_SEQ" customMethodTypeId="QUOTE_HOOK" customMethodName="quoteSequenceEnforced" description="Enforced Sequence (no gaps, per organization)"/>
     <!-- order sequencing mode for accounting preferences -->
     <CustomMethodType customMethodTypeId="ORDER_HOOK" parentTypeId="HOOK" hasTable="N" description="Order Sequence methods"/>
     <CustomMethod customMethodId="ORDER_HOOK_ENF_SEQ" customMethodTypeId="ORDER_HOOK" customMethodName="orderSequence_enforced" description="Enforced Sequence (no gaps, per organization)"/>

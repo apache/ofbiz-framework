@@ -33,8 +33,8 @@ under the License.
         <attribute name="quoteId" type="String" mode="OUT" optional="false"/>
     </service>
 
-    <service name="quoteSequence-enforced" engine="simple"
-        location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="quoteSequence-enforced">
+    <service name="quoteSequenceEnforced" engine="simple"
+        location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="quoteSequenceEnforced">
         <implements service="getNextQuoteId" optional="true"/>
         <attribute name="partyAcctgPreference" type="org.ofbiz.entity.GenericValue" mode="IN"/>
         <override name="quoteId" type="Long" mode="OUT"/>
