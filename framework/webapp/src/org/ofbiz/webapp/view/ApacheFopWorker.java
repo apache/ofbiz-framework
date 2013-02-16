@@ -80,10 +80,19 @@ public class ApacheFopWorker {
                     String ofbizHome = System.getProperty("ofbiz.home");
                     String fopPath = UtilProperties.getPropertyValue("fop.properties", "fop.path", ofbizHome + "/framework/webapp/config");
                     File userConfigFile = FileUtil.getFile(fopPath + "/fop.xconf");
-                    fopFactory.setUserConfig(userConfigFile);
-                    String fopFontBaseUrl = UtilProperties.getPropertyValue("fop.properties", "fop.font.base.url", "file:///" + ofbizHome + "/framework/webapp/config/");
-                    fopFactory.getFontManager().setFontBaseURL(fopFontBaseUrl);
-                    Debug.logInfo("FOP-FontBaseURL: " + fopFontBaseUrl, module);
+                    if (userConfigFile.exists()) {
+                        fopFactory.setUserConfig(userConfigFile);
+                    } else {
+                        Debug.logWarning("FOP configuration file not found: " + userConfigFile, module);
+                    }
+                    String fopFontBaseProperty = UtilProperties.getPropertyValue("fop.properties", "fop.font.base.url", "file:///" + ofbizHome + "/framework/webapp/config/");
+                    File fontBaseFile = FileUtil.getFile(fopFontBaseProperty);
+                    if (fontBaseFile.isDirectory()) {
+                        fopFactory.getFontManager().setFontBaseURL(fontBaseFile.toURI().toURL().toString());
+                    } else {
+                        Debug.logWarning("FOP font base URL not found: " + fontBaseFile, module);
+                    }
+                    Debug.logInfo("FOP FontBaseURL: " + fopFactory.getFontManager().getFontBaseURL(), module);
                 } catch (Exception e) {
                     Debug.logWarning(e, "Error reading FOP configuration", module);
                 }
