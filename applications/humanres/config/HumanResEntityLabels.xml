@@ -25,35 +25,41 @@
         <value xml:lang="fr">Convenance</value>
         <value xml:lang="ja">私事</value>
         <value xml:lang="vi">Tình cờ</value>
+        <value xml:lang="zh">临时</value>
     </property>
     <property key="EmplLeaveReasonType.description.MEDICAL">
         <value xml:lang="en">Medical</value>
         <value xml:lang="fr">Maladie</value>
         <value xml:lang="ja">疾病</value>
         <value xml:lang="vi">Y tế</value>
+        <value xml:lang="zh">疾病</value>
     </property>
     <property key="EmplLeaveType.description.INLAND_EARNED">
         <value xml:lang="en">Inland earned</value>
         <value xml:lang="fr">Congé payé</value>
         <value xml:lang="ja">国内取得</value>
         <value xml:lang="vi">Thu nhập quốc nội</value>
+        <value xml:lang="zh">国内收入</value>
     </property>
     <property key="EmplLeaveType.description.LOSS_OF_PAY">
         <value xml:lang="en">Loss of pay</value>
         <value xml:lang="fr">Sans solde</value>
         <value xml:lang="ja">無給</value>
         <value xml:lang="vi">Mất thanh toán</value>
+        <value xml:lang="zh">无薪</value>
     </property>
     <property key="EmplLeaveType.description.RESTRICTED_HOLIDAY">
         <value xml:lang="en">Restricted holiday</value>
         <value xml:lang="fr">Jour férié</value>
         <value xml:lang="ja">制限日</value>
         <value xml:lang="vi">Kỳ nghỉ hạn chế</value>
+        <value xml:lang="zh">受限的假期</value>
     </property>
     <property key="EmplLeaveType.description.SPECIAL_DAY_OFF">
         <value xml:lang="en">Special day off</value>
         <value xml:lang="fr">Congé</value>
         <value xml:lang="ja">特別休暇</value>
         <value xml:lang="vi">Ngày nghỉ đặc biệt</value>
+        <value xml:lang="zh">特殊休假</value>
     </property>
 </resource>

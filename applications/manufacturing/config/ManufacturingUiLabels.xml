@@ -3657,6 +3657,7 @@
         <value xml:lang="it">Configurazione non valida</value>
         <value xml:lang="ja">製品設定が無効です</value>
         <value xml:lang="vi">Cấu hình sản phẩm không đúng định dạng</value>
+        <value xml:lang="zh">产品配置无效</value>
     </property>
     <property key="ManufacturingProductionRunId">
         <value xml:lang="de">Produktionsauftrags-Nr.</value>
@@ -3677,6 +3678,7 @@
         <value xml:lang="it">Nessun ordine di produzione è richiesto per il prodotto ${productId} in data ${startDate}; verificare le date di validità dei materiali.</value>
         <value xml:lang="ja">製品ID ${productId} 日付 ${startDate} の生産実行は必要ではありません、部品表の日付を確認して経路制御してください。</value>
         <value xml:lang="vi">Không có Chế tác lô hàng với sản phẩm id ${productId} trong ngày ${startDate}; bạn hãy xem xét lại ngày kiểm hàng (validity date) trên Chào giá và Quy trình</value>
+        <value xml:lang="zh">对标识为${productId}的产品，在日期${startDate}，没有必须的生产运行；请验证物料和工序的日期。</value>
     </property>
     <property key="ManufacturingProductionRunName">
         <value xml:lang="de">Produktionsauftrags-Name</value>
@@ -3888,6 +3890,7 @@
         <value xml:lang="it">Compito ordine di produzione ${productionRunTaskId} non può restituire più righe ${quantity} di quelle allocate attualmente ${quantityAllocated}</value>
         <value xml:lang="ja">ID ${productionRunTaskId} の生産実行タスクは現在割り当てられた ${quantityAllocated} より多いアイテム ${quantity} を戻すことはできません</value>
         <value xml:lang="vi">Tác vụ - Đầu việc với Id ${productionRunTaskId} không thể trả về nhiều hơn số hàng hóa ${quantity} hơn số lượng đang được phân bổ ${quantityAllocated}</value>
+        <value xml:lang="zh">标识为${productionRunTaskId}的生产运行任务，与当前分配的${quantityAllocated}比，没有返回更多明细${quantity}</value>
     </property>
     <property key="ManufacturingProductionRunTaskCannotStartDocsNotPrinted">
         <value xml:lang="en">Production Run Task Cannot Start Docs Not Printed</value>
@@ -3912,6 +3915,7 @@
         <value xml:lang="it">Non è possibile trovare il compito dell'ordine di produzione: ${productionRunTaskId}</value>
         <value xml:lang="ja">ID ${productionRunTaskId} の生産実行タスクが見つかりません</value>
         <value xml:lang="vi">Không tìm thấy Tác vụ - Đầu việc với Id: ${productionRunTaskId}</value>
+        <value xml:lang="zh">无法找到生产运行任务，标识为：${productionRunTaskId}</value>
     </property>
     <property key="ManufacturingProductionRunTaskNotExists">
         <value xml:lang="en">Production Run Task Not Exists</value>
@@ -3936,6 +3940,7 @@
         <value xml:lang="it">Errore durante l'esecuzione di productionRunTaskProduce: </value>
         <value xml:lang="ja">productionRunTaskProduce の呼び出し中にエラー: </value>
         <value xml:lang="vi">Lỗi khi thực thi dịch vụ productionRunTaskProduce: </value>
+        <value xml:lang="zh">调用productionRunTaskProduce时出错：</value>
     </property>
     <property key="ManufacturingProductionRunTaskStatusChanged">
         <value xml:lang="en">Production Run Task Status Changed</value>
@@ -3964,48 +3969,56 @@
         <value xml:lang="it">Errore durante il tentativo di creazione associazione impegno di lavoro</value>
         <value xml:lang="ja">作業成果関連付け作成中にエラー</value>
         <value xml:lang="vi">Lỗi khi tạo Lượng giá nguồn lực kết hợp</value>
+        <value xml:lang="zh">尝试创建人工服务关联时出错</value>
     </property>
     <property key="ManufacturingProductionRunTryToGetBomListError">
         <value xml:lang="en">Error try to get BOM list from productAssoc</value>
         <value xml:lang="it">Errore durante il tentativo di ottenere la lista della distinta base da productAssoc</value>
         <value xml:lang="ja">製品関連付けからBOM一覧を取得中にエラー</value>
         <value xml:lang="vi">Lỗi khi lấy thông tin danh sách Chào giá từ Sản phẩm</value>
+        <value xml:lang="zh">尝试从产品关联（productAssoc）获得物料清单时出错</value>
     </property>
     <property key="ManufacturingProductionRunUnableToCreateMaterialsCosts">
         <value xml:lang="en">Unable to create materials costs for the production run task ${productionRunTaskId}: ${errorString}</value>
         <value xml:lang="it">Non è possibile create i costi dei materiali per il compito dell'ordine di produzione ${productionRunTaskId}: ${errorString}</value>
         <value xml:lang="ja">生産実行タスク ${productionRunTaskId} に対する部品原価が作成できません: ${errorString}</value>
         <value xml:lang="vi">Không thể tạo Chi phí vật liệu cho Tác vụ - Đầu việc ${productionRunTaskId}: ${errorString}</value>
+        <value xml:lang="zh">不能为生产运行任务${productionRunTaskId}创建物料成本：${errorString}</value>
     </property>
     <property key="ManufacturingProductionRunUnableToCreateRoutingCosts">
         <value xml:lang="en">Unable to create routing costs for the production run task ${productionRunTaskId}: ${errorString}</value>
         <value xml:lang="it">Non è possibile create i costi per il compito dell'ordine di produzione ${productionRunTaskId}: ${errorString}</value>
         <value xml:lang="ja">生産実行タスク ${productionRunTaskId} に対する経路制御原価が作成できません: ${errorString}</value>
         <value xml:lang="vi">Không thể tạo Chi phí quy trình cho Tác vụ - Đầu việc ${productionRunTaskId}: ${errorString}</value>
+        <value xml:lang="zh">不能为生产运行任务${productionRunTaskId}创建加工成本：${errorString}</value>
     </property>
     <property key="ManufacturingProductionRunUnableToFindCosts">
         <value xml:lang="en">Unable to find a currency for production run costs</value>
         <value xml:lang="it">Non è possibile trovare una valuta per i costi dell'ordine di produzione</value>
         <value xml:lang="ja">生産実行原価に対する通貨を見つけることができません</value>
         <value xml:lang="vi">Không thể tìm thấy kiểu Tiền tệ cho Chi phí</value>
+        <value xml:lang="zh">无法找到生产运行成本的币种</value>
     </property>
     <property key="ManufacturingProductionRunUnableToFindCostsForWorkEffort">
         <value xml:lang="en">Cannot retrieve costs for work effort ${workEffortId}: ${errorString}</value>
         <value xml:lang="it">Non è possibile ricavare i costi per l'impegno di lavoro ${workEffortId}: ${errorString}</value>
         <value xml:lang="ja">作業成果 ${workEffortId} に対する原価が取得できません: ${errorString}</value>
         <value xml:lang="vi">Không thể lấy thông tin Chi phí cho Lượng giá nguồn lực ${workEffortId}: ${errorString}</value>
+        <value xml:lang="zh">无法获得人工服务${workEffortId}的成本：${errorString}</value>
     </property>
     <property key="ManufacturingProductionRunUnableToFindOverheadCosts">
         <value xml:lang="en">Unable to compute overhead costs for production run: ${errorString}</value>
         <value xml:lang="it">Non è possibile elaborare gli ulteriori costo dell'ordine di produzione: ${errorString}</value>
         <value xml:lang="ja">生産実行に対する間接原価が計算できません: ${errorString}</value>
         <value xml:lang="vi">Không thể tính Chi phí phát sinh cho Chế tác lô hàng: ${errorString}</value>
+        <value xml:lang="zh">无法计算生产运行的间接成本：${errorString}</value>
     </property>
     <property key="ManufacturingProductionRunUnableToProgressTaskStatus">
         <value xml:lang="en">Unable to progress from status ${prevStatusId} for task ${taskId}</value>
         <value xml:lang="it">Non è possibile cambiare lo stato da 'in corso' ${prevStatusId} per il compito ${taskId}</value>
         <value xml:lang="ja">タスク ${taskId} に対するステータス ${prevStatusId} から進めることができません</value>
         <value xml:lang="vi">Không thể tiến hành từ trạng thái ${prevStatusId} cho Tác vụ - Đầu việc ${taskId}</value>
+        <value xml:lang="zh">不能把任务${taskId}从状态${prevStatusId}继续进行</value>
     </property>
     <property key="ManufacturingProposedOrder">
         <value xml:lang="en">Proposed Order</value>
@@ -4326,6 +4339,7 @@
         <value xml:lang="it">Errore durante la ricerca del ciclo per il compito: ${taskId}</value>
         <value xml:lang="ja">ID ${taskId} の経路制御タスク検索時にエラー</value>
         <value xml:lang="vi">Lỗi tìm tác vụ quy trình với Id: ${taskId}</value>
+        <value xml:lang="zh">查找规程任务时出错，标识：${taskId}</value>
     </property>
     <property key="ManufacturingRoutingHasNoRoutingTask">
         <value xml:lang="de">Arbeitsplan besitzt keinen Arbeitsgang</value>
@@ -4927,12 +4941,14 @@
         <value xml:lang="it">Errore durante la ricerca dei records di WorkEffort: ${errorString}</value>
         <value xml:lang="ja">要求された作業成果レコードの検索中にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi tìm dữ liệu Lượng giá nguồn lực mong muốn: ${errorString}</value>
+        <value xml:lang="zh">查找期望的人工服务（WorkEffort）记录时出错：${errorString}</value>
     </property>
     <property key="ManufacturingTechDataWorkEffortAssocNotExist">
         <value xml:lang="en">Error finding desired WorkEffortAssoc records: ${errorString}</value>
         <value xml:lang="it">Errore durante la ricerca dei records di WorkEffortAssoc: ${errorString}</value>
         <value xml:lang="ja">要求された作業成果関連付けレコードの検索中にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi tìm dữ liệu Lượng giá nguồn lực kết hợp mong muốn: ${errorString}</value>
+        <value xml:lang="zh">查找期望的人工服务关联（WorkEffortAssoc）记录时出错：${errorString}</value>
     </property>
     <property key="ManufacturingTimePeriod">
         <value xml:lang="de">Zeitraum</value>
@@ -5172,6 +5188,7 @@
         <value xml:lang="it">Errore durante la letture di WorkOrderItemFulfillment: ${errorString}</value>
         <value xml:lang="ja">作業注文アイテム執行の読み込み中にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi khi đọc thông tin Đáp ứng hàng hóa của Đặt hàng (WorkOrderItemFulfillment) : ${errorString}</value>
+        <value xml:lang="zh">读取WorkOrderItemFulfillment时出错：${errorString}</value>
     </property>
     <property key="ManufacturingWorkWithShipmentPlans">
         <value xml:lang="de">Versandpläne</value>

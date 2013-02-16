@@ -119,6 +119,7 @@
     <property key="FieldDescription.Example.exampleTypeId">
         <value xml:lang="en">The type of Example.</value>
         <value xml:lang="fr">Le type de l'exemple.</value>
+        <value xml:lang="zh">样例类型。</value>
     </property>
     <property key="FieldDescription.amount">
         <value xml:lang="de">Betrag</value>
