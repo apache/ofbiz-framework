@@ -321,12 +321,18 @@ under the License.
         <field name="submitButton" title="${uiLabel.CommonSubmit}"><submit/></field>
     </form>
 
-    <form name="EditContactListCommEvent" default-map-name="communicationEvent"  target="updateContactListCommEvent" title="" type="single"
+    <form name="EditContactListCommEvent" default-map-name="communicationEvent" target="updateContactListCommEvent" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+             <set field="contentMimeTypeId" from-field="communicationEvent.contentMimeTypeId" default-value="text/html"/>
+             <entity-one entity-name="CommunicationEventType" value-field="communicationEventType">
+                 <field-map field-name="communicationEventTypeId" from-field="communicationEventTypes[0].communicationEventTypeId"/>
+             </entity-one>
+        </actions>
         <alt-target target="createContactListCommEvent" use-when="communicationEvent==null"/>
 
         <field name="communicationEventId" use-when="communicationEvent!=null" title="${uiLabelMap.MarketingContactListCommEventId}"><display/></field>
-        <field name="communicationEventTypeId"><hidden value="${communicationEventTypes[0].communicationEventTypeId}"/></field>
+        <field name="communicationEventTypeId" map-name="communicationEventType"><hidden/></field>
         <field name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="statusId" use-when="communicationEvent==null" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false" no-current-selected-key="COM_PENDING">
@@ -392,15 +398,15 @@ under the License.
         <field name="contactListId"><lookup size="20" target-form-name="LookupContactList"/></field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><date-time/></field>
         <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><date-time/></field>
-        <field name="subject" title="${uiLabelMap.PartySubject}"><text size="30"/></field>
-        <field name="contentMimeTypeId">
+        <field name="subject" title="${uiLabelMap.PartySubject}"><text size="50"/></field>
+        <field name="contentMimeTypeId" position="2">
             <drop-down no-current-selected-key="text/html" allow-empty="false">
                 <entity-options description="${mimeTypeId}" entity-name="MimeType" key-field-name="mimeTypeId">
                     <entity-order-by field-name="mimeTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="content" title="${uiLabelMap.CommonContent} --${communicationEventTypes[0].communicationEventTypeId}"><textarea cols="60" rows="10"/></field>
+        <field name="content" title="${uiLabelMap.CommonContent} -- ${communicationEventType.description}"><textarea cols="60" rows="10" visual-editor-enable="true"/></field>
         <field name="note" title="${uiLabelMap.CommonNote}"><textarea cols="60" rows="3"/></field>
         <field name="submitButton" title=" ${uiLabelMap.CommonSave} "><submit button-type="button"/></field>
         <field name="cancelLink" title=" " widget-style="buttontext"><hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
