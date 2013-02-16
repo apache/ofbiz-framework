@@ -180,16 +180,16 @@ under the License.
 
   <!-- Methods for DataResourceRole -->
     <simple-method method-name="createDataResourceRole" short-description="Create Data Resource Role">
-        <make-value entity-name="DataResourceRole" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-
-        <if-empty field="newEntity.fromDate">
-            <now-timestamp field="nowTimestamp"/>
-            <set field="newEntity.fromDate" from-field="nowTimestamp"/>
-        </if-empty>
-
-        <create-value value-field="newEntity"/>
+        <if-not-empty field="parameters.partyId">
+            <make-value entity-name="DataResourceRole" value-field="newEntity"/>
+            <set-nonpk-fields map="parameters" value-field="newEntity"/>
+            <set-pk-fields map="parameters" value-field="newEntity"/>
+            <if-empty field="newEntity.fromDate">
+                <now-timestamp field="nowTimestamp"/>
+                <set field="newEntity.fromDate" from-field="nowTimestamp"/>
+            </if-empty>
+            <create-value value-field="newEntity"/>
+        </if-not-empty>
     </simple-method>
     <simple-method method-name="updateDataResourceRole" short-description="Update Data Resource Role">
         <make-value entity-name="DataResourceRole" value-field="lookupKeyValue"/>
