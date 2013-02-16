@@ -33,6 +33,7 @@
         <value xml:lang="en">Bill To Customer</value>
         <value xml:lang="ja">顧客に請求する</value>
         <value xml:lang="vi">Hóa đơn tới Khách hàng</value>
+        <value xml:lang="zh">账单给客户</value>
         <value xml:lang="zh_TW">發送帳單給客戶</value>
     </property>
     <property key="MyPortalCaptchaMissingError">
@@ -50,6 +51,7 @@
         <value xml:lang="ja">エンドユーザ顧客</value>
         <value xml:lang="zh_TW">最終使用客戶</value>
         <value xml:lang="vi">Khách hàng người dùng cuối</value>
+        <value xml:lang="zh">最终用户</value>
     </property>    
     <property key="MyPortalFirstNameMissing">
         <value xml:lang="en">Your firstName is missing</value>
@@ -86,6 +88,7 @@
         <value xml:lang="ja">私の注文</value>
         <value xml:lang="zh_TW">我的訂單</value>
         <value xml:lang="vi">Các đặt hàng của tôi</value>
+        <value xml:lang="zh">我的订单</value>
     </property>
     <property key="MyPortalNewRegistration">
         <value xml:lang="en">New Registration </value>
@@ -111,6 +114,7 @@
         <value xml:lang="en">Placing Customer</value>
         <value xml:lang="ja">顧客の位置づけ</value>
         <value xml:lang="vi">Khách hàng đặt chỗ</value>
+        <value xml:lang="zh">意向客户</value>
         <value xml:lang="zh_TW">安排客戶</value>
     </property>
     <property key="MyPortalRegisterComplete">
@@ -135,6 +139,7 @@
         <value xml:lang="en">Ship To Customer</value>
         <value xml:lang="ja">顧客に発送する</value>
         <value xml:lang="vi">Chuyển tới khách hàng</value>
+        <value xml:lang="zh">给客户送货</value>
         <value xml:lang="zh_TW">寄送給客戶</value>
     </property>
     <property key="MyPortalTaskActEndDate">
@@ -222,6 +227,7 @@
         <value xml:lang="fr">Rech. page portail</value>
         <value xml:lang="ja">ポータルページの検索</value>
         <value xml:lang="vi">Tìm trang trên Cổng thông tin</value>
+        <value xml:lang="zh">查找门户页面</value>
         <value xml:lang="zh_TW">查找入口網頁</value>
     </property>
     <property key="PageTitleMyPortal">
