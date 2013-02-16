@@ -589,12 +589,14 @@
         <value xml:lang="it">Nessun codice di verifica Opt-in specificato, ma uno è obbligatorio.</value>
         <value xml:lang="ja">選択確認コードが指定されていません。１つは必須です。</value>
         <value xml:lang="vi">Mã xác nhận (Opt-In) chưa được nhập.</value>
+        <value xml:lang="zh">没有指定兴趣验证码，但是必须有一个。</value>
     </property>
     <property key="MarketingContactListOptInVerifyCodeNotCorrect">
         <value xml:lang="en">The Opt-in Verify Code specified [${parameters.optInVerifyCode}] was not correct. Please check the code you were sent.</value>
         <value xml:lang="it">Il codice di verifia Opt-in specificato [${parameters.optInVerifyCode}] non era corretto. Per favore verificare il codice che ti è stato inviato.</value>
         <value xml:lang="ja">指定された選択確認コード [${parameters.optInVerifyCode}] は正しくありません。コードを確認してください。</value>
         <value xml:lang="vi">Mã xác nhận (Opt-In) có giá trị [${parameters.optInVerifyCode}] không đúng. Bạn hãy kiểm tra lại mã xác nhận đã gửi.</value>
+        <value xml:lang="zh">指定的兴趣验证码[${parameters.optInVerifyCode}]不正确。请检查你发送的验证码。</value>
     </property>
     <property key="MarketingContactListOwnerPartyId">
         <value xml:lang="de">Ersteller ID</value>
@@ -660,6 +662,7 @@
         <value xml:lang="ja">取引先をインポート</value>
         <value xml:lang="th">นำเข้ากลุ่มผู้ใช้</value>
         <value xml:lang="vi">Nhập vào các Tác nhân</value>
+        <value xml:lang="zh">导入会员</value>
     </property>
     <property key="MarketingContactListPreferredContactMech">
         <value xml:lang="en">Preferred Contact Mechanism</value>
@@ -740,6 +743,7 @@
         <value xml:lang="it">Il contatto preferito [${preferredContactMechType.description}] non era la giusta lista [${listContactMechType.description}].</value>
         <value xml:lang="ja">通常の連絡方法 [${preferredContactMechType.description}] は一覧 [${listContactMechType.description}] の正しい種類ではありません。</value>
         <value xml:lang="vi">Cơ chế liên lạc ưa thích [${preferredContactMechType.description}] không nằm trong loại của danh sách [${listContactMechType.description}].</value>
+        <value xml:lang="zh">首选联系方式 [${preferredContactMechType.description}] 不是用于列表 [${listContactMechType.description}] 的正确类型。</value>
     </property>
     <property key="MarketingConversionRate">
         <value xml:lang="de">Konversationsrate</value>
@@ -762,6 +766,7 @@
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso MARKETING_CREATE o MARKETING_ADMIN</value>
         <value xml:lang="ja">セキュリティエラー: ${resourceDescription} の実行には MARKETING_CREATE または MARKETING_ADMIN 権限が必要です。</value>
         <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần có quyền MARKETING_CREATE hoặc quyền MARKETING_ADMIN</value>
+        <value xml:lang="zh">安全错误：要运行${resourceDescription}，你必须有 MARKETING_CREATE 或 MARKETING_ADMIN 权限</value>
     </property>
     <property key="MarketingDateRange">
         <value xml:lang="en">Date Range</value>
@@ -783,6 +788,7 @@
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso MARKETING_DELETE o MARKETING_ADMIN</value>
         <value xml:lang="ja">セキュリティエラー: ${resourceDescription} の実行には MARKETING_DELETE または MARKETING_ADMIN 権限が必要です。</value>
         <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần có quyền MARKETING_DELETE hoặc quyền MARKETING_ADMIN</value>
+        <value xml:lang="zh">安全错误：要运行${resourceDescription}，你必须有 MARKETING_DELETE 或 MARKETING_ADMIN 权限</value>
     </property>
     <property key="MarketingEmailStatusReport">
         <value xml:lang="de">E-Mail Statusbericht</value>
@@ -792,6 +798,7 @@
         <value xml:lang="ja">Eメールステータスレポート</value>
         <value xml:lang="pt_BR">Relatório de estado de e-mail</value>
         <value xml:lang="vi">Báo cáo tình trạng thư điện tử</value>
+        <value xml:lang="zh">电子邮件状态报表</value>
     </property>
     <property key="MarketingFindAccounts">
         <value xml:lang="en">Find SFA Accounts</value>
@@ -811,6 +818,7 @@
         <value xml:lang="pt_BR">Encontrar contatos da equipe de vendas</value>
         <value xml:lang="th">ค้นหา Contact</value>
         <value xml:lang="vi">Tìm kiếm Liên hệ</value>
+        <value xml:lang="zh">查找销售管理联系人</value>
     </property>
     <property key="MarketingFindLeads">
         <value xml:lang="en">Find SFA Leads</value>
@@ -819,6 +827,7 @@
         <value xml:lang="pt_BR">Buscar Leads da equipe de vendas</value>
         <value xml:lang="th">ค้นหา Lead</value>
         <value xml:lang="vi">Tìm Đầu mối</value>
+        <value xml:lang="zh">查找销售管理线索</value>
     </property>
     <property key="MarketingMainPage">
         <value xml:lang="de">Haupt</value>
@@ -934,6 +943,7 @@
         <value xml:lang="ja">取引先ステータスレポート</value>
         <value xml:lang="pt_BR">Relatório de estado de participante</value>
         <value xml:lang="vi">Báo cáo tình trạng Tác nhân</value>
+        <value xml:lang="zh">会员状态报表</value>
     </property>
     <property key="MarketingReports">
         <value xml:lang="de">Berichte</value>
@@ -1732,6 +1742,7 @@
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso MARKETING_UPDATE o MARKETING_ADMIN</value>
         <value xml:lang="ja">セキュリティエラー: ${resourceDescription} の実行には MARKETING_UPDATE または MARKETING_ADMIN 権限が必要です。</value>
         <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần quyền MARKETING_UPDATE hoặc quyền MARKETING_ADMIN</value>
+        <value xml:lang="zh">安全错误：要运行${resourceDescription}，你必须有 MARKETING_UPDATE 或 MARKETING_ADMIN 权限</value>
     </property>
     <property key="MarketingViewPermissionError">
         <value xml:lang="en">View Permission Error</value>
@@ -1764,18 +1775,21 @@
         <value xml:lang="fr">Sites Web</value>
         <value xml:lang="ja">Webサイト</value>
         <value xml:lang="vi">Trang thông tin (website)</value>
+        <value xml:lang="zh">网站</value>
     </property>
     <property key="MarketingWebSiteContactListCreate">
         <value xml:lang="en">Create WebSite</value>
         <value xml:lang="fr">Créer un site Web</value>
         <value xml:lang="ja">Webサイトを作成</value>
         <value xml:lang="vi">Tạo mới trang thông tin</value>
+        <value xml:lang="zh">创建网站</value>
     </property>
     <property key="MarketingWebSiteContactListView">
         <value xml:lang="en">WebSites View</value>
         <value xml:lang="fr">Visualiser les sites Web</value>
         <value xml:lang="ja">Webサイト表示</value>
         <value xml:lang="vi">Xem Trang thông tin</value>
+        <value xml:lang="zh">网站视图</value>
     </property>
     <property key="PageTitleAccountSummary">
         <value xml:lang="en">Account Summary</value>
@@ -1846,6 +1860,7 @@
         <value xml:lang="pt_BR">Designar uma conta existente</value>
         <value xml:lang="th">กำหนด Account ที่มีอยู่</value>
         <value xml:lang="vi">Gán Tài khoản đã có</value>
+        <value xml:lang="zh">指派存在的账户</value>
     </property>
     <property key="PageTitleAssignLeadFromExisting">
         <value xml:lang="en">Assign Existing Lead</value>
@@ -1854,6 +1869,7 @@
         <value xml:lang="pt_BR">Designar um Lead existente</value>
         <value xml:lang="th">กำหนด Lead ที่มีอยู่</value>
         <value xml:lang="vi">Gán Đầu mối đã có</value>
+        <value xml:lang="zh">指派存在的线索</value>
     </property>
     <property key="PageTitleCreateAccount">
         <value xml:lang="en">Create New Account</value>
@@ -2154,6 +2170,7 @@
         <value xml:lang="ja">インポート連絡リスト取引先を検索</value>
         <value xml:lang="th">ค้นหารายการติดต่อกลุ่มผู้ใช้เพื่อการนำเข้า</value>
         <value xml:lang="vi">Tìm Danh sách liên hệ của Tác nhân đã nhập khẩu</value>
+        <value xml:lang="zh">查找导入联系列表会员</value>
     </property>
     <property key="PageTitleFindMarketingCampaignRole">
         <value xml:lang="en">Find Marketing Campaign Role</value>
@@ -2555,6 +2572,7 @@
         <value xml:lang="pt_BR">Todas contas</value>
         <value xml:lang="th">Account ทั้งหมด</value>
         <value xml:lang="vi">Tất cả Tài khoản</value>
+        <value xml:lang="zh">全部账户</value>
     </property>
     <property key="SfaAllContacts">
         <value xml:lang="de">Alle Kontakte</value>
@@ -2564,6 +2582,7 @@
         <value xml:lang="pt_BR">Todos contatos</value>
         <value xml:lang="th">Contact ทั้งหมด</value>
         <value xml:lang="vi">Tất cả Liên hệ</value>
+        <value xml:lang="zh">全部联系人</value>
     </property>
     <property key="SfaAllLeads">
         <value xml:lang="en">All Leads</value>
@@ -2572,6 +2591,7 @@
         <value xml:lang="pt_BR">Todos Leads</value>
         <value xml:lang="th">Lead ทั้งหมด</value>
         <value xml:lang="vi">Tất cả Đầu mối</value>
+        <value xml:lang="zh">全部线索</value>
     </property>
     <property key="SfaAssignToMe">
         <value xml:lang="de">Zugewiesen an mich</value>
@@ -2581,6 +2601,7 @@
         <value xml:lang="pt_BR">Designar para mim</value>
         <value xml:lang="th">กำหนดให้ฉัน</value>
         <value xml:lang="vi">Giao cho Tôi</value>
+        <value xml:lang="zh">指派给我</value>
     </property>
     <property key="SfaAssignedBy">
         <value xml:lang="de">Zugewiesen von</value>
@@ -2590,6 +2611,7 @@
         <value xml:lang="pt_BR">Designada por</value>
         <value xml:lang="th">กำหนดโดย</value>
         <value xml:lang="vi">Giao bởi</value>
+        <value xml:lang="zh">指派者</value>
     </property>
     <property key="SfaAutoCreateContactByImportingVCard">
         <value xml:lang="de">Automatisches Erstellen eines neuen Kontaktes bei dem Import einer vCard</value>
@@ -2697,6 +2719,7 @@
         <value xml:lang="pt_BR">Completo</value>
         <value xml:lang="th">เสร็จสิ้น</value>
         <value xml:lang="vi">Hoàn thành</value>
+        <value xml:lang="zh">完成</value>
     </property>
     <property key="SfaContact">
         <value xml:lang="de">Kontakt</value>
@@ -2831,6 +2854,7 @@
         <value xml:lang="it">Errore durante l'esportazione dei dati da VCard: ${errorString}</value>
         <value xml:lang="ja">vCardからデータをエクスポート中にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi kết xuất dữ liệu từ VCard: ${errorString}</value>
+        <value xml:lang="zh">从VCard导出数据时出错：${errorString}</value>
     </property>
     <property key="SfaExportVCardErrorOpeningFile">
         <value xml:lang="en">Error during export data from VCard, unable to open file for writing: ${errorString}</value>
@@ -2838,6 +2862,7 @@
         <value xml:lang="it">Errore durante l'esportazione dei dati da VCard, non è possibile aprire il file in scrittura: ${errorString}</value>
         <value xml:lang="ja">vCardからデータをエクスポート中にエラー。書き込みファイルをオープンできません: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi kết xuất dữ liệu từ VCard, không thể mở tập tin để ghi: ${errorString}</value>
+        <value xml:lang="zh">从VCard导出数据时出错，无法为写数据而打开文件：${errorString}</value>
     </property>
     <property key="SfaExportVCardErrorWritingFile">
         <value xml:lang="en">Error during export data from VCard, unable to write data to: ${errorString}</value>
@@ -2845,6 +2870,7 @@
         <value xml:lang="it">Errore durante l'esportazione dei dati da VCard, non è possibile scrivere i dati in: ${errorString}</value>
         <value xml:lang="ja">vCardからデータをエクスポート中にエラー。ファイルにデータを書き込みできません: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi kết xuất dữ liệu từ VCard, không thể ghi dữ liệu tới: ${errorString}</value>
+        <value xml:lang="zh">从VCard导出数据时出错，无法写数据：${errorString}</value>
     </property>
     <property key="SfaFindAccountLeads">
         <value xml:lang="en">Find Account Leads</value>
@@ -2853,6 +2879,7 @@
         <value xml:lang="pt_BR">Buscar contas de Leads</value>
         <value xml:lang="th">ค้นหา Account Leads</value>
         <value xml:lang="vi">Tìm kiếm Tài khoản đầu mối</value>
+        <value xml:lang="zh">查找账户线索</value>
     </property>
     <property key="SfaFindAccounts">
         <value xml:lang="de">Finde Konten</value>
@@ -2862,6 +2889,7 @@
         <value xml:lang="pt_BR">Buscar contas</value>
         <value xml:lang="th">ค้นหา Accounts</value>
         <value xml:lang="vi">Tìm kiếm Tài khoản</value>
+        <value xml:lang="zh">查找账户</value>
     </property>
     <property key="SfaFindContacts">
         <value xml:lang="de">Finde Kontakte</value>
@@ -2926,6 +2954,7 @@
         <value xml:lang="ja">姓(FN)、名(LN)、または会社名を入力してください</value>
         <value xml:lang="pt_BR">Por favor, digite o nome da pessoa, sobrenome ou nome da empresa</value>
         <value xml:lang="vi">Bạn hãy nhập Tên hoặc Họ hoặc Tên công ty</value>
+        <value xml:lang="zh">请输入人员的姓或名，或机构名称</value>
     </property>
     <property key="SfaForecasts">
         <value xml:lang="de">Prognose</value>
@@ -2956,6 +2985,7 @@
         <value xml:lang="it">Errore durante l'importazione dei dati da VCard: ${errorString}</value>
         <value xml:lang="ja">vCardからデータのインポート中にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi nhập khẩu dữ liệu từ VCard: ${errorString}</value>
+        <value xml:lang="zh">从VCard导入数据时出错：${errorString}</value>
     </property>
     <property key="SfaInitialAccount">
         <value xml:lang="en">Initial Account</value>
@@ -3088,6 +3118,7 @@
         <value xml:lang="pt_BR">Minhas contas</value>
         <value xml:lang="th">Account ของฉัน</value>
         <value xml:lang="vi">Tài khoản Riêng</value>
+        <value xml:lang="zh">我的账户</value>
     </property>
     <property key="SfaMyContacts">
         <value xml:lang="de">Meine Kontakte</value>
@@ -3097,6 +3128,7 @@
         <value xml:lang="pt_BR">Meus contatos</value>
         <value xml:lang="th">Contact ของฉัน</value>
         <value xml:lang="vi">Liên hệ Riêng</value>
+        <value xml:lang="zh">我的联系人</value>
     </property>
     <property key="SfaMyLeads">
         <value xml:lang="en">My Leads</value>
@@ -3105,6 +3137,7 @@
         <value xml:lang="pt_BR">Meus Leads</value>
         <value xml:lang="th">Lead ของฉัน</value>
         <value xml:lang="vi">Đầu mối Riêng</value>
+        <value xml:lang="zh">我的线索</value>
     </property>
     <property key="SfaNewSalesForecast">
         <value xml:lang="de">Neue Verkaufsprognose</value>
@@ -3133,6 +3166,7 @@
         <value xml:lang="en">Next Step Date</value>
         <value xml:lang="ja">次の段階の日付</value>
         <value xml:lang="vi">Ngày thực hiện bước tiếp theo</value>
+        <value xml:lang="zh">下一步的日期</value>
     </property>
     <property key="SfaNoLeadsSelectedToMerged">
         <value xml:lang="en">No leads selected to merge</value>
@@ -3159,6 +3193,7 @@
         <value xml:lang="ja">機会通信</value>
         <value xml:lang="pt_BR">Comunicação de oportunidades</value>
         <value xml:lang="vi">Truyền thông</value>
+        <value xml:lang="zh">机会的沟通</value>
     </property>
     <property key="SfaOpportunityId">
         <value xml:lang="en">Opportunity ID</value>
@@ -3269,6 +3304,7 @@
         <value xml:lang="ja">リード所有者を選択</value>
         <value xml:lang="pt_BR">Selecionar donos do Lead</value>
         <value xml:lang="vi">Chọn Sở hữu Đầu mối</value>
+        <value xml:lang="zh">选择线索拥有者</value>
     </property>
     <property key="SfaTaskAssignedByMe">
         <value xml:lang="de">Öffne Aufgaben die ich zugeteilt habe.</value>
@@ -3278,6 +3314,7 @@
         <value xml:lang="pt_BR">Tarefas em aberto designadas para mim.</value>
         <value xml:lang="th">งานที่ฉันมอบหมาย</value>
         <value xml:lang="vi">Tác vụ đang Mở đã được Gán bởi Tôi</value>
+        <value xml:lang="zh">我指派的、处于打开状态的任务。</value>
     </property>
     <property key="SfaTaskAssignedToMe">
         <value xml:lang="de">Öffne Aufgaben die mir zugeteilt sind.</value>
@@ -3287,6 +3324,7 @@
         <value xml:lang="pt_BR">Tarefas em aberto designadas para mim.</value>
         <value xml:lang="th">งานที่มอบหมายให้ฉัน</value>
         <value xml:lang="vi">Tác vụ đang Mở đã được Gán đến Tôi</value>
+        <value xml:lang="zh">指派给我的、处于打开状态的任务</value>
     </property>
     <property key="SfaType">
         <value xml:lang="de">Art</value>
@@ -3318,5 +3356,6 @@
         <value xml:lang="ja">vCard</value>
         <value xml:lang="pt_BR">vCard</value>
         <value xml:lang="vi">vCard</value>
+        <value xml:lang="zh">vCard</value>
     </property>
 </resource>

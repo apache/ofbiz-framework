@@ -49,6 +49,7 @@
         <value xml:lang="en">calling service ${serviceName} in ${methodName}</value>
         <value xml:lang="it">eseguendo il servizio ${serviceName} in ${methodName}</value>
         <value xml:lang="ja">サービス ${serviceName} を ${methodName} で呼び出し</value>
+        <value xml:lang="zh">在${methodName}中调用服务${serviceName} </value>
     </property>
     <property key="simpleMethod.must_logged_process">
         <value xml:lang="de">Sie müssen am System angemeldet sein um [${shortDescription}] auszuführen</value>
