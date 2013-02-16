@@ -71,6 +71,7 @@
         <value xml:lang="en">Add Google Base Configuration</value>
         <value xml:lang="it">Aggiungi configurazione a Google Base</value>
         <value xml:lang="ja">Googleショッピング設定を追加</value>
+        <value xml:lang="zh">添加Google Base配置</value>
     </property>
     <property key="GoogleBaseApplication">
         <value xml:lang="en">Google Base Integration</value>
@@ -84,6 +85,7 @@
         <value xml:lang="en">Auto Update Options</value>
         <value xml:lang="ja">自動更新オプション</value>
         <value xml:lang="th">อัพเดทแบบอัตโนมัติ</value>
+        <value xml:lang="zh">自动更新选项</value>
     </property>
     <property key="GoogleBaseCompanyName">
         <value xml:lang="en">Ofbiz</value>
@@ -91,11 +93,13 @@
         <value xml:lang="it">Ofbiz</value>
         <value xml:lang="ja">Ofbiz</value>
         <value xml:lang="th">Ofbiz</value>
+        <value xml:lang="zh">OFBiz</value>
     </property>
     <property key="GoogleBaseConfiguration">
         <value xml:lang="en">Google Base Configurations</value>
         <value xml:lang="it">Configurazioni Google Base</value>
         <value xml:lang="ja">Googleショッピング設定</value>
+        <value xml:lang="zh">Google Base配置</value>
     </property>
     <property key="GoogleBaseExportCountryCode">
         <value xml:lang="en">Select your country destination</value>
@@ -119,6 +123,7 @@
         <value xml:lang="it">UK - £</value>
         <value xml:lang="ja">UK - £</value>
         <value xml:lang="th">UK - £</value>
+        <value xml:lang="zh">UK - £</value>
     </property>
     <property key="GoogleBaseExportCountryCodeIT">
         <value xml:lang="en">IT - euro</value>
@@ -134,6 +139,7 @@
         <value xml:lang="it">US - $</value>
         <value xml:lang="ja">US - $</value>
         <value xml:lang="th">US - $</value>
+        <value xml:lang="zh">US - $</value>
     </property>
     <property key="GoogleBaseExportDeactivated">
         <value xml:lang="en">Deactivated</value>
@@ -147,11 +153,13 @@
         <value xml:lang="en">IO Error creating XML document for Google: </value>
         <value xml:lang="it">Errore I/O durante la creazione del documento XML per Google: </value>
         <value xml:lang="ja">Google用XMLドキュメント作成時にI/Oエラー: </value>
+        <value xml:lang="zh">为Google创建XML文档时发生IO错误：</value>
     </property>
     <property key="GoogleBaseExportErrorLoadingResource">
         <value xml:lang="en">IO Error loading resource: </value>
         <value xml:lang="it">Errore I/O caricando la risorsa: </value>
         <value xml:lang="ja">リソース読み込み時にI/Oエラー: </value>
+        <value xml:lang="zh">载入资源时发生IO错误：</value>
     </property>
     <property key="GoogleBaseExportNoTrackingRequested">
         <value xml:lang="en">Not Requested</value>
@@ -197,6 +205,7 @@
         <value xml:lang="en">Unable to read from product entity: </value>
         <value xml:lang="it">Non è possibile leggere dall'entità product: </value>
         <value xml:lang="ja">製品エンティティから読み込むことができません: </value>
+        <value xml:lang="zh">无法从产品实体读：</value>
     </property>
     <property key="GoogleBaseViewPermissionError">
         <value xml:lang="en">You do not have permission to view this page. ("GOOGLEBASE_VIEW" needed)</value>
@@ -210,6 +219,7 @@
         <value xml:lang="en">Allow Google Base Recommended</value>
         <value xml:lang="ja">Googleショッピングのお勧めを許可</value>
         <value xml:lang="th">อนุญาติให้เพิ่มฟิลด์ที่แนะนำ</value>
+        <value xml:lang="zh">允许Google Base推荐</value>
     </property>
     <property key="PageTitleGoogleBaseProductsExportToGoogle">
         <value xml:lang="en">Export Products to Google Base</value>
@@ -319,6 +329,7 @@
     <property key="productsExportToGoogle.missingProduct">
         <value xml:lang="en">You have to choose any product(s)</value>
         <value xml:lang="fr">Vous devez choisir un ou des produits</value>
+        <value xml:lang="zh">你必须选产品</value>
     </property>
     <property key="productsExportToGoogle.noProductsAvailableInProductCategory">
         <value xml:lang="en">No products available in the selected productCategoryId</value>

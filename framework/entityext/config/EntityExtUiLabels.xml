@@ -23,100 +23,120 @@
         <value xml:lang="en">Cannot do Entity Sync Push because entitySyncId [] is set for Pull Only.</value>
         <value xml:lang="fr">Impossible d'effectuer la synchro (push) avec un configuration en mode esclave seulement (pull only).</value>
         <value xml:lang="it">Non è possibile fare Entity Sync Push perchè entitySyncId [] è impostato in Pull Only.</value>
+        <value xml:lang="zh">无法实现实体同步推送因为实体同步标识（entitySyncId []）被设置为了只能提取。</value>
     </property>
     <property key="EntityExtCannotFindDelegator">
         <value xml:lang="en">Could not find delegator with specified name ${overrideDelegatorName}</value>
         <value xml:lang="fr">Le delegateur avec le nom ${overrideDelegatorName} n'a pu être trouvé</value>
         <value xml:lang="it">Could not find delegator with specified name ${overrideDelegatorName}</value>
+        <value xml:lang="zh">无法找到名称为${overrideDelegatorName}的代理</value>
     </property>
     <property key="EntityExtEntitySyncXMLDocumentIsNotValid">
         <value xml:lang="en">EntitySync XML document ${fileName} is not valid!</value>
         <value xml:lang="fr">L'EntitySync XML document ${fileName} n'est pas valide !</value>
         <value xml:lang="it">EntitySync XML documento ${fileName} non è valido!</value>
+        <value xml:lang="zh">实体同步（EntitySync）XML文档${fileName}无效！</value>
     </property>
     <property key="EntityExtErrorCallingRemotePull">
         <value xml:lang="en">Error calling remote pull and report EntitySync service with name: ${remotePullAndReportEntitySyncDataName}</value>
         <value xml:lang="fr">Erreur lors de l'appel de l'esclave (remote pull) et de son rapport sur le service nommé : ${remotePullAndReportEntitySyncDataName}</value>
         <value xml:lang="it">Errore durante la chiamata del pull remoto e report EntitySync servizio con il nome: ${remotePullAndReportEntitySyncDataName}</value>
+        <value xml:lang="zh">调用远程提取和报表的实体同步（EntitySync）服务时出错，服务名称：${remotePullAndReportEntitySyncDataName}</value>
     </property>
     <property key="EntityExtErrorCallingService">
         <value xml:lang="en">Error calling service to store data locally</value>
         <value xml:lang="fr">Erreur d'appel du service de mise à jour des données locales</value>
         <value xml:lang="it">Errore durante la chiamata del servizio di registrazione locale dei dati</value>
+        <value xml:lang="zh">调用服务来本地存储数据时出错</value>
     </property>
     <property key="EntityExtErrorCleaningEntitySyncRemove">
         <value xml:lang="en">Error cleaning out EntitySyncRemove info: ${errorString}</value>
         <value xml:lang="fr">Erreur lors du nettoyage des EntitySyncRemove, plus d'informations : ${errorString}</value>
         <value xml:lang="it">Error cleaning out EntitySyncRemove info: ${errorString}</value>
+        <value xml:lang="zh">清除实体同步删除（EntitySyncRemove）信息时出错：${errorString}</value>
     </property>
     <property key="EntityExtErrorGettingListOfEntityInGroup">
         <value xml:lang="en">Error getting list of entities in group: ${errorString}</value>
         <value xml:lang="fr">Erreur lors de la récupération des entités du group : ${errorString}</value>
         <value xml:lang="it">Errore ad ottenere la lista delle entità nel gruppo: ${errorString}</value>
+        <value xml:lang="zh">获取分组中的实体列表时出错：${errorString}</value>
     </property>
     <property key="EntityExtErrorUnwrappingRecords">
         <value xml:lang="en">Error unwrapping ByteWrapper records: ${errorString}</value>
         <value xml:lang="fr">Erreur lors de l"ouverture du flux des enregistrements : ${errorString}</value>
         <value xml:lang="it">Errore unwrapping ByteWrapper records: ${errorString}</value>
+        <value xml:lang="zh">解析ByteWrapper记录时出错：${errorString}</value>
     </property>
     <property key="EntityExtErrorSavingEntitySyncData">
         <value xml:lang="en">Error saving Entity Sync Data for entitySyncId ${entitySyncId}: ${errorString}</value>
         <value xml:lang="fr">Erreur lors de la synchro de donnée pour la référence ${entitySyncId}: ${errorString}</value>
         <value xml:lang="it">Errore durante il salvataggio Entity Sync Data per entitySyncId ${entitySyncId}: ${errorString}</value>
+        <value xml:lang="zh">为实体同步标识（entitySyncId）${entitySyncId}保存实体同步数据时出错：${errorString}</value>
     </property>
     <property key="EntityExtExceptionSavingEntitySyncData">
         <value xml:lang="en">Exception saving Entity Sync Data for entitySyncId ${entitySyncId}: ${errorString}</value>
         <value xml:lang="fr">Exception lors de l'enregistrement de la synchro de donnée pour la référence ${entitySyncId}: ${errorString}</value>
         <value xml:lang="it">Eccezione durante il salvataggio Entity Sync Data per entitySyncId ${entitySyncId}: ${errorString}</value>
+        <value xml:lang="zh">为实体同步标识（entitySyncId）${entitySyncId}保存实体同步数据时出现意外：${errorString}</value>
     </property>
     <property key="EntityExtFileNotFound">
         <value xml:lang="en">File not found: ${fileName}</value>
         <value xml:lang="fr">Fichier ${fileName} non trouvé</value>
         <value xml:lang="it">File non trovato: ${fileName}</value>
+        <value xml:lang="zh">没有找到文件：${fileName}</value>
     </property>
     <property key="EntityExtNoFileAvailableInTheRootDirectory">
         <value xml:lang="en">No files available for reading in this root directory: ${rootDirectory}</value>
         <value xml:lang="fr">Aucun fichier disponible pour la lecture dans le répertoire ${rootDirectory}</value>
         <value xml:lang="it">Nessun file disponibile da leggere nella directory principale: ${rootDirectory}</value>
+        <value xml:lang="zh">这个根目录下没有可读的文件：${rootDirectory}</value>
     </property>
     <property key="EntityExtOfflineXMLFileNotFound">
         <value xml:lang="en">Offline EntitySync XML file not found (${fileName})</value>
         <value xml:lang="fr">Le fichier hors ligne (${fileName}) n'a pas été trouvé</value>
         <value xml:lang="it">File Offline EntitySync XML non trovato (${fileName})</value>
+        <value xml:lang="zh">没有找到离线实体同步（EntitySync）XML文件（${fileName}）</value>
     </property>
     <property key="EntityExtProblemReadingFile">
         <value xml:lang="en">Problem reading file: ${fileName}</value>
         <value xml:lang="fr">Problème lors de la lecture du fichier ${fileName}</value>
         <value xml:lang="it">Problema durante la lettura del file: ${fileName}</value>
+        <value xml:lang="zh">读文件时出问题：${fileName}</value>
     </property>
     <property key="EntityExtRootDirectoryDoesNotExists">
         <value xml:lang="en">Root directory does not exist or is not readable.</value>
         <value xml:lang="fr">Le répertoire racine n'existe pas ou n'est pas lisible</value>
         <value xml:lang="it">Directory principale non esiste o non è leggibile.</value>
+        <value xml:lang="zh">根目录不存在或不可读。</value>
     </property>
     <property key="EntityExtServicePermissionNotGranted">
         <value xml:lang="en">You do not have permission to run this service.</value>
         <value xml:lang="fr">Vous n'avez pas la permission d'exécuter ce service</value>
         <value xml:lang="it">Tu non hai il permesso di eseguire questo servizio.</value>
+        <value xml:lang="zh">你没有权限运行这个服务。</value>
     </property>
     <property key="EntityExtThisServiceIsNotYetImplemented">
         <value xml:lang="en">This service is not implemented yet.</value>
         <value xml:lang="fr">Ce service n'est pas implémenté actuellement</value>
         <value xml:lang="it">Questo servizio non è ancora implementato.</value>
+        <value xml:lang="zh">这个服务尚未实现。</value>
     </property>
     <property key="EntityExtUnableToLoadXMLDocument">
         <value xml:lang="en">Unable to load EntitySync XML ${entitySyncId} - Problem at '${startTime}' Error: ${errorString}</value>
         <value xml:lang="fr">Impossible de charger l'EntitySync XML ${entitySyncId} - Problème à '${startTime}' , avec l'erreur suivante : ${errorString}</value>
         <value xml:lang="it">Non è possibile caricare il EntitySync XML ${entitySyncId} - Problema alle '${startTime}' Errore: ${errorString}</value>
+        <value xml:lang="zh">无法载入实体同步（EntitySync）XML ${entitySyncId} - 问题发生在'${startTime}'，错误：${errorString}</value>
     </property>
     <property key="EntityExtUnableToLocateRootDirectory">
         <value xml:lang="en">Unable to locate root directory ${rootDirectory}</value>
         <value xml:lang="fr">Impossible de localiser le répertoire racine ${rootDirectory}</value>
         <value xml:lang="it">Non è possibile localizzare la directory principale ${rootDirectory}</value>
+        <value xml:lang="zh">无法定位根目录${rootDirectory}</value>
     </property>
     <property key="EntityExtUnableToLocateRootDirectoryURI">
         <value xml:lang="en">Unable to get root directory URI</value>
         <value xml:lang="fr">Impossible de récupérer le répertoire racine</value>
         <value xml:lang="it">Non è possibile localizzare la directory principale URI</value>
+        <value xml:lang="zh">不能得到根目录URI</value>
     </property>
 </resource>

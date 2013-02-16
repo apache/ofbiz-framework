@@ -1853,6 +1853,7 @@
         <value xml:lang="fr">Demande de congés créée avec succès</value>
         <value xml:lang="ja">休暇リクエストが正しく作成されました</value>
         <value xml:lang="vi">Yêu cầu Nghỉ phép đã được gửi đi thành công</value>
+        <value xml:lang="zh">离职请求创建成功</value>
     </property>
     <property key="HumanResListEmployments">
         <value xml:lang="en">List Employment</value>
@@ -2166,12 +2167,14 @@
         <value xml:lang="fr">Mes congés</value>
         <value xml:lang="ja">私の休暇</value>
         <value xml:lang="vi">Nghỉ phép của Bạn</value>
+        <value xml:lang="zh">我的休假</value>
     </property>
     <property key="HumanResMyTrainings">
         <value xml:lang="en">My Trainings</value>
         <value xml:lang="fr">Mes formations</value>
         <value xml:lang="ja">私のトレーニング</value>
         <value xml:lang="vi">Đào tạo của Bạn</value>
+        <value xml:lang="zh">我的培训</value>
     </property>
     <property key="HumanResNewEmplPosition">
         <value xml:lang="de">Stelle anlegen</value>
@@ -3178,6 +3181,7 @@
         <value xml:lang="fr">Calendrier de formation</value>
         <value xml:lang="ja">トレーニングのカレンダを検索</value>
         <value xml:lang="vi">Tra cứu lịch đào tạo</value>
+        <value xml:lang="zh">查找培训日历</value>
     </property>
     <property key="PageTitleFindTrainingStatus">
         <value xml:lang="en">Find Training Status</value>

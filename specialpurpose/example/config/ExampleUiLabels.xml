@@ -48,21 +48,25 @@
         <value xml:lang="en">Autocomplete Dropdown</value>
         <value xml:lang="fr">Liste déroulante à auto complétion</value>
         <value xml:lang="ja">ドロップダウン・オートコンプリート</value>
+        <value xml:lang="zh">自动填充的下拉框</value>
     </property>
     <property key="ExampleAutocompleteTooltip">
         <value xml:lang="en">COUNTRY type based example, use Geo.Geoid and Geo.GeoName Entity.fields for completion</value>
         <value xml:lang="fr">Exemple sur le type COUNTRY et utilisant Geo.Geoid et Geo.GeoName comme Entité.champs pour la complétion</value>
         <value xml:lang="ja">国種類に基づくサンプル。位置ID、位置名称のエンティティ項目を使用して完了します</value>
+        <value xml:lang="zh">基于国家类型的样例，使用Geo.Geoid和Geo.GeoName等Entity.fields来填充</value>
     </property>
     <property key="ExampleBaseNodeVersion">
         <value xml:lang="de">Verion des Content Knoten</value>
         <value xml:lang="en">Version of the base content node</value>
         <value xml:lang="ja">基本コンテンツノードのバージョン</value>
+        <value xml:lang="zh">基础内容节点的版本</value>
     </property>
     <property key="ExampleCalendarFromLayer">
         <value xml:lang="en">Calendar field (only test purp.)</value>
         <value xml:lang="fr">Calendrier (only test)</value>
         <value xml:lang="ja">カレンダ項目 (テスト目的のみ)</value>
+        <value xml:lang="zh">日历数据项（仅用于测试）</value>
     </property>
     <property key="ExampleCompanyName">
         <value xml:lang="en">OFBiz: Example</value>
@@ -136,11 +140,13 @@
         <value xml:lang="en">Field12: advanced date time selection with a step value for minutes</value>
         <value xml:lang="fr">Champ 12 : Sélection avancée date et temps avec la possibilité de choisir un pas pour les minutes</value>
         <value xml:lang="ja">フィールド12: 分の段階のある拡張日時選択</value>
+        <value xml:lang="zh">数据项12：带有分钟步长的高级日期时间选择</value>
     </property>
     <property key="ExampleDateField12Tooltip">
         <value xml:lang="en">Use step=1 (default), 5, 10, 15, 30</value>
         <value xml:lang="fr">Utiliser 1 (valeur par défaut), 5, 10, 15, 30 pour la valeur du pas</value>
         <value xml:lang="ja">ステップ=1 (デフォルト), 5, 10, 15, 30 を使用します</value>
+        <value xml:lang="zh">使用步长=1 (缺省), 5, 10, 15, 30</value>
     </property>
     <property key="ExampleDateField1Title">
         <value xml:lang="en">Field1: date and time selection field</value>
@@ -261,11 +267,13 @@
         <value xml:lang="en">Needs some fields to be set, see in FormWidgetExampleScreens.xml (begins with dependentForm)</value>
         <value xml:lang="fr">Nécessite de définir certains champs, voir dans FormWidgetExampleScreens.xml (commence avec dependentForm)</value>
         <value xml:lang="ja">セットする必要のある項目がいくつかあります。FormWidgetExampleScreens.xml を参照してください (dependentFormから始まる)</value>
+        <value xml:lang="zh">需要设置一些数据项，参见 FormWidgetExampleScreens.xml (从dependentForm开始)</value>
     </property>
     <property key="ExampleDependentDropDowns">
         <value xml:lang="en">Dependent drop-downs</value>
         <value xml:lang="fr">liste déroulante dépendantes</value>
         <value xml:lang="ja">独立したドロップダウン</value>
+        <value xml:lang="zh">相互依赖的下拉框</value>
     </property>
     <property key="ExampleDropDown">
         <value xml:lang="en">drop-down</value>
@@ -491,10 +499,12 @@
     <property key="ExampleFeaturesAddToExample">
         <value xml:lang="en">Add Feature To Example</value>
         <value xml:lang="ja">サンプルに機能を追加</value>
+        <value xml:lang="zh">为样例添加特征</value>
     </property>      
     <property key="ExampleFeaturesByExample">
         <value xml:lang="en">Features by Example</value>
         <value xml:lang="ja">サンプル別機能</value>
+        <value xml:lang="zh">按样例的特征</value>
     </property>    
     <property key="ExampleField">
         <value xml:lang="en">Field</value>
@@ -533,11 +543,13 @@
         <value xml:lang="de">Verion der gewählten sprache</value>
         <value xml:lang="en">Version of the choosen language</value>
         <value xml:lang="ja">選択した言語のバージョン</value>
+        <value xml:lang="zh">所选语言的版本</value>
     </property>
     <property key="ExampleLayerFromLayer">
         <value xml:lang="en">Layered lookup field (only test purp.)</value>
         <value xml:lang="fr">Lookup de type layer (only test)</value>
         <value xml:lang="ja">検索フィールドのレイヤー表示 (テスト目的のみ)</value>
+        <value xml:lang="zh">分层的查找数据项（仅用于测试）</value>
     </property>
     <property key="ExampleLongDescription">
         <value xml:lang="en">Long Description</value>
@@ -549,26 +561,31 @@
         <value xml:lang="en">Popup lookup field (old way, maybe be useful in some cases, notably if javascript is not enabled)</value>
         <value xml:lang="fr">Champ de recherche type popup (ancienne manière, encore utile, notamment si javascript n'est pas disponible)</value>
         <value xml:lang="ja">検索フィールドのポップアップ (古い方法、javascriptが有効でない場合に便利かもしれません)</value>
+        <value xml:lang="zh">弹出式查找数据项（老式的、某些情况下可能有用，特别是禁用了javascript时）</value>
     </property>
     <property key="ExampleLookupFields2">
         <value xml:lang="en">Layered lookup field with autocompletion and description at right</value>
         <value xml:lang="fr">Champs de recherche de type layer avec autocompletion et description à droite</value>
         <value xml:lang="ja">オートコンプリートと説明を持つ、検索フィールドのレイヤー表示</value>
+        <value xml:lang="zh">分层的查找数据项，带有自动填充功能，并在右侧有描述</value>
     </property>
     <property key="ExampleLookupFields3">
         <value xml:lang="en">Read only layered lookup field, only the button is available</value>
         <value xml:lang="fr">Champs de recherche de type layer en mode lecture seule, seul le bouton est utilisable</value>
         <value xml:lang="ja">読み取り専用検索フィールド。ボタンのみ有効</value>
+        <value xml:lang="zh">只读分层查找数据项，仅按钮可用</value>
     </property>
     <property key="ExampleLookupFields4">
         <value xml:lang="en">Lookup Field of type layered and showing use of set_values underneath, ie returning not only Id but also another value. Both using also autocomplete</value>
         <value xml:lang="fr">Champ de recherche de type layer avec usage sous-jacent de set_values qui permet de traiter non seulement une référence mais aussi une autre valeur. Les 2 utilisent aussi l'autocompletion</value>
         <value xml:lang="ja">レイヤー表示の種類の検索フィールド。下にセットした値の使用方法を表示。IDだけでなくその他の値を戻す。両方ともオートコンプリート使用</value>
+        <value xml:lang="zh">类型分层的查找数据项，并在下面显示数值集合的使用，比如不仅返回标识（Id），还有另一个数值。这两个数值都使用自动填充</value>
     </property>
     <property key="ExampleLookupFieldsTitle">
         <value xml:lang="en">Lookup Fields</value>
         <value xml:lang="fr">Champs de recherche</value>
         <value xml:lang="ja">検索フィールド</value>
+        <value xml:lang="zh">查找数据项</value>
     </property>
     <property key="ExampleMainPage">
         <value xml:lang="en">Example Main Page</value>
@@ -592,11 +609,13 @@
         <value xml:lang="en">Needs some fields to be set, see in FormWidgetExampleScreens.xml (begins with multipleSelect)</value>
         <value xml:lang="fr">Nécessite de définir certains champs, voir dans FormWidgetExampleScreens.xml (commence avec multipleSelect)</value>
         <value xml:lang="ja">いくつかのフィールドをセットする必要があります。FormWidgetExampleScreens.xml を参照してください (multipleSelectで始まる)</value>
+        <value xml:lang="zh">需要设置一些数据项，参见 FormWidgetExampleScreens.xml (从multipleSelect开始)</value>
     </property>
     <property key="ExampleMultipleDropDowns">
         <value xml:lang="en">Multiple drop-downs</value>
         <value xml:lang="fr">liste déroulante avec choix multiples</value>
         <value xml:lang="ja">複数ドロップダウン</value>
+        <value xml:lang="zh">多个下拉框</value>
     </property>
     <property key="ExampleNewExample">
         <value xml:lang="en">New Example</value>
@@ -622,6 +641,7 @@
         <value xml:lang="en">No SpecificTitle attribute set for this portlet. You can use the Portlet attribute editing button to set them.</value>
         <value xml:lang="it">Non si è specificato nessun valore per l'attributo SpecificTitle in questo Portlet. Utilizza la funzione editing dei parametri per impostarlo.</value>
         <value xml:lang="ja">このポートレットの SpecificTitle 属性設定がありません。設定するためにポートレット属性編集ボタンを使用してください。</value>
+        <value xml:lang="zh">这个小窗口没有设置指定标题（SpecificTitle）属性。你可以用小窗口属性编辑按钮来设置它们。</value>
     </property>
     <property key="ExampleOriginalExample">
         <value xml:lang="en">Original Example</value>
@@ -646,16 +666,19 @@
         <value xml:lang="en">In the permission-service element for the exampleGenericPermission service the main-action attribute was missing but is required</value>
         <value xml:lang="it">Nell'elemento permission-service per il servizio exampleGenericPermission l'attributo è mancancate ma è richiesto</value>
         <value xml:lang="ja">exampleGenericPermission サービスの中の permission-service 要素で、必要な main-action 属性が正しくありません</value>
+        <value xml:lang="zh">在用于exampleGenericPermission服务的permission-service元素中，缺少必须的main-action属性</value>
     </property>
     <property key="ExamplePointAddress">
         <value xml:lang="en">Geolocation via address</value>
         <value xml:lang="fr">Géolocalisation par l'adresse</value>
         <value xml:lang="ja">住所から位置情報</value>
+        <value xml:lang="zh">从地址获得地理位置</value>
     </property>
     <property key="ExamplePortletAttributNeedToBeDefineClickHere">
         <value xml:lang="en">Portlet Attribut need to be define, click here to resolve it </value>
         <value xml:lang="fr">Les attributs de la portlet doivent être definie. Cliquez ici pour résoudre le problème.</value>
         <value xml:lang="ja">Portlet 属性を定義する必要があります。ここをクリックして解決してください</value>
+        <value xml:lang="zh">需要定义小窗口属性，点击这里来解决它</value>
     </property>
     <property key="ExamplePortletFirst">
         <value xml:lang="en">Hi, this is a first example of portlet</value>
@@ -667,6 +690,7 @@
         <value xml:lang="en">Go to configured portal page -&gt; </value>
         <value xml:lang="fr">Allez à la page portail configurée -&gt; </value>
         <value xml:lang="ja">設定されたポータルページに移動 -&gt; </value>
+        <value xml:lang="zh">转到已配置的门户页面 -&gt; </value>
     </property>
     <property key="ExamplePortletSecond">
         <value xml:lang="en">Hi, this is a second example of portlet</value>
@@ -702,31 +726,37 @@
         <value xml:lang="de">Datei</value>
         <value xml:lang="en">File</value>
         <value xml:lang="ja">ファイル</value>
+        <value xml:lang="zh">文件</value>
     </property>
     <property key="ExampleRepositoryFolder">
         <value xml:lang="de">Ordner</value>
         <value xml:lang="en">Folder</value>
         <value xml:lang="ja">フォルダ</value>
+        <value xml:lang="zh">文件夹</value>
     </property>
     <property key="ExampleRepositoryMessage">
         <value xml:lang="de">Text Nachricht</value>
         <value xml:lang="en">Text message</value>
         <value xml:lang="ja">テキストメッセージ</value>
+        <value xml:lang="zh">文本消息</value>
     </property>
     <property key="ExampleRepositoryNode">
         <value xml:lang="de">Knoten</value>
         <value xml:lang="en">Node</value>
         <value xml:lang="ja">ノード</value>
+        <value xml:lang="zh">节点</value>
     </property>
     <property key="ExampleScanRepositoryStrukture">
         <value xml:lang="de">Repository Struktur überprüfen</value>
         <value xml:lang="en">Scan repository structure</value>
         <value xml:lang="ja">リポジトリ構造のスキャン</value>
+        <value xml:lang="zh">扫瞄库结构</value>
     </property>
     <property key="ExampleSelectionBoxes">
         <value xml:lang="en">Selection boxes</value>
         <value xml:lang="fr">Boutons de sélection</value>
         <value xml:lang="ja">選択ボックス</value>
+        <value xml:lang="zh">选择框</value>
     </property>
     <property key="ExampleSourceCode">
         <value xml:lang="en">Source Code</value>
@@ -919,5 +949,6 @@
         <value xml:lang="de">Sie haben den Wert in der Select Box geändert.</value>
         <value xml:lang="en">You have changed the value in the select box</value>
         <value xml:lang="ja">選択ボックスで値を変更されています</value>
+        <value xml:lang="zh">你修改了选择框中的值</value>
     </property>
 </resource>
