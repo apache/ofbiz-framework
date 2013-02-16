@@ -1513,6 +1513,9 @@
         <value xml:lang="zh">缺省实体名称</value>
         <value xml:lang="zh_TW">缺省實體名稱</value>
     </property>
+    <property key="WebtoolsDefinitionLocation">
+        <value xml:lang="en">Definition Location</value>
+    </property>
     <property key="WebtoolsDeleteFiles">
         <value xml:lang="de">Dateien nachher löschen?</value>
         <value xml:lang="en">Delete Files Afterwards?</value>
