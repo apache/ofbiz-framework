@@ -349,10 +349,9 @@ if (selectedService) {
 
     curServiceMap.serviceName = selectedService;
     curServiceModel = curDispatchContext.getModelService(selectedService);
-    curServiceMap.description = curServiceModel.description;
 
     if (curServiceModel != null) {
-
+        curServiceMap.description = curServiceModel.description;
         engineName = curServiceModel.engineName ?: "NA";
         defaultEntityName = curServiceModel.defaultEntityName ?: "NA";
         export = curServiceModel.export ? uiLabelMap.CommonTrue : uiLabelMap.CommonFalse;
@@ -378,6 +377,7 @@ if (selectedService) {
         curServiceMap.defaultEntityName = defaultEntityName;
         curServiceMap.invoke = invoke;
         curServiceMap.location = location;
+        curServiceMap.definitionLocation = curServiceModel.definitionLocation.replaceFirst("file:/" + System.getProperty("ofbiz.home") + "/", "");
         curServiceMap.requireNewTransaction = requireNewTransaction;
         curServiceMap.export = export;
         curServiceMap.exportBool = exportBool;
@@ -539,6 +539,11 @@ if (!selectedService) {
                 }
             }
 
+            if (canIncludeService && constraintName.equals("definitionLocation")) {
+                fullPath = "file:/" + System.getProperty("ofbiz.home") + "/" + constraintVal;
+                canIncludeService = curServiceModel.definitionLocation.equals(fullPath);
+            }
+
             if (canIncludeService && constraintName.equals("alpha")) {
                 canIncludeService = (serviceName[0]).equals(constraintVal);
                 if (constraintVal.equals("NA")) {
@@ -558,6 +563,7 @@ if (!selectedService) {
             curServiceMap.defaultEntityName = defaultEntityName;
             curServiceMap.invoke = invoke;
             curServiceMap.location = location;
+            curServiceMap.definitionLocation = curServiceModel.definitionLocation.replaceFirst("file:/" + System.getProperty("ofbiz.home") + "/", "");
             curServiceMap.requireNewTransaction = requireNewTransaction;
 
             servicesList.add(curServiceMap);
