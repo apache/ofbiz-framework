@@ -3028,17 +3028,38 @@ public class ModelForm extends ModelWidget {
         }
 
         public void renderStartString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
-            if (modelForm.fieldGroupList.size() > 0) {
-                formStringRenderer.renderFieldGroupOpen(writer, context, this);
+            if (!modelForm.fieldGroupList.isEmpty()) {
+                if (shouldUse(context)) {
+                    formStringRenderer.renderFieldGroupOpen(writer, context, this);
+                }
             }
             formStringRenderer.renderFormatSingleWrapperOpen(writer, context, modelForm);
         }
 
         public void renderEndString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderFormatSingleWrapperClose(writer, context, modelForm);
-            if (modelForm.fieldGroupList.size() > 0) {
-                formStringRenderer.renderFieldGroupClose(writer, context, this);
+            if (!modelForm.fieldGroupList.isEmpty()) {
+                if (shouldUse(context)) {
+                    formStringRenderer.renderFieldGroupClose(writer, context, this);
+                }
             }
+        }
+
+        public boolean shouldUse(Map<String, Object> context) {
+            for (String fieldName : modelForm.fieldGroupMap.keySet()) {
+                FieldGroupBase group = modelForm.fieldGroupMap.get(fieldName);
+                if (group instanceof FieldGroup) {
+                    FieldGroup fieldgroup =(FieldGroup) group;
+                    if (this.id.equals(fieldgroup.getId())) {
+                        for (ModelFormField modelField : modelForm.fieldList) {
+                            if (fieldName.equals(modelField.getName()) && modelField.shouldUse(context)) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
         }
     }
 
