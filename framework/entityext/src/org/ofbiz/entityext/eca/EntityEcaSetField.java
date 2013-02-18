@@ -30,14 +30,14 @@ import java.util.Map;
 /**
  * ServiceEcaSetField
  */
-public class EntityEcaSetField {
+public final class EntityEcaSetField {
 
     public static final String module = EntityEcaSetField.class.getName();
 
-    protected String fieldName = null;
-    protected String envName = null;
-    protected String value = null;
-    protected String format = null;
+    private final String fieldName;
+    private final String envName;
+    private final String value;
+    private final String format;
 
     public EntityEcaSetField(Element set) {
         this.fieldName = set.getAttribute("field-name");
@@ -47,29 +47,17 @@ public class EntityEcaSetField {
     }
 
     public void eval(Map<String, Object> context) {
-        if (fieldName != null) {
-            // try to expand the envName
-            if (UtilValidate.isEmpty(value)) {
-                if (UtilValidate.isNotEmpty(envName) && envName.startsWith("${")) {
-                    FlexibleStringExpander exp = FlexibleStringExpander.getInstance(envName);
-                    String s = exp.expandString(context);
-                    if (UtilValidate.isNotEmpty(s)) {
-                        value = s;
-                    }
-                    Debug.logInfo("Expanded String: " + s, module);
-                }
-            }
-
-            // process the context changes
-            if (UtilValidate.isNotEmpty(value)) {
-                context.put(fieldName, this.format(value, context));
-            } else if (UtilValidate.isNotEmpty(envName) && context.get(envName) != null) {
+        if (!fieldName.isEmpty()) {
+            String valueExpanded = FlexibleStringExpander.expandString(value, context);
+            if (!valueExpanded.isEmpty()) {
+                context.put(fieldName, this.format(valueExpanded, context));
+            } else if (!envName.isEmpty() && context.get(envName) != null) {
                 context.put(fieldName, this.format((String) context.get(envName), context));
             }
         }
     }
 
-    protected Object format(String s, Map<String, ? extends Object> c) {
+    private Object format(String s, Map<String, ? extends Object> c) {
         if (UtilValidate.isEmpty(s) || UtilValidate.isEmpty(format)) {
             return s;
         }
