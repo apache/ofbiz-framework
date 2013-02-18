@@ -291,6 +291,7 @@
         <value xml:lang="nl">Kan alleen een klantvraag aanpassen wanneer de status 'onder handen' is ... status is nu: ${custRequest.statusId}</value>
         <value xml:lang="pt_BR">Não se pode apenas atualizar CustRequest, quando o estado está "em processamento"... é agora: ${custRequest.statusId}</value>
         <value xml:lang="vi">Chỉ có thể cập nhật Yêu cầu từ Khách hàng khi trạng thái là Đang xử lý (in-process)... hiện tại là ${custRequest.statusId}</value>
+        <value xml:lang="zh">当状态是执行中时，无法更新客户请求...现在是：${custRequest.statusId}</value>
     </property>
     <property key="OrderCheckCustRequestDraftStatusForDelete">
         <value xml:lang="de">Kundenanfrage kann nur im Status 'Entwurf' gelöscht werden...ist jetzt: ${custRequest.statusId}</value>
@@ -299,6 +300,7 @@
         <value xml:lang="ja">ステータスが'初期'の顧客リクエストのみ削除できます...現在: ${custRequest.statusId}</value>
         <value xml:lang="nl">Kan alleen een klantvraag verwijderen wanneer de status 'draft' is ... status is nu: ${custRequest.statusId}</value>
         <value xml:lang="vi">Chỉ có thể xóa Yêu cầu từ Khách hàng khi trạng thái là Tạm (Draft), trạng thái hiện tại là ${custRequest.statusId}</value>
+        <value xml:lang="zh">只有在草稿状态时才能删除客户请求，现在状态是：${custRequest.statusId}</value>
     </property>
     <property key="OrderCouldNotFindOrderHeaderForOrderIdInGetProductStoreFromOrderReturningNull">
         <value xml:lang="de">Auftragskopf für Auftrag [ ${orderId} ] konnte nicht gefunden werden, liefere null zurück</value>
@@ -553,6 +555,7 @@
         <value xml:lang="nl">Fout: Alle regels van de bestelling met nummer #${orderId} zijn al gevalideerd</value>
         <value xml:lang="pt_BR">ERRO: Todos os itens do pedido #${orderId} já foram verificados</value>
         <value xml:lang="vi">Lỗi xảy ra: Tất cả hạng mục hàng hóa trong đơn hàng #${orderId} đã được thẩm định</value>
+        <value xml:lang="zh">错误：已经验证了订单#${orderId}的全部明细</value>
     </property>
     <property key="OrderErrorAttemptToVerifyOrderFailed">
         <value xml:lang="de">FEHLER: Der Versuch Auftrag #${orderId} zu prüfen schlug fehl</value>
@@ -562,6 +565,7 @@
         <value xml:lang="nl">Fout Poging om bestelling met nummer #${orderId} te controleren is mislukt</value>
         <value xml:lang="pt_BR">ERRO: Tentativa de verificar pedido #${orderId} falhou</value>
         <value xml:lang="vi">Lỗi xảy ra: Quá trình thẩm định đơn hàng #${orderId} không thành công</value>
+        <value xml:lang="zh">错误：验证订单#${orderId}时失败</value>
     </property>
     <property key="OrderErrorCallingCountProductQuantityOrderedService">
         <value xml:lang="de">Fehler beim Aufruf des countProductQuantityOrdered Service : </value>
@@ -834,6 +838,7 @@
         <value xml:lang="fr">Le changement de statut de ${custRequest.statusId} à ${parameters.statusId} n'est pas autorisé</value>
         <value xml:lang="it">Cambio di stato non è valido: da ${custRequest.statusId} a ${parameters.statusId}</value>
         <value xml:lang="ja">ステータスの変更が有効ではありません: ${custRequest.statusId} から ${parameters.statusId}</value>
+        <value xml:lang="zh">状态变化无效：从 ${custRequest.statusId} 变为 ${parameters.statusId}</value>
     </property>
     <property key="OrderErrorCouldNotChangeOrderStatusOrderCannotBeFound">
         <value xml:lang="de">FEHLER: Auftragsstatus konnte nicht geändert werden, Auftrag nicht gefunden</value>
@@ -975,6 +980,7 @@
         <value xml:lang="it">Creazione testata reso non ha ristituito in numero di reso</value>
         <value xml:lang="ja">返品作成が有効な返品IDを戻しませんでした</value>
         <value xml:lang="vi">Quá trình tạo mới không trả về ID hợp lệ</value>
+        <value xml:lang="zh">新建退货没有返回一个有效的退货标识</value>
     </property>
     <property key="OrderErrorCreateReturnItemWithoutId">
         <value xml:lang="de">Bei der Erstellung der Retourenposition wurde keine gültige Sequenz-Id zurückgegeben</value>
@@ -983,6 +989,7 @@
         <value xml:lang="it">Creazione riga reso non ha ristituito un numero di riga reso</value>
         <value xml:lang="ja">返品アイテム作成が有効な連番IDを戻しませんでした</value>
         <value xml:lang="vi">Quá trình tạo mới hạng mục hàng hóa không trả về ID số thứ tự hợp lệ</value>
+        <value xml:lang="zh">新建退货明细没有返回一个有效的序号标识</value>
     </property>
     <property key="OrderErrorCreatePermissionError">
         <value xml:lang="de">Berechtigungsfehler: Um ${resourceDescription} auszuführen muss man ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
@@ -991,6 +998,7 @@
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="ja">セキュリティエラー: ${resourceDescription} を実行するには ORDERMGR_CREATE または ORDERMGR_ADMIN 権限が必要です</value>
         <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần có quyền ORDERMGR_CREATE hoặc ORDERMGR_ADMIN</value>
+        <value xml:lang="zh">系统错误：要运行${resourceDescription}，你必须有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 权限</value>
     </property>
     <property key="OrderErrorUpdatePermissionError">
         <value xml:lang="de">Berechtigungsfehler: Um ${resourceDescription} auszuführen muss man ORDERMGR_UPDATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
@@ -999,6 +1007,7 @@
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso ORDERMGR_UPDATE o ORDERMGR_ADMIN</value>
         <value xml:lang="ja">セキュリティエラー: ${resourceDescription} を実行するには ORDERMGR_UPDATE または ORDERMGR_ADMIN 権限が必要です</value>
         <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần có quyền ORDERMGR_UPDATE hoặc ORDERMGR_ADMIN</value>
+        <value xml:lang="zh">系统错误：要运行${resourceDescription}，你必须有 ORDERMGR_UPDATE 或 ORDERMGR_ADMIN 权限</value>
     </property>
     <property key="OrderErrorDeletePermissionError">
         <value xml:lang="de">Berechtigungsfehler: Um ${resourceDescription} auszuführen muss man ORDERMGR_DELETE oder ORDERMGR_ADMIN Berechtigungen haben</value>
@@ -1007,6 +1016,7 @@
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso ORDERMGR_DELETE o ORDERMGR_ADMIN</value>
         <value xml:lang="ja">セキュリティエラー: ${resourceDescription} を実行するには ORDERMGR_DELETE または ORDERMGR_ADMIN 権限が必要です</value>
         <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần có quyền ORDERMGR_DELETE hoặc ORDERMGR_ADMIN</value>
+        <value xml:lang="zh">系统错误：要运行${resourceDescription}，你必须有 ORDERMGR_DELETE 或 ORDERMGR_ADMIN 权限</value>
     </property>
     <property key="OrderErrorCustRequestWithIdDoesntExist">
         <value xml:lang="de">Fehler : Kundenanfrage mit Id [ ${custRequestId} ] existiert nicht. </value>
@@ -1030,6 +1040,7 @@
         <value xml:lang="it">Richiesta non trovata, lo stato è : ${custRequest.statusId}</value>
         <value xml:lang="ja">顧客リクエストが見つかりません。ステータスID: ${custRequest.statusId}</value>
         <value xml:lang="vi">Yêu cầu khách hàng không tìm thấy, trạng thái ID: ${custRequest.statusId}</value>
+        <value xml:lang="zh">没有找到客户请求（CustRequest），状态标识是：${custRequest.statusId}</value>
     </property>
     <property key="OrderErrorGettingNextOrderIdWhileCreatingOrder">
         <value xml:lang="de">Fehler beim Ermitteln der nächsten Order-Id</value>
@@ -1123,6 +1134,7 @@
         <value xml:lang="ja">エラー: 注文No ${orderId} はすでに確認されていますす。次のパッケージの計量処理に移動してください</value>
         <value xml:lang="pt_BR">ERRO: Pedido #${orderId} já foi verificado, acesse a tela Pesar Pacote Apenas para mais processamento</value>
         <value xml:lang="vi">Lỗi xảy ra : Đơn hàng #${orderId} đã được xem xét, bạn hãy vào màn hình đóng gói cân nặng (Weigh Package Onlys) để tiếp tục xử lý</value>
+        <value xml:lang="zh">错误：已经验证过订单${orderId}了，请转到“仅为包裹称重”页面以进一步处理</value>
     </property>
     <property key="OrderErrorOrderIdNotFound">
         <value xml:lang="de">FEHLER: Auftrag mit ID [${orderId}] nicht gefunden</value>
@@ -1187,6 +1199,7 @@
         <value xml:lang="ja">エラー: 注文No ${orderId} は梱包の承認がされていません</value>
         <value xml:lang="pt_BR">ERRO: Pedido #${orderId} não está liberado para empacotamento</value>
         <value xml:lang="vi">Lỗi xảy ra : Đơn hàng [${orderId}] chưa được duyệt để đóng gói (packing)</value>
+        <value xml:lang="zh">错误：没有批准订单#${orderId}进行包装</value>
     </property>
     <property key="OrderErrorOrderNotApprovedForPicking">
         <value xml:lang="de">FEHLER: Auftrag ${orderId} nicht zum Kommisionieren freigegeben</value>
@@ -1195,6 +1208,7 @@
         <value xml:lang="ja">エラー: 注文No ${orderId} はピッキングの承認がされていません</value>
         <value xml:lang="pt_BR">ERRO: Pedido #${orderId} não está liberado para recolhimento</value>
         <value xml:lang="vi">Lỗi xảy ra : Đơn hàng [${orderId}] chưa được duyệt để chuyển đi (picking)</value>
+        <value xml:lang="zh">错误：没有批准订单#${orderId}进行分拣</value>
     </property>
     <property key="OrderErrorOrderNotPurchaseOrder">
         <value xml:lang="de">Auftrag ${orderId} ist kein Einkaufsauftrag</value>
@@ -1216,6 +1230,7 @@
         <value xml:lang="fr">ERREUR : La commande ${orderId} n'est pas vérifiée, effectuez le colisage à la place de la pesée</value>
         <value xml:lang="ja">エラー: 注文No ${orderId} は確認されていません。パッケージの計量ではなく、次の処理は注文を梱包ボタンをクリックしてください。</value>
         <value xml:lang="pt_BR">ERRO: Pedido #${orderId} não foi verificado, clique no botão Empacotar Pedido ao invés de Apenas Pesar Pacote para mais processamento</value>
+        <value xml:lang="zh">错误：没有验证订单#${orderId}，请点击“包装订单”按钮、而不是“仅包裹称重”来进一步处理</value>
     </property>
     <property key="OrderErrorOrderNotVerifiedForPacking">
         <value xml:lang="de">FEHLER: Auftrag ${orderId} wurde nicht für die Kommissionierung grprüft</value>
@@ -1224,6 +1239,7 @@
         <value xml:lang="ja">エラー: 注文No ${orderId} は梱包の確認がされていません</value>
         <value xml:lang="pt_BR">ERRO: Pedido #${orderId} não foi verificado para empacotamento</value>
         <value xml:lang="vi">Lỗi xảy ra : Đơn hàng #${orderId} chưa được kiểm tra để đóng gói (packing)</value>
+        <value xml:lang="zh">错误：没有为包装验证订单#${orderId}</value>
     </property>
     <property key="OrderErrorOrderTypeLookupFailed">
         <value xml:lang="de">FEHLER : Suche nach Auftragsart fehlgeschlagen : </value>
@@ -1290,6 +1306,7 @@
         <value xml:lang="it">Non è possibile creare la testata del reso</value>
         <value xml:lang="ja">返品ヘッダが作成できません</value>
         <value xml:lang="vi">Không thể tạo phần đầu hoàn trả (return header)</value>
+        <value xml:lang="zh">无法创建退货头</value>
     </property>
     <property key="OrderErrorUnableToCreateReturnItem">
         <value xml:lang="de">Fehler beim Erstellen der Retouren-Position</value>
@@ -1298,6 +1315,7 @@
         <value xml:lang="it">Non è possibile creare la riga del reso</value>
         <value xml:lang="ja">返品アイテムが作成できません</value>
         <value xml:lang="vi">Không thể tạo hạng mục hàng hóa hoàn trả (return item)</value>
+        <value xml:lang="zh">无法创建退货明细</value>
     </property>
     <property key="OrderErrorUnableToCreateReturnStatusHistory">
         <value xml:lang="de">Fehler beim Erstellen des Retouren-Status-Verlaufes</value>
@@ -1512,6 +1530,7 @@
         <value xml:lang="it">Non è possibile trovare l'utente dal database</value>
         <value xml:lang="ja">エラー: データベースからユーザログインを見つけることができません</value>
         <value xml:lang="vi">Không thể tìm thấy tài khoản đăng nhập từ cơ sở dữ liệu</value>
+        <value xml:lang="zh">无法从数据库查找用户登录（UserLogin）</value>
     </property>
     <property key="OrderErrorUnableToUpdateReturnHeaderStatus">
         <value xml:lang="de">Status des Retourenkopfes konnte nicht geändert werden</value>
@@ -1520,6 +1539,7 @@
         <value xml:lang="it">Non è possibile aggiornare lo stato della testata del reso</value>
         <value xml:lang="ja">エラー: 返品ヘッダステータスを更新できません。</value>
         <value xml:lang="vi">Không thể cập nhật trạng thái phần đầu trả về (return header status)</value>
+        <value xml:lang="zh">无法更新退货头状态</value>
     </property>
     <property key="OrderErrorWithCreateBillingAccount">
         <value xml:lang="de">Fehler bei Erstellung des Rechnungskontos: </value>
@@ -1821,6 +1841,7 @@
         <value xml:lang="en">No available fin account</value>
         <value xml:lang="fr">Pas de compte financier disponible</value>
         <value xml:lang="pt_BR">Nenhuma conta de financiamento disponível</value>
+        <value xml:lang="zh">没有可用的财务账户</value>
     </property>
     <property key="OrderNoCategorySpecifiedToAddFrom">
         <value xml:lang="de">Keine Kategorie zum hinzufügen ausgewählt. </value>
@@ -2110,6 +2131,7 @@
         <value xml:lang="it">Ordine ${parameters.orderId} non esiste.</value>
         <value xml:lang="ja">ID ${parameters.orderId} の注文が存在しません。</value>
         <value xml:lang="vi">Đơn hàng với id ${parameters.orderId} không tồn tại.</value>
+        <value xml:lang="zh">不存在标识为${parameters.orderId}的订单。</value>
     </property>
     <property key="OrderOrderItemIdDoesNotExists">
         <value xml:lang="de">Auftragsposition ${orderItem.orderItemSeqId} ist nicht vorhanden.</value>
@@ -2118,6 +2140,7 @@
         <value xml:lang="it">Riga ordine ${orderItem.orderItemSeqId} non esiste.</value>
         <value xml:lang="ja">ID ${orderItem.orderItemSeqId} の注文アイテムが存在しません。</value>
         <value xml:lang="vi">hạng mục hàng hóa trong đơn hàng với id ${orderItem.orderItemSeqId} không tồn tại.</value>
+        <value xml:lang="zh">不存在标识为${orderItem.orderItemSeqId}的订单明细。</value>
     </property>
     <property key="OrderOrderItemTypeNotExist">
         <value xml:lang="de">Auftragsposition-Art ist nicht vorhanden</value>
@@ -2156,6 +2179,7 @@
         <value xml:lang="ja">この条件の種類に注文条件日数は必要です。</value>
         <value xml:lang="pt_BR">Dias de prazo para pedido é necessário para esse tipo de prazo.</value>
         <value xml:lang="vi">Số ngày của điều khoản đơn hàng bắt buộc phải nhập cho loại điều khoản này.</value>
+        <value xml:lang="zh">这个条款类型需要有订单条件天数。 </value>
     </property>
     <property key="OrderOrderTermTypeIsRequired">
         <value xml:lang="de">Auftragskonditions-Typ wird benötigt. </value>
@@ -2254,6 +2278,7 @@
         <value xml:lang="ja">金融アカウントロールレコード作成中にエラー</value>
         <value xml:lang="pt_BR">Problema ao criar registro para FinAccountRole (Papel de conta de financiamento)</value>
         <value xml:lang="vi">Tạo vai trò tài khoản kế toán (FinAccountRole) không thành công</value>
+        <value xml:lang="zh">创建财务账户角色（FinAccountRole）记录时出错</value>
     </property>
     <property key="OrderProblemCreatingFinAccountTransRecord">
         <value xml:lang="de">Problem bei der Erstellung Finanzkonten-Rolle</value>
@@ -2262,6 +2287,7 @@
         <value xml:lang="ja">金融アカウントトランザクションレコード作成中にエラー</value>
         <value xml:lang="pt_BR">Problema ao criar registro FinAccountTrans</value>
         <value xml:lang="vi">Tạo tài khoản giao dịch kế toán (FinAccountTrans) không thành công</value>
+        <value xml:lang="zh">创建财务账户交易（FinAccountTrans）记录时出错</value>
     </property>
     <property key="OrderProblemCreatingPaymentApplicationRecord">
         <value xml:lang="de">Problem beim erstellen der Zahlungszuweisung</value>
@@ -2580,6 +2606,7 @@
         <value xml:lang="ja">店舗に対する金融アカウント作成中にエラー</value>
         <value xml:lang="pt_BR">Problemas ao criar FinAccount (Conta de financiamento) para loja</value>
         <value xml:lang="vi">Tạo tài khoản tài chính (FinAccount) cho kho hàng (Store) không thành công</value>
+        <value xml:lang="zh">为店铺创建财务账户时出现问题</value>
     </property>
     <property key="OrderProblemsCreatingReturnItemResponseEntity">
         <value xml:lang="de">Problem bei der Erstellung einer Retouren-Positions-Antwort</value>
@@ -2723,6 +2750,7 @@
         <value xml:lang="it">Errore durante la lettura informazioni della riga ordine: ${errorString}</value>
         <value xml:lang="ja"> 注文アイテム ${errorString} 読み込み中にエラー。</value>
         <value xml:lang="vi">Lỗi khi đọc hạng mục hàng hóa của đơn hàng: ${errorString}</value>
+        <value xml:lang="zh">读取订单明细（OrderItem）时出错：${errorString}</value>
     </property>
     <property key="OrderProblemsStoringOrderEmailContactInformation">
         <value xml:lang="de">Problem beim speichern der Email-Kontaktinformationen</value>
@@ -2881,6 +2909,7 @@
         <value xml:lang="it">Il cambio di stato da ${quote.statusId} a ${parameters.statusId} non è consentito</value>
         <value xml:lang="ja">${quote.statusId} から ${parameters.statusId} へのステータスの変更は有効な変更ではありません</value>
         <value xml:lang="vi">Trạng thái thay đổi từ ${quote.statusId} đến ${parameters.statusId} là không hợp lệ</value>
+        <value xml:lang="zh">状态不能从 ${quote.statusId} 变为 ${parameters.statusId}</value>
     </property>
     <property key="OrderQuoteNotARequest">
         <value xml:lang="de">FEHLER: Kundenanfrage ${custRequest.custRequestId} ist keine Angebotsanfrage.</value>
@@ -2889,6 +2918,7 @@
         <value xml:lang="it">ERRORE: Richiesta ${custRequest.custRequestId} non è richiesta di preventivo.</value>
         <value xml:lang="ja">エラー: 顧客リクエスト ${custRequest.custRequestId} は見積に対するリクエストではありません。</value>
         <value xml:lang="vi">Lỗi xảy ra: Yêu cầu khách hàng ${custRequest.custRequestId} không phải là yêu cầu cho báo giá (quote).</value>
+        <value xml:lang="zh">错误：客户请求（CustRequest）${custRequest.custRequestId}不是一个询价请求。</value>
     </property>
     <property key="OrderQuoteNotAWorkEffort">
         <value xml:lang="de">FEHLER: Arbeitsaufwand für Angebot ${parameters.quoteId} ${parameters.workEffortId} ist schon vorhanden.</value>
@@ -2897,6 +2927,7 @@
         <value xml:lang="it">ERRORE: Impegno di lavoro ${parameters.quoteId} ${parameters.workEffortId} non è preventivo di impegno di lavoro.</value>
         <value xml:lang="ja">エラー: 見積作業成果 ${parameters.quoteId} ${parameters.workEffortId} はすでに存在します。</value>
         <value xml:lang="vi">Lỗi xảy ra : Công việc báo giá ${parameters.quoteId} ${parameters.workEffortId} đã tồn tại.</value>
+        <value xml:lang="zh">错误：已存在询价人工服务（QuoteWorkEffort）${parameters.quoteId}、${parameters.workEffortId}。</value>
     </property>
     <property key="OrderQuoteWorkEffortDoesNotExists">
         <value xml:lang="de">FEHLER: Arbeitsaufwand für Angebot ${parameters.quoteId} ${parameters.workEffortId} ist nicht vorhanden.</value>
@@ -2905,6 +2936,7 @@
         <value xml:lang="it">ERRORE: Impegno di lavoro ${parameters.quoteId} ${parameters.workEffortId} non esiste.</value>
         <value xml:lang="ja">エラー: 見積作業成果 ${parameters.quoteId} ${parameters.workEffortId} は存在しません。</value>
         <value xml:lang="vi">Lỗi xảy ra : Công việc báo giá ${parameters.quoteId} ${parameters.workEffortId} chưa tồn tại.</value>
+        <value xml:lang="zh">错误：不存在询价人工服务（QuoteWorkEffort）${parameters.quoteId}、${parameters.workEffortId}。</value>
     </property>
     <property key="OrderReceivedNullForOrderItemRecordsOrderId">
         <value xml:lang="de">Angebotsposition zu Auftrag ${orderId} ist NULL</value>
@@ -2995,6 +3027,7 @@
         <value xml:lang="it">Tipo riga reso non è definita per questa riga.</value>
         <value xml:lang="ja">このアイテムに対して返品アイテム種類が定義されていないか、マッピングが見つかりません。</value>
         <value xml:lang="vi">Loại hàng hóa hoàn trả không được định nghĩa cho hàng hóa này; hoặc không có ánh xạ nào được tìm thấy.</value>
+        <value xml:lang="zh">没有为这个明细定义退货明细类型；或者没有找到映射。</value>
     </property>
     <property key="OrderReturnItemTypeOrderItemNoMatching">
         <value xml:lang="de">Keine Zuordnung der Retourenpositionsart für diese Auftragsposition gefunden: ${orderItem}</value>
@@ -3003,6 +3036,7 @@
         <value xml:lang="it">Nessuna corrispondenza trovata fra il tipo riga reso e la riga ordine: ${orderItem}</value>
         <value xml:lang="ja">注文アイテム ${orderItem} に対して一致する返品アイテム種類が見つかりません。</value>
         <value xml:lang="vi">Không có bản đồ ánh xạ loại hàng hóa hoàn trả (return item type map) được tìm thấy cho hàng hóa: ${orderItem}</value>
+        <value xml:lang="zh">没有找到符合退货明细类型键值表的订单明细：${orderItem}</value>
     </property>
     <property key="OrderReturnPaymentMethodNeededForThisTypeOfReturn">
         <value xml:lang="de">Es muss eine Zahlungsart für diese Retourenart festgelegt werden</value>
@@ -3070,6 +3104,7 @@
         <value xml:lang="it">Errore: un reso deve avere un soggetto con ruolo organizzazione interna</value>
         <value xml:lang="ja">エラー: 返品は内部組織のロールに含まれる取引先に対して行う必要があります</value>
         <value xml:lang="vi">Lỗi xảy ra: giá trị trả về phải là đơn vị (party) với vai trò tổ chức nội bộ (internal organization)</value>
+        <value xml:lang="zh">错误：退货必须是到一个有内部机构角色的会员</value>
     </property>
     <property key="OrderReturnRequestPartyRoleSupplier">
         <value xml:lang="de">Fehler: eine Retoure muss an einen Akteur in der Rolle 'Lieferant' gehen</value>
@@ -3078,6 +3113,7 @@
         <value xml:lang="it">Errore: un reso deve avere un soggetto con ruolo fornitore</value>
         <value xml:lang="ja">エラー: 返品はサプライヤのロールに含まれる取引先に対して行う必要があります</value>
         <value xml:lang="vi">Lỗi xảy ra: giá trị trả về phải là đơn vị (party) với vai trò nhà cung cấp (supplier)</value>
+        <value xml:lang="zh">错误：退货必须是到有供货商角色的会员</value>
     </property>
     <property key="OrderReturnTotalCannotLessThanZero">
         <value xml:lang="de">Der Gesamtbetrag der Retoure [${returnTotalAmount}] kann nicht kleiner Null sein.</value>
@@ -5898,6 +5934,7 @@
         <value xml:lang="ja">プロモーションコード [${productPromoCodeId}] はすでに登録されています。</value>
         <value xml:lang="pt_BR">O código da promoção [${productPromoCodeId}] já foi utilizado.</value>
         <value xml:lang="vi">Mã khuyến mãi [${productPromoCodeId}] đã được sử dụng.</value>
+        <value xml:lang="zh">已经输入过促销代码[${productPromoCodeId}]。</value>
     </property>
     <property key="productpromoworker.promotion_code_error_lookup">
         <value xml:lang="de">Fehler beim Prüfen des Aktionscode [${productPromoCodeId}]: {errorMsg}</value>
@@ -5906,6 +5943,7 @@
         <value xml:lang="ja">プロモーションコード [${productPromoCodeId}] の検索時にエラーが発生しました: {errorMsg}</value>
         <value xml:lang="pt_BR">Erro ao procurar pelo código da promoção [${productPromoCodeId}]: {errorMsg}</value>
         <value xml:lang="vi">Lỗi xảy ra khi tìm mã khuyến mãi [${productPromoCodeId}]: {errorMsg}</value>
+        <value xml:lang="zh">查找促销代码[${productPromoCodeId}]时出错：{errorMsg}</value>
     </property>
     <property key="productpromoworker.promotion_code_is_expired_at">
         <value xml:lang="de">Der Aktionscode [${productPromoCodeId}] ist am ${thruDate} abgelaufen.</value>
@@ -5914,6 +5952,7 @@
         <value xml:lang="ja">プロモーションコード [${productPromoCodeId}] は ${thruDate} で終了しています。</value>
         <value xml:lang="pt_BR">O código da promoção [${productPromoCodeId}] expirou em ${thruDate}</value>
         <value xml:lang="vi">Mã khuyến mãi [${productPromoCodeId}] đã hết hạn tại thời điểm: ${thruDate}</value>
+        <value xml:lang="zh">促销代码 [${productPromoCodeId}] 已经过期了：${thruDate}</value>
     </property>
     <property key="productpromoworker.promotion_code_maximum_limit">
         <value xml:lang="de">Diser Aktionscode [${productPromoCodeId}] hat sein Nutzungslimit erreicht und kann nicht länger verwendet werden.</value>
@@ -5921,6 +5960,7 @@
         <value xml:lang="fr">Ce code de promotion (${productPromoCodeId}) a atteint sa limite d'usage pour vous et ne plus être utilisé.</value>
         <value xml:lang="ja">このプロモーションコード (${productPromoCodeId}) は使用回数の限度に達しています。もう使用することができません。</value>
         <value xml:lang="pt_BR">Esse código de promoção (${productPromoCodeId}) atingiu seu número máximo de utilização por você, portanto não pode mais ser utilizado.</value>
+        <value xml:lang="zh">促销代码(${productPromoCodeId})已经达到了你的最大使用次数限制，不能再用了。</value>
     </property>
     <property key="productpromoworker.promotion_code_no_account_or_email">
         <value xml:lang="de">Diser Aktionscode [${productPromoCodeId}] muss mit Ihrem Konto oder der Email-Adresse verknüpft sein.</value>
@@ -5929,6 +5969,7 @@
         <value xml:lang="ja">このプロモーションコード [${productPromoCodeId}] はあなたのアカウントまたはEメールアドレスと関連付けられていないため使用できません。</value>
         <value xml:lang="pt_BR">O código de promoção [${productPromoCodeId}] necessita que você esteja associado a ele por sua conta ou endereço de email e você não está.</value>
         <value xml:lang="vi">Mã khuyến mãi [${productPromoCodeId}] yêu cầu bạn cần liên kết mã này với tài khoản hoặc địa chỉ thư điện tử nhưng bạn không liên kết thành công với các thông tin này.</value>
+        <value xml:lang="zh">促销代码[${productPromoCodeId}]必须与你的账户或电子邮件关联，但是你目前没有与它关联。</value>
     </property>
     <property key="productpromoworker.promotion_code_not_valid">
         <value xml:lang="de">Der eingegebene Aktionscode [${productPromoCodeId}] ist ungültig.</value>
@@ -5937,6 +5978,7 @@
         <value xml:lang="ja">このプロモーションコード [${productPromoCodeId}] は有効ではありません。</value>
         <value xml:lang="pt_BR">O código de promoção [${productPromoCodeId}] não existe.</value>
         <value xml:lang="vi">Mã khuyến mãi [${productPromoCodeId}] không hợp lệ.</value>
+        <value xml:lang="zh">促销代码[${productPromoCodeId}]无效。</value>
     </property>
     <property key="productpromoworker.promotion_code_will_be_activated_at">
         <value xml:lang="de">Dieser Aktionscode [${productPromoCodeId}] wird am {fromDate} aktiviert.</value>
@@ -5945,6 +5987,7 @@
         <value xml:lang="ja">このプロモーションコード [${productPromoCodeId}] は {fromDate} から有効になります。</value>
         <value xml:lang="pt_BR">O código de promoção [${productPromoCodeId}] será ativado em ${fromDate}</value>
         <value xml:lang="vi">Mã khuyến mãi [${productPromoCodeId}] sẽ được kích hoạt tại thời điểm: {fromDate}</value>
+        <value xml:lang="zh">促销代码[${productPromoCodeId}]激活日期为：{fromDate}</value>
     </property>
     <property key="shoppingCartEvents.invalid_alternateGwpLine">
         <value xml:lang="de">Alternatives Geschenk konnte nicht gewählt werden, alternateGwpLine ist keine gültige Nummer</value>
@@ -6218,5 +6261,6 @@
         <value xml:lang="en">You cannot add a 'Virtual' product here, select one of the related variants.</value>
         <value xml:lang="ja">'仮想'製品をここで追加できません。関連した別型を選択してください。</value>
         <value xml:lang="vi">Bạn không thể thêm sản phẩm ảo ('Virtual' product) tại đây, bạn hãy chọn trong các hàng hóa liên quan (related variants).</value>
+        <value xml:lang="zh">在这里你不能添加一个虚拟产品，请选择一个相关的变型。</value>
     </property>
 </resource>
