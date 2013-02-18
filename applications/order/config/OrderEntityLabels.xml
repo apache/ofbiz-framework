@@ -921,6 +921,7 @@
         <value xml:lang="ja">サイズ交換</value>
         <value xml:lang="pt_BR">Troca de tamanho</value>
         <value xml:lang="vi">Chuyển đổi cỡ</value>
+        <value xml:lang="zh">更换尺寸</value>
     </property>
     <property key="ReturnType.description.RTN_CREDIT">
         <value xml:lang="de">Guthaben</value>
