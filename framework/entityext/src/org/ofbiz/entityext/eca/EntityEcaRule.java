@@ -135,9 +135,9 @@ public final class EntityEcaRule implements java.io.Serializable {
                     EntityEcaAction ea = (EntityEcaAction) actionOrSet;
                     // in order to enable OR logic without multiple calls to the given service,
                     //only execute a given service name once per service call phase
-                    if (actionsRun.add(ea.serviceName)) {
+                    if (actionsRun.add(ea.getServiceName())) {
                         if (Debug.infoOn()) {
-                            Debug.logInfo("Running Entity ECA Service: " + ea.serviceName + ", triggered by rule on Entity: " + value.getEntityName(), module);
+                            Debug.logInfo("Running Entity ECA Service: " + ea.getServiceName() + ", triggered by rule on Entity: " + value.getEntityName(), module);
                         }
                         ea.runAction(dctx, context, value);
                     }
