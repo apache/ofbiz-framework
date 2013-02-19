@@ -96,7 +96,7 @@ public final class EntityEcaCondition implements java.io.Serializable {
     }
 
     public String getRValue() {
-        if (constant) {
+        if (constant && !rhsValueName.isEmpty()) {
             return "\"".concat(this.rhsValueName).concat("\"");
         }
         return this.rhsValueName;
