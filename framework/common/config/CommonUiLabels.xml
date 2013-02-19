@@ -2071,6 +2071,56 @@
         <value xml:lang="zh-CN">国家</value>
         <value xml:lang="zh-TW">國家</value>
     </property>
+    <property key="CommonCountryCode">
+        <value xml:lang="cs">Mezinárodní předvolba</value>
+        <value xml:lang="de">Landesvorwahl</value>
+        <value xml:lang="en">Country Code</value>
+        <value xml:lang="es">Código de país</value>
+        <value xml:lang="fr">Code pays</value>
+        <value xml:lang="hi_IN">देश कोड</value>
+        <value xml:lang="it">Codice paese</value>
+        <value xml:lang="ja">国コード</value>
+        <value xml:lang="nl">Land Kode</value>
+        <value xml:lang="pt_BR">Código do país</value>
+        <value xml:lang="pt_PT">Código do País</value>
+        <value xml:lang="ro">Cod Tara</value>
+        <value xml:lang="ru">Код страны</value>
+        <value xml:lang="th">รหัสประเทศ</value>
+        <value xml:lang="vi">Mã nước</value>
+        <value xml:lang="zh">国家代码</value>
+        <value xml:lang="zh_TW">國碼</value>
+    </property>
+    <property key="CommonCountryCodeMissing">
+        <value xml:lang="de">Landesvorwahl fehlt</value>
+        <value xml:lang="en">Country code is Missing</value>
+        <value xml:lang="fr">Le code pays manque</value>
+        <value xml:lang="hi_IN">देश कोड गायब है</value>
+        <value xml:lang="it">Codice paese è mancante</value>
+        <value xml:lang="ja">国コードが正しくありません</value>
+        <value xml:lang="pt_BR">Código do país está em branco</value>
+        <value xml:lang="vi">Mã nước chưa được nhập</value>
+        <value xml:lang="zh">找不到国家代码</value>
+        <value xml:lang="zh_TW">沒有國碼</value>
+    </property>
+    <property key="CommonCountryMissing">
+        <value xml:lang="cs">Chybí země</value>
+        <value xml:lang="de">Land fehlt</value>
+        <value xml:lang="en">Country is Missing</value>
+        <value xml:lang="es">Falta el País</value>
+        <value xml:lang="fr">Pays absent</value>
+        <value xml:lang="hi_IN">देश नही है</value>
+        <value xml:lang="it">Paese mancante</value>
+        <value xml:lang="ja">国が正しくありません</value>
+        <value xml:lang="nl">Naam van het land mist</value>
+        <value xml:lang="pt_BR">País está em branco</value>
+        <value xml:lang="pt_PT">País em falta</value>
+        <value xml:lang="ro">Tara lipseste </value>
+        <value xml:lang="ru">Страна не указана</value>
+        <value xml:lang="th">ไม่ได้ใส่ประเทศ</value>
+        <value xml:lang="vi">Thông tin Đất nước chưa được nhập</value>
+        <value xml:lang="zh">找不到国家</value>
+        <value xml:lang="zh_TW">沒有國家</value>
+    </property>    
     <property key="CommonCounty">
         <value xml:lang="ar">ولاية</value>
         <value xml:lang="de">Kreis/Bezirk</value>
