@@ -503,6 +503,7 @@
         <value xml:lang="fr">Numéro de télécopie du service comptabilité</value>
         <value xml:lang="ja">請求先FAX番号</value>
         <value xml:lang="vi">Số fax của nơi thanh toán</value>
+        <value xml:lang="zh">寄账单目的地传真号码</value>
     </property>
     <property key="ContactMechPurposeType.description.FAX_NUMBER">
         <value xml:lang="de">Haupt Faxnummer</value>
@@ -544,6 +545,7 @@
         <value xml:lang="fr">Numéro de télécopie du service expédition</value>
         <value xml:lang="ja">発送先FAX番号</value>
         <value xml:lang="vi">Số fax nơi chuyển hàng đến</value>
+        <value xml:lang="zh">送货目的地传真号码</value>
     </property>
     <property key="ContactMechPurposeType.description.GENERAL_LOCATION">
         <value xml:lang="de">Allgemeine Korrespondenzadresse</value>
@@ -567,12 +569,14 @@
         <value xml:lang="fr">Adresse du calendrier (URL)</value>
         <value xml:lang="ja">iCalendar URL</value>
         <value xml:lang="vi">iCalendar URL</value>
+        <value xml:lang="zh">iCalendar网址</value>
     </property>
     <property key="ContactMechPurposeType.description.MARKETING_EMAIL">
         <value xml:lang="en">Primary Marketing Email Address</value>
         <value xml:lang="fr">Adresse courriel du service marketing</value>
         <value xml:lang="ja">主マーケティング電子メールアドレス</value>
         <value xml:lang="vi">Địa chỉ thư điện tử tiếp thị chính</value>
+        <value xml:lang="zh">主要的市场电子邮件地址</value>
     </property>
     <property key="ContactMechPurposeType.description.ORDER_EMAIL">
         <value xml:lang="de">Auftrags-Benachrichtigungen E-Mail-Adresse</value>
@@ -1002,6 +1006,7 @@
         <value xml:lang="fr">Note Interne</value>
         <value xml:lang="ja">内部取引先連絡</value>
         <value xml:lang="vi">Ghi chú tác nhân nội bộ</value>
+        <value xml:lang="zh">内部会员便笺</value>
     </property>
     <property key="ContactMechType.description.IP_ADDRESS">
         <value xml:lang="de">Internet IP Adresse</value>
@@ -1025,6 +1030,7 @@
         <value xml:lang="fr">Annuaire (URL)</value>
         <value xml:lang="ja">LDAPアドレス</value>
         <value xml:lang="vi">Địa chỉ LDAP</value>
+        <value xml:lang="zh">LDAP地址</value>
     </property>
     <property key="ContactMechType.description.POSTAL_ADDRESS">
         <value xml:lang="de">Postadresse</value>
@@ -1371,6 +1377,7 @@
         <value xml:lang="ja">内部コンテンツ</value>
         <value xml:lang="pt_BR">Conteúdo interno</value>
         <value xml:lang="vi">Thông tin nội bộ</value>
+        <value xml:lang="zh">内部内容</value>
     </property>
     <property key="PartyContentType.description.LGOIMGURL">
         <value xml:lang="en">Logo Image URL</value>
@@ -1379,6 +1386,7 @@
         <value xml:lang="ja">ロゴ画像URL</value>
         <value xml:lang="pt_BR">URL do logotipo</value>
         <value xml:lang="vi">URL ảnh Logo</value>
+        <value xml:lang="zh">标志图片网址</value>
     </property>
     <property key="PartyContentType.description.USERDEF">
         <value xml:lang="en">User Defined Content</value>
@@ -1387,6 +1395,7 @@
         <value xml:lang="ja">ユーザ定義コンテンツ</value>
         <value xml:lang="pt_BR">Conteúdo definido por usuário</value>
         <value xml:lang="vi">Thông tin riêng của người dùng</value>
+        <value xml:lang="zh">用户定义的内容</value>
     </property>
     <property key="PartyContentType.description.VNDSHPINF">
         <value xml:lang="en">Vendor Shipping Info</value>
@@ -1395,6 +1404,7 @@
         <value xml:lang="ja">ベンダ発送情報</value>
         <value xml:lang="pt_BR">Informação do transportador</value>
         <value xml:lang="vi">Thông tin chuyển hàng của nhà bán hàng</value>
+        <value xml:lang="zh">厂家送货信息</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.ACCOUNT">
         <value xml:lang="en">Account Owned by</value>
@@ -2768,6 +2778,7 @@
         <value xml:lang="ja">日程表メンバ</value>
         <value xml:lang="pt_BR">Membro de agenda</value>
         <value xml:lang="vi">Thành viên hội thảo</value>
+        <value xml:lang="zh">日历成员</value>
     </property>
     <property key="RoleType.description.INTERNAL_ORGANIZATIO">
         <value xml:lang="de">Interne Organisation</value>

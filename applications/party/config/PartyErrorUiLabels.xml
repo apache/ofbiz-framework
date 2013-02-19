@@ -71,11 +71,13 @@
         <value xml:lang="en">ERROR: Status is not a valid change; old Status: ${communicationEventRole.statusId}, new status: ${parameters.statusId}</value>
         <value xml:lang="it">ERRORE: Cambio di stato non valido; vecchio stato: ${communicationEventRole.statusId}, nuovo stato: ${parameters.statusId}</value>
         <value xml:lang="ja">エラー: ステータスの変更が有効ではありません。旧ステータス: ${communicationEventRole.statusId}, 新ステータス: ${parameters.statusId}</value>
+        <value xml:lang="zh">错误：状态变化无效；旧的状态：${communicationEventRole.statusId}，新的状态：${parameters.statusId}</value>
     </property>
     <property key="commeventservices.communication_event_status">
         <value xml:lang="en">ERROR: Status is not a valid change; old Status: ${communicationEvent.statusId}, new status: ${parameters.statusId}</value>
         <value xml:lang="fr">ERREUR : Le changement de ${communicationEvent.statusId} à ${parameters.statusId} n'est pas valide</value>
         <value xml:lang="ja">エラー: ステータスの変更が有効ではありません。旧ステータス: ${communicationEvent.statusId}, 新ステータス: ${parameters.statusId}</value>
+        <value xml:lang="zh">错误：状态变化无效；旧的状态：${communicationEvent.statusId}，新的状态：${parameters.statusId}</value>
     </property>
     <property key="commeventservices.communication_event_to_contact_mech_must_be_email">
         <value xml:lang="de">FEHLER: Kommunikationsereignis muss ein "Kontaktmechanismus an" besitzen das ein E-Mail als Kommunikationereignis ID ist</value>
@@ -553,12 +555,14 @@
         <value xml:lang="fr">L`acteur ${0} n'est pas du type personne.</value><!-- ` used instead of ' else because ' may interfere with the result from ${0} and prevent it to appears-->
         <value xml:lang="ja">取引先 ${0} の種類が個人ではありません</value>
         <value xml:lang="nl">De relatie ${0} is niet van het soort PERSON</value>       
+        <value xml:lang="zh">会员${0}不是人员（PERSON）类型的会员</value>
     </property>
     <property key="partytypehelper.NotGroupType">
         <value xml:lang="en">The party ${0} is not a PARTYGROUP type party</value>
         <value xml:lang="fr">L`acteur ${0} n'est pas du type groupe.</value><!-- ` used instead of ' else because ' may interfere with the result from ${0} and prevent it to appears-->
         <value xml:lang="ja">取引先 ${0} の種類が取引先グループではありません</value>
         <value xml:lang="nl">De relatie ${0} is not van het soort PARTYGROUP</value>        
+        <value xml:lang="zh">会员${0}不是会员组（PARTYGROUP）类型的会员</value>
     </property>    
     <property key="partyrelationshipservices.cannot_create_party_relationship_partyIdFrom_not_in_role">
         <value xml:lang="de">Kann Akteur Beziehung nicht erstellen, Akteur ID Von besitzt nicht die angebenene Rolle.</value>
