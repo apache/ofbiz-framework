@@ -62,7 +62,7 @@ under the License.
 
 
         <field name="phoneTitle" title="${uiLabelMap.PartyPrimaryPhone}" title-area-style="group-label"><display/></field>
-        <field name="countryCode" title="${uiLabelMap.PartyCountryCode}"><text size="4" maxlength="10"/></field>
+        <field name="countryCode" title="${uiLabelMap.CommonCountryCode}"><text size="4" maxlength="10"/></field>
         <field name="areaCode" title="${uiLabelMap.PartyAreaCode}"><text size="4" maxlength="10"/></field>
         <field name="contactNumber" title="${uiLabelMap.PartyPhoneNumber}"><text size="15" maxlength="15"/></field>
         <field name="extension" title="${uiLabelMap.PartyContactExt}"><text size="6" maxlength="10"/></field>
@@ -229,7 +229,7 @@ under the License.
         </field>
     </form>
     <form name="FindTelecomNumber" type="single">
-        <field name="tnCountryCode" title="${uiLabelMap.PartyCountryCode}"><text-find/></field>
+        <field name="tnCountryCode" title="${uiLabelMap.CommonCountryCode}"><text-find/></field>
         <field name="tnAreaCode" title="${uiLabelMap.PartyAreaCode}"><text-find/></field>
         <field name="tnContactNumber" title="${uiLabelMap.PartyContactNumber}"><text-find/></field>
         <field name="tnExtension" title="${uiLabelMap.PartyExtension}"><text-find/></field>

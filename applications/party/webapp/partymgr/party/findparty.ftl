@@ -167,7 +167,7 @@ under the License.
 <#if extInfo == "T">
           <tr><td colspan="3"><hr /></td></tr>
           <tr>
-            <td class="label">${uiLabelMap.PartyCountryCode}</td>
+            <td class="label">${uiLabelMap.CommonCountryCode}</td>
             <td><input type="text" name="countryCode" value="${parameters.countryCode?if_exists}"/></td>
           </tr>
           <tr>

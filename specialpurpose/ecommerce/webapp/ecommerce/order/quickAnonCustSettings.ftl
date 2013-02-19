@@ -91,7 +91,7 @@ under the License.
               <tr>
                 <td width="26%" align="right" valign="top"><div></div></td>
                 <td width="2%">&nbsp;</td>
-                <td width="72%"><div>[${uiLabelMap.PartyCountryCode}] [${uiLabelMap.PartyAreaCode}] [${uiLabelMap.PartyContactNumber}] [${uiLabelMap.PartyExtension}]</div></td>
+                <td width="72%"><div>[${uiLabelMap.CommonCountryCode}] [${uiLabelMap.PartyAreaCode}] [${uiLabelMap.PartyContactNumber}] [${uiLabelMap.PartyExtension}]</div></td>
               </tr>
               <tr>
                 <td width="10%" align="right"><div>${uiLabelMap.PartyHomePhone}</div></td>
