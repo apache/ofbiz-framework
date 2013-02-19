@@ -322,6 +322,7 @@
         <value xml:lang="en">Name is required</value>
         <value xml:lang="ja">名前は必須です。</value>
         <value xml:lang="fr">Le nom doit être renseignés</value>
+        <value xml:lang="zh">必须有名称</value>
     </property>
     <property key="PosInvalidSelection">
         <value xml:lang="ar">اختيار غير صحيح</value>

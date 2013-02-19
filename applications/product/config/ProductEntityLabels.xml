@@ -529,6 +529,7 @@
         <value xml:lang="en">Ebay Root (One)</value>
         <value xml:lang="ja">Epayルート(1)</value>
         <value xml:lang="vi">Thư mục gốc Ebay (duy nhất)</value>
+        <value xml:lang="zh">eBay根（一个）</value>
     </property>
     <property key="ProdCatalogCategoryType.description.PCCT_MOST_POPULAR">
         <value xml:lang="de">Am populärsten (Eine)</value>
@@ -717,6 +718,7 @@
         <value xml:lang="fr">Conditionnement alternatif</value>
         <value xml:lang="ja">代わりのパッケージ</value>
         <value xml:lang="vi">Đóng gói thay thế</value>
+        <value xml:lang="zh">替代性包装</value>
     </property>
     <property key="ProductAssocType.description.ENGINEER_COMPONENT">
         <value xml:lang="de">Stückliste Engineering</value>
@@ -1043,6 +1045,7 @@
         <value xml:lang="en">Gift Card</value>
         <value xml:lang="ja">ギフトカード</value>
         <value xml:lang="vi">Thẻ quà tặng</value>
+        <value xml:lang="zh">礼品卡</value>
     </property>
     <property key="ProductCategoryContentType.description.LINK1_ALT_TEXT">
         <value xml:lang="de">Link 1 Alternativtext</value>
@@ -1109,6 +1112,7 @@
         <value xml:lang="en">Gift Cards</value>
         <value xml:lang="ja">ギフトカード</value>
         <value xml:lang="vi">Thẻ tặng quà</value>
+        <value xml:lang="zh">礼品卡</value>
     </property>
     <property key="ProductCategoryType.description.INDUSTRY_CATEGORY">
         <value xml:lang="de">Industrie</value>
@@ -1228,7 +1232,7 @@
         <value xml:lang="it">Immagine - Vista adggiuntiva 1</value>
         <value xml:lang="ja">画像 - 追加表示1</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 1</value>
-        <value xml:lang="zh">图像 - 额外检查1</value>
+        <value xml:lang="zh">图片 - 附图1</value>
         <value xml:lang="zh_TW">圖像 - 額外檢查1</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_1_SMALL">
@@ -1237,6 +1241,7 @@
         <value xml:lang="it">Immagine - Vista adggiuntiva 1 piccola</value>
         <value xml:lang="ja">画像 - 追加表示1 小</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 1 (nhỏ)</value>
+        <value xml:lang="zh">图片 — 小尺寸附图1</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_1_MEDIUM">
         <value xml:lang="de">Zusatzbild 1 mittel</value>
@@ -1244,6 +1249,7 @@
         <value xml:lang="it">Immagine - Vista adggiuntiva 1 media</value>
         <value xml:lang="ja">画像 - 追加表示1 中</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 1 (vừa)</value>
+        <value xml:lang="zh">图片 — 中尺寸附图1</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_1_LARGE">
         <value xml:lang="de">Zusatzbild 1 groß</value>
@@ -1251,6 +1257,7 @@
         <value xml:lang="it">Immagine - Vista adggiuntiva 1 grande</value>
         <value xml:lang="ja">画像 - 追加表示1 大</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 1 (lớn)</value>
+        <value xml:lang="zh">图片 — 大尺寸附图1</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_1_DETAIL">
         <value xml:lang="de">Zusatzbild 1 Detail</value>
@@ -1258,6 +1265,7 @@
         <value xml:lang="it">Immagine - Vista adggiuntiva 1 dettaglio</value>
         <value xml:lang="ja">画像 - 追加表示1 詳細</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 1 (chi tiết)</value>
+        <value xml:lang="zh">图片 — 详细附图1</value>
     </property>
     <property key="ProductContentType.description.ADDITIONAL_IMAGE_2">
         <value xml:lang="de">Zusatzbild 2</value>
@@ -1265,7 +1273,7 @@
         <value xml:lang="it">Immagine - Vista adggiuntiva 2</value>
         <value xml:lang="ja">画像 - 追加表示2</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 2</value>
-        <value xml:lang="zh">图像 - 额外检查2</value>
+        <value xml:lang="zh">图片 - 附图2</value>
         <value xml:lang="zh_TW">圖像 - 額外檢查2</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_2_SMALL">
@@ -1274,6 +1282,7 @@
         <value xml:lang="it">Immagine - Vista adggiuntiva 2 piccola</value>
         <value xml:lang="ja">画像 - 追加表示2 小</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 2 (nhỏ)</value>
+        <value xml:lang="zh">图片 — 小尺寸附图2</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_2_MEDIUM">
         <value xml:lang="de">Zusatzbild 2 mittel</value>
@@ -1281,6 +1290,7 @@
         <value xml:lang="it">Immagine - Vista adggiuntiva 2 media</value>
         <value xml:lang="ja">画像 - 追加表示2 中</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 2 (vừa)</value>
+        <value xml:lang="zh">图片 — 中尺寸附图2</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_2_LARGE">
         <value xml:lang="de">Zusatzbild 2 groß</value>
@@ -1288,6 +1298,7 @@
         <value xml:lang="it">Immagine - Vista adggiuntiva 2 grande</value>
         <value xml:lang="ja">画像 - 追加表示2 大</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 2 (lớn)</value>
+        <value xml:lang="zh">图片 — 大尺寸附图2</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_2_DETAIL">
         <value xml:lang="de">Zusatzbild 2 Detail</value>
@@ -1295,6 +1306,7 @@
         <value xml:lang="it">Immagine - Vista adggiuntiva 2 dettaglio</value>
         <value xml:lang="ja">画像 - 追加表示2 詳細</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 2 (chi tiết)</value>
+        <value xml:lang="zh">图片 — 详细附图2</value>
     </property>
     <property key="ProductContentType.description.ADDITIONAL_IMAGE_3">
         <value xml:lang="de">Zusatzbild 3</value>
@@ -1302,7 +1314,7 @@
         <value xml:lang="it">Immagine - Vista adggiuntiva 3</value>
         <value xml:lang="ja">画像 - 追加表示3</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 3</value>
-        <value xml:lang="zh">图像 - 额外检查3</value>
+        <value xml:lang="zh">图片 - 附图3</value>
         <value xml:lang="zh_TW">圖像 - 額外檢查3</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_3_SMALL">
@@ -1311,6 +1323,7 @@
         <value xml:lang="it">Immagine - Vista adggiuntiva 3 piccola</value>
         <value xml:lang="ja">画像 - 追加表示3 小</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 3 (nhỏ)</value>
+        <value xml:lang="zh">图片 — 小尺寸附图3</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_3_MEDIUM">
         <value xml:lang="de">Zusatzbild 3 mittel</value>
@@ -1318,6 +1331,7 @@
         <value xml:lang="it">Immagine - Vista adggiuntiva 3 media</value>
         <value xml:lang="ja">画像 - 追加表示3 中</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 3 (vừa)</value>
+        <value xml:lang="zh">图片 — 中尺寸附图3</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_3_LARGE">
         <value xml:lang="de">Zusatzbild 3 groß</value>
@@ -1325,6 +1339,7 @@
         <value xml:lang="it">Immagine - Vista adggiuntiva 3 grande</value>
         <value xml:lang="ja">画像 - 追加表示3 大</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 3 (lớn)</value>
+        <value xml:lang="zh">图片 — 大尺寸附图3</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_3_DETAIL">
         <value xml:lang="de">Zusatzbild 3 Detail</value>
@@ -1332,6 +1347,7 @@
         <value xml:lang="it">Immagine - Vista adggiuntiva 3 dettaglio</value>
         <value xml:lang="ja">画像 - 追加表示3 詳細</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 3 (chi tiết)</value>
+        <value xml:lang="zh">图片 — 详细附图3</value>
     </property>
     <property key="ProductContentType.description.ADDITIONAL_IMAGE_4">
         <value xml:lang="de">Zusatzbild 4</value>
@@ -1339,7 +1355,7 @@
         <value xml:lang="it">Immagine - Vista adggiuntiva 4</value>
         <value xml:lang="ja">画像 - 追加表示4</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 4</value>
-        <value xml:lang="zh">图像 - 额外检查4</value>
+        <value xml:lang="zh">图片 - 附图4</value>
         <value xml:lang="zh_TW">圖像 - 額外檢查4</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_4_SMALL">
@@ -1348,6 +1364,7 @@
         <value xml:lang="it">Immagine - Vista adggiuntiva 4 piccola</value>
         <value xml:lang="ja">画像 - 追加表示4 小</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 4 (nhỏ)</value>
+        <value xml:lang="zh">图片 — 小尺寸附图4</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_4_MEDIUM">
         <value xml:lang="de">Zusatzbild 4 mittel</value>
@@ -1355,6 +1372,7 @@
         <value xml:lang="it">Immagine - Vista adggiuntiva 4 media</value>
         <value xml:lang="ja">画像 - 追加表示4 中</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 4 (vừa)</value>
+        <value xml:lang="zh">图片 — 中尺寸附图4</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_4_LARGE">
         <value xml:lang="de">Zusatzbild 4 groß</value>
@@ -1362,6 +1380,7 @@
         <value xml:lang="it">Immagine - Vista adggiuntiva 4 grande</value>
         <value xml:lang="ja">画像 - 追加表示4 大</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 4 (lớn)</value>
+        <value xml:lang="zh">图片 — 大尺寸附图4</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_4_DETAIL">
         <value xml:lang="de">Zusatzbild 4 Detail</value>
@@ -1369,6 +1388,7 @@
         <value xml:lang="it">Immagine - Vista adggiuntiva 4 dettaglio</value>
         <value xml:lang="ja">画像 - 追加表示4 詳細</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 4 (chi tiết)</value>
+        <value xml:lang="zh">图片 — 详细附图4</value>
     </property>
     <property key="ProductContentType.description.ADDTOCART_IMAGE">
         <value xml:lang="de">Zum Warenkorb hinzufügen Bild</value>
@@ -1742,36 +1762,43 @@
         <value xml:lang="en">Black</value>
         <value xml:lang="fr">Noir</value>
         <value xml:lang="ja">黒</value>
+        <value xml:lang="zh">黑</value>
     </property>
     <property key="ProductFeature.description.TEXT_BLUE">
         <value xml:lang="en">Blue</value>
         <value xml:lang="fr">Bleu</value>
         <value xml:lang="ja">青</value>
+        <value xml:lang="zh">蓝</value>
     </property>
     <property key="ProductFeature.description.TEXT_GRAY">
         <value xml:lang="en">Gray</value>
         <value xml:lang="fr">Gris</value>
         <value xml:lang="ja">灰</value>
+        <value xml:lang="zh">灰</value>
     </property>
     <property key="ProductFeature.description.TEXT_GREEN">
         <value xml:lang="en">Green</value>
         <value xml:lang="fr">Vert</value>
         <value xml:lang="ja">緑</value>
+        <value xml:lang="zh">绿</value>
     </property>
     <property key="ProductFeature.description.TEXT_RED">
         <value xml:lang="en">Red</value>
         <value xml:lang="fr">Rouge</value>
         <value xml:lang="ja">赤</value>
+        <value xml:lang="zh">红</value>
     </property>
     <property key="ProductFeature.description.TEXT_YELLOW">
         <value xml:lang="en">Yellow</value>
         <value xml:lang="fr">Jaune</value>
         <value xml:lang="ja">黄</value>
+        <value xml:lang="zh">黄</value>
     </property>
     <property key="ProductFeature.description.TEXT_WHITE">
         <value xml:lang="en">White</value>
         <value xml:lang="fr">Blanc</value>
         <value xml:lang="ja">白</value>
+        <value xml:lang="zh">白</value>
     </property>
     <property key="ProductFeatureApplType.description.DISTINGUISHING_FEAT">
         <value xml:lang="de">Unterscheidendes Merkmal</value>
@@ -2543,6 +2570,7 @@
         <value xml:lang="fr">Utiliser le compteur de distance par trajet</value>
         <value xml:lang="ja">距離計を使用</value>
         <value xml:lang="vi">Sử dụng đồng hồ đo quãng đường chuyến đi</value>
+        <value xml:lang="zh">使用里程表</value>
     </property>
     <property key="ProductMeterType.description.TACHOGRAPH">
         <value xml:lang="de">Tachograph benutzen</value>
@@ -2550,6 +2578,7 @@
         <value xml:lang="fr">Utiliser le tacographe</value>
         <value xml:lang="ja">タコグラフを使用</value>
         <value xml:lang="vi">Sử dụng đồng hồ đo tốc độ gốc</value>
+        <value xml:lang="zh">使用转速表</value>
     </property>
     <property key="ProductMeterType.description.TAXIMETER">
         <value xml:lang="de">Taxameter benutzen</value>
@@ -2557,6 +2586,7 @@
         <value xml:lang="fr">Utiliser le taximètre</value>
         <value xml:lang="ja">タクシーメータを使用</value>
         <value xml:lang="vi">Sử dụng đồng hồ tính tiền taxi</value>
+        <value xml:lang="zh">使用出租车计价器</value>
     </property>
     <property key="ProductMeterType.description.EVENT_DATA_RECORDER">
         <value xml:lang="de">Ereignissdatenschreiber</value>
@@ -2564,6 +2594,7 @@
         <value xml:lang="fr">Utiliser l'enregistreur d'évènements</value>
         <value xml:lang="ja">イベントデータレコーダを使用</value>
         <value xml:lang="vi">Sử dụng bộ ghi dữ liệu sự kiện</value>
+        <value xml:lang="zh">使用事件数据记录器</value>
     </property>
     <property key="ProductMeterType.description.PEDOMETER">
         <value xml:lang="de">Pedometer benutzen</value>
@@ -2571,6 +2602,7 @@
         <value xml:lang="fr">Utiliser le podomètre</value>
         <value xml:lang="ja">歩数計を使用</value>
         <value xml:lang="vi">Sử dụng đồng hồ đo bước</value>
+        <value xml:lang="zh">使用计步器</value>
     </property>
     <property key="ProductPriceActionType.description.PRICE_FLAT">
         <value xml:lang="de">Pauschalbetrag übersteuern</value>
@@ -2675,6 +2707,7 @@
         <value xml:lang="fr">Pourcentage du prix de gros</value>
         <value xml:lang="ja">卸売割合(%)</value>
         <value xml:lang="vi">Tỷ lệ phần trăm của bán buôn</value>
+        <value xml:lang="zh">批发百分比</value>
     </property>
     <property key="ProductPriceActionType.description.PRICE_WFLAT">
         <value xml:lang="de">Grosshandelspreis übersteuern</value>
@@ -2833,6 +2866,7 @@
         <value xml:lang="en">Minimum order Price</value>
         <value xml:lang="ja">最低注文価格</value>
         <value xml:lang="vi">Giá sàn đặt hàng</value>
+        <value xml:lang="zh">最低订单价格</value>
     </property>
     <property key="ProductPriceType.description.MINIMUM_PRICE">
         <value xml:lang="de">Minimum Preis</value>
@@ -3039,6 +3073,7 @@
         <value xml:lang="it">Pacco di vendita</value>
         <value xml:lang="ja">販売パッケージ</value>
         <value xml:lang="vi">Gói marketing</value>
+        <value xml:lang="zh">促销包</value>
     </property>
     <property key="ProductType.description.MARKETING_PKG_AUTO">
         <value xml:lang="de">Marketingpaket</value>
@@ -3573,6 +3608,7 @@
         <value xml:lang="fr">Paramètres de recherche</value>
         <value xml:lang="ja">検索パラメータ</value>
         <value xml:lang="vi">Tham số tìm kiếm</value>
+        <value xml:lang="zh">搜索参数</value>
     </property>
     <property key="ProductCategoryLinkType.description.PCLT_ABS_URL">
         <value xml:lang="de">Absolute URL</value>
@@ -3580,6 +3616,7 @@
         <value xml:lang="fr">URL absolue</value>
         <value xml:lang="ja">絶対URL</value>
         <value xml:lang="vi">Đường dẫn tuyệt đối</value>
+        <value xml:lang="zh">绝对网址</value>
     </property>
     <property key="ProductCategoryLinkType.description.PCLT_CAT_ID">
         <value xml:lang="de">Kategorie ID</value>
@@ -3587,6 +3624,7 @@
         <value xml:lang="fr">Ref. de catégorie</value>
         <value xml:lang="ja">カテゴリID</value>
         <value xml:lang="vi">Mã Danh mục</value>
+        <value xml:lang="zh">分类标识</value>
     </property>
     <!-- Field Descriptions -->
     <!--  ProdCatalog -->
@@ -3594,46 +3632,55 @@
         <value xml:lang="en">This cannot be changed without re-creating the Product Catalog.</value>
         <value xml:lang="ja">変更できません、製品カタログを再作成してください。</value>
         <value xml:lang="vi">Phần này không thể thay đổi khi không tạo lại Danh mục sản phẩm.</value>
+        <value xml:lang="zh">重新建产品目录才能修改它。</value>
     </property>
     <property key="FieldDescription.ProdCatalog.catalogName">
         <value xml:lang="en">This will be shown to your customers, so think of image when giving your catalog a name.</value>
         <value xml:lang="ja">これは顧客に表示されます、カタログに名前をつける時にイメージを考えてください。</value>
         <value xml:lang="vi">Phần này sẽ hiển thị tới khách hàng của bạn, hãy nghĩ về hình ảnh hi bạn đưa đến một cái tên danh mục.</value>
+        <value xml:lang="zh">这会显示给的客户，所以在命名你的目前前想像一下这个情况。</value>
     </property>
     <property key="FieldDescription.ProdCatalog.useQuickAdd">
         <value xml:lang="en">Set this to Y if you want to give users the option to quick add products.</value>
         <value xml:lang="ja">ユーザに製品のクイック追加オプションを付加する場合は Y をセットしてください。</value>
         <value xml:lang="vi">Đặt là 'Y' nếu bạn muốn cho phép người dùng lựa chọn lệnh thêm nhanh sản phẩm.</value>
+        <value xml:lang="zh">如果想让你的用户能快速添加产品，请设置这个选项为Y。</value>
     </property>
     <property key="FieldDescription.ProdCatalog.styleSheet">
         <value xml:lang="en">The path to your distinctive style sheet which will govern the appearance of your catalog goes here.</value>
         <value xml:lang="ja">カタログの表示を管理するスタイルシートのパスを入力してください。</value>
         <value xml:lang="vi">Con đường dẫn đến phong cách trang đặc biệt của bạn mà sẽ chi phối sự xuất hiện của danh mục của bạn tại đây.</value>
+        <value xml:lang="zh">你特有的、控制你的目录外观的风格页的目录。</value>
     </property>
     <property key="FieldDescription.ProdCatalog.headerLogo">
         <value xml:lang="en">This will be seen by your customers. Maintain your image and message with the logo presented.</value>
         <value xml:lang="ja">これは顧客に表示されます、ロゴと一緒に表示される画像とメッセージをメンテナンスしてください。</value>
         <value xml:lang="vi">Phần này sẽ được khách hàng nhìn thấy. Duy trì hình ảnh và thông điệp của bạn với logo</value>
+        <value xml:lang="zh">这会显示给你的客户。维护显示你的标志时的图片和信息。</value>
     </property>
     <property key="FieldDescription.ProdCatalog.contentPathPrefix">
         <value xml:lang="en">If specified will be prepended to image and other content paths. Should start with a slash but not end with one.</value>
         <value xml:lang="ja">指定した場合は、画像その他コンテンツのパスの前に付加されます。スラッシュ(/)で始まり、スラッシュなしで終わるようにします。</value>
         <value xml:lang="vi">Nếu quy định sẽ được cụm vào trước hình ảnh và đường dẫn nội dung khác. Nên bắt đầu bằng một dấu gạch chéo, nhưng không sử dụng gạch chéo để kết thúc</value>
+        <value xml:lang="zh">如果设置了，它会被加在图片和其它内容路径前。它应该以斜线开始，并且不以斜线结尾。</value>
     </property>
     <property key="FieldDescription.ProdCatalog.templatePathPrefix">
         <value xml:lang="en">If specified will be prepended to template paths. Should start with a slash but not end with one.</value>
         <value xml:lang="ja">指定した場合は、テンプレートのパスの前に付加されます。スラッシュ(/)で始まり、スラッシュなしで終わるようにします。</value>
         <value xml:lang="vi">Nếu được chỉ định sẽ được cụm vào trước đường dẫn mẫu. Nên bắt đầu bằng một dấu gạch chéo, nhưng không sử dụng gạch chéo để kết thúc</value>
+        <value xml:lang="zh">如果设置了，它会被加在模板路径前。它应该以斜线开始，并且不以斜线结尾。</value>
     </property>
     <property key="FieldDescription.ProdCatalog.viewAllowPermReqd">
         <value xml:lang="en">If Y, administrators can only add products to 'View Allow' categories if they have the permission CATALOG_VIEW_ALLOW</value>
         <value xml:lang="ja">Y の場合、CATALOG_VIEW_ALLOW 権限をもつ管理者のみが'表示許可'カテゴリに製品を追加することができます。</value>
         <value xml:lang="vi">Nếu Y , các quản trị viên chỉ có thể thêm danh mục sản phẩm 'Cho phép xem' nếu họ có quyền CATALOG_VIEW_ALLOW</value>
+        <value xml:lang="zh">如果设为Y，管理员只能把产品添加到有 CATALOG_VIEW_ALLOW 权限的、'允许浏览'的分类</value>
     </property>
     <property key="FieldDescription.ProdCatalog.purchaseAllowPermReqd">
         <value xml:lang="en">If Y, administrators can only add products to 'Purchase Allow' categories if they have the permission CATALOG_VIEW_ALLOW</value>
         <value xml:lang="ja">Y の場合、CATALOG_VIEW_ALLOW 権限をもつ管理者のみが'購入許可'カテゴリに製品を追加することができます。</value>
         <value xml:lang="vi">Nếu Y, các quản trị viên chỉ có thể thêm danh mục sản phẩm 'Cho phép mua' nếu họ có quyền CATALOG_VIEW_ALLOW</value>
+        <value xml:lang="zh">如果设为Y，管理员只能把产品添加到有 CATALOG_PURCHASE_ALLOW 权限的、'允许采购'的分类</value>
     </property>
 
     <!--  ProductStore -->
@@ -3641,49 +3688,59 @@
         <value xml:lang="en">The id for the product store..</value>
         <value xml:lang="ja">製品店舗に対するID..</value>
         <value xml:lang="vi">Mã này dành cho cửa hàng sản phẩm..</value>
+        <value xml:lang="zh">产品店铺标识..</value>
     </property>
     <property key="FieldDescription.ProductStore.primaryStoreGroupId">
         <value xml:lang="en">What group this store belongs to. Stores can be grouped together with a price for each store group. It can be left blank if there are no store groups set up.</value>
         <!-- Store groups cannot be set up in the catalog manager and must be inserted directly into the database. -->
+        <value xml:lang="zh">这个店铺属于哪个组。多个店铺能够编成组，每个店铺组使用同一个价格。如果没有设置店铺组，则不填。</value>
     </property>
     <property key="FieldDescription.ProductStore.storeName">
         <value xml:lang="en">This is the name of the store that this catalog represents.</value>
         <value xml:lang="ja">このカタログが示す店舗の名称。</value>
         <value xml:lang="vi">Tên của cửa hàng mà danh mục đại diện cho</value>
+        <value xml:lang="zh">这是这个目录所代表的店铺的名称。</value>
     </property>
     <property key="FieldDescription.ProductStore.companyName">
         <value xml:lang="en">This is the name of the company that this catalog represents.</value>
         <value xml:lang="ja">このカタログが示す会社の名称。</value>
         <value xml:lang="vi">Tên của công ty mà dnah mục đại diện cho</value>
+        <value xml:lang="zh">这个这个目录所代表的公司的名称。</value>
     </property>
     <property key="FieldDescription.ProductStore.title">
         <value xml:lang="en">This value gets displayed in the header section of the ecommerce store.</value>
         <value xml:lang="ja">この値はEコマース店舗のヘッダセクションに表示されます。</value>
         <value xml:lang="vi">Giá trị này sẽ hiển thị tại phần đầu của gian hàng trên mạng</value>
+        <value xml:lang="zh">这个值会显示在电子商务店铺的页眉部分。</value>
     </property>
     <property key="FieldDescription.ProductStore.subtitle">
         <value xml:lang="en">This value gets displayed in the header section of the ecommerce store.</value>
         <value xml:lang="ja">この値はEコマース店舗のヘッダセクションに表示されます。</value>
         <value xml:lang="vi">Giá trị này sẽ hiển thị tại phần đầu của gian hàng trên mạng</value>
+        <value xml:lang="zh">这个值会显示在电子商务店铺的页眉部分。</value>
     </property>
     <property key="FieldDescription.ProductStore.payToPartyId">
         <value xml:lang="en">Note that this corresponds with the organizationPartyId that GL transactions will be posted to.</value>
         <value xml:lang="ja">これはGLトランザクションが転記される先の組織取引先IDと対応することに注意してください。</value>
         <value xml:lang="vi">Lưu ý này tương ứng với organizationPartyId giao dịch GL sẽ được đưa lên</value>
+        <value xml:lang="zh">注意：这与把总账交易过账到的那个组织会员标识（organizationPartyId）有关。</value>
     </property>
     <property key="FieldDescription.ProductStore.daysToCancelNonPay">
         <value xml:lang="en">Triggers cancellation of orders for non-payment after the number of days entered here.</value>
         <!-- There is an automated service that can be scheduled (see Job Scheduler in Webtools) nightly to cancel orders which have not been paid. This defines how many days an order can be outstanding and unpaid before it is canceled. A value of zero here will leave all orders open indefinitely. -->
+        <value xml:lang="zh">取消达到这里输入的天数后仍未付款的订单的触发器。</value>
     </property>
     <property key="FieldDescription.ProductStore.manualAuthIsCapture">
         <value xml:lang="en">Drop-down Y/N box on the question of whether a Manual Authorization is captured.</value> <!--  TODO - what does this really mean? -->
         <value xml:lang="ja">手動承認がキャプチャされるかを選択します。</value>
         <value xml:lang="vi">Bảng sổ xuống Y/N có câu hỏi cho dù một Ủy quyền Hướng dẫn sử dụng được ghi nhận</value>
+        <value xml:lang="zh">是否捕获手工授权问题的是/否（Y/N）选项的下拉框。</value>
     </property>
     <property key="FieldDescription.ProductStore.prorateShipping">
         <value xml:lang="en">When some share of the cost of shipping is covered under an account other than the bill-to.</value> <!--  TODO - what does this really mean? -->
         <value xml:lang="ja">請求先以外のアカウントでいつ共有の発送原価が含まれますか。</value>
         <value xml:lang="vi">Khi một số chia sẻ chi phí vận chuyển được chi trả dưới một tài khoản khác hơn so với hóa đơn.</value>
+        <value xml:lang="zh">当送货成本的一部分由一个账户而不是记账账户支付时。</value>
     </property>
     <property key="FieldDescription.ProductStore.prorateTaxes">
         <value xml:lang="de">Steuern Anteilsmässig</value>
@@ -3702,97 +3759,117 @@
         <value xml:lang="en">Controls whether the user is taken to the shopping cart immediately after adding a product to his cart.</value>
         <value xml:lang="ja">ユーザが製品を買い物かごに追加した後で、買い物かごにすぐ移動しますか。</value>
         <value xml:lang="vi">Kiểm soát xem người dùng được đưa vào giỏ mua hàng ngay lập tức sau khi thêm một sản phẩm vào giỏ hàng của mình</value>
+        <value xml:lang="zh">控制当向购物车添加了商品后，是否把用户立即转到购物车。</value>
     </property>
     <property key="FieldDescription.ProductStore.autoSaveCart">
         <value xml:lang="en">Drop-down Y/N box on the question of automatically saving the contents of the shopping cart.</value>
         <value xml:lang="ja">買い物かごのコンテンツを自動保存しますか。</value>
         <value xml:lang="vi">Bảng sổ xuống Y/N có câu hỏi về việc tự động lưu lại nội dung của giỏ hàng mua sắm.</value>
+        <value xml:lang="zh">自动保存购物车内容问题的是/否（Y/N）选项的下拉框。</value>
     </property>
     <property key="FieldDescription.ProductStore.autoApproveReviews">
         <value xml:lang="en">If the site allows users to enter product reviews, this controls whether the reviews must be approved, or whether they are automatically shown on the site.</value>
         <value xml:lang="ja">サイトでユーザに製品レビューの入力が許可されている場合、レビューが承認される必要があるか、自動的にサイトに表示されるかの制御。</value>
         <value xml:lang="vi">Nếu trang mạng cho phép người dụng nhập vào đánh giá sản phẩm, phần này sẽ kiểm soát xem đánh giá đó có phải được phê duyệt trước, hay nó có thể hiển thị ngay lên trang web.</value>
+        <value xml:lang="zh">如果网站允许用户输入产品评论，那么这会控制是否评论必须被审批，或者评论可以自动显示在网站上。</value>
     </property>
     <property key="FieldDescription.ProductStore.isDemoStore">
         <value xml:lang="en">If Yes, any orders created will not be sent, credit card charges will not be made, etc.</value>
+        <value xml:lang="zh">如果是，则不会发送任何新建的订单，也不会对信用卡收费等。</value>
     </property>
     <property key="FieldDescription.ProductStore.isImmediatelyFulfilled">
         <value xml:lang="en">If Yes, the order will be immediately fulfilled through system-generated processes in ofbiz (e.g. for POS sales).  If no, it will be held for manual review.</value>
         <value xml:lang="ja">はいの場合、ofbizではシステムに生成されるプロセスで注文がすぐ実行されます。いいえの場合は、手動で確認されるまで保留されます。</value>
         <value xml:lang="vi">Nếu có, đặt hàng sẽ được tự động điền đầy đủ ngay lập tức thông qua hệ thống xử lý của Ofbiz (ví dụ như hệ thống bán hàng POS). Nếu không, nó sẽ dẫn đến phần xem xét thủ công</value>
+        <value xml:lang="zh">如果是，则会在OFBiz中通过系统生成过程立即执行（如POS销售）。如果否，则会等待人工检查。</value>
     </property>
     <property key="FieldDescription.ProductStore.inventoryFacilityId">
         <value xml:lang="en">This is where the stock levels are drawn from.</value>
         <!-- Used for knowing where to change product inventory as items are sold. See the 'Facility Manager' to create a facility. All existing facilities are presented here. -->
+        <value xml:lang="zh">这是库存水平数据的来源。</value>
     </property>
     <property key="FieldDescription.ProductStore.oneInventoryFacility">
         <value xml:lang="en">If this is a 'Single Inventory' facility. With newer or less complex businesses, you will find the Single Inventory concept much easier to work with.</value>
         <value xml:lang="ja">ここが'単一在庫'拠点の場合、新規または比較的単純な業務になります。単一在庫コンセプトは比較的容易な作業になります。</value>
         <value xml:lang="vi">Nếu đây là cơ sở kho chứa đơn. Với hoạt động kinh doanh mới hoặc ít hơn, bạn sẽ thấy kiểu thiết kết kho chứa đơn dễ sử dụng hơn</value>
+        <value xml:lang="zh">如果这是一个'单一的库存'场所。对较新的或复杂度较低的业务，你会发现单一的库存概念更容易使用。</value>
     </property>
     <property key="FieldDescription.ProductStore.checkInventory">
         <value xml:lang="en">This determines whether the system checks inventory levels when processing an order.</value>
         <!--  If inventory IS checked (Y), the item cannot be ordered or rather the order cannot be fulfilled if there is insufficient QOH or ATP. If Inventory is not checked, however, the order may be accepted but items not available will be processed as a back-order. You need a system in place to track, replenish and fulfill back-ordered items if you set this flag to N. -->
+        <value xml:lang="zh">这会决定在处理订单时，系统是否检查库存水平。</value>
     </property>
     <property key="FieldDescription.ProductStore.reserveInventory">
         <value xml:lang="en">Causes inventory to be reserved for items ordered in the store. The inventory may still be on hand but will no longer be available for other orders.</value>
         <value xml:lang="ja">店舗で注文されたアイテムを予約済の在庫として取り扱います。在庫はまだ手元にありますが、他の注文で取り扱うことはできません。</value>
         <value xml:lang="vi">Vì lý do kho chứa cần dự trự hàng cho các đặt hàng tại cửa hàng. Kho chứa có thể còn hàng nhưng không có sẵn cho các đặt hàng khác</value>
+        <value xml:lang="zh">导致为店铺订单明细保留库存。可能手头还有库存，但是不再能用于其它订单了。</value>
     </property>
     <property key="FieldDescription.ProductStore.reserveOrderEnumId">
         <value xml:lang="en">Choose how inventory should be reserved.</value>
         <value xml:lang="ja">どのように在庫を予約するか選択してください。</value>
         <value xml:lang="vi">Lựa chọn cách kho chứa sẽ dự trữ hàng hóa</value>
+        <value xml:lang="zh">选择怎样预留库存。</value>
     </property>
     <property key="FieldDescription.ProductStore.requireInventory">
         <value xml:lang="en">If sufficient inventory not on hand, order will not be processed when this flag is set to Yes.</value>
         <value xml:lang="ja">このフラグを Y にセットすると、手元に十分な在庫がない場合、注文は処理されません。</value>
         <value xml:lang="vi">Nếu đủ hàng trong kho, đặt hàng sẽ không được thực hiện khi cài đặt này được đánh dấu là YES</value>
+        <value xml:lang="zh">如果手头库存不足，当这个标志设置为是时，将不再处理订单。</value>
     </property>
     <property key="FieldDescription.ProductStore.balanceResOnOrderCreation">
         <value xml:lang="en">If set to Y, when a new sales order is created with backordered items, then reservations on the facility/product are reassigned according to the priority given by the shipBeforeDate field.</value>
         <value xml:lang="ja">Y にセットした場合、発送待ちのアイテムで新規販売注文が作成されると、発送期限日で与えられた優先順位にしたがって拠点/製品の予約が再割当されます。</value>
         <value xml:lang="vi">Nếu cài đặt là Y, khi một đặt hàng mới được tạo ra với sản phẩm được đặt gia công, sau đó sự hạn chế đối với cơ sở/sản phẩm sẽ được tái chuyển giao tới đơn vị ủy quyền và cài đặt trường giao hàng trước ngày (shipBeforeDate).</value>
+        <value xml:lang="zh">如果设置为是（Y），当为缺货商品新建一个销售订单时，那么会按照最晚送货日期（shipBeforeDate）指定的优先级来重新分配预留的场所/商品。</value>
     </property>
     <property key="FieldDescription.ProductStore.requirementMethodEnumId">
         <value xml:lang="en">Refers to warehouse stocking level triggers.</value>
         <value xml:lang="ja">倉庫の在庫レベルトリガーを参照します。</value>
         <value xml:lang="vi">Chuyển tới ấn định cấp độ bán hàng tại kho hàng</value>
+        <value xml:lang="zh">指向仓库存货水平触发程序。</value>
     </property>
     <property key="FieldDescription.ProductStore.orderNumberPrefix">
         <value xml:lang="en">All orders will be prefixed by this. For example, if you wished accounting to be able to quickly differentiate orders between stores.</value>
         <value xml:lang="ja">すべての注文番号の前に付加されます。たとえば簡単に店舗ごとに注文を区別して会計処理を行う場合などに使用します。</value>
         <value xml:lang="vi">Tất cả các đặt hàng sẽ được đặt trước bởi cái này. Ví dụ, nếu bạn muốn kế toán thực hiện nhanh so với các đặt hàng khác của cửa hàng.</value>
+        <value xml:lang="zh">所有订单都会使用这个前缀。比如，如果你希望能够快速区分不同店铺中的订单。</value>
     </property>
     <property key="FieldDescription.ProductStore.defaultLocaleString">
         <value xml:lang="en">Default locale, for language, number, and currency formats.</value>
         <value xml:lang="ja">デフォルトの地域。言語、数値、および通貨の書式を指定します。</value>
         <value xml:lang="vi">Khu vực mặc định, cho ngôn ngữ, con số và loại tiền tệ.</value>
+        <value xml:lang="zh">缺省语言，用于文字、数字和币种格式。</value>
     </property>
     <property key="FieldDescription.ProductStore.defaultCurrencyUomId">
         <value xml:lang="en">Which national currency will be used if none is specified. Use webtools to find codes for non-US locations.</value>
         <value xml:lang="ja">指定されない場合に、どの国際通貨を使用するか指定します。コードを探すにはWebツールを使用してください。</value>
         <value xml:lang="vi">Loại tiền tệ quốc gia sẽ được sử dụng nếu không có cài đặt khác. Sử dụng webtools để tìm mã cho các khu vực ngoài nước Mỹ</value>
+        <value xml:lang="zh">如果没有指定，使用哪个国家的币种。使用Web工具查找非美国的地区代码。</value>
     </property>
     <property key="FieldDescription.ProductStore.defaultSalesChannelEnumId">
         <value xml:lang="en">Unless the sales channel has been specified in the transaction, it will be assumed that the sale came in through the selected path.</value>
         <value xml:lang="ja">トランザクションで販売チャネルが指定されない場合に、選択した経路で販売されたものとみなします。</value>
         <value xml:lang="vi">Trừ khi các kênh bán hàng đã được quy định trong giao dịch, nó sẽ được giả định rằng việc bán thông qua các con đường được lựa chọn.</value>
+        <value xml:lang="zh">除非指定了交易中的销售渠道，否则会假设销售来自所选的渠道。</value>
     </property>
     <property key="FieldDescription.ProductStore.allowPassword">
         <value xml:lang="en">If No, when a customer creates an account they will not be asked for a password and they have to wait for their account to be enabled and a password to be sent to them.</value>
         <value xml:lang="ja">いいえの場合、顧客がアカウントを作成する時に、パスワードは聞かれずに、アカウントが有効になるまで待ってから、パスワードはメールで送信されます。</value>
         <value xml:lang="vi">Nếu không, khi một khách hàng tạo ra một tài khoản, họ sẽ không được yêu cầu nhập mật khẩu và họ phải chờ cho tài khoản của họ được kích hoạt và mật khẩu được gửi cho họ.</value>
+        <value xml:lang="zh">如果否，当客户新建账户时，不会问他密码，他必须等待他的账户被启用、并给他发送密码。</value>
     </property>
     <property key="FieldDescription.ProductStore.defaultPassword">
         <value xml:lang="en">If you allow others access with a password, what is the default password that anyone could use if they knew it?</value>
         <value xml:lang="ja">パスワードを使用して他の人にアクセスを許可する場合、他の人が使用するデフォルトパスワードは何にしますか。</value>
         <value xml:lang="vi">Nếu bạn cho phép người khác truy cập bằng mật khẩu, mật khẩu mặc định là những gì mà bất cứ ai cũng có thể sử dụng nếu họ biết điều đó?</value>
+        <value xml:lang="zh">如果你允许其他人通过密码访问，任何人都可以用的缺省密码是什么？</value>
     </property>
     <property key="FieldDescription.ProductStore.explodeOrderItems">
         <value xml:lang="en">If set to Y then any shopping cart item with a quantity greater than one will be split into separate order items with a quantity of 1 each.</value>
         <value xml:lang="ja">Y をセットした場合、複数のアイテムが入った買い物かごは、1つずつの注文に分割されます。</value>
         <value xml:lang="vi">Nếu thiết lập Y thì mục bất kỳ giỏ mua hàng với số lượng lớn hơn sẽ được chia thành các mục đặt hàng riêng biệt với số lượng của mỗi 1 sản phẩm</value>
+        <value xml:lang="zh">如果设为是（Y），那么购物车里任何数量大于1的明细都会被拆分为每个数量是1的单独的订单明细。</value>
     </property>
     <property key="FieldDescription.ProductStore.checkGcBalance">
         <value xml:lang="de">Gutschein Guthaben prüfen</value>
@@ -3812,200 +3889,241 @@
         <value xml:lang="en">How many times can an unsuccessful attempt to authorize an order be allowed?</value>
         <value xml:lang="ja">1回の注文で何回まで承認失敗を許可しますか。</value>
         <value xml:lang="vi">Số lần thực hiện không thành công được phép cho việc đặt hàng?</value>
+        <value xml:lang="zh">允许多少次认证尝试失败？</value>
     </property>
     <property key="FieldDescription.ProductStore.headerApprovedStatus">
         <value xml:lang="en">This is the message you want your customers to see when their order is approved.</value>
         <value xml:lang="ja">注文が承認された時に顧客に見せたいメッセージを指定します。</value>
         <value xml:lang="vi">Tin nhắn mà bạn muốn khách hàng nhận được khi đặt hàng của họ được phê duyệt.</value>
+        <value xml:lang="zh">当客户的订单得到批准时，这是你想要他们看到的信息。</value>
     </property>
     <property key="FieldDescription.ProductStore.itemApprovedStatus">
         <value xml:lang="en">What to set order items status to when orders are approved, declined, or canceled. Based on the standard defined status codes in Open for Business.</value>
         <value xml:lang="ja">注文が承認、否認、または取消された時に、注文アイテムステータスに何を設定しますか。OFBizで標準定義されたステータスコードに基づきます。</value>
         <value xml:lang="vi">Để thiết lập trật tự các mục tình trạng khi đơn đặt hàng được phê duyệt , từ chối hoặc hủy bỏ. Dựa trên mã trạng thái quy định tiêu chuẩn mở cho doanh nghiệp.</value>
+        <value xml:lang="zh">当订单被批准、被拒绝或被取消时，把订单明细设置成什么状态。基于OFBiz中定义的标准状态代码。</value>
     </property>
     <property key="FieldDescription.ProductStore.digitalItemApprovedStatus">
         <value xml:lang="en">What to set order items status to when Digital Item orders are approved, declined, or canceled. Based on the standard defined status codes in Open for Business.</value>
         <value xml:lang="ja">デジタル商品の注文が承認、否認、または取消された時に、注文アイテムステータスに何を設定しますか。OFBizで標準定義されたステータスコードに基づきます。</value>
         <value xml:lang="vi">Để thiết lập trật tự các mục tình trạng khi các đơn đặt hàng mục kỹ thuật số được phê duyệt , từ chối hoặc hủy bỏ. Dựa trên các mã trạng thái quy định tiêu chuẩn mở cho doanh nghiệp.</value>
+        <value xml:lang="zh">当数字产品明细订单被批准、被拒绝或被取消时，把订单明细设置成什么状态。基于OFBiz中定义的标准状态代码。</value>
     </property>
     <property key="FieldDescription.ProductStore.headerDeclinedStatus">
         <value xml:lang="en">This is the message you want your customers to see when their order is declined. Based on the standard defined status codes in Open for Business.</value>
         <value xml:lang="ja">注文が否認された時に顧客に見せたいメッセージを指定します。OFBizで標準定義されたステータスコードに基づきます。</value>
         <value xml:lang="vi">Tin nhắn mà bạn muốn khách hàng của bạn nhìn thấy khi đặt hàng của họ bị từ chối. Dựa trên các mã trạng thái quy định tiêu chuẩn mở cho doanh nghiệp.</value>
+        <value xml:lang="zh">当客户的订单被拒绝时，这是你想要他们看到的信息。基于OFBiz中定义的标准状态代码。</value>
     </property>
     <property key="FieldDescription.ProductStore.itemDeclinedStatus">
         <value xml:lang="en">This is the message you want the customer to see when one of their items is declined for some reason.</value>
         <value xml:lang="ja">何らかの理由で注文の一部が否認された時に顧客に見せたいメッセージを指定します。</value>
         <value xml:lang="vi">Tin nhắn mà bạn muốn khách hàng của bạn nhìn thấy khi đặt hàng của họ bị từ chối vì một số lý do nào đó</value>
+        <value xml:lang="zh">当客户的明细中的一个因某种原因被拒绝时，这是你想要他看到的信息。</value>
     </property>
     <property key="FieldDescription.ProductStore.headerCancelStatus">
         <value xml:lang="en">This is the message that you want the client to see when their order is cancelled.</value>
         <value xml:lang="ja">注文が取消された時に顧客に見せたいメッセージを指定します。</value>
         <value xml:lang="vi">Tin nhắn mà bạn muốn khách hàng của bạn nhìn thấy khi đặt hàng của họ bị hủy bỏ</value>
+        <value xml:lang="zh">当客户的订单被取消时，这是你想要他看到的信息。</value>
     </property>
     <property key="FieldDescription.ProductStore.itemCancelStatus">
         <value xml:lang="en">The message shown when an item they ordered is cancelled.</value>
         <value xml:lang="ja">注文アイテムが取消された時に表示されるメッセージ。</value>
         <value xml:lang="vi">Tin nhắn hiển thị khi một sản phẩm họ đặt hàng bị hủy bỏ</value>
+        <value xml:lang="zh">当订单中的一个明细被取消时，显示的信息。</value>
     </property>
     <property key="FieldDescription.ProductStore.authDeclinedMessage">
         <value xml:lang="en">Message shown when payment authorization is declined.</value>
         <value xml:lang="ja">支払承認が否認された時に表示されるメッセージ。</value>
         <value xml:lang="vi">Tin nhắn hiển thị sự cho phép thanh toán bị từ chối</value>
+        <value xml:lang="zh">当支付授权被拒绝时，显示的信息。</value>
     </property>
     <property key="FieldDescription.ProductStore.authFraudMessage">
         <value xml:lang="en">Message sent when fraud is suspected.</value>
         <value xml:lang="ja">不正行為が疑われる時に送信されるメッセージ。</value>
         <value xml:lang="vi">Tin nhắn gửi khi nghi ngờ giả mạo</value>
+        <value xml:lang="zh">当怀疑是欺诈时，发送的信息。</value>
     </property>
     <property key="FieldDescription.ProductStore.authErrorMessage">
         <value xml:lang="en">Message sent when a processing error is encountered.</value>
         <value xml:lang="ja">処理エラーが発生した時に送信されるメッセージ。</value>
         <value xml:lang="vi">Tin nhắn gửi khi gặp vấn đề một xử lý bị lỗi</value>
+        <value xml:lang="zh">当遇到一个处理错误时，发送的信息。</value>
     </property>
     <property key="FieldDescription.ProductStore.visualThemeId">
         <value xml:lang="en">For controlling the look and feel and a web-based store.</value>
         <value xml:lang="ja">ルック＆フィールおよびWebベース店舗の設定。</value>
         <value xml:lang="vi">Để kiểm soát cách nhìn và cảm quan và cửa hàng trực tuyến</value>
+        <value xml:lang="zh">用于控制一个网店的外观感受。</value>
     </property>
     <property key="FieldDescription.ProductStore.storeCreditAccountEnumId">
         <value xml:lang="en">Specify the type (Billing Account or Financial Account) of Store Credit Account used for refund return.</value>
         <!-- This field is override by ReturnHeader.billingAccountId or ReturnHeader.finAccountId, whichever is specified but if only finAccountId is specified explicitly then system will first try to locate any billing account with -ve amount. If found, then amount is credit to this billing account else the amount will be credit to the financial account of the user. -->
+        <value xml:lang="zh">为店铺的信用账户退款指定类型（账单账户或财务账户）。</value>
     </property>
     <property key="FieldDescription.ProductStore.usePrimaryEmailUsername">
         <value xml:lang="en">If set to Y then in the create customer form no entry box will be presented for a username - the primary email address will be used for username.</value>
         <!-- If set to N, the default, there is a checkbox a user can select to use the email address as a username, but they also have the option of entering a username. -->
+        <value xml:lang="zh">如果设为是（Y），那么在创建用户的表单中将没有用户名 —— 会使用首选电子邮件地址作为用户名。</value>
     </property>
     <property key="FieldDescription.ProductStore.requireCustomerRole">
         <value xml:lang="en">If set to Y then the customer must be associated with the store in the Customer role in order to be able to login (e.g. B2B)</value>
         <!-- If they are not associated with the store in the Customer role, they will receive an error message when they try to login. Note that this means entering an assignment of Customer as Role for every customer that wants to by. This could delay them from being able to make purchases. It also means giving attention to every prospect until they become identified as a Customer. -->
+        <value xml:lang="zh">如果设为是（Y），那么客户必须在订单的客户角色中与店铺关联，才能登录（如B2B）</value>
     </property>
     <property key="FieldDescription.ProductStore.autoInvoiceDigitalItems">
         <value xml:lang="en">If Y, digital items will be immediately invoiced when the order is placed.</value>
         <!--  If N, will need to wait for some sort of fulfillment process to set the item status to complete which would then trigger the invoice creation. -->
+        <value xml:lang="zh">如果是（Y），下单时会立刻为数字产品明细生成发票。</value>
     </property>
     <property key="FieldDescription.ProductStore.reqShipAddrForDigItems">
         <value xml:lang="en">Require Shipping Address for Digital Items? Note this only has an effect if there are ONLY digital goods in the cart.</value>
         <value xml:lang="ja">デジタル商品に対して発送先住所を必要としますか? これは買い物かごにあるデジタル商品に対してのみ意味をもちます。</value>
         <value xml:lang="vi">Yêu cầu địa chỉ giao hàng cho sản phẩm kỹ thuật số? Lưu ý rằng phần này chỉ áp dụng nếu chỉ có sản phẩm kỹ thuật số trong giỏ hàng.</value>
+        <value xml:lang="zh">数字产品明细必须有送货地址？注意：这仅在购物车中只有数字商品时有效。</value>
     </property>
     <property key="FieldDescription.ProductStore.showCheckoutGiftOptions">
         <value xml:lang="en">If set to N the options related to gifts (the 'is gift' and 'gift message' options) will not be shown during checkout.</value>
         <!--  This is meant for use in business oriented stores or others where the gift options do not make sense. -->
+        <value xml:lang="zh">如果设为否（N），在结账时不显示与礼品（'是礼品'和'礼品信息'选项）相关的选项。</value>
     </property>
     <property key="FieldDescription.ProductStore.selectPaymentTypePerItem">
         <value xml:lang="en">If Yes, allows customer to pay for some order items with one payment type, others with another type.</value>
         <value xml:lang="ja">はいの場合、顧客はいくつかの注文アイテムに対して1つの支払種類が選択でき、それ以外は別の種類を選択できます。</value>
         <value xml:lang="vi">Nếu có, cho phép khách hàng trả tiền cho các sản phẩm đặt hàng với một kiểu thanh toán, loại khác với kiểu khác.</value>
+        <value xml:lang="zh">如果是，允许客户为一些订单明细使用一种支付类型，为其它的明细使用另一种支付类型。</value>
     </property>
     <property key="FieldDescription.ProductStore.showPricesWithVatTax">
         <value xml:lang="en">Should the displayed prices include (Y) or not include (N) the VAT Tax amount?</value>
         <value xml:lang="ja">消費税を含んで (Y) または 含まないで (N) 金額を表示します。</value>
         <value xml:lang="vi">Sẽ hiển thị giá bao gồm (Y) hoặc không bao gồm (N) giá trị tính thuế VAT?</value>
+        <value xml:lang="zh">价格中含（Y）还是不含（N）增值税金额？</value>
     </property>
     <property key="FieldDescription.ProductStore.showTaxIsExempt">
         <value xml:lang="en">Will it be appropriate to indicate when an item is exempt from tax?</value>
         <value xml:lang="ja">商品が非課税/免税の時、それに関して表示しますか?</value>
         <value xml:lang="vi">Liệu nó có thích hợp để chỉ ra khi một mục được miễn thuế?</value>
+        <value xml:lang="zh">当一个明细是免税的，需要指出来吗？</value>
     </property>
     <property key="FieldDescription.ProductStore.vatTaxAuthGeoId">
         <value xml:lang="en">What is the Geographical ID for the VAT taxing authority?</value>
         <value xml:lang="ja">消費税税務機関に対する位置IDは?</value>
         <value xml:lang="vi">Mã địa lý với đối tượng đánh thuế VAT</value>
+        <value xml:lang="zh">增值税征税机构的地理标识是什么？</value>
     </property>
     <property key="FieldDescription.ProductStore.vatTaxAuthPartyId">
         <value xml:lang="en">What is the Party ID of the Vat Taxing Authority?</value>
         <value xml:lang="ja">消費税税務機関の取引先IDは?</value>
         <value xml:lang="vi">Mã đối tượng với cơ quan đánh thuế VAT</value>
+        <value xml:lang="zh">增值税征税机构的会员标识是什么？</value>
     </property>
     <property key="FieldDescription.ProductStore.enableAutoSuggestionList">
         <value xml:lang="en">The auto-suggestion list is a special ShoppingList that the addSuggestionsToShoppingList service will maintain for cross-sells of ordered items.</value>
         <value xml:lang="ja">自動提案リストは、買い物リストに提案を追加するサービスが管理する、注文された商品の組み合わせ販売のための特別な買い物リストです。</value>
         <value xml:lang="vi">Danh sách tự động gợi ý là danh sách mua hàng đặt biệt mà dịch vụ addSuggestionsToShoppingList sẽ duy trì cho việc bán chéo các sản phẩm được đặt hàng</value>
+        <value xml:lang="zh">自动建议列表是一个特殊的购物列表（ShoppingList），添加建议到购物列表（addSuggestionsToShoppingList）服务会维护订单明细的交叉销售。</value>
     </property>
     <property key="FieldDescription.ProductStore.enableDigProdUpload">
         <value xml:lang="en">Unless this is set to Yes, the sale of Digital Products from your Store will not be permitted.</value>
         <value xml:lang="ja">はいにセットしないと、店舗でのデジタル製品の販売は許可されません。</value>
         <value xml:lang="vi">Trừ khi đặt là Yes, việc bán sản phẩm kỹ thuật số từ cửa hàng của bạn sẽ không được cho phép</value>
+        <value xml:lang="zh">除非设置为是，否则不允许你的店铺销售数字商品。</value>
     </property>
     <property key="FieldDescription.ProductStore.prodSearchExcludeVariants">
         <value xml:lang="en">If set to Y an additional constraint will of isVariant!=Y will be added to all product searches for the store.</value>
         <value xml:lang="ja">Y をセットした場合は、店舗のすべての製品検索に対して、条件 別型!=Y が追加されます。</value>
         <value xml:lang="vi">Nếu thiết lập là Y thêm một ràng buộc của isVariant = Y sẽ được thêm vào tất cả tìm kiếm sản phẩm cho cửa hàng.</value>
+        <value xml:lang="zh">如果设置为是（Y），对店铺所有的商品搜索都会附加一个 isVariant!=Y（不是变型）的限制。</value>
     </property>
     <property key="FieldDescription.ProductStore.digProdUploadCategoryId">
         <value xml:lang="en">Which Category of Digital Products may be uploaded?</value>
         <value xml:lang="ja">アップロードするデジタル製品のカテゴリは?</value>
         <value xml:lang="vi">Danh mục sản phẩm kỹ thuật số nào sẽ được đăng tải?</value>
+        <value xml:lang="zh">要上传哪个数字产品分类？</value>
     </property>
     <property key="FieldDescription.ProductStore.autoOrderCcTryExp">
         <value xml:lang="en">For auto-orders try other Credit Card expiration dates (if date is wrong or general failure where type not known).</value>
         <value xml:lang="ja">自動注文に対して、別のクレジットカード有効期限日を試行します (日付誤りまたは種類不明の一般例外の場合)。</value>
         <value xml:lang="vi">Dành cho việc đặt hàng tự động thử sử dụng Thẻ tín dụng đã hết hạn (nếu sai ngày hoặc các lỗi thực tế từ kiểu ngày).</value>
+        <value xml:lang="zh">对于自动生成的订单，尝试其它信用卡失效日期（如果发生日期错误或类型未知的通用错误）。</value>
     </property>
     <property key="FieldDescription.ProductStore.autoOrderCcTryOtherCards">
         <value xml:lang="en">For auto-orders try other Credit Cards for the customer.</value>
         <value xml:lang="ja">自動注文に対して、顧客に別のクレジットカードを試行します。</value>
         <value xml:lang="vi">Dành cho việc đặt hàng tự động thử sử dụng Thẻ tín dụng khác</value>
+        <value xml:lang="zh">对于自动生成的订单，尝试客户的其它信用卡。</value>
     </property>
     <property key="FieldDescription.ProductStore.autoOrderCcTryLaterNsf">
         <value xml:lang="en">For auto-orders if Credit Cards fails for NSF (Not Sufficient Funds) try again later.</value>
         <value xml:lang="ja">自動注文に対して、クレジットカードの限度額不足(NSF)の場合、後で再試行します。</value>
         <value xml:lang="vi">Dành cho việc tự động đặt hàng nếu Thẻ tín dụng bị lỗi cho phép NSF thực hiện lại sau.</value>
+        <value xml:lang="zh">对于自动生成的订单，如果信用卡发生余额不足的错误，稍后再试。</value>
     </property>
     <property key="FieldDescription.ProductStore.autoOrderCcTryLaterMax">
         <value xml:lang="en">For auto-orders if Credit Cards fails for NSF try again how many times.</value>
         <value xml:lang="ja">自動注文に対して、クレジットカードの限度額不足(NSF)の場合、再試行回数。</value>
         <value xml:lang="vi">Dành cho việc tự động đặt hàng nếu Thẻ tín dụng bị lỗi cho phép NSF thực hiện lại bao nhiêu lần.</value>
+        <value xml:lang="zh">对于自动生成的订单，如果信用卡余额不足，再尝试多少次。</value>
     </property>
     <property key="FieldDescription.ProductStore.storeCreditValidDays">
         <value xml:lang="en">How many days that store credit is valid for. Null value implies no expiration.</value>
         <value xml:lang="ja">店舗信用の有効日数。ブランクの場合は期限はありません。</value>
         <value xml:lang="vi">Số ngày mà cửa hàng cho phép tín dụng có hiệu lực. Bỏ trống được hiểu là không có thời hạn</value>
+        <value xml:lang="zh">店铺信用多少天有效。Null（空）意味着永不过期。</value>
     </property>
     <property key="FieldDescription.ProductStore.autoApproveInvoice">
         <value xml:lang="en">If Y or empty, sales invoices created from orders will be marked ready.</value>
         <value xml:lang="ja">Y またはブランクの場合、注文が準備完了になると販売請求書が作成されます。</value>
         <value xml:lang="vi">Nếu chọn Y hoặc bỏ trống, hóa đơn bán hàng sẽ được tạo từ phần đặt hàng sẽ đucợ đánh dấu sẵn sàng.</value>
+        <value xml:lang="zh">如果事（Y）或空，从订单新建销售发票会标记为就绪。</value>
     </property>
     <property key="FieldDescription.ProductStore.autoApproveOrder">
         <value xml:lang="en">If N, orders will not be automatically approved when payment is authorized.</value>
         <value xml:lang="ja">N の場合、支払が認証された時に注文は自動で承認されません。</value>
         <value xml:lang="vi">Nếu chọn N, đặt hàng sẽ không được tự động chấp nhận khi thanh toán đã được ủy quyền.</value>
+        <value xml:lang="zh">如果否（N），当授权支付时，会自动批准订单。</value>
     </property>
     <property key="FieldDescription.ProductStore.shipIfCaptureFails">
         <value xml:lang="en">If N, the captureOrderPayments will cause a service error if credit card capture fails.</value>
         <value xml:lang="ja">N の場合、クレジットカードのキャプチャに失敗した場合は注文支払キャプチャサービスはエラーになります。</value>
         <value xml:lang="vi">Nếu chọn N, phần ghi nhận thanh toán đặt hàng daptureOrderPayments sẽ ghi lại lỗi dịch vụ nếu như phát hiện việc thanh toán thẻ tín dụng bị lỗi</value>
+        <value xml:lang="zh">如果否（N），如果信用卡捕获失败，捕获订单支付（captureOrderPayments）会导致一个服务错误。</value>
     </property>
     <property key="FieldDescription.ProductStore.setOwnerUponIssuance">
         <value xml:lang="en">If Y or empty, set the inventory item owner upon issuance.</value>
         <value xml:lang="ja">Y またはブランクの場合、在庫アイテムの所有者を発行者にセットします。</value>
         <value xml:lang="vi">Nếu chọn Y hoặc bỏ trống, cài đặt hàng tồn kho của chủ sở hữu lên trên để xuất ra</value>
+        <value xml:lang="zh">如果是（Y）或空，一旦生效，立刻设置库存明细拥有者。</value>
     </property>
     <property key="FieldDescription.ProductStore.reqReturnInventoryReceive">
         <value xml:lang="en">If set to Y return will automatically go to the Received status when Accepted instead of waiting for actual receipt of the return.</value>
         <value xml:lang="ja">Y をセットした場合、返品は実際の受取を待たず受付時に自動的に受取済ステータスにします。</value>
         <value xml:lang="vi">Nếu chọn Y, phần hàng trả lại sẽ tự động đặt tình trạng Mới nhận khi chấp nhận thay cho việc chờ đợi việc nhận lại hàng trả lại thực tế</value>
+        <value xml:lang="zh">如果设为是（Y），当处于已接受（Accepted）状态时，不等待实际收到退货，退货就会自动变为已接收（Received）状态。</value>
     </property>
     <property key="FieldDescription.ProductStore.addToCartRemoveIncompat">
         <value xml:lang="en">If Y then on add to cart remove all products in cart with a ProductAssoc record related to or from the product and with the PRODUCT_INCOMPATABLE type.</value>
         <value xml:lang="ja">Y の場合、買い物かごに追加した時、買い物かごの製品関連付けレコードに関連した製品非互換種類の製品をすべて削除します。</value>
         <value xml:lang="vi">Nếu chọn Y, thêm vào giỏ hàng sẽ loại bỏ toàn bộ sản phẩm với bản ghi ProductAssoc liên hệ với hoặc từ sản phẩm và loại PRODUCT_INCOMPATABLE.</value>
+        <value xml:lang="zh">如果设为是（Y），那么在添加到购物车时，会删除购物车中产品关联（ProductAssoc）记录关联到的或关联自的、并且具有产品不兼容（PRODUCT_INCOMPATABLE）类型的全部产品。</value>
     </property>
     <property key="FieldDescription.ProductStore.addToCartReplaceUpsell">
         <value xml:lang="en">If Y then on add to cart remove all products in cart with a ProductAssoc record related from the product and with the PRODUCT_UPGRADE type.</value>
         <value xml:lang="ja">Y の場合、買い物かごに追加した時、買い物かごの製品関連付けレコードに関連した製品アップグレード種類の製品をすべて削除します。</value>
         <value xml:lang="vi">Nếu chọn Y, thêm vào giỏ hàng sẽ loại bỏ toàn bộ sản phẩm với bản ghi ProductAssoc liên hệ với sản phẩm từ và kiểu PRODUCT_UPGRADE.</value>
+        <value xml:lang="zh">如果是（Y），那么在添加到购物车时，会删除购物车中产品关联（ProductAssoc）记录关联自的、并且具有产品升级（PRODUCT_UPGRADE）类型的全部产品。</value>
     </property>
     <property key="FieldDescription.ProductStore.splitPayPrefPerShpGrp">
         <value xml:lang="en">If Y then before the order is stored the OrderPaymentPreference record will be split, one for each OrderItemShipGroup.</value>
         <value xml:lang="ja">Y の場合、注文が格納される前に注文支払設定レコードは、注文アイテム発送グループごとに1つずつ分割されます。</value>
         <value xml:lang="vi">Nếu chọn Y, trước khi đặt hàng thì bản ghi OrderPaymentPreference sẽ được phân chia, mỗi một cho OrderItemshipGroup.</value>
+        <value xml:lang="zh">如果是（Y），那么在存储订单之前，订单支付设置（OrderPaymentPreference）记录会被拆分，每个订单明细送货组（OrderItemShipGroup）一条记录。</value>
     </property>
     <property key="FieldDescription.ProductStore.showOutOfStockProducts">
         <value xml:lang="en">If N then out of stock products will not be displayed on site</value>
         <value xml:lang="ja">N の場合、在庫切れ製品はサイトに表示されません。</value>
         <value xml:lang="vi">Nếu chọn N, sản phẩm hết hàng sẽ không được hiển thị trên website</value>
+        <value xml:lang="zh">如果否（N），则不在站点上显示缺货商品</value>
     </property>
 </resource>

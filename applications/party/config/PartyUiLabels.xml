@@ -301,6 +301,7 @@
         <value xml:lang="nl">Datum overleden</value>
         <value xml:lang="pt_BR">Data de falecimento</value>
         <value xml:lang="vi">Ngày mất</value>
+        <value xml:lang="zh">去世日期</value>
         <value xml:lang="zh_TW">忌日</value>
     </property>
     <property key="FormFieldTitle_defaultRate">
@@ -1200,6 +1201,7 @@
         <value xml:lang="ja">ID種類</value>
         <value xml:lang="pt_BR">Tipo ID</value>
         <value xml:lang="vi">Kiểu định danh (Identification)</value>
+        <value xml:lang="zh">标识类型</value>
         <value xml:lang="zh_TW">ID類型</value>
     </property>
     <property key="FormFieldTitle_partyIdentificationTypeId">
@@ -1210,6 +1212,7 @@
         <value xml:lang="ja">ID種類</value>
         <value xml:lang="pt_BR">Tipo ID</value>
         <value xml:lang="vi">Kiểu định danh (Identification)</value>
+        <value xml:lang="zh">标识类型</value>
         <value xml:lang="zh_TW">ID類型</value>
     </property>
     <property key="FormFieldTitle_partyInvitationId">
@@ -1391,6 +1394,7 @@
         <value xml:lang="en">Personal Image</value>
         <value xml:lang="ja">個人画像</value>
         <value xml:lang="vi">Ảnh đại diện</value>
+        <value xml:lang="zh">个人图片</value>
     </property>
     <property key="FormFieldTitle_preferredContactMechId">
         <value xml:lang="de">Bevorzugter Kontaktmechanismus ID</value>
@@ -1962,6 +1966,7 @@
         <value xml:lang="ja">関係会社を追加</value>
         <value xml:lang="th">เพิ่มบริษัทที่เกี่ยวข้อง</value>
         <value xml:lang="vi">Thêm doanh nghiệp liên quan</value>
+        <value xml:lang="zh">添加相关的公司</value>
     </property>
     <property key="PageTitleCommEvents">
         <value xml:lang="de">Kommunikationsereignis</value>
@@ -2448,6 +2453,7 @@
         <value xml:lang="ja">関連取引先の通信を一覧表示</value>
         <value xml:lang="pt_BR">Lista de comunicações de participantes relacionados</value>
         <value xml:lang="vi">Danh sách các truyền thông với các tác nhân liên quan</value>
+        <value xml:lang="zh">列出相关会员的沟通</value>
     </property>
     <property key="PageTitleListLoggedInUsers">
         <value xml:lang="de">Liste eingeloggter Benutzer</value>
@@ -2456,6 +2462,7 @@
         <value xml:lang="it">Lista utenti loggati</value>
         <value xml:lang="ja">ログインユーザ一覧</value>
         <value xml:lang="vi">Danh sách người dùng đăng nhập</value>
+        <value xml:lang="zh">登录用户列表</value>
     </property>
     <property key="PageTitleListPartyIdentifications">
         <value xml:lang="de">Liste der Identifikationsnummern</value>
@@ -2465,6 +2472,7 @@
         <value xml:lang="ja">ID番号を一覧表示</value>
         <value xml:lang="pt_BR">Lista de números de identificação</value>
         <value xml:lang="vi">Danh sách số định danh (identification number)</value>
+        <value xml:lang="zh">列出标识编号</value>
     </property>
     <property key="PageTitleListUnknownPartyComms">
         <value xml:lang="de">Kommunikation von unbekannter Herkunft</value>
@@ -2866,6 +2874,7 @@
         <value xml:lang="ja">通信イベント注文を追加</value>
         <value xml:lang="pt_BR">Adicionar pedido de evento de comunicação</value>
         <value xml:lang="vi">Thêm thứ tự sự kiện liên lạc</value>
+        <value xml:lang="zh">添加沟通事件订单</value>
         <value xml:lang="zh_TW">增加通訊事件訂單</value>
     </property>
     <property key="PartyAddCommEventProduct">
@@ -2876,6 +2885,7 @@
         <value xml:lang="ja">通信イベント製品を追加</value>
         <value xml:lang="pt_BR">Adicionar produto de evento de comunicação</value>
         <value xml:lang="vi">Thêm sản phẩm sự kiện liên lạc</value>
+        <value xml:lang="zh">添加沟通事件产品</value>
         <value xml:lang="zh_TW">增加通訊事件產品</value>
     </property>
     <property key="PartyAddListToCart">
@@ -3031,6 +3041,7 @@
         <value xml:lang="fr">Ajouter le rôle principal</value>
         <value xml:lang="ja">メインロールに追加</value>
         <value xml:lang="vi">Thêm vào vai trò chính</value>
+        <value xml:lang="zh">添加到主要角色</value>
     </property>
     <property key="PartyAddToSecondRole">
         <value xml:lang="de">Zweitrolle hinzufügen</value>
@@ -3038,6 +3049,7 @@
         <value xml:lang="fr">Ajouter le rôle secondaire</value>
         <value xml:lang="ja">第２ロールに追加</value>
         <value xml:lang="vi">Thêm vào vai trò thứ 2</value>
+        <value xml:lang="zh">添加次要角色</value>
     </property>
     <property key="PartyAddToRoleViewAll">
         <value xml:lang="de">Rolle hinzufügen: generelle Ansicht</value>
@@ -3045,6 +3057,7 @@
         <value xml:lang="fr">Ajouter le rôle : vue générale</value>
         <value xml:lang="ja">ロールに追加: すべて表示</value>
         <value xml:lang="vi">Thêm vào vai trò : xem tất cả</value>
+        <value xml:lang="zh">添加到角色：浏览全部</value>
     </property>
     <property key="PartyAddToRole">
         <value xml:lang="de">Zur Rolle hinzufügen</value>
@@ -3779,6 +3792,7 @@
         <value xml:lang="it">Non è possibile creare la sorgente dati</value>
         <value xml:lang="ja">取引先データソースを作成できません</value>
         <value xml:lang="vi">Không thể tạo PartyDataSource</value>
+        <value xml:lang="zh">不能创建会员数据源（PartyDataSource）</value>
     </property>
     <property key="PartyCannotCreateRoleTypeEntity">
         <value xml:lang="de">Rollen Typ Entität kann nicht erstellt werden (Schreib-Fehler): ${errMessage}</value>
@@ -3786,6 +3800,7 @@
         <value xml:lang="it">Non è possibile creare il tipo ruolo (fallimento in scrittura): ${errMessage}</value>
         <value xml:lang="ja">ロール種類エンティティを作成できません (書き込み失敗): ${errMessage}</value>
         <value xml:lang="vi">Không thể tạo thực thể loại vai trò (ghi không thành công): ${errMessage}</value>
+        <value xml:lang="zh">不能创建角色类型实体(写失败)：${errMessage}</value>
     </property>
     <property key="PartyCannotGetUserLoginFromParty">
         <value xml:lang="de">Der benötigte Parameter 'userLoginId' darf nicht leer sein.</value>
@@ -3793,6 +3808,7 @@
         <value xml:lang="it">Parametro 'userLoginId' richiesto non può essere vuoto.</value>
         <value xml:lang="ja">必須のパラメータ'ユーザログインID'は空にできません。</value>
         <value xml:lang="vi">Trường bắt buộc 'userLoginId' không được rỗng.</value>
+        <value xml:lang="zh">必须的参数'userLoginId'不能为空。</value>
     </property>
     <property key="PartyCannotCopyPartyContactMech">
         <value xml:lang="de">Kontakt konnte nicht kopiert werden. Fehler ${errorString}</value>
@@ -3800,6 +3816,7 @@
         <value xml:lang="it">Fallita copia contatti. Errore: ${errorString}</value>
         <value xml:lang="ja">連絡方法のコピーに失敗しました。エラー: ${errorString}</value>
         <value xml:lang="vi">Không thành công khi sao chép địa chỉ liên lạc. Nguyên nhân: ${errorString}</value>
+        <value xml:lang="zh">复制联系方式时失败。错误：${errorString}</value>
     </property>
     <property key="PartyCannotGetPartyContactMech">
         <value xml:lang="de">'partyId' und 'userLogin' sind leer.</value>
@@ -3807,6 +3824,7 @@
         <value xml:lang="it">Entrambi 'soggetto' e 'utente' sono vuoti.</value>
         <value xml:lang="ja">'取引先ID'と'ユーザログイン'の両方とも空です。</value>
         <value xml:lang="vi">Cả 'partyId' và 'userLogin' đều rỗng.</value>
+        <value xml:lang="zh">'partyId'和'userLogin'都是空的。</value>
     </property>
     <property key="PartyCannotLinkPartyToItSelf">
         <value xml:lang="de">Akteur kann nicht mit sich selbst verknüpft werden</value>
@@ -3814,6 +3832,7 @@
         <value xml:lang="it">Non è possibile collegare lo stesso soggetto a se stesso</value>
         <value xml:lang="ja">同じ取引先自身をリンクできません。</value>
         <value xml:lang="vi">Không thể liên kết tác nhân với chính tác nhân đó</value>
+        <value xml:lang="zh">不能把会员与它自己联系在一起</value>
     </property>
     <property key="PartyCannotMergeDisabledParty">
         <value xml:lang="de">Dies Zusammenführung von Datensätzen in deaktivierten Akteur ist nicht möglich!</value>
@@ -3821,6 +3840,7 @@
         <value xml:lang="it">Non è possibile fondere i soggetti se il soggetto è disabilitato!</value>
         <value xml:lang="ja">無効な取引先にレコードをマージできません!</value>
         <value xml:lang="vi">Không thể trộn dữ liệu này với tác nhân đã bị vô hiệu hóa !</value>
+        <value xml:lang="zh">无法把记录合并给一个已禁用的会员！</value>
     </property>
     <property key="PartyCannotUpdateContactBecauseNotWithSpecifiedParty">
         <value xml:lang="de">FEHLER: Kann die Kontaktinformationen nicht aktualisieren da sie nicht zum angegeben Akteur gehören.</value>
@@ -4143,6 +4163,7 @@
         <value xml:lang="ja">機会を作成</value>
         <value xml:lang="pt_BR">Criar oportunidade</value>
         <value xml:lang="vi">Tạo mới cơ hội</value>
+        <value xml:lang="zh">创建沟通</value>
     </property>
     <property key="PartyCommEventMessageIgnoredDetectedByExternalSpamChecker">
         <value xml:lang="de"> Nachricht ignoriert: erkannt durch externen Spam Checker</value>
@@ -4150,6 +4171,7 @@
         <value xml:lang="it"> Messaggio Ignorato: individuato da un verificatore esterno di spam</value>
         <value xml:lang="ja"> メッセージは無視されました: 外部スパムチェッカーで検出</value>
         <value xml:lang="vi"> Thư bị từ chối: phát hiện bởi phần mềm chống thư rác</value>
+        <value xml:lang="zh"> 消息被忽略了：通过外部垃圾邮件检查程序检测出来了</value>
     </property>
     <property key="PartyCommEventMessageIgnoredDuplicateMessageId">
         <value xml:lang="de"> Nachricht ignoriert: doppelte Nachrichten ID</value>
@@ -4157,6 +4179,7 @@
         <value xml:lang="it"> Messaggio Ignorato: messaggio duplicato</value>
         <value xml:lang="ja"> メッセージは無視されました: メッセージIDが重複しています</value>
         <value xml:lang="vi"> Thư bị từ chối: trùng messageId</value>
+        <value xml:lang="zh"> 消息被忽略了：messageId重复了</value>
     </property>
     <property key="PartyCommEventMessageIgnoredNoFromAddressSpecified">
         <value xml:lang="de"> Nachricht ignoriert: keine 'From' Adresse angegeben</value>
@@ -4164,6 +4187,7 @@
         <value xml:lang="it"> Messaggio Ignorato: nessu indirizzo 'Da' specificato</value>
         <value xml:lang="ja"> メッセージは無視されました: '差出人'アドレスが指定されていません</value>
         <value xml:lang="vi"> Thư bị từ chối: không có trường địa chỉ GỬI tới</value>
+        <value xml:lang="zh"> 消息被忽略了：没有指定来自（'From'）地址</value>
     </property>
     <property key="PartyCommEventOrders">
         <value xml:lang="de">Bestellungs-Kommunikationsereignis</value>
@@ -4173,6 +4197,7 @@
         <value xml:lang="ja">通信イベント注文</value>
         <value xml:lang="pt_BR">Pedidos de evento de comunicação</value>
         <value xml:lang="vi">Thứ tự sự kiện liên lạc</value>
+        <value xml:lang="zh">沟通事件订单</value>
     </property>
     <property key="PartyCommEventProducts">
         <value xml:lang="de">Produkt-Kommunikationsereignis</value>
@@ -4182,6 +4207,7 @@
         <value xml:lang="ja">通信イベント製品</value>
         <value xml:lang="pt_BR">Produtos de evento de comunicação</value>
         <value xml:lang="vi">Các sản phẩm được liên lạc</value>
+        <value xml:lang="zh">沟通事件产品</value>
     </property>
     <property key="PartyCommEventPurposes">
         <value xml:lang="de">Kommunikationsereignis Zweck</value>
@@ -4305,6 +4331,7 @@
         <value xml:lang="it">Evento comunicazioni: ${parameters.commnicationEventId} non trovato</value>
         <value xml:lang="ja">通信イベントID: ${parameters.commnicationEventId} が見つかません</value>
         <value xml:lang="vi">Sự kiện liên lạc: ${parameters.commnicationEventId} không tìm thấy</value>
+        <value xml:lang="zh">沟通事件标识：没有找到${parameters.commnicationEventId}</value>
     </property>
     <property key="PartyCommunications">
         <value xml:lang="de">Kommunikationen</value>
@@ -4954,6 +4981,7 @@
         <value xml:lang="it">Non è possibile creare una nuova funzione, una funzione con quel tipo esiste già</value>
         <value xml:lang="ja">新規の目的を作成できません。目的はすでに存在します</value>
         <value xml:lang="vi">Không thể tạo mới mục đích này, một mục đích cùng loại đã tồn tại</value>
+        <value xml:lang="zh">无法创建新的目的，已经存在一个那样类型的目的了</value>
     </property>
     <property key="CommonCountryCode">
         <value xml:lang="cs">Mezinárodní předvolba</value>
@@ -5112,6 +5140,7 @@
         <value xml:lang="it">File da caricare mancante...</value>
         <value xml:lang="ja">アップロードファイルが正しくありません...</value>
         <value xml:lang="vi">Tập tin tải lên bị thiếu...</value>
+        <value xml:lang="zh">缺少上传文件...</value>
     </property>
     <property key="PartyCreateNewBillingAddress">
         <value xml:lang="cs">Zložte novou fakturační adresu pro tuto kreditkartu</value>
@@ -5601,6 +5630,7 @@
         <value xml:lang="ja">死去日</value>
         <value xml:lang="pt_BR">Data do óbito</value>
         <value xml:lang="vi">Ngày mất</value>
+        <value xml:lang="zh">去世日期</value>
     </property>
     <property key="PartyDeceasedDateMissingError">
         <value xml:lang="de">Sterbedatum ist nicht korrekt formatiert: muss sein jjjj-mm-tt, z.B. 1982-07-21</value>
@@ -5610,6 +5640,7 @@
         <value xml:lang="ja">死去日の書式が正しくありません: yyyy-mm-ddで入力してください。</value>
         <value xml:lang="pt_BR">Data de óbito formatada incorretamente: deve ser aaaa-mm-dd, como em 1982-07-21</value>
         <value xml:lang="vi">Định dạng ngày mất không hợp lệ: phải là yyyy-mm-dd, như 1980-02-17 (Võ Đức Trí)</value>
+        <value xml:lang="zh">去世日期（Deceaseddate）格式不正确：必须是yyyy-mm-dd，如1982-07-21</value>
     </property>
     <property key="PartyDeleteEmail">
         <value xml:lang="de">E-Mail löschen</value>
@@ -6023,6 +6054,7 @@
         <value xml:lang="it">L'indirizzo e-mail è richiesto</value>
         <value xml:lang="ja">Eメールアドレスを入力してください</value>
         <value xml:lang="vi">Thư điện tử bắt buộc phải nhập</value>
+        <value xml:lang="zh">必须有电子邮件地址</value>
     </property>
     <property key="PartyEmailAddressSuccessfullyCreated">
         <value xml:lang="de">E-Mail Adresse erfolgreich erstellt.</value>
@@ -6365,6 +6397,7 @@
         <value xml:lang="en">Find Communications by Order</value>
         <value xml:lang="fr">Communications liées à une commande</value>
         <value xml:lang="ja">注文の通信を検索</value>
+        <value xml:lang="zh">按订单查找沟通</value>
         <value xml:lang="zh_TW">以訂單查詢通訊</value>
         <value xml:lang="vi">Tìm truyền thông theo đơn hàng</value>
     </property>
@@ -6458,6 +6491,7 @@
         <value xml:lang="it">Per favore inserire il nome</value>
         <value xml:lang="ja">姓(FN)を入力してください</value>
         <value xml:lang="vi">Bạn hãy nhập thông tin Tên</value>
+        <value xml:lang="zh">请输入一个名字（firstName）</value>
     </property>
     <property key="PartyFollowSession">
         <value xml:lang="de">Session verfolgen</value>
@@ -6548,6 +6582,7 @@
         <value xml:lang="ja">フルネーム</value>
         <value xml:lang="pt_BR">Nome completo</value>
         <value xml:lang="vi">Tên đầy đủ</value>
+        <value xml:lang="zh">全称</value>
     </property>
     <property key="PartyGender">
         <value xml:lang="cs">Pohlaví</value>
@@ -6858,11 +6893,13 @@
         <value xml:lang="de">Ungültiges CSV Format (Schlüssel, Wert, Sequenz)</value>
         <value xml:lang="en">Invalid format for CSV (key,value,sequence)</value>
         <value xml:lang="it">Formato file CSV non valido (chiave, valore, sequenza)</value>
+        <value xml:lang="zh">逗号分隔格式无效(键,值,序号)</value>
     </property>
     <property key="PartyImportNoRecordsFoundInFile">
         <value xml:lang="de">Keine Aufzeichnung in der Datei gefunden</value>
         <value xml:lang="en">No records found in file</value>
         <value xml:lang="it">Formato file CSV non valido (chiave, valore, sequenza)</value>
+        <value xml:lang="zh">文件中没有记录</value>
     </property>
     <property key="PartyInProgresstEmails">
         <value xml:lang="de">E-Mails die versendet werden sollen</value>
@@ -6872,6 +6909,7 @@
         <value xml:lang="it">Email schedulate da inviare</value>
         <value xml:lang="ja">Eメールの送信がスケジュールされました</value>
         <value xml:lang="pt_BR">E-mails agendados para o envio</value>
+        <value xml:lang="zh">计划要发送的电子邮件</value>
     </property>
     <property key="PartyInformationNotBelongToYou">
         <value xml:lang="cs">Uvedené kontaktní informace nejsou Vaše, proto je nemůžete prohlížet ani editovat</value>
@@ -7302,6 +7340,7 @@
         <value xml:lang="it">Per favore inserire il cognome</value>
         <value xml:lang="ja">名(LN)を入力してください</value>
         <value xml:lang="vi">Bạn hãy nhập họ</value>
+        <value xml:lang="zh">请输入姓氏（lastName）</value>
     </property>
     <property key="PartyLeaveEmpty">
         <value xml:lang="de">Leer lassen für neuen Akteur</value>
@@ -7338,6 +7377,7 @@
         <value xml:lang="fr">Désactive l'acteur sélectionné (gauche), et lie ses données vers l'acteur sélectionné à droite</value>
         <value xml:lang="ja">これは'取引先ID'のステータスを無効に設定しますが、取引先属性で'取引先(先)'にリンクします</value>
         <value xml:lang="vi">Việc này sẽ đặt trạng thái 'partyId' thành vô hiệu hóa và tạo liên kết đến 'partyTo' tại thuộc tính của tác nhân</value>
+        <value xml:lang="zh">这会把会员标识（'partyId'）的状态设置为禁用，而且会在会员属性中把它链接到'partyTo'</value>
     </property>
     <property key="PartyLinkMessage1">
         <value xml:lang="de">WARNUNG: Dies kann nicht rückgängig gemacht werden. Bestätigen Sie bitte, dass Sie die beiden unten aufgeführten Akteure verknüpfen möchten. </value>
@@ -7525,6 +7565,7 @@
         <value xml:lang="it">Utenti loggati</value>
         <value xml:lang="ja">ログインユーザ</value>
         <value xml:lang="vi">Người dùng đăng nhập</value>
+        <value xml:lang="zh">已登录的用户</value>
     </property>
     <property key="PartyLookupAccount">
         <value xml:lang="de">Akteur mit Rolle 'Konto' suchen</value>
@@ -7576,6 +7617,7 @@
         <value xml:lang="ja">内部組織を検索</value>
         <value xml:lang="pt_BR">Buscar organização interna</value>
         <value xml:lang="vi">Tìm kiếm tổ chức nội bộ</value>
+        <value xml:lang="zh">查找内部机构</value>
     </property>
     <property key="PartyLookupLead">
         <value xml:lang="de">Akteur mit Rolle 'Lead' suchen</value>
@@ -7584,6 +7626,7 @@
         <value xml:lang="ja">ロールで取引先引合を検索</value>
         <value xml:lang="pt_BR">Buscar participante com papel de liderança</value>
         <value xml:lang="vi">Tìm kiếm tác nhân với vai trò Đầu mối (Lead)</value>
+        <value xml:lang="zh">查找具有线索角色的会员</value>
     </property>
     <property key="PartyLookupParty">
         <value xml:lang="de">Akteur suchen</value>
@@ -7710,6 +7753,7 @@
         <value xml:lang="it">Errore durante la ricerca dello stato/provincia: ${errMessage}</value>
         <value xml:lang="ja">州/地方/都道府県位置の検索時にエラー: ${errMessage}</value>
         <value xml:lang="vi">Lỗi khi tìm kiếm địa lý của tỉnh/thành phố: ${errMessage}</value>
+        <value xml:lang="zh">查找州省地理（StateProvinceGeo）时出错：${errMessage}</value>
     </property>
     <property key="PartyLookupPartyError">
         <value xml:lang="de">Fehler bei Akteur suche, Rückabwicklung der Transaktion: ${errMessage}</value>
@@ -7717,6 +7761,7 @@
         <value xml:lang="it">Fallita l'operazione di ricerca soggetto, transazione annullata: ${errMessage}</value>
         <value xml:lang="ja">取引先検索時にエラー。トランザクションをロールバックします: ${errMessage}</value>
         <value xml:lang="vi">Tìm kiếm tác nhân không thành công, hoàn lại giao dịch: ${errMessage}</value>
+        <value xml:lang="zh">进行查找会员操作时失败，回滚交易：${errMessage}</value>
     </property>
     <property key="PartyLookupPartyTypeError">
         <value xml:lang="de">Fehler bei der Suche nach Akteur-Typ: ${errMessage}</value>
@@ -7724,6 +7769,7 @@
         <value xml:lang="it">Errore durante la ricerca del tipo soggetto: ${errMessage}</value>
         <value xml:lang="ja">取引先種類の検索時にエラー: ${errMessage}</value>
         <value xml:lang="vi">Lỗi tìm kiếm loại tác nhân: ${errMessage}</value>
+        <value xml:lang="zh">查找会员类型（PartyTypes）时出错：${errMessage}</value>
     </property>
     <property key="PartyLookupRoleTypeError">
         <value xml:lang="de">Fehler bei Suche nach Rollen-Typ: ${errMessage}</value>
@@ -7731,6 +7777,7 @@
         <value xml:lang="it">Errore durante la ricerca del tipo ruolo: ${errMessage}</value>
         <value xml:lang="ja">ロール種類の検索時にエラー: ${errMessage}</value>
         <value xml:lang="vi">Lỗi tìm kiếm loại tác nhân: ${errMessage}</value>
+        <value xml:lang="zh">查找角色类型（RoleTypes）时出错：${errMessage}</value>
     </property>
     <property key="PartyLookupUserLoginAndPartyDetails">
         <value xml:lang="de">Benutzeranmeldung und Akteur suchen</value>
@@ -7793,6 +7840,7 @@
         <value xml:lang="nl">Hoofdrol</value>
         <value xml:lang="pt_BR">Pepel principal</value>
         <value xml:lang="vi">Vai trò chính</value>
+        <value xml:lang="zh">主要角色</value>
     </property>
     <property key="PartyManager">
         <value xml:lang="de">Akteur Manager Anwendung</value>
@@ -8875,6 +8923,7 @@
         <value xml:lang="it">Sorgente dati ${dataSourceId} non è stato trovato</value>
         <value xml:lang="ja">ID ${dataSourceId} のデータソースが見つかりません</value>
         <value xml:lang="vi">Bản ghi dữ liệu với ID ${dataSourceId} không tìm thấy</value>
+        <value xml:lang="zh">没有找到标识为${dataSourceId}的数据源</value>
     </property>
     <property key="PartyNoPartyRelationshipsFound">
         <value xml:lang="de">Keine Beziehungen gefunden.</value>
@@ -8936,6 +8985,7 @@
         <value xml:lang="ja">この取引先に製品店舗はありません。</value>
         <value xml:lang="zh_TW">此成員沒有產品商店。</value>
         <value xml:lang="vi">Không tìm thấy cửa hàng cho tác nhân này.</value>
+        <value xml:lang="zh">没有找到这个会员的产品店铺。</value>
     </property>
     <property key="PartyNoServerHitsFound">
         <value xml:lang="de">Keine Server Hits für diesen Webseiten Besuch gefunden</value>
@@ -9043,6 +9093,7 @@
         <value xml:lang="it">Non è possibile creare la nota: ${errorString}</value>
         <value xml:lang="ja">連絡を作成できません: ${errorString}</value>
         <value xml:lang="vi">Không thể tạo mới ghi chú: ${errorString}</value>
+        <value xml:lang="zh">无法创建便笺：${errorString}</value>
     </property>
     <property key="PartyNoUserLogin">
         <value xml:lang="de">Keine Benutzeranmeldung gefunden für diesen Akteur.</value>
@@ -9100,6 +9151,7 @@
     </property>
     <property key="PartyNotificationMailActivated">
         <value xml:lang="en">Party Account Activated Notification Mail</value>
+        <value xml:lang="zh">会员账户激活通知邮件</value>
     </property>
     <property key="PartyNotificationMailChange">
         <value xml:lang="de">Persönliche Info Benachrichtigungsmail ändern</value>
@@ -9203,6 +9255,7 @@
         <value xml:lang="ja">注文追加</value>
         <value xml:lang="pt_BR">Adicionar pedido</value>
         <value xml:lang="vi">Thêm đơn hàng</value>
+        <value xml:lang="zh">订单添加</value>
     </property>
     <property key="PartyOrderInLast">
         <value xml:lang="de">Aufträge in den letzten</value>
@@ -9284,6 +9337,7 @@
         <value xml:lang="en">Others and General Communication Events</value>
         <value xml:lang="ja">その他および一般通信イベント</value>
         <value xml:lang="vi">Sự kiện truyền thông chung và các sự kiện truyền thông khác</value>
+        <value xml:lang="zh">其它和普通沟通事件</value>
     </property>
     <property key="PartyPagePushFollowing">
         <value xml:lang="de">Seite absenden / anhängen</value>
@@ -9431,6 +9485,7 @@
         <value xml:lang="it">Soggetto Da non esiste!</value>
         <value xml:lang="ja">取引先(元)が存在しません!</value>
         <value xml:lang="vi">Tác nhân Đến không tồn tại!</value>
+        <value xml:lang="zh">不存在会员来自！</value>
     </property>
     <property key="PartyPartyGroupInformation">
         <value xml:lang="de">Akteurgruppe Information</value>
@@ -9561,6 +9616,7 @@
         <value xml:lang="ja">ID番号</value>
         <value xml:lang="pt_BR">Número de identificação</value>
         <value xml:lang="vi">Số định danh (Identification Number)</value>
+        <value xml:lang="zh">标识编号</value>
         <value xml:lang="zh_TW">ID編號</value>
     </property>
     <property key="PartyPartyIdentificationList">
@@ -9571,6 +9627,7 @@
         <value xml:lang="ja">ID番号一覧</value>
         <value xml:lang="pt_BR">Lista de números de identificação</value>
         <value xml:lang="vi">Danh sách số định danh</value>
+        <value xml:lang="zh">列出标识编号</value>
         <value xml:lang="zh_TW">列出ID編碼</value>
     </property>
     <property key="PartyPartyIdentifications">
@@ -9581,6 +9638,7 @@
         <value xml:lang="ja">ID番号</value>
         <value xml:lang="pt_BR">Números de identificação</value>
         <value xml:lang="vi">Số định danh (Identification Number)</value>
+        <value xml:lang="zh">标识编号</value>
         <value xml:lang="zh_TW">ID編碼</value>
     </property>
     <property key="PartyPartyInTheRoleOf">
@@ -9690,6 +9748,7 @@
         <value xml:lang="it">Soggetto A non esiste!</value>
         <value xml:lang="ja">取引先(先)が存在しません!</value>
         <value xml:lang="vi">Tác nhân Đến không tồn tại !</value>
+        <value xml:lang="zh">不存在“会员到”！</value>
     </property>
     <property key="PartyPartyTypeIdNotFound">
         <value xml:lang="de">Die gesuchte Akteur Typen ID ${partyTypeId} konnte nicht gefunden werden oder ist kein Sub-Typ von PARTY_GROUP</value>
@@ -9697,6 +9756,7 @@
         <value xml:lang="it">Il tipo soggetto specificato ${partyTypeId} non è stato trovato o non è un sotto-tipo di PARTY_GROUP</value>
         <value xml:lang="ja">指定した取引先種類ID ${partyTypeId} が見つからないか、PARTY_GROUP のサブタイプではありません</value>
         <value xml:lang="vi">Loại tác nhân ${partyTypeId} không tìm thấy hoặc không phải là loại con của PARTY_GROUP</value>
+        <value xml:lang="zh">无法找到指定的会员类型标识（partyTypeId）${partyTypeId}，或者它不是会员组（PARTY_GROUP）的子类型</value>
     </property>
     <property key="PartyPartyWithId">
         <value xml:lang="de">des Akteur mit der ID</value>
@@ -10347,6 +10407,7 @@
         <value xml:lang="ja">製品追加</value>
         <value xml:lang="pt_BR">Adição de produto</value>
         <value xml:lang="vi">Thêm sản phẩm</value>
+        <value xml:lang="zh">产品添加</value>
     </property>
     <property key="PartyProductId">
         <value xml:lang="de">Produkt ID</value>
@@ -10614,6 +10675,7 @@
         <value xml:lang="nl">Gerelateerd bedrijf</value>
         <value xml:lang="pt_BR">Empresa relacionada</value>
         <value xml:lang="vi">Công ty liên quan</value>
+        <value xml:lang="zh">相关的公司</value>
     </property>
     <property key="PartyRelationSecurity">
         <value xml:lang="de">Akteur Beziehung Sicherheit</value>
@@ -10638,6 +10700,7 @@
         <value xml:lang="it">Non è possibile creare il tipo rapporto soggetto: esiste già</value>
         <value xml:lang="ja">取引先の関係が作成できません。すでに存在します</value>
         <value xml:lang="vi">Không thể tạo mới loại quan hệ của tác nhân: đã tồn tại</value>
+        <value xml:lang="zh">无法创建会员关系类型：已经存在了</value>
     </property>
     <property key="PartyRelationshipTypeReadFailure">
         <value xml:lang="de">Akteur-Beziehungstyp kann nicht erstellt werden (Lese-Fehler): ${errorString}</value>
@@ -10645,6 +10708,7 @@
         <value xml:lang="it">Non è possibile creare il tipo rapporto soggetto (fallita lettura): ${errorString}</value>
         <value xml:lang="ja">取引先の関係が作成できません (読み込み失敗): ${errorString}</value>
         <value xml:lang="vi">Không thể tạo mới loại quan hệ của tác nhân (đọc lỗi): ${errorString}</value>
+        <value xml:lang="zh">无法创建会员关系类型(读失败)：${errorString}</value>
     </property>
     <property key="PartyRelationshipTypeWriteFailure">
         <value xml:lang="de">Akteur-Beziehungstyp kann nicht erstellt werden (Schreib-Fehler): ${errorString}</value>
@@ -10652,6 +10716,7 @@
         <value xml:lang="it">Non è possibile creare il tipo rapporto soggetto (fallita scrittura): ${errorString}</value>
         <value xml:lang="ja">取引先の関係が作成できません (書き込み失敗): ${errorString}</value>
         <value xml:lang="vi">Không thể tạo mới loại quan hệ của tác nhân (ghi lỗi): ${errorString}</value>
+        <value xml:lang="zh">无法创建会员关系类型(写失败)：${errorString}</value>
     </property>
     <property key="PartyRelationshipValidFromRoleType">
         <value xml:lang="de">Gültig von Rolle Typ</value>
@@ -10887,6 +10952,7 @@
         <value xml:lang="ja">すべて返信</value>
         <value xml:lang="pt_BR">Responder para todos</value>
         <value xml:lang="vi">Trả lời tất cả</value>
+        <value xml:lang="zh">全部回复</value>
     </property>
     <property key="PartyReplyPrefix">
         <value xml:lang="de">AW:</value>
@@ -11118,6 +11184,7 @@
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} tu devi avere il permesso SECURITY_CREATE o SECURITY_ADMIN</value>
         <value xml:lang="ja">セキュリティエラー: ${resourceDescription} の実行には SECURITY_CREATE または SECURITY_ADMIN 権限が必要です</value>
         <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần phải có quyền SECURITY_CREATE hoặc quyền SECURITY_ADMIN</value>
+        <value xml:lang="zh">安全错误：要运行${resourceDescription}，你必须有 SECURITY_CREATE 或 SECURITY_ADMIN 权限</value>
     </property>
     <property key="PartySecurityGroupDeletePermissionError">
         <value xml:lang="de">Sicherheitsfehler: um ${resourceDescription} ausführen zu können müssen Sie die Rechte SECURITY_DELETE oder SECURITY_ADMIN besitzen.</value>
@@ -11125,6 +11192,7 @@
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} tu devi avere il permesso SECURITY_DELETE o SECURITY_ADMIN</value>
         <value xml:lang="ja">セキュリティエラー: ${resourceDescription} の実行には SECURITY_DELETE または SECURITY_ADMIN 権限が必要です</value>
         <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần phải có quyền SECURITY_DELETE hoặc quyền SECURITY_ADMIN</value>
+        <value xml:lang="zh">安全错误：要运行${resourceDescription}，你必须有 SECURITY_DELETE 或 SECURITY_ADMIN 权限</value>
     </property>
     <property key="PartySecurityGroupUpdatePermissionError">
         <value xml:lang="de">Sicherheitsfehler: um ${resourceDescription} ausführen zu können müssen Sie die Rechte SECURITY_UPDATE oder SECURITY_ADMIN besitzen.</value>
@@ -11132,6 +11200,7 @@
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} tu devi avere il permesso SECURITY_UPDATE o SECURITY_ADMIN</value>
         <value xml:lang="ja">セキュリティエラー: ${resourceDescription} の実行には SECURITY_UPDATE または SECURITY_ADMIN 権限が必要です</value>
         <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần phải có quyền SECURITY_UPDATE hoặc quyền SECURITY_ADMIN</value>
+        <value xml:lang="zh">安全错误：要运行${resourceDescription}，你必须有 SECURITY_UPDATE 或 SECURITY_ADMIN 权限</value>
     </property>
     <property key="PartySegmentGroupId">
         <value xml:lang="de">Segmentgruppe ID</value>
@@ -11428,6 +11497,7 @@
         <value xml:lang="ja">発送先住所</value>
         <value xml:lang="pt_BR">Endereço de envio</value>
         <value xml:lang="vi">Địa chỉ chuyển hàng</value>
+        <value xml:lang="zh">送货地址</value>
         <value xml:lang="zh_TW">遞送地址</value>
     </property>
     <property key="PartyShoppingListDetail">
@@ -11709,6 +11779,7 @@
         <value xml:lang="it">Non è possibile cambiare lo stato del soggetto da ${partyFromStatusId} a ${partyToStatusId}</value>
         <value xml:lang="ja">取引先ステータスを ${partyFromStatusId} から ${partyToStatusId} に変更できません</value>
         <value xml:lang="vi">Không thể sao chép trạng thái tác nhân từ ${partyFromStatusId} đến ${partyToStatusId}</value>
+        <value xml:lang="zh">不能把会员状态从 ${partyFromStatusId} 改为 ${partyToStatusId}</value>
     </property>
     <property key="PartyStillActive">
         <value xml:lang="de">Immer noch aktiv</value>
@@ -12229,6 +12300,7 @@
         <value xml:lang="it">Non è possibile localizzare la funzione; non può essere cancellata</value>
         <value xml:lang="ja">目的の構築ができません。削除できません</value>
         <value xml:lang="vi">Không thể tìm được mục đích ; không thể xóa</value>
+        <value xml:lang="zh">无法定位目的；不能删除</value>
     </property>
     <property key="PartyURI">
         <value xml:lang="de">URI</value>
@@ -12485,6 +12557,7 @@
         <value xml:lang="ja">ユーザ名は使用されています、別の名前を選んでください</value>
         <value xml:lang="nl">Deze gebruikersnaam bestaat al. Kiest u alstublieft een andere.</value>
         <value xml:lang="vi">Tên người dùng đã được sử dụng, bạn hãy chọn tên khác.</value>
+        <value xml:lang="zh">用户名已被使用了，请另选一个。</value>
         <value xml:lang="zh_TW">使用者名稱已使用, 請另行選擇.</value>
     </property>
     <property key="PartyUserNameMissing">
@@ -12584,6 +12657,7 @@
         <value xml:lang="ja">通信注文を表示</value>
         <value xml:lang="pt_BR">Ver pedidos de comunicação</value>
         <value xml:lang="vi">Xem đơn hàng truyền thông</value>
+        <value xml:lang="zh">浏览沟通订单</value>
     </property>
     <property key="PartyViewCommProducts">
         <value xml:lang="de">Produkt-Kommunikation einsehen</value>
@@ -12593,6 +12667,7 @@
         <value xml:lang="ja">通信製品を表示</value>
         <value xml:lang="pt_BR">Ver comunicações de produto</value>
         <value xml:lang="vi">Xem sản phẩm truyền thông</value>
+        <value xml:lang="zh">浏览沟通产品</value>
     </property>
     <property key="PartyViewCommunicationEvent">
         <value xml:lang="de">Kommunikationsereignis anzeigen</value>
