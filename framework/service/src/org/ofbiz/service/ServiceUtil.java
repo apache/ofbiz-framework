@@ -468,7 +468,7 @@ public class ServiceUtil {
                     noMoreResults = true;
                 }
             }
-            
+
             // Now JobSandbox data is cleaned up. Now process Runtime data and remove the whole data in single shot that is of no need.
             boolean beganTx3 = false;
             GenericValue runtimeData = null;
@@ -478,7 +478,7 @@ public class ServiceUtil {
             try {
                 // begin this transaction
                 beganTx3 = TransactionUtil.begin();
-                
+
                 runTimeDataIt = delegator.find("RuntimeData", null, null, UtilMisc.toSet("runtimeDataId"), null, null);
                 try {
                     while ((runtimeData = runTimeDataIt.next()) != null) {
@@ -701,9 +701,10 @@ public class ServiceUtil {
      * @param timeZone
      * @param locale
      * @return filled Map or null on error
+     * @throws GeneralServiceException
      */
     public static Map<String, Object> setServiceFields(LocalDispatcher dispatcher, String serviceName, Map<String, Object> fromMap, GenericValue userLogin,
-            TimeZone timeZone, Locale locale) {
+            TimeZone timeZone, Locale locale) throws GeneralServiceException {
         Map<String, Object> outMap = FastMap.newInstance();
 
         ModelService modelService = null;
@@ -712,7 +713,7 @@ public class ServiceUtil {
         } catch (GenericServiceException e) {
             String errMsg = "Could not get service definition for service name [" + serviceName + "]: ";
             Debug.logError(e, errMsg, module);
-            return null;
+            throw new GeneralServiceException(e);
         }
         outMap.putAll(modelService.makeValid(fromMap, "IN", true, null, timeZone, locale));
 
