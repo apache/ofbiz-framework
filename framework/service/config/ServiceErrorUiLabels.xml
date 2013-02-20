@@ -101,130 +101,156 @@
         <value xml:lang="en">Error doing entity-auto operation for entity ${entityName} in service ${serviceName}: ${errorString}</value>
         <value xml:lang="it">Errore mentre faceva l'operazione entity-auto per l'entità ${entityName} nel servizio ${serviceName}: ${errorString}</value>
         <value xml:lang="ja">サービス ${serviceName} で、エンティティ ${entityName} にエンティティ自動操作実行中にエラー: ${errorString}</value>
+        <value xml:lang="zh">进行实体自动操作时出错，实体 ${entityName}、服务 ${serviceName}：${errorString}</value>
     </property>
     <property key="ServiceParameterValueNotValid">
         <value xml:lang="en">The ID value in the parameter ${parameterName} was not valid: ${errorDetails}</value>
         <value xml:lang="it">Il valore ID nel parametro ${parameterName} non è valido: ${errorDetails}</value>
         <value xml:lang="ja">パラメータ ${parameterName} の中のIDが正しくありません: ${errorDetails}</value>
+        <value xml:lang="zh">参数 ${parameterName} 中的标识（ID）值无效：${errorDetails}</value>
     </property>
     <property key="ServiceTestDeadLockError">
         <value xml:lang="en">Error running deadlock test services: ${errorString}</value>
         <value xml:lang="it">Errore durante il test del servizio deadlock: ${errorString}</value>
         <value xml:lang="ja">デッドロックテストサービス実行中にエラー: ${errorString}</value>
+        <value xml:lang="zh">运行死锁测试服务时出错：${errorString}</value>
     </property>
     <property key="ServiceTestDeadLockRetry">
         <value xml:lang="en">Error(s) running sub-services in testServiceDeadLockRetry</value>
         <value xml:lang="it">Errore(i) durante l'esecuzione dei sotto-servizi in testServiceDeadLockRetry</value>
         <value xml:lang="ja">testServiceDeadLockRetryの中のサブサービス実行中にエラー</value>
+        <value xml:lang="zh">运行测试服务死锁重试（testServiceDeadLockRetry）中的子服务时出错</value>
     </property>
     <property key="ServiceTestDeadLockThreadA">
         <value xml:lang="en">Error running testServiceDeadLockRetryThreadA: ${errorString}</value>
         <value xml:lang="it">Errore durante l'esecuzione di testServiceDeadLockRetryThreadA: ${errorString}</value>
         <value xml:lang="ja">testServiceDeadLockRetryThreadAの実行中にエラー: ${errorString}</value>
+        <value xml:lang="zh">运行测试服务死锁重试线程A（testServiceDeadLockRetryThreadA）时出错：${errorString}</value>
     </property>
     <property key="ServiceTestDeadLockThreadB">
         <value xml:lang="en">Error running testServiceDeadLockRetryThreadB: ${errorString}</value>
         <value xml:lang="it">Errore durante l'esecuzione di testServiceDeadLockRetryThreadB: ${errorString}</value>
         <value xml:lang="ja">testServiceDeadLockRetryThreadBの実行中にエラー: ${errorString}</value>
+        <value xml:lang="zh">运行测试服务死锁重试线程B（testServiceDeadLockRetryThreadB）时出错：${errorString}</value>
     </property>
     <property key="ServiceTestEntityEngineError">
         <value xml:lang="en">Entity Engine Exception: ${errorString}</value>
         <value xml:lang="it">Eccezione Entity Engine: ${errorString}</value>
         <value xml:lang="ja">エンティティエンジン例外: ${errorString}</value>
+        <value xml:lang="zh">实体引擎出现异常：${errorString}</value>
     </property>
     <property key="ServiceTestEntityEngineExceptionThreadA">
         <value xml:lang="en">Entity Engine Exception running dead lock test thread A: ${errorString}</value>
         <value xml:lang="it">Eccezione Entity Engine durante l'esecuzione del test dead lock thread A: ${errorString}</value>
         <value xml:lang="ja">デッドロックテストスレッドA実行中にエンティティエンジン例外: ${errorString}</value>
+        <value xml:lang="zh">运行死锁测试线程A时发生实体引擎异常：${errorString}</value>
     </property>
     <property key="ServiceTestEntityEngineExceptionThreadB">
         <value xml:lang="en">Entity Engine Exception running dead lock test thread B: ${errorString}</value>
         <value xml:lang="it">Eccezione Entity Engine durante l'esecuzione del test dead lock thread B: ${errorString}</value>
         <value xml:lang="ja">デッドロックテストスレッドB実行中にエンティティエンジン例外: ${errorString}</value>
+        <value xml:lang="zh">运行死锁测试线程B时发生实体引擎异常：${errorString}</value>
     </property>
     <property key="ServiceTestEntityEngineWaitInterruptedExceptionThreadA">
         <value xml:lang="en">Entity Engine Exception running dead lock test thread A: ${errorString}</value>
         <value xml:lang="it">Eccezione Entity Engine durante l'esecuzione del test dead lock thread A: ${errorString}</value>
         <value xml:lang="ja">デッドロックテストスレッドA実行中にエンティティエンジン例外: ${errorString}</value>
+        <value xml:lang="zh">运行死锁测试线程A时发生实体引擎异常：${errorString}</value>
     </property>
     <property key="ServiceTestEntityEngineWaitInterruptedExceptionThreadB">
         <value xml:lang="en">Entity Engine Exception running dead lock test thread B: ${errorString}</value>
         <value xml:lang="it">Eccezione Entity Engine durante l'esecuzione del test dead lock thread B: ${errorString}</value>
         <value xml:lang="ja">デッドロックテストスレッドB実行中にエンティティエンジン例外: ${errorString}</value>
+        <value xml:lang="zh">运行死锁测试线程B时发生实体引擎异常：${errorString}</value>
     </property>
     <property key="ServiceTestLockWaitTimeoutRetry">
         <value xml:lang="en">Error(s) running sub-services in testServiceLockWaitTimeoutRetry</value>
         <value xml:lang="it">Errore(i) durante l'esecuzione dei sotto-servizi in testServiceLockWaitTimeoutRetry</value>
         <value xml:lang="ja">testServiceLockWaitTimeoutRetryの中のサブサービス実行中にエラー</value>
+        <value xml:lang="zh">运行测试服务锁等待超时重试（testServiceLockWaitTimeoutRetry）服务时出错</value>
     </property>
     <property key="ServiceTestLockWaitTimeoutRetryGrabber">
         <value xml:lang="en">Entity Engine Exception running lock wait timeout test Grabber thread: ${errorString}</value>
         <value xml:lang="it">Eccezione Entity Engine durante l'esecuzione del lock wait timeout test Grabber thread: ${errorString}</value>
         <value xml:lang="ja">ロック待タイムアウトテスト獲得スレッド実行中にエンティティエンジン例外: ${errorString}</value>
+        <value xml:lang="zh">运行锁等待超时测试采集程序线程时发生实体引擎意外：${errorString}</value>
     </property>
     <property key="ServiceTestLockWaitTimeoutRetryWaiter">
         <value xml:lang="en">Entity Engine Exception running lock wait timeout test Grabber thread: ${errorString}</value>
         <value xml:lang="it">Eccezione Entity Engine durante l'esecuzione del lock wait timeout test Grabber thread: ${errorString}</value>
         <value xml:lang="ja">ロック待タイムアウトテスト待機スレッド実行中にエンティティエンジン例外: ${errorString}</value>
+        <value xml:lang="zh">运行锁等待超时测试采集程序线程时发生实体引擎意外：${errorString}</value>
     </property>
     <property key="ServiceTestLockInterruptedExceptionRetryGrabber">
         <value xml:lang="en">Wait Interrupted Exception running lock wait timeout test Grabber thread: ${errorString}</value>
         <value xml:lang="it">Eccezione Wait Interrupted Exception durante l'esecuzione del lock wait timeout test Grabber thread: ${errorString}</value>
         <value xml:lang="ja">ロック待タイムアウトテスト獲得スレッド実行中にウェイト割込例外: ${errorString}</value>
+        <value xml:lang="zh">运行锁等待超时测试采集程序线程时发生等待中断意外：${errorString}</value>
     </property>
     <property key="ServiceTestLockInterruptedExceptionRetryWaiter">
         <value xml:lang="en">Wait Interrupted Exception running lock wait timeout test Waiter thread: ${errorString}</value>
         <value xml:lang="it">Eccezione Wait Interrupted Exception durante l'esecuzione del lock wait timeout test Waiter thread: ${errorString}</value>
         <value xml:lang="ja">ロック待タイムアウトテスト待機スレッド実行中にウェイト割込例外: ${errorString}</value>
+        <value xml:lang="zh">运行锁等待超时测试等待程序线程时发生等待中断意外：${errorString}</value>
     </property>
     <property key="ServiceTestLockWaitTimeoutRetryCantRecoverWaiter">
         <value xml:lang="en">Error running testServiceLockWaitTimeoutRetryCantRecoverWaiter</value>
         <value xml:lang="it">Errore durante l'esecuzione di testServiceLockWaitTimeoutRetryCantRecoverWaiter</value>
         <value xml:lang="ja">testServiceLockWaitTimeoutRetryCantRecoverWaiter実行中にエラー</value>
+        <value xml:lang="zh">运行测试服务锁等待程序超时重试不能恢复等待（testServiceLockWaitTimeoutRetryCantRecoverWaiter）时出错</value>
     </property>
     <property key="ServiceTestOwnTxError">
         <value xml:lang="en">Error running sub-service with own tx: ${errorString}</value>
         <value xml:lang="it">Errore durante l'esecuzione del sotto-servizio con proprie transazione: ${errorString}</value>
         <value xml:lang="ja">自Txでサブサービス実行中にエラー: ${errorString}</value>
+        <value xml:lang="zh">运行带有事务处理的子服务时出错：${errorString}</value>
     </property>
     <property key="ServiceTestOwnTxSubServiceAfterSetRollbackOnlyInParentErrorCatchWrapper">
         <value xml:lang="en">Error running ServiceTestOwnTxSubServiceAfterSetRollbackOnlyInParentErrorCatchWrapper</value>
         <value xml:lang="it">Errore durante l'esecuzione di ServiceTestOwnTxSubServiceAfterSetRollbackOnlyInParentErrorCatchWrapper</value>
         <value xml:lang="ja">ServiceTestOwnTxSubServiceAfterSetRollbackOnlyInParentErrorCatchWrapper実行中にエラー</value>
+        <value xml:lang="zh">运行在上级错误捕获程序中在设置了仅回滚后的带有事务处理子服务的服务测试（ServiceTestOwnTxSubServiceAfterSetRollbackOnlyInParentErrorCatchWrapper）时出错</value>
     </property>
     <property key="ServiceTestOwnTxSubServiceAfterSetRollbackOnlyInParent">
         <value xml:lang="en">Error running sub-service in testServiceOwnTxSubServiceAfterSetRollbackOnlyInParent</value>
         <value xml:lang="it">Errore durante l'esecuzione di testServiceOwnTxSubServiceAfterSetRollbackOnlyInParent</value>
         <value xml:lang="ja">testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentの中のサブサービス実行中にエラー</value>
+        <value xml:lang="zh">运行在上级服务中设置了仅回滚后的带有事务处理子服务的测试服务（testServiceOwnTxSubServiceAfterSetRollbackOnlyInParent）中的子服务时出错</value>
     </property>
     <property key="ServiceTestRollback">
         <value xml:lang="en">Intentional rollback to test global-rollback</value>
         <value xml:lang="it">Rollback intenzionale per testare il global-rollback</value>
         <value xml:lang="ja">グローバル・ロールバックのテストのため意図的なロールバック</value>
+        <value xml:lang="zh">故意回滚以测试全局回滚</value>
     </property>
     <property key="ServiceTestSubServiceError">
         <value xml:lang="en">Error calling sub-service, it should return an error but not throw an exception, so something went wrong: ${errorString}</value>
         <value xml:lang="it">Errore durante l'esecuzione del sotto-servizio, dovrebbe restituire un'errore ma non generare un'eccezione, così qualcosa è andato male: ${errorString}</value>
         <value xml:lang="ja">サブサービス呼び出し中にエラー。エラーを戻しましたが例外がスローされませんでした。なにか誤りがあります: ${errorString}</value>
+        <value xml:lang="zh">调用子服务时出错，它应该返回一个错误，而不是抛出一个意外，因此发生了错误：${errorString}</value>
     </property>
     <property key="ServiceTestXmlRpcCalculationOK">
         <value xml:lang="en">adding integer 125 to 365 yields </value>
         <value xml:lang="it">aggiungere intero 125 a 365 yields </value>
         <value xml:lang="ja">整数 125 ～ 365 の加算が生じます </value>
+        <value xml:lang="zh">把整数125加到365，生成</value>
     </property>
     <property key="ServiceTestXmlRpcCalculationKO">
         <value xml:lang="en">calcul is wrong ! Why ?</value>
         <value xml:lang="it">calcolo è errato ! Perchè ?</value>
         <value xml:lang="ja">計算に誤りがあります!なぜ?</value>
+        <value xml:lang="zh">计算错误！为什么？</value>
     </property>
     <property key="ServiceTestXmlRpcMissingParameters">
         <value xml:lang="en">missing parameters</value>
         <value xml:lang="it">parametri mancanti</value>
         <value xml:lang="ja">パラメータが正しくありません</value>
+        <value xml:lang="zh">缺少参数</value>
     </property>
     <property key="ServiceValueNotFound">
         <value xml:lang="en">Value not found, cannot update</value>
         <value xml:lang="it">Valore non troavato, non è possibile aggiornare</value>
         <value xml:lang="ja">値が見つかりません。更新できません</value>
+        <value xml:lang="zh">没有找到值，无法更新</value>
     </property>
 </resource>

@@ -76,6 +76,7 @@
         <value xml:lang="ja">最初のリソース</value>
         <value xml:lang="nl">Eerste resource</value>
         <value xml:lang="vi">Nguồn lực nhân sự đầu tiên</value>
+        <value xml:lang="zh">第一个资源</value>
     </property>
     <property key="FormFieldTitle_mailingListEmail">
         <value xml:lang="de">Mailing List E-Mail</value>
@@ -85,6 +86,7 @@
         <value xml:lang="nl">Mailinglijst E-mail</value>
         <value xml:lang="th">E-mail สำหรับ Mailing List</value>
         <value xml:lang="vi">Danh sách thư điện tử</value>
+        <value xml:lang="zh">邮寄清单电子邮件</value>
     </property>
     <property key="FormFieldTitle_newTimesheetId">
         <value xml:lang="de">Neue Zeiterfassungs ID</value>
@@ -203,6 +205,7 @@
         <value xml:lang="ja">マイルストーン</value>
         <value xml:lang="nl">Mijlpaal</value>
         <value xml:lang="vi">Mốc thời gian</value>
+        <value xml:lang="zh">里程碑</value>
     </property>
     <property key="FormFieldTitle_taskName">
         <value xml:lang="de">Aufgabenname</value>
@@ -231,6 +234,7 @@
         <value xml:lang="ja">割当先</value>
         <value xml:lang="nl">Gekoppeld aan</value>
         <value xml:lang="vi">Gắn kết đến</value>
+        <value xml:lang="zh">关联到</value>
     </property>
     <property key="PageTitleAddATimesheet">
         <value xml:lang="de">Neue wöchentliche Zeiterfassung hinzufügen</value>
@@ -555,6 +559,7 @@
         <value xml:lang="nl">Mailinglijst zoeken</value>
         <value xml:lang="th">ค้นหาจดหมาย</value>
         <value xml:lang="vi">Tìm danh sách thư</value>
+        <value xml:lang="zh">查找邮寄清单</value>
     </property>
     <property key="PageTitleFindPhase">
         <value xml:lang="de">Phase suchen</value>
@@ -881,6 +886,7 @@
         <value xml:lang="nl">Mailinglijst tonen</value>
         <value xml:lang="th">แสดงจดหมาย</value>
         <value xml:lang="vi">Xem danh sách thư điện tử</value>
+        <value xml:lang="zh">浏览邮寄清单</value>
     </property>
     <property key="ProjectMgr">
         <value xml:lang="de">Projektmanager</value>
@@ -999,6 +1005,7 @@
         <value xml:lang="it">Non è possibile aggiungerlo alla timbratura ${timesheet.timesheetId} perchè lo stato non permette aggiunte o modifiche.</value>
         <value xml:lang="ja">予定表 ${timesheet.timesheetId} に追加できません。追加または更新できないステータスです。</value>
         <value xml:lang="nl">Uren kunnen niet aan urenstaat ${timesheet.timesheetId} worden toegevoegd, want de status staat geen wijzigingen toe.</value>
+        <value xml:lang="zh">不能添加到时间表 ${timesheet.timesheetId}，因为状态不允许添加或修改。</value>
     </property>
     <property key="ProjectMgrCannotAddInvoiceToTimesheet">
         <value xml:lang="de">Die Rechnung: ${parameters.invoiceId}, hat einen falschen Status, Zeiterfassungseinträge können nicht hinzugefügt werden.</value>
@@ -1007,6 +1014,7 @@
         <value xml:lang="it">Fattura con ID ${parameters.invoiceId}, ha lo stato errato, non aggiungerlo alla riga timbratura.</value>
         <value xml:lang="ja">ID ${parameters.invoiceId} の請求はステータスが正しくありません。予定表のエントリを追加できません。</value>
         <value xml:lang="nl">Factuur ${parameters.invoiceId} heeft niet de juiste status. Uren worden niet eraan toegevoegd.</value>
+        <value xml:lang="zh">标识为 ${parameters.invoiceId} 的发票状态错误，没有给它添加时间表（Timesheet）记录。</value>
     </property>
     <property key="ProjectMgrCheckComplete">
         <value xml:lang="de">Markieren wenn Fertiggestellt</value>
@@ -1067,6 +1075,7 @@
         <value xml:lang="ja">プロジェクトをクローズしてよろしいですか?</value>
         <value xml:lang="nl">Weet U zeker dat dit project afgesloten moet worden?</value>
         <value xml:lang="vi">Bạn có thực sự muốn ĐÓNG dự án này?</value>
+        <value xml:lang="zh">确实要关闭这个项目吗？</value>
     </property>
     <property key="ProjectMgrConfirmationSchedule">
         <value xml:lang="de">Sind Sie sich sicher dieses Projekt zeitlich einzuplanen?</value>
@@ -1075,6 +1084,7 @@
         <value xml:lang="ja">プロジェクトをスケジュールしてよろしいですか?</value>
         <value xml:lang="nl">Weet u zeker dat u dit project wilt inplannen?</value>
         <value xml:lang="vi">Bạn có thực sự muốn ĐẶT LỊCH dự án này?</value>
+        <value xml:lang="zh">确实要为这个项目做计划吗？</value>
     </property>
     <property key="ProjectMgrContentList">
         <value xml:lang="de">Projektinhaltsliste</value>
@@ -1148,6 +1158,7 @@
         <value xml:lang="ja">プロジェクト顧客リクエスト一覧</value>
         <value xml:lang="nl">Overzicht verzoeken</value>
         <value xml:lang="vi">Danh sách Yêu cầu khách hàng của dự án</value>
+        <value xml:lang="zh">项目客户请求列表</value>
     </property>
     <property key="ProjectMgrDependencies">
         <value xml:lang="de">Abhängigkeiten</value>
@@ -1232,6 +1243,7 @@
         <value xml:lang="ja">プロジェクト: ${parameters.projectId} が見つかりません。</value>
         <value xml:lang="nl">Project: ${parameters.projectId} werd niet gevonden</value>
         <value xml:lang="vi">Dự án: ${parameters.projectId} không tìm thấy</value>
+        <value xml:lang="zh">项目：没有找到 ${parameters.projectId}</value>
     </property>
     <property key="ProjectMgrErrorRequestNotFound">
         <value xml:lang="de">Kundenanfrage: ${parameters.custRequestId} wurde nicht gefunden</value>
@@ -1266,6 +1278,7 @@
     <property key="ProjectMgrErrorTaskStatusWrongToBeComplete">
         <value xml:lang="en">Status of Task : ${parameters.workEffortId} is not correct, status cannot change to complete</value>
         <value xml:lang="fr">Le status de la tâche : ${parameters.workEffortId} n'est pas correct, il ne peut pas être passé à Terminé</value>
+        <value xml:lang="zh">任务状态：${parameters.workEffortId}不正确，不能把状态改为完成</value>
     </property>
     <property key="ProjectMgrErrorTaskStatusWrongNoRequestAdded">
         <value xml:lang="de">Aufgabe: ${parameters.workEffortId} wird nicht bearbeitet, es kann keine Anfrage hinzugefügt werden</value>
@@ -1328,6 +1341,7 @@
         <value xml:lang="ja">実績完了</value>
         <value xml:lang="nl">Werk. gereed</value>
         <value xml:lang="vi">Hoàn thành thực sự</value>
+        <value xml:lang="zh">实际完成</value>
     </property>
     <property key="ProjectMgrEstimatedCompletionDateAbbr">
         <value xml:lang="de">Soll Fertigs.</value>
@@ -1336,6 +1350,7 @@
         <value xml:lang="ja">予定完了</value>
         <value xml:lang="nl">Geschat gereed</value>
         <value xml:lang="vi">Hoàn thành ước tính</value>
+        <value xml:lang="zh">预计完成</value>
     </property>
     <property key="ProjectMgrFilterOn">
         <value xml:lang="de">Filter aktivieren</value>
@@ -1377,6 +1392,7 @@
         <value xml:lang="nl">Overzicht mailinlijsten</value>
         <value xml:lang="th">รายการจดหมาย</value>
         <value xml:lang="vi">Danh sách thư điện tử</value>
+        <value xml:lang="zh">列出邮寄清单</value>
     </property>
     <property key="ProjectMgrListOrder">
         <value xml:lang="de">Liste Bestellungen auf</value>
@@ -1396,6 +1412,7 @@
         <value xml:lang="nl">Mailinglijst</value>
         <value xml:lang="th">จดหมาย</value>
         <value xml:lang="vi">Danh sách thư điện tử</value>
+        <value xml:lang="zh">邮寄清单</value>
     </property>
     <property key="ProjectMgrMon">
         <value xml:lang="de">Mo</value>
@@ -1545,6 +1562,7 @@
         <value xml:lang="ja">予定エントリのアイテムが見つかりません。</value>
         <value xml:lang="nl">Geen urenregels gevonden</value>
         <value xml:lang="vi">Không hạng mục điểm nhập thời gian nào được tìm thấy</value>
+        <value xml:lang="zh">没有找到时间记录明细</value>
     </property>
     <property key="ProjectMgrParentProjectName">
         <value xml:lang="de">Name des übergeordneten Projektes</value>
@@ -1684,6 +1702,7 @@
         <value xml:lang="ja">優先度</value>
         <value xml:lang="nl">Prio</value>
         <value xml:lang="vi">Ưu tiên</value>
+        <value xml:lang="zh">优先</value>
     </property>
     <property key="ProjectMgrPrivateOrPublic">
         <value xml:lang="de">Privat/Öffentlich</value>
@@ -2327,6 +2346,7 @@
         <value xml:lang="ja">合計</value>
         <value xml:lang="nl">Totalen</value>
         <value xml:lang="vi">Tổng</value>
+        <value xml:lang="zh">合计</value>
     </property>
     <property key="ProjectMgrTreeDetails">
         <value xml:lang="de">Tree Details</value>
@@ -2388,6 +2408,7 @@
         <value xml:lang="ja">この画面を表示するためには、少なくとも PROJECT_ADMIN 権限が必要です。</value>
         <value xml:lang="nl">Om dit scherm te zien is permissie PROJECT_ADMIN noodzakelijk.</value>
         <value xml:lang="vi">Bạn cần có ít nhất quyền PROJECT_ADMIN để xem giao diện này.</value>
+        <value xml:lang="zh">要浏览这个页面，你至少需要PROJECT_ADMIN权限</value>
     </property>
     <property key="ProjectMgrWeek">
         <value xml:lang="de">Woche</value>

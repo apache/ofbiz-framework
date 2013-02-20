@@ -23,96 +23,112 @@
         <value xml:lang="en">Connection Pool Status</value>
         <value xml:lang="ja">接続プールステータス</value>
         <value xml:lang="vi">Trạng thái chia sẻ kết nối cơ sở dữ liệu</value>
+        <value xml:lang="zh">连接池状态</value>
     </property>
     <property key="EntityImportDeletFile">
         <value xml:lang="en">Deleting ${fileName}</value>
         <value xml:lang="it">Stò cancellando il file ${fileName}</value>
         <value xml:lang="ja">${fileName} を削除しています</value>
         <value xml:lang="vi">Đang xóa ${fileName}</value>
+        <value xml:lang="zh">正在删除 ${fileName}</value>
     </property>
     <property key="EntityImportErrorRetrievingEntityNames">
         <value xml:lang="en">Error retrieving entity names.</value>
         <value xml:lang="it">Errore nell'ottenere i nome delle entità.</value>
         <value xml:lang="ja">エンティティ名取得中にエラー</value>
         <value xml:lang="vi">Lỗi khi lấy tên Thực thể.</value>
+        <value xml:lang="zh">获取实体名称时出错。</value>
     </property>
     <property key="EntityImportFailedFile">
         <value xml:lang="en">Failed ${fileName} adding to retry list for next pass</value>
         <value xml:lang="it">Fallita ${fileName} aggiunta alla lista di riprova al successivo passaggio</value>
         <value xml:lang="ja">${fileName} を次のパスのリトライリストに追加中に失敗</value>
         <value xml:lang="vi">Tập tin ${fileName} không thành công đã được thêm vào Danh sách để Xử lý tiếp sau</value>
+        <value xml:lang="zh">把失败的文件 ${fileName} 添加重试列表，以便下轮运行</value>
     </property>
     <property key="EntityImportFailedFileList">
         <value xml:lang="en">Failed Files:</value>
         <value xml:lang="it">Lista file che hanno avuto fallimento:</value>
         <value xml:lang="ja">失敗したファイル: </value>
         <value xml:lang="vi">Tập tin không thành công:</value>
+        <value xml:lang="zh">失败的文件：</value>
     </property>
     <property key="EntityImportFailedNumberFile">
         <value xml:lang="en">Failed: ${failed} of ${total}</value>
         <value xml:lang="it">Failed: ${failed} di ${total}</value>
         <value xml:lang="ja">失敗: ${failed} / ${total}</value>
         <value xml:lang="vi">Không thành công: ${failed} của tổng ${total}</value>
+        <value xml:lang="zh">失败：${failed}/${total}</value>
     </property>
     <property key="EntityImportNoDataSourceSpecified">
         <value xml:lang="en">Unable to locate the datasource helper for the group ${groupNameToUse}</value>
         <value xml:lang="it">Non è possibile localizzare la sorgente dati per il gruppo ${groupNameToUse}</value>
         <value xml:lang="ja">グループ ${groupNameToUse} に対するデータソースヘルパーの確立ができません</value>
         <value xml:lang="vi">Không thể tìm thấy 'datasource helper' cho nhóm ${groupNameToUse}</value>
+        <value xml:lang="zh">不能找到用于组 ${groupNameToUse} 的数据源帮助程序</value>
     </property>
     <property key="EntityImportNoXmlFileOrTextSpecified">
         <value xml:lang="en">No entity xml file or text specified</value>
         <value xml:lang="it">Nessun file xml entità o testo specificato</value>
         <value xml:lang="ja">エンティティXMLファイルまたはテキストが指定されていません</value>
         <value xml:lang="vi">Không XML hoặc Văn bản nào của Thực thể được xác định</value>
+        <value xml:lang="zh">没有指定的实体XML文件或文本</value>
     </property>
     <property key="EntityImportNoXmlFileSpecified">
         <value xml:lang="en">No filename/URL or complete XML document specified, doing nothing.</value>
         <value xml:lang="it">Nessun nome file/URL o documento XML completo specificato, nientre verrà fatto.</value>
         <value xml:lang="ja">ファイル名/URLまたは完全なXML文書が指定されていません。処理を行いません。</value>
         <value xml:lang="vi">Không Tập tin/URL hoặc tài liệu XML hoàn chỉnh nào được xác định nên hệ thống sẽ không làm gì cả.</value>
+        <value xml:lang="zh">没有指定的文件名/网址或完整的XML文档，什么也不做。</value>
     </property>
     <property key="EntityImportNumberOfEntityToBeProcessed">
         <value xml:lang="en">Got ${numberRead} entities from ${fileName}</value>
         <value xml:lang="it">Ottenute ${numberRead} entità da ${fileName}</value>
         <value xml:lang="ja">${fileName} から ${numberRead} エンティティ取得しました</value>
         <value xml:lang="vi">Nhận ${numberRead} Thực thể từ Tập tin ${fileName}</value>
+        <value xml:lang="zh">从 ${fileName} 中得到了 ${numberRead} 个实体</value>
     </property>
     <property key="EntityImportParsingError">
         <value xml:lang="en">ERROR parsing Entity Xml file: ${errorString}</value>
         <value xml:lang="it">ERRORE di parsing file entità XML: ${errorString}</value>
         <value xml:lang="ja">エンティティXMLファイルパース時にエラー: ${errorString}</value>
         <value xml:lang="vi">LỖI khi phân tích tập tin XML Thực thể: ${errorString}</value>
+        <value xml:lang="zh">解析实体XML文件时出错：${errorString}</value>
     </property>
     <property key="EntityImportPassedFile">
         <value xml:lang="en">Pass ${passes} complete</value>
         <value xml:lang="it">Passati ${passes} completati</value>
         <value xml:lang="ja">パス ${passes} 完了しました</value>
         <value xml:lang="vi">Xử lý ${passes} hoàn thành</value>
+        <value xml:lang="zh">通过 ${passes} 个并完成</value>
     </property>
     <property key="EntityImportPathNotFound">
         <value xml:lang="en">path not found or can't be read</value>
         <value xml:lang="it">path non trovato o non può essere letto</value>
         <value xml:lang="ja">パスが見つからないか読み込みできません</value>
         <value xml:lang="vi">đường dẫn không tìm thấy hoặc không thể đọc nội dung</value>
+        <value xml:lang="zh">找不到路径或无法读取路径</value>
     </property>
     <property key="EntityImportPathNotSpecified">
         <value xml:lang="en">No path specified, doing nothing.</value>
         <value xml:lang="it">Nessun path specificato, non verrà fatto niente.</value>
         <value xml:lang="ja">パスが指定されていません。処理を行いません。</value>
         <value xml:lang="vi">Không xác định Đường dẫn nên hệ thống không làm gì cả.</value>
+        <value xml:lang="zh">没有指定路径，什么也不做。</value>
     </property>
     <property key="EntityImportRowProcessed">
         <value xml:lang="en">Got ${numberRead} entities to write to the datasource.</value>
         <value xml:lang="it">Ottenute ${numberRead} entità da scrivere sulla sorgente dati.</value>
         <value xml:lang="ja">エンティティデータソースに書き込むため ${numberRead} 取得しました</value>
         <value xml:lang="vi">Nhận ${numberRead} Thực thể để ghi đến Kết nối dữ liệu (datasource).</value>
+        <value xml:lang="zh">有 ${numberRead} 个实体要写到数据源</value>
     </property>
     <property key="EntityImportSucceededNumberFile">
         <value xml:lang="en">Succeeded: ${succeeded} of ${total}</value>
         <value xml:lang="it">Successo: ${succeeded} di ${total}</value>
         <value xml:lang="ja">成功: ${succeeded} / ${total}</value>
         <value xml:lang="vi">Thành công: ${succeeded} trên tổng số ${total}</value>
+        <value xml:lang="zh">已成功：${succeeded}/${total}</value>
     </property>
     <property key="FormFieldTitle_date1">
         <value xml:lang="de">Datum1</value>
@@ -540,6 +556,7 @@
         <value xml:lang="ja">ポータルページを検索</value>
         <value xml:lang="pt">Encontrar a pÃ¡gina do Portal</value>
         <value xml:lang="vi">Tìm trang Cổng thông tin</value>
+        <value xml:lang="zh">查找门户页面</value>
     </property>
     <property key="PageTitleFindUtilCache">
         <value xml:lang="de">Cache Wartungsseite</value>
@@ -582,6 +599,7 @@
     </property>
     <property key="PageTitleJobDetails">
         <value xml:lang="en">Job Details</value>
+        <value xml:lang="zh">任务详情</value>
     </property>
     <property key="PageTitleLogConfiguration">
         <value xml:lang="de">Log Konfiguration</value>
@@ -767,6 +785,7 @@
         <value xml:lang="fr">Admin. Page portail</value>
         <value xml:lang="ja">ポータルページの管理</value>
         <value xml:lang="vi">Quản trị Cổng thông tin</value>
+        <value xml:lang="zh">门户页面管理</value>
     </property>
     <property key="WebtoolsAdministration">
         <value xml:lang="de">Administration</value>
@@ -909,6 +928,7 @@
     </property>
     <property key="WebtoolsCacheMemory">
         <value xml:lang="en">Cache Memory</value>
+        <value xml:lang="zh">缓存内存</value>
     </property>
     <property key="WebtoolsCacheName">
         <value xml:lang="de">Cache Name</value>
@@ -1231,6 +1251,7 @@
         <value xml:lang="ja">設定</value>
         <value xml:lang="pt">ConfiguraÃ§Ã£o</value>
         <value xml:lang="vi">Cấu hình</value>
+        <value xml:lang="zh">配置</value>
     </property>
     <property key="WebtoolsCount">
         <value xml:lang="de">Anzahl</value>
@@ -1515,6 +1536,7 @@
     </property>
     <property key="WebtoolsDefinitionLocation">
         <value xml:lang="en">Definition Location</value>
+        <value xml:lang="zh">定义位置</value>
     </property>
     <property key="WebtoolsDeleteFiles">
         <value xml:lang="de">Dateien nachher löschen?</value>
@@ -1888,6 +1910,7 @@
         <value xml:lang="en">Entity XML Representation</value>
         <value xml:lang="ja">エンティティのXML表現</value>
         <value xml:lang="vi">Trình diễn XML Thực thể</value>
+        <value xml:lang="zh">实体XML表述</value>
     </property>
     <property key="WebtoolsEntityXMLTools">
         <value xml:lang="de">Entität XML Tools</value>
@@ -1908,42 +1931,49 @@
         <value xml:lang="it">Nome var. amb.</value>
         <value xml:lang="ja">環境名称</value>
         <value xml:lang="pt">Nome de Env</value>
+        <value xml:lang="zh">环境名称</value>
     </property>
     <property key="WebtoolsEomodelErrorGettingEntityNames">
         <value xml:lang="en">ERROR: getting entity names: ${errorString}</value>
         <value xml:lang="it">ERRORE: ottenendo i nomi delle entità: ${errorString}</value>
         <value xml:lang="ja">エラー: エンティティ名の取得中: ${errorString}</value>
         <value xml:lang="vi">Lỗi: lấy tên Thực thể: ${errorString}</value>
+        <value xml:lang="zh">错误：获取实体名称：${errorString}</value>
     </property>
     <property key="WebtoolsEomodelExported">
         <value xml:lang="en">Exported eomodeld file for ${entityNamesSize} entities to: ${eomodeldFullPath}</value>
         <value xml:lang="it">Esportato file eomodeld per ${entityNamesSize} entità in: ${eomodeldFullPath}</value>
         <value xml:lang="ja">${entityNamesSize} エンティティに対するEOMODELDファイルをエクスポートしました: ${eomodeldFullPath}</value>
         <value xml:lang="vi">Đã kết xuất eomodeld tập tin cho ${entityNamesSize} Thực thể tới: ${eomodeldFullPath}</value>
+        <value xml:lang="zh">为 ${entityNamesSize} 个实体导出eomodeld格式文件到：${eomodeldFullPath}</value>
     </property>
     <property key="WebtoolsEomodelFileOrDirectoryNotFound">
         <value xml:lang="en">ERROR: file/directory not found: ${errorString}</value>
         <value xml:lang="it">ERRORE: file/directory non trovata: ${errorString}</value>
         <value xml:lang="ja">エラー: ファイル/ディレクトリが見つかりません: ${errorString}</value>
         <value xml:lang="vi">Lỗi: Tập tin / Thư mục không tìm thấy: ${errorString}</value>
+        <value xml:lang="zh">错误：没有找到文件/目录：${errorString}</value>
     </property>
     <property key="WebtoolsEomodelFullPathIsNotADirectory">
         <value xml:lang="en">eomodel Full Path is not a directory: ${eomodeldFullPath}</value>
         <value xml:lang="it">eomodel path completo non è una directory: ${eomodeldFullPath}</value>
         <value xml:lang="ja">EOMODELのフルパスがディレクトリではありません: ${eomodeldFullPath}</value>
         <value xml:lang="vi">Đường dẫn đầy đủ eomodel không phải là thư mục: ${eomodeldFullPath}</value>
+        <value xml:lang="zh">eomodel完整路径不是一个目录：${eomodeldFullPath}</value>
     </property>
     <property key="WebtoolsEomodelFullPathIsNotWriteable">
         <value xml:lang="en">eomodel Full Path is not write-able: ${eomodeldFullPath}</value>
         <value xml:lang="it">eomodel path completo non è scrivibile: ${eomodeldFullPath}</value>
         <value xml:lang="ja">EOMODELのフルパスが書き込み可能ではありません: ${eomodeldFullPath}</value>
         <value xml:lang="vi"></value>
+        <value xml:lang="zh">eomodel完整路径不可写：${eomodeldFullPath}</value>
     </property>
     <property key="WebtoolsEomodelSavingFileError">
         <value xml:lang="en">ERROR saving file: ${errorString}</value>
         <value xml:lang="it">ERRORE durante il salvataggio del file: ${errorString}</value>
         <value xml:lang="ja">ファイルの保存中にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi lưu tập tin: ${errorString}</value>
+        <value xml:lang="zh">保存文件错误：${errorString}</value>
     </property>
     <property key="WebtoolsErrorLogLevel">
         <value xml:lang="de">Fehler</value>
@@ -1976,24 +2006,28 @@
         <value xml:lang="it">ERRORE: errore di parsing file: ${errorString}</value>
         <value xml:lang="ja">エラー: ファイルパース中: ${errorString}</value>
         <value xml:lang="vi">Lỗi: phân tícf tập tin: ${errorString}</value>
+        <value xml:lang="zh">错误：解析文件：${errorString}</value>
     </property>
     <property key="WebtoolsErrrorProcessingTemplateFile">
         <value xml:lang="en">ERROR: processing template file ${filename}: ${errorString}</value>
         <value xml:lang="it">ERRORE: errore di esecuzione template file ${filename}: ${errorString}</value>
         <value xml:lang="ja">エラー: テンプレートファイル ${filename} の処理中: ${errorString}</value>
         <value xml:lang="vi">Lỗi: xử lý tập tin biểu mẫu ${filename}: ${errorString}</value>
+        <value xml:lang="zh">错误：处理模板文件 ${filename}：${errorString}</value>
     </property>
     <property key="WebtoolsErrrorReadingFileName">
         <value xml:lang="en">ERROR: reading file name ${filename}: ${errorString}</value>
         <value xml:lang="it">ERRORE: errore di lettura file ${filename}: ${errorString}</value>
         <value xml:lang="ja">エラー: ファイル名 ${filename} の読み込み中: ${errorString}</value>
         <value xml:lang="vi">Lỗi: đọc tập tin với tên ${filename}: ${errorString}</value>
+        <value xml:lang="zh">错误：读取文件名 ${filename}：${errorString}</value>
     </property>
     <property key="WebtoolsErrrorReadingTemplateFile">
         <value xml:lang="en">ERROR: reading template file ${filename}: ${errorString}</value>
         <value xml:lang="it">ERRORE: errore di lettura template file ${filename}: ${errorString}</value>
         <value xml:lang="ja">エラー: テンプレートファイル ${filename} の読み込み中: ${errorString}</value>
         <value xml:lang="vi">Lỗi: đọc tập tin biểu mẫu ${filename}: ${errorString}</value>
+        <value xml:lang="zh">错误：读取模板文件 ${filename}：${errorString}</value>
     </property>
     <property key="WebtoolsEventName">
         <value xml:lang="de">Ereignisname</value>
@@ -2341,42 +2375,49 @@
         <value xml:lang="fr">Créer/Modifier une zone géographique</value>
         <value xml:lang="ja">位置の作成/編集</value>
         <value xml:lang="vi">Thêm/Sửa Địa lý</value>
+        <value xml:lang="zh">创建/编辑地理</value>
     </property>
     <property key="WebtoolsGeoEdit">
         <value xml:lang="en">Create/Edit Geo</value>
         <value xml:lang="fr">Créer/Modifier la zone géographique</value>
         <value xml:lang="ja">位置の作成/編集</value>
         <value xml:lang="vi">Thêm/Sửa Địa lý</value>
+        <value xml:lang="zh">创建/编辑地理</value>
     </property>
     <property key="WebtoolsGeoManagement">
         <value xml:lang="en">Geo Management</value>
         <value xml:lang="fr">Gestion des zones géographiques</value>
         <value xml:lang="ja">位置管理</value>
         <value xml:lang="vi">Quản trị Địa lý</value>
+        <value xml:lang="zh">地理管理</value>
     </property>
     <property key="WebtoolsGeosFind">
         <value xml:lang="en">Find Geos</value>
         <value xml:lang="fr">Recherche de zones géographiques</value>
         <value xml:lang="ja">位置の検索</value>
         <value xml:lang="vi">Tìm kiếm Địa lý</value>
+        <value xml:lang="zh">查找地理</value>
     </property>
     <property key="WebtoolsGeosLink">
         <value xml:lang="en">Link Geos</value>
         <value xml:lang="fr">Lier des zones géographiques</value>
         <value xml:lang="ja">位置のリンク</value>
         <value xml:lang="vi">Liên kết của Địa lý</value>
+        <value xml:lang="zh">链接地理</value>
     </property>
     <property key="WebtoolsGeosLinkExplained">
         <value xml:lang="en">Link Geos (associate Geos to a Geo)</value>
         <value xml:lang="fr">Lier des zones géographiques (association d'une avec plusieurs)</value>
         <value xml:lang="ja">位置のリンク (位置から位置へ関連付け)</value>
         <value xml:lang="vi">Tại liên kết giữa các Địa lý</value>
+        <value xml:lang="zh">链接地理（把它们关联到一个地理位置）</value>
     </property>
     <property key="WebtoolsGeosSelect">
         <value xml:lang="en">Select Geos to associate</value>
         <value xml:lang="fr">Sélectionnez les zones géographiques à associer</value>
         <value xml:lang="ja">関連付けする位置を選択</value>
         <value xml:lang="vi">Chọn Địa lý để liên kết</value>
+        <value xml:lang="zh">选择要关联的地理</value>
     </property>
     <property key="WebtoolsGroup">
         <value xml:lang="de">Gruppe</value>
@@ -2444,6 +2485,7 @@
         <value xml:lang="ja">インポート/エクスポート</value>
         <value xml:lang="pt">Importar/Exportar</value>
         <value xml:lang="vi">Nhập khẩu/Kết xuất</value>
+        <value xml:lang="zh">导入/导出</value>
     </property>
     <property key="WebtoolsImportFile">
         <value xml:lang="de">Datei importieren</value>
@@ -2604,6 +2646,7 @@
         <value xml:lang="it">ERRORE: nome file invalido ${filename}: ${errorString}</value>
         <value xml:lang="ja">エラー: ファイル名 ${filename} が正しくありません: ${errorString}</value>
         <value xml:lang="vi">Lỗi: tên tập tin ${filename} không đúng định dạng: ${errorString}</value>
+        <value xml:lang="zh">错误：无效文件名 ${filename}：${errorString}</value>
     </property>
     <property key="WebtoolsInvoke">
         <value xml:lang="de">Aufrufen</value>
@@ -2864,7 +2907,8 @@
         <value xml:lang="it">Gestione delle label</value>
         <value xml:lang="ja">ラベルを検索</value>
         <value xml:lang="pt">Localizar labels</value>
-        <value xml:lang="vi">Tìm Nhãn</value>s
+        <value xml:lang="vi">Tìm Nhãn</value>
+        <value xml:lang="zh">查找标签</value>
     </property>
     <property key="WebtoolsLabelManagerHardcoded">
         <value xml:lang="de">Fest kodierte Label</value>
@@ -3021,6 +3065,7 @@
         <value xml:lang="fr">Pour le moment, pour commencer vous devez choisir un fichier, ensuite tout est ouvert. Si aucun bouton n'apparaît, postionnez le curseur dans un champ et validez.</value>
         <value xml:lang="ja">対象のファイルを選択するとすべてのオプションが表示されます、項目をクリックする必要はありません。</value>
         <value xml:lang="vi">Vào lúc này, để bắt đầu bạn còn chọn một tập tin, sau khi tất cả các Tùy chọn đã được mở. Không cần sử dụng Nút bạn hãy đặt Con trỏ ở Trường và Kiểm tra định dạng.</value>
+        <value xml:lang="zh">现在，要开始的话，在打开全部选项之后，你需要选择一个文件。没有按钮的话，把鼠标放在数据项里来验证。</value>
     </property>
     <property key="WebtoolsLabelManagerUpdate">
         <value xml:lang="de">Label aktualisieren</value>
@@ -3087,6 +3132,7 @@
         <value xml:lang="it">Label definite per la lingua</value>
         <value xml:lang="ja">地域のラベルが存在</value>
         <value xml:lang="vi">Đã tồn tại Nhãn ở cùng Ngôn ngữ</value>
+        <value xml:lang="zh">语言中存在的标签</value>
     </property>
     <property key="WebtoolsLabelStatsMissing">
         <value xml:lang="de">Fehlende Labels in Locale</value>
@@ -3094,6 +3140,7 @@
         <value xml:lang="it">Label mancanti per la lingua</value>
         <value xml:lang="ja">地域のラベル漏れ</value>
         <value xml:lang="vi">Thiếu Nhãn ở Ngôn ngữ</value>
+        <value xml:lang="zh">语言中缺少的标签</value>
     </property>
     <property key="WebtoolsLabelStatsTotal">
         <value xml:lang="de">Gesamtzahl der Labels</value>
@@ -3101,6 +3148,7 @@
         <value xml:lang="it">Numero totale label</value>
         <value xml:lang="ja">ラベル件数合計</value>
         <value xml:lang="vi">Tổng số Nhãn</value>
+        <value xml:lang="zh">全部标签合计</value>
     </property>
     <property key="WebtoolsLayoutDemo">
         <value xml:lang="en">Layout Demo</value>
@@ -3108,6 +3156,7 @@
         <value xml:lang="it">Dimostrazione Layout</value>
         <value xml:lang="ja">レイアウトデモ</value>
         <value xml:lang="vi">Bố cục (Layout) mẫu</value>
+        <value xml:lang="zh">布局演示</value>
     </property>
     <property key="WebtoolsLayoutDemoText">
         <value xml:lang="en">Demonstrate layout best practices and provide a visual theme test page (it's recommended to use HTML source code).</value>
@@ -3115,6 +3164,7 @@
         <value xml:lang="it">Dimostrazione di come utilizzare gli stili e pagina per il test dei temi visuali (si raccomanda di utilizzare il codice sorgente HTML).</value>
         <value xml:lang="ja">レイアウトのベストプラックティスのデモおよび外観のテーマのテストを提供します (HTMLソースコードの使用を推奨)</value>
         <value xml:lang="vi">'Bố cục minh họa' cung cấp Giao diện trực quan của Trang ví dụ ( chúng tôi khuyến nghị dùng với mã nguồn HTML).</value>
+        <value xml:lang="zh">验证布局最佳实践，并提供一个可视化的风格测试页面（推荐使用HTML源代码）。</value>
     </property>
     <property key="WebtoolsLeaveAllEntriesBlank">
         <value xml:lang="de">alle Einträge leer lassen</value>
@@ -3274,6 +3324,7 @@
         <value xml:lang="en">Max In Memory</value>
         <value xml:lang="ja">メモリ中最大</value>
         <value xml:lang="vi">Tối đa trong bộ nhớ</value>
+        <value xml:lang="zh">最大内存</value>
     </property>
     <property key="WebtoolsMaxMemory">
         <value xml:lang="de">Max. Speicher</value>
@@ -3352,18 +3403,22 @@
     <property key="WebtoolsMetrics">
         <value xml:lang="en">Metrics</value>
         <value xml:lang="ja">メトリックス</value>
+        <value xml:lang="zh">度量</value>
     </property>
     <property key="WebtoolsMetricsRate">
         <value xml:lang="en">Service Rate (mS)</value>
         <value xml:lang="ja">サービスレート(ミリ秒)</value>
+        <value xml:lang="zh">服务速率（毫秒）</value>
     </property>
     <property key="WebtoolsMetricsThreshold">
         <value xml:lang="en">Threshold</value>
         <value xml:lang="ja">しきい値</value>
+        <value xml:lang="zh">阀值</value>
     </property>
     <property key="WebtoolsMetricsTotalEvents">
         <value xml:lang="en">Total Events</value>
         <value xml:lang="ja">イベント合計</value>
+        <value xml:lang="zh">全部事件</value>
     </property>
     <property key="WebtoolsMiscSetupTools">
         <value xml:lang="de">Versch. Setup Tools</value>
@@ -4390,6 +4445,7 @@
     </property>
     <property key="WebtoolsRunTimeDataInfo">
         <value xml:lang="en">Run Time Data Info</value>
+        <value xml:lang="zh">运行时间数据信息</value>
     </property>
     <property key="WebtoolsSchedule">
         <value xml:lang="de">Einplanen</value>
@@ -4712,6 +4768,7 @@
         <value xml:lang="ja">セット</value>
         <value xml:lang="pt">Definir</value>
         <value xml:lang="vi">Thiết lập</value>
+        <value xml:lang="zh">设置</value>
     </property>
     <property key="WebtoolsShowShowWSDL">
         <value xml:lang="de">WSDL zeigen</value>
@@ -4835,6 +4892,7 @@
         <value xml:lang="ja">統計</value>
         <value xml:lang="pt">EstatÃ­sticas</value>
         <value xml:lang="vi">Thống kê</value>
+        <value xml:lang="zh">统计</value>
     </property>
     <property key="WebtoolsStatsAvg">
         <value xml:lang="de">Mittelwert</value>
@@ -5277,6 +5335,7 @@
         <value xml:lang="pt">TTL</value>
         <value xml:lang="th">TTL</value>
         <value xml:lang="vi">TTL</value>
+        <value xml:lang="zh">存在时间</value>
     </property>
     <property key="WebtoolsTable">
         <value xml:lang="de">TABELLE</value>
@@ -5608,6 +5667,7 @@
     </property>
     <property key="WebtoolsViewMetrics">
         <value xml:lang="en">View Metrics</value>
+        <value xml:lang="zh">浏览度量</value>
     </property>
     <property key="WebtoolsViewPermissionError">
         <value xml:lang="de">Sie haben keine Berechtigung um diesen Bereich anzusehen (Sie benötigen OFBTOOLS_VIEW oder OFBIZTOOLS_ADMIN Berechtigung)</value>
