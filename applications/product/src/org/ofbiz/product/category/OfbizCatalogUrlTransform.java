@@ -47,34 +47,33 @@ public class OfbizCatalogUrlTransform implements TemplateTransformModel {
 
     @Override
     @SuppressWarnings("unchecked")
-    public Writer getWriter(final Writer out, final Map args)
-            throws TemplateModelException, IOException {
+    public Writer getWriter(final Writer out, final Map args) throws TemplateModelException, IOException {
         final StringBuilder buf = new StringBuilder();
         return new Writer(out) {
-            
+
             @Override
             public void write(char[] cbuf, int off, int len) throws IOException {
                 buf.append(cbuf, off, len);
             }
-            
+
             @Override
             public void flush() throws IOException {
                 out.flush();
             }
-            
+
             @Override
             public void close() throws IOException {
                 try {
-                Environment env = Environment.getCurrentEnvironment();
-                BeanModel req = (BeanModel) env.getVariable("request");
-                if (req != null) {
-                    String productId = getStringArg(args, "productId");
-                    String currentCategoryId = getStringArg(args, "currentCategoryId");
-                    String previousCategoryId = getStringArg(args, "previousCategoryId");
-                    HttpServletRequest request = (HttpServletRequest) req.getWrappedObject();
-                    String catalogUrl = CatalogUrlServlet.makeCatalogUrl(request, productId, currentCategoryId, previousCategoryId);
-                    out.write(catalogUrl);
-                }
+                    Environment env = Environment.getCurrentEnvironment();
+                    BeanModel req = (BeanModel) env.getVariable("request");
+                    if (req != null) {
+                        String productId = getStringArg(args, "productId");
+                        String currentCategoryId = getStringArg(args, "currentCategoryId");
+                        String previousCategoryId = getStringArg(args, "previousCategoryId");
+                        HttpServletRequest request = (HttpServletRequest) req.getWrappedObject();
+                        String catalogUrl = CatalogUrlServlet.makeCatalogUrl(request, productId, currentCategoryId, previousCategoryId);
+                        out.write(catalogUrl);
+                    }
                 } catch (TemplateModelException e) {
                     throw new IOException(e.getMessage());
                 }
