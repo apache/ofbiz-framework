@@ -49,6 +49,7 @@ import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.util.EntitySaxReader;
 
 public class EntityTestSuite extends EntityTestCase {
 
@@ -696,4 +697,121 @@ public class EntityTestSuite extends EntityTestCase {
             Debug.logError(e, module);
         }
     }*/
+
+    /*
+     * Tests EntitySaxReader, verification loading data with tag create, create-update, create-replace, delete 
+     */
+    public void testEntitySaxReaderCreation() throws Exception {
+        String xmlContentLoad = 
+                "<TestingType testingTypeId=\"JUNIT-TEST\" description=\"junit test\"/>" +
+                "<create>" +
+                "    <TestingType testingTypeId=\"JUNIT-TEST2\" description=\"junit test\"/>" +
+                "    <Testing testingId=\"T1\" testingTypeId=\"JUNIT-TEST\" testingName=\"First test\" testingSize=\"10\" testingDate=\"2010-01-01 00:00:00\"/>" +
+                "</create>" +
+                "<Testing testingId=\"T2\" testingTypeId=\"JUNIT-TEST2\" testingName=\"Second test\" testingSize=\"20\" testingDate=\"2010-02-01 00:00:00\"/>";
+        EntitySaxReader reader = new EntitySaxReader(delegator);
+        long numberLoaded = reader.parse(xmlContentLoad);
+        assertEquals("Create Entity loaded ", numberLoaded, 4);
+        GenericValue t1 = delegator.findOne("Testing", UtilMisc.toMap("testingId", "T1"), false);
+        GenericValue t2 = delegator.findOne("Testing", UtilMisc.toMap("testingId", "T2"), true);
+        assertNotNull("Create Testing(T1)", t1);
+        assertEquals("Create Testing(T1).testingTypeId", "JUNIT-TEST", t1.getString("testingTypeId"));
+        assertEquals("Create Testing(T1).testingName", "First test", t1.getString("testingName"));
+        assertEquals("Create Testing(T1).testingSize", Long.valueOf(10), t1.getLong("testingSize"));
+        assertEquals("Create Testing(T1).testingDate", UtilDateTime.toTimestamp("01/01/2010 00:00:00"), t1.getTimestamp("testingDate"));
+
+        assertNotNull("Create Testing(T2)", t2);
+        assertEquals("Create Testing(T2).testingTypeId", "JUNIT-TEST2", t2.getString("testingTypeId"));
+        assertEquals("Create Testing(T2).testingName", "Second test", t2.getString("testingName"));
+        assertEquals("Create Testing(T2).testingSize", Long.valueOf(20), t2.getLong("testingSize"));
+        assertEquals("Create Testing(T2).testingDate", UtilDateTime.toTimestamp("02/01/2010 00:00:00"), t2.getTimestamp("testingDate"));
+    }
+
+    public void testEntitySaxReaderCreateSkip() throws Exception {
+        String xmlContentLoad =
+                "<create>" +
+                "    <Testing testingId=\"T1\" testingName=\"First test update\" testingSize=\"20\"/>" +
+                "</create>";
+        EntitySaxReader reader = new EntitySaxReader(delegator);
+        long numberLoaded = reader.parse(xmlContentLoad);
+        assertEquals("Create Skip Entity loaded ", numberLoaded, 1);
+        GenericValue t1 = delegator.findOne("Testing", UtilMisc.toMap("testingId", "T1"), false);
+        assertNotNull("Create Skip Testing(T1)", t1);
+        assertEquals("Create Skip Testing(T1).testingTypeId", "JUNIT-TEST", t1.getString("testingTypeId"));
+        assertEquals("Create Skip Testing(T1).testingName", "First test", t1.getString("testingName"));
+        assertEquals("Create Skip Testing(T1).testingSize", Long.valueOf(10), t1.getLong("testingSize"));
+        assertEquals("Create Skip Testing(T1).testingDate", UtilDateTime.toTimestamp("01/01/2010 00:00:00"), t1.getTimestamp("testingDate"));
+    }
+
+    public void testEntitySaxReaderUpdate() throws Exception {
+        String xmlContentLoad =
+                "<create-update>" +
+                "    <Testing testingId=\"T1\" testingName=\"First test update\" testingSize=\"20\"/>" +
+                "    <Testing testingId=\"T3\" testingTypeId=\"JUNIT-TEST\" testingName=\"Third test\" testingSize=\"30\" testingDate=\"2010-03-01 00:00:00\"/>" +
+                "</create-update>";
+        EntitySaxReader reader = new EntitySaxReader(delegator);
+        long numberLoaded = reader.parse(xmlContentLoad);
+        assertEquals("Update Entity loaded ", numberLoaded, 2);
+        GenericValue t1 = delegator.findOne("Testing", UtilMisc.toMap("testingId", "T1"), false);
+        GenericValue t3 = delegator.findOne("Testing", UtilMisc.toMap("testingId", "T3"), false);
+        assertNotNull("Update Testing(T1)", t1);
+        assertEquals("Update Testing(T1).testingTypeId", "JUNIT-TEST", t1.getString("testingTypeId"));
+        assertEquals("Update Testing(T1).testingName", "First test update", t1.getString("testingName"));
+        assertEquals("Update Testing(T1).testingSize", Long.valueOf(20), t1.getLong("testingSize"));
+        assertEquals("Update Testing(T1).testingDate", UtilDateTime.toTimestamp("01/01/2010 00:00:00"), t1.getTimestamp("testingDate"));
+
+        assertNotNull("Update Testing(T3)", t3);
+        assertEquals("Update Testing(T3).testingTypeId", "JUNIT-TEST", t3.getString("testingTypeId"));
+        assertEquals("Update Testing(T3).testingName", "Third test", t3.getString("testingName"));
+        assertEquals("Update Testing(T3).testingSize", Long.valueOf(30), t3.getLong("testingSize"));
+        assertEquals("Update Testing(T3).testingDate", UtilDateTime.toTimestamp("03/01/2010 00:00:00"), t3.getTimestamp("testingDate"));
+    }
+
+    public void testEntitySaxReaderReplace() throws Exception {
+        String xmlContentLoad =
+                "<create-replace>" +
+                "    <Testing testingTypeId=\"JUNIT-TEST\" testingId=\"T1\" testingName=\"First test replace\" />" +
+                "</create-replace>" +
+                "<Testing testingId=\"T2\" testingName=\"Second test update\"/>";
+        EntitySaxReader reader = new EntitySaxReader(delegator);
+        long numberLoaded = reader.parse(xmlContentLoad);
+        assertEquals("Replace Entity loaded ", numberLoaded, 2);
+        GenericValue t1 = delegator.findOne("Testing", UtilMisc.toMap("testingId", "T1"), false);
+        GenericValue t2 = delegator.findOne("Testing", UtilMisc.toMap("testingId", "T2"), false);
+        assertNotNull("Replace Testing(T1)", t1);
+        assertEquals("Replace Testing(T1).testingTypeId", "JUNIT-TEST", t1.getString("testingTypeId"));
+        assertEquals("Replace Testing(T1).testingName", "First test replace", t1.getString("testingName"));
+        assertNull("Replace Testing(T1).testingSize", t1.getLong("testingSize"));
+        assertNull("Replace Testing(T1).testingDate", t1.getTimestamp("testingDate"));
+
+        assertNotNull("Replace Testing(T2)", t2);
+        assertEquals("Replace Testing(T2).testingTypeId", "JUNIT-TEST2", t2.getString("testingTypeId"));
+        assertEquals("Replace Testing(T2).testingName", "Second test update", t2.getString("testingName"));
+        assertEquals("Replace Testing(T2).testingSize", Long.valueOf(20), t2.getLong("testingSize"));
+        assertEquals("Replace Testing(T2).testingDate", UtilDateTime.toTimestamp("02/01/2010 00:00:00"), t2.getTimestamp("testingDate"));
+    }
+
+    public void testEntitySaxReaderDelete() throws Exception {
+        String xmlContentLoad = 
+                        "<delete>" +
+                        "    <Testing testingId=\"T1\"/>" +
+                        "    <Testing testingId=\"T2\"/>" +
+                        "    <Testing testingId=\"T3\"/>" +
+                        "    <TestingType testingTypeId=\"JUNIT-TEST\"/>" +
+                        "    <TestingType testingTypeId=\"JUNIT-TEST2\"/>" +
+                        "</delete>";
+        EntitySaxReader reader = new EntitySaxReader(delegator);
+        long numberLoaded = reader.parse(xmlContentLoad);
+        assertEquals("Delete Entity loaded ", numberLoaded, 5);
+        GenericValue t1 = delegator.findOne("Testing", UtilMisc.toMap("testingId", "T1"), false);
+        GenericValue t2 = delegator.findOne("Testing", UtilMisc.toMap("testingId", "T2"), false);
+        GenericValue t3 = delegator.findOne("Testing", UtilMisc.toMap("testingId", "T2"), false);
+        assertNull("Delete Testing(T1)", t1);
+        assertNull("Delete Testing(T2)", t2);
+        assertNull("Delete Testing(T3)", t3);
+        GenericValue testType = delegator.findOne("TestingType", UtilMisc.toMap("testingTypeId", "JUNIT-TEST"), false);
+        assertNull("Delete TestingType 1", testType);
+        testType = delegator.findOne("TestingType", UtilMisc.toMap("testingTypeId", "JUNIT-TEST2"), false);
+        assertNull("Delete TestingType 2", testType);
+    }
 }
