@@ -35,9 +35,9 @@ import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.StringUtil.StringWrapper;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.StringUtil.StringWrapper;
 import org.ofbiz.common.UrlServletHelper;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -342,7 +342,7 @@ public class CatalogUrlFilter extends ContextFilter {
             GenericValue productCategory = delegator.findOne("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryId), true);
             CategoryContentWrapper wrapper = new CategoryContentWrapper(productCategory, request);
             List<String> trail = CategoryWorker.getTrail(request);
-            return makeCategoryUrl(delegator, wrapper, trail, request.getSession().getServletContext().getContextPath(), previousCategoryId, productCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
+            return makeCategoryUrl(delegator, wrapper, trail, request.getContextPath(), previousCategoryId, productCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "Cannot create category's URL for: " + productCategoryId, module);
             return redirectUrl;
@@ -417,7 +417,7 @@ public class CatalogUrlFilter extends ContextFilter {
             GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
             ProductContentWrapper wrapper = new ProductContentWrapper(product, request);
             List<String> trail = CategoryWorker.getTrail(request);
-            url = makeProductUrl(delegator, wrapper, trail, request.getSession().getServletContext().getContextPath(), previousCategoryId, productCategoryId, productId);
+            url = makeProductUrl(delegator, wrapper, trail, request.getContextPath(), previousCategoryId, productCategoryId, productId);
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "Cannot create product's URL for: " + productId, module);
             return redirectUrl;
