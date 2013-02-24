@@ -2506,6 +2506,8 @@ under the License.
       <view-link entity-alias="PTY" rel-entity-alias="PTYGRP" rel-optional="true">
         <key-map field-name="partyId"/>
       </view-link>
+      <!-- FIXME: This relationship does not make sense. There is no one-to-one relationship from PARTY to PARTY STATUS,
+           so this relation will cause duplicate values for parties with multiple statuses. -->
       <view-link entity-alias="PTY" rel-entity-alias="PS" rel-optional="true">
         <key-map field-name="partyId"/>
       </view-link>
