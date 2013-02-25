@@ -3758,6 +3758,7 @@ under the License.
       <field name="showTaxIsExempt" type="indicator"><description>default Y; if set to N do not show isExempt checkbox for PartyTaxAuthInfo, always force to N</description></field>
       <field name="vatTaxAuthGeoId" type="id"></field>
       <field name="vatTaxAuthPartyId" type="id"></field>
+      <field name="calcTaxAfterPromotion" type="indicator"><description>For execute promotions and price rules before running taxation rules</description></field>
       <field name="enableAutoSuggestionList" type="indicator"><description>The auto-suggestion list is a special ShoppingList that the addSuggestionsToShoppingList service will maintain for cross-sells of ordered items.</description></field>
       <field name="enableDigProdUpload" type="indicator"></field>
       <field name="prodSearchExcludeVariants" type="indicator"><description>default Y; if set to Y an additional constraint will of isVariant!=Y will be added to all product searches for the store</description></field>

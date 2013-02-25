@@ -212,6 +212,11 @@ public class TaxAuthorityServices {
             BigDecimal shippingAmount = itemShippingList.get(i);
             List<GenericValue> taxList = null;
             if (shippingAddress != null) {
+                if ("Y".equals(productStore.getString("calcTaxAfterPromotion")) && itemAmount.compareTo(BigDecimal.ZERO) != 0) {
+                    if (itemQuantity.compareTo(new BigDecimal("1.00")) == 0) {
+                        itemPrice = itemAmount;
+                    }
+                }
                 taxList = getTaxAdjustments(delegator, product, productStore, payToPartyId, billToPartyId, taxAuthoritySet, itemPrice, itemQuantity, itemAmount, shippingAmount, ZERO_BASE);
             }
             // this is an add and not an addAll because we want a List of Lists of GenericValues, one List of Adjustments per item
