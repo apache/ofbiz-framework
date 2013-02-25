@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
+
+    <simple-method method-name="calculateTaxBeforePromotion" short-description="Calculate Tax Before Promotion" login-required="false">
+        <!-- Test calculate tax before promotion
+             Step 1) Set calcTaxAfterPromotion to N.
+             Step 2) Create an order.
+             Step 3) Check tax was created.
+             Step 4) Set calcTaxAfterPromotion to Y.
+             Step 5) Create an order.
+             Step 6) Check tax was not created.
+        -->
+        <!-- Step 1 -->
+        <now-timestamp field="nowTimestamp"/>
+        <entity-one value-field="systemUserLogin" entity-name="UserLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="updateProductPromoActionMap.userLogin" from-field="systemUserLogin"/>
+        <set field="updateProductPromoActionMap.productPromoId" value="9016"/>
+        <set field="updateProductPromoActionMap.productPromoRuleId" value="01"/>
+        <set field="updateProductPromoActionMap.productPromoActionSeqId" value="01"/>
+        <set field="updateProductPromoActionMap.amount" value="5" type="BigDecimal"/>
+        <call-service service-name="updateProductPromoAction" in-map-name="updateProductPromoActionMap"/>
+        <set field="updateTaxAuthorityRateProductMap.userLogin" from-field="systemUserLogin"/>
+        <set field="updateTaxAuthorityRateProductMap.taxAuthorityRateSeqId" value="9004"/>
+        <set field="updateTaxAuthorityRateProductMap.minItemPrice" value="25" type="BigDecimal"/>
+        <call-service service-name="updateTaxAuthorityRateProduct" in-map-name="updateTaxAuthorityRateProductMap"/>
+        <set field="updateProductStoreMap.userLogin" from-field="systemUserLogin"/>
+        <set field="updateProductStoreMap.productStoreId" value="9000"/>
+        <set field="updateProductStoreMap.calcTaxAfterPromotion" value="N"/>
+        <call-service service-name="updateProductStore" in-map-name="updateProductStoreMap"/>
+        <!-- Step 2 -->
+        <field-to-session field="nullField" session-name="orderMode"/>
+        <set field="request" from-field="parameters.request"/>
+        <set field="response" from-field="parameters.response"/>
+        <call-class-method method-name="routeOrderEntry" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : routeOrderEntry, Response : ${result}"/>
+        <entity-one value-field="userLogin" entity-name="UserLogin">
+            <field-map field-name="userLoginId" value="admin"/>
+        </entity-one>
+        <call-bsh><![CDATA[
+            request.setParameter("orderMode", "SALES_ORDER");
+            request.setParameter("productStoreId", "9000");
+            request.setParameter("partyId", "DemoCustomer");
+            request.setParameter("currencyUom", "USD");
+            session = request.getSession();
+            session.setAttribute("userLogin", userLogin);
+        ]]></call-bsh>
+        <call-class-method method-name="initializeOrderEntry" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : initializeOrderEntry, Response : ${result}"/>
+        <call-class-method method-name="setOrderCurrencyAgreementShipDates" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : setOrderCurrencyAgreementShipDates, Response : ${result}"/>
+        <call-bsh><![CDATA[
+            request.setParameter("add_product_id", "GZ-1001");
+        ]]></call-bsh>
+        <call-class-method method-name="addToCart" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : addToCart, Response : ${result}"/>
+        <call-bsh><![CDATA[
+            request.setParameter("checkoutpage", "quick");
+            request.setParameter("shipping_contact_mech_id", "9015");
+            request.setParameter("shipping_method", "GROUND@UPS");
+            request.setParameter("checkOutPaymentId", "EXT_COD");
+            request.setParameter("is_gift", "false");
+            request.setParameter("may_split", "false");
+        ]]></call-bsh>
+        <field-to-request field="nullField" request-name="shoppingCart"/>
+        <call-class-method method-name="setQuickCheckOutOptions" class-name="org.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : setQuickCheckOutOptions, Response : ${result}"/>
+        <call-class-method method-name="createOrder" class-name="org.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : createOrder, Response : ${result}"/>
+        <call-class-method method-name="processPayment" class-name="org.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : processPayment, Response : ${result}"/>
+        <call-service-asynch service-name="sendOrderConfirmation"/>
+        <call-class-method method-name="destroyCart" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : destroyCart, Response = ${result}"/>
+        <!-- Step 3 -->
+        <entity-condition list="orderHeaders" entity-name="OrderHeader">
+            <condition-expr field-name="orderTypeId" value="SALES_ORDER"/>
+            <order-by field-name="-entryDate"/>
+        </entity-condition>
+        <first-from-list entry="orderHeader" list="orderHeaders"/>
+        <set field="orderId" from-field="orderHeader.orderId"/>
+        <entity-and entity-name="OrderAdjustment" list="orderAdjustments1">
+            <field-map field-name="orderAdjustmentTypeId" value="SALES_TAX"/>
+            <field-map field-name="orderId" from-field="orderId"/>
+            <field-map field-name="orderItemSeqId" value="00001"/>
+            <field-map field-name="taxAuthorityRateSeqId" value="9004"/>
+        </entity-and>
+        <assert>
+            <not><if-empty field="orderAdjustments1"></if-empty></not>
+        </assert>
+        <!-- Step 4 -->
+        <set field="updateProductStoreMap.userLogin" from-field="systemUserLogin"/>
+        <set field="updateProductStoreMap.productStoreId" value="9000"/>
+        <set field="updateProductStoreMap.calcTaxAfterPromotion" value="Y"/>
+        <call-service service-name="updateProductStore" in-map-name="updateProductStoreMap"/>
+        <!-- Step 5 -->
+        <field-to-session field="nullField" session-name="orderMode"/>
+        <set field="request" from-field="parameters.request"/>
+        <set field="response" from-field="parameters.response"/>
+        <call-class-method method-name="routeOrderEntry" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : routeOrderEntry, Response : ${result}"/>
+        <entity-one value-field="userLogin" entity-name="UserLogin">
+            <field-map field-name="userLoginId" value="admin"/>
+        </entity-one>
+        <call-bsh><![CDATA[
+            request.setParameter("orderMode", "SALES_ORDER");
+            request.setParameter("productStoreId", "9000");
+            request.setParameter("partyId", "DemoCustomer");
+            request.setParameter("currencyUom", "USD");
+            session = request.getSession();
+            session.setAttribute("userLogin", userLogin);
+        ]]></call-bsh>
+        <call-class-method method-name="initializeOrderEntry" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : initializeOrderEntry, Response : ${result}"/>
+        <call-class-method method-name="setOrderCurrencyAgreementShipDates" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : setOrderCurrencyAgreementShipDates, Response : ${result}"/>
+        <call-bsh><![CDATA[
+            request.setParameter("add_product_id", "GZ-1001");
+        ]]></call-bsh>
+        <call-class-method method-name="addToCart" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : addToCart, Response : ${result}"/>
+        <call-bsh><![CDATA[
+            request.setParameter("checkoutpage", "quick");
+            request.setParameter("shipping_contact_mech_id", "9015");
+            request.setParameter("shipping_method", "GROUND@UPS");
+            request.setParameter("checkOutPaymentId", "EXT_COD");
+            request.setParameter("is_gift", "false");
+            request.setParameter("may_split", "false");
+        ]]></call-bsh>
+        <field-to-request field="nullField" request-name="shoppingCart"/>
+        <call-class-method method-name="setQuickCheckOutOptions" class-name="org.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : setQuickCheckOutOptions, Response : ${result}"/>
+        <call-class-method method-name="createOrder" class-name="org.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : createOrder, Response : ${result}"/>
+        <call-class-method method-name="processPayment" class-name="org.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : processPayment, Response : ${result}"/>
+        <call-service-asynch service-name="sendOrderConfirmation"/>
+        <call-class-method method-name="destroyCart" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : destroyCart, Response = ${result}"/>
+        <!-- Step 6 -->
+        <entity-condition list="orderHeaders" entity-name="OrderHeader">
+            <condition-expr field-name="orderTypeId" value="SALES_ORDER"/>
+            <order-by field-name="-entryDate"/>
+        </entity-condition>
+        <first-from-list entry="orderHeader" list="orderHeaders"/>
+        <set field="orderId" from-field="orderHeader.orderId"/>
+        <entity-and entity-name="OrderAdjustment" list="orderAdjustments2">
+            <field-map field-name="orderAdjustmentTypeId" value="SALES_TAX"/>
+            <field-map field-name="orderId" from-field="orderId"/>
+            <field-map field-name="orderItemSeqId" value="00001"/>
+            <field-map field-name="taxAuthorityRateSeqId" value="9004"/>
+        </entity-and>
+        <assert>
+            <if-empty field="orderAdjustments2"></if-empty>
+        </assert>
+        <check-errors/>
+    </simple-method>
+</simple-methods>
