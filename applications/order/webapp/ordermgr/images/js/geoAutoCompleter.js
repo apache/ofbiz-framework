@@ -31,7 +31,7 @@ function getCountryList() {
 
 function callCountryAutocompleter(data) {
     countryList = data.countryList;
-    countryTargetField.autcomplete({source: countryList, select: setKeyAsParameterAndGetStateList});
+    countryTargetField.autocomplete({source: countryList, select: setKeyAsParameterAndGetStateList});
 }
 
 function setKeyAsParameterAndGetStateList(event, ui) {
