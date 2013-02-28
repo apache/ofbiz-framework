@@ -27,5 +27,8 @@ jQuery(document).ready( function() {
        jQuery('#countryGeoId').change( function() {
             getAssociatedStateList('countryGeoId', 'stateProvinceGeoId', 'advice-required-stateProvinceGeoId', 'states');
         });
+
+        // Populate state list based on default country
+        getAssociatedStateList('countryGeoId', 'stateProvinceGeoId', 'advice-required-stateProvinceGeoId', 'states');
     }
 });
