@@ -819,7 +819,7 @@ public class ProductWorker {
             if (desiredUomId != null && product.get("weightUomId") != null && !desiredUomId.equals(product.get("weightUomId"))) {
                 Map<String, Object> result = FastMap.newInstance();
                 try {
-                    result = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", weightUomId, "uomIdTo", "WT_lb", "originalValue", weight));
+                    result = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", weightUomId, "uomIdTo", desiredUomId, "originalValue", weight));
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
                 }
