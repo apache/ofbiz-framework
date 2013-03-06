@@ -97,7 +97,9 @@ under the License.
   <#if webAnalyticsConfigs?has_content>
     <script language="JavaScript" type="text/javascript">
     <#list webAnalyticsConfigs as webAnalyticsConfig>
+      <#if  webAnalyticsConfig.webAnalyticsTypeId != "BACKEND_ANALYTICS">
         ${StringUtil.wrapString(webAnalyticsConfig.webAnalyticsCode?if_exists)}
+      </#if>
     </#list>
     </script>
   </#if>
