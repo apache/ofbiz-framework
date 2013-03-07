@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.common;
 
+import static org.ofbiz.base.util.UtilGenerics.checkList;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -29,29 +31,27 @@ import java.util.Map;
 
 import javolution.util.FastList;
 
+import org.apache.commons.net.ftp.FTP;
+import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPReply;
 import org.ofbiz.base.util.Debug;
-import static org.ofbiz.base.util.UtilGenerics.checkList;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 
-import org.apache.commons.net.ftp.FTP;
-import org.apache.commons.net.ftp.FTPClient;
-import org.apache.commons.net.ftp.FTPReply;
-
 /**
- *  FTP Services
- *
+ * FTP Services.
+ * 
  */
 public class FtpServices {
 
     public final static String module = FtpServices.class.getName();
     public static final String resource = "CommonUiLabels";
+
     public static Map<String, Object> putFile(DispatchContext dctx, Map<String, ?> context) {
         Locale locale = (Locale) context.get("locale");
         Debug.logInfo("[putFile] starting...", module);
-
         InputStream localFile = null;
         try {
             localFile = new FileInputStream((String) context.get("localFilename"));
@@ -59,9 +59,7 @@ public class FtpServices {
             Debug.logError(ioe, "[putFile] Problem opening local file", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonFtpFileCannotBeOpen", locale));
         }
-
         List<String> errorList = FastList.newInstance();
-
         FTPClient ftp = new FTPClient();
         try {
             Debug.logInfo("[putFile] connecting to: " + (String) context.get("hostname"), module);
@@ -79,12 +77,14 @@ public class FtpServices {
                 } else {
                     Boolean binaryTransfer = (Boolean) context.get("binaryTransfer");
                     boolean binary = (binaryTransfer == null) ? false : binaryTransfer.booleanValue();
-                    if (binary) { ftp.setFileType(FTP.BINARY_FILE_TYPE); }
-
+                    if (binary) {
+                        ftp.setFileType(FTP.BINARY_FILE_TYPE);
+                    }
                     Boolean passiveMode = (Boolean) context.get("passiveMode");
                     boolean passive = (passiveMode == null) ? true : passiveMode.booleanValue();
-                    if (passive) { ftp.enterLocalPassiveMode(); }
-
+                    if (passive) {
+                        ftp.enterLocalPassiveMode();
+                    }
                     Debug.logInfo("[putFile] storing local file remotely as: " + context.get("remoteFilename"), module);
                     if (!ftp.storeFile((String) context.get("remoteFilename"), localFile)) {
                         Debug.logInfo("[putFile] store was unsuccessful", module);
@@ -93,7 +93,7 @@ public class FtpServices {
                         Debug.logInfo("[putFile] store was successful", module);
                         List<String> siteCommands = checkList(context.get("siteCommands"), String.class);
                         if (siteCommands != null) {
-                            for (String command: siteCommands) {
+                            for (String command : siteCommands) {
                                 Debug.logInfo("[putFile] sending SITE command: " + command, module);
                                 if (!ftp.sendSiteCommand(command)) {
                                     errorList.add(UtilProperties.getMessage(resource, "CommonFtpSiteCommandFailed", UtilMisc.toMap("command", command, "replyString", ftp.getReplyString()), locale));
@@ -116,27 +116,22 @@ public class FtpServices {
                 }
             }
         }
-
         try {
             localFile.close();
         } catch (IOException ce) {
             Debug.logWarning(ce, "[putFile] Problem closing local file", module);
         }
-
         if (errorList.size() > 0) {
             Debug.logError("[putFile] The following error(s) (" + errorList.size() + ") occurred: " + errorList, module);
             return ServiceUtil.returnError(errorList);
         }
-
         Debug.logInfo("[putFile] finished successfully", module);
-
         return ServiceUtil.returnSuccess();
     }
 
     public static Map<String, Object> getFile(DispatchContext dctx, Map<String, ?> context) {
         Locale locale = (Locale) context.get("locale");
         String localFilename = (String) context.get("localFilename");
-
         OutputStream localFile = null;
         try {
             localFile = new FileOutputStream(localFilename);
@@ -144,9 +139,7 @@ public class FtpServices {
             Debug.logError(ioe, "[getFile] Problem opening local file", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonFtpFileCannotBeOpen", locale));
         }
-
         List<String> errorList = FastList.newInstance();
-
         FTPClient ftp = new FTPClient();
         try {
             ftp.connect((String) context.get("hostname"));
@@ -155,18 +148,19 @@ public class FtpServices {
             } else {
                 String username = (String) context.get("username");
                 String password = (String) context.get("password");
-
                 if (!ftp.login(username, password)) {
                     errorList.add(UtilProperties.getMessage(resource, "CommonFtpLoginFailure", UtilMisc.toMap("username", username, "password", password), locale));
                 } else {
                     Boolean binaryTransfer = (Boolean) context.get("binaryTransfer");
                     boolean binary = (binaryTransfer == null) ? false : binaryTransfer.booleanValue();
-                    if (binary) { ftp.setFileType(FTP.BINARY_FILE_TYPE); }
-
+                    if (binary) {
+                        ftp.setFileType(FTP.BINARY_FILE_TYPE);
+                    }
                     Boolean passiveMode = (Boolean) context.get("passiveMode");
                     boolean passive = (passiveMode == null) ? false : passiveMode.booleanValue();
-                    if (passive) { ftp.enterLocalPassiveMode(); }
-
+                    if (passive) {
+                        ftp.enterLocalPassiveMode();
+                    }
                     if (!ftp.retrieveFile((String) context.get("remoteFilename"), localFile)) {
                         errorList.add(UtilProperties.getMessage(resource, "CommonFtpFileNotSentSuccesfully", UtilMisc.toMap("replyString", ftp.getReplyString()), locale));
                     }
@@ -184,18 +178,15 @@ public class FtpServices {
                 }
             }
         }
-
         try {
             localFile.close();
         } catch (IOException ce) {
             Debug.logWarning(ce, "[getFile] Problem closing local file", module);
         }
-
         if (errorList.size() > 0) {
             Debug.logError("[getFile] The following error(s) (" + errorList.size() + ") occurred: " + errorList, module);
             return ServiceUtil.returnError(errorList);
         }
-
         return ServiceUtil.returnSuccess();
     }
 }
