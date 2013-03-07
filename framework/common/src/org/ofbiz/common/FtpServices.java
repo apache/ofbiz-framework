@@ -105,21 +105,21 @@ public class FtpServices {
                 ftp.logout();
             }
         } catch (IOException ioe) {
-            Debug.logInfo(ioe, "[putFile] caught exception: " + ioe.getMessage(), module);
+            Debug.logWarning(ioe, "[putFile] caught exception: " + ioe.getMessage(), module);
             errorList.add(UtilProperties.getMessage(resource, "CommonFtpProblemWithTransfer", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
         } finally {
-            if (ftp.isConnected()) {
-                try {
+            try {
+                if (ftp.isConnected()) {
                     ftp.disconnect();
-                } catch (IOException dce) {
-                    Debug.logWarning(dce, "[putFile] Problem with FTP disconnect", module);
                 }
+            } catch (Exception e) {
+                Debug.logWarning(e, "[putFile] Problem with FTP disconnect: ", module);
             }
-        }
-        try {
-            localFile.close();
-        } catch (IOException ce) {
-            Debug.logWarning(ce, "[putFile] Problem closing local file", module);
+            try {
+                localFile.close();
+            } catch (Exception e) {
+                Debug.logWarning(e, "[putFile] Problem closing local file: ", module);
+            }
         }
         if (errorList.size() > 0) {
             Debug.logError("[putFile] The following error(s) (" + errorList.size() + ") occurred: " + errorList, module);
@@ -168,20 +168,21 @@ public class FtpServices {
                 ftp.logout();
             }
         } catch (IOException ioe) {
+            Debug.logWarning(ioe, "[getFile] caught exception: " + ioe.getMessage(), module);
             errorList.add(UtilProperties.getMessage(resource, "CommonFtpProblemWithTransfer", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
         } finally {
-            if (ftp.isConnected()) {
-                try {
+            try {
+                if (ftp.isConnected()) {
                     ftp.disconnect();
-                } catch (IOException dce) {
-                    Debug.logWarning(dce, "[getFile] Problem with FTP disconnect", module);
                 }
+            } catch (Exception e) {
+                Debug.logWarning(e, "[getFile] Problem with FTP disconnect: ", module);
             }
-        }
-        try {
-            localFile.close();
-        } catch (IOException ce) {
-            Debug.logWarning(ce, "[getFile] Problem closing local file", module);
+            try {
+                localFile.close();
+            } catch (Exception e) {
+                Debug.logWarning(e, "[getFile] Problem closing local file: ", module);
+            }
         }
         if (errorList.size() > 0) {
             Debug.logError("[getFile] The following error(s) (" + errorList.size() + ") occurred: " + errorList, module);
