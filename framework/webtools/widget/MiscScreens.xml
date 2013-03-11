@@ -28,7 +28,7 @@ under the License.
                 <set field="tabButtonItem" value="viewents"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonArtifactDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonArtifactDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific><html><html-template location="component://webtools/webapp/webtools/component/viewComponents.ftl"/></html></platform-specific>
                     </decorator-section>
@@ -46,7 +46,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/datafile/viewdatafile.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonImportExportDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonImportExportDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet>
                             <platform-specific><html><html-template location="component://webtools/webapp/webtools/datafile/viewdatafile.ftl"/></html></platform-specific>

@@ -28,7 +28,7 @@
                 <set field="headerItem" value="Geos"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonGeoManagementDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonGeoManagementDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="no-clear">
                             <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
@@ -58,7 +58,7 @@
                 <entity-one entity-name="Geo" value-field="geo"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonGeoManagementDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonGeoManagementDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.WebtoolsGeoEdit}">
                             <include-form name="EditGeo" location="component://webtools/widget/GeoManagementForms.xml"/>
@@ -118,7 +118,7 @@
                 <set field="asm_responseName" value="geoList"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonGeoManagementDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonGeoManagementDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific><html><html-template location="component://common/webcommon/includes/setMultipleSelectJs.ftl"/></html></platform-specific>
                         <screenlet title="${uiLabelMap.WebtoolsGeosLinkExplained}">

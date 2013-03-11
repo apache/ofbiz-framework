@@ -32,7 +32,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/labelmanager/LabelManager.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonArtifactDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonArtifactDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                             <decorator-section name="search-options">
