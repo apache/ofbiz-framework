@@ -35,7 +35,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntitySQLProcessor.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonEntityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/entity/EntitySQLProcessor.ftl"/></html>
@@ -54,7 +54,7 @@ under the License.
                 <set field="results" from-field="parameters.results"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonImportExportDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonImportExportDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet>
                             <platform-specific>
@@ -76,7 +76,7 @@ under the License.
                 <set field="messages" from-field="parameters.messages"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonImportExportDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonImportExportDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet>
                             <platform-specific>
@@ -98,7 +98,7 @@ under the License.
                 <set field="messages" from-field="parameters.messages"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonImportExportDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonImportExportDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet>
                             <platform-specific>
@@ -120,7 +120,7 @@ under the License.
                 <set field="messages" from-field="parameters.messages"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonImportExportDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonImportExportDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet>
                             <platform-specific>
@@ -141,7 +141,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityMaint.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonEntityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/entity/EntityMaint.ftl"/></html>
@@ -166,7 +166,7 @@ under the License.
                 <set field="tabButtonItem" value="entitymaint"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonEntityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                             <decorator-section name="menu-bar">
@@ -212,7 +212,7 @@ under the License.
                 <set field="tabButtonItem" value="entitymaint"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonEntityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/entity/ViewGeneric.ftl"/></html>
@@ -237,7 +237,7 @@ under the License.
                 <set field="tabButtonItem" value="entitymaint"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonEntityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/entity/ViewRelations.ftl"/></html>
@@ -359,7 +359,7 @@ under the License.
                 <set field="tabButtonItem" value="entityEoModelBundle"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonImportExportDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonImportExportDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet>
                             <include-form name="EntityEoModelBundle" location="component://webtools/widget/EntityForms.xml"/>
@@ -379,7 +379,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/CheckDb.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonEntityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet>
                             <platform-specific><html><html-template location="component://webtools/webapp/webtools/entity/CheckDb.ftl"/></html></platform-specific>
@@ -401,7 +401,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityPerformanceTest.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonEntityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet>
                             <label>${uiLabelMap.WebtoolsNotePerformanceResultsMayVary}</label>
@@ -426,7 +426,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/XmlDsDump.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonImportExportDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonImportExportDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet>
                             <platform-specific><html><html-template location="component://webtools/webapp/webtools/entity/xmldsdump.ftl"/></html></platform-specific>
@@ -445,7 +445,7 @@ under the License.
                 <set field="labelTitleProperty" value="ConnectionPoolStatus"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonEntityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/entity/ConnectionPoolStatus.ftl"/></html>

@@ -31,7 +31,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/artifactinfo/ArtifactInfo.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonArtifactDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonArtifactDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific><html><html-template location="component://webtools/webapp/webtools/artifactinfo/ArtifactInfo.ftl"/></html></platform-specific>
                     </decorator-section>

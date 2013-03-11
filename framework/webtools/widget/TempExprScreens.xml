@@ -29,7 +29,7 @@ under the License.
                 <set field="title" value="${uiLabelMap[titleProperty]}" global="true"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonConfigurationDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonConfigurationDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <condition>
