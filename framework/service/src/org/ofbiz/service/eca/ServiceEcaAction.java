@@ -191,7 +191,7 @@ public class ServiceEcaAction implements java.io.Serializable {
         }
 
         // copy/combine error messages on error/failure (!success) or on resultToResult to combine any error info coming out, regardless of success status
-        if (!success || resultToResult) {
+        if ((!success || resultToResult) && UtilValidate.isNotEmpty(actionResult)) {
             String errorMessage = (String) actionResult.get(ModelService.ERROR_MESSAGE);
             String failMessage = (String) actionResult.get("failMessage");
             List<? extends Object> errorMessageList = UtilGenerics.checkList(actionResult.get(ModelService.ERROR_MESSAGE_LIST));
