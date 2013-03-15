@@ -330,7 +330,7 @@ public class TaxAuthorityServices {
                 } else {
                     productIdCond = EntityCondition.makeCondition("productId", EntityOperator.EQUALS, product.getString("productId"));
                 }
-                List<GenericValue> pcmList = delegator.findList("ProductCategoryMember", productIdCond, UtilMisc.toSet("productCategoryId"), null, null, true);
+                List<GenericValue> pcmList = delegator.findList("ProductCategoryMember", productIdCond, UtilMisc.toSet("productCategoryId", "fromDate", "thruDate"), null, null, true);
                 pcmList = EntityUtil.filterByDate(pcmList, true);
                 for(GenericValue pcm : pcmList) {
                     productCategoryIdSet.add(pcm.getString("productCategoryId"));
