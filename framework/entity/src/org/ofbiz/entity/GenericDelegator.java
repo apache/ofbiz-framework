@@ -2377,7 +2377,13 @@ public class GenericDelegator implements Delegator {
             String attr = element.getAttribute(name);
 
             if (UtilValidate.isNotEmpty(attr)) {
-                value.setString(name, attr);
+                // GenericEntity.makeXmlElement() sets null values to GenericEntity.NULL_FIELD.toString(), so look for
+                //     that and treat it as null
+                if (GenericEntity.NULL_FIELD.toString().equals(attr)) {
+                    value.set(name, null);
+                } else {
+                    value.setString(name, attr);
+                }
             } else {
                 // if no attribute try a subelement
                 Element subElement = UtilXml.firstChildElement(element, name);
