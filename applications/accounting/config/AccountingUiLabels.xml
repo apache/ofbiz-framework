@@ -18617,7 +18617,7 @@
         <value xml:lang="zh">生产能力</value>
         <value xml:lang="zh_TW">生產能力</value>
     </property>
-    <property key="FormFieldTitle_produtId">
+    <property key="FormFieldTitle_productId">
         <value xml:lang="de">Produkt ID</value>
         <value xml:lang="en">Product Id</value>
         <value xml:lang="es">Id Producto</value>

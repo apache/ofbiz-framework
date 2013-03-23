@@ -22,7 +22,7 @@ def module = "AcctgTransEntriesSearchResultsParameters.groovy";
 try {
     def birtParameters = [:];
     birtParameters.organizationPartyId = parameters.organizationPartyId;
-    birtParameters.produtId = parameters.produtId;
+    birtParameters.productId = parameters.productId;
     birtParameters.isPosted = parameters.isPosted;
     birtParameters.invoiceId = parameters.invoiceId;
     birtParameters.acctgTransId = parameters.acctgTransId;

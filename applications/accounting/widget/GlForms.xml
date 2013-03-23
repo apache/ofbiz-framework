@@ -235,7 +235,7 @@ under the License.
         </field>
         <field name="invoiceId"><lookup target-form-name="LookupInvoice" size="20" maxlength="20"/></field>
         <field name="paymentId"><lookup target-form-name="LookupPayment" size="20" maxlength="20"/></field>
-        <field name="produtId"><lookup target-form-name="LookupProduct" size="20" maxlength="20"/></field>
+        <field name="productId"><lookup target-form-name="LookupProduct" size="20" maxlength="20"/></field>
         <field name="workEffortId"><lookup target-form-name="LookupWorkEffort" size="20" maxlength="20"/></field>
         <field name="shipmentId"><lookup target-form-name="LookupShipment" size="20" maxlength="20"/></field>
         <field name="fromDate"><date-time/></field>
@@ -452,7 +452,7 @@ under the License.
         </field>
         <field name="invoiceId" position="1"><lookup target-form-name="LookupInvoice" size="20" maxlength="20"/></field>
         <field name="paymentId" position="2"><lookup target-form-name="LookupPayment" size="20" maxlength="20"/></field>
-        <field name="produtId" position="1"><lookup target-form-name="LookupProduct" size="20" maxlength="20"/></field>
+        <field name="productId" position="1"><lookup target-form-name="LookupProduct" size="20" maxlength="20"/></field>
         <field name="workEffortId" position="2"><lookup target-form-name="LookupWorkEffort" size="20" maxlength="20"/></field>
         <field name="shipmentId" position="1"><lookup target-form-name="LookupShipment" size="20" maxlength="20"/></field>
         <field name="fixedAssetId" position="2">
@@ -540,7 +540,7 @@ under the License.
                 <sub-hyperlink target="paymentOverview?paymentId=${acctgTrans.paymentId}" description="${acctgTrans.paymentId}"/>
             </lookup>
         </field>
-        <field name="produtId"><lookup target-form-name="LookupProduct" size="20" maxlength="20"/></field>
+        <field name="productId"><lookup target-form-name="LookupProduct" size="20" maxlength="20"/></field>
         <field name="shipmentId"><lookup target-form-name="LookupShipment" size="20" maxlength="20"/></field>
         <field name="inventoryItemId"><text/></field>
         <field name="groupStatusId" title="${uiLabelMap.FormFieldTitle_groupStatus}">
