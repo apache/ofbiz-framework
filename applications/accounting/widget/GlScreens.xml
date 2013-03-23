@@ -102,7 +102,7 @@ under the License.
                                     <link text="${uiLabelMap.AccountingExportAsCsv}" style="buttontext" target="AcctgTransSearchResultsCsv.csv">
                                         <parameter param-name="organizationPartyId"/>
                                         <parameter param-name="acctgTransId" from-field="parameters.acctgTransId"/>
-                                        <parameter param-name="produtId" from-field="parameters.produtId"/>
+                                        <parameter param-name="productId" from-field="parameters.productId"/>
                                         <parameter param-name="isPosted" from-field="parameters.isPosted"/>
                                         <parameter param-name="invoiceId" from-field="parameters.invoiceId"/>
                                         <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
@@ -117,7 +117,7 @@ under the License.
                                     <link text="${uiLabelMap.AccountingExportAsPdf}" style="buttontext" target="AcctgTransSearchResultPdf.pdf" target-window="_BLANK">
                                         <parameter param-name="organizationPartyId"/>
                                         <parameter param-name="acctgTransId" from-field="parameters.acctgTransId"/>
-                                        <parameter param-name="produtId" from-field="parameters.produtId"/>
+                                        <parameter param-name="productId" from-field="parameters.productId"/>
                                         <parameter param-name="isPosted" from-field="parameters.isPosted"/>
                                         <parameter param-name="invoiceId" from-field="parameters.invoiceId"/>
                                         <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
@@ -163,7 +163,7 @@ under the License.
                                 <screenlet title="${uiLabelMap.AccountingAcctgTransEntries} ${uiLabelMap.AccountingByAccount}">
                                     <link text="${uiLabelMap.AccountingExportAsCsv}" style="buttontext" target="AcctgTransEntriesSearchResultsCsv.csv">
                                         <parameter param-name="organizationPartyId"/>
-                                        <parameter param-name="produtId" from-field="parameters.produtId"/>
+                                        <parameter param-name="productId" from-field="parameters.productId"/>
                                         <parameter param-name="isPosted" from-field="parameters.isPosted"/>
                                         <parameter param-name="invoiceId" from-field="parameters.invoiceId"/>
                                         <parameter param-name="acctgTransId" from-field="parameters.acctgTransId"/>
@@ -180,7 +180,7 @@ under the License.
                                     </link>
                                     <link text="${uiLabelMap.AccountingExportAsPdf}" style="buttontext" target="AcctgTransEntriesSearchResultsPdf.pdf" target-window="_BLANK">
                                         <parameter param-name="organizationPartyId"/>
-                                        <parameter param-name="produtId" from-field="parameters.produtId"/>
+                                        <parameter param-name="productId" from-field="parameters.productId"/>
                                         <parameter param-name="isPosted" from-field="parameters.isPosted"/>
                                         <parameter param-name="invoiceId" from-field="parameters.invoiceId"/>
                                         <parameter param-name="acctgTransId" from-field="parameters.acctgTransId"/>
@@ -197,7 +197,7 @@ under the License.
                                     </link>
                                     <link text="${uiLabelMap.AccountingExportWithInvoiceAndPaymentAsPdf}" style="buttontext" target="AcctgTransEntriesSearchResultsInvoiceAndPaymentPdf.pdf" target-window="_BLANK">
                                         <parameter param-name="organizationPartyId"/>
-                                        <parameter param-name="produtId" from-field="parameters.produtId"/>
+                                        <parameter param-name="productId" from-field="parameters.productId"/>
                                         <parameter param-name="isPosted" from-field="parameters.isPosted"/>
                                         <parameter param-name="invoiceId" from-field="parameters.invoiceId"/>
                                         <parameter param-name="acctgTransId" from-field="parameters.acctgTransId"/>
@@ -227,7 +227,7 @@ under the License.
                                 <screenlet title="${uiLabelMap.AccountingAcctgTransEntries} ${uiLabelMap.AccountingByDate}">
                                     <link text="${uiLabelMap.AccountingExportAsCsv}" style="buttontext" target="AcctgTransEntriesSearchResultsCsv.csv">
                                         <parameter param-name="organizationPartyId"/>
-                                        <parameter param-name="produtId" from-field="parameters.produtId"/>
+                                        <parameter param-name="productId" from-field="parameters.productId"/>
                                         <parameter param-name="isPosted" from-field="parameters.isPosted"/>
                                         <parameter param-name="invoiceId" from-field="parameters.invoiceId"/>
                                         <parameter param-name="acctgTransId" from-field="parameters.acctgTransId"/>
@@ -244,7 +244,7 @@ under the License.
                                     </link>
                                     <link text="${uiLabelMap.AccountingExportAsPdf}" style="buttontext" target="AcctgTransEntriesSearchResultsPDF.pdf" target-window="_BLANK">
                                         <parameter param-name="organizationPartyId"/>
-                                        <parameter param-name="produtId" from-field="parameters.produtId"/>
+                                        <parameter param-name="productId" from-field="parameters.productId"/>
                                         <parameter param-name="isPosted" from-field="parameters.isPosted"/>
                                         <parameter param-name="invoiceId" from-field="parameters.invoiceId"/>
                                         <parameter param-name="acctgTransId" from-field="parameters.acctgTransId"/>

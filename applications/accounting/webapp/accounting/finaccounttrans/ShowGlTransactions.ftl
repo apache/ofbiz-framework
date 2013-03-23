@@ -33,7 +33,7 @@ under the License.
        <th>${uiLabelMap.FormFieldTitle_transTypeDescription}</th>
        <th>${uiLabelMap.FormFieldTitle_invoiceId}</th>
        <th>${uiLabelMap.FormFieldTitle_glAccountId}</th>
-       <th>${uiLabelMap.FormFieldTitle_produtId}</th>
+       <th>${uiLabelMap.FormFieldTitle_productId}</th>
        <th>${uiLabelMap.FormFieldTitle_debitCreditFlag}</th>
        <th>${uiLabelMap.AccountingAmount}</th>
        <th>${uiLabelMap.FormFieldTitle_origAmount}</th>
