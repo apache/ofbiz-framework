@@ -5,13 +5,14 @@ All you need to run OFBiz is a 1.6 (version 6) JDK
 (not just the JRE, the full JDK).
 http://java.sun.com/javase/downloads/index.jsp
 
-You can load the demo data (strongly advised) with the following
-command on the command line from the OFBiz home folder (in Unix-like
-operating systems type "./ant" rather than "ant"):
+You can load the demo data (strongly advised if you are new to
+OFBiz) with the following command on the command line
+from the OFBiz home folder (in Unix-like operating systems
+type "./ant" rather than "ant"):
 
 ant load-demo
 
-Then start OFBiz with the following command:
+Then start OFBiz:
 
 ant start
 
@@ -25,34 +26,35 @@ https://localhost:8443/webtools
 
 You can log in with the user "admin" and password "ofbiz".
 
-You can stop OFBiz with the command:
+To stop OFBiz:
 
 ant stop
+
+To get the list of available commands:
+
+ant -p
 
 You will also find several platform dependent scripts in the
 "tools" folder (for example for Windows and Unix-like operating
 systems, the startup scripts are startofbiz.bat and startofbiz.sh).
 
-For more details about running a build, or for information on
-getting, building, and running the source please see the
-Apache OFBiz Setup Guide:
+Note that the default configuration uses an embedded Java database
+(Apache Derby) and embedded application server components such as
+Tomcat, Geronimo (transaction manager), etc.
 
-http://cwiki.apache.org/confluence/display/OFBADMIN/Demo+and+Test+Setup+Guide
+For more details about OFBiz please visit the OFBiz Documentation page:
 
-Note that running with the default configuration uses an
-embedded Java database (Apache Derby), and embedded application
-server components such as Tomcat, Geronimo (transaction manager), etc.
+http://ofbiz.apache.org/documentation.html
 
-To prepare OFBiz for production use the Basic Production Setup Guide
-is a great place to start. It is available here:
+In this page you will find links to useful guides such as:
+* "Demo and Test Setup Guide"
+* "Basic Production Setup Guide"
+* "A Beginners Development Guide"
 
-http://cwiki.apache.org/confluence/display/OFBTECH/Apache+OFBiz+Technical+Production+Setup+Guide
+If you would like to get in touch with the OFBiz community of users and
+developers, the following page will help to get started:
 
-Are you newbie for Apache OFBiz project? Are you confused how to start development? Please refer the beginner guide available at:
-
-https://cwiki.apache.org/confluence/display/OFBIZ/OFBiz+Tutorial+-+A+Beginners+Development+Guide   
-
-For additional resources please see the OFBiz web site.
+http://ofbiz.apache.org/community.html
 
 Enjoy!
 
