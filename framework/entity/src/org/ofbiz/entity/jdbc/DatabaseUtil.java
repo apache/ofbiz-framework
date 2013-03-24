@@ -925,17 +925,15 @@ public class DatabaseUtil {
         if (dbData == null) {
             return;
         }
-        // Database Info
         if (Debug.infoOn()) {
+            // Database Info
             try {
                 Debug.logInfo("Database Product Name is " + dbData.getDatabaseProductName(), module);
                 Debug.logInfo("Database Product Version is " + dbData.getDatabaseProductVersion(), module);
             } catch (SQLException e) {
                 Debug.logWarning("Unable to get Database name & version information", module);
             }
-        }
-        // JDBC Driver Info
-        if (Debug.infoOn()) {
+            // JDBC Driver Info
             try {
                 Debug.logInfo("Database Driver Name is " + dbData.getDriverName(), module);
                 Debug.logInfo("Database Driver Version is " + dbData.getDriverVersion(), module);
@@ -945,9 +943,7 @@ public class DatabaseUtil {
             } catch (AbstractMethodError ame) {
                 Debug.logWarning("Unable to get Driver JDBC Version", module);
             }
-        }
-        // Db/Driver support settings
-        if (Debug.infoOn()) {
+            // Db/Driver support settings
             Debug.logInfo("Database Setting/Support Information (those with a * should be true):", module);
             for (Detection detection: detections) {
                 String requiredFlag = detection.required ? "*" : "";
