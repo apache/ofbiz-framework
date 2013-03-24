@@ -708,7 +708,7 @@ public class DatabaseUtil {
                         if (messages != null) messages.add(message);
                     }
 
-                    // show Indexe key references that exist but are unknown
+                    // show index key references that exist but are unknown
                     if (tableIndexList != null) {
                         for (String indexLeft: tableIndexList) {
                             String message = "Unknown Index " + indexLeft + " found in table " + entity.getTableName(datasourceInfo);
@@ -948,7 +948,7 @@ public class DatabaseUtil {
         }
         // Db/Driver support settings
         if (Debug.infoOn()) {
-                Debug.logInfo("Database Setting/Support Information (those with a * should be true):", module);
+            Debug.logInfo("Database Setting/Support Information (those with a * should be true):", module);
             for (Detection detection: detections) {
                 String requiredFlag = detection.required ? "*" : "";
                 try {
