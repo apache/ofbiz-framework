@@ -13666,9 +13666,9 @@
         <value xml:lang="vi">Sổ phụ</value>
         <value xml:lang="zh">明细分类账</value>
     </property>
-    <property key="AccountingSuccessFull">
+    <property key="AccountingSuccessful">
         <value xml:lang="ar">ناجح</value>
-        <value xml:lang="en">successfull</value>
+        <value xml:lang="en">successful</value>
         <value xml:lang="es">exitoso</value>
         <value xml:lang="fr">réussi</value>
         <value xml:lang="hi_IN">सफल</value>
@@ -21613,8 +21613,8 @@
         <value xml:lang="vi">Thanh toán nhận qua iDEAL</value>
         <value xml:lang="zh">通过iDEAL接收到的支付</value>
     </property>
-    <property key="IdealSuccessFull">
-        <value xml:lang="en">The transaction has been successfull.</value>
+    <property key="IdealSuccessful">
+        <value xml:lang="en">The transaction has been successful.</value>
         <value xml:lang="fr">La transaction a été réussie.</value>
         <value xml:lang="ja">トランザクションは成功しました。</value>
         <value xml:lang="nl">De betaling is met succes ontvangen.</value>
