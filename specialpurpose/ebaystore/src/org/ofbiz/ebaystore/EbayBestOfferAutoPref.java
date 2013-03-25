@@ -196,7 +196,7 @@ public class EbayBestOfferAutoPref {
             result = ServiceUtil.returnError(errorMessage);
             return result;
         }
-        String successMsg = "Store best offer to entity successful.";
+        String successMsg = "Store best offer to entity Successfull.";
         result = ServiceUtil.returnSuccess(successMsg);
         return result;
     }
