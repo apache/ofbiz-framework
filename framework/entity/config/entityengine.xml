@@ -183,7 +183,8 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             use-pk-constraint-names="false"
             use-indices-unique="false"
             alias-view-columns="false"
-            use-order-by-nulls="true">
+            use-order-by-nulls="true"
+            offset-style="fetch">
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
         <read-data reader-name="seed-initial"/>
@@ -212,7 +213,8 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         use-pk-constraint-names="false"
         use-indices-unique="false"
         alias-view-columns="false"
-        use-order-by-nulls="true">
+        use-order-by-nulls="true"
+        offset-style="fetch">
         <!-- beware use-indices-unique="false" is needed because of Derby bug with null values in a unique index -->
         <inline-jdbc
             jdbc-driver="org.apache.derby.jdbc.EmbeddedDriver"
