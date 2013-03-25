@@ -4441,7 +4441,7 @@
     </property>
     <property key="ManufacturingRoutingTaskAssocCreateSuccessfully">
         <value xml:lang="de">Arbeitsgang-Zuordnung erfolgreich erstellt</value>
-        <value xml:lang="en">Routing Task association creation successfull</value>
+        <value xml:lang="en">Routing Task association creation successful</value>
         <value xml:lang="es">Creación de asociación de tareas exitosa</value>
         <value xml:lang="fr">Association de l'opération à la gamme réussie</value>
         <value xml:lang="it">Operazione associazione creata con successo</value>
@@ -4455,7 +4455,7 @@
     </property>
     <property key="ManufacturingRoutingTaskCopiedSuccessfully">
         <value xml:lang="de">Arbeitsgang erfolgreich kopiert</value>
-        <value xml:lang="en">Routing Task copied Successfully</value>
+        <value xml:lang="en">Routing Task copied successfully</value>
         <value xml:lang="es">Tarea copiada exitosamente</value>
         <value xml:lang="fr">Opération copiée avec succés</value>
         <value xml:lang="it">Operazione copiata con successo</value>
