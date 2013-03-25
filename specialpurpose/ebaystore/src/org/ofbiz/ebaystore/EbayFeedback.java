@@ -197,7 +197,7 @@ public class EbayFeedback {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        String successMsg = "Load eBay Feedback Successfull.";
+        String successMsg = "Load eBay Feedback successful.";
         result = ServiceUtil.returnSuccess(successMsg);
         return result;
     }

@@ -3215,7 +3215,7 @@ public class InvoiceServices {
      */
     private static Map<String, Object> storePaymentApplication(Delegator delegator, GenericValue paymentApplication,Locale locale) {
         Map<String, Object> results = ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, 
-                "AccountingSuccessFull", locale));
+                "AccountingSuccessful", locale));
         boolean debug = true;
         if (debug) Debug.logInfo("Start updating the paymentApplication table ", module);
 

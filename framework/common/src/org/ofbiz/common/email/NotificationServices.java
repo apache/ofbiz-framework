@@ -177,7 +177,7 @@ public class NotificationServices {
      * the message body of the notification.
      * <p>
      * The result returned will contain the appropriate response
-     * messages indicating succes or failure and the OUT parameter,
+     * messages indicating success or failure and the OUT parameter,
      * "body" containing the generated message.
      *
      * @param ctx   The dispatching context of the service
@@ -217,7 +217,7 @@ public class NotificationServices {
             // extract the newly created body for the notification email
             String notificationBody = writer.toString();
 
-            // generate the successfull reponse
+            // generate the successful response
             result = ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "CommonNotifyEmailMessageBodyGeneratedSuccessfully", locale));
             result.put("body", notificationBody);
         } catch (IOException ie) {
