@@ -27874,14 +27874,6 @@
         <value xml:lang="vi">trong</value>
         <value xml:lang="zh">英寸</value>
     </property>
-    <property key="ProductShipmentUomAbbreviation_WT_g">
-        <value xml:lang="de">g</value>
-        <value xml:lang="en">g</value>
-        <value xml:lang="es">g</value>
-        <value xml:lang="fr">g</value>
-        <value xml:lang="it">g</value>
-        <value xml:lang="ja">g</value>
-    </property>
     <property key="ProductShipmentUomAbbreviation_WT_kg">
         <value xml:lang="de">kg</value>
         <value xml:lang="en">kg</value>

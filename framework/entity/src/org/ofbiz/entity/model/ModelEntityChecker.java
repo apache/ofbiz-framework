@@ -284,7 +284,7 @@ public class ModelEntityChecker {
     }
 
     public static final String[] rwArray = { "ABORT", "ABS", "ABSOLUTE",
-            "ACCEPT", "ACCES", "ACCESS", "ACS", "ACTION", "ACTIVATE", "ADD", "ADDFORM",
+            "ACCEPT", "ACCES", "ACS", "ACTION", "ACTIVATE", "ADD", "ADDFORM",
             "ADMIN", "AFTER", "AGGREGATE", "ALIAS", "ALL", "ALLOCATE", "ALTER",
             "ANALYZE", "AND", "ANDFILENAME", "ANY", "ANYFINISH", "APPEND",
             "ARCHIVE", "ARE", "ARRAY", "AS", "ASC", "ASCENDING", "ASCII",
@@ -472,7 +472,7 @@ public class ModelEntityChecker {
             "START_TRANSACTION", "STATE", "STATIC", "STATISTICS", "STATUS",
             "STDDEV", "STDEV", "STEP", "STOP", "STORE", "STRAIGHT_JOIN",
             "STRING", "STRUCTURE", "SUBMENU", "SUBSTR", "SUBSTRING", "SUBTYPE",
-            "SUCCEEDS", "SUCCESFULL", "SUCCESSFULL", "SUCCESSFUL", "SUM", "SUMU", "SUPERDBA",
+            "SUCCEEDS", "SUCCESFULL", "SUCCESSFULL", "SUM", "SUMU", "SUPERDBA",
             "SYB_TERMINATE", "SYNONYM", "SYSDATE", "SYSSORT", "SYSTEM_USER",
 
             "TABLE", "TABLEDATA", "TABLES", "TEMP", "TEMPORARY", "TERMINATE",
