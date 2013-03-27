@@ -75,11 +75,11 @@ ofbiz/trunk/framework/base/lib/scripting/jansi-1.2.1.jar
 ofbiz/trunk/framework/base/lib/xmlrpc-client-3.1.2.jar
 ofbiz/trunk/framework/base/lib/xmlrpc-common-3.1.2.jar
 ofbiz/trunk/framework/base/lib/xmlrpc-server-3.1.2.jar
-ofbiz/framework/catalina/lib/tomcat-7.0.32-catalina-ha.jar
-ofbiz/framework/catalina/lib/tomcat-7.0.32-catalina-tribes.jar
-ofbiz/framework/catalina/lib/tomcat-7.0.32-tomcat-embed-core.jar
-ofbiz/framework/catalina/lib/tomcat-7.0.32-tomcat-embed-jasper.jar
-ofbiz/framework/catalina/lib/tomcat-7.0.32-tomcat-embed-logging-log4j.jar
+ofbiz/framework/catalina/lib/tomcat-7.0.39-catalina-ha.jar
+ofbiz/framework/catalina/lib/tomcat-7.0.39-catalina-tribes.jar
+ofbiz/framework/catalina/lib/tomcat-7.0.39-tomcat-embed-core.jar
+ofbiz/framework/catalina/lib/tomcat-7.0.39-tomcat-embed-jasper.jar
+ofbiz/framework/catalina/lib/tomcat-7.0.39-tomcat-embed-logging-log4j.jar
 ofbiz/trunk/framework/entity/lib/commons-dbcp-1.4.jar
 ofbiz/trunk/framework/entity/lib/jdbc/derby-10.8.2.2.jar
 ofbiz/trunk/framework/entity/lib/jdbc/derbytools-10.8.2.2.jar
@@ -2299,7 +2299,7 @@ ofbiz/trunk/specialpurpose/birt/lib/org.w3c.dom.svg_1.1.0.v201011041433.jar
 ofbiz/trunk/specialpurpose/birt/lib/saaj.jar
 ofbiz/trunk/specialpurpose/birt/lib/Tidy.jar
 ofbiz/trunk/specialpurpose/birt/lib/viewservlets.jar
-ofbiz/trunk/framework/catalina/lib/ecj-3.7.2.jar
+ofbiz/trunk/framework/catalina/lib/ecj-4.2.1.jar
 ofbiz/trunk/framework/jetty/lib/jetty-ajp-8.1.2.v20120308.jar
 ofbiz/trunk/framework/jetty/lib/jetty-continuation-8.1.2.v20120308.jar
 ofbiz/trunk/framework/jetty/lib/jetty-http-8.1.2.v20120308.jar
