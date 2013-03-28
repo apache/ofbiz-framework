@@ -132,6 +132,10 @@ public class ModelParam implements Serializable {
     public String getName() {
         return this.name;
     }
+    // Method to retrieve form-label from model parameter object in freemarker
+    public String getFormLabel() {
+        return this.formLabel;
+    }
 
     public String getType() {
         return this.type;
