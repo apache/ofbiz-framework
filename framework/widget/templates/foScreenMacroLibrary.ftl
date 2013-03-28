@@ -59,7 +59,7 @@ under the License.
 <#macro renderSubContentEnd urlString editMode editContainerStyle editRequest enableEditValue></#macro>
 
 <#macro renderHorizontalSeparator id style><fo:block><fo:leader leader-length="100%" leader-pattern="rule" rule-style="solid" rule-thickness="0.1mm" color="black"/></fo:block></#macro>
-<#macro renderLabel text id style><#if text?exists><#if style?has_content><fo:inline <@getFoStyle style/>></#if>${text}<#if style?has_content></fo:inline></#if></#if></#macro>
+<#macro renderLabel text id style><#if text?has_content><fo:block <#if style?has_content><@getFoStyle style/></#if>>${text}</fo:block></#if></#macro>
 <#macro renderLink parameterList targetWindow target uniqueItemName linkType actionUrl id style name linkUrl text imgStr></#macro>
 <#macro renderImage src id style wid hgt border alt urlString></#macro>
 
