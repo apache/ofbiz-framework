@@ -35,11 +35,12 @@
     <entity-resource type="data" reader-name="seed" loader="main" location="data/AssetMaintSecurityPermissionSeedData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/AssetMaintSecurityGroupDemoData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/AssetMaintSeedData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoAssetMaintData.xml"/>
 
     <!-- service resources: model(s), eca(s) and group definitions -->
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
+
+    <test-suite loader="main" location="testdef/assetmainttests.xml"/>
 
     <webapp name="assetmaint"
         title="AssetMaint"
