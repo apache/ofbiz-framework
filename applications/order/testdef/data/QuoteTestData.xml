@@ -21,5 +21,5 @@ under the License.
 <entity-engine-xml>
     <Quote quoteId="9000" quoteTypeId="PRODUCT_QUOTE" partyId="DemoCustomer" issueDate="2009-12-11 12:00:00.000" statusId="QUO_CREATED" currencyUomId="USD" productStoreId="9000" salesChannelEnumId="EMAIL_SALES_CHANNEL" validFromDate="2009-12-11 12:00:00.000" quoteName="Most competitive quote ever"/>
     <QuoteItem quoteId="9000" quoteItemSeqId="00001" productId="GZ-1001"/>
-    <WorkEffort workEffortId="9007" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" workEffortName="Quote WorkEffort"/>
+    <WorkEffort workEffortId="9007" workEffortTypeId="TASK" workEffortName="Quote WorkEffort"/>
 </entity-engine-xml>
