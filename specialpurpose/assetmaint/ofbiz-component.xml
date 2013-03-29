@@ -18,7 +18,7 @@
     under the License.
 -->
 
-<ofbiz-component name="assetmaint"
+<ofbiz-component name="assetmaint" enabled="true"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
     <!-- define resource loaders; most common is to use the component resource loader -->
