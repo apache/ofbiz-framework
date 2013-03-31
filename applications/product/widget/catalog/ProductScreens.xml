@@ -868,7 +868,7 @@ under the License.
                             <widgets>
                                 <link target="EditProductSuppliers" style="buttontext" text="${uiLabelMap.ProductNewProductSupplier}">
                                     <parameter param-name="productId"/>
-                                 </link>
+                                </link>
                             </widgets>
                         </section>
                         <screenlet title="${uiLabelMap.PageTitleAddProductSupplier}">
