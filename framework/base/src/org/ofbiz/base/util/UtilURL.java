@@ -56,31 +56,46 @@ public class UtilURL {
     }
 
     public static URL fromResource(String resourceName, ClassLoader loader) {
-        URL url = null;
-
-        if (loader != null && url == null) url = loader.getResource(resourceName);
-        if (loader != null && url == null) url = loader.getResource(resourceName + ".properties");
-
-        if (loader == null && url == null) {
+        if (loader == null) {
             try {
                 loader = Thread.currentThread().getContextClassLoader();
             } catch (SecurityException e) {
+                // Huh? The new object will be created by the current thread, so how is this any different than the previous code?
                 UtilURL utilURL = new UtilURL();
                 loader = utilURL.getClass().getClassLoader();
             }
         }
-
-        if (url == null) url = loader.getResource(resourceName);
-        if (url == null) url = loader.getResource(resourceName + ".properties");
-
-        if (url == null) url = ClassLoader.getSystemResource(resourceName);
-        if (url == null) url = ClassLoader.getSystemResource(resourceName + ".properties");
-
-        if (url == null) url = fromFilename(resourceName);
-        if (url == null) url = fromOfbizHomePath(resourceName);
-        if (url == null) url = fromUrlString(resourceName);
-
-        //Debug.logInfo("[fromResource] got URL " + (url == null ? "[NotFound]" : url.toExternalForm()) + " from resourceName " + resourceName);
+        URL url = loader.getResource(resourceName);
+        if (url != null) {
+            return url;
+        }
+        String propertiesResourceName = null;
+        if (!resourceName.endsWith(".properties")) {
+            propertiesResourceName = resourceName.concat(".properties");
+            url = loader.getResource(propertiesResourceName);
+            if (url != null) {
+                return url;
+            }
+        }
+        url = ClassLoader.getSystemResource(resourceName);
+        if (url != null) {
+            return url;
+        }
+        if (propertiesResourceName != null) {
+            url = ClassLoader.getSystemResource(propertiesResourceName);
+            if (url != null) {
+                return url;
+            }
+        }
+        url = fromFilename(resourceName);
+        if (url != null) {
+            return url;
+        }
+        url = fromOfbizHomePath(resourceName);
+        if (url != null) {
+            return url;
+        }
+        url = fromUrlString(resourceName);
         return url;
     }
 
