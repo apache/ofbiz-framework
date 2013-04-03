@@ -423,13 +423,12 @@ TEMP_VIEW_LOOP:
                             }
                         }
                     }
-
-                    for (String message: orderedMessages) {
-                        Debug.logInfo(message, module);
+                    if (Debug.infoOn()) {
+                        for (String message : orderedMessages) {
+                            Debug.logInfo(message, module);
+                        }
+                        Debug.logInfo("FINISHED LOADING ENTITIES - ALL FILES; #Entities=" + numEntities + " #ViewEntities=" + numViewEntities + " #Fields=" + numFields + " #Relationships=" + numRelations + " #AutoRelationships=" + numAutoRelations, module);
                     }
-
-                    Debug.log("FINISHED LOADING ENTITIES - ALL FILES; #Entities=" + numEntities + " #ViewEntities=" +
-                        numViewEntities + " #Fields=" + numFields + " #Relationships=" + numRelations + " #AutoRelationships=" + numAutoRelations, module);
                 }
             }
         }
