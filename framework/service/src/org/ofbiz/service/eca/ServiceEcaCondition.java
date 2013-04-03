@@ -144,7 +144,7 @@ public class ServiceEcaCondition implements java.io.Serializable {
                     Map<String, ? extends Object> envMap = UtilGenerics.checkMap(context.get(lhsMapName));
                     lhsValue = envMap.get(lhsValueName);
                 } else {
-                    Debug.logWarning("From Map (" + lhsMapName + ") not found in context, defaulting to null.", module);
+                    Debug.logInfo("From Map (" + lhsMapName + ") not found in context, defaulting to null.", module);
                 }
             } catch (ClassCastException e) {
                 throw new GenericServiceException("From Map field [" + lhsMapName + "] is not a Map.", e);
@@ -153,7 +153,7 @@ public class ServiceEcaCondition implements java.io.Serializable {
             if (context.containsKey(lhsValueName)) {
                 lhsValue = context.get(lhsValueName);
             } else {
-                Debug.logWarning("From Field (" + lhsValueName + ") is not found in context for " + serviceName + ", defaulting to null.", module);
+                Debug.logInfo("From Field (" + lhsValueName + ") is not found in context for " + serviceName + ", defaulting to null.", module);
             }
         }
 
@@ -165,7 +165,7 @@ public class ServiceEcaCondition implements java.io.Serializable {
                     Map<String, ? extends Object> envMap = UtilGenerics.checkMap(context.get(rhsMapName));
                     rhsValue = envMap.get(rhsValueName);
                 } else {
-                    Debug.logWarning("To Map (" + rhsMapName + ") not found in context for " + serviceName + ", defaulting to null.", module);
+                    Debug.logInfo("To Map (" + rhsMapName + ") not found in context for " + serviceName + ", defaulting to null.", module);
                 }
             } catch (ClassCastException e) {
                 throw new GenericServiceException("To Map field [" + rhsMapName + "] is not a Map.", e);
@@ -185,7 +185,7 @@ public class ServiceEcaCondition implements java.io.Serializable {
         Boolean cond = ObjectType.doRealCompare(lhsValue, rhsValue, operator, compareType, format, messages, null, dctx.getClassLoader(), isConstant);
 
         // if any messages were returned send them out
-        if (messages.size() > 0) {
+        if (messages.size() > 0 && Debug.warningOn()) {
             for (Object message: messages) {
                 Debug.logWarning(message.toString(), module);
             }
