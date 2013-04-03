@@ -520,7 +520,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             File[] subs = parent.listFiles();
             for (int i = 0; i < subs.length; i++) {
                 if (subs[i].isDirectory()) {
-                    dirMap.put(Long.valueOf(subs[0].lastModified()), subs[i]);
+                    dirMap.put(Long.valueOf(subs[i].lastModified()), subs[i]);
                 }
             }
         } else {
