@@ -2217,14 +2217,14 @@ of California, with venue lying in Santa Clara County, California.
 Apache OFBiz includes the XML Schema files from the Open Applications Group, Inc
 NOTE: these files and the license are for an older version of the OAGIS
 specification, namely version 7.2.1.
-ofbiz/specialpurpose/oagis/dtd/002_confirm_bod_004.xsd
-ofbiz/specialpurpose/oagis/dtd/068_sync_inventory_005.xsd
-ofbiz/specialpurpose/oagis/dtd/161_show_shipment_005.xsd
-ofbiz/specialpurpose/oagis/dtd/161B_process_shipment_001.xsd
-ofbiz/specialpurpose/oagis/dtd/196_acknowledge_delivery_001.xsd
-ofbiz/specialpurpose/oagis/dtd/197_receive_delivery_001.xsd
-ofbiz/specialpurpose/oagis/dtd/oagis_fields.xsd
-ofbiz/specialpurpose/oagis/dtd/oagis_segments.xsd
+specialpurpose/oagis/dtd/002_confirm_bod_004.xsd
+specialpurpose/oagis/dtd/068_sync_inventory_005.xsd
+specialpurpose/oagis/dtd/161_show_shipment_005.xsd
+specialpurpose/oagis/dtd/161B_process_shipment_001.xsd
+specialpurpose/oagis/dtd/196_acknowledge_delivery_001.xsd
+specialpurpose/oagis/dtd/197_receive_delivery_001.xsd
+specialpurpose/oagis/dtd/oagis_fields.xsd
+specialpurpose/oagis/dtd/oagis_segments.xsd
 Open Applications Group Xml Schema is licensed as follows:
 =========================================================================
 Copyright (c) 1998-2001 Open Applications Group, Inc. All Rights Reserved
