@@ -10,122 +10,122 @@ OFBiz and the full text of the license used for each.
 For additional details, see the NOTICE file.
 =========================================================================
 The following libraries are licensed under the Apache License Version 2.0:
-ofbiz/trunk/framework/base/lib/ant-1.9.0-ant-launcher.jar
-ofbiz/trunk/framework/base/lib/ant-1.9.0-ant.jar
-ofbiz/trunk/framework/base/lib/ant-1.9.0-ant-junit.jar
-ofbiz/trunk/framework/base/lib/ant/ant-1.9.0-ant-apache-bsf.jar
-ofbiz/trunk/framework/base/lib/ant/ant-nodeps-1.8.1.jar
-ofbiz/trunk/framework/base/lib/avalon-framework-4.2.0.jar
-ofbiz/trunk/framework/base/lib/avalon-util-exception-1.0.0.jar
-ofbiz/trunk/framework/base/lib/batik-all-1.7.jar
-ofbiz/trunk/framework/base/lib/barcode4j-fop-ext-complete-2.0.jar
-ofbiz/trunk/framework/base/lib/clhm-release-1.0-lru.jar
-ofbiz/trunk/framework/base/lib/httpclient-4.2.1.jar
-ofbiz/trunk/framework/base/lib/httpclient-cache-4.2.1.jar
-ofbiz/trunk/framework/base/lib/httpcore-4.2.1.jar
-ofbiz/trunk/framework/base/lib/httpmime-4.2.1.jar
-ofbiz/trunk/framework/base/lib/ivy-2.2.0.jar
-ofbiz/trunk/framework/base/lib/jakarta-regexp-1.5.jar
-ofbiz/trunk/framework/base/lib/jpim-0.1.jar
-ofbiz/trunk/framework/base/lib/juel-2.2.1.jar
-ofbiz/trunk/framework/base/lib/log4j-1.2.17.jar
-ofbiz/trunk/framework/base/lib/mx4j-3.0.1.jar
-ofbiz/trunk/framework/base/lib/mx4j-remote-3.0.1.jar
-ofbiz/trunk/framework/base/lib/nekohtml-1.9.16.jar
-ofbiz/trunk/framework/base/lib/resolver-2.9.1.jar
-ofbiz/trunk/framework/base/lib/serializer-2.9.1.jar
-ofbiz/trunk/framework/base/lib/ws-commons-java5-1.0.1.jar
-ofbiz/trunk/framework/base/lib/ws-commons-util-1.0.2.jar
-ofbiz/trunk/framework/base/lib/xercesImpl-2.9.1.jar
-ofbiz/trunk/framework/base/lib/xml-apis-2.9.1.jar
-ofbiz/trunk/framework/base/lib/xml-apis-ext-1.3.04.jar
-ofbiz/trunk/framework/base/lib/commons/commons-beanutils-1.8.3.jar
-ofbiz/trunk/framework/base/lib/commons/commons-cli-1.2.jar
-ofbiz/trunk/framework/base/lib/commons/commons-codec-1.6.jar
-ofbiz/trunk/framework/base/lib/commons/commons-collections-3.2.1.jar
-ofbiz/trunk/framework/base/lib/commons/commons-compress-1.4.1.jar
-ofbiz/trunk/framework/base/lib/commons/commons-digester3-3.2.jar
-ofbiz/trunk/framework/base/lib/commons/commons-discovery-0.4.jar
-ofbiz/trunk/framework/base/lib/commons/commons-el-1.0.jar
-ofbiz/trunk/framework/base/lib/commons/commons-fileupload-1.2.2.jar
-ofbiz/trunk/framework/base/lib/commons/commons-io-2.4.jar
-ofbiz/trunk/framework/base/lib/commons/commons-lang-2.6.jar
-ofbiz/trunk/framework/base/lib/commons/commons-logging-1.1.1.jar
-ofbiz/trunk/framework/base/lib/commons/commons-modeler-2.0.1.jar
-ofbiz/trunk/framework/base/lib/commons/commons-net-3.1.jar
-ofbiz/trunk/framework/base/lib/commons/commons-pool-1.3.jar
-ofbiz/trunk/framework/base/lib/commons/commons-primitives-1.0.jar
-ofbiz/trunk/framework/base/lib/commons/commons-validator-1.4.0.jar
-ofbiz/trunk/framework/base/lib/j2eespecs/geronimo-activation_1.0.2_spec-1.0.jar
-ofbiz/trunk/framework/base/lib/j2eespecs/geronimo-j2ee-connector_1.5_spec-1.0.jar
-ofbiz/trunk/framework/base/lib/j2eespecs/geronimo-jaxr_1.0_spec-1.0.jar
-ofbiz/trunk/framework/base/lib/j2eespecs/geronimo-jaxrpc_1.1_spec-1.0.jar
-ofbiz/trunk/framework/base/lib/j2eespecs/geronimo-jms_1.1_spec-1.0.jar
-ofbiz/trunk/framework/base/lib/j2eespecs/geronimo-jta_1.1_spec-1.1.1.jar
-ofbiz/trunk/framework/base/lib/j2eespecs/geronimo-qname_1.1_spec-1.0.jar
-ofbiz/trunk/framework/base/lib/j2eespecs/geronimo-saaj_1.1_spec-1.0.jar
-ofbiz/trunk/framework/base/lib/j2eespecs/annotations-api-3.0.jar
-ofbiz/trunk/framework/base/lib/j2eespecs/el-api-2.2.jar
-ofbiz/trunk/framework/base/lib/j2eespecs/jsp-api-2.2.jar
-ofbiz/trunk/framework/base/lib/j2eespecs/servlet-api-3.0.jar
-ofbiz/trunk/framework/base/lib/scripting/bsf-2.4.0.jar
-ofbiz/trunk/framework/base/lib/scripting/jakarta-oro-2.0.8.jar
-ofbiz/trunk/framework/base/lib/scripting/groovy-all-1.8.6.jar
-ofbiz/trunk/framework/base/lib/scripting/jansi-1.2.1.jar
-ofbiz/trunk/framework/base/lib/xmlrpc-client-3.1.2.jar
-ofbiz/trunk/framework/base/lib/xmlrpc-common-3.1.2.jar
-ofbiz/trunk/framework/base/lib/xmlrpc-server-3.1.2.jar
+framework/base/lib/ant-1.9.0-ant-launcher.jar
+framework/base/lib/ant-1.9.0-ant.jar
+framework/base/lib/ant-1.9.0-ant-junit.jar
+framework/base/lib/ant/ant-1.9.0-ant-apache-bsf.jar
+framework/base/lib/ant/ant-nodeps-1.8.1.jar
+framework/base/lib/avalon-framework-4.2.0.jar
+framework/base/lib/avalon-util-exception-1.0.0.jar
+framework/base/lib/batik-all-1.7.jar
+framework/base/lib/barcode4j-fop-ext-complete-2.0.jar
+framework/base/lib/clhm-release-1.0-lru.jar
+framework/base/lib/httpclient-4.2.1.jar
+framework/base/lib/httpclient-cache-4.2.1.jar
+framework/base/lib/httpcore-4.2.1.jar
+framework/base/lib/httpmime-4.2.1.jar
+framework/base/lib/ivy-2.2.0.jar
+framework/base/lib/jakarta-regexp-1.5.jar
+framework/base/lib/jpim-0.1.jar
+framework/base/lib/juel-2.2.1.jar
+framework/base/lib/log4j-1.2.17.jar
+framework/base/lib/mx4j-3.0.1.jar
+framework/base/lib/mx4j-remote-3.0.1.jar
+framework/base/lib/nekohtml-1.9.16.jar
+framework/base/lib/resolver-2.9.1.jar
+framework/base/lib/serializer-2.9.1.jar
+framework/base/lib/ws-commons-java5-1.0.1.jar
+framework/base/lib/ws-commons-util-1.0.2.jar
+framework/base/lib/xercesImpl-2.9.1.jar
+framework/base/lib/xml-apis-2.9.1.jar
+framework/base/lib/xml-apis-ext-1.3.04.jar
+framework/base/lib/commons/commons-beanutils-1.8.3.jar
+framework/base/lib/commons/commons-cli-1.2.jar
+framework/base/lib/commons/commons-codec-1.6.jar
+framework/base/lib/commons/commons-collections-3.2.1.jar
+framework/base/lib/commons/commons-compress-1.4.1.jar
+framework/base/lib/commons/commons-digester3-3.2.jar
+framework/base/lib/commons/commons-discovery-0.4.jar
+framework/base/lib/commons/commons-el-1.0.jar
+framework/base/lib/commons/commons-fileupload-1.2.2.jar
+framework/base/lib/commons/commons-io-2.4.jar
+framework/base/lib/commons/commons-lang-2.6.jar
+framework/base/lib/commons/commons-logging-1.1.1.jar
+framework/base/lib/commons/commons-modeler-2.0.1.jar
+framework/base/lib/commons/commons-net-3.1.jar
+framework/base/lib/commons/commons-pool-1.3.jar
+framework/base/lib/commons/commons-primitives-1.0.jar
+framework/base/lib/commons/commons-validator-1.4.0.jar
+framework/base/lib/j2eespecs/geronimo-activation_1.0.2_spec-1.0.jar
+framework/base/lib/j2eespecs/geronimo-j2ee-connector_1.5_spec-1.0.jar
+framework/base/lib/j2eespecs/geronimo-jaxr_1.0_spec-1.0.jar
+framework/base/lib/j2eespecs/geronimo-jaxrpc_1.1_spec-1.0.jar
+framework/base/lib/j2eespecs/geronimo-jms_1.1_spec-1.0.jar
+framework/base/lib/j2eespecs/geronimo-jta_1.1_spec-1.1.1.jar
+framework/base/lib/j2eespecs/geronimo-qname_1.1_spec-1.0.jar
+framework/base/lib/j2eespecs/geronimo-saaj_1.1_spec-1.0.jar
+framework/base/lib/j2eespecs/annotations-api-3.0.jar
+framework/base/lib/j2eespecs/el-api-2.2.jar
+framework/base/lib/j2eespecs/jsp-api-2.2.jar
+framework/base/lib/j2eespecs/servlet-api-3.0.jar
+framework/base/lib/scripting/bsf-2.4.0.jar
+framework/base/lib/scripting/jakarta-oro-2.0.8.jar
+framework/base/lib/scripting/groovy-all-1.8.6.jar
+framework/base/lib/scripting/jansi-1.2.1.jar
+framework/base/lib/xmlrpc-client-3.1.2.jar
+framework/base/lib/xmlrpc-common-3.1.2.jar
+framework/base/lib/xmlrpc-server-3.1.2.jar
 ofbiz/framework/catalina/lib/tomcat-7.0.39-catalina-ha.jar
 ofbiz/framework/catalina/lib/tomcat-7.0.39-catalina-tribes.jar
 ofbiz/framework/catalina/lib/tomcat-7.0.39-tomcat-embed-core.jar
 ofbiz/framework/catalina/lib/tomcat-7.0.39-tomcat-embed-jasper.jar
 ofbiz/framework/catalina/lib/tomcat-7.0.39-tomcat-embed-logging-log4j.jar
-ofbiz/trunk/framework/entity/lib/commons-dbcp-1.4.jar
-ofbiz/trunk/framework/entity/lib/jdbc/derby-10.8.2.2.jar
-ofbiz/trunk/framework/entity/lib/jdbc/derbytools-10.8.2.2.jar
-ofbiz/trunk/framework/service/lib/axis-ant-1.4.jar
-ofbiz/trunk/framework/service/lib/axis-1.4.jar
-ofbiz/trunk/framework/service/lib/axiom-api-1.2.9.jar
-ofbiz/trunk/framework/service/lib/axiom-impl-1.2.9.jar
-ofbiz/trunk/framework/service/lib/axis2-kernel-1.5.2.jar
-ofbiz/trunk/framework/service/lib/axis2-transport-http-1.5.2.jar
-ofbiz/trunk/framework/service/lib/axis2-transport-local-1.5.2.jar
-ofbiz/trunk/framework/service/lib/commons-httpclient-3.1.jar
-ofbiz/trunk/framework/service/lib/neethi-2.0.4.jar
-ofbiz/trunk/framework/service/lib/XmlSchema-1.4.3.jar
-ofbiz/trunk/framework/webapp/lib/fop-1.0.jar
-ofbiz/trunk/framework/webapp/lib/velocity-1.6.1.jar
-ofbiz/trunk/framework/webapp/lib/xmlgraphics-commons-1.4.jar
-ofbiz/trunk/framework/webapp/lib/json-lib-2.2.3-jdk15.jar
-ofbiz/trunk/framework/webapp/lib/ezmorph-0.9.1.jar
-ofbiz/trunk/framework/webapp/lib/rome-0.9.jar
-ofbiz/trunk/framework/webapp/lib/serializer-2.7.0.jar
-ofbiz/trunk/framework/webapp/lib/xalan-2.7.1.jar
-ofbiz/trunk/framework/geronimo/lib/geronimo-connector-2.1.1.jar
-ofbiz/trunk/framework/geronimo/lib/geronimo-transaction-2.1.1.jar
-ofbiz/trunk/framework/testtools/lib/org.springframework.core-3.1.0.M2.jar
-ofbiz/trunk/framework/testtools/lib/org.springframework.test-3.1.0.M2.jar
-ofbiz/trunk/framework/testtools/lib/org.springframework.web-3.1.0.M2.jar
-ofbiz/trunk/applications/content/lib/fontbox-1.7.1.jar
-ofbiz/trunk/applications/content/lib/jempbox-1.7.1.jar
-ofbiz/trunk/applications/content/lib/lucene-analyzers-common-4.0.0.jar
-ofbiz/trunk/applications/content/lib/lucene-core-3.0.0.jar
-ofbiz/trunk/applications/content/lib/lucene-core-4.0.0.jar
-ofbiz/trunk/applications/content/lib/lucene-queryparser-4.0.0.jar
-ofbiz/trunk/applications/content/lib/pdfbox-1.7.1.jar
-ofbiz/trunk/applications/content/lib/poi-3.8-20120326.jar
-ofbiz/trunk/applications/content/lib/poi-ooxml-3.8-20120326.jar
-ofbiz/trunk/applications/content/lib/poi-ooxml-schemas-3.8-20120326.jar
-ofbiz/trunk/applications/content/lib/poi-scratchpad-3.8-20120326.jar
-ofbiz/trunk/applications/content/template/docbook/extensions/tagsoup-1.2.1.jar
-ofbiz/trunk/applications/content/lib/tika-core-1.0.jar
-ofbiz/trunk/applications/content/lib/tika-parsers-1.0.jar
-ofbiz/trunk/applications/content/template/docbook/extensions/xalan27.jar
-ofbiz/trunk/applications/product/lib/dozer-4.2.1.jar
-ofbiz/trunk/applications/product/lib/watermarker-0.0.4.jar
-ofbiz/trunk/applications/content/template/docbook/extensions/webhelpindexer.jar
-ofbiz/trunk/specialpurpose/googlecheckout/lib/checkout-sdk-0.8.8.jar
-ofbiz/trunk/framework/images/webapp/images/date/timezones*
+framework/entity/lib/commons-dbcp-1.4.jar
+framework/entity/lib/jdbc/derby-10.8.2.2.jar
+framework/entity/lib/jdbc/derbytools-10.8.2.2.jar
+framework/service/lib/axis-ant-1.4.jar
+framework/service/lib/axis-1.4.jar
+framework/service/lib/axiom-api-1.2.9.jar
+framework/service/lib/axiom-impl-1.2.9.jar
+framework/service/lib/axis2-kernel-1.5.2.jar
+framework/service/lib/axis2-transport-http-1.5.2.jar
+framework/service/lib/axis2-transport-local-1.5.2.jar
+framework/service/lib/commons-httpclient-3.1.jar
+framework/service/lib/neethi-2.0.4.jar
+framework/service/lib/XmlSchema-1.4.3.jar
+framework/webapp/lib/fop-1.0.jar
+framework/webapp/lib/velocity-1.6.1.jar
+framework/webapp/lib/xmlgraphics-commons-1.4.jar
+framework/webapp/lib/json-lib-2.2.3-jdk15.jar
+framework/webapp/lib/ezmorph-0.9.1.jar
+framework/webapp/lib/rome-0.9.jar
+framework/webapp/lib/serializer-2.7.0.jar
+framework/webapp/lib/xalan-2.7.1.jar
+framework/geronimo/lib/geronimo-connector-2.1.1.jar
+framework/geronimo/lib/geronimo-transaction-2.1.1.jar
+framework/testtools/lib/org.springframework.core-3.1.0.M2.jar
+framework/testtools/lib/org.springframework.test-3.1.0.M2.jar
+framework/testtools/lib/org.springframework.web-3.1.0.M2.jar
+applications/content/lib/fontbox-1.7.1.jar
+applications/content/lib/jempbox-1.7.1.jar
+applications/content/lib/lucene-analyzers-common-4.0.0.jar
+applications/content/lib/lucene-core-3.0.0.jar
+applications/content/lib/lucene-core-4.0.0.jar
+applications/content/lib/lucene-queryparser-4.0.0.jar
+applications/content/lib/pdfbox-1.7.1.jar
+applications/content/lib/poi-3.8-20120326.jar
+applications/content/lib/poi-ooxml-3.8-20120326.jar
+applications/content/lib/poi-ooxml-schemas-3.8-20120326.jar
+applications/content/lib/poi-scratchpad-3.8-20120326.jar
+applications/content/template/docbook/extensions/tagsoup-1.2.1.jar
+applications/content/lib/tika-core-1.0.jar
+applications/content/lib/tika-parsers-1.0.jar
+applications/content/template/docbook/extensions/xalan27.jar
+applications/product/lib/dozer-4.2.1.jar
+applications/product/lib/watermarker-0.0.4.jar
+applications/content/template/docbook/extensions/webhelpindexer.jar
+specialpurpose/googlecheckout/lib/checkout-sdk-0.8.8.jar
+framework/images/webapp/images/date/timezones*
 =========================================================================
                                  Apache License
                            Version 2.0, January 2004
@@ -337,8 +337,8 @@ ofbiz/trunk/framework/images/webapp/images/date/timezones*
 =========================================================================
 The following libraries distributed with Apache OFBiz are licensed under the
 Apache Software License:
-ofbiz/trunk/framework/webapp/lib/DataVision-1.0.0.jar
-ofbiz/trunk/framework/base/lib/ant/ant-contrib-1.0b3.jar
+framework/webapp/lib/DataVision-1.0.0.jar
+framework/base/lib/ant/ant-contrib-1.0b3.jar
 =========================================================================
 Apache Software License
 
@@ -395,7 +395,7 @@ Illinois, Urbana-Champaign.
 =========================================================================
 The following libraries distributed with Apache OFBiz are licensed under the
 JDOM (Modified Apache)  License:
-ofbiz/trunk/framework/webapp/lib/jdom-1.1.jar
+framework/webapp/lib/jdom-1.1.jar
 =========================================================================
 The JDOM License
  Copyright (C) 2000-2004 Jason Hunter & Brett McLaughlin.
@@ -451,27 +451,27 @@ The JDOM License
 =========================================================================
 The following libraries distributed with Apache OFBiz are licensed under the
 BSD License:
-ofbiz/trunk/applications/content/lib/dom4j-1.6.1.jar
-ofbiz/trunk/framework/base/lib/antisamy-bin.1.2.jar
-ofbiz/trunk/framework/base/lib/bsh-engine-modified.jar
-ofbiz/trunk/framework/base/lib/freemarker-2.3.19-null-wildcards.jar
-ofbiz/trunk/framework/base/lib/hamcrest-all-1.2.jar
-ofbiz/trunk/framework/base/lib/httpunit-1.7.jar
-ofbiz/trunk/framework/base/lib/ical4j-1.0-rc2.jar
-ofbiz/trunk/lib/build/javacc/javacc.jar (5.0)
-ofbiz/trunk/framework/base/lib/javolution-5.4.3.jar
-ofbiz/trunk/framework/base/lib/xpp3_min-1.1.4c.jar
-ofbiz/trunk/framework/base/lib/xstream-1.3.1.jar
-ofbiz/trunk/framework/base/lib/owasp-esapi-full-java-1.4.jar
-ofbiz/trunk/framework/base/lib/scripting/antlr-2.7.6.jar
-ofbiz/trunk/framework/base/lib/scripting/asm-3.2.jar
-ofbiz/trunk/framework/base/lib/scripting/asm-analysis-3.2.jar
-ofbiz/trunk/framework/base/lib/scripting/asm-tree-3.2.jar
-ofbiz/trunk/framework/base/lib/scripting/asm-util-3.2.jar
-ofbiz/trunk/framework/base/lib/scripting/janino-2.5.15.jar
-ofbiz/trunk/framework/base/lib/scripting/jline-0.9.94.jar
-ofbiz/trunk/specialpurpose/ldap/lib/cas-server-core-3.3.jar
-ofbiz/trunk/specialpurpose/pos/lib/looks-2.0.2.jar
+applications/content/lib/dom4j-1.6.1.jar
+framework/base/lib/antisamy-bin.1.2.jar
+framework/base/lib/bsh-engine-modified.jar
+framework/base/lib/freemarker-2.3.19-null-wildcards.jar
+framework/base/lib/hamcrest-all-1.2.jar
+framework/base/lib/httpunit-1.7.jar
+framework/base/lib/ical4j-1.0-rc2.jar
+lib/build/javacc/javacc.jar (5.0)
+framework/base/lib/javolution-5.4.3.jar
+framework/base/lib/xpp3_min-1.1.4c.jar
+framework/base/lib/xstream-1.3.1.jar
+framework/base/lib/owasp-esapi-full-java-1.4.jar
+framework/base/lib/scripting/antlr-2.7.6.jar
+framework/base/lib/scripting/asm-3.2.jar
+framework/base/lib/scripting/asm-analysis-3.2.jar
+framework/base/lib/scripting/asm-tree-3.2.jar
+framework/base/lib/scripting/asm-util-3.2.jar
+framework/base/lib/scripting/janino-2.5.15.jar
+framework/base/lib/scripting/jline-0.9.94.jar
+specialpurpose/ldap/lib/cas-server-core-3.3.jar
+specialpurpose/pos/lib/looks-2.0.2.jar
 
 =========================================================================
 The BSD License
@@ -528,10 +528,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 =========================================================================
 The following libraries distributed with Apache OFBiz are licensed under the
 Mozilla Public License Version 1.1:
-ofbiz/trunk/specialpurpose/pos/lib/XuiCoreSwing-v3.2rc2b.jar
-ofbiz/trunk/specialpurpose/pos/lib/XuiOptional-v3.2rc2b.jar
-ofbiz/trunk/framework/webapp/lib/iText-2.1.7.jar
-ofbiz/trunk/applications/content/template/docbook/extensions/saxon65.jar
+specialpurpose/pos/lib/XuiCoreSwing-v3.2rc2b.jar
+specialpurpose/pos/lib/XuiOptional-v3.2rc2b.jar
+framework/webapp/lib/iText-2.1.7.jar
+applications/content/template/docbook/extensions/saxon65.jar
 =========================================================================
                           MOZILLA PUBLIC LICENSE
                                 Version 1.1
@@ -1006,10 +1006,10 @@ EXHIBIT A -Mozilla Public License.
 =========================================================================
 The following libraries distributed with Apache OFBiz are licensed under the
 Common Public License:
-ofbiz/trunk/specialpurpose/pos/lib/jcl.jar
-ofbiz/trunk/specialpurpose/pos/lib/jpos18-controls.jar
-ofbiz/trunk/framework/service/lib/wsdl4j-1.6.2.jar
-ofbiz/trunk/framework/base/lib/junit-dep-4.10.jar
+specialpurpose/pos/lib/jcl.jar
+specialpurpose/pos/lib/jpos18-controls.jar
+framework/service/lib/wsdl4j-1.6.2.jar
+framework/base/lib/junit-dep-4.10.jar
 =========================================================================
 Common Public License Version 1.0
 
@@ -1228,15 +1228,15 @@ any resulting litigation.
 =========================================================================
 The following libraries distributed with Apache OFBiz are licensed under the
 MIT/X License:
-ofbiz/trunk/framework/base/lib/icu4j-49_1.jar
-ofbiz/trunk/framework/base/lib/jcl-over-slf4j-1.6.4.jar
-ofbiz/trunk/framework/base/lib/slf4j-api-1.6.4.jar
-ofbiz/trunk/framework/base/lib/slf4j-log4j12-1.6.4.jar
-ofbiz/trunk/framework/images/webapp/images/jquery/*
-ofbiz/trunk/specialpurpose/webpos/webapp/webpos/images/js/jquery.hotkeys-0.7.9.min.js
-ofbiz/trunk/specialpurpose/webpos/webapp/webpos/images/js/WebPosHotkeys.js
-ofbiz/trunk/applications/content/template/docbook/webhelp/*
-ofbiz/trunk/framework/images/webapp/images/date/date.format-1.2.3*.js
+framework/base/lib/icu4j-49_1.jar
+framework/base/lib/jcl-over-slf4j-1.6.4.jar
+framework/base/lib/slf4j-api-1.6.4.jar
+framework/base/lib/slf4j-log4j12-1.6.4.jar
+framework/images/webapp/images/jquery/*
+specialpurpose/webpos/webapp/webpos/images/js/jquery.hotkeys-0.7.9.min.js
+specialpurpose/webpos/webapp/webpos/images/js/WebPosHotkeys.js
+applications/content/template/docbook/webhelp/*
+framework/images/webapp/images/date/date.format-1.2.3*.js
 =========================================================================
 The MIT License
 
@@ -1263,7 +1263,7 @@ THE SOFTWARE.
 =========================================================================
 The following libraries distributed with Apache OFBiz are licensed under the
 Sun Public License:
-ofbiz/trunk/framework/base/lib/scripting/bsh-2.0b4.jar
+framework/base/lib/scripting/bsh-2.0b4.jar
 =========================================================================
 SUN PUBLIC LICENSE Version 1.0
 
@@ -1739,7 +1739,7 @@ Exhibit A -Sun Public License Notice.
 
 =========================================================================
 The Jython library is licensed under the BeOpen/CNRI as follows.
-ofbiz/trunk/framework/base/lib/scripting/jython-nooro.jar
+framework/base/lib/scripting/jython-nooro.jar
 =========================================================================
 Jython changes Software License.
 =========================================================================
@@ -1864,7 +1864,7 @@ JPython version 1.1.x
 =========================================================================
 The JDBM library is licensed under the JDBM LICENSE v1.00 as follows.
 This license is nearly equivalent to the BSD License.
-ofbiz/trunk/framework/base/lib/jdbm-1.0-SNAPSHOT.jar
+framework/base/lib/jdbm-1.0-SNAPSHOT.jar
 =========================================================================
 /**
  * JDBM LICENSE v1.00
@@ -1915,16 +1915,16 @@ ofbiz/trunk/framework/base/lib/jdbm-1.0-SNAPSHOT.jar
 =========================================================================
 The following library distributed with Apache OFBiz is licensed under the
 COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL):
-ofbiz/trunk/framework/base/lib/juel-2.1.1.jar (contains the javax.el package)
-ofbiz/trunk/framework/base/lib/mail-1.4.jar
-ofbiz/trunk/framework/jetty/lib/com.sun.el-2.2.0.v201108011116.jar
-ofbiz/trunk/framework/jetty/lib/javax.servlet.jsp.jstl-1.2.0.v201105211821.jar
-ofbiz/trunk/framework/jetty/lib/org.apache.jasper.glassfish-2.2.2.v201112011158.jar
-ofbiz/trunk/framework/jetty/lib/org.apache.taglibs.standard.glassfish-1.2.0.v201112081803.jar
-ofbiz/trunk/specialpurpose/ebaystore/lib/attributes.jar
-ofbiz/trunk/specialpurpose/ebaystore/lib/ebaysdkcore.jar
-ofbiz/trunk/specialpurpose/ebaystore/lib/helper.jar
-ofbiz/trunk/specialpurpose/ebaystore/lib/ebaycalls.jar
+framework/base/lib/juel-2.1.1.jar (contains the javax.el package)
+framework/base/lib/mail-1.4.jar
+framework/jetty/lib/com.sun.el-2.2.0.v201108011116.jar
+framework/jetty/lib/javax.servlet.jsp.jstl-1.2.0.v201105211821.jar
+framework/jetty/lib/org.apache.jasper.glassfish-2.2.2.v201112011158.jar
+framework/jetty/lib/org.apache.taglibs.standard.glassfish-1.2.0.v201112081803.jar
+specialpurpose/ebaystore/lib/attributes.jar
+specialpurpose/ebaystore/lib/ebaysdkcore.jar
+specialpurpose/ebaystore/lib/helper.jar
+specialpurpose/ebaystore/lib/ebaycalls.jar
 =========================================================================
 COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0 1.
 
@@ -2268,49 +2268,49 @@ questions or comments regarding the usage of this material.
 =========================================================================
 The following libraries distributed with Apache OFBiz are licensed under the
 Eclipse Public License - v 1.0:
-ofbiz/trunk/specialpurpose/birt/lib/flute.jar
-ofbiz/trunk/specialpurpose/birt/lib/jaxrpc.jar
-ofbiz/trunk/specialpurpose/birt/lib/js.jar
-ofbiz/trunk/specialpurpose/birt/lib/org.apache.xml.resolver_1.2.0.v201005080400.jar
-ofbiz/trunk/specialpurpose/birt/lib/org.apache.xml.serializer_2.7.1.v201005080400.jar
-ofbiz/trunk/specialpurpose/birt/lib/org.eclipse.birt.runtime_3.7.2.v20120214-1408.jar
-ofbiz/trunk/specialpurpose/birt/lib/org.eclipse.core.contenttype_3.4.100.v20110423-0524.jar
-ofbiz/trunk/specialpurpose/birt/lib/org.eclipse.core.expressions_3.4.300.v20110228.jar
-ofbiz/trunk/specialpurpose/birt/lib/org.eclipse.core.filesystem_1.3.100.v20110423-0524.jar
-ofbiz/trunk/specialpurpose/birt/lib/org.eclipse.core.jobs_3.5.101.v20120113-1953.jar
-ofbiz/trunk/specialpurpose/birt/lib/org.eclipse.core.resources_3.7.101.v20120125-1505.jar
-ofbiz/trunk/specialpurpose/birt/lib/org.eclipse.core.runtime_3.7.0.v20110110.jar
-ofbiz/trunk/specialpurpose/birt/lib/org.eclipse.datatools.connectivity.oda_3.3.3.v201110130935.jar
-ofbiz/trunk/specialpurpose/birt/lib/org.eclipse.emf_2.6.0.v20120123-1045.jar
-ofbiz/trunk/specialpurpose/birt/lib/org.eclipse.emf.common_2.7.0.v20120123-0926.jar
-ofbiz/trunk/specialpurpose/birt/lib/org.eclipse.emf.ecore_2.7.0.v20120123-0926.jar
-ofbiz/trunk/specialpurpose/birt/lib/org.eclipse.emf.ecore.change_2.7.1.v20120123-0926.jar
-ofbiz/trunk/specialpurpose/birt/lib/org.eclipse.emf.ecore.xmi_2.7.0.v20120123-0926.jar
-ofbiz/trunk/specialpurpose/birt/lib/org.eclipse.equinox.app_1.3.100.v20110321.jar
-ofbiz/trunk/specialpurpose/birt/lib/org.eclipse.equinox.common_3.6.0.v20110523.jar
-ofbiz/trunk/specialpurpose/birt/lib/org.eclipse.equinox.preferences_3.4.2.v20120111-2020.jar
-ofbiz/trunk/specialpurpose/birt/lib/org.eclipse.equinox.registry_3.5.101.R37x_v20110810-1611.jar
-ofbiz/trunk/specialpurpose/birt/lib/org.eclipse.osgi_3.7.2.v20120110-1415.jar
-ofbiz/trunk/specialpurpose/birt/lib/org.eclipse.osgi.services_3.3.0.v20110513.jar
-ofbiz/trunk/specialpurpose/birt/lib/org.eclipse.update.configurator_3.3.100.v20100512.jar
-ofbiz/trunk/specialpurpose/birt/lib/org.w3c.css.sac_1.3.0.v200805290154.jar
-ofbiz/trunk/specialpurpose/birt/lib/org.w3c.dom.smil_1.0.0.v200806040011.jar
-ofbiz/trunk/specialpurpose/birt/lib/org.w3c.dom.svg_1.1.0.v201011041433.jar
-ofbiz/trunk/specialpurpose/birt/lib/saaj.jar
-ofbiz/trunk/specialpurpose/birt/lib/Tidy.jar
-ofbiz/trunk/specialpurpose/birt/lib/viewservlets.jar
-ofbiz/trunk/framework/catalina/lib/ecj-4.2.1.jar
-ofbiz/trunk/framework/jetty/lib/jetty-ajp-8.1.2.v20120308.jar
-ofbiz/trunk/framework/jetty/lib/jetty-continuation-8.1.2.v20120308.jar
-ofbiz/trunk/framework/jetty/lib/jetty-http-8.1.2.v20120308.jar
-ofbiz/trunk/framework/jetty/lib/jetty-io-8.1.2.v20120308.jar
-ofbiz/trunk/framework/jetty/lib/jetty-security-8.1.2.v20120308.jar
-ofbiz/trunk/framework/jetty/lib/jetty-server-8.1.2.v20120308.jar
-ofbiz/trunk/framework/jetty/lib/jetty-servlet-8.1.2.v20120308.jar
-ofbiz/trunk/framework/jetty/lib/jetty-util-8.1.2.v20120308.jar
-ofbiz/trunk/framework/jetty/lib/jetty-webapp-8.1.2.v20120308.jar
-ofbiz/trunk/framework/jetty/lib/jetty-xml-8.1.2.v20120308.jar
-ofbiz/trunk/framework/jetty/lib/org.eclipse.jdt.core-3.7.1.jar
+specialpurpose/birt/lib/flute.jar
+specialpurpose/birt/lib/jaxrpc.jar
+specialpurpose/birt/lib/js.jar
+specialpurpose/birt/lib/org.apache.xml.resolver_1.2.0.v201005080400.jar
+specialpurpose/birt/lib/org.apache.xml.serializer_2.7.1.v201005080400.jar
+specialpurpose/birt/lib/org.eclipse.birt.runtime_3.7.2.v20120214-1408.jar
+specialpurpose/birt/lib/org.eclipse.core.contenttype_3.4.100.v20110423-0524.jar
+specialpurpose/birt/lib/org.eclipse.core.expressions_3.4.300.v20110228.jar
+specialpurpose/birt/lib/org.eclipse.core.filesystem_1.3.100.v20110423-0524.jar
+specialpurpose/birt/lib/org.eclipse.core.jobs_3.5.101.v20120113-1953.jar
+specialpurpose/birt/lib/org.eclipse.core.resources_3.7.101.v20120125-1505.jar
+specialpurpose/birt/lib/org.eclipse.core.runtime_3.7.0.v20110110.jar
+specialpurpose/birt/lib/org.eclipse.datatools.connectivity.oda_3.3.3.v201110130935.jar
+specialpurpose/birt/lib/org.eclipse.emf_2.6.0.v20120123-1045.jar
+specialpurpose/birt/lib/org.eclipse.emf.common_2.7.0.v20120123-0926.jar
+specialpurpose/birt/lib/org.eclipse.emf.ecore_2.7.0.v20120123-0926.jar
+specialpurpose/birt/lib/org.eclipse.emf.ecore.change_2.7.1.v20120123-0926.jar
+specialpurpose/birt/lib/org.eclipse.emf.ecore.xmi_2.7.0.v20120123-0926.jar
+specialpurpose/birt/lib/org.eclipse.equinox.app_1.3.100.v20110321.jar
+specialpurpose/birt/lib/org.eclipse.equinox.common_3.6.0.v20110523.jar
+specialpurpose/birt/lib/org.eclipse.equinox.preferences_3.4.2.v20120111-2020.jar
+specialpurpose/birt/lib/org.eclipse.equinox.registry_3.5.101.R37x_v20110810-1611.jar
+specialpurpose/birt/lib/org.eclipse.osgi_3.7.2.v20120110-1415.jar
+specialpurpose/birt/lib/org.eclipse.osgi.services_3.3.0.v20110513.jar
+specialpurpose/birt/lib/org.eclipse.update.configurator_3.3.100.v20100512.jar
+specialpurpose/birt/lib/org.w3c.css.sac_1.3.0.v200805290154.jar
+specialpurpose/birt/lib/org.w3c.dom.smil_1.0.0.v200806040011.jar
+specialpurpose/birt/lib/org.w3c.dom.svg_1.1.0.v201011041433.jar
+specialpurpose/birt/lib/saaj.jar
+specialpurpose/birt/lib/Tidy.jar
+specialpurpose/birt/lib/viewservlets.jar
+framework/catalina/lib/ecj-4.2.1.jar
+framework/jetty/lib/jetty-ajp-8.1.2.v20120308.jar
+framework/jetty/lib/jetty-continuation-8.1.2.v20120308.jar
+framework/jetty/lib/jetty-http-8.1.2.v20120308.jar
+framework/jetty/lib/jetty-io-8.1.2.v20120308.jar
+framework/jetty/lib/jetty-security-8.1.2.v20120308.jar
+framework/jetty/lib/jetty-server-8.1.2.v20120308.jar
+framework/jetty/lib/jetty-servlet-8.1.2.v20120308.jar
+framework/jetty/lib/jetty-util-8.1.2.v20120308.jar
+framework/jetty/lib/jetty-webapp-8.1.2.v20120308.jar
+framework/jetty/lib/jetty-xml-8.1.2.v20120308.jar
+framework/jetty/lib/org.eclipse.jdt.core-3.7.1.jar
 =========================================================================
 Eclipse Public License - v 1.0
 
