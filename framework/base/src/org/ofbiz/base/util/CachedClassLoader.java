@@ -20,12 +20,10 @@ package org.ofbiz.base.util;
 
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.Set;
-
-import javolution.util.FastMap;
-import javolution.util.FastSet;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * Caching Class Loader
@@ -38,16 +36,16 @@ public class CachedClassLoader extends URLClassLoader {
     }
 
     public static final String module = CachedClassLoader.class.getName();
-    public static final Map<String, Class<?>> globalClassNameClassMap = FastMap.newInstance();
-    public static final Set<String> globalBadClassNameSet = FastSet.newInstance();
-    public static final Map<String, URL> globalResourceMap = FastMap.newInstance();
-    public static final Set<String> globalBadResourceNameSet = FastSet.newInstance();
+    public static final ConcurrentHashMap<String, Class<?>> globalClassNameClassMap = new ConcurrentHashMap<String, Class<?>>(100);
+    private static final Set<String> globalBadClassNameSet = new CopyOnWriteArraySet<String>();
+    private static final ConcurrentHashMap<String, URL> globalResourceMap = new ConcurrentHashMap<String, URL>();
+    private static final Set<String> globalBadResourceNameSet = new CopyOnWriteArraySet<String>();
 
-    private String contextName;
-    protected final Map<String, Class<?>> localClassNameClassMap = FastMap.newInstance();
-    protected final Set<String> localBadClassNameSet = FastSet.newInstance();
-    protected final Map<String, URL> localResourceMap = FastMap.newInstance();
-    protected final Set<String> localBadResourceNameSet = FastSet.newInstance();
+    private final String contextName;
+    private final ConcurrentHashMap<String, Class<?>> localClassNameClassMap = new ConcurrentHashMap<String, Class<?>>();
+    private final Set<String> localBadClassNameSet = new CopyOnWriteArraySet<String>();
+    private final ConcurrentHashMap<String, URL> localResourceMap = new ConcurrentHashMap<String, URL>();
+    private final Set<String> localBadResourceNameSet = new CopyOnWriteArraySet<String>();
 
     static {
         // setup some commonly used classes...
@@ -112,23 +110,21 @@ public class CachedClassLoader extends URLClassLoader {
         if (theClass.isArray()) {
             throw new IllegalArgumentException("theClass cannot be an array");
         }
-        synchronized(globalClassNameClassMap) {
-            Object obj = globalClassNameClassMap.get(theClass.getName());
-            if (obj == null) {
-                globalClassNameClassMap.put(theClass.getName(), theClass);
-            }
-            String alias = theClass.getName();
-            int pos = alias.lastIndexOf(".");
-            if (pos != -1) {
-                alias = alias.substring(pos + 1);
-            }
-            obj = globalClassNameClassMap.get(alias);
-            if (obj == null) {
-                globalClassNameClassMap.put(alias, theClass);
-            }
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("Registered class " + theClass.getName() + ", alias " + alias, module);
-            }
+        Object obj = globalClassNameClassMap.get(theClass.getName());
+        if (obj == null) {
+            globalClassNameClassMap.putIfAbsent(theClass.getName(), theClass);
+        }
+        String alias = theClass.getName();
+        int pos = alias.lastIndexOf(".");
+        if (pos != -1) {
+            alias = alias.substring(pos + 1);
+        }
+        obj = globalClassNameClassMap.get(alias);
+        if (obj == null) {
+            globalClassNameClassMap.putIfAbsent(alias, theClass);
+        }
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Registered class " + theClass.getName() + ", alias " + alias, module);
         }
     }
 
@@ -168,95 +164,90 @@ public class CachedClassLoader extends URLClassLoader {
 
     @Override
     protected Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
-        //check global common classes, ie for all instances
+        // check global common classes, ie for all instances
         Class<?> theClass = globalClassNameClassMap.get(name);
         if (theClass != null) {
             return theClass;
         }
-
-        //check local classes, ie for this instance
+        // check local classes, ie for this instance
         theClass = this.localClassNameClassMap.get(name);
         if (theClass != null) {
             return theClass;
         }
-
-        //make sure it is not a known bad class name
+        // make sure it is not a known bad class name
         if (this.localBadClassNameSet.contains(name) || globalBadClassNameSet.contains(name)) {
-            if (Debug.verboseOn()) Debug.logVerbose("Cached loader got a known bad class name: [" + name + "]", module);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Cached loader got a known bad class name: [" + name + "]", module);
+            }
             throw new ClassNotFoundException("Cached loader got a known bad class name: " + name);
         }
-
-        if (Debug.verboseOn()) Debug.logVerbose("Cached loader cache miss for class name: [" + name + "]", module);
-
-        synchronized (this) {
-            try {
-                theClass = super.loadClass(name, resolve);
-                if (isGlobalPath(name)) {
-                    synchronized (globalClassNameClassMap) {
-                        globalClassNameClassMap.put(name, theClass);
-                    }
-                } else {
-                    this.localClassNameClassMap.put(name, theClass);
-                }
-            } catch (ClassNotFoundException e) {
-                //Debug.logInfo(e, module);
-                if (Debug.verboseOn()) Debug.logVerbose("Remembering invalid class name: [" + name + "]", module);
-                if (isGlobalPath(name)) {
-                    synchronized (globalBadClassNameSet) {
-                        globalBadClassNameSet.add(name);
-                    }
-                } else {
-                    this.localBadClassNameSet.add(name);
-                }
-                throw e;
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Cached loader cache miss for class name: [" + name + "]", module);
+        }
+        try {
+            theClass = super.loadClass(name, resolve);
+            if (isGlobalPath(name)) {
+                globalClassNameClassMap.putIfAbsent(name, theClass);
+                theClass = globalClassNameClassMap.get(name);
+            } else {
+                this.localClassNameClassMap.putIfAbsent(name, theClass);
+                theClass = this.localClassNameClassMap.get(name);
             }
+        } catch (ClassNotFoundException e) {
+            // Debug.logInfo(e, module);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Remembering invalid class name: [" + name + "]", module);
+            }
+            if (isGlobalPath(name)) {
+                globalBadClassNameSet.add(name);
+            } else {
+                this.localBadClassNameSet.add(name);
+            }
+            throw e;
         }
         return theClass;
     }
 
     @Override
     public URL getResource(String name) {
-        //check global common resources, ie for all instances
+        // check global common resources, ie for all instances
         URL theResource = globalResourceMap.get(name);
         if (theResource != null) {
             return theResource;
         }
-
-        //check local resources, ie for this instance
+        // check local resources, ie for this instance
         theResource = this.localResourceMap.get(name);
         if (theResource != null) {
             return theResource;
         }
-
-        //make sure it is not a known bad resource name
+        // make sure it is not a known bad resource name
         if (localBadResourceNameSet.contains(name) || globalBadResourceNameSet.contains(name)) {
-            if (Debug.verboseOn()) Debug.logVerbose("Cached loader got a known bad resource name: [" + name + "]", module);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Cached loader got a known bad resource name: [" + name + "]", module);
+            }
             return null;
         }
-
-        if (Debug.verboseOn()) Debug.logVerbose("Cached loader cache miss for resource name: [" + name + "]", module);
-        //Debug.logInfo("Cached loader cache miss for resource name: [" + name + "]", module);
-
-        synchronized (this) {
-            theResource = super.getResource(name);
-            if (theResource == null) {
-                if (Debug.verboseOn()) Debug.logVerbose("Remembering invalid resource name: [" + name + "]", module);
-                //Debug.logInfo("Remembering invalid resource name: [" + name + "]", module);
-                if (isGlobalPath(name)) {
-                    synchronized (globalBadResourceNameSet) {
-                        globalBadResourceNameSet.add(name);
-                    }
-                } else {
-                    this.localBadResourceNameSet.add(name);
-                }
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Cached loader cache miss for resource name: [" + name + "]", module);
+        }
+        // Debug.logInfo("Cached loader cache miss for resource name: [" + name + "]", module);
+        theResource = super.getResource(name);
+        if (theResource == null) {
+            if (Debug.verboseOn())
+                Debug.logVerbose("Remembering invalid resource name: [" + name + "]", module);
+            // Debug.logInfo("Remembering invalid resource name: [" + name + "]", module);
+            if (isGlobalPath(name)) {
+                globalBadResourceNameSet.add(name);
             } else {
-                if (isGlobalPath(name)) {
-                    synchronized (globalBadResourceNameSet) {
-                        globalResourceMap.put(name, theResource);
-                    }
-                } else {
-                    this.localResourceMap.put(name, theResource);
-                }
+                this.localBadResourceNameSet.add(name);
+            }
+        } else {
+            if (isGlobalPath(name)) {
+                globalResourceMap.putIfAbsent(name, theResource);
+                theResource = globalResourceMap.get(name);
+            } else {
+                this.localResourceMap.putIfAbsent(name, theResource);
+                theResource = this.localResourceMap.get(name);
             }
         }
         return theResource;
@@ -266,7 +257,7 @@ public class CachedClassLoader extends URLClassLoader {
         if (name.startsWith("java.") || name.startsWith("java/") || name.startsWith("/java/")) return true;
         if (name.startsWith("javax.") || name.startsWith("javax/") || name.startsWith("/javax/")) return true;
         if (name.startsWith("sun.") || name.startsWith("sun/") || name.startsWith("/sun/")) return true;
-        if (name.startsWith("org.ofbiz.")) return true;
+        if (name.startsWith("org.ofbiz.") || name.startsWith("org/ofbiz/")) return true;
         return false;
     }
 }
