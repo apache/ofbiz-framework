@@ -368,10 +368,10 @@ public class ComponentConfig {
 
         File rootLocationDir = new File(rootLocation);
         if (!rootLocationDir.exists()) {
-            throw new ComponentException("The given component root location is does not exist: " + rootLocation);
+            throw new ComponentException("The component root location does not exist: " + rootLocation);
         }
         if (!rootLocationDir.isDirectory()) {
-            throw new ComponentException("The given component root location is not a directory: " + rootLocation);
+            throw new ComponentException("The component root location is not a directory: " + rootLocation);
         }
 
         String xmlFilename = rootLocation + "/" + OFBIZ_COMPONENT_XML_FILENAME;
