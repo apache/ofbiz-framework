@@ -32,14 +32,19 @@ public class BaseUnitTests extends TestCase {
     }
 
     public void testDebug() {
-        Debug.set(Debug.VERBOSE, true);
-        assertTrue(Debug.verboseOn());
-
-        Debug.set(Debug.VERBOSE, false);
-        assertFalse(Debug.verboseOn());
-
-        Debug.set(Debug.INFO, true);
-        assertTrue(Debug.infoOn());
+        boolean debugVerbose = Debug.get(Debug.VERBOSE);
+        boolean debugInfo = Debug.get(Debug.INFO);
+        try {
+            Debug.set(Debug.VERBOSE, true);
+            assertTrue(Debug.verboseOn());
+            Debug.set(Debug.VERBOSE, false);
+            assertFalse(Debug.verboseOn());
+            Debug.set(Debug.INFO, true);
+            assertTrue(Debug.infoOn());
+        } finally {
+            Debug.set(Debug.VERBOSE, debugVerbose);
+            Debug.set(Debug.INFO, debugInfo);
+        }
     }
 
     public void testFormatPrintableCreditCard_1() {
