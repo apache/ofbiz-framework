@@ -571,10 +571,8 @@ public class ServiceDispatcher {
         rs.setEndStamp();
 
         long timeToRun = System.currentTimeMillis() - serviceStartTime;
-        if (Debug.timingOn() && timeToRun > 50) {
-            Debug.logTiming("Slow sync service execution detected: service [" + localName + "/" + modelService.name + "] finished in [" + timeToRun + "] milliseconds", module);
-        } else if (Debug.infoOn() && timeToRun > 200) {
-            Debug.logInfo("Very slow sync service execution detected: service [" + localName + "/" + modelService.name + "] finished in [" + timeToRun + "] milliseconds", module);
+        if (Debug.timingOn()) {
+            Debug.logTiming("Sync service [" + localName + "/" + modelService.name + "] finished in [" + timeToRun + "] milliseconds", module);
         }
         if ((Debug.verboseOn() || modelService.debug) && timeToRun > 50 && !modelService.hideResultInLog) {
             // Sanity check - some service results can be multiple MB in size. Limit message size to 10K.
