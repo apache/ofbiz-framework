@@ -366,7 +366,7 @@ under the License.
                 </if-compare-field>
                 </if-not-empty>
             </iterate>
-            <set field="nextIntervalQty" value="${bsh:maxIntervalQty.add(productMaintValue.getBigDecimal(&quot;intervalQuantity&quot;));}" type="BigDecimal"/>
+            <set field="nextIntervalQty" value="${groovy:maxIntervalQty.add(productMaintValue.getBigDecimal(&quot;intervalQuantity&quot;));}" type="BigDecimal"/>
             <if-not-empty field="meterValue.meterValue">
             <if-compare-field field="nextIntervalQty" operator="less-equals" to-field="meterValue.meterValue" type="BigDecimal">
                 <set field="maintDue" value="false"/>

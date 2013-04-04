@@ -480,7 +480,7 @@ under the License.
             <else>
                 <!-- if new status is paid check if the complete invoice is applied. -->
                 <if-compare field="parameters.statusId" operator="equals" value="INVOICE_PAID">
-                    <set field="notApplied" type="BigDecimal" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(invoice)}"/>
+                    <set field="notApplied" type="BigDecimal" value="${groovy:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(invoice)}"/>
                     <if-compare field="notApplied" operator="not-equals" value="0.00" type="BigDecimal">
                         <add-error>
                             <fail-property resource="AccountingUiLabels" property="AccountingInvoiceCannotChangeStatusToPaid"/>
