@@ -36,7 +36,7 @@ public class CachedClassLoader extends URLClassLoader {
     }
 
     public static final String module = CachedClassLoader.class.getName();
-    public static final ConcurrentHashMap<String, Class<?>> globalClassNameClassMap = new ConcurrentHashMap<String, Class<?>>(100);
+    public static final ConcurrentHashMap<String, Class<?>> globalClassNameClassMap = new ConcurrentHashMap<String, Class<?>>();
     private static final Set<String> globalBadClassNameSet = new CopyOnWriteArraySet<String>();
     private static final ConcurrentHashMap<String, URL> globalResourceMap = new ConcurrentHashMap<String, URL>();
     private static final Set<String> globalBadResourceNameSet = new CopyOnWriteArraySet<String>();
