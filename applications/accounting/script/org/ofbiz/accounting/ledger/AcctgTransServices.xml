@@ -385,7 +385,7 @@ under the License.
                 <get-related-one relation-name="GlAccountClass" value-field="glAccount" to-value-field="glAccountClass"/>
                 <get-related-one relation-name="ParentGlAccountClass" value-field="glAccountClass" to-value-field="parentGlAccountClass"/>
                 <!-- test if the account is a DEBIT account -->
-                <set field="isDebit" value="${bsh:org.ofbiz.accounting.util.UtilAccounting.isDebitAccount(glAccount)}"/>
+                <set field="isDebit" value="${groovy:org.ofbiz.accounting.util.UtilAccounting.isDebitAccount(glAccount)}"/>
                 <if-compare field="isDebit" operator="equals" value="true">
                         <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
                             <set from-field="acctgTransEntry.amount" field="postingAmount"/>
@@ -399,7 +399,7 @@ under the License.
                         </if-compare>
                     <else>
                         <!-- otherwise, test if the account is credit -->
-                        <set field="isCredit" value="${bsh:org.ofbiz.accounting.util.UtilAccounting.isCreditAccount(glAccount)}"/>
+                        <set field="isCredit" value="${groovy:org.ofbiz.accounting.util.UtilAccounting.isCreditAccount(glAccount)}"/>
                         <if-compare field="isCredit" operator="equals" value="true">
                             <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
                                 <set from-field="acctgTransEntry.amount" field="postingAmount"/>

@@ -311,7 +311,7 @@ under the License.
 
                     <!-- check if the payment fully applied when set to confirmed-->
                     <if-compare field="parameters.statusId" operator="equals" value="PMNT_CONFIRMED">
-                        <set field="notYetApplied" value="${bsh:org.ofbiz.accounting.payment.PaymentWorker.getPaymentNotApplied(payment)}"/>
+                        <set field="notYetApplied" value="${groovy:org.ofbiz.accounting.payment.PaymentWorker.getPaymentNotApplied(payment)}"/>
                         <if-compare field="notYetApplied" operator="greater" value="0.00" type="BigDecimal">
                             <add-error>
                                 <fail-property resource="AccountingUiLabels" property="AccountingPSNotConfirmedNotFullyApplied"/>

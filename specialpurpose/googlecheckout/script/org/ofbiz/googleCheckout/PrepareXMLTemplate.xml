@@ -120,7 +120,7 @@
         <call-object-method method-name="render" obj-field="xscreens">
             <field field="screenUri" type="String"/>
         </call-object-method>
-        <set field="content" value="${bsh:XMLWriter.toString()}"/>
+        <set field="content" value="${groovy:XMLWriter.toString()}"/>
     </simple-method>
 <!-- Step 3 -->
     <simple-method method-name="setupContent" short-description="" login-required="false">
@@ -159,7 +159,7 @@
         }
         return org.ofbiz.base.util.UtilMisc.toMap("buffer", buffer);
         ]]></call-bsh>
-        <set field="response" value="${bsh:buffer.toString()}"/>
+        <set field="response" value="${groovy:buffer.toString()}"/>
     </simple-method>
 <!-- Step 5 -->
     <simple-method method-name="getReDirectFromXmlDoc" short-description="" login-required="false">
