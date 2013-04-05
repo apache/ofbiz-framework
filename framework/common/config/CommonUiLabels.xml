@@ -28,6 +28,7 @@
         <value xml:lang="ja">買掛(AP)</value>
         <value xml:lang="nl">Schulden</value>
         <value xml:lang="pt-BR">Contas a pagar</value>
+        <value xml:lang="ru">Покупка Товаров</value>
         <value xml:lang="vi">Khoản Chi (AP)</value>
         <value xml:lang="zh">应付账户</value>
         <value xml:lang="zh-TW">應付</value>
@@ -42,6 +43,7 @@
         <value xml:lang="ja">売掛(AR)</value>
         <value xml:lang="nl">Vorderingen</value>
         <value xml:lang="pt-BR">Contas a receber</value>
+        <value xml:lang="ru">Реализация</value>
         <value xml:lang="vi">Khoản Thu (AR)</value>
         <value xml:lang="zh">应收账户</value>
         <value xml:lang="zh-TW">應收</value>
@@ -75,6 +77,7 @@
         <value xml:lang="ja">資産</value>
         <value xml:lang="nl">Vermogensbeheer</value>
         <value xml:lang="pt-BR">Manutenção de Ativos</value>
+        <value xml:lang="ru">Обслуживание</value>
         <value xml:lang="th">การรักษาทรัพย์สิน</value>
         <value xml:lang="vi">Quản lý tài sản (AssetMaint)</value>
         <value xml:lang="zh">资产维护</value>
@@ -90,6 +93,7 @@
         <value xml:lang="ja">ビジネスインテリジェンス(BI)</value>
         <value xml:lang="nl">Business intelligence</value>
         <value xml:lang="pt-BR">Business Intelligence</value>
+        <value xml:lang="ru">Бизнес Аналитика</value>
         <value xml:lang="th">การเรียนรู้ทางธุรกิจ</value>
         <value xml:lang="vi">Hệ trợ giúp quyết định (BI)</value>
         <value xml:lang="zh">商业智能</value>
@@ -104,6 +108,7 @@
         <value xml:lang="it">Sito CMS</value>
         <value xml:lang="ja">コンテンツ管理(CMS)</value>
         <value xml:lang="pt-BR">CMS do Site</value>
+        <value xml:lang="ru">Управление содержимым</value>
         <value xml:lang="th">CMS Site</value>
         <value xml:lang="vi">Trang thông tin CMS</value>
         <value xml:lang="zh">内容管理系统站点</value>
@@ -132,6 +137,7 @@
         <value xml:lang="en">Product Catalog management, Categories, Product, Price rules, Promotions, Product Store</value>
         <value xml:lang="fr">Gestion des catalogues, Catégories, Articles, Promotions, Règles de prix, Centres de profit </value>
         <value xml:lang="ja">製品カタログ管理、カテゴリ、製品、価格ルール、プロモーション、製品店舗</value>
+        <value xml:lang="ru">Каталог управления товарами, Категории, Товар, Цены, Акции, Магазин</value>
         <value xml:lang="vi">Quản lý Phân loại Trình diễn, Phân loại Quản lý, Sản phẩm, Công thức giá, Khuyến mãi, Cửa hàng</value>
         <value xml:lang="zh">产品目录管理，包括分类、产品、价格规则、促销、产品店铺</value>
     </property>
@@ -140,6 +146,7 @@
         <value xml:lang="es">Cancelar</value>
         <value xml:lang="fr">Abandonner</value>
         <value xml:lang="ja">アボート</value>
+        <value xml:lang="ru">Отменить</value>
         <value xml:lang="vi">Hủy</value>
         <value xml:lang="zh">放弃</value>
     </property>
@@ -214,6 +221,7 @@
         <value xml:lang="nl">Werkelijke startdatum</value>
         <value xml:lang="pt-BR">Data de início real</value>
         <value xml:lang="ro">Data Initiere Actuala</value>
+        <value xml:lang="ru">Начальная дата</value>
         <value xml:lang="th">วันที่เริ่มตามความจริง</value>
         <value xml:lang="vi">Ngày bắt đầu thực tế</value>
         <value xml:lang="zh">实际开始日期</value>
@@ -265,6 +273,7 @@
         <value xml:lang="it">Aggiunge una nuova colonna a questa pagina</value>
         <value xml:lang="ja">このポータルに新規項目を追加</value>
         <value xml:lang="pt-BR">Adicionar uma nova coluna neste portal</value>
+        <value xml:lang="ru">Добавить новый столбец в этот портал</value>
         <value xml:lang="vi">Thêm một cột cho Cổng thông tin này này</value>
         <value xml:lang="zh">给这个门户新加一列</value>
     </property>
@@ -277,6 +286,7 @@
         <value xml:lang="ja">ポートレットを追加</value>
         <value xml:lang="nl">Toevoegen portlet...</value>
         <value xml:lang="pt-BR">Adicionar um Portlet ...</value>
+        <value xml:lang="ru">Добавить портлет </value>
         <value xml:lang="vi">Thêm một ứng dụng Portlet...</value>
         <value xml:lang="zh">添加一个Portlet...</value>
         <value xml:lang="zh-TW">添加一個Portlet...</value>
@@ -290,6 +300,7 @@
         <value xml:lang="ja">項目を追加</value>
         <value xml:lang="nl">Toevoegen column...</value>
         <value xml:lang="pt-BR">Adicionar Coluna</value>
+        <value xml:lang="ru">Добавить столбец </value>
         <value xml:lang="vi">Thêm cột</value>
         <value xml:lang="zh">添加列</value>
         <value xml:lang="zh-TW">增加欄位</value>
@@ -362,6 +373,7 @@
         <value xml:lang="it">Aggiunge un portlet in questa colonna</value>
         <value xml:lang="ja">ポータルページにポートレットを追加</value>
         <value xml:lang="pt-BR">Adicionar um portlet à página do portal</value>
+        <value xml:lang="ru">Добавить портлет на страницу портала </value>
         <value xml:lang="vi">Thêm một portlet vào trang portal</value>
         <value xml:lang="zh">给门户页面添加一个小窗口</value>
     </property>
@@ -448,6 +460,7 @@
         <value xml:lang="es">Dirección no encontrada.</value>
         <value xml:lang="fr">Adresse inconnue</value>
         <value xml:lang="ja">住所が見つかりません。</value>
+        <value xml:lang="ru">Адрес не найден </value>
         <value xml:lang="vi">Không tìm thấy địa chỉ</value>
         <value xml:lang="zh">没有找到地址。</value>
     </property>
@@ -478,6 +491,7 @@
         <value xml:lang="it">Caratteristiche avanzate</value>
         <value xml:lang="ja">詳細機能</value>
         <value xml:lang="pt-BR">Recursos avançados</value>
+        <value xml:lang="ru">Дополнительные функции </value>
         <value xml:lang="vi">Tính năng chuyên sâu</value>
         <value xml:lang="zh">高级特征</value>
         <value xml:lang="zh-TW">進階特性</value>
@@ -589,6 +603,7 @@
         <value xml:lang="ja">常に含む</value>
         <value xml:lang="pt">Incluir Sempre</value>
         <value xml:lang="pt-BR">Sempre incluir</value>
+        <value xml:lang="ru">Всегда включать </value>
         <value xml:lang="th">รวมกันตลอดเวลา</value>
         <value xml:lang="vi">Luôn kèm theo</value>
         <value xml:lang="zh">总是包含</value>
@@ -722,6 +737,7 @@
         <value xml:lang="it">Qualsiasi stato/provincia</value>
         <value xml:lang="ja">任意の都道府県/州</value>
         <value xml:lang="pt-BR">Qualquer Estado/Província</value>
+        <value xml:lang="ru"> Штат/Провинция </value>
         <value xml:lang="vi">Địa phương/Tỉnh thành bất kỳ</value>
         <value xml:lang="zh">任何省/直辖市</value>
         <value xml:lang="zh-TW">任何省/直轄市</value>
@@ -890,6 +906,7 @@
         <value xml:lang="pt">Associar</value>
         <value xml:lang="pt-BR">Associado</value>
         <value xml:lang="ro">Asociere</value>
+        <value xml:lang="ru">Ассоциировать </value>
         <value xml:lang="th">รวมกลุ่ม</value>
         <value xml:lang="vi">Liên quan</value>
         <value xml:lang="zh">联系</value>
@@ -998,6 +1015,7 @@
         <value xml:lang="es">Autentificar</value>
         <value xml:lang="fr">Authentifier</value>
         <value xml:lang="ja">証明</value>
+        <value xml:lang="ru">Аутентификация</value>
         <value xml:lang="zh">认证</value>
     </property>
     <property key="CommonAuthorise">
@@ -1005,6 +1023,7 @@
         <value xml:lang="es">Autorizar</value>
         <value xml:lang="fr">Autoriser</value>
         <value xml:lang="ja">許可</value>
+        <value xml:lang="ru">Авторизация</value>
         <value xml:lang="vi">Cấp phép</value>
         <value xml:lang="zh">授权</value>
     </property>
@@ -1016,6 +1035,7 @@
         <value xml:lang="it">Codice univoco - assegnato automaticamente se lasciato vuoto</value>
         <value xml:lang="ja">個別ID - ブランクの場合自動採番</value>
         <value xml:lang="pt-BR">ID único - auto-atribuído se não preenchido</value>
+        <value xml:lang="ru">Уникальный ID - автоматически присваевается, если поле пустое</value>
         <value xml:lang="vi">Định danh duy nhất-- Hệ thống tự động gán khi bạn để trống</value>
         <value xml:lang="zh">唯一标识 - 如果为空，自动指定</value>
         <value xml:lang="zh-TW">唯一ID - 如果為空，自動指定</value>
@@ -1047,6 +1067,7 @@
         <value xml:lang="it">Portlet disponibili</value>
         <value xml:lang="ja">有効なポートレット</value>
         <value xml:lang="pt-BR">Portlets Disponíveis</value>
+        <value xml:lang="ru">Доступные портлеты</value>
         <value xml:lang="vi">Các ứng dụng porlet sẵn có</value>
         <value xml:lang="zh">可用的小窗口</value>
     </property>
@@ -1244,6 +1265,7 @@
         <value xml:lang="nl">bij</value>
         <value xml:lang="pt">Por</value>
         <value xml:lang="ro">De la </value>
+        <value xml:lang="ru">По</value>
         <value xml:lang="th">โดย</value>
         <value xml:lang="vi">Bởi</value>
         <value xml:lang="zh">作者</value>
@@ -1256,6 +1278,7 @@
         <value xml:lang="fr">Obtention d'AddressError=true depuis le service CDyne ReturnCityState; zipcode = ${zipcode}</value>
         <value xml:lang="it">Ottenuto AddressError=true dal servizio CDyne ReturnCityState; zipcode=${zipcode}</value>
         <value xml:lang="ja">CDyne ReturnCityState サービスで AddressError=true を取得しました; zipcode=${zipcode}</value>
+        <value xml:lang="ru">Полученная AddressError = true из CDyne ReturnCityState service; zipcode=${zipcode} </value>
         <value xml:lang="zh">从CDyne的ReturnCityState服务得到 AddressError=true 的错误；zipcode=${zipcode}</value>
     </property>
     <property key="CommonCDyneCallingError">
@@ -1264,6 +1287,7 @@
         <value xml:lang="fr">Erreur de l'appel du service CDyne sur l'adresse ${serviceUrl} : ${errorString}</value>
         <value xml:lang="it">Errore durante la chiamata del servizio CDyne dell'URL ${serviceUrl}: ${errorString})</value>
         <value xml:lang="ja">CDyne サービス呼び出し中にエラー URL ${serviceUrl}: ${errorString}</value>
+        <value xml:lang="ru">Ошибка вызов CDyne service в ссылке ${serviceUrl}: ${errorString}</value>
         <value xml:lang="zh">调用CDyne服务时出错，网址：${serviceUrl}，错误：${errorString}</value>
     </property>
     <property key="CommonCDyneParsingError">
@@ -1272,6 +1296,7 @@
         <value xml:lang="fr">Erreur de lecture XML depuis le service CDyne sur l'adresse ${serviceUrl} : ${errorString}</value>
         <value xml:lang="it">Errore di parsing XML risposta dal servizio CDyne dell'URL ${serviceUrl}: ${errorString})</value>
         <value xml:lang="ja">CDyne サービスのXML結果解析中にエラー URL ${serviceUrl}: ${errorString}</value>
+        <value xml:lang="ru">Ошибка парса XML результат из CDyne service в ссылке ${serviceUrl}: ${errorString} </value>
         <value xml:lang="zh">解析来自CDyne服务的XML结果时出错，网址：${serviceUrl}，错误：${errorString}</value>
     </property>
     <property key="CommonCDyneServiceError">
@@ -1280,6 +1305,7 @@
         <value xml:lang="fr">Obtention de ServiceError=true depuis le service CDyne ReturnCityState; zipcode=${zipcode}</value>
         <value xml:lang="it">Ottenuto ServiceError=true dal servizio CDyne ReturnCityState; zipcode=${zipcode}</value>
         <value xml:lang="ja">CDyne ReturnCityState サービスで ServiceError=true を取得しました; zipcode=${zipcode}</value>
+        <value xml:lang="ru">Получение ServiceError=true из CDyne ReturnCityState service; zipcode=${zipcode}</value>
         <value xml:lang="zh">从CDyne的ReturnCityState服务得到 ServiceError=true；zipcode=${zipcode}</value>
     </property>
     <property key="CommonCancel">
@@ -1381,6 +1407,7 @@
         <value xml:lang="fr">Code captcha</value>
         <value xml:lang="ja">キャプチャコード</value>
         <value xml:lang="pt-BR">Código Captcha</value>
+        <value xml:lang="ru">Captcha Code</value>
         <value xml:lang="vi">Mã ảnh xác thực</value>
         <value xml:lang="zh">验证码</value>
     </property>
@@ -1410,6 +1437,7 @@
         <value xml:lang="fr">caractères restants.</value>
         <value xml:lang="ja">文字 残り</value>
         <value xml:lang="pt-BR">Caracteres sobrando.</value>
+        <value xml:lang="ru">Осталось символов</value>
         <value xml:lang="vi">ký tự bên trái.</value>
         <value xml:lang="zh">个字符未输入</value>
     </property>
@@ -1602,6 +1630,7 @@
         <value xml:lang="it">Pulisci attuale</value>
         <value xml:lang="ja">現在をクリア</value>
         <value xml:lang="pt-BR">Limpar atual</value>
+        <value xml:lang="ru">Текущая очистка</value>
         <value xml:lang="th">ยกเลิกที่เป็นปัจจุบัน</value>
         <value xml:lang="vi">Xóa trắng trường hiện tại</value>
         <value xml:lang="zh">清除当前的</value>
@@ -1637,6 +1666,7 @@
         <value xml:lang="it">Clicca qui per la ricerca sul campo</value>
         <value xml:lang="ja">項目の検索はここをクリック</value>
         <value xml:lang="pt-BR">Clique aqui para pesquisa por campo</value>
+        <value xml:lang="ru">Нажмите сюда для поиска области  </value>
         <value xml:lang="vi">Bấm vào đây cho trường tìm kiếm</value>
         <value xml:lang="zh">点击这里查找数据项</value>
         <value xml:lang="zh-TW">點擊這里查找資料項</value>
@@ -1688,6 +1718,7 @@
         <value xml:lang="it">Collassato</value>
         <value xml:lang="ja">折りたたむ</value>
         <value xml:lang="pt-BR">Recolher</value>
+        <value xml:lang="ru">Свернуть</value>
         <value xml:lang="th">ล้มเหลว</value>
         <value xml:lang="vi">Mở rộng</value>
         <value xml:lang="zh">合拢</value>
@@ -1703,6 +1734,7 @@
         <value xml:lang="ja">すべて折りたたむ</value>
         <value xml:lang="nl">Verberg velden</value>
         <value xml:lang="pt-BR">Recolher tudo</value>
+        <value xml:lang="ru">Свернуть все</value>
         <value xml:lang="th">ล้มเหลว</value>
         <value xml:lang="vi">Mở rộng toàn bộ</value>
         <value xml:lang="zh">全部合拢</value>
@@ -1816,6 +1848,7 @@
         <value xml:lang="it">Configura:</value>
         <value xml:lang="ja">設定:</value>
         <value xml:lang="pt-BR">Configurar:</value>
+        <value xml:lang="ru">Конфигурация:</value>
         <value xml:lang="vi">Cấu hình:</value>
         <value xml:lang="zh">配置：</value>
         <value xml:lang="zh-TW">配置：</value>
@@ -1827,6 +1860,7 @@
         <value xml:lang="it">Confermi ?</value>
         <value xml:lang="ja">確認しましたか?</value>
         <value xml:lang="pt-BR">Você confirma?</value>
+        <value xml:lang="ru">Вы подтверждаете?</value>
         <value xml:lang="vi">Bạn có xác nhận không?</value>
         <value xml:lang="zh">你确定吗？</value>
     </property>
@@ -2011,6 +2045,7 @@
         <value xml:lang="it">Copyright</value>
         <value xml:lang="ja">Copyright</value>
         <value xml:lang="pt-BR">Copyright</value>
+        <value xml:lang="ru">Авторское право</value>
         <value xml:lang="vi">Bản quyền</value>
         <value xml:lang="zh">版权所有</value>
         <value xml:lang="zh-TW">版權所有</value>
@@ -2098,6 +2133,7 @@
         <value xml:lang="it">Codice paese è mancante</value>
         <value xml:lang="ja">国コードが正しくありません</value>
         <value xml:lang="pt_BR">Código do país está em branco</value>
+        <value xml:lang="ru">Код страны отсутствует</value>
         <value xml:lang="vi">Mã nước chưa được nhập</value>
         <value xml:lang="zh">找不到国家代码</value>
         <value xml:lang="zh_TW">沒有國碼</value>
@@ -2306,6 +2342,7 @@
         <value xml:lang="it">Password attuale</value>
         <value xml:lang="ja">現在のパスワード</value>
         <value xml:lang="pt-BR">Senha Atual</value>
+        <value xml:lang="ru">Текущий пароль</value>
         <value xml:lang="th">รหัสผ่านที่ใช้อยู่ในปัจจุบัน</value>
         <value xml:lang="vi">Mật khẩu hiện tại</value>
         <value xml:lang="zh">当前密码</value>
@@ -2337,6 +2374,7 @@
         <value xml:lang="it">Cruscotto</value>
         <value xml:lang="ja">ダッシュボード</value>
         <value xml:lang="pt-BR">Painel</value>
+        <value xml:lang="ru">Панель управления</value>
         <value xml:lang="vi">Trung tâm điều hành</value>
         <value xml:lang="zh">个人主页</value>
         <value xml:lang="zh-TW">個人主頁</value>
@@ -2409,6 +2447,7 @@
         <value xml:lang="it">Date</value>
         <value xml:lang="ja">日付</value>
         <value xml:lang="pt-BR">Datas</value>
+        <value xml:lang="ru">Даты</value>
         <value xml:lang="vi">Ngày</value>
         <value xml:lang="zh">日期</value>
         <value xml:lang="zh-TW">日期</value>
@@ -2458,6 +2497,7 @@
         <value xml:lang="fr">Désactiver, mettre la date du jour comme date de fin</value>
         <value xml:lang="ja">無効化、終了日に現在を設定</value>
         <value xml:lang="pt-BR">Desativar, para definir thruDate para agora</value>
+        <value xml:lang="ru">Деактивируйте, чтобы поставить текущую дату</value>
         <value xml:lang="vi">Không kích hoạt, cài đặt từ ngày đến hiện tại</value>
         <value xml:lang="zh">令其失效，可以把截至日期设为现在</value>
     </property>
@@ -2508,6 +2548,7 @@
         <value xml:lang="it">Organizzazione di default</value>
         <value xml:lang="ja">デフォルトの組織</value>
         <value xml:lang="pt-BR">Padrão da Organização</value>
+        <value xml:lang="ru">Организация по умолчанию</value>
         <value xml:lang="vi">Tổ chức mặc định</value>
         <value xml:lang="zh">缺省组织机构</value>
         <value xml:lang="zh-TW">預設組織機構</value>
@@ -2516,6 +2557,7 @@
         <value xml:lang="en">Deferred</value>
         <value xml:lang="fr">Différé</value>
         <value xml:lang="ja">延期</value>
+        <value xml:lang="ru">Отличия</value>
         <value xml:lang="zh">已延期</value>
     </property>
     <property key="CommonDelete">
@@ -2566,6 +2608,7 @@
         <value xml:lang="it">Elimina colonna</value>
         <value xml:lang="ja">項目を削除</value>
         <value xml:lang="pt-BR">Excluir Coluna</value>
+        <value xml:lang="ru">Удалить столбец</value>
         <value xml:lang="vi">Xóa cột</value>
         <value xml:lang="zh">删除列</value>
     </property>
@@ -2576,6 +2619,7 @@
         <value xml:lang="it">Elimina questa colonna</value>
         <value xml:lang="ja">この項目を削除</value>
         <value xml:lang="pt-BR">Apagar esta coluna</value>
+        <value xml:lang="ru">Удалить этот столбец</value>
         <value xml:lang="vi">Xóa cột này</value>
         <value xml:lang="zh">删除该列</value>
     </property>
@@ -2586,6 +2630,7 @@
         <value xml:lang="it">Elimina questo portlet</value>
         <value xml:lang="ja">このポートレットを削除</value>
         <value xml:lang="pt-BR">Excluir este portlet</value>
+        <value xml:lang="ru">Удалить этот портлет</value>
         <value xml:lang="vi">Xóa ứng dụng portlet này</value>
         <value xml:lang="zh">删除该小窗口</value>
     </property>
@@ -2676,6 +2721,7 @@
         <value xml:lang="it">Dimensione</value>
         <value xml:lang="ja">寸法</value>
         <value xml:lang="pt-BR">Dimensão</value>
+        <value xml:lang="ru">Измерение</value>
         <value xml:lang="vi">Kích thước</value>
         <value xml:lang="zh">尺寸</value>
     </property>
@@ -2708,6 +2754,7 @@
         <value xml:lang="it">Visualizzati da ${lowCount} a ${highCount} su ${total}</value>
         <value xml:lang="ja">${lowCount} - ${highCount} / ${total} を表示</value>
         <value xml:lang="pt-BR">Exibindo ${lowCount} - ${highCount} de ${total}</value>
+        <value xml:lang="ru">Дисплей ${lowCount} - ${highCount} of ${total} </value>
         <value xml:lang="vi">Hiển thị ${lowCount} - ${highCount} của ${total}</value>
         <value xml:lang="zh">显示${lowCount} - ${highCount}，共${total}</value>
         <value xml:lang="zh-TW">顯示${lowCount} - ${highCount}，共${total}</value>
@@ -2754,6 +2801,7 @@
         <value xml:lang="fr">Téléchargé</value>
         <value xml:lang="ja">ダウンロード済</value>
         <value xml:lang="pt-BR">Transferido.</value>
+        <value xml:lang="ru">Загруженно.</value>
         <value xml:lang="vi">Đã tải xuống</value>
         <value xml:lang="zh">已下载。</value>
     </property>
@@ -2805,6 +2853,7 @@
         <value xml:lang="it">Modifica attributi portlet</value>
         <value xml:lang="ja">ポートレットの属性を編集</value>
         <value xml:lang="pt-BR">Editar Atributos de Portlet</value>
+        <value xml:lang="ru">Редактировать атрибуты для портлета</value>
         <value xml:lang="vi">Chỉnh sửa thuộc tính cho ứng dụng portlet</value>
         <value xml:lang="zh">编辑Portlet属性</value>
         <value xml:lang="zh-TW">編輯Portlet屬性</value>
@@ -2837,6 +2886,7 @@
         <value xml:lang="it">Altitudine: </value>
         <value xml:lang="ja">高度:</value>
         <value xml:lang="pt-BR">Elevação:</value>
+        <value xml:lang="ru">Высота:</value>
         <value xml:lang="vi">Độ cao:</value>
         <value xml:lang="zh">高度：</value>
         <value xml:lang="zh-TW">高度：</value>
@@ -2865,6 +2915,7 @@
         <value xml:lang="fr">Courriel déjà existant</value>
         <value xml:lang="ja">電子メールはすでに存在します</value>
         <value xml:lang="pt-BR">E-mail já existe</value>
+        <value xml:lang="ru">Такая почта уже существует</value>
         <value xml:lang="vi">Thư điện tử đã tồn tại</value>
         <value xml:lang="zh">电子邮件已存在</value>
     </property>
@@ -2874,6 +2925,7 @@
         <value xml:lang="fr">La distribution du courriel a échoué pour les destinataires suivants : </value>
         <value xml:lang="it">Consegna ai seguenti destinatario(i) fallita:</value>
         <value xml:lang="ja">次の受信者への配送が失敗しました:</value>
+        <value xml:lang="ru">Доставка следующим получателям провалилась:</value>
         <value xml:lang="vi">Gửi thông tin đến các người nhận sau không thành công:</value>
         <value xml:lang="zh">发送到下列收件人时失败：</value>
     </property>
@@ -2883,6 +2935,7 @@
         <value xml:lang="fr">----- Message d'origine -----</value>
         <value xml:lang="it">----- messaggio originale -----</value>
         <value xml:lang="ja">----- 元のメッセージ -----</value>
+        <value xml:lang="ru">---- Оригинальное сообщение ----</value>
         <value xml:lang="vi">----- Thông điệp gốc -----</value>
         <value xml:lang="zh">----- 原始信息 -----</value>
     </property>
@@ -2893,6 +2946,7 @@
         <value xml:lang="it">Id soggetto: ${parameters.partyIdTo} non ha un'indirizzo e-mail valido!</value>
         <value xml:lang="ja">取引先ID: ${parameters.partyIdTo} に有効な電子メールがありません!</value>
         <value xml:lang="pt-BR">ID de Participante (PartyId): ${parameters.partyIdTo} não tem endereço de email válido!</value>
+        <value xml:lang="ru">PartyId: ${parameters.partyIdTo} не имеет действительный почтовый адрес </value>
         <value xml:lang="vi">Mã đối tượng: ${parameters.partyIdTo} không có địa chỉ thư điện tử thích hợp</value>
         <value xml:lang="zh">会员标识：${parameters.partyIdTo} 没有有效的电子邮件地址！</value>
     </property>
@@ -2923,6 +2977,7 @@
         <value xml:lang="fr">[ADDRERR] Erreur lors de l'envoi du courriel à ${sendTo}, depuis ${sendFrom}, en copie, ${sendCc}, en copie cachée ${sendBcc}, avec le sujet ${subject}</value>
         <value xml:lang="it">[ADDRERR] Errore indirizzo durante l'invio del messaggio a ${sendTo} da ${sendFrom} cc ${sendCc} cn ${sendBcc} soggetto ${subject}</value>
         <value xml:lang="ja">[ADDRERR] メッセージの送信中にエラー to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} 件名 ${subject}</value>
+        <value xml:lang="ru">[ADDRERR] Ошибка адреса когда было послано сообщение к ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} subject ${subject}</value>
         <value xml:lang="vi">[ADDRESS] lỗi địa chỉ khi gửi thông điệp tới ${sendTo} từ ${sendFrom} cc ${sendCc} bcc ${sendBcc} tiêu đề ${subject}</value>
         <value xml:lang="zh">[地址错误] 自 ${sendFrom} 发送信息到 ${sendTo}、 抄送 ${sendCc} 、密送 ${sendBcc} 、主题 ${subject} 时发生地址错误</value>
     </property>
@@ -2932,6 +2987,7 @@
         <value xml:lang="fr">[CON] Erreur de connexion lors de l'envoi du courriel à ${sendTo}, depuis ${sendFrom}, en copie, ${sendCc}, en copie cachée ${sendBcc}, avec le sujet ${subject}</value>
         <value xml:lang="it">[CON] Errore connessione durante l'invio del messaggio a ${sendTo} da ${sendFrom} cc ${sendCc} cn ${sendBcc} soggetto ${subject}</value>
         <value xml:lang="ja">[CON] メッセージの送信中に接続エラー to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} 件名 ${subject}</value>
+        <value xml:lang="ru">[CON] Ошибка связи когда отправляется сообщение к ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} subject ${subject}</value>
         <value xml:lang="vi">[CON] lỗi kết nối khi gửi thông điệp tới ${sendTo} từ ${sendFrom} cc ${sendCc} bcc ${sendBcc} tiêu đề ${subject}</value>
         <value xml:lang="zh">[连接] 自 ${sendFrom} 发送信息到 ${sendTo}、 抄送 ${sendCc} 、密送 ${sendBcc} 、主题 ${subject} 时发生连接错误</value>
     </property>
@@ -2941,6 +2997,7 @@
         <value xml:lang="fr">Erreur dans l'envoi du courriel : ${errorString}</value>
         <value xml:lang="it">Errore invio email: ${errorString}</value>
         <value xml:lang="ja">メール送信エラー: ${errorString}</value>
+        <value xml:lang="ru">Ошибка послания письма: ${errorString}</value>
         <value xml:lang="vi">Lỗi gửi email: ${errorString}</value>
         <value xml:lang="zh">发送邮件时出错：${errorString}</value>
     </property>
@@ -2950,6 +3007,7 @@
         <value xml:lang="fr">Erreur dans l'obtention du contenu du courriel : ${errorString}</value>
         <value xml:lang="it">Errore nel ricavare contenuto: ${errorString}</value>
         <value xml:lang="ja">内容取得中にエラー: ${errorString}</value>
+        <value xml:lang="ru">Ошибка получения содержимого: ${errorString}</value>
         <value xml:lang="vi">Lỗi lấy nội dung: ${errorString}</value>
         <value xml:lang="zh">获取内容时出错：${errorString}</value>
     </property>
@@ -2959,6 +3017,7 @@
         <value xml:lang="fr">Erreur d'Entrée/Sortie lors de la création du courriel à ${sendTo}, depuis ${sendFrom}, en copie, ${sendCc}, en copie cachée ${sendBcc}, avec le sujet ${subject}</value>
         <value xml:lang="it">IOException durante la creazione del messaggio a ${sendTo} da ${sendFrom} cc ${sendCc} cn ${sendBcc} soggetto ${subject}</value>
         <value xml:lang="ja">メッセージ作成中にI/O例外 to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} 件名 ${subject}</value>
+        <value xml:lang="ru">IOException когда создается сообщение к ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} subject ${subject}</value>
         <value xml:lang="zh">新建自 ${sendFrom} 、到 ${sendTo}、 抄送 ${sendCc} 、密送 ${sendBcc} 、主题 ${subject} 的信息时发生IO错误</value>
     </property>
     <property key="CommonEmailSendMalformedUrl">
@@ -2967,6 +3026,7 @@
         <value xml:lang="fr">URL invalide : ${bodyUrl}; erreur levée : ${errorString}</value>
         <value xml:lang="it">URL malformato : ${bodyUrl}; errore era: ${errorString}</value>
         <value xml:lang="ja">不正なURL: ${bodyUrl}; エラー: ${errorString}</value>
+        <value xml:lang="ru">Недействительный URL: ${bodyUrl}; ошибка была: ${errorString}</value>
         <value xml:lang="zh">网址格式错误：${bodyUrl}；错误是：${errorString}</value>
     </property>
     <property key="CommonEmailSendMessagingException">
@@ -2975,6 +3035,7 @@
         <value xml:lang="fr">MessagingException lors de la création du courriel à ${sendTo}, depuis ${sendFrom}, en copie, ${sendCc}, en copie cachée ${sendBcc}, avec le sujet ${subject}</value>
         <value xml:lang="it">MessagingException durante la creazione del messaggio a ${sendTo} da ${sendFrom} cc ${sendCc} cn ${sendBcc} soggetto ${subject}</value>
         <value xml:lang="ja">メッセージ作成中にメッセージ例外 to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} 件名 ${subject}</value>
+        <value xml:lang="ru">Сообщение об ошибке когда создается сообщение к ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} subject ${subject}</value>
         <value xml:lang="zh">新建自 ${sendFrom} 、到 ${sendTo}、 抄送 ${sendCc} 、密送 ${sendBcc} 、主题 ${subject} 的信息时发生消息错误</value>
     </property>
     <property key="CommonEmailSendMissingParameterSendVia">
@@ -2983,6 +3044,7 @@
         <value xml:lang="fr">Le paramêtre sendVia est requis lorsque sendType n'est pas mail.smtp.host</value>
         <value xml:lang="it">Parametro sendVia è richiesto quando sendType non è mail.smtp.host</value>
         <value xml:lang="ja">sendTypeがmail.smtp.hostでない時、sendViaパラメータは必須です。</value>
+        <value xml:lang="ru">Параметр sendVia требуется когда sendType не mail.smtp.host </value>
         <value xml:lang="zh">当 sendType 不是 mail.smtp.host 时，必须有参数 sendVia </value>
     </property>
     <property key="CommonEmailSendRenderingScreenEmailError">
@@ -2991,6 +3053,7 @@
         <value xml:lang="fr">Erreur lors du rendu du contenu du courriel : ${errorString}</value>
         <value xml:lang="it">Errore di visualizzazione videata per email: ${errorString}</value>
         <value xml:lang="ja">電子メールの画面レンダリング中にエラー: ${errorString}</value>
+        <value xml:lang="ru">Ошибка составления скрина для почты: ${errorString}</value>
         <value xml:lang="zh">为邮件生成内容时出错：${errorString}</value>
     </property>
     <property key="CommonEmailSendRenderingScreenPdfError">
@@ -2999,6 +3062,7 @@
         <value xml:lang="fr">Erreur dans le rendu des PDF en pièce jointe du courriel : ${errorString}</value>
         <value xml:lang="it">Errore di visualizzazione allegato PDF per email: ${errorString}</value>
         <value xml:lang="ja">電子メールのPDF添付レンダリング中にエラー: ${errorString}</value>
+        <value xml:lang="ru">Ошибка составления PDF приложения для почты: ${errorString}</value>
         <value xml:lang="zh">为邮件生成PDF附件时出错：${errorString}</value>
     </property>
     <property key="CommonEmailSendUndeliveredMail">
@@ -3007,6 +3071,7 @@
         <value xml:lang="fr">Non distribution du courriel, retourné à l'expéditeur</value>
         <value xml:lang="it">Mail non consegnabile restituita a colui che l'ha inviata</value>
         <value xml:lang="ja">配達できなかったメールが送信者に戻されました</value>
+        <value xml:lang="ru">Недоставленная почта вернулась к отправителю</value>
         <value xml:lang="zh">把无法投递的邮件退回发送者</value>
     </property>
     <property key="CommonEmailShouldBeSpecified">
@@ -3016,6 +3081,7 @@
         <value xml:lang="it">Id soggetto o indirizzo e-mail (inviare a) deve essere specificato!</value>
         <value xml:lang="ja">取引先IDまたは電子メールアドレス(送信先)を指定してください!</value>
         <value xml:lang="pt-BR">ID de participante (PartyId) ou E-mail (SendTo) deve ser especificado!</value>
+        <value xml:lang="ru">PartyId или Почтовый адрес (sendTo) должен быть уникальный!</value>
         <value xml:lang="vi">Thông tin người dùng nhận hoặc Địa chỉ thư điện tử (gửi đến) cần phải có</value>
         <value xml:lang="zh">必须制定会员标识（partyId）或电子邮件地址（sendTo）！</value>
     </property>
@@ -3089,6 +3155,7 @@
         <value xml:lang="es">Habilitar</value>
         <value xml:lang="fr">Actif</value>
         <value xml:lang="ja">有効</value>
+        <value xml:lang="ru">Доступно</value>
         <value xml:lang="th">เปิดใช้งาน</value>
         <value xml:lang="vi">Bật (cho phép)</value>
         <value xml:lang="zh">启用</value>
@@ -3176,6 +3243,7 @@
         <value xml:lang="fr">Impossible de créer l'entité de test</value>
         <value xml:lang="it">Non è possibile creare un test entità</value>
         <value xml:lang="ja">テストエンティティが作成できません</value>
+        <value xml:lang="ru">Невозможность создания тестовой сущности</value>
         <value xml:lang="vi">Không thể khởi tạo thực thể để thử nghiệm</value>
         <value xml:lang="zh">无法新建测试实体</value>
     </property>
@@ -3295,6 +3363,7 @@
         <value xml:lang="it">Errore: stato di ${entity} non èp valido, questo è: ${lookedUpValue.statusId} ma dovrebbe essere: ${goodStatusId}.</value>
         <value xml:lang="ja">エラー: ${entity} のステータスは有効ではありません。${lookedUpValue.statusId} でしたが、${goodStatusId}であるべきです。</value>
         <value xml:lang="pt-BR">Erro: estado de ${entity} não é válido, é ${lookedUpValue.statusId} mas deveria ser: ${goodStatusId}.</value>
+        <value xml:lang="ru">Ошибка: статус у ${entity) недействительный, это: ${lookedUpValue.statusId} но должно быть: ${goodStatusId}.</value>
         <value xml:lang="vi">Có lỗi xảy ra : trạng thái của ${entity} là không hợp lệ, hiện tại là ${lookedUpValue.statusId} - nếu đúng phải là: ${goodStatusId}.</value>
         <value xml:lang="zh">错误: ${entity}状态无效，现在是${lookedUpValue.statusId}，应该是${goodStatusId}。</value>
         <value xml:lang="zh-TW">錯誤: ${entity}狀態無效，現在是${lookedUpValue.statusId}，應該是${goodStatusId}。</value>
@@ -3305,6 +3374,7 @@
         <value xml:lang="es">Ocurrió un error enviando el formulario.</value>
         <value xml:lang="fr">Erreur dans la soumission du formulaire.</value>
         <value xml:lang="ja">フォームの送信中にエラーが発生しました。</value>
+        <value xml:lang="ru">Ошибка которая привела к потверждению формы</value>
         <value xml:lang="vi">Lỗi xảy ra khi gửi thông tin (form) lên máy chủ.</value>
         <value xml:lang="zh">提交表单时发生了一个错误。</value>
     </property>
@@ -3352,6 +3422,7 @@
         <value xml:lang="it">Espandi</value>
         <value xml:lang="ja">展開</value>
         <value xml:lang="pt-BR">Expandir</value>
+        <value xml:lang="ru">Расширить</value>
         <value xml:lang="th">แผ่ขยาย</value>
         <value xml:lang="vi">Mở rộng</value>
         <value xml:lang="zh">展开</value>
@@ -3367,6 +3438,7 @@
         <value xml:lang="ja">すべて展開</value>
         <value xml:lang="nl">Tonen velden</value>
         <value xml:lang="pt-BR">Expandir todos</value>
+        <value xml:lang="ru">Расширить все</value>
         <value xml:lang="th">แผ่ขยาย</value>
         <value xml:lang="vi">Mở rộng toàn bộ</value>
         <value xml:lang="zh">全部展开</value>
@@ -3517,6 +3589,7 @@
         <value xml:lang="it">Definizione, che cose'è ?</value>
         <value xml:lang="ja">定義は何ですか?</value>
         <value xml:lang="pt-BR">Definição, o que é isso?</value>
+        <value xml:lang="ru">Определение, что это?</value>
         <value xml:lang="vi">Định nghĩa, đó là cái gì ?</value>
         <value xml:lang="zh">定义它是什么？</value>
     </property>
@@ -3527,6 +3600,7 @@
         <value xml:lang="it">Che cosa ci sarà in questa videata ?</value>
         <value xml:lang="ja">画面に何がありますか?</value>
         <value xml:lang="pt-BR">O que está na tela?</value>
+        <value xml:lang="ru">Что на экране?</value>
         <value xml:lang="vi">Thông tin gì đang hiển thị trên màn hình</value>
         <value xml:lang="zh">界面上有什么？</value>
     </property>
@@ -3537,6 +3611,7 @@
         <value xml:lang="it">Videata di aiuto.</value>
         <value xml:lang="ja">ヘルプ画面</value>
         <value xml:lang="pt-BR">Tela de Ajuda.</value>
+        <value xml:lang="ru">Помощь экрана.</value>
         <value xml:lang="vi">Màn hình trợ giúp</value>
         <value xml:lang="zh">帮助界面。</value>
     </property>
@@ -3547,6 +3622,7 @@
         <value xml:lang="it">Per cosa verrà usato ?</value>
         <value xml:lang="ja">何に使いますか?</value>
         <value xml:lang="pt-BR">Para que é usado?</value>
+        <value xml:lang="ru">Для чего это используется?</value>
         <value xml:lang="vi">Thông tin này được sử dụng để làm gì</value>
         <value xml:lang="zh">它是用来做什么用的？</value>
     </property>
@@ -3557,6 +3633,7 @@
         <value xml:lang="it">Indice</value>
         <value xml:lang="ja">インデックス</value>
         <value xml:lang="pt-BR">Índice</value>
+        <value xml:lang="ru">Счетчик</value>
         <value xml:lang="vi">Chỉ mục</value>
         <value xml:lang="zh">索引</value>
         <value xml:lang="zh-TW">索引</value>
@@ -3566,6 +3643,7 @@
         <value xml:lang="es">Dispositivo externo</value>
         <value xml:lang="fr">Mat. externe</value>
         <value xml:lang="ja">外部デバイス</value>
+        <value xml:lang="ru">Экстренное устройство</value>
         <value xml:lang="vi">Thiết bị ngoài</value>
         <value xml:lang="zh">外部设备</value>
     </property>
@@ -3574,6 +3652,7 @@
         <value xml:lang="es">Acción del usuario del dispositivo externo</value>
         <value xml:lang="fr">Assoc Action/Utilisateur avec Mat. externe</value>
         <value xml:lang="ja">外部デバイスユーザアクション</value>
+        <value xml:lang="ru">Эксетренное устройство пользователя - Активно</value>
         <value xml:lang="vi">Tác động người dùng</value>
         <value xml:lang="zh">外部设备用户操作</value>
     </property>
@@ -3626,6 +3705,7 @@
         <value xml:lang="pt">Mulher</value>
         <value xml:lang="pt-BR">Feminino</value>
         <value xml:lang="ro">Feminin</value>
+        <value xml:lang="ru">Женщина</value>
         <value xml:lang="th">เพศหญิง</value>
         <value xml:lang="vi">Nữ</value>
         <value xml:lang="zh">女</value>
@@ -3640,6 +3720,7 @@
         <value xml:lang="it">Campo di ricerca</value>
         <value xml:lang="ja">項目検索</value>
         <value xml:lang="pt-BR">Pesquisa por campo</value>
+        <value xml:lang="ru">Поля поиска</value>
         <value xml:lang="vi">Trường tìm kiếm</value>
         <value xml:lang="zh">查找数据项</value>
         <value xml:lang="zh-TW">查詢資料項</value>
@@ -3692,6 +3773,7 @@
         <value xml:lang="it">Conti finanziari</value>
         <value xml:lang="ja">金融アカウント</value>
         <value xml:lang="pt-BR">Contas financeiras</value>
+        <value xml:lang="ru">Финансовые отчеты</value>
         <value xml:lang="th">บัญชี</value>
         <value xml:lang="vi">Tài khoản kế toán</value>
         <value xml:lang="zh">金融账户</value>
@@ -3763,6 +3845,7 @@
         <value xml:lang="fr">Erreur dans la préparation des conditions de recherche : ${errorString}</value>
         <value xml:lang="it">Errore duranta la preparazione delle condizioni di ricerca: ${errorString}</value>
         <value xml:lang="ja">条件の準備中にエラー: ${errorString}</value>
+        <value xml:lang="ru">Ошибка подготовки условий: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi chuẩn bị điều kiện: ${errorString}</value>
         <value xml:lang="zh">准备查询条件时出错：${errorString}</value>
     </property>
@@ -3772,6 +3855,7 @@
         <value xml:lang="fr">Erreur dans la récupération de l'itérateur : ${errorString}</value>
         <value xml:lang="it">Errore duranta la ricerca, iterator non restituito: ${errorString}</value>
         <value xml:lang="ja">イテレータの検索中にエラー: ${errorString}</value>
+        <value xml:lang="ru">Ошибка поиска итератора: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi tìm kiếm lặp: ${errorString}</value>
         <value xml:lang="zh">查找迭代器（iterator）时出错：${errorString}</value>
     </property>
@@ -3781,6 +3865,7 @@
         <value xml:lang="fr">Erreur dans l'exécution de la recherche sur l'entité ${entityName} : ${errorString}</value>
         <value xml:lang="it">Errore duranta la ricerca sull'entità ${entityName}: ${errorString}</value>
         <value xml:lang="ja">${entityName} エンティティの検索実行中にエラー: ${errorString}</value>
+        <value xml:lang="ru">Ошибка запуска Найти на ${entityName} entity: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi Tìm kiếm thực thể ${entityName} : ${errorString}</value>
         <value xml:lang="zh">对实体 ${entityName} 运行查找方法（Find）时出错：${errorString}</value>
     </property>
@@ -3813,6 +3898,7 @@
         <value xml:lang="it">Primo</value>
         <value xml:lang="ja">最初</value>
         <value xml:lang="pt-BR">Primeira</value>
+        <value xml:lang="ru">Первый</value>
         <value xml:lang="th">อันดับแรก</value>
         <value xml:lang="vi">Đầu tiên</value>
         <value xml:lang="zh">第一个</value>
@@ -4195,6 +4281,7 @@
         <value xml:lang="fr">Connexion refusée</value>
         <value xml:lang="it">connessione rifiutata</value>
         <value xml:lang="ja">接続が拒否されました</value>
+        <value xml:lang="ru">В связи отказано</value>
         <value xml:lang="vi">kết nối bị từ chối</value>
         <value xml:lang="zh">连接被拒</value>
     </property>
@@ -4204,6 +4291,7 @@
         <value xml:lang="fr">Erreur : le fichier local n'a pas pu être ouvert</value>
         <value xml:lang="it">ERRORE: Non è possibile aprire il file locale</value>
         <value xml:lang="ja">エラー: ローカルファイルをオープンできません</value>
+        <value xml:lang="ru">Ошибка: Не можем открыть локальный файл</value>
         <value xml:lang="vi">Lỗi xảy ra: Không thể mở tập tin trên máy người dùng</value>
         <value xml:lang="zh">错误：不能打开本地文件</value>
     </property>
@@ -4213,6 +4301,7 @@
         <value xml:lang="fr">L'envoi du fichier a échoué : ${replyString}</value>
         <value xml:lang="it">File non inviato con successo: ${replyString}</value>
         <value xml:lang="ja">ファイルが送信できませんでした: ${replyString}</value>
+        <value xml:lang="ru">Файл не отправлен успешно: ${replyString}</value>
         <value xml:lang="vi">Tập tin gửi đi không thành công: ${replyString}</value>
         <value xml:lang="zh">不能成功发送文件：${replyString}</value>
     </property>
@@ -4222,6 +4311,7 @@
         <value xml:lang="fr">Échec de l'authentification (${username}, ${password})</value>
         <value xml:lang="it">Login fallito (${username}, ${password})</value>
         <value xml:lang="ja">ログイン失敗 (${username}, ${password})</value>
+        <value xml:lang="ru">Логин ошибочен: (${username}, ${password})</value>
         <value xml:lang="vi">Đăng nhập không thành công (${username}, ${password})</value>
         <value xml:lang="zh">登录失败（${username}，${password}）</value>
     </property>
@@ -4231,6 +4321,7 @@
         <value xml:lang="fr">Erreur pendant le transfert FTP : ${errorString}</value>
         <value xml:lang="it">Problema durante il trasferimento FTP: ${errorString}</value>
         <value xml:lang="ja">FTP転送でエラー: ${errorString}</value>
+        <value xml:lang="ru">Проблемы с FTP: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra trong quá trình truyền file (FTP): ${errorString}</value>
         <value xml:lang="zh">FTP传送时出问题：${errorString}</value>
     </property>
@@ -4240,6 +4331,7 @@
         <value xml:lang="fr">La commande ${command} a échoué sur le site distant : ${replyString}</value>
         <value xml:lang="it">Comando sito ${command} fallito: ${replyString}</value>
         <value xml:lang="ja">SITE コマンド ${command} でエラー: ${replyString}</value>
+        <value xml:lang="ru">Команда не выполнена ${command}: ${replyString}</value>
         <value xml:lang="vi">Yêu cầu ${command} đến trang thông tin không thành công: ${replyString}</value>
         <value xml:lang="zh">运行站点命令 ${command} 时失败：${replyString}</value>
     </property>
@@ -4265,6 +4357,7 @@
         <value xml:lang="fr">Erreur lors de l'exécution du service</value>
         <value xml:lang="ja">サービス実行中にエラー</value>
         <value xml:lang="pt-BR">Erro ao executar serviço</value>
+        <value xml:lang="ru">Ошибка при выполнении сервиса</value>
         <value xml:lang="vi">Lỗi khi thực thi dịch vụ</value>
         <value xml:lang="zh">运行服务时出错</value>
     </property>
@@ -4274,6 +4367,7 @@
         <value xml:lang="fr">Service exécuté avec succès</value>
         <value xml:lang="ja">サービスが正しく実行されました</value>
         <value xml:lang="pt-BR">Serviço executado com sucesso</value>
+        <value xml:lang="ru">Сервис выполнен успешно</value>
         <value xml:lang="vi">Dịch vụ được thực thi thành công</value>
         <value xml:lang="zh">成功运行了服务</value>
     </property>
@@ -4302,6 +4396,7 @@
         <value xml:lang="ja">省略</value>
         <value xml:lang="pt-BR">Abreviação</value>
         <value xml:lang="ro">Abreviere</value>
+        <value xml:lang="ru">Аббревиатура</value>
         <value xml:lang="th">ชื่อย่อ</value>
         <value xml:lang="vi">Tên viết tắt</value>
         <value xml:lang="zh">缩写</value>
@@ -4313,6 +4408,7 @@
         <value xml:lang="fr">Type d'assocation entre zones</value>
         <value xml:lang="ja">位置関連付け種類ID</value>
         <value xml:lang="pt-BR">Tipo de ID de associação geo referencial</value>
+        <value xml:lang="ru">Geo Assoc Type ID</value>
         <value xml:lang="vi">Kiểu địa lý kết hợp</value>
         <value xml:lang="zh">地理相关类型标识</value>
     </property>
@@ -4325,6 +4421,7 @@
         <value xml:lang="ja">コード</value>
         <value xml:lang="pt-BR">Código</value>
         <value xml:lang="ro">Cod</value>
+        <value xml:lang="ru">Код</value>
         <value xml:lang="th">รหัส</value>
         <value xml:lang="vi">Mã</value>
         <value xml:lang="zh">代码</value>
@@ -4339,6 +4436,7 @@
         <value xml:lang="ja">位置ID</value>
         <value xml:lang="pt-BR">ID de Geo referência</value>
         <value xml:lang="ro">Cod Geografie</value>
+        <value xml:lang="ru">Geo ID</value>
         <value xml:lang="th">รหัสโครงสร้าง</value>
         <value xml:lang="vi">Id địa lý</value>
         <value xml:lang="zh">地理标识</value>
@@ -4353,6 +4451,7 @@
         <value xml:lang="it">Localizzazione geografica</value>
         <value xml:lang="ja">位置情報</value>
         <value xml:lang="pt-BR">Localização geográfica</value>
+        <value xml:lang="ru">Geo Местность</value>
         <value xml:lang="vi">Vị trí địa lý</value>
         <value xml:lang="zh">地理位置</value>
         <value xml:lang="zh-TW">地理位置</value>
@@ -4367,6 +4466,7 @@
         <value xml:lang="ja">名称</value>
         <value xml:lang="pt-BR">Nome</value>
         <value xml:lang="ro">Nome</value>
+        <value xml:lang="ru">Имя</value>
         <value xml:lang="th">ชื่อ</value>
         <value xml:lang="vi">Tên</value>
         <value xml:lang="zh">名称</value>
@@ -4382,6 +4482,7 @@
         <value xml:lang="ja">二次コード</value>
         <value xml:lang="pt-BR">Código Secundário</value>
         <value xml:lang="ro">Cod Secundar</value>
+        <value xml:lang="ru">Вторичный код</value>
         <value xml:lang="th">รหัสที่สอง</value>
         <value xml:lang="vi">Mã thứ hai</value>
         <value xml:lang="zh">辅助代码</value>
@@ -4396,6 +4497,7 @@
         <value xml:lang="ja">位置種類ID</value>
         <value xml:lang="pt-BR">ID de tipo de geo referência</value>
         <value xml:lang="ro">Tip Geografie</value>
+        <value xml:lang="ru">Geo Type ID</value>
         <value xml:lang="th">รหัสประเภทโครงสร้าง</value>
         <value xml:lang="vi">Kiểu địa lý</value>
         <value xml:lang="zh">地理类型标识</value>
@@ -4407,6 +4509,7 @@
         <value xml:lang="fr">Texte connu</value>
         <value xml:lang="ja">通称</value>
         <value xml:lang="pt-BR">Texto bem conhecido</value>
+        <value xml:lang="ru">Хорошо знакомый текст</value>
         <value xml:lang="vi">Miêu tả quen thuộc</value>
         <value xml:lang="zh">众所周知的文本</value>
     </property>
@@ -4605,6 +4708,7 @@
         <value xml:lang="it">Aiuto</value>
         <value xml:lang="ja">ヘルプ</value>
         <value xml:lang="pt-BR">Ajuda</value>
+        <value xml:lang="ru">Помощь</value>
         <value xml:lang="vi">Trợ giúp</value>
         <value xml:lang="zh">帮助</value>
         <value xml:lang="zh-CN">帮助</value>
@@ -4618,6 +4722,7 @@
         <value xml:lang="it">File di aiuto o URL non trovato</value>
         <value xml:lang="ja">ヘルプファイルまたはURLが見つかりません</value>
         <value xml:lang="pt-BR">Arquivo de Ajuda ou URL não encontrado</value>
+        <value xml:lang="ru">Файл помощи или ссылка не найдены</value>
         <value xml:lang="vi">Tập tin trợ giúp hoặc liên kết URL không được tìm thấy</value>
         <value xml:lang="zh">没有找到帮助文件或网址</value>
     </property>
@@ -4649,6 +4754,7 @@
         <value xml:lang="it">Alta</value>
         <value xml:lang="ja">高</value>
         <value xml:lang="pt-BR">Alto</value>
+        <value xml:lang="ru">Высокий</value>
         <value xml:lang="vi">Cao</value>
         <value xml:lang="zh">高</value>
         <value xml:lang="zh-TW">高</value>
@@ -4662,6 +4768,7 @@
         <value xml:lang="it">Principale</value>
         <value xml:lang="ja">ホーム</value>
         <value xml:lang="pt-BR">Início</value>
+        <value xml:lang="ru">Дом</value>
         <value xml:lang="vi">Trang chủ</value>
         <value xml:lang="zh">首页</value>
         <value xml:lang="zh-TW">首頁</value>
@@ -4794,6 +4901,7 @@
         <value xml:lang="pt">IDs</value>
         <value xml:lang="pt-BR">Identificações(IDs)</value>
         <value xml:lang="ro">Id Coduri</value>
+        <value xml:lang="ru">IDs</value>
         <value xml:lang="th">รหัส</value>
         <value xml:lang="vi">Định danh</value>
         <value xml:lang="zh">标识</value>
@@ -4805,6 +4913,7 @@
         <value xml:lang="es">Imagen</value>
         <value xml:lang="fr">Image</value>
         <value xml:lang="ja">画像</value>
+        <value xml:lang="ru">Картинка</value>
         <value xml:lang="th">รูปภาพ</value>
         <value xml:lang="vi">Ảnh</value>
         <value xml:lang="zh">图片</value>
@@ -4911,6 +5020,7 @@
         <value xml:lang="it">Inserisci</value>
         <value xml:lang="ja">挿入</value>
         <value xml:lang="pt">Inserir</value>
+        <value xml:lang="ru">Вставить</value>
         <value xml:lang="th">เพิ่ม</value>
         <value xml:lang="vi">Chèn vào</value>
         <value xml:lang="zh">插入</value>
@@ -4925,6 +5035,7 @@
         <value xml:lang="it">Commento interno</value>
         <value xml:lang="ja">内部コメント</value>
         <value xml:lang="pt-BR">Comentário Interno</value>
+        <value xml:lang="ru">Внутренние комментарии</value>
         <value xml:lang="vi">Diễn giải nội bộ</value>
         <value xml:lang="zh">内部评论</value>
         <value xml:lang="zh-TW">內部評論</value>
@@ -5068,6 +5179,7 @@
         <value xml:lang="it">Righe per pagina</value>
         <value xml:lang="ja">アイテム/ページ</value>
         <value xml:lang="pt-BR">Itens por página</value>
+        <value xml:lang="ru">Предметов на странице</value>
         <value xml:lang="vi">Số hạng mục trên trang</value>
         <value xml:lang="zh">每页条数</value>
     </property>
@@ -5179,6 +5291,7 @@
         <value xml:lang="it">Ultimo</value>
         <value xml:lang="ja">最後</value>
         <value xml:lang="pt-BR">Último</value>
+        <value xml:lang="ru">Последний</value>
         <value xml:lang="th">สุดท้าย</value>
         <value xml:lang="vi">Mới nhất</value>
         <value xml:lang="zh">最近的</value>
@@ -5191,6 +5304,7 @@
         <value xml:lang="it">Ultime note di sistema</value>
         <value xml:lang="ja">最新システムメッセージ</value>
         <value xml:lang="pt-BR">Últimas notas do sistema</value>
+        <value xml:lang="ru">Ввод</value>
         <value xml:lang="vi">Các thông báo mới nhất từ hệ thống</value>
         <value xml:lang="zh">最近系统便笺</value>
         <value xml:lang="zh-TW">最近系統便箋</value>
@@ -5224,6 +5338,7 @@
         <value xml:lang="it">Latitudine: </value>
         <value xml:lang="ja">緯度:</value>
         <value xml:lang="pt-BR">Latitude:</value>
+        <value xml:lang="ru">Широта: </value>
         <value xml:lang="vi">Rộng: </value>
         <value xml:lang="zh">纬度：</value>
         <value xml:lang="zh-TW">緯度：</value>
@@ -5237,6 +5352,7 @@
         <value xml:lang="it">Lunghezza</value>
         <value xml:lang="ja">長さ</value>
         <value xml:lang="pt-BR">Comprimento</value>
+        <value xml:lang="ru">Длина</value>
         <value xml:lang="vi">Dài: </value>
         <value xml:lang="zh">长度</value>
     </property>
@@ -5342,6 +5458,7 @@
         <value xml:lang="it">Attendere...</value>
         <value xml:lang="ja">ロード中...</value>
         <value xml:lang="pt-BR">Carregando ...</value>
+        <value xml:lang="ru">Загрузка...</value>
         <value xml:lang="vi">Đang tải dữ liệu ...</value>
         <value xml:lang="zh">正在加载...</value>
         <value xml:lang="zh-TW">正在載入...</value>
@@ -5356,6 +5473,7 @@
         <value xml:lang="it">Localizzazioni</value>
         <value xml:lang="ja">ローカライズ</value>
         <value xml:lang="pt-BR">Opções locais de idioma</value>
+        <value xml:lang="ru">Локализация</value>
         <value xml:lang="vi">Nội địa hóa</value>
         <value xml:lang="zh">本地化</value>
         <value xml:lang="zh-TW">本地化</value>
@@ -5435,6 +5553,7 @@
         <value xml:lang="it">Longitudine: </value>
         <value xml:lang="ja">経度:</value>
         <value xml:lang="pt-BR">Longitude:</value>
+        <value xml:lang="ru">Ввод</value>
         <value xml:lang="vi">Kinh độ: </value>
         <value xml:lang="zh">经度：</value>
         <value xml:lang="zh-TW">經度：</value>
@@ -5469,6 +5588,7 @@
         <value xml:lang="it">lookup:anywho.com</value>
         <value xml:lang="ja">検索:anywho.com</value>
         <value xml:lang="pt-BR">Pesquisa: anywho.com</value>
+        <value xml:lang="ru">Поиск:anywho.com</value>
         <value xml:lang="vi">Tìm thông tin tại: anywho.com</value>
         <value xml:lang="zh">查找：anywho.com</value>
         <value xml:lang="zh-TW">查詢: anywho.com</value>
@@ -5481,6 +5601,7 @@
         <value xml:lang="hi-IN">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode}&amp;telephone=${telecomNumber.contactNumber}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
         <value xml:lang="it">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode}&amp;telephone=${telecomNumber.contactNumber}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
         <value xml:lang="ja">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode}&amp;telephone=${telecomNumber.contactNumber}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
+        <value xml:lang="ru">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode}&amp;telephone=${telecomNumber.contactNumber}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
         <value xml:lang="vi">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode}&amp;telephone=${telecomNumber.contactNumber}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
         <value xml:lang="zh">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode}&amp;telephone=${telecomNumber.contactNumber}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
     </property>
@@ -5489,6 +5610,7 @@
         <value xml:lang="es">Buscar Locale</value>
         <value xml:lang="fr">Recherche langue</value>
         <value xml:lang="ja">地域を検索</value>
+        <value xml:lang="ru">Поиск местности</value>
         <value xml:lang="vi">Chọn Đất nước</value>
         <value xml:lang="zh">查询语言</value>
     </property>
@@ -5502,6 +5624,7 @@
         <value xml:lang="nl">Opzoeken in whitepages.com</value>
         <value xml:lang="pt-BR">Procurar nas páginas brancas</value>
         <value xml:lang="th">ค้นหา:whitepages.com</value>
+        <value xml:lang="ru">Поиск белых страниц</value>
         <value xml:lang="vi">Tìm thông tin tại: whitepages.com</value>
         <value xml:lang="zh">查找：whitepages.com</value>
         <value xml:lang="zh-TW">查詢: whitepages.com</value>
@@ -5513,6 +5636,7 @@
         <value xml:lang="hi-IN">http://www.whitepages.com/find_person_results.pl?fid=a</value>
         <value xml:lang="it">http://www.whitepages.com/find_person_results.pl?fid=a&amp;s_n=${addressNum}&amp;s_a=${addressOther}&amp;c=${postalAddress.city}&amp;s=${postalAddress.stateProvinceGeoId}&amp;x=29 y=18</value>
         <value xml:lang="ja">http://www.whitepages.com/find_person_results.pl?fid=a&amp;s_n=${addressNum}&amp;s_a=${addressOther}&amp;c=${postalAddress.city}&amp;s=${postalAddress.stateProvinceGeoId}&amp;x=29 y=18</value>
+        <value xml:lang="ru">http://www.whitepages.com/find_person_results.pl?fid=a&amp;s_n=${addressNum}&amp;s_a=${addressOther}&amp;c=${postalAddress.city}&amp;s=${postalAddress.stateProvinceGeoId}&amp;x=29 y=18</value>
         <value xml:lang="zh">http://www.whitepages.com/find_person_results.pl?fid=a&amp;s_n=${addressNum}&amp;s_a=${addressOther}&amp;c=${postalAddress.city}&amp;s=${postalAddress.stateProvinceGeoId}&amp;x=29 y=18</value>
     </property>
     <property key="CommonLookupWhitepagesTelNumberLink">
@@ -5521,6 +5645,7 @@
         <value xml:lang="fr">http://www.pagesjaunes.fr/quidonc/aquiestcenumero.do</value>
         <value xml:lang="it">http://whitepages.com/find_person_results.pl?fid=p&amp;ac=${telecomNumber.areaCode}&amp;s=&amp;p=${telecomNumber.contactNumber}&amp;pt=b&amp;x=40&amp;y=9</value>
         <value xml:lang="ja">http://whitepages.com/find_person_results.pl?fid=p&amp;ac=${telecomNumber.areaCode}&amp;s=&amp;p=${telecomNumber.contactNumber}&amp;pt=b&amp;x=40&amp;y=9</value>
+        <value xml:lang="ru">http://whitepages.com/find_person_results.pl?fid=p&amp;ac=${telecomNumber.areaCode}&amp;s=&amp;p=${telecomNumber.contactNumber}&amp;pt=b&amp;x=40&amp;y=9</value>
         <value xml:lang="zh">http://whitepages.com/find_person_results.pl?fid=p&amp;ac=${telecomNumber.areaCode}&amp;s=&amp;p=${telecomNumber.contactNumber}&amp;pt=b&amp;x=40&amp;y=9</value>
     </property>
     <property key="CommonLow">
@@ -5532,6 +5657,7 @@
         <value xml:lang="it">Bassa</value>
         <value xml:lang="ja">低</value>
         <value xml:lang="pt-BR">Baixo</value>
+        <value xml:lang="ru">Низкий</value>
         <value xml:lang="vi">Thấp</value>
         <value xml:lang="zh">低</value>
         <value xml:lang="zh-TW">低</value>
@@ -5582,6 +5708,7 @@
         <value xml:lang="fr">Gestion</value>
         <value xml:lang="ja">管理</value>
         <value xml:lang="th">จัดการ</value>
+        <value xml:lang="ru">Управление</value>
         <value xml:lang="vi">Quản lý</value>
         <value xml:lang="zh">管理</value>
     </property>
@@ -5594,6 +5721,7 @@
         <value xml:lang="it">Gestione pagine...</value>
         <value xml:lang="ja">ポータルページの管理...</value>
         <value xml:lang="pt-BR">Gerenciar Páginas do Portal ...</value>
+        <value xml:lang="ru">Управление страницами портала</value>
         <value xml:lang="vi">Quản lý Cổng thông tin...</value>
         <value xml:lang="zh">管理门户页面...</value>
         <value xml:lang="zh-TW">管理門戶頁面...</value>
@@ -5685,6 +5813,7 @@
         <value xml:lang="it">250 caratteri al massimo</value>
         <value xml:lang="ja">最大250文字</value>
         <value xml:lang="pt-BR">Máximo de 250 caracteres</value>
+        <value xml:lang="ru">Поиск белых страниц</value>
         <value xml:lang="vi">Tối đa 250 ký tự</value>
         <value xml:lang="zh">最多250个字符（125个汉字）</value>
     </property>
@@ -5757,6 +5886,7 @@
         <value xml:lang="it">Misure</value>
         <value xml:lang="ja">計数</value>
         <value xml:lang="pt-BR">Medidas</value>
+        <value xml:lang="ru">Меры</value>
         <value xml:lang="vi">Đo lường</value>
         <value xml:lang="zh">度量</value>
         <value xml:lang="zh-TW">度量</value>
@@ -5805,6 +5935,7 @@
         <value xml:lang="fr">Message manquant</value>
         <value xml:lang="ja">メッセージが正しくありません</value>
         <value xml:lang="pt-BR">A Mensagem está faltando</value>
+        <value xml:lang="ru">Сообщение отсутствует</value>
         <value xml:lang="vi">Thông điệp bị mất</value>
         <value xml:lang="zh">消息丢失了</value>
     </property>
@@ -5854,6 +5985,7 @@
         <value xml:lang="ja">ミリ秒</value>
         <value xml:lang="pt-BR">Milisegundo</value>
         <value xml:lang="ro">Milisecunde</value>
+        <value xml:lang="ru">Миллисекунды</value>
         <value xml:lang="vi">Mi li giây</value>
         <value xml:lang="zh">毫秒</value>
     </property>
@@ -5901,6 +6033,7 @@
         <value xml:lang="it">Varie</value>
         <value xml:lang="ja">その他</value>
         <value xml:lang="pt-BR">Diversos</value>
+        <value xml:lang="ru">Разное</value>
         <value xml:lang="vi">Còn lại</value>
         <value xml:lang="zh">其它</value>
         <value xml:lang="zh-TW">其他</value>
@@ -6041,6 +6174,7 @@
         <value xml:lang="it">Sposta il portlet in fondo</value>
         <value xml:lang="ja">ポートレットを下部に移動</value>
         <value xml:lang="pt-BR">Mover Portlet no fundo</value>
+        <value xml:lang="ru">Переместить портлет вниз</value>
         <value xml:lang="vi">Di chuyển ứng dụng portlet xuống dưới cùng</value>
         <value xml:lang="zh">在底部移动Portlet</value>
         <value xml:lang="zh-TW">在底部移動Portlet</value>
@@ -6054,6 +6188,7 @@
         <value xml:lang="it">Sposta il portlet in basso</value>
         <value xml:lang="ja">ポートレットを下に移動</value>
         <value xml:lang="pt-BR">Portlet para baixo</value>
+        <value xml:lang="ru">Переместить портлет ниже</value>
         <value xml:lang="vi">Di chuyển ứng dụng portlet xuống</value>
         <value xml:lang="zh">下移Portlet</value>
         <value xml:lang="zh-TW">下移Portlet</value>
@@ -6067,6 +6202,7 @@
         <value xml:lang="it">Sposta il portlet a sinistra</value>
         <value xml:lang="ja">ポートレットを左に移動</value>
         <value xml:lang="pt-BR">Mover Portlet para Esquerda</value>
+        <value xml:lang="ru">Переместить портлет влево</value>
         <value xml:lang="vi">Di chuyển ứng dụng porlet sang trái</value>
         <value xml:lang="zh">左移Portlet</value>
         <value xml:lang="zh-TW">左移Portlet</value>
@@ -6080,6 +6216,7 @@
         <value xml:lang="it">Sposta il portlet a destra</value>
         <value xml:lang="ja">ポートレットを右に移動</value>
         <value xml:lang="pt-BR">Mover Portlet para Direita</value>
+        <value xml:lang="ru">Переместить портлет вправо</value>
         <value xml:lang="vi">Di chuyển ứng dụng porlet sang phải</value>
         <value xml:lang="zh">右移Portlet</value>
         <value xml:lang="zh-TW">右移Portlet</value>
@@ -6093,6 +6230,7 @@
         <value xml:lang="it">Sposta il portlet in cima</value>
         <value xml:lang="ja">ポートレットを上部に移動</value>
         <value xml:lang="pt-BR">Mover Portlet no Topo</value>
+        <value xml:lang="ru">Переместить портлет вверх</value>
         <value xml:lang="vi">Di chuyển ứng dụng porlet lên Trên cùng</value>
         <value xml:lang="zh">在顶部移动Portlet</value>
         <value xml:lang="zh-TW">在頂部移動Portlet</value>
@@ -6106,6 +6244,7 @@
         <value xml:lang="it">Sposta il portlet in alto</value>
         <value xml:lang="ja">ポートレットを上に移動</value>
         <value xml:lang="pt-BR">Mover Portlet para cima</value>
+        <value xml:lang="ru">Переместить портлет выше</value>
         <value xml:lang="vi">Di chuyển ứng dụng porlet lên</value>
         <value xml:lang="zh">上移Portlet</value>
         <value xml:lang="zh-TW">上移Portlet</value>
@@ -6119,6 +6258,7 @@
         <value xml:lang="it">Sposta nella pagina...</value>
         <value xml:lang="ja">ポータルページに移動...</value>
         <value xml:lang="pt-BR">Vá para a página do Portal ...</value>
+        <value xml:lang="ru">Переместить на страницу портала</value>
         <value xml:lang="vi">Chuyển đến trang của Cổng</value>
         <value xml:lang="zh">移动到门户页面...</value>
         <value xml:lang="zh-TW">移動到門戶頁面...</value>
@@ -6132,6 +6272,7 @@
         <value xml:lang="it">Mia pagina personale</value>
         <value xml:lang="ja">私の個人ページに移動</value>
         <value xml:lang="pt-BR">Minha página pessoal</value>
+        <value xml:lang="ru">Моя персональная страница</value>
         <value xml:lang="vi">Cổng thông tin cá nhân</value>
         <value xml:lang="zh">我的个人页面</value>
         <value xml:lang="zh-TW">我的個人頁面</value>
@@ -6259,6 +6400,7 @@
         <value xml:lang="it">Nuova password</value>
         <value xml:lang="ja">新規パスワード</value>
         <value xml:lang="pt-BR">Nova Senha</value>
+        <value xml:lang="ru">Новый пароль</value>
         <value xml:lang="th">รหัสผ่านใหม่</value>
         <value xml:lang="vi">Mật khẩu mới</value>
         <value xml:lang="zh">新密码</value>
@@ -6273,6 +6415,7 @@
         <value xml:lang="it">Verifica nuova password</value>
         <value xml:lang="ja">新規パスワード(確認)</value>
         <value xml:lang="pt-BR">Verificar Nova Senha</value>
+        <value xml:lang="ru">Потвердить новый пароль</value>
         <value xml:lang="th">ตรวจสอบรหัสผ่านใหม่</value>
         <value xml:lang="vi">Xác nhận mật khẩu mới</value>
         <value xml:lang="zh">新密码验证</value>
@@ -6286,6 +6429,7 @@
         <value xml:lang="it">Nuova pagina portale</value>
         <value xml:lang="ja">新規ポータルページ</value>
         <value xml:lang="pt-BR">Nova página do Portal</value>
+        <value xml:lang="ru">Разное</value>
         <value xml:lang="vi">Tạo mới trang của Cổng thông tin</value>
         <value xml:lang="zh">新建门户页面</value>
     </property>
@@ -6381,6 +6525,7 @@
         <value xml:lang="it">Nessun accesso a questa funzione, contattare l'amministratore di sistema se pensi che sia un'errore</value>
         <value xml:lang="ja">この機能は使用できません。システム管理者にご連絡ください。</value>
         <value xml:lang="pt-BR">Sem acesso a esta função, entre em contato com o administrador do sistema se você acha que isso é um erro</value>
+        <value xml:lang="ru">Нету доступа к этой функции, свяжитесь с вашим системным администратором если вы думаете, что то ошибка</value>
         <value xml:lang="vi">Bạn không thể truy nhập vào chức năng này, hãy liên lạc với Quản trị viên nếu bạn nhận định bạn được phép truy nhập</value>
         <value xml:lang="zh">无法访问到这个功能，如果你觉得这是错误，请与系统管理员联系</value>
         <value xml:lang="zh-TW">無法訪問到這個功能，如果你覺得這是錯誤，請與系統管理員連絡</value>
@@ -6468,6 +6613,7 @@
         <value xml:lang="it">Nessuna immagine digitale disponibile da visualizzare.</value>
         <value xml:lang="ja">詳細な画像が有効ではありません</value>
         <value xml:lang="pt-BR">Nenhuma imagem de detalhes disponível para exibir.</value>
+        <value xml:lang="ru">Нет детальной картинки доступной для дисплея</value>
         <value xml:lang="vi">Chưa có thông tin ảnh chi tiết</value>
         <value xml:lang="zh">没有可显示的详细图片</value>
     </property>
@@ -6499,6 +6645,7 @@
         <value xml:lang="it">Nessuna locazione geografica disponibile (per un dimostrazione tu puoi usare il soggetto DemoCustomer)</value>
         <value xml:lang="ja">位置情報が有効ではありません(デモの場合はデモ顧客取引先プロファイルを使用してみてください)</value>
         <value xml:lang="pt-BR">Geolocalização Não disponível (para uma demonstração você pode tentar usar o perfil de participante DemoCustomer)</value>
+        <value xml:lang="ru">Геолокация недоступна (для демо ты должен пытаться использовать DemoCustomer party profile)</value>
         <value xml:lang="vi">Không Địa điểm địa lý nào sẵn có ( trong trường hợp ví dụ bạn có thể tham chiếu hồ sơ của 'Khách hàng ví vụ')</value>
         <value xml:lang="zh">没有可用的地理位置(作为演示，你可以使用演示客户会员资料)</value>
         <value xml:lang="zh-TW">沒有可用的地理位置(作為演示，你可以使用演示客戶成員資料)</value>
@@ -6510,6 +6657,7 @@
         <value xml:lang="fr">Aucun option: _NA_</value>
         <value xml:lang="ja">オプションなし: _適用外_</value>
         <value xml:lang="pt-BR">Sem opções: _NA_</value>
+        <value xml:lang="ru">Нету выбора: _NA</value>
         <value xml:lang="vi">Không có tùy chọn: _NA</value>
         <value xml:lang="zh">没有选项：_NA_</value>
     </property>
@@ -6541,6 +6689,7 @@
         <value xml:lang="it">Dati portal page non trovati.</value>
         <value xml:lang="ja">ポータルページのデータはありません。</value>
         <value xml:lang="pt-BR">Não há dados da página do portal encontrados. Você pode não ter a semente ou outros dados necessários para isso.</value>
+        <value xml:lang="ru">Не найдено данных по порталу. Ты не должен иметь необходимый источник, или другие данные для этого</value>
         <value xml:lang="vi">Không có dữ liệu trang của Cổng thông tin nào được tìm thấy. Bạn cần thêm dữ liệu.</value>
         <value xml:lang="zh">没有找到门户页面数据。你可能没有它所需的种子或其它数据。</value>
     </property>
@@ -6552,6 +6701,7 @@
         <value xml:lang="it">Nessun portlet in questa categoria.</value>
         <value xml:lang="ja">再度新規カテゴリを選択してください、カテゴリにポートレットはありません。</value>
         <value xml:lang="pt-BR">Por favor, escolha uma nova categoria de novo, sem portlet nesta categoria.</value>
+        <value xml:lang="ru">Пожалуйста, выберите новую категорию снова, В этой категории нету портлета</value>
         <value xml:lang="vi">Bạn hãy chọn Phân loại Quản lý khác, không có ứng dụng portlet trong Phân loại Quản lý này</value>
         <value xml:lang="zh">请再选择一次新建分类，这个分类中没有小窗口。</value>
     </property>
@@ -6597,6 +6747,7 @@
         <value xml:lang="fr">Aucun état ou province: _NA_</value>
         <value xml:lang="ja">都道府県/州/地方が存在しません: _適用外_</value>
         <value xml:lang="pt-BR">Nenhum estados/municípios existem: _NA_</value>
+        <value xml:lang="ru">Не сущестивует ни штата, ни провинции: _NA_</value>
         <value xml:lang="vi">Không Tỉnh/Thành nào tồn tại : _NA</value>
         <value xml:lang="zh">没有省：_NA_</value>
     </property>
@@ -6607,6 +6758,7 @@
         <value xml:lang="fr">Aucun état ou province</value>
         <value xml:lang="ja">都道府県/州/地方が存在しません</value>
         <value xml:lang="pt-BR">Nenhum estados/municípios existem</value>
+        <value xml:lang="ru">Не сущестивует ни штата, ни провинции: _NA_</value>
         <value xml:lang="vi">Không Tỉnh/Thành nào tồn tại</value>
         <value xml:lang="zh">没有省</value>
     </property>
@@ -6643,6 +6795,7 @@
         <value xml:lang="pt">Relação de Conversão UOM Não Encontrada</value>
         <value xml:lang="pt-BR">Relações para a conversão de unidades de medidas não encontradas</value>
         <value xml:lang="ro">Relatie Conversiune UdM Negasita</value>
+        <value xml:lang="ru">UOM преобразований отношений не найдено</value>
         <value xml:lang="th">UOM ไม่พบการเปลี่ยนแปลงความสัมพันธ์</value>
         <value xml:lang="vi">Thông tin chuyển đổi Đơn vị tính chưa có</value>
         <value xml:lang="zh">没有找到货币转换关系</value>
@@ -6678,6 +6831,7 @@
         <value xml:lang="ja">通常</value>
         <value xml:lang="nl">Normaal</value>
         <value xml:lang="pt-BR">Normal</value>
+        <value xml:lang="ru">Нормально</value>
         <value xml:lang="vi">Bình thường</value>
         <value xml:lang="zh">正常</value>
         <value xml:lang="zh-TW">正常</value>
@@ -6710,6 +6864,7 @@
         <value xml:lang="hi-IN">निर्दिष्ट नहीं </value>
         <value xml:lang="ja">割当なし</value>
         <value xml:lang="pt-BR">Não Atribuído</value>
+        <value xml:lang="ru">Не назначены</value>
         <value xml:lang="vi">Chưa gán việc</value>
         <value xml:lang="zh">未指派</value>
     </property>
@@ -6836,6 +6991,7 @@
         <value xml:lang="fr">Impossible de mettre à jour la note : ${errorString}</value>
         <value xml:lang="it">Non è possibile aggiornare i dati della nota (scrittura fallita): ${errorString}</value>
         <value xml:lang="ja">連絡データが更新できません (書き込み失敗): ${errorString}</value>
+        <value xml:lang="ru">Внимание, можете обновить данные (запись провалена) : ${errorString}</value>
         <value xml:lang="vi">Không thể cập nhật thông tin Ghi chú (lỗi ghi): ${errorString}</value>
         <value xml:lang="zh">无法更新便笺数据（写失败）：${errorString}</value>
     </property>
@@ -6864,6 +7020,7 @@
         <value xml:lang="fr">Erreur de distribution de courriel, voir le journal</value>
         <value xml:lang="it">Email delivery error, see error log</value>
         <value xml:lang="ja">メール配送エラー。エラーログを参照してください</value>
+        <value xml:lang="ru">Письмо доставлено с ошибкой, посмотрите лог файл</value>
         <value xml:lang="vi">Bên nhận thư điện tử không thành công, bạn hãy xem vết hệ thống</value>
         <value xml:lang="zh">邮件递送时出错，参见错误日志</value>
     </property>
@@ -6873,6 +7030,7 @@
         <value xml:lang="fr">Contenu du courriel non valide. Un contenu vide n'est pas permis</value>
         <value xml:lang="it">Corpo email invalido; null non è consentito</value>
         <value xml:lang="ja">メールの本文が正しくありません。空は許可されていません</value>
+        <value xml:lang="ru">Недействительно содержимое письма; </value>
         <value xml:lang="vi">Phần thân Thư điện tử không được để trống</value>
         <value xml:lang="zh">邮件主体无效；不允许是null</value>
     </property>
@@ -6882,6 +7040,7 @@
         <value xml:lang="fr">Contenu du courriel généré avec succès</value>
         <value xml:lang="it">Corpo messaggio generato con successo</value>
         <value xml:lang="ja">メッセージ本文が正しく生成されました</value>
+        <value xml:lang="ru">Тело сообщения сгенерированно успешно </value>
         <value xml:lang="vi">Nội dung thông điệp được tạo thành công</value>
         <value xml:lang="zh">成功生成邮件主体</value>
     </property>
@@ -6891,6 +7050,7 @@
         <value xml:lang="fr">Problèmpe lors de la récupération du modèle. Voir le journal pour plus de détail</value>
         <value xml:lang="it">Problema nella ricerca del template; controllare i logs</value>
         <value xml:lang="ja">テンプレートの検索中にエラー: ログを参照してください</value>
+        <value xml:lang="ru">Проблема поиска шаблона; смотрите логи </value>
         <value xml:lang="vi">Lỗi xảy ra khi tìm Biểu mẫu, bạn hãy xem vết hệ thống</value>
         <value xml:lang="zh">查找模板时出问题；参见日志</value>
     </property>
@@ -6900,6 +7060,7 @@
         <value xml:lang="fr">Problème lors de l'exécution du modèle. Voir le journal pour plus de détail</value>
         <value xml:lang="it">Problema nell'esecuzione del template; controllare gli errori nei logs</value>
         <value xml:lang="ja">テンプレートの処理中にエラー。エラーログを参照してください</value>
+        <value xml:lang="ru">Проблема с обработкой шаблонов, смотрите ошибки в логах </value>
         <value xml:lang="vi">Lỗi xảy ra khi xử lý Biểu mẫu, bạn hãy xem vết hệ thống</value>
         <value xml:lang="zh">处理模板时出错，参见错误日志</value>
     </property>
@@ -6909,6 +7070,7 @@
         <value xml:lang="fr">Problème dans la lecture du modèle. Voir le journal pour plus de détail</value>
         <value xml:lang="it">Problema nella lettura del template; controllare gli errori nei logs</value>
         <value xml:lang="ja">テンプレートの読み込み中にエラー。エラーログを参照してください</value>
+        <value xml:lang="ru">Проблема чтения шаблона, смотрите ошибки в логах </value>
         <value xml:lang="vi">Lỗi xảy ra khi đọc Biểu mẫu, bạn hãy xem vết hệ thống</value>
         <value xml:lang="zh">读取模板时出错，参见错误日志</value>
     </property>
@@ -6959,6 +7121,7 @@
         <value xml:lang="it">Numero</value>
         <value xml:lang="ja">数</value>
         <value xml:lang="pt-BR">Número</value>
+        <value xml:lang="ru">Номер </value>
         <value xml:lang="th">หมายเลข</value>
         <value xml:lang="vi">Số</value>
         <value xml:lang="zh">数字</value>
@@ -7048,6 +7211,7 @@
         <value xml:lang="it">Aperto</value>
         <value xml:lang="ja">開く</value>
         <value xml:lang="pt-BR">Abrir</value>
+        <value xml:lang="ru">Открыть </value>
         <value xml:lang="th">เปิด</value>
         <value xml:lang="vi">Mở</value>
         <value xml:lang="zh">打开</value>
@@ -7106,6 +7270,7 @@
         <value xml:lang="nl">+</value>
         <value xml:lang="pt">+</value>
         <value xml:lang="ro">+</value>
+        <value xml:lang="ru">+</value>
         <value xml:lang="th">+</value>
         <value xml:lang="vi">+</value>
         <value xml:lang="zh">+</value>
@@ -7214,6 +7379,7 @@
         <value xml:lang="es">Logo de la organización</value>
         <value xml:lang="fr">Logo de l'organisation</value>
         <value xml:lang="ja">組織ロゴ</value>
+        <value xml:lang="ru">Организация лого </value>
         <value xml:lang="th">โลโก้องค์กร</value>
         <value xml:lang="zh">机构图标</value>
     </property>
@@ -7263,6 +7429,7 @@
         <value xml:lang="it">Sommario</value>
         <value xml:lang="ja">概要</value>
         <value xml:lang="pt-BR">Resumo</value>
+        <value xml:lang="ru">Обзор</value>
         <value xml:lang="vi">Xem qua</value>
         <value xml:lang="zh">概览</value>
         <value xml:lang="zh-TW">概覽</value>
@@ -7295,6 +7462,7 @@
         <value xml:lang="it">Disattiva paginazione</value>
         <value xml:lang="ja">ページングしない</value>
         <value xml:lang="pt">Sem Paginação</value>
+        <value xml:lang="ru">Отключить подкачку </value>
         <value xml:lang="th">ปิดหน้า</value>
         <value xml:lang="vi">Tắt phân trang</value>
         <value xml:lang="zh">禁用分页</value>
@@ -7309,6 +7477,7 @@
         <value xml:lang="it">Attiva paginazione</value>
         <value xml:lang="ja">ページングする</value>
         <value xml:lang="pt">Com Paginação</value>
+        <value xml:lang="ru">Включить подкачку </value>
         <value xml:lang="th">เปิดหน้า</value>
         <value xml:lang="vi">Bật phân trang</value>
         <value xml:lang="zh">启用分页</value>
@@ -7323,6 +7492,7 @@
         <value xml:lang="it">Padre</value>
         <value xml:lang="ja">上位(親)</value>
         <value xml:lang="pt-BR">Nével acima</value>
+        <value xml:lang="ru">Родитель </value>
         <value xml:lang="vi">Cấp quản lý trên</value>
         <value xml:lang="zh">上级</value>
         <value xml:lang="zh-TW">上級</value>
@@ -7391,6 +7561,7 @@
         <value xml:lang="it">Abilità soggetto</value>
         <value xml:lang="ja">取引先スキル</value>
         <value xml:lang="pt-BR">Competências do participante</value>
+        <value xml:lang="ru">Party Навыки </value>
         <value xml:lang="th">ทักษะของกลุ่มผู้ใช้</value>
         <value xml:lang="vi">Kỹ năng của tác nhân</value>
         <value xml:lang="zh">会员技能</value>
@@ -7427,6 +7598,7 @@
         <value xml:lang="it">Per favore modifica la tua password</value>
         <value xml:lang="ja">パスワードを変更してください</value>
         <value xml:lang="pt-BR">Por favor altere sua senha</value>
+        <value xml:lang="ru">Пожалуйста поменяйте свой пароль </value>
         <value xml:lang="th">กรุณาเปลี่ยนรหัสผ่านของคุณ</value>
         <value xml:lang="vi">Vui lòng thay đổi mật khẩu</value>
         <value xml:lang="zh">请修改你的密码</value>
@@ -7438,6 +7610,7 @@
         <value xml:lang="es">Pago</value>
         <value xml:lang="fr">Paiement</value>
         <value xml:lang="ja">支払</value>
+        <value xml:lang="ru">Платеж </value>
         <value xml:lang="vi">Thanh toán</value>
         <value xml:lang="zh">支付</value>
     </property>
@@ -7487,6 +7660,7 @@
         <value xml:lang="it">Pdf</value>
         <value xml:lang="ja">PDF</value>
         <value xml:lang="pt-BR">Pdf</value>
+        <value xml:lang="ru">PDF </value>
         <value xml:lang="zh">PDF</value>
     </property>
     <property key="CommonPerform">
@@ -7582,6 +7756,7 @@
         <value xml:lang="it">questa operazione</value>
         <value xml:lang="ja">この権限</value>
         <value xml:lang="pt-BR">esta operação</value>
+        <value xml:lang="ru">эта операция </value>
         <value xml:lang="th">นี่คือการดำเนินการ</value>
         <value xml:lang="vi">hành động này</value>
         <value xml:lang="zh">这个操作</value>
@@ -7613,6 +7788,7 @@
         <value xml:lang="fr">Impossible de se connecter à la source de données</value>
         <value xml:lang="it">Non è possibile connettersi al datasource!</value>
         <value xml:lang="ja">データソースに接続できません!</value>
+        <value xml:lang="ru">Отсутствует соединение к источнику данных! </value>
         <value xml:lang="vi">Không thể kết nối đến nguồn dữ liệu</value>
         <value xml:lang="zh">无法连接到数据源！</value>
     </property>
@@ -7623,6 +7799,7 @@
         <value xml:lang="fr">Comptage invalide retourné par la source de données</value>
         <value xml:lang="it">Contantore invalido restituito dal database</value>
         <value xml:lang="ja">データベースから戻された件数が正しくありません</value>
+        <value xml:lang="ru">Неверный номер возвращаемый из базы данных</value>
         <value xml:lang="vi">Bộ đếm số lượng trả về từ cơ sở dữ liệu không hợp lệ</value>
         <value xml:lang="zh">从数据库返回的计数无效</value>
     </property>
@@ -7633,6 +7810,7 @@
         <value xml:lang="fr">SVP, entrer un nombre valide pour ce champ.</value>
         <value xml:lang="ja">正しい数字を入力してください。</value>
         <value xml:lang="pt-BR">Por favor insira um número válido neste campo.</value>
+        <value xml:lang="ru">Пожалуйста введите действительный номер в это поле</value>
         <value xml:lang="vi">Bạn hãy nhập số đúng định dạng cho trường này.</value>
         <value xml:lang="zh">请在本项中输入一个有效数字。</value>
     </property>
@@ -7643,6 +7821,7 @@
         <value xml:lang="fr">SVP, séléctionnez</value>
         <value xml:lang="ja">選択してください</value>
         <value xml:lang="pt-BR">Por favor, selecione</value>
+        <value xml:lang="ru">Пожалуйста выберите</value>
         <value xml:lang="vi">làm ơn hãy chọn</value>
         <value xml:lang="zh">请选择</value>
     </property>
@@ -7652,6 +7831,7 @@
         <value xml:lang="es">Por favor, seleccione todas las características primero.</value>
         <value xml:lang="fr">SVP, sélectionnez toutes les caractéristiques en premier</value>
         <value xml:lang="ja">最初にすべての機能を選択してください</value>
+        <value xml:lang="ru">Пожалуйста выберите сначала все функции</value>
         <value xml:lang="vi">Bạn hãy chọn tất cả Tính năng trước.</value>
         <value xml:lang="zh">请先选择全部特征。</value>
     </property>
@@ -7661,6 +7841,7 @@
         <value xml:lang="es">Pro favor, seleccione todas las opciones requeridas.</value>
         <value xml:lang="fr">SVP, sélectionnez toutes les options obligatoires</value>
         <value xml:lang="ja">最初に必要な機能をすべて選択してください</value>
+        <value xml:lang="ru">Пожалуйста выберите все требуемые опции</value>
         <value xml:lang="vi">Bạn hãy chọn tất cả các Tùy chọn bắt buộc.</value>
         <value xml:lang="zh">请选择全部必选项。</value>
     </property>
@@ -7671,6 +7852,7 @@
         <value xml:lang="fr">Merci de patienter ...</value>
         <value xml:lang="ja">しばらくお待ちください ...</value>
         <value xml:lang="pt-BR">por favor aguarde ...</value>
+        <value xml:lang="ru">пожалуйста подождите ...</value>
         <value xml:lang="vi">bạn hãy đợi ...</value>
         <value xml:lang="zh">请稍候...</value>
     </property>
@@ -7683,6 +7865,7 @@
         <value xml:lang="it">Categoria di pagine portale per applicazione</value>
         <value xml:lang="ja">業務ポートレットページのカテゴリ</value>
         <value xml:lang="pt-BR">Categoria de páginas de portlet para o aplicativo</value>
+        <value xml:lang="ru">Категория страниц портлета для приложения</value>
         <value xml:lang="vi">Phân loại Quản lý của các trang trên Cổng cho Ứng dụng</value>
         <value xml:lang="zh">应用程序的Portlet页面分类</value>
         <value xml:lang="zh-TW">應用程式的Portlet頁面分類</value>
@@ -7696,6 +7879,7 @@
         <value xml:lang="it">Aggiorna pagina portale</value>
         <value xml:lang="ja">ポータルページを編集</value>
         <value xml:lang="pt-BR">Editar página do portal</value>
+        <value xml:lang="ru">Редактирование страницы портала</value>
         <value xml:lang="vi">Sửa đổi trang trên Cổng</value>
         <value xml:lang="zh">编辑门户页面</value>
         <value xml:lang="zh-TW">編輯門戶頁面</value>
@@ -7709,6 +7893,7 @@
         <value xml:lang="it">Aggiungi una nuova pagina portale</value>
         <value xml:lang="ja">新規ポータルページを追加</value>
         <value xml:lang="pt-BR">Adicionar uma nova página do portal</value>
+        <value xml:lang="ru">Добавить новую страницу на портал</value>
         <value xml:lang="vi">Thêm Trang mới của Cổng</value>
         <value xml:lang="zh">添加一个新门户页面</value>
         <value xml:lang="zh-TW">添加一個新門戶頁面</value>
@@ -7722,6 +7907,7 @@
         <value xml:lang="it">Pagine portale per applicazione</value>
         <value xml:lang="ja">業務ポートレットページ</value>
         <value xml:lang="pt-BR">As páginas do portal para o aplicativo</value>
+        <value xml:lang="ru">Страницы портала для приложения</value>
         <value xml:lang="vi">Trang hiển thị của Ứng dụng</value>
         <value xml:lang="zh">应用程序门户页面</value>
         <value xml:lang="zh-TW">應用程式門戶頁面</value>
@@ -7771,6 +7957,7 @@
         <value xml:lang="it">Realizzato con</value>
         <value xml:lang="ja">Powered by</value>
         <value xml:lang="pt-BR">Powered by</value>
+        <value xml:lang="ru">Сделанно</value>
         <value xml:lang="vi">Tài trợ bởi</value>
         <value xml:lang="zh">运行平台</value>
         <value xml:lang="zh-TW">運行平台</value>
@@ -7781,6 +7968,7 @@
         <value xml:lang="es">Grupo de preferencias</value>
         <value xml:lang="fr">Groupe de préférences</value>
         <value xml:lang="ja">設定グループ</value>
+        <value xml:lang="ru">Предпочтительные группы</value>
         <value xml:lang="vi">Nhóm tham chiếu</value>
         <value xml:lang="zh">设置的组</value>
     </property>
@@ -7790,6 +7978,7 @@
         <value xml:lang="es">Nombre de la preferencia</value>
         <value xml:lang="fr">Nom de la préférence</value>
         <value xml:lang="ja">設定名称</value>
+        <value xml:lang="ru">Предпочтительные имена</value>
         <value xml:lang="vi">Tên tham chiếu</value>
         <value xml:lang="zh">设置的名称</value>
     </property>
@@ -7802,6 +7991,7 @@
         <value xml:lang="it">Preferenze</value>
         <value xml:lang="ja">設定</value>
         <value xml:lang="pt-BR">Preferências</value>
+        <value xml:lang="ru">Предпочтения</value>
         <value xml:lang="vi">Tham chiếu</value>
         <value xml:lang="zh">设置</value>
         <value xml:lang="zh-TW">設置</value>
@@ -7831,6 +8021,7 @@
         <value xml:lang="es">Vista previa</value>
         <value xml:lang="fr">Prévisualisation</value>
         <value xml:lang="ja">プレビュー</value>
+        <value xml:lang="ru">Анонс</value>
         <value xml:lang="th">แสดงตัวอย่าง</value>
         <value xml:lang="vi">Xem trước</value>
         <value xml:lang="zh">预览</value>
@@ -7898,6 +8089,7 @@
         <value xml:lang="it">Stampa amichevole</value>
         <value xml:lang="ja">通常使うプリンタ</value>
         <value xml:lang="pt-BR">Versão para impressão</value>
+        <value xml:lang="ru">Версия для печати</value>
         <value xml:lang="vi">Máy in quen dùng</value>
         <value xml:lang="zh">适合打印机打印</value>
         <value xml:lang="zh-TW">適合印表機列印</value>
@@ -8266,6 +8458,7 @@
         <value xml:lang="it">Motivazione</value>
         <value xml:lang="ja">理由</value>
         <value xml:lang="pt-BR">Razão</value>
+        <value xml:lang="ru">Причина</value>
         <value xml:lang="vi">Lý do</value>
         <value xml:lang="zh">原因</value>
         <value xml:lang="zh-TW">原因</value>
@@ -8433,6 +8626,7 @@
         <value xml:lang="it">Informazioni relative</value>
         <value xml:lang="ja">関連情報</value>
         <value xml:lang="pt-BR">Informações relacionadas</value>
+        <value xml:lang="ru">Связанная информация</value>
         <value xml:lang="vi">Thông tin liên quan</value>
         <value xml:lang="zh">相关信息</value>
         <value xml:lang="zh-TW">相關資訊</value>
@@ -8443,6 +8637,7 @@
         <value xml:lang="es">Distribución</value>
         <value xml:lang="fr">Distribution</value>
         <value xml:lang="ja">リリース</value>
+        <value xml:lang="ru">Релиз</value>
         <value xml:lang="vi">Ban hành</value>
         <value xml:lang="zh">发布</value>
     </property>
@@ -8453,6 +8648,7 @@
         <value xml:lang="fr">Date de distribution</value>
         <value xml:lang="ja">リリース日</value>
         <value xml:lang="pt-BR">Data de Lançamento</value>
+        <value xml:lang="ru">Дата релиза</value>
         <value xml:lang="vi">Ngày ban hành</value>
         <value xml:lang="zh">发布日期</value>
     </property>
@@ -8466,6 +8662,7 @@
         <value xml:lang="ja">Release Version</value>
         <value xml:lang="pt">1.0.0-Preview</value>
         <value xml:lang="pt-BR">Versão de Lançamento</value>
+        <value xml:lang="ru">Версия релиза</value>
         <value xml:lang="th">เวอร์ชันใหม่</value>
         <value xml:lang="vi">Ban hành phiên bản</value>
         <value xml:lang="zh">发布版本</value>
@@ -8478,6 +8675,7 @@
         <value xml:lang="fr">Recharger le code captcha</value>
         <value xml:lang="ja">キャプチャコードを再ロード</value>
         <value xml:lang="pt-BR">Recarregar Código Captcha</value>
+        <value xml:lang="ru">Перезагрузка Captcha Code</value>
         <value xml:lang="vi">Tải lại mã ảnh xác thực</value>
         <value xml:lang="zh">刷新验证码</value>
     </property>
@@ -8529,6 +8727,7 @@
         <value xml:lang="it">Rimuovi il portlet</value>
         <value xml:lang="ja">ポートレットを削除</value>
         <value xml:lang="pt-BR">Remover Portlet</value>
+        <value xml:lang="ru">Версия релиза</value>
         <value xml:lang="vi">Gỡ bỏ ứng dụng porlet</value>
         <value xml:lang="zh">删除Portlet</value>
         <value xml:lang="zh-TW">刪除Portlet</value>
@@ -8540,6 +8739,7 @@
         <value xml:lang="fr">Etat</value>
         <value xml:lang="ja">レポート</value>
         <value xml:lang="pt-BR">Relatório</value>
+        <value xml:lang="ru">Отчет</value>
         <value xml:lang="vi">Báo cáo</value>
         <value xml:lang="zh">报表</value>
     </property>
@@ -8568,6 +8768,7 @@
         <value xml:lang="es">Reconsulta</value>
         <value xml:lang="fr">Réinterroger</value>
         <value xml:lang="ja">再問合</value>
+        <value xml:lang="ru">Повторный запрос</value>
         <value xml:lang="vi">Truy vấn lại</value>
         <value xml:lang="zh">重新查询</value>
     </property>
@@ -8697,6 +8898,7 @@
         <value xml:lang="it">Riporta all'originale</value>
         <value xml:lang="ja">オリジナルに戻す</value>
         <value xml:lang="pt-BR">Reverter para o original</value>
+        <value xml:lang="ru">Вернуть оригинал</value>
         <value xml:lang="th">แปลงเป็นต้นฉบับ</value>
         <value xml:lang="vi">thiết lập về nguyên gốc</value>
         <value xml:lang="zh">转为原来的</value>
@@ -8752,6 +8954,7 @@
         <value xml:lang="it">righe</value>
         <value xml:lang="ja">行</value>
         <value xml:lang="pt-BR">linhas</value>
+        <value xml:lang="ru">Строки</value>
         <value xml:lang="th">แถว</value>
         <value xml:lang="vi">các dòng</value>
         <value xml:lang="zh">行</value>
@@ -8865,6 +9068,7 @@
         <value xml:lang="it">Opzioni di ricerca</value>
         <value xml:lang="ja">検索オプション</value>
         <value xml:lang="pt-BR">Opções de pesquisa</value>
+        <value xml:lang="ru">Опции поиска</value>
         <value xml:lang="vi">Tuỳ chọn tìm kiếm</value>
         <value xml:lang="zh">搜索选项</value>
         <value xml:lang="zh-TW">搜索選項</value>
@@ -8901,6 +9105,7 @@
         <value xml:lang="ja">検索結果</value>
         <value xml:lang="nl">Zoekresultaten</value>
         <value xml:lang="pt-BR">Resultados da Pesquisa</value>
+        <value xml:lang="ru">Результаты поиска</value>
         <value xml:lang="vi">Kết quả tìm kiếm</value>
         <value xml:lang="zh">搜索结果</value>
         <value xml:lang="zh-TW">搜索結果</value>
@@ -9084,6 +9289,7 @@
         <value xml:lang="it">Seleziona pagina...</value>
         <value xml:lang="ja">ポータルページを選択...</value>
         <value xml:lang="pt-BR">Selecione Página do Portal ...</value>
+        <value xml:lang="ru">Выбрать страницу портала...</value>
         <value xml:lang="vi">Lựa chọn cổng thông tin...</value>
         <value xml:lang="zh">选择门户页面...</value>
         <value xml:lang="zh-TW">選擇門戶頁面...</value>
@@ -9094,6 +9300,7 @@
         <value xml:lang="es">Seleccione un portlet del que desee obtener ayuda....</value>
         <value xml:lang="fr">Liste des portlets contenues dans cette page, sélectionnez celle pour laquelle vous souhaitez de l'aide</value>
         <value xml:lang="ja">ヘルプを参照したいポートレットを選択してください....</value>
+        <value xml:lang="ru">Выберите портлет, который вам может помочь</value>
         <value xml:lang="vi">Lựa chọn một ứng dụng porlet mà muốn có sự giúp đỡ...</value>
         <value xml:lang="zh">选择一个你希望有帮助信息的小窗口...</value>
     </property>
@@ -9313,6 +9520,7 @@
     <property key="CommonServerHour">
         <value xml:lang="en">Server Hour</value>
         <value xml:lang="fr">Heure du serveur </value>
+        <value xml:lang="ru">Час сервера</value>
         <value xml:lang="zh">服务器小时</value>
     </property>
     <property key="CommonServiceReturnError">
@@ -9321,6 +9529,7 @@
         <value xml:lang="fr">Le service a retourné une erreur</value>
         <value xml:lang="it">Servizio ha restituito un'errore: errore restituito</value>
         <value xml:lang="ja">サービスがエラーを戻しました</value>
+        <value xml:lang="ru">Вернулась серверная ошибка: Вернулась ошибка</value>
         <value xml:lang="vi">Dịch vụ thực hiện không thành công : trả về lỗi</value>
         <value xml:lang="zh">返回错误服务：正在返回错误</value>
     </property>
@@ -9330,6 +9539,7 @@
         <value xml:lang="es">No está conectado. Por favor, vuelva a conectarse.</value>
         <value xml:lang="fr">Votre session est terminée. Veuillez vous identifier à nouveau pour utiliser l'application.  Pour vous connecter, vous pouvez actualiser la page, sauvegarder vos données ou utiliser le lien Connexion (ou Déconnexion) en haut à droite.</value>
         <value xml:lang="ja">セッションは失効しています。ログインしてください。ログインすると画面が更新され、データを保存できます。</value>
+        <value xml:lang="ru">Ваше время сессии истекло. Требуется авторизация. Вы можете обновить страницу или сохранить ваши данные после авторизации...</value>
         <value xml:lang="vi">Bạn chưa đăng nhập. Vui lòng đăng nhập lại.</value>
         <value xml:lang="zh">你的会话过期了。必须登录。你可以刷新本页或保存你的登录数据。</value>
     </property>
@@ -9361,6 +9571,7 @@
         <value xml:lang="it">Imposta Come Attuale</value>
         <value xml:lang="ja">現在を設定</value>
         <value xml:lang="pt-BR">Definir como atual</value>
+        <value xml:lang="ru">Час сервера</value>
         <value xml:lang="th">ตั้งเป็นปัจจุบัน</value>
         <value xml:lang="vi">Thiết lập là hiện tại</value>
         <value xml:lang="zh">设置为当前</value>
@@ -9375,6 +9586,7 @@
         <value xml:lang="it">Imposta larghezza colonna</value>
         <value xml:lang="ja">列幅を設定...</value>
         <value xml:lang="pt-BR">Definir largura da coluna</value>
+        <value xml:lang="ru">Поставьте ширину столбца</value>
         <value xml:lang="vi">Thiết lập độ rộng cột</value>
         <value xml:lang="zh">设置列宽度...</value>
         <value xml:lang="zh-TW">設置列寬度...</value>
@@ -9409,6 +9621,7 @@
         <value xml:lang="ja">発送</value>
         <value xml:lang="nl">Verzending</value>
         <value xml:lang="pt-BR">Frete</value>
+        <value xml:lang="ru">Отправление</value>
         <value xml:lang="vi">Vận chuyển</value>
         <value xml:lang="zh">运输</value>
         <value xml:lang="zh-TW">運輸</value>
@@ -9423,6 +9636,7 @@
         <value xml:lang="ja">買い物かご</value>
         <value xml:lang="nl">Winkelwagen</value>
         <value xml:lang="pt-BR">Carrinho</value>
+        <value xml:lang="ru">Корзина</value>
         <value xml:lang="vi">Giỏ hàng</value>
         <value xml:lang="zh">购物车</value>
         <value xml:lang="zh-TW">購物車</value>
@@ -9530,6 +9744,7 @@
         <value xml:lang="es">Talla</value>
         <value xml:lang="fr">Taille</value>
         <value xml:lang="ja">サイズ</value>
+        <value xml:lang="ru">Размер</value>
         <value xml:lang="th">ขนาด</value>
         <value xml:lang="vi">Cỡ</value>
         <value xml:lang="zh">尺寸</value>
@@ -9543,6 +9758,7 @@
         <value xml:lang="it">Salta navigazione</value>
         <value xml:lang="ja">ナビゲーションをスキップ</value>
         <value xml:lang="pt-BR">Pular navegação</value>
+        <value xml:lang="ru">Пропустить навигацию</value>
         <value xml:lang="vi">Đến thẳng</value>
         <value xml:lang="zh">跳过导航</value>
         <value xml:lang="zh-TW">跳過導航</value>
@@ -9786,6 +10002,7 @@
         <value xml:lang="fr">Le paramêtre statusTypeIds ne peut être vide et doit contenir au moins un élément</value>
         <value xml:lang="it">Parametro statusTypeIds non può essere nullo e deve contenere almeno un'elemento</value>
         <value xml:lang="ja">パラメータ statusTypeIds は空にできません。少なくとも1つの要素が必要です。</value>
+        <value xml:lang="ru">Параметр statusTypeIds не может быть null и должен содержать хотя бы один элемент</value>
         <value xml:lang="zh">参数 statusTypeIds 不能是null，并且必须至少有一个元素</value>
     </property>
     <property key="CommonStatustoComplete">
@@ -9797,6 +10014,7 @@
         <value xml:lang="it">Stato a 'completo'</value>
         <value xml:lang="ja">ｽﾃｰﾀｽを'完了'</value>
         <value xml:lang="pt-BR">Alterar estado para "completo"</value>
+        <value xml:lang="ru">Статус к "выполнено"</value>
         <value xml:lang="th">สถานะเป็น 'เสร็จสมบูรณ์'</value>
         <value xml:lang="vi">Trạng thái là 'hoàn thành'</value>
         <value xml:lang="zh">把状态设为完成</value>
@@ -9908,6 +10126,7 @@
         <value xml:lang="es">Creado correctamente.</value>
         <value xml:lang="fr">Créé avec succès.</value>
         <value xml:lang="ja">正しく作成されました。</value>
+        <value xml:lang="ru">Успешно создано.</value>
         <value xml:lang="vi">Tạo mới thành công</value>
         <value xml:lang="zh">新建成功。</value>
     </property>
@@ -9920,6 +10139,7 @@
         <value xml:lang="it">Sommario</value>
         <value xml:lang="ja">合計</value>
         <value xml:lang="pt-BR">Resumo</value>
+        <value xml:lang="ru">Резюме</value>
         <value xml:lang="vi">Tóm lược</value>
         <value xml:lang="zh">综述</value>
         <value xml:lang="zh-TW">綜述</value>
@@ -10031,6 +10251,7 @@
         <value xml:lang="ja">税</value>
         <value xml:lang="nl">Belasting</value>
         <value xml:lang="pt-BR">Imposto</value>
+        <value xml:lang="ru">Налог</value>
         <value xml:lang="vi">Thuế</value>
         <value xml:lang="zh">税</value>
         <value xml:lang="zh-TW">稅</value>
@@ -10082,6 +10303,7 @@
         <value xml:lang="fr">Instance</value>
         <value xml:lang="ja">テナントID</value>
         <value xml:lang="pt-BR">ID de Inquilino</value>
+        <value xml:lang="ru">ID клиента</value>
         <value xml:lang="vi">Id Doanh nghiệp ảo hóa</value>
         <value xml:lang="zh">承租人标识</value>
     </property>
@@ -10113,6 +10335,7 @@
         <value xml:lang="fr">Test d'annulation transactionnelle</value>
         <value xml:lang="it">Rolling back!</value>
         <value xml:lang="ja">ロールバック中!</value>
+        <value xml:lang="ru">Откат</value>
         <value xml:lang="vi">Khôi phục về!</value>
         <value xml:lang="zh">正在回滚！</value>
     </property>
@@ -10145,6 +10368,7 @@
         <value xml:lang="ja"></value>
         <value xml:lang="nl">de</value>
         <value xml:lang="pt-BR">O</value>
+        <value xml:lang="ru">Это</value>
         <value xml:lang="th">ที่</value>
         <value xml:lang="vi">Cái</value>
         <value xml:lang="zh"> </value>
@@ -10159,6 +10383,7 @@
         <value xml:lang="ja">次の必須項目が入力されていません</value>
         <value xml:lang="nl">De volgende verplichte velden waren leeg</value>
         <value xml:lang="pt-BR">Os seguintes campos obrigatórios foram encontrados vazios</value>
+        <value xml:lang="ru">Следующие требуемые поля были найдены пустыми</value>
         <value xml:lang="th">ตามฟิลด์ที่ต้องการซึ่งพบว่ามันว่าง</value>
         <value xml:lang="vi">Các 'trường Thông tin bắt buộc phải nhập' sau đây hiện chưa được nhập</value>
         <value xml:lang="zh">发现下列必须的数据项是空的</value>
@@ -10312,6 +10537,7 @@
         <value xml:lang="ja">タイムゾーン</value>
         <value xml:lang="nl">Tijdzone</value>
         <value xml:lang="pt-BR">Fuso horário</value>
+        <value xml:lang="ru">Часовой пояс</value>
         <value xml:lang="th">โซนเวลา</value>
         <value xml:lang="vi">Múi giờ</value>
         <value xml:lang="zh">时区</value>
@@ -10731,6 +10957,7 @@
         <value xml:lang="es">Ha ocurrido un error no contemplado!</value>
         <value xml:lang="fr">Une erreur non identifiée s'est produite</value>
         <value xml:lang="ja">予期しないエラーが発生しました!</value>
+        <value xml:lang="ru">Неизвестная ошибка!</value>
         <value xml:lang="vi">Xuất hiện lỗi không xác định!</value>
         <value xml:lang="zh">发生了一个不明错误！</value>
     </property>
@@ -10766,6 +10993,7 @@
         <value xml:lang="pt">UOM</value>
         <value xml:lang="pt-BR">UDM</value>
         <value xml:lang="ro">UdM</value>
+        <value xml:lang="ru">UOM</value>
         <value xml:lang="th">หน่วยวัด</value>
         <value xml:lang="vi">Đơn vị tính</value>
         <value xml:lang="zh">货币单位</value>
@@ -10898,6 +11126,7 @@
         <value xml:lang="en">Updating data</value>
         <value xml:lang="fr">Mise à jour des données</value>
         <value xml:lang="ja">データ更新中</value>
+        <value xml:lang="ru">UOM</value>
         <value xml:lang="vi">Đang cập nhật dữ liệu</value>
         <value xml:lang="zh">正在更新数据</value>
     </property>
@@ -11142,6 +11371,7 @@
         <value xml:lang="fr">Vérifier le code captcha</value>
         <value xml:lang="ja">キャプチャコードを確認</value>
         <value xml:lang="pt-BR">Verifique o Código Captcha</value>
+        <value xml:lang="ru">Подтвердить Captcha Code</value>
         <value xml:lang="vi">Mã ảnh xác thực</value>
         <value xml:lang="zh">验证验证码</value>
     </property>
@@ -11176,6 +11406,7 @@
         <value xml:lang="ja">このビューへのアクセスはブロックされました。</value>
         <value xml:lang="nl">Toegang tot dit scherm is geblokkeerd.</value>
         <value xml:lang="pt-BR">O acesso a esta visualização foi bloqueada.</value>
+        <value xml:lang="ru">Доступ к этому виду - запрещен</value>
         <value xml:lang="vi">Quyền truy cập tới giao diện này hiện đã bị khoá</value>
         <value xml:lang="zh">已经禁止访问这个浏览了。</value>
         <value xml:lang="zh-TW">已經禁止訪問這個瀏覽了。</value>
@@ -11230,6 +11461,7 @@
         <value xml:lang="ja">訪問者</value>
         <value xml:lang="nl">Bezoekers</value>
         <value xml:lang="pt-BR">Visitantes</value>
+        <value xml:lang="ru">Посетители</value>
         <value xml:lang="vi">Người duyệt</value>
         <value xml:lang="zh">访问者</value>
         <value xml:lang="zh-TW">訪問者</value>
@@ -11244,6 +11476,7 @@
         <value xml:lang="ja">外観のテーマ</value>
         <value xml:lang="nl">Visueel thema</value>
         <value xml:lang="pt-BR">Tema visual</value>
+        <value xml:lang="ru">Визуальные темы</value>
         <value xml:lang="vi">Giao diện đồ họa</value>
         <value xml:lang="zh">视觉风格</value>
         <value xml:lang="zh-TW">視覺風格</value>
@@ -11258,6 +11491,7 @@
         <value xml:lang="ja">外観のテーマIDが見つかりません</value>
         <value xml:lang="nl">Visueel thema niet gevonden</value>
         <value xml:lang="pt-BR">ID de Tema Visual não foi encontrado.</value>
+        <value xml:lang="ru">ID визуальной теме не найдено.</value>
         <value xml:lang="vi">Giao diện không tìm thấy.</value>
         <value xml:lang="zh">没有找到视觉风格标识。</value>
         <value xml:lang="zh-TW">視覺風格ID找不到。</value>
@@ -11271,6 +11505,7 @@
         <value xml:lang="it">Risorsa tema grafico non trovato: visualThemeId = ${visualThemeId}, resourceTypeEnumId = ${resourceTypeEnumId}.</value>
         <value xml:lang="ja">外観のテーマリソースが正しくありません: visualThemeId = ${visualThemeId}, resourceTypeEnumId = ${resourceTypeEnumId}。</value>
         <value xml:lang="pt-BR">Registro inválido de Tema visual encontrado: visualThemeId = ${visualThemeId}, resourceTypeEnumId = ${resourceTypeEnumId}.</value>
+        <value xml:lang="ru">Недействительная запись ресурса визуальной темы найдено: visualThemeId = ${visualThemeId}, resourceTypeEnumId = ${resourceTypeEnumId}.</value>
         <value xml:lang="vi">Thông tin Giao diện (theme) không phù hợp : visualThemeId = ${visualThemeId}, resourceTypeEnumId = ${resourceTypeEnumId}.</value>
         <value xml:lang="zh">找到了无效的视觉风格资源记录：visualThemeId = ${visualThemeId}, resourceTypeEnumId = ${resourceTypeEnumId}。</value>
         <value xml:lang="zh-TW">找到了無效的視覺風格資源記錄：visualThemeId = ${visualThemeId}, resourceTypeEnumId = ${resourceTypeEnumId}。</value>
@@ -11285,6 +11520,7 @@
         <value xml:lang="ja">スクリーンショットはありません</value>
         <value xml:lang="nl">Geen schermafbeeldingen</value>
         <value xml:lang="pt-BR">Sem capturas de telas</value>
+        <value xml:lang="ru">Скриншотов нет.</value>
         <value xml:lang="vi">Không có Ảnh màn hình minh họa</value>
         <value xml:lang="zh">没有屏幕截图</value>
         <value xml:lang="zh-TW">沒有螢幕截圖</value>
@@ -11298,6 +11534,7 @@
         <value xml:lang="it">Risorse tema grafico non trovate.</value>
         <value xml:lang="ja">外観のテーマリソースが見つかりません。</value>
         <value xml:lang="pt-BR">Recursos do tema visual não encontrado.</value>
+        <value xml:lang="ru">Ресурсы визуальной темы не найдены.</value>
         <value xml:lang="vi">Thông tin Giao diện không tìm thấy</value>
         <value xml:lang="zh">没有找到视觉风格资源。</value>
         <value xml:lang="zh-TW">沒有找到視覺風格資源。</value>
@@ -11311,6 +11548,7 @@
         <value xml:lang="it">Tema grafico selezionato</value>
         <value xml:lang="ja">選択した外観のテーマ</value>
         <value xml:lang="pt-BR">Tema visual selecionado</value>
+        <value xml:lang="ru">Выбранная визуальная тема.</value>
         <value xml:lang="vi">Lựa chọn giao diện</value>
         <value xml:lang="zh">已选择的视觉风格</value>
         <value xml:lang="zh-TW">已選擇的視覺風格</value>
@@ -11320,6 +11558,7 @@
         <value xml:lang="es">Click en una imagen para obtener una vista previa, en un enlace para seleccionar un tema, y después en Hecho para validar la elección</value>
         <value xml:lang="fr">Cliquer sur l'image pour afficher un aperçu, sur le lien pour sélectionner le thème puis sur terminer pour valider votre choix</value>
         <value xml:lang="ja">プレビューするには画像を、テーマを選択するにはリンクを、選択を有効にするには完了をクリックしてください。</value>
+        <value xml:lang="ru">Нажмите на картинку для предварительного просмотра, на ссылке выбранной темы, и затем сделайте потверждение вашего выбора</value>
         <value xml:lang="vi">Bạn có thể xem trước Giao diện bằng cách bấm vào hình, sau đó vào liên kết chọn giao diện, và bấm vào nút 'Hoàn tất' để thực hiện thiết lập Giao diện</value>
         <value xml:lang="zh">点击图片来预览，点击连接来选择风格，然后点击“完成”来让你的选择生效</value>
     </property>
@@ -11333,6 +11572,7 @@
         <value xml:lang="ja">外観のテーマ</value>
         <value xml:lang="nl">Visuele themas</value>
         <value xml:lang="pt-BR">Temas Visuais</value>
+        <value xml:lang="ru">Визуальные темы</value>
         <value xml:lang="vi">Giao diện</value>
         <value xml:lang="zh">视觉风格</value>
         <value xml:lang="zh-TW">視覺風格</value>
@@ -11482,6 +11722,7 @@
         <value xml:lang="ja">OFBizダッシュボードにようこそ</value>
         <value xml:lang="nl">Welkom in het OFBiz dashboard</value>
         <value xml:lang="pt-BR">Bem-vindo ao painel do OFBiz</value>
+        <value xml:lang="ru">Добро пожаловать в Доску знаний Офбиза</value>
         <value xml:lang="vi">Chào mừng đến với Giao diện điều khiển trung tâm của OFBiz</value>
         <value xml:lang="zh">欢迎使用OFBiz个人主页</value>
         <value xml:lang="zh-TW">歡迎使用OFBiz個人主頁</value>
@@ -11852,6 +12093,7 @@
         <value xml:lang="it">eBay</value>
         <value xml:lang="ja">eBay</value>
         <value xml:lang="pt-BR">eBay</value>
+        <value xml:lang="ru">eBay</value>
         <value xml:lang="th">อีเบย์</value>
         <value xml:lang="zh">eBay</value>
         <value xml:lang="zh-TW">電子灣</value>
@@ -11882,6 +12124,7 @@
         <value xml:lang="it">Esempi est.</value>
         <value xml:lang="ja">サンプル拡張</value>
         <value xml:lang="pt-BR">Exemplo Ext</value>
+        <value xml:lang="ru">Пример ext</value>
         <value xml:lang="th">ตัวอย่างพิเศษ</value>
         <value xml:lang="vi">Ví dụ mở rộng</value>
         <value xml:lang="zh">样例扩展</value>
@@ -11910,6 +12153,7 @@
         <value xml:lang="en">Inventory management, Facility, location, Shipment, Receipt, Physical Inventory</value>
         <value xml:lang="fr">Gestion des stocks, lieux de stockage, emplacement, expédition, réception, inventaire</value>
         <value xml:lang="ja">在庫管理、拠点、位置、発送、受領、物理在庫</value>
+        <value xml:lang="ru">Управление инвентарем, объект, местность, отправление, получение, переучет</value>
         <value xml:lang="vi">Quản lý Kho bãi, Chi nhánh / Cơ sở, Địa điểm, Vận chuyển, Nhận hàng và Kho vật lý</value>
         <value xml:lang="zh">库存管理，包括场、地点、送货、收货、物理库存</value>
     </property>
@@ -11936,6 +12180,7 @@
         <value xml:lang="fr">Accepter</value>
         <value xml:lang="ja">受付</value>
         <value xml:lang="pt-BR">Aceitar</value>
+        <value xml:lang="ru">Принять</value>
         <value xml:lang="vi">Đồng ý</value>
         <value xml:lang="zh">接受</value>
     </property>
@@ -11944,6 +12189,7 @@
         <value xml:lang="es">Acción</value>
         <value xml:lang="fr">Action</value>
         <value xml:lang="ja">アクション</value>
+        <value xml:lang="ru">Действие</value>
         <value xml:lang="vi">Hành động</value>
         <value xml:lang="zh">操作</value>
     </property>
@@ -12034,6 +12280,7 @@
         <value xml:lang="es">Comando a llamar</value>
         <value xml:lang="fr">Cmd d'appel</value>
         <value xml:lang="ja">呼び出しコマンド</value>
+        <value xml:lang="ru">вызов CMD</value>
         <value xml:lang="zh">要调用的命令</value>
     </property>
     <property key="FormFieldTitle_comments">
@@ -12059,6 +12306,7 @@
         <value xml:lang="es">Confirmar</value>
         <value xml:lang="fr">Confirmer</value>
         <value xml:lang="ja">確認</value>
+        <value xml:lang="ru">Подтвердить</value>
         <value xml:lang="th">ยืนยัน</value>
         <value xml:lang="vi">Xác nhận</value>
         <value xml:lang="zh">确认</value>
@@ -12146,6 +12394,7 @@
         <value xml:lang="it">Creato dall'utente</value>
         <value xml:lang="ja">作成ユーザID</value>
         <value xml:lang="pt-BR">Criado através de um login de usuário de ID</value>
+        <value xml:lang="ru">Создано Пользователем ID</value>
         <value xml:lang="vi">Tạo bởi Người dùng đăng nhập</value>
         <value xml:lang="zh">由用户登录标识创建</value>
         <value xml:lang="zh-TW">由使用者ID建立</value>
@@ -12177,6 +12426,7 @@
         <value xml:lang="it">Data/ora creazione</value>
         <value xml:lang="ja">処理刻印</value>
         <value xml:lang="pt-BR">Selo Tx Criado</value>
+        <value xml:lang="ru">Создано Tx печатью</value>
         <value xml:lang="vi">Thời gian tạo</value>
         <value xml:lang="zh">已创建的印花税</value>
         <value xml:lang="zh-TW">已建立的印花稅</value>
@@ -12208,6 +12458,7 @@
         <value xml:lang="it">Numero di ricorrenze attuale</value>
         <value xml:lang="ja">現在繰り返し回数</value>
         <value xml:lang="pt-BR">Contagem de recorrências atual</value>
+        <value xml:lang="ru">Текущий счетчик возврата</value>
         <value xml:lang="vi">Số lần lặp lại</value>
         <value xml:lang="zh">当前并发计数</value>
         <value xml:lang="zh-TW">當前並發計數</value>
@@ -12221,6 +12472,7 @@
         <value xml:lang="it">Stato attuale</value>
         <value xml:lang="ja">現在のステータスID</value>
         <value xml:lang="pt-BR">ID do Estado atual</value>
+        <value xml:lang="ru">Статус текущего ID</value>
         <value xml:lang="vi">Mã tình trạng hiện tại</value>
         <value xml:lang="zh">当前状态标识</value>
         <value xml:lang="zh-TW">目前狀態ID</value>
@@ -12284,6 +12536,7 @@
         <value xml:lang="es">Emplazamiento dispositivo</value>
         <value xml:lang="fr">Emplacement</value>
         <value xml:lang="ja">デバイス位置</value>
+        <value xml:lang="ru">Локация устройств</value>
         <value xml:lang="vi">Vị trí thiết bị</value>
         <value xml:lang="zh">设备地点</value>
     </property>
@@ -12337,6 +12590,7 @@
         <value xml:lang="es">Código acción dispositivo externo</value>
         <value xml:lang="fr">Obj. de l'action</value>
         <value xml:lang="ja">外部デバイス目的アクションID</value>
+        <value xml:lang="ru">Цель действия экстренного устройства ID</value>
         <value xml:lang="zh">外部设备目的操作标识</value>
     </property>
     <property key="FormFieldTitle_externalDeviceId">
@@ -12344,6 +12598,7 @@
         <value xml:lang="es">Código dispositivo externo</value>
         <value xml:lang="fr">Réf. Mat. Externe</value>
         <value xml:lang="ja">外部デバイスID</value>
+        <value xml:lang="ru">ID экстренного устройства</value>
         <value xml:lang="vi">Thiết bị ngoài</value>
         <value xml:lang="zh">外部设备标识</value>
     </property>
@@ -12352,6 +12607,7 @@
         <value xml:lang="es">Código tipo dispositivo externo</value>
         <value xml:lang="fr">Type de Mat. Externe</value>
         <value xml:lang="ja">外部デバイス種類ID</value>
+        <value xml:lang="ru">Тип экстренного устройства ID</value>
         <value xml:lang="vi">Loại thiết bị ngoài</value>
         <value xml:lang="zh">外部设备类型标识</value>
     </property>
@@ -12454,6 +12710,7 @@
         <value xml:lang="it">Ultimo aggiornamento data/ora</value>
         <value xml:lang="ja">最終更新処理刻印</value>
         <value xml:lang="pt-BR">Última atualização de Selo Tx</value>
+        <value xml:lang="ru">Последнее обновление Tx печати</value>
         <value xml:lang="vi">Thời gian cập nhật gần nhất</value>
         <value xml:lang="zh">上次更新的印花税</value>
         <value xml:lang="zh-TW">上次更新的印花稅</value>
@@ -12485,6 +12742,7 @@
         <value xml:lang="it">Numero massimo di ricorrenze</value>
         <value xml:lang="ja">最大繰り返し回数</value>
         <value xml:lang="pt-BR">Contagem de Recorrências Máxima</value>
+        <value xml:lang="ru">Максимальный возврат счетчика</value>
         <value xml:lang="vi">Số lần lặp tối đa</value>
         <value xml:lang="zh">最大并发数量</value>
         <value xml:lang="zh-TW">最大並發數量</value>
@@ -12498,6 +12756,7 @@
         <value xml:lang="it">Modificato dall'utente</value>
         <value xml:lang="ja">更新ユーザID</value>
         <value xml:lang="pt-BR">Modificado por Login de usuário Id</value>
+        <value xml:lang="ru">Модифицированно пользователем ID</value>
         <value xml:lang="vi">Chỉnh sửa bởi người dùng đăng nhập</value>
         <value xml:lang="zh">由用户登录标识修改</value>
         <value xml:lang="zh-TW">修改的使用者</value>
@@ -12510,6 +12769,7 @@
         <value xml:lang="it">Codice pagina portale originale</value>
         <value xml:lang="ja">元のページ</value>
         <value xml:lang="pt-BR">Página original</value>
+        <value xml:lang="ru">Оригинальная страница</value>
         <value xml:lang="vi">Trang nguyên gốc</value>
         <value xml:lang="zh">原页面</value>
     </property>
@@ -12521,6 +12781,7 @@
         <value xml:lang="it">Codice login proprietario</value>
         <value xml:lang="ja">所有者ユーザログインID</value>
         <value xml:lang="pt-BR">Proprietário Login User ID</value>
+        <value xml:lang="ru">Хозяин пользователь ID</value>
         <value xml:lang="vi">Mã người dùng sở hữu</value>
         <value xml:lang="zh">拥有人用户登录标识</value>
     </property>
@@ -12532,6 +12793,7 @@
         <value xml:lang="it">Pagina portale padre</value>
         <value xml:lang="ja">上位(親)のページ</value>
         <value xml:lang="pt-BR">Página superior</value>
+        <value xml:lang="ru">Родительская страница</value>
         <value xml:lang="vi">Trang quản lý (cha)</value>
         <value xml:lang="zh">上级页面</value>
     </property>
@@ -12540,6 +12802,7 @@
         <value xml:lang="es">Pendiente</value>
         <value xml:lang="fr">En attente</value>
         <value xml:lang="ja">保留中</value>
+        <value xml:lang="ru">Финансы</value>
         <value xml:lang="th">รอดำเนินการ</value>
         <value xml:lang="vi">Tồn đọng</value>
         <value xml:lang="zh">等待中</value>
@@ -12552,6 +12815,7 @@
         <value xml:lang="it">Nome pagina portale</value>
         <value xml:lang="ja">ポータルページ名称</value>
         <value xml:lang="pt-BR">Nome da página do Portal</value>
+        <value xml:lang="ru">Имя страницы портала</value>
         <value xml:lang="vi">Tên Cổng thông tin</value>
         <value xml:lang="zh">门户页面名称</value>
     </property>
@@ -12600,6 +12864,7 @@
         <value xml:lang="it">Rifiuta</value>
         <value xml:lang="ja">却下</value>
         <value xml:lang="pt-BR">Rejeitar</value>
+        <value xml:lang="ru">Отклонить</value>
         <value xml:lang="vi">Từ chối</value>
         <value xml:lang="zh">拒绝</value>
         <value xml:lang="zh-TW">拒絕</value>
@@ -12631,6 +12896,7 @@
         <value xml:lang="it">Salva</value>
         <value xml:lang="ja">保存</value>
         <value xml:lang="pt-BR">Salvar</value>
+        <value xml:lang="ru">Сохранить</value>
         <value xml:lang="vi">Lưu</value>
         <value xml:lang="zh">保存</value>
         <value xml:lang="zh-TW">儲存</value>
@@ -12663,6 +12929,7 @@
         <value xml:lang="it">Invia</value>
         <value xml:lang="ja">送信</value>
         <value xml:lang="pt-BR">Enviar</value>
+        <value xml:lang="ru">Отправить</value>
         <value xml:lang="vi">Gửi</value>
         <value xml:lang="zh">发送</value>
         <value xml:lang="zh-TW">發送</value>
@@ -12676,6 +12943,7 @@
         <value xml:lang="it">Invia notifica per email</value>
         <value xml:lang="ja">通知メールを送信</value>
         <value xml:lang="pt-BR">Enviar e-mail de notificação</value>
+        <value xml:lang="ru">Отправить уведомление о письме</value>
         <value xml:lang="vi">Gửi thư điện tử thông báo</value>
         <value xml:lang="zh">发送通知电子邮件</value>
         <value xml:lang="zh-TW">發送通知電子郵件</value>
@@ -12763,6 +13031,7 @@
         <value xml:lang="it">Espressione temporale</value>
         <value xml:lang="ja">時間表現</value>
         <value xml:lang="pt-BR">Expressão Temporal</value>
+        <value xml:lang="ru">Временное выражение</value>
         <value xml:lang="vi">Công thức tạm tính</value>
         <value xml:lang="zh">时间表达式</value>
         <value xml:lang="zh-TW">時間運算式</value>
@@ -12850,6 +13119,7 @@
         <value xml:lang="it">Googleショッピング</value>
         <value xml:lang="ja">Google Base</value>
         <value xml:lang="pt-BR">Base do Google</value>
+        <value xml:lang="ru">Гугл база</value>
         <value xml:lang="th">Google Base</value>
         <value xml:lang="vi">Trên nền tảng Google</value>
         <value xml:lang="zh">Google Base</value>
@@ -12863,6 +13133,7 @@
         <value xml:lang="it">Risorse umane</value>
         <value xml:lang="ja">人事(HR)</value>
         <value xml:lang="pt-BR">FC</value>
+        <value xml:lang="ru">HR</value>
         <value xml:lang="th">ฝ่ายบุคคล</value>
         <value xml:lang="vi">Nhân sự (HR)</value>
         <value xml:lang="zh">人力资源</value>
@@ -12876,6 +13147,7 @@
         <value xml:lang="it">Gestione stabilimenti su PDA</value>
         <value xml:lang="ja">携帯機器</value>
         <value xml:lang="pt-BR">PDA de gerência de instalação</value>
+        <value xml:lang="ru">Переносные устройства</value>
         <value xml:lang="th">คลังสินค้าขนาดเล็ก</value>
         <value xml:lang="vi">Giao diện trên Mobile</value>
         <value xml:lang="zh">手持设备</value>
@@ -12890,6 +13162,7 @@
         <value xml:lang="it">Applicazione risorse umane</value>
         <value xml:lang="ja">人事管理業務</value>
         <value xml:lang="pt-BR">Aplicativo de Recursos Humanos</value>
+        <value xml:lang="ru">Ресурсы человеческих приложений</value>
         <value xml:lang="vi">Ứng dụng quản trị nguồn nhân lực (HR)</value>
         <value xml:lang="zh">人力资源应用程序</value>
         <value xml:lang="zh-TW">人力資源應用程式</value>
@@ -12902,6 +13175,7 @@
         <value xml:lang="it">Parco infor.</value>
         <value xml:lang="ja">情報管理者</value>
         <value xml:lang="pt-BR">É gerente</value>
+        <value xml:lang="ru">IS Mgr</value>
         <value xml:lang="vi">Hệ thống Quản trị thông tin</value>
         <value xml:lang="zh">是经理吗</value>
         <value xml:lang="zh-TW">是管理者嗎</value>
@@ -12955,6 +13229,7 @@
         <value xml:lang="ja">私のポータル</value>
         <value xml:lang="nl">Mijn Portaal</value>
         <value xml:lang="pt-BR">Meu portal</value>
+        <value xml:lang="ru">Мой портал</value>
         <value xml:lang="vi">Cổng thông tin của tôi</value>
         <value xml:lang="zh">我的门户</value>
         <value xml:lang="zh-TW">入口</value>
@@ -12968,6 +13243,7 @@
         <value xml:lang="it">Sito di OFBiz</value>
         <value xml:lang="ja">OFBizサイト</value>
         <value xml:lang="pt-BR">Site do OFBiz</value>
+        <value xml:lang="ru">Сайт Офбиза</value>
         <value xml:lang="vi">Trang chủ Ofbiz</value>
         <value xml:lang="zh">OFBiz站点</value>
         <value xml:lang="zh-TW">OFBiz站點</value>
@@ -12981,6 +13257,7 @@
         <value xml:lang="it">Oagis</value>
         <value xml:lang="ja">Oagis</value>
         <value xml:lang="pt-BR">Oagis</value>
+        <value xml:lang="ru">Oagis</value>
         <value xml:lang="th">การรวมภาษาทางธุรกิจ</value>
         <value xml:lang="vi">Giao thức XML Oagis</value>
         <value xml:lang="zh">Oagis</value>
@@ -13009,6 +13286,7 @@
         <value xml:lang="en">Sales Order management, Purchase order, Customer request, Requirement, Quote, Statistics</value>
         <value xml:lang="fr">Gestion des commandes de vente, d'achat, des demandes, des devis, des besoins, des stats</value>
         <value xml:lang="ja">販売注文管理、購買注音、顧客リクエスト、要求、見積、状態</value>
+        <value xml:lang="ru">Управление продажами заказов, Покупка заказа, Запрос заказчика, Требования, Голосование, Статистика</value>
         <value xml:lang="vi">Quản lý Đặt hàng bán, Đặt mua, Yêu cầu khách hàng, Nguồn lực nội bộ, Báo giá, thống kê</value>
         <value xml:lang="zh">销售订单管理，包括采购、客户请求、需求、询价、统计</value>
     </property>
@@ -13098,6 +13376,7 @@
         <value xml:lang="it">Posizione geografica dell'elemento richiesto</value>
         <value xml:lang="ja">リクエスト対象の位置情報</value>
         <value xml:lang="pt-BR">Localização geográfica do elemento solicitado</value>
+        <value xml:lang="ru">Гео Локация требуемых элементов</value>
         <value xml:lang="vi">Địa điểm vật lý các đối tượng đã yêu cầu</value>
         <value xml:lang="zh">请求的元素的地理位置</value>
         <value xml:lang="zh-TW">要求單位的地理位置</value>
@@ -13209,6 +13488,7 @@
         <value xml:lang="ja">位置を検索</value>
         <value xml:lang="pt-BR">Buscar localização</value>
         <value xml:lang="ro">Cauta Geografia</value>
+        <value xml:lang="ru">Поиск Гео</value>
         <value xml:lang="th">ค้นหาข้อมูลโครงสร้าง</value>
         <value xml:lang="vi">Tìm kiếm Địa lý</value>
         <value xml:lang="zh">查詢地理</value>
@@ -13279,6 +13559,7 @@
         <value xml:lang="it">Pagina bloccata</value>
         <value xml:lang="ja">表示がブロックされました</value>
         <value xml:lang="pt-BR">Visualização bloqueada</value>
+        <value xml:lang="ru">Просмотр запрещен</value>
         <value xml:lang="vi">Xem đã khóa (blocked)</value>
         <value xml:lang="zh">禁止浏览</value>
         <value xml:lang="zh-TW">禁止瀏覽</value>
@@ -13306,6 +13587,7 @@
         <value xml:lang="en">Customers - Suppliers - Employee Management, Communications, Classifications</value>
         <value xml:lang="fr">Gestion des clients, Fournisseurs, Employés, Communications, Classifications</value>
         <value xml:lang="ja">顧客 - サプライヤ - 従業員管理、通信、分類</value>
+        <value xml:lang="ru">Заказчики - Поставщики - Управление работниками, Коммуникации, Классификации</value>
         <value xml:lang="vi">Khách hàng - Nhà cung cấp - Quản lý nhân viên - Quan hệ thông tin - Sự phân loại - Phân quyền</value>
         <value xml:lang="zh">客户－供货商－雇员管理，包括沟通、分类</value>
     </property>
@@ -13318,6 +13600,7 @@
         <value xml:lang="it">Questa pagina (${parameters.portalPageId}) non può essere trovata!</value>
         <value xml:lang="ja">このページ(${parameters.portalPageId})は見つかりません</value>
         <value xml:lang="pt-BR">Esta página (${parameters.portalPageId}) não pode ser encontrado!</value>
+        <value xml:lang="ru">Эта страница (${parameters.portalPageId}) не найдена!</value>
         <value xml:lang="vi">Trang (${parameters.portalPageId}) không tìm thấy!</value>
         <value xml:lang="zh">无法找到这个页面(${parameters.portalPageId})！</value>
         <value xml:lang="zh-TW">無法找到這個頁面(${parameters.portalPageId})！</value>
@@ -13331,6 +13614,7 @@
         <value xml:lang="it">La pagina '${portalPage.portalPageName}' [${portalPage.portalPageId}] non ti appartiene, così non può essere cambiata!</value>
         <value xml:lang="ja">'${portalPage.portalPageName}' [${portalPage.portalPageId}] ページは所有していないため、変更できません。</value>
         <value xml:lang="pt-BR">A página '${portalPage.portalPageName}' [${portalPage.portalPageId}] não é de sua propriedade, por isso não pode ser alterado!</value>
+        <value xml:lang="ru">Эта страница '${portalPage.portalPageName}' [${portalPage.portalPageId}] не принадлежит тебе, и ты не можешь её изменить!</value>
         <value xml:lang="vi">Trang '${portalPage.portalPageName}' [${portalPage.portalPageId}] không thuộc sở hữu của bạn, do vậy không thể thay đổi!</value>
         <value xml:lang="zh">你不拥有页面'${portalPage.portalPageName}' [${portalPage.portalPageId}]，所以你不能修改它！</value>
         <value xml:lang="zh-TW">你不擁有頁面'${portalPage.portalPageName}' [${portalPage.portalPageId}]，所以你不能修改它！</value>
@@ -13344,6 +13628,7 @@
         <value xml:lang="it">Progetti</value>
         <value xml:lang="ja">プロジェクト</value>
         <value xml:lang="pt-BR">Projeto</value>
+        <value xml:lang="ru">Проект</value>
         <value xml:lang="th">โปรเจค</value>
         <value xml:lang="vi">Quản trị dự án (PM)</value>
         <value xml:lang="zh">项目</value>
@@ -13358,6 +13643,7 @@
         <value xml:lang="it">Forze di vendita</value>
         <value xml:lang="ja">営業支援(SFA)</value>
         <value xml:lang="pt-BR">Automação de vendas</value>
+        <value xml:lang="ru">SFA</value>
         <value xml:lang="vi">Quan hệ khách hàng (SFA)</value>
         <value xml:lang="zh">销售管理</value>
         <value xml:lang="zh-TW">銷售</value>
@@ -13370,6 +13656,7 @@
         <value xml:lang="it">POS web</value>
         <value xml:lang="ja">Web POS</value>
         <value xml:lang="pt-BR">Ponto de venda Web</value>
+        <value xml:lang="ru">POS web</value>
         <value xml:lang="vi">Điểm bán hàng Web POS</value>
         <value xml:lang="zh">Web收银机</value>
         <value xml:lang="zh-TW">POS</value>
@@ -13387,6 +13674,7 @@
         <value xml:lang="pt">FerramentasWeb</value>
         <value xml:lang="pt-BR">WebTools</value>
         <value xml:lang="ro">Instrumente Web</value>
+        <value xml:lang="ru">Web инструменты</value>
         <value xml:lang="th">เว็บทูล</value>
         <value xml:lang="vi">Quản trị toàn bộ hệ thống (WebTool)</value>
         <value xml:lang="zh">Web工具</value>
@@ -13406,6 +13694,7 @@
         <value xml:lang="pt">Mão-De-Obra</value>
         <value xml:lang="pt-BR">Gestão de tarefas</value>
         <value xml:lang="ro">Sarcini de Lucru</value>
+        <value xml:lang="ru">Достижения работника</value>
         <value xml:lang="th">ความพยายามในการทำงาน</value>
         <value xml:lang="vi">Công việc và Chi phí (Work Effort)</value>
         <value xml:lang="zh">人工服务</value>
@@ -13422,6 +13711,7 @@
         <value xml:lang="it">Arabo</value>
         <value xml:lang="ja">アラビア語</value>
         <value xml:lang="pt-BR">Árabe</value>
+        <value xml:lang="ru">Арабский</value>
         <value xml:lang="th">Arabic</value>
         <value xml:lang="vi">Ả rập</value>
         <value xml:lang="zh">阿拉伯语</value>
@@ -13474,6 +13764,7 @@
         <value xml:lang="fy">Danysk</value>
         <value xml:lang="ja">デンマーク語</value>
         <value xml:lang="pt-BR">Dinamarquês</value>
+        <value xml:lang="ru">Датский</value>
         <value xml:lang="zh">丹麦语</value>
     </property>
     <property key="de">
@@ -13584,6 +13875,7 @@
         <value xml:lang="fy">Frysk</value>
         <value xml:lang="ja">フリージア語</value>
         <value xml:lang="pt-BR">Frísio</value>
+        <value xml:lang="ru">Фризский</value>
         <value xml:lang="zh">弗里斯兰语</value>
     </property>
     <property key="gr">
