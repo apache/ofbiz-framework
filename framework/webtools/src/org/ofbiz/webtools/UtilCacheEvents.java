@@ -24,6 +24,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -163,8 +164,8 @@ public class UtilCacheEvents {
         }
 
         UtilCache.clearAllCaches();
-        errMsg = UtilProperties.getMessage(UtilCacheEvents.err_resource, "utilCache.clearAllCaches", locale) + ".";
-        request.setAttribute("_EVENT_MESSAGE_", errMsg);
+        errMsg = UtilProperties.getMessage(UtilCacheEvents.err_resource, "utilCache.clearAllCaches", locale);
+        request.setAttribute("_EVENT_MESSAGE_", errMsg + " (" + UtilDateTime.nowDateString("yyyy-MM-dd HH:mm:ss")  + ").");
         return "success";
     }
 
