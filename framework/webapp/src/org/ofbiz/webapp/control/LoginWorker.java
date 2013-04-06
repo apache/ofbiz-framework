@@ -22,6 +22,7 @@ import static org.ofbiz.base.util.UtilGenerics.checkMap;
 
 import java.math.BigInteger;
 import java.security.cert.X509Certificate;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -44,6 +45,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.KeyStoreUtil;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.StringUtil.StringWrapper;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
@@ -60,6 +62,7 @@ import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.serialize.XmlSerializer;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.Security;
 import org.ofbiz.security.SecurityConfigurationException;
 import org.ofbiz.security.SecurityFactory;
@@ -450,6 +453,12 @@ public class LoginWorker {
             Map<String, Object> userLoginSession = checkMap(result.get("userLoginSession"), String.class, Object.class);
             if (userLogin != null && "Y".equals(userLogin.getString("requirePasswordChange"))) {
                 return "requirePasswordChange";
+            }
+            String autoChangePassword = UtilProperties.getPropertyValue("security.properties", "user.auto.change.password.enable", "false");
+            if ("true".equalsIgnoreCase(autoChangePassword)) {
+                if ("requirePasswordChange".equals(autoChangePassword(request, response))) {
+                    return "requirePasswordChange";
+                }
             }
 
             // check on JavaScriptEnabled
@@ -1033,4 +1042,40 @@ public class LoginWorker {
        return "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
     }
 
+    public static String autoChangePassword(HttpServletRequest request, HttpServletResponse response) {
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        String userName = request.getParameter("USERNAME");
+        Timestamp now = UtilDateTime.nowTimestamp();
+        Integer reqToChangePwdInDays = Integer.valueOf(UtilProperties.getPropertyValue("security.properties", "user.change.password.days", "0"));
+        Integer passwordNoticePeriod = Integer.valueOf(UtilProperties.getPropertyValue("security.properties", "user.change.password.notification.days", "0"));
+        if (reqToChangePwdInDays > 0) {
+            List<GenericValue> passwordHistories = null;
+            try {
+                passwordHistories = delegator.findByAnd("UserLoginPasswordHistory", UtilMisc.toMap("userLoginId", userName));
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Cannot get user's password history record: " + e.getMessage(), module);
+            }
+            if (UtilValidate.isNotEmpty(passwordHistories)) {
+                GenericValue passwordHistory = EntityUtil.getFirst(EntityUtil.filterByDate(passwordHistories));
+                Timestamp passwordCreationDate = passwordHistory.getTimestamp("fromDate");
+                Integer passwordValidDays = reqToChangePwdInDays - passwordNoticePeriod; // Notification starts after days.
+                Timestamp startNotificationFromDate = UtilDateTime.addDaysToTimestamp(passwordCreationDate, passwordValidDays);
+                Timestamp passwordExpirationDate = UtilDateTime.addDaysToTimestamp(passwordCreationDate, reqToChangePwdInDays);
+                if (now.after(startNotificationFromDate)) {
+                    if (now.after(passwordExpirationDate)) {
+                        Map<String, String> messageMap = UtilMisc.toMap("passwordExpirationDate", passwordExpirationDate.toString());
+                        String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.password_expired_message", messageMap, UtilHttp.getLocale(request));
+                        request.setAttribute("_EVENT_MESSAGE_", errMsg);
+                        return "requirePasswordChange";
+                    } else {
+                        Map<String, String> messageMap = UtilMisc.toMap("passwordExpirationDate", passwordExpirationDate.toString());
+                        String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.password_expiration_alert", messageMap, UtilHttp.getLocale(request));
+                        request.setAttribute("_EVENT_MESSAGE_", errMsg);
+                        return "success";
+                    }
+                }
+            }
+        }
+        return "success";
+    }
 }
