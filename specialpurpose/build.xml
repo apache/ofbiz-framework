@@ -23,6 +23,7 @@
     <filelist id="specialpurpose-builds" dir="."
         files="
         appserver/build.xml,
+        jetty/build.xml,
         ecommerce/build.xml,
         pos/build.xml,
         hhfacility/build.xml,

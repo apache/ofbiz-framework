@@ -58,30 +58,3 @@ under the License.
         </xs:sequence>
     </xs:complexType>
 </xs:schema>
-<!--
-
-    Container properties are relative to the implementation class for details
-    of which properties are available see the docs on the class defined.
-
-    Example:
-
-    <ofbiz-containers>
-        <container name="jetty-container" class="org.ofbiz.base.container.JettyContainer">
-            <property name="default-listener">
-              <property name="type" value="default"/>
-              <property name="host" value="0.0.0.0"/>
-              <property name="port" value="8080"/>
-              <property name="min-threads" value="5"/>
-              <property name="max-threads" value="250"/>
-              <property name="max-idle-time" value="30000"/>
-              <property name="max-read-time" value="60000"/>
-            </property>
-        </container>
-        <container name="component-container" class="org.ofbiz.base.container.ComponentContainer">
-            <property name="entity" value="${ofbiz.home}/framework/entity/component.xml"/>
-            <property name="service" value="${ofbiz.home}/framework/service/component.xml"/>
-            <property name="party" value="${ofbiz.home}/applications/party/component.xml"/>
-        </container>
-    </ofbiz-containers>
-
--->
