@@ -174,7 +174,7 @@
     <classpathentry excluding="org/ofbiz/securityext/thirdparty/truition/TruitionCoReg.java" kind="src" path="applications/securityext/src"/>
     <classpathentry kind="src" path="applications/humanres/src"/>
     <classpathentry kind="src" path="applications/workeffort/src"/>
-    <classpathentry kind="src" path="framework/appserver/src"/>
+    <classpathentry kind="src" path="specialpurpose/appserver/src"/>
     <classpathentry kind="src" path="framework/base/build/gen-src/javacc"/>
     <classpathentry excluding="org/ofbiz/base/config/CoberturaInstrumenter.java" kind="src" path="framework/base/src"/>
     <classpathentry kind="src" path="framework/bi/src"/>

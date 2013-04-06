@@ -30,10 +30,10 @@ under the License.
     <property name="ofbiz.home.dir" value="../.."/>
 
     <path id="local.class.path">
-        <fileset dir="../base/lib" includes="*.jar"/>
-        <fileset dir="../start/build/lib" includes="*.jar"/>
-        <fileset dir="../base/build/lib" includes="*.jar"/>
-        <fileset dir="../webapp/lib" includes="*.jar"/>
-        <fileset dir="../webapp/build/lib" includes="*.jar"/>
+        <fileset dir="../../framework/base/lib" includes="*.jar"/>
+        <fileset dir="../../framework/start/build/lib" includes="*.jar"/>
+        <fileset dir="../../framework/base/build/lib" includes="*.jar"/>
+        <fileset dir="../../framework/webapp/lib" includes="*.jar"/>
+        <fileset dir="../../framework/webapp/build/lib" includes="*.jar"/>
     </path>
 </project>
