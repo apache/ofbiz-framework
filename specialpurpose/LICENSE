@@ -10,6 +10,8 @@ OFBiz and the full text of the license used for each.
 For additional details, see the NOTICE file.
 =========================================================================
 The following libraries are licensed under the Apache License Version 2.0:
+specialpurpose/birt/lib/axis-ant-1.4.jar
+specialpurpose/birt/lib/axis-1.4.jar
 specialpurpose/googlecheckout/lib/checkout-sdk-0.8.8.jar
 
 =========================================================================
