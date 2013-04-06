@@ -1013,6 +1013,10 @@ specialpurpose/ebaystore/lib/attributes.jar
 specialpurpose/ebaystore/lib/ebaysdkcore.jar
 specialpurpose/ebaystore/lib/helper.jar
 specialpurpose/ebaystore/lib/ebaycalls.jar
+specialpurpose/jetty/lib/com.sun.el-2.2.0.v201108011116.jar
+specialpurpose/jetty/lib/javax.servlet.jsp.jstl-1.2.0.v201105211821.jar
+specialpurpose/jetty/lib/org.apache.jasper.glassfish-2.2.2.v201112011158.jar
+specialpurpose/jetty/lib/org.apache.taglibs.standard.glassfish-1.2.0.v201112081803.jar
 =========================================================================
 COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0 1.
 
@@ -1387,6 +1391,17 @@ specialpurpose/birt/lib/org.w3c.dom.svg_1.1.0.v201011041433.jar
 specialpurpose/birt/lib/saaj.jar
 specialpurpose/birt/lib/Tidy.jar
 specialpurpose/birt/lib/viewservlets.jar
+specialpurpose/jetty/lib/jetty-ajp-8.1.2.v20120308.jar
+specialpurpose/jetty/lib/jetty-continuation-8.1.2.v20120308.jar
+specialpurpose/jetty/lib/jetty-http-8.1.2.v20120308.jar
+specialpurpose/jetty/lib/jetty-io-8.1.2.v20120308.jar
+specialpurpose/jetty/lib/jetty-security-8.1.2.v20120308.jar
+specialpurpose/jetty/lib/jetty-server-8.1.2.v20120308.jar
+specialpurpose/jetty/lib/jetty-servlet-8.1.2.v20120308.jar
+specialpurpose/jetty/lib/jetty-util-8.1.2.v20120308.jar
+specialpurpose/jetty/lib/jetty-webapp-8.1.2.v20120308.jar
+specialpurpose/jetty/lib/jetty-xml-8.1.2.v20120308.jar
+specialpurpose/jetty/lib/org.eclipse.jdt.core-3.7.1.jar
 =========================================================================
 Eclipse Public License - v 1.0
 

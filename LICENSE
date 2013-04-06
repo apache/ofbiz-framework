@@ -1904,10 +1904,6 @@ The following library distributed with Apache OFBiz is licensed under the
 COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL):
 framework/base/lib/juel-2.1.1.jar (contains the javax.el package)
 framework/base/lib/mail-1.4.jar
-framework/jetty/lib/com.sun.el-2.2.0.v201108011116.jar
-framework/jetty/lib/javax.servlet.jsp.jstl-1.2.0.v201105211821.jar
-framework/jetty/lib/org.apache.jasper.glassfish-2.2.2.v201112011158.jar
-framework/jetty/lib/org.apache.taglibs.standard.glassfish-1.2.0.v201112081803.jar
 =========================================================================
 COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0 1.
 
@@ -2200,17 +2196,6 @@ of California, with venue lying in Santa Clara County, California.
 The following libraries distributed with Apache OFBiz are licensed under the
 Eclipse Public License - v 1.0:
 framework/catalina/lib/ecj-4.2.1.jar
-framework/jetty/lib/jetty-ajp-8.1.2.v20120308.jar
-framework/jetty/lib/jetty-continuation-8.1.2.v20120308.jar
-framework/jetty/lib/jetty-http-8.1.2.v20120308.jar
-framework/jetty/lib/jetty-io-8.1.2.v20120308.jar
-framework/jetty/lib/jetty-security-8.1.2.v20120308.jar
-framework/jetty/lib/jetty-server-8.1.2.v20120308.jar
-framework/jetty/lib/jetty-servlet-8.1.2.v20120308.jar
-framework/jetty/lib/jetty-util-8.1.2.v20120308.jar
-framework/jetty/lib/jetty-webapp-8.1.2.v20120308.jar
-framework/jetty/lib/jetty-xml-8.1.2.v20120308.jar
-framework/jetty/lib/org.eclipse.jdt.core-3.7.1.jar
 =========================================================================
 Eclipse Public License - v 1.0
 
