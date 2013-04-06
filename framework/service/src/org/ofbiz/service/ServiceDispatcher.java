@@ -31,6 +31,7 @@ import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -571,8 +572,13 @@ public class ServiceDispatcher {
         rs.setEndStamp();
 
         long timeToRun = System.currentTimeMillis() - serviceStartTime;
-        if (Debug.timingOn()) {
+        long showServiceDurationThreshold = UtilProperties.getPropertyAsLong("service", "showServiceDurationThreshold", 0);
+        long showSlowServiceThreshold = UtilProperties.getPropertyAsLong("service", "showSlowServiceThreshold", 1000);
+                
+        if (Debug.timingOn() && timeToRun > showServiceDurationThreshold) {
             Debug.logTiming("Sync service [" + localName + "/" + modelService.name + "] finished in [" + timeToRun + "] milliseconds", module);
+        } else if (Debug.infoOn() && timeToRun > showSlowServiceThreshold) {
+            Debug.logTiming("Slow sync service execution detected: service [" + localName + "/" + modelService.name + "] finished in [" + timeToRun + "] milliseconds", module);
         }
         if ((Debug.verboseOn() || modelService.debug) && timeToRun > 50 && !modelService.hideResultInLog) {
             // Sanity check - some service results can be multiple MB in size. Limit message size to 10K.
