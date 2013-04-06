@@ -166,6 +166,12 @@
         <value xml:lang="zh">没有设置电子邮件地址，请与客户服务联系。</value>
         <value xml:lang="zh_TW">無電子郵件, 請與客服連絡。</value>
     </property>
+    <property key="loginevents.password_expiration_alert">
+        <value xml:lang="en">Alert : Your password will expire on ${passwordExpirationDate}. Update password before it expired.</value>
+    </property>
+    <property key="loginevents.password_expired_message">
+        <value xml:lang="en">Alert : Your password expired on ${passwordExpirationDate}. Update your password.</value>
+    </property>
     <property key="loginevents.password_hint_is">
         <value xml:lang="de">Der Passwort-Hinweis ist: ${passwordHint}.</value>
         <value xml:lang="en">The Password Hint is: ${passwordHint}.</value>

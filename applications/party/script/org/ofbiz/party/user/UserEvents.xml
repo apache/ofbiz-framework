@@ -320,6 +320,20 @@ under the License.
             <set field="newUserLogin.partyId" from-field="tempMap.partyId"/>
             <create-value value-field="newUserLogin"/>
             <set-current-user-login value-field="newUserLogin"/>
+            
+            <!-- On successful user creation, create password history record if configured -->
+            <set field="delegator" from-field="parameters.delegator" type="Object"/>
+            <call-class-method method-name="getPropertyValue" class-name="org.ofbiz.base.util.UtilProperties" ret-field="autoPasswordChangeEnabled">
+                <string value="security"/>
+                <string value="user.auto.change.password.enable"/>
+            </call-class-method>
+            <if-compare-field field="autoPasswordChangeEnabled" operator="equals" to-field="true">
+                <call-class-method method-name="createUserLoginPasswordHistory" class-name="org.ofbiz.common.login.LoginServices">
+                    <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+                    <string value="${newUserLogin.userLoginId}"/>
+                    <string value="${newUserLogin.currentPassword}"/>
+                </call-class-method>
+            </if-compare-field>
         </if-not-empty>
 
         <create-value value-field="partyDataSource"/>
