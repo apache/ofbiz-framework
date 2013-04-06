@@ -89,10 +89,8 @@
     <classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-jaxrpc_1.1_spec-1.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-jms_1.1_spec-1.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-jta_1.1_spec-1.1.1.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-qname_1.1_spec-1.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-saaj_1.1_spec-1.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/j2eespecs/annotations-api-3.0.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/j2eespecs/el-api-2.2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/j2eespecs/jsp-api-2.2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/j2eespecs/servlet-api-3.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/scripting/antlr-2.7.6.jar"/>
