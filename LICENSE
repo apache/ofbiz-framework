@@ -83,8 +83,6 @@ ofbiz/framework/catalina/lib/tomcat-7.0.39-tomcat-embed-logging-log4j.jar
 framework/entity/lib/commons-dbcp-1.4.jar
 framework/entity/lib/jdbc/derby-10.8.2.2.jar
 framework/entity/lib/jdbc/derbytools-10.8.2.2.jar
-framework/service/lib/axis-ant-1.4.jar
-framework/service/lib/axis-1.4.jar
 framework/service/lib/axiom-api-1.2.9.jar
 framework/service/lib/axiom-impl-1.2.9.jar
 framework/service/lib/axis2-kernel-1.5.2.jar
