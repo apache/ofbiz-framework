@@ -286,7 +286,6 @@ under the License.
           <fileset dir="${ofbiz.home.dir}/framework/catalina/lib" includes="*.jar"/>
           <fileset dir="${ofbiz.home.dir}/framework/entity/lib" includes="*.jar"/>
           <fileset dir="${ofbiz.home.dir}/framework/geronimo/lib" includes="*.jar"/>
-          <fileset dir="${ofbiz.home.dir}/framework/jetty/lib" includes="*.jar"/>
           <fileset dir="${ofbiz.home.dir}/framework/service/lib" includes="*.jar"/>
           <fileset dir="${ofbiz.home.dir}/framework/testtools/lib" includes="*.jar"/>
           <fileset dir="${ofbiz.home.dir}/framework/webapp/lib" includes="*.jar"/>
@@ -296,6 +295,7 @@ under the License.
           <fileset dir="${ofbiz.home.dir}/specialpurpose/googlecheckout/lib" includes="*.jar"/>
           <fileset dir="${ofbiz.home.dir}/specialpurpose/ldap/lib" includes="*.jar"/>
           <fileset dir="${ofbiz.home.dir}/specialpurpose/pos/lib" includes="*.jar"/>
+          <fileset dir="${ofbiz.home.dir}/specialpurpose/jetty/lib" includes="*.jar"/>
           <fileset dir="${ofbiz.home.dir}/applications/content/lib" includes="*.jar"/>
           <fileset dir="${ofbiz.home.dir}/applications/product/lib" includes="*.jar"/>
         </path>
