@@ -18,9 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.eventops;
 
+import java.util.LinkedList;
 import java.util.List;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
@@ -84,7 +83,7 @@ public final class RequestParametersToList extends MethodOperation {
             if (parameterValues != null) {
                 List<String> valueList = listFma.get(methodContext.getEnvMap());
                 if (valueList == null) {
-                    valueList = FastList.newInstance();
+                    valueList = new LinkedList<String>();
                     listFma.put(methodContext.getEnvMap(), valueList);
                 }
                 for (int i = 0; i < parameterValues.length; i++) {

@@ -20,9 +20,8 @@ package org.ofbiz.minilang.method.ifops;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
@@ -91,7 +90,7 @@ public final class CheckPermission extends MethodOperation {
         if (!hasPermission && messageElement != null) {
             List<String> messages = errorListFma.get(methodContext.getEnvMap());
             if (messages == null) {
-                messages = FastList.newInstance();
+                messages = new LinkedList<String>();
                 errorListFma.put(methodContext.getEnvMap(), messages);
             }
             messages.add(messageElement.getMessage(methodContext));

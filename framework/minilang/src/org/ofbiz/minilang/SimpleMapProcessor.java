@@ -20,11 +20,10 @@ package org.ofbiz.minilang;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.UtilXml;
@@ -42,7 +41,7 @@ public class SimpleMapProcessor {
     private static final UtilCache<URL, Map<String, MapProcessor>> simpleMapProcessorsURLCache = UtilCache.createUtilCache("minilang.SimpleMapProcessorsURL", 0, 0);
 
     protected static Map<String, MapProcessor> getAllProcessors(URL xmlURL) throws MiniLangException {
-        Map<String, MapProcessor> mapProcessors = FastMap.newInstance();
+        Map<String, MapProcessor> mapProcessors = new HashMap<String, MapProcessor>();
         // read in the file
         Document document = null;
         try {

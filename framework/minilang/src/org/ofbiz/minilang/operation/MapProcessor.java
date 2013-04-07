@@ -18,11 +18,10 @@
  *******************************************************************************/
 package org.ofbiz.minilang.operation;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -33,9 +32,9 @@ import org.w3c.dom.Element;
  */
 public class MapProcessor {
 
-    List<MakeInString> makeInStrings = FastList.newInstance();
+    List<MakeInString> makeInStrings = new ArrayList<MakeInString>();
     String name;
-    List<SimpleMapProcess> simpleMapProcesses = FastList.newInstance();
+    List<SimpleMapProcess> simpleMapProcesses = new ArrayList<SimpleMapProcess>();
 
     public MapProcessor(Element simpleMapProcessorElement) {
         name = simpleMapProcessorElement.getAttribute("name");

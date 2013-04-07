@@ -18,9 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.envops;
 
+import java.util.LinkedList;
 import java.util.List;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -108,7 +107,7 @@ public final class CheckId extends MethodOperation {
             if (message != null) {
                 List<String> messages = errorListFma.get(methodContext.getEnvMap());
                 if (messages == null) {
-                    messages = FastList.newInstance();
+                    messages = new LinkedList<String>();
                 }
                 errorListFma.put(methodContext.getEnvMap(), messages);
                 messages.add(message.concat(": ").concat(errorMsg));
