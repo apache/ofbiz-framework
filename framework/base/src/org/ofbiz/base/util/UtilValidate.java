@@ -19,13 +19,13 @@
 package org.ofbiz.base.util;
 
 import java.sql.Timestamp;
-import com.ibm.icu.util.Calendar;
 import java.util.Collection;
 import java.util.Map;
 
 import org.apache.commons.validator.routines.EmailValidator;
-
 import org.ofbiz.base.lang.IsEmpty;
+
+import com.ibm.icu.util.Calendar;
 
 /**
  * General input/data validation methods
@@ -149,8 +149,8 @@ public class UtilValidate {
     public static final String isDatePrefixMsg = "The Day, Month, and Year for ";
     public static final String isDateSuffixMsg = " do not form a valid date.  Please reenter them now.";
     public static final String isHourMsg = "The Hour must be a number between 0 and 23.";
-    public static final String isMinuteMsg = "The Hour must be a number between 0 and 59.";
-    public static final String isSecondMsg = "The Hour must be a number between 0 and 59.";
+    public static final String isMinuteMsg = "The Minute must be a number between 0 and 59.";
+    public static final String isSecondMsg = "The Second must be a number between 0 and 59.";
     public static final String isTimeMsg = "The Time must be a valid time formed like: HH:MM or HH:MM:SS.";
     public static final String isDateMsg = "The Date must be a valid date formed like: MM/YY, MM/YYYY, MM/DD/YY, or MM/DD/YYYY.";
     public static final String isDateAfterToday = "The Date must be a valid date after today, and formed like: MM/YY, MM/YYYY, MM/DD/YY, or MM/DD/YYYY.";
