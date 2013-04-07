@@ -18,9 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.envops;
 
+import java.util.LinkedList;
 import java.util.List;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.minilang.MiniLangException;
@@ -58,7 +57,7 @@ public final class ListToList extends MethodOperation {
         if (fromList != null) {
             List<Object> toList = toListFma.get(methodContext.getEnvMap());
             if (toList == null) {
-                toList = FastList.newInstance();
+                toList = new LinkedList<Object>();
                 toListFma.put(methodContext.getEnvMap(), toList);
             }
             toList.addAll(fromList);

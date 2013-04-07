@@ -18,11 +18,10 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.callops;
 
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
@@ -98,10 +97,10 @@ public final class SetServiceFields extends MethodOperation {
         }
         Map<String, Object> toMap = toMapFma.get(methodContext.getEnvMap());
         if (toMap == null) {
-            toMap = FastMap.newInstance();
+            toMap = new HashMap<String, Object>();
             toMapFma.put(methodContext.getEnvMap(), toMap);
         }
-        List<Object> errorMessages = FastList.newInstance();
+        List<Object> errorMessages = new LinkedList<Object>();
         Map<String, Object> validAttributes = modelService.makeValid(fromMap, "IN", true, errorMessages, methodContext.getTimeZone(), methodContext.getLocale());
         if (errorMessages.size() > 0) {
             for (Object obj : errorMessages) {

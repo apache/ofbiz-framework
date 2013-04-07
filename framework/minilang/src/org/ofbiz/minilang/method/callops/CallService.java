@@ -20,11 +20,10 @@ package org.ofbiz.minilang.method.callops;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
@@ -180,7 +179,7 @@ public final class CallService extends MethodOperation {
         }
         Map<String, Object> inMap = inMapFma.get(methodContext.getEnvMap());
         if (inMap == null) {
-            inMap = FastMap.newInstance();
+            inMap = new HashMap<String, Object>();
         }
         // before invoking the service, clear messages
         if (methodContext.getMethodType() == MethodContext.EVENT) {

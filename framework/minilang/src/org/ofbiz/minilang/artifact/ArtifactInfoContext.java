@@ -18,9 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.minilang.artifact;
 
+import java.util.HashSet;
 import java.util.Set;
 
-import javolution.util.FastSet;
 import org.ofbiz.minilang.SimpleMethod;
 
 /**
@@ -28,9 +28,9 @@ import org.ofbiz.minilang.SimpleMethod;
  */
 public final class ArtifactInfoContext {
 
-    private final Set<String> entityNameSet = FastSet.newInstance();
-    private final Set<String> serviceNameSet = FastSet.newInstance();
-    private final Set<String> simpleMethodNameSet = FastSet.newInstance();
+    private final Set<String> entityNameSet = new HashSet<String>();
+    private final Set<String> serviceNameSet = new HashSet<String>();
+    private final Set<String> simpleMethodNameSet = new HashSet<String>();
 
     /**
      * Adds an entity name to this context.

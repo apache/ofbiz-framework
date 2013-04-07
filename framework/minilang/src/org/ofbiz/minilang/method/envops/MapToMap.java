@@ -18,9 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.envops;
 
+import java.util.HashMap;
 import java.util.Map;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.minilang.MiniLangException;
@@ -59,7 +58,7 @@ public final class MapToMap extends MethodOperation {
             if (!toMapFma.isEmpty()) {
                 Map<String, Object> toMap = toMapFma.get(methodContext.getEnvMap());
                 if (toMap == null) {
-                    toMap = FastMap.newInstance();
+                    toMap = new HashMap<String, Object>();
                     toMapFma.put(methodContext.getEnvMap(), toMap);
                     toMap.putAll(fromMap);
                 }

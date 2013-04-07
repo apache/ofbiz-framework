@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -32,9 +33,6 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Assert;
@@ -124,7 +122,7 @@ public final class SimpleMethod extends MiniLangElement {
         if (UtilValidate.isEmpty(fromLocation)) {
             fromLocation = "<location not known>";
         }
-        Map<String, SimpleMethod> simpleMethods = FastMap.newInstance();
+        Map<String, SimpleMethod> simpleMethods = new HashMap<String, SimpleMethod>();
         Document document = null;
         try {
             document = UtilXml.readXmlDocument(content, true, true);
@@ -136,7 +134,7 @@ public final class SimpleMethod extends MiniLangElement {
     }
 
     private static Map<String, SimpleMethod> getAllSimpleMethods(URL xmlURL) throws MiniLangException {
-        Map<String, SimpleMethod> simpleMethods = FastMap.newInstance();
+        Map<String, SimpleMethod> simpleMethods = new HashMap<String, SimpleMethod>();
         Document document = null;
         try {
             document = UtilXml.readXmlDocument(xmlURL, true, true);
@@ -199,7 +197,7 @@ public final class SimpleMethod extends MiniLangElement {
 
     public static List<SimpleMethod> getSimpleMethodsList(String xmlResource, ClassLoader loader) throws MiniLangException {
         Assert.notNull("xmlResource", xmlResource);
-        List<SimpleMethod> simpleMethods = FastList.newInstance();
+        List<SimpleMethod> simpleMethods = new ArrayList<SimpleMethod>();
         // Let the standard Map returning method take care of caching and compilation
         Map<String, SimpleMethod> simpleMethodMap = getSimpleMethods(xmlResource, loader);
         // Load and traverse the document again to get a correctly ordered list of methods
@@ -390,7 +388,7 @@ public final class SimpleMethod extends MiniLangElement {
     private void addMessage(MethodContext methodContext, String messageListName, String message) {
         List<String> messages = methodContext.getEnv(messageListName);
         if (messages == null) {
-            messages = FastList.newInstance();
+            messages = new LinkedList<String>();
             methodContext.putEnv(messageListName, messages);
         }
         messages.add(message);

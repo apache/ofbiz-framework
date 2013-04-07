@@ -18,11 +18,10 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.callops;
 
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
@@ -75,16 +74,16 @@ public final class CallSimpleMapProcessor extends MethodOperation {
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         List<Object> messages = errorListFma.get(methodContext.getEnvMap());
         if (messages == null) {
-            messages = FastList.newInstance();
+            messages = new LinkedList<Object>();
             errorListFma.put(methodContext.getEnvMap(), messages);
         }
         Map<String, Object> inMap = inMapFma.get(methodContext.getEnvMap());
         if (inMap == null) {
-            inMap = FastMap.newInstance();
+            inMap = new HashMap<String, Object>();
         }
         Map<String, Object> outMap = outMapFma.get(methodContext.getEnvMap());
         if (outMap == null) {
-            outMap = FastMap.newInstance();
+            outMap = new HashMap<String, Object>();
             outMapFma.put(methodContext.getEnvMap(), outMap);
         }
         // run external map processor first

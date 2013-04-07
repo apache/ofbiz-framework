@@ -18,14 +18,13 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method;
 
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
@@ -48,14 +47,14 @@ public final class MethodContext {
 
     private Delegator delegator;
     private LocalDispatcher dispatcher;
-    private Map<String, Object> env = FastMap.newInstance();
+    private Map<String, Object> env = new HashMap<String, Object>();
     private ClassLoader loader;
     private Locale locale;
     private int methodType;
     private Map<String, Object> parameters;
     private HttpServletRequest request = null;
     private HttpServletResponse response = null;
-    private Map<String, Object> results = FastMap.newInstance();
+    private Map<String, Object> results = new HashMap<String, Object>();
     private Security security;
     private TimeZone timeZone;
     private int traceCount = 0;
