@@ -86,8 +86,6 @@ under the License.
           description="Clean all downloaded files">
         <delete>
             <fileset dir="framework/base/lib" includes="cobertura-*.jar"/>
-            <fileset dir="framework/base/lib" includes="asm*.jar"/>
-            <fileset dir="framework/base/lib" includes="oro*.jar"/>
             <fileset dir="framework/base/lib" includes="sonar-*.jar"/>
             <fileset dir="framework/entity/lib/jdbc" includes="postgresql-*.jar"/>
         </delete>
@@ -1001,6 +999,7 @@ under the License.
                     <include name="cobertura-1.9.4.1.jar" />
                     <include name="log4j-1.2.17.jar" />
                     <include name="scripting/asm*.jar" />
+                    <include name="scripting/jakarta-oro-2.0.8.jar" />
                 </fileset>
             </classpath>
         </taskdef>
@@ -1027,8 +1026,9 @@ under the License.
             <classpath>
                 <fileset dir="framework/base/lib">
                     <include name="cobertura-1.9.4.1.jar" />
-                    <include name="log4j-1.2.16.jar" />
+                    <include name="log4j-1.2.17.jar" />
                     <include name="scripting/asm*.jar" />
+                    <include name="scripting/jakarta-oro-2.0.8.jar" />
                 </fileset>
             </classpath>
         </taskdef>
