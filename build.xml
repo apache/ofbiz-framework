@@ -999,7 +999,7 @@ under the License.
             <classpath>
                 <fileset dir="framework/base/lib">
                     <include name="cobertura-1.9.4.1.jar" />
-                    <include name="log4j-1.2.16.jar" />
+                    <include name="log4j-1.2.17.jar" />
                     <include name="scripting/asm*.jar" />
                 </fileset>
             </classpath>
