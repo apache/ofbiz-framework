@@ -26,7 +26,6 @@ under the License.
     <load-component component-location="hhfacility"/>
     <load-component component-location="assetmaint"/>
     <load-component component-location="cmssite"/>
-    <load-component component-location="ofbizwebsite"/>
     <load-component component-location="projectmgr"/>
     <load-component component-location="scrum"/>
     <load-component component-location="oagis"/>
