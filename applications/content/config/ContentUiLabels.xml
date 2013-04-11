@@ -92,8 +92,8 @@
         <value xml:lang="zh_TW">回答</value>
     </property>
     <property key="ContentAnyAssocType">
-        <value xml:lang="FR">Tous types d'asso</value>
         <value xml:lang="en">Any Assoc Type</value>
+        <value xml:lang="fr">Tous types d'associations</value>
         <value xml:lang="ja">任意の関連付け種類</value>
         <value xml:lang="pt">Qualquer tipo de associação</value>
         <value xml:lang="vi">Bất kỳ loại kết hợp nào</value>
