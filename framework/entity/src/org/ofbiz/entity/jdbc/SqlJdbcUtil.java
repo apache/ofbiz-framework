@@ -31,7 +31,9 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -39,9 +41,6 @@ import java.util.TreeSet;
 
 import javax.sql.rowset.serial.SerialBlob;
 import javax.sql.rowset.serial.SerialClob;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
@@ -58,7 +57,6 @@ import org.ofbiz.entity.condition.EntityConditionParam;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.condition.OrderByList;
 import org.ofbiz.entity.config.DatasourceInfo;
-import org.ofbiz.entity.jdbc.JdbcValueHandler;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.model.ModelFieldType;
@@ -423,9 +421,9 @@ public class SqlJdbcUtil {
             sql.append(makeFromClause(modelEntity, modelFieldTypeReader, datasourceInfo));
             String viewWhereClause = makeViewWhereClause(modelEntity, datasourceInfo.joinStyle);
             ModelViewEntity modelViewEntity = (ModelViewEntity)modelEntity;
-            List<EntityCondition> whereConditions = FastList.newInstance();
-            List<EntityCondition> havingConditions = FastList.newInstance();
-            List<String> orderByList = FastList.newInstance();
+            List<EntityCondition> whereConditions = new LinkedList<EntityCondition>();
+            List<EntityCondition> havingConditions = new LinkedList<EntityCondition>();
+            List<String> orderByList = new LinkedList<String>();
 
             modelViewEntity.populateViewEntityConditionInformation(modelFieldTypeReader, whereConditions, havingConditions, orderByList, null);
             String viewConditionClause;
@@ -897,7 +895,7 @@ public class SqlJdbcUtil {
         }
     }
 
-    protected static Map<String, Integer> fieldTypeMap = FastMap.newInstance();
+    protected static Map<String, Integer> fieldTypeMap = new HashMap<String, Integer>();
     static {
         fieldTypeMap.put("java.lang.String", 1);
         fieldTypeMap.put("String", 1);

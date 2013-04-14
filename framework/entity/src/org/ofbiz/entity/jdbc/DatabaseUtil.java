@@ -28,7 +28,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -37,11 +39,6 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 import org.ofbiz.base.concurrent.ExecutionPool;
 import org.ofbiz.base.util.Debug;
@@ -61,6 +58,8 @@ import org.ofbiz.entity.model.ModelKeyMap;
 import org.ofbiz.entity.model.ModelRelation;
 import org.ofbiz.entity.model.ModelViewEntity;
 import org.ofbiz.entity.transaction.TransactionUtil;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * Utilities for Entity Database Maintenance
@@ -223,7 +222,7 @@ public class DatabaseUtil {
         Collections.sort(modelEntityList);
         int curEnt = 0;
         int totalEnt = modelEntityList.size();
-        List<ModelEntity> entitiesAdded = FastList.newInstance();
+        List<ModelEntity> entitiesAdded = new LinkedList<ModelEntity>();
         String schemaName;
         try {
             DatabaseMetaData dbData = this.getDatabaseMetaData(null, messages);
@@ -234,7 +233,7 @@ public class DatabaseUtil {
             Debug.logError(message, module);
             return;
         }
-        List<Future<CreateTableCallable>> tableFutures = FastList.newInstance();
+        List<Future<CreateTableCallable>> tableFutures = new LinkedList<Future<CreateTableCallable>>();
         for (ModelEntity entity: modelEntityList) {
             curEnt++;
 
@@ -270,7 +269,7 @@ public class DatabaseUtil {
                 tableNames.remove(tableName);
 
                 if (colInfo != null) {
-                    Map<String, ModelField> fieldColNames = FastMap.newInstance();
+                    Map<String, ModelField> fieldColNames = new HashMap<String, ModelField>();
                     Iterator<ModelField> fieldIter = entity.getFieldsIterator();
                     while (fieldIter.hasNext()) {
                         ModelField field = fieldIter.next();
@@ -442,7 +441,7 @@ public class DatabaseUtil {
         // for each newly added table, add fk indices
         if (datasourceInfo.useFkIndices) {
             int totalFkIndices = 0;
-            List<Future<AbstractCountingCallable>> fkIndicesFutures = FastList.newInstance();
+            List<Future<AbstractCountingCallable>> fkIndicesFutures = new LinkedList<Future<AbstractCountingCallable>>();
             for (ModelEntity curEntity: entitiesAdded) {
                 if (curEntity.getRelationsOneSize() > 0) {
                     fkIndicesFutures.add(submitWork(new AbstractCountingCallable(curEntity, modelEntities) {
@@ -471,7 +470,7 @@ public class DatabaseUtil {
         // for each newly added table, add declared indexes
         if (datasourceInfo.useIndices) {
             int totalDis = 0;
-            List<Future<AbstractCountingCallable>> disFutures = FastList.newInstance();
+            List<Future<AbstractCountingCallable>> disFutures = new LinkedList<Future<AbstractCountingCallable>>();
             for (ModelEntity curEntity: entitiesAdded) {
                 if (curEntity.getIndexesSize() > 0) {
                     disFutures.add(submitWork(new AbstractCountingCallable(curEntity,  modelEntities) {
@@ -737,7 +736,7 @@ public class DatabaseUtil {
         // go through each table and make a ModelEntity object, add to list
         // for each entity make corresponding ModelField objects
         // then print out XML for the entities/fields
-        List<ModelEntity> newEntList = FastList.newInstance();
+        List<ModelEntity> newEntList = new LinkedList<ModelEntity>();
 
         boolean isCaseSensitive = false;
         DatabaseMetaData dbData = this.getDatabaseMetaData(null, messages);
@@ -1099,7 +1098,7 @@ public class DatabaseUtil {
     public Map<String, Map<String, ColumnCheckInfo>> getColumnInfo(Set<String> tableNames, boolean getPks, Collection<String> messages) {
         // if there are no tableNames, don't even try to get the columns
         if (tableNames.size() == 0) {
-            return FastMap.newInstance();
+            return new HashMap<String, Map<String, ColumnCheckInfo>>();
         }
 
         Connection connection = null;
@@ -1129,7 +1128,7 @@ public class DatabaseUtil {
 
             if (Debug.infoOn()) Debug.logInfo("Getting Column Info From Database", module);
 
-            Map<String, Map<String, ColumnCheckInfo>> colInfo = FastMap.newInstance();
+            Map<String, Map<String, ColumnCheckInfo>> colInfo = new HashMap<String, Map<String, ColumnCheckInfo>>();
             try {
                 String lookupSchemaName = getSchemaName(dbData);
                 boolean needsUpperCase = false;
@@ -1184,7 +1183,7 @@ public class DatabaseUtil {
 
                             Map<String, ColumnCheckInfo> tableColInfo = colInfo.get(ccInfo.tableName);
                             if (tableColInfo == null) {
-                                tableColInfo = FastMap.newInstance();
+                                tableColInfo = new HashMap<String, ColumnCheckInfo>();
                                 colInfo.put(ccInfo.tableName, tableColInfo);
                             }
                             tableColInfo.put(ccInfo.columnName, ccInfo);
@@ -1225,7 +1224,7 @@ public class DatabaseUtil {
                     }
                     if (pkCount == 0) {
                         Debug.logInfo("Searching in " + tableNames.size() + " tables for primary key fields ...", module);
-                        List<Future<AbstractCountingCallable>> pkFetcherFutures = FastList.newInstance();
+                        List<Future<AbstractCountingCallable>> pkFetcherFutures = new LinkedList<Future<AbstractCountingCallable>>();
                         for (String curTable: tableNames) {
                             curTable = curTable.substring(curTable.indexOf('.') + 1); //cut off schema name
                             pkFetcherFutures.add(submitWork(createPrimaryKeyFetcher(dbData, lookupSchemaName, needsUpperCase, colInfo, messages, curTable)));
@@ -1348,7 +1347,7 @@ public class DatabaseUtil {
 
         if (Debug.infoOn()) Debug.logInfo("Getting Foreign Key (Reference) Info From Database", module);
 
-        Map<String, Map<String, ReferenceCheckInfo>> refInfo = FastMap.newInstance();
+        Map<String, Map<String, ReferenceCheckInfo>> refInfo = new HashMap<String, Map<String, ReferenceCheckInfo>>();
 
         try {
             // ResultSet rsCols = dbData.getCrossReference(null, null, null, null, null, null);
@@ -1405,7 +1404,7 @@ public class DatabaseUtil {
 
                     Map<String, ReferenceCheckInfo> tableRefInfo = refInfo.get(rcInfo.fkTableName);
                     if (tableRefInfo == null) {
-                        tableRefInfo = FastMap.newInstance();
+                        tableRefInfo = new HashMap<String, ReferenceCheckInfo>();
                         refInfo.put(rcInfo.fkTableName, tableRefInfo);
                         if (Debug.verboseOn()) Debug.logVerbose("Adding new Map for table: " + rcInfo.fkTableName, module);
                     }
@@ -1482,7 +1481,7 @@ public class DatabaseUtil {
 
         if (Debug.infoOn()) Debug.logInfo("Getting Index Info From Database", module);
 
-        Map<String, Set<String>> indexInfo = FastMap.newInstance();
+        Map<String, Set<String>> indexInfo = new HashMap<String, Set<String>>();
         try {
             int totalIndices = 0;
             String lookupSchemaName = getSchemaName(dbData);
@@ -1617,7 +1616,7 @@ public class DatabaseUtil {
     private abstract class AbstractCountingCallable implements Callable<AbstractCountingCallable> {
         protected final ModelEntity entity;
         protected final Map<String, ModelEntity> modelEntities;
-        protected final List<String> messages = FastList.newInstance();
+        protected final List<String> messages = new LinkedList<String>();
         protected int count;
 
         protected AbstractCountingCallable(ModelEntity entity, Map<String, ModelEntity> modelEntities) {

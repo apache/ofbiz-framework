@@ -23,16 +23,15 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -87,29 +86,30 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     protected Integer sequenceBankSize = null;
 
     /** A List of the Field objects for the Entity */
-    protected List<ModelField> fields = FastList.newInstance();
+    protected List<ModelField> fields = new LinkedList<ModelField>();
+
     protected Map<String, ModelField> fieldsMap = null;
 
     /** A List of the Field objects for the Entity, one for each Primary Key */
-    protected List<ModelField> pks = FastList.newInstance();
+    protected List<ModelField> pks = new LinkedList<ModelField>();
 
     /** A List of the Field objects for the Entity, one for each NON Primary Key */
-    protected List<ModelField> nopks = FastList.newInstance();
+    protected List<ModelField> nopks = new LinkedList<ModelField>();
 
     /** relations defining relationships between this entity and other entities */
-    protected List<ModelRelation> relations = FastList.newInstance();
+    protected List<ModelRelation> relations = new LinkedList<ModelRelation>();
 
     /** indexes on fields/columns in this entity */
-    protected List<ModelIndex> indexes = FastList.newInstance();
+    protected List<ModelIndex> indexes = new LinkedList<ModelIndex>();
 
     /** The reference of the dependentOn entity model */
     protected ModelEntity specializationOfModelEntity = null;
 
     /** The list of entities that are specialization of on this entity */
-    protected Map<String, ModelEntity> specializedEntities = FastMap.newInstance();
+    protected Map<String, ModelEntity> specializedEntities = new HashMap<String, ModelEntity>();
 
     /** map of ModelViewEntities that references this model */
-    protected Set<String> viewEntities = FastSet.newInstance();
+    protected Set<String> viewEntities = new HashSet<String>();
 
     /** An indicator to specify if this entity requires locking for updates */
     protected boolean doLock = false;
@@ -122,6 +122,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
      * from cache on read showing a warning messages to that effect
      */
     protected boolean neverCache = false;
+
     protected boolean neverCheck = false;
 
     protected boolean autoClearCache = true;
@@ -221,8 +222,8 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
             }
         }
 
-        // now that we have the pks and the fields, make the nopks vector
-        this.nopks = FastList.newInstance();
+        // now that we have the pks and the fields, make the nopks List
+        this.nopks = new LinkedList<ModelField>();
         for (ModelField field: this.fields) {
             if (!field.isPk) this.nopks.add(field);
         }
@@ -508,8 +509,8 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     }
 
     public void updatePkLists() {
-        pks = FastList.newInstance();
-        nopks = FastList.newInstance();
+        pks = new LinkedList<ModelField>();
+        nopks = new LinkedList<ModelField>();
 
         for (ModelField field: fields) {
             if (field.isPk)
@@ -573,7 +574,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     }
 
     public List<ModelField> getNopksCopy() {
-        List<ModelField> newList = FastList.newInstance();
+        List<ModelField> newList = new LinkedList<ModelField>();
         newList.addAll(this.nopks);
         return newList;
     }
@@ -613,7 +614,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     }
 
     protected synchronized void createFieldsMap() {
-        Map<String, ModelField> tempMap = FastMap.newInstance();
+        Map<String, ModelField> tempMap = new HashMap<String, ModelField>();
         for (int i = 0; i < fields.size(); i++) {
             ModelField field = fields.get(i);
             tempMap.put(field.name, field);
@@ -685,7 +686,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     }
 
     public List<String> getFieldNamesFromFieldVector(List<ModelField> modelFields) {
-        List<String> nameList = FastList.newInstance();
+        List<String> nameList = new LinkedList<String>();
 
         if (modelFields == null || modelFields.size() <= 0) return nameList;
         for (ModelField field: modelFields) {
@@ -698,7 +699,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
      * @return field names list, managed by entity-engine
      */
     public List<String> getAutomaticFieldNames() {
-        List<String> nameList = FastList.newInstance();
+        List<String> nameList = new LinkedList<String>();
         if (! this.noAutoStamp) {
             nameList.add(STAMP_FIELD);
             nameList.add(STAMP_TX_FIELD);
@@ -733,7 +734,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     }
 
     public List<ModelRelation> getRelationsList(boolean includeOne, boolean includeOneNoFk, boolean includeMany) {
-        List<ModelRelation> relationsList = FastList.newInstance();
+        List<ModelRelation> relationsList = new LinkedList<ModelRelation>();
         Iterator<ModelRelation> allIter = this.getRelationsIterator();
         while (allIter.hasNext()) {
             ModelRelation modelRelation = allIter.next();
@@ -1567,14 +1568,14 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         final boolean useRelationshipNames = false;
         ModelFieldTypeReader modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperName);
 
-        Map<String, Object> topLevelMap = FastMap.newInstance();
+        Map<String, Object> topLevelMap = new HashMap<String, Object>();
 
         topLevelMap.put("name", this.getEntityName());
         topLevelMap.put("externalName", this.getTableName(helperName));
         topLevelMap.put("className", "EOGenericRecord");
 
         // for classProperties add field names AND relationship names to get a nice, complete chart
-        List<String> classPropertiesList = FastList.newInstance();
+        List<String> classPropertiesList = new LinkedList<String>();
         topLevelMap.put("classProperties", classPropertiesList);
         for (ModelField field: this.fields) {
             if (field.getIsAutoCreatedInternal()) continue;
@@ -1592,14 +1593,14 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         }
 
         // attributes
-        List<Map<String, Object>> attributesList = FastList.newInstance();
+        List<Map<String, Object>> attributesList = new LinkedList<Map<String, Object>>();
         topLevelMap.put("attributes", attributesList);
         for (ModelField field: this.fields) {
             if (field.getIsAutoCreatedInternal()) continue;
 
             ModelFieldType fieldType = modelFieldTypeReader.getModelFieldType(field.getType());
 
-            Map<String, Object> attributeMap = FastMap.newInstance();
+            Map<String, Object> attributeMap = new HashMap<String, Object>();
             attributesList.add(attributeMap);
 
             if (field.getIsPk()) {
@@ -1629,19 +1630,19 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         }
 
         // primaryKeyAttributes
-        List<String> primaryKeyAttributesList = FastList.newInstance();
+        List<String> primaryKeyAttributesList = new LinkedList<String>();
         topLevelMap.put("primaryKeyAttributes", primaryKeyAttributesList);
         for (ModelField pkField: this.pks) {
             primaryKeyAttributesList.add(pkField.getName());
         }
 
         // relationships
-        List<Map<String, Object>> relationshipsMapList = FastList.newInstance();
+        List<Map<String, Object>> relationshipsMapList = new LinkedList<Map<String, Object>>();
         for (ModelRelation relationship: this.relations) {
             if (entityNameIncludeSet.contains(relationship.getRelEntityName())) {
                 ModelEntity relEntity = entityModelReader.getModelEntity(relationship.getRelEntityName());
 
-                Map<String, Object> relationshipMap = FastMap.newInstance();
+                Map<String, Object> relationshipMap = new HashMap<String, Object>();
                 relationshipsMapList.add(relationshipMap);
 
                 if (useRelationshipNames || relationship.isAutoRelation()) {
@@ -1660,10 +1661,10 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
                 relationshipMap.put("joinSemantic", "EOInnerJoin");
 
 
-                List<Map<String, Object>> joinsMapList = FastList.newInstance();
+                List<Map<String, Object>> joinsMapList = new LinkedList<Map<String, Object>>();
                 relationshipMap.put("joins", joinsMapList);
                 for (ModelKeyMap keyMap: relationship.getKeyMapsClone()) {
-                    Map<String, Object> joinsMap = FastMap.newInstance();
+                    Map<String, Object> joinsMap = new HashMap<String, Object>();
                     joinsMapList.add(joinsMap);
 
                     ModelField thisField = this.getField(keyMap.getFieldName());

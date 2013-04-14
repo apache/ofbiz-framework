@@ -20,6 +20,7 @@ package org.ofbiz.entity.sql;
 
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import javolution.util.FastList;
@@ -42,12 +43,12 @@ import org.ofbiz.sql.NumberValue;
 import org.ofbiz.sql.OrderByItem;
 import org.ofbiz.sql.Planner;
 import org.ofbiz.sql.Relation;
-import org.ofbiz.sql.SelectGroup;
 import org.ofbiz.sql.SQLDelete;
 import org.ofbiz.sql.SQLInsert;
 import org.ofbiz.sql.SQLSelect;
 import org.ofbiz.sql.SQLUpdate;
 import org.ofbiz.sql.SQLView;
+import org.ofbiz.sql.SelectGroup;
 import org.ofbiz.sql.StaticValue;
 import org.ofbiz.sql.StringValue;
 import org.ofbiz.sql.Table;
@@ -83,7 +84,7 @@ public class EntityPlanner extends Planner<EntityPlanner, EntityCondition, Entit
         addJoined(dve, table.getTableName().getAlias(), table.getJoined());
         if (selectGroup.getFieldAlls() != null) {
             for (FieldAll fieldAll: selectGroup.getFieldAlls()) {
-                List<String> excludes = FastList.newInstance();
+                List<String> excludes = new LinkedList<String>();
                 for (String exclude: fieldAll) {
                     excludes.add(exclude);
                 }
@@ -111,7 +112,7 @@ public class EntityPlanner extends Planner<EntityPlanner, EntityCondition, Entit
         if (selectStatement.getOrderBy() == null) {
             orderBy = null;
         } else {
-            orderBy = FastList.newInstance();
+            orderBy = new LinkedList<String>();
             for (OrderByItem orderByItem: selectStatement.getOrderBy()) {
                 orderBy.add(orderByItem.toString());
             }

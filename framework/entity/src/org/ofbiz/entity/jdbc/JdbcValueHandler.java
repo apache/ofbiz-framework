@@ -32,11 +32,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.sql.Types;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.sql.rowset.serial.SerialBlob;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 
@@ -56,7 +55,7 @@ public abstract class JdbcValueHandler<T> {
         for the specified Java type. The JdbcValueHandler instances are
         initialized with the SQL type recommended by Sun/Oracle.
          */
-        Map<String, JdbcValueHandler<?>> result = FastMap.newInstance();
+        Map<String, JdbcValueHandler<?>> result = new HashMap<String, JdbcValueHandler<?>>();
         // JDBC 1
         result.put("byte[]", new ByteArrayJdbcValueHandler(Types.LONGVARBINARY));
         result.put("java.lang.Boolean", new BooleanJdbcValueHandler(Types.BOOLEAN));
@@ -99,7 +98,7 @@ public abstract class JdbcValueHandler<T> {
         method must be called with the correct type, or an
         exception will be thrown.
          */
-        Map<String, Integer> result = FastMap.newInstance();
+        Map<String, Integer> result = new HashMap<String, Integer>();
         // SQL 99 Data Types
         result.put("BIT", Types.BIT);
         result.put("BLOB", Types.BLOB);

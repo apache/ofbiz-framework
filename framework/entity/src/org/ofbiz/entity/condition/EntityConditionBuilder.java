@@ -19,15 +19,14 @@
 
 package org.ofbiz.entity.condition;
 
+import groovy.util.BuilderSupport;
+
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import org.ofbiz.base.util.UtilGenerics;
-
-import javolution.util.FastList;
-
-import groovy.util.BuilderSupport;
 
 public class EntityConditionBuilder extends BuilderSupport {
 
@@ -35,7 +34,7 @@ public class EntityConditionBuilder extends BuilderSupport {
     protected Object createNode(Object methodName) {
         String operatorName = ((String)methodName).toLowerCase();
         EntityJoinOperator operator = EntityOperator.lookupJoin(operatorName);
-        List<EntityCondition> condList = FastList.newInstance();
+        List<EntityCondition> condList = new LinkedList<EntityCondition>();
         return EntityCondition.makeCondition(condList, operator);
     }
 
@@ -52,7 +51,7 @@ public class EntityConditionBuilder extends BuilderSupport {
         Map<String, Object> fieldValueMap = UtilGenerics.checkMap(mapArg);
         String operatorName = ((String)methodName).toLowerCase();
         EntityComparisonOperator<String, Object> operator = EntityOperator.lookupComparison(operatorName);
-        List<EntityCondition> conditionList = FastList.newInstance();
+        List<EntityCondition> conditionList = new LinkedList<EntityCondition>();
         for (Map.Entry<String, Object> entry : fieldValueMap.entrySet()) {
             conditionList.add(EntityCondition.makeCondition(entry.getKey(), operator, entry.getValue()));
         }
@@ -74,7 +73,7 @@ public class EntityConditionBuilder extends BuilderSupport {
         // No add method on EntityConditionList?
         EntityConditionList<EntityCondition> parentConList = UtilGenerics.cast(parent);
         Iterator<EntityCondition> iterator = parentConList.getConditionIterator();
-        List<EntityCondition> tempList = FastList.newInstance();
+        List<EntityCondition> tempList = new LinkedList<EntityCondition>();
         while (iterator.hasNext()) {
             tempList.add(iterator.next());
         }

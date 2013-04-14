@@ -18,12 +18,11 @@
  */
 package org.ofbiz.entity.finder;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -101,7 +100,7 @@ public class PrimaryKeyFinder extends Finder {
             Map<FlexibleMapAccessor<Object>, Object> fieldMap, List<FlexibleStringExpander> selectFieldExpanderList) throws GeneralException {
 
         // assemble the field map
-        Map<String, Object> entityContext = FastMap.newInstance();
+        Map<String, Object> entityContext = new HashMap<String, Object>();
         if (autoFieldMap) {
             // try a map called "parameters", try it first so values from here are overridden by values in the main context
             Object parametersObj = context.get("parameters");

@@ -19,12 +19,11 @@
 package org.ofbiz.entity.model;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
@@ -45,7 +44,7 @@ public class ModelEntityChecker {
         TreeSet<String> reservedWords = new TreeSet<String>();
         initReservedWords(reservedWords);
 
-        Map<String, TreeSet<String>> packages = FastMap.newInstance();
+        Map<String, TreeSet<String>> packages = new HashMap<String, TreeSet<String>>();
         TreeSet<String> packageNames = new TreeSet<String>();
         TreeSet<String> tableNames = new TreeSet<String>();
 

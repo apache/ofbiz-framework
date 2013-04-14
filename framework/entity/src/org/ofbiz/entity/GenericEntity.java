@@ -26,7 +26,9 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -34,10 +36,6 @@ import java.util.MissingResourceException;
 import java.util.Observable;
 import java.util.ResourceBundle;
 import java.util.TreeSet;
-
-import javolution.lang.Reusable;
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.crypto.HashCrypt;
 import org.ofbiz.base.util.Base64;
@@ -69,7 +67,7 @@ import org.w3c.dom.Element;
  *
  */
 @SuppressWarnings("serial")
-public class GenericEntity extends Observable implements Map<String, Object>, LocalizedMap<Object>, Serializable, Comparable<GenericEntity>, Cloneable, Reusable {
+public class GenericEntity extends Observable implements Map<String, Object>, LocalizedMap<Object>, Serializable, Comparable<GenericEntity>, Cloneable {
 
     public static final String module = GenericEntity.class.getName();
     public static final GenericEntity NULL_ENTITY = new NullGenericEntity();
@@ -88,7 +86,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
      *  between desiring to set a value to null and desiring to not modify the
      *  current value on an update.
      */
-    protected Map<String, Object> fields = FastMap.newInstance();
+    protected Map<String, Object> fields = new HashMap<String, Object>();
 
     /** Contains the entityName of this entity, necessary for efficiency when creating EJBs */
     protected String entityName = null;
@@ -212,7 +210,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         // from GenericEntity
         this.delegatorName = null;
         this.internalDelegator = null;
-        this.fields = FastMap.newInstance();
+        this.fields = new HashMap<String, Object>();
         this.entityName = null;
         this.modelEntity = null;
         this.modified = false;
@@ -809,7 +807,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         if (modelEntity instanceof ModelViewEntity){
             // retrieve pkNames of realEntity
             ModelViewEntity modelViewEntity = (ModelViewEntity) modelEntity;
-            List<String> pkNamesToUse = FastList.newInstance();
+            List<String> pkNamesToUse = new LinkedList<String>();
             // iterate on realEntity for pkField
             Iterator<ModelField> iter = modelEntityToUse.getPksIterator();
             while (iter != null && iter.hasNext()) {
@@ -858,7 +856,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
     }
 
     public GenericPK getPrimaryKey() {
-        Collection<String> pkNames = FastList.newInstance();
+        Collection<String> pkNames = new LinkedList<String>();
         Iterator<ModelField> iter = this.getModelEntity().getPksIterator();
         while (iter != null && iter.hasNext()) {
             ModelField curField = iter.next();
@@ -960,7 +958,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
      * @return java.util.Map
      */
     public Map<String, Object> getAllFields() {
-        Map<String, Object> newMap = FastMap.newInstance();
+        Map<String, Object> newMap = new HashMap<String, Object>();
         newMap.putAll(this.fields);
         return newMap;
     }
@@ -971,7 +969,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
      */
     public Map<String, Object> getFields(Collection<String> keysofFields) {
         if (keysofFields == null) return null;
-        Map<String, Object> aMap = FastMap.newInstance();
+        Map<String, Object> aMap = new HashMap<String, Object>();
 
         for (String aKey: keysofFields) {
             aMap.put(aKey, this.fields.get(aKey));
@@ -1096,7 +1094,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         writer.print(this.getEntityName());
 
         // write attributes immediately and if a CDATA element is needed, put those in a Map for now
-        Map<String, String> cdataMap = FastMap.newInstance();
+        Map<String, String> cdataMap = new HashMap<String, String>();
 
         Iterator<ModelField> modelFields = this.getModelEntity().getFieldsIterator();
         while (modelFields.hasNext()) {

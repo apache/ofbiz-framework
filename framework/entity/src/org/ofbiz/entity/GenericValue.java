@@ -20,12 +20,10 @@
 package org.ofbiz.entity;
 
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import javolution.context.ObjectFactory;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
@@ -47,13 +45,6 @@ public class GenericValue extends GenericEntity {
 
     public static final GenericValue NULL_VALUE = new NullGenericValue();
 
-    protected static final ObjectFactory<GenericValue> genericValueFactory = new ObjectFactory<GenericValue>() {
-        @Override
-        protected GenericValue create() {
-            return new GenericValue();
-        }
-    };
-
     /** Map to cache various related entity collections */
     public transient Map<String, List<GenericValue>> relatedCache = null;
 
@@ -66,39 +57,37 @@ public class GenericValue extends GenericEntity {
      */
     protected Map<String, Object> originalDbValues = null;
 
-    protected GenericValue() { }
-
     /** Creates new GenericValue */
     public static GenericValue create(ModelEntity modelEntity) {
-        GenericValue newValue = genericValueFactory.object();
+        GenericValue newValue = new GenericValue();
         newValue.init(modelEntity);
         return newValue;
     }
 
     /** Creates new GenericValue from existing Map */
     public static GenericValue create(Delegator delegator, ModelEntity modelEntity, Map<String, ? extends Object> fields) {
-        GenericValue newValue = genericValueFactory.object();
+        GenericValue newValue = new GenericValue();
         newValue.init(delegator, modelEntity, fields);
         return newValue;
     }
 
     /** Creates new GenericValue from existing Map */
     public static GenericValue create(Delegator delegator, ModelEntity modelEntity, Object singlePkValue) {
-        GenericValue newValue = genericValueFactory.object();
+        GenericValue newValue = new GenericValue();
         newValue.init(delegator, modelEntity, singlePkValue);
         return newValue;
     }
 
     /** Creates new GenericValue from existing GenericValue */
     public static GenericValue create(GenericValue value) {
-        GenericValue newValue = genericValueFactory.object();
+        GenericValue newValue = new GenericValue();
         newValue.init(value);
         return newValue;
     }
 
     /** Creates new GenericValue from existing GenericValue */
     public static GenericValue create(GenericPK primaryKey) {
-        GenericValue newValue = genericValueFactory.object();
+        GenericValue newValue = new GenericValue();
         newValue.init(primaryKey);
         return newValue;
     }
@@ -157,7 +146,7 @@ public class GenericValue extends GenericEntity {
      * values from the Db.
      */
     public void copyOriginalDbValues() {
-        this.originalDbValues = FastMap.newInstance();
+        this.originalDbValues = new HashMap<String, Object>();
         this.originalDbValues.putAll(this.fields);
     }
 
@@ -180,7 +169,7 @@ public class GenericValue extends GenericEntity {
      */
     @Deprecated
     public List<GenericValue> getRelated(String relationName, List<String> orderBy) throws GenericEntityException {
-        return this.getDelegator().getRelated(relationName, FastMap.<String, Object>newInstance(), orderBy, this, false);
+        return this.getDelegator().getRelated(relationName, new HashMap<String, Object>(), orderBy, this, false);
     }
 
     /** Get the named Related Entity for the GenericValue from the persistent store
@@ -281,7 +270,7 @@ public class GenericValue extends GenericEntity {
      *@return List of GenericValue instances as specified in the relation definition
      */
     public List<GenericValue> getRelatedEmbeddedCache(String relationName) throws GenericEntityException {
-        if (relatedCache == null) relatedCache = FastMap.newInstance();
+        if (relatedCache == null) relatedCache = new HashMap<String, List<GenericValue>>();
         List<GenericValue> col = relatedCache.get(relationName);
 
         if (col == null) {
@@ -314,12 +303,12 @@ public class GenericValue extends GenericEntity {
     }
 
     public void storeRelatedEmbeddedCache(String relationName, List<GenericValue> col) {
-        if (relatedCache == null) relatedCache = FastMap.newInstance();
+        if (relatedCache == null) relatedCache = new HashMap<String, List<GenericValue>>();
         relatedCache.put(relationName, col);
     }
 
     public void storeRelatedEmbeddedCache(String relationName, GenericValue value) {
-        if (relatedCache == null) relatedCache = FastMap.newInstance();
+        if (relatedCache == null) relatedCache = new HashMap<String, List<GenericValue>>();
         relatedCache.put(relationName, UtilMisc.toList(value));
     }
 
@@ -364,7 +353,7 @@ public class GenericValue extends GenericEntity {
      *@return List of GenericValue instances as specified in the relation definition
      */
     public GenericValue getRelatedOneEmbeddedCache(String relationName) throws GenericEntityException {
-        if (relatedOneCache == null) relatedOneCache = FastMap.newInstance();
+        if (relatedOneCache == null) relatedOneCache = new HashMap<String, GenericValue>();
         GenericValue value = relatedOneCache.get(relationName);
 
         if (value == null) {
@@ -485,7 +474,7 @@ public class GenericValue extends GenericEntity {
             ModelRelation relation = relItr.next();
             if ("one".equalsIgnoreCase(relation.getType())) {
                 // see if the related value exists
-                Map<String, Object> fields = FastMap.newInstance();
+                Map<String, Object> fields = new HashMap<String, Object>();
                 for (int i = 0; i < relation.getKeyMapsSize(); i++) {
                     ModelKeyMap keyMap = relation.getKeyMap(i);
                     fields.put(keyMap.getRelFieldName(), this.get(keyMap.getFieldName()));

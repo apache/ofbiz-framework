@@ -44,9 +44,6 @@ import javax.transaction.xa.XAException;
 import javax.transaction.xa.XAResource;
 import javax.transaction.xa.Xid;
 
-import javolution.util.FastList;
-import javolution.util.FastMap;
-
 import org.apache.commons.collections.map.ListOrderedMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -69,8 +66,8 @@ public class TransactionUtil implements Status {
     private static ThreadLocal<List<Exception>> suspendedTxLocationStack = new ThreadLocal<List<Exception>>();
     private static ThreadLocal<Exception> transactionBeginStack = new ThreadLocal<Exception>();
     private static ThreadLocal<List<Exception>> transactionBeginStackSave = new ThreadLocal<List<Exception>>();
-    private static Map<Long, Exception> allThreadsTransactionBeginStack = Collections.<Long, Exception>synchronizedMap(FastMap.<Long, Exception>newInstance());
-    private static Map<Long, List<Exception>> allThreadsTransactionBeginStackSave = Collections.<Long, List<Exception>>synchronizedMap(FastMap.<Long, List<Exception>>newInstance());
+    private static Map<Long, Exception> allThreadsTransactionBeginStack = Collections.<Long, Exception>synchronizedMap(new HashMap<Long, Exception>());
+    private static Map<Long, List<Exception>> allThreadsTransactionBeginStackSave = Collections.<Long, List<Exception>>synchronizedMap(new HashMap<Long, List<Exception>>());
     private static ThreadLocal<RollbackOnlyCause> setRollbackOnlyCause = new ThreadLocal<RollbackOnlyCause>();
     private static ThreadLocal<List<RollbackOnlyCause>> setRollbackOnlyCauseSave = new ThreadLocal<List<RollbackOnlyCause>>();
     private static ThreadLocal<Timestamp> transactionStartStamp = new ThreadLocal<Timestamp>();
@@ -654,7 +651,7 @@ public class TransactionUtil implements Status {
         // use the ThreadLocal one because it is more reliable than the all threads Map
         List<Exception> el = transactionBeginStackSave.get();
         if (el == null) {
-            el = FastList.newInstance();
+            el = new LinkedList<Exception>();
             transactionBeginStackSave.set(el);
         }
         el.add(0, e);
@@ -662,7 +659,7 @@ public class TransactionUtil implements Status {
         Long curThreadId = Thread.currentThread().getId();
         List<Exception> ctEl = allThreadsTransactionBeginStackSave.get(curThreadId);
         if (ctEl == null) {
-            ctEl = FastList.newInstance();
+            ctEl = new LinkedList<Exception>();
             allThreadsTransactionBeginStackSave.put(curThreadId, ctEl);
         }
         ctEl.add(0, e);
@@ -696,14 +693,14 @@ public class TransactionUtil implements Status {
 
     public static List<Exception> getTransactionBeginStackSave() {
         List<Exception> el = transactionBeginStackSave.get();
-        List<Exception> elClone = FastList.newInstance();
+        List<Exception> elClone = new LinkedList<Exception>();
         elClone.addAll(el);
         return elClone;
     }
 
     public static Map<Long, List<Exception>> getAllThreadsTransactionBeginStackSave() {
         Map<Long, List<Exception>> attbssMap = allThreadsTransactionBeginStackSave;
-        Map<Long, List<Exception>> attbssMapClone = FastMap.newInstance();
+        Map<Long, List<Exception>> attbssMapClone = new HashMap<Long, List<Exception>>();
         attbssMapClone.putAll(attbssMap);
         return attbssMapClone;
     }

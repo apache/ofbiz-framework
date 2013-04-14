@@ -25,8 +25,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import javolution.util.FastList;
-
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.config.MainResourceHandler;
@@ -187,7 +185,7 @@ public class EntityDataLoader {
     public static List<URL> getUrlByComponentList(String helperName, List<String> components, List<String> readerNames) {
         List<URL> urlList = new LinkedList<URL>();
         for (String readerName:  readerNames) {
-            List<String> loadReaderNames = FastList.newInstance();
+            List<String> loadReaderNames = new LinkedList<String>();
             loadReaderNames.add(readerName);
             for (String component : components) {
                 urlList.addAll(getUrlList(helperName, component, loadReaderNames));
@@ -198,7 +196,7 @@ public class EntityDataLoader {
 
     public static List<URL> getUrlByComponentList(String helperName, List<String> components) {
         DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
-        List<String> readerNames = FastList.newInstance();
+        List<String> readerNames = new LinkedList<String>();
         for (Object readerInfo :  datasourceInfo.readDatas) {
             String readerName = null;
             if (readerInfo instanceof Element) {

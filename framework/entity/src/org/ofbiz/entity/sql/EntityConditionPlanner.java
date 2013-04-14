@@ -18,10 +18,9 @@
  */
 package org.ofbiz.entity.sql;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import javolution.util.FastList;
 
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityFieldValue;
@@ -46,7 +45,7 @@ public class EntityConditionPlanner implements ConditionPlanner<EntityCondition>
             return EntityCondition.makeCondition(buildFieldValue(bc.getLeft()), EntityOperator.lookupComparison(bc.getOp()), buildValue(bc.getRight(), params));
         } else if (condition instanceof ConditionList) {
             ConditionList cl = (ConditionList) condition;
-            List<EntityCondition> conditions = FastList.newInstance();
+            List<EntityCondition> conditions = new LinkedList<EntityCondition>();
             for (Condition subCondition: cl) {
                 conditions.add(parse(subCondition, params));
             }
@@ -73,7 +72,7 @@ public class EntityConditionPlanner implements ConditionPlanner<EntityCondition>
             FieldValue fv = (FieldValue) value;
             return EntityFieldValue.makeFieldValue(fv.getFieldName(), fv.getTableName(), null, null);
         } else if (value instanceof List<?>) {
-            List<Object> values = FastList.newInstance();
+            List<Object> values = new LinkedList<Object>();
             for (Object sqlValue: (List<?>) value) {
                 values.add(buildValue(sqlValue, params));
             }
