@@ -21,15 +21,13 @@ package org.ofbiz.entity.model;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.config.GenericConfigException;
@@ -100,9 +98,9 @@ public class ModelReader implements Serializable {
 
     private ModelReader(String modelName) throws GenericEntityException {
         this.modelName = modelName;
-        entityResourceHandlers = FastList.newInstance();
-        resourceHandlerEntities = FastMap.newInstance();
-        entityResourceHandlerMap = FastMap.newInstance();
+        entityResourceHandlers = new LinkedList<ResourceHandler>();
+        resourceHandlerEntities = new HashMap<ResourceHandler, Collection<String>>();
+        entityResourceHandlerMap = new HashMap<String, ResourceHandler>();
 
         EntityModelReaderInfo entityModelReaderInfo = EntityConfigUtil.getEntityModelReaderInfo(modelName);
 
@@ -133,7 +131,7 @@ public class ModelReader implements Serializable {
         Collection<String> resourceHandlerEntityNames = resourceHandlerEntities.get(entityResourceHandler);
 
         if (resourceHandlerEntityNames == null) {
-            resourceHandlerEntityNames = FastList.newInstance();
+            resourceHandlerEntityNames = new LinkedList<String>();
             resourceHandlerEntities.put(entityResourceHandler, resourceHandlerEntityNames);
         }
         resourceHandlerEntityNames.add(entityName);
@@ -196,8 +194,8 @@ public class ModelReader implements Serializable {
                     numAutoRelations = 0;
 
                     entityCache = new HashMap<String, ModelEntity>();
-                    List<ModelViewEntity> tempViewEntityList = FastList.newInstance();
-                    List<Element> tempExtendEntityElementList = FastList.newInstance();
+                    List<ModelViewEntity> tempViewEntityList = new LinkedList<ModelViewEntity>();
+                    List<Element> tempExtendEntityElementList = new LinkedList<Element>();
 
                     UtilTimer utilTimer = new UtilTimer();
 
@@ -292,12 +290,12 @@ TEMP_VIEW_LOOP:
                     }
                     if (!tempViewEntityList.isEmpty()) {
                         StringBuilder sb = new StringBuilder("View entities reference non-existant members:\n");
-                        Set<String> allViews = FastSet.newInstance();
+                        Set<String> allViews = new HashSet<String>();
                         for (ModelViewEntity curViewEntity: tempViewEntityList) {
                             allViews.add(curViewEntity.getEntityName());
                         }
                         for (ModelViewEntity curViewEntity: tempViewEntityList) {
-                            Set<String> perViewMissingEntities = FastSet.newInstance();
+                            Set<String> perViewMissingEntities = new HashSet<String>();
                             Iterator<ModelViewEntity.ModelMemberEntity> mmeIt = curViewEntity.getAllModelMemberEntities().iterator();
                             while (mmeIt.hasNext()) {
                                 ModelViewEntity.ModelMemberEntity mme = mmeIt.next();
@@ -330,7 +328,7 @@ TEMP_VIEW_LOOP:
                             // for entities auto-create many relationships for all type one relationships
 
                             // just in case we add a new relation to the same entity, keep in a separate list and add them at the end
-                            List<ModelRelation> newSameEntityRelations = FastList.newInstance();
+                            List<ModelRelation> newSameEntityRelations = new LinkedList<ModelRelation>();
 
                             Iterator<ModelRelation> relationsIter = curModelEntity.getRelationsIterator();
                             while (relationsIter.hasNext()) {
@@ -355,7 +353,7 @@ TEMP_VIEW_LOOP:
                                         newRel.setRelEntityName(curModelEntity.getEntityName());
                                         newRel.setTitle(targetTitle);
                                         newRel.setAutoRelation(true);
-                                        Set<String> curEntityKeyFields = FastSet.newInstance();
+                                        Set<String> curEntityKeyFields = new HashSet<String>();
                                         for (int kmn = 0; kmn < modelRelation.getKeyMapsSize(); kmn++) {
                                             ModelKeyMap curkm = modelRelation.getKeyMap(kmn);
                                             ModelKeyMap newkm = new ModelKeyMap();
@@ -440,7 +438,7 @@ TEMP_VIEW_LOOP:
      *  entityResourceHandlerMap Map after the initial load to make them consistent again.
      */
     public void rebuildResourceHandlerEntities() {
-        resourceHandlerEntities = FastMap.newInstance();
+        resourceHandlerEntities = new HashMap<ResourceHandler, Collection<String>>();
         Iterator<Map.Entry<String, ResourceHandler>> entityResourceIter = entityResourceHandlerMap.entrySet().iterator();
 
         while (entityResourceIter.hasNext()) {
@@ -449,7 +447,7 @@ TEMP_VIEW_LOOP:
             Collection<String> resourceHandlerEntityNames = resourceHandlerEntities.get(entry.getValue());
 
             if (resourceHandlerEntityNames == null) {
-                resourceHandlerEntityNames = FastList.newInstance();
+                resourceHandlerEntityNames = new LinkedList<String>();
                 resourceHandlerEntities.put(entry.getValue(), resourceHandlerEntityNames);
             }
             resourceHandlerEntityNames.add(entry.getKey());
@@ -534,7 +532,7 @@ TEMP_VIEW_LOOP:
 
     /** Get all entities, organized by package */
     public Map<String, TreeSet<String>> getEntitiesByPackage(Set<String> packageFilterSet, Set<String> entityFilterSet) throws GenericEntityException {
-        Map<String, TreeSet<String>> entitiesByPackage = FastMap.newInstance();
+        Map<String, TreeSet<String>> entitiesByPackage = new HashMap<String, TreeSet<String>>();
 
         //put the entityNames TreeSets in a HashMap by packageName
         Iterator<String> ecIter = this.getEntityNames().iterator();

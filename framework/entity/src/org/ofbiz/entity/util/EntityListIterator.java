@@ -22,10 +22,9 @@ package org.ofbiz.entity.util;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralRuntimeException;
@@ -434,7 +433,7 @@ public class EntityListIterator implements ListIterator<GenericValue> {
                 // do a quick check to see if the ResultSet is empty
                 resultSet.beforeFirst();
             }
-            List<GenericValue> list = FastList.newInstance();
+            List<GenericValue> list = new LinkedList<GenericValue>();
             GenericValue nextValue = null;
 
             while ((nextValue = this.next()) != null) {
@@ -461,8 +460,8 @@ public class EntityListIterator implements ListIterator<GenericValue> {
      */
     public List<GenericValue> getPartialList(int start, int number) throws GenericEntityException {
         try {
-            if (number == 0) return FastList.newInstance();
-            List<GenericValue> list = FastList.newInstance();
+            if (number == 0) return new LinkedList<GenericValue>();
+            List<GenericValue> list = new LinkedList<GenericValue>();
 
             // just in case the caller missed the 1 based thingy
             if (start == 0) start = 1;

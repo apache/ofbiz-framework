@@ -19,12 +19,11 @@
 package org.ofbiz.entity.condition;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.jdbc.SqlJdbcUtil;
@@ -44,12 +43,12 @@ import org.ofbiz.entity.model.ModelViewEntity.ModelAlias;
  * These can be used in various combinations using the EntityConditionList and EntityExpr objects.
  *
  */
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "unchecked" })
 public abstract class EntityConditionBase implements Serializable {
 
-    public static final List<?> emptyList = Collections.unmodifiableList(FastList.newInstance());
-    public static final Map<?,?> _emptyMap = Collections.unmodifiableMap(FastMap.newInstance());
-    public static final Map<String, String> emptyAliases = Collections.unmodifiableMap(FastMap.<String, String>newInstance());
+    public static final List<?> emptyList = Collections.unmodifiableList(new ArrayList(0));
+    public static final Map<?,?> _emptyMap = Collections.unmodifiableMap(new HashMap());
+    public static final Map<String, String> emptyAliases = Collections.unmodifiableMap(new HashMap<String, String>());
 
     protected ModelField getField(ModelEntity modelEntity, String fieldName) {
         ModelField modelField = null;

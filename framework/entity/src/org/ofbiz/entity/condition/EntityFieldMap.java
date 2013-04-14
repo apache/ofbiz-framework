@@ -23,9 +23,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import javolution.context.ObjectFactory;
-import javolution.util.FastMap;
+import java.util.HashMap;
 
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.entity.util.EntityUtil;
@@ -37,18 +35,7 @@ import org.ofbiz.entity.util.EntityUtil;
 @SuppressWarnings("serial")
 public class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
 
-    protected static final ObjectFactory<EntityFieldMap> entityFieldMapFactory = new ObjectFactory<EntityFieldMap>() {
-        @Override
-        protected EntityFieldMap create() {
-            return new EntityFieldMap();
-        }
-    };
-
     protected Map<String, ? extends Object> fieldMap = null;
-
-    protected EntityFieldMap() {
-        super();
-    }
 
     public static <V> List<EntityExpr> makeConditionList(EntityComparisonOperator<?,V> op, V... keysValues) {
         return makeConditionList(EntityUtil.makeFields(keysValues), op);
@@ -66,14 +53,14 @@ public class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
     public <V> void init(EntityComparisonOperator<?,?> compOp, EntityJoinOperator joinOp, V... keysValues) {
         super.init(makeConditionList(EntityUtil.makeFields(keysValues), UtilGenerics.<EntityComparisonOperator<String,V>>cast(compOp)), joinOp);
         this.fieldMap = EntityUtil.makeFields(keysValues);
-        if (this.fieldMap == null) this.fieldMap = FastMap.newInstance();
+        if (this.fieldMap == null) this.fieldMap = new HashMap<String, Object>();
         this.operator = joinOp;
     }
 
     public <V> void init(Map<String, V> fieldMap, EntityComparisonOperator<?,?> compOp, EntityJoinOperator joinOp) {
         super.init(makeConditionList(fieldMap, UtilGenerics.<EntityComparisonOperator<String,V>>cast(compOp)), joinOp);
         this.fieldMap = fieldMap;
-        if (this.fieldMap == null) this.fieldMap = FastMap.newInstance();
+        if (this.fieldMap == null) this.fieldMap = new HashMap<String, Object>();
         this.operator = joinOp;
     }
 

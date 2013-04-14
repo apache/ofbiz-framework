@@ -23,7 +23,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -33,9 +35,6 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 
 import javax.xml.parsers.ParserConfigurationException;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.concurrent.ExecutionPool;
 import org.ofbiz.base.util.Debug;
@@ -131,7 +130,7 @@ public class GenericDelegator implements Delegator {
     protected static List<String> getUserIdentifierStack() {
         List<String> curValList = userIdentifierStack.get();
         if (curValList == null) {
-            curValList = FastList.newInstance();
+            curValList = new LinkedList<String>();
             userIdentifierStack.set(curValList);
         }
         return curValList;
@@ -167,7 +166,7 @@ public class GenericDelegator implements Delegator {
     protected static List<String> getSessionIdentifierStack() {
         List<String> curValList = sessionIdentifierStack.get();
         if (curValList == null) {
-            curValList = FastList.newInstance();
+            curValList = new LinkedList<String>();
             sessionIdentifierStack.set(curValList);
         }
         return curValList;
@@ -235,7 +234,7 @@ public class GenericDelegator implements Delegator {
         cache = new Cache(delegatorFullName);
 
         // do the entity model check
-        List<String> warningList = FastList.newInstance();
+        List<String> warningList = new LinkedList<String>();
         Debug.logImportant("Doing entity definition check...", module);
         ModelEntityChecker.checkEntities(this, warningList);
         if (warningList.size() > 0) {
@@ -247,7 +246,7 @@ public class GenericDelegator implements Delegator {
 
         // initialize helpers by group
         Set<String> groupNames = getModelGroupReader().getGroupNames(delegatorBaseName);
-        List<Future<Void>> futures = FastList.newInstance();
+        List<Future<Void>> futures = new LinkedList<Future<Void>>();
         for (String groupName: groupNames) {
             futures.add(ExecutionPool.GLOBAL_EXECUTOR.submit(createHelperCallable(groupName)));
         }
@@ -421,7 +420,7 @@ public class GenericDelegator implements Delegator {
             }
         }
 
-        Map<String, ModelEntity> entities = FastMap.newInstance();
+        Map<String, ModelEntity> entities = new HashMap<String, ModelEntity>();
         if (UtilValidate.isEmpty(entityNameSet)) {
             return entities;
         }
@@ -1216,7 +1215,7 @@ public class GenericDelegator implements Delegator {
             throw new GenericModelException("Could not find relation for relationName: " + relationName + " for value " + value);
         }
 
-        Map<String, Object> fields = FastMap.newInstance();
+        Map<String, Object> fields = new HashMap<String, Object>();
         for (int i = 0; i < relation.getKeyMapsSize(); i++) {
             ModelKeyMap keyMap = relation.getKeyMap(i);
             fields.put(keyMap.getRelFieldName(), value.get(keyMap.getFieldName()));
@@ -1960,7 +1959,7 @@ public class GenericDelegator implements Delegator {
 
         // put the byAndFields (if not null) into the hash map first,
         // they will be overridden by value's fields if over-specified this is important for security and cleanliness
-        Map<String, Object> fields = FastMap.newInstance();
+        Map<String, Object> fields = new HashMap<String, Object>();
         if (byAndFields != null) {
             fields.putAll(byAndFields);
         }
@@ -1986,7 +1985,7 @@ public class GenericDelegator implements Delegator {
 
         // put the byAndFields (if not null) into the hash map first,
         // they will be overridden by value's fields if over-specified this is important for security and cleanliness
-        Map<String, Object> fields = FastMap.newInstance();
+        Map<String, Object> fields = new HashMap<String, Object>();
         if (byAndFields != null) {
             fields.putAll(byAndFields);
         }
@@ -2038,7 +2037,7 @@ public class GenericDelegator implements Delegator {
             throw new GenericModelException("Relation is not a 'one' or a 'one-nofk' relation: " + relationName + " of entity " + value.getEntityName());
         }
 
-        Map<String, Object> fields = FastMap.newInstance();
+        Map<String, Object> fields = new HashMap<String, Object>();
         for (int i = 0; i < relation.getKeyMapsSize(); i++) {
             ModelKeyMap keyMap = relation.getKeyMap(i);
             fields.put(keyMap.getRelFieldName(), value.get(keyMap.getFieldName()));
@@ -2308,7 +2307,7 @@ public class GenericDelegator implements Delegator {
         if (document == null) {
             return null;
         }
-        List<GenericValue> values = FastList.newInstance();
+        List<GenericValue> values = new LinkedList<GenericValue>();
 
         Element docElement = document.getDocumentElement();
 

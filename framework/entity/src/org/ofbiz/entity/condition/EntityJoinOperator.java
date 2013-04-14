@@ -21,10 +21,9 @@ package org.ofbiz.entity.condition;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
@@ -49,7 +48,7 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
 
     @Override
     public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean compat, EntityCondition lhs, EntityCondition rhs, DatasourceInfo datasourceInfo) {
-        List<EntityCondition> conditions = FastList.newInstance();
+        List<EntityCondition> conditions = new LinkedList<EntityCondition>();
         conditions.add(lhs);
         conditions.add(rhs);
         addSqlValue(sql, modelEntity, entityConditionParams, conditions, datasourceInfo);

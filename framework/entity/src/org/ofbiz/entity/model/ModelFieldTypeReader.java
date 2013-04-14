@@ -20,10 +20,9 @@ package org.ofbiz.entity.model;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.config.MainResourceHandler;
@@ -36,7 +35,6 @@ import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.config.FieldTypeInfo;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -52,7 +50,7 @@ public class ModelFieldTypeReader implements Serializable {
 
     protected static Map<String, ModelFieldType> createFieldTypeCache(Element docElement, String location) {
         docElement.normalize();
-        Map<String, ModelFieldType> fieldTypeMap = FastMap.newInstance();
+        Map<String, ModelFieldType> fieldTypeMap = new HashMap<String, ModelFieldType>();
         List<? extends Element> fieldTypeList = UtilXml.childElementList(docElement, "field-type-def");
         for (Element curFieldType: fieldTypeList) {
             String fieldTypeName = curFieldType.getAttribute("type");

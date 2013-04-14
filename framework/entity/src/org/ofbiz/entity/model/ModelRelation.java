@@ -24,8 +24,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import javolution.util.FastList;
-
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -157,8 +155,7 @@ public class ModelRelation extends ModelChild {
     }
 
     public List<ModelKeyMap> getKeyMapsClone() {
-        List<ModelKeyMap> kmList = FastList.newInstance();
-        kmList.addAll(this.keyMaps);
+        List<ModelKeyMap> kmList = new ArrayList<ModelKeyMap>(this.keyMaps);
         return kmList;
     }
 

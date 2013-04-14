@@ -20,8 +20,6 @@
 package org.ofbiz.entity;
 
 
-import javolution.context.ObjectFactory;
-
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 
@@ -39,16 +37,10 @@ import freemarker.template.TemplateModelException;
  */
 @SuppressWarnings("serial")
 public class GenericValueHtmlWrapper extends GenericValue {
-    protected static final ObjectFactory<GenericValueHtmlWrapper> genericValueHtmlWrapperFactory = new ObjectFactory<GenericValueHtmlWrapper>() {
-        @Override
-        protected GenericValueHtmlWrapper create() {
-            return new GenericValueHtmlWrapper();
-        }
-    };
 
     /** Creates new GenericValueHtmlWrapper from existing GenericValue */
     public static GenericValueHtmlWrapper create(GenericValue value) {
-        GenericValueHtmlWrapper newValue = genericValueHtmlWrapperFactory.object();
+        GenericValueHtmlWrapper newValue = new GenericValueHtmlWrapper();
         try {
             newValue.init(value);
         } catch (RuntimeException e) {

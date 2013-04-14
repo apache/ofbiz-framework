@@ -22,8 +22,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import javolution.context.ObjectFactory;
-
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilGenerics;
@@ -46,18 +44,9 @@ import org.ofbiz.entity.model.ModelFieldType;
 public class EntityExpr extends EntityCondition {
     public static final String module = EntityExpr.class.getName();
 
-    protected static final ObjectFactory<EntityExpr> entityExprFactory = new ObjectFactory<EntityExpr>() {
-        @Override
-        protected EntityExpr create() {
-            return new EntityExpr();
-        }
-    };
-
     private Object lhs = null;
     private EntityOperator<Object, Object, ?> operator = null;
     private Object rhs = null;
-
-    protected EntityExpr() {}
 
     public <L,R,LL,RR> void init(L lhs, EntityComparisonOperator<LL,RR> operator, R rhs) {
         if (lhs == null) {

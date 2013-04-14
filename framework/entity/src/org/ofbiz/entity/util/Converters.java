@@ -18,11 +18,10 @@
  *******************************************************************************/
 package org.ofbiz.entity.util;
 
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-
-import javolution.util.FastList;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.conversion.AbstractConverter;
 import org.ofbiz.base.conversion.ConversionException;
@@ -38,7 +37,7 @@ public class Converters implements ConverterLoader {
         }
 
         public List<GenericValue> convert(GenericValue obj) throws ConversionException {
-            List<GenericValue> tempList = FastList.newInstance();
+            List<GenericValue> tempList = new LinkedList<GenericValue>();
             tempList.add(obj);
             return tempList;
         }
@@ -50,7 +49,7 @@ public class Converters implements ConverterLoader {
         }
 
         public Set<GenericValue> convert(GenericValue obj) throws ConversionException {
-            Set<GenericValue> tempSet = FastSet.newInstance();
+            Set<GenericValue> tempSet = new HashSet<GenericValue>();
             tempSet.add(obj);
             return tempSet;
         }

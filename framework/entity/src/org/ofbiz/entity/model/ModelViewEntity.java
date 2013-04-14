@@ -24,12 +24,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
@@ -72,25 +72,25 @@ public class ModelViewEntity extends ModelEntity {
     protected Map<String, ModelMemberEntity> memberModelMemberEntities = FastMap.newInstance();
 
     /** A list of all ModelMemberEntity entries; this is mainly used to preserve the original order of member entities from the XML file */
-    protected List<ModelMemberEntity> allModelMemberEntities = FastList.newInstance();
+    protected List<ModelMemberEntity> allModelMemberEntities = new LinkedList<ModelMemberEntity>();
 
     /** Contains member-entity ModelEntities: key is alias, value is ModelEntity; populated with fields */
     protected Map<String, String> memberModelEntities = FastMap.newInstance();
 
     /** List of alias-alls which act as a shortcut for easily pulling over member entity fields */
-    protected List<ModelAliasAll> aliasAlls = FastList.newInstance();
+    protected List<ModelAliasAll> aliasAlls = new LinkedList<ModelAliasAll>();
 
     /** List of aliases with information in addition to what is in the standard field list */
-    protected List<ModelAlias> aliases = FastList.newInstance();
+    protected List<ModelAlias> aliases = new LinkedList<ModelAlias>();
 
     /** List of view links to define how entities are connected (or "joined") */
-    protected List<ModelViewLink> viewLinks = FastList.newInstance();
+    protected List<ModelViewLink> viewLinks = new LinkedList<ModelViewLink>();
 
     /** A List of the Field objects for the View Entity, one for each GROUP BY field */
-    protected List<ModelField> groupBys = FastList.newInstance();
+    protected List<ModelField> groupBys = new LinkedList<ModelField>();
 
     /** List of field names to group by */
-    protected List<String> groupByFields = FastList.newInstance();
+    protected List<String> groupByFields = new LinkedList<String>();
 
     protected Map<String, ModelConversion[]> conversions = FastMap.newInstance();
 
@@ -243,8 +243,7 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public List<ModelAlias> getAliasesCopy() {
-        List<ModelAlias> newList = FastList.newInstance();
-        newList.addAll(this.aliases);
+        List<ModelAlias> newList = new ArrayList<ModelAlias>(this.aliases);
         return newList;
     }
 
@@ -257,7 +256,7 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public List<ModelField> getGroupBysCopy(List<ModelField> selectFields) {
-        List<ModelField> newList = FastList.newInstance();
+        List<ModelField> newList = new ArrayList<ModelField>(this.groupBys.size());
         if (UtilValidate.isEmpty(selectFields)) {
             newList.addAll(this.groupBys);
         } else {
@@ -284,8 +283,7 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public List<ModelViewLink> getViewLinksCopy() {
-        List<ModelViewLink> newList = FastList.newInstance();
-        newList.addAll(this.viewLinks);
+        List<ModelViewLink> newList = new ArrayList<ModelViewLink>(this.viewLinks);
         return newList;
     }
 
@@ -295,7 +293,7 @@ public class ModelViewEntity extends ModelEntity {
 
     public void populateViewEntityConditionInformation(ModelFieldTypeReader modelFieldTypeReader, List<EntityCondition> whereConditions, List<EntityCondition> havingConditions, List<String> orderByList, List<String> entityAliasStack) {
         if (entityAliasStack == null) {
-            entityAliasStack = FastList.newInstance();
+            entityAliasStack = new LinkedList<String>();
         }
 
         if (this.viewEntityCondition != null) {
@@ -556,7 +554,7 @@ public class ModelViewEntity extends ModelEntity {
 
             List<String> aliases = containedModelFields.get(alias.getField());
             if (aliases == null) {
-                aliases = FastList.newInstance();
+                aliases = new LinkedList<String>();
                 containedModelFields.put(alias.getField(), aliases);
             }
             aliases.add(alias.getName());
@@ -616,7 +614,7 @@ public class ModelViewEntity extends ModelEntity {
     public List<Map<String, Object>> convert(String fromEntityName, Map<String, ? extends Object> data) {
         ModelConversion[] conversions = this.conversions.get(fromEntityName);
         if (conversions == null) return null;
-        List<Map<String, Object>> values = FastList.newInstance();
+        List<Map<String, Object>> values = new LinkedList<Map<String, Object>>();
         for (ModelConversion conversion: conversions) {
             conversion.convert(values, data);
         }
@@ -979,7 +977,7 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public static final class ComplexAlias implements ComplexAliasMember {
-        protected final List<ComplexAliasMember> complexAliasMembers = FastList.newInstance();
+        protected final List<ComplexAliasMember> complexAliasMembers = new LinkedList<ComplexAliasMember>();
         protected final String operator;
 
         public ComplexAlias(String operator) {
@@ -1100,7 +1098,7 @@ public class ModelViewEntity extends ModelEntity {
         protected final String entityAlias;
         protected final String relEntityAlias;
         protected final boolean relOptional;
-        protected final List<ModelKeyMap> keyMaps = FastList.newInstance();
+        protected final List<ModelKeyMap> keyMaps = new LinkedList<ModelKeyMap>();
         protected final ViewEntityCondition viewEntityCondition;
 
         public ModelViewLink(ModelViewEntity modelViewEntity, Element viewLinkElement) {
@@ -1180,8 +1178,7 @@ public class ModelViewEntity extends ModelEntity {
         }
 
         public List<ModelKeyMap> getKeyMapsCopy() {
-            List<ModelKeyMap> newList = FastList.newInstance();
-            newList.addAll(this.keyMaps);
+            List<ModelKeyMap> newList = new ArrayList<ModelKeyMap>(this.keyMaps);
             return newList;
         }
 
@@ -1271,7 +1268,7 @@ public class ModelViewEntity extends ModelEntity {
             // process order-by
             List<? extends Element> orderByElementList = UtilXml.childElementList(element, "order-by");
             if (orderByElementList.size() > 0) {
-                orderByList = FastList.newInstance();
+                orderByList = new ArrayList<String>(orderByElementList.size());
                 for (Element orderByElement: orderByElementList) {
                     orderByList.add(orderByElement.getAttribute("field-name"));
                 }
@@ -1484,7 +1481,7 @@ public class ModelViewEntity extends ModelEntity {
                 return condition.createCondition(modelFieldTypeReader, entityAliasStack);
             }
 
-            List<EntityCondition> entityConditionList = FastList.<EntityCondition>newInstance();
+            List<EntityCondition> entityConditionList = new LinkedList<EntityCondition>();
             for (ViewCondition curCondition: conditionList) {
                 EntityCondition econd = curCondition.createCondition(modelFieldTypeReader, entityAliasStack);
                 if (econd != null) {

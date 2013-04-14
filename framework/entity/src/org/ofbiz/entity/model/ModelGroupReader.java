@@ -20,13 +20,12 @@ package org.ofbiz.entity.model;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-
-import javolution.util.FastSet;
 
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.config.GenericConfigException;
@@ -191,7 +190,7 @@ public class ModelGroupReader implements Serializable {
         
         getGroupCache();
         if (this.groupNames == null) return null;
-        Set<String> newSet = FastSet.newInstance();
+        Set<String> newSet = new HashSet<String>();
         newSet.add(EntityConfigUtil.getDelegatorInfo(delegatorBaseName).defaultGroupName);
         newSet.addAll(this.groupNames);
         return newSet;
@@ -203,7 +202,7 @@ public class ModelGroupReader implements Serializable {
      */
     public Set<String> getEntityNamesByGroup(String groupName) {
         Map<String, String> gc = getGroupCache();
-        Set<String> enames = FastSet.newInstance();
+        Set<String> enames = new HashSet<String>();
 
         if (groupName == null || groupName.length() <= 0) return enames;
         if (UtilValidate.isEmpty(gc)) return enames;

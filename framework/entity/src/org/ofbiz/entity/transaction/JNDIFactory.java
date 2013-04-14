@@ -21,7 +21,7 @@ package org.ofbiz.entity.transaction;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -30,8 +30,6 @@ import javax.sql.XAConnection;
 import javax.sql.XADataSource;
 import javax.transaction.TransactionManager;
 import javax.transaction.UserTransaction;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.util.Debug;
@@ -57,7 +55,7 @@ public class JNDIFactory implements TransactionFactoryInterface {
     static UserTransaction userTransaction = null;
 
     // protected static UtilCache dsCache = new UtilCache("entity.JndiDataSources", 0, 0);
-    protected static Map<String, DataSource> dsCache = FastMap.newInstance();
+    protected static ConcurrentHashMap<String, DataSource> dsCache = new ConcurrentHashMap<String, DataSource>();
 
     public TransactionManager getTransactionManager() {
         if (transactionManager == null) {
@@ -159,9 +157,7 @@ public class JNDIFactory implements TransactionFactoryInterface {
 
     public static Connection getJndiConnection(String jndiName, String jndiServerName) throws SQLException, GenericEntityException {
         // if (Debug.verboseOn()) Debug.logVerbose("Trying JNDI name " + jndiName, module);
-        DataSource ds;
-
-        ds = dsCache.get(jndiName);
+        DataSource ds = dsCache.get(jndiName);
         if (ds != null) {
             if (ds instanceof XADataSource) {
                 XADataSource xads = (XADataSource) ds;
@@ -171,75 +167,45 @@ public class JNDIFactory implements TransactionFactoryInterface {
                 return ds.getConnection();
             }
         }
+        try {
+            if (Debug.infoOn())
+                Debug.logInfo("Doing JNDI lookup for name " + jndiName, module);
+            InitialContext ic = JNDIContextFactory.getInitialContext(jndiServerName);
 
-        synchronized (ConnectionFactory.class) {
-            // try again inside the synch just in case someone when through while we were waiting
-            ds = dsCache.get(jndiName);
+            if (ic != null) {
+                ds = (DataSource) ic.lookup(jndiName);
+            } else {
+                Debug.logWarning("Initial Context returned was NULL for server name " + jndiServerName, module);
+            }
+
             if (ds != null) {
+                if (Debug.verboseOn())
+                    Debug.logVerbose("Got a Datasource object.", module);
+                dsCache.putIfAbsent(jndiName, ds);
+                ds = dsCache.get(jndiName);
+                Connection con;
+
                 if (ds instanceof XADataSource) {
+                    if (Debug.infoOn())
+                        Debug.logInfo("Got XADataSource for name " + jndiName, module);
                     XADataSource xads = (XADataSource) ds;
+                    XAConnection xac = xads.getXAConnection();
 
-                    return TransactionUtil.enlistConnection(xads.getXAConnection());
+                    con = TransactionUtil.enlistConnection(xac);
                 } else {
-                    return ds.getConnection();
+                    if (Debug.infoOn())
+                        Debug.logInfo("Got DataSource for name " + jndiName, module);
+
+                    con = ds.getConnection();
                 }
+                return con;
+            } else {
+                Debug.logError("Datasource returned was NULL.", module);
             }
-
-            try {
-                if (Debug.infoOn()) Debug.logInfo("Doing JNDI lookup for name " + jndiName, module);
-                InitialContext ic = JNDIContextFactory.getInitialContext(jndiServerName);
-
-                if (ic != null) {
-                    ds = (DataSource) ic.lookup(jndiName);
-                } else {
-                    Debug.logWarning("Initial Context returned was NULL for server name " + jndiServerName, module);
-                }
-
-                if (ds != null) {
-                    if (Debug.verboseOn()) Debug.logVerbose("Got a Datasource object.", module);
-                    dsCache.put(jndiName, ds);
-                    Connection con;
-
-                    if (ds instanceof XADataSource) {
-                        if (Debug.infoOn()) Debug.logInfo("Got XADataSource for name " + jndiName, module);
-                        XADataSource xads = (XADataSource) ds;
-                        XAConnection xac = xads.getXAConnection();
-
-                        con = TransactionUtil.enlistConnection(xac);
-                    } else {
-                        if (Debug.infoOn()) Debug.logInfo("Got DataSource for name " + jndiName, module);
-
-                        con = ds.getConnection();
-                    }
-
-                    /* NOTE: This code causes problems because settting the transaction isolation level after a transaction has started is a no-no
-                     * The question is: how should we do this?
-                     String isolationLevel = jndiJdbcElement.getAttribute("isolation-level");
-                     if (UtilValidate.isNotEmpty(isolationLevel)) {
-                     if ("Serializable".equals(isolationLevel)) {
-                     con.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
-                     } else if ("RepeatableRead".equals(isolationLevel)) {
-                     con.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
-                     } else if ("ReadUncommitted".equals(isolationLevel)) {
-                     con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
-                     } else if ("ReadCommitted".equals(isolationLevel)) {
-                     con.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
-                     } else if ("None".equals(isolationLevel)) {
-                     con.setTransactionIsolation(Connection.TRANSACTION_NONE);
-                     }
-                     }
-                     */
-
-                    // if (con != null) if (Debug.infoOn()) Debug.logInfo("[ConnectionFactory.getConnection] Got JNDI connection with catalog: " + con.getCatalog(), module);
-                    return con;
-                } else {
-                    Debug.logError("Datasource returned was NULL.", module);
-                }
-            } catch (NamingException ne) {
-                Debug.logWarning(ne, "[ConnectionFactory.getConnection] Failed to find DataSource named " + jndiName + " in JNDI server with name " + jndiServerName + ". Trying normal database.", module);
-            } catch (GenericConfigException gce) {
-                throw new GenericEntityException("Problems with the JNDI configuration.", gce.getNested());
-            }
+        } catch (NamingException ne) {
+            Debug.logWarning(ne, "[ConnectionFactory.getConnection] Failed to find DataSource named " + jndiName + " in JNDI server with name " + jndiServerName + ". Trying normal database.", module);
+        } catch (GenericConfigException gce) {
+            throw new GenericEntityException("Problems with the JNDI configuration.", gce.getNested());
         }
         return null;
     }

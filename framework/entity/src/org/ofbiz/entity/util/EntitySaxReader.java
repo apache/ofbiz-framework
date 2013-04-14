@@ -27,13 +27,13 @@ import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import javolution.text.CharArray;
 import javolution.text.Text;
-import javolution.util.FastList;
-import javolution.util.FastMap;
 import javolution.xml.sax.Attributes;
 import javolution.xml.sax.XMLReaderImpl;
 
@@ -191,7 +191,7 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
 
     public List<Object> getMessageList() {
         if (this.checkDataOnly && this.messageList == null) {
-            messageList = FastList.newInstance();
+            messageList = new LinkedList<Object>();
         }
         return this.messageList;
     }
@@ -380,7 +380,7 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
                     Template template = new Template("FMImportFilter", templateReader, config);
                     NodeModel nodeModel = NodeModel.wrap(this.rootNodeForTemplate);
 
-                    Map<String, Object> context = FastMap.newInstance();
+                    Map<String, Object> context = new HashMap<String, Object>();
                     TemplateHashModel staticModels = FreeMarkerWorker.getDefaultOfbizWrapper().getStaticModels();
                     context.put("Static", staticModels);
 

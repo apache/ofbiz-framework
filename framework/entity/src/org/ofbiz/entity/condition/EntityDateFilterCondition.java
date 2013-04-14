@@ -19,11 +19,9 @@
 package org.ofbiz.entity.condition;
 
 import java.sql.Timestamp;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import javolution.context.ObjectFactory;
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.entity.Delegator;
@@ -38,17 +36,8 @@ import org.ofbiz.entity.model.ModelEntity;
 @SuppressWarnings("serial")
 public class EntityDateFilterCondition extends EntityCondition {
 
-    protected static final ObjectFactory<EntityDateFilterCondition> entityDateFilterConditionFactory = new ObjectFactory<EntityDateFilterCondition>() {
-        @Override
-        protected EntityDateFilterCondition create() {
-            return new EntityDateFilterCondition();
-        }
-    };
-
     protected String fromDateName = null;
     protected String thruDateName = null;
-
-    protected EntityDateFilterCondition() {}
 
     public void init(String fromDateName, String thruDateName) {
         this.fromDateName = fromDateName;
@@ -152,7 +141,7 @@ public class EntityDateFilterCondition extends EntityCondition {
      * @return EntityCondition representing the date range filter
      */
     public static EntityCondition makeRangeCondition(Timestamp rangeStart, Timestamp rangeEnd, String fromDateName, String thruDateName) {
-        List<EntityCondition> criteria = FastList.newInstance();
+        List<EntityCondition> criteria = new LinkedList<EntityCondition>();
         // fromDate is equal to or after rangeStart but before rangeEnd
         criteria.add(
                 EntityCondition.makeCondition(
