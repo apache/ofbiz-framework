@@ -633,8 +633,7 @@ public class GenericDelegator implements Delegator {
         }
         GenericValue value = GenericValue.create(entity);
         value.setDelegator(this);
-        value.setPKFields(fields, true);
-        value.setNonPKFields(fields, true);
+        value.setAllFields(fields, true, null, null);
         return value;
     }
 
