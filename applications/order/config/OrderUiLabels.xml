@@ -1110,7 +1110,7 @@
         <value xml:lang="zh_TW">預訂開始時間</value>
     </property>
     <property key="FormFieldTitle_returnHeaderTypeId">
-        <value xml:lang="de">Retouren HeaderType Id</value>
+        <value xml:lang="de">Retouren-Art</value>
         <value xml:lang="en">Return HeaderType Id</value>
         <value xml:lang="fr">Réf. de type d'en-tête de retour</value>
         <value xml:lang="it">Tipo testata reso</value>

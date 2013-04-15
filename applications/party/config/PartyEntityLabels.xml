@@ -506,7 +506,7 @@
         <value xml:lang="zh">寄账单目的地传真号码</value>
     </property>
     <property key="ContactMechPurposeType.description.FAX_NUMBER">
-        <value xml:lang="de">Haupt Faxnummer</value>
+        <value xml:lang="de">Haupt-Faxnummer</value>
         <value xml:lang="en">Main Fax Number</value>
         <value xml:lang="es">Número de fax principal</value>
         <value xml:lang="fr">Numéro de télécopie principal</value>
@@ -783,7 +783,7 @@
         <value xml:lang="zh_TW">貨運發貨地電話號碼</value>
     </property>
     <property key="ContactMechPurposeType.description.PHONE_WORK">
-        <value xml:lang="de">Telefon 1. Geschäftsadresse</value>
+        <value xml:lang="de">Geschäftliche Telefonnummer</value>
         <value xml:lang="en">Main Work Phone Number</value>
         <value xml:lang="es">Teléfono principal trabajo</value>
         <value xml:lang="fr">Numéro de téléphone au bureau</value>
@@ -800,7 +800,7 @@
         <value xml:lang="zh_TW">主要工作電話號碼</value>
     </property>
     <property key="ContactMechPurposeType.description.PHONE_WORK_SEC">
-        <value xml:lang="de">Telefon 2. Geschäftsadresse</value>
+        <value xml:lang="de">Weitere Geschäftliche Telefonnummer</value>
         <value xml:lang="en">Secondary Work Phone Number</value>
         <value xml:lang="es">Teléfono secundario trabajo</value>
         <value xml:lang="fr">Numéro de téléphone secondaire au bureau</value>
@@ -832,7 +832,7 @@
         <value xml:lang="zh_TW">上一個地址</value>
     </property>
     <property key="ContactMechPurposeType.description.PRIMARY_EMAIL">
-        <value xml:lang="de">1. E-Mail-Adresse</value>
+        <value xml:lang="de">Haupt-E-Mail-Adresse</value>
         <value xml:lang="en">Primary Email Address</value>
         <value xml:lang="es">Correo electrónico principal</value>
         <value xml:lang="fr">Adresse courriel principale</value>
@@ -866,7 +866,7 @@
         <value xml:lang="zh_TW">首選地址</value>
     </property>
     <property key="ContactMechPurposeType.description.PRIMARY_PHONE">
-        <value xml:lang="de">1. Telefonnummer</value>
+        <value xml:lang="de">Haupt-Telefonnummer</value>
         <value xml:lang="en">Primary Phone Number</value>
         <value xml:lang="es">Teléfono principal</value>
         <value xml:lang="fr">Numéro de téléphone principal</value>
@@ -4021,6 +4021,7 @@
         <value xml:lang="zh_TW">支付 (工作日)</value>
     </property>
     <property key="TermType.description.FIN_PAY_NETDAYS_1">
+        <value xml:lang="de">Nettozahlung in Tagen, Teil 1</value>
         <value xml:lang="en">Payment net days, part 1</value>
         <value xml:lang="fr">Paiement net jours, part 1</value>
         <value xml:lang="it">Pagamento netto giorni, parte 1</value>
@@ -4031,6 +4032,7 @@
         <value xml:lang="zh_TW">支付淨天數，第一部分</value>
     </property>
     <property key="TermType.description.FIN_PAY_NETDAYS_2">
+        <value xml:lang="de">Nettozahlung in Tagen, Teil 2</value>
         <value xml:lang="en">Payment net days, part 2</value>
         <value xml:lang="fr">Paiement net jours, part 2</value>
         <value xml:lang="it">Pagamento netto giorni, parte 2</value>
@@ -4041,6 +4043,7 @@
         <value xml:lang="zh_TW">支付淨天數，第二部分</value>
     </property>
     <property key="TermType.description.FIN_PAY_NETDAYS_3">
+        <value xml:lang="de">Nettozahlung in Tagen, Teil 3</value>
         <value xml:lang="en">Payment net days, part 3</value>
         <value xml:lang="fr">Paiement net jours, part 3</value>
         <value xml:lang="it">Pagamento netto giorni, parte 3</value>

@@ -15440,6 +15440,7 @@
         <value xml:lang="zh_TW">賬戶代碼</value>
     </property>
     <property key="FormFieldTitle_accountCurrencyUomId">
+        <value xml:lang="de">Währung</value>
         <value xml:lang="en">Account Currency Uom Id</value>
         <value xml:lang="es">Id UM moneda de cuenta</value>
         <value xml:lang="fr">Unité de la monnaie</value>

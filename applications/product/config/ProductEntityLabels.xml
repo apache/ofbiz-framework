@@ -1857,7 +1857,7 @@
         <value xml:lang="zh_TW">可選擇的</value>
     </property>
     <property key="ProductFeatureApplType.description.STANDARD_FEATURE">
-        <value xml:lang="de">Standart</value>
+        <value xml:lang="de">Standard</value>
         <value xml:lang="en">Standard</value>
         <value xml:lang="es">Estándard</value>
         <value xml:lang="fr">Standard</value>
