@@ -1052,7 +1052,7 @@
         <value xml:lang="zh_TW">根據財年重新開始 (沒有間隔，每年對每個組織重置)</value>
     </property>
     <property key="Enumeration.description.INVSQ_STANDARD">
-        <value xml:lang="de">Standart (effizienter, kann Lücken haben, pro System)</value>
+        <value xml:lang="de">Standard (effizienter, kann Lücken haben, pro System)</value>
         <value xml:lang="en">Standard (faster, may have gaps, per system)</value>
         <value xml:lang="es">Estándar (rápido, puede tener huecos, global del sistema)</value>
         <value xml:lang="fr">Standard (plus rapide, des sauts peuvent apparaître, fait par le système)</value>
@@ -1339,7 +1339,7 @@
         <value xml:lang="zh_TW">強制序號 (對每個組織沒有間隔)</value>
     </property>
     <property key="Enumeration.description.ODRSQ_STANDARD">
-        <value xml:lang="de">Standart (effizienter, kann Lücken aufweisen, pro System)</value>
+        <value xml:lang="de">Standard (effizienter, kann Lücken aufweisen, pro System)</value>
         <value xml:lang="en">Standard (faster, may have gaps, per system)</value>
         <value xml:lang="es">Estándar (rápido, puede tener huecos, global del sistema)</value>
         <value xml:lang="fr">Standard (plus rapide, des sauts peuvent apparaître, générés par le système)</value>
@@ -2961,7 +2961,7 @@
         <value xml:lang="zh_TW">強制序號 (對每個組織沒有間隔)</value>
     </property>
     <property key="Enumeration.description.QTESQ_STANDARD">
-        <value xml:lang="de">Standart (effizienter, kann Lücken aufweisen, pro System</value>
+        <value xml:lang="de">Standard (effizienter, kann Lücken aufweisen, pro System</value>
         <value xml:lang="en">Standard (faster, may have gaps, per system)</value>
         <value xml:lang="es">Estándar (más rápido, puede tener huecos, por sistema)</value>
         <value xml:lang="fr">Standard (rapide, des sauts peuvent apparaître, fait par le système)</value>

@@ -5172,7 +5172,7 @@
         <value xml:lang="zh_TW">最小庫存</value>
     </property>
     <property key="FormFieldTitle_monthsInPastLimit">
-        <value xml:lang="de">Monate in letzter Limite</value>
+        <value xml:lang="de">Nur die letzten x Monate</value>
         <value xml:lang="en">Months In Past Limit</value>
         <value xml:lang="es">Límite meses pasados</value>
         <value xml:lang="fr">Limite en mois passés</value>
@@ -7017,7 +7017,7 @@
         <value xml:lang="zh_TW">把付款分拆給每個運輸組</value>
     </property>
     <property key="FormFieldTitle_standardLeadTimeDays">
-        <value xml:lang="de">Standart Durchlaufzeit Tage</value>
+        <value xml:lang="de">Standard Durchlaufzeit Tage</value>
         <value xml:lang="en">Standard Lead Time Days</value>
         <value xml:lang="es">Días estándar para la entrega</value>
         <value xml:lang="fr">Jours d'attente standards</value>
@@ -12798,6 +12798,7 @@
         <value xml:lang="zh_TW">做這個產品的第一個評論者</value>
     </property>
     <property key="ProductBestSellingProductsOf">
+        <value xml:lang="de">Top-Produkte am</value>
         <value xml:lang="en">Best Selling Products of</value>
         <value xml:lang="fr">Meilleures ventes du</value>
         <value xml:lang="it">Migliori prodotti venduti il</value>
@@ -15097,7 +15098,7 @@
         <value xml:lang="zh">交易开始日期</value>
     </property>
     <property key="ProductDefaultAmount">
-        <value xml:lang="de">Standart Betrag</value>
+        <value xml:lang="de">Standard Betrag</value>
         <value xml:lang="en">Default Amount</value>
         <value xml:lang="es">Importe por defecto</value>
         <value xml:lang="fr">Montant par défaut</value>
@@ -15111,7 +15112,7 @@
         <value xml:lang="zh_TW">預設金額</value>
     </property>
     <property key="ProductDefaultDaysToShip">
-        <value xml:lang="de">Standart Tage bis zur Lieferung</value>
+        <value xml:lang="de">Standard Tage bis zur Lieferung</value>
         <value xml:lang="en">Default Days To Ship</value>
         <value xml:lang="es">Días por defecto para enviar</value>
         <value xml:lang="fr">Nombre de jour avant l'envoi par défaut</value>
@@ -15139,7 +15140,7 @@
         <value xml:lang="zh_TW">預設價格</value>
     </property>
     <property key="ProductDefaultSequenceNumber">
-        <value xml:lang="de">Standart Sequenznummer</value>
+        <value xml:lang="de">Standard Sequenznummer</value>
         <value xml:lang="en">Default Sequence Number</value>
         <value xml:lang="es">Número de secuencia por defecto</value>
         <value xml:lang="fr">N° de séquence par défaut</value>
@@ -15162,7 +15163,7 @@
         <value xml:lang="zh_TW">預設運輸箱類型ID</value>
     </property>
     <property key="ProductDefaultsTo">
-        <value xml:lang="de">Standartwert</value>
+        <value xml:lang="de">Standardwert</value>
         <value xml:lang="en">Defaults to</value>
         <value xml:lang="es">Por defecto</value>
         <value xml:lang="fr">Valeur par défaut :</value>
@@ -16417,7 +16418,7 @@
         <value xml:lang="zh_TW">面積單位</value>
     </property>
     <property key="ProductFacilityDefaultWeightUnit">
-        <value xml:lang="de">Standart Gewichtseinheit</value>
+        <value xml:lang="de">Standard Gewichtseinheit</value>
         <value xml:lang="en">Default Weight Unit</value>
         <value xml:lang="es">Unidad de Peso por defecto</value>
         <value xml:lang="fr">Unit de poids par défaut</value>
@@ -17315,6 +17316,10 @@
         <value xml:lang="vi">từ Đặt hàng</value>
         <value xml:lang="zh">来自订单</value>
         <value xml:lang="zh_TW">來自訂單</value>
+    </property>
+    <property key="ProductFromDateSellThrough">
+        <value xml:lang="de">Ab Verkaufsdatum</value>
+        <value xml:lang="en">From Date Sell Through</value>
     </property>
     <property key="ProductFromGeo">
         <value xml:lang="de">Von Geo</value>
@@ -18263,7 +18268,7 @@
         <value xml:lang="zh">算子</value>
     </property>
     <property key="ProductInsertDefaultImageUrl">
-        <value xml:lang="de">Standart Bild URL einfügen</value>
+        <value xml:lang="de">Standard Bild URL einfügen</value>
         <value xml:lang="en">Insert Default Image URL</value>
         <value xml:lang="es">Inserte URL de imagen por defecto</value>
         <value xml:lang="fr">Insère l'URL par défaut de l'image en</value>
@@ -19953,7 +19958,7 @@
         <value xml:lang="zh">测试状态——返回错误以获得回滚</value>
     </property>
     <property key="ProductMessageQoh">
-        <value xml:lang="de">Standartmässig werden nur Bewegungen angezeigt, die die verfügbare Menge beeinflussen. Falls das 0 gelöscht wird, werden auch Bewegungen angezeigt, die Reservationen betreffen.</value>
+        <value xml:lang="de">Standardmässig werden nur Bewegungen angezeigt, die die verfügbare Menge beeinflussen. Falls das 0 gelöscht wird, werden auch Bewegungen angezeigt, die Reservationen betreffen.</value>
         <value xml:lang="en">By default, only movements affecting the qoh are shown; remove the 0 here to get also the movements related to reservations.</value>
         <value xml:lang="fr">Par défaut, seulement les mouvements affectant le qoh (quantité réellement en stock) sont montrés; enlevez le 0 ici pour obtenir également les mouvements liés aux réservations.</value>
         <value xml:lang="it">Di default, solo i movimenti che corrispondono alla quantità disponibile saranno visualizzati; rimuovendo lo 0 qui otterrai anche i movimenti relativi alle riservazioni.</value>
@@ -21224,6 +21229,7 @@
         <value xml:lang="zh_TW">沒有找到價格規則</value>
     </property>
     <property key="ProductNoProductFound">
+        <value xml:lang="de">Kein Produkt gefunden</value>
         <value xml:lang="en">No Product Found</value>
         <value xml:lang="fr">Aucun produit trouvé</value>
         <value xml:lang="it">Nessun prodotto trovato</value>
@@ -29276,6 +29282,10 @@
         <value xml:lang="zh">结束日期，金额， 顺序， 应用类型</value>
         <value xml:lang="zh_TW">結束日期，金額， 順序， 應用類型</value>
     </property>
+    <property key="ProductThruDateSellThrough">
+        <value xml:lang="de">Bis Verkaufsdatum</value>
+        <value xml:lang="en">Thru Date Sell Through</value>
+    </property>
     <property key="ProductThruDateTimePrice">
         <value xml:lang="de">Bis Datum/Zeit, Preis</value>
         <value xml:lang="en">Thru Date/Time, Price</value>
@@ -30745,6 +30755,7 @@
         <value xml:lang="zh_TW">寬度單位ID</value>
     </property>
     <property key="ProductWordingAndComment">
+        <value xml:lang="de">Beschreibung</value>
         <value xml:lang="en">Wording And Comment</value>
         <value xml:lang="fr">Libellés et commentaire</value>
         <value xml:lang="it">Parole e commento</value>
