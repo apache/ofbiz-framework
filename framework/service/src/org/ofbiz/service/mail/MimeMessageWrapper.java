@@ -38,6 +38,9 @@ import javax.mail.internet.MimeMessage;
 
 import javolution.util.FastList;
 
+import org.ofbiz.base.conversion.AbstractConverter;
+import org.ofbiz.base.conversion.ConversionException;
+import org.ofbiz.base.conversion.Converters;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.UtilDateTime;
@@ -543,5 +546,23 @@ public class MimeMessageWrapper implements java.io.Serializable {
         }
 
         return ByteBuffer.wrap(baos.toByteArray());
+    }
+
+    static {
+        Converters.registerConverter(new MimeMessageToString<String>());
+    }
+
+    /**
+     * Convert MimeMessageWrapper to String. This is used when sending emails.
+     * 
+     */
+    private static class MimeMessageToString<E> extends AbstractConverter<MimeMessageWrapper, String> {
+        public MimeMessageToString() {
+            super(MimeMessageWrapper.class, String.class);
+        }
+
+        public String convert(MimeMessageWrapper obj) throws ConversionException {
+            return obj.toString();
+        }
     }
 }
