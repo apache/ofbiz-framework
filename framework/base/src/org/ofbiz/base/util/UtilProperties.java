@@ -19,6 +19,7 @@
 package org.ofbiz.base.util;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -302,6 +303,12 @@ public class UtilProperties implements Serializable {
 
                 if (url == null)
                     return null;
+                String fileName = url.getFile();
+                File file = new File(fileName);
+                if (file.isDirectory()) {
+                    Debug.logError(fileName + " is (also?) a directory! No properties assigned.", module);
+                    return null;
+                }
                 properties = resourceCache.putIfAbsentAndGet(cacheKey, getProperties(url));
             } catch (MissingResourceException e) {
                 Debug.logInfo(e, module);
