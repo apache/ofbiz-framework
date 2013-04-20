@@ -18,21 +18,29 @@ under the License.
 -->
 
 <#if showPromoText>
-<div id="minipromotext">
-  <h3>${uiLabelMap.OrderSpecialOffers}</h3>
+<div id="minipromotext" class="screenlet">
+  <div class="screenlet-title-bar">
+    <ul>
+      <li class="h3">${uiLabelMap.OrderSpecialOffers}</li>
+    </ul>
+    <br class="clear"/>
+  </div>
+
+  <div class="screenlet-body">
   <#-- show promotions text -->
-  <ul>
-    <#list productPromos as productPromo>
+    <ul>
+      <#list productPromos as productPromo>
+        <li>
+          <p>
+            <a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromo.productPromoId}</@ofbizUrl>" class="linktext">${uiLabelMap.CommonDetails}</a>
+            ${StringUtil.wrapString(productPromo.promoText?if_exists)}
+          </p>
+        </li>
+      </#list>
       <li>
-        <p>
-          <a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromo.productPromoId}</@ofbizUrl>" class="linktext">${uiLabelMap.CommonDetails}</a>
-          ${StringUtil.wrapString(productPromo.promoText?if_exists)}
-        </p>
+        <a href="<@ofbizUrl>showAllPromotions</@ofbizUrl>" class="button">${uiLabelMap.OrderViewAllPromotions}</a>
       </li>
-    </#list>
-    <li>
-      <a href="<@ofbizUrl>showAllPromotions</@ofbizUrl>" class="button">${uiLabelMap.OrderViewAllPromotions}</a>
-    </li>
-  </ul>
+    </ul>
+    </div>
 </div>
 </#if>
