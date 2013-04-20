@@ -314,9 +314,10 @@ public class LoginWorker {
         if (UtilValidate.isEmpty(password)) {
             unpwErrMsgList.add(UtilProperties.getMessage(resourceWebapp, "loginevents.password_was_empty_reenter", UtilHttp.getLocale(request)));
         }
+        boolean requirePasswordChange = "Y".equals(request.getParameter("requirePasswordChange"));
         if (!unpwErrMsgList.isEmpty()) {
             request.setAttribute("_ERROR_MESSAGE_LIST_", unpwErrMsgList);
-            return "error";
+            return  requirePasswordChange ? "requirePasswordChange" : "error";
         }
 
         boolean setupNewDelegatorEtc = false;
@@ -405,7 +406,7 @@ public class LoginWorker {
         if (ModelService.RESPOND_SUCCESS.equals(result.get(ModelService.RESPONSE_MESSAGE))) {
             GenericValue userLogin = (GenericValue) result.get("userLogin");
 
-            if ("Y".equals(request.getParameter("requirePasswordChange"))) {
+            if (requirePasswordChange) {
                 Map<String, Object> inMap = UtilMisc.<String, Object>toMap("login.username", username, "login.password", password, "locale", UtilHttp.getLocale(request));
                 inMap.put("userLoginId", username);
                 inMap.put("currentPassword", password);
@@ -419,7 +420,7 @@ public class LoginWorker {
                     Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
                     String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);
-                    return "error";
+                    return "requirePasswordChange";
                 }
                 if (ServiceUtil.isError(resultPasswordChange)) {
                     String errorMessage = (String) resultPasswordChange.get(ModelService.ERROR_MESSAGE);
@@ -429,7 +430,7 @@ public class LoginWorker {
                         request.setAttribute("_ERROR_MESSAGE_", errMsg);
                     }
                     request.setAttribute("_ERROR_MESSAGE_LIST_", resultPasswordChange.get(ModelService.ERROR_MESSAGE_LIST));
-                    return "error";
+                    return "requirePasswordChange";
                 } else {
                     try {
                         userLogin.refresh();
@@ -439,7 +440,7 @@ public class LoginWorker {
                         Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
                         String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
                         request.setAttribute("_ERROR_MESSAGE_", errMsg);
-                        return "error";
+                        return "requirePasswordChange";
                     }
                 }
             }
@@ -451,7 +452,7 @@ public class LoginWorker {
 
             // check to see if a password change is required for the user
             Map<String, Object> userLoginSession = checkMap(result.get("userLoginSession"), String.class, Object.class);
-            if (userLogin != null && "Y".equals(userLogin.getString("requirePasswordChange"))) {
+            if (userLogin != null && requirePasswordChange) {
                 return "requirePasswordChange";
             }
             String autoChangePassword = UtilProperties.getPropertyValue("security.properties", "user.auto.change.password.enable", "false");
@@ -478,7 +479,7 @@ public class LoginWorker {
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", (String) result.get(ModelService.ERROR_MESSAGE));
             String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
-            return "error";
+            return requirePasswordChange ? "requirePasswordChange" : "error";
         }
     }
 
@@ -1051,7 +1052,7 @@ public class LoginWorker {
         if (reqToChangePwdInDays > 0) {
             List<GenericValue> passwordHistories = null;
             try {
-                passwordHistories = delegator.findByAnd("UserLoginPasswordHistory", UtilMisc.toMap("userLoginId", userName));
+                passwordHistories = delegator.findByAnd("UserLoginPasswordHistory", UtilMisc.toMap("userLoginId", userName), null, false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Cannot get user's password history record: " + e.getMessage(), module);
             }
@@ -1065,7 +1066,7 @@ public class LoginWorker {
                     if (now.after(passwordExpirationDate)) {
                         Map<String, String> messageMap = UtilMisc.toMap("passwordExpirationDate", passwordExpirationDate.toString());
                         String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.password_expired_message", messageMap, UtilHttp.getLocale(request));
-                        request.setAttribute("_EVENT_MESSAGE_", errMsg);
+                        request.setAttribute("_ERROR_MESSAGE_", errMsg);
                         return "requirePasswordChange";
                     } else {
                         Map<String, String> messageMap = UtilMisc.toMap("passwordExpirationDate", passwordExpirationDate.toString());
