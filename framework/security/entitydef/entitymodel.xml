@@ -103,7 +103,7 @@ under the License.
       <field name="visitId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
-      <field name="passwordUsed" type="short-varchar" encrypt="true"></field>
+      <field name="passwordUsed" type="long-varchar" encrypt="true"></field>
       <field name="successfulLogin" type="indicator"></field>
       <prim-key field="userLoginId"/>
       <prim-key field="fromDate"/>
