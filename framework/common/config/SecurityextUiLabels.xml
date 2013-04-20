@@ -169,10 +169,16 @@
     <property key="loginevents.password_expiration_alert">
         <value xml:lang="en">Alert: Your password will expire on ${passwordExpirationDate}. Update password before it expired.</value>
         <value xml:lang="fr">Votre mot de passe va expirer le ${passwordExpirationDate}, modifiez le avant.</value>
+        <value xml:lang="zh">注意：您的密码将在${passwordExpirationDate}过期，请在这之前更改密码。</value>
+        <value xml:lang="zh_CN">注意：您的密码将在${passwordExpirationDate}过期，请在这之前更改密码。</value>
+        <value xml:lang="zh_TW">注意：您的密碼將在${passwordExpirationDate}過期，請在這之前更改密碼。</value>
     </property>
     <property key="loginevents.password_expired_message">
         <value xml:lang="en">Alert: Your password expired on ${passwordExpirationDate}. Update your password.</value>
         <value xml:lang="fr">Votre mot de passe a expiré le  ${passwordExpirationDate}, modifiez le.</value>
+        <value xml:lang="zh">您的密码已于${passwordExpirationDate}过期，请更改密码。</value>
+        <value xml:lang="zh_CN">您的密码已于${passwordExpirationDate}过期，请更改密码。</value>
+        <value xml:lang="zh_TW">您的密碼已於${passwordExpirationDate}過期，請更改密碼。</value>
     </property>
     <property key="loginevents.password_hint_is">
         <value xml:lang="de">Der Passwort-Hinweis ist: ${passwordHint}.</value>

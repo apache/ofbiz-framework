@@ -925,19 +925,15 @@ public class LoginServices {
         if (passwordChangeHistoryLimit > 0 && userLogin != null) {
             Debug.logInfo(" checkNewPassword Checking if user is tyring to use old password " + passwordChangeHistoryLimit, module);
             Delegator delegator = userLogin.getDelegator();
-            String newPasswordHash = newPassword;
-            if (useEncryption) {
-                // FIXME: switching to salt-based hashing breaks this history lookup below
-                newPasswordHash = HashCrypt.cryptUTF8(getHashType(), null, newPassword);
-            }
             try {
-                List<GenericValue> pwdHistList = delegator.findByAnd("UserLoginPasswordHistory", UtilMisc.toMap("userLoginId",userLogin.getString("userLoginId"),"currentPassword",newPasswordHash), null, false);
-                Debug.logInfo(" checkNewPassword pwdHistListpwdHistList " + pwdHistList.size(), module);
-                if (pwdHistList.size() >0) {
-                    Map<String, Integer> messageMap = UtilMisc.toMap("passwordChangeHistoryLimit", passwordChangeHistoryLimit);
-                    errMsg = UtilProperties.getMessage(resource,"loginservices.password_must_be_different_from_last_passwords", messageMap, locale);
-                    errorMessageList.add(errMsg);
-                    Debug.logInfo(" checkNewPassword errorMessageListerrorMessageList " + pwdHistList.size(), module);
+                List<GenericValue> pwdHistList = delegator.findByAnd("UserLoginPasswordHistory", UtilMisc.toMap("userLoginId",userLogin.getString("userLoginId")), UtilMisc.toList("-fromDate"), false);
+                for (GenericValue pwdHistValue : pwdHistList) {
+                    if (checkPassword(pwdHistValue.getString("currentPassword"), useEncryption, newPassword)) {
+                        Map<String, Integer> messageMap = UtilMisc.toMap("passwordChangeHistoryLimit", passwordChangeHistoryLimit);
+                        errMsg = UtilProperties.getMessage(resource,"loginservices.password_must_be_different_from_last_passwords", messageMap, locale);
+                        errorMessageList.add(errMsg);
+                        break;
+                    }
                 }
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, "", module);
