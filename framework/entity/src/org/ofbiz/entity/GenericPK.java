@@ -20,8 +20,6 @@ package org.ofbiz.entity;
 
 import java.util.Map;
 
-import javolution.context.ObjectFactory;
-
 import org.ofbiz.entity.model.ModelEntity;
 
 /**
@@ -31,39 +29,32 @@ import org.ofbiz.entity.model.ModelEntity;
 @SuppressWarnings("serial")
 public class GenericPK extends GenericEntity {
 
-    protected static final ObjectFactory<GenericPK> genericPKFactory = new ObjectFactory<GenericPK>() {
-        @Override
-        protected GenericPK create() {
-            return new GenericPK();
-        }
-    };
-
     protected GenericPK() { }
 
     /** Creates new GenericPK */
     public static GenericPK create(ModelEntity modelEntity) {
-        GenericPK newPK = genericPKFactory.object();
+        GenericPK newPK = new GenericPK();
         newPK.init(modelEntity);
         return newPK;
     }
 
     /** Creates new GenericPK from existing Map */
     public static GenericPK create(Delegator delegator, ModelEntity modelEntity, Map<String, ? extends Object> fields) {
-        GenericPK newPK = genericPKFactory.object();
+        GenericPK newPK = new GenericPK();
         newPK.init(delegator, modelEntity, fields);
         return newPK;
     }
 
     /** Creates new GenericPK from existing Map */
     public static GenericPK create(Delegator delegator, ModelEntity modelEntity, Object singlePkValue) {
-        GenericPK newPK = genericPKFactory.object();
+        GenericPK newPK = new GenericPK();
         newPK.init(delegator, modelEntity, singlePkValue);
         return newPK;
     }
 
     /** Creates new GenericPK from existing GenericPK */
     public static GenericPK create(GenericPK value) {
-        GenericPK newPK = genericPKFactory.object();
+        GenericPK newPK = new GenericPK();
         newPK.init(value);
         return newPK;
     }
