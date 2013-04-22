@@ -403,7 +403,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
      * @param value The value to set
      * @param setIfNull Specifies whether or not to set the value if it is null
      */
-    public synchronized Object set(String name, Object value, boolean setIfNull) {
+    public Object set(String name, Object value, boolean setIfNull) {
         assertIsMutable();
         ModelField modelField = getModelEntity().getField(name);
         if (modelField == null) {
