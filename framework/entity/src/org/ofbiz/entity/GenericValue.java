@@ -46,9 +46,11 @@ public class GenericValue extends GenericEntity {
     public static final GenericValue NULL_VALUE = new NullGenericValue();
 
     /** Map to cache various related entity collections */
+    // FIXME: This is a bad idea. Another process could change the related values after they are added to the Map.
     public transient Map<String, List<GenericValue>> relatedCache = null;
 
     /** Map to cache various related cardinality one entity collections */
+    // FIXME: This is a bad idea. Another process could change the related values after they are added to the Map.
     public transient Map<String, GenericValue> relatedOneCache = null;
 
     /** This Map will contain the original field values from the database iff
@@ -146,6 +148,7 @@ public class GenericValue extends GenericEntity {
      * values from the Db.
      */
     public void copyOriginalDbValues() {
+        // FIXME: There is no guarantee this.fields was not modified.
         this.originalDbValues = new HashMap<String, Object>();
         this.originalDbValues.putAll(this.fields);
     }
