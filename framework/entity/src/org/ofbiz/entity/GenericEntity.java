@@ -33,7 +33,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.MissingResourceException;
-import java.util.Observable;
 import java.util.ResourceBundle;
 import java.util.TreeSet;
 
@@ -42,6 +41,8 @@ import org.ofbiz.base.util.Base64;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.Observable;
+import org.ofbiz.base.util.Observer;
 import org.ofbiz.base.util.TimeDuration;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
@@ -67,11 +68,13 @@ import org.w3c.dom.Element;
  *
  */
 @SuppressWarnings("serial")
-public class GenericEntity extends Observable implements Map<String, Object>, LocalizedMap<Object>, Serializable, Comparable<GenericEntity>, Cloneable {
+public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>, Serializable, Comparable<GenericEntity>, Cloneable {
 
     public static final String module = GenericEntity.class.getName();
     public static final GenericEntity NULL_ENTITY = new NullGenericEntity();
     public static final NullField NULL_FIELD = new NullField();
+
+    private Observable observable = new Observable();
 
     /** Name of the GenericDelegator, used to re-get the GenericDelegator when deserialized */
     protected String delegatorName = null;
@@ -1442,6 +1445,38 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
 
     public boolean matches(EntityCondition condition) {
         return condition.entityMatches(this);
+    }
+
+    public void addObserver(Observer observer) {
+        observable.addObserver(observer);
+    }
+
+    public void clearChanged() {
+        observable.clearChanged();
+    }
+
+    public void deleteObserver(Observer observer) {
+        observable.deleteObserver(observer);
+    }
+
+    public void deleteObservers() {
+        observable.deleteObservers();
+    }
+
+    public boolean hasChanged() {
+        return observable.hasChanged();
+    }
+
+    public void notifyObservers() {
+        observable.notifyObservers();
+    }
+
+    public void notifyObservers(Object arg) {
+        observable.notifyObservers(arg);
+    }
+
+    public void setChanged() {
+        observable.setChanged();
     }
 
     public static interface NULL {
