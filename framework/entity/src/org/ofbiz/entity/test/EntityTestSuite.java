@@ -106,9 +106,11 @@ public class EntityTestSuite extends EntityTestCase {
         observer.arg = null;
         GenericValue clonedValue = (GenericValue) testValue.clone();
         clonedValue.put("description", "New Testing Type #1");
+        assertTrue("Observable has changed", testValue.hasChanged());
         assertEquals("Observer called with cloned GenericValue field name", "description", observer.arg);
         // now store it
         testValue.store();
+        assertFalse("Observable has not changed", testValue.hasChanged());
 
         // now retrieve it again and make sure that the updated value is correct
         testValue = delegator.findOne("TestingType", false, "testingTypeId", "TEST-1");

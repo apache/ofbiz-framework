@@ -1348,6 +1348,7 @@ public class GenericDelegator implements Delegator {
             }
 
             int retVal = helper.store(value);
+            value.clearChanged();
 
             if (testMode) {
                 storeForTestRollback(new TestOperation(OperationType.UPDATE, updatedEntity));
