@@ -64,7 +64,9 @@ import org.w3c.dom.Element;
  * <p>Note that this class extends <code>Observable</code> to achieve change notification for
  * <code>Observer</code>s. Whenever a field changes the name of the field will be passed to
  * the <code>notifyObservers()</code> method, and through that to the <code>update()</code> method of each
- * <code>Observer</code>.
+ * <code>Observer</code>.</p>
+ * <p>This class is not thread-safe. If an instance of this class is shared between threads,
+ * then it should be made immutable by calling the <code>setImmutable()</code> method.</p>
  *
  */
 @SuppressWarnings("serial")
