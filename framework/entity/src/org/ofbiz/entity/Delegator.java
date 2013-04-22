@@ -48,6 +48,8 @@ import org.xml.sax.SAXException;
 
 public interface Delegator {
 
+    enum OperationType {INSERT, UPDATE, DELETE}
+
     public void clearAllCacheLinesByDummyPK(Collection<GenericPK> dummyPKs);
 
     public void clearAllCacheLinesByValue(Collection<GenericValue> values);
