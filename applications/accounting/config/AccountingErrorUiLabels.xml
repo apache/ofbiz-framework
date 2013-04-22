@@ -444,6 +444,7 @@
         <value xml:lang="zh">没有定义账户设置</value>
     </property>
     <property key="AccountingPayPalCommunicationError">
+        <value xml:lang="de">Während der Kommunikation mit PayPal ist ein Problem aufgetreten, bitte versuchen Sie es noch einmal oder wählen Sie eine andere Zahlungsmethode</value>
         <value xml:lang="en">A problem occurred while communicating with PayPal, please try again or select a different checkout method</value>
         <value xml:lang="hi_IN">Paypal से संचार में समस्या, कृपया पुन: प्रयास करें या एक अलग Checkout पद्धति का चयन करें</value>
         <value xml:lang="it">Si è verificato un problema durante la comunicazione con PayPal, per favore provare di nuovo o selezionare un altro metodo di checkout</value>
@@ -452,6 +453,7 @@
         <value xml:lang="zh">与贝宝通讯时出错，请重试或选择其它结账方式</value>
     </property>
     <property key="AccountingPayPalErrorDuringRetrievingCartDetails">
+        <value xml:lang="de">Beim Auslesen von Details aus dem Einkaufswagen ist ein Fehler aufgetreten</value>
         <value xml:lang="en">An error occurred while retreiving cart details</value>
         <value xml:lang="it">Un'errore è successo mentre ricavavo i dettagli del carrello</value>
         <value xml:lang="ja">カードの詳細を取得中にエラーが発生しました</value>
@@ -459,6 +461,7 @@
         <value xml:lang="zh">获取购物车详细信息时出错</value>
     </property>
     <property key="AccountingPayPalPaymentGatewayConfigCannotFind">
+        <value xml:lang="de">Für den Abschluss mit PayPal-Express liegt keine Konfiguration (PaymentGatewayConfigPayPal) vor, ich kann nicht fortfahren.</value>
         <value xml:lang="en">Couldn't retrieve a PaymentGatewayConfigPayPal record for Express Checkout, cannot continue.</value>
         <value xml:lang="it">Non è possibile ricavare un record PaymentGatewayConfigPayPal per Express Checkout, non è possibile continuare.</value>
         <value xml:lang="ja">エクスプレスチェックアウトに対するPaymentGatewayConfigPayPalレコードの取得ができません。処理を継続できません。</value>
@@ -466,6 +469,7 @@
         <value xml:lang="zh">无法获取用于快速结账的贝宝支付网关配置（PaymentGatewayConfigPayPal）记录，不能继续。</value>
     </property>
     <property key="AccountingPayPalShoppingCartIsEmpty">
+        <value xml:lang="de">Ihr Einkaufswagen ist leer, ich kann PayPal-Express nicht abschließen</value>
         <value xml:lang="en">Shopping cart is empty, cannot proceed with Express Checkout</value>
         <value xml:lang="fr">Votre panier est vide, vous ne pouvez pas effectuer une validation express</value>
         <value xml:lang="hi_IN">शॉपिंग कार्ट खाली है, एक्सप्रेस चेकआउट के साथ आगे नहीं बढ़ सकते</value>
@@ -475,6 +479,7 @@
         <value xml:lang="zh">购物车是空的，无法处理快速结账</value>
     </property>
     <property key="AccountingPayPalTokenNotFound">
+        <value xml:lang="de">Das Token von PayPal-Express ist nicht im Einkaufswagen hinterlegt; ich kann nicht fortfahren</value>
         <value xml:lang="en">Express Checkout token not present in cart, cannot get checkout details</value>
         <value xml:lang="it">Il token per Express Checkout non è presente nel carrello, non è possibile ottenere i dettagli di checkout</value>
         <value xml:lang="ja">エクスプレスチェックアウトのトークンが買い物かごに存在しません。チェックアウトの詳細が取得できません。</value>
@@ -482,6 +487,7 @@
         <value xml:lang="zh">购物车中没有快速结账标志，无法获得结账详细信息</value>
     </property>
     <property key="AccountingPayPalUnknownError">
+        <value xml:lang="de">Bei der Kontaktaufnahme mit PayPal ist ein unbekannter Fehler aufgetreten</value>
         <value xml:lang="en">An unknown error occurred while contacting PayPal</value>
         <value xml:lang="it">Un'errore sconosciuto è accaduto mentre contattavi PayPal</value>
         <value xml:lang="ja">PayPalに接続中に未知のエラーが発生しました</value>
@@ -556,6 +562,7 @@
         <value xml:lang="zh">获取税务设置时数据错误：${errorString}</value>
     </property>
     <property key="payPalEvents.failedToExecuteServiceCreatePaymentFromPreference">
+        <value xml:lang="de">Der Service createPaymentFromPreference konnte nicht ausgeführt werden</value>
         <value xml:lang="en">Failed to execute service createPaymentFromPreference</value>
         <value xml:lang="fr">Echec à l'exécution du service createPaymentFromPreference</value>
         <value xml:lang="hi_IN">सर्विस createPaymentFromPreference पर अमल(execute) करने में असफल</value>
@@ -568,6 +575,7 @@
         <value xml:lang="zh_TW">執行服務createPaymentFromPreference時失敗</value>
     </property>
     <property key="payPalEvents.noValidOrderIdReturned">
+        <value xml:lang="de">Mit dem Callback von PayPal wurde keine gültige Auftragsnummer (orderId) übergeben.</value>
         <value xml:lang="en">No valid orderId returned with PayPal Callback.</value>
         <value xml:lang="fr">Aucune réf. valide de commande retournée par l'appel à PayPal.</value>
         <value xml:lang="hi_IN">मान्य orderId Paypal Callback के साथ नहीं लौटा</value>
@@ -580,6 +588,7 @@
         <value xml:lang="zh_TW">貝寶返回的資訊中沒有有效的orderId（訂單編號）。</value>
     </property>
     <property key="payPalEvents.previousPayPalOrderHasBeenCancelled">
+        <value xml:lang="de">Der vorherige PayPal-Auftrag wurde storniert.</value>
         <value xml:lang="en">Previous PayPal order has been cancelled.</value>
         <value xml:lang="fr">La commande PayPal précédente a été annulée.</value>
         <value xml:lang="hi_IN">पिछला Paypal आदेश रद्द कर दिया गया है</value>
@@ -592,6 +601,7 @@
         <value xml:lang="zh_TW">之前的貝寶訂單已經被取消了。</value>
     </property>
     <property key="payPalEvents.problemsConnectingWithPayPal">
+        <value xml:lang="de">Es ist ein Verbindungsproblem mit PayPal aufgetreten; bitte kontaktieren Sie den Kundendienst.</value>
         <value xml:lang="en">Problems connecting with PayPal, please contact customer service.</value>
         <value xml:lang="fr">Les problèmes pour se connecter à PayPal, SVP entrez en contact avec le service clientèle.</value>
         <value xml:lang="hi_IN">Paypal के साथ जोड़ने में समस्या, कृपया ग्राहक सेवा से संपर्क करें</value>
@@ -604,6 +614,7 @@
         <value xml:lang="zh_TW">連接貝寶失敗，請與客戶服務聯系。</value>
     </property>
     <property key="payPalEvents.problemsGettingAuthenticationUser">
+        <value xml:lang="de">Ich kann für den Benutzer keine Authentifizierung erhalten.</value>
         <value xml:lang="en">Problems getting authentication user.</value>
         <value xml:lang="fr">Problèmes d'obtention d'authentification utilisateur</value>
         <value xml:lang="hi_IN">उपयोगकर्ता(user) के प्रमाणीकरण में समस्याएँ हो रही</value>
@@ -616,6 +627,7 @@
         <value xml:lang="zh_TW">獲得認証用戶時出現問題。</value>
     </property>
     <property key="payPalEvents.problemsGettingMerchantConfiguration">
+        <value xml:lang="de">Es gibt Probleme mit der Händlerkonfiguration bei PayPal; bitte kontaktieren Sie den Kundendienst.</value>
         <value xml:lang="en">Problems getting merchant configuration, please contact customer service.</value>
         <value xml:lang="fr">Problèmes d'obtention de la configuration du vendeur, svp entrez en contact avec le service clientèle.</value>
         <value xml:lang="hi_IN">व्यापारी विन्यास में समस्याएँ हो रही, कृपया ग्राहक सेवा से संपर्क करें</value>
@@ -628,6 +640,7 @@
         <value xml:lang="zh_TW">獲得商家配置時出錯，請與客戶服務聯系。</value>
     </property>
     <property key="payPalEvents.problemsGettingOrderHeader">
+        <value xml:lang="de">Ich kann die Bestelldaten nicht finden.</value>
         <value xml:lang="en">Problems getting order header.</value>
         <value xml:lang="fr">Problèmes d'obtention d'en-tête de commande .</value>
         <value xml:lang="hi_IN">order header में समस्याएँ हो रही</value>
