@@ -207,6 +207,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
         if (value.fields != null) this.fields.putAll(value.fields);
         this.delegatorName = value.delegatorName;
         this.internalDelegator = value.internalDelegator;
+        this.observable = new Observable(value.observable);
     }
 
     public void reset() {
@@ -232,11 +233,13 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
         if (!thisPK.equals(newPK)) {
             throw new GenericEntityException("Could not refresh value, new value did not have the same primary key; this PK=" + thisPK + ", new value PK=" + newPK);
         }
+        // FIXME: This is dangerous - two instances sharing a common field Map is a bad idea.
         this.fields = newValue.fields;
         this.setDelegator(newValue.getDelegator());
         this.generateHashCode = newValue.generateHashCode;
         this.cachedHashCode = newValue.cachedHashCode;
         this.modified = false;
+        this.observable = new Observable(newValue.observable);
     }
 
     public boolean isModified() {

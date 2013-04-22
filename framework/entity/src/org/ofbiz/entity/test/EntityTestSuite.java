@@ -29,6 +29,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.Observable;
+import org.ofbiz.base.util.Observer;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilXml;
@@ -95,9 +97,17 @@ public class EntityTestSuite extends EntityTestCase {
         // retrieve a sample GenericValue, make sure it's correct
         GenericValue testValue = delegator.findOne("TestingType", false, "testingTypeId", "TEST-1");
         assertEquals("Retrieved value has the correct description", "Testing Type #1", testValue.getString("description"));
-
-        // now update and store it
+        // Test Observable aspect
+        TestObserver observer = new TestObserver();
+        testValue.addObserver(observer);
         testValue.put("description", "New Testing Type #1");
+        assertEquals("Observer called with original GenericValue field name", "description", observer.arg);
+        observer.observable = null;
+        observer.arg = null;
+        GenericValue clonedValue = (GenericValue) testValue.clone();
+        clonedValue.put("description", "New Testing Type #1");
+        assertEquals("Observer called with cloned GenericValue field name", "description", observer.arg);
+        // now store it
         testValue.store();
 
         // now retrieve it again and make sure that the updated value is correct
@@ -847,5 +857,16 @@ public class EntityTestSuite extends EntityTestCase {
         assertNull("Delete TestingType 1", testType);
         testType = delegator.findOne("TestingType", UtilMisc.toMap("testingTypeId", "JUNIT-TEST2"), false);
         assertNull("Delete TestingType 2", testType);
+    }
+
+    private final class TestObserver implements Observer {
+        private Observable observable;
+        private Object arg;
+
+        @Override
+        public void update(Observable observable, Object arg) {
+            this.observable = observable;
+            this.arg = arg;
+        }
     }
 }
