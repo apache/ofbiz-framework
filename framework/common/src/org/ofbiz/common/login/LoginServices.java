@@ -409,7 +409,7 @@ public class LoginServices {
                     } else {
                         // userLogin record not found, user does not exist
                         errMsg = UtilProperties.getMessage(resource, "loginservices.user_not_found", locale);
-                        Debug.logInfo("[LoginServices.userLogin] : Invalid User : " + errMsg, module);
+                        Debug.logInfo("[LoginServices.userLogin] Invalid User : '" + username + "'; " + errMsg, module);
                     }
                 }
             }
