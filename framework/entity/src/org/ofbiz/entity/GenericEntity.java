@@ -146,15 +146,8 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
         return newEntity;
     }
 
-    protected void assertIsMutable() {
-        if (!this.mutable) {
-            throw new IllegalStateException("This object has been flagged as immutable (unchangeable), probably because it came from an Entity Engine cache. Cannot modify an immutable entity object.");
-        }
-    }
-
     /** Creates new GenericEntity */
     protected void init(ModelEntity modelEntity) {
-        assertIsMutable();
         if (modelEntity == null) {
             throw new IllegalArgumentException("Cannot create a GenericEntity with a null modelEntity parameter");
         }
@@ -169,7 +162,6 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
 
     /** Creates new GenericEntity from existing Map */
     protected void init(Delegator delegator, ModelEntity modelEntity, Map<String, ? extends Object> fields) {
-        assertIsMutable();
         if (modelEntity == null) {
             throw new IllegalArgumentException("Cannot create a GenericEntity with a null modelEntity parameter");
         }
@@ -187,7 +179,6 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
 
     /** Creates new GenericEntity from existing Map */
     protected void init(Delegator delegator, ModelEntity modelEntity, Object singlePkValue) {
-        assertIsMutable();
         if (modelEntity == null) {
             throw new IllegalArgumentException("Cannot create a GenericEntity with a null modelEntity parameter");
         }
@@ -208,7 +199,6 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
 
     /** Copy Constructor: Creates new GenericEntity from existing GenericEntity */
     protected void init(GenericEntity value) {
-        assertIsMutable();
         // check some things
         if (value.entityName == null) {
             throw new IllegalArgumentException("Cannot create a GenericEntity with a null entityName in the modelEntity parameter");
@@ -223,7 +213,6 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
     }
 
     public void reset() {
-        assertIsMutable();
         // from GenericEntity
         this.delegatorName = null;
         this.internalDelegator = null;
@@ -238,7 +227,6 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
     }
 
     public void refreshFromValue(GenericEntity newValue) throws GenericEntityException {
-        assertIsMutable();
         if (newValue == null) {
             throw new GenericEntityException("Could not refresh value, new value not found for: " + this);
         }
@@ -247,7 +235,8 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
         if (!thisPK.equals(newPK)) {
             throw new GenericEntityException("Could not refresh value, new value did not have the same primary key; this PK=" + thisPK + ", new value PK=" + newPK);
         }
-        this.fields = new HashMap<String, Object>(newValue.fields);
+        // FIXME: This is dangerous - two instances sharing a common field Map is a bad idea.
+        this.fields = newValue.fields;
         this.setDelegator(newValue.getDelegator());
         this.generateHashCode = newValue.generateHashCode;
         this.cachedHashCode = newValue.cachedHashCode;
@@ -260,12 +249,10 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
     }
 
     public void synchronizedWithDatasource() {
-        assertIsMutable();
         this.modified = false;
     }
 
     public void removedFromDatasource() {
-        assertIsMutable();
         // seems kind of minimal, but should do for now...
         this.modified = true;
     }
@@ -275,10 +262,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
     }
 
     public void setImmutable() {
-        if (this.mutable) {
-            this.mutable = false;
-            this.fields = Collections.unmodifiableMap(this.fields);
-        }
+        this.mutable = false;
     }
 
     /**
@@ -292,7 +276,6 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
      * @param isFromEntitySync The isFromEntitySync to set.
      */
     public void setIsFromEntitySync(boolean isFromEntitySync) {
-        assertIsMutable();
         this.isFromEntitySync = isFromEntitySync;
     }
 
@@ -327,7 +310,6 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
 
     /** Set the GenericDelegator instance that created this value object and that is responsible for it. */
     public void setDelegator(Delegator internalDelegator) {
-        assertIsMutable();
         if (internalDelegator == null) return;
         this.delegatorName = internalDelegator.getDelegatorName();
         this.internalDelegator = internalDelegator;
@@ -406,7 +388,11 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
      * @param setIfNull Specifies whether or not to set the value if it is null
      */
     public Object set(String name, Object value, boolean setIfNull) {
-        assertIsMutable();
+        if (!this.mutable) {
+            // comment this out to disable the mutable check
+            throw new IllegalStateException("This object has been flagged as immutable (unchangeable), probably because it came from an Entity Engine cache. Cannot set a value in an immutable entity object.");
+        }
+
         ModelField modelField = getModelEntity().getField(name);
         if (modelField == null) {
             throw new IllegalArgumentException("[GenericEntity.set] \"" + name + "\" is not a field of " + entityName + ", must be one of: " + getModelEntity().fieldNameString());
@@ -460,16 +446,12 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
     }
 
     public void dangerousSetNoCheckButFast(ModelField modelField, Object value) {
-        assertIsMutable();
         if (modelField == null) throw new IllegalArgumentException("Cannot set field with a null modelField");
         generateHashCode = true;
         this.fields.put(modelField.getName(), value);
-        this.setChanged();
-        this.notifyObservers(modelField.getName());
     }
 
     public Object dangerousGetNoCheckButFast(ModelField modelField) {
-        assertIsMutable();
         if (modelField == null) throw new IllegalArgumentException("Cannot get field with a null modelField");
         return this.fields.get(modelField.getName());
     }
