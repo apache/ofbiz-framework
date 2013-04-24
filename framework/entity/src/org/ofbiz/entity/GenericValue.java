@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Collections;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
@@ -53,11 +54,9 @@ public class GenericValue extends GenericEntity {
     // FIXME: This is a bad idea. Another process could change the related values after they are added to the Map.
     public transient Map<String, GenericValue> relatedOneCache = null;
 
-    /** This Map will contain the original field values from the database iff
-     * this GenericValue came from the database. If it was made manually it will
-     * no have this Map, ie it will be null to not take up memory.
+    /** A Map containing the original field values from the database.
      */
-    protected Map<String, Object> originalDbValues = null;
+    private Map<String, Object> originalDbValues = null;
 
     /** Creates new GenericValue */
     public static GenericValue create(ModelEntity modelEntity) {
@@ -108,7 +107,7 @@ public class GenericValue extends GenericEntity {
     @Override
     public void synchronizedWithDatasource() {
         super.synchronizedWithDatasource();
-        this.copyOriginalDbValues();
+        this.originalDbValues = Collections.unmodifiableMap(getAllFields());
     }
 
     public GenericValue create() throws GenericEntityException {
@@ -137,20 +136,10 @@ public class GenericValue extends GenericEntity {
 
     public Object getOriginalDbValue(String name) {
         if (getModelEntity().getField(name) == null) {
-            throw new IllegalArgumentException("[GenericEntity.get] \"" + name + "\" is not a field of " + entityName);
+            throw new IllegalArgumentException("[GenericEntity.get] \"" + name + "\" is not a field of " + getEntityName());
         }
         if (originalDbValues == null) return null;
         return originalDbValues.get(name);
-    }
-
-    /** This should only be called by the Entity Engine once a GenericValue has
-     * been read from the database so that we have a copy of the original field
-     * values from the Db.
-     */
-    public void copyOriginalDbValues() {
-        // FIXME: There is no guarantee this.fields was not modified.
-        this.originalDbValues = new HashMap<String, Object>();
-        this.originalDbValues.putAll(this.fields);
     }
 
     /** Get the named Related Entity for the GenericValue from the persistent store

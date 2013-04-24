@@ -80,10 +80,10 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
     private transient Observable observable = new Observable();
 
     /** Name of the GenericDelegator, used to re-get the GenericDelegator when deserialized */
-    protected String delegatorName = null;
+    private String delegatorName = null;
 
     /** Reference to an instance of GenericDelegator used to do some basic operations on this entity value. If null various methods in this class will fail. This is automatically set by the GenericDelegator for all GenericValue objects instantiated through it. You may set this manually for objects you instantiate manually, but it is optional. */
-    protected transient Delegator internalDelegator = null;
+    private transient Delegator internalDelegator = null;
 
     /** Contains the fields for this entity. Note that this should always be a
      *  HashMap to allow for two things: non-synchronized reads (synchronized
@@ -92,24 +92,22 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
      *  between desiring to set a value to null and desiring to not modify the
      *  current value on an update.
      */
-    protected Map<String, Object> fields = new HashMap<String, Object>();
+    private Map<String, Object> fields = new HashMap<String, Object>();
 
     /** Contains the entityName of this entity, necessary for efficiency when creating EJBs */
-    protected String entityName = null;
+    private String entityName = null;
 
     /** Contains the ModelEntity instance that represents the definition of this entity, not to be serialized */
-    protected transient ModelEntity modelEntity = null;
+    private transient ModelEntity modelEntity = null;
 
-    /** Denotes whether or not this entity has been modified, or is known to be out of sync with the persistent record */
-    protected boolean modified = false;
-    protected boolean generateHashCode = true;
-    protected int cachedHashCode = 0;
+    private boolean generateHashCode = true;
+    private int cachedHashCode = 0;
 
     /** Used to specify whether or not this representation of the entity can be changed; generally cleared when this object comes from a cache */
-    protected boolean mutable = true;
+    private boolean mutable = true;
 
     /** This is an internal field used to specify that a value has come from a sync process and that the auto-stamps should not be over-written */
-    protected boolean isFromEntitySync = false;
+    private boolean isFromEntitySync = false;
 
     /** Creates new GenericEntity - Should never be used, prefer the other options. */
     protected GenericEntity() { }
@@ -242,7 +240,6 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
         this.fields = new HashMap<String, Object>();
         this.entityName = null;
         this.modelEntity = null;
-        this.modified = false;
         this.generateHashCode = true;
         this.cachedHashCode = 0;
         this.mutable = true;
@@ -264,23 +261,37 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
         this.setDelegator(newValue.getDelegator());
         this.generateHashCode = newValue.generateHashCode;
         this.cachedHashCode = newValue.cachedHashCode;
-        this.modified = false;
         this.observable = new Observable(newValue.observable);
     }
 
+    /**
+     * 
+     * @deprecated Use hasChanged()
+     */
     public boolean isModified() {
-        return this.modified;
+        return this.hasChanged();
     }
 
+    /**
+     * Flags this object as being synchronized with the data source.
+     * The entity engine will call this method immediately after
+     * populating this object with data from the data source.
+     */
     public void synchronizedWithDatasource() {
         assertIsMutable();
-        this.modified = false;
+        this.clearChanged();
     }
 
+    /**
+     * Flags this object as being removed from the data source.
+     * The entity engine will call this method immediately after
+     * removing this value from the data source. Once this method is
+     * called, the object is immutable.
+     */
     public void removedFromDatasource() {
         assertIsMutable();
-        // seems kind of minimal, but should do for now...
-        this.modified = true;
+        this.hasChanged();
+        this.setImmutable();
     }
 
     public boolean isMutable() {
@@ -463,7 +474,6 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
             Object old = fields.put(name, value);
 
             generateHashCode = true;
-            modified = true;
             this.setChanged();
             this.notifyObservers(name);
             return old;
@@ -996,9 +1006,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
      * @return java.util.Map
      */
     public Map<String, Object> getAllFields() {
-        Map<String, Object> newMap = new HashMap<String, Object>();
-        newMap.putAll(this.fields);
-        return newMap;
+        return new HashMap<String, Object>(this.fields);
     }
 
     /** Used by clients to specify exactly the fields they are interested in
@@ -1518,7 +1526,9 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
     }
 
     public static class NullGenericEntity extends GenericEntity implements NULL {
-        protected NullGenericEntity() { }
+        protected NullGenericEntity() {
+            this.setImmutable();
+        }
 
         @Override
         public String getEntityName() {

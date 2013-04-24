@@ -98,6 +98,7 @@ public class EntityTestSuite extends EntityTestCase {
         GenericValue testValue = delegator.findOne("TestingType", false, "testingTypeId", "TEST-1");
         assertEquals("Retrieved value has the correct description", "Testing Type #1", testValue.getString("description"));
         // Test Observable aspect
+        assertFalse("Observable has not changed", testValue.hasChanged());
         TestObserver observer = new TestObserver();
         testValue.addObserver(observer);
         testValue.put("description", "New Testing Type #1");
@@ -111,10 +112,29 @@ public class EntityTestSuite extends EntityTestCase {
         // now store it
         testValue.store();
         assertFalse("Observable has not changed", testValue.hasChanged());
-
         // now retrieve it again and make sure that the updated value is correct
         testValue = delegator.findOne("TestingType", false, "testingTypeId", "TEST-1");
         assertEquals("Retrieved value has the correct description", "New Testing Type #1", testValue.getString("description"));
+    }
+
+    public void testRemoveValue() throws Exception {
+        // Retrieve a sample GenericValue, make sure it's correct
+        GenericValue testValue = delegator.findOne("TestingType", false, "testingTypeId", "TEST-4");
+        assertEquals("Retrieved value has the correct description", "Testing Type #4", testValue.getString("description"));
+        testValue.remove();
+        // Test immutable
+        try {
+            testValue.put("description", "New Testing Type #4");
+            fail("Modified an immutable GenericValue");
+        } catch (IllegalStateException e) {
+        }
+        try {
+            testValue.remove("description");
+            fail("Modified an immutable GenericValue");
+        } catch (UnsupportedOperationException e) {
+        }
+        testValue = delegator.findOne("TestingType", false, "testingTypeId", "TEST-4");
+        assertEquals("Finding removed value returns null", null, testValue);
     }
 
     /*
