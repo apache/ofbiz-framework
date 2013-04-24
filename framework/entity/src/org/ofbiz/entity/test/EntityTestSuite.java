@@ -124,25 +124,37 @@ public class EntityTestSuite extends EntityTestCase {
         // Test primary key cache
         GenericValue testValue = delegator.findOne("TestingType", true, "testingTypeId", "TEST-2");
         assertEquals("Retrieved from cache value has the correct description", "Testing Type #2", testValue.getString("description"));
+        // Test immutable
         try {
             testValue.put("description", "New Testing Type #2");
             testValue.store();
             fail("Modified an immutable GenericValue");
         } catch (IllegalStateException e) {
         }
+        try {
+            testValue.remove("description");
+            fail("Modified an immutable GenericValue");
+        } catch (UnsupportedOperationException e) {
+        }
         // Test entity condition cache
-        /* Commenting this out for now because the tests fail due to flaws in the EntityListCache implementation.
         EntityCondition testCondition = EntityCondition.makeCondition("description", EntityOperator.EQUALS, "Testing Type #2");
         List<GenericValue> testList = delegator.findList("TestingType", testCondition, null, null, null, true);
         assertEquals("Delegator findList returned one value", 1, testList.size());
         testValue = testList.get(0);
         assertEquals("Retrieved from cache value has the correct description", "Testing Type #2", testValue.getString("description"));
+        // Test immutable
         try {
             testValue.put("description", "New Testing Type #2");
             testValue.store();
             fail("Modified an immutable GenericValue");
         } catch (IllegalStateException e) {
         }
+        try {
+            testValue.remove("description");
+            fail("Modified an immutable GenericValue");
+        } catch (UnsupportedOperationException e) {
+        }
+        /* Commenting this out for now because the tests fail due to flaws in the EntityListCache implementation.
         testValue = (GenericValue) testValue.clone();
         testValue.put("description", "New Testing Type #2");
         testValue.store();
