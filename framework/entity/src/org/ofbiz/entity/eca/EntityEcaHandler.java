@@ -34,6 +34,9 @@ public interface EntityEcaHandler<T> {
     public static final String EV_VALIDATE = "validate";
     public static final String EV_RUN = "run";
     public static final String EV_RETURN = "return";
+    /**
+     * Invoked after the entity operation, but before the cache is cleared.
+     */
     public static final String EV_CACHE_CLEAR = "cache-clear";
     public static final String EV_CACHE_CHECK = "cache-check";
     public static final String EV_CACHE_PUT = "cache-put";

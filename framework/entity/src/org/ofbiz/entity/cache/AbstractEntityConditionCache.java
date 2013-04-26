@@ -59,6 +59,21 @@ public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<E
         return conditionCache.put(key, value);
     }
 
+    /**
+     * Removes all condition caches that include the specified entity.
+     */
+    public void remove(GenericEntity entity) {
+        UtilCache.clearCache(getCacheName(entity.getEntityName()));
+        ModelEntity model = entity.getModelEntity();
+        if (model != null) {
+            Iterator<String> it = model.getViewConvertorsIterator();
+            while (it.hasNext()) {
+                String targetEntityName = it.next();
+                UtilCache.clearCache(getCacheName(targetEntityName));
+            }
+        }
+    }
+
     public void remove(String entityName, EntityCondition condition) {
         UtilCache<EntityCondition, ConcurrentMap<K, V>> cache = getCache(entityName);
         if (cache == null) return;
