@@ -46,6 +46,8 @@ import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.config.EntityConfigUtil;
+import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.testtools.EntityTestCase;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
@@ -61,6 +63,8 @@ public class EntityTestSuite extends EntityTestCase {
      * with Derby.  Going up to 100,000 causes problems all around because Java List seems to be capped at about 65,000 values.
      *
      * NOTE: setting this lower so that the general tests don't take so long to run; to really push it can increase this number.
+     * NOTE: Let's try to distinguish between functional testing and stress testing. Any value greater than 1 will be sufficient
+     * for functional testing. Values like 10,000 or 100,000 are more appropriate for stress testing.
      */
     public static final long TEST_COUNT = 1000;
 
@@ -70,6 +74,20 @@ public class EntityTestSuite extends EntityTestCase {
 
     final static private int _level1max = 3;   // number of TestingNode entities to create
 
+    public void testModels() throws Exception {
+        ModelEntity modelEntity = delegator.getModelEntity("TestingType");
+        assertNotNull("TestingType entity model not null", modelEntity);
+        ModelField modelField = modelEntity.getField("description");
+        assertNotNull("TestingType.description field model not null", modelField);
+        modelField = new ModelField("newDesc", modelField.getType(), "NEW_DESC", false);
+        modelEntity.addField(modelField);
+        modelField = modelEntity.getField("newDesc");
+        assertNotNull("TestingType.newDesc field model not null", modelField);
+        modelEntity.removeField("newDesc");
+        modelField = modelEntity.getField("newDesc");
+        assertNull("TestingType.newDesc field model is null", modelField);
+    }
+    
     /*
      * Tests storing values with the delegator's .create, .makeValue, and .storeAll methods
      */
