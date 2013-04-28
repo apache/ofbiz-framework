@@ -607,7 +607,7 @@ TEMP_VIEW_LOOP:
     }
 
     public ModelField findModelField(ModelEntity entity, String fieldName) {
-        for (ModelField field: entity.fields) {
+        for (ModelField field: entity.getFieldsUnmodifiable()) {
             if (field.name.compareTo(fieldName) == 0) {
                 return field;
             }

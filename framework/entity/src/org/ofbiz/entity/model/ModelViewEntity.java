@@ -489,12 +489,7 @@ public class ModelViewEntity extends ModelEntity {
                 }
             }
 
-            this.fields.add(field);
-            if (field.isPk) {
-                this.pks.add(field);
-            } else {
-                this.nopks.add(field);
-            }
+            addField(field);
 
             if ("count".equals(alias.function) || "count-distinct".equals(alias.function)) {
                 // if we have a "count" function we have to change the type
