@@ -19,20 +19,10 @@
 
 package org.ofbiz.entity;
 
-
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityFieldMap;
 import org.ofbiz.entity.model.ModelEntity;
-import org.ofbiz.entity.model.ModelKeyMap;
-import org.ofbiz.entity.model.ModelRelation;
-
 
 /**
  * Generic Entity Value Object - Handles persistence for any defined entity.
@@ -42,10 +32,6 @@ import org.ofbiz.entity.model.ModelRelation;
 public class GenericValue extends GenericEntity {
 
     public static final GenericValue NULL_VALUE = new NullGenericValue();
-
-    /** A Map containing the original field values from the database.
-     */
-    private Map<String, Object> originalDbValues = null;
 
     /** Creates new GenericValue */
     public static GenericValue create(ModelEntity modelEntity) {
@@ -82,18 +68,6 @@ public class GenericValue extends GenericEntity {
         return newValue;
     }
 
-    @Override
-    public void reset() {
-        super.reset();
-        this.originalDbValues = null;
-    }
-
-    @Override
-    public void synchronizedWithDatasource() {
-        super.synchronizedWithDatasource();
-        this.originalDbValues = Collections.unmodifiableMap(getAllFields());
-    }
-
     public GenericValue create() throws GenericEntityException {
         return this.getDelegator().create(this);
     }
@@ -112,18 +86,6 @@ public class GenericValue extends GenericEntity {
 
     public void refreshFromCache() throws GenericEntityException {
         this.getDelegator().refreshFromCache(this);
-    }
-
-    public boolean originalDbValuesAvailable() {
-        return this.originalDbValues != null ? true : false;
-    }
-
-    public Object getOriginalDbValue(String name) {
-        if (getModelEntity().getField(name) == null) {
-            throw new IllegalArgumentException("[GenericEntity.get] \"" + name + "\" is not a field of " + getEntityName());
-        }
-        if (originalDbValues == null) return null;
-        return originalDbValues.get(name);
     }
 
     /** Get the named Related Entity for the GenericValue from the persistent store
@@ -145,7 +107,7 @@ public class GenericValue extends GenericEntity {
      */
     @Deprecated
     public List<GenericValue> getRelated(String relationName, List<String> orderBy) throws GenericEntityException {
-        return this.getDelegator().getRelated(relationName, new HashMap<String, Object>(), orderBy, this, false);
+        return this.getDelegator().getRelated(relationName, null, orderBy, this, false);
     }
 
     /** Get the named Related Entity for the GenericValue from the persistent store
@@ -341,66 +303,6 @@ public class GenericValue extends GenericEntity {
      */
     public GenericPK getRelatedDummyPK(String relationName, Map<String, ? extends Object> byAndFields) throws GenericEntityException {
         return this.getDelegator().getRelatedDummyPK(relationName, byAndFields, this);
-    }
-
-    /**
-     * Checks to see if all foreign key records exist in the database. Will create a dummy value for
-     * those missing when specified.
-     *
-     * @param insertDummy Create a dummy record using the provided fields
-     * @return true if all FKs exist (or when all missing are created)
-     * @throws GenericEntityException
-     */
-    public boolean checkFks(boolean insertDummy) throws GenericEntityException {
-        ModelEntity model = this.getModelEntity();
-        Iterator<ModelRelation> relItr = model.getRelationsIterator();
-        while (relItr.hasNext()) {
-            ModelRelation relation = relItr.next();
-            if ("one".equalsIgnoreCase(relation.getType())) {
-                // see if the related value exists
-                Map<String, Object> fields = new HashMap<String, Object>();
-                for (int i = 0; i < relation.getKeyMapsSize(); i++) {
-                    ModelKeyMap keyMap = relation.getKeyMap(i);
-                    fields.put(keyMap.getRelFieldName(), this.get(keyMap.getFieldName()));
-                }
-                EntityFieldMap ecl = EntityCondition.makeCondition(fields);
-                long count = this.getDelegator().findCountByCondition(relation.getRelEntityName(), ecl, null, null);
-                if (count == 0) {
-                    if (insertDummy) {
-                        // create the new related value (dummy)
-                        GenericValue newValue = this.getDelegator().makeValue(relation.getRelEntityName());
-                        Iterator<ModelKeyMap> keyMapIter = relation.getKeyMapsIterator();
-                        boolean allFieldsSet = true;
-                        while (keyMapIter.hasNext()) {
-                            ModelKeyMap mkm = keyMapIter.next();
-                            if (this.get(mkm.getFieldName()) != null) {
-                                newValue.set(mkm.getRelFieldName(), this.get(mkm.getFieldName()));
-                                if (Debug.infoOn()) Debug.logInfo("Set [" + mkm.getRelFieldName() + "] to - " + this.get(mkm.getFieldName()), module);
-                            } else {
-                                allFieldsSet = false;
-                            }
-                        }
-                        if (allFieldsSet) {
-                            if (Debug.infoOn()) Debug.logInfo("Creating place holder value : " + newValue, module);
-
-                            // inherit create and update times from this value in order to make this not seem like new/fresh data
-                            newValue.put(ModelEntity.CREATE_STAMP_FIELD, this.get(ModelEntity.CREATE_STAMP_FIELD));
-                            newValue.put(ModelEntity.CREATE_STAMP_TX_FIELD, this.get(ModelEntity.CREATE_STAMP_TX_FIELD));
-                            newValue.put(ModelEntity.STAMP_FIELD, this.get(ModelEntity.STAMP_FIELD));
-                            newValue.put(ModelEntity.STAMP_TX_FIELD, this.get(ModelEntity.STAMP_TX_FIELD));
-                            // set isFromEntitySync so that create/update stamp fields set above will be preserved
-                            newValue.setIsFromEntitySync(true);
-                            // check the FKs for the newly created entity
-                            newValue.checkFks(true);
-                            newValue.create();
-                        }
-                    } else {
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
     }
 
     /** Clones this GenericValue, this is a shallow clone & uses the default shallow HashMap clone

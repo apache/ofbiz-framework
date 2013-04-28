@@ -51,10 +51,13 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.LocalizedMap;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityFieldMap;
 import org.ofbiz.entity.jdbc.SqlJdbcUtil;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.model.ModelFieldType;
+import org.ofbiz.entity.model.ModelKeyMap;
+import org.ofbiz.entity.model.ModelRelation;
 import org.ofbiz.entity.model.ModelViewEntity;
 import org.ofbiz.entity.model.ModelViewEntity.ModelAlias;
 import org.w3c.dom.Document;
@@ -84,6 +87,10 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
 
     /** Reference to an instance of GenericDelegator used to do some basic operations on this entity value. If null various methods in this class will fail. This is automatically set by the GenericDelegator for all GenericValue objects instantiated through it. You may set this manually for objects you instantiate manually, but it is optional. */
     private transient Delegator internalDelegator = null;
+
+    /** A Map containing the original field values from the database.
+     */
+    private Map<String, Object> originalDbValues = null;
 
     /** Contains the fields for this entity. Note that this should always be a
      *  HashMap to allow for two things: non-synchronized reads (synchronized
@@ -237,6 +244,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
         // from GenericEntity
         this.delegatorName = null;
         this.internalDelegator = null;
+        this.originalDbValues = null;
         this.fields = new HashMap<String, Object>();
         this.entityName = null;
         this.modelEntity = null;
@@ -279,6 +287,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
      */
     public void synchronizedWithDatasource() {
         assertIsMutable();
+        this.originalDbValues = Collections.unmodifiableMap(getAllFields());
         this.clearChanged();
     }
 
@@ -1520,6 +1529,78 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
 
     public void setChanged() {
         getObservable().setChanged();
+    }
+
+    public boolean originalDbValuesAvailable() {
+        return this.originalDbValues != null ? true : false;
+    }
+
+    public Object getOriginalDbValue(String name) {
+        if (getModelEntity().getField(name) == null) {
+            throw new IllegalArgumentException("[GenericEntity.get] \"" + name + "\" is not a field of " + getEntityName());
+        }
+        if (originalDbValues == null) return null;
+        return originalDbValues.get(name);
+    }
+
+    /**
+     * Checks to see if all foreign key records exist in the database. Will create a dummy value for
+     * those missing when specified.
+     *
+     * @param insertDummy Create a dummy record using the provided fields
+     * @return true if all FKs exist (or when all missing are created)
+     * @throws GenericEntityException
+     */
+    public boolean checkFks(boolean insertDummy) throws GenericEntityException {
+        ModelEntity model = this.getModelEntity();
+        Iterator<ModelRelation> relItr = model.getRelationsIterator();
+        while (relItr.hasNext()) {
+            ModelRelation relation = relItr.next();
+            if ("one".equalsIgnoreCase(relation.getType())) {
+                // see if the related value exists
+                Map<String, Object> fields = new HashMap<String, Object>();
+                for (int i = 0; i < relation.getKeyMapsSize(); i++) {
+                    ModelKeyMap keyMap = relation.getKeyMap(i);
+                    fields.put(keyMap.getRelFieldName(), this.get(keyMap.getFieldName()));
+                }
+                EntityFieldMap ecl = EntityCondition.makeCondition(fields);
+                long count = this.getDelegator().findCountByCondition(relation.getRelEntityName(), ecl, null, null);
+                if (count == 0) {
+                    if (insertDummy) {
+                        // create the new related value (dummy)
+                        GenericValue newValue = this.getDelegator().makeValue(relation.getRelEntityName());
+                        Iterator<ModelKeyMap> keyMapIter = relation.getKeyMapsIterator();
+                        boolean allFieldsSet = true;
+                        while (keyMapIter.hasNext()) {
+                            ModelKeyMap mkm = keyMapIter.next();
+                            if (this.get(mkm.getFieldName()) != null) {
+                                newValue.set(mkm.getRelFieldName(), this.get(mkm.getFieldName()));
+                                if (Debug.infoOn()) Debug.logInfo("Set [" + mkm.getRelFieldName() + "] to - " + this.get(mkm.getFieldName()), module);
+                            } else {
+                                allFieldsSet = false;
+                            }
+                        }
+                        if (allFieldsSet) {
+                            if (Debug.infoOn()) Debug.logInfo("Creating place holder value : " + newValue, module);
+
+                            // inherit create and update times from this value in order to make this not seem like new/fresh data
+                            newValue.put(ModelEntity.CREATE_STAMP_FIELD, this.get(ModelEntity.CREATE_STAMP_FIELD));
+                            newValue.put(ModelEntity.CREATE_STAMP_TX_FIELD, this.get(ModelEntity.CREATE_STAMP_TX_FIELD));
+                            newValue.put(ModelEntity.STAMP_FIELD, this.get(ModelEntity.STAMP_FIELD));
+                            newValue.put(ModelEntity.STAMP_TX_FIELD, this.get(ModelEntity.STAMP_TX_FIELD));
+                            // set isFromEntitySync so that create/update stamp fields set above will be preserved
+                            newValue.setIsFromEntitySync(true);
+                            // check the FKs for the newly created entity
+                            newValue.checkFks(true);
+                            newValue.create();
+                        }
+                    } else {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     public static interface NULL {
