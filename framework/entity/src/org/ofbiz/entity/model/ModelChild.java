@@ -21,36 +21,33 @@ package org.ofbiz.entity.model;
 import java.io.Serializable;
 
 /**
- * Generic Entity - Entity model class
+ * Abstract entity model class.
  *
  */
 @SuppressWarnings("serial")
 public abstract class ModelChild implements Serializable {
 
-    protected ModelEntity parentModelEntity;
+    private final ModelEntity modelEntity;
     /** The description for documentation purposes */
-    protected String description = "";
+    private final String description;
 
-    protected ModelChild() {}
-    protected ModelChild(ModelEntity parentModelEntity) {
-        setModelEntity(parentModelEntity);
+    // TODO: Eliminate the need for this.
+    protected ModelChild() {
+        this.modelEntity = null;
+        this.description = "";
     }
 
-    protected void setModelEntity(ModelEntity parentModelEntity) {
-        this.parentModelEntity = parentModelEntity;
+    protected ModelChild(ModelEntity modelEntity, String description) {
+        this.modelEntity = modelEntity;
+        this.description = description;
     }
 
     public ModelEntity getModelEntity() {
-        return parentModelEntity;
+        return this.modelEntity;
     }
 
     /** The description for documentation purposes */
     public String getDescription() {
         return this.description;
     }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
 }

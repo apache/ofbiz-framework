@@ -25,6 +25,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -341,35 +342,31 @@ TEMP_VIEW_LOOP:
                                         throw new GenericModelException("Error getting related entity [" + modelRelation.getRelEntityName() + "] definition from entity [" + curEntityName + "]", e);
                                     }
                                     if (relatedEnt != null) {
-                                        // don't do relationship to the same entity, unless title is "Parent", then do a "Child" automatically
-                                        String targetTitle = modelRelation.getTitle();
-                                        if (curModelEntity.getEntityName().equals(relatedEnt.getEntityName()) && "Parent".equals(targetTitle)) {
-                                            targetTitle = "Child";
-                                        }
-
                                         // create the new relationship even if one exists so we can show what we are looking for in the info message
-                                        ModelRelation newRel = new ModelRelation();
-                                        newRel.setModelEntity(relatedEnt);
-                                        newRel.setRelEntityName(curModelEntity.getEntityName());
-                                        newRel.setTitle(targetTitle);
-                                        newRel.setAutoRelation(true);
+                                        // don't do relationship to the same entity, unless title is "Parent", then do a "Child" automatically
+                                        String title = modelRelation.getTitle();
+                                        if (curModelEntity.getEntityName().equals(relatedEnt.getEntityName()) && "Parent".equals(title)) {
+                                            title = "Child";
+                                        }
+                                        String description = "";
+                                        String type = "";
+                                        String relEntityName = curModelEntity.getEntityName();
+                                        String fkName = "";
+                                        ArrayList<ModelKeyMap> keyMaps = new ArrayList<ModelKeyMap>();
+                                        boolean isAutoRelation = true;
                                         Set<String> curEntityKeyFields = new HashSet<String>();
-                                        for (int kmn = 0; kmn < modelRelation.getKeyMapsSize(); kmn++) {
-                                            ModelKeyMap curkm = modelRelation.getKeyMap(kmn);
-                                            ModelKeyMap newkm = new ModelKeyMap();
-                                            newRel.addKeyMap(newkm);
-                                            newkm.setFieldName(curkm.getRelFieldName());
-                                            newkm.setRelFieldName(curkm.getFieldName());
+                                        for (ModelKeyMap curkm : modelRelation.getKeyMaps()) {
+                                            keyMaps.add(new ModelKeyMap(curkm.getRelFieldName(), curkm.getFieldName()));
                                             curEntityKeyFields.add(curkm.getFieldName());
                                         }
+                                        keyMaps.trimToSize();
                                         // decide whether it should be one or many by seeing if the key map represents the complete pk of the relEntity
                                         if (curModelEntity.containsAllPkFieldNames(curEntityKeyFields)) {
                                             // always use one-nofk, we don't want auto-fks getting in for these automatic ones
-                                            newRel.setType("one-nofk");
-
+                                            type = "one-nofk";
                                             // to keep it clean, remove any additional keys that aren't part of the PK
                                             List<String> curPkFieldNames = curModelEntity.getPkFieldNames();
-                                            Iterator<ModelKeyMap> nrkmIter = newRel.getKeyMapsIterator();
+                                            Iterator<ModelKeyMap> nrkmIter = keyMaps.iterator();
                                             while (nrkmIter.hasNext()) {
                                                 ModelKeyMap nrkm =nrkmIter.next();
                                                 String checkField = nrkm.getRelFieldName();
@@ -378,10 +375,11 @@ TEMP_VIEW_LOOP:
                                                 }
                                             }
                                         } else {
-                                            newRel.setType("many");
+                                            type= "many";
                                         }
+                                        ModelRelation newRel = ModelRelation.create(relatedEnt, description, type, title, relEntityName, fkName, keyMaps, isAutoRelation);
 
-                                        ModelRelation existingRelation = relatedEnt.getRelation(targetTitle + curModelEntity.getEntityName());
+                                        ModelRelation existingRelation = relatedEnt.getRelation(title + curModelEntity.getEntityName());
                                         if (existingRelation == null) {
                                             numAutoRelations++;
                                             if (curModelEntity.getEntityName().equals(relatedEnt.getEntityName())) {
@@ -392,16 +390,16 @@ TEMP_VIEW_LOOP:
                                         } else {
                                             if (newRel.equals(existingRelation)) {
                                                 // don't warn if the target title+entity = current title+entity
-                                                if (!(targetTitle + curModelEntity.getEntityName()).equals(modelRelation.getTitle() + modelRelation.getRelEntityName())) {
+                                                if (Debug.infoOn() && !(title + curModelEntity.getEntityName()).equals(modelRelation.getTitle() + modelRelation.getRelEntityName())) {
                                                     //String errorMsg = "Relation already exists to entity [] with title [" + targetTitle + "],from entity []";
                                                     String message = "Entity [" + relatedEnt.getPackageName() + ":" + relatedEnt.getEntityName() + "] already has identical relationship to entity [" +
-                                                            curModelEntity.getEntityName() + "] title [" + targetTitle + "]; would auto-create: type [" +
+                                                            curModelEntity.getEntityName() + "] title [" + title + "]; would auto-create: type [" +
                                                             newRel.getType() + "] and fields [" + newRel.keyMapString(",", "") + "]";
                                                     orderedMessages.add(message);
                                                 }
                                             } else {
                                                 String message = "Existing relationship with the same name, but different specs found from what would be auto-created for Entity [" + relatedEnt.getEntityName() + "] and relationship to entity [" +
-                                                        curModelEntity.getEntityName() + "] title [" + targetTitle + "]; would auto-create: type [" +
+                                                        curModelEntity.getEntityName() + "] title [" + title + "]; would auto-create: type [" +
                                                         newRel.getType() + "] and fields [" + newRel.keyMapString(",", "") + "]";
                                                 Debug.logVerbose(message, module);
                                             }
@@ -555,7 +553,7 @@ TEMP_VIEW_LOOP:
                 }
             }
             if (UtilValidate.isNotEmpty(entityFilterSet) && !entityFilterSet.contains(entityName)) {
-                //Debug.logInfo("Not including entity " + entityName + " becuase it is not in the entity set: " + entityFilterSet, module);
+                //Debug.logInfo("Not including entity " + entityName + " because it is not in the entity set: " + entityFilterSet, module);
                 continue;
             }
 
@@ -602,32 +600,11 @@ TEMP_VIEW_LOOP:
 
     public ModelRelation createRelation(ModelEntity entity, Element relationElement) {
         this.numRelations++;
-        ModelRelation relation = new ModelRelation(entity, relationElement);
+        ModelRelation relation = ModelRelation.create(entity, relationElement, false);
         return relation;
     }
 
-    public ModelField findModelField(ModelEntity entity, String fieldName) {
-        for (ModelField field: entity.getFieldsUnmodifiable()) {
-            if (field.name.compareTo(fieldName) == 0) {
-                return field;
-            }
-        }
-        return null;
-    }
-
-    public ModelField createModelField(String name, String type, String colName, boolean isPk) {
-        this.numFields++;
-        ModelField field = new ModelField(name, type, colName, isPk);
-        return field;
-    }
-
-    public ModelField createModelField(Element fieldElement) {
-        if (fieldElement == null) {
-            return null;
-        }
-
-        this.numFields++;
-        ModelField field = new ModelField(fieldElement);
-        return field;
+    public void incrementFieldCount(int amount) {
+        this.numFields += amount;
     }
 }

@@ -288,7 +288,7 @@ public class DynamicViewEntity {
     }
 
     public void addRelation(String type, String title, String relEntityName, List<ModelKeyMap> modelKeyMaps) {
-        ModelRelation relation = new ModelRelation(type, title, relEntityName, null, modelKeyMaps);
+        ModelRelation relation = ModelRelation.create(null, null, type, title, relEntityName, null, modelKeyMaps, false);
         this.relations.add(relation);
     }
 

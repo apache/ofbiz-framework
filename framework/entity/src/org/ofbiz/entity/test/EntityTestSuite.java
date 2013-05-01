@@ -79,7 +79,7 @@ public class EntityTestSuite extends EntityTestCase {
         assertNotNull("TestingType entity model not null", modelEntity);
         ModelField modelField = modelEntity.getField("description");
         assertNotNull("TestingType.description field model not null", modelField);
-        modelField = new ModelField("newDesc", modelField.getType(), "NEW_DESC", false);
+        modelField = ModelField.create(modelEntity, null, "newDesc", modelField.getType(), "NEW_DESC", null, null, false, false, false, false, false, null);
         modelEntity.addField(modelField);
         modelField = modelEntity.getField("newDesc");
         assertNotNull("TestingType.newDesc field model not null", modelField);

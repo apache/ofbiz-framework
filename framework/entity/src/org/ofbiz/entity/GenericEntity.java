@@ -1559,8 +1559,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
             if ("one".equalsIgnoreCase(relation.getType())) {
                 // see if the related value exists
                 Map<String, Object> fields = new HashMap<String, Object>();
-                for (int i = 0; i < relation.getKeyMapsSize(); i++) {
-                    ModelKeyMap keyMap = relation.getKeyMap(i);
+                for (ModelKeyMap keyMap : relation.getKeyMaps()) {
                     fields.put(keyMap.getRelFieldName(), this.get(keyMap.getFieldName()));
                 }
                 EntityFieldMap ecl = EntityCondition.makeCondition(fields);
@@ -1569,10 +1568,8 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
                     if (insertDummy) {
                         // create the new related value (dummy)
                         GenericValue newValue = this.getDelegator().makeValue(relation.getRelEntityName());
-                        Iterator<ModelKeyMap> keyMapIter = relation.getKeyMapsIterator();
                         boolean allFieldsSet = true;
-                        while (keyMapIter.hasNext()) {
-                            ModelKeyMap mkm = keyMapIter.next();
+                        for (ModelKeyMap mkm : relation.getKeyMaps()) {
                             if (this.get(mkm.getFieldName()) != null) {
                                 newValue.set(mkm.getRelFieldName(), this.get(mkm.getFieldName()));
                                 if (Debug.infoOn()) Debug.logInfo("Set [" + mkm.getRelFieldName() + "] to - " + this.get(mkm.getFieldName()), module);

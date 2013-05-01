@@ -227,8 +227,7 @@ public class GenericWebEvent {
         while (fieldIter.hasNext()) {
             ModelField field = fieldIter.next();
 
-            for (int j = 0; j < field.getValidatorsSize(); j++) {
-                String curValidate = field.getValidator(j);
+            for (String curValidate : field.getValidators()) {
                 Class<?>[] paramTypes = new Class[] {String.class};
                 Object[] params = new Object[] {findByEntity.get(field.getName()).toString()};
 

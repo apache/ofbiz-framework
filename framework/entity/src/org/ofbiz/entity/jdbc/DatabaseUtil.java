@@ -2280,12 +2280,10 @@ public class DatabaseUtil {
 
     public String makeFkConstraintClause(ModelEntity entity, ModelRelation modelRelation, ModelEntity relModelEntity, int constraintNameClipLength, String fkStyle, boolean useFkInitiallyDeferred) {
         // make the two column lists
-        Iterator<ModelKeyMap> keyMapsIter = modelRelation.getKeyMapsIterator();
         StringBuilder mainCols = new StringBuilder();
         StringBuilder relCols = new StringBuilder();
 
-        while (keyMapsIter.hasNext()) {
-            ModelKeyMap keyMap = keyMapsIter.next();
+        for (ModelKeyMap keyMap : modelRelation.getKeyMaps()) {
 
             ModelField mainField = entity.getField(keyMap.getFieldName());
             if (mainField == null) {
@@ -2712,11 +2710,9 @@ public class DatabaseUtil {
     }
 
     public String makeIndexClause(ModelEntity entity, ModelIndex modelIndex) {
-        Iterator<ModelIndex.Field> fieldsIter = modelIndex.getFieldsIterator();
         StringBuilder mainCols = new StringBuilder();
 
-        while (fieldsIter.hasNext()) {
-            ModelIndex.Field field = fieldsIter.next();
+        for (ModelIndex.Field field : modelIndex.getFields()) {
             ModelIndex.Function function = field.getFunction();
             if (mainCols.length() > 0) {
                 mainCols.append(", ");
@@ -2931,11 +2927,9 @@ public class DatabaseUtil {
     }
 
     public String makeFkIndexClause(ModelEntity entity, ModelRelation modelRelation, int constraintNameClipLength) {
-        Iterator<ModelKeyMap> keyMapsIter = modelRelation.getKeyMapsIterator();
         StringBuilder mainCols = new StringBuilder();
 
-        while (keyMapsIter.hasNext()) {
-            ModelKeyMap keyMap = keyMapsIter.next();
+        for (ModelKeyMap keyMap : modelRelation.getKeyMaps()) {
             ModelField mainField = entity.getField(keyMap.getFieldName());
 
             if (mainField == null) {
