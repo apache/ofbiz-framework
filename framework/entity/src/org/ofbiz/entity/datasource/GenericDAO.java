@@ -936,11 +936,8 @@ public class GenericDAO {
         }
 
         // construct assoc->target relation string
-        int kmsize = modelRelationTwo.getKeyMapsSize();
         StringBuilder wheresb = new StringBuilder();
-
-        for (int i = 0; i < kmsize; i++) {
-            ModelKeyMap mkm = modelRelationTwo.getKeyMap(i);
+        for (ModelKeyMap mkm : modelRelationTwo.getKeyMaps()) {
             String lfname = mkm.getFieldName();
             String rfname = mkm.getRelFieldName();
 
@@ -952,12 +949,9 @@ public class GenericDAO {
 
         // construct the source entity qualifier
         // get the fields from relation description
-        kmsize = modelRelationOne.getKeyMapsSize();
         Map<ModelField, Object> bindMap = new HashMap<ModelField, Object>();
-
-        for (int i = 0; i < kmsize; i++) {
+        for (ModelKeyMap mkm : modelRelationOne.getKeyMaps()) {
             // get the equivalent column names in the relation
-            ModelKeyMap mkm = modelRelationOne.getKeyMap(i);
             String sfldname = mkm.getFieldName();
             String lfldname = mkm.getRelFieldName();
             ModelField amf = modelEntityOne.getField(lfldname);

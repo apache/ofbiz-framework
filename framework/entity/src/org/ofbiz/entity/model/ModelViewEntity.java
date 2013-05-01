@@ -342,7 +342,7 @@ public class ModelViewEntity extends ModelEntity {
             ModelField field = fldsIt.next();
             sb.append(field.getColValue());
             if (alias) {
-                ModelAlias modelAlias = this.getAlias(field.name);
+                ModelAlias modelAlias = this.getAlias(field.getName());
                 if (modelAlias != null) {
                     sb.append(" AS ").append(modelAlias.getColAlias());
                 }
@@ -406,15 +406,9 @@ public class ModelViewEntity extends ModelEntity {
             Iterator<ModelField> aliasedFieldIterator = aliasedEntity.getFieldsIterator();
             while (aliasedFieldIterator.hasNext()) {
                 ModelField aliasedModelField = aliasedFieldIterator.next();
-                ModelField newModelField = new ModelField();
-                for (int i = 0; i < aliasedModelField.getValidatorsSize(); i++) {
-                    newModelField.addValidator(aliasedModelField.getValidator(i));
-                }
-                newModelField.setColName(modelMemberEntity.getEntityAlias() + "." + aliasedModelField.getColName());
-                newModelField.setName(modelMemberEntity.getEntityAlias() + "." + aliasedModelField.getName());
-                newModelField.setType(aliasedModelField.getType());
-                newModelField.setDescription(aliasedModelField.getDescription());
-                newModelField.setIsPk(false);
+                ModelField newModelField = ModelField.create(this, aliasedModelField.getDescription(), modelMemberEntity.getEntityAlias() + "." + aliasedModelField.getName(),
+                        aliasedModelField.getType(), modelMemberEntity.getEntityAlias() + "." + aliasedModelField.getColName(), null, null, false, false, false, false,
+                        false, aliasedModelField.getValidators());
                 aliasedModelEntity.addField(newModelField);
             }
         }
@@ -422,31 +416,32 @@ public class ModelViewEntity extends ModelEntity {
         expandAllAliasAlls(modelReader);
 
         for (ModelAlias alias: aliases) {
-            ModelField field = new ModelField();
-            field.setModelEntity(this);
-            field.name = alias.name;
-            field.description = alias.description;
-
-            // if this is a groupBy field, add it to the groupBys list
-            if (alias.groupBy || groupByFields.contains(alias.name)) {
-                this.groupBys.add(field);
-            }
-
             // show a warning if function is specified and groupBy is true
             if (UtilValidate.isNotEmpty(alias.function) && alias.groupBy) {
                 Debug.logWarning("[" + this.getEntityName() + "]: The view-entity alias with name=" + alias.name + " has a function value and is specified as a group-by field; this may be an error, but is not necessarily.", module);
             }
-
+            String description = alias.description;
+            String name = alias.name;
+            String type = "";
+            String colName = "";
+            String colValue = "";
+            String fieldSet = "";
+            boolean isNotNull = false;
+            boolean isPk = false;
+            boolean encrypt = false;
+            boolean isAutoCreatedInternal = false;
+            boolean enableAuditLog = false;
+            List<String> validators = null;
             if (alias.isComplexAlias()) {
                 // if this is a complex alias, make a complex column name...
                 StringBuilder colNameBuffer = new StringBuilder();
                 StringBuilder fieldTypeBuffer = new StringBuilder();
                 alias.makeAliasColName(colNameBuffer, fieldTypeBuffer, this, modelReader);
-                field.colValue = colNameBuffer.toString();
-                field.colName = ModelUtil.javaNameToDbName(alias.name);
-                field.type = fieldTypeBuffer.toString();
-                field.isPk = false;
-                field.fieldSet = alias.getFieldSet();
+                colValue = colNameBuffer.toString();
+                colName = ModelUtil.javaNameToDbName(alias.name);
+                type = fieldTypeBuffer.toString();
+                isPk = false;
+                fieldSet = alias.getFieldSet();
             } else {
                 ModelEntity aliasedEntity = getAliasedEntity(alias.entityAlias, modelReader);
                 ModelField aliasedField = getAliasedField(aliasedEntity, alias.field, modelReader);
@@ -455,55 +450,51 @@ public class ModelViewEntity extends ModelEntity {
                         alias.field + "\" on entity with name: " + aliasedEntity.getEntityName(), module);
                     continue;
                 }
-
                 if (alias.isPk != null) {
-                    field.isPk = alias.isPk.booleanValue();
+                    isPk = alias.isPk.booleanValue();
                 } else {
-                    field.isPk = aliasedField.isPk;
+                    isPk = aliasedField.getIsPk();
                 }
-
-                field.encrypt = aliasedField.encrypt;
-
-                field.type = aliasedField.type;
-                field.validators = aliasedField.validators;
-
-                field.colValue = alias.entityAlias + "." + SqlJdbcUtil.filterColName(aliasedField.colName);
-                field.colName = SqlJdbcUtil.filterColName(field.colValue);
-                if (UtilValidate.isEmpty(field.description)) {
-                    field.description = aliasedField.description;
+                encrypt = aliasedField.getEncrypt();
+                type = aliasedField.getType();
+                validators = aliasedField.getValidators();
+                colValue = alias.entityAlias + "." + SqlJdbcUtil.filterColName(aliasedField.getColName());
+                colName = SqlJdbcUtil.filterColName(colValue);
+                if (description.isEmpty()) {
+                    description = aliasedField.getDescription();
                 }
-                if (UtilValidate.isEmpty(alias.getFieldSet())) {
+                if (alias.getFieldSet().isEmpty()) {
                     String aliasedFieldSet = aliasedField.getFieldSet();
-                    if (UtilValidate.isNotEmpty(aliasedFieldSet)) {
+                    if (!aliasedFieldSet.isEmpty()) {
                         StringBuilder fieldSetBuffer = new StringBuilder(alias.entityAlias);
                         fieldSetBuffer.append("_");
                         fieldSetBuffer.append(Character.toUpperCase(aliasedFieldSet.charAt(0)));
                         fieldSetBuffer.append(aliasedFieldSet.substring(1));
-                        field.fieldSet = fieldSetBuffer.toString().intern();
-                        Debug.logInfo("[" + this.getEntityName() + "]: copied field set on [" + field.name + "]: " + field.fieldSet, module);
-                    } else {
-                        field.fieldSet = "";
+                        fieldSet = fieldSetBuffer.toString().intern();
+                        Debug.logInfo("[" + this.getEntityName() + "]: copied field set on [" + name + "]: " + fieldSet, module);
                     }
                 } else {
-                    field.fieldSet = alias.getFieldSet();
+                    fieldSet = alias.getFieldSet();
                 }
             }
-
-            addField(field);
-
             if ("count".equals(alias.function) || "count-distinct".equals(alias.function)) {
                 // if we have a "count" function we have to change the type
-                field.type = "numeric";
+                type = "numeric";
             }
-
             if (UtilValidate.isNotEmpty(alias.function)) {
                 String prefix = functionPrefixMap.get(alias.function);
                 if (prefix == null) {
                     Debug.logWarning("[" + this.getEntityName() + "]: Specified alias function [" + alias.function + "] not valid; must be: min, max, sum, avg, count or count-distinct; using a column name with no function function", module);
                 } else {
-                    field.colValue = prefix + field.getColValue() + ")";
+                    colValue = prefix + colValue + ")";
                 }
             }
+            ModelField field = ModelField.create(this, description, name, type, colName, colValue, fieldSet, isNotNull, isPk, encrypt, isAutoCreatedInternal, enableAuditLog, validators);
+            // if this is a groupBy field, add it to the groupBys list
+            if (alias.groupBy || groupByFields.contains(alias.name)) {
+                this.groupBys.add(field);
+            }
+            addField(field);
         }
     }
 
@@ -1083,7 +1074,7 @@ public class ModelViewEntity extends ModelEntity {
                 colNameBuffer.append(colName);
                 //set fieldTypeBuffer if not already set
                 if (fieldTypeBuffer.length() == 0) {
-                    fieldTypeBuffer.append(modelField.type);
+                    fieldTypeBuffer.append(modelField.getType());
                 }
             }
         }

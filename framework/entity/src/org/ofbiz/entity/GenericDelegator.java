@@ -1215,8 +1215,7 @@ public class GenericDelegator implements Delegator {
         }
 
         Map<String, Object> fields = new HashMap<String, Object>();
-        for (int i = 0; i < relation.getKeyMapsSize(); i++) {
-            ModelKeyMap keyMap = relation.getKeyMap(i);
+        for (ModelKeyMap keyMap : relation.getKeyMaps()) {
             fields.put(keyMap.getRelFieldName(), value.get(keyMap.getFieldName()));
         }
 
@@ -1960,8 +1959,7 @@ public class GenericDelegator implements Delegator {
         if (byAndFields != null) {
             fields.putAll(byAndFields);
         }
-        for (int i = 0; i < relation.getKeyMapsSize(); i++) {
-            ModelKeyMap keyMap = relation.getKeyMap(i);
+        for (ModelKeyMap keyMap : relation.getKeyMaps()) {
             fields.put(keyMap.getRelFieldName(), value.get(keyMap.getFieldName()));
         }
 
@@ -1986,8 +1984,7 @@ public class GenericDelegator implements Delegator {
         if (byAndFields != null) {
             fields.putAll(byAndFields);
         }
-        for (int i = 0; i < relation.getKeyMapsSize(); i++) {
-            ModelKeyMap keyMap = relation.getKeyMap(i);
+        for (ModelKeyMap keyMap : relation.getKeyMaps()) {
             fields.put(keyMap.getRelFieldName(), value.get(keyMap.getFieldName()));
         }
 
@@ -2035,8 +2032,7 @@ public class GenericDelegator implements Delegator {
         }
 
         Map<String, Object> fields = new HashMap<String, Object>();
-        for (int i = 0; i < relation.getKeyMapsSize(); i++) {
-            ModelKeyMap keyMap = relation.getKeyMap(i);
+        for (ModelKeyMap keyMap : relation.getKeyMaps()) {
             fields.put(keyMap.getRelFieldName(), value.get(keyMap.getFieldName()));
         }
 

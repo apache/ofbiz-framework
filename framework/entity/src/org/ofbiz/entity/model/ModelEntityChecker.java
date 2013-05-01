@@ -215,10 +215,10 @@ public class ModelEntityChecker {
                             //if relation is of type one, make sure keyMaps
                             // match the PK of the relatedEntity
                             if ("one".equals(relation.getType()) || "one-nofk".equals(relation.getType())) {
-                                if (relatedEntity.getPksSize() != relation.getKeyMapsSize())
+                                if (relatedEntity.getPksSize() != relation.getKeyMaps().size())
                                         warningList.add("[RelatedOneKeyMapsWrongSize] The number of primary keys (" + relatedEntity.getPksSize()
                                                         + ") of related entity " + relation.getRelEntityName()
-                                                        + " does not match the number of keymaps (" + relation.getKeyMapsSize()
+                                                        + " does not match the number of keymaps (" + relation.getKeyMaps().size()
                                                         + ") for relation of type one \"" + relation.getTitle() + relation.getRelEntityName()
                                                         + "\" of entity " + entity.getEntityName() + ".");
                                 Iterator<ModelField> pksIter = relatedEntity.getPksIterator();
@@ -238,8 +238,7 @@ public class ModelEntityChecker {
                         // this entity
                         //make sure all keyMap 'relFieldName's match fields of
                         // the relatedEntity
-                        for (int rkm = 0; rkm < relation.getKeyMapsSize(); rkm++) {
-                            ModelKeyMap keyMap = relation.getKeyMap(rkm);
+                        for (ModelKeyMap keyMap : relation.getKeyMaps()) {
 
                             ModelField field = entity.getField(keyMap.getFieldName());
                             ModelField rfield = null;

@@ -19,214 +19,242 @@
 package org.ofbiz.entity.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import org.ofbiz.base.lang.ThreadSafe;
+import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.entity.jdbc.DatabaseUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
-import org.ofbiz.entity.jdbc.DatabaseUtil;
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.UtilXml;
 
 /**
- * Generic Entity - Field model class
+ * An object that models the <code>&lt;field&gt;</code> element.
  *
  */
+@ThreadSafe
 @SuppressWarnings("serial")
-public class ModelField extends ModelChild {
+public final class ModelField extends ModelChild {
+
+    /**
+     * Returns a new <code>ModelField</code> instance, initialized with the specified values.
+     * 
+     * @param modelEntity The <code>ModelEntity</code> this field is a member of.
+     * @param name The field name.
+     * @param type The field type.
+     * @param isPk <code>true</code> if this field is part of the primary key.
+     */
+    public static ModelField create(ModelEntity modelEntity, String name, String type, boolean isPk) {
+        return create(modelEntity, null, name, type, null, null, null, false, isPk, false, false, false, null);
+    }
+
+    /**
+     * Returns a new <code>ModelField</code> instance, initialized with the specified values.
+     * 
+     * @param modelEntity The <code>ModelEntity</code> this field is a member of.
+     * @param description The field description.
+     * @param name The field name.
+     * @param type The field type.
+     * @param colName The data source column name for this field. Will be generated automatically if left empty.
+     * @param colValue
+     * @param fieldSet The field set name this field is a member of.
+     * @param isNotNull <code>true</code> if this field cannot contain a null value.
+     * @param isPk <code>true</code> if this field is part of the primary key.
+     * @param encrypt <code>true</code> if this field is encrypted.
+     * @param isAutoCreatedInternal <code>true</code> if this field was generated automatically by the entity engine.
+     * @param enableAuditLog <code>true</code> if this field is included in the entity audit log.
+     * @param validators The validators for this field.
+     */
+    @SuppressWarnings("unchecked")
+    public static ModelField create(ModelEntity modelEntity, String description, String name, String type, String colName, String colValue, String fieldSet, boolean isNotNull, boolean isPk, boolean encrypt, boolean isAutoCreatedInternal, boolean enableAuditLog, List<String> validators) {
+        // TODO: Validate parameters.
+        if (description == null) {
+            description = "";
+        }
+        if (name == null) {
+            name = "";
+        }
+        if (type == null) {
+            type = "";
+        }
+        if (colName == null || colName.isEmpty()) {
+            colName = ModelUtil.javaNameToDbName(name);
+        }
+        if (colValue == null) {
+            colValue = "";
+        }
+        if (fieldSet == null) {
+            fieldSet = "";
+        }
+        if (validators == null) {
+            validators = Collections.EMPTY_LIST;
+        } else {
+            validators = Collections.unmodifiableList(validators);
+        }
+        if (isPk) {
+            isNotNull = true;
+        }
+        return new ModelField(modelEntity, description, name, type, colName, colValue, fieldSet, isNotNull, isPk, encrypt, isAutoCreatedInternal, enableAuditLog, validators);
+    }
+
+    /**
+     * Returns a new <code>ModelField</code> instance, initialized with the specified values.
+     * 
+     * @param modelEntity The <code>ModelEntity</code> this field is a member of.
+     * @param fieldElement The <code>&lt;field&gt;</code> element containing the values for this field.
+     * @param isPk <code>true</code> if this field is part of the primary key.
+     */
+    @SuppressWarnings("unchecked")
+    public static ModelField create(ModelEntity modelEntity, Element fieldElement, boolean isPk) {
+        String description = UtilXml.childElementValue(fieldElement, "description");
+        if (description == null) {
+            description = "";
+        }
+        String name = fieldElement.getAttribute("name").intern();
+        String type = fieldElement.getAttribute("type").intern();
+        String colName = fieldElement.getAttribute("col-name").intern();
+        if (colName.isEmpty()) {
+            colName = ModelUtil.javaNameToDbName(name);
+        }
+        String colValue = "";
+        String fieldSet = fieldElement.getAttribute("field-set").intern();
+        boolean isNotNull = "true".equals(fieldElement.getAttribute("not-null"));
+        if (isPk) {
+            isNotNull = true;
+        }
+        boolean encrypt = "true".equals(fieldElement.getAttribute("encrypt"));
+        boolean enableAuditLog = "true".equals(fieldElement.getAttribute("enable-audit-log"));
+        List<String>validators = Collections.EMPTY_LIST;
+        List<? extends Element> elementList = UtilXml.childElementList(fieldElement, "validate");
+        if (!elementList.isEmpty()) {
+            validators = new ArrayList<String>(elementList.size());
+            for (Element validateElement : elementList) {
+                validators.add(validateElement.getAttribute("name").intern());
+            }
+            validators = Collections.unmodifiableList(validators);
+        }
+        return new ModelField(modelEntity, description, name, type, colName, colValue, fieldSet, isNotNull, isPk, encrypt, false, enableAuditLog, validators);
+    }
+
+    /**
+     * Returns a new <code>ModelField</code> instance, initialized with the specified values.
+     * 
+     * @param modelEntity The <code>ModelEntity</code> this field is a member of.
+     * @param ccInfo The <code>ColumnCheckInfo</code> containing the values for this field.
+     * @param modelFieldTypeReader
+     */
+    @SuppressWarnings("unchecked")
+    public static ModelField create(ModelEntity modelEntity, DatabaseUtil.ColumnCheckInfo ccInfo, ModelFieldTypeReader modelFieldTypeReader) {
+        String colName = ccInfo.columnName;
+        String name = ModelUtil.dbNameToVarName(colName);
+        String type = ModelUtil.induceFieldType(ccInfo.typeName, ccInfo.columnSize, ccInfo.decimalDigits, modelFieldTypeReader);
+        boolean isPk = ccInfo.isPk;
+        boolean isNotNull = "NO".equals(ccInfo.isNullable.toUpperCase());
+        String description = "";
+        String colValue = "";
+        String fieldSet = "";
+        boolean encrypt = false;
+        boolean enableAuditLog = false;
+        return new ModelField(modelEntity, description, name, type, colName, colValue, fieldSet, isNotNull, isPk, encrypt, false, enableAuditLog, Collections.EMPTY_LIST);
+    }
+
+    /*
+     * Developers - this is an immutable class. Once constructed, the object should not change state.
+     * Therefore, 'setter' methods are not allowed. If client code needs to modify the object's
+     * state, then it can create a new copy with the changed values.
+     */
 
     /** The name of the Field */
-    protected String name = "";
+    private final String name;
 
     /** The type of the Field */
-    protected String type = "";
+    private final String type;
 
     /** The col-name of the Field */
-    protected String colName = "";
+    private final String colName;
 
-    protected String colValue;
+    private final String colValue;
 
     /** boolean which specifies whether or not the Field is a Primary Key */
-    protected boolean isPk = false;
-    protected boolean encrypt = false;
-    protected boolean isNotNull = false;
-    protected boolean isAutoCreatedInternal = false;
-    protected boolean enableAuditLog = false;
+    private final boolean isPk;
+    private final boolean encrypt;
+    private final boolean isNotNull;
+    private final boolean isAutoCreatedInternal;
+    private final boolean enableAuditLog;
 
     /** when any field in the same set is selected in a query, all fields in that set will be selected */
-    protected String fieldSet = "";
+    private final String fieldSet;
 
     /** validators to be called when an update is done */
-    protected List<String> validators = new ArrayList<String>();
+    private final List<String> validators;
 
-    /** Default Constructor */
-    public ModelField() {}
-
-    /** Fields Constructor */
-    public ModelField(String name, String type, String colName, boolean isPk) {
-        this(name, type, colName, isPk, false, false);
-    }
-
-    public ModelField(String name, String type, String colName, boolean isPk, boolean encrypt, boolean enableAuditLog) {
+    private ModelField(ModelEntity modelEntity, String description, String name, String type, String colName, String colValue, String fieldSet, boolean isNotNull, boolean isPk, boolean encrypt, boolean isAutoCreatedInternal, boolean enableAuditLog, List<String> validators) {
+        super(modelEntity, description);
         this.name = name;
         this.type = type;
-        this.setColName(colName);
+        this.colName = colName;
+        this.colValue = colValue;
+        this.fieldSet = fieldSet;
         this.isPk = isPk;
+        this.isNotNull = isNotNull;
         this.encrypt = encrypt;
         this.enableAuditLog = enableAuditLog;
+        this.isAutoCreatedInternal = isAutoCreatedInternal;
+        this.validators = validators;
     }
 
-    /** XML Constructor */
-    public ModelField(Element fieldElement) {
-        this.type = UtilXml.checkEmpty(fieldElement.getAttribute("type")).intern();
-        this.name = UtilXml.checkEmpty(fieldElement.getAttribute("name")).intern();
-        this.setColName(UtilXml.checkEmpty(fieldElement.getAttribute("col-name")).intern());
-        this.isPk = false; // is set elsewhere
-        this.encrypt = UtilXml.checkBoolean(fieldElement.getAttribute("encrypt"), false);
-        this.description = UtilXml.childElementValue(fieldElement, "description");
-        this.enableAuditLog = UtilXml.checkBoolean(fieldElement.getAttribute("enable-audit-log"), false);
-        this.isNotNull = UtilXml.checkBoolean(fieldElement.getAttribute("not-null"), false);
-        this.fieldSet = UtilXml.checkEmpty(fieldElement.getAttribute("field-set")).intern();
-
-        NodeList validateList = fieldElement.getElementsByTagName("validate");
-
-        for (int i = 0; i < validateList.getLength(); i++) {
-            Element element = (Element) validateList.item(i);
-
-            this.validators.add(UtilXml.checkEmpty(element.getAttribute("name")).intern());
-        }
-    }
-
-    /** DB Names Constructor */
-    public ModelField(DatabaseUtil.ColumnCheckInfo ccInfo, ModelFieldTypeReader modelFieldTypeReader) {
-        this.colName = ccInfo.columnName;
-        this.name = ModelUtil.dbNameToVarName(this.colName);
-
-        // figure out the type according to the typeName, columnSize and decimalDigits
-        this.type = ModelUtil.induceFieldType(ccInfo.typeName, ccInfo.columnSize, ccInfo.decimalDigits, modelFieldTypeReader);
-
-        this.isPk = ccInfo.isPk;
-    }
-
-    /** The name of the Field */
+    /** Returns the name of this field. */
     public String getName() {
         return this.name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /** The type of the Field */
+    /** Returns the type of this field. */
     public String getType() {
         return this.type;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    /** The col-name of the Field */
+    /** Returns the data source column name of this field. */
     public String getColName() {
         return this.colName;
     }
 
-    public void setColName(String colName) {
-        this.colName = colName;
-        if (UtilValidate.isEmpty(this.colName)) {
-            this.colName = ModelUtil.javaNameToDbName(UtilXml.checkEmpty(this.name));
-        }
-    }
-
     public String getColValue() {
-        return UtilValidate.isEmpty(this.colValue) ? this.colName : this.colValue;
+        return this.colValue.isEmpty() ? this.colName : this.colValue;
     }
 
-    public void setColValue(String colValue) {
-        this.colValue = colValue;
-    }
-
-    /** boolean which specifies whether or not the Field is a Primary Key */
+    /** Returns <code>true</code> if this field is part of the primary key. */
     public boolean getIsPk() {
         return this.isPk;
     }
 
-    public void setIsPk(boolean isPk) {
-        this.isPk = isPk;
-        if (isPk) {
-            setIsNotNull(true);
-        }
-    }
-
+    /** Returns <code>true</code> if this field cannot contain null. */
     public boolean getIsNotNull() {
         return this.isNotNull;
     }
 
-    public void setIsNotNull(boolean isNotNull) {
-        this.isNotNull = isNotNull;
-    }
-
+    /** Returns <code>true</code> if this field is encrypted. */
     public boolean getEncrypt() {
         return this.encrypt;
     }
 
-    public void setEncrypt(boolean encrypt) {
-        this.encrypt = encrypt;
-    }
-
+    /** Returns <code>true</code> if this field is included in the entity audit log. */
     public boolean getEnableAuditLog() {
         return this.enableAuditLog;
     }
-    
-    public void setEnableAuditLog(boolean enableAuditLog) {
-        this.enableAuditLog = enableAuditLog;
-    }
 
+    /** Returns <code>true</code> if this field was generated automatically by the entity engine. */
     public boolean getIsAutoCreatedInternal() {
         return this.isAutoCreatedInternal;
     }
 
-    public void setIsAutoCreatedInternal(boolean isAutoCreatedInternal) {
-        this.isAutoCreatedInternal = isAutoCreatedInternal;
-    }
-
+    /** Returns the field set name this field is a member of. */
     public String getFieldSet() {
         return fieldSet;
     }
 
-    public void setFieldSet(String fieldSet) {
-        this.fieldSet = fieldSet;
-    }
-
-    /** validators to be called when an update is done */
-    public String getValidator(int index) {
-        return this.validators.get(index);
-    }
-
-    public int getValidatorsSize() {
-        return this.validators.size();
-    }
-
-    public void addValidator(String validator) {
-        this.validators.add(validator);
-    }
-
-    public String removeValidator(int index) {
-        return this.validators.remove(index);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj.getClass() != getClass()) return false;
-        ModelField other = (ModelField) obj;
-        return other.getName().equals(getName()) && other.getModelEntity() == getModelEntity();
-    }
-
-    @Override
-    public int hashCode() {
-        return getModelEntity().hashCode() ^ getName().hashCode();
+    public List<String> getValidators() {
+        return this.validators;
     }
 
     @Override
@@ -234,6 +262,7 @@ public class ModelField extends ModelChild {
         return getModelEntity() + "@" + getName();
     }
 
+    // TODO: Externalize this.
     public Element toXmlElement(Document document) {
         Element root = document.createElement("field");
         root.setAttribute("name", this.getName());

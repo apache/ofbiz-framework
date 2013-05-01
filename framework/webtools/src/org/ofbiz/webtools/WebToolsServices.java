@@ -721,9 +721,9 @@ public class WebToolsServices {
                             Map<String, Object> relationMap = FastMap.newInstance();
                             ModelRelation relation = entity.getRelation(r);
                             List<Map<String, Object>> keysList = FastList.newInstance();
-                            for (int km = 0; km < relation.getKeyMapsSize(); km++) {
+                            int row = 1;
+                            for (ModelKeyMap keyMap : relation.getKeyMaps()) {
                                 Map<String, Object> keysMap = FastMap.newInstance();
-                                ModelKeyMap keyMap = relation.getKeyMap(km);
                                 String fieldName = null;
                                 String relFieldName = null;
                                 if (keyMap.getFieldName().equals(keyMap.getRelFieldName())) {
@@ -733,7 +733,7 @@ public class WebToolsServices {
                                     fieldName = keyMap.getFieldName();
                                     relFieldName = keyMap.getRelFieldName();
                                 }
-                                keysMap.put("row", km + 1);
+                                keysMap.put("row", row++);
                                 keysMap.put("fieldName", fieldName);
                                 keysMap.put("relFieldName", relFieldName);
                                 keysList.add(keysMap);
@@ -754,7 +754,7 @@ public class WebToolsServices {
                             List<String> fieldNameList = FastList.newInstance();
 
                             ModelIndex index = entity.getIndex(r);
-                            for (Iterator<ModelIndex.Field> fieldIterator = index.getFieldsIterator(); fieldIterator.hasNext();) {
+                            for (Iterator<ModelIndex.Field> fieldIterator = index.getFields().iterator(); fieldIterator.hasNext();) {
                                 fieldNameList.add(fieldIterator.next().getFieldName());
                             }
 

@@ -19,128 +19,111 @@
 package org.ofbiz.entity.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Iterator;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
-import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.lang.ThreadSafe;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.base.util.collections.IteratorWrapper;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
- * Generic Entity - Relation model class
+ * An object that models the <code>&lt;index&gt;</code> element.
  *
  */
+@ThreadSafe
 @SuppressWarnings("serial")
-public class ModelIndex extends ModelChild {
+public final class ModelIndex extends ModelChild {
 
-    /** the index name, used for the database index name */
-    protected String name;
-
-    /** specifies whether or not this index should include the unique constraint */
-    protected boolean unique;
-
-    /** list of the field names included in this index */
-    protected List<Field> fields = new ArrayList<Field>();
-
-    /** Default Constructor */
-    public ModelIndex() {
-        name = "";
-        unique = false;
+    /**
+     * Returns a new <code>ModelIndex</code> instance, initialized with the specified values.
+     * 
+     * @param modelEntity The <code>ModelEntity</code> this index is a member of.
+     * @param description The index description.
+     * @param name The index name.
+     * @param fields The fields that are included in this index.
+     * @param unique <code>true</code> if this index returns unique values.
+     */
+    @SuppressWarnings("unchecked")
+    public static ModelIndex create(ModelEntity modelEntity, String description, String name, List<Field> fields, boolean unique) {
+        if (description == null) {
+            description = "";
+        }
+        if (name == null) {
+            name = "";
+        }
+        if (fields == null) {
+            fields = Collections.EMPTY_LIST;
+        } else {
+            fields = Collections.unmodifiableList(fields);
+        }
+        return new ModelIndex(modelEntity, description, name, fields, unique);
     }
 
-    /** Direct Create Constructor */
-    public ModelIndex(ModelEntity mainEntity, String name, boolean unique) {
-        super(mainEntity);
+    /**
+     * Returns a new <code>ModelIndex</code> instance, initialized with the specified values.
+     * 
+     * @param modelEntity The <code>ModelEntity</code> this index is a member of.
+     * @param indexElement The <code>&lt;index&gt;</code> element containing the values for this index.
+     */
+    @SuppressWarnings("unchecked")
+    public static ModelIndex create(ModelEntity modelEntity, Element indexElement) {
+        String name = indexElement.getAttribute("name").intern();
+        boolean unique = "true".equals(indexElement.getAttribute("unique"));
+        String description = UtilXml.childElementValue(indexElement, "description");
+        List<Field>fields = Collections.EMPTY_LIST;
+        List<? extends Element> elementList = UtilXml.childElementList(indexElement, "index-field");
+        if (!elementList.isEmpty()) {
+            fields = new ArrayList<Field>(elementList.size());
+            for (Element indexFieldElement : elementList) {
+                String fieldName = indexFieldElement.getAttribute("name").intern();
+                String function = indexFieldElement.getAttribute("function").intern();
+                fields.add(new Field(fieldName, UtilValidate.isNotEmpty(function) ? Function.valueOf(function.toUpperCase()) : null));
+            }
+            fields = Collections.unmodifiableList(fields);
+        }
+        return new ModelIndex(modelEntity, description, name, fields, unique);
+    }
+
+    /*
+     * Developers - this is an immutable class. Once constructed, the object should not change state.
+     * Therefore, 'setter' methods are not allowed. If client code needs to modify the object's
+     * state, then it can create a new copy with the changed values.
+     */
+
+    /** the index name, used for the database index name */
+    private final String name;
+
+    /** specifies whether or not this index should include the unique constraint */
+    private final boolean unique;
+
+    /** list of the field names included in this index */
+    private final List<Field> fields;
+
+    private ModelIndex(ModelEntity mainEntity, String description, String name, List<Field> fields, boolean unique) {
+        super(mainEntity, description);
         this.name = name;
+        this.fields = fields;
         this.unique = unique;
     }
 
-    /** XML Constructor */
-    public ModelIndex(ModelEntity mainEntity, Element indexElement) {
-        super(mainEntity);
-
-        this.name = UtilXml.checkEmpty(indexElement.getAttribute("name")).intern();
-        this.unique = "true".equals(UtilXml.checkEmpty(indexElement.getAttribute("unique")));
-        this.description = StringUtil.internString(UtilXml.childElementValue(indexElement, "description"));
-
-        NodeList indexFieldList = indexElement.getElementsByTagName("index-field");
-        for (int i = 0; i < indexFieldList.getLength(); i++) {
-            Element indexFieldElement = (Element) indexFieldList.item(i);
-
-            if (indexFieldElement.getParentNode() == indexElement) {
-                String fieldName = indexFieldElement.getAttribute("name").intern();
-                String function = indexFieldElement.getAttribute("function");
-                this.fields.add(new Field(fieldName, UtilValidate.isNotEmpty(function) ? Function.valueOf(function.toUpperCase()) : null));
-            }
-        }
-    }
-
-    /** the index name, used for the database index name */
+    /** Returns the index name. */
     public String getName() {
         return this.name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /** specifies whether or not this index should include the unique constraint */
+    /** Returns <code>true</code> if this index returns unique values. */
     public boolean getUnique() {
         return this.unique;
     }
 
-    public void setUnique(boolean unique) {
-        this.unique = unique;
+    /** Returns the fields included in this index. */
+    public List<Field> getFields() {
+        return this.fields;
     }
 
-    /** @deprecated use getFieldsIterator() */
-    @Deprecated
-    public Iterator<String> getIndexFieldsIterator() {
-        return new IteratorWrapper<String, Field>(this.fields.iterator()) {
-            @Override
-            protected void noteRemoval(String dest, Field src) {
-            }
-
-            @Override
-            protected String convert(Field src) {
-                return src.getFieldName();
-            }
-        };
-    }
-
-    public Iterator<Field> getFieldsIterator() {
-        return this.fields.iterator();
-    }
-
-    public int getIndexFieldsSize() {
-        return this.fields.size();
-    }
-
-    public String getIndexField(int index) {
-        return this.fields.get(index).getFieldName();
-    }
-
-    public void addIndexField(String fieldName) {
-        this.fields.add(new Field(fieldName, null));
-    }
-
-    public void addIndexField(String fieldName, String functionName) {
-        this.fields.add(new Field(fieldName, Function.valueOf(functionName)));
-    }
-
-    public void addIndexField(String fieldName, Function function) {
-        this.fields.add(new Field(fieldName, function));
-    }
-
-    public String removeIndexField(int index) {
-        return this.fields.remove(index).getFieldName();
-    }
-
+    // TODO: Externalize this.
     public Element toXmlElement(Document document) {
         Element root = document.createElement("index");
         root.setAttribute("name", this.getName());
