@@ -145,11 +145,15 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public ModelViewEntity(DynamicViewEntity dynamicViewEntity, ModelReader modelReader) {
-        super(modelReader);
+        super(modelReader, new ModelInfo(
+                dynamicViewEntity.getTitle(),
+                ModelInfo.DEFAULT.getDescription(),
+                ModelInfo.DEFAULT.getCopyright(),
+                ModelInfo.DEFAULT.getAuthor(),
+                ModelInfo.DEFAULT.getVersion(),
+                dynamicViewEntity.getDefaultResourceName()));
         this.entityName = dynamicViewEntity.getEntityName();
         this.packageName = dynamicViewEntity.getPackageName();
-        this.title = dynamicViewEntity.getTitle();
-        this.defaultResourceName = dynamicViewEntity.getDefaultResourceName();
 
         // member-entities
         Iterator<Map.Entry<String, ModelMemberEntity>> modelMemberEntitiesEntryIter = dynamicViewEntity.getModelMemberEntitiesEntryIter();
