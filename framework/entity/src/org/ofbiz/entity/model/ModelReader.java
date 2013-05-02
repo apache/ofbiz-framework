@@ -223,8 +223,7 @@ public class ModelReader implements Serializable {
                         docElement.normalize();
                         Node curChild = docElement.getFirstChild();
 
-                        ModelInfo def = new ModelInfo();
-                        def.populateFromElements(docElement);
+                        ModelInfo def = ModelInfo.createFromElements(ModelInfo.DEFAULT, docElement);
                         int i = 0;
 
                         if (curChild != null) {

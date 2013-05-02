@@ -38,13 +38,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
-import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilPlist;
 import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.entity.model.ModelIndex.Field;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
@@ -52,6 +50,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.jdbc.DatabaseUtil;
+import org.ofbiz.entity.model.ModelIndex.Field;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -60,7 +59,7 @@ import org.w3c.dom.Element;
  *
  */
 @SuppressWarnings("serial")
-public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, Serializable {
+public class ModelEntity implements Comparable<ModelEntity>, Serializable {
 
     public static final String module = ModelEntity.class.getName();
 
@@ -69,6 +68,8 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     public static final String STAMP_TX_FIELD = "lastUpdatedTxStamp";
     public static final String CREATE_STAMP_FIELD = "createdStamp";
     public static final String CREATE_STAMP_TX_FIELD = "createdTxStamp";
+
+    private ModelInfo modelInfo;
 
     /** The ModelReader that created this Entity */
     private final ModelReader modelReader;
@@ -138,26 +139,29 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     /** Default Constructor */
     public ModelEntity() {
         this.modelReader = null;
+        this.modelInfo = ModelInfo.DEFAULT;
     }
 
     protected ModelEntity(ModelReader reader) {
         this.modelReader = reader;
+        this.modelInfo = ModelInfo.DEFAULT;
     }
 
-    protected ModelEntity(ModelReader reader, ModelInfo def) {
-        super(def);
+    protected ModelEntity(ModelReader reader, ModelInfo modelInfo) {
         this.modelReader = reader;
+        this.modelInfo = modelInfo;
     }
 
     /** XML Constructor */
-    protected ModelEntity(ModelReader reader, Element entityElement, ModelInfo def) {
-        this(reader, def);
-        populateFromAttributes(entityElement);
+    protected ModelEntity(ModelReader reader, Element entityElement, ModelInfo modelInfo) {
+        this.modelReader = reader;
+        this.modelInfo = ModelInfo.createFromAttributes(modelInfo, entityElement);
     }
 
     /** XML Constructor */
-    public ModelEntity(ModelReader reader, Element entityElement, UtilTimer utilTimer, ModelInfo def) {
-        this(reader, entityElement, def);
+    public ModelEntity(ModelReader reader, Element entityElement, UtilTimer utilTimer, ModelInfo modelInfo) {
+        this.modelReader = reader;
+        this.modelInfo = ModelInfo.createFromAttributes(modelInfo, entityElement);
         if (utilTimer != null) utilTimer.timerString("  createModelEntity: before general/basic info");
         this.populateBasicInfo(entityElement);
         if (utilTimer != null) utilTimer.timerString("  createModelEntity: before prim-keys");
@@ -221,6 +225,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     public ModelEntity(String tableName, Map<String, DatabaseUtil.ColumnCheckInfo> colMap, ModelFieldTypeReader modelFieldTypeReader, boolean isCaseSensitive) {
         // if there is a dot in the name, remove it and everything before it, should be the schema name
         this.modelReader = null;
+        this.modelInfo = ModelInfo.DEFAULT;
         this.tableName = tableName;
         int dotIndex = this.tableName.indexOf(".");
         if (dotIndex >= 0) {
@@ -357,14 +362,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
                 }
             }
         }
-        
-        // override the default resource file
-        String defResourceName = StringUtil.internString(extendEntityElement.getAttribute("default-resource-name"));
-        //Debug.logInfo("Extended entity - " + extendEntityElement.getAttribute("entity-name") + " new resource name : " + defResourceName, module);
-        if (UtilValidate.isNotEmpty(defResourceName)) {
-            this.setDefaultResourceName(defResourceName);
-        }
-
+        this.modelInfo = ModelInfo.createFromAttributes(this.modelInfo, extendEntityElement);
         this.populateRelated(reader, extendEntityElement);
         this.populateIndexes(extendEntityElement);
         this.dependentOn = UtilXml.checkEmpty(extendEntityElement.getAttribute("dependent-on")).intern();
@@ -1662,4 +1660,29 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
 
         return topLevelMap;
     }
+
+    public String getAuthor() {
+        return modelInfo.getAuthor();
+    }
+
+    public String getCopyright() {
+        return modelInfo.getCopyright();
+    }
+
+    public String getDefaultResourceName() {
+        return modelInfo.getDefaultResourceName();
+    }
+
+    public String getDescription() {
+        return modelInfo.getDescription();
+    }
+
+    public String getTitle() {
+        return modelInfo.getTitle();
+    }
+
+    public String getVersion() {
+        return modelInfo.getVersion();
+    }
+
 }
