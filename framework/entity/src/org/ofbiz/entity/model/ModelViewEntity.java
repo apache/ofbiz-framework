@@ -28,9 +28,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.Set;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
@@ -56,7 +55,7 @@ import org.w3c.dom.NodeList;
 public class ModelViewEntity extends ModelEntity {
     public static final String module = ModelViewEntity.class.getName();
 
-    public static Map<String, String> functionPrefixMap = FastMap.newInstance();
+    public static Map<String, String> functionPrefixMap = new HashMap<String, String>();
     static {
         functionPrefixMap.put("min", "MIN(");
         functionPrefixMap.put("max", "MAX(");
@@ -69,13 +68,13 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     /** Contains member-entity alias name definitions: key is alias, value is ModelMemberEntity */
-    protected Map<String, ModelMemberEntity> memberModelMemberEntities = FastMap.newInstance();
+    protected Map<String, ModelMemberEntity> memberModelMemberEntities = new HashMap<String, ModelMemberEntity>();
 
     /** A list of all ModelMemberEntity entries; this is mainly used to preserve the original order of member entities from the XML file */
     protected List<ModelMemberEntity> allModelMemberEntities = new LinkedList<ModelMemberEntity>();
 
     /** Contains member-entity ModelEntities: key is alias, value is ModelEntity; populated with fields */
-    protected Map<String, String> memberModelEntities = FastMap.newInstance();
+    protected Map<String, String> memberModelEntities = new HashMap<String, String>();
 
     /** List of alias-alls which act as a shortcut for easily pulling over member entity fields */
     protected List<ModelAliasAll> aliasAlls = new LinkedList<ModelAliasAll>();
@@ -92,7 +91,7 @@ public class ModelViewEntity extends ModelEntity {
     /** List of field names to group by */
     protected List<String> groupByFields = new LinkedList<String>();
 
-    protected Map<String, ModelConversion[]> conversions = FastMap.newInstance();
+    protected Map<String, ModelConversion[]> conversions = new HashMap<String, ModelConversion[]>();
 
     protected ViewEntityCondition viewEntityCondition = null;
 
@@ -530,7 +529,7 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public void populateReverseLinks() {
-        Map<String, List<String>> containedModelFields = FastMap.newInstance();
+        Map<String, List<String>> containedModelFields = new HashMap<String, List<String>>();
         Iterator<ModelAlias> it = getAliasesIterator();
         while (it.hasNext()) {
             ModelViewEntity.ModelAlias alias = it.next();
@@ -1180,7 +1179,7 @@ public class ModelViewEntity extends ModelEntity {
     public final class ModelConversion implements Serializable {
         protected final String aliasName;
         protected final ModelEntity fromModelEntity;
-        protected final Map<String, String> fieldMap = FastMap.newInstance();
+        protected final Map<String, String> fieldMap = new HashMap<String, String>();
         protected final Set<String> wildcards = new HashSet<String>();
 
         public ModelConversion(String aliasName, ModelEntity fromModelEntity) {
@@ -1217,7 +1216,7 @@ public class ModelViewEntity extends ModelEntity {
         }
 
         public void convert(List<Map<String, Object>> values, Map<String, ? extends Object> value) {
-            Map<String, Object> newValue = FastMap.newInstance();
+            Map<String, Object> newValue = new HashMap<String, Object>();
             for (Map.Entry<String, String> entry: fieldMap.entrySet()) {
                 newValue.put(entry.getValue(), value.get(entry.getKey()));
             }
@@ -1385,7 +1384,7 @@ public class ModelViewEntity extends ModelEntity {
             if (!((this.operator == EntityOperator.IN || this.operator == EntityOperator.BETWEEN)
                     && value instanceof Collection<?>)) {
                 // now to a type conversion for the target fieldName
-                value = this.viewEntityCondition.modelViewEntity.convertFieldValue(lhsField, value, modelFieldTypeReader, FastMap.<String, Object>newInstance());
+                value = this.viewEntityCondition.modelViewEntity.convertFieldValue(lhsField, value, modelFieldTypeReader, new HashMap<String, Object>());
             }
 
             if (Debug.verboseOn()) Debug.logVerbose("[" + this.viewEntityCondition.modelViewEntity.getEntityName() + "]: Got value for fieldName [" + fieldName + "]: " + value, module);
