@@ -24,6 +24,7 @@
         <value xml:lang="en">Dublicate Key. The Key already exist.</value>
         <value xml:lang="fr">Clé dupliquée. Cette valeur est déjà présente.</value>
         <value xml:lang="ja">重複キー。キーはすでに存在します。</value>
+        <value xml:lang="ru">Ключ дубликат. Ключ уже существует.</value>
         <value xml:lang="vi">Khóa đã tồn tại và bị trùng.</value>
         <value xml:lang="zh">键重复了。该键已存在。</value>
     </property>
@@ -37,6 +38,7 @@
         <value xml:lang="ja">読込中にエラーが発生しました</value>
         <value xml:lang="nl">Er is een fout opgetreden tijdens het lezen</value>
         <value xml:lang="pt_BR">Um erro ocorreu durante a leitura</value>
+        <value xml:lang="ru">Ошибка произошла во время чтения</value>
         <value xml:lang="vi">Lỗi xảy ra trong quá trình đọc dữ liệu</value>
         <value xml:lang="zh">读取时发生了一个错误</value>
         <value xml:lang="zh_TW">讀取時發生了一個錯誤</value>
@@ -51,6 +53,7 @@
         <value xml:lang="ja">文書の解析時にエラーが発生しました</value>
         <value xml:lang="nl">Een fout verhinderd het volledig parsen van het document</value>
         <value xml:lang="pt_BR">Erro impede que o documento seja totalmente analisado</value>
+        <value xml:lang="ru">Предыдущая ошибка документа была полностью проанализированна</value>
         <value xml:lang="vi">Có sự cố xảy ra nên hệ thống không thể phân tích được tài liệu</value>
         <value xml:lang="zh">发生错误阻止了文档完全解析</value>
         <value xml:lang="zh_TW">發生錯誤阻止了文檔完全解析</value>
@@ -65,6 +68,7 @@
         <value xml:lang="ja">解析中にエラーが発生しました</value>
         <value xml:lang="nl">Er zijn fouten opgetreden tijdens het parsen</value>
         <value xml:lang="pt_BR">Ocorreram erros durante a análise (Parsing)</value>
+        <value xml:lang="ru">Ошибка произошла во время анализа</value>
         <value xml:lang="vi">Lỗi xảy ra trong quá trình phân tích</value>
         <value xml:lang="zh">解析时发生错误</value>
         <value xml:lang="zh_TW">解析時發生錯誤</value>
@@ -79,6 +83,7 @@
         <value xml:lang="ja">最終的なスケールが空です</value>
         <value xml:lang="nl">De definitieve schaalfactor is leeg</value>
         <value xml:lang="pt_BR">Fator de escala final é nulo</value>
+        <value xml:lang="ru">Финальный масштабный фактор - ноль</value>
         <value xml:lang="vi">Thiếu Bộ xử lý chỉnh sửa ảnh</value>
         <value xml:lang="zh">最终的缩放因子是null</value>
         <value xml:lang="zh_TW">最終的縮放因數是null</value>
@@ -93,6 +98,7 @@
         <value xml:lang="ja">高さのスケールが空です</value>
         <value xml:lang="nl">Schaalfactor hoogte is leeg</value>
         <value xml:lang="pt_BR">Fator da escala de Altura é nula</value>
+        <value xml:lang="ru">Высота масшнатобного фактора - ноль</value>
         <value xml:lang="vi">Thiếu Bộ xử lý chỉnh sửa chiều cao ảnh</value>
         <value xml:lang="zh">高度缩放因子是null</value>
         <value xml:lang="zh_TW">高度縮放因數是null</value>
@@ -107,6 +113,7 @@
         <value xml:lang="ja">入力が空です</value>
         <value xml:lang="nl">De ingave is leeg</value>
         <value xml:lang="pt_BR">A entrada é nula</value>
+        <value xml:lang="ru">Введен ноль</value>
         <value xml:lang="vi">Tham số đầu vào Rỗng</value>
         <value xml:lang="zh">输入是null</value>
         <value xml:lang="zh_TW">輸入是null</value>
@@ -121,6 +128,7 @@
         <value xml:lang="ja">デフォルトの次元が空です</value>
         <value xml:lang="nl">Een standaad dimensie is leeg</value>
         <value xml:lang="pt_BR">Uma dimensão padrão é null</value>
+        <value xml:lang="ru">Одно измерение по умолчанию - ноль</value>
         <value xml:lang="vi">Chiều mặc định bị Rỗng</value>
         <value xml:lang="zh">一个缺省的纬度是null</value>
         <value xml:lang="zh_TW">一個缺省的緯度是null</value>
@@ -135,6 +143,7 @@
         <value xml:lang="ja">ルート要素が設定されていません</value>
         <value xml:lang="nl">Root element is niet ingesteld</value>
         <value xml:lang="pt_BR">Elemento raiz não foi definido</value>
+        <value xml:lang="ru">Корневой элемент не имеет значения</value>
         <value xml:lang="vi">Gốc tài liệu chưa được thiết lập</value>
         <value xml:lang="zh">已经设置了根元素</value>
         <value xml:lang="zh_TW">已經設置了根元素</value>
@@ -149,6 +158,7 @@
         <value xml:lang="ja">イメージタイプが不明です</value>
         <value xml:lang="nl">Onbekend gebufferde afbeeldingsoort</value>
         <value xml:lang="pt_BR">Tipo de imagem em buffer Desconhecido</value>
+        <value xml:lang="ru">Неизвестный тип картинки в буффере</value>
         <value xml:lang="vi">Kiểu bộ đệm ảnh chưa xác định</value>
         <value xml:lang="zh">未知的缓冲的图片类型</value>
         <value xml:lang="zh_TW">未知的緩衝的圖片類型</value>
@@ -163,6 +173,7 @@
         <value xml:lang="ja">幅のスケールが空です</value>
         <value xml:lang="nl">Schaalfactor breedte is leeg</value>
         <value xml:lang="pt_BR">Fator da escala de Largura é nula</value>
+        <value xml:lang="ru">Ширина масштабного фактора - ноль</value>
         <value xml:lang="vi">Thiếu Bộ xử lý chỉnh sửa chiều rộng ảnh</value>
         <value xml:lang="zh">宽度缩放因子是null</value>
         <value xml:lang="zh_TW">寬度縮放因數是null</value>
