@@ -19,6 +19,7 @@
 package org.ofbiz.base.util.cache;
 
 import java.io.IOException;
+import java.io.NotSerializableException;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
@@ -49,8 +50,8 @@ import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilValidate;
 
 import com.googlecode.concurrentlinkedhashmap.ConcurrentLinkedHashMap;
-import com.googlecode.concurrentlinkedhashmap.EvictionListener;
 import com.googlecode.concurrentlinkedhashmap.ConcurrentLinkedHashMap.Builder;
+import com.googlecode.concurrentlinkedhashmap.EvictionListener;
 
 /**
  * Generalized caching utility. Provides a number of caching features:
@@ -507,6 +508,13 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
                 if (Debug.infoOn()) Debug.logInfo("Unable to compute memory size for non serializable object; returning 0 byte size for object of " + o.getClass(), module);
                 return 0;
             }
+        } catch (NotSerializableException e) {
+            // this happens when we try to get the byte count for an object which itself is
+            // serializable, but fails to be serialized, such as a map holding unserializable objects
+            if (Debug.warningOn()) {
+                Debug.logWarning("NotSerializableException while computing memory size; returning 0 byte size for object of " + e.getMessage(), module);
+            }
+            return 0;
         } catch (Exception e) {
             Debug.logWarning(e, "Unable to compute memory size for object of " + o.getClass(), module);
             return 0;
