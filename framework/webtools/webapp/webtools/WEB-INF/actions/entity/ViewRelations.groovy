@@ -40,7 +40,7 @@ for (rit = modelEntity.getRelationsIterator(); rit.hasNext();) {
 
     modelRelation = rit.next();
     relFields = [];
-    for (kit = modelRelation.getKeyMapsIterator(); kit.hasNext();) {
+    for (kit = modelRelation.getKeyMaps().iterator(); kit.hasNext();) {
         mapFields = [:];
         keyMap = kit.next();
         mapFields.fieldName = keyMap.getFieldName();
