@@ -132,15 +132,25 @@ if ("Y".equals(lookupFlag)) {
         lowIndex = viewIndex * viewSize + 1;
         highIndex = (viewIndex + 1) * viewSize;
         findOpts.setMaxRows(highIndex);
-        findOpts.setOffset(lowIndex);
-
+        
         if (!orderReturnValue) {
-            shipmentList = delegator.findList("Shipment", mainCond, null, orderBy, findOpts, false);
-            shipmentListSize = shipmentList.size();
+            // using list iterator
+            orli = delegator.find("Shipment", mainCond, null, null, orderBy, findOpts);
+    
+            shipmentListSize = orli.getResultsSizeAfterPartialList();
             if (highIndex > shipmentListSize) {
                 highIndex = shipmentListSize;
             }
-
+    
+            // get the partial list for this page
+            if (shipmentListSize > 0) {
+                shipmentList = orli.getPartialList(lowIndex, viewSize);
+            } else {
+                shipmentList = [] as ArrayList;
+            }
+    
+            // close the list iterator
+            orli.close();
         }
         
         if (orderReturnValue) {
@@ -192,7 +202,7 @@ if ("Y".equals(lookupFlag)) {
         // only commit the transaction if we started one... this will throw an exception if it fails
         TransactionUtil.commit(beganTransaction);
     }
-
+    
     context.shipmentList = shipmentList;
     context.listSize = shipmentListSize;
     context.highIndex = highIndex;

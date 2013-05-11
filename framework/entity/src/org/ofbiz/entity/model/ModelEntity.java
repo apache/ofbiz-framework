@@ -93,6 +93,10 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
      * A single lock is used for all ModelField collections so collection updates are atomic. */
     private final Object fieldsLock = new Object();
 
+    /** Model fields in the order they were defined. This list duplicates the values in fieldsMap, but
+     *  we must keep the list in its original sequence for SQL DISTINCT operations to work properly. */
+    private final List<ModelField> fieldsList = new ArrayList<ModelField>();
+
     private final Map<String, ModelField> fieldsMap = new HashMap<String, ModelField>();
 
     /** A List of the Field objects for the Entity, one for each Primary Key */
@@ -264,6 +268,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         if (!newField.getIsPk()) {
             this.nopks.add(newField);
         }
+        this.fieldsList.add(newField);
         this.fieldsMap.put(newField.getName(), newField);
     }
 
@@ -352,6 +357,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
             }
             // add to the entity as a new field
             synchronized (fieldsLock) {
+                this.fieldsList.add(newField);
                 this.fieldsMap.put(newField.getName(), newField);
                 if (!newField.getIsPk()) {
                     // this will always be true for now as extend-entity fields are always nonpks
@@ -572,22 +578,20 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
 
     public int getFieldsSize() {
         synchronized (fieldsLock) {
-            return this.fieldsMap.size();
+            return this.fieldsList.size();
         }
     }
 
     public Iterator<ModelField> getFieldsIterator() {
         synchronized (fieldsLock) {
-            List<ModelField> newList = new ArrayList<ModelField>(fieldsMap.size());
-            newList.addAll(this.fieldsMap.values());
+            List<ModelField> newList = new ArrayList<ModelField>(this.fieldsList);
             return newList.iterator();
         }
     }
 
     public List<ModelField> getFieldsUnmodifiable() {
         synchronized (fieldsLock) {
-            List<ModelField> newList = new ArrayList<ModelField>(fieldsMap.size());
-            newList.addAll(this.fieldsMap.values());
+            List<ModelField> newList = new ArrayList<ModelField>(this.fieldsList);
             return Collections.unmodifiableList(newList);
         }
     }
@@ -610,6 +614,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         if (field == null)
             return;
         synchronized (fieldsLock) {
+            this.fieldsList.add(field);
             fieldsMap.put(field.getName(), field);
             if (field.getIsPk()) {
                 pks.add(field);
@@ -625,6 +630,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         synchronized (fieldsLock) {
             ModelField field = fieldsMap.remove(fieldName);
             if (field != null) {
+                this.fieldsList.remove(field);
                 if (field.getIsPk()) {
                     pks.remove(field);
                 } else {
@@ -1547,7 +1553,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         // for classProperties add field names AND relationship names to get a nice, complete chart
         List<String> classPropertiesList = new LinkedList<String>();
         topLevelMap.put("classProperties", classPropertiesList);
-        for (ModelField field: this.fieldsMap.values()) {
+        for (ModelField field: this.fieldsList) {
             if (field.getIsAutoCreatedInternal()) continue;
             if (field.getIsPk()) {
                 classPropertiesList.add(field.getName() + "*");
@@ -1565,7 +1571,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         // attributes
         List<Map<String, Object>> attributesList = new LinkedList<Map<String, Object>>();
         topLevelMap.put("attributes", attributesList);
-        for (ModelField field: this.fieldsMap.values()) {
+        for (ModelField field: this.fieldsList) {
             if (field.getIsAutoCreatedInternal()) continue;
 
             ModelFieldType fieldType = modelFieldTypeReader.getModelFieldType(field.getType());
