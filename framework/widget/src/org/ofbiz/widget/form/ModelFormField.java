@@ -1622,7 +1622,9 @@ public class ModelFormField {
                 for (GenericValue value: values) {
                     // add key and description with string expansion, ie expanding ${} stuff, passing locale explicitly to expand value string because it won't be found in the Entity
                     MapStack<String> localContext = MapStack.create(context);
-                    localContext.push(value);
+                    // Rendering code might try to modify the GenericEntity instance,
+                    // so we make a copy of it.
+                    localContext.push(new HashMap<String, Object>(value));
 
                     // expand with the new localContext, which is locale aware
                     String optionDesc = this.description.expandString(localContext, locale);
@@ -2179,7 +2181,9 @@ public class ModelFormField {
             if (value != null) {
                 // expanding ${} stuff, passing locale explicitly to expand value string because it won't be found in the Entity
                 MapStack<String> localContext = MapStack.create(context);
-                localContext.push(value);
+                // Rendering code might try to modify the GenericEntity instance,
+                // so we make a copy of it.
+                localContext.push(new HashMap<String, Object>(value));
 
                 // expand with the new localContext, which is locale aware
                 retVal = this.description.expandString(localContext, locale);
