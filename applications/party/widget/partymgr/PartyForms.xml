@@ -771,7 +771,7 @@ under the License.
 
     <form name="ListRelatedContacts" type="list" list-name="contacts" default-table-style="basic-table">
         <field name="partyIdTo">
-            <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}" key-field-name="partyId" cache="false">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}" key-field-name="partyId">
                 <sub-hyperlink description="[${partyIdTo}]" target="viewprofile">
                 <parameter param-name="partyId" from-field="partyIdTo"/>
             </sub-hyperlink>
