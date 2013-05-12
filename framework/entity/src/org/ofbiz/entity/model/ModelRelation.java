@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.ofbiz.base.lang.ThreadSafe;
 import org.ofbiz.base.util.UtilValidate;
@@ -137,7 +139,17 @@ public final class ModelRelation extends ModelChild {
         this.keyMaps = keyMaps;
         this.isAutoRelation = isAutoRelation;
         StringBuilder sb = new StringBuilder();
-        sb.append(modelEntity).append("->").append(title).append(relEntityName);
+        sb.append(modelEntity == null ? "Unknown" : modelEntity.getEntityName()).append("->").append(title).append(relEntityName).append("[");
+        Set<ModelKeyMap> keyMapSet = new TreeSet<ModelKeyMap>(keyMaps);
+        Iterator<ModelKeyMap> setIter = keyMapSet.iterator();
+        while (setIter.hasNext()) {
+            ModelKeyMap keyMap = setIter.next();
+            sb.append(keyMap);
+            if (setIter.hasNext()) {
+                sb.append(",");
+            }
+        }
+        sb.append("]");
         this.fullName = sb.toString();
         this.combinedName = title.concat(relEntityName);
     }
@@ -204,6 +216,11 @@ public final class ModelRelation extends ModelChild {
             return this.fullName.equals(that.fullName);
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.fullName.hashCode();
     }
 
     @Override
