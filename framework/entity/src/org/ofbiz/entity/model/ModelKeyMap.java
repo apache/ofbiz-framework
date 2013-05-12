@@ -18,14 +18,14 @@
  *******************************************************************************/
 package org.ofbiz.entity.model;
 
+import java.io.Serializable;
 import java.util.List;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 import org.ofbiz.base.lang.ThreadSafe;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilXml;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 
 /**
@@ -34,7 +34,7 @@ import org.ofbiz.base.util.UtilXml;
  */
 @ThreadSafe
 @SuppressWarnings("serial")
-public final class ModelKeyMap implements java.io.Serializable {
+public final class ModelKeyMap implements Comparable<ModelKeyMap>, Serializable {
 
     /*
      * Developers - this is an immutable class. Once constructed, the object should not change state.
@@ -48,10 +48,14 @@ public final class ModelKeyMap implements java.io.Serializable {
     /** name of the field in related entity */
     private final String relFieldName;
 
+    /** Full name of the key map (fieldName:relFieldName) */
+    private final String fullName;
+
     /** Data Constructor, if relFieldName is null defaults to fieldName */
     public ModelKeyMap(String fieldName, String relFieldName) {
         this.fieldName = fieldName;
         this.relFieldName = UtilXml.checkEmpty(relFieldName, this.fieldName);
+        this.fullName = this.fieldName.concat(":").concat(this.relFieldName);
     }
 
     /** XML Constructor */
@@ -59,6 +63,7 @@ public final class ModelKeyMap implements java.io.Serializable {
         this.fieldName = UtilXml.checkEmpty(keyMapElement.getAttribute("field-name")).intern();
         // if no relFieldName is specified, use the fieldName; this is convenient for when they are named the same, which is often the case
         this.relFieldName = UtilXml.checkEmpty(keyMapElement.getAttribute("rel-field-name"), this.fieldName).intern();
+        this.fullName = this.fieldName.concat(":").concat(this.relFieldName);
     }
 
     /** Returns the field name. */
@@ -87,18 +92,19 @@ public final class ModelKeyMap implements java.io.Serializable {
 
     @Override
     public int hashCode() {
-        return this.fieldName.hashCode() + this.relFieldName.hashCode();
+        return this.fullName.hashCode();
     }
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof ModelKeyMap)) return false;
-        ModelKeyMap otherKeyMap = (ModelKeyMap) other;
-
-        if (!otherKeyMap.fieldName.equals(this.fieldName)) return false;
-        if (!otherKeyMap.relFieldName.equals(this.relFieldName)) return false;
-
-        return true;
+        if (this == other) {
+            return true;
+        }
+        if (other instanceof ModelKeyMap) {
+            ModelKeyMap otherKeyMap = (ModelKeyMap) other;
+            return this.fullName.equals(otherKeyMap.fullName);
+        }
+        return false;
     }
 
     // TODO: Externalize this.
@@ -109,5 +115,15 @@ public final class ModelKeyMap implements java.io.Serializable {
             root.setAttribute("rel-field-name", this.getRelFieldName());
         }
         return root;
+    }
+
+    @Override
+    public int compareTo(ModelKeyMap other) {
+        return this.fullName.compareTo(other.fullName);
+    }
+
+    @Override
+    public String toString() {
+        return this.fullName;
     }
 }
