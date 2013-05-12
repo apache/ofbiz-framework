@@ -1079,9 +1079,6 @@ under the License.
       <relation type="many" rel-entity-name="DocumentTypeAttr">
         <key-map field-name="documentTypeId"/>
       </relation>
-      <relation type="many" rel-entity-name="ShippingDocument">
-        <key-map field-name="documentId"/>
-      </relation>
     </entity>
     <entity entity-name="DocumentAttribute"
             package-name="org.ofbiz.content.document"
