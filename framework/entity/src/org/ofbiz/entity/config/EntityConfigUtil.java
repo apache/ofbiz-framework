@@ -25,6 +25,8 @@ import java.util.concurrent.atomic.AtomicReference;
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.config.ResourceLoader;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericEntityConfException;
 import org.ofbiz.entity.GenericEntityException;
@@ -251,6 +253,21 @@ public class EntityConfigUtil {
     }
 
     public static String getJdbcPassword(Element inlineJdbcElement) {
-        return inlineJdbcElement.getAttribute("jdbc-password");
+        String jdbcPassword = inlineJdbcElement.getAttribute("jdbc-password");
+        if (UtilValidate.isNotEmpty(jdbcPassword)) {
+            return jdbcPassword;
+        }
+        String jdbcPasswordLookup = inlineJdbcElement.getAttribute("jdbc-password-lookup");
+        if (UtilValidate.isEmpty(jdbcPasswordLookup)) {
+            Debug.logError("no @jdbc-password or @jdbc-password-lookup specified for inline-jdbc element: %s@%d:%d", module, inlineJdbcElement.getUserData("systemId"), inlineJdbcElement.getUserData("startLine"), inlineJdbcElement.getUserData("startColumn"));
+            return null;
+        }
+        String key = "jdbc-password." + jdbcPasswordLookup;
+        jdbcPassword = UtilProperties.getPropertyValue("passwords.properties", key);
+        if (UtilValidate.isEmpty(jdbcPassword)) {
+            // This is a warning, not an error, as the
+            Debug.logError("Could not find password %s specified for inline-jdbc element: %s@%d:%d", module, key, inlineJdbcElement.getUserData("systemId"), inlineJdbcElement.getUserData("startLine"), inlineJdbcElement.getUserData("startColumn"));
+        }
+        return jdbcPassword;
     }
 }
