@@ -165,10 +165,20 @@ public class StringUtil {
      * @return a String of all values in the list seperated by the delimiter
      */
     public static String join(List<?> list, String delim) {
-        if (UtilValidate.isEmpty(list))
+        return join ((Collection<?>) list, delim);
+    }
+
+    /**
+     * Creates a single string from a Collection of strings seperated by a delimiter.
+     * @param col a collection of strings to join
+     * @param delim the delimiter character(s) to use. (null value will join with no delimiter)
+     * @return a String of all values in the collection seperated by the delimiter
+     */
+    public static String join(Collection<?> col, String delim) {
+        if (UtilValidate.isEmpty(col))
             return null;
         StringBuilder buf = new StringBuilder();
-        Iterator<?> i = list.iterator();
+        Iterator<?> i = col.iterator();
 
         while (i.hasNext()) {
             buf.append(i.next());
