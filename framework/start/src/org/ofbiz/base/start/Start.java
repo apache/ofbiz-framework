@@ -133,7 +133,8 @@ public final class Start {
     private final AtomicReference<ServerState> serverState = new AtomicReference<ServerState>(ServerState.STARTING);
     private Thread adminPortThread = null;
 
-    private Start() {
+    /** DO NOT REMOVE: This method is needed by commons-daemon in reflection mode. */
+    public Start() {
     }
 
     private void createListenerThread() throws StartupException {
@@ -349,15 +350,21 @@ public final class Start {
     }
 
     // ----------------------------------------------- //
-    // org.apache.commons.daemon.Daemon implementation //
+    // commons-daemon interface
+    // http://commons.apache.org/proper/commons-daemon/jsvc.html
     // ----------------------------------------------- //
 
-    // org.apache.commons.daemon.Daemon.destroy()
+    // DO NOT REMOVE: This method is needed by commons-daemon in reflection mode.
+    public void init(String[] args) throws StartupException {
+        init(args, true);
+    }
+
+    // DO NOT REMOVE: This method is needed by commons-daemon in reflection mode.
     public void destroy() {
         // FIXME: undo init() calls.
     }
 
-    // org.apache.commons.daemon.Daemon.start()
+    // DO NOT REMOVE: This method is needed by commons-daemon in reflection mode.
     public void start() throws Exception {
         if (!startStartLoaders()) {
             if (this.serverState.get() == ServerState.STOPPING) {
@@ -371,7 +378,7 @@ public final class Start {
         }
     }
 
-    // org.apache.commons.daemon.Daemon.stop()
+    // DO NOT REMOVE: This method is needed by commons-daemon in reflection mode.
     public void stop() {
         shutdownServer();
     }
