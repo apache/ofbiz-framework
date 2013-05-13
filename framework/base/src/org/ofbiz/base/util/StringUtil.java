@@ -165,7 +165,7 @@ public class StringUtil {
      * @return a String of all values in the list seperated by the delimiter
      */
     public static String join(List<?> list, String delim) {
-        if (list == null || list.size() < 1)
+        if (UtilValidate.isEmpty(list))
             return null;
         StringBuilder buf = new StringBuilder();
         Iterator<?> i = list.iterator();
