@@ -213,14 +213,8 @@ public class LoginWorker {
     }
 
     /**
-     * An HTTP WebEvent handler that checks to see is a userLogin is logged in.
-     * If not, the user is forwarded to the login page.
-     *
-     * @param request The HTTP request object for the current JSP or Servlet request.
-     * @param response The HTTP response object for the current JSP or Servlet request.
-     * @return String
      */
-    public static String checkLogin(HttpServletRequest request, HttpServletResponse response) {
+    public static GenericValue checkLogout(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 
@@ -236,11 +230,23 @@ public class LoginWorker {
                 Debug.logInfo("User does not have permission or is flagged as logged out", module);
                 doBasicLogout(userLogin, request, response);
                 userLogin = null;
-
-                // have to reget this because the old session object will be invalid
-                session = request.getSession();
             }
         }
+        return userLogin;
+    }
+
+    /**
+     * An HTTP WebEvent handler that checks to see is a userLogin is logged in.
+     * If not, the user is forwarded to the login page.
+     *
+     * @param request The HTTP request object for the current JSP or Servlet request.
+     * @param response The HTTP response object for the current JSP or Servlet request.
+     * @return String
+     */
+    public static String checkLogin(HttpServletRequest request, HttpServletResponse response) {
+        GenericValue userLogin = checkLogout(request, response);
+        // have to reget this because the old session object will be invalid
+        HttpSession session = request.getSession();
 
         String username = null;
         String password = null;
