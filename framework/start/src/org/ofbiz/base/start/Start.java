@@ -133,7 +133,8 @@ public final class Start {
     private final AtomicReference<ServerState> serverState = new AtomicReference<ServerState>(ServerState.STARTING);
     private Thread adminPortThread = null;
 
-    private Start() {}
+    private Start() {
+    }
 
     private void createListenerThread() throws StartupException {
         if (config.adminPort > 0) {
