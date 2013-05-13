@@ -51,7 +51,6 @@ public final class ModelRelation extends ModelChild {
      * @param keyMaps The key maps included in this relation.
      * @param isAutoRelation <code>true</code> if this relation was generated automatically by the entity engine.
      */
-    @SuppressWarnings("unchecked")
     public static ModelRelation create(ModelEntity modelEntity, String description, String type, String title, String relEntityName, String fkName, List<ModelKeyMap> keyMaps, boolean isAutoRelation) {
         if (description == null) {
             description = "";
@@ -69,7 +68,7 @@ public final class ModelRelation extends ModelChild {
             fkName = "";
         }
         if (keyMaps == null) {
-            keyMaps = Collections.EMPTY_LIST;
+            keyMaps = Collections.emptyList();
         } else {
             keyMaps = Collections.unmodifiableList(keyMaps);
         }
@@ -83,14 +82,13 @@ public final class ModelRelation extends ModelChild {
      * @param relationElement The <code>&lt;relation&gt;</code> element containing the values for this relation.
      * @param isAutoRelation <code>true</code> if this relation was generated automatically by the entity engine.
      */
-    @SuppressWarnings("unchecked")
     public static ModelRelation create(ModelEntity modelEntity, Element relationElement, boolean isAutoRelation) {
         String type = relationElement.getAttribute("type").intern();
         String title = relationElement.getAttribute("title").intern();
         String relEntityName = relationElement.getAttribute("rel-entity-name").intern();
         String fkName = relationElement.getAttribute("fk-name").intern();
         String description = UtilXml.childElementValue(relationElement, "description");
-        List<ModelKeyMap >keyMaps = Collections.EMPTY_LIST;
+        List<ModelKeyMap >keyMaps = Collections.emptyList();
         List<? extends Element> elementList = UtilXml.childElementList(relationElement, "key-map");
         if (!elementList.isEmpty()) {
             keyMaps = new ArrayList<ModelKeyMap>(elementList.size());

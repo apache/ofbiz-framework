@@ -45,7 +45,6 @@ public final class ModelIndex extends ModelChild {
      * @param fields The fields that are included in this index.
      * @param unique <code>true</code> if this index returns unique values.
      */
-    @SuppressWarnings("unchecked")
     public static ModelIndex create(ModelEntity modelEntity, String description, String name, List<Field> fields, boolean unique) {
         if (description == null) {
             description = "";
@@ -54,7 +53,7 @@ public final class ModelIndex extends ModelChild {
             name = "";
         }
         if (fields == null) {
-            fields = Collections.EMPTY_LIST;
+            fields = Collections.emptyList();
         } else {
             fields = Collections.unmodifiableList(fields);
         }
@@ -67,12 +66,11 @@ public final class ModelIndex extends ModelChild {
      * @param modelEntity The <code>ModelEntity</code> this index is a member of.
      * @param indexElement The <code>&lt;index&gt;</code> element containing the values for this index.
      */
-    @SuppressWarnings("unchecked")
     public static ModelIndex create(ModelEntity modelEntity, Element indexElement) {
         String name = indexElement.getAttribute("name").intern();
         boolean unique = "true".equals(indexElement.getAttribute("unique"));
         String description = UtilXml.childElementValue(indexElement, "description");
-        List<Field>fields = Collections.EMPTY_LIST;
+        List<Field>fields = Collections.emptyList();
         List<? extends Element> elementList = UtilXml.childElementList(indexElement, "index-field");
         if (!elementList.isEmpty()) {
             fields = new ArrayList<Field>(elementList.size());
