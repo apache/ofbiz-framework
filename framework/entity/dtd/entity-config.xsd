@@ -439,7 +439,8 @@ under the License.
         <xs:attribute type="xs:string" name="jdbc-driver" use="required"/>
         <xs:attribute type="xs:string" name="jdbc-uri" use="required"/>
         <xs:attribute type="xs:string" name="jdbc-username" use="required"/>
-        <xs:attribute type="xs:string" name="jdbc-password" use="required"/>
+        <xs:attribute type="xs:string" name="jdbc-password"/>
+        <xs:attribute type="xs:string" name="jdbc-password-lookup"/>
         <xs:attribute name="isolation-level">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
