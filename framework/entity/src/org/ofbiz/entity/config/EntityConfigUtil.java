@@ -249,4 +249,8 @@ public class EntityConfigUtil {
     public static Map<String, DatasourceInfo> getDatasourceInfos() {
         return configRef.get().datasourceInfos;
     }
+
+    public static String getJdbcPassword(Element inlineJdbcElement) {
+        return inlineJdbcElement.getAttribute("jdbc-password");
+    }
 }
