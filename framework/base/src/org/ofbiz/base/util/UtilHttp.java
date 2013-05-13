@@ -1080,10 +1080,10 @@ public class UtilHttp {
                     name = token.substring(0, equalsIndex);
                 }
                 if (!paramNames.contains(name)) {
-                    cleanQuery.append(token);
-                    if (queryTokens.hasMoreTokens()) {
+                    if (cleanQuery.length() > 0) {
                         cleanQuery.append("&");
                     }
+                    cleanQuery.append(token);
                 }
             }
             retStr = cleanQuery.toString();
