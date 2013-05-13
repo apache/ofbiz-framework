@@ -70,7 +70,7 @@ public class EntityUtil {
 
 
     public static GenericValue getFirst(List<GenericValue> values) {
-        if ((values != null) && (values.size() > 0)) {
+        if (UtilValidate.isNotEmpty(values)) {
             return values.get(0);
         } else {
             return null;
@@ -78,10 +78,7 @@ public class EntityUtil {
     }
 
     public static GenericValue getOnly(List<GenericValue> values) {
-        if (values != null) {
-            if (values.size() <= 0) {
-                return null;
-            }
+        if (UtilValidate.isNotEmpty(values)) {
             if (values.size() == 1) {
                 return values.get(0);
             } else {
