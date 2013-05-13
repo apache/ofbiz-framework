@@ -64,6 +64,9 @@ git_rebase_runner() {
 	total_loops="$1"
 	cleaner="$2"
 	shift 2
+	if [ -e runtime/git-rebase/hook.sh ]; then
+		runtime/git-rebase/hook.sh start $total_loops || break
+	fi
 	eval "$cleaner"
 	while [ $total_loops -gt 0 ]; do
 		git_rebase_runner_success=0
@@ -74,12 +77,21 @@ git_rebase_runner() {
 		# POSIX tee does not support -a, so we have to run everything
 		# inside a single redirection.
 		{
+			if [ -e runtime/git-rebase/hook.sh ]; then
+				runtime/git-rebase/hook.sh pre-run $total_loops || break
+			fi
 			eval "$@" || break
 			eval "$cleaner" || break
+			if [ -e runtime/git-rebase/hook.sh ]; then
+				runtime/git-rebase/hook.sh post-run $total_loops || break
+			fi
 		} 2>&1 | tee "runtime/git-rebase/logs/$hash.log"
 		git rebase --continue || break
 		git_rebase_runner_success=1
 	done
+	if [ -e runtime/git-rebase/hook.sh ]; then
+		runtime/git-rebase/hook.sh stop $total_loops || break
+	fi
 	# POSIX [ doesn't deal well when one of the arguments is empty; this
 	# could occur if $total_loops = 0.
 	if [ "z$git_rebase_runner_success" = "z0" ]; then
