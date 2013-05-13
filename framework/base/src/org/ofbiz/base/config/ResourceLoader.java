@@ -102,7 +102,7 @@ public abstract class ResourceLoader {
             }
 
             try {
-                document = UtilXml.readXmlDocument(confUrl);
+                document = UtilXml.readXmlDocument(confUrl, true, true);
             } catch (org.xml.sax.SAXException e) {
                 throw new GenericConfigException("Error reading " + xmlFilename + "", e);
             } catch (javax.xml.parsers.ParserConfigurationException e) {
