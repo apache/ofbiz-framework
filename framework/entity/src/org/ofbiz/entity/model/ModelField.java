@@ -66,7 +66,6 @@ public final class ModelField extends ModelChild {
      * @param enableAuditLog <code>true</code> if this field is included in the entity audit log.
      * @param validators The validators for this field.
      */
-    @SuppressWarnings("unchecked")
     public static ModelField create(ModelEntity modelEntity, String description, String name, String type, String colName, String colValue, String fieldSet, boolean isNotNull, boolean isPk, boolean encrypt, boolean isAutoCreatedInternal, boolean enableAuditLog, List<String> validators) {
         // TODO: Validate parameters.
         if (description == null) {
@@ -88,7 +87,7 @@ public final class ModelField extends ModelChild {
             fieldSet = "";
         }
         if (validators == null) {
-            validators = Collections.EMPTY_LIST;
+            validators = Collections.emptyList();
         } else {
             validators = Collections.unmodifiableList(validators);
         }
@@ -105,7 +104,6 @@ public final class ModelField extends ModelChild {
      * @param fieldElement The <code>&lt;field&gt;</code> element containing the values for this field.
      * @param isPk <code>true</code> if this field is part of the primary key.
      */
-    @SuppressWarnings("unchecked")
     public static ModelField create(ModelEntity modelEntity, Element fieldElement, boolean isPk) {
         String description = UtilXml.childElementValue(fieldElement, "description");
         if (description == null) {
@@ -125,7 +123,7 @@ public final class ModelField extends ModelChild {
         }
         boolean encrypt = "true".equals(fieldElement.getAttribute("encrypt"));
         boolean enableAuditLog = "true".equals(fieldElement.getAttribute("enable-audit-log"));
-        List<String>validators = Collections.EMPTY_LIST;
+        List<String>validators = Collections.emptyList();
         List<? extends Element> elementList = UtilXml.childElementList(fieldElement, "validate");
         if (!elementList.isEmpty()) {
             validators = new ArrayList<String>(elementList.size());
@@ -144,7 +142,6 @@ public final class ModelField extends ModelChild {
      * @param ccInfo The <code>ColumnCheckInfo</code> containing the values for this field.
      * @param modelFieldTypeReader
      */
-    @SuppressWarnings("unchecked")
     public static ModelField create(ModelEntity modelEntity, DatabaseUtil.ColumnCheckInfo ccInfo, ModelFieldTypeReader modelFieldTypeReader) {
         String colName = ccInfo.columnName;
         String name = ModelUtil.dbNameToVarName(colName);
@@ -156,7 +153,7 @@ public final class ModelField extends ModelChild {
         String fieldSet = "";
         boolean encrypt = false;
         boolean enableAuditLog = false;
-        return new ModelField(modelEntity, description, name, type, colName, colValue, fieldSet, isNotNull, isPk, encrypt, false, enableAuditLog, Collections.EMPTY_LIST);
+        return new ModelField(modelEntity, description, name, type, colName, colValue, fieldSet, isNotNull, isPk, encrypt, false, enableAuditLog, Collections.<String>emptyList());
     }
 
     /*

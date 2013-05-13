@@ -45,7 +45,6 @@ public class EntityConditionBuilder extends BuilderSupport {
         return node;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected Object createNode(Object methodName, Map mapArg) {
         Map<String, Object> fieldValueMap = UtilGenerics.checkMap(mapArg);
@@ -62,7 +61,6 @@ public class EntityConditionBuilder extends BuilderSupport {
         }
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected Object createNode(Object methodName, Map mapArg, Object objArg) {
         return null;

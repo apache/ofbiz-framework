@@ -43,11 +43,11 @@ import org.ofbiz.entity.model.ModelViewEntity.ModelAlias;
  * These can be used in various combinations using the EntityConditionList and EntityExpr objects.
  *
  */
-@SuppressWarnings({ "serial", "unchecked" })
+@SuppressWarnings("serial")
 public abstract class EntityConditionBase implements Serializable {
 
-    public static final List<?> emptyList = Collections.unmodifiableList(new ArrayList(0));
-    public static final Map<?,?> _emptyMap = Collections.unmodifiableMap(new HashMap());
+    public static final List<?> emptyList = Collections.emptyList();
+    public static final Map<?,?> _emptyMap = Collections.emptyMap();
     public static final Map<String, String> emptyAliases = Collections.unmodifiableMap(new HashMap<String, String>());
 
     protected ModelField getField(ModelEntity modelEntity, String fieldName) {

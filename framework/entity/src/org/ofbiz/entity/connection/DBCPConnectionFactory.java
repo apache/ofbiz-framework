@@ -176,9 +176,8 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
         dsCache.clear();
     }
 
-    @SuppressWarnings("unchecked")
-    public static Map getDataSourceInfo(String helperName) {
-        Map dataSourceInfo = new HashMap();
+    public static Map<String, Object> getDataSourceInfo(String helperName) {
+        Map<String, Object> dataSourceInfo = new HashMap<String, Object>();
         ManagedDataSource mds = dsCache.get(helperName);
         if (mds instanceof DebugManagedDataSource) {
             dataSourceInfo = ((DebugManagedDataSource)mds).getInfo();
