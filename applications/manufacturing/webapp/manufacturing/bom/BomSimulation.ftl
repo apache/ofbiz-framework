@@ -110,7 +110,7 @@ under the License.
           <#list productsData as productData>
             <#assign node = productData.node>
             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
-              <td><a href="/catalog/control/EditProduct?productId=${node.product.productId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${node.product.productId}</a></td>
+              <td><a href="/catalog/control/EditProduct?productId=${node.product.productId}${externalKeyParam}" class="buttontext">${node.product.productId}</a></td>
               <td>${node.product.internalName?default("&nbsp;")}</td>
               <td align="right">${node.quantity}</td>
               <td align="right">${productData.qoh?if_exists}</td>
@@ -118,7 +118,7 @@ under the License.
               <#if productData.unitCost?exists && (productData.unitCost > 0)>
               <td align="right">${productData.unitCost?if_exists}</td>
               <#else>
-              <td align="right"><a href="/catalog/control/EditProductCosts?productId=${node.product.productId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">NA</a></td>
+              <td align="right"><a href="/catalog/control/EditProductCosts?productId=${node.product.productId}${externalKeyParam}" class="buttontext">NA</a></td>
               </#if>
               <td align="right">${productData.totalCost?if_exists}</td>
             </tr>

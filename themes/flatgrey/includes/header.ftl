@@ -133,7 +133,7 @@ under the License.
             <#if layoutSettings.topLines?has_content>
               <#list layoutSettings.topLines as topLine>
                 <#if topLine.text?exists>
-                  <li>${topLine.text}<a href="${StringUtil.wrapString(topLine.url?if_exists)}&amp;externalLoginKey=${externalLoginKey}">${topLine.urlText?if_exists}</a></li>
+                  <li>${topLine.text}<a href="${StringUtil.wrapString(topLine.url?if_exists)}${externalKeyParam}">${topLine.urlText?if_exists}</a></li>
                 <#elseif topLine.dropDownList?exists>
                   <li><#include "component://common/webcommon/includes/insertDropDown.ftl"/></li>
                 <#else>

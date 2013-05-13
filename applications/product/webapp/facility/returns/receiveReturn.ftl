@@ -120,7 +120,7 @@ under the License.
                               <div>
                                 ${returnItem.returnItemSeqId}:&nbsp;<b>${orderItemType.get("description",locale)}</b> : ${orderItem.itemDescription?if_exists}&nbsp;&nbsp;
                                 <input type="text" size="12" name="productId_o_${rowCount}" />
-                                <a href="/catalog/control/EditProduct?externalLoginKey=${externalLoginKey}" target="catalog" class="buttontext">${uiLabelMap.ProductCreateProduct}</a>
+                                <a href="/catalog/control/EditProduct?${externalKeyParam}" target="catalog" class="buttontext">${uiLabelMap.ProductCreateProduct}</a>
                               </div>
                             </td>
                           <#else>
