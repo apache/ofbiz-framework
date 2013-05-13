@@ -442,7 +442,14 @@ public class RequestHandler {
 
         // Process the eventReturn
         // at this point eventReturnString is finalized, so get the RequestResponse
-        ConfigXMLReader.RequestResponse eventReturnBasedRequestResponse = eventReturn == null ? null : requestMap.requestResponseMap.get(eventReturn);
+        ConfigXMLReader.RequestResponse eventReturnBasedRequestResponse;
+        if (eventReturn == null) {
+            eventReturnBasedRequestResponse = null;
+        } else if (eventReturn.equals("none")) {
+            eventReturnBasedRequestResponse = ConfigXMLReader.emptyNoneRequestResponse;
+        } else {
+            eventReturnBasedRequestResponse = requestMap.requestResponseMap.get(eventReturn);
+        }
         if (eventReturnBasedRequestResponse != null) {
             //String eventReturnBasedResponse = requestResponse.value;
             if (Debug.verboseOn()) Debug.logVerbose("[Response Qualified]: " + eventReturnBasedRequestResponse.name + ", " + eventReturnBasedRequestResponse.type + ":" + eventReturnBasedRequestResponse.value + " sessionId=" + UtilHttp.getSessionId(request), module);
