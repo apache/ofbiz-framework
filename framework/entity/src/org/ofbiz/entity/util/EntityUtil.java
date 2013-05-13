@@ -69,9 +69,30 @@ public class EntityUtil {
     }
 
 
+    public static GenericValue getFirst(Collection<GenericValue> values) {
+        if (UtilValidate.isNotEmpty(values)) {
+            return values.iterator().next();
+        } else {
+            return null;
+        }
+    }
+
     public static GenericValue getFirst(List<GenericValue> values) {
         if (UtilValidate.isNotEmpty(values)) {
             return values.get(0);
+        } else {
+            return null;
+        }
+    }
+
+    public static GenericValue getOnly(Collection<GenericValue> values) {
+        if (UtilValidate.isNotEmpty(values)) {
+            Iterator<GenericValue> it = values.iterator();
+            GenericValue result = it.next();
+            if (it.hasNext()) {
+                throw new IllegalArgumentException("Passed List had more than one value.");
+            }
+            return result;
         } else {
             return null;
         }
