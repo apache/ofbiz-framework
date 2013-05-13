@@ -759,11 +759,29 @@ public class UtilHttp {
                 String name = entry.getKey();
                 Object value = entry.getValue();
                 String valueStr = null;
-                if (name != null && value != null) {
-                    if (value instanceof String) {
-                        valueStr = (String) value;
+                if (name == null || value == null) {
+                    continue;
+                }
+
+                Collection<?> col;
+                if (value instanceof String) {
+                    col = Arrays.asList(value);
+                } else if (value instanceof Collection) {
+                    col = UtilGenerics.cast(value);
+                } else if (value == null) {
+                    continue;
+                } else if (value.getClass().isArray()) {
+                    col = Arrays.asList((Object[]) value);
+                } else {
+                    col = Arrays.asList(value);
+                }
+                for (Object colValue: col) {
+                    if (colValue instanceof String) {
+                        valueStr = (String) colValue;
+                    } else if (colValue == null) {
+                        continue;
                     } else {
-                        valueStr = value.toString();
+                        valueStr = colValue.toString();
                     }
 
                     if (UtilValidate.isNotEmpty(valueStr)) {
