@@ -733,7 +733,7 @@ public class LoginWorker {
         return "success";
     }
 
-    private static boolean isUserLoggedIn(HttpServletRequest request) {
+    public static boolean isUserLoggedIn(HttpServletRequest request) {
         HttpSession session = request.getSession();
         GenericValue currentUserLogin = (GenericValue) session.getAttribute("userLogin");
         if (currentUserLogin != null) {
@@ -754,7 +754,7 @@ public class LoginWorker {
      * @param userLoginId
      * @return Returns "success" if user could be logged in or "error" if there was a problem.
      */
-    private static String loginUserWithUserLoginId(HttpServletRequest request, HttpServletResponse response, String userLoginId) {
+    public static String loginUserWithUserLoginId(HttpServletRequest request, HttpServletResponse response, String userLoginId) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         try {
             GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", userLoginId);
@@ -990,7 +990,7 @@ public class LoginWorker {
                 "Y".equalsIgnoreCase(userLogin.getString("hasLoggedOut")) : false);
     }
 
-    protected static boolean hasBasePermission(GenericValue userLogin, HttpServletRequest request) {
+    public static boolean hasBasePermission(GenericValue userLogin, HttpServletRequest request) {
         Security security = (Security) request.getAttribute("security");
         if (security != null) {
             ServletContext context = (ServletContext) request.getAttribute("servletContext");
