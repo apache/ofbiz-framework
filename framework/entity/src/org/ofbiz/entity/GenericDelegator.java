@@ -103,6 +103,7 @@ public class GenericDelegator implements Delegator {
     protected Cache cache = null;
 
     protected DistributedCacheClear distributedCacheClear = null;
+    protected boolean warnNoEcaHandler = false;
     protected EntityEcaHandler<?> entityEcaHandler = null;
     protected SequenceUtil sequencer = null;
     protected EntityCrypto crypto = null;
@@ -310,7 +311,7 @@ public class GenericDelegator implements Delegator {
      */
     public synchronized void initEntityEcaHandler() {
         // Nothing to do if already assigned: the class loader has already been called, the class instantiated and casted to EntityEcaHandler
-        if (this.entityEcaHandler != null) {
+        if (this.entityEcaHandler != null || this.warnNoEcaHandler) {
             return;
         }
         // If useEntityEca is false do nothing: the entityEcaHandler member field with a null value would cause its code to do nothing
@@ -333,8 +334,9 @@ public class GenericDelegator implements Delegator {
             } catch (ClassCastException e) {
                 Debug.logWarning(e, "EntityEcaHandler class with name " + entityEcaHandlerClassName + " does not implement the EntityEcaHandler interface, Entity ECA Rules will be disabled", module);
             }
-        } else {
+        } else if (!this.warnNoEcaHandler) {
             Debug.logInfo("Entity ECA Handler disabled for delegator [" + delegatorFullName + "]", module);
+            this.warnNoEcaHandler = true;
         }
     }
 
@@ -2422,6 +2424,7 @@ public class GenericDelegator implements Delegator {
      */
     public <T> void setEntityEcaHandler(EntityEcaHandler<T> entityEcaHandler) {
         this.entityEcaHandler = entityEcaHandler;
+        this.warnNoEcaHandler = false;
     }
 
     /* (non-Javadoc)
