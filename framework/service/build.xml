@@ -56,7 +56,7 @@ under the License.
     </target>
 
     <target name="rmi-jar" depends="stubs">
-        <jar jarfile="${build.dir}/lib/${name}-rmi.raj">
+        <jar jarfile="${build.dir}/rmi/${name}-rmi.jar">
             <fileset dir="${build.dir}/classes" includes="**/GenericServiceException.class"/>
             <fileset dir="${build.dir}/classes" includes="**/GenericResultWaiter.class"/>
             <fileset dir="${build.dir}/classes" includes="**/GenericRequester.class"/>
