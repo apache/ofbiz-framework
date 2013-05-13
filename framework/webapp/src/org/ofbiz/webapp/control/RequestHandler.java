@@ -309,10 +309,10 @@ public class RequestHandler {
                 for (ConfigXMLReader.Event event: controllerConfig.getFirstVisitEventList().values()) {
                     try {
                         String returnString = this.runEvent(request, response, event, null, "firstvisit");
-                        if (returnString != null && !returnString.equalsIgnoreCase("success")) {
-                            throw new EventHandlerException("First-Visit event did not return 'success'.");
-                        } else if (returnString == null) {
+                        if (returnString == null || "none".equalsIgnoreCase(returnString)) {
                             interruptRequest = true;
+                        } else if (!returnString.equalsIgnoreCase("success")) {
+                            throw new EventHandlerException("First-Visit event did not return 'success'.");
                         }
                     } catch (EventHandlerException e) {
                         Debug.logError(e, module);
@@ -324,7 +324,9 @@ public class RequestHandler {
             for (ConfigXMLReader.Event event: controllerConfig.getPreprocessorEventList().values()) {
                 try {
                     String returnString = this.runEvent(request, response, event, null, "preprocessor");
-                    if (returnString != null && !returnString.equalsIgnoreCase("success")) {
+                    if (returnString == null || "none".equalsIgnoreCase(returnString)) {
+                        interruptRequest = true;
+                    } else if (!returnString.equalsIgnoreCase("success")) {
                         if (!returnString.contains(":_protect_:")) {
                             throw new EventHandlerException("Pre-Processor event [" + event.invoke + "] did not return 'success'.");
                         } else { // protect the view normally rendered and redirect to error response view
@@ -347,8 +349,6 @@ public class RequestHandler {
                                 }
                             }
                         }
-                    } else if (returnString == null) {
-                        interruptRequest = true;
                     }
                 } catch (EventHandlerException e) {
                     Debug.logError(e, module);
