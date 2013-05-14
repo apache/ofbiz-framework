@@ -319,33 +319,8 @@ public class ShoppingCartItem implements java.io.Serializable {
             String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher, ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, String parentProductId, Boolean skipInventoryChecks, Boolean skipProductChecks)
             throws CartItemModifyException, ItemNotFoundException {
         Delegator delegator = cart.getDelegator();
-        GenericValue product = null;
+        GenericValue product = findProduct(delegator, skipProductChecks.booleanValue(), prodCatalogId, productId, cart.getLocale());
         GenericValue parentProduct = null;
-
-        try {
-            product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
-
-            // first see if there is a purchase allow category and if this product is in it or not
-            String purchaseProductCategoryId = CatalogWorker.getCatalogPurchaseAllowCategoryId(delegator, prodCatalogId);
-            if (!skipProductChecks.booleanValue() && product != null && purchaseProductCategoryId != null) {
-                if (!CategoryWorker.isProductInCategory(delegator, product.getString("productId"), purchaseProductCategoryId)) {
-                    // a Purchase allow productCategoryId was found, but the product is not in the category, axe it...
-                    Debug.logWarning("Product [" + productId + "] is not in the purchase allow category [" + purchaseProductCategoryId + "] and cannot be purchased", module);
-                    product = null;
-                }
-            }
-        } catch (GenericEntityException e) {
-            Debug.logWarning(e.toString(), module);
-            product = null;
-        }
-
-        if (product == null) {
-            Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productId", productId);
-            String excMsg = UtilProperties.getMessage(resource_error, "item.product_not_found", messageMap , cart.getLocale());
-
-            Debug.logWarning(excMsg, module);
-            throw new ItemNotFoundException(excMsg);
-        }
 
         if (parentProductId != null)
         {
@@ -585,6 +560,36 @@ public class ShoppingCartItem implements java.io.Serializable {
         }
 
         return newItem;
+    }
+
+    public static GenericValue findProduct(Delegator delegator, boolean skipProductChecks, String prodCatalogId, String productId, Locale locale) throws CartItemModifyException, ItemNotFoundException {
+        GenericValue product;
+
+        try {
+            product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
+
+            // first see if there is a purchase allow category and if this product is in it or not
+            String purchaseProductCategoryId = CatalogWorker.getCatalogPurchaseAllowCategoryId(delegator, prodCatalogId);
+            if (!skipProductChecks && product != null && purchaseProductCategoryId != null) {
+                if (!CategoryWorker.isProductInCategory(delegator, product.getString("productId"), purchaseProductCategoryId)) {
+                    // a Purchase allow productCategoryId was found, but the product is not in the category, axe it...
+                    Debug.logWarning("Product [" + productId + "] is not in the purchase allow category [" + purchaseProductCategoryId + "] and cannot be purchased", module);
+                    product = null;
+                }
+            }
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e.toString(), module);
+            product = null;
+        }
+
+        if (product == null) {
+            Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productId", productId);
+            String excMsg = UtilProperties.getMessage(resource_error, "item.product_not_found", messageMap , locale);
+
+            Debug.logWarning(excMsg, module);
+            throw new ItemNotFoundException(excMsg);
+        }
+        return product;
     }
 
     /**
