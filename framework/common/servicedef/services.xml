@@ -354,6 +354,7 @@ under the License.
         <attribute name="remoteFilename" type="String" mode="IN" optional="false"/>
         <attribute name="binaryTransfer" type="Boolean" mode="IN" optional="true"/>
         <attribute name="passiveMode" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="defaultTimeout" type="Integer" mode="IN" optional="true"/>
     </service>
     <service name="ftpPutFile" engine="java" use-transaction="false"
         location="org.ofbiz.common.FtpServices" invoke="putFile">
