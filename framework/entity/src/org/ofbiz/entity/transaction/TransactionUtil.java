@@ -973,15 +973,22 @@ public class TransactionUtil implements Status {
         public V call() throws GenericEntityException {
             Transaction suspended = TransactionUtil.suspend();
             try {
-                return callable.call();
+                try {
+                    return callable.call();
+                } catch (Throwable t) {
+                    while (t.getCause() != null) {
+                        t = t.getCause();
+                    }
+                    throw t;
+                }
+            } catch (GenericEntityException e) {
+                throw e;
             } catch (Error e) {
                 throw e;
             } catch (RuntimeException e) {
                 throw e;
-            } catch (GenericEntityException e) {
-                throw e;
-            } catch (Exception e) {
-                throw new GenericEntityException(e);
+            } catch (Throwable t) {
+                throw new GenericEntityException(t);
             } finally {
                 TransactionUtil.resume(suspended);
             }
