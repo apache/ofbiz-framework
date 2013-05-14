@@ -730,6 +730,27 @@ public class DateTimeConverters implements ConverterLoader {
         }
     }
 
+    public static class TimestampToString extends GenericLocalizedConverter<java.sql.Timestamp, String> {
+        public TimestampToString() {
+            super(java.sql.Timestamp.class, String.class);
+        }
+
+        @Override
+        public String convert(java.sql.Timestamp obj) throws ConversionException {
+            return obj.toString();
+        }
+
+        public String convert(java.sql.Timestamp obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
+            DateFormat df = null;
+            if (UtilValidate.isEmpty(formatString)) {
+                df = UtilDateTime.toDateTimeFormat(UtilDateTime.DATE_TIME_FORMAT, timeZone, locale);
+            } else {
+                df = UtilDateTime.toDateTimeFormat(formatString, timeZone, locale);
+            }
+            return df.format(obj);
+        }
+    }
+
     public static class TimeZoneToString extends AbstractConverter<TimeZone, String> {
         public TimeZoneToString() {
             super(TimeZone.class, String.class);
