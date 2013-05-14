@@ -250,4 +250,15 @@ public class UtilNumber {
 
         return (bd.toString() + "%");
     }
+
+    /**
+     * A null-aware method for adding BigDecimal, but only for the right operand.
+     *
+     * @param left      The number to add to
+     * @param right     The number being added; if null, then nothing will be added
+     * @return          The result of the addition, or left if right is null.
+     */
+    public static BigDecimal safeAdd(BigDecimal left, BigDecimal right) {
+        return right != null ? left.add(right) : left;
+    }
 }
