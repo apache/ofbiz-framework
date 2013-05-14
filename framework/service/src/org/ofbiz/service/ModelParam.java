@@ -61,6 +61,12 @@ public class ModelParam implements Serializable {
     /** The entity field name */
     public String fieldName;
 
+    /** Request attribute to look for if not defined as a parameter */
+    public String requestAttributeName;
+
+    /** Session attribute to look for if not defined as a parameter */
+    public String sessionAttributeName;
+
     /** Parameter prefix for creating an attribute Map */
     public String stringMapPrefix;
 
@@ -97,6 +103,8 @@ public class ModelParam implements Serializable {
         this.formLabel = param.formLabel;
         this.entityName = param.entityName;
         this.fieldName = param.fieldName;
+        this.requestAttributeName = param.requestAttributeName;
+        this.sessionAttributeName = param.sessionAttributeName;
         this.stringMapPrefix = param.stringMapPrefix;
         this.stringListSuffix = param.stringListSuffix;
         this.validators = param.validators;

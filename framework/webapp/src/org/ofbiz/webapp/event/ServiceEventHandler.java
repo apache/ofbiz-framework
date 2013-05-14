@@ -257,7 +257,7 @@ public class ServiceEventHandler implements EventHandler {
 
                 // next check attributes; do this before parameters so that attribute which can be changed by code can override parameters which can't
                 if (UtilValidate.isEmpty(value)) {
-                    Object tempVal = request.getAttribute(name);
+                    Object tempVal = request.getAttribute(UtilValidate.isEmpty(modelParam.requestAttributeName) ? name : modelParam.requestAttributeName);
                     if (tempVal != null) {
                         value = tempVal;
                     }
@@ -283,7 +283,7 @@ public class ServiceEventHandler implements EventHandler {
 
                 // then session
                 if (UtilValidate.isEmpty(value)) {
-                    Object tempVal = request.getSession().getAttribute(name);
+                    Object tempVal = request.getSession().getAttribute(UtilValidate.isEmpty(modelParam.sessionAttributeName) ? name : modelParam.sessionAttributeName);
                     if (tempVal != null) {
                         value = tempVal;
                     }
