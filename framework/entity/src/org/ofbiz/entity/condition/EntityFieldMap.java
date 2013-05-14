@@ -23,7 +23,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.entity.util.EntityUtil;
@@ -43,7 +42,7 @@ public class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
 
     public static <V> List<EntityExpr> makeConditionList(Map<String, V> fieldMap, EntityComparisonOperator<?,V> op) {
         if (fieldMap == null) {
-            return new ArrayList<EntityExpr>();
+            return Collections.emptyList();
         }
         List<EntityExpr> list = new ArrayList<EntityExpr>(fieldMap.size());
         for (Map.Entry<String, ? extends Object> entry: fieldMap.entrySet()) {
@@ -54,19 +53,14 @@ public class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
 
     public <V> void init(EntityComparisonOperator<?,?> compOp, EntityJoinOperator joinOp, V... keysValues) {
         super.init(makeConditionList(EntityUtil.makeFields(keysValues), UtilGenerics.<EntityComparisonOperator<String,V>>cast(compOp)), joinOp);
-        this.fieldMap = EntityUtil.makeFields(keysValues);
-        if (this.fieldMap == null) {
-            this.fieldMap = new HashMap<String, Object>();
-        }
+        Map<String, ? extends Object>  fieldMap = EntityUtil.makeFields(keysValues);
+        this.fieldMap = fieldMap == null ? Collections.<String, Object>emptyMap() : fieldMap;
         this.operator = joinOp;
     }
 
     public <V> void init(Map<String, V> fieldMap, EntityComparisonOperator<?,?> compOp, EntityJoinOperator joinOp) {
         super.init(makeConditionList(fieldMap, UtilGenerics.<EntityComparisonOperator<String,V>>cast(compOp)), joinOp);
-        this.fieldMap = fieldMap;
-        if (this.fieldMap == null) {
-            this.fieldMap = new HashMap<String, Object>();
-        }
+        this.fieldMap = fieldMap == null ? Collections.<String, Object>emptyMap() : fieldMap;
         this.operator = joinOp;
     }
 
