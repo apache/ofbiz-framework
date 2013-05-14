@@ -415,58 +415,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         java.sql.Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 
         if (!skipProductChecks.booleanValue()) {
-            // check to see if introductionDate hasn't passed yet
-            if (product.get("introductionDate") != null && nowTimestamp.before(product.getTimestamp("introductionDate"))) {
-                Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productName", product.getString("productName"),
-                                                "productId", product.getString("productId"));
-
-                String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_not_yet_available",
-                                              messageMap , cart.getLocale());
-
-                Debug.logWarning(excMsg, module);
-                throw new CartItemModifyException(excMsg);
-            }
-
-            // check to see if salesDiscontinuationDate has passed
-            if (product.get("salesDiscontinuationDate") != null && nowTimestamp.after(product.getTimestamp("salesDiscontinuationDate"))) {
-                Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productName", product.getString("productName"),
-                                                "productId", product.getString("productId"));
-
-                String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_no_longer_available",
-                                              messageMap , cart.getLocale());
-
-                Debug.logWarning(excMsg, module);
-                throw new CartItemModifyException(excMsg);
-            }
-            /*
-            if (product.get("salesDiscWhenNotAvail") != null && "Y".equals(product.getString("salesDiscWhenNotAvail"))) {
-                // check atp and if <= 0 then the product is no more available because
-                // all the units in warehouse are reserved by other sales orders and no new purchase orders will be done
-                // for this product.
-                if (!newItem.isInventoryAvailableOrNotRequired(quantity, cart.getProductStoreId(), dispatcher)) {
-                    Map messageMap = UtilMisc.toMap("productName", product.getString("productName"),
-                                                    "productId", product.getString("productId"));
-
-                    String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_no_longer_available",
-                                                  messageMap , cart.getLocale());
-
-                    Debug.logWarning(excMsg, module);
-                    throw new CartItemModifyException(excMsg);
-                }
-            }
-             */
-
-            // check to see if the product is fully configured
-            if ("AGGREGATED".equals(product.getString("productTypeId"))|| "AGGREGATED_SERVICE".equals(product.getString("productTypeId"))) {
-                if (configWrapper == null || !configWrapper.isCompleted()) {
-                    Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productName", product.getString("productName"),
-                                                    "productId", product.getString("productId"));
-                    String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_not_configured_correctly",
-                                                  messageMap , cart.getLocale());
-                    Debug.logWarning(excMsg, module);
-                    throw new CartItemModifyException(excMsg);
-                }
-            }
+            isValidCartProduct(configWrapper, product, nowTimestamp, cart.getLocale());
         }
 
         // check to see if the product is a rental item
@@ -590,6 +539,61 @@ public class ShoppingCartItem implements java.io.Serializable {
             throw new ItemNotFoundException(excMsg);
         }
         return product;
+    }
+
+    public static void isValidCartProduct(ProductConfigWrapper configWrapper, GenericValue product, Timestamp nowTimestamp, Locale locale) throws CartItemModifyException {
+            // check to see if introductionDate hasn't passed yet
+            if (product.get("introductionDate") != null && nowTimestamp.before(product.getTimestamp("introductionDate"))) {
+                Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productName", product.getString("productName"),
+                                                "productId", product.getString("productId"));
+
+                String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_not_yet_available",
+                                              messageMap , locale);
+
+                Debug.logWarning(excMsg, module);
+                throw new CartItemModifyException(excMsg);
+            }
+
+            // check to see if salesDiscontinuationDate has passed
+            if (product.get("salesDiscontinuationDate") != null && nowTimestamp.after(product.getTimestamp("salesDiscontinuationDate"))) {
+                Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productName", product.getString("productName"),
+                                                "productId", product.getString("productId"));
+
+                String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_no_longer_available",
+                                              messageMap , locale);
+
+                Debug.logWarning(excMsg, module);
+                throw new CartItemModifyException(excMsg);
+            }
+            /*
+            if (product.get("salesDiscWhenNotAvail") != null && "Y".equals(product.getString("salesDiscWhenNotAvail"))) {
+                // check atp and if <= 0 then the product is no more available because
+                // all the units in warehouse are reserved by other sales orders and no new purchase orders will be done
+                // for this product.
+                if (!newItem.isInventoryAvailableOrNotRequired(quantity, cart.getProductStoreId(), dispatcher)) {
+                    Map messageMap = UtilMisc.toMap("productName", product.getString("productName"),
+                                                    "productId", product.getString("productId"));
+
+                    String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_no_longer_available",
+                                                  messageMap , locale);
+
+                    Debug.logWarning(excMsg, module);
+                    throw new CartItemModifyException(excMsg);
+                }
+            }
+             */
+
+            // check to see if the product is fully configured
+            if ("AGGREGATED".equals(product.getString("productTypeId"))|| "AGGREGATED_SERVICE".equals(product.getString("productTypeId"))) {
+                if (configWrapper == null || !configWrapper.isCompleted()) {
+                    Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productName", product.getString("productName"),
+                                                    "productId", product.getString("productId"));
+                    String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_not_configured_correctly",
+                                                  messageMap , locale);
+                    Debug.logWarning(excMsg, module);
+                    throw new CartItemModifyException(excMsg);
+                }
+            }
     }
 
     /**
