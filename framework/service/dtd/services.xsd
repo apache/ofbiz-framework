@@ -401,6 +401,8 @@ under the License.
         <xs:attribute name="form-label" type="xs:string"/>
         <xs:attribute name="entity-name" type="xs:string"/>
         <xs:attribute name="field-name" type="xs:string"/>
+        <xs:attribute name="request-attribute-name" type="xs:string"/>
+        <xs:attribute name="session-attribute-name" type="xs:string"/>
         <xs:attribute name="string-map-prefix" type="xs:string"/>
         <xs:attribute name="string-list-suffix" type="xs:string"/>
         <xs:attribute name="form-display" default="true">

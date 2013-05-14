@@ -504,6 +504,8 @@ public class ModelServiceReader implements Serializable {
             param.mode = UtilXml.checkEmpty(attribute.getAttribute("mode")).intern();
             param.entityName = UtilXml.checkEmpty(attribute.getAttribute("entity-name")).intern();
             param.fieldName = UtilXml.checkEmpty(attribute.getAttribute("field-name")).intern();
+            param.requestAttributeName = UtilXml.checkEmpty(attribute.getAttribute("request-attribute-name")).intern();
+            param.sessionAttributeName = UtilXml.checkEmpty(attribute.getAttribute("session-attribute-name")).intern();
             param.stringMapPrefix = UtilXml.checkEmpty(attribute.getAttribute("string-map-prefix")).intern();
             param.stringListSuffix = UtilXml.checkEmpty(attribute.getAttribute("string-list-suffix")).intern();
             param.formLabel = attribute.hasAttribute("form-label")?attribute.getAttribute("form-label").intern():null;
