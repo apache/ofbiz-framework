@@ -37,6 +37,7 @@ import org.apache.commons.net.ftp.FTPReply;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 
@@ -62,6 +63,11 @@ public class FtpServices {
         List<String> errorList = FastList.newInstance();
         FTPClient ftp = new FTPClient();
         try {
+            Integer defaultTimeout = (Integer) context.get("defaultTimeout");
+            if (UtilValidate.isNotEmpty(defaultTimeout)) {
+                Debug.logInfo("[putFile] set default timeout to: " + defaultTimeout.intValue() + " milliseconds", module);
+                ftp.setDefaultTimeout(defaultTimeout.intValue());
+            }
             Debug.logInfo("[putFile] connecting to: " + (String) context.get("hostname"), module);
             ftp.connect((String) context.get("hostname"));
             if (!FTPReply.isPositiveCompletion(ftp.getReplyCode())) {
@@ -142,6 +148,11 @@ public class FtpServices {
         List<String> errorList = FastList.newInstance();
         FTPClient ftp = new FTPClient();
         try {
+            Integer defaultTimeout = (Integer) context.get("defaultTimeout");
+            if (UtilValidate.isNotEmpty(defaultTimeout)) {
+                Debug.logInfo("[getFile] Set default timeout to: " + defaultTimeout.intValue() + " milliseconds", module);
+                ftp.setDefaultTimeout(defaultTimeout.intValue());
+            }
             ftp.connect((String) context.get("hostname"));
             if (!FTPReply.isPositiveCompletion(ftp.getReplyCode())) {
                 errorList.add(UtilProperties.getMessage(resource, "CommonFtpConnectionRefused", locale));
