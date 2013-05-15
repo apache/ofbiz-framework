@@ -76,13 +76,13 @@ under the License.
     <EnumerationType description="Order Sales Channel" enumTypeId="ORDER_SALES_CHANNEL" hasTable="N" parentTypeId=""/>
     <Enumeration description="Web Channel" enumCode="WEB_CHANNEL" enumId="WEB_SALES_CHANNEL" sequenceId="01" enumTypeId="ORDER_SALES_CHANNEL"/>
     <Enumeration description="POS Channel" enumCode="POS_CHANNEL" enumId="POS_SALES_CHANNEL" sequenceId="02" enumTypeId="ORDER_SALES_CHANNEL"/>
-    <Enumeration description="Fax Channel" enumCode="FAX_CAHNNEL" enumId="FAX_SALES_CHANNEL" sequenceId="03" enumTypeId="ORDER_SALES_CHANNEL"/>
-    <Enumeration description="Phone Channel" enumCode="PHONE_CAHNNEL" enumId="PHONE_SALES_CHANNEL" sequenceId="04" enumTypeId="ORDER_SALES_CHANNEL"/>
-    <Enumeration description="E-Mail Channel" enumCode="EMAIL_CAHNNEL" enumId="EMAIL_SALES_CHANNEL" sequenceId="05" enumTypeId="ORDER_SALES_CHANNEL"/>
-    <Enumeration description="Snail Mail Channel" enumCode="SNAIL_CAHNNEL" enumId="SNAIL_SALES_CHANNEL" sequenceId="06" enumTypeId="ORDER_SALES_CHANNEL"/>
+    <Enumeration description="Fax Channel" enumCode="FAX_CHANNEL" enumId="FAX_SALES_CHANNEL" sequenceId="03" enumTypeId="ORDER_SALES_CHANNEL"/>
+    <Enumeration description="Phone Channel" enumCode="PHONE_CHANNEL" enumId="PHONE_SALES_CHANNEL" sequenceId="04" enumTypeId="ORDER_SALES_CHANNEL"/>
+    <Enumeration description="E-Mail Channel" enumCode="EMAIL_CHANNEL" enumId="EMAIL_SALES_CHANNEL" sequenceId="05" enumTypeId="ORDER_SALES_CHANNEL"/>
+    <Enumeration description="Snail Mail Channel" enumCode="SNAIL_CHANNEL" enumId="SNAIL_SALES_CHANNEL" sequenceId="06" enumTypeId="ORDER_SALES_CHANNEL"/>
     <Enumeration description="Affiliate Channel" enumCode="AFFIL_CHANNEL" enumId="AFFIL_SALES_CHANNEL" sequenceId="07" enumTypeId="ORDER_SALES_CHANNEL"/>
     <Enumeration description="eBay Channel" enumCode="EBAY_CHANNEL" enumId="EBAY_SALES_CHANNEL" sequenceId="08" enumTypeId="ORDER_SALES_CHANNEL"/>
-    <Enumeration description="Unknown Channel" enumCode="UNKOWN_CAHNNEL" enumId="UNKNWN_SALES_CHANNEL" sequenceId="99" enumTypeId="ORDER_SALES_CHANNEL"/>
+    <Enumeration description="Unknown Channel" enumCode="UNKOWN_CHANNEL" enumId="UNKNWN_SALES_CHANNEL" sequenceId="99" enumTypeId="ORDER_SALES_CHANNEL"/>
     <EnumerationType description="Order Item Change Type" enumTypeId="ODR_ITM_CHANGE_TYPE" hasTable="N" parentTypeId=""/>
     <Enumeration description="Order Item Update" enumCode="ITM_UPDATE" enumId="ODR_ITM_UPDATE" sequenceId="01" enumTypeId="ODR_ITM_CHANGE_TYPE"/>
     <Enumeration description="Order Item Cancel" enumCode="ITM_CANCEL" enumId="ODR_ITM_CANCEL" sequenceId="02" enumTypeId="ODR_ITM_CHANGE_TYPE"/>
