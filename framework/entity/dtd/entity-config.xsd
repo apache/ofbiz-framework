@@ -462,12 +462,6 @@ under the License.
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:nonNegativeInteger" name="time-between-eviction-runs-millis" default="600000"/>
-        <xs:attribute type="xs:nonNegativeInteger" name="pool-sleeptime" default="300000"/>
-        <xs:attribute type="xs:nonNegativeInteger" name="pool-lifetime" default="600000"/>
-        <xs:attribute type="xs:nonNegativeInteger" name="pool-deadlock-maxwait" default="300000"/>
-        <xs:attribute type="xs:nonNegativeInteger" name="pool-deadlock-retrywait" default="10000"/>
-        <xs:attribute type="xs:string" name="pool-jdbc-test-stmt"/>
-        <xs:attribute type="xs:string" name="pool-xa-wrapper-class"/>
     </xs:attributeGroup>
     <xs:element name="jndi-jdbc">
         <xs:complexType>
