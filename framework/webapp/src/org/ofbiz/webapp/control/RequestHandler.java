@@ -109,6 +109,7 @@ public class RequestHandler {
             GenericValue userLogin, Delegator delegator) throws RequestHandlerException, RequestHandlerExceptionAllowExternalRequests {
 
         long startTime = System.currentTimeMillis();
+        int numEvent = 1;
         HttpSession session = request.getSession();
 
         // get the controllerConfig once for this method so we don't have to get it over and over inside the method
@@ -421,6 +422,11 @@ public class RequestHandler {
                         ServerHitBin.countEvent(cname + "." + requestMap.event.invoke, request, eventStartTime,
                                 System.currentTimeMillis() - eventStartTime, userLogin);
                     }
+                    if (requestMap.metrics != null) {
+                        requestMap.metrics.recordRequestRate(numEvent, System.currentTimeMillis() - eventStartTime);
+                        numEvent = 0;
+                    }
+                    
 
                     // set the default event return
                     if (eventReturn == null) {
@@ -676,7 +682,7 @@ public class RequestHandler {
             }
         }
         if (requestMap.metrics != null) {
-            requestMap.metrics.recordServiceRate(1, System.currentTimeMillis() - startTime);
+            requestMap.metrics.recordServiceRate(numEvent, System.currentTimeMillis() - startTime);
         }
     }
 
