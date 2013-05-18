@@ -53,12 +53,6 @@ public interface Metrics {
      */
     double getServiceRate();
 
-    /**
-     * Returns a moving average of the request rate in milliseconds. The default
-     * implementation divides the total time by the total number of events
-     */
-    double getRequestRate();
-
     /** Returns the metric threshold. The meaning of the threshold is
      * determined by client code.
      * <p>The idea is for client code to compare {@link #getServiceRate()} to
@@ -75,13 +69,6 @@ public interface Metrics {
      */
     void recordServiceRate(int numEvents, long time);
 
-    /** 
-     * Records the request time for <code>numEvents</code> taking
-     * <code>time</code> milliseconds to be processed.
-     */
-    void recordRequestRate(int numEvents, long time);
-
     /** Resets all metrics. */
     void reset();
-
 }

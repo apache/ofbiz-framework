@@ -144,7 +144,6 @@ public final class MetricsFactory {
         private long lastTime = System.currentTimeMillis();
         @LockedBy("this")
         private double serviceRate = 0.0;
-        private double requestRate = 0.0;
         @LockedBy("this")
         private long totalServiceTime = 0;
         @LockedBy("this")
@@ -188,11 +187,6 @@ public final class MetricsFactory {
         }
 
         @Override
-        public synchronized double getRequestRate() {
-            return requestRate;
-        }
-
-        @Override
         public double getThreshold() {
             return threshold;
         }
@@ -226,17 +220,9 @@ public final class MetricsFactory {
             }
         }
 
-        public synchronized void recordRequestRate(int numEvents, long time) {
-            totalEvents += numEvents;
-            cumulativeEvents += numEvents;
-            totalServiceTime += time;
-            requestRate = totalServiceTime / cumulativeEvents;
-        }
-
         @Override
         public synchronized void reset() {
             serviceRate = 0.0;
-            requestRate = 0.0;
             count = 0;
             lastTime = System.currentTimeMillis();
             totalEvents = totalServiceTime = cumulativeEvents = 0;
@@ -261,11 +247,6 @@ public final class MetricsFactory {
         }
 
         @Override
-        public double getRequestRate() {
-            return 0;
-        }
-
-        @Override
         public double getThreshold() {
             return 0.0;
         }
@@ -277,10 +258,6 @@ public final class MetricsFactory {
 
         @Override
         public void recordServiceRate(int numEvents, long time) {
-        }
-
-        @Override
-        public void recordRequestRate(int numEvents, long time) {
         }
 
         @Override
