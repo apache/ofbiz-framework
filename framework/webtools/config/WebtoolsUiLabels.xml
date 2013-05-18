@@ -3405,13 +3405,8 @@
         <value xml:lang="ja">メトリックス</value>
         <value xml:lang="zh">度量</value>
     </property>
-    <property key="WebtoolsMetricsRequestRate">
-        <value xml:lang="en">Request/Event Rate (mS)</value>
-        <value xml:lang="fr">Durée des requêtes/évènements (mS)</value>
-    </property>
-    <property key="WebtoolsMetricsServiceRate">
+    <property key="WebtoolsMetricsRate">
         <value xml:lang="en">Service Rate (mS)</value>
-        <value xml:lang="fr">Durée des Services (mS)</value>
         <value xml:lang="ja">サービスレート(ミリ秒)</value>
         <value xml:lang="zh">服务速率（毫秒）</value>
     </property>
@@ -5058,7 +5053,7 @@
     <property key="WebtoolsStatsNoRequests">
         <value xml:lang="de">Es wurden keine Anfragestatistiken gefunden.</value>
         <value xml:lang="en">No Request statistics found.</value>
-        <value xml:lang="fr">Aucune requête de statistiques trouvée</value>
+        <value xml:lang="fr">Aucune requêt de statistiques trouvée</value>
         <value xml:lang="it">Nessuna statistica delle request trovata.</value>
         <value xml:lang="ja">リクエスト統計はありません</value>
         <value xml:lang="pt">Nenhum pedido de estatÃ­sticas encontrado.</value>

@@ -552,7 +552,6 @@ public class CommonServices {
             Map<String, Object> metricsMap = FastMap.newInstance();
             metricsMap.put("name", metrics.getName());
             metricsMap.put("serviceRate", metrics.getServiceRate());
-            metricsMap.put("requestRate", metrics.getRequestRate());
             metricsMap.put("threshold", metrics.getThreshold());
             metricsMap.put("totalEvents", metrics.getTotalEvents());
             metricsMapList.add(metricsMap);

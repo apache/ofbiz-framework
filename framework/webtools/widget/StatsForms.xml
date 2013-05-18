@@ -52,8 +52,7 @@ under the License.
             <service service-name="getAllMetrics" />
         </actions>
         <field name="name" title="${uiLabelMap.CommonName}"><display/></field>
-        <field name="serviceRate" title="${uiLabelMap.WebtoolsMetricsServiceRate}"><display/></field>
-        <field name="requestRate" title="${uiLabelMap.WebtoolsMetricsRequestRate}"><display/></field>
+        <field name="serviceRate" title="${uiLabelMap.WebtoolsMetricsRate}"><display/></field>
         <field name="threshold" title="${uiLabelMap.WebtoolsMetricsThreshold}"><display/></field>
         <field name="totalEvents" title="${uiLabelMap.WebtoolsMetricsTotalEvents}"><display/></field>
         <field name="resetMetric" title=" " widget-area-style="button-col">
