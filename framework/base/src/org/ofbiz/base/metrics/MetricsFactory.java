@@ -28,8 +28,8 @@
  */
 package org.ofbiz.base.metrics;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.TreeSet;
 
 import org.ofbiz.base.lang.LockedBy;
 import org.ofbiz.base.lang.ThreadSafe;
@@ -131,13 +131,13 @@ public final class MetricsFactory {
     }
 
     /**
-     * Returns all <code>Metric</code> instances.
+     * Returns all <code>Metric</code> instances, sorted by name.
      */
-    public static List<Metrics> getMetrics() {
-        return new ArrayList<Metrics>(METRICS_CACHE.values());
+    public static Collection<Metrics> getMetrics() {
+        return new TreeSet<Metrics>(METRICS_CACHE.values());
     }
 
-    private static final class MetricsImpl implements Metrics {
+    private static final class MetricsImpl implements Metrics, Comparable<Metrics> {
         @LockedBy("this")
         private int count = 0;
         @LockedBy("this")
@@ -162,6 +162,11 @@ public final class MetricsFactory {
             this.estimationTime = estimationTime;
             this.smoothing = smoothing;
             this.threshold = threshold;
+        }
+
+        @Override
+        public int compareTo(Metrics other) {
+            return this.name.compareTo(other.getName());
         }
 
         @Override
