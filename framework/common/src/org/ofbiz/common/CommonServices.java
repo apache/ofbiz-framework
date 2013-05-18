@@ -32,6 +32,7 @@ import java.io.RandomAccessFile;
 import java.io.Writer;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -547,7 +548,7 @@ public class CommonServices {
 
     public static Map<String, Object> getAllMetrics(DispatchContext dctx, Map<String, ?> context) {
         List<Map<String, Object>> metricsMapList = FastList.newInstance();
-        List<Metrics> metricsList = MetricsFactory.getMetrics();
+        Collection<Metrics> metricsList = MetricsFactory.getMetrics();
         for (Metrics metrics : metricsList) {
             Map<String, Object> metricsMap = FastMap.newInstance();
             metricsMap.put("name", metrics.getName());
