@@ -168,6 +168,7 @@ public class RequestHandler {
         if (requestMap.metrics != null && requestMap.metrics.getThreshold() != 0.0 && requestMap.metrics.getTotalEvents() > 3 && requestMap.metrics.getThreshold() < requestMap.metrics.getServiceRate()) {
             eventReturn = "threshold-exceeded";
         }
+        ConfigXMLReader.RequestMap originalRequestMap = requestMap; // Save this so we can update the correct performance metrics.
 
         boolean interruptRequest = false;
 
@@ -675,8 +676,8 @@ public class RequestHandler {
                 if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is handled by the event." + " sessionId=" + UtilHttp.getSessionId(request), module);
             }
         }
-        if (requestMap.metrics != null) {
-            requestMap.metrics.recordServiceRate(1, System.currentTimeMillis() - startTime);
+        if (originalRequestMap.metrics != null) {
+            originalRequestMap.metrics.recordServiceRate(1, System.currentTimeMillis() - startTime);
         }
     }
 
