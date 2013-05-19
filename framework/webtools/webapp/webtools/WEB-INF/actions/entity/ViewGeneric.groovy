@@ -402,8 +402,7 @@ for (int relIndex = 0; relIndex < entity.getRelationsSize(); relIndex++) {
                 mapRelation.put("relType", "one");
 
                 String findString = "entityName=" + relatedEntity.getEntityName();
-                for (int knum = 0; knum < relation.getKeyMaps().size(); knum++) {
-                    ModelKeyMap keyMap = relation.getKeyMap(knum);
+                for (ModelKeyMap keyMap : relation.getKeyMaps()) {
                     if (value.get(keyMap.getFieldName()) != null) {
                         findString += "&" + keyMap.getRelFieldName() + "=" + value.get(keyMap.getFieldName());
                     }
@@ -420,8 +419,7 @@ for (int relIndex = 0; relIndex < entity.getRelationsSize(); relIndex++) {
                 mapRelation.put("relType", "many");
 
                 String findString = "entityName=" + relatedEntity.getEntityName();
-                for (int knum = 0; knum < relation.getKeyMaps().size(); knum++) {
-                    ModelKeyMap keyMap = relation.getKeyMap(knum);
+                for (ModelKeyMap keyMap : relation.getKeyMaps()) {
                     if (value.get(keyMap.getFieldName()) != null) {
                         findString += "&" + keyMap.getRelFieldName() + "=" + value.get(keyMap.getFieldName());
                     }
