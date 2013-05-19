@@ -218,7 +218,20 @@ public class EntityTestSuite extends EntityTestCase {
         testValue.remove();
         testList = delegator.findList("TestingType", testCondition, null, null, null, true);
         assertEquals("Delegator findList returned empty list", 0, testList.size());
-        // TODO: Test view entities.
+        // Test view entities in the pk cache - updating an entity should clear pk caches for all view entities containing that entity.
+        testValue = delegator.create("TestingSubtype", "testingTypeId", "TEST-9", "subtypeDescription", "Testing Subtype #9");
+        assertNotNull("TestingSubtype created", testValue);
+        // Confirm member entity appears in the view
+        testValue = delegator.findOne("TestingViewPks", true, "testingTypeId", "TEST-9");
+        assertEquals("View retrieved from cache has the correct member description", "Testing Subtype #9", testValue.getString("subtypeDescription"));
+        testValue = delegator.findOne("TestingSubtype", true, "testingTypeId", "TEST-9");
+        // Modify member entity
+        testValue = (GenericValue) testValue.clone();
+        testValue.put("subtypeDescription", "New Testing Subtype #9");
+        testValue.store();
+        // Check if cached view contains the modification
+        testValue = delegator.findOne("TestingViewPks", true, "testingTypeId", "TEST-9");
+        assertEquals("View retrieved from cache has the correct member description", "New Testing Subtype #9", testValue.getString("subtypeDescription"));
     }
 
     /*

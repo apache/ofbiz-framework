@@ -71,6 +71,27 @@ under the License.
         <prim-key field="testingTypeId"/>
     </entity>
   <!-- =========================================================
+    Used for testing views with pks.
+    This simulates the Party->PartyGroup and Party->Person entity relationships.
+  ========================================================= -->
+    <entity entity-name="TestingSubtype" package-name="org.ofbiz.entity.test" title="Testing Subtype Entity">
+        <field name="testingTypeId" type="id-ne" />
+        <field name="subtypeDescription" type="description" />
+        <prim-key field="testingTypeId" />
+    </entity>
+  <!-- =========================================================
+    Used for testing views with pks
+  ========================================================= -->
+    <view-entity entity-name="TestingViewPks" package-name="org.ofbiz.entity.test" title="Testing And TestingSubtype View">
+        <member-entity entity-alias="TST" entity-name="TestingType" />
+        <member-entity entity-alias="TSTSUB" entity-name="TestingSubtype" />
+        <alias-all entity-alias="TST" />
+        <alias-all entity-alias="TSTSUB" />
+        <view-link entity-alias="TST" rel-entity-alias="TSTSUB">
+            <key-map field-name="testingTypeId" />
+        </view-link>
+    </view-entity>
+  <!-- =========================================================
      An entity for testing the BLOB data type
    ========================================================== -->
     <entity entity-name="TestBlob"

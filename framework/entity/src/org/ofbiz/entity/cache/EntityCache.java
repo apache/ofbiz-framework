@@ -18,11 +18,14 @@
  *******************************************************************************/
 package org.ofbiz.entity.cache;
 
+import java.util.Iterator;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.model.ModelEntity;
 
 public class EntityCache extends AbstractCache<GenericPK, GenericValue> {
     public static final String module = EntityCache.class.getName();
@@ -77,6 +80,14 @@ public class EntityCache extends AbstractCache<GenericPK, GenericValue> {
         if (Debug.verboseOn()) Debug.logVerbose("Removing from EntityCache with PK [" + pk + "], will remove from this cache: " + (entityCache == null ? "[No cache found to remove from]" : entityCache.getName()), module);
         if (entityCache == null) return null;
         GenericValue retVal = entityCache.remove(pk);
+        ModelEntity model = pk.getModelEntity();
+        if (model != null) {
+            Iterator<String> it = model.getViewConvertorsIterator();
+            while (it.hasNext()) {
+                String targetEntityName = it.next();
+                UtilCache.clearCache(getCacheName(targetEntityName));
+            }
+        }
         if (Debug.verboseOn()) Debug.logVerbose("Removing from EntityCache with PK [" + pk + "], found this in the cache: " + retVal, module);
         return retVal;
     }
