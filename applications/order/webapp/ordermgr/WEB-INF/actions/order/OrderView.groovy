@@ -117,15 +117,11 @@ if (orderHeader) {
     grandTotal = OrderReadHelper.getOrderGrandTotal(orderItems, orderAdjustments);
     context.grandTotal = grandTotal;
 
-    canceledPromoOrderItem = [:];
     orderItemList = orderReadHelper.getOrderItems();
-    orderItemList.each { orderItem ->
-        if("Y".equals(orderItem.get("isPromo")) && "ITEM_CANCELLED".equals(orderItem.get("statusId"))) {
-            canceledPromoOrderItem = orderItem;
-        }
-        orderItemList.remove(canceledPromoOrderItem);
+    // Retrieve all non-promo items that aren't cancelled
+    context.orderItemList = orderReadHelper.getOrderItems().findAll { item ->
+        (item.isPromo == null || item.isPromo == 'N')  && !(item.statusId.equals('ITEM_CANCELLED'))
     }
-    context.orderItemList = orderItemList;
 
     shippingAddress = orderReadHelper.getShippingAddress();
     context.shippingAddress = shippingAddress;
