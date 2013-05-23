@@ -28,6 +28,7 @@
  */
 package org.ofbiz.base.metrics;
 
+
 /**
  * An object that tracks service metrics.
  * <p>This interface and its default implementation are based on the
@@ -36,11 +37,6 @@ package org.ofbiz.base.metrics;
  * @see <a href="http://www.eecs.harvard.edu/~mdw/proj/seda/">SEDA</a>
  */
 public interface Metrics {
-
-    public static final int ESTIMATION_SIZE = 100;
-    public static final long ESTIMATION_TIME = 1000;
-    public static final double SMOOTHING = 0.7;
-
     /**
      * Returns the name of the metric.
      */

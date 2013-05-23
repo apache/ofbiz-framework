@@ -342,8 +342,8 @@ under the License.
     <xs:element name="metric">
         <xs:annotation>
             <xs:documentation>
-                Calculate and maintain an average response time for this request. Request metrics can be used
-                for monitoring and reporting. Metrics can also be used to trigger an alternate
+                Calculate and maintain a moving average response time for a Request or Event. Request Metrics can be used
+                for monitoring and reporting, Event Metrics only for reporting. Request Metrics can also be used to trigger an alternate
                 response if the optional threshold attribute is used.
                 
                 The metric works by gathering statistics until a configurable maximum is reached (number of
@@ -402,6 +402,9 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="metric"/>
+            </xs:sequence>
             <xs:attributeGroup ref="attlist.event"/>
         </xs:complexType>
     </xs:element>

@@ -34,6 +34,7 @@ import java.util.TreeSet;
 import org.ofbiz.base.lang.LockedBy;
 import org.ofbiz.base.lang.ThreadSafe;
 import org.ofbiz.base.util.Assert;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.w3c.dom.Element;
 
@@ -42,7 +43,6 @@ import org.w3c.dom.Element;
  */
 @ThreadSafe
 public final class MetricsFactory {
-
     private static final UtilCache<String, Metrics> METRICS_CACHE = UtilCache.createUtilCache("base.metrics", 0, 0);
     /**
      * A "do-nothing" <code>Metrics</code> instance.
@@ -73,17 +73,17 @@ public final class MetricsFactory {
         Assert.notEmpty("name attribute", name);
         Metrics result = METRICS_CACHE.get(name);
         if (result == null) {
-            int estimationSize = Metrics.ESTIMATION_SIZE;
+            int estimationSize = UtilProperties.getPropertyAsInteger("serverstats", "metrics.estimation.size", 100); 
             String attributeValue = element.getAttribute("estimation-size");
             if (!attributeValue.isEmpty()) {
                 estimationSize = Integer.parseInt(attributeValue);
             }
-            long estimationTime = Metrics.ESTIMATION_TIME;
+            long estimationTime = UtilProperties.getPropertyAsLong("serverstats", "metrics.estimation.time", 1000);
             attributeValue = element.getAttribute("estimation-time");
             if (!attributeValue.isEmpty()) {
                 estimationTime = Long.parseLong(attributeValue);
             }
-            double smoothing = Metrics.SMOOTHING;
+            double smoothing = UtilProperties.getPropertyNumber("serverstats", "metrics.smoothing.factor", 0.7);
             attributeValue = element.getAttribute("smoothing");
             if (!attributeValue.isEmpty()) {
                 smoothing = Double.parseDouble(attributeValue);
@@ -151,9 +151,9 @@ public final class MetricsFactory {
         @LockedBy("this")
         private long cumulativeEvents;
         private final String name;
-        private final int estimationSize;
-        private final long estimationTime;
-        private final double smoothing;
+        private int estimationSize;
+        private long estimationTime;
+        private double smoothing;
         private final double threshold;
 
         private MetricsImpl(String name, int estimationSize, long estimationTime, double smoothing, double threshold) {

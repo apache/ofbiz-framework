@@ -170,6 +170,7 @@ public class RequestHandler {
         }
         ConfigXMLReader.RequestMap originalRequestMap = requestMap; // Save this so we can update the correct performance metrics.
 
+
         boolean interruptRequest = false;
 
         // Check for chained request.
@@ -416,6 +417,10 @@ public class RequestHandler {
 
                     // run the request event
                     eventReturn = this.runEvent(request, response, requestMap.event, requestMap, "request");
+                                        
+                    if (requestMap.event.metrics != null) {
+                        requestMap.event.metrics.recordServiceRate(1, System.currentTimeMillis() - startTime);
+                    }                    
 
                     // save the server hit for the request event
                     if (this.trackStats(request)) {
