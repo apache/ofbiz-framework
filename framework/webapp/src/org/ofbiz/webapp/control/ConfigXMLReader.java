@@ -588,12 +588,18 @@ public class ConfigXMLReader {
         public String path;
         public String invoke;
         public boolean globalTransaction = true;
+        public Metrics metrics = null;
 
         public Event(Element eventElement) {
             this.type = eventElement.getAttribute("type");
             this.path = eventElement.getAttribute("path");
             this.invoke = eventElement.getAttribute("invoke");
             this.globalTransaction = !"false".equals(eventElement.getAttribute("global-transaction"));
+            // Get metrics.
+            Element metricsElement = UtilXml.firstChildElement(eventElement, "metric");
+            if (metricsElement != null) {
+                this.metrics = MetricsFactory.getInstance(metricsElement);
+            }
         }
 
         public Event(String type, String path, String invoke, boolean globalTransaction) {
