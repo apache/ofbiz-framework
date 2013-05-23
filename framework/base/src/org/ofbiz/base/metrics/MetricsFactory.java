@@ -151,9 +151,9 @@ public final class MetricsFactory {
         @LockedBy("this")
         private long cumulativeEvents;
         private final String name;
-        private int estimationSize;
-        private long estimationTime;
-        private double smoothing;
+        private final int estimationSize;
+        private final long estimationTime;
+        private final double smoothing;
         private final double threshold;
 
         private MetricsImpl(String name, int estimationSize, long estimationTime, double smoothing, double threshold) {
