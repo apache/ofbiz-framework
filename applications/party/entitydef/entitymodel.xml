@@ -2482,12 +2482,8 @@ under the License.
       <member-entity entity-alias="PR" entity-name="PartyRole"/>
       <member-entity entity-alias="PERSON" entity-name="Person"/>
       <member-entity entity-alias="PTYGRP" entity-name="PartyGroup"/>
-      <member-entity entity-alias="PS" entity-name="PartyStatus"/>
       <alias-all entity-alias="PTY"/>
       <alias-all entity-alias="PR"/>
-      <alias-all entity-alias="PS">
-        <exclude field="statusId"/>
-      </alias-all>
       <alias-all entity-alias="PERSON">
         <exclude field="comments"/>
       </alias-all>
@@ -2496,7 +2492,6 @@ under the License.
       </alias-all>
       <alias entity-alias="PERSON" name="personComments" field="comments"/>
       <alias entity-alias="PTYGRP" name="partyGroupComments" field="comments"/>
-      <alias entity-alias="PS" name="previousStatusId" field="statusId"/>
       <view-link entity-alias="PTY" rel-entity-alias="PR">
         <key-map field-name="partyId"/>
       </view-link>
