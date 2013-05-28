@@ -137,7 +137,8 @@ context.thruDateStr = toStr;
 viewIndex = request.getParameter("viewIndex") ? Integer.valueOf(request.getParameter("viewIndex")) : 1;
 context.viewIndex = viewIndex;
 
-viewSize = request.getParameter("viewSize") ? Integer.valueOf(request.getParameter("viewSize")) : 20;
+viewSize = request.getParameter("viewSize") ? Integer.valueOf(request.getParameter("viewSize")) : 
+                                                                UtilProperties.getPropertyValue("widget", "widget.form.defaultViewSize");
 context.viewSize = viewSize;
 
 // get the lookup flag
