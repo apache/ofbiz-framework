@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.rmi.server.UID;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -126,8 +127,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         try {
             Environment environment = getEnvironment(writer);
             Reader templateReader = new StringReader(macro);
-            // FIXME: I am using a Date as an hack to provide a unique name for the template...
-            Template template = new Template((new java.util.Date()).toString(), templateReader, FreeMarkerWorker.getDefaultOfbizConfig());
+            Template template = new Template(new UID().toString(), templateReader, FreeMarkerWorker.getDefaultOfbizConfig());
             templateReader.close();
             environment.include(template);
         } catch (TemplateException e) {
@@ -1195,18 +1195,15 @@ public class MacroFormRenderer implements FormStringRenderer {
     }
 
     public void renderFieldTitle(Appendable writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
-        String tempTitleText = modelFormField.getTitle(context);
-        String titleText = UtilHttp.encodeAmpersands(tempTitleText);
+        String titleText = modelFormField.getTitle(context);
         String style = modelFormField.getTitleStyle();
         String id = modelFormField.getCurrentContainerId(context);
         StringBuilder sb = new StringBuilder();
         if (UtilValidate.isNotEmpty(titleText)) {
             if (" ".equals(titleText)) {
-                // FIXME: we have to change the following code because it is a solution that only works with html.
-                // If the title content is just a blank then render it calling renderFormatEmptySpace:
-                // the method will set its content to work fine in most browser
-                sb.append("&nbsp;");
+                executeMacro(writer, "<@renderFormatEmptySpace />");
             } else {
+                titleText = UtilHttp.encodeAmpersands(titleText);
                 titleText = encode(titleText, modelFormField, context);
                 if (UtilValidate.isNotEmpty(modelFormField.getHeaderLink())) {
                     StringBuilder targetBuffer = new StringBuilder();
