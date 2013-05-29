@@ -697,6 +697,24 @@ under the License.
         </xs:complexType>
     </xs:element>
 
+    <xs:element name="column-container" substitutionGroup="AllWidgets">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="unbounded" name="column">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element minOccurs="0" maxOccurs="unbounded" ref="AllWidgets" />
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="id" />
+                        <xs:attribute type="xs:string" name="style" />
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="id" />
+            <xs:attribute type="xs:string" name="style" />
+        </xs:complexType>
+    </xs:element>
+
     <xs:element name="container" substitutionGroup="AllWidgets">
         <xs:complexType>
             <xs:sequence>

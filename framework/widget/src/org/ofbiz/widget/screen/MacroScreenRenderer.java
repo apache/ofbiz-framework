@@ -59,6 +59,7 @@ import org.ofbiz.widget.form.MacroFormRenderer;
 import org.ofbiz.widget.form.ModelForm;
 import org.ofbiz.widget.html.HtmlScreenRenderer.ScreenletMenuRenderer;
 import org.ofbiz.widget.menu.MenuStringRenderer;
+import org.ofbiz.widget.screen.ModelScreenWidget.*;
 import org.xml.sax.SAXException;
 
 import freemarker.core.Environment;
@@ -1007,5 +1008,38 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             }
         }
         modelScreen.renderScreenString(writer, context, this);
+    }
+
+    @Override
+    public void renderColumnContainer(Appendable writer, Map<String, Object> context, ColumnContainer columnContainer) throws IOException {
+        String id = columnContainer.getId(context);
+        String style = columnContainer.getStyle(context);
+        StringBuilder sb = new StringBuilder("<@renderColumnContainerBegin");
+        sb.append(" id=\"");
+        sb.append(id);
+        sb.append("\" style=\"");
+        sb.append(style);
+        sb.append("\" />");
+        executeMacro(writer, sb.toString());
+        for (Column column : columnContainer.getColumns()) {
+            id = column.getId(context);
+            style = column.getStyle(context);
+            sb = new StringBuilder("<@renderColumnBegin");
+            sb.append(" id=\"");
+            sb.append(id);
+            sb.append("\" style=\"");
+            sb.append(style);
+            sb.append("\" />");
+            executeMacro(writer, sb.toString());
+            for (ModelScreenWidget subWidget : column.getSubWidgets()) {
+                try {
+                    subWidget.renderWidgetString(writer, context, this);
+                } catch (GeneralException e) {
+                    throw new IOException(e);
+                }
+            }
+            executeMacro(writer, "<@renderColumnEnd />");
+        }
+        executeMacro(writer, "<@renderColumnContainerEnd />");
     }
 }

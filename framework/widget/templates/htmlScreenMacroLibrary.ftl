@@ -320,3 +320,21 @@ ${menuString}
     </div>
   </#if>
 </#macro>
+
+<#macro renderColumnContainerBegin id style>
+  <table cellspacing="0"<#if id?has_content> id="${id}"</#if><#if style?has_content> class="${style}"</#if>>
+  <tr>
+</#macro>
+
+<#macro renderColumnContainerEnd>
+  </tr>
+  </table>
+</#macro>
+
+<#macro renderColumnBegin id style>
+  <td<#if id?has_content> id="${id}"</#if><#if style?has_content> class="${style}"</#if>>
+</#macro>
+
+<#macro renderColumnEnd>
+  </td>
+</#macro>

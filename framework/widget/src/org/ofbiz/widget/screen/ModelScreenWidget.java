@@ -20,8 +20,10 @@ package org.ofbiz.widget.screen;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.ListIterator;
 
@@ -226,6 +228,78 @@ public abstract class ModelScreenWidget extends ModelWidget {
         @Override
         public String rawString() {
             return "<section" + (UtilValidate.isNotEmpty(this.name)?" name=\"" + this.name + "\"":"") + ">";
+        }
+    }
+
+    public static class ColumnContainer extends ModelScreenWidget {
+        public static final String TAG_NAME = "column-container";
+        private final FlexibleStringExpander idExdr;
+        private final FlexibleStringExpander styleExdr;
+        private final List<Column> columns;
+
+        public ColumnContainer(ModelScreen modelScreen, Element containerElement) {
+            super(modelScreen, containerElement);
+            this.idExdr = FlexibleStringExpander.getInstance(containerElement.getAttribute("id"));
+            this.styleExdr = FlexibleStringExpander.getInstance(containerElement.getAttribute("style"));
+            List<? extends Element> subElementList = UtilXml.childElementList(containerElement, "column");
+            List<Column> columns = new ArrayList<Column>(subElementList.size());
+            for (Element element : subElementList) {
+                columns.add(new Column(modelScreen, element));
+            }
+            this.columns = Collections.unmodifiableList(columns);
+        }
+
+        @Override
+        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
+            try {
+                screenStringRenderer.renderColumnContainer(writer, context, this);
+            } catch (IOException e) {
+                String errMsg = "Error rendering container in screen named [" + this.modelScreen.getName() + "]: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                throw new RuntimeException(errMsg);
+            }
+        }
+
+        public List<Column> getColumns() {
+            return this.columns;
+        }
+
+        public String getId(Map<String, Object> context) {
+            return this.idExdr.expandString(context);
+        }
+
+        public String getStyle(Map<String, Object> context) {
+            return this.styleExdr.expandString(context);
+        }
+
+        @Override
+        public String rawString() {
+            return "<column-container id=\"" + this.idExdr.getOriginal() + "\" style=\"" + this.styleExdr.getOriginal() + "\">";
+        }
+    }
+
+    public static class Column {
+        private final FlexibleStringExpander idExdr;
+        private final FlexibleStringExpander styleExdr;
+        private final List<ModelScreenWidget> subWidgets;
+
+        public Column(ModelScreen modelScreen, Element columnElement) {
+            this.idExdr = FlexibleStringExpander.getInstance(columnElement.getAttribute("id"));
+            this.styleExdr = FlexibleStringExpander.getInstance(columnElement.getAttribute("style"));
+            List<? extends Element> subElementList = UtilXml.childElementList(columnElement);
+            this.subWidgets = Collections.unmodifiableList(readSubWidgets(modelScreen, subElementList));
+        }
+
+        public List<ModelScreenWidget> getSubWidgets() {
+            return this.subWidgets;
+        }
+
+        public String getId(Map<String, Object> context) {
+            return this.idExdr.expandString(context);
+        }
+
+        public String getStyle(Map<String, Object> context) {
+            return this.styleExdr.expandString(context);
         }
     }
 
