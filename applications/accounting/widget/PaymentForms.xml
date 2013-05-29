@@ -143,10 +143,10 @@ under the License.
                 <list-options list-name="paymentTypes" key-name="paymentTypeId" description="${description}"/>
             </drop-down>
         </field>
-        <field name="paymentMethodId" id-name="paymentMethodId" position="2">
+        <field name="paymentMethodId" title="${uiLabelMap.AccountingPaymentMethodId}" position="2">
             <drop-down allow-empty="false">
                 <entity-options entity-name="PaymentMethod" description="${description}">
-                    <entity-constraint name="partyId" operator="equals" env-name="paymentPartyId"/>
+                    <entity-constraint name="partyId" operator="equals" env-name="defaultOrganizationPartyId"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -181,9 +181,10 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field position="2" name="paymentMethodTypeId">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="PaymentMethodType"  description="${description}">
+        <field name="paymentMethodId" title="${uiLabelMap.AccountingPaymentMethodId}" position="2">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="PaymentMethod" description="${description}">
+                    <entity-constraint name="partyId" operator="equals" env-name="defaultOrganizationPartyId"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -244,10 +245,10 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field position="1" name="paymentMethodId">
+        <field name="paymentMethodId" title="${uiLabelMap.AccountingPaymentMethodId}" position="1">
             <drop-down allow-empty="false">
                 <entity-options  key-field-name="paymentMethodId" entity-name="PaymentMethod" description="${paymentMethodTypeId} (${paymentMethodId})">
-                    <entity-constraint name="partyId" operator="equals" value="${payment.partyIdFrom}"/>
+                    <entity-constraint name="partyId" operator="equals" value="${groovy:isDisbursement==true?payment.partyIdFrom:payment.partyIdTo}"/>
                     <entity-order-by field-name="paymentMethodTypeId"/>
                 </entity-options>
             </drop-down>
