@@ -25,10 +25,12 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.widget.screen.ModelScreenWidget;
 import org.ofbiz.widget.screen.ScreenStringRenderer;
+import org.ofbiz.widget.screen.ModelScreenWidget.ColumnContainer;
 import org.ofbiz.entity.GenericValue;
 
 /**
  * Widget Library - Text Screen Renderer implementation
+ * @deprecated Use MacroScreenRenderer.
  */
 public class TextScreenRenderer implements ScreenStringRenderer {
 
@@ -141,6 +143,11 @@ public class TextScreenRenderer implements ScreenStringRenderer {
         // TODO: not implemented
     }
     public void renderPortalPagePortletBody(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPortlet) throws GeneralException, IOException {
+        // TODO: not implemented
+    }
+
+    @Override
+    public void renderColumnContainer(Appendable writer, Map<String, Object> context, ColumnContainer columnContainer) throws IOException {
         // TODO: not implemented
     }
 }
