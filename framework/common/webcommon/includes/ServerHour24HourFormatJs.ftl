@@ -23,10 +23,12 @@ jQuery(document).ready(function() {
   var date;
   function clock() {
     if (jQuery("#${clockField}").text() === "${uiLabelMap.CommonServerHour}:") {
+      waitSpinnerShow();
       serverTimestamp = getServiceResult("getServerTimestampAsLong")['serverTimestamp'];
       serverTimeZone = getServiceResult("getServerTimeZone")['serverTimeZone'];;
       initTimeZone();
-      date = new timezoneJS.Date(serverTimestamp, serverTimeZone);      
+      date = new timezoneJS.Date(serverTimestamp, serverTimeZone);
+      waitSpinnerHide();      
     } else {
       date.setSeconds(date.getSeconds() + 1);
     }
