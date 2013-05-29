@@ -246,7 +246,7 @@ under the License.
             </drop-down>
         </field>
         <field name="paymentMethodId" title="${uiLabelMap.AccountingPaymentMethodId}" position="1">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="true">
                 <entity-options  key-field-name="paymentMethodId" entity-name="PaymentMethod" description="${paymentMethodTypeId} (${paymentMethodId})">
                     <entity-constraint name="partyId" operator="equals" value="${groovy:isDisbursement==true?payment.partyIdFrom:payment.partyIdTo}"/>
                     <entity-order-by field-name="paymentMethodTypeId"/>
