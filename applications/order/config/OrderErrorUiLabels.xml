@@ -1631,6 +1631,10 @@
         <value xml:lang="zh">激活 wfDelegateAndAcceptAssignment 服务时失败。 </value>
         <value xml:lang="zh_TW">啟動 wfDelegateAndAcceptAssignment 服務時失敗。 </value>
     </property>
+    <property key="OrderFindOrderProductInvalid">
+        <value xml:lang="en">Product ID [${productId}] is not valid. Please enter a valid productId to get related orders (or nothing for all).</value>
+        <value xml:lang="fr">Le produit [${productId}] n'existe pas. Entrez une réf. de produit existante, ou laissez vide pour obtenir toutes les commandes.</value>
+    </property>
     <property key="OrderFixedAssetNotFoundFixedAssetId">
         <value xml:lang="de">Anlage ${fixedAssetId} nicht gefunden</value>
         <value xml:lang="en">fixed_Asset_not_found. Fixed AssetId : ${fixedAssetId}</value>
