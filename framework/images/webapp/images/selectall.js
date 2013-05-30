@@ -290,8 +290,9 @@ function ajaxUpdateAreas(areaCsvString) {
   * @param interval The update interval, in seconds.
 */
 function ajaxUpdateAreaPeriodic(areaId, target, targetParams, interval) {
+    var intervalMillis = interval * 1000;
     jQuery.fjTimer({
-        interval: interval,
+        interval: intervalMillis,
         repeat: true,
         tick: function(container, timerId){
             jQuery.ajax({
