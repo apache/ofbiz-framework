@@ -308,7 +308,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         protected FlexibleStringExpander idExdr;
         protected FlexibleStringExpander styleExdr;
         protected FlexibleStringExpander autoUpdateTargetExdr;
-        protected String autoUpdateInterval = "2";
+        protected FlexibleStringExpander autoUpdateInterval;
         protected List<ModelScreenWidget> subWidgets;
 
         public Container(ModelScreen modelScreen, Element containerElement) {
@@ -316,10 +316,11 @@ public abstract class ModelScreenWidget extends ModelWidget {
             this.idExdr = FlexibleStringExpander.getInstance(containerElement.getAttribute("id"));
             this.styleExdr = FlexibleStringExpander.getInstance(containerElement.getAttribute("style"));
             this.autoUpdateTargetExdr = FlexibleStringExpander.getInstance(containerElement.getAttribute("auto-update-target"));
-            if (containerElement.hasAttribute("auto-update-interval")) {
-                this.autoUpdateInterval = containerElement.getAttribute("auto-update-interval");
+            String autoUpdateInterval = containerElement.getAttribute("auto-update-interval");
+            if (autoUpdateInterval.isEmpty()) {
+                autoUpdateInterval = "2";
             }
-
+            this.autoUpdateInterval = FlexibleStringExpander.getInstance(autoUpdateInterval);
             // read sub-widgets
             List<? extends Element> subElementList = UtilXml.childElementList(containerElement);
             this.subWidgets = ModelScreenWidget.readSubWidgets(this.modelScreen, subElementList);
@@ -353,8 +354,15 @@ public abstract class ModelScreenWidget extends ModelWidget {
             return this.autoUpdateTargetExdr.expandString(context);
         }
 
+        /**
+         * @deprecated Use the version that takes a context parameter.
+         */
         public String getAutoUpdateInterval() {
-            return this.autoUpdateInterval;
+            return this.autoUpdateInterval.getOriginal();
+        }
+
+        public String getAutoUpdateInterval(Map<String, Object> context) {
+            return this.autoUpdateInterval.expandString(context);
         }
 
         @Override

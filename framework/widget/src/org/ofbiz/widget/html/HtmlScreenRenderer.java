@@ -111,7 +111,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
             writer.append("', '");
             writer.append(rh.makeLink(request, response, autoUpdateTarget));
             writer.append("', '");
-            writer.append("', '").append(container.getAutoUpdateInterval()).append("');</script>");
+            writer.append("', '").append(container.getAutoUpdateInterval(context)).append("');</script>");
             appendWhitespace(writer);
         }
         writer.append("<div");

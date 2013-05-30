@@ -728,7 +728,7 @@ under the License.
                         Some widget rendering environments support asynchronous updates.</xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute type="xs:integer" name="auto-update-interval">
+            <xs:attribute type="xs:string" name="auto-update-interval">
                 <xs:annotation>
                     <xs:documentation>The auto-update interval, in seconds.</xs:documentation>
                 </xs:annotation>
