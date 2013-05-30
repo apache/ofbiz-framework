@@ -194,7 +194,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         parameters.put("id", containerId);
         parameters.put("style", container.getStyle(context));
         parameters.put("autoUpdateLink", autoUpdateLink);
-        parameters.put("autoUpdateInterval", container.getAutoUpdateInterval());
+        parameters.put("autoUpdateInterval", container.getAutoUpdateInterval(context));
         executeMacro(writer, "renderContainerBegin", parameters);
     }
 
