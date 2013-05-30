@@ -748,6 +748,7 @@ under the License.
         <response name="shipping" type="view" value="shipsetting"/>
         <response name="shippingAddress" type="view" value="EditShipAddress"/>
         <response name="options" type="view" value="optionsetting"/>
+        <response name="paymentMissing" type="view" value="billsetting"/>
         <response name="payment" type="request" value="calcShippingBeforePayment"/>
         <response name="paymentError" type="request" value="calcShippingBeforePayment"/>
         <response name="term" type="view" value="orderTerm"/>
