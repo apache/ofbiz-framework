@@ -240,6 +240,11 @@ function confirmActionFormLink(msg, formName) {
 */
 
 function ajaxUpdateArea(areaId, target, targetParams) {
+    if (areaId == "window") {
+        targetUrl = target + "?" + targetParams.replace('?','');
+        window.location.assign(targetUrl);
+        return;
+    }
     waitSpinnerShow();
     jQuery.ajax({
         url: target,
@@ -258,28 +263,17 @@ function ajaxUpdateArea(areaId, target, targetParams) {
   * form of: areaId, target, target parameters [, areaId, target, target parameters...].
 */
 function ajaxUpdateAreas(areaCsvString) {
-    waitSpinnerShow();
     var areaArray = areaCsvString.split(",");
     var numAreas = parseInt(areaArray.length / 3);
     for (var i = 0; i < numAreas * 3; i = i + 3) {
         var areaId = areaArray[i];
         var target = areaArray[i + 1];
         var targetParams = areaArray[i + 2];
-        // that was done by the prototype updater internally, remove the ? and the anchor flag from the parameters
+        // Remove the ? and the anchor flag from the parameters
         // not nice but works
         targetParams = targetParams.replace('#','');
         targetParams = targetParams.replace('?','');
-        jQuery.ajax({
-            url: target,
-            async: false,
-            type: "POST",
-            data: targetParams,
-            success: function(data) {
-                jQuery("#" + areaId).html(data);
-                waitSpinnerHide();
-            },
-            error: function(data) {waitSpinnerHide()}
-        });
+        ajaxUpdateArea(areaId, target, targetParams);
     }
 }
 
