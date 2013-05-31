@@ -47,7 +47,7 @@ List separateRootType(roots) {
 
 completedTree =  [];
 // Get the Catalogs
-prodCatalogs = delegator.findByAnd("ProdCatalog", null, null, false);
+prodCatalogs = delegator.findList("ProdCatalog", null, null, null, null, false);
 if (prodCatalogs) {
     prodCatalogs.each { prodCatalog ->
         prodCatalogMap = [:];
