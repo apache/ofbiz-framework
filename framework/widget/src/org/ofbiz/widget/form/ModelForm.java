@@ -198,11 +198,14 @@ public class ModelForm extends ModelWidget {
     protected FlexibleStringExpander rowCountExdr;
     protected List<ModelFormField> multiSubmitFields = FastList.newInstance();
     protected int rowCount = 0;
+    private String sortFieldParameterName = "sortField";
 
     /** On Submit areas to be updated. */
     protected List<UpdateArea> onSubmitUpdateAreas;
     /** On Paginate areas to be updated. */
     protected List<UpdateArea> onPaginateUpdateAreas;
+    /** On Sort Column areas to be updated. */
+    protected List<UpdateArea> onSortColumnUpdateAreas;
 
     // ===== CONSTRUCTORS =====
     /** Default Constructor */
@@ -305,6 +308,7 @@ public class ModelForm extends ModelWidget {
                 this.defaultViewSize = parent.defaultViewSize;
                 this.onSubmitUpdateAreas = parent.onSubmitUpdateAreas;
                 this.onPaginateUpdateAreas = parent.onPaginateUpdateAreas;
+                this.onSortColumnUpdateAreas = parent.onSortColumnUpdateAreas;
                 this.altRowStyles = parent.altRowStyles;
 
                 this.useWhenFields = parent.useWhenFields;
@@ -324,6 +328,7 @@ public class ModelForm extends ModelWidget {
                 this.fieldGroupMap = parent.fieldGroupMap;
                 this.fieldGroupList = parent.fieldGroupList;
                 this.lastOrderFields = parent.lastOrderFields;
+                this.sortFieldParameterName = parent.sortFieldParameterName;
 
             }
         }
@@ -462,7 +467,10 @@ public class ModelForm extends ModelWidget {
         if (this.paginate == null || formElement.hasAttribute("paginate")) {
             this.paginate = FlexibleStringExpander.getInstance(formElement.getAttribute("paginate"));
         }
-
+        String sortFieldParameterName = formElement.getAttribute("sort-field-parameter-name");
+        if (!sortFieldParameterName.isEmpty()) {
+            this.sortFieldParameterName = sortFieldParameterName;
+        }
         this.skipStart = "true".equals(formElement.getAttribute("skip-start"));
         this.skipEnd = "true".equals(formElement.getAttribute("skip-end"));
         this.hideHeader = "true".equals(formElement.getAttribute("hide-header"));
@@ -686,6 +694,8 @@ public class ModelForm extends ModelWidget {
             addOnPaginateUpdateArea(updateArea);
         } else if ("submit".equals(updateArea.getEventType())) {
             addOnSubmitUpdateArea(updateArea);
+        } else if ("sort-column".equals(updateArea.getEventType())) {
+            addOnSortColumnUpdateArea(updateArea);
         }
     }
 
@@ -715,6 +725,23 @@ public class ModelForm extends ModelWidget {
             }
         } else {
             onPaginateUpdateAreas.add(updateArea);
+        }
+    }
+
+    protected void addOnSortColumnUpdateArea(UpdateArea updateArea) {
+        if (onSortColumnUpdateAreas == null) {
+            onSortColumnUpdateAreas = FastList.newInstance();
+        }
+        int index = onSortColumnUpdateAreas.indexOf(updateArea);
+        if (index != -1) {
+            if (UtilValidate.isNotEmpty(updateArea.areaTarget)) {
+                onSortColumnUpdateAreas.set(index, updateArea);
+            } else {
+                // blank target indicates a removing override
+                onSortColumnUpdateAreas.remove(index);
+            }
+        } else {
+            onSortColumnUpdateAreas.add(updateArea);
         }
     }
 
@@ -2335,6 +2362,10 @@ public class ModelForm extends ModelWidget {
         this.type = string;
     }
 
+    public List<UpdateArea> getOnSortColumnUpdateAreas() {
+        return this.onSortColumnUpdateAreas;
+    }
+
     public List<UpdateArea> getOnPaginateUpdateAreas() {
         return this.onPaginateUpdateAreas;
     }
@@ -2758,22 +2789,23 @@ public class ModelForm extends ModelWidget {
     }
 
     public String getSortField(Map<String, Object> context) {
-        String field = "sortField";
         String value = null;
-
         try {
-            value = (String)context.get(field);
+            value = (String)context.get(this.sortFieldParameterName);
             if (value == null) {
                 Map<String, String> parameters = UtilGenerics.cast(context.get("parameters"));
                 if (parameters != null) {
-                    value = parameters.get(field);
+                    value = parameters.get(this.sortFieldParameterName);
                 }
             }
         } catch (Exception e) {
             Debug.logWarning(e, "Error getting sortField: " + e.toString(), module);
         }
-
         return value;
+    }
+
+    public String getSortFieldParameterName() {
+        return this.sortFieldParameterName;
     }
 
     /* Returns the list of ModelForm.UpdateArea objects.
