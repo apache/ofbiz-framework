@@ -115,6 +115,14 @@ under the License.
             <xs:attribute type="xs:string" name="default-widget-style" />
             <xs:attribute type="xs:string" name="default-tooltip-style" />
             <xs:attribute type="xs:string" name="default-required-field-style" />
+            <xs:attribute type="xs:string" name="sort-field-parameter-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the request parameter that is used for specifying the sorted column. This is required when you
+                        have more than one list on a screen - each list must use its own sort field parameter. Defaults to "sortField".
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
             <xs:attribute type="xs:string" name="default-sort-field-style">
                 <xs:annotation>
                     <xs:documentation>CSS style to used for form sort fields. Defaults to "sort-order".</xs:documentation>
@@ -424,6 +432,7 @@ under the License.
                 <xs:simpleType>
                     <xs:restriction base="xs:token">
                         <xs:enumeration value="paginate" />
+                        <xs:enumeration value="sort-column" />
                         <xs:enumeration value="submit" />
                     </xs:restriction>
                 </xs:simpleType>

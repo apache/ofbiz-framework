@@ -353,7 +353,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         if (UtilValidate.isNotEmpty(textField.getMask())) {
             mask = textField.getMask();
         }
-        String ajaxUrl = createAjaxParamsFromUpdateAreas(updateAreas, null, context);
+        String ajaxUrl = createAjaxParamsFromUpdateAreas(updateAreas, "", context);
         boolean disabled = textField.disabled;
         StringWriter sr = new StringWriter();
         sr.append("<@renderTextField ");
@@ -1091,7 +1091,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         boolean ajaxEnabled = (updateAreas != null || UtilValidate.isNotEmpty(backgroundSubmitRefreshTarget)) && this.javaScriptEnabled;
         String ajaxUrl = "";
         if (ajaxEnabled) {
-            ajaxUrl = createAjaxParamsFromUpdateAreas(updateAreas, null, context);
+            ajaxUrl = createAjaxParamsFromUpdateAreas(updateAreas, "", context);
         }
         StringWriter sr = new StringWriter();
         sr.append("<@renderSubmitField ");
@@ -2037,7 +2037,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         this.appendContentUrl(imgSrc, "/images/fieldlookup.gif");
         String ajaxUrl = "";
         if (ajaxEnabled) {
-            ajaxUrl = createAjaxParamsFromUpdateAreas(updateAreas, null, context);
+            ajaxUrl = createAjaxParamsFromUpdateAreas(updateAreas, "", context);
         }
         String lookupPresentation = lookupField.getLookupPresentation();
         if (UtilValidate.isEmpty(lookupPresentation)) {
@@ -2679,21 +2679,21 @@ public class MacroFormRenderer implements FormStringRenderer {
     public void renderSortField(Appendable writer, Map<String, Object> context, ModelFormField modelFormField, String titleText) throws IOException {
         boolean ajaxEnabled = false;
         ModelForm modelForm = modelFormField.getModelForm();
-        List<ModelForm.UpdateArea> updateAreas = modelForm.getOnPaginateUpdateAreas();
-        String targetService = modelForm.getPaginateTarget(context);
+        List<ModelForm.UpdateArea> updateAreas = modelForm.getOnSortColumnUpdateAreas();
+        if (updateAreas == null) {
+            // For backward compatibility.
+            updateAreas = modelForm.getOnPaginateUpdateAreas();
+        }
         if (this.javaScriptEnabled) {
             if (UtilValidate.isNotEmpty(updateAreas)) {
                 ajaxEnabled = true;
             }
         }
-        if (targetService == null) {
-            targetService = "${targetService}";
-        }
-        if (UtilValidate.isEmpty(targetService) && updateAreas == null) {
-            Debug.logWarning("Cannot sort because TargetService is empty for the form: " + modelForm.getName(), module);
+        String paginateTarget = modelForm.getPaginateTarget(context);
+        if (paginateTarget.isEmpty() && updateAreas == null) {
+            Debug.logWarning("Cannot sort because the paginate target URL is empty for the form: " + modelForm.getName(), module);
             return;
         }
-        String str = (String) context.get("_QBESTRING_");
         String oldSortField = modelForm.getSortField(context);
         String sortFieldStyle = modelFormField.getSortFieldStyle();
         // if the entry-name is defined use this instead of field name
@@ -2701,7 +2701,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         if (UtilValidate.isEmpty(columnField)) {
             columnField = modelFormField.getFieldName();
         }
-        // switch beetween asc/desc order
+        // switch between asc/desc order
         String newSortField = columnField;
         if (UtilValidate.isNotEmpty(oldSortField)) {
             if (oldSortField.equals(columnField)) {
@@ -2712,36 +2712,31 @@ public class MacroFormRenderer implements FormStringRenderer {
                 sortFieldStyle = modelFormField.getSortFieldStyleAsc();
             }
         }
-        //  strip sortField param from the query string
-        HashSet<String> paramName = new HashSet<String>();
-        paramName.add("sortField");
-        String queryString = UtilHttp.stripNamedParamsFromQueryString(str, paramName);
-        String urlPath = UtilHttp.removeQueryStringFromTarget(targetService);
-        String prepLinkText = UtilHttp.getQueryStringFromTarget(targetService);
-        if (UtilValidate.isNotEmpty(queryString)) {
-            queryString = UtilHttp.encodeAmpersands(queryString);
+        String queryString = UtilHttp.getQueryStringFromTarget(paginateTarget).replace("?", "");
+        Map<String, Object> paramMap = UtilHttp.getQueryStringOnlyParameterMap(queryString);
+        String qbeString = (String) context.get("_QBESTRING_");
+        if (qbeString != null) {
+            qbeString = qbeString.replaceAll("&amp;", "&");
+            paramMap.putAll(UtilHttp.getQueryStringOnlyParameterMap(qbeString));
         }
-        if (prepLinkText == null) {
-            prepLinkText = "";
-        }
-        if (prepLinkText.indexOf("?") < 0) {
-            prepLinkText += "?";
-        } else if (!prepLinkText.endsWith("?")) {
-            prepLinkText += "&amp;";
-        }
-        if (!UtilValidate.isEmpty(queryString) && !queryString.equals("null")) {
-            prepLinkText += queryString + "&amp;";
-        }
-        prepLinkText += "sortField" + "=" + newSortField;
+        paramMap.put(modelForm.getSortFieldParameterName(), newSortField);
+        UtilHttp.canonicalizeParameterMap(paramMap);
+        String linkUrl = null;
         if (ajaxEnabled) {
-            prepLinkText = prepLinkText.replace("?", "");
-            prepLinkText = prepLinkText.replace("&amp;", "&");
-        }
-        String linkUrl = "";
-        if (ajaxEnabled) {
-            linkUrl = createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText, context);
+            linkUrl = createAjaxParamsFromUpdateAreas(updateAreas, paramMap, null, context);
         } else {
-            linkUrl = rh.makeLink(this.request, this.response, urlPath + prepLinkText);
+            StringBuilder sb = new StringBuilder("?");
+            Iterator<Map.Entry<String, Object>> iter = paramMap.entrySet().iterator();
+            while (iter.hasNext()) {
+                Map.Entry<String, Object> entry = iter.next();
+                sb.append(entry.getKey()).append("=").append(entry.getValue());
+                if (iter.hasNext()) {
+                    sb.append("&amp;");
+                }
+            }
+            String newQueryString = sb.toString();
+            String urlPath = UtilHttp.removeQueryStringFromTarget(paginateTarget);
+            linkUrl = rh.makeLink(this.request, this.response, urlPath.concat(newQueryString));
         }
         StringWriter sr = new StringWriter();
         sr.append("<@renderSortField ");
@@ -2755,7 +2750,47 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(Boolean.toString(ajaxEnabled));
         sr.append(" />");
         executeMacro(writer, sr.toString());
+    }
 
+    /** Create an ajaxXxxx JavaScript CSV string from a list of UpdateArea objects. See
+     * <code>selectall.js</code>.
+     * @param updateAreas
+     * @param extraParams Renderer-supplied additional target parameters
+     * @param context
+     * @return Parameter string or empty string if no UpdateArea objects were found
+     */
+    private String createAjaxParamsFromUpdateAreas(List<ModelForm.UpdateArea> updateAreas, Map<String, Object> extraParams, String anchor, Map<String, ? extends Object> context) {
+        StringBuilder sb = new StringBuilder();
+        Iterator<ModelForm.UpdateArea> updateAreaIter = updateAreas.iterator();
+        while (updateAreaIter.hasNext()) {
+            ModelForm.UpdateArea updateArea = updateAreaIter.next();
+            sb.append(updateArea.getAreaId()).append(",");
+            String ajaxTarget = updateArea.getAreaTarget(context);
+            String urlPath = UtilHttp.removeQueryStringFromTarget(ajaxTarget);
+            sb.append(this.rh.makeLink(this.request, this.response,urlPath)).append(",");
+            String queryString = UtilHttp.getQueryStringFromTarget(ajaxTarget).replace("?", "");
+            Map<String, Object> parameters = UtilHttp.getQueryStringOnlyParameterMap(queryString);
+            Map<String, Object> ctx = UtilGenerics.checkMap(context);
+            Map<String, Object> updateParams = UtilGenerics.checkMap(updateArea.getParameterMap(ctx));
+            parameters.putAll(updateParams);
+            UtilHttp.canonicalizeParameterMap(parameters);
+            parameters.putAll(extraParams);
+            Iterator<Map.Entry<String, Object>> paramIter = parameters.entrySet().iterator();
+            while (paramIter.hasNext()) {
+                Map.Entry<String, Object> entry = paramIter.next();
+                sb.append(entry.getKey()).append("=").append(entry.getValue());
+                if (paramIter.hasNext()) {
+                    sb.append("&");
+                }
+            }
+            if (anchor != null) {
+                sb.append("#").append(anchor);
+            }
+            if (updateAreaIter.hasNext()) {
+                sb.append(",");
+            }
+        }
+        return sb.toString();
     }
 
     /** Create an ajaxXxxx JavaScript CSV string from a list of UpdateArea objects. See
