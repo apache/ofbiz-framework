@@ -38,7 +38,11 @@ public final class NotificationGroup {
     private final List<Notify> notifyList;
 
     NotificationGroup(Element notificationGroupElement) throws ServiceConfigException {
-        this.name = notificationGroupElement.getAttribute("name").intern();
+        String name = notificationGroupElement.getAttribute("name").intern();
+        if (name.isEmpty()) {
+            throw new ServiceConfigException("<notification-group> element name attribute is empty");
+        }
+        this.name = name;
         Element notification = UtilXml.firstChildElement(notificationGroupElement, "notification");
         if (notification == null) {
             throw new ServiceConfigException("<notification> element is missing");
