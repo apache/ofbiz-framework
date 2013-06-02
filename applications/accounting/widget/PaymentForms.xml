@@ -211,16 +211,8 @@ under the License.
 
     <form name="EditPayment" type="single" target="updatePayment" default-map-name="payment">
         <actions>
-            <entity-one entity-name="Party" value-field="partyFrom">
-                <field-map field-name="partyId" from-field="payment.partyIdFrom"/>
-            </entity-one>
-            <set field="payment.actualCurrencyUomId" from-field="partyFrom.preferredCurrencyUomId" default-value="${defaultOrganizationPartyCurrencyUomId}"/>
-            <entity-one entity-name="StatusItem" value-field="currentStatus">
-                <field-map field-name="statusId" from-field="payment.statusId"/>
-            </entity-one>
             <set field="isDisbursement" value="${groovy:org.ofbiz.accounting.util.UtilAccounting.isDisbursement(payment);}" type="Boolean"/>
         </actions>
-        <auto-fields-entity entity-name="Payment"/>
         <field name="paymentId"><hidden/></field>
         <field name="paymentTypeId" title="${uiLabelMap.AccountingPaymentType}" position="1">
             <drop-down allow-empty="false">
@@ -230,20 +222,8 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field position="2" name="paymentMethodTypeId">
-            <drop-down allow-empty="false">
-                <entity-options entity-name="PaymentMethodType"  description="${description}">
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="statusId" title="${uiLabelMap.CommonStatus}" position="1">
-            <drop-down allow-empty="false" current-description="${currentStatus.description}">
-                <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
-                    <entity-constraint name="statusId" value="${payment.statusId}"/>
-                    <entity-order-by field-name="sequenceId"/>
-                </entity-options>
-            </drop-down>
+        <field name="statusId" position="2">
+            <display-entity entity-name="StatusItem"/>
         </field>
         <field name="paymentMethodId" title="${uiLabelMap.AccountingPaymentMethodId}" position="1">
             <drop-down allow-empty="true">
@@ -254,14 +234,7 @@ under the License.
             </drop-down>
         </field>
         <field name="partyIdFrom" position="1"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="partyIdTo" position="1"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="roleTypeIdTo" position="2">
-            <drop-down allow-empty="true">
-                <entity-options  key-field-name="roleTypeId" description="${description}" entity-name="RoleType">
-                    <entity-order-by field-name="roleTypeId"/>
-                </entity-options>
-            </drop-down>
-        </field>
+        <field name="partyIdTo" position="2"><lookup target-form-name="LookupPartyName"/></field>
         <field name="amount" position="1"><text/></field>
         <field position="2" name="currencyUomId">
             <drop-down allow-empty="false" no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
@@ -271,7 +244,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="actualAmount" position="1" title="${uiLabelMap.AccountingActualCurrencyAmount}"><text/></field>
+        <field name="actualCurrencyAmount" position="1" title="${uiLabelMap.AccountingActualCurrencyAmount}"><text/></field>
         <field name="actualCurrencyUomId" position="2" title="${uiLabelMap.AccountingActualCurrencyUomId}">
             <drop-down allow-empty="true">
                 <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
@@ -281,14 +254,12 @@ under the License.
             </drop-down>
         </field>
         <field name="effectiveDate" position="2"><date-time/></field>
-        <field name="comments" position="2"><text/></field>
         <field name="paymentRefNum" position="1"><text/></field>
+        <field name="comments" position="2"><text/></field>
         <field name="paymentPreferenceId"><ignored/></field>
         <field name="paymentGatewayResponseId"><ignored/></field>
         <field name="finAccountTransId" position="1"><text/></field>
         <field name="overrideGlAccountId" position="2"><lookup target-form-name="LookupGlAccount"/></field>
-        <field name="finAccountTransId"><ignored/></field>
-        <field name="actualAmount"><ignored/></field>
         <field position="1" name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
