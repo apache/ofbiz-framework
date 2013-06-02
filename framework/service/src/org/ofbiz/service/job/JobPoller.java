@@ -38,17 +38,18 @@ import org.ofbiz.base.start.Start;
 import org.ofbiz.base.util.Assert;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.service.config.ServiceConfigUtil;
+import org.ofbiz.service.config.ServiceConfigListener;
+import org.ofbiz.service.config.model.ServiceConfig;
 import org.ofbiz.service.config.model.ThreadPool;
 
 /**
  * Job poller. Queues and runs jobs.
  */
-public final class JobPoller {
+public final class JobPoller implements ServiceConfigListener {
 
     public static final String module = JobPoller.class.getName();
     private static final AtomicInteger created = new AtomicInteger();
     private static final ConcurrentHashMap<String, JobManager> jobManagers = new ConcurrentHashMap<String, JobManager>();
-    // TODO: Put the executor in a cache so Job Poller settings can be changed at run-time.
     private static final ThreadPoolExecutor executor = createThreadPoolExecutor();
     private static final JobPoller instance = new JobPoller();
 
@@ -104,6 +105,7 @@ public final class JobPoller {
         } else {
             jobManagerPollerThread = null;
         }
+        ServiceConfigUtil.registerServiceConfigListener(this);
     }
 
     /**
@@ -137,6 +139,16 @@ public final class JobPoller {
         }
         poolState.put("taskList", taskList);
         return poolState;
+    }
+
+    @Override
+    public void onServiceConfigChange(ServiceConfig serviceConfig) {
+        if (!executor.isShutdown()) {
+            ThreadPool threadPool = serviceConfig.getServiceEngine(ServiceConfigUtil.engine).getThreadPool();
+            executor.setCorePoolSize(threadPool.getMinThreads());
+            executor.setMaximumPoolSize(threadPool.getMaxThreads());
+            executor.setKeepAliveTime(threadPool.getTtl(), TimeUnit.MILLISECONDS);
+        }
     }
 
     private boolean pollEnabled() {
