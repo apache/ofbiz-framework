@@ -19,6 +19,7 @@
 package org.ofbiz.service.config;
 
 import java.io.Serializable;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
@@ -28,10 +29,12 @@ import javolution.util.FastMap;
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.config.ResourceLoader;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.service.config.model.ServiceConfig;
 import org.ofbiz.service.config.model.ServiceEngine;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -57,12 +60,24 @@ public final class ServiceConfigUtil {
     public static ServiceConfig getServiceConfig() throws GenericConfigException {
         ServiceConfig instance = serviceConfigCache.get("instance");
         if (instance == null) {
-            Element serviceConfigElement = ResourceLoader.getXmlRootElement(ServiceConfigUtil.SERVICE_ENGINE_XML_FILENAME);
+            Element serviceConfigElement = getXmlDocument().getDocumentElement();
             instance = ServiceConfig.create(serviceConfigElement);
             serviceConfigCache.putIfAbsent("instance", instance);
             instance = serviceConfigCache.get("instance");
         }
         return instance;
+    }
+
+    private static Document getXmlDocument() throws GenericConfigException {
+        URL confUrl = UtilURL.fromResource(SERVICE_ENGINE_XML_FILENAME);
+        if (confUrl == null) {
+            throw new GenericConfigException("Could not find the " + SERVICE_ENGINE_XML_FILENAME + " file on the classpath");
+        }
+        try {
+            return UtilXml.readXmlDocument(confUrl, true, true);
+        } catch (Exception e) {
+            throw new GenericConfigException("Exception thrown while reading " + SERVICE_ENGINE_XML_FILENAME + ": ", e);
+        }
     }
 
     /**
