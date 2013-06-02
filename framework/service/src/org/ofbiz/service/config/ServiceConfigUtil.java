@@ -30,6 +30,8 @@ import org.ofbiz.base.config.ResourceLoader;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
+import org.ofbiz.service.config.model.ServiceConfig;
+import org.ofbiz.service.config.model.ServiceEngine;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -37,13 +39,41 @@ import org.w3c.dom.NodeList;
 /**
  * Misc. utility method for dealing with the serviceengine.xml file
  */
-@SuppressWarnings("serial")
-public class ServiceConfigUtil implements Serializable {
+public final class ServiceConfigUtil {
 
     public static final String module = ServiceConfigUtil.class.getName();
     public static final String engine = "default";
     public static final String SERVICE_ENGINE_XML_FILENAME = "serviceengine.xml";
+    // Remove this cache in the new implementation.
     private static final UtilCache<String, Map<String, NotificationGroup>> notificationGroupCache = UtilCache.createUtilCache("service.NotificationGroups", 0, 0, false);
+    // New Implementation: Create a cache for the ServiceConfig instance - so the configuration can be reloaded at run-time.
+    // There will be only one ServiceConfig instance in the cache.
+    private static final UtilCache<String, ServiceConfig> serviceConfigCache = UtilCache.createUtilCache("service.ServiceConfig", 0, 0, false);
+
+    /**
+     * Returns the <code>ServiceConfig</code> instance.
+     * @throws GenericConfigException
+     */
+    public static ServiceConfig getServiceConfig() throws GenericConfigException {
+        ServiceConfig instance = serviceConfigCache.get("instance");
+        if (instance == null) {
+            Element serviceConfigElement = ResourceLoader.getXmlRootElement(ServiceConfigUtil.SERVICE_ENGINE_XML_FILENAME);
+            instance = ServiceConfig.create(serviceConfigElement);
+            serviceConfigCache.putIfAbsent("instance", instance);
+            instance = serviceConfigCache.get("instance");
+        }
+        return instance;
+    }
+
+    /**
+     * Returns the specified <code>ServiceEngine</code> instance, or <code>null</code>
+     * if the engine does not exist.
+     * 
+     * @throws GenericConfigException
+     */
+    public static ServiceEngine getServiceEngine(String name) throws GenericConfigException {
+        return getServiceConfig().getServiceEngine(name);
+    }
 
     public static Element getXmlRootElement() throws GenericConfigException {
         Element root = ResourceLoader.getXmlRootElement(ServiceConfigUtil.SERVICE_ENGINE_XML_FILENAME);
@@ -160,6 +190,8 @@ public class ServiceConfigUtil implements Serializable {
         return null;
     }
 
+    // Replace these classes with the new implementation
+
     public static class NotificationGroup implements Serializable {
         protected Notification notification;
         protected List<Notify> notify;
@@ -251,4 +283,6 @@ public class ServiceConfigUtil implements Serializable {
             }
         }
     }
+
+    private ServiceConfigUtil() {}
 }
