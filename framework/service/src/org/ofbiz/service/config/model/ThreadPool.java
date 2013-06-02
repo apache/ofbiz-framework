@@ -56,6 +56,9 @@ public final class ThreadPool {
         } else {
             try {
                 this.purgeJobDays = Integer.parseInt(purgeJobDays);
+                if (this.purgeJobDays < 0) {
+                    throw new ServiceConfigException("<thread-pool> element purge-job-days attribute value is invalid");
+                }
             } catch (Exception e) {
                 throw new ServiceConfigException("<thread-pool> element purge-job-days attribute value is invalid");
             }
@@ -66,6 +69,9 @@ public final class ThreadPool {
         } else {
             try {
                 this.failedRetryMin = Integer.parseInt(failedRetryMin);
+                if (this.failedRetryMin < 0) {
+                    throw new ServiceConfigException("<thread-pool> element failed-retry-min attribute value is invalid");
+                }
             } catch (Exception e) {
                 throw new ServiceConfigException("<thread-pool> element failed-retry-min attribute value is invalid");
             }
@@ -76,6 +82,9 @@ public final class ThreadPool {
         } else {
             try {
                 this.ttl = Integer.parseInt(ttl);
+                if (this.ttl < 0) {
+                    throw new ServiceConfigException("<thread-pool> element ttl attribute value is invalid");
+                }
             } catch (Exception e) {
                 throw new ServiceConfigException("<thread-pool> element ttl attribute value is invalid");
             }
@@ -86,6 +95,9 @@ public final class ThreadPool {
         } else {
             try {
                 this.jobs = Integer.parseInt(jobs);
+                if (this.jobs < 1) {
+                    throw new ServiceConfigException("<thread-pool> element jobs attribute value is invalid");
+                }
             } catch (Exception e) {
                 throw new ServiceConfigException("<thread-pool> element jobs attribute value is invalid");
             }
@@ -96,6 +108,9 @@ public final class ThreadPool {
         } else {
             try {
                 this.minThreads = Integer.parseInt(minThreads);
+                if (this.minThreads < 1) {
+                    throw new ServiceConfigException("<thread-pool> element min-threads attribute value is invalid");
+                }
             } catch (Exception e) {
                 throw new ServiceConfigException("<thread-pool> element min-threads attribute value is invalid");
             }
@@ -106,6 +121,9 @@ public final class ThreadPool {
         } else {
             try {
                 this.maxThreads = Integer.parseInt(maxThreads);
+                if (this.maxThreads < this.minThreads) {
+                    throw new ServiceConfigException("<thread-pool> element max-threads attribute value is invalid");
+                }
             } catch (Exception e) {
                 throw new ServiceConfigException("<thread-pool> element max-threads attribute value is invalid");
             }
@@ -117,6 +135,9 @@ public final class ThreadPool {
         } else {
             try {
                 this.pollDbMillis = Integer.parseInt(pollDbMillis);
+                if (this.pollDbMillis < 0) {
+                    throw new ServiceConfigException("<thread-pool> element poll-db-millis attribute value is invalid");
+                }
             } catch (Exception e) {
                 throw new ServiceConfigException("<thread-pool> element poll-db-millis attribute value is invalid");
             }
