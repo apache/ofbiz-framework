@@ -22,12 +22,14 @@ import java.io.Serializable;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.config.ResourceLoader;
+import org.ofbiz.base.util.Assert;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilXml;
@@ -49,9 +51,9 @@ public final class ServiceConfigUtil {
     public static final String SERVICE_ENGINE_XML_FILENAME = "serviceengine.xml";
     // Remove this cache in the new implementation.
     private static final UtilCache<String, Map<String, NotificationGroup>> notificationGroupCache = UtilCache.createUtilCache("service.NotificationGroups", 0, 0, false);
-    // New Implementation: Create a cache for the ServiceConfig instance - so the configuration can be reloaded at run-time.
-    // There will be only one ServiceConfig instance in the cache.
+    // Keep the ServiceConfig instance in a cache - so the configuration can be reloaded at run-time. There will be only one ServiceConfig instance in the cache.
     private static final UtilCache<String, ServiceConfig> serviceConfigCache = UtilCache.createUtilCache("service.ServiceConfig", 0, 0, false);
+    private static final List<ServiceConfigListener> configListeners = new CopyOnWriteArrayList<ServiceConfigListener>();
 
     /**
      * Returns the <code>ServiceConfig</code> instance.
@@ -64,6 +66,13 @@ public final class ServiceConfigUtil {
             instance = ServiceConfig.create(serviceConfigElement);
             serviceConfigCache.putIfAbsent("instance", instance);
             instance = serviceConfigCache.get("instance");
+            for (ServiceConfigListener listener : configListeners) {
+                try {
+                    listener.onServiceConfigChange(instance);
+                } catch (Exception e) {
+                    Debug.logError(e, "Exception thrown while notifying listener " + listener + ": ", module);
+                }
+            }
         }
         return instance;
     }
@@ -93,6 +102,11 @@ public final class ServiceConfigUtil {
     public static Element getXmlRootElement() throws GenericConfigException {
         Element root = ResourceLoader.getXmlRootElement(ServiceConfigUtil.SERVICE_ENGINE_XML_FILENAME);
         return UtilXml.firstChildElement(root, "service-engine"); // only look at the first one for now
+    }
+
+    public static void registerServiceConfigListener(ServiceConfigListener listener) {
+        Assert.notNull("listener", listener);
+        configListeners.add(listener);
     }
 
     public static Element getElement(String elementName) {
