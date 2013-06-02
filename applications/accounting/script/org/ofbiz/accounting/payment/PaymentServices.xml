@@ -896,6 +896,7 @@ under the License.
                 <field-map field-name="agreementTypeId" value="PURCHASE_AGREEMENT"/>
             </entity-and>
             <set field="parameters.paymentTypeId" value="VENDOR_PAYMENT"/>
+            <set field="organizationPartyId" from-field="orderRoleFrom.partyId"/>
             <else>
                <entity-and list="agreementList" entity-name="Agreement" filter-by-date="true">
                     <field-map field-name="partyIdFrom" from-field="orderRoleFrom.partyId"/>
@@ -903,6 +904,7 @@ under the License.
                     <field-map field-name="agreementTypeId" value="SALES_AGREEMENT"/>
                 </entity-and>
                 <set field="parameters.paymentTypeId" value="CUSTOMER_PAYMENT"/>
+                <set field="organizationPartyId" from-field="orderRoleTo.partyId"/>
             </else>
         </if-compare>
         <first-from-list entry="agreement" list="agreementList"/>
@@ -924,10 +926,31 @@ under the License.
         <if-empty field="parameters.effectiveDate">
             <now-timestamp field="parameters.effectiveDate"/>
         </if-empty>
+        
+        <!-- check currency and when required convert-->
+        <set field="partyAccountingPreferencesMap.organizationPartyId" from-field="organizationPartyId"/>
+        <call-service service-name="getPartyAccountingPreferences" in-map-name="partyAccountingPreferencesMap">
+             <result-to-field result-name="partyAccountingPreference" field="partyAcctgPreference"/>
+        </call-service>
+        <if-compare-field to-field="partyAcctgPreference.baseCurrencyUomId" operator="equals" field="orderHeader.currencyUom">
+            <set field="parameters.currencyUomId" from-field="orderHeader.currencyUom"/>
+            <set field="parameters.amount" from-field="orderHeader.grandTotal"/>
+            <else>
+                <set field="convertUomInMap.originalValue" from-field="orderHeader.grandTotal"/>
+                <set field="convertUomInMap.uomId" from-field="orderHeader.currencyUom"/>
+                <set field="convertUomInMap.uomIdTo" from-field="partyAcctgPreference.baseCurrencyUomId"/>
+                <call-service service-name="convertUom" in-map-name="convertUomInMap">
+                    <result-to-field result-name="convertedValue" field="parameters.amount"/>
+                </call-service>
+                <set field="parameters.actualCurrencyAmount" from-field="orderHeader.grandTotal"/>
+                <set field="parameters.actualCurrencyUomId" from-field="orderHeader.currencyUom"/>
+                <set field="parameters.currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
+                <set field="parameters.actualCurrencyUomId" from-field="orderHeader.currencyUom"/>
+            </else>
+        </if-compare-field>
+        
         <set field="parameters.partyIdFrom" from-field="orderRoleFrom.partyId"/>
         <set field="parameters.partyIdTo" from-field="orderRoleTo.partyId"/>
-        <set field="parameters.amount" from-field="orderHeader.grandTotal"/>
-        <set field="parameters.currencyUomId" from-field="orderHeader.currencyUom"/>
         <set field="parameters.paymentMethodTypeId" value="COMPANY_ACCOUNT"/>
         <set field="parameters.statusId" value="PMNT_NOT_PAID"/>
         <set-service-fields service-name="createPayment" to-map="createPayment" map="parameters"/>
