@@ -311,7 +311,7 @@ under the License.
                     </xs:complexType>
                 </xs:element>
             </xs:sequence>
-            <xs:attribute name="name" type="xs:string" />
+            <xs:attribute name="name" type="xs:string" use="required" />
         </xs:complexType>
     </xs:element>
 
