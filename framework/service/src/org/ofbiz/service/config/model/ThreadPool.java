@@ -33,6 +33,14 @@ import org.w3c.dom.Element;
 @ThreadSafe
 public final class ThreadPool {
 
+    public static final int FAILED_RETRY_MIN = 30;
+    public static final int MIN_THREADS = 1; // Must be no less than one or the executor will shut down.
+    public static final int MAX_THREADS = 5; // Values higher than 5 might slow things down.
+    public static final int POLL_WAIT = 30000; // Database polling interval - 30 seconds.
+    public static final int PURGE_JOBS_DAYS = 30;
+    public static final int QUEUE_SIZE = 100;
+    public static final int THREAD_TTL = 120000; // Idle thread lifespan - 2 minutes.
+
     private final int failedRetryMin;
     private final int jobs;
     private final int maxThreads;
@@ -52,7 +60,7 @@ public final class ThreadPool {
         this.sendToPool = sendToPool;
         String purgeJobDays = poolElement.getAttribute("purge-job-days").intern();
         if (purgeJobDays.isEmpty()) {
-            this.purgeJobDays = 30;
+            this.purgeJobDays = PURGE_JOBS_DAYS;
         } else {
             try {
                 this.purgeJobDays = Integer.parseInt(purgeJobDays);
@@ -65,7 +73,7 @@ public final class ThreadPool {
         }
         String failedRetryMin = poolElement.getAttribute("failed-retry-min").intern();
         if (failedRetryMin.isEmpty()) {
-            this.failedRetryMin = 30;
+            this.failedRetryMin = FAILED_RETRY_MIN;
         } else {
             try {
                 this.failedRetryMin = Integer.parseInt(failedRetryMin);
@@ -78,7 +86,7 @@ public final class ThreadPool {
         }
         String ttl = poolElement.getAttribute("ttl").intern();
         if (ttl.isEmpty()) {
-            this.ttl = 120000;
+            this.ttl = THREAD_TTL;
         } else {
             try {
                 this.ttl = Integer.parseInt(ttl);
@@ -91,7 +99,7 @@ public final class ThreadPool {
         }
         String jobs = poolElement.getAttribute("jobs").intern();
         if (ttl.isEmpty()) {
-            this.jobs = 100;
+            this.jobs = QUEUE_SIZE;
         } else {
             try {
                 this.jobs = Integer.parseInt(jobs);
@@ -104,7 +112,7 @@ public final class ThreadPool {
         }
         String minThreads = poolElement.getAttribute("min-threads").intern();
         if (minThreads.isEmpty()) {
-            this.minThreads = 1;
+            this.minThreads = MIN_THREADS;
         } else {
             try {
                 this.minThreads = Integer.parseInt(minThreads);
@@ -117,7 +125,7 @@ public final class ThreadPool {
         }
         String maxThreads = poolElement.getAttribute("max-threads").intern();
         if (maxThreads.isEmpty()) {
-            this.maxThreads = 5;
+            this.maxThreads = MAX_THREADS;
         } else {
             try {
                 this.maxThreads = Integer.parseInt(maxThreads);
@@ -131,7 +139,7 @@ public final class ThreadPool {
         this.pollEnabled = !"false".equals(poolElement.getAttribute("poll-enabled"));
         String pollDbMillis = poolElement.getAttribute("poll-db-millis").intern();
         if (pollDbMillis.isEmpty()) {
-            this.pollDbMillis = 30000;
+            this.pollDbMillis = POLL_WAIT;
         } else {
             try {
                 this.pollDbMillis = Integer.parseInt(pollDbMillis);

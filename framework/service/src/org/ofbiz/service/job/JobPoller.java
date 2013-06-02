@@ -47,11 +47,6 @@ public final class JobPoller {
 
     public static final String module = JobPoller.class.getName();
     private static final AtomicInteger created = new AtomicInteger();
-    private static final int MIN_THREADS = 1; // Must be no less than one or the executor will shut down.
-    private static final int MAX_THREADS = 5; // Values higher than 5 might slow things down.
-    private static final int POLL_WAIT = 30000; // Database polling interval - 30 seconds.
-    private static final int QUEUE_SIZE = 100;
-    private static final long THREAD_TTL = 120000; // Idle thread lifespan - 2 minutes.
     private static final ConcurrentHashMap<String, JobManager> jobManagers = new ConcurrentHashMap<String, JobManager>();
     // TODO: Put the executor in a cache so Job Poller settings can be changed at run-time.
     private static final ThreadPoolExecutor executor = createThreadPoolExecutor();
@@ -71,8 +66,8 @@ public final class JobPoller {
                     TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(threadPool.getJobs()), new JobInvokerThreadFactory(), new ThreadPoolExecutor.AbortPolicy());
         } catch (GenericConfigException e) {
             Debug.logError(e, "Exception thrown while getting <thread-pool> model, using default <thread-pool> values: ", module);
-            return new ThreadPoolExecutor(MIN_THREADS, MAX_THREADS, THREAD_TTL,
-                    TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(QUEUE_SIZE), new JobInvokerThreadFactory(), new ThreadPoolExecutor.AbortPolicy());
+            return new ThreadPoolExecutor(ThreadPool.MIN_THREADS, ThreadPool.MAX_THREADS, ThreadPool.THREAD_TTL,
+                    TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(ThreadPool.QUEUE_SIZE), new JobInvokerThreadFactory(), new ThreadPoolExecutor.AbortPolicy());
         }
     }
 
@@ -82,7 +77,7 @@ public final class JobPoller {
             return threadPool.getPollDbMillis();
         } catch (GenericConfigException e) {
             Debug.logError(e, "Exception thrown while getting <thread-pool> model, using default <thread-pool> values: ", module);
-            return POLL_WAIT;
+            return ThreadPool.POLL_WAIT;
         }
     }
 
