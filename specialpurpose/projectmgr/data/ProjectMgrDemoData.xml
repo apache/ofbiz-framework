@@ -97,7 +97,7 @@ under the License.
 
     <!-- Demo Customer3 billing for demo project 1 and project 2 -->
     <Party partyId="DemoCustomer3" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
-    <Person partyId="DemoCustomer3" firstName="Billing" lastName="Customer 2"/>
+    <Person partyId="DemoCustomer3" firstName="Billing" lastName="Customer 3"/>
     <UserLogin userLoginId="DemoCustomer3"  partyId="DemoCustomer3"/>
     <PartyRole partyId="DemoCustomer3" roleTypeId="CUSTOMER"/>
     <PartyRole partyId="DemoCustomer3" roleTypeId="CLIENT_BILLING"/>
