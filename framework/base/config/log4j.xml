@@ -54,17 +54,6 @@
         </layout>
     </appender>
 
-    <!-- ofbiz web file appender -->
-    <appender name="ofbiz-html" class="org.apache.log4j.RollingFileAppender">
-        <param name="maxFileSize" value="500KB"/>
-        <param name="maxBackupIndex" value="1"/>
-        <param name="File" value="${ofbiz.home}/runtime/logs/ofbiz.html"/>
-        <param name="threshold" value="info"/>
-        <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="&lt;div class=&quot;%p&quot;&gt;%d (%t) [%24F:%-3L:%-5p]%x %m &lt;/div&gt;%n"/>
-        </layout>
-    </appender>
-
     <!-- debug log -->
     <appender name="debug" class="org.apache.log4j.RollingFileAppender">
         <param name="maxFileSize" value="10000KB"/>
