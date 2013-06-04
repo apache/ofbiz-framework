@@ -609,6 +609,11 @@ under the License.
         <response name="success" type="view" value="WebtoolsLayoutDemo"/>
     </request-map>
 
+    <request-map uri="XsdToJava">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="XsdToJava"/>
+    </request-map>
+
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -710,6 +715,7 @@ under the License.
     <view-map name="LookupGeo" type="screen" page="component://webtools/widget/GeoManagementScreens.xml#LookupGeo"/>    
     
     <view-map name="WebtoolsLayoutDemo" page="component://webtools/widget/MiscScreens.xml#WebtoolsLayoutDemo" type="screen"/>
+    <view-map name="XsdToJava" page="component://webtools/widget/MiscScreens.xml#XsdToJava" type="screen"/>
 
     <!-- end of view mappings -->
 </site-conf>
