@@ -23,15 +23,14 @@ List logLines = [];
 try {
     File logFile = FileUtil.getFile(logFileName);
     logFile.eachLine { line ->
-        String ln = line;
         type = '';
-        if (ln.contains(":INFO ] ")) {
+        if (line.contains(":INFO ] ")) {
             type = 'INFO';
-        } else if (ln.contains(":WARN ] ")) {
+        } else if (line.contains(":WARN ] ")) {
             type = 'WARN';
-        } else if (ln.contains(":ERROR] ")) {
+        } else if (line.contains(":ERROR] ")) {
             type = 'ERROR';
-        } else if (ln.contains(":DEBUG] ")) {
+        } else if (line.contains(":DEBUG] ")) {
             type = 'DEBUG';
         }
         logLines.add([type: type, line:line]);
