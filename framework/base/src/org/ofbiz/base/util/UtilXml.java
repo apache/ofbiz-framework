@@ -952,6 +952,29 @@ public class UtilXml {
         }
     }
 
+    public static String nodeNameToJavaName(String nodeName, boolean capitalizeFirst) {
+        boolean capitalize = capitalizeFirst;
+        StringBuilder sb = new StringBuilder();
+        for (int index = 0; index < nodeName.length(); index++) {
+            char character = nodeName.charAt(index);
+            if (character == '-' || character == '_') {
+                capitalize = true;
+                continue;
+            }
+            if (capitalize) {
+                sb.append(String.valueOf(character).toUpperCase());
+                capitalize = false;
+            } else {
+                if (index == 0 && !capitalizeFirst) {
+                    sb.append(String.valueOf(character).toLowerCase());
+                } else {
+                    sb.append(character);
+                }
+            }
+        }
+        return sb.toString();
+    }
+
     /**
      * Local entity resolver to handle J2EE DTDs. With this a http connection
      * to sun is not needed during deployment.
