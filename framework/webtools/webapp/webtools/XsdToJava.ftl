@@ -185,9 +185,6 @@ import org.w3c.dom.Element;
 </#macro>
 
 <#macro classDeclaration xsdElement>
-<#--
-<xs:element name="fooElement" minOccurs="0" maxOccurs="unbounded">
--->
 <#local elementName = xsdElement.getAttribute("name")>
 <#local className = Static["org.ofbiz.base.util.UtilXml"].nodeNameToJavaName(elementName, true)>
 <#local abstract = (xsdElement.getAttribute("abstract") == "true")>
@@ -207,9 +204,6 @@ public final class ${className}<#if substitutionGroup?has_content> implements ${
 </#macro>
 
 <#macro attributeFieldDeclaration xsdElement>
-<#--
-<xs:attribute name="fooAttribute" type="xs:someType" default="bar" use="required">
--->
 <#local attributeName = xsdElement.getAttribute("name")>
 <#local attributeType = xsdElement.getAttribute("type")>
 <#local fieldName = Static["org.ofbiz.base.util.UtilXml"].nodeNameToJavaName(attributeName, false)>
@@ -217,9 +211,6 @@ public final class ${className}<#if substitutionGroup?has_content> implements ${
 </#macro>
 
 <#macro attributeFieldAssignment xsdElement>
-<#--
-<xs:attribute name="fooAttribute" type="xs:someType" default="bar" use="required">
--->
 <#local attributeName = xsdElement.getAttribute("name")>
 <#local attributeType = xsdElement.getAttribute("type")>
 <#local attributeUse = xsdElement.getAttribute("use")>
@@ -245,9 +236,6 @@ public final class ${className}<#if substitutionGroup?has_content> implements ${
 </#macro>
 
 <#macro attributeFieldAccessor xsdElement>
-<#--
-<xs:attribute name="fooAttribute" type="xs:someType" default="bar" use="required">
--->
 <#local attributeName = xsdElement.getAttribute("name")>
 <#local className = Static["org.ofbiz.base.util.UtilXml"].nodeNameToJavaName(attributeName, true)>
 <#local fieldName = Static["org.ofbiz.base.util.UtilXml"].nodeNameToJavaName(attributeName, false)>
@@ -259,10 +247,6 @@ public final class ${className}<#if substitutionGroup?has_content> implements ${
 </#macro>
 
 <#macro elementFieldDeclaration xsdElement>
-<#--
-<xs:element name="fooElement" minOccurs="0" maxOccurs="unbounded">
-<xs:element minOccurs="0" maxOccurs="unbounded" ref="fooElement">
--->
 <#local elementName = xsdElement.getAttribute("name")>
 <#if !elementName?has_content>
   <#local elementName = xsdElement.getAttribute("ref")>
@@ -282,10 +266,6 @@ public final class ${className}<#if substitutionGroup?has_content> implements ${
 </#macro>
 
 <#macro elementFieldAssignment xsdElement>
-<#--
-<xs:element name="fooElement" minOccurs="0" maxOccurs="unbounded">
-<xs:element minOccurs="0" maxOccurs="unbounded" ref="fooElement">
--->
 <#local elementName = xsdElement.getAttribute("name")>
 <#if !elementName?has_content>
   <#local elementName = xsdElement.getAttribute("ref")>
@@ -338,10 +318,6 @@ public final class ${className}<#if substitutionGroup?has_content> implements ${
 </#macro>
 
 <#macro elementFieldAccessor xsdElement>
-<#--
-<xs:element name="fooElement" minOccurs="0" maxOccurs="unbounded">
-<xs:element minOccurs="0" maxOccurs="unbounded" ref="fooElement">
--->
 <#local elementName = xsdElement.getAttribute("name")>
 <#if !elementName?has_content>
   <#local elementName = xsdElement.getAttribute("ref")>
