@@ -20,15 +20,19 @@
 package org.ofbiz.service;
 
 import org.ofbiz.service.config.ServiceConfigUtil;
+import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javolution.util.FastMap;
+import org.ofbiz.service.config.model.NotificationGroup;
+import org.ofbiz.service.config.model.Notify;
 
 /**
  * ModelNotification
@@ -100,31 +104,34 @@ public class ModelNotification {
     }
 
     public String buildTo() {
-        ServiceConfigUtil.NotificationGroup group = ServiceConfigUtil.getNotificationGroup(notificationGroupName);
-        if (group != null) {
-            List<String> addr = group.getAddress("to");
-            if (UtilValidate.isNotEmpty(addr)) {
-                return StringUtil.join(addr, ",");
-            }
-        }
-        return null;
+        return getCommaSeparatedAddressList("to");
     }
 
     public String buildCc() {
-        ServiceConfigUtil.NotificationGroup group = ServiceConfigUtil.getNotificationGroup(notificationGroupName);
-        if (group != null) {
-            List<String> addr = group.getAddress("cc");
-            if (addr != null) {
-                return StringUtil.join(addr, ",");
-            }
-        }
-        return null;
+        return getCommaSeparatedAddressList("cc");
     }
 
     public String buildBcc() {
-        ServiceConfigUtil.NotificationGroup group = ServiceConfigUtil.getNotificationGroup(notificationGroupName);
-        if (group != null) {
-            List<String> addr = group.getAddress("bcc");
+        return getCommaSeparatedAddressList("bcc");
+    }
+
+    public String buildFrom() {
+        return getCommaSeparatedAddressList("from");
+    }
+
+    private String getCommaSeparatedAddressList(String notifyType) {
+        try {
+            NotificationGroup group = ServiceConfigUtil.getNotificationGroup(notificationGroupName);
+            return getCommaSeparatedAddressList(group, notifyType);
+        } catch (GenericConfigException e) {
+            Debug.logWarning(e, "Exception thrown while getting service configuration: ", module);
+            return null;
+        }
+    }
+
+    private String getCommaSeparatedAddressList(NotificationGroup notificationGroup, String notifyType) {
+        if (notificationGroup != null) {
+            List<String> addr = getAddressesByType(notificationGroup, notifyType);
             if (UtilValidate.isNotEmpty(addr)) {
                 return StringUtil.join(addr, ",");
             }
@@ -132,38 +139,49 @@ public class ModelNotification {
         return null;
     }
 
-    public String buildFrom() {
-        ServiceConfigUtil.NotificationGroup group = ServiceConfigUtil.getNotificationGroup(notificationGroupName);
-        if (group != null) {
-            List<String> addr = group.getAddress("from");
-            if (UtilValidate.isNotEmpty(addr)) {
-                return addr.get(0);
+    private List<String> getAddressesByType(NotificationGroup group, String type) {
+        List<String> l = new ArrayList<String>();
+        for (Notify n : group.getNotifyList()) {
+            if (n.getType().equals(type)) {
+                l.add(n.getContent());
             }
         }
-        return null;
+        return l;
     }
 
     public String getSubject() {
-        ServiceConfigUtil.NotificationGroup group = ServiceConfigUtil.getNotificationGroup(notificationGroupName);
-        if (group != null) {
-            return group.getSubject();
+        try {
+            NotificationGroup group = ServiceConfigUtil.getNotificationGroup(notificationGroupName);
+            if (group != null) {
+                return group.getNotification().getSubject();
+            }
+        } catch (GenericConfigException e) {
+            Debug.logWarning(e, "Exception thrown while getting service configuration: ", module);
         }
         return null;
     }
 
     public String getScreen() {
-        ServiceConfigUtil.NotificationGroup group = ServiceConfigUtil.getNotificationGroup(notificationGroupName);
-        if (group != null) {
-            return group.getScreen();
+        try {
+            NotificationGroup group = ServiceConfigUtil.getNotificationGroup(notificationGroupName);
+            if (group != null) {
+                return group.getNotification().getScreen();
+            }
+        } catch (GenericConfigException e) {
+            Debug.logWarning(e, "Exception thrown while getting service configuration: ", module);
         }
         return null;
     }
 
     public String getService() {
-        ServiceConfigUtil.NotificationGroup group = ServiceConfigUtil.getNotificationGroup(notificationGroupName);
-        if (group != null) {
-            // only service supported at this time
-            return "sendMailFromScreen";
+        try {
+            NotificationGroup group = ServiceConfigUtil.getNotificationGroup(notificationGroupName);
+            if (group != null) {
+                // only service supported at this time
+                return "sendMailFromScreen";
+            }
+        } catch (GenericConfigException e) {
+            Debug.logWarning(e, "Exception thrown while getting service configuration: ", module);
         }
         return null;
     }

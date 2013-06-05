@@ -28,6 +28,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javolution.util.FastMap;
 
 import org.apache.commons.lang.StringUtils;
+import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
@@ -244,7 +245,11 @@ public class PersistedServiceJob extends GenericServiceJob {
             if (this.canRetry()) {
                 // create a recurrence
                 Calendar cal = Calendar.getInstance();
-                cal.add(Calendar.MINUTE, ServiceConfigUtil.getFailedRetryMin());
+                try {
+                    cal.add(Calendar.MINUTE, ServiceConfigUtil.getFailedRetryMin());
+                } catch (GenericConfigException e) {
+                    Debug.logWarning(e, "Unable to get retry minutes for job [" + getJobId() + "], defaulting to now: ", module);
+                }
                 long next = cal.getTimeInMillis();
                 try {
                     createRecurrence(next, true);

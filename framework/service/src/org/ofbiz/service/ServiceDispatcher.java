@@ -985,7 +985,11 @@ public class ServiceDispatcher {
                 String delayStr = ss.getAttribute("runtime-delay");
                 String sendToPool = ss.getAttribute("run-in-pool");
                 if (UtilValidate.isEmpty(sendToPool)) {
-                    sendToPool = ServiceConfigUtil.getSendPool();
+                    try {
+                        sendToPool = ServiceConfigUtil.getSendPool();
+                    } catch (GenericConfigException e) {
+                        Debug.logError(e, "Unable to get send pool in service [" + serviceName + "]: ", module);
+                    }
                 }
 
                 long runtimeDelay;
