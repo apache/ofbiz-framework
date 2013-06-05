@@ -23,7 +23,6 @@ import java.net.URL;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilURL;
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.w3c.dom.Document;
@@ -62,18 +61,21 @@ public abstract class ResourceLoader {
             Element rootElement = null;
             URL xmlUrl = UtilURL.fromResource(xmlFilename);
             if (xmlUrl == null) {
-                throw new GenericConfigException("ERROR: could not find the [" + xmlFilename + "] XML file on the classpath");
+                throw new GenericConfigException("Could not find the " + xmlFilename + " file");
             }
             try {
                 rootElement = UtilXml.readXmlDocument(xmlUrl, true, true).getDocumentElement();
             } catch (Exception e) {
-                throw new GenericConfigException("Error reading " + xmlFilename + ": ", e);
+                throw new GenericConfigException("Exception thrown while reading " + xmlFilename + ": ", e);
             }
             Element loaderElement = UtilXml.firstChildElement(rootElement, "resource-loader", "name", loaderName);
-            loader = makeLoader(loaderElement);
-            if (loader != null) {
-                loader = loaderCache.putIfAbsentAndGet(cacheKey, loader);
+            if (loaderElement == null) {
+                throw new GenericConfigException("The " + xmlFilename + " file is missing the <resource-loader> element with the name " + loaderName);
             }
+            if (loaderElement.getAttribute("class").isEmpty()) {
+                throw new GenericConfigException("The " + xmlFilename + " file <resource-loader> element with the name " + loaderName + " is missing the class attribute");
+            }
+            loader = loaderCache.putIfAbsentAndGet(cacheKey, makeLoader(loaderElement));
         }
         return loader;
     }
@@ -125,52 +127,29 @@ public abstract class ResourceLoader {
         return document;
     }
 
-    public static ResourceLoader makeLoader(Element loaderElement) throws GenericConfigException {
-        if (loaderElement == null)
-            return null;
-
+    private static ResourceLoader makeLoader(Element loaderElement) throws GenericConfigException {
         String loaderName = loaderElement.getAttribute("name");
         String className = loaderElement.getAttribute("class");
         ResourceLoader loader = null;
-
         try {
             Class<?> lClass = null;
-
-            if (UtilValidate.isNotEmpty(className)) {
-                try {
-                    ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-                    lClass = classLoader.loadClass(className);
-                } catch (ClassNotFoundException e) {
-                    throw new GenericConfigException("Error loading Resource Loader class \"" + className + "\"", e);
-                }
-            }
-
-            try {
-                loader = (ResourceLoader) lClass.newInstance();
-            } catch (IllegalAccessException e) {
-                throw new GenericConfigException("Error loading Resource Loader class \"" + className + "\"", e);
-            } catch (InstantiationException e) {
-                throw new GenericConfigException("Error loading Resource Loader class \"" + className + "\"", e);
-            }
-        } catch (SecurityException e) {
-            throw new GenericConfigException("Error loading Resource Loader class \"" + className + "\"", e);
-        }
-
-        if (loader != null) {
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            lClass = classLoader.loadClass(className);
+            loader = (ResourceLoader) lClass.newInstance();
             loader.init(loaderName, loaderElement.getAttribute("prefix"), loaderElement.getAttribute("prepend-env"));
+            return loader;
+        } catch (Exception e) {
+            throw new GenericConfigException("Exception thrown while loading ResourceLoader class \"" + className + "\" ", e);
         }
-
-        return loader;
     }
 
-    // FIXME: This class is not thread-safe.
-    protected String name;
-    protected String prefix;
-    protected String envName;
+    private String name;
+    private String prefix;
+    private String envName;
 
     protected ResourceLoader() {}
 
-    public void init(String name, String prefix, String envName) {
+    private void init(String name, String prefix, String envName) {
         this.name = name;
         this.prefix = prefix;
         this.envName = envName;
@@ -183,8 +162,7 @@ public abstract class ResourceLoader {
      */
     public String fullLocation(String location) {
         StringBuilder buf = new StringBuilder();
-
-        if (UtilValidate.isNotEmpty(envName)) {
+        if (!envName.isEmpty()) {
             String propValue = System.getProperty(envName);
             if (propValue == null) {
                 String errMsg = "The Java environment (-Dxxx=yyy) variable with name " + envName + " is not set, cannot load resource.";
@@ -193,9 +171,7 @@ public abstract class ResourceLoader {
             }
             buf.append(propValue);
         }
-        if (UtilValidate.isNotEmpty(prefix)) {
-            buf.append(prefix);
-        }
+        buf.append(prefix);
         buf.append(location);
         return buf.toString();
     }
