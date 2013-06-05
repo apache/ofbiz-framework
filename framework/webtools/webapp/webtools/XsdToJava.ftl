@@ -19,6 +19,8 @@ under the License.
 <#assign document = xsdRootElement.getOwnerDocument()>
 <#assign documentElement = document.getDocumentElement()>
 <#assign globalElements = Static["org.ofbiz.base.util.UtilXml"].childElementList(xsdRootElement, "xs:element")>
+<#assign groupElements = Static["org.ofbiz.base.util.UtilXml"].childElementList(xsdRootElement, "xs:group")>
+<#assign globalAttributeGroups = Static["org.ofbiz.base.util.UtilXml"].childElementList(documentElement, "xs:attributeGroup")>
 <#if globalElements?exists>
   <textarea name="java-source" cols="120" rows="50" readonly="readonly">
   <#assign abstractElementNames = []>
@@ -46,19 +48,59 @@ under the License.
 <@writeClass xsdElement />
 </#macro>
 
+<#macro processComplexType complexTypeElement>
+  <#-- TODO: For now we are just accumulating all child elements without regard for indicator type,
+             but that means the Java class will not be able to validate the indicator types (ie: xs:choice).
+             This should be changed to provide better quality Java code, but that might require
+             moving a lot of the parsing code outside the template.
+  -->
+  <#local orderIndicator = Static["org.ofbiz.base.util.UtilXml"].firstChildElement(complexTypeElement, "all")?if_exists>
+  <#if orderIndicator?exists && orderIndicator?has_content>
+    <#local childElements = Static["org.ofbiz.base.util.UtilXml"].childElementList(orderIndicator, "xs:element")>
+    <#list childElements as childElement>
+      <#assign allChildElements = allChildElements + [childElement]>
+    </#list>
+    <#return>
+  </#if>
+  <#local orderIndicator = Static["org.ofbiz.base.util.UtilXml"].firstChildElement(complexTypeElement, "choice")?if_exists>
+  <#if orderIndicator?exists && orderIndicator?has_content>
+    <#local childElements = Static["org.ofbiz.base.util.UtilXml"].childElementList(orderIndicator, "xs:element")>
+    <#list childElements as childElement>
+      <#assign allChildElements = allChildElements + [childElement]>
+    </#list>
+    <#return>
+  </#if>
+  <#local orderIndicator = Static["org.ofbiz.base.util.UtilXml"].firstChildElement(complexTypeElement, "sequence")?if_exists>
+  <#if orderIndicator?exists && orderIndicator?has_content>
+    <#local childElements = Static["org.ofbiz.base.util.UtilXml"].childElementList(orderIndicator, "xs:element")>
+    <#list childElements as childElement>
+      <#assign allChildElements = allChildElements + [childElement]>
+    </#list>
+    <#return>
+  </#if>
+  <#local orderIndicator = Static["org.ofbiz.base.util.UtilXml"].firstChildElement(complexTypeElement, "group")?if_exists>
+  <#if orderIndicator?exists && orderIndicator?has_content>
+    <#local groupName = orderIndicator.getAttribute("ref")>
+    <#list groupElements as groupElement>
+      <#if groupName == groupElement.getAttribute("name")>
+        <@processComplexType groupElement />
+        <#return>
+      </#if>
+    </#list>
+  </#if>
+</#macro>
+
 <#macro writeClass xsdElement>
+<#assign allChildElements = []>
 <#local elementName = xsdElement.getAttribute("name")>
 <#local className = Static["org.ofbiz.base.util.UtilXml"].nodeNameToJavaName(elementName, true)>
 <#local complexTypeElement = Static["org.ofbiz.base.util.UtilXml"].firstChildElement(xsdElement, "complexType")?if_exists>
 <#if complexTypeElement?exists && complexTypeElement?has_content>
   <#local attributeElements = Static["org.ofbiz.base.util.UtilXml"].childElementList(complexTypeElement, "xs:attribute")>
   <#local attributeGroupElements = Static["org.ofbiz.base.util.UtilXml"].childElementList(complexTypeElement, "xs:attributeGroup")>
-  <#local sequenceElement = Static["org.ofbiz.base.util.UtilXml"].firstChildElement(complexTypeElement, "sequence")?if_exists>
+  <@processComplexType complexTypeElement />
 </#if>
-<#if sequenceElement?exists && sequenceElement?has_content>
-  <#local childElements = Static["org.ofbiz.base.util.UtilXml"].childElementList(sequenceElement, "xs:element")>
-</#if>
-<#local globalAttributeGroups = Static["org.ofbiz.base.util.UtilXml"].childElementList(documentElement, "xs:attributeGroup")>
+<#-- TODO: Process an element that references a complex type. -->
 <@classDeclaration xsdElement />
 
 <#-- Class field declarations -->
@@ -80,8 +122,8 @@ under the License.
     </#list>
   </#list>
 </#if>
-<#if childElements?exists>
-  <#list childElements as childElement>
+<#if allChildElements?exists>
+  <#list allChildElements as childElement>
     <@elementFieldDeclaration childElement />
   </#list>
 </#if>
@@ -106,8 +148,8 @@ under the License.
       </#list>
     </#list>
   </#if>
-  <#if childElements?exists>
-    <#list childElements as childElement>
+  <#if allChildElements?exists>
+    <#list allChildElements as childElement>
       <@elementFieldAssignment childElement />
     </#list>
   </#if>
@@ -138,14 +180,14 @@ under the License.
     </#list>
   </#list>
 </#if>
-<#if childElements?exists>
-  <#list childElements as childElement>
+<#if allChildElements?exists>
+  <#list allChildElements as childElement>
     <@elementFieldAccessor childElement />
   </#list>
 </#if>
 <#-- Nested elements/classes -->
-<#if childElements?exists>
-  <#list childElements as childElement>
+<#if allChildElements?exists>
+  <#list allChildElements as childElement>
     <#local elementName = childElement.getAttribute("name")>
     <#if elementName?has_content>
       <#assign allElements = allElements + [childElement]>
