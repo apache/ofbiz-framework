@@ -35,11 +35,9 @@ import org.w3c.dom.Element;
 public abstract class ResourceLoader {
 
     public static final String module = ResourceLoader.class.getName();
-    private static final UtilCache<String, Object> loaderCache = UtilCache.createUtilCache("resource.ResourceLoaders", 0, 0);
-
-    protected String name;
-    protected String prefix;
-    protected String envName;
+    private static final UtilCache<String, ResourceLoader> loaderCache = UtilCache.createUtilCache("resource.ResourceLoaders", 0, 0);
+    // This cache is temporary - we will use it until the framework has been refactored to eliminate DOM tree caching, then it can be removed.
+    private static final UtilCache<String, Document> domCache = UtilCache.createUtilCache("resource.DomTrees", 0, 0);
 
     public static InputStream loadResource(String xmlFilename, String location, String loaderName) throws GenericConfigException {
         ResourceLoader loader = getLoader(xmlFilename, loaderName);
@@ -58,23 +56,31 @@ public abstract class ResourceLoader {
     }
 
     public static ResourceLoader getLoader(String xmlFilename, String loaderName) throws GenericConfigException {
-        ResourceLoader loader = (ResourceLoader) loaderCache.get(xmlFilename + "::" + loaderName);
-
+        String cacheKey = xmlFilename.concat("#").concat(loaderName);
+        ResourceLoader loader = loaderCache.get(cacheKey);
         if (loader == null) {
-            Element rootElement = getXmlRootElement(xmlFilename);
-
+            Element rootElement = null;
+            URL xmlUrl = UtilURL.fromResource(xmlFilename);
+            if (xmlUrl == null) {
+                throw new GenericConfigException("ERROR: could not find the [" + xmlFilename + "] XML file on the classpath");
+            }
+            try {
+                rootElement = UtilXml.readXmlDocument(xmlUrl, true, true).getDocumentElement();
+            } catch (Exception e) {
+                throw new GenericConfigException("Error reading " + xmlFilename + ": ", e);
+            }
             Element loaderElement = UtilXml.firstChildElement(rootElement, "resource-loader", "name", loaderName);
-
             loader = makeLoader(loaderElement);
-
             if (loader != null) {
-                loader = (ResourceLoader) loaderCache.putIfAbsentAndGet(xmlFilename + "::" + loaderName, loader);
+                loader = loaderCache.putIfAbsentAndGet(cacheKey, loader);
             }
         }
-
         return loader;
     }
 
+    // This method should be avoided. DOM object trees take a lot of memory and they are not
+    // thread-safe, so they should not be cached.
+    @Deprecated
     public static Element getXmlRootElement(String xmlFilename) throws GenericConfigException {
         Document document = ResourceLoader.getXmlDocument(xmlFilename);
 
@@ -89,10 +95,11 @@ public abstract class ResourceLoader {
         UtilCache.clearCachesThatStartWith(xmlFilename);
     }
 
-    // This method should be avoided. DOM object trees take a lot of memory, so they should
-    // not be cached.
+    // This method should be avoided. DOM object trees take a lot of memory and they are not
+    // thread-safe, so they should not be cached.
+    @Deprecated
     public static Document getXmlDocument(String xmlFilename) throws GenericConfigException {
-        Document document = (Document) loaderCache.get(xmlFilename);
+        Document document = domCache.get(xmlFilename);
 
         if (document == null) {
             URL confUrl = UtilURL.fromResource(xmlFilename);
@@ -112,7 +119,7 @@ public abstract class ResourceLoader {
             }
 
             if (document != null) {
-                document = (Document) loaderCache.putIfAbsentAndGet(xmlFilename, document);
+                document = (Document) domCache.putIfAbsentAndGet(xmlFilename, document);
             }
         }
         return document;
@@ -155,6 +162,11 @@ public abstract class ResourceLoader {
 
         return loader;
     }
+
+    // FIXME: This class is not thread-safe.
+    protected String name;
+    protected String prefix;
+    protected String envName;
 
     protected ResourceLoader() {}
 
