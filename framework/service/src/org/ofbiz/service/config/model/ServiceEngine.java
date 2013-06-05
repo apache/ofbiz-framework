@@ -20,7 +20,9 @@ package org.ofbiz.service.config.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.ofbiz.base.lang.ThreadSafe;
 import org.ofbiz.base.util.UtilXml;
@@ -35,6 +37,7 @@ public final class ServiceEngine {
 
     private final Authorization authorization;
     private final List<Engine> engines;
+    private final Map<String, Engine> engineMap;
     private final List<GlobalServices> globalServices;
     private final List<JmsService> jmsServices;
     private final String name;
@@ -65,12 +68,17 @@ public final class ServiceEngine {
         List<? extends Element> engineElementList = UtilXml.childElementList(engineElement, "engine");
         if (engineElementList.isEmpty()) {
             this.engines = Collections.emptyList();
+            this.engineMap = Collections.emptyMap();
         } else {
             List<Engine> engines = new ArrayList<Engine>(engineElementList.size());
+            Map<String, Engine> engineMap = new HashMap<String, Engine>();
             for (Element childEngineElement : engineElementList) {
-                engines.add(new Engine(childEngineElement));
+                Engine engine = new Engine(childEngineElement);
+                engines.add(engine);
+                engineMap.put(engine.getName(), engine);
             }
             this.engines = Collections.unmodifiableList(engines);
+            this.engineMap = Collections.unmodifiableMap(engineMap);
         }
         List<? extends Element> serviceLocationElementList = UtilXml.childElementList(engineElement, "service-location");
         if (serviceLocationElementList.isEmpty()) {
@@ -158,12 +166,25 @@ public final class ServiceEngine {
         return authorization;
     }
 
+    public Engine getEngine(String engineName) {
+        return engineMap.get(engineName);
+    }
+
     public List<Engine> getEngines() {
         return this.engines;
     }
 
     public List<GlobalServices> getGlobalServices() {
         return this.globalServices;
+    }
+
+    public JmsService getJmsServiceByName(String name) {
+        for (JmsService jmsService : jmsServices) {
+            if (name.equals(jmsService.getName())) {
+                return jmsService;
+            }
+        }
+        return null;
     }
 
     public List<JmsService> getJmsServices() {
@@ -185,7 +206,6 @@ public final class ServiceEngine {
     public List<ServiceEcas> getServiceEcas() {
         return this.serviceEcas;
     }
-
     public List<ServiceGroups> getServiceGroups() {
         return this.serviceGroups;
     }
@@ -201,5 +221,4 @@ public final class ServiceEngine {
     public ThreadPool getThreadPool() {
         return threadPool;
     }
-
 }
