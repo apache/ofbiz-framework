@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.RejectedExecutionException;
 
+import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.util.Assert;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -155,9 +156,15 @@ public final class JobManager {
                 EntityCondition.makeCondition("cancelDateTime", EntityOperator.EQUALS, null),
                 EntityCondition.makeCondition("runByInstanceId", EntityOperator.EQUALS, null));
         // limit to just defined pools
-        List<String> pools = ServiceConfigUtil.getRunPools();
+        List<String> pools = null;
+        try {
+            pools = ServiceConfigUtil.getRunPools();
+        } catch (GenericConfigException e) {
+            Debug.logWarning(e, "Unable to get run pools - not running job: ", module);
+            return poll;
+        }
         List<EntityExpr> poolsExpr = UtilMisc.toList(EntityCondition.makeCondition("poolId", EntityOperator.EQUALS, null));
-        if (pools != null) {
+        if (!pools.isEmpty()) {
             for (String poolName : pools) {
                 poolsExpr.add(EntityCondition.makeCondition("poolId", EntityOperator.EQUALS, poolName));
             }
@@ -213,9 +220,14 @@ public final class JobManager {
         }
         if (poll.isEmpty()) {
             // No jobs to run, see if there are any jobs to purge
-            int daysToKeep = ServiceConfigUtil.getPurgeJobDays();
             Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.DAY_OF_YEAR, -daysToKeep);
+            try {
+                int daysToKeep = ServiceConfigUtil.getPurgeJobDays();
+                cal.add(Calendar.DAY_OF_YEAR, -daysToKeep);
+            } catch (GenericConfigException e) {
+                Debug.logWarning(e, "Unable to get purge job days: ", module);
+                return poll;
+            }
             Timestamp purgeTime = new Timestamp(cal.getTimeInMillis());
             List<EntityExpr> finExp = UtilMisc.toList(EntityCondition.makeCondition("finishDateTime", EntityOperator.NOT_EQUAL, null), EntityCondition.makeCondition("finishDateTime", EntityOperator.LESS_THAN, purgeTime));
             List<EntityExpr> canExp = UtilMisc.toList(EntityCondition.makeCondition("cancelDateTime", EntityOperator.NOT_EQUAL, null), EntityCondition.makeCondition("cancelDateTime", EntityOperator.LESS_THAN, purgeTime));
@@ -523,7 +535,11 @@ public final class JobManager {
         if (UtilValidate.isNotEmpty(poolName)) {
             jFields.put("poolId", poolName);
         } else {
-            jFields.put("poolId", ServiceConfigUtil.getSendPool());
+            try {
+                jFields.put("poolId", ServiceConfigUtil.getSendPool());
+            } catch (GenericConfigException e) {
+                throw new JobManagerException(e.getMessage(), e);
+            }
         }
         // set the loader name
         jFields.put("loaderName", delegator.getDelegatorName());

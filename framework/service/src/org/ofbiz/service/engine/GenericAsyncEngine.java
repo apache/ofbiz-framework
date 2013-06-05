@@ -22,6 +22,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 
+import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
@@ -124,6 +125,8 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
             } catch (FileNotFoundException e) {
                 throw new GenericServiceException("Problem serializing service attributes", e);
             } catch (IOException e) {
+                throw new GenericServiceException("Problem serializing service attributes", e);
+            } catch (GenericConfigException e) {
                 throw new GenericServiceException("Problem serializing service attributes", e);
             }
 

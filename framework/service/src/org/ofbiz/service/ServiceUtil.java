@@ -32,6 +32,7 @@ import javax.transaction.Transaction;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
@@ -372,14 +373,18 @@ public class ServiceUtil {
 
     public static Map<String, Object> purgeOldJobs(DispatchContext dctx, Map<String, ? extends Object> context) {
         Debug.logWarning("WARNING: purgeOldJobs service invoked. This service is obsolete - the Job Scheduler will purge old jobs automatically.", module);
-        String sendPool = ServiceConfigUtil.getSendPool();
-        int daysToKeep = ServiceConfigUtil.getPurgeJobDays();
+        String sendPool = null;
+        Calendar cal = Calendar.getInstance();
+        try {
+            sendPool = ServiceConfigUtil.getSendPool();
+            int daysToKeep = ServiceConfigUtil.getPurgeJobDays();
+            cal.add(Calendar.DAY_OF_YEAR, -daysToKeep);
+        } catch (GenericConfigException e) {
+            Debug.logWarning(e, "Exception thrown while getting service configuration: ", module);
+            return returnError("Exception thrown while getting service configuration: " + e);
+        }
         Delegator delegator = dctx.getDelegator();
 
-        Timestamp now = UtilDateTime.nowTimestamp();
-        Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(now.getTime());
-        cal.add(Calendar.DAY_OF_YEAR, daysToKeep * -1);
         Timestamp purgeTime = new Timestamp(cal.getTimeInMillis());
 
         // create the conditions to query

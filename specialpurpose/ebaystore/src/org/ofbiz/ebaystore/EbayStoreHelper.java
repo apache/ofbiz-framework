@@ -32,6 +32,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import javolution.util.FastMap;
 
+import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
@@ -340,6 +341,8 @@ public class EbayStoreHelper {
         } catch (IOException e) {
             return ServiceUtil.returnError(e.getMessage());
         }catch (RecurrenceInfoException e) {
+            return ServiceUtil.returnError(e.getMessage());
+        } catch (GenericConfigException e) {
             return ServiceUtil.returnError(e.getMessage());
         }
         return result;
