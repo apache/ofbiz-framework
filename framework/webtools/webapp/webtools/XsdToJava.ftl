@@ -129,7 +129,7 @@ under the License.
 </#if>
 <#if !(xsdElement.getAttribute("abstract") == "true")>
 
-    public ${className}(Element element) {
+    public ${className}(Element element) throws ${exceptionClassName} {
   <#-- Class field assignments -->
   <#if attributeElements?exists>
     <#list attributeElements as attributeElement>
