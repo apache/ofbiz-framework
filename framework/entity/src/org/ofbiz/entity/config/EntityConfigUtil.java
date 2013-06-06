@@ -18,18 +18,25 @@
  *******************************************************************************/
 package org.ofbiz.entity.config;
 
+import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.config.ResourceLoader;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.GenericEntityConfException;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.config.model.EntityConfig;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
@@ -40,6 +47,43 @@ public class EntityConfigUtil {
 
     public static final String module = EntityConfigUtil.class.getName();
     public static final String ENTITY_ENGINE_XML_FILENAME = "entityengine.xml";
+    // Keep the EntityConfig instance in a cache - so the configuration can be reloaded at run-time. There will be only one EntityConfig instance in the cache.
+    private static final UtilCache<String, EntityConfig> entityConfigCache = UtilCache.createUtilCache("entity.EntityConfig", 0, 0, false);
+    private static final List<EntityConfigListener> configListeners = new CopyOnWriteArrayList<EntityConfigListener>();
+
+    /**
+     * Returns the <code>EntityConfig</code> instance.
+     * @throws GenericEntityConfException
+     */
+    public static EntityConfig getEntityConfig() throws GenericEntityConfException {
+        EntityConfig instance = entityConfigCache.get("instance");
+        if (instance == null) {
+            Element entityConfigElement = getXmlDocument().getDocumentElement();
+            instance = new EntityConfig(entityConfigElement);
+            entityConfigCache.putIfAbsent("instance", instance);
+            instance = entityConfigCache.get("instance");
+            for (EntityConfigListener listener : configListeners) {
+                try {
+                    listener.onEntityConfigChange(instance);
+                } catch (Exception e) {
+                    Debug.logError(e, "Exception thrown while notifying listener " + listener + ": ", module);
+                }
+            }
+        }
+        return instance;
+    }
+
+    private static Document getXmlDocument() throws GenericEntityConfException {
+        URL confUrl = UtilURL.fromResource(ENTITY_ENGINE_XML_FILENAME);
+        if (confUrl == null) {
+            throw new GenericEntityConfException("Could not find the " + ENTITY_ENGINE_XML_FILENAME + " file");
+        }
+        try {
+            return UtilXml.readXmlDocument(confUrl, true, true);
+        } catch (Exception e) {
+            throw new GenericEntityConfException("Exception thrown while reading " + ENTITY_ENGINE_XML_FILENAME + ": ", e);
+        }
+    }
 
     private static volatile AtomicReference<EntityConfigUtil> configRef = new AtomicReference<EntityConfigUtil>();
 
