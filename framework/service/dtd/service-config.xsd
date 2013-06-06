@@ -28,6 +28,12 @@ under the License.
     </xs:element>
 
     <xs:element name="service-engine">
+        <xs:annotation>
+            <xs:documentation>
+                A service engine configuration instance. The schema supports multiple configuration
+                instances, but the OFBiz framework supports only one - named "default". 
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:sequence>
                 <xs:element ref="authorization" />

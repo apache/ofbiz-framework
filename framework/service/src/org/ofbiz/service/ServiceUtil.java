@@ -376,8 +376,8 @@ public class ServiceUtil {
         String sendPool = null;
         Calendar cal = Calendar.getInstance();
         try {
-            sendPool = ServiceConfigUtil.getSendPool();
-            int daysToKeep = ServiceConfigUtil.getPurgeJobDays();
+            sendPool = ServiceConfigUtil.getServiceEngine().getThreadPool().getSendToPool();
+            int daysToKeep = ServiceConfigUtil.getServiceEngine().getThreadPool().getPurgeJobDays();
             cal.add(Calendar.DAY_OF_YEAR, -daysToKeep);
         } catch (GenericConfigException e) {
             Debug.logWarning(e, "Exception thrown while getting service configuration: ", module);

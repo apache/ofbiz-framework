@@ -845,7 +845,7 @@ public class ServiceDispatcher {
     private Map<String, Object> checkAuth(String localName, Map<String, Object> context, ModelService origService) throws ServiceAuthException, GenericServiceException {
         String service = null;
         try {
-            service = ServiceConfigUtil.getAuthorizationServiceName();
+            service = ServiceConfigUtil.getServiceEngine().getAuthorization().getServiceName();
         } catch (GenericConfigException e) {
             throw new GenericServiceException(e.getMessage(), e);
         }
@@ -989,7 +989,7 @@ public class ServiceDispatcher {
             String sendToPool = startupService.getRunInPool();
             if (UtilValidate.isEmpty(sendToPool)) {
                 try {
-                    sendToPool = ServiceConfigUtil.getSendPool();
+                    sendToPool = ServiceConfigUtil.getServiceEngine().getThreadPool().getSendToPool();
                 } catch (GenericConfigException e) {
                     Debug.logError(e, "Unable to get send pool in service [" + serviceName + "]: ", module);
                 }

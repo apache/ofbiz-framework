@@ -121,7 +121,7 @@ public class ModelNotification {
 
     private String getCommaSeparatedAddressList(String notifyType) {
         try {
-            NotificationGroup group = ServiceConfigUtil.getNotificationGroup(notificationGroupName);
+            NotificationGroup group = getNotificationGroup(notificationGroupName);
             return getCommaSeparatedAddressList(group, notifyType);
         } catch (GenericConfigException e) {
             Debug.logWarning(e, "Exception thrown while getting service configuration: ", module);
@@ -151,7 +151,7 @@ public class ModelNotification {
 
     public String getSubject() {
         try {
-            NotificationGroup group = ServiceConfigUtil.getNotificationGroup(notificationGroupName);
+            NotificationGroup group = getNotificationGroup(notificationGroupName);
             if (group != null) {
                 return group.getNotification().getSubject();
             }
@@ -163,7 +163,7 @@ public class ModelNotification {
 
     public String getScreen() {
         try {
-            NotificationGroup group = ServiceConfigUtil.getNotificationGroup(notificationGroupName);
+            NotificationGroup group = getNotificationGroup(notificationGroupName);
             if (group != null) {
                 return group.getNotification().getScreen();
             }
@@ -175,13 +175,24 @@ public class ModelNotification {
 
     public String getService() {
         try {
-            NotificationGroup group = ServiceConfigUtil.getNotificationGroup(notificationGroupName);
+            NotificationGroup group = getNotificationGroup(notificationGroupName);
             if (group != null) {
                 // only service supported at this time
                 return "sendMailFromScreen";
             }
         } catch (GenericConfigException e) {
             Debug.logWarning(e, "Exception thrown while getting service configuration: ", module);
+        }
+        return null;
+    }
+
+    public static NotificationGroup getNotificationGroup(String group) throws GenericConfigException {
+        List<NotificationGroup> notificationGroups;
+        notificationGroups = ServiceConfigUtil.getServiceEngine().getNotificationGroups();
+        for (NotificationGroup notificationGroup : notificationGroups) {
+            if (notificationGroup.getName().equals(group)) {
+                return notificationGroup;
+            }
         }
         return null;
     }

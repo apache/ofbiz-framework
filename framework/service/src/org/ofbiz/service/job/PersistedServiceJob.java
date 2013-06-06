@@ -246,7 +246,7 @@ public class PersistedServiceJob extends GenericServiceJob {
                 // create a recurrence
                 Calendar cal = Calendar.getInstance();
                 try {
-                    cal.add(Calendar.MINUTE, ServiceConfigUtil.getFailedRetryMin());
+                    cal.add(Calendar.MINUTE, ServiceConfigUtil.getServiceEngine().getThreadPool().getFailedRetryMin());
                 } catch (GenericConfigException e) {
                     Debug.logWarning(e, "Unable to get retry minutes for job [" + getJobId() + "], defaulting to now: ", module);
                 }
