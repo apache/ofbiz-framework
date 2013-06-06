@@ -152,8 +152,12 @@ public final class JobPoller implements ServiceConfigListener {
     }
 
     private boolean pollEnabled() {
-        String enabled = ServiceConfigUtil.getElementAttr("thread-pool", "poll-enabled");
-        return !"false".equalsIgnoreCase(enabled);
+        try {
+            return ServiceConfigUtil.getPollEnabled();
+        } catch (GenericConfigException e) {
+            Debug.logWarning(e, "Exception thrown while getting configuration: ", module);
+            return false;
+        }
     }
 
     /**

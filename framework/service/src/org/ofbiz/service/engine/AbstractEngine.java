@@ -20,20 +20,18 @@ package org.ofbiz.service.engine;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
-import org.ofbiz.service.ServiceDispatcher;
-import org.ofbiz.service.ModelService;
-import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.service.GenericServiceCallback;
-import org.ofbiz.service.config.ServiceConfigUtil;
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilXml;
-
-import org.w3c.dom.Element;
+import org.ofbiz.service.GenericServiceCallback;
+import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.ModelService;
+import org.ofbiz.service.ServiceDispatcher;
+import org.ofbiz.service.config.ServiceConfigUtil;
+import org.ofbiz.service.config.model.ServiceLocation;
 
 /**
  * Abstract Service Engine
@@ -53,21 +51,18 @@ public abstract class AbstractEngine implements GenericEngine {
     protected static Map<String, String> createLocationMap() {
         Map<String, String> tmpMap = new HashMap<String, String>();
 
-        Element root = null;
+        List<ServiceLocation> locationsList = null;
         try {
-            root = ServiceConfigUtil.getXmlRootElement();
+            locationsList = ServiceConfigUtil.getServiceEngine().getServiceLocations();
         } catch (GenericConfigException e) {
+            // FIXME: Refactor API so exceptions can be thrown and caught.
             Debug.logError(e, module);
+            throw new RuntimeException(e.getMessage());
+        }
+        for (ServiceLocation e: locationsList) {
+            tmpMap.put(e.getName(), e.getLocation());
         }
 
-        if (root != null) {
-            List<? extends Element> locationElements = UtilXml.childElementList(root, "service-location");
-            if (locationElements != null) {
-                for (Element e: locationElements) {
-                    tmpMap.put(e.getAttribute("name"), e.getAttribute("location"));
-                }
-            }
-        }
         Debug.logInfo("Loaded Service Locations: " + tmpMap, module);
         return Collections.unmodifiableMap(tmpMap);
     }

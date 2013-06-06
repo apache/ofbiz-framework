@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.ofbiz.base.config.GenericConfigException;
-import org.ofbiz.base.config.ResourceLoader;
 import org.ofbiz.base.util.Assert;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilURL;
@@ -51,10 +50,10 @@ public final class ServiceConfigUtil {
     private static final List<ServiceConfigListener> configListeners = new CopyOnWriteArrayList<ServiceConfigListener>();
 
     /**
-     * Returns the service engine configuration (currently always the default one).
+     * Returns the default service engine configuration (named "default").
      * @throws GenericConfigException 
      */
-    private static ServiceEngine getServiceEngine() throws GenericConfigException {
+    public static ServiceEngine getServiceEngine() throws GenericConfigException {
         return getServiceConfig().getServiceEngine(engine);
     }
 
@@ -153,28 +152,5 @@ public final class ServiceConfigUtil {
             return engine.getParameterValue(parameterName);
         }
         return null;
-    }
-
-    public static Element getXmlRootElement() throws GenericConfigException {
-        Element root = ResourceLoader.getXmlRootElement(ServiceConfigUtil.SERVICE_ENGINE_XML_FILENAME);
-        return UtilXml.firstChildElement(root, "service-engine"); // only look at the first one for now
-    }
-
-    public static Element getElement(String elementName) {
-        Element rootElement = null;
-
-        try {
-            rootElement = ServiceConfigUtil.getXmlRootElement();
-        } catch (GenericConfigException e) {
-            Debug.logError(e, "Error getting Service Engine XML root element", module);
-        }
-        return  UtilXml.firstChildElement(rootElement, elementName);
-    }
-
-    public static String getElementAttr(String elementName, String attrName) {
-        Element element = getElement(elementName);
-
-        if (element == null) return null;
-        return element.getAttribute(attrName);
     }
 }

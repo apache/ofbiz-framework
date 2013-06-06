@@ -28,8 +28,6 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ServiceDispatcher;
 import org.ofbiz.service.config.ServiceConfigUtil;
 import org.ofbiz.base.util.UtilGenerics;
-import org.ofbiz.base.util.UtilXml;
-import org.w3c.dom.Element;
 
 /**
  * Generic Engine Factory
@@ -50,23 +48,14 @@ public class GenericEngineFactory {
      *@return GenericEngine that corresponds to the engineName
      */
     public GenericEngine getGenericEngine(String engineName) throws GenericServiceException {
-        Element rootElement = null;
-
+        String className = null;
         try {
-            rootElement = ServiceConfigUtil.getXmlRootElement();
+            className = ServiceConfigUtil.getServiceEngine().getEngine(engineName).getClassName();
         } catch (GenericConfigException e) {
-            throw new GenericServiceException("Error getting Service Engine XML root element", e);
+            throw new GenericServiceException(e);
         }
-        Element engineElement = UtilXml.firstChildElement(rootElement, "engine", "name", engineName);
-
-        if (engineElement == null) {
-            throw new GenericServiceException("Cannot find a service engine definition for the engine name [" + engineName + "] in the serviceengine.xml file");
-        }
-
-        String className = engineElement.getAttribute("class");
 
         GenericEngine engine = engines.get(engineName);
-
         if (engine == null) {
             synchronized (GenericEngineFactory.class) {
                 engine = engines.get(engineName);
