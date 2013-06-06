@@ -153,7 +153,7 @@ public final class JobPoller implements ServiceConfigListener {
 
     private boolean pollEnabled() {
         try {
-            return ServiceConfigUtil.getPollEnabled();
+            return ServiceConfigUtil.getServiceEngine().getThreadPool().getPollEnabled();
         } catch (GenericConfigException e) {
             Debug.logWarning(e, "Exception thrown while getting configuration: ", module);
             return false;

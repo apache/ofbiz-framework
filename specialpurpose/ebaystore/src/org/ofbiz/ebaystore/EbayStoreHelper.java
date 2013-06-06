@@ -314,7 +314,7 @@ public class EbayStoreHelper {
                         "serviceName", serviceName, "statusId", "SERVICE_PENDING", "recurrenceInfoId", infoId, "runtimeDataId", runtimeDataId);
 
                 // set the pool ID
-                jFields.put("poolId", ServiceConfigUtil.getSendPool());
+                jFields.put("poolId", ServiceConfigUtil.getServiceEngine().getThreadPool().getSendToPool());
 
                 // set the loader name
                 jFields.put("loaderName", delegator.getDelegatorName());

@@ -51,6 +51,7 @@ import org.ofbiz.service.ServiceContainer;
 import org.ofbiz.service.calendar.RecurrenceInfo;
 import org.ofbiz.service.calendar.RecurrenceInfoException;
 import org.ofbiz.service.config.ServiceConfigUtil;
+import org.ofbiz.service.config.model.RunFromPool;
 
 import com.ibm.icu.util.Calendar;
 
@@ -134,6 +135,15 @@ public final class JobManager {
         return JobPoller.getInstance().getPoolState();
     }
 
+    private static List<String> getRunPools() throws GenericConfigException {
+        List<RunFromPool> runFromPools = ServiceConfigUtil.getServiceEngine().getThreadPool().getRunFromPools();
+        List<String> readPools = new ArrayList<String>(runFromPools.size());
+        for (RunFromPool runFromPool : runFromPools) {
+            readPools.add(runFromPool.getName());
+        }
+        return readPools;
+    }
+
     /**
      * Scans the JobSandbox entity and returns a list of jobs that are due to run.
      * Returns an empty list if there are no jobs due to run.
@@ -158,7 +168,7 @@ public final class JobManager {
         // limit to just defined pools
         List<String> pools = null;
         try {
-            pools = ServiceConfigUtil.getRunPools();
+            pools = getRunPools();
         } catch (GenericConfigException e) {
             Debug.logWarning(e, "Unable to get run pools - not running job: ", module);
             return poll;
@@ -222,7 +232,7 @@ public final class JobManager {
             // No jobs to run, see if there are any jobs to purge
             Calendar cal = Calendar.getInstance();
             try {
-                int daysToKeep = ServiceConfigUtil.getPurgeJobDays();
+                int daysToKeep = ServiceConfigUtil.getServiceEngine().getThreadPool().getPurgeJobDays();
                 cal.add(Calendar.DAY_OF_YEAR, -daysToKeep);
             } catch (GenericConfigException e) {
                 Debug.logWarning(e, "Unable to get purge job days: ", module);
@@ -536,7 +546,7 @@ public final class JobManager {
             jFields.put("poolId", poolName);
         } else {
             try {
-                jFields.put("poolId", ServiceConfigUtil.getSendPool());
+                jFields.put("poolId", ServiceConfigUtil.getServiceEngine().getThreadPool().getSendToPool());
             } catch (GenericConfigException e) {
                 throw new JobManagerException(e.getMessage(), e);
             }

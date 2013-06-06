@@ -106,7 +106,7 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
                 String jobName = Long.toString(System.currentTimeMillis());
 
                 Map<String, Object> jFields = UtilMisc.toMap("jobId", jobId, "jobName", jobName, "runTime", UtilDateTime.nowTimestamp());
-                jFields.put("poolId", ServiceConfigUtil.getSendPool());
+                jFields.put("poolId", ServiceConfigUtil.getServiceEngine().getThreadPool().getSendToPool());
                 jFields.put("statusId", "SERVICE_PENDING");
                 jFields.put("serviceName", modelService.name);
                 jFields.put("loaderName", localName);
