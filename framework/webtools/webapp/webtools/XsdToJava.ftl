@@ -303,7 +303,7 @@ public final class ${className}<#if substitutionGroup?has_content> implements ${
 <#if isList>
     private final List<${className}> ${fieldName}List; // <${elementName}>
 <#else>
-    private final Element ${fieldName}; // <${elementName}>
+    private final ${className} ${fieldName}; // <${elementName}>
 </#if>
 </#macro>
 
