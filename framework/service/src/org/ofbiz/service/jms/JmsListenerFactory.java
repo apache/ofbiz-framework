@@ -18,21 +18,20 @@
  *******************************************************************************/
 package org.ofbiz.service.jms;
 
-import java.lang.reflect.Constructor;
-import java.util.Map;
-
 import javolution.util.FastMap;
-
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.config.ServiceConfigUtil;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
+import org.ofbiz.service.config.model.JmsService;
+import org.ofbiz.service.config.model.Server;
+
+import java.lang.reflect.Constructor;
+import java.util.List;
+import java.util.Map;
 
 /**
  * JmsListenerFactory
@@ -45,7 +44,7 @@ public class JmsListenerFactory implements Runnable {
     public static final String QUEUE_LISTENER_CLASS = "org.ofbiz.service.jms.JmsQueueListener";
 
     protected static Map<String, GenericMessageListener> listeners = FastMap.newInstance();
-    protected static Map<String, Element> servers = FastMap.newInstance();
+    protected static Map<String, Server> servers = FastMap.newInstance();
 
     protected static JmsListenerFactory jlf = null;
 
@@ -96,23 +95,18 @@ public class JmsListenerFactory implements Runnable {
     // Load the JMS listeners
     private void loadListeners() {
         try {
-            Element rootElement = ServiceConfigUtil.getXmlRootElement();
-            NodeList nodeList = rootElement.getElementsByTagName("jms-service");
+            List<JmsService> jmsServices = ServiceConfigUtil.getServiceEngine().getJmsServices();
 
             if (Debug.verboseOn()) Debug.logVerbose("Loading JMS Listeners.", module);
-            for (int i = 0; i < nodeList.getLength(); i++) {
-                Element element = (Element) nodeList.item(i);
+            for (JmsService service: jmsServices) {
                 StringBuilder serverKey = new StringBuilder();
-                for (Element server: UtilXml.childElementList(element, "server")) {
+                for (Server server: service.getServers()) {
                     try {
-                        String listenerEnabled = server.getAttribute("listen");
-
-                        if (listenerEnabled.equalsIgnoreCase("true")) {
+                        if (server.getListen()) {
                             // create a server key
-
-                            serverKey.append(server.getAttribute("jndi-server-name") + ":");
-                            serverKey.append(server.getAttribute("jndi-name") + ":");
-                            serverKey.append(server.getAttribute("topic-queue"));
+                            serverKey.append(server.getJndiServerName() + ":");
+                            serverKey.append(server.getJndiName() + ":");
+                            serverKey.append(server.getTopicQueue());
                             // store the server element
                             servers.put(serverKey.toString(), server);
                             // load the listener
@@ -129,21 +123,19 @@ public class JmsListenerFactory implements Runnable {
                     }
                 }
             }
-        } catch (org.ofbiz.base.config.GenericConfigException gce) {
-            Debug.logError(gce, "Cannot get serviceengine.xml root element.", module);
         } catch (Exception e) {
-            Debug.logError(e, "Uncaught exception.", module);
+            Debug.logError(e, "Exception thrown while loading JMS listeners: ", module);
         }
     }
 
-    private GenericMessageListener loadListener(String serverKey, Element server) throws GenericServiceException {
-        String serverName = server.getAttribute("jndi-server-name");
-        String jndiName = server.getAttribute("jndi-name");
-        String queueName = server.getAttribute("topic-queue");
-        String type = server.getAttribute("type");
-        String userName = server.getAttribute("username");
-        String password = server.getAttribute("password");
-        String className = server.getAttribute("listener-class");
+    private GenericMessageListener loadListener(String serverKey, Server server) throws GenericServiceException {
+        String serverName = server.getJndiServerName();
+        String jndiName = server.getJndiName();
+        String queueName = server.getTopicQueue();
+        String type = server.getType();
+        String userName = server.getUsername();
+        String password = server.getPassword();
+        String className = server.getListenerClass();
 
         if (UtilValidate.isEmpty(className)) {
             if (type.equals("topic"))
@@ -189,7 +181,7 @@ public class JmsListenerFactory implements Runnable {
      * @throws GenericServiceException
      */
     public void loadListener(String serverKey) throws GenericServiceException {
-        Element server = servers.get(serverKey);
+        Server server = servers.get(serverKey);
 
         if (server == null)
             throw new GenericServiceException("No listener found with that serverKey.");

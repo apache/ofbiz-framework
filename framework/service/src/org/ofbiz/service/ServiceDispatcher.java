@@ -47,6 +47,7 @@ import org.ofbiz.security.Security;
 import org.ofbiz.security.SecurityConfigurationException;
 import org.ofbiz.security.SecurityFactory;
 import org.ofbiz.service.config.ServiceConfigUtil;
+import org.ofbiz.service.config.model.*;
 import org.ofbiz.service.eca.ServiceEcaRule;
 import org.ofbiz.service.eca.ServiceEcaUtil;
 import org.ofbiz.service.engine.GenericEngine;
@@ -842,7 +843,12 @@ public class ServiceDispatcher {
 
     // checks if parameters were passed for authentication
     private Map<String, Object> checkAuth(String localName, Map<String, Object> context, ModelService origService) throws ServiceAuthException, GenericServiceException {
-        String service = ServiceConfigUtil.getElementAttr("authorization", "service-name");
+        String service = null;
+        try {
+            service = ServiceConfigUtil.getAuthorizationServiceName();
+        } catch (GenericConfigException e) {
+            throw new GenericServiceException(e.getMessage(), e);
+        }
 
         if (service == null) {
             throw new GenericServiceException("No Authentication Service Defined");
@@ -966,47 +972,34 @@ public class ServiceDispatcher {
 
     // run startup services
     private synchronized int runStartupServices() {
-        if (jm == null) return 0;
-
-        Element root;
+        if (jm == null)
+            return 0;
+        int servicesScheduled = 0;
+        List<StartupService> startupServices = null;
         try {
-            root = ServiceConfigUtil.getXmlRootElement();
+            startupServices = ServiceConfigUtil.getServiceEngine().getStartupServices();
         } catch (GenericConfigException e) {
-            Debug.logError(e, module);
+            Debug.logWarning(e, "Exception thrown while getting service config: ", module);
             return 0;
         }
-
-        int servicesScheduled = 0;
-        List<? extends Element> startupServices = UtilXml.childElementList(root, "startup-service");
-        if (UtilValidate.isNotEmpty(startupServices)) {
-            for (Element ss: startupServices) {
-                String serviceName = ss.getAttribute("name");
-                String runtimeDataId = ss.getAttribute("runtime-data-id");
-                String delayStr = ss.getAttribute("runtime-delay");
-                String sendToPool = ss.getAttribute("run-in-pool");
-                if (UtilValidate.isEmpty(sendToPool)) {
-                    try {
-                        sendToPool = ServiceConfigUtil.getSendPool();
-                    } catch (GenericConfigException e) {
-                        Debug.logError(e, "Unable to get send pool in service [" + serviceName + "]: ", module);
-                    }
-                }
-
-                long runtimeDelay;
+        for (StartupService startupService : startupServices) {
+            String serviceName = startupService.getName();
+            String runtimeDataId = startupService.getRuntimeDataId();
+            int runtimeDelay = startupService.getRuntimeDelay();
+            String sendToPool = startupService.getRunInPool();
+            if (UtilValidate.isEmpty(sendToPool)) {
                 try {
-                    runtimeDelay = Long.parseLong(delayStr);
-                } catch (Exception e) {
-                    Debug.logError(e, "Unable to parse runtime-delay value; using 0", module);
-                    runtimeDelay = 0;
+                    sendToPool = ServiceConfigUtil.getSendPool();
+                } catch (GenericConfigException e) {
+                    Debug.logError(e, "Unable to get send pool in service [" + serviceName + "]: ", module);
                 }
-
-                // current time + 1 sec delay + extended delay
-                long runtime = System.currentTimeMillis() + 1000 + runtimeDelay;
-                try {
-                    jm.schedule(sendToPool, serviceName, runtimeDataId, runtime);
-                } catch (JobManagerException e) {
-                    Debug.logError(e, "Unable to schedule service [" + serviceName + "]", module);
-                }
+            }
+            // current time + 1 sec delay + extended delay
+            long runtime = System.currentTimeMillis() + 1000 + runtimeDelay;
+            try {
+                jm.schedule(sendToPool, serviceName, runtimeDataId, runtime);
+            } catch (JobManagerException e) {
+                Debug.logError(e, "Unable to schedule service [" + serviceName + "]", module);
             }
         }
 

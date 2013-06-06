@@ -59,6 +59,8 @@ import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.config.ServiceConfigUtil;
+import org.ofbiz.service.config.model.JmsService;
+import org.ofbiz.service.config.model.Server;
 import org.ofbiz.service.engine.AbstractEngine;
 import org.w3c.dom.Element;
 
@@ -73,23 +75,13 @@ public class JmsServiceEngine extends AbstractEngine {
         super(dispatcher);
     }
 
-    protected Element getServiceElement(ModelService modelService) throws GenericServiceException {
-        Element rootElement = null;
-
-        try {
-            rootElement = ServiceConfigUtil.getXmlRootElement();
-        } catch (GenericConfigException e) {
-            throw new GenericServiceException("Error getting JMS Service element", e);
-        }
-
+    protected JmsService getServiceElement(ModelService modelService) throws GenericServiceException {
         String location = this.getLocation(modelService);
-
-        Element serviceElement = UtilXml.firstChildElement(rootElement, "jms-service", "name", location);
-
-        if (serviceElement == null) {
-            throw new GenericServiceException("Cannot find an JMS service definition for the name [" + location + "] in the serviceengine.xml file");
+        try {
+            return ServiceConfigUtil.getServiceEngine().getJmsServiceByName(location);
+        } catch (GenericConfigException e) {
+            throw new GenericServiceException(e);
         }
-        return serviceElement;
     }
 
     protected Message makeMessage(Session session, ModelService modelService, Map<String, Object> context)
@@ -126,13 +118,13 @@ public class JmsServiceEngine extends AbstractEngine {
         }
     }
 
-    protected Map<String, Object> runTopic(ModelService modelService, Map<String, Object> context, Element server) throws GenericServiceException {
-        String serverName = server.getAttribute("jndi-server-name");
-        String jndiName = server.getAttribute("jndi-name");
-        String topicName = server.getAttribute("topic-queue");
-        String userName = server.getAttribute("username");
-        String password = server.getAttribute("password");
-        String clientId = server.getAttribute("client-id");
+    protected Map<String, Object> runTopic(ModelService modelService, Map<String, Object> context, Server server) throws GenericServiceException {
+        String serverName = server.getJndiServerName();
+        String jndiName = server.getJndiName();
+        String topicName = server.getTopicQueue();
+        String userName = server.getUsername();
+        String password = server.getPassword();
+        String clientId = server.getClientId();
 
         InitialContext jndi = null;
         TopicConnectionFactory factory = null;
@@ -185,13 +177,13 @@ public class JmsServiceEngine extends AbstractEngine {
 
     }
 
-    protected Map<String, Object> runQueue(ModelService modelService, Map<String, Object> context, Element server) throws GenericServiceException {
-        String serverName = server.getAttribute("jndi-server-name");
-        String jndiName = server.getAttribute("jndi-name");
-        String queueName = server.getAttribute("topic-queue");
-        String userName = server.getAttribute("username");
-        String password = server.getAttribute("password");
-        String clientId = server.getAttribute("client-id");
+    protected Map<String, Object> runQueue(ModelService modelService, Map<String, Object> context, Server server) throws GenericServiceException {
+        String serverName = server.getJndiServerName();
+        String jndiName = server.getJndiName();
+        String queueName = server.getTopicQueue();
+        String userName = server.getUsername();
+        String password = server.getPassword();
+        String clientId = server.getClientId();
 
         InitialContext jndi = null;
         QueueConnectionFactory factory = null;
@@ -315,13 +307,12 @@ public class JmsServiceEngine extends AbstractEngine {
     }
 
     protected Map<String, Object> run(ModelService modelService, Map<String, Object> context) throws GenericServiceException {
-        Element serviceElement = getServiceElement(modelService);
-        List<? extends Element> serverList = serverList(serviceElement);
+        JmsService serviceElement = getServiceElement(modelService);
+        List<Server> serverList = serviceElement.getServers();
 
         Map<String, Object> result = FastMap.newInstance();
-        for (Element server: serverList) {
-            String serverType = server.getAttribute("type");
-
+        for (Server server: serverList) {
+            String serverType = server.getType();
             if (serverType.equals("topic"))
                 result.putAll(runTopic(modelService, context, server));
             else if (serverType.equals("queue"))

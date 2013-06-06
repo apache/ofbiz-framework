@@ -31,7 +31,7 @@ public final class Server {
     private final String clientId;
     private final String jndiName;
     private final String jndiServerName;
-    private final String listen;
+    private final boolean listen;
     private final String listenerClass;
     private final String password;
     private final String topicQueue;
@@ -62,11 +62,7 @@ public final class Server {
         this.username = serverElement.getAttribute("username").intern();
         this.password = serverElement.getAttribute("password").intern();
         this.clientId = serverElement.getAttribute("client-id").intern();
-        String listen = serverElement.getAttribute("listen").intern();
-        if (listen.isEmpty()) {
-            listen = "false";
-        }
-        this.listen = listen;
+        this.listen = "true".equals(serverElement.getAttribute("listen"));
         this.listenerClass = serverElement.getAttribute("listener-class").intern();
     }
 
@@ -82,7 +78,7 @@ public final class Server {
         return jndiServerName;
     }
 
-    public String getListen() {
+    public boolean getListen() {
         return listen;
     }
 

@@ -40,6 +40,7 @@ import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.config.ServiceConfigUtil;
+import org.ofbiz.service.config.model.ServiceEcas;
 import org.w3c.dom.Element;
 
 import freemarker.template.utility.StringUtil;
@@ -64,17 +65,18 @@ public class ServiceEcaUtil {
         if (UtilValidate.isNotEmpty(ecaCache)) {
             return;
         }
-        Element rootElement = null;
-        try {
-            rootElement = ServiceConfigUtil.getXmlRootElement();
-        } catch (GenericConfigException e) {
-            Debug.logError(e, "Error getting Service Engine XML root element", module);
-            return;
-        }
 
         List<Future<List<ServiceEcaRule>>> futures = FastList.newInstance();
-        for (Element serviceEcasElement: UtilXml.childElementList(rootElement, "service-ecas")) {
-            ResourceHandler handler = new MainResourceHandler(ServiceConfigUtil.SERVICE_ENGINE_XML_FILENAME, serviceEcasElement);
+        List<ServiceEcas> serviceEcasList = null;
+        try {
+            serviceEcasList = ServiceConfigUtil.getServiceEngine().getServiceEcas();
+        } catch (GenericConfigException e) {
+            // FIXME: Refactor API so exceptions can be thrown and caught.
+            Debug.logError(e, module);
+            throw new RuntimeException(e.getMessage());
+        }
+        for (ServiceEcas serviceEcas : serviceEcasList) {
+            ResourceHandler handler = new MainResourceHandler(ServiceConfigUtil.SERVICE_ENGINE_XML_FILENAME, serviceEcas.getLoader(), serviceEcas.getLocation());
             futures.add(ExecutionPool.GLOBAL_EXECUTOR.submit(createEcaLoaderCallable(handler)));
         }
 
