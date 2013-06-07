@@ -47,7 +47,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.config.DatasourceInfo;
+import org.ofbiz.entity.config.model.Datasource;
 import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.jdbc.DatabaseUtil;
 import org.ofbiz.entity.model.ModelIndex.Field;
@@ -396,13 +396,13 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
 
     /** The table-name of the Entity including a Schema name if specified in the datasource config */
     public String getTableName(String helperName) {
-        return getTableName(EntityConfigUtil.getDatasourceInfo(helperName));
+        return getTableName(EntityConfigUtil.getDatasource(helperName));
     }
 
     /** The table-name of the Entity including a Schema name if specified in the datasource config */
-    public String getTableName(DatasourceInfo datasourceInfo) {
-        if (datasourceInfo != null && UtilValidate.isNotEmpty(datasourceInfo.schemaName)) {
-            return datasourceInfo.schemaName + "." + this.tableName;
+    public String getTableName(Datasource datasourceInfo) {
+        if (datasourceInfo != null && UtilValidate.isNotEmpty(datasourceInfo.getSchemaName())) {
+            return datasourceInfo.getSchemaName() + "." + this.tableName;
         } else {
             return this.tableName;
         }

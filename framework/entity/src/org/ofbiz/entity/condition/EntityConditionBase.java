@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.ofbiz.entity.config.DatasourceInfo;
+import org.ofbiz.entity.config.model.Datasource;
 import org.ofbiz.entity.jdbc.SqlJdbcUtil;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
@@ -58,7 +58,7 @@ public abstract class EntityConditionBase implements Serializable {
         return modelField;
     }
 
-    protected String getColName(Map<String, String> tableAliases, ModelEntity modelEntity, String fieldName, boolean includeTableNamePrefix, DatasourceInfo datasourceInfo) {
+    protected String getColName(Map<String, String> tableAliases, ModelEntity modelEntity, String fieldName, boolean includeTableNamePrefix, Datasource datasourceInfo) {
         if (modelEntity == null) return fieldName;
         return getColName(tableAliases, modelEntity, getField(modelEntity, fieldName), fieldName, includeTableNamePrefix, datasourceInfo);
     }
@@ -73,11 +73,11 @@ public abstract class EntityConditionBase implements Serializable {
         return colName;
     }
 
-    protected String getColName(Map<String, String> tableAliases, ModelEntity modelEntity, ModelField modelField, String fieldName, boolean includeTableNamePrefix, DatasourceInfo datasourceInfo) {
+    protected String getColName(Map<String, String> tableAliases, ModelEntity modelEntity, ModelField modelField, String fieldName, boolean includeTableNamePrefix, Datasource datasourceInfo) {
         if (modelEntity == null || modelField == null) return fieldName;
 
         // if this is a view entity and we are configured to alias the views, use the alias here instead of the composite (ie table.column) field name
-        if (datasourceInfo != null && datasourceInfo.aliasViews && modelEntity instanceof ModelViewEntity) {
+        if (datasourceInfo != null && datasourceInfo.getAliasViewColumns() && modelEntity instanceof ModelViewEntity) {
             ModelViewEntity modelViewEntity = (ModelViewEntity) modelEntity;
             ModelAlias modelAlias = modelViewEntity.getAlias(fieldName);
             if (modelAlias != null) {

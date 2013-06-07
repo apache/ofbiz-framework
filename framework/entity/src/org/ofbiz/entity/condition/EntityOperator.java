@@ -30,7 +30,7 @@ import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericModelException;
-import org.ofbiz.entity.config.DatasourceInfo;
+import org.ofbiz.entity.config.model.Datasource;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 
@@ -96,7 +96,7 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
         @Override
         public boolean compare(Comparable<Object> lhs, Object rhs) { return EntityComparisonOperator.compareEqual(lhs, rhs); }
         @Override
-        protected void makeRHSWhereString(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb, ModelField field, Object rhs, DatasourceInfo datasourceInfo) {
+        protected void makeRHSWhereString(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb, ModelField field, Object rhs, Datasource datasourceInfo) {
             if (rhs == null || rhs == GenericEntity.NULL_FIELD) {
                 //Debug.logInfo("makeRHSWhereString: field IS NULL: " + field.getName(), module);
                 sb.append(" IS NULL");
@@ -112,7 +112,7 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
         @Override
         public boolean compare(Comparable<Object> lhs, Object rhs) { return EntityComparisonOperator.compareNotEqual(lhs, rhs); }
         @Override
-        protected void makeRHSWhereString(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb, ModelField field, Object rhs, DatasourceInfo datasourceInfo) {
+        protected void makeRHSWhereString(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb, ModelField field, Object rhs, Datasource datasourceInfo) {
             if (rhs == null || rhs == GenericEntity.NULL_FIELD) {
                 sb.append(" IS NOT NULL");
             } else {
@@ -161,14 +161,14 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
         @Override
         public boolean compare(Comparable<Object> lhs, Collection<Comparable<Object>> rhs) { return EntityComparisonOperator.compareIn(lhs, rhs); }
         @Override
-        protected void makeRHSWhereStringValue(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb, ModelField field, Collection<Comparable<Object>> rhs, DatasourceInfo datasourceInfo) { appendRHSList(entityConditionParams, sb, field, rhs); }
+        protected void makeRHSWhereStringValue(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb, ModelField field, Collection<Comparable<Object>> rhs, Datasource datasourceInfo) { appendRHSList(entityConditionParams, sb, field, rhs); }
     };
     static { register("in", IN); }
     public static final EntityComparisonOperator<?,?> BETWEEN = new CollectionEntityComparisonOperator<Object>(ID_BETWEEN, "BETWEEN") {
         @Override
         public boolean compare(Comparable<Object> lhs, Collection<Comparable<Object>> rhs) { return EntityComparisonOperator.compareIn(lhs, rhs); }
         @Override
-        protected void makeRHSWhereStringValue(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb, ModelField field, Collection<Comparable<Object>> rhs, DatasourceInfo datasourceInfo) { appendRHSBetweenList(entityConditionParams, sb, field, rhs); }
+        protected void makeRHSWhereStringValue(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb, ModelField field, Collection<Comparable<Object>> rhs, Datasource datasourceInfo) { appendRHSBetweenList(entityConditionParams, sb, field, rhs); }
     };
     static { register("between", BETWEEN); }
     public static final EntityComparisonOperator<?,?> NOT = new EntityComparisonOperator<Object, EntityCondition>(ID_NOT, "NOT") {
@@ -194,7 +194,7 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
         @Override
         public boolean compare(Comparable<Object> lhs, Collection<Comparable<Object>> rhs) { return !EntityComparisonOperator.compareIn(lhs, rhs); }
         @Override
-        protected void makeRHSWhereStringValue(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb, ModelField field, Collection<Comparable<Object>> rhs, DatasourceInfo datasourceInfo) { appendRHSList(entityConditionParams, sb, field, rhs); }
+        protected void makeRHSWhereStringValue(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb, ModelField field, Collection<Comparable<Object>> rhs, Datasource datasourceInfo) { appendRHSList(entityConditionParams, sb, field, rhs); }
     };
     static { register("not-in", NOT_IN); }
 
@@ -290,11 +290,11 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
     public abstract boolean isEmpty(L lhs, R rhs);
     public abstract boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map, L lhs, R rhs);
     public abstract void validateSql(ModelEntity entity, L lhs, R rhs) throws GenericModelException;
-    public void addSqlValue(StringBuilder sql, ModelEntity entity, List<EntityConditionParam> entityConditionParams, L lhs, R rhs, DatasourceInfo datasourceInfo) {
+    public void addSqlValue(StringBuilder sql, ModelEntity entity, List<EntityConditionParam> entityConditionParams, L lhs, R rhs, Datasource datasourceInfo) {
         addSqlValue(sql, entity, entityConditionParams, true, lhs, rhs, datasourceInfo);
     }
 
-    public abstract void addSqlValue(StringBuilder sql, ModelEntity entity, List<EntityConditionParam> entityConditionParams, boolean compat, L lhs, R rhs, DatasourceInfo datasourceInfo);
+    public abstract void addSqlValue(StringBuilder sql, ModelEntity entity, List<EntityConditionParam> entityConditionParams, boolean compat, L lhs, R rhs, Datasource datasourceInfo);
     public abstract EntityCondition freeze(L lhs, R rhs);
     public abstract void visit(EntityConditionVisitor visitor, L lhs, R rhs);
 

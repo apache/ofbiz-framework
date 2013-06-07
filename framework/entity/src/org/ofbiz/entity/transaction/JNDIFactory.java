@@ -37,7 +37,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.JNDIContextFactory;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.config.DatasourceInfo;
+import org.ofbiz.entity.config.model.*;
 import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.datasource.GenericHelperInfo;
 import org.ofbiz.entity.jdbc.ConnectionFactory;
@@ -134,20 +134,20 @@ public class JNDIFactory implements TransactionFactoryInterface {
     }
 
     public Connection getConnection(GenericHelperInfo helperInfo) throws SQLException, GenericEntityException {
-        DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperInfo.getHelperBaseName());
+        Datasource datasourceInfo = EntityConfigUtil.getDatasource(helperInfo.getHelperBaseName());
 
-        if (datasourceInfo.jndiJdbcElement != null) {
-            Element jndiJdbcElement = datasourceInfo.jndiJdbcElement;
-            String jndiName = jndiJdbcElement.getAttribute("jndi-name");
-            String jndiServerName = jndiJdbcElement.getAttribute("jndi-server-name");
+        if (datasourceInfo.getJndiJdbc() != null) {
+            JndiJdbc jndiJdbcElement = datasourceInfo.getJndiJdbc();
+            String jndiName = jndiJdbcElement.getJndiName();
+            String jndiServerName = jndiJdbcElement.getJndiServerName();
             Connection con = getJndiConnection(jndiName, jndiServerName);
             if (con != null) return TransactionFactory.getCursorConnection(helperInfo, con);
         } else {
            // Debug.logError("JNDI loaded is the configured transaction manager but no jndi-jdbc element was specified in the " + helperName + " datasource. Please check your configuration.", module);
         }
 
-        if (datasourceInfo.inlineJdbcElement != null) {
-            Connection otherCon = ConnectionFactory.getManagedConnection(helperInfo, datasourceInfo.inlineJdbcElement);
+        if (datasourceInfo.getInlineJdbc() != null) {
+            Connection otherCon = ConnectionFactory.getManagedConnection(helperInfo, datasourceInfo.getInlineJdbc());
             return TransactionFactory.getCursorConnection(helperInfo, otherCon);
         } else {
             //no real need to print an error here

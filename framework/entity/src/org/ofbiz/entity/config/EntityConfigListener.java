@@ -30,6 +30,6 @@ public interface EntityConfigListener {
      * 
      * @param entityConfig The new <code>EntityConfig</code> instance.
      */
-    void onEntityConfigChange(EntityConfig entityConfig);
+    void onEntityConfigChange(EntityConfig entityConfig) throws Exception;
 
 }

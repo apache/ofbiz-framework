@@ -21,8 +21,8 @@ package org.ofbiz.entity.connection;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import org.w3c.dom.Element;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.config.model.JdbcElement;
 import org.ofbiz.entity.datasource.GenericHelperInfo;
 
 /**
@@ -30,6 +30,6 @@ import org.ofbiz.entity.datasource.GenericHelperInfo;
  */
 public interface ConnectionFactoryInterface {
 
-    public Connection getConnection(GenericHelperInfo helperInfo, Element configElement) throws SQLException, GenericEntityException;
+    public Connection getConnection(GenericHelperInfo helperInfo, JdbcElement jdbcElement) throws SQLException, GenericEntityException;
     public void closeAll();
 }

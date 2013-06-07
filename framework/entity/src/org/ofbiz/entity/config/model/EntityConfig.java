@@ -21,6 +21,8 @@ package org.ofbiz.entity.config.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import org.ofbiz.base.lang.ThreadSafe;
 import org.ofbiz.base.util.UtilXml;
@@ -46,6 +48,7 @@ public final class EntityConfig {
     private final List<EntityDataReader> entityDataReaderList; // <entity-data-reader>
     private final List<FieldType> fieldTypeList; // <field-type>
     private final List<Datasource> datasourceList; // <datasource>
+    private final Map<String, Datasource> datasourceMap;
 
     public EntityConfig(Element element) throws GenericEntityConfException {
         List<? extends Element> resourceLoaderElementList = UtilXml.childElementList(element, "resource-loader");
@@ -141,10 +144,14 @@ public final class EntityConfig {
             throw new GenericEntityConfException("<" + element.getNodeName() + "> element child elements <datasource> are missing");
         } else {
             List<Datasource> datasourceList = new ArrayList<Datasource>(datasourceElementList.size());
+            Map<String, Datasource> datasourceMap = new HashMap<String, Datasource>();
             for (Element datasourceElement : datasourceElementList) {
-                datasourceList.add(new Datasource(datasourceElement));
+                Datasource datasource = new Datasource(datasourceElement);
+                datasourceList.add(datasource);
+                datasourceMap.put(datasource.getName(), datasource);
             }
             this.datasourceList = Collections.unmodifiableList(datasourceList);
+            this.datasourceMap = Collections.unmodifiableMap(datasourceMap);
         }
     }
 
@@ -201,5 +208,15 @@ public final class EntityConfig {
     /** Returns the <code>&lt;datasource&gt;</code> child elements. */
     public List<Datasource> getDatasourceList() {
         return this.datasourceList;
+    }
+
+    /** Returns the specified <code>&lt;datasource&gt;</code> child element or <code>null</code> if it does not exist. */
+    public Datasource getDatasource(String name) {
+        return this.datasourceMap.get(name);
+    }
+
+    /** Returns the <code>&lt;datasource&gt;</code> child elements as a <code>Map</code>. */
+    public Map<String, Datasource> getDatasourceMap() {
+        return this.datasourceMap;
     }
 }

@@ -30,7 +30,7 @@ import org.ofbiz.base.lang.IsEmpty;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericModelException;
-import org.ofbiz.entity.config.DatasourceInfo;
+import org.ofbiz.entity.config.model.Datasource;
 import org.ofbiz.entity.model.ModelEntity;
 
 /**
@@ -146,7 +146,7 @@ public abstract class EntityCondition extends EntityConditionBase implements IsE
         throw new IllegalArgumentException(getClass().getName() + ".accept not implemented");
     }
 
-    abstract public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, DatasourceInfo datasourceInfo);
+    abstract public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, Datasource datasourceInfo);
 
     abstract public void checkCondition(ModelEntity modelEntity) throws GenericModelException;
 

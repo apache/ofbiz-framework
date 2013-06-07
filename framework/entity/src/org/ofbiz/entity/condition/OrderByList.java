@@ -26,7 +26,7 @@ import java.util.List;
 
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericModelException;
-import org.ofbiz.entity.config.DatasourceInfo;
+import org.ofbiz.entity.config.model.Datasource;
 import org.ofbiz.entity.model.ModelEntity;
 
 public class OrderByList implements Comparator<GenericEntity> {
@@ -77,13 +77,13 @@ public class OrderByList implements Comparator<GenericEntity> {
         }
     }
 
-    public String makeOrderByString(ModelEntity modelEntity, boolean includeTablenamePrefix, DatasourceInfo datasourceInfo) {
+    public String makeOrderByString(ModelEntity modelEntity, boolean includeTablenamePrefix, Datasource datasourceInfo) {
         StringBuilder sb = new StringBuilder();
         makeOrderByString(sb, modelEntity, includeTablenamePrefix, datasourceInfo);
         return sb.toString();
     }
 
-    public void makeOrderByString(StringBuilder sb, ModelEntity modelEntity, boolean includeTablenamePrefix, DatasourceInfo datasourceInfo) {
+    public void makeOrderByString(StringBuilder sb, ModelEntity modelEntity, boolean includeTablenamePrefix, Datasource datasourceInfo) {
         if (!orderByList.isEmpty()) {
             sb.append(" ORDER BY ");
         }

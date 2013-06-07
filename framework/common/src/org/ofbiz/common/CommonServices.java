@@ -56,6 +56,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.GenericEntityConfException;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
@@ -367,14 +368,18 @@ public class CommonServices {
     }
 
     public static Map<String, Object> displayXaDebugInfo(DispatchContext dctx, Map<String, ?> context) {
-        if (TransactionUtil.debugResources) {
-            if (UtilValidate.isNotEmpty(TransactionUtil.debugResMap)) {
-                TransactionUtil.logRunningTx();
+        try {
+            if (TransactionUtil.debugResources()) {
+                if (UtilValidate.isNotEmpty(TransactionUtil.debugResMap)) {
+                    TransactionUtil.logRunningTx();
+                } else {
+                    Debug.logInfo("No running transaction to display.", module);
+                }
             } else {
-                Debug.logInfo("No running transaction to display.", module);
+                Debug.logInfo("Debug resources is disabled.", module);
             }
-        } else {
-            Debug.logInfo("Debug resources is disabled.", module);
+        } catch (GenericEntityConfException e) {
+            return ServiceUtil.returnError(e.getMessage());
         }
 
         return ServiceUtil.returnSuccess();

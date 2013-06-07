@@ -48,9 +48,9 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.cache.Cache;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.config.DelegatorInfo;
 import org.ofbiz.entity.config.EntityConfigUtil;
+import org.ofbiz.entity.config.model.Datasource;
 import org.ofbiz.entity.datasource.GenericHelper;
 import org.ofbiz.entity.datasource.GenericHelperFactory;
 import org.ofbiz.entity.datasource.GenericHelperInfo;
@@ -271,16 +271,16 @@ public class GenericDelegator implements Delegator {
             // get the helper and if configured, do the datasource check
             GenericHelper helper = GenericHelperFactory.getHelper(helperInfo);
 
-            DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperBaseName);
-            if (datasourceInfo.checkOnStart) {
-                if (Debug.infoOn()) {
-                    Debug.logInfo("Doing database check as requested in entityengine.xml with addMissing=" + datasourceInfo.addMissingOnStart, module);
+            try {
+                Datasource datasource = EntityConfigUtil.getDatasource(helperBaseName);
+                if (datasource.getCheckOnStart()) {
+                    if (Debug.infoOn()) {
+                        Debug.logInfo("Doing database check as requested in entityengine.xml with addMissing=" + datasource.getAddMissingOnStart(), module);
+                    }
+                    helper.checkDataSource(this.getModelEntityMapByGroup(groupName), null, datasource.getAddMissingOnStart());
                 }
-                try {
-                    helper.checkDataSource(this.getModelEntityMapByGroup(groupName), null, datasourceInfo.addMissingOnStart);
-                } catch (GenericEntityException e) {
-                    Debug.logWarning(e, e.getMessage(), module);
-                }
+            } catch (GenericEntityException e) {
+                Debug.logWarning(e, e.getMessage(), module);
             }
         }
     }

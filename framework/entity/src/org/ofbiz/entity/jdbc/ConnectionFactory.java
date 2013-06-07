@@ -18,20 +18,23 @@
  *******************************************************************************/
 package org.ofbiz.entity.jdbc;
 
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.config.EntityConfigUtil;
-import org.ofbiz.entity.connection.ConnectionFactoryInterface;
-import org.ofbiz.entity.datasource.GenericHelperInfo;
-import org.ofbiz.entity.transaction.TransactionFactory;
-import org.w3c.dom.Element;
-
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.concurrent.atomic.AtomicReference;
+
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.config.EntityConfigListener;
+import org.ofbiz.entity.config.EntityConfigUtil;
+import org.ofbiz.entity.config.model.EntityConfig;
+import org.ofbiz.entity.config.model.JdbcElement;
+import org.ofbiz.entity.connection.ConnectionFactoryInterface;
+import org.ofbiz.entity.datasource.GenericHelperInfo;
+import org.ofbiz.entity.transaction.TransactionFactory;
 
 /**
  * ConnectionFactory - central source for JDBC connections
@@ -40,7 +43,34 @@ import java.util.Properties;
 public class ConnectionFactory {
     // Debug module name
     public static final String module = ConnectionFactory.class.getName();
-    private static ConnectionFactoryInterface _factory = null;
+    private static final AtomicReference<ConnectionFactoryInterface> connFactoryRef = new AtomicReference<ConnectionFactoryInterface>(null);
+    private static final EntityConfigListener configListener = new EntityConfigListener() {
+        @Override
+        public void onEntityConfigChange(EntityConfig entityConfig) throws Exception {
+            ConnectionFactoryInterface instance = createConnectionFactoryInterface();
+            ConnectionFactoryInterface previousInstance = connFactoryRef.getAndSet(instance);
+            if (previousInstance != null) {
+                previousInstance.closeAll();
+                Debug.logInfo("Listener shut down ConnectionFactoryInterface instance " + previousInstance, module);
+            }
+            Debug.logInfo("Listener created new ConnectionFactoryInterface instance " + instance, module);
+        }
+    };
+
+    public static EntityConfigListener getConfigListener() {
+        return configListener;
+    }
+
+    private static ConnectionFactoryInterface createConnectionFactoryInterface() throws Exception {
+        String className = EntityConfigUtil.getConnectionFactoryClass();
+        if (className == null) {
+            throw new IllegalStateException("Could not find connection factory class name definition");
+        }
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        Class<?> tfClass = loader.loadClass(className);
+        return (ConnectionFactoryInterface) tfClass.newInstance();
+    }
+
 
     public static Connection getConnection(String driverName, String connectionUrl, Properties props, String userName, String password) throws SQLException {
         // first register the JDBC driver with the DriverManager
@@ -89,50 +119,26 @@ public class ConnectionFactory {
         return con;
     }
 
-    public static ConnectionFactoryInterface getManagedConnectionFactory() {
-        if (_factory == null) { // don't want to block here
-            synchronized (ConnectionFactory.class) {
-                // must check if null again as one of the blocked threads can still enter
-                if (_factory == null) {
-                    try {
-                        String className = EntityConfigUtil.getConnectionFactoryClass();
-
-                        if (className == null) {
-                            throw new IllegalStateException("Could not find connection factory class name definition");
-                        }
-                        Class<?> cfClass = null;
-
-                        if (UtilValidate.isNotEmpty(className)) {
-                            try {
-                                ClassLoader loader = Thread.currentThread().getContextClassLoader();
-                                cfClass = loader.loadClass(className);
-                            } catch (ClassNotFoundException e) {
-                                Debug.logWarning(e, module);
-                                throw new IllegalStateException("Error loading ConnectionFactoryInterface class \"" + className + "\": " + e.getMessage());
-                            }
-                        }
-
-                        try {
-                            _factory = (ConnectionFactoryInterface) cfClass.newInstance();
-                        } catch (IllegalAccessException e) {
-                            Debug.logWarning(e, module);
-                            throw new IllegalStateException("Error loading ConnectionFactoryInterface class \"" + className + "\": " + e.getMessage());
-                        } catch (InstantiationException e) {
-                            Debug.logWarning(e, module);
-                            throw new IllegalStateException("Error loading ConnectionFactoryInterface class \"" + className + "\": " + e.getMessage());
-                        }
-                    } catch (SecurityException e) {
-                        Debug.logError(e, module);
-                        throw new IllegalStateException("Error loading ConnectionFactoryInterface class: " + e.getMessage());
-                    }
+    private static ConnectionFactoryInterface getManagedConnectionFactory() {
+        ConnectionFactoryInterface instance = connFactoryRef.get();
+        if (instance == null) {
+            try {
+                instance = createConnectionFactoryInterface();
+                if (connFactoryRef.compareAndSet(null, instance)) {
+                    Debug.logInfo("Factory method created new ConnectionFactoryInterface instance " + instance, module);
+                } else {
+                    instance = connFactoryRef.get();
                 }
+            } catch (Exception e) {
+                Debug.logError(e, "Exception thrown while creating ConnectionFactoryInterface instance: ", module);
+                throw new IllegalStateException("Error loading ConnectionFactoryInterface class: " + e);
             }
         }
-        return _factory;
+        return instance;
     }
 
-    public static Connection getManagedConnection(GenericHelperInfo helperInfo, Element inlineJdbcElement) throws SQLException, GenericEntityException {
-        return getManagedConnectionFactory().getConnection(helperInfo, inlineJdbcElement);
+    public static Connection getManagedConnection(GenericHelperInfo helperInfo, JdbcElement jdbcElement) throws SQLException, GenericEntityException {
+        return getManagedConnectionFactory().getConnection(helperInfo, jdbcElement);
     }
 
     public static void closeAllManagedConnections() {

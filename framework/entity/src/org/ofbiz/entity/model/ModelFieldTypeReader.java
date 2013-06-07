@@ -32,7 +32,7 @@ import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
-import org.ofbiz.entity.config.DatasourceInfo;
+import org.ofbiz.entity.config.model.Datasource;
 import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.config.FieldTypeInfo;
 import org.w3c.dom.Document;
@@ -65,11 +65,11 @@ public class ModelFieldTypeReader implements Serializable {
     }
 
     public static ModelFieldTypeReader getModelFieldTypeReader(String helperName) {
-        DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
+        Datasource datasourceInfo = EntityConfigUtil.getDatasource(helperName);
         if (datasourceInfo == null) {
             throw new IllegalArgumentException("Could not find a datasource/helper with the name " + helperName);
         }
-        String tempModelName = datasourceInfo.fieldTypeName;
+        String tempModelName = datasourceInfo.getFieldTypeName();
         ModelFieldTypeReader reader = readers.get(tempModelName);
         while (reader == null) {
             FieldTypeInfo fieldTypeInfo = EntityConfigUtil.getFieldTypeInfo(tempModelName);

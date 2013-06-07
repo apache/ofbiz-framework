@@ -35,9 +35,9 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.config.EntityDataReaderInfo;
+import org.ofbiz.entity.config.model.*;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelReader;
 import org.ofbiz.entity.model.ModelUtil;
@@ -54,28 +54,28 @@ public class EntityDataLoader {
     public static String getPathsString(String helperName) {
         StringBuilder pathBuffer = new StringBuilder();
         if (UtilValidate.isNotEmpty(helperName)) {
-            DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
-            for (Element sqlLoadPathElement: datasourceInfo.sqlLoadPaths) {
-                String prependEnv = sqlLoadPathElement.getAttribute("prepend-env");
+            Datasource datasourceInfo = EntityConfigUtil.getDatasource(helperName);
+            for (SqlLoadPath sqlLoadPath : datasourceInfo.getSqlLoadPathList()) {
+                String prependEnv = sqlLoadPath.getPrependEnv();
                 pathBuffer.append(pathBuffer.length() == 0 ? "" : ";");
                 if (UtilValidate.isNotEmpty(prependEnv)) {
                     pathBuffer.append(System.getProperty(prependEnv));
                     pathBuffer.append("/");
                 }
-                pathBuffer.append(sqlLoadPathElement.getAttribute("path"));
+                pathBuffer.append(sqlLoadPath.getPath());
             }
         }
         return pathBuffer.toString();
     }
 
     public static List<URL> getUrlList(String helperName) {
-        DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
-        return getUrlList(helperName, null, datasourceInfo.readDatas);
+        Datasource datasourceInfo = EntityConfigUtil.getDatasource(helperName);
+        return getUrlList(helperName, null, datasourceInfo.getReadDataList());
     }
 
     public static List<URL> getUrlList(String helperName, String componentName) {
-        DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
-        return getUrlList(helperName, componentName, datasourceInfo.readDatas);
+        Datasource datasourceInfo = EntityConfigUtil.getDatasource(helperName);
+        return getUrlList(helperName, componentName, datasourceInfo.getReadDataList());
     }
 
     public static <E> List<URL> getUrlList(String helperName, List<E> readerNames) {
@@ -92,6 +92,8 @@ public class EntityDataLoader {
                 String readerName = null;
                 if (readerInfo instanceof String) {
                     readerName = (String) readerInfo;
+                } else if (readerInfo instanceof ReadData) {
+                    readerName = ((ReadData) readerInfo).getReaderName();
                 } else if (readerInfo instanceof Element) {
                     readerName = ((Element) readerInfo).getAttribute("reader-name");
                 } else {
@@ -195,16 +197,10 @@ public class EntityDataLoader {
     }
 
     public static List<URL> getUrlByComponentList(String helperName, List<String> components) {
-        DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
+        Datasource datasourceInfo = EntityConfigUtil.getDatasource(helperName);
         List<String> readerNames = new LinkedList<String>();
-        for (Object readerInfo :  datasourceInfo.readDatas) {
-            String readerName = null;
-            if (readerInfo instanceof Element) {
-                readerName = ((Element) readerInfo).getAttribute("reader-name");
-            } else {
-                throw new IllegalArgumentException("Reader name list does not contain String(s) or Element(s)");
-            }
-            
+        for (ReadData readerInfo :  datasourceInfo.getReadDataList()) {
+            String readerName = readerInfo.getReaderName();
             // ignore the "tenant" reader if the multitenant property is "N"
             if ("tenant".equals(readerName) && "N".equals(UtilProperties.getPropertyValue("general.properties", "multitenant"))) {
                 continue;

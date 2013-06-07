@@ -49,6 +49,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.GenericEntityConfException;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.config.EntityConfigUtil;
 
@@ -60,7 +61,6 @@ public class TransactionUtil implements Status {
     // Debug module name
     public static final String module = TransactionUtil.class.getName();
     public static Map<Xid, DebugXaResource> debugResMap = Collections.<Xid, DebugXaResource>synchronizedMap(new HashMap<Xid, DebugXaResource>());
-    public static boolean debugResources = EntityConfigUtil.isDebugXAResource();
 
     private static ThreadLocal<List<Transaction>> suspendedTxStack = new ThreadLocal<List<Transaction>>();
     private static ThreadLocal<List<Exception>> suspendedTxLocationStack = new ThreadLocal<List<Exception>>();
@@ -169,7 +169,7 @@ public class TransactionUtil implements Status {
                 setTransactionBeginStack();
 
                 // initialize the debug resource
-                if (debugResources) {
+                if (EntityConfigUtil.isDebugXAResource()) {
                     DebugXaResource dxa = new DebugXaResource();
                     try {
                         dxa.enlist();
@@ -185,6 +185,8 @@ public class TransactionUtil implements Status {
             } catch (SystemException e) {
                 //This is Java 1.4 only, but useful for certain debuggins: Throwable t = e.getCause() == null ? e : e.getCause();
                 throw new GenericTransactionException("System error, could not begin transaction", e);
+            } catch (GenericEntityConfException e) {
+                throw new GenericTransactionException("Configuration error, could not begin transaction", e);
             }
         } else {
             if (Debug.infoOn()) Debug.logInfo("[TransactionUtil.begin] no user transaction, so no transaction begun", module);
@@ -536,13 +538,21 @@ public class TransactionUtil implements Status {
         }
     }
 
+    public static boolean debugResources() throws GenericEntityConfException {
+        return EntityConfigUtil.isDebugXAResource();
+    }
+
     public static void logRunningTx() {
-        if (debugResources) {
-            if (UtilValidate.isNotEmpty(debugResMap)) {
-                for (DebugXaResource dxa: debugResMap.values()) {
-                    dxa.log();
+        try {
+            if (EntityConfigUtil.isDebugXAResource()) {
+                if (UtilValidate.isNotEmpty(debugResMap)) {
+                    for (DebugXaResource dxa: debugResMap.values()) {
+                        dxa.log();
+                    }
                 }
             }
+        } catch (GenericEntityConfException e) {
+            Debug.logWarning("Exception thrown while logging: " + e, module);
         }
     }
 
