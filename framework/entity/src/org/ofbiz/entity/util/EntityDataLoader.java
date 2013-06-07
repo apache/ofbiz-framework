@@ -33,11 +33,15 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.GenericEntityConfException;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.config.EntityConfigUtil;
-import org.ofbiz.entity.config.EntityDataReaderInfo;
-import org.ofbiz.entity.config.model.*;
+import org.ofbiz.entity.config.model.Datasource;
+import org.ofbiz.entity.config.model.EntityDataReader;
+import org.ofbiz.entity.config.model.ReadData;
+import org.ofbiz.entity.config.model.Resource;
+import org.ofbiz.entity.config.model.SqlLoadPath;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelReader;
 import org.ofbiz.entity.model.ModelUtil;
@@ -107,16 +111,15 @@ public class EntityDataLoader {
                 }
 
                 // get all of the main resource model stuff, ie specified in the entityengine.xml file
-                EntityDataReaderInfo entityDataReaderInfo = EntityConfigUtil.getEntityDataReaderInfo(readerName);
-
-                if (entityDataReaderInfo == null) {
-                    Debug.logInfo("Could not find entity-data-reader named: " + readerName + ". Creating a new reader with this name. ", module);
-                    entityDataReaderInfo = new EntityDataReaderInfo(readerName);
+                EntityDataReader entityDataReaderInfo = null;
+                try {
+                    entityDataReaderInfo = EntityConfigUtil.getEntityDataReader(readerName);
+                } catch (GenericEntityConfException e) {
+                    Debug.logWarning(e, "Exception thrown while getting entity data reader config: ", module);
                 }
-
                 if (entityDataReaderInfo != null) {
-                    for (Element resourceElement: entityDataReaderInfo.resourceElements) {
-                        ResourceHandler handler = new MainResourceHandler(EntityConfigUtil.ENTITY_ENGINE_XML_FILENAME, resourceElement);
+                    for (Resource resourceElement: entityDataReaderInfo.getResourceList()) {
+                        ResourceHandler handler = new MainResourceHandler(EntityConfigUtil.ENTITY_ENGINE_XML_FILENAME, resourceElement.getLoader(), resourceElement.getLocation());
                         try {
                             urlList.add(handler.getURL());
                         } catch (GenericConfigException e) {

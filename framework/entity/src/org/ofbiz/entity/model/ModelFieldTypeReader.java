@@ -32,9 +32,10 @@ import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
-import org.ofbiz.entity.config.model.Datasource;
+import org.ofbiz.entity.GenericEntityConfException;
 import org.ofbiz.entity.config.EntityConfigUtil;
-import org.ofbiz.entity.config.FieldTypeInfo;
+import org.ofbiz.entity.config.model.Datasource;
+import org.ofbiz.entity.config.model.FieldType;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -72,11 +73,16 @@ public class ModelFieldTypeReader implements Serializable {
         String tempModelName = datasourceInfo.getFieldTypeName();
         ModelFieldTypeReader reader = readers.get(tempModelName);
         while (reader == null) {
-            FieldTypeInfo fieldTypeInfo = EntityConfigUtil.getFieldTypeInfo(tempModelName);
+            FieldType fieldTypeInfo = null;
+            try {
+                fieldTypeInfo = EntityConfigUtil.getFieldType(tempModelName);
+            } catch (GenericEntityConfException e) {
+                Debug.logWarning(e, "Exception thrown while getting field type config: ", module);
+            }
             if (fieldTypeInfo == null) {
                 throw new IllegalArgumentException("Could not find a field-type definition with name \"" + tempModelName + "\"");
             }
-            ResourceHandler fieldTypeResourceHandler = new MainResourceHandler(EntityConfigUtil.ENTITY_ENGINE_XML_FILENAME, fieldTypeInfo.resourceElement);
+            ResourceHandler fieldTypeResourceHandler = new MainResourceHandler(EntityConfigUtil.ENTITY_ENGINE_XML_FILENAME, fieldTypeInfo.getLoader(), fieldTypeInfo.getLocation());
             UtilTimer utilTimer = new UtilTimer();
             utilTimer.timerString("[ModelFieldTypeReader.getModelFieldTypeReader] Reading field types from " + fieldTypeResourceHandler.getLocation());
             Document document = null;

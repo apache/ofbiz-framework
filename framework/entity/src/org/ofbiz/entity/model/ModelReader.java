@@ -19,13 +19,13 @@
 package org.ofbiz.entity.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -44,7 +44,8 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.config.DelegatorInfo;
 import org.ofbiz.entity.config.EntityConfigUtil;
-import org.ofbiz.entity.config.EntityModelReaderInfo;
+import org.ofbiz.entity.config.model.EntityModelReader;
+import org.ofbiz.entity.config.model.Resource;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -103,15 +104,15 @@ public class ModelReader implements Serializable {
         resourceHandlerEntities = new HashMap<ResourceHandler, Collection<String>>();
         entityResourceHandlerMap = new HashMap<String, ResourceHandler>();
 
-        EntityModelReaderInfo entityModelReaderInfo = EntityConfigUtil.getEntityModelReaderInfo(modelName);
+        EntityModelReader entityModelReaderInfo = EntityConfigUtil.getEntityModelReader(modelName);
 
         if (entityModelReaderInfo == null) {
             throw new GenericEntityConfException("Cound not find an entity-model-reader with the name " + modelName);
         }
 
         // get all of the main resource model stuff, ie specified in the entityengine.xml file
-        for (Element resourceElement: entityModelReaderInfo.resourceElements) {
-            ResourceHandler handler = new MainResourceHandler(EntityConfigUtil.ENTITY_ENGINE_XML_FILENAME, resourceElement);
+        for (Resource resourceElement : entityModelReaderInfo.getResourceList()) {
+            ResourceHandler handler = new MainResourceHandler(EntityConfigUtil.ENTITY_ENGINE_XML_FILENAME, resourceElement.getLoader(), resourceElement.getLocation());
             entityResourceHandlers.add(handler);
         }
 
