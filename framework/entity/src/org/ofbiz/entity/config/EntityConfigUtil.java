@@ -19,10 +19,10 @@
 package org.ofbiz.entity.config;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.ofbiz.base.config.GenericConfigException;
@@ -35,7 +35,11 @@ import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.GenericEntityConfException;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.config.model.Datasource;
 import org.ofbiz.entity.config.model.EntityConfig;
+import org.ofbiz.entity.config.model.InlineJdbc;
+import org.ofbiz.entity.jdbc.ConnectionFactory;
+import org.ofbiz.entity.transaction.TransactionFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -49,7 +53,6 @@ public class EntityConfigUtil {
     public static final String ENTITY_ENGINE_XML_FILENAME = "entityengine.xml";
     // Keep the EntityConfig instance in a cache - so the configuration can be reloaded at run-time. There will be only one EntityConfig instance in the cache.
     private static final UtilCache<String, EntityConfig> entityConfigCache = UtilCache.createUtilCache("entity.EntityConfig", 0, 0, false);
-    private static final List<EntityConfigListener> configListeners = new CopyOnWriteArrayList<EntityConfigListener>();
 
     public static String createConfigFileLineNumberText(Element element) {
         if (element.getUserData("startLine") != null) {
@@ -65,15 +68,20 @@ public class EntityConfigUtil {
     public static EntityConfig getEntityConfig() throws GenericEntityConfException {
         EntityConfig instance = entityConfigCache.get("instance");
         if (instance == null) {
-            Element entityConfigElement = getXmlDocument().getDocumentElement();
-            instance = new EntityConfig(entityConfigElement);
-            entityConfigCache.putIfAbsent("instance", instance);
-            instance = entityConfigCache.get("instance");
-            for (EntityConfigListener listener : configListeners) {
-                try {
-                    listener.onEntityConfigChange(instance);
-                } catch (Exception e) {
-                    Debug.logError(e, "Exception thrown while notifying listener " + listener + ": ", module);
+            synchronized (EntityConfigUtil.class) {
+                // Sync ensures resources are initialized properly - do not remove.
+                Element entityConfigElement = getXmlDocument().getDocumentElement();
+                instance = new EntityConfig(entityConfigElement);
+                EntityConfig previousInstance = entityConfigCache.putIfAbsent("instance", instance);
+                instance = entityConfigCache.get("instance");
+                if (previousInstance == null) {
+                    for (EntityConfigListener listener : getConfigListeners()) {
+                        try {
+                            listener.onEntityConfigChange(instance);
+                        } catch (Exception e) {
+                            Debug.logError(e, "Exception thrown while notifying listener " + listener + ": ", module);
+                        }
+                    }
                 }
             }
         }
@@ -92,20 +100,18 @@ public class EntityConfigUtil {
         }
     }
 
+    private static List<EntityConfigListener> getConfigListeners() {
+        // TODO: Build a list of listeners. Listeners must be notified in a specific order
+        // so resources can be deallocated/allocated properly and so dependencies can be followed.
+        List<EntityConfigListener> configListeners = new ArrayList<EntityConfigListener>();
+        configListeners.add(TransactionFactory.getConfigListener());
+        configListeners.add(ConnectionFactory.getConfigListener());
+        return configListeners;
+    }
+
     private static volatile AtomicReference<EntityConfigUtil> configRef = new AtomicReference<EntityConfigUtil>();
 
     // ========== engine info fields ==========
-    private final String txFactoryClass;
-    private final String txFactoryUserTxJndiName;
-    private final String txFactoryUserTxJndiServerName;
-    private final String txFactoryTxMgrJndiName;
-    private final String txFactoryTxMgrJndiServerName;
-    private final String connFactoryClass;
-    /**
-     * Create Begin stacktrace when enlisting transactions
-     */
-    private final Boolean debugXAResources;
-
     private final Map<String, ResourceLoaderInfo> resourceLoaderInfos = new HashMap<String, ResourceLoaderInfo>();
     private final Map<String, DelegatorInfo> delegatorInfos = new HashMap<String, DelegatorInfo>();
     private final Map<String, EntityModelReaderInfo> entityModelReaderInfos = new HashMap<String, EntityModelReaderInfo>();
@@ -113,7 +119,6 @@ public class EntityConfigUtil {
     private final Map<String, EntityEcaReaderInfo> entityEcaReaderInfos = new HashMap<String, EntityEcaReaderInfo>();
     private final Map<String, EntityDataReaderInfo> entityDataReaderInfos = new HashMap<String, EntityDataReaderInfo>();
     private final Map<String, FieldTypeInfo> fieldTypeInfos = new HashMap<String, FieldTypeInfo>();
-    private final Map<String, DatasourceInfo> datasourceInfos = new HashMap<String, DatasourceInfo>();
 
     private static Element getXmlRootElement() throws GenericEntityConfException {
         try {
@@ -145,46 +150,6 @@ public class EntityConfigUtil {
     }
 
     private EntityConfigUtil(Element rootElement) throws GenericEntityException {
-        // load the transaction factory
-        Element transactionFactoryElement = UtilXml.firstChildElement(rootElement, "transaction-factory");
-        if (transactionFactoryElement == null) {
-            throw new GenericEntityConfException("ERROR: no transaction-factory definition was found in " + ENTITY_ENGINE_XML_FILENAME);
-        }
-
-        txFactoryClass = transactionFactoryElement.getAttribute("class");
-
-        Element userTxJndiElement = UtilXml.firstChildElement(transactionFactoryElement, "user-transaction-jndi");
-        if (userTxJndiElement != null) {
-            txFactoryUserTxJndiName = userTxJndiElement.getAttribute("jndi-name");
-            txFactoryUserTxJndiServerName = userTxJndiElement.getAttribute("jndi-server-name");
-        } else {
-            txFactoryUserTxJndiName = null;
-            txFactoryUserTxJndiServerName = null;
-        }
-
-        Element txMgrJndiElement = UtilXml.firstChildElement(transactionFactoryElement, "transaction-manager-jndi");
-        if (txMgrJndiElement != null) {
-            txFactoryTxMgrJndiName = txMgrJndiElement.getAttribute("jndi-name");
-            txFactoryTxMgrJndiServerName = txMgrJndiElement.getAttribute("jndi-server-name");
-        } else {
-            txFactoryTxMgrJndiName = null;
-            txFactoryTxMgrJndiServerName = null;
-        }
-
-        // load the connection factory
-        Element connectionFactoryElement = UtilXml.firstChildElement(rootElement, "connection-factory");
-        if (connectionFactoryElement == null) {
-            throw new GenericEntityConfException("ERROR: no connection-factory definition was found in " + ENTITY_ENGINE_XML_FILENAME);
-        }
-
-        connFactoryClass = connectionFactoryElement.getAttribute("class");
-
-        Element debugXaResourcesElement = UtilXml.firstChildElement(rootElement, "debug-xa-resources");
-        if (debugXaResourcesElement == null) { // This should not be since debug-xa-resources is required, but safer...
-            debugXAResources = false;
-        } else {
-            debugXAResources = "true".equals(debugXaResourcesElement.getAttribute("value"));
-        }
         // not load all of the maps...
 
         // resource-loader - resourceLoaderInfos
@@ -228,43 +193,38 @@ public class EntityConfigUtil {
             FieldTypeInfo fieldTypeInfo = new FieldTypeInfo(curElement);
             fieldTypeInfos.put(fieldTypeInfo.name, fieldTypeInfo);
         }
-
-        // datasource - datasourceInfos
-        for (Element curElement: UtilXml.childElementList(rootElement, "datasource")) {
-            DatasourceInfo datasourceInfo = new DatasourceInfo(curElement);
-            datasourceInfos.put(datasourceInfo.name, datasourceInfo);
-        }
     }
 
-    public static String getTxFactoryClass() {
-        return configRef.get().txFactoryClass;
+    public static String getTxFactoryClass() throws GenericEntityConfException {
+        return getEntityConfig().getTransactionFactory().getClassName();
     }
 
-    public static String getTxFactoryUserTxJndiName() {
-        return configRef.get().txFactoryUserTxJndiName;
+    public static String getTxFactoryUserTxJndiName() throws GenericEntityConfException {
+        return getEntityConfig().getTransactionFactory().getUserTransactionJndi().getJndiName();
     }
 
-    public static String getTxFactoryUserTxJndiServerName() {
-        return configRef.get().txFactoryUserTxJndiServerName;
+    public static String getTxFactoryUserTxJndiServerName() throws GenericEntityConfException {
+        return getEntityConfig().getTransactionFactory().getUserTransactionJndi().getJndiServerName();
     }
 
-    public static String getTxFactoryTxMgrJndiName() {
-        return configRef.get().txFactoryTxMgrJndiName;
+    public static String getTxFactoryTxMgrJndiName() throws GenericEntityConfException {
+        return getEntityConfig().getTransactionFactory().getTransactionManagerJndi().getJndiName();
+    }
+
+    public static String getTxFactoryTxMgrJndiServerName() throws GenericEntityConfException {
+        return getEntityConfig().getTransactionFactory().getTransactionManagerJndi().getJndiServerName();
     }
     
     /**
      * @return true Create Begin stacktrace when enlisting transactions
+     * @throws GenericEntityConfException 
      */
-    public static boolean isDebugXAResource() {
-        return configRef.get().debugXAResources;
+    public static boolean isDebugXAResource() throws GenericEntityConfException {
+        return getEntityConfig().getDebugXaResources().getValue();
     }
 
-    public static String getTxFactoryTxMgrJndiServerName() {
-        return configRef.get().txFactoryTxMgrJndiServerName;
-    }
-
-    public static String getConnectionFactoryClass() {
-        return configRef.get().connFactoryClass;
+    public static String getConnectionFactoryClass() throws GenericEntityConfException {
+        return getEntityConfig().getConnectionFactory().getClassName();
     }
 
     public static ResourceLoaderInfo getResourceLoaderInfo(String name) {
@@ -295,29 +255,37 @@ public class EntityConfigUtil {
         return configRef.get().fieldTypeInfos.get(name);
     }
 
-    public static DatasourceInfo getDatasourceInfo(String name) {
-        return configRef.get().datasourceInfos.get(name);
+    public static Datasource getDatasource(String name) {
+        try {
+            return getEntityConfig().getDatasource(name);
+        } catch (GenericEntityConfException e) {
+            // FIXME: Doing this so we don't have to rewrite the entire API.
+            throw new RuntimeException(e);
+        }
     }
 
-    public static Map<String, DatasourceInfo> getDatasourceInfos() {
-        return configRef.get().datasourceInfos;
+    public static Map<String, Datasource> getDatasources() throws GenericEntityConfException {
+        return getEntityConfig().getDatasourceMap();
     }
 
-    public static String getJdbcPassword(Element inlineJdbcElement) {
-        String jdbcPassword = inlineJdbcElement.getAttribute("jdbc-password");
+    public static String getJdbcPassword(InlineJdbc inlineJdbcElement) {
+        String jdbcPassword = inlineJdbcElement.getJdbcPassword();
         if (UtilValidate.isNotEmpty(jdbcPassword)) {
             return jdbcPassword;
         }
-        String jdbcPasswordLookup = inlineJdbcElement.getAttribute("jdbc-password-lookup");
+        String jdbcPasswordLookup = inlineJdbcElement.getJdbcPasswordLookup();
         if (UtilValidate.isEmpty(jdbcPasswordLookup)) {
-            Debug.logError("no @jdbc-password or @jdbc-password-lookup specified for inline-jdbc element: %s@%d:%d", module, inlineJdbcElement.getUserData("systemId"), inlineJdbcElement.getUserData("startLine"), inlineJdbcElement.getUserData("startColumn"));
+            // FIXME: Include line number in model
+            // Debug.logError("no @jdbc-password or @jdbc-password-lookup specified for inline-jdbc element: %s@%d:%d", module, inlineJdbcElement.getUserData("systemId"), inlineJdbcElement.getUserData("startLine"), inlineJdbcElement.getUserData("startColumn"));
+            Debug.logError("no jdbc-password or jdbc-password-lookup specified for inline-jdbc element", module);
             return null;
         }
         String key = "jdbc-password." + jdbcPasswordLookup;
         jdbcPassword = UtilProperties.getPropertyValue("passwords.properties", key);
         if (UtilValidate.isEmpty(jdbcPassword)) {
-            // This is a warning, not an error, as the
-            Debug.logError("Could not find password %s specified for inline-jdbc element: %s@%d:%d", module, key, inlineJdbcElement.getUserData("systemId"), inlineJdbcElement.getUserData("startLine"), inlineJdbcElement.getUserData("startColumn"));
+            // FIXME: Include line number in model
+            // Debug.logError("no @jdbc-password or @jdbc-password-lookup specified for inline-jdbc element: %s@%d:%d", module, inlineJdbcElement.getUserData("systemId"), inlineJdbcElement.getUserData("startLine"), inlineJdbcElement.getUserData("startColumn"));
+            Debug.logError("no jdbc-password or jdbc-password-lookup specified for inline-jdbc element", module);
         }
         return jdbcPassword;
     }

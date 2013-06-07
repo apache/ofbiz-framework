@@ -38,7 +38,7 @@ import java.util.List;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericDataSourceException;
 import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.config.DatasourceInfo;
+import org.ofbiz.entity.config.model.Datasource;
 import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.datasource.GenericHelperInfo;
 import org.ofbiz.entity.transaction.GenericTransactionException;
@@ -744,8 +744,8 @@ public class SQLProcessor {
         if (field != null) {
             _ps.setBlob(_ind, field);
         } else {
-            DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(this.helperInfo.getHelperBaseName());
-            if (datasourceInfo.useBinaryTypeForBlob) {
+            Datasource datasourceInfo = EntityConfigUtil.getDatasource(this.helperInfo.getHelperBaseName());
+            if (datasourceInfo.getUseBinaryTypeForBlob()) {
                 _ps.setNull(_ind, Types.BINARY);
             } else {
                 _ps.setNull(_ind, Types.BLOB);
@@ -795,8 +795,8 @@ public class SQLProcessor {
                 throw new SQLException(ex.getMessage());
             }
         } else {
-            DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(this.helperInfo.getHelperBaseName());
-            if (datasourceInfo.useBinaryTypeForBlob) {
+            Datasource datasourceInfo = EntityConfigUtil.getDatasource(this.helperInfo.getHelperBaseName());
+            if (datasourceInfo.getUseBinaryTypeForBlob()) {
                 _ps.setNull(_ind, Types.BINARY);
             } else {
                 _ps.setNull(_ind, Types.BLOB);
@@ -818,8 +818,8 @@ public class SQLProcessor {
         if (bytes != null) {
             _ps.setBytes(_ind, bytes);
         } else {
-            DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(this.helperInfo.getHelperBaseName());
-            if (datasourceInfo.useBinaryTypeForBlob) {
+            Datasource datasourceInfo = EntityConfigUtil.getDatasource(this.helperInfo.getHelperBaseName());
+            if (datasourceInfo.getUseBinaryTypeForBlob()) {
                 _ps.setNull(_ind, Types.BINARY);
             } else {
                 _ps.setNull(_ind, Types.BLOB);
@@ -856,11 +856,11 @@ public class SQLProcessor {
 
         // check if the statement was called with a specific fetch size, if not grab the default from the datasource
         if (fetchSize < 0) {
-            DatasourceInfo ds = EntityConfigUtil.getDatasourceInfo(this.helperInfo.getHelperBaseName());
+            Datasource ds = EntityConfigUtil.getDatasource(this.helperInfo.getHelperBaseName());
             if (ds != null) {
-                fetchSize = ds.resultFetchSize;
+                fetchSize = ds.getResultFetchSize();
             } else {
-                Debug.logWarning("DatasourceInfo is null, not setting fetch size!", module);
+                Debug.logWarning("Datasource is null, not setting fetch size!", module);
             }
         }
 

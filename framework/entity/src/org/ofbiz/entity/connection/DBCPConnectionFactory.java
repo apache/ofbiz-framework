@@ -38,11 +38,13 @@ import org.apache.commons.dbcp.managed.XAConnectionFactory;
 import org.apache.commons.pool.impl.GenericObjectPool;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.GenericEntityConfException;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.config.EntityConfigUtil;
+import org.ofbiz.entity.config.model.InlineJdbc;
+import org.ofbiz.entity.config.model.JdbcElement;
 import org.ofbiz.entity.datasource.GenericHelperInfo;
 import org.ofbiz.entity.transaction.TransactionFactory;
-import org.w3c.dom.Element;
 
 /**
  * DBCPConnectionFactory
@@ -52,64 +54,31 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
     public static final String module = DBCPConnectionFactory.class.getName();
     protected static final ConcurrentHashMap<String, ManagedDataSource> dsCache = new ConcurrentHashMap<String, ManagedDataSource>();
 
-    public Connection getConnection(GenericHelperInfo helperInfo, Element jdbcElement) throws SQLException, GenericEntityException {
+    public Connection getConnection(GenericHelperInfo helperInfo, JdbcElement abstractJdbc) throws SQLException, GenericEntityException {
         String cacheKey = helperInfo.getHelperFullName();
         ManagedDataSource mds = dsCache.get(cacheKey);
         if (mds != null) {
             return TransactionFactory.getCursorConnection(helperInfo, mds.getConnection());
         }
+        if (!(abstractJdbc instanceof InlineJdbc)) {
+            throw new GenericEntityConfException("DBCP requires an <inline-jdbc> child element in the <datasource> element");
+        }
+        InlineJdbc jdbcElement = (InlineJdbc) abstractJdbc;
         // connection properties
         TransactionManager txMgr = TransactionFactory.getTransactionManager();
-        String driverName = jdbcElement.getAttribute("jdbc-driver");
+        String driverName = jdbcElement.getJdbcDriver();
 
-        String jdbcUri = UtilValidate.isNotEmpty(helperInfo.getOverrideJdbcUri()) ? helperInfo.getOverrideJdbcUri() : jdbcElement.getAttribute("jdbc-uri");
-        String jdbcUsername = UtilValidate.isNotEmpty(helperInfo.getOverrideUsername()) ? helperInfo.getOverrideUsername() : jdbcElement.getAttribute("jdbc-username");
+        String jdbcUri = UtilValidate.isNotEmpty(helperInfo.getOverrideJdbcUri()) ? helperInfo.getOverrideJdbcUri() : jdbcElement.getJdbcUri();
+        String jdbcUsername = UtilValidate.isNotEmpty(helperInfo.getOverrideUsername()) ? helperInfo.getOverrideUsername() : jdbcElement.getJdbcUsername();
         String jdbcPassword = UtilValidate.isNotEmpty(helperInfo.getOverridePassword()) ? helperInfo.getOverridePassword() : EntityConfigUtil.getJdbcPassword(jdbcElement);
 
         // pool settings
-        int maxSize, minSize, timeBetweenEvictionRunsMillis;
-        try {
-            maxSize = Integer.parseInt(jdbcElement.getAttribute("pool-maxsize"));
-        } catch (NumberFormatException nfe) {
-            Debug.logError("Problems with pool settings [pool-maxsize=" + jdbcElement.getAttribute("pool-maxsize") + "]; the values MUST be numbers, using default of 20.", module);
-            maxSize = 20;
-        } catch (Exception e) {
-            Debug.logError("Problems with pool settings [pool-maxsize], using default of 20.", module);
-            maxSize = 20;
-        }
-        try {
-            minSize = Integer.parseInt(jdbcElement.getAttribute("pool-minsize"));
-        } catch (NumberFormatException nfe) {
-            Debug.logError("Problems with pool settings [pool-minsize=" + jdbcElement.getAttribute("pool-minsize") + "]; the values MUST be numbers, using default of 2.", module);
-            minSize = 2;
-        } catch (Exception e) {
-            Debug.logError("Problems with pool settings [pool-minsize], using default of 2.", module);
-            minSize = 2;
-        }
-        // idle-maxsize, default to half of pool-maxsize
-        int maxIdle = maxSize / 2;
-        if (jdbcElement.hasAttribute("idle-maxsize")) {
-            try {
-                maxIdle = Integer.parseInt(jdbcElement.getAttribute("idle-maxsize"));
-            } catch (NumberFormatException nfe) {
-                Debug.logError("Problems with pool settings [idle-maxsize=" + jdbcElement.getAttribute("idle-maxsize") + "]; the values MUST be numbers, using calculated default of" + (maxIdle > minSize ? maxIdle : minSize) + ".", module);
-            } catch (Exception e) {
-                Debug.logError("Problems with pool settings [idle-maxsize], using calculated default of" + (maxIdle > minSize ? maxIdle : minSize) + ".", module);
-            }
-        }
+        int maxSize = jdbcElement.getPoolMaxsize();
+        int minSize = jdbcElement.getPoolMinsize();
+        int timeBetweenEvictionRunsMillis = jdbcElement.getTimeBetweenEvictionRunsMillis();
+        int maxIdle = jdbcElement.getIdleMaxsize();
         // Don't allow a maxIdle of less than pool-minsize
         maxIdle = maxIdle > minSize ? maxIdle : minSize;
-
-        try {
-            timeBetweenEvictionRunsMillis = Integer.parseInt(jdbcElement.getAttribute("time-between-eviction-runs-millis"));
-        } catch (NumberFormatException nfe) {
-            Debug.logError("Problems with pool settings [time-between-eviction-runs-millis=" + jdbcElement.getAttribute("time-between-eviction-runs-millis") + "]; the values MUST be numbers, using default of 600000.", module);
-            timeBetweenEvictionRunsMillis = 600000;
-        } catch (Exception e) {
-            Debug.logError("Problems with pool settings [time-between-eviction-runs-millis], using default of 600000.", module);
-            timeBetweenEvictionRunsMillis = 600000;
-        }
-
         // load the driver
         Driver jdbcDriver;
         try {
@@ -144,7 +113,7 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
         factory.setValidationQuery("select 1 from entity_key_store where key_name = ''");
         factory.setDefaultReadOnly(false);
 
-        String transIso = jdbcElement.getAttribute("isolation-level");
+        String transIso = jdbcElement.getIsolationLevel();
         if (UtilValidate.isNotEmpty(transIso)) {
             if ("Serializable".equals(transIso)) {
                 factory.setDefaultTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
@@ -173,6 +142,7 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
 
     public void closeAll() {
         // no methods on the pool to shutdown; so just clearing for GC
+        // Hmm... then how do we close the JDBC connections?
         dsCache.clear();
     }
 

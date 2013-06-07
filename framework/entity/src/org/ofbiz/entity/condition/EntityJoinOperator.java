@@ -29,7 +29,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericModelException;
-import org.ofbiz.entity.config.DatasourceInfo;
+import org.ofbiz.entity.config.model.Datasource;
 import org.ofbiz.entity.model.ModelEntity;
 
 /**
@@ -47,14 +47,14 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
     }
 
     @Override
-    public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean compat, EntityCondition lhs, EntityCondition rhs, DatasourceInfo datasourceInfo) {
+    public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean compat, EntityCondition lhs, EntityCondition rhs, Datasource datasourceInfo) {
         List<EntityCondition> conditions = new LinkedList<EntityCondition>();
         conditions.add(lhs);
         conditions.add(rhs);
         addSqlValue(sql, modelEntity, entityConditionParams, conditions, datasourceInfo);
     }
 
-    public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, List<? extends EntityCondition> conditionList, DatasourceInfo datasourceInfo) {
+    public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, List<? extends EntityCondition> conditionList, Datasource datasourceInfo) {
         if (UtilValidate.isNotEmpty(conditionList)) {
             boolean hadSomething = false;
             Iterator<? extends EntityCondition> conditionIter = conditionList.iterator();

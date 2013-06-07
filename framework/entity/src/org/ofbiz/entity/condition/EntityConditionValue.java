@@ -25,7 +25,7 @@ import java.util.Map;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericModelException;
-import org.ofbiz.entity.config.DatasourceInfo;
+import org.ofbiz.entity.config.model.Datasource;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 
@@ -39,12 +39,12 @@ public abstract class EntityConditionValue extends EntityConditionBase {
     public abstract ModelField getModelField(ModelEntity modelEntity);
 
     public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean includeTableNamePrefix,
-            DatasourceInfo datasourceinfo) {
+            Datasource datasourceinfo) {
         addSqlValue(sql, emptyAliases, modelEntity, entityConditionParams, includeTableNamePrefix, datasourceinfo);
     }
 
     public abstract void addSqlValue(StringBuilder sql, Map<String, String> tableAliases, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams,
-            boolean includeTableNamePrefix, DatasourceInfo datasourceinfo);
+            boolean includeTableNamePrefix, Datasource datasourceinfo);
 
     public abstract void validateSql(ModelEntity modelEntity) throws GenericModelException;
 

@@ -24,7 +24,7 @@ import java.util.Comparator;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericModelException;
-import org.ofbiz.entity.config.DatasourceInfo;
+import org.ofbiz.entity.config.model.Datasource;
 import org.ofbiz.entity.model.ModelEntity;
 
 public class OrderByItem implements Comparator<GenericEntity> {
@@ -167,14 +167,14 @@ public class OrderByItem implements Comparator<GenericEntity> {
         return descending ? -result : result;
     }
 
-    public String makeOrderByString(ModelEntity modelEntity, boolean includeTablenamePrefix, DatasourceInfo datasourceInfo) {
+    public String makeOrderByString(ModelEntity modelEntity, boolean includeTablenamePrefix, Datasource datasourceInfo) {
         StringBuilder sb = new StringBuilder();
         makeOrderByString(sb, modelEntity, includeTablenamePrefix, datasourceInfo);
         return sb.toString();
     }
 
-    public void makeOrderByString(StringBuilder sb, ModelEntity modelEntity, boolean includeTablenamePrefix, DatasourceInfo datasourceInfo) {
-        if ((nullsFirst != null) && (!datasourceInfo.useOrderByNulls)) {
+    public void makeOrderByString(StringBuilder sb, ModelEntity modelEntity, boolean includeTablenamePrefix, Datasource datasourceInfo) {
+        if ((nullsFirst != null) && (!datasourceInfo.getUseOrderByNulls())) {
             sb.append("CASE WHEN ");
             getValue().addSqlValue(sb, modelEntity, null, includeTablenamePrefix, datasourceInfo);
             sb.append(" IS NULL THEN ");
@@ -187,7 +187,7 @@ public class OrderByItem implements Comparator<GenericEntity> {
         getValue().addSqlValue(sb, modelEntity, null, includeTablenamePrefix, datasourceInfo);
         sb.append(descending ? " DESC" : " ASC");
         
-        if ((nullsFirst != null) && (datasourceInfo.useOrderByNulls)) {
+        if ((nullsFirst != null) && (datasourceInfo.getUseOrderByNulls())) {
             sb.append(nullsFirst ? " NULLS FIRST" : " NULLS LAST");
         }
     }
