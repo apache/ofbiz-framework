@@ -21,6 +21,7 @@ package org.ofbiz.entity.config.model;
 import org.ofbiz.base.lang.ThreadSafe;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericEntityConfException;
+import org.ofbiz.entity.config.EntityConfigUtil;
 import org.w3c.dom.Element;
 
 /**
@@ -36,9 +37,10 @@ public final class TransactionFactory {
     private final TransactionManagerJndi transactionManagerJndi; // <transaction-manager-jndi>
 
     public TransactionFactory(Element element) throws GenericEntityConfException {
+        String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
         String className = element.getAttribute("class").intern();
         if (className.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element class attribute is empty");
+            throw new GenericEntityConfException("<" + element.getNodeName() + "> element class attribute is empty" + lineNumberText);
         }
         this.className = className;
         Element userTransactionJndiElement = UtilXml.firstChildElement(element, "user-transaction-jndi");

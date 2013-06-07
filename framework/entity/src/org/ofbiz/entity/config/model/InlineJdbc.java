@@ -20,6 +20,7 @@ package org.ofbiz.entity.config.model;
 
 import org.ofbiz.base.lang.ThreadSafe;
 import org.ofbiz.entity.GenericEntityConfException;
+import org.ofbiz.entity.config.EntityConfigUtil;
 import org.w3c.dom.Element;
 
 /**
@@ -28,80 +29,124 @@ import org.w3c.dom.Element;
  * @see <code>entity-config.xsd</code>
  */
 @ThreadSafe
-public final class InlineJdbc {
+public final class InlineJdbc extends JdbcElement {
 
     private final String jdbcDriver; // type = xs:string
     private final String jdbcUri; // type = xs:string
     private final String jdbcUsername; // type = xs:string
     private final String jdbcPassword; // type = xs:string
     private final String jdbcPasswordLookup; // type = xs:string
-    private final String isolationLevel;
-    private final String poolMaxsize; // type = xs:nonNegativeInteger
-    private final String poolMinsize; // type = xs:nonNegativeInteger
-    private final String idleMaxsize; // type = xs:nonNegativeInteger
-    private final String timeBetweenEvictionRunsMillis; // type = xs:nonNegativeInteger
-    private final String poolSleeptime; // type = xs:nonNegativeInteger
-    private final String poolLifetime; // type = xs:nonNegativeInteger
-    private final String poolDeadlockMaxwait; // type = xs:nonNegativeInteger
-    private final String poolDeadlockRetrywait; // type = xs:nonNegativeInteger
+    private final int poolMaxsize; // type = xs:nonNegativeInteger
+    private final int poolMinsize; // type = xs:nonNegativeInteger
+    private final int idleMaxsize; // type = xs:nonNegativeInteger
+    private final int timeBetweenEvictionRunsMillis; // type = xs:nonNegativeInteger
+    private final int poolSleeptime; // type = xs:nonNegativeInteger
+    private final int poolLifetime; // type = xs:nonNegativeInteger
+    private final int poolDeadlockMaxwait; // type = xs:nonNegativeInteger
+    private final int poolDeadlockRetrywait; // type = xs:nonNegativeInteger
     private final String poolJdbcTestStmt; // type = xs:string
     private final String poolXaWrapperClass; // type = xs:string
 
     public InlineJdbc(Element element) throws GenericEntityConfException {
+        super(element);
+        String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
         String jdbcDriver = element.getAttribute("jdbc-driver").intern();
         if (jdbcDriver.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element jdbc-driver attribute is empty");
+            throw new GenericEntityConfException("<" + element.getNodeName() + "> element jdbc-driver attribute is empty" + lineNumberText);
         }
         this.jdbcDriver = jdbcDriver;
         String jdbcUri = element.getAttribute("jdbc-uri").intern();
         if (jdbcUri.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element jdbc-uri attribute is empty");
+            throw new GenericEntityConfException("<" + element.getNodeName() + "> element jdbc-uri attribute is empty" + lineNumberText);
         }
         this.jdbcUri = jdbcUri;
         String jdbcUsername = element.getAttribute("jdbc-username").intern();
         if (jdbcUsername.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element jdbc-username attribute is empty");
+            throw new GenericEntityConfException("<" + element.getNodeName() + "> element jdbc-username attribute is empty" + lineNumberText);
         }
         this.jdbcUsername = jdbcUsername;
         this.jdbcPassword = element.getAttribute("jdbc-password").intern();
         this.jdbcPasswordLookup = element.getAttribute("jdbc-password-lookup").intern();
-        this.isolationLevel = element.getAttribute("isolation-level").intern();
-        String poolMaxsize = element.getAttribute("pool-maxsize").intern();
+        String poolMaxsize = element.getAttribute("pool-maxsize");
         if (poolMaxsize.isEmpty()) {
-            poolMaxsize = "50";
+            this.poolMaxsize = 50;
+        } else {
+            try {
+                this.poolMaxsize = Integer.parseInt(poolMaxsize);
+            } catch (Exception e) {
+                throw new GenericEntityConfException("<" + element.getNodeName() + "> element pool-maxsize attribute is invalid" + lineNumberText);
+            }
         }
-        this.poolMaxsize = poolMaxsize;
-        String poolMinsize = element.getAttribute("pool-minsize").intern();
+        String poolMinsize = element.getAttribute("pool-minsize");
         if (poolMinsize.isEmpty()) {
-            poolMinsize = "2";
+            this.poolMinsize = 2;
+        } else {
+            try {
+                this.poolMinsize = Integer.parseInt(poolMinsize);
+            } catch (Exception e) {
+                throw new GenericEntityConfException("<" + element.getNodeName() + "> element pool-minsize attribute is invalid" + lineNumberText);
+            }
         }
-        this.poolMinsize = poolMinsize;
-        this.idleMaxsize = element.getAttribute("idle-maxsize").intern();
-        String timeBetweenEvictionRunsMillis = element.getAttribute("time-between-eviction-runs-millis").intern();
+        String idleMaxsize = element.getAttribute("idle-maxsize");
+        if (idleMaxsize.isEmpty()) {
+            this.idleMaxsize = this.poolMaxsize / 2;
+        } else {
+            try {
+                this.idleMaxsize = Integer.parseInt(idleMaxsize);
+            } catch (Exception e) {
+                throw new GenericEntityConfException("<" + element.getNodeName() + "> element idle-maxsize attribute is invalid" + lineNumberText);
+            }
+        }
+        String timeBetweenEvictionRunsMillis = element.getAttribute("time-between-eviction-runs-millis");
         if (timeBetweenEvictionRunsMillis.isEmpty()) {
-            timeBetweenEvictionRunsMillis = "600000";
+            this.timeBetweenEvictionRunsMillis = 600000;
+        } else {
+            try {
+                this.timeBetweenEvictionRunsMillis = Integer.parseInt(timeBetweenEvictionRunsMillis);
+            } catch (Exception e) {
+                throw new GenericEntityConfException("<" + element.getNodeName() + "> element time-between-eviction-runs-millis attribute is invalid" + lineNumberText);
+            }
         }
-        this.timeBetweenEvictionRunsMillis = timeBetweenEvictionRunsMillis;
-        String poolSleeptime = element.getAttribute("pool-sleeptime").intern();
+        String poolSleeptime = element.getAttribute("pool-sleeptime");
         if (poolSleeptime.isEmpty()) {
-            poolSleeptime = "300000";
+            this.poolSleeptime = 300000;
+        } else {
+            try {
+                this.poolSleeptime = Integer.parseInt(poolSleeptime);
+            } catch (Exception e) {
+                throw new GenericEntityConfException("<" + element.getNodeName() + "> element pool-sleeptime attribute is invalid" + lineNumberText);
+            }
         }
-        this.poolSleeptime = poolSleeptime;
-        String poolLifetime = element.getAttribute("pool-lifetime").intern();
+        String poolLifetime = element.getAttribute("pool-lifetime");
         if (poolLifetime.isEmpty()) {
-            poolLifetime = "600000";
+            this.poolLifetime = 600000;
+        } else {
+            try {
+                this.poolLifetime = Integer.parseInt(poolLifetime);
+            } catch (Exception e) {
+                throw new GenericEntityConfException("<" + element.getNodeName() + "> element pool-lifetime attribute is invalid" + lineNumberText);
+            }
         }
-        this.poolLifetime = poolLifetime;
-        String poolDeadlockMaxwait = element.getAttribute("pool-deadlock-maxwait").intern();
+        String poolDeadlockMaxwait = element.getAttribute("pool-deadlock-maxwait");
         if (poolDeadlockMaxwait.isEmpty()) {
-            poolDeadlockMaxwait = "300000";
+            this.poolDeadlockMaxwait = 300000;
+        } else {
+            try {
+                this.poolDeadlockMaxwait = Integer.parseInt(poolDeadlockMaxwait);
+            } catch (Exception e) {
+                throw new GenericEntityConfException("<" + element.getNodeName() + "> element pool-deadlock-maxwait attribute is invalid" + lineNumberText);
+            }
         }
-        this.poolDeadlockMaxwait = poolDeadlockMaxwait;
-        String poolDeadlockRetrywait = element.getAttribute("pool-deadlock-retrywait").intern();
+        String poolDeadlockRetrywait = element.getAttribute("pool-deadlock-retrywait");
         if (poolDeadlockRetrywait.isEmpty()) {
-            poolDeadlockRetrywait = "10000";
+            this.poolDeadlockRetrywait = 10000;
+        } else {
+            try {
+                this.poolDeadlockRetrywait = Integer.parseInt(poolDeadlockRetrywait);
+            } catch (Exception e) {
+                throw new GenericEntityConfException("<" + element.getNodeName() + "> element pool-deadlock-retrywait attribute is invalid" + lineNumberText);
+            }
         }
-        this.poolDeadlockRetrywait = poolDeadlockRetrywait;
         this.poolJdbcTestStmt = element.getAttribute("pool-jdbc-test-stmt").intern();
         this.poolXaWrapperClass = element.getAttribute("pool-xa-wrapper-class").intern();
     }
@@ -131,48 +176,43 @@ public final class InlineJdbc {
         return this.jdbcPasswordLookup;
     }
 
-    /** Returns the value of the <code>isolation-level</code> attribute. */
-    public String getIsolationLevel() {
-        return this.isolationLevel;
-    }
-
     /** Returns the value of the <code>pool-maxsize</code> attribute. */
-    public String getPoolMaxsize() {
+    public int getPoolMaxsize() {
         return this.poolMaxsize;
     }
 
     /** Returns the value of the <code>pool-minsize</code> attribute. */
-    public String getPoolMinsize() {
+    public int getPoolMinsize() {
         return this.poolMinsize;
     }
 
     /** Returns the value of the <code>idle-maxsize</code> attribute. */
-    public String getIdleMaxsize() {
+    public int getIdleMaxsize() {
         return this.idleMaxsize;
     }
 
     /** Returns the value of the <code>time-between-eviction-runs-millis</code> attribute. */
-    public String getTimeBetweenEvictionRunsMillis() {
+    public int getTimeBetweenEvictionRunsMillis() {
         return this.timeBetweenEvictionRunsMillis;
     }
 
     /** Returns the value of the <code>pool-sleeptime</code> attribute. */
-    public String getPoolSleeptime() {
+    public int getPoolSleeptime() {
         return this.poolSleeptime;
     }
 
     /** Returns the value of the <code>pool-lifetime</code> attribute. */
-    public String getPoolLifetime() {
+    public int getPoolLifetime() {
         return this.poolLifetime;
     }
 
     /** Returns the value of the <code>pool-deadlock-maxwait</code> attribute. */
-    public String getPoolDeadlockMaxwait() {
+    public int getPoolDeadlockMaxwait() {
         return this.poolDeadlockMaxwait;
     }
 
     /** Returns the value of the <code>pool-deadlock-retrywait</code> attribute. */
-    public String getPoolDeadlockRetrywait() {
+    public int getPoolDeadlockRetrywait() {
         return this.poolDeadlockRetrywait;
     }
 

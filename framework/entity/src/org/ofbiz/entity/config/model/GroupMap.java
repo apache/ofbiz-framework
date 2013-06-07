@@ -20,6 +20,7 @@ package org.ofbiz.entity.config.model;
 
 import org.ofbiz.base.lang.ThreadSafe;
 import org.ofbiz.entity.GenericEntityConfException;
+import org.ofbiz.entity.config.EntityConfigUtil;
 import org.w3c.dom.Element;
 
 /**
@@ -34,14 +35,15 @@ public final class GroupMap {
     private final String datasourceName; // type = xs:string
 
     public GroupMap(Element element) throws GenericEntityConfException {
+        String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
         String groupName = element.getAttribute("group-name").intern();
         if (groupName.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element group-name attribute is empty");
+            throw new GenericEntityConfException("<" + element.getNodeName() + "> element group-name attribute is empty" + lineNumberText);
         }
         this.groupName = groupName;
         String datasourceName = element.getAttribute("datasource-name").intern();
         if (datasourceName.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element datasource-name attribute is empty");
+            throw new GenericEntityConfException("<" + element.getNodeName() + "> element datasource-name attribute is empty" + lineNumberText);
         }
         this.datasourceName = datasourceName;
     }

@@ -25,6 +25,7 @@ import java.util.List;
 import org.ofbiz.base.lang.ThreadSafe;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericEntityConfException;
+import org.ofbiz.entity.config.EntityConfigUtil;
 import org.w3c.dom.Element;
 
 /**
@@ -41,9 +42,10 @@ public final class EntityGroupReader {
     private final List<Resource> resourceList; // <resource>
 
     public EntityGroupReader(Element element) throws GenericEntityConfException {
+        String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
         String name = element.getAttribute("name").intern();
         if (name.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element name attribute is empty");
+            throw new GenericEntityConfException("<" + element.getNodeName() + "> element name attribute is empty" + lineNumberText);
         }
         this.name = name;
         this.loader = element.getAttribute("loader").intern();

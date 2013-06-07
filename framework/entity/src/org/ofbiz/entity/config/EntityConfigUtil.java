@@ -51,6 +51,13 @@ public class EntityConfigUtil {
     private static final UtilCache<String, EntityConfig> entityConfigCache = UtilCache.createUtilCache("entity.EntityConfig", 0, 0, false);
     private static final List<EntityConfigListener> configListeners = new CopyOnWriteArrayList<EntityConfigListener>();
 
+    public static String createConfigFileLineNumberText(Element element) {
+        if (element.getUserData("startLine") != null) {
+            return " [" + ENTITY_ENGINE_XML_FILENAME + " line " + element.getUserData("startLine") + "]";
+        }
+        return "";
+    }
+
     /**
      * Returns the <code>EntityConfig</code> instance.
      * @throws GenericEntityConfException

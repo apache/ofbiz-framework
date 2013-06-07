@@ -25,6 +25,7 @@ import java.util.List;
 import org.ofbiz.base.lang.ThreadSafe;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericEntityConfException;
+import org.ofbiz.entity.config.EntityConfigUtil;
 import org.w3c.dom.Element;
 
 /**
@@ -50,19 +51,20 @@ public final class Delegator {
     private final List<GroupMap> groupMapList; // <group-map>
 
     public Delegator(Element element) throws GenericEntityConfException {
+        String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
         String name = element.getAttribute("name").intern();
         if (name.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element name attribute is empty");
+            throw new GenericEntityConfException("<" + element.getNodeName() + "> element name attribute is empty" + lineNumberText);
         }
         this.name = name;
         String entityModelReader = element.getAttribute("entity-model-reader").intern();
         if (entityModelReader.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element entity-model-reader attribute is empty");
+            throw new GenericEntityConfException("<" + element.getNodeName() + "> element entity-model-reader attribute is empty" + lineNumberText);
         }
         this.entityModelReader = entityModelReader;
         String entityGroupReader = element.getAttribute("entity-group-reader").intern();
         if (entityGroupReader.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element entity-group-reader attribute is empty");
+            throw new GenericEntityConfException("<" + element.getNodeName() + "> element entity-group-reader attribute is empty" + lineNumberText);
         }
         this.entityGroupReader = entityGroupReader;
         this.entityEcaReader = element.getAttribute("entity-eca-reader").intern();
@@ -100,7 +102,7 @@ public final class Delegator {
         this.keyEncryptingKey = element.getAttribute("key-encrypting-key").intern();
         List<? extends Element> groupMapElementList = UtilXml.childElementList(element, "group-map");
         if (groupMapElementList.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element child elements <group-map> are missing");
+            throw new GenericEntityConfException("<" + element.getNodeName() + "> element child elements <group-map> are missing" + lineNumberText);
         } else {
             List<GroupMap> groupMapList = new ArrayList<GroupMap>(groupMapElementList.size());
             for (Element groupMapElement : groupMapElementList) {
