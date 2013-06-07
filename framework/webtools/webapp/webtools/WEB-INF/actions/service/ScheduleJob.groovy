@@ -40,7 +40,7 @@ if (session.getAttribute("_SAVED_SYNC_RESULT_") != null) {
 }
 
 serviceName = parameters.SERVICE_NAME;
-context.POOL_NAME = ServiceConfigUtil.getSendPool();
+context.POOL_NAME = ServiceConfigUtil.getServiceEngine().getThreadPool().getSendToPool();
 
 scheduleOptions = [];
 serviceParameters = [];
