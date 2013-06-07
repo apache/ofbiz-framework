@@ -38,15 +38,21 @@ import org.w3c.dom.Element;
 public final class EntityConfig {
 
     private final List<ResourceLoader> resourceLoaderList; // <resource-loader>
+    private final Map<String, ResourceLoader> resourceLoaderMap; // <resource-loader>
     private final TransactionFactory transactionFactory; // <transaction-factory>
     private final ConnectionFactory connectionFactory; // <connection-factory>
     private final DebugXaResources debugXaResources; // <debug-xa-resources>
     private final List<Delegator> delegatorList; // <delegator>
     private final List<EntityModelReader> entityModelReaderList; // <entity-model-reader>
+    private final Map<String, EntityModelReader> entityModelReaderMap; // <entity-model-reader>
     private final List<EntityGroupReader> entityGroupReaderList; // <entity-group-reader>
+    private final Map<String, EntityGroupReader> entityGroupReaderMap; // <entity-group-reader>
     private final List<EntityEcaReader> entityEcaReaderList; // <entity-eca-reader>
+    private final Map<String, EntityEcaReader> entityEcaReaderMap; // <entity-eca-reader>
     private final List<EntityDataReader> entityDataReaderList; // <entity-data-reader>
+    private final Map<String, EntityDataReader> entityDataReaderMap; // <entity-data-reader>
     private final List<FieldType> fieldTypeList; // <field-type>
+    private final Map<String, FieldType> fieldTypeMap; // <field-type>
     private final List<Datasource> datasourceList; // <datasource>
     private final Map<String, Datasource> datasourceMap;
 
@@ -56,10 +62,14 @@ public final class EntityConfig {
             throw new GenericEntityConfException("<" + element.getNodeName() + "> element child elements <resource-loader> are missing");
         } else {
             List<ResourceLoader> resourceLoaderList = new ArrayList<ResourceLoader>(resourceLoaderElementList.size());
+            Map<String, ResourceLoader> resourceLoaderMap = new HashMap<String, ResourceLoader>();
             for (Element resourceLoaderElement : resourceLoaderElementList) {
-                resourceLoaderList.add(new ResourceLoader(resourceLoaderElement));
+                ResourceLoader resourceLoader = new ResourceLoader(resourceLoaderElement);
+                resourceLoaderList.add(resourceLoader);
+                resourceLoaderMap.put(resourceLoader.getName(), resourceLoader);
             }
             this.resourceLoaderList = Collections.unmodifiableList(resourceLoaderList);
+            this.resourceLoaderMap = Collections.unmodifiableMap(resourceLoaderMap);
         }
         Element transactionFactoryElement = UtilXml.firstChildElement(element, "transaction-factory");
         if (transactionFactoryElement == null) {
@@ -94,50 +104,72 @@ public final class EntityConfig {
             throw new GenericEntityConfException("<" + element.getNodeName() + "> element child elements <entity-model-reader> are missing");
         } else {
             List<EntityModelReader> entityModelReaderList = new ArrayList<EntityModelReader>(entityModelReaderElementList.size());
+            Map<String, EntityModelReader> entityModelReaderMap = new HashMap<String, EntityModelReader>();
             for (Element entityModelReaderElement : entityModelReaderElementList) {
-                entityModelReaderList.add(new EntityModelReader(entityModelReaderElement));
+                EntityModelReader entityModelReader = new EntityModelReader(entityModelReaderElement);
+                entityModelReaderList.add(entityModelReader);
+                entityModelReaderMap.put(entityModelReader.getName(), entityModelReader);
             }
             this.entityModelReaderList = Collections.unmodifiableList(entityModelReaderList);
+            this.entityModelReaderMap = Collections.unmodifiableMap(entityModelReaderMap);
         }
         List<? extends Element> entityGroupReaderElementList = UtilXml.childElementList(element, "entity-group-reader");
         if (entityGroupReaderElementList.isEmpty()) {
             throw new GenericEntityConfException("<" + element.getNodeName() + "> element child elements <entity-group-reader> are missing");
         } else {
             List<EntityGroupReader> entityGroupReaderList = new ArrayList<EntityGroupReader>(entityGroupReaderElementList.size());
+            Map<String, EntityGroupReader> entityGroupReaderMap = new HashMap<String, EntityGroupReader>();
             for (Element entityGroupReaderElement : entityGroupReaderElementList) {
-                entityGroupReaderList.add(new EntityGroupReader(entityGroupReaderElement));
+                EntityGroupReader entityGroupReader = new EntityGroupReader(entityGroupReaderElement);
+                entityGroupReaderList.add(entityGroupReader);
+                entityGroupReaderMap.put(entityGroupReader.getName(), entityGroupReader);
             }
             this.entityGroupReaderList = Collections.unmodifiableList(entityGroupReaderList);
+            this.entityGroupReaderMap = Collections.unmodifiableMap(entityGroupReaderMap);
         }
         List<? extends Element> entityEcaReaderElementList = UtilXml.childElementList(element, "entity-eca-reader");
         if (entityEcaReaderElementList.isEmpty()) {
             this.entityEcaReaderList = Collections.emptyList();
+            this.entityEcaReaderMap = Collections.emptyMap();
         } else {
             List<EntityEcaReader> entityEcaReaderList = new ArrayList<EntityEcaReader>(entityEcaReaderElementList.size());
+            Map<String, EntityEcaReader> entityEcaReaderMap = new HashMap<String, EntityEcaReader>();
             for (Element entityEcaReaderElement : entityEcaReaderElementList) {
+                EntityEcaReader entityEcaReader = new EntityEcaReader(entityEcaReaderElement);
                 entityEcaReaderList.add(new EntityEcaReader(entityEcaReaderElement));
+                entityEcaReaderMap.put(entityEcaReader.getName(), entityEcaReader);
             }
             this.entityEcaReaderList = Collections.unmodifiableList(entityEcaReaderList);
+            this.entityEcaReaderMap = Collections.unmodifiableMap(entityEcaReaderMap);
         }
         List<? extends Element> entityDataReaderElementList = UtilXml.childElementList(element, "entity-data-reader");
         if (entityDataReaderElementList.isEmpty()) {
             this.entityDataReaderList = Collections.emptyList();
+            this.entityDataReaderMap = Collections.emptyMap();
         } else {
             List<EntityDataReader> entityDataReaderList = new ArrayList<EntityDataReader>(entityDataReaderElementList.size());
+            Map<String, EntityDataReader> entityDataReaderMap = new HashMap<String, EntityDataReader>();
             for (Element entityDataReaderElement : entityDataReaderElementList) {
-                entityDataReaderList.add(new EntityDataReader(entityDataReaderElement));
+                EntityDataReader entityDataReader = new EntityDataReader(entityDataReaderElement);
+                entityDataReaderList.add(entityDataReader);
+                entityDataReaderMap.put(entityDataReader.getName(), entityDataReader);
             }
             this.entityDataReaderList = Collections.unmodifiableList(entityDataReaderList);
+            this.entityDataReaderMap = Collections.unmodifiableMap(entityDataReaderMap);
         }
         List<? extends Element> fieldTypeElementList = UtilXml.childElementList(element, "field-type");
         if (fieldTypeElementList.isEmpty()) {
             throw new GenericEntityConfException("<" + element.getNodeName() + "> element child elements <field-type> are missing");
         } else {
             List<FieldType> fieldTypeList = new ArrayList<FieldType>(fieldTypeElementList.size());
+            Map<String, FieldType> fieldTypeMap = new HashMap<String, FieldType>();
             for (Element fieldTypeElement : fieldTypeElementList) {
-                fieldTypeList.add(new FieldType(fieldTypeElement));
+                FieldType fieldType = new FieldType(fieldTypeElement);
+                fieldTypeList.add(fieldType);
+                fieldTypeMap.put(fieldType.getName(), fieldType);
             }
             this.fieldTypeList = Collections.unmodifiableList(fieldTypeList);
+            this.fieldTypeMap = Collections.unmodifiableMap(fieldTypeMap);
         }
         List<? extends Element> datasourceElementList = UtilXml.childElementList(element, "datasource");
         if (datasourceElementList.isEmpty()) {
@@ -153,6 +185,11 @@ public final class EntityConfig {
             this.datasourceList = Collections.unmodifiableList(datasourceList);
             this.datasourceMap = Collections.unmodifiableMap(datasourceMap);
         }
+    }
+
+    /** Returns the specified <code>&lt;resource-loader&gt;</code> child element, or <code>null</code> if no child element was found. */
+    public ResourceLoader getResourceLoader(String name) {
+        return this.resourceLoaderMap.get(name);
     }
 
     /** Returns the <code>&lt;resource-loader&gt;</code> child elements. */
@@ -180,9 +217,19 @@ public final class EntityConfig {
         return this.delegatorList;
     }
 
+    /** Returns the specified <code>&lt;entity-model-reader&gt;</code> child element, or <code>null</code> if no child element was found. */
+    public EntityModelReader getEntityModelReader(String name) {
+        return this.entityModelReaderMap.get(name);
+    }
+
     /** Returns the <code>&lt;entity-model-reader&gt;</code> child elements. */
     public List<EntityModelReader> getEntityModelReaderList() {
         return this.entityModelReaderList;
+    }
+
+    /** Returns the specified <code>&lt;entity-group-reader&gt;</code> child element, or <code>null</code> if no child element was found. */
+    public EntityGroupReader getEntityGroupReader(String name) {
+        return this.entityGroupReaderMap.get(name);
     }
 
     /** Returns the <code>&lt;entity-group-reader&gt;</code> child elements. */
@@ -190,14 +237,29 @@ public final class EntityConfig {
         return this.entityGroupReaderList;
     }
 
+    /** Returns the specified <code>&lt;entity-eca-reader&gt;</code> child element, or <code>null</code> if no child element was found. */
+    public EntityEcaReader getEntityEcaReader(String name) {
+        return this.entityEcaReaderMap.get(name);
+    }
+
     /** Returns the <code>&lt;entity-eca-reader&gt;</code> child elements. */
     public List<EntityEcaReader> getEntityEcaReaderList() {
         return this.entityEcaReaderList;
     }
 
+    /** Returns the specified <code>&lt;entity-data-reader&gt;</code> child element, or <code>null</code> if no child element was found. */
+    public EntityDataReader getEntityDataReader(String name) {
+        return this.entityDataReaderMap.get(name);
+    }
+
     /** Returns the <code>&lt;entity-data-reader&gt;</code> child elements. */
     public List<EntityDataReader> getEntityDataReaderList() {
         return this.entityDataReaderList;
+    }
+
+    /** Returns the specified <code>&lt;field-type&gt;</code> child element, or <code>null</code> if no child element was found. */
+    public FieldType getFieldType(String name) {
+        return this.fieldTypeMap.get(name);
     }
 
     /** Returns the <code>&lt;field-type&gt;</code> child elements. */

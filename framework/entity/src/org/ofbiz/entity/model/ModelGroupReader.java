@@ -39,7 +39,8 @@ import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.GenericEntityConfException;
 import org.ofbiz.entity.config.DelegatorInfo;
 import org.ofbiz.entity.config.EntityConfigUtil;
-import org.ofbiz.entity.config.EntityGroupReaderInfo;
+import org.ofbiz.entity.config.model.EntityGroupReader;
+import org.ofbiz.entity.config.model.Resource;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -78,13 +79,13 @@ public class ModelGroupReader implements Serializable {
 
     public ModelGroupReader(String modelName) throws GenericEntityConfException {
         this.modelName = modelName;
-        EntityGroupReaderInfo entityGroupReaderInfo = EntityConfigUtil.getEntityGroupReaderInfo(modelName);
+        EntityGroupReader entityGroupReaderInfo = EntityConfigUtil.getEntityGroupReader(modelName);
 
         if (entityGroupReaderInfo == null) {
             throw new GenericEntityConfException("Cound not find an entity-group-reader with the name " + modelName);
         }
-        for (Element resourceElement: entityGroupReaderInfo.resourceElements) {
-            this.entityGroupResourceHandlers.add(new MainResourceHandler(EntityConfigUtil.ENTITY_ENGINE_XML_FILENAME, resourceElement));
+        for (Resource resourceElement: entityGroupReaderInfo.getResourceList()) {
+            this.entityGroupResourceHandlers.add(new MainResourceHandler(EntityConfigUtil.ENTITY_ENGINE_XML_FILENAME, resourceElement.getLoader(), resourceElement.getLocation()));
         }
 
         // get all of the component resource group stuff, ie specified in each ofbiz-component.xml file
