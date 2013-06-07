@@ -20,6 +20,7 @@ package org.ofbiz.entity.config.model;
 
 import org.ofbiz.base.lang.ThreadSafe;
 import org.ofbiz.entity.GenericEntityConfException;
+import org.ofbiz.entity.config.EntityConfigUtil;
 import org.w3c.dom.Element;
 
 /**
@@ -28,24 +29,24 @@ import org.w3c.dom.Element;
  * @see <code>entity-config.xsd</code>
  */
 @ThreadSafe
-public final class JndiJdbc {
+public final class JndiJdbc extends JdbcElement {
 
     private final String jndiServerName; // type = xs:string
     private final String jndiName; // type = xs:string
-    private final String isolationLevel;
 
     public JndiJdbc(Element element) throws GenericEntityConfException {
+        super(element);
+        String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
         String jndiServerName = element.getAttribute("jndi-server-name").intern();
         if (jndiServerName.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element jndi-server-name attribute is empty");
+            throw new GenericEntityConfException("<" + element.getNodeName() + "> element jndi-server-name attribute is empty" + lineNumberText);
         }
         this.jndiServerName = jndiServerName;
         String jndiName = element.getAttribute("jndi-name").intern();
         if (jndiName.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element jndi-name attribute is empty");
+            throw new GenericEntityConfException("<" + element.getNodeName() + "> element jndi-name attribute is empty" + lineNumberText);
         }
         this.jndiName = jndiName;
-        this.isolationLevel = element.getAttribute("isolation-level").intern();
     }
 
     /** Returns the value of the <code>jndi-server-name</code> attribute. */
@@ -56,10 +57,5 @@ public final class JndiJdbc {
     /** Returns the value of the <code>jndi-name</code> attribute. */
     public String getJndiName() {
         return this.jndiName;
-    }
-
-    /** Returns the value of the <code>isolation-level</code> attribute. */
-    public String getIsolationLevel() {
-        return this.isolationLevel;
     }
 }

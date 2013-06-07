@@ -20,6 +20,7 @@ package org.ofbiz.entity.config.model;
 
 import org.ofbiz.base.lang.ThreadSafe;
 import org.ofbiz.entity.GenericEntityConfException;
+import org.ofbiz.entity.config.EntityConfigUtil;
 import org.w3c.dom.Element;
 
 /**
@@ -30,18 +31,19 @@ import org.w3c.dom.Element;
 @ThreadSafe
 public final class DebugXaResources {
 
-    private final String value; // type = xs:string
+    private final boolean value; // type = xs:string
 
     public DebugXaResources(Element element) throws GenericEntityConfException {
+        String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
         String value = element.getAttribute("value").intern();
         if (value.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element value attribute is empty");
+            throw new GenericEntityConfException("<" + element.getNodeName() + "> element value attribute is empty" + lineNumberText);
         }
-        this.value = value;
+        this.value = "true".equals(value);
     }
 
     /** Returns the value of the <code>value</code> attribute. */
-    public String getValue() {
+    public boolean getValue() {
         return this.value;
     }
 }

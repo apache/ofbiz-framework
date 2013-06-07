@@ -18,32 +18,24 @@
  *******************************************************************************/
 package org.ofbiz.entity.config.model;
 
-import org.ofbiz.base.lang.ThreadSafe;
 import org.ofbiz.entity.GenericEntityConfException;
-import org.ofbiz.entity.config.EntityConfigUtil;
 import org.w3c.dom.Element;
 
 /**
- * An object that models the <code>&lt;connection-factory&gt;</code> element.
+ * An abstract class for <code>&lt;datasource&gt;</code> JDBC child elements.
  *
  * @see <code>entity-config.xsd</code>
  */
-@ThreadSafe
-public final class ConnectionFactory {
+public abstract class JdbcElement {
 
-    private final String className; // type = xs:string
+    private final String isolationLevel;
 
-    public ConnectionFactory(Element element) throws GenericEntityConfException {
-        String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
-        String className = element.getAttribute("class").intern();
-        if (className.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element class attribute is empty" + lineNumberText);
-        }
-        this.className = className;
+    public JdbcElement(Element element) throws GenericEntityConfException {
+        this.isolationLevel = element.getAttribute("isolation-level").intern();
     }
 
-    /** Returns the value of the <code>class</code> attribute. */
-    public String getClassName() {
-        return this.className;
+    /** Returns the value of the <code>isolation-level</code> attribute. */
+    public String getIsolationLevel() {
+        return this.isolationLevel;
     }
 }

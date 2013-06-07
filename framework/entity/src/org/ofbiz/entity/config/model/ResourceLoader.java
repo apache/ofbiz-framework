@@ -20,6 +20,7 @@ package org.ofbiz.entity.config.model;
 
 import org.ofbiz.base.lang.ThreadSafe;
 import org.ofbiz.entity.GenericEntityConfException;
+import org.ofbiz.entity.config.EntityConfigUtil;
 import org.w3c.dom.Element;
 
 /**
@@ -36,14 +37,15 @@ public final class ResourceLoader {
     private final String prefix; // type = xs:string
 
     public ResourceLoader(Element element) throws GenericEntityConfException {
+        String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
         String name = element.getAttribute("name").intern();
         if (name.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element name attribute is empty");
+            throw new GenericEntityConfException("<" + element.getNodeName() + "> element name attribute is empty" + lineNumberText);
         }
         this.name = name;
         String className = element.getAttribute("class").intern();
         if (className.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element class attribute is empty");
+            throw new GenericEntityConfException("<" + element.getNodeName() + "> element class attribute is empty" + lineNumberText);
         }
         this.className = className;
         this.prependEnv = element.getAttribute("prepend-env").intern();

@@ -20,6 +20,7 @@ package org.ofbiz.entity.config.model;
 
 import org.ofbiz.base.lang.ThreadSafe;
 import org.ofbiz.entity.GenericEntityConfException;
+import org.ofbiz.entity.config.EntityConfigUtil;
 import org.w3c.dom.Element;
 
 /**
@@ -34,9 +35,10 @@ public final class SqlLoadPath {
     private final String prependEnv; // type = xs:string
 
     public SqlLoadPath(Element element) throws GenericEntityConfException {
+        String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
         String path = element.getAttribute("path").intern();
         if (path.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element path attribute is empty");
+            throw new GenericEntityConfException("<" + element.getNodeName() + "> element path attribute is empty" + lineNumberText);
         }
         this.path = path;
         this.prependEnv = element.getAttribute("prepend-env").intern();

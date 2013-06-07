@@ -20,6 +20,7 @@ package org.ofbiz.entity.config.model;
 
 import org.ofbiz.base.lang.ThreadSafe;
 import org.ofbiz.entity.GenericEntityConfException;
+import org.ofbiz.entity.config.EntityConfigUtil;
 import org.w3c.dom.Element;
 
 /**
@@ -28,27 +29,22 @@ import org.w3c.dom.Element;
  * @see <code>entity-config.xsd</code>
  */
 @ThreadSafe
-public final class TyrexDataSource {
+public final class TyrexDataSource extends JdbcElement {
 
     private final String dataSourceName; // type = xs:string
-    private final String isolationLevel;
 
     public TyrexDataSource(Element element) throws GenericEntityConfException {
+        super(element);
+        String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
         String dataSourceName = element.getAttribute("dataSource-name").intern();
         if (dataSourceName.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element dataSource-name attribute is empty");
+            throw new GenericEntityConfException("<" + element.getNodeName() + "> element dataSource-name attribute is empty" + lineNumberText);
         }
         this.dataSourceName = dataSourceName;
-        this.isolationLevel = element.getAttribute("isolation-level").intern();
     }
 
     /** Returns the value of the <code>dataSource-name</code> attribute. */
     public String getDataSourceName() {
         return this.dataSourceName;
-    }
-
-    /** Returns the value of the <code>isolation-level</code> attribute. */
-    public String getIsolationLevel() {
-        return this.isolationLevel;
     }
 }
