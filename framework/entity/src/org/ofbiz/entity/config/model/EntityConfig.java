@@ -42,7 +42,8 @@ public final class EntityConfig {
     private final TransactionFactory transactionFactory; // <transaction-factory>
     private final ConnectionFactory connectionFactory; // <connection-factory>
     private final DebugXaResources debugXaResources; // <debug-xa-resources>
-    private final List<Delegator> delegatorList; // <delegator>
+    private final List<DelegatorElement> delegatorList; // <delegator>
+    private final Map<String, DelegatorElement> delegatorMap; // <delegator>
     private final List<EntityModelReader> entityModelReaderList; // <entity-model-reader>
     private final Map<String, EntityModelReader> entityModelReaderMap; // <entity-model-reader>
     private final List<EntityGroupReader> entityGroupReaderList; // <entity-group-reader>
@@ -93,11 +94,15 @@ public final class EntityConfig {
         if (delegatorElementList.isEmpty()) {
             throw new GenericEntityConfException("<" + element.getNodeName() + "> element child elements <delegator> are missing");
         } else {
-            List<Delegator> delegatorList = new ArrayList<Delegator>(delegatorElementList.size());
+            List<DelegatorElement> delegatorList = new ArrayList<DelegatorElement>(delegatorElementList.size());
+            Map<String, DelegatorElement> delegatorMap = new HashMap<String, DelegatorElement>();
             for (Element delegatorElement : delegatorElementList) {
-                delegatorList.add(new Delegator(delegatorElement));
+                DelegatorElement delegator = new DelegatorElement(delegatorElement);
+                delegatorList.add(delegator);
+                delegatorMap.put(delegator.getName(), delegator);
             }
             this.delegatorList = Collections.unmodifiableList(delegatorList);
+            this.delegatorMap = Collections.unmodifiableMap(delegatorMap);
         }
         List<? extends Element> entityModelReaderElementList = UtilXml.childElementList(element, "entity-model-reader");
         if (entityModelReaderElementList.isEmpty()) {
@@ -212,8 +217,13 @@ public final class EntityConfig {
         return this.debugXaResources;
     }
 
+    /** Returns the specified <code>&lt;delegator&gt;</code> child element, or <code>null</code> if no child element was found. */
+    public DelegatorElement getDelegator(String name) {
+        return this.delegatorMap.get(name);
+    }
+
     /** Returns the <code>&lt;delegator&gt;</code> child elements. */
-    public List<Delegator> getDelegatorList() {
+    public List<DelegatorElement> getDelegatorList() {
         return this.delegatorList;
     }
 

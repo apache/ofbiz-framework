@@ -37,17 +37,16 @@ import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.config.MainResourceHandler;
 import org.ofbiz.base.config.ResourceHandler;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.config.DelegatorInfo;
+import org.ofbiz.entity.GenericEntityConfException;
 import org.ofbiz.entity.config.EntityConfigUtil;
+import org.ofbiz.entity.config.model.DelegatorElement;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.config.ServiceConfigUtil;
 import org.ofbiz.service.config.model.GlobalServices;
 import org.ofbiz.service.eca.ServiceEcaUtil;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 /**
  * Dispatcher Context
@@ -83,9 +82,14 @@ public class DispatchContext implements Serializable {
         if (this.dispatcher != null) {
             Delegator delegator = dispatcher.getDelegator();
             if (delegator != null) {
-                DelegatorInfo delegatorInfo = EntityConfigUtil.getDelegatorInfo(delegator.getDelegatorBaseName());
+                DelegatorElement delegatorInfo = null;
+                try {
+                    delegatorInfo = EntityConfigUtil.getDelegator(delegator.getDelegatorBaseName());
+                } catch (GenericEntityConfException e) {
+                    Debug.logWarning(e, "Exception thrown while getting delegator config: ", module);
+                }
                 if (delegatorInfo != null) {
-                    modelName = delegatorInfo.entityModelReader;
+                    modelName = delegatorInfo.getEntityModelReader();
                 }
             }
         }

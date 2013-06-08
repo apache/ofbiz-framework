@@ -20,12 +20,9 @@ package org.ofbiz.entity.config;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
 
-import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilURL;
@@ -33,8 +30,8 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.GenericEntityConfException;
-import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.config.model.Datasource;
+import org.ofbiz.entity.config.model.DelegatorElement;
 import org.ofbiz.entity.config.model.EntityConfig;
 import org.ofbiz.entity.config.model.EntityDataReader;
 import org.ofbiz.entity.config.model.EntityEcaReader;
@@ -52,7 +49,7 @@ import org.w3c.dom.Element;
  * Misc. utility method for dealing with the entityengine.xml file
  *
  */
-public class EntityConfigUtil {
+public final class EntityConfigUtil {
 
     public static final String module = EntityConfigUtil.class.getName();
     public static final String ENTITY_ENGINE_XML_FILENAME = "entityengine.xml";
@@ -114,48 +111,6 @@ public class EntityConfigUtil {
         return configListeners;
     }
 
-    private static volatile AtomicReference<EntityConfigUtil> configRef = new AtomicReference<EntityConfigUtil>();
-
-    // ========== engine info fields ==========
-    private final Map<String, DelegatorInfo> delegatorInfos = new HashMap<String, DelegatorInfo>();
-
-    private static Element getXmlRootElement() throws GenericEntityConfException {
-        try {
-            return org.ofbiz.base.config.ResourceLoader.getXmlRootElement(ENTITY_ENGINE_XML_FILENAME);
-        } catch (GenericConfigException e) {
-            throw new GenericEntityConfException("Could not get entity engine XML root element", e);
-        }
-    }
-
-    static {
-        try {
-            initialize(getXmlRootElement());
-        } catch (Exception e) {
-            Debug.logError(e, "Error loading entity config XML file " + ENTITY_ENGINE_XML_FILENAME, module);
-        }
-    }
-
-    public static void reinitialize() throws GenericEntityException {
-        try {
-            org.ofbiz.base.config.ResourceLoader.invalidateDocument(ENTITY_ENGINE_XML_FILENAME);
-            initialize(getXmlRootElement());
-        } catch (Exception e) {
-            throw new GenericEntityException("Error reloading entity config XML file " + ENTITY_ENGINE_XML_FILENAME, e);
-        }
-    }
-
-    public static void initialize(Element rootElement) throws GenericEntityException {
-        configRef.set(new EntityConfigUtil(rootElement));
-    }
-
-    private EntityConfigUtil(Element rootElement) throws GenericEntityException {
-        // delegator - delegatorInfos
-        for (Element curElement: UtilXml.childElementList(rootElement, "delegator")) {
-            DelegatorInfo delegatorInfo = new DelegatorInfo(curElement);
-            delegatorInfos.put(delegatorInfo.name, delegatorInfo);
-        }
-    }
-
     public static String getTxFactoryClass() throws GenericEntityConfException {
         return getEntityConfig().getTransactionFactory().getClassName();
     }
@@ -192,8 +147,8 @@ public class EntityConfigUtil {
         return getEntityConfig().getResourceLoader(name);
     }
 
-    public static DelegatorInfo getDelegatorInfo(String name) {
-        return configRef.get().delegatorInfos.get(name);
+    public static DelegatorElement getDelegator(String name) throws GenericEntityConfException {
+        return getEntityConfig().getDelegator(name);
     }
 
     public static EntityModelReader getEntityModelReader(String name) throws GenericEntityConfException {
@@ -250,4 +205,6 @@ public class EntityConfigUtil {
         }
         return jdbcPassword;
     }
+
+    private EntityConfigUtil() {}
 }

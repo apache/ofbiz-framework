@@ -21,6 +21,8 @@ package org.ofbiz.entity.config.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import org.ofbiz.base.lang.ThreadSafe;
 import org.ofbiz.base.util.UtilXml;
@@ -34,23 +36,24 @@ import org.w3c.dom.Element;
  * @see <code>entity-config.xsd</code>
  */
 @ThreadSafe
-public final class Delegator {
+public final class DelegatorElement {
 
     private final String name; // type = xs:string
     private final String entityModelReader; // type = xs:string
     private final String entityGroupReader; // type = xs:string
     private final String entityEcaReader; // type = xs:string
-    private final String entityEcaEnabled;
+    private final boolean entityEcaEnabled;
     private final String entityEcaHandlerClassName; // type = xs:string
-    private final String distributedCacheClearEnabled;
+    private final boolean distributedCacheClearEnabled;
     private final String distributedCacheClearClassName; // type = xs:string
     private final String distributedCacheClearUserLoginId; // type = xs:string
     private final String sequencedIdPrefix; // type = xs:string
     private final String defaultGroupName; // type = xs:string
     private final String keyEncryptingKey; // type = xs:string
     private final List<GroupMap> groupMapList; // <group-map>
+    private final Map<String, String> groupMapMap; // <group-map>
 
-    public Delegator(Element element) throws GenericEntityConfException {
+    public DelegatorElement(Element element) throws GenericEntityConfException {
         String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
         String name = element.getAttribute("name").intern();
         if (name.isEmpty()) {
@@ -68,21 +71,13 @@ public final class Delegator {
         }
         this.entityGroupReader = entityGroupReader;
         this.entityEcaReader = element.getAttribute("entity-eca-reader").intern();
-        String entityEcaEnabled = element.getAttribute("entity-eca-enabled").intern();
-        if (entityEcaEnabled.isEmpty()) {
-            entityEcaEnabled = "true";
-        }
-        this.entityEcaEnabled = entityEcaEnabled;
+        this.entityEcaEnabled = !"false".equalsIgnoreCase(element.getAttribute("entity-eca-enabled"));
         String entityEcaHandlerClassName = element.getAttribute("entity-eca-handler-class-name").intern();
         if (entityEcaHandlerClassName.isEmpty()) {
             entityEcaHandlerClassName = "org.ofbiz.entityext.eca.DelegatorEcaHandler";
         }
         this.entityEcaHandlerClassName = entityEcaHandlerClassName;
-        String distributedCacheClearEnabled = element.getAttribute("distributed-cache-clear-enabled").intern();
-        if (distributedCacheClearEnabled.isEmpty()) {
-            distributedCacheClearEnabled = "false";
-        }
-        this.distributedCacheClearEnabled = distributedCacheClearEnabled;
+        this.distributedCacheClearEnabled = "true".equalsIgnoreCase(element.getAttribute("distributed-cache-clear-enabled"));
         String distributedCacheClearClassName = element.getAttribute("distributed-cache-clear-class-name").intern();
         if (distributedCacheClearClassName.isEmpty()) {
             distributedCacheClearClassName = "org.ofbiz.entityext.cache.EntityCacheServices";
@@ -105,10 +100,14 @@ public final class Delegator {
             throw new GenericEntityConfException("<" + element.getNodeName() + "> element child elements <group-map> are missing" + lineNumberText);
         } else {
             List<GroupMap> groupMapList = new ArrayList<GroupMap>(groupMapElementList.size());
+            Map<String, String> groupMapMap = new HashMap<String, String>();
             for (Element groupMapElement : groupMapElementList) {
-                groupMapList.add(new GroupMap(groupMapElement));
+                GroupMap groupMap = new GroupMap(groupMapElement);
+                groupMapList.add(groupMap);
+                groupMapMap.put(groupMap.getGroupName(), groupMap.getDatasourceName());
             }
             this.groupMapList = Collections.unmodifiableList(groupMapList);
+            this.groupMapMap = Collections.unmodifiableMap(groupMapMap);
         }
     }
 
@@ -133,7 +132,7 @@ public final class Delegator {
     }
 
     /** Returns the value of the <code>entity-eca-enabled</code> attribute. */
-    public String getEntityEcaEnabled() {
+    public boolean getEntityEcaEnabled() {
         return this.entityEcaEnabled;
     }
 
@@ -143,7 +142,7 @@ public final class Delegator {
     }
 
     /** Returns the value of the <code>distributed-cache-clear-enabled</code> attribute. */
-    public String getDistributedCacheClearEnabled() {
+    public boolean getDistributedCacheClearEnabled() {
         return this.distributedCacheClearEnabled;
     }
 
@@ -175,5 +174,11 @@ public final class Delegator {
     /** Returns the <code>&lt;group-map&gt;</code> child elements. */
     public List<GroupMap> getGroupMapList() {
         return this.groupMapList;
+    }
+
+    /** Returns the specified <code>&lt;group-map&gt; datasource-name</code> attribute value,
+     * or <code>null</code> if the <code>&lt;group-map&gt;</code> element does not exist . */
+    public String getGroupDataSource(String groupName) {
+        return this.groupMapMap.get(groupName);
     }
 }

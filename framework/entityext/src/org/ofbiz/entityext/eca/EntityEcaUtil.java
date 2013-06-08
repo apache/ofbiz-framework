@@ -38,7 +38,6 @@ import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityConfException;
-import org.ofbiz.entity.config.DelegatorInfo;
 import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.config.model.*;
 import org.w3c.dom.Element;
@@ -63,12 +62,17 @@ public class EntityEcaUtil {
     }
 
     public static String getEntityEcaReaderName(String delegatorName) {
-        DelegatorInfo delegatorInfo = EntityConfigUtil.getDelegatorInfo(delegatorName);
+        DelegatorElement delegatorInfo = null;
+        try {
+            delegatorInfo = EntityConfigUtil.getDelegator(delegatorName);
+        } catch (GenericEntityConfException e) {
+            Debug.logWarning(e, "Exception thrown while getting field type config: ", module);
+        }
         if (delegatorInfo == null) {
             Debug.logError("BAD ERROR: Could not find delegator config with name: " + delegatorName, module);
             return null;
         }
-        return delegatorInfo.entityEcaReader;
+        return delegatorInfo.getEntityEcaReader();
     }
 
     protected static void readConfig(String entityEcaReaderName, Map<String, Map<String, List<EntityEcaRule>>> ecaCache) {
