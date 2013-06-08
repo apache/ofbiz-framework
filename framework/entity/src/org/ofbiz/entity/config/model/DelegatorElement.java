@@ -53,21 +53,21 @@ public final class DelegatorElement {
     private final List<GroupMap> groupMapList; // <group-map>
     private final Map<String, String> groupMapMap; // <group-map>
 
-    public DelegatorElement(Element element) throws GenericEntityConfException {
+    DelegatorElement(Element element) throws GenericEntityConfException {
         String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
         String name = element.getAttribute("name").intern();
         if (name.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element name attribute is empty" + lineNumberText);
+            throw new GenericEntityConfException("<delegator> element name attribute is empty" + lineNumberText);
         }
         this.name = name;
         String entityModelReader = element.getAttribute("entity-model-reader").intern();
         if (entityModelReader.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element entity-model-reader attribute is empty" + lineNumberText);
+            throw new GenericEntityConfException("<delegator> element entity-model-reader attribute is empty" + lineNumberText);
         }
         this.entityModelReader = entityModelReader;
         String entityGroupReader = element.getAttribute("entity-group-reader").intern();
         if (entityGroupReader.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element entity-group-reader attribute is empty" + lineNumberText);
+            throw new GenericEntityConfException("<delegator> element entity-group-reader attribute is empty" + lineNumberText);
         }
         this.entityGroupReader = entityGroupReader;
         this.entityEcaReader = element.getAttribute("entity-eca-reader").intern();
@@ -97,7 +97,7 @@ public final class DelegatorElement {
         this.keyEncryptingKey = element.getAttribute("key-encrypting-key").intern();
         List<? extends Element> groupMapElementList = UtilXml.childElementList(element, "group-map");
         if (groupMapElementList.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element child elements <group-map> are missing" + lineNumberText);
+            throw new GenericEntityConfException("<delegator> element child elements <group-map> are missing" + lineNumberText);
         } else {
             List<GroupMap> groupMapList = new ArrayList<GroupMap>(groupMapElementList.size());
             Map<String, String> groupMapMap = new HashMap<String, String>();

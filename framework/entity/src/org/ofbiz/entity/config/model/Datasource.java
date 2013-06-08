@@ -82,21 +82,21 @@ public final class Datasource {
     private final JndiJdbc jndiJdbc; // <jndi-jdbc>
     private final TyrexDataSource tyrexDataSource; // <tyrex-dataSource>
 
-    public Datasource(Element element) throws GenericEntityConfException {
+    Datasource(Element element) throws GenericEntityConfException {
         String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
         String name = element.getAttribute("name").intern();
         if (name.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element name attribute is empty" + lineNumberText);
+            throw new GenericEntityConfException("<datasource> element name attribute is empty" + lineNumberText);
         }
         this.name = name;
         String helperClass = element.getAttribute("helper-class").intern();
         if (helperClass.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element helper-class attribute is empty" + lineNumberText);
+            throw new GenericEntityConfException("<datasource> element helper-class attribute is empty" + lineNumberText);
         }
         this.helperClass = helperClass;
         String fieldTypeName = element.getAttribute("field-type-name").intern();
         if (fieldTypeName.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element field-type-name attribute is empty" + lineNumberText);
+            throw new GenericEntityConfException("<datasource> element field-type-name attribute is empty" + lineNumberText);
         }
         this.fieldTypeName = fieldTypeName;
         this.useSchemas = !"false".equals(element.getAttribute("use-schemas"));
@@ -112,7 +112,7 @@ public final class Datasource {
             try {
                 this.constraintNameClipLength = Integer.parseInt(constraintNameClipLength);
             } catch (Exception e) {
-                throw new GenericEntityConfException("<" + element.getNodeName() + "> element constraint-name-clip-length attribute is invalid" + lineNumberText);
+                throw new GenericEntityConfException("<datasource> element constraint-name-clip-length attribute is invalid" + lineNumberText);
             }
         }
         this.useProxyCursor = "true".equalsIgnoreCase(element.getAttribute("use-proxy-cursor"));
@@ -128,7 +128,7 @@ public final class Datasource {
             try {
                 this.resultFetchSize = Integer.parseInt(resultFetchSize);
             } catch (Exception e) {
-                throw new GenericEntityConfException("<" + element.getNodeName() + "> element result-fetch-size attribute is invalid" + lineNumberText);
+                throw new GenericEntityConfException("<datasource> element result-fetch-size attribute is invalid" + lineNumberText);
             }
         }
         this.useForeignKeys = !"false".equals(element.getAttribute("use-foreign-keys"));
@@ -175,7 +175,7 @@ public final class Datasource {
                 }
                 this.maxWorkerPoolSize = maxWorkerPoolSizeInt;
             } catch (Exception e) {
-                throw new GenericEntityConfException("<" + element.getNodeName() + "> element max-worker-pool-size attribute is invalid" + lineNumberText);
+                throw new GenericEntityConfException("<datasource> element max-worker-pool-size attribute is invalid" + lineNumberText);
             }
         }
         List<? extends Element> sqlLoadPathElementList = UtilXml.childElementList(element, "sql-load-path");
@@ -221,7 +221,7 @@ public final class Datasource {
             jdbcElementCount++;
         }
         if (jdbcElementCount > 1) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element is invalid: Only one of <inline-jdbc>, <jndi-jdbc>, <tyrex-dataSource> is allowed" + lineNumberText);
+            throw new GenericEntityConfException("<datasource> element is invalid: Only one of <inline-jdbc>, <jndi-jdbc>, <tyrex-dataSource> is allowed" + lineNumberText);
         }
     }
 

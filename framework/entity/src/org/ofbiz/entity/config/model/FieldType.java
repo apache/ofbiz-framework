@@ -35,21 +35,21 @@ public final class FieldType {
     private final String loader; // type = xs:string
     private final String location; // type = xs:string
 
-    public FieldType(Element element) throws GenericEntityConfException {
+    FieldType(Element element) throws GenericEntityConfException {
         String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
         String name = element.getAttribute("name").intern();
         if (name.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element name attribute is empty" + lineNumberText);
+            throw new GenericEntityConfException("<field-type> element name attribute is empty" + lineNumberText);
         }
         this.name = name;
         String loader = element.getAttribute("loader").intern();
         if (loader.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element loader attribute is empty" + lineNumberText);
+            throw new GenericEntityConfException("<field-type> element loader attribute is empty" + lineNumberText);
         }
         this.loader = loader;
         String location = element.getAttribute("location").intern();
         if (location.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element location attribute is empty" + lineNumberText);
+            throw new GenericEntityConfException("<field-type> element location attribute is empty" + lineNumberText);
         }
         this.location = location;
     }

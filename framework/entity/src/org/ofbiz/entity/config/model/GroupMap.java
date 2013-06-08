@@ -34,16 +34,16 @@ public final class GroupMap {
     private final String groupName; // type = xs:string
     private final String datasourceName; // type = xs:string
 
-    public GroupMap(Element element) throws GenericEntityConfException {
+    GroupMap(Element element) throws GenericEntityConfException {
         String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
         String groupName = element.getAttribute("group-name").intern();
         if (groupName.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element group-name attribute is empty" + lineNumberText);
+            throw new GenericEntityConfException("<group-map> element group-name attribute is empty" + lineNumberText);
         }
         this.groupName = groupName;
         String datasourceName = element.getAttribute("datasource-name").intern();
         if (datasourceName.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element datasource-name attribute is empty" + lineNumberText);
+            throw new GenericEntityConfException("<group-map> element datasource-name attribute is empty" + lineNumberText);
         }
         this.datasourceName = datasourceName;
     }

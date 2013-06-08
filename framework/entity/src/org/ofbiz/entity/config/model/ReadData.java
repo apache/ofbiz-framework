@@ -33,11 +33,11 @@ public final class ReadData {
 
     private final String readerName; // type = xs:string
 
-    public ReadData(Element element) throws GenericEntityConfException {
+    ReadData(Element element) throws GenericEntityConfException {
         String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
         String readerName = element.getAttribute("reader-name").intern();
         if (readerName.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element reader-name attribute is empty" + lineNumberText);
+            throw new GenericEntityConfException("<read-data> element reader-name attribute is empty" + lineNumberText);
         }
         this.readerName = readerName;
     }
