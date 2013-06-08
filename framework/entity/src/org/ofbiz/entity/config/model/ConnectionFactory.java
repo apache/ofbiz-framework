@@ -33,11 +33,11 @@ public final class ConnectionFactory {
 
     private final String className; // type = xs:string
 
-    public ConnectionFactory(Element element) throws GenericEntityConfException {
+    ConnectionFactory(Element element) throws GenericEntityConfException {
         String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
         String className = element.getAttribute("class").intern();
         if (className.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element class attribute is empty" + lineNumberText);
+            throw new GenericEntityConfException("<connection-factory> element class attribute is empty" + lineNumberText);
         }
         this.className = className;
     }

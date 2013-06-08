@@ -36,11 +36,11 @@ public final class TransactionFactory {
     private final UserTransactionJndi userTransactionJndi; // <user-transaction-jndi>
     private final TransactionManagerJndi transactionManagerJndi; // <transaction-manager-jndi>
 
-    public TransactionFactory(Element element) throws GenericEntityConfException {
+    TransactionFactory(Element element) throws GenericEntityConfException {
         String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
         String className = element.getAttribute("class").intern();
         if (className.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element class attribute is empty" + lineNumberText);
+            throw new GenericEntityConfException("<transaction-factory> element class attribute is empty" + lineNumberText);
         }
         this.className = className;
         Element userTransactionJndiElement = UtilXml.firstChildElement(element, "user-transaction-jndi");

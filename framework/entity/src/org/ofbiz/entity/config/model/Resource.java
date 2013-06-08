@@ -34,16 +34,16 @@ public final class Resource {
     private final String loader; // type = xs:string
     private final String location; // type = xs:string
 
-    public Resource(Element element) throws GenericEntityConfException {
+    Resource(Element element) throws GenericEntityConfException {
         String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
         String loader = element.getAttribute("loader").intern();
         if (loader.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element loader attribute is empty" + lineNumberText);
+            throw new GenericEntityConfException("<resource> element loader attribute is empty" + lineNumberText);
         }
         this.loader = loader;
         String location = element.getAttribute("location").intern();
         if (location.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element location attribute is empty" + lineNumberText);
+            throw new GenericEntityConfException("<resource> element location attribute is empty" + lineNumberText);
         }
         this.location = location;
     }

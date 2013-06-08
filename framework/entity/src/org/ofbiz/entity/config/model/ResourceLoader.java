@@ -36,16 +36,16 @@ public final class ResourceLoader {
     private final String prependEnv; // type = xs:string
     private final String prefix; // type = xs:string
 
-    public ResourceLoader(Element element) throws GenericEntityConfException {
+    ResourceLoader(Element element) throws GenericEntityConfException {
         String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
         String name = element.getAttribute("name").intern();
         if (name.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element name attribute is empty" + lineNumberText);
+            throw new GenericEntityConfException("<resource-loader> element name attribute is empty" + lineNumberText);
         }
         this.name = name;
         String className = element.getAttribute("class").intern();
         if (className.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element class attribute is empty" + lineNumberText);
+            throw new GenericEntityConfException("<resource-loader> element class attribute is empty" + lineNumberText);
         }
         this.className = className;
         this.prependEnv = element.getAttribute("prepend-env").intern();

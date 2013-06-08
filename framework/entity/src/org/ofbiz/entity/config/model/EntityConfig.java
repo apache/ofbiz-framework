@@ -60,7 +60,7 @@ public final class EntityConfig {
     public EntityConfig(Element element) throws GenericEntityConfException {
         List<? extends Element> resourceLoaderElementList = UtilXml.childElementList(element, "resource-loader");
         if (resourceLoaderElementList.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element child elements <resource-loader> are missing");
+            throw new GenericEntityConfException("<entity-config> element child elements <resource-loader> are missing");
         } else {
             List<ResourceLoader> resourceLoaderList = new ArrayList<ResourceLoader>(resourceLoaderElementList.size());
             Map<String, ResourceLoader> resourceLoaderMap = new HashMap<String, ResourceLoader>();
@@ -74,25 +74,25 @@ public final class EntityConfig {
         }
         Element transactionFactoryElement = UtilXml.firstChildElement(element, "transaction-factory");
         if (transactionFactoryElement == null) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element child element <transaction-factory> is missing");
+            throw new GenericEntityConfException("<entity-config> element child element <transaction-factory> is missing");
         } else {
             this.transactionFactory = new TransactionFactory(transactionFactoryElement);
         }
         Element connectionFactoryElement = UtilXml.firstChildElement(element, "connection-factory");
         if (connectionFactoryElement == null) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element child element <connection-factory> is missing");
+            throw new GenericEntityConfException("<entity-config> element child element <connection-factory> is missing");
         } else {
             this.connectionFactory = new ConnectionFactory(connectionFactoryElement);
         }
         Element debugXaResourcesElement = UtilXml.firstChildElement(element, "debug-xa-resources");
         if (debugXaResourcesElement == null) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element child element <debug-xa-resources> is missing");
+            throw new GenericEntityConfException("<entity-config> element child element <debug-xa-resources> is missing");
         } else {
             this.debugXaResources = new DebugXaResources(debugXaResourcesElement);
         }
         List<? extends Element> delegatorElementList = UtilXml.childElementList(element, "delegator");
         if (delegatorElementList.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element child elements <delegator> are missing");
+            throw new GenericEntityConfException("<entity-config> element child elements <delegator> are missing");
         } else {
             List<DelegatorElement> delegatorList = new ArrayList<DelegatorElement>(delegatorElementList.size());
             Map<String, DelegatorElement> delegatorMap = new HashMap<String, DelegatorElement>();
@@ -106,7 +106,7 @@ public final class EntityConfig {
         }
         List<? extends Element> entityModelReaderElementList = UtilXml.childElementList(element, "entity-model-reader");
         if (entityModelReaderElementList.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element child elements <entity-model-reader> are missing");
+            throw new GenericEntityConfException("<entity-config> element child elements <entity-model-reader> are missing");
         } else {
             List<EntityModelReader> entityModelReaderList = new ArrayList<EntityModelReader>(entityModelReaderElementList.size());
             Map<String, EntityModelReader> entityModelReaderMap = new HashMap<String, EntityModelReader>();
@@ -120,7 +120,7 @@ public final class EntityConfig {
         }
         List<? extends Element> entityGroupReaderElementList = UtilXml.childElementList(element, "entity-group-reader");
         if (entityGroupReaderElementList.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element child elements <entity-group-reader> are missing");
+            throw new GenericEntityConfException("<entity-config> element child elements <entity-group-reader> are missing");
         } else {
             List<EntityGroupReader> entityGroupReaderList = new ArrayList<EntityGroupReader>(entityGroupReaderElementList.size());
             Map<String, EntityGroupReader> entityGroupReaderMap = new HashMap<String, EntityGroupReader>();
@@ -164,7 +164,7 @@ public final class EntityConfig {
         }
         List<? extends Element> fieldTypeElementList = UtilXml.childElementList(element, "field-type");
         if (fieldTypeElementList.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element child elements <field-type> are missing");
+            throw new GenericEntityConfException("<entity-config> element child elements <field-type> are missing");
         } else {
             List<FieldType> fieldTypeList = new ArrayList<FieldType>(fieldTypeElementList.size());
             Map<String, FieldType> fieldTypeMap = new HashMap<String, FieldType>();
@@ -178,7 +178,7 @@ public final class EntityConfig {
         }
         List<? extends Element> datasourceElementList = UtilXml.childElementList(element, "datasource");
         if (datasourceElementList.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element child elements <datasource> are missing");
+            throw new GenericEntityConfException("<entity-config> element child elements <datasource> are missing");
         } else {
             List<Datasource> datasourceList = new ArrayList<Datasource>(datasourceElementList.size());
             Map<String, Datasource> datasourceMap = new HashMap<String, Datasource>();

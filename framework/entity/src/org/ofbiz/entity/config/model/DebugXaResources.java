@@ -33,11 +33,11 @@ public final class DebugXaResources {
 
     private final boolean value; // type = xs:string
 
-    public DebugXaResources(Element element) throws GenericEntityConfException {
+    DebugXaResources(Element element) throws GenericEntityConfException {
         String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
         String value = element.getAttribute("value").intern();
         if (value.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element value attribute is empty" + lineNumberText);
+            throw new GenericEntityConfException("<debug-xa-resources> element value attribute is empty" + lineNumberText);
         }
         this.value = "true".equals(value);
     }

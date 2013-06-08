@@ -33,12 +33,12 @@ public final class TyrexDataSource extends JdbcElement {
 
     private final String dataSourceName; // type = xs:string
 
-    public TyrexDataSource(Element element) throws GenericEntityConfException {
+    TyrexDataSource(Element element) throws GenericEntityConfException {
         super(element);
         String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
         String dataSourceName = element.getAttribute("dataSource-name").intern();
         if (dataSourceName.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element dataSource-name attribute is empty" + lineNumberText);
+            throw new GenericEntityConfException("<tyrex-dataSource> element dataSource-name attribute is empty" + lineNumberText);
         }
         this.dataSourceName = dataSourceName;
     }

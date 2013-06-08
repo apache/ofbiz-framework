@@ -47,22 +47,22 @@ public final class InlineJdbc extends JdbcElement {
     private final String poolJdbcTestStmt; // type = xs:string
     private final String poolXaWrapperClass; // type = xs:string
 
-    public InlineJdbc(Element element) throws GenericEntityConfException {
+    InlineJdbc(Element element) throws GenericEntityConfException {
         super(element);
         String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
         String jdbcDriver = element.getAttribute("jdbc-driver").intern();
         if (jdbcDriver.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element jdbc-driver attribute is empty" + lineNumberText);
+            throw new GenericEntityConfException("<inline-jdbc> element jdbc-driver attribute is empty" + lineNumberText);
         }
         this.jdbcDriver = jdbcDriver;
         String jdbcUri = element.getAttribute("jdbc-uri").intern();
         if (jdbcUri.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element jdbc-uri attribute is empty" + lineNumberText);
+            throw new GenericEntityConfException("<inline-jdbc> element jdbc-uri attribute is empty" + lineNumberText);
         }
         this.jdbcUri = jdbcUri;
         String jdbcUsername = element.getAttribute("jdbc-username").intern();
         if (jdbcUsername.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element jdbc-username attribute is empty" + lineNumberText);
+            throw new GenericEntityConfException("<inline-jdbc> element jdbc-username attribute is empty" + lineNumberText);
         }
         this.jdbcUsername = jdbcUsername;
         this.jdbcPassword = element.getAttribute("jdbc-password").intern();
@@ -74,7 +74,7 @@ public final class InlineJdbc extends JdbcElement {
             try {
                 this.poolMaxsize = Integer.parseInt(poolMaxsize);
             } catch (Exception e) {
-                throw new GenericEntityConfException("<" + element.getNodeName() + "> element pool-maxsize attribute is invalid" + lineNumberText);
+                throw new GenericEntityConfException("<inline-jdbc> element pool-maxsize attribute is invalid" + lineNumberText);
             }
         }
         String poolMinsize = element.getAttribute("pool-minsize");
@@ -84,7 +84,7 @@ public final class InlineJdbc extends JdbcElement {
             try {
                 this.poolMinsize = Integer.parseInt(poolMinsize);
             } catch (Exception e) {
-                throw new GenericEntityConfException("<" + element.getNodeName() + "> element pool-minsize attribute is invalid" + lineNumberText);
+                throw new GenericEntityConfException("<inline-jdbc> element pool-minsize attribute is invalid" + lineNumberText);
             }
         }
         String idleMaxsize = element.getAttribute("idle-maxsize");
@@ -94,7 +94,7 @@ public final class InlineJdbc extends JdbcElement {
             try {
                 this.idleMaxsize = Integer.parseInt(idleMaxsize);
             } catch (Exception e) {
-                throw new GenericEntityConfException("<" + element.getNodeName() + "> element idle-maxsize attribute is invalid" + lineNumberText);
+                throw new GenericEntityConfException("<inline-jdbc> element idle-maxsize attribute is invalid" + lineNumberText);
             }
         }
         String timeBetweenEvictionRunsMillis = element.getAttribute("time-between-eviction-runs-millis");
@@ -104,7 +104,7 @@ public final class InlineJdbc extends JdbcElement {
             try {
                 this.timeBetweenEvictionRunsMillis = Integer.parseInt(timeBetweenEvictionRunsMillis);
             } catch (Exception e) {
-                throw new GenericEntityConfException("<" + element.getNodeName() + "> element time-between-eviction-runs-millis attribute is invalid" + lineNumberText);
+                throw new GenericEntityConfException("<inline-jdbc> element time-between-eviction-runs-millis attribute is invalid" + lineNumberText);
             }
         }
         String poolSleeptime = element.getAttribute("pool-sleeptime");
@@ -114,7 +114,7 @@ public final class InlineJdbc extends JdbcElement {
             try {
                 this.poolSleeptime = Integer.parseInt(poolSleeptime);
             } catch (Exception e) {
-                throw new GenericEntityConfException("<" + element.getNodeName() + "> element pool-sleeptime attribute is invalid" + lineNumberText);
+                throw new GenericEntityConfException("<inline-jdbc> element pool-sleeptime attribute is invalid" + lineNumberText);
             }
         }
         String poolLifetime = element.getAttribute("pool-lifetime");
@@ -124,7 +124,7 @@ public final class InlineJdbc extends JdbcElement {
             try {
                 this.poolLifetime = Integer.parseInt(poolLifetime);
             } catch (Exception e) {
-                throw new GenericEntityConfException("<" + element.getNodeName() + "> element pool-lifetime attribute is invalid" + lineNumberText);
+                throw new GenericEntityConfException("<inline-jdbc> element pool-lifetime attribute is invalid" + lineNumberText);
             }
         }
         String poolDeadlockMaxwait = element.getAttribute("pool-deadlock-maxwait");
@@ -134,7 +134,7 @@ public final class InlineJdbc extends JdbcElement {
             try {
                 this.poolDeadlockMaxwait = Integer.parseInt(poolDeadlockMaxwait);
             } catch (Exception e) {
-                throw new GenericEntityConfException("<" + element.getNodeName() + "> element pool-deadlock-maxwait attribute is invalid" + lineNumberText);
+                throw new GenericEntityConfException("<inline-jdbc> element pool-deadlock-maxwait attribute is invalid" + lineNumberText);
             }
         }
         String poolDeadlockRetrywait = element.getAttribute("pool-deadlock-retrywait");
@@ -144,7 +144,7 @@ public final class InlineJdbc extends JdbcElement {
             try {
                 this.poolDeadlockRetrywait = Integer.parseInt(poolDeadlockRetrywait);
             } catch (Exception e) {
-                throw new GenericEntityConfException("<" + element.getNodeName() + "> element pool-deadlock-retrywait attribute is invalid" + lineNumberText);
+                throw new GenericEntityConfException("<inline-jdbc> element pool-deadlock-retrywait attribute is invalid" + lineNumberText);
             }
         }
         this.poolJdbcTestStmt = element.getAttribute("pool-jdbc-test-stmt").intern();

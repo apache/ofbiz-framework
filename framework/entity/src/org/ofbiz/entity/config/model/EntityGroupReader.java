@@ -41,11 +41,11 @@ public final class EntityGroupReader {
     private final String location; // type = xs:string
     private final List<Resource> resourceList; // <resource>
 
-    public EntityGroupReader(Element element) throws GenericEntityConfException {
+    EntityGroupReader(Element element) throws GenericEntityConfException {
         String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
         String name = element.getAttribute("name").intern();
         if (name.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element name attribute is empty" + lineNumberText);
+            throw new GenericEntityConfException("<entity-group-reader> element name attribute is empty" + lineNumberText);
         }
         this.name = name;
         this.loader = element.getAttribute("loader").intern();

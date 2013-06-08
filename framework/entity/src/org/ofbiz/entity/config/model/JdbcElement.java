@@ -30,7 +30,7 @@ public abstract class JdbcElement {
 
     private final String isolationLevel;
 
-    public JdbcElement(Element element) throws GenericEntityConfException {
+    protected JdbcElement(Element element) throws GenericEntityConfException {
         this.isolationLevel = element.getAttribute("isolation-level").intern();
     }
 

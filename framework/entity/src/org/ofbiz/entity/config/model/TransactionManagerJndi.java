@@ -34,16 +34,16 @@ public final class TransactionManagerJndi {
     private final String jndiServerName; // type = xs:string
     private final String jndiName; // type = xs:string
 
-    public TransactionManagerJndi(Element element) throws GenericEntityConfException {
+    TransactionManagerJndi(Element element) throws GenericEntityConfException {
         String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
         String jndiServerName = element.getAttribute("jndi-server-name").intern();
         if (jndiServerName.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element jndi-server-name attribute is empty" + lineNumberText);
+            throw new GenericEntityConfException("<transaction-manager-jndi> element jndi-server-name attribute is empty" + lineNumberText);
         }
         this.jndiServerName = jndiServerName;
         String jndiName = element.getAttribute("jndi-name").intern();
         if (jndiName.isEmpty()) {
-            throw new GenericEntityConfException("<" + element.getNodeName() + "> element jndi-name attribute is empty" + lineNumberText);
+            throw new GenericEntityConfException("<transaction-manager-jndi> element jndi-name attribute is empty" + lineNumberText);
         }
         this.jndiName = jndiName;
     }
