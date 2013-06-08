@@ -37,8 +37,8 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.GenericEntityConfException;
-import org.ofbiz.entity.config.DelegatorInfo;
 import org.ofbiz.entity.config.EntityConfigUtil;
+import org.ofbiz.entity.config.model.DelegatorElement;
 import org.ofbiz.entity.config.model.EntityGroupReader;
 import org.ofbiz.entity.config.model.Resource;
 import org.w3c.dom.Document;
@@ -62,13 +62,13 @@ public class ModelGroupReader implements Serializable {
     public List<ResourceHandler> entityGroupResourceHandlers = new LinkedList<ResourceHandler>();
 
     public static ModelGroupReader getModelGroupReader(String delegatorName) throws GenericEntityConfException {
-        DelegatorInfo delegatorInfo = EntityConfigUtil.getDelegatorInfo(delegatorName);
+        DelegatorElement delegatorInfo = EntityConfigUtil.getDelegator(delegatorName);
 
         if (delegatorInfo == null) {
             throw new GenericEntityConfException("Could not find a delegator with the name " + delegatorName);
         }
 
-        String tempModelName = delegatorInfo.entityGroupReader;
+        String tempModelName = delegatorInfo.getEntityGroupReader();
         ModelGroupReader reader = readers.get(tempModelName);
 
         if (reader == null) {
@@ -169,11 +169,16 @@ public class ModelGroupReader implements Serializable {
         if (gc != null) {
             String groupName = gc.get(entityName);
             if (groupName == null) {
-                DelegatorInfo delegatorInfo = EntityConfigUtil.getDelegatorInfo(delegatorBaseName);
+                DelegatorElement delegatorInfo = null;
+                try {
+                    delegatorInfo = EntityConfigUtil.getDelegator(delegatorBaseName);
+                } catch (GenericEntityConfException e) {
+                    Debug.logWarning(e, "Exception thrown while getting delegator config: ", module);
+                }
                 if (delegatorInfo == null) {
                     throw new RuntimeException("Could not find DelegatorInfo for delegatorBaseName [" + delegatorBaseName + "]");
                 }
-                groupName = delegatorInfo.defaultGroupName;
+                groupName = delegatorInfo.getDefaultGroupName();
             }
             return groupName;
         } else {
@@ -188,11 +193,14 @@ public class ModelGroupReader implements Serializable {
         if (delegatorBaseName.indexOf('#') >= 0) {
             delegatorBaseName = delegatorBaseName.substring(0, delegatorBaseName.indexOf('#'));
         }
-        
         getGroupCache();
         if (this.groupNames == null) return null;
         Set<String> newSet = new HashSet<String>();
-        newSet.add(EntityConfigUtil.getDelegatorInfo(delegatorBaseName).defaultGroupName);
+        try {
+            newSet.add(EntityConfigUtil.getDelegator(delegatorBaseName).getDefaultGroupName());
+        } catch (GenericEntityConfException e) {
+            Debug.logWarning(e, "Exception thrown while getting delegator config: ", module);
+        }
         newSet.addAll(this.groupNames);
         return newSet;
     }

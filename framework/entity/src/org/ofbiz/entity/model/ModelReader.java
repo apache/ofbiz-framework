@@ -42,8 +42,8 @@ import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.GenericEntityConfException;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericModelException;
-import org.ofbiz.entity.config.DelegatorInfo;
 import org.ofbiz.entity.config.EntityConfigUtil;
+import org.ofbiz.entity.config.model.DelegatorElement;
 import org.ofbiz.entity.config.model.EntityModelReader;
 import org.ofbiz.entity.config.model.Resource;
 import org.w3c.dom.Document;
@@ -80,13 +80,13 @@ public class ModelReader implements Serializable {
     protected Map<String, ResourceHandler> entityResourceHandlerMap;
 
     public static ModelReader getModelReader(String delegatorName) throws GenericEntityException {
-        DelegatorInfo delegatorInfo = EntityConfigUtil.getDelegatorInfo(delegatorName);
+        DelegatorElement delegatorInfo = EntityConfigUtil.getDelegator(delegatorName);
 
         if (delegatorInfo == null) {
             throw new GenericEntityConfException("Could not find a delegator with the name " + delegatorName);
         }
 
-        String tempModelName = delegatorInfo.entityModelReader;
+        String tempModelName = delegatorInfo.getEntityModelReader();
         ModelReader reader = readers.get(tempModelName);
 
         if (reader == null) {

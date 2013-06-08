@@ -34,12 +34,14 @@ import javolution.util.FastList;
 import javolution.util.FastSet;
 
 import org.ofbiz.base.component.ComponentConfig;
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.config.DelegatorInfo;
+import org.ofbiz.entity.GenericEntityConfException;
+import org.ofbiz.entity.config.model.DelegatorElement;
 import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
@@ -69,10 +71,15 @@ public class LabelReferences {
     public LabelReferences(Delegator delegator, LabelManagerFactory factory) {
         this.delegator = delegator;
         this.labels = factory.getLabels();
-        DelegatorInfo delegatorInfo = EntityConfigUtil.getDelegatorInfo(delegator.getDelegatorBaseName());
+        DelegatorElement delegatorInfo = null;
+        try {
+            delegatorInfo = EntityConfigUtil.getDelegator(delegator.getDelegatorBaseName());
+        } catch (GenericEntityConfException e) {
+            Debug.logWarning(e, "Exception thrown while getting delegator config: ", module);
+        }
         String modelName;
         if (delegatorInfo != null) {
-            modelName = delegatorInfo.entityModelReader;
+            modelName = delegatorInfo.getEntityModelReader();
         } else {
             modelName = "main";
         }

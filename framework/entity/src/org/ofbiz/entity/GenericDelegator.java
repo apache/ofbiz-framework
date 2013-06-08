@@ -48,9 +48,9 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.cache.Cache;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.config.DelegatorInfo;
 import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.config.model.Datasource;
+import org.ofbiz.entity.config.model.DelegatorElement;
 import org.ofbiz.entity.datasource.GenericHelper;
 import org.ofbiz.entity.datasource.GenericHelperFactory;
 import org.ofbiz.entity.datasource.GenericHelperInfo;
@@ -98,7 +98,7 @@ public class GenericDelegator implements Delegator {
     protected String delegatorTenantId = null;
     private String originalDelegatorName = null;
 
-    protected DelegatorInfo delegatorInfo = null;
+    protected DelegatorElement delegatorInfo = null;
 
     protected Cache cache = null;
 
@@ -206,7 +206,7 @@ public class GenericDelegator implements Delegator {
     protected GenericDelegator(String delegatorFullName) throws GenericEntityException {
         //if (Debug.infoOn()) Debug.logInfo("Creating new Delegator with name \"" + delegatorFullName + "\".", module);
         this.setDelegatorNames(delegatorFullName);
-        this.delegatorInfo = EntityConfigUtil.getDelegatorInfo(delegatorBaseName);
+        this.delegatorInfo = EntityConfigUtil.getDelegator(delegatorBaseName);
 
         String kekText;
         // before continuing, if there is a tenantId use the base delegator to see if it is valid
@@ -222,10 +222,10 @@ public class GenericDelegator implements Delegator {
             if (kekValue != null) {
                 kekText = kekValue.getString("kekText");
             } else {
-                kekText = this.delegatorInfo.kekText;
+                kekText = this.delegatorInfo.getKeyEncryptingKey();
             }
         } else {
-            kekText = this.delegatorInfo.kekText;
+            kekText = this.delegatorInfo.getKeyEncryptingKey();
         }
 
         this.modelReader = ModelReader.getModelReader(delegatorBaseName);
@@ -315,11 +315,11 @@ public class GenericDelegator implements Delegator {
             return;
         }
         // If useEntityEca is false do nothing: the entityEcaHandler member field with a null value would cause its code to do nothing
-        if (getDelegatorInfo().useEntityEca) {
+        if (this.delegatorInfo.getEntityEcaEnabled()) {
             //time to do some tricks with manual class loading that resolves circular dependencies, like calling services
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             // initialize the entity eca handler
-            String entityEcaHandlerClassName = getDelegatorInfo().entityEcaHandlerClassName;
+            String entityEcaHandlerClassName = this.delegatorInfo.getEntityEcaHandlerClassName();
 
             try {
                 Class<?> eecahClass = loader.loadClass(entityEcaHandlerClassName);
@@ -368,10 +368,6 @@ public class GenericDelegator implements Delegator {
         return this.originalDelegatorName == null ? this.delegatorFullName : this.originalDelegatorName;
     }
 
-    protected DelegatorInfo getDelegatorInfo() {
-        return this.delegatorInfo;
-    }
-
     /* (non-Javadoc)
      * @see org.ofbiz.entity.Delegator#getModelReader()
      */
@@ -411,11 +407,11 @@ public class GenericDelegator implements Delegator {
     public Map<String, ModelEntity> getModelEntityMapByGroup(String groupName) throws GenericEntityException {
         Set<String> entityNameSet = getModelGroupReader().getEntityNamesByGroup(groupName);
 
-        if (this.getDelegatorInfo().defaultGroupName.equals(groupName)) {
+        if (this.delegatorInfo.getDefaultGroupName().equals(groupName)) {
             // add all entities with no group name to the Set
             Set<String> allEntityNames = this.getModelReader().getEntityNames();
             for (String entityName: allEntityNames) {
-                if (this.getDelegatorInfo().defaultGroupName.equals(getModelGroupReader().getEntityGroupName(entityName, this.delegatorBaseName))) {
+                if (this.delegatorInfo.getDefaultGroupName().equals(getModelGroupReader().getEntityGroupName(entityName, this.delegatorBaseName))) {
                     entityNameSet.add(entityName);
                 }
             }
@@ -452,7 +448,7 @@ public class GenericDelegator implements Delegator {
      * @see org.ofbiz.entity.Delegator#getGroupHelperName(java.lang.String)
      */
     public String getGroupHelperName(String groupName) {
-        return this.getDelegatorInfo().groupMap.get(groupName);
+        return this.delegatorInfo.getGroupDataSource(groupName);
     }
 
     public GenericHelperInfo getGroupHelperInfo(String entityGroupName) {
@@ -2452,8 +2448,8 @@ public class GenericDelegator implements Delegator {
             throw new IllegalArgumentException("Could not get next sequenced ID for sequence name: " + seqName);
         }
 
-        if (UtilValidate.isNotEmpty(this.getDelegatorInfo().sequencedIdPrefix)) {
-            return this.getDelegatorInfo().sequencedIdPrefix + nextSeqLong.toString();
+        if (UtilValidate.isNotEmpty(this.delegatorInfo.getSequencedIdPrefix())) {
+            return this.delegatorInfo.getSequencedIdPrefix() + nextSeqLong.toString();
         } else {
             return nextSeqLong.toString();
         }
@@ -2531,7 +2527,7 @@ public class GenericDelegator implements Delegator {
      */
     public void setNextSubSeqId(GenericValue value, String seqFieldName, int numericPadding, int incrementBy) {
         if (value != null && UtilValidate.isEmpty(value.getString(seqFieldName))) {
-            String sequencedIdPrefix = this.getDelegatorInfo().sequencedIdPrefix;
+            String sequencedIdPrefix = this.delegatorInfo.getSequencedIdPrefix();
 
             value.remove(seqFieldName);
             GenericValue lookupValue = this.makeValue(value.getEntityName());
@@ -2896,12 +2892,12 @@ public class GenericDelegator implements Delegator {
             //time to do some tricks with manual class loading that resolves circular dependencies, like calling services
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             // initialize the distributedCacheClear mechanism
-            String distributedCacheClearClassName = getDelegatorInfo().distributedCacheClearClassName;
+            String distributedCacheClearClassName = this.delegatorInfo.getDistributedCacheClearClassName();
 
             try {
                 Class<?> dccClass = loader.loadClass(distributedCacheClearClassName);
                 this.distributedCacheClear = UtilGenerics.cast(dccClass.newInstance());
-                this.distributedCacheClear.setDelegator(this, getDelegatorInfo().distributedCacheClearUserLoginId);
+                this.distributedCacheClear.setDelegator(this, this.delegatorInfo.getDistributedCacheClearUserLoginId());
             } catch (ClassNotFoundException e) {
                 Debug.logWarning(e, "DistributedCacheClear class with name " + distributedCacheClearClassName + " was not found, distributed cache clearing will be disabled", module);
             } catch (InstantiationException e) {
@@ -2917,7 +2913,7 @@ public class GenericDelegator implements Delegator {
     }
     
     public boolean useDistributedCacheClear() {
-        return this.getDelegatorInfo().useDistributedCacheClear;
+        return this.delegatorInfo.getDistributedCacheClearEnabled();
     }
     
 }
