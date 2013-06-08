@@ -19,16 +19,14 @@
 package org.ofbiz.entity.config;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.GenericEntityConfException;
 import org.ofbiz.entity.config.model.Datasource;
 import org.ofbiz.entity.config.model.DelegatorElement;
@@ -40,8 +38,6 @@ import org.ofbiz.entity.config.model.EntityModelReader;
 import org.ofbiz.entity.config.model.FieldType;
 import org.ofbiz.entity.config.model.InlineJdbc;
 import org.ofbiz.entity.config.model.ResourceLoader;
-import org.ofbiz.entity.jdbc.ConnectionFactory;
-import org.ofbiz.entity.transaction.TransactionFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -53,8 +49,7 @@ public final class EntityConfigUtil {
 
     public static final String module = EntityConfigUtil.class.getName();
     public static final String ENTITY_ENGINE_XML_FILENAME = "entityengine.xml";
-    // Keep the EntityConfig instance in a cache - so the configuration can be reloaded at run-time. There will be only one EntityConfig instance in the cache.
-    private static final UtilCache<String, EntityConfig> entityConfigCache = UtilCache.createUtilCache("entity.EntityConfig", 0, 0, false);
+    private static final AtomicReference<EntityConfig> configRef = new AtomicReference<EntityConfig>(null);
 
     public static String createConfigFileLineNumberText(Element element) {
         if (element.getUserData("startLine") != null) {
@@ -68,23 +63,12 @@ public final class EntityConfigUtil {
      * @throws GenericEntityConfException
      */
     public static EntityConfig getEntityConfig() throws GenericEntityConfException {
-        EntityConfig instance = entityConfigCache.get("instance");
+        EntityConfig instance = configRef.get();
         if (instance == null) {
-            synchronized (EntityConfigUtil.class) {
-                // Sync ensures resources are initialized properly - do not remove.
-                Element entityConfigElement = getXmlDocument().getDocumentElement();
-                instance = new EntityConfig(entityConfigElement);
-                EntityConfig previousInstance = entityConfigCache.putIfAbsent("instance", instance);
-                instance = entityConfigCache.get("instance");
-                if (previousInstance == null) {
-                    for (EntityConfigListener listener : getConfigListeners()) {
-                        try {
-                            listener.onEntityConfigChange(instance);
-                        } catch (Exception e) {
-                            Debug.logError(e, "Exception thrown while notifying listener " + listener + ": ", module);
-                        }
-                    }
-                }
+            Element entityConfigElement = getXmlDocument().getDocumentElement();
+            instance = new EntityConfig(entityConfigElement);
+            if (!configRef.compareAndSet(null, instance)) {
+                instance = configRef.get();
             }
         }
         return instance;
@@ -100,15 +84,6 @@ public final class EntityConfigUtil {
         } catch (Exception e) {
             throw new GenericEntityConfException("Exception thrown while reading " + ENTITY_ENGINE_XML_FILENAME + ": ", e);
         }
-    }
-
-    private static List<EntityConfigListener> getConfigListeners() {
-        // TODO: Build a list of listeners. Listeners must be notified in a specific order
-        // so resources can be deallocated/allocated properly and so dependencies can be followed.
-        List<EntityConfigListener> configListeners = new ArrayList<EntityConfigListener>();
-        configListeners.add(TransactionFactory.getConfigListener());
-        configListeners.add(ConnectionFactory.getConfigListener());
-        return configListeners;
     }
 
     public static String getTxFactoryClass() throws GenericEntityConfException {

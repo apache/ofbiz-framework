@@ -27,10 +27,8 @@ import javax.transaction.UserTransaction;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.config.model.Datasource;
-import org.ofbiz.entity.config.EntityConfigListener;
 import org.ofbiz.entity.config.EntityConfigUtil;
-import org.ofbiz.entity.config.model.EntityConfig;
+import org.ofbiz.entity.config.model.Datasource;
 import org.ofbiz.entity.datasource.GenericHelperInfo;
 import org.ofbiz.entity.jdbc.CursorConnection;
 
@@ -41,22 +39,6 @@ public class TransactionFactory {
 
     public static final String module = TransactionFactory.class.getName();
     private static final AtomicReference<TransactionFactoryInterface> txFactoryRef = new AtomicReference<TransactionFactoryInterface>(null);
-    private static final EntityConfigListener configListener = new EntityConfigListener() {
-        @Override
-        public void onEntityConfigChange(EntityConfig entityConfig) throws Exception {
-            TransactionFactoryInterface instance = createTransactionFactoryInterface();
-            TransactionFactoryInterface previousInstance = txFactoryRef.getAndSet(instance);
-            if (previousInstance != null) {
-                previousInstance.shutdown();
-                Debug.logInfo("Listener shut down TransactionFactoryInterface instance " + previousInstance, module);
-            }
-            Debug.logInfo("Listener created new TransactionFactoryInterface instance " + instance, module);
-        }
-    };
-
-    public static EntityConfigListener getConfigListener() {
-        return configListener;
-    }
 
     private static TransactionFactoryInterface createTransactionFactoryInterface() throws Exception {
         String className = EntityConfigUtil.getTxFactoryClass();
@@ -73,9 +55,7 @@ public class TransactionFactory {
         if (instance == null) {
             try {
                 instance = createTransactionFactoryInterface();
-                if (txFactoryRef.compareAndSet(null, instance)) {
-                    Debug.logInfo("Factory method created new TransactionFactoryInterface instance " + instance, module);
-                } else {
+                if (!txFactoryRef.compareAndSet(null, instance)) {
                     instance = txFactoryRef.get();
                 }
             } catch (Exception e) {

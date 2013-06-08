@@ -28,9 +28,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.config.EntityConfigListener;
 import org.ofbiz.entity.config.EntityConfigUtil;
-import org.ofbiz.entity.config.model.EntityConfig;
 import org.ofbiz.entity.config.model.JdbcElement;
 import org.ofbiz.entity.connection.ConnectionFactoryInterface;
 import org.ofbiz.entity.datasource.GenericHelperInfo;
@@ -44,22 +42,6 @@ public class ConnectionFactory {
     // Debug module name
     public static final String module = ConnectionFactory.class.getName();
     private static final AtomicReference<ConnectionFactoryInterface> connFactoryRef = new AtomicReference<ConnectionFactoryInterface>(null);
-    private static final EntityConfigListener configListener = new EntityConfigListener() {
-        @Override
-        public void onEntityConfigChange(EntityConfig entityConfig) throws Exception {
-            ConnectionFactoryInterface instance = createConnectionFactoryInterface();
-            ConnectionFactoryInterface previousInstance = connFactoryRef.getAndSet(instance);
-            if (previousInstance != null) {
-                previousInstance.closeAll();
-                Debug.logInfo("Listener shut down ConnectionFactoryInterface instance " + previousInstance, module);
-            }
-            Debug.logInfo("Listener created new ConnectionFactoryInterface instance " + instance, module);
-        }
-    };
-
-    public static EntityConfigListener getConfigListener() {
-        return configListener;
-    }
 
     private static ConnectionFactoryInterface createConnectionFactoryInterface() throws Exception {
         String className = EntityConfigUtil.getConnectionFactoryClass();
@@ -124,9 +106,7 @@ public class ConnectionFactory {
         if (instance == null) {
             try {
                 instance = createConnectionFactoryInterface();
-                if (connFactoryRef.compareAndSet(null, instance)) {
-                    Debug.logInfo("Factory method created new ConnectionFactoryInterface instance " + instance, module);
-                } else {
+                if (!connFactoryRef.compareAndSet(null, instance)) {
                     instance = connFactoryRef.get();
                 }
             } catch (Exception e) {
