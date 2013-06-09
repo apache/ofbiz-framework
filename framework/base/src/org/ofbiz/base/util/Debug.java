@@ -161,7 +161,55 @@ public final class Debug {
     }
 
     public static void log(int level, Throwable t, String msg, String module, String callingClass, Object... params) {
-        if (isOn(level)) {
+        Logger logger = null;
+        boolean offSetInLogConfig = false; 
+        boolean fatalSetInLogConfig = false; 
+        boolean errorSetInLogConfig = false; 
+        boolean warnSetInLogConfig = false; 
+        boolean infoSetInLogConfig = false; 
+        boolean traceSetInLogConfig = false; 
+        boolean debugSetInLogConfig = false; 
+        boolean allSetInLogConfig = false;
+        boolean setInLogConfig = false;
+
+        if (useLog4J) {
+            logger = getLogger(module);
+                        
+            // Class
+            if (logger != null) {
+                Level loggerLevel = logger.getLevel();
+                offSetInLogConfig = Level.OFF.equals(loggerLevel);
+                fatalSetInLogConfig = Level.FATAL.equals(loggerLevel);
+                errorSetInLogConfig = Level.ERROR.equals(loggerLevel);
+                warnSetInLogConfig = Level.WARN.equals(loggerLevel);
+                infoSetInLogConfig = Level.INFO.equals(loggerLevel);
+                traceSetInLogConfig = Level.TRACE.equals(loggerLevel);
+                debugSetInLogConfig = Level.DEBUG.equals(loggerLevel);
+                allSetInLogConfig = Level.ALL.equals(loggerLevel);
+            }                
+            setInLogConfig = offSetInLogConfig || fatalSetInLogConfig || errorSetInLogConfig || warnSetInLogConfig || infoSetInLogConfig 
+                            ||  traceSetInLogConfig || debugSetInLogConfig || allSetInLogConfig;
+            // Package
+            // !setInLogConfig : for a Class logger, Class setting takes precedence on Package if both are used
+            if (!noModuleModule.equals(module) && module != null && !module.isEmpty() && !setInLogConfig) { 
+                Logger packageLogger = getLogger(module.substring(0, module.lastIndexOf(".")));
+                if (packageLogger != null) {
+                    Level packageLoggerLevel = packageLogger.getLevel();
+                    offSetInLogConfig |= Level.OFF.equals(packageLoggerLevel);
+                    fatalSetInLogConfig |= Level.FATAL.equals(packageLoggerLevel);
+                    errorSetInLogConfig |= Level.ERROR.equals(packageLoggerLevel);
+                    warnSetInLogConfig |= Level.WARN.equals(packageLoggerLevel);
+                    infoSetInLogConfig |= Level.INFO.equals(packageLoggerLevel);
+                    traceSetInLogConfig |= Level.TRACE.equals(packageLoggerLevel);
+                    debugSetInLogConfig |= Level.DEBUG.equals(packageLoggerLevel);
+                    allSetInLogConfig |= Level.ALL.equals(packageLoggerLevel);
+                }
+            }
+            setInLogConfig = offSetInLogConfig || fatalSetInLogConfig || errorSetInLogConfig || warnSetInLogConfig || infoSetInLogConfig 
+                            ||  traceSetInLogConfig || debugSetInLogConfig || allSetInLogConfig;
+        }
+
+        if (isOn(level) || setInLogConfig) {
             if (msg != null && params.length > 0) {
                 StringBuilder sb = new StringBuilder();
                 Formatter formatter = new Formatter(sb);
@@ -176,11 +224,23 @@ public final class Debug {
 
             // log
             if (useLog4J) {
-                Logger logger = getLogger(module);
                 if (SYS_DEBUG != null) {
                     logger.setLevel(Level.DEBUG);
                 }
-                logger.log(callingClass, levelObjs[level], msg, t);
+                if (offSetInLogConfig) {
+                    // Not printing anything
+                } else if (fatalSetInLogConfig && Level.FATAL.equals(levelObjs[level])
+                        || errorSetInLogConfig && Level.ERROR.equals(levelObjs[level])
+                        || warnSetInLogConfig && Level.WARN.equals(levelObjs[level])
+                        || infoSetInLogConfig && Level.INFO.equals(levelObjs[level])
+                        || debugSetInLogConfig && Level.DEBUG.equals(levelObjs[level])
+                        || traceSetInLogConfig && Level.DEBUG.equals(levelObjs[level])) {
+                    logger.log(callingClass, levelObjs[level], msg, t);
+                } else if (allSetInLogConfig) {
+                    logger.log(callingClass, Level.INFO, msg, t);
+                } else {
+                    logger.log(callingClass, levelObjs[level], msg, t);
+                }
             } else {
                 StringBuilder prefixBuf = new StringBuilder();
 
