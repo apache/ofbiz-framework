@@ -81,11 +81,14 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
         maxIdle = maxIdle > minSize ? maxIdle : minSize;
         // load the driver
         Driver jdbcDriver;
-        try {
-            jdbcDriver = (Driver) Class.forName(driverName, true, Thread.currentThread().getContextClassLoader()).newInstance();
-        } catch (Exception e) {
-            Debug.logError(e, module);
-            throw new GenericEntityException(e.getMessage(), e);
+        synchronized (DBCPConnectionFactory.class) {
+            // Sync needed for MS SQL JDBC driver. See OFBIZ-5216.
+            try {
+                jdbcDriver = (Driver) Class.forName(driverName, true, Thread.currentThread().getContextClassLoader()).newInstance();
+            } catch (Exception e) {
+                Debug.logError(e, module);
+                throw new GenericEntityException(e.getMessage(), e);
+            }
         }
 
         // connection factory properties
