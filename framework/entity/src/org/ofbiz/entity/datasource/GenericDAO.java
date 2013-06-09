@@ -708,6 +708,8 @@ public class GenericDAO {
                     Debug.logInfo("[" + modelEntity.getEntityName() + "]: auto-added field-sets: " + reasonSets, module);
                 }
             }
+        } else {
+            selectFields = modelEntity.getFieldsUnmodifiable();
         }
 
         StringBuilder sqlBuffer = new StringBuilder("SELECT ");
@@ -716,23 +718,10 @@ public class GenericDAO {
             sqlBuffer.append("DISTINCT ");
         }
 
-        if (modelEntity instanceof ModelViewEntity) {
-            // Views must have enumerated fields in SELECT.
-            if (selectFields.isEmpty()) {
-                modelEntity.colNameString(modelEntity.getFieldsUnmodifiable(), sqlBuffer, "", ", ", "", datasource.getAliasViewColumns());
-            } else {
-                modelEntity.colNameString(selectFields, sqlBuffer, "", ", ", "", datasource.getAliasViewColumns());
-            }
+        if (selectFields.size() > 0) {
+            modelEntity.colNameString(selectFields, sqlBuffer, "", ", ", "", datasource.getAliasViewColumns());
         } else {
-            if (selectFields.isEmpty()) {
-                sqlBuffer.append("*");
-            } else {
-                modelEntity.colNameString(selectFields, sqlBuffer, "", ", ", "", datasource.getAliasViewColumns());
-            }
-        }
-        if (selectFields.isEmpty()) {
-            // The code that follows must have a non-empty list.
-            selectFields = modelEntity.getFieldsUnmodifiable();
+            sqlBuffer.append("*");
         }
 
         // populate the info from entity-condition in the view-entity, if it is one and there is one
