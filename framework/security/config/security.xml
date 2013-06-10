@@ -18,9 +18,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<security-config>
+<security-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/security-config.xsd">
     <!-- This is the default implementation and uses the OFBizSecurity implementation as its default -->
-    <security name="default"/>
+    <security name="default" class="org.ofbiz.security.OFBizSecurity"/>
 
     <!-- This is an example custom implementation and uses the class name specified as security implementation -->
     <!--
