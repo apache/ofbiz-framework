@@ -27,11 +27,8 @@ under the License.
     </xs:element>
     <xs:element name="security">
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.security"/>
+            <xs:attribute name="name" use="required" />
+            <xs:attribute name="class" use="required" />
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.security">
-        <xs:attribute name="name" use="required"/>
-        <xs:attribute name="class"/>
-    </xs:attributeGroup>
 </xs:schema>

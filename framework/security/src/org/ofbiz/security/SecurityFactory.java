@@ -18,12 +18,15 @@
  *******************************************************************************/
 package org.ofbiz.security;
 
-import org.ofbiz.base.config.GenericConfigException;
-import org.ofbiz.base.config.SecurityConfigUtil;
+import java.net.URL;
+import java.util.concurrent.atomic.AtomicReference;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilURL;
+import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.Delegator;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
@@ -32,16 +35,14 @@ import org.w3c.dom.Element;
  * This Factory class returns an instance of a security implementation.
  *
  * Setting the security implementation className is done in security.xml.
- * If no customiz security name is given, the default implementation will be used (OFBizSecurity)
+ * If no customized security name is given, the default implementation will be used (OFBizSecurity)
  */
-public class SecurityFactory {
+public final class SecurityFactory {
 
     public static final String module = SecurityFactory.class.getName();
-    public static final String DEFAULT_SECURITY = "org.ofbiz.security.OFBizSecurity";
-
-    private static String securityName = null;
-    private static Element rootElement = null;
-    private static SecurityConfigUtil.SecurityInfo securityInfo = null;
+    private static final String DEFAULT_SECURITY_CLASS_NAME = "org.ofbiz.security.OFBizSecurity";
+    private static final String SECURITY_CONFIG_XML_FILENAME = "security.xml";
+    private static final AtomicReference<SecurityInfo> configRef = new AtomicReference<SecurityInfo>(null);
 
     /**
      * Returns an instance of a Security implementation as defined in the security.xml by defined name
@@ -52,82 +53,76 @@ public class SecurityFactory {
      */
     public static Security getInstance(Delegator delegator) throws SecurityConfigurationException {
         Security security = null;
-
-        // Make securityName a singleton
-        if (securityName == null) {
-            String _securityName = UtilProperties.getPropertyValue("security.properties", "security.context");
-            securityName = _securityName;
+        String securityClassName = DEFAULT_SECURITY_CLASS_NAME;
+        try {
+            SecurityInfo securityInfo = getSecurityInfo();
+            securityClassName = securityInfo.className;
+        } catch (SecurityConfigurationException e) {
+            Debug.logError(e, "Exception thrown while getting security configuration, using default security class " + DEFAULT_SECURITY_CLASS_NAME, module);
         }
-
-        if (Debug.verboseOn()) Debug.logVerbose("[SecurityFactory.getInstance] Security implementation context name from security.properties: " + securityName, module);
-
-        synchronized (SecurityFactory.class) {
-            try {
-                ClassLoader loader = Thread.currentThread().getContextClassLoader();
-                Class<?> c = loader.loadClass(getSecurityClass(securityName));
-                security = (Security) c.newInstance();
-                security.setDelegator(delegator);
-            } catch (ClassNotFoundException cnf) {
-                throw new SecurityConfigurationException("Cannot load security implementation class", cnf);
-            } catch (InstantiationException ie) {
-                throw new SecurityConfigurationException("Cannot get instance of the security implementation", ie);
-            } catch (IllegalAccessException iae) {
-                throw new SecurityConfigurationException(iae.getMessage(), iae);
-            }
+        try {
+            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+            Class<?> c = loader.loadClass(securityClassName);
+            security = (Security) c.newInstance();
+            security.setDelegator(delegator);
+        } catch (ClassNotFoundException cnf) {
+            throw new SecurityConfigurationException("Cannot load security implementation class", cnf);
+        } catch (InstantiationException ie) {
+            throw new SecurityConfigurationException("Cannot get instance of the security implementation", ie);
+        } catch (IllegalAccessException iae) {
+            throw new SecurityConfigurationException(iae.getMessage(), iae);
         }
-
-        if (Debug.verboseOn()) Debug.logVerbose("[SecurityFactory.getInstance] Security implementation successfully loaded!!!", module);
-
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Security implementation created for delegator " + delegator.getDelegatorName(), module);
+        }
         return security;
     }
 
-    /**
-     * Returns the class name of  a custom Security implementation.
-     * The default class name (org.ofbiz.security.OFBizSecurity) may be overridden by a customized implementation
-     * class name in security.xml.
-     *
-     * @param securityName the security context name to be looked up
-     * @return className the class name of the security implementatin
-     * @throws SecurityConfigurationException
-     */
-    private static String getSecurityClass(String securityName) throws SecurityConfigurationException {
-        String className = null;
-
-        if (Debug.verboseOn())
-            Debug.logVerbose("[SecurityFactory.getSecurityClass] Security implementation context name: " + securityName, module);
-
-        // Only load rootElement again, if not yet loaded (singleton)
-        if (rootElement == null) {
+    private static SecurityInfo getSecurityInfo() throws SecurityConfigurationException {
+        SecurityInfo instance = configRef.get();
+        if (instance == null) {
+            URL confUrl = UtilURL.fromResource(SECURITY_CONFIG_XML_FILENAME);
+            if (confUrl == null) {
+                throw new SecurityConfigurationException("Could not find the " + SECURITY_CONFIG_XML_FILENAME + " file");
+            }
+            String securityName = UtilProperties.getPropertyValue("security.properties", "security.context");
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Security implementation context name from security.properties: " + securityName, module);
+            }
+            Document document = null;
             try {
-                SecurityConfigUtil.getXmlDocument();
-                Element _rootElement = SecurityConfigUtil.getXmlRootElement();
-
-                rootElement = _rootElement;
-            } catch (GenericConfigException e) {
-                Debug.logError(e, "Error getting Security Config XML root element", module);
-                return null;
+                document = UtilXml.readXmlDocument(confUrl, true, true);
+            } catch (Exception e) {
+                throw new SecurityConfigurationException("Exception thrown while reading " + SECURITY_CONFIG_XML_FILENAME + ": ", e);
+            }
+            Element securityElement = UtilXml.firstChildElement(document.getDocumentElement(), "security", "name", securityName);
+            if (securityElement == null) {
+                throw new SecurityConfigurationException("Could not find the <security> element in the " + SECURITY_CONFIG_XML_FILENAME + " file");
+            }
+            instance = new SecurityInfo(securityElement);
+            if (configRef.compareAndSet(null, instance)) {
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("Security configuration read from " + SECURITY_CONFIG_XML_FILENAME + ", using class " + instance.className, module);
+                }
+            } else {
+                instance = configRef.get();
             }
         }
-
-        if (securityInfo == null) {
-            SecurityConfigUtil.SecurityInfo _securityInfo = SecurityConfigUtil.getSecurityInfo(securityName);
-
-            // Make sure, that the security conetxt name is defined and present
-            if (_securityInfo == null) {
-                throw new SecurityConfigurationException("ERROR: no security definition was found with the name " + securityName + " in security.xml");
-            }
-            securityInfo = _securityInfo;
-        }
-
-        // This is the default implementation and uses org.ofbiz.security.OFBizSecurity
-        if (UtilValidate.isEmpty(securityInfo.className)) {
-            className = DEFAULT_SECURITY;
-        } else {
-            // Use a customized security
-            className = securityInfo.className;
-        }
-
-        if (Debug.verboseOn()) Debug.logVerbose("[SecurityFactory.getSecurity] Security implementation " + className + " for security name " + securityName + " successfully loaded!!!", module);
-        return className;
+        return instance;
     }
+
+    private static final class SecurityInfo {
+        private final String name;
+        private final String className;
+
+        private SecurityInfo(Element element) throws SecurityConfigurationException {
+            this.name = element.getAttribute("name");
+            this.className = element.getAttribute("class");
+            if (this.className.isEmpty()) {
+                throw new SecurityConfigurationException("<security> element class attribute is empty in the " + SECURITY_CONFIG_XML_FILENAME + " file");
+            }
+        }
+    }
+
+    private SecurityFactory() {}
 }
