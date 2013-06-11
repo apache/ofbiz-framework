@@ -1075,18 +1075,26 @@ under the License.
             <xs:attribute type="xs:string" name="default-value" />
             <xs:attribute type="xs:string" name="description-field-name">
                 <xs:annotation>
-                    <xs:documentation>The name of a field whose value is also filled when coming back from lookup selection.</xs:documentation>
+                    <xs:documentation>
+                        The name of a field whose value is also filled when coming back from lookup selection.
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute type="xs:string" name="target-parameter">
                 <xs:annotation>
-                    <xs:documentation>The name of a field whose value is passed in as a parameter to the lookup target form. Can be a comma separated list. You need to affect it the value using parameters.parmI (where I is the position number in the list, I must begin at 0) in the related lookup
-                        screen. See LookupPreferredContactMech as example</xs:documentation>
+                    <xs:documentation>The name of a field whose value is passed in as a parameter to the lookup target form. 
+                        Can be a comma separated list. You need to affect it the value using parameters.parmI 
+                        (where I is the position number in the list, I must begin at 0) in the related lookup screen. 
+                        See LookupPreferredContactMech as example
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute name="client-autocomplete-field" default="true">
                 <xs:annotation>
-                    <xs:documentation>Tells the browser whether or not to try and autocomplete with values previously entered. Default to true.</xs:documentation>
+                    <xs:documentation>
+                        Tells the browser whether or not to try and autocomplete with values previously entered. 
+                        Default to true.
+                    </xs:documentation>
                 </xs:annotation>
                 <xs:simpleType>
                     <xs:restriction base="xs:token">
@@ -1105,7 +1113,10 @@ under the License.
             </xs:attribute>
             <xs:attribute name="presentation" default="layer">
                 <xs:annotation>
-                    <xs:documentation>Shows the lookup as moveable and resizable layer or popup window. Default to layer.</xs:documentation>
+                    <xs:documentation>
+                        Shows the lookup as moveable and resizable layer or popup window. 
+                        Default to layer.
+                    </xs:documentation>
                 </xs:annotation>
                 <xs:simpleType>
                     <xs:restriction base="xs:string">
@@ -1164,8 +1175,8 @@ under the License.
             <xs:attribute name="show-description" type="xs:boolean">
                 <xs:annotation>
                     <xs:documentation>If true, a special span with css class "tooltip" will be created at right of the lookup button 
-                                      and a description will fill in. 
-                                      If not set then it depends on the "widget.lookup.showDescription" setting.
+                        and a description will fill in. 
+                        If not set then it depends on the "widget.lookup.showDescription" setting.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
