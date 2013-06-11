@@ -20,7 +20,6 @@ var mx, my;
 var ACTIVATED_LOOKUP = null;
 var LOOKUP_DIV = null;
 var INITIALLY_COLLAPSED = null;
-var SHOW_DESCRIPTION = false;
 var COLLAPSE_SEQUENCE_NUMBER = 1999;
 
 var target = null;
@@ -212,6 +211,7 @@ var Lookup = function(options) {
 		this.formName = options.formName;
 		this.target = null;
 		this.presentation = options.presentation;
+		this.showDescription = (options.showDescription == "true") ? true : false;
 		if (options.dialogOptionalTarget != null) {
 			this.target2 = null;
 		}
@@ -245,11 +245,10 @@ var Lookup = function(options) {
 	}
 
 	function _createAjaxAutoComplete() {
-		if (options.ajaxUrl != "" && options.showDescription != "") {
-			SHOW_DESCRIPTION = options.showDescription;
+		if (options.ajaxUrl != "") {
 			// write the new input box id in the ajaxUrl Array
 			options.ajaxUrl = options.ajaxUrl.replace(options.ajaxUrl.substring(0, options.ajaxUrl.indexOf(",")), _newInputBoxId);
-			new ajaxAutoCompleter(options.ajaxUrl, options.showDescription, options.defaultMinLength, options.defaultDelay,
+			new ajaxAutoCompleter(options.ajaxUrl, (options.showDescription == "true") ? true : false, options.defaultMinLength, options.defaultDelay,
 					options.formName);
 		}
 	}
@@ -769,8 +768,9 @@ function set_values(value, value2) {
 	var target2 = obj_caller.target2;
 	write_value(value, target);
 	write_value(value2, target2)
-	if (SHOW_DESCRIPTION) {
-		setLookDescription(target.attr("id"), value + " " + value2, "", "", SHOW_DESCRIPTION);
+	var showDescription = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP) ? GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).showDescription : false;
+	if (showDescription) {
+		setLookDescription(target.attr("id"), value + " " + value2, "", "", showDescription);
 	}
 
 	closeLookup();
