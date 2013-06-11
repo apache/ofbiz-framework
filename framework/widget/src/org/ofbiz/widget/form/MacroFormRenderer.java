@@ -2067,7 +2067,10 @@ public class MacroFormRenderer implements FormStringRenderer {
         } else {
             Debug.logWarning("Could not find uiLabelMap in context", module);
         }
-        boolean showDescription = "Y".equals(UtilProperties.getPropertyValue("widget", "widget.lookup.showDescription", "N"));
+        Boolean showDescription = lookupField.getShowDescription();
+        if (showDescription == null) {
+            showDescription = "Y".equals(UtilProperties.getPropertyValue("widget", "widget.lookup.showDescription", "Y"));
+        }
         // lastViewName, used by lookup to remember the real last view name
         String lastViewName = request.getParameter("_LAST_VIEW_NAME_"); // Try to get it from parameters firstly
         if (UtilValidate.isEmpty(lastViewName)) { // get from session

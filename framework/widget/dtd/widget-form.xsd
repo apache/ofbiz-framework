@@ -1161,6 +1161,14 @@ under the License.
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
+            <xs:attribute name="show-description" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>If true, a special span with css class "tooltip" will be created at right of the lookup button 
+                                      and a description will fill in. 
+                                      If not set then it depends on the "widget.lookup.showDescription" setting.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="password" substitutionGroup="AllFields">

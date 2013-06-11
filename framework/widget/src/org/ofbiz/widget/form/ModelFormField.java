@@ -3524,6 +3524,7 @@ public class ModelFormField {
         protected String lookupPosition;
         protected String fadeBackground;
         protected String initiallyCollapsed;
+        protected String showDescription;
 
         public LookupField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
@@ -3536,6 +3537,7 @@ public class ModelFormField {
             this.lookupPosition = element.getAttribute("position");
             this.fadeBackground = element.getAttribute("fade-background");            
             this.initiallyCollapsed = element.getAttribute("initially-collapsed");
+            this.showDescription = element.getAttribute("show-description");
 
             Element subHyperlinkElement = UtilXml.firstChildElement(element, "sub-hyperlink");
             if (subHyperlinkElement != null) {
@@ -3623,6 +3625,15 @@ public class ModelFormField {
         public void setFadeBackground(String str) {
             this.fadeBackground = str;
         }
+
+        public Boolean getShowDescription() {
+            return UtilValidate.isEmpty(this.showDescription) ? null : "true".equals(this.showDescription);
+        }
+
+        public void setShowDescription(String str) {
+            this.showDescription = str;
+        }
+
         //initially-collapsed status
         public boolean getInitiallyCollapsed() {
             return "true".equals(this.initiallyCollapsed);
