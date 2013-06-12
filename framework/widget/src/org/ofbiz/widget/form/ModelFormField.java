@@ -1624,7 +1624,8 @@ public class ModelFormField {
                     MapStack<String> localContext = MapStack.create(context);
                     // Rendering code might try to modify the GenericEntity instance,
                     // so we make a copy of it.
-                    localContext.push(new HashMap<String, Object>(value));
+                    Map<String, Object> genericEntityClone = UtilGenerics.cast(value.clone());
+                    localContext.push(genericEntityClone);
 
                     // expand with the new localContext, which is locale aware
                     String optionDesc = this.description.expandString(localContext, locale);
@@ -2183,7 +2184,8 @@ public class ModelFormField {
                 MapStack<String> localContext = MapStack.create(context);
                 // Rendering code might try to modify the GenericEntity instance,
                 // so we make a copy of it.
-                localContext.push(new HashMap<String, Object>(value));
+                Map<String, Object> genericEntityClone = UtilGenerics.cast(value.clone());
+                localContext.push(genericEntityClone);
 
                 // expand with the new localContext, which is locale aware
                 retVal = this.description.expandString(localContext, locale);
