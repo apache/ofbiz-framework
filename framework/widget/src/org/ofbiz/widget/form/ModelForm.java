@@ -21,7 +21,6 @@ package org.ofbiz.widget.form;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -1550,7 +1549,8 @@ public class ModelForm extends ModelWidget {
                     if (itemMap instanceof GenericEntity) {
                         // Rendering code might try to modify the GenericEntity instance,
                         // so we make a copy of it.
-                        localContext.push(new HashMap<String, Object>(itemMap));
+                        Map<String, Object> genericEntityClone = UtilGenerics.cast(((GenericEntity)itemMap).clone());
+                        localContext.push(genericEntityClone);
                     } else {
                         localContext.push(itemMap);
                     }
