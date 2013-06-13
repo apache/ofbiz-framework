@@ -80,10 +80,10 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field use-when="projectId!=null" name="estimatedStartDate" title="${uiLabelMap.FormFieldTitle_estimatedStartDate}"><display type="date"/></field>
-        <field use-when="projectId!=null" name="estimatedCompletionDate" title="${uiLabelMap.FormFieldTitle_estimatedCompletionDate}"><display type="date"/></field>
-        <field use-when="projectId!=null" name="actualStartDate" title="${uiLabelMap.FormFieldTitle_actualStartDate}"><display type="date"/></field>
-        <field use-when="projectId!=null" name="actualCompletionDate" title="${uiLabelMap.FormFieldTitle_actualCompletionDate}"><display type="date"/></field>
+        <field use-when="projectId!=null" name="estimatedStartDate" title="${uiLabelMap.FormFieldTitle_estimatedStartDate}"><date-time/></field>
+        <field use-when="projectId!=null" name="estimatedCompletionDate" title="${uiLabelMap.FormFieldTitle_estimatedCompletionDate}"><date-time/></field>
+        <field use-when="projectId!=null" name="actualStartDate" title="${uiLabelMap.FormFieldTitle_actualStartDate}"><date-time/></field>
+        <field use-when="projectId!=null" name="actualCompletionDate" title="${uiLabelMap.FormFieldTitle_actualCompletionDate}"><date-time/></field>
         <field name="emailAddress" title="${uiLabelMap.FormFieldTitle_mailingListEmail}"><text/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>

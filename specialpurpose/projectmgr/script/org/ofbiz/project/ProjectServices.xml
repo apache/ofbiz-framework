@@ -697,6 +697,10 @@
         <set field="highInfo.projectId" from-field="project.workEffortId"/>
         <set field="highInfo.projectName" from-field="project.workEffortName"/>
         <set field="highInfo.projectDescription" from-field="project.description"/>
+        <set field="highInfo.estimatedStartDate" from-field="project.estimatedStartDate"/>
+        <set field="highInfo.estimatedCompletionDate" from-field="project.estimatedCompletionDate"/>
+        <set field="highInfo.actualStartDate" from-field="project.actualStartDate"/>
+        <set field="highInfo.actualCompletionDate" from-field="project.actualCompletionDate"/>
         <set field="highInfo.scopeEnumId" from-field="project.scopeEnumId"/>
         <set field="highInfo.createdStamp" from-field="project.createdStamp"/>
         <entity-one entity-name="StatusItem" value-field="highSeq">
