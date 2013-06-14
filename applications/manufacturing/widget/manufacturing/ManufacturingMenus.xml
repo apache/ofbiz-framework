@@ -275,7 +275,7 @@ under the License.
             </link>
         </menu-item>
         <menu-item name="print" title="${uiLabelMap.CommonPrint}">
-            <link target="PrintProductionRun">
+            <link target="PrintProductionRun" target-window="_BLANK">
                 <parameter param-name="productionRunId"/>
             </link>
         </menu-item>
