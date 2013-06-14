@@ -14933,6 +14933,10 @@
         <value xml:lang="zh">总账不平原因</value>
         <value xml:lang="zh_TW">總帳不平原因</value>
     </property>
+    <property key="AccountingVat">
+    	<value xml:lang="en">VAT</value>
+    	<value xml:lang="nl">BTW</value>
+    </property>
     <property key="AccountingVendorParty">
         <value xml:lang="en">Vendor Party</value>
         <value xml:lang="fr">Réf. vendeur</value>
