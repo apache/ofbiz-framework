@@ -2793,7 +2793,8 @@ public class MacroFormRenderer implements FormStringRenderer {
                 sb.append(",");
             }
         }
-        return sb.toString();
+        Locale locale = UtilMisc.ensureLocale(context.get("locale"));
+        return FlexibleStringExpander.expandString(sb.toString(), context, locale);
     }
 
     /** Create an ajaxXxxx JavaScript CSV string from a list of UpdateArea objects. See
