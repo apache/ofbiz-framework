@@ -56,6 +56,10 @@ context.carrierShipmentMethods = carrierShipmentMethods;
 paymentStatusList = delegator.findByAnd("StatusItem", [statusTypeId : "PAYMENT_PREF_STATUS"], ["description"], false);
 context.paymentStatusList = paymentStatusList;
 
+// get the good identification types
+goodIdentificationTypes = delegator.findList("GoodIdentificationType", null, null, ["goodIdentificationTypeId", "description"], null, false);
+context.goodIdentificationTypes = goodIdentificationTypes;
+
 // current role type
 currentRoleTypeId = request.getParameter("roleTypeId");
 if (currentRoleTypeId) {
@@ -106,6 +110,13 @@ currentSalesChannelId = request.getParameter("salesChannelEnumId");
 if (currentSalesChannelId) {
     currentSalesChannel = delegator.findOne("Enumeration", [enumId : currentSalesChannelId], false);
     context.currentSalesChannel = currentSalesChannel;
+}
+
+// current good identification type
+currentGoodIdentificationTypeId = request.getParameter("goodIdentificationTypeId");
+if (currentGoodIdentificationTypeId) {
+    currentGoodIdentificationType = delegator.findByPrimaryKey("GoodIdentificationType", ["goodIdentificationTypeId" : currentGoodIdentificationTypeId]);
+    context.currentGoodIdentificationType = currentGoodIdentificationType;
 }
 
 // create the fromDate for calendar
