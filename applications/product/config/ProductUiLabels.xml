@@ -12204,6 +12204,10 @@
         <value xml:lang="zh">任一分类</value>
         <value xml:lang="zh_TW">任一分類</value>
     </property>
+    <property key="ProductAnyGoodIdentification">
+        <value xml:lang="en">Any good identification</value>
+        <value xml:lang="fr">Tous Identifiants</value>
+    </property>
     <property key="ProductAnyFacility">
         <value xml:lang="de">Beliebige Einrichtung</value>
         <value xml:lang="en">Any Facility</value>

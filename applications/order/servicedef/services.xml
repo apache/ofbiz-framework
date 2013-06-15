@@ -820,6 +820,10 @@ under the License.
         <attribute name="budgetId" type="String" mode="IN" optional="true"/>
         <attribute name="quoteId" type="String" mode="IN" optional="true"/>
 
+        <!-- Product identification -->
+        <attribute name="goodIdentificationTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="goodIdentificationIdValue" type="String" mode="IN" optional="true"/>
+
         <attribute name="billingAccountId" type="String" mode="IN" optional="true"/>
         <attribute name="finAccountId" type="String" mode="IN" optional="true"/>
         <attribute name="cardNumber" type="String" mode="IN" optional="true"/>

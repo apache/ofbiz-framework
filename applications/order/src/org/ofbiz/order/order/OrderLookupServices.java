@@ -342,7 +342,11 @@ public class OrderLookupServices {
         String budgetId = (String) context.get("budgetId");
         String quoteId = (String) context.get("quoteId");
 
-        if (correspondingPoId != null || subscriptionId != null || productId != null || budgetId != null || quoteId != null) {
+        String goodIdentificationTypeId = (String) context.get("goodIdentificationTypeId");
+        String goodIdentificationIdValue = (String) context.get("goodIdentificationIdValue");
+        boolean hasGoodIdentification = UtilValidate.isNotEmpty(goodIdentificationTypeId) && UtilValidate.isNotEmpty(goodIdentificationIdValue);
+
+        if (correspondingPoId != null || subscriptionId != null || productId != null || budgetId != null || quoteId != null || hasGoodIdentification) {
             dve.addMemberEntity("OI", "OrderItem");
             dve.addAlias("OI", "correspondingPoId");
             dve.addAlias("OI", "subscriptionId");
@@ -350,6 +354,17 @@ public class OrderLookupServices {
             dve.addAlias("OI", "budgetId");
             dve.addAlias("OI", "quoteId");
             dve.addViewLink("OH", "OI", Boolean.FALSE, UtilMisc.toList(new ModelKeyMap("orderId", "orderId")));
+
+            if (hasGoodIdentification) {
+                dve.addMemberEntity("GOODID", "GoodIdentification");
+                dve.addAlias("GOODID", "goodIdentificationTypeId");
+                dve.addAlias("GOODID", "idValue");
+                dve.addViewLink("OI", "GOODID", Boolean.FALSE, UtilMisc.toList(new ModelKeyMap("productId", "productId")));
+                paramList.add("goodIdentificationTypeId=" + goodIdentificationTypeId);
+                conditions.add(makeExpr("goodIdentificationTypeId", goodIdentificationTypeId));
+                paramList.add("goodIdentificationIdValue=" + goodIdentificationIdValue);
+                conditions.add(makeExpr("idValue", goodIdentificationIdValue));
+            }
         }
 
         if (UtilValidate.isNotEmpty(correspondingPoId)) {
