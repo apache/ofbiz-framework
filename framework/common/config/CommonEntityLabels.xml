@@ -3150,7 +3150,7 @@
         <value xml:lang="it">Manuale</value>
         <value xml:lang="ja">手動</value>
         <value xml:lang="pt_BR">Modo Manual</value>
-        <value xml:lang="ru">Вручную<value>
+        <value xml:lang="ru">Вручную</value>
         <value xml:lang="th">คู่มือ</value>
         <value xml:lang="vi">Tự làm</value>
         <value xml:lang="zh">手动</value>
@@ -3176,7 +3176,7 @@
         <value xml:lang="it">Nessuno</value>
         <value xml:lang="ja">なし</value>
         <value xml:lang="pt_BR">Nenhum</value>
-        <value xml:lang="ru">Никто<value>
+        <value xml:lang="ru">Никто</value>
         <value xml:lang="th">WAT_NO</value>
         <value xml:lang="vi">WAT_NO</value>
         <value xml:lang="zh">不执行</value>
@@ -3189,7 +3189,7 @@
         <value xml:lang="it">Percorso</value>
         <value xml:lang="ja">経路</value>
         <value xml:lang="pt_BR">Rota</value>
-        <value xml:lang="ru">Дистанционно<value>
+        <value xml:lang="ru">Дистанционно</value>
         <value xml:lang="th">Route</value>
         <value xml:lang="vi">WAT_ROUTE</value>
         <value xml:lang="zh">路径</value>
@@ -3202,7 +3202,7 @@
         <value xml:lang="it">Flusso secondario</value>
         <value xml:lang="ja">サブフロー</value>
         <value xml:lang="pt_BR">Subfluxo</value>
-        <value xml:lang="ru">Подпоток<value>
+        <value xml:lang="ru">Подпоток</value>
         <value xml:lang="th">WAT_SUBFLOW</value>
         <value xml:lang="vi">WAT_SUBFLOW</value>
         <value xml:lang="zh">子流程</value>
@@ -3215,7 +3215,7 @@
         <value xml:lang="it">Strumento</value>
         <value xml:lang="ja">ツール</value>
         <value xml:lang="pt_BR">Ferramenta</value>
-        <value xml:lang="ru">Инструмент<value>
+        <value xml:lang="ru">Инструмент</value>
         <value xml:lang="th">WAT_TOOL</value>
         <value xml:lang="vi">WAT_TOOL</value>
         <value xml:lang="zh">工具</value>
@@ -3228,7 +3228,7 @@
         <value xml:lang="it">Tabella</value>
         <value xml:lang="ja">配列型</value>
         <value xml:lang="pt_BR">Tabela</value>
-        <value xml:lang="ru">Массив<value>
+        <value xml:lang="ru">Массив</value>
         <value xml:lang="th">อาเรย์</value>
         <value xml:lang="vi">Mảng</value>
         <value xml:lang="zh">数组</value>
@@ -3241,7 +3241,7 @@
         <value xml:lang="it">Booleano</value>
         <value xml:lang="ja">真偽型</value>
         <value xml:lang="pt_BR">Booleano</value>
-        <value xml:lang="ru">Логический<value>
+        <value xml:lang="ru">Логический</value>
         <value xml:lang="th">บูลีน</value>
         <value xml:lang="vi">Đúng/Sai</value>
         <value xml:lang="zh">布尔值</value>
@@ -3254,7 +3254,7 @@
         <value xml:lang="it">Data ora</value>
         <value xml:lang="ja">日付時間型</value>
         <value xml:lang="pt_BR">Data/horário</value>
-        <value xml:lang="ru">Дата/Время<value>
+        <value xml:lang="ru">Дата/Время</value>
         <value xml:lang="th">วันเวลา</value>
         <value xml:lang="vi">Ngày giờ</value>
         <value xml:lang="zh">日期时间</value>
@@ -3267,7 +3267,7 @@
         <value xml:lang="it">Dichiarato</value>
         <value xml:lang="ja">定義型</value>
         <value xml:lang="pt_BR">Declarado</value>
-        <value xml:lang="ru">Объявленный<value>
+        <value xml:lang="ru">Объявленный</value>
         <value xml:lang="th">DECLARED</value>
         <value xml:lang="vi">Khai báo</value>
         <value xml:lang="zh">已声明</value>
@@ -3280,7 +3280,7 @@
         <value xml:lang="it">Enumerazione</value>
         <value xml:lang="ja">列挙型</value>
         <value xml:lang="pt_BR">Enumeração</value>
-        <value xml:lang="ru">Перечисление<value>
+        <value xml:lang="ru">Перечисление</value>
         <value xml:lang="th">ENUMERATION</value>
         <value xml:lang="vi">Liệt kê</value>
         <value xml:lang="zh">枚举</value>
@@ -3293,7 +3293,7 @@
         <value xml:lang="it">A virgola mobile</value>
         <value xml:lang="ja">浮動小数点型</value>
         <value xml:lang="pt_BR">Ponto flutuante</value>
-        <value xml:lang="ru">Плавающая запятая<value>
+        <value xml:lang="ru">Плавающая запятая</value>
         <value xml:lang="th">โฟลต</value>
         <value xml:lang="vi">Số thực</value>
         <value xml:lang="zh">浮点</value>
@@ -3306,7 +3306,7 @@
         <value xml:lang="it">Intero</value>
         <value xml:lang="ja">整数型</value>
         <value xml:lang="pt_BR">Inteiro</value>
-        <value xml:lang="ru">Целое число<value>
+        <value xml:lang="ru">Целое число</value>
         <value xml:lang="th">อิทีเจอร์</value>
         <value xml:lang="vi">Số nguyên</value>
         <value xml:lang="zh">整数</value>
@@ -3319,7 +3319,7 @@
         <value xml:lang="it">Lista</value>
         <value xml:lang="ja">リスト型</value>
         <value xml:lang="pt_BR">LISTA</value>
-        <value xml:lang="ru">Плавающая запятая<value>
+        <value xml:lang="ru">Плавающая запятая</value>
         <value xml:lang="th">LIST</value>
         <value xml:lang="vi">Danh sách</value>
         <value xml:lang="zh">列表</value>
@@ -3332,7 +3332,7 @@
         <value xml:lang="it">Interpretato</value>
         <value xml:lang="ja">実行者</value>
         <value xml:lang="pt_BR">Intérprete</value>
-        <value xml:lang="ru">Исполнитель<value>
+        <value xml:lang="ru">Исполнитель</value>
         <value xml:lang="th">PERFORMER</value>
         <value xml:lang="vi">PERFORMER</value>
         <value xml:lang="zh">执行者</value>
@@ -3345,7 +3345,7 @@
         <value xml:lang="it">Registrato</value>
         <value xml:lang="ja">レコード型</value>
         <value xml:lang="pt_BR">Registro</value>
-        <value xml:lang="ru">Регистрация<value>
+        <value xml:lang="ru">Регистрация</value>
         <value xml:lang="th">RECORD</value>
         <value xml:lang="vi">Bản ghi</value>
         <value xml:lang="zh">记录</value>
@@ -3358,7 +3358,7 @@
         <value xml:lang="it">Riferimento</value>
         <value xml:lang="ja">参照型</value>
         <value xml:lang="pt_BR">Referência</value>
-        <value xml:lang="ru">Справка<value>
+        <value xml:lang="ru">Справка</value>
         <value xml:lang="th">REFERENCE</value>
         <value xml:lang="vi">Tham chiếu</value>
         <value xml:lang="zh">引用</value>
@@ -3371,7 +3371,7 @@
         <value xml:lang="it">Stringa</value>
         <value xml:lang="ja">文字列型</value>
         <value xml:lang="pt_BR">Cadeia de caracteres</value>
-        <value xml:lang="ru">Строка<value>
+        <value xml:lang="ru">Строка</value>
         <value xml:lang="th">สตริง</value>
         <value xml:lang="vi">Xâu</value>
         <value xml:lang="zh">字符串</value>
@@ -3384,7 +3384,7 @@
         <value xml:lang="it">Unione</value>
         <value xml:lang="ja">結合</value>
         <value xml:lang="pt_BR">União</value>
-        <value xml:lang="ru">Союз<value>
+        <value xml:lang="ru">Союз</value>
         <value xml:lang="th">UNION</value>
         <value xml:lang="vi">Hợp</value>
         <value xml:lang="zh">联合</value>
@@ -3397,7 +3397,7 @@
         <value xml:lang="it">Unità</value>
         <value xml:lang="ja">単位</value>
         <value xml:lang="pt_BR">Unidade</value>
-        <value xml:lang="ru">Блок<value>
+        <value xml:lang="ru">Блок</value>
         <value xml:lang="th">หน่วย</value>
         <value xml:lang="vi">Đơn vị</value>
         <value xml:lang="zh">单位</value>
@@ -3536,7 +3536,7 @@
         <value xml:lang="it">Multiplo</value>
         <value xml:lang="ja">複数</value>
         <value xml:lang="pt_BR">Múltiplo</value>
-        <value xml:lang="ru">Плавающая запятая<value>
+        <value xml:lang="ru">Плавающая запятая</value>
         <value xml:lang="th">หลากหลาย</value>
         <value xml:lang="vi">WFI_MULTIPLE</value>
         <value xml:lang="zh">多次</value>
@@ -3549,7 +3549,7 @@
         <value xml:lang="it">Una volta</value>
         <value xml:lang="ja">一回</value>
         <value xml:lang="pt_BR">Uma vez</value>
-        <value xml:lang="ru">Один раз<value>
+        <value xml:lang="ru">Один раз</value>
         <value xml:lang="th">หนึ่งครั้ง</value>
         <value xml:lang="vi">WFI_ONCE</value>
         <value xml:lang="zh">一次</value>
@@ -3562,7 +3562,7 @@
         <value xml:lang="it">Completamente bloccato</value>
         <value xml:lang="ja">完全ブロック</value>
         <value xml:lang="pt_BR">Completamente Bloqueado</value>
-        <value xml:lang="ru">Полностью заблокирован<value>
+        <value xml:lang="ru">Полностью заблокирован</value>
         <value xml:lang="th">WGC_FULL_BLOCKED</value>
         <value xml:lang="vi">WGC_FULL_BLOCKED</value>
         <value xml:lang="zh">完全禁止</value>
@@ -3575,7 +3575,7 @@
         <value xml:lang="it">Loop bloccato</value>
         <value xml:lang="ja">繰り返しをブロック</value>
         <value xml:lang="pt_BR">Loop bloqueado</value>
-        <value xml:lang="ru">Петля заблокирована<value>
+        <value xml:lang="ru">Петля заблокирована</value>
         <value xml:lang="th">WGC_LOOP_BLOCKED</value>
         <value xml:lang="vi">WGC_LOOP_BLOCKED</value>
         <value xml:lang="zh">禁止循环</value>
@@ -3588,7 +3588,7 @@
         <value xml:lang="it">Non bloccato</value>
         <value xml:lang="ja">ブロックしない</value>
         <value xml:lang="pt_BR">Não bloqueado</value>
-        <value xml:lang="ru">Не заблокировано<value>
+        <value xml:lang="ru">Не заблокировано</value>
         <value xml:lang="th">WGC_NON_BLOCKED</value>
         <value xml:lang="vi">WGC_NON_BLOCKED</value>
         <value xml:lang="zh">不禁止</value>
@@ -3601,7 +3601,7 @@
         <value xml:lang="it">E</value>
         <value xml:lang="ja">両方とも</value>
         <value xml:lang="pt_BR">E</value>
-        <value xml:lang="ru">Логическое "И"<value>
+        <value xml:lang="ru">Логическое "И"</value>
         <value xml:lang="th">WJT_AND</value>
         <value xml:lang="vi">VÀ</value>
         <value xml:lang="zh">且</value>
@@ -3614,7 +3614,7 @@
         <value xml:lang="it">X-or</value>
         <value xml:lang="ja">一方のみ</value>
         <value xml:lang="pt_BR">Ou Exclusivo</value>
-        <value xml:lang="ru">Логическое "XOR"<value>
+        <value xml:lang="ru">Логическое "XOR"</value>
         <value xml:lang="th">WJT_XOR</value>
         <value xml:lang="vi">HOẶC</value>
         <value xml:lang="zh">异或</value>
@@ -3627,7 +3627,7 @@
         <value xml:lang="it">Ripeti fino a</value>
         <value xml:lang="ja">継続、終了条件:</value>
         <value xml:lang="pt_BR">Repetir até</value>
-        <value xml:lang="ru">Цикл REPEAT_UNTIL<value>
+        <value xml:lang="ru">Цикл REPEAT_UNTIL</value>
         <value xml:lang="th">WLK_REPEAT_UNTIL</value>
         <value xml:lang="vi">LẶP ĐẾN</value>
         <value xml:lang="zh">重复直至</value>
@@ -3640,7 +3640,7 @@
         <value xml:lang="it">Mentre</value>
         <value xml:lang="ja">継続条件:</value>
         <value xml:lang="pt_BR">Enquanto (While)</value>
-        <value xml:lang="ru">Цикл WHILE<value>
+        <value xml:lang="ru">Цикл WHILE</value>
         <value xml:lang="th">WLK_WHILE</value>
         <value xml:lang="vi">LẶP KHI</value>
         <value xml:lang="zh">循环</value>
@@ -3653,7 +3653,7 @@
         <value xml:lang="it">Parametro in ingresso</value>
         <value xml:lang="ja">入力</value>
         <value xml:lang="pt_BR">Parâmetro de entrada</value>
-        <value xml:lang="ru">Входной параметр<value>
+        <value xml:lang="ru">Входной параметр</value>
         <value xml:lang="th">WPM_IN</value>
         <value xml:lang="vi">VÀO</value>
         <value xml:lang="zh">输入</value>
@@ -3666,7 +3666,7 @@
         <value xml:lang="it">Parametro in entrata e uscita</value>
         <value xml:lang="ja">入出力</value>
         <value xml:lang="pt_BR">Parâmetro de entrada-saída</value>
-        <value xml:lang="ru">Входной/Выходной параметр<value>
+        <value xml:lang="ru">Входной/Выходной параметр</value>
         <value xml:lang="th">WPM_INOUT</value>
         <value xml:lang="vi">VÀO_RA</value>
         <value xml:lang="zh">输入输出</value>
@@ -3679,7 +3679,7 @@
         <value xml:lang="it">Parametro in uscita</value>
         <value xml:lang="ja">出力</value>
         <value xml:lang="pt_BR">Parâmetro de saída</value>
-        <value xml:lang="ru">Выходной параметр<value>
+        <value xml:lang="ru">Выходной параметр</value>
         <value xml:lang="th">WPM_OUT</value>
         <value xml:lang="vi">RA</value>
         <value xml:lang="zh">输出</value>
@@ -3692,7 +3692,7 @@
         <value xml:lang="it">Esecuzione asincrona</value>
         <value xml:lang="ja">非同期</value>
         <value xml:lang="pt_BR">Assíncrono</value>
-        <value xml:lang="ru">Асинхронный<value>
+        <value xml:lang="ru">Асинхронный</value>
         <value xml:lang="th">WSE_ASYNCHR</value>
         <value xml:lang="vi">WSE_ASYNCHR</value>
         <value xml:lang="zh">异步</value>
@@ -3705,7 +3705,7 @@
         <value xml:lang="it">Esecuzione sincrona</value>
         <value xml:lang="ja">同期</value>
         <value xml:lang="pt_BR">Síncrono</value>
-        <value xml:lang="ru">Синхронный<value>
+        <value xml:lang="ru">Синхронный</value>
         <value xml:lang="th">WSE_SYNCHR</value>
         <value xml:lang="vi">WSE_SYNCHR</value>
         <value xml:lang="zh">同步</value>
@@ -3718,7 +3718,7 @@
         <value xml:lang="it">E</value>
         <value xml:lang="ja">両方とも</value>
         <value xml:lang="pt_BR">E (And)</value>
-        <value xml:lang="ru">Логическое "И"<value>
+        <value xml:lang="ru">Логическое "И"</value>
         <value xml:lang="th">WST_AND</value>
         <value xml:lang="vi">VÀ</value>
         <value xml:lang="zh">且</value>
@@ -3731,7 +3731,7 @@
         <value xml:lang="it">X-Or</value>
         <value xml:lang="ja">一方のみ</value>
         <value xml:lang="pt_BR">Ou Exclusivo (XOR)</value>
-        <value xml:lang="ru">Логический "XOR"<value>
+        <value xml:lang="ru">Логический "XOR"</value>
         <value xml:lang="th">WST_XOR</value>
         <value xml:lang="vi">HOẶC</value>
         <value xml:lang="zh">异或</value>
@@ -3744,7 +3744,7 @@
         <value xml:lang="it">Condizione</value>
         <value xml:lang="ja">条件</value>
         <value xml:lang="pt_BR">Condição</value>
-        <value xml:lang="ru">Состояние<value>
+        <value xml:lang="ru">Состояние</value>
         <value xml:lang="th">เงื่อนไข</value>
         <value xml:lang="vi">Điều kiện</value>
         <value xml:lang="zh">条件</value>
@@ -3757,7 +3757,7 @@
         <value xml:lang="it">Altrimenti</value>
         <value xml:lang="ja">代替</value>
         <value xml:lang="pt_BR">Em outro caso</value>
-        <value xml:lang="ru">Другой путь<value>
+        <value xml:lang="ru">Другой путь</value>
         <value xml:lang="th">อีกประการหนึ่ง</value>
         <value xml:lang="vi">Nếu không</value>
         <value xml:lang="zh">否则</value>
@@ -3770,7 +3770,7 @@
         <value xml:lang="it">Dal loop</value>
         <value xml:lang="ja">～から繰り返し</value>
         <value xml:lang="pt_BR">Após do laço</value>
-        <value xml:lang="ru">После петли<value>
+        <value xml:lang="ru">После петли</value>
         <value xml:lang="th">WTL_FROMLOOP</value>
         <value xml:lang="vi">Lặp theo</value>
         <value xml:lang="zh">自循环</value>
@@ -3783,7 +3783,7 @@
         <value xml:lang="it">Nessun loop</value>
         <value xml:lang="ja">繰り返し なし</value>
         <value xml:lang="pt_BR">Sem laço</value>
-        <value xml:lang="ru">Без петли<value>
+        <value xml:lang="ru">Без петли</value>
         <value xml:lang="th">WTL_NOLOOP</value>
         <value xml:lang="vi">Không lặp</value>
         <value xml:lang="zh">不循环</value>
@@ -3796,7 +3796,7 @@
         <value xml:lang="it">Al loop</value>
         <value xml:lang="ja">～まで繰り返し</value>
         <value xml:lang="pt_BR">Até o laço</value>
-        <value xml:lang="ru">До петли<value>
+        <value xml:lang="ru">До петли</value>
         <value xml:lang="th">WTL_TOLOOP</value>
         <value xml:lang="vi">WTL_TOLOOP</value>
         <value xml:lang="zh">到循环</value>
@@ -3809,7 +3809,7 @@
         <value xml:lang="it">Applicazione</value>
         <value xml:lang="ja">業務</value>
         <value xml:lang="pt_BR">Aplicativo</value>
-        <value xml:lang="ru">Приложение<value>
+        <value xml:lang="ru">Приложение</value>
         <value xml:lang="th">โปรแกรมประยุกต์ใช้</value>
         <value xml:lang="vi">Ứng dụng</value>
         <value xml:lang="zh">应用</value>
@@ -3822,7 +3822,7 @@
         <value xml:lang="it">Procedura</value>
         <value xml:lang="ja">処理</value>
         <value xml:lang="pt_BR">Procedimento</value>
-        <value xml:lang="ru">Процедура<value>
+        <value xml:lang="ru">Процедура</value>
         <value xml:lang="th">ขั้นตอน</value>
         <value xml:lang="vi">Thủ tục</value>
         <value xml:lang="zh">过程</value>
