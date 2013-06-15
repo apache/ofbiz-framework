@@ -43,6 +43,7 @@
         <value xml:lang="ja">パスワード履歴アクセスエラー: ${errorMessage}</value>
         <value xml:lang="nl">Fout bij toegang verkrijgen tot wachtwoord wijzigingsgeschiedenis: ${errorMessage}.</value>
         <value xml:lang="pt_BR">Erro ao acessar o histórico de alteração de senha: $ {errorMessage}.</value>
+        <value xml:lang="ru">Ошибка доступа к паролю меняющему историю: $(errorMessage)</value>
         <value xml:lang="th">ผิดพลาดในการใช้รหัสผ่านเปลี่ยนข้อมูล: ${errorMessage}.</value>
         <value xml:lang="zh">访问密码修改历史记录时出错：${errorMessage}。</value>
         <value xml:lang="zh_TW">使用密碼變更歷史記錄錯誤: ${errorMessage}。</value>
@@ -169,6 +170,7 @@
     <property key="loginevents.password_expiration_alert">
         <value xml:lang="en">Alert: Your password will expire on ${passwordExpirationDate}. Update password before it expired.</value>
         <value xml:lang="fr">Votre mot de passe va expirer le ${passwordExpirationDate}, modifiez le avant.</value>
+        <value xml:lang="ru">Уведомление: Твой пароль будет действителен на ${passwordExpirationDate}. Поменяйте пароль перед тем как его срок годности пройдет. </value>
         <value xml:lang="zh">注意：您的密码将在${passwordExpirationDate}过期，请在这之前更改密码。</value>
         <value xml:lang="zh_CN">注意：您的密码将在${passwordExpirationDate}过期，请在这之前更改密码。</value>
         <value xml:lang="zh_TW">注意：您的密碼將在${passwordExpirationDate}過期，請在這之前更改密碼。</value>
@@ -176,6 +178,7 @@
     <property key="loginevents.password_expired_message">
         <value xml:lang="en">Alert: Your password expired on ${passwordExpirationDate}. Update your password.</value>
         <value xml:lang="fr">Votre mot de passe a expiré le  ${passwordExpirationDate}, modifiez le.</value>
+        <value xml:lang="ru">Уведомление: Твой пароль истек на ${passwordExpirationDate}. </value>
         <value xml:lang="zh">您的密码已于${passwordExpirationDate}过期，请更改密码。</value>
         <value xml:lang="zh_CN">您的密码已于${passwordExpirationDate}过期，请更改密码。</value>
         <value xml:lang="zh_TW">您的密碼已於${passwordExpirationDate}過期，請更改密碼。</value>
@@ -204,6 +207,7 @@
         <value xml:lang="ja">パスワードが変更されました。</value>
         <value xml:lang="nl">Uw wachtwoord is aangepast</value>
         <value xml:lang="pt_BR">Sua senha foi alterada com sucesso</value>
+        <value xml:lang="ru">Твой пароль был успешно изменен</value>
         <value xml:lang="zh">你的密码已成功修改</value>
         <value xml:lang="zh_TW">你的密碼已成功變更。</value>
     </property>
@@ -243,6 +247,7 @@
         <value xml:lang="fr">Vous ne pouvez pas vous connecter avec cet identifiant sur cette instance</value>
         <value xml:lang="ja">このテナントは使用できません。</value>
         <value xml:lang="pt_BR">Você não pode acessar este inquilino</value>
+        <value xml:lang="ru">Ты не можешь зайти под этим логином</value>
         <value xml:lang="zh">你不能登录到这个承租人</value>
         <value xml:lang="zh_TW">無法登入使用此承租戶</value>
     </property>
@@ -510,6 +515,7 @@
         <value xml:lang="ja">LDAP認証に失敗しました。</value>
         <value xml:lang="nl">LDAP authenticatie mislukt.</value>
         <value xml:lang="pt_BR">Autenticação LDAP falhou.</value>
+        <value xml:lang="ru">LDAP аутентификация прервана.</value>
         <value xml:lang="zh">LDAP认证失败。</value>
         <value xml:lang="zh_TW">LDAP驗證失敗。</value>
     </property>
@@ -552,6 +558,7 @@
         <value xml:lang="ja">新しいパスワードは現在のパスワードと異なるものを入力してください。</value>
         <value xml:lang="nl">Uw nieuwe wachtwoord moet verschillen van het oude wachtwoord.</value>
         <value xml:lang="pt_BR">A nova senha deve ser diferente do antiga.</value>
+        <value xml:lang="ru">Новы пароль должен отличаться от нынешнего.</value>
         <value xml:lang="th">รหัสผ่านใหม่ต้องแตกต่างจากอันเดิม</value>
         <value xml:lang="zh">新密码必须与旧的不同。</value>
         <value xml:lang="zh_TW">新密碼要和舊密碼不相同。</value>
@@ -730,6 +737,7 @@
         <value xml:lang="ja">過去 ${passwordChangeHistoryLimit} 回以内に使われていないパスワードにしてください。</value>
         <value xml:lang="nl">Het wachtwoord mag niet overeenkomen met uw laatste ${passwordChangeHistoryLimit} wachtwoorden.</value>
         <value xml:lang="pt_BR">A senha não pode ser uma da suas últimas ${passwordChangeHistoryLimit} senhas.</value>
+        <value xml:lang="ru">Пароль не может быть одним из твоих последних ${passwordChangeHistoryLimit} паролей.</value>
         <value xml:lang="th">รหัสผ่านไม่สามารถเป็นหนึ่งของสิ่งสุดท้ายของคุณ ${passwordChangeHistoryLimit} รหัสผ่าน.</value>
         <value xml:lang="zh">密码不能是你用过的最近的${passwordChangeHistoryLimit}个密码之一。</value>
         <value xml:lang="zh_TW">密碼不能是最近 ${passwordChangeHistoryLimit} 次用過的密碼。</value>
@@ -767,6 +775,7 @@
     <property key="loginservices.password_reminder_subject">
         <value xml:lang="en">Password Reminder (${userLoginId})".</value>
         <value xml:lang="fr">Rappel du mot de passe (${userLoginId})".</value>
+        <value xml:lang="ru">Напоминатель о пароле (${userLoginId})".</value>
         <value xml:lang="zh">密码提示(${userLoginId})。</value>
     </property>
     <property key="loginservices.password.pattern.errmsg">
@@ -775,6 +784,7 @@
         <value xml:lang="fr">Le mot de passe ne correspond pas au modèle: ${passwordPatternMessage}.</value>
         <value xml:lang="hi_IN">पासवर्ड पैटर्न मिलान नहीं है, कृपया निम्नलिखित पैटर्न देखें: ${passwordPatternMessage}</value>
         <value xml:lang="it">La password non è corrispondente al modello, fare riferimento seguente schema: ${passwordPatternMessage}.</value>
+        <value xml:lang="ru">Пароль не соответствует шаблону: ${passwordPatternMessage}</value>
         <value xml:lang="zh">密码不符合样式：${passwordPatternMessage} </value>
     </property>
     <property key="loginservices.since_datetime">

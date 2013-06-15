@@ -62,6 +62,7 @@
         <value xml:lang="it">Aggiungi una vista protetta al gruppo sicurezza</value>
         <value xml:lang="ja">セキュリティグリープに保護ビューを追加</value>
         <value xml:lang="pt_BR">Adicionar uma visão protegida ao SecurityGroup</value>
+        <value xml:lang="ru">Добавить защищенный вид в SecurityGroup</value>
         <value xml:lang="zh">添加一个受保护的视图到安全组</value>
         <value xml:lang="zh_TW">添加一個受保護的視圖到安全組</value>
     </property>
@@ -92,6 +93,7 @@
         <value xml:lang="ja">コンポーネント</value>
         <value xml:lang="nl">Component</value>
         <value xml:lang="pt_BR">Componente</value>
+        <value xml:lang="ru">Компонент</value>
         <value xml:lang="th">ส่วนประกอบ</value>
         <value xml:lang="zh">组件</value>
         <value xml:lang="zh_TW">元件</value>
@@ -103,6 +105,7 @@
         <value xml:lang="fr">Détails du certificat</value>
         <value xml:lang="ja">証明書詳細</value>
         <value xml:lang="pt_BR">Detalhes do certificado</value>
+        <value xml:lang="ru">Подробнее о сертификатах</value>
         <value xml:lang="zh">证书详细</value>
     </property>
     <property key="CertImportIssuer">
@@ -115,6 +118,7 @@
         <value xml:lang="ja">発行者をインポート</value>
         <value xml:lang="nl">Uitgever importeren</value>
         <value xml:lang="pt_BR">Importar emissor</value>
+        <value xml:lang="ru">Проблемы импорта</value>
         <value xml:lang="th">ปัญหา</value>
         <value xml:lang="zh">导入发行人</value>
         <value xml:lang="zh_TW">導入發行人</value>
@@ -129,6 +133,7 @@
         <value xml:lang="ja">証明書が無効です</value>
         <value xml:lang="nl">Ongeldig certificaat</value>
         <value xml:lang="pt_BR">Certificado Inválido</value>
+        <value xml:lang="ru">Недействительный сертификат</value>
         <value xml:lang="th">หนังสือรับรองไม่ถูกต้อง</value>
         <value xml:lang="zh">无效的证书</value>
         <value xml:lang="zh_TW">無效的証書</value>
@@ -158,6 +163,7 @@
         <value xml:lang="ja">キー別名</value>
         <value xml:lang="nl">Key-alias</value>
         <value xml:lang="pt_BR">Sinônimo de chave</value>
+        <value xml:lang="ru">Имя ключа</value>
         <value xml:lang="th">ใช้อีกชื่อหนึ่งว่า</value>
         <value xml:lang="zh">密钥别名</value>
         <value xml:lang="zh_TW">密鑰別名</value>
@@ -172,6 +178,7 @@
         <value xml:lang="ja">キーストア</value>
         <value xml:lang="nl">Keystore</value>
         <value xml:lang="pt_BR">Base de chaves</value>
+        <value xml:lang="ru">Хранилище ключей</value>
         <value xml:lang="th">รหัสการเก็บข้อมูล</value>
         <value xml:lang="zh">密钥库</value>
         <value xml:lang="zh_TW">密鑰庫</value>
@@ -186,6 +193,7 @@
         <value xml:lang="ja">証明書名</value>
         <value xml:lang="nl">Naam certificaat</value>
         <value xml:lang="pt_BR">Nome do certificado</value>
+        <value xml:lang="ru">Имя сертификата</value>
         <value xml:lang="th">ชื่อจริง</value>
         <value xml:lang="zh">证书名</value>
         <value xml:lang="zh_TW">証書名</value>
@@ -200,6 +208,7 @@
         <value xml:lang="ja">キーストアに保存</value>
         <value xml:lang="nl">In keystore opslaan</value>
         <value xml:lang="pt_BR">Salvar na base de chaves</value>
+        <value xml:lang="ru">Сохранить в хранилище ключей</value>
         <value xml:lang="th">บันทึกรหัสการเก็บข้อมูล</value>
         <value xml:lang="zh">保存到密钥库</value>
         <value xml:lang="zh_TW">保存到密鑰庫</value>
@@ -214,6 +223,7 @@
         <value xml:lang="ja">証明書シリアル番号</value>
         <value xml:lang="nl">Serienummer certificaat</value>
         <value xml:lang="pt_BR">Número de série do certificado</value>
+        <value xml:lang="ru">Сертификат серийного номера</value>
         <value xml:lang="th">หมายเลขลำดับ</value>
         <value xml:lang="zh">证书序列号</value>
         <value xml:lang="zh_TW">証書序列號</value>
@@ -228,6 +238,7 @@
         <value xml:lang="ja">証明書種類</value>
         <value xml:lang="nl">Type certificaat</value>
         <value xml:lang="pt_BR">Tipo de certificado</value>
+        <value xml:lang="ru">Тип сертификата</value>
         <value xml:lang="th">ประเภท</value>
         <value xml:lang="zh">证书类型</value>
         <value xml:lang="zh_TW">証書類型</value>
@@ -256,6 +267,7 @@
         <value xml:lang="it">Ricerca utenti</value>
         <value xml:lang="ja">ユーザログインを検索</value>
         <value xml:lang="pt_BR">Encontrar Nome de Usuário</value>
+        <value xml:lang="ru">Найти логин пользователя</value>
         <value xml:lang="zh">查找用户登录</value>
     </property>
     <property key="FormFieldTitle_currentPassword">
@@ -297,6 +309,7 @@
         <value xml:lang="fr">Désactiver (à date)</value>
         <value xml:lang="it">Disabilitato dal</value>
         <value xml:lang="ja">無効日時</value>
+        <value xml:lang="ru">Отключить Дату и время</value>
         <value xml:lang="zh">禁用的日期时间</value>
     </property>
     <property key="FormFieldTitle_enabled">
@@ -325,6 +338,7 @@
         <value xml:lang="fr">Ident. Externe</value>
         <value xml:lang="it">Codice autenticazione esterna</value>
         <value xml:lang="ja">外部認証ID</value>
+        <value xml:lang="ru">Внешний Auth Id</value>
         <value xml:lang="zh">外部认证标识</value>
     </property>
     <property key="FormFieldTitle_hasLoggedOut">
@@ -334,6 +348,7 @@
         <value xml:lang="fr">A été déconnecté</value>
         <value xml:lang="it">Uscito dal sistema</value>
         <value xml:lang="ja">ログアウトしました</value>
+        <value xml:lang="ru">Выполнить выход с системы</value>
         <value xml:lang="zh">已退出</value>
     </property>
     <property key="FormFieldTitle_maxHits">
@@ -346,6 +361,7 @@
         <value xml:lang="ja">最大訪問数</value>
         <value xml:lang="nl">Maximaal aantal bezoeken</value>
         <value xml:lang="pt_BR">Número máximo de visitas</value>
+        <value xml:lang="ru">Максимальное число визитов</value>
         <value xml:lang="zh">最大访问数量</value>
         <value xml:lang="zh_TW">最大訪問數量</value>
     </property>
@@ -358,6 +374,7 @@
         <value xml:lang="it">Durata nella quale le visite sono considerate (in secondi)</value>
         <value xml:lang="ja">訪問滞在時間(秒)</value>
         <value xml:lang="pt_BR">Período durante o qual as visitas são consideradas (segundos)</value>
+        <value xml:lang="ru">Продолжительность в котором визиты считаются (в секундах)</value>
         <value xml:lang="zh">访问停留时间(秒)</value>
         <value xml:lang="zh_TW">訪問停留時間(秒)</value>
     </property>
@@ -399,6 +416,7 @@
         <value xml:lang="fr">Indice pour le mot de passe</value>
         <value xml:lang="it">Suggerimento password</value>
         <value xml:lang="ja">パスワードのヒント</value>
+        <value xml:lang="ru">Совет пароля</value>
         <value xml:lang="zh">密码提示</value>
     </property>
     <property key="FormFieldTitle_requirePasswordChange">
@@ -410,6 +428,7 @@
         <value xml:lang="it">Richiesto cambio password</value>
         <value xml:lang="ja">パスワードの変更が必要です</value>
         <value xml:lang="pt_BR">Pedir alteração de senha</value>
+        <value xml:lang="ru">Требуется изменение пароля</value>
         <value xml:lang="zh">必须修改密码</value>
         <value xml:lang="zh_TW">必須修改密碼</value>
     </property>
@@ -420,6 +439,7 @@
         <value xml:lang="fr">Plusieurs tentatives de connexion ont échoué</value>
         <value xml:lang="it">Accessi falliti consecutivi</value>
         <value xml:lang="ja">連続ログイン失敗</value>
+        <value xml:lang="ru">Неудачные попытки авторизации</value>
         <value xml:lang="zh">连续失败登录次数</value>
     </property>
     <property key="FormFieldTitle_tarpitDuration">
@@ -431,6 +451,7 @@
         <value xml:lang="it">Tempo durante il quale la vista non è accessibile (in secondi)</value>
         <value xml:lang="ja">ビューのアクセス不能時間(秒)</value>
         <value xml:lang="pt_BR">Período durante o qual a vista não poderá ser acessada (em segundos)</value>
+        <value xml:lang="ru">Продолжительность в которой вид будет не доступен ( в секундах)</value>
         <value xml:lang="zh">视图不能访问的时长(秒)</value>
         <value xml:lang="zh_TW">視圖不能訪問的時長(秒)</value>
     </property>
@@ -444,6 +465,7 @@
         <value xml:lang="ja">LDAP識別名(DN)</value>
         <value xml:lang="nl">LDAP Distinguished Name</value>
         <value xml:lang="pt_BR">Nome único de LDAP</value>
+        <value xml:lang="ru">LDAP известное имя</value>
         <value xml:lang="zh">LDAP专有名</value>
         <value xml:lang="zh_TW">LDAP專有名</value>
     </property>
@@ -472,6 +494,7 @@
         <value xml:lang="it">Nome della vista</value>
         <value xml:lang="ja">ビュー名</value>
         <value xml:lang="pt_BR">Ver nome</value>
+        <value xml:lang="ru">Просмотр имени</value>
         <value xml:lang="zh">浏览名称</value>
         <value xml:lang="zh_TW">瀏覽名稱</value>
     </property>
@@ -482,6 +505,7 @@
         <value xml:lang="fr">Recherche d'identifiant de connexion</value>
         <value xml:lang="ja">ユーザログインを検索</value>
         <value xml:lang="pt_BR">Pesquisar Nome de Usuário</value>
+        <value xml:lang="ru">Поиск логина пользователя</value>
         <value xml:lang="zh">查找用户登录</value>
     </property>
     <property key="NewSecurityGroup">
@@ -511,6 +535,7 @@
         <value xml:lang="ja">発行者条件を追加</value>
         <value xml:lang="nl">Provisies uitgever toevoegen</value>
         <value xml:lang="pt_BR">Adicionar emissor de provisões</value>
+        <value xml:lang="ru">Добавить условный эмитент</value>
         <value xml:lang="th">เพิ่มการจำแนกเงื่อนไข</value>
         <value xml:lang="zh">添加发行人信息</value>
         <value xml:lang="zh_TW">添加發行人資訊</value>
@@ -654,6 +679,7 @@
         <value xml:lang="it">Viste protette</value>
         <value xml:lang="ja">保護ビュー</value>
         <value xml:lang="pt_BR">Vistas protegidas</value>
+        <value xml:lang="ru">Защищенные просмотры</value>
         <value xml:lang="zh">受保护的视图</value>
         <value xml:lang="zh_TW">受保護的視圖</value>
     </property>
@@ -716,6 +742,7 @@
         <value xml:lang="it">Utente</value>
         <value xml:lang="ja">ユーザログイン</value>
         <value xml:lang="pt_BR">Nome de Usuário</value>
+        <value xml:lang="ru">Права</value>
         <value xml:lang="zh">用户登录</value>
     </property>
     <property key="UserLoginChangePassword">
