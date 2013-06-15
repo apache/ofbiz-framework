@@ -50,7 +50,7 @@ under the License.
 
     <simple-method method-name="deletePortalPageColumn" short-description="Delete a Column from a PortalPage">
         <call-simple-method method-name="checkOwnerShip"/>
-        <entity-one entity-name="PortalPageColumn" value-field="column" auto-field-map="true" use-cache="true"/>
+        <entity-one entity-name="PortalPageColumn" value-field="column" auto-field-map="true"/>
         <if-not-empty field="column">
             <entity-and entity-name="PortalPagePortlet" list="portalPortletList">
                 <field-map field-name="portalPageId" from-field="column.portalPageId"/>
@@ -97,7 +97,7 @@ under the License.
 
     <simple-method method-name="deletePortalPagePortlet" short-description="Delete a PortalPortlet from a PortalPageColumn">
         <call-simple-method method-name="checkOwnerShip"/>
-        <entity-one entity-name="PortalPagePortlet" value-field="portlet" auto-field-map="true" use-cache="true"/>
+        <entity-one entity-name="PortalPagePortlet" value-field="portlet" auto-field-map="true"/>
         <if-not-empty field="portlet">
             <make-value value-field="newEntity" entity-name="PortletAttribute"/>
             <set field="newEntity.portalPageId" from-field="portlet.portalPageId"/>
