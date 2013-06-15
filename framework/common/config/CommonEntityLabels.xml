@@ -73,6 +73,7 @@
         <value xml:lang="it">Declina algoritmo doppio svalutazione per cespiti((NetBookValue - salvageCost)*2/remainingLifeInYears)</value>
         <value xml:lang="ja">固定資産減価償却 二倍定率法((正味簿価 - 残存価額)*2/耐用年数残)</value>
         <value xml:lang="pt_BR">Algoritmo de deprereciação de declínio duplo para ativos fixos ((CustoOriginal - CustoDeRecuperação)*2/AnosRestantes)</value>
+        <value xml:lang="ru">Двойное снижение амортизации алгоритма для фиксированных активов((NetBookValue - salvageCost)*2/remainingLifeInYears)</value>
         <value xml:lang="vi">Thuật toán khấu hao chia đôi (Double decline) áp dụng cho tài sản cố định ((NetBookValue - salvageCost)*2/remainingLifeInYears)</value>
         <value xml:lang="zh">固定资产双倍下降折旧算法((NetBookValue - salvageCost)*2/remainingLifeInYears)</value>
         <value xml:lang="zh_TW">固定資產雙倍下降折舊演算法((NetBookValue - salvageCost)*2/remainingLifeInYears)</value>
@@ -83,6 +84,7 @@
         <value xml:lang="it">Riga semplice algoritmo svalutazione per cespiti((purchaseCost - salvageCost)/expectedLifeInYears)</value>
         <value xml:lang="ja">固定資産減価償却 定額法((購入価額 - 残存価額)/耐用年数)</value>
         <value xml:lang="pt_BR">Algoritmo de depreciação linear para ativos fixos ((CustodeCompra - CustoDeRecuperação) / AnosDeDuraçãoEsperada)</value>
+        <value xml:lang="ru">Прямая линия амортизации алгоритма для фиксированных активов((purchaseCost - salvageCost)/expectedLifeInYears)</value>
         <value xml:lang="vi">Thuật toán  khấu hao 'Straight Line' áp dụng cho tài sản cố định ((purchaseCost - salvageCost)/expectedLifeInYears)</value>
         <value xml:lang="zh">固定资产直线折旧算法((purchaseCost - salvageCost)/expectedLifeInYears)</value>
         <value xml:lang="zh_TW">固定資產直線折舊演算法((purchaseCost - salvageCost)/expectedLifeInYears)</value>
@@ -94,6 +96,7 @@
         <value xml:lang="it">Sito ecommerce</value>
         <value xml:lang="ja">Eコマースサイト</value>
         <value xml:lang="pt_BR">Site de comércio eletrônico</value>
+        <value xml:lang="ru">Сайт электронной коммерции</value>
         <value xml:lang="th">ไซต์ ECOMMERCE</value>
         <value xml:lang="vi">Trang thương mại điện tử</value>
         <value xml:lang="zh">商业网站形象维护</value>
@@ -106,6 +109,7 @@
         <value xml:lang="it">Posta generale</value>
         <value xml:lang="ja">メール</value>
         <value xml:lang="pt_BR">Correio</value>
+        <value xml:lang="ru">Общая рассылка</value>
         <value xml:lang="th">GENERAL_MAILING</value>
         <value xml:lang="vi">Thư điện tử chính</value>
         <value xml:lang="zh">邮件列表登记</value>
@@ -118,6 +122,7 @@
         <value xml:lang="it">Telefonata leader</value>
         <value xml:lang="ja">電話</value>
         <value xml:lang="pt_BR">Diretriz de Telefonema de venda</value>
+        <value xml:lang="ru">Телемаркетинг</value>
         <value xml:lang="th">LEAD_COLDCALL</value>
         <value xml:lang="vi">Nhóm trưởng nhóm tiếp thị qua điện thoại</value>
         <value xml:lang="zh">电话促销</value>
@@ -130,6 +135,7 @@
         <value xml:lang="it">Conferenza leader</value>
         <value xml:lang="ja">カンファレンス</value>
         <value xml:lang="pt_BR">Diretriz de Conferência</value>
+        <value xml:lang="ru">Конференция</value>
         <value xml:lang="th">การประชุม</value>
         <value xml:lang="vi">Nhóm trưởng nhóm thảo luận</value>
         <value xml:lang="zh">会议</value>
@@ -142,6 +148,7 @@
         <value xml:lang="it">Email diretta al leader</value>
         <value xml:lang="ja">ダイレクトメール</value>
         <value xml:lang="pt_BR">Diretriz para e-mail direto</value>
+        <value xml:lang="ru">Почта</value>
         <value xml:lang="th">LEAD_DIRECTMAIL</value>
         <value xml:lang="vi">Nhóm trưởng tiếp thị qua Thư điện tử</value>
         <value xml:lang="zh">邮件</value>
@@ -154,6 +161,7 @@
         <value xml:lang="it">Impiegato del leader</value>
         <value xml:lang="ja">従業員</value>
         <value xml:lang="pt_BR">Empregado padrão</value>
+        <value xml:lang="ru">Работник</value>
         <value xml:lang="th">พนักงาน</value>
         <value xml:lang="vi">Nhóm trưởng nhân sự</value>
         <value xml:lang="zh">雇员</value>
@@ -166,6 +174,7 @@
         <value xml:lang="it">Leader cliente esistente</value>
         <value xml:lang="ja">既存顧客</value>
         <value xml:lang="pt_BR">Cliente existente padrão</value>
+        <value xml:lang="ru">Существующий клиент</value>
         <value xml:lang="th">LEAD_EXISTCUST</value>
         <value xml:lang="vi">Nhóm trưởng chăm sóc khách hàng cũ</value>
         <value xml:lang="zh">现有客户</value>
@@ -178,6 +187,7 @@
         <value xml:lang="it">Altro leader</value>
         <value xml:lang="ja">その他</value>
         <value xml:lang="pt_BR">Outro</value>
+        <value xml:lang="ru">Другой</value>
         <value xml:lang="th">อื่น ๆ</value>
         <value xml:lang="vi">Nhóm trưởng khác</value>
         <value xml:lang="zh">其他</value>
@@ -190,6 +200,7 @@
         <value xml:lang="it">Leader del socio</value>
         <value xml:lang="ja">取引先</value>
         <value xml:lang="pt_BR">Parceiro padrão</value>
+        <value xml:lang="ru">Партнер</value>
         <value xml:lang="th">หุ้นส่วน</value>
         <value xml:lang="vi">Nhóm trưởng quản lý đối tác (partner)</value>
         <value xml:lang="zh">商业伙伴</value>
@@ -202,6 +213,7 @@
         <value xml:lang="it">Pubbliche relazioni leader</value>
         <value xml:lang="ja">広告</value>
         <value xml:lang="pt_BR">Relações públicas padrão</value>
+        <value xml:lang="ru">Связь с общественностью</value>
         <value xml:lang="th">LEAD_PR</value>
         <value xml:lang="vi">Nhóm trưởng quản lý hình ảnh (PR)</value>
         <value xml:lang="zh">公共关系</value>
@@ -214,6 +226,7 @@
         <value xml:lang="it">Generato internamente</value>
         <value xml:lang="ja">自己開拓</value>
         <value xml:lang="pt_BR">Gerado internamente</value>
+        <value xml:lang="ru">Внутренний</value>
         <value xml:lang="th">LEAD_SELFGEN</value>
         <value xml:lang="vi">Nhóm trưởng văn hóa nội bộ</value>
         <value xml:lang="zh">自己开发</value>
@@ -226,6 +239,7 @@
         <value xml:lang="it">Dimostrazione commerciale</value>
         <value xml:lang="ja">展示会</value>
         <value xml:lang="pt_BR">Demonstração comercial</value>
+        <value xml:lang="ru">Выставка</value>
         <value xml:lang="th">LEAD_TRADESHOW</value>
         <value xml:lang="vi">Nhóm trưởng tiếp thị sự kiện</value>
         <value xml:lang="zh">商展</value>
@@ -238,6 +252,7 @@
         <value xml:lang="it">Sito web leader</value>
         <value xml:lang="ja">Webサイト</value>
         <value xml:lang="pt_BR">Web site</value>
+        <value xml:lang="ru">Веб-сайт</value>
         <value xml:lang="th">เว็บไซต์</value>
         <value xml:lang="vi">Nhóm trưởng trang thông tin</value>
         <value xml:lang="zh">网站</value>
@@ -249,6 +264,7 @@
         <value xml:lang="fr">Bouche à oreille</value>
         <value xml:lang="it">Parola del mese leader</value>
         <value xml:lang="ja">口コミ</value>
+        <value xml:lang="ru">Из рук в руки</value>
         <value xml:lang="th">LEAD_WORDOFMOUTH</value>
         <value xml:lang="vi">Nhóm trưởng nhóm truyền miệng</value>
         <value xml:lang="zh">口耳相传</value>
@@ -277,6 +293,7 @@
         <value xml:lang="it">Motivazione ingresso in banca</value>
         <value xml:lang="ja">銀行日中取引</value>
         <value xml:lang="pt_BR">Operação Bancária durante o dia</value>
+        <value xml:lang="ru">Банковские операции</value>
         <value xml:lang="vi">Lý do NỘP vào ngân hàng</value>
         <value xml:lang="zh">日银行交易</value>
         <value xml:lang="zh_TW">日銀行交易</value>
@@ -288,6 +305,7 @@
         <value xml:lang="it">Motivazione uscita dalla banca</value>
         <value xml:lang="ja">銀行日中取引</value>
         <value xml:lang="pt_BR">Operação Bancária durante o dia</value>
+        <value xml:lang="ru">Банковские операции</value>
         <value xml:lang="vi">Lý do RÚT từ ngân hàng</value>
         <value xml:lang="zh">日银行交易</value>
         <value xml:lang="zh_TW">日銀行交易</value>
@@ -299,6 +317,7 @@
         <value xml:lang="it">Contanti messi in cassa</value>
         <value xml:lang="ja">小口現金引出</value>
         <value xml:lang="pt_BR">Dinheiro de caixa pago pelo balcão</value>
+        <value xml:lang="ru">Введите деньги в кассе</value>
         <value xml:lang="vi">Lý do NỘP vào két</value>
         <value xml:lang="zh">零用现金存入备用金</value>
         <value xml:lang="zh_TW">零用現金存入備用金</value>
@@ -310,6 +329,7 @@
         <value xml:lang="it">Contanti usciti dalla cassa</value>
         <value xml:lang="ja">小口現金支払</value>
         <value xml:lang="pt_BR">Valor descontado do caixa</value>
+        <value xml:lang="ru">Остаток денежных средств на счету</value>
         <value xml:lang="vi">Lý do RÚT từ két</value>
         <value xml:lang="zh">零用现金取出</value>
         <value xml:lang="zh_TW">零用現金取出</value>
@@ -321,6 +341,7 @@
         <value xml:lang="it">Cambio aggiunti alla cassa</value>
         <value xml:lang="ja">小口現金変更追加</value>
         <value xml:lang="pt_BR">Alterar adicionado fluxo do balcão</value>
+        <value xml:lang="ru">Добавленные деньги к наличным</value>
         <value xml:lang="vi">Thiết lập hướng THÊM vào két</value>
         <value xml:lang="zh">添加到备用金的零钱</value>
         <value xml:lang="zh_TW">添加到備用金的零錢</value>
@@ -333,6 +354,7 @@
         <value xml:lang="ja">ブロンズ</value>
         <value xml:lang="pt_BR">Nível bronze</value>
         <value xml:lang="th">บรอนซ์</value>
+        <value xml:lang="ru">Бронзовая</value>
         <value xml:lang="vi">Đồng (chất liệu)</value>
         <value xml:lang="zh">铜</value>
         <value xml:lang="zh_TW">銅</value>
@@ -345,6 +367,7 @@
         <value xml:lang="ja">ゴールド</value>
         <value xml:lang="pt_BR">Nível Ouro</value>
         <value xml:lang="th">ทอง</value>
+        <value xml:lang="ru">Золотая</value>
         <value xml:lang="vi">Vàng (chất liệu)</value>
         <value xml:lang="zh">金</value>
         <value xml:lang="zh_TW">金</value>
@@ -357,6 +380,7 @@
         <value xml:lang="ja">適用外</value>
         <value xml:lang="pt_BR">Não se aplica</value>
         <value xml:lang="th">ไม่เหมาะสม</value>
+        <value xml:lang="ru">Не применяется</value>
         <value xml:lang="vi">Không Khớp lệnh</value>
         <value xml:lang="zh">不可用</value>
         <value xml:lang="zh_TW">不可用</value>
@@ -369,6 +393,7 @@
         <value xml:lang="ja">シルバー</value>
         <value xml:lang="pt_BR">Nivel Prata</value>
         <value xml:lang="th">เงิน</value>
+        <value xml:lang="ru">Серебрянная</value>
         <value xml:lang="vi">Bạc (chất liệu)</value>
         <value xml:lang="zh">银</value>
         <value xml:lang="zh_TW">銀</value>
@@ -428,6 +453,7 @@
         <value xml:lang="it">Canale eBay</value>
         <value xml:lang="ja">eBayチャネル</value>
         <value xml:lang="pt">Canal eBay</value>
+        <value xml:lang="ru">Каннал eBay</value>
         <value xml:lang="th">ช่องทาง eBay</value>
         <value xml:lang="vi">Kênh eBay</value>
         <value xml:lang="zh">EBay渠道</value>
@@ -456,6 +482,7 @@
         <value xml:lang="it">Sempre</value>
         <value xml:lang="ja">常に</value>
         <value xml:lang="pt_BR">Invcluir sempre</value>
+        <value xml:lang="ru">Всегда</value>
         <value xml:lang="th">ESIA_ALWAYS</value>
         <value xml:lang="vi">ESIA_ALWAYS</value>
         <value xml:lang="zh">总是</value>
@@ -468,6 +495,7 @@
         <value xml:lang="it">Escluso</value>
         <value xml:lang="ja">除外</value>
         <value xml:lang="pt_BR">Excluído</value>
+        <value xml:lang="ru">Исключить</value>
         <value xml:lang="th">ยกเว้น</value>
         <value xml:lang="vi">ESIA_EXCLUDE</value>
         <value xml:lang="zh">排除</value>
@@ -480,6 +508,7 @@
         <value xml:lang="it">Incluso</value>
         <value xml:lang="ja">含む</value>
         <value xml:lang="pt_BR">Incluso</value>
+        <value xml:lang="ru">Включить</value>
         <value xml:lang="th">รวม</value>
         <value xml:lang="vi">ESIA_INCLUDE</value>
         <value xml:lang="zh">包含</value>
@@ -742,6 +771,7 @@
         <value xml:lang="it">Attiva</value>
         <value xml:lang="ja">活動</value>
         <value xml:lang="pt_BR">Ativar</value>
+        <value xml:lang="ru">Активировать</value>
         <value xml:lang="th">กระตุ้น</value>
         <value xml:lang="vi">GC_ACTIVATE</value>
         <value xml:lang="zh">激活</value>
@@ -754,6 +784,7 @@
         <value xml:lang="it">Ricaricata</value>
         <value xml:lang="ja">チャージ</value>
         <value xml:lang="pt_BR">Recarregar</value>
+        <value xml:lang="ru">Перезагрузить</value>
         <value xml:lang="th">ใส่เพิ่ม</value>
         <value xml:lang="vi">GC_RELOAD</value>
         <value xml:lang="zh">重新加载</value>
@@ -766,6 +797,7 @@
         <value xml:lang="it">Spazio aereo</value>
         <value xml:lang="ja">航空宇宙産業</value>
         <value xml:lang="pt_BR">Espaço aéreo</value>
+        <value xml:lang="ru">Воздушное пространство</value>
         <value xml:lang="th">บรรยากาศ</value>
         <value xml:lang="vi">IND_AEROSPACE</value>
         <value xml:lang="zh">航天业</value>
@@ -778,6 +810,7 @@
         <value xml:lang="it">In distribuzione</value>
         <value xml:lang="ja">物流業</value>
         <value xml:lang="pt_BR">Distribuição</value>
+        <value xml:lang="ru">Распределение</value>
         <value xml:lang="th">การกระจาย</value>
         <value xml:lang="vi">IND_DISTRIBUTION</value>
         <value xml:lang="zh">物流</value>
@@ -790,6 +823,7 @@
         <value xml:lang="it">Finanza</value>
         <value xml:lang="ja">金融業</value>
         <value xml:lang="pt_BR">Financeira</value>
+        <value xml:lang="ru">Финансы</value>
         <value xml:lang="th">การเงิน</value>
         <value xml:lang="vi">IND_FINANCE</value>
         <value xml:lang="zh">贸易</value>
@@ -802,6 +836,7 @@
         <value xml:lang="it">Servizi generale</value>
         <value xml:lang="ja">サービス業</value>
         <value xml:lang="pt_BR">Serviços Gerais</value>
+        <value xml:lang="ru">Общие услуги</value>
         <value xml:lang="th">IND_GEN_SERVICES</value>
         <value xml:lang="vi">IND_GEN_SERVICES</value>
         <value xml:lang="zh">服务业</value>
@@ -814,6 +849,7 @@
         <value xml:lang="it">Hardware</value>
         <value xml:lang="ja">ハードウェア業</value>
         <value xml:lang="pt_BR">Hardware</value>
+        <value xml:lang="ru">Аппаратные средства</value>
         <value xml:lang="th">ฮาร์ดแวร์</value>
         <value xml:lang="vi">Phần cứng</value>
         <value xml:lang="zh">计算机硬件</value>
@@ -826,6 +862,7 @@
         <value xml:lang="it">Sicurezza sulla salutea</value>
         <value xml:lang="ja">保健医療業</value>
         <value xml:lang="pt_BR">Saúde</value>
+        <value xml:lang="ru">Забота о здоровье</value>
         <value xml:lang="th">IND_HEALTH_CARE</value>
         <value xml:lang="vi">Y tế</value>
         <value xml:lang="zh">保健业</value>
@@ -838,6 +875,7 @@
         <value xml:lang="it">Assicurazione</value>
         <value xml:lang="ja">保険業</value>
         <value xml:lang="pt_BR">Seguros</value>
+        <value xml:lang="ru">Страхование</value>
         <value xml:lang="th">การประกัน</value>
         <value xml:lang="vi">Bảo hiểm</value>
         <value xml:lang="zh">保险业</value>
@@ -850,6 +888,7 @@
         <value xml:lang="it">Produzione</value>
         <value xml:lang="ja">製造業</value>
         <value xml:lang="pt_BR">Produção</value>
+        <value xml:lang="ru">Мануфактура</value>
         <value xml:lang="th">การผลิต</value>
         <value xml:lang="vi">Sản xuất</value>
         <value xml:lang="zh">加工业</value>
@@ -861,6 +900,7 @@
         <value xml:lang="fr">MEDIA</value>
         <value xml:lang="it">Media</value>
         <value xml:lang="ja">メディア業</value>
+        <value xml:lang="ru">СМИ</value>
         <value xml:lang="th">มีเดีย</value>
         <value xml:lang="vi">Đa phương tiện</value>
         <value xml:lang="zh">传媒业</value>
@@ -873,6 +913,7 @@
         <value xml:lang="it">Senza profitto</value>
         <value xml:lang="ja">非営利組織</value>
         <value xml:lang="pt_BR">Sem fins lucrativos</value>
+        <value xml:lang="ru">Бесприбыльный</value>
         <value xml:lang="th">ไม่ผลกำไร</value>
         <value xml:lang="vi">Phi lợi nhuận</value>
         <value xml:lang="zh">非盈利性组织</value>
@@ -885,6 +926,7 @@
         <value xml:lang="it">Immobili</value>
         <value xml:lang="ja">不動産業</value>
         <value xml:lang="pt_BR">Imobiliária</value>
+        <value xml:lang="ru">Собственность</value>
         <value xml:lang="th">บ้านและที่ดิน</value>
         <value xml:lang="vi">IND_REAL_ESTATE</value>
         <value xml:lang="zh">房子产</value>
@@ -897,6 +939,7 @@
         <value xml:lang="it">Al dettaglio</value>
         <value xml:lang="ja">小売業</value>
         <value xml:lang="pt_BR">Varejo</value>
+        <value xml:lang="ru">Розничный</value>
         <value xml:lang="th">การขายปลีก</value>
         <value xml:lang="vi">Bán lẻ</value>
         <value xml:lang="zh">零售业</value>
@@ -909,6 +952,7 @@
         <value xml:lang="it">Software</value>
         <value xml:lang="ja">ソフトウェア業</value>
         <value xml:lang="pt_BR">Software</value>
+        <value xml:lang="ru">ПО</value>
         <value xml:lang="th">ซอฟต์แวร์</value>
         <value xml:lang="vi">Phần mềm</value>
         <value xml:lang="zh">计算机软件</value>
@@ -921,6 +965,7 @@
         <value xml:lang="it">Telefono</value>
         <value xml:lang="ja">電気通信業</value>
         <value xml:lang="pt_BR">Telefonia</value>
+        <value xml:lang="ru">Телефония</value>
         <value xml:lang="th">โทรคมนาคม</value>
         <value xml:lang="vi">Truyền thông</value>
         <value xml:lang="zh">电信业</value>
@@ -1189,6 +1234,7 @@
         <value xml:lang="ja">言語: オランダ語</value>
         <value xml:lang="nl">Taal: Nederlands</value>
         <value xml:lang="pt_BR">Língua: NL</value>
+        <value xml:lang="ru">Язык: Голландский</value>
         <value xml:lang="th">ภาษา : เนเธอร์แลนด์</value>
         <value xml:lang="vi">Ngôn ngữ: NL</value>
         <value xml:lang="zh">语言：荷兰语</value>
@@ -1317,6 +1363,7 @@
         <value xml:lang="it">Lingua : Francese</value>
         <value xml:lang="ja">言語: フランス語</value>
         <value xml:lang="pt_BR">Língua: FR</value>
+        <value xml:lang="ru">Язык: Французкий</value>
         <value xml:lang="th">ภาษา : ฝรั่งเศส</value>
         <value xml:lang="vi">Ngôn ngữ: FR</value>
         <value xml:lang="zh">语言：法语</value>
@@ -1858,6 +1905,7 @@
         <value xml:lang="it">Sub-totale ordine X ultimo anno</value>
         <value xml:lang="ja">去年の注文小計 X</value>
         <value xml:lang="pt_BR">Sub-total X dos pedidos no ano passado</value>
+        <value xml:lang="ru">Общий заказ Х прошлого года</value>
         <value xml:lang="vi">Tổng từng phần đơn hàng là X trong năm gần đây</value>
         <value xml:lang="zh">去年订单小计X</value>
         <value xml:lang="zh_TW">去年訂單小計X</value>
@@ -1869,6 +1917,7 @@
         <value xml:lang="it">Sub-totale ordine X dall'inizio dell'anno corrente</value>
         <value xml:lang="ja">今年の注文小計 X</value>
         <value xml:lang="pt_BR">Sub-total X de pedidos desde o início do ano em curso</value>
+        <value xml:lang="ru">Общий заказ Х на начало текущего года</value>
         <value xml:lang="vi">Tổng từng phần đơn hàng là X từ đầu năm nay</value>
         <value xml:lang="zh">今年以来的订单小计X</value>
         <value xml:lang="zh_TW">今年以來的訂單小計X</value>
@@ -2303,6 +2352,7 @@
         <value xml:lang="it">Spedizione completata</value>
         <value xml:lang="ja">配送完了</value>
         <value xml:lang="pt_BR">Envio Completado</value>
+        <value xml:lang="ru">Отгрузка выполнена</value>
         <value xml:lang="vi">Hoàn thành chuyển hàng</value>
         <value xml:lang="zh">完成送货</value>
     </property>
@@ -2470,6 +2520,7 @@
         <value xml:lang="it">Creazione preventivo</value>
         <value xml:lang="ja">見積作成</value>
         <value xml:lang="pt_BR">Cotação criada</value>
+        <value xml:lang="ru">Цена создана</value>
         <value xml:lang="vi">Tạo báo giá</value>
         <value xml:lang="zh">新建了询价</value>
     </property>
@@ -2726,6 +2777,7 @@
         <value xml:lang="it">Fabbisogno per un'ordine quando ATP raggiunge la giacenza minima per il prodotto-stabilimento</value>
         <value xml:lang="ja">製品在庫(納期)が下限到達の場合注文要求</value>
         <value xml:lang="pt_BR">Requisição para pedido quando o estoque alcançar o mínimo de produtos por instalação</value>
+         <value xml:lang="ru">Требование для заказа когда ATP достиг минимального запаса для продукта-устройства</value>
         <value xml:lang="vi">Yêu cầu cho đơn hàng khi ATP đạt số lượng kho tối thiểu cho Product-Facility</value>
         <value xml:lang="zh">当承诺提供数量达到产品-场所的最小存货时的需求订单</value>
         <value xml:lang="zh_TW">當承諾提供數量達到產品-場所的最小存貨時的需求訂單</value>
@@ -2753,6 +2805,7 @@
         <value xml:lang="it">Solo spedizione conto terzi</value>
         <value xml:lang="ja">直送のみ</value>
         <value xml:lang="pt_BR">Apenas Drop-Ship</value>
+         <value xml:lang="ru">Прямые поставки только</value>
         <value xml:lang="vi">Chỉ Drop-ship</value>
         <value xml:lang="zh">仅直接送货</value>
         <value xml:lang="zh_TW">僅直接送貨</value>
@@ -2764,6 +2817,7 @@
         <value xml:lang="it">Spedizione conto terzi automatica sulla bassa quantità</value>
         <value xml:lang="ja">少数時自動直送</value>
         <value xml:lang="pt_BR">Drop-ship automático para pequenas quantidades</value>
+        <value xml:lang="ru">Автоматическая поставка на маленькое количество</value>
         <value xml:lang="vi">Tự động Drop-ship tại số lượng ít</value>
         <value xml:lang="zh">在低数量时自动直接送货</value>
         <value xml:lang="zh_TW">在低數量時自動直接送貨</value>
@@ -2999,6 +3053,7 @@
         <value xml:lang="it">Sottoscrizione bronzo</value>
         <value xml:lang="ja">ブロンズ付与</value>
         <value xml:lang="pt_BR">Assinatura Bronze</value>
+        <value xml:lang="ru">Бронзовая подписка</value>
         <value xml:lang="th">บรอนซ์</value>
         <value xml:lang="vi">Đăng ký hạng Đồng</value>
         <value xml:lang="zh">铜牌</value>
@@ -3011,6 +3066,7 @@
         <value xml:lang="it">Sottoscrizione oro</value>
         <value xml:lang="ja">ゴールド付与</value>
         <value xml:lang="pt_BR">Assinatura ouro</value>
+        <value xml:lang="ru">Золотая подписка</value>
         <value xml:lang="th">ทอง</value>
         <value xml:lang="vi">Đăng ký hạng Vàng</value>
         <value xml:lang="zh">金牌</value>
@@ -3023,6 +3079,7 @@
         <value xml:lang="it">Sottoscrizione argento</value>
         <value xml:lang="ja">シルバー付与</value>
         <value xml:lang="pt_BR">Assinatura Prata</value>
+        <value xml:lang="ru">Серебряная подписка</value>
         <value xml:lang="th">เงิน</value>
         <value xml:lang="vi">Đăng ký hạng Bạc</value>
         <value xml:lang="zh">银牌</value>
@@ -3080,6 +3137,7 @@
         <value xml:lang="it">Automatico</value>
         <value xml:lang="ja">自動</value>
         <value xml:lang="pt_BR">Automático</value>
+        <value xml:lang="ru">Автоматически</value>
         <value xml:lang="th">อัตโนมัติ</value>
         <value xml:lang="vi">Tự động</value>
         <value xml:lang="zh">自动</value>
@@ -3092,6 +3150,7 @@
         <value xml:lang="it">Manuale</value>
         <value xml:lang="ja">手動</value>
         <value xml:lang="pt_BR">Modo Manual</value>
+        <value xml:lang="ru">Вручную<value>
         <value xml:lang="th">คู่มือ</value>
         <value xml:lang="vi">Tự làm</value>
         <value xml:lang="zh">手动</value>
@@ -3104,6 +3163,7 @@
         <value xml:lang="it">Loop</value>
         <value xml:lang="ja">繰り返し</value>
         <value xml:lang="pt_BR">Implmentação de laço</value>
+        <value xml:lang="ru">Петля</value>
         <value xml:lang="th">WAT_LOOP</value>
         <value xml:lang="vi">Lặp</value>
         <value xml:lang="zh">循环</value>
@@ -3116,6 +3176,7 @@
         <value xml:lang="it">Nessuno</value>
         <value xml:lang="ja">なし</value>
         <value xml:lang="pt_BR">Nenhum</value>
+        <value xml:lang="ru">Никто<value>
         <value xml:lang="th">WAT_NO</value>
         <value xml:lang="vi">WAT_NO</value>
         <value xml:lang="zh">不执行</value>
@@ -3128,6 +3189,7 @@
         <value xml:lang="it">Percorso</value>
         <value xml:lang="ja">経路</value>
         <value xml:lang="pt_BR">Rota</value>
+        <value xml:lang="ru">Дистанционно<value>
         <value xml:lang="th">Route</value>
         <value xml:lang="vi">WAT_ROUTE</value>
         <value xml:lang="zh">路径</value>
@@ -3140,6 +3202,7 @@
         <value xml:lang="it">Flusso secondario</value>
         <value xml:lang="ja">サブフロー</value>
         <value xml:lang="pt_BR">Subfluxo</value>
+        <value xml:lang="ru">Подпоток<value>
         <value xml:lang="th">WAT_SUBFLOW</value>
         <value xml:lang="vi">WAT_SUBFLOW</value>
         <value xml:lang="zh">子流程</value>
@@ -3152,6 +3215,7 @@
         <value xml:lang="it">Strumento</value>
         <value xml:lang="ja">ツール</value>
         <value xml:lang="pt_BR">Ferramenta</value>
+        <value xml:lang="ru">Инструмент<value>
         <value xml:lang="th">WAT_TOOL</value>
         <value xml:lang="vi">WAT_TOOL</value>
         <value xml:lang="zh">工具</value>
@@ -3164,6 +3228,7 @@
         <value xml:lang="it">Tabella</value>
         <value xml:lang="ja">配列型</value>
         <value xml:lang="pt_BR">Tabela</value>
+        <value xml:lang="ru">Массив<value>
         <value xml:lang="th">อาเรย์</value>
         <value xml:lang="vi">Mảng</value>
         <value xml:lang="zh">数组</value>
@@ -3176,6 +3241,7 @@
         <value xml:lang="it">Booleano</value>
         <value xml:lang="ja">真偽型</value>
         <value xml:lang="pt_BR">Booleano</value>
+        <value xml:lang="ru">Логический<value>
         <value xml:lang="th">บูลีน</value>
         <value xml:lang="vi">Đúng/Sai</value>
         <value xml:lang="zh">布尔值</value>
@@ -3188,6 +3254,7 @@
         <value xml:lang="it">Data ora</value>
         <value xml:lang="ja">日付時間型</value>
         <value xml:lang="pt_BR">Data/horário</value>
+        <value xml:lang="ru">Дата/Время<value>
         <value xml:lang="th">วันเวลา</value>
         <value xml:lang="vi">Ngày giờ</value>
         <value xml:lang="zh">日期时间</value>
@@ -3200,6 +3267,7 @@
         <value xml:lang="it">Dichiarato</value>
         <value xml:lang="ja">定義型</value>
         <value xml:lang="pt_BR">Declarado</value>
+        <value xml:lang="ru">Объявленный<value>
         <value xml:lang="th">DECLARED</value>
         <value xml:lang="vi">Khai báo</value>
         <value xml:lang="zh">已声明</value>
@@ -3212,6 +3280,7 @@
         <value xml:lang="it">Enumerazione</value>
         <value xml:lang="ja">列挙型</value>
         <value xml:lang="pt_BR">Enumeração</value>
+        <value xml:lang="ru">Перечисление<value>
         <value xml:lang="th">ENUMERATION</value>
         <value xml:lang="vi">Liệt kê</value>
         <value xml:lang="zh">枚举</value>
@@ -3224,6 +3293,7 @@
         <value xml:lang="it">A virgola mobile</value>
         <value xml:lang="ja">浮動小数点型</value>
         <value xml:lang="pt_BR">Ponto flutuante</value>
+        <value xml:lang="ru">Плавающая запятая<value>
         <value xml:lang="th">โฟลต</value>
         <value xml:lang="vi">Số thực</value>
         <value xml:lang="zh">浮点</value>
@@ -3236,6 +3306,7 @@
         <value xml:lang="it">Intero</value>
         <value xml:lang="ja">整数型</value>
         <value xml:lang="pt_BR">Inteiro</value>
+        <value xml:lang="ru">Целое число<value>
         <value xml:lang="th">อิทีเจอร์</value>
         <value xml:lang="vi">Số nguyên</value>
         <value xml:lang="zh">整数</value>
@@ -3248,6 +3319,7 @@
         <value xml:lang="it">Lista</value>
         <value xml:lang="ja">リスト型</value>
         <value xml:lang="pt_BR">LISTA</value>
+        <value xml:lang="ru">Плавающая запятая<value>
         <value xml:lang="th">LIST</value>
         <value xml:lang="vi">Danh sách</value>
         <value xml:lang="zh">列表</value>
@@ -3260,6 +3332,7 @@
         <value xml:lang="it">Interpretato</value>
         <value xml:lang="ja">実行者</value>
         <value xml:lang="pt_BR">Intérprete</value>
+        <value xml:lang="ru">Исполнитель<value>
         <value xml:lang="th">PERFORMER</value>
         <value xml:lang="vi">PERFORMER</value>
         <value xml:lang="zh">执行者</value>
@@ -3272,6 +3345,7 @@
         <value xml:lang="it">Registrato</value>
         <value xml:lang="ja">レコード型</value>
         <value xml:lang="pt_BR">Registro</value>
+        <value xml:lang="ru">Регистрация<value>
         <value xml:lang="th">RECORD</value>
         <value xml:lang="vi">Bản ghi</value>
         <value xml:lang="zh">记录</value>
@@ -3284,6 +3358,7 @@
         <value xml:lang="it">Riferimento</value>
         <value xml:lang="ja">参照型</value>
         <value xml:lang="pt_BR">Referência</value>
+        <value xml:lang="ru">Справка<value>
         <value xml:lang="th">REFERENCE</value>
         <value xml:lang="vi">Tham chiếu</value>
         <value xml:lang="zh">引用</value>
@@ -3296,6 +3371,7 @@
         <value xml:lang="it">Stringa</value>
         <value xml:lang="ja">文字列型</value>
         <value xml:lang="pt_BR">Cadeia de caracteres</value>
+        <value xml:lang="ru">Строка<value>
         <value xml:lang="th">สตริง</value>
         <value xml:lang="vi">Xâu</value>
         <value xml:lang="zh">字符串</value>
@@ -3308,6 +3384,7 @@
         <value xml:lang="it">Unione</value>
         <value xml:lang="ja">結合</value>
         <value xml:lang="pt_BR">União</value>
+        <value xml:lang="ru">Союз<value>
         <value xml:lang="th">UNION</value>
         <value xml:lang="vi">Hợp</value>
         <value xml:lang="zh">联合</value>
@@ -3320,6 +3397,7 @@
         <value xml:lang="it">Unità</value>
         <value xml:lang="ja">単位</value>
         <value xml:lang="pt_BR">Unidade</value>
+        <value xml:lang="ru">Блок<value>
         <value xml:lang="th">หน่วย</value>
         <value xml:lang="vi">Đơn vị</value>
         <value xml:lang="zh">单位</value>
@@ -3458,6 +3536,7 @@
         <value xml:lang="it">Multiplo</value>
         <value xml:lang="ja">複数</value>
         <value xml:lang="pt_BR">Múltiplo</value>
+        <value xml:lang="ru">Плавающая запятая<value>
         <value xml:lang="th">หลากหลาย</value>
         <value xml:lang="vi">WFI_MULTIPLE</value>
         <value xml:lang="zh">多次</value>
@@ -3470,6 +3549,7 @@
         <value xml:lang="it">Una volta</value>
         <value xml:lang="ja">一回</value>
         <value xml:lang="pt_BR">Uma vez</value>
+        <value xml:lang="ru">Один раз<value>
         <value xml:lang="th">หนึ่งครั้ง</value>
         <value xml:lang="vi">WFI_ONCE</value>
         <value xml:lang="zh">一次</value>
@@ -3482,6 +3562,7 @@
         <value xml:lang="it">Completamente bloccato</value>
         <value xml:lang="ja">完全ブロック</value>
         <value xml:lang="pt_BR">Completamente Bloqueado</value>
+        <value xml:lang="ru">Полностью заблокирован<value>
         <value xml:lang="th">WGC_FULL_BLOCKED</value>
         <value xml:lang="vi">WGC_FULL_BLOCKED</value>
         <value xml:lang="zh">完全禁止</value>
@@ -3494,6 +3575,7 @@
         <value xml:lang="it">Loop bloccato</value>
         <value xml:lang="ja">繰り返しをブロック</value>
         <value xml:lang="pt_BR">Loop bloqueado</value>
+        <value xml:lang="ru">Петля заблокирована<value>
         <value xml:lang="th">WGC_LOOP_BLOCKED</value>
         <value xml:lang="vi">WGC_LOOP_BLOCKED</value>
         <value xml:lang="zh">禁止循环</value>
@@ -3506,6 +3588,7 @@
         <value xml:lang="it">Non bloccato</value>
         <value xml:lang="ja">ブロックしない</value>
         <value xml:lang="pt_BR">Não bloqueado</value>
+        <value xml:lang="ru">Не заблокировано<value>
         <value xml:lang="th">WGC_NON_BLOCKED</value>
         <value xml:lang="vi">WGC_NON_BLOCKED</value>
         <value xml:lang="zh">不禁止</value>
@@ -3518,6 +3601,7 @@
         <value xml:lang="it">E</value>
         <value xml:lang="ja">両方とも</value>
         <value xml:lang="pt_BR">E</value>
+        <value xml:lang="ru">Логическое "И"<value>
         <value xml:lang="th">WJT_AND</value>
         <value xml:lang="vi">VÀ</value>
         <value xml:lang="zh">且</value>
@@ -3530,6 +3614,7 @@
         <value xml:lang="it">X-or</value>
         <value xml:lang="ja">一方のみ</value>
         <value xml:lang="pt_BR">Ou Exclusivo</value>
+        <value xml:lang="ru">Логическое "XOR"<value>
         <value xml:lang="th">WJT_XOR</value>
         <value xml:lang="vi">HOẶC</value>
         <value xml:lang="zh">异或</value>
@@ -3542,6 +3627,7 @@
         <value xml:lang="it">Ripeti fino a</value>
         <value xml:lang="ja">継続、終了条件:</value>
         <value xml:lang="pt_BR">Repetir até</value>
+        <value xml:lang="ru">Цикл REPEAT_UNTIL<value>
         <value xml:lang="th">WLK_REPEAT_UNTIL</value>
         <value xml:lang="vi">LẶP ĐẾN</value>
         <value xml:lang="zh">重复直至</value>
@@ -3554,6 +3640,7 @@
         <value xml:lang="it">Mentre</value>
         <value xml:lang="ja">継続条件:</value>
         <value xml:lang="pt_BR">Enquanto (While)</value>
+        <value xml:lang="ru">Цикл WHILE<value>
         <value xml:lang="th">WLK_WHILE</value>
         <value xml:lang="vi">LẶP KHI</value>
         <value xml:lang="zh">循环</value>
@@ -3566,6 +3653,7 @@
         <value xml:lang="it">Parametro in ingresso</value>
         <value xml:lang="ja">入力</value>
         <value xml:lang="pt_BR">Parâmetro de entrada</value>
+        <value xml:lang="ru">Входной параметр<value>
         <value xml:lang="th">WPM_IN</value>
         <value xml:lang="vi">VÀO</value>
         <value xml:lang="zh">输入</value>
@@ -3578,6 +3666,7 @@
         <value xml:lang="it">Parametro in entrata e uscita</value>
         <value xml:lang="ja">入出力</value>
         <value xml:lang="pt_BR">Parâmetro de entrada-saída</value>
+        <value xml:lang="ru">Входной/Выходной параметр<value>
         <value xml:lang="th">WPM_INOUT</value>
         <value xml:lang="vi">VÀO_RA</value>
         <value xml:lang="zh">输入输出</value>
@@ -3590,6 +3679,7 @@
         <value xml:lang="it">Parametro in uscita</value>
         <value xml:lang="ja">出力</value>
         <value xml:lang="pt_BR">Parâmetro de saída</value>
+        <value xml:lang="ru">Выходной параметр<value>
         <value xml:lang="th">WPM_OUT</value>
         <value xml:lang="vi">RA</value>
         <value xml:lang="zh">输出</value>
@@ -3602,6 +3692,7 @@
         <value xml:lang="it">Esecuzione asincrona</value>
         <value xml:lang="ja">非同期</value>
         <value xml:lang="pt_BR">Assíncrono</value>
+        <value xml:lang="ru">Асинхронный<value>
         <value xml:lang="th">WSE_ASYNCHR</value>
         <value xml:lang="vi">WSE_ASYNCHR</value>
         <value xml:lang="zh">异步</value>
@@ -3614,6 +3705,7 @@
         <value xml:lang="it">Esecuzione sincrona</value>
         <value xml:lang="ja">同期</value>
         <value xml:lang="pt_BR">Síncrono</value>
+        <value xml:lang="ru">Синхронный<value>
         <value xml:lang="th">WSE_SYNCHR</value>
         <value xml:lang="vi">WSE_SYNCHR</value>
         <value xml:lang="zh">同步</value>
@@ -3626,6 +3718,7 @@
         <value xml:lang="it">E</value>
         <value xml:lang="ja">両方とも</value>
         <value xml:lang="pt_BR">E (And)</value>
+        <value xml:lang="ru">Логическое "И"<value>
         <value xml:lang="th">WST_AND</value>
         <value xml:lang="vi">VÀ</value>
         <value xml:lang="zh">且</value>
@@ -3638,6 +3731,7 @@
         <value xml:lang="it">X-Or</value>
         <value xml:lang="ja">一方のみ</value>
         <value xml:lang="pt_BR">Ou Exclusivo (XOR)</value>
+        <value xml:lang="ru">Логический "XOR"<value>
         <value xml:lang="th">WST_XOR</value>
         <value xml:lang="vi">HOẶC</value>
         <value xml:lang="zh">异或</value>
@@ -3650,6 +3744,7 @@
         <value xml:lang="it">Condizione</value>
         <value xml:lang="ja">条件</value>
         <value xml:lang="pt_BR">Condição</value>
+        <value xml:lang="ru">Состояние<value>
         <value xml:lang="th">เงื่อนไข</value>
         <value xml:lang="vi">Điều kiện</value>
         <value xml:lang="zh">条件</value>
@@ -3662,6 +3757,7 @@
         <value xml:lang="it">Altrimenti</value>
         <value xml:lang="ja">代替</value>
         <value xml:lang="pt_BR">Em outro caso</value>
+        <value xml:lang="ru">Другой путь<value>
         <value xml:lang="th">อีกประการหนึ่ง</value>
         <value xml:lang="vi">Nếu không</value>
         <value xml:lang="zh">否则</value>
@@ -3674,6 +3770,7 @@
         <value xml:lang="it">Dal loop</value>
         <value xml:lang="ja">～から繰り返し</value>
         <value xml:lang="pt_BR">Após do laço</value>
+        <value xml:lang="ru">После петли<value>
         <value xml:lang="th">WTL_FROMLOOP</value>
         <value xml:lang="vi">Lặp theo</value>
         <value xml:lang="zh">自循环</value>
@@ -3686,6 +3783,7 @@
         <value xml:lang="it">Nessun loop</value>
         <value xml:lang="ja">繰り返し なし</value>
         <value xml:lang="pt_BR">Sem laço</value>
+        <value xml:lang="ru">Без петли<value>
         <value xml:lang="th">WTL_NOLOOP</value>
         <value xml:lang="vi">Không lặp</value>
         <value xml:lang="zh">不循环</value>
@@ -3698,6 +3796,7 @@
         <value xml:lang="it">Al loop</value>
         <value xml:lang="ja">～まで繰り返し</value>
         <value xml:lang="pt_BR">Até o laço</value>
+        <value xml:lang="ru">До петли<value>
         <value xml:lang="th">WTL_TOLOOP</value>
         <value xml:lang="vi">WTL_TOLOOP</value>
         <value xml:lang="zh">到循环</value>
@@ -3710,6 +3809,7 @@
         <value xml:lang="it">Applicazione</value>
         <value xml:lang="ja">業務</value>
         <value xml:lang="pt_BR">Aplicativo</value>
+        <value xml:lang="ru">Приложение<value>
         <value xml:lang="th">โปรแกรมประยุกต์ใช้</value>
         <value xml:lang="vi">Ứng dụng</value>
         <value xml:lang="zh">应用</value>
@@ -3722,6 +3822,7 @@
         <value xml:lang="it">Procedura</value>
         <value xml:lang="ja">処理</value>
         <value xml:lang="pt_BR">Procedimento</value>
+        <value xml:lang="ru">Процедура<value>
         <value xml:lang="th">ขั้นตอน</value>
         <value xml:lang="vi">Thủ tục</value>
         <value xml:lang="zh">过程</value>
@@ -3959,6 +4060,7 @@
         <value xml:lang="it">Prezzo prodotto</value>
         <value xml:lang="ja">製品価格</value>
         <value xml:lang="pt_BR">Preço do produto</value>
+        <value xml:lang="ru">Цена продукта</value>
         <value xml:lang="th">ราคา</value>
         <value xml:lang="vi">Giá sản phẩm</value>
         <value xml:lang="zh">产品价格</value>
@@ -4194,6 +4296,7 @@
         <value xml:lang="it">AB</value>
         <value xml:lang="ja">アルベラ</value>
         <value xml:lang="pt_BR">AB</value>
+        <value xml:lang="ru">Альбера</value>
         <value xml:lang="th">AB</value>
         <value xml:lang="vi">AB</value>
         <value xml:lang="zh">阿尔伯塔</value>
@@ -4472,6 +4575,7 @@
         <value xml:lang="it">BC</value>
         <value xml:lang="ja">ブリティッシュ・コロンビア</value>
         <value xml:lang="pt_BR">Colúmbia Britânica</value>
+        <value xml:lang="ru">Британский-Колумбийский</value>
         <value xml:lang="th">BC</value>
         <value xml:lang="vi">BC</value>
         <value xml:lang="zh">不列颠哥伦比亚</value>
@@ -6264,6 +6368,7 @@
         <value xml:lang="it">MB</value>
         <value xml:lang="ja">マニトバ</value>
         <value xml:lang="pt_BR">Manitoba</value>
+         <value xml:lang="ru">Манитоба</value>
         <value xml:lang="th">MB</value>
         <value xml:lang="zh">马尼托巴省</value>
         <value xml:lang="zh_TW">馬尼托巴省</value>
@@ -6585,6 +6690,7 @@
         <value xml:lang="it">NB</value>
         <value xml:lang="ja">ニューブランズウィック</value>
         <value xml:lang="pt_BR">Nova Brunswick</value>
+        <value xml:lang="ru">НБ</value>
         <value xml:lang="th">NB</value>
         <value xml:lang="zh">新不伦瑞克省</value>
         <value xml:lang="zh_TW">新不倫瑞克省</value>
@@ -6683,6 +6789,7 @@
         <value xml:lang="it">NIRL</value>
         <value xml:lang="ja">北アイルランド</value>
         <value xml:lang="pt_BR">NIRL</value>
+        <value xml:lang="ru">НИРЛ</value>
         <value xml:lang="th">NIRL</value>
         <value xml:lang="vi">NIRL</value>
         <value xml:lang="zh">北爱尔兰</value>
@@ -6708,6 +6815,7 @@
         <value xml:lang="it">NL</value>
         <value xml:lang="ja">ニューファンドランド・ラブラドール</value>
         <value xml:lang="pt_BR">NL</value>
+        <value xml:lang="ru">НЛ</value>
         <value xml:lang="th">NL</value>
         <value xml:lang="zh">纽芬兰和拉布拉多</value>
         <value xml:lang="zh_TW">紐芬蘭和拉布拉多</value>
@@ -6776,6 +6884,7 @@
         <value xml:lang="it">NS</value>
         <value xml:lang="ja">ノヴァスコシア</value>
         <value xml:lang="pt_BR">Nova Escócia</value>
+        <value xml:lang="ru">НС</value>
         <value xml:lang="th">NS</value>
         <value xml:lang="zh">新斯科细亚省</value>
         <value xml:lang="zh_TW">新斯科細亞省</value>
@@ -6786,6 +6895,7 @@
         <value xml:lang="it">NT</value>
         <value xml:lang="ja">ノースウエスト</value>
         <value xml:lang="pt_BR">Territórios do Noroeste - NT</value>
+        <value xml:lang="ru">НТ</value>
         <value xml:lang="th">NT</value>
         <value xml:lang="zh">加拿大西北地区</value>
         <value xml:lang="zh_TW">加拿大西北地區</value>
@@ -6796,6 +6906,7 @@
         <value xml:lang="it">NU</value>
         <value xml:lang="ja">ヌナブト</value>
         <value xml:lang="pt_BR">Nunavut</value>
+        <value xml:lang="ru">NU</value>
         <value xml:lang="th">NU</value>
         <value xml:lang="zh">努勒维特</value>
         <value xml:lang="zh_TW">努勒維特</value>
@@ -6836,6 +6947,7 @@
         <value xml:lang="it">Ontario</value>
         <value xml:lang="ja">オンタリオ</value>
         <value xml:lang="pt_BR">Ontário</value>
+        <value xml:lang="ru">Онтарио</value>
         <value xml:lang="th">ON</value>
         <value xml:lang="zh">安大略省</value>
         <value xml:lang="zh_TW">安大略省</value>
@@ -6891,6 +7003,7 @@
         <value xml:lang="it">PE</value>
         <value xml:lang="ja">プリンスエドワードアイランド</value>
         <value xml:lang="pt_BR">Ilha do Príncipe Eduardo</value>
+        <value xml:lang="ru">Остров принца Эдуарда</value>
         <value xml:lang="th">PE</value>
         <value xml:lang="zh">爱德华王子岛</value>
         <value xml:lang="zh_TW">愛德華王子島</value>
@@ -7079,6 +7192,7 @@
         <value xml:lang="it">QC</value>
         <value xml:lang="ja">ケベック</value>
         <value xml:lang="pt_BR">Quebec</value>
+        <value xml:lang="ru">Квебек</value>
         <value xml:lang="th">QC</value>
         <value xml:lang="zh">魁北克</value>
         <value xml:lang="zh_TW">魁北克</value>
@@ -7179,6 +7293,7 @@
         <value xml:lang="it">Scozia</value>
         <value xml:lang="ja">スコットランド</value>
         <value xml:lang="pt_BR">Escócia</value>
+        <value xml:lang="ru">Шотландия</value>
         <value xml:lang="th">สกอตแลนด์ </value>
         <value xml:lang="zh">苏格兰</value>
         <value xml:lang="zh_TW">蘇格蘭</value>
@@ -7278,6 +7393,7 @@
         <value xml:lang="it">Saskatchewan</value>
         <value xml:lang="ja">サスカチュワン</value>
         <value xml:lang="pt_BR">Saskatchewan</value>
+        <value xml:lang="ru">Saskatchewan</value>
         <value xml:lang="th">ซัสคาเซวาน </value>
         <value xml:lang="zh">萨斯喀彻温省</value>
         <value xml:lang="zh_TW">薩斯喀徹溫省</value>
@@ -7924,6 +8040,7 @@
         <value xml:lang="it">Galles</value>
         <value xml:lang="ja">ウェールズ</value>
         <value xml:lang="pt_BR">Wals</value>
+        <value xml:lang="ru">Уэльс</value>
         <value xml:lang="th">WALS</value>
         <value xml:lang="zh">威尔士</value>
         <value xml:lang="zh_TW">威爾士</value>
@@ -7979,6 +8096,7 @@
         <value xml:lang="it">Territorio dello Yukon</value>
         <value xml:lang="ja">ユーコン</value>
         <value xml:lang="pt_BR">Yukon</value>
+        <value xml:lang="ru">Территория Юкона</value>
         <value xml:lang="th">YT</value>
         <value xml:lang="zh">育空地区</value>
         <value xml:lang="zh_TW">育空地區</value>
@@ -8250,6 +8368,7 @@
         <value xml:lang="it">Non riconciliato</value>
         <value xml:lang="ja">未消込</value>
         <value xml:lang="pt_BR">Não Reconciliados</value>
+        <value xml:lang="ru">Не смирились</value>
         <value xml:lang="th">ไม่ยอมรับ</value>
         <value xml:lang="vi">Bất đồng</value>
         <value xml:lang="zh">未和解的</value>
@@ -8263,6 +8382,7 @@
         <value xml:lang="it">Parzialmente riconciliato</value>
         <value xml:lang="ja">一部消込</value>
         <value xml:lang="pt_BR">Reconciliado parcialmente</value>
+        <value xml:lang="ru">Частично примирились</value>
         <value xml:lang="th">การยอมรับบางส่วน</value>
         <value xml:lang="vi">Bán đồng thuận</value>
         <value xml:lang="zh">部分和解的</value>
@@ -8276,6 +8396,7 @@
         <value xml:lang="it">Riconciliato</value>
         <value xml:lang="ja">消込済</value>
         <value xml:lang="pt_BR">Reconciliados</value>
+        <value xml:lang="ru">Смирились</value>
         <value xml:lang="th">ทำให้ยอมรับ</value>
         <value xml:lang="vi">Đồng thuận</value>
         <value xml:lang="zh">和解的</value>
@@ -8288,6 +8409,7 @@
         <value xml:lang="it">Bozza blog</value>
         <value xml:lang="ja">原稿</value>
         <value xml:lang="pt_BR">Rascunho</value>
+        <value xml:lang="ru">План</value>
         <value xml:lang="th">เอกสารฉบับร่าง</value>
         <value xml:lang="vi">Viết nháp blog</value>
         <value xml:lang="zh">草稿</value>
@@ -8300,6 +8422,7 @@
         <value xml:lang="it">Pubblicatore blog</value>
         <value xml:lang="ja">公開</value>
         <value xml:lang="pt_BR">Publicado</value>
+        <value xml:lang="ru">Опубликованный</value>
         <value xml:lang="th">ผู้ประกาศ</value>
         <value xml:lang="vi">Nhà xuất bản blog</value>
         <value xml:lang="zh">已发布</value>
@@ -8312,6 +8435,7 @@
         <value xml:lang="it">Rifiutato dal blog</value>
         <value xml:lang="ja">否認</value>
         <value xml:lang="pt_BR">Rejeitado</value>
+        <value xml:lang="ru">Отходы</value>
         <value xml:lang="th">ปฏิเสธ</value>
         <value xml:lang="vi">Không duyệt blog</value>
         <value xml:lang="zh">已拒绝</value>
@@ -8324,6 +8448,7 @@
         <value xml:lang="it">Blog submitter</value>
         <value xml:lang="ja">実行</value>
         <value xml:lang="pt_BR">Enviado</value>
+        <value xml:lang="ru">Потвержденные</value>
         <value xml:lang="th">เสนอ</value>
         <value xml:lang="vi">Gửi blog</value>
         <value xml:lang="zh">已提交</value>
@@ -8438,6 +8563,7 @@
         <value xml:lang="ja">計画中</value>
         <value xml:lang="nl">Wordt gepland</value>
         <value xml:lang="pt_BR">Em Planejamento</value>
+        <value xml:lang="ru">В планах</value>
         <value xml:lang="vi">Trong kế hoạch</value>
         <value xml:lang="zh">计划中</value>
         <value xml:lang="zh_TW">計劃中</value>
@@ -8467,6 +8593,7 @@
         <value xml:lang="ja">計画済</value>
         <value xml:lang="nl">Gepland</value>
         <value xml:lang="pt_BR">Planejado</value>
+        <value xml:lang="ru">Запланированный</value>
         <value xml:lang="vi">Đã lập kế hoạch</value>
         <value xml:lang="zh">已计划</value>
         <value xml:lang="zh_TW">已計劃</value>
@@ -8526,6 +8653,7 @@
         <value xml:lang="it">In uso</value>
         <value xml:lang="ja">使用中</value>
         <value xml:lang="pt_BR">Em Uso</value>
+        <value xml:lang="ru">В использовании</value>
         <value xml:lang="vi">Đang sử dụng</value>
         <value xml:lang="zh">使用中</value>
         <value xml:lang="zh_TW">使用中</value>
@@ -8569,6 +8697,7 @@
         <value xml:lang="it">Approvato</value>
         <value xml:lang="ja">承認</value>
         <value xml:lang="pt_BR">Aprovado</value>
+        <value xml:lang="ru">Подтвержден</value>
         <value xml:lang="vi">Đã duyệt</value>
         <value xml:lang="zh">已批准</value>
         <value xml:lang="zh_TW">已批准</value>
@@ -8580,6 +8709,7 @@
         <value xml:lang="it">Approvazione in corso</value>
         <value xml:lang="ja">承認処理中</value>
         <value xml:lang="pt_BR">Aprovação em processo</value>
+        <value xml:lang="ru">Утверждение в процессе</value>
         <value xml:lang="vi">Đang trong quá trình xét duyệt</value>
         <value xml:lang="zh">审批中</value>
         <value xml:lang="zh_TW">審批中</value>
@@ -8591,6 +8721,7 @@
         <value xml:lang="it">Non pronto per l'approvazione</value>
         <value xml:lang="ja">承認準備未了</value>
         <value xml:lang="pt_BR">Não está pronto para aprovação</value>
+        <value xml:lang="ru">Не готов для потверждения</value>
         <value xml:lang="vi">Không sẵn sàng cho duyệt</value>
         <value xml:lang="zh">没有准备好审批</value>
         <value xml:lang="zh_TW">沒有准備好審批</value>
@@ -8602,6 +8733,7 @@
         <value xml:lang="it">Pronto per l'approvazione</value>
         <value xml:lang="ja">承認準備完了</value>
         <value xml:lang="pt_BR">Pronto para aprovação</value>
+        <value xml:lang="ru">Готов для потверждения</value>
         <value xml:lang="vi">Sẵn sàng cho duyệt</value>
         <value xml:lang="zh">审批准备就绪</value>
         <value xml:lang="zh_TW">審批准備就緒</value>
@@ -8613,6 +8745,7 @@
         <value xml:lang="it">Rifiutato</value>
         <value xml:lang="ja">否認</value>
         <value xml:lang="pt_BR">Rejeitado</value>
+        <value xml:lang="ru">Отклонены</value>
         <value xml:lang="vi">Từ chối</value>
         <value xml:lang="zh">已拒绝</value>
         <value xml:lang="zh_TW">已拒絕</value>
@@ -8624,6 +8757,7 @@
         <value xml:lang="it">Rifiutato leggermente</value>
         <value xml:lang="ja">差戻</value>
         <value xml:lang="pt_BR">Rejeitado para melhorias (Soft rejected)</value>
+        <value xml:lang="ru">Софт отклонен</value>
         <value xml:lang="vi">Từ chối mềm</value>
         <value xml:lang="zh">已婉拒</value>
         <value xml:lang="zh_TW">已婉拒</value>
@@ -8743,6 +8877,7 @@
         <value xml:lang="it">Chiuso</value>
         <value xml:lang="ja">完了</value>
         <value xml:lang="pt_BR">Fechado</value>
+        <value xml:lang="ru">Закрыто</value>
         <value xml:lang="vi">Đã đóng</value>
         <value xml:lang="zh">已关闭</value>
         <value xml:lang="zh_TW">已關閉</value>
@@ -8754,6 +8889,7 @@
         <value xml:lang="it">Creato</value>
         <value xml:lang="ja">作成</value>
         <value xml:lang="pt_BR">Criado em</value>
+        <value xml:lang="ru">Создано</value>
         <value xml:lang="vi">Đã tạo</value>
         <value xml:lang="zh">已创建</value>
         <value xml:lang="zh_TW">已創建</value>
@@ -8842,6 +8978,7 @@
         <value xml:lang="fr">Brouillon</value>
         <value xml:lang="ja">原稿</value>
         <value xml:lang="pt_BR">Projeto</value>
+        <value xml:lang="ru">Проект</value>
         <value xml:lang="vi">Nháp</value>
         <value xml:lang="zh">草稿</value>
         <value xml:lang="zh_TW">初稿</value>
@@ -8852,6 +8989,7 @@
         <value xml:lang="fr">En attente</value>
         <value xml:lang="ja">保留顧客</value>
         <value xml:lang="pt_BR">Pendente</value>
+        <value xml:lang="ru">Ожидание</value>
         <value xml:lang="vi">Yêu cầu từ khách hàng đang đợi xử lý</value>
         <value xml:lang="zh">等待中的客户</value>
         <value xml:lang="zh_TW">等待客戶</value>
@@ -8910,6 +9048,7 @@
         <value xml:lang="it">Disponibile</value>
         <value xml:lang="ja">有効</value>
         <value xml:lang="pt_BR">Disponível</value>
+        <value xml:lang="ru">Доступен</value>
         <value xml:lang="vi">Có sẵn</value>
         <value xml:lang="zh">有效</value>
         <value xml:lang="zh_TW">有效</value>
@@ -9016,6 +9155,7 @@
         <value xml:lang="it">Attivo/Aperto</value>
         <value xml:lang="ja">有効/オープン</value>
         <value xml:lang="pt_BR">Ativo / Aberto</value>
+        <value xml:lang="ru">Активный/Открытый</value>
         <value xml:lang="vi">Hoạt động/Mở</value>
         <value xml:lang="zh">有效/开放</value>
         <value xml:lang="zh_TW">有效/開放</value>
@@ -9027,6 +9167,7 @@
         <value xml:lang="it">Inattivo/Chiuso</value>
         <value xml:lang="ja">無効/クローズ</value>
         <value xml:lang="pt_BR">Inativo / Fechado</value>
+        <value xml:lang="ru">Неактивированный/Закрытый</value>
         <value xml:lang="vi">Không hoạt động/Đóng</value>
         <value xml:lang="zh">无效/已关闭</value>
         <value xml:lang="zh_TW">無效/已關閉</value>
@@ -9038,6 +9179,7 @@
         <value xml:lang="it">Pianificato per</value>
         <value xml:lang="ja">計画済</value>
         <value xml:lang="pt_BR">Planejado para</value>
+        <value xml:lang="ru">Запланированные на</value>
         <value xml:lang="vi">Đã lập kế hoạch cho</value>
         <value xml:lang="zh">已计划用于</value>
         <value xml:lang="zh_TW">已計劃用于</value>
@@ -9049,6 +9191,7 @@
         <value xml:lang="it">Completata</value>
         <value xml:lang="ja">完了</value>
         <value xml:lang="pt_BR">Completado</value>
+        <value xml:lang="ru">Выполнен</value>
         <value xml:lang="th">เสร็จสมบูรณ์</value>
         <value xml:lang="vi">ESR_COMPLETE</value>
         <value xml:lang="zh">完成</value>
@@ -9061,6 +9204,7 @@
         <value xml:lang="it">Errore nei dati</value>
         <value xml:lang="ja">データエラー</value>
         <value xml:lang="pt_BR">Erro de dados</value>
+        <value xml:lang="ru">Ошибка данных</value>
         <value xml:lang="th">ข้อมูลผิดพลาด</value>
         <value xml:lang="vi">ESR_DATA_ERROR</value>
         <value xml:lang="zh">数据错误</value>
@@ -9073,6 +9217,7 @@
         <value xml:lang="it">Non iniziato</value>
         <value xml:lang="ja">開始できません</value>
         <value xml:lang="pt_BR">Não iniciado</value>
+        <value xml:lang="ru">Не стартовал</value>
         <value xml:lang="th">ไม่เริ่ม</value>
         <value xml:lang="vi">ESR_NOT_STARTED</value>
         <value xml:lang="zh">未开始</value>
@@ -9085,6 +9230,7 @@
         <value xml:lang="it">Altro errore</value>
         <value xml:lang="ja">その他のエラー</value>
         <value xml:lang="pt_BR">Outro Erro</value>
+        <value xml:lang="ru">Другая ошибка</value>
         <value xml:lang="th">ผิดพลาดอื่น ๆ</value>
         <value xml:lang="vi">ESR_OTHER_ERROR</value>
         <value xml:lang="zh">其它错误</value>
@@ -9097,6 +9243,7 @@
         <value xml:lang="it">Sospeso</value>
         <value xml:lang="ja">保留中</value>
         <value xml:lang="pt_BR">Pendente</value>
+        <value xml:lang="ru">В ожидании</value>
         <value xml:lang="th">ยังค้างอยู่</value>
         <value xml:lang="vi">ESR_PENDING</value>
         <value xml:lang="zh">待定中</value>
@@ -9109,6 +9256,7 @@
         <value xml:lang="it">In esecuzione</value>
         <value xml:lang="ja">実行中</value>
         <value xml:lang="pt_BR">Em execução</value>
+        <value xml:lang="ru">Запущен</value>
         <value xml:lang="th">ดำเนินการ</value>
         <value xml:lang="vi">ESR_RUNNING</value>
         <value xml:lang="zh">运行中</value>
@@ -9121,6 +9269,7 @@
         <value xml:lang="it">Errore servizio</value>
         <value xml:lang="ja">サービスエラー</value>
         <value xml:lang="pt_BR">Erro de chamada ao serviço</value>
+        <value xml:lang="ru">Ошибка сервиса</value>
         <value xml:lang="th">บริการผิดพลาด</value>
         <value xml:lang="vi">ESR_SERVICE_ERROR</value>
         <value xml:lang="zh">服务错误</value>
@@ -9133,6 +9282,7 @@
         <value xml:lang="it">Approvato</value>
         <value xml:lang="ja">承認</value>
         <value xml:lang="pt_BR">Aprovado</value>
+        <value xml:lang="ru">Утвержден</value>
         <value xml:lang="vi">Đã duyệt</value>
         <value xml:lang="zh">已批准</value>
         <value xml:lang="zh_TW">已批准</value>
@@ -9144,6 +9294,7 @@
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="ja">取消</value>
         <value xml:lang="pt_BR">Cancelado</value>
+        <value xml:lang="ru">Отменен</value>
         <value xml:lang="vi">Đã hủy</value>
         <value xml:lang="zh">已取消</value>
         <value xml:lang="zh_TW">已取消</value>
@@ -9155,6 +9306,7 @@
         <value xml:lang="it">Completato</value>
         <value xml:lang="ja">完了</value>
         <value xml:lang="pt_BR">Completo</value>
+        <value xml:lang="ru">Выполнен</value>
         <value xml:lang="vi">Hoàn thành</value>
         <value xml:lang="zh">完成</value>
         <value xml:lang="zh_TW">完成</value>
@@ -9166,6 +9318,7 @@
         <value xml:lang="it">Definito</value>
         <value xml:lang="ja">定義済</value>
         <value xml:lang="pt_BR">Definido</value>
+        <value xml:lang="ru">Определен</value>
         <value xml:lang="vi">Đã xác định</value>
         <value xml:lang="zh">已定义</value>
         <value xml:lang="zh_TW">已定義</value>
@@ -9177,6 +9330,7 @@
         <value xml:lang="it">Implementato</value>
         <value xml:lang="ja">実装済</value>
         <value xml:lang="pt_BR">Implementado</value>
+        <value xml:lang="ru">Реализован</value>
         <value xml:lang="vi">Đã thực thi</value>
         <value xml:lang="zh">已实现</value>
         <value xml:lang="zh_TW">已實現</value>
@@ -9188,6 +9342,7 @@
         <value xml:lang="it">In progettazione</value>
         <value xml:lang="ja">設計中</value>
         <value xml:lang="pt_BR">Em projeto</value>
+        <value xml:lang="ru">В разработке</value>
         <value xml:lang="vi">Đang thiết kế</value>
         <value xml:lang="zh">设计中</value>
         <value xml:lang="zh_TW">設計中</value>
@@ -9199,6 +9354,7 @@
         <value xml:lang="it">Testato</value>
         <value xml:lang="ja">テスト済</value>
         <value xml:lang="pt_BR">Testado</value>
+        <value xml:lang="ru">Тестируется</value>
         <value xml:lang="vi">Đã kiểm thử</value>
         <value xml:lang="zh">已测试</value>
     </property>
@@ -9287,6 +9443,7 @@
         <value xml:lang="it">Assegnato</value>
         <value xml:lang="ja">割当済</value>
         <value xml:lang="pt_BR">Atribuído</value>
+        <value xml:lang="ru">Назначенный</value>
         <value xml:lang="vi">Đã giao việc</value>
         <value xml:lang="zh">已指定</value>
         <value xml:lang="zh_TW">已指定</value>
@@ -9298,6 +9455,7 @@
         <value xml:lang="it">Richiesta negata</value>
         <value xml:lang="ja">リクエスト否認</value>
         <value xml:lang="pt_BR">Pedido negado</value>
+        <value xml:lang="ru">В требовании отказано</value>
         <value xml:lang="vi">Từ chối yêu cầu</value>
         <value xml:lang="zh">请求被否决</value>
         <value xml:lang="zh_TW">請求被否決</value>
@@ -9309,6 +9467,7 @@
         <value xml:lang="it">Richiesta</value>
         <value xml:lang="ja">リクエスト</value>
         <value xml:lang="pt_BR">Solicitado</value>
+        <value xml:lang="ru">Запрошенный</value>
         <value xml:lang="vi">Đã yêu cầu</value>
         <value xml:lang="zh">已请求</value>
         <value xml:lang="zh_TW">已請求</value>
@@ -9320,6 +9479,7 @@
         <value xml:lang="it">Attivo</value>
         <value xml:lang="ja">有効</value>
         <value xml:lang="pt_BR">Ativo</value>
+        <value xml:lang="ru">Действующий</value>
         <value xml:lang="vi">Hoạt động</value>
         <value xml:lang="zh">有效</value>
         <value xml:lang="zh_TW">有效</value>
@@ -9331,6 +9491,7 @@
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="ja">取消</value>
         <value xml:lang="pt_BR">Cancelado</value>
+        <value xml:lang="ru">Отмененный</value>
         <value xml:lang="vi">Đã hủy</value>
         <value xml:lang="zh">已取消</value>
         <value xml:lang="zh_TW">已取消</value>
@@ -9342,6 +9503,7 @@
         <value xml:lang="it">Congelato manualmente</value>
         <value xml:lang="ja">凍結指示</value>
         <value xml:lang="pt_BR">Bloqueado Manualmente</value>
+        <value xml:lang="ru">Блокировать вручную</value>
         <value xml:lang="vi">Manually Frozen</value>
         <value xml:lang="zh">手工冻结</value>
         <value xml:lang="zh_TW">手工凍結</value>
@@ -9353,6 +9515,7 @@
         <value xml:lang="it">Rifornimento in attesa negativo</value>
         <value xml:lang="ja">消極的保留追加</value>
         <value xml:lang="pt_BR">Reposição pendente Negativa</value>
+        <value xml:lang="ru">Изменение расписания</value>
         <value xml:lang="vi">Negative Pending Replenishment</value>
         <value xml:lang="zh">消极等待补货</value>
         <value xml:lang="zh_TW">消極等待補貨</value>
@@ -9364,6 +9527,7 @@
         <value xml:lang="it">Completato</value>
         <value xml:lang="ja">完了</value>
         <value xml:lang="pt_BR">Concluída</value>
+        <value xml:lang="ru">Завершенный</value>
         <value xml:lang="vi">Hoàn thành</value>
         <value xml:lang="zh">已完成</value>
         <value xml:lang="zh_TW">已完成</value>
@@ -9375,6 +9539,7 @@
         <value xml:lang="it">Rinviato</value>
         <value xml:lang="ja">遅延</value>
         <value xml:lang="pt_BR">Diferido</value>
+        <value xml:lang="ru">Отложенный</value>
         <value xml:lang="vi">Bị hoãn lại</value>
         <value xml:lang="zh">已延迟</value>
         <value xml:lang="zh_TW">已延遲</value>
@@ -9386,6 +9551,7 @@
         <value xml:lang="it">Incompleto</value>
         <value xml:lang="ja">未完了</value>
         <value xml:lang="pt_BR">Incompleto</value>
+        <value xml:lang="ru">Неполный</value>
         <value xml:lang="vi">Chưa hoàn thành</value>
         <value xml:lang="zh">未完成</value>
         <value xml:lang="zh_TW">未完成</value>
@@ -9397,6 +9563,7 @@
         <value xml:lang="it">Imprenditore</value>
         <value xml:lang="ja">請負先</value>
         <value xml:lang="pt_BR">Contratante</value>
+        <value xml:lang="ru">Предприниматель</value>
         <value xml:lang="vi">Người đấu thầu</value>
         <value xml:lang="zh">合同工</value>
         <value xml:lang="zh_TW">合同工</value>
@@ -9408,6 +9575,7 @@
         <value xml:lang="it">Tempo pieno</value>
         <value xml:lang="ja">社員</value>
         <value xml:lang="pt_BR">Tempo integral</value>
+        <value xml:lang="ru">Полное время</value>
         <value xml:lang="vi">Toàn thời gian</value>
         <value xml:lang="zh">全职</value>
         <value xml:lang="zh_TW">全職</value>
@@ -9419,6 +9587,7 @@
         <value xml:lang="it">Part time</value>
         <value xml:lang="ja">パート</value>
         <value xml:lang="pt_BR">Tempo parcial</value>
+        <value xml:lang="ru">Часть времени</value>
         <value xml:lang="vi">Bán thời gian</value>
         <value xml:lang="zh">兼职</value>
         <value xml:lang="zh_TW">兼職</value>
@@ -9566,6 +9735,7 @@
         <value xml:lang="it">Attivato</value>
         <value xml:lang="ja">活動済</value>
         <value xml:lang="pt_BR">Ativado</value>
+        <value xml:lang="ru">Активированный</value>
         <value xml:lang="vi">Đã hoạt động</value>
         <value xml:lang="zh">已激活</value>
         <value xml:lang="zh_TW">已啟動</value>
@@ -9624,6 +9794,7 @@
         <value xml:lang="it">Disattivato</value>
         <value xml:lang="ja">非活動化</value>
         <value xml:lang="pt_BR">Desativado</value>
+        <value xml:lang="ru">Деактивированный</value>
         <value xml:lang="vi">Không hoạt động</value>
         <value xml:lang="zh">已失效</value>
         <value xml:lang="zh_TW">已失效</value>
@@ -9665,6 +9836,7 @@
         <value xml:lang="it">Difettoso (non-serializzato)</value>
         <value xml:lang="ja">不完全(一括配送)</value>
         <value xml:lang="pt_BR">Defeituosos (não-serializado)</value>
+        <value xml:lang="ru">Дефектные(Не сериализованные)</value>
         <value xml:lang="vi">Lỗi xử lý</value>
         <value xml:lang="zh">有缺陷(未序列化)</value>
         <value xml:lang="zh_TW">有缺陷(未序列化)</value>
@@ -9676,6 +9848,7 @@
         <value xml:lang="it">In attesa (non-serializzato)</value>
         <value xml:lang="ja">保留中(一括配送)</value>
         <value xml:lang="pt_BR">Em espera (não-serializado)</value>
+        <value xml:lang="ru">В ожидании (не сериализуемы)</value>
         <value xml:lang="vi">Đang giữ (Hold)</value>
         <value xml:lang="zh">等待(未序列化)</value>
         <value xml:lang="zh_TW">等待(未序列化)</value>
@@ -9909,6 +10082,7 @@
         <value xml:lang="it">Assegnato</value>
         <value xml:lang="ja">割当</value>
         <value xml:lang="pt_BR">Atribuído</value>
+        <value xml:lang="ru">Назначенный</value>
         <value xml:lang="vi">Đã giao việc</value>
         <value xml:lang="zh">已指派</value>
         <value xml:lang="zh_TW">已指派</value>
@@ -9920,6 +10094,7 @@
         <value xml:lang="it">Convertito</value>
         <value xml:lang="ja">転換</value>
         <value xml:lang="pt_BR">Convertidos</value>
+        <value xml:lang="ru">Конвертируемый</value>
         <value xml:lang="vi">Đã chuyển đổi</value>
         <value xml:lang="zh">已转换</value>
         <value xml:lang="zh_TW">已轉換</value>
@@ -9931,6 +10106,7 @@
         <value xml:lang="it">Qualificato</value>
         <value xml:lang="ja">認定</value>
         <value xml:lang="pt_BR">Qualificado</value>
+        <value xml:lang="ru">Квалифицированный</value>
         <value xml:lang="vi">Đủ điều kiện</value>
         <value xml:lang="zh">合格的</value>
         <value xml:lang="zh_TW">合格的</value>
@@ -9939,6 +10115,7 @@
         <value xml:lang="en">Created</value>
         <value xml:lang="fr">Créé</value>
         <value xml:lang="ja">作成</value>
+        <value xml:lang="ru">Созданный</value>
         <value xml:lang="vi">Đã tạo</value>
         <value xml:lang="zh">已新建</value>
     </property>
@@ -9946,6 +10123,7 @@
         <value xml:lang="en">Approved</value>
         <value xml:lang="fr">Validé</value>
         <value xml:lang="ja">承認</value>
+        <value xml:lang="ru">Утвержденный</value>
         <value xml:lang="vi">Đã duyệt</value>
         <value xml:lang="zh">已批准</value>
     </property>
@@ -9953,6 +10131,7 @@
         <value xml:lang="en">Rejected</value>
         <value xml:lang="fr">Rejeté</value>
         <value xml:lang="ja">否認</value>
+        <value xml:lang="ru">Отклоненный</value>
         <value xml:lang="vi">Từ chối</value>
         <value xml:lang="zh">已拒绝</value>
     </property>
@@ -10060,6 +10239,7 @@
         <value xml:lang="it">Errore conferma inviata</value>
         <value xml:lang="ja">送付確認エラー</value>
         <value xml:lang="pt_BR">Confirmação de erro enviada</value>
+        <value xml:lang="ru">Ошибка подтверждения отправки</value>
         <value xml:lang="vi">Lỗi khi xác nhận gửi</value>
         <value xml:lang="zh">发送确认时出错</value>
         <value xml:lang="zh_TW">發送確認時出錯</value>
@@ -10071,6 +10251,7 @@
         <value xml:lang="it">Errore genereato fuori</value>
         <value xml:lang="ja">出力生成 - エラー</value>
         <value xml:lang="pt_BR">Criação interna - Erro</value>
+        <value xml:lang="ru">На выходе сгенерирован - Ошибка</value>
         <value xml:lang="vi">Out Generated - gặp lỗi</value>
         <value xml:lang="zh">生成输出 - 错误</value>
         <value xml:lang="zh_TW">生成輸出 - 錯誤</value>
@@ -10082,6 +10263,7 @@
         <value xml:lang="it">Successo genereato fuori</value>
         <value xml:lang="ja">出力生成 - 成功</value>
         <value xml:lang="pt_BR">Criação interna - Sucesso</value>
+        <value xml:lang="ru">На выходе сгенерирован - Успех</value>
         <value xml:lang="vi">Out Generated - thành công</value>
         <value xml:lang="zh">生成输出 - 成功</value>
         <value xml:lang="zh_TW">生成輸出 - 成功</value>
@@ -10104,6 +10286,7 @@
         <value xml:lang="it">Successo durante l'esecuzione</value>
         <value xml:lang="ja">処理中 - 成功</value>
         <value xml:lang="pt_BR">Em processamento - Sucesso</value>
+        <value xml:lang="ru">В процессе - Успех</value>
         <value xml:lang="vi">Đang xử lý - thành công</value>
         <value xml:lang="zh">处理输入 - 成功</value>
         <value xml:lang="zh_TW">處理輸入 - 成功</value>
@@ -10115,6 +10298,7 @@
         <value xml:lang="it">Ricevuto messaggo in entrata</value>
         <value xml:lang="ja">メッセージ受取済</value>
         <value xml:lang="pt_BR">Mensagem de entrada recebida</value>
+        <value xml:lang="ru">В полученное сообщение</value>
         <value xml:lang="vi">Trong thông điệp đã được nhận</value>
         <value xml:lang="zh">接收到的输入消息</value>
         <value xml:lang="zh_TW">接收到的輸入消息</value>
@@ -10126,6 +10310,7 @@
         <value xml:lang="it">Conferma errore ricevuto</value>
         <value xml:lang="ja">エラー確認受取</value>
         <value xml:lang="pt_BR">Confirmação de erro recebida</value>
+        <value xml:lang="ru">Полученная ошибка подтверждена</value>
         <value xml:lang="vi">Xác nhận quá trình nhận hàng không thành công</value>
         <value xml:lang="zh">接收到的错误确认</value>
         <value xml:lang="zh_TW">接收到的錯誤確認</value>
@@ -10137,6 +10322,7 @@
         <value xml:lang="it">Conferma successo ricevuto</value>
         <value xml:lang="ja">成功確認受取</value>
         <value xml:lang="pt_BR">Confirmação de sucesso recebida</value>
+        <value xml:lang="ru">Получен успех потверждения</value>
         <value xml:lang="vi">Xác nhận quá trình nhận hàng thành công</value>
         <value xml:lang="zh">接收到的成功确认</value>
         <value xml:lang="zh_TW">接收到的成功確認</value>
@@ -10148,6 +10334,7 @@
         <value xml:lang="it">Errore invio messaggio all'esterno</value>
         <value xml:lang="ja">メッセージ送付エラー</value>
         <value xml:lang="pt_BR">Erro no envio de mensagem externa</value>
+        <value xml:lang="ru">На выходе сообщение отправило ошибку</value>
         <value xml:lang="vi">Thông điệp gửi đi gặp lỗi</value>
         <value xml:lang="zh">输出消息发送错误</value>
         <value xml:lang="zh_TW">輸出消息發送錯誤</value>
@@ -10159,6 +10346,7 @@
         <value xml:lang="it">Messaggio inviato all'esterno</value>
         <value xml:lang="ja">メッセージ送付済</value>
         <value xml:lang="pt_BR">Mensagem externa enviada</value>
+        <value xml:lang="ru">На выходе сообщение отправлено</value>
         <value xml:lang="vi">Thông điệp đã được gửi đi</value>
         <value xml:lang="zh">输出消息已发送</value>
         <value xml:lang="zh_TW">輸出消息已發送</value>
@@ -10170,6 +10358,7 @@
         <value xml:lang="it">Errore di sistema</value>
         <value xml:lang="ja">システムエラー</value>
         <value xml:lang="pt_BR">Erro de sistema</value>
+        <value xml:lang="ru">Системная ошибка</value>
         <value xml:lang="vi">Lỗi hệ thống</value>
         <value xml:lang="zh">系统错误</value>
         <value xml:lang="zh_TW">系統錯誤</value>
@@ -10181,6 +10370,7 @@
         <value xml:lang="it">Intercettato messaggio dall'esterno</value>
         <value xml:lang="ja">メッセージ送付処理済</value>
         <value xml:lang="pt_BR">Mensagem exteran disparada</value>
+        <value xml:lang="ru">Из сообщения вызвали</value>
         <value xml:lang="vi">Quá trình gửi thông điệp đã được kích hoạt</value>
         <value xml:lang="zh">输出消息被触发</value>
         <value xml:lang="zh_TW">輸出消息被觸發</value>
@@ -10404,6 +10594,7 @@
         <value xml:lang="it">Invito accettato</value>
         <value xml:lang="ja">招待状受付</value>
         <value xml:lang="pt_BR">Convite aceito</value>
+        <value xml:lang="ru">Приглашение принято</value>
         <value xml:lang="vi">Chấp nhận lời mời</value>
         <value xml:lang="zh">已接受邀请</value>
         <value xml:lang="zh_TW">接受邀請</value>
@@ -10415,6 +10606,7 @@
         <value xml:lang="it">Invito cancellato</value>
         <value xml:lang="ja">招待状取消</value>
         <value xml:lang="pt_BR">Convite Cancelado</value>
+        <value xml:lang="ru">Приглашение отклонено</value>
         <value xml:lang="vi">Hủy bỏ lời mời</value>
         <value xml:lang="zh">已取消邀请</value>
         <value xml:lang="zh_TW">取消邀請</value>
@@ -10426,6 +10618,7 @@
         <value xml:lang="it">Invito declinato</value>
         <value xml:lang="ja">招待状謝絶</value>
         <value xml:lang="pt_BR">Convite recusado</value>
+        <value xml:lang="ru">В приглашении отказано</value>
         <value xml:lang="vi">Từ chối lời mời</value>
         <value xml:lang="zh">已拒绝邀请</value>
         <value xml:lang="zh_TW">拒絕邀請</value>
@@ -10437,6 +10630,7 @@
         <value xml:lang="it">Invito in attesa</value>
         <value xml:lang="ja">招待状保留</value>
         <value xml:lang="pt_BR">Convite pendente</value>
+        <value xml:lang="ru">Приглашание в процессе</value>
         <value xml:lang="vi">Lời mời đang chờ</value>
         <value xml:lang="zh">邀请等待中</value>
         <value xml:lang="zh_TW">邀請等待中</value>
@@ -10448,6 +10642,7 @@
         <value xml:lang="it">Invito inviato</value>
         <value xml:lang="ja">招待状送付済</value>
         <value xml:lang="pt_BR">Convite enviado</value>
+        <value xml:lang="ru">Приглашение отправлено</value>
         <value xml:lang="vi">Lời mời đã gửi</value>
         <value xml:lang="zh">已发送邀请</value>
         <value xml:lang="zh_TW">發送邀請</value>
@@ -10459,6 +10654,7 @@
         <value xml:lang="it">Disabilitato</value>
         <value xml:lang="ja">無効</value>
         <value xml:lang="pt_BR">Desativado</value>
+        <value xml:lang="ru">Недоступно</value>
         <value xml:lang="vi">Không hoạt động</value>
         <value xml:lang="zh">已禁用</value>
         <value xml:lang="zh_TW">停用</value>
@@ -10470,6 +10666,7 @@
         <value xml:lang="it">Abilitato</value>
         <value xml:lang="ja">有効</value>
         <value xml:lang="pt_BR">Habilitado</value>
+        <value xml:lang="ru">Доступно</value>
         <value xml:lang="vi">Đang hoạt động</value>
         <value xml:lang="zh">已启用</value>
         <value xml:lang="zh_TW">啟用</value>
@@ -10482,6 +10679,7 @@
         <value xml:lang="it">Assegnato</value>
         <value xml:lang="ja">割当済</value>
         <value xml:lang="pt_BR">Atribuído</value>
+        <value xml:lang="ru">Назначенный</value>
         <value xml:lang="vi">Đã giao việc</value>
         <value xml:lang="zh">已分配</value>
         <value xml:lang="zh_TW">指派</value>
@@ -10494,6 +10692,7 @@
         <value xml:lang="it">Completato</value>
         <value xml:lang="ja">完了</value>
         <value xml:lang="pt_BR">Concluído</value>
+        <value xml:lang="ru">Выполненный</value>
         <value xml:lang="vi">Hoàn thành</value>
         <value xml:lang="zh">已完成</value>
         <value xml:lang="zh_TW">完成</value>
@@ -10604,6 +10803,7 @@
         <value xml:lang="ja">返金済</value>
         <value xml:lang="nl">Terug betaald</value>
         <value xml:lang="pt_BR">Reembolsado</value>
+        <value xml:lang="ru">Возмещенный</value>
         <value xml:lang="vi">Đã hoàn phí</value>
         <value xml:lang="zh">已退款</value>
         <value xml:lang="zh_TW">已退款</value>
@@ -10632,6 +10832,7 @@
         <value xml:lang="it">Cancellata</value>
         <value xml:lang="ja">取消</value>
         <value xml:lang="pt_BR">Cancelado</value>
+        <value xml:lang="ru">Отмененный</value>
         <value xml:lang="vi">Đã hủy</value>
         <value xml:lang="zh">已取消</value>
         <value xml:lang="zh_TW">取消</value>
@@ -10643,6 +10844,7 @@
         <value xml:lang="it">Completata</value>
         <value xml:lang="ja">完了</value>
         <value xml:lang="pt_BR">Concluído</value>
+        <value xml:lang="ru">Выполненный</value>
         <value xml:lang="vi">Hoàn thành</value>
         <value xml:lang="zh">已完成</value>
         <value xml:lang="zh_TW">完成</value>
@@ -10654,6 +10856,7 @@
         <value xml:lang="it">In attesa</value>
         <value xml:lang="ja">保留</value>
         <value xml:lang="pt_BR">Pendente</value>
+        <value xml:lang="ru">В процессе</value>
         <value xml:lang="vi">Đang đợi</value>
         <value xml:lang="zh">等待中</value>
         <value xml:lang="zh_TW">等待中</value>
@@ -10728,6 +10931,7 @@
         <value xml:lang="it">Stampata</value>
         <value xml:lang="ja">印刷済</value>
         <value xml:lang="pt_BR">Impresso</value>
+        <value xml:lang="ru">Напечатанный</value>
         <value xml:lang="vi">Đã in</value>
         <value xml:lang="zh">已打印</value>
         <value xml:lang="zh_TW">已列印</value>
@@ -10819,6 +11023,7 @@
         <value xml:lang="it">Attiva</value>
         <value xml:lang="ja">有効</value>
         <value xml:lang="pt_BR">Ativo</value>
+        <value xml:lang="ru">Активный</value>
         <value xml:lang="th">ปฏิบัติการ</value>
         <value xml:lang="vi">POSTX_ACTIVE</value>
         <value xml:lang="zh">有效</value>
@@ -10831,6 +11036,7 @@
         <value xml:lang="it">Chiusa</value>
         <value xml:lang="ja">完了</value>
         <value xml:lang="pt_BR">Fechado</value>
+        <value xml:lang="ru">Закрытый</value>
         <value xml:lang="th">ปิด</value>
         <value xml:lang="vi">POSTX_CLOSED</value>
         <value xml:lang="zh">已关闭</value>
@@ -10843,6 +11049,7 @@
         <value xml:lang="it">Pagamento in entrata</value>
         <value xml:lang="ja">入金</value>
         <value xml:lang="pt_BR">Entrada de pagamento</value>
+        <value xml:lang="ru">Оплата получена</value>
         <value xml:lang="vi">Thanh toán VÀO</value>
         <value xml:lang="zh">借入款</value>
         <value xml:lang="zh_TW">借入款</value>
@@ -10854,6 +11061,7 @@
         <value xml:lang="it">Pagamento in uscita</value>
         <value xml:lang="ja">支払</value>
         <value xml:lang="pt_BR">Pagamento de saída</value>
+        <value xml:lang="ru">Оплата отправлена</value>
         <value xml:lang="vi">Thanh toán RA</value>
         <value xml:lang="zh">借出款</value>
         <value xml:lang="zh_TW">借出款</value>
@@ -10865,6 +11073,7 @@
         <value xml:lang="it">Resa</value>
         <value xml:lang="ja">返金</value>
         <value xml:lang="pt_BR">Devolvido</value>
+        <value xml:lang="ru">Возвращена</value>
         <value xml:lang="th">การคืนค่า</value>
         <value xml:lang="vi">POSTX_RETURNED</value>
         <value xml:lang="zh">退款</value>
@@ -10877,6 +11086,7 @@
         <value xml:lang="it">Venduta</value>
         <value xml:lang="ja">販売済</value>
         <value xml:lang="pt_BR">Vendido</value>
+        <value xml:lang="ru">Продан</value>
         <value xml:lang="th">ขาย</value>
         <value xml:lang="vi">POSTX_SOLD</value>
         <value xml:lang="zh">已售</value>
@@ -10889,6 +11099,7 @@
         <value xml:lang="it">Annullata</value>
         <value xml:lang="ja">無効</value>
         <value xml:lang="pt_BR">Anulado</value>
+        <value xml:lang="ru">Аннулирована</value>
         <value xml:lang="th">โมฆะ</value>
         <value xml:lang="vi">POSTX_VOIDED</value>
         <value xml:lang="zh">无效的</value>
@@ -10901,6 +11112,7 @@
         <value xml:lang="it">Non verificato</value>
         <value xml:lang="ja">未検証</value>
         <value xml:lang="pt_BR">Não verificado</value>
+        <value xml:lang="ru">Не верифицированна</value>
         <value xml:lang="vi">Chưa xác nhận</value>
         <value xml:lang="zh">未验证</value>
         <value xml:lang="zh_TW">未驗証</value>
@@ -10912,6 +11124,7 @@
         <value xml:lang="it">Verificato</value>
         <value xml:lang="ja">検証済</value>
         <value xml:lang="pt_BR">Verificado</value>
+        <value xml:lang="ru">Верифицирован</value>
         <value xml:lang="vi">Đã xác nhận</value>
         <value xml:lang="zh">已验证</value>
         <value xml:lang="zh_TW">已驗証</value>
@@ -10923,6 +11136,7 @@
         <value xml:lang="it">Attivo</value>
         <value xml:lang="ja">有効</value>
         <value xml:lang="pt_BR">Ativo</value>
+        <value xml:lang="ru">Активный</value>
         <value xml:lang="vi">Hoạt động</value>
         <value xml:lang="zh">有效</value>
         <value xml:lang="zh_TW">有效</value>
@@ -10934,6 +11148,7 @@
         <value xml:lang="it">Chiuso</value>
         <value xml:lang="ja">終了</value>
         <value xml:lang="pt_BR">Fechado</value>
+        <value xml:lang="ru">Отменен</value>
         <value xml:lang="vi">Đã đóng</value>
         <value xml:lang="zh">已关闭</value>
         <value xml:lang="zh_TW">已關閉</value>
@@ -10945,6 +11160,7 @@
         <value xml:lang="it">Approvato</value>
         <value xml:lang="ja">承認</value>
         <value xml:lang="pt_BR">Aprovado</value>
+        <value xml:lang="ru">Утвержденный</value>
         <value xml:lang="vi">Đã duyệt</value>
         <value xml:lang="zh">已批准</value>
         <value xml:lang="zh_TW">已批准</value>
@@ -10956,6 +11172,7 @@
         <value xml:lang="it">Cancellata</value>
         <value xml:lang="ja">削除</value>
         <value xml:lang="pt_BR">Excluído</value>
+        <value xml:lang="ru">Удален</value>
         <value xml:lang="th">ลบ</value>
         <value xml:lang="vi">Đã xóa</value>
         <value xml:lang="zh">已删除</value>
@@ -10968,6 +11185,7 @@
         <value xml:lang="it">Sospesa</value>
         <value xml:lang="ja">保留</value>
         <value xml:lang="pt_BR">Pendente</value>
+        <value xml:lang="ru">В процессе</value>
         <value xml:lang="th">ยังค้างอยู่</value>
         <value xml:lang="vi">Đang đợi</value>
         <value xml:lang="zh">等待中</value>
@@ -11124,6 +11342,7 @@
         <value xml:lang="it">Schedulato</value>
         <value xml:lang="ja">スケジュール済</value>
         <value xml:lang="pt_BR">Agendado</value>
+        <value xml:lang="ru">Плановый</value>
         <value xml:lang="vi">Đã đặt lịch</value>
         <value xml:lang="zh">已计划</value>
         <value xml:lang="zh_TW">已計劃</value>
@@ -11136,6 +11355,7 @@
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="ja">取消</value>
         <value xml:lang="pt_BR">Cancelado</value>
+        <value xml:lang="ru">Отменен</value>
         <value xml:lang="vi">Đã hủy</value>
         <value xml:lang="zh">已取消</value>
         <value xml:lang="zh_TW">已取消</value>
@@ -11148,6 +11368,7 @@
         <value xml:lang="it">Completato</value>
         <value xml:lang="ja">完了</value>
         <value xml:lang="pt_BR">Concluído</value>
+        <value xml:lang="ru">Выполнен</value>
         <value xml:lang="vi">Hoàn thành</value>
         <value xml:lang="zh">已完成</value>
         <value xml:lang="zh_TW">已完成</value>
@@ -11160,6 +11381,7 @@
         <value xml:lang="it">Creato</value>
         <value xml:lang="ja">作成</value>
         <value xml:lang="pt_BR">Criado</value>
+        <value xml:lang="ru">Создан</value>
         <value xml:lang="vi">Đã tạo</value>
         <value xml:lang="zh">已创建</value>
         <value xml:lang="zh_TW">已創建</value>
@@ -11172,6 +11394,7 @@
         <value xml:lang="it">Assegnato</value>
         <value xml:lang="ja">割当済</value>
         <value xml:lang="pt_BR">Atribuído</value>
+        <value xml:lang="ru">Назначен</value>
         <value xml:lang="vi">Đã giao việc</value>
         <value xml:lang="zh">已分配</value>
         <value xml:lang="zh_TW">已分配</value>
@@ -11184,6 +11407,7 @@
         <value xml:lang="it">In corso</value>
         <value xml:lang="ja">処理中</value>
         <value xml:lang="pt_BR">Em Andamento</value>
+        <value xml:lang="ru">В процессе</value>
         <value xml:lang="vi">Đang xử lý</value>
         <value xml:lang="zh">处理中</value>
         <value xml:lang="zh_TW">處理中</value>
@@ -11196,6 +11420,7 @@
         <value xml:lang="it">Non assegnato</value>
         <value xml:lang="ja">未割当</value>
         <value xml:lang="pt_BR">Não atribuído</value>
+        <value xml:lang="ru">Неназначен</value>
         <value xml:lang="vi">Chưa giao việc</value>
         <value xml:lang="zh">未分配</value>
         <value xml:lang="zh_TW">未分配</value>
@@ -11208,6 +11433,7 @@
         <value xml:lang="it">In attesa</value>
         <value xml:lang="ja">保留中</value>
         <value xml:lang="pt_BR">Em Espera</value>
+        <value xml:lang="ru">На удержании</value>
         <value xml:lang="vi">Đang giữ (Hold)</value>
         <value xml:lang="zh">暂停中</value>
         <value xml:lang="zh_TW">暫停中</value>
@@ -11449,6 +11675,7 @@
         <value xml:lang="it">Reso manual richiesto</value>
         <value xml:lang="ja">要返金手続</value>
         <value xml:lang="pt_BR">Restituição manual necessária</value>
+        <value xml:lang="ru">Ручной запрос возврата</value>
         <value xml:lang="vi">Yêu cầu tự thực hiện hoàn phí</value>
         <value xml:lang="zh">需要手工退款</value>
         <value xml:lang="zh_TW">需要手工退款</value>
@@ -11491,6 +11718,7 @@
         <value xml:lang="it">Attiva</value>
         <value xml:lang="ja">有効</value>
         <value xml:lang="pt_BR">Rota ativa</value>
+        <value xml:lang="ru">Активный</value>
         <value xml:lang="th">ปฏิบัติการ</value>
         <value xml:lang="vi">ROU_ACTIVE</value>
         <value xml:lang="zh">有效</value>
@@ -11503,6 +11731,7 @@
         <value xml:lang="it">Prodotto</value>
         <value xml:lang="ja">製品テンプレート</value>
         <value xml:lang="pt_BR">ROU_PROD_TEMPLATE</value>
+        <value xml:lang="ru">Шаблон продукта</value>
         <value xml:lang="th">เทมเพลต</value>
         <value xml:lang="vi">ROU_PROD_TEMPLATE</value>
         <value xml:lang="zh">产品模板</value>
@@ -11516,6 +11745,7 @@
         <value xml:lang="it">Annullato</value>
         <value xml:lang="ja">取消</value>
         <value xml:lang="pt_BR">Cancelado</value>
+        <value xml:lang="ru">Отменен</value>
         <value xml:lang="th">ยกเลิก</value>
         <value xml:lang="vi">Đã hủy</value>
         <value xml:lang="zh">已取消</value>
@@ -11528,6 +11758,7 @@
         <value xml:lang="it">Bloccato</value>
         <value xml:lang="ja">クラッシュ</value>
         <value xml:lang="pt_BR">Quebrado</value>
+        <value xml:lang="ru">Разбившийся</value>
         <value xml:lang="th">เงินสด</value>
         <value xml:lang="vi">Hỏng</value>
         <value xml:lang="zh">已损坏</value>
@@ -11540,6 +11771,7 @@
         <value xml:lang="it">Fallito</value>
         <value xml:lang="ja">失敗</value>
         <value xml:lang="pt_BR">Falhou</value>
+        <value xml:lang="ru">Неудачый</value>
         <value xml:lang="th">ผิดพลาด</value>
         <value xml:lang="vi">Không thành công</value>
         <value xml:lang="zh">已失败</value>
@@ -11552,6 +11784,7 @@
         <value xml:lang="it">Finito</value>
         <value xml:lang="ja">完了</value>
         <value xml:lang="pt_BR">Concluído</value>
+        <value xml:lang="ru">Законченный</value>
         <value xml:lang="th">เสร็จสิ้น</value>
         <value xml:lang="vi">Đã kết thúc</value>
         <value xml:lang="zh">已完成</value>
@@ -11564,6 +11797,7 @@
         <value xml:lang="it">In attesa</value>
         <value xml:lang="ja">保留</value>
         <value xml:lang="pt_BR">Pendente</value>
+        <value xml:lang="ru">В процессе</value>
         <value xml:lang="th">ยังค้างอยู่</value>
         <value xml:lang="vi">Đang đợi</value>
         <value xml:lang="zh">等待中</value>
@@ -11576,6 +11810,7 @@
         <value xml:lang="it">In coda</value>
         <value xml:lang="ja">実行待ち</value>
         <value xml:lang="pt_BR">Enfileirado</value>
+        <value xml:lang="ru">Очереди</value>
         <value xml:lang="vi">Đang trong hàng đợi</value>
         <value xml:lang="zh">正在运行</value>
         <value xml:lang="zh_TW">正在運行</value>
@@ -11587,6 +11822,7 @@
         <value xml:lang="it">In esecuzione</value>
         <value xml:lang="ja">実行中</value>
         <value xml:lang="pt_BR">Em execução</value>
+        <value xml:lang="ru">Работающий</value>
         <value xml:lang="vi">Đang chạy</value>
         <value xml:lang="zh">已进入队列</value>
         <value xml:lang="zh_TW">已進入佇列</value>
@@ -11705,6 +11941,7 @@
         <value xml:lang="it">Accettato</value>
         <value xml:lang="ja">受付</value>
         <value xml:lang="pt_BR">Aceito</value>
+        <value xml:lang="ru">Принят</value>
         <value xml:lang="th">ยอมรับ</value>
         <value xml:lang="vi">SHRSCS_ACCEPTED</value>
         <value xml:lang="zh">已接受</value>
@@ -11717,6 +11954,7 @@
         <value xml:lang="it">Confermato</value>
         <value xml:lang="ja">確認済</value>
         <value xml:lang="pt_BR">Confirmado</value>
+        <value xml:lang="ru">Подтвержденный</value>
         <value xml:lang="th">ยืนยัน</value>
         <value xml:lang="vi">SHRSCS_CONFIRMED</value>
         <value xml:lang="zh">已确认</value>
@@ -11729,6 +11967,7 @@
         <value xml:lang="it">Non iniziato</value>
         <value xml:lang="ja">未開始</value>
         <value xml:lang="pt_BR">Não iniciado</value>
+        <value xml:lang="ru">Не начат</value>
         <value xml:lang="th">ไม่เริ่ม</value>
         <value xml:lang="vi">SHRSCS_NOT_STARTED</value>
         <value xml:lang="zh">没有开始</value>
@@ -11741,6 +11980,7 @@
         <value xml:lang="it">Annullato</value>
         <value xml:lang="ja">無効</value>
         <value xml:lang="pt_BR">Anulado</value>
+        <value xml:lang="ru">Аннулирован</value>
         <value xml:lang="th">โมฆะ</value>
         <value xml:lang="vi">SHRSCS_VOIDED</value>
         <value xml:lang="zh">无效</value>
@@ -11753,6 +11993,7 @@
         <value xml:lang="it">Accettato</value>
         <value xml:lang="ja">受付</value>
         <value xml:lang="pt_BR">Aceito</value>
+        <value xml:lang="ru">Полученная ошибка подтверждена</value>
         <value xml:lang="vi">Đã đồng ý</value>
         <value xml:lang="zh">已接受</value>
         <value xml:lang="zh_TW">已接受</value>
@@ -11764,6 +12005,7 @@
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="ja">取消</value>
         <value xml:lang="pt_BR">Cancelado</value>
+        <value xml:lang="ru">Отменен</value>
         <value xml:lang="vi">Đã hủy</value>
         <value xml:lang="zh">已取消</value>
         <value xml:lang="zh_TW">已取消</value>
@@ -11775,6 +12017,7 @@
         <value xml:lang="it">Completato</value>
         <value xml:lang="ja">要返金手続</value>
         <value xml:lang="pt_BR">Concluído</value>
+        <value xml:lang="ru">Выполнен</value>
         <value xml:lang="vi">Hoàn thành</value>
         <value xml:lang="zh">已完成</value>
         <value xml:lang="zh_TW">已完成</value>
@@ -11786,6 +12029,7 @@
         <value xml:lang="it">Richiesto</value>
         <value xml:lang="ja">リクエスト</value>
         <value xml:lang="pt_BR">Solicitado</value>
+        <value xml:lang="ru">Запрошенный</value>
         <value xml:lang="vi">Đã yêu cầu</value>
         <value xml:lang="zh">已请求</value>
         <value xml:lang="zh_TW">已請求</value>
@@ -11797,6 +12041,7 @@
         <value xml:lang="it">Spedito</value>
         <value xml:lang="ja">発送済</value>
         <value xml:lang="pt_BR">Comercializado</value>
+        <value xml:lang="ru">Погруженный</value>
         <value xml:lang="vi">Đã chuyển hàng</value>
         <value xml:lang="zh">已装运</value>
         <value xml:lang="zh_TW">已裝運</value>
@@ -11825,6 +12070,7 @@
         <value xml:lang="ja">承認</value>
         <value xml:lang="nl">Goedgekeurd</value>
         <value xml:lang="pt_BR">Aprovado</value>
+        <value xml:lang="ru">Утвержденный</value>
         <value xml:lang="vi">Đã duyệt</value>
         <value xml:lang="zh">已批准</value>
         <value xml:lang="zh_TW">已批准</value>
@@ -11836,6 +12082,7 @@
         <value xml:lang="it">Completato</value>
         <value xml:lang="ja">完了</value>
         <value xml:lang="pt_BR">Concluído</value>
+        <value xml:lang="ru">Выполнен</value>
         <value xml:lang="vi">Hoàn thành</value>
         <value xml:lang="zh">已完成</value>
         <value xml:lang="zh_TW">已完成</value>
@@ -11848,6 +12095,7 @@
         <value xml:lang="ja">処理中</value>
         <value xml:lang="nl">Onder handen</value>
         <value xml:lang="pt_BR">Em processo</value>
+        <value xml:lang="ru">В процессе</value>
         <value xml:lang="vi">Đang xử lý</value>
         <value xml:lang="zh">处理中</value>
         <value xml:lang="zh_TW">處理中</value>
@@ -11855,6 +12103,7 @@
     <property key="StatusItem.description.TRAINING_APPLIED">
         <value xml:lang="en">Applied</value>
         <value xml:lang="fr">Postulée</value>
+        <value xml:lang="ru">Приложенный</value>
         <value xml:lang="zh">已申请</value>
     </property>
     <property key="StatusItem.description.TRAINING_APPROVED">
@@ -11865,6 +12114,7 @@
         <value xml:lang="ja">承認</value>
         <value xml:lang="nl">Goedgekeurd</value>
         <value xml:lang="pt_BR">Aprovado</value>
+        <value xml:lang="ru">Утвержденный</value>
         <value xml:lang="vi">Đã duyệt</value>
         <value xml:lang="zh">已批准</value>
     </property>
@@ -11872,6 +12122,7 @@
         <value xml:lang="en">Assigned</value>
         <value xml:lang="fr">Affecté</value>
         <value xml:lang="ja">割当</value>
+        <value xml:lang="ru">Назначенный</value>
         <value xml:lang="vi">Đã giao việc</value>
         <value xml:lang="zh">已指派</value>
     </property>
@@ -11909,6 +12160,7 @@
         <value xml:lang="it">Disponibile</value>
         <value xml:lang="ja">有効</value>
         <value xml:lang="pt_BR">Disponível</value>
+        <value xml:lang="ru">Доступный</value>
         <value xml:lang="vi">Có sẵn</value>
         <value xml:lang="zh">有效</value>
         <value xml:lang="zh_TW">有效</value>
@@ -11920,6 +12172,7 @@
         <value xml:lang="it">In uso</value>
         <value xml:lang="ja">使用中</value>
         <value xml:lang="pt_BR">Em Uso</value>
+        <value xml:lang="ru">В использовании</value>
         <value xml:lang="vi">Đang sử dụng</value>
         <value xml:lang="zh">使用中</value>
         <value xml:lang="zh_TW">使用中</value>
@@ -11931,6 +12184,7 @@
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="ja">取消</value>
         <value xml:lang="pt_BR">Cancelado</value>
+        <value xml:lang="ru">Отменен</value>
         <value xml:lang="vi">Đã hủy</value>
         <value xml:lang="zh">已取消</value>
         <value xml:lang="zh_TW">已取消</value>
@@ -11941,6 +12195,7 @@
         <value xml:lang="it">Completato</value>
         <value xml:lang="ja">完了</value>
         <value xml:lang="pt_BR">Concluído</value>
+        <value xml:lang="ru">Выполнен</value>
         <value xml:lang="vi">Hoàn thành</value>
         <value xml:lang="zh">已完成</value>
         <value xml:lang="zh_TW">已完成</value>
@@ -11952,6 +12207,7 @@
         <value xml:lang="it">Creato</value>
         <value xml:lang="ja">作成</value>
         <value xml:lang="pt_BR">Criado</value>
+        <value xml:lang="ru">Создан</value>
         <value xml:lang="vi">Đã tạo</value>
         <value xml:lang="zh">已创建</value>
         <value xml:lang="zh_TW">已建立</value>
@@ -11963,6 +12219,7 @@
         <value xml:lang="it">Disponibile</value>
         <value xml:lang="ja">有効</value>
         <value xml:lang="pt_BR">Disponível</value>
+        <value xml:lang="ru">Доступный</value>
         <value xml:lang="vi">Có sẵn</value>
         <value xml:lang="zh">有效</value>
         <value xml:lang="zh_TW">有效</value>
@@ -11974,6 +12231,7 @@
         <value xml:lang="it">Lontano</value>
         <value xml:lang="ja">遠隔地</value>
         <value xml:lang="pt_BR">Distante</value>
+        <value xml:lang="ru">Прочь</value>
         <value xml:lang="vi">Đi ra ngoài</value>
         <value xml:lang="zh">离开</value>
         <value xml:lang="zh_TW">離開</value>
@@ -11985,6 +12243,7 @@
         <value xml:lang="it">Occupato</value>
         <value xml:lang="ja">ビジー</value>
         <value xml:lang="pt_BR">Ocupado</value>
+        <value xml:lang="ru">Занят</value>
         <value xml:lang="vi">Bận</value>
         <value xml:lang="zh">忙</value>
         <value xml:lang="zh_TW">忙祿</value>
@@ -11996,6 +12255,7 @@
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="ja">取消</value>
         <value xml:lang="pt_BR">Cancelado</value>
+        <value xml:lang="ru">Отменен</value>
         <value xml:lang="vi">Đã hủy</value>
         <value xml:lang="zh">已取消</value>
         <value xml:lang="zh_TW">已取消</value>
@@ -12007,6 +12267,7 @@
         <value xml:lang="it">Completo</value>
         <value xml:lang="ja">完了</value>
         <value xml:lang="pt_BR">Completado</value>
+        <value xml:lang="ru">Выполнен</value>
         <value xml:lang="vi">Hoàn thành</value>
         <value xml:lang="zh">完成</value>
         <value xml:lang="zh_TW">完成</value>
@@ -12018,6 +12279,7 @@
         <value xml:lang="it">In corso</value>
         <value xml:lang="ja">処理中</value>
         <value xml:lang="pt_BR">Em Andamento</value>
+        <value xml:lang="ru">В процессе</value>
         <value xml:lang="vi">Đang xử lý</value>
         <value xml:lang="zh">进行中</value>
         <value xml:lang="zh_TW">進行中</value>
@@ -12029,6 +12291,7 @@
         <value xml:lang="it">In attesa</value>
         <value xml:lang="ja">保留中</value>
         <value xml:lang="pt_BR">Em Espera</value>
+        <value xml:lang="ru">На удержание</value>
         <value xml:lang="vi">Đang giữ (Hold)</value>
         <value xml:lang="zh">保留</value>
         <value xml:lang="zh_TW">保留</value>
@@ -12040,6 +12303,7 @@
         <value xml:lang="it">Pianificato</value>
         <value xml:lang="ja">計画中</value>
         <value xml:lang="pt_BR">Planejamento</value>
+        <value xml:lang="ru">Планирование</value>
         <value xml:lang="vi">Đang lập kế hoạch</value>
         <value xml:lang="zh">正在计划</value>
         <value xml:lang="zh_TW">計畫中</value>
@@ -12051,6 +12315,7 @@
         <value xml:lang="it">Approvato</value>
         <value xml:lang="ja">承認</value>
         <value xml:lang="pt_BR">Aprovado</value>
+        <value xml:lang="ru">Утвержденный</value>
         <value xml:lang="vi">Đã duyệt</value>
         <value xml:lang="zh">已批准</value>
         <value xml:lang="zh_TW">已批准</value>
@@ -12062,6 +12327,7 @@
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="ja">削除済</value>
         <value xml:lang="pt_BR">Excluído</value>
+        <value xml:lang="ru">Удален</value>
         <value xml:lang="vi">Đã xóa</value>
         <value xml:lang="zh">已删除</value>
         <value xml:lang="zh_TW">已删除</value>
@@ -12073,6 +12339,7 @@
         <value xml:lang="it">In attesa</value>
         <value xml:lang="ja">保留</value>
         <value xml:lang="pt_BR">Pendente</value>
+        <value xml:lang="ru">В процессе</value>
         <value xml:lang="vi">Đang đợi</value>
         <value xml:lang="zh">等待</value>
         <value xml:lang="zh_TW">等待中</value>
@@ -12176,6 +12443,7 @@
         <value xml:lang="it">Entrata terminata</value>
         <value xml:lang="ja">完了収入</value>
         <value xml:lang="pt_BR">Entrada terminada</value>
+        <value xml:lang="ru">Входящий сделан</value>
         <value xml:lang="th">WIP_INCOMING_DONE</value>
         <value xml:lang="vi">WIP_INCOMING_DONE</value>
         <value xml:lang="zh">完成收入</value>
@@ -12188,6 +12456,7 @@
         <value xml:lang="it">Entrata in completamento</value>
         <value xml:lang="ja">実現収入</value>
         <value xml:lang="pt_BR">Completando entrada</value>
+        <value xml:lang="ru">Входящий выполнен</value>
         <value xml:lang="th">WIP_INCOMING_FULFIL</value>
         <value xml:lang="vi">WIP_INCOMING_FULFIL</value>
         <value xml:lang="zh">实现收入</value>
@@ -12200,6 +12469,7 @@
         <value xml:lang="it">Entrata pianificata</value>
         <value xml:lang="ja">計画収入</value>
         <value xml:lang="pt_BR">Entrada planejada</value>
+        <value xml:lang="ru">Входящий план</value>
         <value xml:lang="th">WIP_INCOMING_PLAN</value>
         <value xml:lang="vi">WIP_INCOMING_PLAN</value>
         <value xml:lang="zh">计划收入</value>
@@ -12212,6 +12482,7 @@
         <value xml:lang="it">Entrata riservata</value>
         <value xml:lang="ja">残余収入</value>
         <value xml:lang="pt_BR">Entrada reservada</value>
+        <value xml:lang="ru">Входящий результат</value>
         <value xml:lang="th">WIP_INCOMING_RES</value>
         <value xml:lang="vi">WIP_INCOMING_RES</value>
         <value xml:lang="zh">预留收入</value>
@@ -12224,6 +12495,7 @@
         <value xml:lang="it">Uscita terminata</value>
         <value xml:lang="ja">完了支出</value>
         <value xml:lang="pt_BR">Saída terminada</value>
+        <value xml:lang="ru">Исходящий сделан</value>
         <value xml:lang="th">WIP_OUTGOING_DONE</value>
         <value xml:lang="vi">WIP_OUTGOING_DONE</value>
         <value xml:lang="zh">完成支出</value>
@@ -12236,6 +12508,7 @@
         <value xml:lang="it">Uscita in completamento</value>
         <value xml:lang="ja">実現支出</value>
         <value xml:lang="pt_BR">Saída em processamento</value>
+        <value xml:lang="ru">Исходящий выполнен</value>
         <value xml:lang="th">WIP_OUTGOING_FULFIL</value>
         <value xml:lang="vi">WIP_OUTGOING_FULFIL</value>
         <value xml:lang="zh">实现支出</value>
@@ -12248,6 +12521,7 @@
         <value xml:lang="it">Uscita pianificata</value>
         <value xml:lang="ja">計画支出</value>
         <value xml:lang="pt_BR">Saída planejada</value>
+        <value xml:lang="ru">Исходящий план</value>
         <value xml:lang="th">WIP_OUTGOING_PLAN</value>
         <value xml:lang="vi">WIP_OUTGOING_PLAN</value>
         <value xml:lang="zh">计划支出</value>
@@ -12260,6 +12534,7 @@
         <value xml:lang="it">Uscita riservata</value>
         <value xml:lang="ja">残余支出</value>
         <value xml:lang="pt_BR">Saída reservada</value>
+        <value xml:lang="ru">Исходящий результат</value>
         <value xml:lang="th">WIP_OUTGOING_RES</value>
         <value xml:lang="vi">WIP_OUTGOING_RES</value>
         <value xml:lang="zh">预留支出</value>
@@ -12272,6 +12547,7 @@
         <value xml:lang="it">Pubblicata</value>
         <value xml:lang="ja">公開</value>
         <value xml:lang="pt_BR">Publicado</value>
+        <value xml:lang="ru">Релиз</value>
         <value xml:lang="th">วางจำหน่าย</value>
         <value xml:lang="vi">WPS_RELEASED</value>
         <value xml:lang="zh">已发布</value>
@@ -12284,6 +12560,7 @@
         <value xml:lang="it">In revisione</value>
         <value xml:lang="ja">修正中</value>
         <value xml:lang="pt_BR">Sob revisão</value>
+        <value xml:lang="ru">В обзоре</value>
         <value xml:lang="th">WPS_UNDER_REVISION</value>
         <value xml:lang="vi">WPS_UNDER_REVISION</value>
         <value xml:lang="zh">修订中</value>
@@ -12296,6 +12573,7 @@
         <value xml:lang="it">In test</value>
         <value xml:lang="ja">テスト中</value>
         <value xml:lang="pt_BR">Em teste</value>
+        <value xml:lang="ru">В тестировании</value>
         <value xml:lang="th">WPS_UNDER_TEST</value>
         <value xml:lang="vi">WPS_UNDER_TEST</value>
         <value xml:lang="zh">测试中</value>
@@ -12784,6 +13062,7 @@
         <value xml:lang="it">Non applicabile</value>
         <value xml:lang="ja">適用外</value>
         <value xml:lang="pt_BR">Não Aplicável</value>
+        <value xml:lang="ru">Неприменяемые</value>
         <value xml:lang="th">ไม่เหมาะสม</value>
         <value xml:lang="vi">Không Khớp lệnh</value>
         <value xml:lang="zh">不可用</value>
@@ -15091,6 +15370,7 @@
         <value xml:lang="es">Impreso</value>
         <value xml:lang="fr">Imprimé</value>
         <value xml:lang="it">Stampa</value>
+        <value xml:lang="ru">Напечатанный</value>
         <value xml:lang="ja">印刷済</value>
         <value xml:lang="pt_BR">Impresso</value>
         <value xml:lang="zh">已打印</value>
@@ -15145,6 +15425,7 @@
         <value xml:lang="es">Imprimir</value>
         <value xml:lang="fr">Imprimer</value>
         <value xml:lang="it">Stampa</value>
+        <value xml:lang="ru">Печатать</value>
         <value xml:lang="ja">印刷</value>
         <value xml:lang="pt_BR">Imprimir</value>
         <value xml:lang="zh">打印</value>
@@ -15156,6 +15437,7 @@
         <value xml:lang="it">Cancella</value>
         <value xml:lang="ja">取消</value>
         <value xml:lang="pt_BR">Cancelar</value>
+        <value xml:lang="ru">Отмена</value>
         <value xml:lang="vi">Hủy bỏ</value>
         <value xml:lang="zh">取消</value>
     </property>
@@ -15166,6 +15448,7 @@
         <value xml:lang="it">Preleva</value>
         <value xml:lang="ja">ピッキング</value>
         <value xml:lang="pt_BR">Recolher</value>
+        <value xml:lang="ru">Выбирать</value>
         <value xml:lang="vi">Chọn ra (pick)</value>
         <value xml:lang="zh">分拣</value>
     </property>
@@ -18691,6 +18974,7 @@
         <value xml:lang="it">Ciascuno</value>
         <value xml:lang="ja">各</value>
         <value xml:lang="pt_BR">Cada</value>
+        <value xml:lang="ru">Каждый</value>
         <value xml:lang="zh">每个</value>
         <value xml:lang="zh_TW">每個</value>
     </property>
@@ -18716,6 +19000,7 @@
         <value xml:lang="it">Per persona</value>
         <value xml:lang="ja">毎人</value>
         <value xml:lang="pt_BR">Por Pessoa</value>
+        <value xml:lang="ru">На человека</value>
         <value xml:lang="zh">每人</value>
         <value xml:lang="zh_TW">每人</value>
     </property>
@@ -19570,6 +19855,7 @@
         <value xml:lang="ja">ウクライナ・グリブナ</value>
         <value xml:lang="pt_BR">UAK</value>
         <value xml:lang="ro">Karbowanez Ucraina</value>
+        <value xml:lang="ru">Украинская Гривна</value>
         <value xml:lang="th">UAK</value>
         <value xml:lang="zh">乌克兰格里夫那</value>
         <value xml:lang="zh_TW">烏克蘭格里夫那</value>
@@ -20536,6 +20822,7 @@
         <value xml:lang="fr">Bizzness : menu principal vertical</value>
         <value xml:lang="ja">さあ仕事をしよう。自分自身うまく言えない。このテーマはやめた</value>
         <value xml:lang="pt_BR">É Bizzness, é hora Bizzness. Eu não poderia ter dito melhor sozinho. Este tema fica para baixo</value>
+        <value xml:lang="ru">Это бизнес, это бизнес время. Я не могу сказать что-то лучше о себе. Эта тема получена ниже</value>
         <value xml:lang="vi">It's bizzness, it's bizzness time.  I couldn't have said it better myself. This theme gets down</value>
         <value xml:lang="zh">商务时代。我不能自己说它是最好的。本风格搞定</value>
     </property>
@@ -20545,6 +20832,7 @@
         <value xml:lang="fr">BlueLight Theme: fil d'ariane, menus déroulants et coins arrondis</value>
         <value xml:lang="ja">ブルーライト: パンくずリスト、ドロップダウンメニュー、そして丸いコーナー</value>
         <value xml:lang="pt_BR">Bluelight Tema: Breadcrumbs, menus drop-down e cantos arredondados</value>
+        <value xml:lang="ru">Светло-голубая тема: Бреадкрамбсы, раскрывающиеся меню с закругленным углами</value>
         <value xml:lang="vi">BlueLight Theme: Breadcrumbs, drop-down menus and rounded corners</value>
         <value xml:lang="zh">浅蓝风格：自动的多级导航，下拉式菜单，以及圆角</value>
     </property>
@@ -20554,6 +20842,7 @@
         <value xml:lang="fr">Dropping Crumbs: déclinaison de Bluelight, plus sobre, menu déroulant intégré dans la barre du fil d'ariane</value>
         <value xml:lang="ja">パンくず: ブルーライトの改良。パンくずリストバーに組み込まれたドロップダウンメニューを含む</value>
         <value xml:lang="pt_BR">Descartando Migalhas: Evolução da azul-luz, inclui um menu drop-down incorporado na barra de farinha de rosca</value>
+        <value xml:lang="ru">Падающие крамбы: Эволюция светло-голубых, включает раскрывающиеся меню встроенных в полосу бреадкрамбов</value>
         <value xml:lang="vi">Dropping Crumbs: Evolution of Blue-Light, includes a drop down menu embedded in the breadcrumbs bar</value>
         <value xml:lang="zh">下拉多级：浅蓝风格的演化版，包括一个嵌入多级导航条的下拉式菜单</value>
     </property>
@@ -20563,6 +20852,7 @@
         <value xml:lang="fr">Flat Grey : mise en page dynamique, accessibilité, support de texte bidirectionnel</value>
         <value xml:lang="ja">フラットグレー: 以前のOFBiz標準フローティングレイアウト</value>
         <value xml:lang="pt_BR">Apartamento Grey - Layout padrão antigo OFBiz flutuante</value>
+        <value xml:lang="ru">Плоские серые - Плавающие лейауты, Слабовидящий доступ, Двунаправленный</value>
         <value xml:lang="vi">Flat Grey - Floating Layout, Sight-Impaired Accessible, Bidirectional</value>
         <value xml:lang="zh">浅灰－浮动样式，视觉阻挡，双向</value>
     </property>
@@ -20572,6 +20862,7 @@
         <value xml:lang="fr">Une alternative pour le theme de base du module de commerce électronique</value>
         <value xml:lang="ja">マルチフレックス: 別のEコマース向けテーマ</value>
         <value xml:lang="pt_BR">Alternativa para VisualTheme Ecommerce</value>
+        <value xml:lang="ru">Альтернативная Визуальная Тема для электронной коммерции</value>
         <value xml:lang="vi">Giao diện trực quan thay thế khác cho trang thương mại điện tử</value>
         <value xml:lang="zh">电子商务的替代视觉风格</value>
     </property>
@@ -20581,6 +20872,7 @@
         <value xml:lang="fr">Tomahawk: évolution de Dropping Crumbs dans les tons noir et orange</value>
         <value xml:lang="ja">トマホーク: パンくずの改良</value>
         <value xml:lang="pt_BR">Tomahawk: a evolução do tema Migalhas Descartando</value>
+        <value xml:lang="ru">Томахавк: эволюция падающих крамбов темы</value>
         <value xml:lang="vi">Tomahawk: Ôi võ đức trí djjava ơi. evolution of the Dropping Crumbs theme</value>
         <value xml:lang="zh">印第安战斧：下拉多级风格的演化版</value>
     </property>
