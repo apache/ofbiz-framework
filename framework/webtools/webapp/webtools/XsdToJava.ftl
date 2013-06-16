@@ -129,7 +129,7 @@ under the License.
 </#if>
 <#if !(xsdElement.getAttribute("abstract") == "true")>
 
-    public ${className}(Element element) throws ${exceptionClassName} {
+    public ${className}Element(Element element) throws ${exceptionClassName} {
   <#-- Class field assignments -->
   <#if attributeElements?exists>
     <#list attributeElements as attributeElement>
@@ -238,10 +238,10 @@ import org.w3c.dom.Element;
  * @see <code>${xsdFileName}</code>
  */
 <#if abstract>
-public interface ${className} {
+public interface ${className}Element {
 <#else>
 @ThreadSafe
-public final class ${className}<#if substitutionGroup?has_content> implements ${substitutionGroup}</#if> {
+public final class ${className}Element<#if substitutionGroup?has_content> implements ${substitutionGroup}</#if> {
 </#if>
 </#macro>
 
@@ -301,9 +301,9 @@ public final class ${className}<#if substitutionGroup?has_content> implements ${
   <#local isList = true>
 </#if>
 <#if isList>
-    private final List<${className}> ${fieldName}List; // <${elementName}>
+    private final List<${className}Element> ${fieldName}List; // <${elementName}>
 <#else>
-    private final ${className} ${fieldName}; // <${elementName}>
+    private final ${className}Element ${fieldName}; // <${elementName}>
 </#if>
 </#macro>
 
@@ -335,12 +335,12 @@ public final class ${className}<#if substitutionGroup?has_content> implements ${
             this.${fieldName}List = Collections.emptyList();
   </#if>
         } else {
-            List<${className}> ${fieldName}List = new ArrayList<${className}>(${fieldName}ElementList.size());
+            List<${className}Element> ${fieldName}List = new ArrayList<${className}Element>(${fieldName}ElementList.size());
             for (Element ${fieldName}Element : ${fieldName}ElementList) {
   <#if abstract>
-                ${fieldName}List.add(${className}Factory.create(${fieldName}Element));
+                ${fieldName}List.add(${className}ElementFactory.create(${fieldName}Element));
   <#else>
-                ${fieldName}List.add(new ${className}(${fieldName}Element));
+                ${fieldName}List.add(new ${className}Element(${fieldName}Element));
   </#if>
             }
             this.${fieldName}List = Collections.unmodifiableList(${fieldName}List);
@@ -354,7 +354,7 @@ public final class ${className}<#if substitutionGroup?has_content> implements ${
             this.${fieldName} = null;
   </#if>
         } else {
-            this.${fieldName} = new ${className}(${fieldName}Element);
+            this.${fieldName} = new ${className}Element(${fieldName}Element);
         }
 </#if>
 </#macro>
@@ -375,13 +375,13 @@ public final class ${className}<#if substitutionGroup?has_content> implements ${
 <#if isList>
 
     /** Returns the <code>&amp;lt;${elementName}&amp;gt;</code> child elements. */
-    public List<${className}> get${className}List() {
+    public List<${className}Element> get${className}List() {
         return this.${fieldName}List;
     }
 <#else>
 
     /** Returns the <code>&amp;lt;${elementName}&amp;gt;</code> child element, or <code>null</code> if no child element was found. */
-    public ${className} get${className}() {
+    public ${className}Element get${className}() {
         return this.${fieldName};
     }
 </#if>
@@ -393,19 +393,19 @@ public final class ${className}<#if substitutionGroup?has_content> implements ${
 <@fileHeader />
 
 /**
- * A ${className} factory.
+ * A ${className}Element factory.
  */
 @ThreadSafe
-public final class ${className}Factory {
+public final class ${className}ElementFactory {
 
-    public static ${className} create(Element element) {
+    public static ${className}Element create(Element element) {
         String elementName = element.getNodeName();
   <#list allElements as globalElement>
     <#if globalElement.getAttribute("substitutionGroup") == elementName>
       <#local targetElementName = globalElement.getAttribute("name")>
       <#local className = Static["org.ofbiz.base.util.UtilXml"].nodeNameToJavaName(targetElementName, true)>
         if ("${targetElementName}".equals(elementName)) {
-            return new ${className}(element);
+            return new ${className}Element(element);
         }
     </#if>
   </#list>
