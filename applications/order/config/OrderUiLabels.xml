@@ -3018,6 +3018,10 @@
         <value xml:lang="zh">内容</value>
         <value xml:lang="zh_TW">內容</value>
     </property>
+    <property key="OrderRemovePromotion">
+        <value xml:lang="en">Remove Promotion</value>
+        <value xml:lang="fr">Supprimer la promotion</value>
+    </property>
     <property key="OrderContinueToFinalOrderReview">
         <value xml:lang="cs">Dále k závěrečnému přehledu objednávky</value>
         <value xml:lang="de">Weiter zur abschließenden Bestellüberprüfung</value>

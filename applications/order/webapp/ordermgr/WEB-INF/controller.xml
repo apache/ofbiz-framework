@@ -663,6 +663,12 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="showPromotionDetails"/>
     </request-map>
+    <request-map uri="removePromotion">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="removePromotion"/>
+        <response name="success" type="request" value="orderentry"/>
+        <response name="error" type="request" value="orderentry"/>
+    </request-map>
     <request-map uri="quickadd">
         <response name="success" type="view" value="quickadd"/>
     </request-map>

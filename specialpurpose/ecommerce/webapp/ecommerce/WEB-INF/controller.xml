@@ -321,6 +321,12 @@ under the License.
         <security https="false" auth="false"/>
         <response name="success" type="view" value="showPromotionDetails"/>
     </request-map>
+    <request-map uri="removePromotion">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="removePromotion"/>
+        <response name="success" type="view" value="showcart"/>
+        <response name="error" type="view" value="showcart"/>
+    </request-map>
 
     <!-- Start Anonymous checkout requests -->
     <request-map uri="setCustomer">
