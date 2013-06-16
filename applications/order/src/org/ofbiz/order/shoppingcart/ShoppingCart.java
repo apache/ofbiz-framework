@@ -3150,6 +3150,21 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         this.productPromoUseInfoList.add(new ProductPromoUseInfo(productPromoId, productPromoCodeId, totalDiscountAmount, quantityLeftInActions));
     }
 
+    public void removeProductPromoUse(String productPromoId) {
+        if (!productPromoId.isEmpty()) {
+            int index = -1;
+            for (ProductPromoUseInfo productPromoUseInfo : this.productPromoUseInfoList) {
+                if (productPromoId.equals(productPromoUseInfo.productPromoId)) {
+                    index = this.productPromoUseInfoList.indexOf(productPromoUseInfo);
+                    break;
+                }
+            }
+            if (index != -1) {
+                this.productPromoUseInfoList.remove(index);
+            }
+        }
+    }
+
     public void clearProductPromoUseInfo() {
         // clear out info for general promo use
         this.productPromoUseInfoList.clear();

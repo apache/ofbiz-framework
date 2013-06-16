@@ -23,6 +23,7 @@ import java.math.MathContext;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -53,6 +54,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.order.shoppingcart.ShoppingCart.ProductPromoUseInfo;
 import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
 import org.ofbiz.product.catalog.CatalogWorker;
 import org.ofbiz.product.config.ProductConfigWorker;
@@ -94,6 +96,58 @@ public class ShoppingCartEvents {
             }
         }
         return "success";
+    }
+
+    public static String removePromotion(HttpServletRequest request,HttpServletResponse response) {
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        ShoppingCart cart = getCartObject(request);
+        String promoCodeId = (String) request.getParameter("promoCode");
+        String result = "error";
+
+        if (!promoCodeId.isEmpty()) {
+            cart.getProductPromoCodesEntered().clear();
+            GenericValue productPromoCode = null;
+            try {
+                productPromoCode = dispatcher.getDelegator().findOne("ProductPromoCode", UtilMisc.toMap("productPromoCodeId", promoCodeId), false);
+                if (!productPromoCode.isEmpty()) {
+                    String productPromoId = productPromoCode.getString("productPromoId");
+                    GenericValue productPromoAction = null;
+                    Map<String, String> productPromoActionMap = new HashMap<String, String>();
+                    productPromoActionMap.put("productPromoId", productPromoId);
+                    productPromoActionMap.put("productPromoRuleId", "01");
+                    productPromoActionMap.put("productPromoActionSeqId", "01");
+
+                    productPromoAction = dispatcher.getDelegator().findOne("ProductPromoAction", productPromoActionMap, false);
+                    if (!productPromoAction.isEmpty()) {
+                        int index = cart.getAdjustmentPromoIndex(productPromoId);
+                        /*Remove order adjustment*/
+                        if (index != -1) {
+                            cart.removeAdjustment(index);
+                            result = "success";
+                        }
+
+                        /*Remove product  adjustment*/
+                        for(ShoppingCartItem checkItem : cart) {
+                            List<GenericValue> itemAdjustments = checkItem.getAdjustments();
+                            if (!itemAdjustments.isEmpty()) {
+                                index = 0;
+                                for (GenericValue adjustment : itemAdjustments ) {
+                                    if(adjustment.get("productPromoId").equals(productPromoId)) {
+                                        checkItem.getAdjustments().remove(index);
+                                        result = "success";
+                                    }
+                                    index++;
+                                }
+                            }
+                        }
+                        cart.removeProductPromoUse(productPromoId);
+                    }
+                }
+            } catch (GenericEntityException e) {
+                Debug.logError(e.getMessage(), module);
+            }
+        }
+        return result;
     }
 
     public static String addItemGroup(HttpServletRequest request, HttpServletResponse response) {
