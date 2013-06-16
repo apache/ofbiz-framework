@@ -957,16 +957,16 @@ public class UtilXml {
         StringBuilder sb = new StringBuilder();
         for (int index = 0; index < nodeName.length(); index++) {
             char character = nodeName.charAt(index);
-            if (character == '-' || character == '_') {
+            if ((sb.length() == 0 && !Character.isJavaIdentifierStart(character)) || (sb.length() != 0 && !Character.isJavaIdentifierPart(character))) {
                 capitalize = true;
                 continue;
             }
-            if (capitalize) {
-                sb.append(String.valueOf(character).toUpperCase());
-                capitalize = false;
+            if (sb.length() == 0 && !capitalizeFirst) {
+                sb.append(Character.toLowerCase(character));
             } else {
-                if (index == 0 && !capitalizeFirst) {
-                    sb.append(String.valueOf(character).toLowerCase());
+                if (capitalize) {
+                    sb.append(Character.toUpperCase(character));
+                    capitalize = false;
                 } else {
                     sb.append(character);
                 }
