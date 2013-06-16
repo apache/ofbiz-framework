@@ -20,11 +20,4 @@
 
 import org.ofbiz.accounting.util.UtilAccounting;
 
-payments = context.payments;
-iter = payments.iterator();
-while (iter) {
-  payment = iter.next();
-  if (UtilAccounting.isReceipt(payment)) {
-    iter.remove();
-  }
-}
+context.payments.removeAll{UtilAccounting.isReceipt(it)};
