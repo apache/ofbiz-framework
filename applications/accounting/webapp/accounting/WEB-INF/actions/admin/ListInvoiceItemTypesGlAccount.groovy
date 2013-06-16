@@ -31,14 +31,12 @@ invItemTypePrefix += "_%";
 organizationPartyId = parameters.organizationPartyId;
 exprBldr = new EntityConditionBuilder();
 invoiceItemTypes = delegator.findList("InvoiceItemType", exprBldr.LIKE(invoiceItemTypeId: invItemTypePrefix), null, null, null, false);
-allTypes = [];
-invoiceItemTypes.each { invoiceItemType ->
-    activeGlDescription = "";
+
+context.invoiceItemTypes = invoiceItemTypes.collect { invoiceItemType ->
     defaultAccount = true
-    glAccounts = null;
     glAccount = null;
     invoiceItemTypeOrgs = invoiceItemType.getRelated("InvoiceItemTypeGlAccount", [organizationPartyId : organizationPartyId], null, false);
-    overrideGlAccountId = " ";
+    overrideGlAccountId = null
     if (invoiceItemTypeOrgs) {
         invoiceItemTypeOrg = invoiceItemTypeOrgs[0];
         overrideGlAccountId = invoiceItemTypeOrg.glAccountId;
@@ -52,15 +50,10 @@ invoiceItemTypes.each { invoiceItemType ->
         glAccount = invoiceItemType.getRelatedOne("DefaultGlAccount", false);
     }
 
-    if (glAccount) {
-        activeGlDescription = glAccount.accountName;
-    }
-
-    allTypes.add([invoiceItemTypeId : invoiceItemType.invoiceItemTypeId,
+    return [invoiceItemTypeId : invoiceItemType.invoiceItemTypeId,
                   description : invoiceItemType.description,
                   defaultGlAccountId : invoiceItemType.defaultGlAccountId,
                   overrideGlAccountId : overrideGlAccountId,
                   defaultAccount : defaultAccount,
-                  activeGlDescription : activeGlDescription]);
+                  activeGlDescription : glAccount?.accountName];
 }
-context.invoiceItemTypes = allTypes;
