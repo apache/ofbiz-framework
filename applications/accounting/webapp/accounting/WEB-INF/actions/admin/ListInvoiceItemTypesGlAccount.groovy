@@ -34,7 +34,7 @@ invoiceItemTypes = delegator.findList("InvoiceItemType", exprBldr.LIKE(invoiceIt
 allTypes = [];
 invoiceItemTypes.each { invoiceItemType ->
     activeGlDescription = "";
-    remove = " ";
+    defaultAccount = true
     glAccounts = null;
     glAccount = null;
     invoiceItemTypeOrgs = invoiceItemType.getRelated("InvoiceItemTypeGlAccount", [organizationPartyId : organizationPartyId], null, false);
@@ -46,6 +46,7 @@ invoiceItemTypes.each { invoiceItemType ->
         glAccounts = invoiceItemTypeOrg.getRelated("GlAccount", null, null, false);
         if (glAccounts) {
             glAccount = glAccounts[0];
+            defaultAccount = false
         }
     } else {
         glAccount = invoiceItemType.getRelatedOne("DefaultGlAccount", false);
@@ -53,14 +54,13 @@ invoiceItemTypes.each { invoiceItemType ->
 
     if (glAccount) {
         activeGlDescription = glAccount.accountName;
-        remove = "Remove";
     }
 
     allTypes.add([invoiceItemTypeId : invoiceItemType.invoiceItemTypeId,
                   description : invoiceItemType.description,
                   defaultGlAccountId : invoiceItemType.defaultGlAccountId,
                   overrideGlAccountId : overrideGlAccountId,
-                  remove : remove,
+                  defaultAccount : defaultAccount,
                   activeGlDescription : activeGlDescription]);
 }
 context.invoiceItemTypes = allTypes;

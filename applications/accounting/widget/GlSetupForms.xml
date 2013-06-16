@@ -415,7 +415,7 @@ under the License.
         </field>
         <field name="overrideGlAccountId"><display/></field>
         <field name="activeGlDescription"><display/></field>
-        <field name="remove" title=" " widget-style="buttontext">
+        <field name="remove" title=" " widget-style="buttontext" use-when="defaultAccount==false">
             <hyperlink target="removeSalInvoiceItemTypeGlAssignment" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="organizationPartyId"/><parameter param-name="invoiceItemTypeId"/>
             </hyperlink>
@@ -469,7 +469,7 @@ under the License.
         </field>
         <field name="overrideGlAccountId" title="${uiLabelMap.AccountingInvoiceOverrideExpenseGlAccountId}"><display/></field>
         <field name="activeGlDescription"><display/></field>
-        <field name="remove" title=" " widget-style="buttontext">
+        <field name="remove" title=" " widget-style="buttontext" use-when="defaultAccount==false">
             <hyperlink target="removePurInvoiceItemTypeGlAssignment" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="organizationPartyId"/><parameter param-name="invoiceItemTypeId"/>
             </hyperlink>
