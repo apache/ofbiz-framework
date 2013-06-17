@@ -28,7 +28,6 @@
         <param name="bufferSize" value="256"/>
         <appender-ref ref="stdout"/>
         <appender-ref ref="ofbiz-file"/>
-        <appender-ref ref="ofbiz-html"/>
         <appender-ref ref="debug"/>
         <appender-ref ref="error"/>
         <!-- <appender-ref ref="socket"/> -->
