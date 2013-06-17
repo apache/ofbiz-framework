@@ -808,7 +808,7 @@ under the License.
     </form>
 
     <form name="FromFacilityTransfersComplete" type="multi" target="CompleteRequestedTransfers?completeRequested=true&amp;facilityId=${facilityId}" title="" list-name="fromTransfers"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" use-row-submit="true">
         <row-actions>
             <entity-one entity-name="InventoryItem" value-field="inventoryItem">
                 <field-map field-name="inventoryItemId"/>
