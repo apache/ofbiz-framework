@@ -2751,6 +2751,10 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(linkUrl);
         sr.append("\" ajaxEnabled=");
         sr.append(Boolean.toString(ajaxEnabled));
+        String tooltip = modelFormField.getSortFieldHelpText(context);
+        if (!tooltip.isEmpty()) {
+            sr.append(" tooltip=\"").append(tooltip).append("\"");
+        }
         sr.append(" />");
         executeMacro(writer, sr.toString());
     }

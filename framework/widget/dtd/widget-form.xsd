@@ -628,6 +628,12 @@ under the License.
                 </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
+            <xs:attribute type="xs:string" name="sort-field-help-text">
+                <xs:annotation>
+                    <xs:documentation>Help text to be displayed when the mouse hovers over the column heading.
+                </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
             <xs:attribute type="xs:string" name="sort-field-asc-style">
                 <xs:annotation>
                     <xs:documentation>The name of a style (like a CSS class) to apply to the sort field link ordered ascending.

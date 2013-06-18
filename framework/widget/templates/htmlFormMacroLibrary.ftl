@@ -811,9 +811,11 @@ Parameter: lastViewName, String, optional - If the ajaxEnabled parameter is true
   <#if title?has_content>${title}<br /></#if>
   <#if showSelectAll="Y"><input type="checkbox" name="selectAll" value="Y" onclick="javascript:toggleAll(this, '${name}');"/></#if>
 </#macro>
-<#macro renderSortField style title linkUrl ajaxEnabled>
-  <a<#if style?has_content> class="${style}"</#if> href="<#if ajaxEnabled?has_content && ajaxEnabled>javascript:ajaxUpdateAreas('${linkUrl}')<#else>${linkUrl}</#if>">${title}</a>
+
+<#macro renderSortField style title linkUrl ajaxEnabled tooltip="">
+  <a<#if style?has_content> class="${style}"</#if> href="<#if ajaxEnabled?has_content && ajaxEnabled>javascript:ajaxUpdateAreas('${linkUrl}')<#else>${linkUrl}</#if>"<#if tooltip?has_content> title="${tooltip}"</#if>>${title}</a>
 </#macro>
+
 <#macro formatBoundaryComment boundaryType widgetType widgetName><!-- ${boundaryType}  ${widgetType}  ${widgetName} --></#macro>
 
 <#macro renderTooltip tooltip tooltipStyle>
