@@ -114,6 +114,7 @@ public class ModelFormField {
     protected boolean separateColumn = false;
     protected Boolean requiredField = null;
     protected Boolean sortField = null;
+    protected String sortFieldHelpText;
     protected String headerLink;
     protected String headerLinkStyle;
 
@@ -123,7 +124,7 @@ public class ModelFormField {
     protected List<UpdateArea> onClickUpdateAreas;
 
     // ===== CONSTRUCTORS =====
-    /** Default Constructor */
+    /** Copy Constructor */
     public ModelFormField(ModelForm modelForm) {
         this.modelForm = modelForm;
     }
@@ -159,6 +160,7 @@ public class ModelFormField {
         this.separateColumn = "true".equals(fieldElement.getAttribute("separate-column"));
         this.requiredField = fieldElement.hasAttribute("required-field") ? "true".equals(fieldElement.getAttribute("required-field")) : null;
         this.sortField = fieldElement.hasAttribute("sort-field") ? "true".equals(fieldElement.getAttribute("sort-field")) : null;
+        this.sortFieldHelpText = fieldElement.getAttribute("sort-field-help-text");
         this.headerLink = fieldElement.getAttribute("header-link");
         this.headerLinkStyle = fieldElement.getAttribute("header-link-style");
 
@@ -242,6 +244,7 @@ public class ModelFormField {
         if (UtilValidate.isNotEmpty(overrideFormField.tooltip)) this.tooltip = overrideFormField.tooltip;
         if (overrideFormField.requiredField != null) this.requiredField = overrideFormField.requiredField;
         if (overrideFormField.sortField != null) this.sortField = overrideFormField.sortField;
+        if (!overrideFormField.sortFieldHelpText.isEmpty()) this.sortFieldHelpText = overrideFormField.sortFieldHelpText;
         if (UtilValidate.isNotEmpty(overrideFormField.titleAreaStyle)) this.titleAreaStyle = overrideFormField.titleAreaStyle;
         if (UtilValidate.isNotEmpty(overrideFormField.widgetAreaStyle)) this.widgetAreaStyle = overrideFormField.widgetAreaStyle;
         if (UtilValidate.isNotEmpty(overrideFormField.titleStyle)) this.titleStyle = overrideFormField.titleStyle;
@@ -1241,6 +1244,10 @@ public class ModelFormField {
      */
     public void setRequiredField(boolean required) {
         this.requiredField = required;
+    }
+
+    public String getSortFieldHelpText(Map<String, Object> context) {
+        return FlexibleStringExpander.expandString(this.sortFieldHelpText, context);
     }
 
     public boolean isSortField() {
