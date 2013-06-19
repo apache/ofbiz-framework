@@ -1481,6 +1481,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ListCompanies"/>
     </request-map>
+    <request-map uri="AddCompany">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="AddCompany"/>
+    </request-map>
     <request-map uri="AdminMain">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="PartyAcctgPreference"/>
@@ -2743,6 +2747,7 @@ under the License.
 
     <!-- administrative pages -->
     <view-map name="ListCompanies" type="screen" page="component://accounting/widget/GlSetupScreens.xml#ListCompanies"/>
+    <view-map name="AddCompany" type="screen" page="component://accounting/widget/GlSetupScreens.xml#AddCompany"/>
     <view-map name="TimePeriods" type="screen" page="component://accounting/widget/GlSetupScreens.xml#TimePeriods"/>
     <view-map name="PartyAcctgPreference" type="screen" page="component://accounting/widget/GlSetupScreens.xml#PartyAcctgPreference"/>
     <view-map name="ListGlAccountOrganization" type="screen" page="component://accounting/widget/GlSetupScreens.xml#ListGlAccountOrganization"/>

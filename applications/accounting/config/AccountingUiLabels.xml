@@ -1764,7 +1764,7 @@
     <property key="AccountingAvailableInternalOrganizations">
         <value xml:lang="ar">المؤسسات الداخلية المتوفرة</value>
         <value xml:lang="de">Verfügbare interne Organisationen</value>
-        <value xml:lang="en">Available Internal Organizations</value>
+        <value xml:lang="en">Available Internal Accounting Organizations</value>
         <value xml:lang="es">Organizaciones internas disponibles</value>
         <value xml:lang="fr">Organisations internes disponibles</value>
         <value xml:lang="hi_IN">उपलब्ध आंतरिक संगठन</value>
@@ -8966,6 +8966,9 @@
         <value xml:lang="vi">Thêm quy ước hợp đồng</value>
         <value xml:lang="zh">新建合同条件</value>
         <value xml:lang="zh_TW">新建合同條件</value>
+    </property>
+    <property key="AccountingNewCompany">
+        <value xml:lang="en">Create new accounting company</value>
     </property>
     <property key="AccountingNewBillingAccount">
         <value xml:lang="ar">جساب فوترة جديد</value>

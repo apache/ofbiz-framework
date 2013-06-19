@@ -1312,4 +1312,10 @@ under the License.
             </link>
         </menu-item>
     </menu>
+    <menu name="newAccountOrganization">
+        <menu-item name="addCompany"  title="${uiLabelMap.AccountingNewCompany}">
+            <link target="AddCompany" link-type="auto">
+            </link>
+        </menu-item>
+     </menu>
 </menus>
