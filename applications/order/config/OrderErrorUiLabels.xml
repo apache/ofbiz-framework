@@ -2805,6 +2805,9 @@
         <value xml:lang="zh">按订单获取退货金额时出现问题</value>
         <value xml:lang="zh_TW">按訂單獲取退貨金額時出現問題</value>
     </property>
+    <property key="OrderProblemsWithPaymentMethodLookup">
+        <value xml:lang="en">Problems with PaymentMethod lookup. </value>
+    </property>
     <property key="OrderProblemsWithPaymentTypeLookup">
         <value xml:lang="de">Problem mit Zahlungsart-Suchhilfe. </value>
         <value xml:lang="en">Problems with PaymentType lookup. </value>

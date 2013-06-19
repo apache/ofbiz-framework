@@ -331,8 +331,15 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="OrderReceiveOfflinePayments"/>
-               <set field="headerItem" value="findorders"/>
+                <set field="headerItem" value="findorders"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/ReceivePayment.groovy"/>
+                <entity-and entity-name="OrderRole" list="orderRoles">
+                	<field-map field-name="orderId" value="${parameters.orderId}"/>
+                	<field-map field-name="roleTypeId" value="BILL_FROM_VENDOR"/>
+                </entity-and>
+                <entity-and entity-name="PaymentMethod" list="paymentMethods">
+                	<field-map field-name="partyId" from-field="orderRoles[0].partyId"/>
+                </entity-and>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderViewDecorator">
