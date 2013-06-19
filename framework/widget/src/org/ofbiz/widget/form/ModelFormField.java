@@ -114,7 +114,7 @@ public class ModelFormField {
     protected boolean separateColumn = false;
     protected Boolean requiredField = null;
     protected Boolean sortField = null;
-    protected String sortFieldHelpText;
+    protected String sortFieldHelpText = "";
     protected String headerLink;
     protected String headerLinkStyle;
 
@@ -124,7 +124,7 @@ public class ModelFormField {
     protected List<UpdateArea> onClickUpdateAreas;
 
     // ===== CONSTRUCTORS =====
-    /** Copy Constructor */
+    /** Default Constructor */
     public ModelFormField(ModelForm modelForm) {
         this.modelForm = modelForm;
     }
@@ -244,7 +244,7 @@ public class ModelFormField {
         if (UtilValidate.isNotEmpty(overrideFormField.tooltip)) this.tooltip = overrideFormField.tooltip;
         if (overrideFormField.requiredField != null) this.requiredField = overrideFormField.requiredField;
         if (overrideFormField.sortField != null) this.sortField = overrideFormField.sortField;
-        if (!overrideFormField.sortFieldHelpText.isEmpty()) this.sortFieldHelpText = overrideFormField.sortFieldHelpText;
+        if (UtilValidate.isNotEmpty(overrideFormField.sortFieldHelpText)) this.sortFieldHelpText = overrideFormField.sortFieldHelpText;
         if (UtilValidate.isNotEmpty(overrideFormField.titleAreaStyle)) this.titleAreaStyle = overrideFormField.titleAreaStyle;
         if (UtilValidate.isNotEmpty(overrideFormField.widgetAreaStyle)) this.widgetAreaStyle = overrideFormField.widgetAreaStyle;
         if (UtilValidate.isNotEmpty(overrideFormField.titleStyle)) this.titleStyle = overrideFormField.titleStyle;
