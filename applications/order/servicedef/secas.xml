@@ -96,9 +96,19 @@ under the License.
         <action service="sendOrderCompleteNotification" mode="async" persist="true"/>
         <action service="createReturnItemForRental" mode="sync"/>
     </eca>
+    
+    <!-- create payment from purchase order when approved (can be disabled by accountingConfig)-->
     <eca service="changeOrderStatus" event="commit" run-on-error="false">
         <condition field-name="orderTypeId" operator="equals" value="PURCHASE_ORDER"/>
         <condition field-name="statusId" operator="equals" value="ORDER_APPROVED"/>
+        <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
+        <action service="createPaymentFromOrder" mode="sync" persist="true"/>
+    </eca>
+
+    <!-- create payment from sales order when completed and not created yet (can be disabled by accountingConfig) -->
+    <eca service="changeOrderStatus" event="commit" run-on-error="false">
+        <condition field-name="orderTypeId" operator="equals" value="SALES_ORDER"/>
+        <condition field-name="statusId" operator="equals" value="ORDER_COMPLETED"/>
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
         <action service="createPaymentFromOrder" mode="sync" persist="true"/>
     </eca>

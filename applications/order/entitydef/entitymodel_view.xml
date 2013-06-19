@@ -138,6 +138,25 @@ under the License.
         <key-map field-name="orderPaymentPreferenceId"/>
       </relation>
     </view-entity>
+    <view-entity entity-name="OrderPaymentPrefAndPayment"
+            package-name="org.ofbiz.order.order"
+            never-cache="true"
+            title="Payment Preference and Payment View Entity">
+      <member-entity entity-alias="PF" entity-name="OrderPaymentPreference"/>
+      <member-entity entity-alias="PMT" entity-name="Payment"/>
+      <alias entity-alias="PF" name="orderPaymentPreferenceId"/>
+      <alias entity-alias="PF" name="orderId"/>
+      <alias entity-alias="PF" name="statusId"/>
+      <alias entity-alias="PMT" name="paymentId"/>
+      <alias entity-alias="PMT" name="paymentTypeId"/>
+      <alias entity-alias="PMT" name="amount"/>
+      <view-link entity-alias="PF" rel-entity-alias="PMT">
+        <key-map field-name="orderPaymentPreferenceId" rel-field-name="paymentPreferenceId"/>
+      </view-link>
+      <relation type="one-nofk" rel-entity-name="OrderHeader">
+        <key-map field-name="orderId"/>
+      </relation>
+    </view-entity>
     <view-entity entity-name="OrderHeaderAndRoleSummary"
             package-name="org.ofbiz.order.order"
             never-cache="true"
