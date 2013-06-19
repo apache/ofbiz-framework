@@ -1314,8 +1314,10 @@ under the License.
     </menu>
     <menu name="newAccountOrganization">
         <menu-item name="addCompany"  title="${uiLabelMap.AccountingNewCompany}">
-            <link target="AddCompany" link-type="auto">
-            </link>
+            <condition>
+                <if-compare field="hasPrefPermission" operator="equals" value="true" type="Boolean"/>
+            </condition>
+            <link target="AddCompany" link-type="auto"/>
         </menu-item>
      </menu>
 </menus>
