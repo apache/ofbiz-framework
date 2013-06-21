@@ -349,9 +349,9 @@ under the License.
    <form name="EditInvoiceItems" type="multi"  list-name="invoiceItems" default-entity-name="InvoiceItem" target="updateInvoiceItem?invoiceId=${invoiceId}&amp;viewSize=${viewSize}&amp;viewIndex=${viewIndex}" title="Edit Invoice Items" paginate-target="listInvoiceItems"
        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
        <row-actions>
-           <set field="total" value="${bsh:
+           <set field="total" value="${groovy:
                import java.math.BigDecimal;
-               if(quantity == null || quantity.compareTo(BigDecimal.ZERO) == 0) quantity = BigDecimal.ONE;
+               if(quantity == null) quantity = BigDecimal.ONE;
                return(quantity.multiply(amount));}"/>
        </row-actions>
        <field name="viewSize"><hidden value="${viewSize}"/></field>
