@@ -997,4 +997,30 @@ under the License.
         <call-service service-name="updateSimpleTextContent" in-map-name="updateSimpleText"/>
     </simple-method>
     
+    <simple-method method-name="isInvoiceForeign" short-description="check if a invoice is in a foreign currency related to the accounting company.">
+        <entity-one value-field="invoice" entity-name="InvoiceAndType">
+            <field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
+        </entity-one>
+        <if-empty field="invoice">
+            <log level="error" message="Invoice not found"/>
+            <return/>
+        </if-empty>
+        <if-compare field="invoice.parentTypeId" operator="equals" value="PURCHASE_INVOICE">
+            <set field="pref.organizationPartyId" from-field="invoice.partyIdFrom"/>
+        </if-compare>          
+        <if-compare field="invoice.parentTypeId" operator="equals" value="SALES_INVOICE">
+            <set field="pref.organizationPartyId" from-field="invoice.partyId"/>
+        </if-compare>          
+        <call-service service-name="getPartyAccountingPreferences" in-map-name="pref">
+            <result-to-field result-name="prefResult"/>
+        </call-service>
+        <if-compare-field to-field="prefResult.partyAccountingPreference.baseCurrencyUomId" operator="equals" field="invoice.currencyUomId">
+            <set field="isForeign" value="false" type="Boolean"/>
+            <else>
+                <set field="isForeign" value="true" type="Boolean"/>
+            </else>
+        </if-compare-field>
+        <field-to-result field="isForeign"/>
+    </simple-method>
+       
 </simple-methods>

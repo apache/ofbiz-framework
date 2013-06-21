@@ -1016,15 +1016,36 @@ under the License.
                 <call-class-method method-name="getInvoiceTotal" class-name="org.ofbiz.accounting.invoice.InvoiceWorker" ret-field="invoiceTotal">
                     <field field="invoice" type="GenericValue"/>
                 </call-class-method>
-                <entity-condition list="payments" entity-name="Payment">
-                    <condition-list combine="and">
-                        <condition-expr field-name="statusId" value="PMNT_CONFIRMED" operator="not-equals"/>
-                        <condition-expr field-name="partyIdFrom" from-field="invoice.partyId" operator="equals"/>
-                        <condition-expr field-name="partyIdTo" from-field="invoice.partyIdFrom" operator="equals"/>
-                        <condition-expr field-name="amount" from-field="invoiceTotal" operator="equals"/>
-                    </condition-list>
-                    <order-by field-name="effectiveDate"/>
-                </entity-condition>
+                
+                <set field="checkInvoice.invoiceId" from="invoice.invoiceId"/>
+                <call-service service-name="isInvoiceForeign" in-map-name="checkInvoice">
+                    <result-to-field result-name="isForeign"/>
+                </call-service>
+                <if-compare operator="equals" value="true" field="isForeign">
+                    <entity-condition list="payments" entity-name="Payment">
+                        <condition-list combine="and">
+                            <condition-expr field-name="statusId" value="PMNT_CONFIRMED" operator="not-equals"/>
+                            <condition-expr field-name="partyIdFrom" from-field="invoice.partyId" operator="equals"/>
+                            <condition-expr field-name="partyIdTo" from-field="invoice.partyIdFrom" operator="equals"/>
+                            <condition-expr field-name="actualCurrencyAmount" from-field="invoiceTotal" operator="equals"/>
+                            <condition-expr field-name="actualCurrencyUomId" from-field="invoice.currencyUomId" operator="equals"/>
+                        </condition-list>
+                        <order-by field-name="effectiveDate"/>
+                    </entity-condition>
+                    <else>
+                        <entity-condition list="payments" entity-name="Payment">
+                            <condition-list combine="and">
+                                <condition-expr field-name="statusId" value="PMNT_CONFIRMED" operator="not-equals"/>
+                                <condition-expr field-name="partyIdFrom" from-field="invoice.partyId" operator="equals"/>
+                                <condition-expr field-name="partyIdTo" from-field="invoice.partyIdFrom" operator="equals"/>
+                                <condition-expr field-name="amount" from-field="invoiceTotal" operator="equals"/>
+                                <condition-expr field-name="currencyUomId" from-field="invoice.currencyUomId" operator="equals"/>
+                            </condition-list>
+                            <order-by field-name="effectiveDate"/>
+                        </entity-condition>
+                    </else>
+                </if-compare>
+
                 <if-not-empty field="payments">
                     <!-- check if already applied -->
                     <entity-and list="paymentAppls" entity-name="PaymentApplication">
@@ -1042,6 +1063,7 @@ under the License.
         <if-not-empty field="parameters.paymentId">
             <entity-one value-field="payment" entity-name="Payment"/>
             <if-not-empty field="payment">
+                        
                 <entity-condition list="invoices" entity-name="Invoice">
                     <condition-list combine="and">
                         <condition-expr field-name="statusId" value="INVOICE_READY" operator="not-equals"/>
@@ -1057,9 +1079,25 @@ under the License.
                     <call-class-method method-name="getInvoiceTotal" class-name="org.ofbiz.accounting.invoice.InvoiceWorker" ret-field="invoiceTotal">
                         <field field="invoice" type="GenericValue"/>
                     </call-class-method>
-                    <if-compare-field operator="equals" field="invoiceTotal" to-field="payment.amount">
-                        <set field="invoiceId" from-field="invoice.invoiceId"/>
-                    </if-compare-field>                
+
+                    <set field="checkInvoice.invoiceId" from="invoice.invoiceId"/>
+                    <call-service service-name="isInvoiceForeign" in-map-name="checkInvoice">
+                        <result-to-field result-name="isForeign"/>
+                    </call-service>                    
+                    <if-compare operator="equals" value="true" field="isForeign">
+                        <if-compare-field operator="equals" field="invoiceTotal" to-field="payment.actualCurrencyAmount">
+                            <if-compare-field operator="equals" field="invoice.currencyUomId" to-field="payment.actualCurrencyUomId">
+                                <set field="invoiceId" from-field="invoice.invoiceId"/>
+                            </if-compare-field>                
+                        </if-compare-field>                
+                        <else>
+                            <if-compare-field operator="equals" field="invoiceTotal" to-field="payment.amount">
+                                <if-compare-field operator="equals" field="invoice.currencyUomId" to-field="payment.currencyUomId">
+                                    <set field="invoiceId" from-field="invoice.invoiceId"/>
+                                </if-compare-field>                
+                            </if-compare-field>                
+                        </else>
+                    </if-compare>
                 </iterate>
                 <if-not-empty field="invoiceId">
                     <entity-and list="paymentAppls" entity-name="PaymentApplication">
