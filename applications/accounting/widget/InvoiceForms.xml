@@ -141,7 +141,7 @@ under the License.
 
 <form name="invoiceItems" list-name="invoiceItems" target="" title="" type="list" separate-columns="true" paginate-target="invoiceOverview"        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
-            <set field="total" value="${bsh:
+            <set field="total" value="${groovy:
                 import java.math.BigDecimal;
                 if(quantity==null) quantity = BigDecimal.ONE;
                 if(amount==null) amount = BigDecimal.ZERO;
