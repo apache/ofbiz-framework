@@ -939,7 +939,7 @@
         <value xml:lang="fr">N° de transaction</value>
         <value xml:lang="it">Transazione</value>
         <value xml:lang="ja">トランザクションID</value>
-        <value xml:lang="it">Transactie #</value>
+        <value xml:lang="nl">Transactie #</value>
         <value xml:lang="zh">交易标识</value>
     </property>
     <property key="WebPosTransactionTotalDue">
