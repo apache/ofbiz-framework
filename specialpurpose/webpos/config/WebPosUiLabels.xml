@@ -798,63 +798,73 @@
         <value xml:lang="en">PRODUCT SEARCH</value>
         <value xml:lang="it">RICERCA PRODOTTO</value>
         <value xml:lang="ja">製品検索</value>
+        <value xml:lang="nl">PRODUCT Zoeken</value>
         <value xml:lang="zh">产品搜索</value>
     </property>
     <property key="WebPosShortcutF2">
         <value xml:lang="en">PARTY SEARCH</value>
         <value xml:lang="it">RICERCA SOGGETTO</value>
         <value xml:lang="ja">取引先検索</value>
+        <value xml:lang="nl">KLANT Zoeken</value>
         <value xml:lang="zh">会员搜索</value>
     </property>
     <property key="WebPosShortcutF3">
         <value xml:lang="en">PAY CASH</value>
         <value xml:lang="it">PAGA IN CONTANTI</value>
         <value xml:lang="ja">現金支払</value>
+        <value xml:lang="nl">CONTANT</value>
         <value xml:lang="zh">付现金</value>
     </property>
     <property key="WebPosShortcutF4">
         <value xml:lang="en">PAY CHECK</value>
         <value xml:lang="it">PAGA CON ASSEGNO</value>
         <value xml:lang="ja">小切手支払</value>
+        <value xml:lang="nl">CHEQUE</value>
         <value xml:lang="zh">付支票</value>
     </property>
     <property key="WebPosShortcutF5">
+        <value xml:lang="en">Pay Pin</value>
+        <value xml:lang="nl">PIN / CHIP</value>
+    </property>
+    <property key="WebPosShortcutF6">
         <value xml:lang="en">PAY GIFT CARD</value>
         <value xml:lang="it">PAGA C.REGALO</value>
         <value xml:lang="ja">ｷﾞﾌﾄｶｰﾄﾞ支払</value>
+        <value xml:lang="nl">CADEAUBON</value>
         <value xml:lang="zh">付礼品卡</value>
     </property>
-    <property key="WebPosShortcutF6">
+    <property key="WebPosShortcutF7">
         <value xml:lang="en">PAY BY CC</value>
         <value xml:lang="it">PAGA C.CREDITO</value>
         <value xml:lang="ja">ｶｰﾄﾞ支払</value>
+        <value xml:lang="nl">CREDIT CARD</value>
         <value xml:lang="zh">付信用卡</value>
     </property>
-    <property key="WebPosShortcutF7">
+    <property key="WebPosShortcutF8">
         <value xml:lang="en">CHECKOUT</value>
         <value xml:lang="it">CHECKOUT</value>
         <value xml:lang="ja">ﾁｪｯｸｱｳﾄ</value>
         <value xml:lang="zh">结账</value>
     </property>
-    <property key="WebPosShortcutF8">
+    <property key="WebPosShortcutF9">
         <value xml:lang="en">CHANGE QUANTITY</value>
         <value xml:lang="it">CAMBIA QUANTITA'</value>
         <value xml:lang="ja">数量変更</value>
         <value xml:lang="zh">修改数量</value>
     </property>
-    <property key="WebPosShortcutF9">
+    <property key="WebPosShortcutF10">
         <value xml:lang="en">ADD QUANTITY</value>
         <value xml:lang="it">AGGIUNGI QUANTITA'</value>
         <value xml:lang="ja">数量加算</value>
         <value xml:lang="zh">增加数量</value>
     </property>
-    <property key="WebPosShortcutF10">
+    <property key="WebPosShortcutF11">
         <value xml:lang="en">SUBTRACT QUANTITY</value>
         <value xml:lang="it">SOTTRAI QUANTITA'</value>
         <value xml:lang="ja">数量減算</value>
         <value xml:lang="zh">减少数量</value>
     </property>
-    <property key="WebPosShortcutF11">
+    <property key="WebPosShortcutF12">
         <value xml:lang="en">EMPTY CART</value>
         <value xml:lang="it">SVUOTA CARRELLO</value>
         <value xml:lang="ja">空の買い物かご</value>
@@ -895,6 +905,7 @@
         <value xml:lang="fr">Total</value>
         <value xml:lang="it">Totale</value>
         <value xml:lang="ja">合計</value>
+        <value xml:lang="nl">Totaal</value>
         <value xml:lang="zh">购物车合计</value>
     </property>
     <property key="WebPosTotalItemSubTotal">
@@ -907,12 +918,14 @@
         <value xml:lang="en">Total Promotions</value>
         <value xml:lang="it">Totale promozioni</value>
         <value xml:lang="ja">プロモーション合計</value>
+        <value xml:lang="nl">Totaal PROMO</value>
         <value xml:lang="zh">促销合计</value>
     </property>
     <property key="WebPosTotalSalesTax">
         <value xml:lang="en">Total Sales Tax</value>
         <value xml:lang="it">Totale tasse</value>
         <value xml:lang="ja">消費税合計</value>
+        <value xml:lang="nl">Totaal BTW</value>
         <value xml:lang="zh">营业税合计</value>
     </property>
     <property key="WebPosTotalShipping">
@@ -926,6 +939,7 @@
         <value xml:lang="fr">N° de transaction</value>
         <value xml:lang="it">Transazione</value>
         <value xml:lang="ja">トランザクションID</value>
+        <value xml:lang="it">Transactie #</value>
         <value xml:lang="zh">交易标识</value>
     </property>
     <property key="WebPosTransactionTotalDue">
@@ -933,6 +947,7 @@
         <value xml:lang="fr">Montant dû</value>
         <value xml:lang="it">Totale dovuto</value>
         <value xml:lang="ja">請求合計</value>
+        <value xml:lang="nl">VERSCHULDIGD</value>
         <value xml:lang="zh">全部应付</value>
     </property>
     <property key="WebPosTransactionTotalDueZero">
@@ -945,6 +960,7 @@
         <value xml:lang="en">Total Paid</value>
         <value xml:lang="it">Totale pagato</value>
         <value xml:lang="ja">全額支払済</value>
+        <value xml:lang="nl">Totaal BETAALD</value>
         <value xml:lang="zh">已付合计</value>
     </property>
     <property key="WebPosUnableToLogIn">
