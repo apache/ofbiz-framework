@@ -1018,7 +1018,7 @@ under the License.
                 </call-class-method>
                 
                 <set field="checkInvoice.invoiceId" from="invoice.invoiceId"/>
-                <call-service service-name="isInvoiceForeign" in-map-name="checkInvoice">
+                <call-service service-name="isInvoiceInForeignCurrency" in-map-name="checkInvoice">
                     <result-to-field result-name="isForeign"/>
                 </call-service>
                 <if-compare operator="equals" value="true" field="isForeign">
@@ -1081,7 +1081,7 @@ under the License.
                     </call-class-method>
 
                     <set field="checkInvoice.invoiceId" from="invoice.invoiceId"/>
-                    <call-service service-name="isInvoiceForeign" in-map-name="checkInvoice">
+                    <call-service service-name="isInvoiceInForeignCurrency" in-map-name="checkInvoice">
                         <result-to-field result-name="isForeign"/>
                     </call-service>                    
                     <if-compare operator="equals" value="true" field="isForeign">

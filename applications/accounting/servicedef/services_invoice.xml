@@ -425,8 +425,8 @@ under the License.
         <attribute name="textDataResourceId" type="String" mode="IN" optional="true"/>
         <attribute name="text" type="String" mode="IN" optional="true" allow-html="safe"/>
     </service>
-    <service name="isInvoiceForeign" engine="simple"
-        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="isInvoiceForeign" auth="true">
+    <service name="isInvoiceInForeignCurrency" engine="simple"
+        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="isInvoiceInForeignCurrency" auth="true">
         <description>check if a invoice is in a foreign currency related to the accounting company.</description>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
         <attribute name="isForeign" type="Boolean" mode="OUT" optional="false"/>

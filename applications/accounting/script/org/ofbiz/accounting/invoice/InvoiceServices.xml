@@ -997,7 +997,7 @@ under the License.
         <call-service service-name="updateSimpleTextContent" in-map-name="updateSimpleText"/>
     </simple-method>
     
-    <simple-method method-name="isInvoiceForeign" short-description="check if a invoice is in a foreign currency related to the accounting company.">
+    <simple-method method-name="isInvoiceInForeignCurrency" short-description="check if a invoice is in a foreign currency related to the accounting company.">
         <entity-one value-field="invoice" entity-name="InvoiceAndType">
             <field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
         </entity-one>
