@@ -1054,7 +1054,12 @@ under the License.
                     <if-empty field="paymentAppls">
                         <set field="createAppl.paymentId" from-field="payments[0].paymentId"/>
                         <set field="createAppl.invoiceId" from-field="parameters.invoiceId"/>
-                        <set field="createAppl.amountApplied" from-field="invoiceTotal"/>
+                        <if-compare operator="equals" value="true" field="isForeign">
+                            <set field="createAppl.amountApplied" from-field="payments[0].actualCurrencyAmount"/>
+                            <else>
+                                <set field="createAppl.amountApplied" from-field="payments[0].amount"/>
+                            </else>
+                        </if-compare>
                     </if-empty>
                 </if-not-empty>
             </if-not-empty>
@@ -1088,12 +1093,14 @@ under the License.
                         <if-compare-field operator="equals" field="invoiceTotal" to-field="payment.actualCurrencyAmount">
                             <if-compare-field operator="equals" field="invoice.currencyUomId" to-field="payment.actualCurrencyUomId">
                                 <set field="invoiceId" from-field="invoice.invoiceId"/>
+                                <set field="amountApplied" from-field="payment.actualCurrencyAmount"/>
                             </if-compare-field>                
                         </if-compare-field>                
                         <else>
                             <if-compare-field operator="equals" field="invoiceTotal" to-field="payment.amount">
                                 <if-compare-field operator="equals" field="invoice.currencyUomId" to-field="payment.currencyUomId">
                                     <set field="invoiceId" from-field="invoice.invoiceId"/>
+                                    <set field="amountApplied" from-field="payment.amount"/>
                                 </if-compare-field>                
                             </if-compare-field>                
                         </else>
@@ -1106,7 +1113,7 @@ under the License.
                     <if-empty field="paymentAppls">
                         <set field="createAppl.paymentId" from-field="parameters.paymentId"/>
                         <set field="createAppl.invoiceId" from-field="invoiceId"/>
-                        <set field="createAppl.amountApplied" from-field="payment.amount"/>
+                        <set field="createAppl.amountApplied" from-field="amountApplied"/>
                     </if-empty>
                 </if-not-empty>
             </if-not-empty>
