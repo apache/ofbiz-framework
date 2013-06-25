@@ -43,9 +43,9 @@ under the License.
           <#list glAccountCategories as glAccountCategory>
             <td>
               <#if (glAcctgAndAmountPercentage[glAccountCategory.glAccountCategoryId!])??>
-                <input type="text" id="cc_${glAcctgAndAmountPercentage.glAccountId}_${glAccountCategory.glAccountCategoryId}" name="amp_${glAccountCategory.glAccountCategoryId!}_o_${glAcctgAndAmountPercentage_index}" value="${(glAcctgAndAmountPercentage[glAccountCategory.glAccountCategoryId!])!}"/>
+                <input type="text" id="cc_${glAcctgAndAmountPercentage.glAccountId}_${glAccountCategory.glAccountCategoryId}" name="amp_${glAccountCategory.glAccountCategoryId!}_o_${glAcctgAndAmountPercentage_index}" value="${(glAcctgAndAmountPercentage[glAccountCategory.glAccountCategoryId!])!}"/>%
               <#else>
-                <input type="text" id="cc_${glAcctgAndAmountPercentage.glAccountId}_${glAccountCategory.glAccountCategoryId}" name="amp_${glAccountCategory.glAccountCategoryId!}_o_${glAcctgAndAmountPercentage_index}" value=""/>
+                <input type="text" id="cc_${glAcctgAndAmountPercentage.glAccountId}_${glAccountCategory.glAccountCategoryId}" name="amp_${glAccountCategory.glAccountCategoryId!}_o_${glAcctgAndAmountPercentage_index}" value=""/>%
               </#if>
             </td>
           </#list>
