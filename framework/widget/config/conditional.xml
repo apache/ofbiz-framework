@@ -20,6 +20,7 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="begins_with">
         <value xml:lang="ar">يبدأ ب</value>
+        <value xml:lang="cs">Začíná</value>
         <value xml:lang="de">Beginnt mit</value>
         <value xml:lang="en">Begins With</value>
         <value xml:lang="es">Inicia con</value>
@@ -35,6 +36,7 @@
     </property>
     <property key="contains">
         <value xml:lang="ar">يحتوي على</value>
+        <value xml:lang="cs">Obsahuje</value>
         <value xml:lang="de">Enthält</value>
         <value xml:lang="en">Contains</value>
         <value xml:lang="es">Contiene</value>
@@ -50,6 +52,7 @@
     </property>
     <property key="equals">
         <value xml:lang="ar">يساوي</value>
+        <value xml:lang="cs">Rovno</value>
         <value xml:lang="de">Gleich</value>
         <value xml:lang="en">Equals</value>
         <value xml:lang="es">Igual</value>
@@ -65,6 +68,7 @@
     </property>
     <property key="greater_than">
         <value xml:lang="ar">أكبر من</value>
+        <value xml:lang="cs">Větší než</value>
         <value xml:lang="de">Größer als</value>
         <value xml:lang="en">Greater Than</value>
         <value xml:lang="es">Mayor que</value>
@@ -80,6 +84,7 @@
     </property>
     <property key="greater_than_equals">
         <value xml:lang="ar">أكبر من أو يساوي</value>
+        <value xml:lang="cs">Větší nebo rovno než</value>
         <value xml:lang="de">Größer gleich</value>
         <value xml:lang="en">Greater Than Equals</value>
         <value xml:lang="es">Mayor igual que</value>
@@ -95,6 +100,7 @@
     </property>
     <property key="greater_than_from_day_start">
         <value xml:lang="ar">أكبر من يوم</value>
+        <value xml:lang="cs">Větší než</value>
         <value xml:lang="de">nach Tagesbeginn</value>
         <value xml:lang="en">Greater Than From Day Start</value>
         <value xml:lang="es">Mayor que el día</value>
@@ -110,6 +116,7 @@
     </property>
     <property key="ignore_case">
         <value xml:lang="ar">حساس لحجم الحرف</value>
+        <value xml:lang="cs">Ignorovat velikost</value>
         <value xml:lang="de">Groß-Kleinschreibung ignorieren</value>
         <value xml:lang="en">Ignore Case</value>
         <value xml:lang="es">Ignorar mayusculas</value>
@@ -125,6 +132,7 @@
     </property>
     <property key="is_empty">
         <value xml:lang="ar">فارغ</value>
+        <value xml:lang="cs">Je prázdné</value>
         <value xml:lang="de">Ist leer</value>
         <value xml:lang="en">Is Empty</value>
         <value xml:lang="es">Vacio</value>
@@ -140,6 +148,7 @@
     </property>
     <property key="less_than">
         <value xml:lang="ar">أقل من</value>
+        <value xml:lang="cs">Menší než</value>
         <value xml:lang="de">Kleiner als</value>
         <value xml:lang="en">Less Than</value>
         <value xml:lang="es">Menor que</value>
@@ -155,6 +164,7 @@
     </property>
     <property key="less_than_equals">
         <value xml:lang="ar">أقل من أو يساوي</value>
+        <value xml:lang="cs">Menší nebo rovno než</value>
         <value xml:lang="de">Kleiner gleich</value>
         <value xml:lang="en">Less Than Equals</value>
         <value xml:lang="es">Menor que</value>
@@ -170,6 +180,7 @@
     </property>
     <property key="not_equal">
         <value xml:lang="de">ungleich</value>
+        <value xml:lang="cs">Není rovno</value>
         <value xml:lang="en">Not Equal</value>
         <value xml:lang="fr">Diff.</value>
         <value xml:lang="it">Diverso da</value>
@@ -180,6 +191,7 @@
     </property>
     <property key="same_day">
         <value xml:lang="ar">نفس اليوم</value>
+        <value xml:lang="cs">Stejný den</value>
         <value xml:lang="de">Gleicher Tag</value>
         <value xml:lang="en">Same Day</value>
         <value xml:lang="es">Igual</value>
@@ -195,6 +207,7 @@
     </property>
     <property key="up_thru_day">
         <value xml:lang="ar">يحتوي اليوم</value>
+        <value xml:lang="cs">Do konce dne</value>
         <value xml:lang="de">bis Tagesende</value>
         <value xml:lang="en">Up Through Day</value>
         <value xml:lang="es">Hasta el día</value>
@@ -210,6 +223,7 @@
     </property>
     <property key="up_to_day">
         <value xml:lang="ar">حتى يوم</value>
+        <value xml:lang="cs">Do dne</value>
         <value xml:lang="de">bis Tagesbeginn</value>
         <value xml:lang="en">Up To Day</value>
         <value xml:lang="es">Hasta</value>
