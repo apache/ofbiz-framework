@@ -6741,6 +6741,7 @@
         <value xml:lang="zh-TW">沒有找到記錄</value>
     </property>
     <property key="CommonNoStatesProvinces">
+        <!-- OFBIZ-5246 please use ": _NA_" at end, with a space between the colon and _NA_. getDependentDropdownValues relies on it  -->
         <value xml:lang="de">Kein exitierendes Bundesland: _NA_</value>
         <value xml:lang="en">No States/Provinces exist: _NA_</value>
         <value xml:lang="es">No existen provincias: _NA_</value>
@@ -6749,7 +6750,7 @@
         <value xml:lang="pt-BR">Nenhum estados/municípios existem: _NA_</value>
         <value xml:lang="ru">Не сущестивует ни штата, ни провинции: _NA_</value>
         <value xml:lang="vi">Không Tỉnh/Thành nào tồn tại : _NA</value>
-        <value xml:lang="zh">没有省：_NA_</value>
+        <value xml:lang="zh">没有省： _NA_</value>
     </property>
     <property key="CommonNoStatesProvincesExists">
         <value xml:lang="de">Es existiert kein Bundesland</value>
