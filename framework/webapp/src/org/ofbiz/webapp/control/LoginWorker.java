@@ -25,6 +25,7 @@ import java.security.cert.X509Certificate;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
+import java.util.ServiceLoader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -244,6 +245,56 @@ public class LoginWorker {
             }
         }
         return userLogin;
+    }
+
+    /** This WebEvent allows for java 'services' to hook into the login path.
+     * This method loads all instances of {@link LoginCheck}, and calls the
+     * {@link LoginCheck#associate} method.  The first implementation to return
+     * a non-null value gets that value returned to the caller.  Returning
+     * "none" will abort processing, while anything else gets looked up in
+     * outer view dispatch.  This event is called when the current request
+     * needs to have a validly logged in user; it is a wrapper around {@link
+     * #checkLogin}.
+     *
+     * @param request The HTTP request object for the current JSP or Servlet request.
+     * @param response The HTTP response object for the current JSP or Servlet request.
+     * @return String
+     */
+    public static String extensionCheckLogin(HttpServletRequest request, HttpServletResponse response) {
+        for (LoginCheck check: ServiceLoader.load(LoginCheck.class)) {
+            if (!check.isEnabled()) {
+                continue;
+            }
+            String result = check.associate(request, response);
+            if (result != null) {
+                return result;
+            }
+        }
+        return checkLogin(request, response);
+    }
+
+    /** This WebEvent allows for java 'services' to hook into the login path.
+     * This method loads all instances of {@link LoginCheck}, and calls the
+     * {@link LoginCheck#check} method.  The first implementation to return
+     * a non-null value gets that value returned to the caller.  Returning
+     * "none" will abort processing, while anything else gets looked up in
+     * outer view dispatch; for preprocessors, only "success" makes sense.
+     *
+     * @param request The HTTP request object for the current JSP or Servlet request.
+     * @param response The HTTP response object for the current JSP or Servlet request.
+     * @return String
+     */
+    public static String extensionConnectLogin(HttpServletRequest request, HttpServletResponse response) {
+        for (LoginCheck check: ServiceLoader.load(LoginCheck.class)) {
+            if (!check.isEnabled()) {
+                continue;
+            }
+            String result = check.check(request, response);
+            if (result != null) {
+                return result;
+            }
+        }
+        return "success";
     }
 
     /**
