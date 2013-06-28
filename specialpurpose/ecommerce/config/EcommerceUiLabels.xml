@@ -202,6 +202,7 @@
         <value xml:lang="zh_TW">把選中項目加到列表</value>
     </property>
     <property key="EcommerceAddTags">
+        <value xml:lang="de">Tags hinzufügen</value>
         <value xml:lang="en">Add Tags</value>
         <value xml:lang="fr">Ajouter une étiquette</value>
         <value xml:lang="ja">タグを追加</value>
@@ -209,6 +210,7 @@
         <value xml:lang="zh">添加标签</value>
     </property>
     <property key="EcommerceAddTagsDetail">
+        <value xml:lang="de">Mehrere Tags mit Leerzeichen trennen. Mehrere Worte mit einfachen Anführungszeichen (') zu einem Tag verbinden.</value>
         <value xml:lang="en">Use spaces to separate tags. Use single quotes(') for phrases.</value>
         <value xml:lang="fr">Utiliser un espace pour séparer les étiquettes et des apostrophes pour les phrases.</value>
         <value xml:lang="ja">タグの区切りはスペースを使用してください。フレーズにはシングルクォート(')を使用してください。</value>
@@ -242,6 +244,7 @@
         <value xml:lang="zh_TW">地址簿</value>
     </property>
     <property key="EcommerceAddYourTags">
+        <value xml:lang="de">Ihre Tags</value>
         <value xml:lang="en">Add your tags</value>
         <value xml:lang="fr">Ajouter vos étiquettes</value>
         <value xml:lang="ja">あなたのタグを追加</value>
@@ -2845,6 +2848,7 @@
         <value xml:lang="zh_TW">產品ID:</value>
     </property>
     <property key="EcommerceProductTags">
+        <value xml:lang="de">Tags für Produkte</value>
         <value xml:lang="en">Product Tags</value>
         <value xml:lang="fr">Étiquettes</value>
         <value xml:lang="ja">製品タグ</value>
@@ -2852,6 +2856,7 @@
         <value xml:lang="zh">产品标签</value>
     </property>
     <property key="EcommerceProductTagsDetail">
+        <value xml:lang="de">Bereits von Anderen vergebene Tags</value>
         <value xml:lang="en">Other people marked this product with these tags</value>
         <value xml:lang="fr">Cette étiquette a déjà été ajoutée pour ce produit</value>
         <value xml:lang="ja">他の人がこの製品に同じタグ付け</value>
@@ -3722,6 +3727,7 @@
         <value xml:lang="zh_TW">調查</value>
     </property>
     <property key="EcommerceTags">
+        <value xml:lang="de">Tag-Wolke</value>
         <value xml:lang="en">Tag Cloud</value>
         <value xml:lang="fr">Nuage de mots</value>
         <value xml:lang="ja">クラウドにタグ</value>
@@ -5124,6 +5130,7 @@
         <value xml:lang="zh_TW">為送貨分拆明細</value>
     </property>
     <property key="PageTitleTagResults">
+        <value xml:lang="de">Tag Suchergebnis</value>
         <value xml:lang="en">Tag results</value>
         <value xml:lang="fr">Résultats de la recherche par étiquette</value>
         <value xml:lang="ja">タグ結果</value>
