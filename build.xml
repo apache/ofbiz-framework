@@ -209,11 +209,11 @@ under the License.
         <subant inheritall="false" failonerror="${specialpurpose.present}">
             <filelist dir="." files="specialpurpose/build.xml"/>
         </subant>
-        <subant inheritall="false">
+        <externalsubant>
             <fileset dir="${basedir}/themes">
                 <include name="*/build.xml" />
             </fileset>
-        </subant>
+        </externalsubant>
 
         <hotdeployant/>
         <antcall target="clean-svninfo"/>
@@ -231,17 +231,17 @@ under the License.
         <if>
           <available file="hot-deploy/build.xml" property="useHotDeployBuild"/>
           <then>
-            <subant inheritall="false">
+            <externalsubant>
               <filelist dir="." files="hot-deploy/build.xml"/>
-            </subant>
+            </externalsubant>
           </then>
           <else>
-            <subant inheritall="false">
+            <externalsubant>
               <fileset dir="${basedir}/hot-deploy" casesensitive="no">
                 <exclude name="disabled/**"/>
                 <include name="*/build.xml"/>
               </fileset>
-            </subant>
+            </externalsubant>
           </else>
         </if>
       </sequential>
