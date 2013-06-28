@@ -257,4 +257,8 @@ under the License.
    </if>
   </sequential>
  </macrodef>
+
+ <presetdef name="externalsubant">
+  <subant inheritall="false"/>
+ </presetdef>
 </project>
