@@ -356,6 +356,9 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
             }
             // add to the entity as a new field
             synchronized (fieldsLock) {
+                if (existingField != null) {
+                    this.fieldsList.remove(existingField);
+                }
                 this.fieldsList.add(newField);
                 this.fieldsMap.put(newField.getName(), newField);
                 if (!newField.getIsPk()) {
