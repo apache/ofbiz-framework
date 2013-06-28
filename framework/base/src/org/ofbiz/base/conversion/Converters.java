@@ -85,11 +85,23 @@ OUTER:
             if (noConversions.contains(key)) {
                 throw new ClassNotFoundException("No converter found for " + key);
             }
+            Class foundSourceClass = null;
+            Converter<?, ?> foundConverter = null;
             for (Converter<?, ?> value : converterMap.values()) {
                 if (value.canConvert(sourceClass, targetClass)) {
-                    converterMap.putIfAbsent(key, value);
-                    continue OUTER;
+                    // this converter can deal with the source/target pair
+                    if (foundSourceClass == null || foundSourceClass.isAssignableFrom(value.getSourceClass())) {
+                        // remember the current target source class; if we find another converter, check
+                        // to see if it's source class is assignable to this one, and if so, it means it's
+                        // a child class, so we'll then take that converter.
+                        foundSourceClass = value.getSourceClass();
+                        foundConverter = value;
+                    }
                 }
+            }
+            if (foundConverter != null) {
+                converterMap.putIfAbsent(key, foundConverter);
+                continue OUTER;
             }
             for (ConverterCreator value : creators) {
                 result = createConverter(value, sourceClass, targetClass);
