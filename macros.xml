@@ -259,6 +259,10 @@ under the License.
  </macrodef>
 
  <presetdef name="externalsubant">
-  <subant inheritall="false"/>
+  <subant inheritall="false">
+   <propertyset>
+    <propertyref name="ofbiz.home.dir"/>
+   </propertyset>
+  </subant>
  </presetdef>
 </project>
