@@ -2872,6 +2872,7 @@ under the License.
                             <first-from-list list="glAccountCategoryMembers" entry="glAccountCategoryMember"/>
                             <set field="glAcctgOrgAndCostCenterMap[glAccountCategory.glAccountCategoryId]" from-field="glAccountCategoryMember.amountPercentage" type="BigDecimal"/>
                             <get-related-one value-field="glAccountCategoryMember" relation-name="GlAccount" to-value-field="glAccount"/>
+                            <set field="glAcctgOrgAndCostCenterMap.glAccountOrganization" from-field="glAccountOrganization.organizationPartyId"/>
                             <set field="glAcctgOrgAndCostCenterMap.glAccountId" from-field="glAccount.glAccountId"/>
                             <set field="glAcctgOrgAndCostCenterMap.accountCode" from-field="glAccount.accountCode"/>
                             <set field="glAcctgOrgAndCostCenterMap.accountName" from-field="glAccount.accountName"/>
