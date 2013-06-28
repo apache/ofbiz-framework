@@ -231,12 +231,12 @@ under the License.
         <if>
           <available file="hot-deploy/build.xml" property="useHotDeployBuild"/>
           <then>
-            <externalsubant>
+            <externalsubant target="@{target}">
               <filelist dir="." files="hot-deploy/build.xml"/>
             </externalsubant>
           </then>
           <else>
-            <externalsubant>
+            <externalsubant target="@{target}">
               <fileset dir="${basedir}/hot-deploy" casesensitive="no">
                 <exclude name="disabled/**"/>
                 <include name="*/build.xml"/>
