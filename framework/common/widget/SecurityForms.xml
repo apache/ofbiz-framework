@@ -76,7 +76,11 @@ under the License.
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
-        <field name="cancelLink" title=" " widget-style="smallSubmit"><hyperlink target="${cancelPage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
+        <field name="cancelLink" title=" " widget-style="smallSubmit">
+            <hyperlink target="${cancelPage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
+                <parameter param-name="partyId"/>
+            </hyperlink>
+        </field>
     </form>
 
     <form name="AddUserLoginSecurityGroup" type="single" target="${addUserLoginSecurityGroupURI}"
@@ -108,7 +112,11 @@ under the License.
         <field name="groupId" title="${uiLabelMap.CommonSecurityGroupId}" widget-style="required" tooltip="${uiLabelMap.CommonRequired}"><text size="20" maxlength="20"/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text size="60" maxlength="250"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
-        <field name="cancelLink" title=" " widget-style="smallSubmit"><hyperlink target="${cancelPage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
+        <field name="cancelLink" title=" " widget-style="smallSubmit">
+            <hyperlink target="${cancelPage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
+                <parameter param-name="partyId"/>
+            </hyperlink>
+        </field>
     </form>
 
     <form name="EditSecurityGroup" type="single" target="updateSecurityGroup" default-map-name="securityGroup">
