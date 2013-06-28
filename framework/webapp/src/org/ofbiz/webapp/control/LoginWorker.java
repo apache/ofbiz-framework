@@ -121,6 +121,10 @@ public class LoginWorker {
      * Gets (and creates if necessary) a key to be used for an external login parameter
      */
     public static String getExternalLoginKey(HttpServletRequest request) {
+        boolean externalLoginKeyEnabled = "true".equals(UtilProperties.getPropertyValue("security", "security.login.externalLoginKey.enabled", "true"));
+        if (!externalLoginKeyEnabled) {
+            return null;
+        }
         //Debug.logInfo("Running getExternalLoginKey, externalLoginKeys.size=" + externalLoginKeys.size(), module);
         GenericValue userLogin = (GenericValue) request.getAttribute("userLogin");
 
