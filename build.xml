@@ -155,11 +155,7 @@ under the License.
     </target>
 
     <target name="clean">
-        <subant target="clean">
-            <fileset dir="${basedir}/hot-deploy" casesensitive="no">
-                <include name="*/build.xml"/>
-            </fileset>
-        </subant>
+        <hotdeployant target="clean"/>
 
         <subant target="clean"  failonerror="${specialpurpose.present}"
           description="Use failonerror=false in case the specialpurpose directory is not there">
@@ -219,6 +215,15 @@ under the License.
             </fileset>
         </subant>
 
+        <hotdeployant/>
+        <antcall target="clean-svninfo"/>
+
+        <echo message="[build] ========== Done Building (Compile) =========="/>
+    </target>
+
+    <macrodef name="hotdeployant">
+      <attribute name="target" default=""/>
+      <sequential>
         <!-- a check is done, if no build.xml file is present in hot-deploy dir,
             then the build.xml files - if present - in hot-deploy sub-dirs will be used.
             So the previous, simpler, behaviour is kept as long as you don't need 
@@ -239,10 +244,8 @@ under the License.
             </subant>
           </else>
         </if>
-        <antcall target="clean-svninfo"/>
-
-        <echo message="[build] ========== Done Building (Compile) =========="/>
-    </target>
+      </sequential>
+    </macrodef>
 
     <!-- ================================================================== -->
     <!-- Build JavaDocs                                                     -->
@@ -260,11 +263,7 @@ under the License.
         <subant target="docs" failonerror="${specialpurpose.present}">
             <filelist dir="." files="specialpurpose/build.xml"/>
         </subant>
-        <subant target="docs">
-            <fileset dir="${basedir}/hot-deploy" casesensitive="no">
-                <include name="*/build.xml"/>
-            </fileset>
-        </subant>
+        <hotdeployant target="docs"/>
 
         <echo message="[docs] ========== Done Building (JavaDocs) =========="/>
     </target>
