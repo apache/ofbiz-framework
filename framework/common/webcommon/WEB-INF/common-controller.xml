@@ -32,6 +32,7 @@ under the License.
         <event name="checkServletRequestRemoteUserLogin" type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkServletRequestRemoteUserLogin"/>
         <event name="checkExternalLoginKey" type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkExternalLoginKey"/>
         <event name="checkProtectedView" type="java" path="org.ofbiz.webapp.control.ProtectViewWorker" invoke="checkProtectedView"/>
+        <event name="extensionConnectLogin" type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="extensionConnectLogin"/>
     </preprocessor>
     <postprocessor>
         <!-- Events to run on every request after all other processing (chains exempt) -->
@@ -41,14 +42,14 @@ under the License.
     <request-map uri="checkLogin" edit="false">
         <description>Verify a user is logged in.</description>
         <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkLogin"/>
+        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="extensionCheckLogin"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="login"/>
     </request-map>
     <request-map uri="ajaxCheckLogin" edit="false">
         <description>Verify a user is logged in.</description>
         <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkLogin"/>
+        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="extensionCheckLogin"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="ajaxLogin"/>
     </request-map>
