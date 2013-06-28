@@ -929,13 +929,13 @@ public class InventoryServices {
         //change this for product price
         for (GenericValue onePrice: productPrices) {
             if (onePrice.getString("productPriceTypeId").equals("DEFAULT_PRICE")) { //defaultPrice
-                result.put("defultPrice", onePrice.getBigDecimal("price"));
+                result.put("defaultPrice", onePrice.getBigDecimal("price"));
             } else if (onePrice.getString("productPriceTypeId").equals("WHOLESALE_PRICE")) {//
                 result.put("wholeSalePrice", onePrice.getBigDecimal("price"));
             } else if (onePrice.getString("productPriceTypeId").equals("LIST_PRICE")) {//listPrice
                 result.put("listPrice", onePrice.getBigDecimal("price"));
             } else {
-                result.put("defultPrice", onePrice.getBigDecimal("price"));
+                result.put("defaultPrice", onePrice.getBigDecimal("price"));
                 result.put("listPrice", onePrice.getBigDecimal("price"));
                 result.put("wholeSalePrice", onePrice.getBigDecimal("price"));
             }
