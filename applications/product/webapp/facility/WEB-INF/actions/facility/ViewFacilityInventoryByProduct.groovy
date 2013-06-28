@@ -181,7 +181,7 @@ if (action) {
             oneInventory.offsetQOHQtyAvailable = resultMap.offsetQOHQtyAvailable;
             oneInventory.offsetATPQtyAvailable = resultMap.offsetATPQtyAvailable;
             oneInventory.usageQuantity = resultMap.usageQuantity;
-            oneInventory.defultPrice = resultMap.defultPrice;
+            oneInventory.defaultPrice = resultMap.defaultPrice;
             oneInventory.listPrice = resultMap.listPrice;
             oneInventory.wholeSalePrice = resultMap.wholeSalePrice;
             if (offsetQOHQty && offsetATPQty) {
