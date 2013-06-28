@@ -1877,7 +1877,8 @@ public class ShoppingCartEvents {
         // set the agreement if specified otherwise set the currency
         if (UtilValidate.isNotEmpty(agreementId)) {
             result = cartHelper.selectAgreement(agreementId);
-        } else if (UtilValidate.isNotEmpty(currencyUomId)) {
+        } 
+        if (UtilValidate.isNotEmpty(cart.getCurrency()) && UtilValidate.isNotEmpty(currencyUomId)) {
             result = cartHelper.setCurrency(currencyUomId);
         }
         if (ServiceUtil.isError(result)) {
