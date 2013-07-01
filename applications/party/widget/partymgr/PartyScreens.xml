@@ -341,6 +341,7 @@ under the License.
 
                 <set field="labelTitleProperty" value="PartyAttribute"/>
 
+                <set field="cancelPage" from-field="parameters.CANCEL_PAGE" default-value="viewprofile"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="attrName" from-field="parameters.attrName"/>
                 <entity-one entity-name="Party" value-field="party"/>
