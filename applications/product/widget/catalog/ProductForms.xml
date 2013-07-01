@@ -2030,6 +2030,12 @@ under the License.
     <!-- GlAccount-->
     <form name="ListProductGlAccounts" type="list" target="updateProductGlAccount" title="" list-name="productGlAccounts"
         odd-row-style="alternate-row" default-table-style="basic-table">
+        <row-actions>
+            <entity-condition entity-name="GlAccountOrganizationAndClass" list="organizationGlAccounts">
+                <condition-expr field-name="organizationPartyId" from-field="organizationPartyId"/>
+                <order-by field-name="glAccountId"/>
+            </entity-condition>
+        </row-actions>
         <field name="productId"><hidden/></field>
         <field name="glAccountTypeId" title="${uiLabelMap.ProductAccountType}">
             <display-entity entity-name="GlAccountType" key-field-name="glAccountTypeId" description="${description}"/>
@@ -2039,7 +2045,7 @@ under the License.
         </field>
         <field name="glAccountId" title="${uiLabelMap.ProductGlAccount}">
             <drop-down allow-empty="false">
-                <list-options key-name="accountCode" list-name="glAccounts" description="${accountCode} ${accountName}"/>
+                <list-options key-name="accountCode" list-name="organizationGlAccounts" description="${accountCode} ${accountName}"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
