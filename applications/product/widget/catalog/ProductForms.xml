@@ -2063,17 +2063,17 @@ under the License.
                 <list-options key-name="glAccountTypeId" list-name="productGlAccountTypes" description="${description}"/>
             </drop-down>
         </field>
-        <field name="glAccountId" title="${uiLabelMap.ProductGlAccount}">
-            <drop-down allow-empty="false">
-                <list-options key-name="accountCode" list-name="glAccounts" description="${accountCode} ${accountName}"/>
-            </drop-down>
-        </field>
         <field name="organizationPartyId" title="${uiLabelMap.ProductOrganization}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="PartyRoleAndPartyDetail" key-field-name="partyId" description="${groupName} [${partyId}]">
                     <entity-constraint name="roleTypeId" operator="equals" value="INTERNAL_ORGANIZATIO"/>
                     <entity-order-by field-name="partyId"/>
                 </entity-options>
+            </drop-down>
+        </field>
+        <field name="glAccountId" title="${uiLabelMap.ProductGlAccount}">
+            <drop-down allow-empty="false">
+                <list-options key-name="accountCode" list-name="glAccounts" description="${accountCode} ${accountName}"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
