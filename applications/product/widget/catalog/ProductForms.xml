@@ -2028,14 +2028,8 @@ under the License.
         </field>
     </form>
     <!-- GlAccount-->
-    <form name="ListProductGlAccounts" type="list" target="updateProductGlAccount" title=""
+    <form name="ListProductGlAccounts" type="list" target="updateProductGlAccount" title="" list-name="productGlAccounts"
         odd-row-style="alternate-row" default-table-style="basic-table">
-        <actions>
-            <entity-condition entity-name="ProductGlAccount" list="productGlAccounts">
-                <condition-expr field-name="productId" from-field="productId"/>
-                <order-by field-name="productId"/>
-            </entity-condition>
-        </actions>
         <field name="productId"><hidden/></field>
         <field name="glAccountTypeId" title="${uiLabelMap.ProductAccountType}">
             <display-entity entity-name="GlAccountType" key-field-name="glAccountTypeId" description="${description}"/>
