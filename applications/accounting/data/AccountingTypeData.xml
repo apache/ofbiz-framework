@@ -564,6 +564,7 @@ under the License.
     <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="FINISHED_GOOD" invoiceItemTypeId="PINV_FPROD_ITEM"/>
     <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="DIGITAL_GOOD" invoiceItemTypeId="PINV_DPROD_ITEM"/>
     <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="FINDIG_GOOD" invoiceItemTypeId="PINV_FDPROD_ITEM"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="SERVICE" invoiceItemTypeId="PINV_SPROD_ITEM"/>
 
     <!-- orderAdjustmentTypeId -->
     <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="PROMOTION_ADJUSTMENT" invoiceItemTypeId="PITM_PROMOTION_ADJ"/>
