@@ -1006,15 +1006,15 @@ under the License.
             <return/>
         </if-empty>
         <if-compare field="invoice.parentTypeId" operator="equals" value="PURCHASE_INVOICE">
-            <set field="pref.organizationPartyId" from-field="invoice.partyIdFrom"/>
-        </if-compare>          
-        <if-compare field="invoice.parentTypeId" operator="equals" value="SALES_INVOICE">
             <set field="pref.organizationPartyId" from-field="invoice.partyId"/>
         </if-compare>          
+        <if-compare field="invoice.parentTypeId" operator="equals" value="SALES_INVOICE">
+            <set field="pref.organizationPartyId" from-field="invoice.partyIdFrom"/>
+        </if-compare>          
         <call-service service-name="getPartyAccountingPreferences" in-map-name="pref">
-            <result-to-field result-name="prefResult"/>
+            <result-to-field result-name="partyAccountingPreference"/>
         </call-service>
-        <if-compare-field to-field="prefResult.partyAccountingPreference.baseCurrencyUomId" operator="equals" field="invoice.currencyUomId">
+        <if-compare-field to-field="partyAccountingPreference.baseCurrencyUomId" operator="equals" field="invoice.currencyUomId">
             <set field="isForeign" value="false" type="Boolean"/>
             <else>
                 <set field="isForeign" value="true" type="Boolean"/>
