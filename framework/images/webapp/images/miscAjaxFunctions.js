@@ -117,12 +117,15 @@ function getDependentDropdownValues(request, paramKey, paramField, targetField, 
 }
 
 //*** calls any service already mounted as an event
-function getServiceResult(request, params){
+// arguments must be either a request only (1st argument) or a request followed by {name;value} pair/s parameters 
+function getServiceResult(){
+    var request = arguments[0];
+    var params =  new Array();
     var data;
     jQuery.ajax({
         type: 'POST',
         url: request,
-        data: params,
+        data: prepareAjaxData(arguments),
         async: false,
         cache: false,
         success: function(result){
@@ -132,18 +135,17 @@ function getServiceResult(request, params){
     return data;
 }
 
-//*** calls any service already mounted as an event
-function getServiceResult(request){
-    var data;
-    jQuery.ajax({
-        type: 'POST',
-        url: request,
-        async: false,
-        cache: false,
-        success: function(result){
-            data = result;
-        }
+function prepareAjaxData(params) {
+  var data = new Array();
+  if (params.length > 1) {
+    for (var i = 1; i < params.length; i++) {
+      data.push({
+        name: params[i],
+        value: params[i + 1]
     });
+      i++;
+    }
+  }
     return data;
 }
 
