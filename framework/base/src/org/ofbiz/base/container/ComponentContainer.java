@@ -205,7 +205,7 @@ public class ComponentContainer implements Container {
                     try {
                         File componentPath = FileUtil.getFile(parentPath.getCanonicalPath() + "/" + sub);
                         if (componentPath.isDirectory() && !sub.equals("CVS") && !sub.equals(".svn")) {
-                            // make sure we have a component configuraton file
+                            // make sure we have a component configuration file
                             String componentLocation = componentPath.getCanonicalPath();
                             File configFile = FileUtil.getFile(componentLocation + "/ofbiz-component.xml");
                             if (configFile.exists()) {
