@@ -86,7 +86,9 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="AddCompany" location="component://accounting/widget/GlSetupForms.xml"/>
+                        <screenlet title="${uiLabelMap.AccountingNewCompany}">
+                            <include-form name="AddCompany" location="component://accounting/widget/GlSetupForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
