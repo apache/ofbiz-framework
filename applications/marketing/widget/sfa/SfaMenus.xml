@@ -28,7 +28,7 @@ under the License.
         <menu-item name="Forecast" title="${uiLabelMap.SfaForecasts}"><link target="FindSalesForecast"/></menu-item>
         <menu-item name="Opportunities" title="${uiLabelMap.SfaOpportunities}"><link target="FindSalesOpportunity"/></menu-item>
         <menu-item name="Preferences" title="${uiLabelMap.CommonPreferences}" align-style="opposed">
-            <link target="ManagePortalPages">
+            <link target="ManagePortalPages" link-type="anchor">
                 <parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
             </link>
         </menu-item>

@@ -60,7 +60,7 @@ under the License.
                     <if-has-permission permission="ORDERMGR" action="_PURCHASE_CREATE"/>
                 </or>
             </condition>
-            <link target="orderentry"/>
+            <link target="orderentry" link-type="anchor"/>
         </menu-item>
 
         <menu-item name="return" title="${uiLabelMap.OrderOrderReturns}">
