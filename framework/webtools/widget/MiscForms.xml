@@ -70,23 +70,4 @@ under the License.
         </field>
     </form>
 
-    <form name="XsdToJavaForm" type="single" target="XsdToJava" default-map-name="parameters">
-        <field name="xsdFileName" title="${uiLabelMap.WebtoolsXsdFileName}" widget-style="required" tooltip="${uiLabelMap.CommonRequired}">
-            <text />
-        </field>
-        <field name="packageName" title="${uiLabelMap.WebtoolsPackageName}">
-            <text />
-        </field>
-        <field name="exceptionClassName" title="${uiLabelMap.WebtoolsExceptionClassName}">
-            <text />
-        </field>
-        <field name="visitorClassName" title="${uiLabelMap.WebtoolsVisitorClassName}">
-            <text />
-        </field>
-        <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
-        <field name="cancelButton" title=" " widget-style="smallSubmit">
-            <hyperlink target="main" description="${uiLabelMap.CommonCancel}"></hyperlink>
-        </field>
-    </form>
-
 </forms>
