@@ -411,6 +411,15 @@ under the License.
             <arg value="pos"/>
         </java>
     </target>
+    <target name="start-both"
+            description="Start OFBiz in both Web and POS (Point of sale) modes">
+        <java jar="ofbiz.jar" fork="true">
+            <jvmarg value="${memory.initial.param}"/>
+            <jvmarg value="${memory.max.param}"/>
+            <jvmarg value="${memory.maxpermsize.param}"/>
+            <arg value="both"/>
+        </java>
+    </target>
     <target name="stop"
             description="Stop OFBiz">
         <java jar="ofbiz.jar" fork="true">
