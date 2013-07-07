@@ -5823,19 +5823,4 @@
         <value xml:lang="zh">创建一个实体 ${entityName} ：输入值，然后点击新建.</value>
         <value xml:lang="zh_TW">創建一個實體 ${entityName} ：輸入值，然後點擊新建.</value>
     </property>
-    <property key="WebtoolsXsdToJava">
-        <value xml:lang="en">XSD to Java</value>
-    </property>
-    <property key="WebtoolsXsdFileName">
-        <value xml:lang="en">XSD File Name</value>
-    </property>
-    <property key="WebtoolsPackageName">
-        <value xml:lang="en">Package Name</value>
-    </property>
-    <property key="WebtoolsExceptionClassName">
-        <value xml:lang="en">Exception Class Name</value>
-    </property>
-    <property key="WebtoolsVisitorClassName">
-        <value xml:lang="en">Visitor Class Name</value>
-    </property>
 </resource>
