@@ -24,7 +24,7 @@ under the License.
         extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="main" parent-portal-page-value="${parameters.parentPortalPageId}"/>
         <menu-item name="Dashboard" title="${uiLabelMap.CommonPreferences}" align-style="opposed">
-            <link target="ManagePortalPages">
+            <link target="ManagePortalPages" link-type="anchor">
                 <parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
             </link>
         </menu-item>
