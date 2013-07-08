@@ -724,19 +724,6 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
             } catch (Exception e) {
                 Debug.logError("Error evaluating expression " + this + ": " + e, module);
             }
-            if (obj != null) {
-                try {
-                    // Check for runtime nesting
-                    String str = (String) obj;
-                    if (str.contains(openBracket)) {
-                        FlexibleStringExpander fse = FlexibleStringExpander.getInstance(str);
-                        if (containsScript(fse)) {
-                            throw new UnsupportedOperationException("Nested scripts are not supported");
-                        }
-                        return fse.get(context, timeZone, locale);
-                    }
-                } catch (ClassCastException e) {}
-            }
             return obj;
         }
     }

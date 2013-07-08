@@ -286,16 +286,6 @@ public class FlexibleStringExpanderTests extends TestCase {
         List<String> testList = new ArrayList<String>();
         testList.add("World");
         testMap.put("testList", testList);
-        testMap.put("testScript", "${groovy:return null;}");
-        UnsupportedOperationException caught = null;
-        try {
-            FlexibleStringExpander fse = FlexibleStringExpander.getInstance("${testScript}");
-            fse.expandString(testMap);
-        } catch (UnsupportedOperationException e) {
-            caught = e;
-        } finally {
-            assertNotNull("UnsupportedOperationException thrown for nested script", caught);
-        }
         fseTest("null FlexibleStringExpander, null map", null, null, null, null, "", null, true);
         fseTest("null FlexibleStringExpander", null, testMap, null, null, "", null, true);
         fseTest("null context", "Hello World!", null, null, null, "Hello World!", null, false);
@@ -305,9 +295,6 @@ public class FlexibleStringExpanderTests extends TestCase {
         fseTest("empty FlexibleStringExpander", "", testMap, null, null, "", null, true);
         fseTest("UEL integration(nested): throw Exception", "${${throwException.value}}", testMap, "", false);
         fseTest("UEL integration: throw Exception", "${throwException.value}", testMap, null, null, "", null, false);
-        fseTest("hidden (runtime) nested replacement", "${nested}!", testMap, "Hello World!", false);
-        fseTest("hidden (runtime) nested null replacement", "Hello ${${nullVar}}World!", testMap, "Hello World!", false);
-        fseTest("hidden (runtime) nested null callreplacement", "Hello ${${groovy:" + FlexibleStringExpanderTests.class.getName() + ".StaticReturnNull()}}World!", testMap, "Hello World!", false);
         fseTest("UEL integration(nested): throw Exception", "${throw${exc}.value}", testMap, "", false);
         fseTest("UEL integration(nested): throw NPE", "${throwNPE${blank}.value}", testMap, "", false);
         fseTest("visible nested replacement", "${'Hello ${var}'}!", testMap, "Hello World!", false);
