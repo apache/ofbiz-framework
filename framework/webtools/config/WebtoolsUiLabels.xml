@@ -3402,21 +3402,25 @@
     </property>
     <property key="WebtoolsMetrics">
         <value xml:lang="en">Metrics</value>
+        <value xml:lang="fr">Mesures</value>
         <value xml:lang="ja">メトリックス</value>
         <value xml:lang="zh">度量</value>
     </property>
     <property key="WebtoolsMetricsRate">
-        <value xml:lang="en">Service Rate (mS)</value>
+        <value xml:lang="en">Service, Request or Event Rate (ms)</value>
+        <value xml:lang="fr">Durée du service, de la requête ou de l'évènement (ms)</value>
         <value xml:lang="ja">サービスレート(ミリ秒)</value>
         <value xml:lang="zh">服务速率（毫秒）</value>
     </property>
     <property key="WebtoolsMetricsThreshold">
         <value xml:lang="en">Threshold</value>
+        <value xml:lang="fr">Seuil</value>
         <value xml:lang="ja">しきい値</value>
         <value xml:lang="zh">阀值</value>
     </property>
     <property key="WebtoolsMetricsTotalEvents">
         <value xml:lang="en">Total Events</value>
+        <value xml:lang="fr">Nombre d'occurences</value>
         <value xml:lang="ja">イベント合計</value>
         <value xml:lang="zh">全部事件</value>
     </property>
@@ -4888,6 +4892,7 @@
     <property key="WebtoolsStatistics">
         <value xml:lang="de">Statistiken</value>
         <value xml:lang="en">Statistics</value>
+        <value xml:lang="fr">Statistiques</value>
         <value xml:lang="it">Statistiche</value>
         <value xml:lang="ja">統計</value>
         <value xml:lang="pt">EstatÃ­sticas</value>
