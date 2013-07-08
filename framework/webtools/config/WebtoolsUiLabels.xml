@@ -3407,8 +3407,8 @@
         <value xml:lang="zh">度量</value>
     </property>
     <property key="WebtoolsMetricsRate">
-        <value xml:lang="en">Service, Request or Event Rate (ms)</value>
-        <value xml:lang="fr">Durée du service, de la requête ou de l'évènement (ms)</value>
+        <value xml:lang="en">Service Rate (ms)</value>
+        <value xml:lang="fr">Durée moyenne (ms)</value>
         <value xml:lang="ja">サービスレート(ミリ秒)</value>
         <value xml:lang="zh">服务速率（毫秒）</value>
     </property>
