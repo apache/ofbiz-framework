@@ -163,6 +163,11 @@ under the License.
             <set from-field="nowTimestamp" field="parameters.invoiceDate"/>
         </if-empty>
 
+        <!-- set the invoice status if not provided -->
+        <if-empty field="parameters.statusId">
+            <set field="parameters.statusId" value="INVOICE_IN_PROCESS"/>
+        </if-empty>
+
         <!-- use currency of receiving company -->
         <entity-one entity-name="Party" value-field="party"/>
         <if-not-empty field="party.preferredCurrencyUomId">
