@@ -17365,7 +17365,7 @@
     </property>
     <property key="FormFieldTitle_invoiceItemTypeId">
         <value xml:lang="ar">نوع بند فاتورة البيع</value>
-        <value xml:lang="en">Invoice Item Type      </value>
+        <value xml:lang="en">Invoice Item Type</value>
         <value xml:lang="es">Tipo de elemento factura de venta</value>
         <value xml:lang="fr">Type de ligne de facturation</value>
         <value xml:lang="hi_IN">चालन मद प्रकार</value>
