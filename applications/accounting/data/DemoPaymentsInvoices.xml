@@ -225,6 +225,8 @@ under the License.
     <Payment paymentId="8002" finAccountTransId="9104"/>
 
     <!-- invoice export demo data for replacement id's -->
+    <Product productId="GZ-2644"/><!-- further data to be added in other components" -->
     <GoodIdentification goodIdentificationTypeId="INVOICE_EXPORT" idValue="GZ-2644-replaced" productId="GZ-2644"/>
+    <Party partyId="DemoCustomer"/><!-- further data to be added in other components" -->
     <PartyIdentification idValue="DemoCustomer2" partyId="DemoCustomer" partyIdentificationTypeId="INVOICE_EXPORT"/>
 </entity-engine-xml>
