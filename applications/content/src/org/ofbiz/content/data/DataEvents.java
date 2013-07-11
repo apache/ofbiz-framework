@@ -61,6 +61,7 @@ public class DataEvents {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         HttpSession session = request.getSession();
+        Locale locale = UtilHttp.getLocale(request);
 
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         String userAgent = request.getHeader("User-Agent");
@@ -131,7 +132,7 @@ public class DataEvents {
         // not public check security
         if (!"Y".equalsIgnoreCase(isPublic)) {
             // do security check
-            Map<String, Object> permSvcCtx = UtilMisc.toMap("userLogin", userLogin, "mainAction", "VIEW", "contentId", contentId);
+            Map<String, ? extends Object> permSvcCtx = UtilMisc.toMap("userLogin", userLogin, "locale", locale, "mainAction", "VIEW", "contentId", contentId);
             Map<String, Object> permSvcResp;
             try {
                 permSvcResp = dispatcher.runSync(permissionService, permSvcCtx);
@@ -161,7 +162,6 @@ public class DataEvents {
         String contextRoot = (String) request.getAttribute("_CONTEXT_ROOT_");
         String webSiteId = (String) session.getAttribute("webSiteId");
         String dataName = dataResource.getString("dataResourceName");
-        Locale locale = UtilHttp.getLocale(request);
 
         // get the mime type
         String mimeType = DataResourceWorker.getMimeType(dataResource);
