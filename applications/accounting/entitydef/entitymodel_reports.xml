@@ -93,7 +93,7 @@ under the License.
         <alias entity-alias="INV" name="partyId"/>
         <alias entity-alias="PTO" name="partyIdTrans" field="idValue"/>
         <alias entity-alias="INV" name="currencyUomId"/>
-        <alias entity-alias="INV" name="referenceNum"/>
+        <alias entity-alias="INV" name="referenceNumber"/>
         <alias entity-alias="ITM" name="invoiceItemSeqId"/>
         <alias entity-alias="ITM" name="invoiceItemTypeId"/>
         <alias entity-alias="ITM" name="itemDescription" field="description"/>

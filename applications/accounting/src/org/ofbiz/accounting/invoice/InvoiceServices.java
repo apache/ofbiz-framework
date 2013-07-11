@@ -3379,7 +3379,7 @@ public class InvoiceServices {
         				"dueDate", rec.get("dueDate"),
         				"currencyUomId", rec.get("currencyUomId"),
         				"description", rec.get("description"),
-        				"referenceNum", rec.get("referenceNum") + "   Imported: orginal InvoiceId: " + currentInvoiceId,
+        				"referenceNumber", rec.get("referenceNumber") + "   Imported: orginal InvoiceId: " + currentInvoiceId,
                 		"userLogin", userLogin
                 		);
 
