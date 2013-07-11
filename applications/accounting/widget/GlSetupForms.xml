@@ -76,14 +76,14 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.AccountingNewCompany}"><submit button-type="button"/></field>
     </form>
 
-    <form name="ExportInvoice" type="single" target="PartyAccountsExportInvoicesCsv.csv" title="" >
+    <form name="ExportInvoice" type="single" target="ExportInvoiceCsv.csv" title="" >
         <field name="organizationPartyId"><hidden value="${parameters.organizationPartyId}"/></field>
         <field name="invoiceId"><lookup target-form-name="LookupInvoice"/></field>
         <field name="startDate"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
 
-    <form name="PartyAccountsExportInvoicesCsv" list-name="listIt" target="" title="" type="list" view-size="99999"
+    <form name="ExportInvoiceCsv" list-name="listIt" target="" title="" type="list" view-size="99999"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate="false">
         <actions>
             <entity-condition entity-name="InvoiceExport">
@@ -119,7 +119,7 @@ under the License.
         <field name="amount" title="amount"><display/></field>
     </form>
     
-    <form name="ImportInvoice" type="upload" target="uploadInvoice" title="" >
+    <form name="ImportInvoice" type="upload" target="ImportInvoice" title="" >
         <field name="organizationPartyId"><hidden value="${parameters.organizationPartyId}"/></field>
         <field name="uploadedFile"><file/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpload}"><submit button-type="button"/></field>

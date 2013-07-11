@@ -118,6 +118,18 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="ExportInvoiceCsv">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+            </actions>
+            <widgets>
+                    <include-form name="ExportInvoiceCsv" location="component://accounting/widget/GlSetupForms.xml"/>           
+            </widgets>
+        </section>
+    </screen>
     <screen name="ListGlAccountOrganization">
         <section>
             <actions>
@@ -580,18 +592,6 @@ under the License.
             </actions>
             <widgets>
                     <include-form name="ListGlAccountOrgCsv" location="component://accounting/widget/GlSetupForms.xml"/>           
-            </widgets>
-        </section>
-    </screen>
-    <screen name="PartyAccountsExportInvoicesCsv">
-        <section>
-            <actions>
-                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-            </actions>
-            <widgets>
-                    <include-form name="PartyAccountsExportInvoicesCsv" location="component://accounting/widget/GlSetupForms.xml"/>           
             </widgets>
         </section>
     </screen>
