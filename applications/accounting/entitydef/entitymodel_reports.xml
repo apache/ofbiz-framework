@@ -77,4 +77,51 @@ under the License.
             <key-map field-name="productId"/>
         </view-link>
     </view-entity>
+    
+    <view-entity entity-name="InvoiceExport" package-name="org.ofbiz.accounting.reports">
+        <member-entity entity-alias="INV" entity-name="Invoice"/>
+        <member-entity entity-alias="ITM" entity-name="InvoiceItem"/>
+        <member-entity entity-alias="PFR" entity-name="PartyIdentification"/>
+        <member-entity entity-alias="PTO" entity-name="PartyIdentification"/>
+        <member-entity entity-alias="GI" entity-name="GoodIdentification"/>
+        <alias entity-alias="INV" name="invoiceId" />
+        <alias entity-alias="INV" name="invoiceDate"/>
+        <alias entity-alias="INV" name="invoiceTypeId"/>
+        <alias entity-alias="INV" name="description"/>
+        <alias entity-alias="INV" name="partyIdFrom"/>
+        <alias entity-alias="PFR" name="partyIdFromTrans" field="idValue"/>
+        <alias entity-alias="INV" name="partyId"/>
+        <alias entity-alias="PTO" name="partyIdTrans" field="idValue"/>
+        <alias entity-alias="INV" name="currencyUomId"/>
+        <alias entity-alias="INV" name="referenceNum"/>
+        <alias entity-alias="ITM" name="invoiceItemSeqId"/>
+        <alias entity-alias="ITM" name="invoiceItemTypeId"/>
+        <alias entity-alias="ITM" name="itemDescription" field="description"/>
+        <alias entity-alias="ITM" name="productId"/>
+        <alias entity-alias="GI" name="productIdTrans" field="idValue"/>
+        <alias entity-alias="ITM" name="quantity"/>
+        <alias entity-alias="ITM" name="amount"/>
+        <view-link entity-alias="INV" rel-entity-alias="ITM" rel-optional="true">
+            <key-map field-name="invoiceId"/>
+        </view-link>
+        <view-link entity-alias="INV" rel-entity-alias="PFR" rel-optional="true">
+            <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
+            <entity-condition>
+                <condition-expr entity-alias="PFR" field-name="partyIdentificationTypeId" value="INVOICE_EXPORT"/>
+            </entity-condition>
+        </view-link>
+        <view-link entity-alias="INV" rel-entity-alias="PTO" rel-optional="true">
+            <key-map field-name="partyId"/>
+            <entity-condition>
+                <condition-expr entity-alias="PTO" field-name="partyIdentificationTypeId" value="INVOICE_EXPORT"/>
+            </entity-condition>
+        </view-link>
+        <view-link entity-alias="ITM" rel-entity-alias="GI" rel-optional="true">
+            <key-map field-name="productId"/>
+            <entity-condition>
+                <condition-expr entity-alias="GI" field-name="goodIdentificationTypeId"/>
+            </entity-condition>
+        </view-link>
+    </view-entity>
+
 </entitymodel>

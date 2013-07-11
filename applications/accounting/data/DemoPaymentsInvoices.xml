@@ -224,4 +224,7 @@ under the License.
             partyId="Company" transactionDate="2009-07-18 00:00:01.000" entryDate="2009-08-11 12:28:45.315" performedByPartyId="admin" statusId="FINACT_TRNS_CREATED" paymentId="8002"/>
     <Payment paymentId="8002" finAccountTransId="9104"/>
 
+    <!-- invoice export demo data for replacement id's -->
+    <GoodIdentification goodIdentificationTypeId="INVOICE_EXPORT" idValue="GZ-2644-replaced" productId="GZ-2644"/>
+    <PartyIdentification idValue="DemoCustomer2" partyId="DemoCustomer" partyIdentificationTypeId="INVOICE_EXPORT"/>
 </entity-engine-xml>

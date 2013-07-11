@@ -34,6 +34,11 @@ under the License.
                 <parameter param-name="organizationPartyId" from-field="partyId"/>
             </hyperlink>
         </field>
+        <field name="importexport" title=" " use-when="hasBasicPermission" widget-style="buttontext">
+            <hyperlink target="ImportExport" description="${uiLabelMap.CommonImportExport}">
+                <parameter param-name="organizationPartyId" from-field="partyId"/>
+            </hyperlink>
+        </field>
     </form>
 
     <form name="ListGlAccountOrganization" list-name="listIt" target="" title="" type="list" view-size="50"
@@ -69,6 +74,55 @@ under the License.
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.AccountingNewCompany}"><submit button-type="button"/></field>
+    </form>
+
+    <form name="ExportInvoice" type="single" target="PartyAccountsExportInvoicesCsv.csv" title="" >
+        <field name="organizationPartyId"><hidden value="${parameters.organizationPartyId}"/></field>
+        <field name="invoiceId"><lookup target-form-name="LookupInvoice"/></field>
+        <field name="startDate"><date-time/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
+    </form>
+
+    <form name="PartyAccountsExportInvoicesCsv" list-name="listIt" target="" title="" type="list" view-size="99999"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate="false">
+        <actions>
+            <entity-condition entity-name="InvoiceExport">
+                <condition-list combine="and">
+                    <condition-list combine="or">
+                        <condition-expr field-name="partyIdFrom" from-field="organizationPartyId" operator="equals"/>
+                        <condition-expr field-name="partyId" from-field="organizationPartyId" operator="equals"/>
+                    </condition-list>
+                    <condition-expr field-name="invoiceDate" operator="greater-equals" from-field="parameters.startDate" ignore-if-empty="true"/>
+                    <condition-expr field-name="invoiceId" operator="equals" from-field="parameters.invoiceId" ignore-if-empty="true"/>
+                </condition-list>
+                <order-by field-name="invoiceId"/>
+            </entity-condition>
+        </actions>
+        <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
+        <field name="invoiceId" title="invoiceId"><display/></field>
+        <field name="invoiceTypeId" title="invoiceTypeId"><display/></field>
+        <field name="invoiceDate" title="invoiceDate"><display/></field>
+        <field name="dueDate" title="dueDate"><display/></field>
+        <field name="partyIdFrom" title="partyIdFrom"><display/></field>
+        <field name="partyIdFromTrans" title="partyIdFromTrans"><display/></field>
+        <field name="partyId" title="partyId"><display/></field>
+        <field name="partyIdTrans" title="partyIdTrans"><display/></field>
+        <field name="currencyUomId" title="currencyUomId"><display/></field>
+        <field name="description" title="description"><display/></field>
+        <field name="referenceNum" title="referenceNum"><display/></field>
+        <field name="invoiceItemSeqId" title="invoiceItemSeqId"><display/></field>
+        <field name="invoiceItemTypeId" title="invoiceItemTypeId"><display/></field>
+        <field name="productId" title="productId"><display/></field>
+        <field name="productIdTrans" title="productIdTrans"><display/></field>
+        <field name="itemDescription" title="itemDescription"><display/></field>
+        <field name="quantity" title="quantity"><display/></field>
+        <field name="amount" title="amount"><display/></field>
+    </form>
+    
+    <form name="ImportInvoice" type="upload" target="uploadInvoice" title="" >
+        <field name="organizationPartyId"><hidden value="${parameters.organizationPartyId}"/></field>
+        <field name="uploadedFile"><file/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpload}"><submit button-type="button"/></field>
     </form>
 
     <form name="AssignGlAccount" type="single" target="createGlAccountOrganization" title="" default-map-name="account"

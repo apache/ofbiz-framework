@@ -5010,6 +5010,9 @@
         <value xml:lang="zh">固定资产数据中的期望使用寿命结束为空。</value>
         <value xml:lang="zh_TW">固定資產資料中的期望使用壽命結束為空。</value>
     </property>
+    <property key="AccountingExportInvoices">
+        <value xml:lang="en">Export Invoices</value>
+    </property>
     <property key="AccountingExpenses">
         <value xml:lang="de">Aufwendungen</value>
         <value xml:lang="en">Expenses</value>

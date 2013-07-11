@@ -5166,6 +5166,12 @@
         <value xml:lang="vi">Ảnh</value>
         <value xml:lang="zh">图片</value>
     </property>
+    <property key="CommonImport">
+        <value xml:lang="en">Import</value>
+    </property>
+    <property key="CommonImportExport">
+        <value xml:lang="en">Import/Export</value>
+    </property>
     <property key="CommonIn">
         <value xml:lang="ar">داخل</value>
         <value xml:lang="cs">V</value>
