@@ -109,7 +109,7 @@ under the License.
         <field name="partyIdTrans" title="partyIdTrans"><display/></field>
         <field name="currencyUomId" title="currencyUomId"><display/></field>
         <field name="description" title="description"><display/></field>
-        <field name="referenceNum" title="referenceNum"><display/></field>
+        <field name="referenceNumber" title="referenceNumber"><display/></field>
         <field name="invoiceItemSeqId" title="invoiceItemSeqId"><display/></field>
         <field name="invoiceItemTypeId" title="invoiceItemTypeId"><display/></field>
         <field name="productId" title="productId"><display/></field>
