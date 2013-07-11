@@ -430,5 +430,12 @@ under the License.
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
         <attribute name="isForeign" type="Boolean" mode="OUT" optional="false"/>
     </service>
+    <service name="importInvoice" engine="java"
+        location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="importInvoice" auth="true">
+        <description>Import an invoice with invoiceitems in csv format</description>
+        <permission-service service-name="acctgInvoicePermissionCheck" main-action="CREATE"/>
+        <attribute mode="INOUT" name="organizationPartyId" type="String" optional="false"/>
+        <attribute mode="IN" name="uploadedFile" type="java.nio.ByteBuffer" optional="true" />
+    </service>
     
 </services>

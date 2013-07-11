@@ -51,7 +51,6 @@ under the License.
     <screen name="ListCompanies">
         <section>
             <actions>
-                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="AccountingAvailableInternalOrganizations"/>
                 <set field="headerItem" value="companies"/>
                 <set field="labelTitleProperty" value="${uiLabelMap.AccountingAvailableInternalOrganizations}"/>
@@ -80,7 +79,6 @@ under the License.
     <screen name="AddCompany">
         <section>
             <actions>
-                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="AccountingNewCompany"/>
             </actions>
             <widgets>
@@ -89,6 +87,32 @@ under the License.
                         <screenlet title="${uiLabelMap.AccountingNewCompany}">
                             <include-form name="AddCompany" location="component://accounting/widget/GlSetupForms.xml"/>
                         </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ImportExport">
+        <section>
+            <actions>
+                <set field="titleProperty" value="CommonImportExport"/>
+                <entity-one entity-name="PartyGroup" value-field="partyGroup">
+                    <field-map field-name="partyId" from-field="parameters.organizationPartyId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.AccountingInvoice} ${uiLabelMap.CommonImportExport}  ${uiLabelMap.CommonFor}: ${partyGroup.groupName} [${parameters.organizationPartyId}]">
+                            <container style="lefthalf">
+                                <label style="h2">${uiLabelMap.CommonImport}</label>
+                                <include-form name="ImportInvoice" location="component://accounting/widget/GlSetupForms.xml"/>
+                            </container>
+                            <container style="righthalf">
+                                <label style="h2">${uiLabelMap.CommonExport}</label>
+                                <include-form name="ExportInvoice" location="component://accounting/widget/GlSetupForms.xml"/>
+                            </container>
+                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -556,6 +580,18 @@ under the License.
             </actions>
             <widgets>
                     <include-form name="ListGlAccountOrgCsv" location="component://accounting/widget/GlSetupForms.xml"/>           
+            </widgets>
+        </section>
+    </screen>
+    <screen name="PartyAccountsExportInvoicesCsv">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+            </actions>
+            <widgets>
+                    <include-form name="PartyAccountsExportInvoicesCsv" location="component://accounting/widget/GlSetupForms.xml"/>           
             </widgets>
         </section>
     </screen>

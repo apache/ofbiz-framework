@@ -44,6 +44,7 @@ framework/base/lib/commons/commons-cli-1.2.jar
 framework/base/lib/commons/commons-codec-1.6.jar
 framework/base/lib/commons/commons-collections-3.2.1.jar
 framework/base/lib/commons/commons-compress-1.4.1.jar
+framework/base/lib/commons/commons-csv-1.0.jar
 framework/base/lib/commons/commons-digester3-3.2.jar
 framework/base/lib/commons/commons-discovery-0.4.jar
 framework/base/lib/commons/commons-el-1.0.jar
@@ -2730,3 +2731,4 @@ This package also includes the following software written and copyrighted by oth
     * Cosmetic improvements provided by OpenStack.
 
 Webhelp for DocBook was developed as a Google Summer of Code project. August 2010
+
