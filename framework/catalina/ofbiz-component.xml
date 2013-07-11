@@ -285,7 +285,7 @@ under the License.
             <property name="maxThreads" value="100"/>
             <property name="minSpareThreads" value="4"/>
             <property name="noCompressionUserAgents" value=""/>
-            <property name="port" value="8081"/>
+            <property name="port" value="8080"/>
             <property name="restrictedUserAgents" value=""/>
             <property name="server" value=""/>
             <property name="socketBuffer" value="9000"/>
@@ -323,7 +323,7 @@ under the License.
             <property name="maxThreads" value="100"/>
             <property name="minSpareThreads" value="4"/>
             <property name="noCompressionUserAgents" value=""/>
-            <property name="port" value="8444"/>
+            <property name="port" value="8443"/>
             <property name="restrictedUserAgents" value=""/>
             <property name="server" value=""/>
             <property name="socketBuffer" value="9000"/>

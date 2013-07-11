@@ -60,12 +60,11 @@ under the License.
         <engine name="rmi" class="org.ofbiz.service.rmi.RmiServiceEngine"/>
         <engine name="soap" class="org.ofbiz.service.engine.SOAPClientEngine"/>
         <!-- The engine xml-rpc-local is only used by a test service and for
-             this reason it is configured to run on port 8081 (see test-containers.xml);
-             in order to use this in OFBiz change the port accordingly (for demo the default
-             value is 8080)
+             this reason it is configured to run on port 8080 (see rmi-dispatcher in service/ofbiz-component.xml);
+             in order to use this in OFBiz change the port accordingly (for demo the default value is 8080)
         -->
         <engine name="xml-rpc-local" class="org.ofbiz.service.engine.XMLRPCClientEngine">
-            <parameter name="url" value="http://localhost:8081/webtools/control/xmlrpc"/>
+            <parameter name="url" value="http://localhost:8080/webtools/control/xmlrpc"/>
             <parameter name="login" value="admin"/>
             <parameter name="password" value="ofbiz"/>
         </engine>
