@@ -24,6 +24,7 @@ under the License.
     <input type="hidden" name="_useRowSubmit" value="Y" />
     <table class="basic-table hover-bar" cellspacing="0">
       <tr class="header-row">
+        <th>${uiLabelMap.FormFieldTitle_organizationPartyId}</th>
         <th>${uiLabelMap.FormFieldTitle_glAccountId}</th>
         <th>${uiLabelMap.FormFieldTitle_accountCode}</th>
         <th>${uiLabelMap.FormFieldTitle_accountName}</th>
@@ -35,6 +36,7 @@ under the License.
     <#assign alt_row = false>
       <#list glAcctgAndAmountPercentageList as glAcctgAndAmountPercentage>
         <tr id="row_${glAcctgAndAmountPercentage.glAccountId}" <#if alt_row> class="alternate-row"</#if>>
+          <td>${glAcctgAndAmountPercentage.organizationPartyId}</td>
           <td><input type="hidden" id="glAccountId_${glAcctgAndAmountPercentage.glAccountId}" name="glAccountId_o_${glAcctgAndAmountPercentage_index}" value="${glAcctgAndAmountPercentage.glAccountId!}"/>
               <input name="_rowSubmit_o_${glAcctgAndAmountPercentage_index}" type="hidden" value="Y"/>          
           ${glAcctgAndAmountPercentage.glAccountId}</td>
