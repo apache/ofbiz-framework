@@ -2864,6 +2864,9 @@ under the License.
             <if-not-empty field="glAccountCategories">
                 <iterate list="glAccountOrganizations" entry="glAccountOrganization">
                     <iterate list="glAccountCategories" entry="glAccountCategory">
+                        <entity-one entity-name="PartyGroup" value-field="organizationParty">
+                            <field-map field-name="partyId" from-field="glAccountOrganization.organizationPartyId"/>
+                        </entity-one>
                         <entity-and entity-name="GlAccountCategoryMember" list="glAccountCategoryMembers" filter-by-date="true">
                              <field-map field-name="glAccountId" from-field="glAccountOrganization.glAccountId"/>
                              <field-map field-name="glAccountCategoryId" from-field="glAccountCategory.glAccountCategoryId"/>
@@ -2872,6 +2875,7 @@ under the License.
                             <first-from-list list="glAccountCategoryMembers" entry="glAccountCategoryMember"/>
                             <set field="glAcctgOrgAndCostCenterMap[glAccountCategory.glAccountCategoryId]" from-field="glAccountCategoryMember.amountPercentage" type="BigDecimal"/>
                             <get-related-one value-field="glAccountCategoryMember" relation-name="GlAccount" to-value-field="glAccount"/>
+                            <set field="glAcctgOrgAndCostCenterMap.organizationPartyId" value="${organizationParty.groupName} [${glAccountOrganization.organizationPartyId}]"/>
                             <set field="glAcctgOrgAndCostCenterMap.glAccountId" from-field="glAccount.glAccountId"/>
                             <set field="glAcctgOrgAndCostCenterMap.accountCode" from-field="glAccount.accountCode"/>
                             <set field="glAcctgOrgAndCostCenterMap.accountName" from-field="glAccount.accountName"/>
