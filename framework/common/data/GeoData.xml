@@ -288,6 +288,7 @@ under the License.
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="FRA"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="GRC"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="HUN"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="HRV"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="IRL"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="ITA"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="LVA"/>
