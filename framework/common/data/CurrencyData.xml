@@ -56,7 +56,7 @@ under the License.
     <Uom abbreviation="CUP" description="Cuban Peso" uomId="CUP" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="CVE" description="Cape Verde Escudo" uomId="CVE" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="CYP" description="Cyprus Pound" uomId="CYP" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="CZK" description="Czech Krona" uomId="CZK" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="CZK" description="Czech Koruna" uomId="CZK" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="DJF" description="Djibouti Franc" uomId="DJF" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="DKK" description="Danish Krone" uomId="DKK" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="DOP" description="Dominican Peso" uomId="DOP" uomTypeId="CURRENCY_MEASURE"/>
@@ -80,7 +80,7 @@ under the License.
     <Uom abbreviation="GYD" description="Guyanese Dollar" uomId="GYD" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="HKD" description="Hong Kong Dollar" uomId="HKD" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="HNL" description="Honduran Lempira" uomId="HNL" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="HRD" description="Croatian Dinar" uomId="HRD" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="HRK" description="Croatian Kuna" uomId="HRK" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="HTG" description="Haitian Gourde" uomId="HTG" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="HUF" description="Hungarian forint" uomId="HUF" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="IDR" description="Indeonesian Rupiah" uomId="IDR" uomTypeId="CURRENCY_MEASURE"/>
