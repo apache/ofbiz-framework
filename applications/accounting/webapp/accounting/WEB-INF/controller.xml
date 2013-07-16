@@ -2565,8 +2565,8 @@ under the License.
     <request-map uri="createUpdateCostCenter">
         <security auth="true" https="true"/>
         <event type="service-multi"  invoke="createUpdateCostCenter"/>
-        <response name="success" type="request" value="json"/>
-        <response name="error" type="request" value="json"/>
+        <response name="success" type="view" value="CostCenters"/>
+        <response name="error" type="view" value="CostCenters"/>
     </request-map>
 
     <request-map uri="GlAccountBalanceByCostCenter">

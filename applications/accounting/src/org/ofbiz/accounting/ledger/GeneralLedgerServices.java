@@ -45,6 +45,7 @@ public class GeneralLedgerServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Map<String, String> amountPercentageMap = UtilGenerics.checkMap(context.get("amountPercentageMap"));
         totalAmountPercentage = GeneralLedgerServices.calculateCostCenterTotal(amountPercentageMap);
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         for (String rowKey : amountPercentageMap.keySet()) {
             String rowValue = amountPercentageMap.get(rowKey);
             if (UtilValidate.isNotEmpty(rowValue)) {
@@ -57,13 +58,13 @@ public class GeneralLedgerServices {
                         "userLogin", userLogin, "totalAmountPercentage", totalAmountPercentage);
             }
             try {
-                dispatcher.runSync("createGlAcctCatMemFromCostCenters", createGlAcctCatMemFromCostCentersMap);
+                result = dispatcher.runSync("createGlAcctCatMemFromCostCenters", createGlAcctCatMemFromCostCentersMap);
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
             }
         }
-        return ServiceUtil.returnSuccess();
+        return result;
     }
 
     public static BigDecimal calculateCostCenterTotal(Map<String, String> amountPercentageMap) {
