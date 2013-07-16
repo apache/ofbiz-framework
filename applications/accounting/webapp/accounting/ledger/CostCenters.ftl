@@ -17,11 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#if glAcctgAndAmountPercentageList?has_content && glAccountCategories?has_content>
-
   <form id="costCenters" method="post" action="<@ofbizUrl>createUpdateCostCenter</@ofbizUrl>">
-    <div id="errorMessage" class="errorMessage" style="display : none">${uiLabelMap.AccountingTotalAmountPercentageIsNotEqualOneHundred}</div>
-    <div id="eventMessage" class="eventMessage" style="display : none">${uiLabelMap.AccountingTotalCostCenterAmount}.</div>
-    <input type="hidden" name="_useRowSubmit" value="Y" />
     <table class="basic-table hover-bar" cellspacing="0">
       <tr class="header-row">
         <th>${uiLabelMap.FormFieldTitle_organizationPartyId}</th>
@@ -35,7 +31,7 @@ under the License.
 
     <#assign alt_row = false>
       <#list glAcctgAndAmountPercentageList as glAcctgAndAmountPercentage>
-        <tr id="row_${glAcctgAndAmountPercentage.glAccountId}" <#if alt_row> class="alternate-row"</#if>>
+        <tr id="row_${glAcctgAndAmountPercentage.glAccountId}" class="alternate-row">
           <td>${glAcctgAndAmountPercentage.organizationPartyId}</td>
           <td><input type="hidden" id="glAccountId_${glAcctgAndAmountPercentage.glAccountId}" name="glAccountId_o_${glAcctgAndAmountPercentage_index}" value="${glAcctgAndAmountPercentage.glAccountId!}"/>
               <input name="_rowSubmit_o_${glAcctgAndAmountPercentage_index}" type="hidden" value="Y"/>          
@@ -47,7 +43,7 @@ under the License.
               <#if (glAcctgAndAmountPercentage[glAccountCategory.glAccountCategoryId!])??>
                 <input type="text" id="cc_${glAcctgAndAmountPercentage.glAccountId}_${glAccountCategory.glAccountCategoryId}" size="5" name="amp_${glAccountCategory.glAccountCategoryId!}_o_${glAcctgAndAmountPercentage_index}" value="${(glAcctgAndAmountPercentage[glAccountCategory.glAccountCategoryId!])!}"/>%
               <#else>
-                <input type="text" id="cc_${glAcctgAndAmountPercentage.glAccountId}_${glAccountCategory.glAccountCategoryId}"  size="5" name="amp_${glAccountCategory.glAccountCategoryId!}_o_${glAcctgAndAmountPercentage_index}" value=""/>%
+                <input type="text" id="cc_${glAcctgAndAmountPercentage.glAccountId}_${glAccountCategory.glAccountCategoryId}" size="5" name="amp_${glAccountCategory.glAccountCategoryId!}_o_${glAcctgAndAmountPercentage_index}" value=""/>%
               </#if>
             </td>
           </#list>
@@ -55,7 +51,7 @@ under the License.
         <#assign alt_row = !alt_row>
       </#list>
     </table>
-    <div align="right"><input type="button" id="costCentersSubmit" value="${uiLabelMap.CommonSubmit}"/></div>
+    <div align="right"><input type="submit" value='${uiLabelMap.CommonSubmit}' /></div>
   </form>
 <#else>
   <label>${uiLabelMap.CommonNoRecordFound}</label>
