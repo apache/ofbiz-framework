@@ -663,11 +663,3 @@ under the License.
         </xs:complexType>
     </xs:element>
 </xs:schema>
-<!--
-    examples
-do search  xml for 
-	root-node-name
-	you will see many examples.
-	
-	
-	-->
