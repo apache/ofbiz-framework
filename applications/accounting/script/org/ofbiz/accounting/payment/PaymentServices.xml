@@ -311,7 +311,6 @@ under the License.
                 <log level="error" message="Cannot change from ${payment.statusId} to ${parameters.statusId}"/>
                 <check-errors/>
                 <else>
-<log level="info" message="===============================new status: ${parameters.statusId}   payment methid: ${payment.paymentMethodId}"/>
                     <!-- payment method is mandatory when set to sent or received. -->
                     <if>
                         <condition>
