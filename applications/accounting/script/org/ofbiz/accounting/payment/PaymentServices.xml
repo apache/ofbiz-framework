@@ -294,6 +294,9 @@ under the License.
         </check-permission>
 
         <entity-one entity-name="Payment" value-field="payment"/>
+        <entity-one entity-name="StatusItem" value-field="statusItem">
+            <field-map field-name="statusId" from-field="parameters.statusId"/>
+        </entity-one>
         <field-to-result field="payment.statusId" result-name="oldStatusId"/>
 
         <if-compare-field field="payment.statusId" to-field="parameters.statusId" operator="not-equals">
@@ -308,6 +311,27 @@ under the License.
                 <log level="error" message="Cannot change from ${payment.statusId} to ${parameters.statusId}"/>
                 <check-errors/>
                 <else>
+<log level="info" message="===============================new status: ${parameters.statusId}   payment methid: ${payment.paymentMethodId}"/>
+                    <!-- payment method is mandatory when set to sent or received. -->
+                    <if>
+                        <condition>
+                            <and>
+                                <or>
+                                    <if-compare field="parameters.statusId" operator="equals" value="PMNT_RECEIVED"/>
+                                    <if-compare field="parameters.statusId" operator="equals" value="PMNT_SENT"/>
+                                </or>
+                                <if-empty field="payment.paymentMethodId"/>
+                            </and>
+                        </condition>
+                        <then>
+                            <add-error>
+                                <fail-property resource="AccountingUiLabels" property="AccountingMissingPaymentMethod"/>
+                            </add-error>
+                            <log level="error" message="Cannot set status to ${parameters.statusId} on payment ${payment.paymentId}: payment method is missing"/>
+                            <check-errors/>
+                        </then>
+                    </if>
+
 
                     <!-- check if the payment fully applied when set to confirmed-->
                     <if-compare field="parameters.statusId" operator="equals" value="PMNT_CONFIRMED">
