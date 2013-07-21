@@ -8711,6 +8711,9 @@
         <value xml:lang="zh">方法</value>
         <value xml:lang="zh_TW">方法</value>
     </property>
+    <property key="AccountingMissingPaymentMethod">
+        <value xml:lang="en">Cannot change the status to '${statusItem.description}' when the  mandatory payment method is missing.</value>
+    </property>
     <property key="AccountingMiddleNameCard">
         <value xml:lang="ar">الإسم الوسط على البطاقة</value>
         <value xml:lang="de">Mittlerer Name auf Karte</value>
