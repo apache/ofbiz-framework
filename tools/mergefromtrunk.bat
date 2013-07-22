@@ -60,7 +60,7 @@ ant load-demo
 ant run-tests
 echo off
 
-echo You can now do the commit by hand if all is OK. The comment grabed from trunk by the merge is in the file comment.tmp at root
+echo You can now do the commit by hand if all is OK. The comment grabbed from trunk by the merge is in the file comment.tmp at root
 
 :exit
 pause
