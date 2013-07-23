@@ -18,13 +18,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<ofbiz-component name="securityext"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
-    <resource-loader name="main" type="component"/>
-    <classpath type="jar" location="build/lib/*"/>
-    <classpath type="dir" location="config"/>
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/SecurityPermissionSeedData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/UserDemoData.xml"/>
-    <service-resource type="model" loader="main" location="servicedef/services.xml"/>
-</ofbiz-component>
+<entity-engine-xml>
+    <!-- Party for System UserLogin Account - just in case logic depends on it -->
+    <Party partyId="system" partyTypeId="PERSON"/>
+    <Person partyId="system" firstName="System" lastName="Account"/>
+    <!-- various automated processes will cause it to be put in this role anyway -->
+    <PartyRole partyId="system" roleTypeId="PACKER"/>
+
+    <UserLogin userLoginId="system" partyId="system"/>
+</entity-engine-xml>

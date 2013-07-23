@@ -34,12 +34,6 @@ under the License.
     <PartyRole partyId="admin" roleTypeId="SALES_REP"/>
     <PartyRole partyId="admin" roleTypeId="_NA_"/>
 
-    <!-- Party for System UserLogin Account - just in case logic depends on it -->
-    <Party partyId="system" partyTypeId="PERSON"/>
-    <Person partyId="system" firstName="System" lastName="Account"/>
-    <!-- various automated processes will cause it to be put in this role anyway -->
-    <PartyRole partyId="system" roleTypeId="PACKER"/>
-
     <Party partyId="ltdadmin" partyTypeId="PERSON"/>
     <Person firstName="Limited" lastName="Administrator" middleName="" partyId="ltdadmin" personalTitle="Mr."/>
     <PartyRole partyId="ltdadmin" roleTypeId="ORDER_CLERK"/>
@@ -71,7 +65,6 @@ under the License.
     <PartyRole partyId="bizadmin" roleTypeId="_NA_"/>
     <PartyContactMech partyId="bizadmin" contactMechId="admin" fromDate="2003-01-01 00:00:00.0" allowSolicitation="Y"/>
 
-    <UserLogin userLoginId="system" partyId="system"/>
     <UserLogin userLoginId="admin" partyId="admin"/>
     <UserLogin userLoginId="flexadmin" partyId="admin"/>
     <UserLogin userLoginId="demoadmin" partyId="admin"/>
