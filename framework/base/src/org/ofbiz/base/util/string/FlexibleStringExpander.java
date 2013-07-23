@@ -320,10 +320,10 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
                 strElems.add(new ScriptElem(chars, start, Math.min(end + 1, start + length) - start, start + 9, end - start - 9));
             } else {
                 // Scan for matching closing bracket
-                int ptr = expression.indexOf(openBracket, start + 2);
+                int ptr = expression.indexOf("{", start + 2);
                 while (ptr != -1 && end != -1 && ptr < end) {
                     end = expression.indexOf(closeBracket, end + 1);
-                    ptr = expression.indexOf(openBracket, ptr + 2);
+                    ptr = expression.indexOf("{", ptr + 1);
                 }
                 if (end == -1) {
                     end = origLen;
