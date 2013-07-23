@@ -98,7 +98,7 @@ under the License.
                 <order-by field-name="invoiceId"/>
             </entity-condition>
         </actions>
-        <field name="organizationPartyId" title="organizationPartyId"><display/></field>
+        <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="invoiceId" title="invoiceId"><display/></field>
         <field name="invoiceTypeId" title="invoiceTypeId"><display/></field>
         <field name="invoiceDate" title="invoiceDate"><display/></field>
