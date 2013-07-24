@@ -347,6 +347,7 @@ function submitFormInBackground(form, areaId, submitUrl) {
 function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
    waitSpinnerShow();
    hideErrorContainer = function() {
+       Query('#content-messages').html('');
        jQuery('#content-messages').removeClass('errorMessage').fadeIn('fast');
    }
    updateFunction = function(data) {
@@ -367,7 +368,8 @@ function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
           }
           jQuery('#content-messages').fadeIn('fast');
        }else {
-           if(jQuery('#content-messages')) {
+           if (jQuery('#content-messages').length == 0) {
+               jQuery('#content-messages').html('');
                jQuery('#content-messages').removeClass('errorMessage').fadeIn("fast");
            }
            ajaxUpdateAreas(areaCsvString);
