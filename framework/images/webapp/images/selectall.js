@@ -347,7 +347,7 @@ function submitFormInBackground(form, areaId, submitUrl) {
 function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
    waitSpinnerShow();
    hideErrorContainer = function() {
-       Query('#content-messages').html('');
+       jQuery('#content-messages').html('');
        jQuery('#content-messages').removeClass('errorMessage').fadeIn('fast');
    }
    updateFunction = function(data) {
