@@ -351,7 +351,7 @@ function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
    }
    updateFunction = function(data) {
        if (data._ERROR_MESSAGE_LIST_ != undefined || data._ERROR_MESSAGE_ != undefined) {
-           if(jQuery('#content-messages').length == 0)
+           if (jQuery('#content-messages').length == 0) {
               //add this div just after app-navigation
               if(jQuery('#content-main-section')){
                   jQuery('#content-main-section' ).before('<div id="content-messages" onclick="hideErrorContainer()"></div>');
