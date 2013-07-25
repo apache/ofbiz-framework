@@ -1387,7 +1387,8 @@ public abstract class ModelScreenWidget extends ModelWidget {
         protected String width;
         protected String height;
         protected List<WidgetWorker.Parameter> parameterList = FastList.newInstance();
-
+        protected WidgetWorker.AutoServiceParameters autoServiceParameters;
+        protected WidgetWorker.AutoEntityParameters autoEntityParameters;
 
         public Link(ModelScreen modelScreen, Element linkElement) {
             super(modelScreen, linkElement);
@@ -1412,6 +1413,15 @@ public abstract class ModelScreenWidget extends ModelWidget {
             List<? extends Element> parameterElementList = UtilXml.childElementList(linkElement, "parameter");
             for (Element parameterElement: parameterElementList) {
                 this.parameterList.add(new WidgetWorker.Parameter(parameterElement));
+            }
+
+            Element autoServiceParamsElement = UtilXml.firstChildElement(linkElement, "auto-parameters-service");
+            if (autoServiceParamsElement != null) {
+                autoServiceParameters = new WidgetWorker.AutoServiceParameters(autoServiceParamsElement);
+            }
+            Element autoEntityParamsElement = UtilXml.firstChildElement(linkElement, "auto-parameters-entity");
+            if (autoEntityParamsElement != null) {
+                autoEntityParameters = new WidgetWorker.AutoEntityParameters(autoEntityParamsElement);
             }
 
             this.width = linkElement.getAttribute("width");
@@ -1512,7 +1522,14 @@ public abstract class ModelScreenWidget extends ModelWidget {
             for (WidgetWorker.Parameter parameter: this.parameterList) {
                 fullParameterMap.put(parameter.getName(), parameter.getValue(context));
             }
-            
+
+            if (autoServiceParameters != null) {
+                fullParameterMap.putAll(autoServiceParameters.getParametersMap(context, null));
+            }
+            if (autoEntityParameters != null) {
+                fullParameterMap.putAll(autoEntityParameters.getParametersMap(context, null));
+            }
+
             return fullParameterMap;
         }
 

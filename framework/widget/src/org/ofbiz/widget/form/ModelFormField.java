@@ -218,13 +218,13 @@ public class ModelFormField {
     }
 
     protected void addOnChangeUpdateArea(UpdateArea updateArea) {
-        if (onChangeUpdateAreas == null) onChangeUpdateAreas = FastList.newInstance();        
+        if (onChangeUpdateAreas == null) onChangeUpdateAreas = FastList.newInstance();
         onChangeUpdateAreas.add(updateArea);
         Debug.logInfo(this.modelForm.getName() + ":" + this.name + " onChangeUpdateAreas size = " + onChangeUpdateAreas.size(), module);
     }
 
     protected void addOnClickUpdateArea(UpdateArea updateArea) {
-        if (onClickUpdateAreas == null) onClickUpdateAreas = FastList.newInstance();        
+        if (onClickUpdateAreas == null) onClickUpdateAreas = FastList.newInstance();
         onClickUpdateAreas.add(updateArea);
     }
 
@@ -2226,6 +2226,8 @@ public class ModelFormField {
         protected FlexibleStringExpander targetWindowExdr;
         protected FlexibleMapAccessor<Map<String, String>> parametersMapAcsr;
         protected List<WidgetWorker.Parameter> parameterList = FastList.newInstance();
+        protected WidgetWorker.AutoServiceParameters autoServiceParameters;
+        protected WidgetWorker.AutoEntityParameters autoEntityParameters;
 
         protected boolean requestConfirmation = false;
         protected FlexibleStringExpander confirmationMsgExdr;
@@ -2261,6 +2263,14 @@ public class ModelFormField {
             for (Element parameterElement: parameterElementList) {
                 this.parameterList.add(new WidgetWorker.Parameter(parameterElement));
             }
+            Element autoServiceParamsElement = UtilXml.firstChildElement(element, "auto-parameters-service");
+            if (autoServiceParamsElement != null) {
+                autoServiceParameters = new WidgetWorker.AutoServiceParameters(autoServiceParamsElement);
+            }
+            Element autoEntityParamsElement = UtilXml.firstChildElement(element, "auto-parameters-entity");
+            if (autoEntityParamsElement != null) {
+                autoEntityParameters = new WidgetWorker.AutoEntityParameters(autoEntityParamsElement);
+            }
         }
 
         @Override
@@ -2278,8 +2288,8 @@ public class ModelFormField {
 
         public String getConfirmation(Map<String, Object> context) {
             String message = getConfirmationMsg(context);
-            if (UtilValidate.isNotEmpty(message)) return message;            
-            
+            if (UtilValidate.isNotEmpty(message)) return message;
+
             if (getRequestConfirmation()) {
                 String defaultMessage = UtilProperties.getPropertyValue("general", "default.confirmation.message", "${uiLabelMap.CommonConfirm}");
                 setConfirmationMsg(defaultMessage);
@@ -2333,11 +2343,19 @@ public class ModelFormField {
             if (addlParamMap != null) {
                 fullParameterMap.putAll(addlParamMap);
             }
-            
+
             for (WidgetWorker.Parameter parameter: this.parameterList) {
                 fullParameterMap.put(parameter.getName(), parameter.getValue(context));
             }
-            
+
+            if (autoServiceParameters != null) {
+                fullParameterMap.putAll(autoServiceParameters.getParametersMap(context, this.getModelFormField().getModelForm().getDefaultServiceName()));
+            }
+
+            if (autoEntityParameters != null) {
+                fullParameterMap.putAll(autoEntityParameters.getParametersMap(context, this.getModelFormField().getModelForm().getDefaultEntityName()));
+            }
+
             return fullParameterMap;
         }
 
@@ -2419,6 +2437,8 @@ public class ModelFormField {
         protected boolean requestConfirmation = false;
         protected FlexibleStringExpander confirmationMsgExdr;
         protected ModelFormField modelFormField;
+        protected WidgetWorker.AutoServiceParameters autoServiceParameters;
+        protected WidgetWorker.AutoEntityParameters autoEntityParameters;
 
         public SubHyperlink(Element element, ModelFormField modelFormField) {
             this.setDescription(element.getAttribute("description"));
@@ -2434,7 +2454,14 @@ public class ModelFormField {
             }
             setRequestConfirmation("true".equals(element.getAttribute("request-confirmation")));
             setConfirmationMsg(element.getAttribute("confirmation-message"));
-
+            Element autoServiceParamsElement = UtilXml.firstChildElement(element, "auto-parameters-service");
+            if (autoServiceParamsElement != null) {
+                autoServiceParameters = new WidgetWorker.AutoServiceParameters(autoServiceParamsElement);
+            }
+            Element autoEntityParamsElement = UtilXml.firstChildElement(element, "auto-parameters-entity");
+            if (autoEntityParamsElement != null) {
+                autoEntityParameters = new WidgetWorker.AutoEntityParameters(autoEntityParamsElement);
+            }
             this.modelFormField = modelFormField;
         }
 
@@ -2485,7 +2512,14 @@ public class ModelFormField {
             for (WidgetWorker.Parameter parameter: this.parameterList) {
                 fullParameterMap.put(parameter.getName(), parameter.getValue(context));
             }
-            
+
+            if (autoServiceParameters != null) {
+                fullParameterMap.putAll(autoServiceParameters.getParametersMap(context, this.getModelFormField().getModelForm().getDefaultServiceName()));
+            }
+            if (autoEntityParameters != null) {
+                fullParameterMap.putAll(autoEntityParameters.getParametersMap(context, this.getModelFormField().getModelForm().getDefaultEntityName()));
+            }
+
             return fullParameterMap;
         }
 

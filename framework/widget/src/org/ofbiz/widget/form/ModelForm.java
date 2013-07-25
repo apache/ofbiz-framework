@@ -513,6 +513,9 @@ public class ModelForm extends ModelWidget {
             UpdateArea updateArea = new UpdateArea(updateAreaElement);
             this.addOnEventUpdateArea(updateArea);
         }
+        //propagate defaultEntityName on updateAreas
+        if (UtilValidate.isNotEmpty(this.defaultEntityName)) this.setDefaultEntityNameOnUpdateAreas();
+        if (UtilValidate.isNotEmpty(this.defaultServiceName)) this.setDefaultServiceNameOnUpdateAreas();
 
         // auto-fields-service
         for (Element autoFieldsServiceElement: UtilXml.childElementList(formElement, "auto-fields-service")) {
@@ -2814,6 +2817,28 @@ public class ModelForm extends ModelWidget {
         return this.onSubmitUpdateAreas;
     }
 
+    public void setDefaultEntityNameOnUpdateAreas() {
+        List<UpdateArea> allUpdateAreas = FastList.newInstance();
+        if (UtilValidate.isNotEmpty(this.onSubmitUpdateAreas)) allUpdateAreas.addAll(this.onSubmitUpdateAreas);
+        if (UtilValidate.isNotEmpty(this.onPaginateUpdateAreas)) allUpdateAreas.addAll(this.onPaginateUpdateAreas);
+        for (UpdateArea updateArea : allUpdateAreas) {
+            if (UtilValidate.isEmpty(updateArea.defaultEntityName)) {
+                updateArea.defaultEntityName = this.defaultEntityName;
+            }
+        }
+    }
+
+    public void setDefaultServiceNameOnUpdateAreas() {
+        List<UpdateArea> allUpdateAreas = FastList.newInstance();
+        if (UtilValidate.isNotEmpty(this.onSubmitUpdateAreas)) allUpdateAreas.addAll(this.onSubmitUpdateAreas);
+        if (UtilValidate.isNotEmpty(this.onPaginateUpdateAreas)) allUpdateAreas.addAll(this.onPaginateUpdateAreas);
+        for (UpdateArea updateArea : allUpdateAreas) {
+            if (UtilValidate.isEmpty(updateArea.defaultServiceName)) {
+                updateArea.defaultServiceName = this.defaultServiceName;
+            }
+        }
+    }
+
     public static class AltRowStyle {
         public String useWhen;
         public String style;
@@ -2878,7 +2903,11 @@ public class ModelForm extends ModelWidget {
         protected String eventType;
         protected String areaId;
         protected String areaTarget;
-        List<WidgetWorker.Parameter> parameterList =FastList.newInstance();
+        protected String defaultServiceName;
+        protected String defaultEntityName;
+        protected WidgetWorker.AutoEntityParameters autoEntityParameters;
+        protected WidgetWorker.AutoEntityParameters autoServiceParameters;
+        List<WidgetWorker.Parameter> parameterList = FastList.newInstance();
         /** XML constructor.
          * @param updateAreaElement The <code>&lt;on-xxx-update-area&gt;</code>
          * XML element.
@@ -2890,6 +2919,14 @@ public class ModelForm extends ModelWidget {
             List<? extends Element> parameterElementList = UtilXml.childElementList(updateAreaElement, "parameter");
             for (Element parameterElement: parameterElementList) {
                 this.parameterList.add(new WidgetWorker.Parameter(parameterElement));
+            }
+            Element autoServiceParamsElement = UtilXml.firstChildElement(updateAreaElement, "auto-parameters-service");
+            if (autoServiceParamsElement != null) {
+                autoServiceParameters = new WidgetWorker.AutoEntityParameters(autoServiceParamsElement);
+            }
+            Element autoEntityParamsElement = UtilXml.firstChildElement(updateAreaElement, "auto-parameters-entity");
+            if (autoEntityParamsElement != null) {
+                autoEntityParameters = new WidgetWorker.AutoEntityParameters(autoEntityParamsElement);
             }
         }
         /** String constructor.
@@ -2920,10 +2957,16 @@ public class ModelForm extends ModelWidget {
         }
         public Map<String, String> getParameterMap(Map<String, Object> context) {
             Map<String, String> fullParameterMap = FastMap.newInstance();
+            if (autoServiceParameters != null) {
+                fullParameterMap.putAll(autoServiceParameters.getParametersMap(context, defaultServiceName));
+            }
+            if (autoEntityParameters != null) {
+                fullParameterMap.putAll(autoEntityParameters.getParametersMap(context, defaultEntityName));
+            }
             for (WidgetWorker.Parameter parameter: this.parameterList) {
                 fullParameterMap.put(parameter.getName(), parameter.getValue(context));
             }
-            
+
             return fullParameterMap;
         }
     }

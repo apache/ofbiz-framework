@@ -25,6 +25,8 @@ import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.text.DateFormat;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -32,16 +34,25 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.entity.model.ModelField;
+import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ModelParam;
+import org.ofbiz.service.ModelService;
 import org.ofbiz.webapp.control.ConfigXMLReader;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
@@ -393,6 +404,128 @@ public class WidgetWorker {
             } else {
                 return null;
             }
+        }
+    }
+
+    public static class AutoServiceParameters {
+        private String serviceName;
+        List<String> excludeList = FastList.newInstance();
+        boolean includePk;
+        boolean includeNonPk;
+        boolean sendIfEmpty;
+        public AutoServiceParameters(Element autoElement){
+            serviceName = UtilXml.checkEmpty(autoElement.getAttribute("service-name"));
+            sendIfEmpty = "true".equals(autoElement.getAttribute("send-if-empty"));
+            List<? extends Element> excludes = UtilXml.childElementList(autoElement, "exclude");
+            if (excludes != null) {
+                for (Element exclude: excludes) {
+                    if (UtilValidate.isNotEmpty(exclude.getAttribute("field-name"))) {
+                        excludeList.add(exclude.getAttribute("field-name"));
+                    }
+                }
+            }
+        }
+
+        public Map<String, String> getParametersMap(Map<String, Object> context, String defaultServiceName) {
+            Map<String, String> autServiceParams = FastMap.newInstance();
+            LocalDispatcher dispatcher = (LocalDispatcher) context.get("dispatcher");
+            if (dispatcher == null) {
+                Debug.logError("We can not append auto service Parameters since we could not find dispatcher in the current context", module);
+                return autServiceParams;
+            }
+            if (UtilValidate.isEmpty(serviceName)) serviceName = defaultServiceName;
+            FlexibleStringExpander toExpand = FlexibleStringExpander.getInstance(serviceName);
+            ModelService service = null;
+            try {
+                service = dispatcher.getDispatchContext().getModelService(toExpand.toString());
+            } catch (GenericServiceException e) {
+                Debug.logError("Resolve service throw an error : " + e, module);
+            }
+            if (service == null) {
+                Debug.logError("We can not append auto service Parameters since we could not find service with name [" + serviceName + "]", module);
+                return autServiceParams;
+            }
+
+            Iterator<ModelParam> paramsIter = service.getInModelParamList().iterator();
+            if (paramsIter != null) {
+                while (paramsIter.hasNext()) {
+                    ModelParam param = paramsIter.next();
+                    if (param.getInternal()) continue;
+                    String paramName = param.getName();
+                    FlexibleMapAccessor<Object> fma = FlexibleMapAccessor.getInstance(paramName);
+                    if (!excludeList.contains(paramName)) {
+                        Object flexibleValue = fma.get(context);
+                        if (UtilValidate.isEmpty(flexibleValue) && context.containsKey("parameters")) {
+                            flexibleValue = fma.get((Map<String, ? extends Object>) context.get("parameters"));
+                        }
+                        if (UtilValidate.isNotEmpty(flexibleValue) || sendIfEmpty) {
+                            autServiceParams.put(paramName, String.valueOf(flexibleValue));
+                        }
+                    }
+                }
+            }
+            return autServiceParams;
+        }
+    }
+
+    public static class AutoEntityParameters {
+        private String entityName;
+        private String includeType;
+        List<String> excludeList = FastList.newInstance();
+        boolean includePk;
+        boolean includeNonPk;
+        boolean sendIfEmpty;
+        public AutoEntityParameters(Element autoElement){
+            entityName = UtilXml.checkEmpty(autoElement.getAttribute("entity-name"));
+            sendIfEmpty = "true".equals(autoElement.getAttribute("send-if-empty"));
+            includeType = UtilXml.checkEmpty(autoElement.getAttribute("include"));
+            includePk = "pk".equals(includeType) || "all".equals(includeType);
+            includeNonPk = "nonpk".equals(includeType) || "all".equals(includeType);
+            List<? extends Element> excludes = UtilXml.childElementList(autoElement, "exclude");
+            if (excludes != null) {
+                for (Element exclude: excludes) {
+                    if (UtilValidate.isNotEmpty(exclude.getAttribute("field-name"))) {
+                        excludeList.add(exclude.getAttribute("field-name"));
+                    }
+                }
+            }
+        }
+
+        public Map<String, String> getParametersMap(Map<String, Object> context, String defaultEntityName) {
+            Map<String, String> autEntityParams = FastMap.newInstance();
+            Delegator delegator = (Delegator) context.get("delegator");
+            if (delegator == null) {
+                Debug.logError("We can not append auto entity Parameters since we could not find delegator in the current context", module);
+                return autEntityParams;
+            }
+            if (UtilValidate.isEmpty(entityName)) entityName = defaultEntityName;
+            FlexibleStringExpander toExpand = FlexibleStringExpander.getInstance(entityName);
+            ModelEntity entity = delegator.getModelEntity(toExpand.expandString(context));
+            if (entity == null) {
+                Debug.logError("We can not append auto entity Parameters since we could not find entity with name [" + entityName + "]", module);
+                return autEntityParams;
+            }
+
+            Iterator<ModelField> fieldsIter = entity.getFieldsIterator();
+            if (fieldsIter != null) {
+                while (fieldsIter.hasNext()) {
+                    ModelField field = fieldsIter.next();
+                    String fieldName = field.getName();
+                    FlexibleMapAccessor<Object> fma = FlexibleMapAccessor.getInstance(fieldName);
+                    boolean shouldExclude = excludeList.contains(fieldName);
+                    if ((!shouldExclude) && (!field.getIsAutoCreatedInternal())
+                            && ((field.getIsPk() && includePk) || (!field.getIsPk() && includeNonPk))) {
+                        Object flexibleValue = fma.get(context);
+                        if (UtilValidate.isEmpty(flexibleValue) && context.containsKey("parameters")) {
+                            flexibleValue = fma.get((Map<String, Object>) context.get("parameters"));
+                        }
+                        if (UtilValidate.isNotEmpty(flexibleValue) || sendIfEmpty) {
+                            autEntityParams.put(fieldName, String.valueOf(flexibleValue));
+                        }
+                    }
+                }
+            }
+            return autEntityParams;
         }
     }
 
