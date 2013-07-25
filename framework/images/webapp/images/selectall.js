@@ -352,7 +352,7 @@ function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
    }
    updateFunction = function(data) {
        if (data._ERROR_MESSAGE_LIST_ != undefined || data._ERROR_MESSAGE_ != undefined) {
-           if (jQuery('#content-messages').length == 0) {
+           if (!jQuery('#content-messages').length) {
               //add this div just after app-navigation
               if(jQuery('#content-main-section')){
                   jQuery('#content-main-section' ).before('<div id="content-messages" onclick="hideErrorContainer()"></div>');
@@ -367,8 +367,8 @@ function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
               jQuery('#content-messages' ).html(data._ERROR_MESSAGE_);
           }
           jQuery('#content-messages').fadeIn('fast');
-       }else {
-           if (jQuery('#content-messages').length == 0) {
+       } else {
+           if (jQuery('#content-messages').length) {
                jQuery('#content-messages').html('');
                jQuery('#content-messages').removeClass('errorMessage').fadeIn("fast");
            }
