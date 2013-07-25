@@ -578,6 +578,8 @@ public class ModelMenuItem {
         protected boolean secure = false;
         protected boolean encode = false;
         protected String linkType;
+        protected WidgetWorker.AutoServiceParameters autoServiceParameters;
+        protected WidgetWorker.AutoEntityParameters autoEntityParameters;
         protected FlexibleMapAccessor<Map<String, String>> parametersMapAcsr;
         protected List<WidgetWorker.Parameter> parameterList = FastList.newInstance();
         protected boolean requestConfirmation = false;
@@ -609,6 +611,14 @@ public class ModelMenuItem {
             }
             setRequestConfirmation("true".equals(linkElement.getAttribute("request-confirmation")));
             setConfirmationMsg(linkElement.getAttribute("confirmation-message"));
+            Element autoServiceParamsElement = UtilXml.firstChildElement(linkElement, "auto-parameters-service");
+            if (autoServiceParamsElement != null) {
+                autoServiceParameters = new WidgetWorker.AutoServiceParameters(autoServiceParamsElement);
+            }
+            Element autoEntityParamsElement = UtilXml.firstChildElement(linkElement, "auto-parameters-entity");
+            if (autoEntityParamsElement != null) {
+                autoEntityParameters = new WidgetWorker.AutoEntityParameters(autoEntityParamsElement);
+            }
         }
 
         public Link(ModelMenuItem parentMenuItem) {
@@ -716,7 +726,12 @@ public class ModelMenuItem {
             for (WidgetWorker.Parameter parameter: this.parameterList) {
                 fullParameterMap.put(parameter.getName(), parameter.getValue(context));
             }
-            
+            if (autoServiceParameters != null) {
+                fullParameterMap.putAll(autoServiceParameters.getParametersMap(context, null));
+            }
+            if (autoEntityParameters != null) {
+                fullParameterMap.putAll(autoEntityParameters.getParametersMap(context, linkMenuItem.getModelMenu().getDefaultEntityName()));
+            }
             return fullParameterMap;
         }
 
