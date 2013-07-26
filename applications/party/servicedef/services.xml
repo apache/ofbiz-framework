@@ -1355,4 +1355,12 @@ under the License.
         <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
     </service>
+    
+    <service name="importParty" engine="java"
+        location="org.ofbiz.party.party.PartyServices" invoke="importParty" auth="true">
+        <description>Import an party with related main role, company and contact info in csv format, will ignore parties already entered</description>
+        <permission-service service-name="partyGroupPermissionCheck" main-action="CREATE"/>
+        <attribute mode="IN" name="uploadedFile" type="java.nio.ByteBuffer" optional="true" />
+    </service>
+    
 </services>

@@ -906,6 +906,22 @@ under the License.
         <response name="success" type="view" value="FindAddressMatch"/>
     </request-map>
 
+    <!-- Import export -->
+    <request-map uri="ImportExport">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ImportExport"/>
+    </request-map>
+    <request-map uri="ExportPartyCsv.csv">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="PartyExportCsv"/>
+    </request-map>
+    <request-map uri="uploadParty">
+        <security auth="true" https="true"/>
+        <event invoke="importParty" path="" type="service"/>
+        <response name="success" type="request" value="ImportExport"/>
+        <response name="error" type="view" value="ImportExport"/>
+    </request-map>
+
    <!-- ================ SimpleContent Requests ================= -->
 
     <request-map uri="ViewSimpleContent">
@@ -1352,6 +1368,10 @@ under the License.
 
     <view-map name="AddressMatchMap" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#AddressMatchMap"/>
     <view-map name="FindAddressMatch" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#FindAddressMatch"/>
+
+    <view-map name="ImportExport" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#ImportExport"/>
+    <view-map name="PartyExportCsv" type="screencsv" page="component://party/widget/partymgr/PartyScreens.xml#PartyExportCsv" content-type="text/csv" encoding="none"/>
+
     <view-map name="EditPartyContents" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#EditPartyContents"/>
     <view-map name="editCarrierAccount" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#editCarrierAccount"/>
     <view-map name="partyInvitation" type="screen" page="component://party/widget/partymgr/PartyInvitationScreens.xml#FindPartyInvitations"/>

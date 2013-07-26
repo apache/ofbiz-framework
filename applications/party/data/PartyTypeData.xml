@@ -441,4 +441,6 @@ under the License.
     <Enumeration description="Organization party" enumCode="" enumId="ORGANIZATION_PARTY" sequenceId="01" enumTypeId="GLOBAL_PREFERENCES"/>
     <Enumeration description="Visual Theme" enumCode="" enumId="VISUAL_THEME" sequenceId="02" enumTypeId="GLOBAL_PREFERENCES"/>
 
+    <PartyIdentificationType partyIdentificationTypeId="PARTY_IMPORT" description="Original ID in the system where this record was imported from"/>
+
 </entity-engine-xml>
