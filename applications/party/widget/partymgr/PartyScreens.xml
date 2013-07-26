@@ -1302,4 +1302,41 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="ImportExport">
+        <section>
+            <actions>
+                <set field="titleProperty" value="CommonImportExport"/>
+                <set field="headerItem" value="importexport"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.PartyParty} ${uiLabelMap.CommonImportExport} ID Name, single role (employee, customer, supplier) and contactmechs">
+                            <container style="lefthalf">
+                                <label style="h2">${uiLabelMap.CommonImport}</label>
+                                <include-form name="ImportParty" location="component://party/widget/partymgr/PartyForms.xml"/>
+                            </container>
+                            <container style="righthalf">
+                                <label style="h2">${uiLabelMap.CommonExport}</label>
+                                <include-form name="ExportParty" location="component://party/widget/partymgr/PartyForms.xml"/>
+                            </container>
+                         </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="PartyExportCsv">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+            </actions>
+            <widgets>
+                <include-form name="ExportPartyCsv" location="component://party/widget/partymgr/PartyForms.xml"/>           
+            </widgets>
+        </section>
+    </screen>
+    
 </screens>

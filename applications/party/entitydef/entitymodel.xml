@@ -2929,4 +2929,80 @@ under the License.
             <key-map field-name="partyId"/>
         </relation>
     </extend-entity>
+    <view-entity entity-name="PartyExport" package-name="org.ofbiz.accounting.reports">
+        <member-entity entity-alias="PRT" entity-name="Party"/>
+        <member-entity entity-alias="GRP" entity-name="PartyGroup"/>
+        <member-entity entity-alias="PER" entity-name="Person"/>
+        <member-entity entity-alias="PR" entity-name="PartyRelationship"/>
+        <member-entity entity-alias="CGRP" entity-name="PartyGroup"/>
+        <member-entity entity-alias="PRL" entity-name="PartyRole"/>
+        <member-entity entity-alias="PCM" entity-name="PartyContactMech"/>
+        <member-entity entity-alias="PCP" entity-name="PartyContactMechPurpose"/>
+        <member-entity entity-alias="CM" entity-name="ContactMech"/>
+        <member-entity entity-alias="TN" entity-name="TelecomNumber"/>
+        <member-entity entity-alias="PA" entity-name="PostalAddress"/>
+        <alias entity-alias="PRT" name="partyId" />
+        <alias entity-alias="PRT" name="statusId" />
+        <alias entity-alias="PRT" name="preferredCurrencyUomId" />
+        <alias entity-alias="GRP" name="groupName"/>
+        <alias entity-alias="PER" name="firstName"/>
+        <alias entity-alias="PER" name="middleName"/>
+        <alias entity-alias="PER" name="lastName"/>
+        <alias entity-alias="PR" name="companyPartyId" field="partyIdFrom"/>
+        <alias entity-alias="CGRP" name="companyName" field="groupName"/>
+        <alias entity-alias="PRL" name="roleTypeId"/>
+        <alias entity-alias="CM" name="contactMechTypeId"/>
+        <alias entity-alias="PCP" name="contactMechPurposeTypeId"/>
+        <alias entity-alias="CM" name="emailAddress" field="infoString"/>
+        <alias entity-alias="TN" name="telCountryCode" field="countryCode"/>
+        <alias entity-alias="TN" name="telAreaCode"  field="areaCode"/>
+        <alias entity-alias="TN" name="telContactNumber" field="contactNumber"/>
+        <alias entity-alias="PA" name="address1"/>
+        <alias entity-alias="PA" name="address2"/>
+        <alias entity-alias="PA" name="city"/>
+        <alias entity-alias="PA" name="stateProvinceGeoId"/>
+        <alias entity-alias="PA" name="postalCode"/>
+        <alias entity-alias="PA" name="countryGeoId"/>
+        <view-link entity-alias="PRT" rel-entity-alias="GRP" rel-optional="true">
+            <key-map field-name="partyId"/>
+        </view-link>
+        <view-link entity-alias="PRT" rel-entity-alias="PER" rel-optional="true">
+            <key-map field-name="partyId"/>
+        </view-link>
+        <view-link entity-alias="PRT" rel-entity-alias="PR" rel-optional="true">
+            <key-map field-name="partyId" rel-field-name="partyIdTo"/>
+            <entity-condition>
+                <condition-list combine="and">
+                    <condition-expr field-name="roleTypeIdFrom" entity-alias="PR" value="ACCOUNT"/>
+                    <condition-expr field-name="partyRelationshipTypeId" entity-alias="PR" value="EMPLOYMENT"/>
+                </condition-list>
+            </entity-condition>
+        </view-link>
+        <view-link entity-alias="PR" rel-entity-alias="CGRP" rel-optional="true">
+            <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
+        </view-link>
+        <view-link entity-alias="PRT" rel-entity-alias="PRL" rel-optional="true">
+            <key-map field-name="partyId"/>
+        </view-link>
+        <view-link entity-alias="PRT" rel-entity-alias="PCM" rel-optional="true">
+            <key-map field-name="partyId"/>
+            <entity-condition filter-by-date="true"/>
+        </view-link>
+        <view-link entity-alias="PCM" rel-entity-alias="PA" rel-optional="true">
+            <key-map field-name="contactMechId"/>
+        </view-link>
+        <view-link entity-alias="PCM" rel-entity-alias="CM" rel-optional="true">
+            <key-map field-name="contactMechId"/>
+        </view-link>
+        <view-link entity-alias="PCM" rel-entity-alias="TN" rel-optional="true">
+            <key-map field-name="contactMechId"/>
+        </view-link>
+        <view-link entity-alias="PCM" rel-entity-alias="PCP" rel-optional="true">
+            <key-map field-name="contactMechId"/>
+            <key-map field-name="partyId"/>
+            <entity-condition filter-by-date="true"/>
+        </view-link>
+    </view-entity>
+    
+    
 </entitymodel>

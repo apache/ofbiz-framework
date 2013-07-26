@@ -24,12 +24,18 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
+import org.apache.commons.csv.CSVFormat.CSVFormatBuilder;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
@@ -1850,4 +1856,353 @@ public class PartyServices {
         return result;
     }
 
+    public static Map<String, Object> importParty(DispatchContext dctx, Map<String, Object> context) {
+        Delegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        ByteBuffer fileBytes = (ByteBuffer) context.get("uploadedFile");
+        String encoding = System.getProperty("file.encoding");
+        String csvString = Charset.forName(encoding).decode(fileBytes).toString();
+        final BufferedReader csvReader = new BufferedReader(new StringReader(csvString));
+        final CSVFormatBuilder builder = CSVFormat.newBuilder(',').withQuoteChar('"').withHeader();
+        CSVFormat fmt = builder.build();
+        List<String> errMsgs = FastList.newInstance();
+        List<String> newErrMsgs = FastList.newInstance();
+        String lastPartyId = null;        // last partyId read from the csv file
+        String currentPartyId = null;     // current partyId from the csv file
+        String newPartyId = null;        // new to create/update partyId in the system
+        String newCompanyPartyId = null;
+        int partiesCreated = 0;
+        Map<String, Object> result = null;
+        String newContactMechId = null;
+        String currentContactMechTypeId = null;
+
+        String lastAddress1 = null;
+        String lastAddress2 = null;
+        String lastCity = null;
+        String lastCountryGeoId = null;
+
+        String lastEmailAddress = null;
+
+        String lastCountryCode = null;
+        String lastAreaCode = null;
+        String lastContactNumber = null;
+        
+        String lastContactMechPurposeTypeId = null;
+        String currentContactMechPurposeTypeId = null;
+        
+        Boolean addParty = false; // when modify party, contact mech not added again
+        
+        if (fileBytes == null) {
+            return ServiceUtil.returnError("Uploaded file data not found");
+        }
+        
+        try {
+            for(final CSVRecord rec : fmt.parse(csvReader)) {
+                if (UtilValidate.isNotEmpty(rec.get("partyId"))) {
+                    currentPartyId =  rec.get("partyId");
+                }
+                if (lastPartyId == null || !currentPartyId.equals(lastPartyId)) {
+                    newPartyId = null;
+                    currentContactMechPurposeTypeId = null;
+                    lastAddress1 = null;
+                    lastAddress2 = null;
+                    lastCity = null;
+                    lastCountryGeoId = null;
+
+                    lastEmailAddress = null;
+
+                    lastCountryCode = null;
+                    lastAreaCode = null;
+                    lastContactNumber = null;
+                    
+                    // party validation
+                    List <GenericValue> currencyCheck = delegator.findByAnd("Uom", UtilMisc.toMap("abbreviation", rec.get("preferredCurrencyUomId"), "uomTypeId", "CURRENCY_MEASURE"), null, false);
+                    if (UtilValidate.isNotEmpty(rec.get("preferredCurrencyUomId")) && currencyCheck.size() == 0) {
+                        newErrMsgs.add("Line number " + rec.getRecordNumber() + ": partyId: " + currentPartyId + "Currency code not found for: " + rec.get("preferredCurrencyUomId"));
+                    }
+
+                    if (UtilValidate.isEmpty(rec.get("roleTypeId"))) {
+                        newErrMsgs.add("Line number " + rec.getRecordNumber() + ": Mandatory roletype is missing, possible values: CUSTOMER, SUPPLIER, EMPLOYEE and more....");
+                    } else if (delegator.findOne("RoleType", UtilMisc.<String, Object>toMap("roleTypeId", rec.get("roleTypeId")), true) == null) {
+                        newErrMsgs.add("Line number " + rec.getRecordNumber() + ": RoletypeId is not valid: " + rec.get("roleTypeId") );
+                    }
+
+                    if (UtilValidate.isNotEmpty(rec.get("contactMechTypeId")) &&
+                            delegator.findOne("ContactMechType", true, UtilMisc.toMap("contactMechTypeId", rec.get("contactMechTypeId"))) == null) {
+                        newErrMsgs.add("Line number " + rec.getRecordNumber() + ": partyId: " + currentPartyId + " contactMechTypeId code not found for: " + rec.get("contactMechTypeId"));
+                    }
+                    
+                    if (UtilValidate.isNotEmpty(rec.get("contactMechPurposeTypeId")) &&
+                            delegator.findOne("ContactMechPurposeType", true, UtilMisc.toMap("contactMechPurposeTypeId", rec.get("contactMechPurposeTypeId"))) == null) {
+                        newErrMsgs.add("Line number " + rec.getRecordNumber() + ": partyId: " + currentPartyId + "contactMechPurposeTypeId code not found for: " + rec.get("contactMechPurposeTypeId"));
+                    }
+                    
+                    if (UtilValidate.isNotEmpty(rec.get("contactMechTypeId")) && "POSTAL_ADDRESS".equals(rec.get("contactMechTypeId"))) {
+                        if (UtilValidate.isEmpty(rec.get("countryGeoId"))) {
+                            newErrMsgs.add("Line number " + rec.getRecordNumber() + ": partyId: " + currentPartyId + "Country code missing");
+                        } else {
+                            List <GenericValue> countryCheck = delegator.findByAnd("Geo", UtilMisc.toMap("geoTypeId", "COUNTRY", "abbreviation", rec.get("countryGeoId")), null, false);
+                            if (countryCheck.size() == 0) {
+                                newErrMsgs.add("Line number " + rec.getRecordNumber() + " partyId: " + currentPartyId + " Invalid Country code: " + rec.get("countryGeoId"));
+                            }
+                        }
+
+                        if (UtilValidate.isEmpty(rec.get("city"))) {
+                            newErrMsgs.add("Line number " + rec.getRecordNumber() + " partyId: " + currentPartyId + "City name is missing");
+                        } 
+
+                        if (UtilValidate.isNotEmpty(rec.get("stateProvinceGeoId"))) {
+                            List <GenericValue> stateCheck = delegator.findByAnd("Geo", UtilMisc.toMap("geoTypeId", "STATE", "abbreviation", rec.get("stateProvinceGeoId")), null, false);
+                            if (stateCheck.size() == 0) {
+                                newErrMsgs.add("Line number " + rec.getRecordNumber() + " partyId: " + currentPartyId + " Invalid stateProvinceGeoId code: " + rec.get("countryGeoId"));
+                            }
+                        }
+                    }
+
+                    if (UtilValidate.isNotEmpty(rec.get("contactMechTypeId")) && "TELECOM_NUMBER".equals(rec.get("contactMechTypeId"))) {
+                        if (UtilValidate.isEmpty(rec.get("telAreaCode")) && UtilValidate.isEmpty(rec.get("telAreaCode"))) {
+                            newErrMsgs.add("Line number " + rec.getRecordNumber() + " partyId: " + currentPartyId + " telephone number missing");
+                        }
+                    }
+          
+                    if (UtilValidate.isNotEmpty(rec.get("contactMechTypeId")) && "EMAIL_ADDRESS".equals(rec.get("contactMechTypeId"))) {
+                        if (UtilValidate.isEmpty(rec.get("emailAddress"))) {
+                            newErrMsgs.add("Line number " + rec.getRecordNumber() + " partyId: " + currentPartyId + " email address missing");
+                        }
+                    }
+          
+                    if (errMsgs.size() == 0) {
+                        List <GenericValue> partyCheck = delegator.findByAnd("PartyIdentification", UtilMisc.toMap("partyIdentificationTypeId", "PARTY_IMPORT", "idValue", rec.get("partyId")), null, false);
+                        addParty = partyCheck.size() == 0;
+                        if (!addParty) { // update party
+                            newPartyId = EntityUtil.getFirst(partyCheck).getString("partyId");
+                            
+                            if (UtilValidate.isNotEmpty(rec.get("groupName"))) {
+                                Map<String, Object> partyGroup = UtilMisc.toMap(
+                                        "partyId", newPartyId,
+                                        "preferredCurrencyUomId", rec.get("preferredCurrencyUomId"),
+                                        "groupName", rec.get("groupName"),
+                                        "userLogin", userLogin
+                                        );                   
+                                result = dispatcher.runSync("updatePartyGroup", partyGroup);
+                            } else { // person
+                                Map<String, Object> person = UtilMisc.toMap(
+                                        "partyId", newPartyId,
+                                        "firstName", rec.get("firstName"),
+                                        "middleName", rec.get("midleName"),
+                                        "lastName", rec.get("lastName"),
+                                        "preferredCurrencyUomId", rec.get("preferredCurrencyUomId"),
+                                        "userLogin", userLogin
+                                        );                   
+                                result = dispatcher.runSync("updatePerson", person);
+                            }
+                            
+                        } else { // create new party
+                            if (UtilValidate.isNotEmpty(rec.get("groupName"))) {
+                                Map<String, Object> partyGroup = UtilMisc.toMap(
+                                        "preferredCurrencyUomId", rec.get("preferredCurrencyUomId"),
+                                        "groupName", rec.get("groupName"),
+                                        "userLogin", userLogin,
+                                        "statusId", "PARTY_ENABLED"
+                                        );                   
+                                result = dispatcher.runSync("createPartyGroup", partyGroup);
+                            } else { // person
+                                Map<String, Object> person = UtilMisc.toMap(
+                                        "firstName", rec.get("firstName"),
+                                        "middleName", rec.get("midleName"),
+                                        "lastName", rec.get("lastName"),
+                                        "preferredCurrencyUomId", rec.get("preferredCurrencyUomId"),
+                                        "statusId", "PARTY_ENABLED",
+                                        "userLogin", userLogin
+                                        );                   
+                                result = dispatcher.runSync("createPerson", person);
+                            }
+                            newPartyId = (String) result.get("partyId");
+
+                            Map<String, Object> partyIdentification = UtilMisc.toMap(
+                                "partyId", newPartyId,
+                                "partyIdentificationTypeId", "PARTY_IMPORT", 
+                                "idValue", rec.get("partyId"),
+                                "userLogin", userLogin
+                                );
+
+                            result = dispatcher.runSync("createPartyIdentification", partyIdentification);
+
+                            Map<String, Object> partyRole = UtilMisc.toMap(
+                                    "partyId", newPartyId,
+                                    "roleTypeId", rec.get("roleTypeId"), 
+                                    "userLogin", userLogin
+                                    );
+                            dispatcher.runSync("createPartyRole", partyRole);
+
+                            if (UtilValidate.isNotEmpty(rec.get("companyPartyId"))) {
+                                List <GenericValue> companyCheck = delegator.findByAnd("PartyIdentification", UtilMisc.toMap("partyIdentificationTypeId", "PARTY_IMPORT", "idValue", rec.get("partyId")), null, false);
+                                if (companyCheck.size() == 0) { // update party group
+                                    // company does not exist so create
+                                    Map<String, Object> companyPartyGroup = UtilMisc.toMap(
+                                        "partyId", newCompanyPartyId, 
+                                        "statusId", "PARTY_ENABLED",
+                                        "userLogin", userLogin
+                                        );                   
+                                    result = dispatcher.runSync("createPartyGroup", companyPartyGroup);
+                                    newCompanyPartyId = (String) result.get("partyId");
+                                } else {
+                                    newCompanyPartyId = EntityUtil.getFirst(companyCheck).getString("partyId");
+                                }
+
+                                Map<String, Object> companyRole = UtilMisc.toMap(
+                                        "partyId", newCompanyPartyId,
+                                        "roleTypeId", "ACCOUNT", 
+                                        "userLogin", userLogin
+                                        );
+                                dispatcher.runSync("createPartyRole", companyRole);
+                                
+                                // company exist, so create link
+                                Map<String, Object> partyRelationship = UtilMisc.toMap(
+                                    "partyIdTo", newPartyId,
+                                    "partyIdFrom", newCompanyPartyId,
+                                    "roleTypeIdFrom", "ACCOUNT",
+                                    "partyRelationshipTypeId", "EMPLOYMENT",
+                                    "userLogin", userLogin
+                                    );                   
+                                result = dispatcher.runSync("createPartyRelationship", partyRelationship);
+                            }
+                        }
+                        Debug.logInfo(" =========================================================party created id: " + newPartyId, module);
+                        partiesCreated++;
+                    } else {
+                        errMsgs.addAll(newErrMsgs);
+                        newErrMsgs = FastList.newInstance();
+                    }
+                }
+                
+                currentContactMechTypeId = rec.get("contactMechTypeId");
+                currentContactMechPurposeTypeId = rec.get("contactMechPurposeTypeId"); 
+                // party correctly created (not updated) and contactMechtype provided?
+                if (newPartyId != null && addParty && UtilValidate.isNotEmpty(currentContactMechTypeId)) {
+                                        
+                    // fill maps and check changes
+                    Map<String, Object> emailAddress = UtilMisc.toMap(
+                            "contactMechTypeId", "EMAIL_ADDRESS", 
+                            "userLogin", userLogin
+                            );
+                    Boolean emailAddressChanged = false;
+                    if ("EMAIL_ADDRESS".equals(currentContactMechTypeId)) {
+                        emailAddress.put("infoString", rec.get("emailAddress"));
+                        emailAddressChanged = lastEmailAddress == null || !lastEmailAddress.equals(rec.get("emailAddress"));
+                        lastEmailAddress = rec.get("emailAddress");
+                    }
+                    
+                    Map<String, Object> postalAddress = UtilMisc.toMap("userLogin", userLogin);
+                    Boolean postalAddressChanged = false;
+                    if ("POSTAL_ADDRESS".equals(currentContactMechTypeId)) {
+                        postalAddress.put("address1", rec.get("address1"));
+                        postalAddress.put("address2", rec.get("address2"));
+                           postalAddress.put("city", rec.get("city"));
+                        postalAddress.put("stateProvinceGeoId", rec.get("stateProvinceGeoId"));
+                        postalAddress.put("countryGeoId", rec.get("countryGeoId"));
+                        postalAddress.put("postalCode", rec.get("postalCode"));
+                        postalAddressChanged =
+                                lastAddress1 == null || !lastAddress1.equals(postalAddress.get("address1")) ||
+                                lastAddress2 == null || !lastAddress2.equals(postalAddress.get("address2")) ||
+                                lastCity == null || !lastCity.equals(postalAddress.get("city")) ||
+                                lastCountryGeoId == null || !lastCountryGeoId.equals(postalAddress.get("countryGeoId"));
+                        lastAddress1 = (String) postalAddress.get("address1");
+                        lastAddress2 = (String) postalAddress.get("address2");
+                        lastCity = (String) postalAddress.get("city");
+                        lastCountryGeoId = (String) postalAddress.get("countryGeoId");
+                    }                            
+                            
+                    Map<String, Object> telecomNumber = UtilMisc.toMap("userLogin", userLogin);
+                    Boolean telecomNumberChanged = false;
+                    if ("TELECOM_NUMBER".equals(currentContactMechTypeId)) {
+                        telecomNumber.put("countryCode", rec.get("telCountryCode"));
+                        telecomNumber.put("areaCode", rec.get("telAreaCode"));
+                        telecomNumber.put("contactNumber", rec.get("telContactNumber"));
+                        telecomNumberChanged = 
+                                lastCountryCode == null || !lastCountryCode.equals(telecomNumber.get("countryCode")) ||
+                                lastAreaCode == null || !lastAreaCode.equals(telecomNumber.get("areaCode")) ||
+                                lastContactNumber == null || !lastContactNumber.equals(telecomNumber.get("contactNumber"));
+                        lastCountryCode = (String) telecomNumber.get("countryCode");
+                        lastAreaCode = (String) telecomNumber.get("areaCode");
+                        lastContactNumber = (String) telecomNumber.get("contactNumber");
+                    }
+                    
+                    Map<String, Object> partyContactMechPurpose = UtilMisc.toMap("partyId", newPartyId, "userLogin", userLogin);
+                    Boolean partyContactMechPurposeChanged = false;
+                    currentContactMechPurposeTypeId = rec.get("contactMechPurposeTypeId"); 
+                    if (currentContactMechPurposeTypeId != null && ("TELECOM_NUMBER".equals(currentContactMechTypeId) || "POSTAL_ADDRESS".equals(currentContactMechTypeId) ||"EMAIL_ADDRESS".equals(currentContactMechTypeId))) {
+                        partyContactMechPurpose.put("contactMechPurposeTypeId", currentContactMechPurposeTypeId);
+                        partyContactMechPurposeChanged = (lastContactMechPurposeTypeId == null || !lastContactMechPurposeTypeId.equals(currentContactMechPurposeTypeId)) && !telecomNumberChanged && !postalAddressChanged && !emailAddressChanged;
+                        Debug.logInfo("===================================last:" + lastContactMechPurposeTypeId + " current: " + currentContactMechPurposeTypeId + " t :" + telecomNumberChanged + " p: " + postalAddressChanged + " e: " + emailAddressChanged + " result: " + partyContactMechPurposeChanged, module); 
+                    }
+                    lastContactMechPurposeTypeId = currentContactMechPurposeTypeId;
+                    
+                    // update 
+                    if (errMsgs.size() == 0) {
+
+                        if (postalAddressChanged) {
+                            result = dispatcher.runSync("createPostalAddress", postalAddress);
+                               newContactMechId = (String) result.get("contactMechId");
+                            if (currentContactMechPurposeTypeId == null) {
+                                currentContactMechPurposeTypeId = "GENERAL_LOCATION";
+                            }
+                            dispatcher.runSync("createPartyContactMech", UtilMisc.toMap("partyId", newPartyId, "contactMechId", newContactMechId, "contactMechPurposeTypeId", currentContactMechPurposeTypeId, "userLogin", userLogin));
+                        }
+
+                        if (telecomNumberChanged) {
+                            result = dispatcher.runSync("createTelecomNumber", telecomNumber);
+                               newContactMechId = (String) result.get("contactMechId");
+                            if (currentContactMechPurposeTypeId == null) {
+                                currentContactMechPurposeTypeId= "PHONE_WORK";
+                            }
+                            dispatcher.runSync("createPartyContactMech", UtilMisc.toMap("partyId", newPartyId, "contactMechId", newContactMechId, "contactMechPurposeTypeId", currentContactMechPurposeTypeId, "userLogin", userLogin));
+                        }
+
+                        if (emailAddressChanged) {
+                            result = dispatcher.runSync("createContactMech", emailAddress);
+                               newContactMechId = (String) result.get("contactMechId");
+                            if (currentContactMechPurposeTypeId == null) {
+                                currentContactMechPurposeTypeId = "PRIMARY_EMAIL";
+                            }
+                            dispatcher.runSync("createPartyContactMech", UtilMisc.toMap("partyId", newPartyId, "contactMechId", newContactMechId, "contactMechPurposeTypeId", currentContactMechPurposeTypeId, "userLogin", userLogin));
+                        }
+                        
+                        if (partyContactMechPurposeChanged) {
+                            partyContactMechPurpose.put("contactMechId", newContactMechId);
+                            result = dispatcher.runSync("createPartyContactMechPurpose", partyContactMechPurpose);
+                        }
+                        
+                    lastPartyId = currentPartyId;
+                    errMsgs.addAll(newErrMsgs);
+                    newErrMsgs = FastList.newInstance();
+                    }
+                }
+
+            }
+            
+        } 
+        catch (GenericServiceException e) {
+        	Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        
+        catch (GenericEntityException e) {
+                Debug.logError(e, module);
+                return ServiceUtil.returnError(e.getMessage());
+        }
+    
+        catch (IOException e) {
+        	Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        
+        if (errMsgs.size() > 0) {
+            return ServiceUtil.returnError(errMsgs);
+        }
+
+        result = ServiceUtil.returnSuccess(partiesCreated + " new parties created");
+        return result;
+    }
 }
