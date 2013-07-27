@@ -2095,7 +2095,7 @@ public class PartyServices {
                         lastEmailAddress = rec.get("emailAddress");
                     }
                     
-                    //Map<String, Object> postalAddress = UtilMisc.toMap("userLogin", userLogin);
+                    //Map<String, Object> postalAddress = UtilMisc.toMap("userLogin", userLogin); this seems to fail which older jdk version
                     Map<String, Object> postalAddress = new HashMap<String, Object>();
                     postalAddress.put("userLogin", userLogin);
                     Boolean postalAddressChanged = false;
@@ -2117,9 +2117,9 @@ public class PartyServices {
                         lastCountryGeoId = (String) postalAddress.get("countryGeoId");
                     }                            
                             
-                    //Map<String, Object> telecomNumber = UtilMisc.toMap("userLogin", userLogin);
+                    //Map<String, Object> telecomNumber = UtilMisc.toMap("userLogin", userLogin); this seems to fail which older jdk version
                     Map<String, Object> telecomNumber = new HashMap<String, Object>();
-                    postalAddress.put("userLogin", userLogin);                    
+                    telecomNumber.put("userLogin", userLogin);                    
                     Boolean telecomNumberChanged = false;
                     if ("TELECOM_NUMBER".equals(currentContactMechTypeId)) {
                         telecomNumber.put("countryCode", rec.get("telCountryCode"));
