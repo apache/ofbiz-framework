@@ -19,23 +19,24 @@
 
 package org.ofbiz.party.party;
 
-import java.sql.Timestamp;
-import java.util.Collection;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
+import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.csv.CSVFormat.CSVFormatBuilder;
+import org.apache.commons.csv.CSVRecord;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
@@ -2094,7 +2095,9 @@ public class PartyServices {
                         lastEmailAddress = rec.get("emailAddress");
                     }
                     
-                    Map<String, Object> postalAddress = UtilMisc.toMap("userLogin", userLogin);
+                    //Map<String, Object> postalAddress = UtilMisc.toMap("userLogin", userLogin);
+                    Map<String, Object> postalAddress = new HashMap<String, Object>();
+                    postalAddress.put("userLogin", userLogin);
                     Boolean postalAddressChanged = false;
                     if ("POSTAL_ADDRESS".equals(currentContactMechTypeId)) {
                         postalAddress.put("address1", rec.get("address1"));
@@ -2114,7 +2117,9 @@ public class PartyServices {
                         lastCountryGeoId = (String) postalAddress.get("countryGeoId");
                     }                            
                             
-                    Map<String, Object> telecomNumber = UtilMisc.toMap("userLogin", userLogin);
+                    //Map<String, Object> telecomNumber = UtilMisc.toMap("userLogin", userLogin);
+                    Map<String, Object> telecomNumber = new HashMap<String, Object>();
+                    postalAddress.put("userLogin", userLogin);                    
                     Boolean telecomNumberChanged = false;
                     if ("TELECOM_NUMBER".equals(currentContactMechTypeId)) {
                         telecomNumber.put("countryCode", rec.get("telCountryCode"));
