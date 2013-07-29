@@ -26,7 +26,6 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.sql.Timestamp;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -2095,9 +2094,8 @@ public class PartyServices {
                         lastEmailAddress = rec.get("emailAddress");
                     }
                     
-                    //Map<String, Object> postalAddress = UtilMisc.toMap("userLogin", userLogin); this seems to fail which older jdk version
-                    Map<String, Object> postalAddress = new HashMap<String, Object>();
-                    postalAddress.put("userLogin", userLogin);
+                    Map<String, Object> postalAddress = UtilMisc.toMap("userLogin", (Object) userLogin); // casting is here necessary for some compiler versions
+
                     Boolean postalAddressChanged = false;
                     if ("POSTAL_ADDRESS".equals(currentContactMechTypeId)) {
                         postalAddress.put("address1", rec.get("address1"));
@@ -2117,9 +2115,8 @@ public class PartyServices {
                         lastCountryGeoId = (String) postalAddress.get("countryGeoId");
                     }                            
                             
-                    //Map<String, Object> telecomNumber = UtilMisc.toMap("userLogin", userLogin); this seems to fail which older jdk version
-                    Map<String, Object> telecomNumber = new HashMap<String, Object>();
-                    telecomNumber.put("userLogin", userLogin);                    
+                    Map<String, Object> telecomNumber = UtilMisc.toMap("userLogin", (Object) userLogin); // casting is here necessary for some compiler versions
+
                     Boolean telecomNumberChanged = false;
                     if ("TELECOM_NUMBER".equals(currentContactMechTypeId)) {
                         telecomNumber.put("countryCode", rec.get("telCountryCode"));
