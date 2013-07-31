@@ -813,14 +813,19 @@
     </property>
     <property key="WebtoolsArtifactInfo">
         <value xml:lang="de">OFBiz Elemente-Info</value>
-        <value xml:lang="en">Artifact Info (may take some time to load)</value>
-        <value xml:lang="fr">Information sur les éléments d'OFBiz (cela peut prendre un certain temps à charger)</value>
+        <value xml:lang="en">Artifact Info</value>
+        <value xml:lang="fr">Information sur les éléments d'OFBiz</value>
         <value xml:lang="it">Informazioni sugli artefatti</value>
         <value xml:lang="ja">OFBiz要素情報</value>
         <value xml:lang="pt">Info do Artefato</value>
-        <value xml:lang="vi">Thông tin Nhân tạo (đợi chút thời gian)</value>
+        <value xml:lang="vi">Thông tin Nhân tạo</value>
         <value xml:lang="zh">人工程序信息</value>
         <value xml:lang="zh_TW">人工程式資訊</value>
+    </property>
+    <property key="WebtoolsArtifactInfoTimeToLoad">
+        <value xml:lang="en">(may take some time to load)</value>
+        <value xml:lang="fr">(cela peut prendre un certain temps à charger)</value>
+        <value xml:lang="vi">(đợi chút thời gian)</value>
     </property>
     <property key="WebtoolsAsync">
         <value xml:lang="de">Asynchron</value>

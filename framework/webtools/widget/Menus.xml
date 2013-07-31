@@ -28,7 +28,7 @@ under the License.
             <link target="FindUtilCache"/>
         </menu-item>
         <menu-item name="artifact" title="${uiLabelMap.WebtoolsArtifactInfo}">
-            <link target="ArtifactInfo"/>
+            <link target="ViewComponents"/>
         </menu-item>
         <menu-item name="entity" title="${uiLabelMap.WebtoolsEntityEngine}">
             <link target="entitymaint"/>
@@ -142,11 +142,11 @@ under the License.
 
     <menu name="artifactTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           selected-menuitem-context-field-name="tabButtonItem">
-        <menu-item name="artifactInfo" title="${uiLabelMap.WebtoolsArtifactInfo}">
-            <link target="ArtifactInfo"/>
-        </menu-item>
         <menu-item name="viewents" title="${uiLabelMap.WebtoolsViewComponents}">
             <link target="ViewComponents"/>
+        </menu-item>
+        <menu-item name="artifactInfo" title="${uiLabelMap.WebtoolsArtifactInfo} ${uiLabelMap.CommonSearch} ${uiLabelMap.WebtoolsArtifactInfoTimeToLoad}">
+            <link target="ArtifactInfo"/>
         </menu-item>
         <menu-item name="labels" title="${uiLabelMap.WebtoolsLabelManager}">
             <link target="SearchLabels"/>
