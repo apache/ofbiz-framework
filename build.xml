@@ -836,7 +836,7 @@ under the License.
     <target name="load-tenant-data-readers"
         description="Load data of given data-readers in the tenant database. Example: ./ant load-tenant-data-readers -Ddata-readers=seed,seed-initial -DtenantId=demo">
         <echo>------------------------------------</echo>
-        <echo message="Loading selected data-readers in tenant databaset"/>
+        <echo message="Loading selected data-readers in tenant database"/>
         <echo message="Delegator = default#${tenantId}"/>
         <echo message="Data-readers = ${data-readers}"/>
         <echo>------------------------------------</echo>
