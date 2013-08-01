@@ -510,7 +510,7 @@ public class ShoppingCartServices {
                 List<GenericValue> orderItemAttributesList = null;
                 try {
                     orderItemAttributesList = delegator.findByAnd("OrderItemAttribute", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId), null, false);
-                    if (UtilValidate.isNotEmpty(orderAttributesList)) {
+                    if (UtilValidate.isNotEmpty(orderItemAttributesList)) {
                         for (GenericValue orderItemAttr : orderItemAttributesList) {
                             String name = orderItemAttr.getString("attrName");
                             String value = orderItemAttr.getString("attrValue");
