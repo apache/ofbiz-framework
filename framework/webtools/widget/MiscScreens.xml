@@ -20,22 +20,6 @@ under the License.
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
-    <screen name="ViewComponents">
-        <section>
-            <actions>
-                <set field="headerItem" value="main"/>
-                <set field="titleProperty" value="WebtoolsViewComponents"/>
-                <set field="tabButtonItem" value="viewents"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonArtifactDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://webtools/webapp/webtools/component/viewComponents.ftl"/></html></platform-specific>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
 
     <screen name="viewdatafile">
         <section>
