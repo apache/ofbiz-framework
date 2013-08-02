@@ -105,19 +105,22 @@ public final class GroovyEngine extends GenericAsyncEngine {
         }
         Map<String, Object> params = FastMap.newInstance();
         params.putAll(context);
-        context.put(ScriptUtil.PARAMETERS_KEY, params);
+
+        Map<String, Object> gContext = FastMap.newInstance();
+        gContext.putAll(context);
+        gContext.put(ScriptUtil.PARAMETERS_KEY, params);
 
         DispatchContext dctx = dispatcher.getLocalContext(localName);
-        context.put("dctx", dctx);
-        context.put("dispatcher", dctx.getDispatcher());
-        context.put("delegator", dispatcher.getDelegator());
+        gContext.put("dctx", dctx);
+        gContext.put("dispatcher", dctx.getDispatcher());
+        gContext.put("delegator", dispatcher.getDelegator());
         try {
-            ScriptContext scriptContext = ScriptUtil.createScriptContext(context, protectedKeys);
+            ScriptContext scriptContext = ScriptUtil.createScriptContext(gContext, protectedKeys);
             ScriptHelper scriptHelper = (ScriptHelper)scriptContext.getAttribute(ScriptUtil.SCRIPT_HELPER_KEY);
             if (scriptHelper != null) {
-                context.put(ScriptUtil.SCRIPT_HELPER_KEY, scriptHelper);
+                gContext.put(ScriptUtil.SCRIPT_HELPER_KEY, scriptHelper);
             }
-            Script script = InvokerHelper.createScript(GroovyUtil.getScriptClassFromLocation(this.getLocation(modelService), groovyClassLoader), GroovyUtil.getBinding(context));
+            Script script = InvokerHelper.createScript(GroovyUtil.getScriptClassFromLocation(this.getLocation(modelService), groovyClassLoader), GroovyUtil.getBinding(gContext));
             Object resultObj = null;
             if (UtilValidate.isEmpty(modelService.invoke)) {
                 resultObj = script.run();
