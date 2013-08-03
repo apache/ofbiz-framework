@@ -185,6 +185,16 @@ under the License.
                   <#-- <a href="#" onclick="setNow("datetimeReceived")" class="buttontext">[Now]</a> -->
                 </td>
               </tr>
+              
+              
+              <tr>
+                <td width="14%">&nbsp;</td>
+                <td width="6%" align="right" nowrap="nowrap" class="label">${uiLabelMap.lotId}</td>
+                <td width="6%">&nbsp;</td>
+                <td width="74%">
+                  <input type="text" name="lotId" size="10"/>
+                </td>
+              </tr>
 
               <#-- facility location(s) -->
               <#assign facilityLocations = (product.getRelated("ProductFacilityLocation", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", facilityId), null, false))?if_exists/>
