@@ -249,7 +249,7 @@ under the License.
         disa = '';
       document.write("<input type='text' name='${otherFieldName}' value='${otherValue?js_string}' size='${otherFieldSize}'"+disa+" onfocus='check_choice(document.${formName}.${fieldName})' />");
       if(disa && document.styleSheets)
-      document.${formName}.${fieldName}.style.visibility  = 'hidden';
+      document.${formName}.${otherFieldName}.style.visibility  = 'hidden';
     //--></script>
   </#if>
 

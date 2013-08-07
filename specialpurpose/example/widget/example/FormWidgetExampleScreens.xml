@@ -25,6 +25,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="FormWidgetExamples"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/combobox.js" global="true" />
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

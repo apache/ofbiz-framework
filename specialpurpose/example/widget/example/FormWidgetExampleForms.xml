@@ -252,6 +252,19 @@ under the License.
             </drop-down>
         </field>
         <!-- ****************************** -->
+        <!-- *** Specify-other dropdown *** -->
+        <!-- ****************************** -->
+        <field name="emptyField1" title=" "><display/></field>
+        <field name="otherValue" title="${uiLabelMap.ExampleSpecifyOtherDropdown}"
+            tooltip="${uiLabelMap.ExampleSpecifyOtherTooltip}" tooltip-style="button-text" >
+            <drop-down other-field-size="15">
+                <option key="A" description="Option A" />
+                <option key="B" description="Option B" />
+                <option key="C" description="Option C" />
+                <option key="_OTHER_" description="specify other" />
+            </drop-down>
+        </field>
+        <!-- ****************************** -->
         <!-- ***   Dependent dropdowns  *** -->
         <!-- ****************************** -->
         <field name="emptyField2" title=" "><display/></field>
