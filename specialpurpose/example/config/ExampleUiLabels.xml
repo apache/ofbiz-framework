@@ -56,6 +56,14 @@
         <value xml:lang="ja">国種類に基づくサンプル。位置ID、位置名称のエンティティ項目を使用して完了します</value>
         <value xml:lang="zh">基于国家类型的样例，使用Geo.Geoid和Geo.GeoName等Entity.fields来填充</value>
     </property>
+    <property key="ExampleSpecifyOtherDropdown">
+        <value xml:lang="en">Specify-other Dropdown</value>
+        <value xml:lang="zh">指定其它输入的下拉框</value>
+    </property>
+    <property key="ExampleSpecifyOtherTooltip">
+        <value xml:lang="en">Select "specify other" option, an input box will be shown next to dropdown. See tootip of other-field-size attribute of drop-down form element</value>
+        <value xml:lang="zh">如果选择"specify other"，下拉框旁边会出现文本框。参考form的drop-down元素的other-field-size属性说明</value>
+    </property>
     <property key="ExampleBaseNodeVersion">
         <value xml:lang="de">Verion des Content Knoten</value>
         <value xml:lang="en">Version of the base content node</value>
