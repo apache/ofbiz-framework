@@ -129,7 +129,7 @@ public class ContentManagementWorker {
         Collection<String> keyColl = pk.getPrimaryKey().getAllKeys();
         List<String> keyList = UtilMisc.makeListWritable(keyColl);
         Collections.sort(keyList);
-        for(String ky : keyList) {
+        for (String ky : keyList) {
             String val = (String)pk.get(ky);
             if (UtilValidate.isNotEmpty(val)) {
                 if (sig.length() > 0) sig.append("_");
@@ -226,7 +226,7 @@ public class ContentManagementWorker {
         GenericValue v = delegator.makeValue(entityName);
         GenericPK passedPK = v.getPrimaryKey();
         Collection<String> keyColl = passedPK.getAllKeys();
-        for(String attrName : keyColl) {
+        for (String attrName : keyColl) {
             String attrVal = (String)request.getAttribute(attrName);
             if (UtilValidate.isEmpty(attrVal)) {
                 attrVal = (String)paramMap.get(attrName);
@@ -244,7 +244,7 @@ public class ContentManagementWorker {
         if (cachedPK != null) {
             useCached = true;
             keyColl = cachedPK.getPrimaryKey().getAllKeys();
-            for(String ky : keyColl) {
+            for (String ky : keyColl) {
                 String sCached = null;
                 String sPassed = null;
                 Object oPassed = null;
@@ -299,7 +299,7 @@ public class ContentManagementWorker {
         List<String []> permittedPublishPointList = FastList.newInstance();
 
         // Check that user has permission to admin sites
-        for(GenericValue webSitePP : allPublishPoints) {
+        for (GenericValue webSitePP : allPublishPoints) {
             String contentId = (String)webSitePP.get("contentId");
             String templateTitle = (String)webSitePP.get("templateTitle");
             GenericValue content = delegator.makeValue("Content", UtilMisc.toMap("contentId", contentId));
@@ -343,7 +343,7 @@ public class ContentManagementWorker {
         }
         List<GenericValue> allPublishPoints = FastList.newInstance();
         GenericValue webSitePublishPoint = null;
-        for(GenericValue contentAssoc : relatedPubPts) {
+        for (GenericValue contentAssoc : relatedPubPts) {
            String pub = (String)contentAssoc.get("contentId");
            //webSitePublishPoint = delegator.findOne("WebSitePublishPoint", UtilMisc.toMap("contentId", pub), true);
            webSitePublishPoint = getWebSitePublishPoint(delegator, pub, false);
@@ -355,7 +355,7 @@ public class ContentManagementWorker {
     public static Map<String, GenericValue> getPublishPointMap(Delegator delegator, String pubPtId) throws GeneralException {
         List<GenericValue> publishPointList = getAllPublishPoints(delegator, pubPtId);
         Map<String, GenericValue> publishPointMap = FastMap.newInstance();
-        for(GenericValue webSitePublishPoint : publishPointList) {
+        for (GenericValue webSitePublishPoint : publishPointList) {
            String pub = (String)webSitePublishPoint.get("contentId");
            publishPointMap.put(pub, webSitePublishPoint);
         }
@@ -365,7 +365,7 @@ public class ContentManagementWorker {
 
     public static void getAllPublishPointMap(Delegator delegator, String pubPtId, Map<String, GenericValue> publishPointMap) throws GeneralException {
         List<GenericValue> publishPointList = getAllPublishPoints(delegator, pubPtId);
-        for(GenericValue webSitePublishPoint : publishPointList) {
+        for (GenericValue webSitePublishPoint : publishPointList) {
            String pub = (String)webSitePublishPoint.get("contentId");
            publishPointMap.put(pub, webSitePublishPoint);
            getAllPublishPointMap(delegator, pub, publishPointMap);
@@ -374,7 +374,7 @@ public class ContentManagementWorker {
 
     public static Map<String, GenericValue> getPublishPointMap(Delegator delegator, List<GenericValue> publishPointList) {
         Map<String, GenericValue> publishPointMap = FastMap.newInstance();
-        for(GenericValue webSitePublishPoint : publishPointList) {
+        for (GenericValue webSitePublishPoint : publishPointList) {
            String pub = (String)webSitePublishPoint.get("contentId");
            publishPointMap.put(pub, webSitePublishPoint);
         }
@@ -391,7 +391,7 @@ public class ContentManagementWorker {
 
         List<Map<String, Object>> staticValueList = FastList.newInstance();
         int counter = 0;
-        for(GenericValue content : assocValueList) {
+        for (GenericValue content : assocValueList) {
             String contentId = (String)content.get("contentId");
             String contentName = (String)content.get("contentName");
             String description = (String)content.get("description");
@@ -399,7 +399,7 @@ public class ContentManagementWorker {
             map.put("contentId", contentId);
             map.put("contentName", contentName);
             map.put("description", description);
-            for(String [] publishPointArray : permittedPublishPointList) {
+            for (String [] publishPointArray : permittedPublishPointList) {
                 String publishPointId = publishPointArray[0];
                 List<GenericValue> contentAssocList = content.getRelated("ToContentAssoc", UtilMisc.toMap("contentId", publishPointId), null, false);
                 List<GenericValue> filteredList = EntityUtil.filterByDate(contentAssocList);
@@ -512,7 +512,7 @@ public class ContentManagementWorker {
         List<String []> publishPointList = getPermittedPublishPoints(delegator, allPublishPointList, userLogin, security , permittedAction, permittedOperations, passedRoles);
         Map<String, Object> publishPointMap = FastMap.newInstance();
         Map<String, Object> publishPointMapAll = FastMap.newInstance();
-        for(String [] arr : publishPointList) {
+        for (String [] arr : publishPointList) {
             //GenericValue webSitePublishPoint = (GenericValue)it.next();
             //String contentId = (String)webSitePublishPoint.get("contentId");
             //String description = (String)webSitePublishPoint.get("description");
@@ -524,7 +524,7 @@ public class ContentManagementWorker {
             publishPointMap.put(contentId, subArr);
             publishPointMapAll.put(contentId, contentId);
             List<GenericValue> subPublishPointList = getAllPublishPoints(delegator, contentId);
-            for(GenericValue webSitePublishPoint2 : subPublishPointList) {
+            for (GenericValue webSitePublishPoint2 : subPublishPointList) {
                 //String [] arr2 = (String [])it2.next();
                 //String contentId2 = (String)arr2[0];
                 //String description2 = (String)arr2[1];
@@ -544,7 +544,7 @@ public class ContentManagementWorker {
         } catch (GenericEntityException e) {
             throw new GeneralException(e.getMessage());
         }
-        for(GenericValue contentAssoc : assocValueList) {
+        for (GenericValue contentAssoc : assocValueList) {
             String contentIdTo = contentAssoc.getString("contentIdTo");
             String topContentId = (String)publishPointMapAll.get(contentIdTo);
             Object [] subArr = (Object [])publishPointMap.get(topContentId);
@@ -568,7 +568,7 @@ public class ContentManagementWorker {
         }
 
         List<Object []> publishedLinkList = FastList.newInstance();
-        for(String contentId : publishPointMap.keySet()) {
+        for (String contentId : publishPointMap.keySet()) {
             Object [] subPointArr = (Object [])publishPointMap.get(contentId);
             publishedLinkList.add(subPointArr);
         }
@@ -602,7 +602,7 @@ public class ContentManagementWorker {
         List<String []> permittedDepartmentPointList = FastList.newInstance();
 
         // Check that user has permission to admin sites
-        for(GenericValue content : allDepartmentPoints) {
+        for (GenericValue content : allDepartmentPoints) {
             String contentId = (String)content.get("contentId");
             String contentName = (String)content.get("contentName");
             String statusId = null;
@@ -645,7 +645,7 @@ public class ContentManagementWorker {
         }
         List<GenericValue> allDepartmentPoints = FastList.newInstance();
         GenericValue departmentContent = null;
-        for(GenericValue contentAssoc : relatedPubPts) {
+        for (GenericValue contentAssoc : relatedPubPts) {
            String pub = (String)contentAssoc.get("contentId");
            departmentContent = delegator.findOne("Content", UtilMisc.toMap("contentId", pub), true);
            allDepartmentPoints.add(departmentContent);
@@ -677,7 +677,7 @@ public class ContentManagementWorker {
        }
         List<GenericValue> listAll = delegator.findList("ContentAssoc", conditionMain, null, null, null, true);
         List<GenericValue> listFiltered = EntityUtil.filterByDate(listAll);
-        for(GenericValue contentAssoc : listFiltered) {
+        for (GenericValue contentAssoc : listFiltered) {
             String subContentId = contentAssoc.getString("contentId");
             subLeafCount += updateStatsTopDown(delegator, subContentId, typeList);
         }
@@ -701,7 +701,7 @@ public class ContentManagementWorker {
         EntityCondition conditionMain = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("contentId", EntityOperator.EQUALS, contentId), conditionType), EntityOperator.AND);
         List<GenericValue> listAll = delegator.findList("ContentAssoc", conditionMain, null, null, null, true);
         List<GenericValue> listFiltered = EntityUtil.filterByDate(listAll);
-        for(GenericValue contentAssoc : listFiltered) {
+        for (GenericValue contentAssoc : listFiltered) {
             String contentIdTo = contentAssoc.getString("contentIdTo");
             GenericValue contentTo = delegator.findOne("Content", UtilMisc.toMap("contentId", contentIdTo), false);
             int intLeafCount = 0;

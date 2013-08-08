@@ -1028,7 +1028,7 @@ public class CommunicationEventServices {
         // It's not clear what the "role" of this communication event should be, so we'll just put _NA_
         // check and see if this role was already created and ignore if true
         try {
-            for(Map<String, Object> result : parties) {
+            for (Map<String, Object> result : parties) {
                 String partyId = (String) result.get("partyId");
                 GenericValue commEventRole = delegator.findOne("CommunicationEventRole",
                         UtilMisc.toMap("communicationEventId", communicationEventId, "partyId", partyId, "roleTypeId", roleTypeId), false);
@@ -1050,7 +1050,7 @@ public class CommunicationEventServices {
     private static void createCommunicationEventWorkEffs(GenericValue userLogin, LocalDispatcher dispatcher, List<Map<String, Object>> workEffortInfos, String communicationEventId) {
         // create relationship between communication event and work efforts
         try {
-            for(Map<String, Object> result : workEffortInfos) {
+            for (Map<String, Object> result : workEffortInfos) {
                 String workEffortId = (String) result.get("workEffortId");
                 dispatcher.runSync("createCommunicationEventWorkEff", UtilMisc.toMap("workEffortId", workEffortId, "communicationEventId", communicationEventId, "userLogin", userLogin));
             }

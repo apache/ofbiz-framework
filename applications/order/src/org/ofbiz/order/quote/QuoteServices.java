@@ -191,7 +191,7 @@ public class QuoteServices {
 
                 // create Quote Items
                 if (UtilValidate.isNotEmpty(quoteItems)) {
-                    for(GenericValue quoteItem : quoteItems) {
+                    for (GenericValue quoteItem : quoteItems) {
                         quoteItem.set("quoteId", quoteId);
                         Map<String, Object> quoteItemIn = quoteItem.getAllFields();
                         quoteItemIn.put("userLogin", userLogin);
@@ -202,7 +202,7 @@ public class QuoteServices {
 
                 // create Quote Attributes
                 if (UtilValidate.isNotEmpty(quoteAttributes)) {
-                    for(GenericValue quoteAttr : quoteAttributes) {
+                    for (GenericValue quoteAttr : quoteAttributes) {
                         quoteAttr.set("quoteId", quoteId);
                         Map<String, Object> quoteAttrIn = quoteAttr.getAllFields();
                         quoteAttrIn.put("userLogin", userLogin);
@@ -213,7 +213,7 @@ public class QuoteServices {
 
                 // create Quote Coefficients
                 if (UtilValidate.isNotEmpty(quoteCoefficients)) {
-                    for(GenericValue quoteCoefficient : quoteCoefficients) {
+                    for (GenericValue quoteCoefficient : quoteCoefficients) {
                         quoteCoefficient.set("quoteId", quoteId);
                         Map<String, Object> quoteCoefficientIn = quoteCoefficient.getAllFields();
                         quoteCoefficientIn.put("userLogin", userLogin);
@@ -224,7 +224,7 @@ public class QuoteServices {
 
                 // create Quote Roles
                 if (UtilValidate.isNotEmpty(quoteRoles)) {
-                    for(GenericValue quoteRole : quoteRoles) {
+                    for (GenericValue quoteRole : quoteRoles) {
                         quoteRole.set("quoteId", quoteId);
                         Map<String, Object> quoteRoleIn = quoteRole.getAllFields();
                         quoteRoleIn.put("userLogin", userLogin);
@@ -235,7 +235,7 @@ public class QuoteServices {
 
                 // create Quote WorkEfforts
                 if (UtilValidate.isNotEmpty(quoteWorkEfforts)) {
-                    for(GenericValue quoteWorkEffort : quoteWorkEfforts) {
+                    for (GenericValue quoteWorkEffort : quoteWorkEfforts) {
                         quoteWorkEffort.set("quoteId", quoteId);
                         Map<String, Object> quoteWorkEffortIn = quoteWorkEffort.getAllFields();
                         quoteWorkEffortIn.put("userLogin", userLogin);
@@ -246,7 +246,7 @@ public class QuoteServices {
 
                 // create Quote Adjustments
                 if (UtilValidate.isNotEmpty(quoteAdjustments)) {
-                    for(GenericValue quoteAdjustment : quoteAdjustments) {
+                    for (GenericValue quoteAdjustment : quoteAdjustments) {
                         quoteAdjustment.set("quoteId", quoteId);
                         Map<String, Object> quoteAdjustmentIn = quoteAdjustment.getAllFields();
                         quoteAdjustmentIn.put("userLogin", userLogin);

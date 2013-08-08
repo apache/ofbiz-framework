@@ -147,7 +147,7 @@ public class ConfigureItem extends XPage {
 
     private void resetButtons() {
         Object[] questions = questionHashMap.values().toArray();
-        for(Object question : questions) {
+        for (Object question : questions) {
             ((Question)question).reset();
         }
         return;
@@ -199,8 +199,8 @@ public class ConfigureItem extends XPage {
 
     private void getButtons() {
         ArrayList<XButton> buttonList = new ArrayList<XButton>();
-        for(String[] buttonSingleArray : buttonArray) {
-            for(String buttonName : buttonSingleArray) {
+        for (String[] buttonSingleArray : buttonArray) {
+            for (String buttonName : buttonSingleArray) {
                 //Debug.logInfo("ButtonName: "+buttonName, module);
                 XButton button = (XButton) m_dialog.findComponent(buttonName);
                 buttonList.add(button);
@@ -409,14 +409,14 @@ public class ConfigureItem extends XPage {
                 boolean isAdjusting = event.getValueIsAdjusting();
                 if (!isAdjusting) {
                     int[] selected = jlist.getSelectedIndices();
-                    //for(int i: selected) {
+                    //for (int i: selected) {
                     //    Debug.logInfo(""+i, module);
                     //}
                     List<ConfigOption> options = question.getOptions();
                     for (ConfigOption option: options) {
                         option.setSelected(false);
                     }
-                    for(int i: selected) {
+                    for (int i: selected) {
                         ConfigOption option = options.get(i);
                         option.setSelected(true);
                     }

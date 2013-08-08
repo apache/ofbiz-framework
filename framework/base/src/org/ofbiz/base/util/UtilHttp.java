@@ -920,7 +920,7 @@ public class UtilHttp {
 
     public static String getContentTypeByFileName(String fileName) {
         FileNameMap mime = URLConnection.getFileNameMap();
-        return mime.getContentTypeFor(fileName);
+        return mime.getContentTypefor (fileName);
     }
 
     /**

@@ -369,7 +369,7 @@ public class ImageManagementServices {
             }
             
             /* scale Image for each Size Type */
-            for(String sizeType : sizeTypeList) {
+            for (String sizeType : sizeTypeList) {
                 resultScaleImgMap.putAll(ImageTransform.scaleImage(bufImg, imgHeight, imgWidth, imgPropertyMap, sizeType, locale));
                 
                 if (resultScaleImgMap.containsKey("responseMessage") && resultScaleImgMap.get("responseMessage").equals("success")) {

@@ -365,7 +365,7 @@ public class PaymentGatewayServices {
         int finished = 0;
         int hadError = 0;
         List<String> messages = FastList.newInstance();
-        for(GenericValue paymentPref : paymentPrefs) {
+        for (GenericValue paymentPref : paymentPrefs) {
             if (reAuth && "PAYMENT_AUTHORIZED".equals(paymentPref.getString("statusId"))) {
                 String paymentConfig = null;
                 // get the payment settings i.e. serviceName and config properties file name
@@ -761,7 +761,7 @@ public class PaymentGatewayServices {
 
         // iterate over the prefs and release each one
         List<GenericValue> finished = FastList.newInstance();
-        for(GenericValue pPref : paymentPrefs) {
+        for (GenericValue pPref : paymentPrefs) {
             Map<String, Object> releaseContext = UtilMisc.toMap("userLogin", userLogin, "orderPaymentPreferenceId", pPref.getString("orderPaymentPreferenceId"));
             Map<String, Object> releaseResult = null;
             try {
@@ -820,7 +820,7 @@ public class PaymentGatewayServices {
         List<GenericValue> messageEntities = FastList.newInstance();
         List<String> messages = UtilGenerics.cast(context.get("internalRespMsgs"));
         if (UtilValidate.isNotEmpty(messages)) {
-            for(String message : messages) {
+            for (String message : messages) {
                 GenericValue respMsg = delegator.makeValue("PaymentGatewayRespMsg");
                 String respMsgId = delegator.getNextSeqId("PaymentGatewayRespMsg");
                 respMsg.set("paymentGatewayRespMsgId", respMsgId);

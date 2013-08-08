@@ -118,7 +118,7 @@ public class OrderLookupServices {
         List<String> orderTypeList = UtilGenerics.checkList(context.get("orderTypeId"));
         if (orderTypeList != null) {
             List<EntityExpr> orExprs = FastList.newInstance();
-            for(String orderTypeId : orderTypeList) {
+            for (String orderTypeId : orderTypeList) {
                 paramList.add("orderTypeId=" + orderTypeId);
 
                 if (!"PURCHASE_ORDER".equals(orderTypeId) || ("PURCHASE_ORDER".equals(orderTypeId) && canViewPo)) {
@@ -137,7 +137,7 @@ public class OrderLookupServices {
         List<String> orderStatusList = UtilGenerics.checkList(context.get("orderStatusId"));
         if (orderStatusList != null) {
             List<EntityCondition> orExprs = FastList.newInstance();
-            for(String orderStatusId : orderStatusList) {
+            for (String orderStatusId : orderStatusList) {
                 paramList.add("orderStatusId=" + orderStatusId);
                 if ("PENDING".equals(orderStatusId)) {
                     List<EntityExpr> pendExprs = FastList.newInstance();
@@ -155,7 +155,7 @@ public class OrderLookupServices {
         List<String> productStoreList = UtilGenerics.checkList(context.get("productStoreId"));
         if (productStoreList != null) {
             List<EntityExpr> orExprs = FastList.newInstance();
-            for(String productStoreId : productStoreList) {
+            for (String productStoreId : productStoreList) {
                 paramList.add("productStoreId=" + productStoreId);
                 orExprs.add(EntityCondition.makeCondition("productStoreId", EntityOperator.EQUALS, productStoreId));
             }
@@ -165,7 +165,7 @@ public class OrderLookupServices {
         List<String> webSiteList = UtilGenerics.checkList(context.get("orderWebSiteId"));
         if (webSiteList != null) {
             List<EntityExpr> orExprs = FastList.newInstance();
-            for(String webSiteId : webSiteList) {
+            for (String webSiteId : webSiteList) {
                 paramList.add("webSiteId=" + webSiteId);
                 orExprs.add(EntityCondition.makeCondition("webSiteId", EntityOperator.EQUALS, webSiteId));
             }
@@ -175,7 +175,7 @@ public class OrderLookupServices {
         List<String> saleChannelList = UtilGenerics.checkList(context.get("salesChannelEnumId"));
         if (saleChannelList != null) {
             List<EntityExpr> orExprs = FastList.newInstance();
-            for(String salesChannelEnumId : saleChannelList) {
+            for (String salesChannelEnumId : saleChannelList) {
                 paramList.add("salesChannelEnumId=" + salesChannelEnumId);
                 orExprs.add(EntityCondition.makeCondition("salesChannelEnumId", EntityOperator.EQUALS, salesChannelEnumId));
             }
@@ -328,7 +328,7 @@ public class OrderLookupServices {
         if (roleTypeList != null) {
             fieldsToSelect.add("roleTypeId");
             List<EntityExpr> orExprs = FastList.newInstance();
-            for(String roleTypeId : roleTypeList) {
+            for (String roleTypeId : roleTypeList) {
                 paramList.add("roleTypeId=" + roleTypeId);
                 orExprs.add(makeExpr("roleTypeId", roleTypeId));
             }
@@ -402,7 +402,7 @@ public class OrderLookupServices {
                         }
                         List<GenericValue> variants = UtilGenerics.checkList(varLookup.get("assocProducts"));
                         if (variants != null) {
-                            for(GenericValue v : variants) {
+                            for (GenericValue v : variants) {
                                 orExprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, v.getString("productIdTo")));
                             }
                         }
@@ -651,7 +651,7 @@ public class OrderLookupServices {
 
         if ("Y".equals(doFilter) && orderList.size() > 0) {
             paramList.add("filterInventoryProblems=Y");
-            for(GenericValue orderHeader : orderList) {
+            for (GenericValue orderHeader : orderList) {
                 OrderReadHelper orh = new OrderReadHelper(orderHeader);
                 BigDecimal backorderQty = orh.getOrderBackorderQuantity();
                 if (backorderQty.compareTo(BigDecimal.ZERO) == 1) {
@@ -692,7 +692,7 @@ public class OrderLookupServices {
         }
 
         if (doPoFilter && orderList.size() > 0) {
-            for(GenericValue orderHeader : orderList) {
+            for (GenericValue orderHeader : orderList) {
                 OrderReadHelper orh = new OrderReadHelper(orderHeader);
                 String orderType = orh.getOrderTypeId();
                 String orderId = orh.getOrderId();

@@ -798,7 +798,7 @@ public class GiftCertificateServices {
         // make a map of answer info
         Map<String, Object> answerMap = FastMap.newInstance();
         if (responseAnswers != null) {
-            for(GenericValue answer : responseAnswers) {
+            for (GenericValue answer : responseAnswers) {
                 GenericValue question = null;
                 try {
                     question = answer.getRelatedOne("SurveyQuestion", false);
@@ -1034,7 +1034,7 @@ public class GiftCertificateServices {
         // make a map of answer info
         Map<String, Object> answerMap = FastMap.newInstance();
         if (responseAnswers != null) {
-            for(GenericValue answer : responseAnswers) {
+            for (GenericValue answer : responseAnswers) {
                 GenericValue question = null;
                 try {
                     question = answer.getRelatedOne("SurveyQuestion", false);

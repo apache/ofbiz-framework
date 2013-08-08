@@ -111,7 +111,7 @@ public class BOMHelper {
                 UtilMisc.toMap("productIdTo", productId, "productAssocTypeId", bomType), null, true);
         productNodesList = EntityUtil.filterByDate(productNodesList, inDate);
         GenericValue duplicatedNode = null;
-        for(GenericValue oneNode : productNodesList) {
+        for (GenericValue oneNode : productNodesList) {
             for (int i = 0; i < productIdKeys.size(); i++) {
                 if (oneNode.getString("productId").equals(productIdKeys.get(i))) {
                     return oneNode;
@@ -134,7 +134,7 @@ public class BOMHelper {
 
         try {
         List<GenericValue> shipmentPlans = delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", shipmentId), null, false);
-        for(GenericValue shipmentPlan : shipmentPlans) {
+        for (GenericValue shipmentPlan : shipmentPlans) {
             GenericValue orderItem = shipmentPlan.getRelatedOne("OrderItem", false);
 
             List<GenericValue> productionRuns = delegator.findByAnd("WorkOrderItemFulfillment", UtilMisc.toMap("orderId", shipmentPlan.getString("orderId"), "orderItemSeqId", shipmentPlan.getString("orderItemSeqId"), "shipGroupSeqId", shipmentPlan.getString("shipGroupSeqId")), null, true);

@@ -316,7 +316,7 @@ public class WorldPayEvents {
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         Map <String, Object> parametersMap = UtilHttp.getParameterMap(request);
         String orderId = request.getParameter("cartId");
-        for(String name : parametersMap.keySet()) {
+        for (String name : parametersMap.keySet()) {
             String value = request.getParameter(name);
             Debug.logError("### Param: " + name + " => " + value, module);
         }
@@ -417,7 +417,7 @@ public class WorldPayEvents {
             return false;
         }
         if (paymentPrefs.size() > 0) {
-            for(GenericValue pref : paymentPrefs) {
+            for (GenericValue pref : paymentPrefs) {
                 boolean okay = setPaymentPreference(dispatcher, userLogin, pref, request);
                 if (!okay) {
                     return false;

@@ -569,7 +569,7 @@ public class UtilFormatOut {
         if (original.length() <= 4) return original;
 
         StringBuilder buffer = new StringBuilder();
-        for(int i=0; i < original.length()-4 ; i++) {
+        for (int i=0; i < original.length()-4 ; i++) {
             buffer.append('*');
         }
         buffer.append(original.substring(original.length()-4));

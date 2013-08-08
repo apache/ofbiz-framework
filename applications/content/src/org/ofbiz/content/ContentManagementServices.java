@@ -342,7 +342,7 @@ public class ContentManagementServices {
                 try {
                     if (contentPurposeList != null) {
                         Set<String> contentPurposeSet = UtilMisc.makeSetWritable(contentPurposeList);
-                        for(String contentPurposeTypeId : contentPurposeSet) {
+                        for (String contentPurposeTypeId : contentPurposeSet) {
                             GenericValue contentPurpose = delegator.makeValue("ContentPurpose", UtilMisc.toMap("contentId", contentId, "contentPurposeTypeId", contentPurposeTypeId));
                             contentPurpose.create();
                         }
@@ -470,7 +470,7 @@ public class ContentManagementServices {
           return ServiceUtil.returnError(e.toString());
       }
 
-      for(GenericValue roleType : siteRoles) {
+      for (GenericValue roleType : siteRoles) {
           Map<String, Object> serviceContext = FastMap.newInstance();
           serviceContext.put("partyId", partyId);
           serviceContext.put("contentId", siteContentId);
@@ -768,7 +768,7 @@ public class ContentManagementServices {
         String partyId = (String)serviceContext.get("partyId");
         Map<String, Object> findMap = UtilMisc.<String, Object>toMap("partyId", partyId);
         List<GenericValue> userLoginList = delegator.findByAnd("UserLogin", findMap, null, false);
-        for(GenericValue partyUserLogin : userLoginList) {
+        for (GenericValue partyUserLogin : userLoginList) {
             String partyUserLoginId = partyUserLogin.getString("userLoginId");
             serviceContext.put("contentId", partyUserLoginId); // author contentId
             dispatcher.runSync("createContentRole", serviceContext);
@@ -798,7 +798,7 @@ public class ContentManagementServices {
         } catch (GenericEntityException e) {
           return ServiceUtil.returnError(e.toString());
         }
-        for(GenericValue roleType : siteRoles) {
+        for (GenericValue roleType : siteRoles) {
             String siteRole = (String)roleType.get("roleTypeId"); // BLOG_EDITOR, BLOG_ADMIN, etc.
             String cappedSiteRole = ModelUtil.dbNameToVarName(siteRole);
             //if (Debug.infoOn()) Debug.logInfo("updateSiteRoles, cappediteRole(1):" + cappedSiteRole, module);
@@ -1153,7 +1153,7 @@ public class ContentManagementServices {
             thisContent.set("contentTypeId", contentTypeId);
             thisContent.store();
             List<GenericValue> kids = ContentWorker.getAssociatedContent(thisContent, "from", UtilMisc.toList("SUB_CONTENT"), null, null, null);
-            for(GenericValue kidContent : kids) {
+            for (GenericValue kidContent : kids) {
                 if (contentTypeId.equals("OUTLINE_NODE")) {
                     updateOutlineNodeChildren(kidContent, false, context);
                 } else {
@@ -1194,14 +1194,14 @@ public class ContentManagementServices {
             thisContent.set("contentTypeId", "OUTLINE_NODE");
             thisContent.store();
             List<GenericValue> kids = ContentWorker.getAssociatedContent(thisContent, "from", UtilMisc.toList("SUB_CONTENT"), null, null, null);
-            for(GenericValue kidContent : kids) {
+            for (GenericValue kidContent : kids) {
                 if (contentTypeId.equals("OUTLINE_NODE")) {
                     updateOutlineNodeChildren(kidContent, true, context);
                 } else {
                     kidContent.put("contentTypeId", "PAGE_NODE");
                     kidContent.store();
                     List<GenericValue> kids2 = ContentWorker.getAssociatedContent(kidContent, "from", UtilMisc.toList("SUB_CONTENT"), null, null, null);
-                    for(GenericValue kidContent2 : kids2) {
+                    for (GenericValue kidContent2 : kids2) {
                         updatePageNodeChildren(kidContent2, context);
                     }
                 }
@@ -1272,7 +1272,7 @@ public class ContentManagementServices {
 
         //if (contentTypeId == null || contentTypeId.equals("OUTLINE_DOCUMENT") || contentTypeId.equals("DOCUMENT")) {
         List<GenericValue> kids = ContentWorker.getAssociatedContent(content, "from", UtilMisc.toList("SUB_CONTENT"), null, null, null);
-        for(GenericValue kidContent : kids) {
+        for (GenericValue kidContent : kids) {
             updatePageNodeChildren(kidContent, context);
         }
         //}
@@ -1314,7 +1314,7 @@ public class ContentManagementServices {
         if (contentTypeId == null || contentTypeId.equals("DOCUMENT") || contentTypeId.equals("OUTLINE_NODE")) {
         //if (contentTypeId == null || contentTypeId.equals("DOCUMENT")) {
             List<GenericValue> kids = ContentWorker.getAssociatedContent(content, "from", UtilMisc.toList("SUB_CONTENT"), null, null, null);
-            for(GenericValue kidContent : kids) {
+            for (GenericValue kidContent : kids) {
                 updateOutlineNodeChildren(kidContent, forceOutline, context);
             }
         }
@@ -1611,7 +1611,7 @@ public class ContentManagementServices {
             context.put("orderCreatedDate", orderCreatedDate);
             List<GenericValue> orderItemList = orderHeader.getRelated("OrderItem", null, null, false);
             ModelService subscriptionModel = dispatcher.getDispatchContext().getModelService("updateContentSubscriptionByProduct");
-            for(GenericValue orderItem : orderItemList) {
+            for (GenericValue orderItem : orderItemList) {
                 BigDecimal qty = orderItem.getBigDecimal("quantity");
                 String productId = (String) orderItem.get("productId");
                 List<GenericValue> productContentList = delegator.findByAnd("ProductContent", UtilMisc.toMap("productId", productId, "productContentTypeId", "ONLINE_ACCESS"), null, false);
@@ -1685,7 +1685,7 @@ public class ContentManagementServices {
         result = dispatcher.runSync(serviceName, UtilMisc.toMap("content", content, "userLogin", userLogin));
 
         List<GenericValue> kids = ContentWorker.getAssociatedContent(content, "from", contentAssocTypeIdList, null, null, null);
-        for(GenericValue kidContent : kids) {
+        for (GenericValue kidContent : kids) {
             followNodeChildrenMethod(kidContent, dispatcher, serviceName, context);
         }
         return result;

@@ -87,7 +87,7 @@ public class GoogleBaseSearchEvents {
                             List<String> listTemp = FastList.newInstance();
                             String temp = selectResult.substring(1, selectResult.length()-1);
                             String arrayTemp[] = temp.split(",");
-                            for(int i=0; i<arrayTemp.length; i++){
+                            for (int i=0; i<arrayTemp.length; i++){
                                 listTemp.add(arrayTemp[i].trim());
                             }
                             productExportList = listTemp;

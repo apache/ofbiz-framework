@@ -182,7 +182,7 @@ public class HtmlWidget extends ModelScreenWidget {
         }
 
         contextMs.push();
-        for(Map.Entry<String, Object> mapEntry: contextMs.entrySet()) {
+        for (Map.Entry<String, Object> mapEntry: contextMs.entrySet()) {
             Object value = mapEntry.getValue();
             if (value instanceof GenericValue) {
                 contextMs.put(mapEntry.getKey(), GenericValueHtmlWrapper.create((GenericValue) value));

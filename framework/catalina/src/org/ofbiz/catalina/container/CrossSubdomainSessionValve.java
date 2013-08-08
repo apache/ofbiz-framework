@@ -50,7 +50,7 @@ public class CrossSubdomainSessionValve extends ValveBase {
         // replace any Tomcat-generated session cookies with our own
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
-            for(Cookie cookie : cookies) {
+            for (Cookie cookie : cookies) {
                 if (SessionConfig.getSessionCookieName(null).equals(cookie.getName())) {
                     replaceCookie(request, response, cookie);
                 }

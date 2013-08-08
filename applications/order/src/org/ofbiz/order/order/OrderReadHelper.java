@@ -214,7 +214,7 @@ public class OrderReadHelper {
     public Map<String, BigDecimal> getReceivedPaymentTotalsByPaymentMethod() {
         Map<String, BigDecimal> paymentMethodAmounts = FastMap.newInstance();
         List<GenericValue> paymentPrefs = getPaymentPreferences();
-        for(GenericValue paymentPref : paymentPrefs) {
+        for (GenericValue paymentPref : paymentPrefs) {
             List<GenericValue> payments = FastList.newInstance();
             try {
                 List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_RECEIVED"),
@@ -232,7 +232,7 @@ public class OrderReadHelper {
             }
 
             BigDecimal chargedToPaymentPref = ZERO;
-            for(GenericValue payment : payments) {
+            for (GenericValue payment : payments) {
                 if (payment.get("amount") != null) {
                     chargedToPaymentPref = chargedToPaymentPref.add(payment.getBigDecimal("amount")).setScale(scale+1, rounding);
                 }
@@ -259,7 +259,7 @@ public class OrderReadHelper {
     public Map<String, BigDecimal> getReturnedTotalsByPaymentMethod() {
         Map<String, BigDecimal> paymentMethodAmounts = FastMap.newInstance();
         List<GenericValue> paymentPrefs = getPaymentPreferences();
-        for(GenericValue paymentPref : paymentPrefs) {
+        for (GenericValue paymentPref : paymentPrefs) {
             List<GenericValue> returnItemResponses = FastList.newInstance();
             try {
                 returnItemResponses = orderHeader.getDelegator().findByAnd("ReturnItemResponse", UtilMisc.toMap("orderPaymentPreferenceId", paymentPref.getString("orderPaymentPreferenceId")), null, false);
@@ -267,7 +267,7 @@ public class OrderReadHelper {
                 Debug.logError(e, module);
             }
             BigDecimal refundedToPaymentPref = ZERO;
-            for(GenericValue returnItemResponse : returnItemResponses) {
+            for (GenericValue returnItemResponse : returnItemResponses) {
                 refundedToPaymentPref = refundedToPaymentPref.add(returnItemResponse.getBigDecimal("responseAmount")).setScale(scale+1, rounding);
             }
 
@@ -294,7 +294,7 @@ public class OrderReadHelper {
             prefs = UtilMisc.toList(orderPaymentPreference);
         }
         if (prefs != null) {
-            for(GenericValue payPref : prefs) {
+            for (GenericValue payPref : prefs) {
                 try {
                     orderPayments.addAll(payPref.getRelated("Payment", null, null, false));
                 } catch (GenericEntityException e) {
@@ -395,7 +395,7 @@ public class OrderReadHelper {
     }
 
     public boolean hasPhysicalProductItems() throws GenericEntityException {
-        for(GenericValue orderItem : this.getOrderItems()) {
+        for (GenericValue orderItem : this.getOrderItems()) {
             GenericValue product = orderItem.getRelatedOne("Product", true);
             if (product != null) {
                 GenericValue productType = product.getRelatedOne("ProductType", true);
@@ -430,7 +430,7 @@ public class OrderReadHelper {
         List<GenericValue> shippingLocations = FastList.newInstance();
         List<GenericValue> shippingCms = this.getOrderContactMechs("SHIPPING_LOCATION");
         if (shippingCms != null) {
-            for(GenericValue ocm : shippingCms) {
+            for (GenericValue ocm : shippingCms) {
                 if (ocm != null) {
                     try {
                         GenericValue addr = ocm.getDelegator().findOne("PostalAddress",
@@ -485,7 +485,7 @@ public class OrderReadHelper {
         List<GenericValue> billingLocations = FastList.newInstance();
         List<GenericValue> billingCms = this.getOrderContactMechs("BILLING_LOCATION");
         if (billingCms != null) {
-            for(GenericValue ocm : billingCms) {
+            for (GenericValue ocm : billingCms) {
                 if (ocm != null) {
                     try {
                         GenericValue addr = ocm.getDelegator().findOne("PostalAddress",
@@ -789,7 +789,7 @@ public class OrderReadHelper {
                 Debug.logError(e, "Unable to get ProductFeatureAppl for item : " + item, module);
             }
             if (featureAppls != null) {
-                for(GenericValue appl : featureAppls) {
+                for (GenericValue appl : featureAppls) {
                     featureSet.add(appl.getString("productFeatureId"));
                 }
             }
@@ -803,7 +803,7 @@ public class OrderReadHelper {
             Debug.logError(e, "Unable to get OrderAdjustment from item : " + item, module);
         }
         if (additionalFeatures != null) {
-            for(GenericValue adj : additionalFeatures) {
+            for (GenericValue adj : additionalFeatures) {
                 String featureId = adj.getString("productFeatureId");
                 if (featureId != null) {
                     featureSet.add(featureId);
@@ -818,7 +818,7 @@ public class OrderReadHelper {
         Map<String, BigDecimal> featureMap = FastMap.newInstance();
         List<GenericValue> validItems = getValidOrderItems(shipGroupSeqId);
         if (validItems != null) {
-            for(GenericValue item : validItems) {
+            for (GenericValue item : validItems) {
                 List<GenericValue> featureAppls = null;
                 if (item.get("productId") != null) {
                     try {
@@ -830,7 +830,7 @@ public class OrderReadHelper {
                         Debug.logError(e, "Unable to get ProductFeatureAppl for item : " + item, module);
                     }
                     if (featureAppls != null) {
-                        for(GenericValue appl : featureAppls) {
+                        for (GenericValue appl : featureAppls) {
                             BigDecimal lastQuantity = featureMap.get(appl.getString("productFeatureId"));
                             if (lastQuantity == null) {
                                 lastQuantity = BigDecimal.ZERO;
@@ -849,7 +849,7 @@ public class OrderReadHelper {
                     Debug.logError(e, "Unable to get OrderAdjustment from item : " + item, module);
                 }
                 if (additionalFeatures != null) {
-                    for(GenericValue adj : additionalFeatures) {
+                    for (GenericValue adj : additionalFeatures) {
                         String featureId = adj.getString("productFeatureId");
                         if (featureId != null) {
                             BigDecimal lastQuantity = featureMap.get(featureId);
@@ -871,7 +871,7 @@ public class OrderReadHelper {
         boolean shippingApplies = false;
         List<GenericValue> validItems = this.getValidOrderItems();
         if (validItems != null) {
-            for(GenericValue item : validItems) {
+            for (GenericValue item : validItems) {
                 GenericValue product = null;
                 try {
                     product = item.getRelatedOne("Product", false);
@@ -893,7 +893,7 @@ public class OrderReadHelper {
         boolean taxApplies = false;
         List<GenericValue> validItems = this.getValidOrderItems();
         if (validItems != null) {
-            for(GenericValue item : validItems) {
+            for (GenericValue item : validItems) {
                 GenericValue product = null;
                 try {
                     product = item.getRelatedOne("Product", false);
@@ -915,7 +915,7 @@ public class OrderReadHelper {
         BigDecimal shippableTotal = ZERO;
         List<GenericValue> validItems = getValidOrderItems(shipGroupSeqId);
         if (validItems != null) {
-            for(GenericValue item : validItems) {
+            for (GenericValue item : validItems) {
                 GenericValue product = null;
                 try {
                     product = item.getRelatedOne("Product", false);
@@ -937,7 +937,7 @@ public class OrderReadHelper {
         BigDecimal shippableQuantity = ZERO;
         List<GenericValue> shipGroups = getOrderItemShipGroups();
         if (UtilValidate.isNotEmpty(shipGroups)) {
-            for(GenericValue shipGroup : shipGroups) {
+            for (GenericValue shipGroup : shipGroups) {
                 shippableQuantity = shippableQuantity.add(getShippableQuantity(shipGroup.getString("shipGroupSeqId")));
             }
         }
@@ -948,7 +948,7 @@ public class OrderReadHelper {
         BigDecimal shippableQuantity = ZERO;
         List<GenericValue> validItems = getValidOrderItems(shipGroupSeqId);
         if (validItems != null) {
-            for(GenericValue item : validItems) {
+            for (GenericValue item : validItems) {
                 GenericValue product = null;
                 try {
                     product = item.getRelatedOne("Product", false);
@@ -970,7 +970,7 @@ public class OrderReadHelper {
         BigDecimal shippableWeight = ZERO;
         List<GenericValue> validItems = getValidOrderItems(shipGroupSeqId);
         if (validItems != null) {
-            for(GenericValue item : validItems) {
+            for (GenericValue item : validItems) {
                 shippableWeight = shippableWeight.add(this.getItemWeight(item).multiply(getOrderItemQuantity(item))).setScale(scale, rounding);
             }
         }
@@ -1022,7 +1022,7 @@ public class OrderReadHelper {
 
         List<GenericValue> validItems = getValidOrderItems();
         if (validItems != null) {
-            for(GenericValue item : validItems) {
+            for (GenericValue item : validItems) {
                 shippableSizes.add(this.getItemSize(item));
             }
         }
@@ -1035,7 +1035,7 @@ public class OrderReadHelper {
      */
     public BigDecimal getOrderPaymentPreferenceTotalByType(String paymentMethodTypeId) {
         BigDecimal total = ZERO;
-        for(GenericValue preference : getPaymentPreferences()) {
+        for (GenericValue preference : getPaymentPreferences()) {
             if (preference.get("maxAmount") == null) continue;
             if (paymentMethodTypeId == null || paymentMethodTypeId.equals(preference.get("paymentMethodTypeId"))) {
                 total = total.add(preference.getBigDecimal("maxAmount")).setScale(scale, rounding);
@@ -1068,7 +1068,7 @@ public class OrderReadHelper {
             // get a set of invoice IDs that belong to the order
             List<GenericValue> orderItemBillings = orderHeader.getRelated("OrderItemBilling", null, null, true);
             Set<String> invoiceIds = new HashSet<String>();
-            for(GenericValue orderItemBilling : orderItemBillings) {
+            for (GenericValue orderItemBilling : orderItemBillings) {
                 invoiceIds.add(orderItemBilling.getString("invoiceId"));
             }
 
@@ -1190,7 +1190,7 @@ public class OrderReadHelper {
 
         List<GenericValue> validItems = getValidOrderItems(shipGroupSeqId);
         if (validItems != null) {
-            for(GenericValue item : validItems) {
+            for (GenericValue item : validItems) {
                 shippableInfo.add(this.getItemInfoMap(item));
             }
         }
@@ -1222,7 +1222,7 @@ public class OrderReadHelper {
 
         StringBuilder emails = new StringBuilder();
         if (orderContactMechs != null) {
-            for(GenericValue orderContactMech : orderContactMechs) {
+            for (GenericValue orderContactMech : orderContactMechs) {
                 try {
                     GenericValue contactMech = orderContactMech.getRelatedOne("ContactMech", false);
                     emails.append(emails.length() > 0 ? "," : "").append(contactMech.getString("infoString"));
@@ -1252,19 +1252,19 @@ public class OrderReadHelper {
         List<GenericValue> prefs = getPaymentPreferences();
 
         // add up the covered amount, but skip preferences which are declined or cancelled
-        for(GenericValue pref : prefs) {
+        for (GenericValue pref : prefs) {
             if ("PAYMENT_CANCELLED".equals(pref.get("statusId")) || "PAYMENT_DECLINED".equals(pref.get("statusId"))) {
                 continue;
             } else if ("PAYMENT_SETTLED".equals(pref.get("statusId"))) {
                 List<GenericValue> responses = pref.getRelated("PaymentGatewayResponse", UtilMisc.toMap("transCodeEnumId", "PGT_CAPTURE"), null, false);
-                for(GenericValue response : responses) {
+                for (GenericValue response : responses) {
                     BigDecimal amount = response.getBigDecimal("amount");
                     if (amount != null) {
                         openAmount = openAmount.add(amount);
                     }
                 }
                 responses = pref.getRelated("PaymentGatewayResponse", UtilMisc.toMap("transCodeEnumId", "PGT_REFUND"), null, false);
-                for(GenericValue response : responses) {
+                for (GenericValue response : responses) {
                     BigDecimal amount = response.getBigDecimal("amount");
                     if (amount != null) {
                         openAmount = openAmount.subtract(amount);
@@ -1397,7 +1397,7 @@ public class OrderReadHelper {
 
     public boolean getRejectedOrderItems() {
         List<GenericValue> items = getOrderItems();
-        for(GenericValue item : items) {
+        for (GenericValue item : items) {
             List<GenericValue> receipts = null;
             try {
                 receipts = item.getRelated("ShipmentReceipt", null, null, false);
@@ -1405,7 +1405,7 @@ public class OrderReadHelper {
                 Debug.logWarning(e, module);
             }
             if (UtilValidate.isNotEmpty(receipts)) {
-                for(GenericValue rec : receipts) {
+                for (GenericValue rec : receipts) {
                     BigDecimal rejected = rec.getBigDecimal("quantityRejected");
                     if (rejected != null && rejected.compareTo(BigDecimal.ZERO) > 0) {
                         return true;
@@ -1431,7 +1431,7 @@ public class OrderReadHelper {
         return false;
     }*/
         List<GenericValue> items = getOrderItems();
-        for(GenericValue item : items) {
+        for (GenericValue item : items) {
             List<GenericValue> receipts = null;
             try {
                 receipts = item.getRelated("ShipmentReceipt", null, null, false);
@@ -1439,7 +1439,7 @@ public class OrderReadHelper {
                 Debug.logWarning(e, module);
             }
             if (UtilValidate.isNotEmpty(receipts)) {
-                for(GenericValue rec : receipts) {
+                for (GenericValue rec : receipts) {
                     BigDecimal acceptedQuantity = rec.getBigDecimal("quantityAccepted");
                     BigDecimal orderedQuantity = (BigDecimal) item.get("quantity");
                     if (acceptedQuantity.intValue() != orderedQuantity.intValue() && acceptedQuantity.intValue()  > 0) {
@@ -1472,7 +1472,7 @@ public class OrderReadHelper {
                 EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ITEM_APPROVED"),
                 EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ITEM_COMPLETED"));
         List<GenericValue> items = EntityUtil.filterByOr(getOrderItems(), exprs);
-        for(GenericValue item : items) {
+        for (GenericValue item : items) {
             if (item.get("productId") != null) {
                 GenericValue product = null;
                 try {
@@ -1518,7 +1518,7 @@ public class OrderReadHelper {
 
                                 if (UtilValidate.isNotEmpty(productContents)) {
                                     // make sure we are still within the allowed timeframe and use limits
-                                    for(GenericValue productContent : productContents) {
+                                    for (GenericValue productContent : productContents) {
                                         Timestamp fromDate = productContent.getTimestamp("purchaseFromDate");
                                         Timestamp thruDate = productContent.getTimestamp("purchaseThruDate");
                                         if (fromDate == null || item.getTimestamp("orderDate").after(fromDate)) {
@@ -1678,7 +1678,7 @@ public class OrderReadHelper {
 
        // since we don't have a handy grouped view entity, we'll have to group the return items by hand
        Map<String, BigDecimal> returnMap = FastMap.newInstance();
-       for(GenericValue orderItem : this.getValidOrderItems()) {
+       for (GenericValue orderItem : this.getValidOrderItems()) {
            List<GenericValue> group = EntityUtil.filterByAnd(returnItems, UtilMisc.toList(
                                               EntityCondition.makeCondition("orderId", orderItem.get("orderId")),
                                               EntityCondition.makeCondition("orderItemSeqId", orderItem.get("orderItemSeqId")),
@@ -1686,7 +1686,7 @@ public class OrderReadHelper {
 
            // add up the returned quantities for this group TODO: received quantity should be used eventually
            BigDecimal returned = BigDecimal.ZERO;
-           for(GenericValue returnItem : group) {
+           for (GenericValue returnItem : group) {
                if (returnItem.getBigDecimal("returnQuantity") != null) {
                    returned = returned.add(returnItem.getBigDecimal("returnQuantity"));
                }
@@ -1722,7 +1722,7 @@ public class OrderReadHelper {
         returnedItems.addAll(EntityUtil.filterByAnd(returnedItemsBase, UtilMisc.toMap("statusId", "RETURN_COMPLETED")));
 
         BigDecimal returnedQuantity = ZERO;
-        for(GenericValue returnedItem : returnedItems) {
+        for (GenericValue returnedItem : returnedItems) {
             if (returnedItem.get("returnQuantity") != null) {
                 returnedQuantity = returnedQuantity.add(returnedItem.getBigDecimal("returnQuantity")).setScale(scale, rounding);
             }
@@ -1755,7 +1755,7 @@ public class OrderReadHelper {
         BigDecimal returnedAmount = ZERO;
         String orderId = orderHeader.getString("orderId");
         List<String> returnHeaderList = FastList.newInstance();
-        for(GenericValue returnedItem : returnedItems) {
+        for (GenericValue returnedItem : returnedItems) {
             if ((returnedItem.get("returnPrice") != null) && (returnedItem.get("returnQuantity") != null)) {
                 returnedAmount = returnedAmount.add(returnedItem.getBigDecimal("returnPrice").multiply(returnedItem.getBigDecimal("returnQuantity")).setScale(scale, rounding));
             }
@@ -1766,7 +1766,7 @@ public class OrderReadHelper {
             }
         }
         //get  returnedAmount from returnHeader adjustments whose orderId must equals to current orderHeader.orderId
-        for(String returnId : returnHeaderList) {
+        for (String returnId : returnHeaderList) {
             Map<String, Object> returnHeaderAdjFilter = UtilMisc.<String, Object>toMap("returnId", returnId, "returnItemSeqId", "_NA_", "returnTypeId", returnTypeId);
             returnedAmount =returnedAmount.add(getReturnAdjustmentTotal(orderHeader.getDelegator(), returnHeaderAdjFilter)).setScale(scale, rounding);
         }
@@ -1806,7 +1806,7 @@ public class OrderReadHelper {
         returnedItems.addAll(EntityUtil.filterByAnd(returnedItemsBase, UtilMisc.toMap("statusId", "RETURN_COMPLETED")));
 
         Map<String, BigDecimal> itemReturnedQuantities = FastMap.newInstance();
-        for(GenericValue returnedItem : returnedItems) {
+        for (GenericValue returnedItem : returnedItems) {
             String orderItemSeqId = returnedItem.getString("orderItemSeqId");
             BigDecimal returnedQuantity = returnedItem.getBigDecimal("returnQuantity");
             if (orderItemSeqId != null && returnedQuantity != null) {
@@ -1824,7 +1824,7 @@ public class OrderReadHelper {
         BigDecimal totalTaxNotReturned = ZERO;
         BigDecimal totalShippingNotReturned = ZERO;
 
-        for(GenericValue orderItem : this.getValidOrderItems()) {
+        for (GenericValue orderItem : this.getValidOrderItems()) {
             BigDecimal itemQuantityDbl = orderItem.getBigDecimal("quantity");
             if (itemQuantityDbl == null || itemQuantityDbl.compareTo(ZERO) == 0) {
                 continue;
@@ -1883,7 +1883,7 @@ public class OrderReadHelper {
 
         // sum up the return items that have a return item response with a billing account defined
         try {
-            for(GenericValue returnItem : returnedItems) {
+            for (GenericValue returnItem : returnedItems) {
                 GenericValue returnItemResponse = returnItem.getRelatedOne("ReturnItemResponse", false);
                 if (returnItemResponse == null) continue;
                 if (returnItemResponse.get("billingAccountId") == null) continue;
@@ -1921,10 +1921,10 @@ public class OrderReadHelper {
         BigDecimal backorder = ZERO;
         List<GenericValue> items = this.getValidOrderItems();
         if (items != null) {
-            for(GenericValue item : items) {
+            for (GenericValue item : items) {
                 List<GenericValue> reses = this.getOrderItemShipGrpInvResList(item);
                 if (reses != null) {
-                    for(GenericValue res : reses) {
+                    for (GenericValue res : reses) {
                         BigDecimal nav = res.getBigDecimal("quantityNotAvailable");
                         if (nav != null) {
                             backorder = backorder.add(nav).setScale(scale, rounding);
@@ -1953,7 +1953,7 @@ public class OrderReadHelper {
         }
 
         if (picked != null) {
-            for(GenericValue pickedItem : picked) {
+            for (GenericValue pickedItem : picked) {
                 BigDecimal issueQty = pickedItem.getBigDecimal("quantity");
                 if (issueQty != null) {
                     quantityPicked = quantityPicked.add(issueQty).setScale(scale, rounding);
@@ -1967,7 +1967,7 @@ public class OrderReadHelper {
         BigDecimal quantityShipped = ZERO;
         List<GenericValue> issuance = getOrderItemIssuances(orderItem);
         if (issuance != null) {
-            for(GenericValue issue : issuance) {
+            for (GenericValue issue : issuance) {
                 BigDecimal issueQty = issue.getBigDecimal("quantity");
                 BigDecimal cancelQty = issue.getBigDecimal("cancelQuantity");
                 if (cancelQty == null) {
@@ -1987,7 +1987,7 @@ public class OrderReadHelper {
 
         List<GenericValue> reses = getOrderItemShipGrpInvResList(orderItem);
         if (reses != null) {
-            for(GenericValue res : reses) {
+            for (GenericValue res : reses) {
                 BigDecimal quantity = res.getBigDecimal("quantity");
                 if (quantity != null) {
                     reserved = reserved.add(quantity).setScale(scale, rounding);
@@ -2005,7 +2005,7 @@ public class OrderReadHelper {
 
         List<GenericValue> reses = getOrderItemShipGrpInvResList(orderItem);
         if (reses != null) {
-            for(GenericValue res : reses) {
+            for (GenericValue res : reses) {
                 Timestamp promised = res.getTimestamp("currentPromisedDate");
                 if (promised == null) {
                     promised = res.getTimestamp("promisedDatetime");
@@ -2542,7 +2542,7 @@ public class OrderReadHelper {
 
         if (UtilValidate.isNotEmpty(adjustments)) {
             List<GenericValue> filteredAdjs = filterOrderAdjustments(adjustments, includeOther, includeTax, includeShipping, forTax, forShipping);
-            for(GenericValue orderAdjustment : filteredAdjs) {
+            for (GenericValue orderAdjustment : filteredAdjs) {
                 adjTotal = adjTotal.add(OrderReadHelper.calcItemAdjustment(orderAdjustment, quantity, unitPrice));
             }
         }
@@ -2554,7 +2554,7 @@ public class OrderReadHelper {
 
         if (UtilValidate.isNotEmpty(adjustments)) {
             List<GenericValue> filteredAdjs = filterOrderAdjustments(adjustments, includeOther, includeTax, includeShipping, forTax, forShipping);
-            for(GenericValue orderAdjustment : filteredAdjs) {
+            for (GenericValue orderAdjustment : filteredAdjs) {
                 adjTotal = adjTotal.add(OrderReadHelper.calcItemAdjustmentRecurringBd(orderAdjustment, quantity, unitPrice)).setScale(scale, rounding);
             }
         }
@@ -2591,7 +2591,7 @@ public class OrderReadHelper {
         List<GenericValue> newOrderAdjustmentsList = FastList.newInstance();
 
         if (UtilValidate.isNotEmpty(adjustments)) {
-            for(GenericValue orderAdjustment : adjustments) {
+            for (GenericValue orderAdjustment : adjustments) {
                 boolean includeAdjustment = false;
 
                 if ("SALES_TAX".equals(orderAdjustment.getString("orderAdjustmentTypeId")) ||
@@ -2640,7 +2640,7 @@ public class OrderReadHelper {
         }
 
         if (UtilValidate.isNotEmpty(openOrders)) {
-            for(GenericValue order : openOrders) {
+            for (GenericValue order : openOrders) {
                 BigDecimal thisQty = order.getBigDecimal("quantity");
                 if (thisQty == null) {
                     thisQty = BigDecimal.ZERO;
@@ -2693,7 +2693,7 @@ public class OrderReadHelper {
         List<GenericValue> orderHeaderAdjustments = this.getOrderHeaderAdjustments();
         List<GenericValue> filteredAdjustments = FastList.newInstance();
         if (orderHeaderAdjustments != null) {
-            for(GenericValue orderAdjustment : orderHeaderAdjustments) {
+            for (GenericValue orderAdjustment : orderHeaderAdjustments) {
                 long count = 0;
                 try {
                     count = orderHeader.getDelegator().findCountByCondition("ReturnAdjustment", EntityCondition.makeCondition("orderAdjustmentId", EntityOperator.EQUALS, orderAdjustment.get("orderAdjustmentId")), null, null);
@@ -2721,7 +2721,7 @@ public class OrderReadHelper {
             // TODO: find on a view-entity with a sum is probably more efficient
             adjustments = delegator.findByAnd("ReturnAdjustment", condition, null, false);
             if (adjustments != null) {
-                for(GenericValue returnAdjustment : adjustments) {
+                for (GenericValue returnAdjustment : adjustments) {
                     total = total.add(setScaleByType("RET_SALES_TAX_ADJ".equals(returnAdjustment.get("returnAdjustmentTypeId")),returnAdjustment.getBigDecimal("amount")));
                 }
             }
@@ -2742,7 +2742,7 @@ public class OrderReadHelper {
        try {
            // this is simply the sum of quantity billed in all related OrderItemBillings
            List<GenericValue> billings = orderItem.getRelated("OrderItemBilling", null, null, false);
-           for(GenericValue billing : billings) {
+           for (GenericValue billing : billings) {
                BigDecimal quantity = billing.getBigDecimal("quantity");
                if (quantity != null) {
                    invoiced = invoiced.add(quantity);

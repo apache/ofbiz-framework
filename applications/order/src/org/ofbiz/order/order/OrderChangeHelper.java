@@ -184,7 +184,7 @@ public class OrderChangeHelper {
                     Debug.logError(e, "ERROR: Unable to get OrderItem records for OrderHeader : " + orderId, module);
                 }
                 if (UtilValidate.isNotEmpty(orderItems)) {
-                    for(GenericValue orderItem : orderItems) {
+                    for (GenericValue orderItem : orderItems) {
                         String orderItemSeqId = orderItem.getString("orderItemSeqId");
                         GenericValue product = null;
 
@@ -261,7 +261,7 @@ public class OrderChangeHelper {
             }
 
             List<GenericValue> opps = orh.getPaymentPreferences();
-            for(GenericValue opp : opps) {
+            for (GenericValue opp : opps) {
                 if ("PAYMENT_RECEIVED".equals(opp.getString("statusId"))) {
                     List<GenericValue> payments = orh.getOrderPayments(opp);
                     if (UtilValidate.isEmpty(payments)) {

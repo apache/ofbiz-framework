@@ -190,7 +190,7 @@ public class ScaleImage {
                         } else if (newFileLocation.endsWith("/" + id)) {
                             try {
                                 File[] files = targetDir.listFiles(); 
-                                for(File file : files) {
+                                for (File file : files) {
                                     if (file.isFile() && file.getName().startsWith(id)) {
                                         file.delete();
                                     }
@@ -331,7 +331,7 @@ public class ScaleImage {
             }
 
             /* scale Image for each Size Type */
-            for(String sizeType : sizeTypeList) {
+            for (String sizeType : sizeTypeList) {
                 resultScaleImgMap.putAll(ImageTransform.scaleImage(bufImg, imgHeight, imgWidth, imgPropertyMap, sizeType, locale));
 
                 if (resultScaleImgMap.containsKey("responseMessage") && resultScaleImgMap.get("responseMessage").equals("success")) {

@@ -77,7 +77,7 @@ public class OfbizBshBsfEngine extends BSFEngineImpl {
             throw new BSFException("bsh internal error: "+e.toString());
         }
 
-        for(int i=0; i<declaredBeans.size(); i++) {
+        for (int i=0; i<declaredBeans.size(); i++) {
             BSFDeclaredBean bean = (BSFDeclaredBean)declaredBeans.get(i);
             declareBean(bean);
         }
@@ -127,7 +127,7 @@ public class OfbizBshBsfEngine extends BSFEngineImpl {
      */
     final static String bsfApplyMethod =
     "_bsfApply(_bsfNames, _bsfArgs, _bsfText) {"
-    +"for(i=0;i<_bsfNames.length;i++)"
+    +"for (i=0;i<_bsfNames.length;i++)"
     +"this.namespace.setVariable(_bsfNames[i], _bsfArgs[i]);"
     +"return this.interpreter.eval(_bsfText, this.namespace);"
     +"}";

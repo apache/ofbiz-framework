@@ -671,7 +671,7 @@ public class PayflowPro {
         Debug.logInfo("Verisign response string: " + resp, module);
         Map<String, String> parameters = FastMap.newInstance();
         List<String> params = StringUtil.split(resp, "&");
-        for(String str : params) {
+        for (String str : params) {
             if (str.length() > 0) {
                 List<String> kv = StringUtil.split(str, "=");
                 String k = kv.get(0);

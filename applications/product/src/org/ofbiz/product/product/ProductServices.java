@@ -1032,7 +1032,7 @@ public class ProductServices {
                 } else if (!filenameToUse.contains(productId)) {
                     try {
                         File[] files = targetDir.listFiles(); 
-                        for(File file : files) {
+                        for (File file : files) {
                             if (file.isFile()) file.delete(); 
                         }
                     } catch (SecurityException e) {
@@ -1042,7 +1042,7 @@ public class ProductServices {
                 } else {
                     try {
                         File[] files = targetDir.listFiles(); 
-                        for(File file : files) {
+                        for (File file : files) {
                             if (file.isFile() && file.getName().startsWith(productId + "_View_" + viewNumber)) file.delete();
                         }
                     } catch (SecurityException e) {
@@ -1097,7 +1097,7 @@ public class ProductServices {
             /* now store the image versions created by ScaleImage.scaleImageInAllSize */
             /* have to shrink length of productContentTypeId, as otherwise value is too long for database field */
             Map<String,String> imageUrlMap = UtilGenerics.checkMap(resultResize.get("imageUrlMap"));
-            for( String sizeType : ScaleImage.sizeTypeList ) {
+            for ( String sizeType : ScaleImage.sizeTypeList ) {
                 imageUrl = imageUrlMap.get(sizeType);
                 if( UtilValidate.isNotEmpty(imageUrl)) {
                     result = addImageResource(dispatcher, delegator, context, imageUrl, "XTRA_IMG_" + viewNumber + "_" + sizeType.toUpperCase());

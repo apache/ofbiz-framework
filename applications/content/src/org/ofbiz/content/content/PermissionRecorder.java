@@ -235,7 +235,7 @@ public class PermissionRecorder {
         sb.append("<td class=\"headr\" >Pass/Fail</td>");
         sb.append("</tr>");
 
-        for(Map<String, Object> cMap : permCheckResults) {
+        for (Map<String, Object> cMap : permCheckResults) {
             sb.append(renderCurrentContentMapHtml(cMap));
         }
         sb.append("</table>");
@@ -245,7 +245,7 @@ public class PermissionRecorder {
     public String renderCurrentContentMapHtml(Map<String, Object> cMap) {
         StringBuilder sb = new StringBuilder();
         List<Map<String, Object>> resultList = UtilGenerics.checkList(cMap.get("checkResultList"));
-        for(Map<String, Object> rMap : resultList) {
+        for (Map<String, Object> rMap : resultList) {
             //if (Debug.infoOn()) Debug.logInfo("renderCCMapHtml, (1):" + rMap, module);
             sb.append(renderResultRowHtml(rMap, cMap));
         }

@@ -209,7 +209,7 @@ public class ShoppingCartHelper {
         // Get the additional features selected for the product (if any)
         Map<String, Object> selectedFeatures = UtilHttp.makeParamMapWithPrefix(context, null, "FT", null);
         Map<String, GenericValue> additionalFeaturesMap = FastMap.newInstance();
-        for(String selectedFeatureType : selectedFeatures.keySet()) {
+        for (String selectedFeatureType : selectedFeatures.keySet()) {
             String selectedFeatureValue = (String)selectedFeatures.get(selectedFeatureType);
             if (UtilValidate.isNotEmpty(selectedFeatureValue)) {
                 GenericValue productFeatureAndAppl = null;
@@ -585,7 +585,7 @@ public class ShoppingCartHelper {
         }
 
         BigDecimal totalQuantity = BigDecimal.ZERO;
-        for(GenericValue productCategoryMember : prodCatMemberCol) {
+        for (GenericValue productCategoryMember : prodCatMemberCol) {
             BigDecimal quantity = productCategoryMember.getBigDecimal("quantity");
 
             if (quantity != null && quantity.compareTo(BigDecimal.ZERO) > 0) {
@@ -616,7 +616,7 @@ public class ShoppingCartHelper {
     public Map<String, Object> deleteFromCart(Map<String, ? extends Object> context) {
         Map<String, Object> result = null;
         ArrayList<String> errorMsgs = new ArrayList<String>();
-        for(String o : context.keySet()) {
+        for (String o : context.keySet()) {
             if (o.toUpperCase().startsWith("DELETE")) {
                 try {
                     String indexStr = o.substring(o.lastIndexOf('_') + 1);
@@ -663,7 +663,7 @@ public class ShoppingCartHelper {
         }
 
         // TODO: This should be refactored to use UtilHttp.parseMultiFormData(parameters)
-        for(String parameterName : context.keySet()) {
+        for (String parameterName : context.keySet()) {
             int underscorePos = parameterName.lastIndexOf('_');
 
             // ignore localized date input elements, just use their counterpart without the _i18n suffix
@@ -867,7 +867,7 @@ public class ShoppingCartHelper {
             }
         }
 
-        for(ShoppingCartItem item : deleteList) {
+        for (ShoppingCartItem item : deleteList) {
             int itemIndex = this.cart.getItemIndex(item);
 
             if (Debug.infoOn())

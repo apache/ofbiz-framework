@@ -103,7 +103,7 @@ public class CompDocEvents {
             Map<String, Object> persistResult = dispatcher.runSync("persistContentAndAssoc", persistMap);
             contentId = (String)persistResult.get("contentId");
             //request.setAttribute("contentId", contentId);
-            for(Object obj : persistResult.keySet()) {
+            for (Object obj : persistResult.keySet()) {
                 Object val = persistResult.get(obj);
                 request.setAttribute(obj.toString(), val);
             }
@@ -113,7 +113,7 @@ public class CompDocEvents {
             contentRevisionMap.put("contentId", contentId);
             contentRevisionMap.put("userLogin", userLogin);
             Map<String, Object> result = dispatcher.runSync("persistContentRevisionAndItem", contentRevisionMap);
-            for(Object obj : result.keySet()) {
+            for (Object obj : result.keySet()) {
                 Object val = result.get(obj);
                 request.setAttribute(obj.toString(), val);
             }

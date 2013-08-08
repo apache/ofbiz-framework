@@ -177,7 +177,7 @@ public class CompDocServices {
             PdfCopy writer = new PdfCopy(document, baos);
             document.open();
             int pgCnt =0;
-            for(GenericValue contentAssocRevisionItemView : compDocParts) {
+            for (GenericValue contentAssocRevisionItemView : compDocParts) {
                 //String thisContentId = contentAssocRevisionItemView.getString("contentId");
                 //String thisContentRevisionSeqId = contentAssocRevisionItemView.getString("maxRevisionSeqId");
                 String thisDataResourceId = contentAssocRevisionItemView.getString("dataResourceId");

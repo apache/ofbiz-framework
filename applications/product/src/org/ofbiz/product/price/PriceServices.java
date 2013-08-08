@@ -528,7 +528,7 @@ public class PriceServices {
             if (UtilValidate.isNotEmpty(currencyDefaultUomId) && UtilValidate.isNotEmpty(currencyUomIdTo) && !currencyDefaultUomId.equals(currencyUomIdTo)) {
                 if(UtilValidate.isNotEmpty(result)){
                     Map<String, Object> convertPriceMap = FastMap.newInstance();
-                    for(Map.Entry<String, Object> entry : result.entrySet()) {
+                    for (Map.Entry<String, Object> entry : result.entrySet()) {
                         BigDecimal tempPrice = BigDecimal.ZERO;
                         if(entry.getKey() == "basePrice")
                             tempPrice = (BigDecimal) entry.getValue();

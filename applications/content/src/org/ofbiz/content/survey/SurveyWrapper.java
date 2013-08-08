@@ -180,7 +180,7 @@ public class SurveyWrapper {
         }
 
         Map<String, Object> sqaaWithColIdListByMultiRespId = FastMap.newInstance();
-        for(GenericValue surveyQuestionAndAppl : surveyQuestionAndAppls) {
+        for (GenericValue surveyQuestionAndAppl : surveyQuestionAndAppls) {
             String surveyMultiRespColId = surveyQuestionAndAppl.getString("surveyMultiRespColId");
             if (UtilValidate.isNotEmpty(surveyMultiRespColId)) {
                 String surveyMultiRespId = surveyQuestionAndAppl.getString("surveyMultiRespId");
@@ -365,7 +365,7 @@ public class SurveyWrapper {
             }
 
             if (UtilValidate.isNotEmpty(answers)) {
-                for(GenericValue answer : answers) {
+                for (GenericValue answer : answers) {
                     answerMap.put(answer.getString("surveyQuestionId"), answer);
                 }
             }
@@ -373,7 +373,7 @@ public class SurveyWrapper {
 
         // get the pass-thru (posted form data)
         if (UtilValidate.isNotEmpty(passThru)) {
-            for(String key : passThru.keySet()) {
+            for (String key : passThru.keySet()) {
                 if (key.toUpperCase().startsWith("ANSWERS_")) {
                     int splitIndex = key.indexOf('_');
                     String questionId = key.substring(splitIndex+1);
@@ -433,7 +433,7 @@ public class SurveyWrapper {
     public Map<String, Object> getResults(List<GenericValue> questions) throws SurveyWrapperException {
         Map<String, Object> questionResults = FastMap.newInstance();
         if (questions != null) {
-            for(GenericValue question : questions) {
+            for (GenericValue question : questions) {
                 Map<String, Object> results = getResultInfo(question);
                 if (results != null) {
                     questionResults.put(question.getString("surveyQuestionId"), results);
@@ -475,7 +475,7 @@ public class SurveyWrapper {
                 resultMap.put("_total", questionTotal);
 
                 // create the map of option info ("_total", "_percent")
-                for(String optId : thisResult.keySet()) {
+                for (String optId : thisResult.keySet()) {
                     Map<String, Object> optMap = FastMap.newInstance();
                     Long optTotal = (Long) thisResult.get(optId);
                     if (optTotal == null) {

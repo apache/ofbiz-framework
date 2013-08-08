@@ -371,7 +371,7 @@ public class CoreEvents {
         String[] sp = servicePath.split("\\|\\|");
         Object servicePathObject = null;
         Map<String, Object> servicePathMap = null;
-        for(int i=0;i<sp.length;i++) {
+        for (int i=0;i<sp.length;i++) {
             String servicePathEntry = sp[i];
             if (null==servicePathMap) {
                 servicePathObject = serviceResult.get(servicePathEntry);
