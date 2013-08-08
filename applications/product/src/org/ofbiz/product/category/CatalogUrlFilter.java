@@ -92,7 +92,7 @@ public class CatalogUrlFilter extends ContextFilter {
                     productContentConds.add(EntityUtil.getFilterByDateExpr());
                     List<GenericValue> productContentInfos = delegator.findList("ProductContentAndInfo", EntityCondition.makeCondition(productContentConds), null, UtilMisc.toList("-fromDate"), null, true);
                     if (UtilValidate.isNotEmpty(productContentInfos)) {
-                        for(GenericValue productContentInfo : productContentInfos){
+                        for (GenericValue productContentInfo : productContentInfos){
                             String contentId = (String) productContentInfo.get("contentId");
                             List<GenericValue> ContentAssocDataResourceViewTos = delegator.findByAnd("ContentAssocDataResourceViewTo", UtilMisc.toMap("contentIdStart", contentId, "caContentAssocTypeId", "ALTERNATE_LOCALE", "drDataResourceTypeId", "ELECTRONIC_TEXT"), null, true);
                             if (UtilValidate.isNotEmpty(ContentAssocDataResourceViewTos)){
@@ -147,7 +147,7 @@ public class CatalogUrlFilter extends ContextFilter {
                     productCategoryContentConds.add(EntityUtil.getFilterByDateExpr());
                     List<GenericValue> productCategoryContentInfos = delegator.findList("ProductCategoryContentAndInfo", EntityCondition.makeCondition(productCategoryContentConds), null, UtilMisc.toList("-fromDate"), null, true);
                     if (UtilValidate.isNotEmpty(productCategoryContentInfos)) {
-                        for(GenericValue productCategoryContentInfo : productCategoryContentInfos){
+                        for (GenericValue productCategoryContentInfo : productCategoryContentInfos){
                             String contentId = (String) productCategoryContentInfo.get("contentId");
                             List<GenericValue> ContentAssocDataResourceViewTos = delegator.findByAnd("ContentAssocDataResourceViewTo", UtilMisc.toMap("contentIdStart", contentId, "caContentAssocTypeId", "ALTERNATE_LOCALE", "drDataResourceTypeId", "ELECTRONIC_TEXT"), null, true);
                             if (UtilValidate.isNotEmpty(ContentAssocDataResourceViewTos)){

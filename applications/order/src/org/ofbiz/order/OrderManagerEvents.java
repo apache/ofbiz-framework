@@ -82,7 +82,7 @@ public class OrderManagerEvents {
                 return "error";
             }
             if (paymentPrefs != null) {
-                for(GenericValue ppref : paymentPrefs) {
+                for (GenericValue ppref : paymentPrefs) {
                     // update the preference to received
                     // TODO: updating payment preferences should be done as a service
                     ppref.set("statusId", "PAYMENT_RECEIVED");
@@ -189,7 +189,7 @@ public class OrderManagerEvents {
             return "error";
         }
 
-        for(GenericValue paymentMethod : paymentMethods) {
+        for (GenericValue paymentMethod : paymentMethods) {
             String paymentMethodId = paymentMethod.getString("paymentMethodId");
             String paymentMethodAmountStr = request.getParameter(paymentMethodId + "_amount");
             String paymentMethodReference = request.getParameter(paymentMethodId + "_reference");
@@ -231,7 +231,7 @@ public class OrderManagerEvents {
         
         
         List<GenericValue> toBeStored = FastList.newInstance();
-        for(GenericValue paymentMethodType : paymentMethodTypes) {
+        for (GenericValue paymentMethodType : paymentMethodTypes) {
             String paymentMethodTypeId = paymentMethodType.getString("paymentMethodTypeId");
             String amountStr = request.getParameter(paymentMethodTypeId + "_amount");
             String paymentReference = request.getParameter(paymentMethodTypeId + "_reference");
@@ -300,7 +300,7 @@ public class OrderManagerEvents {
             Debug.logError(e, "ERROR: Unable to get existing payment preferences from order", module);
         }
         if (UtilValidate.isNotEmpty(currentPrefs)) {
-            for(GenericValue cp : currentPrefs) {
+            for (GenericValue cp : currentPrefs) {
                 String paymentMethodType = cp.getString("paymentMethodTypeId");
                 if ("EXT_OFFLINE".equals(paymentMethodType)) {
                     offlineValue = cp;

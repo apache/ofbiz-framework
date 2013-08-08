@@ -544,7 +544,7 @@ public class ShoppingCartServices {
                 // get all item adjustments EXCEPT tax adjustments
                 List<GenericValue> itemAdjustments = orh.getOrderItemAdjustments(item);
                 if (itemAdjustments != null) {
-                    for(GenericValue itemAdjustment : itemAdjustments) {
+                    for (GenericValue itemAdjustment : itemAdjustments) {
                         if (!isTaxAdjustment(itemAdjustment)) cartItem.addAdjustment(itemAdjustment);
                     }
                 }
@@ -705,7 +705,7 @@ public class ShoppingCartServices {
         // set the role information
         cart.setOrderPartyId(quote.getString("partyId"));
         if (UtilValidate.isNotEmpty(quoteRoles)) {
-            for(GenericValue quoteRole : quoteRoles) {
+            for (GenericValue quoteRole : quoteRoles) {
                 String quoteRoleTypeId = quoteRole.getString("roleTypeId");
                 String quoteRolePartyId = quoteRole.getString("partyId");
                 if ("PLACING_CUSTOMER".equals(quoteRoleTypeId)) {
@@ -727,7 +727,7 @@ public class ShoppingCartServices {
         // set the order term
         if (UtilValidate.isNotEmpty(quoteTerms)) {
             // create order term from quote term
-            for(GenericValue quoteTerm : quoteTerms) {
+            for (GenericValue quoteTerm : quoteTerms) {
                 BigDecimal termValue = BigDecimal.ZERO;
                 if (UtilValidate.isNotEmpty(quoteTerm.getString("termValue"))){
                     termValue = new BigDecimal(quoteTerm.getString("termValue"));
@@ -743,7 +743,7 @@ public class ShoppingCartServices {
 
         // set the attribute information
         if (UtilValidate.isNotEmpty(quoteAttributes)) {
-            for(GenericValue quoteAttribute : quoteAttributes) {
+            for (GenericValue quoteAttribute : quoteAttributes) {
                 cart.setOrderAttribute(quoteAttribute.getString("attrName"), quoteAttribute.getString("attrValue"));
             }
         }
@@ -788,7 +788,7 @@ public class ShoppingCartServices {
 
         long nextItemSeq = 0;
         if (UtilValidate.isNotEmpty(quoteItems)) {
-            for(GenericValue quoteItem : quoteItems) {
+            for (GenericValue quoteItem : quoteItems) {
                 // get the next item sequence id
                 String orderItemSeqId = quoteItem.getString("quoteItemSeqId");
                 orderItemSeqId = orderItemSeqId.replaceAll("\\P{Digit}", "");
@@ -904,7 +904,7 @@ public class ShoppingCartServices {
 
             // The cart item adjustments, derived from quote item adjustments, are added to the cart
             if (quoteItems != null) {
-                for(ShoppingCartItem item : cart) {
+                for (ShoppingCartItem item : cart) {
                     String orderItemSeqId = item.getOrderItemSeqId();
                     if (orderItemSeqId != null) {
                         adjs = orderAdjsMap.get(orderItemSeqId);
@@ -1012,7 +1012,7 @@ public class ShoppingCartServices {
 
         long nextItemSeq = 0;
         if (UtilValidate.isNotEmpty(shoppingListItems)) {
-            for(GenericValue shoppingListItem : shoppingListItems) {
+            for (GenericValue shoppingListItem : shoppingListItems) {
                 // get the next item sequence id
                 String orderItemSeqId = shoppingListItem.getString("shoppingListItemSeqId");
                 orderItemSeqId = orderItemSeqId.replaceAll("\\P{Digit}", "");
@@ -1107,7 +1107,7 @@ public class ShoppingCartServices {
             BigDecimal orderAdjustmentsTotal = OrderReadHelper.calcOrderAdjustments(OrderReadHelper.getOrderHeaderAdjustments(shoppingCart.getAdjustments(), null), shoppingCart.getSubTotal(), true, true, true);
             result.put("displayOrderAdjustmentsTotalCurrencyFormatted", org.ofbiz.base.util.UtilFormatOut.formatCurrency(orderAdjustmentsTotal, isoCode, locale));
             Map<String, Object> cartItemData = FastMap.newInstance();
-            for(ShoppingCartItem cartLine : shoppingCart) {
+            for (ShoppingCartItem cartLine : shoppingCart) {
                 int cartLineIndex = shoppingCart.getItemIndex(cartLine);
                 cartItemData.put("displayItemQty_" + cartLineIndex, cartLine.getQuantity());
                 cartItemData.put("displayItemPrice_" + cartLineIndex, org.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getDisplayPrice(), isoCode, locale));
@@ -1138,7 +1138,7 @@ public class ShoppingCartServices {
     public static Map<String, Object>resetShipGroupItems(DispatchContext dctx, Map<String, Object> context) {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
-        for(ShoppingCartItem item : cart) {
+        for (ShoppingCartItem item : cart) {
             cart.clearItemShipInfo(item);
             cart.setItemShipGroupQty(item, item.getQuantity(), 0);
         }
@@ -1160,7 +1160,7 @@ public class ShoppingCartServices {
             return ServiceUtil.returnError(e.toString());
         }
         Map<String, Object> vendorMap = FastMap.newInstance();
-        for(ShoppingCartItem item : cart) {
+        for (ShoppingCartItem item : cart) {
             GenericValue vendorProduct = null;
             String productId = item.getParentProductId();
             if (productId == null) {

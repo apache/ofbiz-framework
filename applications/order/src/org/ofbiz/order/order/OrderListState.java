@@ -167,7 +167,7 @@ public class OrderListState implements Serializable {
     }
 
     private void changeOrderListStates(HttpServletRequest request) {
-        for(String param : parameterToOrderStatusId.keySet()) {
+        for (String param : parameterToOrderStatusId.keySet()) {
             String value = request.getParameter(param);
             if ("Y".equals(value)) {
                 orderStatusState.put(param, "Y");
@@ -175,7 +175,7 @@ public class OrderListState implements Serializable {
                 orderStatusState.put(param, "N");
             }
         }
-        for(String param : parameterToOrderTypeId.keySet()) {
+        for (String param : parameterToOrderTypeId.keySet()) {
             String value = request.getParameter(param);
             if ("Y".equals(value)) {
                 orderTypeState.put(param, "Y");
@@ -183,7 +183,7 @@ public class OrderListState implements Serializable {
                 orderTypeState.put(param, "N");
             }
         }
-        for(String param : parameterToFilterId.keySet()) {
+        for (String param : parameterToFilterId.keySet()) {
             String value = request.getParameter(param);
             if ("Y".equals(value)) {
                 orderFilterState.put(param, "Y");
@@ -241,12 +241,12 @@ public class OrderListState implements Serializable {
         }
 
         List<EntityCondition> statusConditions = FastList.newInstance();
-        for(String status : orderStatusState.keySet()) {
+        for (String status : orderStatusState.keySet()) {
             if (!hasStatus(status)) continue;
             statusConditions.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, parameterToOrderStatusId.get(status)));
         }
         List<EntityCondition> typeConditions = FastList.newInstance();
-        for(String type : orderTypeState.keySet()) {
+        for (String type : orderTypeState.keySet()) {
             if (!hasType(type)) continue;
             typeConditions.add(EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, parameterToOrderTypeId.get(type)));
         }

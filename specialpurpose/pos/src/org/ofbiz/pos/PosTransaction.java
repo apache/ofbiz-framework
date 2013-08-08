@@ -301,7 +301,7 @@ public class PosTransaction implements Serializable {
             ProductConfigWrapper pcw = null;
             pcw = item.getConfigWrapper();
             List<ConfigOption> selected = pcw.getSelectedOptions();
-            for(ConfigOption configoption : selected) {
+            for (ConfigOption configoption : selected) {
                 Map<String, Object> itemInfo = FastMap.newInstance();
                 if (configoption.isSelected() && !configoption.isDefault()) {
                     itemInfo.put("productId", "");
@@ -615,7 +615,7 @@ public class PosTransaction implements Serializable {
             cart.removeAdjustment(cartDiscount);
             cartDiscount = -1;
         }
-        for(String productId : skuDiscounts.keySet()) {
+        for (String productId : skuDiscounts.keySet()) {
             ShoppingCartItem item = cart.findCartItem(productId, null, null, null, BigDecimal.ZERO);
             Integer itemAdj = skuDiscounts.remove(productId);
             if (itemAdj != null) {
@@ -1502,7 +1502,7 @@ public class PosTransaction implements Serializable {
         }
 
         String selectedCartItems[] = new String[cart.size()];
-        for(int i = 0; i < cart.size(); i++) {
+        for (int i = 0; i < cart.size(); i++) {
             Integer integer = i;
             selectedCartItems[i] = integer.toString();
         }

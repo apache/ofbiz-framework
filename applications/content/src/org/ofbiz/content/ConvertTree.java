@@ -125,7 +125,7 @@ In order ta make this service active add the following to the service definition
                                 size = data.length();
                                 List<GenericValue> contents = null;
 
-                                for(int index = 0; index< size; index++) {//start character in line
+                                for (int index = 0; index< size; index++) {//start character in line
                                     boolean contentNameMatch = false;
                                     int contentAssocSize = 0;
                                     List<GenericValue> contentAssocs = null;
@@ -255,7 +255,7 @@ In order ta make this service active add the following to the service definition
         subContents = subContents.replace(oldChar, newChar);
         int size = subContents.length();
         try {
-            for(index = 0; index < size; index++) {//start character in line
+            for (index = 0; index < size; index++) {//start character in line
                 boolean contentNameMatch = false;
                 if (subContents.charAt(index) == check.charAt(0)) {//store data
                     contentName = contentName + contentNameInprogress;

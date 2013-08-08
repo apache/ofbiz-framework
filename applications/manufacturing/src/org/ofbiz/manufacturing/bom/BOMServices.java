@@ -83,7 +83,7 @@ public class BOMServices {
         if (bomType == null) {
             try {
                 List<GenericValue> bomTypesValues = delegator.findByAnd("ProductAssocType", UtilMisc.toMap("parentTypeId", "PRODUCT_COMPONENT"), null, false);
-                for(GenericValue bomTypesValue : bomTypesValues) {
+                for (GenericValue bomTypesValue : bomTypesValues) {
                     bomTypes.add(bomTypesValue.getString("productAssocTypeId"));
                 }
             } catch (GenericEntityException gee) {
@@ -96,7 +96,7 @@ public class BOMServices {
         int depth = 0;
         int maxDepth = 0;
         try {
-            for(String oneBomType : bomTypes) {
+            for (String oneBomType : bomTypes) {
                 depth = BOMHelper.getMaxDepth(productId, oneBomType, fromDate, delegator);
                 if (depth > maxDepth) {
                     maxDepth = depth;
@@ -145,7 +145,7 @@ public class BOMServices {
                     UtilMisc.toMap("productIdTo", productId, "productAssocTypeId", "PRODUCT_VARIANT"), null, false);
             virtualProducts = EntityUtil.filterByDate(virtualProducts);
             int virtualMaxDepth = 0;
-            for(GenericValue oneVirtualProductAssoc : virtualProducts) {
+            for (GenericValue oneVirtualProductAssoc : virtualProducts) {
                 int virtualDepth = 0;
                 GenericValue virtualProduct = delegator.findOne("Product", UtilMisc.toMap("productId", oneVirtualProductAssoc.getString("productId")), false);
                 if (virtualProduct.get("billOfMaterialLevel") != null) {
@@ -184,7 +184,7 @@ public class BOMServices {
                 List<GenericValue> variantProducts = delegator.findByAnd("ProductAssoc", 
                         UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT"), null, false);
                 variantProducts = EntityUtil.filterByDate(variantProducts, true);
-                for(GenericValue oneVariantProductAssoc : variantProducts) {
+                for (GenericValue oneVariantProductAssoc : variantProducts) {
                     GenericValue variantProduct = delegator.findOne("Product", UtilMisc.toMap("productId", oneVariantProductAssoc.getString("productId")), false);
                     variantProduct.set("billOfMaterialLevel", llc);
                     variantProduct.store();
@@ -214,14 +214,14 @@ public class BOMServices {
                     UtilMisc.toList("isVirtual DESC"), null, false);
             Long zero = Long.valueOf(0);
             List<GenericValue> allProducts = FastList.newInstance();
-            for(GenericValue product : products) {
+            for (GenericValue product : products) {
                 product.set("billOfMaterialLevel", zero);
                 allProducts.add(product);
             }
             delegator.storeAll(allProducts);
             Debug.logInfo("Low Level Code set to 0 for all the products", module);
 
-            for(GenericValue product : products) {
+            for (GenericValue product : products) {
                 try {
                     Map<String, Object> depthResult = dispatcher.runSync("updateLowLevelCode", UtilMisc.<String, Object>toMap("productIdTo", product.getString("productId"), "alsoComponents", Boolean.valueOf(false), "alsoVariants", Boolean.valueOf(false)));
                     Debug.logInfo("Product [" + product.getString("productId") + "] Low Level Code [" + depthResult.get("lowLevelCode") + "]", module);
@@ -402,7 +402,7 @@ public class BOMServices {
 
         // also return a componentMap (useful in scripts and simple language code)
         List<Map<String, Object>> componentsMap = FastList.newInstance();
-        for(BOMNode node : components) {
+        for (BOMNode node : components) {
             Map<String, Object> componentMap = FastMap.newInstance();
             componentMap.put("product", node.getProduct());
             componentMap.put("quantity", node.getQuantity());
@@ -452,7 +452,7 @@ public class BOMServices {
         } catch (GenericEntityException gee) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorCreatingBillOfMaterialsTree", UtilMisc.toMap("errorString", gee.getMessage()), locale));
         }
-        for(BOMNode oneComponent : components) {
+        for (BOMNode oneComponent : components) {
             if (!oneComponent.isManufactured()) {
                 notAssembledComponents.add(oneComponent);
             }
@@ -489,7 +489,7 @@ public class BOMServices {
         }
         Map<String, Object> orderReadHelpers = FastMap.newInstance();
         Map<String, Object> partyOrderShipments = FastMap.newInstance();
-        for(GenericValue shipmentItem : shipmentItems) {
+        for (GenericValue shipmentItem : shipmentItems) {
             // Get the OrderShipments
             List<GenericValue> orderShipments = null;
             try {
@@ -517,7 +517,7 @@ public class BOMServices {
         }
         // For each party: try to expand the shipment item products
         // (search for components that needs to be packaged).
-        for(Map.Entry<String, Object> partyOrderShipment : partyOrderShipments.entrySet()) {
+        for (Map.Entry<String, Object> partyOrderShipment : partyOrderShipments.entrySet()) {
             List<Map<String, Object>> orderShipmentReadMapList = UtilGenerics.checkList(partyOrderShipment.getValue());
             for (int i = 0; i < orderShipmentReadMapList.size(); i++) {
                 Map<String, Object> orderShipmentReadMap = UtilGenerics.checkMap(orderShipmentReadMapList.get(i));
@@ -553,7 +553,7 @@ public class BOMServices {
         // Group together products and components
         // of the same box type.
         Map<String, GenericValue> boxTypes = FastMap.newInstance();
-        for(Map.Entry<String, Object> partyOrderShipment : partyOrderShipments.entrySet()) {
+        for (Map.Entry<String, Object> partyOrderShipment : partyOrderShipments.entrySet()) {
             Map<String, List<Map<String, Object>>> boxTypeContent = FastMap.newInstance();
             List<Map<String, Object>> orderShipmentReadMapList = UtilGenerics.checkList(partyOrderShipment.getValue());
             for (int i = 0; i < orderShipmentReadMapList.size(); i++) {

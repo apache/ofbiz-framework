@@ -131,7 +131,7 @@ public class TechDataServices {
         }
 
         if (listRoutingTaskAssoc != null) {
-            for(GenericValue routingTaskAssoc : listRoutingTaskAssoc) {
+            for (GenericValue routingTaskAssoc : listRoutingTaskAssoc) {
                 if (! workEffortIdFrom.equals(routingTaskAssoc.getString("workEffortIdFrom")) ||
                 ! workEffortIdTo.equals(routingTaskAssoc.getString("workEffortIdTo")) ||
                 ! workEffortAssocTypeId.equals(routingTaskAssoc.getString("workEffortAssocTypeId")) ||

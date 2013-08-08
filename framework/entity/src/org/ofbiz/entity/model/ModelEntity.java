@@ -1213,7 +1213,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
      if (relation.keyMaps.size() < 1) { return ""; }
 
      int i = 0;
-     for(; i < relation.keyMaps.size() - 1; i++) {
+     for (; i < relation.keyMaps.size() - 1; i++) {
      ModelKeyMap keyMap = (ModelKeyMap)relation.keyMaps.get(i);
      if (keyMap != null)
      returnString = returnString + "\"" + tableName + "_" + keyMap.relColName + "=\" + " + ModelUtil.lowerFirstChar(relation.mainEntity.entityName) + ".get" + ModelUtil.upperFirstChar(keyMap.fieldName) + "() + \"&\" + ";

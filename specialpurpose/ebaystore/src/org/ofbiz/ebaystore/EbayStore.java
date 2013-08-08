@@ -2332,7 +2332,7 @@ public class EbayStore {
             if (UtilValidate.isNotEmpty(getMyeBaySelling.getReturnedSoldList())) tempSoldItems  = (getMyeBaySelling.getReturnedSoldList().getOrderTransactionArray()).getOrderTransaction();
 
             if (UtilValidate.isNotEmpty(tempSoldItems)) {
-                for(int i = 0; i < tempSoldItems.length; i++) {
+                for (int i = 0; i < tempSoldItems.length; i++) {
                     ItemType soldItem = tempSoldItems[i].getTransaction().getItem();
                     Map <String, Object> soldItemMap = getClosedItem(soldItem);
                     soldItemMap.put("sellingStatus", "sold");

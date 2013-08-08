@@ -99,7 +99,7 @@ public class RequirementServices {
 
             // join in fields with extra data about the suppliers and products
             List<Map<String, Object>> requirements = FastList.newInstance();
-            for(GenericValue requirement : requirementAndRoles) {
+            for (GenericValue requirement : requirementAndRoles) {
                 Map<String, Object> union = FastMap.newInstance();
                 String productId = requirement.getString("productId");
                 partyId = requirement.getString("partyId");
@@ -216,7 +216,7 @@ public class RequirementServices {
             }
             String facilityId = productStore.getString("inventoryFacilityId");
             List<GenericValue> orderItems = order.getRelated("OrderItem", null, null, false);
-            for(GenericValue item : orderItems) {
+            for (GenericValue item : orderItems) {
                 GenericValue product = item.getRelatedOne("Product", false);
                 if (product == null) continue;
                 if ((!"PRODRQM_AUTO".equals(product.get("requirementMethodEnumId")) &&
@@ -275,7 +275,7 @@ public class RequirementServices {
             }
             String facilityId = productStore.getString("inventoryFacilityId");
             List<GenericValue> orderItems = order.getRelated("OrderItem", null, null, false);
-            for(GenericValue item : orderItems) {
+            for (GenericValue item : orderItems) {
                 GenericValue product = item.getRelatedOne("Product", false);
                 if (product == null) continue;
 
@@ -309,7 +309,7 @@ public class RequirementServices {
                         EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "REQ_REJECTED")),
                         EntityOperator.AND);
                 List<GenericValue> requirements = delegator.findList("Requirement", ecl, null, null, null, false);
-                for(GenericValue requirement : requirements) {
+                for (GenericValue requirement : requirements) {
                     pendingRequirements = pendingRequirements.add(requirement.get("quantity") == null ? BigDecimal.ZERO : requirement.getBigDecimal("quantity"));
                 }
 

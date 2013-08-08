@@ -325,7 +325,7 @@ public class ShoppingListServices {
             }
 
             List<GenericValue> orderItems = orh.getOrderItems();
-            for(GenericValue orderItem : orderItems) {
+            for (GenericValue orderItem : orderItems) {
                 String productId = orderItem.getString("productId");
                 if (UtilValidate.isNotEmpty(productId)) {
                     Map<String, Object> ctx = UtilMisc.<String, Object>toMap("userLogin", userLogin, "shoppingListId", shoppingListId, "productId",
@@ -468,7 +468,7 @@ public class ShoppingListServices {
 
 
                 ProductConfigWrapper configWrapper = null;
-                for(GenericValue shoppingListItem : items) {
+                for (GenericValue shoppingListItem : items) {
                     String productId = shoppingListItem.getString("productId");
                     BigDecimal quantity = shoppingListItem.getBigDecimal("quantity");
                     Timestamp reservStart = shoppingListItem.getTimestamp("reservStart");
@@ -559,7 +559,7 @@ public class ShoppingListServices {
         String orderId = (String) context.get("orderId");
         try {
             List<GenericValue> orderItems = delegator.findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId), null, false);
-            for(GenericValue orderItem : orderItems) {
+            for (GenericValue orderItem : orderItems) {
                 String shoppingListId = orderItem.getString("shoppingListId");
                 String shoppingListItemSeqId = orderItem.getString("shoppingListItemSeqId");
                 if (UtilValidate.isNotEmpty(shoppingListId)) {

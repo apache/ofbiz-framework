@@ -361,7 +361,7 @@ public class ZipSalesServices {
         }
 
         if (ruleLookup != null) {
-            for(GenericValue rule : ruleLookup) {
+            for (GenericValue rule : ruleLookup) {
                 if (!taxShipping) {
                     // if we found an rule which passes no need to contine (all rules are ||)
                     break;

@@ -198,7 +198,7 @@ public class VCard {
                 String serviceName = (String) context.get("serviceName");
                 Map<String, Object> serviceContext = UtilGenerics.cast(context.get("serviceContext"));
                 if(UtilValidate.isNotEmpty(serviceContext)) {
-                    for(Map.Entry<String, Object> entry : serviceContext.entrySet()) {
+                    for (Map.Entry<String, Object> entry : serviceContext.entrySet()) {
                         serviceCtx.put(entry.getKey(), entry.getValue());
                     }
                 }

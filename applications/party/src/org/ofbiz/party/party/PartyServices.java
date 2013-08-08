@@ -252,7 +252,7 @@ public class PartyServices {
                 // disable all userlogins for this user when the new status is disabled
                 if (("PARTY_DISABLED").equals(statusId)) {
                     List <GenericValue> userLogins = delegator.findByAnd("UserLogin", UtilMisc.toMap("partyId", partyId), null, false);
-                    for(GenericValue userLogin : userLogins) {
+                    for (GenericValue userLogin : userLogins) {
                         if (!"N".equals(userLogin.getString("enabled"))) {
                             userLogin.set("enabled", "N");
                             userLogin.store();
@@ -1898,7 +1898,7 @@ public class PartyServices {
         }
         
         try {
-            for(final CSVRecord rec : fmt.parse(csvReader)) {
+            for (final CSVRecord rec : fmt.parse(csvReader)) {
                 if (UtilValidate.isNotEmpty(rec.get("partyId"))) {
                     currentPartyId =  rec.get("partyId");
                 }

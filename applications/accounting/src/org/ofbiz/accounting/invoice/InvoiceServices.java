@@ -3367,7 +3367,7 @@ public class InvoiceServices {
         }
         
         try {
-        	for(final CSVRecord rec : fmt.parse(csvReader)) {
+        	for (final CSVRecord rec : fmt.parse(csvReader)) {
         		currentInvoiceId =  rec.get("invoiceId");
         		if (lastInvoiceId == null || !currentInvoiceId.equals(lastInvoiceId)) {
         			newInvoiceId = null;

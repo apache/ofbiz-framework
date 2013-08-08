@@ -1098,7 +1098,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                         if (supplierProduct != null) {
                             String supplierPartyId = supplierProduct.getString("partyId");
                             List shipGroups = cart.getShipGroups();
-                            for(int i = 0; i < shipGroups.size(); i++) {
+                            for (int i = 0; i < shipGroups.size(); i++) {
                                 ShoppingCart.CartShipInfo csi = (ShoppingCart.CartShipInfo)shipGroups.get(i);
                                 if (supplierPartyId.equals(csi.getSupplierPartyId())) {
                                     shipGroupIndex = i;
@@ -1118,7 +1118,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
                 if (shipGroupIndex == -1) {
                     List shipGroups = cart.getShipGroups();
-                    for(int i = 0; i < shipGroups.size(); i++) {
+                    for (int i = 0; i < shipGroups.size(); i++) {
                         ShoppingCart.CartShipInfo csi = (ShoppingCart.CartShipInfo)shipGroups.get(i);
                         if (csi.getSupplierPartyId() == null) {
                             shipGroupIndex = i;
@@ -1188,7 +1188,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                         if (UtilValidate.isNotEmpty(productSurvey) && UtilValidate.isNotEmpty(attributes)) {
                             List<String> surveyResponses = UtilGenerics.checkList(attributes.get("surveyResponses"));
                             if (UtilValidate.isNotEmpty(surveyResponses)) {
-                                for(String surveyResponseId : surveyResponses) {
+                                for (String surveyResponseId : surveyResponses) {
                                     // TODO: implement multiple survey per product
                                     if (UtilValidate.isNotEmpty(surveyResponseId)) {
                                         priceContext.put("surveyResponseId", surveyResponseId);
@@ -1865,13 +1865,13 @@ public class ShoppingCartItem implements java.io.Serializable {
                 Debug.logError(e, "Unable to get features from product : " + product.get("productId"), module);
             }
             if (featureAppls != null) {
-                for(GenericValue appl : featureAppls) {
+                for (GenericValue appl : featureAppls) {
                     featureSet.add(appl.getString("productFeatureId"));
                 }
             }
         }
         if (this.additionalProductFeatureAndAppls != null) {
-            for(GenericValue appl : this.additionalProductFeatureAndAppls.values()) {
+            for (GenericValue appl : this.additionalProductFeatureAndAppls.values()) {
                 featureSet.add(appl.getString("productFeatureId"));
             }
         }
@@ -2186,7 +2186,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                 Debug.logError(e, "Unable to get features from product : " + product.get("productId"), module);
             }
             if (featureAppls != null) {
-                for(GenericValue appl : featureAppls) {
+                for (GenericValue appl : featureAppls) {
                     BigDecimal lastQuantity = featureMap.get(appl.getString("productFeatureId"));
                     if (lastQuantity == null) {
                         lastQuantity = BigDecimal.ZERO;
@@ -2197,7 +2197,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             }
         }
         if (this.additionalProductFeatureAndAppls != null) {
-            for(GenericValue appl : this.additionalProductFeatureAndAppls.values()) {
+            for (GenericValue appl : this.additionalProductFeatureAndAppls.values()) {
                 BigDecimal lastQuantity = featureMap.get(appl.getString("productFeatureId"));
                 if (lastQuantity == null) {
                     lastQuantity = BigDecimal.ZERO;
@@ -2570,7 +2570,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             }
 
             // add the cloned item(s) to the cart
-            for(ShoppingCartItem sci : newItems) {
+            for (ShoppingCartItem sci : newItems) {
                 cart.addItem(thisIndex, sci);
             }
         }

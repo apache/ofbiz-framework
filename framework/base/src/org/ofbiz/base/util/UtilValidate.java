@@ -300,7 +300,7 @@ public class UtilValidate {
     /** Returns true if single character c(actually a string) is contained within string s. */
     public static boolean charInString(char c, String s) {
         return (s.indexOf(c) != -1);
-        // for(int i = 0; i < s.length; i++) {
+        // for (int i = 0; i < s.length; i++) {
         // if (s.charAt(i) == c) return true;
         // }
         // return false;

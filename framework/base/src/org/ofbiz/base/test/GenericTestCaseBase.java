@@ -301,7 +301,7 @@ OUTER:
         if (!got.equals(wanted)) {
             Set<T> leftKeys = new LinkedHashSet<T>(wanted.keySet());
             HashSet<Object> rightKeys = new HashSet<Object>(gotMap.keySet());
-            for(T key: leftKeys) {
+            for (T key: leftKeys) {
                 assertTrue(msg + "got key(" + key + ")", rightKeys.remove(key));
                 assertEquals(msg + "key(" + key + ") value", wanted.get(key), gotMap.get(key));
             }

@@ -95,7 +95,7 @@ public class OrderTestServices {
                 if (result.get("categoryMembers") != null) {
                     List<GenericValue> productCategoryMembers = UtilGenerics.checkList(result.get("categoryMembers"));
                     if (productCategoryMembers != null) {
-                        for(GenericValue prodCatMemb : productCategoryMembers) {
+                        for (GenericValue prodCatMemb : productCategoryMembers) {
                             if (prodCatMemb != null) {
                                 productsList.add(prodCatMemb.getString("productId"));
                             }

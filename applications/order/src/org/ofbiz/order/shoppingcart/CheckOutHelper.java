@@ -265,7 +265,7 @@ public class CheckOutHelper {
                 try {
                     List<GenericValue> billingAccountTerms = delegator.findByAnd("BillingAccountTerm", UtilMisc.toMap("billingAccountId", billingAccountId), null, false);
                     if (UtilValidate.isNotEmpty(billingAccountTerms)) {
-                        for(GenericValue billingAccountTerm : billingAccountTerms) {
+                        for (GenericValue billingAccountTerm : billingAccountTerms) {
                             // the term is not copied if in the cart a term of the same type is already set
                             if (!cart.hasOrderTerm(billingAccountTerm.getString("termTypeId"))) {
                                 cart.addOrderTerm(billingAccountTerm.getString("termTypeId"), billingAccountTerm.getBigDecimal("termValue"), billingAccountTerm.getLong("termDays"));
@@ -315,7 +315,7 @@ public class CheckOutHelper {
                 }
             }
 
-            for(String checkOutPaymentId : selectedPaymentMethods.keySet()) {
+            for (String checkOutPaymentId : selectedPaymentMethods.keySet()) {
                 String finAccountId = null;
 
                 if (checkOutPaymentId.indexOf("|") > -1) {
@@ -628,7 +628,7 @@ public class CheckOutHelper {
         //
         List<GenericValue> orderItems = UtilGenerics.checkList(context.get("orderItems"));
         int counter = 0;
-        for(GenericValue orderItem : orderItems) {
+        for (GenericValue orderItem : orderItems) {
             String productId = orderItem.getString("productId");
             if (productId != null) {
                 try {
@@ -667,7 +667,7 @@ public class CheckOutHelper {
         // ----------
         // The status of the requirement associated to the shopping cart lines is set to "ordered".
         //
-        for(ShoppingCartItem shoppingCartItem : this.cart.items()) {
+        for (ShoppingCartItem shoppingCartItem : this.cart.items()) {
             String requirementId = shoppingCartItem.getRequirementId();
             if (requirementId != null) {
                 try {
@@ -721,7 +721,7 @@ public class CheckOutHelper {
         String additionalEmails = this.cart.getOrderAdditionalEmails();
         List<String> emailList = StringUtil.split(additionalEmails, ",");
         if (emailList == null) emailList = new ArrayList<String>();
-        for(String email : emailList) {
+        for (String email : emailList) {
             String contactMechId = this.delegator.getNextSeqId("ContactMech");
             GenericValue contactMech = this.delegator.makeValue("ContactMech",
                     UtilMisc.toMap("contactMechId", contactMechId, "contactMechTypeId", "EMAIL_ADDRESS", "infoString", email));
@@ -944,7 +944,7 @@ public class CheckOutHelper {
         List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("manualRefNum", EntityOperator.NOT_EQUAL, null));
         List<GenericValue> manualRefPaymentPrefs = EntityUtil.filterByAnd(allPaymentPreferences, exprs);
         if (UtilValidate.isNotEmpty(manualRefPaymentPrefs)) {
-            for(GenericValue opp : manualRefPaymentPrefs) {
+            for (GenericValue opp : manualRefPaymentPrefs) {
                 Map<String, Object> authCtx = new HashMap<String, Object>();
                 authCtx.put("orderPaymentPreference", opp);
                 if (opp.get("paymentMethodId") == null) {
@@ -1162,7 +1162,7 @@ public class CheckOutHelper {
     public static void adjustFaceToFacePayment(String orderId, BigDecimal cartTotal, List<GenericValue> allPaymentPrefs, GenericValue userLogin, Delegator delegator) throws GeneralException {
         BigDecimal prefTotal = BigDecimal.ZERO;
         if (allPaymentPrefs != null) {
-            for(GenericValue pref : allPaymentPrefs) {
+            for (GenericValue pref : allPaymentPrefs) {
                 BigDecimal maxAmount = pref.getBigDecimal("maxAmount");
                 if (maxAmount == null) maxAmount = BigDecimal.ZERO;
                 prefTotal = prefTotal.add(maxAmount);
@@ -1201,7 +1201,7 @@ public class CheckOutHelper {
         String errMsg=null;
 
         List<GenericValue> paymentMethods = this.cart.getPaymentMethods();
-        for(GenericValue paymentMethod : paymentMethods) {
+        for (GenericValue paymentMethod : paymentMethods) {
             if ((paymentMethod != null) && ("CREDIT_CARD".equals(paymentMethod.getString("paymentMethodTypeId")))) {
                 GenericValue creditCard = null;
                 GenericValue billingAddress = null;
@@ -1500,7 +1500,7 @@ public class CheckOutHelper {
     public Map<String, BigDecimal> makeBillingAccountMap(List<GenericValue> paymentPrefs) {
         Map<String, BigDecimal> accountMap = new HashMap<String, BigDecimal>();
         if (paymentPrefs != null) {
-            for(GenericValue pp : paymentPrefs) {
+            for (GenericValue pp : paymentPrefs) {
                 if (pp.get("billingAccountId") != null) {
                     accountMap.put(pp.getString("billingAccountId"), pp.getBigDecimal("maxAmount"));
                 }
@@ -1537,14 +1537,14 @@ public class CheckOutHelper {
         // update the selected payment methods amount with valid numbers
         if (paymentMethods != null) {
             List<String> nullPaymentIds = new ArrayList<String>();
-            for(String paymentMethodId : paymentMethods) {
+            for (String paymentMethodId : paymentMethods) {
                 BigDecimal paymentAmount = cart.getPaymentAmount(paymentMethodId);
                 if (paymentAmount == null || paymentAmount.compareTo(BigDecimal.ZERO) == 0) {
                     if (Debug.verboseOn()) Debug.logVerbose("Found null paymentMethodId - " + paymentMethodId, module);
                     nullPaymentIds.add(paymentMethodId);
                 }
             }
-            for(String paymentMethodId : nullPaymentIds) {
+            for (String paymentMethodId : nullPaymentIds) {
                 BigDecimal selectedPaymentTotal = cart.getPaymentTotal();
                 BigDecimal requiredAmount = cart.getGrandTotal();
                 BigDecimal newAmount = requiredAmount.subtract(selectedPaymentTotal);
@@ -1612,7 +1612,7 @@ public class CheckOutHelper {
         String balanceField = null;
 
         // get the gift card objects to check
-        for(GenericValue gc : cart.getGiftCards()) {
+        for (GenericValue gc : cart.getGiftCards()) {
             Map<String, Object> gcBalanceMap = null;
             BigDecimal gcBalance = BigDecimal.ZERO;
             try {

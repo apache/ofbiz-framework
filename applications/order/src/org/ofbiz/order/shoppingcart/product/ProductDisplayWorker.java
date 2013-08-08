@@ -81,12 +81,12 @@ public class ProductDisplayWorker {
                 List<GenericValue> productsCategories = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productId", item.getProductId()), null, true);
                 productsCategories = EntityUtil.filterByDate(productsCategories, true);
                 if (productsCategories != null) {
-                    for(GenericValue productsCategoryMember : productsCategories) {
+                    for (GenericValue productsCategoryMember : productsCategories) {
                         GenericValue productsCategory = productsCategoryMember.getRelatedOne("ProductCategory", true);
                         if ("CROSS_SELL_CATEGORY".equals(productsCategory.getString("productCategoryTypeId"))) {
                             List<GenericValue> curPcms = productsCategory.getRelated("ProductCategoryMember", null, null, true);
                             if (curPcms != null) {
-                                for(GenericValue curPcm : curPcms) {
+                                for (GenericValue curPcm : curPcms) {
                                     if (!products.containsKey(curPcm.getString("productId"))) {
                                         GenericValue product = curPcm.getRelatedOne("Product", true);
                                         products.put(product.getString("productId"), product);
@@ -98,7 +98,7 @@ public class ProductDisplayWorker {
                 }
 
                 if (UtilValidate.isNotEmpty(complementProducts)) {
-                    for(GenericValue productAssoc : complementProducts) {
+                    for (GenericValue productAssoc : complementProducts) {
                         if (!products.containsKey(productAssoc.getString("productIdTo"))) {
                             GenericValue product = productAssoc.getRelatedOne("AssocProduct", true);
                             products.put(product.getString("productId"), product);
@@ -227,7 +227,7 @@ public class ProductDisplayWorker {
             // remove all products that are already in the cart
             ShoppingCart cart = (ShoppingCart) httpRequest.getSession().getAttribute("shoppingCart");
             if (UtilValidate.isNotEmpty(cart)) {
-                for(ShoppingCartItem item : cart) {
+                for (ShoppingCartItem item : cart) {
                     String productId = item.getProductId();
                     products.remove(productId);
                     productQuantities.remove(productId);

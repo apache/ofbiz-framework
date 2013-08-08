@@ -428,7 +428,7 @@ public class OrderReturnServices {
                 returnableQuantity = orderQty;
             } else {
                 BigDecimal returnedQty = BigDecimal.ZERO;
-                for(GenericValue returnItem : returnedItems) {
+                for (GenericValue returnItem : returnedItems) {
                     GenericValue returnHeader = null;
                     try {
                         returnHeader = returnItem.getRelatedOne("ReturnHeader", false);
@@ -495,7 +495,7 @@ public class OrderReturnServices {
             }
 
             if (orderItemQuantitiesIssued != null) {
-                for(GenericValue orderItemQuantityIssued : orderItemQuantitiesIssued) {
+                for (GenericValue orderItemQuantityIssued : orderItemQuantitiesIssued) {
                     GenericValue item = null;
                     try {
                         item = orderItemQuantityIssued.getRelatedOne("OrderItem", false);
@@ -573,7 +573,7 @@ public class OrderReturnServices {
                                     "OrderErrorUnableToGetOrderAdjustmentsFromItem", locale));
                         }
                         if (UtilValidate.isNotEmpty(itemAdjustments)) {
-                            for(GenericValue itemAdjustment : itemAdjustments) {
+                            for (GenericValue itemAdjustment : itemAdjustments) {
                                 returnInfo = FastMap.newInstance();
                                 returnInfo.put("returnableQuantity", BigDecimal.ONE);
                                  // TODO: the returnablePrice should be set to the amount minus the already returned amount
@@ -630,7 +630,7 @@ public class OrderReturnServices {
 
         List<GenericValue> completedItems = FastList.newInstance();
         if (returnHeader != null && UtilValidate.isNotEmpty(returnItems)) {
-            for(GenericValue item : returnItems) {
+            for (GenericValue item : returnItems) {
                 String itemStatus = item != null ? item.getString("statusId") : null;
                 if (itemStatus != null) {
                     // both completed and cancelled items qualify for completed status change
@@ -874,7 +874,7 @@ public class OrderReturnServices {
 
             // first, compute the total credit from the return items
             BigDecimal creditTotal = ZERO;
-            for(GenericValue item : returnItems) {
+            for (GenericValue item : returnItems) {
                 BigDecimal quantity = item.getBigDecimal("returnQuantity");
                 BigDecimal price = item.getBigDecimal("returnPrice");
                 if (quantity == null) quantity = ZERO;
@@ -954,7 +954,7 @@ public class OrderReturnServices {
             String itemResponseId = (String) serviceResults.get("returnItemResponseId");
 
             // loop through the items again to update them and store a status change history
-            for(GenericValue item : returnItems) {
+            for (GenericValue item : returnItems) {
                 Map<String, Object> returnItemMap = UtilMisc.<String, Object>toMap("returnItemResponseId", itemResponseId, "returnId", item.get("returnId"), "returnItemSeqId", item.get("returnItemSeqId"), "statusId", "RETURN_COMPLETED", "userLogin", userLogin);
                 // store the item changes (attached responseId)
                 try {
@@ -1031,14 +1031,14 @@ public class OrderReturnServices {
            ), EntityOperator.AND);
 
         List<GenericValue> orderPaymentPreferenceSums = delegator.findList("OrderPurchasePaymentSummary", whereConditions, UtilMisc.toSet("maxAmount"), null, null, false);
-        for(GenericValue orderPaymentPreferenceSum : orderPaymentPreferenceSums) {
+        for (GenericValue orderPaymentPreferenceSum : orderPaymentPreferenceSums) {
             BigDecimal maxAmount = orderPaymentPreferenceSum.getBigDecimal("maxAmount");
             balance = maxAmount != null ? balance.subtract(maxAmount) : balance;
         }
 
         List<GenericValue> paymentAppls = delegator.findByAnd("PaymentApplication", UtilMisc.toMap("billingAccountId", billingAccountId), null, false);
         // TODO: cancelled payments?
-        for(GenericValue paymentAppl : paymentAppls) {
+        for (GenericValue paymentAppl : paymentAppls) {
             if (paymentAppl.getString("invoiceId") == null) {
                 BigDecimal amountApplied = paymentAppl.getBigDecimal("amountApplied");
                 balance = balance.add(amountApplied);
@@ -1076,7 +1076,7 @@ public class OrderReturnServices {
 
             // find the minimum storeCreditValidDays of all the ProductStores associated with all the Orders on the Return, skipping null ones
             Long storeCreditValidDays = null;
-            for(GenericValue productStore : productStores) {
+            for (GenericValue productStore : productStores) {
                 Long thisStoreValidDays = productStore.getLong("storeCreditValidDays");
                 if (thisStoreValidDays == null) continue;
 
@@ -1302,7 +1302,7 @@ public class OrderReturnServices {
                  * the intent is to get the refundable amounts per orderPaymentPreference, grouped by payment method type.
                  */
                 Map<String, List<Map<String, Object>>> prefSplitMap = FastMap.newInstance();
-                for(GenericValue orderPayPref : orderPayPrefs) {
+                for (GenericValue orderPayPref : orderPayPrefs) {
                     String paymentMethodTypeId = orderPayPref.getString("paymentMethodTypeId");
                     String orderPayPrefKey = orderPayPref.getString("paymentMethodId") != null ? orderPayPref.getString("paymentMethodId") : orderPayPref.getString("paymentMethodTypeId");
 
@@ -1470,7 +1470,7 @@ public class OrderReturnServices {
                             String responseId = (String) serviceResults.get("returnItemResponseId");
 
                             // Set the response on each item
-                            for(GenericValue item : items) {
+                            for (GenericValue item : items) {
                                 Map<String, Object> returnItemMap = UtilMisc.<String, Object>toMap("returnItemResponseId", responseId, "returnId", item.get("returnId"), "returnItemSeqId", item.get("returnItemSeqId"), "statusId", returnItemStatusId, "userLogin", userLogin);
                                 //Debug.logInfo("Updating item status", module);
                                 try {
@@ -1770,7 +1770,7 @@ public class OrderReturnServices {
                     Debug.logError(e, module);
                 }
                 if (orderCm != null) {
-                    for(GenericValue v : orderCm) {
+                    for (GenericValue v : orderCm) {
                         contactMechs.add(GenericValue.create(v));
                     }
                     orderMap.put("orderContactMechs", contactMechs);
@@ -1805,7 +1805,7 @@ public class OrderReturnServices {
                 List<GenericValue> orderItemAssocs = FastList.newInstance();
                 if (returnItemList != null) {
                     int itemCount = 1;
-                    for(GenericValue returnItem : returnItemList) {
+                    for (GenericValue returnItem : returnItemList) {
                         GenericValue orderItem = null;
                         GenericValue product = null;
                         try {
@@ -1916,7 +1916,7 @@ public class OrderReturnServices {
                                         continue;
                                     }
                                     if (UtilValidate.isNotEmpty(repairItems)) {
-                                        for(GenericValue repairItem : repairItems) {
+                                        for (GenericValue repairItem : repairItems) {
                                             GenericValue repairItemProduct = null;
                                             try {
                                                 repairItemProduct = repairItem.getRelatedOne("AssocProduct", false);
@@ -2062,7 +2062,7 @@ public class OrderReturnServices {
                     List<GenericValue> orderRoles = orderHeader.getRelated("OrderRole", null, null, false);
                     Map<String, List<String>> orderRolesMap = FastMap.newInstance();
                     if (orderRoles != null) {
-                        for(GenericValue orderRole : orderRoles) {
+                        for (GenericValue orderRole : orderRoles) {
                             List<String> parties = orderRolesMap.get(orderRole.getString("roleTypeId"));
                             if (parties == null) {
                                 parties = FastList.newInstance();
@@ -2139,7 +2139,7 @@ public class OrderReturnServices {
                                 "OrderProblemCreatingReturnItemResponseRecord", locale));
                     }
 
-                    for(GenericValue returnItem : returnItemList) {
+                    for (GenericValue returnItem : returnItemList) {
                         Map<String, Object> updateReturnItemCtx = FastMap.newInstance();
                         updateReturnItemCtx.put("returnId", returnId);
                         updateReturnItemCtx.put("returnItemSeqId", returnItem.get("returnItemSeqId"));
@@ -2197,7 +2197,7 @@ public class OrderReturnServices {
         }
 
         if (returnItems != null) {
-            for(GenericValue returnItem : returnItems) {
+            for (GenericValue returnItem : returnItems) {
                 String orderItemSeqId = returnItem.getString("orderItemSeqId");
                 String orderId = returnItem.getString("orderId");
 
@@ -2212,7 +2212,7 @@ public class OrderReturnServices {
 
                 // cancel all current subscriptions
                 if (subscriptions != null) {
-                    for(GenericValue subscription : subscriptions) {
+                    for (GenericValue subscription : subscriptions) {
                         Timestamp thruDate = subscription.getTimestamp("thruDate");
                         if (thruDate == null || thruDate.after(now)) {
                             subscription.set("thruDate", now);
@@ -2241,7 +2241,7 @@ public class OrderReturnServices {
      * @param returnTypeId the return type id
      */
     public static void groupReturnItemsByOrder(List<GenericValue> returnItems, Map<String, List<GenericValue>> returnItemsByOrderId, Map<String, BigDecimal> totalByOrder, Delegator delegator, String returnId, String returnTypeId) {
-        for(GenericValue returnItem : returnItems) {
+        for (GenericValue returnItem : returnItems) {
             String orderId = returnItem.getString("orderId");
             if (orderId != null) {
                 if (returnItemsByOrderId != null) {
@@ -2284,7 +2284,7 @@ public class OrderReturnServices {
 
         // We may also have some order-level adjustments, so we need to go through each order again and add those as well
         if ((totalByOrder != null) && (totalByOrder.keySet() != null)) {
-            for(String orderId : totalByOrder.keySet()) {
+            for (String orderId : totalByOrder.keySet()) {
                 // find returnAdjustment for returnHeader
                 Map<String, Object> condition = UtilMisc.<String, Object>toMap("returnId", returnId,
                                                "returnItemSeqId", org.ofbiz.common.DataModelConstants.SEQ_ID_NA,
@@ -2312,7 +2312,7 @@ public class OrderReturnServices {
         }
         if ((returnItems != null) && (returnItems.size() > 0)) {
             List<String> paymentList = FastList.newInstance();
-            for(GenericValue returnItem : returnItems) {
+            for (GenericValue returnItem : returnItems) {
                 String orderId = returnItem.getString("orderId");
                 try {
                     GenericValue returnItemResponse = returnItem.getRelatedOne("ReturnItemResponse", false);
@@ -2357,7 +2357,7 @@ public class OrderReturnServices {
         }
 
         if ((returnAmountByOrder != null) && (returnAmountByOrder.keySet() != null)) {
-            for(String orderId : returnAmountByOrder.keySet()) {
+            for (String orderId : returnAmountByOrder.keySet()) {
                 BigDecimal returnAmount = returnAmountByOrder.get(orderId);
                 if (returnAmount.abs().compareTo(new BigDecimal("0.000001")) < 0) {
                     Debug.logError("Order [" + orderId + "] refund amount[ " + returnAmount + "] less than zero", module);
@@ -2610,7 +2610,7 @@ public class OrderReturnServices {
             // TODO: find on a view-entity with a sum is probably more efficient
             adjustments = delegator.findByAnd("ReturnAdjustment", condition, null, false);
             if (adjustments != null) {
-                for(GenericValue returnAdjustment : adjustments) {
+                for (GenericValue returnAdjustment : adjustments) {
                     if ((returnAdjustment != null) && (returnAdjustment.get("amount") != null)) {
                        total = total.add(returnAdjustment.getBigDecimal("amount"));
                     }

@@ -110,7 +110,7 @@ public class PdfSurveyServices {
             String surveyQuestionCategoryId = (String) createCategoryResultMap.get("surveyQuestionCategoryId");
 
             pdfStamper.setFormFlattening(true);
-            for(String fieldName : acroFieldMap.keySet()) {
+            for (String fieldName : acroFieldMap.keySet()) {
                 AcroFields.Item item = acroFields.getFieldItem(fieldName);
                 int type = acroFields.getFieldType(fieldName);
                 String value = acroFields.getField(fieldName);
@@ -179,7 +179,7 @@ public class PdfSurveyServices {
                     PdfObject tuValue = null;
 
                     Set<PdfName> dictKeys = UtilGenerics.checkSet(dict.getKeys());
-                    for(PdfName dictKeyName : dictKeys) {
+                    for (PdfName dictKeyName : dictKeys) {
                         PdfObject dictObject = dict.get(dictKeyName);
 
                         if ("/Type".equals(dictKeyName.toString())) {
@@ -266,7 +266,7 @@ public class PdfSurveyServices {
             AcroFields fs = s.getAcroFields();
             Map<String, Object> hm = UtilGenerics.checkMap(fs.getFields());
             s.setFormFlattening(true);
-            for(String fieldName : hm.keySet()) {
+            for (String fieldName : hm.keySet()) {
                 //AcroFields.Item item = fs.getFieldItem(fieldName);
                 //int type = fs.getFieldType(fieldName);
                 String value = fs.getField(fieldName);
@@ -322,7 +322,7 @@ public class PdfSurveyServices {
     //        for (int i=0;i<sa.length;i++)
     //            Debug.logInfo("Appearance="+sa[i]);
 
-            for(String fieldName : map.keySet()) {
+            for (String fieldName : map.keySet()) {
                 String parmValue = fs.getField(fieldName);
                 acroFieldMap.put(fieldName, parmValue);
             }
@@ -363,7 +363,7 @@ public class PdfSurveyServices {
     //      for (int i=0;i<sa.length;i++)
     //          Debug.logInfo("Appearance="+sa[i]);
 
-            for(String fieldName : map.keySet()) {
+            for (String fieldName : map.keySet()) {
                 String fieldValue = fs.getField(fieldName);
                 Object obj = acroFieldMap.get(fieldName);
                 if (obj instanceof Date) {
@@ -441,7 +441,7 @@ public class PdfSurveyServices {
             PdfWriter.getInstance(document, baos);
 
             List<GenericValue> responses = delegator.findByAnd("SurveyResponseAnswer", UtilMisc.toMap("surveyResponseId", surveyResponseId), null, false);
-            for(GenericValue surveyResponseAnswer : responses) {
+            for (GenericValue surveyResponseAnswer : responses) {
                 String value = null;
                 String surveyQuestionId = (String) surveyResponseAnswer.get("surveyQuestionId");
                 GenericValue surveyQuestion = delegator.findOne("SurveyQuestion", UtilMisc.toMap("surveyQuestionId", surveyQuestionId), false);
@@ -490,7 +490,7 @@ public class PdfSurveyServices {
 
         try {
             List<GenericValue> responses = delegator.findByAnd("SurveyResponseAnswer", UtilMisc.toMap("surveyResponseId", surveyResponseId), null, false);
-            for(GenericValue surveyResponseAnswer : responses) {
+            for (GenericValue surveyResponseAnswer : responses) {
                 String surveyQuestionId = (String) surveyResponseAnswer.get("surveyQuestionId");
                 GenericValue surveyQuestion = delegator.findOne("SurveyQuestion", UtilMisc.toMap("surveyQuestionId", surveyQuestionId), false);
                 qAndA.add(UtilMisc.toMap("question", surveyQuestion, "response", surveyResponseAnswer));
@@ -531,7 +531,7 @@ public class PdfSurveyServices {
             }
 
             List<GenericValue> responses = delegator.findByAnd("SurveyResponseAnswer", UtilMisc.toMap("surveyResponseId", surveyResponseId), null, false);
-            for(GenericValue surveyResponseAnswer : responses) {
+            for (GenericValue surveyResponseAnswer : responses) {
                 String value = null;
                 String surveyQuestionId = (String) surveyResponseAnswer.get("surveyQuestionId");
 

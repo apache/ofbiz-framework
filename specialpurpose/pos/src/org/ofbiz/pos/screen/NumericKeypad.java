@@ -249,7 +249,7 @@ public class NumericKeypad extends XPage
 
     private int countChars(String string, char c) {
         int count = 0;
-        for(int i=0; i<string.length(); i++) {
+        for (int i=0; i<string.length(); i++) {
             if (string.charAt(i) == c) {
                 count++;
             }
@@ -259,7 +259,7 @@ public class NumericKeypad extends XPage
 
     private String stripChars(String string, char c) {
         StringBuffer buf = new StringBuffer();
-        for(int i=0; i<string.length(); i++) {
+        for (int i=0; i<string.length(); i++) {
             char current = string.charAt(i);
             if (current != c) {
                 buf.append(current);

@@ -265,7 +265,7 @@ public class OrderServices {
         // need to run through the items combining any cases where multiple lines refer to the
         // same product so the inventory check will work correctly
         // also count quantities ordered while going through the loop
-        for(GenericValue orderItem : orderItems) {
+        for (GenericValue orderItem : orderItems) {
             // start by putting it in the itemValuesById Map
             itemValuesBySeqId.put(orderItem.getString("orderItemSeqId"), orderItem);
 
@@ -299,7 +299,7 @@ public class OrderServices {
 
         Timestamp orderDate = (Timestamp) context.get("orderDate");
 
-        for(String currentProductId : normalizedItemQuantities.keySet()) {
+        for (String currentProductId : normalizedItemQuantities.keySet()) {
             // lookup the product entity for each normalized item; error on products not found
             BigDecimal currentQuantity = normalizedItemQuantities.get(currentProductId);
             String itemName = normalizedItemNames.get(currentProductId);
@@ -375,7 +375,7 @@ public class OrderServices {
 
         // add the fixedAsset id to the workefforts map by obtaining the fixed Asset number from the FixedAssetProduct table
         List<GenericValue> workEfforts = UtilGenerics.checkList(context.get("workEfforts")); // is an optional parameter from this service but mandatory for rental items
-        for(GenericValue orderItem : orderItems) {
+        for (GenericValue orderItem : orderItems) {
             if ("RENTAL_ORDER_ITEM".equals(orderItem.getString("orderItemTypeId"))) {
                 // check to see if workefforts are available for this order type.
                 if (UtilValidate.isEmpty(workEfforts))    {
@@ -385,7 +385,7 @@ public class OrderServices {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
                             "OrderRentalOrderItems",locale));
                 }
-                for(GenericValue workEffort : workEfforts) {
+                for (GenericValue workEffort : workEfforts) {
                     // find the related workEffortItem (workEffortId = orderSeqId)
                     // create the entity maps required.
                     if (workEffort.getString("workEffortId").equals(orderItem.getString("orderItemSeqId")))    {
@@ -581,7 +581,7 @@ public class OrderServices {
         }
 
         // set the order items
-        for(GenericValue orderItem : orderItems) {
+        for (GenericValue orderItem : orderItems) {
             orderItem.set("orderId", orderId);
             toBeStored.add(orderItem);
 
@@ -599,7 +599,7 @@ public class OrderServices {
         // set the order attributes
         List<GenericValue> orderAttributes = UtilGenerics.checkList(context.get("orderAttributes"));
         if (UtilValidate.isNotEmpty(orderAttributes)) {
-            for(GenericValue oatt : orderAttributes) {
+            for (GenericValue oatt : orderAttributes) {
                 oatt.set("orderId", orderId);
                 toBeStored.add(oatt);
             }
@@ -608,7 +608,7 @@ public class OrderServices {
         // set the order item attributes
         List<GenericValue> orderItemAttributes = UtilGenerics.checkList(context.get("orderItemAttributes"));
         if (UtilValidate.isNotEmpty(orderItemAttributes)) {
-            for(GenericValue oiatt : orderItemAttributes) {
+            for (GenericValue oiatt : orderItemAttributes) {
                 oiatt.set("orderId", orderId);
                 toBeStored.add(oiatt);
             }
@@ -617,7 +617,7 @@ public class OrderServices {
         // create the order internal notes
         List<String> orderInternalNotes = UtilGenerics.checkList(context.get("orderInternalNotes"));
         if (UtilValidate.isNotEmpty(orderInternalNotes)) {
-            for(String orderInternalNote : orderInternalNotes) {
+            for (String orderInternalNote : orderInternalNotes) {
                 try {
                     Map<String, Object> noteOutputMap = dispatcher.runSync("createOrderNote", UtilMisc.<String, Object>toMap("orderId", orderId,
                                                                                              "internalNote", "Y",
@@ -639,7 +639,7 @@ public class OrderServices {
         // create the order public notes
         List<String> orderNotes = UtilGenerics.checkList(context.get("orderNotes"));
         if (UtilValidate.isNotEmpty(orderNotes)) {
-            for(String orderNote : orderNotes) {
+            for (String orderNote : orderNotes) {
                 try {
                     Map<String, Object> noteOutputMap = dispatcher.runSync("createOrderNote", UtilMisc.<String, Object>toMap("orderId", orderId,
                                                                                              "internalNote", "N",
@@ -663,7 +663,7 @@ public class OrderServices {
         // create also the techData calendars to keep track of availability of the fixed asset.
         if (UtilValidate.isNotEmpty(workEfforts)) {
             List<GenericValue> tempList = new LinkedList<GenericValue>();
-            for(GenericValue workEffort : workEfforts) {
+            for (GenericValue workEffort : workEfforts) {
                 // create the entity maps required.
                 GenericValue workOrderItemFulfillment = delegator.makeValue("WorkOrderItemFulfillment");
                 // find fixed asset supplied on the workeffort map
@@ -691,7 +691,7 @@ public class OrderServices {
                     Debug.logInfo("TechData calendar does not exist yet so create for fixedAsset: " + fixedAsset.get("fixedAssetId") ,module);
                 }
                 if (techDataCalendar == null) {
-                    for(GenericValue currentValue : tempList) {
+                    for (GenericValue currentValue : tempList) {
                         if ("FixedAsset".equals(currentValue.getEntityName()) && currentValue.getString("fixedAssetId").equals(workEffort.getString("fixedAssetId"))) {
                             fixedAsset = currentValue;
                             break;
@@ -745,7 +745,7 @@ public class OrderServices {
                         Debug.logInfo(" techData excday record not found so creating........", module);
                     }
                     if (techDataCalendarExcDay == null) {
-                        for(GenericValue currentValue : tempList) {
+                        for (GenericValue currentValue : tempList) {
                             if ("TechDataCalendarExcDay".equals(currentValue.getEntityName()) && currentValue.getString("calendarId").equals(fixedAsset.getString("calendarId"))
                                     && currentValue.getTimestamp("exceptionDateStartTime").equals(exceptionDateStartTime)) {
                                 techDataCalendarExcDay = currentValue;
@@ -794,7 +794,7 @@ public class OrderServices {
         // set the orderId on all adjustments; this list will include order and
         // item adjustments...
         if (UtilValidate.isNotEmpty(orderAdjustments)) {
-            for(GenericValue orderAdjustment : orderAdjustments) {
+            for (GenericValue orderAdjustment : orderAdjustments) {
                 try {
                     orderAdjustment.set("orderAdjustmentId", delegator.getNextSeqId("OrderAdjustment"));
                 } catch (IllegalArgumentException e) {
@@ -819,7 +819,7 @@ public class OrderServices {
         // set the order contact mechs
         List<GenericValue> orderContactMechs = UtilGenerics.checkList(context.get("orderContactMechs"));
         if (UtilValidate.isNotEmpty(orderContactMechs)) {
-            for(GenericValue ocm : orderContactMechs) {
+            for (GenericValue ocm : orderContactMechs) {
                 ocm.set("orderId", orderId);
                 toBeStored.add(ocm);
             }
@@ -828,7 +828,7 @@ public class OrderServices {
         // set the order item contact mechs
         List<GenericValue> orderItemContactMechs = UtilGenerics.checkList(context.get("orderItemContactMechs"));
         if (UtilValidate.isNotEmpty(orderItemContactMechs)) {
-            for(GenericValue oicm : orderItemContactMechs) {
+            for (GenericValue oicm : orderItemContactMechs) {
                 oicm.set("orderId", orderId);
                 toBeStored.add(oicm);
             }
@@ -837,7 +837,7 @@ public class OrderServices {
         // set the order item ship groups
         List<String> dropShipGroupIds = FastList.newInstance(); // this list will contain the ids of all the ship groups for drop shipments (no reservations)
         if (UtilValidate.isNotEmpty(orderItemShipGroupInfo)) {
-            for(GenericValue valueObj : orderItemShipGroupInfo) {
+            for (GenericValue valueObj : orderItemShipGroupInfo) {
                 valueObj.set("orderId", orderId);
                 if ("OrderItemShipGroup".equals(valueObj.getEntityName())) {
                     // ship group
@@ -867,7 +867,7 @@ public class OrderServices {
                 String additionalRoleTypeId = entry.getKey();
                 List<String> parties = entry.getValue();
                 if (parties != null) {
-                    for(String additionalPartyId : parties) {
+                    for (String additionalPartyId : parties) {
                         toBeStored.add(delegator.makeValue("PartyRole", UtilMisc.toMap("partyId", additionalPartyId, "roleTypeId", additionalRoleTypeId)));
                         toBeStored.add(delegator.makeValue("OrderRole", UtilMisc.toMap("orderId", orderId, "partyId", additionalPartyId, "roleTypeId", additionalRoleTypeId)));
                     }
@@ -878,7 +878,7 @@ public class OrderServices {
         // set the item survey responses
         List<GenericValue> surveyResponses = UtilGenerics.checkList(context.get("orderItemSurveyResponses"));
         if (UtilValidate.isNotEmpty(surveyResponses)) {
-            for(GenericValue surveyResponse : surveyResponses) {
+            for (GenericValue surveyResponse : surveyResponses) {
                 surveyResponse.set("orderId", orderId);
                 toBeStored.add(surveyResponse);
             }
@@ -886,7 +886,7 @@ public class OrderServices {
 
         // set the item price info; NOTE: this must be after the orderItems are stored for referential integrity
         if (UtilValidate.isNotEmpty(orderItemPriceInfo)) {
-            for(GenericValue oipi : orderItemPriceInfo) {
+            for (GenericValue oipi : orderItemPriceInfo) {
                 try {
                     oipi.set("orderItemPriceInfoId", delegator.getNextSeqId("OrderItemPriceInfo"));
                 } catch (IllegalArgumentException e) {
@@ -902,7 +902,7 @@ public class OrderServices {
         // set the item associations
         List<GenericValue> orderItemAssociations = UtilGenerics.checkList(context.get("orderItemAssociations"));
         if (UtilValidate.isNotEmpty(orderItemAssociations)) {
-            for(GenericValue orderItemAssociation : orderItemAssociations) {
+            for (GenericValue orderItemAssociation : orderItemAssociations) {
                 if (orderItemAssociation.get("toOrderId") == null) {
                     orderItemAssociation.set("toOrderId", orderId);
                 } else if (orderItemAssociation.get("orderId") == null) {
@@ -915,7 +915,7 @@ public class OrderServices {
         // store the orderProductPromoUseInfos
         List<GenericValue> orderProductPromoUses = UtilGenerics.checkList(context.get("orderProductPromoUses"));
         if (UtilValidate.isNotEmpty(orderProductPromoUses)) {
-            for(GenericValue productPromoUse  : orderProductPromoUses) {
+            for (GenericValue productPromoUse  : orderProductPromoUses) {
                 productPromoUse.set("orderId", orderId);
                 toBeStored.add(productPromoUse);
             }
@@ -924,7 +924,7 @@ public class OrderServices {
         // store the orderProductPromoCodes
         Set<String> orderProductPromoCodes = UtilGenerics.checkSet(context.get("orderProductPromoCodes"));
         if (UtilValidate.isNotEmpty(orderProductPromoCodes)) {
-            for(String productPromoCodeId : orderProductPromoCodes) {
+            for (String productPromoCodeId : orderProductPromoCodes) {
                 GenericValue orderProductPromoCode = delegator.makeValue("OrderProductPromoCode");
                 orderProductPromoCode.set("orderId", orderId);
                 orderProductPromoCode.set("productPromoCodeId", productPromoCodeId);
@@ -1020,7 +1020,7 @@ public class OrderServices {
         // set the order payment info
         List<GenericValue> orderPaymentInfos = UtilGenerics.checkList(context.get("orderPaymentInfo"));
         if (UtilValidate.isNotEmpty(orderPaymentInfos)) {
-            for(GenericValue valueObj : orderPaymentInfos) {
+            for (GenericValue valueObj : orderPaymentInfos) {
                 valueObj.set("orderId", orderId);
                 if ("OrderPaymentPreference".equals(valueObj.getEntityName())) {
                     if (valueObj.get("orderPaymentPreferenceId") == null) {
@@ -1039,7 +1039,7 @@ public class OrderServices {
         // store the trackingCodeOrder entities
         List<GenericValue> trackingCodeOrders = UtilGenerics.checkList(context.get("trackingCodeOrders"));
         if (UtilValidate.isNotEmpty(trackingCodeOrders)) {
-            for(GenericValue trackingCodeOrder : trackingCodeOrders) {
+            for (GenericValue trackingCodeOrder : trackingCodeOrders) {
                 trackingCodeOrder.set("orderId", orderId);
                 toBeStored.add(trackingCodeOrder);
             }
@@ -1049,7 +1049,7 @@ public class OrderServices {
 
        List<GenericValue> orderTerms = UtilGenerics.checkList(context.get("orderTerms"));
        if (UtilValidate.isNotEmpty(orderTerms)) {
-           for(GenericValue orderTerm : orderTerms) {
+           for (GenericValue orderTerm : orderTerms) {
                orderTerm.set("orderId", orderId);
                if (orderTerm.get("orderItemSeqId") == null) {
                    orderTerm.set("orderItemSeqId", "_NA_");
@@ -1176,7 +1176,7 @@ public class OrderServices {
         // START inventory reservation
         // decrement inventory available for each OrderItemShipGroupAssoc, within the same transaction
         if (UtilValidate.isNotEmpty(orderItemShipGroupInfo)) {
-            for(GenericValue orderItemShipGroupAssoc : orderItemShipGroupInfo) {
+            for (GenericValue orderItemShipGroupAssoc : orderItemShipGroupInfo) {
                 if ("OrderItemShipGroupAssoc".equals(orderItemShipGroupAssoc.getEntityName())) {
                     if (dropShipGroupIds != null && dropShipGroupIds.contains(orderItemShipGroupAssoc.getString("shipGroupSeqId"))) {
                         // the items in the drop ship groups are not reserved
@@ -1209,7 +1209,7 @@ public class OrderServices {
                                         continue;
                                     } else {
                                         List<GenericValue> assocProducts = UtilGenerics.checkList(componentsRes.get("assocProducts"));
-                                        for(GenericValue productAssoc : assocProducts) {
+                                        for (GenericValue productAssoc : assocProducts) {
                                             BigDecimal quantityOrd = productAssoc.getBigDecimal("quantity");
                                             BigDecimal quantityKit = orderItemShipGroupAssoc.getBigDecimal("quantity");
                                             BigDecimal quantity = quantityOrd.multiply(quantityKit);
@@ -1308,7 +1308,7 @@ public class OrderServices {
                                             continue;
                                         } else {
                                             List<GenericValue> assocProducts = UtilGenerics.checkList(componentsRes.get("assocProducts"));
-                                            for(GenericValue productAssoc : assocProducts) {
+                                            for (GenericValue productAssoc : assocProducts) {
                                                 BigDecimal quantityOrd = productAssoc.getBigDecimal("quantity");
                                                 BigDecimal quantityKit = orderItemShipGroupAssoc.getBigDecimal("quantity");
                                                 BigDecimal quantity = quantityOrd.multiply(quantityKit);
@@ -1582,7 +1582,7 @@ public class OrderServices {
 
         // Accumulate the total existing tax adjustment
         BigDecimal totalExistingOrderTax = ZERO;
-        for(GenericValue orderTaxAdjustment : orderTaxAdjustments) {
+        for (GenericValue orderTaxAdjustment : orderTaxAdjustments) {
             if (orderTaxAdjustment.get("amount") != null) {
                 totalExistingOrderTax = totalExistingOrderTax.add(orderTaxAdjustment.getBigDecimal("amount").setScale(taxDecimals, taxRounding));
             }
@@ -1593,7 +1593,7 @@ public class OrderServices {
         OrderReadHelper orh = new OrderReadHelper(orderHeader);
         List<GenericValue> shipGroups = orh.getOrderItemShipGroups();
         if (shipGroups != null) {
-            for(GenericValue shipGroup : shipGroups) {
+            for (GenericValue shipGroup : shipGroups) {
                 String shipGroupSeqId = shipGroup.getString("shipGroupSeqId");
 
                 List<GenericValue> validOrderItems = orh.getValidOrderItems(shipGroupSeqId);
@@ -1694,7 +1694,7 @@ public class OrderServices {
 
                     // Accumulate the new tax total from the recalculated header adjustments
                     if (UtilValidate.isNotEmpty(orderAdj)) {
-                        for(GenericValue oa : orderAdj) {
+                        for (GenericValue oa : orderAdj) {
                             if (oa.get("amount") != null) {
                                 totalNewOrderTax = totalNewOrderTax.add(oa.getBigDecimal("amount").setScale(taxDecimals, taxRounding));
                             }
@@ -1705,7 +1705,7 @@ public class OrderServices {
                     if (UtilValidate.isNotEmpty(itemAdj)) {
                         for (int i = 0; i < itemAdj.size(); i++) {
                             List<GenericValue> itemAdjustments = itemAdj.get(i);
-                            for(GenericValue ia : itemAdjustments) {
+                            for (GenericValue ia : itemAdjustments) {
                                 if (ia.get("amount") != null) {
                                     totalNewOrderTax = totalNewOrderTax.add(ia.getBigDecimal("amount").setScale(taxDecimals, taxRounding));
                                 }
@@ -1780,7 +1780,7 @@ public class OrderServices {
         OrderReadHelper orh = new OrderReadHelper(orderHeader);
         List<GenericValue> shipGroups = orh.getOrderItemShipGroups();
         if (shipGroups != null) {
-            for(GenericValue shipGroup : shipGroups) {
+            for (GenericValue shipGroup : shipGroups) {
                 String shipGroupSeqId = shipGroup.getString("shipGroupSeqId");
 
                 if (shipGroup.get("contactMechId") == null || shipGroup.get("shipmentMethodTypeId") == null) {
@@ -1892,7 +1892,7 @@ public class OrderServices {
         boolean allComplete = true;
         boolean allApproved = true;
         if (orderItems != null) {
-            for(GenericValue item : orderItems) {
+            for (GenericValue item : orderItems) {
                 String statusId = item.getString("statusId");
                 //Debug.logInfo("Item Status: " + statusId, module);
                 if (!"ITEM_CANCELLED".equals(statusId)) {
@@ -2026,7 +2026,7 @@ public class OrderServices {
         }
 
         if (orderItemShipGroupAssocs != null) {
-            for(GenericValue orderItemShipGroupAssoc : orderItemShipGroupAssocs) {
+            for (GenericValue orderItemShipGroupAssoc : orderItemShipGroupAssocs) {
                 GenericValue orderItem = null;
                 try {
                     orderItem = orderItemShipGroupAssoc.getRelatedOne("OrderItem", false);
@@ -2188,7 +2188,7 @@ public class OrderServices {
 
         if (UtilValidate.isNotEmpty(orderItems)) {
             List<GenericValue> toBeStored = new ArrayList<GenericValue>();
-            for(GenericValue orderItem : orderItems) {
+            for (GenericValue orderItem : orderItems) {
                 if (orderItem == null) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
                             "OrderErrorCannotChangeItemStatusItemNotFound", locale));
@@ -2700,7 +2700,7 @@ public class OrderServices {
 
         StringBuilder emailList = new StringBuilder();
         if (assignedToEmails != null) {
-            for(GenericValue ct : assignedToEmails) {
+            for (GenericValue ct : assignedToEmails) {
                 if (ct != null && ct.get("infoString") != null) {
                     if (emailList.length() > 1)
                         emailList.append(",");
@@ -3012,7 +3012,7 @@ public class OrderServices {
         }
 
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
-        for(GenericValue orderHeader : ordersToCheck) {
+        for (GenericValue orderHeader : ordersToCheck) {
             String orderId = orderHeader.getString("orderId");
             String orderStatus = orderHeader.getString("statusId");
 
@@ -3077,7 +3077,7 @@ public class OrderServices {
                     Debug.logError(e, "Problem getting order item records", module);
                 }
                 if (UtilValidate.isNotEmpty(orderItems)) {
-                    for(GenericValue orderItem : orderItems) {
+                    for (GenericValue orderItem : orderItems) {
                         String orderItemSeqId = orderItem.getString("orderItemSeqId");
                         Timestamp autoCancelDate = orderItem.getTimestamp("autoCancelDate");
 
@@ -3135,7 +3135,7 @@ public class OrderServices {
         Map<GenericValue, GenericValue> digitalProducts = new HashMap<GenericValue, GenericValue>();
 
         if (UtilValidate.isNotEmpty(orderItems)) {
-            for(GenericValue item : orderItems) {
+            for (GenericValue item : orderItems) {
                 GenericValue product = null;
                 try {
                     product = item.getRelatedOne("Product", false);
@@ -3211,7 +3211,7 @@ public class OrderServices {
                 }
 
                 // update the status of digital goods to COMPLETED; leave physical/digital as APPROVED for pick/ship
-                for(GenericValue item : itemsToInvoice) {
+                for (GenericValue item : itemsToInvoice) {
                     GenericValue productType = null;
                     GenericValue product = digitalProducts.get(item);
                     boolean markComplete = false;
@@ -3285,7 +3285,7 @@ public class OrderServices {
 
         if (UtilValidate.isNotEmpty(orderItems)) {
             // loop through the digital items to fulfill
-            for(GenericValue orderItem : orderItems) {
+            for (GenericValue orderItem : orderItems) {
                 // make sure we have a valid item
                 if (orderItem == null) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
@@ -3328,7 +3328,7 @@ public class OrderServices {
 
                 // now use the ProductContent to fulfill the item
                 if (UtilValidate.isNotEmpty(productContent)) {
-                    for(GenericValue productContentItem : productContent) {
+                    for (GenericValue productContentItem : productContent) {
                         GenericValue content = null;
                         try {
                             content = productContentItem.getRelatedOne("Content", false);
@@ -3414,7 +3414,7 @@ public class OrderServices {
         // find any service items
         List<GenericValue> serviceItems = FastList.newInstance();
         if (UtilValidate.isNotEmpty(orderItems)) {
-            for(GenericValue item : orderItems) {
+            for (GenericValue item : orderItems) {
                 GenericValue product = null;
                 try {
                     product = item.getRelatedOne("Product", false);
@@ -3458,7 +3458,7 @@ public class OrderServices {
             }
 
             // update the status of service goods to COMPLETED;
-            for(GenericValue item : serviceItems) {
+            for (GenericValue item : serviceItems) {
                 Map<String, Object> statusCtx = FastMap.newInstance();
                 statusCtx.put("orderId", item.getString("orderId"));
                 statusCtx.put("orderItemSeqId", item.getString("orderItemSeqId"));
@@ -3637,7 +3637,7 @@ public class OrderServices {
 
         // go through the item map and obtain the totals per item
         Map<String, BigDecimal> itemTotals = new HashMap<String, BigDecimal>();
-        for(String key : itemQtyMap.keySet()) {
+        for (String key : itemQtyMap.keySet()) {
             String quantityStr = itemQtyMap.get(key);
             BigDecimal groupQty = BigDecimal.ZERO;
             try {
@@ -3663,7 +3663,7 @@ public class OrderServices {
         }
 
         // set the items amount/price
-        for(String itemSeqId : itemTotals.keySet()) {
+        for (String itemSeqId : itemTotals.keySet()) {
             ShoppingCartItem cartItem = cart.findCartItem(itemSeqId);
 
             if (cartItem != null) {
@@ -3759,7 +3759,7 @@ public class OrderServices {
         }
 
         // update the group amounts
-        for(String key : itemQtyMap.keySet()) {
+        for (String key : itemQtyMap.keySet()) {
             String quantityStr = itemQtyMap.get(key);
             BigDecimal groupQty = BigDecimal.ZERO;
             try {
@@ -3884,7 +3884,7 @@ public class OrderServices {
         }
         // cancel existing inventory reservations
         if (shipGroupAssocs != null) {
-            for(GenericValue shipGroupAssoc : shipGroupAssocs) {
+            for (GenericValue shipGroupAssoc : shipGroupAssocs) {
                 String orderItemSeqId = shipGroupAssoc.getString("orderItemSeqId");
                 String shipGroupSeqId = shipGroupAssoc.getString("shipGroupSeqId");
 
@@ -3914,7 +3914,7 @@ public class OrderServices {
             throw new GeneralException(e.getMessage());
         }
         if (promoItems != null) {
-            for(GenericValue promoItem : promoItems) {
+            for (GenericValue promoItem : promoItems) {
                 // Skip if the promo is already cancelled
                 if ("ITEM_CANCELLED".equals(promoItem.get("statusId"))) {
                     continue;
@@ -3963,7 +3963,7 @@ public class OrderServices {
             throw new GeneralException(e.getMessage());
         }
         if (paymentPrefsToCancel != null) {
-            for(GenericValue opp : paymentPrefsToCancel) {
+            for (GenericValue opp : paymentPrefsToCancel) {
                 try {
                     opp.set("statusId", "PAYMENT_CANCELLED");
                     opp.store();
@@ -4176,7 +4176,7 @@ public class OrderServices {
                         
         // set the orderId & other information on all new value objects
         List<String> dropShipGroupIds = FastList.newInstance(); // this list will contain the ids of all the ship groups for drop shipments (no reservations)
-        for(GenericValue valueObj : toStore) {
+        for (GenericValue valueObj : toStore) {
             valueObj.set("orderId", orderId);
             if ("OrderItemShipGroup".equals(valueObj.getEntityName())) {
                 // ship group
@@ -4334,7 +4334,7 @@ public class OrderServices {
         // make the order item object map & the ship group assoc list
         List<GenericValue> orderItemShipGroupAssoc = new LinkedList<GenericValue>();
         Map<String, GenericValue> itemValuesBySeqId = new HashMap<String, GenericValue>();
-        for(GenericValue v : toStore) {
+        for (GenericValue v : toStore) {
             if ("OrderItem".equals(v.getEntityName())) {
                 itemValuesBySeqId.put(v.getString("orderItemSeqId"), v);
             } else if ("OrderItemShipGroupAssoc".equals(v.getEntityName())) {
@@ -4558,7 +4558,7 @@ public class OrderServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         List<String> orderIds = UtilGenerics.checkList(context.get("orderIdList"));
         Locale locale = (Locale) context.get("locale");
-        for(String orderId : orderIds) {
+        for (String orderId : orderIds) {
             if (UtilValidate.isEmpty(orderId)) {
                 continue;
             }
@@ -4600,7 +4600,7 @@ public class OrderServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         List<String> orderIds = UtilGenerics.checkList(context.get("orderIdList"));
         Locale locale = (Locale) context.get("locale");
-        for(String orderId : orderIds) {
+        for (String orderId : orderIds) {
             if (UtilValidate.isEmpty(orderId)) {
                 continue;
             }
@@ -4673,7 +4673,7 @@ public class OrderServices {
 
         // make the list per facility
         List<String> orderIds = UtilGenerics.checkList(context.get("orderIdList"));
-        for(String orderId : orderIds) {
+        for (String orderId : orderIds) {
             if (UtilValidate.isEmpty(orderId)) {
                 continue;
             }
@@ -4686,7 +4686,7 @@ public class OrderServices {
                 return ServiceUtil.returnError(e.getMessage());
             }
             if (invInfo != null) {
-                for(GenericValue inv : invInfo) {
+                for (GenericValue inv : invInfo) {
                     String facilityId = inv.getString("facilityId");
                     List<String> orderIdsByFacility = facilityOrdersMap.get(facilityId);
                     if (orderIdsByFacility == null) {
@@ -4699,7 +4699,7 @@ public class OrderServices {
         }
 
         // now create the pick lists for each facility
-        for(String facilityId : facilityOrdersMap.keySet()) {
+        for (String facilityId : facilityOrdersMap.keySet()) {
             List<String> orderIdList = facilityOrdersMap.get(facilityId);
 
             Map<String, Object> ctx = FastMap.newInstance();
@@ -4731,7 +4731,7 @@ public class OrderServices {
 
         // make the list per facility
         List<String> orderIds = UtilGenerics.checkList(context.get("orderIdList"));
-        for(String orderId : orderIds) {
+        for (String orderId : orderIds) {
             if (UtilValidate.isEmpty(orderId)) {
                 continue;
             }
@@ -4760,7 +4760,7 @@ public class OrderServices {
 
         // make the list per facility
         List<String> orderIds = UtilGenerics.checkList(context.get("orderIdList"));
-        for(String orderId : orderIds) {
+        for (String orderId : orderIds) {
             if (UtilValidate.isEmpty(orderId)) {
                 continue;
             }
@@ -4833,7 +4833,7 @@ public class OrderServices {
             // if sales order
             if ("SALES_ORDER".equals(orh.getOrderTypeId())) {
                 // get the order's ship groups
-                for(GenericValue shipGroup : orh.getOrderItemShipGroups()) {
+                for (GenericValue shipGroup : orh.getOrderItemShipGroups()) {
                     if (!UtilValidate.isEmpty(shipGroup.getString("supplierPartyId"))) {
                         // This ship group is a drop shipment: we create a purchase order for it
                         String supplierPartyId = shipGroup.getString("supplierPartyId");
@@ -4846,7 +4846,7 @@ public class OrderServices {
                         // Get the items associated to it and create po
                         List<GenericValue> items = orh.getValidOrderItems(shipGroup.getString("shipGroupSeqId"));
                         if (!UtilValidate.isEmpty(items)) {
-                            for(GenericValue item : items) {
+                            for (GenericValue item : items) {
                                 try {
                                     int itemIndex = cart.addOrIncreaseItem(item.getString("productId"),
                                                                            null, // amount
@@ -4992,7 +4992,7 @@ public class OrderServices {
             // Build a map of productId -> quantity cancelled over all order items
             Map<String, Object> productRequirementQuantities = new HashMap<String, Object>();
             List<GenericValue> orderItems = orderHeader.getRelated("OrderItem", null, null, false);
-            for(GenericValue orderItem : orderItems) {
+            for (GenericValue orderItem : orderItems) {
                 if (! "PRODUCT_ORDER_ITEM".equals(orderItem.getString("orderItemTypeId"))) continue;
 
                 // Get the cancelled quantity for the item
@@ -5012,7 +5012,7 @@ public class OrderServices {
             }
 
             // Generate requirements for each of the product quantities
-            for(String productId : productRequirementQuantities.keySet()) {
+            for (String productId : productRequirementQuantities.keySet()) {
                 BigDecimal requiredQuantity = (BigDecimal) productRequirementQuantities.get(productId);
                 Map<String, Object> createRequirementResult = dispatcher.runSync("createRequirement", UtilMisc.<String, Object>toMap("requirementTypeId", "PRODUCT_REQUIREMENT", "facilityId", facilityId, "productId", productId, "quantity", requiredQuantity, "userLogin", userLogin));
                 if (ServiceUtil.isError(createRequirementResult)) return createRequirementResult;
@@ -5062,7 +5062,7 @@ public class OrderServices {
             }
 
             List<GenericValue> orderItems = orderHeader.getRelated("OrderItem", null, null, false);
-            for(GenericValue orderItem : orderItems) {
+            for (GenericValue orderItem : orderItems) {
                 if (! "PRODUCT_ORDER_ITEM".equals(orderItem.getString("orderItemTypeId"))) continue;
 
                 // Get the ordered quantity for the item
@@ -5078,7 +5078,7 @@ public class OrderServices {
                 // Get the received quantity for the order item - ignore the quantityRejected, since rejected items should be reordered
                 List<GenericValue> shipmentReceipts = orderItem.getRelated("ShipmentReceipt", null, null, false);
                 BigDecimal receivedQuantity = BigDecimal.ZERO;
-                for(GenericValue shipmentReceipt : shipmentReceipts) {
+                for (GenericValue shipmentReceipt : shipmentReceipts) {
                     if (! UtilValidate.isEmpty(shipmentReceipt.get("quantityAccepted"))) {
                         receivedQuantity = receivedQuantity.add(shipmentReceipt.getBigDecimal("quantityAccepted"));
                     }
@@ -5133,7 +5133,7 @@ public class OrderServices {
         cart.setOrderType("SALES_ORDER");
         cart.setOrderPartyId(partyId);
 
-        for(String item : itemMap.keySet()) {
+        for (String item : itemMap.keySet()) {
             BigDecimal price = itemMap.get(item);
             try {
                 cart.addNonProductItem("BULK_ORDER_ITEM", item, null, price, BigDecimal.ONE, null, null, null, dispatcher);
@@ -5294,10 +5294,10 @@ public class OrderServices {
 
             // Aggregate the order items subtotal
             List<GenericValue> orderItems = orderHeader.getRelated("OrderItem", null, UtilMisc.toList("orderItemSeqId"), false);
-            for(GenericValue orderItem : orderItems) {
+            for (GenericValue orderItem : orderItems) {
                 // Look at the orderItemBillings to discover the amount and quantity ever invoiced for this order item
                 List<GenericValue> orderItemBillings = delegator.findByAnd("OrderItemBilling", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.get("orderItemSeqId")), null, false);
-                for(GenericValue orderItemBilling : orderItemBillings) {
+                for (GenericValue orderItemBilling : orderItemBillings) {
                     BigDecimal quantity = orderItemBilling.getBigDecimal("quantity");
                     BigDecimal amount = orderItemBilling.getBigDecimal("amount").setScale(orderDecimals, orderRounding);
                     if (UtilValidate.isEmpty(invoicedQuantity) || UtilValidate.isEmpty(amount)) continue;
@@ -5314,12 +5314,12 @@ public class OrderServices {
 
                 // Retrieve the adjustments for this item
                 List<GenericValue> orderAdjustments = delegator.findByAnd("OrderAdjustment", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.get("orderItemSeqId")), null, false);
-                for(GenericValue orderAdjustment : orderAdjustments) {
+                for (GenericValue orderAdjustment : orderAdjustments) {
                     String orderAdjustmentTypeId = orderAdjustment.getString("orderAdjustmentTypeId");
 
                     // Look at the orderAdjustmentBillings to discove the amount ever invoiced for this order adjustment
                     List<GenericValue> orderAdjustmentBillings = delegator.findByAnd("OrderAdjustmentBilling", UtilMisc.toMap("orderAdjustmentId", orderAdjustment.get("orderAdjustmentId")), null, false);
-                    for(GenericValue orderAjustmentBilling : orderAdjustmentBillings) {
+                    for (GenericValue orderAjustmentBilling : orderAdjustmentBillings) {
                         BigDecimal amount = orderAjustmentBilling.getBigDecimal("amount").setScale(orderDecimals, orderRounding);
                         if (UtilValidate.isEmpty(amount)) continue;
 
@@ -5346,9 +5346,9 @@ public class OrderServices {
             // Total the order-header-level adjustments for the order
             BigDecimal orderHeaderAdjustmentsTotalValue = ZERO;
             List<GenericValue> orderHeaderAdjustments = delegator.findByAnd("OrderAdjustment", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", "_NA_"), null, false);
-            for(GenericValue orderHeaderAdjustment : orderHeaderAdjustments) {
+            for (GenericValue orderHeaderAdjustment : orderHeaderAdjustments) {
                 List<GenericValue> orderHeaderAdjustmentBillings = delegator.findByAnd("OrderAdjustmentBilling", UtilMisc.toMap("orderAdjustmentId", orderHeaderAdjustment.get("orderAdjustmentId")), null, false);
-                for(GenericValue orderHeaderAdjustmentBilling : orderHeaderAdjustmentBillings) {
+                for (GenericValue orderHeaderAdjustmentBilling : orderHeaderAdjustmentBillings) {
                     BigDecimal amount = orderHeaderAdjustmentBilling.getBigDecimal("amount").setScale(orderDecimals, orderRounding);
                     if (UtilValidate.isEmpty(amount)) continue;
                     orderHeaderAdjustmentsTotalValue = orderHeaderAdjustmentsTotalValue.add(amount);
@@ -5487,7 +5487,7 @@ public class OrderServices {
 
                     // only keep the orderitem with the related product.
                     List<ShoppingCartItem> cartItems = cart.items();
-                    for(ShoppingCartItem shoppingCartItem : cartItems) {
+                    for (ShoppingCartItem shoppingCartItem : cartItems) {
                         if (!subscription.get("productId").equals(shoppingCartItem.getProductId())) {
                             cart.removeCartItem(shoppingCartItem, dispatcher);
                         }

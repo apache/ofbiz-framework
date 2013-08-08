@@ -87,7 +87,7 @@ public class CachedClassLoader extends URLClassLoader {
         registerClass(org.ofbiz.base.util.TimeDuration.class);
 
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        for(Init cachedClassLoader : ServiceLoader.load(Init.class, loader)) {
+        for (Init cachedClassLoader : ServiceLoader.load(Init.class, loader)) {
             try {
                 cachedClassLoader.loadClasses(loader);
             } catch (Exception e) {
