@@ -292,7 +292,7 @@ public class GenerateContainer implements Container {
                     }
                     is.close();
                         process.waitFor();
-    //                    System.out.println(process.waitfor ());
+    //                    System.out.println(process.waitFor ());
     //                    System.out.println("exit value" + process.exitValue());
                     Debug.logInfo(ofbizName + " undeployment ended" , module);
                 } catch (IOException e) {
@@ -353,7 +353,7 @@ public class GenerateContainer implements Container {
                     }
                     is.close();
                     process.waitFor();
-//                    System.out.println(process.waitfor ());
+//                    System.out.println(process.waitFor ());
 //                    System.out.println("exit value" + process.exitValue());
                     Debug.logInfo(ofbizName + " deployment ended" , module);
                 } catch (IOException e) {
