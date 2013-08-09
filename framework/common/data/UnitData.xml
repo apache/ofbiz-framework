@@ -199,6 +199,8 @@ under the License.
     <Uom abbreviation="gi" description="Gill (1/4 UK pint)" uomId="VLIQ_gi" uomTypeId="VOLUME_LIQ_MEASURE"/>
     <Uom abbreviation="gal" description="Gallon (UK)" uomId="VLIQ_galUK" uomTypeId="VOLUME_LIQ_MEASURE"/>
     <Uom abbreviation="gal" description="Gallon (US)" uomId="VLIQ_galUS" uomTypeId="VOLUME_LIQ_MEASURE"/>
+    <Uom abbreviation="m3" description="Cubic meter (liquid)" uomId="VLIQ_M3" uomTypeId="VOLUME_LIQ_MEASURE"/>
+    <Uom abbreviation="hL" description="Hectoliter" uomId="VLIQ_HL" uomTypeId="VOLUME_LIQ_MEASURE"/>
     <Uom abbreviation="L" description="Liter" uomId="VLIQ_L" uomTypeId="VOLUME_LIQ_MEASURE"/>
     <Uom abbreviation="ml" description="Milliliter" uomId="VLIQ_ml" uomTypeId="VOLUME_LIQ_MEASURE"/>
     <Uom abbreviation="fl. oz (UK)" description="Ounce, fluid (UK)" uomId="VLIQ_ozUK" uomTypeId="VOLUME_LIQ_MEASURE"/>
@@ -215,9 +217,11 @@ under the License.
     <UomConversion uomId="VLIQ_galUK" uomIdTo="VLIQ_galUS" conversionFactor="1.2009"/>
     <UomConversion uomId="VLIQ_galUS" uomIdTo="VLIQ_qt" conversionFactor="4"/>
     <UomConversion uomId="VLIQ_galUS" uomIdTo="VLIQ_L" conversionFactor="3.785"/>
+    <UomConversion uomId="VLIQ_M3" uomIdTo="VLIQ_L" conversionFactor="1000"/>
     <UomConversion uomId="VLIQ_L" uomIdTo="VLIQ_qt" conversionFactor="1.056"/>
     <UomConversion uomId="VLIQ_ml" uomIdTo="VLIQ_L" conversionFactor="0.001"/>
     <UomConversion uomId="VLIQ_L" uomIdTo="VLIQ_ml" conversionFactor="1000"/>
+    <UomConversion uomId="VLIQ_HL" uomIdTo="VLIQ_L" conversionFactor="100"/>
     <UomConversion uomId="VLIQ_ozUK" uomIdTo="VLIQ_L" conversionFactor="0.029"/>
     <UomConversion uomId="VLIQ_ozUK" uomIdTo="VLIQ_ozUS" conversionFactor="0.96"/>
     <UomConversion uomId="VLIQ_ozUS" uomIdTo="VLIQ_Tbs" conversionFactor="2"/>
