@@ -1670,6 +1670,18 @@ under the License.
         </view-link>
     </view-entity>
 
+    <view-entity entity-name="InvItemAndOrdItem" package-name="org.ofbiz.accounting.invoice">
+        <member-entity entity-alias="INVITM" entity-name="InvoiceItem"/>
+        <member-entity entity-alias="ORDBIL" entity-name="OrderItemBilling"/>
+        <alias-all entity-alias="INVITM"/>
+        <alias name="orderId" entity-alias="ORDBIL"/>
+        <alias name="orderItemSeqId" entity-alias="ORDBIL"/>
+        <view-link entity-alias="INVITM" rel-entity-alias="ORDBIL" rel-optional="true">
+            <key-map field-name="invoiceId"/>
+            <key-map field-name="invoiceItemSeqId"/>
+        </view-link>
+    </view-entity>
+
     <view-entity entity-name="InvoiceContentAndInfo"
             package-name="org.ofbiz.accounting.invoice"
             title="InvoiceContent Content and DataResource View Entity">

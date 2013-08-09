@@ -188,11 +188,14 @@ under the License.
                     <order-by field-name="invoiceItemSeqId"/>
                 </entity-and>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/CreateApplicationList.groovy"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/OrderListInvoiceItem.groovy"/>
                 <set field="invoiceAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(invoice)}" type="BigDecimal"/>
                 <set field="notAppliedAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(invoice)}" type="BigDecimal"/>
                 <set field="appliedAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceApplied(invoice)}" type="BigDecimal"/>
-                <entity-condition entity-name="AcctgTransAndEntries" list="AcctgTransAndEntries">
+                <entity-condition entity-name="InvItemAndOrdItem" list="invItemAndOrdItems">
+                    <condition-expr field-name="invoiceId"  operator="equals" from-field="invoiceId"/>
+                    <order-by field-name="invoiceItemSeqId"/>
+                </entity-condition>
+                <entity-condition entity-name="AcctgTransAndEntries" list="acctgTransAndEntries">
                     <condition-expr field-name="invoiceId"  operator="equals" from-field="invoiceId"/>
                     <order-by field-name="acctgTransId"/>
                     <order-by field-name="acctgTransEntrySeqId"/>
