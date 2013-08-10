@@ -120,8 +120,8 @@ under the License.
             <actions>
                 <entity-condition entity-name="SalesOrderItemStarSchema" list="SalesReportList">
                     <condition-list combine="and">
-                        <condition-expr field-name="orderDate" operator="greater-equals" from-field="parameters.fromOrderDate" ignore-if-null="true"/>
-                        <condition-expr field-name="orderDate" operator="less" from-field="parameters.thruOrderDate" ignore-if-null="true"/>
+                        <condition-expr field-name="orderDate" operator="greater-equals" from-field="parameters.fromOrderDate" ignore-if-empty="true"/>
+                        <condition-expr field-name="orderDate" operator="less" from-field="parameters.thruOrderDate" ignore-if-empty="true"/>
                     </condition-list>
                 </entity-condition>
             </actions>
