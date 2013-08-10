@@ -189,7 +189,6 @@ public class ContactMechServices {
         // never change a contact mech, just create a new one with the changes
         GenericValue newContactMech = GenericValue.create(contactMech);
         GenericValue newPartyContactMech = GenericValue.create(partyContactMech);
-        GenericValue relatedEntityToSet = null;
 
         if ("POSTAL_ADDRESS".equals(contactMechTypeId)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
@@ -211,8 +210,6 @@ public class ContactMechServices {
         toBeStored.add(newPartyContactMech);
 
         if (isModified) {
-            if (relatedEntityToSet != null) toBeStored.add(relatedEntityToSet);
-
             newContactMech.set("contactMechId", newCmId);
             newPartyContactMech.set("contactMechId", newCmId);
             newPartyContactMech.set("fromDate", now);
