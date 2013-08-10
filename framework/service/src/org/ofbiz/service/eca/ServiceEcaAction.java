@@ -66,7 +66,7 @@ public class ServiceEcaAction implements java.io.Serializable {
         this.serviceMode = action.getAttribute("mode");
         this.runAsUser = action.getAttribute("run-as-user");
         // support the old, inconsistent attribute name
-        if (UtilValidate.isEmail(this.runAsUser)) this.runAsUser = action.getAttribute("runAsUser");
+        if (UtilValidate.isEmpty(this.runAsUser)) this.runAsUser = action.getAttribute("runAsUser");
         this.resultMapName = action.getAttribute("result-map-name");
 
         // default is true, so anything but false is true
