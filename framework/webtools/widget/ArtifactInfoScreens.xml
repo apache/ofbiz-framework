@@ -49,6 +49,7 @@ under the License.
                 <set field="titleProperty" value="WebtoolsViewComponents"/>
                 <set field="tabButtonItem" value="viewents"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/artifactinfo/ComponentList.groovy"/>
+                <set field="viewSize" value="30"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonArtifactDecorator" location="${parameters.mainDecoratorLocation}">
