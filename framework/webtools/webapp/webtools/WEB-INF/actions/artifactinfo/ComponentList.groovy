@@ -28,7 +28,6 @@ import javolution.util.FastList;
 import org.ofbiz.base.util.*
 
 Collection <ComponentConfig> components = ComponentConfig.getAllComponents();
-
 List componentList = FastList.newInstance();
 
 components.each { component ->
@@ -45,6 +44,19 @@ components.each { component ->
          componentMap.contextRoot = webApp.getContextRoot();
          componentMap.location = webApp.getLocation();
          componentList.add(componentMap);
+     }
+     if (UtilValidate.isEmpty(webApps)) {
+         componentMap = FastMap.newInstance();
+         componentMap.compName = component.getComponentName();
+         componentMap.rootLocation =  component.getRootLocation();
+         componentMap.enabled = (component.enabled() == true? "Y" : "N");
+         componentList.add(componentMap);
+         componentMap.webAppName = "";
+         componentMap.contextRoot = "";
+         componentMap.location = "";
+         componentMap.webAppName = "";
+         componentMap.contextRoot = "";
+         componentMap.location = "";
      }
 }
 
