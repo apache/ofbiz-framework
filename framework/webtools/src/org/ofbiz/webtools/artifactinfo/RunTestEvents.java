@@ -33,16 +33,16 @@ public class RunTestEvents {
 
     public static String runTest(HttpServletRequest request, HttpServletResponse response) throws ContainerException {
         
-        String componentName = request.getParameter("compName");
+        String component = request.getParameter("compName");
         String suiteName = request.getParameter("suiteName");
         String caseName = request.getParameter("caseName");
         String result = null;
 
         String[] args = null;
         if (caseName == null) {
-            args = new String[]{"-componentname=" + componentName, "-suitename=" + suiteName + "-loglevel=info"};
+            args = new String[]{"-component=" + component, " -suitename=" + suiteName + " -loglevel=info"};
         } else {
-            args = new String[]{"-componentname=" + componentName, "-suitename=" + suiteName, "-case=" + caseName, "-loglevel=info"};
+            args = new String[]{"-component=" + component, " -suitename=" + suiteName, " -case=" + caseName, " -loglevel=info"};
         }
 
         TestRunContainer testRunContainer = new TestRunContainer();

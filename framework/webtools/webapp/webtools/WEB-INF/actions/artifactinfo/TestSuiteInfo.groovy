@@ -45,10 +45,10 @@ for (ComponentConfig.TestSuiteInfo testSuiteInfo: ComponentConfig.getAllTestSuit
             testMap = FastMap.newInstance();
             String caseName = testCaseElement.getAttribute("case-name");
             if (firstLine == true) {
-                testMap = UtilMisc.toMap("suiteName", suiteName, "caseName", caseName);
+                testMap = UtilMisc.toMap("suiteName", suiteName, "suiteNameSave", suiteName, "caseName", caseName);
                 firstLine = false;
             } else {
-                testMap = UtilMisc.toMap("caseName", caseName);
+                testMap = UtilMisc.toMap("suiteNameSave", suiteName, "caseName", caseName);
             }
             testList.add(testMap);
         }

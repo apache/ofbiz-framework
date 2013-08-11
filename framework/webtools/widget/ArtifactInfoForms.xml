@@ -36,12 +36,12 @@
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="compName"><hidden value="${parameters.compName}"/></field>
         <field name="suiteName"><display/></field>
-        <!-- field name="runSuite" use-when="suiteName!=void">
-            <hyperlink target="RunTest?compName=${parameters.compName}&amp;suiteName=${suiteName}" description="run suite"/>
-        </field-->
+        <field name="runSuite" use-when="suiteName!=void">
+            <hyperlink target="RunTest?compName=${parameters.compName}&amp;suiteName=${suiteNameSave}" description="run suite"/>
+        </field>
         <field name="caseName"><display/></field>
         <field name="runCase">
-            <hyperlink target="RunTest?compName=${parameters.compName}&amp;suiteName=${suiteName}&amp;caseName=${caseName}" description="run case"/>
+            <hyperlink target="RunTest?compName=${parameters.compName}&amp;suiteName=${suiteNameSave}&amp;caseName=${caseName}" description="run case"/>
         </field>
     </form>
 </forms>
