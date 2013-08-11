@@ -26,7 +26,6 @@ under the License.
     <property name="site.dir" value="../site"/>
     <property name="memory.initial.param" value="-Xms128M"/>
     <property name="memory.max.param" value="-Xmx512M"/>
-    <property name="pos.memory.max.param" value="-Xmx512M"/>
     <property name="memory.maxpermsize.param" value="-XX:MaxPermSize=512M"/>
 
     <available file="applications/build.xml" property="applications.present"/>
