@@ -179,7 +179,7 @@
     <TaxAuthority taxAuthPartyId="FIN_VERO" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="FIN" taxIdFormatPattern="^(FI-?)?{0,1}[0-9]{8}$"/>
 
     <Party partyId="FRA_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDatetime="2013-07-12 00:00:00.000"/>
-    <PartyGroup partyId="FRA_TA" groupName="Ministère de l'économie est des finances"/>
+    <PartyGroup partyId="FRA_TA" groupName="Ministère de l'économie et des finances"/>
     <PartyRole partyId="FRA_TA" roleTypeId="TAX_AUTHORITY"/>
     <TaxAuthority taxAuthPartyId="FRA_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="FRA" taxIdFormatPattern="^(FR-?)?[0-9A-Z]{2}\ ?[0-9]{9}$"/>
 
