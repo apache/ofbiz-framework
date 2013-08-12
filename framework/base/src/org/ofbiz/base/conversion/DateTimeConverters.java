@@ -644,6 +644,10 @@ public class DateTimeConverters implements ConverterLoader {
             try {
                 return new java.sql.Timestamp(df.parse(str).getTime());
             } catch (ParseException e) {
+                // FIXME: This change needs to be reverted. The Timestamp format is
+                // defined by the JDBC specification. Passing an invalid format is an
+                // application error and the application needs to be fixed.
+                //
                 // before throwing an exception, try a generic format first
                 df = DateFormat.getDateTimeInstance();
                 if (timeZone != null) {
