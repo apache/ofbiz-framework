@@ -114,6 +114,11 @@ public class EntityDataLoader {
                 EntityDataReader entityDataReaderInfo = null;
                 try {
                     entityDataReaderInfo = EntityConfigUtil.getEntityDataReader(readerName);
+                    if (entityDataReaderInfo == null) {
+                        // create a reader name defined at runtime
+                        Debug.logInfo("Could not find entity-data-reader named: " + readerName + ". Creating a new reader with this name. ", module);
+                        entityDataReaderInfo = new EntityDataReader(readerName);
+                    }
                 } catch (GenericEntityConfException e) {
                     Debug.logWarning(e, "Exception thrown while getting entity data reader config: ", module);
                 }
