@@ -51,7 +51,6 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
     HttpServletRequest request;
     HttpServletResponse response;
     protected String userLoginIdAtPermGrant;
-    protected boolean userLoginIdHasChanged = true;
     protected String permissionErrorMessage = "";
 
     public static final String module = HtmlMenuRenderer.class.getName();
@@ -234,10 +233,6 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
 */
     public void renderMenuOpen(Appendable writer, Map<String, Object> context, ModelMenu modelMenu) throws IOException {
 
-        if (!userLoginIdHasChanged) {
-            userLoginIdHasChanged = userLoginIdHasChanged();
-        }
-
             //Debug.logInfo("in HtmlMenuRenderer, userLoginIdHasChanged:" + userLoginIdHasChanged,"");
         this.widgetCommentsEnabled = ModelWidget.widgetBoundaryCommentsEnabled(context);
         renderBeginningBoundaryComment(writer, "Menu Widget", modelMenu);
@@ -298,7 +293,6 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         appendWhitespace(writer);
         renderEndingBoundaryComment(writer, "Menu Widget", modelMenu);
 
-        userLoginIdHasChanged = userLoginIdHasChanged();
         GenericValue userLogin = (GenericValue)request.getSession().getAttribute("userLogin");
         if (userLogin != null) {
             String userLoginId = userLogin.getString("userLoginId");
@@ -373,12 +367,6 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         }
         return hasChanged;
     }
-
-
-    public void setUserLoginIdHasChanged(boolean b) {
-        userLoginIdHasChanged = b;
-    }
-
 
     public String getTitle(ModelMenuItem menuItem, Map<String, Object> context) {
         String title = null;
