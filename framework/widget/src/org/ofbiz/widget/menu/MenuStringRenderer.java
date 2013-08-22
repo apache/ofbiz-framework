@@ -32,7 +32,6 @@ public interface MenuStringRenderer {
     public void renderFormatSimpleWrapperOpen(Appendable writer, Map<String, Object> context, ModelMenu menu) throws IOException ;
     public void renderFormatSimpleWrapperClose(Appendable writer, Map<String, Object> context, ModelMenu menu) throws IOException ;
     public void renderFormatSimpleWrapperRows(Appendable writer, Map<String, Object> context, Object menu) throws IOException ;
-    public void setUserLoginIdHasChanged(boolean b) throws IOException ;
     public void renderLink(Appendable writer, Map<String, Object> context, ModelMenuItem.Link link) throws IOException ;
     public void renderImage(Appendable writer, Map<String, Object> context, ModelMenuItem.Image image) throws IOException ;
 }
