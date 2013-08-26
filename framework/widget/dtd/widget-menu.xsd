@@ -73,7 +73,12 @@ under the License.
             <xs:attribute type="xs:string" name="default-cell-width" />
             <xs:attribute type="xs:string" name="default-disabled-title-style" />
             <xs:attribute type="xs:string" name="selected-menuitem-context-field-name" />
-            <xs:attribute type="xs:string" name="menu-container-style" />
+            <xs:attribute type="xs:string" name="menu-container-style">
+                <xs:annotation>
+                    <xs:documentation>The style of the container that encloses the menu items. This
+                    attribute is ignored when the id attribute is not empty.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
             <xs:attribute name="default-align" default="left">
                 <xs:simpleType>
                     <xs:restriction base="xs:token">
