@@ -20,13 +20,15 @@ under the License.
 
 <entity-engine-xml>
     <!--
-        Based on: ISO 3166 http://www.iso.org/iso/en/prods-services/iso3166ma/index.html
+        Based on: ISO 3166  https://www.iso.org/obp/ui/#search 
+                  and http://www.iso.org/iso/home/standards/country_codes/country_names_and_code_elements.htm. 
         See also: http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
                   http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
                   http://en.wikipedia.org/wiki/ISO_3166-1_numeric
     -->
     <Geo abbreviation="_NA_" geoCode="_NA_" geoId="_NA_" geoName="Not Applicable"/>
     <Geo abbreviation="AFG" geoCode="AF" geoId="AFG" geoName="Afghanistan" geoSecCode="004" geoTypeId="COUNTRY"/>
+    <Geo abbreviation="ALA" geoCode="AX" geoId="ALA" geoName="Åland islands" countryNumber="248"/>        
     <Geo abbreviation="ALB" geoCode="AL" geoId="ALB" geoName="Albania" geoSecCode="008" geoTypeId="COUNTRY"/>
     <Geo abbreviation="DZA" geoCode="DZ" geoId="DZA" geoName="Algeria" geoSecCode="012" geoTypeId="COUNTRY"/>
     <Geo abbreviation="ASM" geoCode="AS" geoId="ASM" geoName="American Samoa" geoSecCode="016" geoTypeId="COUNTRY"/>
@@ -47,6 +49,7 @@ under the License.
     <Geo abbreviation="BRB" geoCode="BB" geoId="BRB" geoName="Barbados" geoSecCode="052" geoTypeId="COUNTRY"/>
     <Geo abbreviation="BLR" geoCode="BY" geoId="BLR" geoName="Belarus" geoSecCode="112" geoTypeId="COUNTRY"/>
     <Geo abbreviation="BEL" geoCode="BE" geoId="BEL" geoName="Belgium" geoSecCode="056" geoTypeId="COUNTRY"/>
+    <Geo abbreviation="BES" geoCode="BQ" geoId="BES" geoName="Bonaire, Sint Eustatius and Saba" geoSecCode="535" geoTypeId="COUNTRY"/>
     <Geo abbreviation="BLZ" geoCode="BZ" geoId="BLZ" geoName="Belize" geoSecCode="084" geoTypeId="COUNTRY"/>
     <Geo abbreviation="BEN" geoCode="BJ" geoId="BEN" geoName="Benin" geoSecCode="204" geoTypeId="COUNTRY"/>
     <Geo abbreviation="BMU" geoCode="BM" geoId="BMU" geoName="Bermuda" geoSecCode="060" geoTypeId="COUNTRY"/>
@@ -81,6 +84,7 @@ under the License.
     <Geo abbreviation="CIV" geoCode="CI" geoId="CIV" geoName="Cote D&apos;ivoire" geoSecCode="384" geoTypeId="COUNTRY"/>
     <Geo abbreviation="HRV" geoCode="HR" geoId="HRV" geoName="Croatia (local Name: Hrvatska)" geoSecCode="191" geoTypeId="COUNTRY"/>
     <Geo abbreviation="CUB" geoCode="CU" geoId="CUB" geoName="Cuba" geoSecCode="192" geoTypeId="COUNTRY"/>
+    <Geo abbreviation="CUW" geoCode="CW" geoId="CUW" geoName="Curaçao" geoSecCode="531" geoTypeId="COUNTRY"/>
     <Geo abbreviation="CYP" geoCode="CY" geoId="CYP" geoName="Cyprus" geoSecCode="196" geoTypeId="COUNTRY"/>
     <Geo abbreviation="CZE" geoCode="CZ" geoId="CZE" geoName="Czech Republic" geoSecCode="203" geoTypeId="COUNTRY"/>
     <Geo abbreviation="DNK" geoCode="DK" geoId="DNK" geoName="Denmark" geoSecCode="208" geoTypeId="COUNTRY"/>
@@ -214,6 +218,8 @@ under the License.
     <Geo abbreviation="KNA" geoCode="KN" geoId="KNA" geoName="Saint Kitts And Nevis" geoSecCode="659" geoTypeId="COUNTRY"/>
     <Geo abbreviation="LCA" geoCode="LC" geoId="LCA" geoName="Saint Lucia" geoSecCode="662" geoTypeId="COUNTRY"/>
     <Geo abbreviation="VCT" geoCode="VC" geoId="VCT" geoName="Saint Vincent And The Grenadines" geoSecCode="670" geoTypeId="COUNTRY"/>
+    <Geo abbreviation="BLM" geoCode="BL" geoId="BLM" geoName="Saint Barthélemy" geoSecCode="652" geoTypeId="COUNTRY"/>
+    <Geo abbreviation="MAF" geoCode="MF" geoId="MAF" geoName="Saint Martin (French part)" geoSecCode="663" geoTypeId="COUNTRY"/>
     <Geo abbreviation="WSM" geoCode="WS" geoId="WSM" geoName="Samoa" geoSecCode="882" geoTypeId="COUNTRY"/>
     <Geo abbreviation="SMR" geoCode="SM" geoId="SMR" geoName="San Marino" geoSecCode="674" geoTypeId="COUNTRY"/>
     <Geo abbreviation="STP" geoCode="ST" geoId="STP" geoName="Sao Tome And Principe" geoSecCode="678" geoTypeId="COUNTRY"/>
@@ -225,11 +231,13 @@ under the License.
     <Geo abbreviation="SLE" geoCode="SL" geoId="SLE" geoName="Sierra Leone" geoSecCode="694" geoTypeId="COUNTRY"/>
     <Geo abbreviation="SGP" geoCode="SG" geoId="SGP" geoName="Singapore" geoSecCode="702" geoTypeId="COUNTRY"/>
     <Geo abbreviation="SVK" geoCode="SK" geoId="SVK" geoName="Slovakia (slovak Republic)" geoSecCode="703" geoTypeId="COUNTRY"/>
+    <Geo abbreviation="SXM" geoCode="SX" geoId="SXM" geoName="Sint Maarten (Dutch part)" geoSecCode="534" geoTypeId="COUNTRY"/>
     <Geo abbreviation="SVN" geoCode="SI" geoId="SVN" geoName="Slovenia" geoSecCode="705" geoTypeId="COUNTRY"/>
     <Geo abbreviation="SLB" geoCode="SB" geoId="SLB" geoName="Solomon Islands" geoSecCode="090" geoTypeId="COUNTRY"/>
     <Geo abbreviation="SOM" geoCode="SO" geoId="SOM" geoName="Somalia" geoSecCode="706" geoTypeId="COUNTRY"/>
     <Geo abbreviation="SGS" geoCode="GS" geoId="SGS" geoName="South Georgia And The South Sandwich Islands" geoSecCode="239" geoTypeId="COUNTRY"/>
     <Geo abbreviation="ZAF" geoCode="ZA" geoId="ZAF" geoName="South Africa" geoSecCode="710" geoTypeId="COUNTRY"/>
+    <Geo abbreviation="SSD" geoCode="SS" geoId="SSD" geoName="South Sudan" geoSecCode="728" geoTypeId="COUNTRY"/>
     <Geo abbreviation="ESP" geoCode="ES" geoId="ESP" geoName="Spain" geoSecCode="724" geoTypeId="COUNTRY"/>
     <Geo abbreviation="LKA" geoCode="LK" geoId="LKA" geoName="Sri Lanka" geoSecCode="144" geoTypeId="COUNTRY"/>
     <Geo abbreviation="SHN" geoCode="SH" geoId="SHN" geoName="St. Helena" geoSecCode="654" geoTypeId="COUNTRY"/>
