@@ -691,6 +691,7 @@ width: 100%;
 display: inline; /* IE Fix */
 }
 
+.button-bar form,
 .button-bar ul li ul li {
 float: left;
 font-weight: bold;
