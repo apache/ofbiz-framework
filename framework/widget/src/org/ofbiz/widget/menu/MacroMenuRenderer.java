@@ -227,6 +227,9 @@ public class MacroMenuRenderer implements MenuStringRenderer {
             targetParameters.append("]");
 
         }
+        if (targetParameters.length() == 0) {
+            targetParameters.append("\"\"");
+        }
         if (UtilValidate.isNotEmpty(target)) {
             if (!"hidden-form".equals(linkType)) {
                 StringBuilder sb = new StringBuilder();
@@ -236,7 +239,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         }
         parameters.put("linkUrl", linkUrl);
         parameters.put("actionUrl", actionUrl);
-        parameters.put("parameterList", targetParameters.toString());
+        parameters.put("parameterList", targetParameters);
         String imgStr = "";
         Image img = link.getImage();
         if (img != null) {
