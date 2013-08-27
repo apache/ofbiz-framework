@@ -291,10 +291,18 @@ under the License.
     
     <menu name="LayoutDemo" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="Selected" title="${uiLabelMap.CommonSelected}" widget-style="selected">
-            <link target="${demoTargetUrl}"/>
+            <link target="${demoTargetUrl}">
+                <parameter param-name="demoParam1"/>
+                <parameter param-name="demoParam2"/>
+                <parameter param-name="demoParam3"/>
+            </link>
         </menu-item>
         <menu-item name="Enabled" title="${uiLabelMap.CommonEnabled}">
-            <link target="${demoTargetUrl}"/>
+            <link target="${demoTargetUrl}" link-type="hidden-form">
+                <parameter param-name="demoParam1"/>
+                <parameter param-name="demoParam2"/>
+                <parameter param-name="demoParam3"/>
+            </link>
         </menu-item>
         <menu-item name="Disabled" title="${uiLabelMap.CommonDisabled}" widget-style="disabled">
         </menu-item>
