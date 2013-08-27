@@ -137,6 +137,7 @@ under the License.
     <Geo abbreviation="IRN" geoCode="IR" geoId="IRN" geoName="Iran (islamic Republic Of)" geoSecCode="364" geoTypeId="COUNTRY"/>
     <Geo abbreviation="IRQ" geoCode="IQ" geoId="IRQ" geoName="Iraq" geoSecCode="368" geoTypeId="COUNTRY"/>
     <Geo abbreviation="IRL" geoCode="IE" geoId="IRL" geoName="Ireland" geoSecCode="372" geoTypeId="COUNTRY"/>
+    <Geo abbreviation="IMN" geoCode="IM" geoId="IMN" geoName="Isle of Man" geoSecCode="833" geoTypeId="COUNTRY"/>
     <Geo abbreviation="ISR" geoCode="IL" geoId="ISR" geoName="Israel" geoSecCode="376" geoTypeId="COUNTRY"/>
     <Geo abbreviation="ITA" geoCode="IT" geoId="ITA" geoName="Italy" geoSecCode="380" geoTypeId="COUNTRY"/>
     <Geo abbreviation="JAM" geoCode="JM" geoId="JAM" geoName="Jamaica" geoSecCode="388" geoTypeId="COUNTRY"/>
@@ -318,7 +319,7 @@ under the License.
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="GBR" geoId="ENGL"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="GBR" geoId="NIRL"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="GBR" geoId="WALS"/>
-
+    
     <CountryAddressFormat geoId="DEU" geoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
     <CountryAddressFormat geoId="GBR" geoAssocTypeId="GROUP_MEMBER" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
     <CountryAddressFormat geoId="ENGL" geoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
