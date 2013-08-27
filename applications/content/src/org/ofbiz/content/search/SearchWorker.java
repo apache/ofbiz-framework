@@ -26,7 +26,6 @@ import java.util.Map;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-import org.apache.lucene.index.*;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
@@ -42,6 +41,11 @@ import org.ofbiz.service.LocalDispatcher;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
+import org.apache.lucene.index.CorruptIndexException;
+import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.index.Term;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.LockObtainFailedException;
@@ -182,13 +186,6 @@ public class SearchWorker {
             Integer newIndexCount = goodIndexCount + 1;
             context.put("goodIndexCount", newIndexCount);
         }
-        /*
-            String dataResourceId = content.getString("dataResourceId");
-            if (UtilValidate.isNotEmpty(dataResourceId)) {
-                doc = DataResourceDocument.Document(dataResourceId, delegator, context);
-                writer.addDocument(doc);
-            }
-         */
     }
 
 }
