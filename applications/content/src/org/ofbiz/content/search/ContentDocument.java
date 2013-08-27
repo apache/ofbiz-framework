@@ -97,17 +97,11 @@ public class ContentDocument {
         Delegator delegator = content.getDelegator();
         ContentWorker.getContentAncestryAll(delegator, contentId, "WEB_SITE_PUB_PT", "TO", ancestorList);
         String ancestorString = StringUtil.join(ancestorList, " ");
-        //Debug.logInfo("in ContentDocument, ancestorString:" + ancestorString,
-        // module);
         if (UtilValidate.isNotEmpty(ancestorString)) {
             Field field = new StringField("site", ancestorString, Store.NO);
-            //Debug.logInfo("in ContentDocument, field:" + field.stringValue(),
-            // module);
             doc.add(field);
         }
         boolean retVal = indexDataResource(content, doc, context, dispatcher);
-        //Debug.logInfo("in DataResourceDocument, context.badIndexList:" +
-        // context.get("badIndexList"), module);
         if (!retVal)
             doc = null;
         return doc;
@@ -116,10 +110,7 @@ public class ContentDocument {
     public static boolean indexDataResource(GenericValue content, Document doc, Map<String, Object> context, LocalDispatcher dispatcher) {
         Delegator delegator = content.getDelegator();
         String contentId = content.getString("contentId");
-        //Debug.logInfo("in ContentDocument, contentId:" + contentId,
-        // module);
         String dataResourceId = content.getString("dataResourceId");
-        //Debug.logInfo("in ContentDocument, dataResourceId:" + dataResourceId, module);
         GenericValue dataResource;
         try {
             dataResource = delegator.findOne("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId), true);
@@ -127,13 +118,11 @@ public class ContentDocument {
             Debug.logError(e, module);
             List<String> badIndexList = UtilGenerics.checkList(context.get("badIndexList"));
             badIndexList.add(contentId + " - " + e.getMessage());
-            //Debug.logInfo("in DataResourceDocument, badIndexList:" + badIndexList, module);
             return false;
         }
         if (dataResource == null) {
             List<String> badIndexList = UtilGenerics.checkList(context.get("badIndexList"));
             badIndexList.add(contentId + " - dataResource is null.");
-            //Debug.logInfo("in DataResourceDocument, badIndexList:" + badIndexList, module);
             return false;
         }
         String mimeTypeId = dataResource.getString("mimeTypeId");
@@ -152,19 +141,15 @@ public class ContentDocument {
             Debug.logError(e, module);
             List<String> badIndexList = UtilGenerics.checkList(context.get("badIndexList"));
             badIndexList.add(contentId + " - " + e.getMessage());
-            //Debug.logInfo("in DataResourceDocument, badIndexList:" + badIndexList, module);
             return false;
         } catch (IOException e2) {
             Debug.logError(e2, module);
             List<String> badIndexList = UtilGenerics.checkList(context.get("badIndexList"));
             badIndexList.add(contentId + " - " + e2.getMessage());
-            //Debug.logInfo("in DataResourceDocument, badIndexList:" + badIndexList, module);
             return false;
         }
-        //Debug.logInfo("in DataResourceDocument, text:" + text, module);
         if (UtilValidate.isNotEmpty(text)) {
             Field field = new TextField("content", text, Store.NO);
-            //Debug.logInfo("in ContentDocument, field:" + field.stringValue(), module);
             doc.add(field);
         }
         List<GenericValue> featureDataResourceList;
@@ -182,7 +167,6 @@ public class ContentDocument {
             featureList.add(feature);
         }
         String featureString = StringUtil.join(featureList, " ");
-        //Debug.logInfo("in ContentDocument, featureString:" + featureString, module);
         if (UtilValidate.isNotEmpty(featureString)) {
             Field field = new TextField("feature", featureString, Store.NO);
             doc.add(field);
