@@ -18,6 +18,14 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+<!--
+        Based on: ISO 3166  https://www.iso.org/obp/ui/#search 
+                  and http://www.iso.org/iso/home/standards/country_codes/country_names_and_code_elements.htm. 
+        See also: http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
+                  http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+                  http://en.wikipedia.org/wiki/ISO_3166-1_numeric
+    -->
+
 <entity-engine-xml>
     <CountryCode countryAbbr="AFG" countryCode="AF" countryName="AFGHANISTAN" countryNumber="004"/>
     <CountryCode countryAbbr="ALA" countryCode="AX" countryName="ÅLAND ISLANDS" countryNumber="248"/>    
@@ -130,6 +138,7 @@ under the License.
     <CountryCode countryAbbr="IRN" countryCode="IR" countryName="IRAN (ISLAMIC REPUBLIC OF)" countryNumber="364"/>
     <CountryCode countryAbbr="IRQ" countryCode="IQ" countryName="IRAQ" countryNumber="368"/>
     <CountryCode countryAbbr="IRL" countryCode="IE" countryName="IRELAND" countryNumber="372"/>
+    <CountryCode countryAbbr="IMN" countryCode="IM" countryName="ISLE OF MAN" countryNumber="833"/>    
     <CountryCode countryAbbr="ISR" countryCode="IL" countryName="ISRAEL" countryNumber="376"/>
     <CountryCode countryAbbr="ITA" countryCode="IT" countryName="ITALY" countryNumber="380"/>
     <CountryCode countryAbbr="CIV" countryCode="CI" countryName="COTE D&apos;IVOIRE" countryNumber="384"/>
