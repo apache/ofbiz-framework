@@ -25,7 +25,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
