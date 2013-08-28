@@ -62,9 +62,7 @@ under the License.
 
     <target name="clean-lucene-index">
         <delete verbose="on">
-            <fileset dir="index/" includes="*">
-                <exclude name="indexhere.txt"/>
-            </fileset>
+            <fileset dir="../../runtime/data/indexes/" includes="*"/>
         </delete>
     </target>
 </project>
