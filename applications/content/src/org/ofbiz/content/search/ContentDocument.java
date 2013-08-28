@@ -51,24 +51,7 @@ import org.apache.lucene.document.TextField;
 
 public class ContentDocument {
 
-    static char dirSep = System.getProperty("file.separator").charAt(0);
     public static final String module = ContentDocument.class.getName();
-
-    public static Document Document(String id, Delegator delegator, LocalDispatcher dispatcher) throws InterruptedException  {
-
-        Document doc = null;
-        GenericValue content;
-          try {
-              content = delegator.findOne("Content", UtilMisc.toMap("contentId",id), true);
-          } catch (GenericEntityException e) {
-              Debug.logError(e, module);
-              return doc;
-          }
-
-        Map<String, Object> map = FastMap.newInstance();
-          doc = Document(content, map, dispatcher);
-        return doc;
-    }
 
     public static Document Document(GenericValue content, Map<String, Object> context, LocalDispatcher dispatcher) throws InterruptedException {
 
