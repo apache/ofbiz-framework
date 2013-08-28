@@ -106,7 +106,6 @@ framework/testtools/lib/org.springframework.web-3.1.0.M2.jar
 applications/content/lib/fontbox-1.7.1.jar
 applications/content/lib/jempbox-1.7.1.jar
 applications/content/lib/lucene-analyzers-common-4.0.0.jar
-applications/content/lib/lucene-core-3.0.0.jar
 applications/content/lib/lucene-core-4.0.0.jar
 applications/content/lib/lucene-queryparser-4.0.0.jar
 applications/content/lib/pdfbox-1.7.1.jar
