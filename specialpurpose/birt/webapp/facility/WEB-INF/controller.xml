@@ -20,7 +20,6 @@ under the License.
 
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
-    <include location="component://product/webapp/facility/WEB-INF/controller.xml"/>
 
     <description>Extended Facility Manager Controller Configuration File</description>
 

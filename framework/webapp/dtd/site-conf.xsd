@@ -55,6 +55,17 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.include">
         <xs:attribute type="xs:string" name="location" use="required"/>
+        <xs:attribute type="xs:boolean" name="if-present" use="optional" default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    Only used with component type location (component://). This allows to introduce a loose coupling to another component.
+                    
+                    If true, if the component is absent it will be ignored.
+                    A warning will be logged, to let know the component can possibly be checked out from trunk HEAD 
+                    (since R13.07, in releases specialpurpose components are removed but ecommerce). 
+                </xs:documentation>
+            </xs:annotation>            
+        </xs:attribute>        
     </xs:attributeGroup>
     <xs:element name="description" type="xs:string"/>
     <xs:element name="owner" type="xs:string"/>

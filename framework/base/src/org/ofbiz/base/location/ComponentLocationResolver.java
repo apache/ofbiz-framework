@@ -38,7 +38,7 @@ public class ComponentLocationResolver implements LocationResolver {
     public static final String module = ComponentLocationResolver.class.getName();
 
     public URL resolveLocation(String location) throws MalformedURLException {
-        String baseLocation = getBaseLocation(location).toString();
+        String baseLocation = getBaseLocation(location, false).toString();
         if (File.separatorChar != '/') {
             baseLocation = baseLocation.replace(File.separatorChar, '/');
         }
@@ -52,7 +52,7 @@ public class ComponentLocationResolver implements LocationResolver {
         }
     }
 
-    public static StringBuilder getBaseLocation(String location) throws MalformedURLException {
+    public static StringBuilder getBaseLocation(String location, boolean ifPresent) throws MalformedURLException {
         StringBuilder baseLocation = new StringBuilder(FlexibleLocation.stripLocationType(location));
         // componentName is between the first slash and the second
         int firstSlash = baseLocation.indexOf("/");
@@ -73,9 +73,13 @@ public class ComponentLocationResolver implements LocationResolver {
             baseLocation.insert(0, rootLocation);
             return baseLocation;
         } catch (ComponentException e) {
-            String errMsg = "Could not get root location for component with name [" + componentName + "], error was: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            throw new MalformedURLException(errMsg);
+            if (!ifPresent) { 
+                String errMsg = "Could not get root location for component with name [" + componentName + "], error was: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                throw new MalformedURLException(errMsg);
+            } else {
+                return null;
+            }
         }
-    }
+    }    
 }
