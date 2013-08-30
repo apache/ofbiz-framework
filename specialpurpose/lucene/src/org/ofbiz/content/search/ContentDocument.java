@@ -19,12 +19,12 @@
 package org.ofbiz.content.search;
 
 import java.io.IOException;
+import java.lang.String;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -75,9 +75,8 @@ public class ContentDocument {
         String description = content.getString("description");
         if (UtilValidate.isNotEmpty(description))
             doc.add(new TextField("description", description, Store.YES));
-        List<String> ancestorList = FastList.newInstance();
-        Delegator delegator = content.getDelegator();
-        ContentWorker.getContentAncestryAll(delegator, contentId, "WEB_SITE_PUB_PT", "TO", ancestorList);
+        List<String> ancestorList = new ArrayList<String>();
+        ContentWorker.getContentAncestryAll(content.getDelegator(), contentId, "WEB_SITE_PUB_PT", "TO", ancestorList);
         String ancestorString = StringUtil.join(ancestorList, " ");
         if (UtilValidate.isNotEmpty(ancestorString)) {
             Field field = new StringField("site", ancestorString, Store.NO);
@@ -90,12 +89,10 @@ public class ContentDocument {
     }
 
     public static boolean indexDataResource(GenericValue content, Document doc, Map<String, Object> context, LocalDispatcher dispatcher) {
-        Delegator delegator = content.getDelegator();
         String contentId = content.getString("contentId");
-        String dataResourceId = content.getString("dataResourceId");
         GenericValue dataResource;
         try {
-            dataResource = delegator.findOne("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId), true);
+            dataResource = content.getRelatedOne("DataResource", true);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             List<String> badIndexList = UtilGenerics.checkList(context.get("badIndexList"));
@@ -118,7 +115,7 @@ public class ContentDocument {
         }
         String text;
         try {
-            text = ContentWorker.renderContentAsText(dispatcher, delegator, contentId, context, locale, mimeTypeId, true);
+            text = ContentWorker.renderContentAsText(dispatcher, content.getDelegator(), contentId, context, locale, mimeTypeId, true);
         } catch (GeneralException e) {
             Debug.logError(e, module);
             List<String> badIndexList = UtilGenerics.checkList(context.get("badIndexList"));
@@ -143,7 +140,7 @@ public class ContentDocument {
             badIndexList.add(contentId + " - " + e.getMessage());
             return false;
         }
-        List<String> featureList = FastList.newInstance();
+        List<String> featureList = new ArrayList<String>();
         for (GenericValue productFeatureDataResource : featureDataResourceList) {
             String feature = productFeatureDataResource.getString("productFeatureId");
             featureList.add(feature);

@@ -20,10 +20,11 @@
 package org.ofbiz.content.test;
 
 import java.io.File;
+import java.lang.Object;
+import java.lang.String;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javolution.util.FastMap;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -60,7 +61,7 @@ public class LuceneTests extends OFBizTestCase {
     }
 
     public void testCreateIndex() throws Exception {
-        Map<String, Object> ctx = FastMap.newInstance();
+        Map<String, Object> ctx = new HashMap<String, Object>();
         ctx.put("contentId", "WebStoreCONTENT");
         ctx.put("userLogin", userLogin);
         Map<String, Object> resp = dispatcher.runSync("indexTree", ctx);
