@@ -3389,17 +3389,6 @@
         <value xml:lang="zh">模板</value>
         <value xml:lang="zh_TW">範本</value>
     </property>
-    <property key="ContentTestPermission">
-        <value xml:lang="da">Test tilladelse</value>
-        <value xml:lang="en">Test Permission</value>
-        <value xml:lang="fr">Tester l'autorisation</value>
-        <value xml:lang="it">Test Permesso</value>
-        <value xml:lang="ja">権限をテスト</value>
-        <value xml:lang="pt">Permissão de teste</value>
-        <value xml:lang="vi">Kiểm tra quyền</value>
-        <value xml:lang="zh">测试权限</value>
-        <value xml:lang="zh_TW">測試權限</value>
-    </property>
     <property key="ContentText">
         <value xml:lang="ar">نص</value>
         <value xml:lang="da">Tekst</value>

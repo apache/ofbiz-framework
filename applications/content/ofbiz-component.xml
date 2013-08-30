@@ -64,8 +64,6 @@ under the License.
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
     <service-resource type="mca" loader="main" location="servicedef/mca.xml"/>
 
-    <test-suite loader="main" location="testdef/lucenetests.xml"/>
-
     <webapp name="content"
         title="Content"
         server="default-server"

@@ -24,6 +24,7 @@
         files="
         appserver/build.xml,
         jetty/build.xml,
+        lucene/build.xml,
         ecommerce/build.xml,
         pos/build.xml,
         hhfacility/build.xml,

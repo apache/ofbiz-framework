@@ -648,13 +648,6 @@
         <attribute name="fieldValue0" type="String" mode="IN" optional="true"/>
     </service>
 
-    <service name="indexTree" auth="true" engine="java" validate="true" transaction-timeout="7200"
-        location="org.ofbiz.content.search.SearchServices" invoke="indexTree">
-        <description>Index content under publish point</description>
-        <attribute mode="IN" name="contentId" optional="false" type="String"/>
-        <attribute mode="OUT" name="badIndexList" optional="true" type="List"/>
-        <attribute mode="OUT" name="goodIndexCount" optional="true" type="Integer"/>
-    </service>
     <service name="resequence" auth="true" engine="java" validate="true" transaction-timeout="7200"
         location="org.ofbiz.content.ContentManagementServices" invoke="resequence">
         <description>Reorder sequence numbers in ContentAssoc entities for a given parent id</description>
