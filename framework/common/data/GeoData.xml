@@ -28,7 +28,7 @@ under the License.
     -->
     <Geo abbreviation="_NA_" geoCode="_NA_" geoId="_NA_" geoName="Not Applicable"/>
     <Geo abbreviation="AFG" geoCode="AF" geoId="AFG" geoName="Afghanistan" geoSecCode="004" geoTypeId="COUNTRY"/>
-    <Geo abbreviation="ALA" geoCode="AX" geoId="ALA" geoName="Åland islands" countryNumber="248"/>        
+    <Geo abbreviation="ALA" geoCode="AX" geoId="ALA" geoName="Åland islands" geoSecCode="248" geoTypeId="COUNTRY"/>    
     <Geo abbreviation="ALB" geoCode="AL" geoId="ALB" geoName="Albania" geoSecCode="008" geoTypeId="COUNTRY"/>
     <Geo abbreviation="DZA" geoCode="DZ" geoId="DZA" geoName="Algeria" geoSecCode="012" geoTypeId="COUNTRY"/>
     <Geo abbreviation="ASM" geoCode="AS" geoId="ASM" geoName="American Samoa" geoSecCode="016" geoTypeId="COUNTRY"/>
