@@ -13,9 +13,9 @@ The following libraries are licensed under the Apache License Version 2.0:
 specialpurpose/birt/lib/axis-ant-1.4.jar
 specialpurpose/birt/lib/axis-1.4.jar
 specialpurpose/googlecheckout/lib/checkout-sdk-0.8.8.jar
-specialpurpose/lucene/lib/lucene-analyzers-common-4.0.0.jar
-specialpurpose/lucene/lib/lucene-core-4.0.0.jar
-specialpurpose/lucene/lib/lucene-queryparser-4.0.0.jar
+specialpurpose/lucene/lib/lucene-analyzers-common-4.4.0.jar
+specialpurpose/lucene/lib/lucene-core-4.4.0.jar
+specialpurpose/lucene/lib/lucene-queryparser-4.4.0.jar
 
 =========================================================================
                                  Apache License
