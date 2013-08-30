@@ -139,7 +139,7 @@ public class SearchWorker {
             }
         }
         for (GenericValue gv : contentList) {
-            indexContent(dispatcher, delegator, context, gv, writer);
+            indexContent(dispatcher, context, gv, writer);
         }
         try {
             writer.forceMerge(1);
@@ -173,7 +173,7 @@ public class SearchWorker {
         if (Debug.infoOn()) Debug.logInfo("For term " + term.toString() + ", documents deleted: " + qtyBefore + ", remaining: " + qtyAfter, module);
     }
 
-    private static void indexContent(LocalDispatcher dispatcher, Delegator delegator, Map<String, Object> context, GenericValue content, IndexWriter writer) throws Exception {
+    private static void indexContent(LocalDispatcher dispatcher, Map<String, Object> context, GenericValue content, IndexWriter writer) throws Exception {
         Document doc = ContentDocument.Document(content, context, dispatcher);
 
         if (doc != null) {
