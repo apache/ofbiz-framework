@@ -34,7 +34,7 @@ under the License.
                 <set field="currentCMSMenuItemName" value="contentfind" to-scope="user"/>
             </actions>
             <widgets>
-                <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="commonCmsDecorator" location="${parameters.cmsDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
@@ -77,30 +77,12 @@ under the License.
                 <set field="menuContext.contentTarget" value="CMSContentEdit?contentId=${contentId}&amp;drDataResourceId=${dataResourceId}"/>
             </actions>
             <widgets>
-                <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="commonCmsDecorator" location="${parameters.cmsDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditCMSContent}">
                             <platform-specific>
                                 <html><html-template location="component://content/webapp/content/cms/CMSContentEdit.ftl"/></html>
                             </platform-specific>
-                        </screenlet>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
-    <screen name="CMSContentAdd">
-        <section>
-            <actions>
-                <script location="component://content/webapp/content/WEB-INF/actions/cms/GetMenuContext.groovy"/>
-                <set field="titleProperty" value="PageTitleEditContent"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleEditContent}">
-                            <include-form name="EditContent" location="component://content/widget/cms/CMSForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -136,7 +118,7 @@ under the License.
                 <set field="enableEdit" value="true"/>
             </actions>
             <widgets>
-                <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="commonCmsDecorator" location="${parameters.cmsDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ContentCMSEditPage}">
                             <link  text="${uiLabelMap.ContentGoToFind}" target="CMSContentFind?VIEW_INDEX=${CMSContentFindViewIndex}&amp;${CMSContentFindQueryString}"/>
@@ -171,57 +153,11 @@ under the License.
                 <set field="currentCMSMenuItemName" value="EditAddContent" to-scope="user"/>
             </actions>
             <widgets>
-                <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="commonCmsDecorator" location="${parameters.cmsDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ContentCMSAddSubContent}">
                             <link  text="${uiLabelMap.ContentGoToFind}" target="CMSContentFind?VIEW_INDEX=${CMSContentFindViewIndex}&amp;${CMSContentFindQueryString}"/>
                             <include-form name="EditAddSubContentStuff" location="component://content/widget/cms/CMSForms.xml"/>
-                        </screenlet>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
-    <screen name="AdminSearch">
-        <section>
-            <actions>
-                <script location="component://content/webapp/content/WEB-INF/actions/cms/GetMenuContext.groovy"/>
-                <script location="component://content/webapp/content/WEB-INF/actions/cms/AdvancedSearchPrep.groovy"/>
-                <script location="component://content/webapp/content/WEB-INF/actions/cms/Search.groovy"/>
-                <set field="titleProperty" value="ContentCMSSearchPage"/>
-                <set field="currentCMSMenuItemName" value="search" to-scope="user"/>
-                <property-map map-name="uiLabelMap" resource="ProductUiLabels"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.ContentCMSSearchPage}">
-                            <platform-specific>
-                                <html><html-template location="component://content/webapp/content/cms/AdminSearch.ftl"/></html>
-                            </platform-specific>
-                            <include-form name="searchList" location="component://content/widget/cms/CMSForms.xml"/>
-                        </screenlet>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
-
-    <screen name="AdminIndex">
-        <section>
-            <actions>
-                <script location="component://content/webapp/content/WEB-INF/actions/cms/GetMenuContext.groovy"/>
-                <set field="titleProperty" value="ContentCMSSearchPage"/>
-                <set field="currentCMSMenuItemName" value="index" to-scope="user"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.ContentCMSSearchPage}">
-                            <include-form name="AdminIndex" location="component://content/widget/cms/CMSForms.xml"/>
-                            <include-form name="AdminIndexAll" location="component://content/widget/cms/CMSForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -241,7 +177,7 @@ under the License.
                 <script location="component://content/webapp/content/WEB-INF/actions/cms/MostRecentPrep.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="commonCmsDecorator" location="${parameters.cmsDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ContentCMSSearchPage}">
                             <platform-specific>
@@ -261,29 +197,12 @@ under the License.
                 <set field="titleProperty" value="PageTitleSearchContent"/>
             </actions>
             <widgets>
-                <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="commonCmsDecorator" location="${parameters.cmsDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleSearchContent}">
                             <platform-specific>
                                 <html><html-template location="component://content/webapp/content/cms/addSubSite.ftl"/></html>
                             </platform-specific>
-                        </screenlet>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="TestPermission">
-        <section>
-            <actions>
-                <script location="component://content/webapp/content/WEB-INF/actions/cms/GetMenuContext.groovy"/>
-                <set field="titleProperty" value="ContentTestPermission"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.ContentTestPermission}">
-                            <include-form name="TestPermission" location="component://content/widget/cms/CMSForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
