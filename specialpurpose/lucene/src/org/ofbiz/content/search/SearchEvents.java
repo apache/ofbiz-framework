@@ -18,13 +18,14 @@
  *******************************************************************************/
 package org.ofbiz.content.search;
 
+import java.lang.Object;
+import java.lang.String;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
@@ -36,8 +37,6 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
-
-
 /**
  * SearchEvents Class
  */
@@ -48,7 +47,7 @@ public class SearchEvents {
     public static String indexTree(HttpServletRequest request, HttpServletResponse response) {
 
         Map<String, Object> result;
-        Map<String, Object> serviceInMap = FastMap.newInstance();
+        Map<String, Object> serviceInMap = new HashMap<String, Object>();
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
         serviceInMap.put("userLogin", userLogin);

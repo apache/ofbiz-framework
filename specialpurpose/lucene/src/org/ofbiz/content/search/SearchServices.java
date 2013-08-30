@@ -18,13 +18,14 @@
  *******************************************************************************/
 package org.ofbiz.content.search;
 
+import java.lang.Object;
+import java.lang.String;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
@@ -33,7 +34,6 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.LocalDispatcher;
-
 
 /**
  * SearchServices Class
@@ -53,10 +53,10 @@ public class SearchServices {
         if (path == null) {
             path = SearchWorker.getIndexPath(path);
         }
-        Map<String, Object> envContext = FastMap.newInstance();
+        Map<String, Object> envContext = new HashMap<String, Object>();
 
         if (Debug.infoOn()) Debug.logInfo("in indexTree, siteId:" + siteId, module);
-        List<String> badIndexList = FastList.newInstance();
+        List<String> badIndexList = new ArrayList<String>();
         envContext.put("badIndexList", badIndexList);
         envContext.put("goodIndexCount", Integer.valueOf(0));
 

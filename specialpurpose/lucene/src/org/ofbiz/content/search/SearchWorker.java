@@ -20,11 +20,10 @@ package org.ofbiz.content.search;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.String;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -61,7 +60,6 @@ public class SearchWorker {
     public static final Version LUCENE_VERSION = Version.LUCENE_40;
 
     public static Map<String, Object> indexTree(LocalDispatcher dispatcher, Delegator delegator, String siteId, Map<String, Object> context, String path) throws Exception {
-        Map<String, Object> results = FastMap.newInstance();
         GenericValue content = delegator.makeValue("Content", UtilMisc.toMap("contentId", siteId));
         if (Debug.infoOn()) Debug.logInfo("in indexTree, siteId:" + siteId + " content:" + content, module);
         List<GenericValue> siteList = ContentWorker.getAssociatedContent(content, "To", UtilMisc.toList("SUBSITE", "PUBLISH_LINK", "SUB_CONTENT"), null, UtilDateTime.nowTimestamp().toString(), null);
@@ -72,7 +70,7 @@ public class SearchWorker {
                 List<GenericValue> subContentList = ContentWorker.getAssociatedContent(siteContent, "To", UtilMisc.toList("SUBSITE", "PUBLISH_LINK", "SUB_CONTENT"), null, UtilDateTime.nowTimestamp().toString(), null);
 
                 if (subContentList != null) {
-                    List<String> contentIdList = FastList.newInstance();
+                    List<String> contentIdList = new ArrayList<String>();
                     for (GenericValue subContent : subContentList) {
                         contentIdList.add(subContent.getString("contentId"));
                     }
@@ -87,10 +85,8 @@ public class SearchWorker {
             List<String> badIndexList = UtilGenerics.checkList(context.get("badIndexList"));
             badIndexList.add(siteId + " had no sub-entities.");
         }
-        results.put("badIndexList", context.get("badIndexList"));
-        results.put("goodIndexCount", context.get("goodIndexCount"));
 
-        return results;
+        return UtilMisc.toMap("badIndexList", context.get("badIndexList"), "goodIndexCount", context.get("goodIndexCount"));
     }
 
     public static String getIndexPath(String path) {
@@ -126,7 +122,7 @@ public class SearchWorker {
         if (Debug.infoOn()) Debug.logInfo("in indexContentList, indexAllPath: " + directory.toString(), module);
         // Delete existing documents
         IndexWriter writer = getDefaultIndexWriter(directory);
-        List<GenericValue> contentList = FastList.newInstance();
+        List<GenericValue> contentList = new ArrayList<GenericValue>();
         for (String id : idList) {
             if (Debug.infoOn()) Debug.logInfo("in indexContentList, id:" + id, module);
             try {
