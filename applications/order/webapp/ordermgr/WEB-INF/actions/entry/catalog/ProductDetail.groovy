@@ -74,6 +74,11 @@ String buildNext(Map map, List order, String current, String prefix, Map feature
 
 cart = ShoppingCartEvents.getCartObject(request);
 
+// set currency format
+currencyUomId = null;
+if (cart) currencyUomId = cart.getCurrency();
+if (!currencyUomId) currencyUomId = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
+
 // get the shopping lists for the user (if logged in)
 if (userLogin) {
     exprList = [EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, userLogin.partyId),
@@ -403,7 +408,6 @@ if (product) {
                                 locale = UtilMisc.parseLocale(localeString);
                             }
                         }
-                        numberFormat = NumberFormat.getCurrencyInstance(locale);
                         variants.each { variantAssoc ->
                             variant = variantAssoc.getRelatedOne("AssocProduct", false);
                             // Get the price for each variant. Reuse the priceContext already setup for virtual product above and replace the product
@@ -440,7 +444,7 @@ if (product) {
                             }
                             amt.append(" if (sku == \"" + variant.productId + "\") return \"" + (variant.requireAmount ?: "N") + "\"; ");
                             if (variantPriceMap && variantPriceMap.basePrice) {
-                                variantPriceJS.append("  if (sku == \"" + variant.productId + "\") return \"" + numberFormat.format(variantPriceMap.basePrice) + "\"; ");
+                                variantPriceJS.append("  if (sku == \"" + variant.productId + "\") return \"" + UtilFormatOut.formatCurrency(variantPriceMap.basePrice, currencyUomId, locale, 10) + "\"; ");
                             }
                             
                             // make a list of virtual variants sku with requireAmount
@@ -479,10 +483,10 @@ if (product) {
                                             }
                                         }
                                         variantPriceList.add(virtualPriceMap);
-                                        variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + numberFormat.format(virtualPriceMap.basePrice) + "\"; ");
+                                        variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(variantPriceMap.basePrice, currencyUomId, locale, 10) + "\"; ");
                                     } else {
                                         virtualPriceMap = dispatcher.runSync("calculatePurchasePrice", priceContext);
-                                        variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + numberFormat.format(virtualPriceMap.price) + "\"; ");
+                                        variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "\"; ");
                                     }
                                 }
                                 
@@ -518,7 +522,6 @@ if (product) {
                 }
             }
             virtualVariantPriceList = [];
-            numberFormat = NumberFormat.getCurrencyInstance(locale);
             
             if(virtualVariants){
                 amt = new StringBuffer();
@@ -536,10 +539,10 @@ if (product) {
                         BigDecimal calculatedPrice = (BigDecimal)virtualPriceMap.get("price");
                         // Get the minimum quantity for variants if MINIMUM_ORDER_PRICE is set for variants.
                         virtualVariantPriceList.add(virtualPriceMap);
-                        variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + numberFormat.format(virtualPriceMap.basePrice) + "\"; ");
+                        variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(variantPriceMap.basePrice, currencyUomId, locale, 10) + "\"; ");
                     } else {
                         virtualPriceMap = dispatcher.runSync("calculatePurchasePrice", priceContext);
-                        variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + numberFormat.format(virtualPriceMap.price) + "\"; ");
+                        variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "\"; ");
                     }
                 }
                 variantPriceJS.append(" } ");
