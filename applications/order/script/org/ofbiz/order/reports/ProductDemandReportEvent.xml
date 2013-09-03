@@ -23,10 +23,10 @@
 
     <simple-method method-name="getOrder" short-description="Get Orders" login-required="false">
         <if-not-empty field="Week">
-            <!--<set field="year" from-field="Year" type="Integer"/>-->
-            <!--<set field="week1" from-field="Week" type="Integer"/>-->
-            <set field="year" value="2009" type="Integer"/>
-            <set field="week1" value="49" type="Integer"/>
+            <set field="year" from-field="Year" type="Integer"/>
+            <set field="week1" from-field="Week" type="Integer"/>
+            <!-- <set field="year" value="2009" type="Integer"/>
+            <set field="week1" value="49" type="Integer"/> -->
             <calculate field="week2" type="Integer">
                 <calcop field="week1" operator="subtract">
                     <number value="1"/>

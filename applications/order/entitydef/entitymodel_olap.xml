@@ -95,7 +95,11 @@ under the License.
         <field name="countOrder" type="fixed-point">
             <description>Count of order.</description>
         </field>
-
+		<!-- Promotion Code column Added  -->
+		<field name="productPromoCode" type="id-ne">
+            <description>Product promotion Code.</description>
+        </field>
+		
         <prim-key field="orderId"/>
         <prim-key field="orderItemSeqId"/>
 
@@ -121,7 +125,7 @@ under the License.
         <member-entity entity-alias="ODD" entity-name="DateDimension"/>
         <member-entity entity-alias="PD" entity-name="ProductDimension"/>
         <member-entity entity-alias="CD" entity-name="CurrencyDimension"/>
-
+		
         <alias-all entity-alias="ODD" prefix="orderDate" group-by="true">
             <exclude field="dimensionId"/>
         </alias-all>
@@ -145,11 +149,14 @@ under the License.
             <exclude field="brand"/>
             <exclude field="pod"/>
             <exclude field="account"/>
+            <!-- Promotion Code column Added  -->
+            <exclude field="productPromoCode"/>
         </alias-all>
         <alias entity-alias="SOIF" name="orderId" group-by="true">
             <description>Order id</description>
         </alias>
-
+        <!-- Promotion Code column Added  -->
+		<alias entity-alias="SOIF" name="productPromoCode" group-by="true"/>
         <alias entity-alias="SOIF" name="orderItemSeqId" group-by="true"/>
         <alias entity-alias="SOIF" name="productCategoryId" group-by="true"/>
         <alias entity-alias="SOIF" name="productStoreId" group-by="true"/>

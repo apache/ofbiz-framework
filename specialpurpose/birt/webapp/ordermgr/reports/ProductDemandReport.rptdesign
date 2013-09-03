@@ -18,42 +18,43 @@ specific language governing permissions and limitations
 under the License.
 -->
 <report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.15" id="1">
-    <property name="createdBy">Eclipse BIRT Designer Version 2.2.2.r222_v20071226 Build &lt;2.2.2.v20080226-1155></property>
-    <property name="units">in</property>
     <property name="comments">Copyright (c) 2007 &lt;&lt;Your Company Name here>></property>
+    <property name="createdBy">Eclipse BIRT Designer Version 3.7.1.v20110905 Build &lt;3.7.1.v20110913-1734></property>
     <html-property name="description">Creates a blank report with no predefined content.</html-property>
+    <property name="units">in</property>
     <text-property name="displayName">Blank Report</text-property>
     <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="layoutPreference">auto layout</property>
     <parameters>
         <scalar-parameter name="productStoreId" id="680">
             <property name="valueType">static</property>
-            <property name="dataType">string</property>
-            <property name="paramType">simple</property>
             <property name="isRequired">false</property>
-            <property name="controlType">text-box</property>
+            <property name="dataType">string</property>
             <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
             <structure name="format">
                 <property name="category">Unformatted</property>
             </structure>
         </scalar-parameter>
         <scalar-parameter name="Week" id="597">
             <property name="valueType">static</property>
-            <property name="dataType">integer</property>
-            <property name="paramType">simple</property>
             <property name="isRequired">false</property>
-            <property name="controlType">text-box</property>
+            <property name="dataType">integer</property>
             <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
             <structure name="format">
                 <property name="category">Unformatted</property>
             </structure>
         </scalar-parameter>
         <scalar-parameter name="Year" id="679">
             <property name="valueType">static</property>
-            <property name="dataType">integer</property>
-            <property name="paramType">simple</property>
             <property name="isRequired">false</property>
-            <property name="controlType">text-box</property>
+            <property name="dataType">integer</property>
             <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
             <structure name="format">
                 <property name="category">Unformatted</property>
             </structure>
@@ -117,16 +118,6 @@ under the License.
                 </structure>
                 <structure>
                     <property name="position">11</property>
-                    <property name="name">GMP%</property>
-                    <property name="dataType">decimal</property>
-                </structure>
-                <structure>
-                    <property name="position">12</property>
-                    <property name="name">AGP</property>
-                    <property name="dataType">decimal</property>
-                </structure>
-                <structure>
-                    <property name="position">13</property>
                     <property name="name">Rank</property>
                     <property name="dataType">integer</property>
                 </structure>
@@ -134,55 +125,47 @@ under the License.
             <list-property name="columnHints">
                 <structure>
                     <property name="columnName">Week</property>
-                    <property name="displayName">Week</property>
+                    <text-property name="displayName">Week</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">SKU</property>
-                    <property name="displayName">SKU</property>
+                    <text-property name="displayName">SKU</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">ProductName</property>
-                    <property name="displayName">ProductName</property>
+                    <text-property name="displayName">ProductName</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">QuantitySold</property>
-                    <property name="displayName">QuantitySold</property>
+                    <text-property name="displayName">QuantitySold</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">GS</property>
-                    <property name="displayName">GS</property>
+                    <text-property name="displayName">GS</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">GMS</property>
-                    <property name="displayName">GMS</property>
+                    <text-property name="displayName">GMS</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">GMP</property>
-                    <property name="displayName">GMP</property>
+                    <text-property name="displayName">GMP</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">GSP</property>
-                    <property name="displayName">GSP</property>
+                    <text-property name="displayName">GSP</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">GP</property>
-                    <property name="displayName">GP</property>
-                </structure>
-                <structure>
-                    <property name="columnName">GMP%</property>
-                    <property name="displayName">GMP%</property>
-                </structure>
-                <structure>
-                    <property name="columnName">AGP</property>
-                    <property name="displayName">AGP</property>
-                </structure>
+                    <text-property name="displayName">GP</text-property>
+                </structure>                
                 <structure>
                     <property name="columnName">Rank</property>
-                    <property name="displayName">Rank</property>
+                    <text-property name="displayName">Rank</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">CategoryName</property>
-                    <property name="displayName">CategoryName</property>
+                    <text-property name="displayName">CategoryName</text-property>
                 </structure>
             </list-property>
             <structure name="cachedMetaData">
@@ -239,16 +222,6 @@ under the License.
                     </structure>
                     <structure>
                         <property name="position">11</property>
-                        <property name="name">GMP%</property>
-                        <property name="dataType">decimal</property>
-                    </structure>
-                    <structure>
-                        <property name="position">12</property>
-                        <property name="name">AGP</property>
-                        <property name="dataType">decimal</property>
-                    </structure>
-                    <structure>
-                        <property name="position">13</property>
                         <property name="name">Rank</property>
                         <property name="dataType">integer</property>
                     </structure>
@@ -302,13 +275,14 @@ if (starschemas)
     WeekOfYear = starschema.getString("orderDateWeekOfYear");
     SKU = starschema.getString("productProductId");
     ProductName = starschema.getString("productInternalName");
-    CategoryName = starschema.getString("categoryName");
+    //CategoryName = starschema.getString("categoryName");
+    CategoryName = starschema.getString("productCategoryId");
     QuantitySold = starschema.getString("quantity");
-    GS = starschema.getString("GrossSales");
-    GMS = starschema.getString("GrossMerchandizeSales");
-    GMP = starschema.getString("GrossMerchandizeProfit");
-    GSP = starschema.getString("GrossShippingProfit");
-    GP = starschema.getString("GrossProfit");
+    GS = starschema.getString("GS");
+    GMS = starschema.getString("GMS");
+    GMP = starschema.getString("GMP");
+    GSP = starschema.getString("GSP");
+    GP = starschema.getString("GP");
     
     salesChannelEnumId = starschema.getString("salesChannelEnumId");
     
@@ -331,7 +305,6 @@ return true;]]></method>
     </data-sets>
     <cubes>
         <tabular-cube name="PDR Data Cube" id="599">
-            <property name="defaultMeasureGroup">PDR Summary Field</property>
             <property name="dimensions">
                 <tabular-dimension name="Weeks" id="600">
                     <property name="defaultHierarchy">NewTabularHierarchy</property>
@@ -385,10 +358,6 @@ return true;]]></method>
                         </tabular-measure>
                         <tabular-measure name="GP" id="614">
                             <expression name="measureExpression">dataSetRow["GP"]</expression>
-                            <property name="dataType">decimal</property>
-                        </tabular-measure>
-                        <tabular-measure name="GMP%" id="615">
-                            <expression name="measureExpression">dataSetRow["GMP"]/dataSetRow["GMS"]</expression>
                             <property name="dataType">decimal</property>
                         </tabular-measure>
                         <tabular-measure name="AGP" id="616">
@@ -459,20 +428,23 @@ return true;]]></method>
             <property name="textAlign">center</property>
             <text-property name="text">Product Demand Report</text-property>
         </label>
-        <extended-item extensionName="Crosstab" id="596">
+        <extended-item extensionName="Crosstab" extensionVersion="2.5.0" id="596">
+            <property name="cube">PDR Data Cube</property>
             <property name="measures">
                 <extended-item extensionName="MeasureView" id="628">
                     <property name="measure">QuantitySold</property>
                     <property name="detail">
-                        <extended-item extensionName="CrosstabCell" id="629">
+                        <extended-item extensionName="AggregationCell" id="682">
+                            <property name="aggregationOnRow">Products/CategoryName</property>
+                            <property name="aggregationOnColumn">Weeks/Week</property>
+                            <property name="borderLeftStyle">solid</property>
+                            <property name="borderLeftWidth">1px</property>
+                            <property name="borderLeftColor">#000000</property>
                             <property name="content">
                                 <data name="QuantitySold" id="631">
                                     <property name="resultSetColumn">QuantitySold</property>
                                 </data>
                             </property>
-                            <property name="borderLeftStyle">solid</property>
-                            <property name="borderLeftWidth">1px</property>
-                            <property name="borderLeftColor">#000000</property>
                         </extended-item>
                     </property>
                     <property name="aggregations">
@@ -504,12 +476,25 @@ return true;]]></method>
                             <property name="borderLeftWidth">1px</property>
                             <property name="borderLeftColor">#000000</property>
                         </extended-item>
+                        <extended-item extensionName="CrosstabCell" id="683">
+                            <property name="content">
+                                <label id="684">
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">QuantitySold</text-property>
+                                </label>
+                            </property>
+                            <property name="borderLeftStyle">solid</property>
+                            <property name="borderLeftWidth">1px</property>
+                            <property name="borderLeftColor">#000000</property>
+                        </extended-item>
                     </property>
                 </extended-item>
                 <extended-item extensionName="MeasureView" id="633">
                     <property name="measure">GS</property>
                     <property name="detail">
-                        <extended-item extensionName="CrosstabCell" id="634">
+                        <extended-item extensionName="AggregationCell" id="685">
+                            <property name="aggregationOnRow">Products/CategoryName</property>
+                            <property name="aggregationOnColumn">Weeks/Week</property>
                             <property name="content">
                                 <data name="GS" id="636">
                                     <property name="resultSetColumn">GS</property>
@@ -531,7 +516,9 @@ return true;]]></method>
                 <extended-item extensionName="MeasureView" id="638">
                     <property name="measure">GMP</property>
                     <property name="detail">
-                        <extended-item extensionName="CrosstabCell" id="639">
+                        <extended-item extensionName="AggregationCell" id="686">
+                            <property name="aggregationOnRow">Products/CategoryName</property>
+                            <property name="aggregationOnColumn">Weeks/Week</property>
                             <property name="content">
                                 <data name="GMP" id="641">
                                     <property name="resultSetColumn">GMP</property>
@@ -562,12 +549,22 @@ return true;]]></method>
                                 </label>
                             </property>
                         </extended-item>
+                        <extended-item extensionName="CrosstabCell" id="687">
+                            <property name="content">
+                                <label id="688">
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">GMP</text-property>
+                                </label>
+                            </property>
+                        </extended-item>
                     </property>
                 </extended-item>
                 <extended-item extensionName="MeasureView" id="643">
                     <property name="measure">GP</property>
                     <property name="detail">
-                        <extended-item extensionName="CrosstabCell" id="644">
+                        <extended-item extensionName="AggregationCell" id="689">
+                            <property name="aggregationOnRow">Products/CategoryName</property>
+                            <property name="aggregationOnColumn">Weeks/Week</property>
                             <property name="content">
                                 <data name="GP" id="646">
                                     <structure name="numberFormat">
@@ -601,29 +598,11 @@ return true;]]></method>
                                 </label>
                             </property>
                         </extended-item>
-                    </property>
-                </extended-item>
-                <extended-item extensionName="MeasureView" id="648">
-                    <property name="measure">GMP%</property>
-                    <property name="detail">
-                        <extended-item extensionName="CrosstabCell" id="649">
+                        <extended-item extensionName="CrosstabCell" id="690">
                             <property name="content">
-                                <data name="GMP%" id="651">
-                                    <structure name="numberFormat">
-                                        <property name="category">Percent</property>
-                                        <property name="pattern">###0%</property>
-                                    </structure>
-                                    <property name="resultSetColumn">GMP%</property>
-                                </data>
-                            </property>
-                        </extended-item>
-                    </property>
-                    <property name="header">
-                        <extended-item extensionName="CrosstabCell" id="650">
-                            <property name="content">
-                                <label id="652">
+                                <label id="691">
                                     <property name="textAlign">center</property>
-                                    <text-property name="text">GMP%</text-property>
+                                    <text-property name="text">GP</text-property>
                                 </label>
                             </property>
                         </extended-item>
@@ -632,7 +611,12 @@ return true;]]></method>
                 <extended-item extensionName="MeasureView" id="653">
                     <property name="measure">AGP</property>
                     <property name="detail">
-                        <extended-item extensionName="CrosstabCell" id="654">
+                        <extended-item extensionName="AggregationCell" id="693">
+                            <property name="aggregationOnRow">Products/CategoryName</property>
+                            <property name="aggregationOnColumn">Weeks/Week</property>
+                            <property name="borderRightStyle">solid</property>
+                            <property name="borderRightWidth">1px</property>
+                            <property name="borderRightColor">#000000</property>
                             <property name="content">
                                 <data name="AGP" id="656">
                                     <structure name="numberFormat">
@@ -642,9 +626,6 @@ return true;]]></method>
                                     <property name="resultSetColumn">AGP</property>
                                 </data>
                             </property>
-                            <property name="borderRightStyle">solid</property>
-                            <property name="borderRightWidth">1px</property>
-                            <property name="borderRightColor">#000000</property>
                         </extended-item>
                     </property>
                     <property name="aggregations">
@@ -668,6 +649,17 @@ return true;]]></method>
                         <extended-item extensionName="CrosstabCell" id="655">
                             <property name="content">
                                 <label id="657">
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">AGP</text-property>
+                                </label>
+                            </property>
+                            <property name="borderRightStyle">solid</property>
+                            <property name="borderRightWidth">1px</property>
+                            <property name="borderRightColor">#000000</property>
+                        </extended-item>
+                        <extended-item extensionName="CrosstabCell" id="694">
+                            <property name="content">
+                                <label id="695">
                                     <property name="textAlign">center</property>
                                     <text-property name="text">AGP</text-property>
                                 </label>
@@ -779,7 +771,9 @@ return true;]]></method>
                     </property>
                 </extended-item>
             </property>
-            <property name="cube">PDR Data Cube</property>
+            <property name="header">
+                <extended-item extensionName="CrosstabCell" id="681"/>
+            </property>
             <list-property name="boundDataColumns">
                 <structure>
                     <property name="name">Week</property>
@@ -809,11 +803,6 @@ return true;]]></method>
                 <structure>
                     <property name="name">GP</property>
                     <expression name="expression">measure["GP"]</expression>
-                    <property name="dataType">decimal</property>
-                </structure>
-                <structure>
-                    <property name="name">GMP%</property>
-                    <expression name="expression">measure["GMP%"]</expression>
                     <property name="dataType">decimal</property>
                 </structure>
                 <structure>
