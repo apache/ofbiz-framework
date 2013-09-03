@@ -18,9 +18,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 <report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.20" id="1">
-    <property name="createdBy">Eclipse BIRT Designer Version 2.5.1.v20090903 Build &lt;2.5.1.v20090917-1447></property>
-    <property name="units">in</property>
     <property name="comments">Copyright (c) 2007 &lt;&lt;Your Company Name here>></property>
+    <property name="createdBy">Eclipse BIRT Designer Version 3.7.1.v20110905 Build &lt;3.7.1.v20110913-1734></property>
     <html-property name="description">Creates a blank report with no predefined content.</html-property>
     <list-property name="userProperties">
         <structure>
@@ -120,6 +119,7 @@ under the License.
     <property name="SaleOrder_DataCube.Account.height">200</property>
     <property name="SaleOrder_DataCube.DateGroup.NewTabularHierarchy3.width">150</property>
     <property name="SaleOrder_DataCube.DateGroup.NewTabularHierarchy3.height">200</property>
+    <property name="units">in</property>
     <text-property name="displayName">Blank Report</text-property>
     <property name="iconFile">/templates/blank_report.gif</property>
     <property name="layoutPreference">auto layout</property>
@@ -451,7 +451,7 @@ if (starschemas)
 {
     totalRows = starschemas.size();
 }]]></method>
-            <method name="fetch"><![CDATA[if (currentRow >= totalRows - 1) return false;
+            <method name="fetch"><![CDATA[if (currentRow > totalRows - 1) return false;
 {
     starschema = starschemas.get(currentRow);
     orderDateDescription = starschema.getString("orderDateDescription");
@@ -666,6 +666,7 @@ return true;]]></method>
             <text-property name="text">Sales Report Weekly</text-property>
         </label>
         <extended-item extensionName="Crosstab" extensionVersion="2.5.0" id="2621">
+            <property name="cube">BIC_DataCube</property>
             <property name="measures">
                 <extended-item extensionName="MeasureView" id="2773">
                     <property name="measure">countOrder</property>
@@ -1595,7 +1596,6 @@ return true;]]></method>
             </property>
             <property name="fontFamily">sans-serif</property>
             <property name="backgroundColor">#FFFFFF</property>
-            <property name="cube">BIC_DataCube</property>
             <list-property name="boundDataColumns">
                 <structure>
                     <property name="name">quantity</property>
@@ -2009,7 +2009,7 @@ return true;]]></method>
                     <property name="name">GMP%</property>
                     <expression name="expression" type="javascript">if ((data["GMP_Account/Account_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["GMS_Account/Account_Date/orderDateWeekOfYear"] != null))
 {
-	data["GMP_Account/Account_Date/orderDateWeekOfYear"]/data["GMS_Account/Account_Date/orderDateWeekOfYear"]
+    data["GMP_Account/Account_Date/orderDateWeekOfYear"]/data["GMS_Account/Account_Date/orderDateWeekOfYear"]
 }</expression>
                     <property name="dataType">decimal</property>
                 </structure>
@@ -2017,7 +2017,7 @@ return true;]]></method>
                     <property name="name">GP%</property>
                     <expression name="expression" type="javascript">if ((data["GP_Account/Account_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["GS_Account/Account_Date/orderDateWeekOfYear"] != null))
 {
-	data["GP_Account/Account_Date/orderDateWeekOfYear"]/data["GS_Account/Account_Date/orderDateWeekOfYear"]
+    data["GP_Account/Account_Date/orderDateWeekOfYear"]/data["GS_Account/Account_Date/orderDateWeekOfYear"]
 }</expression>
                     <property name="dataType">decimal</property>
                 </structure>
@@ -2025,7 +2025,7 @@ return true;]]></method>
                     <property name="name">AMP</property>
                     <expression name="expression" type="javascript">if ((data["GMP_Account/Account_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["quantity_Account/Account_Date/orderDateWeekOfYear"] != null))
 {
-	data["GMP_Account/Account_Date/orderDateWeekOfYear"]/data["quantity_Account/Account_Date/orderDateWeekOfYear"]
+    data["GMP_Account/Account_Date/orderDateWeekOfYear"]/data["quantity_Account/Account_Date/orderDateWeekOfYear"]
 }</expression>
                     <property name="dataType">float</property>
                 </structure>
@@ -2033,7 +2033,7 @@ return true;]]></method>
                     <property name="name">AGP</property>
                     <expression name="expression" type="javascript">if ((data["GP_Account/Account_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["quantity_Account/Account_Date/orderDateWeekOfYear"] != null))
 {
-	data["GP_Account/Account_Date/orderDateWeekOfYear"]/data["quantity_Account/Account_Date/orderDateWeekOfYear"]
+    data["GP_Account/Account_Date/orderDateWeekOfYear"]/data["quantity_Account/Account_Date/orderDateWeekOfYear"]
 }</expression>
                     <property name="dataType">float</property>
                 </structure>
@@ -2051,7 +2051,7 @@ return true;]]></method>
                     <property name="name">Pod_GMP%</property>
                     <expression name="expression" type="javascript">if ((data["GMP_Account/Pod_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["GMS_Account/Pod_Date/orderDateWeekOfYear"] != null))
 {
-	data["GMP_Account/Pod_Date/orderDateWeekOfYear"]/data["GMS_Account/Pod_Date/orderDateWeekOfYear"]
+    data["GMP_Account/Pod_Date/orderDateWeekOfYear"]/data["GMS_Account/Pod_Date/orderDateWeekOfYear"]
 }</expression>
                     <property name="dataType">decimal</property>
                 </structure>
@@ -2059,15 +2059,15 @@ return true;]]></method>
                     <property name="name">Brand_GMP%</property>
                     <expression name="expression" type="javascript">if ((data["GMP_Account/Brand_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["GMS_Account/Brand_Date/orderDateWeekOfYear"] != null))
 {
-	data["GMP_Account/Brand_Date/orderDateWeekOfYear"]/data["GMS_Account/Brand_Date/orderDateWeekOfYear"]
+    data["GMP_Account/Brand_Date/orderDateWeekOfYear"]/data["GMS_Account/Brand_Date/orderDateWeekOfYear"]
 }</expression>
                     <property name="dataType">decimal</property>
                 </structure>
                 <structure>
                     <property name="name">Pod_GP%</property>
-                    <expression name="expression" type="javascript">if	((data["GP_Account/Pod_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["GS_Account/Pod_Date/orderDateWeekOfYear"] != null))
+                    <expression name="expression" type="javascript">if  ((data["GP_Account/Pod_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["GS_Account/Pod_Date/orderDateWeekOfYear"] != null))
 {
-	data["GP_Account/Pod_Date/orderDateWeekOfYear"]/data["GS_Account/Pod_Date/orderDateWeekOfYear"]
+    data["GP_Account/Pod_Date/orderDateWeekOfYear"]/data["GS_Account/Pod_Date/orderDateWeekOfYear"]
 }</expression>
                     <property name="dataType">decimal</property>
                 </structure>
@@ -2075,7 +2075,7 @@ return true;]]></method>
                     <property name="name">Brand_GP%</property>
                     <expression name="expression" type="javascript">if ((data["GP_Account/Brand_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["GS_Account/Brand_Date/orderDateWeekOfYear"] != null))
 {
-	data["GP_Account/Brand_Date/orderDateWeekOfYear"]/data["GS_Account/Brand_Date/orderDateWeekOfYear"]
+    data["GP_Account/Brand_Date/orderDateWeekOfYear"]/data["GS_Account/Brand_Date/orderDateWeekOfYear"]
 }</expression>
                     <property name="dataType">decimal</property>
                 </structure>
@@ -2083,7 +2083,7 @@ return true;]]></method>
                     <property name="name">Grand_GMP%</property>
                     <expression name="expression" type="javascript">if ((data["GMP_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["GMS_Date/orderDateWeekOfYear"] != null))
 {
-	data["GMP_Date/orderDateWeekOfYear"]/data["GMS_Date/orderDateWeekOfYear"]
+    data["GMP_Date/orderDateWeekOfYear"]/data["GMS_Date/orderDateWeekOfYear"]
 }</expression>
                     <property name="dataType">decimal</property>
                 </structure>
@@ -2091,7 +2091,7 @@ return true;]]></method>
                     <property name="name">Grand_GP%</property>
                     <expression name="expression" type="javascript">if ((data["GP_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["GS_Date/orderDateWeekOfYear"] != null))
 {
-	data["GP_Date/orderDateWeekOfYear"]/data["GS_Date/orderDateWeekOfYear"]
+    data["GP_Date/orderDateWeekOfYear"]/data["GS_Date/orderDateWeekOfYear"]
 }</expression>
                     <property name="dataType">decimal</property>
                 </structure>
@@ -2099,7 +2099,7 @@ return true;]]></method>
                     <property name="name">Pod_AMP</property>
                     <expression name="expression" type="javascript">if ((data["GMP_Account/Pod_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["quantity_Account/Pod_Date/orderDateWeekOfYear"] != null))
 {
-	data["GMP_Account/Pod_Date/orderDateWeekOfYear"]/data["quantity_Account/Pod_Date/orderDateWeekOfYear"]
+    data["GMP_Account/Pod_Date/orderDateWeekOfYear"]/data["quantity_Account/Pod_Date/orderDateWeekOfYear"]
 }</expression>
                     <property name="dataType">float</property>
                 </structure>
@@ -2107,7 +2107,7 @@ return true;]]></method>
                     <property name="name">Brand_AMP</property>
                     <expression name="expression" type="javascript">if ((data["GMP_Account/Brand_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["quantity_Account/Brand_Date/orderDateWeekOfYear"] != null))
 {
-	data["GMP_Account/Brand_Date/orderDateWeekOfYear"]/data["quantity_Account/Brand_Date/orderDateWeekOfYear"]
+    data["GMP_Account/Brand_Date/orderDateWeekOfYear"]/data["quantity_Account/Brand_Date/orderDateWeekOfYear"]
 }</expression>
                     <property name="dataType">float</property>
                 </structure>
@@ -2115,7 +2115,7 @@ return true;]]></method>
                     <property name="name">Grand_AMP</property>
                     <expression name="expression" type="javascript">if ((data["GMP_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["quantity_Date/orderDateWeekOfYear"] != null))
 {
-	data["GMP_Date/orderDateWeekOfYear"]/data["quantity_Date/orderDateWeekOfYear"]
+    data["GMP_Date/orderDateWeekOfYear"]/data["quantity_Date/orderDateWeekOfYear"]
 }</expression>
                     <property name="dataType">float</property>
                 </structure>
@@ -2123,7 +2123,7 @@ return true;]]></method>
                     <property name="name">Pod_AGP</property>
                     <expression name="expression" type="javascript">if ((data["GP_Account/Pod_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["quantity_Account/Pod_Date/orderDateWeekOfYear"] != null))
 {
-	data["GP_Account/Pod_Date/orderDateWeekOfYear"]/data["quantity_Account/Pod_Date/orderDateWeekOfYear"]
+    data["GP_Account/Pod_Date/orderDateWeekOfYear"]/data["quantity_Account/Pod_Date/orderDateWeekOfYear"]
 }</expression>
                     <property name="dataType">float</property>
                 </structure>
@@ -2131,7 +2131,7 @@ return true;]]></method>
                     <property name="name">Brand_AGP</property>
                     <expression name="expression" type="javascript">if ((data["GP_Account/Brand_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["quantity_Account/Brand_Date/orderDateWeekOfYear"] != null))
 {
-	data["GP_Account/Brand_Date/orderDateWeekOfYear"]/data["quantity_Account/Brand_Date/orderDateWeekOfYear"]
+    data["GP_Account/Brand_Date/orderDateWeekOfYear"]/data["quantity_Account/Brand_Date/orderDateWeekOfYear"]
 }</expression>
                     <property name="dataType">float</property>
                 </structure>
@@ -2139,7 +2139,7 @@ return true;]]></method>
                     <property name="name">Grand_AGP</property>
                     <expression name="expression" type="javascript">if ((data["GP_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["quantity_Date/orderDateWeekOfYear"] != null))
 {
-	data["GP_Date/orderDateWeekOfYear"]/data["quantity_Date/orderDateWeekOfYear"]
+    data["GP_Date/orderDateWeekOfYear"]/data["quantity_Date/orderDateWeekOfYear"]
 }</expression>
                     <property name="dataType">float</property>
                 </structure>

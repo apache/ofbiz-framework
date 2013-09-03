@@ -24,7 +24,7 @@ under the License.
 
     <!--New From-->
     <form name="SalesReport" type="single" target="checkReportBy" title=""
-          header-row-style="header-row" default-table-style="basic-table">
+          header-row-style="header-row" default-table-style="basic-table" target-window="_BLANK">
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time type="date"/></field>
         <field name="reportBy" title="Report By">
             <drop-down>
@@ -44,7 +44,7 @@ under the License.
     </form>
 
     <form name="NetBeforeOverheadReport" type="single" target="NetBeforeOverheadReport.pdf" title=""
-          header-row-style="header-row" default-table-style="basic-table">
+          header-row-style="header-row" default-table-style="basic-table" target-window="_BLANK">
         <field name="productStoreId">
             <drop-down allow-empty="false">
                 <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
@@ -57,7 +57,7 @@ under the License.
     </form>
 
     <form name="ProductDemandReport" type="single" target="ProductDemandReport.pdf" title=""
-          header-row-style="header-row" default-table-style="basic-table">
+          header-row-style="header-row" default-table-style="basic-table" target-window="_BLANK">
         <field name="productStoreId">
             <drop-down allow-empty="false">
                 <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>

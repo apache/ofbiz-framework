@@ -2905,7 +2905,7 @@ under the License.
                 <set field="inventoryValuation.totalInventoryCost" from-field="totalInventoryCost" type="BigDecimal"/>
                 <set field="inventoryValuation.productAverageCost" from-field="productAverageCost" type="BigDecimal"/>
                 <set field="inventoryValuation.currencyUomId" from-field="currencyUomId"/>
-                <set field="inventoryValuationList[]" from-field="inventoryValuation"/>
+                <set field="inventoryValuationList" from-field="inventoryValuation" type="List"/>
                 <clear-field field="inventoryValuation"/>
             </iterate>
             <field-to-result field="inventoryValuationList"/>
