@@ -350,12 +350,6 @@ public class CatalinaContainer implements Container {
             al.setPrefix(alp3);
         }
 
-
-        boolean alp4 = ContainerConfig.getPropertyValue(engineConfig, "access-log-resolve", true);
-        if (al != null) {
-            al.setResolveHosts(alp4);
-        }
-
         boolean alp5 = ContainerConfig.getPropertyValue(engineConfig, "access-log-rotate", false);
         if (al != null) {
             al.setRotatable(alp5);
