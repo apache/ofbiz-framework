@@ -60,9 +60,4 @@ under the License.
         <test-jar/>
     </target>
 
-    <target name="clean-lucene-index">
-        <delete verbose="on">
-            <fileset dir="../../runtime/data/indexes/" includes="*"/>
-        </delete>
-    </target>
 </project>
