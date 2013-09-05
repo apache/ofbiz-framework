@@ -236,13 +236,16 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute type="xs:string" name="run-as-user" default="system"/>
-        <xs:attribute type="xs:string" name="value-attr"/>
+        <xs:attribute type="xs:string" name="value-attr">
+            <xs:annotation>
+                <xs:documentation>
+                    if value-attr is specified the generic value object corresponding to the entity in question will be passed 
+                    to the action service
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
 </xs:schema>
-<!--
-    if value-attr is specified the generic value object corresponding to the entity in question will be passed
-    to the action service
--->
 <!--
     <entity-eca>
         <eca entity="Product" operation="create" event="return">
