@@ -57,6 +57,9 @@ abstract class GroovyBaseScript extends Script {
         // TODO: implement some clever i18n mechanism based on the userLogin and locale in the binding
         if (this.binding.getVariable('request')) {
             // the script is invoked as an "event"
+            if (message) {
+                this.binding.getVariable('request').setAttribute("_EVENT_MESSAGE_", message)
+            }
             return 'success';
         } else {
             // the script is invoked as a "service"
