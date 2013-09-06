@@ -385,6 +385,11 @@ under the License.
     </request-map>
 
     <!-- Entity Export/Import requests -->
+    <request-map uri="ProgramExport">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ProgramExport"/>
+        <response name="error" type="view" value="ProgramExport"/>'
+    </request-map>
     <request-map uri="EntityExportAll"><security https="true" auth="true"/><response name="success" type="view" value="EntityExportAll"/><response name="error" type="view" value="EntityExportAll"/></request-map>
     <request-map uri="entityExportAll">
         <security https="true" auth="true"/>
@@ -686,6 +691,7 @@ under the License.
     <view-map name="EntitySQLProcessor" page="component://webtools/widget/EntityScreens.xml#EntitySQLProcessor" type="screen"/>
     <view-map name="ConnectionPoolStatus" page="component://webtools/widget/EntityScreens.xml#ConnectionPoolStatus" type="screen"/>
     <view-map name="EntityExportAll" page="component://webtools/widget/EntityScreens.xml#EntityExportAll" type="screen"/>
+    <view-map name="ProgramExport" page="component://webtools/widget/EntityScreens.xml#ProgramExport" type="screen"/>
     <view-map name="EntityImportDir" page="component://webtools/widget/EntityScreens.xml#EntityImportDir" type="screen"/>
     <view-map name="EntityImport" page="component://webtools/widget/EntityScreens.xml#EntityImport" type="screen"/>
     <view-map name="EntityImportReaders" page="component://webtools/widget/EntityScreens.xml#EntityImportReaders" type="screen"/>

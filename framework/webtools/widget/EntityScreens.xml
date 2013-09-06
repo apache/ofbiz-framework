@@ -66,6 +66,29 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="ProgramExport">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEntityExportAll"/>
+                <set field="tabButtonItem" value="programExport"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/ProgramExport.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonImportExportDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                         <screenlet>
+                            <include-form name="ProgramExport" location="component://webtools/widget/MiscForms.xml"/>
+                        </screenlet>
+                        <screenlet>
+                            <platform-specific>
+                                <html><html-template location="component://webtools/webapp/webtools/entity/ProgramExport.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="EntityImportDir">
         <section>
             <actions>
