@@ -37,7 +37,7 @@ under the License.
 
     <!-- this overrides the content application in order to add the index management screens -->
     <webapp name="content"
-        title="Lucene"
+        title="Content"
         server="default-server"
         location="webapp/content"
         base-permission="OFBTOOLS,CONTENTMGR"
