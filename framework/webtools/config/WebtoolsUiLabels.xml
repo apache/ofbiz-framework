@@ -627,6 +627,9 @@
         <value xml:lang="zh">浏览日志</value>
         <value xml:lang="zh_TW">瀏覽日誌</value>
     </property>
+    <property key="PageTitleProgramExport">
+        <value xml:lang="en">Programmable Export</value>
+    </property>
     <property key="PageTitleRunService">
         <value xml:lang="de">Dienst starten</value>
         <value xml:lang="en">Run Service</value>

@@ -90,6 +90,9 @@ under the License.
         <menu-item name="entityExportAll" title="${uiLabelMap.PageTitleEntityExportAll}">
             <link target="EntityExportAll"/>
         </menu-item>
+        <menu-item name="programExport" title="${uiLabelMap.PageTitleProgramExport}">
+            <link target="ProgramExport"/>
+        </menu-item>
         <menu-item name="entityImport" title="${uiLabelMap.PageTitleEntityImport}">
             <link target="EntityImport"/>
         </menu-item>
