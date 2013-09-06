@@ -34,100 +34,9 @@ under the License.
 
     <filelist id="test-builds" dir="." files="base/build.xml,sql/build.xml,entity/build.xml"/>
 
-    <property name="memory.max.param" value="-Xmx384M"/>
-
-    <!-- ================================================================== -->
-    <!-- Initialization of all property settings                            -->
-    <!-- ================================================================== -->
-
-    <target name="ofbiz-init">
-        <property environment="env"/>
-    </target>
-
-    <target name="dir-init" depends="ofbiz-init">
-        <mkdir dir="../runtime"/>
-        <mkdir dir="../runtime/output"/>
-        <mkdir dir="../runtime/logs"/>
-        <mkdir dir="../runtime/logs/test-results"/>
-        <mkdir dir="../runtime/data"/>
-        <mkdir dir="../runtime/data/derby"/>
-
-        <condition property="isMac">
-            <os family="mac"/>
-        </condition>
-        <antcall target="copy-derby-props" inheritall="true"/>
-    </target>
-
-    <target name="copy-derby-props" if="isMac">
-        <copy file="../runtime/data/derby.properties" todir="../runtime/data/derby"/>
-    </target>
-
     <!-- ================================================================== -->
     <!-- Removes all created files and directories                          -->
     <!-- ================================================================== -->
-
-    <target name="refresh">
-        <antcall target="clean-all"/>
-        <antcall target="build"/>
-    </target>
-
-    <target name="clean-all">
-        <antcall target="clean-data"/>
-        <antcall target="clean-logs"/>
-        <antcall target="clean-output"/>
-        <antcall target="clean-xtra"/>
-        <antcall target="clean-catalina"/>
-        <antcall target="clean"/>
-    </target>
-
-    <target name="clean-data">
-        <delete includeemptydirs="true" dir="../runtime/data/derby"/>
-        <delete includeemptydirs="true" dir="../runtime/data/hsql"/>
-        <delete verbose="on" includeemptydirs="true">
-            <fileset dir="../runtime/data" includes="**/*">
-                <exclude name="README"/>
-                <exclude name="derby.properties"/>
-            </fileset>
-        </delete>
-    </target>
-
-    <target name="clean-logs">
-        <delete verbose="on" dir="../runtime/logs/test-results"/>
-        <delete dir="../runtime/logs/cobertura-report"/>
-        <delete verbose="on">
-            <fileset dir="../runtime/logs" includes="*">
-                <exclude name="README"/>
-            </fileset>
-        </delete>
-    </target>
-
-    <target name="clean-output">
-        <delete verbose="on">
-            <fileset dir="." includes="../runtime/output/*"/>
-        </delete>
-    </target>
-
-    <target name="clean-xtra">
-        <delete verbose="on">
-            <fileset dir="." includes="**/.nbattrs,**/*~,**/.#*,**/.DS_Store,**/*.rej,**/*.orig"/>
-        </delete>
-    </target>
-
-    <target name="clean-catalina">
-        <delete dir="../runtime/catalina/work"/>
-    </target>
-
-    <target name="clean-tempfiles">
-        <delete verbose="on">
-            <fileset dir="../runtime" includes="tempfiles/**/*"/>
-        </delete>
-    </target>
-
-    <target name="tests">
-        <subant target="tests">
-            <filelist refid="test-builds"/>
-        </subant>
-    </target>
 
     <target name="clean">
         <iterate target="clean" filelist="framework-builds"/>
@@ -138,16 +47,18 @@ under the License.
     <!-- Build Components                                                   -->
     <!-- ================================================================== -->
 
-    <target name="build" depends="dir-init">
+    <target name="build">
         <echo message="[build] ========== Start Building Framework (Compile) =========="/>
-
-        <!-- make sure the data and logs directories exist (they should exist, because they are in svn) -->
-        <mkdir dir="../runtime/data"/>
-        <mkdir dir="../runtime/logs"/>
 
         <iterate inheritall="false" filelist="framework-builds"/>
 
         <echo message="[build] ========== Done Building Framework (Compile) =========="/>
+    </target>
+
+    <target name="tests">
+        <subant target="tests">
+            <filelist refid="test-builds"/>
+        </subant>
     </target>
 
     <!-- ================================================================== -->
@@ -162,24 +73,4 @@ under the License.
         <echo message="[docs] ========== Done Building Framework (JavaDocs) =========="/>
     </target>
 
-    <!-- ================================================================== -->
-    <!-- Contrib Targets                                                    -->
-    <!-- ================================================================== -->
-
-    <target name="copy-contrib">
-        <copy todir="${basedir}" overwrite="true" verbose="true">
-            <fileset dir="${basedir}/contrib" excludes="contrib/**,**/*.class"/>
-        </copy>
-    </target>
-
-    <target name="build-contrib" depends="copy-contrib,refresh"/>
-
-    <!-- ================================================================== -->
-    <!-- Script Targets                                                     -->
-    <!-- ================================================================== -->
-
-    <target name="scriptfix">
-        <fixcrlf srcdir="${basedir}" eol="lf" eof="remove" includes="**/*.sh"/>
-        <fixcrlf srcdir="${basedir}" eol="crlf" includes="**/*.bat"/>
-    </target>
 </project>
