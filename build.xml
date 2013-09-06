@@ -35,8 +35,26 @@ under the License.
     <!-- Initialization of all property settings                            -->
     <!-- ================================================================== -->
 
-    <target name="ofbiz-init">
+    <target name="ofbiz-init" depends="dir-init">
         <property environment="env"/>
+    </target>
+
+    <target name="dir-init">
+        <mkdir dir="runtime"/>
+        <mkdir dir="runtime/output"/>
+        <mkdir dir="runtime/logs"/>
+        <mkdir dir="runtime/logs/test-results"/>
+        <mkdir dir="runtime/data"/>
+        <mkdir dir="runtime/data/derby"/>
+
+        <condition property="isMac">
+            <os family="mac"/>
+        </condition>
+        <antcall target="copy-derby-props" inheritall="true"/>
+    </target>
+
+    <target name="copy-derby-props" if="isMac">
+        <copy file="runtime/data/derby.properties" todir="runtime/data/derby"/>
     </target>
 
     <target name="ivy-init">
@@ -91,25 +109,30 @@ under the License.
     </target>
     <target name="clean-data"
           description="Clean all DB data (Derby) under runtime/data">
-        <subant target="clean-data">
-            <filelist dir="." files="framework/build.xml"/>
-        </subant>
+        <delete verbose="on" includeemptydirs="true">
+            <fileset dir="runtime/data" includes="**/*">
+                <exclude name="README"/>
+                <exclude name="derby.properties"/>
+            </fileset>
+        </delete>
         <delete file="runtime/data.zip"/>
         <delete file="runtime/test-list-build.xml"/>
     </target>
 
     <target name="clean-logs"
           description="Clean all logs in runtime/logs">
-        <subant target="clean-logs">
-            <filelist dir="." files="framework/build.xml"/>
-        </subant>
+        <delete verbose="on" includeemptydirs="true">
+            <fileset dir="runtime/logs" includes="**/*">
+                <exclude name="README"/>
+            </fileset>
+        </delete>
     </target>
 
     <target name="clean-output"
           description="Clean runtime/output directory">
-        <subant target="clean-output">
-            <filelist dir="." files="framework/build.xml"/>
-        </subant>
+        <delete verbose="on" includeemptydirs="true">
+            <fileset dir="runtime/output" includes="**/*"/>
+        </delete>
     </target>
 
     <target name="clean-xtra"
@@ -121,9 +144,7 @@ under the License.
 
     <target name="clean-catalina"
           description="Clean Catalina data in runtime/catalina/work">
-        <subant target="clean-catalina">
-            <filelist dir="." files="framework/build.xml"/>
-        </subant>
+        <delete dir="runtime/catalina/work"/>
     </target>
 
    <target name="clean-cache"
@@ -135,15 +156,15 @@ under the License.
 
     <target name="clean-tempfiles"
           description="Remove files located in runtime/tempfiles (captcha, etc...)">
-        <subant target="clean-tempfiles">
-            <filelist dir="." files="framework/build.xml"/>
-        </subant>
+        <delete includeemptydirs="true">
+            <fileset dir="./runtime/tempfiles" includes="**/*"/>
+        </delete>
     </target>
 
     <target name="clean-search-indexes"
-            description="Remove search indexes (e.g. Lucene indexes) created under runtime/data/indexes">
+            description="Remove search indexes (e.g. Lucene indexes) created under runtime/indexes">
         <delete includeemptydirs="true">
-            <fileset dir="./runtime/data/indexes" includes="**/*"/>
+            <fileset dir="./runtime/indexes" includes="**/*"/>
         </delete>
     </target>
 

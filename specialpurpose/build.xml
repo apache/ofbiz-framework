@@ -46,25 +46,6 @@
     <!-- Removes all created files and directories                          -->
     <!-- ================================================================== -->
 
-    <target name="refresh">
-        <antcall target="clean-all"/>
-        <antcall target="build"/>
-    </target>
-
-    <target name="clean-all">
-        <antcall target="clean-xtra"/>
-        <antcall target="clean"/>
-    </target>
-
-    <target name="clean-xtra" depends="">
-        <delete verbose="on">
-            <fileset dir="." includes="**/.nbattrs,**/*~,**/.#*,**/.DS_Store,**/*.rej,**/*.orig"/>
-        </delete>
-    </target>
-
-    <target name="tests">
-    </target>
-
     <target name="clean">
         <iterate target="clean" filelist="specialpurpose-builds"/>
         <delete file="ofbiz.jar"/>
