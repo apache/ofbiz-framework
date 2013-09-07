@@ -19,8 +19,7 @@
 -->
 
 <project name="OFBiz Special Purpose Applications Build" default="build" basedir=".">
-    <import file="../macros.xml"/>
-    <filelist id="specialpurpose-builds" dir="."
+    <filelist id="specialpurpose-builds" dir="specialpurpose"
         files="
         appserver/build.xml,
         jetty/build.xml,
@@ -41,38 +40,4 @@
         birt/build.xml,
         example/build.xml
     "/>
-
-    <!-- ================================================================== -->
-    <!-- Removes all created files and directories                          -->
-    <!-- ================================================================== -->
-
-    <target name="clean">
-        <iterate target="clean" filelist="specialpurpose-builds"/>
-        <delete file="ofbiz.jar"/>
-        <echo message="[clean] ========== Done Cleaning Special purpose =========="/>
-    </target>
-
-    <!-- ================================================================== -->
-    <!-- Build Components                                                   -->
-    <!-- ================================================================== -->
-
-    <target name="build" depends="">
-        <echo message="[build] ========== Start Building Special Purpose (Compile) =========="/>
-
-        <iterate inheritall="false" filelist="specialpurpose-builds"/>
-
-        <echo message="[build] ========== Done Building Special Purpose (Compile) =========="/>
-    </target>
-
-    <!-- ================================================================== -->
-    <!-- Build JavaDocs                                                     -->
-    <!-- ================================================================== -->
-
-    <target name="docs" depends="">
-        <echo message="[docs] ========== Start Building Special Purpose (JavaDoc) =========="/>
-
-        <iterate target="docs" filelist="specialpurpose-builds"/>
-
-        <echo message="[docs] ========== Done Building Special Purpose (JavaDocs) =========="/>
-    </target>
 </project>
