@@ -37,9 +37,20 @@ if (UtilValidate.isEmpty(parameters.groovyProgram)) {
 // Use the List variable recordValues to fill it with GenericValue maps.
 // full groovy syntaxt is available
 
-// examples:
-recordValues.add(delegator.findOne("Content", ["contentId": "BLOGROOTBIGAL"], false));
-recordValues.add(delegator.findOne("Content", ["contentId": "BLOGROOTMADMAX"], false));
+import org.ofbiz.entity.util.EntityFindOptions;
+
+// example:
+
+// find the first three record in the product entity (if any)
+EntityFindOptions findOptions = new EntityFindOptions();
+findOptions.setMaxRows(3);
+
+List products = delegator.findList("Product", null, null, null, findOptions, false);
+if (products != null) {  
+    recordValues.addAll(products);
+}
+
+
 '''
     parameters.groovyProgram = groovyProgram;
 } else {
@@ -76,5 +87,11 @@ if (UtilValidate.isNotEmpty(groovyProgram)) {
     } catch(IllegalArgumentException e) {
         request.setAttribute("_ERROR_MESSAGE_", e);
         return;
-    }
+    } catch(NullPointerException e) {
+        request.setAttribute("_ERROR_MESSAGE_", e);
+        return;
+    } catch(Exception e) {
+        request.setAttribute("_ERROR_MESSAGE_", e);
+        return;
+    } 
 }

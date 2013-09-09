@@ -22,7 +22,7 @@ under the License.
 
     <form name="ProgramExport" type="single" target="ProgramExport" default-map-name="parameters">
         <field name="groovyProgram" widget-style="required" tooltip="${uiLabelMap.CommonRequired}">
-            <textarea cols="120" rows="10" />
+            <textarea cols="120" rows="20" />
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonRun}"><submit button-type="button"/></field>
     </form>
