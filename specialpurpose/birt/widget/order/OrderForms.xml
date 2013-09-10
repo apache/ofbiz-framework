@@ -26,14 +26,14 @@ under the License.
     <form name="SalesReport" type="single" target="checkReportBy" title=""
           header-row-style="header-row" default-table-style="basic-table" target-window="_BLANK">
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time type="date"/></field>
-        <field name="reportBy" title="Report By">
+        <field name="reportBy" title="${uiLabelMap.BirtOrderReportReportBy}">
             <drop-down>
-                <option key="day" description="Days"></option>
-                <option key="week" description="Weeks"></option>
-                <option key="month" description="Months"></option>
+                <option key="day" description="${uiLabelMap.CommonDays}"></option>
+                <option key="week" description="${uiLabelMap.CommonWeeks}"></option>
+                <option key="month" description="${uiLabelMap.CommonMonths}"></option>
             </drop-down>
         </field>
-        <field name="exportType" title="Format Type">
+        <field name="exportType" title="${uiLabelMap.BirtOrderReportFormatType}">
             <drop-down>
                 <option key="pdf" description="PDF"></option>
                 <option key="excel" description="Excel"></option>
@@ -71,11 +71,11 @@ under the License.
 
     <form name="OrderByReferrer" type="single" target="OrderByReferrer.pdf" target-window="_BLANK">
         <!--field name="referrerUrl"><text-find default-option="contains"/></field-->
-        <field name="referrerUrl" title=" "><display description="All Referrer"></display></field>
+        <field name="referrerUrl" title=" "><display description="${uiLabelMap.BirtOrderReportAllReferrer}"></display></field>
         <field name="submit" title="${uiLabelMap.CommonRun}"><submit button-type="button"/></field>
     </form>
     <form name="SaleOrdersByChannel" type="single" target="OrdersByChannel.pdf" target-window="_BLANK">
-        <field name="saleChannel">
+        <field name="SalesChannel" title="${uiLabelMap.OrderSalesChannel}">
             <drop-down allow-empty="false">
                 <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
                 <entity-options description="${description}" entity-name="Enumeration" key-field-name="description">
@@ -86,7 +86,7 @@ under the License.
         <field name="submit" title="${uiLabelMap.CommonRun}"><submit button-type="button"/></field>
     </form>
     <form name="SaleOrderDiscountCode" type="single" target="OrderDiscountCode.pdf" target-window="_BLANK">
-        <field name="discountCodeUrl" title=" "><display description="All order items with discount code"></display></field>
+        <field name="discountCodeUrl" title=" "><display description="${uiLabelMap.BirtOrderReportAllOrderItemsWithDiscountCode}"></display></field>
         <field name="submit" title="${uiLabelMap.CommonRun}"><submit button-type="button"/></field>
     </form>
     <form name="Last3MonthsSalesReport" type="single" target="Last3MonthsSalesReport.pdf" target-window="_BLANK">

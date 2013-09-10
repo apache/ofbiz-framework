@@ -27,9 +27,10 @@ under the License.
         <section>
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="BirtUiLabels" map-name="uiLabelMap" global="true"/>                
             </actions>
             <widgets>
-                <screenlet title="Sales Report">
+                <screenlet title="${uiLabelMap.BirtOrderReportSalesReport}">
                     <include-form name="SalesReport" location="component://birt/widget/order/OrderForms.xml"/>
                 </screenlet>
             </widgets>
@@ -40,9 +41,10 @@ under the License.
         <section>
             <actions>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="BirtUiLabels" map-name="uiLabelMap" global="true"/>                
             </actions>
             <widgets>
-                <screenlet title="Net Before Overhead Report">
+                <screenlet title="${uiLabelMap.BirtOrderReportNetBeforeOverheadReport}">
                     <include-form name="NetBeforeOverheadReport" location="component://birt/widget/order/OrderForms.xml"/>
                 </screenlet>
             </widgets>
@@ -53,19 +55,23 @@ under the License.
         <section>
             <actions>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="BirtUiLabels" map-name="uiLabelMap" global="true"/>                
             </actions>
             <widgets>
-                <screenlet title="Product Demand Report">
+                <screenlet title="${uiLabelMap.BirtOrderReportProductDemandReport}">
                     <include-form name="ProductDemandReport" location="component://birt/widget/order/OrderForms.xml"/>
                 </screenlet>
             </widgets>
         </section>
     </screen>
     <!-- Sale Order By Referrer -->
-    <screen name="SaleOrdersByReferrerReport">
+    <screen name="SaleOrdersByReferrerReport">        
         <section>
+            <actions>
+                <property-map resource="BirtUiLabels" map-name="uiLabelMap" global="true"/>                
+            </actions>
             <widgets>
-                <screenlet title="Sale Orders by Referrer Report">
+                <screenlet title="${uiLabelMap.BirtOrderReportOrderByReferrer}">
                     <include-form name="OrderByReferrer" location="component://birt/widget/order/OrderForms.xml"/>
                 </screenlet>
             </widgets>
@@ -74,8 +80,12 @@ under the License.
     <!-- Sale Order By Channel -->
     <screen name="SaleOrdersByChannelReport">
         <section>
+            <actions>
+                <property-map resource="BirtUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>                
+            </actions>
             <widgets>
-                <screenlet title="Sale Orders By Channel Report">
+                <screenlet title="${uiLabelMap.BirtOrderReportSaleOrdersByChannel}">
                     <include-form name="SaleOrdersByChannel" location="component://birt/widget/order/OrderForms.xml"/>
                 </screenlet>
             </widgets>
@@ -84,8 +94,11 @@ under the License.
     <!-- Sale Order with Discount Code -->
     <screen name="SaleOrderDiscountCodeReport">
         <section>
+            <actions>
+                <property-map resource="BirtUiLabels" map-name="uiLabelMap" global="true"/>                
+            </actions>
             <widgets>
-                <screenlet title="Sale Orders Discount Code Report">
+                <screenlet title="${uiLabelMap.BirtOrderReportSaleOrderDiscountCode}">
                     <include-form name="SaleOrderDiscountCode" location="component://birt/widget/order/OrderForms.xml"/>
                 </screenlet>
             </widgets>
@@ -94,8 +107,11 @@ under the License.
     <!-- Last Three Months Sales Report -->
     <screen name="Last3MonthsSalesReport">
         <section>
+            <actions>
+                <property-map resource="BirtUiLabels" map-name="uiLabelMap" global="true"/>                
+            </actions>
             <widgets>
-                <screenlet title="Last Three Months Sales Report">
+                <screenlet title="${uiLabelMap.BirtOrderReportLast3MonthsSalesReport}">
                     <include-form name="Last3MonthsSalesReport" location="component://birt/widget/order/OrderForms.xml"/>
                 </screenlet>
             </widgets>
@@ -104,20 +120,21 @@ under the License.
     <!-- Coupon Sales Report -->
     <screen name="CouponSalesReport">
         <section>
+            <actions>
+                <property-map resource="BirtUiLabels" map-name="uiLabelMap" global="true"/>                
+            </actions>
             <widgets>
-                <screenlet title="Coupon Sales Report">
+                <screenlet title="${uiLabelMap.BirtOrderReportCouponSalesReport}">
                     <include-form name="CouponSalesReport" location="component://birt/widget/order/OrderForms.xml"/>
                 </screenlet>
             </widgets>
         </section>
     </screen>
 
-
-
-
     <screen name="SalesOrderReport">
         <section>
             <actions>
+                <property-map resource="BirtUiLabels" map-name="uiLabelMap" global="true"/>                
                 <entity-condition entity-name="SalesOrderItemStarSchema" list="SalesReportList">
                     <condition-list combine="and">
                         <condition-expr field-name="orderDate" operator="greater-equals" from-field="parameters.fromOrderDate" ignore-if-empty="true"/>
@@ -126,29 +143,41 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <platform-specific>
-                    <xml><html-template location="component://order/webapp/ordermgr/reports/SalesReport.rptdesign"/></xml>
-                </platform-specific>
+                <screenlet title="${uiLabelMap.BirtOrderReportSalesReport}">                
+                    <platform-specific>
+                        <xml><html-template location="component://order/webapp/ordermgr/reports/SalesReport.rptdesign"/></xml>
+                    </platform-specific>
+                </screenlet>
             </widgets>
         </section>
     </screen>
 
     <screen name="NetBeforeOverheadOrderReport">
         <section>
+            <actions>
+                <property-map resource="BirtUiLabels" map-name="uiLabelMap" global="true"/>                
+            </actions>
             <widgets>
-                <platform-specific>
-                    <xml><html-template location="component://order/webapp/ordermgr/reports/NetBeforeOverheadReport.rptdesign"/></xml>
-                </platform-specific>
+                <screenlet title="${uiLabelMap.BirtOrderReportNetBeforeOverheadReport}">
+                    <platform-specific>
+                        <xml><html-template location="component://order/webapp/ordermgr/reports/NetBeforeOverheadReport.rptdesign"/></xml>
+                    </platform-specific>
+                </screenlet>
             </widgets>
         </section>
     </screen>
 
     <screen name="ProductDemandOrderReport ">
         <section>
+            <actions>
+                <property-map resource="BirtUiLabels" map-name="uiLabelMap" global="true"/>                
+            </actions>
             <widgets>
-                <platform-specific>
-                    <xml><html-template location="component://order/webapp/ordermgr/reports/ProductDemandReport.rptdesign"/></xml>
-                </platform-specific>
+                <screenlet title="${uiLabelMap.BirtOrderReportProductDemandReport}">
+                    <platform-specific>
+                        <xml><html-template location="component://order/webapp/ordermgr/reports/ProductDemandReport.rptdesign"/></xml>
+                    </platform-specific>
+                </screenlet>
             </widgets>
         </section>
     </screen>

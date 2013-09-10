@@ -464,7 +464,7 @@ return true;]]></method>
             <property name="fontWeight">bolder</property>
             <property name="textAlign">center</property>
             <property name="contentType">auto</property>
-            <text-property name="content"><![CDATA[Orders By Sale Channel]]></text-property>
+            <text-property name="content"><![CDATA[Orders By Sales Channel]]></text-property>
         </text>
         <text id="577"/>
         <extended-item extensionName="Crosstab" extensionVersion="2.5.0" id="634">
