@@ -388,7 +388,7 @@ under the License.
     <request-map uri="ProgramExport">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ProgramExport"/>
-        <response name="error" type="view" value="ProgramExport"/>'
+        <response name="error" type="view" value="ProgramExport"/>
     </request-map>
     <request-map uri="EntityExportAll"><security https="true" auth="true"/><response name="success" type="view" value="EntityExportAll"/><response name="error" type="view" value="EntityExportAll"/></request-map>
     <request-map uri="entityExportAll">
