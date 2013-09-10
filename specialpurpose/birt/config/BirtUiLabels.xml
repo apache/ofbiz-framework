@@ -37,14 +37,59 @@
         <value xml:lang="ja">Eclipse BIRT 業務</value>
         <value xml:lang="th">Eclipse BIRT Application</value>
         <value xml:lang="zh">Eclipse BIRT应用程序</value>
+    </property>    
+    <property key="BirtOrderReportAllReferrer">
+        <value xml:lang="en">All Referrer</value>
+        <value xml:lang="fr">Tous apporteurs d'affaires</value>
+    </property>    
+    <property key="BirtOrderReportAllOrderItemsWithDiscountCode">
+        <value xml:lang="en">All order items with discount code</value>
+        <value xml:lang="fr">Tous les lignes de commandes ayant des codes promotionels</value>
+    </property>        
+    <property key="BirtOrderReportCouponSalesReport">
+        <value xml:lang="en">Coupon Sales Report</value>
+        <value xml:lang="fr">Ventes promotionelles</value>
+    </property>    
+    <property key="BirtOrderReportFormatType">
+        <value xml:lang="en">Format Type</value>
+        <value xml:lang="fr">Format : </value>
+    </property>        
+    <property key="BirtOrderReportLast3MonthsSalesReport">
+        <value xml:lang="en">Last 3 Months Sales Report</value>
+        <value xml:lang="fr">Ventes des 3 derniers mois</value>
     </property>
-    <property key="FrameworkBirt">
-        <value xml:lang="en">Framework Eclipse BIRT</value>
-        <value xml:lang="ja">Eclipse BIRT フレームワーク</value>
-        <value xml:lang="th">Framework Eclipse BIRT</value>
-        <value xml:lang="zh">Eclipse BIRT框架</value>
+    <property key="BirtOrderReportNetBeforeOverheadReport">
+        <value xml:lang="en">Net Before Overhead Report</value>
+        <value xml:lang="fr">Net avant frais généraux</value>
     </property>
-
+    <property key="BirtOrderReportOrderByReferrer">
+        <value xml:lang="en">Order By Referrer</value>
+        <value xml:lang="fr">Commandes par apporteurs d'affaires</value>
+    </property>
+    <property key="BirtOrderReportProductDemandReport">
+        <value xml:lang="en">Product Demand Report</value>
+        <value xml:lang="fr">Demandes par produit</value>
+    </property>
+    <property key="BirtOrderReportReportBy">
+        <value xml:lang="en">Report By</value>
+        <value xml:lang="fr">Par : </value>
+    </property>
+    <property key="BirtOrderReportSalesReport">
+        <value xml:lang="en">Sales Report</value>
+        <value xml:lang="fr">Ventes depuis :</value>
+    </property>
+    <property key="BirtOrderReportSaleOrderDiscountCode">
+        <value xml:lang="en">Sales Order Discount Code</value>
+        <value xml:lang="fr">Ventes par codes promotionels</value>
+    </property>
+    <property key="BirtOrderReportSaleOrdersByChannel">
+        <value xml:lang="en">Sale Orders By Channel</value>
+        <value xml:lang="fr">Ventes par canaux</value>
+    </property>
+    <property key="BirtOrderReportsWarning">
+        <value xml:lang="en">Four Birt reports (Last 3 Months Sales, Sales, Sales Order Discount Code, Product Demand) require to feed the BI data base (note that the bi.properties file will need to be updated after September 2023). Then only new approved orders will be taken into account</value>
+        <value xml:lang="fr">Quatre tableau créés par Birt (Ventes des 3 derniers mois, Ventes, Ventes par codes promotionels, Demandes par produit) nécessitent d'alimenter la base de données d'Inform. décis. (notez aussi la màj du fichier bi.properties nécessaire après septembre 2023). Seulemnt ensuite les commandes approuvées seront prises en compte.</value>
+    </property>    
     <property key="ExampleBirtExamples">
         <value xml:lang="en">BIRT Examples</value>
         <value xml:lang="ja">BIRT サンプル</value>
