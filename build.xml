@@ -167,7 +167,7 @@ under the License.
     <target name="clean-search-indexes"
             description="Remove search indexes (e.g. Lucene indexes) created under runtime/indexes">
         <delete includeemptydirs="true">
-            <fileset dir="./runtime/indexes" includes="**/*"/>
+            <fileset dir="./runtime/indexes" includes="**/*" erroronmissingdir="false" />
         </delete>
     </target>
 
