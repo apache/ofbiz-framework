@@ -88,17 +88,24 @@ public class MacroScreenViewHandler extends AbstractViewHandler {
                 // to speed up output.
                 writer = new StandardCompress().getWriter(writer, null);
             }
-
             ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(UtilProperties.getPropertyValue("widget", getName() + ".name"), UtilProperties.getPropertyValue("widget", getName() + ".screenrenderer"));
-            FormStringRenderer formStringRenderer = new MacroFormRenderer(UtilProperties.getPropertyValue("widget", getName() + ".formrenderer"), request, response);
-            TreeStringRenderer treeStringRenderer = new MacroTreeRenderer(UtilProperties.getPropertyValue("widget", getName() + ".treerenderer"), writer);
-            MenuStringRenderer menuStringRenderer = new MacroMenuRenderer(UtilProperties.getPropertyValue("widget", getName() + ".menurenderer"), request, response);
-
             ScreenRenderer screens = new ScreenRenderer(writer, null, screenStringRenderer);
             screens.populateContextForRequest(request, response, servletContext);
-            screens.getContext().put("formStringRenderer", formStringRenderer);
-            screens.getContext().put("treeStringRenderer", treeStringRenderer);
-            screens.getContext().put("menuStringRenderer", menuStringRenderer);
+            String macroLibraryPath = UtilProperties.getPropertyValue("widget", getName() + ".formrenderer");
+            if (UtilValidate.isNotEmpty(macroLibraryPath)) {
+                FormStringRenderer formStringRenderer = new MacroFormRenderer(macroLibraryPath, request, response);
+                screens.getContext().put("formStringRenderer", formStringRenderer);
+            }
+            macroLibraryPath = UtilProperties.getPropertyValue("widget", getName() + ".treerenderer");
+            if (UtilValidate.isNotEmpty(macroLibraryPath)) {
+                TreeStringRenderer treeStringRenderer = new MacroTreeRenderer(macroLibraryPath, writer);
+                screens.getContext().put("treeStringRenderer", treeStringRenderer);
+            }
+            macroLibraryPath = UtilProperties.getPropertyValue("widget", getName() + ".menurenderer");
+            if (UtilValidate.isNotEmpty(macroLibraryPath)) {
+                MenuStringRenderer menuStringRenderer = new MacroMenuRenderer(macroLibraryPath, request, response);
+                screens.getContext().put("menuStringRenderer", menuStringRenderer);
+            }
             screens.getContext().put("simpleEncoder", StringUtil.getEncoder(UtilProperties.getPropertyValue("widget", getName() + ".encoder")));
             screenStringRenderer.renderScreenBegin(writer, screens.getContext());
             screens.render(page);
