@@ -19,16 +19,14 @@
 package org.ofbiz.widget.screen;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
 import java.util.ListIterator;
+import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastList;
@@ -47,16 +45,15 @@ import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.widget.ModelWidget;
 import org.ofbiz.widget.ModelWidgetAction;
+import org.ofbiz.widget.PortalPageWorker;
 import org.ofbiz.widget.WidgetFactory;
 import org.ofbiz.widget.WidgetWorker;
-import org.ofbiz.widget.PortalPageWorker;
 import org.ofbiz.widget.form.FormFactory;
 import org.ofbiz.widget.form.FormStringRenderer;
 import org.ofbiz.widget.form.ModelForm;
-import org.ofbiz.widget.html.HtmlFormRenderer;
-import org.ofbiz.widget.html.HtmlMenuRenderer;
 import org.ofbiz.widget.menu.MenuFactory;
 import org.ofbiz.widget.menu.MenuStringRenderer;
 import org.ofbiz.widget.menu.ModelMenu;
@@ -65,7 +62,6 @@ import org.ofbiz.widget.tree.TreeFactory;
 import org.ofbiz.widget.tree.TreeStringRenderer;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
-import org.ofbiz.entity.condition.*;
 
 
 /**
@@ -811,6 +807,12 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         @Override
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
+            // Output format might not support forms, so make form rendering optional.
+            FormStringRenderer formStringRenderer = (FormStringRenderer) context.get("formStringRenderer");
+            if (formStringRenderer == null) {
+                Debug.logVerbose("FormStringRenderer instance not found in rendering context, form not rendered.", module);
+                return;
+            }
             boolean protectScope = !shareScope(context);
             if (protectScope) {
                 if (!(context instanceof MapStack<?>)) {
@@ -818,22 +820,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 }
                 UtilGenerics.<MapStack<String>>cast(context).push();
             }
-
-            // try finding the formStringRenderer by name in the context in case one was prepared and put there
-            FormStringRenderer formStringRenderer = (FormStringRenderer) context.get("formStringRenderer");
-            // if there was no formStringRenderer put in place, now try finding the request/response in the context and creating a new one
-            if (formStringRenderer == null) {
-                HttpServletRequest request = (HttpServletRequest) context.get("request");
-                HttpServletResponse response = (HttpServletResponse) context.get("response");
-                if (request != null && response != null) {
-                    formStringRenderer = new HtmlFormRenderer(request, response);
-                }
-            }
-            // still null, throw an error
-            if (formStringRenderer == null) {
-                throw new IllegalArgumentException("Could not find a formStringRenderer in the context, and could not find HTTP request/response objects need to create one.");
-            }
-
             ModelForm modelForm = getModelForm(context);
             //Debug.logInfo("before renderFormString, context:" + context, module);
             try {
@@ -899,6 +885,12 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         @Override
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
+            // Output format might not support trees, so make tree rendering optional.
+            TreeStringRenderer treeStringRenderer = (TreeStringRenderer) context.get("treeStringRenderer");
+            if (treeStringRenderer == null) {
+                Debug.logVerbose("TreeStringRenderer instance not found in rendering context, tree not rendered.", module);
+                return;
+            }
             boolean protectScope = !shareScope(context);
             if (protectScope) {
                 if (!(context instanceof MapStack<?>)) {
@@ -925,12 +917,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 Debug.logError(e, errMsg, module);
                 throw new RuntimeException(errMsg);
             }
-
-            TreeStringRenderer treeStringRenderer = (TreeStringRenderer) context.get("treeStringRenderer");
-            if (treeStringRenderer == null) {
-                throw new IllegalArgumentException("Could not find a treeStringRenderer in the context");
-            }
-
             StringBuffer renderBuffer = new StringBuffer();
             modelTree.renderTreeString(renderBuffer, context, treeStringRenderer);
             try {
@@ -1322,21 +1308,12 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         @Override
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws IOException {
-            // try finding the menuStringRenderer by name in the context in case one was prepared and put there
+            // Output format might not support menus, so make menu rendering optional.
             MenuStringRenderer menuStringRenderer = (MenuStringRenderer) context.get("menuStringRenderer");
-            // if there was no menuStringRenderer put in place, now try finding the request/response in the context and creating a new one
             if (menuStringRenderer == null) {
-                HttpServletRequest request = (HttpServletRequest) context.get("request");
-                HttpServletResponse response = (HttpServletResponse) context.get("response");
-                if (request != null && response != null) {
-                    menuStringRenderer = new HtmlMenuRenderer(request, response);
-                }
+                Debug.logVerbose("MenuStringRenderer instance not found in rendering context, menu not rendered.", module);
+                return;
             }
-            // still null, throw an error
-            if (menuStringRenderer == null) {
-                throw new IllegalArgumentException("Could not find a menuStringRenderer in the context, and could not find HTTP request/response objects need to create one.");
-            }
-
             ModelMenu modelMenu = getModelMenu(context);
             modelMenu.renderMenuString(writer, context, menuStringRenderer);
         }
