@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     <include location="component://commonext/webapp/WEB-INF/controller.xml"/>
-    <include location="component://birt/webapp/accounting/WEB-INF/controller.xml" if-present="true"/>
+    <include location="component://birt/webapp/facility/WEB-INF/controller.xml" if-present="true"/>
     
     <description>Facility Manager Module Site Configuration File</description>
     
