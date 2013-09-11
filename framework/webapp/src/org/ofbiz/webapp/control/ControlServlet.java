@@ -217,7 +217,7 @@ public class ControlServlet extends HttpServlet {
             if (throwable instanceof IOException) {
                 // when an IOException occurs (most of the times caused by the browser window being closed before the request is completed)
                 // the connection with the browser is lost and so there is no need to serve the error page; a message is logged to record the event
-                if (Debug.warningOn()) Debug.logWarning("Communication error with the client while processing the request: " + request.getAttribute("_CONTROL_PATH_") + request.getPathInfo(), module);
+                if (Debug.warningOn()) Debug.logWarning(e, "Communication error with the client while processing the request: " + request.getAttribute("_CONTROL_PATH_") + request.getPathInfo(), module);
                 if (Debug.verboseOn()) Debug.logVerbose(throwable, module);
             } else {
                 Debug.logError(throwable, "Error in request handler: ", module);
