@@ -29,7 +29,6 @@ under the License.
     <entity-resource type="data" reader-name="seed" loader="main" location="data/OrderPortletData.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
    
-   <!-- use when reports need to be injected into applications Note: this will break contextual help for those applications.
     <webapp name="accounting"
             title="Accounting"
             server="default-server"
@@ -50,7 +49,7 @@ under the License.
             location="webapp/ordermgr"
             base-permission="OFBTOOLS,ORDERMGR"
             mount-point="/ordermgr"/>
-    -->
+
     <webapp name="birt"
             title="BIRT"
             server="default-server"
