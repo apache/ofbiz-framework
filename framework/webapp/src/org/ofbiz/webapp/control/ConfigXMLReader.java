@@ -32,7 +32,6 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 
-import org.ofbiz.base.location.ComponentLocationResolver;
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.metrics.Metrics;
 import org.ofbiz.base.metrics.MetricsFactory;
@@ -296,24 +295,7 @@ public class ConfigXMLReader {
         protected void loadIncludes(Element rootElement) {
             for (Element includeElement: UtilXml.childElementList(rootElement, "include")) {
                 String includeLocation = includeElement.getAttribute("location");
-                boolean testIfPresent = "true".equals(includeElement.getAttribute("if-present"));
                 if (UtilValidate.isNotEmpty(includeLocation)) {
-                    if (includeLocation.startsWith("component://") && testIfPresent) {
-                        try {
-                            if (null == ComponentLocationResolver.getBaseLocation(includeLocation, true)) {
-                                Debug.logWarning(includeLocation + " does not exist." + " Since R13.07, in releases, specialpurpose components were removed but ecommerce." 
-                                        + " If you need this component, you might check it out from Apache OFBiz trunk HEAD (http://svn.apache.org/repos/asf/ofbiz/trunk)." 
-                                        + " Else, you can simply neglect this warning.", module);
-                                continue;                                
-                            }
-                        } catch (MalformedURLException mue) {
-                            Debug.logWarning("While trying to retrieve " + includeLocation + " an error occured (but if-present was used, so it's maybe only a typo)." 
-                                    + " Also note that since R13.07, in releases, specialpurpose components were removed but ecommerce." 
-                                    + " If you need this component, you might check it out from Apache OFBiz trunk HEAD (http://svn.apache.org/repos/asf/ofbiz/trunk)." 
-                                    + " Else, you can simply neglect this warning.", module);
-                            continue;
-                        }
-                    }
                     try {
                         URL urlLocation = FlexibleLocation.resolveLocation(includeLocation);
                         includes.add(urlLocation);
