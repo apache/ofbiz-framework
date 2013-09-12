@@ -38,8 +38,9 @@ import java.util.Set;
 import javolution.util.FastList;
 import javolution.util.FastSet;
 
-import org.apache.commons.io.FileUtils;
 import org.ofbiz.base.location.ComponentLocationResolver;
+
+import org.apache.commons.io.FileUtils;
 
 /**
  * File Utilities
@@ -56,7 +57,7 @@ public class FileUtil {
     public static File getFile(File root, String path) {
         if (path.startsWith("component://")) {
             try {
-                path = ComponentLocationResolver.getBaseLocation(path, false).toString();
+                path = ComponentLocationResolver.getBaseLocation(path).toString();
             } catch (MalformedURLException e) {
                 Debug.logError(e, module);
                 return null;
