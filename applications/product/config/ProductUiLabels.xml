@@ -221,13 +221,6 @@
         <value xml:lang="vi">Đơn vị tính của sản phẩm trong kho chứa ${lookupPKMap.inventoryItemId} không thể bị cấm.</value>
         <value xml:lang="zh">库存明细 ${lookupPKMap.inventoryItemId} 的单位成本不能是负的。</value>
     </property>
-    <property key="FacilityInventoryHistoryReport">
-        <value xml:lang="en">Inventory History Report</value>
-        <value xml:lang="it">Report storia inventario</value>
-        <value xml:lang="ja">在庫履歴レポート</value>
-        <value xml:lang="vi">Báo cáo lịch sử kho (Inventory)</value>
-        <value xml:lang="zh">库存历史记录报告</value>
-    </property>
     <property key="FacilityMultipleLocations">
         <value xml:lang="en">Multiple Locations</value>
         <value xml:lang="it">Posizioni multiple</value>

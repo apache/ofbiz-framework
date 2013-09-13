@@ -37,23 +37,35 @@
         <value xml:lang="ja">Eclipse BIRT 業務</value>
         <value xml:lang="th">Eclipse BIRT Application</value>
         <value xml:lang="zh">Eclipse BIRT应用程序</value>
-    </property>    
+    </property>
+    <property key="BirtFacilityReportInventoryHistoryReport">
+        <value xml:lang="en">Inventory History Report</value>
+        <value xml:lang="fr">Historique du stock</value>
+        <value xml:lang="it">Report storia inventario</value>
+        <value xml:lang="ja">在庫履歴レポート</value>
+        <value xml:lang="vi">Báo cáo lịch sử kho (Inventory)</value>
+        <value xml:lang="zh">库存历史记录报告</value>
+    </property>
+    <property key="BirtFacilityReportLastIntMonth">
+        <value xml:lang="en">Number of last month to sold out</value>
+        <value xml:lang="fr">Ruptures de stock, pour le nombre de derniers mois : </value>
+    </property>
     <property key="BirtOrderReportAllReferrer">
         <value xml:lang="en">All Referrer</value>
         <value xml:lang="fr">Tous apporteurs d'affaires</value>
-    </property>    
+    </property>
     <property key="BirtOrderReportAllOrderItemsWithDiscountCode">
         <value xml:lang="en">All order items with discount code</value>
         <value xml:lang="fr">Tous les lignes de commandes ayant des codes promotionels</value>
-    </property>        
+    </property>
     <property key="BirtOrderReportCouponSalesReport">
         <value xml:lang="en">Coupon Sales Report</value>
         <value xml:lang="fr">Ventes promotionelles</value>
-    </property>    
+    </property>
     <property key="BirtOrderReportFormatType">
         <value xml:lang="en">Format Type</value>
         <value xml:lang="fr">Format : </value>
-    </property>        
+    </property>
     <property key="BirtOrderReportLast3MonthsSalesReport">
         <value xml:lang="en">Last 3 Months Sales Report</value>
         <value xml:lang="fr">Ventes des 3 derniers mois</value>
@@ -89,7 +101,7 @@
     <property key="BirtOrderReportsWarning">
         <value xml:lang="en">Four Birt reports (Last 3 Months Sales, Sales, Sales Order Discount Code, Product Demand) require to feed the BI data base (note that the bi.properties file will need to be updated after September 2023). Then only new approved orders will be taken into account</value>
         <value xml:lang="fr">Quatre tableau créés par Birt (Ventes des 3 derniers mois, Ventes, Ventes par codes promotionels, Demandes par produit) nécessitent d'alimenter la base de données d'Inform. décis. (notez aussi la màj du fichier bi.properties nécessaire après septembre 2023). Seulemnt ensuite les commandes approuvées seront prises en compte.</value>
-    </property>    
+    </property>
     <property key="ExampleBirtExamples">
         <value xml:lang="en">BIRT Examples</value>
         <value xml:lang="ja">BIRT サンプル</value>
