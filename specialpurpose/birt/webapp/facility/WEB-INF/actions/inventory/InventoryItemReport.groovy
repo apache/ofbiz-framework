@@ -46,7 +46,6 @@
  }else{
      fromDateTime = UtilDateTime.getDayStart(UtilDateTime.toTimestamp(UtilDateTime.nowTimestamp()), (lastIntMonth*(-30)));
      fromOrderDate = UtilDateTime.toDateString(fromDateTime,"MMMM dd, yyyy")
-     Debug.logInfo("====fromDate======="+fromOrderDate.toString(),"");
  }
 
  birtParameters.facilityId = request.getParameter("facilityId");

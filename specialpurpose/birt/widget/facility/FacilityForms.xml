@@ -87,7 +87,7 @@ under the License.
         <field name="thruDateSellThrough"><hidden/></field>
         <field name="offsetQOHQty"><hidden/></field>
         <field name="offsetATPQty"><hidden/></field>
-        <field name="lastIntMonth" title="Number of last month to sold out"><text size="15" default-value="0"></text></field>
+        <field name="lastIntMonth" title="${uiLabelMap.BirtFacilityReportLastIntMonth}"><text size="15" default-value="0"></text></field>
         <field name="contentType" action="document.ViewFacilityInventoryHistoryReportForm.action=this.value" event="onchange">
             <drop-down allow-empty="false" >
                 <option key="RenderInventoryReportHtml" description="HTML"/>
