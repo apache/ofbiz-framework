@@ -29,7 +29,7 @@ under the License.
     <!-- Image Management -->
     <DataResource dataResourceId="IMAGEMANAGEMENT_MAIN" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/product/data/helpdata/HELP_IMAGEMANAGEMENT.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Image Management" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="IMAGEMANAGEMENT_MAIN" contentTypeId="DOCUMENT" contentName="Image Management" templateDataResourceId="HELP_TEMPL" dataResourceId="IMAGEMANAGEMENT_MAIN" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="PRODCATALOG_main" contentIdTo="IMAGEMANAGEMENT_MAIN" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="01" mapKey="PRODUCT_Imagemanagement"/>
+    <ContentAssoc contentId="PRODCATALOG_main" contentIdTo="IMAGEMANAGEMENT_MAIN" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="01" mapKey="CATALOG_Imagemanagement"/>
 
     <!-- Facility help pages -->
     <DataResource dataResourceId="HELP_FACILITY" localeString="en" dataResourceTypeId="OFBIZ_FILE" 

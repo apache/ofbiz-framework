@@ -217,6 +217,9 @@ public class ScreenRenderer {
         context.put("response", response);
         context.put("session", session);
         context.put("application", servletContext);
+        if (session != null) {
+            context.put("webappName", session.getAttribute("_WEBAPP_NAME_"));
+        }
         if (servletContext != null) {
             String rootDir = (String) context.get("rootDir");
             String webSiteId = (String) context.get("webSiteId");

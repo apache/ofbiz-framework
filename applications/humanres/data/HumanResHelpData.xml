@@ -34,6 +34,6 @@ under the License.
     <DataResource dataResourceId="HR_training" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
       objectInfo="applications/humanres/data/helpdata/HELP_HR_training.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Human Resources Training Help" mimeTypeId="text/xml" isPublic="Y" />
   <Content contentId="HR_training" contentTypeId="DOCUMENT" contentName="Training." templateDataResourceId="HELP_TEMPL" dataResourceId="HR_training" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-  <ContentAssoc contentId="HELP_HR" contentIdTo="HR_training" contentAssocTypeId="TREE_CHILD" fromDate="2009-10-18 01:01:01" sequenceNum="000" mapKey="HUMANRES_training"/>
+    <ContentAssoc contentId="HELP_HR" contentIdTo="HR_training" contentAssocTypeId="TREE_CHILD" fromDate="2009-10-18 01:01:01" sequenceNum="000" mapKey="HUMANRES_TrainingCalendar"/>
     
 </entity-engine-xml>
