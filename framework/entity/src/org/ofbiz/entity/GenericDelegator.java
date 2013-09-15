@@ -1673,6 +1673,25 @@ public class GenericDelegator implements Delegator {
             TransactionUtil.commit(beganTransaction);
         }
     }
+    
+    /** Finds all Generic entities
+     *@param entityName The Name of the Entity as defined in the entity XML file
+     *@return    List containing all Generic entities
+     *@deprecated Use findList() instead
+     */
+    public List<GenericValue> findAll(String entityName) throws GenericEntityException {
+        return this.findList(entityName, null, null, null, null, false);
+    }
+    
+    /** Finds all Generic entities, looking first in the cache
+     *@param entityName The Name of the Entity as defined in the entity XML file
+     *@return    List containing all Generic entities
+     *@deprecated Use findList() instead
+     */
+    public List<GenericValue> findAllCache(String entityName) throws GenericEntityException {
+        return this.findList(entityName, null, null, null, null, true);
+    }
+    
 
     /* (non-Javadoc)
      * @see org.ofbiz.entity.Delegator#findByAnd(java.lang.String, java.lang.Object)
