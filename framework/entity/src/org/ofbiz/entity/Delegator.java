@@ -293,6 +293,19 @@ public interface Delegator {
     public EntityListIterator find(String entityName, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, Set<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions) throws GenericEntityException;
 
     /**
+     * Finds all Generic entities 
+     *
+     * @param entityName
+     *            The Name of the Entity as defined in the entity XML file
+     * @param useCache
+     *            Whether to cache the results
+     * @return List containing all Generic entities
+     * @deprecated use {@link #findList(String entityName, EntityCondition entityCondition, Set<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions, boolean useCache)
+     */
+    @Deprecated
+    public List<GenericValue> findAll(String entityName, boolean useCache) throws GenericEntityException;
+
+    /**
      * Finds Generic Entity records by all of the specified fields (ie: combined
      * using AND) NOTE 20080502: 264 references
      *
