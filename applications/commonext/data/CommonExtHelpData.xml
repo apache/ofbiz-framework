@@ -26,39 +26,39 @@ under the License.
     
     <DataResource dataResourceId="SETUP_initialsetup" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/commonext/data/helpdata/HELP_SETUP_initialsetup.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Setup Main Help" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="SETUP_initialsetup" contentTypeId="DOCUMENT" contentName="Setup main." templateDataResourceId="HELP_TEMPL" dataResourceId="SETUP_initialsetup" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_SETUP" contentIdTo="SETUP_initialsetup" contentAssocTypeId="TREE_CHILD" fromDate="2009-09-09 01:01:01" sequenceNum="001" mapKey="SETUP_initialsetup"/>
+    <ContentAssoc contentId="HELP_SETUP" contentIdTo="SETUP_initialsetup" contentAssocTypeId="TREE_CHILD" fromDate="2009-09-09 01:01:01" sequenceNum="001" mapKey="OFBIZSETUP_initialsetup"/>
     
     <DataResource dataResourceId="SETUP_editFacility" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/commonext/data/helpdata/HELP_SETUP_editFacility.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="OFBiz Setup Edit Facility Help" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="SETUP_editFacility" contentTypeId="DOCUMENT" contentName="Edit Facility." templateDataResourceId="HELP_TEMPL" dataResourceId="SETUP_editFacility" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_SETUP" contentIdTo="SETUP_editFacility" contentAssocTypeId="TREE_CHILD" fromDate="2009-09-09 01:01:01" sequenceNum="002" mapKey="SETUP_EditFacility"/>
+    <ContentAssoc contentId="HELP_SETUP" contentIdTo="SETUP_editFacility" contentAssocTypeId="TREE_CHILD" fromDate="2009-09-09 01:01:01" sequenceNum="002" mapKey="OFBIZSETUP_EditFacility"/>
     
     <DataResource dataResourceId="SETUP_editProdStore" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/commonext/data/helpdata/HELP_SETUP_editProductStore.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="OFBiz Setup Edit Product Store Help" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="SETUP_editProdStore" contentTypeId="DOCUMENT" contentName="Edit Product Store." templateDataResourceId="HELP_TEMPL" dataResourceId="SETUP_editProdStore" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_SETUP" contentIdTo="SETUP_editProdStore" contentAssocTypeId="TREE_CHILD" fromDate="2009-09-09 01:01:01" sequenceNum="003" mapKey="SETUP_EditProductStore"/>
+    <ContentAssoc contentId="HELP_SETUP" contentIdTo="SETUP_editProdStore" contentAssocTypeId="TREE_CHILD" fromDate="2009-09-09 01:01:01" sequenceNum="003" mapKey="OFBIZSETUP_EditProductStore"/>
     
     <DataResource dataResourceId="SETUP_editWebSite" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/commonext/data/helpdata/HELP_SETUP_editWebSite.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="OFBiz Setup Edit WebSite Help" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="SETUP_editWebSite" contentTypeId="DOCUMENT" contentName="Edit WebSite." templateDataResourceId="HELP_TEMPL" dataResourceId="SETUP_editWebSite" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_SETUP" contentIdTo="SETUP_editWebSite" contentAssocTypeId="TREE_CHILD" fromDate="2009-09-09 01:01:01" sequenceNum="004" mapKey="SETUP_EditWebSite"/>
+    <ContentAssoc contentId="HELP_SETUP" contentIdTo="SETUP_editWebSite" contentAssocTypeId="TREE_CHILD" fromDate="2009-09-09 01:01:01" sequenceNum="004" mapKey="OFBIZSETUP_EditWebSite"/>
     
     <DataResource dataResourceId="SETUP_firstCust" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/commonext/data/helpdata/HELP_SETUP_firstcustomer.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="OFBiz Setup Create First Customer Help" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="SETUP_firstCust" contentTypeId="DOCUMENT" contentName="Create First Customer." templateDataResourceId="HELP_TEMPL" dataResourceId="SETUP_firstCust" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_SETUP" contentIdTo="SETUP_firstCust" contentAssocTypeId="TREE_CHILD" fromDate="2009-09-09 01:01:01" sequenceNum="005" mapKey="SETUP_firstcustomer"/>
+    <ContentAssoc contentId="HELP_SETUP" contentIdTo="SETUP_firstCust" contentAssocTypeId="TREE_CHILD" fromDate="2009-09-09 01:01:01" sequenceNum="005" mapKey="OFBIZSETUP_firstcustomer"/>
     
     <DataResource dataResourceId="SETUP_firstCatalog" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/commonext/data/helpdata/HELP_SETUP_firstProdCatalog.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="OFBiz Setup First Catalog Help" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="SETUP_firstCatalog" contentTypeId="DOCUMENT" contentName="Create First Catalog." templateDataResourceId="HELP_TEMPL" dataResourceId="SETUP_firstCatalog" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_SETUP" contentIdTo="SETUP_firstCatalog" contentAssocTypeId="TREE_CHILD" fromDate="2009-09-09 01:01:01" sequenceNum="006" mapKey="SETUP_firstproduct"/>
+    <ContentAssoc contentId="HELP_SETUP" contentIdTo="SETUP_firstCatalog" contentAssocTypeId="TREE_CHILD" fromDate="2009-09-09 01:01:01" sequenceNum="006" mapKey="OFBIZSETUP_firstproduct"/>
     
     <DataResource dataResourceId="SETUP_firstCategory" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/commonext/data/helpdata/HELP_SETUP_firstProductCategory.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="OFBiz Setup First Product Category Help" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="SETUP_firstCategory" contentTypeId="DOCUMENT" contentName="Create First Product Category Help" templateDataResourceId="HELP_TEMPL" dataResourceId="SETUP_firstCategory" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_SETUP" contentIdTo="SETUP_firstCategory" contentAssocTypeId="TREE_CHILD" fromDate="2009-09-09 01:01:01" sequenceNum="007" mapKey="SETUP_EditCategory"/>
+    <ContentAssoc contentId="HELP_SETUP" contentIdTo="SETUP_firstCategory" contentAssocTypeId="TREE_CHILD" fromDate="2009-09-09 01:01:01" sequenceNum="007" mapKey="OFBIZSETUP_EditCategory"/>
     
     <DataResource dataResourceId="SETUP_firstproduct" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/commonext/data/helpdata/HELP_SETUP_firstproduct.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="OFBiz Setup The First Product Help" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="SETUP_firstproduct" contentTypeId="DOCUMENT" contentName="Create First Product." templateDataResourceId="HELP_TEMPL" dataResourceId="SETUP_firstproduct" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_SETUP" contentIdTo="SETUP_firstproduct" contentAssocTypeId="TREE_CHILD" fromDate="2009-09-09 01:01:01" sequenceNum="008" mapKey="SETUP_EditProduct"/>
+    <ContentAssoc contentId="HELP_SETUP" contentIdTo="SETUP_firstproduct" contentAssocTypeId="TREE_CHILD" fromDate="2009-09-09 01:01:01" sequenceNum="008" mapKey="OFBIZSETUP_EditProduct"/>
     
     <DataResource dataResourceId="SETUP_profileORG" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/commonext/data/helpdata/HELP_SETUP_profileCompany.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="OFBiz Setup View Organization Profile Help" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="SETUP_profileORG" contentTypeId="DOCUMENT" contentName="View Organization Profile." templateDataResourceId="HELP_TEMPL" dataResourceId="SETUP_profileORG" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_SETUP" contentIdTo="SETUP_profileORG" contentAssocTypeId="TREE_CHILD" fromDate="2009-09-09 01:01:01" sequenceNum="009" mapKey="SETUP_viewprofile"/>
+    <ContentAssoc contentId="HELP_SETUP" contentIdTo="SETUP_profileORG" contentAssocTypeId="TREE_CHILD" fromDate="2009-09-09 01:01:01" sequenceNum="009" mapKey="OFBIZSETUP_viewprofile"/>
 
     <DataResource dataResourceId="DOCUMENTATION_SYSTEM" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/commonext/data/helpdata/HELP_OFBizDocumentationSystem.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Documentation system" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="DOCUMENTATION_SYSTEM" contentTypeId="DOCUMENT" templateDataResourceId="HELP_TEMPL" dataResourceId="DOCUMENTATION_SYSTEM" localeString="en" statusId="CTNT_IN_PROGRESS" contentName="Documentation system" mimeTypeId="text/html"/>
