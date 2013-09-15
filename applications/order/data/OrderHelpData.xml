@@ -18,22 +18,22 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>
-    <DataResource dataResourceId="HELP_ORDER" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-        objectInfo="applications/order/data/helpdata/HELP_ORDER.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+    <DataResource dataResourceId="HELP_ORDERMGR" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/order/data/helpdata/HELP_ORDERMGR.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
         dataResourceName="Order" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_ORDER" contentTypeId="DOCUMENT" contentName="Order Manager" templateDataResourceId="HELP_TEMPL" 
-        dataResourceId="HELP_ORDER" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_ORDER" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
+    <Content contentId="HELP_ORDERMGR" contentTypeId="DOCUMENT" contentName="Order Manager" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="HELP_ORDERMGR" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_ORDERMGR" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
 
     <!--  Order View -->
-    <DataResource dataResourceId="HELP_ORDER_VIEW" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-        objectInfo="applications/order/data/helpdata/HELP_ORDER_View.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_ORDER_VIEW" contentTypeId="DOCUMENT" contentName="Order View Help" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_ORDER_VIEW" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_ORDER" contentIdTo="HELP_ORDER_VIEW" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ORDER_overview"/>
+    <DataResource dataResourceId="HELP_ORDERMGR_VIEW" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/order/data/helpdata/HELP_ORDERMGR_View.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_ORDERMGR_VIEW" contentTypeId="DOCUMENT" contentName="Order View Help" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_ORDERMGR_VIEW" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_ORDERMGR" contentIdTo="HELP_ORDERMGR_VIEW" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ORDERMGR_orderview"/>
 
     <!--  Reports -->
-    <DataResource dataResourceId="HELP_ORDER_REPORT" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-        objectInfo="applications/order/data/helpdata/HELP_ORDER_Report.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_ORDER_REPORT" contentTypeId="DOCUMENT" contentName="Order Reports Help" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_ORDER_REPORT" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_ORDER" contentIdTo="HELP_ORDER_REPORT" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ORDER_OrderPurchaseReportOptions"/>
+    <DataResource dataResourceId="HELP_ORDERMGR_REPORT" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/order/data/helpdata/HELP_ORDERMGR_Report.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_ORDERMGR_REPORT" contentTypeId="DOCUMENT" contentName="Order Reports Help" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_ORDERMGR_REPORT" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_ORDERMGR" contentIdTo="HELP_ORDERMGR_REPORT" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ORDERMGR_OrderPurchaseReportOptions"/>
 </entity-engine-xml>

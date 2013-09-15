@@ -37,7 +37,9 @@ under the License.
                 <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
                 <set field="activeApp" value="webtools" global="true"/>
                 <!-- <set field="appheaderTemplate" value="component://webtools/webapp/webtools/includes/appheader.ftl" global="true"/> -->
-
+                <!-- Help link actions -->
+                <set field="helpTopic" value="${groovy: webappName.toUpperCase() + '_' + requestAttributes._CURRENT_VIEW_}"/>
+<!--                <set field="dummy" value="${groovy: System.out.println('helpTopic===============' + context.helpTopic)}"/>-->
                 <set field="applicationMenuLocation" value="component://webtools/widget/Menus.xml" global="true"/>
                 <set field="applicationMenuName" value="WebtoolsAppBar" global="true"/>
                 <set field="applicationTitle" value="${uiLabelMap.FrameworkWebTools}" global="true"/>
