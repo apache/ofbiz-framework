@@ -622,7 +622,7 @@ if(order = orders.next()){
                         <label id="413">
                             <property name="fontWeight">bold</property>
                             <property name="color">gray</property>
-                            <text-property name="text">${uiLabelMap.BirtFacilityReportInventoryHistoryReport}</text-property>
+                            <text-property name="text">Item sold out summary</text-property>
                         </label>
                     </cell>
                     <cell id="198"/>
