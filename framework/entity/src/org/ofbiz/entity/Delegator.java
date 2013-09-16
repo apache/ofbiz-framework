@@ -300,9 +300,7 @@ public interface Delegator {
      * @param useCache
      *            Whether to cache the results
      * @return List containing all Generic entities
-     * @deprecated use {@link #findList(String entityName, EntityCondition entityCondition, Set<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions, boolean useCache)
      */
-    @Deprecated
     public List<GenericValue> findAll(String entityName, boolean useCache) throws GenericEntityException;
 
     /**
