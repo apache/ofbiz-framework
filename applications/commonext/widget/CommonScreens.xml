@@ -46,7 +46,6 @@ under the License.
                 <set field="layoutSettings.middleTopLink3" value="${lastSystemInfoNote3.moreInfoUrl}${groovy: if (lastSystemInfoNote3&amp;&amp;lastSystemInfoNote3.moreInfoItemName&amp;&amp;lastSystemInfoNote3.moreInfoItemId)&quot;?&quot; + lastSystemInfoNote3.moreInfoItemName + &quot;=&quot; + lastSystemInfoNote3.moreInfoItemId + &quot;&amp;id=&quot; + lastSystemInfoNote3.moreInfoItemId;}"/>
                 <!-- Help link actions -->
                 <set field="helpTopic" value="${groovy: webappName.toUpperCase() + '_' + requestAttributes._CURRENT_VIEW_}"/>
-<!--                <set field="dummy" value="${groovy: System.out.println('helpTopic===============' + context.helpTopic)}"/>-->
                 <entity-and list="pageAvail" entity-name="ContentAssoc">
                     <field-map field-name="mapKey" from-field="helpTopic"/>
                 </entity-and>
