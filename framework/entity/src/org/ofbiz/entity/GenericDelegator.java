@@ -1677,8 +1677,6 @@ public class GenericDelegator implements Delegator {
     /** Finds all Generic entities
      *@param entityName The Name of the Entity as defined in the entity XML file
      * @see org.ofbiz.entity.Delegator#findAll(java.lang.String, boolean)
-     * @deprecated use {@link #findList(java.lang.String, org.ofbiz.entity.condition.EntityCondition, java.util.Set, java.util.List, org.ofbiz.entity.util.EntityFindOptions, boolean)}
-     * 
      */
     public List<GenericValue> findAll(String entityName, boolean useCache) throws GenericEntityException {
         return this.findList(entityName, null, null, null, null, useCache);
