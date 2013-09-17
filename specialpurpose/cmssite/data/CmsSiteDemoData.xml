@@ -198,8 +198,27 @@ under the License.
     <WebSiteContent webSiteId="OfbizSite" contentId="OFBIZ_HOME" webSiteContentTypeId="DEFAULT_PAGE" fromDate="2001-01-01 00:00:00"/>
 
     <!-- documents website -->
+    <DataResource dataResourceId="DOCBOOK_HTML_TEMPL" dataResourceTypeId="OFBIZ_FILE" objectInfo="specialpurpose/cmssite/template/docbook/html/docbook.xsl" dataTemplateTypeId="XSLT" statusId="CTNT_IN_PROGRESS" dataResourceName="Help template file" mimeTypeId="text/html" isPublic="Y"/>
+    <DataResource dataResourceId="DOCBOOK_PDF_TEMPL" dataResourceTypeId="OFBIZ_FILE" objectInfo="specialpurpose/cmssite/template/docbook/fo/docbook.xsl" dataTemplateTypeId="XSLT" statusId="CTNT_IN_PROGRESS" dataResourceName="Help template file" mimeTypeId="text/html" isPublic="Y"/>
+
     <DataResource dataResourceId="PUBLIC_DOCS" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="SCREEN_COMBINED" objectInfo="component://cmssite/widget/CmssiteScreens.xml#publicDocs"/>
     <Content contentId="PUBLIC_DOCS" contentTypeId="DOCUMENT" contentName="OFBIz public documents" dataResourceId="PUBLIC_DOCS"/>
+
+    <DataResource dataResourceId="APACHE_OFBIZ" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="specialpurpose/cmssite/documents/ApacheOfbiz.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Apache OFBiz document" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="APACHE_OFBIZ_HTML" contentTypeId="DOCUMENT" templateDataResourceId="DOCBOOK_HTML_TEMPL" dataResourceId="APACHE_OFBIZ" localeString="en" statusId="CTNT_IN_PROGRESS" contentName="The User &amp; Technical Apache OFBiz document in one page HTML" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="DOCUMENTS" contentIdTo="APACHE_OFBIZ_HTML" contentAssocTypeId="SUB_CONTENT" fromDate="2006-01-12 01:01:01" sequenceNum=""/>
+
+    <Content contentId="APACHE_OFBIZ_PDF" contentTypeId="DOCUMENT" templateDataResourceId="DOCBOOK_PDF_TEMPL" dataResourceId="APACHE_OFBIZ" localeString="en" statusId="CTNT_IN_PROGRESS" contentName="The general Apache document in PDF format" mimeTypeId="application/pdf"/>
+    <ContentAssoc contentId="DOCUMENTS" contentIdTo="APACHE_OFBIZ_PDF" contentAssocTypeId="SUB_CONTENT" fromDate="2006-01-12 01:01:01" sequenceNum=""/>
+
+    <DataResource dataResourceId="APACHE_OFBIZ_TECH" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="specialpurpose/cmssite/documents/ApacheOfbizTechnical.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Apache OFBiz document" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="APACHE_OFBIZ_T_HTML" contentTypeId="DOCUMENT" templateDataResourceId="DOCBOOK_HTML_TEMPL" dataResourceId="APACHE_OFBIZ_TECH" localeString="en" statusId="CTNT_IN_PROGRESS" contentName="The Apache OFBiz Technical Guide in one page HTML" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="DOCUMENTS" contentIdTo="APACHE_OFBIZ_T_HTML" contentAssocTypeId="SUB_CONTENT" fromDate="2006-01-12 01:01:01" sequenceNum=""/>
+    <DataResource dataResourceId="APACHE_OFBIZ_USER" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="specialpurpose/cmssite/documents/ApacheOfbizUser.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Apache OFBiz User document" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="APACHE_OFBIZ_U_HTML" contentTypeId="DOCUMENT" templateDataResourceId="DOCBOOK_HTML_TEMPL" dataResourceId="APACHE_OFBIZ_USER" localeString="en" statusId="CTNT_IN_PROGRESS" contentName="The Apache OFBizUser Guide in one page HTML" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="DOCUMENTS" contentIdTo="APACHE_OFBIZ_U_HTML" contentAssocTypeId="SUB_CONTENT" fromDate="2006-01-12 01:01:01" sequenceNum=""/>
+
+
     <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="PUBLIC_DOCS" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00"/>
     <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="APACHE_OFBIZ_HTML" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00" mapKey="documents"/>
     <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="APACHE_OFBIZ_PDF" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00" mapKey="documents"/>

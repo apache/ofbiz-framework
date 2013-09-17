@@ -41,7 +41,7 @@
         </para>
         
     </chapter>
-    <xi:include href="Setup.xml"/>
+    <xi:include href="../../../applications/commonext/documents/Setup.xml"/>
     <xi:include href="../../../applications/accounting/documents/Accounting.xml"/>
     <xi:include href="../../../applications/party/documents/Party.xml"/>
     <xi:include href="../../../applications/product/documents/Product.xml"/>
@@ -49,10 +49,10 @@
     <xi:include href="../../../applications/content/documents/Content.xml"/>
     <xi:include href="../../../applications/marketing/documents/Marketing.xml"/>
     <xi:include href="../../../applications/humanres/documents/Humanres.xml"/>
-    <xi:include href="../../../specialpurpose/myportal/documents/MyPortal.xml"/>
-    <xi:include href="../../../specialpurpose/projectmgr/documents/ProjectMgr.xml"/>
-    <xi:include href="../../../specialpurpose/ebay/documents/Ebay.xml"/>
-    <xi:include href="../../../specialpurpose/ebaystore/documents/EbayStore.xml"/>
+    <xi:include href="../../myportal/documents/MyPortal.xml"/>
+    <xi:include href="../../projectmgr/documents/ProjectMgr.xml"/>
+    <xi:include href="../../ebay/documents/Ebay.xml"/>
+    <xi:include href="../../ebaystore/documents/EbayStore.xml"/>
     
     <appendix>
         <title>New features recently added</title>

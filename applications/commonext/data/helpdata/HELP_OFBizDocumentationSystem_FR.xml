@@ -30,7 +30,6 @@
           En général, les fichiers sont stockés à l'intérieur de chacun des composants, soit dans le répertoire 'document' soit dans le répertoire data/helpdata.
       </para>
       <para>
-          Le document 'racine' est stocké dans le fichier applications/commonext/documents/ApacheOfbiz.xml.
           La grammaire DocBook est stockée dans le répertoire application/content/dtd et les feuilles de style sont stockées dans le répertoire applications/content/templates/docbook.
       </para>
       <para>
@@ -42,8 +41,6 @@
       <para>
           Si vous souhaitez avoir des exemples de fichier au format DocBook, regardez les fichiers suivants :
           <orderedlist>
-            <listitem><para>Le document principal : 
-              applications/commonext/documents/ApacheOfbiz.xml</para></listitem>
             <listitem><para>Un exemple pour un chapitre d'un composant :
               applications/accounting/documents/Accounting.xml</para></listitem>
             <listitem><para>Un exemple pour un écran d'aide :

@@ -256,8 +256,6 @@ under the License.
     <Content contentId="STDWRAP001" contentTypeId="DOCUMENT" dataResourceId="STDWRAP001" contentName="Standard SubContent Wrapper" description="Standard SubContent Wrapper"/>
 
     <Content contentId="TREE_ROOT"/>
-    <DataResource dataResourceId="DOCBOOK_HTML_TEMPL" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/content/template/docbook/html/docbook.xsl" dataTemplateTypeId="XSLT" statusId="CTNT_IN_PROGRESS" dataResourceName="Help template file" mimeTypeId="text/html" isPublic="Y"/>
-    <DataResource dataResourceId="DOCBOOK_PDF_TEMPL" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/content/template/docbook/fo/docbook.xsl" dataTemplateTypeId="XSLT" statusId="CTNT_IN_PROGRESS" dataResourceName="Help template file" mimeTypeId="text/html" isPublic="Y"/>
 
     <WebAnalyticsType description="Web Analytics" hasTable="N" parentTypeId="" webAnalyticsTypeId="WEB_ANALYTICS"/>
     <WebAnalyticsType webAnalyticsTypeId="GOOGLE_ANALYTICS" parentTypeId="WEB_ANALYTICS" hasTable="N" description="Google Analytics"/>
