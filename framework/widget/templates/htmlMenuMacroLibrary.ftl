@@ -45,7 +45,7 @@ under the License.
 <img src="${src}"<#if id?has_content> id="${id}"</#if><#if style?has_content> class="${style}"</#if><#if width?has_content> width="${width}"</#if><#if height?has_content> height="${height}"</#if><#if border?has_content> border="${border}"</#if> />
 </#macro>
 
-<#macro renderLink linkType linkUrl parameterList targetWindow uniqueItemName actionUrl id="" style="" name="" height="" width="" text="" imgStr="">
+<#macro renderLink linkUrl parameterList targetWindow uniqueItemName actionUrl linkType="" id="" style="" name="" height="" width="" text="" imgStr="">
   <#if "hidden-form" == linkType>
 <form method="post" action="${actionUrl}"<#if targetWindow?has_content> target="${targetWindow}"</#if> onsubmit="javascript:submitFormDisableSubmits(this)" name="${uniqueItemName}"><#rt/>
     <#list parameterList as parameter>
