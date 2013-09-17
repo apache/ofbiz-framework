@@ -531,14 +531,13 @@ public interface Delegator {
     public EntityListIterator findListIteratorByCondition(DynamicViewEntity dynamicViewEntity, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, Collection<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions) throws GenericEntityException;
 
     /**
-     * Find a Generic Entity by its Primary Key NOTE 20080502: 6 references
+     * Find a Generic Entity by its primary key.
      *
-     * @param entityName
-     *            The Name of the Entity as defined in the entity XML file
-     * @param fields
-     *            The fields of the named entity to query by with their
-     *            corresponding values
-     * @return The GenericValue corresponding to the primaryKey
+     * @param entityName The Name of the Entity as defined in the entity XML file
+     * @param useCache Retrieve the Generic Entity from the cache when <code>true</code>
+     * @param fields The fields of the named entity to query by with their corresponding values
+     * @return The Generic Entity corresponding to the primary key
+     * @throws GenericEntityException
      */
     public GenericValue findOne(String entityName, boolean useCache, Object... fields) throws GenericEntityException;
 
