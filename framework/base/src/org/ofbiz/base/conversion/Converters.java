@@ -85,7 +85,7 @@ OUTER:
             if (noConversions.contains(key)) {
                 throw new ClassNotFoundException("No converter found for " + key);
             }
-            Class foundSourceClass = null;
+            Class<?> foundSourceClass = null;
             Converter<?, ?> foundConverter = null;
             for (Converter<?, ?> value : converterMap.values()) {
                 if (value.canConvert(sourceClass, targetClass)) {
