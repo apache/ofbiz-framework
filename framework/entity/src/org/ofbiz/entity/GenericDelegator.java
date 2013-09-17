@@ -783,14 +783,18 @@ public class GenericDelegator implements Delegator {
                 if (existingValue == null) {
                     throw e;
                 } else {
-                    Debug.logInfo("Error creating entity record with a sequenced value [" + value.getPrimaryKey() + "], trying again about to refresh bank for entity [" + value.getEntityName() + "]", module);
+                    if (Debug.infoOn()) {
+                        Debug.logInfo("Error creating entity record with a sequenced value [" + value.getPrimaryKey() + "], trying again about to refresh bank for entity [" + value.getEntityName() + "]", module);
+                    }
 
                     // found an existing value... was probably a duplicate key, so clean things up and try again
                     this.sequencer.forceBankRefresh(value.getEntityName(), 1);
 
                     value.setNextSeqId();
                     value = helper.create(value);
-                    Debug.logInfo("Successfully created new entity record on retry with a sequenced value [" + value.getPrimaryKey() + "], after getting refreshed bank for entity [" + value.getEntityName() + "]", module);
+                    if (Debug.infoOn()) {
+                        Debug.logInfo("Successfully created new entity record on retry with a sequenced value [" + value.getPrimaryKey() + "], after getting refreshed bank for entity [" + value.getEntityName() + "]", module);
+                    }
 
                     if (testMode) {
                         storeForTestRollback(new TestOperation(OperationType.INSERT, value));
@@ -2255,7 +2259,9 @@ public class GenericDelegator implements Delegator {
         }
 
         if (primaryKey.getModelEntity().getNeverCache()) {
-            Debug.logWarning("Tried to put a value of the " + value.getEntityName() + " entity in the BY PRIMARY KEY cache but this entity has never-cache set to true, not caching.", module);
+            if (Debug.warningOn()) {
+                Debug.logWarning("Tried to put a value of the " + value.getEntityName() + " entity in the BY PRIMARY KEY cache but this entity has never-cache set to true, not caching.", module);
+            }
             return;
         }
 
@@ -2672,7 +2678,9 @@ public class GenericDelegator implements Delegator {
                         entity.dangerousSetNoCheckButFast(field, crypto.decrypt(keyName, encValue));
                     } catch (EntityCryptoException e) {
                         // not fatal -- allow returning of the encrypted value
-                        Debug.logWarning(e, "Problem decrypting field [" + entityName + " / " + field.getName() + "]", module);
+                        if (Debug.warningOn()) {
+                            Debug.logWarning(e, "Problem decrypting field [" + entityName + " / " + field.getName() + "]", module);
+                        }
                     }
                 }
             }
@@ -2845,7 +2853,9 @@ public class GenericDelegator implements Delegator {
         }
         this.testMode = false;
         this.testRollbackInProgress = true;
-        Debug.logInfo("Rolling back " + testOperations.size() + " entity operations", module);
+        if (Debug.infoOn()) {
+            Debug.logInfo("Rolling back " + testOperations.size() + " entity operations", module);
+        }
         while (!this.testOperations.isEmpty()) {
             TestOperation testOperation = this.testOperations.pollLast();
             if (testOperation == null) {
