@@ -23,7 +23,7 @@ under the License.
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
     <title>The Order Component.</title>
-    <xi:include href="../data/helpdata/HELP_ORDER.xml" />
-    <xi:include href="../data/helpdata/HELP_ORDER_View.xml" />
-    <xi:include href="../data/helpdata/HELP_ORDER_Report.xml" />
+    <xi:include href="../data/helpdata/HELP_ORDERMGR.xml" />
+    <xi:include href="../data/helpdata/HELP_ORDERMGR_View.xml" />
+    <xi:include href="../data/helpdata/HELP_ORDERMGR_Report.xml" />
 </chapter>

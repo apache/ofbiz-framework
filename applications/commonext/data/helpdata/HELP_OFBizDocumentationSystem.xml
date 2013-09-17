@@ -30,9 +30,7 @@
           files. In general the files are stored within the subject
           component either in the 'documents' or data/helpdata
           directories.
-          The 'master' document is stored in the file
-          applications/commonext/documents/ApacheOfbiz.xml. The
-          docbook schemas are stored in the applications/content/dtd
+          The docbook schemas are stored in the applications/content/dtd
           directory and the stylesheets are
           stored in the applications/content/templates/docbook directory.
       </para>
@@ -46,8 +44,6 @@
           If you are looking for docbook files format examples, please
           look at the following files:
           <orderedlist>
-            <listitem><para>The master document at:
-              applications/commonext/documents/ApacheOfbiz.xml</para></listitem>
             <listitem><para>An example for a chapter of a component at:
               applications/accounting/documents/Accounting.xml</para></listitem>
             <listitem><para>An example of a help screen:

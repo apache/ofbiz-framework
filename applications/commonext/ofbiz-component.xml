@@ -25,7 +25,6 @@ under the License.
     <classpath type="dir" location="config"/>
     
     <entity-resource type="data" reader-name="seed" loader="main" location="data/EntityDiagramGroupData.xml"/>
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/CommonExtSeedData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/CommonExtSecurityPermissionSeedData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/CommonExtSecurityGroupDemoData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/CommonExtHelpData.xml"/>
