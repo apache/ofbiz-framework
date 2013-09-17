@@ -522,12 +522,14 @@ public class ObjectType {
                 try {
                     return localizedConverter.convert(obj, locale, timeZone, format);
                 } catch (ConversionException e) {
+                    Debug.logWarning(e, "Exception thrown while converting type: ", module);
                     throw new GeneralException(e.getMessage(), e);
                 }
             }
             try {
                 return converter.convert(obj);
             } catch (ConversionException e) {
+                Debug.logWarning(e, "Exception thrown while converting type: ", module);
                 throw new GeneralException(e.getMessage(), e);
             }
         }
