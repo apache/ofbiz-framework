@@ -120,7 +120,7 @@ if (orderHeader) {
     orderItemList = orderReadHelper.getOrderItems();
     // Retrieve all non-promo items that aren't cancelled
     context.orderItemList = orderReadHelper.getOrderItems().findAll { item ->
-        (item.isPromo == null || item.isPromo == 'N')  && !(item.statusId.equals('ITEM_CANCELLED'))
+        (item.isPromo == null || item.isPromo == 'N')  || !item.statusId.equals('ITEM_CANCELLED')
     }
 
     shippingAddress = orderReadHelper.getShippingAddress();
