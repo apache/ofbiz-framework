@@ -41,7 +41,7 @@ import org.w3c.dom.Element;
 public final class RemoveList extends MethodOperation {
 
     public static final String module = RemoveList.class.getName();
-
+    @Deprecated
     private final FlexibleStringExpander doCacheClearFse;
     private final FlexibleMapAccessor<List<GenericValue>> listFma;
 
@@ -63,6 +63,7 @@ public final class RemoveList extends MethodOperation {
         if (values == null) {
             throw new MiniLangRuntimeException("Entity value list not found with name: " + listFma, this);
         }
+        @Deprecated
         boolean doCacheClear = !"false".equals(doCacheClearFse.expandString(methodContext.getEnvMap()));
         try {
             methodContext.getDelegator().removeAll(values, doCacheClear);

@@ -39,6 +39,7 @@ public final class CreateValue extends MethodOperation {
     public static final String module = CreateValue.class.getName();
 
     private final boolean createOrStore;
+    @Deprecated
     private final boolean doCacheClear;
     private final FlexibleMapAccessor<GenericValue> valueFma;
 

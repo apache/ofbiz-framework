@@ -3228,7 +3228,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Clear the cache. Defaults to "true".
-                        
+                        Deprecated - should always be true
                         Optional. Attribute type: constant.
                     </xs:documentation>
                 </xs:annotation>
@@ -4106,7 +4106,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Clear the cache. Defaults to "true".
-                        
+                        Deprecated - should always be true
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -4146,7 +4146,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Clear the cache. Defaults to "true".
-                        
+                        Deprecated - should always be true
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -4176,7 +4176,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Clear the cache. Defaults to "true".
-                        
+                        Deprecated - should always be true
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -4215,7 +4215,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Clear the cache. Defaults to "true".
-                        
+                        Deprecated - should always be true
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -4243,7 +4243,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Clear the cache. Defaults to "true".
-                        
+                        Deprecated - should always be true
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -4411,7 +4411,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Clear the cache. Defaults to "true".
-                        
+                        Deprecated - should always be true
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -4440,7 +4440,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Clear the cache. Defaults to "true".
-                        
+                        Deprecated - should always be true
                         Optional. Attribute type: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>

@@ -2990,7 +2990,8 @@ under the License.
         <xs:attribute name="do-cache-clear" default="true">
             <xs:annotation>
                 <xs:documentation>
-                    Clear the cache, defaults to true
+                    Clear the cache. Defaults to "true".
+                    Deprecated - should always be true
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
@@ -3036,7 +3037,8 @@ under the License.
         <xs:attribute name="do-cache-clear" default="true">
             <xs:annotation>
                 <xs:documentation>
-                    Clear the cache, defaults to true
+                    Clear the cache. Defaults to "true".
+                    Deprecated - should always be true
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
@@ -3101,7 +3103,8 @@ under the License.
         <xs:attribute name="do-cache-clear" default="true">
             <xs:annotation>
                 <xs:documentation>
-                    Clear the cache, defaults to true
+                    Clear the cache. Defaults to "true".
+                    Deprecated - should always be true
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
@@ -3165,7 +3168,8 @@ under the License.
         <xs:attribute name="do-cache-clear" default="true">
             <xs:annotation>
                 <xs:documentation>
-                    Clear the cache, defaults to true
+                    Clear the cache. Defaults to "true".
+                    Deprecated - should always be true
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
@@ -3205,7 +3209,8 @@ under the License.
         <xs:attribute name="do-cache-clear" default="true">
             <xs:annotation>
                 <xs:documentation>
-                    Clear the cache, defaults to true
+                    Clear the cache. Defaults to "true".
+                    Deprecated - should always be true
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
@@ -3358,7 +3363,8 @@ under the License.
         <xs:attribute name="do-cache-clear" default="true">
             <xs:annotation>
                 <xs:documentation>
-                    Clear the cache, defaults to true
+                    Clear the cache. Defaults to "true".
+                    Deprecated - should always be true
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
@@ -3391,7 +3397,8 @@ under the License.
         <xs:attribute name="do-cache-clear" default="true">
             <xs:annotation>
                 <xs:documentation>
-                    Clear the cache, defaults to true
+                    Clear the cache. Defaults to "true".
+                    Deprecated - should always be true
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
