@@ -17,40 +17,32 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
 import org.ofbiz.entity.util.*;
 import org.ofbiz.entity.condition.*;
 
 fieldToSelect = ["productId", "internalName", "productAssocTypeId"] as Set;
 orderBy = ["productId", "productAssocTypeId"];
 
-if (!parameters.productId && !parameters.productIdTo && !parameters.productAssocTypeId) {
+condList = [];
+if (parameters.productId) {
+    cond = EntityCondition.makeCondition("productId", EntityOperator.EQUALS, parameters.productId);
+    condList.add(cond);
+}
+if (parameters.productIdTo) {
+    cond = EntityCondition.makeCondition("productIdTo", EntityOperator.EQUALS, parameters.productIdTo);
+    condList.add(cond);
+}
+if (parameters.productAssocTypeId) {
+    cond = EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, parameters.productAssocTypeId);
+    condList.add(cond);
+} else {
     cond = EntityCondition.makeCondition([EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "ENGINEER_COMPONENT"),
                                           EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "MANUF_COMPONENT")
                                           ], EntityOperator.OR);
-    findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
-    bomListIterator = delegator.find("ProductAndAssoc", cond, null, fieldToSelect, orderBy, findOpts);
-} else {
-    condList = [];
-    if (parameters.productId) {
-        cond = EntityCondition.makeCondition("productId", EntityOperator.EQUALS, parameters.productId);
-        condList.add(cond);
-    }
-    if (parameters.productIdTo) {
-        cond = EntityCondition.makeCondition("productIdTo", EntityOperator.EQUALS, parameters.productIdTo);
-        condList.add(cond);
-    }
-    if (parameters.productAssocTypeId) {
-        cond = EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, parameters.productAssocTypeId);
-        condList.add(cond);
-    } else {
-        cond = EntityCondition.makeCondition([EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "ENGINEER_COMPONENT"),
-                                              EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "MANUF_COMPONENT")
-                                              ], EntityOperator.OR);
-        condList.add(cond);
-    }
-    cond =  EntityCondition.makeCondition(condList, EntityOperator.AND);
-    findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
-    bomListIterator = delegator.find("ProductAndAssoc", cond, null, fieldToSelect, orderBy, findOpts);
+    condList.add(cond);
 }
+cond =  EntityCondition.makeCondition(condList, EntityOperator.AND);
+findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
+bomListIterator = delegator.find("ProductAndAssoc", cond, null, fieldToSelect, orderBy, findOpts);
+
 context.ListProductBom = bomListIterator;
