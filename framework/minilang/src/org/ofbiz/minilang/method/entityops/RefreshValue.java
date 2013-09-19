@@ -40,6 +40,7 @@ public final class RefreshValue extends MethodOperation {
 
     public static final String module = RemoveValue.class.getName();
 
+    @Deprecated
     private final FlexibleStringExpander doCacheClearFse;
     private final FlexibleMapAccessor<GenericValue> valueFma;
 

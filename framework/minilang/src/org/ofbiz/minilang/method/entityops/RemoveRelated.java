@@ -40,7 +40,7 @@ import org.w3c.dom.Element;
 public final class RemoveRelated extends MethodOperation {
 
     public static final String module = RemoveRelated.class.getName();
-
+    @Deprecated
     private final FlexibleStringExpander doCacheClearFse;
     private final FlexibleStringExpander relationNameFse;
     private final FlexibleMapAccessor<GenericValue> valueFma;
@@ -65,6 +65,7 @@ public final class RemoveRelated extends MethodOperation {
             throw new MiniLangRuntimeException("Entity value not found with name: " + valueFma, this);
         }
         String relationName = relationNameFse.expandString(methodContext.getEnvMap());
+        @Deprecated
         boolean doCacheClear = !"false".equals(doCacheClearFse.expandString(methodContext.getEnvMap()));
         try {
             methodContext.getDelegator().removeRelated(relationName, value, doCacheClear);

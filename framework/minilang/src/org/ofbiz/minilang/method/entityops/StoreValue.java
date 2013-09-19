@@ -39,7 +39,7 @@ import org.w3c.dom.Element;
 public final class StoreValue extends MethodOperation {
 
     public static final String module = StoreValue.class.getName();
-
+    @Deprecated
     private final FlexibleStringExpander doCacheClearFse;
     private final FlexibleMapAccessor<GenericValue> valueFma;
 
@@ -61,6 +61,7 @@ public final class StoreValue extends MethodOperation {
         if (value == null) {
             throw new MiniLangRuntimeException("Entity value not found with name: " + valueFma, this);
         }
+        @Deprecated
         boolean doCacheClear = !"false".equals(doCacheClearFse.expandString(methodContext.getEnvMap()));
         try {
             methodContext.getDelegator().store(value, doCacheClear);

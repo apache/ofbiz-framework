@@ -40,7 +40,7 @@ import org.w3c.dom.Element;
 public final class RemoveByAnd extends MethodOperation {
 
     public static final String module = RemoveByAnd.class.getName();
-
+    @Deprecated
     private final FlexibleStringExpander doCacheClearFse;
     private final FlexibleStringExpander entityNameFse;
     private final FlexibleMapAccessor<Map<String, ? extends Object>> mapFma;
@@ -60,6 +60,7 @@ public final class RemoveByAnd extends MethodOperation {
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
+        @Deprecated
         boolean doCacheClear = !"false".equals(doCacheClearFse.expandString(methodContext.getEnvMap()));
         String entityName = entityNameFse.expandString(methodContext.getEnvMap());
         try {
