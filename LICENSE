@@ -18,7 +18,7 @@ framework/base/lib/ant/ant-nodeps-1.8.1.jar
 framework/base/lib/avalon-framework-4.2.0.jar
 framework/base/lib/avalon-util-exception-1.0.0.jar
 framework/base/lib/batik-all-1.7.jar
-framework/base/lib/barcode4j-fop-ext-complete-2.0.jar
+framework/base/lib/barcode4j-2.1-barcode4j-fop-ext-complete.jar
 framework/base/lib/clhm-release-1.0-lru.jar
 framework/base/lib/httpclient-4.2.1.jar
 framework/base/lib/httpclient-cache-4.2.1.jar
@@ -90,9 +90,9 @@ framework/service/lib/axis2-transport-local-1.5.2.jar
 framework/service/lib/commons-httpclient-3.1.jar
 framework/service/lib/neethi-2.0.4.jar
 framework/service/lib/XmlSchema-1.4.3.jar
-framework/webapp/lib/fop-1.0.jar
+framework/webapp/lib/fop-1.1.jar
 framework/webapp/lib/velocity-1.6.1.jar
-framework/webapp/lib/xmlgraphics-commons-1.4.jar
+framework/webapp/lib/xmlgraphics-commons-1.5.jar
 framework/webapp/lib/json-lib-2.2.3-jdk15.jar
 framework/webapp/lib/ezmorph-0.9.1.jar
 framework/webapp/lib/rome-0.9.jar
