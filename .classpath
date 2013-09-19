@@ -22,11 +22,11 @@
     <classpathentry kind="lib" path="framework/base/lib/antisamy-bin.1.2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/avalon-framework-4.2.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/avalon-util-exception-1.0.0.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/barcode4j-fop-ext-complete-2.0.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/barcode4j-2.1-barcode4j-fop-ext-complete.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/batik-all-1.7.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/clhm-release-1.0-lru.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/hamcrest-all-1.2.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/fop-1.0.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/fop-1.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/freemarker-2.3.19-null-wildcards.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/httpclient-4.2.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/httpclient-cache-4.2.1.jar"/>
@@ -57,7 +57,7 @@
     <classpathentry kind="lib" path="framework/base/lib/ws-commons-util-1.0.2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/xml-apis-2.9.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/xml-apis-ext-1.3.04.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/xmlgraphics-commons-1.4.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/xmlgraphics-commons-1.5.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/xmlrpc-client-3.1.2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/xmlrpc-common-3.1.2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/xmlrpc-server-3.1.2.jar"/>
