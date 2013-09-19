@@ -20,17 +20,16 @@
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.util.*;
 import org.ofbiz.entity.condition.*;
-import javolution.util.FastList;
-import javolution.util.FastSet;
-import javolution.util.FastMap;
+
+fieldToSelect = ["productId", "internalName", "productAssocTypeId"] as Set;
+orderBy = ["productId", "productAssocTypeId"];
 
 if (!parameters.productId && !parameters.productIdTo && !parameters.productAssocTypeId) {
     cond = EntityCondition.makeCondition([EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "ENGINEER_COMPONENT"),
                                           EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "MANUF_COMPONENT")
                                           ], EntityOperator.OR);
     findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
-    fieldToSelect = UtilMisc.toSet("productId","internalName","productAssocTypeId");
-    bomListIterator = delegator.find("ProductAndAssoc", cond, null, fieldToSelect, null, findOpts);
+    bomListIterator = delegator.find("ProductAndAssoc", cond, null, fieldToSelect, orderBy, findOpts);
 } else {
     condList = [];
     if (parameters.productId) {
@@ -52,7 +51,6 @@ if (!parameters.productId && !parameters.productIdTo && !parameters.productAssoc
     }
     cond =  EntityCondition.makeCondition(condList, EntityOperator.AND);
     findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
-    fieldToSelect = UtilMisc.toSet("productId","internalName","productAssocTypeId");
-    bomListIterator = delegator.find("ProductAndAssoc", cond, null, fieldToSelect, null, findOpts);
+    bomListIterator = delegator.find("ProductAndAssoc", cond, null, fieldToSelect, orderBy, findOpts);
 }
 context.ListProductBom = bomListIterator;
