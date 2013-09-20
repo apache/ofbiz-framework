@@ -23,7 +23,7 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>OFBiz:MFG</title>
+    <title>Manufacturing</title>
     <xi:include href="../data/helpdata/Help_MFG.xml"/>
     <xi:include href="../data/helpdata/Help_MFG_main.xml"/>
     <xi:include href="../data/helpdata/Help_MFG_FindProductionRun.xml"/>
