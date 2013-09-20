@@ -23,7 +23,7 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>OFBiz: MFG: Edit manufacturing rules</title>
+    <title>Manufacturing: Edit manufacturing rules</title>
     <para>
     This screen displays an overview of the manufacturing rules that are applicable to produce a product.
     A manufacturing rule displays the replacements of a component.

@@ -23,7 +23,7 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>OFBiz: MFG: Find calendars</title>
+    <title>Manufacturing: Find calendars</title>
     <para>
     This screen displays an overview of exisiting production calendars.
     From this screen you can also create a new calendar by clicking 'New Calendar'

@@ -23,7 +23,7 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-       <title>OFBiz: MFG: MRP Log</title>
+       <title>Manufacturing: MRP Log</title>
         <para>
         This screen displays an overview of the MRPs that ran.
         The second overview in this screen displays the MRPs that are scheduled to run.

@@ -23,7 +23,7 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>OFBiz: MFG: Create/modify calendar</title>
+    <title>Manufacturing: Create/modify calendar</title>
     <para>
     In this screen you can create new calendars and change existing calendars.
     </para>

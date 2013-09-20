@@ -23,7 +23,7 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>OFBiz: MFG: Calendar exception week</title>
+    <title>Manufacturing: Calendar exception week</title>
     <para>
     This screen displays a list of the exception weekks of the calendar.
     </para>
