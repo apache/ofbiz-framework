@@ -23,7 +23,7 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>OFBiz: MFG: Manage Cost Component Calc Entries</title>
+    <title>Manufacturing: Manage Cost Component Calc Entries</title>
     <para>
     In this screen you can create new cost calculations and modify existing calculations.
     </para>

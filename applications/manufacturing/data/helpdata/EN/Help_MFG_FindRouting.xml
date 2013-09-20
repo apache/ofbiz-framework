@@ -23,7 +23,7 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>OFBiz: MFG: Find routing</title>
+    <title>Manufacturing: Find routing</title>
     <para>
     This screen displays an overview of all routings available.
     From here you can also create a new routing by clicking 'New routing'.

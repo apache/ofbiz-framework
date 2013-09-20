@@ -23,7 +23,7 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>OFBiz: MFG: Create and edit routing associated product-link</title>
+    <title>Manufacturing: Create and edit routing associated product-link</title>
     <para>
     In this screen can you create a link to a product for the route. 
     You can also edit a existing product link.

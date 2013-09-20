@@ -23,7 +23,7 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>OFBiz: MFG: Create and edit route task cost</title>
+    <title>Manufacturing: Create and edit route task cost</title>
     <para>
     In this screen you can associate a cost component and the related calculation method to the routing task.
     You can also remove an existing associated cost component.

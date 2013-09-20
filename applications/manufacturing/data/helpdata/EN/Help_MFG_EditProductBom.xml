@@ -23,7 +23,7 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>OFBiz: MFG: Add/edit a BoM</title>
+    <title>Manufacturing: Add/edit a BoM</title>
     <para>
     In this screen you can create a new BoM or modify an existing BoM.
     </para>

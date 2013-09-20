@@ -23,7 +23,7 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-       <title>OFBiz: MFG: Introduction</title>
+       <title>Manufacturing: Introduction</title>
         <para>
         OFBiz: MFG is the application to assist in manufacturing processes.
         </para>

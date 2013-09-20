@@ -23,7 +23,7 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-       <title>OFBiz: MFG: Display production run equipment</title>
+       <title>Manufacturing: Display production run equipment</title>
         <para>
         This screen provides an overview of the equipment related to the production run.
         From here you can also connect new equipment to the production run.

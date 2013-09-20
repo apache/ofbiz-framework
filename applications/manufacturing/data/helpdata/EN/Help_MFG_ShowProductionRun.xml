@@ -23,7 +23,7 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-       <title>OFBiz: MFG: Display production run</title>
+       <title>Manufacturing: Display production run</title>
         <para>
         This screen provides the details of the production run.
         It also provides overviews of related orders, tasks, material, equipment and notes.

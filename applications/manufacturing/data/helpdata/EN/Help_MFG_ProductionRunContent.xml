@@ -23,7 +23,7 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-       <title>OFBiz: MFG: Display production run content</title>
+       <title>Manufacturing: Display production run content</title>
         <para>
         This screen provides an overview of all connected content to the production run.
         </para>

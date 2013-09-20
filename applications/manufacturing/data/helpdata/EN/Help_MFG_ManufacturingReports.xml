@@ -23,7 +23,7 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-       <title>OFBiz: MFG: Reports</title>
+       <title>Manufacturing: Reports</title>
         <para>
         This screen enables you to get a report on an MRP.
         </para>

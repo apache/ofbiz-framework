@@ -23,7 +23,7 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-       <title>OFBiz: MFG: Display production run costs</title>
+       <title>Manufacturing: Display production run costs</title>
         <para>
         This screen provides overviews of the costs of routing tasks of the production run and
         the cost of routings of the production run.

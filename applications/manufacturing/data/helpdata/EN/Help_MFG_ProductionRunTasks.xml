@@ -23,7 +23,7 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-       <title>OFBiz: MFG: Display production run tasks</title>
+       <title>Manufacturing: Display production run tasks</title>
         <para>
         This screen provides an overview of all routing tasks connected to the production run.
         From here you can also add a new or modify an existing routing task to the production run.
