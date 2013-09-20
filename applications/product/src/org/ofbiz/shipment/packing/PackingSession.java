@@ -590,7 +590,7 @@ public class PackingSession implements java.io.Serializable {
             }
             this.packageWeights.put(line.packageSeq, packageWeight);
         }
-        if (line.packageSeq == packageSeq) {
+        if (line.packageSeq == packageSeq && packageSeq > 1) {
             packageSeq--;
         }
     }
