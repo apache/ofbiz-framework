@@ -250,4 +250,27 @@ under the License.
         <attribute name="paymentId" type="String" mode="IN" optional="true"/>
         <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
     </service>
+
+    <!-- Payment content services -->
+    <service name="createPaymentContent" default-entity-name="PaymentContent" engine="simple"
+        location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="createPaymentContent" auth="true">
+        <description>Add Content To Payment</description>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
+    </service>
+    <service name="updatePaymentContent" default-entity-name="PaymentContent" engine="simple"
+        location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="updatePaymentContent" auth="true">
+        <description>Update Content To Payment</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removePaymentContent" default-entity-name="PaymentContent" engine="simple"
+        location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="removePaymentContent" auth="true">
+        <description>Remove Content From Payment</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
 </services>
