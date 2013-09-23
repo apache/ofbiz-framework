@@ -59,6 +59,7 @@ under the License.
                 <set field="requestParameters.workEffortTypeId" to-scope="screen" default-value="ROU_TASK"/>
                 <set field="requestParameters.fixedAssetId" to-scope="screen" default-value=""/>
                 <set field="queryString" from-field="result.queryString"/>
+                <set field="searchFields" value="[workEffortId, workEffortName]"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
