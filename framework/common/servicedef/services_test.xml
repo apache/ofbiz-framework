@@ -72,28 +72,23 @@ under the License.
 
     <service name="groupTest" engine="group" location="testGroup" invoke=""/>
 
-    <service name="testHttp" engine="http"
-            location="http://localhost:8080/webtools/control/httpService" invoke="testScv">
+    <service name="testHttp" engine="http" location="main-http" invoke="testScv">
         <description>HTTP service wrapper around the test service</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="resp" type="String" mode="OUT"/>
     </service>
 
-    <service name="testSoap" engine="soap" export="true"
-            location="http://localhost:8080/webtools/control/SOAPService" invoke="testSOAPScv">
+    <service name="testSoap" engine="soap" export="true" location="main-local-soap" invoke="testSOAPScv">
         <description>SOAP service; calls the OFBiz test SOAP service</description>
         <implements service="testSOAPScv"/>
     </service>
     
-    <service name="testSoapSimple" engine="soap" export="true"
-            location="http://localhost:8080/webtools/control/SOAPService" invoke="testScv">
+    <service name="testSoapSimple" engine="soap" export="true" location="main-local-soap" invoke="testScv">
         <description>simple SOAP service; calls the OFBiz test service</description>
         <implements service="testScv"/>
     </service>
 
-    <service name="testRemoteSoap" engine="soap" export="true" 
-        location="http://demo-trunk.ofbiz.apache.org:8080/webtools/control/SOAPService"
-        invoke="testSoapSimple">
+    <service name="testRemoteSoap" engine="soap" export="true" location="main-remote-soap" invoke="testSoapSimple">
         <attribute name="defaultValue" type="Double" mode="IN" default-value="999.9999"/>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="resp" type="String" mode="OUT"/>
