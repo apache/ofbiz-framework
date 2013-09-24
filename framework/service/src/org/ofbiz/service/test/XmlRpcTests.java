@@ -23,6 +23,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.apache.xmlrpc.client.XmlRpcClient;
+import org.ofbiz.base.container.ClassLoaderContainer;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -37,10 +38,14 @@ public class XmlRpcTests extends AbstractXmlRpcTestCase {
 
     public static final String module = XmlRpcTests.class.getName();
     public static final String resource = "ServiceErrorUiLabels";
-    public static final String url = "http://localhost:8080/webtools/control/xmlrpc";
+    public static String url = "http://localhost:8080/webtools/control/xmlrpc";
 
     public XmlRpcTests(String name) {
         super(name);
+        if (ClassLoaderContainer.portOffset != 0) {
+            Integer port = 8080 + ClassLoaderContainer.portOffset; 
+            url = url.replace("8080", port.toString());
+        }                            
     }
 
     /**

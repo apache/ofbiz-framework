@@ -408,23 +408,27 @@ under the License.
     <!-- ================================================================== -->
 
     <target name="start"
-            description="Start OFBiz">
+            description="Start OFBiz (use -Dportoffset=portNumber to shift all ports with the portNumber value)">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
+            <arg value="start"/>
+            <arg value="-portoffset=${portoffset}"/>
         </java>
     </target>
     <target name="start-batch"
-            description="Start OFBiz as a separate process">
+            description="Start OFBiz as a separate process. Use -Dportoffset=portNumber to shift all ports with the portNumber value.">
         <java jar="ofbiz.jar" fork="true" spawn="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
+            <arg value="start-batch"/>
+            <arg value="-portoffset=${portoffset}"/>
         </java>
     </target>
     <target name="start-debug"
-            description="Start OFBiz in debugging mode. It uses the 8091 port by default">
+            description="Start OFBiz in debugging mode. It uses the 8091 port by default (use -Dportoffset=portNumber shift all other ports with the portNumber value)">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
@@ -433,24 +437,28 @@ under the License.
             <jvmarg value="-Djava.compiler=NONE"/>
             <jvmarg value="-Xdebug"/>
             <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8091"/>
+            <arg value="start-debug"/>
+            <arg value="-portoffset=${portoffset}"/>
         </java>
     </target>
     <target name="start-pos"
-            description="Start OFBiz POS (Point of sale)">
+            description="Start OFBiz POS (Point of sale). Use -Dportoffset=portNumber to shift all ports with the portNumber value.">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
             <arg value="pos"/>
+          <arg value="-portoffset=${portoffset}"/>
         </java>
     </target>
     <target name="start-both"
-            description="Start OFBiz in both Web and POS (Point of sale) modes">
+            description="Start OFBiz in both Web and POS (Point of sale) modes. Use -Dportoffset=portNumber to shift all ports with the portNumber value.">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
             <arg value="both"/>
+            <arg value="-portoffset=${portoffset}"/>
         </java>
     </target>
     <target name="stop"
@@ -906,12 +914,13 @@ under the License.
     </target>
 
     <target name="run-tests"
-          description="Run OFBiz default tests; you have to manually execute 'ant load-demo' before and see results in runtime/logs/test-results/html/all-tests.html.">
+          description="Run OFBiz default tests; you have to manually execute 'ant load-demo' before and see results in runtime/logs/test-results/html/all-tests.html. Use -Dportoffset=portNumber to shift all ports with the portNumber value.">
         <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
             <arg value="test"/>
+            <arg value="-portoffset=${portoffset}"/>
             <env key="LC_ALL" value="C"/>
         </java>
         <mkdir dir="runtime/logs/test-results/html"/>
@@ -948,7 +957,7 @@ under the License.
         </java>
     </target>
     <target name="run-test"
-          description="Run a single test, syntax eg: ant run-test -Dtest.component=service -Dtest.case=service-soap-tests">
+      description="Run a single test, syntax eg: ant run-test -Dtest.component=service -Dtest.case=service-soap-tests. Use -Dportoffset=portNumber to shift all ports with the portNumber value (on Windows - XP at least - you then need top wrap the parameters in double-quotes).">
         <fail unless="test.component">test.component is a required parameter: -Dtest.component=componentname</fail>
         <fail unless="test.case">test.case is a required parameter: -Dtest.case=testcasename</fail>
         <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
@@ -958,6 +967,7 @@ under the License.
             <arg value="test"/>
             <arg value="-component=${test.component}"/>
             <arg value="-case=${test.case}"/>
+            <arg value="-portoffset=${portoffset}"/>
             <env key="LC_ALL" value="C"/>
         </java>
         <delete dir="runtime/logs/test-results/${test.component}-${test.case}"/>
