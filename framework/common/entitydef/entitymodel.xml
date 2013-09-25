@@ -304,7 +304,17 @@ under the License.
         <key-map field-name="parentTypeId" rel-field-name="geoTypeId"/>
       </relation>
     </entity>
-
+    <extend-entity entity-name="Visit">
+        <field name="clientIpStateProvGeoId" type="id"></field>
+        <field name="clientIpCountryGeoId" type="id"></field>
+        <relation type="one" fk-name="VISIT_CIP_STPRV" title="ClientIpStateProv" rel-entity-name="Geo">
+            <key-map field-name="clientIpStateProvGeoId" rel-field-name="geoId"/>
+        </relation>
+        <relation type="one" fk-name="VISIT_CIP_CNTRY" title="ClientIpCountry" rel-entity-name="Geo">
+            <key-map field-name="clientIpCountryGeoId" rel-field-name="geoId"/>
+        </relation>
+    </extend-entity>
+ 
   <!-- ========================================================= -->
   <!-- org.ofbiz.common.keyword -->
   <!-- ========================================================= -->

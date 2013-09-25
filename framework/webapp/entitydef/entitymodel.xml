@@ -180,8 +180,6 @@ under the License.
         <field name="clientUser" type="short-varchar"></field>
         <field name="clientIpIspName" type="short-varchar"></field>
         <field name="clientIpPostalCode" type="short-varchar"></field>
-        <field name="clientIpStateProvGeoId" type="id"></field>
-        <field name="clientIpCountryGeoId" type="id"></field>
         <field name="cookie" type="short-varchar"></field>
         <field name="fromDate" type="date-time"></field>
         <field name="thruDate" type="date-time"></field>
@@ -191,12 +189,6 @@ under the License.
         </relation>
         <relation type="one" fk-name="VISIT_USER_AGNT" rel-entity-name="UserAgent">
             <key-map field-name="userAgentId"/>
-        </relation>
-        <relation type="one" fk-name="VISIT_CIP_STPRV" title="ClientIpStateProv" rel-entity-name="Geo">
-            <key-map field-name="clientIpStateProvGeoId" rel-field-name="geoId"/>
-        </relation>
-        <relation type="one" fk-name="VISIT_CIP_CNTRY" title="ClientIpCountry" rel-entity-name="Geo">
-            <key-map field-name="clientIpCountryGeoId" rel-field-name="geoId"/>
         </relation>
         <index name="VISIT_THRU_IDX" unique="false">
             <index-field name="thruDate"/>
