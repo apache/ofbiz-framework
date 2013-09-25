@@ -181,9 +181,9 @@ under the License.
         <description>Create a CustomTimePeriod record</description>
         <auto-attributes mode="OUT" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/><!-- FIXME: Framework dependency on Party component -->
         <override name="fromDate" optional="false"/>
         <override name="thruDate" optional="false"/>
-        <override name="organizationPartyId" optional="false"/>
         <override name="periodTypeId" optional="false"/>
     </service>
     <service name="updateCustomTimePeriod" default-entity-name="CustomTimePeriod" engine="simple"
