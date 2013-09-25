@@ -728,6 +728,23 @@ under the License.
         <attribute name="geoId" type="String" mode="IN"/>
         <attribute name="geoAssocTypeId" type="String" mode="IN"/>
     </service>
+    <service name="getRelatedGeos" engine="simple" auth="false"
+        location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="getRelatedGeos">
+        <attribute name="geoId" mode="IN" type="String"/>
+        <attribute name="geoAssocTypeId" mode="IN" type="String"/>        
+        <attribute name="geoList" mode="OUT" type="java.util.List"/>
+    </service>
+    <service name="getCountryList" engine="simple" auth="false"
+        location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="getCountryList">
+        <description>Get a list of country and associated states from Geo</description>
+        <attribute name="countryList" mode="OUT" type="java.util.List"/>
+    </service>
+    <service name="getAssociatedStateList" engine="simple" auth="false"
+        location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="getAssociatedStateList">
+        <attribute name="countryGeoId" mode="IN" type="String" optional="false"/>
+        <attribute name="listOrderBy" mode="IN" type="String" optional="true"/>
+        <attribute name="stateList" mode="OUT" type="java.util.List"/>
+    </service>
     
     <!-- GeoPoint services -->
     <service name="createGeoPoint" default-entity-name="GeoPoint" engine="entity-auto" invoke="create" auth="true">
@@ -754,19 +771,6 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     
-    <!-- Get a list of country and associated states from Geo -->
-    <service name="getCountryList" engine="simple" auth="false"
-        location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="getCountryList">
-        <attribute name="countryList" mode="OUT" type="java.util.List"/>
-    </service>
-    
-    <service name="getAssociatedStateList" engine="simple" auth="false"
-        location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="getAssociatedStateList">
-        <attribute name="countryGeoId" mode="IN" type="String" optional="false"/>
-        <attribute name="listOrderBy" mode="IN" type="String" optional="true"/>
-        <attribute name="stateList" mode="OUT" type="java.util.List"/>
-    </service>
-    
     <service name="checkUomConversion" engine="simple" default-entity-name="UomConversion"
         location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="checkUomConversion">
         <description>Returns true if an UomConversion exists</description>
@@ -774,13 +778,6 @@ under the License.
         <auto-attributes include="pk" mode="IN"/>
         <attribute name="exist" mode="OUT" type="Boolean"/>
     </service>    
-    
-    <service name="getRelatedGeos" engine="simple" auth="false"
-        location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="getRelatedGeos">
-        <attribute name="geoId" mode="IN" type="String"/>
-        <attribute name="geoAssocTypeId" mode="IN" type="String"/>        
-        <attribute name="geoList" mode="OUT" type="java.util.List"/>
-    </service>
     
     <service name="getServerTimestamp" engine="simple" auth="false"
         location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="getServerTimestamp">
