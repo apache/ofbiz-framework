@@ -20,9 +20,11 @@ package org.ofbiz.entity.model;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeSet;
 
 import org.ofbiz.base.util.Debug;
@@ -41,16 +43,21 @@ public class ModelEntityChecker {
     public static void checkEntities(Delegator delegator, List<String> warningList) throws GenericEntityException {
         ModelReader reader = delegator.getModelReader();
 
-        TreeSet<String> reservedWords = new TreeSet<String>();
-        initReservedWords(reservedWords);
+        Set<String> reservedWords = new HashSet<String>();
+        if (Debug.infoOn()) {
+            Debug.logInfo("[initReservedWords] array length = " + rwArray.length, module);
+        }
+        for (int i = 0; i < rwArray.length; i++) {
+            reservedWords.add(rwArray[i]);
+        }
 
-        Map<String, TreeSet<String>> packages = new HashMap<String, TreeSet<String>>();
-        TreeSet<String> packageNames = new TreeSet<String>();
-        TreeSet<String> tableNames = new TreeSet<String>();
+        Map<String, Set<String>> packages = new HashMap<String, Set<String>>();
+        Set<String> packageNames = new TreeSet<String>();
+        Set<String> tableNames = new HashSet<String>();
 
         //put the entityNames TreeSets in a HashMap by packageName
         Collection<String> ec = reader.getEntityNames();
-        TreeSet<String> entityNames = new TreeSet<String>(ec);
+        Set<String> entityNames = new HashSet<String>(ec);
         for (String eName: ec) {
             ModelEntity ent = reader.getModelEntity(eName);
 
@@ -59,7 +66,7 @@ public class ModelEntityChecker {
             if (UtilValidate.isNotEmpty(ent.getPlainTableName()))
                     tableNames.add(ent.getPlainTableName());
 
-            TreeSet<String> entities = packages.get(ent.getPackageName());
+            Set<String> entities = packages.get(ent.getPackageName());
             if (entities == null) {
                 entities = new TreeSet<String>();
                 packages.put(ent.getPackageName(), entities);
@@ -67,14 +74,12 @@ public class ModelEntityChecker {
             }
             entities.add(eName);
         }
-        //int numberOfEntities = ec.size();
-        int numberShowed = 0;
 
-        TreeSet<String> fkNames = new TreeSet<String>();
-        TreeSet<String> indexNames = new TreeSet<String>();
+        Set<String> fkNames = new HashSet<String>();
+        Set<String> indexNames = new HashSet<String>();
 
         for (String pName: packageNames) {
-            TreeSet<String> entities = packages.get(pName);
+            Set<String> entities = packages.get(pName);
             for (String entityName: entities) {
                 String helperName = delegator.getEntityHelperName(entityName);
                 String groupName = delegator.getEntityGroupName(entityName);
@@ -99,7 +104,7 @@ public class ModelEntityChecker {
                     continue;
                 }
                 
-                TreeSet<String> ufields = new TreeSet<String>();
+                Set<String> ufields = new HashSet<String>();
                 Iterator<ModelField> fieldIter = entity.getFieldsIterator();
                 while (fieldIter.hasNext()) {
                     ModelField field = fieldIter.next();
@@ -162,7 +167,7 @@ public class ModelEntityChecker {
                         }
                     }
 
-                    TreeSet<String> relations = new TreeSet<String>();
+                    Set<String> relations = new HashSet<String>();
                     for (int r = 0; r < entity.getRelationsSize(); r++) {
                         ModelRelation relation = entity.getRelation(r);
 
@@ -276,7 +281,6 @@ public class ModelEntityChecker {
                         }
                     }
                 }
-                numberShowed++;
             }
         }
     }
@@ -500,13 +504,6 @@ public class ModelEntityChecker {
 
             "ZEROFILL", "ZONE" };
 
-    public static void initReservedWords(TreeSet<String> reservedWords) {
-        //create extensive list of reserved words
-        int asize = rwArray.length;
-        Debug.logInfo("[initReservedWords] array length=" + asize, module);
-        for (int i = 0; i < asize; i++) {
-            reservedWords.add(rwArray[i]);
-        }
-    }
+    private ModelEntityChecker() {}
 }
 
