@@ -26,7 +26,6 @@ import java.rmi.server.RMIServerSocketFactory;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.ofbiz.base.container.ClassLoaderContainer;
 import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerConfig;
 import org.ofbiz.base.container.ContainerException;
@@ -81,11 +80,6 @@ public class RmiServiceContainer implements Container {
         String useCtx = initialCtxProp == null || initialCtxProp.value == null ? "false" : initialCtxProp.value;
         String host = lookupHostProp == null || lookupHostProp.value == null ? "localhost" : lookupHostProp.value;
         String port = lookupPortProp == null || lookupPortProp.value == null ? "1099" : lookupPortProp.value;
-        if (ClassLoaderContainer.portOffset != 0) {
-            Integer portValue = Integer.valueOf(port);
-            portValue += ClassLoaderContainer.portOffset;
-            port = portValue.toString();
-        }                
         String keystore = ContainerConfig.getPropertyValue(cfg, "ssl-keystore", null);
         String ksType = ContainerConfig.getPropertyValue(cfg, "ssl-keystore-type", "JKS");
         String ksPass = ContainerConfig.getPropertyValue(cfg, "ssl-keystore-pass", null);

@@ -57,7 +57,7 @@ public class Config {
         String firstArg = args.length > 0 ? args[0] : "";
         String configFileName = getConfigFileName(firstArg);
         Config result = new Config();
-        result.readConfig(configFileName, args);
+        result.readConfig(configFileName);
         return result;
     }
 
@@ -283,7 +283,7 @@ public class Config {
         }
     }
 
-    public void readConfig(String config, String[] args) throws IOException {
+    public void readConfig(String config) throws IOException {
         // check the java_version
         String javaVersion = System.getProperty("java.version");
         String javaVendor = System.getProperty("java.vendor");
@@ -352,14 +352,6 @@ public class Config {
         // parse the port number
         try {
             adminPort = Integer.parseInt(adminPortStr);
-            if (args.length > 0) {
-                for (String arg : args) {
-                    if (arg.toLowerCase().contains("portoffset=")) {
-                        adminPort = adminPort != 0 ? adminPort : 10523; // This is necessary because the ASF Buildbot machine/s doe/s not allow ports 1 to 3, see  INFRA-6790
-                        adminPort += Integer.parseInt(arg.split("=")[1]);
-                    }
-                }
-            }
         } catch (Exception e) {
             adminPort = 0;
         }
@@ -404,16 +396,16 @@ public class Config {
         // set the default locale
         String localeString = props.getProperty("ofbiz.locale.default");
         if (localeString != null && localeString.length() > 0) {
-            String locales[] = localeString.split("_");
-            switch (locales.length) {
+            String args[] = localeString.split("_");
+            switch (args.length) {
                 case 1:
-                    Locale.setDefault(new Locale(locales[0]));
+                    Locale.setDefault(new Locale(args[0]));
                     break;
                 case 2:
-                    Locale.setDefault(new Locale(locales[0], locales[1]));
+                    Locale.setDefault(new Locale(args[0], args[1]));
                     break;
                 case 3:
-                    Locale.setDefault(new Locale(locales[0], locales[1], args[2]));
+                    Locale.setDefault(new Locale(args[0], args[1], args[2]));
             }
             System.setProperty("user.language", localeString);
         }
