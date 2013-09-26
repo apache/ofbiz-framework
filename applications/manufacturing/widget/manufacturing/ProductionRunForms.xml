@@ -324,7 +324,7 @@ under the License.
             <display description="${workEffortName} [${workEffortId}]" also-hidden="false"/>
         </field>
         <field name="internalName" title="${uiLabelMap.ProductProductName}">
-            <display description="${productName} [${productId}]" also-hidden="false"/>
+            <display description="${internalName} [${productId}]" also-hidden="false"/>
         </field>
         <field name="estimatedQuantity" title="${uiLabelMap.ManufacturingQuantity}"><display also-hidden="false"/></field>
         <field name="issuedQuantity" title="${uiLabelMap.ManufacturingIssuedQuantity}"><display also-hidden="false"/></field>
@@ -414,7 +414,7 @@ under the License.
             <display description="${workEffortName} [${workEffortId}]"/>
         </field>
         <field name="internalName" title="${uiLabelMap.ProductProductName}">
-            <display description="${productName} [${productId}]" also-hidden="false"/>
+            <display description="${internalName} [${productId}]" also-hidden="false"/>
         </field>
         <field name="estimatedQuantity" title="${uiLabelMap.ManufacturingQuantity}"><display also-hidden="false"/></field>
         <field name="issuedQuantity" title="${uiLabelMap.ManufacturingIssuedQuantity}"><display also-hidden="false"/></field>
@@ -449,7 +449,7 @@ under the License.
             <display description="${workEffortName} [${workEffortId}]"/>
         </field>
         <field name="internalName" title="${uiLabelMap.ProductProductName}">
-            <display description="${productName} [${productId}]" also-hidden="false"/>
+            <display description="${internalName} [${productId}]" also-hidden="false"/>
         </field>
         <field name="estimatedQuantity" title="${uiLabelMap.ManufacturingQuantity}"><display also-hidden="false"/></field>
         <field name="issuedQuantity" title="${uiLabelMap.ManufacturingIssuedQuantity}"><display also-hidden="false"/></field>
