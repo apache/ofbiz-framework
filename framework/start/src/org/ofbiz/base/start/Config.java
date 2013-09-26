@@ -355,6 +355,7 @@ public class Config {
             if (args.length > 0) {
                 for (String arg : args) {
                     if (arg.toLowerCase().contains("portoffset=")) {
+                        adminPort = adminPort != 0 ? adminPort : 10523; // This is necessary because the ASF Buildbot machine/s doe/s not allow ports 1 to 3, see  INFRA-6790
                         adminPort += Integer.parseInt(arg.split("=")[1]);
                     }
                 }
