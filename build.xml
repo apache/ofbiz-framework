@@ -423,7 +423,7 @@ under the License.
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
-            <arg value="start-batch"/>
+            <arg value="start"/>
             <arg value="-portoffset=${portoffset}"/>
         </java>
     </target>
@@ -437,7 +437,7 @@ under the License.
             <jvmarg value="-Djava.compiler=NONE"/>
             <jvmarg value="-Xdebug"/>
             <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8091"/>
-            <arg value="start-debug"/>
+            <arg value="start"/>
             <arg value="-portoffset=${portoffset}"/>
         </java>
     </target>
