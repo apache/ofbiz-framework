@@ -246,8 +246,6 @@ public class CatalinaContainer implements Container {
 
         for (Connector con: tomcat.getService().findConnectors()) {
             ProtocolHandler ph = con.getProtocolHandler();
-            int port = con.getPort();
-            con.setAttribute("port", port);
             if (ph instanceof Http11Protocol) {
                 Http11Protocol hph = (Http11Protocol) ph;
                 Debug.logInfo("Connector " + hph.getName() + " @ " + hph.getPort() + " - " +
@@ -479,8 +477,7 @@ public class CatalinaContainer implements Container {
         // need some standard properties
         String protocol = ContainerConfig.getPropertyValue(connectorProp, "protocol", "HTTP/1.1");
         String address = ContainerConfig.getPropertyValue(connectorProp, "address", "0.0.0.0");
-        int port = ContainerConfig.getPropertyValue(connectorProp, "port", 0) + ClassLoaderContainer.portOffset;
-        
+        int port = ContainerConfig.getPropertyValue(connectorProp, "port", 0);
         boolean secure = ContainerConfig.getPropertyValue(connectorProp, "secure", false);
         if (protocol.toLowerCase().startsWith("ajp")) {
             protocol = "ajp";
@@ -540,12 +537,8 @@ public class CatalinaContainer implements Container {
 
             try {
                 for (ContainerConfig.Container.Property prop: connectorProp.properties.values()) {
-                    if ("port".equals(prop.name)) { 
-                        connector.setProperty(prop.name, "" + port);
-                    } else {
-                        connector.setProperty(prop.name, prop.value);
-                        //connector.setAttribute(prop.name, prop.value);
-                    }
+                    connector.setProperty(prop.name, prop.value);
+                    //connector.setAttribute(prop.name, prop.value);
                 }
 
                 if (connectorProp.properties.containsKey("URIEncoding")) {
