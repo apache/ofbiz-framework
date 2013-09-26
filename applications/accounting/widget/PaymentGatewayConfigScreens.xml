@@ -55,7 +55,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindPaymentGatewayConfig"/>
                 <set field="tabButtonItem" value="paymentGatewayConfigTab"/> 
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
                 <decorator-screen name="GenericPaymentGatewayConfigDecorator">
@@ -246,7 +247,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindPaymentGatewayConfigTypes"/>
                 <set field="tabButtonItem" value="paymentGatewayConfigTypesTab"/> 
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
                 <decorator-screen name="GenericPaymentGatewayConfigDecorator">

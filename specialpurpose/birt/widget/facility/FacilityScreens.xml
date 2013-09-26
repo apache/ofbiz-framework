@@ -29,7 +29,8 @@ under the License.
                 <set field="headerItem" value="reports"/>
                 <set field="tabButtonItem" value="EditFacilityInventoryItems"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
 
                 <!-- This is the target of the search form-->
                 <set field="facilityInventoryByProductScreen" value="InventoryReports"/>

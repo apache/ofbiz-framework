@@ -30,7 +30,8 @@ under the License.
                 <set field="title" value="${uiLabelMap.PageTitleLookupWorkEffort}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="WorkEffort"/>
                 <set field="searchFields" value="[workEffortId, workEffortName, description]"/>
             </actions>
@@ -57,7 +58,8 @@ under the License.
                 <set field="title" value="${uiLabelMap.PageTitleLookupTimesheet}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="Timesheet"/>
                 <set field="searchFields" value="[timesheetId, partyId, clientPartyId, comments]"/>
             </actions>
@@ -84,7 +86,8 @@ under the License.
                 <set field="title" value="${uiLabelMap.PageTitleLookupWorkEffort}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="WorkEffort"/>
                 <set field="searchFields" value="[workEffortId, workEffortName, description]"/>
             </actions>
