@@ -726,7 +726,7 @@ if (obj_caller == null && window.opener != null) {
 }
 
 function setSourceColor(src) {
-	if (target && target != null) {
+	if (src && src != null) {
 		src.css("background-color", "yellow");
 	}
 }
@@ -847,8 +847,9 @@ lookupDescriptionLoaded.prototype.update = function() {
 	// actual server call
 	var fieldName = this.params.substring(indexOf);
 	fieldName = fieldName.substring(fieldName.indexOf("=") + 1);
-	if (jQuery("input[name=" + fieldName + "]").val()) {
-		var fieldSerialized = jQuery("input[name=" + fieldName + "]", jQuery("form[name=" + this.formName + "]")).serialize();
+	fieldObj = jQuery("input[name=" + fieldName + "]", jQuery("form[name=" + this.formName + "]"));
+	if (fieldObj.val()) {
+		var fieldSerialized = fieldObj.serialize();
 		this.allParams = this.params + '&' + fieldSerialized + '&' + 'searchType=EQUALS';
 		var _fieldId = this.fieldId;
 
