@@ -26,7 +26,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditCostCalcs"/>
                 <set field="headerItem" value="costs"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
 
                 <entity-condition entity-name="CostComponentCalc" list="allCostComponentCalcs"/>

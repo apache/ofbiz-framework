@@ -63,7 +63,8 @@ under the License.
                 <!-- parameters for the performFind service -->
                 <set field="parameters.forumId" from-field="parameters.forumId" default-value="${parameters.contentId}"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <entity-condition list="forumMessages" entity-name="ContentAssocViewTo" >
                     <condition-list combine="and">
                         <condition-expr field-name="contentIdStart" from-field="parameters.forumId"/>

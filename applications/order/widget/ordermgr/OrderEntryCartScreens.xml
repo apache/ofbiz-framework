@@ -165,7 +165,8 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleLookupBulkAddProduct"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/> <!-- 10 rows seems more appropriate given screen size, etc. -->
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/cart/LookupBulkAddProducts.groovy"/>
             </actions>
             <widgets>
@@ -215,7 +216,8 @@ under the License.
                 <set field="titleProperty" value="OrderAssociatedProducts"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/lookup/LookupAssociatedProducts.groovy"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderCatalogDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">

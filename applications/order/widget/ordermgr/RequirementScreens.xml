@@ -86,7 +86,8 @@ under the License.
                 <set field="headerItem" value="requirement"/>
                 <set field="tabButtonItem" value="FindRequirements"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonRequirementsDecorator">
@@ -111,7 +112,8 @@ under the License.
                 <set field="headerItem" value="requirement"/>
                 <set field="tabButtonItem" value="ApproveRequirements"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/requirement/SelectCreatedProposed.groovy"/>
             </actions>
             <widgets>
@@ -137,7 +139,8 @@ under the License.
                 <set field="headerItem" value="requirement"/>
                 <set field="tabButtonItem" value="ApprovedProductRequirements"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="_rowSubmit" value="Y"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/requirement/ApprovedProductRequirements.groovy"/>
         </actions>
@@ -191,7 +194,8 @@ under the License.
                 <set field="pageLayoutName" value="simple-landscape"/>
                 <set field="titleProperty" value="PageTitleApprovedProductRequirements"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="500"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
@@ -209,7 +213,8 @@ under the License.
                 <set field="headerItem" value="requirement"/>
                 <set field="tabButtonItem" value="ApprovedProductRequirementsByVendor"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/requirement/ApprovedProductRequirementsByVendor.groovy"/>
             </actions>
             <widgets>
@@ -231,7 +236,8 @@ under the License.
                 <set field="pageLayoutName" value="simple-landscape"/>
                 <set field="titleProperty" value="PageTitleApprovedProductRequirementsByVendor"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="500"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">

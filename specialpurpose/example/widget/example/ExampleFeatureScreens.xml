@@ -111,7 +111,8 @@ under the License.
                 <set field="title" value="${uiLabelMap.PageTitleLookupExampleFeature}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 
                 <!-- entries needed for lookup ajax auto completer -->
                 <!-- required: entity to search in -->

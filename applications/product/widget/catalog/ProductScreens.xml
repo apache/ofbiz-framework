@@ -1042,7 +1042,8 @@ under the License.
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
 
                 <script location="component://product/webapp/catalog/WEB-INF/actions/product/ApplyFeaturesFromCategory.groovy"/>
                 <script location="component://product/webapp/catalog/WEB-INF/actions/product/ApplyFeaturesFromGroup.groovy"/>

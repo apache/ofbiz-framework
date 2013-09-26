@@ -229,7 +229,8 @@ under the License.
                 <set field="headerItem" value="request"/>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <entity-one entity-name="CustRequest" value-field="custRequest"/>
                 <entity-and entity-name="CustRequestItem" list="custRequestItems">
                     <field-map from-field="custRequestId" field-name="custRequestId"/>

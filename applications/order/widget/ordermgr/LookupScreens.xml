@@ -33,7 +33,8 @@ under the License.
                 <set field="title" value="${uiLabelMap.PageTitleLookupOrderHeader}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="OrderHeader"/>
                 <set field="searchFields" value="[orderId, orderName]"/>
             </actions>
@@ -60,7 +61,8 @@ under the License.
                 <set field="parameters.roleTypeId" to-scope="screen" default-value="SHIP_TO_CUSTOMER"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="OrderHeaderAndShipGroups"/>
                 <set field="searchFields" value="[orderId, orderName, toName]"/>
             </actions>
@@ -86,7 +88,8 @@ under the License.
                 <set field="title" value="${uiLabelMap.PageTitleLookupPurchaseOrderHeaderAndShipInfo}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="OrderHeaderAndShipGroups"/>
                 <set field="searchFields" value="[orderId, orderName, toName]"/>
                 <set field="andCondition" value="${groovy: return org.ofbiz.entity.condition.EntityCondition.makeCondition(org.ofbiz.base.util.UtilMisc.toMap('orderTypeId', 'PURCHASE_ORDER', 'roleTypeId', 'SHIP_FROM_VENDOR'))}"/>
@@ -114,7 +117,8 @@ under the License.
                 <set field="title" value="${uiLabelMap.PageTitleLookupCustomerRequest}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="CustRequest"/>
                 <set field="searchFields" value="[custRequestId, custRequestName]"/>
             </actions>
@@ -141,7 +145,8 @@ under the License.
                 <set field="custRequestId" from-field="parameters.custRequestId" default-value="${parameters.parm0}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="CustRequestItem"/>
                 <set field="searchFields" value="[custRequestItemSeqId, custRequestId, productId]"/>
             </actions>
@@ -167,7 +172,8 @@ under the License.
                 <set field="title" value="${uiLabelMap.PageTitleLookupQuote}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="Quote"/>
                 <set field="searchFields" value="[quoteId, quoteName, description]"/>
             </actions>
@@ -194,7 +200,8 @@ under the License.
                 <set field="quoteId" from-field="parameters.quoteId" default-value="${parameters.parm0}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="QuoteItem"/>
                 <set field="searchFields" value="[quoteItemSeqId, quoteId, productId, comments]"/> 
             </actions>
@@ -220,7 +227,8 @@ under the License.
                 <set field="title" value="${uiLabelMap.PageTitleLookupRequirement}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="Requirement"/>
                 <set field="searchFields" value="[requirementId, description]"/>
             </actions>
@@ -246,7 +254,8 @@ under the License.
                 <set field="title" value="${uiLabelMap.PageTitleLookupShoppingList}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="ShoppingList"/>
                 <set field="searchFields" value="[shoppingListId, listName, description]"/>
             </actions>
