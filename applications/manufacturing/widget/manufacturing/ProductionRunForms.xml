@@ -281,6 +281,9 @@ under the License.
         <field name="actualCompletionDate" title="${uiLabelMap.ManufacturingActualCompletionDate}"><display/></field>
         <field name="productionRunName"  title="${uiLabelMap.ManufacturingProductionRunName}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+        <field name="facilityId" title="${uiLabelMap.FacilityFacility}">
+            <display-entity entity-name="Facility" description="${facilityName} [${facilityId}]"/>
+        </field>
         <field name="quantityProduced" title="${uiLabelMap.ManufacturingQuantityProduced}"><display/></field>
         <field name="quantityRejected" title="${uiLabelMap.ManufacturingQuantityRejected}"><display/></field>
     </form>

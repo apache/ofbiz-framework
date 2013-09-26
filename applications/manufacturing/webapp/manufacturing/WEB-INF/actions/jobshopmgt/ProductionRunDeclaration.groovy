@@ -83,6 +83,7 @@ if (productionRunId) {
         productionRunData.actualStartDate = productionRun.getGenericValue().getTimestamp("actualStartDate");
         productionRunData.actualCompletionDate = productionRun.getGenericValue().getTimestamp("actualCompletionDate");
         productionRunData.currentStatusId = productionRun.getGenericValue().currentStatusId;
+    	productionRunData.facilityId = productionRun.getGenericValue().facilityId;
 
         context.productionRunData = productionRunData;
 
