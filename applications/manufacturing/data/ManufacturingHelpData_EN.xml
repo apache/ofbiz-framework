@@ -23,7 +23,7 @@
     <DataResource dataResourceId="HELP_MFG" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
         dataResourceName="OFBiz:MFG Overview" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_MFG" contentTypeId="DOCUMENT" contentName="OFBiz:MFG (Manufacturing)" templateDataResourceId="HELP_TEMPL" 
+    <Content contentId="HELP_MFG" contentTypeId="DOCUMENT" contentName="Manufacturing" templateDataResourceId="HELP_TEMPL" 
         dataResourceId="HELP_MFG" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_MFG" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
     
