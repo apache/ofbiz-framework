@@ -30,8 +30,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -159,7 +159,7 @@ public class UtilMisc {
             Debug.logInfo(e, module);
             throw e;
         }
-        Map<String, V> map = new HashMap();
+        Map<String, V> map = new HashMap<String, V>();
         for (int i = 0; i < data.length;) {
             map.put((String) data[i++], (V) data[i++]);
         }
@@ -201,7 +201,7 @@ public class UtilMisc {
     }
 
     public static <T> Set<T> makeSetWritable(Collection<? extends T> col) {
-        Set<T> result = new HashSet<T>();
+        Set<T> result = new LinkedHashSet<T>();
         if (col != null) result.addAll(col);
         return result;
     }
@@ -214,7 +214,7 @@ public class UtilMisc {
      */
     public static <V> void makeMapSerializable(Map<String, V> map) {
         // now filter out all non-serializable values
-        Set<String> keysToRemove = new HashSet<String>();
+        Set<String> keysToRemove = new LinkedHashSet<String>();
         for (Map.Entry<String, V> mapEntry: map.entrySet()) {
             Object entryValue = mapEntry.getValue();
             if (entryValue != null && !(entryValue instanceof Serializable)) {
@@ -313,7 +313,7 @@ public class UtilMisc {
         if (c instanceof Set<?>) {
             theSet = (Set<T>) c;
         } else {
-            theSet = new HashSet<T>();
+            theSet = new LinkedHashSet<T>();
             c.remove(null);
             theSet.addAll(c);
         }
@@ -325,7 +325,7 @@ public class UtilMisc {
      * @return The resulting Set
      */
     public static <T> Set<T> toSet(T obj1) {
-        Set<T> theSet = new HashSet<T>();
+        Set<T> theSet = new LinkedHashSet<T>();
         theSet.add(obj1);
         return theSet;
     }
@@ -335,7 +335,7 @@ public class UtilMisc {
      * @return The resulting Set
      */
     public static <T> Set<T> toSet(T obj1, T obj2) {
-        Set<T> theSet = new HashSet<T>();
+        Set<T> theSet = new LinkedHashSet<T>();
         theSet.add(obj1);
         theSet.add(obj2);
         return theSet;
@@ -346,7 +346,7 @@ public class UtilMisc {
      * @return The resulting Set
      */
     public static <T> Set<T> toSet(T obj1, T obj2, T obj3) {
-        Set<T> theSet = new HashSet<T>();
+        Set<T> theSet = new LinkedHashSet<T>();
         theSet.add(obj1);
         theSet.add(obj2);
         theSet.add(obj3);
@@ -358,7 +358,7 @@ public class UtilMisc {
      * @return The resulting Set
      */
     public static <T> Set<T> toSet(T obj1, T obj2, T obj3, T obj4) {
-        Set<T> theSet = new HashSet<T>();
+        Set<T> theSet = new LinkedHashSet<T>();
         theSet.add(obj1);
         theSet.add(obj2);
         theSet.add(obj3);
@@ -371,7 +371,7 @@ public class UtilMisc {
      * @return The resulting Set
      */
     public static <T> Set<T> toSet(T obj1, T obj2, T obj3, T obj4, T obj5) {
-        Set<T> theSet = new HashSet<T>();
+        Set<T> theSet = new LinkedHashSet<T>();
         theSet.add(obj1);
         theSet.add(obj2);
         theSet.add(obj3);
@@ -385,7 +385,7 @@ public class UtilMisc {
      * @return The resulting Set
      */
     public static <T> Set<T> toSet(T obj1, T obj2, T obj3, T obj4, T obj5, T obj6) {
-        Set<T> theSet = new HashSet<T>();
+        Set<T> theSet = new LinkedHashSet<T>();
         theSet.add(obj1);
         theSet.add(obj2);
         theSet.add(obj3);
@@ -396,7 +396,7 @@ public class UtilMisc {
     }
     
     public static <T> Set<T> toSet(T obj1, T obj2, T obj3, T obj4, T obj5, T obj6, T obj7, T obj8) {
-        Set<T> theSet = new HashSet<T>();
+        Set<T> theSet = new LinkedHashSet<T>();
         theSet.add(obj1);
         theSet.add(obj2);
         theSet.add(obj3);
@@ -413,7 +413,7 @@ public class UtilMisc {
         if (collection instanceof Set<?>) {
             return (Set<T>) collection;
         } else {
-            Set<T> theSet = new HashSet<T>();
+            Set<T> theSet = new LinkedHashSet<T>();
             theSet.addAll(collection);
             return theSet;
         }
@@ -423,7 +423,7 @@ public class UtilMisc {
         if (data == null) {
             return null;
         }
-        Set<T> set = new HashSet<T>();
+        Set<T> set = new LinkedHashSet<T>();
         for (T value: data) {
             set.add(value);
         }
@@ -560,7 +560,7 @@ public class UtilMisc {
     public static <K, V> void addToSetInMap(V element, Map<K, Set<V>> theMap, K setKey) {
         Set<V> theSet = UtilGenerics.checkSet(theMap.get(setKey));
         if (theSet == null) {
-            theSet = new HashSet<V>();
+            theSet = new LinkedHashSet<V>();
             theMap.put(setKey, theSet);
         }
         theSet.add(element);
