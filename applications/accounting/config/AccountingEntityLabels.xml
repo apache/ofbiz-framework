@@ -2704,7 +2704,7 @@
     <property key="InvoiceItemType.description.INVOICE_ADJ">
         <value xml:lang="de">Rechnungsanpassung</value>
         <value xml:lang="en">Invoice Adjustment</value>
-        <value xml:lang="fr">Régularisation de facture</value>
+        <value xml:lang="fr">Régularisation de facture (ventes)</value>
         <value xml:lang="hi_IN">चालान समायोजन</value>
         <value xml:lang="it">Fattura </value>
         <value xml:lang="ja">請求 調整</value>
@@ -3479,7 +3479,7 @@
     <property key="InvoiceItemType.description.PINVOICE_ADJ">
         <value xml:lang="de">Rechnungskorrektur</value>
         <value xml:lang="en">Invoice Adjustment</value>
-        <value xml:lang="fr">Régularisation de facture</value>
+        <value xml:lang="fr">Régularisation de facture (achat)</value>
         <value xml:lang="hi_IN">चालान समायोजन</value>
         <value xml:lang="it">Fattura Aggiustamento</value>
         <value xml:lang="ja">請求 調整</value>
