@@ -173,7 +173,7 @@ public class EbayEvents {
 
         ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
         //String webSiteUrl = (String) requestParams.get("webSiteUrl");
-        String webSiteUrl = "http://demo.ofbiz.org";
+        String webSiteUrl = "http://demo-trunk.ofbiz.apache.org";
         Map<String,Object> addItemObject = getAddItemListingObject(request, apiContext);
         List<Map<String,Object>> itemObjs = null;
         if (UtilValidate.isNotEmpty(addItemObject.get("itemListings"))) {
