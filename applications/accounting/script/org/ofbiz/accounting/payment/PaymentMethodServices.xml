@@ -63,11 +63,14 @@ under the License.
 
         <find-by-and entity-name="EftAccount" map="lookupMap" list="eftAccounts"/>
         <iterate entry="eftAccount" list="eftAccounts">
-            <set-service-fields service-name="updateEftAccount" map="eftAccount" to-map="ueaMap"/>
-            <set field="ueaMap.contactMechId" from-field="parameters.contactMechId"/>
-            <set field="ueaMap.partyId" from-field="parameters.partyId"/>
-            <!-- use the service so it will expire the old account and create a new one; don't break on error since this is a background process, just get whatever we can done... -->
-            <call-service service-name="updateEftAccount" in-map-name="ueaMap" break-on-error="false"/>
+            <get-related-one relation-name="PaymentMethod" to-value-field="paymentMethod" value-field="eftAccount"/>
+            <if-empty field="paymentMethod.thruDate">
+                <set-service-fields service-name="updateEftAccount" map="eftAccount" to-map="ueaMap"/>
+                <set field="ueaMap.contactMechId" from-field="parameters.contactMechId"/>
+                <set field="ueaMap.partyId" from-field="parameters.partyId"/>
+                <!-- use the service so it will expire the old account and create a new one; don't break on error since this is a background process, just get whatever we can done... -->
+                <call-service service-name="updateEftAccount" in-map-name="ueaMap" break-on-error="false"/>
+            </if-empty>            
         </iterate>
     </simple-method>
     <!--CreateCreditCardTypeGlAccount methods -->
