@@ -438,7 +438,6 @@ under the License.
                     <field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
                     <order-by field-name="invoiceItemSeqId"/>
                 </entity-and>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/GetInvoiceItemTypes.groovy"/>
                 <entity-condition entity-name="InvoiceItemType" list="PayrolGroup">
                     <condition-expr field-name="parentTypeId" value="PAYROL"/>
                 </entity-condition>
