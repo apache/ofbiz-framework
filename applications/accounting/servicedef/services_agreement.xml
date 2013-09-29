@@ -46,7 +46,6 @@ under the License.
         <permission-service service-name="acctgAgreementPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="textData" allow-html="safe"/>
     </service>
     <service name="copyAgreement" default-entity-name="Agreement" engine="simple"
                 location="component://accounting/script/org/ofbiz/accounting/agreement/AgreementServices.xml" invoke="copyAgreement" auth="true">
@@ -82,7 +81,6 @@ under the License.
         <permission-service service-name="acctgAgreementPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="agreementText" allow-html="safe"/>
     </service>
 
     <!-- AgreementTerm  -->
