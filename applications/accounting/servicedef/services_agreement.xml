@@ -92,7 +92,7 @@ under the License.
         <permission-service service-name="acctgAgreementPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="agreementText" allow-html="safe"/>
+        <override name="textValue" allow-html="safe"/>
     </service>
     <service name="updateAgreementTerm" default-entity-name="AgreementTerm" engine="simple"
                 location="component://accounting/script/org/ofbiz/accounting/agreement/AgreementServices.xml" invoke="updateAgreementTerm" auth="true">
@@ -100,6 +100,7 @@ under the License.
         <permission-service service-name="acctgAgreementPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="textValue" allow-html="safe"/>
     </service>
     <service name="deleteAgreementTerm" default-entity-name="AgreementTerm" engine="simple"
                 location="component://accounting/script/org/ofbiz/accounting/agreement/AgreementServices.xml" invoke="deleteAgreementTerm" auth="true">
