@@ -1574,6 +1574,9 @@ public class GenericDelegator implements Delegator {
      */
     public GenericValue findOne(String entityName, Map<String, ? extends Object> fields, boolean useCache) throws GenericEntityException {
         GenericPK primaryKey = this.makePK(entityName, fields);
+        if (!primaryKey.isPrimaryKey()) {
+            throw new GenericModelException("[GenericDelegator.findOne] Passed primary key is not a valid primary key: " + primaryKey);
+        }
         EntityEcaRuleRunner<?> ecaRunner = this.getEcaRuleRunner(entityName);
         if (useCache) {
             ecaRunner.evalRules(EntityEcaHandler.EV_CACHE_CHECK, EntityEcaHandler.OP_FIND, primaryKey, false);
@@ -1595,9 +1598,6 @@ public class GenericDelegator implements Delegator {
             GenericHelper helper = getEntityHelper(entityName);
             GenericValue value = null;
 
-            if (!primaryKey.isPrimaryKey()) {
-                throw new GenericModelException("[GenericDelegator.findOne] Passed primary key is not a valid primary key: " + primaryKey);
-            }
             ecaRunner.evalRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_FIND, primaryKey, false);
             try {
                 value = helper.findByPrimaryKey(primaryKey);
