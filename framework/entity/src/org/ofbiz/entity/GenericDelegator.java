@@ -1580,8 +1580,10 @@ public class GenericDelegator implements Delegator {
         EntityEcaRuleRunner<?> ecaRunner = this.getEcaRuleRunner(entityName);
         if (useCache) {
             ecaRunner.evalRules(EntityEcaHandler.EV_CACHE_CHECK, EntityEcaHandler.OP_FIND, primaryKey, false);
-
-            GenericValue value = this.getFromPrimaryKeyCache(primaryKey);
+            GenericValue value = cache.get(primaryKey);
+            if (value == GenericValue.NULL_VALUE) {
+                return null;
+            }
             if (value != null) {
                 return value;
             }
