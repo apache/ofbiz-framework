@@ -451,10 +451,11 @@ public class RequestHandler {
         ConfigXMLReader.RequestResponse eventReturnBasedRequestResponse;
         if (eventReturn == null) {
             eventReturnBasedRequestResponse = null;
-        } else if (eventReturn.equals("none")) {
-            eventReturnBasedRequestResponse = ConfigXMLReader.emptyNoneRequestResponse;
         } else {
             eventReturnBasedRequestResponse = requestMap.requestResponseMap.get(eventReturn);
+            if (eventReturnBasedRequestResponse == null && eventReturn.equals("none")) {
+                eventReturnBasedRequestResponse = ConfigXMLReader.emptyNoneRequestResponse;
+            }
         }
         if (eventReturnBasedRequestResponse != null) {
             //String eventReturnBasedResponse = requestResponse.value;
