@@ -818,22 +818,13 @@ public class GenericDelegator implements Delegator {
             }
 
             ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_CREATE, value, false);
-
+            TransactionUtil.commit(beganTransaction);
             return value;
-        } catch (GenericEntityException e) {
+        } catch (Exception e) {
             String errMsg = "Failure in createSetNextSeqId operation for entity [" + value.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
-            try {
-                // only rollback the transaction if we started one...
-                TransactionUtil.rollback(beganTransaction, errMsg, e);
-            } catch (GenericEntityException e2) {
-                Debug.logError(e2, "[GenericDelegator] Could not rollback transaction: " + e2.toString(), module);
-            }
-            // after rolling back, rethrow the exception
-            throw e;
-        } finally {
-            // only commit the transaction if we started one... this will throw an exception if it fails
-            TransactionUtil.commit(beganTransaction);
+            TransactionUtil.rollback(beganTransaction, errMsg, e);
+            throw new GenericEntityException(e);
         }
     }
 
@@ -886,22 +877,13 @@ public class GenericDelegator implements Delegator {
             }
 
             ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_CREATE, value, false);
-
-            return value;
-        } catch (GenericEntityException e) {
-            String errMsg = "Failure in create operation for entity [" + (value != null ? value.getEntityName() : "null")  + "]: " + e.toString() + ". Rolling back transaction.";
-            Debug.logError(errMsg, module);
-            try {
-                // only rollback the transaction if we started one...
-                TransactionUtil.rollback(beganTransaction, errMsg, e);
-            } catch (GenericEntityException e2) {
-                Debug.logError(e2, "[GenericDelegator] Could not rollback transaction: " + e2.toString(), module);
-            }
-            // after rolling back, rethrow the exception
-            throw e;
-        } finally {
-            // only commit the transaction if we started one... this will throw an exception if it fails
             TransactionUtil.commit(beganTransaction);
+            return value;
+        } catch (Exception e) {
+            String errMsg = "Failure in create operation for entity [" + (value != null ? value.getEntityName() : "null") + "]: " + e.toString() + ". Rolling back transaction.";
+            Debug.logError(errMsg, module);
+            TransactionUtil.rollback(beganTransaction, errMsg, e);
+            throw new GenericEntityException(e);
         }
     }
 
@@ -926,22 +908,13 @@ public class GenericDelegator implements Delegator {
             if (value.lockEnabled()) {
                 this.refresh(value);
             }
-
+            TransactionUtil.commit(beganTransaction);
             return value;
-        } catch (GenericEntityException e) {
+        } catch (Exception e) {
             String errMsg = "Failure in createOrStore operation for entity [" + value.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
-            try {
-                // only rollback the transaction if we started one...
-                TransactionUtil.rollback(beganTransaction, errMsg, e);
-            } catch (GenericEntityException e2) {
-                Debug.logError(e2, "[GenericDelegator] Could not rollback transaction: " + e2.toString(), module);
-            }
-            // after rolling back, rethrow the exception
-            throw e;
-        } finally {
-            // only commit the transaction if we started one... this will throw an exception if it fails
-            TransactionUtil.commit(beganTransaction);
+            TransactionUtil.rollback(beganTransaction, errMsg, e);
+            throw new GenericEntityException(e);
         }
     }
 
@@ -1032,22 +1005,13 @@ public class GenericDelegator implements Delegator {
             }
 
             ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_REMOVE, primaryKey, false);
-
+            TransactionUtil.commit(beganTransaction);
             return num;
-        } catch (GenericEntityException e) {
+        } catch (Exception e) {
             String errMsg = "Failure in removeByPrimaryKey operation for entity [" + primaryKey.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
-            try {
-                // only rollback the transaction if we started one...
-                TransactionUtil.rollback(beganTransaction, errMsg, e);
-            } catch (GenericEntityException e2) {
-                Debug.logError(e2, "[GenericDelegator] Could not rollback transaction: " + e2.toString(), module);
-            }
-            // after rolling back, rethrow the exception
-            throw e;
-        } finally {
-            // only commit the transaction if we started one... this will throw an exception if it fails
-            TransactionUtil.commit(beganTransaction);
+            TransactionUtil.rollback(beganTransaction, errMsg, e);
+            throw new GenericEntityException(e);
         }
     }
 
@@ -1106,22 +1070,13 @@ public class GenericDelegator implements Delegator {
             this.saveEntitySyncRemoveInfo(value.getPrimaryKey());
 
             ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_REMOVE, value, false);
-
+            TransactionUtil.commit(beganTransaction);
             return num;
-        } catch (GenericEntityException e) {
+        } catch (Exception e) {
             String errMsg = "Failure in removeValue operation for entity [" + value.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
-            try {
-                // only rollback the transaction if we started one...
-                TransactionUtil.rollback(beganTransaction, errMsg, e);
-            } catch (GenericEntityException e2) {
-                Debug.logError(e2, "[GenericDelegator] Could not rollback transaction: " + e2.toString(), module);
-            }
-            // after rolling back, rethrow the exception
-            throw e;
-        } finally {
-            // only commit the transaction if we started one... this will throw an exception if it fails
-            TransactionUtil.commit(beganTransaction);
+            TransactionUtil.rollback(beganTransaction, errMsg, e);
+            throw new GenericEntityException(e);
         }
     }
 
@@ -1196,22 +1151,13 @@ public class GenericDelegator implements Delegator {
                     storeForTestRollback(new TestOperation(OperationType.DELETE, entity));
                 }
             }
-
+            TransactionUtil.commit(beganTransaction);
             return rowsAffected;
-        } catch (GenericEntityException e) {
+        } catch (Exception e) {
             String errMsg = "Failure in removeByCondition operation for entity [" + entityName + "]: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
-            try {
-                // only rollback the transaction if we started one...
-                TransactionUtil.rollback(beganTransaction, errMsg, e);
-            } catch (GenericEntityException e2) {
-                Debug.logError(e2, "[GenericDelegator] Could not rollback transaction: " + e2.toString(), module);
-            }
-            // after rolling back, rethrow the exception
-            throw e;
-        } finally {
-            // only commit the transaction if we started one... this will throw an exception if it fails
-            TransactionUtil.commit(beganTransaction);
+            TransactionUtil.rollback(beganTransaction, errMsg, e);
+            throw new GenericEntityException(e);
         }
     }
 
@@ -1312,22 +1258,13 @@ public class GenericDelegator implements Delegator {
                     storeForTestRollback(new TestOperation(OperationType.UPDATE, entity));
                 }
             }
-
+            TransactionUtil.commit(beganTransaction);
             return rowsAffected;
-        } catch (GenericEntityException e) {
+        } catch (Exception e) {
             String errMsg = "Failure in storeByCondition operation for entity [" + entityName + "]: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
-            try {
-                // only rollback the transaction if we started one...
-                TransactionUtil.rollback(beganTransaction, errMsg, e);
-            } catch (GenericEntityException e2) {
-                Debug.logError(e2, "[GenericDelegator] Could not rollback transaction: " + e2.toString(), module);
-            }
-            // after rolling back, rethrow the exception
-            throw e;
-        } finally {
-            // only commit the transaction if we started one... this will throw an exception if it fails
-            TransactionUtil.commit(beganTransaction);
+            TransactionUtil.rollback(beganTransaction, errMsg, e);
+            throw new GenericEntityException(e);
         }
     }
 
@@ -1383,22 +1320,13 @@ public class GenericDelegator implements Delegator {
             }
 
             ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_STORE, value, false);
-
+            TransactionUtil.commit(beganTransaction);
             return retVal;
-        } catch (GenericEntityException e) {
+        } catch (Exception e) {
             String errMsg = "Failure in store operation for entity [" + value.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
-            try {
-                // only rollback the transaction if we started one...
-                TransactionUtil.rollback(beganTransaction, errMsg, e);
-            } catch (GenericEntityException e2) {
-                Debug.logError(e2, "[GenericDelegator] Could not rollback transaction: " + e2.toString(), module);
-            }
-            // after rolling back, rethrow the exception
-            throw e;
-        } finally {
-            // only commit the transaction if we started one... this will throw an exception if it fails
-            TransactionUtil.commit(beganTransaction);
+            TransactionUtil.rollback(beganTransaction, errMsg, e);
+            throw new GenericEntityException(e);
         }
     }
 
@@ -1485,22 +1413,13 @@ public class GenericDelegator implements Delegator {
                     }
                 }
             }
-
+            TransactionUtil.commit(beganTransaction);
             return numberChanged;
-        } catch (GenericEntityException e) {
+        } catch (Exception e) {
             String errMsg = "Failure in storeAll operation: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
-            try {
-                // only rollback the transaction if we started one...
-                TransactionUtil.rollback(beganTransaction, errMsg, e);
-            } catch (GenericEntityException e2) {
-                Debug.logError(e2, "[GenericDelegator] Could not rollback transaction: " + e2.toString(), module);
-            }
-            // after rolling back, rethrow the exception
-            throw e;
-        } finally {
-            // only commit the transaction if we started one... this will throw an exception if it fails
-            TransactionUtil.commit(beganTransaction);
+            TransactionUtil.rollback(beganTransaction, errMsg, e);
+            throw new GenericEntityException(e);
         }
     }
 
@@ -1539,22 +1458,13 @@ public class GenericDelegator implements Delegator {
                     numRemoved += this.removeByAnd(value.getEntityName(), value.getAllFields(), doCacheClear);
                 }
             }
-
+            TransactionUtil.commit(beganTransaction);
             return numRemoved;
-        } catch (GenericEntityException e) {
+        } catch (Exception e) {
             String errMsg = "Failure in removeAll operation: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
-            try {
-                // only rollback the transaction if we started one...
-                TransactionUtil.rollback(beganTransaction, errMsg, e);
-            } catch (GenericEntityException e2) {
-                Debug.logError(e2, "[GenericDelegator] Could not rollback transaction: " + e2.toString(), module);
-            }
-            // after rolling back, rethrow the exception
-            throw e;
-        } finally {
-            // only commit the transaction if we started one... this will throw an exception if it fails
-            TransactionUtil.commit(beganTransaction);
+            TransactionUtil.rollback(beganTransaction, errMsg, e);
+            throw new GenericEntityException(e);
         }
     }
 
@@ -1620,21 +1530,13 @@ public class GenericDelegator implements Delegator {
             }
 
             ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_FIND, (value == null ? primaryKey : value), false);
+            TransactionUtil.commit(beganTransaction);
             return value;
-        } catch (GenericEntityException e) {
+        } catch (Exception e) {
             String errMsg = "Failure in findOne operation for entity [" + entityName + "]: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
-            try {
-                // only rollback the transaction if we started one...
-                TransactionUtil.rollback(beganTransaction, errMsg, e);
-            } catch (GenericEntityException e2) {
-                Debug.logError(e2, "[GenericDelegator] Could not rollback transaction: " + e2.toString(), module);
-            }
-            // after rolling back, rethrow the exception
-            throw e;
-        } finally {
-            // only commit the transaction if we started one... this will throw an exception if it fails
-            TransactionUtil.commit(beganTransaction);
+            TransactionUtil.rollback(beganTransaction, errMsg, e);
+            throw new GenericEntityException(e);
         }
     }
 
@@ -1693,21 +1595,13 @@ public class GenericDelegator implements Delegator {
             if (value != null) value.setDelegator(this);
 
             ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_FIND, primaryKey, false);
+            TransactionUtil.commit(beganTransaction);
             return value;
-        } catch (GenericEntityException e) {
+        } catch (Exception e) {
             String errMsg = "Failure in findByPrimaryKeyPartial operation for entity [" + primaryKey.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
-            try {
-                // only rollback the transaction if we started one...
-                TransactionUtil.rollback(beganTransaction, errMsg, e);
-            } catch (GenericEntityException e2) {
-                Debug.logError(e2, "[GenericDelegator] Could not rollback transaction: " + e2.toString(), module);
-            }
-            // after rolling back, rethrow the exception
-            throw e;
-        } finally {
-            // only commit the transaction if we started one... this will throw an exception if it fails
-            TransactionUtil.commit(beganTransaction);
+            TransactionUtil.rollback(beganTransaction, errMsg, e);
+            throw new GenericEntityException(e);
         }
     }
     
@@ -1845,21 +1739,13 @@ public class GenericDelegator implements Delegator {
                 ecaRunner.evalRules(EntityEcaHandler.EV_CACHE_PUT, EntityEcaHandler.OP_FIND, dummyValue, false);
                 this.cache.put(entityName, entityCondition, orderBy, list);
             }
+            TransactionUtil.commit(beganTransaction);
             return list;
-        } catch (GenericEntityException e) {
+        } catch (Exception e) {
             String errMsg = "Failure in findByCondition operation for entity [" + entityName + "]: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
-            try {
-                // only rollback the transaction if we started one...
-                TransactionUtil.rollback(beganTransaction, errMsg, e);
-            } catch (GenericEntityException e2) {
-                Debug.logError(e2, "[GenericDelegator] Could not rollback transaction: " + e2.toString(), module);
-            }
-            // after rolling back, rethrow the exception
-            throw e;
-        } finally {
-            // only commit the transaction if we started one... this will throw an exception if it fails
-            TransactionUtil.commit(beganTransaction);
+            TransactionUtil.rollback(beganTransaction, errMsg, e);
+            throw new GenericEntityException(e);
         }
     }
 
@@ -1920,21 +1806,13 @@ public class GenericDelegator implements Delegator {
             long count = helper.findCountByCondition(modelEntity, whereEntityCondition, havingEntityCondition, findOptions);
 
             ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_FIND, dummyValue, false);
+            TransactionUtil.commit(beganTransaction);
             return count;
-        } catch (GenericEntityException e) {
+        } catch (Exception e) {
             String errMsg = "Failure in findListIteratorByCondition operation for entity [DynamicView]: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
-            try {
-                // only rollback the transaction if we started one...
-                TransactionUtil.rollback(beganTransaction, errMsg, e);
-            } catch (GenericEntityException e2) {
-                Debug.logError(e2, "[GenericDelegator] Could not rollback transaction: " + e2.toString(), module);
-            }
-            // after rolling back, rethrow the exception
-            throw e;
-        } finally {
-            // only commit the transaction if we started one... this will throw an exception if it fails
-            TransactionUtil.commit(beganTransaction);
+            TransactionUtil.rollback(beganTransaction, errMsg, e);
+            throw new GenericEntityException(e);
         }
     }
 
@@ -1957,22 +1835,14 @@ public class GenericDelegator implements Delegator {
             ModelEntity modelEntityTwo = getModelEntity(modelRelationTwo.getRelEntityName());
 
             GenericHelper helper = getEntityHelper(modelEntity);
-
-            return helper.findByMultiRelation(value, modelRelationOne, modelEntityOne, modelRelationTwo, modelEntityTwo, orderBy);
-        } catch (GenericEntityException e) {
+            List<GenericValue> result = helper.findByMultiRelation(value, modelRelationOne, modelEntityOne, modelRelationTwo, modelEntityTwo, orderBy);
+            TransactionUtil.commit(beganTransaction);
+            return result;
+        } catch (Exception e) {
             String errMsg = "Failure in getMultiRelation operation for entity [" + value.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
-            try {
-                // only rollback the transaction if we started one...
-                TransactionUtil.rollback(beganTransaction, errMsg, e);
-            } catch (GenericEntityException e2) {
-                Debug.logError(e2, "[GenericDelegator] Could not rollback transaction: " + e2.toString(), module);
-            }
-            // after rolling back, rethrow the exception
-            throw e;
-        } finally {
-            // only commit the transaction if we started one... this will throw an exception if it fails
-            TransactionUtil.commit(beganTransaction);
+            TransactionUtil.rollback(beganTransaction, errMsg, e);
+            throw new GenericEntityException(e);
         }
     }
 
@@ -2519,6 +2389,7 @@ public class GenericDelegator implements Delegator {
                 beganTransaction = TransactionUtil.begin();
             }
 
+            // FIXME: Replace DCL code with AtomicReference
             if (sequencer == null) {
                 synchronized (this) {
                     if (sequencer == null) {
@@ -2532,25 +2403,17 @@ public class GenericDelegator implements Delegator {
             ModelEntity seqModelEntity = this.getModelEntity(seqName);
 
             Long newSeqId = sequencer == null ? null : sequencer.getNextSeqId(seqName, staggerMax, seqModelEntity);
-
+            TransactionUtil.commit(beganTransaction);
             return newSeqId;
-        } catch (GenericEntityException e) {
+        } catch (Exception e) {
             String errMsg = "Failure in getNextSeqIdLong operation for seqName [" + seqName + "]: " + e.toString() + ". Rolling back transaction.";
+            Debug.logError(e, errMsg, module);
             try {
-                // only rollback the transaction if we started one...
                 TransactionUtil.rollback(beganTransaction, errMsg, e);
-            } catch (GenericEntityException e2) {
-                Debug.logError(e2, "[GenericDelegator] Could not rollback transaction: " + e2.toString(), module);
-            }
-            // rather than logging the problem and returning null, thus hiding the problem, throw an exception
-            throw new GeneralRuntimeException(errMsg, e);
-        } finally {
-            try {
-                // only commit the transaction if we started one...
-                TransactionUtil.commit(beganTransaction);
             } catch (GenericTransactionException e1) {
-                Debug.logError(e1, "[GenericDelegator] Could not commit transaction: " + e1.toString(), module);
+                Debug.logError(e1, "Exception thrown while rolling back transaction: ", module);
             }
+            throw new GeneralRuntimeException(errMsg, e);
         }
     }
 
