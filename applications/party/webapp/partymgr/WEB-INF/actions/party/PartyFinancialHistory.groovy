@@ -115,7 +115,6 @@ while (payment = payIterator.next()) {
     }
 }
 payIterator.close();
-context.finanSummary = FastMap.newInstance();
 totalSalesInvoice = totalInvSaApplied.add(totalInvSaNotApplied);
 totalPurchaseInvoice = totalInvPuApplied.add(totalInvPuNotApplied);
 totalPaymentsIn = totalPayInApplied.add(totalPayInNotApplied);
@@ -123,6 +122,7 @@ totalPaymentsOut = totalPayOutApplied.add(totalPayOutNotApplied);
 totalInvoiceNotApplied = totalInvSaNotApplied.subtract(totalInvPuNotApplied);
 totalPaymentNotApplied = totalPayInNotApplied.subtract(totalPayOutNotApplied);
 
+context.finanSummary = FastMap.newInstance();
 context.finanSummary.totalSalesInvoice = totalSalesInvoice;
 context.finanSummary.totalPurchaseInvoice = totalPurchaseInvoice;
 context.finanSummary.totalPaymentsIn = totalPaymentsIn;
