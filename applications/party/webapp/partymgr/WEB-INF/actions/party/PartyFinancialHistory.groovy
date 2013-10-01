@@ -115,22 +115,17 @@ while (payment = payIterator.next()) {
     }
 }
 payIterator.close();
-totalSalesInvoice = totalInvSaApplied.add(totalInvSaNotApplied);
-totalPurchaseInvoice = totalInvPuApplied.add(totalInvPuNotApplied);
-totalPaymentsIn = totalPayInApplied.add(totalPayInNotApplied);
-totalPaymentsOut = totalPayOutApplied.add(totalPayOutNotApplied);
-totalInvoiceNotApplied = totalInvSaNotApplied.subtract(totalInvPuNotApplied);
-totalPaymentNotApplied = totalPayInNotApplied.subtract(totalPayOutNotApplied);
 
-context.finanSummary = FastMap.newInstance();
-context.finanSummary.totalSalesInvoice = totalSalesInvoice;
-context.finanSummary.totalPurchaseInvoice = totalPurchaseInvoice;
-context.finanSummary.totalPaymentsIn = totalPaymentsIn;
-context.finanSummary.totalPaymentsOut = totalPaymentsOut;
-context.finanSummary.totalInvoiceNotApplied = totalInvoiceNotApplied;
-context.finanSummary.totalPaymentNotApplied = totalPaymentNotApplied;
+context.finanSummary = [:];
+context.finanSummary.totalSalesInvoice = totalSalesInvoice = totalInvSaApplied.add(totalInvSaNotApplied);
+context.finanSummary.totalPurchaseInvoice = totalPurchaseInvoice = totalInvPuApplied.add(totalInvPuNotApplied);
+context.finanSummary.totalPaymentsIn = totalPaymentsIn = totalPayInApplied.add(totalPayInNotApplied);
+context.finanSummary.totalPaymentsOut = totalPaymentsOut = totalPayOutApplied.add(totalPayOutNotApplied);
+context.finanSummary.totalInvoiceNotApplied = = totalInvSaNotApplied.subtract(totalInvPuNotApplied);
+context.finanSummary.totalPaymentNotApplied = totalPayInNotApplied.subtract(totalPayOutNotApplied);
 
 transferAmount = totalSalesInvoice.subtract(totalPurchaseInvoice).subtract(totalPaymentsIn).add(totalPaymentsOut));
+
 if (transferAmount.signum() == -1) { // negative?
     context.finanSummary.totalToBeReceived = transferAmount.negate();
 } else {
