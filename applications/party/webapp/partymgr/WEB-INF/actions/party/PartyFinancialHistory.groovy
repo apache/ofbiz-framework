@@ -37,10 +37,10 @@ if (!actualCurrencyUomId) {
 }
 findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
 //get total/unapplied/applied invoices separated by sales/purch amount:
-totalInvSaApplied         = BigDecimal.ZERO;
-totalInvSaNotApplied     = BigDecimal.ZERO;
-totalInvPuApplied         = BigDecimal.ZERO;
-totalInvPuNotApplied     = BigDecimal.ZERO;
+totalInvSaApplied = BigDecimal.ZERO;
+totalInvSaNotApplied = BigDecimal.ZERO;
+totalInvPuApplied = BigDecimal.ZERO;
+totalInvPuNotApplied = BigDecimal.ZERO;
 
 invExprs =
     EntityCondition.makeCondition([
@@ -78,10 +78,10 @@ while (invoice = invIterator.next()) {
 invIterator.close();
 
 //get total/unapplied/applied payment in/out total amount:
-totalPayInApplied         = BigDecimal.ZERO;
-totalPayInNotApplied     = BigDecimal.ZERO;
-totalPayOutApplied         = BigDecimal.ZERO;
-totalPayOutNotApplied     = BigDecimal.ZERO;
+totalPayInApplied = BigDecimal.ZERO;
+totalPayInNotApplied = BigDecimal.ZERO;
+totalPayOutApplied = BigDecimal.ZERO;
+totalPayOutNotApplied = BigDecimal.ZERO;
 
 payExprs =
     EntityCondition.makeCondition([
@@ -116,13 +116,21 @@ while (payment = payIterator.next()) {
 }
 payIterator.close();
 context.finanSummary = FastMap.newInstance();
-context.finanSummary.totalSalesInvoice         = totalInvSaApplied.add(totalInvSaNotApplied);
-context.finanSummary.totalPurchaseInvoice     = totalInvPuApplied.add(totalInvPuNotApplied);
-context.finanSummary.totalPaymentsIn         = totalPayInApplied.add(totalPayInNotApplied);
-context.finanSummary.totalPaymentsOut         = totalPayOutApplied.add(totalPayOutNotApplied);
-context.finanSummary.totalInvoiceNotApplied = totalInvSaNotApplied.subtract(totalInvPuNotApplied);
-context.finanSummary.totalPaymentNotApplied = totalPayInNotApplied.subtract(totalPayOutNotApplied);
-transferAmount = totalInvSaApplied.add(totalInvSaNotApplied).subtract(totalInvPuApplied.add(totalInvPuNotApplied)).subtract(totalPayInApplied.add(totalPayInNotApplied).add(totalPayOutApplied.add(totalPayOutNotApplied)));
+totalSalesInvoice = totalInvSaApplied.add(totalInvSaNotApplied);
+totalPurchaseInvoice = totalInvPuApplied.add(totalInvPuNotApplied);
+totalPaymentsIn = totalPayInApplied.add(totalPayInNotApplied);
+totalPaymentsOut = totalPayOutApplied.add(totalPayOutNotApplied);
+totalInvoiceNotApplied = totalInvSaNotApplied.subtract(totalInvPuNotApplied);
+totalPaymentNotApplied = totalPayInNotApplied.subtract(totalPayOutNotApplied);
+
+context.finanSummary.totalSalesInvoice = totalSalesInvoice;
+context.finanSummary.totalPurchaseInvoice = totalPurchaseInvoice;
+context.finanSummary.totalPaymentsIn = totalPaymentsIn;
+context.finanSummary.totalPaymentsOut = totalPaymentsOut;
+context.finanSummary.totalInvoiceNotApplied = totalInvoiceNotApplied;
+context.finanSummary.totalPaymentNotApplied = totalPaymentNotApplied;
+
+transferAmount = totalSalesInvoice.subtract(totalPurchaseInvoice).subtract(totalPaymentsIn).add(totalPaymentsOut));
 if (transferAmount.signum() == -1) { // negative?
     context.finanSummary.totalToBeReceived = transferAmount.negate();
 } else {
