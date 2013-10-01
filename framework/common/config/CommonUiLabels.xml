@@ -18,7 +18,7 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <property key="AP">
+    <property key="Accounting - AP">
         <value xml:lang="cs">Závazky</value>
         <value xml:lang="de">Kreditoren</value>
         <value xml:lang="en">AP</value>
@@ -34,7 +34,7 @@
         <value xml:lang="zh">应付账户</value>
         <value xml:lang="zh-TW">應付</value>
     </property>
-    <property key="AR">
+    <property key="Accounting - AR">
         <value xml:lang="cs">Pohledávky</value>
         <value xml:lang="de">Debitoren</value>
         <value xml:lang="en">AR</value>
@@ -6740,7 +6740,7 @@
         <value xml:lang="de">Neues Passwort (Wiederholung)</value>
         <value xml:lang="en">New Password Verify</value>
         <value xml:lang="es">Nueva clave (verificar)</value>
-        <value xml:lang="fr">Nouveau mot de passe (vérification)</value>
+        <value xml:lang="fr">Nouv. mot de passe (vérif.)</value>
         <value xml:lang="hi-IN">नया पासवर्ड सत्यापित करें</value>
         <value xml:lang="it">Verifica nuova password</value>
         <value xml:lang="ja">新規パスワード(確認)</value>
