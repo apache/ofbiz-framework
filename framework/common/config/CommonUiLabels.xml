@@ -21,7 +21,7 @@
     <property key="Accounting - AP">
         <value xml:lang="cs">Závazky</value>
         <value xml:lang="de">Kreditoren</value>
-        <value xml:lang="en">AP</value>
+        <value xml:lang="en">Accounting - AP</value>
         <value xml:lang="es">Compras</value>
         <value xml:lang="fr">Cpt. fourn.</value>
         <value xml:lang="hi-IN">लेखा देय</value>
@@ -37,7 +37,7 @@
     <property key="Accounting - AR">
         <value xml:lang="cs">Pohledávky</value>
         <value xml:lang="de">Debitoren</value>
-        <value xml:lang="en">AR</value>
+        <value xml:lang="en">Accounting - AR</value>
         <value xml:lang="es">Ventas</value>
         <value xml:lang="fr">Cpt. clients</value>
         <value xml:lang="hi-IN">लेखा प्राप्य</value>
