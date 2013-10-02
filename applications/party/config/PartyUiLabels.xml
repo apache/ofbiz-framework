@@ -6313,17 +6313,17 @@
         <value xml:lang="zh_TW">財務歷史記錄</value>
     </property>
     <property key="PartyFinancialSummary">
-        <value xml:lang="de">Gesamt für Firma:</value>
-        <value xml:lang="en">Totals for Company:</value>
-        <value xml:lang="fr">Totaux pour votre société</value>
-        <value xml:lang="hi_IN">कंपनी के लिए कुल:</value>
-        <value xml:lang="it">Totali per azienda:</value>
-        <value xml:lang="ja">会社合計:</value>
-        <value xml:lang="nl">Totalen voor onderneming:</value>
-        <value xml:lang="pt_BR">Total para a empresa</value>
-        <value xml:lang="vi">Tổng số cho doanh nghiệp:</value>
-        <value xml:lang="zh">合计属于公司：</value>
-        <value xml:lang="zh_TW">合計屬于公司：</value>
+        <value xml:lang="de">Gesamt für Firma: </value>
+        <value xml:lang="en">Totals for Company: </value>
+        <value xml:lang="fr">Totaux pour la société: </value>
+        <value xml:lang="hi_IN">कंपनी के लिए कुल: </value>
+        <value xml:lang="it">Totali per azienda: </value>
+        <value xml:lang="ja">会社合計: </value>
+        <value xml:lang="nl">Totalen voor onderneming: </value>
+        <value xml:lang="pt_BR">Total para a empresa </value>
+        <value xml:lang="vi">Tổng số cho doanh nghiệp: </value>
+        <value xml:lang="zh">合计属于公司： </value>
+        <value xml:lang="zh_TW">合計屬于公司： </value>
     </property>
     <property key="PartyFindCommunicationEvents">
         <value xml:lang="de">Suche Kommunikationsereignis</value>
