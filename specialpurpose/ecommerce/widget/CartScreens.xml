@@ -24,6 +24,9 @@ under the License.
     <!-- Column Included Screens -->
     <screen name="microcart">
         <section>
+            <actions>
+                <set field="initialLocaleComplete" type="String" value="${groovy:parameters?.userLogin?.lastLocale}" default-value="${groovy:locale.toString()}"/>
+            </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/cart/microcart.ftl"/></html></platform-specific>
             </widgets>
