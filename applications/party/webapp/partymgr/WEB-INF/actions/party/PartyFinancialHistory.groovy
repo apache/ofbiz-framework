@@ -124,7 +124,7 @@ context.finanSummary.totalPaymentsOut = totalPaymentsOut = totalPayOutApplied.ad
 context.finanSummary.totalInvoiceNotApplied = totalInvSaNotApplied.subtract(totalInvPuNotApplied);
 context.finanSummary.totalPaymentNotApplied = totalPayInNotApplied.subtract(totalPayOutNotApplied);
 
-transferAmount = totalSalesInvoice.subtract(totalPurchaseInvoice).subtract(totalPaymentsIn).add(totalPaymentsOut);
+transferAmount = totalSalesInvoice.subtract(totalPurchaseInvoice).subtract(totalPaymentsIn).subtract(totalPaymentsOut);
 
 if (transferAmount.signum() == -1) { // negative?
     context.finanSummary.totalToBeReceived = transferAmount.negate();
