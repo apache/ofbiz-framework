@@ -37,6 +37,7 @@ public class ImageManagementHelper {
 
     public static String getInternalImageUrl(HttpServletRequest request, String productId) {
         String internalImageUrl = null;
+        if (request == null) return internalImageUrl; 
         try {
             Delegator delegator = (Delegator) request.getAttribute("delegator");
             List<GenericValue> defaultImageList = delegator.findByAnd("ProductContentAndInfo", UtilMisc.toMap("productId", productId, "productContentTypeId", "DEFAULT_IMAGE", "statusId", "IM_APPROVED", "drIsPublic", "N"), UtilMisc.toList("sequenceNum"), false);
