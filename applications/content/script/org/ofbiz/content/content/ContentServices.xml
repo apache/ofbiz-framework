@@ -779,11 +779,13 @@
         </call-service>
 
         <iterate-map key="key" value="val" map="persistOut">
+            <if-compare field="key" operator="equals" value="responseMessage">
+                <continue/>
+            </if-compare>
             <field-to-result field="val" result-name="${key}"/>
         </iterate-map>
 
         <set field="mapIn.contentId"  from-field="persistOut.contentId"/>
-        <!-- <set field="mapIn.fromDate"  from-field="nowTimestamp"/> -->
         <set field="mapIn.communicationEventId"  from-field="parameters.communicationEventId"/>
         <set field="mapIn.sequenceNum"  from-field="parameters.sequenceNum"/>
         <call-service service-name="createCommEventContentAssoc" in-map-name="mapIn">
@@ -817,6 +819,9 @@
         </call-service>
 
         <iterate-map key="key" value="val" map="persistOut">
+            <if-compare field="key" operator="equals" value="responseMessage">
+                <continue/>
+            </if-compare>
             <field-to-result field="val" result-name="${key}"/>
         </iterate-map>
 
@@ -837,7 +842,7 @@
 
     <!-- This service would primarily be used to update the thruDate field.
         -->
-    <simple-method method-name="updateCommEventContentAssoc" short-description="Create CommEventContentAssoc">
+    <simple-method method-name="updateCommEventContentAssoc" short-description="Update CommEventContentAssoc">
         <make-value entity-name="CommEventContentAssoc" value-field="pkCommEventContentAssoc"/>
         <set-pk-fields value-field="pkCommEventContentAssoc" map="parameters"/>
         <find-by-primary-key value-field="commEventContentAssoc" map="pkCommEventContentAssoc" entity-name="CommEventContentAssoc"/>

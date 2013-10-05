@@ -198,6 +198,9 @@ under the License.
         </call-service>
         <!--  put all the result fields in this service's result -->
         <iterate-map map="pResults" key="key" value="val">
+            <if-compare field="key" operator="equals" value="responseMessage">
+                <continue/>
+            </if-compare>
             <field-to-result field="val" result-name="${key}"/>
         </iterate-map>
 
