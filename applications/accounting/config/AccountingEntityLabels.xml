@@ -4339,6 +4339,7 @@
         <value xml:lang="hi_IN">नकद</value>
         <value xml:lang="it">Contanti</value>
         <value xml:lang="ja">現金</value>
+        <value xml:lang="nl">Contant</value>
         <value xml:lang="pt">Dinheiro</value>
         <value xml:lang="ro">In Numerar</value>
         <value xml:lang="ru">Наличные    </value>
@@ -4354,7 +4355,7 @@
         <value xml:lang="hi_IN">प्रमाणित चेक</value>
         <value xml:lang="it">Assegno Certificato</value>
         <value xml:lang="ja">支払保証小切手</value>
-        <value xml:lang="nl">Gecertificeerde controle</value>
+        <value xml:lang="nl">Gegarandeerde cheque</value>
         <value xml:lang="pt">Cheque certificado</value>
         <value xml:lang="ro">Cec </value>
         <value xml:lang="ru">Гарантированный чек</value>
@@ -4386,7 +4387,7 @@
         <value xml:lang="hi_IN">कंपनी चेक</value>
         <value xml:lang="it">Assegno Aziendale</value>
         <value xml:lang="ja">会社振出小切手/手形</value>
-        <value xml:lang="nl">Bedrijf credit controle</value>
+        <value xml:lang="nl">Bedrijf cheque</value>
         <value xml:lang="pt">Cheque corporativo</value>
         <value xml:lang="ro">Cec Firma</value>
         <value xml:lang="ru">Чек компании</value>
@@ -4402,7 +4403,7 @@
         <value xml:lang="hi_IN">क्रेडिट कार्ड</value>
         <value xml:lang="it">Carta Credito</value>
         <value xml:lang="ja">クレジットカード</value>
-        <value xml:lang="nl">Creditcard</value>
+        <value xml:lang="nl">Kredietkaart</value>
         <value xml:lang="pt">Cartão de Crédito</value>
         <value xml:lang="ro">Carte de Credit</value>
         <value xml:lang="ru">Кредитная карта</value>
@@ -4434,7 +4435,7 @@
         <value xml:lang="hi_IN">देयकांकन(बिलिंग) खाता</value>
         <value xml:lang="it">Conto Fatturazione</value>
         <value xml:lang="ja">請求先アカウント</value>
-        <value xml:lang="nl">Factuur</value>
+        <value xml:lang="nl">Factuur rekening</value>
         <value xml:lang="pt">Conta de Cobrança</value>
         <value xml:lang="ro">Cont Facturari </value>
         <value xml:lang="ru">Кредитный счет</value>
@@ -4585,7 +4586,7 @@
         <value xml:lang="hi_IN">व्यक्तिगत चेक</value>
         <value xml:lang="it">Assegno Personale</value>
         <value xml:lang="ja">個人小切手</value>
-        <value xml:lang="nl">Persoonlijke  check</value>
+        <value xml:lang="nl">Persoonlijke cheque</value>
         <value xml:lang="pt">Cheque pessoal</value>
         <value xml:lang="ro">Cec Personal</value>
         <value xml:lang="ru">Личный чек</value>
@@ -4593,6 +4594,11 @@
         <value xml:lang="vi">Kiểm tra cá nhân</value>
         <value xml:lang="zh">个人支票</value>
         <value xml:lang="zh_TW">個人支票</value>
+    </property>
+    <property key="PaymentMethodType.description.PIN">
+        <value xml:lang="en">PIN Payment</value>
+        <value xml:lang="fr">Paiement par code confidentiel</value>
+        <value xml:lang="nl">PIN betaling</value>
     </property>
     <property key="PaymentType.description.COMMISSION_PAYMENT">
         <value xml:lang="de">Kommissionszahlung</value>
