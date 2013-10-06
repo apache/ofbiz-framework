@@ -37,27 +37,27 @@ under the License.
     <field-type-def type="numeric" sql-type="BIGINT" java-type="Long"/>
 
     <field-type-def type="id" sql-type="VARCHAR(20)" java-type="String"/>
-    <field-type-def type="id-long" sql-type="VARCHAR" java-type="String"/>
-    <field-type-def type="id-vlong" sql-type="VARCHAR" java-type="String"/>
+    <field-type-def type="id-long" sql-type="VARCHAR(60)" java-type="String"/>
+    <field-type-def type="id-vlong" sql-type="VARCHAR(255)" java-type="String"/>
 
-    <field-type-def type="indicator" sql-type="CHAR" java-type="String"/>
-    <field-type-def type="very-short" sql-type="VARCHAR" java-type="String"/>
-    <field-type-def type="short-varchar" sql-type="VARCHAR" java-type="String"/>
-    <field-type-def type="long-varchar" sql-type="VARCHAR" java-type="String"/>
-    <field-type-def type="very-long" sql-type="VARCHAR" java-type="String"/>
+    <field-type-def type="indicator" sql-type="CHAR(1)" java-type="String"/>
+    <field-type-def type="very-short" sql-type="VARCHAR(10)" java-type="String"/>
+    <field-type-def type="short-varchar" sql-type="VARCHAR(60)" java-type="String"/>
+    <field-type-def type="long-varchar" sql-type="VARCHAR(255)" java-type="String"/>
+    <field-type-def type="very-long" sql-type="CLOB" java-type="String"/>
 
-    <field-type-def type="comment" sql-type="VARCHAR" java-type="String"/>
-    <field-type-def type="description" sql-type="VARCHAR" java-type="String"/>
-    <field-type-def type="name" sql-type="VARCHAR" java-type="String"/>
-    <field-type-def type="value" sql-type="VARCHAR" java-type="String"/>
+    <field-type-def type="comment" sql-type="VARCHAR(255)" java-type="String"/>
+    <field-type-def type="description" sql-type="VARCHAR(255)" java-type="String"/>
+    <field-type-def type="name" sql-type="VARCHAR(100)" java-type="String"/>
+    <field-type-def type="value" sql-type="VARCHAR(255)" java-type="String"/>
 
     <!-- Specialized Types -->
-    <field-type-def type="credit-card-number" sql-type="VARCHAR" java-type="String"/>
-    <field-type-def type="credit-card-date" sql-type="VARCHAR" java-type="String"/>
-    <field-type-def type="email" sql-type="VARCHAR" java-type="String"/>
+    <field-type-def type="credit-card-number" sql-type="VARCHAR(255)" java-type="String"/>
+    <field-type-def type="credit-card-date" sql-type="VARCHAR(20)" java-type="String"/>
+    <field-type-def type="email" sql-type="VARCHAR(255)" java-type="String"/>
     <field-type-def type="url" sql-type="VARCHAR(2000)" java-type="String"/>
-    <field-type-def type="id-ne" sql-type="VARCHAR" java-type="String"/>
-    <field-type-def type="id-long-ne" sql-type="VARCHAR" java-type="String"/>
-    <field-type-def type="id-vlong-ne" sql-type="VARCHAR" java-type="String"/>
-    <field-type-def type="tel-number" sql-type="VARCHAR" java-type="String"/>
+    <field-type-def type="id-ne" sql-type="VARCHAR(20)" java-type="String"/>
+    <field-type-def type="id-long-ne" sql-type="VARCHAR(60)" java-type="String"/>
+    <field-type-def type="id-vlong-ne" sql-type="VARCHAR(255)" java-type="String"/>
+    <field-type-def type="tel-number" sql-type="VARCHAR(60)" java-type="String"/>
 </fieldtypemodel>
