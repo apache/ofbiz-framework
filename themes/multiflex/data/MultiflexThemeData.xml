@@ -22,7 +22,7 @@ under the License.
     <VisualTheme visualThemeId="MULTIFLEX" visualThemeSetId="ECOMMERCE" description="Alternative VisualTheme for Ecommerce"/>
     <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/ecommerce/images/blog.css" sequenceId="01"/>
     <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/multiflex/style.css" sequenceId="02"/>
-    <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/content/images/contentForum.css" sequenceId="04"/>
+    <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/contentimages/contentForum.css" sequenceId="04"/>
     <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="01"/>
     <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/images/ofbiz_logo.gif" sequenceId="01"/>
     <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://multiflex/includes/header.ftl" sequenceId="01"/>
