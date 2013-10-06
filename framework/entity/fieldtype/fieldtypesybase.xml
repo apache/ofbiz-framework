@@ -26,7 +26,7 @@ under the License.
     <field-type-def type="byte-array" sql-type="IMAGE" java-type="byte[]"/>
     <field-type-def type="object" sql-type="IMAGE" java-type="Object"/>
 
-    <field-type-def type="date-time" sql-type="DATETIME" java-type="Timestamp"/>
+    <field-type-def type="date-time" sql-type="DATETIME" java-type="java.sql.Timestamp"/>
     <field-type-def type="date" sql-type="DATETIME" java-type="java.sql.Date"/>
     <field-type-def type="time" sql-type="DATETIME" java-type="java.sql.Time"/>
 
@@ -55,7 +55,7 @@ under the License.
     <field-type-def type="credit-card-number" sql-type="VARCHAR(255)" java-type="String"/>
     <field-type-def type="credit-card-date" sql-type="VARCHAR(20)" java-type="String"/>
     <field-type-def type="email" sql-type="VARCHAR(255)" java-type="String"/>
-    <field-type-def type="url" sql-type="VARCHAR(255)" java-type="String"/>
+    <field-type-def type="url" sql-type="VARCHAR(2000)" java-type="String"/>
     <field-type-def type="id-ne" sql-type="VARCHAR(20)" java-type="String"/>
     <field-type-def type="id-long-ne" sql-type="VARCHAR(60)" java-type="String"/>
     <field-type-def type="id-vlong-ne" sql-type="VARCHAR(255)" java-type="String"/>
