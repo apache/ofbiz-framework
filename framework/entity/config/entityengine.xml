@@ -162,9 +162,9 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="ext-demo"/>
         <inline-jdbc
                 jdbc-driver="org.hsqldb.jdbcDriver"
-                jdbc-uri="jdbc:hsqldb:data/hsqldb/ofbiz"
-                jdbc-username="sa"
-                jdbc-password=""
+                jdbc-uri="jdbc:hsqldb:runtime/data/hsqldb/ofbiz"
+                jdbc-username="ofbiz"
+                jdbc-password="ofbiz"
                 isolation-level="ReadCommitted"
                 pool-minsize="2"
                 pool-maxsize="250"
