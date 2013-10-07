@@ -54,7 +54,7 @@ under the License.
     <!-- Specialized Types -->
     <field-type-def type="credit-card-number" sql-type="VARCHAR(19)" java-type="String"/>
     <field-type-def type="credit-card-date" sql-type="VARCHAR(4)" java-type="String"/>
-    <field-type-def type="email" sql-type="VARCHAR(254)" java-type="String"/>
+    <field-type-def type="email" sql-type="VARCHAR(320)" java-type="String"/>
     <field-type-def type="url" sql-type="VARCHAR(2000)" java-type="String"/>
     <field-type-def type="id-ne" sql-type="VARCHAR(20)" java-type="String"/>
     <field-type-def type="id-long-ne" sql-type="VARCHAR(60)" java-type="String"/>
