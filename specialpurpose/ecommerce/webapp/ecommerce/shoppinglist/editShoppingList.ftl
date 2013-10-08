@@ -44,7 +44,7 @@ under the License.
             type: 'POST',
             data: {"shoppingListId" : str[0], "VIEW_SIZE" : str[1], "VIEW_INDEX" : str[2]},
             error: function(msg) {
-                alert("An error occured loading content! : " + msg);
+                alert("An error occurred loading content! : " + msg);
             },
             success: function(msg) {
                 jQuery('#div3').html(msg);

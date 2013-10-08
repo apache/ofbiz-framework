@@ -548,7 +548,7 @@ $.extend($.validator, {
 					}
 				} catch(e) {
 					if ( this.settings.debug && window.console ) {
-						console.log("exception occured when checking element " + element.id + ", check the '" + rule.method + "' method", e);
+						console.log("exception occurred when checking element " + element.id + ", check the '" + rule.method + "' method", e);
 					}
 					throw e;
 				}

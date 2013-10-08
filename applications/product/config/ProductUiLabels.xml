@@ -2653,8 +2653,8 @@
         <value xml:lang="zh_CN">特殊说明</value>
         <value xml:lang="zh_TW">特別說明</value>
     </property>
-    <property key="FacilityThereIsProblemOccuredInPaymentCapture">
-        <value xml:lang="en">There is problem occured in payment capture, shipment is still in PICKED status</value>
+    <property key="FacilityThereIsProblemOccurredInPaymentCapture">
+        <value xml:lang="en">There is problem occurred in payment capture, shipment is still in PICKED status</value>
         <value xml:lang="it">C'è un problema successo nella cattura del pagamento, spedizione è ancora in stato PRELEVATA</value>
         <value xml:lang="ja">支払キャプチャ時に問題があります、発送はまだピッキングステータスです</value>
         <value xml:lang="vi">Có lỗi xảy ra trong quá trình thanh toán, nên Chuyển vận vẫn ở trạng thái 'Đã Xử lý đặt hàng (Pick)'</value>

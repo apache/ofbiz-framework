@@ -199,7 +199,7 @@ public class WeightPackageServices {
             return ServiceUtil.returnError(e.getMessage());
         }
 
-        return ServiceUtil.returnSuccess(UtilProperties.getMessage("ProductUiLabels", "FacilityThereIsProblemOccuredInPaymentCapture", locale));
+        return ServiceUtil.returnSuccess(UtilProperties.getMessage("ProductUiLabels", "FacilityThereIsProblemOccurredInPaymentCapture", locale));
     }
 
 }

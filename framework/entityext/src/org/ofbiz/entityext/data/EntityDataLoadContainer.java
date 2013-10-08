@@ -501,7 +501,7 @@ public class EntityDataLoadContainer implements Container {
         }
 
         if (errorMessages.size() > 0) {
-            Debug.logImportant("The following errors occured in the data load:", module);
+            Debug.logImportant("The following errors occurred in the data load:", module);
             for (Object message: errorMessages) {
               Debug.logImportant(message.toString(), module);
             }

@@ -417,7 +417,7 @@ public class WebToolsServices {
         }
 
         if (errorMessages.size() > 0) {
-            messages.add("=-=-=-=-=-=-= The following errors occured in the data " + (checkDataOnly ? "check" : "load") + ":");
+            messages.add("=-=-=-=-=-=-= The following errors occurred in the data " + (checkDataOnly ? "check" : "load") + ":");
             messages.addAll(errorMessages);
         }
 

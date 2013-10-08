@@ -74,7 +74,7 @@ var rawdata = [
         type: 'POST',
         data: dataSet,
         error: function(msg) {
-            alert("An error occured loading content! : " + msg);
+            alert("An error occurred loading content! : " + msg);
         },
         success: function(msg) {
             jQuery('#centerdiv').html(msg);

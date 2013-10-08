@@ -309,7 +309,7 @@ public class GenericDAO {
             return updateByCondition(modelEntity, fieldsToSet, condition, sqlP);
         } catch (GenericDataSourceException e) {
             sqlP.rollback();
-            throw new GenericDataSourceException("Generic Entity Exception occured in updateByCondition", e);
+            throw new GenericDataSourceException("Generic Entity Exception occurred in updateByCondition", e);
         } finally {
             sqlP.close();
         }
@@ -1198,7 +1198,7 @@ public class GenericDAO {
             return deleteByCondition(modelEntity, condition, sqlP);
         } catch (GenericDataSourceException e) {
             sqlP.rollback();
-            throw new GenericDataSourceException("Generic Entity Exception occured in deleteByCondition", e);
+            throw new GenericDataSourceException("Generic Entity Exception occurred in deleteByCondition", e);
         } finally {
             sqlP.close();
         }

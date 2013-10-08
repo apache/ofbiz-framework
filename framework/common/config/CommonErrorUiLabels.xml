@@ -58,9 +58,9 @@
         <value xml:lang="zh">发生错误阻止了文档完全解析</value>
         <value xml:lang="zh_TW">發生錯誤阻止了文檔完全解析</value>
     </property>
-    <property key="ImageTransform.errors_occured_during_parsing">
+    <property key="ImageTransform.errors_occurred_during_parsing">
         <value xml:lang="da">Der opstod fejl under oversættelse</value>
-        <value xml:lang="en">Errors occured during parsing</value>
+        <value xml:lang="en">Errors occurred during parsing</value>
         <value xml:lang="es">Se produjeron errores durante el análisis</value>
         <value xml:lang="fr">Des erreurs sont survenues lors de l'analyse</value>
         <value xml:lang="hi_IN">पार्सिंग के दौरान त्रुटियाँ हुई</value>

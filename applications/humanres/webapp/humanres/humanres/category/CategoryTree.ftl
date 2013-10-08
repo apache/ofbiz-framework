@@ -99,7 +99,7 @@ var rawdata = [
         type: 'POST',
         data: dataSet,
         error: function(msg) {
-            alert("An error occured loading content! : " + msg);
+            alert("An error occurred loading content! : " + msg);
         },
         success: function(msg) {
             jQuery('div.contentarea').html(msg);
@@ -118,7 +118,7 @@ var rawdata = [
         type: 'POST',
         data: dataSet,
         error: function(msg) {
-            alert("An error occured loading content! : " + msg);
+            alert("An error occurred loading content! : " + msg);
         },
         success: function(msg) {
             jQuery('div.contentarea').html(msg);
@@ -140,7 +140,7 @@ var rawdata = [
                     url: "EditEmplPosition",
                     data: dataSet,
                     error: function(msg) {
-                        alert("An error occured loading content! : " + msg);
+                        alert("An error occurred loading content! : " + msg);
                     },
                     success: function(msg) {
                         jQuery('div.page-container').html(msg);
@@ -158,7 +158,7 @@ var rawdata = [
                     url: "EditInternalOrgFtl",
                     data: dataSet,
                     error: function(msg) {
-                        alert("An error occured loading content! : " + msg);
+                        alert("An error occurred loading content! : " + msg);
                     },
                     success: function(msg) {
                         jQuery('#dialog').html(msg);
@@ -176,7 +176,7 @@ var rawdata = [
                     url: "RemoveInternalOrgFtl",
                     data: dataSet,
                     error: function(msg) {
-                        alert("An error occured loading content! : " + msg);
+                        alert("An error occurred loading content! : " + msg);
                     },
                     success: function(msg) {
                         jQuery('#dialog').html(msg);
@@ -197,7 +197,7 @@ var rawdata = [
                         url: "EditEmplPositionFulfillments",
                         data: dataSet,
                         error: function(msg) {
-                            alert("An error occured loading content! : " + msg);
+                            alert("An error occurred loading content! : " + msg);
                         },
                         success: function(msg) {
                             jQuery('div.page-container').html(msg);
