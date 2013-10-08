@@ -787,10 +787,7 @@ under the License.
         </entity-one>
         <if-not-empty field="profitLossAccountHistory">
             <!-- already posted: verify if numbers match -->
-            <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getNetBalance" ret-field="postedBalance">
-                <field field="profitLossAccountHistory" type="GenericValue"/>
-            </call-class-method>
-            <if-compare-field field="postedBalance" to-field="totalAmount" operator="not-equals" type="BigDecimal">
+            <if-compare-field field="profitLossAccountHistory.endingBalance" to-field="totalAmount" operator="not-equals" type="BigDecimal">
                 <add-error>
                     <fail-property resource="AccountingUiLabels" property="AccountingPostedBalanceAlreadyPresent"/>
                 </add-error>
@@ -823,137 +820,130 @@ under the License.
         </else>
         </if-not-empty>
 
-        <!-- The history records in the current time period are updated with the endingBalance field -->
-        <entity-and entity-name="GlAccountHistory" list="glAccountHistories">
-            <field-map field-name="organizationPartyId" from-field="customTimePeriod.organizationPartyId"/>
-            <field-map field-name="customTimePeriodId" from-field="customTimePeriod.customTimePeriodId"/>
-        </entity-and>
-        <iterate list="glAccountHistories" entry="glAccountHistory">
-            <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getNetBalance" ret-field="endingBalance">
-                <field field="glAccountHistory" type="GenericValue"/>
-            </call-class-method>
-            <set field="glAccountHistory.endingBalance" from-field="endingBalance"/>
-            <store-value value-field="glAccountHistory"/>
-        </iterate>
-
-        <!-- For all the accounts of class asset/contra-asset/liability/equity the endingBalance of the last time period's history is added to the one of the history of the period being closed -->
-        <if-not-empty field="lastClosedTimePeriod">
-            <entity-condition entity-name="GlAccountAndHistory" list="lastPeriodGlAccountAndHistories">
-                <condition-list combine="and">
-                    <condition-expr field-name="organizationPartyId" operator="equals" from-field="customTimePeriod.organizationPartyId"/>
-                    <condition-expr field-name="customTimePeriodId" operator="equals" from-field="lastClosedTimePeriod.customTimePeriodId"/>
-                    <condition-list combine="or">
-                        <condition-expr field-name="glAccountClassId" operator="in" from-field="assetAccountClassIds"/>
-                        <condition-expr field-name="glAccountClassId" operator="in" from-field="contraAssetAccountClassIds"/>
-                        <condition-expr field-name="glAccountClassId" operator="in" from-field="liabilityAccountClassIds"/>
-                        <condition-expr field-name="glAccountClassId" operator="in" from-field="equityAccountClassIds"/>
-                    </condition-list>
-                </condition-list>
-                <order-by field-name="glAccountId"/>
-            </entity-condition>
-            <iterate list="lastPeriodGlAccountAndHistories" entry="lastPeriodGlAccountAndHistory">
-                <get-related-one value-field="lastPeriodGlAccountAndHistory" relation-name="GlAccountHistory" to-value-field="lastPeriodGlAccountHistory"/>
-                <entity-one entity-name="GlAccountHistory" value-field="thisPeriodGlAccountHistory" auto-field-map="false">
-                    <field-map field-name="organizationPartyId" from-field="customTimePeriod.organizationPartyId"/>
-                    <field-map field-name="customTimePeriodId" from-field="customTimePeriod.customTimePeriodId"/>
-                    <field-map field-name="glAccountId" from-field="lastPeriodGlAccountHistory.glAccountId"/>
-                </entity-one>
-                <if-empty field="thisPeriodGlAccountHistory">
-                    <make-value entity-name="GlAccountHistory" value-field="thisPeriodGlAccountHistory"/>
-                    <set field="thisPeriodGlAccountHistory.customTimePeriodId" from-field="customTimePeriod.customTimePeriodId"/>
-                    <set field="thisPeriodGlAccountHistory.organizationPartyId" from-field="customTimePeriod.organizationPartyId"/>
-                    <set field="thisPeriodGlAccountHistory.glAccountId" from-field="lastPeriodGlAccountHistory.glAccountId"/>
-                    <set field="thisPeriodGlAccountHistory.postedDebits" value="0.0" type="BigDecimal"/>
-                    <set field="thisPeriodGlAccountHistory.postedCredits" value="0.0" type="BigDecimal"/>
-                    <set field="thisPeriodGlAccountHistory.endingBalance" from-field="lastPeriodGlAccountHistory.endingBalance"/>
-                    <create-value value-field="thisPeriodGlAccountHistory"/>
-                <else>
-                    <calculate field="thisPeriodGlAccountHistory.endingBalance">
-                        <calcop field="thisPeriodGlAccountHistory.endingBalance" operator="add"><calcop field="lastPeriodGlAccountHistory.endingBalance" operator="get"/></calcop>
-                    </calculate>
-                    <store-value value-field="thisPeriodGlAccountHistory"/>
-                </else>
-                </if-empty>
-            </iterate>
-        </if-not-empty>
-
-        <!-- TODO: the usage of GlAccountOrganization.postedAmount is deprecated in place of GlAccountHistory; the next section will then be removed-->
-        <!-- Initialize the GlAccountOrganization.postedAmount for expense/revenue/income accounts for the new fiscal period -->
-        <entity-condition entity-name="GlAccountOrganizationAndClass" list="glAccountOrganizationAndClassList">
+        <!-- One balance history record for each account is created for the time period being closed -->
+        <entity-condition entity-name="GlAccountOrganization" list="organizationGlAccounts">
             <condition-list combine="and">
                 <condition-expr field-name="organizationPartyId" operator="equals" from-field="customTimePeriod.organizationPartyId"/>
-                <condition-expr field-name="postedBalance" operator="not-equals" value="0.0"/>
+                <condition-expr field-name="fromDate" operator="less" from-field="customTimePeriod.thruDate"/>
                 <condition-list combine="or">
-                    <condition-expr field-name="glAccountClassId" operator="in" from-field="expenseAccountClassIds"/>
-                    <condition-expr field-name="glAccountClassId" operator="in" from-field="revenueAccountClassIds"/>
-                    <condition-expr field-name="glAccountClassId" operator="in" from-field="incomeAccountClassIds"/>
-                    <condition-expr field-name="glAccountId" operator="equals" from-field="profitLossAccount.glAccountId"/>
+                    <condition-expr field-name="thruDate" operator="greater-equals" from-field="customTimePeriod.fromDate"/>
+                    <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
                 </condition-list>
             </condition-list>
+            <select-field field-name="glAccountId"/>
         </entity-condition>
-        <now-timestamp field="nowTimestamp"/>
-        <iterate list="glAccountOrganizationAndClassList" entry="glAccountOrganizationAndClass">
-            <entity-condition entity-name="AcctgTransAndEntries" list="acctgTransAndEntries">
-                <condition-list combine="and">
-                    <condition-expr field-name="organizationPartyId" operator="equals" from-field="customTimePeriod.organizationPartyId"/>
-                    <condition-expr field-name="glAccountId" operator="equals" from-field="glAccountOrganizationAndClass.glAccountId"/>
-                    <condition-expr field-name="isPosted" operator="equals" value="Y"/>
-                    <condition-expr field-name="glFiscalTypeId" operator="equals" value="ACTUAL"/>
-                    <condition-expr field-name="transactionDate" operator="greater-equals" from-field="customTimePeriod.thruDate"/> <!-- FIXME: Date to Timestamp -->
-                    <condition-expr field-name="transactionDate" operator="less" from-field="nowTimestamp"/>
-                    <condition-expr field-name="acctgTransTypeId" operator="not-equals" value="PERIOD_CLOSING"/>
-                </condition-list>
-                <order-by field-name="acctgTransId"/>
-                <order-by field-name="acctgTransEntrySeqId"/>
-            </entity-condition>
-
-            <set field="newPostedBalance" value="0.0" type="BigDecimal"/>
-            <iterate list="acctgTransAndEntries" entry="acctgTransAndEntry">
-                <get-related-one value-field="acctgTransAndEntry" relation-name="GlAccount" to-value-field="glAccount"/>
-                <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isCreditAccount" ret-field="isCreditAccount">
-                    <field field="glAccount" type="GenericValue"/>
-                </call-class-method>
-                <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isDebitAccount" ret-field="isDebitAccount">
-                    <field field="glAccount" type="GenericValue"/>
-                </call-class-method>
-                <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isExpenseAccount" ret-field="isExpenseAccount">
-                    <field field="glAccount" type="GenericValue"/>
-                </call-class-method>
-                <set field="amount" from-field="acctgTransAndEntry.amount"/>
-                <if>
-                    <condition>
-                        <or>
-                            <and>
-                                <if-compare field="acctgTransAndEntry.debitCreditFlag" operator="equals" value="D"/>
-                                <if-compare field="isCreditAccount" operator="equals" value="true" type="Boolean"/>
-                            </and>
-                            <and>
-                                <if-compare field="acctgTransAndEntry.debitCreditFlag" operator="equals" value="C"/>
-                                <if-compare field="isDebitAccount" operator="equals" value="true" type="Boolean"/>
-                            </and>
-                        </or>
-                    </condition>
-                    <then>
-                        <calculate field="amount">
-                            <calcop field="amount" operator="negative"/>
-                        </calculate>
-                    </then>
-                </if>
-                <calculate field="newPostedBalance">
-                    <calcop field="newPostedBalance" operator="add"><calcop field="amount" operator="get"/></calcop>
-                </calculate>
-            </iterate>
-
-            <set field="updateGlAccountOrganizationInMap.organizationPartyId" from-field="customTimePeriod.organizationPartyId"/>
-            <set field="updateGlAccountOrganizationInMap.glAccountId" from-field="glAccountOrganizationAndClass.glAccountId"/>
-            <set field="updateGlAccountOrganizationInMap.postedBalance" from-field="newPostedBalance"/>
-            <call-service service-name="updateGlAccountOrganization" in-map-name="updateGlAccountOrganizationInMap"/>
+        <iterate list="organizationGlAccounts" entry="organizationGlAccount">
+            <make-value entity-name="GlAccountHistory" value-field="glAccountHistory"/>
+            <set field="glAccountHistory.customTimePeriodId" from-field="customTimePeriod.customTimePeriodId"/>
+            <set field="glAccountHistory.organizationPartyId" from-field="customTimePeriod.organizationPartyId"/>
+            <set field="glAccountHistory.glAccountId" from-field="organizationGlAccount.glAccountId"/>
+            <create-value value-field="glAccountHistory"/>
+            <call-service service-name="computeAndStoreGlAccountHistoryBalance" in-map-name="glAccountHistory"/>
         </iterate>
 
         <set field="updateCustomTimePeriodInMap.customTimePeriodId" from-field="customTimePeriod.customTimePeriodId"/>
         <set field="updateCustomTimePeriodInMap.organizationPartyId" from-field="customTimePeriod.organizationPartyId"/>
         <set field="updateCustomTimePeriodInMap.isClosed" value="Y"/>
         <call-service service-name="updateCustomTimePeriod" in-map-name="updateCustomTimePeriodInMap"/>
+    </simple-method>
+
+    <simple-method method-name="computeGlAccountBalanceForTimePeriod" short-description="Compute the total debits, total credits, opening, ending balances of an account in a financial period">
+        <entity-one entity-name="CustomTimePeriod" auto-field-map="true" value-field="customTimePeriod"/>
+        <entity-one entity-name="GlAccount" auto-field-map="true" value-field="glAccount"/>
+
+        <!-- compute totalDebitsToOpeningDate, totalDebitsToEndingDate, totalCreditsToOpeningDate, totalCreditsToEndingDate -->
+        <entity-condition entity-name="AcctgTransEntrySums" list="totalDebitsToOpeningDates">
+            <condition-list combine="and">
+                <condition-expr field-name="organizationPartyId" operator="equals" from-field="parameters.organizationPartyId"/>
+                <condition-expr field-name="glAccountId" operator="equals" from-field="parameters.glAccountId"/>
+                <condition-expr field-name="isPosted" operator="equals" value="Y"/>
+                <condition-expr field-name="debitCreditFlag" operator="equals" value="D"/>
+                <condition-expr field-name="glFiscalTypeId" operator="equals" value="ACTUAL"/>
+                <condition-expr field-name="transactionDate" operator="less" from-field="customTimePeriod.fromDate"/>
+            </condition-list>
+            <select-field field-name="amount"/>
+        </entity-condition>
+        <set field="totalDebitsToOpeningDate" from-field="totalDebitsToOpeningDates[0]"/>
+
+        <entity-condition entity-name="AcctgTransEntrySums" list="totalDebitsToEndingDates">
+            <condition-list combine="and">
+                <condition-expr field-name="organizationPartyId" operator="equals" from-field="parameters.organizationPartyId"/>
+                <condition-expr field-name="glAccountId" operator="equals" from-field="parameters.glAccountId"/>
+                <condition-expr field-name="isPosted" operator="equals" value="Y"/>
+                <condition-expr field-name="debitCreditFlag" operator="equals" value="D"/>
+                <condition-expr field-name="glFiscalTypeId" operator="equals" value="ACTUAL"/>
+                <condition-expr field-name="transactionDate" operator="less" from-field="customTimePeriod.thruDate"/>
+            </condition-list>
+            <select-field field-name="amount"/>
+        </entity-condition>
+        <set field="totalDebitsToEndingDate" from-field="totalDebitsToEndingDates[0]"/>
+
+        <entity-condition entity-name="AcctgTransEntrySums" list="totalCreditsToOpeningDates">
+            <condition-list combine="and">
+                <condition-expr field-name="organizationPartyId" operator="equals" from-field="parameters.organizationPartyId"/>
+                <condition-expr field-name="glAccountId" operator="equals" from-field="parameters.glAccountId"/>
+                <condition-expr field-name="isPosted" operator="equals" value="Y"/>
+                <condition-expr field-name="debitCreditFlag" operator="equals" value="C"/>
+                <condition-expr field-name="glFiscalTypeId" operator="equals" value="ACTUAL"/>
+                <condition-expr field-name="transactionDate" operator="less" from-field="customTimePeriod.fromDate"/>
+            </condition-list>
+            <select-field field-name="amount"/>
+        </entity-condition>
+        <set field="totalCreditsToOpeningDate" from-field="totalCreditsToOpeningDates[0]"/>
+
+        <entity-condition entity-name="AcctgTransEntrySums" list="totalCreditsToEndingDates">
+            <condition-list combine="and">
+                <condition-expr field-name="organizationPartyId" operator="equals" from-field="parameters.organizationPartyId"/>
+                <condition-expr field-name="glAccountId" operator="equals" from-field="parameters.glAccountId"/>
+                <condition-expr field-name="isPosted" operator="equals" value="Y"/>
+                <condition-expr field-name="debitCreditFlag" operator="equals" value="C"/>
+                <condition-expr field-name="glFiscalTypeId" operator="equals" value="ACTUAL"/>
+                <condition-expr field-name="transactionDate" operator="less" from-field="customTimePeriod.thruDate"/>
+            </condition-list>
+            <select-field field-name="amount"/>
+        </entity-condition>
+        <set field="totalCreditsToEndingDate" from-field="totalCreditsToEndingDates[0]"/>
+
+        <!-- compute totalDebitsInTimePeriod, totalCreditsInTimePeriod and store them -->
+        <set field="totalDebitsInTimePeriod" value="${totalDebitsToEndingDate.amount - totalDebitsToOpeningDate.amount}" type="BigDecimal"/>
+        <set field="totalCreditsInTimePeriod" value="${totalCreditsToEndingDate.amount - totalCreditsToOpeningDate.amount}" type="BigDecimal"/>
+
+        <!-- compute opening and ending balance and store them -->
+        <set field="isDebit" value="${groovy:org.ofbiz.accounting.util.UtilAccounting.isDebitAccount(glAccount)}"/>
+        <if-compare field="isDebit" operator="equals" value="true">
+            <!-- "Debit balance" account -->
+            <set field="openingBalance" value="${totalDebitsToOpeningDate.amount - totalCreditsToOpeningDate.amount}" type="BigDecimal"/>
+            <set field="endingBalance" value="${totalDebitsToEndingDate.amount - totalCreditsToEndingDate.amount}" type="BigDecimal"/>
+        <else>
+            <!-- "Credit balance" account -->
+            <set field="openingBalance" value="${totalCreditsToOpeningDate.amount - totalDebitsToOpeningDate.amount}" type="BigDecimal"/>
+            <set field="endingBalance" value="${totalCreditsToEndingDate.amount - totalDebitsToEndingDate.amount}" type="BigDecimal"/>
+        </else>
+        </if-compare>
+
+        <field-to-result field="openingBalance" result-name="openingBalance"/>
+        <field-to-result field="endingBalance" result-name="endingBalance"/>
+        <field-to-result field="totalDebitsInTimePeriod" result-name="postedDebits"/>
+        <field-to-result field="totalCreditsInTimePeriod" result-name="postedCredits"/>
+    </simple-method>
+
+    <simple-method method-name="computeAndStoreGlAccountHistoryBalance" short-description="Compute and store the total debits, total credits, opening, ending balances of an account in a financial period">
+        <entity-one entity-name="GlAccountHistory" auto-field-map="true" value-field="glAccountHistory"/>
+        <set field="inMap.organizationPartyId" from-field="parameters.organizationPartyId"/>
+        <set field="inMap.customTimePeriodId" from-field="parameters.customTimePeriodId"/>
+        <set field="inMap.glAccountId" from-field="parameters.glAccountId"/>
+        <call-service service-name="computeGlAccountBalanceForTimePeriod" in-map-name="inMap">
+            <result-to-field field="openingBalance"/>
+            <result-to-field field="endingBalance"/>
+            <result-to-field field="postedDebits"/>
+            <result-to-field field="postedCredits"/>
+        </call-service>
+        <!-- persist the balances -->
+        <set field="glAccountHistory.openingBalance" from-field="openingBalance"/>
+        <set field="glAccountHistory.endingBalance" from-field="endingBalance"/>
+        <set field="glAccountHistory.postedDebits" from-field="postedDebits"/>
+        <set field="glAccountHistory.postedCredits" from-field="postedCredits"/>
+        <store-value value-field="glAccountHistory"/>
     </simple-method>
 
     <simple-method method-name="prepareIncomeStatement" short-description="Prepare data for the Income Statement">
@@ -2756,71 +2746,6 @@ under the License.
                 <create-value value-field="newLookedUpValue"/>
                 <log level="info" message="GlAccountCategoryMember updated for [${parameters.glAccountCategoryId}] and [${parameters.glAccountId}]"/>
             </if-compare-field>
-        </if-not-empty>
-    </simple-method>
-
-    <simple-method method-name="getGlAcctgOrgWithPostedBalanceSplit" short-description="Posted amounts split by cost center from GlAccountOrganization">
-        <!-- retrieve ledger rounding properties -->
-        <call-simple-method method-name="getGlArithmeticSettingsInline"/>
-        <now-timestamp field="nowTimestamp"/>
-        <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
-        <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
-        <if-empty field="fromDate">
-            <entity-one entity-name="CustomTimePeriod" value-field="customTimePeriod" auto-field-map="false">
-                <field-map field-name="customTimePeriodId" from-field="parameters.timePeriod"/>
-            </entity-one>
-            <set field="fromDate" from-field="customTimePeriod.fromDate" type="Timestamp"/>
-            <set field="thruDate" from-field="customTimePeriod.thruDate" type="Timestamp"/>
-        </if-empty>
-        <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-        <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
-        <set field="partyIds[]" from-field="organizationPartyId"/>
-        <entity-condition entity-name="GlAccountOrganization" list="glAccountOrganizations" use-cache="true">
-            <condition-list>
-                <condition-expr field-name="organizationPartyId" operator="in" from-field="partyIds"/>
-                <condition-expr field-name="postedBalance" operator="not-equals" value=""/>
-                <condition-expr field-name="fromDate" operator="greater-equals" from-field="fromDate"/>
-                <condition-expr field-name="fromDate" operator="less" from-field="thruDate"/>
-            </condition-list>
-            <order-by field-name="glAccountId"/>
-        </entity-condition>
-        <if-not-empty field="glAccountOrganizations">
-            <entity-and entity-name="GlAccountCategory" list="glAccountCategories" use-cache="true">
-                <field-map field-name="glAccountCategoryTypeId" value="COST_CENTER"/>
-                <order-by field-name="glAccountCategoryId"/>
-            </entity-and>
-            <if-not-empty field="glAccountCategories">
-                <iterate list="glAccountOrganizations" entry="glAccountOrganization">
-                    <clear-field field="glAcctgOrgAndCostCenterMap"/>
-                    <set field="postedBalance" from-field="glAccountOrganization.postedBalance" type="BigDecimal"/>
-                    <if-compare field="postedBalance" operator="less" value="0" type="BigDecimal">
-                        <set field="postedBalance" value="${groovy:postedBalance.negate()}" type="BigDecimal"/>
-                    </if-compare>
-                    <set field="glAcctgOrgAndCostCenterMap.postedBalance" from-field="postedBalance"/>
-                    <entity-one entity-name="GlAccount" value-field="glAccount" auto-field-map="false">
-                        <field-map field-name="glAccountId" from-field="glAccountOrganization.glAccountId"/>
-                    </entity-one>
-                    <set field="glAcctgOrgAndCostCenterMap.glAccountId" from-field="glAccount.glAccountId"/>
-                    <set field="glAcctgOrgAndCostCenterMap.accountCode" from-field="glAccount.accountCode"/>
-                    <set field="glAcctgOrgAndCostCenterMap.accountName" from-field="glAccount.accountName"/>
-                    <iterate list="glAccountCategories" entry="glAccountCategory">
-                        <entity-and entity-name="GlAccountCategoryMember" list="glAccountCategoryMembers" filter-by-date="true">
-                            <field-map field-name="glAccountId" from-field="glAccountOrganization.glAccountId"/>
-                            <field-map field-name="glAccountCategoryId" from-field="glAccountCategory.glAccountCategoryId"/>
-                        </entity-and>
-                        <if-not-empty field="glAccountCategoryMembers">
-                            <first-from-list list="glAccountCategoryMembers" entry="glAccountCategoryMember"/>
-                            <if-not-empty field="glAccountCategoryMember">
-                                <set field="divisor" value="100" type="BigDecimal"/>
-                                <set field="splitAmount" value="${groovy:postedBalance.multiply(glAccountCategoryMember.amountPercentage).divide(divisor, Integer.valueOf(ledgerDecimals), BigDecimal.ROUND_HALF_UP)}" type="BigDecimal"/>
-                                <set field="glAcctgOrgAndCostCenterMap[glAccountCategory.glAccountCategoryId]" from-field="splitAmount" type="BigDecimal"/>
-                            </if-not-empty>
-                        </if-not-empty>
-                    </iterate>
-                    <field-to-list field="glAcctgOrgAndCostCenterMap" list="glAcctgOrgAndCostCenterList"/>
-                </iterate>
-            </if-not-empty>
-            <field-to-result field="glAcctgOrgAndCostCenterList"/>
         </if-not-empty>
     </simple-method>
 

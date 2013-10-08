@@ -44,7 +44,7 @@ under the License.
                             <td colspan=2></td>
                             <td colspan=3 align="center"><b>${uiLabelMap.AccountingTheBalanceOfLastYear}</b></td>
                             <td colspan=2></td>
-                            <td ALIGN="right"><b><#if (isDebitAccount)??>${uiLabelMap.AccountingDebitFlag}<#else>${uiLabelMap.AccountingCreditFlag}</#if></b></td>
+                            <td ALIGN="right"><b><#if (isDebitAccount)>${uiLabelMap.AccountingDebitFlag}<#else>${uiLabelMap.AccountingCreditFlag}</#if></b></td>
                             <td ALIGN="right">${(openingBalance)!}</td>
                         </tr>
                         <#list glAcctgTrialBalanceList as glAcctgTrialBalance>
@@ -69,15 +69,15 @@ under the License.
                                     <td colspan=3 ALIGN="center"><b>${uiLabelMap.AccountingTotalOfTheCurrentMonth}</b></td>
                                     <td ALIGN="right" colspan=1><b>${(glAcctgTrialBalance.debitTotal)!}</b></td>
                                     <td ALIGN="right" colspan=1><b>${(glAcctgTrialBalance.creditTotal)!}</b></td>
-                                    <td ALIGN="right" colspan=1><b><#if (isDebitAccount)??>${uiLabelMap.AccountingDebitFlag}<#else>${uiLabelMap.AccountingCreditFlag}</#if></b></td>
-                                    <td ALIGN="right" colspan=1><b>${(glAcctgTrialBalance.debitCreditDifference)!}</b></td>
+                                    <td ALIGN="right" colspan=1><b><#if (isDebitAccount)>${uiLabelMap.AccountingDebitFlag}<#else>${uiLabelMap.AccountingCreditFlag}</#if></b></td>
+                                    <td ALIGN="right" colspan=1><b>${(glAcctgTrialBalance.balance)!}</b></td>
                                 </tr>
                                 <tr class="header-row">
                                     <td colspan=2></td>
                                     <td ALIGN="center" colspan=3><b>${uiLabelMap.AccountingTotalOfYearToDate}</b></td>
                                     <td ALIGN="right"><b>${glAcctgTrialBalance.totalOfYearToDateDebit}</b></td>
                                     <td ALIGN="right"><b>${glAcctgTrialBalance.totalOfYearToDateCredit}</b></td>
-                                    <td ALIGN="right"><b><#if (isDebitAccount)??>${uiLabelMap.AccountingDebitFlag}<#else>${uiLabelMap.AccountingCreditFlag}</#if></b></td>
+                                    <td ALIGN="right"><b><#if (isDebitAccount)>${uiLabelMap.AccountingDebitFlag}<#else>${uiLabelMap.AccountingCreditFlag}</#if></b></td>
                                     <td ALIGN="right"><b>${(glAcctgTrialBalance.balanceOfTheAcctgForYear)!}</b></td>
                                 </tr>
                             </#if>

@@ -2047,7 +2047,6 @@ under the License.
       <field name="description" type="description"></field>
       <field name="productId" type="id"></field>
       <field name="externalId" type="id"><description>id of the account in an external system where the accounts are imported/exported</description></field>
-      <field name="postedBalance" type="currency-amount"></field>
       <prim-key field="glAccountId"/>
       <relation type="one" fk-name="GLACCT_TYPE" rel-entity-name="GlAccountType">
         <key-map field-name="glAccountTypeId"/>
@@ -2123,6 +2122,7 @@ under the License.
       <field name="glAccountId" type="id-ne"></field>
       <field name="organizationPartyId" type="id-ne"></field>
       <field name="customTimePeriodId" type="id-ne"></field>
+      <field name="openingBalance" type="currency-amount"></field>
       <field name="postedDebits" type="currency-amount"></field>
       <field name="postedCredits" type="currency-amount"></field>
       <field name="endingBalance" type="currency-amount"></field>
@@ -2196,7 +2196,6 @@ under the License.
       <field name="roleTypeId" type="id-ne"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
-      <field name="postedBalance" type="currency-amount"></field>
       <prim-key field="glAccountId"/>
       <prim-key field="organizationPartyId"/>
       <relation type="one" fk-name="GLACCT_ORG_GLA" rel-entity-name="GlAccount">
@@ -2219,10 +2218,7 @@ under the License.
       <member-entity entity-alias="GLAO" entity-name="GlAccountOrganization"/>
       <member-entity entity-alias="GLA" entity-name="GlAccount"/>
       <alias-all entity-alias="GLAO"/>
-      <alias-all entity-alias="GLA">
-        <exclude field="postedBalance"/>
-      </alias-all>
-      <alias entity-alias="GLA" name="accountPostedBalance" field="postedBalance"/>
+      <alias-all entity-alias="GLA"/>
       <view-link entity-alias="GLAO" rel-entity-alias="GLA">
         <key-map field-name="glAccountId"/>
       </view-link>

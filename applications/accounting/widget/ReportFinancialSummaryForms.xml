@@ -540,26 +540,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="TrialBalanceReport" type="list" list-name="glAccountAndHistories"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <actions>
-            <entity-condition entity-name="GlAccountAndHistoryTotals" filter-by-date="false" list="glAccountAndHistories">
-                <condition-list>
-                    <condition-expr field-name="organizationPartyId" operator="in" from-field="partyIds"/>
-                    <condition-expr field-name="customTimePeriodId" operator="equals" from-field="parameters.customTimePeriodId"/>
-                </condition-list>
-                <select-field field-name="glAccountId"/>
-                <select-field field-name="accountCode"/>
-                <select-field field-name="accountName"/>
-                <select-field field-name="totalPostedDebits"/>
-                <select-field field-name="totalPostedCredits"/>
-                <select-field field-name="totalEndingBalance"/>
-                <order-by field-name="accountCode"/>
-            </entity-condition>
-        </actions>
-        <row-actions>
-            <set field="totalEndingBalance" from-field="totalEndingBalance" default-value="${totalPostedDebits - totalPostedCredits}" type="BigDecimal"/>
-        </row-actions>
+    <form name="TrialBalanceReport" type="list" list-name="accountBalances"
+          odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
             <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
                 <parameter param-name="glAccountId"/>
@@ -567,9 +549,10 @@ under the License.
             </hyperlink>
         </field>
         <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
-        <field name="totalPostedDebits" title="${uiLabelMap.AccountingDebitFlag}" widget-style="tabletextright"><display description="${totalPostedDebits}" type="currency" currency="${currencyUomId}"/></field>
-        <field name="totalPostedCredits" title="${uiLabelMap.AccountingCreditFlag}" widget-style="tabletextright"><display description="${totalPostedCredits}" type="currency" currency="${currencyUomId}"/></field>
-        <field name="totalEndingBalance" title="${uiLabelMap.AccountingEndingBalance}" widget-style="tabletextright"><display description="${totalEndingBalance}" type="currency" currency="${currencyUomId}"/></field>
+        <field name="openingBalance" title="${uiLabelMap.AccountingOpeningBalance}" widget-style="tabletextright"><display description="${openingBalance}" type="currency" currency="${currencyUomId}"/></field>
+        <field name="postedDebits" title="${uiLabelMap.AccountingDebitFlag}" widget-style="tabletextright"><display description="${postedDebits}" type="currency" currency="${currencyUomId}"/></field>
+        <field name="postedCredits" title="${uiLabelMap.AccountingCreditFlag}" widget-style="tabletextright"><display description="${postedCredits}" type="currency" currency="${currencyUomId}"/></field>
+        <field name="endingBalance" title="${uiLabelMap.AccountingEndingBalance}" widget-style="tabletextright"><display description="${endingBalance}" type="currency" currency="${currencyUomId}"/></field>
     </form>
 
     <form name="CashFlowStatementParameters" type="single" header-row-style="header-row" default-table-style="basic-table">

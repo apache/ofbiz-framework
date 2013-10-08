@@ -295,6 +295,23 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
+    <service name="computeGlAccountBalanceForTimePeriod" engine="simple"
+             location="component://accounting/script/org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="computeGlAccountBalanceForTimePeriod" auth="true">
+        <description>Compute the total debits, total credits, opening, ending balances of an account in a financial period</description>
+        <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/>
+        <attribute name="customTimePeriodId" type="String" mode="IN" optional="false"/>
+        <attribute name="glAccountId" type="String" mode="IN" optional="false"/>
+        <attribute name="openingBalance" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="postedDebits" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="postedCredits" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="endingBalance" type="BigDecimal" mode="OUT" optional="false"/>
+    </service>
+    <service name="computeAndStoreGlAccountHistoryBalance" engine="simple"
+             location="component://accounting/script/org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="computeAndStoreGlAccountHistoryBalance" auth="true">
+        <description>Compute and store in a GlAccountHistory record the total debits, total credits, opening, ending balances of an account in a financial period</description>
+        <auto-attributes entity-name="GlAccountHistory" include="pk" mode="IN" optional="false"/>
+    </service>
+
     <!-- Financial Reports -->
     <service name="prepareIncomeStatement" engine="simple"
         location="component://accounting/script/org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="prepareIncomeStatement" auth="true">
@@ -628,16 +645,6 @@ under the License.
         <attribute name="glAccountCategoryId" mode="IN" type="String"/>
         <attribute name="amountPercentage" mode="IN" type="BigDecimal" optional="true"/>
         <attribute name="totalAmountPercentage" mode="IN" type="BigDecimal" optional="true"/>
-    </service>
-
-    <service name="getGlAcctgOrgWithPostedBalanceSplit" engine="simple"
-        location="component://accounting/script/org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="getGlAcctgOrgWithPostedBalanceSplit" auth="true">
-        <description>Posted amounts split by cost center from GlAccountOrganization</description>
-        <attribute name="organizationPartyId" type="String" mode="IN"/>
-        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="timePeriod" type="String" mode="IN" optional="true"/>
-        <attribute name="glAcctgOrgAndCostCenterList" mode="OUT"  type="List" optional="true"/>
     </service>
 
     <service name="getGlAcctgAndAmountPercentage" engine="simple"

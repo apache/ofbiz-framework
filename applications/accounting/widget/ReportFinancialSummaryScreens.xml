@@ -227,15 +227,6 @@ under the License.
                 </entity-condition>
                 <set field="partyIds[]" from-field="organizationPartyId"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TrialBalance.groovy"/>
-                <entity-condition entity-name="GlAccountAndHistoryTotals" filter-by-date="false" list="grandTotalPosted">
-                    <condition-list>
-                        <condition-expr field-name="organizationPartyId" operator="in" from-field="partyIds"/>
-                        <condition-expr field-name="customTimePeriodId" operator="equals" from-field="parameters.customTimePeriodId"/>
-                    </condition-list>
-                    <select-field field-name="totalPostedDebits"/>
-                    <select-field field-name="totalPostedCredits"/>
-                </entity-condition>
-                <set field="grandTotalPostedRecord" from-field="grandTotalPosted[0]"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -260,10 +251,10 @@ under the License.
                                     </link>
                                     <include-form name="TrialBalanceReport" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                                     <container style="h3">
-                                        <label text="${uiLabelMap.AccountingDebitFlag}: ${grandTotalPostedRecord.totalPostedDebits}"/>
+                                        <label text="${uiLabelMap.AccountingDebitFlag}: ${postedDebitsTotal}"/>
                                     </container>
                                     <container style="h3">
-                                        <label text="${uiLabelMap.AccountingCreditFlag}: ${grandTotalPostedRecord.totalPostedCredits}"/>
+                                        <label text="${uiLabelMap.AccountingCreditFlag}: ${postedCreditsTotal}"/>
                                     </container>
                                 </screenlet>
                             </widgets>
@@ -291,15 +282,6 @@ under the License.
                 </entity-condition>
                 <set field="partyIds[]" from-field="organizationPartyId"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TrialBalance.groovy"/>
-                <entity-condition entity-name="GlAccountAndHistoryTotals" filter-by-date="false" list="grandTotalPosted">
-                    <condition-list>
-                        <condition-expr field-name="organizationPartyId" operator="in" from-field="partyIds"/>
-                        <condition-expr field-name="customTimePeriodId" operator="equals" from-field="parameters.customTimePeriodId"/>
-                    </condition-list>
-                    <select-field field-name="totalPostedDebits"/>
-                    <select-field field-name="totalPostedCredits"/>
-                </entity-condition>
-                <set field="grandTotalPostedRecord" from-field="grandTotalPosted[0]"/>
             </actions>
             <widgets>
                 <container>
@@ -326,15 +308,6 @@ under the License.
                 </entity-condition>
                 <set field="partyIds[]" from-field="organizationPartyId"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TrialBalance.groovy"/>
-                <entity-condition entity-name="GlAccountAndHistoryTotals" filter-by-date="false" list="grandTotalPosted">
-                    <condition-list>
-                        <condition-expr field-name="organizationPartyId" operator="in" from-field="partyIds"/>
-                        <condition-expr field-name="customTimePeriodId" operator="equals" from-field="parameters.customTimePeriodId"/>
-                    </condition-list>
-                    <select-field field-name="totalPostedDebits"/>
-                    <select-field field-name="totalPostedCredits"/>
-                </entity-condition>
-                <set field="grandTotalPostedRecord" from-field="grandTotalPosted[0]"/>
             </actions>
             <widgets>
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
@@ -348,10 +321,10 @@ under the License.
                         <include-form name="TrialBalanceFinancialTimePeriodSelection" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                         <include-form name="TrialBalanceReport" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                         <container style="h3">
-                            <label text="${uiLabelMap.AccountingDebitFlag}: ${grandTotalPostedRecord.totalPostedDebits}"/>
+                            <label text="${uiLabelMap.AccountingDebitFlag}: ${postedDebitsTotal}"/>
                         </container>
                         <container style="h3">
-                            <label text="${uiLabelMap.AccountingCreditFlag}: ${grandTotalPostedRecord.totalPostedCredits}"/>
+                            <label text="${uiLabelMap.AccountingCreditFlag}: ${postedCreditsTotal}"/>
                         </container>
                     </decorator-section>
                 </decorator-screen>

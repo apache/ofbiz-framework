@@ -91,31 +91,6 @@ public class UtilAccounting {
         return getProductOrgGlAccountId(null, glAccountTypeId, organizationPartyId, delegator);
     }
 
-    /**
-     * Little method to figure out the net or ending balance of a GlAccountHistory or GlAccountAndHistory value, based on what kind
-     * of account (DEBIT or CREDIT) it is
-     * @param account - GlAccountHistory or GlAccountAndHistory value
-     * @return balance - a BigDecimal
-     */
-    public static BigDecimal getNetBalance(GenericValue account, String debugModule) {
-        try {
-            return getNetBalance(account);
-        } catch (GenericEntityException ex) {
-            Debug.logError(ex.getMessage(), debugModule);
-            return null;
-        }
-    }
-    public static BigDecimal getNetBalance(GenericValue account) throws GenericEntityException {
-        GenericValue glAccount = account.getRelatedOne("GlAccount", false);
-        BigDecimal balance = BigDecimal.ZERO;
-        if (isDebitAccount(glAccount)) {
-            balance = account.getBigDecimal("postedDebits").subtract(account.getBigDecimal("postedCredits"));
-        } else if (isCreditAccount(glAccount)) {
-            balance = account.getBigDecimal("postedCredits").subtract(account.getBigDecimal("postedDebits"));
-        }
-        return balance;
-    }
-
     public static List<String> getDescendantGlAccountClassIds(GenericValue glAccountClass) throws GenericEntityException {
         List<String> glAccountClassIds = FastList.newInstance();
         getGlAccountClassChildren(glAccountClass, glAccountClassIds);

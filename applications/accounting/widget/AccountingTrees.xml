@@ -31,7 +31,7 @@ under the License.
         </node>
         <node name="node-body">
             <entity-one entity-name="GlAccount" value-field="glAccount"></entity-one>
-            <link target="GlAccountNavigate" text="${glAccountId} ${glAccount.accountName} ${postedBalance}">
+            <link target="GlAccountNavigate" text="${glAccountId} ${glAccount.accountName}">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="trail"/>
             </link>
@@ -54,7 +54,7 @@ under the License.
         </node>
         <node name="node-body">
             <entity-one entity-name="GlAccount" value-field="glAccount"></entity-one>
-            <link target="GlAccountNavigate" text="${glAccountId} ${glAccount.accountName} ${postedBalance}">
+            <link target="GlAccountNavigate" text="${glAccountId} ${glAccount.accountName}">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="trail"/>
             </link>
