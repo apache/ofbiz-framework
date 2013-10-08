@@ -1098,7 +1098,6 @@ under the License.
         <field name="accountName" ><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountName}"/></field>
         <field name="description"><display description="${description}"/></field>
         <field name="productId"><display description="${productId}"/></field>
-        <field name="postedBalance"><display description="${postedBalance}"/></field>
     </form>
     
     <form name="FindGlAccountCategory" type="single" target="FindGlAccountCategory" default-entity-name="GlAccountCategory">

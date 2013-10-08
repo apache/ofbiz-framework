@@ -49,28 +49,28 @@ under the License.
     <AcctgTransEntry acctgTransId="6006" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" description="Unposted transaction entries" voucherRef="Z0001" glAccountId="400000" organizationPartyId="Company" amount="500.00" currencyUomId="USD" origAmount="500.00" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
     -->
 
-    <GlAccountOrganization glAccountId="111100" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0" postedBalance="51263.22"/>
-    <GlAccountOrganization glAccountId="112000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0" postedBalance="20.00"/>
-    <GlAccountOrganization glAccountId="120000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0" postedBalance="159.96"/>
-    <GlAccountOrganization glAccountId="122300" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0" postedBalance="127.09"/>
-    <GlAccountOrganization glAccountId="140000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0" postedBalance="1936.40"/>
-    <GlAccountOrganization glAccountId="141000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0" postedBalance="320.00"/>
-    <GlAccountOrganization glAccountId="171000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0" postedBalance="76500.00"/>
-    <GlAccountOrganization glAccountId="174000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0" postedBalance="70000.00"/>
-    <GlAccountOrganization glAccountId="188000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0" postedBalance="2500.00"/>
-    <GlAccountOrganization glAccountId="210000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0" postedBalance="348.00"/> <!-- Negative -->
-    <GlAccountOrganization glAccountId="213000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0" postedBalance="70.00"/> <!-- Negative -->
-    <GlAccountOrganization glAccountId="214000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0" postedBalance="0.00"/>
-    <GlAccountOrganization glAccountId="224000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0" postedBalance="1.20"/> <!-- Negative -->
-    <GlAccountOrganization glAccountId="224153" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0" postedBalance="5.80"/> <!-- Negative -->
-    <GlAccountOrganization glAccountId="310000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0" postedBalance="200000.00"/> <!-- Negative -->
-    <GlAccountOrganization glAccountId="400000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0" postedBalance="299.95"/> <!-- Negative -->
-    <GlAccountOrganization glAccountId="409000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0" postedBalance="12.10"/> <!-- Negative -->
-    <GlAccountOrganization glAccountId="410000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0" postedBalance="12.00"/>
-    <GlAccountOrganization glAccountId="500000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0" postedBalance="13.50"/>
-    <GlAccountOrganization glAccountId="516100" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0" postedBalance="24.88"/>
-    <GlAccountOrganization glAccountId="649000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0" postedBalance="360.00"/>
-    <GlAccountOrganization glAccountId="675400" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0" postedBalance="2500.00"/>
+    <GlAccountOrganization glAccountId="111100" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization glAccountId="112000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization glAccountId="120000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization glAccountId="122300" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization glAccountId="140000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization glAccountId="141000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization glAccountId="171000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization glAccountId="174000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization glAccountId="188000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization glAccountId="210000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization glAccountId="213000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization glAccountId="214000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization glAccountId="224000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization glAccountId="224153" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization glAccountId="310000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization glAccountId="400000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization glAccountId="409000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization glAccountId="410000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization glAccountId="500000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization glAccountId="516100" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization glAccountId="649000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization glAccountId="675400" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
 
     <GlAccountHistory glAccountId="111100" organizationPartyId="Company" customTimePeriodId="6010" postedDebits="51263.22" postedCredits="0.00"/>
     <GlAccountHistory glAccountId="112000" organizationPartyId="Company" customTimePeriodId="6010" postedDebits="20.00" postedCredits="0.00"/>

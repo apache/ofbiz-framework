@@ -97,7 +97,6 @@ under the License.
             </display-entity>
         </field>
         <field name="accountCode"><hidden/></field>
-        <field name="postedBalance" widget-area-style="align-text" title-area-style="align-text"><display type="currency" currency="${defaultOrganizationPartyCurrencyUomId}"/></field>
     </form>
 
     <form name="EditGlAccount" type="single" target="updateGlAccount" title="" default-map-name="glAccount"
@@ -145,7 +144,6 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="postedBalance"><display/></field>
 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" use-when="glAccount==null" widget-style="smallSubmit"><submit button-type="button"/></field>
