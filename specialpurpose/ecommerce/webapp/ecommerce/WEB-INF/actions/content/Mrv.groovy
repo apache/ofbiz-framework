@@ -65,7 +65,7 @@ lifoSet.each { pk0 ->
         mrvList.add(arr);
     } else {
         // should handle errors in some other way; this does not provide any tracing; impossible to locat
-        // where the error actually occured
+        // where the error actually occurred
         //Debug.logError("findOne on " + pk + " returned null");
     }
 }

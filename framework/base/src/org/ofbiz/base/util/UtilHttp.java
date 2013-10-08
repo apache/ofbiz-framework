@@ -1204,7 +1204,7 @@ public class UtilHttp {
      *
      * @param request
      * @param prefix
-     * @return Composite object from data or nulll if not supported or a parsing error occured.
+     * @return Composite object from data or nulll if not supported or a parsing error occurred.
      */
     public static Object makeParamValueFromComposite(HttpServletRequest request, String prefix, Locale locale) {
         String compositeType = request.getParameter(makeCompositeParam(prefix, "compositeType"));

@@ -109,7 +109,7 @@ public class ServiceStreamHandler implements EventHandler {
         if (message != null)
             out.println("Error message: " + message);
         if (error != null)
-            out.println("Exception occured: " + error.toString());
+            out.println("Exception occurred: " + error.toString());
         out.flush();
         out.close();
         try {

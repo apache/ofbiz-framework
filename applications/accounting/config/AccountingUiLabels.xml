@@ -12958,7 +12958,7 @@
         <value xml:lang="zh">授权网址</value>
     </property>
     <property key="AccountingSagePayErrorEncodingParameters">
-        <value xml:lang="en">Error occured in encoding parameters for HttpPost (${errorString})</value>
+        <value xml:lang="en">Error occurred in encoding parameters for HttpPost (${errorString})</value>
         <value xml:lang="fr">Erreur lors de l'encodage des paramètres pour HttpPost (${errorString})</value>
         <value xml:lang="it">Errore accaduto durante encoding parametri per HttpPost (${errorString})</value>
         <value xml:lang="ja">HTTP POSTのパラメータをエンコード中にエラーが発生しました (${errorString})</value>
@@ -12966,7 +12966,7 @@
         <value xml:lang="zh">对HttpPost进行参数编码时出错：${errorString}</value>
     </property>
     <property key="AccountingSagePayErrorHttpClientExecute">
-        <value xml:lang="en">Error occured in HttpClient execute (${errorString})</value>
+        <value xml:lang="en">Error occurred in HttpClient execute (${errorString})</value>
         <value xml:lang="fr">Erreur lors de l'exécution de HttpClient (${errorString})</value>
         <value xml:lang="it">Errore accaduto durante esecuzione HttpClient (${errorString})</value>
         <value xml:lang="ja">HTTPクライアント実行中にエラーが発生しました (${errorString})</value>
@@ -12974,7 +12974,7 @@
         <value xml:lang="zh">执行HttpClient时出错：${errorString}</value>
     </property>
     <property key="AccountingSagePayErrorHttpClientExecuteOrGettingResponse">
-        <value xml:lang="en">Error occured in HttpClient execute or getting response (${errorString})</value>
+        <value xml:lang="en">Error occurred in HttpClient execute or getting response (${errorString})</value>
         <value xml:lang="fr">Erreur lors de la réception de la réponse par HttpClient (${errorString})</value>
         <value xml:lang="it">Errore accaduto durante esecuzione HttpClient o ottendendo la risposta (${errorString})</value>
         <value xml:lang="ja">HTTPクライアント実行中またはレスポンス取得中にエラーが発生しました (${errorString})</value>

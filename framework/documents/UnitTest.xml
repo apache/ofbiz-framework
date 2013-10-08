@@ -171,7 +171,7 @@
         <section>
             <title>1. Roll back</title>
             <para>
-                Roll back error message occured when transaction roll back data. This error message will be in between starting and finished test cass line like this:
+                Roll back error message occurred when transaction roll back data. This error message will be in between starting and finished test cass line like this:
                 <programlisting>
                     [java] 2009-12-22 16:05:28,349 (main) [   TestRunContainer.java:238:INFO ] [JUNIT] : [test case's name] starting...
                     [java] 2009-12-22 16:05:28,355 (main) [    TransactionUtil.java:336:ERROR]

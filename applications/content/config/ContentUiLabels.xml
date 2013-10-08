@@ -3734,7 +3734,7 @@
     </property>
     <property key="ErrorLoadingContent">
         <value xml:lang="de">Ein Fehler beim Laden des Inhaltes ist aufgetrete!</value>
-        <value xml:lang="en">An error occured loading content!</value>
+        <value xml:lang="en">An error occurred loading content!</value>
         <value xml:lang="fr">Erreur dans le chargement du document !</value>
         <value xml:lang="ja">コンテンツのロード中にエラーが発生しました!</value>
         <value xml:lang="pt">Um erro ocorreu ao carregar conteúdo!</value>
