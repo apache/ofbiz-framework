@@ -51,6 +51,7 @@ public final class SecurityFactory {
      * @param delegator the generic delegator
      * @return instance of security implementation (default: OFBizSecurity)
      */
+    @SuppressWarnings("deprecation")
     public static Security getInstance(Delegator delegator) throws SecurityConfigurationException {
         Security security = null;
         String securityClassName = DEFAULT_SECURITY_CLASS_NAME;
