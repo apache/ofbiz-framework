@@ -48,7 +48,7 @@ under the License.
 </#macro>
 <#macro renderHyperlinkField></#macro>
 
-<#macro renderTextField name className alert value textSize maxlength id event action disabled clientAutocomplete ajaxUrl ajaxEnabled mask>
+<#macro renderTextField name className alert value textSize maxlength id event action disabled clientAutocomplete ajaxUrl ajaxEnabled mask placeholder="">
   <#if mask?has_content>
     <script type="text/javascript">
       jQuery(function($){jQuery("#${id}").mask("${mask}");});
@@ -63,6 +63,7 @@ under the License.
     <#if id?has_content> id="${id}"</#if><#rt/>
     <#if event?has_content && action?has_content> ${event}="${action}"</#if><#rt/>
     <#if clientAutocomplete?has_content && clientAutocomplete=="false"> autocomplete="off"</#if><#rt/>
+    <#if placeholder?has_content> placeholder="${placeholder}"</#if><#rt/>
   /><#t/>
   <#if ajaxEnabled?has_content && ajaxEnabled>
     <#assign defaultMinLength = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("widget.properties", "widget.autocompleter.defaultMinLength")>

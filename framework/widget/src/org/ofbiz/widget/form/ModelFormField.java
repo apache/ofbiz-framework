@@ -2724,6 +2724,7 @@ public class ModelFormField {
         protected boolean readonly;
         protected boolean clientAutocompleteField;
         protected String mask;
+        protected FlexibleStringExpander placeholder = FlexibleStringExpander.getInstance(null);
 
         protected TextField() {
             super();
@@ -2741,7 +2742,7 @@ public class ModelFormField {
             super(element, modelFormField);
             this.setDefaultValue(element.getAttribute("default-value"));
             this.mask = element.getAttribute("mask");
-
+            this.placeholder = FlexibleStringExpander.getInstance(element.getAttribute("placeholder"));
             String sizeStr = element.getAttribute("size");
             try {
                 size = Integer.parseInt(sizeStr);
@@ -2847,6 +2848,10 @@ public class ModelFormField {
 
         public String getMask() {
             return this.mask;
+        }
+
+        public String getPlaceholder(Map<String, Object> context) {
+            return this.placeholder.expandString(context);
         }
     }
 
