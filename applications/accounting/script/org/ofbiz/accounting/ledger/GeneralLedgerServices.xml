@@ -833,12 +833,22 @@ under the License.
             <select-field field-name="glAccountId"/>
         </entity-condition>
         <iterate list="organizationGlAccounts" entry="organizationGlAccount">
-            <make-value entity-name="GlAccountHistory" value-field="glAccountHistory"/>
-            <set field="glAccountHistory.customTimePeriodId" from-field="customTimePeriod.customTimePeriodId"/>
-            <set field="glAccountHistory.organizationPartyId" from-field="customTimePeriod.organizationPartyId"/>
-            <set field="glAccountHistory.glAccountId" from-field="organizationGlAccount.glAccountId"/>
-            <create-value value-field="glAccountHistory"/>
-            <call-service service-name="computeAndStoreGlAccountHistoryBalance" in-map-name="glAccountHistory"/>
+            <entity-one entity-name="GlAccountHistory" value-field="glAccountHistory">
+                <field-map field-name="customTimePeriodId" from-field="customTimePeriod.customTimePeriodId"/>
+                <field-map field-name="organizationPartyId" from-field="customTimePeriod.organizationPartyId"/>
+                <field-map field-name="glAccountId" from-field="organizationGlAccount.glAccountId"/>
+            </entity-one>
+            <if-empty field="glAccountHistory">
+                <make-value entity-name="GlAccountHistory" value-field="glAccountHistory"/>
+                <set field="glAccountHistory.customTimePeriodId" from-field="customTimePeriod.customTimePeriodId"/>
+                <set field="glAccountHistory.organizationPartyId" from-field="customTimePeriod.organizationPartyId"/>
+                <set field="glAccountHistory.glAccountId" from-field="organizationGlAccount.glAccountId"/>
+                <create-value value-field="glAccountHistory"/>
+            </if-empty>
+            <set field="inMap.customTimePeriodId" from-field="glAccountHistory.customTimePeriodId"/>
+            <set field="inMap.organizationPartyId" from-field="glAccountHistory.organizationPartyId"/>
+            <set field="inMap.glAccountId" from-field="glAccountHistory.glAccountId"/>
+            <call-service service-name="computeAndStoreGlAccountHistoryBalance" in-map-name="inMap"/>
         </iterate>
 
         <set field="updateCustomTimePeriodInMap.customTimePeriodId" from-field="customTimePeriod.customTimePeriodId"/>
