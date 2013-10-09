@@ -19,13 +19,12 @@
 package org.ofbiz.security;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
@@ -43,6 +42,7 @@ import org.ofbiz.entity.util.EntityUtil;
  * An implementation of the Security interface that uses the OFBiz database
  * for permission storage.
  */
+@SuppressWarnings("deprecation")
 public class OFBizSecurity implements Security {
 
     public static final String module = OFBizSecurity.class.getName();
@@ -60,48 +60,38 @@ public class OFBizSecurity implements Security {
         this.delegator = delegator;
     }
 
+    @Override
     public Delegator getDelegator() {
         return this.delegator;
     }
 
+    @Override
     public void setDelegator(Delegator delegator) {
         this.delegator = delegator;
     }
 
-    /**
-     * @see org.ofbiz.security.Security#findUserLoginSecurityGroupByUserLoginId(java.lang.String)
-     */
+    @Override
     public Iterator<GenericValue> findUserLoginSecurityGroupByUserLoginId(String userLoginId) {
-        List<GenericValue> collection;
         try {
-            collection = delegator.findByAnd("UserLoginSecurityGroup", UtilMisc.toMap("userLoginId", userLoginId), null, false);
+            List<GenericValue> collection = EntityUtil.filterByDate(delegator.findByAnd("UserLoginSecurityGroup", UtilMisc.toMap("userLoginId", userLoginId), null, true));
+            return collection.iterator();
         } catch (GenericEntityException e) {
-            // make an empty collection to speed up the case where a userLogin belongs to no security groups, only with no exception of course
-            collection = FastList.newInstance();
             Debug.logWarning(e, module);
+            return Collections.<GenericValue>emptyList().iterator();
         }
-        // filter each time after cache retreival, ie cache will contain entire list
-        collection = EntityUtil.filterByDate(collection, true);
-        return collection.iterator();
     }
 
-    /**
-     * @see org.ofbiz.security.Security#securityGroupPermissionExists(java.lang.String, java.lang.String)
-     */
+    @Override
     public boolean securityGroupPermissionExists(String groupId, String permission) {
-        GenericValue securityGroupPermissionValue = delegator.makeValue("SecurityGroupPermission",
-                UtilMisc.toMap("groupId", groupId, "permissionId", permission));
         try {
-            return delegator.findOne(securityGroupPermissionValue.getEntityName(), securityGroupPermissionValue, false) != null;
+            return delegator.findOne("SecurityGroupPermission",  UtilMisc.toMap("groupId", groupId, "permissionId", permission), true) != null;
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
             return false;
         }
     }
 
-    /**
-     * @see org.ofbiz.security.Security#hasPermission(java.lang.String, javax.servlet.http.HttpSession)
-     */
+    @Override
     public boolean hasPermission(String permission, HttpSession session) {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 
@@ -110,9 +100,7 @@ public class OFBizSecurity implements Security {
         return hasPermission(permission, userLogin);
     }
 
-    /**
-     * @see org.ofbiz.security.Security#hasPermission(java.lang.String, org.ofbiz.entity.GenericValue)
-     */
+    @Override
     public boolean hasPermission(String permission, GenericValue userLogin) {
         if (userLogin == null) return false;
 
@@ -127,9 +115,7 @@ public class OFBizSecurity implements Security {
         return false;
     }
 
-    /**
-     * @see org.ofbiz.security.Security#hasEntityPermission(java.lang.String, java.lang.String, javax.servlet.http.HttpSession)
-     */
+    @Override
     public boolean hasEntityPermission(String entity, String action, HttpSession session) {
         if (session == null) {
             return false;
@@ -141,11 +127,11 @@ public class OFBizSecurity implements Security {
         return hasEntityPermission(entity, action, userLogin);
     }
 
-    /**
-     * @see org.ofbiz.security.Security#hasEntityPermission(java.lang.String, java.lang.String, org.ofbiz.entity.GenericValue)
-     */
+    @Override
     public boolean hasEntityPermission(String entity, String action, GenericValue userLogin) {
         if (userLogin == null) return false;
+        String permission = entity.concat(action);
+        String adminPermission = entity.concat("_ADMIN");
 
         // if (Debug.infoOn()) Debug.logInfo("hasEntityPermission: entity=" + entity + ", action=" + action, module);
         Iterator<GenericValue> iterator = findUserLoginSecurityGroupByUserLoginId(userLogin.getString("userLoginId"));
@@ -153,30 +139,22 @@ public class OFBizSecurity implements Security {
 
         while (iterator.hasNext()) {
             userLoginSecurityGroup = iterator.next();
-
-            // if (Debug.infoOn()) Debug.logInfo("hasEntityPermission: userLoginSecurityGroup=" + userLoginSecurityGroup.toString(), module);
-
-            // always try _ADMIN first so that it will cache first, keeping the cache smaller
-            if (securityGroupPermissionExists(userLoginSecurityGroup.getString("groupId"), entity + "_ADMIN"))
+            if (securityGroupPermissionExists(userLoginSecurityGroup.getString("groupId"), permission))
                 return true;
-            if (securityGroupPermissionExists(userLoginSecurityGroup.getString("groupId"), entity + action))
+            if (securityGroupPermissionExists(userLoginSecurityGroup.getString("groupId"), adminPermission))
                 return true;
         }
 
         return false;
     }
 
-    /**
-     * @see org.ofbiz.security.Security#hasRolePermission(java.lang.String, java.lang.String, java.lang.String, java.lang.String, javax.servlet.http.HttpSession)
-     */
+    @Override
     public boolean hasRolePermission(String application, String action, String primaryKey, String role, HttpSession session) {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         return hasRolePermission(application, action, primaryKey, role, userLogin);
     }
 
-    /**
-     * @see org.ofbiz.security.Security#hasRolePermission(java.lang.String, java.lang.String, java.lang.String, java.lang.String, org.ofbiz.entity.GenericValue)
-     */
+    @Override
     public boolean hasRolePermission(String application, String action, String primaryKey, String role, GenericValue userLogin) {
         List<String> roles = null;
         if (role != null && !role.equals(""))
@@ -184,17 +162,13 @@ public class OFBizSecurity implements Security {
         return hasRolePermission(application, action, primaryKey, roles, userLogin);
     }
 
-    /**
-     * @see org.ofbiz.security.Security#hasRolePermission(java.lang.String, java.lang.String, java.lang.String, java.util.List, javax.servlet.http.HttpSession)
-     */
+    @Override
     public boolean hasRolePermission(String application, String action, String primaryKey, List<String> roles, HttpSession session) {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         return hasRolePermission(application, action, primaryKey, roles, userLogin);
     }
 
-    /**
-     * @see org.ofbiz.security.Security#hasRolePermission(java.lang.String, java.lang.String, java.lang.String, java.util.List, org.ofbiz.entity.GenericValue)
-     */
+    @Override
     public boolean hasRolePermission(String application, String action, String primaryKey, List<String> roles, GenericValue userLogin) {
         String entityName = null;
         EntityCondition condition = null;
@@ -240,7 +214,7 @@ public class OFBizSecurity implements Security {
      * @param userLogin The userLogin object for user to check against.
      * @return Returns true if the currently logged in userLogin has the specified permission, otherwise returns false.
      */
-    public boolean hasRolePermission(String application, String action, String entityName, EntityCondition condition, GenericValue userLogin) {
+    private boolean hasRolePermission(String application, String action, String entityName, EntityCondition condition, GenericValue userLogin) {
         if (userLogin == null) return false;
 
         // first check the standard permission
@@ -269,6 +243,7 @@ public class OFBizSecurity implements Security {
         return false;
     }
 
+    @Override
     public void clearUserData(GenericValue userLogin) {
         if (userLogin != null) {
             delegator.getCache().remove("UserLoginSecurityGroup", EntityCondition.makeCondition("userLoginId", EntityOperator.EQUALS, userLogin.getString("userLoginId")));
