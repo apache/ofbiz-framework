@@ -943,10 +943,10 @@ under the License.
         <set field="inMap.customTimePeriodId" from-field="parameters.customTimePeriodId"/>
         <set field="inMap.glAccountId" from-field="parameters.glAccountId"/>
         <call-service service-name="computeGlAccountBalanceForTimePeriod" in-map-name="inMap">
-            <result-to-field field="openingBalance" result-name="openingBalance"/>
-            <result-to-field field="endingBalance" result-name="endingBalance"/>
-            <result-to-field field="postedDebits" result-name="postedDebits"/>
-            <result-to-field field="postedCredits" result-name="postedCredits"/>
+            <result-to-field result-name="openingBalance"/>
+            <result-to-field result-name="endingBalance"/>
+            <result-to-field result-name="postedDebits"/>
+            <result-to-field result-name="postedCredits"/>
         </call-service>
         <!-- persist the balances -->
         <set field="glAccountHistory.openingBalance" from-field="openingBalance"/>
