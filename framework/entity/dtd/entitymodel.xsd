@@ -256,6 +256,15 @@ under the License.
         <xs:attribute name="copyright" type="xs:string"/>
         <xs:attribute name="author" type="xs:string"/>
         <xs:attribute name="version" type="xs:string"/>
+        <xs:attribute name="redefinition" type="boolean">
+            <xs:annotation>
+                <xs:documentation>
+                    Indicates if this entity redefines an existing entity.
+                    When set to "true" it will suppress "Entity is defined more than once" warnings.
+                    Defaults to "false".
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="member-entity">
         <xs:complexType>
