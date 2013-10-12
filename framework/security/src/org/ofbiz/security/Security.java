@@ -28,6 +28,11 @@ import org.ofbiz.entity.GenericValue;
 
 /**
  * Security interface. This interface defines authorization-related methods.
+ * <p>Implementations must be thread-safe because the instance
+ * will be shared among multiple threads.</p>
+ * <p>Note that the API is changing. New versions might not reference a
+ * <code>Delegator</code>. Therefore, implementations requiring a <code>Delegator</code>
+ * reference should get one from the <code>GenericValue</code> method argument.</p>
  */
 public interface Security {
 
