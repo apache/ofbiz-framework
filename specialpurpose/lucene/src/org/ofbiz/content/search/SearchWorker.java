@@ -59,7 +59,7 @@ public class SearchWorker {
 
     public static final Version LUCENE_VERSION = Version.LUCENE_44;
 
-    public static Map<String, Object> indexTree(LocalDispatcher dispatcher, Delegator delegator, String siteId, Map<String, Object> context, String path) throws Exception {
+    public static Map<String, Object> indexTree(LocalDispatcher dispatcher, Delegator delegator, String siteId, Map<String, Object> context) throws Exception {
         GenericValue content = delegator.makeValue("Content", UtilMisc.toMap("contentId", siteId));
         if (Debug.infoOn()) Debug.logInfo("in indexTree, siteId:" + siteId + " content:" + content, module);
         List<GenericValue> siteList = ContentWorker.getAssociatedContent(content, "To", UtilMisc.toList("SUBSITE", "PUBLISH_LINK", "SUB_CONTENT"), null, UtilDateTime.nowTimestamp().toString(), null);
@@ -74,8 +74,8 @@ public class SearchWorker {
                     for (GenericValue subContent : subContentList) {
                         contentIdList.add(subContent.getString("contentId"));
                     }
-                    indexContentList(dispatcher, delegator, context, contentIdList, null);
-                    indexTree(dispatcher, delegator, siteContentId, context, path);
+                    indexContentList(dispatcher, delegator, context, contentIdList);
+                    indexTree(dispatcher, delegator, siteContentId, context);
                 } else {
                     List<String> badIndexList = UtilGenerics.checkList(context.get("badIndexList"));
                     badIndexList.add(siteContentId + " had no sub-entities.");
@@ -90,11 +90,8 @@ public class SearchWorker {
     }
 
     public static String getIndexPath(String path) {
-        String indexAllPath = path;
-        if (UtilValidate.isEmpty(indexAllPath)) {
-            indexAllPath = UtilProperties.getPropertyValue("search", "defaultIndex", "index");
-        }
-        return indexAllPath;
+        String basePath = UtilProperties.getPropertyValue("search", "defaultIndex", "index");
+        return (UtilValidate.isNotEmpty(path)? basePath + "/" + path: basePath);
     }
 
     private static IndexWriter getDefaultIndexWriter(Directory directory) {
@@ -117,8 +114,8 @@ public class SearchWorker {
         return writer;
     }
 
-    public static void indexContentList(LocalDispatcher dispatcher, Delegator delegator, Map<String, Object> context,List<String> idList, String path) throws Exception {
-        Directory directory = FSDirectory.open(new File(getIndexPath(path)));
+    public static void indexContentList(LocalDispatcher dispatcher, Delegator delegator, Map<String, Object> context,List<String> idList) throws Exception {
+        Directory directory = FSDirectory.open(new File(getIndexPath("content")));
         if (Debug.infoOn()) Debug.logInfo("in indexContentList, indexAllPath: " + directory.toString(), module);
         // Delete existing documents
         IndexWriter writer = getDefaultIndexWriter(directory);

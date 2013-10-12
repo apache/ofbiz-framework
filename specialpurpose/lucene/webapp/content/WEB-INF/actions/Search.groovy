@@ -45,7 +45,7 @@ featureIdByType = ParametricSearch.makeFeatureIdByTypeMap(paramMap);
 Debug.logInfo("in search, featureIdByType:" + featureIdByType, "");
 
 combQuery = new BooleanQuery();
-Directory directory = FSDirectory.open(new File(SearchWorker.getIndexPath(null)));
+Directory directory = FSDirectory.open(new File(SearchWorker.getIndexPath("content")));
 DirectoryReader reader = DirectoryReader.open(directory);
 
 try {

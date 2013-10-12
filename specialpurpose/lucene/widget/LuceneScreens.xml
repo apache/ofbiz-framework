@@ -81,6 +81,28 @@ under the License.
         </section>
     </screen>
 
+    <screen name="ProductSearch">
+        <section>
+            <actions>
+                <script location="component://content/webapp/content/WEB-INF/actions/cms/GetMenuContext.groovy"/>
+                <script location="component://lucene/webapp/content/WEB-INF/actions/SearchProducts.groovy"/>
+                <set field="titleProperty" value="ContentCMSSearchPage"/>
+                <set field="currentCMSMenuItemName" value="productSearch" to-scope="user"/>
+                <property-map map-name="uiLabelMap" resource="ProductUiLabels"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonCmsDecorator">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.ContentCMSSearchPage}">
+                            <include-form name="LuceneQuery" location="component://lucene/widget/LuceneForms.xml"/>
+                            <include-form name="ProductList" location="component://lucene/widget/LuceneForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="AdminIndex">
         <section>
             <actions>
@@ -92,8 +114,8 @@ under the License.
                 <decorator-screen name="commonCmsDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ContentCMSSearchPage}">
-                            <include-form name="AdminIndex" location="component://lucene/widget/LuceneForms.xml"/>
-                            <include-form name="AdminIndexAll" location="component://lucene/widget/LuceneForms.xml"/>
+                            <include-form name="IndexContentDocuments" location="component://lucene/widget/LuceneForms.xml"/>
+                            <include-form name="IndexProductDocuments" location="component://lucene/widget/LuceneForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
