@@ -73,7 +73,7 @@ public class LuceneTests extends OFBizTestCase {
     }
 
     public void testSearchTermHand() throws Exception {
-        Directory directory = FSDirectory.open(new File(SearchWorker.getIndexPath(null)));
+        Directory directory = FSDirectory.open(new File(SearchWorker.getIndexPath("content")));
         DirectoryReader r = null;
         try {
             r = DirectoryReader.open(directory);

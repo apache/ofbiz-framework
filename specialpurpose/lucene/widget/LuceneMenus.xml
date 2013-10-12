@@ -41,6 +41,11 @@ under the License.
         <menu-item name="search" title="${uiLabelMap.CommonFind}" >
             <link id="search" target="AdminSearch"/>
         </menu-item>
+
+        <menu-item name="productSearch" title="Search Products" >
+            <link id="productSearch" target="ProductSearch"/>
+        </menu-item>
+
     </menu>
 
 </menus>

@@ -48,11 +48,7 @@ public class SearchServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         String siteId = (String) context.get("contentId");
-        String path = (String) context.get("path");
         Locale locale = (Locale) context.get("locale");
-        if (path == null) {
-            path = SearchWorker.getIndexPath(path);
-        }
         Map<String, Object> envContext = new HashMap<String, Object>();
 
         if (Debug.infoOn()) Debug.logInfo("in indexTree, siteId:" + siteId, module);
@@ -62,7 +58,7 @@ public class SearchServices {
 
         Map<String, Object> results;
         try {
-            results = SearchWorker.indexTree(dispatcher, delegator, siteId, envContext, path);
+            results = SearchWorker.indexTree(dispatcher, delegator, siteId, envContext);
         } catch (Exception e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource,
