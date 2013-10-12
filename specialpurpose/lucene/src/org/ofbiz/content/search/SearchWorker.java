@@ -57,7 +57,7 @@ public class SearchWorker {
 
     public static final String module = SearchWorker.class.getName();
 
-    public static final Version LUCENE_VERSION = Version.LUCENE_44;
+    public static final Version LUCENE_VERSION = Version.LUCENE_45;
 
     public static Map<String, Object> indexTree(LocalDispatcher dispatcher, Delegator delegator, String siteId, Map<String, Object> context) throws Exception {
         GenericValue content = delegator.makeValue("Content", UtilMisc.toMap("contentId", siteId));
