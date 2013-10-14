@@ -5452,7 +5452,7 @@ public class OrderServices {
 
                     Calendar endDate = Calendar.getInstance();
                     endDate.setTime(UtilDateTime.nowTimestamp());
-                    //check if the thruedate - cancel period (if provided) is earlier than todays date
+                    // Check if the thrudate + cancel period (if provided) is earlier than todays date
                     int field = Calendar.MONTH;
                     if (subscription.get("canclAutmExtTime") != null && subscription.get("canclAutmExtTimeUomId") != null) {
                         if ("TF_day".equals(subscription.getString("canclAutmExtTimeUomId"))) {
@@ -5464,7 +5464,7 @@ public class OrderServices {
                         } else if ("TF_yr".equals(subscription.getString("canclAutmExtTimeUomId"))) {
                             field = Calendar.YEAR;
                         } else {
-                            Debug.logWarning("Don't know anything about useTimeUomId [" + subscription.getString("canclAutmExtTimeUomId") + "], defaulting to month", module);
+                            Debug.logWarning("Don't know anything about canclAutmExtTimeUomId [" + subscription.getString("canclAutmExtTimeUomId") + "], defaulting to month", module);
                         }
 
                         endDate.add(field, Integer.valueOf(subscription.getString("canclAutmExtTime")).intValue());
