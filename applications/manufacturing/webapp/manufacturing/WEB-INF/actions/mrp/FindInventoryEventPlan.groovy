@@ -68,7 +68,7 @@ context.paramList = paramList;
 
 // set the page parameters
 viewIndex = Integer.valueOf(parameters.VIEW_INDEX  ?: 0);
-viewSize = Integer.valueOf(parameters.VIEW_SIZE ?: 20);
+viewSize = Integer.valueOf(parameters.VIEW_SIZE ?: UtilProperties.getPropertyValue("widget", "widget.form.defaultViewSize", 20));
 listSize = 0;
 if (inventoryList)
     listSize = inventoryList.size();

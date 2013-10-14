@@ -139,7 +139,7 @@ if (shoppingListId) {
             context.shoppingListItemDatas = shoppingListItemDatas;
             // pagination for the shopping list
             viewIndex = Integer.valueOf(parameters.VIEW_INDEX  ?: 1);
-            viewSize = Integer.valueOf(parameters.VIEW_SIZE ?: 20);
+            viewSize = Integer.valueOf(parameters.VIEW_SIZE ?: UtilProperties.getPropertyValue("widget", "widget.form.defaultViewSize", 20));
             listSize = 0;
             if (shoppingListItemDatas)
                 listSize = shoppingListItemDatas.size();
