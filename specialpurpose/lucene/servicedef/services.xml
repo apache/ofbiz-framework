@@ -30,5 +30,28 @@ under the License.
         <attribute mode="OUT" name="badIndexList" optional="true" type="List"/>
         <attribute mode="OUT" name="goodIndexCount" optional="true" type="Integer"/>
     </service>
-    
+
+    <service name="indexProduct" engine="java" location="org.ofbiz.content.search.SearchServices" invoke="indexProduct">
+        <description>Submit for indexing the specified productId</description>
+        <attribute name="productId" mode="IN" type="String" optional="false"/>
+    </service>
+
+    <!-- Services to locate and submit for indexing all products affected by an associated data change -->
+    <service name="indexProductsFromFeature" engine="java" location="org.ofbiz.content.search.SearchServices" invoke="indexProductsFromFeature">
+        <attribute name="productFeatureId" mode="IN" type="String" optional="false"/>
+    </service>
+    <service name="indexProductsFromProductAssoc" engine="java" location="org.ofbiz.content.search.SearchServices" invoke="indexProductsFromProductAssoc">
+        <attribute name="productId" mode="IN" type="String"/>
+        <attribute name="productIdTo" mode="IN" type="String"/>
+    </service>
+    <service name="indexProductsFromDataResource" engine="java" location="org.ofbiz.content.search.SearchServices" invoke="indexProductsFromDataResource">
+        <attribute name="dataResourceId" mode="IN" type="String"/>
+    </service>
+    <service name="indexProductsFromContent" engine="java" location="org.ofbiz.content.search.SearchServices" invoke="indexProductsFromContent">
+        <attribute name="contentId" mode="IN" type="String"/>
+    </service>
+    <service name="indexProductsFromCategory" engine="java" location="org.ofbiz.content.search.SearchServices" invoke="indexProductsFromCategory">
+        <attribute name="productCategoryId" mode="IN" type="String"/>
+    </service>
+
 </services>

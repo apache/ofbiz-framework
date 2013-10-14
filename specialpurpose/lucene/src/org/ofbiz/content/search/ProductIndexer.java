@@ -28,8 +28,6 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import org.apache.lucene.document.IntField;
-import org.apache.lucene.document.LongField;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
@@ -45,11 +43,11 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.DoubleField;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.Field.Store;
+import org.apache.lucene.document.LongField;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.CorruptIndexException;
@@ -68,15 +66,12 @@ public class ProductIndexer extends Thread {
     private LinkedBlockingQueue<String> productIndexQueue = new LinkedBlockingQueue<String>();
     private Delegator delegator;
     private Directory indexDirectory;
-    private IndexWriterConfig indexWriterConfiguration;
     private static final String NULL_STRING = "NULL";
     // TODO: Move to property file
     private static final int UNCOMMITTED_DOC_LIMIT = 100;
 
     private ProductIndexer(Delegator delegator) {
         this.delegator = delegator;
-        Analyzer analyzer = new StandardAnalyzer(SearchWorker.LUCENE_VERSION);
-        this.indexWriterConfiguration = new IndexWriterConfig(SearchWorker.LUCENE_VERSION, analyzer);
         try {
             this.indexDirectory = FSDirectory.open(new File(SearchWorker.getIndexPath("products")));
         } catch (CorruptIndexException e) {
@@ -124,7 +119,7 @@ public class ProductIndexer extends Thread {
             Term documentIdentifier = new Term("productId", productId);
             if (indexWriter == null) {
                 try {
-                    indexWriter  = new IndexWriter(this.indexDirectory, this.indexWriterConfiguration);
+                    indexWriter  = new IndexWriter(this.indexDirectory, new IndexWriterConfig(SearchWorker.LUCENE_VERSION, new StandardAnalyzer(SearchWorker.LUCENE_VERSION)));
                 } catch (CorruptIndexException e) {
                     Debug.logError("Corrupted lucene index: "  + e.getMessage(), module);
                     break;
