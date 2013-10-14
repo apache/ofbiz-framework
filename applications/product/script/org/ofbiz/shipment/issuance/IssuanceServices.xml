@@ -596,7 +596,6 @@ under the License.
         <set from-field="itemIssuance.itemIssuanceId" field="createDetailMap.itemIssuanceId"/>
         <set from-field="toCancelQuantity" field="createDetailMap.availableToPromiseDiff"/>
         <set from-field="toCancelQuantity" field="createDetailMap.quantityOnHandDiff"/>
-        <set from-field="toCancelQuantity" field="createDetailMap.accountingQuantityDiff"/>
         <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
 
         <!-- reassign inventory reservations  -->
