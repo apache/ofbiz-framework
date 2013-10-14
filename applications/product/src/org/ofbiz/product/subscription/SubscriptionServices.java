@@ -20,7 +20,6 @@ package org.ofbiz.product.subscription;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import com.ibm.icu.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -32,6 +31,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.common.uom.UomWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -41,7 +41,8 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.common.uom.UomWorker;
+
+import com.ibm.icu.util.Calendar;
 
 /**
  * Subscription Services
