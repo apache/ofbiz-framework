@@ -5452,7 +5452,7 @@ public class OrderServices {
 
                     Calendar endDate = Calendar.getInstance();
                     endDate.setTime(UtilDateTime.nowTimestamp());
-                    // Check if the thrudate + cancel period (if provided) is earlier than todays date
+                    // Check if today date + cancel period (if provided) is earlier than the thrudate  
                     int field = Calendar.MONTH;
                     if (subscription.get("canclAutmExtTime") != null && subscription.get("canclAutmExtTimeUomId") != null) {
                         if ("TF_day".equals(subscription.getString("canclAutmExtTimeUomId"))) {
