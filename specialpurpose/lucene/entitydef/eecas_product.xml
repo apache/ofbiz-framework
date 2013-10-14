@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entity-eca.xsd">
+
+    <!-- Product Keyword Indexing ECAs -->
+    <eca entity="Product" operation="create-store-remove" event="return">
+        <action service="indexProduct" mode="sync"/>
+    </eca>
+    <eca entity="ProductFeatureAppl" operation="create-store-remove"  event="return">
+        <action service="indexProduct" mode="sync"/>
+    </eca>
+    <eca entity="ProductAttribute" operation="create-store-remove"  event="return">
+        <action service="indexProduct" mode="sync"/>
+    </eca>
+    <eca entity="GoodIndentification" operation="create-store-remove"  event="return">
+        <action service="indexProduct" mode="sync"/>
+    </eca>
+    <eca entity="ProductContent" operation="create-store-remove"  event="return">
+        <action service="indexProduct" mode="sync"/>
+    </eca>
+    <eca entity="ProductCategoryMember" operation="create-store-remove"  event="return">
+        <action service="indexProduct" mode="sync"/>
+    </eca>
+    <eca entity="ProductPrice" operation="create-store-remove"  event="return">
+        <action service="indexProduct" mode="sync"/>
+    </eca>
+    <eca entity="SupplierProduct" operation="create-store-remove"  event="return">
+        <action service="indexProduct" mode="sync"/>
+    </eca>
+
+    <eca entity="ProductAssoc" operation="create-store-remove"  event="return">
+        <action service="indexProductsFromProductAssoc" mode="sync"/>
+    </eca>
+    <eca entity="DataResource" operation="store"  event="return">
+        <action service="indexProductsFromDataResource" mode="sync"/>
+    </eca>
+    <eca entity="Content" operation="store"  event="return">
+        <action service="indexProductsFromContent" mode="sync"/>
+    </eca>
+    <eca entity="ProductCategoryRollup" operation="create-store-remove"  event="return">
+        <action service="indexProductsFromCategory" mode="sync"/>
+    </eca>
+    <eca entity="ProdCatalogCategory" operation="create-store-remove"  event="return">
+        <action service="indexProductsFromCategory" mode="sync"/>
+    </eca>
+    <!-- Don't need to index on create or remove since the feature won't be attached to any products at those points -->
+    <eca entity="ProductFeature" operation="store"  event="return">
+        <action service="indexProductsFromFeature" mode="sync"/>
+    </eca>
+    <eca entity="ProductFeatureGroupAppl" operation="create-store-remove"  event="return">
+        <action service="indexProductsFromFeature" mode="sync"/>
+    </eca>
+</entity-eca>

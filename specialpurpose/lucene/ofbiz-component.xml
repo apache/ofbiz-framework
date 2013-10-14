@@ -30,6 +30,9 @@ under the License.
     <classpath type="jar" location="build/lib/*"/>
     <classpath type="jar" location="lib/*"/>
 
+    <!-- entity resources: model(s), eca(s), group, and data definitions -->
+    <entity-resource type="eca" reader-name="main" loader="main" location="entitydef/eecas_product.xml"/>
+
     <!-- service resources: model(s), eca(s) and group definitions -->
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
 
