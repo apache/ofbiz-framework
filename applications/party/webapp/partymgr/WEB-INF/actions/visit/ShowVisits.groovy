@@ -42,7 +42,7 @@ try {
     beganTransaction = TransactionUtil.begin();
 
     viewIndex = Integer.valueOf(parameters.VIEW_INDEX  ?: 1);
-    viewSize = Integer.valueOf(parameters.VIEW_SIZE ?: UtilProperties.getPropertyValue("widget", "widget.form.defaultViewSize", 20));
+    viewSize = Integer.valueOf(parameters.VIEW_SIZE ?: UtilProperties.getPropertyValue("widget", "widget.form.defaultViewSize", "20"));
     context.viewIndex = viewIndex;
     context.viewSize = viewSize;
 
