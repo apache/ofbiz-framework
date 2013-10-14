@@ -1415,9 +1415,11 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createAcctgTransForInventoryItemCostChange" short-description="Create accounting transaction when item cost is changed (D: INV_ADJ_VAL, C: INVENTORY_ACCOUNT)">
+        <!-- TODO: the logic in this service needs to be reimplemented to properly implement FIFO/LIFO valuation methods -->
         <!-- retrieve ledger rounding properties -->
         <call-simple-method method-name="getGlArithmeticSettingsInline"/>
         <entity-one entity-name="InventoryItemDetail" value-field="newInventoryItemDetail"/>
+        <get-related-one value-field="newInventoryItemDetail" relation-name="InventoryItem" to-value-field="inventoryItem"/>
         <entity-condition entity-name="InventoryItemDetail" list="inventoryItemDetails">
             <condition-list>
                 <condition-expr field-name="inventoryItemId" operator="equals" from-field="newInventoryItemDetail.inventoryItemId"/>
@@ -1429,7 +1431,7 @@ under the License.
         <first-from-list list="inventoryItemDetails" entry="oldInventoryItemDetail"/>
         <if-not-empty field="oldInventoryItemDetail">
             <calculate field="origAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
-                <calcop operator="multiply" field="newinventoryItem.quantityOnHandTotal">
+                <calcop operator="multiply" field="inventoryItem.quantityOnHandTotal">
                     <calcop operator="subtract">
                         <calcop operator="get" field="oldInventoryItemDetail.unitCost"/>
                         <calcop operator="get" field="newInventoryItemDetail.unitCost"/>
@@ -1438,7 +1440,6 @@ under the License.
             </calculate>
             <!-- if originAmount is equals to 0 do not create transaction, this is causing error in postAcctgTrans -->
             <if-compare operator="not-equals" field="origAmount" value="0">
-                <get-related-one value-field="newInventoryItemDetail" relation-name="InventoryItem" to-value-field="inventoryItem"/>
                 <!-- Credit -->
                 <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
                 <set field="creditEntry.debitCreditFlag" value="C"/>
