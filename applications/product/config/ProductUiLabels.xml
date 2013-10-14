@@ -3282,16 +3282,16 @@
         <value xml:lang="zh_TW">取消數量</value>
     </property>
     <property key="FormFieldTitle_canclAutmExtTime">
-        <value xml:lang="en">The time period (before the end of the thruedate) after which the automatic extension of the subscription will be executed.</value>
-        <value xml:lang="fr">Durée (avant la date de fin) après laquelle l'abonn. sera automatiquement étendu</value>
-        <value xml:lang="it">Il periodo di tempo (prima della data di termine) dopo che l'estensione automatica dell'abbonamento verrà eseguita.</value>
+        <value xml:lang="en">The time period (before the end of the thrudate) after which the automatic extension of the subscription will be executed</value>
+        <value xml:lang="fr">Durée durant laquelle l'abonnement sera automatiquement étendu (avant la date de fin)</value>
+        <value xml:lang="it">Il periodo di tempo (prima della data di termine) dopo che l'estensione automatica dell'abbonamento verrà eseguita</value>
         <value xml:lang="ja">(終了日前に)申込を自動継続する期間</value>
-        <value xml:lang="vi">Kỳ thời gian sau đó (trước khi kết thúc Đến ngày) sẽ được hệ thống thực hiện tự động mở rộng của Đăng ký.</value>
+        <value xml:lang="vi">Kỳ thời gian sau đó (trước khi kết thúc Đến ngày) sẽ được hệ thống thực hiện tự động mở rộng của Đăng ký</value>
         <value xml:lang="zh">在要执行的订阅自动延期后的时间段(在结束日期结束前)</value>
         <value xml:lang="zh_TW">在要執行的訂閱自動延期後的時間段(在結束日期結束前)</value>
     </property>
     <property key="FormFieldTitle_canclAutmExtTimeUomId">
-        <value xml:lang="en">Unit Of Measure used for the automatic extension of the subscription.</value>
+        <value xml:lang="en">Unit Of Measure used for the automatic extension of the subscription</value>
         <value xml:lang="fr">Unité de temps utilisée pour l'extension automatique de l'abonnement</value>
         <value xml:lang="ja">自動継続する期間の単位ID</value>
         <value xml:lang="vi">Đơn vị tính sử dụng cho Tự động mở rộng của Đăng ký</value>
