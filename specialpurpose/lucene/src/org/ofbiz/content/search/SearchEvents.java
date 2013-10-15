@@ -21,15 +21,12 @@ package org.ofbiz.content.search;
 import java.lang.Object;
 import java.lang.String;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.StringUtil;
-import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericValue;
@@ -64,16 +61,7 @@ public class SearchEvents {
             return "error";
         }
         String errMsg = ServiceUtil.getErrorMessage(result);
-        if (Debug.infoOn()) Debug.logInfo("errMsg:" + errMsg, module);
-        if (Debug.infoOn()) Debug.logInfo("result:" + result, module);
         if (UtilValidate.isEmpty(errMsg)) {
-            List<String> badIndexList = UtilGenerics.checkList(result.get("badIndexList"));
-            if (Debug.infoOn()) Debug.logInfo("badIndexList:" + badIndexList, module);
-            String badIndexMsg = StringUtil.join(badIndexList, "\n") + badIndexList.size() + " entities not indexed";
-            Integer goodIndexCount = (Integer)result.get("goodIndexCount");
-            String goodIndexMsg = goodIndexCount + " entities indexed.";
-            if (Debug.infoOn()) Debug.logInfo("goodIndexCount:" + goodIndexCount, module);
-            ServiceUtil.setMessages(request, badIndexMsg, goodIndexMsg, null);
             return "success";
         } else {
             ServiceUtil.setMessages(request, errMsg, null, null);

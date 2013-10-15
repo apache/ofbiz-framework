@@ -20,9 +20,6 @@ package org.ofbiz.content.search;
 
 import java.lang.Object;
 import java.lang.String;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -49,30 +46,18 @@ public class SearchServices {
     public static final String resource = "ContentUiLabels";
 
     public static Map<String, Object> indexTree(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Date start = new Date();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         String siteId = (String) context.get("contentId");
         Locale locale = (Locale) context.get("locale");
-        Map<String, Object> envContext = new HashMap<String, Object>();
-
-        if (Debug.infoOn()) Debug.logInfo("in indexTree, siteId:" + siteId, module);
-        List<String> badIndexList = new ArrayList<String>();
-        envContext.put("badIndexList", badIndexList);
-        envContext.put("goodIndexCount", Integer.valueOf(0));
-
-        Map<String, Object> results;
         try {
-            results = SearchWorker.indexTree(dispatcher, delegator, siteId, envContext);
+            SearchWorker.indexTree(dispatcher, delegator, siteId);
         } catch (Exception e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource,
                     "ContentIndexingTreeError", UtilMisc.toMap("errorString", e.toString()), locale));
         }
-        Date end = new Date();
-        if (Debug.infoOn()) Debug.logInfo("in indexTree, results:" + results, module);
-        if (Debug.infoOn()) Debug.logInfo("Indexing done in: " + (end.getTime()-start.getTime()) + " ms", module);
-        return results;
+        return ServiceUtil.returnSuccess();
     }
 
     public static Map<String, Object> indexProduct(DispatchContext dctx, Map<String, ? extends Object> context) {

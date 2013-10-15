@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.apache.lucene.index.Term;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
@@ -48,12 +49,29 @@ import org.apache.lucene.document.TextField;
  * ContentDocument Class
  */
 
-public class ContentDocument {
+public class ContentDocument implements LuceneDocument {
 
-    public static final String module = ContentDocument.class.getName();
+    private static final String module = ContentDocument.class.getName();
+    private final Term documentIdentifier;
+    private final LocalDispatcher dispatcher;
+    private final GenericValue content;
 
-    public static Document Document(GenericValue content, Map<String, Object> context, LocalDispatcher dispatcher) throws InterruptedException {
+    public ContentDocument(GenericValue content, LocalDispatcher dispatcher) {
+        this.content = content;
+        this.dispatcher = dispatcher;
+        this.documentIdentifier = new Term("contentId", content.getString("contentId"));
+    }
 
+    @Override
+    public String toString() {
+        return getDocumentIdentifier().toString();
+    }
+
+    public Term getDocumentIdentifier() {
+        return documentIdentifier;
+    }
+
+    public Document prepareDocument(Delegator delegator) {
         Document doc;
         // make a new, empty document
         doc = new Document();
@@ -82,26 +100,23 @@ public class ContentDocument {
             Field field = new StringField("site", ancestorString, Store.NO);
             doc.add(field);
         }
-        boolean retVal = indexDataResource(content, doc, context, dispatcher);
-        if (!retVal)
+        boolean retVal = indexDataResource(doc);
+        if (!retVal) {
             doc = null;
+        }
         return doc;
     }
 
-    public static boolean indexDataResource(GenericValue content, Document doc, Map<String, Object> context, LocalDispatcher dispatcher) {
+    private boolean indexDataResource(Document doc) {
         String contentId = content.getString("contentId");
         GenericValue dataResource;
         try {
             dataResource = content.getRelatedOne("DataResource", true);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
-            List<String> badIndexList = UtilGenerics.checkList(context.get("badIndexList"));
-            badIndexList.add(contentId + " - " + e.getMessage());
             return false;
         }
         if (dataResource == null) {
-            List<String> badIndexList = UtilGenerics.checkList(context.get("badIndexList"));
-            badIndexList.add(contentId + " - dataResource is null.");
             return false;
         }
         String mimeTypeId = dataResource.getString("mimeTypeId");
@@ -115,16 +130,12 @@ public class ContentDocument {
         }
         String text;
         try {
-            text = ContentWorker.renderContentAsText(dispatcher, content.getDelegator(), contentId, context, locale, mimeTypeId, true);
+            text = ContentWorker.renderContentAsText(dispatcher, content.getDelegator(), contentId, null, locale, mimeTypeId, true);
         } catch (GeneralException e) {
             Debug.logError(e, module);
-            List<String> badIndexList = UtilGenerics.checkList(context.get("badIndexList"));
-            badIndexList.add(contentId + " - " + e.getMessage());
             return false;
         } catch (IOException e2) {
             Debug.logError(e2, module);
-            List<String> badIndexList = UtilGenerics.checkList(context.get("badIndexList"));
-            badIndexList.add(contentId + " - " + e2.getMessage());
             return false;
         }
         if (UtilValidate.isNotEmpty(text)) {
@@ -136,8 +147,6 @@ public class ContentDocument {
             featureDataResourceList = content.getRelated("ProductFeatureDataResource", null, null, true);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
-            List<String> badIndexList = UtilGenerics.checkList(context.get("badIndexList"));
-            badIndexList.add(contentId + " - " + e.getMessage());
             return false;
         }
         List<String> featureList = new ArrayList<String>();
