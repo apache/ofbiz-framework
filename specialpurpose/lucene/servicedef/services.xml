@@ -27,8 +27,6 @@ under the License.
              location="org.ofbiz.content.search.SearchServices" invoke="indexTree">
         <description>Index content under publish point</description>
         <attribute mode="IN" name="contentId" optional="false" type="String"/>
-        <attribute mode="OUT" name="badIndexList" optional="true" type="List"/>
-        <attribute mode="OUT" name="goodIndexCount" optional="true" type="Integer"/>
     </service>
 
     <service name="indexProduct" engine="java" location="org.ofbiz.content.search.SearchServices" invoke="indexProduct">
