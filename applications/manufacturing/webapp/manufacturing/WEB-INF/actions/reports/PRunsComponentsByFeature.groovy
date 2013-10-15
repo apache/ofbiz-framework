@@ -47,7 +47,7 @@ if (allProductionRuns) {
         productionRunTask = EntityUtil.getFirst(productionRunTasks);
         if (!productionRunTask) {
             // the production run doesn't include the given task, skip it
-            continue;
+            return;
         }
 
         // select the task's components, if any
@@ -57,7 +57,7 @@ if (allProductionRuns) {
             if (productCategoryIdPar) {
                 if (!isProductInCategory(delegator, productionRunComponent.productId, productCategoryIdPar)) {
                     // the production run's product is not a member of the given category, skip it
-                    continue;
+                    return;
                 }
             }
             productionRunProduct = delegator.findOne("Product", [productId : productionRunComponent.productId], false);

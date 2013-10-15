@@ -38,7 +38,7 @@ if (allProductionRuns) {
         if (productCategoryIdPar) {
             if (!isProductInCategory(delegator, productionRun.productId, productCategoryIdPar)) {
                 // the production run's product is not a member of the given category, skip it
-                continue;
+                return;
             }
         }
         productionRunProduct = delegator.findOne("Product", [productId : productionRun.productId], false);

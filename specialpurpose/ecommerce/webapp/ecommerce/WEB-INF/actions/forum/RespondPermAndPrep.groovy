@@ -95,7 +95,7 @@ if (!"granted".equals(permissionStatus)) {
     request.setAttribute("permissionErrorMsg", errorMessage);
     context.permissionErrorMsg = errorMessage;
     context.hasPermission = false;
-    request.setAttribute("hasPermission", false;
+    request.setAttribute("hasPermission", false);
     request.setAttribute("permissionStatus", "");
     return;
 } else {

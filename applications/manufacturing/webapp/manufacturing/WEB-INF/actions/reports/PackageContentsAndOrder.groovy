@@ -45,7 +45,7 @@ if (packageContents) {
         if (productCategoryIdPar) {
             if (!isProductInCategory(delegator, product.productId, productCategoryIdPar)) {
                 // the production run's product is not a member of the given category, skip it
-                continue;
+                return;
             }
         }
 
