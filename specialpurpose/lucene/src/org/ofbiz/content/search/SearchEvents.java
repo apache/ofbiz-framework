@@ -41,7 +41,7 @@ public class SearchEvents {
 
     public static final String module = SearchEvents.class.getName();
 
-    public static String indexTree(HttpServletRequest request, HttpServletResponse response) {
+    public static String indexContentTree(HttpServletRequest request, HttpServletResponse response) {
 
         Map<String, Object> result;
         Map<String, Object> serviceInMap = new HashMap<String, Object>();
@@ -53,9 +53,9 @@ public class SearchEvents {
         String siteId = (String)paramMap.get("contentId");
         serviceInMap.put("contentId", siteId);
         try {
-            result = dispatcher.runSync("indexTree", serviceInMap);
+            result = dispatcher.runSync("indexContentTree", serviceInMap);
         } catch (GenericServiceException e) {
-            String errorMsg = "Error calling the indexTree service." + e.toString();
+            String errorMsg = "Error calling the indexContentTree service." + e.toString();
             Debug.logError(e, errorMsg, module);
             request.setAttribute("_ERROR_MESSAGE_", errorMsg + e.toString());
             return "error";

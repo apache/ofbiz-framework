@@ -20,7 +20,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="IndexContentDocuments" target="indexTree" title="" type="single" header-row-style="header-row" default-table-style="basic-table">
+    <form name="IndexContentDocuments" target="indexContentTree" title="" type="single" header-row-style="header-row" default-table-style="basic-table">
         <field name="submitButton" title="${uiLabelMap.ContentIndexAll}" widget-style="smallSubmit" position="1"><submit button-type="button"/></field>
         <field name="contentId" position="2"><text size="50" default-value="WebStoreCONTENT"/></field>
     </form>

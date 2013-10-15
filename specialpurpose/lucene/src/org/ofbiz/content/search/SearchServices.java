@@ -45,13 +45,13 @@ public class SearchServices {
     public static final String module = SearchServices.class.getName();
     public static final String resource = "ContentUiLabels";
 
-    public static Map<String, Object> indexTree(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map<String, Object> indexContentTree(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         String siteId = (String) context.get("contentId");
         Locale locale = (Locale) context.get("locale");
         try {
-            SearchWorker.indexTree(dispatcher, delegator, siteId);
+            SearchWorker.indexContentTree(dispatcher, delegator, siteId);
         } catch (Exception e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource,
