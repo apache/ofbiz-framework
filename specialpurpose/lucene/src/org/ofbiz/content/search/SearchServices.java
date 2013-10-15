@@ -78,8 +78,8 @@ public class SearchServices {
     public static Map<String, Object> indexProduct(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         String productId = (String) context.get("productId");
-        ProductIndexer indexer = ProductIndexer.getInstance(delegator);
-        indexer.queue(productId);
+        DocumentIndexer indexer = DocumentIndexer.getInstance(delegator, "products");
+        indexer.queue(new ProductDocument(productId));
         return ServiceUtil.returnSuccess();
     }
 

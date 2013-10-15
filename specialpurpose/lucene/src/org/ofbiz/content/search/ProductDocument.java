@@ -18,16 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.content.search;
 
-import java.io.File;
-import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.concurrent.LinkedBlockingQueue;
-
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
@@ -42,142 +32,41 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.DoubleField;
 import org.apache.lucene.document.Field;
-import org.apache.lucene.document.Field.Store;
 import org.apache.lucene.document.LongField;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
-import org.apache.lucene.index.CorruptIndexException;
-import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.Term;
-import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.FSDirectory;
-import org.apache.lucene.store.LockObtainFailedException;
 
-public class ProductIndexer extends Thread {
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
-    public static final String module = ProductIndexer.class.getName();
-
-    private static Map<Delegator, ProductIndexer> productIndexerMap = new HashMap<Delegator, ProductIndexer>();
-    private LinkedBlockingQueue<String> productIndexQueue = new LinkedBlockingQueue<String>();
-    private Delegator delegator;
-    private Directory indexDirectory;
+public class ProductDocument implements LuceneDocument {
+    private static final String module = ProductDocument.class.getName();
     private static final String NULL_STRING = "NULL";
-    // TODO: Move to property file
-    private static final int UNCOMMITTED_DOC_LIMIT = 100;
+    private final Term documentIdentifier;
 
-    private ProductIndexer(Delegator delegator) {
-        this.delegator = delegator;
-        try {
-            this.indexDirectory = FSDirectory.open(new File(SearchWorker.getIndexPath("products")));
-        } catch (CorruptIndexException e) {
-            Debug.logError("Corrupted lucene index: "  + e.getMessage(), module);
-        } catch (LockObtainFailedException e) {
-            Debug.logError("Could not obtain Lock on lucene index "  + e.getMessage(), module);
-        } catch (IOException e) {
-            Debug.logError(e.getMessage(), module);
-        }
-    }
-
-    public static synchronized ProductIndexer getInstance(Delegator delegator) {
-        ProductIndexer productIndexer = productIndexerMap.get(delegator);
-        if (productIndexer == null) {
-            productIndexer = new ProductIndexer(delegator);
-            productIndexer.setName("ProductIndexer_" + delegator.getDelegatorName());
-            productIndexer.start();
-            productIndexerMap.put(delegator, productIndexer);
-        }
-        return productIndexer;
+    public ProductDocument(String productId) {
+        this.documentIdentifier = new Term("productId", productId);
     }
 
     @Override
-    public void run() {
-        IndexWriter indexWriter = null;
-        int uncommittedDocs = 0;
-        while (true) {
-            String productId;
-            try {
-                // Execution will pause here until the queue receives a product for indexing
-                productId = productIndexQueue.take();
-            } catch (InterruptedException e) {
-                Debug.logError(e, module);
-                if (indexWriter != null) {
-                    try {
-                        indexWriter.close();
-                        indexWriter = null;
-                    } catch(IOException ioe) {
-                        Debug.logError(ioe, module);
-                    }
-                }
-                break;
-            }
-            Document productDocument = this.prepareProductDocument(productId);
-            Term documentIdentifier = new Term("productId", productId);
-            if (indexWriter == null) {
-                try {
-                    indexWriter  = new IndexWriter(this.indexDirectory, new IndexWriterConfig(SearchWorker.LUCENE_VERSION, new StandardAnalyzer(SearchWorker.LUCENE_VERSION)));
-                } catch (CorruptIndexException e) {
-                    Debug.logError("Corrupted lucene index: "  + e.getMessage(), module);
-                    break;
-                } catch (LockObtainFailedException e) {
-                    Debug.logError("Could not obtain Lock on lucene index "  + e.getMessage(), module);
-                    // TODO: put the thread to sleep waiting for the locked to be released
-                    break;
-                } catch (IOException e) {
-                    Debug.logError(e.getMessage(), module);
-                    break;
-                }
-            }
-            try {
-                if (productDocument == null) {
-                    indexWriter.deleteDocuments(documentIdentifier);
-                    if (Debug.infoOn()) Debug.logInfo("Deleted Lucene document for product: " + productId, module);
-                } else {
-                    indexWriter.updateDocument(documentIdentifier, productDocument);
-                    if (Debug.infoOn()) Debug.logInfo("Indexed Lucene document for product: " + productId, module);
-                }
-            } catch(Exception e) {
-                Debug.logError(e, "Error processing Lucene document for product: " + productId, module);
-                if (productIndexQueue.peek() == null) {
-                    try {
-                        indexWriter.close();
-                        indexWriter = null;
-                    } catch(IOException ioe) {
-                        Debug.logError(ioe, module);
-                    }
-                }
-                continue;
-            }
-            uncommittedDocs++;
-            if (uncommittedDocs == UNCOMMITTED_DOC_LIMIT || productIndexQueue.peek() == null) {
-                // limit reached or queue empty, time to commit
-                try {
-                    indexWriter.commit();
-                } catch (IOException e) {
-                    Debug.logError(e, module);
-                }
-                uncommittedDocs = 0;
-            }
-            if (productIndexQueue.peek() == null) {
-                try {
-                    indexWriter.close();
-                    indexWriter = null;
-                } catch (IOException e) {
-                    Debug.logError(e, module);
-                }
-            }
-        }
+    public String toString() {
+        return getDocumentIdentifier().toString();
     }
 
-    public boolean queue(String productId) {
-        return productIndexQueue.add(productId);
+    public Term getDocumentIdentifier() {
+        return documentIdentifier;
     }
 
-    private Document prepareProductDocument(String productId) {
+    public Document prepareDocument(Delegator delegator) {
+        String productId = getDocumentIdentifier().text();
         try {
             GenericValue product = delegator.findOne("Product", true, "productId", productId);
             if (product == null) {
@@ -191,18 +80,18 @@ public class ProductIndexer extends Thread {
                 Timestamp nextReIndex = null;
 
                 // Product Fields
-                doc.add(new StringField("productId", productId, Store.YES));
+                doc.add(new StringField("productId", productId, Field.Store.YES));
                 this.addTextFieldByWeight(doc, "productName", product.getString("productName"), "index.weight.Product.productName", 0, false, "fullText");
                 this.addTextFieldByWeight(doc, "internalName", product.getString("internalName"), "index.weight.Product.internalName", 0, false, "fullText");
                 this.addTextFieldByWeight(doc, "brandName", product.getString("brandName"), "index.weight.Product.brandName", 0, false, "fullText");
                 this.addTextFieldByWeight(doc, "description", product.getString("description"), "index.weight.Product.description", 0, false, "fullText");
                 this.addTextFieldByWeight(doc, "longDescription", product.getString("longDescription"), "index.weight.Product.longDescription", 0, false, "fullText");
                 //doc.add(new StringField("introductionDate", checkValue(product.getString("introductionDate")), Store.NO));
-                doc.add(new LongField("introductionDate", quantizeTimestampToDays(product.getTimestamp("introductionDate")), Store.NO));
+                doc.add(new LongField("introductionDate", quantizeTimestampToDays(product.getTimestamp("introductionDate")), Field.Store.NO));
                 nextReIndex = this.checkSetNextReIndex(product.getTimestamp("introductionDate"), nextReIndex);
-                doc.add(new LongField("salesDiscontinuationDate", quantizeTimestampToDays(product.getTimestamp("salesDiscontinuationDate")), Store.NO));
+                doc.add(new LongField("salesDiscontinuationDate", quantizeTimestampToDays(product.getTimestamp("salesDiscontinuationDate")), Field.Store.NO));
                 nextReIndex = this.checkSetNextReIndex(product.getTimestamp("salesDiscontinuationDate"), nextReIndex);
-                doc.add(new StringField("isVariant", product.get("isVariant") != null && product.getBoolean("isVariant") ? "true" : "false", Store.NO));
+                doc.add(new StringField("isVariant", product.get("isVariant") != null && product.getBoolean("isVariant") ? "true" : "false", Field.Store.NO));
 
                 // ProductFeature Fields, check that at least one of the fields is set to be indexed
                 if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.description", "0")) ||
@@ -222,9 +111,9 @@ public class ProductIndexer extends Thread {
                         } else if (thruDate != null) {
                             nextReIndex = this.checkSetNextReIndex(thruDate, nextReIndex);
                         }
-                        doc.add(new StringField("productFeatureId", productFeatureAndAppl.getString("productFeatureId"), Store.NO));
-                        doc.add(new StringField("productFeatureCategoryId", productFeatureAndAppl.getString("productFeatureCategoryId"), Store.NO));
-                        doc.add(new StringField("productFeatureTypeId", productFeatureAndAppl.getString("productFeatureTypeId"), Store.NO));
+                        doc.add(new StringField("productFeatureId", productFeatureAndAppl.getString("productFeatureId"), Field.Store.NO));
+                        doc.add(new StringField("productFeatureCategoryId", productFeatureAndAppl.getString("productFeatureCategoryId"), Field.Store.NO));
+                        doc.add(new StringField("productFeatureTypeId", productFeatureAndAppl.getString("productFeatureTypeId"), Field.Store.NO));
                         this.addTextFieldByWeight(doc, "featureDescription", productFeatureAndAppl.getString("description"), "index.weight.ProductFeatureAndAppl.description", 0, false, "fullText");
                         this.addTextFieldByWeight(doc, "featureAbbreviation", productFeatureAndAppl.getString("abbrev"), "index.weight.ProductFeatureAndAppl.abbrev", 0, false, "fullText");
                         this.addTextFieldByWeight(doc, "featureCode", productFeatureAndAppl.getString("idCode"), "index.weight.ProductFeatureAndAppl.idCode", 0, false, "fullText");
@@ -241,7 +130,7 @@ public class ProductIndexer extends Thread {
                             } else if (thruDate != null) {
                                 nextReIndex = this.checkSetNextReIndex(thruDate, nextReIndex);
                             }
-                            doc.add(new StringField("productFeatureGroupId", productFeatureGroupAppl.getString("productFeatureGroupId"), Store.NO));
+                            doc.add(new StringField("productFeatureGroupId", productFeatureGroupAppl.getString("productFeatureGroupId"), Field.Store.NO));
                         }
                     }
                 }
@@ -263,9 +152,9 @@ public class ProductIndexer extends Thread {
                     for (GenericValue goodIdentification: goodIdentifications) {
                         String goodIdentificationTypeId = goodIdentification.getString("goodIdentificationTypeId");
                         String idValue = goodIdentification.getString("idValue");
-                        doc.add(new StringField("goodIdentificationTypeId", goodIdentificationTypeId, Store.NO));
-                        doc.add(new StringField("goodIdentificationIdValue", idValue, Store.NO));
-                        doc.add(new StringField(goodIdentificationTypeId + "_GoodIdentification", idValue, Store.NO));
+                        doc.add(new StringField("goodIdentificationTypeId", goodIdentificationTypeId, Field.Store.NO));
+                        doc.add(new StringField("goodIdentificationIdValue", idValue, Field.Store.NO));
+                        doc.add(new StringField(goodIdentificationTypeId + "_GoodIdentification", idValue, Field.Store.NO));
                         this.addTextFieldByWeight(doc, "identificationValue", idValue, "index.weight.GoodIdentification.idValue", 0, false, "fullText");
                     }
                 }
@@ -358,7 +247,7 @@ public class ProductIndexer extends Thread {
                     fieldNameSb.append('_');
                     fieldNameSb.append(productPrice.getString("productStoreGroupId"));
                     fieldNameSb.append("_price");
-                    doc.add(new DoubleField(fieldNameSb.toString(), productPrice.getDouble("price"), Store.NO));
+                    doc.add(new DoubleField(fieldNameSb.toString(), productPrice.getDouble("price"), Field.Store.NO));
                 }
 
                 // Index ProductSuppliers
@@ -378,7 +267,7 @@ public class ProductIndexer extends Thread {
                     supplierPartyIds.add(supplierProduct.getString("partyId"));
                 }
                 for (String supplierPartyId : supplierPartyIds) {
-                    doc.add(new StringField("supplierPartyId", supplierPartyId, Store.NO));
+                    doc.add(new StringField("supplierPartyId", supplierPartyId, Field.Store.NO));
                 }
 
                 // TODO: Add the nextReIndex timestamp to the document for when the product should be automatically re-indexed outside of any ECAs
@@ -408,13 +297,13 @@ public class ProductIndexer extends Thread {
         if (weight == 0 && !store) {
             return;
         }
-        Field field = new TextField(fieldName, checkValue(value), (store? Store.YES: Store.NO));
+        Field field = new TextField(fieldName, checkValue(value), (store? Field.Store.YES: Field.Store.NO));
         if (weight > 0 && weight != 1) {
             field.setBoost(weight);
         }
         doc.add(field);
         if (fullTextFieldName != null) {
-            doc.add(new TextField(fullTextFieldName, checkValue(value), Store.NO));
+            doc.add(new TextField(fullTextFieldName, checkValue(value), Field.Store.NO));
         }
     }
 
@@ -462,8 +351,8 @@ public class ProductIndexer extends Thread {
 
         for (GenericValue productCategoryMember: productCategoryMembers) {
             String productCategoryId = productCategoryMember.getString("productCategoryId");
-            doc.add(new StringField("productCategoryId", productCategoryId, Store.NO));
-            doc.add(new StringField("directProductCategoryId", productCategoryId, Store.NO));
+            doc.add(new StringField("productCategoryId", productCategoryId, Field.Store.NO));
+            doc.add(new StringField("directProductCategoryId", productCategoryId, Field.Store.NO));
             indexedCategoryIds.add(productCategoryId);
             Timestamp fromDate = productCategoryMember.getTimestamp("fromDate");
             Timestamp thruDate = productCategoryMember.getTimestamp("thruDate");
@@ -505,7 +394,7 @@ public class ProductIndexer extends Thread {
                 continue;
             }
             GenericValue parentProductCategory = productCategoryRollup.getRelatedOne("ParentProductCategory", false);
-            doc.add(new StringField("productCategoryId", parentProductCategory.getString("productCategoryId"), Store.NO));
+            doc.add(new StringField("productCategoryId", parentProductCategory.getString("productCategoryId"), Field.Store.NO));
             nextReIndex = this.checkSetNextReIndex(
                     this.getParentCategories(doc, parentProductCategory, indexedCategoryIds),
                     nextReIndex
@@ -532,7 +421,7 @@ public class ProductIndexer extends Thread {
             if (!indexedCatalogIds.add(prodCatalogCategory.getString("prodCatalogId"))) {
                 continue;
             }
-            doc.add(new StringField("prodCatalogId", prodCatalogCategory.getString("prodCatalogId"), Store.NO));
+            doc.add(new StringField("prodCatalogId", prodCatalogCategory.getString("prodCatalogId"), Field.Store.NO));
         }
         return nextReIndex;
     }
@@ -544,4 +433,5 @@ public class ProductIndexer extends Thread {
         }
         return quantizedDate;
     }
+
 }
