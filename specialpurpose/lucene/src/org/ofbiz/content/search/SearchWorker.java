@@ -44,7 +44,7 @@ public class SearchWorker {
 
     public static final Version LUCENE_VERSION = Version.LUCENE_45;
 
-    public static void indexTree(LocalDispatcher dispatcher, Delegator delegator, String siteId) throws Exception {
+    public static void indexContentTree(LocalDispatcher dispatcher, Delegator delegator, String siteId) throws Exception {
         GenericValue content = delegator.makeValue("Content", UtilMisc.toMap("contentId", siteId));
         List<GenericValue> siteList = ContentWorker.getAssociatedContent(content, "To", UtilMisc.toList("SUBSITE", "PUBLISH_LINK", "SUB_CONTENT"), null, UtilDateTime.nowTimestamp().toString(), null);
 
@@ -59,7 +59,7 @@ public class SearchWorker {
                         contentIdList.add(subContent.getString("contentId"));
                     }
                     indexContentList(dispatcher, delegator, contentIdList);
-                    indexTree(dispatcher, delegator, siteContentId);
+                    indexContentTree(dispatcher, delegator, siteContentId);
                 }
             }
         }

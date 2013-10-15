@@ -64,12 +64,7 @@ public class LuceneTests extends OFBizTestCase {
         Map<String, Object> ctx = new HashMap<String, Object>();
         ctx.put("contentId", "WebStoreCONTENT");
         ctx.put("userLogin", userLogin);
-        Map<String, Object> resp = dispatcher.runSync("indexTree", ctx);
-
-        assertEquals(7, resp.get("goodIndexCount"));
-
-        List<String> badIndexList = UtilGenerics.checkList(resp.get("badIndexList"));
-        assertEquals(8, badIndexList.size());
+        Map<String, Object> resp = dispatcher.runSync("indexContentTree", ctx);
     }
 
     public void testSearchTermHand() throws Exception {

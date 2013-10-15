@@ -23,8 +23,8 @@ under the License.
     <vendor></vendor>
     <version>1.0</version>
 
-    <service name="indexTree" auth="true" engine="java" validate="true" transaction-timeout="7200"
-             location="org.ofbiz.content.search.SearchServices" invoke="indexTree">
+    <service name="indexContentTree" auth="true" engine="java" validate="true" transaction-timeout="7200"
+             location="org.ofbiz.content.search.SearchServices" invoke="indexContentTree">
         <description>Index content under publish point</description>
         <attribute mode="IN" name="contentId" optional="false" type="String"/>
     </service>
