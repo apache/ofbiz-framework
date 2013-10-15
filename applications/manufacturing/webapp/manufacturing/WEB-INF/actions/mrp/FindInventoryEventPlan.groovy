@@ -20,6 +20,7 @@
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.base.util.UtilProperties ;
 
 productId = parameters.productId;
 
