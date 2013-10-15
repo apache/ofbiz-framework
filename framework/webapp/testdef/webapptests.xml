@@ -17,8 +17,11 @@
   under the License.
   -->
 
-<!--<test-suite suite-name="webapptests"-->
-<!--        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
-<!--        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">-->
-<!---->
-<!--</test-suite>-->
+<test-suite suite-name="webapptests"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
+
+    <test-case case-name="webapp-tests">
+        <junit-test-suite class-name="org.ofbiz.webapp.test.XmlRpcTests"/>
+    </test-case>
+</test-suite>
