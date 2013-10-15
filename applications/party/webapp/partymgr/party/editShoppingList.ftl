@@ -196,7 +196,7 @@ under the License.
           <td>&nbsp;</td>
         </tr>
         <#assign alt_row = false>
-        <#list shoppingListItemDatas[lowIndex..highIndex-1] as shoppingListItemData>
+        <#list shoppingListItemDatas[lowIndex-1..highIndex-1] as shoppingListItemData>
           <#assign shoppingListItem = shoppingListItemData.shoppingListItem>
           <#assign product = shoppingListItemData.product>
           <#assign productContentWrapper = Static["org.ofbiz.product.product.ProductContentWrapper"].makeProductContentWrapper(product, request)>
@@ -251,7 +251,7 @@ under the License.
     <br class="clear"/>
   </div>
   <div class="screenlet-body">
-    <form name="addToShoppingList" method="post" action="<@ofbizUrl>addItemToShoppingList<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>">
+    <form name="addToShoppingList" method="post" action="<@ofbizUrl>addItemToShoppingList</@ofbizUrl>">
       <input type="hidden" name="shoppingListId" value="${shoppingList.shoppingListId}" />
       <input type="hidden" name="partyId" value="${shoppingList.partyId?if_exists}" />
       <input type="text" name="productId" value="" />

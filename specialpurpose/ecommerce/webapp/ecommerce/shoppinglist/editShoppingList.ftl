@@ -54,17 +54,20 @@ under the License.
 </script>
 <br />
 <#macro paginationControls>
-    <#assign viewIndexMax = Static["java.lang.Math"].ceil((listSize - 1)?double / viewSize?double)>
-      <#if (viewIndexMax?int > 0)>
+    <#assign viewIndexMax = Static["java.lang.Math"].ceil((listSize)?double / viewSize?double)>
+      <#if (viewIndexMax?int >= 1)>
         <div class="product-prevnext">
             <#-- Start Page Select Drop-Down -->
             <select name="pageSelect" onchange="callDocumentByPaginate(this[this.selectedIndex].value);">
-                <option value="#">${uiLabelMap.CommonPage} ${viewIndex?int} ${uiLabelMap.CommonOf} ${viewIndexMax + 1}</option>
-                <#list 0..viewIndexMax as curViewNum>
-                     <option value="${shoppingListId?if_exists}~${viewSize}~${curViewNum?int + 1}">${uiLabelMap.CommonGotoPage} ${curViewNum + 1}</option>
-                </#list>
+                <option value="#">${uiLabelMap.CommonPage} ${viewIndex?int} ${uiLabelMap.CommonOf} ${viewIndexMax}</option>
+                <#if (viewIndex?int > 1)>
+                    <#list 0..viewIndexMax as curViewNum>
+                         <option value="${shoppingListId?if_exists}~${viewSize}~${curViewNum?int + 1}">${uiLabelMap.CommonGotoPage} ${curViewNum + 1}</option>
+                    </#list>
+                </#if>
             </select>
             <#-- End Page Select Drop-Down -->
+            
             <#if (viewIndex?int > 1)>
                 <a href="javascript: void(0);" onclick="callDocumentByPaginate('${shoppingListId?if_exists}~${viewSize}~${viewIndex?int - 1}');" class="buttontext">${uiLabelMap.CommonPrevious}</a> |
             </#if>
@@ -586,7 +589,7 @@ under the License.
         <div class="h3">${uiLabelMap.CommonQuickAddList}</div>
     </div>
     <div class="screenlet-body">
-        <form name="addToShoppingList" method="post" action="<@ofbizUrl>addItemToShoppingList<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>">
+        <form name="addToShoppingList" method="post" action="<@ofbizUrl>addItemToShoppingList</@ofbizUrl>">
           <input type="hidden" name="shoppingListId" value="${shoppingList.shoppingListId}"/>
           <input type="text" class="inputBox" name="productId" value="${requestParameters.add_product_id?if_exists}"/>
           <#if reservStart?exists></td><td>${uiLabelMap.EcommerceStartDate}</td><td><input type="text" class="inputBox" size="10" name="reservStart" value="${requestParameters.reservStart?default("")}" /></td><td> ${uiLabelMap.EcommerceLength}:</td><td><input type="text" class="inputBox" size="2" name="reservLength" value="${requestParameters.reservLength?default("")}" /></td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>${uiLabelMap.OrderNbrPersons}:</td><td><input type="text" class="inputBox" size="3" name="reservPersons" value="${requestParameters.reservPersons?default("1")}" /></td><td nowrap="nowrap"></#if> ${uiLabelMap.CommonQuantity} :</td><td><input type="text" class="inputBox" size="5" name="quantity" value="${requestParameters.quantity?default("1")}" /></td><td>
