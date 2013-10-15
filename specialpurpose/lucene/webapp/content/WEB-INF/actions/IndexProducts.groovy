@@ -17,11 +17,13 @@
  * under the License.
  */
 
-import org.ofbiz.content.search.ProductIndexer
+
+import org.ofbiz.content.search.ProductDocument
+import org.ofbiz.content.search.DocumentIndexer
 import org.ofbiz.entity.transaction.TransactionUtil
 import org.ofbiz.entity.util.EntityListIterator
 
-ProductIndexer pi = ProductIndexer.getInstance(delegator)
+DocumentIndexer pi = DocumentIndexer.getInstance(delegator, 'products')
 if (pi) {
     productsCounter = 0
     beganTransaction = TransactionUtil.begin()
@@ -29,7 +31,7 @@ if (pi) {
     try {
         products = delegator.find('Product', null, null, new TreeSet(['productId']), null, null)
         while (product = products.next()) {
-            pi.queue(product.productId)
+            pi.queue(new ProductDocument(product.productId))
             productsCounter++
         }
     } catch(Exception e) {
