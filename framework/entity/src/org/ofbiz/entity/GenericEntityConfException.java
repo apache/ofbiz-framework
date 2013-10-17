@@ -19,8 +19,9 @@
 package org.ofbiz.entity;
 
 /**
- * GenericConfigException
+ * Thrown when there is a problem with the entity engine configuration.
  *
+ * @see <code>entity-config.xsd</code>
  */
 @SuppressWarnings("serial")
 public class GenericEntityConfException extends GenericEntityException {

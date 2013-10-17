@@ -22,10 +22,8 @@ import java.net.URL;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilURL;
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericEntityConfException;
 import org.ofbiz.entity.config.model.Datasource;
@@ -159,24 +157,28 @@ public final class EntityConfigUtil {
         return getEntityConfig().getDatasourceMap();
     }
 
-    public static String getJdbcPassword(InlineJdbc inlineJdbcElement) {
+    /**
+     * Returns the configured JDBC password.
+     * 
+     * @param inlineJdbcElement
+     * @return The configured JDBC password.
+     * @throws GenericEntityConfException If the password was not found.
+     * 
+     * @see <code>entity-config.xsd</code>
+     */
+    public static String getJdbcPassword(InlineJdbc inlineJdbcElement) throws GenericEntityConfException {
         String jdbcPassword = inlineJdbcElement.getJdbcPassword();
-        if (UtilValidate.isNotEmpty(jdbcPassword)) {
+        if (!jdbcPassword.isEmpty()) {
             return jdbcPassword;
         }
         String jdbcPasswordLookup = inlineJdbcElement.getJdbcPasswordLookup();
-        if (UtilValidate.isEmpty(jdbcPasswordLookup)) {
-            // FIXME: Include line number in model
-            // Debug.logError("no @jdbc-password or @jdbc-password-lookup specified for inline-jdbc element: %s@%d:%d", module, inlineJdbcElement.getUserData("systemId"), inlineJdbcElement.getUserData("startLine"), inlineJdbcElement.getUserData("startColumn"));
-            Debug.logError("no jdbc-password or jdbc-password-lookup specified for inline-jdbc element", module);
-            return null;
+        if (jdbcPasswordLookup.isEmpty()) {
+            throw new GenericEntityConfException("No jdbc-password or jdbc-password-lookup specified for inline-jdbc element, line: " + inlineJdbcElement.getLineNumber());
         }
-        String key = "jdbc-password." + jdbcPasswordLookup;
+        String key = "jdbc-password.".concat(jdbcPasswordLookup);
         jdbcPassword = UtilProperties.getPropertyValue("passwords.properties", key);
-        if (UtilValidate.isEmpty(jdbcPassword)) {
-            // FIXME: Include line number in model
-            // Debug.logError("no @jdbc-password or @jdbc-password-lookup specified for inline-jdbc element: %s@%d:%d", module, inlineJdbcElement.getUserData("systemId"), inlineJdbcElement.getUserData("startLine"), inlineJdbcElement.getUserData("startColumn"));
-            Debug.logError("no jdbc-password or jdbc-password-lookup specified for inline-jdbc element", module);
+        if (jdbcPassword.isEmpty()) {
+            throw new GenericEntityConfException("'" + key + "' property not found in passwords.properties file for inline-jdbc element, line: " + inlineJdbcElement.getLineNumber());
         }
         return jdbcPassword;
     }
