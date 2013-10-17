@@ -68,6 +68,10 @@ public final class GenericHelperInfo {
         return overrideJdbcUri;
     }
 
+    public String getOverrideJdbcUri(String defaultValue) {
+        return overrideJdbcUri.isEmpty() ? defaultValue : overrideJdbcUri;
+    }
+
     public void setOverrideJdbcUri(String overrideJdbcUri) {
         if (overrideJdbcUri != null) {
             this.overrideJdbcUri = overrideJdbcUri;
@@ -78,6 +82,10 @@ public final class GenericHelperInfo {
         return overrideUsername;
     }
 
+    public String getOverrideUsername(String defaultValue) {
+        return overrideUsername.isEmpty() ? defaultValue : overrideUsername;
+    }
+
     public void setOverrideUsername(String overrideUsername) {
         if (overrideUsername != null) {
             this.overrideUsername = overrideUsername;
@@ -86,6 +94,10 @@ public final class GenericHelperInfo {
 
     public String getOverridePassword() {
         return overridePassword;
+    }
+
+    public String getOverridePassword(String defaultValue) {
+        return overridePassword.isEmpty() ? defaultValue : overridePassword;
     }
 
     public void setOverridePassword(String overridePassword) {

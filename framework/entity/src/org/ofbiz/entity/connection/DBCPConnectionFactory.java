@@ -37,7 +37,6 @@ import org.apache.commons.dbcp.managed.PoolableManagedConnectionFactory;
 import org.apache.commons.dbcp.managed.XAConnectionFactory;
 import org.apache.commons.pool.impl.GenericObjectPool;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericEntityConfException;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.config.EntityConfigUtil;
@@ -47,7 +46,9 @@ import org.ofbiz.entity.datasource.GenericHelperInfo;
 import org.ofbiz.entity.transaction.TransactionFactory;
 
 /**
- * DBCPConnectionFactory
+ * Apache Commons DBCP connection factory.
+ * 
+ * @see <a href="http://commons.apache.org/proper/commons-dbcp/">Apache Commons DBCP</a>
  */
 public class DBCPConnectionFactory implements ConnectionFactoryInterface {
 
@@ -68,9 +69,9 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
         TransactionManager txMgr = TransactionFactory.getTransactionManager();
         String driverName = jdbcElement.getJdbcDriver();
 
-        String jdbcUri = UtilValidate.isNotEmpty(helperInfo.getOverrideJdbcUri()) ? helperInfo.getOverrideJdbcUri() : jdbcElement.getJdbcUri();
-        String jdbcUsername = UtilValidate.isNotEmpty(helperInfo.getOverrideUsername()) ? helperInfo.getOverrideUsername() : jdbcElement.getJdbcUsername();
-        String jdbcPassword = UtilValidate.isNotEmpty(helperInfo.getOverridePassword()) ? helperInfo.getOverridePassword() : EntityConfigUtil.getJdbcPassword(jdbcElement);
+        String jdbcUri = helperInfo.getOverrideJdbcUri(jdbcElement.getJdbcUri());
+        String jdbcUsername = helperInfo.getOverrideUsername(jdbcElement.getJdbcUsername());
+        String jdbcPassword = helperInfo.getOverridePassword(EntityConfigUtil.getJdbcPassword(jdbcElement));
 
         // pool settings
         int maxSize = jdbcElement.getPoolMaxsize();
@@ -117,7 +118,7 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
         factory.setDefaultReadOnly(false);
 
         String transIso = jdbcElement.getIsolationLevel();
-        if (UtilValidate.isNotEmpty(transIso)) {
+        if (!transIso.isEmpty()) {
             if ("Serializable".equals(transIso)) {
                 factory.setDefaultTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
             } else if ("RepeatableRead".equals(transIso)) {
