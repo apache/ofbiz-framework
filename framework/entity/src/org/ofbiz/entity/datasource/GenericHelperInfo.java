@@ -19,34 +19,30 @@
 
 package org.ofbiz.entity.datasource;
 
-import org.ofbiz.base.util.UtilValidate;
-
-
-
-
 /**
- * Generic Entity Helper Info Class
+ * A container for datasource connection information.
+ * <p><b>Note that this class is not synchronized.</b>
+ * If multiple threads access a <code>GenericHelperInfo</code> concurrently it must be synchronized externally.
+ * </p> 
  *
  */
-public class GenericHelperInfo {
-    protected String entityGroupName;
-    protected String helperBaseName;
-    protected String tenantId = null;
-    protected String overrideJdbcUri = null;
-    protected String overrideUsername = null;
-    protected String overridePassword = null;
+public final class GenericHelperInfo {
+    private final String entityGroupName;
+    private final String helperBaseName;
+    private String tenantId = "";
+    private String overrideJdbcUri = "";
+    private String overrideUsername = "";
+    private String overridePassword = "";
+    private String helperFullName = "";
     
     public GenericHelperInfo(String entityGroupName, String helperBaseName) {
-        this.entityGroupName = entityGroupName;
-        this.helperBaseName = helperBaseName;
+        this.entityGroupName = entityGroupName == null ? "" : entityGroupName;
+        this.helperBaseName = helperBaseName == null ? "" : helperBaseName;
+        this.helperFullName = this.helperBaseName;
     }
 
     public String getHelperFullName() {
-        if (UtilValidate.isNotEmpty(tenantId)) {
-            return helperBaseName.concat("#").concat(tenantId);
-        } else {
-            return helperBaseName;
-        }
+        return helperFullName;
     }
 
     public String getEntityGroupName() {
@@ -62,7 +58,10 @@ public class GenericHelperInfo {
     }
 
     public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
+        if (tenantId != null) {
+            this.tenantId = tenantId;
+            helperFullName = helperBaseName.concat("#").concat(tenantId);
+        }
     }
 
     public String getOverrideJdbcUri() {
@@ -70,7 +69,9 @@ public class GenericHelperInfo {
     }
 
     public void setOverrideJdbcUri(String overrideJdbcUri) {
-        this.overrideJdbcUri = overrideJdbcUri;
+        if (overrideJdbcUri != null) {
+            this.overrideJdbcUri = overrideJdbcUri;
+        }
     }
 
     public String getOverrideUsername() {
@@ -78,7 +79,9 @@ public class GenericHelperInfo {
     }
 
     public void setOverrideUsername(String overrideUsername) {
-        this.overrideUsername = overrideUsername;
+        if (overrideUsername != null) {
+            this.overrideUsername = overrideUsername;
+        }
     }
 
     public String getOverridePassword() {
@@ -86,6 +89,8 @@ public class GenericHelperInfo {
     }
 
     public void setOverridePassword(String overridePassword) {
-        this.overridePassword = overridePassword;
+        if (overridePassword != null) {
+            this.overridePassword = overridePassword;
+        }
     }
 }
