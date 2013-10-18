@@ -580,7 +580,7 @@ public class EntityTestSuite extends EntityTestCase {
         delegator.create(testValue);
         TransactionUtil.rollback(transBegin, null, null);
         GenericValue testValueOut = delegator.findOne("Testing", false, "testingId", "rollback-test");
-        assertEquals("Test that transaction rollback removes value: ", testValueOut, null);
+        assertEquals("Test that transaction rollback removes value: ", null, testValueOut);
     }
 
     /*
