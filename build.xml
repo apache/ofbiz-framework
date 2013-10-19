@@ -408,11 +408,13 @@ under the License.
     <!-- ================================================================== -->
 
     <target name="start"
-            description="Start OFBiz">
+            description="Start OFBiz (use -Dportoffset=portNumber to shift all ports with the portNumber value)">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
+            <arg value="start"/>
+            <arg value="-portoffset=${portoffset}"/>
         </java>
     </target>
     <target name="start-batch"
@@ -436,21 +438,23 @@ under the License.
         </java>
     </target>
     <target name="start-pos"
-            description="Start OFBiz POS (Point of sale)">
+            description="Start OFBiz POS (Point of sale). Use -Dportoffset=portNumber to shift all ports with the portNumber value.">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
             <arg value="pos"/>
+          <arg value="-portoffset=${portoffset}"/>
         </java>
     </target>
     <target name="start-both"
-            description="Start OFBiz in both Web and POS (Point of sale) modes">
+            description="Start OFBiz in both Web and POS (Point of sale) modes. Use -Dportoffset=portNumber to shift all ports with the portNumber value.">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
             <arg value="both"/>
+            <arg value="-portoffset=${portoffset}"/>
         </java>
     </target>
     <target name="stop"
@@ -1296,7 +1300,7 @@ under the License.
     <!-- kek helper                                                         -->
     <!-- ================================================================== -->
 
-    <target name="gen-kek" 
+    <target name="gen-kek"
             description="Generate a new key-encrypting-key for use in entityengine.xml">
         <java classname="org.ofbiz.base.crypto.Main" fork="false">
             <arg value="-kek"/>

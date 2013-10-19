@@ -28,7 +28,7 @@ import org.w3c.dom.Element;
 @ThreadSafe
 public final class ServiceLocation {
 
-    private final String location;
+    private String location;
     private final String name;
 
     ServiceLocation(Element serviceLocationElement) throws ServiceConfigException {
@@ -46,6 +46,10 @@ public final class ServiceLocation {
 
     public String getLocation() {
         return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getName() {
