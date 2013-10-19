@@ -57,9 +57,9 @@ public class NamingServiceContainer implements Container {
         ContainerConfig.Container.Property port = cfg.getProperty("port");
         if (port.value != null) {
             try {
-                this.namingPort = Integer.parseInt(port.value);
+                this.namingPort = Integer.parseInt(port.value) + ClassLoaderContainer.portOffset;
             } catch (Exception e) {
-                throw new ContainerException("Invalid port defined in container [naming-container] configuration; not a valid int");
+                throw new ContainerException("Invalid port defined in container [naming-container] configuration or as portOffset; not a valid int");
             }
         }
 
