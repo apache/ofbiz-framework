@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,7 @@ import java.util.TreeMap;
 import org.ofbiz.base.container.ContainerConfig;
 import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.location.FlexibleLocation;
+import org.ofbiz.base.util.Assert;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.KeyStoreUtil;
 import org.ofbiz.base.util.UtilURL;
@@ -50,12 +52,16 @@ public class ComponentConfig {
 
     public static final String module = ComponentConfig.class.getName();
     public static final String OFBIZ_COMPONENT_XML_FILENAME = "ofbiz-component.xml";
-    // this is not a UtilCache because reloading may cause problems
-    private static final Map<String, ComponentConfig> componentConfigs = new LinkedHashMap<String, ComponentConfig>();
+    /* Note: These Maps are not UtilCache instances because there is no strategy or implementation for reloading components.
+     * Also, we are using LinkedHashMap to maintain insertion order - which client code depends on. This means
+     * we will need to use synchronization code because there is no concurrent implementation of LinkedHashMap.
+     */
+    private static final ComponentConfigCache componentConfigCache = new ComponentConfigCache();
     private static final Map<String, List<WebappInfo>> serverWebApps = new LinkedHashMap<String, List<WebappInfo>>();
 
     public static Boolean componentExists(String componentName) {
-        return componentConfigs.get(componentName) != null;
+        Assert.notEmpty("componentName", componentName);
+        return componentConfigCache.fromGlobalName(componentName) != null;
     }
 
     public static List<ClasspathInfo> getAllClasspathInfos() {
@@ -73,13 +79,7 @@ public class ComponentConfig {
     }
 
     public static Collection<ComponentConfig> getAllComponents() {
-        Collection<ComponentConfig> values = componentConfigs.values();
-        if (values != null) {
-            return values;
-        } else {
-            Debug.logWarning("No components were found, something is probably missing or incorrect in the component-load setup.", module);
-            return Collections.emptyList();
-        }
+        return componentConfigCache.values();
     }
 
     public static List<ContainerConfig.Container> getAllContainers() {
@@ -189,45 +189,46 @@ public class ComponentConfig {
     }
 
     public static List<WebappInfo> getAppBarWebInfos(String serverName, Comparator<? super String> comp, String menuName) {
-        List<WebappInfo> webInfos = serverWebApps.get(serverName + menuName);
+        String serverWebAppsKey = serverName + menuName;
+        List<WebappInfo> webInfos = null;
+        synchronized (serverWebApps) {
+            webInfos = serverWebApps.get(serverWebAppsKey);
+        }
         if (webInfos == null) {
-            synchronized (ComponentConfig.class) {
-                if (webInfos == null) {
-                    Map<String, WebappInfo> tm = null;
-
-                    // use a TreeMap to sort the components alpha by title
-                    if (comp != null) {
-                        tm = new TreeMap<String, WebappInfo>(comp);
-                    } else {
-                        tm = new TreeMap<String, WebappInfo>();
-                    }
-
-                    for (ComponentConfig cc : getAllComponents()) {
-                        for (WebappInfo wInfo : cc.getWebappInfos()) {
-                            String key = UtilValidate.isNotEmpty(wInfo.position) ? wInfo.position : wInfo.title;
-                            if (serverName.equals(wInfo.server) && wInfo.appBarDisplay) {
-                                if (UtilValidate.isNotEmpty(menuName)) {
-                                    if (menuName.equals(wInfo.menuName)) {
-                                        tm.put(key, wInfo);
-                                    }
-                                } else {
-                                    tm.put(key, wInfo);
-                                }
+            Map<String, WebappInfo> tm = null;
+            // use a TreeMap to sort the components alpha by title
+            if (comp != null) {
+                tm = new TreeMap<String, WebappInfo>(comp);
+            } else {
+                tm = new TreeMap<String, WebappInfo>();
+            }
+            for (ComponentConfig cc : getAllComponents()) {
+                for (WebappInfo wInfo : cc.getWebappInfos()) {
+                    String key = UtilValidate.isNotEmpty(wInfo.position) ? wInfo.position : wInfo.title;
+                    if (serverName.equals(wInfo.server) && wInfo.appBarDisplay) {
+                        if (UtilValidate.isNotEmpty(menuName)) {
+                            if (menuName.equals(wInfo.menuName)) {
+                                tm.put(key, wInfo);
                             }
+                        } else {
+                            tm.put(key, wInfo);
                         }
                     }
-                    List<WebappInfo> webInfoList = new ArrayList<WebappInfo>();
-                    webInfoList.addAll(tm.values());
-                    serverWebApps.put(serverName + menuName, webInfoList);
-                    return webInfoList;
                 }
+            }
+            webInfos = new ArrayList<WebappInfo>(tm.size());
+            webInfos.addAll(tm.values());
+            webInfos = Collections.unmodifiableList(webInfos);
+            synchronized (serverWebApps) {
+                // We are only preventing concurrent modification, we are not guaranteeing a singleton.
+                serverWebApps.put(serverWebAppsKey, webInfos);
             }
         }
         return webInfos;
     }
 
     public static List<WebappInfo> getAppBarWebInfos(String serverName, String menuName) {
-        return ComponentConfig.getAppBarWebInfos(serverName, null, menuName);
+        return getAppBarWebInfos(serverName, null, menuName);
     }
 
     public static ComponentConfig getComponentConfig(String globalName) throws ComponentException {
@@ -237,34 +238,32 @@ public class ComponentConfig {
 
     public static ComponentConfig getComponentConfig(String globalName, String rootLocation) throws ComponentException {
         ComponentConfig componentConfig = null;
-        if (UtilValidate.isNotEmpty(globalName)) {
-            componentConfig = componentConfigs.get(globalName);
-        }
-        if (componentConfig == null) {
-            if (rootLocation != null) {
-                synchronized (ComponentConfig.class) {
-                    if (UtilValidate.isNotEmpty(globalName)) {
-                        componentConfig = componentConfigs.get(globalName);
-                    }
-                    if (componentConfig == null) {
-                        componentConfig = new ComponentConfig(globalName, rootLocation);
-                        if (componentConfigs.containsKey(componentConfig.getGlobalName())) {
-                            Debug.logWarning("WARNING: Loading ofbiz-component using a global name that already exists, will over-write: " + componentConfig.getGlobalName(), module);
-                        }
-                        if (componentConfig.enabled()) {
-                            componentConfigs.put(componentConfig.getGlobalName(), componentConfig);
-                        }
-                    }
-                }
-            } else {
-                throw new ComponentException("No component found named : " + globalName);
+        if (globalName != null && !globalName.isEmpty()) {
+            componentConfig = componentConfigCache.fromGlobalName(globalName);
+            if (componentConfig != null) {
+                return componentConfig;
             }
         }
-        return componentConfig;
+        if (rootLocation != null && !rootLocation.isEmpty()) {
+            componentConfig = componentConfigCache.fromRootLocation(rootLocation);
+            if (componentConfig != null) {
+                return componentConfig;
+            }
+        }
+        if (rootLocation != null) {
+            componentConfig = new ComponentConfig(globalName, rootLocation);
+            if (componentConfig.enabled()) {
+                componentConfigCache.put(componentConfig);
+            }
+            return componentConfig;
+        } else {
+            // Do we really need to do this?
+            throw new ComponentException("No component found named : " + globalName);
+        }
     }
 
     public static String getFullLocation(String componentName, String resourceLoaderName, String location) throws ComponentException {
-        ComponentConfig cc = ComponentConfig.getComponentConfig(componentName);
+        ComponentConfig cc = getComponentConfig(componentName, null);
         if (cc == null) {
             throw new ComponentException("Could not find component with name: " + componentName);
         }
@@ -281,12 +280,11 @@ public class ComponentConfig {
                 }
             }
         }
-
         return null;
     }
 
     public static String getRootLocation(String componentName) throws ComponentException {
-        ComponentConfig cc = ComponentConfig.getComponentConfig(componentName);
+        ComponentConfig cc = getComponentConfig(componentName);
         if (cc == null) {
             throw new ComponentException("Could not find component with name: " + componentName);
         }
@@ -294,7 +292,7 @@ public class ComponentConfig {
     }
 
     public static InputStream getStream(String componentName, String resourceLoaderName, String location) throws ComponentException {
-        ComponentConfig cc = ComponentConfig.getComponentConfig(componentName);
+        ComponentConfig cc = getComponentConfig(componentName);
         if (cc == null) {
             throw new ComponentException("Could not find component with name: " + componentName);
         }
@@ -302,7 +300,7 @@ public class ComponentConfig {
     }
 
     public static URL getURL(String componentName, String resourceLoaderName, String location) throws ComponentException {
-        ComponentConfig cc = ComponentConfig.getComponentConfig(componentName);
+        ComponentConfig cc = getComponentConfig(componentName);
         if (cc == null) {
             throw new ComponentException("Could not find component with name: " + componentName);
         }
@@ -310,11 +308,10 @@ public class ComponentConfig {
     }
 
     public static WebappInfo getWebAppInfo(String serverName, String contextRoot) {
-        ComponentConfig.WebappInfo info = null;
         if (serverName == null || contextRoot == null) {
-            return info;
+            return null;
         }
-
+        ComponentConfig.WebappInfo info = null;
         for (ComponentConfig cc : getAllComponents()) {
             for (WebappInfo wInfo : cc.getWebappInfos()) {
                 if (serverName.equals(wInfo.server) && contextRoot.equals(wInfo.getContextRoot())) {
@@ -326,7 +323,7 @@ public class ComponentConfig {
     }
 
     public static boolean isFileResourceLoader(String componentName, String resourceLoaderName) throws ComponentException {
-        ComponentConfig cc = ComponentConfig.getComponentConfig(componentName);
+        ComponentConfig cc = getComponentConfig(componentName);
         if (cc == null) {
             throw new ComponentException("Could not find component with name: " + componentName);
         }
@@ -568,6 +565,38 @@ public class ComponentConfig {
             this.componentConfig = componentConfig;
             this.type = element.getAttribute("type");
             this.location = element.getAttribute("location");
+        }
+    }
+
+    // ComponentConfig instances need to be looked up by their global name and root location,
+    // so this class encapsulates the Maps and synchronization code required to do that.
+    private static final class ComponentConfigCache {
+        // Key is the global name.
+        private final Map<String, ComponentConfig> componentConfigs = new LinkedHashMap<String, ComponentConfig>();
+        // Root location mapped to global name.
+        private final Map<String, String> componentLocations = new HashMap<String, String>();
+        
+        private synchronized ComponentConfig fromGlobalName(String globalName) {
+            return componentConfigs.get(globalName);
+        }
+
+        private synchronized ComponentConfig fromRootLocation(String rootLocation) {
+            String globalName = componentLocations.get(rootLocation);
+            if (globalName == null) {
+                return null;
+            }
+            return componentConfigs.get(globalName);
+        }
+
+        private synchronized ComponentConfig put(ComponentConfig config) {
+            String globalName = config.getGlobalName();
+            String fileLocation = config.getRootLocation();
+            componentLocations.put(fileLocation, globalName);
+            return componentConfigs.put(globalName, config);
+        }
+
+        private synchronized Collection<ComponentConfig> values() {
+            return Collections.unmodifiableList(new ArrayList<ComponentConfig>(componentConfigs.values()));
         }
     }
 
