@@ -142,9 +142,13 @@ public class JSONWriter {
     }
 
     public <E> JSONWriter write(Collection<E> c) throws IOException {
+        this.write(c.iterator());
+        return this;
+    }
+
+    public <E> JSONWriter write(Iterator<E> it) throws IOException {
         writer.write('[');
         writer.push();
-        Iterator<E> it = c.iterator();
         if (it.hasNext()) writer.newline();
         while (it.hasNext()) {
             write(it.next());
@@ -183,6 +187,8 @@ public class JSONWriter {
             return write(UtilGenerics.<Map<?, ?>>cast(o));
         } else if (o instanceof Collection<?>) {
             return write(UtilGenerics.<Collection<?>>cast(o));
+        } else if (o instanceof Iterator<?>) {
+            return write(UtilGenerics.<Iterator<?>>cast(o));
         } else if (o instanceof Byte) {
             return write(((Byte) o).byteValue());
         } else if (o instanceof Character) {
