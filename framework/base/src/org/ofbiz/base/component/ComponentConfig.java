@@ -19,20 +19,17 @@
 package org.ofbiz.base.component;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.security.KeyStore;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.container.ContainerConfig;
 import org.ofbiz.base.container.ContainerException;
@@ -44,7 +41,6 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
 
 /**
  * ComponentConfig - Component configuration class for ofbiz-container.xml
@@ -55,16 +51,11 @@ public class ComponentConfig {
     public static final String module = ComponentConfig.class.getName();
     public static final String OFBIZ_COMPONENT_XML_FILENAME = "ofbiz-component.xml";
     // this is not a UtilCache because reloading may cause problems
-    protected static Map<String, ComponentConfig> componentConfigs = FastMap.newInstance();
-    protected static Map<String, List<WebappInfo>> serverWebApps = FastMap.newInstance();
+    private static final Map<String, ComponentConfig> componentConfigs = new LinkedHashMap<String, ComponentConfig>();
+    private static final Map<String, List<WebappInfo>> serverWebApps = new LinkedHashMap<String, List<WebappInfo>>();
 
     public static Boolean componentExists(String componentName) {
-        ComponentConfig componentConfig = componentConfigs.get(componentName);
-        if (componentConfig == null) {
-            return Boolean.FALSE;
-        } else {
-            return Boolean.TRUE;
-        }
+        return componentConfigs.get(componentName) != null;
     }
 
     public static List<ClasspathInfo> getAllClasspathInfos() {
@@ -72,7 +63,7 @@ public class ComponentConfig {
     }
 
     public static List<ClasspathInfo> getAllClasspathInfos(String componentName) {
-        List<ClasspathInfo> classpaths = FastList.newInstance();
+        List<ClasspathInfo> classpaths = new ArrayList<ClasspathInfo>();
         for (ComponentConfig cc : getAllComponents()) {
             if (componentName == null || componentName.equals(cc.getComponentName())) {
                 classpaths.addAll(cc.getClasspathInfos());
@@ -87,7 +78,7 @@ public class ComponentConfig {
             return values;
         } else {
             Debug.logWarning("No components were found, something is probably missing or incorrect in the component-load setup.", module);
-            return FastList.newInstance();
+            return Collections.emptyList();
         }
     }
 
@@ -96,7 +87,7 @@ public class ComponentConfig {
     }
 
     public static List<ContainerConfig.Container> getAllContainers(String componentName) {
-        List<ContainerConfig.Container> containers = FastList.newInstance();
+        List<ContainerConfig.Container> containers = new ArrayList<ContainerConfig.Container>();
         for (ComponentConfig cc : getAllComponents()) {
             if (componentName == null || componentName.equals(cc.getComponentName())) {
                 containers.addAll(cc.getContainers());
@@ -110,7 +101,7 @@ public class ComponentConfig {
     }
 
     public static List<EntityResourceInfo> getAllEntityResourceInfos(String type, String componentName) {
-        List<EntityResourceInfo> entityInfos = FastList.newInstance();
+        List<EntityResourceInfo> entityInfos = new ArrayList<EntityResourceInfo>();
         for (ComponentConfig cc : getAllComponents()) {
             if (componentName == null || componentName.equals(cc.getComponentName())) {
                 List<EntityResourceInfo> ccEntityInfoList = cc.getEntityResourceInfos();
@@ -133,7 +124,7 @@ public class ComponentConfig {
     }
 
     public static List<KeystoreInfo> getAllKeystoreInfos(String componentName) {
-        List<KeystoreInfo> keystoreInfos = FastList.newInstance();
+        List<KeystoreInfo> keystoreInfos = new ArrayList<KeystoreInfo>();
         for (ComponentConfig cc : getAllComponents()) {
             if (componentName == null || componentName.equals(cc.getComponentName())) {
                 keystoreInfos.addAll(cc.getKeystoreInfos());
@@ -147,7 +138,7 @@ public class ComponentConfig {
     }
 
     public static List<ServiceResourceInfo> getAllServiceResourceInfos(String type, String componentName) {
-        List<ServiceResourceInfo> serviceInfos = FastList.newInstance();
+        List<ServiceResourceInfo> serviceInfos = new ArrayList<ServiceResourceInfo>();
         for (ComponentConfig cc : getAllComponents()) {
             if (componentName == null || componentName.equals(cc.getComponentName())) {
                 List<ServiceResourceInfo> ccServiceInfoList = cc.getServiceResourceInfos();
@@ -170,7 +161,7 @@ public class ComponentConfig {
     }
 
     public static List<TestSuiteInfo> getAllTestSuiteInfos(String componentName) {
-        List<TestSuiteInfo> testSuiteInfos = FastList.newInstance();
+        List<TestSuiteInfo> testSuiteInfos = new ArrayList<TestSuiteInfo>();
         for (ComponentConfig cc : getAllComponents()) {
             if (componentName == null || componentName.equals(cc.getComponentName())) {
                 testSuiteInfos.addAll(cc.getTestSuiteInfos());
@@ -184,7 +175,7 @@ public class ComponentConfig {
     }
 
     public static List<WebappInfo> getAllWebappResourceInfos(String componentName) {
-        List<WebappInfo> webappInfos = FastList.newInstance();
+        List<WebappInfo> webappInfos = new ArrayList<WebappInfo>();
         for (ComponentConfig cc : getAllComponents()) {
             if (componentName == null || componentName.equals(cc.getComponentName())) {
                 webappInfos.addAll(cc.getWebappInfos());
@@ -225,7 +216,7 @@ public class ComponentConfig {
                             }
                         }
                     }
-                    List<WebappInfo> webInfoList = FastList.newInstance();
+                    List<WebappInfo> webInfoList = new ArrayList<WebappInfo>();
                     webInfoList.addAll(tm.values());
                     serverWebApps.put(serverName + menuName, webInfoList);
                     return webInfoList;
@@ -342,20 +333,21 @@ public class ComponentConfig {
         return cc.isFileResourceLoader(resourceLoaderName);
     }
 
-    // ========== component info fields ==========
+    // ========== ComponentConfig instance ==========
+
     protected String globalName = null;
     protected String rootLocation = null;
     protected String componentName = null;
     protected boolean enabled = true;
 
-    protected Map<String, ResourceLoaderInfo> resourceLoaderInfos = FastMap.newInstance();
-    protected List<ClasspathInfo> classpathInfos = FastList.newInstance();
-    protected List<EntityResourceInfo> entityResourceInfos = FastList.newInstance();
-    protected List<ServiceResourceInfo> serviceResourceInfos = FastList.newInstance();
-    protected List<TestSuiteInfo> testSuiteInfos = FastList.newInstance();
-    protected List<KeystoreInfo> keystoreInfos = FastList.newInstance();
-    protected List<WebappInfo> webappInfos = FastList.newInstance();
-    protected List<ContainerConfig.Container> containers = FastList.newInstance();
+    protected Map<String, ResourceLoaderInfo> resourceLoaderInfos = new LinkedHashMap<String, ResourceLoaderInfo>();
+    protected List<ClasspathInfo> classpathInfos = new ArrayList<ClasspathInfo>();
+    protected List<EntityResourceInfo> entityResourceInfos = new ArrayList<EntityResourceInfo>();
+    protected List<ServiceResourceInfo> serviceResourceInfos = new ArrayList<ServiceResourceInfo>();
+    protected List<TestSuiteInfo> testSuiteInfos = new ArrayList<TestSuiteInfo>();
+    protected List<KeystoreInfo> keystoreInfos = new ArrayList<KeystoreInfo>();
+    protected List<WebappInfo> webappInfos = new ArrayList<WebappInfo>();
+    protected List<ContainerConfig.Container> containers = new ArrayList<ContainerConfig.Container>();
 
     protected ComponentConfig() {
     }
@@ -381,11 +373,7 @@ public class ComponentConfig {
         Document ofbizComponentDocument = null;
         try {
             ofbizComponentDocument = UtilXml.readXmlDocument(xmlUrl, true);
-        } catch (SAXException e) {
-            throw new ComponentException("Error reading the component config file: " + xmlUrl, e);
-        } catch (ParserConfigurationException e) {
-            throw new ComponentException("Error reading the component config file: " + xmlUrl, e);
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new ComponentException("Error reading the component config file: " + xmlUrl, e);
         }
         Element ofbizComponentElement = ofbizComponentDocument.getDocumentElement();
@@ -694,8 +682,8 @@ public class ComponentConfig {
 
     public static class WebappInfo {
         public ComponentConfig componentConfig;
-        public List<String> virtualHosts;
-        public Map<String, String> initParameters;
+        public List<String> virtualHosts = new ArrayList<String>();
+        public Map<String, String> initParameters = new LinkedHashMap<String, String>();
         public String name;
         public String title;
         public String description;
@@ -710,8 +698,6 @@ public class ComponentConfig {
         public boolean privileged;
 
         public WebappInfo(ComponentConfig componentConfig, Element element) {
-            this.virtualHosts = FastList.newInstance();
-            this.initParameters = FastMap.newInstance();
             this.componentConfig = componentConfig;
             this.name = element.getAttribute("name");
             this.title = element.getAttribute("title");
