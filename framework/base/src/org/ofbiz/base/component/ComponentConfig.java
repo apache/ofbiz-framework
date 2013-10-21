@@ -46,7 +46,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- * ComponentConfig - Component configuration class for ofbiz-container.xml
+ * An object that models the <code>&lt;ofbiz-component&gt;</code> element.
+ * 
+ * @see <code>ofbiz-component.xsd</code>
  *
  */
 public final class ComponentConfig {
@@ -608,6 +610,12 @@ public final class ComponentConfig {
         return "file".equals(resourceLoaderInfo.type) || "component".equals(resourceLoaderInfo.type);
     }
 
+    /**
+     * An object that models the <code>&lt;classpath&gt;</code> element.
+     * 
+     * @see <code>ofbiz-component.xsd</code>
+     *
+     */
     public static final class ClasspathInfo {
         public final ComponentConfig componentConfig;
         public final String type;
@@ -652,6 +660,12 @@ public final class ComponentConfig {
         }
     }
 
+    /**
+     * An object that models the <code>&lt;entity-resource&gt;</code> element.
+     * 
+     * @see <code>ofbiz-component.xsd</code>
+     *
+     */
     public static final class EntityResourceInfo extends ResourceInfo {
         public final String type;
         public final String readerName;
@@ -663,6 +677,12 @@ public final class ComponentConfig {
         }
     }
 
+    /**
+     * An object that models the <code>&lt;keystore&gt;</code> element.
+     * 
+     * @see <code>ofbiz-component.xsd</code>
+     *
+     */
     public static final class KeystoreInfo extends ResourceInfo {
         private final String name;
         private final String type;
@@ -736,6 +756,12 @@ public final class ComponentConfig {
         }
     }
 
+    /**
+     * An object that models the <code>&lt;resource-loader&gt;</code> element.
+     * 
+     * @see <code>ofbiz-component.xsd</code>
+     *
+     */
     public static final class ResourceLoaderInfo {
         public final String name;
         public final String type;
@@ -750,6 +776,12 @@ public final class ComponentConfig {
         }
     }
 
+    /**
+     * An object that models the <code>&lt;service-resource&gt;</code> element.
+     * 
+     * @see <code>ofbiz-component.xsd</code>
+     *
+     */
     public static final class ServiceResourceInfo extends ResourceInfo {
         public final String type;
 
@@ -759,12 +791,24 @@ public final class ComponentConfig {
         }
     }
 
+    /**
+     * An object that models the <code>&lt;test-suite&gt;</code> element.
+     * 
+     * @see <code>ofbiz-component.xsd</code>
+     *
+     */
     public static final class TestSuiteInfo extends ResourceInfo {
         private TestSuiteInfo(ComponentConfig componentConfig, Element element) {
             super(componentConfig, element);
         }
     }
 
+    /**
+     * An object that models the <code>&lt;webapp&gt;</code> element.
+     * 
+     * @see <code>ofbiz-component.xsd</code>
+     *
+     */
     public static final class WebappInfo {
         // FIXME: These fields should be private - since we have accessors - but
         // client code accesses the fields directly.
