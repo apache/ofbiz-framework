@@ -337,7 +337,6 @@ public final class ComponentConfig {
     private final String rootLocation;
     private final String componentName;
     private final boolean enabled;
-
     private final Map<String, ResourceLoaderInfo> resourceLoaderInfos;
     private final List<ClasspathInfo> classpathInfos;
     private final List<EntityResourceInfo> entityResourceInfos;
@@ -609,12 +608,12 @@ public final class ComponentConfig {
         return "file".equals(resourceLoaderInfo.type) || "component".equals(resourceLoaderInfo.type);
     }
 
-    public static class ClasspathInfo {
-        public ComponentConfig componentConfig;
-        public String type;
-        public String location;
+    public static final class ClasspathInfo {
+        public final ComponentConfig componentConfig;
+        public final String type;
+        public final String location;
 
-        public ClasspathInfo(ComponentConfig componentConfig, Element element) {
+        private ClasspathInfo(ComponentConfig componentConfig, Element element) {
             this.componentConfig = componentConfig;
             this.type = element.getAttribute("type");
             this.location = element.getAttribute("location");
@@ -653,25 +652,25 @@ public final class ComponentConfig {
         }
     }
 
-    public static class EntityResourceInfo extends ResourceInfo {
-        public String type;
-        public String readerName;
+    public static final class EntityResourceInfo extends ResourceInfo {
+        public final String type;
+        public final String readerName;
 
-        public EntityResourceInfo(ComponentConfig componentConfig, Element element) {
+        private EntityResourceInfo(ComponentConfig componentConfig, Element element) {
             super(componentConfig, element);
             this.type = element.getAttribute("type");
             this.readerName = element.getAttribute("reader-name");
         }
     }
 
-    public static class KeystoreInfo extends ResourceInfo {
-        public String name;
-        public String type;
-        public String password;
-        public boolean isCertStore;
-        public boolean isTrustStore;
+    public static final class KeystoreInfo extends ResourceInfo {
+        private final String name;
+        private final String type;
+        private final String password;
+        private final boolean isCertStore;
+        private final boolean isTrustStore;
 
-        public KeystoreInfo(ComponentConfig componentConfig, Element element) {
+        private KeystoreInfo(ComponentConfig componentConfig, Element element) {
             super(componentConfig, element);
             this.name = element.getAttribute("name");
             this.type = element.getAttribute("type");
@@ -713,12 +712,12 @@ public final class ComponentConfig {
         }
     }
 
-    public static class ResourceInfo {
-        public ComponentConfig componentConfig;
-        public String loader;
-        public String location;
+    public static abstract class ResourceInfo {
+        private final ComponentConfig componentConfig;
+        private final String loader;
+        private final String location;
 
-        public ResourceInfo(ComponentConfig componentConfig, Element element) {
+        protected ResourceInfo(ComponentConfig componentConfig, Element element) {
             this.componentConfig = componentConfig;
             this.loader = element.getAttribute("loader");
             this.location = element.getAttribute("location");
@@ -728,18 +727,22 @@ public final class ComponentConfig {
             return new ComponentResourceHandler(componentConfig.getGlobalName(), loader, location);
         }
 
+        public ComponentConfig getComponentConfig() {
+            return componentConfig;
+        }
+
         public String getLocation() {
             return location;
         }
     }
 
-    public static class ResourceLoaderInfo {
-        public String name;
-        public String type;
-        public String prependEnv;
-        public String prefix;
+    public static final class ResourceLoaderInfo {
+        public final String name;
+        public final String type;
+        public final String prependEnv;
+        public final String prefix;
 
-        public ResourceLoaderInfo(Element element) {
+        private ResourceLoaderInfo(Element element) {
             this.name = element.getAttribute("name");
             this.type = element.getAttribute("type");
             this.prependEnv = element.getAttribute("prepend-env");
@@ -747,51 +750,86 @@ public final class ComponentConfig {
         }
     }
 
-    public static class ServiceResourceInfo extends ResourceInfo {
-        public String type;
+    public static final class ServiceResourceInfo extends ResourceInfo {
+        public final String type;
 
-        public ServiceResourceInfo(ComponentConfig componentConfig, Element element) {
+        private ServiceResourceInfo(ComponentConfig componentConfig, Element element) {
             super(componentConfig, element);
             this.type = element.getAttribute("type");
         }
     }
 
-    public static class TestSuiteInfo extends ResourceInfo {
-        public TestSuiteInfo(ComponentConfig componentConfig, Element element) {
+    public static final class TestSuiteInfo extends ResourceInfo {
+        private TestSuiteInfo(ComponentConfig componentConfig, Element element) {
             super(componentConfig, element);
         }
     }
 
-    public static class WebappInfo {
-        public ComponentConfig componentConfig;
-        public List<String> virtualHosts = new ArrayList<String>();
-        public Map<String, String> initParameters = new LinkedHashMap<String, String>();
-        public String name;
-        public String title;
-        public String description;
-        public String menuName;
-        public String server;
-        public String mountPoint;
-        public String location;
-        public String[] basePermission;
-        public String position;
+    public static final class WebappInfo {
+        // FIXME: These fields should be private - since we have accessors - but
+        // client code accesses the fields directly.
+        public final ComponentConfig componentConfig;
+        public final List<String> virtualHosts;
+        public final Map<String, String> initParameters;
+        public final String name;
+        public final String title;
+        public final String description;
+        public final String menuName;
+        public final String server;
+        public final String mountPoint;
+        public final String contextRoot;
+        public final String location;
+        public final String[] basePermission;
+        public final String position;
+        // FIXME: CatalinaContainer modifies this field.
         public boolean appBarDisplay;
-        public boolean sessionCookieAccepted;
-        public boolean privileged;
+        public final boolean sessionCookieAccepted;
+        public final boolean privileged;
 
-        public WebappInfo(ComponentConfig componentConfig, Element element) {
+        private WebappInfo(ComponentConfig componentConfig, Element element) {
             this.componentConfig = componentConfig;
             this.name = element.getAttribute("name");
-            this.title = element.getAttribute("title");
-            this.description = element.getAttribute("description");
+            String title = element.getAttribute("title");
+            if (title.isEmpty()) {
+                // default title is name w/ upper-cased first letter
+                title = Character.toUpperCase(name.charAt(0)) + name.substring(1).toLowerCase();
+            }
+            this.title = title;
+            String description = element.getAttribute("description");
+            if (description.isEmpty()) {
+                description = this.title;
+            }
+            this.description = description;
             this.server = element.getAttribute("server");
-            this.mountPoint = element.getAttribute("mount-point");
+            String mountPoint = element.getAttribute("mount-point");
+            if (mountPoint.isEmpty()) {
+                // default mount point is name if none specified
+                mountPoint = this.name;
+            }
+            // check the mount point and make sure it is properly formatted
+            if (!"/".equals(mountPoint)) {
+                if (!mountPoint.startsWith("/")) {
+                    mountPoint = "/" + mountPoint;
+                }
+                if (!mountPoint.endsWith("/*")) {
+                    if (!mountPoint.endsWith("/")) {
+                        mountPoint = mountPoint + "/";
+                    }
+                    mountPoint = mountPoint + "*";
+                }
+            }
+            this.mountPoint = mountPoint;
+            if (this.mountPoint.endsWith("/*")) {
+                this.contextRoot = this.mountPoint.substring(0, this.mountPoint.length() - 2);
+            } else {
+                this.contextRoot = this.mountPoint;
+            }
             this.location = element.getAttribute("location");
             this.appBarDisplay = !"false".equals(element.getAttribute("app-bar-display"));
             this.sessionCookieAccepted = !"false".equals(element.getAttribute("session-cookie-accepted"));
             this.privileged = !"false".equals(element.getAttribute("privileged"));
             String basePermStr = element.getAttribute("base-permission");
-            if (UtilValidate.isNotEmpty(basePermStr)) {
+            if (basePermStr.isEmpty()) {
                 this.basePermission = basePermStr.split(",");
             } else {
                 // default base permission is NONE
@@ -804,13 +842,6 @@ public final class ComponentConfig {
                     this.basePermission[i] = this.basePermission[i].substring(0, this.basePermission[i].indexOf('_'));
                 }
             }
-            // default title is name w/ upper-cased first letter
-            if (UtilValidate.isEmpty(this.title)) {
-                this.title = Character.toUpperCase(name.charAt(0)) + name.substring(1).toLowerCase();
-            }
-            if (UtilValidate.isEmpty(this.description)) {
-                this.description = this.title;
-            }
             String menuNameStr = element.getAttribute("menu-name");
             if (UtilValidate.isNotEmpty(menuNameStr)) {
                 this.menuName = menuNameStr;
@@ -818,35 +849,27 @@ public final class ComponentConfig {
                 this.menuName = "main";
             }
             this.position = element.getAttribute("position");
-            // default mount point is name if none specified
-            if (UtilValidate.isEmpty(this.mountPoint)) {
-                this.mountPoint = this.name;
-            }
-            // check the mount point and make sure it is properly formatted
-            if (!"/".equals(this.mountPoint)) {
-                if (!this.mountPoint.startsWith("/")) {
-                    this.mountPoint = "/" + this.mountPoint;
-                }
-                if (!this.mountPoint.endsWith("/*")) {
-                    if (!this.mountPoint.endsWith("/")) {
-                        this.mountPoint = this.mountPoint + "/";
-                    }
-                    this.mountPoint = this.mountPoint + "*";
-                }
-            }
             // load the virtual hosts
             List<? extends Element> virtHostList = UtilXml.childElementList(element, "virtual-host");
-            if (UtilValidate.isNotEmpty(virtHostList)) {
+            if (!virtHostList.isEmpty()) {
+                List<String> virtualHosts = new ArrayList<String>(virtHostList.size());
                 for (Element e : virtHostList) {
                     virtualHosts.add(e.getAttribute("host-name"));
                 }
+                this.virtualHosts = Collections.unmodifiableList(virtualHosts);
+            } else {
+                this.virtualHosts = Collections.emptyList();
             }
             // load the init parameters
             List<? extends Element> initParamList = UtilXml.childElementList(element, "init-param");
-            if (UtilValidate.isNotEmpty(initParamList)) {
+            if (!initParamList.isEmpty()) {
+                Map<String, String> initParameters = new LinkedHashMap<String, String>();
                 for (Element e : initParamList) {
-                    this.initParameters.put(e.getAttribute("name"), e.getAttribute("value"));
+                    initParameters.put(e.getAttribute("name"), e.getAttribute("value"));
                 }
+                this.initParameters = Collections.unmodifiableMap(initParameters);
+            } else {
+                this.initParameters = Collections.emptyMap();
             }
         }
 
@@ -855,10 +878,7 @@ public final class ComponentConfig {
         }
 
         public String getContextRoot() {
-            if (mountPoint.endsWith("/*")) {
-                return mountPoint.substring(0, mountPoint.length() - 2);
-            }
-            return mountPoint;
+            return contextRoot;
         }
 
         public String getDescription() {
