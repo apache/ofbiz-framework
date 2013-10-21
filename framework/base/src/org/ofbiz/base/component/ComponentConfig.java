@@ -206,7 +206,7 @@ public final class ComponentConfig {
             for (ComponentConfig cc : getAllComponents()) {
                 for (WebappInfo wInfo : cc.getWebappInfos()) {
                     String key = UtilValidate.isNotEmpty(wInfo.position) ? wInfo.position : wInfo.title;
-                    if (serverName.equals(wInfo.server) && wInfo.appBarDisplay) {
+                    if (serverName.equals(wInfo.server) && wInfo.getAppBarDisplay()) {
                         if (UtilValidate.isNotEmpty(menuName)) {
                             if (menuName.equals(wInfo.menuName)) {
                                 tm.put(key, wInfo);
@@ -781,10 +781,10 @@ public final class ComponentConfig {
         public final String location;
         public final String[] basePermission;
         public final String position;
-        // FIXME: CatalinaContainer modifies this field.
-        public boolean appBarDisplay;
         public final boolean sessionCookieAccepted;
         public final boolean privileged;
+        // CatalinaContainer modifies this field.
+        private volatile boolean appBarDisplay;
 
         private WebappInfo(ComponentConfig componentConfig, Element element) {
             this.componentConfig = componentConfig;
@@ -873,6 +873,10 @@ public final class ComponentConfig {
             }
         }
 
+        public synchronized boolean getAppBarDisplay() {
+            return this.appBarDisplay;
+        }
+
         public String[] getBasePermission() {
             return this.basePermission;
         }
@@ -907,6 +911,10 @@ public final class ComponentConfig {
 
         public boolean isSessionCookieAccepted() {
             return sessionCookieAccepted;
+        }
+
+        public synchronized void setAppBarDisplay(boolean appBarDisplay) {
+            this.appBarDisplay = appBarDisplay;
         }
     }
 }

@@ -779,7 +779,7 @@ public class CatalinaContainer implements Container {
                 List<String> virtualHosts = appInfo.getVirtualHosts();
                 String mount = appInfo.getContextRoot();
                 List<String> keys = FastList.newInstance();
-                if (UtilValidate.isEmpty(virtualHosts)) {
+                if (virtualHosts.isEmpty()) {
                     keys.add(engineName + ":DEFAULT:" + mount);
                 } else {
                     for (String virtualHost: virtualHosts) {
@@ -790,12 +790,12 @@ public class CatalinaContainer implements Container {
                     // nothing was removed from the new list of keys; this
                     // means there are no existing loaded entries that overlap
                     // with the new set
-                    if (appInfo.location != null) {
+                    if (!appInfo.location.isEmpty()) {
                         futures.add(executor.submit(createContext(appInfo)));
                     }
                     loadedMounts.addAll(keys);
                 } else {
-                    appInfo.appBarDisplay = false; // disable app bar display on overrided apps
+                    appInfo.setAppBarDisplay(false); // disable app bar display on overrided apps
                     Debug.logInfo("Duplicate webapp mount; not loading : " + appInfo.getName() + " / " + appInfo.getLocation(), module);
                 }
             }
