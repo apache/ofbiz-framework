@@ -34,6 +34,7 @@ import java.util.TreeMap;
 
 import org.ofbiz.base.container.ContainerConfig;
 import org.ofbiz.base.container.ContainerException;
+import org.ofbiz.base.container.ContainerConfig.Container;
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Assert;
 import org.ofbiz.base.util.Debug;
@@ -48,7 +49,7 @@ import org.w3c.dom.Element;
  * ComponentConfig - Component configuration class for ofbiz-container.xml
  *
  */
-public class ComponentConfig {
+public final class ComponentConfig {
 
     public static final String module = ComponentConfig.class.getName();
     public static final String OFBIZ_COMPONENT_XML_FILENAME = "ofbiz-component.xml";
@@ -332,25 +333,21 @@ public class ComponentConfig {
 
     // ========== ComponentConfig instance ==========
 
-    protected String globalName = null;
-    protected String rootLocation = null;
-    protected String componentName = null;
-    protected boolean enabled = true;
+    private final String globalName;
+    private final String rootLocation;
+    private final String componentName;
+    private final boolean enabled;
 
-    protected Map<String, ResourceLoaderInfo> resourceLoaderInfos = new LinkedHashMap<String, ResourceLoaderInfo>();
-    protected List<ClasspathInfo> classpathInfos = new ArrayList<ClasspathInfo>();
-    protected List<EntityResourceInfo> entityResourceInfos = new ArrayList<EntityResourceInfo>();
-    protected List<ServiceResourceInfo> serviceResourceInfos = new ArrayList<ServiceResourceInfo>();
-    protected List<TestSuiteInfo> testSuiteInfos = new ArrayList<TestSuiteInfo>();
-    protected List<KeystoreInfo> keystoreInfos = new ArrayList<KeystoreInfo>();
-    protected List<WebappInfo> webappInfos = new ArrayList<WebappInfo>();
-    protected List<ContainerConfig.Container> containers = new ArrayList<ContainerConfig.Container>();
+    private final Map<String, ResourceLoaderInfo> resourceLoaderInfos;
+    private final List<ClasspathInfo> classpathInfos;
+    private final List<EntityResourceInfo> entityResourceInfos;
+    private final List<ServiceResourceInfo> serviceResourceInfos;
+    private final List<TestSuiteInfo> testSuiteInfos;
+    private final List<KeystoreInfo> keystoreInfos;
+    private final List<WebappInfo> webappInfos;
+    private final List<ContainerConfig.Container> containers;
 
-    protected ComponentConfig() {
-    }
-
-    protected ComponentConfig(String globalName, String rootLocation) throws ComponentException {
-        this.globalName = globalName;
+    private ComponentConfig(String globalName, String rootLocation) throws ComponentException {
         if (!rootLocation.endsWith("/")) {
             rootLocation = rootLocation + "/";
         }
@@ -376,47 +373,103 @@ public class ComponentConfig {
         Element ofbizComponentElement = ofbizComponentDocument.getDocumentElement();
         this.componentName = ofbizComponentElement.getAttribute("name");
         this.enabled = "true".equalsIgnoreCase(ofbizComponentElement.getAttribute("enabled"));
-        if (UtilValidate.isEmpty(this.globalName)) {
+        if (UtilValidate.isEmpty(globalName)) {
             this.globalName = this.componentName;
+        } else {
+            this.globalName = globalName;
         }
         // resource-loader - resourceLoaderInfos
-        for (Element curElement : UtilXml.childElementList(ofbizComponentElement, "resource-loader")) {
-            ResourceLoaderInfo resourceLoaderInfo = new ResourceLoaderInfo(curElement);
-            this.resourceLoaderInfos.put(resourceLoaderInfo.name, resourceLoaderInfo);
+        List<? extends Element> childElements = UtilXml.childElementList(ofbizComponentElement, "resource-loader");
+        if (!childElements.isEmpty()) {
+            Map<String, ResourceLoaderInfo> resourceLoaderInfos = new LinkedHashMap<String, ResourceLoaderInfo>();
+            for (Element curElement : childElements) {
+                ResourceLoaderInfo resourceLoaderInfo = new ResourceLoaderInfo(curElement);
+                resourceLoaderInfos.put(resourceLoaderInfo.name, resourceLoaderInfo);
+            }
+            this.resourceLoaderInfos = Collections.unmodifiableMap(resourceLoaderInfos);
+        } else {
+            this.resourceLoaderInfos = Collections.emptyMap();
         }
         // classpath - classpathInfos
-        for (Element curElement : UtilXml.childElementList(ofbizComponentElement, "classpath")) {
-            ClasspathInfo classpathInfo = new ClasspathInfo(this, curElement);
-            this.classpathInfos.add(classpathInfo);
+        childElements = UtilXml.childElementList(ofbizComponentElement, "classpath");
+        if (!childElements.isEmpty()) {
+            List<ClasspathInfo> classpathInfos = new ArrayList<ClasspathInfo>(childElements.size());
+            for (Element curElement : childElements) {
+                ClasspathInfo classpathInfo = new ClasspathInfo(this, curElement);
+                classpathInfos.add(classpathInfo);
+            }
+            this.classpathInfos = Collections.unmodifiableList(classpathInfos);
+        } else {
+            this.classpathInfos = Collections.emptyList();
         }
         // entity-resource - entityResourceInfos
-        for (Element curElement : UtilXml.childElementList(ofbizComponentElement, "entity-resource")) {
-            EntityResourceInfo entityResourceInfo = new EntityResourceInfo(this, curElement);
-            this.entityResourceInfos.add(entityResourceInfo);
+        childElements = UtilXml.childElementList(ofbizComponentElement, "entity-resource");
+        if (!childElements.isEmpty()) {
+            List<EntityResourceInfo> entityResourceInfos = new ArrayList<EntityResourceInfo>(childElements.size());
+            for (Element curElement : childElements) {
+                EntityResourceInfo entityResourceInfo = new EntityResourceInfo(this, curElement);
+                entityResourceInfos.add(entityResourceInfo);
+            }
+            this.entityResourceInfos = Collections.unmodifiableList(entityResourceInfos);
+        } else {
+            this.entityResourceInfos = Collections.emptyList();
         }
         // service-resource - serviceResourceInfos
-        for (Element curElement : UtilXml.childElementList(ofbizComponentElement, "service-resource")) {
-            ServiceResourceInfo serviceResourceInfo = new ServiceResourceInfo(this, curElement);
-            this.serviceResourceInfos.add(serviceResourceInfo);
+        childElements = UtilXml.childElementList(ofbizComponentElement, "service-resource");
+        if (!childElements.isEmpty()) {
+            List<ServiceResourceInfo> serviceResourceInfos = new ArrayList<ServiceResourceInfo>(childElements.size());
+            for (Element curElement : childElements) {
+                ServiceResourceInfo serviceResourceInfo = new ServiceResourceInfo(this, curElement);
+                serviceResourceInfos.add(serviceResourceInfo);
+            }
+            this.serviceResourceInfos = Collections.unmodifiableList(serviceResourceInfos);
+        } else {
+            this.serviceResourceInfos = Collections.emptyList();
         }
         // test-suite - serviceResourceInfos
-        for (Element curElement : UtilXml.childElementList(ofbizComponentElement, "test-suite")) {
-            TestSuiteInfo testSuiteInfo = new TestSuiteInfo(this, curElement);
-            this.testSuiteInfos.add(testSuiteInfo);
+        childElements = UtilXml.childElementList(ofbizComponentElement, "test-suite");
+        if (!childElements.isEmpty()) {
+            List<TestSuiteInfo> testSuiteInfos = new ArrayList<TestSuiteInfo>(childElements.size());
+            for (Element curElement : childElements) {
+                TestSuiteInfo testSuiteInfo = new TestSuiteInfo(this, curElement);
+                testSuiteInfos.add(testSuiteInfo);
+            }
+            this.testSuiteInfos = Collections.unmodifiableList(testSuiteInfos);
+        } else {
+            this.testSuiteInfos = Collections.emptyList();
         }
         // keystore - (cert/trust store infos)
-        for (Element curElement : UtilXml.childElementList(ofbizComponentElement, "keystore")) {
-            KeystoreInfo keystoreInfo = new KeystoreInfo(this, curElement);
-            this.keystoreInfos.add(keystoreInfo);
+        childElements = UtilXml.childElementList(ofbizComponentElement, "keystore");
+        if (!childElements.isEmpty()) {
+            List<KeystoreInfo> keystoreInfos = new ArrayList<KeystoreInfo>(childElements.size());
+            for (Element curElement : childElements) {
+                KeystoreInfo keystoreInfo = new KeystoreInfo(this, curElement);
+                keystoreInfos.add(keystoreInfo);
+            }
+            this.keystoreInfos = Collections.unmodifiableList(keystoreInfos);
+        } else {
+            this.keystoreInfos = Collections.emptyList();
         }
         // webapp - webappInfos
-        for (Element curElement : UtilXml.childElementList(ofbizComponentElement, "webapp")) {
-            WebappInfo webappInfo = new WebappInfo(this, curElement);
-            this.webappInfos.add(webappInfo);
+        childElements = UtilXml.childElementList(ofbizComponentElement, "webapp");
+        if (!childElements.isEmpty()) {
+            List<WebappInfo> webappInfos = new ArrayList<WebappInfo>(childElements.size());
+            for (Element curElement : childElements) {
+                WebappInfo webappInfo = new WebappInfo(this, curElement);
+                webappInfos.add(webappInfo);
+            }
+            this.webappInfos = Collections.unmodifiableList(webappInfos);
+        } else {
+            this.webappInfos = Collections.emptyList();
         }
         // containers
         try {
-            this.containers.addAll(ContainerConfig.getContainers(xmlUrl));
+            Collection<Container> containers = ContainerConfig.getContainers(xmlUrl);
+            if (!containers.isEmpty()) {
+                this.containers = Collections.unmodifiableList(new ArrayList<ContainerConfig.Container>(containers));
+            } else {
+                this.containers = Collections.emptyList();
+            }
         } catch (ContainerException ce) {
             throw new ComponentException("Error reading containers for component: " + this.globalName, ce);
         }
