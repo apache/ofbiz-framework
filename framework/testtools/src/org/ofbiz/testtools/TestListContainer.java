@@ -74,7 +74,7 @@ public class TestListContainer implements Container {
     public boolean start() throws ContainerException {
         List<FoundTest> foundTests = FastList.newInstance();
         for (ComponentConfig.TestSuiteInfo testSuiteInfo: ComponentConfig.getAllTestSuiteInfos(null)) {
-            String componentName = testSuiteInfo.componentConfig.getComponentName();
+            String componentName = testSuiteInfo.getComponentConfig().getComponentName();
             ResourceHandler testSuiteResource = testSuiteInfo.createResourceHandler();
 
             try {
