@@ -209,7 +209,7 @@ public class TaxAuthorityServices {
             BigDecimal itemAmount = itemAmountList.get(i);
             BigDecimal itemPrice = itemPriceList.get(i);
             BigDecimal itemQuantity = itemQuantityList != null ? itemQuantityList.get(i) : null;
-            BigDecimal shippingAmount = itemShippingList.get(i);
+            BigDecimal shippingAmount = itemShippingList != null ? itemShippingList.get(i) : null;
             List<GenericValue> taxList = null;
             if (shippingAddress != null) {
                 taxList = getTaxAdjustments(delegator, product, productStore, payToPartyId, billToPartyId, taxAuthoritySet, itemPrice, itemQuantity, itemAmount, shippingAmount, ZERO_BASE);
