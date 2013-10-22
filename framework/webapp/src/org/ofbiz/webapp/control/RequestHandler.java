@@ -57,6 +57,7 @@ import org.ofbiz.webapp.view.ViewFactory;
 import org.ofbiz.webapp.view.ViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
 import org.ofbiz.webapp.website.WebSiteWorker;
+import org.ofbiz.webapp.website.WebSiteProperties;
 import org.owasp.esapi.errors.EncodingException;
 
 /**
@@ -1111,97 +1112,59 @@ public class RequestHandler {
     }
 
     public String makeLink(HttpServletRequest request, HttpServletResponse response, String url, boolean fullPath, boolean secure, boolean encode) {
-        Delegator delegator = (Delegator) request.getAttribute("delegator");
-        String webSiteId = WebSiteWorker.getWebSiteId(request);
-
-        String httpsPort = null;
-        String httpsServer = null;
-        String httpPort = null;
-        String httpServer = null;
-        Boolean enableHttps = null;
-
-        // load the properties from the website entity
-        GenericValue webSite;
-        if (webSiteId != null) {
+        WebSiteProperties webSiteProps = (WebSiteProperties) request.getAttribute("_WEBSITE_PROPS_");
+        if (webSiteProps == null) {
             try {
-                webSite = delegator.findOne("WebSite", UtilMisc.toMap("webSiteId", webSiteId), true);
-                if (webSite != null) {
-                    httpsPort = webSite.getString("httpsPort");
-                    httpsServer = webSite.getString("httpsHost");
-                    httpPort = webSite.getString("httpPort");
-                    httpServer = webSite.getString("httpHost");
-                    enableHttps = webSite.getBoolean("enableHttps");
-                }
+                webSiteProps = WebSiteProperties.from(request);
+                request.setAttribute("_WEBSITE_PROPS_", webSiteProps);
             } catch (GenericEntityException e) {
-                Debug.logWarning(e, "Problems with WebSite entity; using global defaults", module);
+                // If the entity engine is throwing exceptions, then there is no point in continuing.
+                Debug.logError(e, "Exception thrown while getting web site properties: ", module);
+                return null;
             }
         }
-
-        // fill in any missing properties with fields from the global file
-        if (UtilValidate.isEmpty(httpsPort)) {
-            httpsPort = UtilProperties.getPropertyValue("url.properties", "port.https", "443");
-        }
-        if (UtilValidate.isEmpty(httpsServer)) {
-            httpsServer = UtilProperties.getPropertyValue("url.properties", "force.https.host");
-        }
-        if (UtilValidate.isEmpty(httpPort)) {
-            httpPort = UtilProperties.getPropertyValue("url.properties", "port.http", "80");
-        }
-        if (UtilValidate.isEmpty(httpServer)) {
-            httpServer = UtilProperties.getPropertyValue("url.properties", "force.http.host");
-        }
-        if (enableHttps == null) {
-            enableHttps = UtilProperties.propertyValueEqualsIgnoreCase("url.properties", "port.https.enabled", "Y");
-        }
-
-        // create the path the the control servlet
-        String controlPath = (String) request.getAttribute("_CONTROL_PATH_");
-
         String requestUri = RequestHandler.getRequestUri(url);
         ConfigXMLReader.RequestMap requestMap = null;
         if (requestUri != null) {
             try {
                 requestMap = getControllerConfig().getRequestMapMap().get(requestUri);
             } catch (WebAppConfigurationException e) {
+                // If we can't read the controller.xml file, then there is no point in continuing.
                 Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
+                return null;
             }
         }
-
         StringBuilder newURL = new StringBuilder();
-
         boolean didFullSecure = false;
         boolean didFullStandard = false;
-        if (requestMap != null && (enableHttps || fullPath || secure)) {
+        if (requestMap != null && (webSiteProps.getEnableHttps() || fullPath || secure)) {
             if (Debug.verboseOn()) Debug.logVerbose("In makeLink requestUri=" + requestUri, module);
-            if (secure || (enableHttps && requestMap.securityHttps && !request.isSecure())) {
-                String server = httpsServer;
-                if (UtilValidate.isEmpty(server)) {
+            if (secure || (webSiteProps.getEnableHttps() && requestMap.securityHttps && !request.isSecure())) {
+                String server = webSiteProps.getHttpsHost();
+                if (server.isEmpty()) {
                     server = request.getServerName();
                 }
-
                 newURL.append("https://");
                 newURL.append(server);
-                if (!httpsPort.equals("443")) {
-                    newURL.append(":").append(httpsPort);
+                if (!webSiteProps.getHttpsPort().isEmpty()) {
+                    newURL.append(":").append(webSiteProps.getHttpsPort());
                 }
-
                 didFullSecure = true;
-            } else if (fullPath || (enableHttps && !requestMap.securityHttps && request.isSecure())) {
-                String server = httpServer;
-                if (UtilValidate.isEmpty(server)) {
+            } else if (fullPath || (webSiteProps.getEnableHttps() && !requestMap.securityHttps && request.isSecure())) {
+                String server = webSiteProps.getHttpHost();
+                if (server.isEmpty()) {
                     server = request.getServerName();
                 }
-
                 newURL.append("http://");
                 newURL.append(server);
-                if (!httpPort.equals("80")) {
-                    newURL.append(":").append(httpPort);
+                if (!webSiteProps.getHttpPort().isEmpty()) {
+                    newURL.append(":").append(webSiteProps.getHttpPort());
                 }
-
                 didFullStandard = true;
             }
         }
-
+        // create the path to the control servlet
+        String controlPath = (String) request.getAttribute("_CONTROL_PATH_");
         newURL.append(controlPath);
 
         // now add the actual passed url, but if it doesn't start with a / add one first
