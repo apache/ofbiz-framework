@@ -34,7 +34,6 @@ under the License.
         <override name="paymentTypeId" optional="false"/>
         <override name="partyIdFrom" optional="false"/>
         <override name="partyIdTo" optional="false"/>
-        <override name="statusId" optional="false"/>
         <override name="amount" optional="false"/>
     </service>
 
