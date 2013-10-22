@@ -19,25 +19,15 @@
 package org.ofbiz.webapp.control;
 
 /**
- * RequestHandlerException
+ * Web application configuration exception.
+ * 
+ * @see <code>site-conf.xsd</code>
  */
 @SuppressWarnings("serial")
-public class RequestHandlerException extends org.ofbiz.base.util.GeneralException {
+public class WebAppConfigurationException extends org.ofbiz.base.util.GeneralException {
 
-    public RequestHandlerException(String str, Throwable t) {
-        super(str, t);
-    }
-
-    public RequestHandlerException(Throwable t) {
+    public WebAppConfigurationException(Throwable t) {
         super(t);
-    }
-
-    public RequestHandlerException(String str) {
-        super(str);
-    }
-
-    public RequestHandlerException() {
-        super();
     }
 }
 

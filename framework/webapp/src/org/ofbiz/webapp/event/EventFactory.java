@@ -32,6 +32,7 @@ import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.webapp.control.ConfigXMLReader;
 import org.ofbiz.webapp.control.RequestHandler;
+import org.ofbiz.webapp.control.WebAppConfigurationException;
 
 /**
  * EventFactory - Event Handler Factory
@@ -59,7 +60,12 @@ public class EventFactory {
     }
 
     private void preLoadAll() throws EventHandlerException {
-        Set<String> handlers = this.requestHandler.getControllerConfig().getEventHandlerMap().keySet();
+        Set<String> handlers = null;
+        try {
+            handlers = this.requestHandler.getControllerConfig().getEventHandlerMap().keySet();
+        } catch (WebAppConfigurationException e) {
+            Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
+        }
         if (handlers != null) {
             for (String type: handlers) {
                 this.handlers.put(type, this.loadEventHandler(type));
@@ -96,7 +102,12 @@ public class EventFactory {
 
     private EventHandler loadEventHandler(String type) throws EventHandlerException {
         EventHandler handler = null;
-        String handlerClass = this.requestHandler.getControllerConfig().getEventHandlerMap().get(type);
+        String handlerClass = null;
+        try {
+            handlerClass = this.requestHandler.getControllerConfig().getEventHandlerMap().get(type);
+        } catch (WebAppConfigurationException e) {
+            Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
+        }
         if (handlerClass == null) {
             throw new EventHandlerException("Unknown handler type: " + type);
         }
@@ -121,7 +132,13 @@ public class EventFactory {
         ServletContext application = ((ServletContext) request.getAttribute("servletContext"));
         RequestHandler handler = (RequestHandler) application.getAttribute("_REQUEST_HANDLER_");
         ConfigXMLReader.ControllerConfig controllerConfig = handler.getControllerConfig();
-        ConfigXMLReader.RequestMap requestMap = controllerConfig.getRequestMapMap().get(requestUri);
+        ConfigXMLReader.RequestMap requestMap;
+        try {
+            requestMap = controllerConfig.getRequestMapMap().get(requestUri);
+        } catch (WebAppConfigurationException e) {
+            Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
+            throw new EventHandlerException(e);
+        }
         return handler.runEvent(request, response, requestMap.event, requestMap, "unknown");
     }
 }

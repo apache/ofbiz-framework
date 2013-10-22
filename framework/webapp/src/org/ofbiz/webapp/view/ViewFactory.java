@@ -30,6 +30,8 @@ import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.webapp.control.RequestHandler;
+import org.ofbiz.webapp.control.RequestHandlerException;
+import org.ofbiz.webapp.control.WebAppConfigurationException;
 
 /**
  * ViewFactory - View Handler Factory
@@ -57,7 +59,12 @@ public class ViewFactory {
     }
 
     private void preLoadAll() throws ViewHandlerException {
-        Set<String> handlers = this.requestHandler.getControllerConfig().getViewHandlerMap().keySet();
+        Set<String> handlers = null;
+        try {
+            handlers = this.requestHandler.getControllerConfig().getViewHandlerMap().keySet();
+        } catch (WebAppConfigurationException e) {
+            Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
+        }
         if (handlers != null) {
             for (String type: handlers) {
                 this.handlers.put(type, this.loadViewHandler(type));
@@ -111,7 +118,12 @@ public class ViewFactory {
 
     private ViewHandler loadViewHandler(String type) throws ViewHandlerException {
         ViewHandler handler = null;
-        String handlerClass = this.requestHandler.getControllerConfig().getViewHandlerMap().get(type);
+        String handlerClass = null;
+        try {
+            handlerClass = this.requestHandler.getControllerConfig().getViewHandlerMap().get(type);
+        } catch (WebAppConfigurationException e) {
+            Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
+        }
         if (handlerClass == null) {
             throw new ViewHandlerException("Unknown handler type: " + type);
         }

@@ -127,7 +127,7 @@ public class ConfigXMLReader {
         }
     }
 
-    public static ControllerConfig getControllerConfig(URL url) {
+    public static ControllerConfig getControllerConfig(URL url) throws WebAppConfigurationException {
         ControllerConfig controllerConfig = controllerCache.get(url);
         if (controllerConfig == null) {
             controllerConfig = controllerCache.putIfAbsentAndGet(url, new ControllerConfig(url));
@@ -144,20 +144,19 @@ public class ConfigXMLReader {
         }
     }
 
-    /** Loads the XML file and returns the root element */
-    public static Element loadDocument(URL location) {
-        Document document;
+    /** Loads the XML file and returns the root element 
+     * @throws WebAppConfigurationException */
+    private static Element loadDocument(URL location) throws WebAppConfigurationException {
         try {
-            document = UtilXml.readXmlDocument(location, true);
+            Document document = UtilXml.readXmlDocument(location, true);
             Element rootElement = document.getDocumentElement();
-            // rootElement.normalize();
             if (Debug.verboseOn())
                 Debug.logVerbose("Loaded XML Config - " + location, module);
             return rootElement;
         } catch (Exception e) {
             Debug.logError(e, module);
+            throw new WebAppConfigurationException(e);
         }
-        return null;
     }
 
     public static class ControllerConfig {
@@ -179,7 +178,7 @@ public class ConfigXMLReader {
         private Map<String, RequestMap> requestMapMap = FastMap.newInstance();
         private Map<String, ViewMap> viewMapMap = FastMap.newInstance();
 
-        public ControllerConfig(URL url) {
+        public ControllerConfig(URL url) throws WebAppConfigurationException {
             this.url = url;
             Element rootElement = loadDocument(url);
             if (rootElement != null) {
@@ -197,7 +196,7 @@ public class ConfigXMLReader {
             }
         }
 
-        public Map<String, Event> getAfterLoginEventList() {
+        public Map<String, Event> getAfterLoginEventList() throws WebAppConfigurationException {
             MapContext<String, Event> result = MapContext.getMapContext();
             for (URL includeLocation : includes) {
                 ControllerConfig controllerConfig = getControllerConfig(includeLocation);
@@ -207,7 +206,7 @@ public class ConfigXMLReader {
             return result;
         }
 
-        public Map<String, Event> getBeforeLogoutEventList() {
+        public Map<String, Event> getBeforeLogoutEventList() throws WebAppConfigurationException {
             MapContext<String, Event> result = MapContext.getMapContext();
             for (URL includeLocation : includes) {
                 ControllerConfig controllerConfig = getControllerConfig(includeLocation);
@@ -217,7 +216,7 @@ public class ConfigXMLReader {
             return result;
         }
 
-        public String getDefaultRequest() {
+        public String getDefaultRequest() throws WebAppConfigurationException {
             if (defaultRequest != null) {
                 return defaultRequest;
             }
@@ -231,7 +230,7 @@ public class ConfigXMLReader {
             return null;
         }
 
-        public String getErrorpage() {
+        public String getErrorpage() throws WebAppConfigurationException {
             if (errorpage != null) {
                 return errorpage;
             }
@@ -245,7 +244,7 @@ public class ConfigXMLReader {
             return null;
         }
 
-        public Map<String, String> getEventHandlerMap() {
+        public Map<String, String> getEventHandlerMap() throws WebAppConfigurationException {
             MapContext<String, String> result = MapContext.getMapContext();
             for (URL includeLocation : includes) {
                 ControllerConfig controllerConfig = getControllerConfig(includeLocation);
@@ -255,7 +254,7 @@ public class ConfigXMLReader {
             return result;
         }
 
-        public Map<String, Event> getFirstVisitEventList() {
+        public Map<String, Event> getFirstVisitEventList() throws WebAppConfigurationException {
             MapContext<String, Event> result = MapContext.getMapContext();
             for (URL includeLocation : includes) {
                 ControllerConfig controllerConfig = getControllerConfig(includeLocation);
@@ -265,7 +264,7 @@ public class ConfigXMLReader {
             return result;
         }
 
-        public String getOwner() {
+        public String getOwner() throws WebAppConfigurationException {
             if (owner != null) {
                 return owner;
             }
@@ -279,7 +278,7 @@ public class ConfigXMLReader {
             return null;
         }
 
-        public Map<String, Event> getPostprocessorEventList() {
+        public Map<String, Event> getPostprocessorEventList() throws WebAppConfigurationException {
             MapContext<String, Event> result = MapContext.getMapContext();
             for (URL includeLocation : includes) {
                 ControllerConfig controllerConfig = getControllerConfig(includeLocation);
@@ -289,7 +288,7 @@ public class ConfigXMLReader {
             return result;
         }
 
-        public Map<String, Event> getPreprocessorEventList() {
+        public Map<String, Event> getPreprocessorEventList() throws WebAppConfigurationException {
             MapContext<String, Event> result = MapContext.getMapContext();
             for (URL includeLocation : includes) {
                 ControllerConfig controllerConfig = getControllerConfig(includeLocation);
@@ -299,7 +298,7 @@ public class ConfigXMLReader {
             return result;
         }
 
-        public String getProtectView() {
+        public String getProtectView() throws WebAppConfigurationException {
             if (protectView != null) {
                 return protectView;
             }
@@ -313,7 +312,7 @@ public class ConfigXMLReader {
             return null;
         }
 
-        public Map<String, RequestMap> getRequestMapMap() {
+        public Map<String, RequestMap> getRequestMapMap() throws WebAppConfigurationException {
             MapContext<String, RequestMap> result = MapContext.getMapContext();
             for (URL includeLocation : includes) {
                 ControllerConfig controllerConfig = getControllerConfig(includeLocation);
@@ -323,7 +322,7 @@ public class ConfigXMLReader {
             return result;
         }
 
-        public String getSecurityClass() {
+        public String getSecurityClass() throws WebAppConfigurationException {
             if (securityClass != null) {
                 return securityClass;
             }
@@ -337,7 +336,7 @@ public class ConfigXMLReader {
             return null;
         }
 
-        public String getStatusCode() {
+        public String getStatusCode() throws WebAppConfigurationException {
             if (statusCode != null) {
                 return statusCode;
             }
@@ -351,7 +350,7 @@ public class ConfigXMLReader {
             return null;
         }
 
-        public Map<String, String> getViewHandlerMap() {
+        public Map<String, String> getViewHandlerMap() throws WebAppConfigurationException {
             MapContext<String, String> result = MapContext.getMapContext();
             for (URL includeLocation : includes) {
                 ControllerConfig controllerConfig = getControllerConfig(includeLocation);
@@ -361,7 +360,7 @@ public class ConfigXMLReader {
             return result;
         }
 
-        public Map<String, ViewMap> getViewMapMap() {
+        public Map<String, ViewMap> getViewMapMap() throws WebAppConfigurationException {
             MapContext<String, ViewMap> result = MapContext.getMapContext();
             for (URL includeLocation : includes) {
                 ControllerConfig controllerConfig = getControllerConfig(includeLocation);
@@ -371,10 +370,7 @@ public class ConfigXMLReader {
             return result;
         }
 
-        protected void loadGeneralConfig(Element rootElement) {
-            if (rootElement == null) {
-                rootElement = loadDocument(this.url);
-            }
+        private void loadGeneralConfig(Element rootElement) {
             this.errorpage = UtilXml.childElementValue(rootElement, "errorpage");
             this.statusCode = UtilXml.childElementValue(rootElement, "status-code");
             Element protectElement = UtilXml.firstChildElement(rootElement, "protect");
@@ -444,12 +440,7 @@ public class ConfigXMLReader {
             }
         }
 
-        public void loadHandlerMap(Element rootElement) {
-            if (rootElement == null) {
-                rootElement = loadDocument(this.url);
-            }
-            if (rootElement == null)
-                return;
+        private void loadHandlerMap(Element rootElement) {
             for (Element handlerElement : UtilXml.childElementList(rootElement, "handler")) {
                 String name = handlerElement.getAttribute("name");
                 String type = handlerElement.getAttribute("type");
@@ -477,24 +468,14 @@ public class ConfigXMLReader {
             }
         }
 
-        public void loadRequestMap(Element root) {
-            if (root == null) {
-                root = loadDocument(this.url);
-            }
-            if (root == null)
-                return;
+        private void loadRequestMap(Element root) {
             for (Element requestMapElement : UtilXml.childElementList(root, "request-map")) {
                 RequestMap requestMap = new RequestMap(requestMapElement);
                 this.requestMapMap.put(requestMap.uri, requestMap);
             }
         }
 
-        public void loadViewMap(Element rootElement) {
-            if (rootElement == null) {
-                rootElement = loadDocument(this.url);
-            }
-            if (rootElement == null)
-                return;
+        private void loadViewMap(Element rootElement) {
             for (Element viewMapElement : UtilXml.childElementList(rootElement, "view-map")) {
                 ViewMap viewMap = new ViewMap(viewMapElement);
                 this.viewMapMap.put(viewMap.name, viewMap);

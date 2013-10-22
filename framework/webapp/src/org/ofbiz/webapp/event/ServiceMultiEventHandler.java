@@ -53,6 +53,7 @@ import org.ofbiz.webapp.control.ConfigXMLReader;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.control.ConfigXMLReader.Event;
 import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
+import org.ofbiz.webapp.control.WebAppConfigurationException;
 
 /**
  * ServiceMultiEventHandler - Event handler for running a service multiple times; for bulk forms
@@ -160,8 +161,18 @@ public class ServiceMultiEventHandler implements EventHandler {
         // Check the global-transaction attribute of the event from the controller to see if the
         //  event should be wrapped in a transaction
         String requestUri = RequestHandler.getRequestUri(request.getPathInfo());
-        ConfigXMLReader.ControllerConfig controllerConfig = ConfigXMLReader.getControllerConfig(ConfigXMLReader.getControllerConfigURL(servletContext));
-        boolean eventGlobalTransaction = controllerConfig.getRequestMapMap().get(requestUri).event.globalTransaction;
+        ConfigXMLReader.ControllerConfig controllerConfig;
+        try {
+            controllerConfig = ConfigXMLReader.getControllerConfig(ConfigXMLReader.getControllerConfigURL(servletContext));
+        } catch (WebAppConfigurationException e) {
+            throw new EventHandlerException(e);
+        }
+        boolean eventGlobalTransaction;
+        try {
+            eventGlobalTransaction = controllerConfig.getRequestMapMap().get(requestUri).event.globalTransaction;
+        } catch (WebAppConfigurationException e) {
+            throw new EventHandlerException(e);
+        }
 
         Set<String> urlOnlyParameterNames = UtilHttp.getUrlOnlyParameterMap(request).keySet();
 
