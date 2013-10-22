@@ -55,6 +55,7 @@ import org.ofbiz.service.ModelParam;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.webapp.control.ConfigXMLReader;
 import org.ofbiz.webapp.control.RequestHandler;
+import org.ofbiz.webapp.control.WebAppConfigurationException;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
 import org.ofbiz.widget.form.ModelForm;
 import org.ofbiz.widget.form.ModelFormField;
@@ -535,7 +536,12 @@ public class WidgetWorker {
                 String requestUri = (target.indexOf('?') > -1) ? target.substring(0, target.indexOf('?')) : target;
                 ServletContext servletContext = request.getSession().getServletContext();
                 RequestHandler rh = (RequestHandler) servletContext.getAttribute("_REQUEST_HANDLER_");
-                ConfigXMLReader.RequestMap requestMap = rh.getControllerConfig().getRequestMapMap().get(requestUri);
+                ConfigXMLReader.RequestMap requestMap = null;
+                try {
+                    requestMap = rh.getControllerConfig().getRequestMapMap().get(requestUri);
+                } catch (WebAppConfigurationException e) {
+                    Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
+                }
                 if (requestMap != null && requestMap.event != null) {
                     return "hidden-form";
                 } else {
