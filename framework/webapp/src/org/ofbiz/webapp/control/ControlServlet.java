@@ -72,7 +72,6 @@ public class ControlServlet extends HttpServlet {
         super.init(config);
         if (Debug.infoOn()) {
             ServletContext servletContext = config.getServletContext();
-            //@SuppressWarnings("cast") You can neglect Eclipse saying "The method getContextPath() is undefined for the type ServletContext"
             Debug.logInfo("LOADING WEBAPP [" + servletContext.getContextPath().substring(1) + "] " 
             + servletContext.getServletContextName() 
             + ", located at " + servletContext.getRealPath("/"), module);
