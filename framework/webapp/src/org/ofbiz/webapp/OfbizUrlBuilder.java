@@ -105,13 +105,13 @@ public final class OfbizUrlBuilder {
     }
 
     /**
-     * Builds a full URL - including scheme, host, and servlet path.
+     * Builds a full URL - including scheme, host, servlet path and resource.
      * 
      * @param buffer
      * @param url
      * @param useSSL Default value to use - will be replaced by request-map setting
      * if one is found.
-     * @return
+     * @return <code>true</code> if the URL uses https
      * @throws WebAppConfigurationException
      * @throws IOException
      */
@@ -128,7 +128,7 @@ public final class OfbizUrlBuilder {
      * @param url
      * @param useSSL Default value to use - will be replaced by request-map setting
      * if one is found.
-     * @return
+     * @return <code>true</code> if the URL uses https
      * @throws WebAppConfigurationException
      * @throws IOException
      */
