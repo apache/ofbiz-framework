@@ -44,10 +44,10 @@ under the License.
           <#if thisApp == contextPath || contextPath + "/" == thisApp>
             <#assign selected = true>
           </#if>
-          <#assign thisApp = StringUtil.wrapString(thisApp)>
-          <#assign thisURL = thisApp>
+          <#assign servletPath = Static["org.ofbiz.webapp.WebAppUtil"].getControlServletPath(display)>
+          <#assign thisURL = StringUtil.wrapString(servletPath)>
           <#if thisApp != "/">
-            <#assign thisURL = thisURL + "/control/main">
+            <#assign thisURL = thisURL + "main">
           </#if>
           <#if layoutSettings.suppressTab?exists && display.name == layoutSettings.suppressTab>
             <#-- do not display this component-->
@@ -81,11 +81,11 @@ under the License.
         <#if thisApp == contextPath || contextPath + "/" == thisApp>
           <#assign selected = true>
         </#if>
-        <#assign thisApp = StringUtil.wrapString(thisApp)>
-        <#assign thisURL = thisApp>
-        <#if thisApp != "/">
-          <#assign thisURL = thisURL + "/control/main">
-        </#if>
+          <#assign servletPath = Static["org.ofbiz.webapp.WebAppUtil"].getControlServletPath(display)>
+          <#assign thisURL = StringUtil.wrapString(servletPath)>
+          <#if thisApp != "/">
+            <#assign thisURL = thisURL + "main">
+          </#if>
         <#if appCount % 4 == 0>
           <#if firstApp>
             <li class="first">
