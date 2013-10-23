@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-    <classpathentry exported="true" kind="con" path="GROOVY_SUPPORT"/>
     <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
     <classpathentry kind="lib" path="applications/content/lib/fontbox-1.7.1.jar"/>
     <classpathentry kind="lib" path="applications/content/lib/jempbox-1.7.1.jar"/>
@@ -207,6 +206,7 @@
     <classpathentry kind="src" path="specialpurpose/projectmgr/src"/>
     <classpathentry kind="src" path="specialpurpose/webpos/src"/>
     <classpathentry kind="src" path="specialpurpose/lucene/src"/>
+    <classpathentry exported="true" kind="con" path="GROOVY_SUPPORT"/>
     <classpathentry exported="true" kind="con" path="GROOVY_DSL_SUPPORT"/>
     <classpathentry kind="output" path="bin"/>
 </classpath>
