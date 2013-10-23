@@ -32,9 +32,11 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 
+import org.ofbiz.base.component.ComponentConfig.WebappInfo;
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.metrics.Metrics;
 import org.ofbiz.base.metrics.MetricsFactory;
+import org.ofbiz.base.util.Assert;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.GeneralException;
@@ -125,6 +127,13 @@ public class ConfigXMLReader {
         } else {
             return FastSet.newInstance();
         }
+    }
+
+    public static ControllerConfig getControllerConfig(WebappInfo webAppInfo) throws WebAppConfigurationException, MalformedURLException {
+        Assert.notNull("webAppInfo", webAppInfo);
+        String filePath = webAppInfo.getLocation().concat(controllerXmlFileName);
+        File configFile = new File(filePath);
+        return getControllerConfig(configFile.toURI().toURL());
     }
 
     public static ControllerConfig getControllerConfig(URL url) throws WebAppConfigurationException {
