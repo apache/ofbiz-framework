@@ -61,8 +61,8 @@ public class OfbizUrlTransform implements TemplateTransformModel {
 
     public final static String module = OfbizUrlTransform.class.getName();
 
-    @SuppressWarnings("unchecked")
-    public boolean checkArg(Map args, String key, boolean defaultValue) {
+    @SuppressWarnings("rawtypes")
+    private static boolean checkArg(Map args, String key, boolean defaultValue) {
         if (!args.containsKey(key)) {
             return defaultValue;
         } else {
@@ -75,7 +75,39 @@ public class OfbizUrlTransform implements TemplateTransformModel {
         }
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
+    private static String getArg(Map args, String key) {
+        String result = "";
+        Object o = args.get(key);
+        if (o != null) {
+            if (Debug.verboseOn())
+                Debug.logVerbose("Arg Object : " + o.getClass().getName(), module);
+            if (o instanceof TemplateScalarModel) {
+                TemplateScalarModel s = (TemplateScalarModel) o;
+                try {
+                    result = s.getAsString();
+                } catch (TemplateModelException e) {
+                    Debug.logError(e, "Template Exception", module);
+                }
+            } else {
+                result = o.toString();
+            }
+        }
+        return result;
+    }
+
+    private static String getTagValue(String sTag, Element eElement) {
+        String value = "";
+        try {
+            NodeList nlList = eElement.getElementsByTagName(sTag).item(0).getChildNodes();
+            Node nValue = nlList.item(0);
+            return value = nValue.getNodeValue();
+        } catch (Exception e) {
+            return value;
+        }
+    }
+
+    @SuppressWarnings("rawtypes")
     public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
         final boolean fullPath = checkArg(args, "fullPath", false);
@@ -84,16 +116,6 @@ public class OfbizUrlTransform implements TemplateTransformModel {
         final String webSiteId = getArg(args, "webSiteId");
 
         return new Writer(out) {
-            @Override
-            public void write(char cbuf[], int off, int len) {
-                buf.append(cbuf, off, len);
-            }
-
-            @Override
-            public void flush() throws IOException {
-                out.flush();
-            }
-
             @Override
             public void close() throws IOException {
                 try {
@@ -169,8 +191,8 @@ public class OfbizUrlTransform implements TemplateTransformModel {
                                     Node nNode = nList.item(temp);
                                     if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                                         Element eElement = (Element) nNode;
-                                        String paramName = getTagValue("param-name",eElement);
-                                        String paramValue = getTagValue("param-value",eElement);
+                                        String paramName = getTagValue("param-name", eElement);
+                                        String paramValue = getTagValue("param-value", eElement);
                                         if ("webSiteId".equals(paramName) && webSiteId.equals(paramValue)) {
                                             mountPoint = webAppInfo.getContextRoot();
                                             break;
@@ -183,7 +205,8 @@ public class OfbizUrlTransform implements TemplateTransformModel {
                                 Debug.logWarning(e, e.getMessage(), module);
                             }
                             if (UtilValidate.isNotEmpty(mountPoint)) {
-                            if (mountPoint.length() > 1) newURL.append(mountPoint);
+                                if (mountPoint.length() > 1)
+                                    newURL.append(mountPoint);
                                 break;
                             }
                         }
@@ -192,11 +215,11 @@ public class OfbizUrlTransform implements TemplateTransformModel {
                         String[] patch = controlPath.split("/");
                         String patchStr = null;
                         if (patch.length > 0) {
-                        patchStr = patch[patch.length-1];
+                            patchStr = patch[patch.length - 1];
                         }
                         if (UtilValidate.isNotEmpty(patchStr)) {
-                        newURL.append("/");
-                        newURL.append(patchStr);
+                            newURL.append("/");
+                            newURL.append(patchStr);
                         }
                         newURL.append("/");
                         // make requestUrl
@@ -237,34 +260,16 @@ public class OfbizUrlTransform implements TemplateTransformModel {
                     throw new IOException(e.getMessage());
                 }
             }
-        };
-    }
-    private static String getArg(Map args, String key) {
-        String  result = "";
-        Object o = args.get(key);
-        if (o != null) {
-            if (Debug.verboseOn()) Debug.logVerbose("Arg Object : " + o.getClass().getName(), module);
-            if (o instanceof TemplateScalarModel) {
-                TemplateScalarModel s = (TemplateScalarModel) o;
-                try {
-                    result = s.getAsString();
-                } catch (TemplateModelException e) {
-                    Debug.logError(e, "Template Exception", module);
-                }
-            } else {
-              result = o.toString();
+
+            @Override
+            public void flush() throws IOException {
+                out.flush();
             }
-        }
-        return result;
-    }
-    private static String getTagValue(String sTag, Element eElement){
-    String value = "";
-        try{
-            NodeList nlList= eElement.getElementsByTagName(sTag).item(0).getChildNodes();
-            Node nValue = nlList.item(0);
-            return value = nValue.getNodeValue();
-        } catch (Exception e) {
-            return value;
-        }
+
+            @Override
+            public void write(char cbuf[], int off, int len) {
+                buf.append(cbuf, off, len);
+            }
+        };
     }
 }
