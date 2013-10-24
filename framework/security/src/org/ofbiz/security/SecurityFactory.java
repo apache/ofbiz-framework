@@ -120,7 +120,7 @@ public final class SecurityFactory {
 
         @Override
         public boolean hasEntityPermission(String entity, String action, GenericValue userLogin) {
-            if (userLogin == null) return false;
+            if (userLogin == null || entity == null || action == null) return false;
             String permission = entity.concat(action);
             String adminPermission = entity.concat("_ADMIN");
             Iterator<GenericValue> iterator = findUserLoginSecurityGroupByUserLoginId(userLogin.getString("userLoginId"));
