@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.ofbiz.base.component.ComponentConfig.WebappInfo;
 import org.ofbiz.base.util.Assert;
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -45,8 +44,7 @@ public final class OfbizUrlBuilder {
     public static final String module = OfbizUrlBuilder.class.getName();
 
     /**
-     * Returns an <code>OfbizUrlBuilder</code> instance. The instance can be reused in
-     * the supplied request.
+     * Returns an <code>OfbizUrlBuilder</code> instance.
      * 
      * @param request
      * @throws GenericEntityException
@@ -54,22 +52,25 @@ public final class OfbizUrlBuilder {
      */
     public static OfbizUrlBuilder from(HttpServletRequest request) throws GenericEntityException, WebAppConfigurationException {
         Assert.notNull("request", request);
-        WebSiteProperties webSiteProps = (WebSiteProperties) request.getAttribute("_WEBSITE_PROPS_");
-        if (webSiteProps == null) {
-            webSiteProps = WebSiteProperties.from(request);
-            request.setAttribute("_WEBSITE_PROPS_", webSiteProps);
+        OfbizUrlBuilder builder = (OfbizUrlBuilder) request.getAttribute("_OFBIZ_URL_BUILDER_");
+        if (builder == null) {
+            WebSiteProperties webSiteProps = WebSiteProperties.from(request);
+            URL url = ConfigXMLReader.getControllerConfigURL(request.getServletContext());
+            ControllerConfig config = ConfigXMLReader.getControllerConfig(url);
+            String servletPath = (String) request.getAttribute("_CONTROL_PATH_");
+            builder = new OfbizUrlBuilder(config, webSiteProps, servletPath);
+            request.setAttribute("_OFBIZ_URL_BUILDER_", builder);
         }
-        URL url = ConfigXMLReader.getControllerConfigURL(request.getServletContext());
-        ControllerConfig config = ConfigXMLReader.getControllerConfig(url);
-        String servletPath = (String) request.getAttribute("_CONTROL_PATH_");
-        return new OfbizUrlBuilder(config, webSiteProps, servletPath);
+        return builder;
     }
 
     /**
      * Returns an <code>OfbizUrlBuilder</code> instance. Use this method when you
      * don't have a <code>HttpServletRequest</code> object - like in scheduled jobs.
      * 
-     * @param webAppInfo
+     * @param webAppInfo Optional - if <code>null</code>, the builder can only build the host part,
+     * and that will be based only on the settings in <code>url.properties</code> (the WebSite
+     * entity will be ignored).
      * @param delegator
      * @throws WebAppConfigurationException
      * @throws IOException
@@ -77,20 +78,24 @@ public final class OfbizUrlBuilder {
      * @throws GenericEntityException
      */
     public static OfbizUrlBuilder from(WebappInfo webAppInfo, Delegator delegator) throws WebAppConfigurationException, IOException, SAXException, GenericEntityException {
-        Assert.notNull("webAppInfo", webAppInfo, "delegator", delegator);
         WebSiteProperties webSiteProps = null;
-        String webSiteId = WebAppUtil.getWebSiteId(webAppInfo);
-        if (webSiteId != null) {
-            GenericValue webSiteValue = delegator.findOne("WebSite", UtilMisc.toMap("webSiteId", webSiteId), true);
-            if (webSiteValue != null) {
-                webSiteProps = WebSiteProperties.from(webSiteValue);
+        ControllerConfig config = null;
+        String servletPath = null;
+        if (webAppInfo != null) {
+            Assert.notNull("delegator", delegator);
+            String webSiteId = WebAppUtil.getWebSiteId(webAppInfo);
+            if (webSiteId != null) {
+                GenericValue webSiteValue = delegator.findOne("WebSite", UtilMisc.toMap("webSiteId", webSiteId), true);
+                if (webSiteValue != null) {
+                    webSiteProps = WebSiteProperties.from(webSiteValue);
+                }
             }
+            config = ConfigXMLReader.getControllerConfig(webAppInfo);
+            servletPath = WebAppUtil.getControlServletPath(webAppInfo);
         }
         if (webSiteProps == null) {
             webSiteProps = WebSiteProperties.defaults();
         }
-        ControllerConfig config = ConfigXMLReader.getControllerConfig(webAppInfo);
-        String servletPath = WebAppUtil.getControlServletPath(webAppInfo);
         return new OfbizUrlBuilder(config, webSiteProps, servletPath);
     }
 
@@ -140,7 +145,10 @@ public final class OfbizUrlBuilder {
         if (queryIndex != -1) {
             requestMapUri = requestMapUri.substring(0, queryIndex);
         }
-        RequestMap requestMap = config.getRequestMapMap().get(requestMapUri);
+        RequestMap requestMap = null;
+        if (config != null) {
+            requestMap = config.getRequestMapMap().get(requestMapUri);
+        }
         if (requestMap != null) {
             makeSecure = requestMap.securityHttps;
         }
@@ -178,6 +186,9 @@ public final class OfbizUrlBuilder {
      * @throws IOException
      */
     public void buildPathPart(Appendable buffer, String url) throws WebAppConfigurationException, IOException {
+        if (servletPath == null) {
+            throw new IllegalStateException("Servlet path is unknown");
+        }
         buffer.append(servletPath);
         if (!url.startsWith("/")) {
             buffer.append("/");

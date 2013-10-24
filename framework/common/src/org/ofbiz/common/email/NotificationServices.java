@@ -253,7 +253,10 @@ public class NotificationServices {
         // If the baseUrl was not specified we can do a best effort instead
         if (!context.containsKey("baseUrl")) {
             try {
-                WebappInfo webAppInfo = WebAppUtil.getWebappInfoFromWebsiteId(webSiteId);
+                WebappInfo webAppInfo = null;
+                if (webSiteId != null) {
+                    webAppInfo = WebAppUtil.getWebappInfoFromWebsiteId(webSiteId);
+                }
                 OfbizUrlBuilder builder = OfbizUrlBuilder.from(webAppInfo, delegator);
                 StringBuilder newURL = new StringBuilder();
                 builder.buildHostPart(newURL, "", false);

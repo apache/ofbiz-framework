@@ -53,17 +53,24 @@ public final class WebSiteProperties {
      */
     public static WebSiteProperties from(HttpServletRequest request) throws GenericEntityException {
         Assert.notNull("request", request);
-        Delegator delegator = (Delegator) request.getAttribute("delegator");
-        if (delegator != null) {
-            String webSiteId = WebSiteWorker.getWebSiteId(request);
-            if (webSiteId != null) {
-                GenericValue webSiteValue = delegator.findOne("WebSite", UtilMisc.toMap("webSiteId", webSiteId), true);
-                if (webSiteValue != null) {
-                    return from(webSiteValue);
+        WebSiteProperties webSiteProps = (WebSiteProperties) request.getAttribute("_WEBSITE_PROPS_");
+        if (webSiteProps == null) {
+            Delegator delegator = (Delegator) request.getAttribute("delegator");
+            if (delegator != null) {
+                String webSiteId = WebSiteWorker.getWebSiteId(request);
+                if (webSiteId != null) {
+                    GenericValue webSiteValue = delegator.findOne("WebSite", UtilMisc.toMap("webSiteId", webSiteId), true);
+                    if (webSiteValue != null) {
+                        webSiteProps = from(webSiteValue);
+                    }
                 }
             }
-        }        
-        return new WebSiteProperties();
+            if (webSiteProps == null) {
+                webSiteProps = new WebSiteProperties();
+            }
+            request.setAttribute("_WEBSITE_PROPS_", webSiteProps);
+        }
+        return webSiteProps;
     }
 
     /**

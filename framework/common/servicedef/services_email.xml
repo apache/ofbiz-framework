@@ -110,6 +110,7 @@ under the License.
         <attribute name="xslfoAttachScreenLocationList" type="List" mode="IN" optional="true"/>
         <attribute name="attachmentNameList" type="List" mode="IN" optional="true"/>
         <attribute name="bodyParameters" type="Map" mode="IN" optional="true"/>
+        <!-- FIXME: webSiteId should not be optional, async service can't construct valid URLs without it -->
         <attribute name="webSiteId" type="String" mode="IN" optional="true"/>
         <attribute name="subject" type="String" mode="OUT" optional="true"/>
         <attribute name="body" type="String" mode="OUT" optional="false"/>
