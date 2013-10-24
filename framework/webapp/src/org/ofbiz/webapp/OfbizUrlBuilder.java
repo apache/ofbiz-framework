@@ -166,9 +166,6 @@ public final class OfbizUrlBuilder {
                 buffer.append(":").append(webSiteProps.getHttpPort());
             }
         }
-        if (Debug.warningOn() && requestMap == null) {
-            Debug.logWarning("The request-map URI '" + requestMapUri + "' was not found in controller.xml", module);
-        }
         return makeSecure;
     }
 
