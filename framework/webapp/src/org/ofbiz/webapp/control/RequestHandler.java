@@ -1007,6 +1007,15 @@ public class RequestHandler {
         }
     }
 
+    /**
+     * Returns a URL String that contains only the scheme and host parts. This method
+     * should not be used because it ignores settings in the WebSite entity.
+     * 
+     * @param request
+     * @param secure
+     * @deprecated Use OfbizUrlBuilder
+     */
+    @Deprecated
     public static String getDefaultServerRootUrl(HttpServletRequest request, boolean secure) {
         String httpsPort = UtilProperties.getPropertyValue("url.properties", "port.https", "443");
         String httpsServer = UtilProperties.getPropertyValue("url.properties", "force.https.host");
