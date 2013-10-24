@@ -121,29 +121,25 @@ public class OfbizUrlTransform implements TemplateTransformModel {
                         return;
                     }
                     HttpServletRequest request = FreeMarkerWorker.unwrap(env.getVariable("request"));
-                    Delegator delegator = FreeMarkerWorker.unwrap(env.getVariable("delegator"));
-                    if (request != null && delegator == null) {
-                        delegator = (Delegator) request.getAttribute("delegator");
-                    }
                     // Handle web site ID.
                     if (!webSiteId.isEmpty()) {
+                        Delegator delegator = FreeMarkerWorker.unwrap(env.getVariable("delegator"));
+                        if (request != null && delegator == null) {
+                            delegator = (Delegator) request.getAttribute("delegator");
+                        }
                         if (delegator == null) {
                             throw new IllegalStateException("Delegator not found");
                         }
-                        for (WebappInfo webAppInfo : ComponentConfig.getAllWebappResourceInfos()) {
-                            if (webSiteId.equals(WebAppUtil.getWebSiteId(webAppInfo))) {
-                                StringBuilder newUrlBuff = new StringBuilder(250);
-                                OfbizUrlBuilder builder = OfbizUrlBuilder.from(webAppInfo, delegator);
-                                builder.buildFullUrl(newUrlBuff, buf.toString(), secure);
-                                String newUrl = newUrlBuff.toString();
-                                if (encode) {
-                                    newUrl = URLEncoder.encode(newUrl, "UTF-8");
-                                }
-                                out.write(newUrl);
-                                return;
-                            }
+                        WebappInfo webAppInfo = WebAppUtil.getWebappInfoFromWebsiteId(webSiteId);
+                        StringBuilder newUrlBuff = new StringBuilder(250);
+                        OfbizUrlBuilder builder = OfbizUrlBuilder.from(webAppInfo, delegator);
+                        builder.buildFullUrl(newUrlBuff, buf.toString(), secure);
+                        String newUrl = newUrlBuff.toString();
+                        if (encode) {
+                            newUrl = URLEncoder.encode(newUrl, "UTF-8");
                         }
-                        throw new IllegalArgumentException("Web site ID '" + webSiteId + "' not found.");
+                        out.write(newUrl);
+                        return;
                     }
                     if (request != null) {
                         ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
