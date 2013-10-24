@@ -29,6 +29,7 @@ import org.apache.catalina.deploy.WebXml;
 import org.apache.catalina.startup.DigesterFactory;
 import org.apache.catalina.startup.WebRuleSet;
 import org.apache.tomcat.util.digester.Digester;
+import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.component.ComponentConfig.WebappInfo;
 import org.ofbiz.base.util.Assert;
 import org.ofbiz.base.util.Debug;
@@ -83,6 +84,24 @@ public final class WebAppUtil {
         servletMapping = servletMapping.replace("*", "");
         String servletPath = webAppInfo.contextRoot.concat(servletMapping);
         return servletPath;
+    }
+
+    /**
+     * Returns the <code>WebappInfo</code> instance associated to the specified web site ID.
+     * Throws <code>IllegalArgumentException</code> if the web site ID was not found.
+     * 
+     * @param webSiteId
+     * @throws IOException
+     * @throws SAXException
+     */
+    public static WebappInfo getWebappInfoFromWebsiteId(String webSiteId) throws IOException, SAXException {
+        Assert.notNull("webSiteId", webSiteId);
+        for (WebappInfo webAppInfo : ComponentConfig.getAllWebappResourceInfos()) {
+            if (webSiteId.equals(WebAppUtil.getWebSiteId(webAppInfo))) {
+                return webAppInfo;
+            }
+        }
+        throw new IllegalArgumentException("Web site ID '" + webSiteId + "' not found.");
     }
 
     /**
