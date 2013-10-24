@@ -868,7 +868,11 @@ public class RequestHandler {
         // if the view name starts with the control servlet name and a /, then it was an
         // attempt to override the default view with a call back into the control servlet,
         // so just get the target view name and use that
-        String servletName = req.getServletPath().substring(1);
+        
+        String servletName = req.getServletPath();
+        if (servletName.startsWith("/")) {
+            servletName = servletName.substring(1);
+        }
 
         if (Debug.infoOn()) Debug.logInfo("Rendering View [" + view + "], sessionId=" + UtilHttp.getSessionId(req), module);
         if (view.startsWith(servletName + "/")) {
