@@ -47,7 +47,7 @@
                             <actions>
                                 <!-- fields for setDependentDropdownValuesJs.ftl, it's a try on generalization, if you need an example with more than one dropdown in a form have a look at EditProductPriceRules screen -->
                                 <set field="dependentForm" value="NewOrganization"/>
-                                <set field="paramKey" value="countryGeoId"/>
+                                <set field="paramKey" value="countryGeoId"/>                                        
                                 <set field="mainId" value="USER_COUNTRY"/>
                                 <set field="dependentId" value="USER_STATE"/>
                                 <set field="requestName" value="getAssociatedStateList"/>

@@ -127,7 +127,7 @@ under the License.
         <condition field-name="partyId" operator="is-empty"/>
         <condition field-name="roleTypeId" operator="is-empty"/>
         <condition field-name="userLogin" operator="is-not-empty"/>
-        <set field-name="partyId" env-name="${userLogin.partyId}" value="_NA_"/>
+        <set field-name="partyId" env-name="${userLogin.partyId}"/>
         <set field-name="roleTypeId" value="OWNER"/>
         <action service="createContentRole" mode="sync" run-as-user="system"/>
     </eca>
