@@ -118,7 +118,7 @@ under the License.
   <div id="wait-spinner" style="display:none">
     <div id="wait-spinner-image"></div>
   </div>
-  <div id="header" style="margin-top: -22px;">
+  <div id="header">
     <#if organizationLogoLinkURL?has_content>
         <div id="org-logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${StringUtil.wrapString(organizationLogoLinkURL)}</@ofbizContentUrl>" height="43px"></a></div>
         <#else>

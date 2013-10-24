@@ -33,6 +33,7 @@
         ebay/build.xml,
         ebaystore/build.xml,
         projectmgr/build.xml,
+        scrum/build.xml,
         ldap/build.xml,
         webpos/build.xml
         googlecheckout/build.xml,

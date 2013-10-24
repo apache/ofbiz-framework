@@ -100,7 +100,7 @@ font-size: 1.1em;
 margin: 0.2em;
 }
 
-input[type="text"],input[type="password"],input[type="number"] {
+input[type="text"],input[type="password"] {
 background-color: #ffffff;
 border: #999999 solid 0.1em;
 font-size: 1.1em;
@@ -934,8 +934,8 @@ font-weight: bold;
 /* ===== Masthead (Header) Styles ===== */
 /* ==================================== */
 #logo-area {
-/* background: url(/droppingcrumbs/images/ofbiz_logo.gif) no-repeat; 
-width:260px; */
+background: url(/droppingcrumbs/images/ofbiz_logo.gif) no-repeat;
+width:260px;
 height:50px;
 }
 
