@@ -21,29 +21,26 @@ package org.ofbiz.common.email;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.net.InetAddress;
 import java.net.URL;
-import java.net.UnknownHostException;
 import java.util.Locale;
 import java.util.Map;
 
 import javolution.util.FastMap;
 
+import org.ofbiz.base.component.ComponentConfig.WebappInfo;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
-import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilURL;
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.webapp.OfbizUrlBuilder;
+import org.ofbiz.webapp.WebAppUtil;
 
 import freemarker.template.TemplateException;
 
@@ -255,84 +252,17 @@ public class NotificationServices {
     public static void setBaseUrl(Delegator delegator, String webSiteId, Map<String, Object> context) {
         // If the baseUrl was not specified we can do a best effort instead
         if (!context.containsKey("baseUrl")) {
-            StringBuilder httpBase = null;
-            StringBuilder httpsBase = null;
-
-            String localServer = null;
-
-            String httpsPort = null;
-            String httpsServer = null;
-            String httpPort = null;
-            String httpServer = null;
-            Boolean enableHttps = null;
-
             try {
-                // using just the IP address of localhost if we don't have a defined server
-                InetAddress localHost = InetAddress.getLocalHost();
-                localServer = localHost.getHostAddress();
-            } catch (UnknownHostException hostException) {
-                Debug.logWarning(hostException, "Could not determine localhost, using '127.0.0.1'", module);
-                localServer = "127.0.0.1";
-            }
-
-            // load the properties from the website entity
-            GenericValue webSite = null;
-            if (webSiteId != null) {
-                try {
-                    webSite = delegator.findOne("WebSite", UtilMisc.toMap("webSiteId", webSiteId), true);
-                    if (webSite != null) {
-                        httpsPort = webSite.getString("httpsPort");
-                        httpsServer = webSite.getString("httpsHost");
-                        httpPort = webSite.getString("httpPort");
-                        httpServer = webSite.getString("httpHost");
-                        enableHttps = webSite.getBoolean("enableHttps");
-                    }
-                } catch (GenericEntityException e) {
-                    Debug.logWarning(e, "Problems with WebSite entity; using global defaults", module);
-                }
-            }
-
-            // fill in any missing properties with fields from the global file
-            if (UtilValidate.isEmpty(httpsPort)) {
-                httpsPort = UtilProperties.getPropertyValue("url.properties", "port.https", "443");
-            }
-            if (UtilValidate.isEmpty(httpsServer)) {
-                httpsServer = UtilProperties.getPropertyValue("url.properties", "force.https.host", localServer);
-            }
-            if (UtilValidate.isEmpty(httpPort)) {
-                httpPort = UtilProperties.getPropertyValue("url.properties", "port.http", "80");
-            }
-            if (UtilValidate.isEmpty(httpServer)) {
-                httpServer = UtilProperties.getPropertyValue("url.properties", "force.http.host", localServer);
-            }
-            if (UtilValidate.isEmpty(enableHttps)) {
-                enableHttps = (UtilProperties.propertyValueEqualsIgnoreCase("url.properties", "port.https.enabled", "Y")) ? Boolean.TRUE : Boolean.FALSE;
-            }
-
-            // prepare the (non-secure) URL
-            httpBase = new StringBuilder("http://");
-            httpBase.append(httpServer);
-            if (!"80".equals(httpPort)) {
-                httpBase.append(":");
-                httpBase.append(httpPort);
-            }
-
-            // set the base (non-secure) URL for any messages requiring it
-            context.put("baseUrl", httpBase.toString());
-
-            if (enableHttps.booleanValue()) {
-                // prepare the (secure) URL
-                httpsBase = new StringBuilder("https://");
-                httpsBase.append(httpsServer);
-                if (!"443".equals(httpsPort)) {
-                    httpsBase.append(":");
-                    httpsBase.append(httpsPort);
-                }
-
-                // set the base (secure) URL for any messages requiring it
-                context.put("baseSecureUrl", httpsBase.toString());
-            } else {
-                context.put("baseSecureUrl", httpBase.toString());
+                WebappInfo webAppInfo = WebAppUtil.getWebappInfoFromWebsiteId(webSiteId);
+                OfbizUrlBuilder builder = OfbizUrlBuilder.from(webAppInfo, delegator);
+                StringBuilder newURL = new StringBuilder();
+                builder.buildHostPart(newURL, "", false);
+                context.put("baseUrl", newURL.toString());
+                newURL = new StringBuilder();
+                builder.buildHostPart(newURL, "", true);
+                context.put("baseSecureUrl", newURL.toString());
+            } catch (Exception e) {
+                Debug.logWarning(e, "Exception thrown while adding baseUrl to context: ", module);
             }
         }
     }
