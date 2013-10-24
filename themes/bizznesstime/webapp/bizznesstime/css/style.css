@@ -158,6 +158,15 @@ Generic Classes
 img.left {display: inline; float: left; margin: 0 1.5em .75em 0;}
 img.right {display: inline; float: right; margin: 0 0 .75em .75em;}
 
+.lefthalf{
+	float: left;
+	width: 610px;
+}
+.righthalf{
+	float: right;
+    width: 500px;
+}
+/*
 .lefthalf {
     float: left;
     height: 1%;
@@ -173,7 +182,7 @@ img.right {display: inline; float: right; margin: 0 0 .75em .75em;}
     right: 0;
     width: 49%;
 }
-
+*/
 .leftclear {
     clear: left;
     height: 1%;
