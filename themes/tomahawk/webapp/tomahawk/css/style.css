@@ -102,7 +102,7 @@ margin: 0.2em;
 vertical-align:middle;
 }
 
-input[type="text"],input[type="password"] {
+input[type="text"],input[type="password"],input[type="number"]{
 background-color: #fffcea;
 border:0.1em solid #999999;
 font-size: 1.1em;
@@ -945,12 +945,13 @@ text-align: center;
 /* ==================================== */
 /* ===== Masthead (Header) Styles ===== */
 /* ==================================== */
+/******* Hidden the default OFBIz logo 
 #logo-area {
 background: url(../images/ofbiz_logo.png) no-repeat;
 width:385px;
 height:50px;
 }
-
+*/
 #logo-area a{
 display:block;
 height:100%;

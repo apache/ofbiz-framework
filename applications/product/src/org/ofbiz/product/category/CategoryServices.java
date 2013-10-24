@@ -405,15 +405,16 @@ public class CategoryServices {
     public static void getChildCategoryTree(HttpServletRequest request, HttpServletResponse response){
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String productCategoryId = request.getParameter("productCategoryId");
+        String currentCategoryId = request.getParameter("currentCategoryId");
         String isCatalog = request.getParameter("isCatalog");
         String isCategoryType = request.getParameter("isCategoryType");
         String onclickFunction = request.getParameter("onclickFunction");
         String additionParam = request.getParameter("additionParam");
         String hrefString = request.getParameter("hrefString");
         String hrefString2 = request.getParameter("hrefString2");
+        String showCategoryId = (request.getParameter("showCategoryId") != null ? request.getParameter("showCategoryId") : "true");
         String entityName = null;
         String primaryKeyName = null;
-        
         if (isCatalog.equals("true")) {
             entityName = "ProdCatalog";
             primaryKeyName = "prodCatalogId";
@@ -462,6 +463,18 @@ public class CategoryServices {
                         // If chosen category's child exists, then put the arrow before category icon
                         if (UtilValidate.isNotEmpty(childList)) {
                             josonMap.put("state", "closed");
+                            // Set open state to a parent category of current category
+                            if (UtilValidate.isNotEmpty(currentCategoryId)) {
+                                List<GenericValue> allChildCategoryList = CategoryWorker.getRelatedCategoriesRet(delegator, "allChildCategoryList", (String)catId, true, false, true);
+                                if(UtilValidate.isNotEmpty(allChildCategoryList)){
+                                    for (GenericValue allChildCategory: allChildCategoryList) {
+                                        if ((allChildCategory.get("productCategoryId")).equals(currentCategoryId)) {
+                                            josonMap.put("state", "open");
+                                        }
+                                    }
+                                    
+                                }
+                            }
                         }
                         Map dataMap = FastMap.newInstance();
                         Map dataAttrMap = FastMap.newInstance();
@@ -469,7 +482,11 @@ public class CategoryServices {
                         
                         String title = null;
                         if (UtilValidate.isNotEmpty(categoryContentWrapper.get(catNameField))) {
-                            title = categoryContentWrapper.get(catNameField)+" "+"["+catId+"]";
+                            if (showCategoryId.equals("true")) {
+                                title = categoryContentWrapper.get(catNameField)+" "+"["+catId+"]";
+                            }else{
+                                title = categoryContentWrapper.get(catNameField)+" ";
+                            }
                             dataMap.put("title", title);
                         } else {
                             title = catId.toString();
@@ -489,6 +506,10 @@ public class CategoryServices {
                         attrMap.put("id", catId);
                         attrMap.put("isCatalog", false);
                         attrMap.put("rel", "CATEGORY");
+                        attrMap.put("name", title);
+                        if (UtilValidate.isNotEmpty(currentCategoryId)) {
+                            attrMap.put("currentCategoryId", currentCategoryId);
+                        }
                         josonMap.put("attr",attrMap);
                         josonMap.put("sequenceNum",childOfCat.get("sequenceNum"));
                         josonMap.put("title",title);

@@ -26,7 +26,7 @@ under the License.
     <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_DOCBOOKSTYLESHEET" resourceValue="/tomahawk/webapp/tomahawk/css/docbook.css" sequenceId="01"/>
     <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/tomahawk/js/dropdown.js" sequenceId="01"/>
     <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/images/ofbiz_logo.gif" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/tomahawk/images/ofbiz_logo.gif" sequenceId="01"/>
     <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://tomahawk/includes/header.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://tomahawk/includes/footer.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_NAV_OPEN_TMPLT" resourceValue="component://tomahawk/includes/appbarOpen.ftl" sequenceId="01"/>

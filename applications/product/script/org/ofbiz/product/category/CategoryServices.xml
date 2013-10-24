@@ -803,6 +803,7 @@ under the License.
         <entity-condition list="prodCatalogCategoryList" entity-name="ProdCatalogCategory" filter-by-date="true">
             <condition-list combine="and">
                 <condition-expr field-name="productCategoryId" from-field="parameters.productCategoryId"/>
+                <condition-expr field-name="prodCatalogId" from-field="parameters.prodCatalogId"/>
                 <condition-list combine="or">
                     <condition-expr field-name="prodCatalogCategoryTypeId" value="PCCT_VIEW_ALLW"/>
                     <condition-expr field-name="prodCatalogCategoryTypeId" value="PCCT_PURCH_ALLW"/>
