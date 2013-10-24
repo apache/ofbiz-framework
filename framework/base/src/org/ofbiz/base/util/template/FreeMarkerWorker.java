@@ -450,7 +450,8 @@ public class FreeMarkerWorker {
         return returnObj;
     }
 
-    public static Object unwrap(Object o) {
+    @SuppressWarnings("unchecked")
+    public static <T> T unwrap(Object o) {
         Object returnObj = null;
 
         if (o == TemplateModel.NOTHING) {
@@ -461,7 +462,7 @@ public class FreeMarkerWorker {
             returnObj = ((BeanModel) o).getWrappedObject();
         }
 
-        return returnObj;
+        return (T) returnObj;
     }
 
     public static void checkForLoop(String path, Map<String, Object> ctx) throws IOException {
