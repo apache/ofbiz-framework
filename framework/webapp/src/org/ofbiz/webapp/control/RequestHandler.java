@@ -20,6 +20,7 @@ package org.ofbiz.webapp.control;
 
 import static org.ofbiz.base.util.UtilGenerics.checkMap;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
@@ -49,6 +50,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.webapp.OfbizUrlBuilder;
 import org.ofbiz.webapp.event.EventFactory;
 import org.ofbiz.webapp.event.EventHandler;
 import org.ofbiz.webapp.event.EventHandlerException;
@@ -1125,16 +1127,13 @@ public class RequestHandler {
     }
 
     public String makeLink(HttpServletRequest request, HttpServletResponse response, String url, boolean fullPath, boolean secure, boolean encode) {
-        WebSiteProperties webSiteProps = (WebSiteProperties) request.getAttribute("_WEBSITE_PROPS_");
-        if (webSiteProps == null) {
-            try {
-                webSiteProps = WebSiteProperties.from(request);
-                request.setAttribute("_WEBSITE_PROPS_", webSiteProps);
-            } catch (GenericEntityException e) {
-                // If the entity engine is throwing exceptions, then there is no point in continuing.
-                Debug.logError(e, "Exception thrown while getting web site properties: ", module);
-                return null;
-            }
+        WebSiteProperties webSiteProps = null;
+        try {
+            webSiteProps = WebSiteProperties.from(request);
+        } catch (GenericEntityException e) {
+            // If the entity engine is throwing exceptions, then there is no point in continuing.
+            Debug.logError(e, "Exception thrown while getting web site properties: ", module);
+            return null;
         }
         String requestUri = RequestHandler.getRequestUri(url);
         ConfigXMLReader.RequestMap requestMap = null;
@@ -1147,33 +1146,34 @@ public class RequestHandler {
                 return null;
             }
         }
-        StringBuilder newURL = new StringBuilder();
         boolean didFullSecure = false;
         boolean didFullStandard = false;
         if (requestMap != null && (webSiteProps.getEnableHttps() || fullPath || secure)) {
             if (Debug.verboseOn()) Debug.logVerbose("In makeLink requestUri=" + requestUri, module);
             if (secure || (webSiteProps.getEnableHttps() && requestMap.securityHttps && !request.isSecure())) {
-                String server = webSiteProps.getHttpsHost();
-                if (server.isEmpty()) {
-                    server = request.getServerName();
-                }
-                newURL.append("https://");
-                newURL.append(server);
-                if (!webSiteProps.getHttpsPort().isEmpty()) {
-                    newURL.append(":").append(webSiteProps.getHttpsPort());
-                }
                 didFullSecure = true;
             } else if (fullPath || (webSiteProps.getEnableHttps() && !requestMap.securityHttps && request.isSecure())) {
-                String server = webSiteProps.getHttpHost();
-                if (server.isEmpty()) {
-                    server = request.getServerName();
-                }
-                newURL.append("http://");
-                newURL.append(server);
-                if (!webSiteProps.getHttpPort().isEmpty()) {
-                    newURL.append(":").append(webSiteProps.getHttpPort());
-                }
                 didFullStandard = true;
+            }
+        }
+        StringBuilder newURL = new StringBuilder(250);
+        if (didFullSecure || didFullStandard) {
+            // Build the scheme and host part
+            try {
+                OfbizUrlBuilder builder = OfbizUrlBuilder.from(request);
+                builder.buildHostPart(newURL, url, didFullSecure);
+            } catch (GenericEntityException e) {
+                // If the entity engine is throwing exceptions, then there is no point in continuing.
+                Debug.logError(e, "Exception thrown while getting web site properties: ", module);
+                return null;
+            } catch (WebAppConfigurationException e) {
+                // If we can't read the controller.xml file, then there is no point in continuing.
+                Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
+                return null;
+            } catch (IOException e) {
+                // If we can't write to StringBuilder, then there is no point in continuing.
+                Debug.logError(e, "Exception thrown while writing to StringBuilder: ", module);
+                return null;
             }
         }
         // create the path to the control servlet
