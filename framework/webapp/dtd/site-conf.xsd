@@ -59,7 +59,17 @@ under the License.
     <xs:element name="description" type="xs:string"/>
     <xs:element name="owner" type="xs:string"/>
     <xs:element name="errorpage" type="xs:string"/>
-    <xs:element name="status-code" type="xs:string"/>
+    <xs:element name="status-code" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                A redirection HTTP status-code
+                If set it will override, for this whole controller, the default status-code sets in requestHandler.properties 
+                
+                Most possible redirection status-codes are 301, 303 and 307. 
+                302 (the Java default) is not recommended for SEO reasons, 301 is preferred.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
     <xs:element name="handler">
         <xs:annotation>
             <xs:documentation>
@@ -648,11 +658,11 @@ under the License.
             <xs:annotation>
                 <xs:documentation>
                     A redirection HTTP status-code
-                    If set it will override (cascading) the default status-code sets in requestHandler.properties
-                    and the possible status-code sets at the controller level (inclusive included controllers)
+                    If set it will override, for this request, the default status-code sets in requestHandler.properties
+                    and the possible status-code sets at the controller level (included controllers inclusive)
                     
                     Most possible redirection status-codes are 301, 303 and 307. 
-                    302 (the Java default) is not recommended for SEO reasons. 
+                    302 (the Java default) is not recommended for SEO reasons, 301 is preferred.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>        
