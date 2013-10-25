@@ -54,31 +54,31 @@ under the License.
 </script>
 <br />
 <#macro paginationControls>
-    <#assign viewIndexMax = Static["java.lang.Math"].ceil((listSize)?double / viewSize?double)>
-      <#if (viewIndexMax?int >= 1)>
-        <div class="product-prevnext">
-            <#-- Start Page Select Drop-Down -->
-            <select name="pageSelect" onchange="callDocumentByPaginate(this[this.selectedIndex].value);">
-                <option value="#">${uiLabelMap.CommonPage} ${viewIndex?int} ${uiLabelMap.CommonOf} ${viewIndexMax}</option>
-                <#if (viewIndex?int > 1)>
-                    <#list 0..viewIndexMax as curViewNum>
-                         <option value="${shoppingListId?if_exists}~${viewSize}~${curViewNum?int + 1}">${uiLabelMap.CommonGotoPage} ${curViewNum + 1}</option>
-                    </#list>
-                </#if>
-            </select>
-            <#-- End Page Select Drop-Down -->
-            
+  <#assign viewIndexMax = Static["java.lang.Math"].ceil((listSize)?double / viewSize?double)>
+  <#if (viewIndexMax?int >= 1)>
+    <div class="product-prevnext">
+        <#-- Start Page Select Drop-Down -->
+        <select name="pageSelect" onchange="callDocumentByPaginate(this[this.selectedIndex].value);">
+            <option value="#">${uiLabelMap.CommonPage} ${viewIndex?int} ${uiLabelMap.CommonOf} ${viewIndexMax}</option>
             <#if (viewIndex?int > 1)>
-                <a href="javascript: void(0);" onclick="callDocumentByPaginate('${shoppingListId?if_exists}~${viewSize}~${viewIndex?int - 1}');" class="buttontext">${uiLabelMap.CommonPrevious}</a> |
+                <#list 0..viewIndexMax as curViewNum>
+                     <option value="${shoppingListId?if_exists}~${viewSize}~${curViewNum?int + 1}">${uiLabelMap.CommonGotoPage} ${curViewNum + 1}</option>
+                </#list>
             </#if>
-            <#if ((listSize?int - viewSize?int) > 0)>
-                <span>${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}</span>
-            </#if>
-            <#if highIndex?int < listSize?int>
-             | <a href="javascript: void(0);" onclick="callDocumentByPaginate('${shoppingListId?if_exists}~${viewSize}~${viewIndex?int + 1}');" class="buttontext">${uiLabelMap.CommonNext}</a>
-            </#if>
-        </div>
-    </#if>
+        </select>
+        <#-- End Page Select Drop-Down -->
+        
+        <#if (viewIndex?int > 1)>
+            <a href="javascript: void(0);" onclick="callDocumentByPaginate('${shoppingListId?if_exists}~${viewSize}~${viewIndex?int - 1}');" class="buttontext">${uiLabelMap.CommonPrevious}</a> |
+        </#if>
+        <#if ((listSize?int - viewSize?int) > 0)>
+            <span>${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}</span>
+        </#if>
+        <#if highIndex?int < listSize?int>
+         | <a href="javascript: void(0);" onclick="callDocumentByPaginate('${shoppingListId?if_exists}~${viewSize}~${viewIndex?int + 1}');" class="buttontext">${uiLabelMap.CommonNext}</a>
+        </#if>
+    </div>
+</#if>
 </#macro>
 
 <div class="screenlet">
