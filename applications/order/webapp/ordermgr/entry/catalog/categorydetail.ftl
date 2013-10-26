@@ -44,29 +44,22 @@ under the License.
     <#assign viewIndexMax = Static["java.lang.Math"].ceil((listSize - 1)?double / viewSize?double)>
       <#if (viewIndexMax?int > 0)>
         <div class="product-prevnext">
-            <#-- Start Page Select Drop-Down -->
-            <#-- select name="pageSelect" onchange="window.location=this[this.selectedIndex].value;">
-                <option value="#">${uiLabelMap.CommonPage} ${viewIndex?int} ${uiLabelMap.CommonOf} ${viewIndexMax + 1}</option>
-                <#list 0..viewIndexMax as curViewNum>
-                     <option value="<@ofbizCatalogAltUrl productCategoryId=productCategoryId viewSize=viewSize viewIndex=(curViewNum?int + 1)/>">${uiLabelMap.CommonGotoPage} ${curViewNum + 1}</option>
-                </#list>
-            </select -->
             <select name="pageSelect" onchange="callDocumentByPaginate(this[this.selectedIndex].value);">
-                <option value="#">${uiLabelMap.CommonPage} ${viewIndex?int + 1} ${uiLabelMap.CommonOf} ${viewIndexMax + 1}</option>
-                <#list 0..viewIndexMax as curViewNum>
-                     <option value="${productCategoryId}~${viewSize}~${curViewNum?int}">${uiLabelMap.CommonGotoPage} ${curViewNum + 1}</option>
-                </#list>
+                <option value="#">${uiLabelMap.CommonPage} ${viewIndex?int + 1} ${uiLabelMap.CommonOf} ${viewIndexMax}</option>
+                <#if (viewIndex?int > 1)>
+                    <#list 0..viewIndexMax as curViewNum>
+                         <option value="${productCategoryId}~${viewSize}~${curViewNum?int}">${uiLabelMap.CommonGotoPage} ${curViewNum + 1}</option>
+                    </#list>
+                </#if>
             </select>
             <#-- End Page Select Drop-Down -->
             <#if (viewIndex?int > 0)>
-                <#-- a href="<@ofbizUrl>category/~category_id=${productCategoryId}/~VIEW_SIZE=${viewSize}/~VIEW_INDEX=${viewIndex?int - 1}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a --> |
                 <a href="javascript: void(0);" onclick="callDocumentByPaginate('${productCategoryId}~${viewSize}~${viewIndex?int - 1}');" class="buttontext">${uiLabelMap.CommonPrevious}</a> |
             </#if>
             <#if ((listSize?int - viewSize?int) > 0)>
                 <span>${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}</span>
             </#if>
             <#if highIndex?int < listSize?int>
-             <#-- | <a href="<@ofbizUrl>category/~category_id=${productCategoryId}/~VIEW_SIZE=${viewSize}/~VIEW_INDEX=${viewIndex?int + 1}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a -->
              | <a href="javascript: void(0);" onclick="callDocumentByPaginate('${productCategoryId}~${viewSize}~${viewIndex?int + 1}');" class="buttontext">${uiLabelMap.CommonNext}</a>
             </#if>
         </div>
