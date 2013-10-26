@@ -539,10 +539,10 @@ if (product) {
                         BigDecimal calculatedPrice = (BigDecimal)virtualPriceMap.get("price");
                         // Get the minimum quantity for variants if MINIMUM_ORDER_PRICE is set for variants.
                         virtualVariantPriceList.add(virtualPriceMap);
-                        variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(variantPriceMap.basePrice, currencyUomId, locale, 10) + "\"; ");
+                        variantPriceJS.append(" if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(virtualPriceMap.basePrice, currencyUomId, locale, 10) + "\"; ");
                     } else {
                         virtualPriceMap = dispatcher.runSync("calculatePurchasePrice", priceContext);
-                        variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "\"; ");
+                        variantPriceJS.append(" if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(virtualPriceMap.price, currencyUomId, locale, 10) + "\"; ");
                     }
                 }
                 variantPriceJS.append(" } ");
