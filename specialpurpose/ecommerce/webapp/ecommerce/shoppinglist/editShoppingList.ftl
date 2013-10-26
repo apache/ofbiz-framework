@@ -55,7 +55,7 @@ under the License.
 <br />
 <#macro paginationControls>
   <#assign viewIndexMax = Static["java.lang.Math"].ceil((listSize)?double / viewSize?double)>
-  <#if (viewIndexMax?int >= 1)>
+  <#if (viewIndexMax?int > 0)>
     <div class="product-prevnext">
         <#-- Start Page Select Drop-Down -->
         <select name="pageSelect" onchange="callDocumentByPaginate(this[this.selectedIndex].value);">
