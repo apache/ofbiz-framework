@@ -37,7 +37,11 @@ under the License.
       <li><a href="<@ofbizUrl>view/showcart</@ofbizUrl>">[${uiLabelMap.OrderViewCart}]</a></li>
       <#if (shoppingCartSize > 0)>
             <#if !initialLocaleComplete?exists || initialLocaleComplete?length == 2 >
-                <#assign initialLocaleComplete = "en_US">
+                <#if initialLocaleComplete?exists && initialLocaleComplete?length == 2  && initialLocaleComplete == "fr">
+                    <#assign initialLocaleComplete = "fr_FR"><#-- same idea can be used with other default locale --> 
+                <#else>
+                    <#assign initialLocaleComplete = "en_US">
+                </#if>                              
             </#if>          
           <li id="quickCheckoutEnabled"><a href="<@ofbizUrl>quickcheckout</@ofbizUrl>">[${uiLabelMap.OrderCheckoutQuick}]</a></li>
           <li id="quickCheckoutDisabled" style="display:none" class="disabled">[${uiLabelMap.OrderCheckoutQuick}]</li>
