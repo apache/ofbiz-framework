@@ -58,7 +58,7 @@ under the License.
 </#macro>
 
 <#macro renderMenuItemBegin style toolTip linkStr containsNestedMenus>
-        <li<#if style?has_content> class="${style}"</#if><#if toolTip?has_content> title="${title}"</#if>><#if linkStr?has_content>${linkStr}</#if><#if containsNestedMenus><ul></#if><#rt/>
+        <li<#if style?has_content> class="${style}"</#if><#if toolTip?has_content> title="${toolTip}"</#if>><#if linkStr?has_content>${linkStr}</#if><#if containsNestedMenus><ul></#if><#rt/>
 </#macro>
 
 <#macro renderMenuItemEnd containsNestedMenus>
