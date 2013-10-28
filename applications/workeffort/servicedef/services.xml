@@ -35,8 +35,8 @@ under the License.
             <exclude field-name="lastModifiedDate"/>
             <exclude field-name="lastModifiedByUserLogin"/>
         </auto-attributes>
-        <override name="workEffortName" allow-html="safe"/>
-        <override name="description" allow-html="safe"/>
+        <override name="workEffortName" allow-html="any"/>
+        <override name="description" allow-html="any"/>
     </service>
     <service name="createWorkEffort" default-entity-name="WorkEffort" engine="simple"
         location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffort">
@@ -50,9 +50,9 @@ under the License.
         <attribute name="communicationEventId" type="String" mode="IN" optional="true"/>
         <attribute name="webSiteId" type="String" mode="IN" optional="true"/><!-- for notification services -->
         <override name="workEffortTypeId" optional="false"/>
-        <override name="workEffortName" optional="false" allow-html="safe"/>
+        <override name="workEffortName" optional="false" allow-html="any"/>
         <override name="currentStatusId" optional="false"/>
-        <override name="description" allow-html="safe"/>
+        <override name="description" allow-html="any"/>
     </service>
     <service name="createWorkEffortAndPartyAssign" default-entity-name="WorkEffort" engine="simple"
         location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortAndPartyAssign">
@@ -429,7 +429,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false" entity-name="CustRequestWorkEffort"/>
         <auto-attributes include="all" mode="IN" optional="true" entity-name="CustRequest"/>
         <override name="custRequestId" optional="true" mode="INOUT"/>
-        <override name="description" allow-html="safe"/>
+        <override name="description" allow-html="any"/>
     </service>
     <service name="deleteWorkEffortRequest" engine="simple" location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="deleteWorkEffortRequest" auth="true">
         <description>Deletes a CustRequestWorkEffort</description>

@@ -37,8 +37,8 @@
         <attribute name="dataResourceId" type="String" mode="OUT" optional="false"/>
         <attribute name="dataResource" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
         <attribute name="uploadedFile" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
-        <override name="objectInfo" allow-html="safe"/>
-        <override name="dataResourceName" allow-html="safe"/>
+        <override name="objectInfo" allow-html="any"/>
+        <override name="dataResourceName" allow-html="any"/>
     </service>
     <service name="createDataResourceAndAssocToContent" default-entity-name="DataResource" engine="simple"
             location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="createDataResourceAndAssocToContent" auth="true">
@@ -59,8 +59,8 @@
         <attribute name="skipPermissionCheck" type="String" mode="IN" optional="true"/>
         <attribute name="dataResourceId" type="String" mode="OUT" optional="false"/>
         <attribute name="dataResource" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
-        <override name="objectInfo" allow-html="safe"/>
-        <override name="dataResourceName" allow-html="safe"/>
+        <override name="objectInfo" allow-html="any"/>
+        <override name="dataResourceName" allow-html="any"/>
     </service>
     <service name="removeDataResource" engine="simple" default-entity-name="DataResource" auth="true"
             location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="deleteDataResource">
@@ -90,7 +90,7 @@
         <description>Create a DataResource and, possibly, ElectronicText or ImageDataResource</description>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="textData" mode="IN" optional="true" type="String" allow-html="safe"/>
+        <attribute name="textData" mode="IN" optional="true" type="String" allow-html="any"/>
         <attribute name="targetOperationList" type="List" mode="IN" optional="true"/>
         <attribute name="contentPurposeList" type="List" mode="IN" optional="true"/>
         <attribute name="skipPermissionCheck" type="String" mode="IN" optional="true"/>
@@ -100,7 +100,7 @@
         <description>Create a DataResource and, possibly, ElectronicText or ImageDataResource</description>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="textData" mode="IN" type="String" optional="true"  allow-html="safe"/>
+        <attribute name="textData" mode="IN" type="String" optional="true"  allow-html="any"/>
         <attribute name="targetOperationList" type="List" mode="IN" optional="true"/>
         <attribute name="contentPurposeList" type="List" mode="IN" optional="true"/>
         <attribute name="skipPermissionCheck" type="String" mode="IN" optional="true"/>
@@ -115,7 +115,7 @@
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="dataResourceTypeId" default-value="ELECTRONIC_TEXT"/>
-        <override name="textData" allow-html="safe"/>
+        <override name="textData" allow-html="any"/>
     </service>
     <service name="updateElectronicText" default-entity-name="ElectronicText" engine="simple"
             location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="updateElectronicText" auth="true">
@@ -124,7 +124,7 @@
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="contentId" mode="INOUT" optional="true" type="String"/><!-- to optionaly know where this text is belonging to -->
-        <override name="textData" allow-html="safe"/>
+        <override name="textData" allow-html="any"/>
     </service>
     <service name="removeElectronicText" default-entity-name="ElectronicText" engine="simple"
             location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="removeElectronicText" auth="true">

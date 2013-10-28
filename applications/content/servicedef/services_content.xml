@@ -48,8 +48,8 @@
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
         <override name="contentTypeId" default-value="DOCUMENT"/>
-        <override name="contentName" allow-html="safe"/>
-        <override name="description" allow-html="safe"/>
+        <override name="contentName" allow-html="any"/>
+        <override name="description" allow-html="any"/>
     </service>
 
     <service name="createTextAndUploadedContent" engine="simple" auth="true"
@@ -131,8 +131,8 @@
         <attribute mode="IN" name="displayFailCond" optional="true" type="Boolean"/>
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
         <!-- end of depricated fields -->
-        <override name="contentName" allow-html="safe"/>
-        <override name="description" allow-html="safe"/>
+        <override name="contentName" allow-html="any"/>
+        <override name="description" allow-html="any"/>
     </service>
 
     <service name="updateTextContent" engine="group" auth="true">

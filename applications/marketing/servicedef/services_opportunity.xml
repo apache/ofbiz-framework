@@ -78,9 +78,9 @@ under the License.
         </auto-attributes>
         <attribute name="accountPartyId" mode="IN" type="String" optional="true"/>
         <attribute name="leadPartyId" mode="IN" type="String" optional="true"/>
-        <override name="opportunityName" allow-html="safe"/>
-        <override name="description" allow-html="safe"/>
-        <override name="nextStep" allow-html="safe"/>
+        <override name="opportunityName" allow-html="any"/>
+        <override name="description" allow-html="any"/>
+        <override name="nextStep" allow-html="any"/>
     </service>
     <service name="updateSalesOpportunity" engine="simple" default-entity-name="SalesOpportunity"
         location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="updateSalesOpportunity">
@@ -89,9 +89,9 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <attribute name="accountPartyId" mode="IN" type="String" optional="true"/>
         <attribute name="leadPartyId" mode="IN" type="String" optional="true"/>
-        <override name="opportunityName" allow-html="safe"/>
-        <override name="description" allow-html="safe"/>
-        <override name="nextStep" allow-html="safe"/>
+        <override name="opportunityName" allow-html="any"/>
+        <override name="description" allow-html="any"/>
+        <override name="nextStep" allow-html="any"/>
     </service>
     <service name="createSalesOpportunityRole" engine="simple" default-entity-name="SalesOpportunityRole" 
         location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="createSalesOpportunityRole">

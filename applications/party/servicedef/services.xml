@@ -120,7 +120,7 @@ under the License.
         <attribute name="externalId" type="String" mode="IN" optional="true"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <override name="groupName" optional="false"/>
-        <override name="comments" allow-html="safe"/>
+        <override name="comments" allow-html="any"/>
     </service>
     <service name="updatePartyGroup" engine="java" default-entity-name="PartyGroup"
             location="org.ofbiz.party.party.PartyServices" invoke="updatePartyGroup" auth="true">
@@ -133,7 +133,7 @@ under the License.
         <attribute name="preferredCurrencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="externalId" type="String" mode="IN" optional="true"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
-        <override name="comments" allow-html="safe"/>
+        <override name="comments" allow-html="any"/>
     </service>
 
     <service name="savePartyNameChange" engine="simple"
@@ -379,7 +379,7 @@ under the License.
         <description>create a company/contact relationship and add the related roles</description>
         <attribute name="accountPartyId" type="String" mode="IN"/>
         <attribute name="contactPartyId" type="String" mode="IN"/>
-        <attribute name="comments" type="String" mode="IN" optional="true" allow-html="safe"/>
+        <attribute name="comments" type="String" mode="IN" optional="true" allow-html="any"/>
     </service>
 
     <!-- ContactMech services -->
@@ -768,9 +768,9 @@ under the License.
         <attribute name="custRequestId" type="String" mode="IN" optional="true"/>
         <attribute name="action" type="String" mode="IN" optional="true"/><!-- to indicate any special action like: REPLY, REPLYALL, FORWARD or empty for no special action-->
         <override name="headerString" allow-html="any"/>
-        <override name="content" allow-html="safe"/>
-        <override name="messageId" allow-html="safe"/>
-        <override name="subject" allow-html="safe"/>
+        <override name="content" allow-html="any"/>
+        <override name="messageId" allow-html="any"/>
+        <override name="subject" allow-html="any"/>
     </service>
     <service name="createCommunicationEvent" engine="simple"
             location="component://party/script/org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="createCommunicationEventWithPermission" auth="true">
@@ -792,9 +792,9 @@ under the License.
         <auto-attributes entity-name="CommunicationEvent" include="nonpk" mode="IN" optional="true"/>
         <attribute name="contactMechPurposeTypeIdFrom" type="String" mode="IN" optional="true"><description>Set a specific purpose for the originator email</description></attribute>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
-        <override name="messageId" allow-html="safe"/>
-        <override name="content" allow-html="safe"/>
-        <override name="subject" allow-html="safe"/>
+        <override name="messageId" allow-html="any"/>
+        <override name="content" allow-html="any"/>
+        <override name="subject" allow-html="any"/>
     </service>
     <service name="deleteCommunicationEvent" engine="simple"
         location="component://party/script/org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="deleteCommunicationEvent" auth="true">

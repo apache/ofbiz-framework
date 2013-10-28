@@ -138,7 +138,7 @@ under the License.
             <exclude field-name="lastModifiedByUserLogin"/>
         </auto-attributes>
         <override name="promoName" optional="false"/>
-        <override name="promoText" allow-html="safe"/>
+        <override name="promoText" allow-html="any"/>
     </service>
     <service name="updateProductPromo" default-entity-name="ProductPromo" engine="simple"
                 location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="updateProductPromo" auth="true">
@@ -150,7 +150,7 @@ under the License.
             <exclude field-name="lastModifiedDate"/>
             <exclude field-name="lastModifiedByUserLogin"/>
         </auto-attributes>
-        <override name="promoText" allow-html="safe"/>
+        <override name="promoText" allow-html="any"/>
     </service>
     <service name="deleteProductPromo" default-entity-name="ProductPromo" engine="simple"
                 location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromo" auth="true">
