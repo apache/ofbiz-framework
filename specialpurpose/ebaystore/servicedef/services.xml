@@ -491,7 +491,7 @@ under the License.
         <attribute name="itemId" mode="IN" type="String" optional="false"/>
         <attribute name="listingType" mode="IN" type="String" optional="true"/>
         <attribute name="title" mode="IN" type="String" optional="true"/>
-        <attribute name="description" mode="IN" type="String" allow-html="safe"/>
+        <attribute name="description" mode="IN" type="String" allow-html="any"/>
         <attribute name="price" mode="IN" type="String" optional="true"/>
         <attribute name="currencyId" mode="IN" type="String" optional="true"/>
         <attribute mode="IN" name="imageData" optional="true" type="java.nio.ByteBuffer"/>

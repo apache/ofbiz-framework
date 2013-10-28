@@ -291,12 +291,12 @@
 
     <service name="createSimpleTextContent" engine="simple" location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="createSimpleTextContent">
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
-        <attribute name="text" type="String" mode="IN" optional="false" allow-html="safe"/>
+        <attribute name="text" type="String" mode="IN" optional="false" allow-html="any"/>
         <override name="contentId" mode="INOUT"/>
     </service>
     <service name="updateSimpleTextContent" engine="simple" location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="updateSimpleTextContent">
         <attribute name="textDataResourceId" type="String" mode="IN" optional="true"/>
-        <attribute name="text" type="String" mode="IN" optional="true" allow-html="safe"/>
+        <attribute name="text" type="String" mode="IN" optional="true" allow-html="any"/>
     </service>
 
     <!-- Util -->
@@ -452,7 +452,7 @@
         <attribute mode="IN" name="forceElectronicText" optional="true" type="String"/>
         <attribute mode="IN" name="displayFailCond" optional="true" type="Boolean"/>
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
-        <override name="textData" allow-html="safe"/>
+        <override name="textData" allow-html="any"/>
     </service>
 
     <service name="persistDataResourceAndData" engine="java"
@@ -1052,8 +1052,8 @@
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
         <attribute name="templateDataResourceId" type="String" mode="IN" optional="true"/>
-        <attribute name="articleData" type="String" mode="IN" optional="true" allow-html="safe"/>
-        <attribute name="summaryData" type="String" mode="IN" optional="true" allow-html="safe"/>
+        <attribute name="articleData" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="summaryData" type="String" mode="IN" optional="true" allow-html="any"/>
     </service>
     <service name="updateBlogEntry" engine="simple" auth="true"
         location="component://content/script/org/ofbiz/content/blog/BlogServices.xml" invoke="updateBlogEntry">
@@ -1065,8 +1065,8 @@
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
         <attribute name="templateDataResourceId" type="String" mode="IN" optional="true"/>
-        <attribute name="articleData" type="String" mode="IN" optional="true" allow-html="safe"/>
-        <attribute name="summaryData" type="String" mode="IN" optional="true" allow-html="safe"/>
+        <attribute name="articleData" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="summaryData" type="String" mode="IN" optional="true" allow-html="any"/>
     </service>
     <service name="getBlogEntry" engine="simple" auth="true"
         location="component://content/script/org/ofbiz/content/blog/BlogServices.xml" invoke="getBlogEntry">

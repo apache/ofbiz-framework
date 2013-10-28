@@ -106,6 +106,7 @@ under the License.
                     If set to true and there is a transaction already in place the Service Engine will suspend that transaction, begin a new one just for this service, commit or rollback the local transaction when the service is complete, and will resume the original transaction.
                     If set to true and there is no transaction already in place it will just begin a transaction and manage it as would be done for a normal user-transaction=true.
                     If use-transaction=false this setting is ignored.
+                    Beware: using require-new-transaction=true in a service called (maybe not directly) by a pre-invoke or earlier event ( preprocessor, firstvisit and so on) is not yet supported.
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
@@ -348,11 +349,18 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="allow-html" use="optional" default="none">
-            <xs:annotation><xs:documentation>See the documentation on the allow-html attribute of the "attribute" element.</xs:documentation></xs:annotation>
+            <xs:annotation>
+                <xs:documentation>
+                    Applies only to String fields.
+                    Only checked for incoming parameters/attributes (could change in the future, but this is meant for validating input from users, other systems, etc).
+                    Defaults to "none" meaning no HTML is allowed (will result in an error message).
+                    If some HTML is desired then use "any".
+                    There was previously "safe" but it's deprecated
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="any"/>
-                    <xs:enumeration value="safe"/>
                     <xs:enumeration value="none"/>
                 </xs:restriction>
             </xs:simpleType>
@@ -424,13 +432,12 @@ under the License.
                 Applies only to String fields.
                 Only checked for incoming parameters/attributes (could change in the future, but this is meant for validating input from users, other systems, etc).
                 Defaults to "none" meaning no HTML is allowed (will result in an error message).
-                If some HTML is desired then use "safe" which will follow the rules in the antisamy-esapi.xml file. This should be safe for both internal and public users.
-                In rare cases when users are trusted or it is not a sensitive field the "any" option may be used to not check the HTML content at all.
+                If some HTML is desired then use "any".
+                There was previously "safe" but it's deprecated
             </xs:documentation></xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="any"/>
-                    <xs:enumeration value="safe"/>
                     <xs:enumeration value="none"/>
                 </xs:restriction>
             </xs:simpleType>
@@ -477,11 +484,18 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="allow-html" use="optional">
-            <xs:annotation><xs:documentation>See the documentation on the allow-html attribute of the "attribute" element. Note that it is slightly different here as there is no defualt.</xs:documentation></xs:annotation>
+            <xs:annotation>
+                <xs:documentation>
+                    Applies only to String fields.
+                    Only checked for incoming parameters/attributes (could change in the future, but this is meant for validating input from users, other systems, etc).
+                    There is no default, "none" means no HTML is allowed (will result in an error message).
+                    If some HTML is desired then use "any".
+                    There was previously "safe" but it's deprecated
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="any"/>
-                    <xs:enumeration value="safe"/>
                     <xs:enumeration value="none"/>
                 </xs:restriction>
             </xs:simpleType>
