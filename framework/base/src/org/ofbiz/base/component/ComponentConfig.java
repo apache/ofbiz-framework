@@ -798,7 +798,7 @@ public final class ComponentConfig {
      *
      */
     public static final class TestSuiteInfo extends ResourceInfo {
-        private TestSuiteInfo(ComponentConfig componentConfig, Element element) {
+        public TestSuiteInfo(ComponentConfig componentConfig, Element element) {
             super(componentConfig, element);
         }
     }
