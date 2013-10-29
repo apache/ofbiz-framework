@@ -74,11 +74,11 @@ framework/base/lib/scripting/jansi-1.2.1.jar
 framework/base/lib/xmlrpc-client-3.1.2.jar
 framework/base/lib/xmlrpc-common-3.1.2.jar
 framework/base/lib/xmlrpc-server-3.1.2.jar
-framework/catalina/lib/tomcat-7.0.42-catalina-ha.jar
-framework/catalina/lib/tomcat-7.0.42-catalina-tribes.jar
-framework/catalina/lib/tomcat-7.0.42-tomcat-embed-core.jar
-framework/catalina/lib/tomcat-7.0.42-tomcat-embed-jasper.jar
-framework/catalina/lib/tomcat-7.0.42-tomcat-embed-logging-log4j.jar
+framework/catalina/lib/tomcat-7.0.47-catalina-ha.jar
+framework/catalina/lib/tomcat-7.0.47-catalina-tribes.jar
+framework/catalina/lib/tomcat-7.0.47-tomcat-embed-core.jar
+framework/catalina/lib/tomcat-7.0.47-tomcat-embed-jasper.jar
+framework/catalina/lib/tomcat-7.0.47-tomcat-embed-logging-log4j.jar
 framework/entity/lib/commons-dbcp-1.4.jar
 framework/entity/lib/jdbc/derby-10.8.2.2.jar
 framework/entity/lib/jdbc/derbytools-10.8.2.2.jar
