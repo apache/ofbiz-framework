@@ -28,10 +28,10 @@ import java.util.Map;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.component.ComponentConfig.WebappInfo;
+import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.service.DispatchContext;
@@ -199,7 +199,7 @@ public class NotificationServices {
             setBaseUrl(delegator, webSiteId, templateData);
 
             // initialize the template reader and processor
-            URL templateUrl = UtilURL.fromResource(templateName);
+            URL templateUrl = FlexibleLocation.resolveLocation(templateName);
 
             if (templateUrl == null) {
                 Debug.logError("Problem getting the template URL: " + templateName + " not found", module);
