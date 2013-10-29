@@ -153,7 +153,6 @@ public class ProductDocument implements LuceneDocument {
                         String goodIdentificationTypeId = goodIdentification.getString("goodIdentificationTypeId");
                         String idValue = goodIdentification.getString("idValue");
                         doc.add(new StringField("goodIdentificationTypeId", goodIdentificationTypeId, Field.Store.NO));
-                        doc.add(new StringField("goodIdentificationIdValue", idValue, Field.Store.NO));
                         doc.add(new StringField(goodIdentificationTypeId + "_GoodIdentification", idValue, Field.Store.NO));
                         this.addTextFieldByWeight(doc, "identificationValue", idValue, "index.weight.GoodIdentification.idValue", 0, false, "fullText");
                     }
