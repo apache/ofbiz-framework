@@ -40,26 +40,25 @@ under the License.
   <div id="content-messages" class="content-messages errorMessage" onclick="document.getElementById('content-messages').parentNode.removeChild(this)">
     <p>${uiLabelMap.CommonFollowingErrorsOccurred}:</p>
     <#if errorMessage?has_content>
-      <p>${errorMessage}</p>
+      <p>${StringUtil.wrapString(errorMessage)}</p>
     </#if>
     <#if errorMessageList?has_content>
       <#list errorMessageList as errorMsg>
-        <p>${errorMsg}</p>
+        <p>${StringUtil.wrapString(errorMsg)}</p>
       </#list>
     </#if>
   </div>
 </#if>
-
 <#-- display the event messages -->
 <#if (eventMessage?has_content || eventMessageList?has_content)>
   <div id="content-messages" class="content-messages eventMessage" onclick="document.getElementById('content-messages').parentNode.removeChild(this)">
     <p>${uiLabelMap.CommonFollowingOccurred}:</p>
     <#if eventMessage?has_content>
-      <p>${eventMessage}</p>
+      <p>${StringUtil.wrapString(eventMessage)}</p>
     </#if>
     <#if eventMessageList?has_content>
       <#list eventMessageList as eventMsg>
-        <p>${eventMsg}</p>
+        <p>${StringUtil.wrapString(eventMsg)}</p>
       </#list>
     </#if>
   </div>
