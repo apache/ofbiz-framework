@@ -1198,7 +1198,7 @@ under the License.
                         </if-compare-field>
                         <!-- An inventory item detail record is created to keep track of the units (value) that we are going to add to the inventory account -->
                         <set from-field="costInventoryItem.inventoryItemId" field="createDetailMap.inventoryItemId"/>
-                        <set value="${-1 * costInventoryItemQuantity}" field="createDetailMap.accountingQuantityDiff" type="BigDecimal"/>
+                        <set value="${(-1) * costInventoryItemQuantity}" field="createDetailMap.accountingQuantityDiff" type="BigDecimal"/>
                         <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
 
                         <calculate field="costInventoryItemAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
