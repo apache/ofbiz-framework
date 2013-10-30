@@ -57,7 +57,7 @@ under the License.
   <pathelement location="${ofbiz.home.dir}/framework/base/lib/commons/commons-cli-1.0.jar"/>
   <pathelement location="${ofbiz.home.dir}/framework/base/lib/scripting/antlr-2.7.6.jar"/>
   <pathelement location="${ofbiz.home.dir}/framework/base/lib/scripting/asm-3.2.jar"/>
-  <pathelement location="${ofbiz.home.dir}/framework/base/lib/scripting/groovy-all-1.8.6.jar"/>
+  <pathelement location="${ofbiz.home.dir}/framework/base/lib/scripting/groovy-all-2.1.9.jar"/>
  </path>
  <path id="rhino.class.path">
   <pathelement location="${ofbiz.home.dir}/extension/rhino/lib/js-1.7.R1.jar"/>
