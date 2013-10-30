@@ -27,35 +27,26 @@ import org.ofbiz.base.util.UtilHttp
 import org.ofbiz.content.search.SearchWorker
 import org.ofbiz.product.feature.ParametricSearch
 import org.apache.lucene.search.*
-import org.apache.lucene.store.Directory
 import org.apache.lucene.index.DirectoryReader
 
-paramMap = UtilHttp.getParameterMap(request);
-queryLine = paramMap.queryLine.toString();
-Debug.logInfo("in search, queryLine:" + queryLine, "");
+queryLine = parameters.queryLine;
 
-siteId = paramMap.lcSiteId;
-Debug.logInfo("in search, siteId:" + siteId, "");
+siteId = parameters.lcSiteId;
 
-searchFeature1 = (String) paramMap.SEARCH_FEAT;
-searchFeature2 = (String) paramMap.SEARCH_FEAT2;
-searchFeature3 = (String) paramMap.SEARCH_FEAT3;
+searchFeature1 = (String) parameters.SEARCH_FEAT;
+searchFeature2 = (String) parameters.SEARCH_FEAT2;
+searchFeature3 = (String) parameters.SEARCH_FEAT3;
 
-featureIdByType = ParametricSearch.makeFeatureIdByTypeMap(paramMap);
-Debug.logInfo("in search, featureIdByType:" + featureIdByType, "");
+featureIdByType = ParametricSearch.makeFeatureIdByTypeMap(UtilHttp.getParameterMap(request));
 
 combQuery = new BooleanQuery();
-Directory directory = FSDirectory.open(new File(SearchWorker.getIndexPath("content")));
-DirectoryReader reader = DirectoryReader.open(directory);
 
 try {
-    Debug.logInfo("in search, indexPath:" + directory.toString(), "");
+    DirectoryReader reader = DirectoryReader.open(FSDirectory.open(new File(SearchWorker.getIndexPath("content"))));
     searcher = new IndexSearcher(reader);
-    Debug.logInfo("in search, searcher:" + searcher, "");
     analyzer = new StandardAnalyzer(SearchWorker.LUCENE_VERSION);
 } catch (java.io.FileNotFoundException e) {
-    request.setAttribute("errorMsgReq", "No index file exists.");
-    Debug.logError("in search, error:" + e.getMessage(), "");
+    context.errorMessageList.add(e.getMessage());
     return;
 }
 
@@ -79,7 +70,7 @@ if (queryLine || siteId) {
 if (searchFeature1 || searchFeature2 || searchFeature3 || !featureIdByType.isEmpty()) {
     featureQuery = new BooleanQuery();
     featuresRequired = BooleanClause.Occur.MUST;
-    if ("any".equals(paramMap.any_or_all)) {
+    if ("any".equals(parameters.any_or_all)) {
         featuresRequired = BooleanClause.Occur.SHOULD;
     }
 
@@ -111,11 +102,9 @@ if (searchFeature1 || searchFeature2 || searchFeature3 || !featureIdByType.isEmp
     }
 }
 if (searcher) {
-    Debug.logInfo("in search searchFeature3, combQuery:" + combQuery.toString(), "");
     TopScoreDocCollector collector = TopScoreDocCollector.create(100, false); //defaulting to 100 results
     searcher.search(combQuery, collector);
     ScoreDoc[] hits = collector.topDocs().scoreDocs;
-    Debug.logInfo("in search, hits:" + collector.getTotalHits(), "");
 
     contentList = [] as ArrayList;
     hitSet = [:] as HashSet;
