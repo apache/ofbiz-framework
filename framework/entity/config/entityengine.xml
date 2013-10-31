@@ -102,7 +102,6 @@ access. For a detailed description see the core/docs/entityconfig.html file.
     <field-type name="axion" loader="fieldfile" location="fieldtypeaxion.xml"/>
     <field-type name="mysql" loader="fieldfile" location="fieldtypemysql.xml"/>
     <field-type name="postgres" loader="fieldfile" location="fieldtypepostgres.xml"/>
-    <field-type name="postnew" loader="fieldfile" location="fieldtypepostnew.xml"/>
     <field-type name="oracle" loader="fieldfile" location="fieldtypeoracle.xml"/>
     <field-type name="sapdb" loader="fieldfile" location="fieldtypesapdb.xml"/>
     <field-type name="sybase" loader="fieldfile" location="fieldtypesybase.xml"/>
@@ -487,7 +486,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
     <datasource name="localpostolap"
             helper-class="org.ofbiz.entity.datasource.GenericHelperDAO"
             schema-name="public"
-            field-type-name="postnew"
+            field-type-name="postgres"
             check-on-start="true"
             add-missing-on-start="true"
             use-fk-initially-deferred="false"
@@ -524,7 +523,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
     <datasource name="localposttenant"
             helper-class="org.ofbiz.entity.datasource.GenericHelperDAO"
             schema-name="public"
-            field-type-name="postnew"
+            field-type-name="postgres"
             check-on-start="true"
             add-missing-on-start="true"
             use-fk-initially-deferred="false"
