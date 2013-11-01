@@ -482,6 +482,10 @@ under the License.
     </simple-method>
     
     <simple-method method-name="convertUomCurrency" short-description="Convert Uom Currency from UomConversionDated entity">
+        <if-empty field="parameters.nowDate">
+            <now field="now"/>            
+            <set field="parameters.nowDate" from-field="now"/>
+        </if-empty>
         <entity-condition entity-name="UomConversionDated" list="UomConversionDatedList">
             <condition-list combine="and">
                 <condition-expr field-name="uomId" operator="equals" from-field="parameters.uomId"/>

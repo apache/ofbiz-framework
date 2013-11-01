@@ -55,9 +55,9 @@ under the License.
     <service name="convertUomCurrency" auth="true" engine="simple"
         location="component://order/script/org/ofbiz/order/olap/FactServices.xml" invoke="convertUomCurrency">
         <description>Import Sales Order Data.</description>
-        <attribute name="uomId" type="String" mode="IN" optional="false"/>
-        <attribute name="uomIdTo" type="String" mode="IN" optional="false"/>
-        <attribute name="nowDate" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="uomId" type="String" mode="IN"/>
+        <attribute name="uomIdTo" type="String" mode="IN"/>
+        <attribute name="nowDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="conversionFactor" type="Double" mode="OUT" optional="true"/>
     </service>
     
