@@ -99,8 +99,8 @@
         <value xml:lang="fr">Ventes par canaux</value>
     </property>
     <property key="BirtOrderReportsWarning">
-        <value xml:lang="en">Four Birt reports (Last 3 Months Sales, Sales, Sales Order Discount Code, Product Demand) require to feed the BI data base (note that the bi.properties file will need to be updated after September 2023). Then only new approved orders will be taken into account</value>
-        <value xml:lang="fr">Quatre tableau créés par Birt (Ventes des 3 derniers mois, Ventes, Ventes par codes promotionels, Demandes par produit) nécessitent d'alimenter la base de données d'Inform. décis. (notez aussi la màj du fichier bi.properties nécessaire après septembre 2023). Seulemnt ensuite les commandes approuvées seront prises en compte.</value>
+        <value xml:lang="en">Four Birt reports (Last 3 Months Sales, Sales, Sales Order Discount Code, Product Demand) require to feed the BI data base (note that the bi.properties file will need to be updated after September 2023). Then only new approved orders will be taken into account.</value>
+        <value xml:lang="fr">Quatre tableau créés par Birt (Ventes des 3 derniers mois, Ventes, Ventes par codes promotionels, Demandes par produit) nécessitent d'alimenter la base de données d'Inform. décis. (notez aussi la màj du fichier bi.properties nécessaire après septembre 2023). Ensuite seules les commandes nouvellemnt approuvées seront prises en compte.</value>
     </property>
     <property key="ExampleBirtExamples">
         <value xml:lang="en">BIRT Examples</value>
