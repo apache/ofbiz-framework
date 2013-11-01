@@ -48,7 +48,7 @@ var autocomp = [
                   <#if (key == context.returnField)>
                       <#assign returnField = field/>
                   <#else>
-                      <#assign displayString = displayString + StringUtil.wrapString(field) + " ">
+                      <#assign displayString = displayString + StringUtil.wrapString(field?string) + " ">
                   </#if>
               </#if>
             </#list>
