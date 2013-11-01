@@ -1820,11 +1820,11 @@
     </property>
     <property key="ContentIndexAll">
         <value xml:lang="ar">دلل على كل المحتوى تحت</value>
-        <value xml:lang="da">Indeks alt indhold under</value>
+        <value xml:lang="da">Indeks alt indhold under:</value>
         <value xml:lang="de">Alle Inhalte indexieren unter</value>
         <value xml:lang="en">Index All Content Under</value>
         <value xml:lang="es">Indice de todo el contenido</value>
-        <value xml:lang="fr">Indexez tout le contenu dessous</value>
+        <value xml:lang="fr">Indexer tout le contenu sous :</value>
         <value xml:lang="it">Indicizza Tutti i Contenuti Sotto</value>
         <value xml:lang="ja">すべてのコンテンツの索引を作成</value>
         <value xml:lang="pt">Indexar todo o conteúdo sob</value>
