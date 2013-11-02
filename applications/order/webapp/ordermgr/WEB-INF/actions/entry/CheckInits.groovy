@@ -60,6 +60,6 @@ if (partyId) {
     contactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false));
     if (contactMech) {
         ShoppingCart shoppingCart = ShoppingCartEvents.getCartObject(request);
-        shoppingCart.setShippingContactMechId(contactMech.contactMechId);
+        shoppingCart.setAllShippingContactMechId(contactMech.contactMechId);
     }
 }

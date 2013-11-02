@@ -59,7 +59,7 @@ if (shoppingCart.getShipmentMethodTypeId() && shoppingCart.getCarrierPartyId()) 
 
 // other profile defaults
 if (!shoppingCart.getShippingAddress() && profiledefs?.defaultShipAddr) {
-    shoppingCart.setShippingContactMechId(profiledefs.defaultShipAddr);
+    shoppingCart.setAllShippingContactMechId(profiledefs.defaultShipAddr);
 }
 if (shoppingCart.selectedPayments() == 0 && profiledefs?.defaultPayMeth) {
     shoppingCart.addPayment(profiledefs.defaultPayMeth);
