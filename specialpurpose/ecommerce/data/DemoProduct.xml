@@ -393,7 +393,8 @@ under the License.
     <Product productId="GZ-1006-2" productTypeId="FINISHED_GOOD" primaryProductCategoryId="102" productName="Open Gizmo (GPL)" internalName="Open Gizmo (GPL)" description="Gizmo based on open standards" longDescription="Highest quality gizmo around." taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="Y" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <Product productId="GZ-1006-3" productTypeId="FINISHED_GOOD" primaryProductCategoryId="102" productName="Open Gizmo (BSD)" internalName="Open Gizmo (BSD)" description="Gizmo based on open standards" longDescription="Highest quality gizmo around." taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="Y" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <Product productId="GZ-1006-4" productTypeId="FINISHED_GOOD" primaryProductCategoryId="102" productName="Open Gizmo (MIT)" internalName="Open Gizmo (MIT)" description="Gizmo based on open standards" longDescription="Highest quality gizmo around." taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="Y" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-
+    <Product productId="GZ-1006-5" productTypeId="FINISHED_GOOD" primaryProductCategoryId="102" productName="Open Gizmo (ASL2)" internalName="Open Gizmo (ASL)" description="Gizmo based on open standards" longDescription="Highest quality gizmo around." taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="Y" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    
     <Product productId="GZ-2002" productTypeId="FINISHED_GOOD" primaryProductCategoryId="101" productName="Square Gizmo" internalName="Square Gizmo" description="A square gizmo" taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <Product productId="GZ-2644" productTypeId="FINISHED_GOOD" primaryProductCategoryId="101" internalName="Round Gizmo" longDescription="A small round gizmo with multi-colored lights. Works great in the dark. Small and compact." isVirtual="N" isVariant="N" quantityIncluded="100.0" weight="7.0"/>
     <Product productId="GZ-5005" productTypeId="FINISHED_GOOD" primaryProductCategoryId="101" productName="Purple Gizmo" internalName="Purple Gizmo" description="The stylish gizmo" taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
@@ -422,6 +423,8 @@ under the License.
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-1006-3-ALTEN" localeString="en_US"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-1006-4-ALT" localeString="en"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-1006-4-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-1006-5-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-1006-5-ALTEN" localeString="en_US"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-2002-ALT" localeString="en"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-2002-ALTEN" localeString="en_US"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-2644-ALT" localeString="en"/>
@@ -501,6 +504,8 @@ under the License.
     <Content contentId="CGZ-1006-3-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGZ-1006-3-ALTEN" localeString="en_US"/>
     <Content contentId="GZ-1006-4-ALT" contentTypeId="DOCUMENT" dataResourceId="GZ-1006-4-ALT" localeString="en"/>
     <Content contentId="CGZ-1006-4-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGZ-1006-4-ALTEN" localeString="en_US"/>
+    <Content contentId="GZ-1006-5-ALT" contentTypeId="DOCUMENT" dataResourceId="GZ-1006-5-ALT" localeString="en"/>
+    <Content contentId="CGZ-1006-5-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGZ-1006-5-ALTEN" localeString="en_US"/>
     <Content contentId="GZ-2002-ALT" contentTypeId="DOCUMENT" dataResourceId="GZ-2002-ALT" localeString="en"/>
     <Content contentId="CGZ-2002-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGZ-2002-ALTEN" localeString="en_US"/>
     <Content contentId="GZ-2644-ALT" contentTypeId="DOCUMENT" dataResourceId="GZ-2644-ALT" localeString="en"/>
@@ -535,6 +540,7 @@ under the License.
     <ContentAssoc contentId="GZ-1006-2-ALT" contentIdTo="CGZ-1006-2-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
     <ContentAssoc contentId="GZ-1006-3-ALT" contentIdTo="CGZ-1006-3-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
     <ContentAssoc contentId="GZ-1006-4-ALT" contentIdTo="CGZ-1006-4-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="GZ-1006-5-ALT" contentIdTo="CGZ-1006-5-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
     <ContentAssoc contentId="GZ-2002-ALT" contentIdTo="CGZ-2002-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
     <ContentAssoc contentId="GZ-2644-ALT" contentIdTo="CGZ-2644-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
     <ContentAssoc contentId="GZ-5005-ALT" contentIdTo="CGZ-5005-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
@@ -555,6 +561,7 @@ under the License.
     <ProductContent productId="GZ-1006-2" contentId="GZ-1006-2-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
     <ProductContent productId="GZ-1006-3" contentId="GZ-1006-3-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
     <ProductContent productId="GZ-1006-4" contentId="GZ-1006-4-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GZ-1006-5" contentId="GZ-1006-5-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
     
     <ProductContent productId="GZ-2002" contentId="GZ-2002-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
     <ProductContent productId="GZ-2644" contentId="GZ-2644-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
@@ -815,7 +822,8 @@ under the License.
     <ProductFeature productFeatureId="8001" productFeatureCategoryId="8000" productFeatureTypeId="LICENSE" description="GPL"/>
     <ProductFeature productFeatureId="8002" productFeatureCategoryId="8000" productFeatureTypeId="LICENSE" description="BSD"/>
     <ProductFeature productFeatureId="8003" productFeatureCategoryId="8000" productFeatureTypeId="LICENSE" description="MIT"/>
-
+    <ProductFeature productFeatureId="8004" productFeatureCategoryId="8000" productFeatureTypeId="LICENSE" description="ASL2"/>
+    
     <ProductFeatureCategory productFeatureCategoryId="9000" description="Widget Features"/>
     <ProductFeatureCategoryAppl productFeatureCategoryId="9000" productCategoryId="CATALOG1_SEARCH" fromDate="2001-05-13 12:00:00.0"/>
 
@@ -839,8 +847,10 @@ under the License.
     <ProductFeatureAppl productId="GZ-1006" productFeatureId="8002"
         productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="3"/>
     <ProductFeatureAppl productId="GZ-1006" productFeatureId="8003"
+        productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="4"/>    
+    <ProductFeatureAppl productId="GZ-1006" productFeatureId="8004"
         productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="4"/>
-
+    
     <ProductFeatureAppl productId="GZ-1006-1" productFeatureId="8000"
         productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
     <ProductFeatureAppl productId="GZ-1006-2" productFeatureId="8001"
@@ -849,7 +859,9 @@ under the License.
         productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
     <ProductFeatureAppl productId="GZ-1006-4" productFeatureId="8003"
         productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
-
+    <ProductFeatureAppl productId="GZ-1006-5" productFeatureId="8004"
+        productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
+    
     <ProductFeatureAppl productId="WG-9943" productFeatureId="9000"
         productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
     <ProductFeatureAppl productId="WG-9943" productFeatureId="9001"
@@ -892,7 +904,9 @@ under the License.
         productIdTo="GZ-1006-3" quantity="1.0" reason=""/>
     <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="GZ-1006"
         productIdTo="GZ-1006-4" quantity="1.0" reason=""/>
-
+    <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="GZ-1006"
+        productIdTo="GZ-1006-5" quantity="1.0" reason=""/>
+    
     <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="WG-9943"
         productIdTo="WG-9943-B3" quantity="1.0" reason=""/>
     <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="WG-9943"
@@ -1110,6 +1124,8 @@ under the License.
     <InventoryItemDetail inventoryItemId="9023" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="8" quantityOnHandDiff="8" accountingQuantityDiff="8"/>
     <InventoryItem facilityId="WebStoreWarehouse" inventoryItemId="9024" inventoryItemTypeId="NON_SERIAL_INV_ITEM" datetimeReceived="2008-08-01 08:00:00.000" productId="GZ-1006-4" ownerPartyId="Company" currencyUomId="USD" unitCost="2.4"/>
     <InventoryItemDetail inventoryItemId="9024" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="8" quantityOnHandDiff="8" accountingQuantityDiff="8"/>
+    <InventoryItem facilityId="WebStoreWarehouse" inventoryItemId="9025" inventoryItemTypeId="NON_SERIAL_INV_ITEM" datetimeReceived="2008-08-01 08:00:00.000" productId="GZ-1006-5" ownerPartyId="Company" currencyUomId="USD" unitCost="2.4"/>
+    <InventoryItemDetail inventoryItemId="9025" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="8" quantityOnHandDiff="8" accountingQuantityDiff="8"/>
     
     <InventoryItem facilityId="WebStoreWarehouse" inventoryItemId="9026" inventoryItemTypeId="NON_SERIAL_INV_ITEM" datetimeReceived="2008-08-01 08:00:00.000" productId="GZ-1000" ownerPartyId="Company" currencyUomId="USD" unitCost="2.4"/>
     <InventoryItemDetail inventoryItemId="9026" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="8" quantityOnHandDiff="8" accountingQuantityDiff="8"/>
