@@ -116,7 +116,7 @@ under the License.
                    <tr>
                      <input type='hidden' name='${shipGroupIndex?default("0")}_shipping_method' value="STANDARD@_NA_" />
                      <td>
-                       <input type='text' name='${shipGroupIndex?default("0")}_ship_estimate'/>
+                       <input type='text' name='${shipGroupIndex?default("0")}_ship_estimate' value="${cart.getItemShipGroupEstimate(shipGroupIndex?default('0'))?if_exists}"/>
                      </td>
                    </tr>
                </#if>
