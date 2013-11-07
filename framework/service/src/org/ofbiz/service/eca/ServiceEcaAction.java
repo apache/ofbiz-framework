@@ -118,11 +118,11 @@ public class ServiceEcaAction implements java.io.Serializable {
             // XA resource ECA
             ServiceXaWrapper xaw = new ServiceXaWrapper(dctx);
             if (eventName.equals("global-rollback")) {
-                xaw.setRollbackService(serviceName, context, "async".equals(serviceMode), persist); // using the actual context so we get updates
+                xaw.setRollbackService(serviceName, runAsUser, context, "async".equals(serviceMode), persist); // using the actual context so we get updates
             } else if (eventName.equals("global-commit")) {
-                xaw.setCommitService(serviceName, context, "async".equals(serviceMode), persist);   // using the actual context so we get updates
+                xaw.setCommitService(serviceName, runAsUser, context, "async".equals(serviceMode), persist);   // using the actual context so we get updates
             } else if (eventName.equals("global-commit-post-run")) {
-                xaw.setCommitService(serviceName, context, "async".equals(serviceMode), persist);   // using the actual context so we get updates
+                xaw.setCommitService(serviceName, runAsUser, context, "async".equals(serviceMode), persist);   // using the actual context so we get updates
             }
             try {
                 xaw.enlist();
