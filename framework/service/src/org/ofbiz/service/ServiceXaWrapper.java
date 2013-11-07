@@ -60,7 +60,7 @@ public class ServiceXaWrapper extends GenericXaResource {
     }
 
     /**
-     * Sets the service to run on rollback()
+     * Sets the service to run on commit()
      * @param serviceName Name of service to run
      * @param context Context to use when running
      */
@@ -69,7 +69,7 @@ public class ServiceXaWrapper extends GenericXaResource {
     }
 
     /**
-     * Sets the service to run on rollback()
+     * Sets the service to run on commit()
      * @param serviceName Name of service to run
      * @param context Context to use when running
      * @param async override default async behavior
@@ -79,7 +79,7 @@ public class ServiceXaWrapper extends GenericXaResource {
     }
 
     /**
-     * Sets the service to run on rollback()
+     * Sets the service to run on commit()
      * @param serviceName Name of service to run
      * @param runAsUser UserLoginID to run as
      * @param context Context to use when running
@@ -95,14 +95,14 @@ public class ServiceXaWrapper extends GenericXaResource {
 
 
     /**
-     * @return The name of the service to run on rollback()
+     * @return The name of the service to run on commit()
      */
     public String getCommitService() {
         return this.commitService;
     }
 
     /**
-     * @return The context used when running the rollback() service
+     * @return The context used when running the commit() service
      */
     public Map<String, ? extends Object> getCommitContext() {
         return this.commitContext;
@@ -124,7 +124,19 @@ public class ServiceXaWrapper extends GenericXaResource {
      * @param async override default async behavior
      */
     public void setRollbackService(String serviceName, Map<String, ? extends Object> context, boolean async, boolean persist) {
+        this.setRollbackService(serviceName, null, context, async, persist);
+    }
+
+    /**
+     * Sets the service to run on rollback()
+     * @param serviceName Name of service to run
+     * @param runAsUser userLoginId to run the service as
+     * @param context Context to use when running
+     * @param async override default async behavior
+     */
+    public void setRollbackService(String serviceName, String runAsUser, Map<String, ? extends Object> context, boolean async, boolean persist) {
         this.rollbackService = serviceName;
+        this.runAsUser = runAsUser;
         this.rollbackContext = context;
         this.rollbackAsync = async;
         this.rollbackAsyncPersist = persist;
