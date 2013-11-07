@@ -66,7 +66,6 @@ ERRORS:
         String author = "None";
         String version = "1.0";
 %><?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE entitymodel PUBLIC "-//OFBiz//DTD Entity Model//EN" "http://ofbiz.apache.org/dtds/entitymodel.dtd">
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -86,7 +85,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<entitymodel>
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
   <!-- ========================================================= -->
   <!-- ======================== Defaults ======================= -->
   <!-- ========================================================= -->
@@ -123,8 +123,7 @@ under the License.
     ModelField field = fieldIterator.next();%>
       <field name="<%=field.getName()%>"<%if(!field.getColName().equals(ModelUtil.javaNameToDbName(field.getName()))){
       %> col-name="<%=field.getColName()%>"<%}%> type="<%=field.getType()%>"><%
-    for (int v = 0; v<field.getValidatorsSize(); v++) {
-      String valName = (String) field.getValidator(v);
+    for (String valName : field.getValidators()) {
       %><validate name="<%=valName%>"/><%
     }%></field><%
   }
@@ -137,7 +136,7 @@ under the License.
     for (int r = 0; r < entity.getRelationsSize(); r++) {
       ModelRelation relation = entity.getRelation(r);%>
       <relation type="<%=relation.getType()%>"<%if(relation.getTitle().length() > 0){%> title="<%=relation.getTitle()%>"<%}
-              %> rel-entity-name="<%=relation.getRelEntityName()%>"><%for(int km=0; km<relation.getKeyMapsSize(); km++){ ModelKeyMap keyMap = relation.getKeyMap(km);%>
+              %> rel-entity-name="<%=relation.getRelEntityName()%>"><%for(ModelKeyMap keyMap : relation.getKeyMaps()){ %>
         <key-map field-name="<%=keyMap.getFieldName()%>"<%if(!keyMap.getFieldName().equals(keyMap.getRelFieldName())){%> rel-field-name="<%=keyMap.getRelFieldName()%>"<%}%> /><%}%>
       </relation><%
     }
