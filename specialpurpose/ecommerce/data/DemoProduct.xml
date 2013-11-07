@@ -1124,8 +1124,8 @@ under the License.
     <InventoryItemDetail inventoryItemId="9023" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="8" quantityOnHandDiff="8" accountingQuantityDiff="8"/>
     <InventoryItem facilityId="WebStoreWarehouse" inventoryItemId="9024" inventoryItemTypeId="NON_SERIAL_INV_ITEM" datetimeReceived="2008-08-01 08:00:00.000" productId="GZ-1006-4" ownerPartyId="Company" currencyUomId="USD" unitCost="2.4"/>
     <InventoryItemDetail inventoryItemId="9024" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="8" quantityOnHandDiff="8" accountingQuantityDiff="8"/>
-    <InventoryItem facilityId="WebStoreWarehouse" inventoryItemId="9025" inventoryItemTypeId="NON_SERIAL_INV_ITEM" datetimeReceived="2008-08-01 08:00:00.000" productId="GZ-1006-5" ownerPartyId="Company" currencyUomId="USD" unitCost="2.4"/>
-    <InventoryItemDetail inventoryItemId="9025" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="8" quantityOnHandDiff="8" accountingQuantityDiff="8"/>
+    <InventoryItem facilityId="WebStoreWarehouse" inventoryItemId="9031" inventoryItemTypeId="NON_SERIAL_INV_ITEM" datetimeReceived="2008-08-01 08:00:00.000" productId="GZ-1006-5" ownerPartyId="Company" currencyUomId="USD" unitCost="2.4"/>
+    <InventoryItemDetail inventoryItemId="9031" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="8" quantityOnHandDiff="8" accountingQuantityDiff="8"/>
     
     <InventoryItem facilityId="WebStoreWarehouse" inventoryItemId="9026" inventoryItemTypeId="NON_SERIAL_INV_ITEM" datetimeReceived="2008-08-01 08:00:00.000" productId="GZ-1000" ownerPartyId="Company" currencyUomId="USD" unitCost="2.4"/>
     <InventoryItemDetail inventoryItemId="9026" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="8" quantityOnHandDiff="8" accountingQuantityDiff="8"/>
