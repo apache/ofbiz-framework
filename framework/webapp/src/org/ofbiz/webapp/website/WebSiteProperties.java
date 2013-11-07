@@ -55,19 +55,49 @@ public final class WebSiteProperties {
         Assert.notNull("request", request);
         WebSiteProperties webSiteProps = (WebSiteProperties) request.getAttribute("_WEBSITE_PROPS_");
         if (webSiteProps == null) {
+            WebSiteProperties defaults = new WebSiteProperties();
+            String httpPort = defaults.getHttpPort();
+            String httpHost = defaults.getHttpHost();
+            String httpsPort = defaults.getHttpsPort();
+            String httpsHost = defaults.getHttpsHost();
+            boolean enableHttps = defaults.getEnableHttps();
             Delegator delegator = (Delegator) request.getAttribute("delegator");
             if (delegator != null) {
                 String webSiteId = WebSiteWorker.getWebSiteId(request);
                 if (webSiteId != null) {
                     GenericValue webSiteValue = delegator.findOne("WebSite", UtilMisc.toMap("webSiteId", webSiteId), true);
                     if (webSiteValue != null) {
-                        webSiteProps = from(webSiteValue);
+                        if (webSiteValue.get("httpPort") != null) {
+                            httpPort = webSiteValue.getString("httpPort");
+                        }
+                        if (webSiteValue.get("httpHost") != null) {
+                            httpHost = webSiteValue.getString("httpHost");
+                        }
+                        if (webSiteValue.get("httpsPort") != null) {
+                            httpsPort = webSiteValue.getString("httpsPort");
+                        }
+                        if (webSiteValue.get("httpsHost") != null) {
+                            httpsHost = webSiteValue.getString("httpsHost");
+                        }
+                        if (webSiteValue.get("enableHttps") != null) {
+                            enableHttps = webSiteValue.getBoolean("enableHttps");
+                        }
                     }
                 }
             }
-            if (webSiteProps == null) {
-                webSiteProps = new WebSiteProperties();
+            if (httpPort.isEmpty() && !request.isSecure()) {
+                httpPort = String.valueOf(request.getServerPort());
             }
+            if (httpHost.isEmpty() && !request.isSecure()) {
+                httpHost = request.getServerName();
+            }
+            if (httpsPort.isEmpty() && request.isSecure()) {
+                httpsPort = String.valueOf(request.getServerPort());
+            }
+            if (httpsHost.isEmpty() && request.isSecure()) {
+                httpsHost = request.getServerName();
+            }
+            webSiteProps = new WebSiteProperties(httpPort, httpHost, httpsPort, httpsHost, enableHttps);
             request.setAttribute("_WEBSITE_PROPS_", webSiteProps);
         }
         return webSiteProps;
