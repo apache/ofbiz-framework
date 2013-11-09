@@ -2198,7 +2198,7 @@
     <property key="PageTitleEditPartyInvitationGroupAssoc">
         <value xml:lang="en">Edit Party Invitation GroupAssoc</value>
         <value xml:lang="es">Editar asociación de grupo de invitación de participante</value>
-        <value xml:lang="fr">Modifier l'association groupe invitation de l'acteurs</value>
+        <value xml:lang="fr">Modifier le groupe d'association d'invitation de l'acteur</value>
         <value xml:lang="hi_IN">पार्टी निमंत्रण समूहएसोसिएशन(GroupAssoc) को संपादित करें</value>
         <value xml:lang="it">Aggiorna soggetti associati all'invito</value>
         <value xml:lang="ja">取引先招待グループ関連付けを編集</value>
@@ -2213,7 +2213,7 @@
         <value xml:lang="de">Verbindung Rolle Einladung Akteur bearbeiten</value>
         <value xml:lang="en">Edit Party Invitation RoleAssoc</value>
         <value xml:lang="es">Editar asociación de rol de invitación de participante</value>
-        <value xml:lang="fr">Modifier l'association de rôle d'invitation de l'acteur</value>
+        <value xml:lang="fr">Modifier l'association du rôle d'invitation de l'acteur</value>
         <value xml:lang="hi_IN">पार्टी निमंत्रण भूमिका एसोसिएशन को संपादित करें</value>
         <value xml:lang="it">Aggiorna associazione ruolo invito</value>
         <value xml:lang="ja">取引先招待ロール関連付けを編集</value>
