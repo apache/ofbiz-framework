@@ -34,6 +34,7 @@ import org.ofbiz.entity.GenericValue;
 @ThreadSafe
 public final class WebSiteProperties {
 
+
     /**
      * Returns a <code>WebSiteProperties</code> instance initialized to the settings found
      * in the <code>url.properties</code> file.
@@ -88,13 +89,13 @@ public final class WebSiteProperties {
             if (httpPort.isEmpty() && !request.isSecure()) {
                 httpPort = String.valueOf(request.getServerPort());
             }
-            if (httpHost.isEmpty() && !request.isSecure()) {
+            if (httpHost.isEmpty()) {
                 httpHost = request.getServerName();
             }
             if (httpsPort.isEmpty() && request.isSecure()) {
                 httpsPort = String.valueOf(request.getServerPort());
             }
-            if (httpsHost.isEmpty() && request.isSecure()) {
+            if (httpsHost.isEmpty()) {
                 httpsHost = request.getServerName();
             }
             webSiteProps = new WebSiteProperties(httpPort, httpHost, httpsPort, httpsHost, enableHttps);
@@ -178,5 +179,16 @@ public final class WebSiteProperties {
      */
     public boolean getEnableHttps() {
         return enableHttps;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("{httpPort=");
+        sb.append(httpPort).append(", ");
+        sb.append("httpHost=").append(httpHost).append(", ");
+        sb.append("httpsPort=").append(httpsPort).append(", ");
+        sb.append("httpsHost=").append(httpsHost).append(", ");
+        sb.append("enableHttps=").append(enableHttps).append("}");
+        return sb.toString();
     }
 }
