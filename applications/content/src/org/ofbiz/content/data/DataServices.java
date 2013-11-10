@@ -414,9 +414,6 @@ public class DataServices {
             if (UtilValidate.isEmpty(dataResourceTypeId) || dataResourceTypeId.startsWith("LOCAL_FILE")) {
                 fileName = prefix + sep + objectInfo;
                 file = new File(fileName);
-                if (file == null) {
-                    throw new GenericServiceException("File: " + fileName + " is null.");
-                }
                 if (!file.isAbsolute()) {
                     throw new GenericServiceException("File: " + fileName + " is not absolute.");
                 }
