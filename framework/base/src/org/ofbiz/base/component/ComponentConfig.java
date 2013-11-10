@@ -873,7 +873,7 @@ public final class ComponentConfig {
             this.sessionCookieAccepted = !"false".equals(element.getAttribute("session-cookie-accepted"));
             this.privileged = !"false".equals(element.getAttribute("privileged"));
             String basePermStr = element.getAttribute("base-permission");
-            if (basePermStr.isEmpty()) {
+            if (!basePermStr.isEmpty()) {
                 this.basePermission = basePermStr.split(",");
             } else {
                 // default base permission is NONE
