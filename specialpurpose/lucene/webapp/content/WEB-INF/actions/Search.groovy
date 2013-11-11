@@ -22,7 +22,6 @@ import org.apache.lucene.document.Document
 import org.apache.lucene.index.Term
 import org.apache.lucene.queryparser.classic.QueryParser
 import org.apache.lucene.store.FSDirectory
-import org.ofbiz.base.util.Debug
 import org.ofbiz.base.util.UtilHttp
 import org.ofbiz.content.search.SearchWorker
 import org.ofbiz.product.feature.ParametricSearch
@@ -57,14 +56,10 @@ if (queryLine || siteId) {
         query = parser.parse(queryLine);
         combQuery.add(query, BooleanClause.Occur.MUST);
     }
-    Debug.logInfo("in search, combQuery(0):" + combQuery, "");
-
     if (siteId) {
         termQuery = new TermQuery(new Term("site", siteId.toString()));
         combQuery.add(termQuery, BooleanClause.Occur.MUST);
-        Debug.logInfo("in search, termQuery:" + termQuery.toString(), "");
     }
-    Debug.logInfo("in search, combQuery(1):" + combQuery, "");
 }
 
 if (searchFeature1 || searchFeature2 || searchFeature3 || !featureIdByType.isEmpty()) {
@@ -77,26 +72,22 @@ if (searchFeature1 || searchFeature2 || searchFeature3 || !featureIdByType.isEmp
     if (searchFeature1) {
         termQuery = new TermQuery(new Term("feature", searchFeature1));
         featureQuery.add(termQuery, featuresRequired);
-        Debug.logInfo("in search searchFeature1, termQuery:" + termQuery.toString(), "");
     }
 
     if (searchFeature2) {
         termQuery = new TermQuery(new Term("feature", searchFeature2));
         featureQuery.add(termQuery, featuresRequired);
-        Debug.logInfo("in search searchFeature2, termQuery:" + termQuery.toString(), "");
     }
 
     if (searchFeature3) {
         termQuery = new TermQuery(new Term("feature", searchFeature3));
         featureQuery.add(termQuery, featuresRequired);
-        Debug.logInfo("in search searchFeature3, termQuery:" + termQuery.toString(), "");
     }
 
   if (featureIdByType) {
     featureIdByType.each { key, value ->
             termQuery = new TermQuery(new Term("feature", value));
             featureQuery.add(termQuery, featuresRequired);
-            Debug.logInfo("in search searchFeature3, termQuery:" + termQuery.toString(), "");
         }
     combQuery.add(featureQuery, featuresRequired);
     }
