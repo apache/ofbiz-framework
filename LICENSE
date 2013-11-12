@@ -106,10 +106,7 @@ framework/testtools/lib/org.springframework.web-3.1.0.M2.jar
 applications/content/lib/fontbox-1.7.1.jar
 applications/content/lib/jempbox-1.7.1.jar
 applications/content/lib/pdfbox-1.7.1.jar
-applications/content/lib/poi-3.8-20120326.jar
-applications/content/lib/poi-ooxml-3.8-20120326.jar
-applications/content/lib/poi-ooxml-schemas-3.8-20120326.jar
-applications/content/lib/poi-scratchpad-3.8-20120326.jar
+applications/content/lib/poi-3.9-20121203.jar
 applications/content/lib/tika-core-1.0.jar
 applications/content/lib/tika-parsers-1.0.jar
 applications/product/lib/dozer-4.2.1.jar
