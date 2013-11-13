@@ -23,7 +23,6 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.transaction.Transaction;
@@ -957,9 +956,7 @@ public class LoginServices {
             boolean usePasswordPattern = UtilProperties.getPropertyAsBoolean("security.properties", "security.login.password.pattern.enable", true);
             if (usePasswordPattern) {
                 Pattern pattern = Pattern.compile(passwordPattern);
-                Matcher matcher = pattern.matcher(newPassword);
-                boolean matched = matcher.matches();
-                if (!matched) {
+                if (!pattern.matcher(newPassword).matches()) {
                     // This is a mix to handle the OOTB pattern which is only a fixed length
                     Map<String, String> messageMap = UtilMisc.toMap("minPasswordLength", Integer.toString(minPasswordLength));
                     String passwordPatternMessage = UtilProperties.getPropertyValue("security.properties",
