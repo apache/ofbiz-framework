@@ -38,7 +38,8 @@ rem del tmp.tmp
 rem set RMIIF=-Djava.rmi.server.hostname=%IPADDR%
 rem # Not needed anymore, for history
 rem set MISC=-Duser.language=en
-rem set VMARGS=%MEMIF% %MISC% %DEBUG% %RMIIF%
+rem set SOLR=-Dsolr.solr.home=specialpurpose/solr 
+rem set VMARGS=%MEMIF% %MISC% %DEBUG% %RMIIF% %SOLR%
 rem ####################################################################
 
 rem ### Worldpay Config
@@ -55,7 +56,9 @@ rem "%JAVA_HOME%\bin\java" -Xms128M -Xmx512M -XX:MaxPermSize=512m -Xdebug -Xnoag
 rem ### Simple easy to read line
 cd %OFBIZ_HOME%
 echo on
-"%JAVA_HOME%\bin\java" -Xms128M -Xmx512M -XX:MaxPermSize=512m -jar ofbiz.jar
+rem # -Dsolr.solr.home=specialpurpose/solr is used by Solr, can be neglected if Solr is not used
+
+"%JAVA_HOME%\bin\java" -Xms128M -Xmx512M -XX:MaxPermSize=512m  -Dsolr.solr.home=specialpurpose/solr -jar ofbiz.jar
 echo off
 rem ### If you would prefer the console output to be logged rather than displayed switch out the above line for this one
 rem "%JAVA_HOME%\bin\java" -Xms128M -Xmx512M -XX:MaxPermSize=512m -jar ofbiz.jar > runtime\logs\console.log

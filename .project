@@ -1,18 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-    <name>ofbiz</name>
-    <comment></comment>
-    <projects>
-    </projects>
-    <buildSpec>
-        <buildCommand>
-            <name>org.eclipse.jdt.core.javabuilder</name>
-            <arguments>
-            </arguments>
-        </buildCommand>
-    </buildSpec>
-    <natures>
-        <nature>org.eclipse.jdt.groovy.core.groovyNature</nature>
-        <nature>org.eclipse.jdt.core.javanature</nature>
-    </natures>
+	<name>ofbizClean</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.rubypeople.rdt.core.rubybuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.groovy.core.groovyNature</nature>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>org.rubypeople.rdt.core.rubynature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>specialpurpose/pos/lib/jcl.jar</name>
+			<type>2</type>
+			<locationURI>zip:/?file:/D:/workspace/ofbizClean/specialpurpose/pos/lib/jcl.jar</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>

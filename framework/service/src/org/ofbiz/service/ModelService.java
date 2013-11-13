@@ -575,12 +575,18 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         // required and type validation complete, do allow-html validation
         if ("IN".equals(mode)) {
             List<String> errorMessageList = FastList.newInstance();
-            for (ModelParam modelParam : this.contextInfo.values()) {
-                // the param is a String, allow-html is not any, and we are looking at an IN parameter during input parameter validation
-                if (context.get(modelParam.name) != null && ("String".equals(modelParam.type) || "java.lang.String".equals(modelParam.type)) 
-                        && !"any".equals(modelParam.allowHtml) && ("INOUT".equals(modelParam.mode) || "IN".equals(modelParam.mode))) {
+            for (ModelParam modelParam: this.contextInfo.values()) {
+                if (context.get(modelParam.name) != null &&
+                        ("String".equals(modelParam.type) || "java.lang.String".equals(modelParam.type)) &&
+                        !"any".equals(modelParam.allowHtml) &&
+                        ("INOUT".equals(modelParam.mode) || "IN".equals(modelParam.mode))) {
+                    // the param is a String, allow-html is none or safe, and we are looking at an IN parameter during input parameter validation
                     String value = (String) context.get(modelParam.name);
-                    StringUtil.checkStringForHtmlStrictNone(modelParam.name, value, errorMessageList);
+                    if ("none".equals(modelParam.allowHtml)) {
+                        StringUtil.checkStringForHtmlStrictNone(modelParam.name, value, errorMessageList);
+                    } else if ("safe".equals(modelParam.allowHtml)) {
+                        StringUtil.checkStringForHtmlSafeOnly(modelParam.name, value, errorMessageList);
+                    }
                 }
             }
             if (errorMessageList.size() > 0) {
@@ -919,6 +925,8 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         for (Map.Entry<String, ? extends Object> entry: source.entrySet()) {
             String key = entry.getKey();
             if (key.startsWith(param.stringMapPrefix)) {
+                paramMap.put(key, entry.getValue());
+                key=key.replace(param.stringMapPrefix,"");
                 paramMap.put(key, entry.getValue());
             }
         }

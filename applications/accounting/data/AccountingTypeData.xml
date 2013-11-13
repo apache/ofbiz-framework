@@ -673,6 +673,7 @@ under the License.
     <PaymentMethodType description="Gift Card" paymentMethodTypeId="GIFT_CARD"/>
     <PaymentMethodType description="Gift Certificate" paymentMethodTypeId="GIFT_CERTIFICATE"/>
     <PaymentMethodType description="Cash" paymentMethodTypeId="CASH"/>
+    <PaymentMethodType description="Pin" paymentMethodTypeId="PIN"/>
     <PaymentMethodType description="Electronic Funds Transfer" paymentMethodTypeId="EFT_ACCOUNT"/>
     <PaymentMethodType description="Financial Account" paymentMethodTypeId="FIN_ACCOUNT"/>
     <PaymentMethodType description="Personal Check" paymentMethodTypeId="PERSONAL_CHECK"/>

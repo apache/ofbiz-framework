@@ -24,11 +24,13 @@ under the License.
   <table class="basic-table" cellspacing="1" cellpadding="1">
     <input type="hidden" id="totalDue" value="${totalDue}"/>
     <input type="hidden" id="totalCash" value="${cashAmount}"/>
+    <input type="hidden" id="totalPin" value="${pinAmount}"/>
     <input type="hidden" id="totalCheck" value="${checkAmount}"/>
     <input type="hidden" id="totalGift" value="${giftAmount}"/>
     <input type="hidden" id="totalCredit" value="${creditAmount}"/>
     <input type="hidden" id="totalDueFormatted" value="<@ofbizCurrency amount=totalDue isoCode=shoppingCart.getCurrency()/>"/>
     <input type="hidden" id="totalCashFormatted" value="<@ofbizCurrency amount=cashAmount isoCode=shoppingCart.getCurrency()/>"/>
+    <input type="hidden" id="totalPinFormatted" value="<@ofbizCurrency amount=pinAmount isoCode=shoppingCart.getCurrency()/>"/>
     <input type="hidden" id="totalCheckFormatted" value="<@ofbizCurrency amount=checkAmount isoCode=shoppingCart.getCurrency()/>"/>
     <input type="hidden" id="totalGiftFormatted" value="<@ofbizCurrency amount=giftAmount isoCode=shoppingCart.getCurrency()/>"/>
     <input type="hidden" id="totalCreditFormatted" value="<@ofbizCurrency amount=creditAmount isoCode=shoppingCart.getCurrency()/>"/>
@@ -104,11 +106,7 @@ under the License.
                 <#else>
                   <#assign parentProductId = cartLine.getProductId()/>
                 </#if>
-                <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher)?if_exists>
-                <#if !smallImageUrl?string?has_content><#assign smallImageUrl = "/images/defaultImage.jpg"></#if>
-                <#if smallImageUrl?string?has_content>
-                  <img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" align="left" class="cssImgSmall" />
-                </#if>
+                
                 <#-- end code to display a small image of the product -->
                 ${cartLine.getProductId()} - ${cartLine.getName()?if_exists} : ${cartLine.getDescription()?if_exists}
               <#else>
