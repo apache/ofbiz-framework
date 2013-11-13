@@ -24,6 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
@@ -1186,8 +1187,11 @@ public class ProductEvents {
         if (UtilValidate.isNotEmpty(productId) && UtilValidate.isNotEmpty(productTags)) {
             List<String> matchList = FastList.newInstance();
             Pattern regex = Pattern.compile("[^\\s\"']+|\"([^\"]*)\"|'([^']*)'");
-            while (regex.matcher(productTags).find()) {
-                matchList.add(regex.matcher(productTags).group().replace("'", ""));
+            Matcher regexMatcher = regex.matcher(productTags);
+            synchronized (regexMatcher) {
+                while (regexMatcher.find()) {
+                    matchList.add(regexMatcher.group().replace("'", ""));
+                }                
             }
             
             GenericValue userLogin = null;
