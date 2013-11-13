@@ -45,7 +45,6 @@ if (webPosSession) {
 }
 
 context.cashAmount = BigDecimal.ZERO;
-context.pinAmount = BigDecimal.ZERO;
 context.checkAmount = BigDecimal.ZERO;
 context.giftAmount = BigDecimal.ZERO;
 context.creditAmount = BigDecimal.ZERO;
@@ -61,9 +60,6 @@ if (shoppingCart) {
             if (paymentInfo.paymentMethodTypeId != null) {
                 if ("CASH".equals(paymentInfo.paymentMethodTypeId)) {
                     context.cashAmount = new BigDecimal((context.cashAmount).add(amount));
-                }
-                else if ("PIN".equals(paymentInfo.paymentMethodTypeId)) {
-                    context.pinAmount = new BigDecimal((context.pinAmount).add(amount));
                 }
                 else if ("PERSONAL_CHECK".equals(paymentInfo.paymentMethodTypeId)) {
                     context.checkAmount = new BigDecimal((context.checkAmount).add(amount));
