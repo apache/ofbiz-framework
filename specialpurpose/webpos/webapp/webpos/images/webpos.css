@@ -58,6 +58,7 @@ under the License.
 .pos-cart-odd {
     background-color: white;
     overflow: auto;
+    vertical-align: top;
 }
 .pos-cart-odd:hover {
     background-color: #FFFCCF;
@@ -66,6 +67,7 @@ under the License.
 .pos-cart-even {
     background-color: #eeeeee;
     overflow: auto;
+    vertical-align: top;
 }
 .pos-cart-even:hover {
     background-color: #FFFCCF;
@@ -247,7 +249,7 @@ input[type="text"]:focus, input[type="password"]:focus {
 #SearchSalesRepsList {
     border: 1px solid #0099CC;
     overflow: auto; 
-    height: 120px;
+    height: 110px;
 }
 #SearchSalesReps {
     height: 110px;
@@ -271,7 +273,7 @@ input[type="text"]:focus, input[type="password"]:focus {
     background-color: #fece2f;
 }
 #CenterBar {
-    margin-top: 33px;
+    margin-top: 15px;
     height: auto;
 }
 .leftCenterBar {
@@ -287,6 +289,10 @@ input[type="text"]:focus, input[type="password"]:focus {
 .centerCenterBar  {
     margin-left: 24em;
     margin-right: 24em;
+    padding-top: 1px;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-bottom: 1px;
     width: auto;
 }
 #CartHeader {
@@ -294,16 +300,18 @@ input[type="text"]:focus, input[type="password"]:focus {
     width: 100%;
 }
 #Cart {
-    height: 460px;
+    height: 280px;
     width: 100%;
 }
 .basic-table .CartHead {
     height: 30px;
 }
 .basic-table .CartBody {
-    height: 400px;
+    height: 220px;
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: scroll;
+    vertical-align: top;
+    
 }
 .basic-table .CartFoot {
     height: 30px;

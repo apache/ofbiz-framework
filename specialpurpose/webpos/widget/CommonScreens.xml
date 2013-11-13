@@ -190,6 +190,7 @@ under the License.
                     <include-screen name="CartList" location="component://webpos/widget/CartScreens.xml"/>
                     <include-screen name="ChooseVariant" location="component://webpos/widget/CartScreens.xml"/>
                     <include-screen name="PayCash" location="component://webpos/widget/PaymentScreens.xml"/>
+                    <include-screen name="PayPin" location="component://webpos/widget/PaymentScreens.xml"/>
                     <include-screen name="PayCheck" location="component://webpos/widget/PaymentScreens.xml"/>
                     <include-screen name="PayGiftCard" location="component://webpos/widget/PaymentScreens.xml"/>
                     <include-screen name="PayCreditCard" location="component://webpos/widget/PaymentScreens.xml"/>

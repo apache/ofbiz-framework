@@ -157,6 +157,7 @@
     <classpathentry kind="lib" path="specialpurpose/lucene/lib/lucene-analyzers-common-4.5.1.jar"/>
     <classpathentry kind="lib" path="specialpurpose/lucene/lib/lucene-core-4.5.1.jar"/>
     <classpathentry kind="lib" path="specialpurpose/lucene/lib/lucene-queryparser-4.5.1.jar"/>
+    <classpathentry kind="lib" path="specialpurpose/solr/lib/solr-solrj-4.4.0.jar"/>
     <classpathentry excluding="org/ofbiz/accounting/thirdparty/cybersource/**|org/ofbiz/accounting/thirdparty/verisign/**|org/ofbiz/accounting/thirdparty/worldpay/**|org/ofbiz/accounting/thirdparty/paypal/PayPalServices.java|org/ofbiz/accounting/thirdparty/orbital/**|org/ofbiz/accounting/thirdparty/securepay/**|org/ofbiz/accounting/thirdparty/ideal/**" kind="src" path="applications/accounting/src"/>
     <classpathentry excluding="org/ofbiz/content/openoffice/|org/ofbiz/content/report/" kind="src" path="applications/content/src"/>
     <classpathentry kind="src" path="applications/manufacturing/src"/>
@@ -202,6 +203,7 @@
     <classpathentry kind="src" path="specialpurpose/pos/src"/>
     <classpathentry kind="src" path="specialpurpose/projectmgr/src"/>
     <classpathentry kind="src" path="specialpurpose/webpos/src"/>
+    <classpathentry kind="src" path="specialpurpose/solr/src"/>
     <classpathentry kind="src" path="specialpurpose/lucene/src"/>
     <classpathentry exported="true" kind="con" path="GROOVY_SUPPORT"/>
     <classpathentry exported="true" kind="con" path="GROOVY_DSL_SUPPORT"/>

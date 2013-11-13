@@ -19,6 +19,8 @@ specialpurpose/googlecheckout/lib/checkout-sdk-0.8.8.jar
 specialpurpose/lucene/lib/lucene-analyzers-common-4.5.1.jar
 specialpurpose/lucene/lib/lucene-core-4.5.1.jar
 specialpurpose/lucene/lib/lucene-queryparser-4.5.1.jar
+specialpurpose/solr/libsolr-solrj-4.4.0.jar
+specialpurpose/solr/webapp/WEB-INF/lib/*.jar (covered by specialpurpose/solr/webapp/META-INF/NOTICE.txt)
 
 =========================================================================
                                  Apache License

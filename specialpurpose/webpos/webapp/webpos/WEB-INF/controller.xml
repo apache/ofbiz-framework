@@ -371,6 +371,13 @@
         <response name="error" type="request" value="json"/>
     </request-map>
     
+    <request-map uri="PayPin">
+        <security https="false" auth="true"/>
+        <event type="simple" path="component://webpos/script/org/ofbiz/webpos/event/PaymentEvents.xml" invoke="payPin"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    
     <request-map uri="PayCheck">
         <security https="false" auth="true"/>
         <event type="simple" path="component://webpos/script/org/ofbiz/webpos/event/PaymentEvents.xml" invoke="payCheck"/>
