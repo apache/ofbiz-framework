@@ -26,7 +26,6 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 import java.util.ServiceLoader;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.ServletContext;
@@ -925,9 +924,8 @@ public class LoginWorker {
                         if (i == 0) {
                             String cn = x500Map.get("CN");
                             cn = cn.replaceAll("\\\\", "");
-                            Matcher m = pattern.matcher(cn);
-                            if (m.matches()) {
-                                userLoginId = m.group(1);
+                            if (pattern.matcher(cn).matches()) {
+                                userLoginId = pattern.matcher(cn).group(1);
                             } else {
                                 Debug.logInfo("Client certificate CN does not match pattern: [" + cnPattern + "]", module);
                             }
