@@ -128,7 +128,6 @@ function hideOverlayDiv() {
     jQuery('#payCheck').hide();
     jQuery('#payGiftCard').hide();
     jQuery('#payCreditCard').hide();
-    jQuery('#paPin').hide();
     jQuery('#openTerminal').hide();
     jQuery('#closeTerminal').hide();
     jQuery('#paidOutAndIn').hide();
