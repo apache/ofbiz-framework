@@ -18,6 +18,8 @@
  *******************************************************************************/
 
 package org.ofbiz.party.communication;
+import org.ofbiz.base.util.GeneralException;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -30,6 +32,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.mail.Address;
@@ -44,7 +47,6 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilHttp;
@@ -1185,9 +1187,10 @@ public class CommunicationEventServices {
 
                 // find the "Action" element and obtain its value (looking for "failed")
                 Pattern p2 = Pattern.compile("^Action: (.*)$", Pattern.MULTILINE | Pattern.CASE_INSENSITIVE);
+                Matcher m2 = p2.matcher(part2Text);
                 String action = null;
-                if (p2.matcher(part2Text).find()) {
-                    action = p2.matcher(part2Text).group(1);
+                if (m2.find()) {
+                    action = m2.group(1);
                 }
 
                 if (action != null && "failed".equalsIgnoreCase(action)) {
@@ -1201,10 +1204,11 @@ public class CommunicationEventServices {
 
                     // find the "Message-Id" element and obtain its value (looking for "failed")
                     Pattern p3 = Pattern.compile("^Message-Id: (.*)$", Pattern.MULTILINE | Pattern.CASE_INSENSITIVE);
+                    Matcher m3 = p3.matcher(part3Text);
                     String messageId = null;
-                    if (p3.matcher(part3Text).find()) {
-                        Debug.logInfo("Found message-id : " + p3.matcher(part3Text).group(), module);
-                        messageId = p3.matcher(part3Text).group(1);
+                    if (m3.find()) {
+                        Debug.logInfo("Found message-id : " + m3.group(), module);
+                        messageId = m3.group(1);
                     }
 
                     // find the matching communication event
