@@ -1188,10 +1188,8 @@ public class ProductEvents {
             List<String> matchList = FastList.newInstance();
             Pattern regex = Pattern.compile("[^\\s\"']+|\"([^\"]*)\"|'([^']*)'");
             Matcher regexMatcher = regex.matcher(productTags);
-            synchronized (regexMatcher) {
-                while (regexMatcher.find()) {
-                    matchList.add(regexMatcher.group().replace("'", ""));
-                }                
+            while (regexMatcher.find()) {
+                matchList.add(regexMatcher.group().replace("'", ""));
             }
             
             GenericValue userLogin = null;
