@@ -96,9 +96,9 @@ under the License.
         <antcall target="clean-cache"/>
         <antcall target="clean-tempfiles"/>
         <antcall target="clean-search-indexes"/>
-        <!-- FIXME: clean-downloads introduces some issues: with cobertura (on Windows can't be deleted, not sure why), 
+        <!-- FIXME: clean-downloads introduces some issues: with cobertura (on Windows can't be deleted, not sure why),
                     but especially with postgresql drivers -->
-        <!-- antcall target="clean-downloads"/ -->   
+        <!-- antcall target="clean-downloads"/ -->
         <antcall target="clean"/>
     </target>
 
@@ -254,7 +254,7 @@ under the License.
       <sequential>
         <!-- a check is done, if no build.xml file is present in hot-deploy dir,
             then the build.xml files - if present - in hot-deploy sub-dirs will be used.
-            So the previous, simpler, behaviour is kept as long as you don't need 
+            So the previous, simpler, behaviour is kept as long as you don't need
             to build hot-deploy components in a specific order. -->
         <if>
           <available file="hot-deploy/build.xml" property="useHotDeployBuild"/>
@@ -307,7 +307,7 @@ under the License.
         <echo message="[docs-all] ========== Start Building (JavaDoc) =========="/>
 
         <mkdir dir="${site.dir}/javadocs"/>
-        
+
         <path id="local.class.path">
           <fileset dir="${ofbiz.home.dir}/framework/base/lib" includes="*.jar"/>
           <fileset dir="${ofbiz.home.dir}/framework/base/lib/commons" includes="*.jar"/>
@@ -329,12 +329,12 @@ under the License.
           <fileset dir="${ofbiz.home.dir}/applications/content/lib" includes="*.jar"/>
           <fileset dir="${ofbiz.home.dir}/applications/product/lib" includes="*.jar"/>
         </path>
-        
+
         <property name="desc" value="API"/>
         <property name="build.dir" value="${site.dir}"/>
-        
+
         <default-javadoc/>
-        
+
         <echo message="[docs-all] ========== Done Building (JavaDocs) =========="/>
    </target>
 
@@ -910,7 +910,7 @@ under the License.
     </target>
 
     <target name="run-tests"
-          description="Run OFBiz default tests; you have to manually execute 'ant load-demo' before and see results in runtime/logs/test-results/html/all-tests.html.">
+        description="Run OFBiz default tests; you have to manually execute 'ant load-demo' before (and if needed even clear your data before) and see results in runtime/logs/test-results/html/all-tests.html.">
         <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
