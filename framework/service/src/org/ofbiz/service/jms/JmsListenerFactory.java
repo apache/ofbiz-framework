@@ -18,7 +18,13 @@
  *******************************************************************************/
 package org.ofbiz.service.jms;
 
+import java.lang.reflect.Constructor;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
+
 import javolution.util.FastMap;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
@@ -28,10 +34,6 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.config.ServiceConfigUtil;
 import org.ofbiz.service.config.model.JmsService;
 import org.ofbiz.service.config.model.Server;
-
-import java.lang.reflect.Constructor;
-import java.util.List;
-import java.util.Map;
 
 /**
  * JmsListenerFactory
@@ -46,7 +48,7 @@ public class JmsListenerFactory implements Runnable {
     protected static Map<String, GenericMessageListener> listeners = FastMap.newInstance();
     protected static Map<String, Server> servers = FastMap.newInstance();
 
-    protected static JmsListenerFactory jlf = null;
+    private static final AtomicReference<JmsListenerFactory> jlFactoryRef = new AtomicReference<JmsListenerFactory>(null);
 
     protected Delegator delegator;
     protected boolean firstPass = true;
@@ -56,15 +58,14 @@ public class JmsListenerFactory implements Runnable {
 
 
     public static JmsListenerFactory getInstance(Delegator delegator){
-        if (jlf == null) {
-            synchronized (JmsListenerFactory.class) {
-                if (jlf == null) {
-                    jlf = new JmsListenerFactory(delegator);
-                }
+        JmsListenerFactory instance = jlFactoryRef.get();
+        if (instance == null) {
+            instance = new JmsListenerFactory(delegator);
+            if (!jlFactoryRef.compareAndSet(null, instance)) {
+                instance = jlFactoryRef.get();
             }
         }
-
-        return jlf;
+        return instance;
     }
 
     public JmsListenerFactory(Delegator delegator) {
