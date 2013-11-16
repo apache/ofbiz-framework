@@ -73,6 +73,7 @@ public class ServiceDispatcher {
 
     protected static final Map<RunningService, ServiceDispatcher> runLog = new ConcurrentLinkedHashMap.Builder<RunningService, ServiceDispatcher>().maximumWeightedCapacity(lruLogSize).build();
     protected static Map<String, ServiceDispatcher> dispatchers = FastMap.newInstance();
+    // FIXME: These fields are not thread-safe. They are modified by EntityDataLoadContainer. We need a better design.
     protected static boolean enableJM = true;
     protected static boolean enableJMS = true;
     protected static boolean enableSvcs = true;
