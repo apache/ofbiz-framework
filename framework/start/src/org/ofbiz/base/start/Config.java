@@ -413,7 +413,7 @@ public class Config {
                     Locale.setDefault(new Locale(locales[0], locales[1]));
                     break;
                 case 3:
-                    Locale.setDefault(new Locale(locales[0], locales[1], args[2]));
+                    Locale.setDefault(new Locale(locales[0], locales[1], locales[2]));
             }
             System.setProperty("user.language", localeString);
         }
