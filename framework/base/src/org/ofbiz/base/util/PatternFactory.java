@@ -45,9 +45,9 @@ public class PatternFactory {
         if (pattern == null) {
             Perl5Compiler compiler = new Perl5Compiler();
             if (caseSensitive) {
-                pattern = compiler.compile(stringPattern);
+                pattern = compiler.compile(stringPattern, Perl5Compiler.READ_ONLY_MASK);
             } else {
-                pattern = compiler.compile(stringPattern, Perl5Compiler.CASE_INSENSITIVE_MASK);
+                pattern = compiler.compile(stringPattern, Perl5Compiler.CASE_INSENSITIVE_MASK & Perl5Compiler.READ_ONLY_MASK);
             }
             pattern = compiledPerl5Patterns.putIfAbsentAndGet(stringPattern, pattern);
             if (Debug.verboseOn()) {
