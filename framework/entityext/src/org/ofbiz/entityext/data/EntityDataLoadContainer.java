@@ -88,6 +88,7 @@ public class EntityDataLoadContainer implements Container {
         this.name = name;
         this.configFile = configFile;
         // disable job scheduler, JMS listener and startup services
+        // FIXME: This is not thread-safe.
         ServiceDispatcher.enableJM(false);
         ServiceDispatcher.enableJMS(false);
         ServiceDispatcher.enableSvcs(false);
