@@ -174,22 +174,22 @@ public class EntityDataLoadContainer implements Container {
                         createConstraints = true;
                     }
                 } else if ("help".equalsIgnoreCase(argumentName)) {
-                    Debug.logInfo("--------------------------------------", module);
-                    Debug.logInfo("java -jar ofbiz.jar -install [options]", module);
-                    Debug.logInfo("-component=[name] .... only load from a specific component", module);
-                    Debug.logInfo("-delegator=[name] .... use the defined delegator (default-no-eca", module);
-                    Debug.logInfo("-group=[name] ........ override the entity group (org.ofbiz)", module);
-                    Debug.logInfo("-file=[path] ......... load a single file from location, several files separated by commas.", module);
-                    Debug.logInfo("-createfks ........... create dummy (placeholder) FKs", module);
-                    Debug.logInfo("-maintainTxs ......... maintain timestamps in data file", module);
-                    Debug.logInfo("-inserts ............. use mostly inserts option", module);
-                    Debug.logInfo("-repair-columns ........... repair column sizes", module);
-                    Debug.logInfo("-drop-pks ............ drop primary keys", module);
-                    Debug.logInfo("-create-pks .......... create primary keys", module);
-                    Debug.logInfo("-drop-constraints..... drop indexes and foreign keys before loading", module);
-                    Debug.logInfo("-create-constraints... create indexes and foreign keys after loading (default is true w/ drop-constraints)", module);
-                    Debug.logInfo("-help ................ display this information", module);
-                    System.exit(1);
+                    String helpStr = "\n--------------------------------------\n" +
+                    "java -jar ofbiz.jar -install [options]\n" +
+                    "-component=[name] .... only load from a specific component\n" +
+                    "-delegator=[name] .... use the defined delegator (default-no-eca)\n" +
+                    "-group=[name] ........ override the entity group (org.ofbiz)\n" +
+                    "-file=[path] ......... load a single file from location, several files separated by commas\n" +
+                    "-createfks ........... create dummy (placeholder) FKs\n" +
+                    "-maintainTxs ......... maintain timestamps in data file\n" +
+                    "-inserts ............. use mostly inserts option\n" +
+                    "-repair-columns ........... repair column sizes\n" +
+                    "-drop-pks ............ drop primary keys\n" +
+                    "-create-pks .......... create primary keys\n" +
+                    "-drop-constraints..... drop indexes and foreign keys before loading\n" +
+                    "-create-constraints... create indexes and foreign keys after loading (default is true w/ drop-constraints)\n" +
+                    "-help ................ display this information\n";
+                    throw new ContainerException(helpStr);
                 }
 
                 // special case
