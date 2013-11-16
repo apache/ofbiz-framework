@@ -38,8 +38,8 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;if-regexp&gt; element.
- * 
- * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cifregexp%3E}}">Mini-language Reference</a>
+ *
+ * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{<ifregexp>}}">Mini-language Reference</a>
  */
 public class RegexpCondition extends MethodOperation implements Conditional {
 
@@ -146,7 +146,7 @@ public class RegexpCondition extends MethodOperation implements Conditional {
     }
 
     /**
-     * A &lt;if-regexp&gt; element factory. 
+     * A &lt;if-regexp&gt; element factory.
      */
     public static final class RegexpConditionFactory extends ConditionalFactory<RegexpCondition> implements Factory<RegexpCondition> {
         @Override
