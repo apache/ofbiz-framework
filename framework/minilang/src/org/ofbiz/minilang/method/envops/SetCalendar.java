@@ -43,7 +43,7 @@ import com.ibm.icu.util.Calendar;
 /**
  * Implements the &lt;set-calendar&gt; element.
  * 
- * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Csetcalendar%3E}}">Mini-language Reference</a>
+ * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Csetcalendar%3E}}">Mini-language Reference</a>
  */
 public final class SetCalendar extends MethodOperation {
 

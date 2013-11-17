@@ -37,7 +37,7 @@ import org.w3c.dom.Element;
 /**
  * Implements the &lt;if-has-permission&gt; element.
  * 
- * @see <a href="https://cwiki.apache.org/OFBADMIN/mini-language-reference.html#Mini-languageReference-{{%3Cifhaspermission%3E}}">Mini-language Reference</a>
+ * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Cifhaspermission%3E}}">Mini-language Reference</a>
  */
 public final class HasPermissionCondition extends MethodOperation implements Conditional {
 
