@@ -44,6 +44,7 @@ import org.apache.catalina.Host;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.Manager;
 import org.apache.catalina.connector.Connector;
+import org.apache.catalina.core.JreMemoryLeakPreventionListener;
 import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.core.StandardEngine;
 import org.apache.catalina.core.StandardHost;
@@ -140,7 +141,7 @@ import org.xml.sax.SAXException;
  */
 
 /**
- * CatalinaContainer -  Tomcat 5
+ * CatalinaContainer -  Tomcat
  *
  */
 public class CatalinaContainer implements Container {
@@ -205,6 +206,17 @@ public class CatalinaContainer implements Container {
         if (useNaming) {
             tomcat.enableNaming();
         }
+
+        // https://tomcat.apache.org/tomcat-7.0-doc/config/listeners.html#JRE_Memory_Leak_Prevention_Listener_-_org.apache.catalina.core.JreMemoryLeakPreventionListener
+        // <<The JRE Memory Leak Prevention Listener provides work-arounds for known places where the Java Runtime environment uses
+        // the context class loader to load a singleton as this will cause a memory leak if a web application class loader happens
+        // to be the context class loader at the time.>>
+        // http://svn.apache.org/viewvc/tomcat/trunk/java/org/apache/catalina/core/JreMemoryLeakPreventionListener.java?view=annotate
+        JreMemoryLeakPreventionListener jreMemoryLeakPreventionListener = new JreMemoryLeakPreventionListener();
+        // Mostly use default config, but some specific cases here
+        jreMemoryLeakPreventionListener.setAppContextProtection(true); // True is the default for Java 1.6, use false for Java from 1.7.0_02 onwards (see sources above)
+        jreMemoryLeakPreventionListener.setGcDaemonProtection(false); // False because of https://mail-archives.apache.org/mod_mbox/tomcat-users/201008.mbox/%3CAANLkTino=BjP5LsBCwncB2HvNDzyKLr5y-8yWdt15a89@mail.gmail.com%3E
+        jreMemoryLeakPreventionListener.setUrlCacheProtection(false); // False to keep the URLConnection cache, moot point
 
         // configure JNDI in the StandardServer
         StandardServer server = (StandardServer) tomcat.getServer();
@@ -480,7 +492,7 @@ public class CatalinaContainer implements Container {
         String protocol = ContainerConfig.getPropertyValue(connectorProp, "protocol", "HTTP/1.1");
         String address = ContainerConfig.getPropertyValue(connectorProp, "address", "0.0.0.0");
         int port = ContainerConfig.getPropertyValue(connectorProp, "port", 0) + ClassLoaderContainer.portOffset;
-        
+
         boolean secure = ContainerConfig.getPropertyValue(connectorProp, "secure", false);
         if (protocol.toLowerCase().startsWith("ajp")) {
             protocol = "ajp";
@@ -540,7 +552,7 @@ public class CatalinaContainer implements Container {
 
             try {
                 for (ContainerConfig.Container.Property prop: connectorProp.properties.values()) {
-                    if ("port".equals(prop.name)) { 
+                    if ("port".equals(prop.name)) {
                         connector.setProperty(prop.name, "" + port);
                     } else {
                         connector.setProperty(prop.name, prop.value);
