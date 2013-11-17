@@ -41,7 +41,7 @@ public class PatternFactory {
      * @throws MalformedPatternException
      */
 
-    public Pattern createOrGetCompiledPattern(String stringPattern, boolean caseSensitive) throws MalformedPatternException {
+    public Pattern createOrGetPerl5CompiledPattern(String stringPattern, boolean caseSensitive) throws MalformedPatternException {
         Pattern pattern = compiledPerl5Patterns.get(stringPattern);
         if (pattern == null) {
             Perl5Compiler compiler = new Perl5Compiler();
