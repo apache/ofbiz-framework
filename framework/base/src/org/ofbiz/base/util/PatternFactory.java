@@ -25,29 +25,30 @@ import org.ofbiz.base.util.cache.UtilCache;
 
 /**
  * A RegEx compiled pattern factory.
- * 
+ *
  */
 public class PatternFactory {
 
-    public static final String module = CompilerMatcher.class.getName();
+    public static final String module = PatternFactory.class.getName();
     private static final UtilCache<String, Pattern> compiledPerl5Patterns = UtilCache.createUtilCache("regularExpression.compiledPerl5Patterns", false);
 
     /**
      * Compiles and caches a Perl5 regexp pattern for the given string pattern.
-     *
+     * This would be of no benefits (and may bloat memory usage) if stringPattern is never the same.
      * @param stringPattern a Perl5 pattern string
      * @param caseSensitive case sensitive true/false
      * @return a <code>Pattern</code> instance for the given string pattern
      * @throws MalformedPatternException
      */
-    public Pattern getPerl5Instance(String stringPattern, boolean caseSensitive) throws MalformedPatternException {
+
+    public Pattern createOrGetCompiledPattern(String stringPattern, boolean caseSensitive) throws MalformedPatternException {
         Pattern pattern = compiledPerl5Patterns.get(stringPattern);
         if (pattern == null) {
             Perl5Compiler compiler = new Perl5Compiler();
             if (caseSensitive) {
-                pattern = compiler.compile(stringPattern, Perl5Compiler.READ_ONLY_MASK);
+                pattern = compiler.compile(stringPattern, Perl5Compiler.READ_ONLY_MASK); // READ_ONLY_MASK guarantees immutability
             } else {
-                pattern = compiler.compile(stringPattern, Perl5Compiler.CASE_INSENSITIVE_MASK & Perl5Compiler.READ_ONLY_MASK);
+                pattern = compiler.compile(stringPattern, Perl5Compiler.CASE_INSENSITIVE_MASK | Perl5Compiler.READ_ONLY_MASK);
             }
             pattern = compiledPerl5Patterns.putIfAbsentAndGet(stringPattern, pattern);
             if (Debug.verboseOn()) {
