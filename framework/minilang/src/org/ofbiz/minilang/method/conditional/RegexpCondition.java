@@ -22,7 +22,11 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.oro.text.regex.MalformedPatternException;
-import org.ofbiz.base.util.CompilerMatcher;
+import org.apache.oro.text.regex.Pattern;
+import org.apache.oro.text.regex.PatternMatcher;
+import org.apache.oro.text.regex.Perl5Matcher;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.PatternFactory;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
@@ -44,7 +48,6 @@ import org.w3c.dom.Element;
 public class RegexpCondition extends MethodOperation implements Conditional {
 
     public static final String module = RegexpCondition.class.getName();
-    private transient static ThreadLocal<CompilerMatcher> compilerMatcher = CompilerMatcher.getThreadLocal();
 
     private final FlexibleMapAccessor<Object> fieldFma;
     private final FlexibleStringExpander exprFse;
@@ -88,10 +91,22 @@ public class RegexpCondition extends MethodOperation implements Conditional {
             }
         }
         String regExp = exprFse.expandString(methodContext.getEnvMap());
+        Pattern pattern = null;
+
         try {
-            return compilerMatcher.get().matches((String) fieldVal, regExp);
+            pattern = PatternFactory.createOrGetPerl5CompiledPattern(regExp, true);
         } catch (MalformedPatternException e) {
+            Debug.logError(e, "Regular Expression [" + regExp + "] is mal-formed: " + e.toString(), module);
             throw new MiniLangRuntimeException(e, this);
+        }
+
+        PatternMatcher matcher = new Perl5Matcher();
+        if (matcher.matches((String) fieldVal, pattern)) {
+            //Debug.logInfo("The string [" + fieldVal + "] matched the pattern expr [" + pattern.getPattern() + "]", module);
+            return true;
+        } else {
+            //Debug.logInfo("The string [" + fieldVal + "] did NOT match the pattern expr [" + pattern.getPattern() + "]", module);
+            return false;
         }
     }
 
@@ -123,6 +138,7 @@ public class RegexpCondition extends MethodOperation implements Conditional {
         }
     }
 
+    @Override
     public void prettyPrint(StringBuilder messageBuffer, MethodContext methodContext) {
         messageBuffer.append("regexp[");
         messageBuffer.append("[");

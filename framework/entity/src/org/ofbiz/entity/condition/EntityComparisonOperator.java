@@ -23,9 +23,13 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.oro.text.perl.Perl5Util;
 import org.apache.oro.text.regex.MalformedPatternException;
-import org.ofbiz.base.util.CompilerMatcher;
+import org.apache.oro.text.regex.Pattern;
+import org.apache.oro.text.regex.PatternMatcher;
+import org.apache.oro.text.regex.Perl5Matcher;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.PatternFactory;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
@@ -42,19 +46,23 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
 
     public static final String module = EntityComparisonOperator.class.getName();
 
-    protected transient static ThreadLocal<CompilerMatcher> compilerMatcher = CompilerMatcher.getThreadLocal();
-
-    public static String makeOroPattern(String sqlLike) {
+    public static Pattern makeOroPattern(String sqlLike) {
+        Perl5Util perl5Util = new Perl5Util();
         try {
-            sqlLike = compilerMatcher.get().substitute("s/([$^.+*?])/\\\\$1/g", sqlLike);
-            sqlLike = compilerMatcher.get().substitute("s/%/.*/g", sqlLike);
-            sqlLike = compilerMatcher.get().substitute("s/_/./g", sqlLike);
+            sqlLike = perl5Util.substitute("s/([$^.+*?])/\\\\$1/g", sqlLike);
+            sqlLike = perl5Util.substitute("s/%/.*/g", sqlLike);
+            sqlLike = perl5Util.substitute("s/_/./g", sqlLike);
         } catch (Throwable t) {
             String errMsg = "Error in ORO pattern substitution for SQL like clause [" + sqlLike + "]: " + t.toString();
             Debug.logError(t, errMsg, module);
             throw new IllegalArgumentException(errMsg);
         }
-        return sqlLike;
+        try {
+            return PatternFactory.createOrGetPerl5CompiledPattern(sqlLike, true);
+        } catch (MalformedPatternException e) {
+            Debug.logError(e, module);
+        }
+        return null;
     }
 
     @Override
@@ -258,19 +266,14 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
     }
 
     public static final <L,R> boolean compareLike(L lhs, R rhs) {
+        PatternMatcher matcher = new Perl5Matcher();
         if (lhs == null) {
             if (rhs != null) {
                 return false;
             }
         } else if (lhs instanceof String && rhs instanceof String) {
             //see if the lhs value is like the rhs value, rhs will have the pattern characters in it...
-            try {
-                return compilerMatcher.get().matches((String) lhs, makeOroPattern((String) rhs));
-            }
-            catch (MalformedPatternException e) {
-                Debug.logError(e, module);
-                return false;
-            }
+            return matcher.matches((String) lhs, makeOroPattern((String) rhs));
         }
         return true;
     }

@@ -52,6 +52,9 @@ import javolution.util.FastMap;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.oro.text.regex.MalformedPatternException;
+import org.apache.oro.text.regex.Pattern;
+import org.apache.oro.text.regex.PatternMatcher;
+import org.apache.oro.text.regex.Perl5Matcher;
 import org.owasp.esapi.errors.EncodingException;
 import org.owasp.esapi.errors.IntrusionException;
 
@@ -550,9 +553,9 @@ public class UtilHttp {
             return;
         }
 
-        StringBuffer fullRequestUrl = UtilHttp.getFullRequestUrl(request);
+        StringBuffer fullRequestUrl = getFullRequestUrl(request);
 
-        session.setAttribute("_WEBAPP_NAME_", UtilHttp.getApplicationName(request));
+        session.setAttribute("_WEBAPP_NAME_", getApplicationName(request));
         session.setAttribute("_CLIENT_LOCALE_", request.getLocale());
         session.setAttribute("_CLIENT_REQUEST_", fullRequestUrl.toString());
         session.setAttribute("_CLIENT_USER_AGENT_", request.getHeader("User-Agent") != null ? request.getHeader("User-Agent") : "");
@@ -586,7 +589,7 @@ public class UtilHttp {
     }
 
     public static StringBuffer getFullRequestUrl(HttpServletRequest request) {
-        StringBuffer requestUrl = UtilHttp.getServerRootUrl(request);
+        StringBuffer requestUrl = getServerRootUrl(request);
         requestUrl.append(request.getRequestURI());
         if (request.getQueryString() != null) {
             requestUrl.append("?" + request.getQueryString());
@@ -630,7 +633,7 @@ public class UtilHttp {
      */
     public static Locale getLocale(HttpServletRequest request) {
         if (request == null) return Locale.getDefault();
-        return UtilHttp.getLocale(request, request.getSession(), null);
+        return getLocale(request, request.getSession(), null);
     }
 
     /**
@@ -641,11 +644,11 @@ public class UtilHttp {
      */
     public static Locale getLocale(HttpSession session) {
         if (session == null) return Locale.getDefault();
-        return UtilHttp.getLocale(null, session, null);
+        return getLocale(null, session, null);
     }
 
     public static void setLocale(HttpServletRequest request, String localeString) {
-        UtilHttp.setLocale(request.getSession(), UtilMisc.parseLocale(localeString));
+        setLocale(request.getSession(), UtilMisc.parseLocale(localeString));
     }
 
     public static void setLocale(HttpSession session, Locale locale) {
@@ -654,12 +657,12 @@ public class UtilHttp {
 
     public static void setLocaleIfNone(HttpSession session, String localeString) {
         if (UtilValidate.isNotEmpty(localeString) && session.getAttribute("locale") == null) {
-            UtilHttp.setLocale(session, UtilMisc.parseLocale(localeString));
+            setLocale(session, UtilMisc.parseLocale(localeString));
         }
     }
 
     public static void setTimeZone(HttpServletRequest request, String tzId) {
-        UtilHttp.setTimeZone(request.getSession(), UtilDateTime.toTimeZone(tzId));
+        setTimeZone(request.getSession(), UtilDateTime.toTimeZone(tzId));
     }
 
     public static void setTimeZone(HttpSession session, TimeZone timeZone) {
@@ -768,8 +771,6 @@ public class UtilHttp {
                     col = Arrays.asList(value);
                 } else if (value instanceof Collection) {
                     col = UtilGenerics.cast(value);
-                } else if (value == null) {
-                    continue;
                 } else if (value.getClass().isArray()) {
                     col = Arrays.asList((Object[]) value);
                 } else {
@@ -1286,19 +1287,20 @@ public class UtilHttp {
         } else {
             String initialUserAgent = request.getHeader("User-Agent") != null ? request.getHeader("User-Agent") : "";
             List<String> spiderList = StringUtil.split(UtilProperties.getPropertyValue("url", "link.remove_lsessionid.user_agent_list"), ",");
-            if (UtilValidate.isNotEmpty(spiderList)) {
 
-                CompilerMatcher compilerMatcher = new CompilerMatcher();
+            if (UtilValidate.isNotEmpty(spiderList)) {
                 for (String spiderNameElement : spiderList) {
+                    Pattern pattern = null;
                     try {
-                        if (compilerMatcher.matches(initialUserAgent, "^.*" + spiderNameElement + ".*$", false)) {
-                            request.setAttribute("_REQUEST_FROM_SPIDER_", "Y");
-                            result = true;
-                            break;
-                        }
-                    }
-                    catch (MalformedPatternException e) {
+                        pattern = PatternFactory.createOrGetPerl5CompiledPattern(spiderNameElement, false);
+                    } catch (MalformedPatternException e) {
                         Debug.logError(e, module);
+                    }
+                    PatternMatcher matcher = new Perl5Matcher();
+                    if (matcher.contains(initialUserAgent, pattern)) {
+                        request.setAttribute("_REQUEST_FROM_SPIDER_", "Y");
+                        result = true;
+                        break;
                     }
                 }
             }
@@ -1327,7 +1329,7 @@ public class UtilHttp {
     /** Returns the number or rows submitted by a multi form.
      */
     public static int getMultiFormRowCount(HttpServletRequest request) {
-        return UtilHttp.getMultiFormRowCount(UtilHttp.getParameterMap(request));
+        return getMultiFormRowCount(getParameterMap(request));
     }
     /** Returns the number or rows submitted by a multi form.
      */
@@ -1335,9 +1337,9 @@ public class UtilHttp {
         // The number of multi form rows is computed selecting the maximum index
         int rowCount = 0;
         String maxRowIndex = "";
-        int rowDelimiterLength = UtilHttp.MULTI_ROW_DELIMITER.length();
+        int rowDelimiterLength = MULTI_ROW_DELIMITER.length();
         for (String parameterName: requestMap.keySet()) {
-            int rowDelimiterIndex = (parameterName != null? parameterName.indexOf(UtilHttp.MULTI_ROW_DELIMITER): -1);
+            int rowDelimiterIndex = (parameterName != null? parameterName.indexOf(MULTI_ROW_DELIMITER): -1);
             if (rowDelimiterIndex > 0) {
                 String thisRowIndex = parameterName.substring(rowDelimiterIndex + rowDelimiterLength);
                 if (thisRowIndex.indexOf("_") > -1) {
@@ -1368,7 +1370,7 @@ public class UtilHttp {
             paramMapStore = FastMap.newInstance();
             session.setAttribute("_PARAM_MAP_STORE_", paramMapStore);
         }
-        Map<String, Object> parameters = UtilHttp.getParameterMap(request);
+        Map<String, Object> parameters = getParameterMap(request);
         String paramMapId = RandomStringUtils.randomAlphanumeric(10);
         paramMapStore.put(paramMapId, parameters);
         return paramMapId;

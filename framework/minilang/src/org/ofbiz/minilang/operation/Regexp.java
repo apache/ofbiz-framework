@@ -23,10 +23,13 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.apache.oro.text.regex.MalformedPatternException;
-import org.ofbiz.base.util.CompilerMatcher;
+import org.apache.oro.text.regex.Pattern;
+import org.apache.oro.text.regex.PatternMatcher;
+import org.apache.oro.text.regex.Perl5Matcher;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.PatternFactory;
 import org.w3c.dom.Element;
 
 /**
@@ -35,13 +38,17 @@ import org.w3c.dom.Element;
 public class Regexp extends SimpleMapOperation {
 
     public static final String module = Regexp.class.getName();
-    private transient static ThreadLocal<CompilerMatcher> compilerMatcher = CompilerMatcher.getThreadLocal();
-
+    private Pattern pattern = null;
     String expr;
 
     public Regexp(Element element, SimpleMapProcess simpleMapProcess) {
         super(element, simpleMapProcess);
         expr = element.getAttribute("expr");
+        try {
+            pattern = PatternFactory.createOrGetPerl5CompiledPattern(expr, true);
+        } catch (MalformedPatternException e) {
+            Debug.logError(e, module);
+        }
     }
 
     @Override
@@ -54,14 +61,12 @@ public class Regexp extends SimpleMapOperation {
             messages.add("Could not convert field value for comparison: " + e.getMessage());
             return;
         }
-        boolean matches = false;
-        try {
-            matches = compilerMatcher.get().matches(fieldValue, expr);
-        } catch (MalformedPatternException e) {
-            Debug.logError(e, "Regular Expression [" + this.expr + "] is mal-formed: " + e.toString(), module);
+        if (pattern == null) {
+            messages.add("Could not compile regular expression \"" + expr + "\" for validation");
             return;
         }
-        if (!matches) {
+        PatternMatcher matcher = new Perl5Matcher();
+        if (!matcher.matches(fieldValue, pattern)) {
             addMessage(messages, loader, locale);
         }
     }
