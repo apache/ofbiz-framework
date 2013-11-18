@@ -27,10 +27,13 @@ import java.util.TimeZone;
 import javolution.util.FastList;
 
 import org.apache.oro.text.regex.MalformedPatternException;
-import org.ofbiz.base.util.CompilerMatcher;
+import org.apache.oro.text.regex.Pattern;
+import org.apache.oro.text.regex.PatternMatcher;
+import org.apache.oro.text.regex.Perl5Matcher;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.PatternFactory;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
@@ -390,8 +393,6 @@ public class ModelTreeCondition {
     }
 
     public static class IfRegexp extends TreeCondition {
-        private transient static ThreadLocal<CompilerMatcher> compilerMatcher = CompilerMatcher.getThreadLocal();
-
         protected FlexibleMapAccessor<Object> fieldAcsr;
         protected FlexibleStringExpander exprExdr;
 
@@ -405,6 +406,16 @@ public class ModelTreeCondition {
         @Override
         public boolean eval(Map<String, ? extends Object> context) {
             Object fieldVal = this.fieldAcsr.get(context);
+            String expr = this.exprExdr.expandString(context);
+            Pattern pattern = null;
+
+            try {
+                pattern = PatternFactory.createOrGetPerl5CompiledPattern(expr, true);
+            } catch (MalformedPatternException e) {
+                String errMsg = "Error in evaluation in if-regexp in screen: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                throw new IllegalArgumentException(errMsg);
+            }
 
             String fieldString = null;
             try {
@@ -415,13 +426,8 @@ public class ModelTreeCondition {
             // always use an empty string by default
             if (fieldString == null) fieldString = "";
 
-            try {
-                return compilerMatcher.get().matches(fieldString, this.exprExdr.expandString(context));
-            } catch (MalformedPatternException e) {
-                String errMsg = "Error in evaluation in if-regexp in screen: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                throw new IllegalArgumentException(errMsg);
-            }
+            PatternMatcher matcher = new Perl5Matcher();
+            return matcher.matches(fieldString, pattern);
         }
     }
 
