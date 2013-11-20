@@ -446,7 +446,6 @@ under the License.
                 <set field="internalName" from-field="parameters.internalName"/>
                 <set field="productId" from-field="parameters.productId"/>
                 <set field="statusId" from-field="parameters.statusId"/>
-                <!-- do not use the CountFacilityInventoryByProduct.groovy script unless the issues mentioned in it are correctly addressed -->
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/ViewFacilityInventoryByProduct.groovy"/>
                 <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
@@ -850,8 +849,8 @@ under the License.
                 <set field="responseName" value="stateList"/>
                 <set field="dependentKeyName" value="geoId"/>
                 <set field="descName" value="geoName"/>
-                <set field="selectedDependentOption" from-field="mechMap.postalAddress.stateProvinceGeoId" default-value="_none_"/> 
-                               
+                <set field="selectedDependentOption" from-field="mechMap.postalAddress.stateProvinceGeoId" default-value="_none_"/>
+
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
@@ -1493,7 +1492,7 @@ under the License.
                 </entity-and>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap"/>
-                <set field="title" value="${uiLabelMap.PageTitleEditFacilityContent}"/>  
+                <set field="title" value="${uiLabelMap.PageTitleEditFacilityContent}"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
@@ -1524,7 +1523,7 @@ under the License.
                 <set field="geoChart.dataSourceId" from-field="geoPoint.dataSourceId"/>
                 <set field="geoChart.width" value="600px"/>
                 <set field="geoChart.height" value="500px"/>
-                <set field="geoChart.points" from-field="geoPoints"/>           
+                <set field="geoChart.points" from-field="geoPoints"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.PageTitleFacilityGeoLocation} - ${facility.facilityName}"/>
             </actions>
@@ -1540,7 +1539,7 @@ under the License.
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>    
+    </screen>
 
     <screen name="EditFacilityAgreements">
         <section>
