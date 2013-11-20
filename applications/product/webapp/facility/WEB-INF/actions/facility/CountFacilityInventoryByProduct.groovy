@@ -234,8 +234,8 @@ if (action) {
         prodsIt = prods.iterator();
         while (prodsIt) {
             oneProd = prodsIt.next();
-            offsetQOHQtyAvailable = oneProd.getDouble("offsetQOHQtyAvailable");
-            offsetATPQtyAvailable = oneProd.getDouble("offsetATPQtyAvailable");
+            offsetQOHQtyAvailable = oneProd.getBigDecimal("offsetQOHQtyAvailable");
+            offsetATPQtyAvailable = oneProd.getBigDecimal("offsetATPQtyAvailable");
             if (hasOffsetATP) {
                 if (offsetATPQtyAvailable && offsetATPQtyAvailable.doubleValue() > offsetATP) {
                     break;
@@ -249,8 +249,8 @@ if (action) {
 
             oneInventory = [:];
             oneInventory.productId = oneProd.productId;
-            oneInventory.minimumStock = oneProd.getString("minimumStock");
-            oneInventory.reorderQuantity = oneProd.getString("reorderQuantity");
+            oneInventory.minimumStock = oneProd.getBigDecimal("minimumStock");
+            oneInventory.reorderQuantity = oneProd.getBigDecimal("reorderQuantity");
             oneInventory.daysToShip = oneProd.getString("daysToShip");
             oneInventory.totalQuantityOnHand = oneProd.totalQuantityOnHandTotal;
             oneInventory.totalAvailableToPromise = oneProd.totalAvailableToPromiseTotal;
