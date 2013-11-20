@@ -168,7 +168,7 @@ if (action) {
         oneInventory.checkTime = checkTime;
         oneInventory.facilityId = facilityId;
         oneInventory.productId = oneProd.productId;
-        minimumStock = oneProd.minimumStock as String;
+        minimumStock = oneProd.minimumStock;
         oneInventory.minimumStock = minimumStock;
         oneInventory.reorderQuantity = oneProd.reorderQuantity;
         oneInventory.daysToShip = oneProd.daysToShip;
