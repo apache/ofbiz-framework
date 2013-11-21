@@ -337,7 +337,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
             ModelField existingField = this.getField(newField.getName());
             if (existingField != null) {
                 // override the existing field's attributes
-                // TODO: only overrides of type, colName and description are currently supported
+                // TODO: only overrides of type, colName, description and enable-audit-log are currently supported
                 String type = existingField.getType();
                 if (!newField.getType().isEmpty()) {
                     type = newField.getType();
@@ -350,9 +350,13 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
                 if (!newField.getDescription().isEmpty()) {
                     description = newField.getDescription();
                 }
+                boolean enableAuditLog = existingField.getEnableAuditLog();
+                if (UtilValidate.isNotEmpty(fieldElement.getAttribute("enable-audit-log"))) {
+                    enableAuditLog = "true".equals(fieldElement.getAttribute("enable-audit-log"));
+                }
                 newField = ModelField.create(this, description, existingField.getName(), type, colName, existingField.getColValue(), existingField.getFieldSet(),
                         existingField.getIsNotNull(), existingField.getIsPk(), existingField.getEncrypt(), existingField.getIsAutoCreatedInternal(),
-                        existingField.getEnableAuditLog(), existingField.getValidators());
+                        enableAuditLog, existingField.getValidators());
             }
             // add to the entity as a new field
             synchronized (fieldsLock) {
