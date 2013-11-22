@@ -795,11 +795,17 @@ public class CheckOutEvents {
                 // set the shipping method
                 if (mode.equals("ship")) {
                     shippingContactMechId = request.getParameter(shipGroupIndex + "_shipping_contact_mech_id");
+                    String facilityId = request.getParameter(shipGroupIndex + "_shipGroupFacilityId");
                     if (shippingContactMechId == null) {
                         shippingContactMechId = (String) request.getAttribute("contactMechId"); // FIXME
+                    } else if(cart.getOrderType().equals("PURCHASE_ORDER")){
+                        String[] shipInfo = shippingContactMechId.split("_@_");
+                        if(shipInfo.length > 1){
+                            shippingContactMechId = shipInfo[0];
+                            facilityId = shipInfo[1];   
+                        }
                     }
                     String supplierPartyId = request.getParameter(shipGroupIndex + "_supplierPartyId");
-                    String facilityId = request.getParameter(shipGroupIndex + "_shipGroupFacilityId");
                     if (UtilValidate.isNotEmpty(facilityId)) {
                         cart.setShipGroupFacilityId(shipGroupIndex, facilityId);
                     }

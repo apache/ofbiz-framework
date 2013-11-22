@@ -43,6 +43,7 @@ under the License.
                   </td>
                 </tr>
                 <#assign i = 0>
+                <#assign shipGroup = cart.getShipInfo(shipGroupIndex)>
                 <#list facilityMaps as facilityMap>
                 <#assign facility = facilityMap.facility>
                 <#assign facilityContactMechList = facilityMap.facilityContactMechList>
@@ -61,7 +62,13 @@ under the License.
                   <#assign shippingAddress = shippingContactMech.postalAddress>
                   <tr>
                     <td valign="top" nowrap="nowrap">
-                      <input type="radio" name="${shipGroupIndex?default("0")}_shipping_contact_mech_id" value="${shippingAddress.contactMechId}" <#if i == 0>checked</#if> />
+                      <#assign checked='' />
+                      <#if shipGroup?has_content && (shipGroup.getFacilityId()?has_content && shipGroup.getFacilityId() == facility.facilityId) && (shipGroup.getContactMechId()?has_content && shipGroup.getContactMechId() == shippingAddress.contactMechId) >
+                          <#assign checked='checked' />
+                      <#elseif i == 0>
+                          <#assign checked='checked' />
+                      </#if>
+                      <input type="radio" name="${shipGroupIndex?default("0")}_shipping_contact_mech_id" value="${shippingAddress.contactMechId}_@_${facility.facilityId}" ${checked} />
                     </td>
                     <td nowrap="nowrap">&nbsp;&nbsp;&nbsp;&nbsp;</td>
                     <td valign="top" width="100%" nowrap="nowrap">
