@@ -68,7 +68,7 @@ public class ProductDocument implements LuceneDocument {
     public Document prepareDocument(Delegator delegator) {
         String productId = getDocumentIdentifier().text();
         try {
-            GenericValue product = delegator.findOne("Product", true, "productId", productId);
+            GenericValue product = delegator.findOne("Product", false, "productId", productId);
             if (product == null) {
                 // Return a null document (we will remove the document from the index)
                 return null;
