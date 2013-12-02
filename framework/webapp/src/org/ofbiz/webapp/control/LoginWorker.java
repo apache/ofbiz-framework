@@ -23,6 +23,8 @@ import static org.ofbiz.base.util.UtilGenerics.checkMap;
 import java.math.BigInteger;
 import java.security.cert.X509Certificate;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.ServiceLoader;
@@ -1058,33 +1060,68 @@ public class LoginWorker {
                 "Y".equalsIgnoreCase(userLogin.getString("hasLoggedOut")) : false);
     }
 
+    /**
+     * Returns <code>true</code> if the specified user is authorized to access the specified web application.
+     * @param info
+     * @param security
+     * @param userLogin
+     * @return <code>true</code> if the specified user is authorized to access the specified web application
+     */
+    public static boolean hasApplicationPermission(ComponentConfig.WebappInfo info, Security security, GenericValue userLogin) {
+        // New authorization attribute takes precedence.
+        String accessPermission = info.getAccessPermission();
+        if (!accessPermission.isEmpty()) {
+            return security.hasPermission(accessPermission, userLogin);
+        }
+        for (String permission: info.getBasePermission()) {
+            if (!"NONE".equals(permission) && !security.hasEntityPermission(permission, "_VIEW", userLogin)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static boolean hasBasePermission(GenericValue userLogin, HttpServletRequest request) {
         Security security = (Security) request.getAttribute("security");
         if (security != null) {
             ServletContext context = (ServletContext) request.getAttribute("servletContext");
             String serverId = (String) context.getAttribute("_serverId");
-            
             // get a context path from the request, if it is empty then assume it is the root mount point
             String contextPath = request.getContextPath();
             if (UtilValidate.isEmpty(contextPath)) {
                 contextPath = "/";
             }
-            
             ComponentConfig.WebappInfo info = ComponentConfig.getWebAppInfo(serverId, contextPath);
             if (info != null) {
-                for (String permission: info.getBasePermission()) {
-                    if (!"NONE".equals(permission) && !security.hasEntityPermission(permission, "_VIEW", userLogin)) {
-                        return false;
-                    }
-                }
+                return hasApplicationPermission(info, security, userLogin);
             } else {
                 Debug.logInfo("No webapp configuration found for : " + serverId + " / " + contextPath, module);
             }
         } else {
             Debug.logWarning("Received a null Security object from HttpServletRequest", module);
         }
-
         return true;
+    }
+
+    /**
+     * Returns a <code>Collection</code> of <code>WebappInfo</code> instances that the specified
+     * user is authorized to access.
+     * @param security
+     * @param userLogin
+     * @param serverName
+     * @param menuName
+     * @return A <code>Collection</code> <code>WebappInfo</code> instances that the specified
+     * user is authorized to access
+     */
+    public static Collection<ComponentConfig.WebappInfo> getAppBarWebInfos(Security security, GenericValue userLogin, String serverName, String menuName) {
+        Collection<ComponentConfig.WebappInfo> allInfos = ComponentConfig.getAppBarWebInfos(serverName, menuName);
+        Collection<ComponentConfig.WebappInfo> allowedInfos = new ArrayList<ComponentConfig.WebappInfo>(allInfos.size());
+        for (ComponentConfig.WebappInfo info : allInfos) {
+            if (hasApplicationPermission(info, security, userLogin)) {
+                allowedInfos.add(info);
+            }
+        }
+        return allowedInfos;
     }
 
     public static Map<String, Object> getUserLoginSession(GenericValue userLogin) {

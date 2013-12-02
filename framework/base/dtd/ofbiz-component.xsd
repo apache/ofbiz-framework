@@ -198,8 +198,24 @@ under the License.
         <xs:attribute type="xs:string" name="server" use="required"/>
         <xs:attribute type="xs:string" name="location" use="required"/>
         <xs:attribute type="xs:string" name="mount-point"/>
+        <xs:attribute type="xs:string" name="access-permission">
+            <xs:annotation>
+                <xs:documentation>
+                    A user must have this permission to access the application.
+                    When omitted, the application can be used by anyone. This
+                    attribute takes precedence over the base-permission attribute -
+                    if both attributes are not empty, this attribute will be used.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute type="xs:string" name="base-permission">
-            <xs:annotation><xs:documentation>A user must have ALL of the permissions in the list to access the application</xs:documentation></xs:annotation>
+            <xs:annotation>
+                <xs:documentation>
+                    Deprecated - use access-permission.
+                    A user must have ALL of the permissions in the list to access the application.
+                    When set to "NONE", the application can be used by anyone.
+                </xs:documentation>
+            </xs:annotation>
         </xs:attribute>
         <xs:attribute name="privileged" default="false">
             <xs:simpleType>

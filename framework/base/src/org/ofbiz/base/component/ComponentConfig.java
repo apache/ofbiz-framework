@@ -829,6 +829,7 @@ public final class ComponentConfig {
         public final boolean privileged;
         // CatalinaContainer modifies this field.
         private volatile boolean appBarDisplay;
+        private final String accessPermission;
 
         private WebappInfo(ComponentConfig componentConfig, Element element) {
             this.componentConfig = componentConfig;
@@ -872,6 +873,7 @@ public final class ComponentConfig {
             this.appBarDisplay = !"false".equals(element.getAttribute("app-bar-display"));
             this.sessionCookieAccepted = !"false".equals(element.getAttribute("session-cookie-accepted"));
             this.privileged = !"false".equals(element.getAttribute("privileged"));
+            this.accessPermission = element.getAttribute("access-permission");
             String basePermStr = element.getAttribute("base-permission");
             if (!basePermStr.isEmpty()) {
                 this.basePermission = basePermStr.split(",");
@@ -919,6 +921,10 @@ public final class ComponentConfig {
 
         public synchronized boolean getAppBarDisplay() {
             return this.appBarDisplay;
+        }
+
+        public String getAccessPermission() {
+            return this.accessPermission;
         }
 
         public String[] getBasePermission() {
