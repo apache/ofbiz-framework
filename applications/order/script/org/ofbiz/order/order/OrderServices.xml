@@ -682,7 +682,7 @@ under the License.
         <iterate list="adjustments" entry="adjustment">
             <if>
                 <condition>
-                    <not><if-empty field="orderAdjustment.productPromoId"/></not>
+                    <not><if-empty field="adjustment.productPromoId"/></not>
                 </condition>
                 <then>
                     <calculate field="newOrderAdjustmentTotal" decimal-scale="3">
