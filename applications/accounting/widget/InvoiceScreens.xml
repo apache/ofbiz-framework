@@ -442,6 +442,7 @@ under the License.
                     <condition-expr field-name="parentTypeId" value="PAYROL"/>
                 </entity-condition>
                 <entity-condition entity-name="InvoiceItemType" list="PayrolList"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/GetAccountOrganizationAndClass.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.invoiceDecoratorLocation}">
