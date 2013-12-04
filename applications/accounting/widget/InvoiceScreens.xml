@@ -441,7 +441,7 @@ under the License.
                 <entity-condition entity-name="InvoiceItemType" list="PayrolGroup">
                     <condition-expr field-name="parentTypeId" value="PAYROL"/>
                 </entity-condition>
-                <entity-condition entity-name="InvoiceItemType" list="PayrolList"></entity-condition>
+                <entity-condition entity-name="InvoiceItemType" list="PayrolList"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.invoiceDecoratorLocation}">

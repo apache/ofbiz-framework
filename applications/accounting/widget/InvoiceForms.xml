@@ -395,7 +395,7 @@ under the License.
         <field name="invoiceId"><hidden/></field>
         <field position="1" name="invoiceItemTypeId">
             <drop-down allow-empty="false">
-                <list-options list-name="invoiceItemTypes" key-name="invoiceItemTypeId" description="${groovy:uiLabelMap.get('InvoiceItemType.description.'+invoiceItemTypeId)}"/>
+                <entity-options entity-name="InvoiceItemType" description="${description}" key-field-name="invoiceItemTypeId"/>
             </drop-down>
         </field>
         <field position="1" name="description"><text size="80"/></field>
