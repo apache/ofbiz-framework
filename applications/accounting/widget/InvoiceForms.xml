@@ -142,8 +142,8 @@ under the License.
 <form name="invoiceItems" list-name="invItemAndOrdItems" target="" title="" type="list" separate-columns="true" paginate-target="invoiceOverview"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
-            <set field="quantity" value="${groovy: quantity==null?1:quantity}"/>
-            <set field="total" value="${quantity * amount}"/>
+            <set field="quantity" value="${groovy: quantity ?: 1}" type="BigDecimal"/>
+            <set field="total" value="${quantity * amount ?: 0}" type="BigDecimal"/>
         </row-actions>
         <auto-fields-entity entity-name="InvoiceItem" default-field-type="display"/>
         <field name="invoiceId"><hidden/></field>
@@ -348,10 +348,7 @@ under the License.
    <form name="EditInvoiceItems" type="multi"  list-name="invoiceItems" default-entity-name="InvoiceItem" target="updateInvoiceItem?invoiceId=${invoiceId}&amp;viewSize=${viewSize}&amp;viewIndex=${viewIndex}" title="Edit Invoice Items" paginate-target="listInvoiceItems"
        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
        <row-actions>
-           <set field="total" value="${groovy:
-               import java.math.BigDecimal;
-               if(quantity == null) quantity = BigDecimal.ONE;
-               return(quantity.multiply(amount));}"/>
+           <set field="total" value="${groovy: (quantity ?: 1) * (amount ?: 0)}" type="BigDecimal"/>
        </row-actions>
        <field name="viewSize"><hidden value="${viewSize}"/></field>
        <field name="viewIndex"><hidden value="${viewIndex}"/></field>
@@ -364,7 +361,7 @@ under the License.
                 <parameter param-name="invoiceItemSeqId"/>
             </hyperlink>
         </field>
-       <field name="quantity"><text size="3"/></field>
+       <field name="quantity"><text size="10"/></field>
        <field name="invoiceItemTypeId">
            <drop-down allow-empty="false">
                <entity-options entity-name="InvoiceItemType" description="${description}" key-field-name="invoiceItemTypeId"/>
@@ -377,7 +374,7 @@ under the License.
                <list-options list-name="glAccountOrganizationAndClassList" key-name="glAccountId" description="${glAccountId} ${accountName}"/>
            </drop-down>
        </field>
-       <field name="amount" title="${uiLabelMap.AccountingUnitPrice}"><text size="7"/></field>
+       <field name="amount" title="${uiLabelMap.AccountingUnitPrice}"><text size="10"/></field>
        <field name="total" widget-area-style="align-text"><display type="currency" currency="${invoice.currencyUomId}"/></field>  <!-- this should not look like something you can modify, hence display -->
        <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext" ><submit button-type="text-link"/></field>
        <field name="removeButton" title=" " widget-style="buttontext">
