@@ -154,8 +154,10 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
 
     protected void assertIsMutable() {
         if (!this.mutable) {
-            Debug.logError(new IllegalStateException("This object has been flagged as immutable (unchangeable), probably because it came from an Entity Engine cache. Cannot modify an immutable entity object."), module);
-            throw new IllegalStateException("This object has been flagged as immutable (unchangeable), probably because it came from an Entity Engine cache. Cannot modify an immutable entity object.");
+            String msg = "This object has been flagged as immutable (unchangeable), probably because it came from an Entity Engine cache. Cannot modify an immutable entity object. Use the clone method to create a mutable copy of this object.";
+            IllegalStateException toBeThrown = new IllegalStateException(msg);
+            Debug.logError(toBeThrown, module);
+            throw toBeThrown;
         }
     }
 
