@@ -413,7 +413,7 @@ under the License.
                                 <tr<#if itemClass == "1"> class="alternate-row"</#if>>
                                     <td align="right" colspan="2">
                                         <span class="label">${uiLabelMap.OrderAdjustment}</span>&nbsp;${adjustmentType.get("description",locale)}
-                                        ${orderItemAdjustment.get("description",locale)?if_exists}
+                                        ${StringUtil.wrapString(orderItemAdjustment.get("description",locale)?if_exists)}
                                         <#if orderItemAdjustment.comments?has_content>
                                             (${orderItemAdjustment.comments?default("")})
                                         </#if>
