@@ -68,7 +68,7 @@ public class ClassLoaderContainer implements Container {
                         try {
                             ClassLoaderContainer.portOffset = Integer.valueOf(argumentVal);
                         } catch (NumberFormatException e) {
-                            e.printStackTrace();
+                            Debug.logError(e, module);
                         }
                     }
                 }
@@ -82,6 +82,7 @@ public class ClassLoaderContainer implements Container {
     /**
      * @see org.ofbiz.base.container.Container#start()
      */
+    @Override
     public boolean start() throws ContainerException {
         return true;
     }
@@ -89,9 +90,11 @@ public class ClassLoaderContainer implements Container {
     /**
      * @see org.ofbiz.base.container.Container#stop()
      */
+    @Override
     public void stop() throws ContainerException {
     }
 
+    @Override
     public String getName() {
         return name;
     }
