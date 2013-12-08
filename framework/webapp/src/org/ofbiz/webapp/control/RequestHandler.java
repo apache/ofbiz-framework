@@ -69,7 +69,7 @@ import org.owasp.esapi.errors.EncodingException;
 public class RequestHandler {
 
     public static final String module = RequestHandler.class.getName();
-    private boolean throwRequestHandlerExceptionOnMissingLocalRequest = UtilProperties.propertyValueEqualsIgnoreCase(
+    private final boolean throwRequestHandlerExceptionOnMissingLocalRequest = UtilProperties.propertyValueEqualsIgnoreCase(
             "requestHandler.properties", "throwRequestHandlerExceptionOnMissingLocalRequest", "Y");
     private String statusCodeString = UtilProperties.getPropertyValue("requestHandler.properties", "status-code", "302");
     public static RequestHandler getRequestHandler(ServletContext servletContext) {
@@ -1036,7 +1036,7 @@ public class RequestHandler {
             Integer httpsPortValue = Integer.valueOf(httpsPort);
             httpsPortValue += ClassLoaderContainer.portOffset;
             httpsPort = httpsPortValue.toString();
-        }                
+        }
         
         StringBuilder newURL = new StringBuilder();
 
