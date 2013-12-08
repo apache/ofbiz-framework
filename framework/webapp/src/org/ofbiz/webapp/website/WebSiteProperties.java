@@ -20,6 +20,7 @@ package org.ofbiz.webapp.website;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.ofbiz.base.container.ClassLoaderContainer;
 import org.ofbiz.base.lang.ThreadSafe;
 import org.ofbiz.base.util.Assert;
 import org.ofbiz.base.util.UtilMisc;
@@ -98,6 +99,16 @@ public final class WebSiteProperties {
             if (httpsHost.isEmpty()) {
                 httpsHost = request.getServerName();
             }
+            
+            if (ClassLoaderContainer.portOffset != 0) {
+                Integer httpPortValue = Integer.valueOf(httpPort);
+                httpPortValue += ClassLoaderContainer.portOffset;
+                httpPort = httpPortValue.toString();
+                Integer httpsPortValue = Integer.valueOf(httpsPort);
+                httpsPortValue += ClassLoaderContainer.portOffset;
+                httpsPort = httpsPortValue.toString();
+            }                
+            
             webSiteProps = new WebSiteProperties(httpPort, httpHost, httpsPort, httpsHost, enableHttps);
             request.setAttribute("_WEBSITE_PROPS_", webSiteProps);
         }
@@ -121,6 +132,16 @@ public final class WebSiteProperties {
         String httpsPort = (webSiteValue.get("httpsPort") != null) ? webSiteValue.getString("httpsPort") : defaults.getHttpsPort();
         String httpsHost = (webSiteValue.get("httpsHost") != null) ? webSiteValue.getString("httpsHost") : defaults.getHttpsHost();
         boolean enableHttps = (webSiteValue.get("enableHttps") != null) ? webSiteValue.getBoolean("enableHttps") : defaults.getEnableHttps();
+
+        if (ClassLoaderContainer.portOffset != 0) {
+            Integer httpPortValue = Integer.valueOf(httpPort);
+            httpPortValue += ClassLoaderContainer.portOffset;
+            httpPort = httpPortValue.toString();
+            Integer httpsPortValue = Integer.valueOf(httpsPort);
+            httpsPortValue += ClassLoaderContainer.portOffset;
+            httpsPort = httpsPortValue.toString();
+        }                
+        
         return new WebSiteProperties(httpPort, httpHost, httpsPort, httpsHost, enableHttps);
     }
 
