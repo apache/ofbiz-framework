@@ -242,6 +242,7 @@ under the License.
                       <#if orderItemShipGroupAssocs?has_content>
                           <tr><td colspan="8">&nbsp;</td></tr>
                           <#list orderItemShipGroupAssocs as shipGroupAssoc>
+                          	  <#assign shipGroupQty = shipGroupAssoc.quantity - shipGroupAssoc.cancelQuantity?default(0)>
                               <#assign shipGroup = shipGroupAssoc.getRelatedOne("OrderItemShipGroup", false)>
                               <#assign shipGroupAddress = shipGroup.getRelatedOne("PostalAddress", false)?if_exists>
                               <tr>
@@ -249,7 +250,7 @@ under the License.
                                       <span class="label">${uiLabelMap.OrderShipGroup}</span>&nbsp;[${shipGroup.shipGroupSeqId}] ${shipGroupAddress.address1?default("${uiLabelMap.OrderNotShipped}")}
                                   </td>
                                   <td align="center">
-                                      <input type="text" name="iqm_${shipGroupAssoc.orderItemSeqId}:${shipGroupAssoc.shipGroupSeqId}" size="6" value="${shipGroupAssoc.quantity?string.number}"/>
+                                      <input type="text" name="iqm_${shipGroupAssoc.orderItemSeqId}:${shipGroupAssoc.shipGroupSeqId}" size="6" value="${shipGroupQty?string.number}"/>
                                   </td>
                                   <td colspan="4">&nbsp;</td>
                                   <td>
