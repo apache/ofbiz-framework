@@ -7322,7 +7322,7 @@
         <value xml:lang="fr">Échec de la création du paiement : aucune préférence de paiement trouvée sous la référence : ${orderPaymentPreferenceId}</value>
         <value xml:lang="it">Fallita creazione Pagamento: Non è possibile trovare OrderPaymentPreference con orderPaymentPreferenceId: ${orderPaymentPreferenceId}</value>
         <value xml:lang="ja">支払の作成に失敗しました。注文支払設定が見つかりません。注文支払設定ID: ${orderPaymentPreferenceId}</value>
-    	<value xml:lang="vi">Tạo thanh toán không thành công: không tìm thấy thiết lập thanh toán với Id : ${orderPaymentPreferenceId}</value>
+        <value xml:lang="vi">Tạo thanh toán không thành công: không tìm thấy thiết lập thanh toán với Id : ${orderPaymentPreferenceId}</value>
         <value xml:lang="zh">创建支付（Payment）时失败：无法找到标识为${orderPaymentPreferenceId}的订单支付设置（OrderPaymentPreference）</value>
     </property>
     <property key="OrderOrderPaymentCannotBeCreatedPayToPartyIdNotSet">
@@ -13721,9 +13721,9 @@
     </property>
     <property key="OrderUpdateItems">
         <value xml:lang="de">Elemente aktualisieren</value>
-        <value xml:lang="en">Update Items</value>
+        <value xml:lang="en">Update selected items</value>
         <value xml:lang="es">Actualización de los ítems</value>
-        <value xml:lang="fr">Mise à jour des lignes</value>
+        <value xml:lang="fr">Mise à jour des lignes sélectionnées</value>
         <value xml:lang="it">Righe Aggiornate</value>
         <value xml:lang="ja">アイテムを更新</value>
         <value xml:lang="nl">Items actualiseren</value>

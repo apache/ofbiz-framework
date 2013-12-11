@@ -242,21 +242,24 @@ under the License.
                       <#if orderItemShipGroupAssocs?has_content>
                           <tr><td colspan="8">&nbsp;</td></tr>
                           <#list orderItemShipGroupAssocs as shipGroupAssoc>
-                          	  <#assign shipGroupQty = shipGroupAssoc.quantity - shipGroupAssoc.cancelQuantity?default(0)>
+                                <#assign shipGroupQty = shipGroupAssoc.quantity - shipGroupAssoc.cancelQuantity?default(0)>
                               <#assign shipGroup = shipGroupAssoc.getRelatedOne("OrderItemShipGroup", false)>
                               <#assign shipGroupAddress = shipGroup.getRelatedOne("PostalAddress", false)?if_exists>
+                              <#assign itemStatusOkay = (orderItem.statusId != "ITEM_CANCELLED" && orderItem.statusId != "ITEM_COMPLETED" && (shipGroupAssoc.cancelQuantity?default(0) < shipGroupAssoc.quantity?default(0)) && ("Y" != orderItem.isPromo?if_exists))>
+                              <#assign itemSelectable = (security.hasEntityPermission("ORDERMGR", "_ADMIN", session) && itemStatusOkay) || (security.hasEntityPermission("ORDERMGR", "_UPDATE", session) && itemStatusOkay && orderHeader.statusId != "ORDER_SENT")>
                               <tr>
                                   <td class="align-text" colspan="2">
                                       <span class="label">${uiLabelMap.OrderShipGroup}</span>&nbsp;[${shipGroup.shipGroupSeqId}] ${shipGroupAddress.address1?default("${uiLabelMap.OrderNotShipped}")}
                                   </td>
                                   <td align="center">
                                       <input type="text" name="iqm_${shipGroupAssoc.orderItemSeqId}:${shipGroupAssoc.shipGroupSeqId}" size="6" value="${shipGroupQty?string.number}"/>
+                                      <#if itemSelectable>
+                                          <input type="checkbox" name="selectedItem" value="${orderItem.orderItemSeqId}" />
+                                      </#if>
                                   </td>
                                   <td colspan="4">&nbsp;</td>
                                   <td>
-                                      <#assign itemStatusOkay = (orderItem.statusId != "ITEM_CANCELLED" && orderItem.statusId != "ITEM_COMPLETED" && (shipGroupAssoc.cancelQuantity?default(0) < shipGroupAssoc.quantity?default(0)) && ("Y" != orderItem.isPromo?if_exists))>
-                                      <#if (security.hasEntityPermission("ORDERMGR", "_ADMIN", session) && itemStatusOkay) || (security.hasEntityPermission("ORDERMGR", "_UPDATE", session) && itemStatusOkay && orderHeader.statusId != "ORDER_SENT")>
-                                          <input type="checkbox" name="selectedItem" value="${orderItem.orderItemSeqId}" />
+                                      <#if itemSelectable>
                                           <a href="javascript:document.updateItemInfo.action='<@ofbizUrl>cancelOrderItem</@ofbizUrl>';document.updateItemInfo.orderItemSeqId.value='${orderItem.orderItemSeqId}';document.updateItemInfo.shipGroupSeqId.value='${shipGroup.shipGroupSeqId}';document.updateItemInfo.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>
                                       <#else>
                                           &nbsp;
