@@ -885,7 +885,7 @@ public class ContentServices {
             locale = (Locale) templateContext.get("locale");
         }
         GenericValue subContentDataResourceView = (GenericValue) context.get("subContentDataResourceView");
-        if (subContentDataResourceView != null && subContentDataResourceView == null) {
+        if (templateContext != null && subContentDataResourceView == null) {
             subContentDataResourceView = (GenericValue) templateContext.get("subContentDataResourceView");
         }
 

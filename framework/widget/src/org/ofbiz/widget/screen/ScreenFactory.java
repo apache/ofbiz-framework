@@ -132,7 +132,7 @@ public class ScreenFactory {
             }
         }
 
-        if (modelScreenMap == null) {
+        if (modelScreenMap.isEmpty()) {
             throw new IllegalArgumentException("Could not find screen file with name [" + resourceName + "]");
         }
         return modelScreenMap;
