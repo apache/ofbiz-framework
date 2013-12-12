@@ -133,7 +133,6 @@ public class ValueLinkApi {
             }
         }
 
-
         return api;
     }
 
