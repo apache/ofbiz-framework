@@ -36,17 +36,14 @@ public class TaskWorker {
         String lastName = orderTaskList.getString("customerLastName");
         String firstName = orderTaskList.getString("customerFirstName");
         //String groupName = orderTaskList.getString("customerGroupName");
-        String groupName = null; // this is only until the entity gets fixed
-        if (groupName != null) {
-            return groupName;
-        } else if (lastName != null) {
-            String name = lastName;
-            if (firstName != null)
-                name = name + ", " + firstName;
-            return name;
-        } else {
-            return "";
-        }
+        if (lastName != null) {
+        String name = lastName;
+        if (firstName != null)
+            name = name + ", " + firstName;
+        return name;
+      } else {
+        return "";
+      }
     }
 
     static Map<String, String> statusMapping = UtilMisc.toMap("WF_NOT_STARTED", "Waiting", "WF_RUNNING", "Active", "WF_COMPLETE", "Complete", "WF_SUSPENDED", "Hold");

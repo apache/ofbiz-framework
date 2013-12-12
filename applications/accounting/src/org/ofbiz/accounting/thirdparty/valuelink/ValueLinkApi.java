@@ -114,13 +114,16 @@ public class ValueLinkApi {
      * @return ValueLinkApi reference
      */
     public static ValueLinkApi getInstance(Delegator delegator, Properties props, boolean reload) {
-        String merchantId = (String) props.get("payment.valuelink.merchantId");
         if (props == null) {
             throw new IllegalArgumentException("Properties cannot be null");
         }
+        String merchantId = (String) props.get("payment.valuelink.merchantId");
 
         ValueLinkApi api = (ValueLinkApi) objectCache.get(merchantId);
-        if (api == null || reload) {
+        if (api == null) {
+            throw new RuntimeException("Runtime problems with ValueLinkApi; unable to create instance");
+        }
+        if (reload) {
             synchronized(ValueLinkApi.class) {
                 api = (ValueLinkApi) objectCache.get(merchantId);
                 if (api == null || reload) {
@@ -130,9 +133,6 @@ public class ValueLinkApi {
             }
         }
 
-        if (api == null) {
-            throw new RuntimeException("Runtime problems with ValueLinkApi; unable to create instance");
-        }
 
         return api;
     }

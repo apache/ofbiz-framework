@@ -1311,9 +1311,6 @@ public class EbayStore {
                 storeType.setCustomHeader((String)context.get("storeCustomHeader"));
                 storeType.setCustomHeaderLayout(StoreCustomHeaderLayoutCodeType.valueOf((String)context.get("storeCustomHeaderLayout")));
 
-                if ( storeType == null )
-                      throw new SdkException("StoreType property is not set.");
-
                 req.setStore(storeType);
                 resp = (SetStoreResponseType) call.execute(req);
 
@@ -1885,8 +1882,11 @@ public class EbayStore {
             final ItemType[] activeItems = tempActiveItems;
             // Display active items in table.
             AbstractTableModel dataModel = new AbstractTableModel() {
+                @Override
                 public int getColumnCount() { return 0; }
+                @Override
                 public int getRowCount() { return activeItems == null ? 0 : activeItems.length;}
+                @Override
                 public Map<String, Object> getValueAt(int row, int col) {
                     ItemType item = activeItems[row];
                     return itemToColumns(item);
@@ -1900,8 +1900,11 @@ public class EbayStore {
             final ItemType[] scheItems = tempItems;
             // Display Scheduled items in table.
             dataModel = new AbstractTableModel() {
+                @Override
                 public int getColumnCount() { return 0; }
+                @Override
                 public int getRowCount() { return scheItems == null ? 0 : scheItems.length;}
+                @Override
                 public Map<String, Object> getValueAt(int row, int col) {
                     ItemType item = scheItems[row];
                     return schItemToColumns(item);
@@ -1923,8 +1926,11 @@ public class EbayStore {
             final ItemType[] unSoldItems = tempUnSoldItems;
             // Display unsold items in table.
             dataModel = new AbstractTableModel() {
+                @Override
                 public int getColumnCount() { return 0; }
+                @Override
                 public int getRowCount() { return unSoldItems == null ? 0 : unSoldItems.length;}
+                @Override
                 public Map<String, Object> getValueAt(int row, int col) {
                     ItemType item = unSoldItems[row];
                     return unsoldItemToColumns(item);

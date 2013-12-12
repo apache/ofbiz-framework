@@ -729,7 +729,7 @@ public class LoginServices {
             //    Debug.logWarning(e, "", module);
             //}
 
-            if (loggedInUserLogin != null) {
+            if (!loggedInUserLogin.isEmpty()) {
                 // security check: userLogin partyId must equal partyId, or must have PARTYMGR_CREATE permission
                 if (!partyId.equals(loggedInUserLogin.getString("partyId"))) {
                     errMsg = UtilProperties.getMessage(resource,"loginservices.party_with_party_id_exists_not_permission_create_user_login", locale);

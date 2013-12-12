@@ -241,18 +241,12 @@ public final class ModelDataFileReader {
             Element fieldElement = (Element) fList.item(i);
             ModelField modelField = createModelField(fieldElement);
 
-            // if the position is not specified, assume the start position based on last
-            // entry
+            // if the position is not specified, assume the start position based on last entry
             if ((i > 0) && (modelField.position == -1)) {
                 modelField.position = priorEnd;
             }
             priorEnd = modelField.position + modelField.length;
-
-            if (modelField != null) {
-                record.fields.add(modelField);
-            } else {
-                Debug.logWarning("[ModelDataFileReader.createModelRecord] Weird, modelField was null", module);
-            }
+            record.fields.add(modelField);
         }
 
         return record;
