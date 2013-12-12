@@ -5241,18 +5241,6 @@
     </property>
     <property key="TaxAuthorityRateType.description.EXCISE_TAX">
         <value xml:lang="en">Excise Tax</value>
-        <value xml:lang="es">Impuesto de uso</value>
-        <value xml:lang="fr">Taxe d'utilisation (pas en France)</value>
-        <value xml:lang="hi_IN">उपभोग कर</value>
-        <value xml:lang="it">Tassa sull'utilizzo</value>
-        <value xml:lang="ja">使用税</value>
         <value xml:lang="nl">Belasting - Accijns</value>
-        <value xml:lang="pt">Imposto sobre o uso</value>
-        <value xml:lang="ro">Foloseste Taxe</value>
-        <value xml:lang="ru">Налог на использование</value>
-        <value xml:lang="th">ภาษีที่ใช้</value>
-        <value xml:lang="vi">Thuế sử dụng</value>
-        <value xml:lang="zh">使用税</value>
-        <value xml:lang="zh_TW">使用稅</value>
     </property>
 </resource>
