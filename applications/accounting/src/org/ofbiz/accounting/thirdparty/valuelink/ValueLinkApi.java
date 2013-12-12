@@ -126,7 +126,7 @@ public class ValueLinkApi {
         if (reload) {
             synchronized(ValueLinkApi.class) {
                 api = (ValueLinkApi) objectCache.get(merchantId);
-                if (api == null || reload) {
+                if (api == null) {
                     api = new ValueLinkApi(delegator, props);
                     objectCache.put(merchantId, api);
                 }
