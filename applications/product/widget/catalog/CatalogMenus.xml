@@ -550,7 +550,6 @@ under the License.
         <menu-item name="ExpandAll" title="${uiLabelMap.CommonExpandAll}" widget-style="buttontext expand-all">
             <condition>
                 <and>
-                    <not><if-empty field="product"/></not>
                     <if-compare operator="equals" value="EditProduct" field="tabButtonItem"/>
                 </and>
             </condition>
@@ -559,7 +558,6 @@ under the License.
         <menu-item name="CollapseAll" title="${uiLabelMap.CommonCollapseAll}" widget-style="buttontext collapse-all">
             <condition>
                 <and>
-                    <not><if-empty field="product"/></not>
                     <if-compare operator="equals" value="EditProduct" field="tabButtonItem"/>
                 </and>
             </condition>
