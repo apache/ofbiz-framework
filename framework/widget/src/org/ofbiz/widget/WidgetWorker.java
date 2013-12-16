@@ -427,6 +427,7 @@ public class WidgetWorker {
             }
         }
 
+        @SuppressWarnings("unchecked")
         public Map<String, String> getParametersMap(Map<String, Object> context, String defaultServiceName) {
             Map<String, String> autServiceParams = FastMap.newInstance();
             LocalDispatcher dispatcher = (LocalDispatcher) context.get("dispatcher");
@@ -492,6 +493,7 @@ public class WidgetWorker {
             }
         }
 
+        @SuppressWarnings("unchecked")
         public Map<String, String> getParametersMap(Map<String, Object> context, String defaultEntityName) {
             Map<String, String> autEntityParams = FastMap.newInstance();
             Delegator delegator = (Delegator) context.get("delegator");

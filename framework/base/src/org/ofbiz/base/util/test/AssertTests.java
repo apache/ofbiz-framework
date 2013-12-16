@@ -35,7 +35,6 @@ public class AssertTests extends TestCase {
         super(name);
     }
 
-    @SuppressWarnings("unchecked")
     public void testAssert(){
         Object testObject = new Object();
 

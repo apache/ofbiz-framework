@@ -31,7 +31,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-
 import net.sf.json.JSONObject;
 
 import org.ofbiz.base.util.Debug;
@@ -504,7 +503,6 @@ public class CategoryServices {
         }
     }
 
-    @SuppressWarnings("unchecked")
     public static void toJsonObjectList(List attrList, HttpServletResponse response){
         StringBuilder jsonBuilder = new StringBuilder("[");
         for (Object attrMap : attrList) {

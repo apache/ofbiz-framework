@@ -226,7 +226,7 @@ public class ScrumServices {
 
                             List<GenericValue> workEffortList = delegator.findList("WorkEffort", EntityCondition.makeCondition(exprsAnd, EntityOperator.AND), null, null, null, false);
                             if (UtilValidate.isEmpty(workeffContentList) && UtilValidate.isNotEmpty(workEffortList)) {
-                                Map inputMap = FastMap.newInstance();
+                                Map<String, Object> inputMap = FastMap.newInstance();
                                 inputMap.put("taskId", taskId);
                                 inputMap.put("user", user);
                                 inputMap.put("revisionNumber", Integer.toString(i));
