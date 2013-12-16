@@ -43,8 +43,8 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.config.model.DelegatorElement;
 import org.ofbiz.entity.config.EntityConfigUtil;
+import org.ofbiz.entity.config.model.DelegatorElement;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelReader;
 import org.ofbiz.service.DispatchContext;
@@ -144,7 +144,7 @@ public class ArtifactInfoFactory {
 
     public void prepareAll() throws GeneralException {
         Debug.logInfo("Loading artifact info objects...", module);
-        List<Future<Void>> futures = new ArrayList();
+        List<Future<Void>> futures = new ArrayList<Future<Void>>();
         Set<String> entityNames = this.getEntityModelReader().getEntityNames();
         for (String entityName: entityNames) {
             this.getEntityArtifactInfo(entityName);
@@ -158,7 +158,7 @@ public class ArtifactInfoFactory {
 
         Collection<ComponentConfig> componentConfigs = ComponentConfig.getAllComponents();
         ExecutionPool.getAllFutures(futures);
-        futures = new ArrayList();
+        futures = new ArrayList<Future<Void>>();
         for (ComponentConfig componentConfig: componentConfigs) {
             futures.add(ExecutionPool.GLOBAL_EXECUTOR.submit(prepareTaskForComponentAnalysis(componentConfig)));
         }
@@ -382,8 +382,10 @@ public class ArtifactInfoFactory {
     }
 
     // private methods
+    @SuppressWarnings("unchecked")
     private Callable<Void> prepareTaskForServiceAnalysis(final String serviceName) {
         return new Callable() {
+            @Override
             public Callable<Void> call() throws Exception {
                 try {
                     getServiceArtifactInfo(serviceName);
@@ -395,8 +397,10 @@ public class ArtifactInfoFactory {
         };
     }
 
+    @SuppressWarnings("unchecked")
     private Callable<Void> prepareTaskForComponentAnalysis(final ComponentConfig componentConfig) {
         return new Callable() {
+            @Override
             public Callable<Void> call() throws Exception {
                 String componentName = componentConfig.getGlobalName();
                 String rootComponentPath = componentConfig.getRootLocation();

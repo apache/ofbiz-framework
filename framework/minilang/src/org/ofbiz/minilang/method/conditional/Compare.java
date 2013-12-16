@@ -102,7 +102,6 @@ public abstract class Compare {
 
     private static final class CompareContains extends Compare {
 
-        @SuppressWarnings("unchecked")
         @Override
         public boolean doCompare(Object lValue, Object rValue, Class<?> type, Locale locale, TimeZone timeZone, String format) throws Exception {
             // The type parameter is ignored when using the contains operator, so no conversions will be performed.

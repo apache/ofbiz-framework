@@ -27,9 +27,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
 import org.apache.log4j.Appender;
-
+import org.apache.log4j.Logger;
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.start.Config;
 import org.ofbiz.base.start.StartupException;
@@ -58,6 +57,7 @@ public class ContainerLoader implements StartupLoader {
     /**
      * @see org.ofbiz.base.start.StartupLoader#load(Config, String[])
      */
+    @Override
     public synchronized void load(Config config, String args[]) throws StartupException {
         if (this.loaded || this.unloading) {
             return;
@@ -223,6 +223,7 @@ public class ContainerLoader implements StartupLoader {
     /**
      * @see org.ofbiz.base.start.StartupLoader#start()
      */
+    @Override
     public synchronized void start() throws StartupException {
         if (!this.loaded || this.unloading) {
             throw new IllegalStateException("start() called on unloaded containers");
@@ -248,6 +249,7 @@ public class ContainerLoader implements StartupLoader {
     /**
      * @see org.ofbiz.base.start.StartupLoader#unload()
      */
+    @Override
     public void unload() throws StartupException {
         if (!this.unloading) {
             this.unloading = true;
@@ -268,6 +270,7 @@ public class ContainerLoader implements StartupLoader {
                     Debug.logInfo("Stopped container " + container.getName(), module);
                 }
             }
+            @SuppressWarnings("unchecked")
             Enumeration<Appender> en = Logger.getRootLogger().getAllAppenders();
             while (en.hasMoreElements()) {
                 Appender appender = en.nextElement();

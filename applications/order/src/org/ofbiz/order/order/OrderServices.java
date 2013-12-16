@@ -1118,7 +1118,9 @@ public class OrderServices {
                                 Map<String, Object> ripResult = dispatcher.runSync("receiveInventoryProduct", ripCtx);
                                 if (ServiceUtil.isError(ripResult)) {
                                     String errMsg = ServiceUtil.getErrorMessage(ripResult);
-                                    resErrorMessages.addAll((Collection<? extends String>) UtilMisc.<String, String>toMap("reasonCode", "ReceiveInventoryServiceError", "description", errMsg));
+                                    @SuppressWarnings("unchecked")
+                                    Collection<? extends String> map = (Collection<? extends String>) UtilMisc.<String, String>toMap("reasonCode", "ReceiveInventoryServiceError", "description", errMsg);
+                                    resErrorMessages.addAll(map);
                                 }
                             } catch (GenericServiceException e) {
                                 Debug.logWarning(e, "Error invoking receiveInventoryProduct service in createOrder", module);
@@ -5631,6 +5633,7 @@ public class OrderServices {
         List<String> orderIds;
         try {
             orderIds = TransactionUtil.doNewTransaction(new Callable<List<String>>() {
+                @Override
                 public List<String> call() throws Exception {
                     List<String> orderIds = new LinkedList<String>();
                     EntityListIterator eli = null;
