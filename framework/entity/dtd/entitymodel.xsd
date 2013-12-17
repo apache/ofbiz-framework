@@ -86,7 +86,14 @@ under the License.
         <xs:attribute name="package-name" type="xs:string" use="required"/>
         <xs:attribute name="default-resource-name" type="xs:string"/>
         <xs:attribute name="dependent-on" type="xs:string"/>
-        <xs:attribute name="sequence-bank-size" type="xs:string"/>
+        <xs:attribute name="sequence-bank-size" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    The 10 default value is defined in the SequenceBank class by the defaultBankSize constant.
+                    Can't be more than 5000 which is defined by the maxBankSize constant.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="enable-lock" default="false" type="boolean"/>
         <xs:attribute name="no-auto-stamp" default="false" type="boolean"/>
         <xs:attribute name="never-cache" default="false" type="boolean"/>
@@ -503,7 +510,14 @@ under the License.
         <xs:attribute name="entity-name" type="xs:string" use="required"/>
         <xs:attribute name="default-resource-name" type="xs:string"/>
         <xs:attribute name="dependent-on" type="xs:string"/>
-        <xs:attribute name="sequence-bank-size" type="xs:string"/>
+        <xs:attribute name="sequence-bank-size" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    The 10 default value is defined in the SequenceBank class by the defaultBankSize constant.
+                    Can't be more than 5000 which is defined by the maxBankSize constant.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="enable-lock" type="boolean"/>
         <xs:attribute name="no-auto-stamp" type="boolean"/>
         <xs:attribute name="never-cache" type="boolean"/>
