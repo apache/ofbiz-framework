@@ -398,19 +398,12 @@
         <value xml:lang="zh_TW">當面</value>
     </property>
     <property key="CommunicationEventType.description.FAX_COMMUNICATION">
-        <value xml:lang="de">Fax</value>
         <value xml:lang="en">Fax</value>
-        <value xml:lang="es">Fax</value>
         <value xml:lang="fr">Télécopie</value>
         <value xml:lang="hi_IN">फैक्स</value>
-        <value xml:lang="it">Fax</value>
         <value xml:lang="ja">FAX</value>
-        <value xml:lang="nl">Fax</value>
-        <value xml:lang="pt_BR">Fax</value>
-        <value xml:lang="ro">Fax</value>
         <value xml:lang="ru">Факс</value>
         <value xml:lang="th">แฟกซ์</value>
-        <value xml:lang="vi">Fax</value>
         <value xml:lang="zh">传真</value>
         <value xml:lang="zh_TW">傳真</value>
     </property>
@@ -567,8 +560,6 @@
     <property key="ContactMechPurposeType.description.ICAL_URL">
         <value xml:lang="en">iCalendar URL</value>
         <value xml:lang="fr">Adresse du calendrier (URL)</value>
-        <value xml:lang="ja">iCalendar URL</value>
-        <value xml:lang="vi">iCalendar URL</value>
         <value xml:lang="zh">iCalendar网址</value>
     </property>
     <property key="ContactMechPurposeType.description.MARKETING_EMAIL">
@@ -2797,25 +2788,16 @@
         <value xml:lang="zh_TW">內部團體</value>
     </property>
     <property key="RoleType.description.ISP">
-        <value xml:lang="de">ISP</value>
         <value xml:lang="en">ISP</value>
-        <value xml:lang="es">ISP</value>
         <value xml:lang="fr">FAI</value>
         <value xml:lang="hi_IN">आईएसपी(ISP)</value>
         <value xml:lang="it">FAI</value>
-        <value xml:lang="ja">ISP</value>
-        <value xml:lang="pt_BR">ISP</value>
-        <value xml:lang="ro">ISP</value>
         <value xml:lang="ru">Провайдер Интернет</value>
-        <value xml:lang="th">ISP</value>
-        <value xml:lang="vi">ISP</value>
         <value xml:lang="zh">互联网服务提供商</value>
         <value xml:lang="zh_TW">互聯網服務提供商</value>
     </property>
     <property key="RoleType.description.LEAD">
-        <value xml:lang="de">Lead</value>
         <value xml:lang="en">Lead</value>
-        <value xml:lang="es">Lead</value>
         <value xml:lang="fr">Prospect</value>
         <value xml:lang="hi_IN">नेतृत्व</value>
         <value xml:lang="it">Leader</value>

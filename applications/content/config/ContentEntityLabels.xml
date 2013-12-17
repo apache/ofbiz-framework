@@ -20,160 +20,51 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="CharacterSet.description.ISO-8859-1">
-        <value xml:lang="da">ISO-8859-1</value>
-        <value xml:lang="de">ISO-8859-1</value>
         <value xml:lang="en">ISO-8859-1</value>
         <value xml:lang="es">ISO-8859-1 Inglés</value>
-        <value xml:lang="fr">ISO-8859-1</value>
-        <value xml:lang="it">ISO-8859-1</value>
-        <value xml:lang="ja">ISO-8859-1</value>
-        <value xml:lang="pt">ISO-8859-1</value>
-        <value xml:lang="th">ISO-8859-1</value>
-        <value xml:lang="zh">ISO-8859-1</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-10">
-        <value xml:lang="da">ISO-8859-10</value>
-        <value xml:lang="de">ISO-8859-10</value>
         <value xml:lang="en">ISO-8859-10</value>
-        <value xml:lang="es">ISO-8859-10 ?</value>
-        <value xml:lang="fr">ISO-8859-10</value>
-        <value xml:lang="it">ISO-8859-10</value>
-        <value xml:lang="ja">ISO-8859-10</value>
-        <value xml:lang="pt">ISO-8859-10</value>
-        <value xml:lang="th">ISO-8859-10</value>
-        <value xml:lang="zh">ISO-8859-10</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-2">
-        <value xml:lang="da">ISO-8859-2</value>
-        <value xml:lang="de">ISO-8859-2</value>
         <value xml:lang="en">ISO-8859-2</value>
-        <value xml:lang="es">ISO-8859-2 ?</value>
-        <value xml:lang="fr">ISO-8859-2</value>
-        <value xml:lang="it">ISO-8859-2</value>
-        <value xml:lang="ja">ISO-8859-2</value>
-        <value xml:lang="pt">ISO-8859-2</value>
-        <value xml:lang="th">ISO-8859-2</value>
-        <value xml:lang="zh">ISO-8859-2</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-3">
-        <value xml:lang="da">ISO-8859-3</value>
-        <value xml:lang="de">ISO-8859-3</value>
         <value xml:lang="en">ISO-8859-3</value>
-        <value xml:lang="es">ISO-8859-3 ?</value>
-        <value xml:lang="fr">ISO-8859-3</value>
-        <value xml:lang="it">ISO-8859-3</value>
-        <value xml:lang="ja">ISO-8859-3</value>
-        <value xml:lang="pt">ISO-8859-3</value>
-        <value xml:lang="th">ISO-8859-3</value>
-        <value xml:lang="zh">ISO-8859-3</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-4">
-        <value xml:lang="da">ISO-8859-4</value>
-        <value xml:lang="de">ISO-8859-4</value>
         <value xml:lang="en">ISO-8859-4</value>
-        <value xml:lang="es">ISO-8859-4 ?</value>
-        <value xml:lang="fr">ISO-8859-4</value>
-        <value xml:lang="it">ISO-8859-4</value>
-        <value xml:lang="ja">ISO-8859-4</value>
-        <value xml:lang="pt">ISO-8859-4</value>
-        <value xml:lang="th">ISO-8859-4</value>
-        <value xml:lang="zh">ISO-8859-4</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-5">
-        <value xml:lang="da">ISO-8859-5</value>
-        <value xml:lang="de">ISO-8859-5</value>
         <value xml:lang="en">ISO-8859-5</value>
-        <value xml:lang="es">ISO-8859-5 ?</value>
-        <value xml:lang="fr">ISO-8859-5</value>
-        <value xml:lang="it">ISO-8859-5</value>
-        <value xml:lang="ja">ISO-8859-5</value>
-        <value xml:lang="pt">ISO-8859-5</value>
-        <value xml:lang="th">ISO-8859-5</value>
-        <value xml:lang="zh">ISO-8859-5</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-6">
-        <value xml:lang="da">ISO-8859-6</value>
-        <value xml:lang="de">ISO-8859-6</value>
         <value xml:lang="en">ISO-8859-6</value>
         <value xml:lang="es">ISO-8859-6 Latino/árabe</value>
-        <value xml:lang="fr">ISO-8859-6</value>
-        <value xml:lang="it">ISO-8859-6</value>
-        <value xml:lang="ja">ISO-8859-6</value>
-        <value xml:lang="pt">ISO-8859-6</value>
-        <value xml:lang="th">ISO-8859-6</value>
-        <value xml:lang="zh">ISO-8859-6</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-7">
-        <value xml:lang="da">ISO-8859-7</value>
-        <value xml:lang="de">ISO-8859-7</value>
         <value xml:lang="en">ISO-8859-7</value>
-        <value xml:lang="es">ISO-8859-7 ?</value>
-        <value xml:lang="fr">ISO-8859-7</value>
-        <value xml:lang="it">ISO-8859-7</value>
-        <value xml:lang="ja">ISO-8859-7</value>
-        <value xml:lang="pt">ISO-8859-7</value>
-        <value xml:lang="th">ISO-8859-7</value>
-        <value xml:lang="zh">ISO-8859-7</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-8">
-        <value xml:lang="da">ISO-8859-8</value>
-        <value xml:lang="de">ISO-8859-8</value>
         <value xml:lang="en">ISO-8859-8</value>
         <value xml:lang="es">ISO-8859-8 Latino/Hebreo</value>
-        <value xml:lang="fr">ISO-8859-8</value>
-        <value xml:lang="it">ISO-8859-8</value>
-        <value xml:lang="ja">ISO-8859-8</value>
-        <value xml:lang="pt">ISO-8859-8</value>
-        <value xml:lang="th">ISO-8859-8</value>
-        <value xml:lang="zh">ISO-8859-8</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-9">
-        <value xml:lang="da">ISO-8859-9</value>
-        <value xml:lang="de">ISO-8859-9</value>
         <value xml:lang="en">ISO-8859-9</value>
         <value xml:lang="es">ISO-8859-9 ?</value>
-        <value xml:lang="fr">ISO-8859-9</value>
-        <value xml:lang="it">ISO-8859-9</value>
-        <value xml:lang="ja">ISO-8859-9</value>
-        <value xml:lang="pt">ISO-8859-9</value>
-        <value xml:lang="th">ISO-8859-9</value>
-        <value xml:lang="zh">ISO-8859-9</value>
     </property>
     <property key="CharacterSet.description.US-ASCII">
-        <value xml:lang="da">US-ASCII</value>
-        <value xml:lang="de">US-ASCII</value>
         <value xml:lang="en">US-ASCII</value>
-        <value xml:lang="es">US-ASCII</value>
-        <value xml:lang="fr">US-ASCII</value>
-        <value xml:lang="it">US-ASCII</value>
-        <value xml:lang="ja">US-ASCII</value>
-        <value xml:lang="pt">US-ASCII</value>
-        <value xml:lang="th">US-ASCII</value>
-        <value xml:lang="zh">US-ASCII</value>
     </property>
     <property key="CharacterSet.description.UTF-16">
-        <value xml:lang="da">UTF-16</value>
-        <value xml:lang="de">UTF-16</value>
         <value xml:lang="en">UTF-16</value>
         <value xml:lang="es">Unicode 16 bit</value>
-        <value xml:lang="fr">UTF-16</value>
-        <value xml:lang="it">UTF-16</value>
-        <value xml:lang="ja">UTF-16</value>
-        <value xml:lang="pt">UTF-16</value>
-        <value xml:lang="th">UTF-16</value>
-        <value xml:lang="zh">UTF-16</value>
+        <value xml:lang="fr">Unicode 16 bit</value>
     </property>
     <property key="CharacterSet.description.UTF-8">
-        <value xml:lang="da">UTF-8</value>
-        <value xml:lang="de">UTF-8</value>
         <value xml:lang="en">UTF-8</value>
         <value xml:lang="es">Unicode 8 bit</value>
-        <value xml:lang="fr">UTF-8</value>
-        <value xml:lang="it">UTF-8</value>
-        <value xml:lang="ja">UTF-8</value>
-        <value xml:lang="pt">UTF-8</value>
-        <value xml:lang="th">UTF-8</value>
-        <value xml:lang="zh">UTF-8</value>
+        <value xml:lang="fr">Unicode 8 bit</value>
     </property>
     <property key="ContentAssocPredicate.description.categorizes">
         <value xml:lang="da">kategorier</value>
@@ -1738,44 +1629,17 @@
         <value xml:lang="zh_TW">軟件</value>
     </property>
     <property key="DataCategory.categoryName.TECH_SOFT_JAVA">
-        <value xml:lang="da">Java</value>
-        <value xml:lang="de">Java</value>
         <value xml:lang="en">Java</value>
-        <value xml:lang="fr">Java</value>
-        <value xml:lang="it">Java</value>
-        <value xml:lang="ja">Java</value>
-        <value xml:lang="pt">Java</value>
-        <value xml:lang="ro">Java</value>
         <value xml:lang="th">ภาษาจาวา</value>
-        <value xml:lang="vi">Java</value>
-        <value xml:lang="zh">Java</value>
-        <value xml:lang="zh_TW">Java</value>
     </property>
     <property key="DataCategory.categoryName.TECH_SOFT_LINUX">
-        <value xml:lang="da">Linux</value>
-        <value xml:lang="de">Linux</value>
         <value xml:lang="en">Linux</value>
-        <value xml:lang="fr">Linux</value>
-        <value xml:lang="it">Linux</value>
-        <value xml:lang="ja">Linux</value>
-        <value xml:lang="pt">Linux</value>
-        <value xml:lang="ro">Linux</value>
         <value xml:lang="th">ระบบปฏิบัติการลีนุกซ์</value>
-        <value xml:lang="vi">Linux</value>
-        <value xml:lang="zh">Linux</value>
-        <value xml:lang="zh_TW">Linux</value>
     </property>
     <property key="DataCategory.categoryName.TECH_SOFT_OFBIZ">
-        <value xml:lang="da">Open for Business</value>
-        <value xml:lang="de">Open for Business</value>
         <value xml:lang="en">Open for Business</value>
-        <value xml:lang="fr">Open for Business</value>
-        <value xml:lang="it">Open for Business</value>
         <value xml:lang="ja">OFBiz</value>
-        <value xml:lang="pt">Open for Business</value>
-        <value xml:lang="ro">Open for Business</value>
         <value xml:lang="th">เปิดสำหรับทางธุรกิจ</value>
-        <value xml:lang="vi">Open for Business</value>
         <value xml:lang="zh">OFBiz</value>
         <value xml:lang="zh_TW">OFBiz</value>
     </property>
@@ -2006,17 +1870,7 @@
         <value xml:lang="zh_TW">視頻</value>
     </property>
     <property key="DataTemplateType.description.FTL">
-        <value xml:lang="da">FreeMarker</value>
-        <value xml:lang="de">FreeMarker</value>
         <value xml:lang="en">FreeMarker</value>
-        <value xml:lang="fr">FreeMarker</value>
-        <value xml:lang="it">FreeMarker</value>
-        <value xml:lang="ja">FreeMarker</value>
-        <value xml:lang="pt">FreeMarker</value>
-        <value xml:lang="ro">FreeMarker</value>
-        <value xml:lang="th">FreeMarker</value>
-        <value xml:lang="vi">FreeMarker</value>
-        <value xml:lang="zh">FreeMarker</value>
         <value xml:lang="zh_TW">FreeMarker</value>
     </property>
     <property key="DataTemplateType.description.NONE">
@@ -2048,46 +1902,16 @@
         <value xml:lang="zh_TW">螢幕挂件</value>
     </property>
     <property key="DataTemplateType.description.VTL">
-        <value xml:lang="da">Velocity</value>
-        <value xml:lang="de">Velocity</value>
         <value xml:lang="en">Velocity</value>
-        <value xml:lang="fr">Velocity</value>
-        <value xml:lang="it">Velocity</value>
-        <value xml:lang="ja">Velocity</value>
-        <value xml:lang="pt">Velocity</value>
         <value xml:lang="ro">Viteza</value>
         <value xml:lang="th">ความเร็ว</value>
-        <value xml:lang="vi">Velocity</value>
-        <value xml:lang="zh">Velocity</value>
-        <value xml:lang="zh_TW">Velocity</value>
     </property>
     <property key="DataTemplateType.description.WM">
-        <value xml:lang="da">WebMAcro</value>
-        <value xml:lang="de">WebMAcro</value>
         <value xml:lang="en">WebMacro</value>
-        <value xml:lang="fr">WebMacro</value>
-        <value xml:lang="it">WebMacro</value>
-        <value xml:lang="ja">WebMacro</value>
-        <value xml:lang="pt">WebMacro</value>
-        <value xml:lang="ro">WebMacro</value>
         <value xml:lang="th">เว็บ Macro</value>
-        <value xml:lang="vi">WebMAcro</value>
-        <value xml:lang="zh">WebMacro</value>
-        <value xml:lang="zh_TW">WebMacro</value>
     </property>
     <property key="DataTemplateType.description.XSLT">
-        <value xml:lang="da">XSLT</value>
-        <value xml:lang="de">XSLT</value>
         <value xml:lang="en">XSLT</value>
-        <value xml:lang="fr">XSLT</value>
-        <value xml:lang="it">XSLT</value>
-        <value xml:lang="ja">XSLT</value>
-        <value xml:lang="pt">XSLT</value>
-        <value xml:lang="ro">XSLT</value>
-        <value xml:lang="th">XSLT</value>
-        <value xml:lang="vi">XSLT</value>
-        <value xml:lang="zh">XSLT</value>
-        <value xml:lang="zh_TW">XSLT</value>
     </property>
     <property key="DocumentType.description.BILL_OF_LADING">
         <value xml:lang="da">Kannossement</value>
@@ -2262,16 +2086,7 @@
         <value xml:lang="zh_TW">主題事件中牽扯到的人員姓名。</value>
     </property>
     <property key="MimeType.description.application/msword">
-        <value xml:lang="da">Microsoft Word</value>
-        <value xml:lang="de">Microsoft Word</value>
         <value xml:lang="en">Microsoft Word</value>
-        <value xml:lang="fr">Microsoft Word</value>
-        <value xml:lang="it">Microsoft Word</value>
-        <value xml:lang="ja">Microsoft Word</value>
-        <value xml:lang="pt">Microsoft Word</value>
-        <value xml:lang="ro">Microsoft Word</value>
-        <value xml:lang="th">Microsoft Word</value>
-        <value xml:lang="vi">Microsoft Word</value>
         <value xml:lang="zh">微软Word</value>
         <value xml:lang="zh_TW">微軟Word</value>
     </property>
@@ -2290,15 +2105,10 @@
         <value xml:lang="zh_TW">二進制資料</value>
     </property>
     <property key="MimeType.description.application/pdf">
-        <value xml:lang="da">Adobe Portable Document Format (PDF)</value>
-        <value xml:lang="de">Adobe Portable Document Format (PDF)</value>
         <value xml:lang="en">Adobe Portable Document Format (PDF)</value>
         <value xml:lang="fr">Format de document portable Adobe (PDF)</value>
         <value xml:lang="it">Formato Adobe Portable Document (PDF)</value>
         <value xml:lang="ja">Adobe PDF</value>
-        <value xml:lang="pt">Adobe Portable Document Format (PDF)</value>
-        <value xml:lang="ro">Format Adobe Portable Document (PDF)</value>
-        <value xml:lang="th">Adobe Portable Document Format (PDF)</value>
         <value xml:lang="vi">Adobe PDF</value>
         <value xml:lang="zh">Adobe PDF</value>
         <value xml:lang="zh_TW">Adobe PDF</value>
@@ -2318,27 +2128,12 @@
         <value xml:lang="zh_TW">Postsctipt應用/腳本</value>
     </property>
     <property key="MimeType.description.application/vnd.ms-excel">
-        <value xml:lang="da">Microsoft Excel</value>
-        <value xml:lang="de">Microsoft Excel</value>
         <value xml:lang="en">Microsoft Excel</value>
-        <value xml:lang="fr">Microsoft Excel</value>
-        <value xml:lang="it">Microsoft Excel</value>
-        <value xml:lang="ja">Microsoft Excel</value>
-        <value xml:lang="pt">Microsoft Excel</value>
-        <value xml:lang="th">Microsoft Excel</value>
-        <value xml:lang="vi">Microsoft Excel</value>
         <value xml:lang="zh">微软Excel</value>
         <value xml:lang="zh_TW">微軟Excel</value>
     </property>
     <property key="MimeType.description.application/vnd.ms-powerpoint">
-        <value xml:lang="da">Microsoft PowerPoint</value>
-        <value xml:lang="de">Microsoft PowerPoint</value>
         <value xml:lang="en">Microsoft PowerPoint</value>
-        <value xml:lang="fr">Microsoft PowerPoint</value>
-        <value xml:lang="it">Microsoft PowerPoint</value>
-        <value xml:lang="ja">Microsoft PowerPoint</value>
-        <value xml:lang="pt">Microsoft PowerPoint</value>
-        <value xml:lang="th">Microsoft PowerPoint</value>
         <value xml:lang="zh">微软PowerPoint</value>
         <value xml:lang="zh_TW">微軟PowerPoint</value>
     </property>
@@ -2618,7 +2413,6 @@
     </property>
     <property key="MimeType.description.message/s-http">
         <value xml:lang="da">HTTPS/S-HTTP besked</value>
-        <value xml:lang="de">HTTPS/S-HTTP Message</value>
         <value xml:lang="en">HTTPS/S-HTTP Message</value>
         <value xml:lang="fr">Message HTTPS/S-HTTP</value>
         <value xml:lang="it">Messaggio HTTPS/S-HTTP</value>
@@ -2631,14 +2425,10 @@
         <value xml:lang="zh_TW">HTTPS/S-HTTP消息</value>
     </property>
     <property key="MimeType.description.model/mesh">
-        <value xml:lang="da">MEsh model</value>
-        <value xml:lang="de">MEsh Model</value>
         <value xml:lang="en">Mesh Model</value>
         <value xml:lang="fr">Modèle de grille</value>
-        <value xml:lang="it">Mesh Model</value>
         <value xml:lang="ja">Mesh モデル</value>
         <value xml:lang="pt">Modelo Mesh</value>
-        <value xml:lang="ro">Mesh Model</value>
         <value xml:lang="th">แบบจำลองที่ทำงานร่วมกัน</value>
         <value xml:lang="zh">网格模型</value>
         <value xml:lang="zh_TW">網格模型</value>
@@ -2657,99 +2447,65 @@
         <value xml:lang="zh_TW">虛擬現實模型語言(VRML)模型</value>
     </property>
     <property key="MimeType.description.multipart/alternative">
-        <value xml:lang="da">Multiple Alternative Multipart</value>
-        <value xml:lang="de">Multiple Alternative Multipart</value>
         <value xml:lang="en">Mutliple Alternative Multipart</value>
-        <value xml:lang="fr">Multiple alternative multipart</value>
-        <value xml:lang="it">Mutliple Alternative Multipart</value>
         <value xml:lang="ja">マルチパートオールタナティブ</value>
-        <value xml:lang="pt">Mutliple Alternative Multipart</value>
-        <value xml:lang="ro">Mutliple Alternative Multipart</value>
         <value xml:lang="th">หลายๆ ทางเลือก</value>
         <value xml:lang="zh">多个二选一多段内容</value>
         <value xml:lang="zh_TW">多個二選一多段內容</value>
     </property>
     <property key="MimeType.description.multipart/digest">
-        <value xml:lang="da">Digest of Messages Multipart</value>
-        <value xml:lang="de">Digest of Messages Multipart</value>
         <value xml:lang="en">Digest of Messages Multipart</value>
         <value xml:lang="fr">Sommaire de messages multipart</value>
-        <value xml:lang="it">Digest of Messages Multipart</value>
         <value xml:lang="ja">マルチパートダイジェスト</value>
-        <value xml:lang="pt">Digest of Messages Multipart</value>
-        <value xml:lang="ro">Digest of Messages Multipart</value>
         <value xml:lang="th">บทสรุปของหลาย ๆ ข้อความ</value>
         <value xml:lang="zh">消息多段内容的摘要</value>
         <value xml:lang="zh_TW">消息多段內容的摘要</value>
     </property>
     <property key="MimeType.description.multipart/encrypted">
-        <value xml:lang="da">Encrypted Multipart</value>
-        <value xml:lang="de">Encrypted Multipart</value>
         <value xml:lang="en">Encrypted Multipart</value>
         <value xml:lang="fr">Multipart codé</value>
-        <value xml:lang="it">Encrypted Multipart</value>
         <value xml:lang="ja">マルチパートエンクリプテッド</value>
-        <value xml:lang="pt">Encrypted Multipart</value>
-        <value xml:lang="ro">Encrypted Multipart</value>
         <value xml:lang="th">การสร้างรหัสลับ</value>
         <value xml:lang="zh">加密的多段内容</value>
         <value xml:lang="zh_TW">加密的多段內容</value>
     </property>
     <property key="MimeType.description.multipart/form-data">
-        <value xml:lang="da">Form Data Multipart</value>
-        <value xml:lang="de">Form Data Multipart</value>
         <value xml:lang="en">Form Data Multipart</value>
         <value xml:lang="fr">Donnée de forme multipart </value>
-        <value xml:lang="it">Form Data Multipart</value>
         <value xml:lang="ja">マルチパートフォームデータ</value>
         <value xml:lang="pt">Formulário de dados Multipart</value>
-        <value xml:lang="ro">Form Data Multipart</value>
         <value xml:lang="th">รูปแบบส่วนของข้อมูล</value>
         <value xml:lang="zh">表单数据多段内容</value>
         <value xml:lang="zh_TW">表單資料多段內容</value>
     </property>
     <property key="MimeType.description.multipart/mixed">
-        <value xml:lang="da">Mixed Type Multipart</value>
-        <value xml:lang="de">Mixed Type Multipart</value>
         <value xml:lang="en">Mixed Type Multipart</value>
         <value xml:lang="fr">Type multipart varié</value>
         <value xml:lang="it">Mixed Type Multipart</value>
         <value xml:lang="ja">マルチパートミックスド</value>
-        <value xml:lang="pt">Mixed Type Multipart</value>
-        <value xml:lang="ro">Mixed Type Multipart</value>
         <value xml:lang="th">รวมประเภทซึ่งเป็นหลาย ๆ ส่วน</value>
         <value xml:lang="zh">混合类型多段内容</value>
         <value xml:lang="zh_TW">混合類型多段內容</value>
     </property>
     <property key="MimeType.description.multipart/related">
-        <value xml:lang="da">Related Multipart</value>
-        <value xml:lang="de">Related Multipart</value>
         <value xml:lang="en">Related Multipart</value>
         <value xml:lang="fr">Multipart apparenté</value>
-        <value xml:lang="it">Related Multipart</value>
         <value xml:lang="ja">マルチパートリテーテッド</value>
         <value xml:lang="pt">Multipart relacionado</value>
-        <value xml:lang="ro">Related Multipart</value>
         <value xml:lang="th">ส่วนที่เกี่ยวข้องกัน</value>
         <value xml:lang="zh">内嵌的多段内容</value>
         <value xml:lang="zh_TW">內嵌的多段內容</value>
     </property>
     <property key="MimeType.description.multipart/signed">
-        <value xml:lang="da">Signed Multipart</value>
-        <value xml:lang="de">Signed Multipart</value>
         <value xml:lang="en">Signed Multipart</value>
         <value xml:lang="fr">Multipart signé</value>
-        <value xml:lang="it">Signed Multipart</value>
         <value xml:lang="ja">マルチパートサインド</value>
-        <value xml:lang="pt">Signed Multipart</value>
-        <value xml:lang="ro">Signed Multipart</value>
         <value xml:lang="th">ส่วนเดียว</value>
         <value xml:lang="zh">签名的多段内容</value>
         <value xml:lang="zh_TW">簽名的多段內容</value>
     </property>
     <property key="MimeType.description.text/css">
         <value xml:lang="da">CSS Tekst</value>
-        <value xml:lang="de">CSS Text</value>
         <value xml:lang="en">CSS Text</value>
         <value xml:lang="fr">Texte CSS</value>
         <value xml:lang="it">Testo CSS</value>
@@ -2914,7 +2670,6 @@
         <value xml:lang="zh_TW">AVI視頻</value>
     </property>
     <property key="MimeType.description.video/mp4">
-        <value xml:lang="da">MPEG-4 (H.264) Video</value>
         <value xml:lang="en">MPEG-4 (H.264) Video</value>
         <value xml:lang="it">Video MPEG-4 (H.264)</value>
         <value xml:lang="ja">MPEG-4 (H.264) ビデオ</value>
@@ -2923,8 +2678,6 @@
         <value xml:lang="zh_TW">MPEG-4 (H.264)視頻</value>
     </property>
     <property key="MimeType.description.video/mpeg">
-        <value xml:lang="da">MPEG/MPG Video</value>
-        <value xml:lang="de">MPEG/MPG Video</value>
         <value xml:lang="en">MPEG/MPG Video</value>
         <value xml:lang="fr">Vidéo MPEG/MPG</value>
         <value xml:lang="it">Video MPEG/MPG</value>
@@ -2936,8 +2689,6 @@
         <value xml:lang="zh_TW">MPEG/MPG視頻</value>
     </property>
     <property key="MimeType.description.video/quicktime">
-        <value xml:lang="da">Quicktime Video</value>
-        <value xml:lang="de">Quicktime Video</value>
         <value xml:lang="en">Quicktime Video</value>
         <value xml:lang="fr">Vidéo Quicktime</value>
         <value xml:lang="it">Video Quicktime</value>
@@ -2949,7 +2700,6 @@
         <value xml:lang="zh_TW">Quicktime視頻</value>
     </property>
     <property key="MimeType.description.video/x-flv">
-        <value xml:lang="da">Flash Streaming Video</value>
         <value xml:lang="en">Flash Streaming Video</value>
         <value xml:lang="it">Video flash in streaming</value>
         <value xml:lang="ja">Flash ストリーミングビデオ</value>
@@ -2959,7 +2709,6 @@
         <value xml:lang="zh_TW">Flash流視頻</value>
     </property>
     <property key="MimeType.description.video/x-ms-asf">
-        <value xml:lang="da">ASF Video</value>
         <value xml:lang="en">ASF Video</value>
         <value xml:lang="it">Video ASF</value>
         <value xml:lang="ja">ASF ビデオ</value>
@@ -2968,7 +2717,6 @@
         <value xml:lang="zh_TW">ASF視頻</value>
     </property>
     <property key="MimeType.description.video/x-ms-wm">
-        <value xml:lang="da">WM Video</value>
         <value xml:lang="en">WM Video</value>
         <value xml:lang="it">Video WM</value>
         <value xml:lang="ja">WM ビデオ</value>
@@ -2977,7 +2725,6 @@
         <value xml:lang="zh_TW">WM視頻</value>
     </property>
     <property key="MimeType.description.video/x-ms-wmv">
-        <value xml:lang="da">WMV Video</value>
         <value xml:lang="en">WMV Video</value>
         <value xml:lang="it">Video WMV</value>
         <value xml:lang="ja">WMV ビデオ</value>
@@ -2986,7 +2733,6 @@
         <value xml:lang="zh_TW">WMV視頻</value>
     </property>
     <property key="MimeType.description.video/x-ms-wmx">
-        <value xml:lang="da">WMX Video</value>
         <value xml:lang="en">WMX Video</value>
         <value xml:lang="it">Video WMX</value>
         <value xml:lang="ja">WMX ビデオ</value>
@@ -2995,7 +2741,6 @@
         <value xml:lang="zh_TW">WMX視頻</value>
     </property>
     <property key="MimeType.description.video/x-ms-wvx">
-        <value xml:lang="da">WVX Video</value>
         <value xml:lang="en">WVX Video</value>
         <value xml:lang="it">Video WVX</value>
         <value xml:lang="ja">WVX ビデオ</value>
@@ -3405,17 +3150,7 @@
         <value xml:lang="zh_TW">簡短文本 (單行)</value>
     </property>
     <property key="SurveyQuestionType.description.URL">
-        <value xml:lang="da">URL</value>
-        <value xml:lang="de">URL</value>
         <value xml:lang="en">URL</value>
-        <value xml:lang="es">URL</value>
-        <value xml:lang="fr">URL</value>
-        <value xml:lang="it">URL</value>
-        <value xml:lang="ja">URL</value>
-        <value xml:lang="pt">URL</value>
-        <value xml:lang="ro">URL</value>
-        <value xml:lang="th">URL</value>
-        <value xml:lang="vi">URL</value>
         <value xml:lang="zh">网址</value>
         <value xml:lang="zh_TW">網址</value>
     </property>

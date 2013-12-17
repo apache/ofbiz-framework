@@ -580,10 +580,6 @@
     </property>
     <property key="FacilityShipmentDhlLabelImageFormatPng">
         <value xml:lang="en">PNG</value>
-        <value xml:lang="it">PNG</value>
-        <value xml:lang="ja">PNG</value>
-        <value xml:lang="vi">PNG</value>
-        <value xml:lang="zh">PNG</value>
     </property>
     <property key="FacilityShipmentDhlMultiplePackagesNotSupported">
         <value xml:lang="en">Cannot confirm shipment: DHL ShipIT does not currently support more than one package per shipment.</value>
@@ -944,17 +940,9 @@
     </property>
     <property key="FacilityShipmentFedexLabelImageTypePdf">
         <value xml:lang="en">PDF</value>
-        <value xml:lang="it">PDF</value>
-        <value xml:lang="ja">PDF</value>
-        <value xml:lang="vi">PDF</value>
-        <value xml:lang="zh">PDF</value>
     </property>
     <property key="FacilityShipmentFedexLabelImageTypePng">
         <value xml:lang="en">PNG</value>
-        <value xml:lang="it">PNG</value>
-        <value xml:lang="ja">PNG</value>
-        <value xml:lang="vi">PNG</value>
-        <value xml:lang="zh">PNG</value>
     </property>
     <property key="FacilityShipmentFedexMeterNumberAlreadyExists">
         <value xml:lang="en">MeterNumber already exists: ${meterNumber}</value>
@@ -15021,16 +15009,8 @@
         <value xml:lang="zh_TW">客戶評級</value>
     </property>
     <property key="ProductDL">
-        <value xml:lang="de">DL</value>
         <value xml:lang="en">DL</value>
-        <value xml:lang="es">DL</value>
         <value xml:lang="fr">Eff.</value>
-        <value xml:lang="it">DL</value>
-        <value xml:lang="ja">DL</value>
-        <value xml:lang="ro">DL</value>
-        <value xml:lang="ru">DL</value>
-        <value xml:lang="th">DL</value>
-        <value xml:lang="vi">DL</value>
         <value xml:lang="zh">效率</value>
         <value xml:lang="zh_TW">效率</value>
     </property>
@@ -21775,7 +21755,6 @@
         <value xml:lang="es">NOTA: El flag "Requerir E-mail" está configurado como N (No). Cualquier dirección de e-mail o participantes listados aquí serán ignorados. Para usar alguna de estas direcciones, debe configurar el flag a Y(Si)</value>
         <value xml:lang="fr">NOTE: Pour rendre obligatoire et prendre en compte le champ acteur ou courriel, cocher (O), sinon mettre (N)</value>
         <value xml:lang="it">NOTA: L'email richiesta o se il flag soggetto è impostato a N (No), così qualsiasi indirizzo email o soggetti listati qui saranno ignorati. Per richiedere un'indirizzo email o il soggetto da queste liste, imposta il flag a Y (Si).</value>
-        <value xml:lang="ja"></value>
         <value xml:lang="ro">NOTA: Email-ul cerut O daca flag Subiect este setat N (Nu), asa ca orice adresa email sau Subiectii listati aici vor fi ignorati. Pentru a cere o adresa email sau Subiectul din aceste liste, seteaza flag Y (Da).</value>
         <value xml:lang="ru">ПРИМЕЧАНИЕ: Флаги Требуется Email или Участник установлены в Н (Нет), поэтому все перечисленные адреса и участники будут проигнорированы. Если требуются адреса эл.почты или участники из этих списков, установите флаг в Д (Да).</value>
         <value xml:lang="vi">Ghi chú: Hệ thống yêu cầu phải có thông tin địa chỉ thư điện tử của người dùng</value>
@@ -26537,11 +26516,8 @@
     </property>
     <property key="ProductST">
         <value xml:lang="en">ST</value>
-        <value xml:lang="es">ST</value>
         <value xml:lang="fr">Dates</value>
-        <value xml:lang="ja">ST</value>
         <value xml:lang="vi">Ngày</value>
-        <value xml:lang="it">ST</value>
         <value xml:lang="zh">销售终止</value>
     </property>
     <property key="ProductSaleRule">
@@ -27878,20 +27854,10 @@
         <value xml:lang="zh">英寸</value>
     </property>
     <property key="ProductShipmentUomAbbreviation_WT_g">
-        <value xml:lang="de">g</value>
         <value xml:lang="en">g</value>
-        <value xml:lang="es">g</value>
-        <value xml:lang="fr">g</value>
-        <value xml:lang="it">g</value>
-        <value xml:lang="ja">g</value>
     </property>
     <property key="ProductShipmentUomAbbreviation_WT_kg">
-        <value xml:lang="de">kg</value>
         <value xml:lang="en">kg</value>
-        <value xml:lang="es">kg</value>
-        <value xml:lang="fr">kg</value>
-        <value xml:lang="it">kg</value>
-        <value xml:lang="ja">kg</value>
         <value xml:lang="ru">кг</value>
         <value xml:lang="th">กิโลกรัม</value>
         <value xml:lang="vi">cân</value>
@@ -27906,8 +27872,6 @@
         <value xml:lang="it">libre</value>
         <value xml:lang="ja">ポンド</value>
         <value xml:lang="ru">фнт</value>
-        <value xml:lang="th">lbs</value>
-        <value xml:lang="vi">lbs</value>
         <value xml:lang="zh">磅</value>
         <value xml:lang="zh_TW">磅</value>
     </property>
@@ -29044,10 +29008,7 @@
     </property>
     <property key="ProductTD">
         <value xml:lang="en">TD</value>
-        <value xml:lang="es">TD</value>
         <value xml:lang="fr">Assoc.</value>
-        <value xml:lang="it">TD</value>
-        <value xml:lang="ja">TD</value>
         <value xml:lang="zh">特征结束日期</value>
     </property>
     <property key="ProductTag">
@@ -29693,9 +29654,6 @@
     <property key="ProductUPCA">
         <value xml:lang="en">UPCA</value>
         <value xml:lang="fr">CUP (UPC-A)</value>
-        <value xml:lang="it">UPCA</value>
-        <value xml:lang="ja">UPCA</value>
-        <value xml:lang="vi">UPCA</value>
         <value xml:lang="zh">UPC-A条码</value>
     </property>
     <property key="ProductUnitOfMeasure">

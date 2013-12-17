@@ -4643,16 +4643,8 @@
         <value xml:lang="zh_TW">到貨付款</value>
     </property>
     <property key="PaymentMethodType.description.EXT_EBAY">
-        <value xml:lang="de">eBay</value>
         <value xml:lang="en">eBay</value>
-        <value xml:lang="fr">eBay</value>
-        <value xml:lang="it">eBay</value>
-        <value xml:lang="ja">eBay</value>
-        <value xml:lang="nl">eBay</value>
-        <value xml:lang="pt">eBay</value>
         <value xml:lang="th">อีเบย์</value>
-        <value xml:lang="vi">eBay</value>
-        <value xml:lang="zh">eBay</value>
     </property>
     <property key="PaymentMethodType.description.EXT_OFFLINE">
         <value xml:lang="de">Offline Zahlung</value>
@@ -4673,31 +4665,12 @@
     <property key="PaymentMethodType.description.EXT_PAYPAL">
         <value xml:lang="de">PayPal-Konto</value>
         <value xml:lang="en">PayPal</value>
-        <value xml:lang="fr">PayPal</value>
-        <value xml:lang="it">PayPal</value>
-        <value xml:lang="ja">PayPal</value>
-        <value xml:lang="nl">PayPal</value>
-        <value xml:lang="pt">PayPal</value>
-        <value xml:lang="ro">PayPal</value>
-        <value xml:lang="ru">PayPal</value>
-        <value xml:lang="th">PayPal</value>
-        <value xml:lang="vi">PayPal</value>
         <value xml:lang="zh">贝宝</value>
         <value xml:lang="zh_TW">貝寶</value>
     </property>
     <property key="PaymentMethodType.description.EXT_WORLDPAY">
         <value xml:lang="de">RBS WorldPay-Konto</value>
         <value xml:lang="en">RBS WorldPay</value>
-        <value xml:lang="fr">RBS WorldPay</value>
-        <value xml:lang="it">RBS WorldPay</value>
-        <value xml:lang="ja">RBS WorldPay</value>
-        <value xml:lang="nl">RBS WorldPay</value>
-        <value xml:lang="pt">RBS WorldPay</value>
-        <value xml:lang="ro">RBS WorldPay</value>
-        <value xml:lang="ru">RBS WorldPay</value>
-        <value xml:lang="th">RBS WorldPay</value>
-        <value xml:lang="vi">RBS WorldPay</value>
-        <value xml:lang="zh">RBS WorldPay</value>
         <value xml:lang="zh_TW">RBS WorldPay</value>
     </property>
     <property key="PaymentMethodType.description.FIN_ACCOUNT">

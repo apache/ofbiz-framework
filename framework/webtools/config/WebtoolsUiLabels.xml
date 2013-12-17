@@ -18,7 +18,7 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz.properties.xsd">
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="ConnectionPoolStatus">
         <value xml:lang="en">Connection Pool Status</value>
         <value xml:lang="ja">接続プールステータス</value>
@@ -1973,7 +1973,6 @@
         <value xml:lang="en">eomodel Full Path is not write-able: ${eomodeldFullPath}</value>
         <value xml:lang="it">eomodel path completo non è scrivibile: ${eomodeldFullPath}</value>
         <value xml:lang="ja">EOMODELのフルパスが書き込み可能ではありません: ${eomodeldFullPath}</value>
-        <value xml:lang="vi"></value>
         <value xml:lang="zh">eomodel完整路径不可写：${eomodeldFullPath}</value>
     </property>
     <property key="WebtoolsEomodelSavingFileError">
@@ -5340,14 +5339,8 @@
         <value xml:lang="zh_TW">運行離線同步</value>
     </property>
     <property key="WebtoolsTTL">
-        <value xml:lang="de">TTL</value>
         <value xml:lang="en">TTL</value>
         <value xml:lang="fr">Péremption</value>
-        <value xml:lang="it">TTL</value>
-        <value xml:lang="ja">TTL</value>
-        <value xml:lang="pt">TTL</value>
-        <value xml:lang="th">TTL</value>
-        <value xml:lang="vi">TTL</value>
         <value xml:lang="zh">存在时间</value>
     </property>
     <property key="WebtoolsTable">
@@ -5414,14 +5407,9 @@
     <property key="WebtoolsThreadId">
         <value xml:lang="de">ThreadID</value>
         <value xml:lang="en">ID</value>
-        <value xml:lang="fr">ID</value>
-        <value xml:lang="it">ID</value>
-        <value xml:lang="ja">ID</value>
-        <value xml:lang="pt">ID</value>
         <value xml:lang="th">รหัส</value>
         <value xml:lang="vi">Id</value>
         <value xml:lang="zh">标识</value>
-        <value xml:lang="zh_TW">ID</value>
     </property>
     <property key="WebtoolsThreadList">
         <value xml:lang="de">Thread Liste</value>

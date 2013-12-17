@@ -2233,18 +2233,7 @@
         <value xml:lang="zh_TW">平均稅率</value>
     </property>
     <property key="OrderAvs">
-        <value xml:lang="de">AVS</value>
         <value xml:lang="en">AVS</value>
-        <value xml:lang="es">AVS</value>
-        <value xml:lang="fr">AVS</value>
-        <value xml:lang="it">AVS</value>
-        <value xml:lang="ja">AVS</value>
-        <value xml:lang="nl">AVS</value>
-        <value xml:lang="pt_BR">AVS</value>
-        <value xml:lang="ro">AVS</value>
-        <value xml:lang="ru">AVS</value>
-        <value xml:lang="th">AVS</value>
-        <value xml:lang="vi">AVS</value>
         <value xml:lang="zh">地址验证服务</value>
         <value xml:lang="zh_TW">地址驗証服務</value>
     </property>
@@ -5676,18 +5665,11 @@
     <property key="OrderNbr">
         <value xml:lang="de">Nr.</value>
         <value xml:lang="en">#</value>
-        <value xml:lang="es">#</value>
         <value xml:lang="fr">N°</value>
         <value xml:lang="it">N°</value>
         <value xml:lang="ja">No</value>
-        <value xml:lang="nl">#</value>
         <value xml:lang="pt_BR">Nº</value>
-        <value xml:lang="ro">#</value>
         <value xml:lang="ru">№</value>
-        <value xml:lang="th">#</value>
-        <value xml:lang="vi">#</value>
-        <value xml:lang="zh">#</value>
-        <value xml:lang="zh_TW">#</value>
     </property>
     <property key="OrderNbrPersons">
         <value xml:lang="de">Personen</value>

@@ -1129,17 +1129,12 @@
         <value xml:lang="zh_TW">絕對網址</value>
     </property>
     <property key="Enumeration.description.KOTT_OFBURL">
-        <value xml:lang="de">OFBiz URL</value>
         <value xml:lang="en">OFBiz URL</value>
         <value xml:lang="es">URL OFBiz</value>
         <value xml:lang="fr">URL (lien internet) au sein d'OFBiz</value>
         <value xml:lang="it">URL OFBiz</value>
-        <value xml:lang="ja">OFBiz URL</value>
         <value xml:lang="pt">URL OFBiz</value>
         <value xml:lang="ro">URL OFBiz</value>
-        <value xml:lang="ru">OFBiz URL</value>
-        <value xml:lang="th">OFBiz URL</value>
-        <value xml:lang="vi">OFBiz URL</value>
         <value xml:lang="zh">OFBiz网址</value>
         <value xml:lang="zh_TW">OFBiz網址</value>
     </property>

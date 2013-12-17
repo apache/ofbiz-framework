@@ -59,7 +59,6 @@
         <value xml:lang="it">Nome mancante</value>
         <value xml:lang="ja">姓/firstNameが正しくありません</value>
         <value xml:lang="th">กรุณากรอกชื่อของท่าน</value>
-        <value xml:lang="vi"></value>
         <value xml:lang="zh">缺少你的名</value>
         <value xml:lang="zh_TW">缺少名字(Firstname)</value>
     </property>
@@ -198,7 +197,6 @@
         <value xml:lang="it">Miei compiti</value>
         <value xml:lang="ja">私のタスク</value>
         <value xml:lang="th">งานของฉัน</value>
-        <value xml:lang="vi"></value>
         <value xml:lang="zh">我的任务</value>
         <value xml:lang="zh_TW">我的任務</value>
     </property>

@@ -88,12 +88,7 @@
         <value xml:lang="zh">自动更新选项</value>
     </property>
     <property key="GoogleBaseCompanyName">
-        <value xml:lang="en">Ofbiz</value>
-        <value xml:lang="fr">Ofbiz</value>
-        <value xml:lang="it">Ofbiz</value>
-        <value xml:lang="ja">Ofbiz</value>
-        <value xml:lang="th">Ofbiz</value>
-        <value xml:lang="zh">OFBiz</value>
+        <value xml:lang="en">OFBiz</value>
     </property>
     <property key="GoogleBaseConfiguration">
         <value xml:lang="en">Google Base Configurations</value>

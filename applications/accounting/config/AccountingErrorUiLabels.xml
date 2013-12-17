@@ -558,7 +558,6 @@
     <property key="AccountingTaxSettingError">
         <value xml:lang="en">Data error getting tax settings: ${errorString}</value>
         <value xml:lang="it">Errore di lettura impostazioni tasse: ${errorString}</value>
-        <value xml:lang="ja"></value>
         <value xml:lang="zh">获取税务设置时数据错误：${errorString}</value>
     </property>
     <property key="payPalEvents.failedToExecuteServiceCreatePaymentFromPreference">
@@ -731,7 +730,6 @@
         <value xml:lang="fr">Échec sur l'execution du service de création d'un payment suivant les préférence (CreatePaymentFromPreference)</value>
         <value xml:lang="hi_IN">सर्विस CreatePaymentFromPreference पर अमल(execute) करने में असफल</value>
         <value xml:lang="it">Fallita esecuzione servizio CreatePaymentFromPreference</value>
-        <value xml:lang="ja"></value>
         <value xml:lang="zh">执行从设置创建支付（CreatePaymentFromPreference）这个服务时出错</value>
     </property>
     <property key="idealEvents.noValidOrderIdReturned">
@@ -740,7 +738,6 @@
         <value xml:lang="fr">Référence commande retournée n'est pas valide</value>
         <value xml:lang="hi_IN">मान्य OrderId वापस नहीं लौटा</value>
         <value xml:lang="it">Nessun numero ordine restituito</value>
-        <value xml:lang="ja"></value>
         <value xml:lang="zh">返回的订单标识无效</value>
     </property>
     <property key="idealEvents.problemsConnectingWithIdeal">
@@ -749,7 +746,6 @@
         <value xml:lang="fr">Problème rencontré dans la connexion avec iDEAL</value>
         <value xml:lang="hi_IN">iDEAL के साथ जोड़ने में समस्या</value>
         <value xml:lang="it">Problema nella connessione con iDEAL</value>
-        <value xml:lang="ja"></value>
         <value xml:lang="zh">连接 iDEAL 时出错</value>
     </property>
     <property key="idealEvents.problemsGettingAuthenticationUser">
@@ -758,7 +754,6 @@
         <value xml:lang="fr">Problème sur l'authentification de l'utilisateur</value>
         <value xml:lang="hi_IN">उपयोगकर्ता(user) के प्रमाणीकरण में समस्याएँ हो रही</value>
         <value xml:lang="it">Problema durante l'autenticazione utente</value>
-        <value xml:lang="ja"></value>
         <value xml:lang="zh">获取认证用户时出错</value>
     </property>
     <property key="idealEvents.problemsGettingMerchantConfiguration">

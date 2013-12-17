@@ -2819,10 +2819,7 @@
         <value xml:lang="zh_TW">成品規範</value>
     </property>
     <property key="WorkEffortICalendar">
-        <value xml:lang="de">iCalendar</value>
         <value xml:lang="en">iCalendar</value>
-        <value xml:lang="it">iCalendar</value>
-        <value xml:lang="ja">iCalendar</value>
         <value xml:lang="vi">iCalendar (Xuất bản URL .ics)</value>
     </property>
     <property key="WorkEffortICalendarAdd">
@@ -2910,9 +2907,7 @@
         <value xml:lang="zh_TW">行事曆擁有者</value>
     </property>
     <property key="WorkEffortICalendarUrl">
-        <value xml:lang="de">iCalendar Url</value>
         <value xml:lang="en">iCalendar Url</value>
-        <value xml:lang="ja">iCalendar URL</value>
         <value xml:lang="vi">Liên kết URL iCalendar</value>
         <value xml:lang="zh">iCalendar网址</value>
         <value xml:lang="zh_TW">iCal網址</value>

@@ -417,19 +417,7 @@
         <value xml:lang="zh_TW">瀏覽</value>
     </property>
     <property key="ContentCMS">
-        <value xml:lang="ar">CMS</value>
-        <value xml:lang="da">CMS</value>
-        <value xml:lang="de">CMS</value>
         <value xml:lang="en">CMS</value>
-        <value xml:lang="es">CMS</value>
-        <value xml:lang="fr">CMS</value>
-        <value xml:lang="it">CMS</value>
-        <value xml:lang="ja">CMS</value>
-        <value xml:lang="nl">CMS</value>
-        <value xml:lang="pt">CMS</value>
-        <value xml:lang="ro">CMS</value>
-        <value xml:lang="th">CMS</value>
-        <value xml:lang="vi">CMS</value>
         <value xml:lang="zh">内容管理系统</value>
         <value xml:lang="zh_TW">內容管理系統</value>
     </property>
@@ -1215,21 +1203,10 @@
         <value xml:lang="zh_TW">屬性</value>
     </property>
     <property key="ContentDataResourceHtml">
-        <value xml:lang="ar">Html</value>
-        <value xml:lang="da">Html</value>
-        <value xml:lang="de">Html</value>
         <value xml:lang="en">Html</value>
-        <value xml:lang="es">Html</value>
-        <value xml:lang="fr">Html</value>
-        <value xml:lang="it">Html</value>
         <value xml:lang="ja">HTML</value>
-        <value xml:lang="nl">Html</value>
         <value xml:lang="pt">HTML</value>
-        <value xml:lang="ro">Html</value>
-        <value xml:lang="th">Html</value>
         <value xml:lang="vi">HTML</value>
-        <value xml:lang="zh">Html</value>
-        <value xml:lang="zh_TW">Html</value>
     </property>
     <property key="ContentDataResourceImage">
         <value xml:lang="ar">صورة</value>
@@ -1699,14 +1676,8 @@
         <value xml:lang="zh">开始日期（fromDate）不是有效的日期格式</value>
     </property>
     <property key="ContentGIF">
-        <value xml:lang="da">GIF</value>
         <value xml:lang="en">GIF</value>
-        <value xml:lang="fr">GIF</value>
-        <value xml:lang="it">GIF</value>
-        <value xml:lang="ja">GIF</value>
-        <value xml:lang="pt">GIF</value>
         <value xml:lang="vi">Ảnh GIF</value>
-        <value xml:lang="zh">GIF</value>
     </property>
     <property key="ContentGoToContent">
         <value xml:lang="da">Gå til indhold</value>
@@ -1749,21 +1720,7 @@
         <value xml:lang="zh_TW">轉到查找</value>
     </property>
     <property key="ContentHtml">
-        <value xml:lang="ar">Html</value>
-        <value xml:lang="da">Html</value>
-        <value xml:lang="de">Html</value>
-        <value xml:lang="en">Html</value>
-        <value xml:lang="es">Html</value>
-        <value xml:lang="fr">HTML</value>
-        <value xml:lang="it">Html</value>
-        <value xml:lang="ja">HTML</value>
-        <value xml:lang="nl">Html</value>
-        <value xml:lang="pt">HTML</value>
-        <value xml:lang="ro">Html</value>
-        <value xml:lang="th">Html</value>
-        <value xml:lang="vi">HTML</value>
-        <value xml:lang="zh">Html</value>
-        <value xml:lang="zh_TW">Html</value>
+        <value xml:lang="en">HTML</value>
     </property>
     <property key="ContentHtmlText">
         <value xml:lang="da">Html tekst</value>
@@ -1859,14 +1816,8 @@
         <value xml:lang="zh">索引树时出错：${errorString}</value>
     </property>
     <property key="ContentJPEG">
-        <value xml:lang="da">JPEG</value>
         <value xml:lang="en">JPEG</value>
-        <value xml:lang="fr">JPG</value>
-        <value xml:lang="it">JPEG</value>
-        <value xml:lang="ja">JPEG</value>
-        <value xml:lang="pt">JPEG</value>
         <value xml:lang="vi">Ảnh JPEG</value>
-        <value xml:lang="zh">JPEG</value>
     </property>
     <property key="ContentKeyword">
         <value xml:lang="de">Schlüsselwörter</value>
@@ -2281,14 +2232,8 @@
         <value xml:lang="zh_TW">PDF/調查名稱</value>
     </property>
     <property key="ContentPNG">
-        <value xml:lang="da">PNG</value>
         <value xml:lang="en">PNG</value>
-        <value xml:lang="fr">PNG</value>
-        <value xml:lang="it">PNG</value>
-        <value xml:lang="ja">PNG</value>
-        <value xml:lang="pt">PNG</value>
         <value xml:lang="vi">Ảnh PNG</value>
-        <value xml:lang="zh">PNG</value>
     </property>
     <property key="ContentParent">
         <value xml:lang="da">Forældre indhold</value>
@@ -2582,9 +2527,6 @@
     </property>
     <property key="ContentSEO">
         <value xml:lang="en">SEO</value>
-        <value xml:lang="ja">SEO</value>
-        <value xml:lang="pt">SEO</value>
-        <value xml:lang="vi">SEO</value>
         <value xml:lang="zh">搜索引擎优化</value>
     </property>
     <property key="ContentSearchContents">
@@ -3271,14 +3213,8 @@
         <value xml:lang="zh_TW">帶有問題</value>
     </property>
     <property key="ContentTIFF">
-        <value xml:lang="da">TIFF</value>
         <value xml:lang="en">TIFF</value>
-        <value xml:lang="fr">TIFF</value>
-        <value xml:lang="it">TIFF</value>
-        <value xml:lang="ja">TIFF</value>
-        <value xml:lang="pt">TIFF</value>
         <value xml:lang="vi">Ảnh TIFF</value>
-        <value xml:lang="zh">TIFF</value>
     </property>
     <property key="ContentTemplate">
         <value xml:lang="ar">نموذج</value>
@@ -3529,17 +3465,10 @@
         <value xml:lang="zh_TW">已上傳的文件</value>
     </property>
     <property key="ContentUrl">
-        <value xml:lang="ar">Url</value>
-        <value xml:lang="da">Url</value>
-        <value xml:lang="de">Url</value>
         <value xml:lang="en">Url</value>
         <value xml:lang="fr">URL</value>
-        <value xml:lang="it">Url</value>
-        <value xml:lang="ja">UR</value>
+        <value xml:lang="ja">URL</value>
         <value xml:lang="pt">URL</value>
-        <value xml:lang="ro">Url</value>
-        <value xml:lang="th">Url</value>
-        <value xml:lang="vi">Url</value>
         <value xml:lang="zh">网址</value>
         <value xml:lang="zh_TW">網址</value>
     </property>
@@ -4814,11 +4743,10 @@
     </property>
     <property key="FormFieldTitle_httpHost">
         <value xml:lang="ar"> حاوي Http</value>
-        <value xml:lang="da">HTTP host</value>
         <value xml:lang="de">HTTP Server</value>
         <value xml:lang="en">Http Host</value>
         <value xml:lang="es">Host Http</value>
-        <value xml:lang="fr">Centre serveur HTTP</value>
+        <value xml:lang="fr">Serveur HTTP</value>
         <value xml:lang="it">Host Http</value>
         <value xml:lang="ja">HTTPサーバ</value>
         <value xml:lang="pt">Host http</value>
@@ -4831,8 +4759,6 @@
     </property>
     <property key="FormFieldTitle_httpPort">
         <value xml:lang="ar">بوابة Http</value>
-        <value xml:lang="da">Http port</value>
-        <value xml:lang="de">Http Port</value>
         <value xml:lang="en">Http Port</value>
         <value xml:lang="es">Puerto Http</value>
         <value xml:lang="fr">Port HTTP</value>
@@ -4852,7 +4778,7 @@
         <value xml:lang="de">Https Server</value>
         <value xml:lang="en">Https Host</value>
         <value xml:lang="es">Host Https</value>
-        <value xml:lang="fr">Centre serveur HTTPS</value>
+        <value xml:lang="fr">Serveur HTTPS</value>
         <value xml:lang="it">Host Https</value>
         <value xml:lang="ja">HTTPSサーバ</value>
         <value xml:lang="pt">Host https</value>
@@ -4865,8 +4791,6 @@
     </property>
     <property key="FormFieldTitle_httpsPort">
         <value xml:lang="ar">Https بوابة</value>
-        <value xml:lang="da">Https port</value>
-        <value xml:lang="de">Https Port</value>
         <value xml:lang="en">Https Port</value>
         <value xml:lang="es">Puerto Https</value>
         <value xml:lang="fr">Port HTTPS</value>
