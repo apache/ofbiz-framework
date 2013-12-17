@@ -667,7 +667,7 @@
         <value xml:lang="fr">Date de commande</value>
         <value xml:lang="it">Data ordine</value>
         <value xml:lang="ja">注文日</value>
-        <value xml:lang="nl">Besteldatum</value>
+        <value xml:lang="nl">Orderdatum</value>
         <value xml:lang="pt_BR">Data do pedido</value>
         <value xml:lang="ro">Data Comanda</value>
         <value xml:lang="ru">Дата заказа</value>
@@ -1139,6 +1139,7 @@
         <value xml:lang="fr">Montant de la TVA</value>
         <value xml:lang="it">Importo tasse di vendita</value>
         <value xml:lang="ja">消費税金額</value>
+        <value xml:lang="nl">BTW bedrag</value>
         <value xml:lang="pt_BR">Quantia de impostos de venda</value>
         <value xml:lang="th">จำนวนภาษีการขาย</value>
         <value xml:lang="vi">Giá trị thuế (bán)</value>
@@ -2553,7 +2554,7 @@
         <value xml:lang="fr">Désolé, vous ne pouvez pas changer la quantité d'un article en promotion ${productName} (product ID: ${productId}, quantité inchangée.</value>
         <value xml:lang="it">Spiacente, non puoi cambiare la quantità del prodotto in promozione ${productName} (prodotto: ${productId}.</value>
         <value xml:lang="ja">申し訳ありません、お買い得情報の ${productName} は数量が変更できません (製品ID: ${productId}、数量が設定されていません。</value>
-        <value xml:lang="nl">De hoeveelheid van promo-item ${productName} (Produkt ID: ${productId}) kan niet aangepast worden. Hoeveelheid niet aangepast.</value>
+        <value xml:lang="nl">De hoeveelheid van promo-item ${productName} (Product ID: ${productId}) kan niet aangepast worden. Hoeveelheid niet aangepast.</value>
         <value xml:lang="pt_BR">Sentimos muito, você não pode alterar a quantidade em itens promocionais ${productName} (product ID: ${productId}, quantidade sem alterar).</value>
         <value xml:lang="vi">Bạn không thể thay đổi số lượng hạng mục khuyến mãi ${productName} (ID sản phẩm: ${productId} theo chính sách</value>
         <value xml:lang="zh">对不起，你不能修改促销明细${productName}的数量(产品标识：${productId}，没有设置数量。)</value>
@@ -2866,7 +2867,7 @@
         <value xml:lang="de">OFBiz: Auftragsverwaltung</value>
         <value xml:lang="en">OFBiz: Order Manager</value>
         <value xml:lang="es">OFBiz: Gestión de pedidos</value>
-        <value xml:lang="fr">OFBiz : Gestion commerciale</value>
+        <value xml:lang="fr">OFBiz: Gestion commerciale</value>
         <value xml:lang="it">OFBiz: Gestione ordini</value>
         <value xml:lang="ja">OFBiz: 注文管理</value>
         <value xml:lang="nl">OFBiz: Bestelling Manager</value>
@@ -3646,7 +3647,7 @@
         <value xml:lang="fr">Date de la commande</value>
         <value xml:lang="it">Data ordine</value>
         <value xml:lang="ja">注文日</value>
-        <value xml:lang="nl">Besteldatum</value>
+        <value xml:lang="nl">Orderdatum</value>
         <value xml:lang="pt_BR">Data do pedido</value>
         <value xml:lang="ro">Data Comanda</value>
         <value xml:lang="ru">Дата заказа</value>
@@ -3663,7 +3664,7 @@
         <value xml:lang="fr">Date commandée</value>
         <value xml:lang="it">Data ordine</value>
         <value xml:lang="ja">注文請日</value>
-        <value xml:lang="nl">Besteldatum</value>
+        <value xml:lang="nl">Orderdatum</value>
         <value xml:lang="pt_BR">Data do pedido</value>
         <value xml:lang="ro">Data Comanda</value>
         <value xml:lang="ru">Date Ordered</value>
@@ -3778,7 +3779,7 @@
         <value xml:lang="fr">Désolé, nous n'en avons pas assez (vous avez essayé ${requestedQuantity} du produit ${productName}en stock (product ID: ${productId}), non ajouté au panier. SVP essayez une quantité inférieure, essayez de nouveau plus tard, ou appelez le service client pour plus d'information</value>
         <value xml:lang="it">Spiacente, al momento non disponiamo in magazzino di ${requestedQuantity} pezzi del prodotto ${productName} (product ID: ${productId}), questi non saranno aggiunti al carrello. Puoi provare a richiedere una quantità minore, a riprovare più tardi, o contattare il servizio assistenza clienti.</value>
         <value xml:lang="ja">申し訳ありません。製品 ${productName} (製品ID: ${productId}) の充分な在庫がありません( ${requestedQuantity} をご希望)。買い物かごに追加することができません。数を減らすか、後でお試しください。あるいは詳細な情報はカスタマサービスにご連絡ください。</value>
-        <value xml:lang="nl">Niet genoeg op voorraad. U heeft ${requestedQuantity}) van ${productName} - (Produkt ID: ${productId}) aangegeven. Artikel is niet toegevoegd. Verlaag het aantal of neem contact op met onze klantenservice.</value>
+        <value xml:lang="nl">Niet genoeg op voorraad. U heeft ${requestedQuantity}) van ${productName} - (Product ID: ${productId}) aangegeven. Artikel is niet toegevoegd. Verlaag het aantal of neem contact op met onze klantenservice.</value>
         <value xml:lang="pt_BR">Sentimos muito, não temos o suficiente (voce tentou ${requestedQuantity}) do produto ${productName} (ID do produto: ${productId}) em estoque. Incapaz de adicionar ao carrinho. Por favor, tente novamente mais tarde ou ligue para o serviço de atendimento ao cliente.</value>
         <value xml:lang="vi">Xin lỗi, chúng tôi hiện tại chưa có có đủ (bạn đã đặt số lượng ${requestedQuantity}) của sản phẩm ${productName} (product ID: ${productId}) trong kho, nên không thể thêm vào Giỏ hàng. Bạn hãy thử với số lượng nhỏ hơn, hoặc thử lại sau, hoặc gọi cho trung tâm chăm sóc khách hàng để có thêm thông tin</value>
         <value xml:lang="zh">对不起，我们没有足够的库存(你要求${requestedQuantity})产品${productName} (产品标识：${productId})，所以没有添加到购物车。请用小一些的数量试一试，稍后再试，或打客户服务电话获取更多信息。</value>
@@ -4171,7 +4172,7 @@
         <value xml:lang="hi_IN">जो न हो इन श्रेणी में</value>
         <value xml:lang="it">Escludi Categorie</value>
         <value xml:lang="ja">カテゴリを除く</value>
-        <value xml:lang="nl">Categoriën uitsluiten</value>
+        <value xml:lang="nl">Categorieën uitsluiten</value>
         <value xml:lang="pt_BR">Excluir categorias</value>
         <value xml:lang="ro">numai daca sunt in aceasta categorie:</value>
         <value xml:lang="ru">если они не в этих категориях:</value>
@@ -4762,7 +4763,7 @@
         <value xml:lang="fr">En production</value>
         <value xml:lang="it">In produzione</value>
         <value xml:lang="ja">生産中</value>
-        <value xml:lang="nl">In Produktie</value>
+        <value xml:lang="nl">In Productie</value>
         <value xml:lang="pt_BR">Em produção</value>
         <value xml:lang="ro">In Productie </value>
         <value xml:lang="ru">В производстве</value>
@@ -5253,7 +5254,7 @@
         <value xml:lang="fr">Sous-total articles</value>
         <value xml:lang="it">Subtotale Righe</value>
         <value xml:lang="ja">アイテム小計</value>
-        <value xml:lang="nl">Regels SubTotaal</value>
+        <value xml:lang="nl">Regels Subtotaal</value>
         <value xml:lang="pt_BR">Subtotal dos itens</value>
         <value xml:lang="ro">Subtotal Linii</value>
         <value xml:lang="ru">Всего по позициям</value>
@@ -5553,6 +5554,7 @@
         <value xml:lang="fr">Marquer comme vu</value>
         <value xml:lang="it">Marca come visionato</value>
         <value xml:lang="ja">表示済マーク</value>
+        <value xml:lang="nl">Markeer als gezien</value>
         <value xml:lang="pt_BR">Marcar como visualizado</value>
         <value xml:lang="vi">Đánh dấu đã xem</value>
         <value xml:lang="zh">标记已浏览</value>
@@ -5925,6 +5927,7 @@
         <value xml:lang="fr">Nouvelle adresse d'expedition</value>
         <value xml:lang="it">Nuovo indirizzo di spedizione</value>
         <value xml:lang="ja">新規発送先住所</value>
+        <value xml:lang="nl">Nieuw verzendadres</value>
         <value xml:lang="pt_BR">Novo endereço de envio</value>
         <value xml:lang="vi">Địa chỉ chuyển hàng mới</value>
         <value xml:lang="zh">新的货运地址</value>
@@ -6856,7 +6859,7 @@
         <value xml:lang="fr">Date de la commande</value>
         <value xml:lang="it">Date Ordine</value>
         <value xml:lang="ja">注文日</value>
-        <value xml:lang="nl">Besteldatum</value>
+        <value xml:lang="nl">Orderdatum</value>
         <value xml:lang="pt_BR">Data do pedido</value>
         <value xml:lang="ro">Data Comanda</value>
         <value xml:lang="ru">Дата заказа</value>
@@ -7139,7 +7142,7 @@
         <value xml:lang="fr">Intitulé de la commande</value>
         <value xml:lang="it">Nome Ordine</value>
         <value xml:lang="ja">アイテム名称</value>
-        <value xml:lang="nl">Bestellingnaam klant</value>
+        <value xml:lang="nl">Ordernaam klant</value>
         <value xml:lang="pt_BR">Nome do pedido</value>
         <value xml:lang="ro">Nume Comanda</value>
         <value xml:lang="ru">Тема</value>
@@ -8700,7 +8703,7 @@
         <value xml:lang="fr">Lieu de stockage d'origine</value>
         <value xml:lang="it">Stabilimento  Origine</value>
         <value xml:lang="ja">発送元拠点</value>
-        <value xml:lang="nl">Origin Facility</value>
+        <value xml:lang="nl">Oorspr. Faciliteit</value>
         <value xml:lang="pt_BR">Armazém de origem</value>
         <value xml:lang="ro">Compartiment Origine</value>
         <value xml:lang="ru">Исходящий склад</value>
@@ -9497,7 +9500,7 @@
         <value xml:lang="fr">Centre de profit</value>
         <value xml:lang="it">Negozio</value>
         <value xml:lang="ja">製品店舗</value>
-        <value xml:lang="nl">Product Store</value>
+        <value xml:lang="nl">Winkel</value>
         <value xml:lang="pt_BR">Loja</value>
         <value xml:lang="ro">Magazie</value>
         <value xml:lang="ru">Торговое подразделение</value>
@@ -9781,7 +9784,7 @@
         <value xml:lang="fr">Qté choisie</value>
         <value xml:lang="it">Qnt scelta</value>
         <value xml:lang="ja">ピッキング数</value>
-        <value xml:lang="nl">Qty Picked</value>
+        <value xml:lang="nl">Qty gePICKt</value>
         <value xml:lang="pt_BR">Quantidade recolhida</value>
         <value xml:lang="ru">Отобр. кол.</value>
         <value xml:lang="th">จำนวนที่เลือก</value>
@@ -10133,7 +10136,7 @@
         <value xml:lang="fr">Taux</value>
         <value xml:lang="it">Percentuale</value>
         <value xml:lang="ja">レート</value>
-        <value xml:lang="nl">Rate</value>
+        <value xml:lang="nl">Tarief</value>
         <value xml:lang="pt_BR">Taxa</value>
         <value xml:lang="ro">Procent</value>
         <value xml:lang="ru">Ставка</value>
@@ -10391,7 +10394,7 @@
         <value xml:lang="fr">Restant(e)</value>
         <value xml:lang="it">Rimanenza</value>
         <value xml:lang="ja">残</value>
-        <value xml:lang="nl">Remaining</value>
+        <value xml:lang="nl">Restant</value>
         <value xml:lang="pt_BR">Restante</value>
         <value xml:lang="ro">Rest</value>
         <value xml:lang="ru">Остающееся</value>
@@ -10408,7 +10411,7 @@
         <value xml:lang="fr">Sous-total restant</value>
         <value xml:lang="it">SubTotale Rimanenza</value>
         <value xml:lang="ja">残小計</value>
-        <value xml:lang="nl">Remaining SubTotal</value>
+        <value xml:lang="nl">Restant subtotaal</value>
         <value xml:lang="pt_BR">Subtotal restante</value>
         <value xml:lang="ro">SubTotal Rest</value>
         <value xml:lang="ru">Всего остатки</value>
@@ -10916,7 +10919,7 @@
         <value xml:lang="fr">Obligatoire pour les commandes de vente</value>
         <value xml:lang="it">Richieste per ordine di vendita</value>
         <value xml:lang="ja">販売注文に対する要求</value>
-        <value xml:lang="nl">Required for SO</value>
+        <value xml:lang="nl">Nodig voor SO</value>
         <value xml:lang="pt_BR">Obrigatório para pedidos de venda</value>
         <value xml:lang="ro">Cerere pentru OV</value>
         <value xml:lang="ru">Запрос для сбытового заказа</value>
@@ -11698,7 +11701,7 @@
         <value xml:lang="fr">Retourné</value>
         <value xml:lang="it">Resa</value>
         <value xml:lang="ja">返品済</value>
-        <value xml:lang="nl">Returned</value>
+        <value xml:lang="nl">Retour</value>
         <value xml:lang="pt_BR">Devolvido</value>
         <value xml:lang="ro">Returnare</value>
         <value xml:lang="ru">Возвращено</value>
@@ -12462,7 +12465,7 @@
         <value xml:lang="fr">Groupe d'expédition</value>
         <value xml:lang="it">Gruppo Spedizione</value>
         <value xml:lang="ja">発送グループ</value>
-        <value xml:lang="nl">Ship Group</value>
+        <value xml:lang="nl">Zendgroep</value>
         <value xml:lang="pt_BR">Grupo de envio</value>
         <value xml:lang="ro">Grup Expediere</value>
         <value xml:lang="ru">группу поставки</value>
@@ -12546,7 +12549,7 @@
         <value xml:lang="fr">Demande d'expédition</value>
         <value xml:lang="it">Sped. Rich.</value>
         <value xml:lang="ja">発送リクエスト</value>
-        <value xml:lang="nl">Ship Request</value>
+        <value xml:lang="nl">Zendverzoek</value>
         <value xml:lang="pt_BR">Solicitação de envio</value>
         <value xml:lang="ro">Expediere Rich.</value>
         <value xml:lang="ru">Запрос на поставку</value>
@@ -13061,7 +13064,7 @@
         <value xml:lang="fr">Evolution des statuts</value>
         <value xml:lang="it">Cambi di stato</value>
         <value xml:lang="ja">ステータス履歴</value>
-        <value xml:lang="nl">Status History</value>
+        <value xml:lang="nl">Historie status</value>
         <value xml:lang="pt_BR">Histórico de estados</value>
         <value xml:lang="ro">Istoric Stari</value>
         <value xml:lang="ru">История статуса</value>
@@ -13095,7 +13098,7 @@
         <value xml:lang="fr">Sous-total</value>
         <value xml:lang="it">Subtotale</value>
         <value xml:lang="ja">小計</value>
-        <value xml:lang="nl">Sub Total</value>
+        <value xml:lang="nl">Subtotalen</value>
         <value xml:lang="pt_BR">Subtotal</value>
         <value xml:lang="ro">Subtotal</value>
         <value xml:lang="ru">Подитоги</value>
