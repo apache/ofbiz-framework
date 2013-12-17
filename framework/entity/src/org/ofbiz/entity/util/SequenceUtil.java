@@ -48,7 +48,6 @@ public class SequenceUtil {
 
     private final Map<String, SequenceBank> sequences = new Hashtable<String, SequenceBank>();
     private final GenericHelperInfo helperInfo;
-    private final long bankSize;
     private final String tableName;
     private final String nameColName;
     private final String idColName;
@@ -74,11 +73,6 @@ public class SequenceUtil {
             throw new IllegalArgumentException("Could not find the field definition for the sequence id field " + idFieldName);
         }
         this.idColName = idField.getColName();
-        long bankSize = SequenceBank.defaultBankSize;
-        if (seqEntity.getSequenceBankSize() != null) {
-            bankSize = seqEntity.getSequenceBankSize().longValue();
-        }
-        this.bankSize = bankSize;
         clustered = delegator.useDistributedCacheClear() || "Y".equals(UtilProperties.getPropertyValue("general.properties", "clustered"));                
     }
 
@@ -104,7 +98,12 @@ public class SequenceUtil {
             synchronized(this) {
                 bank = sequences.get(seqName);
                 if (bank == null) {
-                    bank = new SequenceBank(seqName);
+                    long bankSize = SequenceBank.defaultBankSize;
+                    if (seqModelEntity != null && seqModelEntity.getSequenceBankSize() != null) {
+                        bankSize = seqModelEntity.getSequenceBankSize().longValue();
+                        if (bankSize > SequenceBank.maxBankSize) bankSize = SequenceBank.maxBankSize;
+                    }
+                    bank = new SequenceBank(seqName, bankSize);
                     sequences.put(seqName, bank);
                 }
             }
@@ -124,11 +123,13 @@ public class SequenceUtil {
         private long curSeqId;
         private long maxSeqId;
         private final String seqName;
+        private final long bankSize;
 
-        private SequenceBank(String seqName) {
+        private SequenceBank(String seqName, long bankSize) {
             this.seqName = seqName;
             curSeqId = 0;
             maxSeqId = 0;
+            this.bankSize = bankSize;
             fillBank(1);
         }
 
@@ -167,7 +168,7 @@ public class SequenceUtil {
             // no need to get a new bank, SeqIds available
             if ((curSeqId + stagger) <= maxSeqId) return;
 
-            long bankSize = SequenceUtil.this.bankSize;
+            long bankSize = this.bankSize;
             if (stagger > 1) {
                 // NOTE: could use staggerMax for this, but if that is done it would be easier to guess a valid next id without a brute force attack
                 bankSize = stagger * defaultBankSize;
