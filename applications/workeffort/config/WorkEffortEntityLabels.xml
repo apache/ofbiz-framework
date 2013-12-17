@@ -24,6 +24,7 @@
         <value xml:lang="fr">Taux horaire escompté</value>
         <value xml:lang="it">Percentuale oraria scontata</value>
         <value xml:lang="ja">割引時間給</value>
+        <value xml:lang="nl">Uurtarief - korting</value>
         <value xml:lang="ro">Procent Orar Redus</value>
         <value xml:lang="ru">Сниженные почасовые ставки</value>
         <value xml:lang="th">อัตราลดลงทุก ๆ ชั่วโมง</value>
@@ -36,6 +37,7 @@
         <value xml:lang="fr">Taux horaire des heures supplémentaires</value>
         <value xml:lang="it">Percentuale oraria straordinaria</value>
         <value xml:lang="ja">残業時間給</value>
+        <value xml:lang="nl">Uurtarief - overtime</value>
         <value xml:lang="ro">Procent Orar Straordinar</value>
         <value xml:lang="ru">Почасовые ставки при переработке</value>
         <value xml:lang="th">อัตราล่วงเวลาทุก ๆ ชั่วโมง</value>
@@ -48,6 +50,7 @@
         <value xml:lang="fr">Taux horaire standard</value>
         <value xml:lang="it">Percentuale oraria standard</value>
         <value xml:lang="ja">標準時間給</value>
+        <value xml:lang="nl">Uurtarief - standaard</value>
         <value xml:lang="ro">Procent Orar Standard</value>
         <value xml:lang="ru">Стандартные почасовые ставки</value>
         <value xml:lang="th">อัตรามาตรฐานทุก ๆ ชั่วโมง</value>
@@ -55,11 +58,16 @@
         <value xml:lang="zh">标准小时价格</value>
         <value xml:lang="zh_TW">標准小時價格</value>
     </property>
+    <property key="RateType.description.FLC">
+        <value xml:lang="en">Hourly rate - Fully loaded costprice</value>
+        <value xml:lang="nl">Uurtarief - FLC</value>
+    </property>
     <property key="WorkEffortAssocType.description.ROUTING_COMPONENT">
         <value xml:lang="en">Routing and Routing Task Association</value>
         <value xml:lang="fr">Routage et association de tâche de routage</value>
         <value xml:lang="it">Associazione rotta e rotta compito</value>
         <value xml:lang="ja">ルーティングとタスク関連付けのルーティング</value>
+        <value xml:lang="nl">Koppeling schema-taak</value>
         <value xml:lang="ru">Связи между маршрутизацией и задачами маршрутизации</value>
         <value xml:lang="th">Routing และ Routing กลุ่มภารกิจ</value>
         <value xml:lang="vi">Quy trình và các Tác vụ - Đầu việc của quy trình</value>
@@ -72,6 +80,7 @@
         <value xml:lang="fr">Détail/Ventilation</value>
         <value xml:lang="it">Interruzione/Dettaglio</value>
         <value xml:lang="ja">ブレークダウン/詳細</value>
+        <value xml:lang="nl">Break down/detail</value>
         <value xml:lang="ro">Intrerupere/Detaliu</value>
         <value xml:lang="ru">Поломка/Подробно</value>
         <value xml:lang="th">การวิเคราะห์/รายละเอียด</value>
@@ -85,6 +94,7 @@
         <value xml:lang="fr">Simultanéité</value>
         <value xml:lang="it">Concorrenza</value>
         <value xml:lang="ja">多重度</value>
+        <value xml:lang="nl">Gelijktijdig/parallel</value>
         <value xml:lang="ro">Concurenta</value>
         <value xml:lang="ru">Конкуренция</value>
         <value xml:lang="th">การเกิดขึ้นในเวลาเดียวกัน</value>
@@ -98,6 +108,7 @@
         <value xml:lang="fr">Dépendance</value>
         <value xml:lang="it">Dipendenza</value>
         <value xml:lang="ja">依存度</value>
+        <value xml:lang="nl">Afhankelijkheid</value>
         <value xml:lang="ro">Dependenta</value>
         <value xml:lang="ru">Зависимость</value>
         <value xml:lang="th">ส่วนเพิ่มเติม</value>
@@ -111,6 +122,7 @@
         <value xml:lang="fr">Phase</value>
         <value xml:lang="it">Fase</value>
         <value xml:lang="ja">フェーズ</value>
+        <value xml:lang="nl">Fase</value>
         <value xml:lang="th">ขั้นตอน</value>
         <value xml:lang="vi">Pha</value>
         <value xml:lang="zh">阶段</value>
@@ -122,6 +134,7 @@
         <value xml:lang="fr">Priorité</value>
         <value xml:lang="it">Precedenza</value>
         <value xml:lang="ja">先行度</value>
+        <value xml:lang="nl">Voorloop</value>
         <value xml:lang="ro">Precedenta</value>
         <value xml:lang="ru">Преимущество</value>
         <value xml:lang="th">Precedency</value>
@@ -135,6 +148,7 @@
         <value xml:lang="fr">Tâche</value>
         <value xml:lang="it">Compito</value>
         <value xml:lang="ja">タスク</value>
+        <value xml:lang="nl">Taak</value>
         <value xml:lang="th">ภารกิจ</value>
         <value xml:lang="vi">Tác vụ - Đầu việc</value>
         <value xml:lang="zh">任务</value>
@@ -146,6 +160,7 @@
         <value xml:lang="it">Template di</value>
         <value xml:lang="ja">テンプレート:</value>
         <value xml:lang="ro">Template de</value>
+        <value xml:lang="nl">Template:</value>
         <value xml:lang="ru">Шаблон</value>
         <value xml:lang="th">ของเทมเพลต</value>
         <value xml:lang="vi">Biểu mẫu dành cho</value>
@@ -157,6 +172,7 @@
         <value xml:lang="fr">Assemblage</value>
         <value xml:lang="it">Assemblaggio</value>
         <value xml:lang="ja">組立中</value>
+        <value xml:lang="nl">Assemblage</value>
         <value xml:lang="ro">Asamblare</value>
         <value xml:lang="ru">Монтаж</value>
         <value xml:lang="th">การรวมกลุ่ม</value>
@@ -169,6 +185,7 @@
         <value xml:lang="fr">Fabrication</value>
         <value xml:lang="it">Produzione</value>
         <value xml:lang="ja">生産中</value>
+        <value xml:lang="nl">Fabricage</value>
         <value xml:lang="ro">Productie</value>
         <value xml:lang="ru">Производство</value>
         <value xml:lang="th">การผลิต</value>
@@ -194,6 +211,7 @@
         <value xml:lang="fr">Déploiement</value>
         <value xml:lang="it">Distribuzione</value>
         <value xml:lang="ja">設置</value>
+        <value xml:lang="nl">Installatie</value>
         <value xml:lang="ro">Distributie</value>
         <value xml:lang="ru">Развертывание</value>
         <value xml:lang="th">แพร่กระจาย</value>
@@ -207,6 +225,7 @@
         <value xml:lang="fr">Développement</value>
         <value xml:lang="it">Sviluppo</value>
         <value xml:lang="ja">開発</value>
+        <value xml:lang="nl">Ontwikkeling</value>
         <value xml:lang="ro">Dezvoltare</value>
         <value xml:lang="ru">Совершенствование</value>
         <value xml:lang="th">การพัฒนา</value>
@@ -220,6 +239,7 @@
         <value xml:lang="fr">Maintenance</value>
         <value xml:lang="it">Manutenzione</value>
         <value xml:lang="ja">保守</value>
+        <value xml:lang="nl">Onderhoud</value>
         <value xml:lang="ro">Intretinere</value>
         <value xml:lang="ru">Обслуживание</value>
         <value xml:lang="th">การบำรุงรักษา</value>
@@ -233,6 +253,7 @@
         <value xml:lang="fr">Réunion</value>
         <value xml:lang="it">Incontro</value>
         <value xml:lang="ja">会議</value>
+        <value xml:lang="nl">Bijeenkomst</value>
         <value xml:lang="ro">Intalnire</value>
         <value xml:lang="ru">Встреча</value>
         <value xml:lang="th">พบประสังสรรค์</value>
@@ -246,6 +267,7 @@
         <value xml:lang="fr">Phase</value>
         <value xml:lang="it">Fase</value>
         <value xml:lang="ja">フェーズ</value>
+        <value xml:lang="nl">Fase</value>
         <value xml:lang="ro">Faze</value>
         <value xml:lang="ru">Этап</value>
         <value xml:lang="th">ขั้นตอน</value>
@@ -259,6 +281,7 @@
         <value xml:lang="fr">Ordre de fabrication</value>
         <value xml:lang="it">Ciclo di produzione</value>
         <value xml:lang="ja">本番運用</value>
+        <value xml:lang="nl">Productierun</value>
         <value xml:lang="ro">Ciclu Productie</value>
         <value xml:lang="ru">Производственный прогон</value>
         <value xml:lang="th">ดำเนินการผลิต</value>
@@ -285,6 +308,7 @@
         <value xml:lang="fr">Recherche</value>
         <value xml:lang="it">Ricerca</value>
         <value xml:lang="ja">研究</value>
+        <value xml:lang="nl">Onderzoek</value>
         <value xml:lang="ro">Cautare</value>
         <value xml:lang="ru">Исследование</value>
         <value xml:lang="th">งานวิจัย</value>
@@ -298,6 +322,7 @@
         <value xml:lang="fr">Support</value>
         <value xml:lang="it">Supporto</value>
         <value xml:lang="ja">サポート</value>
+        <value xml:lang="nl">Support/ondersteuning</value>
         <value xml:lang="ro">Suport</value>
         <value xml:lang="ru">Поддержка</value>
         <value xml:lang="th">สนับสนุน</value>
@@ -336,6 +361,7 @@
         <value xml:lang="fr">Activité</value>
         <value xml:lang="it">Attività impegno di lavoro</value>
         <value xml:lang="ja">ワークフローの活動</value>
+        <value xml:lang="nl">Activiteit</value>
         <value xml:lang="ro">Activitati Sarcini de Lucru</value>
         <value xml:lang="ru">Действие Workflow</value>
         <value xml:lang="th">ขั้นตอนกิจกรรม</value>
@@ -348,6 +374,7 @@
         <value xml:lang="fr">Utilisation d'immobilisation (location)</value>
         <value xml:lang="it">Uso cespite (noleggio)</value>
         <value xml:lang="ja">固定資産の使用(レンタル)</value>
+        <value xml:lang="nl">Gebruik productiemiddel</value>
         <value xml:lang="ro">Folosire Mijloc Fix (inchiriat)</value>
         <value xml:lang="ru">Использование ОС (аренда)</value>
         <value xml:lang="th">การใช้ทรัพย์สินที่ไม่หมุนเวียน (การเช่า)</value>
@@ -362,6 +389,7 @@
         <value xml:lang="fr">Disponible</value>
         <value xml:lang="it">Disponibile</value>
         <value xml:lang="ja">可能</value>
+        <value xml:lang="nl">Beschikbaar</value>
         <value xml:lang="ro">Disponibil</value>
         <value xml:lang="ru">Доступный</value>
         <value xml:lang="th">สามารถใช้ประโยชน์ได้</value>
@@ -374,6 +402,7 @@
         <value xml:lang="fr">Voyage professionnel</value>
         <value xml:lang="it">Viaggio di lavoro</value>
         <value xml:lang="ja">業務出張</value>
+        <value xml:lang="nl">Dienstreis</value>
         <value xml:lang="vi">Du lịch thương mại</value>
         <value xml:lang="zh">商务旅行</value>
         <value xml:lang="zh_TW">商務旅行</value>
@@ -393,6 +422,7 @@
         <value xml:lang="fr">Evènement</value>
         <value xml:lang="it">Evento</value>
         <value xml:lang="ja">イベント</value>
+        <value xml:lang="nl">Event/gebeurtenis</value>
         <value xml:lang="ro">Eveniment</value>
         <value xml:lang="ru">Событие</value>
         <value xml:lang="th">เหตุการณ์</value>
@@ -405,6 +435,7 @@
         <value xml:lang="fr">Réunion</value>
         <value xml:lang="it">Incontri</value>
         <value xml:lang="ja">会議</value>
+        <value xml:lang="nl">Bijeenkomst</value>
         <value xml:lang="vi">Cuộc họp</value>
         <value xml:lang="zh">会议</value>
         <value xml:lang="zh_TW">會議</value>
@@ -413,6 +444,7 @@
         <value xml:lang="en">Milestone</value>
         <value xml:lang="fr">Jalon</value>
         <value xml:lang="ja">マイルストーン</value>
+        <value xml:lang="nl">Mijlpaal</value>
         <value xml:lang="vi">Mốc thời gian</value>
         <value xml:lang="zh">里程碑</value>
     </property>
@@ -431,6 +463,7 @@
         <value xml:lang="fr">Phase de projet</value>
         <value xml:lang="it">Fase progetto</value>
         <value xml:lang="ja">プロジェクトフェーズ</value>
+        <value xml:lang="nl">Fase</value>
         <value xml:lang="ro">Faze Proiect</value>
         <value xml:lang="ru">Этап проекта</value>
         <value xml:lang="th">ขั้นตอน</value>
@@ -443,6 +476,7 @@
         <value xml:lang="fr">Modèle de phase de projet</value>
         <value xml:lang="it">Fase progetto template</value>
         <value xml:lang="ja">プロジェクトフェーズテンプレート</value>
+        <value xml:lang="nl">Fase template</value>
         <value xml:lang="vi">Mẫu pha dự án</value>
         <value xml:lang="zh">项目阶段模板</value>
         <value xml:lang="zh_TW">專案階段範本</value>
@@ -452,6 +486,7 @@
         <value xml:lang="fr">En-tête d'ordre de fabrication</value>
         <value xml:lang="it">Testata ciclo di produzione</value>
         <value xml:lang="ja">本番運用ヘッダ</value>
+        <value xml:lang="nl">Header productierun</value>
         <value xml:lang="ro">Antet Cliclu Productie</value>
         <value xml:lang="ru">Заголовок произв. прогона</value>
         <value xml:lang="th">หัวข้อดำเนินการการผลิต</value>
@@ -464,6 +499,7 @@
         <value xml:lang="fr">Tâche d'ordre de fabrication</value>
         <value xml:lang="it">Compito ciclo di produzione</value>
         <value xml:lang="ja">本番運用タスク</value>
+        <value xml:lang="nl">Taak productierun</value>
         <value xml:lang="ro">Tema Ciclu Productie</value>
         <value xml:lang="ru">Задача произв. прогона</value>
         <value xml:lang="th">งานดำเนินการการผลิต</value>
@@ -477,6 +513,7 @@
         <value xml:lang="fr">Programme</value>
         <value xml:lang="it">Programma</value>
         <value xml:lang="ja">プログラム</value>
+        <value xml:lang="nl">Programma</value>
         <value xml:lang="ro">Program</value>
         <value xml:lang="ru">Программа</value>
         <value xml:lang="th">โปรแกรม</value>
@@ -520,6 +557,7 @@
         <value xml:lang="fr">Routage</value>
         <value xml:lang="it">Rotta</value>
         <value xml:lang="ja">ルーティング</value>
+        <value xml:lang="nl">Schema (productie)</value>
         <value xml:lang="ro">Ruta</value>
         <value xml:lang="ru">Маршрутизация</value>
         <value xml:lang="th">Routing</value>
@@ -532,6 +570,7 @@
         <value xml:lang="fr">Tâche de routage</value>
         <value xml:lang="it">Compito rotta</value>
         <value xml:lang="ja">タスクのルーティング</value>
+        <value xml:lang="nl">Taak (productie)</value>
         <value xml:lang="ro">Tema Ruta</value>
         <value xml:lang="ru">Задача маршрутизации</value>
         <value xml:lang="th">งาน Routing </value>
@@ -545,6 +584,7 @@
         <value xml:lang="fr">Tâche</value>
         <value xml:lang="it">Compito</value>
         <value xml:lang="ja">タスク</value>
+        <value xml:lang="nl">Taak</value>
         <value xml:lang="ro">Tema</value>
         <value xml:lang="ru">Задача</value>
         <value xml:lang="th">งาน</value>
@@ -557,6 +597,7 @@
         <value xml:lang="fr">Modèle de tâche de projet</value>
         <value xml:lang="it">Compito progetto template</value>
         <value xml:lang="ja">プロジェクトタスクテンプレート</value>
+        <value xml:lang="nl">Taak template</value>
         <value xml:lang="vi">Biểu mẫu công việc dự án</value>
         <value xml:lang="zh">项目任务模板</value>
         <value xml:lang="zh_TW">專案任務範本</value>
@@ -597,6 +638,7 @@
         <value xml:lang="fr">Humain</value>
         <value xml:lang="it">Umano</value>
         <value xml:lang="ja">人</value>
+        <value xml:lang="nl">Mens</value>
         <value xml:lang="th">เกี่ยวกับคน</value>
         <value xml:lang="vi">NGƯỜI</value>
         <value xml:lang="zh">人</value>
@@ -608,6 +650,7 @@
         <value xml:lang="fr">Unité d'organisation</value>
         <value xml:lang="it">Unità organizzativa</value>
         <value xml:lang="ja">組織の単位</value>
+        <value xml:lang="nl">OU (organisatie-eenheid)</value>
         <value xml:lang="th">เกี่ยวกับองค์กร</value>
         <value xml:lang="vi">Đơn vị tổ chức</value>
         <value xml:lang="zh">组织机构单位</value>
@@ -619,6 +662,7 @@
         <value xml:lang="fr">Ressource</value>
         <value xml:lang="it">Risorsa</value>
         <value xml:lang="ja">リソース</value>
+        <value xml:lang="nl">Resource</value>
         <value xml:lang="th">แหล่งข้อมูล</value>
         <value xml:lang="vi">TÀI NGUYÊN</value>
         <value xml:lang="zh">资源</value>
@@ -641,6 +685,7 @@
         <value xml:lang="fr">Rôle</value>
         <value xml:lang="it">Ruolo</value>
         <value xml:lang="ja">ロール</value>
+        <value xml:lang="nl">Rol</value>
         <value xml:lang="th">สถานะ</value>
         <value xml:lang="vi">VAI TRÒ</value>
         <value xml:lang="zh">角色</value>
