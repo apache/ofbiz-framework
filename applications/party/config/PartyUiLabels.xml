@@ -4610,7 +4610,7 @@
         <value xml:lang="hi_IN">सम्पर्क सूची</value>
         <value xml:lang="it">Liste contatti</value>
         <value xml:lang="ja">連絡リスト</value>
-        <value xml:lang="nl">Kontactlijsten</value>
+        <value xml:lang="nl">Contactlijsten</value>
         <value xml:lang="pt_BR">Lista de contatos</value>
         <value xml:lang="ro">Liste Contacte</value>
         <value xml:lang="ru">Список контактов</value>
@@ -4627,7 +4627,7 @@
         <value xml:lang="hi_IN">सम्पर्क Mech ID नही है</value>
         <value xml:lang="it">Codice Contatto mancante</value>
         <value xml:lang="ja">連絡方法IDが正しくありません</value>
-        <value xml:lang="nl">Kontact Mechanisme ID mist</value>
+        <value xml:lang="nl">Contact Mechanisme ID ontbreekt</value>
         <value xml:lang="pt_BR">Id do mecanismo de contato faltando</value>
         <value xml:lang="pt_PT">Identificação do Modo de Contacto em Falta</value>
         <value xml:lang="ro">Contact Mech Cod lipseste</value>
@@ -4876,7 +4876,7 @@
         <value xml:lang="hi_IN">सम्पर्क नम्बर नही है</value>
         <value xml:lang="it">Contatto telefonico mancante</value>
         <value xml:lang="ja">連絡電話番号が正しくありません</value>
-        <value xml:lang="nl">Kontact telefoonnummer mist</value>
+        <value xml:lang="nl">Telefoonnummer contact ontbreekt</value>
         <value xml:lang="pt_BR">Telefone para contato está faltando</value>
         <value xml:lang="pt_PT">Telefone de Contacto em Falta</value>
         <value xml:lang="ro">Telefon Contact lipseste </value>
@@ -11843,7 +11843,7 @@
         <value xml:lang="hi_IN">कर(tax) क्रमांक</value>
         <value xml:lang="it">ID Tasse</value>
         <value xml:lang="ja">税務ID</value>
-        <value xml:lang="nl">BTW nummer</value>
+        <value xml:lang="nl">BTW nr.</value>
         <value xml:lang="pt_BR">ID de imposto</value>
         <value xml:lang="ro">ID Taxe</value>
         <value xml:lang="ru">Налоговый код</value>
