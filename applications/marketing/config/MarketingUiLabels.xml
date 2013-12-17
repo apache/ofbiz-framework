@@ -3548,13 +3548,6 @@
         <value xml:lang="zh_TW">上傳vCard</value>
     </property>
     <property key="SfaVCard">
-        <value xml:lang="de">vCard</value>
         <value xml:lang="en">vCard</value>
-        <value xml:lang="fr">vCard</value>
-        <value xml:lang="it">vCard</value>
-        <value xml:lang="ja">vCard</value>
-        <value xml:lang="pt_BR">vCard</value>
-        <value xml:lang="vi">vCard</value>
-        <value xml:lang="zh">vCard</value>
     </property>
 </resource>

@@ -5570,15 +5570,7 @@
         <value xml:lang="zh_TW">無法為產品 [{0}] 找到相關的可租賃固定資產，無法租賃。</value>
     </property>
     <property key="item.availableOk">
-        <value xml:lang="de">OK</value>
         <value xml:lang="en">OK</value>
-        <value xml:lang="es">OK</value>
-        <value xml:lang="fr">OK</value>
-        <value xml:lang="it">OK</value>
-        <value xml:lang="ja">OK</value>
-        <value xml:lang="pt_BR">OK</value>
-        <value xml:lang="ro">OK</value>
-        <value xml:lang="ru">OK</value>
         <value xml:lang="th">ตกลง</value>
         <value xml:lang="vi">Đồng ý</value>
         <value xml:lang="zh">确定</value>

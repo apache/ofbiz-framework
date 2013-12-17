@@ -1320,7 +1320,6 @@
         <value xml:lang="fr">De</value>
         <value xml:lang="hi-IN">के द्वारा</value>
         <value xml:lang="it">Da</value>
-        <value xml:lang="ja">By</value>
         <value xml:lang="nl">bij</value>
         <value xml:lang="pt">Por</value>
         <value xml:lang="ro">De la </value>
@@ -2131,14 +2130,9 @@
         <value xml:lang="zh-TW">複制</value>
     </property>
     <property key="CommonCopyright">
-        <value xml:lang="cs">Copyright</value>
         <value xml:lang="en">Copyright</value>
-        <value xml:lang="es">Copyright</value>
         <value xml:lang="fr">Droit d'auteur</value>
         <value xml:lang="hi-IN">कॉपीराइट</value>
-        <value xml:lang="it">Copyright</value>
-        <value xml:lang="ja">Copyright</value>
-        <value xml:lang="pt-BR">Copyright</value>
         <value xml:lang="ru">Авторское право</value>
         <value xml:lang="vi">Bản quyền</value>
         <value xml:lang="zh">版权所有</value>
@@ -5054,16 +5048,11 @@
     </property>
     <property key="CommonId">
         <value xml:lang="ar">دليل</value>
-        <value xml:lang="cs">ID</value>
-        <value xml:lang="de">ID</value>
         <value xml:lang="en">ID</value>
         <value xml:lang="es">Código</value>
         <value xml:lang="fr">Réf.</value>
         <value xml:lang="hi-IN">क्रमांक</value>
         <value xml:lang="it">Codice</value>
-        <value xml:lang="ja">ID</value>
-        <value xml:lang="nl">ID</value>
-        <value xml:lang="pt">ID</value>
         <value xml:lang="ro">Id</value>
         <value xml:lang="ru">Код</value>
         <value xml:lang="th">รหัส</value>
@@ -5137,18 +5126,13 @@
     <property key="CommonIds">
         <value xml:lang="ar">دلائل</value>
         <value xml:lang="cs">Identifikátory</value>
-        <value xml:lang="de">IDs</value>
         <value xml:lang="en">IDs</value>
         <value xml:lang="es">Códigos</value>
         <value xml:lang="fr">Références</value>
         <value xml:lang="hi-IN">क्रमांक</value>
         <value xml:lang="it">Codici</value>
-        <value xml:lang="ja">ID</value>
-        <value xml:lang="nl">IDs</value>
-        <value xml:lang="pt">IDs</value>
         <value xml:lang="pt-BR">Identificações(IDs)</value>
         <value xml:lang="ro">Id Coduri</value>
-        <value xml:lang="ru">IDs</value>
         <value xml:lang="th">รหัส</value>
         <value xml:lang="vi">Định danh</value>
         <value xml:lang="zh">标识</value>
@@ -5181,7 +5165,6 @@
         <value xml:lang="fr">En</value>
         <value xml:lang="hi-IN">अंदर</value>
         <value xml:lang="it">In</value>
-        <value xml:lang="ja"></value>
         <value xml:lang="nl">In</value>
         <value xml:lang="pt">Em</value>
         <value xml:lang="ro">In</value>
@@ -5201,7 +5184,6 @@
         <value xml:lang="fr">Dans le</value>
         <value xml:lang="hi-IN">इस में</value>
         <value xml:lang="it">Nel</value>
-        <value xml:lang="ja"></value>
         <value xml:lang="nl">In De</value>
         <value xml:lang="pt">Em</value>
         <value xml:lang="pt-BR">No</value>
@@ -6622,19 +6604,8 @@
     </property>
     <property key="CommonN">
         <value xml:lang="ar">ل</value>
-        <value xml:lang="cs">N</value>
-        <value xml:lang="de">N</value>
         <value xml:lang="en">N</value>
-        <value xml:lang="es">N</value>
-        <value xml:lang="fr">N</value>
         <value xml:lang="hi-IN">ना</value>
-        <value xml:lang="it">N</value>
-        <value xml:lang="ja">N</value>
-        <value xml:lang="nl">N</value>
-        <value xml:lang="pt">N</value>
-        <value xml:lang="ro">N</value>
-        <value xml:lang="ru">Н</value>
-        <value xml:lang="th">N</value>
         <value xml:lang="vi">Không</value>
         <value xml:lang="zh">否</value>
         <value xml:lang="zh-CN">N</value>
@@ -8048,17 +8019,8 @@
         <value xml:lang="zh-TW">支付</value>
     </property>
     <property key="CommonPdf">
-        <value xml:lang="cs">PDF</value>
-        <value xml:lang="de">PDF</value>
-        <value xml:lang="en">Pdf</value>
-        <value xml:lang="es">Pdf</value>
-        <value xml:lang="fr">PDF</value>
+        <value xml:lang="en">PDF</value>
         <value xml:lang="hi-IN">पीडीऍफ़(PDF)</value>
-        <value xml:lang="it">Pdf</value>
-        <value xml:lang="ja">PDF</value>
-        <value xml:lang="pt-BR">Pdf</value>
-        <value xml:lang="ru">PDF </value>
-        <value xml:lang="zh">PDF</value>
     </property>
     <property key="CommonPerform">
         <value xml:lang="ar">إحراء</value>
@@ -8366,15 +8328,10 @@
         <value xml:lang="zh-TW">過賬日</value>
     </property>
     <property key="CommonPoweredBy">
-        <value xml:lang="cs">Powered by</value>
-        <value xml:lang="de">Powered by</value>
         <value xml:lang="en">Powered by</value>
-        <value xml:lang="es">Powered by</value>
         <value xml:lang="fr">Fonctionne grâce à </value>
         <value xml:lang="hi-IN">द्वारा संचालित</value>
         <value xml:lang="it">Realizzato con</value>
-        <value xml:lang="ja">Powered by</value>
-        <value xml:lang="pt-BR">Powered by</value>
         <value xml:lang="ru">Сделанно</value>
         <value xml:lang="vi">Tài trợ bởi</value>
         <value xml:lang="zh">运行平台</value>
@@ -9109,7 +9066,6 @@
         <value xml:lang="fr">Version officiellement distribuée</value>
         <value xml:lang="hi-IN">रिलीज संस्करणः</value>
         <value xml:lang="it">Versione release</value>
-        <value xml:lang="ja">Release Version</value>
         <value xml:lang="pt">1.0.0-Preview</value>
         <value xml:lang="pt-BR">Versão de Lançamento</value>
         <value xml:lang="ru">Версия релиза</value>
@@ -10231,7 +10187,6 @@
         <value xml:lang="fr">Depuis</value>
         <value xml:lang="hi-IN">क्योंकि</value>
         <value xml:lang="it">Fino a</value>
-        <value xml:lang="ja">Since</value>
         <value xml:lang="nl">Sinds</value>
         <value xml:lang="pt">Desde</value>
         <value xml:lang="ro">Pana la A</value>
@@ -10788,18 +10743,11 @@
     </property>
     <property key="CommonTelephoneAbbr">
         <value xml:lang="ar">هاتف</value>
-        <value xml:lang="cs">Tel</value>
-        <value xml:lang="de">Tel</value>
         <value xml:lang="en">Tel</value>
         <value xml:lang="es">Tel.</value>
         <value xml:lang="fr">Tél.</value>
         <value xml:lang="hi-IN">टेलीफोन</value>
-        <value xml:lang="it">Tel</value>
-        <value xml:lang="ja">Tel</value>
-        <value xml:lang="nl">Tel</value>
-        <value xml:lang="pt">Tel</value>
         <value xml:lang="pt-BR">Tel.</value>
-        <value xml:lang="ro">Tel</value>
         <value xml:lang="ru">Тел</value>
         <value xml:lang="th">หมายเลขโทรศัพท์</value>
         <value xml:lang="vi">Điện thoại</value>
@@ -10894,14 +10842,12 @@
         <value xml:lang="zh-TW">文本</value>
     </property>
     <property key="CommonThe">
-        <value xml:lang="cs"></value>
         <value xml:lang="de">Der</value>
         <value xml:lang="en">The</value>
         <value xml:lang="es">El/La</value>
         <value xml:lang="fr">Le</value>
         <value xml:lang="hi-IN">इस</value>
         <value xml:lang="it">Il</value>
-        <value xml:lang="ja"></value>
         <value xml:lang="nl">de</value>
         <value xml:lang="pt-BR">O</value>
         <value xml:lang="ru">Это</value>
@@ -12424,9 +12370,7 @@
         <value xml:lang="fr">O</value>
         <value xml:lang="hi-IN">हाँ</value>
         <value xml:lang="it">S</value>
-        <value xml:lang="ja">Y</value>
         <value xml:lang="nl">J</value>
-        <value xml:lang="pt">Y</value>
         <value xml:lang="pt-BR">S</value>
         <value xml:lang="pt-PT">S</value>
         <value xml:lang="ro">D</value>
@@ -12706,18 +12650,8 @@
         <value xml:lang="zh-TW">新建資料源類型</value>
     </property>
     <property key="Ebay">
-        <value xml:lang="cs">eBay</value>
-        <value xml:lang="de">eBay</value>        
         <value xml:lang="en">eBay</value>
-        <value xml:lang="es">eBay</value>
-        <value xml:lang="fr">eBay</value>
-        <value xml:lang="hi-IN">eBay</value>
-        <value xml:lang="it">eBay</value>
-        <value xml:lang="ja">eBay</value>
-        <value xml:lang="pt-BR">eBay</value>
-        <value xml:lang="ru">eBay</value>
         <value xml:lang="th">อีเบย์</value>
-        <value xml:lang="zh">eBay</value>
         <value xml:lang="zh-TW">電子灣</value>
     </property>
     <property key="Example">
@@ -13797,19 +13731,12 @@
         <value xml:lang="zh-TW">更新</value>
     </property>
     <property key="Google Base">
-        <value xml:lang="cs">Google Base</value>
-        <value xml:lang="de">Google Base</value>
         <value xml:lang="en">Google Base</value>
-        <value xml:lang="es">Google Base</value>
-        <value xml:lang="fr">Google Base</value>
         <value xml:lang="hi-IN">गूगल बेस</value>
         <value xml:lang="it">Googleショッピング</value>
-        <value xml:lang="ja">Google Base</value>
         <value xml:lang="pt-BR">Base do Google</value>
         <value xml:lang="ru">Гугл база</value>
-        <value xml:lang="th">Google Base</value>
         <value xml:lang="vi">Trên nền tảng Google</value>
-        <value xml:lang="zh">Google Base</value>
     </property>
     <property key="HR">
         <value xml:lang="cs">Personální</value>
@@ -13944,19 +13871,9 @@
         <value xml:lang="zh-TW">OFBiz站點</value>
     </property>
     <property key="Oagis">
-        <value xml:lang="cs">Oagis</value>
-        <value xml:lang="de">Oagis</value>
         <value xml:lang="en">Oagis</value>
-        <value xml:lang="es">Oagis</value>
-        <value xml:lang="fr">Oagis</value>
-        <value xml:lang="hi-IN">Oagis</value>
-        <value xml:lang="it">Oagis</value>
-        <value xml:lang="ja">Oagis</value>
-        <value xml:lang="pt-BR">Oagis</value>
-        <value xml:lang="ru">Oagis</value>
         <value xml:lang="th">การรวมภาษาทางธุรกิจ</value>
         <value xml:lang="vi">Giao thức XML Oagis</value>
-        <value xml:lang="zh">Oagis</value>
     </property>
     <property key="Order">
         <value xml:lang="ar">طلبية</value>
@@ -14361,15 +14278,12 @@
         <value xml:lang="zh">销售管理</value>
         <value xml:lang="zh-TW">銷售</value>
     </property>
-        <value xml:lang="cs">Shark</value>
     <property key="Web Pos">
-        <value xml:lang="cs">Web Pos</value>
-        <value xml:lang="en">Web Pos</value>
+        <value xml:lang="en">Web POS</value>
         <value xml:lang="es">POS web</value>
         <value xml:lang="fr">POS Web</value>
         <value xml:lang="hi-IN">वेब Pos</value>
         <value xml:lang="it">POS web</value>
-        <value xml:lang="ja">Web POS</value>
         <value xml:lang="pt-BR">Ponto de venda Web</value>
         <value xml:lang="ru">POS web</value>
         <value xml:lang="vi">Điểm bán hàng Web POS</value>

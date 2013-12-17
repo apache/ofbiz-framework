@@ -371,18 +371,7 @@
         <value xml:lang="zh_TW">谷歌用戶名</value>
     </property>
     <property key="GoodIdentificationType.description.ISBN">
-        <value xml:lang="de">ISBN</value>
         <value xml:lang="en">ISBN</value>
-        <value xml:lang="es">ISBN</value>
-        <value xml:lang="fr">ISBN</value>
-        <value xml:lang="it">ISBN</value>
-        <value xml:lang="ja">ISBN</value>
-        <value xml:lang="ro">ISBN</value>
-        <value xml:lang="ru">ISBN</value>
-        <value xml:lang="th">ISBN</value>
-        <value xml:lang="vi">ISBN</value>
-        <value xml:lang="zh">ISBN</value>
-        <value xml:lang="zh_TW">ISBN</value>
     </property>
     <property key="GoodIdentificationType.description.MANUFACTURER_ID_NO">
         <value xml:lang="de">Hersteller (Modell) Nummer</value>
@@ -444,29 +433,21 @@
         <value xml:lang="de">Barcode UPCA</value>
         <value xml:lang="en">UPCA</value>
         <value xml:lang="es">Código de barra UPCA</value>
-        <value xml:lang="fr">UPCA</value>
+        <value xml:lang="fr">Code barre UPCA</value>
         <value xml:lang="it">Codice a barre UPCA</value>
-        <value xml:lang="ja">UPCA</value>
         <value xml:lang="ro">Cod Bare UPCA</value>
-        <value xml:lang="ru">UPCA</value>
-        <value xml:lang="th">UPCA</value>
-        <value xml:lang="vi">UPCA</value>
         <value xml:lang="zh">UPCA条码</value>
-        <value xml:lang="zh_TW">UPCA條碼</value>
+        <value xml:lang="zh_TW">UPCA條碼</value>        
     </property>
     <property key="GoodIdentificationType.description.UPCE">
         <value xml:lang="de">Barcode UPCE</value>
         <value xml:lang="en">UPCE</value>
         <value xml:lang="es">Código de barra UPCE</value>
-        <value xml:lang="fr">UPCE</value>
+        <value xml:lang="fr">Code barre UPCE</value>
         <value xml:lang="it">Codice a barre UPCE</value>
-        <value xml:lang="ja">UPCE</value>
         <value xml:lang="ro">Cod Bare UPCE</value>
-        <value xml:lang="ru">UPCE</value>
-        <value xml:lang="th">UPCE</value>
-        <value xml:lang="vi">UPCE</value>
         <value xml:lang="zh">UPCE条码</value>
-        <value xml:lang="zh_TW">UPCE條碼</value>
+        <value xml:lang="zh_TW">UPCE條碼</value>        
     </property>
     <property key="InventoryItemType.description.NON_SERIAL_INV_ITEM">
         <value xml:lang="de">ohne Seriennummern</value>

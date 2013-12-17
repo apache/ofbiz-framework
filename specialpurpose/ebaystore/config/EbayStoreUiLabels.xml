@@ -284,22 +284,18 @@
     </property>
     <property key="EbayStoreStoreItemListDesplay">
         <value xml:lang="en">Store Item List Display</value>
-        <value xml:lang="th"></value>
         <value xml:lang="zh">显示店铺商品列表</value>
     </property>
     <property key="EbayStoreStoreItemSortOrder">
         <value xml:lang="en">Store Item Sort Order</value>
-        <value xml:lang="th"></value>
         <value xml:lang="zh">店铺商品排序</value>
     </property>
     <property key="EbayStoreStoreMerchDisplay">
         <value xml:lang="en">Store Merch Display</value>
-        <value xml:lang="th"></value>
         <value xml:lang="zh">显示店铺商品</value>
     </property>
     <property key="EbayStoreStoreSubscriptionLevel">
         <value xml:lang="en">Store Subscription Level</value>
-        <value xml:lang="th"></value>
         <value xml:lang="zh">店铺订阅等级</value>
     </property>
     <property key="EbayStoreUpdateItemSuccessfully">

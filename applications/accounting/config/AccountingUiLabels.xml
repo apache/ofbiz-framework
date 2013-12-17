@@ -1706,10 +1706,9 @@
         <value xml:lang="fr">Carte de crédit</value>
         <value xml:lang="hi_IN">सीसी (क्रेडिट कार्ड)</value>
         <value xml:lang="it">Carta di credito</value>
-        <value xml:lang="ja">CC</value>
-        <value xml:lang="pt">CC</value>
         <value xml:lang="vi">Thẻ tín dụng (CC)</value>
         <value xml:lang="zh">信用卡</value>
+        <value xml:lang="pt">CC</value>
         <value xml:lang="zh_TW">信用卡</value>
     </property>
     <property key="AccountingAuthorizeNetRelayResponse">
@@ -3006,7 +3005,6 @@
         <value xml:lang="fr">Un module de la famille Open For Business, logiciel libre de gestion d'entreprise.</value>
         <value xml:lang="hi_IN">Open Source Software के Open For Business परिवार का हिस्सा</value>
         <value xml:lang="it">Un modulo della famiglia di software open source Open For Business</value>
-        <value xml:lang="ja">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="nl">Deel van de Open For Business-suite van Open Source Software</value>
         <value xml:lang="pt_BR">Parte da família OfBiz de software livre</value>
         <value xml:lang="pt_PT">Parte da família OfBiz de software de fonte aberta</value>
@@ -7788,21 +7786,8 @@
         <value xml:lang="zh_TW">總覽</value>
     </property>
     <property key="AccountingInvoicePDF">
-        <value xml:lang="de">PDF</value>
         <value xml:lang="en">PDF</value>
-        <value xml:lang="es">PDF</value>
-        <value xml:lang="fr">PDF</value>
         <value xml:lang="hi_IN">पीडीऍफ़(PDF)</value>
-        <value xml:lang="it">PDF</value>
-        <value xml:lang="ja">PDF</value>
-        <value xml:lang="nl">PDF</value>
-        <value xml:lang="pt">PDF</value>
-        <value xml:lang="ro">PDF</value>
-        <value xml:lang="ru">PDF</value>
-        <value xml:lang="th">PDF</value>
-        <value xml:lang="vi">PDF</value>
-        <value xml:lang="zh">PDF</value>
-        <value xml:lang="zh_TW">PDF</value>
     </property>
     <property key="AccountingInvoicePDFDefaultCur">
         <value xml:lang="de">PDF Standardwährung</value>
@@ -10053,17 +10038,8 @@
         <value xml:lang="zh_TW">覆蓋收入總帳科目編號</value>
     </property>
     <property key="AccountingPIN">
-        <value xml:lang="cs">PIN</value>
-        <value xml:lang="de">PIN</value>
         <value xml:lang="en">PIN</value>
-        <value xml:lang="es">PIN</value>
-        <value xml:lang="fr">PIN</value>
         <value xml:lang="hi_IN">पिन</value>
-        <value xml:lang="it">PIN</value>
-        <value xml:lang="ja">PIN</value>
-        <value xml:lang="nl">PIN</value>
-        <value xml:lang="pt">PIN</value>
-        <value xml:lang="ro">PIN</value>
         <value xml:lang="ru">ПИН</value>
         <value xml:lang="th">รหัสส่วนตัว</value>
         <value xml:lang="vi">PIN (mật mã cá nhân)</value>
@@ -14943,8 +14919,8 @@
         <value xml:lang="zh_TW">總帳不平原因</value>
     </property>
     <property key="AccountingVat">
-    	<value xml:lang="en">VAT</value>
-    	<value xml:lang="nl">BTW</value>
+        <value xml:lang="en">VAT</value>
+        <value xml:lang="nl">BTW</value>
     </property>
     <property key="AccountingVendorParty">
         <value xml:lang="en">Vendor Party</value>

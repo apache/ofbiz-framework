@@ -3326,7 +3326,6 @@
         <value xml:lang="zh_TW">匹配</value>
     </property>
     <property key="PartyAdjustInAccountingComponent">
-        <value xml:lang="de"></value>
         <value xml:lang="en">Adjust in accounting component</value>
         <value xml:lang="fr">Ajuster en comptabilité</value>
         <value xml:lang="hi_IN">लेखांकन घटक(accounting component) में समायोजित करें</value>
@@ -12253,22 +12252,8 @@
         <value xml:lang="zh">无法定位目的；不能删除</value>
     </property>
     <property key="PartyURI">
-        <value xml:lang="de">URI</value>
         <value xml:lang="en">URI</value>
-        <value xml:lang="es">URI</value>
-        <value xml:lang="fr">URI</value>
         <value xml:lang="hi_IN">यूआरआइ(URI)</value>
-        <value xml:lang="it">URI</value>
-        <value xml:lang="ja">URI</value>
-        <value xml:lang="nl">URI</value>
-        <value xml:lang="pt_BR">URI</value>
-        <value xml:lang="pt_PT">URI</value>
-        <value xml:lang="ro">URI</value>
-        <value xml:lang="ru">URI</value>
-        <value xml:lang="th">URI</value>
-        <value xml:lang="vi">URI</value>
-        <value xml:lang="zh">URI</value>
-        <value xml:lang="zh_TW">URI</value>
     </property>
     <property key="PartyUnknown">
         <value xml:lang="de">Unbekannt</value>
