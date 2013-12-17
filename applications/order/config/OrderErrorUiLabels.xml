@@ -4741,7 +4741,6 @@
         <value xml:lang="fr">Pas d'information article, pas d'ajout au panier.</value>
         <value xml:lang="it">Nessuna informazione sul prodotto, non è stato aggiunto niente al carrello.</value>
         <value xml:lang="ja">製品情報が渡されませんでした。買い物かごに追加できません。</value>
-        <value xml:lang="nl">No product information passed, not adding anything to cart.</value>
         <value xml:lang="pt_BR">Nenhuma informação de produto fornecida, não é possível adicionar ao carrinho.</value>
         <value xml:lang="pt_PT">No product information passed, not adding anything to cart.</value>
         <value xml:lang="ro">Nici-o informatie pentru produsul trecut, nu adaugati nimic in cos.</value>
@@ -4758,7 +4757,6 @@
         <value xml:lang="fr">La configuration n'est pas valide</value>
         <value xml:lang="it">Configurazione Non E' Valida</value>
         <value xml:lang="ja">設定が正しくありません</value>
-        <value xml:lang="nl">Configuration Is Not Valid</value>
         <value xml:lang="pt_BR">A configuração não é válida</value>
         <value xml:lang="ro">Configurarea Nu este Valida</value>
         <value xml:lang="ru">Неверная конфигурация</value>
@@ -4797,7 +4795,6 @@
         <value xml:lang="fr">Ajouter ${totalQuantity} article(s) dans le panier</value>
         <value xml:lang="it">Aggiunte ${totalQuantity} righe al carrello.</value>
         <value xml:lang="ja">買い物かごに ${totalQuantity} アイテム追加しました。</value>
-        <value xml:lang="nl">Added ${totalQuantity} items to the cart.</value>
         <value xml:lang="pt_BR">${totalQuantity} itens adicionados ao carrinho.</value>
         <value xml:lang="pt_PT">Added ${totalQuantity} items to the cart.</value>
         <value xml:lang="ro">Adaugare ${totalQuantity} linii in Cos.</value>
@@ -4814,7 +4811,6 @@
         <value xml:lang="fr">Aucun accord spécifié à partir duquel ajouter.</value>
         <value xml:lang="it">Nessun contratto specificato da aggiungere.</value>
         <value xml:lang="ja">追加元の同意が指定されていません。</value>
-        <value xml:lang="nl">No agreement specified to add from.</value>
         <value xml:lang="pt_BR">Nenhum acordo especificado como fonte da adição.</value>
         <value xml:lang="ro">Nici-un contract specificat de  adaugat.</value>
         <value xml:lang="ru">Не указаны договора.</value>
@@ -4853,7 +4849,6 @@
         <value xml:lang="fr">Aucun catégorie spécifiée à partir de laquelle ajouter.</value>
         <value xml:lang="it">Nessuna categoria specificata da aggiungere.</value>
         <value xml:lang="ja">追加元のカテゴリが指定されていません。</value>
-        <value xml:lang="nl">No category specified to add from.</value>
         <value xml:lang="pt_BR">Nenhuma categoria especificada como fonte da adição.</value>
         <value xml:lang="ro">Nici-o categorie specificata de adaugat.</value>
         <value xml:lang="ru">Нет выбранной категории.</value>
@@ -4870,7 +4865,6 @@
         <value xml:lang="fr">Impossible d'ajouter l'article ${productId} au panier.</value>
         <value xml:lang="it">NON è Possibile aggiungere prodotto ${productId} al carrello.</value>
         <value xml:lang="ja">製品 ${productId} を買い物かごに追加できません。</value>
-        <value xml:lang="nl">Could NOT add product ${productId} to cart.</value>
         <value xml:lang="pt_BR">Não foi possível adicionar produto ${productId}</value>
         <value xml:lang="ro">Nu este Posibila adaugare produs ${productId} in cos.</value>
         <value xml:lang="ru">Не смог добавить продукт ${productId} в корзину.</value>
@@ -4887,7 +4881,6 @@
         <value xml:lang="fr">Impossible d'obtenir un accord par ${agreementId} {read error} : ${message}.</value>
         <value xml:lang="it">Non è possibile leggere il contratto attraverso ${agreementId} {read error}: ${message}.</value>
         <value xml:lang="ja">同意を取得できません ${agreementId} {読み込みエラー}: ${message}。</value>
-        <value xml:lang="nl">Could not get agreement through ${agreementId} {read error}: ${message}.</value>
         <value xml:lang="pt_BR">Não foi possível obter acordo através do Acordo ${agreementId} {read error} : ${message}.</value>
         <value xml:lang="ro">Nu este posibila Citirea contractului prin  ${agreementId} {read error}: ${message}.</value>
         <value xml:lang="ru">Не смог получить договор в результате ${agreementId} {read error}: ${message}.</value>
@@ -4904,7 +4897,6 @@
         <value xml:lang="fr">Impossible d'obtenir des articles de la catégorie ${categorieId} à ajouter au panier {read error}.</value>
         <value xml:lang="it">Non è possibile leggere i prodotti della categoria ${categorieId} per aggiungere al carrello {read error}.</value>
         <value xml:lang="ja">カテゴリ ${categorieId} の製品を取得できないため、買い物かごに追加できません {読み込みエラー}。</value>
-        <value xml:lang="nl">Could not get products in category ${categorieId} to add to cart {read error}.</value>
         <value xml:lang="pt_BR">Não foi possível obter produtos na categoria ${categorieId} para adicionar ao carrinho {read error}.</value>
         <value xml:lang="ro">Nu este posibila Citirea produselor din categoria ${categorieId} pentru a adauga in Cos {read error}.</value>
         <value xml:lang="ru">Не смог получить продукты категории ${categorieId} и добавить в корзину {read error}.</value>
@@ -4921,7 +4913,6 @@
         <value xml:lang="fr">Impossible d'obtenir des articles de la catégorie ${categorieId} à ajouter au panier {read error} : ${message}.</value>
         <value xml:lang="it">Non è possibile leggere i prodotti della categoria ${categorieId} per aggiungere al carrello {read error}: ${message}.</value>
         <value xml:lang="ja">カテゴリ ${categorieId} の製品を取得できないため、買い物かごに追加できません {読み込みエラー}: ${message}。</value>
-        <value xml:lang="nl">Could not get products in category ${categorieId} to add to cart {read error}: ${message}.</value>
         <value xml:lang="pt_BR">Não foi possível obter produtos na categoria ${categorieId} para adicionar ao carrinho {read error}: ${message}.</value>
         <value xml:lang="ro">Nu este posibila Citirea produselor din categoria ${categorieId} pentru adaugarea in Cos{read error}: ${message}.</value>
         <value xml:lang="ru">Не смог получить продукты категории ${categorieId} и добавить в корзину {read error}: ${message}.</value>
@@ -4938,7 +4929,6 @@
         <value xml:lang="fr">Aucune commande spécifiée à partir de laquelle ajouter</value>
         <value xml:lang="it">Nessun ordine specificato da aggiungere</value>
         <value xml:lang="ja">追加元の注文が指定されていません</value>
-        <value xml:lang="nl">No bestelling specified to add from</value>
         <value xml:lang="pt_BR">Nenhum pedido especificado como fonte para adicção.</value>
         <value xml:lang="ro">Nici-o comanda specificata de adaugat</value>
         <value xml:lang="ru">Не указан заказ откуда добавлять</value>
@@ -4955,7 +4945,6 @@
         <value xml:lang="fr">Le prix doit être un nombre positif</value>
         <value xml:lang="it">Prezzo deve essere un numero positivo</value>
         <value xml:lang="ja">価格は正の数である必要があります</value>
-        <value xml:lang="nl">Price must be a positive number</value>
         <value xml:lang="pt_BR">O Preço deve ser um número positivo.</value>
         <value xml:lang="ro">Pretul trebuie sa fie un numar pozitiv</value>
         <value xml:lang="ru">Цена должна быть положительным числом</value>
@@ -4972,7 +4961,6 @@
         <value xml:lang="fr">Cet article ne peut pas être acheté au fournisseur choisi pour la quantité et la monnaie retenues.</value>
         <value xml:lang="it">Questo prodotto non può essere acquistato dal fornitore selezionato per la quantità e valuta inserita.</value>
         <value xml:lang="ja">この製品は、与えられた数量および通貨で、選択したサプライヤから購入することができません。</value>
-        <value xml:lang="nl">This product cannot be purchased from the chosen supplier for the given quantity and currency.</value>
         <value xml:lang="pt_BR">Esse produto não pode ser comprado do fornecedor escolhido para a quantidade e moeda escolhidos.</value>
         <value xml:lang="ro">Acest produs nu poate fi cumparat de la furnizorul selectionat pentru cantitatea si valuta introdusa.</value>
         <value xml:lang="ru">Этот продукт не может быть приобретен у выбранного поставщика учитывая имеющееся количество и валюту.</value>
@@ -4989,7 +4977,6 @@
         <value xml:lang="fr">La quantité doit être positive</value>
         <value xml:lang="it">Quantità dovrebbe essere un numero positivo</value>
         <value xml:lang="ja">数量は正の数である必要があります</value>
-        <value xml:lang="nl">Quantity must be a positive number</value>
         <value xml:lang="pt_BR">A quantidade deve ser um número positivo</value>
         <value xml:lang="pt_PT">Quantity must be a positive number</value>
         <value xml:lang="ro">Cantitatea trebuie sa fie un numar positiv  </value>
@@ -5006,7 +4993,6 @@
         <value xml:lang="fr">Impossible d'annuler l'article maintenant. Réessayez, s'il vous plait.</value>
         <value xml:lang="it">Non è possibile annullare la riga in questo momento. Prego riprovare.</value>
         <value xml:lang="ja">現在、アイテムを取消できません。再度実行してください。</value>
-        <value xml:lang="nl">Cannot cancel item at this time; please try again.</value>
         <value xml:lang="pt_BR">Não é possível excluir itens nesse momento; por favor tente novamente.</value>
         <value xml:lang="ro">Nu este posibila stergerea liniei in acest moment; te rogam incearca din nou.</value>
         <value xml:lang="ru">Не могу отменить позицию; пожалуйста попробуйте снова.</value>
@@ -5023,7 +5009,6 @@
         <value xml:lang="fr">Le panier est vide</value>
         <value xml:lang="it">Il carrello è vuoto.</value>
         <value xml:lang="ja">買い物かごは空です。</value>
-        <value xml:lang="nl">Cart is empty.</value>
         <value xml:lang="pt_BR">O carrinho está vazio.</value>
         <value xml:lang="ro">Cosul este gol.</value>
         <value xml:lang="ru">Корзина пустая.</value>
@@ -5040,7 +5025,6 @@
         <value xml:lang="fr">Crédit disponible insuffisant sur les comptes.</value>
         <value xml:lang="it">Credito disponibile Insufficiente sul conto.</value>
         <value xml:lang="ja">アカウントが残高不足です。</value>
-        <value xml:lang="nl">Insufficient credit available on accounts.</value>
         <value xml:lang="pt_BR">Crédito disponível insuficiente nas contas.</value>
         <value xml:lang="ro">Creditul disponibil in Cont este Insuficient.</value>
         <value xml:lang="ru">Недостаточный кредит для этой учетной записи.</value>
@@ -5057,7 +5041,6 @@
         <value xml:lang="fr">Montant retenu non valide pour facturer le compte n°${billingAccountId}.</value>
         <value xml:lang="it">Importo Invalido impostato per # Billing Account ${billingAccountId}.</value>
         <value xml:lang="ja">請求アカウントNo ${billingAccountId} の金額設定が正しくありません。</value>
-        <value xml:lang="nl">Invalid amount set for Billing Account #${billingAccountId}.</value>
         <value xml:lang="pt_BR">Quantidade inválida para a conta de faturamento #${billingAccountId}.</value>
         <value xml:lang="ro">Valoare Invalida setata pentru # Billing Account ${billingAccountId}.</value>
         <value xml:lang="ru">Неверная сумма установлена для учетной записи №${billingAccountId}.</value>
@@ -5074,7 +5057,6 @@
         <value xml:lang="fr">Montant retenu non valide pour le moyen de paiement.</value>
         <value xml:lang="it">Importo Invalido impostato per # metodo di Pagamento.</value>
         <value xml:lang="ja">支払方法の金額設定が正しくありません。</value>
-        <value xml:lang="nl">Invalid amount set for Payment method.</value>
         <value xml:lang="pt_BR">Quantia inválida escolhida para o método de pagamento.</value>
         <value xml:lang="ro">Valoare Invalida setata pentru # metoda de Plata.</value>
         <value xml:lang="ru">Неверная сумма установлена для способа платежа.</value>
@@ -5091,7 +5073,6 @@
         <value xml:lang="fr">Disponibilités insuffisantes sur le compte ${billingAccountId}.</value>
         <value xml:lang="it">Non abbastanza diponibilità sul conto ${billingAccountId}.</value>
         <value xml:lang="ja">アカウント ${billingAccountId} の残高が十分ではありません。</value>
-        <value xml:lang="nl">Not enough available on account ${billingAccountId}.</value>
         <value xml:lang="pt_BR">Sem recursos suficientes na conta ${billingAccountId}.</value>
         <value xml:lang="ro">Nu este destula disponibilitate in  cont ${billingAccountId}.</value>
         <value xml:lang="ru">Недостаточно для учетной записи ${billingAccountId}.</value>
@@ -5108,7 +5089,6 @@
         <value xml:lang="fr">Les modes de paiement choisis ne couvriront pas cette commande.</value>
         <value xml:lang="it">Seleziona metodi di pagamento che copriranno questo ordine.</value>
         <value xml:lang="ja">選択した支払方法はこの注文では使用できません。</value>
-        <value xml:lang="nl">Selected payment methods will not cover this bestelling.</value>
         <value xml:lang="pt_BR">Método de pagamento selecionado não cobrirá esse pedido.</value>
         <value xml:lang="ro">Selectioneaza metodele de plata care vor acoperi aceasta comanda.</value>
         <value xml:lang="ru">Выбранный способ платежа не может удовлетворить этот заказ.</value>
@@ -5137,7 +5117,6 @@
         <value xml:lang="fr">ERREUR : impossible de créer la commande (problème lors de l'invocation du service : ${service})</value>
         <value xml:lang="it">ERRORE: Non è possibile creare l'ordine (problema eseguendo il servizio: ${service})</value>
         <value xml:lang="ja">エラー: 注文を作成できません (サービスの呼び出し中にエラー: ${service})</value>
-        <value xml:lang="nl">ERROR: Could not create bestelling (problem invoking the service: ${service})</value>
         <value xml:lang="pt_BR">ERRO: não foi possível criar pedido (problema invocando serviço: ${service})</value>
         <value xml:lang="ro">EROARE: Nu este posibila crearea comenzii (probleme la executarea serviciului: ${service})</value>
         <value xml:lang="ru">ОШИБКА: Не смог создать заказ (ошибка вызова сервиса: ${service})</value>
@@ -5154,7 +5133,6 @@
         <value xml:lang="fr">ERREUR : impossible de créer la commande (problème lors de l'analyse des totaux de commandes).</value>
         <value xml:lang="it">ERRORE: Non è possibile creare l'ordine (problema parsing totale ordine).</value>
         <value xml:lang="ja">エラー: 注文を作成できません (注文合計の解析中にエラー)</value>
-        <value xml:lang="nl">ERROR: Could not create bestelling (problem parsing bestelling totals).</value>
         <value xml:lang="pt_BR">ERRO: não foi possível criar pedido (problema processando totais do pedido).</value>
         <value xml:lang="ro">EROARE: Nu este posibila crearea comenzii (problema parsing total comanda).</value>
         <value xml:lang="ru">ОШИБКА: Не смог создать заказ (ошибка при анализе итогов).</value>
@@ -5171,7 +5149,6 @@
         <value xml:lang="fr">Erreur de base de données</value>
         <value xml:lang="it">Errore Database.</value>
         <value xml:lang="ja">データベースエラー</value>
-        <value xml:lang="nl">Database error.</value>
         <value xml:lang="pt_BR">Erro do banco de dados.</value>
         <value xml:lang="ro">Eroare Database.</value>
         <value xml:lang="ru">Ошибка базы данных.</value>
@@ -5188,7 +5165,6 @@
         <value xml:lang="fr">La commande ne s'est pas terminée, car s'est produit :</value>
         <value xml:lang="it">Non completare l'ordine, il seguente è occorso:</value>
         <value xml:lang="ja">注文を完了できません。次が発生しました:</value>
-        <value xml:lang="nl">Did not complete the bestelling, the following occurred:</value>
         <value xml:lang="pt_BR">O pedido não foi concluído, o seguinte aconteceu: </value>
         <value xml:lang="ro">Nu completati comanda, au aparut urmatoarele :</value>
         <value xml:lang="ru">Заказ не завершен, возможно по следующей причине:</value>
@@ -5205,7 +5181,6 @@
         <value xml:lang="fr">S'il vous plaît entrer le montant à placer sur votre carte de cadeau.</value>
         <value xml:lang="it">Prego inserisci l'importo da caricare sulla tua carta omaggio.</value>
         <value xml:lang="ja">ギフトカードに設定する金額を入力してください。</value>
-        <value xml:lang="nl">Please enter the amount to place on your gift card.</value>
         <value xml:lang="pt_BR">Por favor defina a quantia para colocar em seu cartão de presente.</value>
         <value xml:lang="ro">Te rugam sa introduci valoarea  pentru a putea plasa cartea ta de omagiu.</value>
         <value xml:lang="ru">Пожалуйста введите сумму в место на вашей дисконтной карте.</value>
@@ -5222,7 +5197,6 @@
         <value xml:lang="fr">S'il vous plaît entrer votre n° de carte de cadeau.</value>
         <value xml:lang="it">Per favore inserisci il tuo numero della carta omaggio.</value>
         <value xml:lang="ja">ギフトカード番号を入力してください。</value>
-        <value xml:lang="nl">Please enter your gift card number.</value>
         <value xml:lang="pt_BR">Por favor, informe o número de seu cartão de presente.</value>
         <value xml:lang="ro">Te rugam sa introduci numarul cartii tale de omagiu.</value>
         <value xml:lang="ru">Пожалуйста введите номер вашей дисконтной карты.</value>
@@ -5239,7 +5213,6 @@
         <value xml:lang="fr">S'il vous plaît entrer votre code de carte de cadeau.</value>
         <value xml:lang="it">Per favore inserisci il tuo numero di pin della carta omaggio.</value>
         <value xml:lang="ja">ギフトカードPIN番号を入力してください。</value>
-        <value xml:lang="nl">Please enter your gift card pin number.</value>
         <value xml:lang="pt_BR">Por favor, informe o código PIN do seu cartão de presente.</value>
         <value xml:lang="ro">Te rugam sa introduci numarul de pin al  cartii tale de omagiu.</value>
         <value xml:lang="ru">Пожалуйста введите ПИН код вашей дисконтной карты.</value>
@@ -5256,7 +5229,6 @@
         <value xml:lang="fr">S'il vous plaît entrez une adresse d'expédition.</value>
         <value xml:lang="it">Per favore inserisci un'indirizzo per la spedizione.</value>
         <value xml:lang="ja">発送先住所を入力してください。</value>
-        <value xml:lang="nl">Please enter a verzend address.</value>
         <value xml:lang="pt_BR">Por favor, informe um endereço de envio.</value>
         <value xml:lang="ro">Te rugam sa introduci o adresa pentru expediere.</value>
         <value xml:lang="ru">Пожалуйста введите адрес доставки.</value>
@@ -5273,7 +5245,6 @@
         <value xml:lang="fr">La carte cadeau n'existe pas</value>
         <value xml:lang="it">Questa carta omaggio non esiste.</value>
         <value xml:lang="ja">このギフトカードは存在しません。</value>
-        <value xml:lang="nl">This gift card does not exist.</value>
         <value xml:lang="pt_BR">Esse cartão de presente não existe.</value>
         <value xml:lang="ro">Aceasta carte de omagiu nu exista.</value>
         <value xml:lang="ru">Эта дисконтная карта не существует.</value>
@@ -5289,7 +5260,6 @@
         <value xml:lang="fr">La carte cadeau n'a plus de valeur</value>
         <value xml:lang="it">Questa carta omaggio non è più disponibile per qualsiasi valore.</value>
         <value xml:lang="ja">このギフトカードはもう残高がありません。</value>
-        <value xml:lang="nl">This gift card no longer has any value.</value>
         <value xml:lang="pt_BR">Esse cartão de presente não possui mais saldo.</value>
         <value xml:lang="ro">Aceasta carte de omagiu nu mai este disponibila pentru nici-o valoare.</value>
         <value xml:lang="ru">Эта дисконтная карта более не имеет значения.</value>
@@ -5305,7 +5275,6 @@
         <value xml:lang="fr">Crédit insuffisant disponible sur le compte.</value>
         <value xml:lang="it">Credito disponibile Insufficiente sul conto.</value>
         <value xml:lang="ja">アカウントに十分な残高がありません。</value>
-        <value xml:lang="nl">Insufficient credit available on account.</value>
         <value xml:lang="pt_BR">Crédito insuficiente disponível na conta.</value>
         <value xml:lang="ro">Credit disponibil Insuficient in cont.</value>
         <value xml:lang="ru">Недостаточный кредит для учетной записи.</value>
@@ -5322,7 +5291,6 @@
         <value xml:lang="fr">Montant entré irrecevable pour la carte de cadeau.</value>
         <value xml:lang="it">Importo Invalido per la carta omaggio inserita.</value>
         <value xml:lang="ja">入力したギフトカードの金額が正しくありません。</value>
-        <value xml:lang="nl">Invalid amount for gift card entered.</value>
         <value xml:lang="pt_BR">Quantia inválida informada para o cartão de presente.</value>
         <value xml:lang="ro">Valoare Invalida pentru cartea de omagiu inserita.</value>
         <value xml:lang="ru">Неверная сумма введена для дисконтной карты.</value>
@@ -5339,7 +5307,6 @@
         <value xml:lang="fr">Aucun article dans le panier.</value>
         <value xml:lang="it">Non ci sono righe nel carrello.</value>
         <value xml:lang="ja">買い物かごにアイテムがありません。</value>
-        <value xml:lang="nl">There are no items in the cart.</value>
         <value xml:lang="pt_BR">Não há itens no carrinho.</value>
         <value xml:lang="ro">Nu sunt linii in cos.</value>
         <value xml:lang="ru">В корзине нет ни одной позиции.</value>
@@ -5356,7 +5323,6 @@
         <value xml:lang="fr">Problème avec les informations de carte de cadeau.</value>
         <value xml:lang="it">Problema con informazioni sulla carta omaggio.</value>
         <value xml:lang="ja">ギフトカード情報に問題があります。</value>
-        <value xml:lang="nl">Problem with gift card information.</value>
         <value xml:lang="pt_BR">Problema com as informações do cartão de presente.</value>
         <value xml:lang="ro">Problema cu informatiile cartii de omagiu.</value>
         <value xml:lang="ru">Проблема с информацией по дисконтной карте.</value>
@@ -5373,7 +5339,6 @@
         <value xml:lang="fr">Problème lors de l'obtention de l'entête de commande : ne peut vérifier avec aucune passerelle externe !</value>
         <value xml:lang="it">Problema leggendo intestazione ordine. Non è possibile controllare gateways esterni!</value>
         <value xml:lang="ja">注文ヘッダの取得中にエラー。外部ゲートウェイを確認できません!</value>
-        <value xml:lang="nl">Problems getting bestelling header. Cannot check external gateways!</value>
         <value xml:lang="pt_BR">Problemas ao obter cabeçalho do pedido. Não é possível verificar Gateways externos!</value>
         <value xml:lang="ro">Problema la citirea Antetului comenzii. Nu este posibila controlarea gateways externi!</value>
         <value xml:lang="ru">Проблемы получения оглавления заказа. Не могу проверить внешний шлюз!</value>
@@ -5390,7 +5355,6 @@
         <value xml:lang="fr">Problème lors de l'obtention de la préférence de paiement : ne peut vérifier avec aucune passerelle externe !</value>
         <value xml:lang="it">Problema leggendo preferenza pagamento. Non è possibile controllare gateways esterni!</value>
         <value xml:lang="ja">支払設定の取得中にエラー。外部ゲートウェイを確認できません!</value>
-        <value xml:lang="nl">Problems getting payment preference. Cannot check external gateways!</value>
         <value xml:lang="pt_BR">Problemas obtendo preferências de pagamento. Não é possível verificar Gateways externos.</value>
         <value xml:lang="ro">Problema la citirea preferentelor de plata. Nu este posibila controlarea gateways esterni!</value>
         <value xml:lang="ru">Проблемы получения предпочтений по платежу. Не могу проверить внешний шлюз!</value>
@@ -5407,7 +5371,6 @@
         <value xml:lang="fr">Problème lors de la saisie de la quantité.</value>
         <value xml:lang="it">Problema parsing importo.</value>
         <value xml:lang="ja">金額の解析中にエラー。</value>
-        <value xml:lang="nl">Problems parsing amount.</value>
         <value xml:lang="pt_BR">Problemas ao processar quantia.</value>
         <value xml:lang="ro">Problema parsing valoare.</value>
         <value xml:lang="ru">Проблемы анализа суммы.</value>
@@ -5424,7 +5387,6 @@
         <value xml:lang="fr">Problèmes lors de la lecture de la base de données, s'il vous plaît réessayez.</value>
         <value xml:lang="it">Problema nella lettura dal database, prego riprovare.</value>
         <value xml:lang="ja">データベースの読み込み中にエラー。再度実行してください。</value>
-        <value xml:lang="nl">Problems reading the database, please try again.</value>
         <value xml:lang="pt_BR">Problemas ao ler o banco de dados, por favor tente novamente.</value>
         <value xml:lang="ro">Problema la citirea database, va rugam reincercati din nou.</value>
         <value xml:lang="ru">Проблемы чтения из базы данных, пожалуйста, попробуйте снова.</value>
@@ -5454,7 +5416,6 @@
         <value xml:lang="fr">S'il vous plaît choisissez un moyen de paiement.</value>
         <value xml:lang="it">Per favore selezionare un metodo di pagamento.</value>
         <value xml:lang="ja">支払の方法を選択してください。</value>
-        <value xml:lang="nl">Please select a method of payment.</value>
         <value xml:lang="pt_BR">Por favor, selecione um método de pagamento.</value>
         <value xml:lang="ro">Va rugam selectionati o metoda de plata.</value>
         <value xml:lang="ru">Пожалуйста выберите метод платежа.</value>
@@ -5471,7 +5432,6 @@
         <value xml:lang="fr">S'il vous plaît choisissez une destination d'expédition.</value>
         <value xml:lang="it">Per favore seleziona una destinazione per la spedizione.</value>
         <value xml:lang="ja">発送先を選択してください。</value>
-        <value xml:lang="nl">Please Select a Shipping Destination.</value>
         <value xml:lang="pt_BR">Por favor, selecione um endereço para envio.</value>
         <value xml:lang="ro">Va rugam Selectionati o Destinatie de Expediere.</value>
         <value xml:lang="ru">Пожалуйста выберите пункт доставки.</value>
@@ -5488,7 +5448,6 @@
         <value xml:lang="fr">S'il vous plaît choisissez un moyen d'expédition.</value>
         <value xml:lang="it">Per favore seleziona un metodo di spedizione.</value>
         <value xml:lang="ja">発送方法を選択してください。</value>
-        <value xml:lang="nl">Please Select a Shipping Method.</value>
         <value xml:lang="pt_BR">Por favor, selecione um método de envio.</value>
         <value xml:lang="ro">Va rugam Selectionati o Metoda de Expediere.</value>
         <value xml:lang="ru">Пожалуйста выберите способ доставки.</value>
@@ -5505,7 +5464,6 @@
         <value xml:lang="fr">S'il vous plaît choisissez une préférence pour le fractionnement de l'expédition.</value>
         <value xml:lang="it">Per favore seleziona una preferenza di suddivisione.</value>
         <value xml:lang="ja">分割設定を選択してください。</value>
-        <value xml:lang="nl">Please Select a Splitting Preference.</value>
         <value xml:lang="pt_BR">Por favor, selecione uma preferência para divisão.</value>
         <value xml:lang="ro">Va rugam selectionati o Preferinta de Divizare.</value>
         <value xml:lang="ru">Пожалуйста укажите предпочтения разделения.</value>
@@ -5522,7 +5480,6 @@
         <value xml:lang="fr">Spécifiez, s'il vous plaît, si cette commande est un cadeau.</value>
         <value xml:lang="it">Per favore specificare se questo ordine è un'omaggio o no.</value>
         <value xml:lang="ja">この注文がギフトかどうか指定してください。</value>
-        <value xml:lang="nl">Please Specify Whether or Not This Bestelling is a Gift.</value>
         <value xml:lang="pt_BR">Por favor, defina se esse pedido é ou não um presente.</value>
         <value xml:lang="ro">Va rugam Specificati daca aceasta comanda este sau nu este un Omagiu.</value>
         <value xml:lang="ru">Пожалуйста укажите является ли это заказ подарком, или нет.</value>
@@ -5539,7 +5496,6 @@
         <value xml:lang="fr">SVP, veuillez remplir correctement la date de "livraison après".</value>
         <value xml:lang="it">Per favore inserire una data nel campo "consegna dopo".</value>
         <value xml:lang="ja">指定日以降に発送する場合の日付を指定してください。</value>
-        <value xml:lang="nl">Please specify ship after date as a date.</value>
         <value xml:lang="pt_BR">Por favor, preencha a data a partir da qual enviar no formato válido para data.</value>
         <value xml:lang="ro">Va rugam specificati livrarea dupa data ca data.</value>
         <value xml:lang="ru">Пожалуйста указывайте поставку после даты как дату.</value>
@@ -5556,7 +5512,6 @@
         <value xml:lang="fr">SVP, veuillez remplir correctement la date de "livraison avant".</value>
         <value xml:lang="it">Per favore inserire una data nel campo "consegna prima".</value>
         <value xml:lang="ja">指定日までに発送する場合の日付を指定してください。</value>
-        <value xml:lang="nl">Please specify a ship before date as a date.</value>
         <value xml:lang="pt_BR">Por favor, preencha a data limite para o envio no formato válido para data.</value>
         <value xml:lang="ro">Va rugam specificati livrarea inainte de data ca data.</value>
         <value xml:lang="ru">Пожалуйста указывайте поставку до даты как дату.</value>
@@ -5573,7 +5528,6 @@
         <value xml:lang="fr">ERREUR : la vérification des lignes de commande de ventes a échouée.</value>
         <value xml:lang="it">ERRORE: Righe Ordine Vendita ricerca fallita.</value>
         <value xml:lang="ja">エラー: 販売注文行が検索できませんでした。</value>
-        <value xml:lang="nl">ERROR: Sales Bestelling Lines lookup failed.</value>
         <value xml:lang="pt_BR">ERRO: Busca pelas linhas das vendas de pedidos falhou.</value>
         <value xml:lang="ro">EROARE: Linie Comanda Vanzare cautare falita.</value>
         <value xml:lang="ru">ОШИБКА: Поиск строк заказа на продажу завершился неудачно.</value>
@@ -5590,7 +5544,6 @@
         <value xml:lang="fr">Les totaux ne correspondent pas au total de la commande.</value>
         <value xml:lang="it">Totali non corrispondono al totale ordine.</value>
         <value xml:lang="ja">合計が注文合計と一致しません。</value>
-        <value xml:lang="nl">Totals do not match bestelling total.</value>
         <value xml:lang="pt_BR">Os Totais não correspondem ao total do pedido.</value>
         <value xml:lang="ro">Totalurile nu corespund totalului comenzii.</value>
         <value xml:lang="ru">Итоги не соответствуют итогам заказа.</value>
@@ -5607,7 +5560,6 @@
         <value xml:lang="fr">Aucun bien loué apparenté pour l'article de réf. [{0}], ne peut donc être loué.</value>
         <value xml:lang="it">Non è possibile trovare un cespite relativo a beni in affitto per il prodotto con il codice [{0}], non può essere affittato.</value>
         <value xml:lang="ja">ID [{0}] の製品と関連するレンタル固定資産が見つかりません。貸出できません。</value>
-        <value xml:lang="nl">Could not find a related rental fixed asset for the product with ID [{0}], cannot be rented.</value>
         <value xml:lang="pt_BR">Não foi possível encontrar um ativo fixo para aluguel para o produto com ID [{0}], não pode ser alugado.</value>
         <value xml:lang="ro">Nu este posibila gasirea unui mijloc fix relativ la bunurile inchiriate pentru produsul cu codul [{0}], nu poate fi inchiriat.</value>
         <value xml:lang="ru">Не смог найти связанные арендованные основные средства для продукта с кодом [{0}], не могут быть сданы в аренду.</value>
@@ -5851,7 +5803,6 @@
         <value xml:lang="fr">ERREUR : aucun article à commander</value>
         <value xml:lang="it">ERRORE: Non ci sono articoli nell'ordine</value>
         <value xml:lang="ja">エラー: 注文するアイテムがありません</value>
-        <value xml:lang="nl">ERROR: There are no items to bestelling</value>
         <value xml:lang="pt_BR">ERRO: não há itens para o pedido</value>
         <value xml:lang="pt_PT">ERRO: Não existem itens para encomendar</value>
         <value xml:lang="ro">EROARE: Comanda nu are nici o linie inregistrata</value>
@@ -5869,7 +5820,6 @@
         <value xml:lang="fr">Vous avez essayé de commander l'article {0} (productId : {1}). Cet article n'est plus disponible à la vente. S'il vous plaît, enlevez le de votre commande.</value>
         <value xml:lang="it">Hai provato ad ordinare il prodotto {0} (Codice prodotto: {1}). Questo prodotto non è più disponibile per la vendita. Per favore rimuovilo dai tuoi ordini.</value>
         <value xml:lang="ja">製品 {0} (製品ID: {1}) を注文しようとしましたが、この製品はもう販売できません。注文から除いてください。</value>
-        <value xml:lang="nl">Tried to order the Product {0} (productId: {1}). This product is no longer available for sale. Please remove from your order.</value>
         <value xml:lang="pt_BR">Tentativa de solicitar o produto {0} (productId: {1}). Esse produto não está mais disponível para venda. Por favor, remova-o de seu pedido.</value>
         <value xml:lang="pt_PT">Tentou encomendar o Produto {0} (Identificação de Produto: {1}). Este produto já se encontra indisponível para venda.Por favor remova-o desta encomenda.</value>
         <value xml:lang="ro">Incercare de comandare produs {0} (Cod produs: {1}). Acest produs nu a fost dat disponibil pentru vanzare. Te rugam sa-l stergi din comanda ta.</value>
@@ -5887,7 +5837,6 @@
         <value xml:lang="fr">L'article avec la réf. [{0}] n'a pas été trouvé , et ne peut donc être acheté.</value>
         <value xml:lang="it">Non è possibile trovare il prodotto con codice [{0}], non possono essere acquisti.</value>
         <value xml:lang="ja">ID [{0}] の製品が見つかりません。購入できません。</value>
-        <value xml:lang="nl">Could not find the product with ID [{0}], cannot be purchased.</value>
         <value xml:lang="pt_BR">Não foi possível encontrar o produto com ID [{0}], não pode ser comprado.</value>
         <value xml:lang="pt_PT">Impossível encontrar o produto com essa identificação [{0}], não pode ser adquirido.</value>
         <value xml:lang="ro">Nu este posibila gasirea produsului cu codul [{0}], nu se poate cumpara.</value>
@@ -5905,7 +5854,6 @@
         <value xml:lang="fr">Vous avez essayé de commander l'article {0} (productId : {1}). Cet article n'a pas encore été mis en vente. S'il vous plaît, enlevez le de votre commande.</value>
         <value xml:lang="it">Hai provato ad ordinare il prodotto {0} (Codice prodotto: {1}). Questo prodotto non è ancora disponibile per la vendita. Per favore rimuovilo dai tuoi ordini.</value>
         <value xml:lang="ja">製品 {0} (製品ID: {1}) を注文しようとしましたが、この製品はまだ販売できません。注文から除いてください。</value>
-        <value xml:lang="nl">Tried to order the Product {0} (productId: {1}). This product has not yet been made available for sale. Please remove from your order.</value>
         <value xml:lang="pt_BR">Tentativa de solicitar o produto {0} (productId: {1}). Esse produto ainda não foi disponibilizado para venda. Por favor, remova-o de seu pedido.</value>
         <value xml:lang="pt_PT">Tentou encomendar o Produto {0} (Identificação de Produto: {1}). Este produto ainda está indisponível para venda. Por favor, remova-o desta encomenda.</value>
         <value xml:lang="ro">Incercare de comandare a produsului {0} (Cod produs: {1}). Acest produs nu a fost dat disponibil pentru vanzare. Te rugam sa-l stergi din comanda ta.</value>
@@ -5923,7 +5871,6 @@
         <value xml:lang="fr">L'article {0} avec ID {1} n'est plus en stock. Essayez, s'il vous plaît, de réduire la quantité ou d'enlever l'article de cette commande, merci.</value>
         <value xml:lang="it">Il prodotto {0} con codice {1} non è più in giacenza. Per favore prova a ridurre la quantità o rimuovi il prodotto da questo ordine.</value>
         <value xml:lang="ja">ID {1} の製品 {0} は在庫がありません。数量を減らすか、注文から除いてください。</value>
-        <value xml:lang="nl">The product {0} with ID {1} is no longer in stock. Please try reducing the quantity or removing the product from this bestelling.</value>
         <value xml:lang="pt_BR">O produto {0} com ID {1} não está mais disponível no estoque. Por favor, tente reduzir a quantidade ou remover o produto de seu pedido.</value>
         <value xml:lang="pt_PT">O produto {0} identificado como {1} já não se encontra em stock. Por favor tente reduzir a quantidade ou removê-lo desta encomenda.</value>
         <value xml:lang="ro">Produsul {0} cu codul {1} nu mai este in stoc. Te rugam sa reduci cantitatea sau sa stergi produsul de la aceasta comanda.</value>
@@ -6117,7 +6064,6 @@
         <value xml:lang="fr">Ajout de l'article ${productId} au panier.</value>
         <value xml:lang="it">Aggiunto l'articolo ${productId} al carrello.</value>
         <value xml:lang="ja">買い物かごに製品 ${productId} を追加しました。</value>
-        <value xml:lang="nl">Added product ${productId} to cart.</value>
         <value xml:lang="pt_BR">Produto ${productId} adicionado ao carrinho.</value>
         <value xml:lang="ro">Adaugat ${productId} produs in  cos.</value>
         <value xml:lang="ru">Продукт ${productId} добавлен в корзину.</value>
@@ -6134,7 +6080,6 @@
         <value xml:lang="fr">Impossible de créer une nouvelle liste d'achats.</value>
         <value xml:lang="it">Non è possibile creare una nuova lista di acquisto.</value>
         <value xml:lang="ja">新しい買い物リストが作成できません。</value>
-        <value xml:lang="nl">Cannot create new shopping list.</value>
         <value xml:lang="pt_BR">Incapaz de criar uma nova lista de compras.</value>
         <value xml:lang="ro">Nu este posibila crearea unei noi liste de cumparari.</value>
         <value xml:lang="ru">Не могу создать новый список покупок.</value>
@@ -6151,7 +6096,6 @@
         <value xml:lang="fr">SVP, choisissez une liste d'achats.</value>
         <value xml:lang="it">Scegliere una lista di acquisto, prego.</value>
         <value xml:lang="ja">買い物リストを選択してください。</value>
-        <value xml:lang="nl">Please choose a shopping list.</value>
         <value xml:lang="pt_BR">Por favor, escolha uma lista de compras.</value>
         <value xml:lang="ro">Va rugam alegeti o lista de cumparari.</value>
         <value xml:lang="ru">Пожалуйста выберите список покупок.</value>
@@ -6168,7 +6112,6 @@
         <value xml:lang="fr">Erreur lors de l'ajout de l'article à la liste d'achats.</value>
         <value xml:lang="it">Errore nell'aggiunta di un articolo alla lista di acquisto.</value>
         <value xml:lang="ja">買い物リストにアイテムを追加中にエラー</value>
-        <value xml:lang="nl">Error adding item to shopping list.</value>
         <value xml:lang="pt_BR">Erro ao adiconar o item à lista de compras.</value>
         <value xml:lang="ro">Eroare la adaugarea unei linii la lista de cumparari.</value>
         <value xml:lang="ru">Ошибка добавления позиции в список покупок.</value>
@@ -6185,7 +6128,6 @@
         <value xml:lang="fr">Erreur lors de l'obtention de la liste d'achat et des articles.</value>
         <value xml:lang="it">Errore leggendo la lista di acquisto e gli articoli.</value>
         <value xml:lang="ja">買い物リストおよびアイテムを取得中にエラー</value>
-        <value xml:lang="nl">Error getting shopping list and items.</value>
         <value xml:lang="pt_BR">Erro ao obter lista de compras e itens.</value>
         <value xml:lang="ro">Eroare la citirea listei de cumparari si liniile.</value>
         <value xml:lang="ru">Ошибка получения списка покупок и позиций.</value>
@@ -6202,7 +6144,6 @@
         <value xml:lang="fr">Aucun article n'a été ajouté.</value>
         <value xml:lang="it">Nessun articolo è stato aggiunto.</value>
         <value xml:lang="ja">アイテムは追加されませんでした。</value>
-        <value xml:lang="nl">No items were added.</value>
         <value xml:lang="pt_BR">Nenhum item foi adicionado.</value>
         <value xml:lang="ro">Nici-o linie nu a fost adaugata.</value>
         <value xml:lang="ru">Позиции не были добавлены.</value>
@@ -6219,7 +6160,6 @@
         <value xml:lang="fr">Impossible d'ajouter l'article ${productId} au panier</value>
         <value xml:lang="it">NON è possibile aggiunge il prodotto ${productId} al carrello.</value>
         <value xml:lang="ja">買い物かごに製品 ${productId} を追加できません。</value>
-        <value xml:lang="nl">Could NOT add product ${productId} to cart.</value>
         <value xml:lang="pt_BR">Não foi possível adicionar produto ${productId} ao carrinho.</value>
         <value xml:lang="ro">NU este posibila adaugarea  produsului ${productId} in cos.</value>
         <value xml:lang="ru">Не смог добавить продукт ${productId} в корзину.</value>
@@ -6236,7 +6176,6 @@
         <value xml:lang="fr">Merci de sélectionner l'article(s) à ajouter à la liste d'achats.</value>
         <value xml:lang="it">Per favore selezionare gli articoli da aggiungere alla lista di acquisto.</value>
         <value xml:lang="ja">買い物リストに追加するアイテムを選択してください。</value>
-        <value xml:lang="nl">Please select item(s) to add to the shopping list.</value>
         <value xml:lang="pt_BR">Por favor, selecione o(s) item(ns) para adicionar à lista de compras.</value>
         <value xml:lang="ro">Va rugam selectionati linia(le) de adaugat la lista de cumparari.</value>
         <value xml:lang="ru">Пожалуйста выберите позицию(и) для добавления в корзину покупок.</value>
@@ -6253,7 +6192,6 @@
         <value xml:lang="fr">Une réf. de liste d'achat est requise.</value>
         <value xml:lang="it">E' richiesto il riferimento alla lista di acquisto.</value>
         <value xml:lang="ja">買い物リストIDは必須パラメータです。</value>
-        <value xml:lang="nl">shoppingListId is a required parameter.</value>
         <value xml:lang="pt_BR">shoppingListId é um parâmetro necessário.</value>
         <value xml:lang="ro">shoppingListId este un  parametru cerut.</value>
         <value xml:lang="ru">shoppingListId - обязательный параметр.</value>
