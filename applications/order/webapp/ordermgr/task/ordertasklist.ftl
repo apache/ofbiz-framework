@@ -142,7 +142,7 @@ under the License.
                               <td>
                                 <div>
                                   <#if task.customerPartyId?exists>
-                                    <a href="${customerDetailLink}${task.customerPartyId}${externalKeyParam}" target="partymgr" class="buttontext">${Static["org.ofbiz.order.task.TaskWorker"].getCustomerName(task)}</a>
+                                    <a href="${customerDetailLink}${task.customerPartyId}${StringUtil.wrapString(externalKeyParam)}" target="partymgr" class="buttontext">${Static["org.ofbiz.order.task.TaskWorker"].getCustomerName(task)}</a>
                                   <#else>
                                     N/A
                                   </#if>
@@ -165,7 +165,7 @@ under the License.
                               </td>
                               <td>${task.priority?default("0")}</td>
                               <td>
-                                <a href="/workeffort/control/activity?workEffortId=${task.workEffortId}${externalKeyParam}" target="workeffort" class="buttontext">
+                                <a href="/workeffort/control/activity?workEffortId=${task.workEffortId}${StringUtil.wrapString(externalKeyParam)}" target="workeffort" class="buttontext">
                                   ${Static["org.ofbiz.order.task.TaskWorker"].getPrettyStatus(task)}
                                 </a>
                               </td>
@@ -229,7 +229,7 @@ under the License.
                                 </td>
                                 <td>
                                   <#if task.customerPartyId?exists>
-                                  <a href="${customerDetailLink}${task.customerPartyId}${externalKeyParam}" target="partymgr" class="buttontext">${Static["org.ofbiz.order.task.TaskWorker"].getCustomerName(task)}</a>
+                                  <a href="${customerDetailLink}${task.customerPartyId}${StringUtil.wrapString(externalKeyParam)}" target="partymgr" class="buttontext">${Static["org.ofbiz.order.task.TaskWorker"].getCustomerName(task)}</a>
                                   <#else>
                                   &nbsp;
                                   </#if>
@@ -253,7 +253,7 @@ under the License.
                                   <#if task.wepaPartyId == "_NA_">
                                     <div>N/A</div>
                                   <#else>
-                                    <a href="${customerDetailLink}${task.wepaPartyId}${externalKeyParam}" target="partymgr" class="buttontext">${task.wepaPartyId}</a>
+                                    <a href="${customerDetailLink}${task.wepaPartyId}${StringUtil.wrapString(externalKeyParam)}" target="partymgr" class="buttontext">${task.wepaPartyId}</a>
                                   </#if>
                                 </td>
                                 <td>${Static["org.ofbiz.order.task.TaskWorker"].getRoleDescription(task)}</td>

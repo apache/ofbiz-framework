@@ -39,8 +39,8 @@ under the License.
           <ul>
             <#list invoiceIds as invoiceId>
               <li>
-                ${uiLabelMap.CommonNbr}<a href="/accounting/control/invoiceOverview?invoiceId=${invoiceId}${externalKeyParam}" target="_blank" class="buttontext">${invoiceId}</a>
-                (<a href="/accounting/control/invoice.pdf?invoiceId=${invoiceId}${externalKeyParam}" target="_blank" class="buttontext">PDF</a>)
+                ${uiLabelMap.CommonNbr}<a href="/accounting/control/invoiceOverview?invoiceId=${invoiceId}${StringUtil.wrapString(externalKeyParam)}" target="_blank" class="buttontext">${invoiceId}</a>
+                (<a href="/accounting/control/invoice.pdf?invoiceId=${invoiceId}${StringUtil.wrapString(externalKeyParam)}" target="_blank" class="buttontext">PDF</a>)
               </li>
             </#list>
           </ul>
@@ -234,7 +234,7 @@ under the License.
                   <td>${orderItemSeqId?if_exists}</td>
                   <td>${product.productId?default("N/A")}</td>
                   <td>
-                    <a href="/catalog/control/EditProduct?productId=${product.productId?if_exists}${externalKeyParam}" class="buttontext" target="_blank">${(product.internalName)?if_exists}</a>
+                    <a href="/catalog/control/EditProduct?productId=${product.productId?if_exists}${StringUtil.wrapString(externalKeyParam)}" class="buttontext" target="_blank">${(product.internalName)?if_exists}</a>
                   </td>
                   <td>
                     <select name="geo_${rowKey}">

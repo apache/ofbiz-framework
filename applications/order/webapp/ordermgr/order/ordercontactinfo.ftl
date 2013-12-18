@@ -84,7 +84,7 @@ under the License.
                 ${displayPartyNameResult.fullName?default("[${uiLabelMap.OrderPartyNameNotFound}]")}
               </#if>
               <#if partyId?exists>
-                &nbsp;(<a href="${customerDetailLink}${partyId}${externalKeyParam}" target="partymgr" class="buttontext">${partyId}</a>)
+                &nbsp;(<a href="${customerDetailLink}${partyId}${StringUtil.wrapString(externalKeyParam)}" target="partymgr" class="buttontext">${partyId}</a>)
                 <br/>
                 <#if orderHeader.salesChannelEnumId != "POS_SALES_CHANNEL">
                 <div>
