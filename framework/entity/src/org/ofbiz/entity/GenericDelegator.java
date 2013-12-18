@@ -2511,9 +2511,9 @@ public class GenericDelegator implements Delegator {
 
             SequenceUtil sequencer = this.AtomicRefSequencer.get();
             if (sequencer == null) {
+                ModelEntity seqEntity = this.getModelEntity("SequenceValueItem");
+                sequencer = new SequenceUtil(this, this.getEntityHelperInfo("SequenceValueItem"), seqEntity, "seqName", "seqId");
                 try {
-                    ModelEntity seqEntity = this.getModelEntity("SequenceValueItem");
-                    sequencer = new SequenceUtil(this, this.getEntityHelperInfo("SequenceValueItem"), seqEntity, "seqName", "seqId");
                     if (!AtomicRefSequencer.compareAndSet(null, sequencer)) {
                         sequencer = this.AtomicRefSequencer.get();
                     }
