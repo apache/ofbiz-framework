@@ -32,6 +32,7 @@ import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -105,7 +106,7 @@ public class GenericDelegator implements Delegator {
     protected DistributedCacheClear distributedCacheClear = null;
     protected boolean warnNoEcaHandler = false;
     protected EntityEcaHandler<?> entityEcaHandler = null;
-    protected SequenceUtil sequencer = null;
+    protected final AtomicReference<SequenceUtil> AtomicRefSequencer = new AtomicReference<SequenceUtil>(null);
     protected EntityCrypto crypto = null;
 
     /** A ThreadLocal variable to allow other methods to specify a user identifier (usually the userLoginId, though technically the Entity Engine doesn't know anything about the UserLogin entity) */
@@ -791,7 +792,7 @@ public class GenericDelegator implements Delegator {
                     }
 
                     // found an existing value... was probably a duplicate key, so clean things up and try again
-                    this.sequencer.forceBankRefresh(value.getEntityName(), 1);
+                    this.AtomicRefSequencer.get().forceBankRefresh(value.getEntityName(), 1);
 
                     value.setNextSeqId();
                     value = helper.create(value);
@@ -2389,13 +2390,16 @@ public class GenericDelegator implements Delegator {
                 beganTransaction = TransactionUtil.begin();
             }
 
-            // FIXME: Replace DCL code with AtomicReference
+            SequenceUtil sequencer = this.AtomicRefSequencer.get();
             if (sequencer == null) {
-                synchronized (this) {
-                    if (sequencer == null) {
-                        ModelEntity seqEntity = this.getModelEntity("SequenceValueItem");
-                        sequencer = new SequenceUtil(this, this.getEntityHelperInfo("SequenceValueItem"), seqEntity, "seqName", "seqId");
+                try {
+                    ModelEntity seqEntity = this.getModelEntity("SequenceValueItem");
+                    sequencer = new SequenceUtil(this, this.getEntityHelperInfo("SequenceValueItem"), seqEntity, "seqName", "seqId");
+                    if (!AtomicRefSequencer.compareAndSet(null, sequencer)) {
+                        sequencer = this.AtomicRefSequencer.get();
                     }
+                } catch (Exception e) {
+                    throw new IllegalStateException("Exception thrown while creating AtomicReference<SequenceUtil>: " + e);
                 }
             }
 
@@ -2421,14 +2425,14 @@ public class GenericDelegator implements Delegator {
      * @see org.ofbiz.entity.Delegator#setSequencer(org.ofbiz.entity.util.SequenceUtil)
      */
     public void setSequencer(SequenceUtil sequencer) {
-        this.sequencer = sequencer;
+        this.AtomicRefSequencer.set(sequencer);
     }
 
     /* (non-Javadoc)
      * @see org.ofbiz.entity.Delegator#refreshSequencer()
      */
     public void refreshSequencer() {
-        this.sequencer = null;
+        this.AtomicRefSequencer.set(null);
     }
 
 
