@@ -58,8 +58,8 @@ under the License.
                     <ul>
                     <#list invoiceIds as invoiceId>
                       <li>
-                        ${uiLabelMap.CommonNbr}<a href="/accounting/control/invoiceOverview?invoiceId=${invoiceId}${externalKeyParam}" target="_blank" class="buttontext">${invoiceId}</a>
-                        (<a href="/accounting/control/invoice.pdf?invoiceId=${invoiceId}${externalKeyParam}" target="_blank" class="buttontext">PDF</a>)
+                        ${uiLabelMap.CommonNbr}<a href="/accounting/control/invoiceOverview?invoiceId=${invoiceId}${StringUtil.wrapString(externalKeyParam)}" target="_blank" class="buttontext">${invoiceId}</a>
+                        (<a href="/accounting/control/invoice.pdf?invoiceId=${invoiceId}${StringUtil.wrapString(externalKeyParam)}" target="_blank" class="buttontext">PDF</a>)
                       </li>
                     </#list>
                     </ul>
@@ -295,9 +295,9 @@ under the License.
                               </#if>
                           </td>
                           <td>
-                              <a href="/catalog/control/EditProduct?productId=${orderProduct.productId?if_exists}${externalKeyParam}" class="buttontext" target="_blank">${(orderProduct.internalName)?if_exists}</a>
+                              <a href="/catalog/control/EditProduct?productId=${orderProduct.productId?if_exists}${StringUtil.wrapString(externalKeyParam)}" class="buttontext" target="_blank">${(orderProduct.internalName)?if_exists}</a>
                               <#if orderProduct.productId != product.productId>
-                                  &nbsp;[<a href="/catalog/control/EditProduct?productId=${product.productId?if_exists}${externalKeyParam}" class="buttontext" target="_blank">${(product.internalName)?if_exists}</a>]
+                                  &nbsp;[<a href="/catalog/control/EditProduct?productId=${product.productId?if_exists}${StringUtil.wrapString(externalKeyParam)}" class="buttontext" target="_blank">${(product.internalName)?if_exists}</a>]
                               </#if>
                           </td>
                           <td align="right">${orderItemQuantity}</td>
@@ -459,7 +459,7 @@ under the License.
                       <td>${line.getOrderItemSeqId()}</td>
                       <td>${line.getProductId()?default("N/A")}</td>
                       <td>
-                          <a href="/catalog/control/EditProduct?productId=${line.getProductId()?if_exists}${externalKeyParam}" class="buttontext" target="_blank">${product.internalName?if_exists?default("[N/A]")}</a>
+                          <a href="/catalog/control/EditProduct?productId=${line.getProductId()?if_exists}${StringUtil.wrapString(externalKeyParam)}" class="buttontext" target="_blank">${product.internalName?if_exists?default("[N/A]")}</a>
                       </td>
                       <td>${line.getInventoryItemId()}</td>
                       <td align="right">${line.getQuantity()}</td>
@@ -503,7 +503,7 @@ under the License.
                       <td>${line.getOrderItemSeqId()}</td>
                       <td>${line.getProductId()?default("N/A")}</td>
                       <td>
-                          <a href="/catalog/control/EditProduct?productId=${line.getProductId()?if_exists}${externalKeyParam}" class="buttontext" target="_blank">${product.internalName?if_exists?default("[N/A]")}</a>
+                          <a href="/catalog/control/EditProduct?productId=${line.getProductId()?if_exists}${StringUtil.wrapString(externalKeyParam)}" class="buttontext" target="_blank">${product.internalName?if_exists?default("[N/A]")}</a>
                       </td>
                       <td>${line.getInventoryItemId()}</td>
                       <td align="right">${line.getQuantity()}</td>

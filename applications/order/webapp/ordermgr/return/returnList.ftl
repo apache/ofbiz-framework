@@ -39,7 +39,7 @@ under the License.
     <td><div>${returnHeader.entryDate.toString()}</div></td>
     <td>
       <#if returnHeader.fromPartyId?exists>
-        <a href="${customerDetailLink}${returnHeader.fromPartyId}${externalKeyParam}" class='buttontext'>${returnHeader.fromPartyId}</a>
+        <a href="${customerDetailLink}${returnHeader.fromPartyId}${StringUtil.wrapString(externalKeyParam)}" class='buttontext'>${returnHeader.fromPartyId}</a>
       <#else>
         <span class="label">${uiLabelMap.CommonNA}</span>
       </#if>

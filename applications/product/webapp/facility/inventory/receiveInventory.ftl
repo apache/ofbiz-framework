@@ -403,7 +403,7 @@ under the License.
                             <td width="45%">
                                 <b>${orderItemType.get("description",locale)}</b> : ${orderItem.itemDescription?if_exists}&nbsp;&nbsp;
                                 <input type="text" size="12" name="productId_o_${rowCount}"/>
-                                <a href="/catalog/control/EditProduct?${externalKeyParam}" target="catalog" class="buttontext">${uiLabelMap.ProductCreateProduct}</a>
+                                <a href="/catalog/control/EditProduct?${StringUtil.wrapString(externalKeyParam)}" target="catalog" class="buttontext">${uiLabelMap.ProductCreateProduct}</a>
                             </td>
                           </#if>
                           <td align="right">${uiLabelMap.ProductLocation}:</td>

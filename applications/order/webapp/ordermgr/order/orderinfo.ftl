@@ -164,7 +164,7 @@ under the License.
                 <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderProductStore}</td>
                 <td width="5%">&nbsp;</td>
                 <td valign="top" width="80%">
-                  ${productStore.storeName!}&nbsp;<a href="/catalog/control/EditProductStore?productStoreId=${productStore.productStoreId}${externalKeyParam}" target="catalogmgr" class="buttontext">(${productStore.productStoreId})</a>
+                  ${productStore.storeName!}&nbsp;<a href="/catalog/control/EditProductStore?productStoreId=${productStore.productStoreId}${StringUtil.wrapString(externalKeyParam)}" target="catalogmgr" class="buttontext">(${productStore.productStoreId})</a>
                 </td>
               </tr>
               <tr><td colspan="3"><hr /></td></tr>
@@ -174,7 +174,7 @@ under the License.
               <td width="5%">&nbsp;</td>
               <td valign="top" width="80%">
                   <#if orderHeader.originFacilityId?has_content>
-                    <a href="/facility/control/EditFacility?facilityId=${orderHeader.originFacilityId}${externalKeyParam}" target="facilitymgr" class="buttontext">${orderHeader.originFacilityId}</a>
+                    <a href="/facility/control/EditFacility?facilityId=${orderHeader.originFacilityId}${StringUtil.wrapString(externalKeyParam)}" target="facilitymgr" class="buttontext">${orderHeader.originFacilityId}</a>
                   <#else>
                     ${uiLabelMap.CommonNA}
                   </#if>
@@ -186,7 +186,7 @@ under the License.
               <td width="5%">&nbsp;</td>
               <td valign="top" width="80%">
                   <#if orderHeader.createdBy?has_content>
-                    <a href="/partymgr/control/viewprofile?userlogin_id=${orderHeader.createdBy}${externalKeyParam}" target="partymgr" class="buttontext">${orderHeader.createdBy}</a>
+                    <a href="/partymgr/control/viewprofile?userlogin_id=${orderHeader.createdBy}${StringUtil.wrapString(externalKeyParam)}" target="partymgr" class="buttontext">${orderHeader.createdBy}</a>
                   <#else>
                     ${uiLabelMap.CommonNotSet}
                   </#if>

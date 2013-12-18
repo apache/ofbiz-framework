@@ -87,7 +87,7 @@ under the License.
                                                 <a href="/content/control/ViewSimpleContent?contentId=${downloadContent.contentId}" class="buttontext" target="_blank">${uiLabelMap.ContentDownload}</a>&nbsp;
                                             </#list>
                                         </#if>
-                                        <a href="/catalog/control/EditProduct?productId=${productId}${externalKeyParam}" class="buttontext" target="_blank">${uiLabelMap.ProductCatalog}</a>
+                                        <a href="/catalog/control/EditProduct?productId=${productId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext" target="_blank">${uiLabelMap.ProductCatalog}</a>
                                         <a href="/ecommerce/control/product?product_id=${productId}" class="buttontext" target="_blank">${uiLabelMap.OrderEcommerce}</a>
                                         <#if orderItemContentWrapper.get("IMAGE_URL")?has_content>
                                             <a href="<@ofbizUrl>viewimage?orderId=${orderId}&amp;orderItemSeqId=${orderItem.orderItemSeqId}&amp;orderContentTypeId=IMAGE_URL</@ofbizUrl>"
@@ -124,7 +124,7 @@ under the License.
                                                         <tr>
                                                             <td style="text-align: right; padding-bottom: 10px;">
                                                                 <a class="buttontext"
-                                                                   href="/catalog/control/EditProductInventoryItems?productId=${productId}&amp;showAllFacilities=Y${externalKeyParam}"
+                                                                   href="/catalog/control/EditProductInventoryItems?productId=${productId}&amp;showAllFacilities=Y${StringUtil.wrapString(externalKeyParam)}"
                                                                    target="_blank">${uiLabelMap.ProductInventory}</a>
                                                             </td>
                                                             <td>&nbsp;</td>
@@ -327,7 +327,7 @@ under the License.
                                     <td colspan="6">
                                         <#if orderItem.orderItemTypeId != "RENTAL_ORDER_ITEM">
                                             <span class="label">${uiLabelMap.ManufacturingProductionRun}</span>
-                                            <a href="/manufacturing/control/ShowProductionRun?productionRunId=${workEffort.workEffortId}${externalKeyParam}"
+                                            <a href="/manufacturing/control/ShowProductionRun?productionRunId=${workEffort.workEffortId}${StringUtil.wrapString(externalKeyParam)}"
                                                 class="buttontext">${workEffort.workEffortId}</a>
                                             ${uiLabelMap.OrderCurrentStatus}
                                             ${(delegator.findOne("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId")), true).get("description",locale))?if_exists}
@@ -418,7 +418,7 @@ under the License.
                                             (${orderItemAdjustment.comments?default("")})
                                         </#if>
                                         <#if orderItemAdjustment.productPromoId?has_content>
-                                            <a href="/catalog/control/EditProductPromo?productPromoId=${orderItemAdjustment.productPromoId}${externalKeyParam}"
+                                            <a href="/catalog/control/EditProductPromo?productPromoId=${orderItemAdjustment.productPromoId}${StringUtil.wrapString(externalKeyParam)}"
                                                 >${orderItemAdjustment.getRelatedOne("ProductPromo", false).getString("promoName")}</a>
                                         </#if>
                                         <#if orderItemAdjustment.orderAdjustmentTypeId == "SALES_TAX">
@@ -479,7 +479,7 @@ under the License.
                                 <tr<#if itemClass == "1"> class="alternate-row"</#if>>
                                     <td align="right" colspan="2">
                                         <span class="label">${uiLabelMap.CommonSurveys}</span>&nbsp;
-                                        <a href="/content/control/ViewSurveyResponses?surveyResponseId=${survey.surveyResponseId}&amp;surveyId=${survey.surveyId}${externalKeyParam}"
+                                        <a href="/content/control/ViewSurveyResponses?surveyResponseId=${survey.surveyResponseId}&amp;surveyId=${survey.surveyId}${StringUtil.wrapString(externalKeyParam)}"
                                            class="buttontext">${survey.surveyId}</a>
                                     </td>
                                     <td colspan="5">&nbsp;</td>
@@ -543,7 +543,7 @@ under the License.
                                 <tr<#if itemClass == "1"> class="alternate-row"</#if>>
                                     <td align="right" colspan="2">
                                         <span class="label">${uiLabelMap.CommonInventory}</span>&nbsp;
-                                        <a href="/facility/control/EditInventoryItem?inventoryItemId=${orderItemShipGrpInvRes.inventoryItemId}${externalKeyParam}"
+                                        <a href="/facility/control/EditInventoryItem?inventoryItemId=${orderItemShipGrpInvRes.inventoryItemId}${StringUtil.wrapString(externalKeyParam)}"
                                            class="buttontext">${orderItemShipGrpInvRes.inventoryItemId}</a>
                                         <span class="label">${uiLabelMap.OrderShipGroup}</span>&nbsp;${orderItemShipGrpInvRes.shipGroupSeqId}
                                     </td>
@@ -571,7 +571,7 @@ under the License.
                                     <td align="right" colspan="2">
                                         <span class="label">${uiLabelMap.OrderPlannedInShipment}</span>&nbsp;<a
                                             target="facility"
-                                            href="/facility/control/ViewShipment?shipmentId=${orderShipment.shipmentId}${externalKeyParam}"
+                                            href="/facility/control/ViewShipment?shipmentId=${orderShipment.shipmentId}${StringUtil.wrapString(externalKeyParam)}"
                                             class="buttontext">${orderShipment.shipmentId}</a>: ${orderShipment.shipmentItemSeqId}
                                     </td>
                                     <td align="center">
@@ -590,7 +590,7 @@ under the License.
                                     <#if itemIssuance.shipmentId?has_content>
                                         <span class="label">${uiLabelMap.OrderIssuedToShipmentItem}</span>&nbsp;
                                         <a target="facility"
-                                           href="/facility/control/ViewShipment?shipmentId=${itemIssuance.shipmentId}${externalKeyParam}"
+                                           href="/facility/control/ViewShipment?shipmentId=${itemIssuance.shipmentId}${StringUtil.wrapString(externalKeyParam)}"
                                            class="buttontext">${itemIssuance.shipmentId}</a>: ${itemIssuance.shipmentItemSeqId?if_exists}
                                     <#else>
                                         <span class="label">${uiLabelMap.OrderIssuedWithoutShipment}</span>
@@ -611,7 +611,7 @@ under the License.
                                         <#if itemIssuance.inventoryItemId?has_content>
                                             <#assign inventoryItem = itemIssuance.getRelatedOne("InventoryItem", false)/>
                                             <span class="label">${uiLabelMap.CommonInventory}</span>
-                                            <a href="/facility/control/EditInventoryItem?inventoryItemId=${itemIssuance.inventoryItemId}${externalKeyParam}"
+                                            <a href="/facility/control/EditInventoryItem?inventoryItemId=${itemIssuance.inventoryItemId}${StringUtil.wrapString(externalKeyParam)}"
                                                class="buttontext">${itemIssuance.inventoryItemId}</a>
                                             <span class="label">${uiLabelMap.OrderShipGroup}</span>&nbsp;${itemIssuance.shipGroupSeqId?if_exists}
                                             <#if (inventoryItem.serialNumber?has_content)>
@@ -636,12 +636,12 @@ under the License.
                                         <#if shipmentReceipt.shipmentId?has_content>
                                             <span class="label">${uiLabelMap.OrderShipmentReceived}</span>&nbsp;
                                             <a target="facility"
-                                               href="/facility/control/ViewShipment?shipmentId=${shipmentReceipt.shipmentId}${externalKeyParam}"
+                                               href="/facility/control/ViewShipment?shipmentId=${shipmentReceipt.shipmentId}${StringUtil.wrapString(externalKeyParam)}"
                                                class="buttontext">${shipmentReceipt.shipmentId}</a>:${shipmentReceipt.shipmentItemSeqId?if_exists}
                                         </#if>
                                         &nbsp;<#if shipmentReceipt.datetimeReceived?has_content>${Static["org.ofbiz.base.util.UtilFormatOut"].formatDateTime(shipmentReceipt.datetimeReceived, "", locale, timeZone)!}</#if>&nbsp;
                                         <span class="label">${uiLabelMap.CommonInventory}</span>&nbsp;
-                                        <a href="/facility/control/EditInventoryItem?inventoryItemId=${shipmentReceipt.inventoryItemId}${externalKeyParam}"
+                                        <a href="/facility/control/EditInventoryItem?inventoryItemId=${shipmentReceipt.inventoryItemId}${StringUtil.wrapString(externalKeyParam)}"
                                            class="buttontext">${shipmentReceipt.inventoryItemId}</a>
                                     </td>
                                     <td align="center">
