@@ -2518,7 +2518,8 @@ public class GenericDelegator implements Delegator {
                         sequencer = this.AtomicRefSequencer.get();
                     }
                 } catch (Exception e) {
-                    throw new IllegalStateException("Exception thrown while creating AtomicReference<SequenceUtil>: " + e);
+                    Debug.logError(e, "Exception thrown while creating AtomicReference<SequenceUtil>", module);
+                    throw new IllegalStateException("Error thrown while creating AtomicReference<SequenceUtil> in getNextSeqIdLong()" + e);
                 }
             }
 
