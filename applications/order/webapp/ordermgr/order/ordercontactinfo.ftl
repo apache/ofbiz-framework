@@ -86,7 +86,7 @@ under the License.
               <#if partyId?exists>
                 &nbsp;(<a href="${customerDetailLink}${partyId}${StringUtil.wrapString(externalKeyParam)}" target="partymgr" class="buttontext">${partyId}</a>)
                 <br/>
-                <#if orderHeader.salesChannelEnumId != "POS_SALES_CHANNEL">
+                <#if (orderHeader.salesChannelEnumId)?exists && orderHeader.salesChannelEnumId != "POS_SALES_CHANNEL">
                 <div>
                    <a href="<@ofbizUrl>/orderentry?partyId=${partyId}&amp;orderTypeId=${orderHeader.orderTypeId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNewOrder}</a>
                    <a href="javascript:document.searchOtherOrders.submit()" class="buttontext">${uiLabelMap.OrderOtherOrders}</a>
