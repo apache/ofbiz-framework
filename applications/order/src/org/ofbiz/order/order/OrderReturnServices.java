@@ -2386,6 +2386,7 @@ public class OrderReturnServices {
         String returnId = (String) context.get("returnId");
         String returnItemSeqId = (String) context.get("returnItemSeqId");
         String description = (String) context.get("description");
+        BigDecimal amount = (BigDecimal) context.get("amount");
         Locale locale = (Locale) context.get("locale");
 
         GenericValue returnItemTypeMap = null;
@@ -2394,8 +2395,6 @@ public class OrderReturnServices {
         GenericValue orderItem = null;
         GenericValue returnItem = null;
         GenericValue returnHeader = null;
-
-        BigDecimal amount;
 
         // if orderAdjustment is not empty, then copy most return adjustment information from orderAdjustment's
         if (orderAdjustmentId != null) {
@@ -2440,6 +2439,9 @@ public class OrderReturnServices {
                 throw new GeneralRuntimeException(e.getMessage());
             }
             context.putAll(orderAdjustment.getAllFields());
+            if (UtilValidate.isNotEmpty(amount)) {
+                context.put("amount", amount);
+            }
         }
 
         // if orderAdjustmentTypeId is empty, ie not found from orderAdjustmentId, then try to get returnAdjustmentTypeId from returnItemTypeMap,
