@@ -745,9 +745,9 @@ $(function(){
                     <#if !imageUrl?string?has_content>
                       <#assign imageUrl = "/images/defaultImage.jpg" />
                     </#if>
+                      <a href="javascript:getList('FT${featureOrderFirst}','${indexer}',1);" class="linktext">${key}</a>
                       <a href="javascript:getList('FT${featureOrderFirst}','${indexer}',1);"><img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${imageUrl}</@ofbizContentUrl>" class="cssImgSmall" alt="" /></a>
                       <br />
-                      <a href="javascript:getList('FT${featureOrderFirst}','${indexer}',1);" class="linktext">${key}</a>
                   </#if>
                   <#assign indexer = indexer + 1 />
                 </#list>
