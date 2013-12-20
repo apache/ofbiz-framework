@@ -30303,6 +30303,7 @@
     </property>
     <property key="ProductVerifyPick">
         <value xml:lang="en">Verify Pick</value>
+        <value xml:lang="en">Vérifier le prélèvement</value>
         <value xml:lang="it">Verifica prelievo</value>
         <value xml:lang="ja">ピッキングを確認</value>
         <value xml:lang="vi">Xác minh Xử lý đặt hàng (Pick)</value>
