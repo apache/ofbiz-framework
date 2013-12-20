@@ -11427,7 +11427,7 @@
         <value xml:lang="zh_TW">添加總賬賬戶</value>
     </property>
     <property key="ProductAddGroupOrder">
-        <value xml:lang="en">Add GroupOrder</value>
+        <value xml:lang="en">Add Group Order</value>
         <value xml:lang="ja">グループ注文を追加</value>
         <value xml:lang="vi">Thêm Nhóm đặt hàng</value>
         <value xml:lang="zh">添加订单组</value>
@@ -15627,7 +15627,7 @@
         <value xml:lang="zh_TW">特性分類的特性修改</value>
     </property>
     <property key="ProductEditGroupOrder">
-        <value xml:lang="en">Edit GroupOrder</value>
+        <value xml:lang="en">Edit Group Order</value>
         <value xml:lang="ja">グループ注文を編集</value>
         <value xml:lang="zh">编辑订单组</value>
     </property>
@@ -17595,7 +17595,8 @@
         <value xml:lang="zh_TW">組成員維護</value>
     </property>
     <property key="ProductGroupOrder">
-        <value xml:lang="en">GroupOrder</value>
+        <value xml:lang="en">Group Order</value>
+        <value xml:lang="fr">Groupe de commandes</value>
         <value xml:lang="ja">グループ注文</value>
         <value xml:lang="vi">Nhóm đặt hàng</value>
         <value xml:lang="zh">订单组</value>
