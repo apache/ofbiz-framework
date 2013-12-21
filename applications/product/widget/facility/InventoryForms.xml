@@ -34,15 +34,14 @@ under the License.
             </entity-one>
         </actions>
         <alt-target use-when="inventoryItemId==null" target="CreateInventoryItem"/>
-        <auto-fields-service service-name="updateInventoryItem" map-name="inventoryItem"/>
+        <auto-fields-service service-name="updateInventoryItem" map-name="inventoryItem"/>        
 
         <!-- ignored fields -->
         <field name="oldAvailableToPromise"><ignored/></field>
         <field name="oldQuantityOnHand"><ignored/></field>
-
+        
         <!-- custom formatted fields -->
-        <field use-when="inventoryItem!=null" name="inventoryItemId" tooltip="${uiLabelMap.ProductNotModificationRecrationInventoryItem}"><display/></field>
-        <field use-when="inventoryItem==null" name="inventoryItemId"><text/></field>
+        <field name="inventoryItemId" tooltip="${uiLabelMap.ProductNotModificationRecrationInventoryItem}"><display/></field>
         <field name="inventoryItemTypeId" title="${uiLabelMap.ProductInventoryItemTypeId}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="InventoryItemType" description="${description}" key-field-name="inventoryItemTypeId"/>
