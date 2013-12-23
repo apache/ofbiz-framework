@@ -29,7 +29,7 @@
         <conf name="mysql" description="downloads the mysql JDBC driver"/>
         <conf name="postgres" description="downloads the postgres JDBC driver"/>
         <conf name="sonar-ant-task" description="downloads the ant sonar task (need sonar>=2.8)
-            http://docs.codehaus.org/display/SONAR/Analyse+with+Ant+Task"/>
+            http://docs.codehaus.org/display/SONAR/Analyzing+with+SonarQube+Ant+Task"/>
     </configurations>
     <dependencies>
         <dependency org="net.sourceforge.cobertura" name="cobertura" rev="1.9.4.1" conf="cobertura->default"/>
