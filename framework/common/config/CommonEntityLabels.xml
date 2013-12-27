@@ -11807,8 +11807,8 @@
         <value xml:lang="pt_BR">Enfileirado</value>
         <value xml:lang="ru">Очереди</value>
         <value xml:lang="vi">Đang trong hàng đợi</value>
-        <value xml:lang="zh">正在运行</value>
-        <value xml:lang="zh_TW">正在運行</value>
+        <value xml:lang="zh">已进入队列</value>
+        <value xml:lang="zh_TW">已進入佇列</value>
     </property>
     <property key="StatusItem.description.SERVICE_RUNNING">
         <value xml:lang="en">Running</value>
@@ -11819,8 +11819,8 @@
         <value xml:lang="pt_BR">Em execução</value>
         <value xml:lang="ru">Работающий</value>
         <value xml:lang="vi">Đang chạy</value>
-        <value xml:lang="zh">已进入队列</value>
-        <value xml:lang="zh_TW">已進入佇列</value>
+        <value xml:lang="zh">正在运行</value>
+        <value xml:lang="zh_TW">正在運行</value>
     </property>
     <property key="StatusItem.description.SHIPMENT_CANCELLED">
         <value xml:lang="de">Annulliert</value>
