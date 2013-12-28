@@ -47,14 +47,18 @@ under the License.
 </#macro>
 
 <#macro renderLink linkUrl parameterList targetWindow uniqueItemName actionUrl linkType="" id="" style="" name="" height="" width="" text="" imgStr="">
-  <#if "hidden-form" == linkType>
+  <#if linkType?has_content && "hidden-form" == linkType>
 <form method="post" action="${actionUrl}"<#if targetWindow?has_content> target="${targetWindow}"</#if> onsubmit="javascript:submitFormDisableSubmits(this)" name="${uniqueItemName}"><#rt/>
     <#list parameterList as parameter>
 <input name="${parameter.name}" value="${parameter.value}" type="hidden"/><#rt/>
     </#list>
 </form><#rt/>
   </#if>
-<a<#if id?has_content> id="${id}"</#if><#if style?has_content> class="${style}"</#if><#if name?has_content> name="${name}"</#if><#if targetWindow?has_content> target="${targetWindow}"</#if> href="<#if "hidden-form"==linkType>javascript:document.${uniqueItemName}.submit()<#else>${linkUrl}</#if>"><#if imgStr?has_content>${imgStr}</#if><#if text?has_content>${text}</#if></a><#rt/>
+<#if linkType?has_content>
+<a<#if id?has_content> id="${id}"</#if><#if style?has_content> class="${style}"</#if><#if name?has_content> name="${name}"</#if><#if targetWindow?has_content> target="${targetWindow}"</#if> href="<#if "hidden-form"==linkType>javascript:document.${uniqueItemName}.submit()<#else>${linkUrl}</#if>"><#rt/>
+</#if>
+<#if imgStr?has_content>${imgStr}</#if><#if text?has_content>${text}</#if><#rt/>
+<#if linkType?has_content></a><#rt/></#if>
 </#macro>
 
 <#macro renderMenuItemBegin style toolTip linkStr containsNestedMenus>

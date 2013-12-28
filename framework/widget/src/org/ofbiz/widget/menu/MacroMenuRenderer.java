@@ -203,7 +203,10 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         parameters.put("targetWindow", link.getTargetWindow(context));
         String uniqueItemName = menuItem.getModelMenu().getName() + "_" + menuItem.getName() + "_LF_" + UtilMisc.<String> addToBigDecimalInMap(context, "menuUniqueItemIndex", BigDecimal.ONE);
         parameters.put("uniqueItemName", uniqueItemName);
-        String linkType = WidgetWorker.determineAutoLinkType(link.getLinkType(), target, link.getUrlMode(), request);
+        String linkType = "";
+        if (UtilValidate.isNotEmpty(target)) {
+            linkType = WidgetWorker.determineAutoLinkType(link.getLinkType(), target, link.getUrlMode(), request);
+        }
         parameters.put("linkType", linkType);
         String linkUrl = "";
         String actionUrl = "";
