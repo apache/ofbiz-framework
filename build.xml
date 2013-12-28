@@ -910,12 +910,13 @@ under the License.
     </target>
 
     <target name="run-tests"
-        description="Run OFBiz default tests; you have to manually execute 'ant load-demo' before (and if needed even clear your data before) and see results in runtime/logs/test-results/html/all-tests.html.">
+        description="Run OFBiz default tests; you have to manually execute 'ant load-demo' before (and if needed even clear your data before) and see results in runtime/logs/test-results/html/all-tests.html. Use -Dportoffset=portNumber to shift all ports with the portNumber value.">
         <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
             <arg value="test"/>
+            <arg value="-portoffset=${portoffset}"/>
             <env key="LC_ALL" value="C"/>
         </java>
         <mkdir dir="runtime/logs/test-results/html"/>
@@ -1063,8 +1064,8 @@ under the License.
         </cobertura-report>
     </target>
 
-    <target name="cobertura-report-xml"
-            description="Generate a XML file from the cobertura report, this will be use by sonar">
+    <target name="cobertura-report-xml" depends="_setup-separated-test-run"
+            description="Generate a XML file from the cobertura report, this will be used by sonar">
         <delete dir="runtime/logs/cobertura-report"/>
         <mkdir dir="runtime/logs/cobertura-report"/>
         <taskdef resource="tasks.properties">
@@ -1136,7 +1137,10 @@ under the License.
     <target name="full-sonar">
         <antcall target="clean-all"/>
         <antcall target="load-demo"/>
-        <antcall target="run-tests"/>
+        <antcall target="download-cobertura"/>
+        <antcall target="run-tests">
+          <param name="-portoffset" value="${portoffset}"/>
+        </antcall>
         <antcall target="cobertura-report-xml"/>
         <antcall target="sonar"/>
     </target>
