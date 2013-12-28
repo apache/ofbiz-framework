@@ -262,7 +262,7 @@ under the License.
             <link target="EditQuote"/>
         </menu-item>
         <menu-item name="createOrder" title="${uiLabelMap.OrderCreateOrder}">
-            <condition>
+            <condition disabled-style="disabled">
                 <and>
                     <not><if-empty field="quote"/></not>
                     <if-compare operator="equals" value="QUO_APPROVED" field="quote.statusId"/>
