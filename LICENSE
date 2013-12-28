@@ -80,7 +80,7 @@ framework/catalina/lib/tomcat-7.0.47-tomcat-embed-core.jar
 framework/catalina/lib/tomcat-7.0.47-tomcat-embed-jasper.jar
 framework/catalina/lib/tomcat-7.0.47-tomcat-embed-logging-log4j.jar
 framework/entity/lib/commons-dbcp-1.4.jar
-framework/entity/lib/jdbc/derby-10.8.2.2.jar
+framework/entity/lib/jdbc/derby-10.10.1.1.jar
 framework/entity/lib/jdbc/derbytools-10.8.2.2.jar
 framework/service/lib/axiom-api-1.2.9.jar
 framework/service/lib/axiom-impl-1.2.9.jar
