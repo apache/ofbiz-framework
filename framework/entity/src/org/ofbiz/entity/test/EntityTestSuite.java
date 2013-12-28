@@ -28,6 +28,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.sql.rowset.serial.SerialBlob;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.Observable;
 import org.ofbiz.base.util.Observer;
@@ -44,8 +46,8 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.config.model.Datasource;
 import org.ofbiz.entity.config.EntityConfigUtil;
+import org.ofbiz.entity.config.model.Datasource;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.testtools.EntityTestCase;
@@ -627,6 +629,7 @@ public class EntityTestSuite extends EntityTestCase {
         for (int i = 0; i < b.length; i++) {
             b[i] = (byte) i;
         }
+        Blob testBlob = new SerialBlob(b);
         String alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         StringBuilder sb = new StringBuilder(alpha.length() * 1000);
         for (int i = 0; i < 1000; i++) {
@@ -647,7 +650,7 @@ public class EntityTestSuite extends EntityTestCase {
         try {
             GenericValue testValue = delegator.makeValue("TestFieldType", "testFieldTypeId", id);
             testValue.create();
-            testValue.set("blobField", b);
+            testValue.set("blobField", testBlob);
             testValue.set("byteArrayField", b);
             testValue.set("objectField", currentTimestamp);
             testValue.set("dateField", currentDate);
@@ -660,13 +663,8 @@ public class EntityTestSuite extends EntityTestCase {
             testValue.store();
             testValue = delegator.findOne("TestFieldType", UtilMisc.toMap("testFieldTypeId", id), false);
             assertEquals("testFieldTypeId", id, testValue.get("testFieldTypeId"));
-            byte[] c = null;
-            try {
-                Blob blob = (Blob) testValue.get("blobField");
-                c = blob.getBytes(1, (int) blob.length());
-            } catch (ClassCastException e) {
-                c = (byte[]) testValue.get("blobField");
-            }
+            Blob blob = (Blob) testValue.get("blobField");
+            byte[] c = blob.getBytes(1, (int) blob.length());
             assertEquals("Byte array read from entity is the same length", b.length, c.length);
             for (int i = 0; i < b.length; i++) {
                 assertEquals("Byte array data[" + i + "]", b[i], c[i]);
