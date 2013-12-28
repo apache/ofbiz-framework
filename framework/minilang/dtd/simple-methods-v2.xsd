@@ -564,7 +564,7 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attribute ref="field" />
+            <xs:attribute ref="field" use="required" />
         </xs:complexType>
     </xs:element>
 
@@ -1456,7 +1456,7 @@ under the License.
     <xs:element name="set-service-fields" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>
-                Copies elements from a source map that match a service's IN attributes to a target map.
+                Copies elements from a source map that match a service's IN or OUT attributes to a target map.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -1464,7 +1464,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the service.
-                        
+
                         Required. Attribute types: constant, ${expression}.
                     </xs:documentation>
                 </xs:annotation>
@@ -1472,8 +1472,8 @@ under the License.
             <xs:attribute type="xs:string" name="map" use="required">
                 <xs:annotation>
                     <xs:documentation>
-                        The map to copy the matching IN attributes from.
-                        
+                        The map to copy the matching attributes from.
+
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
@@ -1481,12 +1481,27 @@ under the License.
             <xs:attribute type="xs:string" name="to-map" use="required">
                 <xs:annotation>
                     <xs:documentation>
-                        The map to copy the matching IN attributes to.
+                        The map to copy the matching attributes to.
                         If the map does not exist, a new one will be created.
-                        
+
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="mode">
+                <xs:annotation>
+                    <xs:documentation>
+                        The service attributes mode - IN or OUT. Defaults to "IN".
+
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="IN" />
+                        <xs:enumeration value="OUT" />
+                    </xs:restriction>
+                </xs:simpleType>
             </xs:attribute>
         </xs:complexType>
     </xs:element>

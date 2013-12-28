@@ -60,14 +60,16 @@ public final class SetServiceFields extends MethodOperation {
     private final FlexibleMapAccessor<Map<String, ? extends Object>> mapFma;
     private final FlexibleStringExpander serviceNameFse;
     private final FlexibleMapAccessor<Map<String, Object>> toMapFma;
+    private final String mode;
 
     public SetServiceFields(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         if (MiniLangValidate.validationOn()) {
-            MiniLangValidate.attributeNames(simpleMethod, element, "service-name", "map", "to-map");
+            MiniLangValidate.attributeNames(simpleMethod, element, "service-name", "map", "to-map", "mode");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "service-name", "map", "to-map");
             MiniLangValidate.constantPlusExpressionAttributes(simpleMethod, element, "service-name");
             MiniLangValidate.expressionAttributes(simpleMethod, element, "map", "to-map");
+            MiniLangValidate.constantAttributes(simpleMethod, element, "mode");
             MiniLangValidate.noChildElements(simpleMethod, element);
         }
         boolean elementModified = autoCorrect(element);
@@ -77,6 +79,7 @@ public final class SetServiceFields extends MethodOperation {
         serviceNameFse = FlexibleStringExpander.getInstance(element.getAttribute("service-name"));
         mapFma = FlexibleMapAccessor.getInstance(element.getAttribute("map"));
         toMapFma = FlexibleMapAccessor.getInstance(element.getAttribute("to-map"));
+        mode = ModelService.OUT_PARAM.equals(element.getAttribute("mode")) ? ModelService.OUT_PARAM : ModelService.IN_PARAM;
     }
 
     @Override
@@ -101,7 +104,7 @@ public final class SetServiceFields extends MethodOperation {
             toMapFma.put(methodContext.getEnvMap(), toMap);
         }
         List<Object> errorMessages = new LinkedList<Object>();
-        Map<String, Object> validAttributes = modelService.makeValid(fromMap, "IN", true, errorMessages, methodContext.getTimeZone(), methodContext.getLocale());
+        Map<String, Object> validAttributes = modelService.makeValid(fromMap, mode, true, errorMessages, methodContext.getTimeZone(), methodContext.getLocale());
         if (errorMessages.size() > 0) {
             for (Object obj : errorMessages) {
                 simpleMethod.addErrorMessage(methodContext, (String) obj);
@@ -129,6 +132,7 @@ public final class SetServiceFields extends MethodOperation {
         if (!this.toMapFma.isEmpty()) {
             sb.append("to-map=\"").append(this.toMapFma).append("\" ");
         }
+        sb.append("mode=\"").append(this.mode).append("\" ");
         sb.append("/>");
         return sb.toString();
     }
