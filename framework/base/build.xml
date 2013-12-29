@@ -70,7 +70,13 @@ under the License.
                 <available classname="javax.crypto.Cipher" classpathref="local.class.path"/>
             </not>
         </condition>
+        <condition property="exclude.cobertura" value="org/ofbiz/base/config/Cobertura*.java">
+            <not>
+                <available classname="net.sourceforge.cobertura.instrument.ClassInstrumenter" classpathref="local.class.path"/>
+            </not>
+        </condition>
         <patternset id="src.exc.set">
+            <exclude name="${exclude.cobertura}"/>
             <exclude name="${exclude.crypto}"/>
             <exclude name="org/ofbiz/base/util/OfbizJsBsfEngine.java"/>
         </patternset>
