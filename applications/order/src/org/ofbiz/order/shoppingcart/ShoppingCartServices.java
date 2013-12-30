@@ -21,6 +21,7 @@ package org.ofbiz.order.shoppingcart;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -629,7 +630,7 @@ public class ShoppingCartServices {
                 cart.addProductPromoCode(productPromoCode, dispatcher);
             }
             for (GenericValue productPromoUse: orh.getProductPromoUse()) {
-                cart.addProductPromoUse(productPromoUse.getString("productPromoId"), productPromoUse.getString("productPromoCodeId"), productPromoUse.getBigDecimal("totalDiscountAmount"), productPromoUse.getBigDecimal("quantityLeftInActions"));
+                cart.addProductPromoUse(productPromoUse.getString("productPromoId"), productPromoUse.getString("productPromoCodeId"), productPromoUse.getBigDecimal("totalDiscountAmount"), productPromoUse.getBigDecimal("quantityLeftInActions"), new HashMap<ShoppingCartItem, BigDecimal>());
             }
         }
 
