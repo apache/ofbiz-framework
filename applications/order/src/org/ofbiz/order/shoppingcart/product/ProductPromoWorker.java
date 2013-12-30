@@ -22,6 +22,8 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -51,6 +53,7 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.shoppingcart.CartItemModifyException;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
+import org.ofbiz.order.shoppingcart.ShoppingCart.ProductPromoUseInfo;
 import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
 import org.ofbiz.order.shoppingcart.ShoppingCartItem;
 import org.ofbiz.product.product.ProductContentWrapper;
@@ -318,44 +321,62 @@ public class ProductPromoWorker {
             // do a calculate only run through the promotions, then order by descending totalDiscountAmount for each promotion
             // NOTE: on this run, with isolatedTestRun passed as false it should not apply any adjustments
             //  or track which cart items are used for which promotions, but it will track ProductPromoUseInfo and
-            //  useLimits; we are basicly just trying to run each promo "independently" to see how much each is worth
+            //  useLimits; we are basically just trying to run each promo "independently" to see how much each is worth
             runProductPromos(productPromoList, cart, delegator, dispatcher, nowTimestamp, true);
 
-            // NOTE: after that first pass we could remove any that have a 0 totalDiscountAmount from the run list, but we won't because by the time they are run the cart may have changed enough to get them to go; also, certain actions like free shipping should always be run even though we won't know what the totalDiscountAmount is at the time the promotion is run
-            // each ProductPromoUseInfo on the shopping cart will contain it's total value, so add up all totals for each promoId and put them in a List of Maps
-            // create a List of Maps with productPromo and totalDiscountAmount, use the Map sorter to sort them descending by totalDiscountAmount
+            // NOTE: we can easily recognize the promos for the order total: they are the ones with usage set to 0
+            Iterator<ProductPromoUseInfo> promoUses = cart.getProductPromoUseInfoIter();
+            List<ProductPromoUseInfo> sortedPromoUses = new ArrayList<ProductPromoUseInfo>();
+            while (promoUses.hasNext()) {
+                ProductPromoUseInfo promoUse = promoUses.next();
+                sortedPromoUses.add(promoUse);
+            }
+            Collections.sort(sortedPromoUses);
+            List<GenericValue> sortedExplodedProductPromoList = new ArrayList<GenericValue>(sortedPromoUses.size());
+            Map<String, Long> usesPerPromo = new HashMap<String, Long>();
+            int indexOfFirstOrderTotalPromo = -1;
+            for (ProductPromoUseInfo promoUse: sortedPromoUses) {
+                GenericValue productPromo = delegator.findOne("ProductPromo", UtilMisc.toMap("productPromoId", promoUse.getProductPromoId()), true);
+                GenericValue newProductPromo = (GenericValue)productPromo.clone();
+                if (!usesPerPromo.containsKey(promoUse.getProductPromoId())) {
+                    usesPerPromo.put(promoUse.getProductPromoId(), 0l);
+                }
+                long uses = usesPerPromo.get(promoUse.getProductPromoId());
+                uses = uses + 1;
+                long useLimitPerOrder = (newProductPromo.get("useLimitPerOrder") != null? newProductPromo.getLong("useLimitPerOrder"): -1);
+                if (useLimitPerOrder == -1 || uses < useLimitPerOrder) {
+                    newProductPromo.set("useLimitPerOrder", uses);
+                }
+                usesPerPromo.put(promoUse.getProductPromoId(), uses);
+                sortedExplodedProductPromoList.add(newProductPromo);
+                if (indexOfFirstOrderTotalPromo == -1 && BigDecimal.ZERO.equals(promoUse.getUsageWeight())) {
+                    indexOfFirstOrderTotalPromo = sortedExplodedProductPromoList.size() - 1;
+                }
+            }
+            if (indexOfFirstOrderTotalPromo == -1) {
+                indexOfFirstOrderTotalPromo = sortedExplodedProductPromoList.size() - 1;
+            }
 
-            // before sorting split into two lists and sort each list; one list for promos that have a order total condition, and the other list for all promos that don't; then we'll always run the ones that have no condition on the order total first
-            List<Map<Object, Object>> productPromoDiscountMapList = FastList.newInstance();
-            List<Map<Object, Object>> productPromoDiscountMapListOrderTotal = FastList.newInstance();
             for (GenericValue productPromo : productPromoList) {
                 Map<Object, Object> productPromoDiscountMap = UtilGenerics.checkMap(UtilMisc.toMap("productPromo", productPromo, "totalDiscountAmount", cart.getProductPromoUseTotalDiscount(productPromo.getString("productPromoId"))));
                 if (hasOrderTotalCondition(productPromo, delegator)) {
-                    productPromoDiscountMapListOrderTotal.add(productPromoDiscountMap);
+                    if (!usesPerPromo.containsKey(productPromo.getString("productPromoId"))) {
+                        sortedExplodedProductPromoList.add(productPromo);
+                    }
                 } else {
-                    productPromoDiscountMapList.add(productPromoDiscountMap);
+                    if (!usesPerPromo.containsKey(productPromo.getString("productPromoId"))) {
+                        if (indexOfFirstOrderTotalPromo != -1) {
+                            sortedExplodedProductPromoList.add(indexOfFirstOrderTotalPromo, productPromo);
+                        } else {
+                            sortedExplodedProductPromoList.add(0, productPromo);
+                        }
+                    }
                 }
-            }
-
-
-            // sort the Map List, do it ascending because the discount amounts will be negative, so the lowest number is really the highest discount
-            productPromoDiscountMapList = UtilMisc.sortMaps(productPromoDiscountMapList, UtilMisc.toList("+totalDiscountAmount"));
-            productPromoDiscountMapListOrderTotal = UtilMisc.sortMaps(productPromoDiscountMapListOrderTotal, UtilMisc.toList("+totalDiscountAmount"));
-
-            productPromoDiscountMapList.addAll(productPromoDiscountMapListOrderTotal);
-
-            List<GenericValue> sortedProductPromoList = new ArrayList<GenericValue>(productPromoDiscountMapList.size());
-            Iterator<Map<Object, Object>> productPromoDiscountMapIter = productPromoDiscountMapList.iterator();
-            while (productPromoDiscountMapIter.hasNext()) {
-                Map<Object, Object> productPromoDiscountMap = UtilGenerics.checkMap(productPromoDiscountMapIter.next());
-                GenericValue productPromo = (GenericValue) productPromoDiscountMap.get("productPromo");
-                sortedProductPromoList.add(productPromo);
-                if (Debug.verboseOn()) Debug.logVerbose("Sorted Promo [" + productPromo.getString("productPromoId") + "] with total discount: " + productPromoDiscountMap.get("totalDiscountAmount"), module);
             }
 
             // okay, all ready, do the real run, clearing the temporary result first...
             cart.clearAllPromotionInformation();
-            runProductPromos(sortedProductPromoList, cart, delegator, dispatcher, nowTimestamp, false);
+            runProductPromos(sortedExplodedProductPromoList, cart, delegator, dispatcher, nowTimestamp, false);
         } catch (NumberFormatException e) {
             Debug.logError(e, "Number not formatted correctly in promotion rules, not completed...", module);
         } catch (GenericEntityException e) {
@@ -436,7 +457,7 @@ public class ProductPromoWorker {
                                     GenericValue productPromoCode = productPromoCodeIter.next();
                                     String productPromoCodeId = productPromoCode.getString("productPromoCodeId");
                                     Long codeUseLimit = getProductPromoCodeUseLimit(productPromoCode, partyId, delegator);
-                                    if (runProductPromoRules(cart, cartChanged, useLimit, true, productPromoCodeId, codeUseLimit, maxUseLimit, productPromo, productPromoRules, dispatcher, delegator, nowTimestamp)) {
+                                    if (runProductPromoRules(cart, useLimit, true, productPromoCodeId, codeUseLimit, maxUseLimit, productPromo, productPromoRules, dispatcher, delegator, nowTimestamp)) {
                                         cartChanged = true;
                                     }
 
@@ -448,7 +469,7 @@ public class ProductPromoWorker {
                             }
                         } else {
                             try {
-                                if (runProductPromoRules(cart, cartChanged, useLimit, false, null, null, maxUseLimit, productPromo, productPromoRules, dispatcher, delegator, nowTimestamp)) {
+                                if (runProductPromoRules(cart, useLimit, false, null, null, maxUseLimit, productPromo, productPromoRules, dispatcher, delegator, nowTimestamp)) {
                                     cartChanged = true;
                                 }
                             } catch (RuntimeException e) {
@@ -735,8 +756,10 @@ public class ProductPromoWorker {
         return promoDescBuf.toString();
     }
 
-    protected static boolean runProductPromoRules(ShoppingCart cart, boolean cartChanged, Long useLimit, boolean requireCode, String productPromoCodeId, Long codeUseLimit, long maxUseLimit,
+    protected static boolean runProductPromoRules(ShoppingCart cart, Long useLimit, boolean requireCode, String productPromoCodeId, Long codeUseLimit, long maxUseLimit,
         GenericValue productPromo, List<GenericValue> productPromoRules, LocalDispatcher dispatcher, Delegator delegator, Timestamp nowTimestamp) throws GenericEntityException, UseLimitException {
+        boolean cartChanged = false;
+        Map<ShoppingCartItem,BigDecimal> usageInfoMap = prepareProductUsageInfoMap(cart);
         String productPromoId = productPromo.getString("productPromoId");
         while ((useLimit == null || useLimit.longValue() > cart.getProductPromoUseCount(productPromoId)) &&
                 (!requireCode || UtilValidate.isNotEmpty(productPromoCodeId)) &&
@@ -755,17 +778,17 @@ public class ProductPromoWorker {
                 // loop through conditions for rule, if any false, set allConditionsTrue to false
                 List<GenericValue> productPromoConds = delegator.findByAnd("ProductPromoCond", UtilMisc.toMap("productPromoId", productPromo.get("productPromoId")), UtilMisc.toList("productPromoCondSeqId"), true);
                 productPromoConds = EntityUtil.filterByAnd(productPromoConds, UtilMisc.toMap("productPromoRuleId", productPromoRule.get("productPromoRuleId")));
-                // using the other method to consolodate cache entries because the same cache is used elsewhere: List productPromoConds = productPromoRule.getRelated("ProductPromoCond", null, UtilMisc.toList("productPromoCondSeqId"), true);
+                // using the other method to consolidate cache entries because the same cache is used elsewhere: List productPromoConds = productPromoRule.getRelated("ProductPromoCond", null, UtilMisc.toList("productPromoCondSeqId"), true);
                 if (Debug.verboseOn()) Debug.logVerbose("Checking " + productPromoConds.size() + " conditions for rule " + productPromoRule, module);
 
                 Iterator<GenericValue> productPromoCondIter = UtilMisc.toIterator(productPromoConds);
                 while (productPromoCondIter != null && productPromoCondIter.hasNext()) {
                     GenericValue productPromoCond = productPromoCondIter.next();
 
-                    boolean condResult = checkCondition(productPromoCond, cart, delegator, dispatcher, nowTimestamp);
+                    boolean conditionSatisfied = checkCondition(productPromoCond, cart, delegator, dispatcher, nowTimestamp);
 
                     // any false condition will cause it to NOT perform the action
-                    if (condResult == false) {
+                    if (!conditionSatisfied) {
                         performActions = false;
                         break;
                     }
@@ -797,12 +820,15 @@ public class ProductPromoWorker {
             }
 
             if (promoUsed) {
-                cart.addProductPromoUse(productPromo.getString("productPromoId"), productPromoCodeId, totalDiscountAmount, quantityLeftInActions);
+                // Get product use information from the cart
+                Map<ShoppingCartItem,BigDecimal> newUsageInfoMap = prepareProductUsageInfoMap(cart);
+                Map<ShoppingCartItem,BigDecimal> deltaUsageInfoMap = prepareDeltaProductUsageInfoMap(usageInfoMap, newUsageInfoMap);
+                usageInfoMap = newUsageInfoMap;
+                cart.addProductPromoUse(productPromo.getString("productPromoId"), productPromoCodeId, totalDiscountAmount, quantityLeftInActions, deltaUsageInfoMap);
             } else {
                 // the promotion was not used, don't try again until we finish a full pass and come back to see the promo conditions are now satisfied based on changes to the cart
                 break;
             }
-
 
             if (cart.getProductPromoUseCount(productPromoId) > maxUseLimit) {
                 throw new UseLimitException("ERROR: While calculating promotions the promotion [" + productPromoId + "] action was applied more than " + maxUseLimit + " times, so the calculation has been ended. This should generally never happen unless you have bad rule definitions.");
@@ -810,6 +836,34 @@ public class ProductPromoWorker {
         }
 
         return cartChanged;
+    }
+
+    private static Map<ShoppingCartItem,BigDecimal> prepareProductUsageInfoMap(ShoppingCart cart) {
+        Map<ShoppingCartItem,BigDecimal> usageInfoMap = new HashMap<ShoppingCartItem, BigDecimal>();
+        List<ShoppingCartItem> lineOrderedByBasePriceList = cart.getLineListOrderedByBasePrice(false);
+        for (ShoppingCartItem cartItem : lineOrderedByBasePriceList) {
+            BigDecimal used = cartItem.getPromoQuantityUsed();
+            if (used.compareTo(BigDecimal.ZERO) != 0) {
+                usageInfoMap.put(cartItem, used);
+            }
+        }
+        return usageInfoMap;
+    }
+
+    private static Map<ShoppingCartItem,BigDecimal> prepareDeltaProductUsageInfoMap(Map<ShoppingCartItem,BigDecimal> oldMap, Map<ShoppingCartItem,BigDecimal> newMap) {
+        Map<ShoppingCartItem,BigDecimal> deltaUsageInfoMap = new HashMap<ShoppingCartItem, BigDecimal>(newMap);
+        Iterator<ShoppingCartItem> cartLines = oldMap.keySet().iterator();
+        while (cartLines.hasNext()) {
+            ShoppingCartItem cartLine = cartLines.next();
+            BigDecimal oldUsed = oldMap.get(cartLine);
+            BigDecimal newUsed = newMap.get(cartLine);
+            if (newUsed.compareTo(oldUsed) > 0) {
+                deltaUsageInfoMap.put(cartLine, newUsed.add(oldUsed.negate()));
+            } else {
+                deltaUsageInfoMap.remove(cartLine);
+            }
+        }
+        return deltaUsageInfoMap;
     }
 
     protected static boolean checkCondition(GenericValue productPromoCond, ShoppingCart cart, Delegator delegator, LocalDispatcher dispatcher, Timestamp nowTimestamp) throws GenericEntityException {
@@ -1772,8 +1826,8 @@ public class ProductPromoWorker {
             actionResultInfo.ranAction = false;
         }
 
+        // in action, if doesn't have enough quantity to use the promo at all, remove candidate promo uses and increment promoQuantityUsed; this should go for all actions, if any action runs we confirm
         if (actionResultInfo.ranAction) {
-            // in action, if doesn't have enough quantity to use the promo at all, remove candidate promo uses and increment promoQuantityUsed; this should go for all actions, if any action runs we confirm
             cart.confirmPromoRuleUse(productPromoAction.getString("productPromoId"), productPromoAction.getString("productPromoRuleId"));
         } else {
             cart.resetPromoRuleUse(productPromoAction.getString("productPromoId"), productPromoAction.getString("productPromoRuleId"));

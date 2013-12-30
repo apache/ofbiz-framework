@@ -2714,7 +2714,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
             itemsTotal = itemsTotal.add(cartItem.getItemSubTotal());
         }
-        return itemsTotal;
+        return itemsTotal.add(this.getOrderOtherAdjustmentTotal());
     }
 
     /**
@@ -3142,12 +3142,12 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         return new HashMap<GenericPK, String>(this.desiredAlternateGiftByAction);
     }
 
-    public void addProductPromoUse(String productPromoId, String productPromoCodeId, BigDecimal totalDiscountAmount, BigDecimal quantityLeftInActions) {
+    public void addProductPromoUse(String productPromoId, String productPromoCodeId, BigDecimal totalDiscountAmount, BigDecimal quantityLeftInActions, Map<ShoppingCartItem,BigDecimal> usageInfoMap) {
         if (UtilValidate.isNotEmpty(productPromoCodeId) && !this.productPromoCodes.contains(productPromoCodeId)) {
             throw new IllegalStateException("Cannot add a use to a promo code use for a code that has not been entered.");
         }
         if (Debug.verboseOn()) Debug.logVerbose("Used promotion [" + productPromoId + "] with code [" + productPromoCodeId + "] for total discount [" + totalDiscountAmount + "] and quantity left in actions [" + quantityLeftInActions + "]", module);
-        this.productPromoUseInfoList.add(new ProductPromoUseInfo(productPromoId, productPromoCodeId, totalDiscountAmount, quantityLeftInActions));
+        this.productPromoUseInfoList.add(new ProductPromoUseInfo(productPromoId, productPromoCodeId, totalDiscountAmount, quantityLeftInActions, usageInfoMap));
     }
 
     public void removeProductPromoUse(String productPromoId) {
@@ -4385,23 +4385,43 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
     }
 
-    public static class ProductPromoUseInfo implements Serializable {
+    public static class ProductPromoUseInfo implements Serializable, Comparable<ProductPromoUseInfo> {
         public String productPromoId = null;
         public String productPromoCodeId = null;
         public BigDecimal totalDiscountAmount = BigDecimal.ZERO;
         public BigDecimal quantityLeftInActions = BigDecimal.ZERO;
+        private Map<ShoppingCartItem,BigDecimal> usageInfoMap = null;
 
-        public ProductPromoUseInfo(String productPromoId, String productPromoCodeId, BigDecimal totalDiscountAmount, BigDecimal quantityLeftInActions) {
+        public ProductPromoUseInfo(String productPromoId, String productPromoCodeId, BigDecimal totalDiscountAmount, BigDecimal quantityLeftInActions, Map<ShoppingCartItem,BigDecimal> usageInfoMap) {
             this.productPromoId = productPromoId;
             this.productPromoCodeId = productPromoCodeId;
             this.totalDiscountAmount = totalDiscountAmount;
             this.quantityLeftInActions = quantityLeftInActions;
+            this.usageInfoMap = usageInfoMap;
         }
 
         public String getProductPromoId() { return this.productPromoId; }
         public String getProductPromoCodeId() { return this.productPromoCodeId; }
         public BigDecimal getTotalDiscountAmount() { return this.totalDiscountAmount; }
         public BigDecimal getQuantityLeftInActions() { return this.quantityLeftInActions; }
+        public Map<ShoppingCartItem,BigDecimal> getUsageInfoMap() { return this.usageInfoMap; }
+        public BigDecimal getUsageWeight() {
+            Iterator<ShoppingCartItem> lineItems = this.usageInfoMap.keySet().iterator();
+            BigDecimal totalAmount = BigDecimal.ZERO;
+            while (lineItems.hasNext()) {
+                ShoppingCartItem lineItem = lineItems.next();
+                totalAmount = totalAmount.add(lineItem.getBasePrice().multiply(usageInfoMap.get(lineItem)));
+            }
+            if (totalAmount.compareTo(BigDecimal.ZERO) == 0) {
+                return BigDecimal.ZERO;
+            } else {
+                return getTotalDiscountAmount().negate().divide(totalAmount);
+            }
+        }
+
+        public int compareTo(ProductPromoUseInfo other) {
+            return other.getUsageWeight().compareTo(getUsageWeight());
+        }
     }
 
     public static class CartShipInfo implements Serializable {
