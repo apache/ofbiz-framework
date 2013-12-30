@@ -94,7 +94,7 @@
     <classpathentry kind="lib" path="framework/base/lib/scripting/asm-util-3.2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/scripting/bsf-2.4.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/scripting/bsh-2.0b4.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/scripting/groovy-all-2.1.9.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/scripting/groovy-all-2.2.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/scripting/jakarta-oro-2.0.8.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/scripting/jython-nooro.jar"/>
     <classpathentry kind="lib" path="specialpurpose/birt/lib/org.eclipse.birt.runtime_3.7.2.v20120214-1408.jar"/>
