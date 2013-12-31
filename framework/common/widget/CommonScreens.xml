@@ -153,6 +153,8 @@ under the License.
                 <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.8.2.min.js" global="true" />
                 <!-- jQuery CSSs -->
                 <set field="layoutSettings.styleSheets[+0]" value="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.css" global="true" />
+                
+                <set field="layoutSettings.javaScripts[]" value="/images/OpenLayers-2.13.1.js" global="true" />
                 <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true" />
                 <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true" />
                 <set field="layoutSettings.javaScripts[]" value="/images/GooglemapMarkers.js" global="true" />
@@ -483,8 +485,7 @@ under the License.
                     <!-- jQuery CSSs -->
                 <set field="layoutSettings.styleSheets[+0]" value="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.css" global="true"/>
 
-
-
+                <set field="layoutSettings.javaScripts[]" value="/images/OpenLayers-2.13.1.js" global="true" />
                 <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/GooglemapSimple.js" global="true"/>

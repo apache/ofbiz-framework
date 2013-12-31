@@ -134,7 +134,7 @@ under the License.
                 <result-to-field result-name="geoPointId" field="geoPointId"/>
             </call-service>
 
-            <now-timestamp field="nowTimestamp"/>
+            <now field="nowTimestamp"/>
             <make-value value-field="partyGeoPoint" entity-name="PartyGeoPoint"/>
             <set field="partyGeoPoint.partyId" from-field="parameters.partyId"/>
             <set field="partyGeoPoint.geoPointId" from-field="geoPointId"/>
