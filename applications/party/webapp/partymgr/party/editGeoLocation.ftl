@@ -17,95 +17,106 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign defaultUrl = "https." + request.getServerName()>
-<#assign defaultGogleMapKey = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("general.properties", defaultUrl)>
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=${defaultGogleMapKey}" type="text/javascript"></script>
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
 <script type="text/javascript">
     function load() {
-        if (GBrowserIsCompatible()) {
-            var map = new GMap2(document.getElementById("map"));
-            map.addControl(new GSmallMapControl());
-            map.addControl(new GMapTypeControl());
-            var center = new GLatLng(${latitude?if_exists}, ${longitude?if_exists});
-            map.setCenter(center, 15);
-            geocoder = new GClientGeocoder();
-            var marker = new GMarker(center, {draggable: true});  
+        var geocoder = new google.maps.Geocoder();
+        var center = new google.maps.LatLng(${latitude!38}, ${longitude!15});
+        var map = new google.maps.Map(document.getElementById("map"),
+          { center: center,
+            zoom: 15, // 0=World, 19=max zoom in
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          });
+
+        var marker = new google.maps.Marker({
+          position: center,
+          map: map,
+          draggable: true
+        });
+    
+        document.getElementById("lat").value = center.lat().toFixed(5);
+        document.getElementById("lng").value = center.lng().toFixed(5);
+
+        google.maps.event.addListener(marker, "dragend", function() {
+          var point = marker.getPosition();
+          map.panTo(point);
+          document.getElementById("lat").value = point.lat().toFixed(5);
+          document.getElementById("lng").value = point.lng().toFixed(5);
+        });
+    
+    
+        google.maps.event.addListener(map, "moveend", function() {
+            map.clearOverlays();
+            var center = map.getCenter();
+            var marker = new GMarker(center, {draggable: true});
             map.addOverlay(marker);
             document.getElementById("lat").value = center.lat().toFixed(5);
             document.getElementById("lng").value = center.lng().toFixed(5);
-
-            GEvent.addListener(marker, "dragend", function() {
-                var point = marker.getPoint();
-                map.panTo(point);
-                document.getElementById("lat").value = point.lat().toFixed(5);
-                document.getElementById("lng").value = point.lng().toFixed(5);
-            });
-
-            GEvent.addListener(map, "moveend", function() {
-                map.clearOverlays();
-                var center = map.getCenter();
-                var marker = new GMarker(center, {draggable: true});
-                map.addOverlay(marker);
-                document.getElementById("lat").value = center.lat().toFixed(5);
-                document.getElementById("lng").value = center.lng().toFixed(5);
+        });
     
-            GEvent.addListener(marker, "dragend", function() {
-                var point =marker.getPoint();
-                map.panTo(point);
-                document.getElementById("lat").value = point.lat().toFixed(5);
-                document.getElementById("lng").value = point.lng().toFixed(5);
-            });
-            });
-        }
+        google.maps.event.addListener(marker, "dragend", function() {
+            var point = marker.getPoint();
+            map.panTo(point);
+            document.getElementById("lat").value = point.lat().toFixed(5);
+            document.getElementById("lng").value = point.lng().toFixed(5);
+        });
     }
 
     function showAddress(address) {
-        var map = new GMap2(document.getElementById("map"));
-        map.addControl(new GSmallMapControl());
-        map.addControl(new GMapTypeControl());
+        var map = new google.maps.Map(document.getElementById("map"),
+          { center: new google.maps.LatLng(${latitude!38}, ${longitude!15}),
+            zoom: 15, // 0=World, 19=max zoom in
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          });
+        var geocoder = new google.maps.Geocoder();
         if (geocoder) {
-            geocoder.getLatLng(
-            address,
-            function(point) {
-                if (!point) {
-                    alert(address + " not found");
-                } else {
-                    document.getElementById("lat").value = point.lat().toFixed(5);
-                    document.getElementById("lng").value = point.lng().toFixed(5);
-                    map.clearOverlays()
-                    map.setCenter(point, 14);
-                    var marker = new GMarker(point, {draggable: true});  
+            geocoder.geocode({'address': address}, function(result, status) {
+              if (status != google.maps.GeocoderStatus.OK) {
+                showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.CommonAddressNotFound}");
+            } else {
+                var point = result[0].geometry.location; 
+                var lat = point.lat().toFixed(5);
+                var lng = point.lng().toFixed(5);
+                document.getElementById("lat").value = lat; 
+                document.getElementById("lng").value = lng;
+                //map.clearOverlays()
+                map.setCenter(point, 14);
+        
+                var marker = new google.maps.Marker({
+                  position: new google.maps.LatLng(lat, lng),
+                  map: map,
+                  draggable: true
+                });
+                
+                google.maps.event.addListener(marker, "dragend", function() {
+                  var point = marker.getPosition();
+                  map.panTo(point);
+                  document.getElementById("lat").value = point.lat().toFixed(5);
+                  document.getElementById("lng").value = point.lng().toFixed(5);
+                });
+
+                google.maps.event.addListener(map, "moveend", function() {
+                    //map.clearOverlays();
+                    var center = map.getCenter();
+                    var marker = new google.maps.Marker(center, {draggable: true});
                     map.addOverlay(marker);
+                    document.getElementById("lat").value = center.lat().toFixed(5);
+                    document.getElementById("lng").value = center.lng().toFixed(5);
+                });
 
-                    GEvent.addListener(marker, "dragend", function() {
-                        var pt = marker.getPoint();
-                        map.panTo(pt);
-                        document.getElementById("lat").value = pt.lat().toFixed(5);
-                        document.getElementById("lng").value = pt.lng().toFixed(5);
-                    });
-
-                    GEvent.addListener(map, "moveend", function() {
-                        map.clearOverlays();
-                        var center = map.getCenter();
-                        var marker = new GMarker(center, {draggable: true});
-                        map.addOverlay(marker);
-                        document.getElementById("lat").value = center.lat().toFixed(5);
-                        document.getElementById("lng").value = center.lng().toFixed(5);
-
-                    GEvent.addListener(marker, "dragend", function() {
-                        var pt = marker.getPoint();
-                        map.panTo(pt);
-                        document.getElementById("lat").value = pt.lat().toFixed(5);
-                        document.getElementById("lng").value = pt.lng().toFixed(5);
-                    });
-                    });
-                }
-            });
+                google.maps.event.addListener(marker, "dragend", function() {
+                    var pt = marker.getPoint();
+                    map.panTo(pt);
+                    document.getElementById("lat").value = pt.lat().toFixed(5);
+                    document.getElementById("lng").value = pt.lng().toFixed(5);
+                });
+            }
+        });
         }
     }
 </script>
 
-<body onload="load()" onunload="GUnload()" >
+<body onload="load()">
     <center>
         <div align="center" id="map" style="border:1px solid #979797; background-color:#e5e3df; width:500px; height:450px; margin:2em auto;"><br/></div>
         <form action="#" onsubmit="showAddress(this.address.value); return false">
@@ -116,7 +127,7 @@ under the License.
         <form id="updateMapForm" method="post" action="<@ofbizUrl>editGeoLocation</@ofbizUrl>">
             <input type="hidden" name="partyId" value="${partyId?if_exists}"/>
             <input type="hidden" name="geoPointId" value="${geoPointId?if_exists}"/>
-            <input type="hidden"  name="lat" id="lat"/>
+            <input type="hidden" name="lat" id="lat"/>
             <input type="hidden" name="lng" id="lng"/>
             <input type="submit" id="createMapButton" class="smallSubmit" value="${uiLabelMap.CommonSubmit}">
         </form>
