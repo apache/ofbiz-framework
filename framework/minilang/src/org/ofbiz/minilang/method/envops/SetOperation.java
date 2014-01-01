@@ -144,8 +144,7 @@ public final class SetOperation extends MethodOperation {
                 Debug.logWarning(exc, "Error evaluating scriptlet [" + this.scriptlet + "]: " + exc, module);
             }
         } else if (!this.fromFma.isEmpty()) {
-            Locale locale = methodContext.getLocale();
-            if (!this.localeFse.isEmpty()) {
+            if (!this.localeFse.isEmpty() && this.type.length() > 0) {
                 methodContext.setLocale(new Locale(this.localeFse.expandString(methodContext.getEnvMap())));
             }
             newValue = this.fromFma.get(methodContext.getEnvMap());
