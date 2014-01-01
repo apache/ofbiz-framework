@@ -165,14 +165,14 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="ExampleGeoLocationPointSet1"/>
-                <set field="geoPoints[+0].lat" value="37.4419" type="Float"/>
-                <set field="geoPoints[0].lon" value="-122.1419" type="Float"/>
-                <set field="geoPoints[+1].lat" value="37.4819" type="Float"/>
-                <set field="geoPoints[1].lon" value="-122.1519" type="Float"/>
-                <set field="geoPoints[+2].lat" value="37.4719" type="Float"/>
-                <set field="geoPoints[2].lon" value="-122.1319" type="Float"/>
-                <set field="geoCenter.lat" value="37.4419" type="Float"/>
-                <set field="geoCenter.lon" value="-122.1419" type="Float"/>
+                <set field="geoPoints[+0].lat" value="37.4419" type="Float" locale="en"/>
+                <set field="geoPoints[0].lon" value="-122.1419" type="Float" locale="en"/>
+                <set field="geoPoints[+1].lat" value="37.4819" type="Float" locale="en"/>
+                <set field="geoPoints[1].lon" value="-122.1519" type="Float" locale="en"/>
+                <set field="geoPoints[+2].lat" value="37.4719" type="Float" locale="en"/>
+                <set field="geoPoints[2].lon" value="-122.1319" type="Float" locale="en"/>
+                <set field="geoCenter.lat" value="37.4419" type="Float" locale="en"/>
+                <set field="geoCenter.lon" value="-122.1419" type="Float" locale="en"/>
                 <set field="geoCenter.zoom" value="13"/>
             </actions>
             <widgets>
@@ -184,14 +184,14 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="ExampleGeoLocationPointSet2"/>
-                <set field="geoPoints[+0].lat" value="37.4459" type="Float"/>
-                <set field="geoPoints[0].lon" value="-122.1489" type="Float"/>
-                <set field="geoPoints[+1].lat" value="37.4829" type="Float"/>
-                <set field="geoPoints[1].lon" value="-122.1599" type="Float"/>
-                <set field="geoPoints[+2].lat" value="37.4769" type="Float"/>
-                <set field="geoPoints[2].lon" value="-122.1219" type="Float"/>
-                <set field="geoCenter.lat" value="37.4419" type="Float"/>
-                <set field="geoCenter.lon" value="-122.1419" type="Float"/>
+                <set field="geoPoints[+0].lat" value="37.4459" type="Float" locale="en"/>
+                <set field="geoPoints[0].lon" value="-122.1489" type="Float" locale="en"/>
+                <set field="geoPoints[+1].lat" value="37.4829" type="Float" locale="en"/>
+                <set field="geoPoints[1].lon" value="-122.1599" type="Float" locale="en"/>
+                <set field="geoPoints[+2].lat" value="37.4769" type="Float" locale="en"/>
+                <set field="geoPoints[2].lon" value="-122.1219" type="Float" locale="en"/>
+                <set field="geoCenter.lat" value="37.4419" type="Float" locale="en"/>
+                <set field="geoCenter.lon" value="-122.1419" type="Float" locale="en"/>
                 <set field="geoCenter.zoom" value="12"/>
             </actions>
             <widgets>
@@ -203,14 +203,14 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="ExampleGeoLocationPointSet3"/>
-                <set field="geoPoints[+0].lat" value="37.4379" type="Float"/>
-                <set field="geoPoints[0].lon" value="-122.1119" type="Float"/>
-                <set field="geoPoints[+1].lat" value="37.4819" type="Float"/>
-                <set field="geoPoints[1].lon" value="-122.1519" type="Float"/>
-                <set field="geoPoints[+2].lat" value="37.4229" type="Float"/>
-                <set field="geoPoints[2].lon" value="-122.1369" type="Float"/>
-                <set field="geoCenter.lat" value="37.4419" type="Float"/>
-                <set field="geoCenter.lon" value="-122.1419" type="Float"/>
+                <set field="geoPoints[+0].lat" value="37.4379" type="Float" locale="en"/>
+                <set field="geoPoints[0].lon" value="-122.1119" type="Float" locale="en"/>
+                <set field="geoPoints[+1].lat" value="37.4819" type="Float" locale="en"/>
+                <set field="geoPoints[1].lon" value="-122.1519" type="Float" locale="en"/>
+                <set field="geoPoints[+2].lat" value="37.4229" type="Float" locale="en"/>
+                <set field="geoPoints[2].lon" value="-122.1369" type="Float" locale="en"/>
+                <set field="geoCenter.lat" value="37.4419" type="Float" locale="en"/>
+                <set field="geoCenter.lon" value="-122.1419" type="Float" locale="en"/>
                 <set field="geoCenter.zoom" value="11"/>
             </actions>
             <widgets>
@@ -239,14 +239,14 @@ under the License.
                             <widgets>
                                 <section>
                                     <actions>
-                                        <set field="geoPoints[+0].lat" value="37.4459" type="Float"/>
-                                        <set field="geoPoints[0].lon" value="-122.1489" type="Float"/>
-                                        <set field="geoPoints[+1].lat" value="37.4829" type="Float"/>
-                                        <set field="geoPoints[1].lon" value="-122.1599" type="Float"/>
-                                        <set field="geoPoints[+2].lat" value="37.4769" type="Float"/>
-                                        <set field="geoPoints[2].lon" value="-122.1219" type="Float"/>
-                                        <set field="geoCenter.lat" value="37.4419" type="Float"/>
-                                        <set field="geoCenter.lon" value="-122.1419" type="Float"/>
+                                        <set field="geoPoints[+0].lat" value="37.4459" type="Float" locale="en"/>
+                                        <set field="geoPoints[0].lon" value="-122.1489" type="Float" locale="en"/>
+                                        <set field="geoPoints[+1].lat" value="37.4829" type="Float" locale="en"/>
+                                        <set field="geoPoints[1].lon" value="-122.1599" type="Float" locale="en"/>
+                                        <set field="geoPoints[+2].lat" value="37.4769" type="Float" locale="en"/>
+                                        <set field="geoPoints[2].lon" value="-122.1219" type="Float" locale="en"/>
+                                        <set field="geoCenter.lat" value="37.4419" type="Float" locale="en"/>
+                                        <set field="geoCenter.lon" value="-122.1419" type="Float" locale="en"/>
                                         <set field="geoCenter.zoom" value="12"/>
                                         <set field="geoChart.id" value="chart1"/>
                                         <set field="geoChart.dataSourceId" value="GEOPT_GOOGLE"/>
@@ -263,14 +263,14 @@ under the License.
                                 <section>
                                     <actions>
                                         <set field="geoPoints" value=""/>
-                                        <set field="geoPoints[+0].lat" value="37.4379" type="Float"/>
-                                        <set field="geoPoints[0].lon" value="-122.1119" type="Float"/>
-                                        <set field="geoPoints[+1].lat" value="37.4819" type="Float"/>
-                                        <set field="geoPoints[1].lon" value="-122.1519" type="Float"/>
-                                        <set field="geoPoints[+2].lat" value="37.4229" type="Float"/>
-                                        <set field="geoPoints[2].lon" value="-122.1369" type="Float"/>
-                                        <set field="geoCenter.lat" value="37.4419" type="Float"/>
-                                        <set field="geoCenter.lon" value="-122.1419" type="Float"/>
+                                        <set field="geoPoints[+0].lat" value="37.4379" type="Float" locale="en"/>
+                                        <set field="geoPoints[0].lon" value="-122.1119" type="Float" locale="en"/>
+                                        <set field="geoPoints[+1].lat" value="37.4819" type="Float" locale="en"/>
+                                        <set field="geoPoints[1].lon" value="-122.1519" type="Float" locale="en"/>
+                                        <set field="geoPoints[+2].lat" value="37.4229" type="Float" locale="en"/>
+                                        <set field="geoPoints[2].lon" value="-122.1369" type="Float" locale="en"/>
+                                        <set field="geoCenter.lat" value="37.4419" type="Float" locale="en"/>
+                                        <set field="geoCenter.lon" value="-122.1419" type="Float" locale="en"/>
                                         <set field="geoCenter.zoom" value="11"/>
                                         <set field="geoChart.id" value="chart2"/>
                                         <set field="geoChart.dataSourceId" value="GEOPT_GOOGLE"/>
@@ -353,14 +353,14 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="ExampleOsmGeoLocationPointSet1"/>
-                <set field="geoPoints[+0].lat" value="37.4419" type="Float"/>
-                <set field="geoPoints[0].lon" value="-122.1419" type="Float"/>
-                <set field="geoPoints[+1].lat" value="37.4819" type="Float"/>
-                <set field="geoPoints[1].lon" value="-122.1519" type="Float"/>
-                <set field="geoPoints[+2].lat" value="37.4719" type="Float"/>
-                <set field="geoPoints[2].lon" value="-122.1319" type="Float"/>
-                <set field="geoCenter.lat" value="37.4419" type="Float"/>
-                <set field="geoCenter.lon" value="-122.1419" type="Float"/>
+                <set field="geoPoints[+0].lat" value="37.4419" type="Float" locale="en"/>
+                <set field="geoPoints[0].lon" value="-122.1419" type="Float" locale="en"/>
+                <set field="geoPoints[+1].lat" value="37.4819" type="Float" locale="en"/>
+                <set field="geoPoints[1].lon" value="-122.1519" type="Float" locale="en"/>
+                <set field="geoPoints[+2].lat" value="37.4719" type="Float" locale="en"/>
+                <set field="geoPoints[2].lon" value="-122.1319" type="Float" locale="en"/>
+                <set field="geoCenter.lat" value="37.4419" type="Float" locale="en"/>
+                <set field="geoCenter.lon" value="-122.1419" type="Float" locale="en"/>
                 <set field="geoCenter.zoom" value="13"/>
             </actions>
             <widgets>
@@ -372,14 +372,14 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="ExampleOsmGeoLocationPointSet2"/>
-                <set field="geoPoints[+0].lat" value="37.4459" type="Float"/>
-                <set field="geoPoints[0].lon" value="-122.1489" type="Float"/>
-                <set field="geoPoints[+1].lat" value="37.4829" type="Float"/>
-                <set field="geoPoints[1].lon" value="-122.1599" type="Float"/>
-                <set field="geoPoints[+2].lat" value="37.4769" type="Float"/>
-                <set field="geoPoints[2].lon" value="-122.1219" type="Float"/>
-                <set field="geoCenter.lat" value="37.4419" type="Float"/>
-                <set field="geoCenter.lon" value="-122.1419" type="Float"/>
+                <set field="geoPoints[+0].lat" value="37.4459" type="Float" locale="en"/>
+                <set field="geoPoints[0].lon" value="-122.1489" type="Float" locale="en"/>
+                <set field="geoPoints[+1].lat" value="37.4829" type="Float" locale="en"/>
+                <set field="geoPoints[1].lon" value="-122.1599" type="Float" locale="en"/>
+                <set field="geoPoints[+2].lat" value="37.4769" type="Float" locale="en"/>
+                <set field="geoPoints[2].lon" value="-122.1219" type="Float" locale="en"/>
+                <set field="geoCenter.lat" value="37.4419" type="Float" locale="en"/>
+                <set field="geoCenter.lon" value="-122.1419" type="Float" locale="en"/>
                 <set field="geoCenter.zoom" value="12"/>
             </actions>
             <widgets>
@@ -391,14 +391,14 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="ExampleOsmGeoLocationPointSet3"/>
-                <set field="geoPoints[+0].lat" value="37.4379" type="Float"/>
-                <set field="geoPoints[0].lon" value="-122.1119" type="Float"/>
-                <set field="geoPoints[+1].lat" value="37.4819" type="Float"/>
-                <set field="geoPoints[1].lon" value="-122.1519" type="Float"/>
-                <set field="geoPoints[+2].lat" value="37.4229" type="Float"/>
-                <set field="geoPoints[2].lon" value="-122.1369" type="Float"/>
-                <set field="geoCenter.lat" value="37.4419" type="Float"/>
-                <set field="geoCenter.lon" value="-122.1419" type="Float"/>
+                <set field="geoPoints[+0].lat" value="37.4379" type="Float" locale="en"/>
+                <set field="geoPoints[0].lon" value="-122.1119" type="Float" locale="en"/>
+                <set field="geoPoints[+1].lat" value="37.4819" type="Float" locale="en"/>
+                <set field="geoPoints[1].lon" value="-122.1519" type="Float" locale="en"/>
+                <set field="geoPoints[+2].lat" value="37.4229" type="Float" locale="en"/>
+                <set field="geoPoints[2].lon" value="-122.1369" type="Float" locale="en"/>
+                <set field="geoCenter.lat" value="37.4419" type="Float" locale="en"/>
+                <set field="geoCenter.lon" value="-122.1419" type="Float" locale="en"/>
                 <set field="geoCenter.zoom" value="11"/>
             </actions>
             <widgets>
@@ -427,14 +427,14 @@ under the License.
                             <widgets>
                                 <section>
                                     <actions>
-                                        <set field="geoPoints[+0].lat" value="37.4459" type="Float"/>
-                                        <set field="geoPoints[0].lon" value="-122.1489" type="Float"/>
-                                        <set field="geoPoints[+1].lat" value="37.4829" type="Float"/>
-                                        <set field="geoPoints[1].lon" value="-122.1599" type="Float"/>
-                                        <set field="geoPoints[+2].lat" value="37.4769" type="Float"/>
-                                        <set field="geoPoints[2].lon" value="-122.1219" type="Float"/>
-                                        <set field="geoCenter.lat" value="37.4419" type="Float"/>
-                                        <set field="geoCenter.lon" value="-122.1419" type="Float"/>
+                                        <set field="geoPoints[+0].lat" value="37.4459" type="Float" locale="en"/>
+                                        <set field="geoPoints[0].lon" value="-122.1489" type="Float" locale="en"/>
+                                        <set field="geoPoints[+1].lat" value="37.4829" type="Float" locale="en"/>
+                                        <set field="geoPoints[1].lon" value="-122.1599" type="Float" locale="en"/>
+                                        <set field="geoPoints[+2].lat" value="37.4769" type="Float" locale="en"/>
+                                        <set field="geoPoints[2].lon" value="-122.1219" type="Float" locale="en"/>
+                                        <set field="geoCenter.lat" value="37.4419" type="Float" locale="en"/>
+                                        <set field="geoCenter.lon" value="-122.1419" type="Float" locale="en"/>
                                         <set field="geoCenter.zoom" value="12"/>
                                         <set field="geoChart.id" value="chart1"/>
                                         <set field="geoChart.dataSourceId" value="GEOPT_OSM"/>
@@ -451,14 +451,14 @@ under the License.
                                 <section>
                                     <actions>
                                         <set field="geoPoints" value=""/>
-                                        <set field="geoPoints[+0].lat" value="37.4379" type="Float"/>
-                                        <set field="geoPoints[0].lon" value="-122.1119" type="Float"/>
-                                        <set field="geoPoints[+1].lat" value="37.4819" type="Float"/>
-                                        <set field="geoPoints[1].lon" value="-122.1519" type="Float"/>
-                                        <set field="geoPoints[+2].lat" value="37.4229" type="Float"/>
-                                        <set field="geoPoints[2].lon" value="-122.1369" type="Float"/>
-                                        <set field="geoCenter.lat" value="37.4419" type="Float"/>
-                                        <set field="geoCenter.lon" value="-122.1419" type="Float"/>
+                                        <set field="geoPoints[+0].lat" value="37.4379" type="Float" locale="en"/>
+                                        <set field="geoPoints[0].lon" value="-122.1119" type="Float" locale="en"/>
+                                        <set field="geoPoints[+1].lat" value="37.4819" type="Float" locale="en"/>
+                                        <set field="geoPoints[1].lon" value="-122.1519" type="Float" locale="en"/>
+                                        <set field="geoPoints[+2].lat" value="37.4229" type="Float" locale="en"/>
+                                        <set field="geoPoints[2].lon" value="-122.1369" type="Float" locale="en"/>
+                                        <set field="geoCenter.lat" value="37.4419" type="Float" locale="en"/>
+                                        <set field="geoCenter.lon" value="-122.1419" type="Float" locale="en"/>
                                         <set field="geoCenter.zoom" value="11"/>
                                         <set field="geoChart.id" value="chart2"/>
                                         <set field="geoChart.dataSourceId" value="GEOPT_OSM"/>
