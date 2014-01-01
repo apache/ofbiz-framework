@@ -128,8 +128,8 @@ under the License.
     <simple-method method-name="editGeoLocation" short-description="Edit GeoLocation">
         <if-empty field="parameters.geoPointId">
             <set field="createGeoPointMap.dataSourceId" value="GEOPT_GOOGLE"/>
-            <set field="createGeoPointMap.latitude" from-field="parameters.lat"/>
-            <set field="createGeoPointMap.longitude" from-field="parameters.lng"/>
+            <set field="createGeoPointMap.latitude" from-field="parameters.lat" locale="en"/>
+            <set field="createGeoPointMap.longitude" from-field="parameters.lng" locale="en"/>
             <call-service service-name="createGeoPoint" in-map-name="createGeoPointMap">
                 <result-to-field result-name="geoPointId" field="geoPointId"/>
             </call-service>
@@ -143,8 +143,8 @@ under the License.
         <else>
             <set field="updateGeoPointMap.geoPointId" from-field="parameters.geoPointId"/>
             <set field="updateGeoPointMap.dataSourceId" value="GEOPT_GOOGLE"/>
-            <set field="updateGeoPointMap.latitude" from-field="parameters.lat"/>
-            <set field="updateGeoPointMap.longitude" from-field="parameters.lng"/>
+            <set field="updateGeoPointMap.latitude" from-field="parameters.lat" locale="en"/>
+            <set field="updateGeoPointMap.longitude" from-field="parameters.lng" locale="en"/>
             <call-service service-name="updateGeoPoint" in-map-name="updateGeoPointMap"/>
         </else>
         </if-empty>

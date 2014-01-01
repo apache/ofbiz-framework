@@ -1218,6 +1218,16 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
+            <xs:attribute type="xs:string" name="locale">
+                <xs:annotation>
+                    <xs:documentation>
+                        A locale value (eg: en). The locale allows to pass values whose types are locale dependent (like Float, etc.).
+                        Defaults to the environment locale.
+                        
+                        Optional. Attribute types: constant, ${expression}.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
             <xs:attribute name="set-if-null" type="booleanConst">
                 <xs:annotation>
                     <xs:documentation>

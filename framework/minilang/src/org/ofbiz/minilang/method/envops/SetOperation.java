@@ -20,6 +20,7 @@ package org.ofbiz.minilang.method.envops;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Locale;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
@@ -76,6 +77,7 @@ public final class SetOperation extends MethodOperation {
 
     private final FlexibleStringExpander defaultFse;
     private final FlexibleStringExpander formatFse;
+    private final FlexibleStringExpander localeFse;
     private final FlexibleMapAccessor<Object> fieldFma;
     private final FlexibleMapAccessor<Object> fromFma;
     private final Scriptlet scriptlet;
@@ -90,7 +92,7 @@ public final class SetOperation extends MethodOperation {
         if (MiniLangValidate.validationOn()) {
             MiniLangValidate.deprecatedAttribute(simpleMethod, element, "from-field", "replace with \"from\"");
             MiniLangValidate.deprecatedAttribute(simpleMethod, element, "default-value", "replace with \"default\"");
-            MiniLangValidate.attributeNames(simpleMethod, element, "field", "from-field", "from", "value", "default-value", "default", "format", "type", "set-if-null", "set-if-empty");
+            MiniLangValidate.attributeNames(simpleMethod, element, "field", "from-field", "from", "value", "default-value", "default", "format", "type", "set-if-null", "set-if-empty", "locale");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "field");
             MiniLangValidate.requireAnyAttribute(simpleMethod, element, "from-field", "from", "value");
             MiniLangValidate.constantPlusExpressionAttributes(simpleMethod, element, "value");
@@ -114,6 +116,7 @@ public final class SetOperation extends MethodOperation {
         this.valueFse = FlexibleStringExpander.getInstance(element.getAttribute("value"));
         this.defaultFse = FlexibleStringExpander.getInstance(element.getAttribute("default"));
         this.formatFse = FlexibleStringExpander.getInstance(element.getAttribute("format"));
+        this.localeFse = FlexibleStringExpander.getInstance(element.getAttribute("locale"));
         this.type = element.getAttribute("type");
         Class<?> targetClass = null;
         if (!this.type.isEmpty() && !"NewList".equals(this.type) && !"NewMap".equals(this.type)) {
@@ -141,6 +144,10 @@ public final class SetOperation extends MethodOperation {
                 Debug.logWarning(exc, "Error evaluating scriptlet [" + this.scriptlet + "]: " + exc, module);
             }
         } else if (!this.fromFma.isEmpty()) {
+            Locale locale = methodContext.getLocale();
+            if (!this.localeFse.isEmpty()) {
+                methodContext.setLocale(new Locale(this.localeFse.expandString(methodContext.getEnvMap())));
+            }
             newValue = this.fromFma.get(methodContext.getEnvMap());
             if (Debug.verboseOn())
                 Debug.logVerbose("In screen getting value for field from [" + this.fromFma.toString() + "]: " + newValue, module);
