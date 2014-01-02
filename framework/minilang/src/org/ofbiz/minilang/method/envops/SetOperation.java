@@ -147,11 +147,9 @@ public final class SetOperation extends MethodOperation {
             Locale localeTemp = null; // FIXME this is a temporary hack waiting for a better geolocation data model, related with OFBIZ-5453
             if (!this.localeFse.isEmpty() && this.type.length() > 0) {
                 localeTemp = methodContext.getLocale();
-                synchronized (this) {
-                    methodContext.setLocale(new Locale(this.localeFse.expandString(methodContext.getEnvMap())));
-                    newValue = this.fromFma.get(methodContext.getEnvMap());
-                    methodContext.setLocale(localeTemp);
-                }
+                methodContext.setLocale(new Locale(this.localeFse.expandString(methodContext.getEnvMap())));
+                newValue = this.fromFma.get(methodContext.getEnvMap());
+                methodContext.setLocale(localeTemp);
             } else {
                 newValue = this.fromFma.get(methodContext.getEnvMap());
             }
