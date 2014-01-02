@@ -144,10 +144,17 @@ public final class SetOperation extends MethodOperation {
                 Debug.logWarning(exc, "Error evaluating scriptlet [" + this.scriptlet + "]: " + exc, module);
             }
         } else if (!this.fromFma.isEmpty()) {
+            Locale localeTemp = null; // FIXME this is a temporary hack waiting for a better geolocation data model, related with OFBIZ-5453
             if (!this.localeFse.isEmpty() && this.type.length() > 0) {
-                methodContext.setLocale(new Locale(this.localeFse.expandString(methodContext.getEnvMap())));
+                localeTemp = methodContext.getLocale();
+                synchronized (this) {
+                    methodContext.setLocale(new Locale(this.localeFse.expandString(methodContext.getEnvMap())));
+                    newValue = this.fromFma.get(methodContext.getEnvMap());
+                    methodContext.setLocale(localeTemp);
+                }
+            } else {
+                newValue = this.fromFma.get(methodContext.getEnvMap());
             }
-            newValue = this.fromFma.get(methodContext.getEnvMap());
             if (Debug.verboseOn())
                 Debug.logVerbose("In screen getting value for field from [" + this.fromFma.toString() + "]: " + newValue, module);
         } else if (!this.valueFse.isEmpty()) {
