@@ -187,7 +187,12 @@ public final class SetOperation extends MethodOperation {
                     if (targetClass == null) {
                         targetClass = MiniLangUtil.getObjectClassForConversion(newValue);
                     }
-                    newValue = MiniLangUtil.convertType(newValue, targetClass, methodContext.getLocale(), methodContext.getTimeZone(), format);
+                    if (!this.localeFse.isEmpty() && this.type.length() > 0) {// FIXME this is a temporary hack waiting for a better geolocation data model, related with OFBIZ-5453
+                        Locale localeTemp = new Locale(this.localeFse.expandString(methodContext.getEnvMap()));
+                        newValue = MiniLangUtil.convertType(newValue, targetClass, localeTemp, methodContext.getTimeZone(), format);
+                    } else {
+                        newValue = MiniLangUtil.convertType(newValue, targetClass, methodContext.getLocale(), methodContext.getTimeZone(), format);
+                    }
                 } catch (Exception e) {
                     String errMsg = "Could not convert field value for the field: [" + this.fieldFma.toString() + "] to the [" + this.type + "] type for the value [" + newValue + "]: " + e.getMessage();
                     Debug.logWarning(e, errMsg, module);
