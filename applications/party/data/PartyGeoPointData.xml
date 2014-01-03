@@ -39,11 +39,11 @@ under the License.
         elevationUomId="LEN_m"
         information="A testing GeoPoint for contactMechId=EUROCUSTOMER (EuroCustomer)"
     />
-    <!-- GeoPoint for FrenchCustomer (at Chemin de la Mouline, Poussan, France) -->
+    <!-- GeoPoint for FrenchCustomer (at 400E Chemin de la Mouline, Poussan, France) -->
     <GeoPoint
         geoPointId="9002"
         dataSourceId="GEOPT_GOOGLE"
-        latitude="43.491661995004264"
+        latitude="43.684"
         longitude="3.6840248107910156"
         elevation="40"
         elevationUomId="LEN_m"
