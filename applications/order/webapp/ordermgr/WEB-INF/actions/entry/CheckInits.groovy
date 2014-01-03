@@ -57,9 +57,11 @@ partyId = null;
 partyId = parameters.partyId;
 if (partyId) {
     party = delegator.findOne("Person", [partyId : partyId], false);
-    contactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false));
-    if (contactMech) {
-        ShoppingCart shoppingCart = ShoppingCartEvents.getCartObject(request);
-        shoppingCart.setAllShippingContactMechId(contactMech.contactMechId);
+    if (party) {
+        contactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false));
+        if (contactMech) {
+            ShoppingCart shoppingCart = ShoppingCartEvents.getCartObject(request);
+            shoppingCart.setAllShippingContactMechId(contactMech.contactMechId);
+        }
     }
 }
