@@ -43,8 +43,8 @@ under the License.
     <GeoPoint
         geoPointId="9002"
         dataSourceId="GEOPT_GOOGLE"
-        latitude="43.684"
-        longitude="3.6840248107910156"
+        latitude="43.492"
+        longitude="3.684"
         elevation="40"
         elevationUomId="LEN_m"
         information="A testing GeoPoint for contactMechId=FRENCHCUSTOMER (FrenchCustomer)"
