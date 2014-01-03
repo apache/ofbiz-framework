@@ -1149,6 +1149,10 @@ under the License.
     <!--    Ivy targets, more info at  http://ant.apache.org/ivy/  -->
     <!-- ================================================================== -->
 
+    <target name="download-activemq" depends="ivy-init" description="Download activemq for DCC">
+        <ivy:retrieve pattern="framework/base/lib/[artifact]-[revision].[ext]" conf="activemq"/>
+    </target>
+
     <target name="download-cobertura" depends="ivy-init">
         <ivy:retrieve pattern="framework/base/lib/[artifact]-[revision].[ext]" conf="cobertura"/>
     </target>
