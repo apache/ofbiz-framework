@@ -1149,7 +1149,7 @@ under the License.
     <!--    Ivy targets, more info at  http://ant.apache.org/ivy/  -->
     <!-- ================================================================== -->
 
-    <target name="download-activemq" depends="ivy-init" description="Download activemq for DCC">
+    <target name="download-activemq" depends="ivy-init" description="Download activemq for DCC (Distributed Cache Clearing)">
         <ivy:retrieve pattern="framework/base/lib/[artifact]-[revision].[ext]" conf="activemq"/>
     </target>
 
