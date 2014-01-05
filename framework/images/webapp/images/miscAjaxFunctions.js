@@ -133,7 +133,6 @@ function getServiceResult(){
             data = result;
         }
     });
-    alert(data);
     return data;
 }
 
