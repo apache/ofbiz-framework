@@ -16,8 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
-// *** getDependentDropdownValues allows to dynamically populate a dependent drop-down on change on its parent drop-down, doesn't require any fixed naming convention 
+ 
+function getDependentDropdownValues(request, paramKey, paramField, targetField, responseName, keyName, descName, selected, callback, allowEmpty, hide, hideTitle, inputField){
+// To dynamically populate a dependent drop-down on change on its parent drop-down, doesn't require any fixed naming convention 
 // request      = request calling the service which retrieve the info from the DB, ex: getAssociatedStateList
 // paramKey     = parameter value used in the called service 
 // paramField   = parent drop-down field Id (mainId)
@@ -31,10 +32,9 @@
 // hide         = optional boolean argument, if true the dependent drop-down field (targetField) will be hidden when no options are available else only disabled. False by default.
 // hideTitle    = optional boolean argument (hide must be set to true), if true the title of the dependent drop-down field (targetField) will be hidden when no options are available else only disabled. False by default.
 // inputField   = optional name of an input field    
-//           this is to handle a specific case where an input field is needed instead of a drop-down when no values are returned by the request
-//           this will be maybe extended later to use an auto-completed drop-down or a lookup, instead of straight drop-down currently, when there are too much values to populate
-//           this is e.g. currently used in the Product Price Rules screen
-function getDependentDropdownValues(request, paramKey, paramField, targetField, responseName, keyName, descName, selected, callback, allowEmpty, hide, hideTitle, inputField){
+//             this is to handle a specific case where an input field is needed instead of a drop-down when no values are returned by the request
+//             this will be maybe extended later to use an auto-completed drop-down or a lookup, instead of straight drop-down currently, when there are too much values to populate
+//             this is e.g. currently used in the Product Price Rules screen
     target = '#' + targetField;
     input = '#' + inputField;
     targetTitle = target + '_title'
