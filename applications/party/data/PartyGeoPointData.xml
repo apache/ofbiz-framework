@@ -25,7 +25,7 @@ under the License.
         dataSourceId="GEOPT_GOOGLE"
         latitude="40.297264"
         longitude="-111.696625"
-        elevation="4756"
+        elevation="4770"
         elevationUomId="LEN_ft"
         information="A testing GeoPoint for contactMechId=9015 (DemoCustomer)"
     />
@@ -35,7 +35,7 @@ under the License.
         dataSourceId="GEOPT_GOOGLE"
         latitude="52.350"
         longitude="4.917"
-        elevation="-4"
+        elevation="10"
         elevationUomId="LEN_m"
         information="A testing GeoPoint for contactMechId=EUROCUSTOMER (EuroCustomer)"
     />
@@ -45,7 +45,7 @@ under the License.
         dataSourceId="GEOPT_GOOGLE"
         latitude="43.492"
         longitude="3.684"
-        elevation="40"
+        elevation="30"
         elevationUomId="LEN_m"
         information="A testing GeoPoint for contactMechId=FRENCHCUSTOMER (FrenchCustomer)"
     />
