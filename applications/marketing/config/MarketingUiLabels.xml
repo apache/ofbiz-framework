@@ -1465,7 +1465,7 @@
         <value xml:lang="zh_TW">如果為空，不重定向</value>
     </property>
     <property key="MarketingTrackingCodeOrder">
-        <value xml:lang="en">Tracking Code Aufträge</value>
+        <value xml:lang="de">Tracking Code Aufträge</value>
         <value xml:lang="en">Tracking Code Orders</value>
         <value xml:lang="es">Órdenes de seguimiento</value>
         <value xml:lang="fr">Codes de suivi des commandes</value>
