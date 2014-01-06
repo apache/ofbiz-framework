@@ -832,15 +832,15 @@ under the License.
         <response name="error" type="view" value="EditFacilityContent"/>
     </request-map>
     
-    <request-map uri="EditFacilityGeoPoint">
+    <request-map uri="ViewFacilityGeoPoint">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditFacilityGeoPoint"/>
+        <response name="success" type="view" value="ViewFacilityGeoPoint"/>
     </request-map>
     <request-map uri="createUpdateFacilityGeoPoint">
         <security auth="true" https="true"/>
         <event type="service" path="" invoke="createUpdateFacilityGeoPoint"/>
-        <response name="success" type="view" value="EditFacilityGeoPoint"/>
-        <response name="error" type="view" value="EditFacilityGeoPoint"/>
+        <response name="success" type="view" value="ViewFacilityGeoPoint"/>
+        <response name="error" type="view" value="ViewFacilityGeoPoint"/>
     </request-map>
     <!-- ================ Shipment Scheduling Requests ================= -->
     <request-map uri="Scheduling">
@@ -1407,7 +1407,7 @@ under the License.
     <view-map name="BatchPrintShippingLabels" type="screenfop" page="component://product/widget/facility/FacilityScreens.xml#BatchPrintShippingLabels" content-type="application/pdf" encoding="none"/>
 
     <view-map name="EditFacilityContent" type="screen" page="component://product/widget/facility/FacilityScreens.xml#EditFacilityContent"/>
-    <view-map name="EditFacilityGeoPoint" type="screen" page="component://product/widget/facility/FacilityScreens.xml#EditFacilityGeoPoint"/>
+    <view-map name="ViewFacilityGeoPoint" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ViewFacilityGeoPoint"/>
 
     <view-map name="FindShipment" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#FindShipment"/>
     <view-map name="ViewShipment" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#ViewShipment"/>

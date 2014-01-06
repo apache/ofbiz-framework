@@ -1510,10 +1510,10 @@ under the License.
          </section>
     </screen>
 
-    <screen name="EditFacilityGeoPoint">
+    <screen name="ViewFacilityGeoPoint">
         <section>
             <actions>
-                <set field="tabButtonItem" value="EditFacilityGeoPoint"/>
+                <set field="tabButtonItem" value="ViewFacilityGeoPoint"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <entity-one entity-name="Facility" value-field="facility"/>
                 <get-related-one relation-name="GeoPoint" to-value-field="geoPoint" value-field="facility"/>
@@ -1532,7 +1532,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="page-title"><label text="${title}"/></container>
                         <screenlet id="edit-facility-geopoint" title="${uiLabelMap.ProductEditFacilityGeoLocation}" collapsible="true" initially-collapsed="true">
-                            <include-form name="EditFacilityGeoPoint" location="component://product/widget/facility/FacilityForms.xml"/>
+                            <include-form name="ViewFacilityGeoPoint" location="component://product/widget/facility/FacilityForms.xml"/>
                         </screenlet>
                         <include-screen name="geoChart" location="component://common/widget/CommonScreens.xml"/>
                     </decorator-section>
