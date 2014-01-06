@@ -902,7 +902,7 @@ under the License.
         </field>   
     </form>
 
-    <form name="EditFacilityGeoPoint" type="single" target="createUpdateFacilityGeoPoint" default-map-name="geoPoint"
+    <form name="ViewFacilityGeoPoint" type="single" target="createUpdateFacilityGeoPoint" default-map-name="geoPoint"
         default-table-style="basic-table">
         <field name="facilityId"><hidden value="${facilityId}"/></field>
         <field name="geoPointId"><hidden/></field>
