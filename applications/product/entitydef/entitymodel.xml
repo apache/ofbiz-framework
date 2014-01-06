@@ -1232,6 +1232,7 @@ under the License.
         <field name="sectionId" type="id"></field>
         <field name="levelId" type="id"></field>
         <field name="positionId" type="id"></field>
+        <field name="geoPointId" type="id"></field>      
         <prim-key field="facilityId"/>
         <prim-key field="locationSeqId"/>
         <relation type="one" fk-name="FACILITY_LOC_FAC" rel-entity-name="Facility">
@@ -1240,6 +1241,9 @@ under the License.
         <relation type="one" fk-name="FACILITY_LOC_TENM" title="Type" rel-entity-name="Enumeration">
             <key-map field-name="locationTypeEnumId" rel-field-name="enumId"/>
         </relation>
+      <relation type="one" fk-name="FACILITY_LOC_GEOPT" rel-entity-name="GeoPoint">
+        <key-map field-name="geoPointId"/>
+      </relation>      
     </entity>
     <entity entity-name="FacilityLocationGeoPoint" package-name="org.ofbiz.product.facility" title="Facility Location Geo Location with history">
         <field name="facilityId" type="id-ne"></field>
