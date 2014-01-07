@@ -89,15 +89,13 @@ under the License.
         <antcall target="clean-cache"/>
         <antcall target="clean-tempfiles"/>
         <antcall target="clean-search-indexes"/>
-        <!-- FIXME: clean-downloads introduces some issues: with cobertura (on Windows can't be deleted, not sure why),
-                    but especially with postgresql drivers -->
-        <!-- antcall target="clean-downloads"/ -->
+        <antcall target="clean-downloads"/>
         <antcall target="clean"/>
     </target>
 
     <target name="clean-downloads"
           description="Clean all downloaded files">
-        <delete>
+        <delete verbose="true" deleteonexit="true">
             <fileset dir="framework/base/lib" includes="cobertura-*.jar"/>
             <fileset dir="framework/base/lib" includes="sonar-*.jar"/>
             <fileset dir="framework/base/lib" includes="activemq-*.jar"/>
@@ -1144,7 +1142,7 @@ under the License.
     <!-- ================================================================== -->
     <!--    Ivy targets, more info at  http://ant.apache.org/ivy/  -->
     <!-- ================================================================== -->
-    <target name="clean-ivy">
+    <target name="clean-ivy" description="Clean Ivy local cache">
         <ivy:cleancache/>
     </target>
 
