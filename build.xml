@@ -100,6 +100,7 @@ under the License.
             <fileset dir="framework/base/lib" includes="sonar-*.jar"/>
             <fileset dir="framework/base/lib" includes="activemq-*.jar"/>
             <fileset dir="framework/entity/lib/jdbc" includes="postgresql-*.jar"/>
+            <fileset dir="framework/entity/lib/jdbc" includes="mysql-*.jar"/>
         </delete>
         <antcall target="clean-ivy"/>
     </target>
