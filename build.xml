@@ -60,14 +60,6 @@ under the License.
         <copy file="runtime/data/derby.properties" todir="runtime/data/derby"/>
     </target>
 
-    <target name="ivy-init">
-        <taskdef resource="org/apache/ivy/ant/antlib.xml"
-            uri="antlib:org.apache.ivy.ant">
-            <classpath>
-                <pathelement location="framework/base/lib/ivy-2.2.0.jar" />
-            </classpath>
-        </taskdef>
-    </target>
     <target name="sonar-init">
         <taskdef uri="antlib:org.sonar.ant:sonar" resource="org/sonar/ant/antlib.xml">
             <classpath>
@@ -88,6 +80,7 @@ under the License.
 
     <target name="clean-all"
           description="Clean all DB, Catalina and caches data, logs, and runtime subdirectories and all specific files like .rej, .orig">
+        <antcall target="clean-ivy"/>
         <antcall target="clean-data"/>
         <antcall target="clean-logs"/>
         <antcall target="clean-output"/>
@@ -107,8 +100,10 @@ under the License.
         <delete>
             <fileset dir="framework/base/lib" includes="cobertura-*.jar"/>
             <fileset dir="framework/base/lib" includes="sonar-*.jar"/>
+            <fileset dir="framework/base/lib" includes="activemq-*.jar"/>
             <fileset dir="framework/entity/lib/jdbc" includes="postgresql-*.jar"/>
         </delete>
+        <antcall target="clean-ivy"/>
     </target>
     <target name="clean-data"
           description="Clean all DB data (Derby) under runtime/data">
@@ -176,6 +171,7 @@ under the License.
     </target>
 
     <target name="clean">
+        <ivy:cleancache/>
         <hotdeployant target="clean"/>
         <antcall target="clean-specialpurpose"/>
         <antcall target="clean-applications"/>
@@ -1148,24 +1144,27 @@ under the License.
     <!-- ================================================================== -->
     <!--    Ivy targets, more info at  http://ant.apache.org/ivy/  -->
     <!-- ================================================================== -->
+    <target name="clean-ivy">
+        <ivy:cleancache/>
+    </target>
 
-    <target name="download-activemq" depends="ivy-init" description="Download activemq for DCC (Distributed Cache Clearing)">
+    <target name="download-activemq" description="Download activemq for DCC (Distributed Cache Clearing)">
         <ivy:retrieve pattern="framework/base/lib/[artifact]-[revision].[ext]" conf="activemq"/>
     </target>
 
-    <target name="download-cobertura" depends="ivy-init">
+    <target name="download-cobertura" description="Download cobertura related files">
         <ivy:retrieve pattern="framework/base/lib/[artifact]-[revision].[ext]" conf="cobertura"/>
     </target>
 
-    <target name="download-PG-JDBC" depends="ivy-init" description="Download postgres jdbc driver">
+    <target name="download-PG-JDBC" description="Download postgres jdbc driver">
         <ivy:retrieve pattern="framework/entity/lib/jdbc/[artifact]-[revision].[ext]" conf="postgres"/>
     </target>
 
-    <target name="download-sonar-ant-task" depends="ivy-init">
+    <target name="download-sonar-ant-task" description="Download sonar related files">
         <ivy:retrieve pattern="framework/base/lib/[artifact]-[revision].[ext]" conf="sonar-ant-task"/>
     </target>
 
-    <target name="download-mySQL-JDBC" depends="ivy-init" description="Download mySQL jdbc driver">
+    <target name="download-mySQL-JDBC" description="Download mySQL jdbc driver">
         <ivy:retrieve pattern="framework/entity/lib/jdbc/[artifact]-[revision].[ext]" conf="mysql"/>
     </target>
 
