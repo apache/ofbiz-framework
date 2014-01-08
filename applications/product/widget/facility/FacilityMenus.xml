@@ -156,8 +156,8 @@ under the License.
                 <parameter param-name="facilityId"/>
             </link>
         </menu-item>
-        <menu-item name="ViewFacilityGeoPoint" title="${uiLabelMap.CommonGeoLocation}">
-            <link target="ViewFacilityGeoPoint">
+        <menu-item name="EditFacilityGeoPoint" title="${uiLabelMap.CommonGeoLocation}">
+            <link target="EditFacilityGeoPoint">
                 <parameter param-name="facilityId"/>
             </link>
         </menu-item>
