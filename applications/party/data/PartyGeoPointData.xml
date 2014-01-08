@@ -20,6 +20,7 @@ under the License.
 
 <entity-engine-xml>
     <!-- GeoPoint for DemoCustomer and other demonstrations (in Orem, Utah, USA) -->
+    <!-- For demonstration purpose, it's also used with other entities: fixed asset, facility location, postal address and other parties (notably company) -->
     <GeoPoint
         geoPointId="9000"
         dataSourceId="GEOPT_GOOGLE"
