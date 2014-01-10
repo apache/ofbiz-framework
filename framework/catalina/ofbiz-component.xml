@@ -120,7 +120,7 @@ under the License.
             <property name="connectionLinger" value="-1"/>
             <property name="connectionTimeout" value="60000"/>
             <property name="disableUploadTimeout" value="false"/>
-            <property name="maxHttpHeaderSize" value="4096"/>
+            <property name="maxHttpHeaderSize" value="8192"/>
             <property name="maxKeepAliveRequests" value="100"/>
             <property name="maxSpareThreads" value="50"/>
             <property name="maxThreads" value="100"/>
@@ -158,7 +158,7 @@ under the License.
             <property name="connectionLinger" value="-1"/>
             <property name="connectionTimeout" value="60000"/>
             <property name="disableUploadTimeout" value="false"/>
-            <property name="maxHttpHeaderSize" value="4096"/>
+            <property name="maxHttpHeaderSize" value="8192"/>
             <property name="maxKeepAliveRequests" value="100"/>
             <property name="maxSpareThreads" value="50"/>
             <property name="maxThreads" value="100"/>
@@ -277,7 +277,7 @@ under the License.
             <property name="connectionLinger" value="-1"/>
             <property name="connectionTimeout" value="60000"/>
             <property name="disableUploadTimeout" value="false"/>
-            <property name="maxHttpHeaderSize" value="4096"/>
+            <property name="maxHttpHeaderSize" value="8192"/>
             <property name="maxKeepAliveRequests" value="100"/>
             <property name="maxSpareThreads" value="50"/>
             <property name="maxThreads" value="100"/>
@@ -315,7 +315,7 @@ under the License.
             <property name="connectionLinger" value="-1"/>
             <property name="connectionTimeout" value="60000"/>
             <property name="disableUploadTimeout" value="false"/>
-            <property name="maxHttpHeaderSize" value="4096"/>
+            <property name="maxHttpHeaderSize" value="8192"/>
             <property name="maxKeepAliveRequests" value="100"/>
             <property name="maxSpareThreads" value="50"/>
             <property name="maxThreads" value="100"/>
