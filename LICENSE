@@ -1207,7 +1207,7 @@ any resulting litigation.
 =========================================================================
 The following libraries distributed with Apache OFBiz are licensed under the
 MIT/X License:
-framework/base/lib/icu4j-49_1.jar
+framework/base/lib/icu4j-52_1.jar
 framework/base/lib/jcl-over-slf4j-1.6.4.jar
 framework/base/lib/slf4j-api-1.6.4.jar
 framework/base/lib/slf4j-log4j12-1.6.4.jar
@@ -1892,7 +1892,7 @@ framework/base/lib/jdbm-1.0-SNAPSHOT.jar
 The following library distributed with Apache OFBiz is licensed under the
 COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL):
 framework/base/lib/juel-2.1.1.jar (contains the javax.el package)
-framework/base/lib/mail-1.4.jar
+framework/base/lib/mail-1.5.1.jar
 =========================================================================
 COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0 1.
 
