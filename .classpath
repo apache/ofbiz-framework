@@ -39,7 +39,6 @@
     <classpathentry kind="lib" path="framework/base/lib/jpim-0.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/juel-2.2.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/junit-dep-4.10.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/kxml2-min-2.3.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/log4j-1.2.17.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/mail-1.4.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/mx4j-3.0.1.jar"/>
