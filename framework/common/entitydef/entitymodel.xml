@@ -282,14 +282,14 @@ under the License.
         <field name="dataSourceId" type="id"></field>
         <field name="latitude" type="short-varchar" not-null="true"></field>
         <field name="longitude" type="short-varchar" not-null="true"></field>
-        <field name="elevation" type="short-varchar"></field>
-        <field name="elevationUomId" type="id"><description>We need an UOM for elevation (feet, meters, etc.)</description></field>
+        <field name="elevation" type="fixed-point"></field>
+        <field name="elevationUomId" type="id"><description>UOM for elevation (feet, meters, etc.)</description></field>
         <field name="information" type="comment"><description>To enter any related information</description></field>
         <prim-key field="geoPointId"/>
         <relation type="one" fk-name="GEOPOINT_DTSRC" rel-entity-name="DataSource">
             <key-map field-name="dataSourceId"/>
         </relation>
-        <relation type="one" fk-name="GPT_TYPE_UOM" title="Elevation" rel-entity-name="Uom">
+        <relation type="one" fk-name="GPT_ELEV_UOM" title="Elevation" rel-entity-name="Uom">
             <key-map field-name="elevationUomId" rel-field-name="uomId"/>
         </relation>
     </entity>
