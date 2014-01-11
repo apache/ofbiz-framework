@@ -121,7 +121,7 @@ under the License.
         <div align="center" id="map" style="border:1px solid #979797; background-color:#e5e3df; width:500px; height:450px; margin:2em auto;"><br/></div>
         <form action="#" onsubmit="showAddress(this.address.value); return false">
             <input type="text" size="50" name="address"/>
-            <input type="submit" value="Search"/>
+            <input type="submit" value="${uiLabelMap.CommonSearch}"/>
         </form>
         <br/><br/>
         <form id="updateMapForm" method="post" action="<@ofbizUrl>editGeoLocation</@ofbizUrl>">
