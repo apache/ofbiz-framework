@@ -95,7 +95,7 @@
     <!-- End of Security Mappings -->
     
     <!-- Common json reponse events, chain these after events to send json reponses -->
-    <!-- Standard json response, uses all compatible request attributes -->
+    <!-- Standard json response, For security reason (OFBIZ-5409) tries to keep only the initially called service attributes -->
     <request-map uri="json">
         <security direct-request="false"/>
         <event type="java" path="org.ofbiz.common.CommonEvents" invoke="jsonResponseFromRequestAttributes"/>
