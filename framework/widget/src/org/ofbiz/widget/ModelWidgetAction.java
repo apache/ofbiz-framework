@@ -33,6 +33,7 @@ import javax.servlet.http.HttpSession;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import org.w3c.dom.Element;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
@@ -58,7 +59,6 @@ import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
-import org.w3c.dom.Element;
 
 @SuppressWarnings("serial")
 public abstract class ModelWidgetAction implements Serializable {
@@ -121,7 +121,6 @@ public abstract class ModelWidgetAction implements Serializable {
         protected FlexibleStringExpander valueExdr;
         protected FlexibleStringExpander defaultExdr;
         protected FlexibleStringExpander globalExdr;
-        protected FlexibleStringExpander localeExdr;
         protected String type;
         protected String toScope;
         protected String fromScope;
@@ -133,7 +132,6 @@ public abstract class ModelWidgetAction implements Serializable {
             this.valueExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("value"));
             this.defaultExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("default-value"));
             this.globalExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("global"));
-            this.localeExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("locale"));
             this.type = setElement.getAttribute("type");
             this.toScope = setElement.getAttribute("to-scope");
             this.fromScope = setElement.getAttribute("from-scope");
@@ -186,11 +184,7 @@ public abstract class ModelWidgetAction implements Serializable {
                     newValue = FastList.newInstance();
                 } else {
                     try {
-                        Locale locale = (Locale) context.get("locale");
-                        if (!this.localeExdr.isEmpty()) {
-                            locale = new Locale(this.globalExdr.expandString(context));
-                        }
-                        newValue = ObjectType.simpleTypeConvert(newValue, this.type, null, (TimeZone) context.get("timeZone"), locale, true);
+                        newValue = ObjectType.simpleTypeConvert(newValue, this.type, null, (TimeZone) context.get("timeZone"), (Locale) context.get("locale"), true);
                     } catch (GeneralException e) {
                         String errMsg = "Could not convert field value for the field: [" + this.field.getOriginalName() + "] to the [" + this.type + "] type for the value [" + newValue + "]: " + e.toString();
                         Debug.logError(e, errMsg, module);
