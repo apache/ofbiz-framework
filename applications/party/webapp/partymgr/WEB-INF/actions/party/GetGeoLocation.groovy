@@ -23,18 +23,14 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.string.*;
 import org.ofbiz.party.contact.ContactHelper;
 import org.ofbiz.common.geo.*;
-import java.text.NumberFormat;
 
 if (partyId) {
     context.partyId = partyId;
     latestGeoPoint = GeoWorker.findLatestGeoPoint(delegator, "PartyAndGeoPoint", "partyId", partyId, null, null);
     if (latestGeoPoint) {
         context.geoPointId = latestGeoPoint.geoPointId;
-        NumberFormat nf = NumberFormat.getInstance(Locale.ENGLISH);
-        nf.setMinimumFractionDigits(5);
-        nf.setMaximumFractionDigits(10);
-        context.latitude = nf.format(latestGeoPoint.latitude);
-        context.longitude = nf.format(latestGeoPoint.longitude);
+        context.latitude = latestGeoPoint.latitude;
+        context.longitude = latestGeoPoint.longitude;
     } else {
         context.latitude = 0;
         context.longitude = 0;

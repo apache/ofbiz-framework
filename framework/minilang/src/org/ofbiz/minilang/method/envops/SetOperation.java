@@ -20,7 +20,6 @@ package org.ofbiz.minilang.method.envops;
 
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Locale;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
@@ -77,7 +76,6 @@ public final class SetOperation extends MethodOperation {
 
     private final FlexibleStringExpander defaultFse;
     private final FlexibleStringExpander formatFse;
-    private final FlexibleStringExpander localeFse;
     private final FlexibleMapAccessor<Object> fieldFma;
     private final FlexibleMapAccessor<Object> fromFma;
     private final Scriptlet scriptlet;
@@ -92,7 +90,7 @@ public final class SetOperation extends MethodOperation {
         if (MiniLangValidate.validationOn()) {
             MiniLangValidate.deprecatedAttribute(simpleMethod, element, "from-field", "replace with \"from\"");
             MiniLangValidate.deprecatedAttribute(simpleMethod, element, "default-value", "replace with \"default\"");
-            MiniLangValidate.attributeNames(simpleMethod, element, "field", "from-field", "from", "value", "default-value", "default", "format", "type", "set-if-null", "set-if-empty", "locale");
+            MiniLangValidate.attributeNames(simpleMethod, element, "field", "from-field", "from", "value", "default-value", "default", "format", "type", "set-if-null", "set-if-empty");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "field");
             MiniLangValidate.requireAnyAttribute(simpleMethod, element, "from-field", "from", "value");
             MiniLangValidate.constantPlusExpressionAttributes(simpleMethod, element, "value");
@@ -116,7 +114,6 @@ public final class SetOperation extends MethodOperation {
         this.valueFse = FlexibleStringExpander.getInstance(element.getAttribute("value"));
         this.defaultFse = FlexibleStringExpander.getInstance(element.getAttribute("default"));
         this.formatFse = FlexibleStringExpander.getInstance(element.getAttribute("format"));
-        this.localeFse = FlexibleStringExpander.getInstance(element.getAttribute("locale"));
         this.type = element.getAttribute("type");
         Class<?> targetClass = null;
         if (!this.type.isEmpty() && !"NewList".equals(this.type) && !"NewMap".equals(this.type)) {
@@ -144,15 +141,7 @@ public final class SetOperation extends MethodOperation {
                 Debug.logWarning(exc, "Error evaluating scriptlet [" + this.scriptlet + "]: " + exc, module);
             }
         } else if (!this.fromFma.isEmpty()) {
-            Locale localeTemp = null; // FIXME this is a temporary hack waiting for a better geolocation data model, related with OFBIZ-5453
-            if (!this.localeFse.isEmpty() && this.type.length() > 0) {
-                localeTemp = methodContext.getLocale();
-                methodContext.setLocale(new Locale(this.localeFse.expandString(methodContext.getEnvMap())));
-                newValue = this.fromFma.get(methodContext.getEnvMap());
-                methodContext.setLocale(localeTemp);
-            } else {
-                newValue = this.fromFma.get(methodContext.getEnvMap());
-            }
+            newValue = this.fromFma.get(methodContext.getEnvMap());
             if (Debug.verboseOn())
                 Debug.logVerbose("In screen getting value for field from [" + this.fromFma.toString() + "]: " + newValue, module);
         } else if (!this.valueFse.isEmpty()) {
@@ -187,12 +176,7 @@ public final class SetOperation extends MethodOperation {
                     if (targetClass == null) {
                         targetClass = MiniLangUtil.getObjectClassForConversion(newValue);
                     }
-                    if (!this.localeFse.isEmpty() && this.type.length() > 0) {// FIXME this is a temporary hack waiting for a better geolocation data model, related with OFBIZ-5453
-                        Locale localeTemp = new Locale(this.localeFse.expandString(methodContext.getEnvMap()));
-                        newValue = MiniLangUtil.convertType(newValue, targetClass, localeTemp, methodContext.getTimeZone(), format);
-                    } else {
-                        newValue = MiniLangUtil.convertType(newValue, targetClass, methodContext.getLocale(), methodContext.getTimeZone(), format);
-                    }
+                    newValue = MiniLangUtil.convertType(newValue, targetClass, methodContext.getLocale(), methodContext.getTimeZone(), format);
                 } catch (Exception e) {
                     String errMsg = "Could not convert field value for the field: [" + this.fieldFma.toString() + "] to the [" + this.type + "] type for the value [" + newValue + "]: " + e.getMessage();
                     Debug.logWarning(e, errMsg, module);

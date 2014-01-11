@@ -280,9 +280,9 @@ under the License.
         title="Geographic Location">
         <field name="geoPointId" type="id-ne"></field>
         <field name="dataSourceId" type="id"></field>
-        <field name="latitude" type="floating-point" not-null="true"></field>
-        <field name="longitude" type="floating-point" not-null="true"></field>
-        <field name="elevation" type="floating-point"></field>
+        <field name="latitude" type="short-varchar" not-null="true"></field>
+        <field name="longitude" type="short-varchar" not-null="true"></field>
+        <field name="elevation" type="short-varchar"></field>
         <field name="elevationUomId" type="id"><description>We need an UOM for elevation (feet, meters, etc.)</description></field>
         <field name="information" type="comment"><description>To enter any related information</description></field>
         <prim-key field="geoPointId"/>

@@ -58,13 +58,13 @@ under the License.
             
             var map = new google.maps.Map(document.getElementById("${id}"),
             <#if geoChart.points?has_content>
-              { center: new google.maps.LatLng(${center.lat?c}, ${center.lon?c}),
+              { center: new google.maps.LatLng(${center.lat}, ${center.lon}),
                 zoom: ${zoom},
                 mapTypeId: google.maps.MapTypeId.ROADMAP
               });
               <#list geoChart.points as point>
                 var marker_${point_index} = new google.maps.Marker({
-                  position: new google.maps.LatLng(${point.lat?c}, ${point.lon?c}),
+                  position: new google.maps.LatLng(${point.lat}, ${point.lon}),
                   map: map
                 });
                 <#if point.link?has_content>
@@ -78,7 +78,7 @@ under the License.
               </#list>
               var latlngs = [
                 <#list geoChart.points as point>
-                  new google.maps.LatLng(${point.lat?c}, ${point.lon?c})<#if point_has_next>,</#if>
+                  new google.maps.LatLng(${point.lat}, ${point.lon})<#if point_has_next>,</#if>
                 </#list>
               ];
               showAllMarkers(map, latlngs);
@@ -117,7 +117,7 @@ under the License.
           map = new OpenLayers.Map("${id}");           
           map.addLayer(new OpenLayers.Layer.OSM());
             var zoom = ${zoom};
-            var center= new OpenLayers.LonLat(${center.lon?c},${center.lat?c})
+            var center= new OpenLayers.LonLat(${center.lon},${center.lat})
               .transform(new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
                     map.getProjectionObject() // to Spherical Mercator Projection
                 );
@@ -125,7 +125,7 @@ under the License.
           map.addLayer(markers);
           <#if geoChart.points?has_content>
             <#list geoChart.points as point>
-              markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(${point.lon?c} ,${point.lat?c}).transform(
+              markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(${point.lon} ,${point.lat}).transform(
                 new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject())));
             </#list>
           </#if>

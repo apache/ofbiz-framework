@@ -346,16 +346,6 @@ under the License.
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
-            <xs:attribute type="xs:string" name="locale">
-                <xs:annotation>
-                    <xs:documentation>
-                        A locale value (eg: en). The locale allows to pass values with types which are locale dependent (like Float, etc.).
-                        Defaults to the environment locale. Works only if a type which makes sense is also passed.
-                        
-                        Optional. Attribute types: constant, ${expression}.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="property-map" substitutionGroup="AllActions">

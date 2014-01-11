@@ -116,7 +116,6 @@ public abstract class ModelFormAction {
         protected FlexibleStringExpander valueExdr;
         protected FlexibleStringExpander defaultExdr;
         protected FlexibleStringExpander globalExdr;
-        protected FlexibleStringExpander localeExdr;
         protected String type;
 
         public SetField(ModelForm modelForm, Element setElement) {
@@ -126,7 +125,6 @@ public abstract class ModelFormAction {
             this.valueExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("value"));
             this.defaultExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("default-value"));
             this.globalExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("global"));
-            this.localeExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("locale"));
             this.type = setElement.getAttribute("type");
             if (!this.fromField.isEmpty() && !this.valueExdr.isEmpty()) {
                 throw new IllegalArgumentException("Cannot specify a from-field [" + setElement.getAttribute("from-field") + "] and a value [" + setElement.getAttribute("value") + "] on the set action in a screen widget");
@@ -159,11 +157,7 @@ public abstract class ModelFormAction {
                     newValue = FastList.newInstance();
                 } else {
                     try {
-                        Locale locale = (Locale) context.get("locale");
-                        if (!this.localeExdr.isEmpty()) {
-                            locale = new Locale(this.globalExdr.expandString(context));
-                        }
-                        newValue = ObjectType.simpleTypeConvert(newValue, this.type, null, (TimeZone) context.get("timeZone"), locale, true);
+                        newValue = ObjectType.simpleTypeConvert(newValue, this.type, null, (TimeZone) context.get("timeZone"), (Locale) context.get("locale"), true);
                     } catch (GeneralException e) {
                         String errMsg = "Could not convert field value for the field: [" + this.field.getOriginalName() + "] to the [" + this.type + "] type for the value [" + newValue + "]: " + e.toString();
                         Debug.logError(e, errMsg, module);
