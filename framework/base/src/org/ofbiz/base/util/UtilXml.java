@@ -73,6 +73,11 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.converters.Converter;
+import com.thoughtworks.xstream.converters.MarshallingContext;
+import com.thoughtworks.xstream.converters.UnmarshallingContext;
+import com.thoughtworks.xstream.io.HierarchicalStreamReader;
+import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
 /**
  * Utilities methods to simplify dealing with JAXP & DOM XML parsing
@@ -81,7 +86,13 @@ import com.thoughtworks.xstream.XStream;
 public class UtilXml {
 
     public static final String module = UtilXml.class.getName();
-    protected static final XStream xstream = new XStream();
+    private static final XStream xstream = createXStream();
+
+    private static XStream createXStream() {
+        XStream xstream = new XStream();
+        xstream.registerConverter(new UnsupportedClassConverter());
+        return xstream;
+    }
 
     // ----- DOM Level 3 Load and Save Methods -- //
 
@@ -1116,4 +1127,26 @@ public class UtilXml {
             }
         }
     }
+
+    private static class UnsupportedClassConverter implements Converter {
+
+        @Override
+        public boolean canConvert(@SuppressWarnings("rawtypes") Class arg0) {
+            if (java.lang.ProcessBuilder.class.equals(arg0)) {
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public void marshal(Object arg0, HierarchicalStreamWriter arg1, MarshallingContext arg2) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Object unmarshal(HierarchicalStreamReader arg0, UnmarshallingContext arg1) {
+            throw new UnsupportedOperationException();
+        }
+    }
+
 }
