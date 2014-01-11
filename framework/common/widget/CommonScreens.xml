@@ -162,6 +162,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/images/date/date.timezone-min.js" global="true" />
                 <set field="layoutSettings.javaScripts[]" value="/images/miscAjaxFunctions.js" global="true" />
                 <set field="layoutSettings.javaScripts[]" value="/images/selectMultipleRelatedValues.js" global="true" />
+                <set field="layoutSettings.javaScripts[]" value="/images/util.js" global="true" />
                 <set field="visualThemeId" from-field="userPreferences.VISUAL_THEME" global="true" />
                 <service service-name="getVisualThemeResources">
                     <field-map field-name="visualThemeId" />

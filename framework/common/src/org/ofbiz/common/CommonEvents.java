@@ -68,6 +68,20 @@ public class CommonEvents {
 
     public static final String module = CommonEvents.class.getName();
 
+    static final String[] ignoreAttrs = new String[] { // Removed for security reason; _ERROR_MESSAGE_ is kept
+        "javax.servlet.request.key_size",
+        "_CONTEXT_ROOT_",
+        "_FORWARDED_FROM_SERVLET_",
+        "javax.servlet.request.ssl_session",
+        "javax.servlet.request.ssl_session_id",
+        "multiPartMap",
+        "javax.servlet.request.cipher_suite",
+        "targetRequestUri",
+        "_SERVER_ROOT_URL_",
+        "_CONTROL_PATH_",
+        "thisRequestUri"
+    };
+
     private static final UtilCache<String, Map<String, String>> appletSessions = UtilCache.createUtilCache("AppletSessions", 0, 600000, true);
 
     public static String checkAppletRequest(HttpServletRequest request, HttpServletResponse response) {
@@ -266,20 +280,37 @@ public class CommonEvents {
 
     public static String jsonResponseFromRequestAttributes(HttpServletRequest request, HttpServletResponse response) {
         // pull out the service response from the request attribute
+
         Map<String, Object> attrMap = UtilHttp.getJSONAttributeMap(request);
+
+        for (String ignoreAttr : ignoreAttrs) {
+            if (attrMap.containsKey(ignoreAttr)) {
+                attrMap.remove(ignoreAttr);
+            }
+        }
 
         // create a JSON Object for return
         JSONObject json = JSONObject.fromObject(attrMap);
-        writeJSONtoResponse(json, response);
+        writeJSONtoResponse(json, request.getMethod(), response);
 
         return "success";
     }
 
-    private static void writeJSONtoResponse(JSON json, HttpServletResponse response) {
+    private static void writeJSONtoResponse(JSON json, String httpMethod, HttpServletResponse response) {
         String jsonStr = json.toString();
         if (jsonStr == null) {
             Debug.logError("JSON Object was empty; fatal error!", module);
             return;
+        }
+
+        // This was added for security reason (OFBIZ-5409), you might need to remove the "//" prefix when handling the JSON response
+        // Though normally you simply have to access the data you want, so should not be annoyed by the "//" prefix
+        if ("GET".equalsIgnoreCase(httpMethod)) {
+            Debug.logWarning("for security reason (OFBIZ-5409) the the '//' prefix was added handling the JSON response.  " +
+                    "Normally you simply have to access the data you want, so should not be annoyed by the '//' prefix." +
+                    "You might need to remove it if you use Ajax GET responses (not recommended)." +
+                    "In case, the util.js scrpt is there to help you", module);
+            jsonStr = "//" + jsonStr;
         }
 
         // set the X-JSON content type
@@ -337,7 +368,7 @@ public class CommonEvents {
             }
         }
 
-        writeJSONtoResponse(jsonUiLabel, response);
+        writeJSONtoResponse(jsonUiLabel, request.getMethod(), response);
         return "success";
     }
 
@@ -376,7 +407,7 @@ public class CommonEvents {
             }
         }
 
-        writeJSONtoResponse(jsonUiLabel, response);
+        writeJSONtoResponse(jsonUiLabel, request.getMethod(), response);
         return "success";
     }
 
@@ -437,8 +468,7 @@ public class CommonEvents {
                 int charDim = Math.max(maxAdvance, fontHeight);
                 int halfCharDim = (charDim / 2);
 
-                BufferedImage charImage =
-                    new BufferedImage(charDim, charDim, BufferedImage.TYPE_INT_ARGB);
+                BufferedImage charImage = new BufferedImage(charDim, charDim, BufferedImage.TYPE_INT_ARGB);
                 Graphics2D charGraphics = charImage.createGraphics();
                 charGraphics.translate(halfCharDim, halfCharDim);
                 double angle = (Math.random() - 0.5) * rotationRange;
