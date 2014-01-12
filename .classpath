@@ -100,11 +100,11 @@
     <classpathentry kind="lib" path="specialpurpose/birt/lib/org.eclipse.birt.runtime_3.7.2.v20120214-1408.jar"/>
     <classpathentry kind="lib" path="specialpurpose/birt/lib/viewservlets.jar"/>
     <classpathentry kind="lib" path="framework/catalina/lib/ecj-4.2.2.jar"/>
-    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.47-catalina-ha.jar"/>
-    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.47-catalina-tribes.jar"/>
-    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.47-tomcat-embed-core.jar"/>
-    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.47-tomcat-embed-jasper.jar"/>
-    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.47-tomcat-embed-logging-log4j.jar"/>
+    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.50-catalina-ha.jar"/>
+    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.50-catalina-tribes.jar"/>
+    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.50-tomcat-embed-core.jar"/>
+    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.50-tomcat-embed-jasper.jar"/>
+    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.50-tomcat-embed-logging-log4j.jar"/>
     <classpathentry kind="lib" path="framework/entity/lib/commons-dbcp-1.4.jar"/>
     <classpathentry kind="lib" path="framework/geronimo/lib/geronimo-connector-2.1.1.jar"/>
     <classpathentry kind="lib" path="framework/geronimo/lib/geronimo-transaction-2.1.1.jar"/>
