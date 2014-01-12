@@ -68,7 +68,7 @@ public class CommonEvents {
 
     public static final String module = CommonEvents.class.getName();
 
-    static final String[] ignoreAttrs = new String[] { // Removed for security reason; _ERROR_MESSAGE_ is kept
+    private static final String[] ignoreAttrs = new String[] { // Attributes removed for security reason; _ERROR_MESSAGE_ is kept
         "javax.servlet.request.key_size",
         "_CONTEXT_ROOT_",
         "_FORWARDED_FROM_SERVLET_",
