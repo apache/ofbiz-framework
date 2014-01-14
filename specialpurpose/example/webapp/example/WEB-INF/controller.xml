@@ -216,6 +216,17 @@ under the License.
     <request-map uri="ExampleOsmGeoLocationPointSet2"><security https="true" auth="true"/><response name="success" type="view" value="ExampleOsmGeoLocationPointSet2"/></request-map>
     <request-map uri="ExampleOsmGeoLocationPointSet3"><security https="true" auth="true"/><response name="success" type="view" value="ExampleOsmGeoLocationPointSet3"/></request-map>
     <request-map uri="ExampleOsmGeoLocationPointSet4"><security https="true" auth="true"/><response name="success" type="view" value="ExampleOsmGeoLocationPointSet4"/></request-map>
+    
+    <!--flot example requests-->
+    <request-map uri="ExampleBarChart">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ExampleBarChart"/>
+    </request-map>
+    <request-map uri="ExamplePieChart">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ExamplePieChart"/>
+    </request-map>
+    
     <!-- end of request mappings -->
 
     <!-- View Mappings -->

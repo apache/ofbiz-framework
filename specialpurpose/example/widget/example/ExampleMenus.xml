@@ -42,6 +42,9 @@ under the License.
         <menu-item name="ExampleGeoLocation" title="${uiLabelMap.CommonGeoLocation}">
             <link target="ExampleGeoLocationPointSet1"/>
         </menu-item>
+        <menu-item name="ExampleCharts" title="Chart examples">
+            <link target="ExampleBarChart"/>
+        </menu-item>
     </menu>
 
     <menu name="EditExample" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
