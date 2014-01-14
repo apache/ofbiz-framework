@@ -4415,7 +4415,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             if (totalAmount.compareTo(BigDecimal.ZERO) == 0) {
                 return BigDecimal.ZERO;
             } else {
-                return getTotalDiscountAmount().negate().divide(totalAmount);
+                return getTotalDiscountAmount().negate().divide(totalAmount, scale, rounding);
             }
         }
 
