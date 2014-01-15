@@ -617,7 +617,7 @@ under the License.
         <field name="nbv" title="Net Book Value"><display type="currency" currency="${fixedAsset.purchaseCostUomId}"/></field>
     </form>
     <form name="FixedAssetTransactions" type="list"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" list-name="fixedAssetTransactions">
         <actions>
             <entity-condition entity-name="AcctgTransAndEntries" list="fixedAssetTransactions">
                 <condition-expr field-name="fixedAssetId" from-field="fixedAssetId"/>
