@@ -90,6 +90,7 @@ under the License.
         <antcall target="clean-tempfiles"/>
         <antcall target="clean-search-indexes"/>
         <antcall target="clean-downloads"/>
+        <antcall target="clean-uploads"/>        
         <antcall target="clean"/>
     </target>
 
@@ -159,12 +160,19 @@ under the License.
     </target>
 
     <target name="clean-search-indexes"
-            description="Remove search indexes (e.g. Lucene indexes) created under runtime/indexes">
+        description="Remove search indexes (e.g. Lucene indexes) created under runtime/indexes">
         <delete includeemptydirs="true">
             <fileset dir="./runtime/indexes" includes="**/*" erroronmissingdir="false" />
         </delete>
     </target>
-
+    
+    <target name="clean-uploads"
+        description="Remove uploaded files">
+        <delete includeemptydirs="true">
+            <fileset dir="./runtime/uploads" includes="**/*" erroronmissingdir="false" />
+        </delete>
+    </target>
+    
     <target name="tests" depends="ofbiz-init">
         <iterate target="tests" filelist="test-builds"/>
     </target>
