@@ -542,55 +542,19 @@ var ButtonModifier = function(lookupDiv) {
 		// modify nav-pager
 		var navPagers = jQuery("#" + lookupDiv + " .nav-pager a");
 		jQuery.each(navPagers, function(navPager) {
-			jQuery(navPagers[navPager]).attr("href",
-					"javascript:lookupPaginationAjaxRequest('" + encodeURI(jQuery(navPagers[navPager]).attr("href")) + "','link')");
+		    var onClickEvent = navPagers[navPager].onclick;
+		    navPagers[navPager].onclick = function(){
+		        this.setAttribute("data-lookupajax", "true");
+		        onClickEvent.apply(this);
+		    }
 		});
 
 		var navPagersSelect = jQuery("#" + lookupDiv + " .nav-pager select");
 		jQuery.each(navPagersSelect, function(navPager) {
-			var onChangeEvent = jQuery(navPagersSelect[navPager]).attr("onchange");
-			if ((typeof onChangeEvent) == "function") { // IE6/7 Fix
-				onChangeEvent = onChangeEvent.toString();
-				var ocSub = onChangeEvent.substring((onChangeEvent.indexOf('=') + 3), (onChangeEvent.length - 4));
-				// define search pattern we must seperate between IE and
-				// Other Browser
-				var searchPattern = /" \+ this.value \+ "/g;
-				var searchPattern_IE = /'\+this.value\+'/g;
-				var searchPattern2 = /" \+ this.valu/g;
-				var searchPattern2_IE = /'\+this.valu/g;
-
-				if (searchPattern.test(ocSub)) {
-					var viewSize = navPagersSelect[navPager].value;
-					var spl = ocSub.split(searchPattern);
-					navPagersSelect[navPager].onchange = function() {
-						lookupPaginationAjaxRequest(spl[0] + this.value + spl[1], 'select');
-					};
-				} else if (searchPattern_IE.test(ocSub)) {
-					var viewSize = navPagersSelect[navPager].value;
-					var spl = ocSub.split(searchPattern_IE);
-					navPagersSelect[navPager].onchange = function() {
-						lookupPaginationAjaxRequest("/" + spl[0] + this.value + spl[1], 'select');
-					};
-				} else if (searchPattern2.test(ocSub)) {
-					ocSub = ocSub.replace(searchPattern2, "");
-					if (searchPattern.test(ocSub)) {
-						ocSub.replace(searchPattern, viewSize);
-					}
-					navPagersSelect[navPager].onchange = function() {
-						lookupPaginationAjaxRequest(ocSub + this.value, 'select');
-					};
-				} else if (searchPattern2_IE.test(ocSub)) {
-					ocSub = ocSub.replace(searchPattern2_IE, "");
-					if (searchPattern_IE.test(ocSub)) {
-						ocSub.replace(searchPattern_IE, viewSize);
-					}
-					navPagersSelect[navPager].onchange = function() {
-						lookupPaginationAjaxRequest("/" + ocSub + this.value, 'select');
-					};
-				}
-			} else {
-				var ocSub = onChangeEvent.substring((onChangeEvent.indexOf('=') + 1), (onChangeEvent.length - 1));
-				navPagersSelect[navPager].setAttribute("onchange", "lookupPaginationAjaxRequest(" + ocSub + ",'')");
+			var onChangeEvent = navPagersSelect[navPager].onchange;
+			navPagersSelect[navPager].onchange = function(){
+			    this.setAttribute("data-lookupajax", "true");
+			    onChangeEvent.apply(this);
 			}
 		});
 	}
@@ -685,7 +649,9 @@ function lookupPaginationAjaxRequest(navAction, type) {
 	var screenletTitleBar = jQuery("#" + lookupId + " .screenlet-title-bar :visible:first");
 
 	jQuery.ajax({
-		url : navAction,
+		url : navAction.substring(0, navAction.indexOf("?")),
+		type : "POST",
+		data : navAction.substring(navAction.indexOf("?")+1, navAction.length),
 		beforeSend : function(jqXHR, settings) {
 			// Here we append the spinner to the lookup screenlet and it will
 			// shown till the ajax request is processed.

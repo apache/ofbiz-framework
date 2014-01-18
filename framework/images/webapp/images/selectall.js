@@ -943,3 +943,45 @@ function showErrorAlert(errBoxTitle, errMessage) {
         });
     }
 }
+
+/**
+ * Submit the pagination request
+ * @param obj The DOM object of pagination anchor or select element
+ * @param url The pagination URL
+ */
+function submitPagination(obj, url) {
+    if (obj.getAttribute("data-lookupajax") == "true" && typeof window.lookupPaginationAjaxRequest == "function") {
+        lookupPaginationAjaxRequest(url, (obj.tagName == "SELECT" ? "select" : "link"));
+        return false;
+    }
+    if (url.length > 2000) {
+        var request = url.substring(0, url.indexOf("?"));
+        var params = url.substring(url.indexOf("?")+1, url.length);
+        var paramsArray = params.split("&");
+        var form = document.createElement("form");
+        form.setAttribute("method", "post");
+        form.setAttribute("action", request);
+        for (var i = 0; i < paramsArray.length; i ++) {
+            var param = paramsArray[i];
+            if (param!= "" && param.indexOf("=") > 0) {
+                var keyValue = param.split("=");
+                var hiddenField = document.createElement("input");
+                hiddenField.setAttribute("type", "hidden");
+                hiddenField.setAttribute("name", keyValue[0]);
+                hiddenField.setAttribute("value", keyValue[1]);
+                form.appendChild(hiddenField);
+            }
+        }
+        document.body.appendChild(form);
+        form.submit();
+        return false;
+    } else {
+        if (obj.tagName == "SELECT") {
+            location.href = url;
+            return false;
+        } else {
+            obj.href = url;
+            return true;
+        }
+    }
+}
