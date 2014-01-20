@@ -45,8 +45,8 @@ public final class JsLanguageFilesMapping {
         }
 
         public static String getFilePath(String locale) {
-            if (datejs.localeFiles.containsKey(locale) == null) {
-	            return datejs.localeFiles.get(locale);
+            if (datejs.localeFiles.containsKey(locale)) {
+                return datejs.localeFiles.get(locale);
             }
             return datejs.defaultDateJs;
         }
@@ -55,7 +55,7 @@ public final class JsLanguageFilesMapping {
 
     public static class jquery {
         private static Map<String, String> localeFiles = FastMap.newInstance();
-        private static String defaultDateJs = "/images/jquery/ui/development-bundle/ui/i18n/jquery.ui.datepicker-en.js";
+        private static String defaultDateJs = "/images/jquery/ui/i18n/jquery.ui.datepicker-en.js";
 
         static {
             <#list jquery.keySet() as jqueryFiles>
@@ -65,8 +65,8 @@ public final class JsLanguageFilesMapping {
         }
 
         public static String getFilePath(String locale) {
-            if (datejs.localeFiles.containsKey(locale) == null) {
-	            return jquery.localeFiles.get(locale);
+            if (datejs.localeFiles.containsKey(locale)) {
+                return jquery.localeFiles.get(locale);
             }
             return jquery.defaultDateJs;
         }
@@ -85,8 +85,8 @@ public final class JsLanguageFilesMapping {
         }
 
         public static String getFilePath(String locale) {
-            if (validation.localeFiles.containsKey(locale) == null) {
-	            return validation.localeFiles.get(locale);
+            if (validation.localeFiles.containsKey(locale)) {
+                return validation.localeFiles.get(locale);
             }
             return validation.defaultValidation;
         }
@@ -94,7 +94,7 @@ public final class JsLanguageFilesMapping {
 
     public static class dateTime {
         private static Map<String, String> localeFiles = FastMap.newInstance();
-        private static String defaultDateTime = "/images/webapp/images/jquery/ui/development-bundle/ui/i18n/jquery.ui.datepicker-en.js";
+        private static String defaultDateTime = "/images/webapp/images/jquery/ui/i18n/jquery.ui.datepicker-en.js";
 
         static {
             <#list dateTime.keySet() as dateTimeFiles>
@@ -104,8 +104,8 @@ public final class JsLanguageFilesMapping {
         }
 
         public static String getFilePath(String locale) {
-            if (dateTime.localeFiles.containsKey(locale) == null) {
-	            return dateTime.localeFiles.get(locale);
+            if (dateTime.localeFiles.containsKey(locale)) {
+                return dateTime.localeFiles.get(locale);
             }
             return dateTime.defaultDateTime;
         }

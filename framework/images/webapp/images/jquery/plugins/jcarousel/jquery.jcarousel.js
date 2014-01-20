@@ -1,917 +1,1396 @@
-/*!
- * jCarousel - Riding carousels with jQuery
- *   http://sorgalla.com/jcarousel/
- *
- * Copyright (c) 2006 Jan Sorgalla (http://sorgalla.com)
- * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
- * and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
- *
- * Built on top of the jQuery library
- *   http://jquery.com
- *
- * Inspired by the "Carousel Component" by Bill Scott
- *   http://billwscott.com/carousel/
- */
-
+/*! jCarousel - v0.3.0 - 2013-11-22
+* http://sorgalla.com/jcarousel
+* Copyright (c) 2013 Jan Sorgalla; Licensed MIT */
 (function($) {
-    /**
-     * Creates a carousel for all matched elements.
-     *
-     * @example $("#mycarousel").jcarousel();
-     * @before <ul id="mycarousel" class="jcarousel-skin-name"><li>First item</li><li>Second item</li></ul>
-     * @result
-     *
-     * <div class="jcarousel-skin-name">
-     *   <div class="jcarousel-container">
-     *     <div class="jcarousel-clip">
-     *       <ul class="jcarousel-list">
-     *         <li class="jcarousel-item-1">First item</li>
-     *         <li class="jcarousel-item-2">Second item</li>
-     *       </ul>
-     *     </div>
-     *     <div disabled="disabled" class="jcarousel-prev jcarousel-prev-disabled"></div>
-     *     <div class="jcarousel-next"></div>
-     *   </div>
-     * </div>
-     *
-     * @method jcarousel
-     * @return jQuery
-     * @param o {Hash|String} A set of key/value pairs to set as configuration properties or a method name to call on a formerly created instance.
-     */
-    $.fn.jcarousel = function(o) {
-        if (typeof o == 'string') {
-            var instance = $(this).data('jcarousel'), args = Array.prototype.slice.call(arguments, 1);
-            return instance[o].apply(instance, args);
-        } else
-            return this.each(function() {
-                $(this).data('jcarousel', new $jc(this, o));
-            });
-    };
+    'use strict';
 
-    // Default configuration properties.
-    var defaults = {
-        vertical: false,
-        rtl: false,
-        start: 1,
-        offset: 1,
-        size: null,
-        scroll: 3,
-        visible: null,
-        animation: 'normal',
-        easing: 'swing',
-        auto: 0,
-        wrap: null,
-        initCallback: null,
-        reloadCallback: null,
-        itemLoadCallback: null,
-        itemFirstInCallback: null,
-        itemFirstOutCallback: null,
-        itemLastInCallback: null,
-        itemLastOutCallback: null,
-        itemVisibleInCallback: null,
-        itemVisibleOutCallback: null,
-        buttonNextHTML: '<div></div>',
-        buttonPrevHTML: '<div></div>',
-        buttonNextEvent: 'click',
-        buttonPrevEvent: 'click',
-        buttonNextCallback: null,
-        buttonPrevCallback: null,
-        itemFallbackDimension: null
-    }, windowLoaded = false;
+    var jCarousel = $.jCarousel = {};
 
-    $(window).bind('load.jcarousel', function() { windowLoaded = true; })
+    jCarousel.version = '0.3.0';
 
-    /**
-     * The jCarousel object.
-     *
-     * @constructor
-     * @class jcarousel
-     * @param e {HTMLElement} The element to create the carousel for.
-     * @param o {Object} A set of key/value pairs to set as configuration properties.
-     * @cat Plugins/jCarousel
-     */
-    $.jcarousel = function(e, o) {
-        this.options    = $.extend({}, defaults, o || {});
+    var rRelativeTarget = /^([+\-]=)?(.+)$/;
 
-        this.locked     = false;
+    jCarousel.parseTarget = function(target) {
+        var relative = false,
+            parts    = typeof target !== 'object' ?
+                           rRelativeTarget.exec(target) :
+                           null;
 
-        this.container  = null;
-        this.clip       = null;
-        this.list       = null;
-        this.buttonNext = null;
-        this.buttonPrev = null;
+        if (parts) {
+            target = parseInt(parts[2], 10) || 0;
 
-        // Only set if not explicitly passed as option
-        if (!o || o.rtl === undefined)
-            this.options.rtl = ($(e).attr('dir') || $('html').attr('dir') || '').toLowerCase() == 'rtl';
-
-        this.wh = !this.options.vertical ? 'width' : 'height';
-        this.lt = !this.options.vertical ? (this.options.rtl ? 'right' : 'left') : 'top';
-
-        // Extract skin class
-        var skin = '', split = e.className.split(' ');
-
-        for (var i = 0; i < split.length; i++) {
-            if (split[i].indexOf('jcarousel-skin') != -1) {
-                $(e).removeClass(split[i]);
-                skin = split[i];
-                break;
+            if (parts[1]) {
+                relative = true;
+                if (parts[1] === '-=') {
+                    target *= -1;
+                }
             }
+        } else if (typeof target !== 'object') {
+            target = parseInt(target, 10) || 0;
         }
 
-        if (e.nodeName.toUpperCase() == 'UL' || e.nodeName.toUpperCase() == 'OL') {
-            this.list = $(e);
-            this.container = this.list.parent();
-
-            if (this.container.hasClass('jcarousel-clip')) {
-                if (!this.container.parent().hasClass('jcarousel-container'))
-                    this.container = this.container.wrap('<div></div>');
-
-                this.container = this.container.parent();
-            } else if (!this.container.hasClass('jcarousel-container'))
-                this.container = this.list.wrap('<div></div>').parent();
-        } else {
-            this.container = $(e);
-            this.list = this.container.find('ul,ol').eq(0);
-        }
-
-        if (skin != '' && this.container.parent()[0].className.indexOf('jcarousel-skin') == -1)
-            this.container.wrap('<div class=" '+ skin + '"></div>');
-
-        this.clip = this.list.parent();
-
-        if (!this.clip.length || !this.clip.hasClass('jcarousel-clip'))
-            this.clip = this.list.wrap('<div></div>').parent();
-
-        this.buttonNext = $('.jcarousel-next', this.container);
-
-        if (this.buttonNext.size() == 0 && this.options.buttonNextHTML != null)
-            this.buttonNext = this.clip.after(this.options.buttonNextHTML).next();
-
-        this.buttonNext.addClass(this.className('jcarousel-next'));
-
-        this.buttonPrev = $('.jcarousel-prev', this.container);
-
-        if (this.buttonPrev.size() == 0 && this.options.buttonPrevHTML != null)
-            this.buttonPrev = this.clip.after(this.options.buttonPrevHTML).next();
-
-        this.buttonPrev.addClass(this.className('jcarousel-prev'));
-
-        this.clip.addClass(this.className('jcarousel-clip')).css({
-            overflow: 'hidden',
-            position: 'relative'
-        });
-        this.list.addClass(this.className('jcarousel-list')).css({
-            overflow: 'hidden',
-            position: 'relative',
-            top: 0,
-            margin: 0,
-            padding: 0
-        }).css((this.options.rtl ? 'right' : 'left'), 0);
-        this.container.addClass(this.className('jcarousel-container')).css({
-            position: 'relative'
-        });
-        if (!this.options.vertical && this.options.rtl)
-            this.container.addClass('jcarousel-direction-rtl').attr('dir', 'rtl');
-
-        var di = this.options.visible != null ? Math.ceil(this.clipping() / this.options.visible) : null;
-        var li = this.list.children('li');
-
-        var self = this;
-
-        if (li.size() > 0) {
-            var wh = 0, i = this.options.offset;
-            li.each(function() {
-                self.format(this, i++);
-                wh += self.dimension(this, di);
-            });
-
-            this.list.css(this.wh, (wh + 100) + 'px');
-
-            // Only set if not explicitly passed as option
-            if (!o || o.size === undefined)
-                this.options.size = li.size();
-        }
-
-        // For whatever reason, .show() does not work in Safari...
-        this.container.css('display', 'block');
-        this.buttonNext.css('display', 'block');
-        this.buttonPrev.css('display', 'block');
-
-        this.funcNext   = function() { self.next(); };
-        this.funcPrev   = function() { self.prev(); };
-        this.funcResize = function() { self.reload(); };
-
-        if (this.options.initCallback != null)
-            this.options.initCallback(this, 'init');
-
-        if (!windowLoaded && $.browser.safari) {
-            this.buttons(false, false);
-            $(window).bind('load.jcarousel', function() { self.setup(); });
-        } else
-            this.setup();
+        return {
+            target: target,
+            relative: relative
+        };
     };
 
-    // Create shortcut for internal use
-    var $jc = $.jcarousel;
+    jCarousel.detectCarousel = function(element) {
+        var carousel;
 
-    $jc.fn = $jc.prototype = {
-        jcarousel: '0.2.5'
+        while (element.length > 0) {
+            carousel = element.filter('[data-jcarousel]');
+
+            if (carousel.length > 0) {
+                return carousel;
+            }
+
+            carousel = element.find('[data-jcarousel]');
+
+            if (carousel.length > 0) {
+                return carousel;
+            }
+
+            element = element.parent();
+        }
+
+        return null;
     };
 
-    $jc.fn.extend = $jc.extend = $.extend;
+    jCarousel.base = function(pluginName) {
+        return {
+            version:  jCarousel.version,
+            _options:  {},
+            _element:  null,
+            _carousel: null,
+            _init:     $.noop,
+            _create:   $.noop,
+            _destroy:  $.noop,
+            _reload:   $.noop,
+            create: function() {
+                this._element
+                    .attr('data-' + pluginName.toLowerCase(), true)
+                    .data(pluginName, this);
 
-    $jc.fn.extend({
-        /**
-         * Setups the carousel.
-         *
-         * @method setup
-         * @return undefined
-         */
-        setup: function() {
-            this.first     = null;
-            this.last      = null;
-            this.prevFirst = null;
-            this.prevLast  = null;
-            this.animating = false;
-            this.timer     = null;
-            this.tail      = null;
-            this.inTail    = false;
+                if (false === this._trigger('create')) {
+                    return this;
+                }
 
-            if (this.locked)
-                return;
+                this._create();
 
-            this.list.css(this.lt, this.pos(this.options.offset) + 'px');
-            var p = this.pos(this.options.start);
-            this.prevFirst = this.prevLast = null;
-            this.animate(p, false);
+                this._trigger('createend');
 
-            $(window).unbind('resize.jcarousel', this.funcResize).bind('resize.jcarousel', this.funcResize);
-        },
+                return this;
+            },
+            destroy: function() {
+                if (false === this._trigger('destroy')) {
+                    return this;
+                }
 
-        /**
-         * Clears the list and resets the carousel.
-         *
-         * @method reset
-         * @return undefined
-         */
-        reset: function() {
-            this.list.empty();
+                this._destroy();
 
-            this.list.css(this.lt, '0px');
-            this.list.css(this.wh, '10px');
+                this._trigger('destroyend');
 
-            if (this.options.initCallback != null)
-                this.options.initCallback(this, 'reset');
+                this._element
+                    .removeData(pluginName)
+                    .removeAttr('data-' + pluginName.toLowerCase());
 
-            this.setup();
-        },
+                return this;
+            },
+            reload: function(options) {
+                if (false === this._trigger('reload')) {
+                    return this;
+                }
 
-        /**
-         * Reloads the carousel and adjusts positions.
-         *
-         * @method reload
-         * @return undefined
-         */
-        reload: function() {
-            if (this.tail != null && this.inTail)
-                this.list.css(this.lt, $jc.intval(this.list.css(this.lt)) + this.tail);
+                if (options) {
+                    this.options(options);
+                }
 
-            this.tail   = null;
-            this.inTail = false;
+                this._reload();
 
-            if (this.options.reloadCallback != null)
-                this.options.reloadCallback(this);
+                this._trigger('reloadend');
 
-            if (this.options.visible != null) {
-                var self = this;
-                var di = Math.ceil(this.clipping() / this.options.visible), wh = 0, lt = 0;
-                this.list.children('li').each(function(i) {
-                    wh += self.dimension(this, di);
-                    if (i + 1 < self.first)
-                        lt = wh;
+                return this;
+            },
+            element: function() {
+                return this._element;
+            },
+            options: function(key, value) {
+                if (arguments.length === 0) {
+                    return $.extend({}, this._options);
+                }
+
+                if (typeof key === 'string') {
+                    if (typeof value === 'undefined') {
+                        return typeof this._options[key] === 'undefined' ?
+                                null :
+                                this._options[key];
+                    }
+
+                    this._options[key] = value;
+                } else {
+                    this._options = $.extend({}, this._options, key);
+                }
+
+                return this;
+            },
+            carousel: function() {
+                if (!this._carousel) {
+                    this._carousel = jCarousel.detectCarousel(this.options('carousel') || this._element);
+
+                    if (!this._carousel) {
+                        $.error('Could not detect carousel for plugin "' + pluginName + '"');
+                    }
+                }
+
+                return this._carousel;
+            },
+            _trigger: function(type, element, data) {
+                var event,
+                    defaultPrevented = false;
+
+                data = [this].concat(data || []);
+
+                (element || this._element).each(function() {
+                    event = $.Event((pluginName + ':' + type).toLowerCase());
+
+                    $(this).trigger(event, data);
+
+                    if (event.isDefaultPrevented()) {
+                        defaultPrevented = true;
+                    }
                 });
 
-                this.list.css(this.wh, wh + 'px');
-                this.list.css(this.lt, -lt + 'px');
+                return !defaultPrevented;
+            }
+        };
+    };
+
+    jCarousel.plugin = function(pluginName, pluginPrototype) {
+        var Plugin = $[pluginName] = function(element, options) {
+            this._element = $(element);
+            this.options(options);
+
+            this._init();
+            this.create();
+        };
+
+        Plugin.fn = Plugin.prototype = $.extend(
+            {},
+            jCarousel.base(pluginName),
+            pluginPrototype
+        );
+
+        $.fn[pluginName] = function(options) {
+            var args        = Array.prototype.slice.call(arguments, 1),
+                returnValue = this;
+
+            if (typeof options === 'string') {
+                this.each(function() {
+                    var instance = $(this).data(pluginName);
+
+                    if (!instance) {
+                        return $.error(
+                            'Cannot call methods on ' + pluginName + ' prior to initialization; ' +
+                            'attempted to call method "' + options + '"'
+                        );
+                    }
+
+                    if (!$.isFunction(instance[options]) || options.charAt(0) === '_') {
+                        return $.error(
+                            'No such method "' + options + '" for ' + pluginName + ' instance'
+                        );
+                    }
+
+                    var methodValue = instance[options].apply(instance, args);
+
+                    if (methodValue !== instance && typeof methodValue !== 'undefined') {
+                        returnValue = methodValue;
+                        return false;
+                    }
+                });
+            } else {
+                this.each(function() {
+                    var instance = $(this).data(pluginName);
+
+                    if (instance instanceof Plugin) {
+                        instance.reload(options);
+                    } else {
+                        new Plugin(this, options);
+                    }
+                });
             }
 
-            this.scroll(this.first, false);
+            return returnValue;
+        };
+
+        return Plugin;
+    };
+}(jQuery));
+
+(function($, window) {
+    'use strict';
+
+    var toFloat = function(val) {
+        return parseFloat(val) || 0;
+    };
+
+    $.jCarousel.plugin('jcarousel', {
+        animating:   false,
+        tail:        0,
+        inTail:      false,
+        resizeTimer: null,
+        lt:          null,
+        vertical:    false,
+        rtl:         false,
+        circular:    false,
+        underflow:   false,
+        relative:    false,
+
+        _options: {
+            list: function() {
+                return this.element().children().eq(0);
+            },
+            items: function() {
+                return this.list().children();
+            },
+            animation:   400,
+            transitions: false,
+            wrap:        null,
+            vertical:    null,
+            rtl:         null,
+            center:      false
         },
 
-        /**
-         * Locks the carousel.
-         *
-         * @method lock
-         * @return undefined
-         */
-        lock: function() {
-            this.locked = true;
-            this.buttons();
-        },
+        // Protected, don't access directly
+        _list:         null,
+        _items:        null,
+        _target:       null,
+        _first:        null,
+        _last:         null,
+        _visible:      null,
+        _fullyvisible: null,
+        _init: function() {
+            var self = this;
 
-        /**
-         * Unlocks the carousel.
-         *
-         * @method unlock
-         * @return undefined
-         */
-        unlock: function() {
-            this.locked = false;
-            this.buttons();
-        },
+            this.onWindowResize = function() {
+                if (self.resizeTimer) {
+                    clearTimeout(self.resizeTimer);
+                }
 
-        /**
-         * Sets the size of the carousel.
-         *
-         * @method size
-         * @return undefined
-         * @param s {Number} The size of the carousel.
-         */
-        size: function(s) {
-            if (s != undefined) {
-                this.options.size = s;
-                if (!this.locked)
-                    this.buttons();
+                self.resizeTimer = setTimeout(function() {
+                    self.reload();
+                }, 100);
+            };
+
+            return this;
+        },
+        _create: function() {
+            this._reload();
+
+            $(window).on('resize.jcarousel', this.onWindowResize);
+        },
+        _destroy: function() {
+            $(window).off('resize.jcarousel', this.onWindowResize);
+        },
+        _reload: function() {
+            this.vertical = this.options('vertical');
+
+            if (this.vertical == null) {
+                this.vertical = this.list().height() > this.list().width();
             }
 
-            return this.options.size;
+            this.rtl = this.options('rtl');
+
+            if (this.rtl == null) {
+                this.rtl = (function(element) {
+                    if (('' + element.attr('dir')).toLowerCase() === 'rtl') {
+                        return true;
+                    }
+
+                    var found = false;
+
+                    element.parents('[dir]').each(function() {
+                        if ((/rtl/i).test($(this).attr('dir'))) {
+                            found = true;
+                            return false;
+                        }
+                    });
+
+                    return found;
+                }(this._element));
+            }
+
+            this.lt = this.vertical ? 'top' : 'left';
+
+            // Ensure before closest() call
+            this.relative = this.list().css('position') === 'relative';
+
+            // Force list and items reload
+            this._list  = null;
+            this._items = null;
+
+            var item = this._target && this.index(this._target) >= 0 ?
+                           this._target :
+                           this.closest();
+
+            // _prepare() needs this here
+            this.circular  = this.options('wrap') === 'circular';
+            this.underflow = false;
+
+            var props = {'left': 0, 'top': 0};
+
+            if (item.length > 0) {
+                this._prepare(item);
+                this.list().find('[data-jcarousel-clone]').remove();
+
+                // Force items reload
+                this._items = null;
+
+                this.underflow = this._fullyvisible.length >= this.items().length;
+                this.circular  = this.circular && !this.underflow;
+
+                props[this.lt] = this._position(item) + 'px';
+            }
+
+            this.move(props);
+
+            return this;
         },
+        list: function() {
+            if (this._list === null) {
+                var option = this.options('list');
+                this._list = $.isFunction(option) ? option.call(this) : this._element.find(option);
+            }
 
-        /**
-         * Checks whether a list element exists for the given index (or index range).
-         *
-         * @method get
-         * @return bool
-         * @param i {Number} The index of the (first) element.
-         * @param i2 {Number} The index of the last element.
-         */
-        has: function(i, i2) {
-            if (i2 == undefined || !i2)
-                i2 = i;
+            return this._list;
+        },
+        items: function() {
+            if (this._items === null) {
+                var option = this.options('items');
+                this._items = ($.isFunction(option) ? option.call(this) : this.list().find(option)).not('[data-jcarousel-clone]');
+            }
 
-            if (this.options.size !== null && i2 > this.options.size)
-                i2 = this.options.size;
+            return this._items;
+        },
+        index: function(item) {
+            return this.items().index(item);
+        },
+        closest: function() {
+            var self    = this,
+                pos     = this.list().position()[this.lt],
+                closest = $(), // Ensure we're returning a jQuery instance
+                stop    = false,
+                lrb     = this.vertical ? 'bottom' : (this.rtl && !this.relative ? 'left' : 'right'),
+                width;
 
-            for (var j = i; j <= i2; j++) {
-                var e = this.get(j);
-                if (!e.length || e.hasClass('jcarousel-item-placeholder'))
+            if (this.rtl && this.relative && !this.vertical) {
+                pos += this.list().width() - this.clipping();
+            }
+
+            this.items().each(function() {
+                closest = $(this);
+
+                if (stop) {
                     return false;
-            }
+                }
 
-            return true;
-        },
+                var dim = self.dimension(closest);
 
-        /**
-         * Returns a jQuery object with list element for the given index.
-         *
-         * @method get
-         * @return jQuery
-         * @param i {Number} The index of the element.
-         */
-        get: function(i) {
-            return $('.jcarousel-item-' + i, this.list);
-        },
+                pos += dim;
 
-        /**
-         * Adds an element for the given index to the list.
-         * If the element already exists, it updates the inner html.
-         * Returns the created element as jQuery object.
-         *
-         * @method add
-         * @return jQuery
-         * @param i {Number} The index of the element.
-         * @param s {String} The innerHTML of the element.
-         */
-        add: function(i, s) {
-            var e = this.get(i), old = 0, n = $(s);
+                if (pos >= 0) {
+                    width = dim - toFloat(closest.css('margin-' + lrb));
 
-            if (e.length == 0) {
-                var c, e = this.create(i), j = $jc.intval(i);
-                while (c = this.get(--j)) {
-                    if (j <= 0 || c.length) {
-                        j <= 0 ? this.list.prepend(e) : c.after(e);
-                        break;
+                    if ((Math.abs(pos) - dim + (width / 2)) <= 0) {
+                        stop = true;
+                    } else {
+                        return false;
                     }
                 }
-            } else
-                old = this.dimension(e);
+            });
 
-            if (n.get(0).nodeName.toUpperCase() == 'LI') {
-                e.replaceWith(n);
-                e = n;
-            } else
-                e.empty().append(s);
 
-            this.format(e.removeClass(this.className('jcarousel-item-placeholder')), i);
-
-            var di = this.options.visible != null ? Math.ceil(this.clipping() / this.options.visible) : null;
-            var wh = this.dimension(e, di) - old;
-
-            if (i > 0 && i < this.first)
-                this.list.css(this.lt, $jc.intval(this.list.css(this.lt)) - wh + 'px');
-
-            this.list.css(this.wh, $jc.intval(this.list.css(this.wh)) + wh + 'px');
-
-            return e;
+            return closest;
         },
-
-        /**
-         * Removes an element for the given index from the list.
-         *
-         * @method remove
-         * @return undefined
-         * @param i {Number} The index of the element.
-         */
-        remove: function(i) {
-            var e = this.get(i);
-
-            // Check if item exists and is not currently visible
-            if (!e.length || (i >= this.first && i <= this.last))
-                return;
-
-            var d = this.dimension(e);
-
-            if (i < this.first)
-                this.list.css(this.lt, $jc.intval(this.list.css(this.lt)) + d + 'px');
-
-            e.remove();
-
-            this.list.css(this.wh, $jc.intval(this.list.css(this.wh)) - d + 'px');
+        target: function() {
+            return this._target;
         },
-
-        /**
-         * Moves the carousel forwards.
-         *
-         * @method next
-         * @return undefined
-         */
-        next: function() {
-            this.stopAuto();
-
-            if (this.tail != null && !this.inTail)
-                this.scrollTail(false);
-            else
-                this.scroll(((this.options.wrap == 'both' || this.options.wrap == 'last') && this.options.size != null && this.last == this.options.size) ? 1 : this.first + this.options.scroll);
+        first: function() {
+            return this._first;
         },
-
-        /**
-         * Moves the carousel backwards.
-         *
-         * @method prev
-         * @return undefined
-         */
-        prev: function() {
-            this.stopAuto();
-
-            if (this.tail != null && this.inTail)
-                this.scrollTail(true);
-            else
-                this.scroll(((this.options.wrap == 'both' || this.options.wrap == 'first') && this.options.size != null && this.first == 1) ? this.options.size : this.first - this.options.scroll);
+        last: function() {
+            return this._last;
         },
-
-        /**
-         * Scrolls the tail of the carousel.
-         *
-         * @method scrollTail
-         * @return undefined
-         * @param b {Boolean} Whether scroll the tail back or forward.
-         */
-        scrollTail: function(b) {
-            if (this.locked || this.animating || !this.tail)
-                return;
-
-            var pos  = $jc.intval(this.list.css(this.lt));
-
-            !b ? pos -= this.tail : pos += this.tail;
-            this.inTail = !b;
-
-            // Save for callbacks
-            this.prevFirst = this.first;
-            this.prevLast  = this.last;
-
-            this.animate(pos);
+        visible: function() {
+            return this._visible;
         },
-
-        /**
-         * Scrolls the carousel to a certain position.
-         *
-         * @method scroll
-         * @return undefined
-         * @param i {Number} The index of the element to scoll to.
-         * @param a {Boolean} Flag indicating whether to perform animation.
-         */
-        scroll: function(i, a) {
-            if (this.locked || this.animating)
-                return;
-
-            this.animate(this.pos(i), a);
+        fullyvisible: function() {
+            return this._fullyvisible;
         },
+        hasNext: function() {
+            if (false === this._trigger('hasnext')) {
+                return true;
+            }
 
-        /**
-         * Prepares the carousel and return the position for a certian index.
-         *
-         * @method pos
-         * @return {Number}
-         * @param i {Number} The index of the element to scoll to.
-         */
-        pos: function(i) {
-            var pos  = $jc.intval(this.list.css(this.lt));
+            var wrap = this.options('wrap'),
+                end = this.items().length - 1;
 
-            if (this.locked || this.animating)
-                return pos;
+            return end >= 0 &&
+                ((wrap && wrap !== 'first') ||
+                    (this.index(this._last) < end) ||
+                    (this.tail && !this.inTail)) ? true : false;
+        },
+        hasPrev: function() {
+            if (false === this._trigger('hasprev')) {
+                return true;
+            }
 
-            if (this.options.wrap != 'circular')
-                i = i < 1 ? 1 : (this.options.size && i > this.options.size ? this.options.size : i);
+            var wrap = this.options('wrap');
 
-            var back = this.first > i;
+            return this.items().length > 0 &&
+                ((wrap && wrap !== 'last') ||
+                    (this.index(this._first) > 0) ||
+                    (this.tail && this.inTail)) ? true : false;
+        },
+        clipping: function() {
+            return this._element['inner' + (this.vertical ? 'Height' : 'Width')]();
+        },
+        dimension: function(element) {
+            return element['outer' + (this.vertical ? 'Height' : 'Width')](true);
+        },
+        scroll: function(target, animate, callback) {
+            if (this.animating) {
+                return this;
+            }
 
-            // Create placeholders, new list width/height
-            // and new list position
-            var f = this.options.wrap != 'circular' && this.first <= 1 ? 1 : this.first;
-            var c = back ? this.get(f) : this.get(this.last);
-            var j = back ? f : f - 1;
-            var e = null, l = 0, p = false, d = 0, g;
+            if (false === this._trigger('scroll', null, [target, animate])) {
+                return this;
+            }
 
-            while (back ? --j >= i : ++j < i) {
-                e = this.get(j);
-                p = !e.length;
-                if (e.length == 0) {
-                    e = this.create(j).addClass(this.className('jcarousel-item-placeholder'));
-                    c[back ? 'before' : 'after' ](e);
+            if ($.isFunction(animate)) {
+                callback = animate;
+                animate  = true;
+            }
 
-                    if (this.first != null && this.options.wrap == 'circular' && this.options.size !== null && (j <= 0 || j > this.options.size)) {
-                        g = this.get(this.index(j));
-                        if (g.length)
-                            e = this.add(j, g.clone(true));
+            var parsed = $.jCarousel.parseTarget(target);
+
+            if (parsed.relative) {
+                var end    = this.items().length - 1,
+                    scroll = Math.abs(parsed.target),
+                    wrap   = this.options('wrap'),
+                    current,
+                    first,
+                    index,
+                    start,
+                    curr,
+                    isVisible,
+                    props,
+                    i;
+
+                if (parsed.target > 0) {
+                    var last = this.index(this._last);
+
+                    if (last >= end && this.tail) {
+                        if (!this.inTail) {
+                            this._scrollTail(animate, callback);
+                        } else {
+                            if (wrap === 'both' || wrap === 'last') {
+                                this._scroll(0, animate, callback);
+                            } else {
+                                if ($.isFunction(callback)) {
+                                    callback.call(this, false);
+                                }
+                            }
+                        }
+                    } else {
+                        current = this.index(this._target);
+
+                        if ((this.underflow && current === end && (wrap === 'circular' || wrap === 'both' || wrap === 'last')) ||
+                            (!this.underflow && last === end && (wrap === 'both' || wrap === 'last'))) {
+                            this._scroll(0, animate, callback);
+                        } else {
+                            index = current + scroll;
+
+                            if (this.circular && index > end) {
+                                i = end;
+                                curr = this.items().get(-1);
+
+                                while (i++ < index) {
+                                    curr = this.items().eq(0);
+                                    isVisible = this._visible.index(curr) >= 0;
+
+                                    if (isVisible) {
+                                        curr.after(curr.clone(true).attr('data-jcarousel-clone', true));
+                                    }
+
+                                    this.list().append(curr);
+
+                                    if (!isVisible) {
+                                        props = {};
+                                        props[this.lt] = this.dimension(curr);
+                                        this.moveBy(props);
+                                    }
+
+                                    // Force items reload
+                                    this._items = null;
+                                }
+
+                                this._scroll(curr, animate, callback);
+                            } else {
+                                this._scroll(Math.min(index, end), animate, callback);
+                            }
+                        }
+                    }
+                } else {
+                    if (this.inTail) {
+                        this._scroll(Math.max((this.index(this._first) - scroll) + 1, 0), animate, callback);
+                    } else {
+                        first  = this.index(this._first);
+                        current = this.index(this._target);
+                        start  = this.underflow ? current : first;
+                        index  = start - scroll;
+
+                        if (start <= 0 && ((this.underflow && wrap === 'circular') || wrap === 'both' || wrap === 'first')) {
+                            this._scroll(end, animate, callback);
+                        } else {
+                            if (this.circular && index < 0) {
+                                i    = index;
+                                curr = this.items().get(0);
+
+                                while (i++ < 0) {
+                                    curr = this.items().eq(-1);
+                                    isVisible = this._visible.index(curr) >= 0;
+
+                                    if (isVisible) {
+                                        curr.after(curr.clone(true).attr('data-jcarousel-clone', true));
+                                    }
+
+                                    this.list().prepend(curr);
+
+                                    // Force items reload
+                                    this._items = null;
+
+                                    var dim = this.dimension(curr);
+
+                                    props = {};
+                                    props[this.lt] = -dim;
+                                    this.moveBy(props);
+
+                                }
+
+                                this._scroll(curr, animate, callback);
+                            } else {
+                                this._scroll(Math.max(index, 0), animate, callback);
+                            }
+                        }
                     }
                 }
-
-                c = e;
-                d = this.dimension(e);
-
-                if (p)
-                    l += d;
-
-                if (this.first != null && (this.options.wrap == 'circular' || (j >= 1 && (this.options.size == null || j <= this.options.size))))
-                    pos = back ? pos + d : pos - d;
+            } else {
+                this._scroll(parsed.target, animate, callback);
             }
 
-            // Calculate visible items
-            var clipping = this.clipping();
-            var cache = [];
-            var visible = 0, j = i, v = 0;
-            var c = this.get(i - 1);
+            this._trigger('scrollend');
 
-            while (++visible) {
-                e = this.get(j);
-                p = !e.length;
-                if (e.length == 0) {
-                    e = this.create(j).addClass(this.className('jcarousel-item-placeholder'));
-                    // This should only happen on a next scroll
-                    c.length == 0 ? this.list.prepend(e) : c[back ? 'before' : 'after' ](e);
+            return this;
+        },
+        moveBy: function(properties, opts) {
+            var position = this.list().position(),
+                multiplier = 1,
+                correction = 0;
 
-                    if (this.first != null && this.options.wrap == 'circular' && this.options.size !== null && (j <= 0 || j > this.options.size)) {
-                        g = this.get(this.index(j));
-                        if (g.length)
-                            e = this.add(j, g.clone(true));
-                    }
-                }
+            if (this.rtl && !this.vertical) {
+                multiplier = -1;
 
-                c = e;
-                var d = this.dimension(e);
-                if (d == 0) {
-                    throw new Error('jCarousel: No width/height set for items. This will cause an infinite loop. Aborting...');
-                }
-
-                if (this.options.wrap != 'circular' && this.options.size !== null && j > this.options.size)
-                    cache.push(e);
-                else if (p)
-                    l += d;
-
-                v += d;
-
-                if (v >= clipping)
-                    break;
-
-                j++;
-            }
-
-             // Remove out-of-range placeholders
-            for (var x = 0; x < cache.length; x++)
-                cache[x].remove();
-
-            // Resize list
-            if (l > 0) {
-                this.list.css(this.wh, this.dimension(this.list) + l + 'px');
-
-                if (back) {
-                    pos -= l;
-                    this.list.css(this.lt, $jc.intval(this.list.css(this.lt)) - l + 'px');
+                if (this.relative) {
+                    correction = this.list().width() - this.clipping();
                 }
             }
 
-            // Calculate first and last item
-            var last = i + visible - 1;
-            if (this.options.wrap != 'circular' && this.options.size && last > this.options.size)
-                last = this.options.size;
-
-            if (j > last) {
-                visible = 0, j = last, v = 0;
-                while (++visible) {
-                    var e = this.get(j--);
-                    if (!e.length)
-                        break;
-                    v += this.dimension(e);
-                    if (v >= clipping)
-                        break;
-                }
+            if (properties.left) {
+                properties.left = (position.left + correction + toFloat(properties.left) * multiplier) + 'px';
             }
 
-            var first = last - visible + 1;
-            if (this.options.wrap != 'circular' && first < 1)
-                first = 1;
+            if (properties.top) {
+                properties.top = (position.top + correction + toFloat(properties.top) * multiplier) + 'px';
+            }
 
-            if (this.inTail && back) {
+            return this.move(properties, opts);
+        },
+        move: function(properties, opts) {
+            opts = opts || {};
+
+            var option       = this.options('transitions'),
+                transitions  = !!option,
+                transforms   = !!option.transforms,
+                transforms3d = !!option.transforms3d,
+                duration     = opts.duration || 0,
+                list         = this.list();
+
+            if (!transitions && duration > 0) {
+                list.animate(properties, opts);
+                return;
+            }
+
+            var complete = opts.complete || $.noop,
+                css = {};
+
+            if (transitions) {
+                var backup = list.css(['transitionDuration', 'transitionTimingFunction', 'transitionProperty']),
+                    oldComplete = complete;
+
+                complete = function() {
+                    $(this).css(backup);
+                    oldComplete.call(this);
+                };
+                css = {
+                    transitionDuration: (duration > 0 ? duration / 1000 : 0) + 's',
+                    transitionTimingFunction: option.easing || opts.easing,
+                    transitionProperty: duration > 0 ? (function() {
+                        if (transforms || transforms3d) {
+                            // We have to use 'all' because jQuery doesn't prefix
+                            // css values, like transition-property: transform;
+                            return 'all';
+                        }
+
+                        return properties.left ? 'left' : 'top';
+                    })() : 'none',
+                    transform: 'none'
+                };
+            }
+
+            if (transforms3d) {
+                css.transform = 'translate3d(' + (properties.left || 0) + ',' + (properties.top || 0) + ',0)';
+            } else if (transforms) {
+                css.transform = 'translate(' + (properties.left || 0) + ',' + (properties.top || 0) + ')';
+            } else {
+                $.extend(css, properties);
+            }
+
+            if (transitions && duration > 0) {
+                list.one('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', complete);
+            }
+
+            list.css(css);
+
+            if (duration <= 0) {
+                list.each(function() {
+                    complete.call(this);
+                });
+            }
+        },
+        _scroll: function(item, animate, callback) {
+            if (this.animating) {
+                if ($.isFunction(callback)) {
+                    callback.call(this, false);
+                }
+
+                return this;
+            }
+
+            if (typeof item !== 'object') {
+                item = this.items().eq(item);
+            } else if (typeof item.jquery === 'undefined') {
+                item = $(item);
+            }
+
+            if (item.length === 0) {
+                if ($.isFunction(callback)) {
+                    callback.call(this, false);
+                }
+
+                return this;
+            }
+
+            this.inTail = false;
+
+            this._prepare(item);
+
+            var pos     = this._position(item),
+                currPos = this.list().position()[this.lt];
+
+            if (pos === currPos) {
+                if ($.isFunction(callback)) {
+                    callback.call(this, false);
+                }
+
+                return this;
+            }
+
+            var properties = {};
+            properties[this.lt] = pos + 'px';
+
+            this._animate(properties, animate, callback);
+
+            return this;
+        },
+        _scrollTail: function(animate, callback) {
+            if (this.animating || !this.tail) {
+                if ($.isFunction(callback)) {
+                    callback.call(this, false);
+                }
+
+                return this;
+            }
+
+            var pos = this.list().position()[this.lt];
+
+            if (this.rtl && this.relative && !this.vertical) {
+                pos += this.list().width() - this.clipping();
+            }
+
+            if (this.rtl && !this.vertical) {
                 pos += this.tail;
-                this.inTail = false;
+            } else {
+                pos -= this.tail;
             }
 
-            this.tail = null;
-            if (this.options.wrap != 'circular' && last == this.options.size && (last - visible + 1) >= 1) {
-                var m = $jc.margin(this.get(last), !this.options.vertical ? 'marginRight' : 'marginBottom');
-                if ((v - m) > clipping)
-                    this.tail = v - clipping - m;
-            }
+            this.inTail = true;
 
-            // Adjust position
-            while (i-- > first)
-                pos += this.dimension(this.get(i));
+            var properties = {};
+            properties[this.lt] = pos + 'px';
 
-            // Save visible item range
-            this.prevFirst = this.first;
-            this.prevLast  = this.last;
-            this.first     = first;
-            this.last      = last;
+            this._update({
+                target:       this._target.next(),
+                fullyvisible: this._fullyvisible.slice(1).add(this._visible.last())
+            });
 
-            return pos;
+            this._animate(properties, animate, callback);
+
+            return this;
         },
+        _animate: function(properties, animate, callback) {
+            callback = callback || $.noop;
 
-        /**
-         * Animates the carousel to a certain position.
-         *
-         * @method animate
-         * @return undefined
-         * @param p {Number} Position to scroll to.
-         * @param a {Boolean} Flag indicating whether to perform animation.
-         */
-        animate: function(p, a) {
-            if (this.locked || this.animating)
-                return;
+            if (false === this._trigger('animate')) {
+                callback.call(this, false);
+                return this;
+            }
 
             this.animating = true;
 
-            var self = this;
-            var scrolled = function() {
-                self.animating = false;
+            var animation = this.options('animation'),
+                complete  = $.proxy(function() {
+                    this.animating = false;
 
-                if (p == 0)
-                    self.list.css(self.lt,  0);
+                    var c = this.list().find('[data-jcarousel-clone]');
 
-                if (self.options.wrap == 'circular' || self.options.wrap == 'both' || self.options.wrap == 'last' || self.options.size == null || self.last < self.options.size)
-                    self.startAuto();
+                    if (c.length > 0) {
+                        c.remove();
+                        this._reload();
+                    }
 
-                self.buttons();
-                self.notify('onAfterAnimation');
+                    this._trigger('animateend');
 
-                // This function removes items which are appended automatically for circulation.
-                // This prevents the list from growing infinitely.
-                if (self.options.wrap == 'circular' && self.options.size !== null)
-                    for (var i = self.prevFirst; i <= self.prevLast; i++)
-                        if (i !== null && !(i >= self.first && i <= self.last) && (i < 1 || i > self.options.size))
-                            self.remove(i);
+                    callback.call(this, true);
+                }, this);
+
+            var opts = typeof animation === 'object' ?
+                           $.extend({}, animation) :
+                           {duration: animation},
+                oldComplete = opts.complete || $.noop;
+
+            if (animate === false) {
+                opts.duration = 0;
+            } else if (typeof $.fx.speeds[opts.duration] !== 'undefined') {
+                opts.duration = $.fx.speeds[opts.duration];
+            }
+
+            opts.complete = function() {
+                complete();
+                oldComplete.call(this);
             };
 
-            this.notify('onBeforeAnimation');
+            this.move(properties, opts);
 
-            // Animate
-            if (!this.options.animation || a == false) {
-                this.list.css(this.lt, p + 'px');
-                scrolled();
-            } else {
-                var o = !this.options.vertical ? (this.options.rtl ? {'right': p} : {'left': p}) : {'top': p};
-                this.list.animate(o, this.options.animation, this.options.easing, scrolled);
-            }
+            return this;
         },
+        _prepare: function(item) {
+            var index  = this.index(item),
+                idx    = index,
+                wh     = this.dimension(item),
+                clip   = this.clipping(),
+                lrb    = this.vertical ? 'bottom' : (this.rtl ? 'left'  : 'right'),
+                center = this.options('center'),
+                update = {
+                    target:       item,
+                    first:        item,
+                    last:         item,
+                    visible:      item,
+                    fullyvisible: wh <= clip ? item : $()
+                },
+                curr,
+                isVisible,
+                margin,
+                dim;
 
-        /**
-         * Starts autoscrolling.
-         *
-         * @method auto
-         * @return undefined
-         * @param s {Number} Seconds to periodically autoscroll the content.
-         */
-        startAuto: function(s) {
-            if (s != undefined)
-                this.options.auto = s;
-
-            if (this.options.auto == 0)
-                return this.stopAuto();
-
-            if (this.timer != null)
-                return;
-
-            var self = this;
-            this.timer = setTimeout(function() { self.next(); }, this.options.auto * 1000);
-        },
-
-        /**
-         * Stops autoscrolling.
-         *
-         * @method stopAuto
-         * @return undefined
-         */
-        stopAuto: function() {
-            if (this.timer == null)
-                return;
-
-            clearTimeout(this.timer);
-            this.timer = null;
-        },
-
-        /**
-         * Sets the states of the prev/next buttons.
-         *
-         * @method buttons
-         * @return undefined
-         */
-        buttons: function(n, p) {
-            if (n == undefined || n == null) {
-                var n = !this.locked && this.options.size !== 0 && ((this.options.wrap && this.options.wrap != 'first') || this.options.size == null || this.last < this.options.size);
-                if (!this.locked && (!this.options.wrap || this.options.wrap == 'first') && this.options.size != null && this.last >= this.options.size)
-                    n = this.tail != null && !this.inTail;
+            if (center) {
+                wh /= 2;
+                clip /= 2;
             }
 
-            if (p == undefined || p == null) {
-                var p = !this.locked && this.options.size !== 0 && ((this.options.wrap && this.options.wrap != 'last') || this.first > 1);
-                if (!this.locked && (!this.options.wrap || this.options.wrap == 'last') && this.options.size != null && this.first == 1)
-                    p = this.tail != null && this.inTail;
-            }
+            if (wh < clip) {
+                while (true) {
+                    curr = this.items().eq(++idx);
 
-            var self = this;
+                    if (curr.length === 0) {
+                        if (!this.circular) {
+                            break;
+                        }
 
-            this.buttonNext[n ? 'bind' : 'unbind'](this.options.buttonNextEvent + '.jcarousel', this.funcNext)[n ? 'removeClass' : 'addClass'](this.className('jcarousel-next-disabled')).attr('disabled', n ? false : true);
-            this.buttonPrev[p ? 'bind' : 'unbind'](this.options.buttonPrevEvent + '.jcarousel', this.funcPrev)[p ? 'removeClass' : 'addClass'](this.className('jcarousel-prev-disabled')).attr('disabled', p ? false : true);
+                        curr = this.items().eq(0);
 
-            if (this.options.buttonNextCallback != null && this.buttonNext.data('jcarouselstate') != n) {
-                this.buttonNext.each(function() { self.options.buttonNextCallback(self, this, n); }).data('jcarouselstate', n);
-            }
+                        if (item.get(0) === curr.get(0)) {
+                            break;
+                        }
 
-            if (this.options.buttonPrevCallback != null && (this.buttonPrev.data('jcarouselstate') != p)) {
-                this.buttonPrev.each(function() { self.options.buttonPrevCallback(self, this, p); }).data('jcarouselstate', p);
-            }
-        },
+                        isVisible = this._visible.index(curr) >= 0;
 
-        /**
-         * Notify callback of a specified event.
-         *
-         * @method notify
-         * @return undefined
-         * @param evt {String} The event name
-         */
-        notify: function(evt) {
-            var state = this.prevFirst == null ? 'init' : (this.prevFirst < this.first ? 'next' : 'prev');
+                        if (isVisible) {
+                            curr.after(curr.clone(true).attr('data-jcarousel-clone', true));
+                        }
 
-            // Load items
-            this.callback('itemLoadCallback', evt, state);
+                        this.list().append(curr);
 
-            if (this.prevFirst !== this.first) {
-                this.callback('itemFirstInCallback', evt, state, this.first);
-                this.callback('itemFirstOutCallback', evt, state, this.prevFirst);
-            }
+                        if (!isVisible) {
+                            var props = {};
+                            props[this.lt] = this.dimension(curr);
+                            this.moveBy(props);
+                        }
 
-            if (this.prevLast !== this.last) {
-                this.callback('itemLastInCallback', evt, state, this.last);
-                this.callback('itemLastOutCallback', evt, state, this.prevLast);
-            }
+                        // Force items reload
+                        this._items = null;
+                    }
 
-            this.callback('itemVisibleInCallback', evt, state, this.first, this.last, this.prevFirst, this.prevLast);
-            this.callback('itemVisibleOutCallback', evt, state, this.prevFirst, this.prevLast, this.first, this.last);
-        },
+                    dim = this.dimension(curr);
 
-        callback: function(cb, evt, state, i1, i2, i3, i4) {
-            if (this.options[cb] == undefined || (typeof this.options[cb] != 'object' && evt != 'onAfterAnimation'))
-                return;
+                    if (dim === 0) {
+                        break;
+                    }
 
-            var callback = typeof this.options[cb] == 'object' ? this.options[cb][evt] : this.options[cb];
+                    wh += dim;
 
-            if (!$.isFunction(callback))
-                return;
+                    update.last    = curr;
+                    update.visible = update.visible.add(curr);
 
-            var self = this;
+                    // Remove right/bottom margin from total width
+                    margin = toFloat(curr.css('margin-' + lrb));
 
-            if (i1 === undefined)
-                callback(self, state, evt);
-            else if (i2 === undefined)
-                this.get(i1).each(function() { callback(self, this, i1, state, evt); });
-            else {
-                for (var i = i1; i <= i2; i++)
-                    if (i !== null && !(i >= i3 && i <= i4))
-                        this.get(i).each(function() { callback(self, this, i, state, evt); });
-            }
-        },
+                    if ((wh - margin) <= clip) {
+                        update.fullyvisible = update.fullyvisible.add(curr);
+                    }
 
-        create: function(i) {
-            return this.format('<li></li>', i);
-        },
-
-        format: function(e, i) {
-            var e = $(e), split = e.get(0).className.split(' ');
-            for (var j = 0; j < split.length; j++) {
-                if (split[j].indexOf('jcarousel-') != -1) {
-                    e.removeClass(split[j]);
+                    if (wh >= clip) {
+                        break;
+                    }
                 }
             }
-            e.addClass(this.className('jcarousel-item')).addClass(this.className('jcarousel-item-' + i)).css({
-                'float': (this.options.rtl ? 'right' : 'left'),
-                'list-style': 'none'
-            }).attr('jcarouselindex', i);
-            return e;
-        },
 
-        className: function(c) {
-            return c + ' ' + c + (!this.options.vertical ? '-horizontal' : '-vertical');
-        },
+            if (!this.circular && !center && wh < clip) {
+                idx = index;
 
-        dimension: function(e, d) {
-            var el = e.jquery != undefined ? e[0] : e;
+                while (true) {
+                    if (--idx < 0) {
+                        break;
+                    }
 
-            var old = !this.options.vertical ?
-                (el.offsetWidth || $jc.intval(this.options.itemFallbackDimension)) + $jc.margin(el, 'marginLeft') + $jc.margin(el, 'marginRight') :
-                (el.offsetHeight || $jc.intval(this.options.itemFallbackDimension)) + $jc.margin(el, 'marginTop') + $jc.margin(el, 'marginBottom');
+                    curr = this.items().eq(idx);
 
-            if (d == undefined || old == d)
-                return old;
+                    if (curr.length === 0) {
+                        break;
+                    }
 
-            var w = !this.options.vertical ?
-                d - $jc.margin(el, 'marginLeft') - $jc.margin(el, 'marginRight') :
-                d - $jc.margin(el, 'marginTop') - $jc.margin(el, 'marginBottom');
+                    dim = this.dimension(curr);
 
-            $(el).css(this.wh, w + 'px');
+                    if (dim === 0) {
+                        break;
+                    }
 
-            return this.dimension(el);
-        },
+                    wh += dim;
 
-        clipping: function() {
-            return !this.options.vertical ?
-                this.clip[0].offsetWidth - $jc.intval(this.clip.css('borderLeftWidth')) - $jc.intval(this.clip.css('borderRightWidth')) :
-                this.clip[0].offsetHeight - $jc.intval(this.clip.css('borderTopWidth')) - $jc.intval(this.clip.css('borderBottomWidth'));
-        },
+                    update.first   = curr;
+                    update.visible = update.visible.add(curr);
 
-        index: function(i, s) {
-            if (s == undefined)
-                s = this.options.size;
+                    // Remove right/bottom margin from total width
+                    margin = toFloat(curr.css('margin-' + lrb));
 
-            return Math.round((((i-1) / s) - Math.floor((i-1) / s)) * s) + 1;
-        }
-    });
+                    if ((wh - margin) <= clip) {
+                        update.fullyvisible = update.fullyvisible.add(curr);
+                    }
 
-    $jc.extend({
-        /**
-         * Gets/Sets the global default configuration properties.
-         *
-         * @method defaults
-         * @return {Object}
-         * @param d {Object} A set of key/value pairs to set as configuration properties.
-         */
-        defaults: function(d) {
-            return $.extend(defaults, d || {});
-        },
-
-        margin: function(e, p) {
-            if (!e)
-                return 0;
-
-            var el = e.jquery != undefined ? e[0] : e;
-
-            if (p == 'marginRight' && $.browser.safari) {
-                var old = {'display': 'block', 'float': 'none', 'width': 'auto'}, oWidth, oWidth2;
-
-                $.swap(el, old, function() { oWidth = el.offsetWidth; });
-
-                old['marginRight'] = 0;
-                $.swap(el, old, function() { oWidth2 = el.offsetWidth; });
-
-                return oWidth2 - oWidth;
+                    if (wh >= clip) {
+                        break;
+                    }
+                }
             }
 
-            return $jc.intval($.css(el, p));
-        },
+            this._update(update);
 
-        intval: function(v) {
-            v = parseInt(v);
-            return isNaN(v) ? 0 : v;
+            this.tail = 0;
+
+            if (!center &&
+                this.options('wrap') !== 'circular' &&
+                this.options('wrap') !== 'custom' &&
+                this.index(update.last) === (this.items().length - 1)) {
+
+                // Remove right/bottom margin from total width
+                wh -= toFloat(update.last.css('margin-' + lrb));
+
+                if (wh > clip) {
+                    this.tail = wh - clip;
+                }
+            }
+
+            return this;
+        },
+        _position: function(item) {
+            var first  = this._first,
+                pos    = first.position()[this.lt],
+                center = this.options('center'),
+                centerOffset = center ? (this.clipping() / 2) - (this.dimension(first) / 2) : 0;
+
+            if (this.rtl && !this.vertical) {
+                if (this.relative) {
+                    pos -= this.list().width() - this.dimension(first);
+                } else {
+                    pos -= this.clipping() - this.dimension(first);
+                }
+
+                pos += centerOffset;
+            } else {
+                pos -= centerOffset;
+            }
+
+            if (!center &&
+                (this.index(item) > this.index(first) || this.inTail) &&
+                this.tail) {
+                pos = this.rtl && !this.vertical ? pos - this.tail : pos + this.tail;
+                this.inTail = true;
+            } else {
+                this.inTail = false;
+            }
+
+            return -pos;
+        },
+        _update: function(update) {
+            var self = this,
+                current = {
+                    target:       this._target || $(),
+                    first:        this._first || $(),
+                    last:         this._last || $(),
+                    visible:      this._visible || $(),
+                    fullyvisible: this._fullyvisible || $()
+                },
+                back = this.index(update.first || current.first) < this.index(current.first),
+                key,
+                doUpdate = function(key) {
+                    var elIn  = [],
+                        elOut = [];
+
+                    update[key].each(function() {
+                        if (current[key].index(this) < 0) {
+                            elIn.push(this);
+                        }
+                    });
+
+                    current[key].each(function() {
+                        if (update[key].index(this) < 0) {
+                            elOut.push(this);
+                        }
+                    });
+
+                    if (back) {
+                        elIn = elIn.reverse();
+                    } else {
+                        elOut = elOut.reverse();
+                    }
+
+                    self._trigger(key + 'in', $(elIn));
+                    self._trigger(key + 'out', $(elOut));
+
+                    self['_' + key] = update[key];
+                };
+
+            for (key in update) {
+                doUpdate(key);
+            }
+
+            return this;
         }
     });
+}(jQuery, window));
 
-})(jQuery);
+(function($) {
+    'use strict';
+
+    $.jcarousel.fn.scrollIntoView = function(target, animate, callback) {
+        var parsed = $.jCarousel.parseTarget(target),
+            first  = this.index(this._fullyvisible.first()),
+            last   = this.index(this._fullyvisible.last()),
+            index;
+
+        if (parsed.relative) {
+            index = parsed.target < 0 ? Math.max(0, first + parsed.target) : last + parsed.target;
+        } else {
+            index = typeof parsed.target !== 'object' ? parsed.target : this.index(parsed.target);
+        }
+
+        if (index < first) {
+            return this.scroll(index, animate, callback);
+        }
+
+        if (index >= first && index <= last) {
+            if ($.isFunction(callback)) {
+                callback.call(this, false);
+            }
+
+            return this;
+        }
+
+        var items = this.items(),
+            clip = this.clipping(),
+            lrb  = this.vertical ? 'bottom' : (this.rtl ? 'left'  : 'right'),
+            wh   = 0,
+            curr;
+
+        while (true) {
+            curr = items.eq(index);
+
+            if (curr.length === 0) {
+                break;
+            }
+
+            wh += this.dimension(curr);
+
+            if (wh >= clip) {
+                var margin = parseFloat(curr.css('margin-' + lrb)) || 0;
+                if ((wh - margin) !== clip) {
+                    index++;
+                }
+                break;
+            }
+
+            if (index <= 0) {
+                break;
+            }
+
+            index--;
+        }
+
+        return this.scroll(index, animate, callback);
+    };
+}(jQuery));
+
+(function($) {
+    'use strict';
+
+    $.jCarousel.plugin('jcarouselControl', {
+        _options: {
+            target: '+=1',
+            event:  'click',
+            method: 'scroll'
+        },
+        _active: null,
+        _init: function() {
+            this.onDestroy = $.proxy(function() {
+                this._destroy();
+                this.carousel()
+                    .one('jcarousel:createend', $.proxy(this._create, this));
+            }, this);
+            this.onReload = $.proxy(this._reload, this);
+            this.onEvent = $.proxy(function(e) {
+                e.preventDefault();
+
+                var method = this.options('method');
+
+                if ($.isFunction(method)) {
+                    method.call(this);
+                } else {
+                    this.carousel()
+                        .jcarousel(this.options('method'), this.options('target'));
+                }
+            }, this);
+        },
+        _create: function() {
+            this.carousel()
+                .one('jcarousel:destroy', this.onDestroy)
+                .on('jcarousel:reloadend jcarousel:scrollend', this.onReload);
+
+            this._element
+                .on(this.options('event') + '.jcarouselcontrol', this.onEvent);
+
+            this._reload();
+        },
+        _destroy: function() {
+            this._element
+                .off('.jcarouselcontrol', this.onEvent);
+
+            this.carousel()
+                .off('jcarousel:destroy', this.onDestroy)
+                .off('jcarousel:reloadend jcarousel:scrollend', this.onReload);
+        },
+        _reload: function() {
+            var parsed   = $.jCarousel.parseTarget(this.options('target')),
+                carousel = this.carousel(),
+                active;
+
+            if (parsed.relative) {
+                active = carousel
+                    .jcarousel(parsed.target > 0 ? 'hasNext' : 'hasPrev');
+            } else {
+                var target = typeof parsed.target !== 'object' ?
+                                carousel.jcarousel('items').eq(parsed.target) :
+                                parsed.target;
+
+                active = carousel.jcarousel('target').index(target) >= 0;
+            }
+
+            if (this._active !== active) {
+                this._trigger(active ? 'active' : 'inactive');
+                this._active = active;
+            }
+
+            return this;
+        }
+    });
+}(jQuery));
+
+(function($) {
+    'use strict';
+
+    $.jCarousel.plugin('jcarouselPagination', {
+        _options: {
+            perPage: null,
+            item: function(page) {
+                return '<a href="#' + page + '">' + page + '</a>';
+            },
+            event:  'click',
+            method: 'scroll'
+        },
+        _pages: {},
+        _items: {},
+        _currentPage: null,
+        _init: function() {
+            this.onDestroy = $.proxy(function() {
+                this._destroy();
+                this.carousel()
+                    .one('jcarousel:createend', $.proxy(this._create, this));
+            }, this);
+            this.onReload = $.proxy(this._reload, this);
+            this.onScroll = $.proxy(this._update, this);
+        },
+        _create: function() {
+            this.carousel()
+                .one('jcarousel:destroy', this.onDestroy)
+                .on('jcarousel:reloadend', this.onReload)
+                .on('jcarousel:scrollend', this.onScroll);
+
+            this._reload();
+        },
+        _destroy: function() {
+            this._clear();
+
+            this.carousel()
+                .off('jcarousel:destroy', this.onDestroy)
+                .off('jcarousel:reloadend', this.onReload)
+                .off('jcarousel:scrollend', this.onScroll);
+        },
+        _reload: function() {
+            var perPage = this.options('perPage');
+
+            this._pages = {};
+            this._items = {};
+
+            // Calculate pages
+            if ($.isFunction(perPage)) {
+                perPage = perPage.call(this);
+            }
+
+            if (perPage == null) {
+                this._pages = this._calculatePages();
+            } else {
+                var pp    = parseInt(perPage, 10) || 0,
+                    items = this.carousel().jcarousel('items'),
+                    page  = 1,
+                    i     = 0,
+                    curr;
+
+                while (true) {
+                    curr = items.eq(i++);
+
+                    if (curr.length === 0) {
+                        break;
+                    }
+
+                    if (!this._pages[page]) {
+                        this._pages[page] = curr;
+                    } else {
+                        this._pages[page] = this._pages[page].add(curr);
+                    }
+
+                    if (i % pp === 0) {
+                        page++;
+                    }
+                }
+            }
+
+            this._clear();
+
+            var self     = this,
+                carousel = this.carousel().data('jcarousel'),
+                element  = this._element,
+                item     = this.options('item');
+
+            $.each(this._pages, function(page, carouselItems) {
+                var currItem = self._items[page] = $(item.call(self, page, carouselItems));
+
+                currItem.on(self.options('event') + '.jcarouselpagination', $.proxy(function() {
+                    var target = carouselItems.eq(0);
+
+                    // If circular wrapping enabled, ensure correct scrolling direction
+                    if (carousel.circular) {
+                        var currentIndex = carousel.index(carousel.target()),
+                            newIndex     = carousel.index(target);
+
+                        if (parseFloat(page) > parseFloat(self._currentPage)) {
+                            if (newIndex < currentIndex) {
+                                target = '+=' + (carousel.items().length - currentIndex + newIndex);
+                            }
+                        } else {
+                            if (newIndex > currentIndex) {
+                                target = '-=' + (currentIndex + (carousel.items().length - newIndex));
+                            }
+                        }
+                    }
+
+                    carousel[this.options('method')](target);
+                }, self));
+
+                element.append(currItem);
+            });
+
+            this._update();
+        },
+        _update: function() {
+            var target = this.carousel().jcarousel('target'),
+                currentPage;
+
+            $.each(this._pages, function(page, carouselItems) {
+                carouselItems.each(function() {
+                    if (target.is(this)) {
+                        currentPage = page;
+                        return false;
+                    }
+                });
+
+                if (currentPage) {
+                    return false;
+                }
+            });
+
+            if (this._currentPage !== currentPage) {
+                this._trigger('inactive', this._items[this._currentPage]);
+                this._trigger('active', this._items[currentPage]);
+            }
+
+            this._currentPage = currentPage;
+        },
+        items: function() {
+            return this._items;
+        },
+        _clear: function() {
+            this._element.empty();
+            this._currentPage = null;
+        },
+        _calculatePages: function() {
+            var carousel = this.carousel().data('jcarousel'),
+                items    = carousel.items(),
+                clip     = carousel.clipping(),
+                wh       = 0,
+                idx      = 0,
+                page     = 1,
+                pages    = {},
+                curr;
+
+            while (true) {
+                curr = items.eq(idx++);
+
+                if (curr.length === 0) {
+                    break;
+                }
+
+                if (!pages[page]) {
+                    pages[page] = curr;
+                } else {
+                    pages[page] = pages[page].add(curr);
+                }
+
+                wh += carousel.dimension(curr);
+
+                if (wh >= clip) {
+                    page++;
+                    wh = 0;
+                }
+            }
+
+            return pages;
+        }
+    });
+}(jQuery));
+
+(function($) {
+    'use strict';
+
+    $.jCarousel.plugin('jcarouselAutoscroll', {
+        _options: {
+            target:    '+=1',
+            interval:  3000,
+            autostart: true
+        },
+        _timer: null,
+        _init: function () {
+            this.onDestroy = $.proxy(function() {
+                this._destroy();
+                this.carousel()
+                    .one('jcarousel:createend', $.proxy(this._create, this));
+            }, this);
+
+            this.onAnimateEnd = $.proxy(this.start, this);
+        },
+        _create: function() {
+            this.carousel()
+                .one('jcarousel:destroy', this.onDestroy);
+
+            if (this.options('autostart')) {
+                this.start();
+            }
+        },
+        _destroy: function() {
+            this.stop();
+            this.carousel()
+                .off('jcarousel:destroy', this.onDestroy);
+        },
+        start: function() {
+            this.stop();
+
+            this.carousel()
+                .one('jcarousel:animateend', this.onAnimateEnd);
+
+            this._timer = setTimeout($.proxy(function() {
+                this.carousel().jcarousel('scroll', this.options('target'));
+            }, this), this.options('interval'));
+
+            return this;
+        },
+        stop: function() {
+            if (this._timer) {
+                this._timer = clearTimeout(this._timer);
+            }
+
+            this.carousel()
+                .off('jcarousel:animateend', this.onAnimateEnd);
+
+            return this;
+        }
+    });
+}(jQuery));

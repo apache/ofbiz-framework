@@ -2,19 +2,20 @@
 /* Written by Diogo Damiani (diogodamiani@gmail.com) */
 (function ($) {
 	$.timepicker.regional['pt-BR'] = {
-		timeOnlyTitle: 'Escolha a hora',
-		timeText: 'Hora',
-		hourText: 'Horas',
+		timeOnlyTitle: 'Escolha o horário',
+		timeText: 'Horário',
+		hourText: 'Hora',
 		minuteText: 'Minutos',
 		secondText: 'Segundos',
 		millisecText: 'Milissegundos',
-		timezoneText: 'Fuso hor�rio',
+		microsecText: 'Microssegundos',
+		timezoneText: 'Fuso horário',
 		currentText: 'Agora',
 		closeText: 'Fechar',
-		timeFormat: 'hh:mm',
+		timeFormat: 'HH:mm',
 		amNames: ['a.m.', 'AM', 'A'],
 		pmNames: ['p.m.', 'PM', 'P'],
-		ampm: false
+		isRTL: false
 	};
 	$.timepicker.setDefaults($.timepicker.regional['pt-BR']);
 })(jQuery);

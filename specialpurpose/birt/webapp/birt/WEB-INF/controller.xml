@@ -77,16 +77,6 @@ under the License.
         <response name="success" type="view" value="BirtMain"/>
     </request-map>
 
-    <!--flot example requests-->
-    <request-map uri="ExampleBarChart">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ExampleBarChart"/>
-    </request-map>
-    <request-map uri="ExamplePieChart">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ExamplePieChart"/>
-    </request-map>
-
     <request-map uri="chartReport">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="chartReport"/>

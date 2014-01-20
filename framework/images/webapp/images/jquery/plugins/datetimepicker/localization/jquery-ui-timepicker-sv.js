@@ -3,18 +3,19 @@
 (function($) {
 	$.timepicker.regional['sv'] = {
 		timeOnlyTitle: 'Välj en tid',
-		timeText: 'Timme',
-		hourText: 'Timmar',
-		minuteText: 'Minuter',
-		secondText: 'Sekunder',
-		millisecText: 'Millisekunder',
+		timeText: 'Tid',
+		hourText: 'Timme',
+		minuteText: 'Minut',
+		secondText: 'Sekund',
+		millisecText: 'Millisekund',
+		microsecText: 'Mikrosekund',
 		timezoneText: 'Tidszon',
 		currentText: 'Nu',
 		closeText: 'Stäng',
-		timeFormat: 'hh:mm',
+		timeFormat: 'HH:mm',
 		amNames: ['AM', 'A'],
 		pmNames: ['PM', 'P'],
-		ampm: false
+		isRTL: false
 	};
 	$.timepicker.setDefaults($.timepicker.regional['sv']);
 })(jQuery);

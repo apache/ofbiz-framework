@@ -791,7 +791,11 @@ under the License.
                     <xs:restriction base="xs:token">
                         <xs:enumeration value="auto">
                             <xs:annotation>
-                                <xs:documentation>If selected the hidden-form type will be used if the url-mode is intra-app and the request specified has an event, otherwise the anchor type will be used.</xs:documentation>
+                                <xs:documentation>
+                                    If selected the hidden-form type will be used if the url-mode is intra-app 
+                                    and the request specified has an event, otherwise the anchor type will be used,
+                                    except if the ajax-window mode is specified.
+                                </xs:documentation>
                             </xs:annotation>
                         </xs:enumeration>
                         <xs:enumeration value="anchor" />

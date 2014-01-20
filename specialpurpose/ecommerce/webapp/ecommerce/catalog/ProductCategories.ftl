@@ -17,7 +17,7 @@
   under the License.
   -->
 <script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/images/jquery/plugins/jsTree/jquery.jstree.js</@ofbizContentUrl>"></script>
-<script type="text/javascript" src="<@ofbizContentUrl>/images/jquery/ui/development-bundle/external/jquery.cookie.js</@ofbizContentUrl>"></script>
+<script type="text/javascript" src="<@ofbizContentUrl>/images/jquery/ui/js/jquery.cookie-1.4.0.js</@ofbizContentUrl>"></script>
   
 <script type="text/javascript">
 <#-- some labels are not unescaped in the JSON object so we have to do this manuely -->
