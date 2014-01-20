@@ -16,9 +16,9 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<script src="/catalog/imagemanagement/js/jquery.min.js"></script>
-<script src="/catalog/imagemanagement/js/jquery.Jcrop.js"></script>
-<link rel="stylesheet" href="/catalog/imagemanagement/js/jquery.Jcrop.css" type="text/css" />
+<script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/images/imagemanagement/sizzle.min.js</@ofbizContentUrl>"></script>
+<script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/images/imagemanagement/jquery.Jcrop.min.js</@ofbizContentUrl>"></script>
+<link rel="stylesheet" href="<@ofbizContentUrl>/images/imagemanagement/jquery.Jcrop.css</@ofbizContentUrl>" type="text/css" />
 <script type="text/javascript">
 jQuery.noConflict();
 jQuery(document).ready(function(){

@@ -8,13 +8,14 @@
 		minuteText: 'Minut',
 		secondText: 'Sekund',
 		millisecText: 'Millisekundis',
+		microsecText: 'Mikrosekundis',
 		timezoneText: 'Ajavöönd',
 		currentText: 'Praegu',
 		closeText: 'Valmis',
-		timeFormat: 'hh:mm tt',
+		timeFormat: 'HH:mm',
 		amNames: ['AM', 'A'],
 		pmNames: ['PM', 'P'],
-		ampm: false
+		isRTL: false
 	};
 	$.timepicker.setDefaults($.timepicker.regional['et']);
 })(jQuery);

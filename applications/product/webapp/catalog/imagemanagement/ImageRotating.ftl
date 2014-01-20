@@ -16,8 +16,8 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<script src="/catalog/imagemanagement/js/jquery.min.js"></script>
-<script src="/catalog/imagemanagement/js/jquery.Rotate.js"></script>
+<script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/images/imagemanagement/sizzle.min.js</@ofbizContentUrl>"></script>
+<script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/images/imagemanagement/jQueryRotateCompressed.js</@ofbizContentUrl>"></script>
 <style type="text/css">
     td.cropbox span { 
         width: auto !important; 

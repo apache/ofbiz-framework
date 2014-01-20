@@ -41,7 +41,7 @@ under the License.
                 <set field="applicationMenuName" value="CatalogAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://product/widget/catalog/CatalogMenus.xml" global="true"/>
                 <set field="applicationTitle" value="${uiLabelMap.ProductCatalogManagerApplication}" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/ui/development-bundle/external/jquery.cookie.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/ui/js/jquery.cookie-1.4.0.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/jsTree/jquery.jstree.js" global="true"/>
             </actions>
             <widgets>

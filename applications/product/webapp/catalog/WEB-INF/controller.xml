@@ -3258,7 +3258,7 @@ under the License.
     <view-map name="LookupDataResource" page="component://content/widget/content/DataResourceScreens.xml#LookupDataResource" type="screen"/>
     <view-map name="LookupPerson" page="component://party/widget/partymgr/LookupScreens.xml#LookupPerson" type="screen"/>
     <view-map name="LookupPreferredContactMech" type="screen" page="component://marketing/widget/ContactListScreens.xml#LookupPreferredContactMech"/>
-	<view-map name="LookupContactList" type="screen" page="component://marketing/widget/ContactListScreens.xml#LookupContactList"/>
+    <view-map name="LookupContactList" type="screen" page="component://marketing/widget/ContactListScreens.xml#LookupContactList"/>
 
     <!-- Image Management request mappings -->
     <view-map name="Imagemanagement" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#Imagemanagement"/>

@@ -8,13 +8,14 @@
 		minuteText: '分',
 		secondText: '秒',
 		millisecText: 'ミリ秒',
+		microsecText: 'マイクロ秒',
 		timezoneText: 'タイムゾーン',
 		currentText: '現時刻',
 		closeText: '閉じる',
-		timeFormat: 'hh:mm tt',
+		timeFormat: 'HH:mm',
 		amNames: ['午前', 'AM', 'A'],
 		pmNames: ['午後', 'PM', 'P'],
-		ampm: false
+		isRTL: false
 	};
 	$.timepicker.setDefaults($.timepicker.regional['ja']);
 })(jQuery);

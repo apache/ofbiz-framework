@@ -8,13 +8,14 @@
 		minuteText: '分',
 		secondText: '秒',
 		millisecText: '毫秒',
+		microsecText: '微秒',
 		timezoneText: '時區',
 		currentText: '現在時間',
 		closeText: '確定',
-		timeFormat: 'hh:mm tt',
+		timeFormat: 'HH:mm',
 		amNames: ['上午', 'AM', 'A'],
 		pmNames: ['下午', 'PM', 'P'],
-		ampm: false
+		isRTL: false
 	};
 	$.timepicker.setDefaults($.timepicker.regional['zh-TW']);
 })(jQuery);
