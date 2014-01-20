@@ -919,6 +919,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         for (Map.Entry<String, ? extends Object> entry: source.entrySet()) {
             String key = entry.getKey();
             if (key.startsWith(param.stringMapPrefix)) {
+                key=key.replace(param.stringMapPrefix,"");
                 paramMap.put(key, entry.getValue());
             }
         }
