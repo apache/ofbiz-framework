@@ -19,7 +19,7 @@ under the License.
 
 <#if !mechMap.facilityContactMech?exists && mechMap.contactMech?exists>
   <p><h3>${uiLabelMap.PartyContactInfoNotBelongToYou}.</h3></p>
-  &nbsp;<a href="<@ofbizUrl>authview/${donePage}?facilityId=${facilityId}</@ofbizUrl>" class="buttontext">${uiLabelMapCommon.Back}</a>
+  &nbsp;<a href="<@ofbizUrl>authview/${donePage}?facilityId=${facilityId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonGoBack}</a>
 <#else>
   <#if !mechMap.contactMech?exists>
     <#-- When creating a new contact mech, first select the type, then actually create -->
