@@ -209,7 +209,7 @@ context.highIndex = highIndex;
 context.arraySize = arraySize;
 context.resultPartialList = resultPartialList;
 
-viewIndexLast = (int) (arraySize/viewSize);
+viewIndexLast = UtilMisc.getViewLastIndex(arraySize, viewSize);
 context.viewIndexLast = viewIndexLast;
 
 List fieldList = FastList.newInstance();
