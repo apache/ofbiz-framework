@@ -340,8 +340,8 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         writer.append("<li class=\"").append(modelForm.getPaginateLastStyle());
         if (highIndex < listSize) {
             writer.append("\"><a href=\"");
-            int page = (listSize / viewSize) - 1;
-            linkText = prepLinkText + page + anchor;
+            int lastIndex = UtilMisc.getViewLastIndex(listSize, viewSize);
+            linkText = prepLinkText + lastIndex + anchor;
             // - make the link
             writer.append(rh.makeLink(request, response, linkText));
             writer.append("\">").append(modelForm.getPaginateLastLabel(context)).append("</a>");

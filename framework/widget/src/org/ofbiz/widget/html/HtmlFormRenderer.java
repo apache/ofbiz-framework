@@ -2524,11 +2524,12 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         // Last button
         writer.append("  <li class=\"").append(modelForm.getPaginateLastStyle());
         if (highIndex < listSize) {
+            int lastIndex = UtilMisc.getViewLastIndex(listSize, viewSize);
             writer.append("\"><a href=\"");
             if (ajaxEnabled) {
-                writer.append("javascript:ajaxUpdateAreas('").append(createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (listSize / viewSize) + anchor, context)).append("')");
+                writer.append("javascript:ajaxUpdateAreas('").append(createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + lastIndex + anchor, context)).append("')");
             } else {
-                linkText = prepLinkText + (listSize / viewSize) + anchor;
+                linkText = prepLinkText + lastIndex + anchor;
                 appendOfbizUrl(writer, urlPath + linkText);
             }
             writer.append("\">").append(modelForm.getPaginateLastLabel(context)).append("</a>");

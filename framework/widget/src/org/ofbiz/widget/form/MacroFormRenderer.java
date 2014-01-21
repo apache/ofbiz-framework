@@ -2303,10 +2303,11 @@ public class MacroFormRenderer implements FormStringRenderer {
         }
         // Last button
         if (highIndex < listSize) {
+            int lastIndex = UtilMisc.getViewLastIndex(listSize, viewSize);
             if (ajaxEnabled) {
-                ajaxLastUrl = createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (listSize / viewSize) + anchor, context);
+                ajaxLastUrl = createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + lastIndex + anchor, context);
             } else {
-                linkText = prepLinkText + (listSize / viewSize) + anchor;
+                linkText = prepLinkText + lastIndex + anchor;
                 lastUrl = rh.makeLink(this.request, this.response, urlPath + linkText);
             }
         }
