@@ -192,7 +192,7 @@ under the License.
                   </#if>
               </td>
             </tr>
-            <#if orderItem.cancelBackOrderDate?exists>
+            <#if (orderItem.cancelBackOrderDate)?exists>
               <tr><td colspan="3"><hr /></td></tr>
               <tr>
                 <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.FormFieldTitle_cancelBackOrderDate}</td>
