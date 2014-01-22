@@ -104,10 +104,6 @@ var j = 1;
 /*********************
 JQuery Formalize
 *********************/
-jQuery(document).ready(function() {
-	FORMALIZE.go();
-});
-
 var FORMALIZE = (function($, window, document, undefined) {
 	var PLACEHOLDER_SUPPORTED = 'placeholder' in document.createElement('input');
 	var AUTOFOCUS_SUPPORTED = 'autofocus' in document.createElement('input');
@@ -198,3 +194,8 @@ var FORMALIZE = (function($, window, document, undefined) {
 		}
 	};
 })(jQuery, this, this.document);
+
+jQuery(document).ready(function() {
+	FORMALIZE.go();
+});
+
