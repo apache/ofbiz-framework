@@ -168,7 +168,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     <form name="ListReportedToEmplPositionReportingStructs" type="list" target="updateEmplPositionReportingStruct" title="" paginate-target="EditReportedToEmplPositionReportingStruct"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" list-name="emplPositionReportingStructList">
         <actions>
             <entity-condition entity-name="EmplPositionReportingStruct" list="emplPositionReportingStructList">
                 <condition-expr field-name="emplPositionIdReportingTo" from-field="parameters.emplPositionId"/>
