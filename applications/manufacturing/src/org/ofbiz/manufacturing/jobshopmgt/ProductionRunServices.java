@@ -1991,7 +1991,7 @@ public class ProductionRunServices {
         try {
             Map<String, Object> inventoryResult = dispatcher.runSync("productionRunTaskProduce", 
                     UtilMisc.<String, Object>toMap("workEffortId", productionRunTaskId,
-                            "productId", productId, "quantity", quantity, "lotId", lotId, "uomId", uomId, "isReturned", "Y",
+                            "productId", productId, "quantity", quantity, "lotId", lotId, "currencyUomId", uomId, "isReturned", "Y",
                             "inventoryItemTypeId", inventoryItemTypeId, "userLogin", userLogin));
             if (ServiceUtil.isError(inventoryResult)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunTaskProduceError" + ServiceUtil.getErrorMessage(inventoryResult), locale));
