@@ -35,7 +35,8 @@ public class JustLoadComponentsContainer implements Container {
     public void init(String[] args, String name, String configFile) {
         this.name = name;
         try {
-            ComponentContainer.loadComponents(true);
+            ComponentContainer cc = new ComponentContainer();
+            cc.loadComponents(null, true, null, null);
         } catch (AlreadyLoadedException e) {
             Debug.logError(e, module);
         } catch (ComponentException e) {
