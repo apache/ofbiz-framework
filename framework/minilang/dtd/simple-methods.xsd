@@ -199,7 +199,7 @@ under the License.
             <xs:annotation>
                 <xs:documentation>
                     Is a logged in user (UserLogin object, or login.username and login.password Strings) required to run this method?
-                    "true" or "false" (defauts to "true")
+                    "true" or "false" (defaults to "true")
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
@@ -213,7 +213,7 @@ under the License.
             <xs:annotation>
                 <xs:documentation>
                     Create a transaction if none exists for this thread?
-                    "true" or "false" (defauts to "true")
+                    "true" or "false" (defaults to "true")
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
@@ -226,14 +226,14 @@ under the License.
         <xs:attribute type="xs:string" name="default-error-code" default="error">
             <xs:annotation>
                 <xs:documentation>
-                    The default error return code. (defauts to "error")
+                    The default error return code. (defaults to "error")
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="default-success-code" default="success">
             <xs:annotation>
                 <xs:documentation>
-                    The default success return code.  (defauts to "success")
+                    The default success return code.  (defaults to "success")
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -242,119 +242,119 @@ under the License.
                 <xs:documentation>
                     As event: copy of request parameters.
                     As service: incoming context.
-                    (defauts to "parameters")
+                    (defaults to "parameters")
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="event-request-object-name" default="request">
             <xs:annotation>
                 <xs:documentation>
-                    As event only (defauts to "request")
+                    As event only (defaults to "request")
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="event-response-object-name" default="response">
             <xs:annotation>
                 <xs:documentation>
-                    As event only (defauts to "response")
+                    As event only (defaults to "response")
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="event-response-code-name" default="_response_code_">
             <xs:annotation>
                 <xs:documentation>
-                    As event only (defauts to "_response_code")
+                    As event only (defaults to "_response_code")
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="event-error-message-name" default="_error_message_">
             <xs:annotation>
                 <xs:documentation>
-                    As event only (defauts to "_error_message_")
+                    As event only (defaults to "_error_message_")
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="event-event-message-name" default="_event_message_">
             <xs:annotation>
                 <xs:documentation>
-                    As event only (defauts to "_event_message_")
+                    As event only (defaults to "_event_message_")
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="service-response-message-name" default="responseMessage">
             <xs:annotation>
                 <xs:documentation>
-                    As service only (defauts to "responseMessage")
+                    As service only (defaults to "responseMessage")
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="service-error-message-name" default="errorMessage">
             <xs:annotation>
                 <xs:documentation>
-                    As service only (defauts to "errorMessage")
+                    As service only (defaults to "errorMessage")
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="service-error-message-list-name" default="errorMessageList">
             <xs:annotation>
                 <xs:documentation>
-                    As service only (defauts to "errorMessageList")
+                    As service only (defaults to "errorMessageList")
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="service-error-message-map-name" default="errorMessageMap">
             <xs:annotation>
                 <xs:documentation>
-                    As service only (defauts to "errorMessageMap")
+                    As service only (defaults to "errorMessageMap")
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="service-success-message-name" default="successMessage">
             <xs:annotation>
                 <xs:documentation>
-                    As service only (defauts to "successMessage")
+                    As service only (defaults to "successMessage")
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="service-success-message-list-name" default="successMessageList">
             <xs:annotation>
                 <xs:documentation>
-                    As service only (defauts to "successMessageList")
+                    As service only (defaults to "successMessageList")
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="locale-name" default="locale">
             <xs:annotation>
                 <xs:documentation>
-                    Name of locale variable (defauts to "locale")
+                    Name of locale variable (defaults to "locale")
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="delegator-name" default="delegator">
             <xs:annotation>
                 <xs:documentation>
-                    A GenericDelegator object to use in the method (defauts to "delegator")
+                    A GenericDelegator object to use in the method (defaults to "delegator")
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="security-name" default="security">
             <xs:annotation>
                 <xs:documentation>
-                    A Security object to use in the method (defauts to "security")
+                    A Security object to use in the method (defaults to "security")
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="dispatcher-name" default="dispatcher">
             <xs:annotation>
                 <xs:documentation>
-                    A LocalDispatcher object to use in the method (defauts to "dispatcher")
+                    A LocalDispatcher object to use in the method (defaults to "dispatcher")
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="user-login-name" default="userLogin">
             <xs:annotation>
                 <xs:documentation>
-                    Name of user login variable (defauts to "userLogin")
+                    Name of user login variable (defaults to "userLogin")
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
