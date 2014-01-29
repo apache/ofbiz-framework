@@ -29,23 +29,11 @@ under the License.
     <#if (!id?has_content)>
         <#local id = Static["org.ofbiz.base.util.UtilHttp"].getNextUniqueId(request) />
     </#if>
-    <#if (!ajaxUrl?has_content)>
-        <#local ajaxUrl = requestAttributes._REQUEST_HANDLER_.makeLink(request, response, fieldFormName)/>
-        <#local ajaxUrl = id + "," + ajaxUrl + ",ajaxLookup=Y" />
-    </#if>
-    <#if (!showDescription?has_content)>
-        <#local showDescription = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("widget.properties", "widget.lookup.showDescription", "N")>
-        <#if "Y" == showDescription>
-            <#local showDescription = "true" />
-        <#else>
-            <#local showDescription = "false" />
-        </#if>
-    </#if>
-        <#if "true" == readonly>
-            <#local readonly = true/>
-        <#else>
-            <#local readonly = false />
-        </#if>    
+    <#if "true" == readonly>
+        <#local readonly = true/>
+    <#else>
+        <#local readonly = false />
+    </#if>    
     <@renderLookupField name formName fieldFormName className alert value size maxlength id event action readonly autocomplete descriptionFieldName targetParameterIter imgSrc ajaxUrl ajaxEnabled presentation width height position fadeBackground clearText showDescription initiallyCollapsed/>
 </#macro>
 
