@@ -70,12 +70,5 @@ under the License.
         location="webapp/content"
         base-permission="CONTENTMGR"
         mount-point="/content"/>
-    
-    <webapp name="contentimages"
-        title="Content Images"
-        server="default-server"
-        location="webapp/content/images"
-        mount-point="/contentimages/"
-        app-bar-display="false"/>
 
 </ofbiz-component>
