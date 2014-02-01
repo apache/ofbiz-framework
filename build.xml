@@ -1155,16 +1155,22 @@ under the License.
         <ivy:cleancache/>
     </target>
 
-    <target name="download-activemq" description="Download activemq for DCC (Distributed Cache Clearing)">
+    <target name="download-activemq" description="Download activemq for DCC (Distributed Cache Clearing">
         <ivy:retrieve pattern="framework/base/lib/[artifact]-[revision].[ext]" conf="activemq"/>
+        <echo> </echo>        
+        <echo>======================================================</echo>        
+        <echo>Please check that this version is appropriate for you!</echo>
     </target>
 
     <target name="download-cobertura" description="Download cobertura related files">
         <ivy:retrieve pattern="framework/base/lib/[artifact]-[revision].[ext]" conf="cobertura"/>
     </target>
 
-    <target name="download-PG-JDBC" description="Download postgres jdbc driver">
+    <target name="download-PG-JDBC" description="Download postgres jdbc driver">        
         <ivy:retrieve pattern="framework/entity/lib/jdbc/[artifact]-[revision].[ext]" conf="postgres"/>
+        <echo> </echo>        
+        <echo>======================================================</echo>        
+        <echo>Please check that this version is appropriate for you!</echo>        
     </target>
 
     <target name="download-sonar-ant-task" description="Download sonar related files">
@@ -1173,6 +1179,9 @@ under the License.
 
     <target name="download-mySQL-JDBC" description="Download mySQL jdbc driver">
         <ivy:retrieve pattern="framework/entity/lib/jdbc/[artifact]-[revision].[ext]" conf="mysql"/>
+        <echo> </echo>        
+        <echo>======================================================</echo>        
+        <echo>Please check that this version is appropriate for you!</echo>
     </target>
 
     <!-- ================================================================== -->
