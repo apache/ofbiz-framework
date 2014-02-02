@@ -828,7 +828,7 @@ under the License.
     <form name="mandatoryWorkEfforts" type="list" target="" title="" list-name="mandatoryWorkEfforts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="workEffortIdFrom" title=" " widget-style="buttontext">
-            <hyperlink target="ShowProductionRun" description="${workEffortIdFrom}" also-hidden="false">
+            <hyperlink target="ShowProductionRun" description="${workEffortIdFrom}" also-hidden="false" link-type="anchor">
                 <parameter param-name="productionRunId" from-field="workEffortIdFrom"/>
             </hyperlink>
         </field>
@@ -857,7 +857,7 @@ under the License.
     <form name="dependentWorkEfforts" type="list" target="" title="" list-name="dependentWorkEfforts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="workEffortIdTo" title=" " widget-style="buttontext">
-            <hyperlink target="ShowProductionRun" description="${workEffortIdTo}" also-hidden="false">
+            <hyperlink target="ShowProductionRun" description="${workEffortIdTo}" also-hidden="false" link-type="anchor">
                 <parameter param-name="productionRunId" from-field="workEffortIdTo"/>
             </hyperlink>
         </field>
