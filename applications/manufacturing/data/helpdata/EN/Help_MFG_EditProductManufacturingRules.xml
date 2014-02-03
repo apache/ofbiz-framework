@@ -32,7 +32,8 @@
     <section>
     <title>Create new manufacturing rule</title>
     <para>
-        WIP
+        This form enables you to define replacing materials for the BoM components.
+        In the second part of the screen the overview of replacement rules is shown.
     </para>
     </section>
 </section>
