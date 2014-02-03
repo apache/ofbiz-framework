@@ -30,7 +30,7 @@
     <xi:include href="../data/helpdata/Help_MFG_FindRouting.xml"/>
     <xi:include href="../data/helpdata/Help_MFG_FindRoutingTask.xml"/>
     <xi:include href="../data/helpdata/Help_MFG_FindCalendar.xml"/>
-    <xi:include href="../data/helpdata/Help_MFG_EditCostCalc.xml"/>
+    <xi:include href="../data/helpdata/Help_MFG_EditCostCalcs.xml"/>
     <xi:include href="../data/helpdata/Help_MFG_FindBom.xml"/>
     <xi:include href="../data/helpdata/Help_MFG_FindInventoryEventPlan.xml"/>
     <xi:include href="../data/helpdata/Help_MFG_WorkWithShipmentPlans.xml"/>
