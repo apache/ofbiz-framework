@@ -26,12 +26,13 @@ under the License.
         dataResourceId="HELP_EXAMPLE" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_EXAMPLE" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
 
-    <DataResource dataResourceId="HELP_EXAMPLE_FR" localeString="fr" dataResourceTypeId="OFBIZ_FILE" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/xml" isPublic="Y" 
-        objectInfo="specialpurpose/example/data/helpdata/HELP_EXAMPLE_FR.xml" 
-        dataResourceName="Exemple pour le développement" />
-    <Content contentId="HELP_EXAMPLE_FR"  dataResourceId="HELP_EXAMPLE_FR" contentName="Exemple pour le développement" localeString="fr" contentTypeId="DOCUMENT" templateDataResourceId="HELP_TEMPL" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <DataResource dataResourceId="HELP_EXAMPLE_FR" localeString="fr" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/example/data/helpdata/HELP_EXAMPLE_FR.xml" dataTemplateTypeId="NONE"  statusId="CTNT_IN_PROGRESS"
+        dataResourceName="Exemple pour le développement" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_EXAMPLE_FR" contentTypeId="DOCUMENT" contentName="Exemple pour le développement" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="HELP_EXAMPLE_FR" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html" localeString="fr" />
     <ContentAssoc contentId="HELP_EXAMPLE" contentIdTo="HELP_EXAMPLE_FR" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-01-12 01:01:01"/>
-
+    
     <DataResource dataResourceId="EXAMPLE_main" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="specialpurpose/example/data/helpdata/HELP_EXAMPLE_main.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Example help main page" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="EXAMPLE_main" contentTypeId="DOCUMENT" contentName="Example main menu." templateDataResourceId="HELP_TEMPL" dataResourceId="EXAMPLE_main" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
