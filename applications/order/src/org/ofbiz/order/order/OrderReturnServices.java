@@ -1403,7 +1403,11 @@ public class OrderReturnServices {
                                     String orderPaymentPreferenceNewId = null;
                                     Map<String, Object> result = dispatcher.runSync("createOrderPaymentPreference", serviceContext);
                                     orderPaymentPreferenceNewId = (String) result.get("orderPaymentPreferenceId");
-                                    refundOrderPaymentPreference = delegator.findOne("OrderPaymentPreference", false, "orderPaymentPreferenceId", orderPaymentPreferenceNewId);
+                                    try {
+                                        refundOrderPaymentPreference = delegator.findOne("OrderPaymentPreference", false, "orderPaymentPreferenceId", orderPaymentPreferenceNewId);
+                                    } catch (GenericEntityException e) {
+                                        return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemsWithTheRefundSeeLogs", locale));
+                                    }
                                     serviceResult = dispatcher.runSync("refundPayment", UtilMisc.<String, Object>toMap("orderPaymentPreference", refundOrderPaymentPreference, "refundAmount", amountToRefund.setScale(decimals, rounding), "userLogin", userLogin));
                                     if (ServiceUtil.isError(serviceResult) || ServiceUtil.isFailure(serviceResult)) {
                                         Debug.logError("Error in refund payment: " + ServiceUtil.getErrorMessage(serviceResult), module);
@@ -1413,7 +1417,6 @@ public class OrderReturnServices {
                                     paymentId = (String) serviceResult.get("paymentId");
                                     amountRefunded = (BigDecimal) serviceResult.get("refundAmount");
                                 } catch (GenericServiceException e) {
-                                    Debug.logError(e, "Problem running the refundPayment service", module);
                                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemsWithTheRefundSeeLogs", locale));
                                 }
                             } else if (paymentMethodTypeId.equals("EXT_BILLACT")) {
