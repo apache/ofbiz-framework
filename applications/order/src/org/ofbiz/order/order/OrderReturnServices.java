@@ -1383,6 +1383,7 @@ public class OrderReturnServices {
                             Map<String, Object> orderPaymentPrefDetails = pmtppit.next();
                             GenericValue orderPaymentPreference = (GenericValue) orderPaymentPrefDetails.get("orderPaymentPreference");
                             BigDecimal orderPaymentPreferenceAvailable = (BigDecimal) orderPaymentPrefDetails.get("availableTotal");
+                            GenericValue refundOrderPaymentPreference=null;
 
                             // Refund up to the maxAmount for the paymentPref, or whatever is left to refund if that's less than the maxAmount
                             BigDecimal amountToRefund = orderPaymentPreferenceAvailable.min(amountLeftToRefund);
@@ -1394,23 +1395,33 @@ public class OrderReturnServices {
                             // Call the refund service to refund the payment
                             if (electronicTypes.contains(paymentMethodTypeId)) {
                                 try {
-                                    // for electronic types such as CREDIT_CARD and EFT_ACCOUNT, use refundPayment service
-                                    serviceResult = dispatcher.runSync("refundPayment", UtilMisc.<String, Object>toMap("orderPaymentPreference", orderPaymentPreference, "refundAmount", amountToRefund.setScale(decimals, rounding), "userLogin", userLogin));
+                                    Map<String, Object> serviceContext = UtilMisc.toMap("orderId", orderId,"userLogin", context.get("userLogin"));
+                                    serviceContext.put("paymentMethodId", orderPaymentPreference.getString("paymentMethodId"));
+                                    serviceContext.put("paymentMethodTypeId", orderPaymentPreference.getString("paymentMethodTypeId"));
+                                    serviceContext.put("statusId", orderPaymentPreference.getString("statusId"));
+                                    serviceContext.put("maxAmount", amountToRefund.setScale(decimals, rounding));
+                                    String orderPaymentPreferenceNewId = null;
+                                    Map<String, Object> result = dispatcher.runSync("createOrderPaymentPreference", serviceContext);
+                                    orderPaymentPreferenceNewId = (String) result.get("orderPaymentPreferenceId");
+                                    refundOrderPaymentPreference = delegator.findOne("OrderPaymentPreference", false, "orderPaymentPreferenceId", orderPaymentPreferenceNewId);
+                                    serviceResult = dispatcher.runSync("refundPayment", UtilMisc.<String, Object>toMap("orderPaymentPreference", refundOrderPaymentPreference, "refundAmount", amountToRefund.setScale(decimals, rounding), "userLogin", userLogin));
                                     if (ServiceUtil.isError(serviceResult) || ServiceUtil.isFailure(serviceResult)) {
                                         Debug.logError("Error in refund payment: " + ServiceUtil.getErrorMessage(serviceResult), module);
                                         continue;
                                     }
+                                    // for electronic types such as CREDIT_CARD and EFT_ACCOUNT, use refundPayment service
                                     paymentId = (String) serviceResult.get("paymentId");
                                     amountRefunded = (BigDecimal) serviceResult.get("refundAmount");
                                 } catch (GenericServiceException e) {
                                     Debug.logError(e, "Problem running the refundPayment service", module);
-                                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
-                                            "OrderProblemsWithTheRefundSeeLogs", locale));
+                                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemsWithTheRefundSeeLogs", locale));
                                 }
                             } else if (paymentMethodTypeId.equals("EXT_BILLACT")) {
                                 try {
                                     // for Billing Account refunds
-                                    serviceResult = dispatcher.runSync("refundBillingAccountPayment", UtilMisc.<String, Object>toMap("orderPaymentPreference", orderPaymentPreference, "refundAmount", amountToRefund.setScale(decimals, rounding), "userLogin", userLogin));
+                                    serviceResult = dispatcher.runSync("refundBillingAccountPayment",
+                                            UtilMisc.<String, Object> toMap("orderPaymentPreference", orderPaymentPreference, "refundAmount",
+                                                    amountToRefund.setScale(decimals, rounding), "userLogin", userLogin));
                                     if (ServiceUtil.isError(serviceResult) || ServiceUtil.isFailure(serviceResult)) {
                                         Debug.logError("Error in refund payment: " + ServiceUtil.getErrorMessage(serviceResult), module);
                                         continue;
@@ -1447,7 +1458,11 @@ public class OrderReturnServices {
 
                             // Fill out the data for the new ReturnItemResponse
                             Map<String, Object> response = FastMap.newInstance();
-                            response.put("orderPaymentPreferenceId", orderPaymentPreference.getString("orderPaymentPreferenceId"));
+                            if (UtilValidate.isNotEmpty(refundOrderPaymentPreference)) {
+                                response.put("orderPaymentPreferenceId", refundOrderPaymentPreference.getString("orderPaymentPreferenceId"));
+                            } else {
+                                response.put("orderPaymentPreferenceId", orderPaymentPreference.getString("orderPaymentPreferenceId"));
+                            }
                             response.put("responseAmount", amountRefunded.setScale(decimals, rounding));
                             response.put("responseDate", now);
                             response.put("userLogin", userLogin);
