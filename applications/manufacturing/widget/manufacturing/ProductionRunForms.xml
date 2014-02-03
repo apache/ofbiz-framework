@@ -22,9 +22,9 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="CreateProductionRun" target="createProductionRun" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="productId" title="${uiLabelMap.ProductProductId}"><lookup target-form-name="LookupProduct" size="16"/></field>
-        <field name="quantity" title="${uiLabelMap.ManufacturingQuantity}"><text size="6"/></field>
-        <field name="startDate" title="${uiLabelMap.ManufacturingStartDate}"><date-time/></field>
+        <field name="productId" title="${uiLabelMap.ProductProductId}" required-field="true"><lookup target-form-name="LookupProduct" size="16"/></field>
+        <field name="quantity" title="${uiLabelMap.ManufacturingQuantity}" required-field="true"><text size="6"/></field>
+        <field name="startDate" title="${uiLabelMap.ManufacturingStartDate}" required-field="true"><date-time/></field>
         <field name="facilityId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Facility" description="${facilityName} [${facilityId}]">
@@ -69,7 +69,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
 
-    <form name="listFindProductionRun" list-name="listIt" title="" type="list" paginate-target="/FindProductionRun"
+    <form name="listFindProductionRun" list-name="listIt" title="" type="list" paginate-target="FindProductionRun"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -821,6 +821,35 @@ under the License.
     <form name="SelectMrpName" type="single" target="ManufacturingReports" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="mrpName"  title="${uiLabelMap.ManufacturingMrpName}"><text size="20"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="linkProductionRun" type="single" target="createProductionRunAssoc" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="productionRunId"><hidden/></field>
+        <field name="workEffortAssocTypeId"><hidden value="WORK_EFF_PRECEDENCY"/></field>
+        <field name="productionRunIdTo">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="WorkEffort" key-field-name="workEffortId" description="[ID: ${workEffortId}] - ${workEffortName}">
+                    <entity-constraint name="workEffortPurposeTypeId" value="WEPT_PRODUCTION_RUN"/>
+                    <entity-order-by field-name="workEffortId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <!-- 
+        <field name="productionRunLookup">
+            <lookup target-form-name="LookupProductRun"/>
+        </field>
+         -->
+        <field name="workFlowSequenceTypeId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                    <entity-constraint name="enumTypeId" value="WORKFLOW"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}">
             <submit button-type="button"/>
         </field>
