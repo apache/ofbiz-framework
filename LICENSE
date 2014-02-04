@@ -98,8 +98,8 @@ framework/webapp/lib/ezmorph-0.9.1.jar
 framework/webapp/lib/rome-0.9.jar
 framework/webapp/lib/serializer-2.7.0.jar
 framework/webapp/lib/xalan-2.7.1.jar
-framework/geronimo/lib/geronimo-connector-2.1.1.jar
-framework/geronimo/lib/geronimo-transaction-2.1.1.jar
+framework/geronimo/lib/geronimo-connector-3.1.1.jar
+framework/geronimo/lib/geronimo-transaction-3.1.1.jar
 framework/testtools/lib/org.springframework.core-3.1.0.M2.jar
 framework/testtools/lib/org.springframework.test-3.1.0.M2.jar
 framework/testtools/lib/org.springframework.web-3.1.0.M2.jar
