@@ -106,8 +106,8 @@
     <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.50-tomcat-embed-jasper.jar"/>
     <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.50-tomcat-embed-logging-log4j.jar"/>
     <classpathentry kind="lib" path="framework/entity/lib/commons-dbcp-1.4.jar"/>
-    <classpathentry kind="lib" path="framework/geronimo/lib/geronimo-connector-2.1.1.jar"/>
-    <classpathentry kind="lib" path="framework/geronimo/lib/geronimo-transaction-2.1.1.jar"/>
+    <classpathentry kind="lib" path="framework/geronimo/lib/geronimo-connector-3.1.1.jar"/>
+    <classpathentry kind="lib" path="framework/geronimo/lib/geronimo-transaction-3.1.1.jar"/>
     <classpathentry kind="lib" path="specialpurpose/jetty/lib/com.sun.el-2.2.0.v201108011116.jar"/>
     <classpathentry kind="lib" path="specialpurpose/jetty/lib/javax.servlet.jsp.jstl-1.2.0.v201105211821.jar"/>
     <classpathentry kind="lib" path="specialpurpose/jetty/lib/jetty-ajp-8.1.2.v20120308.jar"/>
