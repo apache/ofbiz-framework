@@ -664,6 +664,7 @@ function toggleScreenlet(link, areaId, saveCollapsed, expandTxt, collapseTxt){
   * @param element The id of the display field
   * @param url The request to be called to update the display field
   * @param options Options to be passed to Ajax.InPlaceEditor
+  * https://cwiki.apache.org/confluence/display/OFBIZ/Enhancing+Display+Widget+to+use+Ajax.InPlaceEditor
 */
 
 function ajaxInPlaceEditDisplayField(element, url, options) {
