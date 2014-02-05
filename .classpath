@@ -143,7 +143,7 @@
     <classpathentry kind="lib" path="framework/webapp/lib/json-lib-2.2.3-jdk15.jar"/>
     <classpathentry kind="lib" path="framework/webapp/lib/rome-0.9.jar"/>
     <classpathentry kind="lib" path="framework/webapp/lib/velocity-1.6.1.jar"/>
-    <classpathentry kind="lib" path="specialpurpose/googlecheckout/lib/checkout-sdk-2.5.1.jar"/>
+    <classpathentry kind="lib" path="specialpurpose/googlecheckout/lib/checkout-sdk-0.8.8.jar"/>
     <classpathentry kind="lib" path="specialpurpose/ldap/lib/cas-server-core-3.3.jar"/>
     <classpathentry kind="lib" path="specialpurpose/pos/lib/XuiCoreSwing-v3.2rc2b.jar"/>
     <classpathentry kind="lib" path="specialpurpose/pos/lib/XuiOptional-v3.2rc2b.jar"/>
