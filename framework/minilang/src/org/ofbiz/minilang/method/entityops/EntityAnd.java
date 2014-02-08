@@ -27,7 +27,6 @@ import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.minilang.method.MethodContext;
-import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
@@ -35,7 +34,7 @@ import org.w3c.dom.Element;
  * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Centityand%3E}}">Mini-language Reference</a>
  */
-public final class EntityAnd extends MethodOperation {
+public final class EntityAnd extends EntityOperation {
 
     public static final String module = EntityAnd.class.getName();
 
@@ -56,7 +55,7 @@ public final class EntityAnd extends MethodOperation {
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         try {
-            Delegator delegator = methodContext.getDelegator();
+            Delegator delegator = getDelegator(methodContext);
             this.finder.runFind(methodContext.getEnvMap(), delegator);
         } catch (GeneralException e) {
             String errMsg = "Exception thrown while performing entity find: " + e.getMessage();

@@ -20,12 +20,10 @@ package org.ofbiz.minilang.method.entityops;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.finder.EntityFinderUtil.Condition;
 import org.ofbiz.entity.finder.EntityFinderUtil.ConditionExpr;
@@ -37,7 +35,6 @@ import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.minilang.method.MethodContext;
-import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
@@ -45,12 +42,11 @@ import org.w3c.dom.Element;
  * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Centitycount%3E}}">Mini-language Reference</a>
  */
-public final class EntityCount extends MethodOperation {
+public final class EntityCount extends EntityOperation {
 
     public static final String module = EntityCount.class.getName();
 
     private final FlexibleMapAccessor<Long> countFma;
-    private final FlexibleStringExpander delegatorNameFse;
     private final FlexibleStringExpander entityNameFse;
     private final Condition havingCondition;
     private final Condition whereCondition;
@@ -60,12 +56,11 @@ public final class EntityCount extends MethodOperation {
         if (MiniLangValidate.validationOn()) {
             MiniLangValidate.attributeNames(simpleMethod, element, "entity-name", "count-field", "delegator-name");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "entity-name", "count-field");
-            MiniLangValidate.expressionAttributes(simpleMethod, element, "count-field");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "count-field", "delegator-name");
             MiniLangValidate.childElements(simpleMethod, element, "condition-expr", "condition-list", "condition-object", "having-condition-list");
             MiniLangValidate.requireAnyChildElement(simpleMethod, element, "condition-expr", "condition-list", "condition-object");
         }
         this.entityNameFse = FlexibleStringExpander.getInstance(element.getAttribute("entity-name"));
-        this.delegatorNameFse = FlexibleStringExpander.getInstance(element.getAttribute("delegator-name"));
         this.countFma = FlexibleMapAccessor.getInstance(element.getAttribute("count-field"));
         int conditionElementCount = 0;
         Element conditionExprElement = UtilXml.firstChildElement(element, "condition-expr");
@@ -97,11 +92,7 @@ public final class EntityCount extends MethodOperation {
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         try {
-            String delegatorName = this.delegatorNameFse.expandString(methodContext.getEnvMap());
-            Delegator delegator = methodContext.getDelegator();
-            if (UtilValidate.isNotEmpty(delegatorName)) {
-                delegator = DelegatorFactory.getDelegator(delegatorName);
-            }
+            Delegator delegator = getDelegator(methodContext);
             String entityName = this.entityNameFse.expandString(methodContext.getEnvMap());
             ModelEntity modelEntity = delegator.getModelEntity(entityName);
             EntityCondition whereEntityCondition = null;
@@ -133,9 +124,6 @@ public final class EntityCount extends MethodOperation {
         StringBuilder sb = new StringBuilder("<entity-count ");
         sb.append("entity-name=\"").append(this.entityNameFse).append("\" ");
         sb.append("count-field=\"").append(this.countFma).append("\" ");
-        if (!this.delegatorNameFse.isEmpty()) {
-            sb.append("delegator-name=\"").append(this.delegatorNameFse).append("\" ");
-        }
         sb.append("/>");
         return sb.toString();
     }

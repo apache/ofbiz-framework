@@ -82,7 +82,7 @@ public final class MakeNextSeqId extends MethodOperation {
                 throw new MiniLangRuntimeException("Invalid number in \"increment-by\" attribute", this);
             }
         }
-        methodContext.getDelegator().setNextSubSeqId(value, seqFieldName, numericPadding, incrementBy);
+        value.getDelegator().setNextSubSeqId(value, seqFieldName, numericPadding, incrementBy);
         return true;
     }
 

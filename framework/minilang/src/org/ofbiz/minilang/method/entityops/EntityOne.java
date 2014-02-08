@@ -27,7 +27,6 @@ import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.minilang.method.MethodContext;
-import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
@@ -35,7 +34,7 @@ import org.w3c.dom.Element;
  * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Centityone%3E}}">Mini-language Reference</a>
  */
-public final class EntityOne extends MethodOperation {
+public final class EntityOne extends EntityOperation {
 
     public static final String module = EntityOne.class.getName();
 
@@ -44,9 +43,9 @@ public final class EntityOne extends MethodOperation {
     public EntityOne(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         if (MiniLangValidate.validationOn()) {
-            MiniLangValidate.attributeNames(simpleMethod, element, "entity-name", "use-cache", "auto-field-map", "value-field");
+            MiniLangValidate.attributeNames(simpleMethod, element, "entity-name", "use-cache", "auto-field-map", "value-field", "delegator-name");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "entity-name", "value-field");
-            MiniLangValidate.expressionAttributes(simpleMethod, element, "value-field");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "value-field", "delegator-name");
             MiniLangValidate.childElements(simpleMethod, element, "field-map", "select-field");
         }
         this.finder = new PrimaryKeyFinder(element);
@@ -55,7 +54,7 @@ public final class EntityOne extends MethodOperation {
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         try {
-            Delegator delegator = methodContext.getDelegator();
+            Delegator delegator = getDelegator(methodContext);
             this.finder.runFind(methodContext.getEnvMap(), delegator);
         } catch (GeneralException e) {
             String errMsg = "Exception thrown while performing entity find: " + e.getMessage();

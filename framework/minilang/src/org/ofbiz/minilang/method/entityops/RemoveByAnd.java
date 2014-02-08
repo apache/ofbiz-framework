@@ -23,13 +23,14 @@ import java.util.Map;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangRuntimeException;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.minilang.method.MethodContext;
-import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
@@ -37,7 +38,7 @@ import org.w3c.dom.Element;
  * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Cremovebyand%3E}}">Mini-language Reference</a>
  */
-public final class RemoveByAnd extends MethodOperation {
+public final class RemoveByAnd extends EntityOperation {
 
     public static final String module = RemoveByAnd.class.getName();
     @Deprecated
@@ -48,9 +49,9 @@ public final class RemoveByAnd extends MethodOperation {
     public RemoveByAnd(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         if (MiniLangValidate.validationOn()) {
-            MiniLangValidate.attributeNames(simpleMethod, element, "entity-name", "map", "do-cache-clear");
+            MiniLangValidate.attributeNames(simpleMethod, element, "entity-name", "map", "do-cache-clear", "delegator-name");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "entity-name", "map");
-            MiniLangValidate.expressionAttributes(simpleMethod, element, "map");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "map", "delegator-name");
             MiniLangValidate.noChildElements(simpleMethod, element);
         }
         entityNameFse = FlexibleStringExpander.getInstance(element.getAttribute("entity-name"));
@@ -63,8 +64,12 @@ public final class RemoveByAnd extends MethodOperation {
         @Deprecated
         boolean doCacheClear = !"false".equals(doCacheClearFse.expandString(methodContext.getEnvMap()));
         String entityName = entityNameFse.expandString(methodContext.getEnvMap());
+        if (entityName.isEmpty()) {
+            throw new MiniLangRuntimeException("Entity name not found.", this);
+        }
         try {
-            methodContext.getDelegator().removeByAnd(entityName, mapFma.get(methodContext.getEnvMap()), doCacheClear);
+            Delegator delegator = getDelegator(methodContext);
+            delegator.removeByAnd(entityName, mapFma.get(methodContext.getEnvMap()), doCacheClear);
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while removing entities: " + e.getMessage();
             Debug.logWarning(e, errMsg, module);

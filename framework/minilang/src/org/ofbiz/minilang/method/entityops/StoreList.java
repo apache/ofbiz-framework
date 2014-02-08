@@ -23,6 +23,7 @@ import java.util.List;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.minilang.MiniLangException;
@@ -30,7 +31,6 @@ import org.ofbiz.minilang.MiniLangRuntimeException;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
-import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
@@ -38,7 +38,7 @@ import org.w3c.dom.Element;
  * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Cstorelist%3E}}">Mini-language Reference</a>
  */
-public final class StoreList extends MethodOperation {
+public final class StoreList extends EntityOperation {
 
     public static final String module = StoreList.class.getName();
     @Deprecated
@@ -48,9 +48,9 @@ public final class StoreList extends MethodOperation {
     public StoreList(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         if (MiniLangValidate.validationOn()) {
-            MiniLangValidate.attributeNames(simpleMethod, element, "list", "do-cache-clear");
+            MiniLangValidate.attributeNames(simpleMethod, element, "list", "do-cache-clear", "delegator-name");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "list");
-            MiniLangValidate.expressionAttributes(simpleMethod, element, "list");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "list", "delegator-name");
             MiniLangValidate.noChildElements(simpleMethod, element);
         }
         listFma = FlexibleMapAccessor.getInstance(element.getAttribute("list"));
@@ -66,7 +66,8 @@ public final class StoreList extends MethodOperation {
         @Deprecated
         boolean doCacheClear = !"false".equals(doCacheClearFse.expandString(methodContext.getEnvMap()));
         try {
-            methodContext.getDelegator().storeAll(values, doCacheClear);
+            Delegator delegator = getDelegator(methodContext);
+            delegator.storeAll(values, doCacheClear);
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while storing entities: " + e.getMessage();
             Debug.logWarning(e, errMsg, module);

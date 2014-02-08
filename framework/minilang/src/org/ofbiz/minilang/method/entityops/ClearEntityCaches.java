@@ -18,36 +18,33 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.entityops;
 
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
-import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
 
 /**
  * Implements the &lt;clear-entity-caches&gt; element.
  * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Cclearentitycaches%3E}}">Mini-language Reference</a>
  */
-public final class ClearEntityCaches extends MethodOperation {
+public final class ClearEntityCaches extends EntityOperation {
 
     public ClearEntityCaches(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         if (MiniLangValidate.validationOn()) {
-            NamedNodeMap nnm = element.getAttributes();
-            for (int i = 0; i < nnm.getLength(); i++) {
-                String attributeName = nnm.item(i).getNodeName();
-                MiniLangValidate.handleError("Attribute name \"" + attributeName + "\" is not valid.", simpleMethod, element);
-            }
+            MiniLangValidate.attributeNames(simpleMethod, element, "delegator-name");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "delegator-name");
             MiniLangValidate.noChildElements(simpleMethod, element);
         }
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        methodContext.getDelegator().clearAllCaches();
+        Delegator delegator = getDelegator(methodContext);
+        delegator.clearAllCaches();
         return true;
     }
 

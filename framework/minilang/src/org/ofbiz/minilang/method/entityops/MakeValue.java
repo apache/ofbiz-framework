@@ -22,6 +22,7 @@ import java.util.Map;
 
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangRuntimeException;
@@ -29,7 +30,6 @@ import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.minilang.method.MethodContext;
-import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
@@ -37,7 +37,7 @@ import org.w3c.dom.Element;
  * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Cmakevalue%3E}}">Mini-language Reference</a>
  */
-public final class MakeValue extends MethodOperation {
+public final class MakeValue extends EntityOperation {
 
     private final FlexibleStringExpander entityNameFse;
     private final FlexibleMapAccessor<Map<String, ? extends Object>> mapFma;
@@ -46,9 +46,9 @@ public final class MakeValue extends MethodOperation {
     public MakeValue(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         if (MiniLangValidate.validationOn()) {
-            MiniLangValidate.attributeNames(simpleMethod, element, "value-field", "entity-name", "map");
+            MiniLangValidate.attributeNames(simpleMethod, element, "value-field", "entity-name", "map", "delegator-name");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "value-field", "entity-name");
-            MiniLangValidate.expressionAttributes(simpleMethod, element, "value-field", "map");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "value-field", "map", "delegator-name");
             MiniLangValidate.noChildElements(simpleMethod, element);
         }
         valueFma = FlexibleMapAccessor.getInstance(element.getAttribute("value-field"));
@@ -62,7 +62,8 @@ public final class MakeValue extends MethodOperation {
         if (entityName.isEmpty()) {
             throw new MiniLangRuntimeException("Entity name not found.", this);
         }
-        valueFma.put(methodContext.getEnvMap(), methodContext.getDelegator().makeValidValue(entityName, mapFma.get(methodContext.getEnvMap())));
+        Delegator delegator = getDelegator(methodContext);
+        valueFma.put(methodContext.getEnvMap(), delegator.makeValidValue(entityName, mapFma.get(methodContext.getEnvMap())));
         return true;
     }
 

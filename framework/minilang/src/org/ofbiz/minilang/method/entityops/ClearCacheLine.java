@@ -22,11 +22,11 @@ import java.util.Map;
 
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
-import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
@@ -34,7 +34,7 @@ import org.w3c.dom.Element;
  * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Cclearcacheline%3E}}">Mini-language Reference</a>
  */
-public final class ClearCacheLine extends MethodOperation {
+public final class ClearCacheLine extends EntityOperation {
 
     private final FlexibleStringExpander entityNameFse;
     private final FlexibleMapAccessor<Map<String, ? extends Object>> mapFma;
@@ -42,9 +42,9 @@ public final class ClearCacheLine extends MethodOperation {
     public ClearCacheLine(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         if (MiniLangValidate.validationOn()) {
-            MiniLangValidate.attributeNames(simpleMethod, element, "entity-name", "map");
+            MiniLangValidate.attributeNames(simpleMethod, element, "entity-name", "map", "delegator-name");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "entity-name");
-            MiniLangValidate.expressionAttributes(simpleMethod, element, "map");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "map", "delegator-name");
             MiniLangValidate.noChildElements(simpleMethod, element);
         }
         entityNameFse = FlexibleStringExpander.getInstance(element.getAttribute("entity-name"));
@@ -53,12 +53,13 @@ public final class ClearCacheLine extends MethodOperation {
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
+        Delegator delegator = getDelegator(methodContext);
         String entityName = entityNameFse.expandString(methodContext.getEnvMap());
         Map<String, ? extends Object> fieldsMap = mapFma.get(methodContext.getEnvMap());
         if (fieldsMap == null) {
-            methodContext.getDelegator().clearCacheLine(entityName);
+            delegator.clearCacheLine(entityName);
         } else {
-            methodContext.getDelegator().clearCacheLine(entityName, fieldsMap);
+            delegator.clearCacheLine(entityName, fieldsMap);
         }
         return true;
     }
