@@ -26,7 +26,6 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -36,7 +35,6 @@ import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.minilang.method.MethodContext;
-import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
@@ -44,11 +42,10 @@ import org.w3c.dom.Element;
  * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Cfindbyprimarykey%3E}}">Mini-language Reference</a>
  */
-public final class FindByPrimaryKey extends MethodOperation {
+public final class FindByPrimaryKey extends EntityOperation {
 
     public static final String module = FindByPrimaryKey.class.getName();
 
-    private final FlexibleStringExpander delegatorNameFse;
     private final FlexibleStringExpander entityNameFse;
     private final FlexibleMapAccessor<Collection<String>> fieldsToSelectListFma;
     private final FlexibleMapAccessor<Map<String, ? extends Object>> mapFma;
@@ -60,14 +57,13 @@ public final class FindByPrimaryKey extends MethodOperation {
         if (MiniLangValidate.validationOn()) {
             MiniLangValidate.attributeNames(simpleMethod, element, "entity-name", "use-cache", "fields-to-select-list", "map", "value-field", "delegator-name");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "value-field", "map");
-            MiniLangValidate.expressionAttributes(simpleMethod, element, "value-field", "map", "fields-to-select-list");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "value-field", "map", "fields-to-select-list", "delegator-name");
             MiniLangValidate.noChildElements(simpleMethod, element);
         }
         valueFma = FlexibleMapAccessor.getInstance(element.getAttribute("value-field"));
         entityNameFse = FlexibleStringExpander.getInstance(element.getAttribute("entity-name"));
         mapFma = FlexibleMapAccessor.getInstance(element.getAttribute("map"));
         fieldsToSelectListFma = FlexibleMapAccessor.getInstance(element.getAttribute("fields-to-select-list"));
-        delegatorNameFse = FlexibleStringExpander.getInstance(element.getAttribute("delegator-name"));
         useCacheFse = FlexibleStringExpander.getInstance(element.getAttribute("use-cache"));
     }
 
@@ -75,11 +71,7 @@ public final class FindByPrimaryKey extends MethodOperation {
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         String entityName = entityNameFse.expandString(methodContext.getEnvMap());
         boolean useCache = "true".equals(useCacheFse.expandString(methodContext.getEnvMap()));
-        Delegator delegator = methodContext.getDelegator();
-        String delegatorName = delegatorNameFse.expandString(methodContext.getEnvMap());
-        if (!delegatorName.isEmpty()) {
-            delegator = DelegatorFactory.getDelegator(delegatorName);
-        }
+        Delegator delegator = getDelegator(methodContext);
         Map<String, ? extends Object> inMap = mapFma.get(methodContext.getEnvMap());
         if (inMap == null) {
             throw new MiniLangRuntimeException("Primary key map \"" + mapFma + "\" not found", this);
@@ -123,9 +115,6 @@ public final class FindByPrimaryKey extends MethodOperation {
         }
         if (!useCacheFse.isEmpty()) {
             sb.append("use-cache=\"").append(this.useCacheFse).append("\" ");
-        }
-        if (!delegatorNameFse.isEmpty()) {
-            sb.append("delegator-name=\"").append(this.delegatorNameFse).append("\" ");
         }
         sb.append("/>");
         return sb.toString();

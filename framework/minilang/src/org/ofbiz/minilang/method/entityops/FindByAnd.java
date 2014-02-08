@@ -27,7 +27,6 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.minilang.MiniLangException;
@@ -35,7 +34,6 @@ import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.minilang.method.MethodContext;
-import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
@@ -43,11 +41,10 @@ import org.w3c.dom.Element;
  * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Cfindbyand%3E}}">Mini-language Reference</a>
  */
-public final class FindByAnd extends MethodOperation {
+public final class FindByAnd extends EntityOperation {
 
     public static final String module = FindByAnd.class.getName();
 
-    private final FlexibleStringExpander delegatorNameFse;
     private final FlexibleStringExpander entityNameFse;
     private final FlexibleMapAccessor<Collection<String>> fieldsToSelectListFma;
     private final FlexibleMapAccessor<Object> listFma;
@@ -61,7 +58,7 @@ public final class FindByAnd extends MethodOperation {
         if (MiniLangValidate.validationOn()) {
             MiniLangValidate.attributeNames(simpleMethod, element, "entity-name", "use-cache", "fields-to-select-list", "use-iterator", "list", "map", "order-by-list", "delegator-name");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "entity-name", "list", "map");
-            MiniLangValidate.expressionAttributes(simpleMethod, element, "list", "map", "fields-to-select-list", "order-by-list");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "list", "map", "fields-to-select-list", "order-by-list", "delegator-name");
             MiniLangValidate.noChildElements(simpleMethod, element);
         }
         entityNameFse = FlexibleStringExpander.getInstance(element.getAttribute("entity-name"));
@@ -71,21 +68,16 @@ public final class FindByAnd extends MethodOperation {
         fieldsToSelectListFma = FlexibleMapAccessor.getInstance(element.getAttribute("fields-to-select-list"));
         useCacheFse = FlexibleStringExpander.getInstance(element.getAttribute("use-cache"));
         useIteratorFse = FlexibleStringExpander.getInstance(element.getAttribute("use-iterator"));
-        delegatorNameFse = FlexibleStringExpander.getInstance(element.getAttribute("delegator-name"));
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         String entityName = entityNameFse.expandString(methodContext.getEnvMap());
-        String delegatorName = delegatorNameFse.expandString(methodContext.getEnvMap());
         boolean useCache = "true".equals(useCacheFse.expandString(methodContext.getEnvMap()));
         boolean useIterator = "true".equals(useIteratorFse.expandString(methodContext.getEnvMap()));
         List<String> orderByNames = orderByListFma.get(methodContext.getEnvMap());
         Collection<String> fieldsToSelectList = fieldsToSelectListFma.get(methodContext.getEnvMap());
-        Delegator delegator = methodContext.getDelegator();
-        if (!delegatorName.isEmpty()) {
-            delegator = DelegatorFactory.getDelegator(delegatorName);
-        }
+        Delegator delegator = getDelegator(methodContext);
         try {
             EntityCondition whereCond = null;
             Map<String, ? extends Object> fieldMap = mapFma.get(methodContext.getEnvMap());
@@ -128,9 +120,6 @@ public final class FindByAnd extends MethodOperation {
         }
         if (!useIteratorFse.isEmpty()) {
             sb.append("use-iterator=\"").append(this.useIteratorFse).append("\" ");
-        }
-        if (!delegatorNameFse.isEmpty()) {
-            sb.append("delegator-name=\"").append(this.delegatorNameFse).append("\" ");
         }
         sb.append("/>");
         return sb.toString();

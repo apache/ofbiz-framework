@@ -68,7 +68,7 @@ public final class RemoveRelated extends MethodOperation {
         @Deprecated
         boolean doCacheClear = !"false".equals(doCacheClearFse.expandString(methodContext.getEnvMap()));
         try {
-            methodContext.getDelegator().removeRelated(relationName, value, doCacheClear);
+            value.getDelegator().removeRelated(relationName, value, doCacheClear);
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while removing related entities: " + e.getMessage();
             Debug.logWarning(e, errMsg, module);

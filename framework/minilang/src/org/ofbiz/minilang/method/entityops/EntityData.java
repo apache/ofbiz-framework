@@ -44,11 +44,10 @@ import org.w3c.dom.Element;
  * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Centitydata%3E}}">Mini-language Reference</a>
  */
-public final class EntityData extends MethodOperation {
+public final class EntityData extends EntityOperation {
 
     public static final String module = EntityData.class.getName();
 
-    private final FlexibleStringExpander delegatorNameFse;
     private final FlexibleMapAccessor<List<Object>> errorListFma;
     private final FlexibleStringExpander locationFse;
     private final String mode;
@@ -59,11 +58,11 @@ public final class EntityData extends MethodOperation {
         if (MiniLangValidate.validationOn()) {
             MiniLangValidate.attributeNames(simpleMethod, element, "location", "timeout", "delegator-name", "error-list-name", "mode");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "location");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "delegator-name");
             MiniLangValidate.constantAttributes(simpleMethod, element, "timeout", "mode");
             MiniLangValidate.noChildElements(simpleMethod, element);
         }
         locationFse = FlexibleStringExpander.getInstance(element.getAttribute("location"));
-        delegatorNameFse = FlexibleStringExpander.getInstance(element.getAttribute("delegator-name"));
         mode = MiniLangValidate.checkAttribute(element.getAttribute("mode"), "load");
         String timeoutAttribute = element.getAttribute("timeout");
         if (!"load".equals(mode) && !timeoutAttribute.isEmpty()) {
@@ -89,11 +88,7 @@ public final class EntityData extends MethodOperation {
             errorListFma.put(methodContext.getEnvMap(), messages);
         }
         String location = this.locationFse.expandString(methodContext.getEnvMap());
-        String delegatorName = this.delegatorNameFse.expandString(methodContext.getEnvMap());
-        Delegator delegator = methodContext.getDelegator();
-        if (UtilValidate.isNotEmpty(delegatorName)) {
-            delegator = DelegatorFactory.getDelegator(delegatorName);
-        }
+        Delegator delegator = getDelegator(methodContext);
         URL dataUrl = null;
         try {
             dataUrl = FlexibleLocation.resolveLocation(location, methodContext.getLoader());
@@ -135,9 +130,6 @@ public final class EntityData extends MethodOperation {
         sb.append("location=\"").append(this.locationFse).append("\" ");
         sb.append("mode=\"").append(this.mode).append("\" ");
         sb.append("timeout=\"").append(this.timeout).append("\" ");
-        if (!this.delegatorNameFse.isEmpty()) {
-            sb.append("delegator-name=\"").append(this.delegatorNameFse).append("\" ");
-        }
         sb.append("error-list-name=\"").append(this.errorListFma).append("\" ");
         sb.append("/>");
         return sb.toString();

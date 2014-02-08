@@ -20,11 +20,11 @@ package org.ofbiz.minilang.method.entityops;
 
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
-import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
@@ -32,7 +32,7 @@ import org.w3c.dom.Element;
  * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Csequencedid%3E}}">Mini-language Reference</a>
  */
-public final class SequencedIdToEnv extends MethodOperation {
+public final class SequencedIdToEnv extends EntityOperation {
 
     private final FlexibleMapAccessor<Object> fieldFma;
     private final boolean getLongOnly;
@@ -42,9 +42,9 @@ public final class SequencedIdToEnv extends MethodOperation {
     public SequencedIdToEnv(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         if (MiniLangValidate.validationOn()) {
-            MiniLangValidate.attributeNames(simpleMethod, element, "sequence-name", "field", "get-long-only", "stagger-max");
+            MiniLangValidate.attributeNames(simpleMethod, element, "sequence-name", "field", "get-long-only", "stagger-max", "delegator-name");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "sequence-name", "field");
-            MiniLangValidate.expressionAttributes(simpleMethod, element, "field");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "field", "delegator-name");
             MiniLangValidate.noChildElements(simpleMethod, element);
         }
         sequenceNameFse = FlexibleStringExpander.getInstance(element.getAttribute("sequence-name"));
@@ -68,10 +68,11 @@ public final class SequencedIdToEnv extends MethodOperation {
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         String seqName = sequenceNameFse.expandString(methodContext.getEnvMap());
+        Delegator delegator = getDelegator(methodContext);
         if (getLongOnly) {
-            fieldFma.put(methodContext.getEnvMap(), methodContext.getDelegator().getNextSeqIdLong(seqName, staggerMax));
+            fieldFma.put(methodContext.getEnvMap(), delegator.getNextSeqIdLong(seqName, staggerMax));
         } else {
-            fieldFma.put(methodContext.getEnvMap(), methodContext.getDelegator().getNextSeqId(seqName, staggerMax));
+            fieldFma.put(methodContext.getEnvMap(), delegator.getNextSeqId(seqName, staggerMax));
         }
         return true;
     }

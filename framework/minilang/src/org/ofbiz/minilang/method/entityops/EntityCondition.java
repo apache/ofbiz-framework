@@ -27,7 +27,6 @@ import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.minilang.method.MethodContext;
-import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
@@ -35,7 +34,7 @@ import org.w3c.dom.Element;
  * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Centitycondition%3E}}">Mini-language Reference</a>
  */
-public final class EntityCondition extends MethodOperation {
+public final class EntityCondition extends EntityOperation {
 
     public static final String module = EntityCondition.class.getName();
 
@@ -46,7 +45,7 @@ public final class EntityCondition extends MethodOperation {
         if (MiniLangValidate.validationOn()) {
             MiniLangValidate.attributeNames(simpleMethod, element, "entity-name", "use-cache", "filter-by-date", "list", "distinct", "delegator-name");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "entity-name", "list");
-            MiniLangValidate.expressionAttributes(simpleMethod, element, "list");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "list", "delegator-name");
             MiniLangValidate.childElements(simpleMethod, element, "condition-expr", "condition-list", "condition-object", "having-condition-list", "select-field", "order-by", "limit-range", "limit-view", "use-iterator");
             MiniLangValidate.requireAnyChildElement(simpleMethod, element, "condition-expr", "condition-list", "condition-object");
         }
@@ -56,8 +55,8 @@ public final class EntityCondition extends MethodOperation {
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         try {
-            Delegator delegator = methodContext.getDelegator();
-            this.finder.runFind(methodContext.getEnvMap(), delegator);
+            Delegator delegator = getDelegator(methodContext);
+            finder.runFind(methodContext.getEnvMap(), delegator);
         } catch (GeneralException e) {
             String errMsg = "Exception thrown while performing entity find: " + e.getMessage();
             Debug.logWarning(e, errMsg, module);
