@@ -72,13 +72,13 @@ public class ManagerEvents {
 
     public static synchronized void modifyPrice(PosScreen pos) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
-        String sku = null;
+        String cartIndex = null;
         try {
-            sku = MenuEvents.getSelectedItem(pos);
+            cartIndex = MenuEvents.getSelectedIdx(pos);
         } catch (ArrayIndexOutOfBoundsException e) {
         }
 
-        if (sku == null) {
+        if (cartIndex == null) {
             pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"PosInvalidSelection",Locale.getDefault()));
             pos.getJournal().refresh(pos);
             pos.getInput().clear();
@@ -97,7 +97,7 @@ public class ManagerEvents {
 
             if (parsed) {
                 price = price.movePointLeft(2);
-                trans.modifyPrice(sku, price);
+                trans.modifyPrice(cartIndex, price);
 
                 // re-calc tax
                 trans.calcTax();

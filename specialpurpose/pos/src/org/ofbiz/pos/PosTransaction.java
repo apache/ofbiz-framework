@@ -118,7 +118,6 @@ public class PosTransaction implements Serializable {
     protected int drawerIdx = 0;
 
     private GenericValue shipAddress = null;
-    private Map<String, Integer> skuDiscounts = FastMap.newInstance();
     private int cartDiscount = -1;
 
 
@@ -419,13 +418,14 @@ public class PosTransaction implements Serializable {
         return payInfo;
     }
 
-    public BigDecimal getItemQuantity(String productId) {
-        trace("request item quantity", productId);
-        ShoppingCartItem item = cart.findCartItem(productId, null, null, null, BigDecimal.ZERO);
+    public BigDecimal getItemQuantity(String cartIndex) {
+        trace("request item quantity", cartIndex);
+        int index = Integer.parseInt(cartIndex);
+        ShoppingCartItem item = cart.findCartItem(index);
         if (item != null) {
             return item.getQuantity();
         } else {
-            trace("item not found", productId);
+            trace("item not found", cartIndex);
             return BigDecimal.ZERO;
         }
     }
@@ -517,11 +517,11 @@ public class PosTransaction implements Serializable {
         }
     }
 
-    public void addItem(String productId, ProductConfigWrapper pcw)
+    public void addItem(String productId, BigDecimal quantity, ProductConfigWrapper pcw)
         throws ItemNotFoundException, CartItemModifyException {
-        trace("add item with ProductConfigWrapper", productId);
+        trace("add item with ProductConfigWrapper", productId + "/" + quantity);
         try {
-            cart.addOrIncreaseItem(productId, null, BigDecimal.ONE, null, null, null, null, null, null, null, null, pcw, null, null, null, session.getDispatcher());
+            cart.addOrIncreaseItem(productId, null, quantity, null, null, null, null, null, null, null, null, pcw, null, null, null, session.getDispatcher());
         } catch (ItemNotFoundException e) {
             trace("item not found", e);
             throw e;
@@ -557,9 +557,10 @@ public class PosTransaction implements Serializable {
         return;
     }
 
-    public void modifyQty(String productId, BigDecimal quantity) throws CartItemModifyException {
-        trace("modify item quantity", productId + "/" + quantity);
-        ShoppingCartItem item = cart.findCartItem(productId, null, null, null, BigDecimal.ZERO);
+    public void modifyQty(String cartIndex, BigDecimal quantity) throws CartItemModifyException {
+        trace("modify item quantity", cartIndex + "/" + quantity);
+        int index = Integer.parseInt(cartIndex);
+        ShoppingCartItem item = cart.findCartItem(index);
         if (item != null) {
             try {
                 item.setQuantity(quantity, session.getDispatcher(), cart, true);
@@ -569,21 +570,22 @@ public class PosTransaction implements Serializable {
                 throw e;
             }
         } else {
-            trace("item not found", productId);
+            trace("item not found", cartIndex);
         }
     }
 
-    public void modifyPrice(String productId, BigDecimal price) {
-        trace("modify item price", productId + "/" + price);
-        ShoppingCartItem item = cart.findCartItem(productId, null, null, null, BigDecimal.ZERO);
+    public void modifyPrice(String cartIndex, BigDecimal price) {
+        trace("modify item price", cartIndex + "/" + price);
+        int index = Integer.parseInt(cartIndex);
+        ShoppingCartItem item = cart.findCartItem(index);
         if (item != null) {
             item.setBasePrice(price);
         } else {
-            trace("item not found", productId);
+            trace("item not found", cartIndex);
         }
     }
 
-    public void addDiscount(String productId, BigDecimal discount, boolean percent) {
+    public void addDiscount(String cartIndex, BigDecimal discount, boolean percent) {
         GenericValue adjustment = session.getDelegator().makeValue("OrderAdjustment");
         adjustment.set("orderAdjustmentTypeId", "DISCOUNT_ADJUSTMENT");
         if (percent) {
@@ -592,15 +594,15 @@ public class PosTransaction implements Serializable {
             adjustment.set("amount", discount);
         }
 
-        if (productId != null) {
+        if (cartIndex != null) {
             trace("add item adjustment");
-            ShoppingCartItem item = cart.findCartItem(productId, null, null, null, BigDecimal.ZERO);
-            Integer itemAdj = skuDiscounts.get(productId);
-            if (itemAdj != null) {
-                item.removeAdjustment(itemAdj.intValue());
+            int iCartIndex = Integer.parseInt(cartIndex);
+            ShoppingCartItem item = cart.findCartItem(iCartIndex);
+            List<GenericValue> adjustments = item.getAdjustments();
+            for (GenericValue gvAdjustment : adjustments){
+                    item.removeAdjustment(gvAdjustment);
             }
                int idx = item.addAdjustment(adjustment);
-            skuDiscounts.put(productId, idx);
         } else {
             trace("add sale adjustment");
             if (cartDiscount > -1) {
@@ -615,11 +617,13 @@ public class PosTransaction implements Serializable {
             cart.removeAdjustment(cartDiscount);
             cartDiscount = -1;
         }
-        for (String productId : skuDiscounts.keySet()) {
-            ShoppingCartItem item = cart.findCartItem(productId, null, null, null, BigDecimal.ZERO);
-            Integer itemAdj = skuDiscounts.remove(productId);
-            if (itemAdj != null) {
-                item.removeAdjustment(itemAdj.intValue());
+        
+        Iterator<ShoppingCartItem> cartIterator = cart.iterator();
+        while(cartIterator.hasNext()){
+            ShoppingCartItem item = (ShoppingCartItem) cartIterator.next();    
+            List<GenericValue> adjustments = item.getAdjustments();
+            for (GenericValue gvAdjustment : adjustments){
+                item.removeAdjustment(gvAdjustment);
             }
         }
     }
@@ -628,22 +632,18 @@ public class PosTransaction implements Serializable {
         return cart.getOrderOtherAdjustmentTotal();
     }
 
-    public void voidItem(String productId) throws CartItemModifyException {
-        trace("void item", productId);
-        ShoppingCartItem item = cart.findCartItem(productId, null, null, null, BigDecimal.ZERO);
-        if (item != null) {
+    public void voidItem(String cartIndex) throws CartItemModifyException {
+        trace("void item", cartIndex);
+        int index;
             try {
-                int itemIdx = cart.getItemIndex(item);
-                cart.removeCartItem(itemIdx, session.getDispatcher());
+            index = Integer.parseInt(cartIndex);
+            cart.removeCartItem(index, session.getDispatcher());
             } catch (CartItemModifyException e) {
                 Debug.logError(e, module);
-                trace("void item error", productId, e);
+            trace("void item error", cartIndex, e);
                 throw e;
             }
-        } else {
-            trace("item not found", productId);
         }
-    }
 
     public void voidSale(PosScreen pos) {
         trace("void sale");
