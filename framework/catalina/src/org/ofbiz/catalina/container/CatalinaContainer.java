@@ -19,7 +19,6 @@
 package org.ofbiz.catalina.container;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
@@ -32,7 +31,6 @@ import java.util.concurrent.ScheduledExecutorService;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastList;
 
@@ -49,7 +47,6 @@ import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.core.StandardEngine;
 import org.apache.catalina.core.StandardHost;
 import org.apache.catalina.core.StandardServer;
-import org.apache.catalina.core.StandardWrapper;
 import org.apache.catalina.deploy.FilterDef;
 import org.apache.catalina.deploy.FilterMap;
 import org.apache.catalina.filters.RequestDumperFilter;
@@ -57,7 +54,6 @@ import org.apache.catalina.ha.tcp.ReplicationValve;
 import org.apache.catalina.ha.tcp.SimpleTcpCluster;
 import org.apache.catalina.loader.WebappLoader;
 import org.apache.catalina.realm.MemoryRealm;
-import org.apache.catalina.session.StandardManager;
 import org.apache.catalina.startup.ContextConfig;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.catalina.tribes.group.GroupChannel;
@@ -72,6 +68,7 @@ import org.apache.coyote.http11.Http11Protocol;
 import org.apache.tomcat.JarScanner;
 import org.apache.tomcat.util.IntrospectionUtils;
 import org.apache.tomcat.util.scan.StandardJarScanner;
+
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.concurrent.ExecutionPool;
 import org.ofbiz.base.container.ClassLoaderContainer;
@@ -82,14 +79,11 @@ import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.SSLUtil;
-import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
 
 /*
  * --- Access Log Pattern Information - From Tomcat 5 AccessLogValve.java
@@ -150,7 +144,6 @@ public class CatalinaContainer implements Container {
     public static final String J2EE_SERVER = "OFBiz Container 3.1";
     public static final String J2EE_APP = "OFBiz";
     public static final String module = CatalinaContainer.class.getName();
-    protected static Map<String, String> mimeTypes = new HashMap<String, String>();
     private static final ThreadGroup CATALINA_THREAD_GROUP = new ThreadGroup("CatalinaContainer");
 
     // load the JSSE propertes (set the trust store)
@@ -167,8 +160,6 @@ public class CatalinaContainer implements Container {
     protected boolean contextReloadable = false;
     protected boolean crossContext = false;
     protected boolean distribute = false;
-
-    protected boolean enableDefaultMimeTypes = true;
 
     protected String catalinaRuntimeHome;
 
@@ -661,27 +652,26 @@ public class CatalinaContainer implements Container {
         }
         final boolean contextIsDistributable = distribute && appIsDistributable;
 
-        // configure persistent sessions
-        Property clusterProp = clusterConfig.get(engine.getName());
-
-        Manager sessionMgr = null;
-        if (clusterProp != null && contextIsDistributable) {
-            String mgrClassName = ContainerConfig.getPropertyValue(clusterProp, "manager-class", "org.apache.catalina.ha.session.DeltaManager");
-            try {
-                sessionMgr = (Manager)Class.forName(mgrClassName).newInstance();
-            } catch (Exception exc) {
-                throw new ContainerException("Cluster configuration requires a valid manager-class property: " + exc.getMessage());
-            }
-        } else {
-            sessionMgr = new StandardManager();
-        }
-
         // create the web application context
         StandardContext context = new StandardContext();
         context.setParent(host);
         context.setDocBase(location);
         context.setPath(mount);
         context.addLifecycleListener(new ContextConfig());
+        Tomcat.initWebappDefaults(context);
+        // configure persistent sessions
+        // important: the call to context.setManager(...) must be done after Tomcat.initWebappDefaults(...)
+        Property clusterProp = clusterConfig.get(engine.getName());
+        if (clusterProp != null && contextIsDistributable) {
+            Manager sessionMgr = null;
+            String mgrClassName = ContainerConfig.getPropertyValue(clusterProp, "manager-class", "org.apache.catalina.ha.session.DeltaManager");
+            try {
+                sessionMgr = (Manager)Class.forName(mgrClassName).newInstance();
+            } catch (Exception exc) {
+                throw new ContainerException("Cluster configuration requires a valid manager-class property: " + exc.getMessage());
+            }
+            context.setManager(sessionMgr);
+        }
 
         JarScanner jarScanner = context.getJarScanner();
         if (jarScanner instanceof StandardJarScanner) {
@@ -693,8 +683,6 @@ public class CatalinaContainer implements Container {
         egn.setService(tomcat.getService());
 
         Debug.logInfo("host[" + host + "].addChild(" + context + ")", module);
-        //context.setDeployOnStartup(false);
-        //context.setBackgroundProcessorDelay(5);
         context.setJ2EEApplication(J2EE_APP);
         context.setJ2EEServer(J2EE_SERVER);
         context.setLoader(new WebappLoader(ClassLoaderContainer.getClassLoader()));
@@ -712,7 +700,6 @@ public class CatalinaContainer implements Container {
 
         context.setCrossContext(crossContext);
         context.setPrivileged(appInfo.privileged);
-        context.setManager(sessionMgr);
         context.getServletContext().setAttribute("_serverId", appInfo.server);
         context.getServletContext().setAttribute("componentName", appInfo.componentConfig.getComponentName());
 
@@ -728,34 +715,6 @@ public class CatalinaContainer implements Container {
             requestDumperFilterMap.addURLPattern("*");
             context.addFilterMap(requestDumperFilterMap);
         }
-
-        // create the Default Servlet instance to mount
-        StandardWrapper defaultServlet = new StandardWrapper();
-        defaultServlet.setParent(context);
-        defaultServlet.setServletClass("org.apache.catalina.servlets.DefaultServlet");
-        defaultServlet.setServletName("default");
-        defaultServlet.setLoadOnStartup(1);
-        defaultServlet.addInitParameter("debug", "0");
-        defaultServlet.addInitParameter("listing", "true");
-        defaultServlet.addMapping("/");
-        context.addChild(defaultServlet);
-        context.addServletMapping("/", "default");
-
-        // create the Jasper Servlet instance to mount
-        StandardWrapper jspServlet = new StandardWrapper();
-        jspServlet.setParent(context);
-        jspServlet.setServletClass("org.apache.jasper.servlet.JspServlet");
-        jspServlet.setServletName("jsp");
-        jspServlet.setLoadOnStartup(1);
-        jspServlet.addInitParameter("fork", "false");
-        jspServlet.addInitParameter("xpoweredBy", "true");
-        jspServlet.addMapping("*.jsp");
-        jspServlet.addMapping("*.jspx");
-        context.addChild(jspServlet);
-        context.addServletMapping("*.jsp", "jsp");
-
-        // default mime-type mappings
-        configureMimeTypes(context);
 
         // set the init parameters
         for (Map.Entry<String, String> entry: initParameters.entrySet()) {
@@ -807,7 +766,7 @@ public class CatalinaContainer implements Container {
                     }
                     loadedMounts.addAll(keys);
                 } else {
-                    appInfo.setAppBarDisplay(false); // disable app bar display on overrided apps
+                    appInfo.setAppBarDisplay(false); // disable app bar display on overridden apps
                     Debug.logInfo("Duplicate webapp mount; not loading : " + appInfo.getName() + " / " + appInfo.getLocation(), module);
                 }
             }
@@ -828,52 +787,5 @@ public class CatalinaContainer implements Container {
 
     public String getName() {
         return name;
-    }
-
-    protected void configureMimeTypes(Context context) throws ContainerException {
-        Map<String, String> mimeTypes = CatalinaContainer.getMimeTypes();
-        if (UtilValidate.isNotEmpty(mimeTypes)) {
-            for (Map.Entry<String, String> entry: mimeTypes.entrySet()) {
-                context.addMimeMapping(entry.getKey(), entry.getValue());
-            }
-        }
-    }
-
-    protected static synchronized Map<String, String> getMimeTypes() throws ContainerException {
-        if (UtilValidate.isNotEmpty(mimeTypes)) {
-            return mimeTypes;
-        }
-
-        if (mimeTypes == null) mimeTypes = new HashMap<String, String>();
-        URL xmlUrl = UtilURL.fromResource("mime-type.xml");
-
-        // read the document
-        Document mimeTypeDoc;
-        try {
-            mimeTypeDoc = UtilXml.readXmlDocument(xmlUrl, true);
-        } catch (SAXException e) {
-            throw new ContainerException("Error reading the mime-type.xml config file: " + xmlUrl, e);
-        } catch (ParserConfigurationException e) {
-            throw new ContainerException("Error reading the mime-type.xml config file: " + xmlUrl, e);
-        } catch (IOException e) {
-            throw new ContainerException("Error reading the mime-type.xml config file: " + xmlUrl, e);
-        }
-
-        if (mimeTypeDoc == null) {
-            Debug.logError("Null document returned for mime-type.xml", module);
-            return null;
-        }
-
-        // root element
-        Element root = mimeTypeDoc.getDocumentElement();
-
-        // mapppings
-        for (Element curElement: UtilXml.childElementList(root, "mime-mapping")) {
-            String extension = UtilXml.childElementValue(curElement, "extension");
-            String type = UtilXml.childElementValue(curElement, "mime-type");
-            mimeTypes.put(extension, type);
-        }
-
-        return mimeTypes;
     }
 }
