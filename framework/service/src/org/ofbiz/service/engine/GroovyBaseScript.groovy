@@ -20,7 +20,6 @@ package org.ofbiz.service.engine
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.service.ServiceUtil
-import org.ofbiz.service.GenericServiceException
 import org.ofbiz.service.ExecutionServiceException
 
 abstract class GroovyBaseScript extends Script {
@@ -55,7 +54,7 @@ abstract class GroovyBaseScript extends Script {
 
     def success(String message) {
         // TODO: implement some clever i18n mechanism based on the userLogin and locale in the binding
-        if (this.binding.getVariable('request')) {
+        if (this.binding.hasVariable('request')) {
             // the script is invoked as an "event"
             if (message) {
                 this.binding.getVariable('request').setAttribute("_EVENT_MESSAGE_", message)
@@ -80,7 +79,7 @@ abstract class GroovyBaseScript extends Script {
     }
     def error(String message) {
         // TODO: implement some clever i18n mechanism based on the userLogin and locale in the binding
-        if (this.binding.getVariable('request')) {
+        if (this.binding.hasVariable('request')) {
             // the script is invoked as an "event"
             if (message) {
                 this.binding.getVariable('request').setAttribute("_ERROR_MESSAGE_", message)
