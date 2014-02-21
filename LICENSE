@@ -76,11 +76,14 @@ framework/base/lib/scripting/jansi-1.2.1.jar
 framework/base/lib/xmlrpc-client-3.1.2.jar
 framework/base/lib/xmlrpc-common-3.1.2.jar
 framework/base/lib/xmlrpc-server-3.1.2.jar
-framework/catalina/lib/tomcat-7.0.50-catalina-ha.jar
-framework/catalina/lib/tomcat-7.0.50-catalina-tribes.jar
-framework/catalina/lib/tomcat-7.0.50-tomcat-embed-core.jar
-framework/catalina/lib/tomcat-7.0.50-tomcat-embed-jasper.jar
-framework/catalina/lib/tomcat-7.0.50-tomcat-embed-logging-log4j.jar
+framework/catalina/lib/tomcat-7.0.52-catalina-ha.jar
+framework/catalina/lib/tomcat-7.0.52-catalina-tribes.jar
+framework/catalina/lib/tomcat-7.0.52-catalina.jar
+framework/catalina/lib/tomcat-7.0.52-jasper.jar
+framework/catalina/lib/tomcat-7.0.52-tomcat-api.jar
+framework/catalina/lib/tomcat-7.0.52-tomcat-coyote.jar
+framework/catalina/lib/tomcat-7.0.52-tomcat-juli.jar
+framework/catalina/lib/tomcat-7.0.52-tomcat-util.jar
 framework/entity/lib/commons-dbcp-1.4.jar
 framework/entity/lib/jdbc/derby-10.10.1.1.jar
 framework/entity/lib/jdbc/derbytools-10.8.2.2.jar
@@ -2186,7 +2189,7 @@ of California, with venue lying in Santa Clara County, California.
 =========================================================================
 The following libraries distributed with Apache OFBiz are licensed under the
 Eclipse Public License - v 1.0:
-framework/catalina/lib/ecj-4.2.2.jar
+framework/catalina/lib/ecj-4.3.1.jar
 =========================================================================
 Eclipse Public License - v 1.0
 
