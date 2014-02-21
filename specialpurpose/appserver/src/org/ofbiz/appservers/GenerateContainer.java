@@ -62,7 +62,7 @@ import org.w3c.dom.Document;
 public class GenerateContainer implements Container {
 
     public static final String module = GenerateContainer.class.getName();
-    public static final String source = "/framework/appserver/templates/";
+    public static final String source = "/specialpurpose/appserver/templates/";
     public static String target = "/setup/";
 
     protected String configFile = null;
