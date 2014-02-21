@@ -27,7 +27,8 @@ framework/base/lib/httpmime-4.2.1.jar
 framework/base/lib/ivy-2.2.0.jar
 framework/base/lib/jakarta-regexp-1.5.jar
 framework/base/lib/jpim-0.1.jar
-framework/base/lib/juel-2.2.1.jar
+framework/base/lib/juel-impl-2.2.7.jar
+framework/base/lib/juel-spi-2.2.7.jar
 framework/base/lib/log4j-1.2.17.jar
 framework/base/lib/mx4j-3.0.1.jar
 framework/base/lib/mx4j-remote-3.0.1.jar
@@ -65,6 +66,7 @@ framework/base/lib/j2eespecs/geronimo-jms_1.1_spec-1.0.jar
 framework/base/lib/j2eespecs/geronimo-jta_1.1_spec-1.1.1.jar
 framework/base/lib/j2eespecs/geronimo-saaj_1.3_spec-1.1.jar
 framework/base/lib/j2eespecs/annotations-api-3.0.jar
+framework/base/lib/j2eespecs/el-api-2.2.jar
 framework/base/lib/j2eespecs/jsp-api-2.2.jar
 framework/base/lib/j2eespecs/servlet-api-3.0.jar
 framework/base/lib/scripting/bsf-2.4.0.jar
