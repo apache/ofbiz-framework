@@ -26,9 +26,9 @@ import java.util.Map.Entry;
 
 import org.apache.catalina.deploy.ServletDef;
 import org.apache.catalina.deploy.WebXml;
-import org.apache.catalina.startup.DigesterFactory;
 import org.apache.catalina.startup.WebRuleSet;
 import org.apache.tomcat.util.digester.Digester;
+import org.apache.tomcat.util.descriptor.DigesterFactory;
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.component.ComponentConfig.WebappInfo;
 import org.ofbiz.base.util.Assert;
@@ -152,7 +152,7 @@ public final class WebAppUtil {
             result = new WebXml();
             LocalResolver lr = new LocalResolver(new DefaultHandler());
             ErrorHandler handler = new LocalErrorHandler(webXmlFileLocation, lr);
-            Digester digester = DigesterFactory.newDigester(validate, namespaceAware, new WebRuleSet());
+            Digester digester = DigesterFactory.newDigester(validate, namespaceAware, new WebRuleSet(), false);
             digester.getParser();
             digester.push(result);
             digester.setErrorHandler(handler);
