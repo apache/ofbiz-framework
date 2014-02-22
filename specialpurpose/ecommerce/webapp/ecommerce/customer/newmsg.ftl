@@ -34,7 +34,7 @@ under the License.
         <#if productStore?has_content>
           <input type="hidden" name="partyIdTo" value="${productStore.payToPartyId?if_exists}"/>
         </#if>
-        <input type="hidden" name="note" value="${Static["org.ofbiz.base.util.UtilHttp"].getFullRequestUrl(request).toString()}"/>
+        <input type="hidden" name="note" value="${Static["org.ofbiz.base.util.UtilHttp"].getFullRequestUrl(request)}"/>
         <#if message?has_content>
           <input type="hidden" name="parentCommEventId" value="${communicationEvent.communicationEventId}"/>
           <#if (communicationEvent.origCommEventId?exists && communicationEvent.origCommEventId?length > 0)>

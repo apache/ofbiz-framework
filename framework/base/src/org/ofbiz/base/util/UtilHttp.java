@@ -553,11 +553,11 @@ public class UtilHttp {
             return;
         }
 
-        StringBuffer fullRequestUrl = getFullRequestUrl(request);
+        String fullRequestUrl = getFullRequestUrl(request);
 
         session.setAttribute("_WEBAPP_NAME_", getApplicationName(request));
         session.setAttribute("_CLIENT_LOCALE_", request.getLocale());
-        session.setAttribute("_CLIENT_REQUEST_", fullRequestUrl.toString());
+        session.setAttribute("_CLIENT_REQUEST_", fullRequestUrl);
         session.setAttribute("_CLIENT_USER_AGENT_", request.getHeader("User-Agent") != null ? request.getHeader("User-Agent") : "");
         session.setAttribute("_CLIENT_REFERER_", request.getHeader("Referer") != null ? request.getHeader("Referer") : "");
 
@@ -579,8 +579,9 @@ public class UtilHttp {
         }
     }
 
-    public static StringBuffer getServerRootUrl(HttpServletRequest request) {
-        StringBuffer requestUrl = new StringBuffer();
+
+    private static StringBuilder prepareServerRootUrl(HttpServletRequest request) {
+        StringBuilder requestUrl = new StringBuilder();
         requestUrl.append(request.getScheme());
         requestUrl.append("://" + request.getServerName());
         if (request.getServerPort() != 80 && request.getServerPort() != 443)
@@ -588,13 +589,17 @@ public class UtilHttp {
         return requestUrl;
     }
 
-    public static StringBuffer getFullRequestUrl(HttpServletRequest request) {
-        StringBuffer requestUrl = getServerRootUrl(request);
+    public static String getServerRootUrl(HttpServletRequest request) {
+        return prepareServerRootUrl(request).toString();
+    }
+
+    public static String getFullRequestUrl(HttpServletRequest request) {
+        StringBuilder requestUrl = prepareServerRootUrl(request);
         requestUrl.append(request.getRequestURI());
         if (request.getQueryString() != null) {
             requestUrl.append("?" + request.getQueryString());
         }
-        return requestUrl;
+        return requestUrl.toString();
     }
 
     public static Locale getLocale(HttpServletRequest request, HttpSession session, Object appDefaultLocale) {
