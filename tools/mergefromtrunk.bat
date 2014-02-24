@@ -21,6 +21,7 @@ rem interactive DOS version of mergefromtrunk.sh.
 rem to use : launch and pass the trunk version number to merge in release
 
 rem since we have now svn:mergeinfo changing root ("."), we need to update before merging
+cd ..
 svn up
 
 rem version to merge
