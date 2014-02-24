@@ -2136,14 +2136,18 @@ public class ShoppingCartItem implements java.io.Serializable {
         BigDecimal amount = (BigDecimal) additionalProductFeatureAndAppl.get("amount");
         if (amount != null) {
             amount = amount.multiply(this.getQuantity());
+            orderAdjustment.set("amount", amount);
         }
-        orderAdjustment.set("amount", amount);
 
         BigDecimal recurringAmount = (BigDecimal) additionalProductFeatureAndAppl.get("recurringAmount");
         if (recurringAmount != null) {
             recurringAmount = recurringAmount.multiply(this.getQuantity());
             orderAdjustment.set("recurringAmount", recurringAmount);
             //Debug.logInfo("Setting recurringAmount " + recurringAmount + " for " + orderAdjustment, module);
+        }
+
+        if (amount == null && recurringAmount == null) {
+            Debug.logWarning("In putAdditionalProductFeatureAndAppl the amount and recurringAmount are null for this adjustment: " + orderAdjustment, module);
         }
 
         this.addAdjustment(orderAdjustment);
@@ -2181,6 +2185,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                 featureAppls = product.getRelated("ProductFeatureAppl", null, null, false);
                 List<EntityExpr> filterExprs = UtilMisc.toList(EntityCondition.makeCondition("productFeatureApplTypeId", EntityOperator.EQUALS, "STANDARD_FEATURE"));
                 filterExprs.add(EntityCondition.makeCondition("productFeatureApplTypeId", EntityOperator.EQUALS, "REQUIRED_FEATURE"));
+                filterExprs.add(EntityCondition.makeCondition("productFeatureApplTypeId", EntityOperator.EQUALS, "DISTINGUISHING_FEAT"));
                 featureAppls = EntityUtil.filterByOr(featureAppls, filterExprs);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Unable to get features from product : " + product.get("productId"), module);
