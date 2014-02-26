@@ -1243,6 +1243,7 @@ under the License.
         <mkdir dir="${basedir}/hot-deploy/${component-name}/lib"/>
         <mkdir dir="${basedir}/hot-deploy/${component-name}/patches"/>
         <mkdir dir="${basedir}/hot-deploy/${component-name}/patches/staging"/>
+        <mkdir dir="${basedir}/hot-deploy/${component-name}/patches/qs"/>
         <mkdir dir="${basedir}/hot-deploy/${component-name}/patches/production"/>
         <mkdir dir="${basedir}/hot-deploy/${component-name}/script"/>
         <mkdir dir="${basedir}/hot-deploy/${component-name}/servicedef"/>
