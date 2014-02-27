@@ -60,13 +60,14 @@ if (parameters.luceneQuery) {
     TopScoreDocCollector collector = TopScoreDocCollector.create(100, false); // defaulting to 100 results
     searcher.search(combQuery, collector);
     ScoreDoc[] hits = collector.topDocs().scoreDocs;
-
     productList = []
     hits.each { hit ->
         Document doc = searcher.doc(hit.doc)
         productId = doc.productId
         product = delegator.findOne("Product", [productId : productId], true)
-        productList.add(product)
+        if (product) {
+            productList.add(product)
+        }
     }
     context.queryResults = productList;
 }
