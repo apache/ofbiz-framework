@@ -158,9 +158,9 @@
     <classpathentry kind="lib" path="specialpurpose/ebaystore/lib/ebaycalls.jar"/>
     <classpathentry kind="lib" path="specialpurpose/ebaystore/lib/ebaysdkcore.jar"/>
     <classpathentry kind="lib" path="specialpurpose/ebaystore/lib/helper.jar"/>
-    <classpathentry kind="lib" path="specialpurpose/lucene/lib/lucene-analyzers-common-4.6.0.jar"/>
-    <classpathentry kind="lib" path="specialpurpose/lucene/lib/lucene-core-4.6.0.jar"/>
-    <classpathentry kind="lib" path="specialpurpose/lucene/lib/lucene-queryparser-4.6.0.jar"/>
+    <classpathentry kind="lib" path="specialpurpose/lucene/lib/lucene-analyzers-common-4.7.0.jar"/>
+    <classpathentry kind="lib" path="specialpurpose/lucene/lib/lucene-core-4.7.0.jar"/>
+    <classpathentry kind="lib" path="specialpurpose/lucene/lib/lucene-queryparser-4.7.0.jar"/>
     <classpathentry excluding="org/ofbiz/accounting/thirdparty/cybersource/**|org/ofbiz/accounting/thirdparty/verisign/**|org/ofbiz/accounting/thirdparty/worldpay/**|org/ofbiz/accounting/thirdparty/paypal/PayPalServices.java|org/ofbiz/accounting/thirdparty/orbital/**|org/ofbiz/accounting/thirdparty/securepay/**|org/ofbiz/accounting/thirdparty/ideal/**" kind="src" path="applications/accounting/src"/>
     <classpathentry excluding="org/ofbiz/content/openoffice/|org/ofbiz/content/report/" kind="src" path="applications/content/src"/>
     <classpathentry kind="src" path="applications/manufacturing/src"/>
