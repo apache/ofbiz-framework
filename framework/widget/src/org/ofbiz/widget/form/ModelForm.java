@@ -1062,6 +1062,7 @@ public class ModelForm extends ModelWidget {
             }
             //Debug.logInfo("In single form evaluating use-when for field " + currentFormField.getName() + ": " + currentFormField.getUseWhen(), module);
             if (!currentFormField.shouldUse(context)) {
+                currentFormField = lastFormField;
                 continue;
             }
             alreadyRendered.add(currentFormField.getName());
