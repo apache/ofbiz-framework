@@ -21,6 +21,7 @@ package org.ofbiz.product.inventory;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -446,7 +447,7 @@ public class InventoryServices {
             // get the incomming shipment information for the item
             List<GenericValue> shipmentAndItems = null;
             try {
-                List<EntityExpr> exprs = FastList.newInstance();
+                List<EntityExpr> exprs = new ArrayList<EntityExpr>();
                 exprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, inventoryItem.get("productId")));
                 exprs.add(EntityCondition.makeCondition("destinationFacilityId", EntityOperator.EQUALS, inventoryItem.get("facilityId")));
                 exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "SHIPMENT_DELIVERED"));

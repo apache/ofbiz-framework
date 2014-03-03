@@ -22,6 +22,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -312,7 +313,7 @@ public class EntityDataLoadContainer implements Container {
         List<String> loadComponents = FastList.newInstance();
         if (UtilValidate.isNotEmpty(delegator.getDelegatorTenantId()) && "Y".equals(UtilProperties.getPropertyValue("general.properties", "multitenant"))) {
             try {
-                List<EntityExpr> exprs = FastList.newInstance();
+                List<EntityExpr> exprs = new ArrayList<EntityExpr>();
                 exprs.add(EntityCondition.makeCondition("rootLocation", EntityOperator.NOT_LIKE, "%hot-deploy%"));
                 EntityCondition cond = EntityCondition.makeCondition(exprs);
                 List<GenericValue> components = delegator.findList("Component", cond , null, UtilMisc.toList("lastUpdatedStamp"), null, false);
