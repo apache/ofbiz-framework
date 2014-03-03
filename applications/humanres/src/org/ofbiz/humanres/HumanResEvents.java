@@ -21,6 +21,7 @@ package org.ofbiz.humanres;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -188,7 +189,7 @@ public class HumanResEvents {
                     
                 }
                 
-                List<EntityExpr> exprs = FastList.newInstance();
+                List<EntityExpr> exprs = new ArrayList<EntityExpr>();
                 exprs.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId));
                 exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "EMPL_POS_INACTIVE"));
         

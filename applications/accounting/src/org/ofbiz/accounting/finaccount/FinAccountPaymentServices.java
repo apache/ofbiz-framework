@@ -21,11 +21,11 @@ package org.ofbiz.accounting.finaccount;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.accounting.payment.PaymentGatewayServices;
@@ -908,7 +908,7 @@ public class FinAccountPaymentServices {
         opts.setMaxRows(1);
         opts.setFetchSize(1);
 
-        List<EntityExpr> exprs = FastList.newInstance();
+        List<EntityExpr> exprs = new ArrayList<EntityExpr>();
         exprs.add(EntityCondition.makeCondition("finAccountTransTypeId", EntityOperator.EQUALS, "DEPOSIT"));
         exprs.add(EntityCondition.makeCondition("finAccountId", EntityOperator.EQUALS, finAccountId));
         exprs.add(EntityCondition.makeCondition("orderId", EntityOperator.NOT_EQUAL, null));
