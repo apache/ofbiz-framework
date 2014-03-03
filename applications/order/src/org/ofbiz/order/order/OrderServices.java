@@ -4297,7 +4297,7 @@ public class OrderServices {
 
         // remove any order item attributes that were set to empty
         try {
-            delegator.removeAll(toRemove,true);
+            delegator.removeAll(toRemove);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new GeneralException(e.getMessage());
