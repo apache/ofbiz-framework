@@ -2174,18 +2174,15 @@ public class OrderServices {
                     "OrderYouDoNotHavePermissionToChangeThisOrdersStatus",locale));
         }
 
-        List<EntityExpr> exprs = new ArrayList<EntityExpr>();
-        exprs.add(EntityCondition.makeCondition("orderId", orderId));
+        Map<String, String> fields = UtilMisc.<String, String>toMap("orderId", orderId);
         if (orderItemSeqId != null)
-            exprs.add(EntityCondition.makeCondition("orderItemSeqId", orderItemSeqId));
+            fields.put("orderItemSeqId", orderItemSeqId);
         if (fromStatusId != null)
-            exprs.add(EntityCondition.makeCondition("statusId", fromStatusId));
-        else 
-            exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_IN, UtilMisc.toList("ITEM_COMPLETED", "ITEM_CANCELLED")));
+            fields.put("statusId", fromStatusId);
 
         List<GenericValue> orderItems = null;
         try {
-            orderItems = delegator.findList("OrderItem", EntityCondition.makeCondition(exprs, EntityOperator.AND), null, null, null, false);
+            orderItems = delegator.findByAnd("OrderItem", fields, null, false);
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
                     "OrderErrorCannotGetOrderItemEntity",locale) + e.getMessage());
