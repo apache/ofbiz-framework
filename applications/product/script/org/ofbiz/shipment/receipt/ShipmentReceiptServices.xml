@@ -547,6 +547,7 @@ under the License.
             <!-- update the order item status -->
             <set field="orderItem.statusId" value="ITEM_APPROVED"/>
             <set-service-fields service-name="changeOrderItemStatus" map="orderItem" to-map="orderItemCtx"/>
+            <set field="orderItemCtx.fromStatusId" value="ITEM_COMPLETED"/>
             <call-service service-name="changeOrderItemStatus" in-map-name="orderItemCtx"/>
             <get-related-one value-field="orderItem" relation-name="OrderHeader" to-value-field="orderHeader"/>
             <!-- cancel the invoice -->
