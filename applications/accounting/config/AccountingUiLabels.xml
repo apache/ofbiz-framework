@@ -2392,6 +2392,51 @@
         <value xml:lang="zh">发票编号（InvoiceId）和账单账户编号（BillingAccountId）都是空的</value>
         <value xml:lang="zh_TW">發票編號（InvoiceId）和賬單賬戶編號（BillingAccountId）都是空的</value>
     </property>
+    <property key="AccountingBudgetFind">
+        <value xml:lang="en">Find</value>
+    </property>
+    <property key="AccountingBudgetHeader">
+        <value xml:lang="en">Header</value>
+    </property>
+    <property key="AccountingBudgetItems">
+        <value xml:lang="en">Items</value>
+    </property>
+    <property key="AccountingBudgetItemsAdd">
+        <value xml:lang="en">Add a new budget Item</value>
+    </property>
+    <property key="AccountingBudgetOverview">
+        <value xml:lang="en">Overview</value>
+    </property>
+    <property key="AccountingBudgetReviewAdd">
+        <value xml:lang="en">Add a new Budget Review</value>
+    </property>
+    <property key="AccountingBudgetReviewResult">
+        <value xml:lang="en">Budget Review Result</value>
+    </property>
+    <property key="AccountingBudgetReviews">
+        <value xml:lang="en">Reviews</value>
+    </property>
+    <property key="AccountingBudgetRoles">
+        <value xml:lang="en">Roles</value>
+    </property>
+    <property key="AccountingBudgets">
+        <value xml:lang="en">Budgets</value>
+    </property>
+    <property key="AccountingBudgetStatus">
+        <value xml:lang="en">Status</value>
+    </property>
+    <property key="AccountingBudgetStatusToApproved">
+        <value xml:lang="en">Status To 'Approved'</value>
+    </property>
+    <property key="AccountingBudgetStatusToReviewed">
+        <value xml:lang="en">Status To 'Reviewed'</value>
+    </property>
+    <property key="AccountingBudgetStatusToRejected">
+        <value xml:lang="en">Status To 'Rejected'</value>
+    </property>
+    <property key="AccountingBudgetType">
+        <value xml:lang="en">Budget Type</value>
+    </property>
     <property key="AccountingByAccount">
         <value xml:lang="de">Nach Konto</value>
         <value xml:lang="en">By Account</value>
@@ -4482,6 +4527,9 @@
         <value xml:lang="zh">编辑账户对账</value>
         <value xml:lang="zh_TW">修改帳戶調節</value>
     </property>
+    <property key="AccountingEditBudget">
+        <value xml:lang="en">Edit Budget</value>
+    </property>
     <property key="AccountingEditCreditCard">
         <value xml:lang="cs">Zpracovat kreditní kartu</value>
         <value xml:lang="de">Kreditkarte bearbeiten</value>
@@ -5309,6 +5357,9 @@
         <value xml:lang="vi">Tìm thanh toán chi</value>
         <value xml:lang="zh">查找应收支付</value>
         <value xml:lang="zh_TW">找尋應收支付</value>
+    </property>
+    <property key="AccountingFindBudgets">
+        <value xml:lang="en">Find Budgets</value>
     </property>
     <property key="AccountingFindDepositSlip">
         <value xml:lang="de">Finde Einzahlungsscheine für Finanzkonto : ${finAccount.finAccountName} [${finAccountId}]</value>
@@ -8957,6 +9008,9 @@
         <value xml:lang="vi">Thêm quy ước hợp đồng</value>
         <value xml:lang="zh">新建合同条件</value>
         <value xml:lang="zh_TW">新建合同條件</value>
+    </property>
+    <property key="AccountingNewBudget">
+        <value xml:lang="en">Create New Budget</value>
     </property>
     <property key="AccountingNewCompany">
         <value xml:lang="en">Create new accounting company</value>
@@ -19870,6 +19924,9 @@
         <value xml:lang="zh">批量支付</value>
         <value xml:lang="zh_TW">批次付款</value>
     </property>
+    <property key="PageTitleBudgetOverview">
+        <value xml:lang="en">Budget Overview</value>
+    </property>
     <property key="PageTitleCopyAgreement">
         <value xml:lang="en">Copy Agreement</value>
         <value xml:lang="fr">Copie d'accords commerciaux</value>
@@ -20132,6 +20189,9 @@
         <value xml:lang="vi">Chỉnh sửa Quy ước</value>
         <value xml:lang="zh">编辑账单账户条件</value>
         <value xml:lang="zh_TW">編輯賬單賬戶條件</value>
+    </property>
+    <property key="PageTitleEditBudget">
+        <value xml:lang="en">Edit Budget</value>
     </property>
     <property key="PageTitleEditFinAccount">
         <value xml:lang="en">Edit Financial Account</value>
@@ -20966,6 +21026,15 @@
         <value xml:lang="zh">合同条件列表</value>
         <value xml:lang="zh_TW">合同條件列表</value>
     </property>
+    <property key="PageTitleListBudget">
+        <value xml:lang="en">List Budget</value>
+    </property>
+    <property key="PageTitleListBudgetReviews">
+        <value xml:lang="en">List Budget Reviews</value>
+    </property>
+    <property key="PageTitleListBudgetRoles">
+        <value xml:lang="en">List Budget Roles</value>
+    </property>
     <property key="PageTitleListEditInvoiceApplications">
         <value xml:lang="en">List Edit Invoice Applications</value>
         <value xml:lang="es">Lista Editar Aplicaciones de Factura</value>
@@ -21255,6 +21324,9 @@
         <value xml:lang="vi">Tìm kiếm tài khoản Thanh toán theo Tên</value>
         <value xml:lang="zh">按名称查找账单账户</value>
         <value xml:lang="zh_TW">按名稱查找賬單賬戶</value>
+    </property>
+    <property key="PageTitleLookupCustomTimePeriod">
+        <value xml:lang="en">Lookup Custom Time Period</value>
     </property>
     <property key="PageTitleLookupFixedAsset">
         <value xml:lang="en">Lookup Fixed Asset</value>

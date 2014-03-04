@@ -48,6 +48,7 @@ under the License.
         <menu-item name="TaxAuthorities" title="${uiLabelMap.AccountingTaxAuthorities}"><link target="FindTaxAuthority"/></menu-item>
         <menu-item name="agreements" title="${uiLabelMap.AccountingAgreements}"><link target="FindAgreement"/></menu-item>
         <menu-item name="ListFixedAssets" title="${uiLabelMap.AccountingFixedAssets}"><link target="ListFixedAssets"/></menu-item>
+        <menu-item name="ListBudgets" title="${uiLabelMap.AccountingBudgets}"><link target="ListBudgets"/></menu-item>
         <menu-item name="GlobalGLSettings" title="${uiLabelMap.AccountingGlobalGLSettings}"><link target="globalGLSettings"/></menu-item>
         <menu-item name="companies" title="${uiLabelMap.AccountingOrgGlSettings}"><link target="ListCompanies"/></menu-item>
     </menu>
@@ -668,6 +669,117 @@ under the License.
         <menu-item name="FixedAssetGeoLocation" title="${uiLabelMap.CommonGeoLocation}">
             <link target="FixedAssetGeoLocation">
                 <parameter param-name="fixedAssetId"/>
+            </link>
+        </menu-item>
+    </menu>
+
+    <menu name="BudgetTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="EditBudget">
+        <menu-item name="ListBudgets" title="${uiLabelMap.AccountingBudgetFind}">
+            <link target="ListBudgets"/>
+        </menu-item>
+        <menu-item name="BudgetOverview" title="${uiLabelMap.AccountingBudgetOverview}">
+            <link target="BudgetOverview">
+                <parameter param-name="budgetId"/>
+            </link>
+        </menu-item>
+        <menu-item name="EditBudget" title="${uiLabelMap.AccountingBudgetHeader}">
+            <condition>
+                <and>
+                    <not><if-empty field="budgetId"/></not>
+                    <or>
+                        <if-compare field="statusId" operator="equals" value="BG_CREATED"/>
+                        <if-compare field="statusId" operator="equals" value="BG_REVIEWED"/>
+                    </or>
+                </and>
+            </condition>
+            <link target="EditBudget">
+                <parameter param-name="budgetId"/>
+            </link>
+        </menu-item>
+        <menu-item name="BudgetItem" title="${uiLabelMap.AccountingBudgetItems}">
+            <condition>
+                <and>
+                    <not><if-empty field="budgetId"/></not>
+                    <or>
+                        <if-compare field="statusId" operator="equals" value="BG_CREATED"/>
+                        <if-compare field="statusId" operator="equals" value="BG_REVIEWED"/>
+                    </or>
+                </and>
+            </condition>
+            <link target="EditBudgetItems">
+                <parameter param-name="budgetId"/>
+            </link>
+        </menu-item>
+        <menu-item name="BudgetRoles" title="${uiLabelMap.AccountingBudgetRoles}">
+            <condition>
+                <and>
+                    <not><if-empty field="budgetId"/></not>
+                    <or>
+                        <if-compare field="statusId" operator="equals" value="BG_CREATED"/>
+                        <if-compare field="statusId" operator="equals" value="BG_REVIEWED"/>
+                    </or>
+                </and>
+            </condition>
+            <link target="BudgetRoles">
+                <parameter param-name="budgetId"/>
+            </link>
+        </menu-item>
+        <menu-item name="BudgetReviews" title="${uiLabelMap.AccountingBudgetReviews}">
+            <condition>
+                <and>
+                    <not><if-empty field="budgetId"/></not>
+                    <if-compare field="statusId" operator="not-equals" value="BG_REJECTED"/>
+                </and>
+            </condition>
+            <link target="BudgetReviews">
+                <parameter param-name="budgetId"/>
+            </link>
+        </menu-item>
+    </menu>
+
+    <menu name="BudgetSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">
+        <menu-item name="statusToApproved" title="${uiLabelMap.AccountingBudgetStatusToApproved}">
+            <condition>
+                <and>
+                    <not><if-empty field="budgetId"/></not>
+                    <or>
+                        <if-compare field="statusId" operator="equals" value="BG_CREATED"/>
+                        <if-compare field="statusId" operator="equals" value="BG_REVIEWED"/>
+                    </or>
+                </and>
+            </condition>
+            <link target="updateBudgetStatus">
+                <parameter param-name="budgetId" from-field="budgetId"/>
+                <parameter param-name="statusId" value="BG_APPROVED"/>
+            </link>
+        </menu-item>
+        <menu-item name="statusToReview" title="${uiLabelMap.AccountingBudgetStatusToReviewed}">
+            <condition>
+                <and>
+                    <not><if-empty field="budgetId"/></not>
+                    <if-compare field="statusId" operator="equals" value="BG_CREATED"/>
+                </and>
+            </condition>
+            <link target="updateBudgetStatus">
+                <parameter param-name="budgetId" from-field="budgetId"/>
+                <parameter param-name="statusId" value="BG_REVIEWED"/>
+            </link>
+        </menu-item>
+        <menu-item name="statusToReject" title="${uiLabelMap.AccountingBudgetStatusToRejected}">
+            <condition>
+                <and>
+                    <not><if-empty field="budgetId"/></not>
+                    <or>
+                        <if-compare field="statusId" operator="equals" value="BG_CREATED"/>
+                        <if-compare field="statusId" operator="equals" value="BG_REVIEWED"/>
+                        <if-compare field="statusId" operator="equals" value="BG_APPROVED"/>
+                    </or>
+                </and>
+            </condition>
+            <link target="updateBudgetStatus">
+                <parameter param-name="budgetId" from-field="budgetId"/>
+                <parameter param-name="statusId" value="BG_REJECTED"/>
             </link>
         </menu-item>
     </menu>

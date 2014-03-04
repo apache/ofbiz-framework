@@ -1090,4 +1090,20 @@ under the License.
     <!-- invoice export replacement Id types -->
     <GoodIdentificationType description="replacement value for partyId in the invoice export function in accounting" goodIdentificationTypeId="INVOICE_EXPORT"/>
     <PartyIdentificationType description="replacement value for partyId in the invoice export function in accounting" partyIdentificationTypeId="INVOICE_EXPORT"/>
+
+    <!-- Budget Type Data -->
+    <StatusItem description="Created" sequenceId="00" statusCode="CREATED" statusId="BG_CREATED" statusTypeId="BUDGET_STATUS"/>
+    <StatusItem description="Reviewed" sequenceId="01" statusCode="REVIEWED" statusId="BG_REVIEWED" statusTypeId="BUDGET_STATUS"/>
+    <StatusItem description="Approved" sequenceId="02" statusCode="APPROVED" statusId="BG_APPROVED" statusTypeId="BUDGET_STATUS"/>
+    <StatusItem description="Rejected" sequenceId="03" statusCode="REJECTED" statusId="BG_REJECTED" statusTypeId="BUDGET_STATUS"/>
+    <StatusValidChange condition="" statusId="BG_CREATED" statusIdTo="BG_REVIEWED" transitionName="Review Budget"/>
+    <StatusValidChange condition="" statusId="BG_CREATED" statusIdTo="BG_APPROVED" transitionName="Submit Budget"/>
+    <StatusValidChange condition="" statusId="BG_CREATED" statusIdTo="BG_REJECTED" transitionName="Reject Budget"/>
+    <StatusValidChange condition="" statusId="BG_REVIEWED" statusIdTo="BG_APPROVED" transitionName="Approved Budget"/>
+    <StatusValidChange condition="" statusId="BG_REVIEWED" statusIdTo="BG_REJECTED" transitionName="Reject Budget"/>
+    <StatusValidChange condition="" statusId="BG_APPROVED" statusIdTo="BG_CREATED" transitionName="Accept Budget"/>
+    <StatusValidChange condition="" statusId="BG_APPROVED" statusIdTo="BG_REJECTED" transitionName="Reject Budget"/>
+    
+    <BudgetReviewResultType description="Accepted" budgetReviewResultTypeId="BGR_ACCEPTED"/>
+    <BudgetReviewResultType description="Rejected" budgetReviewResultTypeId="BGR_REJECTED"/>
 </entity-engine-xml>

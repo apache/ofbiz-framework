@@ -1140,7 +1140,76 @@ under the License.
         <response name="success" type="view" value="EditFixedAssetMaintOrders"/>
         <response name="error" type="view" value="EditFixedAssetMaintOrders"/>
     </request-map>
-
+    
+    <!-- =============== Budget mapping =================-->
+    <request-map uri="ListBudgets"><security https="true" auth="true"/><response name="success" type="view" value="ListBudgets"/></request-map>
+    <request-map uri="BudgetSearchResults"><security https="true" auth="false"/><response name="success" type="view" value="BudgetSearchResults"/></request-map>
+    <request-map uri="EditBudget"><security https="true" auth="true"/><response name="success" type="view" value="EditBudget"/></request-map>
+    <request-map uri="BudgetOverview"><security https="true" auth="true"/><response name="success" type="view" value="BudgetOverview"/></request-map>
+    <request-map uri="EditBudgetItems"><security https="true" auth="true"/><response name="success" type="view" value="EditBudgetItems"/></request-map>
+    <request-map uri="BudgetRoles"><security https="true" auth="true"/><response name="success" type="view" value="BudgetRoles"/></request-map>
+    <request-map uri="BudgetReviews"><security https="true" auth="true"/><response name="success" type="view" value="BudgetReviews"/></request-map>
+    <request-map uri="createBudget">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createBudget"/>
+        <response name="success" type="view" value="EditBudget"/>
+        <response name="error" type="view" value="EditBudget"/>
+    </request-map>
+    <request-map uri="updateBudget">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateBudget"/>
+        <response name="success" type="view" value="EditBudget"/>
+        <response name="error" type="view" value="EditBudget"/>
+    </request-map>
+    <request-map uri="updateBudgetStatus">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateBudgetStatus"/>
+        <response name="success" type="view" value="BudgetOverview"/>
+        <response name="error" type="view" value="BudgetOverview"/>
+    </request-map>
+    <request-map uri="createBudgetItem">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createBudgetItem"/>
+        <response name="success" type="view" value="EditBudgetItems"/>
+        <response name="error" type="view" value="EditBudgetItems"/>
+    </request-map>
+    <request-map uri="updateBudgetItem">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="updateBudgetItem"/>
+        <response name="success" type="request-redirect" value="EditBudgetItems"/>
+        <response name="error" type="view" value="EditBudgetItems"/>
+    </request-map>
+    <request-map uri="removeBudgetItem">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeBudgetItem"/>
+        <response name="success" type="view" value="EditBudgetItems"/>
+        <response name="error" type="view" value="EditBudgetItems"/>
+    </request-map>
+    <request-map uri="createBudgetRole">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createBudgetRole"/>
+        <response name="success" type="view" value="BudgetRoles"/>
+        <response name="error" type="view" value="BudgetRoles"/>
+    </request-map>
+    <request-map uri="removeBudgetRole">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeBudgetRole"/>
+        <response name="success" type="view" value="BudgetRoles"/>
+        <response name="error" type="view" value="BudgetRoles"/>
+    </request-map>
+    <request-map uri="createBudgetReview">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createBudgetReview"/>
+        <response name="success" type="view" value="BudgetReviews"/>
+        <response name="error" type="view" value="BudgetReviews"/>
+    </request-map>
+    <request-map uri="removeBudgetReview">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeBudgetReview"/>
+        <response name="success" type="view" value="BudgetReviews"/>
+        <response name="error" type="view" value="BudgetReviews"/>
+    </request-map>
+    
     <!-- =============== Agreement mapping =================-->
     <request-map uri="FindAgreement"><security https="true" auth="true"/><response name="success" type="view" value="FindAgreement"/></request-map>
     <request-map uri="cancelAgreement">
@@ -2237,7 +2306,7 @@ under the License.
     <request-map uri="LookupAgreementItem"><security auth="true" https="true"/><response name="success" type="view" value="LookupAgreementItem"/></request-map>
     <request-map uri="LookupPaymentGroupMember"><security auth="true" https="true"/><response name="success" type="view" value="LookupPaymentGroupMember"/></request-map>
     <request-map uri="LookupGlReconciliation"><security auth="true" https="true"/><response name="success" type="view" value="LookupGlReconciliation"/></request-map>
-
+    <request-map uri="LookupCustomTimePeriod"><security auth="true" https="true"/><response name="success" type="view" value="LookupCustomTimePeriod"/></request-map>
 
     <request-map uri="viewprofile"><security https="true" auth="true"/><response name="success" type="view" value="viewprofile"/></request-map>
 
@@ -2698,6 +2767,15 @@ under the License.
     <view-map name="EditFixedAsset" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#EditFixedAsset"/>
     <view-map name="ListFixedAssetProducts" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#ListFixedAssetProducts"/>
 
+    <!-- Budget -->
+    <view-map name="ListBudgets" type="screen" page="component://accounting/widget/BudgetScreens.xml#ListBudgets"/>
+    <view-map name="BudgetSearchResults" type="screen" page="component://accounting/widget/BudgetScreens.xml#BudgetSearchResults"/>
+    <view-map name="EditBudget" type="screen" page="component://accounting/widget/BudgetScreens.xml#EditBudget"/>
+    <view-map name="BudgetOverview" type="screen" page="component://accounting/widget/BudgetScreens.xml#BudgetOverview"/>
+    <view-map name="EditBudgetItems" type="screen" page="component://accounting/widget/BudgetScreens.xml#EditBudgetItems"/>
+    <view-map name="BudgetRoles" type="screen" page="component://accounting/widget/BudgetScreens.xml#BudgetRoles"/>
+    <view-map name="BudgetReviews" type="screen" page="component://accounting/widget/BudgetScreens.xml#BudgetReviews"/>
+
     <!-- TO BE REMOVED
     <view-map name="addFixedAssetProduct" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#addFixedAssetProduct"/>
     <view-map name="updateFixedAssetProduct" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#updateFixedAssetProduct"/>
@@ -2822,6 +2900,7 @@ under the License.
     <view-map name="LookupBillingAccount" page="component://accounting/widget/LookupScreens.xml#LookupBillingAccount" type="screen"/>
     <view-map name="LookupPayment" page="component://accounting/widget/LookupScreens.xml#LookupPayment" type="screen"/>
     <view-map name="LookupInvoice" page="component://accounting/widget/LookupScreens.xml#LookupInvoice" type="screen"/>
+    <view-map name="LookupCustomTimePeriod" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupCustomTimePeriod"/>
 
     <view-map name="LookupWorkEffort" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupWorkEffort"/>
     <view-map name="LookupOrderHeader" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupOrderHeader"/>
