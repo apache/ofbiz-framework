@@ -52,6 +52,38 @@ under the License.
         <field name="fixedAssetName" title="${uiLabelMap.CommonName}"><display/></field>
         <field name="fixedAssetTypeId" title="${uiLabelMap.AccountingFixedAssetTypeId}"><display-entity entity-name="FixedAssetType"/></field>
     </form>
+    <form name="lookupBudget" target="LookupBudget" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="Budget" default-field-type="hidden"/>
+        <field name="budgetId"><text-find/></field>
+        <field name="budgetTypeId" title="${uiLabelMap.AccountingBudgetType}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="BudgetType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+             </drop-down>
+        </field>
+        <field name="customTimePeriodId"><text-find/></field>
+        <field name="comments"><text-find/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="listLookupBudget" list-name="listIt" title="" type="list" paginate-target="LookupBudget"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="FixedAsset"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <field name="fixedAssetId" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${fixedAssetId}" target="javascript:set_value('${fixedAssetId}')"/>
+        </field>
+        <field name="fixedAssetName" title="${uiLabelMap.CommonName}"><display/></field>
+        <field name="fixedAssetTypeId" title="${uiLabelMap.AccountingFixedAssetTypeId}"><display-entity entity-name="FixedAssetType"/></field>
+    </form>
     <form name="lookupBillingAccount" target="LookupBillingAccount" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="BillingAccount" default-field-type="hidden"/>
@@ -307,5 +339,52 @@ under the License.
         <field name="glReconciliationName"><display/></field>
         <field name="organizationPartyId"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${firstName} ${lastName}[${partyId}]"/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+    </form>
+    
+    <form name="lookupCustomTimePeriod" target="LookupCustomTimePeriod" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="CustomTimePeriod" default-field-type="hidden"/>
+        <field name="customTimePeriodId"><text-find/></field>
+        <field name="parentPeriodId"><text-find/></field>
+        <field name="periodTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="PeriodType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+             </drop-down>
+        </field>
+        <field name="periodNum"><text-find/></field>
+        <field name="periodName"><text-find/></field>
+        <field name="fromDate"><date-time/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="isClosed">
+            <drop-down allow-empty="true">
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
+            </drop-down>
+        </field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="listLookupCustomTimePeriod" list-name="listIt" title="" type="list" paginate-target="LookupCustomTimePeriod"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="CustomTimePeriod"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <field name="customTimePeriodId" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${customTimePeriodId}" target="javascript:set_value('${customTimePeriodId}')"/>
+        </field>
+        <field name="parentPeriodId"><display/></field>
+        <field name="periodTypeId"><display-entity entity-name="PeriodType"/></field>
+        <field name="periodNum"><display/></field>
+        <field name="periodName"><display/></field>
+        <field name="fromDate"><display/></field>
+        <field name="thruDate"><display/></field>
+        <field name="isClosed"><display/></field>
     </form>
 </forms>

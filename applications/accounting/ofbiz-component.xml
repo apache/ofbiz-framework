@@ -53,11 +53,13 @@ under the License.
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoPaymentsInvoices.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoAccountingUserData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoAssetMaintData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoBudgetData.xml"/>
 
     <!-- General Payment Service Definitions -->
     <service-resource type="model" loader="main" location="servicedef/services_agreement.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_admin.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_billing.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_budget.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_finaccount.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_fixedasset.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_invoice.xml"/>
