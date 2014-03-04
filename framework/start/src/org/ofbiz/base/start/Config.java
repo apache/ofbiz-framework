@@ -55,6 +55,10 @@ public class Config {
 
     public static Config getInstance(String[] args) throws IOException {
         String firstArg = args.length > 0 ? args[0] : "";
+        // Needed when portoffset is used with these commands
+        if ("start-batch".equals(firstArg) || "stop".equals(firstArg)) {
+            firstArg = "start";
+        }
         String configFileName = getConfigFileName(firstArg);
         Config result = new Config();
         result.readConfig(configFileName, args);
