@@ -87,7 +87,9 @@ public final class Start {
             } else if (arg.equals("-shutdown")) {
                 command = checkCommand(command, Command.SHUTDOWN);
             } else if (arg.startsWith("-")) {
-                command = checkCommand(command, Command.COMMAND);
+                if (!arg.contains("portoffset")) {
+                    command = checkCommand(command, Command.COMMAND);
+                }
                 loaderArgs.add(arg.substring(1));
             } else {
                 command = checkCommand(command, Command.COMMAND);
@@ -189,6 +191,17 @@ public final class Start {
         // parse the startup arguments
         if (args.length > 1) {
             this.loaderArgs.addAll(Arrays.asList(args).subList(1, args.length));
+            // Needed when portoffset is used with these commands
+            try {
+                if ("status".equals(args[0])) {
+                    System.out.println("Current Status : " + instance.status());
+                } else if ("stop".equals(args[0])) {
+                    System.out.println("Shutting down server : " + instance.shutdown());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.exit(99);
+            }
         }
         if (!fullInit) {
             return;

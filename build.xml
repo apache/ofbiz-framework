@@ -426,6 +426,8 @@ under the License.
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
+        	  <arg value="start-batch"/>
+            <arg value="-portoffset=${portoffset}"/>
         </java>
     </target>
     <target name="start-debug"
@@ -438,6 +440,7 @@ under the License.
             <jvmarg value="-Djava.compiler=NONE"/>
             <jvmarg value="-Xdebug"/>
             <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8091"/>
+            <arg value="-portoffset=${portoffset}"/>
         </java>
     </target>
     <target name="start-pos"
@@ -447,7 +450,7 @@ under the License.
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
             <arg value="pos"/>
-          <arg value="-portoffset=${portoffset}"/>
+            <arg value="-portoffset=${portoffset}"/><!-- Not sure this makes sense and is useful at all -->
         </java>
     </target>
     <target name="start-both"
@@ -464,12 +467,14 @@ under the License.
             description="Stop OFBiz">
         <java jar="ofbiz.jar" fork="true">
             <arg value="-shutdown"/>
+            <arg value="-portoffset=${portoffset}"/>
         </java>
     </target>
     <target name="status"
             description="Display status of OFBiz">
         <java jar="ofbiz.jar" fork="true">
             <arg value="-status"/>
+            <arg value="-portoffset=${portoffset}"/>
         </java>
     </target>
 
