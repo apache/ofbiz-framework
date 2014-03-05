@@ -421,7 +421,7 @@ under the License.
         </java>
     </target>
     <target name="start-batch"
-            description="Start OFBiz as a separate process">
+            description="Start OFBiz as a separate process. Use -Dportoffset=portNumber to shift all ports with the portNumber value.">
         <java jar="ofbiz.jar" fork="true" spawn="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
@@ -431,7 +431,7 @@ under the License.
         </java>
     </target>
     <target name="start-debug"
-            description="Start OFBiz in debugging mode. It uses the 8091 port by default">
+            description="Start OFBiz in debugging mode. It uses the 8091 port by default. Use -Dportoffset=portNumber to shift all ports with the portNumber value.">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
@@ -440,6 +440,7 @@ under the License.
             <jvmarg value="-Djava.compiler=NONE"/>
             <jvmarg value="-Xdebug"/>
             <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8091"/>
+            <arg value="start-debug"/>
             <arg value="-portoffset=${portoffset}"/>
         </java>
     </target>
@@ -464,14 +465,14 @@ under the License.
         </java>
     </target>
     <target name="stop"
-            description="Stop OFBiz">
+            description="Stop OFBiz. Use -Dportoffset=portNumber to shift all ports with the portNumber value.">
         <java jar="ofbiz.jar" fork="true">
             <arg value="-shutdown"/>
             <arg value="-portoffset=${portoffset}"/>
         </java>
     </target>
     <target name="status"
-            description="Display status of OFBiz">
+            description="Display status of OFBiz. Use -Dportoffset=portNumber to shift all ports with the portNumber value.">
         <java jar="ofbiz.jar" fork="true">
             <arg value="-status"/>
             <arg value="-portoffset=${portoffset}"/>
