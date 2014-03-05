@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <!-- list all assets in a tabular format -->
+    <form name="ListBudgets" type="list" list-name="listIt" paginate-target="ListBudgets"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="Budget"/>
+                <field-map field-name="orderBy" from-field="parameters.sortField"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <field name="budgetId" widget-style="linktext" sort-field="true">
+            <hyperlink also-hidden="false" description="${budgetId}" target="EditBudget">
+                <parameter param-name="budgetId"/>
+            </hyperlink>
+        </field>
+        <field name="budgetTypeId" sort-field="true"><display-entity entity-name="BudgetType"/></field>
+        <field name="customTimePeriodId" sort-field="true">
+            <display/>
+        </field>
+        <field name="comments" sort-field="true">
+            <display/>
+        </field>
+        <on-event-update-area event-type="paginate" area-id="search-results" area-target="BudgetSearchResults"/>
+    </form>
+
+    <form name="FindBudgetOptions" extends="lookupBudget" extends-resource="component://accounting/widget/FieldLookupForms.xml"
+        target="ListBudgets">
+        <field name="searchOptions_collapsed"><hidden value="true"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <!-- create and update a fixed asset -->
+    <form name="EditBudget" type="single" target="updateBudget" title="" default-map-name="budget"
+        header-row-style="header-row" default-table-style="basic-table">
+        <alt-target use-when="budget == null" target="createBudget"/>
+        <field use-when="budget != null" name="budgetId"><display/></field>
+        <field name="budgetTypeId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="BudgetType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="customTimePeriodId"><lookup target-form-name="LookupCustomTimePeriod"/></field>
+        <field name="comments" ><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" use-when="budget == null"><submit /></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" use-when="budget != null"><submit /></field>
+    </form>
+
+    <form name="BudgetHeader" type="single" title="Budget header information" default-map-name="budget"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="budgetId"><hidden/></field>
+        <field position="1" name="budgetTypeId"><display-entity entity-name="BudgetType"/></field>
+        <field name="customTimePeriodId" position="2"><display/></field>
+        <field position="1" name="comments"><display/></field>
+    </form>
+    
+    <form name="BudgetStatus" list-name="budgetStatuses" target="" title="" type="list" separate-columns="true" paginate-target="budgetOverview"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="budgetId"><hidden/></field>
+        <field name="statusDate"><display/></field>
+        <field name="statusId" title="${uiLabelMap.AccountingBudgetStatus}"><display-entity entity-name="StatusItem" description="${description}"/></field>
+    </form>
+    
+    <form name="BudgetRoles" type="list" use-row-submit="true" title="" list-name="budgetRoles" paginate-target="BudgetOverview"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <!--auto-fields-entity entity-name="InvoiceRole" default-field-type="display"/-->
+        <field name="budgetId"><hidden/></field>
+        <field name="partyId" widget-style="buttontext">
+            <hyperlink description="${partyId}" target-type="inter-app" target="/partymgr/control/viewprofile">
+                <parameter param-name="partyId"/>
+            </hyperlink>
+        </field>
+        <field name="name" entry-name="partyId">
+            <display-entity also-hidden="false" entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${firstName} ${lastName}"/>
+        </field>
+        <field name="roleTypeId">
+            <display-entity also-hidden="false" entity-name="RoleType"/>
+        </field>
+    </form>
+    
+    <form name="BudgetItems" list-name="budgetItems" target="" title="" type="list" separate-columns="true" paginate-target="BudgetOverview"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <auto-fields-entity entity-name="BudgetItem" default-field-type="display"/>
+        <field name="budgetId"><hidden/></field>
+        <field name="budgetItemSeqId"><display/></field>
+        <field name="budgetItemTypeId"><display-entity entity-name="BudgetItemType"/></field>
+        <field name="amount" ><display/></field>
+        <field name="purpose" ><display/></field>
+        <field name="justification" ><display/></field>
+    </form>
+    
+    <form name="BudgetReviews" list-name="budgetReviews" target="" title="" type="list" separate-columns="true" paginate-target="BudgetOverview"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="budgetReviewId"><display/></field>
+        <field name="partyId" widget-style="buttontext">
+            <hyperlink description="${partyId}" target-type="inter-app" target="/partymgr/control/viewprofile">
+                <parameter param-name="partyId"/>
+            </hyperlink>
+        </field>
+        <field name="name" entry-name="partyId">
+            <display-entity also-hidden="false" entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${firstName} ${lastName}"/>
+        </field>
+        <field name="budgetReviewResultTypeId">
+            <display-entity also-hidden="false" entity-name="BudgetReviewResultType"/>
+        </field>
+        <field name="reviewDate"><display/></field>
+    </form>
+    
+    <form name="EditBudgetItems" type="multi"  list-name="budgetItems" default-entity-name="BudgetItem" target="updateBudgetItem?budgetId=${budgetId}&amp;viewSize=${viewSize}&amp;viewIndex=${viewIndex}" title="Edit Budget Items" paginate-target="EditBudgetItems"
+       odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+       <field name="viewSize"><hidden value="${viewSize}"/></field>
+       <field name="viewIndex"><hidden value="${viewIndex}"/></field>
+       <field name="budgetId"><hidden/></field>
+       <field name="budgetItemSeqId" widget-style="buttontext">
+           <hyperlink target="EditBudgetItems"  description="${budgetItemSeqId}">
+                <parameter param-name="budgetId"/>
+                <parameter param-name="budgetItemSeqId"/>
+            </hyperlink>
+        </field>
+       <field name="budgetItemTypeId">
+           <drop-down allow-empty="false">
+               <entity-options entity-name="BudgetItemType" description="${description}" key-field-name="budgetItemTypeId"/>
+           </drop-down>
+       </field>
+       <field name="amount" ><text size="10"/></field>
+       <field name="purpose" ><text size="50"/></field>
+       <field name="justification" ><text size="50"/></field>
+       <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext" ><submit button-type="text-link"/></field>
+       <field name="removeButton" title=" " widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeBudgetItem">
+                <parameter param-name="budgetId"/>
+                <parameter param-name="budgetItemSeqId"/>
+                <parameter param-name="viewIndex"/>
+                <parameter param-name="viewSize"/>
+            </hyperlink>
+       </field>
+    </form>
+    
+    <form name="EditBudgetItem" type="single" target="createBudgetItem" title="" default-map-name="budgetItem" default-entity-name="BudgetItem"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="budgetId"><hidden/></field>
+       <field name="budgetItemTypeId">
+           <drop-down allow-empty="false">
+               <entity-options entity-name="BudgetItemType" description="${description}" key-field-name="budgetItemTypeId"/>
+           </drop-down>
+       </field>
+       <field name="amount" ><text size="10"/></field>
+       <field name="purpose" ><text size="50"/></field>
+       <field name="justification" ><text size="50"/></field>
+        <field name="addButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit" use-when="invoiceItem==null">
+            <submit button-type="button"/>
+        </field>
+        <field name="updateButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit" use-when="invoiceItem!=null">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    
+    <form name="EditBudgetRole" type="single" target="createBudgetRole" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="BudgetRole"/>
+        <field name="budgetId"><hidden/></field>
+        <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="roleTypeId">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" entity-name="RoleType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="ListBudgetRoles" type="list" use-row-submit="true" title="" list-name="budgetRoles" paginate-target="BudgetRoles"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <field name="budgetId"><hidden/></field>
+        <field name="partyId" widget-style="buttontext">
+            <hyperlink description="${partyId}" target-type="inter-app" target="/partymgr/control/viewprofile">
+                <parameter param-name="partyId"/>
+            </hyperlink>
+        </field>
+        <field name="name" entry-name="partyId">
+            <display-entity also-hidden="false" entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${firstName} ${lastName}"/>
+        </field>
+        <field name="roleTypeId">
+            <display-entity also-hidden="false" entity-name="RoleType"/>
+        </field>
+        <field name="removeButton" widget-style="buttontext">
+           <hyperlink description="${uiLabelMap.CommonRemove}" target="removeBudgetRole">
+                <parameter param-name="budgetId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="roleTypeId"/>
+                <parameter param-name="viewIndex"/>
+                <parameter param-name="viewSize"/>
+            </hyperlink>
+        </field>
+    </form>
+    
+    <form name="EditBudgetReview" type="single" target="createBudgetReview" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="budgetId"><hidden/></field>
+        <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="budgetReviewResultTypeId" title="${uiLabelMap.AccountingBudgetReviewResult}">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" entity-name="BudgetReviewResultType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="reviewDate"><date-time /></field>
+        <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="ListBudgetReviews" type="list" use-row-submit="true" title="" list-name="budgetReviews" paginate-target="BudgetReviews"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <field name="budgetId"><hidden/></field>
+        <field name="budgetReviewId"><display/></field>
+        <field name="partyId" widget-style="buttontext">
+            <hyperlink description="${partyId}" target-type="inter-app" target="/partymgr/control/viewprofile">
+                <parameter param-name="partyId"/>
+            </hyperlink>
+        </field>
+        <field name="name" entry-name="partyId">
+            <display-entity also-hidden="false" entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${firstName} ${lastName}"/>
+        </field>
+        <field name="budgetReviewResultTypeId" title="${uiLabelMap.AccountingBudgetReviewResult}">
+            <display-entity also-hidden="false" entity-name="BudgetReviewResultType"/>
+        </field>
+        <field name="reviewDate"><display/></field>
+        <field name="removeButton" widget-style="buttontext">
+           <hyperlink description="${uiLabelMap.CommonRemove}" target="removeBudgetReview">
+                <parameter param-name="budgetId"/>
+                <parameter param-name="budgetReviewId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="budgetReviewResultTypeId"/>
+                <parameter param-name="viewIndex"/>
+                <parameter param-name="viewSize"/>
+            </hyperlink>
+        </field>
+    </form>
+</forms>

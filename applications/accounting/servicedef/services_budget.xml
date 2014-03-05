@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Accounting Services: Fixed Asset </description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <!-- Budget  -->
+    <service name="createBudget" default-entity-name="Budget" engine="simple"
+                location="component://accounting/script/org/ofbiz/accounting/budget/BudgetServices.xml" invoke="createBudget" auth="true">
+        <description>Create a Budget</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateBudget" default-entity-name="Budget" engine="simple"
+                location="component://accounting/script/org/ofbiz/accounting/budget/BudgetServices.xml" invoke="updateBudget" auth="true">
+        <description>Update a Budget</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <attribute name="budgetId" mode="OUT" type="String" optional="false"></attribute>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateBudgetStatus" default-entity-name="BudgetStatus" engine="simple"
+                location="component://accounting/script/org/ofbiz/accounting/budget/BudgetServices.xml" invoke="updateBudgetStatus">
+        <description>Update a Budget</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="createBudgetItem" default-entity-name="BudgetItem" engine="simple"
+                location="component://accounting/script/org/ofbiz/accounting/budget/BudgetServices.xml" invoke="createBudgetItem">
+        <description>Create a Budget Item</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="budgetId" mode="INOUT" type="String" optional="false"></attribute>
+    </service>
+    <service name="updateBudgetItem" default-entity-name="BudgetItem" engine="simple"
+                location="component://accounting/script/org/ofbiz/accounting/budget/BudgetServices.xml" invoke="updateBudgetItem">
+        <description>Update a Budget Item</description>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeBudgetItem" engine="simple" default-entity-name="BudgetItem"
+        location="component://accounting/script/org/ofbiz/accounting/budget/BudgetServices.xml" invoke="removeBudgetItem">
+        <description>Remove an existing Budget Item Record</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    
+    <service name="createBudgetRole" engine="simple" default-entity-name="BudgetRole"
+        location="component://accounting/script/org/ofbiz/accounting/budget/BudgetServices.xml" invoke="createBudgetRole">
+        <description>Create a new Budget Role Record</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <attribute name="budgetId" mode="OUT" type="String" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="removeBudgetRole" engine="simple" default-entity-name="BudgetRole"
+        location="component://accounting/script/org/ofbiz/accounting/budget/BudgetServices.xml" invoke="removeBudgetRole">
+        <description>Remove an existing Budget Role Record</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <attribute name="budgetId" mode="OUT" type="String" optional="false"/>
+    </service>
+    
+    <service name="createBudgetReview" engine="simple" default-entity-name="BudgetReview"
+        location="component://accounting/script/org/ofbiz/accounting/budget/BudgetServices.xml" invoke="createBudgetReview">
+        <description>Create a new Budget Review Record</description>
+        <attribute name="budgetId" mode="INOUT" type="String" optional="false"/>
+        <attribute name="partyId" mode="IN" type="String" optional="false"/>
+        <attribute name="budgetReviewResultTypeId" mode="IN" type="String" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="removeBudgetReview" engine="simple" default-entity-name="BudgetReview"
+        location="component://accounting/script/org/ofbiz/accounting/budget/BudgetServices.xml" invoke="removeBudgetReview">
+        <description>Remove an existing Budget Review Record</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <attribute name="budgetId" mode="OUT" type="String" optional="false"/>
+    </service>
+</services>

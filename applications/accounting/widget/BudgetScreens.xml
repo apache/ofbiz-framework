@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <screen name="ListBudgets">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AccountingFindBudgets"/>
+                <set field="headerItem" value="ListBudgets"/>
+                <set field="tabButtonItem" value="ListBudgets"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="menu-bar">
+                                <section>
+                                    <condition>
+                                        <if-service-permission service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
+                                    </condition>
+                                    <widgets>
+                                        <container style="button-bar">
+                                            <link target="EditBudget" text="${uiLabelMap.AccountingNewBudget}" style="buttontext create"/>
+                                        </container>
+                                    </widgets>
+                                </section>
+                            </decorator-section>
+                            <decorator-section name="search-options">
+                                <include-form name="FindBudgetOptions" location="component://accounting/widget/BudgetForms.xml"/>
+                            </decorator-section>
+                            <decorator-section name="search-results">
+                                <include-screen name="BudgetSearchResults"/>
+                            </decorator-section>
+                        </decorator-screen>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+         </section>
+    </screen>
+
+    <screen name="BudgetSearchResults">
+        <section>
+            <condition>
+                <if-service-permission service-name="fixedAssetPermissionCheck" main-action="VIEW"/>
+            </condition>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <include-form name="ListBudgets" location="component://accounting/widget/BudgetForms.xml"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CommonBudgetDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="ListBudgets"/>
+                <set field="budgetId" from-field="budget.budgetId" default-value="${parameters.budgetId}"/>
+                <entity-one entity-name="Budget" value-field="budget"/>
+                <entity-and list="budgetStatus" entity-name="BudgetStatus">
+                    <field-map field-name="budgetId" from-field="budgetId"/>
+                    <order-by field-name="-statusDate"/>
+                </entity-and>
+                <set field="statusId" from-field="budgetStatus[0].statusId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <section>
+                            <condition>
+                                <not><if-empty field="budgetId"/></not>
+                            </condition>
+                            <widgets>
+                                <include-menu name="BudgetTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                            </widgets>
+                        </section>
+                        <decorator-section-include name="pre-body"/>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="budgetId"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <include-menu name="BudgetSubTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                        <label style="h1" text="Budget : [${budgetId}]"/>
+                                    </widgets>
+                                </section>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- create and/or update a budget -->
+    <screen name="EditBudget">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditBudget"/>
+                <set field="tabButtonItem" value="EditBudget"/>
+                <set field="budgetId" from-field="parameters.budgetId"/>
+                <entity-one entity-name="Budget" value-field="budget"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonBudgetDecorator" location="${parameters.budgetDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <not>
+                                    <if-empty field="budget"/>
+                                </not>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.AccountingEditBudget}">
+                                    <include-form name="EditBudget" location="component://accounting/widget/BudgetForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet title="${uiLabelMap.AccountingNewBudget}">
+                                    <include-form name="EditBudget" location="component://accounting/widget/BudgetForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+     <screen name="BudgetOverview">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="PageTitleBudgetOverview"/>
+                <set field="tabButtonItem" value="BudgetOverview"/>
+                <set field="budgetId" from-field="parameters.budgetId"/>
+                <entity-one entity-name="Budget" value-field="budget"/>
+                <entity-and entity-name="BudgetRole" list="budgetRoles">
+                    <field-map from-field="parameters.budgetId" field-name="budgetId"/>
+                    <order-by field-name="partyId"/>
+                </entity-and>
+                <entity-and entity-name="BudgetStatus" list="budgetStatuses">
+                    <field-map from-field="parameters.budgetId" field-name="budgetId"/>
+                    <order-by field-name="statusId"/>
+                </entity-and>
+                <entity-and entity-name="BudgetItem" list="budgetItems">
+                    <field-map from-field="parameters.budgetId" field-name="budgetId"/>
+                    <order-by field-name="budgetItemSeqId"/>
+                </entity-and>
+                <entity-and entity-name="BudgetReview" list="budgetReviews">
+                    <field-map from-field="budgetId" field-name="budgetId"/>
+                    <order-by field-name="budgetReviewId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonBudgetDecorator" location="${parameters.budgetDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.AccountingBudgetHeader}">
+                                    <include-form name="BudgetHeader" location="component://accounting/widget/BudgetForms.xml"/>
+                                </screenlet>
+                                <container style="lefthalf">
+                                    <screenlet title="${uiLabelMap.AccountingBudgetStatus}" navigation-form-name="BudgetStatus">
+                                        <include-form name="BudgetStatus" location="component://accounting/widget/BudgetForms.xml"/>
+                                    </screenlet>
+                                </container>
+                                <container style="righthalf">
+                                    <screenlet title="${uiLabelMap.AccountingBudgetRoles}" navigation-form-name="BudgetRoles">
+                                        <include-form name="BudgetRoles" location="component://accounting/widget/BudgetForms.xml"/>
+                                    </screenlet>
+                                </container>
+                                <container style="clear"/>
+                                <screenlet title="${uiLabelMap.AccountingBudgetItems}" navigation-form-name="BudgetItems">
+                                    <include-form name="BudgetItems" location="component://accounting/widget/BudgetForms.xml"/>
+                                </screenlet>
+                                <container style="clear"/>
+                                <screenlet title="${uiLabelMap.AccountingBudgetReviews}" navigation-form-name="BudgetReviews">
+                                    <include-form name="BudgetReviews" location="component://accounting/widget/BudgetForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditBudgetItems">
+        <section>
+            <actions>
+                <property-map resource="AccountingEntityLabels" map-name="uiLabelMap" global="true"/>
+                <set field="viewIndex" from-field="parameters.viewIndex"/>
+                <set field="viewSize" from-field="parameters.viewSize"/>
+                <set field="titleProperty" value="PageTitleListBudget"/>
+                <set field="tabButtonItem" value="BudgetItem"/>
+                <set field="budgetId" from-field="parameters.budgetId"/>
+                <set field="budgetItemSeqId" from-field="parameters.budgetItemSeqId"/>
+                <entity-one entity-name="Budget" value-field="budget"/>
+                <entity-one entity-name="BudgetItem" value-field="budgetItem"/>
+                <entity-and entity-name="BudgetItem" list="budgetItems">
+                    <field-map field-name="budgetId" from-field="parameters.budgetId"/>
+                    <order-by field-name="budgetItemSeqId"/>
+                </entity-and>
+                <entity-condition entity-name="BudgetItemType" list="budgetItemTypes"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonBudgetDecorator" location="${parameters.budgetDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.AccountingBudgetItems}">
+                            <include-form name="EditBudgetItems" location="component://accounting/widget/BudgetForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.AccountingBudgetItemsAdd}">
+                            <include-form name="EditBudgetItem" location="component://accounting/widget/BudgetForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="BudgetRoles">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListBudgetRoles"/>
+                <set field="tabButtonItem" value="BudgetRoles"/>
+                <set field="budgetId" from-field="parameters.budgetId"/>
+                <entity-one entity-name="Budget" value-field="budget"/>
+                <entity-and entity-name="BudgetRole" list="budgetRoles">
+                    <field-map from-field="budgetId" field-name="budgetId"/>
+                    <order-by field-name="partyId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonBudgetDecorator" location="${parameters.budgetDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet id="PartyBudgetRolePanel" title="${uiLabelMap.AccountingPartyRoleAdd}" collapsible="true">
+                            <include-form name="EditBudgetRole" location="component://accounting/widget/BudgetForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListBudgetRoles" location="component://accounting/widget/BudgetForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="BudgetReviews">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListBudgetReviews"/>
+                <set field="tabButtonItem" value="BudgetReviews"/>
+                <set field="budgetId" from-field="parameters.budgetId"/>
+                <entity-one entity-name="Budget" value-field="budget"/>
+                <entity-and entity-name="BudgetReview" list="budgetReviews">
+                    <field-map from-field="budgetId" field-name="budgetId"/>
+                    <order-by field-name="budgetReviewId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonBudgetDecorator" location="${parameters.budgetDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet id="BudgetReviewPanel" title="${uiLabelMap.AccountingBudgetReviewAdd}" collapsible="true">
+                            <include-form name="EditBudgetReview" location="component://accounting/widget/BudgetForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListBudgetReviews" location="component://accounting/widget/BudgetForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>
