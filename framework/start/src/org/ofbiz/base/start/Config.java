@@ -44,19 +44,17 @@ public class Config {
         if (command.startsWith("-")) {
             command = command.substring(1);
         }
-        // shutdown & status hack
-        if (command.equalsIgnoreCase("shutdown")) {
-            command = "start";
-        } else if (command.equalsIgnoreCase("status")) {
-            command = "start";
-        }
         return "org/ofbiz/base/start/" + command + ".properties";
     }
 
     public static Config getInstance(String[] args) throws IOException {
         String firstArg = args.length > 0 ? args[0] : "";
-        // Needed when portoffset is used with these commands
-        if ("start-batch".equals(firstArg) || "stop".equals(firstArg)) {
+        // Needed when portoffset is used with these commands, start.properties fits for all of them
+        if ("start-batch".equalsIgnoreCase(firstArg) 
+                || "start-debug".equalsIgnoreCase(firstArg) 
+                || "stop".equalsIgnoreCase(firstArg) 
+                || "shutdown".equalsIgnoreCase(firstArg) // shutdown & status hack (was pre-existing to portoffset introduction, also useful with it) 
+                || "status".equalsIgnoreCase(firstArg)) {
             firstArg = "start";
         }
         String configFileName = getConfigFileName(firstArg);
