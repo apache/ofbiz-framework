@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <Budget budgetId="DemoBudget001" budgetTypeId="CAPITAL_BUDGET" customTimePeriodId="6016" comments="Demo for budget 001"/>
+    <Budget budgetId="DemoBudget002" budgetTypeId="OPERATING_BUDGET" customTimePeriodId="6010" comments="Demo for budget 002"/>
+
+    <BudgetStatus budgetId="DemoBudget001" statusId="BG_CREATED" statusDate="2009-01-09 00:00:00.000"/>
+    <BudgetStatus budgetId="DemoBudget001" statusId="BG_REVIEWED" statusDate="2009-01-10 00:00:00.000"/>
+    <BudgetStatus budgetId="DemoBudget002" statusId="BG_CREATED" statusDate="2009-01-09 00:00:00.000"/>
+    <BudgetStatus budgetId="DemoBudget002" statusId="BG_REVIEWED" statusDate="2009-01-10 00:00:00.000"/>
+    <BudgetStatus budgetId="DemoBudget002" statusId="BG_APPROVED" statusDate="2009-01-11 00:00:00.000"/>
+    
+    <BudgetRole budgetId="DemoBudget001" partyId="ACCOUNTING" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <BudgetRole budgetId="DemoBudget002" partyId="accountingadmin" roleTypeId="ACCOUNTANT"/>
+    <BudgetRole budgetId="DemoBudget002" partyId="MARKETING" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    
+    <BudgetItem budgetId="DemoBudget001" budgetItemSeqId="00001" budgetItemTypeId="REQUIREMENT_BUDGET_A" amount="500" purpose="Demo item 1 for Demo budget 001" justification="For Demo budget 001"/>
+    <BudgetItem budgetId="DemoBudget002" budgetItemSeqId="00001" budgetItemTypeId="REQUIREMENT_BUDGET_A" amount="1000" purpose="Demo item 1 for Demo budget 002" justification="For Demo budget 002"/>
+    <BudgetItem budgetId="DemoBudget002" budgetItemSeqId="00002" budgetItemTypeId="REQUIREMENT_BUDGET_A" amount="1500" purpose="Demo item 2 for Demo budget 002" justification="For Demo budget 002"/>
+    
+    <BudgetReview budgetId="DemoBudget001" budgetReviewId="00001" partyId="ACCOUNTING" budgetReviewResultTypeId="BGR_REJECTED" reviewDate="2009-01-10 00:00:00.000"/>
+    <BudgetReview budgetId="DemoBudget001" budgetReviewId="00002" partyId="ACCOUNTING" budgetReviewResultTypeId="BGR_ACCEPTED" reviewDate="2009-01-11 00:00:00.000"/>
+    <BudgetReview budgetId="DemoBudget001" budgetReviewId="00003" partyId="ACCOUNTING" budgetReviewResultTypeId="BGR_ACCEPTED" reviewDate="2009-01-11 00:00:00.000"/>
+    <BudgetReview budgetId="DemoBudget002" budgetReviewId="00001" partyId="accountingadmin" budgetReviewResultTypeId="BGR_REJECTED" reviewDate="2009-01-10 00:00:00.000"/>
+    <BudgetReview budgetId="DemoBudget002" budgetReviewId="00002" partyId="accountingadmin" budgetReviewResultTypeId="BGR_REJECTED" reviewDate="2009-01-10 00:00:00.000"/>
+    <BudgetReview budgetId="DemoBudget002" budgetReviewId="00003" partyId="accountingadmin" budgetReviewResultTypeId="BGR_REJECTED" reviewDate="2009-01-10 00:00:00.000"/>
+    <BudgetReview budgetId="DemoBudget002" budgetReviewId="00004" partyId="accountingadmin" budgetReviewResultTypeId="BGR_ACCEPTED" reviewDate="2009-01-11 00:00:00.000"/>
+</entity-engine-xml>
