@@ -619,7 +619,7 @@ Parameter: lastViewName, String, optional - If the ajaxEnabled parameter is true
   <#if Static["org.ofbiz.widget.ModelWidget"].widgetBoundaryCommentsEnabled(context)>
   <!-- @renderLookupField -->
   </#if>
-  <#if (!ajaxUrl?has_content) && ajaxEnabled>
+  <#if (!ajaxUrl?has_content) && ajaxEnabled?has_content && ajaxEnabled>
     <#local ajaxUrl = requestAttributes._REQUEST_HANDLER_.makeLink(request, response, fieldFormName)/>
     <#local ajaxUrl = id + "," + ajaxUrl + ",ajaxLookup=Y" />
   </#if>
