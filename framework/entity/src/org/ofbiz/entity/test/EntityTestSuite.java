@@ -95,7 +95,9 @@ public class EntityTestSuite extends EntityTestCase {
      */
     public void testMakeValue() throws Exception {
         // This method call directly stores a new value into the entity engine
-        delegator.create("TestingType", "testingTypeId", "TEST-1", "description", "Testing Type #1");
+        GenericValue createdValue = delegator.create("TestingType", "testingTypeId", "TEST-1", "description", "Testing Type #1");
+        assertTrue("Created value is mutable", createdValue.isMutable());
+        assertFalse("Observable has not changed", createdValue.hasChanged());
 
         // This sequence creates the GenericValue entities first, puts them in a List, then calls the delegator to store them all
         List<GenericValue> newValues = new LinkedList<GenericValue>();
@@ -142,6 +144,7 @@ public class EntityTestSuite extends EntityTestCase {
         GenericValue testValue = delegator.findOne("TestingType", false, "testingTypeId", "TEST-4");
         assertEquals("Retrieved value has the correct description", "Testing Type #4", testValue.getString("description"));
         testValue.remove();
+        assertFalse("Observable has not changed", testValue.hasChanged());
         // Test immutable
         try {
             testValue.put("description", "New Testing Type #4");
