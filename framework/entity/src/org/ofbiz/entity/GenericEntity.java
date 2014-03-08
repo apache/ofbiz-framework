@@ -301,7 +301,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
      */
     public void removedFromDatasource() {
         assertIsMutable();
-        this.hasChanged();
+        this.clearChanged();
         this.setImmutable();
     }
 
