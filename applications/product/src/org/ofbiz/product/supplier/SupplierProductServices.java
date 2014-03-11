@@ -82,6 +82,9 @@ public class SupplierProductServices {
                 }
             }
 
+            // filter the list by date
+            supplierProducts = EntityUtil.filterByDate(supplierProducts, UtilDateTime.nowTimestamp(), "availableFromDate", "availableThruDate", true);
+
             // filter the list down by the partyId if one is provided
             if (partyId != null) {
                 supplierProducts = EntityUtil.filterByAnd(supplierProducts, UtilMisc.toMap("partyId", partyId));
@@ -102,9 +105,6 @@ public class SupplierProductServices {
             if (canDropShip != null) {
                 supplierProducts = EntityUtil.filterByAnd(supplierProducts, UtilMisc.toMap("canDropShip", canDropShip));
             }
-
-            // filter the list down again by date before returning it
-            supplierProducts = EntityUtil.filterByDate(supplierProducts, UtilDateTime.nowTimestamp(), "availableFromDate", "availableThruDate", true);
 
             //sort resulting list of SupplierProduct entities by price in ASCENDING order
             supplierProducts = EntityUtil.orderBy(supplierProducts, UtilMisc.toList("lastPrice ASC"));
