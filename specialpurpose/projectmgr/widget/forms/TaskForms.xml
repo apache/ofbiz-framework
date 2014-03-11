@@ -152,7 +152,7 @@
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
     <form name="FindTask" type="single" target="FindTask">
-        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="workEffortTypeId"><hidden value="TASK"/></field>
         <field name="workEffortId"  title="${uiLabelMap.ProjectMgrTaskId}"><text-find ignore-case="true"/></field>
         <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}"><text-find ignore-case="true"/></field>

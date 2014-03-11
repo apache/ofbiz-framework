@@ -116,7 +116,7 @@
     </form>
     <form name="FindLeaveApprovals" target="FindLeaveApprovals" type="single">
         <auto-fields-entity entity-name="EmplLeave" default-field-type="find"/>
-        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <!--<field name="approverPartyId" use-when="!hasAdminPermission"><hidden value="${approverPartyId}"/></field>-->
         <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="leaveStatus">

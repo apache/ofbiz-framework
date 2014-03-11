@@ -96,7 +96,7 @@ under the License.
         </field>
         <field name="approverId" use-when="!hasAdminPermission"><hidden value="${loginPartyId}"/></field>
         <field name="reason"><text-find ignore-case="true"/></field>
-        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListTrainingApprovals" type="list" list-name="listIt" target="updateTrainingStatus" title="" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
@@ -166,7 +166,7 @@ under the License.
         <field name="approverId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="approvalStatus"><text-find ignore-case="true"/></field>
         <field name="reason"><text-find ignore-case="true"/></field>
-        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonSearch}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListTrainingStatus" list-name="listIt" title="" type="list" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
