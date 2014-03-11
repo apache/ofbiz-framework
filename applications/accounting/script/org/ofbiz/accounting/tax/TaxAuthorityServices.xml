@@ -219,7 +219,6 @@ under the License.
     <simple-method method-name="createPartyTaxAuthInfo" short-description="create a PartyTaxAuthInfo">
         <set value="_CREATE" field="securityAction"/>
         <check-permission permission="ACCOUNTING" action="${securityAction}">
-            <accept-userlogin-party/>
             <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
         </check-permission>
 
@@ -238,7 +237,6 @@ under the License.
     <simple-method method-name="updatePartyTaxAuthInfo" short-description="update a PartyTaxAuthInfo">
         <set value="_UPDATE" field="securityAction"/>
         <check-permission permission="ACCOUNTING" action="${securityAction}">
-            <accept-userlogin-party/>
             <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
         </check-permission>
 
@@ -274,7 +272,6 @@ under the License.
     <simple-method method-name="deletePartyTaxAuthInfo" short-description="delete a PartyTaxAuthInfo">
         <set value="_DELETE" field="securityAction"/>
         <check-permission permission="ACCOUNTING" action="${securityAction}">
-            <accept-userlogin-party/>
             <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
         </check-permission>
         <check-errors/>
