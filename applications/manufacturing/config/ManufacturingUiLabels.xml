@@ -5061,6 +5061,11 @@
         <value xml:lang="zh">安全错误：要运行这个操作，你必须具有 MANUFACTURING_UPDATE 或 MANUFACTURING_ADMIN 权限</value>
         <value xml:lang="zh_TW">安全錯誤：要運行這個操作，你必須具有 MANUFACTURING_UPDATE 或 MANUFACTURING_ADMIN 權限</value>
     </property>
+    <property key="ManufacturingUsedCapacity">
+        <value xml:lang="en">Manufacturing Used Capacity</value>
+        <value xml:lang="fr">Capacité de fabrication utilisée</value>
+    </property>
+    
     <property key="ManufacturingViewPermissionError">
         <value xml:lang="de">Sie haben keine Berechtigung um diese Seite anzuzeigen. ("MANUFACTURING_VIEWW oder WMANUFACTURING_ADMINW wird benötigt)</value>
         <value xml:lang="en">You do not have permission to view this page. ("MANUFACTURING_VIEW" or "MANUFACTURING_ADMIN" needed)</value>
