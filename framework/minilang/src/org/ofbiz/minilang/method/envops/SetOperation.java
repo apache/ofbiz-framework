@@ -20,6 +20,7 @@ package org.ofbiz.minilang.method.envops;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Locale;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
@@ -133,6 +134,7 @@ public final class SetOperation extends MethodOperation {
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
+        boolean isConstant = false;
         Object newValue = null;
         if (this.scriptlet != null) {
             try {
@@ -146,10 +148,12 @@ public final class SetOperation extends MethodOperation {
                 Debug.logVerbose("In screen getting value for field from [" + this.fromFma.toString() + "]: " + newValue, module);
         } else if (!this.valueFse.isEmpty()) {
             newValue = this.valueFse.expand(methodContext.getEnvMap());
+            isConstant = true;
         }
         // If newValue is still empty, use the default value
         if (ObjectType.isEmpty(newValue) && !this.defaultFse.isEmpty()) {
             newValue = this.defaultFse.expand(methodContext.getEnvMap());
+            isConstant = true;
         }
         if (!setIfNull && newValue == null) {
             if (Debug.verboseOn())
@@ -176,7 +180,12 @@ public final class SetOperation extends MethodOperation {
                     if (targetClass == null) {
                         targetClass = MiniLangUtil.getObjectClassForConversion(newValue);
                     }
-                    newValue = MiniLangUtil.convertType(newValue, targetClass, methodContext.getLocale(), methodContext.getTimeZone(), format);
+                    if (isConstant) {
+                        // We use en locale here so constant (literal) values are converted properly.
+                        newValue = MiniLangUtil.convertType(newValue, targetClass, Locale.ENGLISH, methodContext.getTimeZone(), format);
+                    } else {
+                        newValue = MiniLangUtil.convertType(newValue, targetClass, methodContext.getLocale(), methodContext.getTimeZone(), format);
+                    }
                 } catch (Exception e) {
                     String errMsg = "Could not convert field value for the field: [" + this.fieldFma.toString() + "] to the [" + this.type + "] type for the value [" + newValue + "]: " + e.getMessage();
                     Debug.logWarning(e, errMsg, module);

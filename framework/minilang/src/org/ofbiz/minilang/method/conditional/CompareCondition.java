@@ -20,6 +20,7 @@ package org.ofbiz.minilang.method.conditional;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilValidate;
@@ -113,7 +114,8 @@ public final class CompareCondition extends MethodOperation implements Condition
         String value = valueFse.expandString(methodContext.getEnvMap());
         String format = formatFse.expandString(methodContext.getEnvMap());
         try {
-            return this.compare.doCompare(fieldVal, value, targetClass, methodContext.getLocale(), methodContext.getTimeZone(), format);
+            // We use en locale here so constant (literal) values are converted properly.
+            return this.compare.doCompare(fieldVal, value, targetClass, Locale.ENGLISH, methodContext.getTimeZone(), format);
         } catch (Exception e) {
             simpleMethod.addErrorMessage(methodContext, e.getMessage());
         }
