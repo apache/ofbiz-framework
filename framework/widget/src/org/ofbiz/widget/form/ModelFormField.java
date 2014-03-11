@@ -3463,7 +3463,7 @@ public class ModelFormField {
     public static class TextFindField extends TextField {
         protected boolean ignoreCase = true;
         protected boolean hideIgnoreCase = false;
-        protected String defaultOption = "like";
+        protected String defaultOption = "contains";
         protected boolean hideOptions = false;
 
         public TextFindField(Element element, ModelFormField modelFormField) {
@@ -3474,7 +3474,7 @@ public class ModelFormField {
             if(element.hasAttribute("default-option")) {
                 this.defaultOption = element.getAttribute("default-option");
             } else {
-                this.defaultOption = UtilProperties.getPropertyValue("widget", "widget.form.defaultTextFindOption", "like");
+                this.defaultOption = UtilProperties.getPropertyValue("widget", "widget.form.defaultTextFindOption", "contains");
             }
             this.hideOptions = "true".equals(element.getAttribute("hide-options")) ||
                 "options".equals(element.getAttribute("hide-options")) ? true : false;

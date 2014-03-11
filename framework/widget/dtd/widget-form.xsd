@@ -1444,11 +1444,11 @@ under the License.
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
-            <xs:attribute name="default-option">
+            <xs:attribute name="default-option" default="contains">
                 <xs:simpleType>
                     <xs:restriction base="xs:string">
                         <xs:enumeration value="equals" />
-                        <xs:enumeration value="like" />
+                        <xs:enumeration value="like" /><!-- this is actually "begins with" -->
                         <xs:enumeration value="contains" />
                         <xs:enumeration value="empty" />
                         <xs:enumeration value="notEqual" />

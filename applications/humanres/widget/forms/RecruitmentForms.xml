@@ -228,7 +228,6 @@ under the License.
     </form>
     <form name="FindJobInterview" type="single" target="FindJobInterview">
         <auto-fields-entity entity-name="JobInterview" default-field-type="find"/>
-        <field name="jobInterviewId"><text-find ignore-case="true"/></field>
         <field name="noConditionFind"><hidden value="Y"/></field>
         <field name="jobIntervieweePartyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="jobRequisitionId"><lookup target-form-name="LookupJobRequisition"/></field>
