@@ -86,6 +86,7 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="fromDate" from-field="requestParameters.fromDate" type="Timestamp"/>
                 <set field="thruDate" from-field="requestParameters.thruDate" type="Timestamp"/>
+                <set field="trackingCodeId" from-field="requestParameters.trackingCodeId"/>
                 <script location="component://marketing/webapp/marketing/WEB-INF/actions/reports/TrackingCodeReport.groovy"/>
             </actions>
             <widgets>
