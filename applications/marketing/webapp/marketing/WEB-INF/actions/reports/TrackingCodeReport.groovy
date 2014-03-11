@@ -24,23 +24,22 @@ import org.ofbiz.entity.condition.EntityCondition
 import org.ofbiz.entity.condition.EntityConditionList
 import org.ofbiz.marketing.report.ReportHelper
 
-trackingCodeIdStr = request.getParameter("trackingCodeId");
 // query for both number of visits and number of orders
 
 visitConditionList = [] as LinkedList;
 orderConditionList = [] as LinkedList;
 
-if (parameters.fromDate) {
-    visitConditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, parameters.fromDate));
-    orderConditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, parameters.fromDate));
+if (fromDate) {
+    visitConditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
+    orderConditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
 }
-if (parameters.thruDate) {
-     visitConditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, parameters.thruDate));
-     orderConditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, parameters.thruDate));
+if (thruDate) {
+     visitConditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
+     orderConditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
 }
-if (parameters.trackingCodeId) {
-     visitConditionList.add(EntityCondition.makeCondition("trackingCodeId", EntityOperator.EQUALS, parameters.trackingCodeId));
-     orderConditionList.add(EntityCondition.makeCondition("trackingCodeId", EntityOperator.EQUALS, parameters.trackingCodeId));
+if (trackingCodeId) {
+     visitConditionList.add(EntityCondition.makeCondition("trackingCodeId", EntityOperator.EQUALS, trackingCodeId));
+     orderConditionList.add(EntityCondition.makeCondition("trackingCodeId", EntityOperator.EQUALS, trackingCodeId));
 }
 
 visitConditions = EntityCondition.makeCondition(visitConditionList, EntityOperator.AND);
