@@ -54,9 +54,10 @@ under the License.
     <form name="ListCalendarExceptionDay" type="list" target="UpdateCalendarExceptionDay" title="" list-name="calendarExceptionDays"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="calendarId"><hidden/></field>
-        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="exceptionDateStartTime" title="${uiLabelMap.ManufacturingExceptionDateStartTime}"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="exceptionCapacity" title="${uiLabelMap.ManufacturingCalendarCapacity}" ><display/></field>
+        <field name="usedCapacity" title="${uiLabelMap.ManufacturingUsedCapacity}" ><display/></field>        
         <field name="updateLink" title=" " widget-style="buttontext">
             <hyperlink target="EditCalendarExceptionDay" description="${uiLabelMap.CommonSelect}" >
                 <parameter param-name="calendarId"/>
@@ -75,14 +76,16 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="updateCalendarExceptionDay" map-name="calendarExceptionDay"/>
         <field name="calendarId" ><hidden/></field>
-        <field name="exceptionDateStartTime" title="${uiLabelMap.ManufacturingExceptionDateStartTime}" ><display/></field>
+         <field name="exceptionDateStartTime" title="${uiLabelMap.ManufacturingExceptionDateStartTime}" position="1"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}" position="2" ></field>
-        <field name="exceptionCapacity" title="${uiLabelMap.ManufacturingCalendarCapacity}" position="3" ></field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" position="4" ><submit button-type="button"/></field>
+         <field name="exceptionCapacity" title="${uiLabelMap.ManufacturingCalendarCapacity}" position="3" ></field>
+         <field name="usedCapacity" title="${uiLabelMap.ManufacturingUsedCapacity}" position="4" ></field>
+         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" position="5" ><submit button-type="button"/></field>
         <sort-order>
             <sort-field name="exceptionDateStartTime"/>
             <sort-field name="description"/>
             <sort-field name="exceptionCapacity"/>
+            <sort-field name="usedCapacity"/>
         </sort-order>
     </form>
 
@@ -93,6 +96,7 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}" ></field>
         <field name="exceptionDateStartTime" title="${uiLabelMap.ManufacturingExceptionDateStartTime}" ></field>
         <field name="exceptionCapacity" title="${uiLabelMap.ManufacturingCalendarCapacity}"></field>
+        <field name="usedCapacity" title="${uiLabelMap.ManufacturingUsedCapacity}"></field>                 
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 
