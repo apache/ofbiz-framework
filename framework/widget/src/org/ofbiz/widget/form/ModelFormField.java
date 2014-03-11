@@ -32,9 +32,6 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
@@ -76,7 +73,6 @@ import org.w3c.dom.Element;
 
 import bsh.EvalError;
 import bsh.Interpreter;
-import freemarker.template.TemplateException;
 
 /**
  * Widget Library - Form model class
@@ -3015,14 +3011,7 @@ public class ModelFormField {
 
         @Override
         public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
-            HttpServletRequest request = (HttpServletRequest) context.get("request");
-            HttpServletResponse response = (HttpServletResponse) context.get("response");
-            try {
-                MacroFormRenderer renderer = new MacroFormRenderer(UtilProperties.getPropertyValue("widget", "screen.formrenderer"), request, response);
-                renderer.renderDateTimeField(writer, context, this);
-            } catch (TemplateException e) {
-                Debug.logError("Not rendering content, error on MacroFormRenderer creation.", module);
-            }
+            formStringRenderer.renderDateTimeField(writer, context, this);
         }
 
         public String getType() {
