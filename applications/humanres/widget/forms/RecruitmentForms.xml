@@ -228,6 +228,7 @@ under the License.
     </form>
     <form name="FindJobInterview" type="single" target="FindJobInterview">
         <auto-fields-entity entity-name="JobInterview" default-field-type="find"/>
+        <field name="jobInterviewId"><text-find ignore-case="true"/></field>
         <field name="noConditionFind"><hidden value="Y"/></field>
         <field name="jobIntervieweePartyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="jobRequisitionId"><lookup target-form-name="LookupJobRequisition"/></field>
@@ -271,15 +272,15 @@ under the License.
                 <parameter param-name="jobInterviewId"/>
             </hyperlink>
         </field>
-        <field name="jobIntervieweePartyId" field-name="partyId">
-            <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}">
+        <field name="jobIntervieweePartyId" field-name="jobIntervieweePartyId">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}" key-field-name="partyId">
                 <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${jobIntervieweePartyId}" link-style="buttontext">
                     <parameter param-name="partyId" from-field="jobIntervieweePartyId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="jobInterviewerPartyId" field-name="partyId">
-            <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}">
+        <field name="jobIntervieweePartyId" field-name="jobIntervieweePartyId">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}" key-field-name="partyId">
                 <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${jobInterviewerPartyId}" link-style="buttontext">
                     <parameter param-name="partyId" from-field="jobInterviewerPartyId"/>
                 </sub-hyperlink>
