@@ -958,7 +958,7 @@
         </field>
         <field name="fromDate"><display type="date"/></field>
         <field name="thruDate"><display type="date"/></field>
-        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonRemove}"><submit/></field>
     </form>
     <form name="taskMemberListInfo" type="list" extends="taskMemberList" separate-columns="true"

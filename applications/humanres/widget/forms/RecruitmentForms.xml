@@ -24,7 +24,7 @@ under the License.
             <set field="jobRequisitionId" from-field="parameters.jobRequisitionId"/>
         </actions>
         <auto-fields-entity entity-name="JobRequisition" default-field-type="find"/>
-        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="jobRequisitionId"><lookup target-form-name="LookupJobRequisition"/></field>
         <field name="skillTypeId">
             <drop-down allow-empty="true">
@@ -154,7 +154,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="jobRequisitionId"><lookup target-form-name="LookupJobRequisition"/></field>
         <field name="approverPartyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="emplPositionId"><hidden/></field>
@@ -228,7 +228,7 @@ under the License.
     </form>
     <form name="FindJobInterview" type="single" target="FindJobInterview">
         <auto-fields-entity entity-name="JobInterview" default-field-type="find"/>
-        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="jobIntervieweePartyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="jobRequisitionId"><lookup target-form-name="LookupJobRequisition"/></field>
         <field name="jobInterviewerPartyId"><lookup target-form-name="LookupPartyName"/></field>
@@ -328,7 +328,7 @@ under the License.
     </form>
     <form name="FindApprovals" target="FindApprovals" type="single">
         <auto-fields-entity entity-name="EmploymentApp" default-field-type="find"/>
-        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="applicationId"><lookup target-form-name="LookupEmploymentApp"/></field>
         <field name="approverPartyId" use-when="!hasAdminPermission"><hidden value="${partyId}"/></field>
         <field name="applyingPartyId"><lookup target-form-name="LookupPartyName"/></field>
@@ -415,7 +415,7 @@ under the License.
         </field>
         <field name="reportingDate"><date-find/></field>
         <field name="location"><text-find/></field>
-        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListRelocation" list-name="listIt" type="list" odd-row-style="alternate-row" header-row-style="header-row-2"
