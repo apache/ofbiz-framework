@@ -90,8 +90,8 @@ under the License.
     </service>
     <service name="getSuppliersForProduct" engine="java"
             location="org.ofbiz.product.supplier.SupplierProductServices" invoke="getSuppliersForProduct">
-        <description>Finds a list of SupplierProduct entities based on either a product or, if not provided, at least a productId.
-              If partyId and currencyUomId are given, they are used to filter the list down.  Note that productId is REQUIRED, even if you are passing in a product entity.</description>
+        <description>Finds a list of SupplierProduct entity values based on a productId.
+              If other parameters are given, they are used to filter the list down.</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
