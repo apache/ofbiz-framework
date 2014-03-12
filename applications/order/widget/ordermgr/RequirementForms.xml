@@ -64,8 +64,8 @@ under the License.
             </service>
         </actions>
         <row-actions>
-            <set field="lookupProductId" value="${bsh: (productId == null? &quot;_NA_&quot;: productId);}" type="String"/>
-            <set field="lookupFacilityId" value="${bsh: (facilityIdId == null? &quot;_NA_&quot;: facilityId);}" type="String"/>
+            <set field="lookupProductId" value="${groovy: productId == null? '_NA_' : productId}" type="String"/>
+            <set field="lookupFacilityId" value="${groovy: facilityId == null? '_NA_' : facilityId}" type="String"/>
             <service service-name="getInventoryAvailableByFacility" result-map="resultQoh">
                 <field-map field-name="productId" from-field="lookupProductId"/>
                 <field-map field-name="facilityId" from-field="lookupFacilityId"/>
