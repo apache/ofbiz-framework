@@ -162,7 +162,7 @@ under the License.
             -->
     </menu>
 
-    <menu name="childTemplateLine" menu-container-style="button-bar button-style-1" default-menu-item-name="content" selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
+    <menu extra-index="${contentId}" name="childTemplateLine" menu-container-style="button-bar button-style-1" default-menu-item-name="content" selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
         <menu-item name="edit-inplace" title="${contentName} [${contentId}]">
             <link target="EditChildCompDoc">
                 <parameter param-name="contentId"/>
