@@ -68,7 +68,7 @@ under the License.
         title="Content"
         server="default-server"
         location="webapp/content"
-        base-permission="CONTENTMGR"
+        base-permission="OFBTOOLS,CONTENTMGR"
         mount-point="/content"/>
 
 </ofbiz-component>
