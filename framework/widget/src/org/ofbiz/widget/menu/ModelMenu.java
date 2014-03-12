@@ -73,6 +73,7 @@ public class ModelMenu extends ModelWidget {
     protected String defaultAlign;
     protected String defaultAlignStyle;
     protected String fillStyle;
+    protected FlexibleStringExpander extraIndex;
 
     /** This List will contain one copy of each item for each item name in the order
      * they were encountered in the service, entity, or menu definition; item definitions
@@ -158,6 +159,7 @@ public class ModelMenu extends ModelWidget {
                 this.defaultAlign = parent.defaultAlign;
                 this.defaultAlignStyle = parent.defaultAlignStyle;
                 this.fillStyle = parent.fillStyle;
+                this.extraIndex = parent.extraIndex;
                 this.selectedMenuItemContextFieldName = parent.selectedMenuItemContextFieldName;
                 this.menuContainerStyleExdr = parent.menuContainerStyleExdr;
                 if (parent.actions != null) {
@@ -225,6 +227,8 @@ public class ModelMenu extends ModelWidget {
             this.defaultAlignStyle = menuElement.getAttribute("default-align-style");
         if (this.fillStyle == null || menuElement.hasAttribute("fill-style"))
             this.fillStyle = menuElement.getAttribute("fill-style");
+		if (this.extraIndex == null || menuElement.hasAttribute("extra-index"))
+            this.setExtraIndex(menuElement.getAttribute("extra-index"));
 
         // read all actions under the "actions" element
         Element actionsElement = UtilXml.firstChildElement(menuElement, "actions");
@@ -659,5 +663,15 @@ public class ModelMenu extends ModelWidget {
     public List<ModelMenuItem> getMenuItemList() {
         return menuItemList;
     }
+	public String getExtraIndex(Map<String, Object> context) {
+        try {
+            return extraIndex.expandString(context);
+        } catch (Exception ex) {
+            return "";
+        }
+    }
 
+    public void setExtraIndex(String extraIndex) {
+        this.extraIndex = FlexibleStringExpander.getInstance(extraIndex);
+    }
 }

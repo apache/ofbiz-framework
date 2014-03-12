@@ -704,15 +704,15 @@
         <value xml:lang="zh_TW">合成文檔當前範本</value>
     </property>
     <property key="ContentCompDocDown">
-        <value xml:lang="da">vNed</value>
-        <value xml:lang="en">vDn</value>
-        <value xml:lang="fr">vBas</value>
-        <value xml:lang="it">vGiù</value>
-        <value xml:lang="ja">v下</value>
-        <value xml:lang="pt">vDn</value>
-        <value xml:lang="vi">Tải về (vDn)</value>
-        <value xml:lang="zh">v下</value>
-        <value xml:lang="zh_TW">v下</value>
+        <value xml:lang="da">v Ned</value>
+        <value xml:lang="en">v Dn</value>
+        <value xml:lang="fr">v Bas</value>
+        <value xml:lang="it">v Giù</value>
+        <value xml:lang="ja">v 下</value>
+        <value xml:lang="pt">v Dn</value>
+        <value xml:lang="vi">Tải về (v Dn)</value>
+        <value xml:lang="zh">v 下</value>
+        <value xml:lang="zh_TW">v 下</value>
     </property>
     <property key="ContentCompDocGeneratePDF">
         <value xml:lang="da">Generer sammensat PDF</value>
@@ -832,15 +832,15 @@
         <value xml:lang="zh_TW">合成文檔範本名稱</value>
     </property>
     <property key="ContentCompDocUp">
-        <value xml:lang="da">^Op</value>
-        <value xml:lang="en">^Up</value>
-        <value xml:lang="fr">^Haut</value>
-        <value xml:lang="it">^Sù</value>
-        <value xml:lang="ja">^上</value>
-        <value xml:lang="pt">^Cima</value>
-        <value xml:lang="vi">Tải lên (^Up)</value>
-        <value xml:lang="zh">^上</value>
-        <value xml:lang="zh_TW">^上</value>
+        <value xml:lang="da">^ Op</value>
+        <value xml:lang="en">^ Up</value>
+        <value xml:lang="fr">^ Haut</value>
+        <value xml:lang="it">^ Sù</value>
+        <value xml:lang="ja">^ 上</value>
+        <value xml:lang="pt">^ Cima</value>
+        <value xml:lang="vi">Tải lên (^ Up)</value>
+        <value xml:lang="zh">^ 上</value>
+        <value xml:lang="zh_TW">^ 上</value>
     </property>
     <property key="ContentCompDocViewInstances">
         <value xml:lang="da">Se instanser</value>
