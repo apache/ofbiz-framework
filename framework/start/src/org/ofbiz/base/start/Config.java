@@ -40,10 +40,6 @@ public class Config {
         if (command == null || command.trim().length() == 0) {
             command = "start";
         }
-        // strip off the leading dash
-        if (command.startsWith("-")) {
-            command = command.substring(1);
-        }
         return "org/ofbiz/base/start/" + command + ".properties";
     }
 
@@ -53,8 +49,8 @@ public class Config {
         if ("start-batch".equalsIgnoreCase(firstArg) 
                 || "start-debug".equalsIgnoreCase(firstArg) 
                 || "stop".equalsIgnoreCase(firstArg) 
-                || "shutdown".equalsIgnoreCase(firstArg) // shutdown & status hack (was pre-existing to portoffset introduction, also useful with it) 
-                || "status".equalsIgnoreCase(firstArg)) {
+                || "-shutdown".equalsIgnoreCase(firstArg) // shutdown & status hack (was pre-existing to portoffset introduction, also useful with it) 
+                || "-status".equalsIgnoreCase(firstArg)) {
             firstArg = "start";
         }
         String configFileName = getConfigFileName(firstArg);
@@ -356,14 +352,15 @@ public class Config {
             adminPort = Integer.parseInt(adminPortStr);
             if (args.length > 0) {
                 for (String arg : args) {
-                    if (arg.toLowerCase().contains("portoffset=")) {
+                    if (arg.toLowerCase().contains("portoffset=") && !arg.toLowerCase().contains("${portoffset}")) {
                         adminPort = adminPort != 0 ? adminPort : 10523; // This is necessary because the ASF machines don't allow ports 1 to 3, see  INFRA-6790
                         adminPort += Integer.parseInt(arg.split("=")[1]);
                     }
                 }
             }
         } catch (Exception e) {
-            adminPort = 0;
+            System.out.println("Error while parsing admin port number (so default to 10523) = " + e);
+            adminPort = 10523;
         }
 
         // set the Derby system home
