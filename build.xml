@@ -426,7 +426,7 @@ under the License.
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
-        	  <arg value="start-batch"/>
+            <arg value="start-batch"/>
             <arg value="-portoffset=${portoffset}"/>
         </java>
     </target>
