@@ -1174,18 +1174,18 @@ nextProd:
     /**
      * worker to test if product can be order with a decimal quantity
      * @param delegator : access to DB
-     * @param poductId : ref. of product
+     * @param productId : ref. of product
      * * @param productStoreId : ref. of store
      * @return true if it can be ordered by decimal quantity
      * @throws GenericEntityException to catch
      */
-    public static Boolean isDecimalQuantityOrderAllowed(Delegator delegator, String poductId, String productStoreId) throws GenericEntityException{
+    public static Boolean isDecimalQuantityOrderAllowed(Delegator delegator, String productId, String productStoreId) throws GenericEntityException{
         //sometime productStoreId may be null (ie PO), then return default value which is TRUE
         if(UtilValidate.isEmpty(productStoreId)){
             return Boolean.TRUE;
         }
         String allowDecimalStore = delegator.findOne("ProductStore", Boolean.TRUE, UtilMisc.toMap("productStoreId", productStoreId)).getString("orderDecimalQuantity");
-        String allowDecimalProduct = delegator.findOne("Product", Boolean.TRUE, UtilMisc.toMap("productId", poductId)).getString("orderDecimalQuantity");
+        String allowDecimalProduct = delegator.findOne("Product", Boolean.TRUE, UtilMisc.toMap("productId", productId)).getString("orderDecimalQuantity");
         
         if("N".equals(allowDecimalProduct) || (UtilValidate.isEmpty(allowDecimalProduct) && "N".equals(allowDecimalStore))){
             return Boolean.FALSE;
