@@ -219,9 +219,68 @@ under the License.
     </target>
 
     <!-- ================================================================== -->
-    <!-- Build Components                                                   -->
+    <!-- Apply patches where needed                                         -->
     <!-- ================================================================== -->
 
+    <target name="build-dev" 
+        description="Patch and build all sources in a dev environment. This includes patching OFBiz using patches in runtime/patches. On Windows you need to have patch.exe in the path and patch files must all be in dos format (CR+LF)">
+        <!-- patch task can't handle a fileset => create a global patch -->
+        <concat destfile="${basedir}/runtime/patches/dev.patch" encoding="UTF-8" outputencoding="UTF-8">            
+            <fileset dir="${basedir}/runtime/patches" casesensitive="no">
+                <exclude name="dev.patch"/> <!-- exclude the patch itself in case it's still there -->
+                <include name="*.patch"/>
+            </fileset>
+        </concat>
+        <if>
+            <resourceexists>
+                <file file="${basedir}/runtime/patches/dev.patch"/>
+            </resourceexists>            
+            <then>                          
+                <patch strip="0" patchfile="${basedir}/runtime/patches/dev.patch" dir="${basedir}"/>
+                <delete>
+                    <fileset dir="${basedir}/runtime/patches" includes="dev.patch"/>
+                </delete>
+            </then>                                  
+        </if>        
+    </target>
+    
+    <target name="build-test" 
+        description="Patch and build all sources for use in a test environment. On Windows you need to have patch.exe in the path and patch files must all be in dos format (CR+LF)">
+        <subant inheritall="false" target="prepare-to-build-test">
+            <fileset dir="${basedir}/hot-deploy" casesensitive="no">
+                <exclude name="disabled/**"/>
+                <include name="*/build.xml"/>
+            </fileset>
+        </subant>
+        <antcall target="build"/>
+    </target>
+    
+    <target name="build-qa" 
+        description="Patch and build all sources for use in a qa environment. On Windows you need to have patch.exe in the path and patch files must all be in dos format (CR+LF)">
+        <subant inheritall="false" target="prepare-to-build-qa">
+            <fileset dir="${basedir}/hot-deploy" casesensitive="no">
+                <exclude name="disabled/**"/>
+                <include name="*/build.xml"/>
+            </fileset>
+        </subant>
+        <antcall target="build"/>
+    </target>
+
+    <target name="build-production" 
+        description="Patch and build all sources for use in a live environment. On Windows you need to have patch.exe in the path and patch files must all be in dos format (CR+LF)">
+        <subant inheritall="false" target="prepare-to-build-production">
+            <fileset dir="${basedir}/hot-deploy" casesensitive="no">
+                <exclude name="disabled/**"/>
+                <include name="*/build.xml"/>
+            </fileset>
+        </subant>
+        <antcall target="build"/>
+    </target>    
+    
+    <!-- ================================================================== -->
+    <!-- Build Components                                                   -->
+    <!-- ================================================================== -->
+    
     <target name="build" depends="ofbiz-init">
         <echo message="[build] ========== Start Building (Compile) =========="/>
 
@@ -1178,6 +1237,7 @@ under the License.
         <echo>======================================================</echo>        
         <echo>Please check that this version is appropriate for you!</echo>        
     </target>
+        <mkdir dir="${basedir}/hot-deploy/${component-name}/patches/qa"/>
 
     <target name="download-sonar-ant-task" description="Download sonar related files">
         <ivy:retrieve pattern="framework/base/lib/[artifact]-[revision].[ext]" conf="sonar-ant-task"/>
@@ -1248,7 +1308,7 @@ under the License.
         <mkdir dir="${basedir}/hot-deploy/${component-name}/entitydef"/>
         <mkdir dir="${basedir}/hot-deploy/${component-name}/lib"/>
         <mkdir dir="${basedir}/hot-deploy/${component-name}/patches"/>
-        <mkdir dir="${basedir}/hot-deploy/${component-name}/patches/staging"/>
+        <mkdir dir="${basedir}/hot-deploy/${component-name}/patches/test"/>
         <mkdir dir="${basedir}/hot-deploy/${component-name}/patches/qa"/>
         <mkdir dir="${basedir}/hot-deploy/${component-name}/patches/production"/>
         <mkdir dir="${basedir}/hot-deploy/${component-name}/script"/>
