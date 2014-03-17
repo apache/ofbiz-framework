@@ -164,4 +164,71 @@ under the License.
     </target>
 
     <target name="all" depends="jar,docs"/>
+    
+    <!-- ================================================================== -->
+    <!-- Apply patches if exist                                             -->
+    <!-- ================================================================== -->
+    <!--
+        This macro applies all patches found in ./patches/@{deployment} relative to ${ofbiz.home.dir}
+        and stops the build process if patches fail (to save time deleting all the rejects)
+    -->
+    <macrodef name="apply-patches">
+        <attribute name="deployment" default="dev" />
+        
+        <sequential>
+            <!-- patch task can't handle a fileset => create a global patch -->
+            <if>
+                <available file="patches"/>
+                <then>          
+                    <concat destfile="patches/@{deployment}.patch" encoding="UTF-8" outputencoding="UTF-8">
+                        <!-- exclude the patch itself in case it's still there -->
+                        <fileset dir="patches" includes="@{deployment}/*.patch"/>
+                    </concat>
+                    
+                    <patch strip="0" patchfile="patches/@{deployment}.patch" dir="${ofbiz.home.dir}"/>
+                    
+                    <delete>
+                        <fileset dir="patches" includes="@{deployment}.patch"/>
+                    </delete>
+                </then>                                  
+            </if>
+        </sequential>
+    </macrodef>
+    
+    <target name="prepare-to-build-dev"
+        description="Does everything needed to get you a ready to start building OFBiz for development. This include generic patches for OFBiz itself, not only hot-deploy components">
+        <apply-patches deployment="dev" />
+    </target>
+    
+    <target name="prepare-to-build-test"
+        description="Does everything needed to get you a ready to start building OFBiz for integration testing">
+        <apply-patches deployment="test" />
+    </target>
+    
+    <target name="prepare-to-build-qa"
+        description="Does everything needed to get you a ready to start building OFBiz in QA-Environment">
+        <apply-patches deployment="qa" />
+        
+        <!-- need to use flatten here as qa dir might not exist and thus can't be included in "dir" -->
+        <copy toDir="config/" overwrite="true" flatten="true">
+            <fileset dir="patches" includes="qa/*.properties"/>
+        </copy>
+    </target>
+    
+    <target name="prepare-to-build-production"
+        description="Does everything needed to get you a ready to start building OFBiz in production">
+        <apply-patches deployment="production" />
+        
+        <!-- need to use flatten here as production dir might not exist and thus can't be included in "dir" -->
+        <copy toDir="config/" overwrite="true" flatten="true">
+            <fileset dir="patches" includes="production/*.properties"/>
+        </copy>
+        <!-- Some files might need to be deleted in production, notably some specific script files -->
+        <!--exec executable="svn" dir="${ofbiz.home.dir}">
+            <arg value="delete"/>
+            <arg value="filename.sh"/>
+        </exec-->
+    </target>
+    
+    
 </project>
