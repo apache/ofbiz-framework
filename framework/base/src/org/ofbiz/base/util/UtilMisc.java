@@ -790,7 +790,7 @@ public class UtilMisc {
     }
 
     public static int getViewLastIndex(int listSize, int viewSize) {
-        return (int)Math.ceil(listSize / viewSize) - 1;
+        return (int)Math.ceil(listSize / (float) viewSize) - 1;
     }
     
 }
