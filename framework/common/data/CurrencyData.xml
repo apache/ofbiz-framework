@@ -84,7 +84,6 @@ under the License.
     <Uom abbreviation="HTG" description="Haitian Gourde" uomId="HTG" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="HUF" description="Hungarian forint" uomId="HUF" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="IDR" description="Indeonesian Rupiah" uomId="IDR" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="ILS" description="Israeli Scheckel" uomId="ILS" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="INR" description="Indian Rupee" uomId="INR" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="IQD" description="Iraqui Dinar" uomId="IQD" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="IRR" description="Iranian Rial" uomId="IRR" uomTypeId="CURRENCY_MEASURE"/>
