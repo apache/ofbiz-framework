@@ -183,34 +183,36 @@ under the License.
         <if-not-empty field="parameters.invoiceId">
             <!-- get the invoice and do some further validation against it -->
             <entity-one entity-name="Invoice" value-field="invoice"/>
-            <!-- check the currencies if they are compatible -->           
-            <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
+            <!-- check the currencies if they are compatible -->
             <if>
                 <condition>
-                    <or>
-                        <if-compare-field  field="invoice.currencyUomId" operator="equals" to-field="defaultCurrencyUomId"/>
-                        <and>
-                            <if-compare-field  field="invoice.currencyUomId" operator="not-equals" to-field="defaultCurrencyUomId"/>
-                            <if-compare-field  field="invoice.currencyUomId" operator="equals" to-field="payment.actualCurrencyUomId"/>
-                        </and>
-                    </or>
+                    <and>
+                        <if-compare-field field="invoice.currencyUomId" operator="not-equals" to-field="payment.currencyUomId"/>
+                        <if-compare-field  field="invoice.currencyUomId" operator="not-equals" to-field="payment.actualCurrencyUomId"/>
+                    </and>
                 </condition>
-                <then><!-- if required get the payment amount in foreign currency (local we already have) -->
-                    <if-compare-field  field="invoice.currencyUomId" operator="not-equals" to-field="defaultCurrencyUomId">
-                        <set field="actual" value="true" type="Boolean"/>
-                        <call-class-method method-name="getPaymentNotApplied" class-name="org.ofbiz.accounting.payment.PaymentWorker" ret-field="notAppliedPayment">
-                            <field field="payment" type="GenericValue"/>
-                            <field field="actual" type="Boolean"/>
-                        </call-class-method>
-                    </if-compare-field>
-                </then>
-                <else>
+                <then>
                     <add-error>
                         <fail-property resource="AccountingUiLabels" property="AccountingCurrenciesOfInvoiceAndPaymentNotCompatible"/>
                     </add-error>
-                </else>
+                </then>
             </if>
             <check-errors/>
+            <if>
+                <condition>
+                    <and>
+                        <if-compare-field field="invoice.currencyUomId" operator="not-equals" to-field="payment.currencyUomId"/>
+                        <if-compare-field  field="invoice.currencyUomId" operator="equals" to-field="payment.actualCurrencyUomId"/>
+                    </and>
+                </condition>
+                <then><!-- if required get the payment amount in foreign currency (local we already have) -->
+                    <set field="actual" value="true" type="Boolean"/>
+                    <call-class-method method-name="getPaymentNotApplied" class-name="org.ofbiz.accounting.payment.PaymentWorker" ret-field="notAppliedPayment">
+                        <field field="payment" type="GenericValue"/>
+                        <field field="actual" type="Boolean"/>
+                    </call-class-method>
+                </then>
+            </if>
 
             <!-- get the amount that has not been applied yet for the invoice (outstanding amount) -->
             <call-class-method method-name="getInvoiceNotApplied" class-name="org.ofbiz.accounting.invoice.InvoiceWorker" ret-field="notAppliedInvoice">
