@@ -23,6 +23,7 @@ import java.util.logging.Level;
 
 import org.eclipse.birt.core.exception.BirtException;
 import org.eclipse.birt.core.framework.Platform;
+import org.eclipse.birt.report.IBirtConstants;
 import org.eclipse.birt.report.engine.api.EngineConfig;
 import org.eclipse.birt.report.engine.api.IReportEngine;
 import org.eclipse.birt.report.engine.api.IReportEngineFactory;
@@ -66,6 +67,9 @@ public class BirtContainer implements Container {
         String ofbizHome = System.getProperty("ofbiz.home");
         config.setTempDir(ofbizHome + File.separatorChar + "runtime" + File.separatorChar + "tempfiles");
         config.setLogConfig(ofbizHome + File.separatorChar + "runtime" + File.separatorChar + "logs", Level.ALL);
+
+        // set system properties
+        System.setProperty(IBirtConstants.SYS_PROP_WORKING_PATH, config.getTempDir());
 
         // startup platform
         try {

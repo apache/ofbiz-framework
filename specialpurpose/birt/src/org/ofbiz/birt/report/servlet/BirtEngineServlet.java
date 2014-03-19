@@ -24,12 +24,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.birt.core.exception.BirtException;
+import org.eclipse.birt.report.context.BirtContext;
 import org.eclipse.birt.report.context.IContext;
 import org.eclipse.birt.report.service.BirtReportServiceFactory;
 import org.eclipse.birt.report.service.ReportEngineService;
+import org.eclipse.birt.report.utility.ParameterAccessor;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.birt.BirtWorker;
-import org.ofbiz.birt.report.context.OFBizBirtContext;
 
 @SuppressWarnings("serial")
 public class BirtEngineServlet extends org.eclipse.birt.report.servlet.BirtEngineServlet {
@@ -44,6 +45,7 @@ public class BirtEngineServlet extends org.eclipse.birt.report.servlet.BirtEngin
         Map<String, Object> appContext = UtilGenerics.cast(ReportEngineService.getInstance().getEngineConfig().getAppContext());
         BirtWorker.setWebContextObjects(appContext, request, response);
         
-        return new OFBizBirtContext( request, response );
+        return new BirtContext(new ViewerServletRequest(ParameterAccessor.getParameter(request, ParameterAccessor.PARAM_REPORT)
+                        , request), response);
     }
 }
