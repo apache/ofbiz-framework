@@ -1,0 +1,153 @@
+A.nav:link {
+	COLOR: black; TEXT-DECORATION: none
+}
+A.nav:visited {
+	COLOR: black; TEXT-DECORATION: none
+}
+A.nav:hover {
+	COLOR: black; TEXT-DECORATION: underline
+}
+A.birt:link {
+	COLOR: white; TEXT-DECORATION: none
+}
+A.birt:visited {
+	COLOR: white; TEXT-DECORATION: none
+}
+A.birt:hover {
+	COLOR: white; TEXT-DECORATION: underline
+}
+BODY {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 10pt; PADDING-BOTTOM: 0px; MARGIN: 0px; COLOR: black; PADDING-TOP: 0px; FONT-FAMILY: arial, helvetica, geneva; BACKGROUND-COLOR: white
+}
+TABLE {
+	FONT-SIZE: 10pt
+}
+.bullet {
+	FONT-SIZE: 9pt
+}
+UL {
+	PADDING-LEFT: 20pt
+}
+LI {
+	PADDING-BOTTOM: 3pt
+}
+.caution {
+	PADDING-RIGHT: 2pt; PADDING-LEFT: 4pt; PADDING-BOTTOM: 4pt; MARGIN-LEFT: 4pt; COLOR: #000040; MARGIN-RIGHT: 4pt; PADDING-TOP: 4pt; BACKGROUND-COLOR: #e0e0e0
+}
+.caution-head {
+	FONT-WEIGHT: bold
+}
+UNKNOWN {
+	MARGIN-LEFT: 4pt; MARGIN-RIGHT: 4pt
+}
+.navhead {
+	FONT-WEIGHT: bold; FONT-SIZE: xx-small; COLOR: white; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+A.navhead:link {
+	COLOR: white; TEXT-DECORATION: none
+}
+A.navhead:visited {
+	COLOR: white; TEXT-DECORATION: none
+}
+A.navhead:hover {
+	COLOR: white; TEXT-DECORATION: underline
+}
+.menu-table {
+	FONT-SIZE: 10pt; BACKGROUND-COLOR: #90c8ff
+}
+.menu-table TD {
+	PADDING-LEFT: 7px; PADDING-BOTTOM: 2px; PADDING-TOP: 3px; BORDER-BOTTOM: #cfffff 1px solid
+}
+.top-menu-cell {
+	PADDING-BOTTOM: 4px; PADDING-TOP: 3px; BORDER-BOTTOM: #cfffff 1px solid; BACKGROUND-COLOR: #0080c0
+}
+.menu-area {
+	COLOR: black; BACKGROUND-COLOR: #6699cc
+}
+.banner-area {
+	BACKGROUND-COLOR: #006699
+}
+PRE {
+	FONT-SIZE: 10pt; FONT-FAMILY: "Courier New", Courier, mono
+}
+CODE {
+	FONT-SIZE: 10pt; FONT-FAMILY: "Courier New", Courier, mono
+}
+.code-block {
+	PADDING-RIGHT: 2pt; PADDING-LEFT: 2pt; FONT-SIZE: 10pt; PADDING-BOTTOM: 4pt; MARGIN-RIGHT: 0.5in; PADDING-TOP: 4pt; FONT-FAMILY: "Courier New", Courier, mono; BACKGROUND-COLOR: #e0e0e0
+}
+H1 {
+	MARGIN-TOP: 12pt; PADDING-LEFT: 2px; FONT-WEIGHT: bold; FONT-SIZE: 10pt; PADDING-BOTTOM: 2px; COLOR: white; PADDING-TOP: 3px; BACKGROUND-COLOR: #0080c0
+}
+H2 {
+	FONT-WEIGHT: bold; FONT-SIZE: 9pt; COLOR: #0080c0
+}
+H3 {
+	FONT-SIZE: 9pt; COLOR: #0080c0
+}
+DT {
+	PADDING-BOTTOM: 6pt
+}
+DD {
+	PADDING-BOTTOM: 10pt
+}
+.indextop {
+	FONT-WEIGHT: bold; FONT-SIZE: x-large; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.indexsub {
+	FONT-SIZE: large; COLOR: #8080ff; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+A.bar {
+	COLOR: white
+}
+A.bar:link {
+	COLOR: white; TEXT-DECORATION: none
+}
+A.bar:visited {
+	COLOR: white; TEXT-DECORATION: none
+}
+A.bar:hover {
+	COLOR: white; TEXT-DECORATION: underline
+}
+.jump {
+	FONT-SIZE: smaller; COLOR: #8080ff; TEXT-DECORATION: none
+}
+A.jump:visited {
+	COLOR: #8080ff; TEXT-DECORATION: none
+}
+A.jump:link {
+	COLOR: #8080ff; TEXT-DECORATION: none
+}
+A.jump:hover {
+	COLOR: blue; TEXT-DECORATION: underline
+}
+.toc {
+	FONT-SIZE: small; COLOR: #8080ff; TEXT-DECORATION: none
+}
+A.toc:visited {
+	COLOR: #8080ff; TEXT-DECORATION: none
+}
+A.toc:link {
+	COLOR: #8080ff; TEXT-DECORATION: none
+}
+A.toc:hover {
+	COLOR: blue; TEXT-DECORATION: underline
+}
+.q {
+	FONT-WEIGHT: bold; PADDING-BOTTOM: 6pt; MARGIN-LEFT: 4pt; MARGIN-RIGHT: 4pt
+}
+.ans {
+	PADDING-LEFT: 24pt; PADDING-BOTTOM: 12pt; MARGIN-RIGHT: 4pt
+}
+.simple-table {
+	BORDER-RIGHT: silver 1pt ridge; BORDER-TOP: silver 1pt ridge; MARGIN: 10pt; BORDER-LEFT: silver 1pt ridge; BORDER-BOTTOM: silver 1pt ridge; BORDER-COLLAPSE: collapse
+}
+.simple-table TD {
+	BORDER-RIGHT: silver 1pt ridge; PADDING-RIGHT: 5pt; BORDER-TOP: silver 1pt ridge; PADDING-LEFT: 5pt; PADDING-BOTTOM: 5pt; BORDER-LEFT: silver 1pt ridge; PADDING-TOP: 5pt; BORDER-BOTTOM: silver 1pt ridge
+}
+.simple-table TH {
+	BORDER-RIGHT: silver 1pt ridge; PADDING-RIGHT: 5pt; BORDER-TOP: silver 1pt ridge; PADDING-LEFT: 5pt; PADDING-BOTTOM: 5pt; BORDER-LEFT: silver 1pt ridge; PADDING-TOP: 5pt; BORDER-BOTTOM: silver 1pt ridge
+}
+.simple-table THEAD {
+	FONT-WEIGHT: bold
+}
