@@ -158,7 +158,7 @@ public class TestRunContainer implements Container {
             Debug.logInfo("[JUNIT] Results for test suite: " + suite.getName(), module);
             Debug.logInfo("[JUNIT] Pass: " + results.wasSuccessful() + " | # Tests: " + results.runCount() + " | # Failed: " +
                     results.failureCount() + " # Errors: " + results.errorCount(), module);
-            if (Debug.importantOn()) {
+            if (Debug.importantOn() && !results.wasSuccessful()) {
                 Debug.logInfo("[JUNIT] ----------------------------- ERRORS ----------------------------- [JUNIT]", module);
                 Enumeration<?> err = results.errors();
                 if (!err.hasMoreElements()) {
