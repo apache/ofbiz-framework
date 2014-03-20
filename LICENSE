@@ -2186,9 +2186,11 @@ Courts of the Northern District of California and the state courts of the State
 of California, with venue lying in Santa Clara County, California.
 
 =========================================================================
-The following libraries distributed with Apache OFBiz are licensed under the
-Eclipse Public License - v 1.0:
+The following libraries and files distributed with Apache OFBiz are 
+licensed under the Eclipse Public License - v 1.0:
 framework/catalina/lib/ecj-4.3.1.jar
+specialpurpose/birt/lib/org.eclipse.*.jar
+specialpurpose/birt/webapp/birt/webcontent/birt/*
 =========================================================================
 Eclipse Public License - v 1.0
 
