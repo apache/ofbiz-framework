@@ -24,7 +24,6 @@
         appserver/build.xml,
         assetmaint/build.xml,
         birt/build.xml,
-        crowd/build.xml,
         ebay/build.xml,
         ebaystore/build.xml,
         ecommerce/build.xml,
@@ -41,4 +40,5 @@
         scrum/build.xml,
         webpos/build.xml
     "/>
+  <!--         crowd/build.xml, --> 
 </project>
