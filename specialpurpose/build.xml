@@ -22,22 +22,23 @@
     <filelist id="specialpurpose-builds" dir="specialpurpose"
         files="
         appserver/build.xml,
-        jetty/build.xml,
-        lucene/build.xml,
-        ecommerce/build.xml,
-        pos/build.xml,
-        hhfacility/build.xml,
         assetmaint/build.xml,
-        oagis/build.xml,
-        googlebase/build.xml,
+        birt/build.xml,
+        crowd/build.xml,
         ebay/build.xml,
         ebaystore/build.xml,
+        ecommerce/build.xml,
+        example/build.xml,
+        googlebase/build.xml,
+        googlecheckout/build.xml,
+        hhfacility/build.xml,
+        jetty/build.xml,
+        ldap/build.xml,
+        lucene/build.xml,
+        oagis/build.xml,
+        pos/build.xml,
         projectmgr/build.xml,
         scrum/build.xml,
-        ldap/build.xml,
         webpos/build.xml
-        googlecheckout/build.xml,
-        birt/build.xml,
-        example/build.xml
     "/>
 </project>
