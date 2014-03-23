@@ -1237,7 +1237,6 @@ under the License.
         <echo>======================================================</echo>        
         <echo>Please check that this version is appropriate for you!</echo>        
     </target>
-        <mkdir dir="${basedir}/hot-deploy/${component-name}/patches/qa"/>
 
     <target name="download-sonar-ant-task" description="Download sonar related files">
         <ivy:retrieve pattern="framework/base/lib/[artifact]-[revision].[ext]" conf="sonar-ant-task"/>
