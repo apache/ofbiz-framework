@@ -317,6 +317,9 @@ public class ServiceDispatcher {
                 boolean needsLockRetry = false;
 
                 do {
+                    // Ensure this is reset to false on each pass
+                    needsLockRetry = false;
+
                     lockRetriesRemaining--;
 
                     // NOTE: general pattern here is to do everything up to the main service call, and retry it all if
