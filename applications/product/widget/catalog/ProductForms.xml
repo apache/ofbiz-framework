@@ -2129,7 +2129,36 @@ under the License.
     <form name="EditCommEvent" extends="EditCommEvent" extends-resource="component://party/widget/partymgr/CommunicationEventForms.xml">
         <field name="productId" map-name="parameters"><hidden/></field>
     </form>
-
+    
+    <form name="UpdateProductRole" type="list" target="updatePartyToProduct" title="" list-name="productRoles"
+        odd-row-style="alternate-row" default-table-style="basic-table">
+        <auto-fields-service service-name="updatePartyToProduct"/>
+        <field name="productId"><hidden/></field>
+        <field name="sequenceNum"><text size="5"/></field>
+        <field name="comments"><text size="30"/></field>
+        
+        <!-- three possibilities for the Party: person, partyGroup, neither... just print everything and if it's empty, no biggie -->
+        <field name="partyId" title="${uiLabelMap.PartyParty}">
+            <display-entity entity-name="PartyNameView" description="${personalTitle} ${firstName} ${middleName} ${lastName} ${suffix} ${groupName}" also-hidden="true" cache="false">
+                <sub-hyperlink target-type="inter-app" link-style="buttontext" target="/partymgr/control/viewprofile" description="${partyId}">
+                    <parameter param-name="party_id" from-field="partyId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="roleTypeId" title="${uiLabelMap.PartyRole}"><display-entity entity-name="RoleType"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}" red-when="after-now"><display/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}" red-when="before-now"></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="deleteLink" title=" " widget-style="buttontext">
+            <hyperlink target="removePartyFromProduct" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+              <parameter param-name="productId"/>
+              <parameter param-name="partyId"/>
+              <parameter param-name="roleTypeId"/>
+              <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>
+    </form>
+    
     <form name="AddProductRole" type="single" target="addPartyToProduct" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="addPartyToProduct"/>
