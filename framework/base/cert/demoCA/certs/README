@@ -1,0 +1,1 @@
+Introduced with r554183: Updated the SSL certificate file and made it a signed one using a testing signing authority done with openssl, and the files for it are in a new cert directory so others can look at it or use it to sign other test certs, or pass the cert to other servers to add to their trusted lists
