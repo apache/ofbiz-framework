@@ -2617,7 +2617,6 @@
                     <set field="createCustRequestInMap.custRequestTypeId" value="RF_PARENT_BACKLOG"/>
                     <set field="createCustRequestInMap.statusId" value="CRQ_DRAFT"/>
                     <set field="createCustRequestInMap.fromPartyId" value="_NA_"/>
-                    <set field="createCustRequestInMap.requesterId" value="_NA_"/>
                     <set field="createCustRequestInMap.userLogin" from-field="userlogin"/>
                     <call-service service-name="createCustRequest" in-map-name="createCustRequestInMap">
                         <result-to-field result-name="custRequestId"/>
