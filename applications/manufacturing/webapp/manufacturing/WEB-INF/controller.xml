@@ -385,16 +385,6 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindBom"/>
     </request-map>
-    <request-map uri="CreateProductBom">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="CreateProductBom"/>
-    </request-map>
-    <request-map uri="createProductBom">
-        <security https="true" auth="true"/>
-        <event type="simple" path="component://manufacturing/script/org/ofbiz/manufacturing/bom/BomSimpleMethods.xml" invoke="createBOMAssoc"/>
-        <response name="success" type="view" value="EditProductBom"/>
-        <response name="error" type="view" value="CreateProductBom"/>
-    </request-map>
 
     <request-map uri="EditProductManufacturingRules">
         <security https="true" auth="true"/>
@@ -797,7 +787,6 @@ under the License.
     <view-map name="EditProductManufacturingRules" page="component://manufacturing/widget/manufacturing/BomScreens.xml#EditProductManufacturingRules" type="screen"/>
     <view-map name="BomSimulation" page="component://manufacturing/widget/manufacturing/BomScreens.xml#BomSimulation" type="screen"/>
     <view-map name="FindBom" page="component://manufacturing/widget/manufacturing/BomScreens.xml#FindBom" type="screen"/>
-    <view-map name="CreateProductBom" page="component://manufacturing/widget/manufacturing/BomScreens.xml#CreateProductBom" type="screen"/>
 
     <!-- Costs view mappings -->
     <view-map name="EditCostCalcs" page="component://manufacturing/widget/manufacturing/CostScreens.xml#EditCostCalcs" type="screen"/>

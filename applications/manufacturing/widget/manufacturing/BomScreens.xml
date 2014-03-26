@@ -143,7 +143,7 @@ under the License.
                     <decorator-section name="body">
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                             <decorator-section name="menu-bar">
-                                <container style="button-bar"><link target="CreateProductBom" text="${uiLabelMap.ManufacturingCreateBom}" style="buttontext"/></container>
+                                <container style="button-bar"><link target="EditProductBom" text="${uiLabelMap.ManufacturingCreateBom}" style="buttontext"/></container>
                             </decorator-section>
                             <decorator-section name="search-options">
                                 <include-form name="findBom" location="component://manufacturing/widget/manufacturing/BomForms.xml"/>
@@ -152,23 +152,6 @@ under the License.
                                 <include-form name="ListBom" location="component://manufacturing/widget/manufacturing/BomForms.xml"/>
                             </decorator-section>
                         </decorator-screen>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="CreateProductBom">
-        <section>
-            <actions>
-                <set field="titleProperty" value="ManufacturingCreateProductBom"/>
-                <set field="headerItem" value="bom"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.ManufacturingCreateProductBom}">
-                            <include-form name="CreateProductBom" location="component://manufacturing/widget/manufacturing/BomForms.xml"/>
-                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
