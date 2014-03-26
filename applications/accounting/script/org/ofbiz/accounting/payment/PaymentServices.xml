@@ -247,12 +247,7 @@ under the License.
             <entity-one value-field="paymentType" entity-name="PaymentType">
                 <field-map field-name="paymentTypeId" from-field="payment.paymentTypeId"/>
             </entity-one>
-            <if-compare-field operator="equals" field="toPayment.parentTypeId" to-field="payment.parentTypeId">
-                <add-error>
-                    <fail-property resource="AccountingUiLabels" property="AccountingPaymentParentTypesNotCompatible"/>
-                </add-error>
-            </if-compare-field>
-            
+
             <!-- when amount not provided use the the lowest value available -->
             <if-empty field="parameters.amountApplied">
                 <call-class-method method-name="getPaymentNotApplied" class-name="org.ofbiz.accounting.payment.PaymentWorker" ret-field="notAppliedPayment">
