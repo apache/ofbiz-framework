@@ -425,7 +425,7 @@ under the License.
                     </condition>
                     <actions>
                         <set field="title" value="${uiLabelMap.PageTitleEditCompDocTemplate} ${rootContentId}"/>
-                        <set from-field="parameters.contentRevisionSeqId" default-value="${parameters.rootContentRevisionSeqId}" field="rootContentRevisionSeqId"/>
+                        <set from-field="parameters.contentRevisionSeqId" default-value="${contentRevisions[0].contentRevisionSeqId}" field="rootContentRevisionSeqId"/>
                     </actions>
                     <widgets>
                         <decorator-screen name="commonCompDocDecorator" location="component://content/widget/CommonScreens.xml">
