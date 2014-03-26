@@ -36,8 +36,6 @@ if (action) {
     conditions.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, null));
     conditionList = EntityCondition.makeCondition(conditions, EntityOperator.OR);
     try {
-        // create resultMap to stop issue with the first puts in the while loop
-        resultMap = [:];
         beganTransaction = TransactionUtil.begin();
         invItemListItr = delegator.find("InventoryItem", conditionList, null, null, ['productId'], null);
         while ((inventoryItem = invItemListItr.next()) != null) {
@@ -49,6 +47,8 @@ if (action) {
                 availableToPromiseTotal = inventoryItem.getDouble("availableToPromiseTotal");
                 costPrice = inventoryItem.getDouble("unitCost");
                 retailPrice = 0.0;
+                totalCostPrice = 0.0;
+                totalRetailPrice = 0.0;
                 productPrices = product.getRelated("ProductPrice", null, null, false);
                 if (productPrices) {
                     productPrices.each { productPrice ->
@@ -59,12 +59,10 @@ if (action) {
                 }
                 if (costPrice && quantityOnHandTotal) {
                     totalCostPrice = costPrice * quantityOnHandTotal;
-                    resultMap.totalCostPrice = totalCostPrice;
                     totalCostPriceGrandTotal += totalCostPrice;
                 }
                 if (retailPrice && quantityOnHandTotal) {
                     totalRetailPrice = retailPrice * quantityOnHandTotal;
-                    resultMap.totalRetailPrice = totalRetailPrice;
                     totalRetailPriceGrandTotal += totalRetailPrice;
                 }
                 if (quantityOnHandTotal) {
@@ -81,7 +79,7 @@ if (action) {
                 }
 
                 resultMap = [productId : product.productId, quantityOnHand : quantityOnHandTotal, availableToPromise : availableToPromiseTotal,
-                             costPrice : costPrice, retailPrice : retailPrice];
+                             costPrice : costPrice, retailPrice : retailPrice, totalCostPrice : totalCostPrice, totalRetailPrice : totalRetailPrice];
                 inventoryItemTotals.add(resultMap);
             }
         }
