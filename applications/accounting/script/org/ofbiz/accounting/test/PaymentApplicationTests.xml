@@ -106,9 +106,11 @@ under the License.
             <field field="delegator" type="org.ofbiz.entity.Delegator"/>
             <field field="serviceInMap.paymentId"/>
         </call-class-method>
-        <call-class-method method-name="getBillingAccountBalance" class-name="org.ofbiz.accounting.payment.BillingAccountWorker" ret-field="appliedBillling">
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-            <field field="serviceInMap.billingAccountId"/>
+        <entity-one entity-name="BillingAccount" value-field="billingAccount">
+            <field-map field-name="billingAccountId" from-field="serviceInMap.billingAccountId"/>
+        </entity-one>
+        <call-class-method method-name="getBillingAccountBalance" class-name="org.ofbiz.order.order.OrderReadHelper" ret-field="appliedBillling">
+            <field field="billingAccount" type="GenericValue"/>
         </call-class-method>
         <set field="zero" value="0" type="BigDecimal"/>
         <assert>
