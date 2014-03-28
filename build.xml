@@ -129,7 +129,9 @@ under the License.
     <target name="clean-output"
           description="Clean runtime/output directory">
         <delete verbose="on" includeemptydirs="true">
-            <fileset dir="runtime/output" includes="**/*"/>
+            <fileset dir="runtime/output" includes="**/*">
+                <exclude name="README"/>
+            </fileset>
         </delete>
     </target>
 
@@ -155,14 +157,18 @@ under the License.
     <target name="clean-tempfiles"
           description="Remove files located in runtime/tempfiles (captcha, etc...)">
         <delete includeemptydirs="true">
-            <fileset dir="./runtime/tempfiles" includes="**/*"/>
+            <fileset dir="./runtime/tempfiles" includes="**/*">
+                <exclude name="README"/>
+            </fileset>
         </delete>
     </target>
 
     <target name="clean-search-indexes"
         description="Remove search indexes (e.g. Lucene indexes) created under runtime/indexes">
         <delete includeemptydirs="true">
-            <fileset dir="./runtime/indexes" includes="**/*" erroronmissingdir="false" />
+            <fileset dir="./runtime/indexes" includes="**/*" erroronmissingdir="false" >
+                <exclude name="README"/>
+            </fileset>
         </delete>
     </target>
     
