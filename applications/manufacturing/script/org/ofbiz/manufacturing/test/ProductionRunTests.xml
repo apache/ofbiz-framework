@@ -273,9 +273,11 @@ under the License.
             <if-compare-field field="productionRunTask.estimatedStartDate" operator="equals" to-field="productionRunNewStartDate" type="Timestamp"/>
             <or>
                 <if-compare field="taskTimeDifference" operator="equals" value="0.0" type="Double"/>
-                <!-- a difference of +1 or -1 hour is accepted because it could be caused by DST change happening in one of the two time periods -->
+                <!-- a difference of +/- 1 or 2 hours is accepted because it could be caused by DST change happening in one of the two time periods -->
                 <if-compare field="taskTimeDifference" operator="equals" value="3600000.0" type="Double"/>
                 <if-compare field="taskTimeDifference" operator="equals" value="-3600000.0" type="Double"/>
+                <if-compare field="taskTimeDifference" operator="equals" value="7200000.0" type="Double"/>
+                <if-compare field="taskTimeDifference" operator="equals" value="-7200000.0" type="Double"/>
             </or>
         </assert>
         <check-errors/>
