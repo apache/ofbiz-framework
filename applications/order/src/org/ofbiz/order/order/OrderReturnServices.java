@@ -780,7 +780,8 @@ public class OrderReturnServices {
                         String thisBillingAccountId = billingAccountItr.next().getString("billingAccountId");
                         BigDecimal billingAccountBalance = ZERO;
                         try {
-                            billingAccountBalance = getBillingAccountBalance(thisBillingAccountId, dctx);
+                            GenericValue billingAccount = delegator.findOne("BillingAccount", UtilMisc.toMap("billingAccountId", thisBillingAccountId), false);
+                            billingAccountBalance = OrderReadHelper.getBillingAccountBalance(billingAccount);
                         } catch (GenericEntityException e) {
                             return ServiceUtil.returnError(e.getMessage());
                         }
@@ -1002,51 +1003,6 @@ public class OrderReturnServices {
         }
 
         return ServiceUtil.returnSuccess();
-    }
-
-    /**
-     * Helper method to get billing account balance, cannot use BillingAccountWorker.getBillingAccountBalance()
-     * due to circular build dependency.
-     * @param billingAccountId the billing account id
-     * @param dctx the dispatch context
-     * @return returns the billing account balance
-     * @throws GenericEntityException
-     */
-    public static BigDecimal getBillingAccountBalance(String billingAccountId, DispatchContext dctx) throws GenericEntityException {
-        Delegator delegator = dctx.getDelegator();
-        GenericValue billingAccount = delegator.findOne("BillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId), false);
-
-        BigDecimal balance = ZERO;
-        BigDecimal accountLimit = ZERO;
-        if (billingAccount.getBigDecimal("accountLimit") != null) {
-            accountLimit = billingAccount.getBigDecimal("accountLimit");
-        }
-        balance = balance.add(accountLimit);
-        // pending (not cancelled, rejected, or received) order payments
-        EntityConditionList<EntityExpr> whereConditions = EntityCondition.makeCondition(UtilMisc.toList(
-                EntityCondition.makeCondition("billingAccountId", EntityOperator.EQUALS, billingAccountId),
-                EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, "EXT_BILLACT"),
-                EntityCondition.makeCondition("statusId", EntityOperator.NOT_IN, UtilMisc.toList("ORDER_CANCELLED", "ORDER_REJECTED")),
-                EntityCondition.makeCondition("preferenceStatusId", EntityOperator.NOT_IN, UtilMisc.toList("PAYMENT_SETTLED", "PAYMENT_RECEIVED", "PAYMENT_DECLINED", "PAYMENT_CANCELLED")) // PAYMENT_NOT_AUTH
-           ), EntityOperator.AND);
-
-        List<GenericValue> orderPaymentPreferenceSums = delegator.findList("OrderPurchasePaymentSummary", whereConditions, UtilMisc.toSet("maxAmount"), null, null, false);
-        for (GenericValue orderPaymentPreferenceSum : orderPaymentPreferenceSums) {
-            BigDecimal maxAmount = orderPaymentPreferenceSum.getBigDecimal("maxAmount");
-            balance = maxAmount != null ? balance.subtract(maxAmount) : balance;
-        }
-
-        List<GenericValue> paymentAppls = delegator.findByAnd("PaymentApplication", UtilMisc.toMap("billingAccountId", billingAccountId), null, false);
-        // TODO: cancelled payments?
-        for (GenericValue paymentAppl : paymentAppls) {
-            if (paymentAppl.getString("invoiceId") == null) {
-                BigDecimal amountApplied = paymentAppl.getBigDecimal("amountApplied");
-                balance = balance.add(amountApplied);
-            }
-        }
-
-        balance = balance.setScale(decimals, rounding);
-        return balance;
     }
 
     /**

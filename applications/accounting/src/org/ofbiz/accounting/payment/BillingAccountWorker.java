@@ -44,6 +44,7 @@ import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
@@ -92,10 +93,10 @@ public class BillingAccountWorker {
                 if ((thruDate != null) && UtilDateTime.nowTimestamp().after(thruDate)) continue;
 
                 if (currencyUomId.equals(billingAccountVO.getString("accountCurrencyUomId"))) {
-                    BigDecimal accountBalance = BillingAccountWorker.getBillingAccountBalance(billingAccountVO);
+                    BigDecimal accountBalance = OrderReadHelper.getBillingAccountBalance(billingAccountVO);
 
                     Map<String, Object> billingAccount = new HashMap<String, Object>(billingAccountVO);
-                    BigDecimal accountLimit = getAccountLimit(billingAccountVO);
+                    BigDecimal accountLimit = OrderReadHelper.getAccountLimit(billingAccountVO);
 
                     billingAccount.put("accountBalance", accountBalance);
                     BigDecimal accountAvailable = accountLimit.subtract(accountBalance);
@@ -106,101 +107,6 @@ public class BillingAccountWorker {
             Collections.sort(billingAccountList, new BillingAccountComparator());
         }
         return billingAccountList;
-    }
-
-    /**
-     * Returns the accountLimit of the BillingAccount or BigDecimal ZERO if it is null
-     * @param billingAccount
-     * @throws GenericEntityException
-     */
-    public static BigDecimal getAccountLimit(GenericValue billingAccount) throws GenericEntityException {
-        if (billingAccount.getBigDecimal("accountLimit") != null) {
-            return billingAccount.getBigDecimal("accountLimit");
-        } else {
-            Debug.logWarning("Billing Account [" + billingAccount.getString("billingAccountId") + "] does not have an account limit defined, assuming zero.", module);
-            return ZERO;
-        }
-    }
-
-    /**
-     * Calculates the "available" balance of a billing account, which is the
-     * net balance minus amount of pending (not cancelled, rejected, or received) order payments.
-     * When looking at using a billing account for a new order, you should use this method.
-     * @param billingAccountId the billing account id
-     * @param delegator the delegato
-     * @return return the "available" balance of a billing account
-     * @throws GenericEntityException
-     */
-    public static BigDecimal getBillingAccountBalance(Delegator delegator, String billingAccountId) throws GenericEntityException {
-        GenericValue billingAccount = delegator.findOne("BillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId), false);
-        return getBillingAccountBalance(billingAccount);
-    }
-
-    public static BigDecimal getBillingAccountBalance(GenericValue billingAccount) throws GenericEntityException {
-
-        Delegator delegator = billingAccount.getDelegator();
-        String billingAccountId = billingAccount.getString("billingAccountId");
-
-        BigDecimal balance = ZERO;
-        BigDecimal accountLimit = getAccountLimit(billingAccount);
-        balance = balance.add(accountLimit);
-        // pending (not cancelled, rejected, or received) order payments
-        EntityConditionList<EntityExpr> whereConditions = EntityCondition.makeCondition(UtilMisc.toList(
-                EntityCondition.makeCondition("billingAccountId", EntityOperator.EQUALS, billingAccountId),
-                EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, "EXT_BILLACT"),
-                EntityCondition.makeCondition("statusId", EntityOperator.NOT_IN, UtilMisc.toList("ORDER_CANCELLED", "ORDER_REJECTED")),
-                EntityCondition.makeCondition("preferenceStatusId", EntityOperator.NOT_IN, UtilMisc.toList("PAYMENT_SETTLED", "PAYMENT_RECEIVED", "PAYMENT_DECLINED", "PAYMENT_CANCELLED")) // PAYMENT_NOT_AUTH
-           ), EntityOperator.AND);
-
-        List<GenericValue> orderPaymentPreferenceSums = delegator.findList("OrderPurchasePaymentSummary", whereConditions, UtilMisc.toSet("maxAmount"), null, null, false);
-        for (Iterator<GenericValue> oppsi = orderPaymentPreferenceSums.iterator(); oppsi.hasNext();) {
-            GenericValue orderPaymentPreferenceSum = oppsi.next();
-            BigDecimal maxAmount = orderPaymentPreferenceSum.getBigDecimal("maxAmount");
-            balance = maxAmount != null ? balance.subtract(maxAmount) : balance;
-        }
-
-        List<GenericValue> paymentAppls = delegator.findByAnd("PaymentApplication", UtilMisc.toMap("billingAccountId", billingAccountId), null, false);
-        // TODO: cancelled payments?
-        for (Iterator<GenericValue> pAi = paymentAppls.iterator(); pAi.hasNext();) {
-            GenericValue paymentAppl = pAi.next();
-            if (paymentAppl.getString("invoiceId") == null) {
-                BigDecimal amountApplied = paymentAppl.getBigDecimal("amountApplied");
-                balance = balance.add(amountApplied);
-            }
-        }
-
-        balance = balance.setScale(decimals, rounding);
-        return balance;
-        /*
-        Delegator delegator = billingAccount.getDelegator();
-        String billingAccountId = billingAccount.getString("billingAccountId");
-
-        // first get the net balance of invoices - payments
-        BigDecimal balance = getBillingAccountNetBalance(delegator, billingAccountId);
-
-        // now the amounts of all the pending orders (not cancelled, rejected or completed)
-        List orderHeaders = getBillingAccountOpenOrders(delegator, billingAccountId);
-
-        if (orderHeaders != null) {
-            Iterator ohi = orderHeaders.iterator();
-            while (ohi.hasNext()) {
-                GenericValue orderHeader = (GenericValue) ohi.next();
-                OrderReadHelper orh = new OrderReadHelper(orderHeader);
-                balance = balance.add(orh.getOrderGrandTotal());
-            }
-        }
-
-        // set the balance to BillingAccount.accountLimit if it is greater.  This is necessary because nowhere do we track the amount of BillingAccount
-        // to be charged to an order, such as FinAccountAuth entity does for FinAccount.  As a result, we must assume that the system is doing things correctly
-        // and use the accountLimit
-        BigDecimal accountLimit = billingAccount.getBigDecimal("accountLimit");
-        if (balance.compareTo(accountLimit) > 0) {
-            balance = accountLimit;
-        } else {
-            balance = balance.setScale(decimals, rounding);
-        }
-        return balance;
-         */
     }
 
     /**
@@ -226,7 +132,7 @@ public class BillingAccountWorker {
     public static BigDecimal getBillingAccountAvailableBalance(GenericValue billingAccount) throws GenericEntityException {
         if ((billingAccount != null) && (billingAccount.get("accountLimit") != null)) {
             BigDecimal accountLimit = billingAccount.getBigDecimal("accountLimit");
-            BigDecimal availableBalance = accountLimit.subtract(getBillingAccountBalance(billingAccount)).setScale(decimals, rounding);
+            BigDecimal availableBalance = accountLimit.subtract(OrderReadHelper.getBillingAccountBalance(billingAccount)).setScale(decimals, rounding);
             return availableBalance;
         } else {
             Debug.logWarning("Available balance requested for null billing account, returning zero", module);
@@ -298,7 +204,7 @@ public class BillingAccountWorker {
             }
 
             result.put("billingAccount", billingAccount);
-            result.put("accountBalance",  getBillingAccountBalance(delegator, billingAccountId));
+            result.put("accountBalance", OrderReadHelper.getBillingAccountBalance(billingAccount));
             result.put("netAccountBalance", getBillingAccountNetBalance(delegator, billingAccountId));
             result.put("availableBalance", getBillingAccountAvailableBalance(billingAccount));
             result.put("availableToCapture", availableToCapture(billingAccount));

@@ -2912,4 +2912,62 @@ public class OrderReadHelper {
         result.put("taxGrandTotal", taxGrandTotal);
         return result;
     }
+
+    /**
+     * Calculates the "available" balance of a billing account, which is the
+     * net balance minus amount of pending (not cancelled, rejected, or received) order payments.
+     * When looking at using a billing account for a new order, you should use this method.
+     * @param billingAccount the billing account record
+     * @return return the "available" balance of a billing account
+     * @throws GenericEntityException
+     */
+    public static BigDecimal getBillingAccountBalance(GenericValue billingAccount) throws GenericEntityException {
+
+        Delegator delegator = billingAccount.getDelegator();
+        String billingAccountId = billingAccount.getString("billingAccountId");
+
+        BigDecimal balance = ZERO;
+        BigDecimal accountLimit = getAccountLimit(billingAccount);
+        balance = balance.add(accountLimit);
+        // pending (not cancelled, rejected, or received) order payments
+        EntityConditionList<EntityExpr> whereConditions = EntityCondition.makeCondition(UtilMisc.toList(
+                EntityCondition.makeCondition("billingAccountId", EntityOperator.EQUALS, billingAccountId),
+                EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, "EXT_BILLACT"),
+                EntityCondition.makeCondition("statusId", EntityOperator.NOT_IN, UtilMisc.toList("ORDER_CANCELLED", "ORDER_REJECTED")),
+                EntityCondition.makeCondition("preferenceStatusId", EntityOperator.NOT_IN, UtilMisc.toList("PAYMENT_SETTLED", "PAYMENT_RECEIVED", "PAYMENT_DECLINED", "PAYMENT_CANCELLED")) // PAYMENT_NOT_AUTH
+           ), EntityOperator.AND);
+
+        List<GenericValue> orderPaymentPreferenceSums = delegator.findList("OrderPurchasePaymentSummary", whereConditions, UtilMisc.toSet("maxAmount"), null, null, false);
+        for (GenericValue orderPaymentPreferenceSum : orderPaymentPreferenceSums) {
+            BigDecimal maxAmount = orderPaymentPreferenceSum.getBigDecimal("maxAmount");
+            balance = maxAmount != null ? balance.subtract(maxAmount) : balance;
+        }
+
+        List<GenericValue> paymentAppls = delegator.findByAnd("PaymentApplication", UtilMisc.toMap("billingAccountId", billingAccountId), null, false);
+        // TODO: cancelled payments?
+        for (GenericValue paymentAppl : paymentAppls) {
+            if (paymentAppl.getString("invoiceId") == null) {
+                BigDecimal amountApplied = paymentAppl.getBigDecimal("amountApplied");
+                balance = balance.add(amountApplied);
+            }
+        }
+
+        balance = balance.setScale(scale, rounding);
+        return balance;
+    }
+
+    /**
+     * Returns the accountLimit of the BillingAccount or BigDecimal ZERO if it is null
+     * @param billingAccount
+     * @throws GenericEntityException
+     */
+    public static BigDecimal getAccountLimit(GenericValue billingAccount) throws GenericEntityException {
+        if (billingAccount.getBigDecimal("accountLimit") != null) {
+            return billingAccount.getBigDecimal("accountLimit");
+        } else {
+            Debug.logWarning("Billing Account [" + billingAccount.getString("billingAccountId") + "] does not have an account limit defined, assuming zero.", module);
+            return ZERO;
+        }
+    }
+
 }

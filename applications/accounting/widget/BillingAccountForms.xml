@@ -119,7 +119,7 @@ under the License.
     <form name="EditBillingAccount" type="single" target="updateBillingAccount" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <set field="availableBalance" value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccountWorker.getBillingAccountBalance(billingAccount) : 0}" type="BigDecimal"/>
+            <set field="availableBalance" value="${bsh:billingAccount != null ? org.ofbiz.order.order.OrderReadHelper.getBillingAccountBalance(billingAccount) : 0}" type="BigDecimal"/>
         </actions>
         <alt-target use-when="billingAccount==null" target="createBillingAccount"/>
         <auto-fields-service service-name="updateBillingAccount" map-name="billingAccount"/>
