@@ -218,14 +218,14 @@ public class OrderReadHelper {
             List<GenericValue> payments = FastList.newInstance();
             try {
                 List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_RECEIVED"),
-                                            EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_CONFIRMED"));
+                        EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_CONFIRMED"));
                 payments = paymentPref.getRelated("Payment", null, null, false);
                 payments = EntityUtil.filterByOr(payments, exprs);
                 List<EntityExpr> conds = UtilMisc.toList(EntityCondition.makeCondition("paymentTypeId", EntityOperator.EQUALS, "CUSTOMER_PAYMENT"),
-                                            EntityCondition.makeCondition("paymentTypeId", EntityOperator.EQUALS, "CUSTOMER_DEPOSIT"),
-                                            EntityCondition.makeCondition("paymentTypeId", EntityOperator.EQUALS, "INTEREST_RECEIPT"),
-                                            EntityCondition.makeCondition("paymentTypeId", EntityOperator.EQUALS, "GC_DEPOSIT"),
-                                            EntityCondition.makeCondition("paymentTypeId", EntityOperator.EQUALS, "POS_PAID_IN"));
+                        EntityCondition.makeCondition("paymentTypeId", EntityOperator.EQUALS, "CUSTOMER_DEPOSIT"),
+                        EntityCondition.makeCondition("paymentTypeId", EntityOperator.EQUALS, "INTEREST_RECEIPT"),
+                        EntityCondition.makeCondition("paymentTypeId", EntityOperator.EQUALS, "GC_DEPOSIT"),
+                        EntityCondition.makeCondition("paymentTypeId", EntityOperator.EQUALS, "POS_PAID_IN"));
                 payments = EntityUtil.filterByOr(payments, conds);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
@@ -319,7 +319,7 @@ public class OrderReadHelper {
 
     public List<GenericValue> getOrderTerms() {
         try {
-           return orderHeader.getRelated("OrderTerm", null, null, false);
+            return orderHeader.getRelated("OrderTerm", null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return null;
@@ -1185,7 +1185,7 @@ public class OrderReadHelper {
         return piecesIncluded;
     }
 
-   public List<Map<String, Object>> getShippableItemInfo(String shipGroupSeqId) {
+    public List<Map<String, Object>> getShippableItemInfo(String shipGroupSeqId) {
         List<Map<String, Object>> shippableInfo = FastList.newInstance();
 
         List<GenericValue> validItems = getValidOrderItems(shipGroupSeqId);
@@ -1649,7 +1649,7 @@ public class OrderReadHelper {
             if (orderItem.get("productId") != null) {
                 productIds.add(orderItem.getString("productId"));
             }
-        }        
+        }
         return productIds;
     }
 
@@ -1666,42 +1666,42 @@ public class OrderReadHelper {
         return this.orderReturnItems;
     }
 
-   /**
-    * Get the quantity returned per order item.
-    * In other words, this method will count the ReturnItems
-    * related to each OrderItem.
-    *
-    * @return  Map of returned quantities as BigDecimals keyed to the orderItemSeqId
-    */
-   public Map<String, BigDecimal> getOrderItemReturnedQuantities() {
-       List<GenericValue> returnItems = getOrderReturnItems();
+    /**
+     * Get the quantity returned per order item.
+     * In other words, this method will count the ReturnItems
+     * related to each OrderItem.
+     *
+     * @return  Map of returned quantities as BigDecimals keyed to the orderItemSeqId
+     */
+    public Map<String, BigDecimal> getOrderItemReturnedQuantities() {
+        List<GenericValue> returnItems = getOrderReturnItems();
 
-       // since we don't have a handy grouped view entity, we'll have to group the return items by hand
-       Map<String, BigDecimal> returnMap = FastMap.newInstance();
-       for (GenericValue orderItem : this.getValidOrderItems()) {
-           List<GenericValue> group = EntityUtil.filterByAnd(returnItems, UtilMisc.toList(
-                                              EntityCondition.makeCondition("orderId", orderItem.get("orderId")),
-                                              EntityCondition.makeCondition("orderItemSeqId", orderItem.get("orderItemSeqId")),
-                                              EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "RETURN_CANCELLED")));
+        // since we don't have a handy grouped view entity, we'll have to group the return items by hand
+        Map<String, BigDecimal> returnMap = FastMap.newInstance();
+        for (GenericValue orderItem : this.getValidOrderItems()) {
+            List<GenericValue> group = EntityUtil.filterByAnd(returnItems, UtilMisc.toList(
+                    EntityCondition.makeCondition("orderId", orderItem.get("orderId")),
+                    EntityCondition.makeCondition("orderItemSeqId", orderItem.get("orderItemSeqId")),
+                    EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "RETURN_CANCELLED")));
 
-           // add up the returned quantities for this group TODO: received quantity should be used eventually
-           BigDecimal returned = BigDecimal.ZERO;
-           for (GenericValue returnItem : group) {
-               if (returnItem.getBigDecimal("returnQuantity") != null) {
-                   returned = returned.add(returnItem.getBigDecimal("returnQuantity"));
-               }
-           }
+            // add up the returned quantities for this group TODO: received quantity should be used eventually
+            BigDecimal returned = BigDecimal.ZERO;
+            for (GenericValue returnItem : group) {
+                if (returnItem.getBigDecimal("returnQuantity") != null) {
+                    returned = returned.add(returnItem.getBigDecimal("returnQuantity"));
+                }
+            }
 
-           // the quantity returned per order item
-           returnMap.put(orderItem.getString("orderItemSeqId"), returned);
-       }
-       return returnMap;
-   }
+            // the quantity returned per order item
+            returnMap.put(orderItem.getString("orderItemSeqId"), returned);
+        }
+        return returnMap;
+    }
 
-   /**
-    * Get the total quantity of returned items for an order. This will count
-    * only the ReturnItems that are directly correlated to an OrderItem.
-    */
+    /**
+     * Get the total quantity of returned items for an order. This will count
+     * only the ReturnItems that are directly correlated to an OrderItem.
+     */
     public BigDecimal getOrderReturnedQuantity() {
         List<GenericValue> returnedItemsBase = getOrderReturnItems();
         List<GenericValue> returnedItems = new ArrayList<GenericValue>(returnedItemsBase.size());
@@ -2442,7 +2442,7 @@ public class OrderReadHelper {
         BigDecimal promoAdjTotal = ZERO;
 
         List<GenericValue> promoAdjustments = EntityUtil.filterByAnd(allOrderAdjustments, UtilMisc.toMap("orderAdjustmentTypeId", "PROMOTION_ADJUSTMENT"));
-        
+
         if (UtilValidate.isNotEmpty(promoAdjustments)) {
             Iterator<GenericValue> promoAdjIter = promoAdjustments.iterator();
             while (promoAdjIter.hasNext()) {
@@ -2495,7 +2495,7 @@ public class OrderReadHelper {
         rentalAdjustment = rentalAdjustment.divide(new BigDecimal(100), scale, rounding).multiply(new BigDecimal(String.valueOf(length)));
 //        Debug.logInfo("rental parameters....Nbr of persons:" + persons + " extra% 2nd person:" + secondPersonPerc + " extra% Nth person:" + nthPersonPerc + " Length: " + length + "  total rental adjustment:" + rentalAdjustment ,module);
         return rentalAdjustment; // return total rental adjustment
-        }
+    }
 
     public static BigDecimal getAllOrderItemsAdjustmentsTotal(List<GenericValue> orderItems, List<GenericValue> adjustments, boolean includeOther, boolean includeTax, boolean includeShipping) {
         BigDecimal result = ZERO;
@@ -2736,39 +2736,39 @@ public class OrderReadHelper {
         return isTax ? value.setScale(taxCalcScale, taxRounding) : value.setScale(scale, rounding);
     }
 
-   /** Get the quantity of order items that have been invoiced */
-   public static BigDecimal getOrderItemInvoicedQuantity(GenericValue orderItem) {
-       BigDecimal invoiced = BigDecimal.ZERO;
-       try {
-           // this is simply the sum of quantity billed in all related OrderItemBillings
-           List<GenericValue> billings = orderItem.getRelated("OrderItemBilling", null, null, false);
-           for (GenericValue billing : billings) {
-               BigDecimal quantity = billing.getBigDecimal("quantity");
-               if (quantity != null) {
-                   invoiced = invoiced.add(quantity);
-               }
-           }
-       } catch (GenericEntityException e) {
-           Debug.logError(e, e.getMessage(), module);
-       }
-       return invoiced;
-   }
+    /** Get the quantity of order items that have been invoiced */
+    public static BigDecimal getOrderItemInvoicedQuantity(GenericValue orderItem) {
+        BigDecimal invoiced = BigDecimal.ZERO;
+        try {
+            // this is simply the sum of quantity billed in all related OrderItemBillings
+            List<GenericValue> billings = orderItem.getRelated("OrderItemBilling", null, null, false);
+            for (GenericValue billing : billings) {
+                BigDecimal quantity = billing.getBigDecimal("quantity");
+                if (quantity != null) {
+                    invoiced = invoiced.add(quantity);
+                }
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, e.getMessage(), module);
+        }
+        return invoiced;
+    }
 
-   public List<GenericValue> getOrderPaymentStatuses() {
-       return getOrderPaymentStatuses(getOrderStatuses());
-   }
+    public List<GenericValue> getOrderPaymentStatuses() {
+        return getOrderPaymentStatuses(getOrderStatuses());
+    }
 
-   public static List<GenericValue> getOrderPaymentStatuses(List<GenericValue> orderStatuses) {
-       List<EntityExpr> contraints1 = UtilMisc.toList(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, null));
-       contraints1.add(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, DataModelConstants.SEQ_ID_NA));
-       contraints1.add(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, ""));
+    public static List<GenericValue> getOrderPaymentStatuses(List<GenericValue> orderStatuses) {
+        List<EntityExpr> contraints1 = UtilMisc.toList(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, null));
+        contraints1.add(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, DataModelConstants.SEQ_ID_NA));
+        contraints1.add(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, ""));
 
-       List<EntityExpr> contraints2 = UtilMisc.toList(EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.NOT_EQUAL, null));
-       List<GenericValue> newOrderStatuses = FastList.newInstance();
-       newOrderStatuses.addAll(EntityUtil.filterByOr(orderStatuses, contraints1));
+        List<EntityExpr> contraints2 = UtilMisc.toList(EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.NOT_EQUAL, null));
+        List<GenericValue> newOrderStatuses = FastList.newInstance();
+        newOrderStatuses.addAll(EntityUtil.filterByOr(orderStatuses, contraints1));
 
-       return EntityUtil.orderBy(EntityUtil.filterByAnd(newOrderStatuses, contraints2), UtilMisc.toList("-statusDatetime"));
-   }
+        return EntityUtil.orderBy(EntityUtil.filterByAnd(newOrderStatuses, contraints2), UtilMisc.toList("-statusDatetime"));
+    }
 
     public static String getOrderItemAttribute(GenericValue orderItem, String attributeName) {
         String attributeValue = null;
@@ -2799,118 +2799,117 @@ public class OrderReadHelper {
         }
         return attributeValue;
     }
-    
 
-   public static Map<String, Object> getOrderTaxByTaxAuthGeoAndParty(List<GenericValue> orderAdjustments) {
-       BigDecimal taxGrandTotal = BigDecimal.ZERO;
-       List<Map<String, Object>> taxByTaxAuthGeoAndPartyList = FastList.newInstance();
-       if (UtilValidate.isNotEmpty(orderAdjustments)) {
-           // get orderAdjustment where orderAdjustmentTypeId is SALES_TAX.
-           orderAdjustments = EntityUtil.filterByAnd(orderAdjustments, UtilMisc.toMap("orderAdjustmentTypeId","SALES_TAX"));
-           orderAdjustments = EntityUtil.orderBy(orderAdjustments, UtilMisc.toList("taxAuthGeoId","taxAuthPartyId"));
+    public static Map<String, Object> getOrderTaxByTaxAuthGeoAndParty(List<GenericValue> orderAdjustments) {
+        BigDecimal taxGrandTotal = BigDecimal.ZERO;
+        List<Map<String, Object>> taxByTaxAuthGeoAndPartyList = FastList.newInstance();
+        if (UtilValidate.isNotEmpty(orderAdjustments)) {
+            // get orderAdjustment where orderAdjustmentTypeId is SALES_TAX.
+            orderAdjustments = EntityUtil.filterByAnd(orderAdjustments, UtilMisc.toMap("orderAdjustmentTypeId", "SALES_TAX"));
+            orderAdjustments = EntityUtil.orderBy(orderAdjustments, UtilMisc.toList("taxAuthGeoId", "taxAuthPartyId"));
 
-           // get the list of all distinct taxAuthGeoId and taxAuthPartyId. It is for getting the number of taxAuthGeo and taxAuthPartyId in adjustments.
-           List<String> distinctTaxAuthGeoIdList = EntityUtil.getFieldListFromEntityList(orderAdjustments, "taxAuthGeoId", true);
-           List<String> distinctTaxAuthPartyIdList = EntityUtil.getFieldListFromEntityList(orderAdjustments, "taxAuthPartyId", true);
+            // get the list of all distinct taxAuthGeoId and taxAuthPartyId. It is for getting the number of taxAuthGeo and taxAuthPartyId in adjustments.
+            List<String> distinctTaxAuthGeoIdList = EntityUtil.getFieldListFromEntityList(orderAdjustments, "taxAuthGeoId", true);
+            List<String> distinctTaxAuthPartyIdList = EntityUtil.getFieldListFromEntityList(orderAdjustments, "taxAuthPartyId", true);
 
-           // Keep a list of amount that have been added to make sure none are missed (if taxAuth* information is missing)
-           List<GenericValue> processedAdjustments = FastList.newInstance();
-           // For each taxAuthGeoId get and add amount from orderAdjustment
-           for (String taxAuthGeoId : distinctTaxAuthGeoIdList) {
-               for (String taxAuthPartyId : distinctTaxAuthPartyIdList) {
-                   //get all records for orderAdjustments filtered by taxAuthGeoId and taxAurhPartyId
-                   List<GenericValue> orderAdjByTaxAuthGeoAndPartyIds = EntityUtil.filterByAnd(orderAdjustments, UtilMisc.toMap("taxAuthGeoId", taxAuthGeoId, "taxAuthPartyId", taxAuthPartyId));
-                   if (UtilValidate.isNotEmpty(orderAdjByTaxAuthGeoAndPartyIds)) {
-                       BigDecimal totalAmount = BigDecimal.ZERO;
-                       //Now for each orderAdjustment record get and add amount.
-                       for (GenericValue orderAdjustment : orderAdjByTaxAuthGeoAndPartyIds) {
-                           BigDecimal amount = orderAdjustment.getBigDecimal("amount");
-                           if (amount == null) {
-                               amount = ZERO;
-                           }
-                           totalAmount = totalAmount.add(amount).setScale(taxCalcScale, taxRounding);
-                           processedAdjustments.add(orderAdjustment);
-                       }
-                       totalAmount = totalAmount.setScale(taxFinalScale, taxRounding);
-                       taxByTaxAuthGeoAndPartyList.add(UtilMisc.<String, Object>toMap("taxAuthPartyId", taxAuthPartyId, "taxAuthGeoId", taxAuthGeoId, "totalAmount", totalAmount));
-                       taxGrandTotal = taxGrandTotal.add(totalAmount);
-                   }
-               }
-           }
-           // Process any adjustments that got missed
-           List<GenericValue> missedAdjustments = FastList.newInstance();
-           missedAdjustments.addAll(orderAdjustments);
-           missedAdjustments.removeAll(processedAdjustments);
-           for (GenericValue orderAdjustment : missedAdjustments) {
-               taxGrandTotal = taxGrandTotal.add(orderAdjustment.getBigDecimal("amount").setScale(taxCalcScale, taxRounding));
-           }
-           taxGrandTotal = taxGrandTotal.setScale(taxFinalScale, taxRounding);
-       }
-       Map<String, Object> result = FastMap.newInstance();
-       result.put("taxByTaxAuthGeoAndPartyList", taxByTaxAuthGeoAndPartyList);
-       result.put("taxGrandTotal", taxGrandTotal);
-       return result;
-   }
+            // Keep a list of amount that have been added to make sure none are missed (if taxAuth* information is missing)
+            List<GenericValue> processedAdjustments = FastList.newInstance();
+            // For each taxAuthGeoId get and add amount from orderAdjustment
+            for (String taxAuthGeoId : distinctTaxAuthGeoIdList) {
+                for (String taxAuthPartyId : distinctTaxAuthPartyIdList) {
+                    //get all records for orderAdjustments filtered by taxAuthGeoId and taxAurhPartyId
+                    List<GenericValue> orderAdjByTaxAuthGeoAndPartyIds = EntityUtil.filterByAnd(orderAdjustments, UtilMisc.toMap("taxAuthGeoId", taxAuthGeoId, "taxAuthPartyId", taxAuthPartyId));
+                    if (UtilValidate.isNotEmpty(orderAdjByTaxAuthGeoAndPartyIds)) {
+                        BigDecimal totalAmount = BigDecimal.ZERO;
+                        //Now for each orderAdjustment record get and add amount.
+                        for (GenericValue orderAdjustment : orderAdjByTaxAuthGeoAndPartyIds) {
+                            BigDecimal amount = orderAdjustment.getBigDecimal("amount");
+                            if (amount == null) {
+                                amount = ZERO;
+                            }
+                            totalAmount = totalAmount.add(amount).setScale(taxCalcScale, taxRounding);
+                            processedAdjustments.add(orderAdjustment);
+                        }
+                        totalAmount = totalAmount.setScale(taxFinalScale, taxRounding);
+                        taxByTaxAuthGeoAndPartyList.add(UtilMisc.<String, Object>toMap("taxAuthPartyId", taxAuthPartyId, "taxAuthGeoId", taxAuthGeoId, "totalAmount", totalAmount));
+                        taxGrandTotal = taxGrandTotal.add(totalAmount);
+                    }
+                }
+            }
+            // Process any adjustments that got missed
+            List<GenericValue> missedAdjustments = FastList.newInstance();
+            missedAdjustments.addAll(orderAdjustments);
+            missedAdjustments.removeAll(processedAdjustments);
+            for (GenericValue orderAdjustment : missedAdjustments) {
+                taxGrandTotal = taxGrandTotal.add(orderAdjustment.getBigDecimal("amount").setScale(taxCalcScale, taxRounding));
+            }
+            taxGrandTotal = taxGrandTotal.setScale(taxFinalScale, taxRounding);
+        }
+        Map<String, Object> result = FastMap.newInstance();
+        result.put("taxByTaxAuthGeoAndPartyList", taxByTaxAuthGeoAndPartyList);
+        result.put("taxGrandTotal", taxGrandTotal);
+        return result;
+    }
 
-   public static Map<String, Object> getOrderItemTaxByTaxAuthGeoAndPartyForDisplay(GenericValue orderItem, List<GenericValue> orderAdjustmentsOriginal) {
-       return getOrderTaxByTaxAuthGeoAndPartyForDisplay(getOrderItemAdjustmentList(orderItem, orderAdjustmentsOriginal));
-   }
+    public static Map<String, Object> getOrderItemTaxByTaxAuthGeoAndPartyForDisplay(GenericValue orderItem, List<GenericValue> orderAdjustmentsOriginal) {
+        return getOrderTaxByTaxAuthGeoAndPartyForDisplay(getOrderItemAdjustmentList(orderItem, orderAdjustmentsOriginal));
+    }
 
-   public static Map<String, Object> getOrderTaxByTaxAuthGeoAndPartyForDisplay(List<GenericValue> orderAdjustmentsOriginal) {
-       BigDecimal taxGrandTotal = BigDecimal.ZERO;
-       List<Map<String, Object>> taxByTaxAuthGeoAndPartyList = FastList.newInstance();
-       List<GenericValue> orderAdjustmentsToUse = FastList.newInstance();
-       if (UtilValidate.isNotEmpty(orderAdjustmentsOriginal)) {
-           // get orderAdjustment where orderAdjustmentTypeId is SALES_TAX.
-           orderAdjustmentsToUse.addAll(EntityUtil.filterByAnd(orderAdjustmentsOriginal, UtilMisc.toMap("orderAdjustmentTypeId", "SALES_TAX")));
-           orderAdjustmentsToUse.addAll(EntityUtil.filterByAnd(orderAdjustmentsOriginal, UtilMisc.toMap("orderAdjustmentTypeId", "VAT_TAX")));
-           orderAdjustmentsToUse = EntityUtil.orderBy(orderAdjustmentsToUse, UtilMisc.toList("taxAuthGeoId","taxAuthPartyId"));
+    public static Map<String, Object> getOrderTaxByTaxAuthGeoAndPartyForDisplay(List<GenericValue> orderAdjustmentsOriginal) {
+        BigDecimal taxGrandTotal = BigDecimal.ZERO;
+        List<Map<String, Object>> taxByTaxAuthGeoAndPartyList = FastList.newInstance();
+        List<GenericValue> orderAdjustmentsToUse = FastList.newInstance();
+        if (UtilValidate.isNotEmpty(orderAdjustmentsOriginal)) {
+            // get orderAdjustment where orderAdjustmentTypeId is SALES_TAX.
+            orderAdjustmentsToUse.addAll(EntityUtil.filterByAnd(orderAdjustmentsOriginal, UtilMisc.toMap("orderAdjustmentTypeId", "SALES_TAX")));
+            orderAdjustmentsToUse.addAll(EntityUtil.filterByAnd(orderAdjustmentsOriginal, UtilMisc.toMap("orderAdjustmentTypeId", "VAT_TAX")));
+            orderAdjustmentsToUse = EntityUtil.orderBy(orderAdjustmentsToUse, UtilMisc.toList("taxAuthGeoId", "taxAuthPartyId"));
 
-           // get the list of all distinct taxAuthGeoId and taxAuthPartyId. It is for getting the number of taxAuthGeo and taxAuthPartyId in adjustments.
-           List<String> distinctTaxAuthGeoIdList = EntityUtil.getFieldListFromEntityList(orderAdjustmentsToUse, "taxAuthGeoId", true);
-           List<String> distinctTaxAuthPartyIdList = EntityUtil.getFieldListFromEntityList(orderAdjustmentsToUse, "taxAuthPartyId", true);
+            // get the list of all distinct taxAuthGeoId and taxAuthPartyId. It is for getting the number of taxAuthGeo and taxAuthPartyId in adjustments.
+            List<String> distinctTaxAuthGeoIdList = EntityUtil.getFieldListFromEntityList(orderAdjustmentsToUse, "taxAuthGeoId", true);
+            List<String> distinctTaxAuthPartyIdList = EntityUtil.getFieldListFromEntityList(orderAdjustmentsToUse, "taxAuthPartyId", true);
 
-           // Keep a list of amount that have been added to make sure none are missed (if taxAuth* information is missing)
-           List<GenericValue> processedAdjustments = FastList.newInstance();
-           // For each taxAuthGeoId get and add amount from orderAdjustment
-           for (String taxAuthGeoId : distinctTaxAuthGeoIdList) {
-               for (String taxAuthPartyId : distinctTaxAuthPartyIdList) {
-                   //get all records for orderAdjustments filtered by taxAuthGeoId and taxAurhPartyId
-                   List<GenericValue> orderAdjByTaxAuthGeoAndPartyIds = EntityUtil.filterByAnd(orderAdjustmentsToUse, UtilMisc.toMap("taxAuthGeoId", taxAuthGeoId, "taxAuthPartyId", taxAuthPartyId));
-                   if (UtilValidate.isNotEmpty(orderAdjByTaxAuthGeoAndPartyIds)) {
-                       BigDecimal totalAmount = BigDecimal.ZERO;
-                       //Now for each orderAdjustment record get and add amount.
-                       for (GenericValue orderAdjustment : orderAdjByTaxAuthGeoAndPartyIds) {
-                           BigDecimal amount = orderAdjustment.getBigDecimal("amount");
-                           if (amount != null) {
-                               totalAmount = totalAmount.add(amount);
-                           }
-                           if ("VAT_TAX".equals(orderAdjustment.getString("orderAdjustmentTypeId")) && 
-                                   orderAdjustment.get("amountAlreadyIncluded") != null) {
-                               // this is the only case where the VAT_TAX amountAlreadyIncluded should be added in, and should just be for display and not to calculate the order grandTotal
-                               totalAmount = totalAmount.add(orderAdjustment.getBigDecimal("amountAlreadyIncluded"));
-                           }
-                           totalAmount = totalAmount.setScale(taxCalcScale, taxRounding);
-                           processedAdjustments.add(orderAdjustment);
-                       }
-                       totalAmount = totalAmount.setScale(taxFinalScale, taxRounding);
-                       taxByTaxAuthGeoAndPartyList.add(UtilMisc.<String, Object>toMap("taxAuthPartyId", taxAuthPartyId, "taxAuthGeoId", taxAuthGeoId, "totalAmount", totalAmount));
-                       taxGrandTotal = taxGrandTotal.add(totalAmount);
-                   }
-               }
-           }
-           // Process any adjustments that got missed
-           List<GenericValue> missedAdjustments = FastList.newInstance();
-           missedAdjustments.addAll(orderAdjustmentsToUse);
-           missedAdjustments.removeAll(processedAdjustments);
-           for (GenericValue orderAdjustment : missedAdjustments) {
-               taxGrandTotal = taxGrandTotal.add(orderAdjustment.getBigDecimal("amount").setScale(taxCalcScale, taxRounding));
-           }
-           taxGrandTotal = taxGrandTotal.setScale(taxFinalScale, taxRounding);
-       }
-       Map<String, Object> result = FastMap.newInstance();
-       result.put("taxByTaxAuthGeoAndPartyList", taxByTaxAuthGeoAndPartyList);
-       result.put("taxGrandTotal", taxGrandTotal);
-       return result;
-   }
+            // Keep a list of amount that have been added to make sure none are missed (if taxAuth* information is missing)
+            List<GenericValue> processedAdjustments = FastList.newInstance();
+            // For each taxAuthGeoId get and add amount from orderAdjustment
+            for (String taxAuthGeoId : distinctTaxAuthGeoIdList) {
+                for (String taxAuthPartyId : distinctTaxAuthPartyIdList) {
+                    //get all records for orderAdjustments filtered by taxAuthGeoId and taxAurhPartyId
+                    List<GenericValue> orderAdjByTaxAuthGeoAndPartyIds = EntityUtil.filterByAnd(orderAdjustmentsToUse, UtilMisc.toMap("taxAuthGeoId", taxAuthGeoId, "taxAuthPartyId", taxAuthPartyId));
+                    if (UtilValidate.isNotEmpty(orderAdjByTaxAuthGeoAndPartyIds)) {
+                        BigDecimal totalAmount = BigDecimal.ZERO;
+                        //Now for each orderAdjustment record get and add amount.
+                        for (GenericValue orderAdjustment : orderAdjByTaxAuthGeoAndPartyIds) {
+                            BigDecimal amount = orderAdjustment.getBigDecimal("amount");
+                            if (amount != null) {
+                                totalAmount = totalAmount.add(amount);
+                            }
+                            if ("VAT_TAX".equals(orderAdjustment.getString("orderAdjustmentTypeId")) &&
+                                    orderAdjustment.get("amountAlreadyIncluded") != null) {
+                                // this is the only case where the VAT_TAX amountAlreadyIncluded should be added in, and should just be for display and not to calculate the order grandTotal
+                                totalAmount = totalAmount.add(orderAdjustment.getBigDecimal("amountAlreadyIncluded"));
+                            }
+                            totalAmount = totalAmount.setScale(taxCalcScale, taxRounding);
+                            processedAdjustments.add(orderAdjustment);
+                        }
+                        totalAmount = totalAmount.setScale(taxFinalScale, taxRounding);
+                        taxByTaxAuthGeoAndPartyList.add(UtilMisc.<String, Object>toMap("taxAuthPartyId", taxAuthPartyId, "taxAuthGeoId", taxAuthGeoId, "totalAmount", totalAmount));
+                        taxGrandTotal = taxGrandTotal.add(totalAmount);
+                    }
+                }
+            }
+            // Process any adjustments that got missed
+            List<GenericValue> missedAdjustments = FastList.newInstance();
+            missedAdjustments.addAll(orderAdjustmentsToUse);
+            missedAdjustments.removeAll(processedAdjustments);
+            for (GenericValue orderAdjustment : missedAdjustments) {
+                taxGrandTotal = taxGrandTotal.add(orderAdjustment.getBigDecimal("amount").setScale(taxCalcScale, taxRounding));
+            }
+            taxGrandTotal = taxGrandTotal.setScale(taxFinalScale, taxRounding);
+        }
+        Map<String, Object> result = FastMap.newInstance();
+        result.put("taxByTaxAuthGeoAndPartyList", taxByTaxAuthGeoAndPartyList);
+        result.put("taxGrandTotal", taxGrandTotal);
+        return result;
+    }
 }
