@@ -141,9 +141,11 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
             Delegator delegator = (Delegator) request.getAttribute("delegator");
             // Get rounding from SystemProperty
             if (UtilValidate.isNotEmpty(delegator)) {
-                String roundingString = EntityUtilProperties.getPropertyValue("general.properties", "currency.rounding.default", "10", delegator);
                 scaleEnabled = EntityUtilProperties.getPropertyValue("general.properties", "currency.scale.enabled", "N", delegator);
-                if (UtilValidate.isInteger(roundingString)) roundingNumber = Integer.parseInt(roundingString);
+                if (UtilValidate.isEmpty(roundingNumber)) {
+                    String roundingString = EntityUtilProperties.getPropertyValue("general.properties", "currency.rounding.default", "10", delegator);
+                    if (UtilValidate.isInteger(roundingString)) roundingNumber = Integer.parseInt(roundingString);
+                }
             }
         }
         if (roundingNumber == null) roundingNumber = 10;
