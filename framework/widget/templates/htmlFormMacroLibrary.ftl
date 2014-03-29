@@ -313,10 +313,10 @@ under the License.
 
 <#macro renderIgnoredField></#macro>
 
-<#macro renderFieldTitle style title id fieldHelpText="">
-  <span<#if fieldHelpText?has_content> title="${fieldHelpText}"</#if><#if style?has_content> class="${style}"</#if><#if id?has_content> id="${id}"</#if>><#t/>
+<#macro renderFieldTitle style title id fieldHelpText="" for="">
+  <label <#if for?has_content>for="${for}"</#if> <#if fieldHelpText?has_content> title="${fieldHelpText}"</#if><#if style?has_content> class="${style}"</#if><#if id?has_content> id="${id}"</#if>><#t/>
     ${title}<#t/>
-  </span><#t/>
+  </label><#t/>
 </#macro>
 
 <#macro renderSingleFormFieldTitle></#macro>

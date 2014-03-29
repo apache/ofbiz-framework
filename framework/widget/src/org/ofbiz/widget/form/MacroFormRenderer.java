@@ -29,9 +29,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.WeakHashMap;
-import java.util.Map.Entry;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -1273,6 +1273,9 @@ public class MacroFormRenderer implements FormStringRenderer {
                 sr.append("\" id=\"");
                 sr.append(id);
                 sr.append("_title");
+                // Render "for"
+                sr.append("\" for=\"");
+                sr.append(id);
             }
             sr.append("\" />");
             executeMacro(writer, sr.toString());
