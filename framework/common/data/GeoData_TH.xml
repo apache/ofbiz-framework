@@ -39,8 +39,8 @@ under the License.
 	<Geo abbreviation="KBI" geoCode="81" geoId="TH-81" geoName="Krabi" geoTypeId="PROVINCE"/>
 	<Geo abbreviation="LPG" geoCode="52" geoId="TH-52" geoName="Lampang" geoTypeId="PROVINCE"/>
 	<Geo abbreviation="LPN" geoCode="51" geoId="TH-51" geoName="Lamphun" geoTypeId="PROVINCE"/>
-	<Geo abbreviation="LEI" geoCode="42" geoId="TH-42" geoName="Loei PROVINCE" geoTypeId="PROVINCE"/>
-	<Geo abbreviation="LRI" geoCode="16" geoId="TH-16" geoName="Lopburi PROVINCE" geoTypeId="PROVINCE"/>
+	<Geo abbreviation="LEI" geoCode="42" geoId="TH-42" geoName="Loei" geoTypeId="PROVINCE"/>
+	<Geo abbreviation="LRI" geoCode="16" geoId="TH-16" geoName="Lopburi" geoTypeId="PROVINCE"/>
 	<Geo abbreviation="MSN" geoCode="58" geoId="TH-58" geoName="Mae Hong Son" geoTypeId="PROVINCE"/>
 	<Geo abbreviation="MKM" geoCode="44" geoId="TH-44" geoName="Maha Sarakham" geoTypeId="PROVINCE"/>
 	<Geo abbreviation="MDH" geoCode="49" geoId="TH-49" geoName="Mukdahan" geoTypeId="PROVINCE"/>
@@ -49,7 +49,7 @@ under the License.
 	<Geo abbreviation="NPM" geoCode="48" geoId="TH-48" geoName="Nakhon Phanom" geoTypeId="PROVINCE"/>
 	<Geo abbreviation="NMA" geoCode="30" geoId="TH-30" geoName="Nakhon Ratchasima" geoTypeId="PROVINCE"/>
 	<Geo abbreviation="NSN" geoCode="60" geoId="TH-60" geoName="Nakhon Sawan" geoTypeId="PROVINCE"/>
-	<Geo abbreviation="NRT" geoCode="80" geoId="TH-80" geoName="Nakhon Si Thammarat PROVINCE" geoTypeId="PROVINCE"/>
+	<Geo abbreviation="NRT" geoCode="80" geoId="TH-80" geoName="Nakhon Si Thammarat" geoTypeId="PROVINCE"/>
 	<Geo abbreviation="NAN" geoCode="55" geoId="TH-55" geoName="Nan" geoTypeId="PROVINCE"/>
 	<Geo abbreviation="NWT" geoCode="96" geoId="TH-96" geoName="Narathiwat" geoTypeId="PROVINCE"/>
 	<Geo abbreviation="NBP" geoCode="39" geoId="TH-39" geoName="Nong Bua Lamphu" geoTypeId="PROVINCE"/>
