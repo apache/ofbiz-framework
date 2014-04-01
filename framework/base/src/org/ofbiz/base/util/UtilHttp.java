@@ -676,18 +676,21 @@ public class UtilHttp {
 
     public static TimeZone getTimeZone(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        TimeZone timeZone = (TimeZone) session.getAttribute("timeZone");
-        if (timeZone == null) {
-            String tzId = null;
-            Map<String, String> userLogin = UtilGenerics.cast(session.getAttribute("userLogin"));
-            if (userLogin != null) {
-                tzId = userLogin.get("lastTimeZone");
+        TimeZone timeZone = null;
+        Map<String, String> userLogin = UtilGenerics.cast(session.getAttribute("userLogin"));
+        if (userLogin != null) {
+            String tzId = userLogin.get("lastTimeZone");
+            if (tzId != null) {
+                timeZone = TimeZone.getTimeZone(tzId);
             }
-            timeZone = UtilDateTime.toTimeZone(tzId);
-            session.setAttribute("timeZone", timeZone);
         }
+        if (timeZone == null) {
+            timeZone = TimeZone.getDefault();
+        }
+        session.setAttribute("timeZone", timeZone);
         return timeZone;
     }
+
 
     /**
      * Get the currency string from the session.
