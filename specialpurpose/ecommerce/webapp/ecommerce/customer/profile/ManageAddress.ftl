@@ -58,7 +58,7 @@ under the License.
             <label for="countryGeoId">${uiLabelMap.CommonCountry}*
               <span id="advice-required-countryGeoId" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
             </label>
-             <select name="countryGeoId" id="countryGeoId" class="required" style="width: 70%">
+             <select name="countryGeoId" id="countryGeoId" class="required">
                <#if countryGeoId??>
                  <option value="${countryGeoId}">${countryGeoId}</option>
                </#if>
@@ -69,7 +69,7 @@ under the License.
             <label for="stateProvinceGeoId">${uiLabelMap.PartyState}*
               <span id="advice-required-stateProvinceGeoId" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
             </label>
-              <select name="stateProvinceGeoId" id="stateProvinceGeoId" style="width: 70%">
+              <select name="stateProvinceGeoId" id="stateProvinceGeoId">
               <#if stateProvinceGeoId?has_content>
                 <option value="${stateProvinceGeoId}">${stateProvinceGeoId}</option>
               <#else>
