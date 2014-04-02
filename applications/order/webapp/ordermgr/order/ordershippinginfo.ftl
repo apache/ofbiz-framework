@@ -322,7 +322,7 @@ under the License.
           <div class="form-row">
             <label for="countryGeoId">${uiLabelMap.CommonCountry}* <span id="advice-required-countryGeoId" style="display: none" class="custom-advice">(required)</span></label>
             <div class="form-field">
-              <select name="shipToCountryGeoId" id="countryGeoId" class="required" style="width: 70%">
+              <select name="shipToCountryGeoId" id="countryGeoId" class="required">
                 <#if countryGeoId?exists>
                   <option value="${countryGeoId}">${countryGeoId}</option>
                 </#if>
@@ -333,7 +333,7 @@ under the License.
           <div class="form-row">
             <label for="stateProvinceGeoId">${uiLabelMap.PartyState}* <span id="advice-required-stateProvinceGeoId" style="display: none" class="custom-advice">(required)</span></label>
             <div class="form-field">
-              <select name="shipToStateProvinceGeoId" id="stateProvinceGeoId" style="width: 70%">
+              <select name="shipToStateProvinceGeoId" id="stateProvinceGeoId">
                 <#if stateProvinceGeoId?has_content>
                   <option value="${stateProvinceGeoId}">${stateProvinceGeoId}</option>
                 <#else>
