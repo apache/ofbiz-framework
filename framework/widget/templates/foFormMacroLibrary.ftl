@@ -73,7 +73,7 @@ under the License.
 <#macro renderHiddenField name value id event action></#macro>
 <#macro renderIgnoredField></#macro>
 
-<#macro renderFieldTitle style title id fieldHelpText="">${title?default("")?replace("&nbsp;", " ")}</#macro>
+<#macro renderFieldTitle style title id fieldHelpText="" for="">${title?default("")?replace("&nbsp;", " ")}</#macro>
 <#macro renderSingleFormFieldTitle title>${title?default("")}</#macro>
     
 <#macro renderFormOpen linkUrl formType targetWindow containerId containerStyle autocomplete name viewIndexField viewSizeField viewIndex viewSize useRowSubmit></#macro>
