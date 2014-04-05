@@ -555,6 +555,7 @@ public class DateTimeConverters implements ConverterLoader {
             return ObjectType.instanceOf(sourceClass, this.getSourceClass()) && targetClass == this.getTargetClass();
         }
 
+        @SuppressWarnings("deprecation")
         public java.sql.Date convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
             String trimStr = obj.trim();
             if (trimStr.length() == 0) {
@@ -567,7 +568,8 @@ public class DateTimeConverters implements ConverterLoader {
                 df = UtilDateTime.toDateFormat(formatString, timeZone, locale);
             }
             try {
-                return new java.sql.Date(df.parse(trimStr).getTime());
+                java.util.Date parsedDate = df.parse(trimStr);
+                return new java.sql.Date(parsedDate.getYear(), parsedDate.getMonth(), parsedDate.getDay());
             } catch (ParseException e) {
                 throw new ConversionException(e);
             }
