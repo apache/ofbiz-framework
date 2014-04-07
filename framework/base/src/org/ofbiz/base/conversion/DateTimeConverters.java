@@ -569,7 +569,7 @@ public class DateTimeConverters implements ConverterLoader {
             }
             try {
                 java.util.Date parsedDate = df.parse(trimStr);
-                return new java.sql.Date(parsedDate.getYear(), parsedDate.getMonth(), parsedDate.getDay());
+                return new java.sql.Date(parsedDate.getYear(), parsedDate.getMonth(), parsedDate.getDate());
             } catch (ParseException e) {
                 throw new ConversionException(e);
             }
