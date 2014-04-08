@@ -97,7 +97,7 @@ under the License.
     <OrderRole orderId="Demo1001" partyId="DemoSupplier" roleTypeId="SUPPLIER_AGENT"/>
     <OrderItemShipGroup orderId="Demo1001" shipGroupSeqId="00001" shipmentMethodTypeId="NO_SHIPPING" carrierPartyId="_NA_" carrierRoleTypeId="CARRIER" contactMechId="9200" maySplit="N" isGift="N" estimatedDeliveryDate="2009-08-13 17:43:53.0"/>
     <OrderItemShipGroupAssoc orderId="Demo1001" orderItemSeqId="00001" shipGroupSeqId="00001" quantity="2.000000"/>
-    
+
     <OrderStatus orderStatusId="9009" statusId="ORDER_CREATED" orderId="Demo1001" statusDatetime="2009-08-13 17:45:50.419" statusUserLogin="admin"/>
     <OrderStatus orderStatusId="9010" statusId="ITEM_CREATED" orderId="Demo1001" orderItemSeqId="00001" statusDatetime="2009-08-13 17:45:50.419" statusUserLogin="admin"/>
     <OrderStatus orderStatusId="9011" statusId="ITEM_APPROVED" orderId="Demo1001" orderItemSeqId="00001" statusDatetime="2009-08-13 17:46:15.144" statusUserLogin="admin"/>
@@ -105,7 +105,7 @@ under the License.
     <OrderStatus orderStatusId="9013" statusId="ITEM_COMPLETED" orderId="Demo1001" orderItemSeqId="00001" statusDatetime="2009-08-13 17:47:47.292" statusUserLogin="admin"/>
     <OrderStatus orderStatusId="9014" statusId="ORDER_COMPLETED" orderId="Demo1001" statusDatetime="2009-08-13 17:47:47.344" statusUserLogin="admin"/>
     <OrderContactMech orderId="Demo1001" contactMechPurposeTypeId="SHIPPING_LOCATION" contactMechId="9200"/>
-    
+
     <Shipment shipmentId="9997" shipmentTypeId="PURCHASE_SHIPMENT" statusId="PURCH_SHIP_RECEIVED" primaryOrderId="Demo1001" primaryShipGroupSeqId="00001" estimatedShipCost="0.00" destinationFacilityId="WebStoreWarehouse" destinationContactMechId="9200" destinationTelecomNumberId="9201" partyIdFrom="DemoSupplier" createdDate="2008-06-10 12:59:26.8"/>
     <ShipmentItem shipmentId="9997" shipmentItemSeqId="00001" productId="GZ-2644" quantity="2.000000"/>
     <ShipmentRouteSegment shipmentId="9997" shipmentRouteSegmentId="00001" destFacilityId="WebStoreWarehouse" destContactMechId="9200" destTelecomNumberId="9201" carrierPartyId="_NA_" shipmentMethodTypeId="NO_SHIPPING" carrierServiceStatusId="SHRSCS_NOT_STARTED"/>
@@ -118,7 +118,7 @@ under the License.
     <AcctgTrans acctgTransId="9000" acctgTransTypeId="SHIPMENT_RECEIPT" transactionDate="2009-08-13 17:47:48.642" isPosted="Y" postedDate="2009-08-13 17:47:49.281" glFiscalTypeId="ACTUAL" partyId="DemoSupplier" shipmentId="9997"/>
     <AcctgTransEntry acctgTransId="9000" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR" productId="GZ-2644" glAccountTypeId="UNINVOICED_SHIP_RCPT" glAccountId="214000" organizationPartyId="Company" amount="48.00" currencyUomId="USD" origAmount="48.00" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
     <AcctgTransEntry acctgTransId="9000" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR" productId="GZ-2644" glAccountTypeId="INVENTORY_ACCOUNT" glAccountId="140000" organizationPartyId="Company" amount="48.00" currencyUomId="USD" origAmount="48.00" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
-    
+
     <InventoryItem inventoryItemId="9025" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="GZ-2644" ownerPartyId="Company" datetimeReceived="2009-08-13 17:47:31.095" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL01" quantityOnHandTotal="2.000000" availableToPromiseTotal="2.000000" unitCost="24.000000" currencyUomId="USD"/>
     <ShipmentReceipt receiptId="9000" inventoryItemId="9025" productId="GZ-2644" shipmentId="9997" orderId="Demo1001" orderItemSeqId="00001" datetimeReceived="2009-08-13 17:47:31.095" quantityAccepted="2.000000" quantityRejected="0.000000"/>
     <InventoryItemDetail inventoryItemId="9025" inventoryItemDetailSeqId="00001" effectiveDate="2009-08-13 17:47:46.78" quantityOnHandDiff="2.000000" availableToPromiseDiff="2.000000" accountingQuantityDiff="2.000000" unitCost="24.000000" orderId="Demo1001" orderItemSeqId="00001" shipmentId="9997" receiptId="9000"/>
@@ -218,7 +218,7 @@ under the License.
     <PaymentGatewayResponse paymentGatewayResponseId="9001" paymentServiceTypeEnumId="PRDS_PAY_AUTH" orderPaymentPreferenceId="9001" paymentMethodTypeId="CREDIT_CARD" paymentMethodId="9015" transCodeEnumId="PGT_AUTHORIZE" amount="127.09" currencyUomId="USD" referenceNum="1250501206473" altReference="1250501206473" gatewayCode="100" gatewayFlag="A" gatewayMessage="This is a test processor; no payments were captured or authorized." transactionDate="2009-08-17 14:56:46.498"/>
     <PaymentGatewayResponse paymentGatewayResponseId="9002" paymentServiceTypeEnumId="PRDS_PAY_CAPTURE" orderPaymentPreferenceId="9001" paymentMethodTypeId="CREDIT_CARD" paymentMethodId="9015" transCodeEnumId="PGT_CAPTURE" amount="127.09" currencyUomId="USD" referenceNum="1250501224763" altReference="1250501224763" gatewayFlag="C" gatewayMessage="This is a test capture; no money was transferred" transactionDate="2009-08-17 14:57:04.836"/>
     <Payment paymentId="8004" paymentTypeId="CUSTOMER_PAYMENT" paymentMethodTypeId="CREDIT_CARD" paymentMethodId="9015" paymentGatewayResponseId="9002" paymentPreferenceId="9001" partyIdFrom="DemoCustomer" partyIdTo="Company" statusId="PMNT_RECEIVED" effectiveDate="2009-08-17 14:57:04.99" paymentRefNum="1250501224763" amount="127.09" currencyUomId="USD"/>
-    <AcctgTrans acctgTransId="9005" acctgTransTypeId="INCOMING_PAYMENT" transactionDate="2009-08-17 14:57:05.182" isPosted="Y" postedDate="2009-08-17 14:57:05.56" glFiscalTypeId="ACTUAL" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER" paymentId="8004"/>    
+    <AcctgTrans acctgTransId="9005" acctgTransTypeId="INCOMING_PAYMENT" transactionDate="2009-08-17 14:57:05.182" isPosted="Y" postedDate="2009-08-17 14:57:05.56" glFiscalTypeId="ACTUAL" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER" paymentId="8004"/>
     <AcctgTransEntry acctgTransId="9005" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" glAccountId="122300" organizationPartyId="Company" amount="127.09" currencyUomId="USD" origAmount="127.09" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
     <AcctgTransEntry acctgTransId="9005" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" glAccountTypeId="ACCOUNTS_RECEIVABLE" glAccountId="120000" organizationPartyId="Company" amount="127.09" currencyUomId="USD" origAmount="127.09" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
 
@@ -243,5 +243,13 @@ under the License.
     <AcctgTrans acctgTransId="9007" acctgTransTypeId="SALES_INVOICE" transactionDate="2009-09-17 14:57:06.129" isPosted="Y" postedDate="2009-09-17 14:57:06.587" glFiscalTypeId="ACTUAL" invoiceId="8010"/>
     <AcctgTransEntry acctgTransId="9007" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" productId="WG-1111" glAccountId="400000" organizationPartyId="Company" amount="179.97" currencyUomId="USD" origAmount="179.97" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
     <AcctgTransEntry acctgTransId="9007" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER" glAccountTypeId="ACCOUNTS_RECEIVABLE" glAccountId="120000" organizationPartyId="Company" amount="179.97" currencyUomId="USD" origAmount="179.97" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
+
+    <!-- The agreement AGR_SALES is a SALES_AGREEMENT between the Company party and the DemoCustomer party (in the role of CUSTOMER)  -->
+    <!-- For a sales agreement the roleTypeIdFrom and roleTypeIdTo are not mandatory  see OrderAgreements.groovy[31] -->
+    <Agreement agreementId="AGR_SALES"  partyIdFrom="DemoCustomer" partyIdTo="Company" roleTypeIdFrom="CUSTOMER"  roleTypeIdTo="INTERNAL_ORGANIZATIO" agreementTypeId="SALES_AGREEMENT" description="Agreement for DemoCustomer"/>
+    <AgreementItem agreementId="AGR_SALES" agreementItemSeqId="00001" currencyUomId="USD" agreementItemTypeId="AGREEMENT_PRICING_PR"  agreementText="Price list in US Dollars"/>
+    <AgreementTerm agreementId="AGR_SALES" agreementItemSeqId="00001" agreementTermId="10000" description="Sales test agreement" termDays="30" termTypeId="FIN_PAYMENT_FIXDAY"/>
+    <!-- An AgreementProductAppls aris related to an AgreementItem. AgreementProductAppls are optional. If a  product id and a price are specified the price will override the ProductPrice if the agreement is selected in the order -->
+    <AgreementProductAppl agreementId="AGR_SALES" agreementItemSeqId="00001" price="10.000" productId="GZ-1000"/>
 
 </entity-engine-xml>
