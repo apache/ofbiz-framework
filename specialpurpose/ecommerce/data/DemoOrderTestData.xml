@@ -246,6 +246,17 @@ under the License.
 
     <!-- The agreement AGR_SALES is a SALES_AGREEMENT between the Company party and the DemoCustomer party (in the role of CUSTOMER)  -->
     <!-- For a sales agreement the roleTypeIdFrom and roleTypeIdTo are not mandatory  see OrderAgreements.groovy[31] -->
+    <!-- Here is now to create a SALES_AGREEMENT
+        * create an agreement and set:
+        ** agreement type: Sales
+        ** party if from: the customer
+        ** party id to: the Company
+    * create an agreement item of type "Pricing" and set the currency
+        ** go to the "product" tab
+        ** enter the product id and price (they will override the ProductPrice if the agreement is selected in the order)
+        **  and (for a PO only) Supplier
+        ** go to the terms: they will be copied to the order and invoice
+    -->
     <Agreement agreementId="AGR_SALES"  partyIdFrom="DemoCustomer" partyIdTo="Company" roleTypeIdFrom="CUSTOMER"  roleTypeIdTo="INTERNAL_ORGANIZATIO" agreementTypeId="SALES_AGREEMENT" description="Agreement for DemoCustomer"/>
     <AgreementItem agreementId="AGR_SALES" agreementItemSeqId="00001" currencyUomId="USD" agreementItemTypeId="AGREEMENT_PRICING_PR"  agreementText="Price list in US Dollars"/>
     <AgreementTerm agreementId="AGR_SALES" agreementItemSeqId="00001" agreementTermId="10000" description="Sales test agreement" termDays="30" termTypeId="FIN_PAYMENT_FIXDAY"/>
