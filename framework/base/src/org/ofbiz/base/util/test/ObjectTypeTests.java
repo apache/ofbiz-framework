@@ -34,9 +34,12 @@ import org.ofbiz.base.test.GenericTestCaseBase;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.TimeDuration;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilXml;
 import org.w3c.dom.Document;
+
+import com.ibm.icu.util.Calendar;
 
 @SourceMonitored
 public class ObjectTypeTests extends GenericTestCaseBase {
@@ -53,7 +56,7 @@ public class ObjectTypeTests extends GenericTestCaseBase {
     private final Timestamp tstmp = new Timestamp(781L);
     private final Timestamp ntstmp;
     private final java.util.Date utlDt = new java.util.Date(781);
-    private final java.sql.Date sqlDt = new java.sql.Date(-129600000);
+    private final java.sql.Date sqlDt;
     private final java.sql.Time sqlTm = new java.sql.Time(2096000);
     private final List<Object> list;
     private final Map<String, Object> map;
@@ -72,6 +75,10 @@ public class ObjectTypeTests extends GenericTestCaseBase {
         map.put("two", "2");
         map.put("three", "3");
         set = new LinkedHashSet<Object>(list);
+        Calendar cal = UtilDateTime.getCalendarInstance(localeData.goodTimeZone, localeData.goodLocale);
+        cal.set(1969, Calendar.DECEMBER, 31, 0, 0, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        sqlDt = new java.sql.Date(cal.getTimeInMillis());
     }
 
     public static class LocaleData {
