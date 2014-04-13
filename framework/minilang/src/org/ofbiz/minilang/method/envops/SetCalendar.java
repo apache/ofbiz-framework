@@ -79,6 +79,11 @@ public final class SetCalendar extends MethodOperation {
         return elementModified;
     }
 
+    // Fix for some Java versions that throw an exception when the String includes a "+".
+    private static int parseInt(String intStr) {
+        return Integer.parseInt(intStr.replace("+", ""));
+    }
+
     private final FlexibleStringExpander daysFse;
     private final FlexibleStringExpander defaultFse;
     private final FlexibleMapAccessor<Object> fieldFma;
@@ -194,25 +199,25 @@ public final class SetCalendar extends MethodOperation {
             }
             fromStamp = (Timestamp) MiniLangUtil.convertType(newValue, java.sql.Timestamp.class, locale, timeZone, UtilDateTime.DATE_TIME_FORMAT);
             if (!this.yearsFse.isEmpty()) {
-                years= Integer.parseInt(this.yearsFse.expandString(methodContext.getEnvMap()));
+                years= parseInt(this.yearsFse.expandString(methodContext.getEnvMap()));
             }
             if (!this.monthsFse.isEmpty()) {
-                months = Integer.parseInt(this.monthsFse.expandString(methodContext.getEnvMap()));
+                months = parseInt(this.monthsFse.expandString(methodContext.getEnvMap()));
             }
             if (!this.daysFse.isEmpty()) {
-                days = Integer.parseInt(this.daysFse.expandString(methodContext.getEnvMap()));
+                days = parseInt(this.daysFse.expandString(methodContext.getEnvMap()));
             }
             if (!this.hoursFse.isEmpty()) {
-                hours = Integer.parseInt(this.hoursFse.expandString(methodContext.getEnvMap()));
+                hours = parseInt(this.hoursFse.expandString(methodContext.getEnvMap()));
             }
             if (!this.minutesFse.isEmpty()) {
-                minutes = Integer.parseInt(this.minutesFse.expandString(methodContext.getEnvMap()));
+                minutes = parseInt(this.minutesFse.expandString(methodContext.getEnvMap()));
             }
             if (!this.secondsFse.isEmpty()) {
-                seconds = Integer.parseInt(this.secondsFse.expandString(methodContext.getEnvMap()));
+                seconds = parseInt(this.secondsFse.expandString(methodContext.getEnvMap()));
             }
             if (!this.millisFse.isEmpty()) {
-                millis = Integer.parseInt(this.millisFse.expandString(methodContext.getEnvMap()));
+                millis = parseInt(this.millisFse.expandString(methodContext.getEnvMap()));
             }
         } catch (Exception e) {
             throw new MiniLangRuntimeException("Exception thrown while parsing attributes: " + e.getMessage(), this);
