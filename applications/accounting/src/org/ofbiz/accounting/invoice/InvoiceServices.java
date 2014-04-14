@@ -18,10 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.accounting.invoice;
 
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVFormat.CSVFormatBuilder;
-import org.apache.commons.csv.CSVRecord;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
@@ -40,6 +36,9 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVFormat.CSVFormatBuilder;
+import org.apache.commons.csv.CSVRecord;
 import org.ofbiz.accounting.payment.PaymentGatewayServices;
 import org.ofbiz.accounting.payment.PaymentWorker;
 import org.ofbiz.accounting.util.UtilAccounting;
@@ -3356,147 +3355,147 @@ public class InvoiceServices {
         final CSVFormatBuilder builder = CSVFormat.newBuilder(',').withQuoteChar('"').withHeader();
         CSVFormat fmt = builder.build();
         List<String> errMsgs = FastList.newInstance();
-    	List<String> newErrMsgs = FastList.newInstance();
+        List<String> newErrMsgs = FastList.newInstance();
         String lastInvoiceId = null;
         String currentInvoiceId = null;
         String newInvoiceId = null;
         int invoicesCreated = 0;
-        
+
         if (fileBytes == null) {
-        	return ServiceUtil.returnError("Uploaded file data not found");
+            return ServiceUtil.returnError("Uploaded file data not found");
         }
-        
+
         try {
-        	for (final CSVRecord rec : fmt.parse(csvReader)) {
-        		currentInvoiceId =  rec.get("invoiceId");
-        		if (lastInvoiceId == null || !currentInvoiceId.equals(lastInvoiceId)) {
-        			newInvoiceId = null;
-        			Map<String, Object> invoice = UtilMisc.toMap(
-        				"invoiceTypeId", rec.get("invoiceTypeId"),
-        				"partyIdFrom", rec.get("partyIdFrom"),
-        				"partyId", rec.get("partyId"),
-        				"invoiceDate", rec.get("invoiceDate"),
-        				"dueDate", rec.get("dueDate"),
-        				"currencyUomId", rec.get("currencyUomId"),
-        				"description", rec.get("description"),
-        				"referenceNumber", rec.get("referenceNumber") + "   Imported: orginal InvoiceId: " + currentInvoiceId,
-                		"userLogin", userLogin
-                		);
+            for (final CSVRecord rec : fmt.parse(csvReader)) {
+                currentInvoiceId =  rec.get("invoiceId");
+                if (lastInvoiceId == null || !currentInvoiceId.equals(lastInvoiceId)) {
+                    newInvoiceId = null;
+                    Map<String, Object> invoice = UtilMisc.toMap(
+                            "invoiceTypeId", rec.get("invoiceTypeId"),
+                            "partyIdFrom", rec.get("partyIdFrom"),
+                            "partyId", rec.get("partyId"),
+                            "invoiceDate", rec.get("invoiceDate"),
+                            "dueDate", rec.get("dueDate"),
+                            "currencyUomId", rec.get("currencyUomId"),
+                            "description", rec.get("description"),
+                            "referenceNumber", rec.get("referenceNumber") + "   Imported: orginal InvoiceId: " + currentInvoiceId,
+                            "userLogin", userLogin
+                            );
 
-        			// replace values if required
-        			if (UtilValidate.isNotEmpty(rec.get("partyIdFromTrans"))) {
-        				invoice.put("partyIdFrom", rec.get("partyIdFromTrans"));
-        			}
-        			if (UtilValidate.isNotEmpty(rec.get("partyIdTrans"))) {
-        				invoice.put("partyId", rec.get("partyIdTrans"));
-        			}
+                    // replace values if required
+                    if (UtilValidate.isNotEmpty(rec.get("partyIdFromTrans"))) {
+                        invoice.put("partyIdFrom", rec.get("partyIdFromTrans"));
+                    }
+                    if (UtilValidate.isNotEmpty(rec.get("partyIdTrans"))) {
+                        invoice.put("partyId", rec.get("partyIdTrans"));
+                    }
 
-        			// invoice validation
+                    // invoice validation
                     try {
-            	    	newErrMsgs = FastList.newInstance();
+                        newErrMsgs = FastList.newInstance();
                         if (UtilValidate.isEmpty(invoice.get("partyIdFrom"))) {
-                        	newErrMsgs.add("Line number " + rec.getRecordNumber() + ": Mandatory Party Id From and Party Id From Trans missing for invoice: " + currentInvoiceId);
+                            newErrMsgs.add("Line number " + rec.getRecordNumber() + ": Mandatory Party Id From and Party Id From Trans missing for invoice: " + currentInvoiceId);
                         } else if (delegator.findOne("Party", UtilMisc.<String, Object>toMap("partyId", invoice.get("partyIdFrom")), false) == null) {
-                        	newErrMsgs.add("Line number " + rec.getRecordNumber() + ": partyIdFrom: " + invoice.get("partyIdFrom") + " not found for invoice: " + currentInvoiceId);
+                            newErrMsgs.add("Line number " + rec.getRecordNumber() + ": partyIdFrom: " + invoice.get("partyIdFrom") + " not found for invoice: " + currentInvoiceId);
                         }
                         if (UtilValidate.isEmpty(invoice.get("partyId"))) {
-                        	newErrMsgs.add("Line number " + rec.getRecordNumber() + ": Mandatory Party Id and Party Id Trans missing for invoice: " + currentInvoiceId);
+                            newErrMsgs.add("Line number " + rec.getRecordNumber() + ": Mandatory Party Id and Party Id Trans missing for invoice: " + currentInvoiceId);
                         } else if (delegator.findOne("Party", UtilMisc.<String, Object>toMap("partyId", invoice.get("partyId")), false) == null) {
-                        	newErrMsgs.add("Line number " + rec.getRecordNumber() + ": partyId: " + invoice.get("partyId") + " not found for invoice: " + currentInvoiceId);
+                            newErrMsgs.add("Line number " + rec.getRecordNumber() + ": partyId: " + invoice.get("partyId") + " not found for invoice: " + currentInvoiceId);
                         }
                         if (UtilValidate.isEmpty(invoice.get("invoiceTypeId"))) {
-                        	newErrMsgs.add("Line number " + rec.getRecordNumber() + ": Mandatory Invoice Type missing for invoice: " + currentInvoiceId);
+                            newErrMsgs.add("Line number " + rec.getRecordNumber() + ": Mandatory Invoice Type missing for invoice: " + currentInvoiceId);
                         } else if (delegator.findOne("InvoiceType", UtilMisc.<String, Object>toMap("invoiceTypeId", invoice.get("invoiceTypeId")), false) == null) {
-                        	newErrMsgs.add("Line number " + rec.getRecordNumber() + ": InvoiceItem type id: " + invoice.get("invoiceTypeId") + " not found for invoice: " + currentInvoiceId);
+                            newErrMsgs.add("Line number " + rec.getRecordNumber() + ": InvoiceItem type id: " + invoice.get("invoiceTypeId") + " not found for invoice: " + currentInvoiceId);
                         }
                         GenericValue invoiceType = delegator.findOne("InvoiceType", UtilMisc.<String, Object>toMap("invoiceTypeId", invoice.get("invoiceTypeId")), false);
                         if ("PURCHASE_INVOICE".equals(invoiceType.getString("parentTypeId")) && !invoice.get("partyId").equals(organizationPartyId)) {
-                        	newErrMsgs.add("Line number " + rec.getRecordNumber() + ": A purchase type invoice should have the partyId 'To' being the organizationPartyId(=" + organizationPartyId + ")! however is " + invoice.get("partyId") +"! invoice: " + currentInvoiceId);
+                            newErrMsgs.add("Line number " + rec.getRecordNumber() + ": A purchase type invoice should have the partyId 'To' being the organizationPartyId(=" + organizationPartyId + ")! however is " + invoice.get("partyId") +"! invoice: " + currentInvoiceId);
                         }
                         if ("SALES_INVOICE".equals(invoiceType.getString("parentTypeId")) && !invoice.get("partyIdFrom").equals(organizationPartyId)) {
-                        	newErrMsgs.add("Line number " + rec.getRecordNumber() + ": A sales type invoice should have the partyId 'from' being the organizationPartyId(=" + organizationPartyId + ")! however is " + invoice.get("partyIdFrom") +"! invoice: " + currentInvoiceId);
+                            newErrMsgs.add("Line number " + rec.getRecordNumber() + ": A sales type invoice should have the partyId 'from' being the organizationPartyId(=" + organizationPartyId + ")! however is " + invoice.get("partyIdFrom") +"! invoice: " + currentInvoiceId);
                         }
-                        
-                    
+
+
                     } catch (GenericEntityException e) {
                         Debug.logError("Valication checking problem against database. due to " + e.getMessage(), module);
                     }
 
                     if (newErrMsgs.size() > 0) {
-        				errMsgs.addAll(newErrMsgs);
+                        errMsgs.addAll(newErrMsgs);
                     } else {
                         Map<String, Object> invoiceResult = null;
-                    	try {
+                        try {
                             invoiceResult = dispatcher.runSync("createInvoice", invoice);
-                    		} catch (GenericServiceException e) {
-                    			Debug.logError(e, module);
-                    			return ServiceUtil.returnError(e.getMessage());
-                    		}
+                        } catch (GenericServiceException e) {
+                            Debug.logError(e, module);
+                            return ServiceUtil.returnError(e.getMessage());
+                        }
                         newInvoiceId = (String) invoiceResult.get("invoiceId");
                         invoicesCreated++;
-        			}
+                    }
                     lastInvoiceId = currentInvoiceId;
-        		}
+                }
 
-        		
-        		if (newInvoiceId != null) {
-        			Map<String, Object> invoiceItem = UtilMisc.toMap(
-                    		"invoiceId", newInvoiceId,
-                    		"invoiceItemSeqId", rec.get("invoiceItemSeqId"),
-                    		"invoiceItemTypeId", rec.get("invoiceItemTypeId"),
-                    		"productId", rec.get("productId"),
-                    		"description", rec.get("itemDescription"),
-                    		"amount", rec.get("amount"),
-                    		"quantity", rec.get("quantity"),
-                    		"userLogin", userLogin
-                    		);
 
-        			if (UtilValidate.isNotEmpty(rec.get("productIdTrans"))) {
-        				invoiceItem.put("productId", rec.get("productIdTrans"));
-        			}
-        			// invoice item validation
+                if (newInvoiceId != null) {
+                    Map<String, Object> invoiceItem = UtilMisc.toMap(
+                            "invoiceId", newInvoiceId,
+                            "invoiceItemSeqId", rec.get("invoiceItemSeqId"),
+                            "invoiceItemTypeId", rec.get("invoiceItemTypeId"),
+                            "productId", rec.get("productId"),
+                            "description", rec.get("itemDescription"),
+                            "amount", rec.get("amount"),
+                            "quantity", rec.get("quantity"),
+                            "userLogin", userLogin
+                            );
+
+                    if (UtilValidate.isNotEmpty(rec.get("productIdTrans"))) {
+                        invoiceItem.put("productId", rec.get("productIdTrans"));
+                    }
+                    // invoice item validation
                     try {
-            	    	newErrMsgs = FastList.newInstance();
+                        newErrMsgs = FastList.newInstance();
                         if (UtilValidate.isEmpty(invoiceItem.get("invoiceItemSeqId"))) {
-                        	newErrMsgs.add("Line number " + rec.getRecordNumber() + ": Mandatory item sequence Id missing for invoice: " + currentInvoiceId);
+                            newErrMsgs.add("Line number " + rec.getRecordNumber() + ": Mandatory item sequence Id missing for invoice: " + currentInvoiceId);
                         } 
                         if (UtilValidate.isEmpty(invoiceItem.get("invoiceItemTypeId"))) {
-                        	newErrMsgs.add("Line number " + rec.getRecordNumber() + ": Mandatory invoice item type missing for invoice: " + currentInvoiceId);
+                            newErrMsgs.add("Line number " + rec.getRecordNumber() + ": Mandatory invoice item type missing for invoice: " + currentInvoiceId);
                         } else if (delegator.findOne("InvoiceItemType", UtilMisc.<String, Object>toMap("invoiceItemTypeId", invoiceItem.get("invoiceItemTypeId")), false) == null) {
-                        	newErrMsgs.add("Line number " + rec.getRecordNumber() + ": InvoiceItem Item type id: " + invoiceItem.get("invoiceItemTypeId") + " not found for invoice: " + currentInvoiceId + " Item seqId:" + invoiceItem.get("invoiceItemSeqId"));
+                            newErrMsgs.add("Line number " + rec.getRecordNumber() + ": InvoiceItem Item type id: " + invoiceItem.get("invoiceItemTypeId") + " not found for invoice: " + currentInvoiceId + " Item seqId:" + invoiceItem.get("invoiceItemSeqId"));
                         } 
                         if (UtilValidate.isEmpty(invoiceItem.get("productId")) && UtilValidate.isEmpty(invoiceItem.get("description"))) {
                         }                    
                         if (UtilValidate.isNotEmpty(invoiceItem.get("productId")) && delegator.findOne("Product", UtilMisc.<String, Object>toMap("productId", invoiceItem.get("productId")), false) == null) {
-                        	newErrMsgs.add("Line number " + rec.getRecordNumber() + ": Product Id: " + invoiceItem.get("productId") + " not found for invoice: " + currentInvoiceId + " Item seqId:" + invoiceItem.get("invoiceItemSeqId"));
+                            newErrMsgs.add("Line number " + rec.getRecordNumber() + ": Product Id: " + invoiceItem.get("productId") + " not found for invoice: " + currentInvoiceId + " Item seqId:" + invoiceItem.get("invoiceItemSeqId"));
                         } 
                         if (UtilValidate.isEmpty(invoiceItem.get("amount")) && UtilValidate.isEmpty(invoiceItem.get("quantity"))) {
-                        	newErrMsgs.add("Line number " + rec.getRecordNumber() + ": Either or both quantity and amount is required for invoice: " + currentInvoiceId + " Item seqId:" + invoiceItem.get("invoiceItemSeqId"));
+                            newErrMsgs.add("Line number " + rec.getRecordNumber() + ": Either or both quantity and amount is required for invoice: " + currentInvoiceId + " Item seqId:" + invoiceItem.get("invoiceItemSeqId"));
                         }                    
                     } catch (GenericEntityException e) {
                         Debug.logError("Validation checking problem against database. due to " + e.getMessage(), module);
                     }
 
                     if (newErrMsgs.size() > 0) {
-        				errMsgs.addAll(newErrMsgs);
+                        errMsgs.addAll(newErrMsgs);
                     } else {
-            			try {
-            				dispatcher.runSync("createInvoiceItem", invoiceItem);
-            			} catch (GenericServiceException e) {
-            				Debug.logError(e, module);
-            				return ServiceUtil.returnError(e.getMessage());
-            			}
-        			}
-        		}
-        	}
-            
+                        try {
+                            dispatcher.runSync("createInvoiceItem", invoiceItem);
+                        } catch (GenericServiceException e) {
+                            Debug.logError(e, module);
+                            return ServiceUtil.returnError(e.getMessage());
+                        }
+                    }
+                }
+            }
+
         } catch (IOException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
-        
+
         if (errMsgs.size() > 0) {
-        	return ServiceUtil.returnError(errMsgs);
+            return ServiceUtil.returnError(errMsgs);
         }
 
         Map<String, Object> result = ServiceUtil.returnSuccess(invoicesCreated + " new invoice(s) created");
