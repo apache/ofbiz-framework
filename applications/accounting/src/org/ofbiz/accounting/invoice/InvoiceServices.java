@@ -3428,6 +3428,7 @@ public class InvoiceServices {
                         try {
                             invoiceResult = dispatcher.runSync("createInvoice", invoice);
                         } catch (GenericServiceException e) {
+                            csvReader.close();
                             Debug.logError(e, module);
                             return ServiceUtil.returnError(e.getMessage());
                         }
@@ -3482,6 +3483,7 @@ public class InvoiceServices {
                         try {
                             dispatcher.runSync("createInvoiceItem", invoiceItem);
                         } catch (GenericServiceException e) {
+                            csvReader.close();
                             Debug.logError(e, module);
                             return ServiceUtil.returnError(e.getMessage());
                         }
