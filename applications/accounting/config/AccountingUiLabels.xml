@@ -4843,7 +4843,7 @@
         <value xml:lang="de">Problem bei der Erstellung einer Rechnung aus Auftragspositionen: ${reason} </value>
         <value xml:lang="en">Entity/data problem creating invoice from order items: ${reason} </value>
         <value xml:lang="es">Problema Entidad/datos creando factura desde orden de elmentos: ${reason}</value>
-        <value xml:lang="fr">Problème d'entité/données en créant une facture à partir des lignes de la commande: ${reason} </value>
+        <value xml:lang="fr">Problème d'entité/données lors de la création d'une facture à partir des lignes de la commande: ${reason} </value>
         <value xml:lang="hi_IN">आदेश मदो से चालान बनाने में इकाई/डाटा समस्या :${reason}</value>
         <value xml:lang="it">Entità/data problemi creazione fattura da righe ordine: ${reason} </value>
         <value xml:lang="ja">注文アイテムから請求書を作成中に、エンティティ/データの問題があります: ${reason}</value>
