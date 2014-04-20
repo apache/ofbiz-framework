@@ -642,21 +642,28 @@ public class AIMPaymentServices {
 
     private static void processAuthTransResult(Map<String, Object> request, Map<String, Object> reply, Map<String, Object> results) {
         AuthorizeResponse ar = (AuthorizeResponse) reply.get("authorizeResponse");
-        Boolean authResult = (Boolean) reply.get("authResult");
-        results.put("authResult", new Boolean(authResult.booleanValue()));
-        results.put("authFlag", ar.getReasonCode());
-        results.put("authMessage", ar.getReasonText());
-        if (authResult.booleanValue()) { //passed
-            results.put("authCode", ar.getAuthorizationCode());
-            results.put("authRefNum", ar.getTransactionId());
-            results.put("cvCode", ar.getCvResult());
-            results.put("avsCode", ar.getAvsResult());
-            if (BigDecimal.ZERO.compareTo(ar.getAmount()) == 0) {
-                results.put("processAmount", getXAmount(request));
+        try {
+            Boolean authResult = (Boolean) reply.get("authResult");
+            results.put("authResult", new Boolean(authResult.booleanValue()));
+            results.put("authFlag", ar.getReasonCode());
+            results.put("authMessage", ar.getReasonText());
+            if (authResult.booleanValue()) { //passed
+                results.put("authCode", ar.getAuthorizationCode());
+                results.put("authRefNum", ar.getTransactionId());
+                results.put("cvCode", ar.getCvResult());
+                results.put("avsCode", ar.getAvsResult());
+                if (BigDecimal.ZERO.compareTo(ar.getAmount()) == 0) {
+                    results.put("processAmount", getXAmount(request));
+                } else {
+                    results.put("processAmount", ar.getAmount());
+                }
             } else {
-                results.put("processAmount", ar.getAmount());
+                results.put("authCode", ar.getResponseCode());
+                results.put("processAmount", BigDecimal.ZERO);
+                results.put("authRefNum", AuthorizeResponse.ERROR);
             }
-        } else {
+        } catch (Exception ex) {
+            Debug.logError(ex, module);
             results.put("authCode", ar.getResponseCode());
             results.put("processAmount", BigDecimal.ZERO);
             results.put("authRefNum", AuthorizeResponse.ERROR);
@@ -666,40 +673,50 @@ public class AIMPaymentServices {
 
     private static void processCaptureTransResult(Map<String, Object> request, Map<String, Object> reply, Map<String, Object> results) {
         AuthorizeResponse ar = (AuthorizeResponse) reply.get("authorizeResponse");
-        Boolean captureResult = (Boolean) reply.get("authResult");
-        results.put("captureResult", new Boolean(captureResult.booleanValue()));
-        results.put("captureFlag", ar.getReasonCode());
-        results.put("captureMessage", ar.getReasonText());
-        results.put("captureRefNum", ar.getTransactionId());
-        if (captureResult.booleanValue()) { //passed
-            results.put("captureCode", ar.getAuthorizationCode());
-            if (BigDecimal.ZERO.compareTo(ar.getAmount()) == 0) {
-                results.put("captureAmount", getXAmount(request));
+        try {
+            Boolean captureResult = (Boolean) reply.get("authResult");
+            results.put("captureResult", new Boolean(captureResult.booleanValue()));
+            results.put("captureFlag", ar.getReasonCode());
+            results.put("captureMessage", ar.getReasonText());
+            results.put("captureRefNum", ar.getTransactionId());
+            if (captureResult.booleanValue()) { //passed
+                results.put("captureCode", ar.getAuthorizationCode());
+                if (BigDecimal.ZERO.compareTo(ar.getAmount()) == 0) {
+                    results.put("captureAmount", getXAmount(request));
+                } else {
+                    results.put("captureAmount", ar.getAmount());
+                }
             } else {
-                results.put("captureAmount", ar.getAmount());
+                results.put("captureAmount", BigDecimal.ZERO);
             }
-        } else {
+        } catch (Exception ex) {
+            Debug.logError(ex, module);
             results.put("captureAmount", BigDecimal.ZERO);
         }
-        Debug.logInfo("processCaptureTransResult: " + results.toString(),module);
+        Debug.logInfo("captureRefNum: " + results.toString(),module);
     }
 
     private static Map<String, Object> processRefundTransResult(Map<String, Object> request, Map<String, Object> reply) {
         Map<String, Object> results = FastMap.newInstance();
         AuthorizeResponse ar = (AuthorizeResponse) reply.get("authorizeResponse");
-        Boolean captureResult = (Boolean) reply.get("authResult");
-        results.put("refundResult", new Boolean(captureResult.booleanValue()));
-        results.put("refundFlag", ar.getReasonCode());
-        results.put("refundMessage", ar.getReasonText());
-        results.put("refundRefNum", ar.getTransactionId());
-        if (captureResult.booleanValue()) { //passed
-            results.put("refundCode", ar.getAuthorizationCode());
-            if (BigDecimal.ZERO.compareTo(ar.getAmount()) == 0) {
-                results.put("refundAmount", getXAmount(request));
+        try {
+            Boolean captureResult = (Boolean) reply.get("authResult");
+            results.put("refundResult", new Boolean(captureResult.booleanValue()));
+            results.put("refundFlag", ar.getReasonCode());
+            results.put("refundMessage", ar.getReasonText());
+            results.put("refundRefNum", ar.getTransactionId());
+            if (captureResult.booleanValue()) { //passed
+                results.put("refundCode", ar.getAuthorizationCode());
+                if (BigDecimal.ZERO.compareTo(ar.getAmount()) == 0) {
+                    results.put("refundAmount", getXAmount(request));
+                } else {
+                    results.put("refundAmount", ar.getAmount());
+                }
             } else {
-                results.put("refundAmount", ar.getAmount());
+                results.put("refundAmount", BigDecimal.ZERO);
             }
-        } else {
+        } catch (Exception ex) {
+            Debug.logError(ex, module);
             results.put("refundAmount", BigDecimal.ZERO);
         }
         Debug.logInfo("processRefundTransResult: " + results.toString(),module);
@@ -709,19 +726,24 @@ public class AIMPaymentServices {
     private static Map<String, Object> processReleaseTransResult(Map<String, Object> request, Map<String, Object> reply) {
         Map<String, Object> results = FastMap.newInstance();
         AuthorizeResponse ar = (AuthorizeResponse) reply.get("authorizeResponse");
-        Boolean captureResult = (Boolean) reply.get("authResult");
-        results.put("releaseResult", new Boolean(captureResult.booleanValue()));
-        results.put("releaseFlag", ar.getReasonCode());
-        results.put("releaseMessage", ar.getReasonText());
-        results.put("releaseRefNum", ar.getTransactionId());
-        if (captureResult.booleanValue()) { //passed
-            results.put("releaseCode", ar.getAuthorizationCode());
-            if (BigDecimal.ZERO.compareTo(ar.getAmount()) == 0) {
-                results.put("releaseAmount", getXAmount(request));
+        try {
+            Boolean captureResult = (Boolean) reply.get("authResult");
+            results.put("releaseResult", new Boolean(captureResult.booleanValue()));
+            results.put("releaseFlag", ar.getReasonCode());
+            results.put("releaseMessage", ar.getReasonText());
+            results.put("releaseRefNum", ar.getTransactionId());
+            if (captureResult.booleanValue()) { //passed
+                results.put("releaseCode", ar.getAuthorizationCode());
+                if (BigDecimal.ZERO.compareTo(ar.getAmount()) == 0) {
+                    results.put("releaseAmount", getXAmount(request));
+                } else {
+                    results.put("releaseAmount", ar.getAmount());
+                }
             } else {
-                results.put("releaseAmount", ar.getAmount());
+                results.put("releaseAmount", BigDecimal.ZERO);
             }
-        } else {
+        } catch (Exception ex) {
+            Debug.logError(ex, module);
             results.put("releaseAmount", BigDecimal.ZERO);
         }
         Debug.logInfo("processReleaseTransResult: " + results.toString(),module);
@@ -730,6 +752,7 @@ public class AIMPaymentServices {
 
     private static void processAuthCaptureTransResult(Map<String, Object> request, Map<String, Object> reply, Map<String, Object> results) {
         AuthorizeResponse ar = (AuthorizeResponse) reply.get("authorizeResponse");
+        try {
         Boolean authResult = (Boolean) reply.get("authResult");
         results.put("authResult", new Boolean(authResult.booleanValue()));
         results.put("authFlag", ar.getReasonCode());
@@ -749,6 +772,12 @@ public class AIMPaymentServices {
                 results.put("processAmount", ar.getAmount());
             }
         } else {
+            results.put("authCode", ar.getResponseCode());
+            results.put("processAmount", BigDecimal.ZERO);
+            results.put("authRefNum", AuthorizeResponse.ERROR);
+        }
+        } catch (Exception ex) {
+            Debug.logError(ex, module);
             results.put("authCode", ar.getResponseCode());
             results.put("processAmount", BigDecimal.ZERO);
             results.put("authRefNum", AuthorizeResponse.ERROR);
