@@ -42,7 +42,6 @@ under the License.
 
     <!--
         Based on: ISO 3166  https://www.iso.org/obp/ui/#search 
-                  and http://www.iso.org/iso/home/standards/country_codes/country_names_and_code_elements.htm. 
         See also: http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
                   http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
                   http://en.wikipedia.org/wiki/ISO_3166-1_numeric
