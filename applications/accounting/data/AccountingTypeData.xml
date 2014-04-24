@@ -18,6 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>
+    <AcctgTransType acctgTransTypeId="_NA_" description="Not Applicable" hasTable="N" parentTypeId=""/>
     <AcctgTransType acctgTransTypeId="INTERNAL_ACCTG_TRANS" description="Internal" hasTable="Y" parentTypeId=""/>
     <AcctgTransType acctgTransTypeId="AMORTIZATION" description="Amortization" hasTable="N" parentTypeId="INTERNAL_ACCTG_TRANS"/>
     <AcctgTransType acctgTransTypeId="DEPRECIATION" description="Depreciation" hasTable="Y" parentTypeId="INTERNAL_ACCTG_TRANS"/>
@@ -301,6 +302,7 @@ under the License.
     <GlAccountClass description="Accumulated Amortization" glAccountClassId="ACCUM_AMORTIZATION" parentClassId="CONTRA_ASSET"/>
     <GlAccountClass description="Non-Posting" glAccountClassId="NON_POSTING" parentClassId="DEBIT"/>
 
+    <GlAccountType description="Not Applicable" glAccountTypeId="_NA_" hasTable="N" parentTypeId=""/>
     <GlAccountType description="Accounts Receivable" glAccountTypeId="ACCOUNTS_RECEIVABLE" hasTable="N" parentTypeId=""/>
     <GlAccountType description="Accounts Payable" glAccountTypeId="ACCOUNTS_PAYABLE" hasTable="N" parentTypeId=""/>
     <GlAccountType description="Balance" glAccountTypeId="BALANCE_ACCOUNT" hasTable="N" parentTypeId=""/>
@@ -368,6 +370,7 @@ under the License.
     <GlAccountType description="Foreign Exchange Gain" glAccountTypeId="FX_GAIN_ACCOUNT" hasTable="N" parentTypeId="FX_GAIN_LOSS_ACCT"/>
     <GlAccountType description="Foreign Exchange Loss" glAccountTypeId="FX_LOSS_ACCOUNT" hasTable="N" parentTypeId="FX_GAIN_LOSS_ACCT"/>
 
+    <GlResourceType description="Not Applicable" glResourceTypeId="_NA_"/>
     <GlResourceType description="Money" glResourceTypeId="MONEY"/>
     <GlResourceType description="Raw Materials" glResourceTypeId="RAW_MATERIALS"/>
     <GlResourceType description="Labor" glResourceTypeId="LABOR"/>

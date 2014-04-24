@@ -25,20 +25,20 @@ under the License.
             <sub-node node-name="node-body">
                 <entity-and entity-name="GlAccount">
                     <field-map field-name="parentGlAccountId" from-field="null"/>
-                    <order-by field-name="glAccountId"/>
+                    <order-by field-name="accountCode"/>
                 </entity-and>
             </sub-node>
         </node>
         <node name="node-body">
             <entity-one entity-name="GlAccount" value-field="glAccount"></entity-one>
-            <link target="GlAccountNavigate" text="${glAccountId} ${glAccount.accountName}">
+            <link target="GlAccountNavigate" text="${glAccount.accountCode} ${glAccount.accountName}">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="trail"/>
             </link>
             <sub-node node-name="node-body">
                 <entity-and entity-name="GlAccount">
                     <field-map field-name="parentGlAccountId" from-field="glAccountId"/>
-                    <order-by field-name="glAccountId"/>
+                    <order-by field-name="accountCode"/>
                 </entity-and>
             </sub-node>
         </node>
@@ -48,20 +48,20 @@ under the License.
             <sub-node node-name="node-body">
                 <entity-and entity-name="GlAccount">
                     <field-map field-name="parentGlAccountId" from-field="null"/>
-                    <order-by field-name="glAccountId"/>
+                    <order-by field-name="accountCode"/>
                 </entity-and>
             </sub-node>
         </node>
         <node name="node-body">
             <entity-one entity-name="GlAccount" value-field="glAccount"></entity-one>
-            <link target="GlAccountNavigate" text="${glAccountId} ${glAccount.accountName}">
+            <link target="GlAccountNavigate" text="${glAccount.accountCode} ${glAccount.accountName}">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="trail"/>
             </link>
             <sub-node node-name="node-body">
                 <entity-and entity-name="GlAccount">
                     <field-map field-name="parentGlAccountId" from-field="glAccountId"/>
-                    <order-by field-name="glAccountId"/>
+                    <order-by field-name="accountCode"/>
                 </entity-and>
             </sub-node>
         </node>

@@ -31,8 +31,8 @@ under the License.
             location="component://accounting/script/org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="createGlAccount" auth="true">
         <description>Create a GlAccount record</description>
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="INOUT" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="all" mode="IN" optional="true"/>
         <override name="glAccountTypeId" optional="false"/>
         <override name="glAccountClassId" optional="false"/>
         <override name="glResourceTypeId" optional="false"/>

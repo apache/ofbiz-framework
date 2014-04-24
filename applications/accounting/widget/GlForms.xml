@@ -88,6 +88,7 @@ under the License.
                 <select-field field-name="acctgTransId"/>
                 <select-field field-name="transactionDate"/>
                 <select-field field-name="acctgTransTypeId"/>
+                <select-field field-name="description"/>
                 <select-field field-name="glFiscalTypeId"/>
                 <select-field field-name="invoiceId"/>
                 <select-field field-name="paymentId"/>
@@ -107,6 +108,7 @@ under the License.
         </field>
         <field name="transactionDate"><display/></field>
         <field name="acctgTransTypeId" title="${uiLabelMap.FormFieldTitle_acctgTransType}"><display-entity entity-name="AcctgTransType"/></field>
+        <field name="description"><display/></field>
         <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}"><display-entity entity-name="GlFiscalType"/></field>
         <field name="invoiceId" use-when="invoiceId!=null" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${invoiceId}" target="editInvoice">
@@ -563,8 +565,7 @@ under the License.
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
 
-    <form name="EditAcctgTransEntry" type="single" target="updateAcctgTransEntry" default-map-name="acctgTransEntry" default-entity-name="AcctgTransEntry">
-        <alt-target use-when="acctgTransEntry==null" target="createAcctgTransEntry"/>
+    <form name="EditAcctgTransEntry" type="single" target="createAcctgTransEntry" default-entity-name="AcctgTransEntry">
         <field name="organizationPartyId"><hidden/></field>
         <field name="acctgTransId"><hidden/></field>
         <field name="acctgTransEntrySeqId"><hidden/></field>
@@ -576,7 +577,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="glAccountId" position="2">
+        <field name="glAccountId" position="2" entry-name="resetFieldValue">
             <drop-down allow-empty="true">
                 <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="parameters.organizationPartyId"/>
@@ -584,14 +585,14 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="debitCreditFlag" position="1">
+        <field name="debitCreditFlag" position="1" entry-name="resetFieldValue">
             <drop-down current="selected">
                 <option description="${uiLabelMap.FormFieldTitle_credit}" key="C"/>
                 <option description="${uiLabelMap.FormFieldTitle_debit}" key="D"/>
             </drop-down>
         </field>
         <field name="partyId" position="2"><text size="30"/></field>
-        <field name="origAmount" position="1"><text size="30"/></field>
+        <field name="origAmount" position="1" entry-name="resetFieldValue"><text size="30"/></field>
         <field name="origCurrencyUomId" position="2">
             <drop-down allow-empty="true" no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
@@ -610,12 +611,18 @@ under the License.
         </field>
         <field name="voucherRef" position="2"><text size="30"/></field>
         <field name="productId" position="1"><text size="20"/></field>
-        <field name="reconcileStatusId" position="2"><text size="30"/></field>
+        <field name="reconcileStatusId" position="2" title="${uiLabelMap.FormFieldTitle_reconcileStatus}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
+                    <entity-constraint name="statusTypeId" operator="equals" value="ACCTG_ENREC_STATUS"/>
+                    <entity-order-by field-name="statusId"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="settlementTermId" position="1"><text size="20"/></field>
         <field name="isSummary" position="2"><text size="10"/></field>
-        <field name="description" position="1"><text size="30"/></field>
-        <field use-when="acctgTransEntry!=null" name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext" ><submit button-type="text-link"/></field>
-        <field use-when="acctgTransEntry==null" name="createButton" title="${uiLabelMap.CommonCreate}" widget-style="buttontext" ><submit button-type="text-link"/></field>
+        <field name="description" position="1" entry-name="resetFieldValue"><text size="30"/></field>
+        <field name="createButton" title="${uiLabelMap.CommonCreate}" widget-style="buttontext" ><submit button-type="text-link"/></field>
     </form>
     <form name="ListAcctgTransEntries" type="list" list-name="acctgTransEntries" default-entity-name="AcctgTransEntry" target="updateAcctgTransEntry"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -686,7 +693,7 @@ under the License.
         <auto-fields-service service-name="createAcctgTrans"/>
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="acctgTransTypeId" title="${uiLabelMap.FormFieldTitle_acctgTransType}" position="1">
-            <drop-down>
+            <drop-down no-current-selected-key="_NA_">
                 <entity-options entity-name="AcctgTransType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
