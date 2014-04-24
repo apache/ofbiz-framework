@@ -52,6 +52,7 @@ under the License.
     <simple-method method-name="deleteRequirement" short-description="Delete a requirement">
         <entity-one entity-name="Requirement" value-field="requirement" auto-field-map="true"/>
         <check-errors/>
+        <remove-related value-field="requirement" relation-name="RequirementRole"/>
         <remove-related value-field="requirement" relation-name="RequirementCustRequest"/>
         <remove-value value-field="requirement"/>
     </simple-method>
