@@ -1004,7 +1004,7 @@ under the License.
             package-name="org.ofbiz.content.data"
             title="Image Data Object Entity">
       <field name="dataResourceId" type="id-ne"></field>
-      <field name="imageData" type="blob"></field>
+      <field name="imageData" type="byte-array"></field>
       <prim-key field="dataResourceId"/>
       <relation type="one" fk-name="DATA_REC_IMAGE" rel-entity-name="DataResource">
         <key-map field-name="dataResourceId"/>
