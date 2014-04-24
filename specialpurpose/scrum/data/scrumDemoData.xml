@@ -100,11 +100,11 @@ under the License.
     <UserLoginSecurityGroup userLoginId="scrumadmin" groupId="SCRUM_ADMIN" fromDate="2010-08-09 11:44:08.418"/>
     
     <!-- ContactMech Password of all E-mails are "aws12345"-->
-    <ContactMech contactMechId="SCRUM_CONTACT01" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbizScrumProductOwner@gmail.com"/>
-    <ContactMech contactMechId="SCRUM_CONTACT02" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbizScrumMaster@gmail.com"/>
-    <ContactMech contactMechId="SCRUM_CONTACT03" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbizScrumTeam@gmail.com"/>
-    <ContactMech contactMechId="SCRUM_CONTACT04" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbizStakeholder@gmail.com"/>
-    <ContactMech contactMechId="SCRUM_CONTACT06" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbizScrumAdmin@gmail.com"/>
+    <ContactMech contactMechId="SCRUM_CONTACT01" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbizScrumProductOwner@example.com"/>
+    <ContactMech contactMechId="SCRUM_CONTACT02" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbizScrumMaster@example.com"/>
+    <ContactMech contactMechId="SCRUM_CONTACT03" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbizScrumTeam@example.com"/>
+    <ContactMech contactMechId="SCRUM_CONTACT04" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbizStakeholder@example.com"/>
+    <ContactMech contactMechId="SCRUM_CONTACT06" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbizScrumAdmin@example.com"/>
     
     <PartyContactMech contactMechId="SCRUM_CONTACT01" fromDate="2010-09-24 00:00:00.0" partyId="DemoCustomer-1"/>
     <PartyContactMech contactMechId="SCRUM_CONTACT01" fromDate="2010-09-24 00:00:00.0" partyId="DemoCustomer-2"/>
@@ -126,7 +126,7 @@ under the License.
     <PartyRole partyId="DemoScrumCompany" roleTypeId="PRODUCT_OWNER_COMP" lastUpdatedStamp="2010-11-17 14:50:12.197" lastUpdatedTxStamp="2010-11-17 14:50:11.775" createdStamp="2010-11-17 14:50:12.197" createdTxStamp="2010-11-17 14:50:11.775"/>
     <PartyGroup partyId="DemoScrumCompany" groupName="Demo Scrum Company"/>
     
-    <ContactMech contactMechId="SCRUM_CONTACT07" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbizScrumCompany@gmail.com"/>
+    <ContactMech contactMechId="SCRUM_CONTACT07" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbizScrumCompany@example.com"/>
     <PartyContactMech contactMechId="SCRUM_CONTACT07" fromDate="2010-09-24 00:00:00.0" partyId="DemoScrumCompany"/>
     <PartyContactMechPurpose partyId="DemoScrumCompany" contactMechId="SCRUM_CONTACT07" contactMechPurposeTypeId="SUPPORT_EMAIL" fromDate="2010-07-23 00:00:00.000"/>
     
@@ -150,7 +150,7 @@ under the License.
     <PartyGroup partyId="DemoScrumCompany2" groupName="Demo Scrum Company 2"/>
     <PartyRelationship partyIdFrom="DemoScrumCompany2" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer-2" roleTypeIdTo="CONTACT" fromDate="2010-07-23 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
     
-    <ContactMech contactMechId="SCRUM_CONTACT08" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbizScrumCompany2@gmail.com"/>
+    <ContactMech contactMechId="SCRUM_CONTACT08" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbizScrumCompany2@example.com"/>
     <PartyContactMech contactMechId="SCRUM_CONTACT08" fromDate="2010-09-24 00:00:00.0" partyId="DemoScrumCompany2"/>
     <PartyContactMechPurpose partyId="DemoScrumCompany2" contactMechId="SCRUM_CONTACT08" contactMechPurposeTypeId="SUPPORT_EMAIL" fromDate="2010-07-23 00:00:00.000"/>
     
