@@ -18,7 +18,7 @@ under the License.
 -->
 <#escape x as x?xml>
     <#if orderHeader?has_content>
-        <fo:table border-spacing="3pt">
+        <fo:table table-layout="fixed" border-spacing="3pt">
             <fo:table-column column-width="3in"/>
             <fo:table-column column-width="1in"/>
             <fo:table-column column-width="1in"/>
@@ -29,7 +29,7 @@ under the License.
                     <fo:table-cell>
                         <fo:block font-weight="bold">${uiLabelMap.OrderProduct}</fo:block>
                     </fo:table-cell>
-                    <fo:table-cell></fo:table-cell>
+                    <fo:table-cell><fo:block></fo:block></fo:table-cell>
                     <fo:table-cell text-align="right">
                         <fo:block font-weight="bold">${uiLabelMap.OrderQuantity}</fo:block>
                     </fo:table-cell>
@@ -103,8 +103,8 @@ under the License.
                     <#assign adjustmentAmount = Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(orderHeaderAdjustment, orderSubTotal)>
                     <#if adjustmentAmount != 0>
                         <fo:table-row>
-                            <fo:table-cell></fo:table-cell>
-                            <fo:table-cell></fo:table-cell>
+                            <fo:table-cell><fo:block></fo:block></fo:table-cell>
+                            <fo:table-cell><fo:block></fo:block></fo:table-cell>
                             <fo:table-cell number-columns-spanned="2">
                                 <fo:block font-weight="bold">
                                     ${adjustmentType.get("description",locale)} :
@@ -121,8 +121,8 @@ under the License.
                 </#list>
                 <#-- summary of order amounts -->
                 <fo:table-row>
-                    <fo:table-cell></fo:table-cell>
-                    <fo:table-cell></fo:table-cell>
+                    <fo:table-cell><fo:block></fo:block></fo:table-cell>
+                    <fo:table-cell><fo:block></fo:block></fo:table-cell>
                     <fo:table-cell number-columns-spanned="2">
                         <fo:block font-weight="bold">${uiLabelMap.OrderItemsSubTotal}</fo:block>
                     </fo:table-cell>
@@ -132,8 +132,8 @@ under the License.
                 </fo:table-row>
                 <#if otherAdjAmount != 0>
                     <fo:table-row>
-                        <fo:table-cell></fo:table-cell>
-                        <fo:table-cell></fo:table-cell>
+                        <fo:table-cell><fo:block></fo:block></fo:table-cell>
+                        <fo:table-cell><fo:block></fo:block></fo:table-cell>
                         <fo:table-cell number-columns-spanned="2">
                             <fo:block font-weight="bold">${uiLabelMap.OrderTotalOtherOrderAdjustments}</fo:block>
                         </fo:table-cell>
@@ -144,8 +144,8 @@ under the License.
                 </#if>
                 <#if shippingAmount != 0>
                     <fo:table-row>
-                        <fo:table-cell></fo:table-cell>
-                        <fo:table-cell></fo:table-cell>
+                        <fo:table-cell><fo:block></fo:block></fo:table-cell>
+                        <fo:table-cell><fo:block></fo:block></fo:table-cell>
                         <fo:table-cell number-columns-spanned="2">
                             <fo:block font-weight="bold">${uiLabelMap.OrderTotalShippingAndHandling}</fo:block>
                         </fo:table-cell>
@@ -156,8 +156,8 @@ under the License.
                 </#if>
                 <#if taxAmount != 0>
                     <fo:table-row>
-                        <fo:table-cell></fo:table-cell>
-                        <fo:table-cell></fo:table-cell>
+                        <fo:table-cell><fo:block></fo:block></fo:table-cell>
+                        <fo:table-cell><fo:block></fo:block></fo:table-cell>
                         <fo:table-cell number-columns-spanned="2">
                             <fo:block font-weight="bold">${uiLabelMap.OrderTotalSalesTax}</fo:block>
                         </fo:table-cell>
@@ -168,8 +168,8 @@ under the License.
                 </#if>
                 <#if grandTotal != 0>
                     <fo:table-row>
-                        <fo:table-cell></fo:table-cell>
-                        <fo:table-cell></fo:table-cell>
+                        <fo:table-cell><fo:block></fo:block></fo:table-cell>
+                        <fo:table-cell><fo:block></fo:block></fo:table-cell>
                         <fo:table-cell number-columns-spanned="2" background-color="#EEEEEE">
                             <fo:block font-weight="bold">${uiLabelMap.OrderTotalDue}</fo:block>
                         </fo:table-cell>
@@ -197,10 +197,12 @@ under the License.
                                     <fo:block>${note.noteInfo?if_exists}</fo:block>
                                 </fo:table-cell>
                                 <fo:table-cell number-columns-spanned="2">
+                                    <fo:block>
                                     <#if note.noteParty?has_content>
                                         <#assign notePartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", note.noteParty, "compareDate", note.noteDateTime, "lastNameFirst", "Y", "userLogin", userLogin))/>
-                                        <fo:block>${uiLabelMap.CommonBy}: ${notePartyNameResult.fullName?default("${uiLabelMap.OrderPartyNameNotFound}")}</fo:block>
+                                        ${uiLabelMap.CommonBy}: ${notePartyNameResult.fullName?default("${uiLabelMap.OrderPartyNameNotFound}")}
                                     </#if>
+                                    </fo:block>
                                 </fo:table-cell>
                                 <fo:table-cell number-columns-spanned="1">
                                     <fo:block>${uiLabelMap.CommonAt}: ${note.noteDateTime?string?if_exists}</fo:block>

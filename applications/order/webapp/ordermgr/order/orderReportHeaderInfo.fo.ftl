@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#escape x as x?xml>
-                  <fo:table>
+                  <fo:table table-layout="fixed">
                     <fo:table-column column-width="2.0in"/>
                     <fo:table-column column-width="2.0in"/>
                     <fo:table-body>
