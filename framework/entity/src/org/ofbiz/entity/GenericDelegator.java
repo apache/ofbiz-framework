@@ -261,6 +261,12 @@ public class GenericDelegator implements Delegator {
 
     private void initializeOneGenericHelper(String groupName) {
         GenericHelperInfo helperInfo = this.getGroupHelperInfo(groupName);
+        if (helperInfo == null) {
+            if (Debug.infoOn()) {
+                Debug.logInfo("Delegator \"" + delegatorFullName + "\" NOT initializing helper for entity group \"" + groupName + "\" because the group is not associated to this delegator.", module);
+            }
+            return;
+        }
         String helperBaseName = helperInfo.getHelperBaseName();
 
         if (Debug.infoOn()) {
@@ -476,9 +482,7 @@ public class GenericDelegator implements Delegator {
         GenericHelperInfo helperInfo = new GenericHelperInfo(entityGroupName, helperBaseName);
 
         // to avoid infinite recursion, and to behave right for shared org.ofbiz.tenant entities, do nothing with the tenantId if the entityGroupName=org.ofbiz.tenant
-        if (UtilValidate.isNotEmpty(this.delegatorTenantId) && !"org.ofbiz.tenant".equals(entityGroupName)) {
-            helperInfo.setTenantId(this.delegatorTenantId);
-
+        if (UtilValidate.isNotEmpty(this.delegatorTenantId)) {
             // get the JDBC parameters from the DB for the entityGroupName and tenantId
             try {
                 // NOTE: instead of caching the GenericHelpInfo object do a cached query here and create a new object each time, will avoid issues when the database data changes during run time
@@ -486,15 +490,12 @@ public class GenericDelegator implements Delegator {
                 Delegator baseDelegator = DelegatorFactory.getDelegator(this.delegatorBaseName);
                 GenericValue tenantDataSource = baseDelegator.findOne("TenantDataSource", true, "tenantId", this.delegatorTenantId, "entityGroupName", entityGroupName);
                 if (tenantDataSource != null) {
+                    helperInfo.setTenantId(this.delegatorTenantId);
                     helperInfo.setOverrideJdbcUri(tenantDataSource.getString("jdbcUri"));
                     helperInfo.setOverrideUsername(tenantDataSource.getString("jdbcUsername"));
                     helperInfo.setOverridePassword(tenantDataSource.getString("jdbcPassword"));
                 } else {
-                    /* don't log this, happens too many times:
-                    if (Debug.warningOn()) {
-                        Debug.logWarning("Could not find TenantDataSource information for tenantId=[" + this.delegatorTenantId + "] and entityGroupName=[" + entityGroupName + "] in delegator [" + this.delegatorFullName + "]; will be defaulting to settings for the base delegator name [" + this.delegatorBaseName + "]", module);
-                    }
-                     */
+                    return null;
                 }
             } catch (GenericEntityException e) {
                 // don't complain about this too much, just log the error if there is one
@@ -538,7 +539,7 @@ public class GenericDelegator implements Delegator {
         if (helperInfo != null) {
             return GenericHelperFactory.getHelper(helperInfo);
         } else {
-            throw new GenericEntityException("There is no datasource (Helper) configured for the entity-group [" + this.getEntityGroupName(entityName) + "]; was trying to find datesource (helper) for entity [" + entityName + "]");
+            throw new GenericEntityException("There is no datasource (Helper) configured for the entity-group [" + this.getEntityGroupName(entityName) + "]; was trying to find datasource (helper) for entity [" + entityName + "]");
         }
     }
 

@@ -273,6 +273,12 @@ public class EntityDataLoadContainer implements Container {
         String delegatorNameToUse = overrideDelegator != null ? overrideDelegator : delegatorName;
         String groupNameToUse = overrideGroup != null ? overrideGroup : entityGroupName;
         Delegator delegator = DelegatorFactory.getDelegator(delegatorNameToUse);
+        Delegator baseDelegator = null;
+        if (delegator.getDelegatorTenantId() != null) {
+            baseDelegator = DelegatorFactory.getDelegator(delegator.getDelegatorBaseName());
+        } else {
+            baseDelegator = delegator;
+        }
         if (delegator == null) {
             throw new ContainerException("Invalid delegator name!");
         }
@@ -295,11 +301,11 @@ public class EntityDataLoadContainer implements Container {
         Collection<ComponentConfig> allComponents = ComponentConfig.getAllComponents();
         for (ComponentConfig config : allComponents) {
             //Debug.logInfo("- Stored component : " + config.getComponentName(), module);
-            GenericValue componentEntry = delegator.makeValue("Component");
+            GenericValue componentEntry = baseDelegator.makeValue("Component");
             componentEntry.set("componentName", config.getComponentName());
             componentEntry.set("rootLocation", config.getRootLocation());
             try {
-                GenericValue componentCheck = delegator.findOne("Component", UtilMisc.toMap("componentName", config.getComponentName()), false);
+                GenericValue componentCheck = baseDelegator.findOne("Component", UtilMisc.toMap("componentName", config.getComponentName()), false);
                 if (UtilValidate.isEmpty(componentCheck)) {
                     componentEntry.create();
                 } else {
@@ -316,7 +322,7 @@ public class EntityDataLoadContainer implements Container {
                 List<EntityExpr> exprs = new ArrayList<EntityExpr>();
                 exprs.add(EntityCondition.makeCondition("rootLocation", EntityOperator.NOT_LIKE, "%hot-deploy%"));
                 EntityCondition cond = EntityCondition.makeCondition(exprs);
-                List<GenericValue> components = delegator.findList("Component", cond , null, UtilMisc.toList("lastUpdatedStamp"), null, false);
+                List<GenericValue> components = baseDelegator.findList("Component", cond , null, UtilMisc.toList("lastUpdatedStamp"), null, false);
                 Debug.logInfo("===== Begin load specify components", module);
                 if (UtilValidate.isEmpty(this.component)) {
                     for (GenericValue component : components) {
@@ -324,14 +330,14 @@ public class EntityDataLoadContainer implements Container {
                         //Debug.logInfo("- loaded default component : " + component.getString("componentName"), module);
                     }
                     Debug.logInfo("- Loaded components by default : " + components.size() + " components", module);
-                    List<GenericValue> tenantComponents = delegator.findByAnd("TenantComponent", UtilMisc.toMap("tenantId", delegator.getDelegatorTenantId()), UtilMisc.toList("sequenceNum"), false);
+                    List<GenericValue> tenantComponents = baseDelegator.findByAnd("TenantComponent", UtilMisc.toMap("tenantId", delegator.getDelegatorTenantId()), UtilMisc.toList("sequenceNum"), false);
                     for (GenericValue tenantComponent : tenantComponents) {
                         loadComponents.add(tenantComponent.getString("componentName"));
                         //Debug.logInfo("- loaded component by tenantId : " + tenantComponent.getString("tenantId") +", component : " + tenantComponent.getString("componentName"), module);
                     }
                     Debug.logInfo("- Loaded components by tenantId : " + delegator.getDelegatorTenantId() + ", " + tenantComponents.size() + " components", module);
                 } else {
-                    List<GenericValue> tenantComponents = delegator.findByAnd("TenantComponent", UtilMisc.toMap("tenantId", delegator.getDelegatorTenantId(), "componentName", this.component),
+                    List<GenericValue> tenantComponents = baseDelegator.findByAnd("TenantComponent", UtilMisc.toMap("tenantId", delegator.getDelegatorTenantId(), "componentName", this.component),
                             UtilMisc.toList("sequenceNum"), false);
                     for (GenericValue tenantComponent : tenantComponents) {
                         loadComponents.add(tenantComponent.getString("componentName"));
