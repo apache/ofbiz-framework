@@ -511,7 +511,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="logoImageUrl" value="/images/ofbiz_logo.gif"/>
+                <set field="logoImageUrl" value="/images/ofbiz_logo.gif" global="true"/>
                 <property-to-field resource="fop.properties" field="defaultFontFamily" property="fop.font.family" default="Arial"/>
             </actions>
             <widgets>

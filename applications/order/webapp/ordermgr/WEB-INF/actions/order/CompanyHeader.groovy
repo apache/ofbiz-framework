@@ -130,7 +130,10 @@ if (partyGroup) {
         }
     }
 }
-context.logoImageUrl = logoImageUrl;
+//If logoImageUrl not null then only set it to context else it will override the default value "/images/ofbiz_powered.gif"
+if (logoImageUrl) {
+    context.logoImageUrl = logoImageUrl;
+}
 
 // the company name
 companyName = "Default Company";

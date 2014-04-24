@@ -56,7 +56,7 @@ under the License.
                         <fo:table-cell>
                             <fo:block>
                             <#if logoImageUrl?exists>
-                                <fo:external-graphic src="${logoImageUrl}" overflow="hidden" height="40px"/>
+                                <fo:external-graphic src="${logoImageUrl}" overflow="hidden" height="40px" content-height="scale-to-fit"/>
                             </#if>
                             </fo:block>
                         </fo:table-cell>
