@@ -104,13 +104,12 @@ under the License.
         <alt-target use-when="glAccount==null" target="createGlAccount"/>
         <auto-fields-service service-name="updateGlAccount" map-name=""/>
 
-        <field use-when="glAccount!=null" name="glAccountId" tooltip="${uiLabelMap.AccountingNotModificationRecrationGlAccount}"><display/></field>
-        <field use-when="glAccount==null&amp;&amp;glAccountId!=null" name="glAccountId" tooltip="${uiLabelMap.AccountingCouldNotFindGlAccount} [${glAccountId}]"><text size="20" maxlength="20"/></field>
+        <field name="glAccountId"><display/></field>
+        <field use-when="glAccount==null&amp;&amp;glAccountId!=null" name="glAccountId" tooltip="${uiLabelMap.AccountingCouldNotFindGlAccount} [${glAccountId}]"><display/></field>
         <!-- this to be taken care of with auto-fields-service as soon as it uses entity field info too -->
-        <field use-when="glAccount==null&amp;&amp;glAccountId==null" name="glAccountId"><text size="20" maxlength="20"/></field>
 
         <field name="glAccountTypeId">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="false" no-current-selected-key="_NA_">
                 <entity-options entity-name="GlAccountType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -124,7 +123,7 @@ under the License.
             </drop-down>
         </field>
         <field name="glResourceTypeId">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="false" no-current-selected-key="_NA_">
                 <entity-options entity-name="GlResourceType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
