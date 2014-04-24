@@ -115,7 +115,6 @@ under the License.
     <FileExtension fileExtensionId="css" mimeTypeId="text/css"/>
     <FileExtension fileExtensionId="flv" mimeTypeId="video/x-flv"/>
     <FileExtension fileExtensionId="jpg" mimeTypeId="image/jpeg"/>
-    <FileExtension fileExtensionId="jpg" mimeTypeId="image/jpeg"/>
     <FileExtension fileExtensionId="jpeg" mimeTypeId="image/jpeg"/>
     <FileExtension fileExtensionId="tif" mimeTypeId="image/tiff"/>
     <FileExtension fileExtensionId="tiff" mimeTypeId="image/tiff"/>
