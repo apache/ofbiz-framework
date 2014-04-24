@@ -46,5 +46,9 @@ under the License.
     <!-- Formulae -->
     <CustomMethodType customMethodTypeId="TASK_FORMULA" description="Formula for calculating time estimates for tasks"/>
     <CustomMethodType customMethodTypeId="BOM_FORMULA" description="Formula for calculating material estimates for boms"/>
+    
+    <!-- ProductionRun sequence type -->
+    <Enumeration description="Predecessor" enumCode="PREDECESSOR" enumId="WF_PREDECESSOR" enumTypeId="WORKFLOW" sequenceId="1"/>
+    <Enumeration description="Successor" enumCode="SUCCESSOR" enumId="WF_SUCCESSOR" enumTypeId="WORKFLOW" sequenceId="2"/>
 
 </entity-engine-xml>

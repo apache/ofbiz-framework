@@ -2359,6 +2359,10 @@
         <value xml:lang="zh">初始化低级别代码</value>
         <value xml:lang="zh_TW">初始化低級別代碼</value>
     </property>
+    <property key="ManufacturingLinkProductionRun">
+        <value xml:lang="en">Link to Production Run</value>
+        <value xml:lang="nl">Aan productierun koppelen</value>
+    </property>
     <property key="ManufacturingListCalendarWeek">
         <value xml:lang="de">Kalenderwochen anzeigen</value>
         <value xml:lang="en">List of weeks</value>
@@ -2699,7 +2703,7 @@
     </property>
     <property key="ManufacturingMaterialsNotAvailable">
         <value xml:lang="de">Materialien nicht im Lager vorhanden ${productId}: ${parameters.quantityNotIssued}</value>
-        <value xml:lang="en">Materials Not Available in Warehouse ${productId}: ${parameters.quantityNotIssued}</value>
+        <value xml:lang="en">Materials Not Available in Warehouse: ID ${productId} -  ${internalName}: ${parameters.quantityNotIssued}</value>
         <value xml:lang="es">Materiales no disponibles en almacén ${productId}: ${parameters.quantityNotIssued}</value>
         <value xml:lang="fr">Matériaux non disponibles dans l'entrepôt ${productId}: ${parameters.quantityNotIssued}</value>
         <value xml:lang="it">Materiali non disponibili a magazzino ${productId}: ${parameters.quantityNotIssued}</value>
@@ -3666,6 +3670,7 @@
         <value xml:lang="fr">Réf. de l'ordre de fabrication</value>
         <value xml:lang="it">Ordine di produzione</value>
         <value xml:lang="ja">生産実行ID</value>
+        <value xml:lang="nl">ID Productierun</value>
         <value xml:lang="pt_BR">Id de execução de produção</value>
         <value xml:lang="ro">Cod Comanda de Productie</value>
         <value xml:lang="th">รหัสการผลิต</value>
@@ -5665,5 +5670,9 @@
         <value xml:lang="vi">Tìm kiếm sản phẩm Ảo</value>
         <value xml:lang="zh">查找虚拟产品</value>
         <value xml:lang="zh_TW">查找虛擬產品</value>
+    </property>
+    <property key="PagetitleProductionRunLink">
+        <value xml:lang="en">Link Production Run</value>
+        <value xml:lang="nl">Productierun koppelen</value>
     </property>
 </resource>

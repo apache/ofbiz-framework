@@ -21,6 +21,21 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
 
+    <simple-method method-name="createProductionRunAssoc" short-description="Associate the production run to another production run">
+        
+        <if-compare field="parameters.workFlowSequenceTypeId" operator="equals" value="WF_PREDECESSOR">
+            <set field="ctx.workEffortIdFrom" from-field="parameters.productionRunIdTo"/>
+            <set field="ctx.workEffortIdTo" from-field="parameters.productionRunId"/>
+        </if-compare>
+        <if-compare field="parameters.workFlowSequenceTypeId" operator="equals" value="WF_SUCCESSOR">
+            <set field="ctx.workEffortIdFrom" from-field="parameters.productionRunId"/>
+            <set field="ctx.workEffortIdTo" from-field="parameters.productionRunIdTo"/>
+        </if-compare>
+        
+        <set field="ctx.workEffortAssocTypeId" value="WORK_EFF_PRECEDENCY"/>
+        <call-service service-name="createWorkEffortAssoc" in-map-name="ctx"/>
+    </simple-method>
+    
     <!-- Warehouse -->
     <simple-method method-name="issueProductionRunTask" short-description="Issues the Inventory for a Production Run Task" login-required="false">
         <entity-one entity-name="WorkEffort" value-field="workEffort"/>
@@ -159,7 +174,7 @@ under the License.
                 <if>
                     <condition>
                         <or>
-                            <if-empty field="parameters.failIfItemsAreNotOnHand"/>
+                            <if-compare field="parameters.failIfItemsAreNotAvailable" operator="equals" value="Y" type="String"/>
                             <if-compare field="parameters.failIfItemsAreNotOnHand" operator="equals" value="Y" type="String"/>
                         </or>
                     </condition>
