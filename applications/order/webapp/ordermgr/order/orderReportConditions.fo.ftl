@@ -19,7 +19,7 @@ under the License.
 <#escape x as x?xml>
 
 <#if shipGroups?exists && shipGroups.size() gt 1>
-    <fo:table border-spacing="3pt" space-before="0.3in" font-size="9pt">
+    <fo:table table-layout="fixed" border-spacing="3pt" space-before="0.3in" font-size="9pt">
         <fo:table-column column-width="1in"/>
         <fo:table-column column-width="1in"/>
         <fo:table-column column-width="0.5in"/>
