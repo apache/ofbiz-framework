@@ -829,7 +829,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productionRunId"><hidden/></field>
         <field name="workEffortAssocTypeId"><hidden value="WORK_EFF_PRECEDENCY"/></field>
-        <field name="productionRunIdTo">
+        <field name="productionRunIdTo"  title="${uiLabelMap.ManufacturingProductionRunId}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="WorkEffort" key-field-name="workEffortId" description="[ID: ${workEffortId}] - ${workEffortName}">
                     <entity-constraint name="workEffortPurposeTypeId" value="WEPT_PRODUCTION_RUN"/>
@@ -837,12 +837,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <!-- 
-        <field name="productionRunLookup">
-            <lookup target-form-name="LookupProductRun"/>
-        </field>
-         -->
-        <field name="workFlowSequenceTypeId">
+        <field name="workFlowSequenceTypeId"  title="${uiLabelMap.CommonType}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
                     <entity-constraint name="enumTypeId" value="WORKFLOW"/>

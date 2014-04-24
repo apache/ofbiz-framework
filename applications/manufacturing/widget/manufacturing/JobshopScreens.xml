@@ -156,7 +156,6 @@ under the License.
             <actions>
                 <set field="titleProperty" value="ManufacturingProductionRunDeclaration"/>
                 <set field="tabButtonItem" value="declaration"/>
-                <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
                 <set field="headerItem" value="jobshop"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
@@ -522,6 +521,28 @@ under the License.
                                 </screenlet>
                             </widgets>
                         </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="LinkProductionRun">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleProductionRunLink"/>
+                <set field="tabButtonItem" value="assocs"/>
+                <set field="headerItem" value="jobshop"/>
+                <set field="productionRunId" from-field="parameters.productionRunId"/>
+                <entity-one entity-name="WorkEffort" value-field="productionRun">
+                    <field-map field-name="workEffortId" from-field="productionRunId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.PageTitleProductionRunLink}">
+                            <include-form name="linkProductionRun" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

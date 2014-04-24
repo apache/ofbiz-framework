@@ -38,6 +38,15 @@ under the License.
         <attribute name="productionRunId" type="String" mode="OUT" optional="false"/>
         <attribute name="estimatedCompletionDate" type="java.sql.Timestamp" mode="OUT" optional="true"/>
     </service>
+    <service name="createProductionRunAssoc" engine="simple"
+                location="component://manufacturing/script/org/ofbiz/manufacturing/jobshopmgt/ProductionRunServices.xml" invoke="createProductionRunAssoc" auth="false">
+        <description>
+            Associate the production run to another production run
+        </description>
+        <attribute name="productionRunId" type="String" mode="IN" optional="false"/>
+        <attribute name="productionRunIdTo" type="String" mode="IN" optional="false"/>
+        <attribute name="workFlowSequenceTypeId" type="String" mode="IN" optional="false"/>
+    </service>
     <service name="createProductionRunsForProductBom" engine="java"
             location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="createProductionRunsForProductBom" auth="true">
         <description>Explodes a product id and creates all the needed production runs.</description>
@@ -233,6 +242,7 @@ under the License.
         <attribute name="quantityUomId" type="String" mode="IN" optional="true"/>
         <attribute name="inventoryItemTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="lotId" type="String" mode="IN" optional="true"/>
+        <attribute name="locationSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="createLotIfNeeded" type="Boolean" mode="IN" optional="true"/>
         <attribute name="autoCreateLot" type="Boolean" mode="IN" optional="true"/>
     </service>
@@ -246,6 +256,7 @@ under the License.
         <attribute name="quantity" type="BigDecimal" mode="INOUT" optional="false"/>
         <attribute name="quantityUomId" type="String" mode="IN" optional="true"/>
         <attribute name="inventoryItemTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="locationSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="lotId" type="String" mode="IN" optional="true"/>
         <attribute name="createLotIfNeeded" type="Boolean" mode="IN" optional="true"/>
         <attribute name="autoCreateLot" type="Boolean" mode="IN" optional="true"/>
@@ -260,6 +271,7 @@ under the License.
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
+        <attribute name="locationSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="unitCost" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="inventoryItemTypeId" type="String" mode="IN" optional="true"/>

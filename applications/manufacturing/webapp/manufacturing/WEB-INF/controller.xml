@@ -432,7 +432,7 @@ under the License.
     </request-map>
     <request-map uri="createProductionRun">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://manufacturing/script/org/ofbiz/manufacturing/jobshopmgt/ProductionRunSimpleEvents.xml" invoke="createProductionRun"/>        
+        <event type="simple" path="component://manufacturing/script/org/ofbiz/manufacturing/jobshopmgt/ProductionRunSimpleEvents.xml" invoke="createProductionRun"/>
         <response name="createProductionRunsForProductBom" type="request" value="createProductionRunsForProductBom"/>
         <response name="createProductionRunSingle" type="request" value="createProductionRunSingle"/>
     </request-map>
@@ -462,6 +462,15 @@ under the License.
     <request-map uri="PrintProductionRun">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="PrintProductionRun"/>
+    </request-map>
+    <request-map uri="LinkProductionRun">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="LinkProductionRun"/>
+    </request-map>
+    <request-map uri="createProductionRunAssoc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createProductionRunAssoc"/>
+        <response name="success" type="view" value="ProductionRunAssocs"/>
     </request-map>
     <request-map uri="ManufacturingReports">
         <security https="true" auth="true"/>
@@ -800,6 +809,7 @@ under the License.
     <view-map name="CreateProductionRun" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#CreateProductionRun" type="screen"/>
     <view-map name="FindProductionRun" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#FindProductionRun" type="screen"/>
     <view-map name="EditProductionRun" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#EditProductionRun" type="screen"/>
+    <view-map name="LinkProductionRun" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#LinkProductionRun" type="screen"/>
     <view-map name="PrintProductionRun" type="screenfop" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunPdf" content-type="application/pdf" encoding="none"/>
     <view-map name="ProductionRunDeclaration" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunDeclaration" type="screen"/>
     <view-map name="ProductionRunCosts" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunCosts" type="screen"/>

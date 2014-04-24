@@ -274,6 +274,11 @@ under the License.
                 <parameter param-name="statusId" value="PRUN_SCHEDULED"/>
             </link>
         </menu-item>
+        <menu-item name="link" title="${uiLabelMap.ManufacturingLinkProductionRun}">
+            <link target="LinkProductionRun">
+                <parameter param-name="productionRunId"/>
+            </link>
+        </menu-item>
         <menu-item name="print" title="${uiLabelMap.CommonPrint}">
             <link target="PrintProductionRun" target-window="_BLANK">
                 <parameter param-name="productionRunId"/>
