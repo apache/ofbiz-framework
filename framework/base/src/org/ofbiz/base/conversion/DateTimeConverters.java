@@ -119,7 +119,11 @@ public class DateTimeConverters implements ConverterLoader {
         }
 
         public java.sql.Date convert(java.util.Date obj) throws ConversionException {
-            return new java.sql.Date(obj.getTime());
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(obj);
+            cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
+            cal.set(Calendar.MILLISECOND, 0);
+            return new java.sql.Date(cal.getTimeInMillis());
         }
     }
 
@@ -304,7 +308,11 @@ public class DateTimeConverters implements ConverterLoader {
         }
 
         public java.sql.Date convert(Number obj) throws ConversionException {
-             return new java.sql.Date(obj.longValue());
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(obj.longValue());
+            cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
+            cal.set(Calendar.MILLISECOND, 0);
+            return new java.sql.Date(cal.getTimeInMillis());
         }
     }
 
