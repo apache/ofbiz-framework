@@ -396,7 +396,7 @@ under the License.
         </sort-order>
     </form>
 
-    <form name="ListWorkEfforts" type="list" list-name="workEfforts" paginate-target="ListWorkEfforts"
+    <form name="ListWorkEfforts" type="list" list-name="listIt" paginate-target="ListWorkEfforts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -406,7 +406,7 @@ under the License.
                 <field-map field-name="viewIndex" from-field="viewIndex"/>
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
-            <service service-name="removeDuplicateWorkEfforts" result-map="result" result-map-list="workEfforts">
+            <service service-name="removeDuplicateWorkEfforts" result-map="result" result-map-list="listIt">
                 <field-map field-name="workEffortIterator" from-field="listIt"/>
             </service>
         </actions>
