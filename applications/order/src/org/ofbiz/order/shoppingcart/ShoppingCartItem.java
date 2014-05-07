@@ -1198,7 +1198,11 @@ public class ShoppingCartItem implements java.io.Serializable {
                             }
                         }
                     }
-                    priceContext.put("currencyUomIdTo", cart.getCurrency());
+                    if ("true".equals(UtilProperties.getPropertyValue("catalog.properties", "convertProductPriceCurrency"))){
+                        priceContext.put("currencyUomIdTo", cart.getCurrency());
+                    } else {
+                        priceContext.put("currencyUomId", cart.getCurrency());
+                    }
                     priceContext.put("prodCatalogId", this.getProdCatalogId());
                     priceContext.put("webSiteId", cart.getWebSiteId());
                     priceContext.put("productStoreId", cart.getProductStoreId());
