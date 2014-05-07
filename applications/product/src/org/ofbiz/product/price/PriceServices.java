@@ -522,9 +522,9 @@ public class PriceServices {
         }
 
         // Convert the value to the price currency, if required
-        if("true".equals(UtilProperties.getPropertyValue("catalog.properties", "convertProductPriceCurrency"))){
+        if ("true".equals(UtilProperties.getPropertyValue("catalog.properties", "convertProductPriceCurrency"))) {
             if (UtilValidate.isNotEmpty(currencyDefaultUomId) && UtilValidate.isNotEmpty(currencyUomIdTo) && !currencyDefaultUomId.equals(currencyUomIdTo)) {
-                if(UtilValidate.isNotEmpty(result)){
+                if (UtilValidate.isNotEmpty(result)) {
                     Map<String, Object> convertPriceMap = FastMap.newInstance();
                     for (Map.Entry<String, Object> entry : result.entrySet()) {
                         BigDecimal tempPrice = BigDecimal.ZERO;
@@ -545,22 +545,23 @@ public class PriceServices {
                         else if (entry.getKey() == "listPrice")
                             tempPrice = (BigDecimal) entry.getValue();
                         
-                        if(tempPrice != null && tempPrice != BigDecimal.ZERO){
+                        if (tempPrice != null && tempPrice != BigDecimal.ZERO) {
                             Map<String, Object> priceResults = FastMap.newInstance();
                             try {
-                                priceResults = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", currencyDefaultUomId, "uomIdTo", currencyUomIdTo, "originalValue", tempPrice , "defaultDecimalScale" , Long.valueOf(2) , "defaultRoundingMode" , "HalfUp"));
+                                priceResults = dispatcher.runSync("convertUom", UtilMisc.<String, Object> toMap("uomId", currencyDefaultUomId, "uomIdTo", currencyUomIdTo,
+                                        "originalValue", tempPrice, "defaultDecimalScale", Long.valueOf(2), "defaultRoundingMode", "HalfUp"));
                                 if (ServiceUtil.isError(priceResults) || (priceResults.get("convertedValue") == null)) {
-                                    Debug.logWarning("Unable to convert " + entry.getKey() + " for product  " + productId , module);
-                                } 
+                                    Debug.logWarning("Unable to convert " + entry.getKey() + " for product  " + productId, module);
+                                }
                             } catch (GenericServiceException e) {
                                 Debug.logError(e, module);
                             }
                             convertPriceMap.put(entry.getKey(), priceResults.get("convertedValue"));
-                        }else{
+                        } else {
                             convertPriceMap.put(entry.getKey(), entry.getValue());
                         }
                     }
-                    if(UtilValidate.isNotEmpty(convertPriceMap)){
+                    if (UtilValidate.isNotEmpty(convertPriceMap)) {
                         convertPriceMap.put("currencyUsed", currencyUomIdTo);
                         result = convertPriceMap;
                     }
